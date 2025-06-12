@@ -4,18 +4,14 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.audiobookshelf;
-in
-{
+in {
   options = {
     services.audiobookshelf = {
       enable = mkEnableOption "Audiobookshelf, self-hosted audiobook and podcast server";
 
-      package = mkPackageOption pkgs "audiobookshelf" { };
+      package = mkPackageOption pkgs "audiobookshelf" {};
 
       dataDir = mkOption {
         description = "Path to Audiobookshelf config and metadata inside of /var/lib.";
@@ -60,8 +56,8 @@ in
     systemd.services.audiobookshelf = {
       description = "Audiobookshelf is a self-hosted audiobook and podcast server";
 
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -83,13 +79,13 @@ in
     };
 
     users.groups = mkIf (cfg.group == "audiobookshelf") {
-      audiobookshelf = { };
+      audiobookshelf = {};
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
   };
 
-  meta.maintainers = with maintainers; [ wietsedv ];
+  meta.maintainers = with maintainers; [wietsedv];
 }

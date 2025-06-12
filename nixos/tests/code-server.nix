@@ -1,16 +1,17 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "code-server";
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
-        services.code-server = {
-          enable = true;
-          auth = "none";
-        };
+    machine = {pkgs, ...}: {
+      services.code-server = {
+        enable = true;
+        auth = "none";
       };
+    };
   };
 
   testScript = ''
@@ -20,5 +21,5 @@
     machine.succeed("curl -k --fail http://localhost:4444", timeout=10)
   '';
 
-  meta.maintainers = [ lib.maintainers.drupol ];
+  meta.maintainers = [lib.maintainers.drupol];
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mac-robber";
   version = "1.02";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Digital investigation tool that collects data from allocated files in a mounted file system";
     mainProgram = "mac-robber";
     homepage = "https://www.sleuthkit.org/mac-robber/";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
     license = licenses.gpl2Only;
   };

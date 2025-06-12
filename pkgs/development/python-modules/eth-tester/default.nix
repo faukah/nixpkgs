@@ -16,7 +16,6 @@
   pytestCheckHook,
   pytest-xdist,
 }:
-
 buildPythonPackage rec {
   pname = "eth-tester";
   version = "0.12.0-beta.2";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-ox7adsqD0MPZFcxBhino8cgwYYEWrBnD+ugPQOuOO2U=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     eth-abi
@@ -47,13 +46,13 @@ buildPythonPackage rec {
     pytest-xdist
   ];
 
-  pythonImportsCheck = [ "eth_tester" ];
+  pythonImportsCheck = ["eth_tester"];
 
   meta = {
     description = "Tool suite for testing ethereum applications";
     homepage = "https://github.com/ethereum/eth-tester";
     changelog = "https://github.com/ethereum/eth-tester/blob/v${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hellwolf ];
+    maintainers = with lib.maintainers; [hellwolf];
   };
 }

@@ -1,8 +1,9 @@
-{ config, lib, ... }:
 {
-
+  config,
+  lib,
+  ...
+}: {
   options = {
-
     environment.enableDebugInfo = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -22,19 +23,15 @@
             };
       '';
     };
-
   };
 
   config = lib.mkIf config.environment.enableDebugInfo {
-
     # FIXME: currently disabled because /lib is already in
     # environment.pathsToLink, and we can't have both.
     #environment.pathsToLink = [ "/lib/debug/.build-id" ];
 
-    environment.extraOutputsToInstall = [ "debug" ];
+    environment.extraOutputsToInstall = ["debug"];
 
-    environment.variables.NIX_DEBUG_INFO_DIRS = [ "/run/current-system/sw/lib/debug" ];
-
+    environment.variables.NIX_DEBUG_INFO_DIRS = ["/run/current-system/sw/lib/debug"];
   };
-
 }

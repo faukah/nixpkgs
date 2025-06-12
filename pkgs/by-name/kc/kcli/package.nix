@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kcli";
   version = "1.8.3";
@@ -17,13 +16,13 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Kafka command line browser";
     homepage = "https://github.com/cswank/kcli";
     license = licenses.mit;
-    maintainers = with maintainers; [ cswank ];
+    maintainers = with maintainers; [cswank];
     broken = true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.goModules --check
   };
 }

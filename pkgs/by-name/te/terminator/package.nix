@@ -13,7 +13,6 @@
   vte,
   nixosTests,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "terminator";
   version = "2.1.5";
@@ -81,7 +80,7 @@ python3.pkgs.buildPythonApplication rec {
     changelog = "https://github.com/gnome-terminator/terminator/releases/tag/${src.tag}";
     homepage = "https://github.com/gnome-terminator/terminator";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
     platforms = platforms.linux;
   };
 }

@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "jnv";
   version = "0.6.0";
@@ -20,17 +19,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-VLVoURqmUhhekNZ0a75bwjvSiLfaQ79IlltbmWVyBrI=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Interactive JSON filter using jq";
     mainProgram = "jnv";
     homepage = "https://github.com/ynqa/jnv";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     maintainers = with lib.maintainers; [
       nealfennimore
       nshalman

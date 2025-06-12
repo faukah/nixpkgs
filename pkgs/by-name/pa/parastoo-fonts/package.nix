@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "parastoo-fonts";
   version = "2.0.1";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Persian (Farsi) Font - فونت ( قلم ) فارسی پرستو";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

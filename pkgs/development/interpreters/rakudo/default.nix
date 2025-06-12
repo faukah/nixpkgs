@@ -9,7 +9,6 @@
   nqp,
   removeReferencesTo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rakudo";
   version = "2025.05";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ removeReferencesTo ];
+  nativeBuildInputs = [removeReferencesTo];
 
   buildInputs = [
     icu
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     "--with-nqp=${nqp}/bin/nqp"
   ];
 
-  disallowedReferences = [ stdenv.cc.cc ];
+  disallowedReferences = [stdenv.cc.cc];
   postFixup = ''
     remove-references-to -t ${stdenv.cc.cc} "$(readlink -f $out/share/perl6/runtime/dynext/libperl6_ops_moar${stdenv.hostPlatform.extensions.sharedLibrary})"
   '';

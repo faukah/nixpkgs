@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "docuum";
   version = "0.25.0";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/stepchowfun/docuum";
     changelog = "https://github.com/stepchowfun/docuum/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
     mainProgram = "docuum";
   };
 }

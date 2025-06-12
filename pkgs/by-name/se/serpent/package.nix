@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ...
 }:
-
 stdenv.mkDerivation {
   pname = "serpent";
 
@@ -41,8 +40,8 @@ stdenv.mkDerivation {
       features for contract programming.
     '';
     homepage = "https://github.com/ethereum/wiki/wiki/Serpent";
-    license = with licenses; [ wtfpl ];
-    maintainers = [ ];
+    license = with licenses; [wtfpl];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

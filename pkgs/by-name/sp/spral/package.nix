@@ -10,7 +10,6 @@
   ninja,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spral";
   version = "2025.01.08";
@@ -43,15 +42,17 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  buildInputs = [
-    blas
-    lapack
-    metis
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ llvmPackages.openmp ];
+  buildInputs =
+    [
+      blas
+      lapack
+      metis
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [llvmPackages.openmp];
 
-  mesonFlags = [ (lib.mesonBool "tests" true) ];
+  mesonFlags = [(lib.mesonBool "tests" true)];
 
-  LDFLAGS = lib.optionals stdenv.hostPlatform.isDarwin [ "-lomp" ];
+  LDFLAGS = lib.optionals stdenv.hostPlatform.isDarwin ["-lomp"];
 
   doCheck = true;
 
@@ -60,6 +61,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ralna/spral";
     changelog = "https://github.com/ralna/spral/blob/${src.rev}/ChangeLog";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
   };
 }

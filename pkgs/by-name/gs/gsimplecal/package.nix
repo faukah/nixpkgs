@@ -7,7 +7,6 @@
   pkg-config,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gsimplecal";
   version = "2.5.1";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     automake
     autoconf
   ];
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   preConfigure = "./autogen.sh";
 
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
       display multiple clocks for different world time zones.
     '';
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
     platforms = lib.platforms.linux;
     mainProgram = "gsimplecal";
   };

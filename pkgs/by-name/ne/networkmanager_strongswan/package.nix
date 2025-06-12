@@ -12,7 +12,6 @@
   libnma,
   libnma-gtk4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "NetworkManager-strongswan";
   version = "1.6.2";

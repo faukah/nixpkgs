@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "github-commenter";
   version = "0.28.0";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "github-commenter";
     license = licenses.asl20;
     homepage = "https://github.com/cloudposse/github-commenter";
-    maintainers = [ maintainers.mmahut ];
+    maintainers = [maintainers.mmahut];
   };
 }

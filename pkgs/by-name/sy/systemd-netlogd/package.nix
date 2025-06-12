@@ -16,7 +16,6 @@
   testers,
   opensslSupport ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "systemd-netlogd";
   version = "1.4.4";
@@ -56,10 +55,12 @@ stdenv.mkDerivation (finalAttrs: {
     sphinx
   ];
 
-  buildInputs = [
-    libcap
-    systemdLibs
-  ] ++ lib.optional opensslSupport openssl;
+  buildInputs =
+    [
+      libcap
+      systemdLibs
+    ]
+    ++ lib.optional opensslSupport openssl;
 
   mesonFlags = [
     "--sysconfdir=${placeholder "out"}/etc/systemd"
@@ -72,13 +73,13 @@ stdenv.mkDerivation (finalAttrs: {
     # Make sure x86_64-linux -> aarch64-linux cross compilation works
     tests =
       {
-        version = testers.testVersion { package = finalAttrs.finalPackage; };
+        version = testers.testVersion {package = finalAttrs.finalPackage;};
       }
       // lib.optionalAttrs (stdenv.buildPlatform.system == "x86_64-linux") {
         aarch64-cross = pkgsCross.aarch64-multiplatform.systemd-netlogd;
       };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -86,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/systemd/systemd-netlogd";
     changelog = "https://github.com/systemd/systemd-netlogd/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "systemd-netlogd";
     inherit (systemd.meta) platforms;
   };

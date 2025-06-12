@@ -8,7 +8,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "newversion";
   version = "3.1.0";
@@ -23,23 +22,23 @@ buildPythonPackage rec {
     hash = "sha256-R26yZQnQN/+e8XD3YKl+3bJKGnZaVzOVoTlGHOyratg=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     packaging
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "newversion" ];
+  pythonImportsCheck = ["newversion"];
 
   meta = with lib; {
     description = "PEP 440 version manager";
     homepage = "https://github.com/vemel/newversion";
     changelog = "https://github.com/vemel/newversion/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "newversion";
   };
 }

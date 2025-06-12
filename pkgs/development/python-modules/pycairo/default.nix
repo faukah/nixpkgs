@@ -11,7 +11,6 @@
   libxcrypt,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "pycairo";
   version = "1.27.0";
@@ -33,13 +32,13 @@ buildPythonPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ cairo ] ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
+  buildInputs = [cairo] ++ lib.optionals (pythonOlder "3.9") [libxcrypt];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Cairo tries to load system fonts by default.
   # It's surfaced as a Cairo "out of memory" error in tests.
-  __impureHostDeps = [ "/System/Library/Fonts" ];
+  __impureHostDeps = ["/System/Library/Fonts"];
 
   mesonFlags = [
     # This is only used for figuring out what version of Python is in

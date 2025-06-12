@@ -3,9 +3,7 @@
   gradle,
   lib,
   REAndroidLibrary,
-}:
-
-let
+}: let
   self = REAndroidLibrary {
     pname = "jcommand";
     version = "0-unstable-2024-09-20";
@@ -30,4 +28,4 @@ let
     meta.license = lib.licenses.asl20;
   };
 in
-self
+  self

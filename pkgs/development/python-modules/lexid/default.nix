@@ -6,7 +6,6 @@
   pytestCheckHook,
   click,
 }:
-
 buildPythonPackage rec {
   pname = "lexid";
   version = "2021.1006";
@@ -23,15 +22,15 @@ buildPythonPackage rec {
       --replace 'if any(arg.startswith("bdist") for arg in sys.argv):' 'if False:'
   '';
 
-  propagatedBuildInputs = [ click ];
+  propagatedBuildInputs = [click];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "micro library to increment lexically ordered numerical ids";
     mainProgram = "lexid_incr";
     homepage = "https://pypi.org/project/lexid/";
     license = licenses.mit;
-    maintainers = with maintainers; [ kfollesdal ];
+    maintainers = with maintainers; [kfollesdal];
   };
 }

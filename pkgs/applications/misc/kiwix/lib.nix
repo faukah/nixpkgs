@@ -16,7 +16,6 @@
   mustache-hpp,
   gtest,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libkiwix";
   version = "14.0.0";
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
                        "libicu_dep = [dependency('icu-i18n', static:static_deps), dependency('icu-uc', static:static_deps)]"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Common code base for all Kiwix ports";
@@ -69,6 +68,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/kiwix/libkiwix/releases/tag/${finalAttrs.version}";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ colinsane ];
+    maintainers = with maintainers; [colinsane];
   };
 })

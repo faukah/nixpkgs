@@ -5,7 +5,6 @@
   lxml,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "ebaysdk";
   version = "2.2.0";
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     description = "eBay SDK for Python";
     homepage = "https://github.com/timotheus/ebaysdk-python";
     license = licenses.cddl;
-    maintainers = [ maintainers.mkg20001 ];
+    maintainers = [maintainers.mkg20001];
   };
 }

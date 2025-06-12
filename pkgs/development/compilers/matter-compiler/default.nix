@@ -3,11 +3,10 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "matter_compiler";
   gemdir = ./.;
-  exes = [ "matter_compiler" ];
+  exes = ["matter_compiler"];
 
   passthru.updateScript = bundlerUpdateScript "matter-compiler";
 

@@ -11,7 +11,6 @@
   six,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "flake8-future-import";
   version = "0.4.7";
@@ -26,8 +25,8 @@ buildPythonPackage rec {
   };
 
   patches =
-    lib.optionals (pythonAtLeast "3.10") [ ./fix-annotations-version-11.patch ]
-    ++ lib.optionals (isPy38 || isPy39) [ ./fix-annotations-version-10.patch ]
+    lib.optionals (pythonAtLeast "3.10") [./fix-annotations-version-11.patch]
+    ++ lib.optionals (isPy38 || isPy39) [./fix-annotations-version-10.patch]
     ++ lib.optionals isPy27 [
       # Upstream disables this test case naturally on python 3, but it also fails
       # inside NixPkgs for python 2. Since it's going to be deleted, we just skip it
@@ -40,11 +39,11 @@ buildPythonPackage rec {
       --replace-fail "'flake8'" "'${lib.getExe flake8}'"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ flake8 ];
+  dependencies = [flake8];
 
-  nativeCheckInputs = [ six ];
+  nativeCheckInputs = [six];
 
   checkPhase = ''
     runHook preCheck

@@ -6,7 +6,6 @@
   hatchling,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "otpauth";
   version = "2.2.1";
@@ -20,17 +19,17 @@ buildPythonPackage rec {
     hash = "sha256-Fpp629cV/KaH9qZtAszb78Ip+0n4pjS5WNKG+QgTTVk=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "otpauth" ];
+  pythonImportsCheck = ["otpauth"];
 
   meta = with lib; {
     description = "Implements one time password of HOTP/TOTP";
     homepage = "https://otp.authlib.org/";
     changelog = "https://github.com/authlib/otpauth/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
   };
 }

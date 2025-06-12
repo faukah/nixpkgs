@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "yas";
   version = "7.1.0";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/niXman/yas";
     description = "Yet Another Serialization";
     license = licenses.boost;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

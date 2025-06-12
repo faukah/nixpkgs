@@ -5,7 +5,6 @@
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "reddsaver";
   version = "0.4.0";
@@ -20,8 +19,8 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-xYtdGhuieFudfJz+LxUjP7mV8uItaIvLahCH7vBWTtg=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   # package does not contain tests as of v0.3.3
   docCheck = false;
@@ -33,8 +32,7 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = [ maintainers.manojkarthick ];
+    maintainers = [maintainers.manojkarthick];
     mainProgram = "reddsaver";
   };
-
 }

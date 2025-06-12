@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildNpmPackage rec {
   pname = "terser";
   version = "5.38.0";
@@ -22,6 +21,6 @@ buildNpmPackage rec {
     mainProgram = "terser";
     homepage = "https://terser.org";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ talyz ];
+    maintainers = with maintainers; [talyz];
   };
 }

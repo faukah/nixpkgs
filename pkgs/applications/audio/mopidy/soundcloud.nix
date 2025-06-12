@@ -4,7 +4,6 @@
   pythonPackages,
   mopidy,
 }:
-
 pythonPackages.buildPythonApplication rec {
   pname = "mopidy-soundcloud";
   version = "3.0.2";
@@ -26,6 +25,6 @@ pythonPackages.buildPythonApplication rec {
   meta = with lib; {
     description = "Mopidy extension for playing music from SoundCloud";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

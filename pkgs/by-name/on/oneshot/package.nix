@@ -5,7 +5,6 @@
   testers,
   oneshot,
 }:
-
 buildGoModule rec {
   pname = "oneshot";
   version = "2.1.1";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-TktSQMIHYXF9eyY6jyfE31WLXEq7VZU3qnVIMGjMMcA=";
 
-  subPackages = [ "cmd" ];
+  subPackages = ["cmd"];
 
   env.GOWORK = "off";
 
@@ -50,7 +49,7 @@ buildGoModule rec {
     description = "First-come first-served single-fire HTTP server";
     homepage = "https://www.oneshot.uno/";
     license = licenses.mit;
-    maintainers = with maintainers; [ milibopp ];
+    maintainers = with maintainers; [milibopp];
     mainProgram = "oneshot";
   };
 }

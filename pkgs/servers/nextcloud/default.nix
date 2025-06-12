@@ -7,17 +7,14 @@
   caBundle ? "${cacert}/etc/ssl/certs/ca-bundle.crt",
   nextcloud30Packages,
   nextcloud31Packages,
-}:
-
-let
-  generic =
-    {
-      version,
-      hash,
-      eol ? false,
-      extraVulnerabilities ? [ ],
-      packages,
-    }:
+}: let
+  generic = {
+    version,
+    hash,
+    eol ? false,
+    extraVulnerabilities ? [],
+    packages,
+  }:
     stdenvNoCC.mkDerivation rec {
       pname = "nextcloud";
       inherit version;
@@ -28,9 +25,11 @@ let
       };
 
       passthru = {
-        tests = lib.filterAttrs (
-          key: _: (lib.hasSuffix (lib.versions.major version) key)
-        ) nixosTests.nextcloud;
+        tests =
+          lib.filterAttrs (
+            key: _: (lib.hasSuffix (lib.versions.major version) key)
+          )
+          nixosTests.nextcloud;
         inherit packages;
       };
 
@@ -46,18 +45,17 @@ let
       '';
 
       meta = {
-        changelog = "https://nextcloud.com/changelog/#${lib.replaceStrings [ "." ] [ "-" ] version}";
+        changelog = "https://nextcloud.com/changelog/#${lib.replaceStrings ["."] ["-"] version}";
         description = "Sharing solution for files, calendars, contacts and more";
         homepage = "https://nextcloud.com";
-        teams = [ lib.teams.nextcloud ];
+        teams = [lib.teams.nextcloud];
         license = lib.licenses.agpl3Plus;
         platforms = lib.platforms.linux;
         knownVulnerabilities =
           extraVulnerabilities ++ (lib.optional eol "Nextcloud version ${version} is EOL");
       };
     };
-in
-{
+in {
   nextcloud30 = generic {
     version = "30.0.12";
     hash = "sha256-nhmyX0InPUNhIYQmtHYqdmvuQIz6aqghn4wn9yCVp6g=";

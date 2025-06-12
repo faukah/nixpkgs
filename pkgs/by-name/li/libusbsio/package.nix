@@ -7,7 +7,6 @@
   libusb1,
   systemdMinimal,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libusbsio";
   version = "2.1.11";
@@ -38,7 +37,6 @@ stdenv.mkDerivation rec {
     [
       libusb1
     ]
-
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       systemdMinimal # libudev
     ];

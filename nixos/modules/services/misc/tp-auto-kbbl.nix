@@ -3,23 +3,20 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.tp-auto-kbbl;
-
-in
-{
-  meta.maintainers = with lib.maintainers; [ sebtm ];
+in {
+  meta.maintainers = with lib.maintainers; [sebtm];
 
   options = {
     services.tp-auto-kbbl = {
       enable = lib.mkEnableOption "auto toggle keyboard back-lighting on Thinkpads (and maybe other laptops) for Linux";
 
-      package = lib.mkPackageOption pkgs "tp-auto-kbbl" { };
+      package = lib.mkPackageOption pkgs "tp-auto-kbbl" {};
 
       arguments = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           List of arguments appended to `./tp-auto-kbbl --device [device] [arguments]`
         '';
@@ -30,12 +27,11 @@ in
         default = "/dev/input/event0";
         description = "Device watched for activities.";
       };
-
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     services.upower.enable = true;
 
@@ -55,10 +51,10 @@ in
       unitConfig = {
         Description = "Auto toggle keyboard backlight";
         Documentation = "https://github.com/saibotd/tp-auto-kbbl";
-        After = [ "dbus.service" ];
+        After = ["dbus.service"];
       };
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 }

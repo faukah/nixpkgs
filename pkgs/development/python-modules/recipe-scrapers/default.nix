@@ -14,7 +14,6 @@
   pythonOlder,
   nixosTests,
 }:
-
 buildPythonPackage rec {
   pname = "recipe-scrapers";
   version = "15.8.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-G2FKv4HZ6Kf4u/EDflkYqiY1uelWBuIE+UrqeCp2XL8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     beautifulsoup4
@@ -40,7 +39,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    online = [ requests ];
+    online = [requests];
   };
 
   nativeCheckInputs = [
@@ -53,7 +52,7 @@ buildPythonPackage rec {
     "test_instructions"
   ];
 
-  pythonImportsCheck = [ "recipe_scrapers" ];
+  pythonImportsCheck = ["recipe_scrapers"];
 
   passthru = {
     tests = {
@@ -66,6 +65,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/hhursev/recipe-scrapers";
     changelog = "https://github.com/hhursev/recipe-scrapers/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

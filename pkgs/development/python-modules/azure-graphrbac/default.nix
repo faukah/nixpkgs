@@ -6,7 +6,6 @@
   msrestazure,
   azure-common,
 }:
-
 buildPythonPackage rec {
   version = "0.61.1";
   format = "setuptools";
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "This is the Microsoft Azure Graph RBAC Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

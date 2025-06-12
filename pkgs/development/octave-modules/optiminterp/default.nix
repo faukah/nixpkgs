@@ -4,7 +4,6 @@
   fetchurl,
   gfortran,
 }:
-
 buildOctavePackage rec {
   pname = "optiminterp";
   version = "0.3.7";
@@ -21,7 +20,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/optiminterp/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Optimal interpolation toolbox for octave";
     longDescription = ''
       An optimal interpolation toolbox for octave. This package provides

@@ -6,7 +6,6 @@
   installShellFiles,
   makeWrapper,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "mani";
   version = "0.31.0";
@@ -37,7 +36,7 @@ buildGoModule (finalAttrs: {
       --zsh <($out/bin/mani completion zsh)
 
     wrapProgram $out/bin/mani \
-      --prefix PATH : ${lib.makeBinPath [ gitMinimal ]}
+      --prefix PATH : ${lib.makeBinPath [gitMinimal]}
   '';
 
   # Skip tests
@@ -51,6 +50,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://manicli.com";
     license = lib.licenses.mit;
     mainProgram = "mani";
-    maintainers = with lib.maintainers; [ phanirithvij ];
+    maintainers = with lib.maintainers; [phanirithvij];
   };
 })

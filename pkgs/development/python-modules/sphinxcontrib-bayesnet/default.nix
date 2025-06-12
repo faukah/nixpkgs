@@ -5,7 +5,6 @@
   sphinx,
   sphinxcontrib-tikz,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-bayesnet";
   version = "0.4";
@@ -23,14 +22,14 @@ buildPythonPackage rec {
 
   # No tests
   doCheck = false;
-  pythonImportsCheck = [ "sphinxcontrib.bayesnet" ];
+  pythonImportsCheck = ["sphinxcontrib.bayesnet"];
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     homepage = "https://github.com/jluttine/sphinx-bayesnet";
     description = "Bayesian networks and factor graphs in Sphinx using TikZ syntax";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

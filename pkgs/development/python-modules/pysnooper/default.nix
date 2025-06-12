@@ -5,7 +5,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pysnooper";
   version = "1.2.1";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-2DLd8myARAqUVrOmZNr/lX9zfnMTxAt2JQ69tczbajE=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pysnooper" ];
+  pythonImportsCheck = ["pysnooper"];
 
   meta = with lib; {
     description = "Poor man's debugger for Python";
     homepage = "https://github.com/cool-RR/PySnooper";
     license = licenses.mit;
-    maintainers = with maintainers; [ seqizz ];
+    maintainers = with maintainers; [seqizz];
   };
 }

@@ -6,7 +6,6 @@
   copyDesktopItems,
   qt6,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "flashgbx";
   version = "4.4";
@@ -25,7 +24,7 @@ python3Packages.buildPythonApplication rec {
       icon = "flashgbx";
       exec = meta.mainProgram;
       comment = "UI for reading and writing Game Boy and Game Boy Advance cartridges";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -41,8 +40,7 @@ python3Packages.buildPythonApplication rec {
     qt6.wrapQtAppsHook
   ];
 
-  propagatedBuildInputs =
-    with python3Packages;
+  propagatedBuildInputs = with python3Packages;
     [
       pillow
       pyserial
@@ -61,6 +59,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/lesserkuma/FlashGBX";
     license = licenses.gpl3Only;
     mainProgram = "flashgbx";
-    maintainers = with maintainers; [ grahamnorris ];
+    maintainers = with maintainers; [grahamnorris];
   };
 }

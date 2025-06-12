@@ -3,8 +3,7 @@
   python3Packages,
   fetchpatch,
 }:
-
-buildXenPackage.override { inherit python3Packages; } {
+buildXenPackage.override {inherit python3Packages;} {
   pname = "xen";
   version = "4.19.1";
   patches = [

@@ -13,7 +13,6 @@
   typing-extensions,
   python-dateutil,
 }:
-
 buildPythonPackage rec {
   pname = "graphene";
   version = "3.4.3";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-K1IGKK3nTsRBe2D/cKJ/ahnAO5xxjf4gtollzTwt1zU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     graphql-core
@@ -44,15 +43,15 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  pytestFlagsArray = [ "--benchmark-disable" ];
+  pytestFlagsArray = ["--benchmark-disable"];
 
-  pythonImportsCheck = [ "graphene" ];
+  pythonImportsCheck = ["graphene"];
 
   meta = with lib; {
     description = "GraphQL Framework for Python";
     homepage = "https://github.com/graphql-python/graphene";
     changelog = "https://github.com/graphql-python/graphene/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

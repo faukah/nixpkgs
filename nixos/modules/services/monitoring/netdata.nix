@@ -3,11 +3,10 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.netdata;
 
-  wrappedPlugins = pkgs.runCommand "wrapped-plugins" { preferLocalBuild = true; } ''
+  wrappedPlugins = pkgs.runCommand "wrapped-plugins" {preferLocalBuild = true;} ''
     mkdir -p $out/libexec/netdata/plugins.d
     ln -s /run/wrappers/bin/apps.plugin $out/libexec/netdata/plugins.d/apps.plugin
     ln -s /run/wrappers/bin/cgroup-network $out/libexec/netdata/plugins.d/cgroup-network
@@ -20,18 +19,25 @@ let
     ln -s /run/wrappers/bin/debugfs.plugin $out/libexec/netdata/plugins.d/debugfs.plugin
   '';
 
-  plugins = [
-    "${cfg.package}/libexec/netdata/plugins.d"
-    "${wrappedPlugins}/libexec/netdata/plugins.d"
-  ] ++ cfg.extraPluginPaths;
+  plugins =
+    [
+      "${cfg.package}/libexec/netdata/plugins.d"
+      "${wrappedPlugins}/libexec/netdata/plugins.d"
+    ]
+    ++ cfg.extraPluginPaths;
 
-  configDirectory = pkgs.runCommand "netdata-config-d" { } ''
+  configDirectory = pkgs.runCommand "netdata-config-d" {} ''
     mkdir $out
     ${lib.concatStringsSep "\n" (
       lib.mapAttrsToList (path: file: ''
         mkdir -p "$out/$(dirname ${path})"
-        ${if path == "apps_groups.conf" then "cp" else "ln -s"} "${file}" "$out/${path}"
-      '') cfg.configDir
+        ${
+          if path == "apps_groups.conf"
+          then "cp"
+          else "ln -s"
+        } "${file}" "$out/${path}"
+      '')
+      cfg.configDir
     )}
   '';
 
@@ -45,14 +51,15 @@ let
       "web files group" = "root";
     };
     "plugin:cgroups" = {
-      "script to get cgroup network interfaces" =
-        "${wrappedPlugins}/libexec/netdata/plugins.d/cgroup-network";
+      "script to get cgroup network interfaces" = "${wrappedPlugins}/libexec/netdata/plugins.d/cgroup-network";
       "use unified cgroups" = "yes";
     };
   };
-  mkConfig = lib.generators.toINI { } (lib.recursiveUpdate localConfig cfg.config);
+  mkConfig = lib.generators.toINI {} (lib.recursiveUpdate localConfig cfg.config);
   configFile = pkgs.writeText "netdata.conf" (
-    if cfg.configText != null then cfg.configText else mkConfig
+    if cfg.configText != null
+    then cfg.configText
+    else mkConfig
   );
 
   defaultUser = "netdata";
@@ -60,22 +67,20 @@ let
   isThereAnyWireGuardTunnels =
     config.networking.wireguard.enable
     || lib.any (
-      c: lib.hasAttrByPath [ "netdevConfig" "Kind" ] c && c.netdevConfig.Kind == "wireguard"
+      c: lib.hasAttrByPath ["netdevConfig" "Kind"] c && c.netdevConfig.Kind == "wireguard"
     ) (builtins.attrValues config.systemd.network.netdevs);
 
   extraNdsudoPathsEnv = pkgs.buildEnv {
     name = "netdata-ndsudo-env";
     paths = cfg.extraNdsudoPackages;
-    pathsToLink = [ "/bin" ];
+    pathsToLink = ["/bin"];
   };
-
-in
-{
+in {
   options = {
     services.netdata = {
       enable = lib.mkEnableOption "netdata";
 
-      package = lib.mkPackageOption pkgs "netdata" { };
+      package = lib.mkPackageOption pkgs "netdata" {};
 
       user = lib.mkOption {
         type = lib.types.str;
@@ -119,7 +124,7 @@ in
         };
         extraPackages = lib.mkOption {
           type = lib.types.functionTo (lib.types.listOf lib.types.package);
-          default = ps: [ ];
+          default = ps: [];
           defaultText = lib.literalExpression "ps: []";
           example = lib.literalExpression ''
             ps: [
@@ -137,7 +142,7 @@ in
 
       extraPluginPaths = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         example = lib.literalExpression ''
           [ "/path/to/plugins.d" ]
         '';
@@ -155,7 +160,7 @@ in
 
       extraNdsudoPackages = lib.mkOption {
         type = lib.types.listOf lib.types.package;
-        default = [ ];
+        default = [];
         description = ''
           Extra packages to add to `PATH` to make available to `ndsudo`.
           ::: {.warning}
@@ -176,7 +181,7 @@ in
 
       config = lib.mkOption {
         type = lib.types.attrsOf lib.types.attrs;
-        default = { };
+        default = {};
         description = "netdata.conf configuration as nix attributes. cannot be combined with configText.";
         example = lib.literalExpression ''
           global = {
@@ -189,7 +194,7 @@ in
 
       configDir = lib.mkOption {
         type = lib.types.attrsOf lib.types.path;
-        default = { };
+        default = {};
         description = ''
           Complete netdata config directory except netdata.conf.
           The default configuration is merged with changes
@@ -246,7 +251,7 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.config != { } -> cfg.configText == null;
+        assertion = cfg.config != {} -> cfg.configText == null;
         message = "Cannot specify both config and configText";
       }
     ];
@@ -261,9 +266,7 @@ in
       ps.netdata-pandas
     ]);
 
-    services.netdata.configDir.".opt-out-from-anonymous-statistics" = lib.mkIf (
-      !cfg.enableAnalyticsReporting
-    ) (pkgs.writeText ".opt-out-from-anonymous-statistics" "");
+    services.netdata.configDir.".opt-out-from-anonymous-statistics" = lib.mkIf (!cfg.enableAnalyticsReporting) (pkgs.writeText ".opt-out-from-anonymous-statistics" "");
     environment.etc."netdata/netdata.conf".source = configFile;
     environment.etc."netdata/conf.d".source = configDirectory;
 
@@ -298,8 +301,8 @@ in
         "suid-sgid-wrappers.service"
       ];
       # No wrapper means no "useful" netdata.
-      requires = [ "suid-sgid-wrappers.service" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["suid-sgid-wrappers.service"];
+      wantedBy = ["multi-user.target"];
       path =
         (with pkgs; [
           curl
@@ -465,7 +468,6 @@ in
           group = cfg.group;
           permissions = "u+rx,g+x,o-rwx";
         };
-
       }
       // lib.optionalAttrs (cfg.package.withIpmi) {
         "freeipmi.plugin" = {
@@ -521,8 +523,7 @@ in
     };
 
     users.groups = lib.optionalAttrs (cfg.group == defaultUser) {
-      ${defaultUser} = { };
+      ${defaultUser} = {};
     };
-
   };
 }

@@ -5,7 +5,6 @@
   unzip,
   doxygen,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bliss";
   version = "0.73";

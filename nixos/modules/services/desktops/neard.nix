@@ -3,20 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
     types
     ;
   cfg = config.services.neard;
-  format = pkgs.formats.ini { };
+  format = pkgs.formats.ini {};
   configFile = format.generate "neard.conf" cfg.settings;
-in
-{
+in {
   options.services.neard = {
     enable = mkEnableOption "neard, an NFC daemon";
 
@@ -52,7 +50,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = ''
         Neard INI-style configuration file as a Nix attribute set.
 
@@ -64,10 +62,10 @@ in
   config = mkIf cfg.enable {
     environment.etc."neard/main.conf".source = configFile;
 
-    environment.systemPackages = [ pkgs.neard ];
+    environment.systemPackages = [pkgs.neard];
 
-    services.dbus.packages = [ pkgs.neard ];
+    services.dbus.packages = [pkgs.neard];
 
-    systemd.packages = [ pkgs.neard ];
+    systemd.packages = [pkgs.neard];
   };
 }

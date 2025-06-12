@@ -17,7 +17,6 @@
   typing-extensions,
   wcwidth,
 }:
-
 buildPythonPackage rec {
   pname = "urwid";
   version = "2.6.16";
@@ -47,26 +46,28 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    glib = [ pygobject3 ];
-    tornado = [ tornado ];
+    glib = [pygobject3];
+    tornado = [tornado];
     trio = [
       exceptiongroup
       trio
     ];
-    twisted = [ twisted ];
-    zmq = [ pyzmq ];
-    serial = [ pyserial ];
-    lcd = [ pyserial ];
+    twisted = [twisted];
+    zmq = [pyzmq];
+    serial = [pyserial];
+    lcd = [pyserial];
   };
 
-  nativeCheckInputs = [
-    glibcLocales
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      glibcLocales
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   env.LC_ALL = "en_US.UTF8";
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   disabledTests = [
     # Flaky tests
@@ -78,7 +79,7 @@ buildPythonPackage rec {
     "tests/test_vterm.py"
   ];
 
-  pythonImportsCheck = [ "urwid" ];
+  pythonImportsCheck = ["urwid"];
 
   meta = with lib; {
     description = "Full-featured console (xterm et al.) user interface library";
@@ -86,6 +87,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/urwid/urwid";
     homepage = "https://urwid.org/";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

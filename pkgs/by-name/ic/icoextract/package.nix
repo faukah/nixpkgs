@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "icoextract";
   version = "0.1.5";
@@ -16,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-McVG8966NCEpzc9biawLvUgbQUtterkIud/9GwOeltI=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     pefile
@@ -26,7 +25,7 @@ python3Packages.buildPythonApplication rec {
   # tests expect mingw and multiarch
   doCheck = false;
 
-  pythonImportsCheck = [ "icoextract" ];
+  pythonImportsCheck = ["icoextract"];
 
   postInstall = ''
     substituteInPlace exe-thumbnailer.thumbnailer \

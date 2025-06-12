@@ -6,7 +6,6 @@
   dbus,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "git-ps-rs";
   version = "7.3.1";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-QYkEBqDwspdhSliwLwMWmybS9nd41DCjGNURnMzLzBM=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
@@ -33,6 +32,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "gps";
     homepage = "https://git-ps.sh/";
     license = licenses.mit;
-    maintainers = with maintainers; [ alizter ];
+    maintainers = with maintainers; [alizter];
   };
 }

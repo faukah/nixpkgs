@@ -17,11 +17,11 @@ mkHyprlandPlugin hyprland rec {
     hash = "sha256-dYxkdbg6yj8HhuBkCmklMQVR17N7P32R8ir7b7oNxm4=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   dontStrip = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/outfoxxed/hy3";

@@ -16,7 +16,6 @@
   python3,
   vala,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "five-or-more";
   version = "48.1";
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/GNOME/five-or-more";
     description = "Remove colored balls from the board by forming lines";
     mainProgram = "five-or-more";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2;
     platforms = platforms.unix;
   };

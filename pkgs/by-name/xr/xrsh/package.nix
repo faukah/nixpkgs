@@ -7,7 +7,6 @@
   writeShellApplication,
   python3Packages,
 }:
-
 stdenv.mkDerivation {
   pname = "xrsh";
   version = "0-unstable-2025-05-23";
@@ -27,39 +26,37 @@ stdenv.mkDerivation {
     makeWrapper
   ];
 
-  installPhase =
-    let
-      launcher = writeShellApplication {
-        name = "xrsh";
-        runtimeInputs = [ python3Packages.twisted ];
-        text = ''
-          XRSH_ROOT="''${1}"
-          XRSH_PORT="''${XRSH_PORT-8080}"
+  installPhase = let
+    launcher = writeShellApplication {
+      name = "xrsh";
+      runtimeInputs = [python3Packages.twisted];
+      text = ''
+        XRSH_ROOT="''${1}"
+        XRSH_PORT="''${XRSH_PORT-8080}"
 
-          exec twistd -n web --listen "tcp:''${XRSH_PORT}" --path "''${XRSH_ROOT}"
-        '';
-      };
-    in
-    ''
-      runHook preInstall
+        exec twistd -n web --listen "tcp:''${XRSH_PORT}" --path "''${XRSH_ROOT}"
+      '';
+    };
+  in ''
+    runHook preInstall
 
-      mkdir -p $out/{bin,share/xrsh}
-      cp -r -t $out/share/xrsh index.html src xrsh.js xrsh.ico xrsh.svg
+    mkdir -p $out/{bin,share/xrsh}
+    cp -r -t $out/share/xrsh index.html src xrsh.js xrsh.ico xrsh.svg
 
-      makeWrapper ${lib.getExe launcher} $out/bin/xrsh \
-        --add-flags "${placeholder "out"}/share/xrsh/src"
+    makeWrapper ${lib.getExe launcher} $out/bin/xrsh \
+      --add-flags "${placeholder "out"}/share/xrsh/src"
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     mainProgram = "xrsh";
     description = "Terminal for WebXR to run REPLs & linux ISO";
     license = lib.licenses.gpl3Plus;
     homepage = "https://xrsh.isvery.ninja";
-    maintainers = with lib.maintainers; [ coderofsalvation ];
+    maintainers = with lib.maintainers; [coderofsalvation];
     platforms = lib.platforms.all;
   };
 }

@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "termshot";
   version = "0.5.0";
@@ -25,20 +24,20 @@ buildGoModule (finalAttrs: {
     "-X github.com/homeport/termshot/internal/cmd.version=${finalAttrs.version}"
   ];
 
-  checkFlags = [ "-skip=^TestPtexec$" ];
+  checkFlags = ["-skip=^TestPtexec$"];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Creates screenshots based on terminal command output";
     homepage = "https://github.com/homeport/termshot";
     changelog = "https://github.com/homeport/termshot/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
     mainProgram = "termshot";
   };
 })

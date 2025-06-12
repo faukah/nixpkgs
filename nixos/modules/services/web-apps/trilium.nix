@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.trilium-server;
   configIni = pkgs.writeText "trilium-config.ini" ''
     [General]
@@ -25,13 +23,11 @@ let
     # true for TLS/SSL/HTTPS (secure), false for HTTP (unsecure).
     https=false
   '';
-in
-{
-
+in {
   options.services.trilium-server = with lib; {
     enable = mkEnableOption "trilium-server";
 
-    package = mkPackageOption pkgs "trilium-server" { };
+    package = mkPackageOption pkgs "trilium-server" {};
 
     dataDir = mkOption {
       type = types.str;
@@ -82,7 +78,7 @@ in
     };
 
     nginx = mkOption {
-      default = { };
+      default = {};
       description = ''
         Configuration for nginx reverse proxy.
       '';
@@ -108,12 +104,12 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ fliegendewurst ];
+  meta.maintainers = with lib.maintainers; [fliegendewurst];
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        users.groups.trilium = { };
+        users.groups.trilium = {};
         users.users.trilium = {
           description = "Trilium User";
           group = "trilium";
@@ -122,7 +118,7 @@ in
         };
 
         systemd.services.trilium-server = {
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           environment.TRILIUM_DATA_DIR = cfg.dataDir;
           serviceConfig = {
             ExecStart = lib.getExe cfg.package;
@@ -136,7 +132,6 @@ in
           "d  ${cfg.dataDir}            0750 trilium trilium - -"
           "L+ ${cfg.dataDir}/config.ini -    -       -       - ${configIni}"
         ];
-
       }
 
       (lib.mkIf cfg.nginx.enable {

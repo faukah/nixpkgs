@@ -4,7 +4,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "super-tiny-icons";
   version = "unstable-2023-11-06";
@@ -33,7 +32,7 @@ stdenvNoCC.mkDerivation {
     '';
     homepage = "https://github.com/edent/SuperTinyIcons";
     license = licenses.mit;
-    maintainers = [ maintainers.h7x4 ];
+    maintainers = [maintainers.h7x4];
     platforms = platforms.all;
   };
 }

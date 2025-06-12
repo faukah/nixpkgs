@@ -1,24 +1,23 @@
-with import ../../.. { };
+with import ../../.. {};
+  stdenv.mkDerivation {
+    name = "generate-r-packages-shell";
 
-stdenv.mkDerivation {
-  name = "generate-r-packages-shell";
+    buildCommand = "exit 1";
 
-  buildCommand = "exit 1";
+    buildInputs = [
+      wget
+      cacert
+      nix
+    ];
 
-  buildInputs = [
-    wget
-    cacert
-    nix
-  ];
-
-  nativeBuildInputs = [
-    (rWrapper.override {
-      packages = with rPackages; [
-        data_table
-        parallel
-        BiocManager
-        jsonlite
-      ];
-    })
-  ];
-}
+    nativeBuildInputs = [
+      (rWrapper.override {
+        packages = with rPackages; [
+          data_table
+          parallel
+          BiocManager
+          jsonlite
+        ];
+      })
+    ];
+  }

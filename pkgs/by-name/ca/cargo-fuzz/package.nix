@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-fuzz";
   version = "0.12.0";

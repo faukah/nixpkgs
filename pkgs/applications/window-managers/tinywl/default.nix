@@ -11,10 +11,10 @@
   wayland-protocols,
   nixosTests,
 }:
-
 stdenv.mkDerivation {
   pname = "tinywl";
-  inherit (wlroots)
+  inherit
+    (wlroots)
     version
     src
     patches
@@ -46,12 +46,12 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.tests = { inherit (nixosTests) tinywl; };
+  passthru.tests = {inherit (nixosTests) tinywl;};
 
   meta = {
     homepage = "https://gitlab.freedesktop.org/wlroots/wlroots/tree/master/tinywl";
     description = ''A "minimum viable product" Wayland compositor based on wlroots'';
-    maintainers = with lib.maintainers; [ qyliss ] ++ wlroots.meta.maintainers;
+    maintainers = with lib.maintainers; [qyliss] ++ wlroots.meta.maintainers;
     license = lib.licenses.cc0;
     inherit (wlroots.meta) platforms;
     mainProgram = "tinywl";

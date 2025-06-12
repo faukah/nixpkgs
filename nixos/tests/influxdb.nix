@@ -1,19 +1,15 @@
 # This test runs influxdb and checks if influxdb is up and running
-
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "influxdb";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ offline ];
+    maintainers = [offline];
   };
 
   nodes = {
-    one =
-      { ... }:
-      {
-        services.influxdb.enable = true;
-        environment.systemPackages = [ pkgs.httpie ];
-      };
+    one = {...}: {
+      services.influxdb.enable = true;
+      environment.systemPackages = [pkgs.httpie];
+    };
   };
 
   testScript = ''

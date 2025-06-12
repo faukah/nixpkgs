@@ -6,7 +6,6 @@
   libelf,
   csu,
 }:
-
 mkDerivation {
   path = "lib/libkvm";
   extraPaths = [

@@ -4,7 +4,6 @@
   lib,
   runtimeShell,
 }:
-
 buildGoModule rec {
   pname = "goimapnotify";
   version = "2.5";

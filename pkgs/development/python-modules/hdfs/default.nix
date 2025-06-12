@@ -9,7 +9,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "hdfs";
   version = "2.7.3";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-Pm2E8hB0wbu7npi/sLt9D8jQsH69qNOHLji9CYqST/8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     docopt
@@ -35,14 +34,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "hdfs" ];
+  pythonImportsCheck = ["hdfs"];
 
   meta = with lib; {
     description = "Python API and command line interface for HDFS";
     homepage = "https://github.com/mtth/hdfs";
     changelog = "https://github.com/mtth/hdfs/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
     mainProgram = "hdfscli";
   };
 }

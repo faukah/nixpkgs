@@ -10,7 +10,6 @@
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-shared-session-scope";
   version = "0.4.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-cG4RUwQwo7RyOQDCP54gGTLhnJtHTo5iQh8MjNRZ4HI=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     filelock
@@ -37,13 +36,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pytest_shared_session_scope" ];
+  pythonImportsCheck = ["pytest_shared_session_scope"];
 
   meta = {
     changelog = "https://github.com/StefanBRas/pytest-shared-session-scope/blob/v${version}/CHANGELOG.md";
     description = "Pytest session-scoped fixture that works with xdist";
     homepage = "https://pypi.org/project/pytest-shared-session-scope/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

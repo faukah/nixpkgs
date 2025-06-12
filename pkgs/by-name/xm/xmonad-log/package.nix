@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "xmonad-log";
   version = "0.1.0-unstable-2024-06-14";
@@ -23,7 +22,7 @@ buildGoModule {
     homepage = "https://github.com/xintron/xmonad-log";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ joko ];
+    maintainers = with maintainers; [joko];
     mainProgram = "xmonad-log";
   };
 }

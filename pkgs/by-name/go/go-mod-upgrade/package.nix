@@ -6,7 +6,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "go-mod-upgrade";
   version = "0.11.0";
@@ -24,15 +23,15 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
   meta = {
     description = "Update outdated Go dependencies interactively";
     changelog = "https://github.com/oligot/go-mod-upgrade/releases/tag/v${version}/CHANGELOG.md";
     homepage = "https://github.com/oligot/go-mod-upgrade";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ polyfloyd ];
+    maintainers = with lib.maintainers; [polyfloyd];
   };
 }

@@ -10,7 +10,6 @@
   virtualenv-clone,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "virtualenvwrapper";
   version = "6.1.1";

@@ -37,7 +37,6 @@
   x264,
   xvidcore,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "alvr";
   version = "20.13.0";
@@ -134,7 +133,7 @@ rustPlatform.buildRustPackage rec {
     ln -s $out/lib $out/lib64
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Stream VR games from your PC to your headset via Wi-Fi";

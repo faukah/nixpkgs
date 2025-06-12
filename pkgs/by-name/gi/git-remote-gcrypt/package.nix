@@ -12,7 +12,6 @@
   gnused,
   gnugrep,
 }:
-
 stdenv.mkDerivation rec {
   pname = "git-remote-gcrypt";
   version = "1.5";
@@ -39,16 +38,16 @@ stdenv.mkDerivation rec {
     prefix="$out" ./install.sh
     wrapProgram "$out/bin/git-remote-gcrypt" \
       --prefix PATH ":" "${
-        lib.makeBinPath [
-          gnupg
-          curl
-          rsync
-          coreutils
-          gawk
-          gnused
-          gnugrep
-        ]
-      }"
+      lib.makeBinPath [
+        gnupg
+        curl
+        rsync
+        coreutils
+        gawk
+        gnused
+        gnugrep
+      ]
+    }"
   '';
 
   meta = with lib; {

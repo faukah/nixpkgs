@@ -6,7 +6,6 @@
   lib,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "permissionedforms";
   version = "0.1";
@@ -19,21 +18,21 @@ buildPythonPackage rec {
     sha256 = "sha256-DQzPGmh5UEVpGWnW3IrEVPkZZ8mdiW9J851Ej4agTDc=";
   };
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
-  checkInputs = [ django-modelcluster ];
+  checkInputs = [django-modelcluster];
 
   checkPhase = ''
     ${python.interpreter} runtests.py
   '';
 
-  pythonImportsCheck = [ "permissionedforms" ];
+  pythonImportsCheck = ["permissionedforms"];
 
   meta = with lib; {
     description = "Django extension for creating forms that vary according to user permissions";
     homepage = "https://github.com/wagtail/django-permissionedforms";
     changelog = "https://github.com/wagtail/django-permissionedforms/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

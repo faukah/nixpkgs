@@ -3,12 +3,11 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "xcpretty";
   gemdir = ./.;
 
-  exes = [ "xcpretty" ];
+  exes = ["xcpretty"];
 
   passthru = {
     updateScript = bundlerUpdateScript "xcpretty";

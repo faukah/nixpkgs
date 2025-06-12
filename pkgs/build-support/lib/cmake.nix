@@ -1,7 +1,9 @@
-{ stdenv, lib }:
-
-let
-  inherit (lib)
+{
+  stdenv,
+  lib,
+}: let
+  inherit
+    (lib)
     findFirst
     isString
     optional
@@ -45,14 +47,8 @@ let
     ]
   );
 
-  makeCMakeFlags =
-    {
-      cmakeFlags ? [ ],
-      ...
-    }:
+  makeCMakeFlags = {cmakeFlags ? [], ...}:
     cmakeFlags ++ cmakeFlags';
-
-in
-{
+in {
   inherit makeCMakeFlags;
 }

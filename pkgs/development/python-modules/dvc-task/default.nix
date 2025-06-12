@@ -13,7 +13,6 @@
   setuptools-scm,
   shortuuid,
 }:
-
 buildPythonPackage rec {
   pname = "dvc-task";
   version = "0.40.2";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-bRQJLncxCigYPEtlvKjUtKqhcBkB7erEtoJQ30yGamE=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     celery
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "dvc_task" ];
+  pythonImportsCheck = ["dvc_task"];
 
   disabledTests = [
     # Test is flaky
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/iterative/dvc-task";
     changelog = "https://github.com/iterative/dvc-task/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

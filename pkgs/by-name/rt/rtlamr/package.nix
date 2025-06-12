@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule {
   pname = "rtlamr";
   version = "0.9.3-unstable-2023-08-13";
@@ -25,7 +24,7 @@ buildGoModule {
     '';
     homepage = "https://github.com/bemasher/rtlamr";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ jmendyk ];
+    maintainers = with lib.maintainers; [jmendyk];
     platforms = lib.platforms.unix;
   };
 }

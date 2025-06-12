@@ -7,7 +7,6 @@
   jre,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.9";
   pname = "msgviewer";
@@ -40,9 +39,9 @@ stdenv.mkDerivation rec {
     description = "Viewer for .msg files (MS Outlook)";
     mainProgram = "msgviewer";
     homepage = "https://www.washington.edu/alpine/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.all;
   };
 }

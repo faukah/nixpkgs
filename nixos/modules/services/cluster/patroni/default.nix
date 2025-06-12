@@ -3,28 +3,25 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.patroni;
   defaultUser = "patroni";
   defaultGroup = "patroni";
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
 
   configFileName = "patroni-${cfg.scope}-${cfg.name}.yaml";
   configFile = format.generate configFileName cfg.settings;
-in
-{
+in {
   imports = [
-    (lib.mkRemovedOptionModule [ "services" "patroni" "raft" ] ''
+    (lib.mkRemovedOptionModule ["services" "patroni" "raft"] ''
       Raft has been deprecated by upstream.
     '')
-    (lib.mkRemovedOptionModule [ "services" "patroni" "raftPort" ] ''
+    (lib.mkRemovedOptionModule ["services" "patroni" "raftPort"] ''
       Raft has been deprecated by upstream.
     '')
   ];
 
   options.services.patroni = {
-
     enable = lib.mkEnableOption "Patroni";
 
     postgresqlPackage = lib.mkOption {
@@ -147,7 +144,7 @@ in
 
     settings = lib.mkOption {
       type = format.type;
-      default = { };
+      default = {};
       description = ''
         The primary patroni configuration. See the [documentation](https://patroni.readthedocs.io/en/latest/SETTINGS.html)
         for possible values.
@@ -156,8 +153,7 @@ in
     };
 
     environmentFiles = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (
           nullOr (oneOf [
             str
@@ -165,7 +161,7 @@ in
             package
           ])
         );
-      default = { };
+      default = {};
       example = {
         PATRONI_REPLICATION_PASSWORD = "/secret/file";
         PATRONI_SUPERUSER_PASSWORD = "/secret/file";
@@ -224,7 +220,7 @@ in
         };
       };
       groups = lib.mkIf (cfg.group == defaultGroup) {
-        patroni = { };
+        patroni = {};
       };
     };
 
@@ -232,8 +228,8 @@ in
       patroni = {
         description = "Runners to orchestrate a high-availability PostgreSQL";
 
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
 
         script = ''
           ${lib.concatStringsSep "\n" (
@@ -254,9 +250,11 @@ in
             ExecReload = "${pkgs.coreutils}/bin/kill -s HUP $MAINPID";
             KillMode = "process";
           }
-          (lib.mkIf
+          (
+            lib.mkIf
             (
-              cfg.postgresqlDataDir == "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}"
+              cfg.postgresqlDataDir
+              == "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}"
               && cfg.dataDir == "/var/lib/patroni"
             )
             {
@@ -268,7 +266,7 @@ in
       };
     };
 
-    boot.kernelModules = lib.mkIf cfg.softwareWatchdog [ "softdog" ];
+    boot.kernelModules = lib.mkIf cfg.softwareWatchdog ["softdog"];
 
     services.udev.extraRules = lib.mkIf cfg.softwareWatchdog ''
       KERNEL=="watchdog", OWNER="${cfg.user}", GROUP="${cfg.group}", MODE="0600"
@@ -286,5 +284,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.phfroidmont ];
+  meta.maintainers = [lib.maintainers.phfroidmont];
 }

@@ -5,7 +5,6 @@
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "cliscord";
   version = "0-unstable-2022-10-07";
@@ -17,9 +16,9 @@ rustPlatform.buildRustPackage {
     hash = "sha256-dmR49yyErahOUxR9pGW1oYy8Wq5SWOprK317u+JPBv4=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   cargoHash = "sha256-bJA+vqbhXeygIAg9HWom3xSuPpJgJY5FLb8UMBjrh7U=";
 
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage {
     description = "Simple command-line tool to send text and files to discord";
     homepage = "https://github.com/somebody1234/cliscord";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lom ];
+    maintainers = with lib.maintainers; [lom];
     mainProgram = "cliscord";
   };
 }

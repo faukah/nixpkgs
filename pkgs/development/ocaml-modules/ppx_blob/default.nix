@@ -6,7 +6,6 @@
   alcotest,
   ppxlib,
 }:
-
 buildDunePackage rec {
   pname = "ppx_blob";
   version = "0.9.0";
@@ -18,8 +17,8 @@ buildDunePackage rec {
     sha256 = "sha256-8RXpCl8Qdc7cnZMKuRJx+GcOzk3uENwRR6s5uK+1cOQ=";
   };
 
-  checkInputs = [ alcotest ];
-  propagatedBuildInputs = [ ppxlib ];
+  checkInputs = [alcotest];
+  propagatedBuildInputs = [ppxlib];
   doCheck = true;
 
   meta = with lib; {

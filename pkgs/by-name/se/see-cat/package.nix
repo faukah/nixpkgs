@@ -34,6 +34,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/guilhermeprokisch/see";
     license = lib.licenses.mit;
     mainProgram = "see";
-    maintainers = with lib.maintainers; [ louis-thevenet ];
+    maintainers = with lib.maintainers; [louis-thevenet];
   };
 }

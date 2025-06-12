@@ -3,7 +3,6 @@
   fetchurl,
   gettext,
   wrapGAppsHook3,
-
   # Native dependencies
   python3,
   gtk4,
@@ -11,11 +10,9 @@
   adwaita-icon-theme,
   gtksourceview5,
   glib-networking,
-
   # Test dependencies
   xvfb-run,
   dbus,
-
   # Optional dependencies
   enableJingle ? true,
   farstream,
@@ -35,9 +32,8 @@
   gupnp-igd,
   enableAppIndicator ? true,
   libappindicator-gtk3,
-  extraPythonPackages ? ps: [ ],
+  extraPythonPackages ? ps: [],
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "gajim";
   version = "2.2.0";
@@ -89,8 +85,7 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       nbxmpp
       pygobject3

@@ -4,9 +4,7 @@
   fetchFromGitHub,
   rustPlatform,
   testers,
-}:
-
-let
+}: let
   pname = "amazon-qldb-shell";
   version = "2.0.1";
   package = rustPlatform.buildRustPackage {
@@ -27,17 +25,17 @@ let
     useFetchCargoVendor = true;
     cargoHash = "sha256-tD35Py81QLDVlBahYzgskOQK5lQW03xuCnUwVUi4oLU=";
 
-    passthru.tests.version = testers.testVersion { inherit package; };
+    passthru.tests.version = testers.testVersion {inherit package;};
 
     meta = with lib; {
       description = "Interface to send PartiQL statements to Amazon Quantum Ledger Database (QLDB)";
       homepage = "https://github.com/awslabs/amazon-qldb-shell";
       license = licenses.asl20;
-      maintainers = [ maintainers.terlar ];
+      maintainers = [maintainers.terlar];
       mainProgram = "qldb";
       # See https://hydra.nixos.org/build/255146098/log.
       broken = true; # Added 2024-04-06
     };
   };
 in
-package
+  package

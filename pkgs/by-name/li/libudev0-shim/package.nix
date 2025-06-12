@@ -4,7 +4,6 @@
   fetchFromGitHub,
   udev,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libudev0-shim";
   version = "1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1460qm6rp1cqnns39lj24z7191m8sbpvbjabqbzb55dkdd2kw50z";
   };
 
-  buildInputs = [ udev ];
+  buildInputs = [udev];
 
   installPhase = ''
     name="$(echo libudev.so.*)"
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/archlinux/libudev0-shim";
     platforms = platforms.linux;
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

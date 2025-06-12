@@ -8,7 +8,6 @@
   setuptools-declarative-requirements,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-helpers-namespace";
   version = "2021.12.29";
@@ -26,14 +25,14 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_helpers_namespace" ];
+  pythonImportsCheck = ["pytest_helpers_namespace"];
 
   meta = with lib; {
     homepage = "https://github.com/saltstack/pytest-helpers-namespace";
     description = "PyTest Helpers Namespace";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -11,7 +11,6 @@
   tomli,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "check-manifest";
   version = "0.50";
@@ -26,34 +25,36 @@ buildPythonPackage rec {
     hash = "sha256-wZ0mx2b3QkwTOPMLQ03SFVwnbsVO5RezOSX50ZOYvw8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    build
-    pep517
-    setuptools
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies =
+    [
+      build
+      pep517
+      setuptools
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   nativeCheckInputs = [
     git
     pytestCheckHook
   ];
 
-  checkInputs = [ breezy ];
+  checkInputs = [breezy];
 
   disabledTests = [
     # Test wants to setup a venv
     "test_build_sdist_pep517_isolated"
   ];
 
-  pythonImportsCheck = [ "check_manifest" ];
+  pythonImportsCheck = ["check_manifest"];
 
   meta = with lib; {
     description = "Check MANIFEST.in in a Python source package for completeness";
     homepage = "https://github.com/mgedmin/check-manifest";
     changelog = "https://github.com/mgedmin/check-manifest/blob/${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ lewo ];
+    maintainers = with maintainers; [lewo];
     mainProgram = "check-manifest";
   };
 }

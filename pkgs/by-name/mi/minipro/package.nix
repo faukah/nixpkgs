@@ -5,7 +5,6 @@
   pkg-config,
   libusb1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "minipro";
   version = "0.7.2";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-NIaBN+T/EzYBhBtBEIvIAmqmksYDDiMJsWm9zCzZOxE=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libusb1 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libusb1];
   makeFlags = [
     "VERSION=${version}"
     "PREFIX=$(out)"
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/DavidGriffith/minipro";
     description = "Open source program for controlling the MiniPRO TL866xx series of chip programmers";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.bmwalters ];
+    maintainers = [maintainers.bmwalters];
     mainProgram = "minipro";
     platforms = platforms.unix;
   };

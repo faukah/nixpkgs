@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "certbot-dns-cloudflare";
   pyproject = true;
@@ -17,7 +16,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/certbot-dns-cloudflare";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     acme
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     cloudflare
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray = [
     "-p no:cacheprovider"
@@ -35,9 +34,11 @@ buildPythonPackage rec {
     "ignore::DeprecationWarning"
   ];
 
-  meta = certbot.meta // {
-    description = "Cloudflare DNS Authenticator plugin for Certbot";
-    # https://github.com/certbot/certbot/pull/10182
-    broken = true;
-  };
+  meta =
+    certbot.meta
+    // {
+      description = "Cloudflare DNS Authenticator plugin for Certbot";
+      # https://github.com/certbot/certbot/pull/10182
+      broken = true;
+    };
 }

@@ -16,17 +16,14 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Mes.  If not, see <http://www.gnu.org/licenses/>.
-
 # This is a translation of stage0-posix/stage0-posix/x86/mescc-tools-mini-kaem.kaem to nix
 # https://github.com/oriansj/stage0-posix-x86/blob/56e6b8df3e95f4bc04f8b420a4cd8c82c70b9efa/mescc-tools-mini-kaem.kaem
 #
 # We have access to mini-kaem at this point but it doesn't support substituting
 # environment variables. Without variables there's no way of passing in store inputs,
 # or the $out path, other than as command line arguments directly
-
 # Warning all binaries prior to the use of blood-elf will not be readable by
 # Objdump, you may need to use ndism or gdb to view the assembly in the binary.
-
 {
   lib,
   derivationWithMeta,
@@ -39,16 +36,17 @@
   stage0Arch,
   m2libcArch,
   baseAddress,
-}:
-rec {
+}: rec {
   out = placeholder "out";
 
-  endianFlag = if hostPlatform.isLittleEndian then "--little-endian" else "--big-endian";
+  endianFlag =
+    if hostPlatform.isLittleEndian
+    then "--little-endian"
+    else "--big-endian";
 
   bloodFlags = lib.optional hostPlatform.is64bit "--64";
 
-  run =
-    pname: builder: args:
+  run = pname: builder: args:
     derivationWithMeta {
       inherit
         pname
@@ -61,7 +59,7 @@ rec {
         description = "Collection of tools written for use in bootstrapping";
         homepage = "https://github.com/oriansj/stage0-posix";
         license = licenses.gpl3Plus;
-        teams = [ teams.minimal-bootstrap ];
+        teams = [teams.minimal-bootstrap];
         inherit platforms;
       };
     };
@@ -97,7 +95,8 @@ rec {
   #################################
 
   catm =
-    if hostPlatform.isAarch64 then
+    if hostPlatform.isAarch64
+    then
       run "catm" hex1 [
         "${src}/${stage0Arch}/catm_${stage0Arch}.hex1"
         out

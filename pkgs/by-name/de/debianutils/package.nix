@@ -6,7 +6,6 @@
   perl,
   po4a,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "debianutils";
   version = "5.23.1";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
       smail
     ];
     mainProgram = "ischroot";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

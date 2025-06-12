@@ -12,7 +12,6 @@
   pythonOlder,
   fetchFromGitHub,
 }:
-
 buildPythonPackage rec {
   pname = "wordfreq";
   version = "3.0.2";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-ANOBbQWLB35Vz6oil6QZDpsNpKHeKUJnDKA5Q9JRVdE=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     regex
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     jieba
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   disabledTests = [
     # These languages require additional dictionaries that aren't packaged
     "test_languages"

@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "types-mock";
   version = "5.2.0.20250516";
@@ -16,7 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-qrfT2a04FPL42hLMjkLZvn04IAxfIU48AnjDj6ASmdc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Module has no tests
   doCheck = false;
@@ -25,6 +24,6 @@ buildPythonPackage rec {
     description = "Type stub package for the mock package";
     homepage = "https://pypi.org/project/types-mock";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

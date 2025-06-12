@@ -7,7 +7,6 @@
   rustPlatform,
   stdenv,
 }:
-
 # Updating this package will force an update for prisma. The
 # version of prisma-engines and prisma must be the same for them to
 # function correctly.
@@ -28,9 +27,9 @@ rustPlatform.buildRustPackage rec {
   # Use system openssl.
   OPENSSL_NO_VENDOR = 1;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   preBuild = ''
     export OPENSSL_DIR=${lib.getDev openssl}
@@ -76,7 +75,6 @@ rustPlatform.buildRustPackage rec {
     ];
   };
 }
-
 ### Troubleshooting
 # Here's an example application using Prisma with Nix: https://github.com/pimeys/nix-prisma-example
 # At example's `flake.nix` shellHook, notice the requirement of defining environment variables for prisma, it's values will show on `prisma --version`.
@@ -88,3 +86,4 @@ rustPlatform.buildRustPackage rec {
 # Run prisma client from `node_modules/.bin/prisma`.
 # Run `./node_modules/.bin/prisma --version` and check if both prisma packages versions are equal, current platform is `linux-nixos`, and other keys equal to the prisma environment variables you defined for prisma.
 # Test prisma with `generate`, `db push`, etc. It should work. If not, open an issue.
+

@@ -25,10 +25,7 @@
 # Server | eth1    Address: 100.64.0.2/24
 #        |         Route:   192.0.2.0/24 via 100.64.0.1
 #        +------
-
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "clatd";
 
   meta.maintainers = with lib.maintainers; [
@@ -51,7 +48,7 @@
       ];
       networking = {
         useDHCP = false;
-        interfaces.eth1 = lib.mkForce { };
+        interfaces.eth1 = lib.mkForce {};
       };
       systemd.network = {
         enable = true;
@@ -120,8 +117,8 @@
 
       systemd.network.networks."40-eth2" = {
         networkConfig.IPv6SendRA = true;
-        ipv6Prefixes = [ { Prefix = "2001:db8::/64"; } ];
-        ipv6PREF64Prefixes = [ { Prefix = "64:ff9b::/96"; } ];
+        ipv6Prefixes = [{Prefix = "2001:db8::/64";}];
+        ipv6PREF64Prefixes = [{Prefix = "64:ff9b::/96";}];
         ipv6SendRAConfig = {
           EmitDNS = true;
           DNS = "_link_local";
@@ -177,30 +174,28 @@
     # server, the client starts the clat daemon which starts and configures the
     # local IPv4 -> IPv6 translation via Tayga after discovering the PLAT
     # prefix via DNS64.
-    client =
-      { pkgs, ... }:
-      {
-        virtualisation.vlans = [
-          3 # towards router
-        ];
+    client = {pkgs, ...}: {
+      virtualisation.vlans = [
+        3 # towards router
+      ];
 
-        networking = {
-          useDHCP = false;
-          interfaces.eth1 = lib.mkForce { };
-        };
-
-        systemd.network = {
-          enable = true;
-          networks."vlan1" = {
-            matchConfig.Name = "eth1";
-            ipv6AcceptRAConfig.UsePREF64 = true;
-          };
-        };
-
-        services.clatd.enable = true;
-
-        environment.systemPackages = [ pkgs.mtr ];
+      networking = {
+        useDHCP = false;
+        interfaces.eth1 = lib.mkForce {};
       };
+
+      systemd.network = {
+        enable = true;
+        networks."vlan1" = {
+          matchConfig.Name = "eth1";
+          ipv6AcceptRAConfig.UsePREF64 = true;
+        };
+      };
+
+      services.clatd.enable = true;
+
+      environment.systemPackages = [pkgs.mtr];
+    };
   };
 
   testScript = ''

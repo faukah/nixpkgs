@@ -4,19 +4,15 @@
   fetchFromGitHub,
   fetchpatch,
   runtimeShell,
-
   # build
   poetry-core,
-
   # propagates
   docutils,
-
   # tests
   pytestCheckHook,
   readme-renderer,
   textile,
 }:
-
 buildPythonPackage rec {
   pname = "python-creole";
   version = "1.4.10";
@@ -38,7 +34,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -47,9 +43,9 @@ buildPythonPackage rec {
     sed -i "/-cov/d" pytest.ini
   '';
 
-  propagatedBuildInputs = [ docutils ];
+  propagatedBuildInputs = [docutils];
 
-  pythonImportsCheck = [ "creole" ];
+  pythonImportsCheck = ["creole"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -95,6 +91,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jedie/python-creole";
     changelog = "https://github.com/jedie/python-creole/releases/tag/v${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

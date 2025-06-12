@@ -11,7 +11,6 @@
   libXau,
   libXdmcp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fricas";
   version = "1.3.11";
@@ -47,6 +46,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.bsd3;
 
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.sprock ];
+    maintainers = [lib.maintainers.sprock];
   };
 }

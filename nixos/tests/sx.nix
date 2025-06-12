@@ -1,42 +1,41 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "sx";
   meta.maintainers = with lib.maintainers; [
     figsoda
     thiagokokada
   ];
 
-  nodes.machine =
-    { ... }:
-    {
-      imports = [ ./common/user-account.nix ];
+  nodes.machine = {...}: {
+    imports = [./common/user-account.nix];
 
-      environment.systemPackages = with pkgs; [ icewm ];
+    environment.systemPackages = with pkgs; [icewm];
 
-      services.getty.autologinUser = "alice";
+    services.getty.autologinUser = "alice";
 
-      services.xserver = {
-        enable = true;
-        displayManager.sx.enable = true;
-      };
-
-      # Create sxrc file on login and start sx
-      programs.bash.loginShellInit =
-        # bash
-        ''
-          mkdir -p "$HOME/.config/sx"
-          echo 'exec icewm' > "$HOME/.config/sx/sxrc"
-          chmod +x "$HOME/.config/sx/sxrc"
-
-          sx
-        '';
+    services.xserver = {
+      enable = true;
+      displayManager.sx.enable = true;
     };
 
-  testScript =
-    { nodes, ... }:
-    let
-      user = nodes.machine.users.users.alice;
-    in
+    # Create sxrc file on login and start sx
+    programs.bash.loginShellInit =
+      # bash
+      ''
+        mkdir -p "$HOME/.config/sx"
+        echo 'exec icewm' > "$HOME/.config/sx/sxrc"
+        chmod +x "$HOME/.config/sx/sxrc"
+
+        sx
+      '';
+  };
+
+  testScript = {nodes, ...}: let
+    user = nodes.machine.users.users.alice;
+  in
     # python
     ''
       start_all()

@@ -23,7 +23,6 @@
   wayland,
   wlx-overlay-s,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wlx-overlay-s";
   version = "25.4.2";
@@ -69,16 +68,16 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    tests.testVersion = testers.testVersion { package = wlx-overlay-s; };
+    tests.testVersion = testers.testVersion {package = wlx-overlay-s;};
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Wayland/X11 desktop overlay for SteamVR and OpenXR, Vulkan edition";
     homepage = "https://github.com/galister/wlx-overlay-s";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ Scrumplex ];
+    maintainers = with lib.maintainers; [Scrumplex];
     platforms = lib.platforms.linux;
     broken = stdenv.hostPlatform.isAarch64;
     mainProgram = "wlx-overlay-s";

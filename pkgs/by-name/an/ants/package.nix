@@ -7,7 +7,6 @@
   itk,
   vtk,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ANTs";
   version = "2.6.2";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ANTsX/ANTs";
     license = lib.licenses.asl20;
     mainProgram = "antsRegistration";
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
     platforms = lib.platforms.unix;
   };
 })

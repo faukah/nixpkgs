@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "pycotap";
   version = "1.3.1";
@@ -18,6 +17,6 @@ buildPythonPackage rec {
     description = "Test runner for unittest that outputs TAP results to stdout";
     homepage = "https://el-tramo.be/pycotap";
     license = licenses.mit;
-    maintainers = with maintainers; [ mwolfe ];
+    maintainers = with maintainers; [mwolfe];
   };
 }

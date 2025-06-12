@@ -12,7 +12,6 @@
   libxkbfile,
   SDL2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-input-overlay";
   version = "5.0.6";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Show keyboard, gamepad and mouse input on stream";
     homepage = "https://github.com/univrsal/input-overlay";
-    maintainers = with lib.maintainers; [ glittershark ];
+    maintainers = with lib.maintainers; [glittershark];
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
     # never built on aarch64-linux since first introduction in nixpkgs

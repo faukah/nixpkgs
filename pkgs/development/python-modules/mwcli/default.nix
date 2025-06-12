@@ -5,7 +5,6 @@
   docopt,
   para,
 }:
-
 buildPythonPackage rec {
   pname = "mwcli";
   version = "0.0.3";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
   };
 
   # Prevent circular dependency
-  pythonRemoveDeps = [ "mwxml" ];
+  pythonRemoveDeps = ["mwxml"];
 
   propagatedBuildInputs = [
     docopt
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "Set of helper functions and classes for mediawiki-utilities command-line utilities";
     homepage = "https://github.com/mediawiki-utilities/python-mwcli";
     license = licenses.mit;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

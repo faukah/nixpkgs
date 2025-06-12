@@ -8,7 +8,6 @@
   coreutils,
   file,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "discord-sh";
   version = "2.0.0";
@@ -31,7 +30,7 @@ stdenvNoCC.mkDerivation rec {
       --replace 'thisdir="$(cd "$(dirname "$(readlink -f "''${BASH_SOURCE[0]}")")" && pwd)"' 'thisdir="$(pwd)"'
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   doInstallCheck = true;
 
@@ -46,13 +45,13 @@ stdenvNoCC.mkDerivation rec {
     install -Dm555 discord.sh $out/bin/discord.sh
     wrapProgram $out/bin/discord.sh \
       --set PATH "${
-        lib.makeBinPath [
-          curl
-          jq
-          coreutils
-          file
-        ]
-      }"
+      lib.makeBinPath [
+        curl
+        jq
+        coreutils
+        file
+      ]
+    }"
     runHook postInstall
   '';
 
@@ -62,6 +61,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/ChaoticWeg/discord.sh";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

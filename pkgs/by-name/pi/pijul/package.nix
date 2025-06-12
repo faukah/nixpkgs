@@ -11,7 +11,6 @@
   gitImportSupport ? true,
   libgit2 ? null,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pijul";
   version = "1.0.0-beta.9";
@@ -29,11 +28,13 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
     pkg-config
   ];
-  buildInputs = [
-    openssl
-    libsodium
-    xxHash
-  ] ++ (lib.optionals gitImportSupport [ libgit2 ]);
+  buildInputs =
+    [
+      openssl
+      libsodium
+      xxHash
+    ]
+    ++ (lib.optionals gitImportSupport [libgit2]);
 
   buildFeatures = lib.optional gitImportSupport "git";
 
@@ -47,7 +48,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Distributed version control system";
     homepage = "https://pijul.org";
-    license = with licenses; [ gpl2Plus ];
+    license = with licenses; [gpl2Plus];
     maintainers = with maintainers; [
       gal_bolle
       dywedir

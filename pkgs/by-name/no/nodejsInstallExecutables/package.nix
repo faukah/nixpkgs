@@ -5,7 +5,6 @@
   nodejs,
   jq,
 }:
-
 makeSetupHook {
   name = "nodejs-install-executables";
   propagatedBuildInputs = [
@@ -16,4 +15,5 @@ makeSetupHook {
     hostNode = "${nodejs}/bin/node";
     jq = "${jq}/bin/jq";
   };
-} ./hook.sh
+}
+./hook.sh

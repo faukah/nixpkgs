@@ -10,7 +10,6 @@
   testtools,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "changelog-chug";
   version = "0.0.3";
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     description = "Changelog document parser";
     homepage = "https://git.sr.ht/~bignose/changelog-chug";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

@@ -21,7 +21,6 @@
   scipy,
   tqdm,
   tzlocal,
-
   # test
   pytestCheckHook,
   pytest-mock,
@@ -37,7 +36,6 @@
   responses,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "great-expectations";
   version = "1.3.2";
@@ -56,7 +54,7 @@ buildPythonPackage rec {
       --replace-fail '"ignore::marshmallow.warnings.ChangedInMarshmallow4Warning",' ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     altair
@@ -127,8 +125,8 @@ buildPythonPackage rec {
     "test_checkpoint_run_with_slack_action_no_page_links"
   ];
 
-  pythonImportsCheck = [ "great_expectations" ];
-  pytestFlagsArray = [ "-m 'not spark and not postgresql and not snowflake'" ];
+  pythonImportsCheck = ["great_expectations"];
+  pytestFlagsArray = ["-m 'not spark and not postgresql and not snowflake'"];
 
   meta = {
     broken = true; # 408 tests fail
@@ -136,6 +134,6 @@ buildPythonPackage rec {
     homepage = "https://docs.greatexpectations.io";
     changelog = "https://github.com/great-expectations/great_expectations/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

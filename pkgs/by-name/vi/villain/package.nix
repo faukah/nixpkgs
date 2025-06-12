@@ -5,7 +5,6 @@
   python3Packages,
   makeWrapper,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "villain";
   version = "2.2.1";
@@ -18,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-eIPxidBBVmjt/E1F8G3zPwteB1qsk3a5LD69CiNVApY=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dependencies = with python3Packages; [
     gnureadline
@@ -44,7 +43,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/t3l3machus/Villain";
     license = lib.licenses.cc-by-nc-nd-40;
     mainProgram = "villain";
-    maintainers = with lib.maintainers; [ d3vil0p3r ];
+    maintainers = with lib.maintainers; [d3vil0p3r];
     platforms = lib.platforms.unix;
   };
 }

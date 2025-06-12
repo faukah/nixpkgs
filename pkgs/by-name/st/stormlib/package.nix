@@ -8,7 +8,6 @@
   zlib,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stormlib";
   version = "9.30";

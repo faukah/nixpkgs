@@ -4,23 +4,19 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   poetry-core,
-
   # dependencies
   docstring-to-markdown,
   jedi,
   lsprotocol,
   pydantic,
   pygls,
-
   # tests
   pytestCheckHook,
   pyhamcrest,
   python-lsp-jsonrpc,
 }:
-
 buildPythonPackage rec {
   pname = "jedi-language-server";
   version = "0.45.1";
@@ -63,7 +59,7 @@ buildPythonPackage rec {
     "test_publish_diagnostics_on_save"
   ];
 
-  pythonImportsCheck = [ "jedi_language_server" ];
+  pythonImportsCheck = ["jedi_language_server"];
 
   meta = {
     description = "Language Server for the latest version(s) of Jedi";
@@ -71,6 +67,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pappasam/jedi-language-server";
     changelog = "https://github.com/pappasam/jedi-language-server/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

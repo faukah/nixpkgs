@@ -1,17 +1,18 @@
-{ stdenv, unzip, ... }:
-
-let
-  buildMoodlePlugin =
-    a@{
-      name,
-      src,
-      pluginType,
-      configurePhase ? ":",
-      buildPhase ? ":",
-      buildInputs ? [ ],
-      nativeBuildInputs ? [ ],
-      ...
-    }:
+{
+  stdenv,
+  unzip,
+  ...
+}: let
+  buildMoodlePlugin = a @ {
+    name,
+    src,
+    pluginType,
+    configurePhase ? ":",
+    buildPhase ? ":",
+    buildInputs ? [],
+    nativeBuildInputs ? [],
+    ...
+  }:
     stdenv.mkDerivation (
       a
       // {
@@ -20,7 +21,7 @@ let
         inherit pluginType;
         inherit configurePhase buildPhase buildInputs;
 
-        nativeBuildInputs = [ unzip ] ++ nativeBuildInputs;
+        nativeBuildInputs = [unzip] ++ nativeBuildInputs;
 
         installPhase = ''
           runHook preInstall
@@ -32,7 +33,6 @@ let
         '';
       }
     );
-in
-{
+in {
   inherit buildMoodlePlugin;
 }

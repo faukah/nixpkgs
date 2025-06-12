@@ -5,7 +5,6 @@
   texlive,
   callPackage,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "junicode";
   version = "2.209";
@@ -21,7 +20,7 @@ stdenvNoCC.mkDerivation rec {
     "tex"
   ];
 
-  patches = [ ./tex-font-path.patch ];
+  patches = [./tex-font-path.patch];
 
   postPatch = ''
     substituteInPlace TeX/junicode.sty \
@@ -52,13 +51,13 @@ stdenvNoCC.mkDerivation rec {
       fontspec
     ];
 
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
   meta = {
     homepage = "https://github.com/psb1558/Junicode-font";
     description = "Unicode font for medievalists";
-    maintainers = with lib.maintainers; [ ivan-timokhin ];
+    maintainers = with lib.maintainers; [ivan-timokhin];
     license = lib.licenses.ofl;
   };
 }

@@ -9,7 +9,6 @@
   pandas,
   bokeh,
 }:
-
 buildPythonPackage rec {
   pname = "backtesting";
   version = "0.6.3";
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://kernc.github.io/backtesting.py/";
     changelog = "https://github.com/kernc/backtesting.py/blob/${version}/CHANGELOG.md";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ appleboblin ];
+    maintainers = with lib.maintainers; [appleboblin];
   };
 }

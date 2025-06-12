@@ -3,17 +3,13 @@
   stdenv,
   fetchFromGitHub,
   fetchpatch,
-
   # build
   cmake,
   pkg-config,
-
   # runtime
   espeak-ng,
   onnxruntime,
-}:
-
-let
+}: let
   espeak-ng' = espeak-ng.overrideAttrs (oldAttrs: {
     version = "1.52-dev";
     src = fetchFromGitHub {
@@ -32,40 +28,40 @@ let
     ];
   });
 in
-stdenv.mkDerivation rec {
-  pname = "piper-phonemize";
-  version = "2023.11.14-4";
+  stdenv.mkDerivation rec {
+    pname = "piper-phonemize";
+    version = "2023.11.14-4";
 
-  src = fetchFromGitHub {
-    owner = "rhasspy";
-    repo = "piper-phonemize";
-    tag = version;
-    hash = "sha256-pj1DZUhy3XWGn+wNtxKKDWET9gsfofEB0NZ+EEQz9q0=";
-  };
+    src = fetchFromGitHub {
+      owner = "rhasspy";
+      repo = "piper-phonemize";
+      tag = version;
+      hash = "sha256-pj1DZUhy3XWGn+wNtxKKDWET9gsfofEB0NZ+EEQz9q0=";
+    };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+    ];
 
-  cmakeFlags = [
-    "-DONNXRUNTIME_DIR=${onnxruntime.dev}"
-    "-DESPEAK_NG_DIR=${espeak-ng'}"
-  ];
+    cmakeFlags = [
+      "-DONNXRUNTIME_DIR=${onnxruntime.dev}"
+      "-DESPEAK_NG_DIR=${espeak-ng'}"
+    ];
 
-  buildInputs = [
-    espeak-ng'
-    onnxruntime
-  ];
+    buildInputs = [
+      espeak-ng'
+      onnxruntime
+    ];
 
-  passthru = {
-    espeak-ng = espeak-ng';
-  };
+    passthru = {
+      espeak-ng = espeak-ng';
+    };
 
-  meta = with lib; {
-    description = "C++ library for converting text to phonemes for Piper";
-    homepage = "https://github.com/rhasspy/piper-phonemize";
-    license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
-  };
-}
+    meta = with lib; {
+      description = "C++ library for converting text to phonemes for Piper";
+      homepage = "https://github.com/rhasspy/piper-phonemize";
+      license = licenses.mit;
+      maintainers = with maintainers; [hexa];
+    };
+  }

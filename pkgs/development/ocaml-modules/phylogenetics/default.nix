@@ -13,7 +13,6 @@
   menhirLib,
   printbox-text,
 }:
-
 buildDunePackage rec {
   pname = "phylogenetics";
   version = "0.3.0";
@@ -25,9 +24,9 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.08";
 
-  nativeCheckInputs = [ bppsuite ];
-  checkInputs = [ alcotest ];
-  nativeBuildInputs = [ menhir ];
+  nativeCheckInputs = [bppsuite];
+  checkInputs = [alcotest];
+  nativeBuildInputs = [menhir];
   propagatedBuildInputs = [
     angstrom-unix
     biotk
@@ -49,7 +48,7 @@ buildDunePackage rec {
     description = "Algorithms and datastructures for phylogenetics";
     homepage = "https://github.com/biocaml/phylogenetics";
     license = licenses.cecill-b;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     mainProgram = "phylosim";
   };
 }

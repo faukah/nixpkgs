@@ -6,7 +6,6 @@
   libkvm,
   csu,
 }:
-
 mkDerivation {
   path = "lib/libmemstat";
 

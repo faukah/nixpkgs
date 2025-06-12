@@ -10,7 +10,6 @@
   pythonOlder,
   trustme,
 }:
-
 buildPythonPackage rec {
   pname = "aiosmtplib";
   version = "4.0.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-DHZyed94XgixMTeKQ7Lj4oykL42HMmEMSdNGRHCiRvM=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   nativeCheckInputs = [
     aiosmtpd
@@ -35,13 +34,13 @@ buildPythonPackage rec {
     trustme
   ];
 
-  pythonImportsCheck = [ "aiosmtplib" ];
+  pythonImportsCheck = ["aiosmtplib"];
 
   meta = with lib; {
     description = "Module which provides a SMTP client";
     homepage = "https://github.com/cole/aiosmtplib";
     changelog = "https://github.com/cole/aiosmtplib/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

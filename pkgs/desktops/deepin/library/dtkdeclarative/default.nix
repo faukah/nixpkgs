@@ -8,7 +8,6 @@
   libsForQt5,
   dtkgui,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dtkdeclarative";
   version = "5.6.32";
@@ -68,6 +67,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dtkdeclarative";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

@@ -17,7 +17,6 @@
     lib.meta.availableOn stdenv.hostPlatform gobject-introspection
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgudev";
   version = "238";
@@ -85,7 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Library that provides GObject bindings for libudev";
     homepage = "https://gitlab.gnome.org/GNOME/libgudev";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
     license = licenses.lgpl2Plus;
   };

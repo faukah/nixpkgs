@@ -20,7 +20,6 @@
   alcotest-lwt,
   cstruct,
 }:
-
 buildDunePackage rec {
   pname = "paf";
   version = "0.8.0";
@@ -61,7 +60,7 @@ buildDunePackage rec {
   meta = {
     description = "HTTP/AF and MirageOS";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
     homepage = "https://github.com/dinosaure/paf-le-chien";
   };
 }

@@ -7,21 +7,18 @@
   libmediainfo,
   jdk17,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ums";
   version = "13.2.1";
 
-  src =
-    let
-      selectSystem =
-        attrs:
-        attrs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-      arch = selectSystem {
-        x86_64-linux = "x86_64";
-        aarch64-linux = "arm64";
-      };
-    in
+  src = let
+    selectSystem = attrs:
+      attrs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    arch = selectSystem {
+      x86_64-linux = "x86_64";
+      aarch64-linux = "arm64";
+    };
+  in
     fetchurl {
       url = "mirror://sourceforge/project/unimediaserver/${version}/UMS-${version}-${arch}.tgz";
       hash = selectSystem {
@@ -30,7 +27,7 @@ stdenv.mkDerivation rec {
       };
     };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -45,11 +42,11 @@ stdenv.mkDerivation rec {
 
     makeWrapper $out/UMS.sh $out/bin/ums \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          libzen
-          libmediainfo
-        ]
-      } \
+      lib.makeLibraryPath [
+        libzen
+        libmediainfo
+      ]
+    } \
       --set JAVA_HOME ${jdk17}
 
     runHook postInstall

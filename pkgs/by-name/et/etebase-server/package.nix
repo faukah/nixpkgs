@@ -7,7 +7,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "etebase-server";
   version = "0.14.2";
@@ -19,12 +18,11 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-W2u/d8X8luOzgy1CLNgujnwaoO1pR1QO1Ma7i4CGkdU=";
   };
 
-  patches = [ ./secret.patch ];
+  patches = [./secret.patch];
 
   doCheck = false;
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       aiofiles
       django_4
@@ -51,7 +49,7 @@ python3.pkgs.buildPythonApplication rec {
     chmod +x $out/bin/etebase-server
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
   passthru.python = python3;
   # PYTHONPATH of all dependencies used by the package
   passthru.pythonPath = python3.pkgs.makePythonPath propagatedBuildInputs;

@@ -13,7 +13,6 @@
   setuptools,
   tenacity,
 }:
-
 buildPythonPackage rec {
   pname = "pydaikin";
   version = "2.16.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -46,14 +45,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pydaikin" ];
+  pythonImportsCheck = ["pydaikin"];
 
   meta = with lib; {
     description = "Python Daikin HVAC appliances interface";
     homepage = "https://github.com/fredrike/pydaikin";
     changelog = "https://github.com/fredrike/pydaikin/releases/tag/${src.tag}";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
     mainProgram = "pydaikin";
   };
 }

@@ -26,6 +26,6 @@ buildGoModule rec {
     mainProgram = "nix-store-gcs-proxy";
     homepage = "https://github.com/tweag/nix-store-gcs-proxy";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ zimbatm ];
+    maintainers = with lib.maintainers; [zimbatm];
   };
 }

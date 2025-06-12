@@ -10,7 +10,6 @@
   pythonOlder,
   sensor-state-data,
 }:
-
 buildPythonPackage rec {
   pname = "kegtron-ble";
   version = "0.4.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-O5I5shW8nL2RAQptS2Bp/GI/4L6o0xXXmwYvRq0MM8o=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     bluetooth-data-tools
@@ -38,13 +37,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "kegtron_ble" ];
+  pythonImportsCheck = ["kegtron_ble"];
 
   meta = with lib; {
     description = "Library for Kegtron BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/kegtron-ble";
     changelog = "https://github.com/Bluetooth-Devices/kegtron-ble/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

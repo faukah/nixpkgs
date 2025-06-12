@@ -17,8 +17,8 @@
     images = [
       {
         path = "/media/porn-vault/images";
-        include = [ ];
-        exclude = [ ];
+        include = [];
+        exclude = [];
         extensions = [
           ".jpg"
           ".jpeg"
@@ -31,8 +31,8 @@
     videos = [
       {
         path = "/media/porn-vault/videos";
-        include = [ ];
-        exclude = [ ];
+        include = [];
+        exclude = [];
         extensions = [
           ".mp4"
           ".mov"
@@ -119,15 +119,15 @@
     createMissingMovies = false;
     createMissingStudios = false;
     events = {
-      actorCreated = [ ];
-      actorCustom = [ ];
-      sceneCreated = [ ];
-      sceneCustom = [ ];
-      movieCustom = [ ];
-      studioCreated = [ ];
-      studioCustom = [ ];
+      actorCreated = [];
+      actorCustom = [];
+      sceneCreated = [];
+      sceneCustom = [];
+      movieCustom = [];
+      studioCreated = [];
+      studioCustom = [];
     };
-    register = { };
+    register = {};
     markerDeduplicationThreshold = 5;
   };
   processing = {

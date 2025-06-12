@@ -1,14 +1,11 @@
 # This module defines the software packages included in the "minimal"
 # installation CD. It might be useful elsewhere.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   # Include some utilities that are useful for installing or repairing
   # the system.
   environment.systemPackages = [

@@ -8,7 +8,6 @@
   pycryptodome,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "bloodhound-py";
   version = "1.8.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-Ne0PH92isdeaTp2JHKvixVMJoydDru0W2IXz2An0CbM=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     dnspython
@@ -32,13 +31,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "bloodhound" ];
+  pythonImportsCheck = ["bloodhound"];
 
   meta = with lib; {
     description = "Python based ingestor for BloodHound, based on Impacket";
     mainProgram = "bloodhound-python";
     homepage = "https://github.com/dirkjanm/BloodHound.py";
     license = licenses.mit;
-    maintainers = with maintainers; [ exploitoverload ];
+    maintainers = with maintainers; [exploitoverload];
   };
 }

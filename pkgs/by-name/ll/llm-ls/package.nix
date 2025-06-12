@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "llm-ls";
   version = "0.5.3";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
 
   buildAndTestSubdir = "crates/llm-ls";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   nativeInstallCheckInputs = [
     versionCheckHook
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -50,7 +49,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/huggingface/llm-ls";
     changelog = "https://github.com/huggingface/llm-ls/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jfvillablanca ];
+    maintainers = with lib.maintainers; [jfvillablanca];
     platforms = lib.platforms.all;
     mainProgram = "llm-ls";
   };

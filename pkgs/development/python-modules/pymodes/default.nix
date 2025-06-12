@@ -10,7 +10,6 @@
   pyzmq,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pymodes";
   version = "2.20";
@@ -36,15 +35,15 @@ buildPythonPackage rec {
     pyzmq
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyModeS" ];
+  pythonImportsCheck = ["pyModeS"];
 
   meta = with lib; {
     description = "Python Mode-S and ADS-B Decoder";
     homepage = "https://github.com/junzis/pyModeS";
     changelog = "https://github.com/junzis/pyModeS/releases/tag/${src.tag}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ snicket2100 ];
+    maintainers = with maintainers; [snicket2100];
   };
 }

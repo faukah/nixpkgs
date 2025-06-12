@@ -28,7 +28,6 @@
   withX11 ? true,
   withWayland ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dunst";
   version = "1.12.2";
@@ -92,11 +91,11 @@ stdenv.mkDerivation (finalAttrs: {
 
     wrapProgram $out/bin/dunstctl \
       --prefix PATH : "${
-        lib.makeBinPath [
-          coreutils
-          dbus
-        ]
-      }"
+      lib.makeBinPath [
+        coreutils
+        dbus
+      ]
+    }"
 
     substituteInPlace \
       $out/share/zsh/site-functions/_dunstctl \
@@ -112,7 +111,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

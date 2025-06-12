@@ -11,7 +11,6 @@
   nix-update,
   tomlq,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "hdr10plus_tool";
   version = "1.7.0";
@@ -26,11 +25,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-3D0HjDtKwYoi9bpQnosC/TPNBjfiWi5m1CH1eGQpGg0=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ fontconfig ];
+  buildInputs = [fontconfig];
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeCheckInputs = [writableTmpDirAsHomeHook];
   preCheck = ''
     export FONTCONFIG_FILE="${fontconfig.out}/etc/fonts/fonts.conf";
   '';
@@ -56,7 +55,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/quietvoid/hdr10plus_tool";
     changelog = "https://github.com/quietvoid/hdr10plus_tool/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ johnrtitor ];
+    maintainers = with lib.maintainers; [johnrtitor];
     mainProgram = "hdr10plus_tool";
   };
 })

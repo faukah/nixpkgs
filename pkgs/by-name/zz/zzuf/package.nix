@@ -6,7 +6,6 @@
   pkg-config,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zzuf";
   version = "0.15";
@@ -39,6 +38,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://caca.zoy.org/wiki/zzuf";
     license = lib.licenses.wtfpl;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ lihop ];
+    maintainers = with lib.maintainers; [lihop];
   };
 })

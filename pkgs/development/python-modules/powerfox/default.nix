@@ -15,7 +15,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "powerfox";
   version = "1.2.1";
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     # requires poetry-core>=2.0
     (fetchpatch2 {
       url = "https://github.com/klaasnicolaas/python-powerfox/commit/e3f1e39573fc278cd2800a2d4f4315cf0aff592b.patch";
-      includes = [ "pyproject.toml" ];
+      includes = ["pyproject.toml"];
       hash = "sha256-hkXLT3IWBVlbAwWvu/erENEsxOuIb8wv9UIVtAZqMPc=";
       revert = true;
     })
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -57,13 +56,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "powerfox" ];
+  pythonImportsCheck = ["powerfox"];
 
   meta = {
     description = "Asynchronous Python client for the Powerfox devices";
     homepage = "https://github.com/klaasnicolaas/python-powerfox";
     changelog = "https://github.com/klaasnicolaas/python-powerfox/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

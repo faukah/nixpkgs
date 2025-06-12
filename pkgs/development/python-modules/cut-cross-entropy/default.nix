@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   torch,
   triton,
-
   # optional-dependencies
   accelerate,
   datasets,
@@ -21,7 +18,6 @@
   tqdm,
   transformers,
 }:
-
 buildPythonPackage {
   pname = "cut-cross-entropy";
   version = "25.3.1";
@@ -47,7 +43,7 @@ buildPythonPackage {
   ];
 
   optional-dependencies = {
-    transformers = [ transformers ];
+    transformers = [transformers];
     all = [
       accelerate
       datasets
@@ -63,7 +59,7 @@ buildPythonPackage {
     # ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "cut_cross_entropy"
@@ -73,6 +69,6 @@ buildPythonPackage {
     description = "Memory-efficient cross-entropy loss implementation using Cut Cross-Entropy (CCE)";
     homepage = "https://github.com/apple/ml-cross-entropy";
     license = lib.licenses.aml;
-    maintainers = with lib.maintainers; [ hoh ];
+    maintainers = with lib.maintainers; [hoh];
   };
 }

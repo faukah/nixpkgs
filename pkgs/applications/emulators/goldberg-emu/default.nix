@@ -5,7 +5,6 @@
   cmake,
   protobuf,
 }:
-
 stdenv.mkDerivation rec {
   pname = "goldberg-emu";
   version = "0.2.5";
@@ -18,15 +17,15 @@ stdenv.mkDerivation rec {
   };
 
   # It attempts to install windows-only libraries which we never build
-  patches = [ ./dont-install-unsupported.patch ];
+  patches = [./dont-install-unsupported.patch];
 
   postPatch = ''
     # Fix gcc-13 build failure due to missing <string> include.
     sed -e '1i #include <string>' -i dll/settings.h
   '';
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ protobuf ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [protobuf];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}/share/goldberg"
@@ -54,6 +53,6 @@ stdenv.mkDerivation rec {
     mainProgram = "lobby_connect";
     license = licenses.lgpl3Only;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -6,9 +6,7 @@
   readline,
   bison,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "es";
   version = "0.9.2";
 
@@ -34,10 +32,10 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-  nativeBuildInputs = [ bison ];
-  buildInputs = [ readline ];
+  nativeBuildInputs = [bison];
+  buildInputs = [readline];
 
-  configureFlags = [ "--with-readline" ];
+  configureFlags = ["--with-readline"];
 
   meta = with lib; {
     description = "Extensible shell with higher order functions";

@@ -8,7 +8,6 @@
   ppxlib,
   yojson,
 }:
-
 buildDunePackage rec {
   pname = "graphql_ppx";
   version = "1.2.2";
@@ -24,7 +23,7 @@ buildDunePackage rec {
     sha256 = "sha256-+WJhA2ixZHiSZBoX14dnQKk7JfVAIME4JooNSnhRp44=";
   };
 
-  nativeBuildInputs = [ reason ];
+  nativeBuildInputs = [reason];
 
   buildInputs = [
     ppxlib
@@ -37,7 +36,7 @@ buildDunePackage rec {
     yojson
   ];
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   doCheck = true;
 

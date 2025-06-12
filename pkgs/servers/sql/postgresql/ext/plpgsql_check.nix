@@ -5,7 +5,6 @@
   postgresqlBuildExtension,
   postgresqlTestExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "plpgsql-check";
   version = "2.7.15";
@@ -28,6 +27,6 @@ postgresqlBuildExtension (finalAttrs: {
     changelog = "https://github.com/okbob/plpgsql_check/releases/tag/v${finalAttrs.version}";
     platforms = postgresql.meta.platforms;
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

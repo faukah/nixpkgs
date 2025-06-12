@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "audion";
   version = "0.2.1";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/audiusGmbH/audion";
     changelog = "https://github.com/audiusGmbH/audion/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "audion";
   };
 }

@@ -12,7 +12,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "s3-credentials";
   version = "0.16.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-TuGrKSfnn0CSMpRxdCM6C446z+y9d2ZLB7+wSCxSqP4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     boto3
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "s3_credentials" ];
+  pythonImportsCheck = ["s3_credentials"];
 
   disabledTests = [
     # AssertionError: assert 'directory/th...ory/...
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/s3-credentials";
     changelog = "https://github.com/simonw/s3-credentials/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ techknowlogick ];
+    maintainers = with maintainers; [techknowlogick];
     mainProgram = "s3-credentials";
   };
 }

@@ -8,7 +8,6 @@
   trurl,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "trurl";
   version = "0.16.1";
@@ -37,17 +36,17 @@ stdenv.mkDerivation rec {
     curl
     perl
   ];
-  buildInputs = [ curl ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  buildInputs = [curl];
+  makeFlags = ["PREFIX=$(out)"];
 
   strictDeps = true;
 
   doCheck = true;
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
   checkTarget = "test";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://curl.se/trurl";
     changelog = "https://github.com/curl/trurl/releases/tag/trurl-${version}";
     license = lib.licenses.curl;
-    maintainers = with lib.maintainers; [ christoph-heiss ];
+    maintainers = with lib.maintainers; [christoph-heiss];
     platforms = lib.platforms.all;
     mainProgram = "trurl";
   };

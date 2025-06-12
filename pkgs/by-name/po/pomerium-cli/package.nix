@@ -2,35 +2,33 @@
   buildGoModule,
   fetchFromGitHub,
   lib,
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     concatStringsSep
     concatMap
     id
     mapAttrsToList
     ;
 in
-buildGoModule rec {
-  pname = "pomerium-cli";
-  version = "0.29.1";
+  buildGoModule rec {
+    pname = "pomerium-cli";
+    version = "0.29.1";
 
-  src = fetchFromGitHub {
-    owner = "pomerium";
-    repo = "cli";
-    rev = "v${version}";
-    sha256 = "sha256-CcXreKZ83+WDucV3sr62bwKzSs+S9R3e+z0JD0rR8jw=";
-  };
+    src = fetchFromGitHub {
+      owner = "pomerium";
+      repo = "cli";
+      rev = "v${version}";
+      sha256 = "sha256-CcXreKZ83+WDucV3sr62bwKzSs+S9R3e+z0JD0rR8jw=";
+    };
 
-  vendorHash = "sha256-k6HOIpz0cPCkP3TXg62u+tuYd41TF+YAoCWINAcFoB8=";
+    vendorHash = "sha256-k6HOIpz0cPCkP3TXg62u+tuYd41TF+YAoCWINAcFoB8=";
 
-  subPackages = [
-    "cmd/pomerium-cli"
-  ];
+    subPackages = [
+      "cmd/pomerium-cli"
+    ];
 
-  ldflags =
-    let
+    ldflags = let
       # Set a variety of useful meta variables for stamping the build with.
       setVars = {
         "github.com/pomerium/cli/version" = {
@@ -45,28 +43,28 @@ buildGoModule rec {
       varFlags = concatStringsSpace (
         mapAttrsToFlatList (
           package: packageVars:
-          mapAttrsToList (variable: value: "-X ${package}.${variable}=${value}") packageVars
-        ) setVars
+            mapAttrsToList (variable: value: "-X ${package}.${variable}=${value}") packageVars
+        )
+        setVars
       );
-    in
-    [
+    in [
       "${varFlags}"
     ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -Dm0755 $GOPATH/bin/pomerium-cli $out/bin/pomerium-cli
+      install -Dm0755 $GOPATH/bin/pomerium-cli $out/bin/pomerium-cli
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    homepage = "https://pomerium.io";
-    description = "Client-side helper for Pomerium authenticating reverse proxy";
-    mainProgram = "pomerium-cli";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ lukegb ];
-    platforms = platforms.unix;
-  };
-}
+    meta = with lib; {
+      homepage = "https://pomerium.io";
+      description = "Client-side helper for Pomerium authenticating reverse proxy";
+      mainProgram = "pomerium-cli";
+      license = licenses.asl20;
+      maintainers = with maintainers; [lukegb];
+      platforms = platforms.unix;
+    };
+  }

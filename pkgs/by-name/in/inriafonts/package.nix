@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "inriafonts";
   version = "1.200";
@@ -38,7 +37,7 @@ stdenvNoCC.mkDerivation rec {
       serif. Both members comes in 3 weights with matching italics.
     '';
     license = licenses.ofl;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.all;
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "pre2k";
   version = "3.0";
@@ -44,7 +43,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/garrettfoster13/pre2k";
     changelog = "https://github.com/garrettfoster13/pre2k/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "pre2k";
   };
 }

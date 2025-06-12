@@ -5,7 +5,6 @@
   removeReferencesTo,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pkgconf";
   version = "2.4.3";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     "doc"
   ];
 
-  nativeBuildInputs = [ removeReferencesTo ];
+  nativeBuildInputs = [removeReferencesTo];
 
   enableParallelBuilding = true;
 

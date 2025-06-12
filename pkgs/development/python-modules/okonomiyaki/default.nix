@@ -15,7 +15,6 @@
   testfixtures,
   zipfile2,
 }:
-
 buildPythonPackage rec {
   pname = "okonomiyaki";
   version = "2.0.0";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
       --replace-fail "long_description_content_type = rst" "long_description_content_type = text/x-rst"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
     all = [
@@ -57,12 +56,14 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    packaging
-    parameterized
-    pytestCheckHook
-    testfixtures
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      packaging
+      parameterized
+      pytestCheckHook
+      testfixtures
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   preCheck =
     ''
@@ -74,13 +75,13 @@ buildPythonPackage rec {
         --replace-fail 'self.assertEqual(platform_tag, self.tag.platform)' 'raise unittest.SkipTest()'
     '';
 
-  pythonImportsCheck = [ "okonomiyaki" ];
+  pythonImportsCheck = ["okonomiyaki"];
 
   meta = with lib; {
     description = "Experimental library aimed at consolidating a lot of low-level code used for Enthought's eggs";
     homepage = "https://github.com/enthought/okonomiyaki";
     changelog = "https://github.com/enthought/okonomiyaki/releases/tag/${version}";
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     license = licenses.bsd3;
   };
 }

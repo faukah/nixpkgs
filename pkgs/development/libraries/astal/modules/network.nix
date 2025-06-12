@@ -1,6 +1,9 @@
-{ buildAstalModule, networkmanager }:
+{
+  buildAstalModule,
+  networkmanager,
+}:
 buildAstalModule {
   name = "network";
-  buildInputs = [ networkmanager ];
+  buildInputs = [networkmanager];
   meta.description = "Astal module for NetworkManager";
 }

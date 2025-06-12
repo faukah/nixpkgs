@@ -7,7 +7,6 @@
   ncurses,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "finalcut";
   version = "0.9.1";
@@ -25,14 +24,14 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   meta = {
     description = "Text-based widget toolkit";
     homepage = "https://github.com/gansm/finalcut";
     changelog = "https://github.com/gansm/finalcut/releases/tag/${finalAttrs.version}";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 })

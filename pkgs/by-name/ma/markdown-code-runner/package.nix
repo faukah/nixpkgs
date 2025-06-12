@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "markdown-code-runner";
   version = "0-unstable-2025-04-18";
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/drupol/markdown-code-runner";
     license = lib.licenses.eupl12;
     mainProgram = "mdcr";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     platforms = lib.platforms.all;
   };
 }

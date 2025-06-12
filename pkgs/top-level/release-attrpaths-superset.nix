@@ -27,9 +27,7 @@
   enableWarnings ? true,
   checkMeta ? true,
   path ? ./../..,
-}:
-let
-
+}: let
   # __attrsFailEvaluation is a temporary workaround to get top-level
   # eval to succeed (under builtins.tryEval) for the entire
   # packageset, without deep invasve changes into individual
@@ -59,54 +57,50 @@ let
   # attrnames of derivations (!).  We should probably restructure
   # the job tree so that this is not the case.
   #
-  justAttrNames =
-    path: value:
-    let
-      attempt =
-        if
-          lib.isDerivation value
-          &&
-            # in some places we have *derivations* with jobsets as subattributes, ugh
-            !(value.__recurseIntoDerivationForReleaseJobs or false)
-        then
-          [ path ]
-
-        # Even wackier case: we have meta.broken==true jobs with
-        # !meta.broken jobs as subattributes with license=unfree, and
-        # check-meta.nix won't throw an "unfree" failure because the
-        # enclosing derivation is marked broken.  Yeah.  Bonkers.
-        # We should just forbid jobsets enclosed by derivations.
-        else if lib.isDerivation value && !value.meta.available then
-          [ ]
-
-        else if !(lib.isAttrs value) then
-          [ ]
-        else if (value.__attrsFailEvaluation or false) then
-          [ ]
-        else
-          lib.pipe value [
-            (builtins.mapAttrs (
-              name: value:
+  justAttrNames = path: value: let
+    attempt =
+      if
+        lib.isDerivation value
+        &&
+        # in some places we have *derivations* with jobsets as subattributes, ugh
+        !(value.__recurseIntoDerivationForReleaseJobs or false)
+      then [path]
+      # Even wackier case: we have meta.broken==true jobs with
+      # !meta.broken jobs as subattributes with license=unfree, and
+      # check-meta.nix won't throw an "unfree" failure because the
+      # enclosing derivation is marked broken.  Yeah.  Bonkers.
+      # We should just forbid jobsets enclosed by derivations.
+      else if lib.isDerivation value && !value.meta.available
+      then []
+      else if !(lib.isAttrs value)
+      then []
+      else if (value.__attrsFailEvaluation or false)
+      then []
+      else
+        lib.pipe value [
+          (builtins.mapAttrs (
+            name: value:
               builtins.addErrorContext "while evaluating package set attribute path '${
-                lib.showAttrPath (path ++ [ name ])
-              }'" (justAttrNames (path ++ [ name ]) value)
-            ))
-            builtins.attrValues
-            builtins.concatLists
-          ];
+                lib.showAttrPath (path ++ [name])
+              }'" (justAttrNames (path ++ [name]) value)
+          ))
+          builtins.attrValues
+          builtins.concatLists
+        ];
 
-      seq = builtins.deepSeq attempt attempt;
-      tried = builtins.tryEval seq;
+    seq = builtins.deepSeq attempt attempt;
+    tried = builtins.tryEval seq;
 
-      result =
-        if tried.success then
-          tried.value
-        else if enableWarnings && path != [ "AAAAAASomeThingsFailToEvaluate" ] then
-          lib.warn "tryEval failed at: ${lib.concatStringsSep "." path}" [ ]
-        else
-          [ ];
-    in
-    if !trace then result else lib.trace "** ${lib.concatStringsSep "." path}" result;
+    result =
+      if tried.success
+      then tried.value
+      else if enableWarnings && path != ["AAAAAASomeThingsFailToEvaluate"]
+      then lib.warn "tryEval failed at: ${lib.concatStringsSep "." path}" []
+      else [];
+  in
+    if !trace
+    then result
+    else lib.trace "** ${lib.concatStringsSep "." path}" result;
 
   releaseOutpaths = import ./release-outpaths.nix {
     inherit checkMeta;
@@ -114,27 +108,27 @@ let
     inherit path;
   };
 
-  paths = [
-    # I am not entirely sure why these three packages end up in
-    # the Hydra jobset.  But they do, and they don't meet the
-    # criteria above, so at the moment they are special-cased.
+  paths =
     [
-      "pkgsLLVM"
-      "stdenv"
+      # I am not entirely sure why these three packages end up in
+      # the Hydra jobset.  But they do, and they don't meet the
+      # criteria above, so at the moment they are special-cased.
+      [
+        "pkgsLLVM"
+        "stdenv"
+      ]
+      [
+        "pkgsStatic"
+        "stdenv"
+      ]
+      [
+        "pkgsMusl"
+        "stdenv"
+      ]
     ]
-    [
-      "pkgsStatic"
-      "stdenv"
-    ]
-    [
-      "pkgsMusl"
-      "stdenv"
-    ]
-  ] ++ justAttrNames [ ] releaseOutpaths;
+    ++ justAttrNames [] releaseOutpaths;
 
   names = map (path: (lib.concatStringsSep "." path)) paths;
-
-in
-{
+in {
   inherit paths names;
 }

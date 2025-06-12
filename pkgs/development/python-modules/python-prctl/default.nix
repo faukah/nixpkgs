@@ -6,7 +6,6 @@
   pytestCheckHook,
   distutils,
 }:
-
 buildPythonPackage rec {
   pname = "python-prctl";
   version = "1.8.1";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "b4ca9a25a7d4f1ace4fffd1f3a2e64ef5208fe05f929f3edd5e27081ca7e67ce";
   };
 
-  buildInputs = [ libcap ];
+  buildInputs = [libcap];
 
   nativeCheckInputs = [
     distutils
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/seveas/python-prctl";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ catern ];
+    maintainers = with lib.maintainers; [catern];
   };
 }

@@ -6,7 +6,6 @@
   cmake,
   obs-studio,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "obs-recursion-effect";
   version = "0.1.0";
@@ -18,8 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-PeWJy423QbX4NULuS15LJ/IR/W+tXCJD9TjZdJOGk6A=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ obs-studio ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [obs-studio];
 
   # Fix OBS API deprecations warnings
   patches = [
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Plugin for OBS Studio to add recursion effect to a source using a filter";
     homepage = "https://github.com/exeldro/obs-recursion-effect";
-    maintainers = with lib.maintainers; [ flexiondotorg ];
+    maintainers = with lib.maintainers; [flexiondotorg];
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
   };

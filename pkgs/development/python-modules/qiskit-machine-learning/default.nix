@@ -3,10 +3,8 @@
   pythonOlder,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # Python Inputs
   fastdtw,
   numpy,
@@ -21,7 +19,6 @@
   pytest-timeout,
   qiskit-aer,
 }:
-
 buildPythonPackage rec {
   pname = "qiskit-machine-learning";
   version = "0.8.2";
@@ -36,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-dvGUtB7R44B+DYZKl4R2Q0GdvLTjVKWD0KmuyCoaOSc=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     fastdtw
@@ -56,7 +53,7 @@ buildPythonPackage rec {
     qiskit-aer
   ];
 
-  pythonImportsCheck = [ "qiskit_machine_learning" ];
+  pythonImportsCheck = ["qiskit_machine_learning"];
 
   pytestFlagsArray = [
     "--durations=10"
@@ -87,6 +84,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/QISKit/qiskit-optimization/releases";
     changelog = "https://qiskit.org/documentation/release_notes.html";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

@@ -26,7 +26,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "power-profiles-daemon";
   version = "0.30";
@@ -59,13 +58,14 @@ stdenv.mkDerivation (finalAttrs: {
       wrapGAppsNoGuiHook
       # checkInput but checked for during the configuring
       (python3.pythonOnBuildForHost.withPackages (
-        ps: with ps; [
-          pygobject3
-          dbus-python
-          python-dbusmock
-          argparse-manpage
-          shtab
-        ]
+        ps:
+          with ps; [
+            pygobject3
+            dbus-python
+            python-dbusmock
+            argparse-manpage
+            shtab
+          ]
       ))
     ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
@@ -125,7 +125,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       nixos = nixosTests.power-profiles-daemon;
     };

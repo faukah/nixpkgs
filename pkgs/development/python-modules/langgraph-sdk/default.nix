@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   httpx,
   httpx-sse,
   orjson,
   typing-extensions,
-
   # passthru
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "langgraph-sdk";
   version = "0.1.69";
@@ -30,7 +26,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/sdk-py";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     httpx
@@ -39,9 +35,9 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  disabledTests = [ "test_aevaluate_results" ]; # Compares execution time to magic number
+  disabledTests = ["test_aevaluate_results"]; # Compares execution time to magic number
 
-  pythonImportsCheck = [ "langgraph_sdk" ];
+  pythonImportsCheck = ["langgraph_sdk"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
@@ -55,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/langchain-ai/langgraph/tree/main/libs/sdk-py";
     changelog = "https://github.com/langchain-ai/langgraph/releases/tag/sdk==${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sarahec ];
+    maintainers = with lib.maintainers; [sarahec];
   };
 }

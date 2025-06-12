@@ -4,7 +4,6 @@
   fetchFromGitHub,
   lit,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "outputcheck";
   version = "0.4.2";
@@ -31,7 +30,7 @@ python3.pkgs.buildPythonApplication rec {
     echo ${version} > RELEASE-VERSION
   '';
 
-  nativeCheckInputs = [ lit ];
+  nativeCheckInputs = [lit];
 
   checkPhase = ''
     runHook preCheck
@@ -41,14 +40,14 @@ python3.pkgs.buildPythonApplication rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "OutputCheck" ];
+  pythonImportsCheck = ["OutputCheck"];
 
   meta = {
     description = "Tool for checking tool output inspired by LLVM's FileCheck";
     homepage = "https://github.com/stp/OutputCheck";
     changelog = "https://github.com/stp/OutputCheck/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fsagbuya ];
+    maintainers = with lib.maintainers; [fsagbuya];
     mainProgram = "OutputCheck";
   };
 }

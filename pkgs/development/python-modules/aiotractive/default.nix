@@ -7,7 +7,6 @@
   setuptools,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aiotractive";
   version = "0.6.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-QwwW/UxRgd4rco80SqQUGt0ArDNT9MXa/U/W2/dHZT0=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiohttp
@@ -32,13 +31,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aiotractive" ];
+  pythonImportsCheck = ["aiotractive"];
 
   meta = with lib; {
     changelog = "https://github.com/zhulik/aiotractive/releases/tag/v${version}";
     description = "Python client for the Tractive REST API";
     homepage = "https://github.com/zhulik/aiotractive";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

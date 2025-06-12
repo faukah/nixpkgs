@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wit-bindgen";
   version = "0.42.1";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     description = "Language binding generator for WebAssembly interface types";
     homepage = "https://github.com/bytecodealliance/wit-bindgen";
     license = licenses.asl20;
-    maintainers = with maintainers; [ xrelkd ];
+    maintainers = with maintainers; [xrelkd];
     mainProgram = "wit-bindgen";
   };
 }

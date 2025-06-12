@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cpm-cmake";
   version = "0.42.0";
@@ -43,7 +42,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       simple API and more.
     '';
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    maintainers = with lib.maintainers; [pandapip1];
     platforms = lib.platforms.all;
   };
 })

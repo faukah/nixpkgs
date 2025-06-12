@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "snowcat";
   version = "0.1.3";
@@ -36,6 +35,6 @@ buildGoModule rec {
       point snowcat at a directory containing Kubernets YAML files.
     '';
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jk ];
+    maintainers = with lib.maintainers; [jk];
   };
 }

@@ -2,21 +2,16 @@
   generateProtobufCode,
   version,
   zitadelRepo,
-}:
-
-{
+}: {
   stdenv,
   fetchYarnDeps,
   yarnConfigHook,
   yarnBuildHook,
   nodejs,
-
   grpc-gateway,
   protoc-gen-grpc-web,
   protoc-gen-js,
-}:
-
-let
+}: let
   protobufGenerated = generateProtobufCode {
     pname = "zitadel-console";
     inherit version;
@@ -31,32 +26,32 @@ let
     hash = "sha256-UzmwUUYg0my3noAQNtlUEBQ+K6GVnBSkWj4CzoaoLKw=";
   };
 in
-stdenv.mkDerivation {
-  pname = "zitadel-console";
-  inherit version;
+  stdenv.mkDerivation {
+    pname = "zitadel-console";
+    inherit version;
 
-  src = zitadelRepo;
+    src = zitadelRepo;
 
-  sourceRoot = "${zitadelRepo.name}/console";
+    sourceRoot = "${zitadelRepo.name}/console";
 
-  offlineCache = fetchYarnDeps {
-    yarnLock = "${zitadelRepo}/console/yarn.lock";
-    hash = "sha256-ekgLd5DTOBZWuT63QnTjx40ZYvLKZh+FXCn+h5vj9qQ=";
-  };
+    offlineCache = fetchYarnDeps {
+      yarnLock = "${zitadelRepo}/console/yarn.lock";
+      hash = "sha256-ekgLd5DTOBZWuT63QnTjx40ZYvLKZh+FXCn+h5vj9qQ=";
+    };
 
-  nativeBuildInputs = [
-    yarnConfigHook
-    yarnBuildHook
-    nodejs
-  ];
+    nativeBuildInputs = [
+      yarnConfigHook
+      yarnBuildHook
+      nodejs
+    ];
 
-  preBuild = ''
-    cp -r ${protobufGenerated} src/app/proto
-  '';
+    preBuild = ''
+      cp -r ${protobufGenerated} src/app/proto
+    '';
 
-  installPhase = ''
-    runHook preInstall
-    cp -r dist/console "$out"
-    runHook postInstall
-  '';
-}
+    installPhase = ''
+      runHook preInstall
+      cp -r dist/console "$out"
+      runHook postInstall
+    '';
+  }

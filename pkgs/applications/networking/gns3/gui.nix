@@ -2,9 +2,7 @@
   channel,
   version,
   hash,
-}:
-
-{
+}: {
   fetchFromGitHub,
   gns3-gui,
   lib,
@@ -13,7 +11,6 @@
   testers,
   wrapQtAppsHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gns3-gui";
   inherit version;
@@ -25,14 +22,13 @@ python3Packages.buildPythonApplication rec {
     rev = "refs/tags/v${version}";
   };
 
-  nativeBuildInputs = with python3Packages; [ wrapQtAppsHook ];
+  nativeBuildInputs = with python3Packages; [wrapQtAppsHook];
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
-  propagatedBuildInputs = [ qt5.qtwayland ];
+  propagatedBuildInputs = [qt5.qtwayland];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       distro
       jsonschema
@@ -40,7 +36,7 @@ python3Packages.buildPythonApplication rec {
       sentry-sdk
       setuptools
       sip
-      (pyqt5.override { withWebSockets = true; })
+      (pyqt5.override {withWebSockets = true;})
       truststore
     ]
     ++ lib.optionals (pythonOlder "3.9") [
@@ -55,7 +51,7 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = true;
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  checkInputs = with python3Packages; [pytestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -80,7 +76,7 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/GNS3/gns3-gui/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ anthonyroussel ];
+    maintainers = with lib.maintainers; [anthonyroussel];
     mainProgram = "gns3";
   };
 }

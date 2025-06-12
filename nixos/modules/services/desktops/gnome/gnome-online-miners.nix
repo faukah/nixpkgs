@@ -1,8 +1,5 @@
 # GNOME Online Miners daemon.
-
-{ lib, ... }:
-
-{
+{lib, ...}: {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"

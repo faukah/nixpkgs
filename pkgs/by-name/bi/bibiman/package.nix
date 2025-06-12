@@ -5,7 +5,6 @@
   rustPlatform,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bibiman";
   version = "0.12.3";
@@ -26,13 +25,13 @@ rustPlatform.buildRustPackage rec {
   ];
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "TUI for fast and simple interacting with your BibLaTeX database";
     homepage = "https://codeberg.org/lukeflo/bibiman";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ clementpoiret ];
+    maintainers = with lib.maintainers; [clementpoiret];
     mainProgram = "bibiman";
     platforms = lib.platforms.linux;
   };

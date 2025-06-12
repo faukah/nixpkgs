@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "bazel-remote";
   version = "2.5.1";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-okXGqPN/Do7Ht3zW8jVWo+8YquUEqNhirr9pPqMelmk=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   doCheck = false;
 
@@ -33,7 +32,7 @@ buildGoModule rec {
     mainProgram = "bazel-remote";
     changelog = "https://github.com/buchgr/bazel-remote/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.bazel ];
+    teams = [lib.teams.bazel];
     platforms = lib.platforms.darwin ++ lib.platforms.linux;
   };
 }

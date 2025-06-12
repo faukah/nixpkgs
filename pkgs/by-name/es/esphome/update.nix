@@ -8,7 +8,6 @@
   gnused,
   nix-update,
 }:
-
 writeShellScript "update-esphome" ''
   PATH=${
     lib.makeBinPath [

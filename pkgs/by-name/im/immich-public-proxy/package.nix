@@ -36,7 +36,7 @@ buildNpmPackage rec {
     tests = {
       inherit (nixosTests) immich-public-proxy;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -44,7 +44,7 @@ buildNpmPackage rec {
     description = "Share your Immich photos and albums in a safe way without exposing your Immich instance to the public";
     homepage = "https://github.com/alangrainger/immich-public-proxy";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ jaculabilis ];
+    maintainers = with lib.maintainers; [jaculabilis];
     inherit (nodejs.meta) platforms;
     mainProgram = "immich-public-proxy";
   };

@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # runtime
   editables,
   packaging,
@@ -11,14 +10,12 @@
   pluggy,
   tomli,
   trove-classifiers,
-
   # tests
   build,
   python,
   requests,
   virtualenv,
 }:
-
 buildPythonPackage rec {
   pname = "hatchling";
   version = "1.27.0";
@@ -30,13 +27,15 @@ buildPythonPackage rec {
   };
 
   # listed in backend/pyproject.toml
-  dependencies = [
-    editables
-    packaging
-    pathspec
-    pluggy
-    trove-classifiers
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies =
+    [
+      editables
+      packaging
+      pathspec
+      pluggy
+      trove-classifiers
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   pythonImportsCheck = [
     "hatchling"

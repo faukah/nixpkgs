@@ -20,7 +20,6 @@
   python3Packages,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hexchat";
   version = "2.16.2";
@@ -85,6 +84,6 @@ stdenv.mkDerivation rec {
     homepage = "https://hexchat.github.io/";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ romildo ];
+    maintainers = with lib.maintainers; [romildo];
   };
 }

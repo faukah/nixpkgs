@@ -29,7 +29,6 @@
   perf,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qtcreator";
   version = "16.0.2";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     pkg-config
-    (qttools.override { withClang = true; })
+    (qttools.override {withClang = true;})
     wrapQtAppsHook
     python3
     ninja
@@ -98,7 +97,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://wiki.qt.io/Qt_Creator";
     license = licenses.gpl3Only; # annotated with The Qt Company GPL Exception 1.0
-    maintainers = [ maintainers.rewine ];
+    maintainers = [maintainers.rewine];
     platforms = platforms.linux;
   };
 }

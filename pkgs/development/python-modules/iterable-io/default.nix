@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "iterable-io";
   version = "1.0.0";
@@ -21,17 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-+PSINKS7/FeGHYvkOASA5m+1pBpKfURfylZ8CwKijgA=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "iterableio" ];
+  pythonImportsCheck = ["iterableio"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Library to adapt iterables to a file-like interface";
     homepage = "https://github.com/pR0Ps/iterable-io";
     changelog = "https://github.com/pR0Ps/iterable-io/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.lgpl3Only;
-    maintainers = [ lib.maintainers.mjoerg ];
+    maintainers = [lib.maintainers.mjoerg];
   };
 }

@@ -8,7 +8,6 @@
   qtbase,
   wrapQtAppsHook,
 }:
-
 mkDerivation rec {
   pname = "plater";
   version = "2020-07-30";
@@ -50,7 +49,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "3D-printer parts placer and plate generator";
     homepage = "https://github.com/Rhoban/Plater";
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
     platforms = platforms.linux;
     license = licenses.cc-by-nc-30;
   };

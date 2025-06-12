@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   name = "invoiceplane";
   meta = with pkgs.lib.maintainers; {
     maintainers = [
@@ -9,53 +7,49 @@
   };
 
   nodes = {
-    invoiceplane_caddy =
-      { ... }:
-      {
-        services.invoiceplane.webserver = "caddy";
-        services.invoiceplane.sites = {
-          "site1.local" = {
-            database.name = "invoiceplane1";
-            database.createLocally = true;
-            enable = true;
-          };
-          "site2.local" = {
-            database.name = "invoiceplane2";
-            database.createLocally = true;
-            enable = true;
-          };
+    invoiceplane_caddy = {...}: {
+      services.invoiceplane.webserver = "caddy";
+      services.invoiceplane.sites = {
+        "site1.local" = {
+          database.name = "invoiceplane1";
+          database.createLocally = true;
+          enable = true;
         };
-
-        networking.firewall.allowedTCPPorts = [ 80 ];
-        networking.hosts."127.0.0.1" = [
-          "site1.local"
-          "site2.local"
-        ];
+        "site2.local" = {
+          database.name = "invoiceplane2";
+          database.createLocally = true;
+          enable = true;
+        };
       };
 
-    invoiceplane_nginx =
-      { ... }:
-      {
-        services.invoiceplane.webserver = "nginx";
-        services.invoiceplane.sites = {
-          "site1.local" = {
-            database.name = "invoiceplane1";
-            database.createLocally = true;
-            enable = true;
-          };
-          "site2.local" = {
-            database.name = "invoiceplane2";
-            database.createLocally = true;
-            enable = true;
-          };
-        };
+      networking.firewall.allowedTCPPorts = [80];
+      networking.hosts."127.0.0.1" = [
+        "site1.local"
+        "site2.local"
+      ];
+    };
 
-        networking.firewall.allowedTCPPorts = [ 80 ];
-        networking.hosts."127.0.0.1" = [
-          "site1.local"
-          "site2.local"
-        ];
+    invoiceplane_nginx = {...}: {
+      services.invoiceplane.webserver = "nginx";
+      services.invoiceplane.sites = {
+        "site1.local" = {
+          database.name = "invoiceplane1";
+          database.createLocally = true;
+          enable = true;
+        };
+        "site2.local" = {
+          database.name = "invoiceplane2";
+          database.createLocally = true;
+          enable = true;
+        };
       };
+
+      networking.firewall.allowedTCPPorts = [80];
+      networking.hosts."127.0.0.1" = [
+        "site1.local"
+        "site2.local"
+      ];
+    };
   };
 
   testScript = ''

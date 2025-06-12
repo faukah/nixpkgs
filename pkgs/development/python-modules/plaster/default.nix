@@ -4,7 +4,6 @@
   pytest,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "plaster";
   version = "1.1.2";

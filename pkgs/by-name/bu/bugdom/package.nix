@@ -7,7 +7,6 @@
   cmake,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bugdom";
   version = "1.3.4";
@@ -30,7 +29,6 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs = [
-
     SDL2
     libGL
   ];
@@ -52,21 +50,20 @@ stdenv.mkDerivation rec {
 
     ''
     + (
-      if stdenv.hostPlatform.isDarwin then
-        ''
-          mkdir -p $out/{bin,Applications}
-          mv {,$out/Applications/}Bugdom.app
-          makeWrapper $out/{Applications/Bugdom.app/Contents/MacOS,bin}/Bugdom
-        ''
-      else
-        ''
-          mkdir -p $out/share/bugdom
-          mv Data $out/share/bugdom
-          install -Dm755 {.,$out/bin}/Bugdom
-          wrapProgram $out/bin/Bugdom --run "cd $out/share/bugdom"
-          install -Dm644 $src/packaging/io.jor.bugdom.desktop $out/share/applications/io.jor.bugdom.desktop
-          install -Dm644 $src/packaging/io.jor.bugdom.png $out/share/pixmaps/io.jor.bugdom.png
-        ''
+      if stdenv.hostPlatform.isDarwin
+      then ''
+        mkdir -p $out/{bin,Applications}
+        mv {,$out/Applications/}Bugdom.app
+        makeWrapper $out/{Applications/Bugdom.app/Contents/MacOS,bin}/Bugdom
+      ''
+      else ''
+        mkdir -p $out/share/bugdom
+        mv Data $out/share/bugdom
+        install -Dm755 {.,$out/bin}/Bugdom
+        wrapProgram $out/bin/Bugdom --run "cd $out/share/bugdom"
+        install -Dm644 $src/packaging/io.jor.bugdom.desktop $out/share/applications/io.jor.bugdom.desktop
+        install -Dm644 $src/packaging/io.jor.bugdom.png $out/share/pixmaps/io.jor.bugdom.png
+      ''
     )
     + ''
 
@@ -76,8 +73,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Port of Bugdom, a 1999 Macintosh game by Pangea Software, for modern operating systems";
     homepage = "https://github.com/jorio/Bugdom";
-    license = with licenses; [ cc-by-sa-40 ];
-    maintainers = with maintainers; [ lux ];
+    license = with licenses; [cc-by-sa-40];
+    maintainers = with maintainers; [lux];
     mainProgram = "Bugdom";
     platforms = platforms.unix;
   };

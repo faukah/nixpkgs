@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "backdown";
   version = "1.1.2";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Canop/backdown";
     changelog = "https://github.com/Canop/backdown/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "backdown";
   };
 }

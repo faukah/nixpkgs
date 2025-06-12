@@ -20,7 +20,6 @@
   unbound,
   zxing-cpp,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "feather";
   version = "2.8.1";
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DReadline_INCLUDE_DIR=${lib.getDev readline}/include/readline"
     "-DReadline_LIBRARY=${lib.getLib readline}/lib/libreadline.so"
     "-DReadline_ROOT_DIR=${lib.getDev readline}"
-    "-DTOR_DIR=${lib.makeBinPath [ tor ]}"
+    "-DTOR_DIR=${lib.makeBinPath [tor]}"
     "-DTOR_VERSION=${tor.version}"
   ];
 
@@ -86,6 +85,6 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = platforms.linux;
     license = licenses.bsd3;
     mainProgram = "feather";
-    maintainers = with maintainers; [ surfaceflinger ];
+    maintainers = with maintainers; [surfaceflinger];
   };
 })

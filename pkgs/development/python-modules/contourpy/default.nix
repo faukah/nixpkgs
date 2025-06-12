@@ -4,31 +4,25 @@
   fetchFromGitHub,
   python,
   pythonOlder,
-
   # build
   meson,
   meson-python,
   ninja,
   nukeReferences,
   pybind11,
-
   # propagates
   numpy,
-
   # optionals
   bokeh,
   chromedriver,
   selenium,
-
   # tests
   matplotlib,
   pillow,
   pytest-xdist,
   pytestCheckHook,
   wurlitzer,
-}:
-
-let
+}: let
   contourpy = buildPythonPackage rec {
     pname = "contourpy";
     version = "1.3.1";
@@ -56,9 +50,9 @@ let
       pybind11
     ];
 
-    build-system = [ meson-python ];
+    build-system = [meson-python];
 
-    dependencies = [ numpy ];
+    dependencies = [numpy];
 
     passthru.optional-depdendencies = {
       bokeh = [
@@ -84,7 +78,7 @@ let
       });
     };
 
-    pythonImportsCheck = [ "contourpy" ];
+    pythonImportsCheck = ["contourpy"];
 
     # remove references to buildPackages.python3, which is not allowed for cross builds.
     preFixup = ''
@@ -96,8 +90,8 @@ let
       description = "Python library for calculating contours in 2D quadrilateral grids";
       homepage = "https://github.com/contourpy/contourpy";
       license = licenses.bsd3;
-      maintainers = [ ];
+      maintainers = [];
     };
   };
 in
-contourpy
+  contourpy

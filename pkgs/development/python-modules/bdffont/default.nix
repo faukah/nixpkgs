@@ -7,7 +7,6 @@
   nix-update-script,
   hatchling,
 }:
-
 buildPythonPackage rec {
   pname = "bdffont";
   version = "0.0.31";
@@ -21,13 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-jE6k1gym4UCHpQJTPEip+c5e+9QxNpT41v3fK9WVoLc=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "bdffont" ];
+  pythonImportsCheck = ["bdffont"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/TakWolf/bdffont";

@@ -8,7 +8,6 @@
   llvm_13,
   perl,
 }:
-
 stdenv.mkDerivation {
   pname = "dale";
   version = "20220411";
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
     llvm_13
   ];
 
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
 
   checkTarget = "tests";
 
@@ -42,7 +41,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/tomhrr/dale";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ amiloradovsky ];
+    maintainers = with maintainers; [amiloradovsky];
     platforms = [
       "i686-linux"
       "x86_64-linux"

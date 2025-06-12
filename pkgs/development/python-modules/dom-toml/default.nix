@@ -18,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-McWHRZXHd/QcwZHDTGbb6iFcgomnsUi0Jft6EMP0+8g=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   dependencies = [
     domdf-python-tools
@@ -31,6 +31,6 @@ buildPythonPackage rec {
     description = "Dom's tools for Tom's Obvious, Minimal Language.";
     homepage = "https://github.com/domdfcoding/dom_toml";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tyberius-prime ];
+    maintainers = with lib.maintainers; [tyberius-prime];
   };
 }

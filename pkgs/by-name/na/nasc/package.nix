@@ -19,7 +19,6 @@
   gnuplot,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nasc";
   version = "0.8.0";
@@ -70,7 +69,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -83,7 +82,7 @@ stdenv.mkDerivation rec {
       the equations it’s used in.
     '';
     homepage = "https://github.com/parnold-x/nasc";
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
     mainProgram = "com.github.parnold_x.nasc";

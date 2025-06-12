@@ -12,7 +12,6 @@
   pango,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lasem";
   version = "0.4.4";

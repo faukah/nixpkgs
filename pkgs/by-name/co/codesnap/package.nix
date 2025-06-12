@@ -31,14 +31,14 @@ rustPlatform.buildRustPackage rec {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Command-line tool for generating beautiful code snippets";
     homepage = "https://github.com/mistricky/CodeSnap";
     changelog = "https://github.com/mistricky/CodeSnap/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nartsiss ];
+    maintainers = with lib.maintainers; [nartsiss];
     mainProgram = "codesnap";
   };
 }

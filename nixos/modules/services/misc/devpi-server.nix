@@ -3,8 +3,7 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   cfg = config.services.devpi-server;
 
   secretsFileName = "devpi-secret-file";
@@ -13,12 +12,11 @@ let
 
   runtimeDir = "/run/${stateDirName}";
   serverDir = "/var/lib/${stateDirName}";
-in
-{
+in {
   options.services.devpi-server = {
     enable = lib.mkEnableOption "Devpi Server";
 
-    package = lib.mkPackageOption pkgs "devpi-server" { };
+    package = lib.mkPackageOption pkgs "devpi-server" {};
 
     primaryUrl = lib.mkOption {
       type = lib.types.str;
@@ -61,21 +59,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.devpi-server = {
       enable = true;
       description = "devpi PyPI-compatible server";
-      documentation = [ "https://devpi.net/docs/devpi/devpi/stable/+d/index.html" ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
+      documentation = ["https://devpi.net/docs/devpi/devpi/stable/+d/index.html"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
       # Since at least devpi-server 6.10.0, devpi requires the secrets file to
       # have 0600 permissions.
       preStart =
         ''
-          ${lib.optionalString (
-            !isNull cfg.secretFile
-          ) "install -Dm 0600 \${CREDENTIALS_DIRECTORY}/devpi-secret ${runtimeDir}/${secretsFileName}"}
+          ${lib.optionalString (!isNull cfg.secretFile) "install -Dm 0600 \${CREDENTIALS_DIRECTORY}/devpi-secret ${runtimeDir}/${secretsFileName}"}
 
           if [ -f ${serverDir}/.nodeinfo ]; then
             # already initialized the package index, exit gracefully
@@ -89,29 +84,26 @@ in
           "devpi-secret:${cfg.secretFile}"
         ];
         Restart = "always";
-        ExecStart =
-          let
-            args =
-              [
-                "--request-timeout=5"
-                "--serverdir=${serverDir}"
-                "--host=${cfg.host}"
-                "--port=${builtins.toString cfg.port}"
+        ExecStart = let
+          args =
+            [
+              "--request-timeout=5"
+              "--serverdir=${serverDir}"
+              "--host=${cfg.host}"
+              "--port=${builtins.toString cfg.port}"
+            ]
+            ++ lib.optionals (!isNull cfg.secretFile) [
+              "--secretfile=${runtimeDir}/${secretsFileName}"
+            ]
+            ++ (
+              if cfg.replica
+              then [
+                "--role=replica"
+                "--master-url=${cfg.primaryUrl}"
               ]
-              ++ lib.optionals (!isNull cfg.secretFile) [
-                "--secretfile=${runtimeDir}/${secretsFileName}"
-              ]
-              ++ (
-                if cfg.replica then
-                  [
-                    "--role=replica"
-                    "--master-url=${cfg.primaryUrl}"
-                  ]
-                else
-                  [ "--role=master" ]
-              );
-          in
-          "${cfg.package}/bin/devpi-server ${lib.concatStringsSep " " args}";
+              else ["--role=master"]
+            );
+        in "${cfg.package}/bin/devpi-server ${lib.concatStringsSep " " args}";
         DynamicUser = true;
         StateDirectory = stateDirName;
         RuntimeDirectory = stateDirName;
@@ -123,9 +115,9 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
   };
 
-  meta.maintainers = [ lib.maintainers.cafkafk ];
+  meta.maintainers = [lib.maintainers.cafkafk];
 }

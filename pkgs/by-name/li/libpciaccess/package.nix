@@ -11,7 +11,6 @@
   netbsd,
   hwdata,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libpciaccess";
   version = "0.18.1";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs =
-    [ zlib ]
+    [zlib]
     ++ lib.optionals stdenv.hostPlatform.isNetBSD [
       netbsd.libarch
       netbsd.libpci
@@ -63,10 +62,9 @@ stdenv.mkDerivation (finalAttrs: {
       isc
       x11
     ];
-    pkgConfigModules = [ "pciaccess" ];
+    pkgConfigModules = ["pciaccess"];
     # https://gitlab.freedesktop.org/xorg/lib/libpciaccess/-/blob/6cd5a4afbb70868c7746de8d50dea59e02e9acf2/configure.ac#L108-114
-    platforms =
-      with lib.platforms;
+    platforms = with lib.platforms;
       cygwin
       ++ freebsd
       ++ illumos

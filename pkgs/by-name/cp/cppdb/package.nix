@@ -8,7 +8,6 @@
   libpq,
   unixODBC,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cppdb";
   version = "0.3.1";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0blr1casmxickic84dxzfmn3lm7wrsl4aa2abvpq93rdfddfy3nn";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     sqlite
     libmysqlclient
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     unixODBC
   ];
 
-  cmakeFlags = [ "--no-warn-unused-cli" ];
+  cmakeFlags = ["--no-warn-unused-cli"];
   env.NIX_CFLAGS_COMPILE = "-I${libmysqlclient}/include/mysql -L${libmysqlclient}/lib/mysql";
 
   meta = with lib; {
@@ -34,6 +33,6 @@ stdenv.mkDerivation rec {
     description = "C++ Connectivity library that supports MySQL, PostgreSQL, Sqlite3 databases and generic ODBC drivers";
     platforms = platforms.linux;
     license = licenses.boost;
-    maintainers = [ maintainers.juliendehos ];
+    maintainers = [maintainers.juliendehos];
   };
 }

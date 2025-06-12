@@ -5,7 +5,6 @@
   installShellFiles,
   scdoc,
 }:
-
 buildGoModule rec {
   pname = "superd";
   version = "0.7.1";

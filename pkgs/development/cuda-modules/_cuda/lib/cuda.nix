@@ -1,129 +1,125 @@
-{ lib }:
-{
+{lib}: {
   /**
-    Returns whether a capability should be built by default for a particular CUDA version.
+  Returns whether a capability should be built by default for a particular CUDA version.
 
-    Capabilities built by default are baseline, non-Jetson capabilities with relatively recent CUDA support.
+  Capabilities built by default are baseline, non-Jetson capabilities with relatively recent CUDA support.
 
-    NOTE: No guarantees are made about this function's stability. You may use it at your own risk.
+  NOTE: No guarantees are made about this function's stability. You may use it at your own risk.
 
-    # Type
+  # Type
 
-    ```
-    _cudaCapabilityIsDefault
-      :: (cudaMajorMinorVersion :: Version)
-      -> (cudaCapabilityInfo :: CudaCapabilityInfo)
-      -> Bool
-    ```
+  ```
+  _cudaCapabilityIsDefault
+    :: (cudaMajorMinorVersion :: Version)
+    -> (cudaCapabilityInfo :: CudaCapabilityInfo)
+    -> Bool
+  ```
 
-    # Inputs
+  # Inputs
 
-    `cudaMajorMinorVersion`
+  `cudaMajorMinorVersion`
 
-    : The CUDA version to check
+  : The CUDA version to check
 
-    `cudaCapabilityInfo`
+  `cudaCapabilityInfo`
 
-    : The capability information to check
+  : The capability information to check
   */
-  _cudaCapabilityIsDefault =
-    cudaMajorMinorVersion: cudaCapabilityInfo:
-    let
-      recentCapability =
-        cudaCapabilityInfo.dontDefaultAfterCudaMajorMinorVersion == null
-        || lib.versionAtLeast cudaCapabilityInfo.dontDefaultAfterCudaMajorMinorVersion cudaMajorMinorVersion;
-    in
+  _cudaCapabilityIsDefault = cudaMajorMinorVersion: cudaCapabilityInfo: let
+    recentCapability =
+      cudaCapabilityInfo.dontDefaultAfterCudaMajorMinorVersion
+      == null
+      || lib.versionAtLeast cudaCapabilityInfo.dontDefaultAfterCudaMajorMinorVersion cudaMajorMinorVersion;
+  in
     recentCapability
     && !cudaCapabilityInfo.isJetson
     && !cudaCapabilityInfo.isArchitectureSpecific
     && !cudaCapabilityInfo.isFamilySpecific;
 
   /**
-    Returns whether a capability is supported for a particular CUDA version.
+  Returns whether a capability is supported for a particular CUDA version.
 
-    NOTE: No guarantees are made about this function's stability. You may use it at your own risk.
+  NOTE: No guarantees are made about this function's stability. You may use it at your own risk.
 
-    # Type
+  # Type
 
-    ```
-    _cudaCapabilityIsSupported
-      :: (cudaMajorMinorVersion :: Version)
-      -> (cudaCapabilityInfo :: CudaCapabilityInfo)
-      -> Bool
-    ```
+  ```
+  _cudaCapabilityIsSupported
+    :: (cudaMajorMinorVersion :: Version)
+    -> (cudaCapabilityInfo :: CudaCapabilityInfo)
+    -> Bool
+  ```
 
-    # Inputs
+  # Inputs
 
-    `cudaMajorMinorVersion`
+  `cudaMajorMinorVersion`
 
-    : The CUDA version to check
+  : The CUDA version to check
 
-    `cudaCapabilityInfo`
+  `cudaCapabilityInfo`
 
-    : The capability information to check
+  : The capability information to check
   */
-  _cudaCapabilityIsSupported =
-    cudaMajorMinorVersion: cudaCapabilityInfo:
-    let
-      lowerBoundSatisfied = lib.versionAtLeast cudaMajorMinorVersion cudaCapabilityInfo.minCudaMajorMinorVersion;
-      upperBoundSatisfied =
-        cudaCapabilityInfo.maxCudaMajorMinorVersion == null
-        || lib.versionAtLeast cudaCapabilityInfo.maxCudaMajorMinorVersion cudaMajorMinorVersion;
-    in
+  _cudaCapabilityIsSupported = cudaMajorMinorVersion: cudaCapabilityInfo: let
+    lowerBoundSatisfied = lib.versionAtLeast cudaMajorMinorVersion cudaCapabilityInfo.minCudaMajorMinorVersion;
+    upperBoundSatisfied =
+      cudaCapabilityInfo.maxCudaMajorMinorVersion
+      == null
+      || lib.versionAtLeast cudaCapabilityInfo.maxCudaMajorMinorVersion cudaMajorMinorVersion;
+  in
     lowerBoundSatisfied && upperBoundSatisfied;
 
   /**
-    Generates a CUDA variant name from a version.
+  Generates a CUDA variant name from a version.
 
-    NOTE: No guarantees are made about this function's stability. You may use it at your own risk.
+  NOTE: No guarantees are made about this function's stability. You may use it at your own risk.
 
-    # Type
+  # Type
 
-    ```
-    _mkCudaVariant :: (version :: String) -> String
-    ```
+  ```
+  _mkCudaVariant :: (version :: String) -> String
+  ```
 
-    # Inputs
+  # Inputs
 
-    `version`
+  `version`
 
-    : The version string
+  : The version string
 
-    # Examples
+  # Examples
 
-    :::{.example}
-    ## `_cuda.lib._mkCudaVariant` usage examples
+  :::{.example}
+  ## `_cuda.lib._mkCudaVariant` usage examples
 
-    ```nix
-    _mkCudaVariant "11.0"
-    => "cuda11"
-    ```
-    :::
+  ```nix
+  _mkCudaVariant "11.0"
+  => "cuda11"
+  ```
+  :::
   */
   _mkCudaVariant = version: "cuda${lib.versions.major version}";
 
   /**
-    A predicate which, given a package, returns true if the package has a free license or one of NVIDIA's licenses.
+  A predicate which, given a package, returns true if the package has a free license or one of NVIDIA's licenses.
 
-    This function is intended to be provided as `config.allowUnfreePredicate` when `import`-ing Nixpkgs.
+  This function is intended to be provided as `config.allowUnfreePredicate` when `import`-ing Nixpkgs.
 
-    # Type
+  # Type
 
-    ```
-    allowUnfreeCudaPredicate :: (package :: Package) -> Bool
-    ```
+  ```
+  allowUnfreeCudaPredicate :: (package :: Package) -> Bool
+  ```
   */
-  allowUnfreeCudaPredicate =
-    package:
+  allowUnfreeCudaPredicate = package:
     lib.all (
       license:
-      license.free
-      || lib.elem license.shortName [
-        "CUDA EULA"
-        "cuDNN EULA"
-        "cuSPARSELt EULA"
-        "cuTENSOR EULA"
-        "NVidia OptiX EULA"
-      ]
+        license.free
+        || lib.elem license.shortName [
+          "CUDA EULA"
+          "cuDNN EULA"
+          "cuSPARSELt EULA"
+          "cuTENSOR EULA"
+          "NVidia OptiX EULA"
+        ]
     ) (lib.toList package.meta.license);
 }

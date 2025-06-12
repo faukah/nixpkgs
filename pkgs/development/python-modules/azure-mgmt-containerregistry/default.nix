@@ -9,7 +9,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-containerregistry";
   version = "14.0.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-c4PxxVR7z/525BHt2CUNVcNM3fXvaATVh1wWPMpmxLU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/containerregistry/azure-mgmt-containerregistry";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-mgmt-containerregistry_${version}/sdk/containerregistry/azure-mgmt-containerregistry/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

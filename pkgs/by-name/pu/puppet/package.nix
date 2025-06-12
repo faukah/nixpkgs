@@ -5,11 +5,10 @@
   puppet,
   testers,
 }:
-
 bundlerApp {
   pname = "puppet";
   gemdir = ./.;
-  exes = [ "puppet" ];
+  exes = ["puppet"];
 
   passthru = {
     tests.version = testers.testVersion {
@@ -26,6 +25,6 @@ bundlerApp {
     changelog = "https://github.com/puppetlabs/puppet/blob/main/CHANGELOG.md";
     license = lib.licenses.asl20;
     mainProgram = "puppet";
-    maintainers = with lib.maintainers; [ baloo ];
+    maintainers = with lib.maintainers; [baloo];
   };
 }

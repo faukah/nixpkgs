@@ -11,7 +11,6 @@
   stripJavaArchivesHook,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jailer";
   version = "16.6.2";
@@ -77,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
       desktopName = "Jailer";
       exec = "jailer";
       icon = "jailer";
-      categories = [ "Development" ];
+      categories = ["Development"];
     })
   ];
 
@@ -86,7 +85,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.asl20;
     homepage = "https://github.com/Wisser/Jailer";
     changelog = "https://github.com/Wisser/Jailer/releases/tag/v${finalAttrs.version}";
-    maintainers = with lib.maintainers; [ guillaumematheron ];
+    maintainers = with lib.maintainers; [guillaumematheron];
     mainProgram = "jailer";
   };
 })

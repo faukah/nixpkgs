@@ -6,7 +6,6 @@
   python3,
   testers,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "elasticsearch-curator";
   version = "8.0.21";
@@ -19,9 +18,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-yVOZBz4AJNjmpxRp3t03KwDzp/3W8uJiHwuSRJbfLvk=";
   };
 
-  pythonRelaxDeps = [ "es-client" ];
+  pythonRelaxDeps = ["es-client"];
 
-  build-system = with python3.pkgs; [ hatchling ];
+  build-system = with python3.pkgs; [hatchling];
 
   dependencies = with python3.pkgs; [
     certifi
@@ -75,7 +74,7 @@ python3.pkgs.buildPythonApplication rec {
       package = elasticsearch-curator;
       command = "${lib.getExe elasticsearch-curator} --version";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -96,6 +95,6 @@ python3.pkgs.buildPythonApplication rec {
       * Perform various actions on the items which remain in the actionable list.
     '';
     mainProgram = "curator";
-    maintainers = with lib.maintainers; [ basvandijk ];
+    maintainers = with lib.maintainers; [basvandijk];
   };
 }

@@ -5,7 +5,6 @@
   mailcap,
   openssl,
 }:
-
 stdenv.mkDerivation {
   pname = "webfs";
   version = "1.21-unstable-2021-02-24";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     hash = "sha256-uTo9f66cOKSsIGLUj1E/ywMXT1peekb93UlFBrfkpN0=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   makeFlags = [
     "mimefile=${placeholder "out"}/etc/mime.types"
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
     homepage = "http://linux.bytesex.org/misc/webfs.html";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
     mainProgram = "webfsd";
   };
 }

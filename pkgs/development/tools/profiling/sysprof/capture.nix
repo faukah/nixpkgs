@@ -5,7 +5,6 @@
   ninja,
   sysprof,
 }:
-
 stdenv.mkDerivation {
   pname = "libsysprof-capture";
 
@@ -28,10 +27,12 @@ stdenv.mkDerivation {
     "-Ddebuginfod=disabled"
   ];
 
-  meta = sysprof.meta // {
-    description = "Static library for Sysprof capture data generation";
-    license = lib.licenses.bsd2Patent;
-    platforms = lib.platforms.all;
-    pkgConfigModules = [ "sysprof-capture-4" ];
-  };
+  meta =
+    sysprof.meta
+    // {
+      description = "Static library for Sysprof capture data generation";
+      license = lib.licenses.bsd2Patent;
+      platforms = lib.platforms.all;
+      pkgConfigModules = ["sysprof-capture-4"];
+    };
 }

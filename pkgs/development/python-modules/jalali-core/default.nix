@@ -5,7 +5,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "jalali-core";
   version = "1.0.0";
@@ -19,17 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-9Ch8cMYwMj3PCjqybfkFuk1FHiMKwfZbO7L3d5eJSis=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "jalali_core" ];
+  pythonImportsCheck = ["jalali_core"];
 
   meta = {
     description = "Module to convert Gregorian to Jalali and inverse dates";
     homepage = "https://pypi.org/project/jalali-core/";
     license = lib.licenses.lgpl2Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

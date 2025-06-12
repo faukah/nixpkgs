@@ -13,7 +13,6 @@
   socat,
   unixtools,
 }:
-
 stdenv.mkDerivation rec {
   pname = "acme.sh";
   version = "3.1.1";
@@ -29,29 +28,31 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  installPhase =
-    let
-      binPath = lib.makeBinPath [
-        coreutils
-        curl
-        dnsutils
-        gnugrep
-        gnused
-        openssl
-        socat
-        (if stdenv.hostPlatform.isLinux then iproute2 else unixtools.netstat)
-      ];
-    in
-    ''
-      runHook preInstall
+  installPhase = let
+    binPath = lib.makeBinPath [
+      coreutils
+      curl
+      dnsutils
+      gnugrep
+      gnused
+      openssl
+      socat
+      (
+        if stdenv.hostPlatform.isLinux
+        then iproute2
+        else unixtools.netstat
+      )
+    ];
+  in ''
+    runHook preInstall
 
-      mkdir -p $out $out/bin $out/libexec
-      cp -R $src/* $_
-      makeWrapper $out/libexec/acme.sh $out/bin/acme.sh \
-        --prefix PATH : "${binPath}"
+    mkdir -p $out $out/bin $out/libexec
+    cp -R $src/* $_
+    makeWrapper $out/libexec/acme.sh $out/bin/acme.sh \
+      --prefix PATH : "${binPath}"
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   meta = {
     homepage = "https://acme.sh/";
@@ -74,7 +75,7 @@ stdenv.mkDerivation rec {
       - Cron job notifications for renewal or error etc.
     '';
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.serokell ];
+    teams = [lib.teams.serokell];
     inherit (coreutils.meta) platforms;
     mainProgram = "acme.sh";
   };

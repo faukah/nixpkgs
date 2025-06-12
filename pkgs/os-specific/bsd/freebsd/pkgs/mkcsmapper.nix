@@ -4,7 +4,6 @@
   byacc,
   flex,
 }:
-
 mkDerivation {
   path = "usr.bin/mkcsmapper";
 

@@ -16,7 +16,6 @@
   enableSTB ? true,
   enableImageIO ? stdenv.hostPlatform.isDarwin,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sdl3-image";
   version = "3.2.4";
@@ -78,8 +77,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "SDL image library";
     homepage = "https://github.com/libsdl-org/SDL_image";
     license = lib.licenses.zlib;
-    maintainers = [ lib.maintainers.evythedemon ];
-    teams = [ lib.teams.sdl ];
+    maintainers = [lib.maintainers.evythedemon];
+    teams = [lib.teams.sdl];
     inherit (sdl3.meta) platforms;
   };
 })

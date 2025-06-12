@@ -3,7 +3,6 @@
   stdenv,
   fetchMavenArtifact,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sqlite-jdbc";
   version = "3.49.1.0";
@@ -23,8 +22,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/xerial/sqlite-jdbc";
     description = "Library for accessing and creating SQLite database files in Java";
     license = lib.licenses.asl20;
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ jraygauthier ];
+    maintainers = with lib.maintainers; [jraygauthier];
   };
 }

@@ -1,29 +1,26 @@
-{ lib, ... }:
-{
-
+{lib, ...}: {
   name = "activation-etc-overlay-mutable";
 
-  meta.maintainers = with lib.maintainers; [ nikstur ];
+  meta.maintainers = with lib.maintainers; [nikstur];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      system.etc.overlay.enable = true;
-      system.etc.overlay.mutable = true;
+  nodes.machine = {pkgs, ...}: {
+    system.etc.overlay.enable = true;
+    system.etc.overlay.mutable = true;
 
-      # Prerequisites
-      boot.initrd.systemd.enable = true;
-      boot.kernelPackages = pkgs.linuxPackages_latest;
+    # Prerequisites
+    boot.initrd.systemd.enable = true;
+    boot.kernelPackages = pkgs.linuxPackages_latest;
 
-      specialisation.new-generation.configuration = {
-        environment.etc."newgen".text = "newgen";
-      };
-      specialisation.newer-generation.configuration = {
-        environment.etc."newergen".text = "newergen";
-      };
+    specialisation.new-generation.configuration = {
+      environment.etc."newgen".text = "newgen";
     };
+    specialisation.newer-generation.configuration = {
+      environment.etc."newergen".text = "newergen";
+    };
+  };
 
-  testScript = # python
+  testScript =
+    # python
     ''
       newergen = machine.succeed("realpath /run/current-system/specialisation/newer-generation/bin/switch-to-configuration").rstrip()
 

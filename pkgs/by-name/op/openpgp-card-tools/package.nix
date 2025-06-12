@@ -10,7 +10,6 @@
   testers,
   openpgp-card-tools,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "openpgp-card-tools";
   version = "0.11.9";
@@ -57,7 +56,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # OR
       mit
     ];
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     mainProgram = "oct";
   };
 }

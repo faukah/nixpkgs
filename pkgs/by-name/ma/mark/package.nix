@@ -3,7 +3,6 @@
   buildGo123Module,
   fetchFromGitHub,
 }:
-
 # Tests with go 1.24 do not work. For now
 # https://github.com/kovetskiy/mark/pull/581#issuecomment-2797872996
 buildGo123Module rec {
@@ -25,22 +24,20 @@ buildGo123Module rec {
     "-X main.version=${version}"
   ];
 
-  checkFlags =
-    let
-      skippedTests = [
-        # Expects to be able to launch google-chrome
-        "TestExtractMermaidImage"
-      ];
-    in
-    [
-      "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"
+  checkFlags = let
+    skippedTests = [
+      # Expects to be able to launch google-chrome
+      "TestExtractMermaidImage"
     ];
+  in [
+    "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"
+  ];
 
   meta = with lib; {
     description = "Tool for syncing your markdown documentation with Atlassian Confluence pages";
     mainProgram = "mark";
     homepage = "https://github.com/kovetskiy/mark";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rguevara84 ];
+    maintainers = with maintainers; [rguevara84];
   };
 }

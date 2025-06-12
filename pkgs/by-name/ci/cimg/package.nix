@@ -5,7 +5,6 @@
   gmic,
   gmic-qt,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cimg";
   version = "3.5.4";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
       processing applications.
     '';
     license = lib.licenses.cecill-c;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

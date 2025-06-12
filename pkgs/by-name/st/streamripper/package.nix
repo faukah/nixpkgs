@@ -9,7 +9,6 @@
   libvorbis,
   libmad,
 }:
-
 stdenv.mkDerivation rec {
   pname = "streamripper";
   version = "1.64.6";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     libogg

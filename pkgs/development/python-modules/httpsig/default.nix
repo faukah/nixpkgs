@@ -9,7 +9,6 @@
   six,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "httpsig";
   version = "1.3.0";
@@ -32,14 +31,14 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "httpsig" ];
+  pythonImportsCheck = ["httpsig"];
 
   meta = with lib; {
     description = "Sign HTTP requests with secure signatures";
     license = licenses.mit;
-    maintainers = with maintainers; [ srhb ];
+    maintainers = with maintainers; [srhb];
     homepage = "https://github.com/ahknight/httpsig";
   };
 }

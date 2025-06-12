@@ -17,7 +17,7 @@ buildGoModule (finalAttrs: {
   vendorHash = "sha256-Yqo80adzA9gtSD3qzM+fObzRt3WbcMATQef0g7/z2Dw=";
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/tonymajestro/reddit-tui/releases/tag/${finalAttrs.src.tag}";
@@ -28,7 +28,7 @@ buildGoModule (finalAttrs: {
       See [the Docs](https://github.com/tonymajestro/reddit-tui#configuration-files) on how to do that.
     '';
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.LazilyStableProton ];
+    maintainers = [lib.maintainers.LazilyStableProton];
     mainProgram = "reddittui";
   };
 })

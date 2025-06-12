@@ -7,7 +7,6 @@
   # Boolean flags
   enableSdltest ? (!stdenv.hostPlatform.isDarwin),
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "SDL2_net";
   version = "2.2.0";
@@ -29,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  propagatedBuildInputs = [ SDL2 ];
+  propagatedBuildInputs = [SDL2];
 
   configureFlags = [
     (lib.enableFeature false "examples") # can't find libSDL2_test.a
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/libsdl-org/SDL_net";
     description = "SDL multiplatform networking library";
     license = lib.licenses.zlib;
-    teams = [ lib.teams.sdl ];
+    teams = [lib.teams.sdl];
     inherit (SDL2.meta) platforms;
   };
 })

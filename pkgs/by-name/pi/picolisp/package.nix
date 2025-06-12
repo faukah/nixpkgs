@@ -10,7 +10,6 @@
   readline,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   pname = "PicoLisp";
   version = "24.3.30";
@@ -19,7 +18,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-FB43DAjHBFgxdysoLzBXLxii52a2CCh1skZP/RTzfdc=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     clang
     libffi
@@ -55,7 +54,7 @@ stdenv.mkDerivation {
     description = "Pragmatic programming language";
     homepage = "https://picolisp.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ nat-418 ];
+    maintainers = with maintainers; [nat-418];
     platforms = platforms.all;
   };
 }

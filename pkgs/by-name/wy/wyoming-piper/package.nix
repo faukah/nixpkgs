@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "wyoming-piper";
   version = "1.5.3";
@@ -40,6 +39,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "wyoming-piper";
     homepage = "https://github.com/rhasspy/wyoming-piper";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

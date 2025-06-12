@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "mpd-mpris";
   version = "0.4.1";
@@ -28,7 +27,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/mpd-mpris" ];
+  subPackages = ["cmd/mpd-mpris"];
 
   postInstall = ''
     install -Dm644 mpd-mpris.service $out/lib/systemd/user/mpd-mpris.service
@@ -39,7 +38,7 @@ buildGoModule rec {
     description = "Implementation of the MPRIS protocol for MPD";
     homepage = "https://github.com/natsukagami/mpd-mpris";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     mainProgram = "mpd-mpris";
   };
 }

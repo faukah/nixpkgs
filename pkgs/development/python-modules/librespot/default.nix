@@ -12,7 +12,6 @@
   websocket-client,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "librespot";
   version = "0.0.9";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     defusedxml
@@ -46,13 +45,13 @@ buildPythonPackage rec {
   # Doesn't include any tests
   doCheck = false;
 
-  pythonImportsCheck = [ "librespot" ];
+  pythonImportsCheck = ["librespot"];
 
   meta = with lib; {
     description = "Open Source Spotify Client";
     homepage = "https://github.com/kokarare1212/librespot-python";
     changelog = "https://github.com/kokarare1212/librespot-python/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

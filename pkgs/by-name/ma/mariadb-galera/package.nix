@@ -9,7 +9,6 @@
   cmake,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mariadb-galera";
   version = "26.4.22";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     asio
@@ -51,8 +50,8 @@ stdenv.mkDerivation rec {
     mainProgram = "garbd";
     homepage = "https://galeracluster.com/";
     license = licenses.lgpl2Only;
-    maintainers = with maintainers; [ izorkin ];
-    teams = [ teams.helsinki-systems ];
+    maintainers = with maintainers; [izorkin];
+    teams = [teams.helsinki-systems];
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin;
   };

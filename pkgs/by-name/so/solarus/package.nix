@@ -14,12 +14,10 @@
   openal,
   libmodplug,
   libvorbis,
-
   # tests
   solarus-quest-editor,
   solarus-launcher,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "solarus";
   version = "2.0.0";
@@ -86,7 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
       cc-by-sa-30
       cc-by-sa-40
     ];
-    maintainers = with lib.maintainers; [ marcin-serwin ];
+    maintainers = with lib.maintainers; [marcin-serwin];
     platforms = lib.platforms.linux;
   };
 })

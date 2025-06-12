@@ -4,25 +4,23 @@
   vscode-utils,
   vscode-extension-update-script,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
-  mktplcRef =
-    let
-      sources = {
-        "x86_64-linux" = {
-          arch = "linux-x64";
-          hash = "sha256-FnMTpDXC/UIMPfcBbpZRo/T0LljFP0+syv2aTZjOczc=";
-        };
-        "x86_64-darwin" = {
-          arch = "darwin-x64";
-          hash = "sha256-bPkRzOpd7nlIg3oLvrfIrcvrxJqnRhNZNzgao8ga+OM=";
-        };
-        "aarch64-darwin" = {
-          arch = "darwin-arm64";
-          hash = "sha256-UnRWxjmicfizn8SUspkhjjiYDJDFGI4ItIPLTnRZEy0=";
-        };
+  mktplcRef = let
+    sources = {
+      "x86_64-linux" = {
+        arch = "linux-x64";
+        hash = "sha256-FnMTpDXC/UIMPfcBbpZRo/T0LljFP0+syv2aTZjOczc=";
       };
-    in
+      "x86_64-darwin" = {
+        arch = "darwin-x64";
+        hash = "sha256-bPkRzOpd7nlIg3oLvrfIrcvrxJqnRhNZNzgao8ga+OM=";
+      };
+      "aarch64-darwin" = {
+        arch = "darwin-arm64";
+        hash = "sha256-UnRWxjmicfizn8SUspkhjjiYDJDFGI4ItIPLTnRZEy0=";
+      };
+    };
+  in
     {
       publisher = "redhat";
       name = "vscode-xml";

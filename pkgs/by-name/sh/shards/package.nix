@@ -3,7 +3,6 @@
   fetchFromGitHub,
   crystal,
 }:
-
 crystal.buildCrystalPackage rec {
   pname = "shards";
   version = "0.19.1";
@@ -27,7 +26,7 @@ crystal.buildCrystalPackage rec {
     description = "Dependency manager for the Crystal language";
     mainProgram = "shards";
     license = licenses.asl20;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     inherit (crystal.meta) homepage platforms;
   };
 }

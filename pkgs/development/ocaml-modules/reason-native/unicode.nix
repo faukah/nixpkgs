@@ -4,7 +4,6 @@
   reason,
   src,
 }:
-
 buildDunePackage {
   inherit src;
 
@@ -19,6 +18,6 @@ buildDunePackage {
     description = "Easy to use and well documented Unicode symbols";
     downloadPage = "https://github.com/reasonml/reason-native/tree/master/src/unicode";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

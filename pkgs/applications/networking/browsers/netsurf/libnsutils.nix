@@ -5,7 +5,6 @@
   pkg-config,
   buildsystem,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netsurf-libnsutils";
   version = "0.1.1";
@@ -15,9 +14,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-VpS0Um5FjtAAQTzmAnWJy+EKJXp+zwZaAUIdxymd6pI=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ buildsystem ];
+  buildInputs = [buildsystem];
 
   makeFlags = [
     "PREFIX=$(out)"

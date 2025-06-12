@@ -8,7 +8,6 @@
   ghostscript,
   libgcrypt ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "srecord";
   version = "1.64";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "Collection of powerful tools for manipulating EPROM load files";
     homepage = "https://srecord.sourceforge.net/";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     platforms = lib.platforms.unix;
   };
 }

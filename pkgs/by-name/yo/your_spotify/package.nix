@@ -11,7 +11,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "your_spotify_server";
   version = "1.13.1";
@@ -64,7 +63,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     client = callPackage ./client.nix {
-      inherit (finalAttrs)
+      inherit
+        (finalAttrs)
         src
         version
         offlineCache
@@ -74,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       inherit (nixosTests) your_spotify;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -82,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/Yooooomi/your_spotify/releases/tag/${finalAttrs.version}";
     description = "Self-hosted application that tracks what you listen and offers you a dashboard to explore statistics about it";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ patrickdag ];
+    maintainers = with lib.maintainers; [patrickdag];
     mainProgram = "your_spotify_server";
   };
 })

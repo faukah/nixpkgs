@@ -21,7 +21,6 @@
   rustc,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mousai";
   version = "0.7.8";
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -73,8 +72,8 @@ stdenv.mkDerivation rec {
     mainProgram = "mousai";
     homepage = "https://github.com/SeaDve/Mousai";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
-    teams = [ teams.gnome-circle ];
+    maintainers = with maintainers; [dotlambda];
+    teams = [teams.gnome-circle];
     platforms = platforms.linux;
   };
 }

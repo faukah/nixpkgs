@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "keysmith";
   version = "1.6.2";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Hierarchical Deterministic Key Derivation for the Internet Computer";
     homepage = "https://github.com/dfinity/keysmith";
     license = licenses.mit;
-    maintainers = with maintainers; [ imalison ];
+    maintainers = with maintainers; [imalison];
     mainProgram = "keysmith";
   };
 }

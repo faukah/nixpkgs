@@ -7,7 +7,6 @@
   breakpad,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sentry-native";
   version = "0.8.5";

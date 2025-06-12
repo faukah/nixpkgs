@@ -2,23 +2,22 @@
   substitute,
   testers,
   runCommand,
-}:
-let
+}: let
   # Ofborg doesn't allow any traces on stderr,
   # so mock `lib` to not trace warnings,
   # because substitute gives a deprecation warning
   substituteSilent = substitute.override (prevArgs: {
     lib = prevArgs.lib.extend (
       finalLib: prevLib: {
-        trivial = prevLib.trivial // {
-          warn = msg: value: value;
-        };
+        trivial =
+          prevLib.trivial
+          // {
+            warn = msg: value: value;
+          };
       }
     );
   });
-in
-{
-
+in {
   substitutions = testers.testEqualContents {
     assertion = "substitutions-spaces";
     actual = substitute {
@@ -100,5 +99,4 @@ in
       Yo peter!
     '';
   };
-
 }

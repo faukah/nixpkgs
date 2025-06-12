@@ -6,10 +6,8 @@
   makeWrapper,
   autoPatchelfHook,
   libgcc,
-  appVariants ? [ ],
-}:
-
-let
+  appVariants ? [],
+}: let
   pname = "caido";
   appVariantList = [
     "cli"
@@ -33,9 +31,9 @@ let
     src = desktop;
     inherit pname version;
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-    extraPkgs = pkgs: [ pkgs.libthai ];
+    extraPkgs = pkgs: [pkgs.libthai];
 
     extraInstallCommands = ''
       install -m 444 -D ${appimageContents}/caido.desktop -t $out/share/applications
@@ -50,9 +48,9 @@ let
     src = cli;
     inherit pname version;
 
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
 
-    buildInputs = [ libgcc ];
+    buildInputs = [libgcc];
 
     sourceRoot = ".";
 
@@ -72,23 +70,22 @@ let
       d3vil0p3r
       blackzeshi
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
-
 in
-lib.checkListOfEnum "${pname}: appVariants" appVariantList appVariants (
-  if appVariants == [ "desktop" ] then
-    wrappedDesktop
-  else if appVariants == [ "cli" ] then
-    wrappedCli
-  else
-    stdenv.mkDerivation {
-      inherit pname version meta;
-      dontUnpack = true;
-      installPhase = ''
-        mkdir -p $out/bin
-        ln -s ${wrappedDesktop}/bin/caido $out/bin/caido
-        ln -s ${wrappedCli}/bin/caido-cli $out/bin/caido-cli
-      '';
-    }
-)
+  lib.checkListOfEnum "${pname}: appVariants" appVariantList appVariants (
+    if appVariants == ["desktop"]
+    then wrappedDesktop
+    else if appVariants == ["cli"]
+    then wrappedCli
+    else
+      stdenv.mkDerivation {
+        inherit pname version meta;
+        dontUnpack = true;
+        installPhase = ''
+          mkdir -p $out/bin
+          ln -s ${wrappedDesktop}/bin/caido $out/bin/caido
+          ln -s ${wrappedCli}/bin/caido-cli $out/bin/caido-cli
+        '';
+      }
+  )

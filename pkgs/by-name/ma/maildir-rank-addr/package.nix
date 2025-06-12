@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Wl7KfvNYtvSUiYS1LpN027SrU+K3Uq0UQHv7slC2Xwc=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Generate a ranked addressbook from a maildir folder";
@@ -26,6 +26,6 @@ buildGoModule rec {
     changelog = "https://github.com/ferdinandyb/maildir-rank-addr/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
     mainProgram = "maildir-rank-addr";
-    maintainers = with lib.maintainers; [ antonmosich ];
+    maintainers = with lib.maintainers; [antonmosich];
   };
 }

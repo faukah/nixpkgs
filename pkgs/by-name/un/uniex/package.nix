@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "uniex";
   version = "0.1.7";
@@ -23,7 +22,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/paepckehh/uniex/releases/tag/v${version}";
@@ -31,6 +30,6 @@ buildGoModule rec {
     description = "Tool to export unifi network controller mongodb asset information [csv|json].";
     license = lib.licenses.bsd3;
     mainProgram = "uniex";
-    maintainers = with lib.maintainers; [ paepcke ];
+    maintainers = with lib.maintainers; [paepcke];
   };
 }

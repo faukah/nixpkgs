@@ -3,7 +3,6 @@
   fetchurl,
   melpaBuild,
 }:
-
 melpaBuild {
   pname = "sv-kalender";
   version = "1.11";
@@ -17,6 +16,6 @@ melpaBuild {
     homepage = "https://www.emacswiki.org/emacs/sv-kalender.el";
     description = "Swedish calendar for Emacs";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.rycee ];
+    maintainers = [lib.maintainers.rycee];
   };
 }

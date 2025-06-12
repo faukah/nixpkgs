@@ -12,7 +12,6 @@
   rustPlatform,
   vapoursynth,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "av1an-unwrapped";
   version = "0.4.4";
@@ -71,7 +70,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/master-of-zen/Av1an";
     changelog = "https://github.com/master-of-zen/Av1an/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "av1an";
     # symbol index out of range file '/private/tmp/nix-build-av1an-unwrapped-0.4.4.drv-0/rustcz0anL2/librav1e-ca440893f9248a14.rlib' for architecture x86_64
     broken = stdenv.hostPlatform.system == "x86_64-darwin";

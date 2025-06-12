@@ -7,7 +7,6 @@
   installShellFiles,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ea";
   version = "0.2.1";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Sv+bwqb9FmcBk3XUu0QLJr6hyV6JUnVzL7RXh0pbe2s=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
     libiconv
@@ -44,7 +43,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Makes file paths from CLI output actionable";
     homepage = "https://github.com/dduan/ea";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ deejayem ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [deejayem];
   };
 }

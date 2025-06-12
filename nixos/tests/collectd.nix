@@ -1,26 +1,26 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "collectd";
-  meta = { };
+  meta = {};
 
-  nodes.machine =
-    { pkgs, lib, ... }:
-
-    {
-      services.collectd = {
-        enable = true;
-        extraConfig = lib.mkBefore ''
-          Interval 30
+  nodes.machine = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    services.collectd = {
+      enable = true;
+      extraConfig = lib.mkBefore ''
+        Interval 30
+      '';
+      plugins = {
+        rrdtool = ''
+          DataDir "/var/lib/collectd/rrd"
         '';
-        plugins = {
-          rrdtool = ''
-            DataDir "/var/lib/collectd/rrd"
-          '';
-          load = "";
-        };
+        load = "";
       };
-      environment.systemPackages = [ pkgs.rrdtool ];
     };
+    environment.systemPackages = [pkgs.rrdtool];
+  };
 
   testScript = ''
     machine.wait_for_unit("collectd.service")

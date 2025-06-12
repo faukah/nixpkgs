@@ -8,7 +8,6 @@
   ki18n,
   mauikit,
 }:
-
 mkDerivation {
   pname = "mauikit-terminal";
 
@@ -28,6 +27,6 @@ mkDerivation {
     homepage = "https://invent.kde.org/maui/mauikit-terminal";
     description = "Terminal support components for Maui applications";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "go-font";
   version = "2.010";
@@ -30,7 +29,7 @@ stdenvNoCC.mkDerivation {
     description = "Go font family";
     changelog = "https://go.googlesource.com/image/+log/refs/heads/master/font/gofont";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
     platforms = lib.platforms.all;
   };
 }

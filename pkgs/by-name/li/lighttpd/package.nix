@@ -31,7 +31,6 @@
   perl,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lighttpd";
   version = "1.4.79";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     patchShebangs tests
   '';
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -74,7 +73,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableWebDAV libuuid;
 
   configureFlags =
-    [ "--with-openssl" ]
+    ["--with-openssl"]
     ++ lib.optional enableDbi "--with-dbi"
     ++ lib.optional enableMagnet "--with-lua"
     ++ lib.optional enableMysql "--with-mysql"
@@ -90,7 +89,7 @@ stdenv.mkDerivation rec {
     sed -i "s:/usr/bin/file:${file}/bin/file:g" configure
   '';
 
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
   doCheck = true;
 
   postInstall = ''

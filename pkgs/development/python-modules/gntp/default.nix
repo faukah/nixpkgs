@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "gntp";
   version = "1.0.3";
@@ -27,6 +26,6 @@ buildPythonPackage rec {
     description = "Python library for working with the Growl Notification Transport Protocol";
     mainProgram = "gntp";
     license = licenses.mit;
-    maintainers = [ maintainers.jfroche ];
+    maintainers = [maintainers.jfroche];
   };
 }

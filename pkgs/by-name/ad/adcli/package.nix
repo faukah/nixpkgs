@@ -13,7 +13,6 @@
   util-linux,
   xmlto,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "adcli";
   version = "0.9.2";

@@ -5,7 +5,6 @@
   gettext,
   emacs,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cflow";
   version = "1.7";
@@ -22,10 +21,10 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs =
-    [ gettext ]
+    [gettext]
     ++
     # We don't have Emacs/GTK/etc. on {Dar,Cyg}win.
-    lib.optional (!(lib.lists.any (x: stdenv.hostPlatform.system == x) [ "i686-cygwin" ])) emacs;
+    lib.optional (!(lib.lists.any (x: stdenv.hostPlatform.system == x) ["i686-cygwin"])) emacs;
 
   doCheck = true;
 
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.gnu.org/software/cflow/";
 
-    maintainers = [ ];
+    maintainers = [];
 
     platforms = platforms.linux ++ platforms.darwin;
   };

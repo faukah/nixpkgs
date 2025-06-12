@@ -9,7 +9,6 @@
   uucp,
   uuseg,
 }:
-
 buildDunePackage rec {
   pname = "zed";
   version = "3.2.3";

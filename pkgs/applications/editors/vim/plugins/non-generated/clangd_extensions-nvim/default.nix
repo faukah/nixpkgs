@@ -15,7 +15,7 @@ vimUtils.buildVimPlugin {
     hash = "sha256-XdA638W0Zb85v5uAUNpvUiiQXGKOM2xykD2ClLk8Qpo=";
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Clangd's off-spec features for neovim's LSP client";

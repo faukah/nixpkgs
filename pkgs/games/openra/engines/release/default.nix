@@ -1,5 +1,7 @@
-{ buildOpenRAEngine, dotnetCorePackages }:
-
+{
+  buildOpenRAEngine,
+  dotnetCorePackages,
+}:
 buildOpenRAEngine {
   build = "release";
   version = "20250330";

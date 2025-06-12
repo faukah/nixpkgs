@@ -21,7 +21,6 @@
   common-updater-scripts,
   _experimental-update-script-combinators,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ashpd-demo";
   version = "0.5.0";
@@ -67,30 +66,29 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript =
-      let
-        updateSource = gitUpdater {
-          url = finalAttrs.src.gitRepoUrl;
-          rev-suffix = "-demo";
-        };
+    updateScript = let
+      updateSource = gitUpdater {
+        url = finalAttrs.src.gitRepoUrl;
+        rev-suffix = "-demo";
+      };
 
-        updateLockfile = {
-          command = [
-            "sh"
-            "-c"
-            ''
-              PATH=${
-                lib.makeBinPath [
-                  common-updater-scripts
-                ]
-              }
-              update-source-version ashpd-demo --ignore-same-version --source-key=cargoDeps.vendorStaging > /dev/null
-            ''
-          ];
-          # Experimental feature: do not copy!
-          supportedFeatures = [ "silent" ];
-        };
-      in
+      updateLockfile = {
+        command = [
+          "sh"
+          "-c"
+          ''
+            PATH=${
+              lib.makeBinPath [
+                common-updater-scripts
+              ]
+            }
+            update-source-version ashpd-demo --ignore-same-version --source-key=cargoDeps.vendorStaging > /dev/null
+          ''
+        ];
+        # Experimental feature: do not copy!
+        supportedFeatures = ["silent"];
+      };
+    in
       _experimental-update-script-combinators.sequence [
         updateSource
         updateLockfile
@@ -102,7 +100,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "ashpd-demo";
     homepage = "https://github.com/bilelmoussaoui/ashpd/tree/master/ashpd-demo";
     license = licenses.mit;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.linux;
   };
 })

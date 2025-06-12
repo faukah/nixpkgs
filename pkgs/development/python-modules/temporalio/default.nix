@@ -16,7 +16,6 @@
   types-protobuf,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "temporalio";
   version = "1.12.0";
@@ -53,11 +52,13 @@ buildPythonPackage rec {
     export PROTOC=${buildPackages.protobuf}/bin/protoc
   '';
 
-  dependencies = [
-    protobuf
-    types-protobuf
-    typing-extensions
-  ] ++ lib.optional (pythonOlder "3.11") python-dateutil;
+  dependencies =
+    [
+      protobuf
+      types-protobuf
+      typing-extensions
+    ]
+    ++ lib.optional (pythonOlder "3.11") python-dateutil;
 
   nativeBuildInputs = [
     cargo

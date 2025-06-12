@@ -18,6 +18,6 @@ buildFishPlugin {
     description = "Bash style history substitution for Oh My Fish";
     homepage = "https://github.com/oh-my-fish/plugin-bang-bang";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ theobori ];
+    maintainers = with lib.maintainers; [theobori];
   };
 }

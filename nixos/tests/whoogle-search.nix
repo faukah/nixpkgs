@@ -1,17 +1,18 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "whoogle-search";
-  meta.maintainers = with lib.maintainers; [ malte-v ];
+  meta.maintainers = with lib.maintainers; [malte-v];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.whoogle-search = {
-        enable = true;
-        port = 5000;
-        listenAddress = "127.0.0.1";
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.whoogle-search = {
+      enable = true;
+      port = 5000;
+      listenAddress = "127.0.0.1";
     };
+  };
 
   testScript = ''
     machine.start()

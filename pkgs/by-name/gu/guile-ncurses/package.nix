@@ -7,7 +7,6 @@
   libffi,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guile-ncurses";
   version = "3.1";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
       panel, and menu.
     '';
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ vyp ];
+    maintainers = with maintainers; [vyp];
     platforms = guile.meta.platforms;
   };
 }

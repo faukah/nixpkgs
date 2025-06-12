@@ -26,7 +26,6 @@
   xorgproto,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jwm";
   version = "2.4.6";
@@ -79,7 +78,7 @@ stdenv.mkDerivation rec {
     description = "Joe's Window Manager is a light-weight X11 window manager";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
     mainProgram = "jwm";
   };
 }

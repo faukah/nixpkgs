@@ -16,7 +16,6 @@
   requests-mock,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "mastodon-py";
   version = "2.0.1";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-Sqvn7IIzkGnIjMGek1QS4pLXI+LoKykJsVnr/X1QH7U=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     blurhash
@@ -40,20 +39,22 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    blurhash = [ blurhash ];
+    blurhash = [blurhash];
     webpush = [
       http-ece
       cryptography
     ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-cov-stub
-    pytest-mock
-    pytest-vcr
-    requests-mock
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-cov-stub
+      pytest-mock
+      pytest-vcr
+      requests-mock
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   disabledTests = [
     "test_notifications_dismiss_pre_2_9_2"
@@ -62,13 +63,13 @@ buildPythonPackage rec {
     "test_stream_user_local"
   ];
 
-  pythonImportsCheck = [ "mastodon" ];
+  pythonImportsCheck = ["mastodon"];
 
   meta = with lib; {
     changelog = "https://github.com/halcy/Mastodon.py/blob/${src.tag}/CHANGELOG.rst";
     description = "Python wrapper for the Mastodon API";
     homepage = "https://github.com/halcy/Mastodon.py";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

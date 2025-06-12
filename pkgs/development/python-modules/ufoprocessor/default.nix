@@ -11,7 +11,6 @@
   fontparts,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "ufoprocessor";
   version = "1.13.3";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     sha256 = "1187g7xs6z8i2hzfkqhfd59qsdvzydqnmwhaz71nsi1zf5bw59gw";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies =
     [
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     description = "Read, write and generate UFOs with designspace data";
     homepage = "https://github.com/LettError/ufoProcessor";
     license = licenses.mit;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

@@ -3,16 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.light;
-
-in
-{
+in {
   options = {
     programs.light = {
-
       enable = lib.mkOption {
         default = false;
         type = lib.types.bool;
@@ -57,36 +52,32 @@ in
             display going dark.
           '';
         };
-
       };
-
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.light ];
-    services.udev.packages = [ pkgs.light ];
+    environment.systemPackages = [pkgs.light];
+    services.udev.packages = [pkgs.light];
     services.actkbd = lib.mkIf cfg.brightnessKeys.enable {
       enable = true;
-      bindings =
-        let
-          light = "${pkgs.light}/bin/light";
-          step = builtins.toString cfg.brightnessKeys.step;
-          minBrightness = builtins.toString cfg.brightnessKeys.minBrightness;
-        in
-        [
-          {
-            keys = [ 224 ];
-            events = [ "key" ];
-            # -N is used to ensure that value >= minBrightness
-            command = "${light} -N ${minBrightness} && ${light} -U ${step}";
-          }
-          {
-            keys = [ 225 ];
-            events = [ "key" ];
-            command = "${light} -A ${step}";
-          }
-        ];
+      bindings = let
+        light = "${pkgs.light}/bin/light";
+        step = builtins.toString cfg.brightnessKeys.step;
+        minBrightness = builtins.toString cfg.brightnessKeys.minBrightness;
+      in [
+        {
+          keys = [224];
+          events = ["key"];
+          # -N is used to ensure that value >= minBrightness
+          command = "${light} -N ${minBrightness} && ${light} -U ${step}";
+        }
+        {
+          keys = [225];
+          events = ["key"];
+          command = "${light} -A ${step}";
+        }
+      ];
     };
   };
 }

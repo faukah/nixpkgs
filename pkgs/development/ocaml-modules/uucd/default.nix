@@ -7,40 +7,38 @@
   ocamlbuild,
   xmlm,
   topkg,
-}:
-
-let
+}: let
   pname = "uucd";
   webpage = "https://erratique.ch/software/${pname}";
 in
-stdenv.mkDerivation rec {
-  name = "ocaml-${pname}-${version}";
-  version = "16.0.0";
+  stdenv.mkDerivation rec {
+    name = "ocaml-${pname}-${version}";
+    version = "16.0.0";
 
-  src = fetchurl {
-    url = "${webpage}/releases/${pname}-${version}.tbz";
-    hash = "sha256-VVGPG6ZjchUqo8xMCJRahqCCF5WheDBpK1stuts+orM=";
-  };
+    src = fetchurl {
+      url = "${webpage}/releases/${pname}-${version}.tbz";
+      hash = "sha256-VVGPG6ZjchUqo8xMCJRahqCCF5WheDBpK1stuts+orM=";
+    };
 
-  nativeBuildInputs = [
-    ocaml
-    findlib
-    ocamlbuild
-    topkg
-  ];
-  buildInputs = [ topkg ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+      ocamlbuild
+      topkg
+    ];
+    buildInputs = [topkg];
 
-  strictDeps = true;
+    strictDeps = true;
 
-  inherit (topkg) buildPhase installPhase;
+    inherit (topkg) buildPhase installPhase;
 
-  propagatedBuildInputs = [ xmlm ];
+    propagatedBuildInputs = [xmlm];
 
-  meta = with lib; {
-    description = "OCaml module to decode the data of the Unicode character database from its XML representation";
-    homepage = webpage;
-    inherit (ocaml.meta) platforms;
-    maintainers = [ maintainers.vbgl ];
-    license = licenses.bsd3;
-  };
-}
+    meta = with lib; {
+      description = "OCaml module to decode the data of the Unicode character database from its XML representation";
+      homepage = webpage;
+      inherit (ocaml.meta) platforms;
+      maintainers = [maintainers.vbgl];
+      license = licenses.bsd3;
+    };
+  }

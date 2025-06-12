@@ -9,7 +9,6 @@
   p4,
   less,
 }:
-
 buildPythonPackage rec {
   pname = "ydiff";
   version = "1.4.2";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     patchShebangs tests/*.sh
   '';
 
-  nativeCheckInputs = [ pygments ];
+  nativeCheckInputs = [pygments];
 
   checkPhase = ''
     runHook preCheck
@@ -55,7 +54,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/ymattw/ydiff";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ leenaars ];
-    teams = [ teams.deshaw ];
+    maintainers = with maintainers; [leenaars];
+    teams = [teams.deshaw];
   };
 }

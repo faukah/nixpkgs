@@ -7,7 +7,6 @@
   pythonOlder,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "ppft";
   version = "1.7.7";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-8/d0SM/iTCuNIpa22HMigLJQQaPz4fVRhWxkUdPgG5Y=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   # darwin seems to hang
   doCheck = !stdenv.hostPlatform.isDarwin;
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "ppft" ];
+  pythonImportsCheck = ["ppft"];
 
   meta = with lib; {
     description = "Distributed and parallel Python";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://ppft.readthedocs.io/";
     changelog = "https://github.com/uqfoundation/ppft/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "octomap";
   version = "1.10.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/octomap";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "Probabilistic, flexible, and compact 3D mapping library for robotic systems";
     homepage = "https://octomap.github.io/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
     platforms = platforms.unix;
   };
 }

@@ -5,7 +5,6 @@
   php,
   versionCheckHook,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "phpactor";
   version = "2025.04.17.0";
@@ -19,7 +18,7 @@ php.buildComposerProject2 (finalAttrs: {
 
   vendorHash = "sha256-qdR8/ME9H7gusALjXXbKl8hj20N704Nw1tC3V9xTcEY=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd phpactor \
@@ -27,7 +26,7 @@ php.buildComposerProject2 (finalAttrs: {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -36,6 +35,6 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://github.com/phpactor/phpactor";
     license = lib.licenses.mit;
     mainProgram = "phpactor";
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 })

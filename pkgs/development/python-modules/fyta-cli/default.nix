@@ -11,7 +11,6 @@
   pythonOlder,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "fyta-cli";
   version = "0.7.2";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-YYH15ZuRZirSFC7No1goY/afk2BGtCCykcZAnCDdq7U=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     aiohttp
@@ -40,15 +39,15 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "fyta_cli" ];
+  pythonImportsCheck = ["fyta_cli"];
 
-  pytestFlagsArray = [ "--snapshot-update" ];
+  pytestFlagsArray = ["--snapshot-update"];
 
   meta = with lib; {
     description = "Module to access the FYTA API";
     homepage = "https://github.com/dontinelli/fyta_cli";
     changelog = "https://github.com/dontinelli/fyta_cli/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

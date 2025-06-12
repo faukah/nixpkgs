@@ -12,7 +12,6 @@
   sd,
   whisper-cpp,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "galene-stt";
   version = "0.1";

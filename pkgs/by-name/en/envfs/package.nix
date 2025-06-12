@@ -29,14 +29,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
       envfs = nixosTests.envfs;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Fuse filesystem that returns symlinks to executables based on the PATH of the requesting process";
     homepage = "https://github.com/Mic92/envfs";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mic92 ];
+    maintainers = with lib.maintainers; [mic92];
     platforms = lib.platforms.linux;
   };
 })

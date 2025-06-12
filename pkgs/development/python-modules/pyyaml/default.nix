@@ -8,7 +8,6 @@
   libyaml,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyyaml";
   version = "6.0.2";
@@ -28,17 +27,17 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ libyaml ];
+  buildInputs = [libyaml];
 
-  pythonImportsCheck = [ "yaml" ];
+  pythonImportsCheck = ["yaml"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     changelog = "https://github.com/yaml/pyyaml/blob/${src.rev}/CHANGES";
     description = "Next generation YAML parser and emitter for Python";
     homepage = "https://github.com/yaml/pyyaml";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

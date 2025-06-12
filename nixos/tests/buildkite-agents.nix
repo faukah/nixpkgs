@@ -1,22 +1,22 @@
-{ lib, pkgs, ... }:
-
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "buildkite-agent";
-  meta.maintainers = with lib.maintainers; [ flokli ];
+  meta.maintainers = with lib.maintainers; [flokli];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.buildkite-agents = {
-        one = {
-          privateSshKeyPath = (import ./ssh-keys.nix pkgs).snakeOilPrivateKey;
-          tokenPath = (pkgs.writeText "my-token" "5678");
-        };
-        two = {
-          tokenPath = (pkgs.writeText "my-token" "1234");
-        };
+  nodes.machine = {pkgs, ...}: {
+    services.buildkite-agents = {
+      one = {
+        privateSshKeyPath = (import ./ssh-keys.nix pkgs).snakeOilPrivateKey;
+        tokenPath = pkgs.writeText "my-token" "5678";
+      };
+      two = {
+        tokenPath = pkgs.writeText "my-token" "1234";
       };
     };
+  };
 
   testScript = ''
     start_all()

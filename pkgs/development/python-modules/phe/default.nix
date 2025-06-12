@@ -10,7 +10,6 @@
   pytestCheckHook,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "phe";
   version = "1.5.1";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-P//4ZL4+2zcB5sWvujs2N0CHFz+EBLERWrPGLLHj6CY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     click
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     mainProgram = "pheutil";
     homepage = "https://github.com/data61/python-paillier";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ tomasajt ];
+    maintainers = with maintainers; [tomasajt];
   };
 }

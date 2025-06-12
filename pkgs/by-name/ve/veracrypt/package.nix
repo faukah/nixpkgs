@@ -16,7 +16,6 @@
   pcsclite,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "veracrypt";
   version = "1.26.24";

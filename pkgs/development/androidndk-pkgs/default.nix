@@ -6,30 +6,28 @@
   targetPackages,
   androidndkPkgs_23,
   config,
-}:
+}: let
+  makeNdkPkgs = ndkVersion: llvmPackages: let
+    buildAndroidComposition = buildPackages.buildPackages.androidenv.composeAndroidPackages {
+      includeNDK = true;
+      inherit ndkVersion;
+    };
 
-let
-  makeNdkPkgs =
-    ndkVersion: llvmPackages:
-    let
-      buildAndroidComposition = buildPackages.buildPackages.androidenv.composeAndroidPackages {
-        includeNDK = true;
-        inherit ndkVersion;
-      };
-
-      androidComposition = androidenv.composeAndroidPackages {
-        includeNDK = true;
-        inherit ndkVersion;
-      };
-      majorVersion = lib.versions.major ndkVersion;
-    in
+    androidComposition = androidenv.composeAndroidPackages {
+      includeNDK = true;
+      inherit ndkVersion;
+    };
+    majorVersion = lib.versions.major ndkVersion;
+  in
     import ./androidndk-pkgs.nix {
       inherit lib;
-      inherit (buildPackages)
+      inherit
+        (buildPackages)
         makeWrapper
         autoPatchelfHook
         ;
-      inherit (pkgs)
+      inherit
+        (pkgs)
         stdenv
         runCommand
         wrapBintoolsWith
@@ -46,20 +44,18 @@ let
       buildAndroidndk = buildAndroidComposition.ndk-bundle;
       androidndk = androidComposition.ndk-bundle;
       targetAndroidndkPkgs =
-        if targetPackages ? "androidndkPkgs_${majorVersion}" then
-          targetPackages."androidndkPkgs_${majorVersion}"
-        else
-          throw "androidndkPkgs_${majorVersion}: no targetPackages, use `buildPackages.androidndkPkgs_${majorVersion}";
+        if targetPackages ? "androidndkPkgs_${majorVersion}"
+        then targetPackages."androidndkPkgs_${majorVersion}"
+        else throw "androidndkPkgs_${majorVersion}: no targetPackages, use `buildPackages.androidndkPkgs_${majorVersion}";
     };
 in
-
-lib.recurseIntoAttrs {
-  "21" = makeNdkPkgs "21.0.6113669" pkgs.llvmPackages_14; # "9"
-  "23" = makeNdkPkgs "23.1.7779620" pkgs.llvmPackages_14; # "12"
-  # Versions below 24 use a version not available in nixpkgs/old version which could be removed in the near future so use 14 for them as this is only used to get the hardening flags.
-  "24" = makeNdkPkgs "24.0.8215888" pkgs.llvmPackages_14;
-  "25" = makeNdkPkgs "25.2.9519653" pkgs.llvmPackages_14;
-  "26" = makeNdkPkgs "26.3.11579264" pkgs.llvmPackages_17;
-  "27" = makeNdkPkgs "27.0.12077973" pkgs.llvmPackages_18;
-  "28" = makeNdkPkgs "28.0.13004108" pkgs.llvmPackages_19;
-}
+  lib.recurseIntoAttrs {
+    "21" = makeNdkPkgs "21.0.6113669" pkgs.llvmPackages_14; # "9"
+    "23" = makeNdkPkgs "23.1.7779620" pkgs.llvmPackages_14; # "12"
+    # Versions below 24 use a version not available in nixpkgs/old version which could be removed in the near future so use 14 for them as this is only used to get the hardening flags.
+    "24" = makeNdkPkgs "24.0.8215888" pkgs.llvmPackages_14;
+    "25" = makeNdkPkgs "25.2.9519653" pkgs.llvmPackages_14;
+    "26" = makeNdkPkgs "26.3.11579264" pkgs.llvmPackages_17;
+    "27" = makeNdkPkgs "27.0.12077973" pkgs.llvmPackages_18;
+    "28" = makeNdkPkgs "28.0.13004108" pkgs.llvmPackages_19;
+  }

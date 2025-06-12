@@ -9,7 +9,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pimsync";
   version = "0.4.2";
@@ -46,14 +45,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   versionCheckProgramArg = "version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Synchronise calendars and contacts";
     homepage = "https://git.sr.ht/~whynothugo/pimsync";
     license = lib.licenses.eupl12;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.qxrein ];
+    maintainers = [lib.maintainers.qxrein];
     mainProgram = "pimsync";
   };
 })

@@ -34,7 +34,6 @@
   kcrash,
   kded,
 }:
-
 mkDerivation {
   pname = "kio";
   nativeBuildInputs = [

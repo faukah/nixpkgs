@@ -12,7 +12,6 @@
   libjpeg,
   libaom,
   gdk-pixbuf,
-
   # for passthru.tests
   gimp,
   imagemagick,
@@ -21,7 +20,6 @@
   python3Packages,
   vips,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libheif";
   version = "1.19.7";
@@ -81,6 +79,6 @@ stdenv.mkDerivation rec {
     description = "ISO/IEC 23008-12:2017 HEIF image file format decoder and encoder";
     license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

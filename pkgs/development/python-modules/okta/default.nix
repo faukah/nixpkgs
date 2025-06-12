@@ -22,7 +22,6 @@
   xmltodict,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "okta";
   version = "2.9.13";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     hash = "sha256-jY6SZ1G3+NquF5TfLsGw6T9WO4smeBYT0gXLnRDoN+8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aenum
@@ -60,7 +59,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/" ];
+  pytestFlagsArray = ["tests/"];
 
   disabledTests = [
     "test_client_raise_exception"
@@ -87,6 +86,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/okta/okta-sdk-python";
     changelog = "https://github.com/okta/okta-sdk-python/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jbgosselin ];
+    maintainers = with maintainers; [jbgosselin];
   };
 }

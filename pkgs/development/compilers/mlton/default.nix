@@ -1,9 +1,7 @@
-{ callPackage }:
+{callPackage}: rec {
+  mlton20130715 = callPackage ./20130715.nix {};
 
-rec {
-  mlton20130715 = callPackage ./20130715.nix { };
-
-  mlton20180207Binary = callPackage ./20180207-binary.nix { };
+  mlton20180207Binary = callPackage ./20180207-binary.nix {};
 
   mlton20180207 = callPackage ./from-git-source.nix {
     mltonBootstrap = mlton20180207Binary;
@@ -12,7 +10,7 @@ rec {
     sha256 = "00rdd2di5x1dzac64il9z05m3fdzicjd3226wwjyynv631jj3q2a";
   };
 
-  mlton20210117Binary = callPackage ./20210117-binary.nix { };
+  mlton20210117Binary = callPackage ./20210117-binary.nix {};
 
   mlton20210117 = callPackage ./from-git-source.nix {
     mltonBootstrap = mlton20210117Binary;

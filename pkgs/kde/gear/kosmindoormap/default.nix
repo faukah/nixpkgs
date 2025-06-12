@@ -11,5 +11,5 @@ mkKdeDerivation {
     bison
     flex
   ];
-  extraBuildInputs = [ recastnavigation ];
+  extraBuildInputs = [recastnavigation];
 }

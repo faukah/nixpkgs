@@ -16,7 +16,6 @@
   requests,
   typer,
 }:
-
 buildPythonPackage rec {
   pname = "mandown";
   version = "1.12.1";
@@ -54,18 +53,18 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    gui = [ pyside6 ];
+    gui = [pyside6];
   };
 
-  pythonImportsCheck = [ "mandown" ];
+  pythonImportsCheck = ["mandown"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/potatoeggy/mandown/releases/tag/v${version}";
     description = "Comic/manga/webtoon downloader and CBZ/EPUB/MOBI/PDF converter";
     homepage = "https://github.com/potatoeggy/mandown";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ Scrumplex ];
+    maintainers = with lib.maintainers; [Scrumplex];
   };
 }

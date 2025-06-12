@@ -3,7 +3,6 @@
   qtbase,
   qttools,
 }:
-
 qtModule {
   pname = "qtscript";
   propagatedBuildInputs = [

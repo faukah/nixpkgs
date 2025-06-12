@@ -9,7 +9,6 @@
   pkg-config,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "libui-ng";
   version = "4.1-unstable-2025-03-15";
@@ -48,7 +47,7 @@ stdenv.mkDerivation {
     description = "Portable GUI library for C";
     homepage = "https://github.com/libui-ng/libui-ng";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

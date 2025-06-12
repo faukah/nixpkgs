@@ -13,7 +13,6 @@
   libiconv,
   libsForQt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-editor";
   version = "6.5.15";
@@ -48,16 +47,16 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   # Fix build with icu4c: "error: parameter declared 'auto'"
-  env.NIX_CFLAGS_COMPILE = toString [ "--std=c++17" ];
+  env.NIX_CFLAGS_COMPILE = toString ["--std=c++17"];
 
   meta = {
     description = "Desktop text editor that supports common text editing features";
     homepage = "https://github.com/linuxdeepin/deepin-editor";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

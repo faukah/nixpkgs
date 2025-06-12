@@ -7,7 +7,6 @@
   makeBinaryWrapper,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "proto";
   version = "0.49.1";
@@ -51,7 +50,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://moonrepo.dev/proto";
     changelog = "https://github.com/moonrepo/proto/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nokazn ];
+    maintainers = with lib.maintainers; [nokazn];
     mainProgram = "proto";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };

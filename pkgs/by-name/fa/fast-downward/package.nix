@@ -7,7 +7,6 @@
   osi,
   cplex,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fast-downward";
   version = "24.06.1";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     osi
   ];
 
-  cmakeFlags = lib.optionals osi.withCplex [ "-DDOWNWARD_CPLEX_ROOT=${cplex}/cplex" ];
+  cmakeFlags = lib.optionals osi.withCplex ["-DDOWNWARD_CPLEX_ROOT=${cplex}/cplex"];
 
   configurePhase = ''
     python build.py release
@@ -70,6 +69,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.fast-downward.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

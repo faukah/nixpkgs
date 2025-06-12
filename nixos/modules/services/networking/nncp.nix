@@ -4,20 +4,16 @@
   pkgs,
   ...
 }:
-with lib;
-
-let
+with lib; let
   nncpCfgFile = "/run/nncp.hjson";
   programCfg = config.programs.nncp;
   callerCfg = config.services.nncp.caller;
   daemonCfg = config.services.nncp.daemon;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   jsonCfgFile = settingsFormat.generate "nncp.json" programCfg.settings;
   pkg = programCfg.package;
-in
-{
+in {
   options = {
-
     services.nncp = {
       caller = {
         enable = mkEnableOption ''
@@ -28,8 +24,8 @@ in
         extraArgs = mkOption {
           type = with types; listOf str;
           description = "Extra command-line arguments to pass to caller.";
-          default = [ ];
-          example = [ "-autotoss" ];
+          default = [];
+          example = ["-autotoss"];
         };
       };
 
@@ -47,33 +43,28 @@ in
               TCP sockets to bind to.
               See [](#opt-systemd.sockets._name_.listenStreams).
             '';
-            default = [ "5400" ];
+            default = ["5400"];
           };
         };
         extraArgs = mkOption {
           type = with types; listOf str;
           description = "Extra command-line arguments to pass to daemon.";
-          default = [ ];
-          example = [ "-autotoss" ];
+          default = [];
+          example = ["-autotoss"];
         };
       };
-
     };
   };
 
   config = mkIf (programCfg.enable or callerCfg.enable or daemonCfg.enable) {
-
     assertions = [
       {
-        assertion =
-          with builtins;
-          let
-            callerCongfigured =
-              let
-                neigh = config.programs.nncp.settings.neigh or { };
-              in
-              lib.lists.any (x: hasAttr "calls" x && x.calls != [ ]) (attrValues neigh);
+        assertion = with builtins; let
+          callerCongfigured = let
+            neigh = config.programs.nncp.settings.neigh or {};
           in
+            lib.lists.any (x: hasAttr "calls" x && x.calls != []) (attrValues neigh);
+        in
           !callerCfg.enable || callerCongfigured;
         message = "NNCP caller enabled but call configuration is missing";
       }
@@ -82,9 +73,9 @@ in
     systemd.services."nncp-caller" = {
       inherit (callerCfg) enable;
       description = "Croned NNCP TCP daemon caller.";
-      documentation = [ "http://www.nncpgo.org/nncp_002dcaller.html" ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["http://www.nncpgo.org/nncp_002dcaller.html"];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = ''${pkg}/bin/nncp-caller -noprogress -cfg "${nncpCfgFile}" ${lib.strings.escapeShellArgs callerCfg.extraArgs}'';
         Group = "uucp";
@@ -95,9 +86,9 @@ in
     systemd.services."nncp-daemon" = mkIf daemonCfg.enable {
       enable = !daemonCfg.socketActivation.enable;
       description = "NNCP TCP syncronization daemon.";
-      documentation = [ "http://www.nncpgo.org/nncp_002ddaemon.html" ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["http://www.nncpgo.org/nncp_002ddaemon.html"];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = ''${pkg}/bin/nncp-daemon -noprogress -cfg "${nncpCfgFile}" ${lib.strings.escapeShellArgs daemonCfg.extraArgs}'';
         Restart = "on-failure";
@@ -108,8 +99,8 @@ in
 
     systemd.services."nncp-daemon@" = mkIf daemonCfg.socketActivation.enable {
       description = "NNCP TCP syncronization daemon.";
-      documentation = [ "http://www.nncpgo.org/nncp_002ddaemon.html" ];
-      after = [ "network.target" ];
+      documentation = ["http://www.nncpgo.org/nncp_002ddaemon.html"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = ''${pkg}/bin/nncp-daemon -noprogress -ucspi -cfg "${nncpCfgFile}" ${lib.strings.escapeShellArgs daemonCfg.extraArgs}'';
         Group = "uucp";
@@ -123,8 +114,8 @@ in
     systemd.sockets.nncp-daemon = mkIf daemonCfg.socketActivation.enable {
       inherit (daemonCfg.socketActivation) listenStreams;
       description = "socket for NNCP TCP syncronization.";
-      conflicts = [ "nncp-daemon.service" ];
-      wantedBy = [ "sockets.target" ];
+      conflicts = ["nncp-daemon.service"];
+      wantedBy = ["sockets.target"];
       socketConfig.Accept = true;
     };
   };

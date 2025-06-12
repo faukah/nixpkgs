@@ -9,7 +9,6 @@
   setuptools,
   typer,
 }:
-
 buildPythonPackage rec {
   pname = "ovoenergy";
   version = "2.0.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeBuildInputs = [ incremental ];
+  nativeBuildInputs = [incremental];
 
   dependencies = [
     aiohttp
@@ -45,13 +44,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "ovoenergy" ];
+  pythonImportsCheck = ["ovoenergy"];
 
   meta = with lib; {
     description = "Python client for getting data from OVO's API";
     homepage = "https://github.com/timmo001/ovoenergy";
     changelog = "https://github.com/timmo001/ovoenergy/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

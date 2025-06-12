@@ -7,7 +7,6 @@
   db,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jigdo";
   version = "0.8.2";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.einval.com/~steve/software/jigdo/";
     changelog = "https://git.einval.com/cgi-bin/gitweb.cgi?p=jigdo.git;a=blob;f=changelog;hb=refs/tags/${version}";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     platforms = lib.platforms.unix;
   };
 }

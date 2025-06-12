@@ -18,7 +18,6 @@
   tenacity,
   tiktoken,
 }:
-
 buildPythonPackage rec {
   pname = "fnllm";
   version = "0.2.8";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-FafxygW5aZ3U24mesFZI5cmLd1L1FE8rHOrOgL3R+9g=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     aiolimiter
@@ -52,14 +51,16 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    polyfactory
-    pytest-asyncio
-    pytest-cov-stub
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      polyfactory
+      pytest-asyncio
+      pytest-cov-stub
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "fnllm" ];
+  pythonImportsCheck = ["fnllm"];
 
   disabledTests = [
     # Tests require network access
@@ -82,6 +83,6 @@ buildPythonPackage rec {
     description = "A function-based LLM protocol and wrapper";
     homepage = "https://github.com/microsoft/essex-toolkit/tree/main/python/fnllm";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

@@ -1,38 +1,32 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   domain = "http://glitchtip.local:8000";
-in
-
-{
+in {
   name = "glitchtip";
   meta.maintainers = with lib.maintainers; [
     defelo
     felbinger
   ];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.glitchtip = {
-        enable = true;
-        port = 8000;
-        settings.GLITCHTIP_DOMAIN = domain;
-        environmentFiles = [
-          (builtins.toFile "glitchtip.env" ''
-            SECRET_KEY=8Hz7YCGzo7fiicHb8Qr22ZqwoIB7lSRx
-          '')
-        ];
-      };
-
-      environment.systemPackages = [ pkgs.sentry-cli ];
-
-      networking.hosts."127.0.0.1" = [ "glitchtip.local" ];
+  nodes.machine = {pkgs, ...}: {
+    services.glitchtip = {
+      enable = true;
+      port = 8000;
+      settings.GLITCHTIP_DOMAIN = domain;
+      environmentFiles = [
+        (builtins.toFile "glitchtip.env" ''
+          SECRET_KEY=8Hz7YCGzo7fiicHb8Qr22ZqwoIB7lSRx
+        '')
+      ];
     };
+
+    environment.systemPackages = [pkgs.sentry-cli];
+
+    networking.hosts."127.0.0.1" = ["glitchtip.local"];
+  };
 
   interactive.nodes.machine = {
     services.glitchtip.listenAddress = "0.0.0.0";
-    networking.firewall.allowedTCPPorts = [ 8000 ];
+    networking.firewall.allowedTCPPorts = [8000];
     virtualisation.forwardPorts = [
       {
         from = "host";

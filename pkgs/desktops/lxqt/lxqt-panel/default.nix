@@ -32,7 +32,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxqt-panel";
   version = "2.2.1";
@@ -78,7 +77,7 @@ stdenv.mkDerivation rec {
     solid
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lxqt-panel";
@@ -86,6 +85,6 @@ stdenv.mkDerivation rec {
     mainProgram = "lxqt-panel";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

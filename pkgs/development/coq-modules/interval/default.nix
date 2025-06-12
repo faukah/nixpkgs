@@ -11,14 +11,12 @@
   gnuplot_qt,
   version ? null,
 }:
-
 mkCoqDerivation rec {
   pname = "interval";
   owner = "coqinterval";
   domain = "gitlab.inria.fr";
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = range "8.13" "8.20";
@@ -56,7 +54,8 @@ mkCoqDerivation rec {
         case = range "8.5" "8.6";
         out = "3.3.0";
       }
-    ] null;
+    ]
+    null;
   release."4.11.1".sha256 = "sha256-QWZvU468rOhK796xCCEawW6rhCRTPnE0iLll9ynKflo=";
   release."4.11.0".sha256 = "sha256-vPwa4zSjyvxHLGDoNaBnHV2pb77dnQFbC50BL80fcvE=";
   release."4.10.0".sha256 = "sha256-MZJVoKGLXjDabdv9BuUSK1L9z1cubzC9cqVuWevKIXQ=";
@@ -76,7 +75,7 @@ mkCoqDerivation rec {
   release."3.3.0".sha256 = "0lz2hgggzn4cvklvm8rpaxvwaryf37i8mzqajqgdxdbd8f12acsz";
   releaseRev = v: "interval-${v}";
 
-  nativeBuildInputs = [ autoconf ];
+  nativeBuildInputs = [autoconf];
   propagatedBuildInputs =
     lib.optional (lib.versions.isGe "8.6" coq.coq-version) bignums
     ++ [
@@ -85,7 +84,7 @@ mkCoqDerivation rec {
       mathcomp-boot
       mathcomp-fingroup
     ]
-    ++ lib.optionals (lib.versions.isGe "4.2.0" defaultVersion) [ gnuplot_qt ];
+    ++ lib.optionals (lib.versions.isGe "4.2.0" defaultVersion) [gnuplot_qt];
   useMelquiondRemake.logpath = "Interval";
   mlPlugin = true;
   enableParallelBuilding = true;
@@ -93,6 +92,6 @@ mkCoqDerivation rec {
   meta = with lib; {
     description = "Tactics for simplifying the proofs of inequalities on expressions of real numbers for the Coq proof assistant";
     license = licenses.cecill-c;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

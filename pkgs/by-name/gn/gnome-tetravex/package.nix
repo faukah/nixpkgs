@@ -17,7 +17,6 @@
   vala,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-tetravex";
   version = "3.38.2";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   postPatch = ''
     chmod +x build-aux/meson_post_install.py
@@ -60,14 +59,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-tetravex"; };
+    updateScript = gnome.updateScript {packageName = "gnome-tetravex";};
   };
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-tetravex";
     description = "Complete the puzzle by matching numbered tiles";
     mainProgram = "gnome-tetravex";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2;
     platforms = platforms.unix;
   };

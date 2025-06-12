@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "offat";
   version = "0.19.4";
@@ -24,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     "tenacity"
   ];
 
-  build-system = with python3.pkgs; [ poetry-core ];
+  build-system = with python3.pkgs; [poetry-core];
 
   dependencies = with python3.pkgs; [
     aiohttp
@@ -50,14 +49,14 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "offat" ];
+  pythonImportsCheck = ["offat"];
 
   meta = {
     description = "Tool to test APIs for prevalent vulnerabilities";
     homepage = "https://github.com/OWASP/OFFAT/";
     changelog = "https://github.com/OWASP/OFFAT/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "offat";
   };
 }

@@ -6,7 +6,6 @@
   zlib,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "maeparser";
   version = "1.3.3";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xRyf/n8ezmMPMhlQFapVpnT2LReLe7spXB9jFC+VPRA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     zlib
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/schrodinger/maeparser";
     description = "Maestro file parser";
-    maintainers = [ maintainers.rmcgibbo ];
+    maintainers = [maintainers.rmcgibbo];
     license = licenses.mit;
     platforms = platforms.unix;
   };

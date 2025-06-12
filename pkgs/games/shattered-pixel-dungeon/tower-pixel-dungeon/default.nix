@@ -3,7 +3,6 @@
   callPackage,
   fetchFromGitHub,
 }:
-
 callPackage ../generic.nix rec {
   pname = "tower-pixel-dungeon";
   version = "0.5.4";
@@ -11,7 +10,7 @@ callPackage ../generic.nix rec {
   src = fetchFromGitHub {
     owner = "FixAkaTheFix";
     repo = "Tower-Pixel-Dungeon";
-    tag = "TPDv${lib.replaceStrings [ "." ] [ "" ] version}";
+    tag = "TPDv${lib.replaceStrings ["."] [""] version}";
     hash = "sha256-6b7EC7rye7nSevMJhRwSKJU7zuzta6KUCgzizWPFk8I=";
   };
 

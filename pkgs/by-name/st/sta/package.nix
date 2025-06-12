@@ -5,7 +5,6 @@
   autoreconfHook,
   cxxtest,
 }:
-
 stdenv.mkDerivation {
   pname = "sta";
   version = "unstable-2021-11-30";
@@ -19,11 +18,11 @@ stdenv.mkDerivation {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   doCheck = true;
-  nativeCheckInputs = [ cxxtest ];
-  checkInputs = [ cxxtest ];
+  nativeCheckInputs = [cxxtest];
+  checkInputs = [cxxtest];
 
   checkPhase = ''
     runHook preCheck
@@ -50,7 +49,7 @@ stdenv.mkDerivation {
     '';
     license = licenses.mit;
     homepage = "https://github.com/simonccarter/sta";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
     mainProgram = "sta";
   };

@@ -17,7 +17,6 @@
   ptime,
   domain-name,
 }:
-
 buildDunePackage rec {
   pname = "letsencrypt";
   version = "1.1.0";
@@ -49,12 +48,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ ounit2 ];
+  checkInputs = [ounit2];
 
   meta = {
     description = "ACME implementation in OCaml";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
     homepage = "https://github.com/mmaker/ocaml-letsencrypt";
   };
 }

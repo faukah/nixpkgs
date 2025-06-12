@@ -8,7 +8,6 @@
   bash,
   dialog,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "kabeljau";
   version = "2.1.0";
@@ -34,7 +33,7 @@ stdenvNoCC.mkDerivation rec {
     runHook preInstall
 
     just --set bin-path $out/bin --set share-path $out/share linux-install
-    wrapProgram $out/bin/${pname} --suffix PATH : ${lib.makeBinPath [ dialog ]}
+    wrapProgram $out/bin/${pname} --suffix PATH : ${lib.makeBinPath [dialog]}
 
     runHook postInstall
   '';
@@ -44,6 +43,6 @@ stdenvNoCC.mkDerivation rec {
     mainProgram = "kabeljau";
     homepage = "https://codeberg.org/annaaurora/kabeljau";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
   };
 }

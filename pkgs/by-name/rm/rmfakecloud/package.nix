@@ -7,7 +7,6 @@
   nodejs,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "rmfakecloud";
   version = "0.0.24";

@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   class = {
     "just" = "data";
   };
@@ -7,12 +6,12 @@
   b = "two";
   meta = "meta";
 
-  _module.args.result =
-    let
-      r = builtins.removeAttrs config [ "_module" ];
-    in
+  _module.args.result = let
+    r = builtins.removeAttrs config ["_module"];
+  in
     builtins.trace (builtins.deepSeq r r) (
-      r == {
+      r
+      == {
         a = "one";
         b = "two";
         class = {

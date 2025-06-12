@@ -3,11 +3,9 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
   hatch-vcs,
-
   # optional-dependencies
   adlfs,
   pyarrow,
@@ -26,7 +24,6 @@
   s3fs,
   smbprotocol,
   tqdm,
-
   # tests
   numpy,
   pytest-asyncio,
@@ -35,7 +32,6 @@
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "fsspec";
   version = "2025.3.1";
@@ -54,9 +50,9 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    abfs = [ adlfs ];
-    adl = [ adlfs ];
-    arrow = [ pyarrow ];
+    abfs = [adlfs];
+    adl = [adlfs];
+    arrow = [pyarrow];
     dask = [
       dask
       distributed
@@ -66,7 +62,7 @@ buildPythonPackage rec {
       # dropboxdrivefs
       requests
     ];
-    entrypoints = [ ];
+    entrypoints = [];
     full = [
       adlfs
       aiohttp
@@ -87,21 +83,21 @@ buildPythonPackage rec {
       smbprotocol
       tqdm
     ];
-    fuse = [ fusepy ];
-    gcs = [ gcsfs ];
-    git = [ pygit2 ];
-    github = [ requests ];
-    gs = [ gcsfs ];
-    gui = [ panel ];
-    hdfs = [ pyarrow ];
-    http = [ aiohttp ];
-    libarchive = [ libarchive-c ];
-    oci = [ ocifs ];
-    s3 = [ s3fs ];
-    sftp = [ paramiko ];
-    smb = [ smbprotocol ];
-    ssh = [ paramiko ];
-    tqdm = [ tqdm ];
+    fuse = [fusepy];
+    gcs = [gcsfs];
+    git = [pygit2];
+    github = [requests];
+    gs = [gcsfs];
+    gui = [panel];
+    hdfs = [pyarrow];
+    http = [aiohttp];
+    libarchive = [libarchive-c];
+    oci = [ocifs];
+    s3 = [s3fs];
+    sftp = [paramiko];
+    smb = [smbprotocol];
+    ssh = [paramiko];
+    tqdm = [tqdm];
   };
 
   nativeCheckInputs = [
@@ -137,13 +133,13 @@ buildPythonPackage rec {
     "fsspec/implementations/tests/test_github.py"
   ];
 
-  pythonImportsCheck = [ "fsspec" ];
+  pythonImportsCheck = ["fsspec"];
 
   meta = {
     description = "Specification that Python filesystems should adhere to";
     homepage = "https://github.com/fsspec/filesystem_spec";
     changelog = "https://github.com/fsspec/filesystem_spec/raw/${version}/docs/source/changelog.rst";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

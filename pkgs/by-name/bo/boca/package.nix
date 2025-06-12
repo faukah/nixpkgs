@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
   pkg-config,
-
   expat,
   libcdio,
   libcdio-paranoia,
@@ -12,7 +11,6 @@
   uriparser,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "BoCA";
   version = "1.0.7";
@@ -46,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "Component library used by the fre:ac audio converter";
     license = licenses.gpl2Plus;
     homepage = "https://github.com/enzo1982/boca";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

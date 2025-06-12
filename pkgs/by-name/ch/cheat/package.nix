@@ -4,7 +4,6 @@
   buildGoModule,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "cheat";
   version = "4.4.2";
@@ -16,9 +15,9 @@ buildGoModule rec {
     sha256 = "sha256-GUU6VWfTmNS6ny12HnMr3uQmS7HI86Oupcmqx0MVAvE=";
   };
 
-  subPackages = [ "cmd/cheat" ];
+  subPackages = ["cmd/cheat"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   patches = [
     (builtins.toFile "fix-zsh-completion.patch" ''
@@ -46,7 +45,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "Create and view interactive cheatsheets on the command-line";
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
     license = with licenses; [
       gpl3
       mit

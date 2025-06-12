@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   setuptools,
-
   # codegen
   hassil,
   python,
@@ -14,12 +12,10 @@
   voluptuous,
   regex,
   jinja2,
-
   # tests
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "home-assistant-intents";
   version = "2025.5.7";
@@ -70,6 +66,6 @@ buildPythonPackage rec {
     description = "Intents to be used with Home Assistant";
     homepage = "https://github.com/home-assistant/intents";
     license = licenses.cc-by-40;
-    teams = [ teams.home-assistant ];
+    teams = [teams.home-assistant];
   };
 }

@@ -8,7 +8,6 @@
   pkg-config,
   expat,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dbus-cplusplus";
   version = "0.9.0";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     dbus
     glib
@@ -80,6 +79,6 @@ stdenv.mkDerivation rec {
     description = "C++ API for D-BUS";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

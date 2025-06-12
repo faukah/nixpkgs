@@ -4,19 +4,19 @@
   lib,
   utils,
   ...
-}:
-
-let
+}: let
   toplevelConfig = config;
   inherit (lib) types;
   inherit (utils.systemdUtils.lib) mkPathSafeName;
-in
-{
+in {
   options.systemd.services = lib.mkOption {
     type = types.attrsOf (
       types.submodule (
-        { name, config, ... }:
         {
+          name,
+          config,
+          ...
+        }: {
           options.confinement.enable = lib.mkOption {
             type = types.bool;
             default = false;
@@ -46,33 +46,31 @@ in
 
           options.confinement.packages = lib.mkOption {
             type = types.listOf (types.either types.str types.package);
-            default = [ ];
-            description =
-              let
-                mkScOption = optName: "{option}`serviceConfig.${optName}`";
-              in
-              ''
-                Additional packages or strings with context to add to the closure of
-                the chroot. By default, this includes all the packages from the
-                ${
-                  lib.concatMapStringsSep ", " mkScOption [
-                    "ExecReload"
-                    "ExecStartPost"
-                    "ExecStartPre"
-                    "ExecStop"
-                    "ExecStopPost"
-                  ]
-                } and ${mkScOption "ExecStart"} options. If you want to have all the
-                dependencies of this systemd unit, you can use
-                {option}`confinement.fullUnit`.
+            default = [];
+            description = let
+              mkScOption = optName: "{option}`serviceConfig.${optName}`";
+            in ''
+              Additional packages or strings with context to add to the closure of
+              the chroot. By default, this includes all the packages from the
+              ${
+                lib.concatMapStringsSep ", " mkScOption [
+                  "ExecReload"
+                  "ExecStartPost"
+                  "ExecStartPre"
+                  "ExecStop"
+                  "ExecStopPost"
+                ]
+              } and ${mkScOption "ExecStart"} options. If you want to have all the
+              dependencies of this systemd unit, you can use
+              {option}`confinement.fullUnit`.
 
-                ::: {.note}
-                The store paths listed in {option}`path` are
-                **not** included in the closure as
-                well as paths from other options except those listed
-                above.
-                :::
-              '';
+              ::: {.note}
+              The store paths listed in {option}`path` are
+              **not** included in the closure as
+              well as paths from other options except those listed
+              above.
+              :::
+            '';
           };
 
           options.confinement.binSh = lib.mkOption {
@@ -120,15 +118,14 @@ in
             '';
           };
 
-          config =
-            let
-              inherit (config.confinement) binSh fullUnit;
-              wantsAPIVFS = lib.mkDefault (config.confinement.mode == "full-apivfs");
-            in
+          config = let
+            inherit (config.confinement) binSh fullUnit;
+            wantsAPIVFS = lib.mkDefault (config.confinement.mode == "full-apivfs");
+          in
             lib.mkIf config.confinement.enable {
               serviceConfig = {
-                ReadOnlyPaths = [ "+/" ];
-                RuntimeDirectory = [ "confinement/${mkPathSafeName name}" ];
+                ReadOnlyPaths = ["+/"];
+                RuntimeDirectory = ["confinement/${mkPathSafeName name}"];
                 RootDirectory = "/run/confinement/${mkPathSafeName name}";
                 InaccessiblePaths = [
                   "-+/run/confinement/${mkPathSafeName name}"
@@ -154,27 +151,30 @@ in
                 ProtectKernelModules = wantsAPIVFS;
                 ProtectKernelTunables = wantsAPIVFS;
               };
-              confinement.packages =
-                let
-                  execOpts = [
-                    "ExecReload"
-                    "ExecStart"
-                    "ExecStartPost"
-                    "ExecStartPre"
-                    "ExecStop"
-                    "ExecStopPost"
-                  ];
-                  execPkgs = lib.concatMap (
-                    opt:
-                    let
+              confinement.packages = let
+                execOpts = [
+                  "ExecReload"
+                  "ExecStart"
+                  "ExecStartPost"
+                  "ExecStartPre"
+                  "ExecStop"
+                  "ExecStopPost"
+                ];
+                execPkgs =
+                  lib.concatMap (
+                    opt: let
                       isSet = config.serviceConfig ? ${opt};
                     in
-                    lib.flatten (lib.optional isSet config.serviceConfig.${opt})
-                  ) execOpts;
-                  unitAttrs = toplevelConfig.systemd.units."${name}.service";
-                  allPkgs = lib.singleton (builtins.toJSON unitAttrs);
-                  unitPkgs = if fullUnit then allPkgs else execPkgs;
-                in
+                      lib.flatten (lib.optional isSet config.serviceConfig.${opt})
+                  )
+                  execOpts;
+                unitAttrs = toplevelConfig.systemd.units."${name}.service";
+                allPkgs = lib.singleton (builtins.toJSON unitAttrs);
+                unitPkgs =
+                  if fullUnit
+                  then allPkgs
+                  else execPkgs;
+              in
                 unitPkgs ++ lib.optional (binSh != null) binSh;
             };
         }
@@ -184,77 +184,75 @@ in
 
   config.assertions = lib.concatLists (
     lib.mapAttrsToList (
-      name: cfg:
-      let
-        whatOpt =
-          optName:
+      name: cfg: let
+        whatOpt = optName:
           "The 'serviceConfig' option '${optName}' for"
           + " service '${name}' is enabled in conjunction with"
           + " 'confinement.enable'";
       in
-      lib.optionals cfg.confinement.enable [
-        {
-          assertion = !cfg.serviceConfig.RootDirectoryStartOnly or false;
-          message =
-            "${whatOpt "RootDirectoryStartOnly"}, but right now systemd"
-            + " doesn't support restricting bind-mounts to 'ExecStart'."
-            + " Please either define a separate service or find a way to run"
-            + " commands other than ExecStart within the chroot.";
-        }
-      ]
-    ) config.systemd.services
+        lib.optionals cfg.confinement.enable [
+          {
+            assertion = !cfg.serviceConfig.RootDirectoryStartOnly or false;
+            message =
+              "${whatOpt "RootDirectoryStartOnly"}, but right now systemd"
+              + " doesn't support restricting bind-mounts to 'ExecStart'."
+              + " Please either define a separate service or find a way to run"
+              + " commands other than ExecStart within the chroot.";
+          }
+        ]
+    )
+    config.systemd.services
   );
 
   config.systemd.packages = lib.concatLists (
     lib.mapAttrsToList (
-      name: cfg:
-      let
-        rootPaths =
-          let
-            contents = lib.concatStringsSep "\n" cfg.confinement.packages;
-          in
+      name: cfg: let
+        rootPaths = let
+          contents = lib.concatStringsSep "\n" cfg.confinement.packages;
+        in
           pkgs.writeText "${mkPathSafeName name}-string-contexts.txt" contents;
 
         chrootPaths =
           pkgs.runCommand "${mkPathSafeName name}-chroot-paths"
-            {
-              closureInfo = pkgs.closureInfo { inherit rootPaths; };
-              serviceName = "${name}.service";
-              excludedPath = rootPaths;
-            }
-            ''
-              mkdir -p "$out/lib/systemd/system/$serviceName.d"
-              serviceFile="$out/lib/systemd/system/$serviceName.d/confinement.conf"
+          {
+            closureInfo = pkgs.closureInfo {inherit rootPaths;};
+            serviceName = "${name}.service";
+            excludedPath = rootPaths;
+          }
+          ''
+            mkdir -p "$out/lib/systemd/system/$serviceName.d"
+            serviceFile="$out/lib/systemd/system/$serviceName.d/confinement.conf"
 
-              echo '[Service]' > "$serviceFile"
+            echo '[Service]' > "$serviceFile"
 
-              # /bin/sh is special here, because the option value could contain a
-              # symlink and we need to properly resolve it.
-              ${lib.optionalString (cfg.confinement.binSh != null) ''
-                binsh=${lib.escapeShellArg cfg.confinement.binSh}
-                realprog="$(readlink -e "$binsh")"
-                echo "BindReadOnlyPaths=$realprog:/bin/sh" >> "$serviceFile"
-              ''}
+            # /bin/sh is special here, because the option value could contain a
+            # symlink and we need to properly resolve it.
+            ${lib.optionalString (cfg.confinement.binSh != null) ''
+              binsh=${lib.escapeShellArg cfg.confinement.binSh}
+              realprog="$(readlink -e "$binsh")"
+              echo "BindReadOnlyPaths=$realprog:/bin/sh" >> "$serviceFile"
+            ''}
 
-              # If DynamicUser= is enabled, PrivateTmp=true is implied (and cannot be turned off).
-              # so disable them unless PrivateTmp=true is explicitely set.
-              ${lib.optionalString (!cfg.serviceConfig.PrivateTmp) ''
-                echo "InaccessiblePaths=-+/tmp" >> "$serviceFile"
-                echo "InaccessiblePaths=-+/var/tmp" >> "$serviceFile"
-              ''}
+            # If DynamicUser= is enabled, PrivateTmp=true is implied (and cannot be turned off).
+            # so disable them unless PrivateTmp=true is explicitely set.
+            ${lib.optionalString (!cfg.serviceConfig.PrivateTmp) ''
+              echo "InaccessiblePaths=-+/tmp" >> "$serviceFile"
+              echo "InaccessiblePaths=-+/var/tmp" >> "$serviceFile"
+            ''}
 
-              while read storePath; do
-                if [ -L "$storePath" ]; then
-                  # Currently, systemd can't cope with symlinks in Bind(ReadOnly)Paths,
-                  # so let's just bind-mount the target to that location.
-                  echo "BindReadOnlyPaths=$(readlink -e "$storePath"):$storePath"
-                elif [ "$storePath" != "$excludedPath" ]; then
-                  echo "BindReadOnlyPaths=$storePath"
-                fi
-              done < "$closureInfo/store-paths" >> "$serviceFile"
-            '';
+            while read storePath; do
+              if [ -L "$storePath" ]; then
+                # Currently, systemd can't cope with symlinks in Bind(ReadOnly)Paths,
+                # so let's just bind-mount the target to that location.
+                echo "BindReadOnlyPaths=$(readlink -e "$storePath"):$storePath"
+              elif [ "$storePath" != "$excludedPath" ]; then
+                echo "BindReadOnlyPaths=$storePath"
+              fi
+            done < "$closureInfo/store-paths" >> "$serviceFile"
+          '';
       in
-      lib.optional cfg.confinement.enable chrootPaths
-    ) config.systemd.services
+        lib.optional cfg.confinement.enable chrootPaths
+    )
+    config.systemd.services
   );
 }

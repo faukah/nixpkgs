@@ -10,7 +10,6 @@
   buildPythonPackage,
   packaging,
 }:
-
 buildPythonPackage rec {
   pname = "ansible-builder";
   version = "3.1.0";
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     description = "Ansible execution environment builder";
     homepage = "https://ansible-builder.readthedocs.io/en/stable/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ melkor333 ];
+    maintainers = with maintainers; [melkor333];
   };
 }

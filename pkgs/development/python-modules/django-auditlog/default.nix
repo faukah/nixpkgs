@@ -13,7 +13,6 @@
   postgresqlTestHook,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "django-auditlog";
   version = "3.1.2";
@@ -61,13 +60,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "auditlog" ];
+  pythonImportsCheck = ["auditlog"];
 
   meta = {
     changelog = "https://github.com/jazzband/django-auditlog/blob/${src.tag}/CHANGELOG.md";
     description = "Django app that keeps a log of changes made to an object";
     downloadPage = "https://github.com/jazzband/django-auditlog";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ leona ];
+    maintainers = with lib.maintainers; [leona];
   };
 }

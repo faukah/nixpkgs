@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gama-tui";
   version = "1.2.1";
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/termkit/gama";
     changelog = "https://github.com/termkit/gama/releases";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ phanirithvij ];
+    maintainers = with lib.maintainers; [phanirithvij];
     mainProgram = "gama";
   };
 }

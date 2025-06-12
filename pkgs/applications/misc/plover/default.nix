@@ -7,10 +7,8 @@
   qtbase,
   mkDerivationWith,
 }:
-
 {
-  dev =
-    with python3Packages;
+  dev = with python3Packages;
     mkDerivationWith buildPythonPackage rec {
       pname = "plover";
       version = "4.0.0.dev10";

@@ -15,7 +15,6 @@
   librsvg,
   libadwaita,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "video-downloader";
   version = "0.12.26";
@@ -57,7 +56,7 @@ python3Packages.buildPythonApplication rec {
   preFixup = ''
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+      --prefix PATH : ${lib.makeBinPath [ffmpeg]}
     )
   '';
 
@@ -66,7 +65,7 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/Unrud/video-downloader/releases";
     description = "GUI application based on yt-dlp";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ fliegendewurst ];
+    maintainers = with lib.maintainers; [fliegendewurst];
     mainProgram = "video-downloader";
   };
 }

@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "kdl-py";
   version = "1.2.0";
@@ -15,9 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-Y/P0bGJ33trc5E3PyUZyv25r8zMLkBIuATTCKFfimXM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "kdl" ];
+  pythonImportsCheck = ["kdl"];
 
   checkPhase = ''
     runHook preCheck
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     description = "Parser for the KDL language";
     homepage = "https://github.com/tabatkins/kdlpy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "kdlreformat";
   };
 }

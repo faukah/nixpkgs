@@ -5,7 +5,6 @@
   libxcrypt,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pies";
   version = "1.8";
@@ -15,23 +14,23 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ZSi00WmC6il4+aSohqFKrKjtp6xFXYE7IIRGVwFmHWw=";
   };
 
-  buildInputs = [ libxcrypt ];
+  buildInputs = [libxcrypt];
 
-  patches = [ ./stdlib.patch ];
+  patches = [./stdlib.patch];
 
   postPatch = ''
     substituteInPlace configure \
       --replace-fail "gl_cv_func_memchr_works=\"guessing no\"" "gl_cv_func_memchr_works=yes"
   '';
 
-  configureFlags = [ "--sysconfdir=/etc" ];
+  configureFlags = ["--sysconfdir=/etc"];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doCheck = true;
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   meta = {
     description = "Program invocation and execution supervisor";
@@ -59,6 +58,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.gnu ++ lib.platforms.linux;
     broken = stdenv.hostPlatform.system == "aarch64-linux";
-    maintainers = [ ];
+    maintainers = [];
   };
 })

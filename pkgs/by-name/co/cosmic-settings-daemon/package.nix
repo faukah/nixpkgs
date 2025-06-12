@@ -12,7 +12,6 @@
   udev,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-settings-daemon";
   version = "1.0.0-alpha.7";
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Dzv1SDeZFIa+LFQQ91lO7RBHldsjDnGf+R12Ln2WZwU=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libinput
     libpulseaudio
@@ -52,7 +51,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   dontCargoInstall = true;
 
   passthru.tests = {
-    inherit (nixosTests)
+    inherit
+      (nixosTests)
       cosmic
       cosmic-autologin
       cosmic-noxwayland
@@ -65,7 +65,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Settings Daemon for the COSMIC Desktop Environment";
     mainProgram = "cosmic-settings-daemon";
     license = licenses.gpl3Only;
-    teams = [ teams.cosmic ];
+    teams = [teams.cosmic];
     platforms = platforms.linux;
   };
 })

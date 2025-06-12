@@ -6,7 +6,6 @@
   six,
   python,
 }:
-
 buildPythonPackage {
   pname = "gyp";
   version = "unstable-2022-04-01";
@@ -23,7 +22,7 @@ buildPythonPackage {
     ./no-xcode.patch
   ];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   pythonImportsCheck = [
     "gyp"
@@ -41,6 +40,6 @@ buildPythonPackage {
     mainProgram = "gyp";
     homepage = "https://gyp.gsrc.io";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
   };
 }

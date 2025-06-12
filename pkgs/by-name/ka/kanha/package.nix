@@ -4,7 +4,6 @@
   fetchCrate,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kanha";
   version = "0.1.2";
@@ -18,13 +17,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-bO37UYApe1CbwcfG8j/1UPu6DlYqlGPLsh0epxh8x3M=";
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = {
     description = "Web-app pentesting suite written in rust";
     homepage = "https://github.com/pwnwriter/kanha";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pwnwriter ];
+    maintainers = with lib.maintainers; [pwnwriter];
     mainProgram = "kanha";
   };
 }

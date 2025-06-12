@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pdm-backend,
-
   # dependencies
   ftfy,
   huggingface-hub,
@@ -17,14 +15,12 @@
   torch,
   torchvision,
   tqdm,
-
   # checks
   pytestCheckHook,
   braceexpand,
   pandas,
   transformers,
   webdataset,
-
   stdenv,
 }:
 buildPythonPackage rec {
@@ -39,7 +35,7 @@ buildPythonPackage rec {
     hash = "sha256-HXzorEAVPieCHfW3xzXqNTTIzJSbIuaZhcfcp0htdCk=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     ftfy
@@ -62,13 +58,13 @@ buildPythonPackage rec {
     webdataset
   ];
 
-  pythonImportsCheck = [ "open_clip" ];
+  pythonImportsCheck = ["open_clip"];
 
   # -> On Darwin:
   # AttributeError: Can't pickle local object 'build_params.<locals>.<lambda>'
   # -> On Linux:
   # KeyError: Caught KeyError in DataLoader worker process 0
-  disabledTestPaths = [ "tests/test_wds.py" ];
+  disabledTestPaths = ["tests/test_wds.py"];
 
   disabledTests =
     [
@@ -93,7 +89,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/mlfoundations/open_clip";
     changelog = "https://github.com/mlfoundations/open_clip/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ iynaix ];
+    maintainers = with lib.maintainers; [iynaix];
     mainProgram = "open-clip";
   };
 }

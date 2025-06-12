@@ -4,7 +4,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "oelint-adv";
   version = "7.2.6";
@@ -55,9 +54,9 @@ python3Packages.buildPythonApplication rec {
     "urllib3"
   ];
 
-  pythonImportsCheck = [ "oelint_adv" ];
+  pythonImportsCheck = ["oelint_adv"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Advanced bitbake-recipe linter";
@@ -65,6 +64,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/priv-kweihmann/oelint-adv";
     changelog = "https://github.com/priv-kweihmann/oelint-adv/releases/tag/${version}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ otavio ];
+    maintainers = with lib.maintainers; [otavio];
   };
 }

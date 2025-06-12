@@ -6,14 +6,11 @@
   replaceVars,
   isPy310,
   isPyPy,
-
   # build-system
   cython,
   setuptools,
-
   # native dependencies
   llhttp,
-
   # dependencies
   aiohappyeyeballs,
   aiosignal,
@@ -23,12 +20,10 @@
   multidict,
   propcache,
   yarl,
-
   # optional dependencies
   aiodns,
   brotli,
   brotlicffi,
-
   # tests
   freezegun,
   gunicorn,
@@ -42,7 +37,6 @@
   re-assert,
   trustme,
 }:
-
 buildPythonPackage rec {
   pname = "aiohttp";
   version = "3.11.15";
@@ -77,20 +71,26 @@ buildPythonPackage rec {
     make cythonize
   '';
 
-  dependencies = [
-    aiohappyeyeballs
-    aiosignal
-    async-timeout
-    attrs
-    frozenlist
-    multidict
-    propcache
-    yarl
-  ] ++ optional-dependencies.speedups;
+  dependencies =
+    [
+      aiohappyeyeballs
+      aiosignal
+      async-timeout
+      attrs
+      frozenlist
+      multidict
+      propcache
+      yarl
+    ]
+    ++ optional-dependencies.speedups;
 
   optional-dependencies.speedups = [
     aiodns
-    (if isPyPy then brotlicffi else brotli)
+    (
+      if isPyPy
+      then brotlicffi
+      else brotli
+    )
   ];
 
   nativeCheckInputs = [
@@ -121,7 +121,7 @@ buildPythonPackage rec {
       "test_https_proxy_unsupported_tls_in_tls"
       "test_tcp_connector_raise_connector_ssl_error"
     ]
-    ++ lib.optionals stdenv.hostPlatform.is32bit [ "test_cookiejar" ]
+    ++ lib.optionals stdenv.hostPlatform.is32bit ["test_cookiejar"]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       "test_addresses" # https://github.com/aio-libs/aiohttp/issues/3572, remove >= v4.0.0
       "test_close"
@@ -147,6 +147,6 @@ buildPythonPackage rec {
     description = "Asynchronous HTTP Client/Server for Python and asyncio";
     license = licenses.asl20;
     homepage = "https://github.com/aio-libs/aiohttp";
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

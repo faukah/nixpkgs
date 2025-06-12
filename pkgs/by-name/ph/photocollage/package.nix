@@ -7,7 +7,6 @@
   gobject-introspection,
   wrapGAppsHook3,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "photocollage";
   version = "1.4.6";
@@ -53,7 +52,7 @@ python3Packages.buildPythonApplication rec {
     description = "Graphical tool to make photo collage posters";
     homepage = "https://github.com/adrienverge/PhotoCollage";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ eliandoran ];
+    maintainers = with lib.maintainers; [eliandoran];
     platforms = lib.platforms.linux;
     mainProgram = "photocollage";
   };

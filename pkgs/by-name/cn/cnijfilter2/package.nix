@@ -11,7 +11,6 @@
   libtool,
   withDebug ? false,
 }:
-
 stdenv.mkDerivation {
   pname = "cnijfilter2";
 
@@ -170,6 +169,6 @@ stdenv.mkDerivation {
       "i686-linux"
       "x86_64-linux"
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

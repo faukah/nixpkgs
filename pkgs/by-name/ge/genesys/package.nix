@@ -6,7 +6,6 @@
   graphviz,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "genesys";
   version = "1.0.7";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-I1lEVvwRiGf1f4zUtqKhSb+it/nC8WAmw5S6edquOj8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # The package is distributed as a prebuilt JAVA binary
   dontConfigure = true;
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Simple family tree generator that scales";
     homepage = "https://github.com/mrlem/genesys";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ rogarb ];
+    maintainers = with lib.maintainers; [rogarb];
     platforms = lib.platforms.all;
   };
 })

@@ -10,7 +10,6 @@
   pytest-django,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "dj-stripe";
   version = "2.9.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-ijTzSid5B79mAi7qUFSGL5+4PfmBStDWayzjW1iwRww=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     django
@@ -31,8 +30,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    mysql = [ mysqlclient ];
-    postgres = [ psycopg2 ];
+    mysql = [mysqlclient];
+    postgres = [psycopg2];
   };
 
   env = {
@@ -110,13 +109,13 @@ buildPythonPackage rec {
     "--deselect=tests/test_webhooks.py::TestGetRemoteIp::test_get_remote_ip_remote_addr_is_none"
   ];
 
-  pythonImportsCheck = [ "djstripe" ];
+  pythonImportsCheck = ["djstripe"];
 
   meta = {
     description = "Stripe Models for Django";
     homepage = "https://github.com/dj-stripe/dj-stripe";
     changelog = "https://github.com/dj-stripe/dj-stripe/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
   };
 }

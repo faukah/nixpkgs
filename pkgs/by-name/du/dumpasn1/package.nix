@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   CFLAGS = ''-DDUMPASN1_CONFIG_PATH='"$(out)/etc/"' '';
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   patches = [
     # Allow adding a config file path during build via macro.
@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/katexochen/dumpasn1";
     license = licenses.bsd2;
     mainProgram = "dumpasn1";
-    maintainers = with maintainers; [ katexochen ];
+    maintainers = with maintainers; [katexochen];
     platforms = platforms.linux ++ platforms.darwin;
   };
 })

@@ -6,7 +6,6 @@
   protobuf,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-api) version src;
   pname = "opentelemetry-proto";
@@ -16,18 +15,20 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-api.src.name}/opentelemetry-proto";
 
-  pythonRelaxDeps = [ "protobuf" ];
+  pythonRelaxDeps = ["protobuf"];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ protobuf ];
+  dependencies = [protobuf];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "opentelemetry.proto" ];
+  pythonImportsCheck = ["opentelemetry.proto"];
 
-  meta = opentelemetry-api.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python/tree/main/opentelemetry-proto";
-    description = "OpenTelemetry Python Proto";
-  };
+  meta =
+    opentelemetry-api.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python/tree/main/opentelemetry-proto";
+      description = "OpenTelemetry Python Proto";
+    };
 }

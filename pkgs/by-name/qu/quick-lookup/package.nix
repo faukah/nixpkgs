@@ -13,7 +13,6 @@
   webkitgtk_6_0,
   glib-networking,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "quick-lookup";
   version = "2.1.2";
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/johnfactotum/quick-lookup";
     license = lib.licenses.gpl3Plus;
     mainProgram = "quick-lookup";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 })

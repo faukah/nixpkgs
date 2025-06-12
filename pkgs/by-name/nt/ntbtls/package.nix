@@ -8,7 +8,6 @@
   libksba,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ntbtls";
   version = "0.3.2";
@@ -23,12 +22,14 @@ stdenv.mkDerivation rec {
     "out"
   ];
 
-  buildInputs = [
-    libgcrypt
-    libgpg-error
-    libksba
-    zlib
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin gettext;
+  buildInputs =
+    [
+      libgcrypt
+      libgpg-error
+      libksba
+      zlib
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin gettext;
 
   postInstall = ''
     moveToOutput "bin/ntbtls-config" $dev
@@ -40,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnupg.org/software/ntbtls/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ joachifm ];
+    maintainers = with maintainers; [joachifm];
   };
 }

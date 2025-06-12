@@ -7,7 +7,6 @@
   setuptools-scm,
   sniffio,
 }:
-
 buildPythonPackage rec {
   pname = "asgi-lifespan";
   version = "2.1.0";
@@ -31,18 +30,18 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ sniffio ];
+  dependencies = [sniffio];
 
   # Circular dependencies, starlette
   doCheck = false;
 
-  pythonImportsCheck = [ "asgi_lifespan" ];
+  pythonImportsCheck = ["asgi_lifespan"];
 
   meta = with lib; {
     description = "Programmatic startup/shutdown of ASGI apps";
     homepage = "https://github.com/florimondmanca/asgi-lifespan";
     changelog = "https://github.com/florimondmanca/asgi-lifespan/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

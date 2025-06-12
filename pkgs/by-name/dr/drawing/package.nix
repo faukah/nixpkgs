@@ -16,7 +16,6 @@
   gettext,
   itstool,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "drawing";
   version = "1.0.2";
@@ -67,7 +66,7 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "drawing";
     homepage = "https://maoschanz.github.io/drawing/";
     changelog = "https://github.com/maoschanz/drawing/releases/tag/${version}";
-    maintainers = with lib.maintainers; [ mothsart ];
+    maintainers = with lib.maintainers; [mothsart];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
   };

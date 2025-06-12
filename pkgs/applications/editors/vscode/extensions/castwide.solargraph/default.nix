@@ -1,5 +1,7 @@
-{ lib, vscode-utils }:
-
+{
+  lib,
+  vscode-utils,
+}:
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "solargraph";
@@ -12,6 +14,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=castwide.solargraph";
     homepage = "https://github.com/castwide/vscode-solargraph";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.bbenno ];
+    maintainers = [lib.maintainers.bbenno];
   };
 }

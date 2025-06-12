@@ -7,7 +7,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "udftools";
   version = "2.3";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     readline
   ];
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   env.NIX_CFLAGS_COMPILE = "-std=gnu99";
 
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "UDF tools";
     homepage = "https://github.com/pali/udftools";
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
   };

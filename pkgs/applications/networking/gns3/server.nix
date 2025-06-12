@@ -2,9 +2,7 @@
   channel,
   version,
   hash,
-}:
-
-{
+}: {
   fetchFromGitHub,
   gns3-server,
   lib,
@@ -15,7 +13,6 @@
   testers,
   util-linux,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "gns3-server";
   inherit version;
@@ -32,10 +29,9 @@ python3Packages.buildPythonApplication {
     cp ${pkgsStatic.busybox}/bin/busybox gns3server/compute/docker/resources/bin/busybox
   '';
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       aiofiles
       aiohttp
@@ -62,7 +58,7 @@ python3Packages.buildPythonApplication {
   '';
 
   # util-linux (script program) is required for Docker support
-  makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ util-linux ]}" ];
+  makeWrapperArgs = ["--suffix PATH : ${lib.makeBinPath [util-linux]}"];
 
   doCheck = true;
 
@@ -104,7 +100,7 @@ python3Packages.buildPythonApplication {
     changelog = "https://github.com/GNS3/gns3-server/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ anthonyroussel ];
+    maintainers = with lib.maintainers; [anthonyroussel];
     mainProgram = "gns3server";
   };
 }

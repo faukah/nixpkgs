@@ -1,50 +1,51 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "systemd-initrd-swraid";
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      # Use systemd-boot
-      virtualisation = {
-        emptyDiskImages = [
-          512
-          512
-        ];
-        useBootLoader = true;
-        # Booting off the RAID requires an available init script
-        mountHostNixStore = true;
-        useEFIBoot = true;
-      };
-      boot.loader.systemd-boot.enable = true;
-      boot.loader.efi.canTouchEfiVariables = true;
-
-      environment.systemPackages = with pkgs; [
-        mdadm
-        e2fsprogs
-      ]; # for mdadm and mkfs.ext4
-      boot.swraid = {
-        enable = true;
-        mdadmConf = ''
-          ARRAY /dev/md0 devices=/dev/vdb,/dev/vdc
-        '';
-      };
-      environment.etc."mdadm.conf".text = ''
-        MAILADDR test@example.com
-      '';
-      boot.initrd = {
-        systemd = {
-          enable = true;
-          emergencyAccess = true;
-        };
-        kernelModules = [ "raid0" ];
-      };
-
-      specialisation.boot-swraid.configuration.virtualisation.rootDevice = "/dev/disk/by-label/testraid";
-      # This protects against a regression. We do not have to switch to it.
-      # It's sufficient to trigger its evaluation.
-      specialisation.build-old-initrd.configuration.boot.initrd.systemd.enable = lib.mkForce false;
+  nodes.machine = {pkgs, ...}: {
+    # Use systemd-boot
+    virtualisation = {
+      emptyDiskImages = [
+        512
+        512
+      ];
+      useBootLoader = true;
+      # Booting off the RAID requires an available init script
+      mountHostNixStore = true;
+      useEFIBoot = true;
     };
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+
+    environment.systemPackages = with pkgs; [
+      mdadm
+      e2fsprogs
+    ]; # for mdadm and mkfs.ext4
+    boot.swraid = {
+      enable = true;
+      mdadmConf = ''
+        ARRAY /dev/md0 devices=/dev/vdb,/dev/vdc
+      '';
+    };
+    environment.etc."mdadm.conf".text = ''
+      MAILADDR test@example.com
+    '';
+    boot.initrd = {
+      systemd = {
+        enable = true;
+        emergencyAccess = true;
+      };
+      kernelModules = ["raid0"];
+    };
+
+    specialisation.boot-swraid.configuration.virtualisation.rootDevice = "/dev/disk/by-label/testraid";
+    # This protects against a regression. We do not have to switch to it.
+    # It's sufficient to trigger its evaluation.
+    specialisation.build-old-initrd.configuration.boot.initrd.systemd.enable = lib.mkForce false;
+  };
 
   testScript = ''
     # Create RAID

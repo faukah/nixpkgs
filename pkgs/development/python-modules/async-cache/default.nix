@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "async-cache";
   version = "1.1.1";
@@ -18,16 +17,16 @@ buildPythonPackage {
     hash = "sha256-AVSdtWPs1c8AE5PNOq+BdXzBXkI0aeFVzxxPl/ATyU0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "cache" ];
+  pythonImportsCheck = ["cache"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Caching solution for asyncio";
     homepage = "https://github.com/iamsinghrajat/async-cache";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.lukegb ];
+    maintainers = [lib.maintainers.lukegb];
   };
 }

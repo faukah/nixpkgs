@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "django-ninja";
   version = "1.4.3";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-6uef+e1o7XTp5MRi/NpsJGCFT28bh2UnKdS2IfzzmAY=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     django
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     description = "Web framework for building APIs with Django and Python type hints";
     homepage = "https://django-ninja.dev";
     license = licenses.mit;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

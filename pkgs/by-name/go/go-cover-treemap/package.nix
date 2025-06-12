@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go-cover-treemap";
   version = "1.4.2";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Go code coverage to SVG treemap";
     homepage = "https://github.com/nikolaydubina/go-cover-treemap";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     mainProgram = "go-cover-treemap";
   };
 }

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "lexend";
   version = "0.pre+date=2022-09-22";
@@ -32,6 +31,6 @@ stdenvNoCC.mkDerivation {
     description = "Variable font family designed to aid in reading proficiency";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fufexan ];
+    maintainers = with maintainers; [fufexan];
   };
 }

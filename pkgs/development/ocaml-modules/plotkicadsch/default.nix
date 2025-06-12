@@ -14,7 +14,6 @@
   coreutils,
   imagemagick,
 }:
-
 buildDunePackage {
   pname = "plotkicadsch";
   duneVersion = "3";
@@ -45,6 +44,6 @@ buildDunePackage {
     description = "Tool to export Kicad Sch files to SVG pictures";
     homepage = "https://github.com/jnavila/plotkicadsch";
     license = licenses.isc;
-    maintainers = with maintainers; [ leungbk ];
+    maintainers = with maintainers; [leungbk];
   };
 }

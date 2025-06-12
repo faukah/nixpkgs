@@ -8,7 +8,6 @@
   jdk17,
   makeBinaryWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "diylc";
   version = "5.5.0";
@@ -65,8 +64,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://bancika.github.io/diy-layout-creator";
     changelog = "https://github.com/bancika/diy-layout-creator/releases";
     license = lib.licenses.gpl3Plus;
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

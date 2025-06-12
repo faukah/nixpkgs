@@ -10,7 +10,6 @@
   packaging,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pkg-about";
   version = "1.2.11";
@@ -43,15 +42,15 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pkg_about" ];
+  pythonImportsCheck = ["pkg_about"];
 
   meta = with lib; {
     description = "Python metadata sharing at runtime";
     homepage = "https://github.com/karpierz/pkg_about/";
     changelog = "https://github.com/karpierz/pkg_about/blob/${version}/CHANGES.rst";
     license = licenses.zlib;
-    teams = [ teams.ororatech ];
+    teams = [teams.ororatech];
   };
 }

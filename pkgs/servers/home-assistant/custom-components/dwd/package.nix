@@ -4,7 +4,6 @@
   buildHomeAssistantComponent,
   defusedxml,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "hg1337";
   domain = "dwd";
@@ -17,7 +16,7 @@ buildHomeAssistantComponent rec {
     hash = "sha256-CuoHVgk4jWDEe3OkzFCok8YqVkWLJF6Rl7i/SDeSU50=";
   };
 
-  dependencies = [ defusedxml ];
+  dependencies = [defusedxml];
 
   # defusedxml version mismatch
   dontCheckManifest = true;

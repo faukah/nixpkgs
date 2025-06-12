@@ -8,7 +8,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mod_csr";
   version = "0.2.4";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-JVd5N5UnAxDwq6AavEHA0HsY2TRa+9RmLLJeRZbj+4Q=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     apr
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     changelog = "https://source.redwax.eu/projects/RS/repos/mod_csr/browse/ChangeLog";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dirkx ];
+    maintainers = with maintainers; [dirkx];
   };
 }

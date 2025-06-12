@@ -12,7 +12,6 @@
   enableJPGCodec ? true,
   enableOpenGL ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jasper";
   version = "4.2.5";
@@ -94,10 +93,11 @@ stdenv.mkDerivation (finalAttrs: {
       was chosen primarily due to the availability of C development environments
       for most computing platforms when JasPer was first developed, circa 1999.
     '';
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     mainProgram = "jasper";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })
 # TODO: investigate opengl support
+

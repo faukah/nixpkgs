@@ -22,7 +22,6 @@
   enableActiveSync ? false,
   libwbxml,
 }:
-
 clangStdenv.mkDerivation rec {
   pname = "sogo";
   version = "5.12.1";
@@ -40,19 +39,21 @@ clangStdenv.mkDerivation rec {
     python3
     pkg-config
   ];
-  buildInputs = [
-    gnustep-base
-    sope
-    openssl
-    libmemcached
-    curl
-    libsodium
-    libytnef
-    libzip
-    openldap
-    oath-toolkit
-    libxcrypt
-  ] ++ lib.optional enableActiveSync libwbxml;
+  buildInputs =
+    [
+      gnustep-base
+      sope
+      openssl
+      libmemcached
+      curl
+      libsodium
+      libytnef
+      libzip
+      openldap
+      oath-toolkit
+      libxcrypt
+    ]
+    ++ lib.optional enableActiveSync libwbxml;
 
   patches = lib.optional enableActiveSync ./enable-activesync.patch;
 
@@ -115,6 +116,6 @@ clangStdenv.mkDerivation rec {
     ];
     homepage = "https://sogo.nu/";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jceb ];
+    maintainers = with maintainers; [jceb];
   };
 }

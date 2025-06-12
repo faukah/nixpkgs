@@ -12,7 +12,6 @@
   hatchling,
   hatch-fancy-pypi-readme,
 }:
-
 buildPythonPackage rec {
   pname = "cloudflare";
   version = "4.2.0";
@@ -47,7 +46,7 @@ buildPythonPackage rec {
   # tests require networking
   doCheck = false;
 
-  pythonImportsCheck = [ "cloudflare" ];
+  pythonImportsCheck = ["cloudflare"];
 
   meta = {
     description = "Official Python library for the Cloudflare API";

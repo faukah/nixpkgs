@@ -14,7 +14,6 @@
   libb2,
   libgcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtkhash";
   version = "1.5";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Cross-platform desktop utility for computing message digests or checksums";
     homepage = "https://gtkhash.org";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ByteSudoer ];
+    maintainers = with maintainers; [ByteSudoer];
     mainProgram = "gtkhash";
     platforms = platforms.unix;
   };

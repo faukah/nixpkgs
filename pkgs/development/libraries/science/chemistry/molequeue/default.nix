@@ -6,7 +6,6 @@
   qttools,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "molequeue";
   version = "0.9.0";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ qttools ];
+  buildInputs = [qttools];
 
   # Fix the broken CMake files to use the correct paths
   postInstall = ''
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Desktop integration of high performance computing resources";
     mainProgram = "molequeue";
-    maintainers = with maintainers; [ sheepforce ];
+    maintainers = with maintainers; [sheepforce];
     homepage = "https://github.com/OpenChemistry/molequeue";
     platforms = platforms.linux;
     license = licenses.bsd3;

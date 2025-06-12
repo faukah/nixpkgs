@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "git-graph";
   version = "0.6.0";

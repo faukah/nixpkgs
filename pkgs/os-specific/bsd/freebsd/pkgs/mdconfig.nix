@@ -1,7 +1,10 @@
-{ mkDerivation, libgeom }:
+{
+  mkDerivation,
+  libgeom,
+}:
 mkDerivation {
   path = "sbin/mdconfig";
-  buildInputs = [ libgeom ];
+  buildInputs = [libgeom];
 
   MK_TESTS = "no";
 }

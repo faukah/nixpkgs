@@ -6,7 +6,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tailspin";
   version = "5.4.5";
@@ -26,19 +25,19 @@ rustPlatform.buildRustPackage (finalAttrs: {
       'target/debug' "target/${stdenv.hostPlatform.rust.rustcTargetSpec}/$cargoCheckType"
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/tspin";
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Log file highlighter";
     homepage = "https://github.com/bensadeh/tailspin";
     changelog = "https://github.com/bensadeh/tailspin/blob/${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
     mainProgram = "tspin";
   };
 })

@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "owocr";
   version = "1.7.5-unstable-2024-06-26";
@@ -16,7 +15,7 @@ python3Packages.buildPythonApplication {
     hash = "sha256-TXQwJRgRp7fZBN0r4XGVtlb+iOMRqEUf+LbfBG/vsr8=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   dependencies = with python3Packages; [
     fire
@@ -49,6 +48,6 @@ python3Packages.buildPythonApplication {
     description = "Optical character recognition for Japanese text";
     homepage = "https://github.com/AuroraWright/owocr";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

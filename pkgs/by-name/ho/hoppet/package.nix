@@ -5,7 +5,6 @@
   gfortran,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hoppet";
   version = "1.2.0";
@@ -32,6 +31,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
     homepage = "https://hoppet.hepforge.org";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

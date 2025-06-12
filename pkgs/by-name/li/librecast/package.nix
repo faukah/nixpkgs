@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     lcrq
     libsodium
   ];
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = {
     changelog = "https://codeberg.org/librecast/librecast/src/tag/v${finalAttrs.version}/CHANGELOG.md";

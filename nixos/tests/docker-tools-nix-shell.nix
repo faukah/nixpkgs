@@ -1,9 +1,11 @@
 # nix-build -A nixosTests.docker-tools-nix-shell
-{ config, lib, ... }:
-let
-  inherit (config.node.pkgs.dockerTools) examples;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  inherit (config.node.pkgs.dockerTools) examples;
+in {
   name = "docker-tools-nix-shell";
   meta = with lib.maintainers; {
     maintainers = [
@@ -13,14 +15,12 @@ in
   };
 
   nodes = {
-    docker =
-      { ... }:
-      {
-        virtualisation = {
-          diskSize = 3072;
-          docker.enable = true;
-        };
+    docker = {...}: {
+      virtualisation = {
+        diskSize = 3072;
+        docker.enable = true;
       };
+    };
   };
 
   testScript = ''

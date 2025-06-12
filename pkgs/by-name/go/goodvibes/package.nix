@@ -15,7 +15,6 @@
   appstream-glib,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "goodvibes";
   version = "0.8.2";
@@ -62,6 +61,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/goodvibes/goodvibes";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

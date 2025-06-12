@@ -12,7 +12,6 @@
   hypothesis,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "broadbean";
   version = "0.14.0";
@@ -47,12 +46,12 @@ buildPythonPackage rec {
     "test_points"
   ];
 
-  pythonImportsCheck = [ "broadbean" ];
+  pythonImportsCheck = ["broadbean"];
 
   meta = {
     homepage = "https://qcodes.github.io/broadbean";
     description = "Library for making pulses that can be leveraged with QCoDeS";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ evilmav ];
+    maintainers = with lib.maintainers; [evilmav];
   };
 }

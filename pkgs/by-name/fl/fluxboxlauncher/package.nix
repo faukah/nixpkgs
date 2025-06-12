@@ -12,7 +12,6 @@
   atk,
   fluxbox,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "fluxboxlauncher";
   version = "0.2.1";
@@ -58,7 +57,7 @@ python3.pkgs.buildPythonApplication {
     description = "Gui editor (gtk) to configure applications launching on a fluxbox session";
     mainProgram = "fluxboxlauncher";
     homepage = "https://github.com/mothsART/fluxboxlauncher";
-    maintainers = with maintainers; [ mothsart ];
+    maintainers = with maintainers; [mothsart];
     license = licenses.bsdOriginal;
     platforms = platforms.linux;
   };

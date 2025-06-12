@@ -13,7 +13,6 @@
   zlib,
   alsa-lib,
 }:
-
 stdenv.mkDerivation {
   pname = "rigsofrods-bin";
   version = "2022.12";
@@ -68,6 +67,6 @@ stdenv.mkDerivation {
       raskin
       wegank
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

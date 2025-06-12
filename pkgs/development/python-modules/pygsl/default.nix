@@ -9,7 +9,6 @@
   numpy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pygsl";
   version = "2.6.2";
@@ -41,13 +40,13 @@ buildPythonPackage rec {
   preCheck = ''
     cd tests
   '';
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Python interface for GNU Scientific Library";
     homepage = "https://github.com/pygsl/pygsl";
     changelog = "https://github.com/pygsl/pygsl/blob/${src.tag}/ChangeLog";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ amesgen ];
+    maintainers = with lib.maintainers; [amesgen];
   };
 }

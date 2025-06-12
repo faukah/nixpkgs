@@ -7,7 +7,6 @@
   python3,
   libxslt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "csound-manual";
   version = "6.18.0";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "Csound Canonical Reference Manual";
     homepage = "https://github.com/csound/manual";
     license = licenses.fdl12Plus;
-    maintainers = with maintainers; [ hlolli ];
+    maintainers = with maintainers; [hlolli];
     platforms = lib.platforms.all;
   };
 }

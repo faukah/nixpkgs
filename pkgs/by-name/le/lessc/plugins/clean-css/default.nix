@@ -7,7 +7,6 @@
   writeText,
   lessc,
 }:
-
 buildNpmPackage {
   pname = "less-plugin-clean-css";
   version = "1.6.0";
@@ -33,21 +32,21 @@ buildNpmPackage {
         '';
         actual =
           runCommand "actual"
-            {
-              nativeBuildInputs = [ (lessc.withPlugins (p: [ p.clean-css ])) ];
-              base = writeText "base" ''
-                @color: red;
-                body {
-                  h1 {
-                    color: @color;
-                  }
+          {
+            nativeBuildInputs = [(lessc.withPlugins (p: [p.clean-css]))];
+            base = writeText "base" ''
+              @color: red;
+              body {
+                h1 {
+                  color: @color;
                 }
-              '';
-            }
-            ''
-              lessc $base --clean-css="--s1 --advanced" > $out
-              printf "\n" >> $out
+              }
             '';
+          }
+          ''
+            lessc $base --clean-css="--s1 --advanced" > $out
+            printf "\n" >> $out
+          '';
       };
     };
   };
@@ -56,6 +55,6 @@ buildNpmPackage {
     homepage = "https://github.com/less/less-plugin-clean-css";
     description = " Post-process and compress CSS using clean-css";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ lelgenio ];
+    maintainers = with lib.maintainers; [lelgenio];
   };
 }

@@ -7,13 +7,12 @@
   python3,
   addonName,
   addonPath,
-}:
-let
+}: let
   # This python is only used when building the package, it's not the python
   # environment that will ultimately run the code packaged here. The python env defined
   # in KiCad will import the python code packaged here when KiCad starts up.
-  python = python3.withPackages (ps: with ps; [ click ]);
-  kikit-module = python3.pkgs.toPythonModule (kikit.override { inherit python3; });
+  python = python3.withPackages (ps: with ps; [click]);
+  kikit-module = python3.pkgs.toPythonModule (kikit.override {inherit python3;});
 
   # The following different addons can be built from the same source.
   targetSpecs = {
@@ -30,28 +29,30 @@ let
   };
   targetSpec = targetSpecs.${addonName};
 in
-stdenv.mkDerivation {
-  pname = "kicadaddon-${addonName}";
-  inherit (kikit-module) src version;
+  stdenv.mkDerivation {
+    pname = "kicadaddon-${addonName}";
+    inherit (kikit-module) src version;
 
-  nativeBuildInputs = [
-    python
-    bc
-    zip
-  ];
-  propagatedBuildInputs = [ kikit-module ];
+    nativeBuildInputs = [
+      python
+      bc
+      zip
+    ];
+    propagatedBuildInputs = [kikit-module];
 
-  buildPhase = ''
-    patchShebangs scripts/setJson.py
-    make ${targetSpec.makeTarget}
-  '';
+    buildPhase = ''
+      patchShebangs scripts/setJson.py
+      make ${targetSpec.makeTarget}
+    '';
 
-  installPhase = ''
-    mkdir $out
-    mv build/${targetSpec.resultZip} $out/${addonPath}
-  '';
+    installPhase = ''
+      mkdir $out
+      mv build/${targetSpec.resultZip} $out/${addonPath}
+    '';
 
-  meta = kikit-module.meta // {
-    description = targetSpec.description;
-  };
-}
+    meta =
+      kikit-module.meta
+      // {
+        description = targetSpec.description;
+      };
+  }

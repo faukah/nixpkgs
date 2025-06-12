@@ -4,7 +4,6 @@
   python3Packages,
   xpdf,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pdfdiff";
   version = "0.93";

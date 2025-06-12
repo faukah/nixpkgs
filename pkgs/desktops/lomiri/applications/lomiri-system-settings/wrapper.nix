@@ -7,9 +7,8 @@
   lomiri-system-settings-unwrapped,
   wrapGAppsHook3,
   wrapQtAppsHook,
-  plugins ? [ ],
+  plugins ? [],
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "lomiri-system-settings";
   inherit (lomiri-system-settings-unwrapped) version;
@@ -26,10 +25,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    glib # schema hook
-    lomiri-system-settings-unwrapped
-  ] ++ plugins;
+  buildInputs =
+    [
+      glib # schema hook
+      lomiri-system-settings-unwrapped
+    ]
+    ++ plugins;
 
   installPhase = ''
     runHook preInstall
@@ -63,8 +64,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru.tests.standalone = nixosTests.lomiri-system-settings;
 
-  meta = lomiri-system-settings-unwrapped.meta // {
-    description = "System Settings application for Lomiri (wrapped)";
-    priority = (lomiri-system-settings-unwrapped.meta.priority or lib.meta.defaultPriority) - 1;
-  };
+  meta =
+    lomiri-system-settings-unwrapped.meta
+    // {
+      description = "System Settings application for Lomiri (wrapped)";
+      priority = (lomiri-system-settings-unwrapped.meta.priority or lib.meta.defaultPriority) - 1;
+    };
 })

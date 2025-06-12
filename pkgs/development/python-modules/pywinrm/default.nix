@@ -12,7 +12,6 @@
   setuptools,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "pywinrm";
   version = "0.5.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-VCjrHklK95VFRs1P8Vye8aMKdeBbJaOf1gbO8iIB6fE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -34,18 +33,20 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    credssp = [ requests-credssp ];
-    kerberos = [ pykerberos ];
+    credssp = [requests-credssp];
+    kerberos = [pykerberos];
   };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      mock
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "winrm" ];
+  pythonImportsCheck = ["winrm"];
 
-  pytestFlagsArray = [ "winrm/tests/" ];
+  pytestFlagsArray = ["winrm/tests/"];
 
   meta = with lib; {
     description = "Python library for Windows Remote Management";

@@ -17,14 +17,14 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-myfvPAeWuFHQcHXfkTYRfXVQ5ZBrdzQlaqHljbS0ppg=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "GitHub contributions calender terminal viewer";
     homepage = "https://github.com/mrshmllow/gh-cal";
     license = licenses.mit;
-    maintainers = with maintainers; [ loicreynier ];
+    maintainers = with maintainers; [loicreynier];
     mainProgram = "gh-cal";
   };
 }

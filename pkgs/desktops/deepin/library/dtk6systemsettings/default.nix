@@ -9,7 +9,6 @@
   dtk6core,
   libxcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dtk6systemsettings";
   version = "6.0.2";
@@ -62,6 +61,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dtk6systemsettings";
     license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

@@ -24,7 +24,11 @@ mkLibretroCore {
 
   makefile = "Makefile";
   makeFlags = [
-    "HAVE_HW=${if withHw then "1" else "0"}"
+    "HAVE_HW=${
+      if withHw
+      then "1"
+      else "0"
+    }"
     "HAVE_LIGHTREC=1"
   ];
 

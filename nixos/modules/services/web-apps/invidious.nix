@@ -4,11 +4,10 @@
   pkgs,
   options,
   ...
-}:
-let
+}: let
   cfg = config.services.invidious;
   # To allow injecting secrets with jq, json (instead of yaml) is used
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   inherit (lib) types;
 
   settingsFile = settingsFormat.generate "invidious-settings" cfg.settings;
@@ -18,10 +17,10 @@ let
 
   commonInvidousServiceConfig = {
     description = "Invidious (An alternative YouTube front-end)";
-    wants = [ "network-online.target" ];
-    after = [ "network-online.target" ] ++ lib.optional cfg.database.createLocally "postgresql.service";
+    wants = ["network-online.target"];
+    after = ["network-online.target"] ++ lib.optional cfg.database.createLocally "postgresql.service";
     requires = lib.optional cfg.database.createLocally "postgresql.service";
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
 
     serviceConfig = {
       RestartSec = "2s";
@@ -59,8 +58,7 @@ let
       RuntimeRandomizedExtraSec = lib.mkDefault "5min";
     };
   };
-  mkInvidiousService =
-    scaleIndex:
+  mkInvidiousService = scaleIndex:
     lib.foldl' lib.recursiveUpdate commonInvidousServiceConfig [
       # only generate the hmac file in the first service
       (lib.optionalAttrs (scaleIndex == 0) {
@@ -73,8 +71,8 @@ let
       })
       # configure the secondary services to run after the first service
       (lib.optionalAttrs (scaleIndex > 0) {
-        after = commonInvidousServiceConfig.after ++ [ "invidious.service" ];
-        wants = commonInvidousServiceConfig.wants ++ [ "invidious.service" ];
+        after = commonInvidousServiceConfig.after ++ ["invidious.service"];
+        wants = commonInvidousServiceConfig.wants ++ ["invidious.service"];
       })
       {
         script =
@@ -122,7 +120,8 @@ let
       builtins.genList (scaleIndex: {
         name = "invidious" + lib.optionalString (scaleIndex > 0) "-${builtins.toString scaleIndex}";
         value = mkInvidiousService scaleIndex;
-      }) cfg.serviceScale
+      })
+      cfg.serviceScale
     );
 
     services.invidious.settings =
@@ -132,7 +131,9 @@ let
 
         db = {
           user = lib.mkDefault (
-            if (lib.versionAtLeast config.system.stateVersion "24.05") then "invidious" else "kemal"
+            if (lib.versionAtLeast config.system.stateVersion "24.05")
+            then "invidious"
+            else "kemal"
           );
           dbname = lib.mkDefault "invidious";
           port = cfg.database.port;
@@ -193,9 +194,9 @@ let
   ytproxyConfig = lib.mkIf cfg.http3-ytproxy.enable {
     systemd.services.http3-ytproxy = {
       description = "HTTP3 ytproxy for Invidious";
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       script = ''
         mkdir -p socket
@@ -224,10 +225,10 @@ let
       script = ''
         exec ${lib.getExe cfg.sig-helper.package} --tcp "${cfg.sig-helper.listenAddress}"
       '';
-      wantedBy = [ "multi-user.target" ];
-      before = [ "invidious.service" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      before = ["invidious.service"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
       serviceConfig = {
         User = "invidious-sig-helper";
         DynamicUser = true;
@@ -267,28 +268,32 @@ let
       external_port = 80;
     };
 
-    services.nginx =
-      let
-        ip = if cfg.address == "0.0.0.0" then "127.0.0.1" else cfg.address;
-      in
-      {
-        enable = true;
-        virtualHosts.${cfg.domain} = {
-          locations."/".proxyPass =
-            if cfg.serviceScale == 1 then "http://${ip}:${toString cfg.port}" else "http://upstream-invidious";
+    services.nginx = let
+      ip =
+        if cfg.address == "0.0.0.0"
+        then "127.0.0.1"
+        else cfg.address;
+    in {
+      enable = true;
+      virtualHosts.${cfg.domain} = {
+        locations."/".proxyPass =
+          if cfg.serviceScale == 1
+          then "http://${ip}:${toString cfg.port}"
+          else "http://upstream-invidious";
 
-          enableACME = lib.mkDefault true;
-          forceSSL = lib.mkDefault true;
-        };
-        upstreams = lib.mkIf (cfg.serviceScale > 1) {
-          "upstream-invidious".servers = builtins.listToAttrs (
-            builtins.genList (scaleIndex: {
-              name = "${ip}:${toString (cfg.port + scaleIndex)}";
-              value = { };
-            }) cfg.serviceScale
-          );
-        };
+        enableACME = lib.mkDefault true;
+        forceSSL = lib.mkDefault true;
       };
+      upstreams = lib.mkIf (cfg.serviceScale > 1) {
+        "upstream-invidious".servers = builtins.listToAttrs (
+          builtins.genList (scaleIndex: {
+            name = "${ip}:${toString (cfg.port + scaleIndex)}";
+            value = {};
+          })
+          cfg.serviceScale
+        );
+      };
+    };
 
     assertions = [
       {
@@ -297,16 +302,15 @@ let
       }
     ];
   };
-in
-{
+in {
   options.services.invidious = {
     enable = lib.mkEnableOption "Invidious";
 
-    package = lib.mkPackageOption pkgs "invidious" { };
+    package = lib.mkPackageOption pkgs "invidious" {};
 
     settings = lib.mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
       description = ''
         The settings Invidious should use.
 
@@ -367,7 +371,10 @@ in
     address = lib.mkOption {
       type = types.str;
       # default from https://github.com/iv-org/invidious/blob/master/config/config.example.yml
-      default = if cfg.nginx.enable then "127.0.0.1" else "0.0.0.0";
+      default =
+        if cfg.nginx.enable
+        then "127.0.0.1"
+        else "0.0.0.0";
       defaultText = lib.literalExpression ''if config.services.invidious.nginx.enable then "127.0.0.1" else "0.0.0.0"'';
       description = ''
         The IP address Invidious should bind to.
@@ -453,7 +460,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "http3-ytproxy" { };
+      package = lib.mkPackageOption pkgs "http3-ytproxy" {};
     };
 
     sig-helper = {
@@ -469,7 +476,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "inv-sig-helper" { };
+      package = lib.mkPackageOption pkgs "inv-sig-helper" {};
 
       listenAddress = lib.mkOption {
         type = lib.types.str;

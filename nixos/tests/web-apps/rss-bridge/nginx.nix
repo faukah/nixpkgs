@@ -1,18 +1,19 @@
 import ../../make-test-python.nix (
-  { lib, pkgs, ... }:
   {
+    lib,
+    pkgs,
+    ...
+  }: {
     name = "rss-bridge-nginx";
-    meta.maintainers = with lib.maintainers; [ mynacol ];
+    meta.maintainers = with lib.maintainers; [mynacol];
 
-    nodes.machine =
-      { ... }:
-      {
-        services.rss-bridge = {
-          enable = true;
-          webserver = "nginx";
-          config.system.enabled_bridges = [ "DemoBridge" ];
-        };
+    nodes.machine = {...}: {
+      services.rss-bridge = {
+        enable = true;
+        webserver = "nginx";
+        config.system.enabled_bridges = ["DemoBridge"];
       };
+    };
 
     testScript = ''
       machine.wait_for_unit("nginx.service")

@@ -12,7 +12,6 @@
   python3,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "geany";
   version = "2.0";
@@ -82,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://www.geany.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ frlan ];
+    maintainers = with maintainers; [frlan];
     platforms = platforms.all;
     mainProgram = "geany";
   };

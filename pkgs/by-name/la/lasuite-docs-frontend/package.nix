@@ -7,7 +7,6 @@
   fixup-yarn-lock,
   yarn,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lasuite-docs-frontend";
   version = "3.3.0";
@@ -80,7 +79,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/suitenumerique/docs";
     changelog = "https://github.com/suitenumerique/docs/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ soyouzpanda ];
+    maintainers = with lib.maintainers; [soyouzpanda];
     platforms = lib.platforms.all;
   };
 }

@@ -5,7 +5,6 @@
   installShellFiles,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "await";
   version = "1.0.7";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Yrit1WdWIfjwqbjvyjrPT3EqSSkooYX+uoOstbxy//I=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildPhase = ''
     runHook preBuild
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "Small binary that runs a list of commands in parallel and awaits termination";
     homepage = "https://github.com/slavaGanzin/await";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ chewblacka ];
+    maintainers = with lib.maintainers; [chewblacka];
     platforms = lib.platforms.all;
     mainProgram = "await";
   };

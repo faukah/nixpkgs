@@ -13,7 +13,6 @@
   qtwebengine,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "seafile-client";
   version = "9.0.12";
@@ -33,16 +32,18 @@ stdenv.mkDerivation rec {
     qttools
   ];
 
-  buildInputs = [
-    seafile-shared
-    jansson
-    libsearpc
-  ] ++ lib.optional withShibboleth qtwebengine;
+  buildInputs =
+    [
+      seafile-shared
+      jansson
+      libsearpc
+    ]
+    ++ lib.optional withShibboleth qtwebengine;
 
   cmakeFlags = lib.optional withShibboleth "-DBUILD_SHIBBOLETH_SUPPORT=ON";
 
   qtWrapperArgs = [
-    "--suffix PATH : ${lib.makeBinPath [ seafile-shared ]}"
+    "--suffix PATH : ${lib.makeBinPath [seafile-shared]}"
   ];
 
   meta = with lib; {

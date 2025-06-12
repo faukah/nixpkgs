@@ -17,7 +17,6 @@
   imagemagick,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lunacy";
   version = "11.4";
@@ -110,7 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
       luftmensch-luftmensch
     ];
     platforms = lib.platforms.linux;
-    sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
+    sourceProvenance = [lib.sourceTypes.binaryBytecode];
     mainProgram = "lunacy";
   };
 })

@@ -9,7 +9,6 @@
   id3v2,
   vorbis-tools,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cuetools";
   version = "1.4.1";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "02ksv1ahf1v4cr2xbclsfv5x17m9ivzbssb5r8xjm97yh8a7spa3";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     bison

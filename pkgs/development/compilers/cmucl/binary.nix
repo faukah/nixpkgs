@@ -4,7 +4,6 @@
   fetchurl,
   installShellFiles,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cmucl-binary";
   version = "21d";
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
       ANSI Common Lisp standard.
     '';
     mainProgram = "lisp";
-    teams = [ lib.teams.lisp ];
+    teams = [lib.teams.lisp];
     platforms = [
       "i686-linux"
       "x86_64-linux"

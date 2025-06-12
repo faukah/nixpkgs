@@ -8,7 +8,6 @@
   gnugrep,
   gnused,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dps8m";
   version = "3.1.0";

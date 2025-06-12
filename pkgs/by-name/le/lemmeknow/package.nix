@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lemmeknow";
   version = "0.8.0";

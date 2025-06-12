@@ -8,9 +8,7 @@
   intltool,
   libmirage,
   coreutils,
-}:
-
-let
+}: let
   inherit
     (callPackage ./common-drv-attrs.nix {
       version = "3.2.7";
@@ -23,37 +21,38 @@ let
     meta
     ;
 in
-stdenv.mkDerivation {
-  inherit pname version src;
+  stdenv.mkDerivation {
+    inherit pname version src;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    intltool
-  ];
-  buildInputs = [
-    glib
-    libao
-    libmirage
-  ];
-  postInstall = ''
-    mkdir -p $out/share/dbus-1/services
-    cp -R ../service-example $out/share/cdemu
-    substitute \
-      $out/share/cdemu/net.sf.cdemu.CDEmuDaemon.service \
-      $out/share/dbus-1/services/net.sf.cdemu.CDEmuDaemon.service \
-      --replace /bin/true ${coreutils}/bin/true
-  '';
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+      intltool
+    ];
+    buildInputs = [
+      glib
+      libao
+      libmirage
+    ];
+    postInstall = ''
+      mkdir -p $out/share/dbus-1/services
+      cp -R ../service-example $out/share/cdemu
+      substitute \
+        $out/share/cdemu/net.sf.cdemu.CDEmuDaemon.service \
+        $out/share/dbus-1/services/net.sf.cdemu.CDEmuDaemon.service \
+        --replace /bin/true ${coreutils}/bin/true
+    '';
 
-  meta = {
-    inherit (meta)
-      description
-      license
-      longDescription
-      maintainers
-      platforms
-      ;
-    homepage = "https://cdemu.sourceforge.io/about/daemon/";
-    mainProgram = "cdemu-daemon";
-  };
-}
+    meta = {
+      inherit
+        (meta)
+        description
+        license
+        longDescription
+        maintainers
+        platforms
+        ;
+      homepage = "https://cdemu.sourceforge.io/about/daemon/";
+      mainProgram = "cdemu-daemon";
+    };
+  }

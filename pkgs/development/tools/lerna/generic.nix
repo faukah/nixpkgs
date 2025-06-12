@@ -7,7 +7,6 @@
   npmDepsHash,
   packageLockFile,
 }:
-
 buildNpmPackage rec {
   pname = "lerna";
   inherit version;
@@ -29,6 +28,6 @@ buildNpmPackage rec {
     homepage = "https://lerna.js.org/";
     changelog = "https://github.com/lerna/lerna/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ThaoTranLePhuong ];
+    maintainers = with lib.maintainers; [ThaoTranLePhuong];
   };
 }

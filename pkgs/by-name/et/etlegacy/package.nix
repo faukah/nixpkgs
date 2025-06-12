@@ -5,7 +5,6 @@
   etlegacy-unwrapped,
   makeBinaryWrapper,
 }:
-
 symlinkJoin {
   name = "etlegacy";
   version = "2.83.2";

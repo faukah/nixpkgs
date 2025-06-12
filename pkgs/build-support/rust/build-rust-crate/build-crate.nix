@@ -5,9 +5,7 @@
   mkRustcFeatureArgs,
   needUnstableCLI,
   rustc,
-}:
-
-{
+}: {
   crateName,
   dependencies,
   crateFeatures,
@@ -24,12 +22,14 @@
   colors,
   buildTests,
   codegenUnits,
-}:
-
-let
+}: let
   baseRustcOpts =
     [
-      (if release then "-C opt-level=3" else "-C debuginfo=2")
+      (
+        if release
+        then "-C opt-level=3"
+        else "-C debuginfo=2"
+      )
       "-C codegen-units=${toString codegenUnits}"
       "--remap-path-prefix=$NIX_BUILD_TOP=/"
       (mkRustcDepArgs dependencies crateRenames)
@@ -47,9 +47,9 @@ let
     # since rustc 1.42 the "proc_macro" crate is part of the default crate prelude
     # https://github.com/rust-lang/cargo/commit/4d64eb99a4#diff-7f98585dbf9d30aa100c8318e2c77e79R1021-R1022
     ++ lib.optional (lib.elem "proc-macro" crateType) "--extern proc_macro"
-    ++
-      lib.optional (stdenv.hostPlatform.linker == "lld" && rustc ? llvmPackages.lld) # Needed when building for targets that use lld. e.g. 'wasm32-unknown-unknown'
-        "-C linker=${rustc.llvmPackages.lld}/bin/lld"
+    ++ lib.optional (stdenv.hostPlatform.linker == "lld" && rustc ? llvmPackages.lld) # Needed when building for targets that use lld. e.g. 'wasm32-unknown-unknown'
+    
+    "-C linker=${rustc.llvmPackages.lld}/bin/lld"
     ++ lib.optional (
       stdenv.hasCC && stdenv.hostPlatform.linker != "lld"
     ) "-C linker=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
@@ -58,14 +58,16 @@ let
   # build the final rustc arguments that can be different between different
   # crates
   libRustcOpts = lib.concatStringsSep " " (
-    baseRustcOpts ++ [ rustcMeta ] ++ (map (x: "--crate-type ${x}") crateType)
+    baseRustcOpts ++ [rustcMeta] ++ (map (x: "--crate-type ${x}") crateType)
   );
 
   binRustcOpts = lib.concatStringsSep " " baseRustcOpts;
 
-  build_bin = if buildTests then "build_bin_test" else "build_bin";
-in
-''
+  build_bin =
+    if buildTests
+    then "build_bin_test"
+    else "build_bin";
+in ''
   runHook preBuild
 
   # configure & source common build functions
@@ -75,7 +77,7 @@ in
   LIB_PATH="${libPath}"
   LIB_NAME="${libName}"
 
-  CRATE_NAME='${lib.replaceStrings [ "-" ] [ "_" ] libName}'
+  CRATE_NAME='${lib.replaceStrings ["-"] ["_"] libName}'
 
   setup_link_paths
 
@@ -91,37 +93,35 @@ in
 
   ${lib.optionalString (lib.length crateBin > 0) (
     lib.concatMapStringsSep "\n" (
-      bin:
-      let
+      bin: let
         haveRequiredFeature =
-          if bin ? requiredFeatures then
+          if bin ? requiredFeatures
+          then
             # Check that all element in requiredFeatures are also present in crateFeatures
             lib.intersectLists bin.requiredFeatures crateFeatures == bin.requiredFeatures
-          else
-            true;
+          else true;
       in
-      if haveRequiredFeature then
-        ''
+        if haveRequiredFeature
+        then ''
           mkdir -p target/bin
           BIN_NAME='${bin.name or crateName}'
           ${
-            if !bin ? path then
-              ''
-                BIN_PATH=""
-                search_for_bin_path "$BIN_NAME"
-              ''
-            else
-              ''
-                BIN_PATH='${bin.path}'
-              ''
+            if !bin ? path
+            then ''
+              BIN_PATH=""
+              search_for_bin_path "$BIN_NAME"
+            ''
+            else ''
+              BIN_PATH='${bin.path}'
+            ''
           }
             ${build_bin} "$BIN_NAME" "$BIN_PATH"
         ''
-      else
-        ''
+        else ''
           echo Binary ${bin.name or crateName} not compiled due to not having all of the required features -- ${lib.escapeShellArg (builtins.toJSON bin.requiredFeatures)} -- enabled.
         ''
-    ) crateBin
+    )
+    crateBin
   )}
 
   ${lib.optionalString buildTests ''

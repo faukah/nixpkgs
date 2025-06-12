@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "topfew";
   version = "2.0.0";
@@ -35,7 +34,7 @@ buildGoModule rec {
     description = "Finds the fields (or combinations of fields) which appear most often in a stream of records";
     homepage = "https://github.com/timbray/topfew";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "tf";
   };
 }

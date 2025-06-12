@@ -7,90 +7,84 @@
   fetchFromGitHub,
   nixosTests,
   vips,
-}:
-
-let
+}: let
   pinData = lib.importJSON ./pin.json;
-
 in
+  stdenvNoCC.mkDerivation (finalAttrs: {
+    pname = "lemmy-ui";
+    version = pinData.uiVersion;
 
-stdenvNoCC.mkDerivation (finalAttrs: {
+    src = with finalAttrs;
+      fetchFromGitHub {
+        owner = "LemmyNet";
+        repo = pname;
+        rev = version;
+        fetchSubmodules = true;
+        hash = pinData.uiHash;
+      };
 
-  pname = "lemmy-ui";
-  version = pinData.uiVersion;
+    nativeBuildInputs = [
+      nodejs
+      pnpm_9.configHook
+    ];
 
-  src =
-    with finalAttrs;
-    fetchFromGitHub {
-      owner = "LemmyNet";
-      repo = pname;
-      rev = version;
-      fetchSubmodules = true;
-      hash = pinData.uiHash;
+    buildInputs = [
+      libsass
+      vips
+    ];
+
+    extraBuildInputs = [libsass];
+    pnpmDeps = pnpm_9.fetchDeps {
+      inherit (finalAttrs) pname version src;
+      hash = pinData.uiPNPMDepsHash;
     };
 
-  nativeBuildInputs = [
-    nodejs
-    pnpm_9.configHook
-  ];
+    buildPhase = ''
+      runHook preBuild
 
-  buildInputs = [
-    libsass
-    vips
-  ];
+      pnpm build:prod
 
-  extraBuildInputs = [ libsass ];
-  pnpmDeps = pnpm_9.fetchDeps {
-    inherit (finalAttrs) pname version src;
-    hash = pinData.uiPNPMDepsHash;
-  };
+      runHook postBuild
+    '';
 
-  buildPhase = ''
-    runHook preBuild
+    # installPhase = ''
+    #     runHook preInstall
 
-    pnpm build:prod
+    #     mkdir -p $out/{bin,lib/${finalAttrs.pname}}
+    #     mv {dist,node_modules} $out/lib/${finalAttrs.pname}
 
-    runHook postBuild
-  '';
+    #     runHook postInstall
 
-  # installPhase = ''
-  #     runHook preInstall
+    #  '';
+    preInstall = ''
+      mkdir $out
+      cp -R ./dist $out
+      cp -R ./node_modules $out
+    '';
 
-  #     mkdir -p $out/{bin,lib/${finalAttrs.pname}}
-  #     mv {dist,node_modules} $out/lib/${finalAttrs.pname}
+    preFixup = ''
+      find $out -name libvips-cpp.so.42 -print0 | while read -d $'\0' libvips; do
+        echo replacing libvips at $libvips
+        rm $libvips
+        ln -s ${lib.getLib vips}/lib/libvips-cpp.so.42 $libvips
+      done
+    '';
 
-  #     runHook postInstall
+    distPhase = "true";
 
-  #  '';
-  preInstall = ''
-    mkdir $out
-    cp -R ./dist $out
-    cp -R ./node_modules $out
-  '';
+    passthru.updateScript = ./update.py;
+    passthru.tests.lemmy-ui = nixosTests.lemmy;
+    passthru.commit_sha = finalAttrs.src.rev;
 
-  preFixup = ''
-    find $out -name libvips-cpp.so.42 -print0 | while read -d $'\0' libvips; do
-      echo replacing libvips at $libvips
-      rm $libvips
-      ln -s ${lib.getLib vips}/lib/libvips-cpp.so.42 $libvips
-    done
-  '';
-
-  distPhase = "true";
-
-  passthru.updateScript = ./update.py;
-  passthru.tests.lemmy-ui = nixosTests.lemmy;
-  passthru.commit_sha = finalAttrs.src.rev;
-
-  meta = with lib; {
-    description = "Building a federated alternative to reddit in rust";
-    homepage = "https://join-lemmy.org/";
-    license = licenses.agpl3Only;
-    maintainers = with maintainers; [
-      happysalada
-      billewanick
-      georgyo
-    ];
-    inherit (nodejs.meta) platforms;
-  };
-})
+    meta = with lib; {
+      description = "Building a federated alternative to reddit in rust";
+      homepage = "https://join-lemmy.org/";
+      license = licenses.agpl3Only;
+      maintainers = with maintainers; [
+        happysalada
+        billewanick
+        georgyo
+      ];
+      inherit (nodejs.meta) platforms;
+    };
+  })

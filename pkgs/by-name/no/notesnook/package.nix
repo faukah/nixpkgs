@@ -5,9 +5,7 @@
   fetchurl,
   makeWrapper,
   _7zz,
-}:
-
-let
+}: let
   pname = "notesnook";
   version = "3.0.19";
 
@@ -20,7 +18,9 @@ let
       x86_64-darwin = "mac_x64.dmg";
       aarch64-darwin = "mac_arm64.dmg";
     }
-    .${system} or throwSystem;
+    .${
+      system
+    } or throwSystem;
 
   src = fetchurl {
     url = "https://github.com/streetwriters/notesnook/releases/download/v${version}/notesnook_${suffix}";
@@ -30,7 +30,9 @@ let
         x86_64-darwin = "sha256-WciEpt0vUuXS6YeZkbyFGqQaotXoZkWnkkn5B6/JXwE=";
         aarch64-darwin = "sha256-iP3Xd/otYEVwU85U2dlFcX9QjDq2CbIqHmcDYVxzqzI=";
       }
-      .${system} or throwSystem;
+      .${
+        system
+      } or throwSystem;
   };
 
   appimageContents = appimageTools.extractType2 {
@@ -67,7 +69,7 @@ let
       meta
       ;
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     profile = ''
       export LC_ALL=C.UTF-8
@@ -91,7 +93,7 @@ let
       meta
       ;
 
-    nativeBuildInputs = [ _7zz ];
+    nativeBuildInputs = [_7zz];
 
     sourceRoot = "Notesnook.app";
 
@@ -106,4 +108,6 @@ let
     '';
   };
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

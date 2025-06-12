@@ -19,7 +19,7 @@ buildKodiBinaryAddon rec {
     hash = "sha256-Ri9dgdhJbHybdUkZeRE7X7SQMaV2JZCm7znAyDEa470=";
   };
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     glm
     libGL
@@ -30,6 +30,6 @@ buildKodiBinaryAddon rec {
     description = "A screensaver that plays Asteroids";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "wprecon";
   version = "2.4.5";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/blackbinn/wprecon";
     # License Zero Noncommercial Public License 2.0.1
     # https://github.com/blackbinn/wprecon/blob/master/LICENSE
-    license = with licenses; [ unfree ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [unfree];
+    maintainers = with maintainers; [fab];
   };
 }

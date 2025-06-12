@@ -12,7 +12,6 @@
   ghdl,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "cocotb";
   version = "1.9.2";
@@ -26,10 +25,10 @@ buildPythonPackage rec {
     hash = "sha256-7KCo7g2I1rfm8QDHRm3ZKloHwjDIICnJCF8KhaFdvqY=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  buildInputs = [ setuptools ];
-  propagatedBuildInputs = [ find-libpython ];
+  buildInputs = [setuptools];
+  propagatedBuildInputs = [find-libpython];
 
   postPatch = ''
     patchShebangs bin/*.py
@@ -65,7 +64,7 @@ buildPythonPackage rec {
     mv cocotb cocotb.hidden
   '';
 
-  pythonImportsCheck = [ "cocotb" ];
+  pythonImportsCheck = ["cocotb"];
 
   meta = {
     changelog = "https://github.com/cocotb/cocotb/releases/tag/v${version}";

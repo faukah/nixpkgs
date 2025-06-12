@@ -8,7 +8,6 @@
   text-unidecode,
   xmlschema,
 }:
-
 buildPythonPackage rec {
   pname = "sepaxml";
   version = "2.6.1";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "sepaxml" ];
+  pythonImportsCheck = ["sepaxml"];
 
   meta = with lib; {
     description = "SEPA Direct Debit XML generation in python";

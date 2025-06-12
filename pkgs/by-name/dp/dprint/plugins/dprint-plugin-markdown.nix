@@ -1,11 +1,11 @@
-{ mkDprintPlugin }:
+{mkDprintPlugin}:
 mkDprintPlugin {
   description = "Markdown code formatter.";
   hash = "sha256-fBy+G+DkJqhrCyyaMjmXRe1VeSeCYO+XmJ8ogwAoptA=";
   initConfig = {
-    configExcludes = [ ];
+    configExcludes = [];
     configKey = "markdown";
-    fileExtensions = [ "md" ];
+    fileExtensions = ["md"];
   };
   pname = "dprint-plugin-markdown";
   updateUrl = "https://plugins.dprint.dev/dprint/markdown/latest.json";

@@ -6,7 +6,6 @@
   pkg-config,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libwebcam";
   version = "0.2.5";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [ libxml2 ];
+  buildInputs = [libxml2];
 
   postPatch = ''
     substituteInPlace ./uvcdynctrl/CMakeLists.txt \
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     description = "Webcam-tools package";
     platforms = platforms.linux;
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ jraygauthier ];
+    maintainers = with maintainers; [jraygauthier];
   };
 }

@@ -12,7 +12,6 @@
   libcrypt,
   version,
 }:
-
 symlinkJoin rec {
   name = "${pname}-${version}";
   pname = "libc-netbsd";
@@ -26,22 +25,22 @@ symlinkJoin rec {
 
   paths =
     lib.concatMap
-      (p: [
-        (lib.getDev p)
-        (lib.getLib p)
-        (lib.getMan p)
-      ])
-      [
-        libcMinimal
-        libm
-        libpthread
-        libresolv
-        librpcsvc
-        i18n_module
-        libutil
-        librt
-        libcrypt
-      ];
+    (p: [
+      (lib.getDev p)
+      (lib.getLib p)
+      (lib.getMan p)
+    ])
+    [
+      libcMinimal
+      libm
+      libpthread
+      libresolv
+      librpcsvc
+      i18n_module
+      libutil
+      librt
+      libcrypt
+    ];
 
   postBuild = ''
     rm -r "$out/nix-support"

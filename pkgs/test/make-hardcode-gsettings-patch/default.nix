@@ -4,55 +4,47 @@
   git,
   clang-tools,
   makeHardcodeGsettingsPatch,
-}:
-
-let
-  mkTest =
-    {
-      name,
-      expected,
-      src,
-      patches ? [ ],
-      args,
-    }:
-
-    let
-      patch = makeHardcodeGsettingsPatch (
-        args
-        // {
-          inherit src patches;
-        }
-      );
-    in
-    runCommandLocal "makeHardcodeGsettingsPatch-tests-${name}"
-
-      {
-        nativeBuildInputs = [
-          git
-          clang-tools
-        ];
+}: let
+  mkTest = {
+    name,
+    expected,
+    src,
+    patches ? [],
+    args,
+  }: let
+    patch = makeHardcodeGsettingsPatch (
+      args
+      // {
+        inherit src patches;
       }
+    );
+  in
+    runCommandLocal "makeHardcodeGsettingsPatch-tests-${name}"
+    {
+      nativeBuildInputs = [
+        git
+        clang-tools
+      ];
+    }
+    ''
+      cp -r --no-preserve=all "${src}" src
+      cp -r --no-preserve=all "${expected}" src-expected
 
-      ''
-        cp -r --no-preserve=all "${src}" src
-        cp -r --no-preserve=all "${expected}" src-expected
+      pushd src
+      for patch in ${lib.escapeShellArgs (builtins.map (p: "${p}") patches)}; do
+          patch < "$patch"
+      done
+      patch < "${patch}"
+      popd
 
-        pushd src
-        for patch in ${lib.escapeShellArgs (builtins.map (p: "${p}") patches)}; do
-            patch < "$patch"
-        done
-        patch < "${patch}"
-        popd
-
-        find src -name '*.c' -print0 | while read -d $'\0' sourceFile; do
-          sourceFile=''${sourceFile#src/}
-          clang-format -style='{BasedOnStyle: InheritParentConfig, ColumnLimit: 240}' -i "src/$sourceFile" "src-expected/$sourceFile"
-          git diff --no-index "src/$sourceFile" "src-expected/$sourceFile" | cat
-        done
-        touch "$out"
-      '';
-in
-{
+      find src -name '*.c' -print0 | while read -d $'\0' sourceFile; do
+        sourceFile=''${sourceFile#src/}
+        clang-format -style='{BasedOnStyle: InheritParentConfig, ColumnLimit: 240}' -i "src/$sourceFile" "src-expected/$sourceFile"
+        git diff --no-index "src/$sourceFile" "src-expected/$sourceFile" | cat
+      done
+      touch "$out"
+    '';
+in {
   basic = mkTest {
     name = "basic";
     src = ./fixtures/example-project;
@@ -94,5 +86,4 @@ in
     };
     expected = ./fixtures/example-project-patched-with-exists-fn;
   };
-
 }

@@ -5,7 +5,6 @@
   setuptools,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyexpect";
   version = "1.0.22";
@@ -26,13 +25,13 @@ buildPythonPackage rec {
     unittestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyexpect" ];
+  pythonImportsCheck = ["pyexpect"];
 
   meta = {
     changelog = "https://dwt/pyexpect/releases/tag/${version}";
     description = "Minimal but very flexible implementation of the expect pattern";
     homepage = "https://github.com/dwt/pyexpect";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ lzcunt ];
+    maintainers = with lib.maintainers; [lzcunt];
   };
 }

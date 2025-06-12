@@ -9,7 +9,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "screenlogicpy";
   version = "0.10.1";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-z6cM0sihZvOHCA3v1DYQEev0axf4AcqEW13WA1EMhQM=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ async-timeout ];
+  propagatedBuildInputs = [async-timeout];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -51,14 +50,14 @@ buildPythonPackage rec {
       "test_login_async_gateway_connect"
     ];
 
-  pythonImportsCheck = [ "screenlogicpy" ];
+  pythonImportsCheck = ["screenlogicpy"];
 
   meta = with lib; {
     description = "Python interface for Pentair Screenlogic devices";
     mainProgram = "screenlogicpy";
     homepage = "https://github.com/dieselrabbit/screenlogicpy";
     changelog = "https://github.com/dieselrabbit/screenlogicpy/releases/tag/v${version}";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

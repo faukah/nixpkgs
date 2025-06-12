@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   imports = [
   ];
   options.programs.clash-verge = {
@@ -25,12 +23,10 @@
     autoStart = lib.mkEnableOption "Clash Verge auto launch";
   };
 
-  config =
-    let
-      cfg = config.programs.clash-verge;
-    in
+  config = let
+    cfg = config.programs.clash-verge;
+  in
     lib.mkIf cfg.enable {
-
       environment.systemPackages = [
         cfg.package
         (lib.mkIf cfg.autoStart (
@@ -71,7 +67,7 @@
           ProtectClock = true;
           MemoryDenyWriteExecute = true;
           RestrictSUIDSGID = true;
-          RestrictNamespaces = [ "~user cgroup ipc mnt uts" ];
+          RestrictNamespaces = ["~user cgroup ipc mnt uts"];
           RestrictAddressFamilies = [
             "AF_INET AF_INET6 AF_NETLINK AF_PACKET AF_RAW"
           ];
@@ -83,7 +79,7 @@
           ];
           SystemCallErrorNumber = "EPERM";
         };
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
       };
     };
 

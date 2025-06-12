@@ -19,7 +19,6 @@
   setuptools,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mypy-boto3-builder";
   version = "8.11.0";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
       --replace-fail 'version = "8.10.1"' 'version = "${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     boto3
@@ -64,7 +63,7 @@ buildPythonPackage rec {
 
   versionCheckProgramArg = "--version";
 
-  pythonImportsCheck = [ "mypy_boto3_builder" ];
+  pythonImportsCheck = ["mypy_boto3_builder"];
 
   disabledTests = [
     # Tests require network access
@@ -76,7 +75,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/youtype/mypy_boto3_builder";
     changelog = "https://github.com/youtype/mypy_boto3_builder/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "mypy_boto3_builder";
   };
 }

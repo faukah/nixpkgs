@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "ad-ldap-enum";
   version = "0-unstable-2023-02-10";
@@ -17,11 +16,12 @@ stdenvNoCC.mkDerivation {
 
   buildInputs = [
     (python3.withPackages (
-      ps: with ps; [
-        argcomplete
-        ldap3
-        openpyxl
-      ]
+      ps:
+        with ps; [
+          argcomplete
+          ldap3
+          openpyxl
+        ]
     ))
   ];
 
@@ -45,7 +45,7 @@ stdenvNoCC.mkDerivation {
     description = "LDAP based Active Directory user and group enumeration tool";
     homepage = "https://github.com/CroweCybersecurity/ad-ldap-enum";
     license = licenses.mit;
-    maintainers = with maintainers; [ h7x4 ];
+    maintainers = with maintainers; [h7x4];
     platforms = python3.meta.platforms;
     mainProgram = "ad-ldap-enum";
   };

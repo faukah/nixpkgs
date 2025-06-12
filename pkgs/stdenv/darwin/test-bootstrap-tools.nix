@@ -5,7 +5,6 @@
   bootstrapTools,
   hello,
 }:
-
 builtins.derivation {
   name = "test-bootstrap-tools";
 
@@ -20,7 +19,7 @@ builtins.derivation {
     "eval \"$buildCommand\""
   ];
 
-  PATH = lib.makeBinPath [ bootstrapTools ];
+  PATH = lib.makeBinPath [bootstrapTools];
 
   tools = bootstrapTools;
 

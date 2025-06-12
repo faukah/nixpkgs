@@ -2,8 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-}:
-{
+}: {
   bats-assert = stdenv.mkDerivation (finalAttrs: {
     pname = "bats-assert";
     version = "2.1.0";
@@ -26,7 +25,7 @@
       platforms = lib.platforms.all;
       homepage = "https://github.com/bats-core/bats-assert";
       license = lib.licenses.cc0;
-      maintainers = with lib.maintainers; [ brokenpip3 ];
+      maintainers = with lib.maintainers; [brokenpip3];
     };
   });
 
@@ -52,7 +51,7 @@
       platforms = lib.platforms.all;
       homepage = "https://github.com/bats-core/bats-file";
       license = lib.licenses.cc0;
-      maintainers = with lib.maintainers; [ brokenpip3 ];
+      maintainers = with lib.maintainers; [brokenpip3];
     };
   });
 
@@ -77,7 +76,7 @@
       platforms = lib.platforms.all;
       homepage = "https://github.com/bats-core/bats-detik";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ brokenpip3 ];
+      maintainers = with lib.maintainers; [brokenpip3];
     };
   });
 
@@ -103,7 +102,7 @@
       platforms = lib.platforms.all;
       homepage = "https://github.com/bats-core/bats-support";
       license = lib.licenses.cc0;
-      maintainers = with lib.maintainers; [ brokenpip3 ];
+      maintainers = with lib.maintainers; [brokenpip3];
     };
   });
 }

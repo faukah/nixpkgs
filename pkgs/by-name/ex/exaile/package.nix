@@ -33,7 +33,6 @@
   streamripperSupport ? false,
   wikipediaSupport ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "exaile";
   version = "4.1.4";
@@ -110,8 +109,8 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/exaile \
       --set PYTHONPATH $PYTHONPATH \
       --prefix PATH : ${
-        lib.makeBinPath ([ python3 ] ++ lib.optionals streamripperSupport [ streamripper ])
-      }
+      lib.makeBinPath ([python3] ++ lib.optionals streamripperSupport [streamripper])
+    }
   '';
 
   meta = with lib; {
@@ -119,7 +118,7 @@ stdenv.mkDerivation rec {
     description = "Music player with a simple interface and powerful music management capabilities";
     mainProgram = "exaile";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ryneeverett ];
+    maintainers = with maintainers; [ryneeverett];
     platforms = platforms.all;
   };
 }

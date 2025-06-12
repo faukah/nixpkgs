@@ -7,7 +7,6 @@
   rich,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "enrich";
   version = "1.2.7";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     sha256 = "0a2ab0d2931dff8947012602d1234d2a3ee002d9a355b5d70be6bf5466008893";
   };
 
-  buildInputs = [ setuptools-scm ];
+  buildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ rich ];
+  propagatedBuildInputs = [rich];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -32,12 +31,12 @@ buildPythonPackage rec {
     "test_rich_console_ex"
   ];
 
-  pythonImportsCheck = [ "enrich" ];
+  pythonImportsCheck = ["enrich"];
 
   meta = with lib; {
     description = "Enrich adds few missing features to the wonderful rich library";
     homepage = "https://github.com/pycontribs/enrich";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

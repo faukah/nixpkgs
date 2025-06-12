@@ -6,7 +6,6 @@
   poetry-core,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "python-trovo";
   version = "0.1.7";
@@ -20,19 +19,19 @@ buildPythonPackage rec {
     hash = "sha256-3EVSF4+nLvvM2RocNM2xz9Us5VrRRTCu/MWCcqwwikw=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # No tests found
   doCheck = false;
 
-  pythonImportsCheck = [ "trovoApi" ];
+  pythonImportsCheck = ["trovoApi"];
 
   meta = with lib; {
     description = "Python wrapper for the Trovo API";
     homepage = "https://codeberg.org/wolfangaukang/python-trovo";
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

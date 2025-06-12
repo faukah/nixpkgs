@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "reflection-cpp";
   version = "0.4.0";
@@ -16,13 +15,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ylaAS0zlkiJlBwibFBIyNOQ2h6IGRXTiKV1g6So9M9s=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     description = "C++ static reflection support library";
     homepage = "https://github.com/contour-terminal/reflection-cpp";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 })

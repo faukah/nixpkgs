@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "zenoh-plugin-mqtt";
   version = "1.4.0"; # nixpkgs-update: no auto update
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
       epl20
       asl20
     ];
-    maintainers = with lib.maintainers; [ markuskowa ];
+    maintainers = with lib.maintainers; [markuskowa];
     platforms = lib.platforms.linux;
     mainProgram = "zenoh-bridge-mqtt";
   };

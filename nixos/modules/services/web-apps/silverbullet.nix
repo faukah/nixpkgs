@@ -3,19 +3,17 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.silverbullet;
   defaultUser = "silverbullet";
   defaultGroup = defaultUser;
   defaultSpaceDir = "/var/lib/silverbullet";
-in
-{
+in {
   options = {
     services.silverbullet = {
       enable = lib.mkEnableOption "Silverbullet, an open-source, self-hosted, offline-capable Personal Knowledge Management (PKM) web application";
 
-      package = lib.mkPackageOption pkgs "silverbullet" { };
+      package = lib.mkPackageOption pkgs "silverbullet" {};
 
       openFirewall = lib.mkOption {
         type = lib.types.bool;
@@ -82,8 +80,8 @@ in
 
       extraArgs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
-        example = [ "--db /path/to/silverbullet.db" ];
+        default = [];
+        example = ["--db /path/to/silverbullet.db"];
         description = "Extra arguments passed to silverbullet.";
       };
     };
@@ -92,8 +90,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.silverbullet = {
       description = "Silverbullet service";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = lib.mkIf (!lib.hasPrefix "/var/lib/" cfg.spaceDir) "mkdir -p '${cfg.spaceDir}'";
       serviceConfig = {
@@ -112,7 +110,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.listenPort ];
+      allowedTCPPorts = [cfg.listenPort];
     };
 
     users.users.${defaultUser} = lib.mkIf (cfg.user == defaultUser) {
@@ -121,8 +119,8 @@ in
       description = "Silverbullet daemon user";
     };
 
-    users.groups.${defaultGroup} = lib.mkIf (cfg.group == defaultGroup) { };
+    users.groups.${defaultGroup} = lib.mkIf (cfg.group == defaultGroup) {};
   };
 
-  meta.maintainers = with lib.maintainers; [ aorith ];
+  meta.maintainers = with lib.maintainers; [aorith];
 }

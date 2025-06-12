@@ -3,11 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.misskey;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   redisType = lib.types.submodule {
     freeformType = lib.types.attrsOf settingsFormat.type;
     options = {
@@ -103,11 +101,11 @@ let
               };
             };
           };
-          default = { };
+          default = {};
         };
         redis = lib.mkOption {
           type = redisType;
-          default = { };
+          default = {};
           description = "`ioredis` options. See [`README`](https://github.com/redis/ioredis?tab=readme-ov-file#connect-to-redis) for reference.";
         };
         redisForPubsub = lib.mkOption {
@@ -182,13 +180,11 @@ let
       };
     };
   };
-in
-
-{
+in {
   options = {
     services.misskey = {
       enable = lib.mkEnableOption "misskey";
-      package = lib.mkPackageOption pkgs "misskey" { };
+      package = lib.mkPackageOption pkgs "misskey" {};
       inherit settings;
       database = {
         createLocally = lib.mkOption {
@@ -232,7 +228,7 @@ in
           type = lib.types.attrTag {
             nginx = lib.mkOption {
               type = lib.types.submodule (import ../web-servers/nginx/vhost-options.nix);
-              default = { };
+              default = {};
               description = ''
                 Extra configuration for the nginx virtual host of Misskey.
                 Set to `{ }` to use the default configuration.
@@ -240,9 +236,9 @@ in
             };
             caddy = lib.mkOption {
               type = lib.types.submodule (
-                import ../web-servers/caddy/vhost-options.nix { cfg = config.services.caddy; }
+                import ../web-servers/caddy/vhost-options.nix {cfg = config.services.caddy;}
               );
-              default = { };
+              default = {};
               description = ''
                 Extra configuration for the caddy virtual host of Misskey.
                 Set to `{ }` to use the default configuration.
@@ -296,9 +292,9 @@ in
           pass = lib.mkDefault null;
         };
       })
-      (lib.mkIf (cfg.database.passwordFile != null) { db.pass = lib.mkDefault "@DATABASE_PASSWORD@"; })
-      (lib.mkIf cfg.redis.createLocally { redis.host = lib.mkDefault "localhost"; })
-      (lib.mkIf (cfg.redis.passwordFile != null) { redis.pass = lib.mkDefault "@REDIS_PASSWORD@"; })
+      (lib.mkIf (cfg.database.passwordFile != null) {db.pass = lib.mkDefault "@DATABASE_PASSWORD@";})
+      (lib.mkIf cfg.redis.createLocally {redis.host = lib.mkDefault "localhost";})
+      (lib.mkIf (cfg.redis.passwordFile != null) {redis.pass = lib.mkDefault "@REDIS_PASSWORD@";})
       (lib.mkIf cfg.meilisearch.createLocally {
         meilisearch = {
           host = lib.mkDefault "localhost";
@@ -311,7 +307,9 @@ in
       })
       (lib.mkIf cfg.reverseProxy.enable {
         url = lib.mkDefault "${
-          if cfg.reverseProxy.ssl then "https" else "http"
+          if cfg.reverseProxy.ssl
+          then "https"
+          else "http"
         }://${cfg.reverseProxy.host}";
       })
     ];
@@ -321,8 +319,8 @@ in
         "network-online.target"
         "postgresql.service"
       ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       environment = {
         MISSKEY_CONFIG_YML = "/run/misskey/default.yml";
       };
@@ -365,7 +363,7 @@ in
 
     services.postgresql = lib.mkIf cfg.database.createLocally {
       enable = true;
-      ensureDatabases = [ "misskey" ];
+      ensureDatabases = ["misskey"];
       ensureUsers = [
         {
           name = "misskey";
@@ -381,7 +379,7 @@ in
       };
     };
 
-    services.meilisearch = lib.mkIf cfg.meilisearch.createLocally { enable = true; };
+    services.meilisearch = lib.mkIf cfg.meilisearch.createLocally {enable = true;};
 
     services.caddy = lib.mkIf (cfg.reverseProxy.enable && cfg.reverseProxy.webserver ? caddy) {
       enable = true;
@@ -407,12 +405,12 @@ in
             recommendedProxySettings = lib.mkDefault true;
           };
         }
-        (lib.mkIf (cfg.reverseProxy.ssl != null) { forceSSL = lib.mkDefault cfg.reverseProxy.ssl; })
+        (lib.mkIf (cfg.reverseProxy.ssl != null) {forceSSL = lib.mkDefault cfg.reverseProxy.ssl;})
       ];
     };
   };
 
   meta = {
-    maintainers = [ lib.maintainers.feathecutie ];
+    maintainers = [lib.maintainers.feathecutie];
   };
 }

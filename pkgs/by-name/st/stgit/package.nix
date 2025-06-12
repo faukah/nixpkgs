@@ -16,7 +16,6 @@
   darwin,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "stgit";
   version = "2.5.3";
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage rec {
     docbook_xml_dtd_45
     perl
   ];
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   nativeCheckInputs =
     [
@@ -73,7 +72,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   dontCargoBuild = true;
-  buildFlags = [ "all" ];
+  buildFlags = ["all"];
 
   dontCargoCheck = true;
   checkTarget = "test";
@@ -86,7 +85,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   postInstall = ''
-    wrapProgram $out/bin/stg --prefix PATH : ${lib.makeBinPath [ git ]}
+    wrapProgram $out/bin/stg --prefix PATH : ${lib.makeBinPath [git]}
 
     installShellCompletion --cmd stg \
       --fish completion/stg.fish \
@@ -99,7 +98,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://stacked-git.github.io/";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ jshholland ];
+    maintainers = with maintainers; [jshholland];
     mainProgram = "stg";
   };
 }

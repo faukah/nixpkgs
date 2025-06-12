@@ -12,7 +12,6 @@
   qtscript,
   qtwayland,
 }:
-
 mkDerivation {
   pname = "konqueror";
   nativeBuildInputs = [
@@ -41,7 +40,7 @@ mkDerivation {
   meta = {
     homepage = "https://apps.kde.org/konqueror/";
     description = "Web browser, file manager and viewer";
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = [ ];
+    license = with lib.licenses; [gpl2];
+    maintainers = [];
   };
 }

@@ -8,7 +8,6 @@
   pythonAtLeast,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "openstackdocstheme";
   version = "3.5.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     patchShebangs bin/
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     dulwich
@@ -36,12 +35,12 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "openstackdocstheme" ];
+  pythonImportsCheck = ["openstackdocstheme"];
 
   meta = with lib; {
     description = "Sphinx theme for RST-sourced documentation published to docs.openstack.org";
     homepage = "https://github.com/openstack/openstackdocstheme";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   hatchling,
   hatch-vcs,
-
   # dependencies
   aiohttp,
   backoff,
@@ -32,11 +30,9 @@
   toml,
   typing-extensions,
   wheel,
-
   # tests
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "coiled";
   version = "1.100.0";
@@ -79,7 +75,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  pythonImportsCheck = [ "coiled" ];
+  pythonImportsCheck = ["coiled"];
 
   nativeCheckInputs = [
     versionCheckHook
@@ -90,7 +86,7 @@ buildPythonPackage rec {
     description = "Python client for coiled.io dask clusters";
     homepage = "https://www.coiled.io/";
     license = lib.licenses.elastic20;
-    maintainers = with lib.maintainers; [ daspk04 ];
+    maintainers = with lib.maintainers; [daspk04];
     mainProgram = "coiled";
   };
 }

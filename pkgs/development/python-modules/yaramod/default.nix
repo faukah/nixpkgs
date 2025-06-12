@@ -9,9 +9,7 @@
   pybind11,
   nlohmann_json,
   setuptools,
-}:
-
-let
+}: let
   pog = fetchFromGitHub {
     owner = "metthal";
     repo = "pog";
@@ -19,53 +17,53 @@ let
     hash = "sha256-El4WA92t2O/L4wUqH6Xj8w+ANtb6liRwafDhqn8jxjQ=";
   };
 in
-buildPythonPackage rec {
-  pname = "yaramod";
-  version = "4.3.2";
-  pyproject = true;
+  buildPythonPackage rec {
+    pname = "yaramod";
+    version = "4.3.2";
+    pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "avast";
-    repo = "yaramod";
-    tag = "v${version}";
-    hash = "sha256-b0IdhnKlOPkjq/oZtEHbOzEjp5gUhX+NqDid61ubovc=";
-  };
+    src = fetchFromGitHub {
+      owner = "avast";
+      repo = "yaramod";
+      tag = "v${version}";
+      hash = "sha256-b0IdhnKlOPkjq/oZtEHbOzEjp5gUhX+NqDid61ubovc=";
+    };
 
-  postPatch = ''
-    rm -r deps/googletest deps/pog/ deps/pybind11/ deps/json/json.hpp
-    cp -r --no-preserve=all ${pog} deps/pog/
-    cp -r --no-preserve=all ${nlohmann_json.src}/single_include/nlohmann/json.hpp deps/json/
-    cp -r --no-preserve=all ${pybind11.src} deps/pybind11/
-    cp -r --no-preserve=all ${gtest.src} deps/googletest/
-  '';
+    postPatch = ''
+      rm -r deps/googletest deps/pog/ deps/pybind11/ deps/json/json.hpp
+      cp -r --no-preserve=all ${pog} deps/pog/
+      cp -r --no-preserve=all ${nlohmann_json.src}/single_include/nlohmann/json.hpp deps/json/
+      cp -r --no-preserve=all ${pybind11.src} deps/pybind11/
+      cp -r --no-preserve=all ${gtest.src} deps/googletest/
+    '';
 
-  dontUseCmakeConfigure = true;
+    dontUseCmakeConfigure = true;
 
-  buildInputs = [ libxcrypt ];
+    buildInputs = [libxcrypt];
 
-  nativeBuildInputs = [
-    cmake
-    pog
-  ];
+    nativeBuildInputs = [
+      cmake
+      pog
+    ];
 
-  build-system = [ setuptools ];
+    build-system = [setuptools];
 
-  env.ENV_YARAMOD_BUILD_WITH_UNIT_TESTS = true;
+    env.ENV_YARAMOD_BUILD_WITH_UNIT_TESTS = true;
 
-  nativeCheckInputs = [
-    gtest
-    pytestCheckHook
-  ];
+    nativeCheckInputs = [
+      gtest
+      pytestCheckHook
+    ];
 
-  pytestFlagsArray = [ "tests/" ];
+    pytestFlagsArray = ["tests/"];
 
-  pythonImportsCheck = [ "yaramod" ];
+    pythonImportsCheck = ["yaramod"];
 
-  meta = with lib; {
-    description = "Parsing of YARA rules into AST and building new rulesets in C++";
-    homepage = "https://github.com/avast/yaramod";
-    changelog = "https://github.com/avast/yaramod/blob/v${version}/CHANGELOG.md";
-    license = licenses.mit;
-    maintainers = with maintainers; [ msm ];
-  };
-}
+    meta = with lib; {
+      description = "Parsing of YARA rules into AST and building new rulesets in C++";
+      homepage = "https://github.com/avast/yaramod";
+      changelog = "https://github.com/avast/yaramod/blob/v${version}/CHANGELOG.md";
+      license = licenses.mit;
+      maintainers = with maintainers; [msm];
+    };
+  }

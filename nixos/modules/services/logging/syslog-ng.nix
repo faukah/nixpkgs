@@ -3,9 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
-
+}: let
   cfg = config.services.syslog-ng;
 
   syslogngConfig = pkgs.writeText "syslog-ng.conf" ''
@@ -20,23 +18,20 @@ let
   syslogngOptions = [
     "--foreground"
     "--module-path=${
-      lib.concatStringsSep ":" ([ "${cfg.package}/lib/syslog-ng" ] ++ cfg.extraModulePaths)
+      lib.concatStringsSep ":" (["${cfg.package}/lib/syslog-ng"] ++ cfg.extraModulePaths)
     }"
     "--cfgfile=${syslogngConfig}"
     "--control=${ctrlSocket}"
     "--persist-file=${persistFile}"
     "--pidfile=${pidFile}"
   ];
-
-in
-{
+in {
   imports = [
-    (lib.mkRemovedOptionModule [ "services" "syslog-ng" "serviceName" ] "")
-    (lib.mkRemovedOptionModule [ "services" "syslog-ng" "listenToJournal" ] "")
+    (lib.mkRemovedOptionModule ["services" "syslog-ng" "serviceName"] "")
+    (lib.mkRemovedOptionModule ["services" "syslog-ng" "listenToJournal"] "")
   ];
 
   options = {
-
     services.syslog-ng = {
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -45,10 +40,10 @@ in
           Whether to enable the syslog-ng daemon.
         '';
       };
-      package = lib.mkPackageOption pkgs "syslogng" { };
+      package = lib.mkPackageOption pkgs "syslogng" {};
       extraModulePaths = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           A list of paths that should be included in syslog-ng's
           `--module-path` option. They should usually
@@ -80,8 +75,8 @@ in
     systemd.services.syslog-ng = {
       description = "syslog-ng daemon";
       preStart = "mkdir -p /{var,run}/syslog-ng";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "multi-user.target" ]; # makes sure hostname etc is set
+      wantedBy = ["multi-user.target"];
+      after = ["multi-user.target"]; # makes sure hostname etc is set
       serviceConfig = {
         Type = "notify";
         PIDFile = pidFile;
@@ -92,5 +87,4 @@ in
       };
     };
   };
-
 }

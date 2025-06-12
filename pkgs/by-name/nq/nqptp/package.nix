@@ -6,7 +6,6 @@
   pkg-config,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.2.4";
   pname = "nqptp";

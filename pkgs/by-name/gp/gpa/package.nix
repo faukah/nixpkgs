@@ -9,7 +9,6 @@
   libgpg-error,
   libassuan,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gpa";
   version = "0.11.0";

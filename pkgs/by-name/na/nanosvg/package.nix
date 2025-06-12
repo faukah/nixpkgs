@@ -5,7 +5,6 @@
   cmake,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "nanosvg";
   version = "0-unstable-2024-12-19";
@@ -17,9 +16,9 @@ stdenv.mkDerivation {
     hash = "sha256-QCjfaSm1/hstVGzkJc0gFnYhnU5I3oHSCTkAVG5gTt8=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Simple stupid SVG parser";

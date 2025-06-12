@@ -24,7 +24,6 @@
   wrapGAppsHook3,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-applets";
   version = "1.28.1";
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Applets for use with the MATE panel";
@@ -79,6 +78,6 @@ stdenv.mkDerivation rec {
       lgpl2Plus
     ];
     platforms = platforms.linux;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

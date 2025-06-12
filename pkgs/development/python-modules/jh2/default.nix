@@ -9,7 +9,6 @@
   rustc,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "jh2";
   version = "5.0.9";
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "jh2" ];
+  pythonImportsCheck = ["jh2"];
 
   meta = {
     description = "HTTP/2 State-Machine based protocol implementation";

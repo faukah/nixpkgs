@@ -14,7 +14,6 @@
   busybox,
   procps,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "cloud-init";
   version = "24.2";
@@ -51,7 +50,7 @@ python3.pkgs.buildPythonApplication rec {
   postInstall = ''
     install -D -m755 ./tools/write-ssh-key-fingerprints $out/libexec/write-ssh-key-fingerprints
     for i in $out/libexec/*; do
-      wrapProgram $i --prefix PATH : "${lib.makeBinPath [ openssh ]}"
+      wrapProgram $i --prefix PATH : "${lib.makeBinPath [openssh]}"
     done
   '';
 
@@ -134,8 +133,8 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   passthru = {
-    tests = { inherit (nixosTests) cloud-init cloud-init-hostname; };
-    updateScript = gitUpdater { ignoredVersions = ".ubuntu.*"; };
+    tests = {inherit (nixosTests) cloud-init cloud-init-hostname;};
+    updateScript = gitUpdater {ignoredVersions = ".ubuntu.*";};
   };
 
   meta = with lib; {

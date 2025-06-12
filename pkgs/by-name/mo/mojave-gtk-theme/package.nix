@@ -11,17 +11,14 @@
   optipng,
   sassc,
   which,
-  buttonSizeVariants ? [ ], # default to standard
-  buttonVariants ? [ ], # default to all
-  colorVariants ? [ ], # default to all
-  opacityVariants ? [ ], # default to all
-  themeVariants ? [ ], # default to MacOS blue
+  buttonSizeVariants ? [], # default to standard
+  buttonVariants ? [], # default to all
+  colorVariants ? [], # default to all
+  opacityVariants ? [], # default to all
+  themeVariants ? [], # default to MacOS blue
   wallpapers ? false,
   gitUpdater,
-}:
-
-let
-
+}: let
   pname = "mojave-gtk-theme";
   version = "2024-11-15";
 
@@ -39,21 +36,19 @@ let
     hash = "sha256-nkw8gXYx8fN1yn0A5M2fWwOvfUQ6izynxRw5JA61InM=";
     name = "wallpapers";
   };
-
 in
-
-lib.checkListOfEnum "${pname}: button size variants" [ "standard" "small" ] buttonSizeVariants
+  lib.checkListOfEnum "${pname}: button size variants" ["standard" "small"] buttonSizeVariants
   lib.checkListOfEnum
   "${pname}: button variants"
-  [ "standard" "alt" ]
+  ["standard" "alt"]
   buttonVariants
   lib.checkListOfEnum
   "${pname}: color variants"
-  [ "light" "dark" ]
+  ["light" "dark"]
   colorVariants
   lib.checkListOfEnum
   "${pname}: opacity variants"
-  [ "standard" "solid" ]
+  ["standard" "solid"]
   opacityVariants
   lib.checkListOfEnum
   "${pname}: theme variants"
@@ -70,12 +65,11 @@ lib.checkListOfEnum "${pname}: button size variants" [ "standard" "small" ] butt
     "all"
   ]
   themeVariants
-
   stdenvNoCC.mkDerivation
   {
     inherit pname version;
 
-    srcs = [ main_src ] ++ lib.optional wallpapers wallpapers_src;
+    srcs = [main_src] ++ lib.optional wallpapers wallpapers_src;
 
     sourceRoot = main_src.name;
 
@@ -138,12 +132,12 @@ lib.checkListOfEnum "${pname}: button size variants" [ "standard" "small" ] butt
 
       name= ./install.sh \
         ${
-          lib.optionalString (buttonSizeVariants != [ ]) "--small " + builtins.toString buttonSizeVariants
-        } \
-        ${lib.optionalString (buttonVariants != [ ]) "--alt " + builtins.toString buttonVariants} \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (opacityVariants != [ ]) "--opacity " + builtins.toString opacityVariants} \
-        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
+        lib.optionalString (buttonSizeVariants != []) "--small " + builtins.toString buttonSizeVariants
+      } \
+        ${lib.optionalString (buttonVariants != []) "--alt " + builtins.toString buttonVariants} \
+        ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
+        ${lib.optionalString (opacityVariants != []) "--opacity " + builtins.toString opacityVariants} \
+        ${lib.optionalString (themeVariants != []) "--theme " + builtins.toString themeVariants} \
         --icon nixos \
         --dest $out/share/themes
 
@@ -164,13 +158,13 @@ lib.checkListOfEnum "${pname}: button size variants" [ "standard" "small" ] butt
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = {
       description = "Mac OSX Mojave like theme for GTK based desktop environments";
       homepage = "https://github.com/vinceliuice/Mojave-gtk-theme";
       license = lib.licenses.gpl3Only;
       platforms = lib.platforms.unix;
-      maintainers = [ lib.maintainers.romildo ];
+      maintainers = [lib.maintainers.romildo];
     };
   }

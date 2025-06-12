@@ -1,14 +1,11 @@
-{ lib, ... }:
-let
-  removed =
-    k:
+{lib, ...}: let
+  removed = k:
     lib.mkRemovedOptionModule [
       "security"
       "rngd"
       k
     ];
-in
-{
+in {
   imports = [
     (removed "enable" ''
       rngd is not necessary for any device that the kernel recognises

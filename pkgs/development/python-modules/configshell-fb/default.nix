@@ -7,7 +7,6 @@
   hatch-vcs,
   pyparsing,
 }:
-
 buildPythonPackage rec {
   pname = "configshell-fb";
   version = "2.0.2";
@@ -32,13 +31,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "configshell" ];
+  pythonImportsCheck = ["configshell"];
 
   meta = {
     description = "Python library for building configuration shells";
     homepage = "https://github.com/open-iscsi/configshell-fb";
     changelog = "https://github.com/open-iscsi/configshell-fb/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

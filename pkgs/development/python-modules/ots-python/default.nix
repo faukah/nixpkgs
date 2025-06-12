@@ -7,7 +7,6 @@
   setuptools-scm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ots-python";
   version = "9.1.0";
@@ -28,15 +27,15 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ opentype-sanitizer ];
-  nativeBuildInputs = [ setuptools-scm ];
+  propagatedBuildInputs = [opentype-sanitizer];
+  nativeBuildInputs = [setuptools-scm];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Python wrapper for ots (OpenType Sanitizer)";
     homepage = "https://github.com/googlefonts/ots-python";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

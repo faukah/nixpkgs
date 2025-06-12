@@ -22,12 +22,11 @@
   withPythonBinding ? false,
   withUsd ? openusd.meta.available,
 }:
-
 stdenv.mkDerivation rec {
   pname = "f3d";
   version = "3.1.0";
 
-  outputs = [ "out" ] ++ lib.optionals withManual [ "man" ];
+  outputs = ["out"] ++ lib.optionals withManual ["man"];
 
   src = fetchFromGitHub {
     owner = "f3d-app";

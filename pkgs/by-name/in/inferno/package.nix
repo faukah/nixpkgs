@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "inferno";
   version = "0.12.2";
@@ -34,6 +33,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/jonhoo/inferno";
     changelog = "https://github.com/jonhoo/inferno/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.cddl;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

@@ -8,7 +8,6 @@
   testers,
   unixtools,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "passt";
   version = "2025_05_03.587980c";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
       licenses.gpl2Plus
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ _8aed ];
+    maintainers = with maintainers; [_8aed];
     mainProgram = "passt";
   };
 })

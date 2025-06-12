@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "deadnix";
   version = "1.2.1";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/astro/deadnix";
     license = licenses.gpl3Only;
     mainProgram = "deadnix";
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
   };
 }

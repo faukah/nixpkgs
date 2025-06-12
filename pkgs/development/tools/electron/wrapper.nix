@@ -8,7 +8,6 @@
   gtk3,
   gtk4,
 }:
-
 stdenv.mkDerivation {
   pname = "electron";
   inherit (electron-unwrapped) version;

@@ -9,7 +9,6 @@
   ruamel-yaml,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "safety-schemas";
   version = "0.0.14";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
       --replace hatchling==1.26.3 hatchling
   '';
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   pythonRelaxDeps = [
     "pydantic"
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "safety_schemas" ];
+  pythonImportsCheck = ["safety_schemas"];
 
   # upstream has no tests
   doCheck = false;
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     description = "Schemas for Safety CLI";
     homepage = "https://pypi.org/project/safety-schemas/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

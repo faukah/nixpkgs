@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   versioningit,
-
   # dependencies
   broadbean,
   cf-xarray,
@@ -34,7 +32,6 @@
   websockets,
   wrapt,
   xarray,
-
   # optional-dependencies
   furo,
   jinja2,
@@ -44,7 +41,6 @@
   sphinx,
   sphinx-issues,
   towncrier,
-
   # tests
   deepdiff,
   hypothesis,
@@ -58,7 +54,6 @@
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "qcodes";
   version = "0.52.0";
@@ -193,7 +188,7 @@ buildPythonPackage rec {
     "test_step_ramp"
   ];
 
-  pythonImportsCheck = [ "qcodes" ];
+  pythonImportsCheck = ["qcodes"];
 
   meta = {
     description = "Python-based data acquisition framework";
@@ -201,6 +196,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/QCoDeS/Qcodes";
     homepage = "https://qcodes.github.io/Qcodes/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ evilmav ];
+    maintainers = with lib.maintainers; [evilmav];
   };
 }

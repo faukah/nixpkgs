@@ -9,9 +9,7 @@
   postgresqlTestHook,
   valkey,
   redisTestHook,
-}:
-
-let
+}: let
   py = python3.override {
     self = py;
     packageOverrides = final: prev: {
@@ -50,135 +48,133 @@ let
     };
   };
 in
+  py.pkgs.buildPythonPackage rec {
+    pname = "irrd";
+    version = "4.4.4";
+    format = "pyproject";
 
-py.pkgs.buildPythonPackage rec {
-  pname = "irrd";
-  version = "4.4.4";
-  format = "pyproject";
+    src = fetchFromGitHub {
+      owner = "irrdnet";
+      repo = "irrd";
+      rev = "v${version}";
+      hash = "sha256-UIOKXU92JEOeVdpYLNmDBtLn0u3LMdKItcn9bFd9u8g=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "irrdnet";
-    repo = "irrd";
-    rev = "v${version}";
-    hash = "sha256-UIOKXU92JEOeVdpYLNmDBtLn0u3LMdKItcn9bFd9u8g=";
-  };
+    patches = [
+      # starlette 0.37.2 reverted the behaviour change which this adjusted to
+      (fetchpatch {
+        url = "https://github.com/irrdnet/irrd/commit/43e26647e18f8ff3459bbf89ffbff329a0f1eed5.patch";
+        revert = true;
+        hash = "sha256-G216rHfWMZIl9GuXBz6mjHCIm3zrfDDLSmHQK/HkkzQ=";
+      })
+      # Backport build fix for webauthn 2.1
+      (fetchpatch {
+        url = "https://github.com/irrdnet/irrd/commit/20b771e1ee564f38e739fdb0a2a79c10319f638f.patch";
+        hash = "sha256-PtNdhSoFPT1kt71kFsySp/VnUpUdO23Gu9FKknHLph8=";
+        includes = ["irrd/webui/auth/endpoints_mfa.py"];
+      })
+    ];
 
-  patches = [
-    # starlette 0.37.2 reverted the behaviour change which this adjusted to
-    (fetchpatch {
-      url = "https://github.com/irrdnet/irrd/commit/43e26647e18f8ff3459bbf89ffbff329a0f1eed5.patch";
-      revert = true;
-      hash = "sha256-G216rHfWMZIl9GuXBz6mjHCIm3zrfDDLSmHQK/HkkzQ=";
-    })
-    # Backport build fix for webauthn 2.1
-    (fetchpatch {
-      url = "https://github.com/irrdnet/irrd/commit/20b771e1ee564f38e739fdb0a2a79c10319f638f.patch";
-      hash = "sha256-PtNdhSoFPT1kt71kFsySp/VnUpUdO23Gu9FKknHLph8=";
-      includes = [ "irrd/webui/auth/endpoints_mfa.py" ];
-    })
-  ];
+    postPatch = ''
+      substituteInPlace pyproject.toml \
+        --replace-fail psycopg2-binary psycopg2
+    '';
+    pythonRelaxDeps = true;
 
-  postPatch = ''
-    substituteInPlace pyproject.toml \
-      --replace-fail psycopg2-binary psycopg2
-  '';
-  pythonRelaxDeps = true;
+    nativeBuildInputs = with python3.pkgs; [
+      poetry-core
+    ];
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-  ];
+    nativeCheckInputs =
+      [
+        git
+        valkey
+        redisTestHook
+        postgresql
+        postgresqlTestHook
+      ]
+      ++ (with py.pkgs; [
+        pytest-asyncio
+        pytest-freezegun
+        pytestCheckHook
+        smtpdfix
+        httpx
+      ]);
 
-  nativeCheckInputs =
-    [
-      git
-      valkey
-      redisTestHook
-      postgresql
-      postgresqlTestHook
-    ]
-    ++ (with py.pkgs; [
-      pytest-asyncio
-      pytest-freezegun
-      pytestCheckHook
-      smtpdfix
-      httpx
-    ]);
+    propagatedBuildInputs = with py.pkgs;
+      [
+        python-gnupg
+        passlib
+        bcrypt
+        ipy
+        ordered-set
+        beautifultable
+        pyyaml
+        datrie
+        setproctitle
+        python-daemon
+        pid
+        py.pkgs.redis
+        hiredis
+        coredis
+        requests
+        pytz
+        ariadne
+        uvicorn
+        starlette
+        psutil
+        asgiref
+        pydantic
+        typing-extensions
+        py-radix-sr
+        psycopg2
+        sqlalchemy
+        alembic
+        ujson
+        wheel
+        websockets
+        limits
+        factory-boy
+        webauthn
+        wtforms
+        imia
+        starlette-wtf
+        zxcvbn
+        pyotp
+        asgi-logger
+        wtforms-bootstrap5
+        email-validator
+        jinja2
+      ]
+      ++ py.pkgs.uvicorn.optional-dependencies.standard;
 
-  propagatedBuildInputs =
-    with py.pkgs;
-    [
-      python-gnupg
-      passlib
-      bcrypt
-      ipy
-      ordered-set
-      beautifultable
-      pyyaml
-      datrie
-      setproctitle
-      python-daemon
-      pid
-      py.pkgs.redis
-      hiredis
-      coredis
-      requests
-      pytz
-      ariadne
-      uvicorn
-      starlette
-      psutil
-      asgiref
-      pydantic
-      typing-extensions
-      py-radix-sr
-      psycopg2
-      sqlalchemy
-      alembic
-      ujson
-      wheel
-      websockets
-      limits
-      factory-boy
-      webauthn
-      wtforms
-      imia
-      starlette-wtf
-      zxcvbn
-      pyotp
-      asgi-logger
-      wtforms-bootstrap5
-      email-validator
-      jinja2
-    ]
-    ++ py.pkgs.uvicorn.optional-dependencies.standard;
+    preCheck = ''
+      export SMTPD_HOST=127.0.0.1
+      export IRRD_DATABASE_URL="postgres:///$PGDATABASE"
+      export IRRD_REDIS_URL="redis://localhost/1"
+    '';
 
-  preCheck = ''
-    export SMTPD_HOST=127.0.0.1
-    export IRRD_DATABASE_URL="postgres:///$PGDATABASE"
-    export IRRD_REDIS_URL="redis://localhost/1"
-  '';
+    # required for test_object_writing_and_status_checking
+    postgresqlTestSetupPost = ''
+      echo "track_commit_timestamp=on" >> $PGDATA/postgresql.conf
+      pg_ctl restart
+    '';
 
-  # required for test_object_writing_and_status_checking
-  postgresqlTestSetupPost = ''
-    echo "track_commit_timestamp=on" >> $PGDATA/postgresql.conf
-    pg_ctl restart
-  '';
+    postCheck = ''
+      kill $REDIS_PID
+    '';
 
-  postCheck = ''
-    kill $REDIS_PID
-  '';
+    # skip tests that require internet access
+    disabledTests = [
+      "test_020_dash_o_noop"
+      "test_050_non_json_response"
+    ];
 
-  # skip tests that require internet access
-  disabledTests = [
-    "test_020_dash_o_noop"
-    "test_050_non_json_response"
-  ];
-
-  meta = {
-    changelog = "https://irrd.readthedocs.io/en/v${version}/releases/";
-    description = "Internet Routing Registry database server, processing IRR objects in the RPSL format";
-    license = lib.licenses.mit;
-    homepage = "https://github.com/irrdnet/irrd";
-    teams = [ lib.teams.wdz ];
-  };
-}
+    meta = {
+      changelog = "https://irrd.readthedocs.io/en/v${version}/releases/";
+      description = "Internet Routing Registry database server, processing IRR objects in the RPSL format";
+      license = lib.licenses.mit;
+      homepage = "https://github.com/irrdnet/irrd";
+      teams = [lib.teams.wdz];
+    };
+  }

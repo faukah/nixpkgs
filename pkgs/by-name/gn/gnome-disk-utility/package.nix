@@ -27,7 +27,6 @@
   libpwquality,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-disk-utility";
   version = "46.1";
@@ -75,7 +74,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://apps.gnome.org/DiskUtility/";
     description = "Udisks graphical front-end";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     mainProgram = "gnome-disks";

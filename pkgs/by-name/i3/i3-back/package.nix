@@ -22,14 +22,14 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-o/um/Ugm3GfDz1daBKxoDD7ailUu6QJ0rj5jcKWB0lM=";
 
-  passthru.tests.version = testers.testVersion { package = i3-back; };
+  passthru.tests.version = testers.testVersion {package = i3-back;};
 
   meta = {
     description = "i3/Sway utility to switch focus to your last focused window";
     homepage = "https://github.com/Cretezy/i3-back";
     changelog = "https://github.com/Cretezy/i3-back/blob/main/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ gabyx ];
+    maintainers = with lib.maintainers; [gabyx];
     platforms = lib.platforms.linux;
     mainProgram = "i3-back";
   };

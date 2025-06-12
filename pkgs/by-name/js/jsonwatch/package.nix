@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "jsonwatch";
   version = "0.8.0";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/dbohdan/jsonwatch";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "jsonwatch";
   };
 }

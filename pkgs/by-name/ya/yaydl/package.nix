@@ -7,7 +7,6 @@
   openssl,
   ffmpeg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "yaydl";
   version = "0.17.2";
@@ -27,18 +26,18 @@ rustPlatform.buildRustPackage rec {
     makeWrapper
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   postInstall = ''
     wrapProgram $out/bin/yaydl \
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+      --prefix PATH : ${lib.makeBinPath [ffmpeg]}
   '';
 
   meta = with lib; {
     homepage = "https://code.rosaelefanten.org/yaydl";
     description = "Yet another youtube down loader";
     license = licenses.cddl;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "yaydl";
   };
 }

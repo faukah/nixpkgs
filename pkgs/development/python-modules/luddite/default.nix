@@ -7,7 +7,6 @@
   pytestCheckHook,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "luddite";
   version = "1.0.4";
@@ -26,11 +25,11 @@ buildPythonPackage rec {
       --replace "--disable-socket" ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ packaging ];
+  propagatedBuildInputs = [packaging];
 
-  pythonImportsCheck = [ "luddite" ];
+  pythonImportsCheck = ["luddite"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     mainProgram = "luddite";
     homepage = "https://github.com/jumptrading/luddite";
     license = licenses.asl20;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

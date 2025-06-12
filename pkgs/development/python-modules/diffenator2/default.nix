@@ -23,7 +23,6 @@
   youseedee,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "diffenator2";
   version = "0.4.9";
@@ -70,7 +69,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # requires internet
@@ -94,6 +93,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/googlefonts/diffenator2/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
     mainProgram = "diffenator2";
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
   };
 }

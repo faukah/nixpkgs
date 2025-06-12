@@ -8,7 +8,6 @@
   ncurses,
   libxml2,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bpf-linker";
   version = "0.9.14";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   buildNoDefaultFeatures = true;
 
-  nativeBuildInputs = [ llvmPackages_20.llvm ];
+  nativeBuildInputs = [llvmPackages_20.llvm];
   buildInputs = [
     zlib
     ncurses
@@ -44,7 +43,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
     # llvm-sys crate locates llvm by calling llvm-config
     # which is not available when cross compiling
     broken = stdenv.buildPlatform != stdenv.hostPlatform;

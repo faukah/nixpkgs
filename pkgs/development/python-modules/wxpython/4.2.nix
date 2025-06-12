@@ -5,7 +5,6 @@
   setuptools,
   fetchPypi,
   replaceVars,
-
   # build
   autoPatchelfHook,
   attrdict,
@@ -16,7 +15,6 @@
   sip,
   which,
   buildPackages,
-
   # runtime
   cairo,
   gst_all_1,
@@ -33,13 +31,11 @@
   webkitgtk_4_1,
   wxGTK,
   xorgproto,
-
   # propagates
   numpy,
   pillow,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "wxpython";
   version = "4.2.3";
@@ -67,15 +63,17 @@ buildPythonPackage rec {
       --replace-fail "distutils.dep_util" "setuptools.modified"
   '';
 
-  nativeBuildInputs = [
-    attrdict
-    pkg-config
-    requests
-    setuptools
-    sip
-    which
-    wxGTK
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs =
+    [
+      attrdict
+      pkg-config
+      requests
+      setuptools
+      sip
+      which
+      wxGTK
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
 
   buildInputs =
     [
@@ -137,6 +135,6 @@ buildPythonPackage rec {
     description = "Cross platform GUI toolkit for Python, Phoenix version";
     homepage = "http://wxpython.org/";
     license = licenses.wxWindows;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

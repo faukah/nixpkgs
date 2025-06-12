@@ -4,7 +4,6 @@
   lib,
   installShellFiles,
 }:
-
 buildGo124Module rec {
   pname = "golangci-lint";
   version = "2.1.6";
@@ -18,9 +17,9 @@ buildGo124Module rec {
 
   vendorHash = "sha256-tYoAUumnHgA8Al3jKjS8P/ZkUlfbmmmBcJYUR7+5u9w=";
 
-  subPackages = [ "cmd/golangci-lint" ];
+  subPackages = ["cmd/golangci-lint"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"

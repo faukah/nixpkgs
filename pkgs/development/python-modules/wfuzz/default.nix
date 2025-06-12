@@ -17,7 +17,6 @@
   pythonAtLeast,
   legacy-cgi,
 }:
-
 buildPythonPackage rec {
   pname = "wfuzz";
   version = "3.1.0";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
       --replace-fail "pyparsing>=2.4*" "pyparsing>=2.4"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -57,8 +56,8 @@ buildPythonPackage rec {
       setuptools
       pyparsing
     ]
-    ++ lib.optionals stdenv.hostPlatform.isWindows [ colorama ]
-    ++ lib.optionals (pythonAtLeast "3.13") [ legacy-cgi ];
+    ++ lib.optionals stdenv.hostPlatform.isWindows [colorama]
+    ++ lib.optionals (pythonAtLeast "3.13") [legacy-cgi];
 
   nativeCheckInputs = [
     netaddr
@@ -77,7 +76,7 @@ buildPythonPackage rec {
     "tests/test_moduleman.py"
   ];
 
-  pythonImportsCheck = [ "wfuzz" ];
+  pythonImportsCheck = ["wfuzz"];
 
   postInstall = ''
     mkdir -p $out/share/wordlists/wfuzz
@@ -93,7 +92,7 @@ buildPythonPackage rec {
       web application vulnerabilities.
     '';
     homepage = "https://wfuzz.readthedocs.io";
-    license = with licenses; [ gpl2Only ];
-    maintainers = with maintainers; [ pamplemousse ];
+    license = with licenses; [gpl2Only];
+    maintainers = with maintainers; [pamplemousse];
   };
 }

@@ -13,9 +13,7 @@
   gnused,
   file,
   buildEnv,
-}:
-
-let
+}: let
   version = "25.03";
 
   commonMeta = {
@@ -32,39 +30,38 @@ let
     platforms = lib.platforms.linux;
   };
 
-  generic =
-    {
-      pname,
-      path ? "util/${pname}",
-      ...
-    }@args:
+  generic = {
+    pname,
+    path ? "util/${pname}",
+    ...
+  } @ args:
     stdenv.mkDerivation (
       finalAttrs:
-      {
-        inherit pname version;
+        {
+          inherit pname version;
 
-        src = fetchgit {
-          url = "https://review.coreboot.org/coreboot";
-          rev = finalAttrs.version;
-          hash = "sha256-tsNdsH+GxjLUTd7KXHMZUTNTIAWeKJ3BNy1Lehjo8Eo=";
-        };
+          src = fetchgit {
+            url = "https://review.coreboot.org/coreboot";
+            rev = finalAttrs.version;
+            hash = "sha256-tsNdsH+GxjLUTd7KXHMZUTNTIAWeKJ3BNy1Lehjo8Eo=";
+          };
 
-        enableParallelBuilding = true;
+          enableParallelBuilding = true;
 
-        postPatch = ''
-          substituteInPlace 3rdparty/vboot/Makefile --replace 'ar qc ' '$$AR qc '
-          cd ${path}
-          patchShebangs .
-        '';
+          postPatch = ''
+            substituteInPlace 3rdparty/vboot/Makefile --replace 'ar qc ' '$$AR qc '
+            cd ${path}
+            patchShebangs .
+          '';
 
-        makeFlags = [
-          "INSTALL=install"
-          "PREFIX=${placeholder "out"}"
-        ];
+          makeFlags = [
+            "INSTALL=install"
+            "PREFIX=${placeholder "out"}"
+          ];
 
-        meta = commonMeta // args.meta;
-      }
-      // (removeAttrs args [ "meta" ])
+          meta = commonMeta // args.meta;
+        }
+        // (removeAttrs args ["meta"])
     );
 
   utils = {
@@ -146,8 +143,8 @@ let
     amdfwtool = generic {
       pname = "amdfwtool";
       meta.description = "Create AMD firmware combination";
-      buildInputs = [ openssl ];
-      nativeBuildInputs = [ pkg-config ];
+      buildInputs = [openssl];
+      nativeBuildInputs = [pkg-config];
       installPhase = ''
         runHook preInstall
 
@@ -160,7 +157,7 @@ let
       pname = "acpidump-all";
       path = "util/acpi";
       meta.description = "Walk through all ACPI tables with their addresses";
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
       dontBuild = true;
       installPhase = ''
         runHook preInstall
@@ -172,29 +169,28 @@ let
       postFixup = ''
         wrapProgram $out/bin/acpidump-all \
           --set PATH ${
-            lib.makeBinPath [
-              coreutils
-              acpica-tools
-              gnugrep
-              gnused
-              file
-            ]
-          }
+          lib.makeBinPath [
+            coreutils
+            acpica-tools
+            gnugrep
+            gnused
+            file
+          ]
+        }
       '';
     };
   };
-
 in
-utils
-// {
-  coreboot-utils =
-    (buildEnv {
-      name = "coreboot-utils-${version}";
-      paths = lib.filter (lib.meta.availableOn stdenv.hostPlatform) (lib.attrValues utils);
-      postBuild = "rm -rf $out/sbin";
-    })
-    // {
-      inherit version;
-      meta = commonMeta;
-    };
-}
+  utils
+  // {
+    coreboot-utils =
+      (buildEnv {
+        name = "coreboot-utils-${version}";
+        paths = lib.filter (lib.meta.availableOn stdenv.hostPlatform) (lib.attrValues utils);
+        postBuild = "rm -rf $out/sbin";
+      })
+      // {
+        inherit version;
+        meta = commonMeta;
+      };
+  }

@@ -14,7 +14,7 @@ buildNpmPackage {
     hash = "sha256-ldAFfw3E0A0lIJyDSsshgPRPR7OmV/FncPsDhC3waT8=";
   };
 
-  nativeBuildInputs = [ jq ];
+  nativeBuildInputs = [jq];
   npmDepsHash = "sha256-kLKau4SBxI9bMAd7X8/FQfCza2sYl/+0bg2LQcOQIJo=";
 
   # forceConsistentCasingInFileNames: false is needed for typescript on darwin
@@ -30,7 +30,7 @@ buildNpmPackage {
     homepage = "https://github.com/bcherny/json-schema-to-typescript";
     changelog = "https://github.com/bcherny/json-schema-to-typescript/blob/master/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hsjobeki ];
+    maintainers = with maintainers; [hsjobeki];
     platforms = platforms.all;
   };
 }

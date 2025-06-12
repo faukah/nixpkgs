@@ -9,7 +9,6 @@
   ruamel-yaml,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "pre-commit-hooks";
   version = "5.0.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-BYNi/xtdichqsn55hqr1MSFwWpH+7cCbLfqmpn9cxto=";
   };
 
-  propagatedBuildInputs = [ ruamel-yaml ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [ruamel-yaml] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   nativeCheckInputs = [
     gitMinimal
@@ -45,13 +44,13 @@ buildPythonPackage rec {
     git init .
   '';
 
-  pythonImportsCheck = [ "pre_commit_hooks" ];
+  pythonImportsCheck = ["pre_commit_hooks"];
 
   meta = with lib; {
     description = "Some out-of-the-box hooks for pre-commit";
     homepage = "https://github.com/pre-commit/pre-commit-hooks";
     changelog = "https://github.com/pre-commit/pre-commit-hooks/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

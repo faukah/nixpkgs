@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cvemap";
   version = "0.0.7";
@@ -31,7 +30,7 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/cvemap";
     changelog = "https://github.com/projectdiscovery/cvemap/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "cvemap";
   };
 }

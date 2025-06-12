@@ -12,51 +12,44 @@
 #   Here, we don't expect systemd-timesyncd to connect and synchronize time because there is no NTP
 #   server running. For this test to succeed, we only need to ensure that systemd-timesyncd
 #   resolves the IP address of the fake.ntp host.
-
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   ntpHostname = "fake.ntp";
   ntpIP = "192.0.2.1";
-in
-{
+in {
   name = "systemd-timesyncd";
-  nodes.machine =
-    {
-      pkgs,
-      lib,
-      config,
-      ...
-    }:
-    let
-      eth1IP = (lib.head config.networking.interfaces.eth1.ipv4.addresses).address;
-    in
-    {
-      # Setup a local DNS server for the NTP domain on the eth1 IP address
-      services.tinydns = {
-        enable = true;
-        ip = eth1IP;
-        data = ''
-          .ntp:${eth1IP}
-          +.${ntpHostname}:${ntpIP}
-        '';
-      };
-
-      # Enable systemd-resolved with DNSSEC and use the local DNS as a name server
-      services.resolved.enable = true;
-      services.resolved.dnssec = "true";
-      networking.nameservers = [ eth1IP ];
-
-      # Configure systemd-timesyncd to use our NTP hostname
-      services.timesyncd.enable = lib.mkForce true;
-      services.timesyncd.servers = [ ntpHostname ];
-      services.timesyncd.extraConfig = ''
-        FallbackNTP=${ntpHostname}
+  nodes.machine = {
+    pkgs,
+    lib,
+    config,
+    ...
+  }: let
+    eth1IP = (lib.head config.networking.interfaces.eth1.ipv4.addresses).address;
+  in {
+    # Setup a local DNS server for the NTP domain on the eth1 IP address
+    services.tinydns = {
+      enable = true;
+      ip = eth1IP;
+      data = ''
+        .ntp:${eth1IP}
+        +.${ntpHostname}:${ntpIP}
       '';
-
-      # The debug output is necessary to determine whether systemd-timesyncd successfully resolves our NTP hostname or not
-      systemd.services.systemd-timesyncd.environment.SYSTEMD_LOG_LEVEL = "debug";
     };
+
+    # Enable systemd-resolved with DNSSEC and use the local DNS as a name server
+    services.resolved.enable = true;
+    services.resolved.dnssec = "true";
+    networking.nameservers = [eth1IP];
+
+    # Configure systemd-timesyncd to use our NTP hostname
+    services.timesyncd.enable = lib.mkForce true;
+    services.timesyncd.servers = [ntpHostname];
+    services.timesyncd.extraConfig = ''
+      FallbackNTP=${ntpHostname}
+    '';
+
+    # The debug output is necessary to determine whether systemd-timesyncd successfully resolves our NTP hostname or not
+    systemd.services.systemd-timesyncd.environment.SYSTEMD_LOG_LEVEL = "debug";
+  };
 
   testScript = ''
     machine.wait_for_unit("tinydns.service")

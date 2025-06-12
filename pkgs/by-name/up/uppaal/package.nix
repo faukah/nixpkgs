@@ -10,7 +10,6 @@
   shared-mime-info,
   gdk-pixbuf,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "uppaal";
   version = "5.0";
@@ -30,7 +29,7 @@ stdenvNoCC.mkDerivation rec {
       comment = "real-time modelling and verification tool";
       desktopName = "Uppaal";
       genericName = "Uppaal";
-      categories = [ "Development" ];
+      categories = ["Development"];
     })
   ];
 
@@ -75,7 +74,7 @@ stdenvNoCC.mkDerivation rec {
     license = licenses.unfreeRedistributable;
     platforms = with platforms; linux ++ darwin ++ windows;
     broken = !(stdenvNoCC.hostPlatform.isLinux && stdenvNoCC.hostPlatform.isx86_64);
-    maintainers = with maintainers; [ mortenmunk ];
+    maintainers = with maintainers; [mortenmunk];
     mainProgram = "uppaal";
   };
 }

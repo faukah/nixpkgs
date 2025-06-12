@@ -6,7 +6,6 @@
   pythonOlder,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "python-docs-theme";
   version = "2025.5";
@@ -21,17 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-dcxlZGPB36q2MO2WHtshkgNE5ryKtI/RfuVG7hcLcas=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [ sphinx ];
+  dependencies = [sphinx];
 
-  pythonImportsCheck = [ "python_docs_theme" ];
+  pythonImportsCheck = ["python_docs_theme"];
 
   meta = with lib; {
     description = "Sphinx theme for CPython project";
     homepage = "https://github.com/python/python-docs-theme";
     changelog = "https://github.com/python/python-docs-theme/blob/${src.tag}/CHANGELOG.rst";
     license = licenses.psfl;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

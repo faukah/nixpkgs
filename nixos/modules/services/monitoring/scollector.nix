@@ -3,20 +3,20 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.scollector;
 
-  collectors = pkgs.runCommand "collectors" { preferLocalBuild = true; } ''
+  collectors = pkgs.runCommand "collectors" {preferLocalBuild = true;} ''
     mkdir -p $out
     ${lib.concatStringsSep "\n" (
       lib.mapAttrsToList (
         frequency: binaries:
-        "mkdir -p $out/${frequency}\n"
-        + (lib.concatStringsSep "\n" (
-          map (path: "ln -s ${path} $out/${frequency}/$(basename ${path})") binaries
-        ))
-      ) cfg.collectors
+          "mkdir -p $out/${frequency}\n"
+          + (lib.concatStringsSep "\n" (
+            map (path: "ln -s ${path} $out/${frequency}/$(basename ${path})") binaries
+          ))
+      )
+      cfg.collectors
     )}
   '';
 
@@ -25,14 +25,9 @@ let
     ColDir = "${collectors}"
     ${cfg.extraConfig}
   '';
-
-in
-{
-
+in {
   options = {
-
     services.scollector = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -41,7 +36,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "scollector" { };
+      package = lib.mkPackageOption pkgs "scollector" {};
 
       user = lib.mkOption {
         type = lib.types.str;
@@ -70,7 +65,7 @@ in
 
       collectors = lib.mkOption {
         type = with lib.types; attrsOf (listOf path);
-        default = { };
+        default = {};
         example = lib.literalExpression ''{ "0" = [ "''${postgresStats}/bin/collect-stats" ]; }'';
         description = ''
           An attribute set mapping the frequency of collection to a list of
@@ -81,8 +76,8 @@ in
 
       extraOpts = lib.mkOption {
         type = with lib.types; listOf str;
-        default = [ ];
-        example = [ "-d" ];
+        default = [];
+        example = ["-d"];
         description = ''
           Extra scollector command line options
         '';
@@ -95,16 +90,13 @@ in
           Extra scollector configuration added to the end of scollector.toml
         '';
       };
-
     };
-
   };
 
   config = lib.mkIf config.services.scollector.enable {
-
     systemd.services.scollector = {
       description = "scollector metrics collector (part of Bosun)";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       path = [
         pkgs.coreutils
@@ -125,7 +117,5 @@ in
     };
 
     users.groups.scollector.gid = config.ids.gids.scollector;
-
   };
-
 }

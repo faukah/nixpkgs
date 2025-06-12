@@ -20,7 +20,6 @@
   libdecor,
   glslang,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mesa-demos";
   version = "9.0.0";
@@ -57,7 +56,11 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-    "-Degl=${if stdenv.hostPlatform.isDarwin then "disabled" else "auto"}"
+    "-Degl=${
+      if stdenv.hostPlatform.isDarwin
+      then "disabled"
+      else "auto"
+    }"
     (lib.mesonEnable "libdrm" (stdenv.hostPlatform.isLinux))
     (lib.mesonEnable "osmesa" false)
     (lib.mesonEnable "wayland" (lib.meta.availableOn stdenv.hostPlatform wayland))
@@ -67,6 +70,6 @@ stdenv.mkDerivation rec {
     inherit (mesa.meta) homepage platforms;
     description = "Collection of demos and test programs for OpenGL and Mesa";
     license = licenses.mit;
-    maintainers = with maintainers; [ andersk ];
+    maintainers = with maintainers; [andersk];
   };
 }

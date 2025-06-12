@@ -1,17 +1,13 @@
 {
   callPackage,
   fetchurl,
-}:
-
-let
-  mkBitscope = callPackage (import ./common.nix) { };
-in
-{
-  chart =
-    let
-      toolName = "bitscope-chart";
-      version = "2.0.FK22M";
-    in
+}: let
+  mkBitscope = callPackage (import ./common.nix) {};
+in {
+  chart = let
+    toolName = "bitscope-chart";
+    version = "2.0.FK22M";
+  in
     mkBitscope {
       inherit toolName version;
 
@@ -26,11 +22,10 @@ in
       };
     };
 
-  console =
-    let
-      toolName = "bitscope-console";
-      version = "1.0.FK29A";
-    in
+  console = let
+    toolName = "bitscope-console";
+    version = "1.0.FK29A";
+  in
     mkBitscope {
       # NOTE: this is meant as a demo by BitScope
       inherit toolName version;
@@ -45,11 +40,10 @@ in
       };
     };
 
-  display =
-    let
-      toolName = "bitscope-display";
-      version = "1.0.EC17A";
-    in
+  display = let
+    toolName = "bitscope-display";
+    version = "1.0.EC17A";
+  in
     mkBitscope {
       inherit toolName version;
 
@@ -64,11 +58,10 @@ in
       };
     };
 
-  dso =
-    let
-      toolName = "bitscope-dso";
-      version = "2.8.FE22H";
-    in
+  dso = let
+    toolName = "bitscope-dso";
+    version = "2.8.FE22H";
+  in
     mkBitscope {
       inherit toolName version;
 
@@ -83,11 +76,10 @@ in
       };
     };
 
-  logic =
-    let
-      toolName = "bitscope-logic";
-      version = "1.2.FC20C";
-    in
+  logic = let
+    toolName = "bitscope-logic";
+    version = "1.2.FC20C";
+  in
     mkBitscope {
       inherit toolName version;
 
@@ -102,11 +94,10 @@ in
       };
     };
 
-  meter =
-    let
-      toolName = "bitscope-meter";
-      version = "2.0.FK22G";
-    in
+  meter = let
+    toolName = "bitscope-meter";
+    version = "2.0.FK22G";
+  in
     mkBitscope {
       inherit toolName version;
 
@@ -121,11 +112,10 @@ in
       };
     };
 
-  proto =
-    let
-      toolName = "bitscope-proto";
-      version = "0.9.FG13B";
-    in
+  proto = let
+    toolName = "bitscope-proto";
+    version = "0.9.FG13B";
+  in
     mkBitscope {
       inherit toolName version;
       # NOTE: this is meant as a demo by BitScope
@@ -143,11 +133,10 @@ in
       };
     };
 
-  server =
-    let
-      toolName = "bitscope-server";
-      version = "1.0.FK26A";
-    in
+  server = let
+    toolName = "bitscope-server";
+    version = "1.0.FK26A";
+  in
     mkBitscope {
       inherit toolName version;
 

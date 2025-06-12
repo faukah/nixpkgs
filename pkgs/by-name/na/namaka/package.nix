@@ -6,7 +6,6 @@
   pkg-config,
   oniguruma,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "namaka";
   version = "0.2.1";
@@ -46,6 +45,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/nix-community/namaka";
     changelog = "https://github.com/nix-community/namaka/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

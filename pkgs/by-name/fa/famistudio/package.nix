@@ -16,33 +16,28 @@
   rtmidi,
   _experimental-update-script-combinators,
   gitUpdater,
-}:
-
-let
+}: let
   csprojName =
-    if stdenvNoCC.hostPlatform.isLinux then
-      "FamiStudio.Linux"
-    else if stdenvNoCC.hostPlatform.isDarwin then
-      "FamiStudio.Mac"
-    else
-      throw "Don't know how to build FamiStudio for ${stdenvNoCC.hostPlatform.system}";
+    if stdenvNoCC.hostPlatform.isLinux
+    then "FamiStudio.Linux"
+    else if stdenvNoCC.hostPlatform.isDarwin
+    then "FamiStudio.Mac"
+    else throw "Don't know how to build FamiStudio for ${stdenvNoCC.hostPlatform.system}";
 in
-buildDotnetModule (finalAttrs: {
-  pname = "famistudio";
-  version = "4.4.0";
+  buildDotnetModule (finalAttrs: {
+    pname = "famistudio";
+    version = "4.4.0";
 
-  src = fetchFromGitHub {
-    owner = "BleuBleu";
-    repo = "FamiStudio";
-    tag = finalAttrs.version;
-    hash = "sha256-QKgKPXb7NgbN37oCrwW9cLn701nsu55EsVXzOOKyc0A=";
-  };
+    src = fetchFromGitHub {
+      owner = "BleuBleu";
+      repo = "FamiStudio";
+      tag = finalAttrs.version;
+      hash = "sha256-QKgKPXb7NgbN37oCrwW9cLn701nsu55EsVXzOOKyc0A=";
+    };
 
-  postPatch =
-    let
+    postPatch = let
       libname = library: "${library}${stdenvNoCC.hostPlatform.extensions.sharedLibrary}";
-      buildNativeWrapper =
-        args:
+      buildNativeWrapper = args:
         callPackage ./build-native-wrapper.nix (
           args
           // {
@@ -50,16 +45,13 @@ buildDotnetModule (finalAttrs: {
             sourceRoot = "${finalAttrs.src.name}/ThirdParty/${args.depname}";
           }
         );
-      nativeWrapperToReplaceFormat =
-        args:
-        let
-          libPrefix = lib.optionalString stdenvNoCC.hostPlatform.isLinux "lib";
-        in
-        {
-          package = buildNativeWrapper args;
-          expectedName = "${libPrefix}${args.depname}";
-          ourName = "${libPrefix}${args.depname}";
-        };
+      nativeWrapperToReplaceFormat = args: let
+        libPrefix = lib.optionalString stdenvNoCC.hostPlatform.isLinux "lib";
+      in {
+        package = buildNativeWrapper args;
+        expectedName = "${libPrefix}${args.depname}";
+        ourName = "${libPrefix}${args.depname}";
+      };
       librariesToReplace =
         [
           # Unmodified native libraries that we can fully substitute
@@ -90,8 +82,8 @@ buildDotnetModule (finalAttrs: {
         ]
         ++ [
           # Native libraries, with extra code for the C# wrapping
-          (nativeWrapperToReplaceFormat { depname = "GifDec"; })
-          (nativeWrapperToReplaceFormat { depname = "NesSndEmu"; })
+          (nativeWrapperToReplaceFormat {depname = "GifDec";})
+          (nativeWrapperToReplaceFormat {depname = "NesSndEmu";})
           (nativeWrapperToReplaceFormat {
             depname = "NotSoFatso";
             extraPostPatch = ''
@@ -100,8 +92,8 @@ buildDotnetModule (finalAttrs: {
                 --replace-fail "$CXX" "$CXX -std=c++14"
             '';
           })
-          (nativeWrapperToReplaceFormat { depname = "ShineMp3"; })
-          (nativeWrapperToReplaceFormat { depname = "Stb"; })
+          (nativeWrapperToReplaceFormat {depname = "ShineMp3";})
+          (nativeWrapperToReplaceFormat {depname = "Stb";})
           (nativeWrapperToReplaceFormat {
             depname = "Vorbis";
             buildInputs = [
@@ -110,12 +102,12 @@ buildDotnetModule (finalAttrs: {
             ];
           })
         ];
-      libraryReplaceArgs = lib.strings.concatMapStringsSep " " (
-        library:
-        "--replace-fail '${libname library.expectedName}' '${lib.getLib library.package}/lib/${libname library.ourName}'"
-      ) librariesToReplace;
-    in
-    ''
+      libraryReplaceArgs =
+        lib.strings.concatMapStringsSep " " (
+          library: "--replace-fail '${libname library.expectedName}' '${lib.getLib library.package}/lib/${libname library.ourName}'"
+        )
+        librariesToReplace;
+    in ''
       # Don't use any prebuilt libraries
       rm FamiStudio/*.{dll,dylib,so*}
 
@@ -130,47 +122,47 @@ buildDotnetModule (finalAttrs: {
         --replace-fail 'libopenal32' 'libopenal'
     '';
 
-  projectFile = "FamiStudio/${csprojName}.csproj";
-  nugetDeps = ./deps.json;
-  dotnet-sdk = dotnetCorePackages.sdk_8_0;
+    projectFile = "FamiStudio/${csprojName}.csproj";
+    nugetDeps = ./deps.json;
+    dotnet-sdk = dotnetCorePackages.sdk_8_0;
 
-  runtimeDeps = lib.optionals stdenvNoCC.hostPlatform.isLinux [
-    gtk3
-    libglvnd
-  ];
-
-  executables = [ "FamiStudio" ];
-
-  postInstall = ''
-    mkdir -p $out/share/famistudio
-    for datdir in Setup/Demo\ {Instruments,Songs}; do
-      cp -R "$datdir" $out/share/famistudio/
-    done
-  '';
-
-  postFixup = ''
-    # FFMpeg looked up from PATH
-    wrapProgram $out/bin/FamiStudio \
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
-  '';
-
-  passthru.updateScript = _experimental-update-script-combinators.sequence [
-    (gitUpdater { }).command
-    (finalAttrs.passthru.fetch-deps)
-  ];
-
-  meta = {
-    homepage = "https://famistudio.org/";
-    description = "NES Music Editor";
-    longDescription = ''
-      FamiStudio is very simple music editor for the Nintendo Entertainment System
-      or Famicom. It is targeted at both chiptune artists and NES homebrewers.
-    '';
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [
-      OPNA2608
+    runtimeDeps = lib.optionals stdenvNoCC.hostPlatform.isLinux [
+      gtk3
+      libglvnd
     ];
-    platforms = lib.platforms.unix;
-    mainProgram = "FamiStudio";
-  };
-})
+
+    executables = ["FamiStudio"];
+
+    postInstall = ''
+      mkdir -p $out/share/famistudio
+      for datdir in Setup/Demo\ {Instruments,Songs}; do
+        cp -R "$datdir" $out/share/famistudio/
+      done
+    '';
+
+    postFixup = ''
+      # FFMpeg looked up from PATH
+      wrapProgram $out/bin/FamiStudio \
+        --prefix PATH : ${lib.makeBinPath [ffmpeg]}
+    '';
+
+    passthru.updateScript = _experimental-update-script-combinators.sequence [
+      (gitUpdater {}).command
+      (finalAttrs.passthru.fetch-deps)
+    ];
+
+    meta = {
+      homepage = "https://famistudio.org/";
+      description = "NES Music Editor";
+      longDescription = ''
+        FamiStudio is very simple music editor for the Nintendo Entertainment System
+        or Famicom. It is targeted at both chiptune artists and NES homebrewers.
+      '';
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [
+        OPNA2608
+      ];
+      platforms = lib.platforms.unix;
+      mainProgram = "FamiStudio";
+    };
+  })

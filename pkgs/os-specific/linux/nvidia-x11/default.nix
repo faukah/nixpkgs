@@ -6,14 +6,10 @@
   fetchpatch,
   stdenv,
   pkgsi686Linux,
-}:
-
-let
-  generic =
-    args:
-    let
-      imported = import ./generic.nix args;
-    in
+}: let
+  generic = args: let
+    imported = import ./generic.nix args;
+  in
     callPackage imported {
       lib32 =
         (pkgsi686Linux.callPackage imported {
@@ -29,10 +25,15 @@ let
         kernel,
         libsOnly ? false,
       }:
-      if libsOnly then { } else kernel
-    ) { };
+        if libsOnly
+        then {}
+        else kernel
+    ) {};
 
-  selectHighestVersion = a: b: if lib.versionOlder a.version b.version then b else a;
+  selectHighestVersion = a: b:
+    if lib.versionOlder a.version b.version
+    then b
+    else a;
 
   # https://forums.developer.nvidia.com/t/linux-6-7-3-545-29-06-550-40-07-error-modpost-gpl-incompatible-module-nvidia-ko-uses-gpl-only-symbol-rcu-read-lock/280908/19
   rcu_patch = fetchpatch {
@@ -61,15 +62,17 @@ let
     stripLen = 1;
     extraPrefix = "kernel/";
   };
-in
-rec {
+in rec {
   mkDriver = generic;
 
   # Official Unix Drivers - https://www.nvidia.com/en-us/drivers/unix/
   # Branch/Maturity data - http://people.freedesktop.org/~aplattner/nvidia-versions.txt
 
   # Policy: use the highest stable version as the default (on our master).
-  stable = if stdenv.hostPlatform.system == "i686-linux" then legacy_390 else production;
+  stable =
+    if stdenv.hostPlatform.system == "i686-linux"
+    then legacy_390
+    else production;
 
   production = generic {
     version = "570.153.02";
@@ -79,7 +82,7 @@ rec {
     settingsSha256 = "sha256-5m6caud68Owy4WNqxlIQPXgEmbTe4kZV2vZyTWHWe+M=";
     persistencedSha256 = "sha256-OSo4Od7NmezRdGm7BLLzYseWABwNGdsomBCkOsNvOxA=";
 
-    patches = [ gpl_symbols_linux_615_patch ];
+    patches = [gpl_symbols_linux_615_patch];
   };
 
   latest = selectHighestVersion production (generic {
@@ -90,7 +93,7 @@ rec {
     settingsSha256 = "sha256-AIeeDXFEo9VEKCgXnY3QvrW5iWZeIVg4LBCeRtMs5Io=";
     persistencedSha256 = "sha256-Len7Va4HYp5r3wMpAhL4VsPu5S0JOshPFywbO7vYnGo=";
 
-    patches = [ gpl_symbols_linux_615_patch ];
+    patches = [gpl_symbols_linux_615_patch];
   });
 
   beta = selectHighestVersion latest (generic {
@@ -128,7 +131,7 @@ rec {
     usePersistenced = true;
     useFabricmanager = true;
 
-    patches = [ rcu_patch ];
+    patches = [rcu_patch];
   };
 
   dc_565 = generic rec {
@@ -210,33 +213,32 @@ rec {
     '';
   };
 
-  legacy_340 =
-    let
-      # Source corresponding to https://aur.archlinux.org/packages/nvidia-340xx-dkms
-      aurPatches = fetchFromGitHub {
-        owner = "archlinux-jerry";
-        repo = "nvidia-340xx";
-        rev = "7616dfed253aa93ca7d2e05caf6f7f332c439c90";
-        hash = "sha256-1qlYc17aEbLD4W8XXn1qKryBk2ltT6cVIv5zAs0jXZo=";
-      };
-      patchset = [
-        "0001-kernel-5.7.patch"
-        "0002-kernel-5.8.patch"
-        "0003-kernel-5.9.patch"
-        "0004-kernel-5.10.patch"
-        "0005-kernel-5.11.patch"
-        "0006-kernel-5.14.patch"
-        "0007-kernel-5.15.patch"
-        "0008-kernel-5.16.patch"
-        "0009-kernel-5.17.patch"
-        "0010-kernel-5.18.patch"
-        "0011-kernel-6.0.patch"
-        "0012-kernel-6.2.patch"
-        "0013-kernel-6.3.patch"
-        "0014-kernel-6.5.patch"
-        "0015-kernel-6.6.patch"
-      ];
-    in
+  legacy_340 = let
+    # Source corresponding to https://aur.archlinux.org/packages/nvidia-340xx-dkms
+    aurPatches = fetchFromGitHub {
+      owner = "archlinux-jerry";
+      repo = "nvidia-340xx";
+      rev = "7616dfed253aa93ca7d2e05caf6f7f332c439c90";
+      hash = "sha256-1qlYc17aEbLD4W8XXn1qKryBk2ltT6cVIv5zAs0jXZo=";
+    };
+    patchset = [
+      "0001-kernel-5.7.patch"
+      "0002-kernel-5.8.patch"
+      "0003-kernel-5.9.patch"
+      "0004-kernel-5.10.patch"
+      "0005-kernel-5.11.patch"
+      "0006-kernel-5.14.patch"
+      "0007-kernel-5.15.patch"
+      "0008-kernel-5.16.patch"
+      "0009-kernel-5.17.patch"
+      "0010-kernel-5.18.patch"
+      "0011-kernel-6.0.patch"
+      "0012-kernel-6.2.patch"
+      "0013-kernel-6.3.patch"
+      "0014-kernel-6.5.patch"
+      "0015-kernel-6.6.patch"
+    ];
+  in
     generic {
       version = "340.108";
       sha256_32bit = "1jkwa1phf0x4sgw8pvr9d6krmmr3wkgwyygrxhdazwyr2bbalci0";

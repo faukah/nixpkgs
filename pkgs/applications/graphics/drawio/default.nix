@@ -12,7 +12,6 @@
   yarn,
   electron,
 }:
-
 stdenv.mkDerivation rec {
   pname = "drawio";
   version = "26.1.1";
@@ -80,7 +79,11 @@ stdenv.mkDerivation rec {
     + ''
       yarn --offline run electron-builder --dir \
         ${lib.optionalString stdenv.hostPlatform.isDarwin "--config electron-builder-linux-mac.json"} \
-        -c.electronDist=${if stdenv.hostPlatform.isDarwin then "." else electron.dist} \
+        -c.electronDist=${
+        if stdenv.hostPlatform.isDarwin
+        then "."
+        else electron.dist
+      } \
         -c.electronVersion=${electron.version}
 
       runHook postBuild
@@ -125,7 +128,7 @@ stdenv.mkDerivation rec {
         "application/vnd.jgraph.mxfile"
         "application/vnd.visio"
       ];
-      categories = [ "Graphics" ];
+      categories = ["Graphics"];
       startupWMClass = "draw.io";
     })
   ];
@@ -141,7 +144,7 @@ stdenv.mkDerivation rec {
       unfreeRedistributable
     ];
     changelog = "https://github.com/jgraph/drawio-desktop/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ darkonion0 ];
+    maintainers = with lib.maintainers; [darkonion0];
     platforms = lib.platforms.darwin ++ lib.platforms.linux;
     mainProgram = "drawio";
   };

@@ -5,7 +5,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "c-stdaux";
   version = "1.5.0";
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
       lgpl2Plus
     ];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 }

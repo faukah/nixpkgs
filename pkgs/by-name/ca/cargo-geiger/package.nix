@@ -12,7 +12,6 @@
   testers,
   cargo-geiger,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-geiger";
   version = "0.12.0";
@@ -28,15 +27,15 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-aDgpEfX0QRkQD6c4ant6uSN18WLHVnZISRr7lyu9IzA=";
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
       curl
     ];
   nativeBuildInputs =
-    [ pkg-config ]
+    [pkg-config]
     # curl-sys wants to run curl-config on darwin
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ curl.dev ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [curl.dev];
 
   preCheck = ''
     export HOME=$(mktemp -d)

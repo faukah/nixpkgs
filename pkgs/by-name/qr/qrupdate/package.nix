@@ -8,7 +8,6 @@
   gfortran,
   blas,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qrupdate";
   version = "1.1.5";
@@ -20,8 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-dHxLPrN00wwozagY2JyfZkD3sKUD2+BcnbjNgZepzFg=";
   };
 
-  cmakeFlags =
-    assert (blas.isILP64 == lapack.isILP64);
+  cmakeFlags = assert (blas.isILP64 == lapack.isILP64);
     [
       "-DCMAKE_Fortran_FLAGS=${
         toString (
@@ -63,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library for fast updating of qr and cholesky decompositions";
     homepage = "https://github.com/mpimd-csc/qrupdate-ng";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.unix;
   };
 })

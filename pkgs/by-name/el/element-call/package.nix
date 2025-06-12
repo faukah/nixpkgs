@@ -8,7 +8,6 @@
   yarnConfigHook,
   nodejs,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "element-call";
   version = "0.11.1";
@@ -71,6 +70,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/element-hq/element-call";
     description = "Group calls powered by Matrix";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kilimnik ];
+    maintainers = with maintainers; [kilimnik];
   };
 })

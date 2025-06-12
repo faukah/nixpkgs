@@ -5,7 +5,6 @@
   directoryListingUpdater,
   man,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "man-pages";
   version = "6.14";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ceEwZ7eABEsvNy7sJfQgm8BBPMMq9xQUHvPSLSHq6OM=";
   };
 
-  nativeInstallCheckInputs = [ man ];
+  nativeInstallCheckInputs = [man];
 
   dontBuild = true;
   enableParallelInstalling = true;

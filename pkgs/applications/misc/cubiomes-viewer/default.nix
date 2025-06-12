@@ -7,7 +7,6 @@
   qttools,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cubiomes-viewer";
   version = "4.1.2";
@@ -65,6 +64,6 @@ stdenv.mkDerivation rec {
     '';
     platforms = platforms.all;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hqurve ];
+    maintainers = with maintainers; [hqurve];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   name = "mingtest";
   version = "0.2.1";
@@ -21,14 +20,13 @@ stdenv.mkDerivation rec {
       --replace-fail "install_deploy_export()" ""
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     description = "Minimalistic C++ unit test framework";
     homepage = "https://github.com/craflin/mingtest";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lutzberger ];
+    maintainers = with lib.maintainers; [lutzberger];
     platforms = lib.platforms.linux;
   };
-
 }

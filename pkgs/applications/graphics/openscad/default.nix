@@ -33,7 +33,6 @@
   openscad,
   runCommand,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openscad";
   version = "2021.01";
@@ -180,13 +179,13 @@ stdenv.mkDerivation rec {
   passthru.tests = {
     lib3mf_support =
       runCommand "${pname}-lib3mf-support-test"
-        {
-          nativeBuildInputs = [ openscad ];
-        }
-        ''
-          echo "cube([1, 1, 1]);" | openscad -o cube.3mf -
-          echo "import(\"cube.3mf\");" | openscad -o cube-import.3mf -
-          mv cube-import.3mf $out
-        '';
+      {
+        nativeBuildInputs = [openscad];
+      }
+      ''
+        echo "cube([1, 1, 1]);" | openscad -o cube.3mf -
+        echo "import(\"cube.3mf\");" | openscad -o cube-import.3mf -
+        mv cube-import.3mf $out
+      '';
   };
 }

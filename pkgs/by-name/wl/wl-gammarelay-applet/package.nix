@@ -9,7 +9,6 @@
   pkg-config,
   autoPatchelfHook,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "wl-gammarelay-applet";
   version = "0.1.4";
@@ -50,6 +49,6 @@ rustPlatform.buildRustPackage {
     mainProgram = "wl-gammarelay-applet";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ lgbishop ];
+    maintainers = with lib.maintainers; [lgbishop];
   };
 }

@@ -23,7 +23,6 @@
   responses,
   woob,
 }:
-
 buildPythonPackage rec {
   pname = "woob";
   version = "3.7";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     hash = "sha256-EZHzw+/BIIvmDXG4fF367wsdUTVTHWYb0d0U56ZXwOs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "packaging"
@@ -73,7 +72,7 @@ buildPythonPackage rec {
     "test_verify"
   ];
 
-  pythonImportsCheck = [ "woob" ];
+  pythonImportsCheck = ["woob"];
 
   passthru.tests.version = testers.testVersion {
     package = woob;
@@ -86,6 +85,6 @@ buildPythonPackage rec {
     mainProgram = "woob";
     homepage = "https://woob.tech";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ DamienCassou ];
+    maintainers = with lib.maintainers; [DamienCassou];
   };
 }

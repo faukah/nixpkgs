@@ -10,9 +10,7 @@
   gnused,
   ps,
   nixosTests,
-}:
-
-let
+}: let
   versionMap = {
     "4_0" = {
       kafkaVersion = "4.0.0";
@@ -44,8 +42,7 @@ let
     };
   };
 
-  build =
-    versionInfo:
+  build = versionInfo:
     stdenv.mkDerivation rec {
       version = "${versionInfo.scalaVersion}-${versionInfo.kafkaVersion}";
       pname = "apache-kafka";
@@ -55,7 +52,7 @@ let
         inherit (versionInfo) sha256;
       };
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
       buildInputs = [
         versionInfo.jre
         bash
@@ -98,12 +95,13 @@ let
         homepage = "https://kafka.apache.org";
         description = "High-throughput distributed messaging system";
         license = lib.licenses.asl20;
-        sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
-        maintainers = [ lib.maintainers.ragge ];
+        sourceProvenance = [lib.sourceTypes.binaryBytecode];
+        maintainers = [lib.maintainers.ragge];
         platforms = lib.platforms.unix;
       };
     };
 in
-lib.mapAttrs' (
-  majorVersion: versionInfo: lib.nameValuePair "apacheKafka_${majorVersion}" (build versionInfo)
-) versionMap
+  lib.mapAttrs' (
+    majorVersion: versionInfo: lib.nameValuePair "apacheKafka_${majorVersion}" (build versionInfo)
+  )
+  versionMap

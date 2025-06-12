@@ -5,13 +5,10 @@
   fetchFromGitHub,
   fetchpatch,
   pythonAtLeast,
-
   # buildInputs
   llvmPackages,
-
   # build-system
   setuptools,
-
   # dependencies
   huggingface-hub,
   numpy,
@@ -20,7 +17,6 @@
   pyyaml,
   safetensors,
   torch,
-
   # tests
   addBinToPathHook,
   evaluate,
@@ -31,7 +27,6 @@
   cudatoolkit,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "accelerate";
   version = "1.5.2";
@@ -52,9 +47,9 @@ buildPythonPackage rec {
     })
   ];
 
-  buildInputs = [ llvmPackages.openmp ];
+  buildInputs = [llvmPackages.openmp];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     huggingface-hub
@@ -78,7 +73,7 @@ buildPythonPackage rec {
   preCheck = lib.optionalString config.cudaSupport ''
     export TRITON_PTXAS_PATH="${lib.getExe' cudatoolkit "ptxas"}"
   '';
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
   disabledTests =
     [
       # try to download data:
@@ -165,7 +160,7 @@ buildPythonPackage rec {
     "tests/test_scheduler.py"
   ];
 
-  pythonImportsCheck = [ "accelerate" ];
+  pythonImportsCheck = ["accelerate"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -174,7 +169,7 @@ buildPythonPackage rec {
     description = "Simple way to train and use PyTorch models with multi-GPU, TPU, mixed-precision";
     changelog = "https://github.com/huggingface/accelerate/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
     mainProgram = "accelerate";
   };
 }

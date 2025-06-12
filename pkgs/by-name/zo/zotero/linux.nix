@@ -28,7 +28,6 @@
   sndioSupport ? true,
   sndio,
 }:
-
 stdenv.mkDerivation rec {
   inherit pname version meta;
 
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
   };
 
   dontPatchELF = true;
-  nativeBuildInputs = [ wrapGAppsHook3 ];
+  nativeBuildInputs = [wrapGAppsHook3];
 
   libPath =
     lib.makeLibraryPath (
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
       ++ lib.optional sndioSupport sndio
     )
     + ":"
-    + lib.makeSearchPathOutput "lib" "lib" [ stdenv.cc.cc ];
+    + lib.makeSearchPathOutput "lib" "lib" [stdenv.cc.cc];
 
   desktopItem = makeDesktopItem {
     name = "zotero";

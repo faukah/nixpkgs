@@ -9,7 +9,6 @@
   pkg-config,
   kdePackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tail-tray";
   version = "0.2.23";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/SneWs/tail-tray/releases/tag/${src.tag}";
     mainProgram = "tail-tray";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ Svenum ];
+    maintainers = with lib.maintainers; [Svenum];
     platforms = lib.platforms.linux;
   };
 }

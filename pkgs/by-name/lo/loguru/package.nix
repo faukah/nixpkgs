@@ -5,7 +5,6 @@
   fetchpatch,
   cmake,
 }:
-
 stdenv.mkDerivation {
   pname = "loguru";
   version = "2.1.0-unstable-2023-04-06";
@@ -43,7 +42,7 @@ stdenv.mkDerivation {
     description = "Lightweight C++ logging library";
     homepage = "https://github.com/emilk/loguru";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     platforms = lib.platforms.all;
   };
 }

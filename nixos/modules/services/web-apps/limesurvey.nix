@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkDefault
     mkEnableOption
     mkForce
@@ -16,7 +14,8 @@ let
     mkOption
     mkPackageOption
     ;
-  inherit (lib)
+  inherit
+    (lib)
     literalExpression
     mapAttrs
     optional
@@ -31,8 +30,7 @@ let
   group = config.services.httpd.group;
   stateDir = "/var/lib/limesurvey";
 
-  configType =
-    with types;
+  configType = with types;
     oneOf [
       (attrsOf configType)
       str
@@ -59,15 +57,13 @@ let
 
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql";
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "pgsql";
-
-in
-{
+in {
   # interface
 
   options.services.limesurvey = {
     enable = mkEnableOption "Limesurvey web application";
 
-    package = mkPackageOption pkgs "limesurvey" { };
+    package = mkPackageOption pkgs "limesurvey" {};
 
     encryptionKey = mkOption {
       type = types.nullOr types.str;
@@ -139,7 +135,10 @@ in
 
       port = mkOption {
         type = types.port;
-        default = if cfg.database.type == "pgsql" then 5442 else 3306;
+        default =
+          if cfg.database.type == "pgsql"
+          then 5442
+          else 3306;
         defaultText = literalExpression "3306";
         description = "Database host port.";
       };
@@ -169,12 +168,11 @@ in
       socket = mkOption {
         type = types.nullOr types.path;
         default =
-          if mysqlLocal then
-            "/run/mysqld/mysqld.sock"
-          else if pgsqlLocal then
-            "/run/postgresql"
-          else
-            null;
+          if mysqlLocal
+          then "/run/mysqld/mysqld.sock"
+          else if pgsqlLocal
+          then "/run/postgresql"
+          else null;
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
         description = "Path to the unix socket file to use for authentication.";
       };
@@ -207,8 +205,7 @@ in
     };
 
     poolConfig = mkOption {
-      type =
-        with types;
+      type = with types;
         attrsOf (oneOf [
           str
           int
@@ -230,7 +227,7 @@ in
 
     config = mkOption {
       type = configType;
-      default = { };
+      default = {};
       description = ''
         LimeSurvey configuration. Refer to
         <https://manual.limesurvey.org/Optional_settings>
@@ -242,7 +239,6 @@ in
   # implementation
 
   config = mkIf cfg.enable {
-
     assertions = [
       {
         assertion = cfg.database.createLocally -> cfg.database.type == "mysql";
@@ -286,7 +282,9 @@ in
         db = {
           connectionString =
             "${cfg.database.type}:dbname=${cfg.database.name};host=${
-              if pgsqlLocal then cfg.database.socket else cfg.database.host
+              if pgsqlLocal
+              then cfg.database.socket
+              else cfg.database.host
             };port=${toString cfg.database.port}"
             + optionalString mysqlLocal ";socket=${cfg.database.socket}";
           username = cfg.database.user;
@@ -314,7 +312,7 @@ in
     services.mysql = mkIf mysqlLocal {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -333,10 +331,12 @@ in
       # App code cannot access credentials directly since the service starts
       # with the root user so we copy the credentials to a place accessible to Limesurvey
       phpEnv.CREDENTIALS_DIRECTORY = "${stateDir}/credentials";
-      settings = {
-        "listen.owner" = config.services.httpd.user;
-        "listen.group" = config.services.httpd.group;
-      } // cfg.poolConfig;
+      settings =
+        {
+          "listen.owner" = config.services.httpd.user;
+          "listen.group" = config.services.httpd.group;
+        }
+        // cfg.poolConfig;
     };
     systemd.services.phpfpm-limesurvey.serviceConfig = {
       ExecStartPre = pkgs.writeShellScript "limesurvey-phpfpm-exec-pre" ''
@@ -347,16 +347,14 @@ in
       '';
       LoadCredential = [
         "encryption_key:${
-          if cfg.encryptionKeyFile != null then
-            cfg.encryptionKeyFile
-          else
-            pkgs.writeText "key" cfg.encryptionKey
+          if cfg.encryptionKeyFile != null
+          then cfg.encryptionKeyFile
+          else pkgs.writeText "key" cfg.encryptionKey
         }"
         "encryption_nonce:${
-          if cfg.encryptionNonceFile != null then
-            cfg.encryptionNonceFile
-          else
-            pkgs.writeText "nonce" cfg.encryptionKey
+          if cfg.encryptionNonceFile != null
+          then cfg.encryptionNonceFile
+          else pkgs.writeText "nonce" cfg.encryptionKey
         }"
       ];
     };
@@ -364,7 +362,7 @@ in
     services.httpd = {
       enable = true;
       adminAddr = mkDefault cfg.virtualHost.adminAddr;
-      extraModules = [ "proxy_fcgi" ];
+      extraModules = ["proxy_fcgi"];
       virtualHosts.${cfg.virtualHost.hostName} = mkMerge [
         cfg.virtualHost
         {
@@ -411,8 +409,8 @@ in
     ];
 
     systemd.services.limesurvey-init = {
-      wantedBy = [ "multi-user.target" ];
-      before = [ "phpfpm-limesurvey.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["phpfpm-limesurvey.service"];
       after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
       environment.DBENGINE = "${cfg.database.dbEngine}";
       environment.LIMESURVEY_CONFIG = limesurveyConfig;
@@ -427,16 +425,14 @@ in
         Type = "oneshot";
         LoadCredential = [
           "encryption_key:${
-            if cfg.encryptionKeyFile != null then
-              cfg.encryptionKeyFile
-            else
-              pkgs.writeText "key" cfg.encryptionKey
+            if cfg.encryptionKeyFile != null
+            then cfg.encryptionKeyFile
+            else pkgs.writeText "key" cfg.encryptionKey
           }"
           "encryption_nonce:${
-            if cfg.encryptionNonceFile != null then
-              cfg.encryptionNonceFile
-            else
-              pkgs.writeText "nonce" cfg.encryptionKey
+            if cfg.encryptionNonceFile != null
+            then cfg.encryptionNonceFile
+            else pkgs.writeText "nonce" cfg.encryptionKey
           }"
         ];
       };
@@ -450,6 +446,5 @@ in
       group = group;
       isSystemUser = true;
     };
-
   };
 }

@@ -6,12 +6,11 @@
   wlr-protocols,
   wayland,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wl-clicker";
   version = "0.3.1";
 
-  nativeBuildInputs = [ wayland-scanner ];
+  nativeBuildInputs = [wayland-scanner];
   buildInputs = [
     wlr-protocols
     wayland
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     longDescription = "Script for auto clicking at incredibly high speeds - user must be a part of `input` group to run.";
     homepage = "https://github.com/phonetic112/wl-clicker";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.Flameopathic ];
+    maintainers = [lib.maintainers.Flameopathic];
     mainProgram = "wl-clicker";
     platforms = lib.platforms.linux;
     broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;

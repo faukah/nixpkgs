@@ -22,7 +22,6 @@
   coreutils,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cups";
   version = "2.4.11";
@@ -49,13 +48,12 @@ stdenv.mkDerivation rec {
         # See https://github.com/apple/cups/issues/6005
         sed -i '/PartOf=cups.service/d' scheduler/cups.socket.in
     ''
-    +
-      lib.optionalString
-        (stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinSdkVersion "12")
-        ''
-          substituteInPlace backend/usb-darwin.c \
-            --replace "kIOMainPortDefault" "kIOMasterPortDefault"
-        '';
+    + lib.optionalString
+    (stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinSdkVersion "12")
+    ''
+      substituteInPlace backend/usb-darwin.c \
+        --replace "kIOMainPortDefault" "kIOMasterPortDefault"
+    '';
 
   nativeBuildInputs = [
     pkg-config
@@ -80,7 +78,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableSystemd systemd;
 
-  propagatedBuildInputs = [ gmp ];
+  propagatedBuildInputs = [gmp];
 
   configurePlatforms = lib.optionals stdenv.hostPlatform.isLinux [
     "build"
@@ -117,8 +115,8 @@ stdenv.mkDerivation rec {
       "--with-systemd=$out/lib/systemd/system"
 
       ${lib.optionalString stdenv.hostPlatform.isDarwin ''
-        "--with-bundledir=$out"
-      ''}
+      "--with-bundledir=$out"
+    ''}
     )
   '';
 
@@ -144,7 +142,11 @@ stdenv.mkDerivation rec {
 
   postInstall =
     ''
-      libexec=${if stdenv.hostPlatform.isDarwin then "libexec/cups" else "lib/cups"}
+      libexec=${
+        if stdenv.hostPlatform.isDarwin
+        then "libexec/cups"
+        else "lib/cups"
+      }
       moveToOutput $libexec "$out"
 
       # $lib contains references to $out/share/cups.
@@ -171,7 +173,8 @@ stdenv.mkDerivation rec {
     '';
 
   passthru.tests = {
-    inherit (nixosTests)
+    inherit
+      (nixosTests)
       cups-pdf
       printing-service
       printing-socket
@@ -184,7 +187,7 @@ stdenv.mkDerivation rec {
     homepage = "https://openprinting.github.io/cups/";
     description = "Standards-based printing system for UNIX";
     license = licenses.asl20;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     platforms = platforms.unix;
   };
 }

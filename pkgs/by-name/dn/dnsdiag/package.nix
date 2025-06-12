@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "dnsdiag";
   version = "2.6.0";
@@ -16,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-6TDs+ncbVa7LWtGLlqEXJb9zzXZ+nAhbi4QGyCSu3ho=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     aioquic
@@ -35,7 +34,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/farrokhi/dnsdiag";
     changelog = "https://github.com/farrokhi/dnsdiag/releases/tag/v${version}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "dnsdiag";
   };
 }

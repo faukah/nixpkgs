@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ghostscript_headless,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "u2ps";
   version = "1.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-sa0CL47PwYVDykxzF8KeWhz7HXAX6jZ0AcfecD+aFyg=";
   };
 
-  buildInputs = [ ghostscript_headless ];
+  buildInputs = [ghostscript_headless];
 
   meta = with lib; {
     description = "Unicode text to postscript converter";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
       with emphasis on Unicode support.
     '';
     mainProgram = "u2ps";
-    maintainers = [ maintainers.athas ];
+    maintainers = [maintainers.athas];
     platforms = platforms.unix;
   };
 })

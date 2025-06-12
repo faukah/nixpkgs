@@ -1,5 +1,7 @@
-{ replaceVarsWith, runtimeShell }:
-
+{
+  replaceVarsWith,
+  runtimeShell,
+}:
 replaceVarsWith {
   name = "xargs-j";
   src = ./xargs-j.sh;

@@ -5,7 +5,6 @@
   python3,
   python3Packages,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "mint-themes";
   version = "2.2.6";
@@ -38,6 +37,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Mint-X and Mint-Y themes for the cinnamon desktop";
     license = licenses.gpl3; # from debian/copyright
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

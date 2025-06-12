@@ -4,7 +4,6 @@
   php,
   nixosTests,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "drupal";
   version = "11.1.7";

@@ -27,7 +27,6 @@
   setuptools-rust,
   testers,
 }:
-
 buildPythonPackage rec {
   pname = "breezy";
   version = "3.3.12";
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     hash = "sha256-V/SnzpslFGjISg+YxViFa+Lpnn0+9enPA3xmvwfXnUM=";
   };
 
-  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
+  cargoDeps = rustPlatform.importCargoLock {lockFile = ./Cargo.lock;};
 
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock
@@ -58,7 +57,7 @@ buildPythonPackage rec {
     setuptools-rust
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   propagatedBuildInputs =
     [
@@ -76,12 +75,12 @@ buildPythonPackage rec {
     ++ optional-dependencies.github;
 
   optional-dependencies = {
-    launchpad = [ launchpadlib ];
-    fastimport = [ fastimport ];
-    github = [ pygithub ];
+    launchpad = [launchpadlib];
+    fastimport = [fastimport];
+    github = [pygithub];
   };
 
-  nativeCheckInputs = [ testtools ];
+  nativeCheckInputs = [testtools];
 
   # multiple failures on sandbox
   doCheck = false;
@@ -120,7 +119,7 @@ buildPythonPackage rec {
     homepage = "https://www.breezy-vcs.org/";
     changelog = "https://github.com/breezy-team/breezy/blob/${src.rev}/doc/en/release-notes/brz-${versions.majorMinor version}.txt";
     license = licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "brz";
   };
 }

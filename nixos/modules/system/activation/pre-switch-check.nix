@@ -3,8 +3,7 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   preSwitchCheckScript = lib.concatLines (
     lib.mapAttrsToList (name: text: ''
       # pre-switch check ${name}
@@ -14,10 +13,10 @@ let
         echo "Pre-switch check '${name}' failed" >&2
         exit 1
       fi
-    '') config.system.preSwitchChecks
+    '')
+    config.system.preSwitchChecks
   );
-in
-{
+in {
   options.system.preSwitchChecksScript = lib.mkOption {
     type = lib.types.pathInStore;
     internal = true;
@@ -31,7 +30,7 @@ in
   };
 
   options.system.preSwitchChecks = lib.mkOption {
-    default = { };
+    default = {};
     example = lib.literalExpression ''
       { failsEveryTime =
         '''

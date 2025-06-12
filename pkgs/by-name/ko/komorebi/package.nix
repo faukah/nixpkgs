@@ -15,7 +15,6 @@
   wrapGAppsHook3,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "komorebi";
   version = "2.2.1";
@@ -44,13 +43,13 @@ stdenv.mkDerivation (finalAttrs: {
     clutter-gst
   ];
 
-  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  passthru.tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
 
   meta = with lib; {
     description = "Beautiful and customizable wallpaper manager for Linux";
     homepage = "https://github.com/Komorebi-Fork/komorebi";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
     platforms = platforms.linux;
   };
 })

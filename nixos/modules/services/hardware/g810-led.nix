@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.g810-led;
-in
-{
+in {
   options = {
     services.g810-led = {
       enable = lib.mkEnableOption "g810-led, a Linux LED controller for some Logitech G Keyboards";
 
-      package = lib.mkPackageOption pkgs "g810-led" { };
+      package = lib.mkPackageOption pkgs "g810-led" {};
 
       profile = lib.mkOption {
         type = lib.types.nullOr lib.types.lines;
@@ -38,8 +36,8 @@ in
   config = lib.mkIf cfg.enable {
     environment.etc."g810-led/profile".text = lib.mkIf (cfg.profile != null) cfg.profile;
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
   };
 
-  meta.maintainers = with lib.maintainers; [ GaetanLepage ];
+  meta.maintainers = with lib.maintainers; [GaetanLepage];
 }

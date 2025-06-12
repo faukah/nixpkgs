@@ -30,7 +30,6 @@
   tinyxml-2,
   zlib,
 }:
-
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "aseprite";
   version = "1.3.13";
@@ -144,7 +143,7 @@ clangStdenv.mkDerivation (finalAttrs: {
     rm -rf "$out"/{include,lib,man}
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     homepage = "https://www.aseprite.org/";

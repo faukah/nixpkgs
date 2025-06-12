@@ -5,7 +5,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mcfgthread";
   version = "1.9.2";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Threading support library for Windows 7 and above";
     homepage = "https://github.com/lhmouse/mcfgthread/wiki";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     platforms = lib.platforms.windows;
   };
 }

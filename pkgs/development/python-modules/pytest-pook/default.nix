@@ -7,7 +7,6 @@
   pytest,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "pytest-pook";
   version = "1.0.0";
@@ -29,7 +28,7 @@ buildPythonPackage {
   ];
 
   dependencies = [
-    (pook.overridePythonAttrs { doCheck = false; })
+    (pook.overridePythonAttrs {doCheck = false;})
   ];
 
   # fails in various ways

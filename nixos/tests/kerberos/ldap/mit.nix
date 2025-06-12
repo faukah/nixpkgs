@@ -1,16 +1,15 @@
 import ../../make-test-python.nix (
-  { pkgs, ... }:
-  let
+  {pkgs, ...}: let
     DITRoot = "dc=example,dc=com";
     realm = "EXAMPLE.COM";
 
-    krb5Package = pkgs.krb5.override { withLdap = true; };
+    krb5Package = pkgs.krb5.override {withLdap = true;};
 
     # Password used by Kerberos services to bind to their identities
     krbSrvPwd = "kerberos_service_password";
     # Stash file read by Kerberos daemons containing the service password
     # DO NOT DO THIS IN PRODUCTION! The stash file is a fundamental secret!
-    krbPwdStash = pkgs.runCommand "krb-pwd-stash" { } ''
+    krbPwdStash = pkgs.runCommand "krb-pwd-stash" {} ''
       for srv in cn=kadmin,${DITRoot} cn=kdc,${DITRoot}
       do
         echo -e "${krbSrvPwd}\n${krbSrvPwd}" | \
@@ -19,7 +18,7 @@ import ../../make-test-python.nix (
     '';
 
     # The LDAP schema for Kerberos 5 objects is part of the source distribution of Kerberos 5
-    krbLdapSchema = pkgs.runCommand "krb-ldap-schema" { } ''
+    krbLdapSchema = pkgs.runCommand "krb-ldap-schema" {} ''
       tar -Oxf ${krb5Package.src} \
         ${krb5Package.sourceRoot}/plugins/kdb/ldap/libkdb_ldap/kerberos.openldap.ldif > $out
     '';
@@ -46,115 +45,111 @@ import ../../make-test-python.nix (
     '';
 
     rootDnPwd = "ldap_root_password";
-  in
-  {
+  in {
     name = "kerberos_server-mit-ldap";
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-
-        services.openldap = {
-          enable = true;
-          urlList = [
-            "ldapi:///"
-            "ldap://"
-          ];
-          declarativeContents."${DITRoot}" = ldapDIT;
-          settings = {
-            children = {
-              "cn=schema".includes = [
-                "${pkgs.openldap}/etc/schema/core.ldif"
-                "${pkgs.openldap}/etc/schema/cosine.ldif"
-                "${pkgs.openldap}/etc/schema/inetorgperson.ldif"
-                "${pkgs.openldap}/etc/schema/nis.ldif"
-                "${krbLdapSchema}"
-              ];
-              "olcDatabase={0}config" = {
-                attrs = {
-                  objectClass = [ "olcDatabaseConfig" ];
-                  olcDatabase = "{0}config";
-                };
-              };
-              "olcDatabase={1}mdb" = {
-                attrs = {
-                  objectClass = [
-                    "olcDatabaseConfig"
-                    "olcMdbConfig"
-                  ];
-                  olcDatabase = "{1}mdb";
-                  olcDbDirectory = "/var/lib/openldap/db";
-                  olcSuffix = DITRoot;
-                  olcRootDN = "cn=root,${DITRoot}";
-                  olcRootPW = rootDnPwd;
-                  # A tiny but realistic ACL
-                  olcAccess = [
-                    ''
-                      to attrs=userPassword
-                                          by anonymous auth
-                                          by * none''
-                    ''
-                      to dn.subtree="cn=${realm},cn=realms,${DITRoot}"
-                                          by dn.exact="cn=kdc,${DITRoot}" write
-                                          by dn.exact="cn=kadmin,${DITRoot}" write
-                                          by * none''
-                    ''
-                      to *
-                                          by * read''
-                  ];
-                };
+    nodes.machine = {pkgs, ...}: {
+      services.openldap = {
+        enable = true;
+        urlList = [
+          "ldapi:///"
+          "ldap://"
+        ];
+        declarativeContents."${DITRoot}" = ldapDIT;
+        settings = {
+          children = {
+            "cn=schema".includes = [
+              "${pkgs.openldap}/etc/schema/core.ldif"
+              "${pkgs.openldap}/etc/schema/cosine.ldif"
+              "${pkgs.openldap}/etc/schema/inetorgperson.ldif"
+              "${pkgs.openldap}/etc/schema/nis.ldif"
+              "${krbLdapSchema}"
+            ];
+            "olcDatabase={0}config" = {
+              attrs = {
+                objectClass = ["olcDatabaseConfig"];
+                olcDatabase = "{0}config";
               };
             };
-          };
-        };
-
-        services.kerberos_server = {
-          enable = true;
-          settings = {
-            libdefaults.default_realm = realm;
-            realms = {
-              "${realm}" = {
-                acl = [
-                  {
-                    principal = "admin";
-                    access = "all";
-                  }
+            "olcDatabase={1}mdb" = {
+              attrs = {
+                objectClass = [
+                  "olcDatabaseConfig"
+                  "olcMdbConfig"
+                ];
+                olcDatabase = "{1}mdb";
+                olcDbDirectory = "/var/lib/openldap/db";
+                olcSuffix = DITRoot;
+                olcRootDN = "cn=root,${DITRoot}";
+                olcRootPW = rootDnPwd;
+                # A tiny but realistic ACL
+                olcAccess = [
+                  ''
+                    to attrs=userPassword
+                                        by anonymous auth
+                                        by * none''
+                  ''
+                    to dn.subtree="cn=${realm},cn=realms,${DITRoot}"
+                                        by dn.exact="cn=kdc,${DITRoot}" write
+                                        by dn.exact="cn=kadmin,${DITRoot}" write
+                                        by * none''
+                  ''
+                    to *
+                                        by * read''
                 ];
               };
             };
-            dbmodules = {
-              "${realm}" = {
-                db_library = "kldap";
-                ldap_kerberos_container_dn = "cn=realms,${DITRoot}";
-                ldap_kdc_dn = "cn=kdc,${DITRoot}";
-                ldap_kadmind_dn = "cn=kadmin,${DITRoot}";
-                ldap_service_password_file = toString krbPwdStash;
-                ldap_servers = "ldapi:///";
-              };
-            };
           };
-        };
-
-        security.krb5 = {
-          enable = true;
-          package = krb5Package;
-          settings = {
-            libdefaults = {
-              default_realm = realm;
-            };
-            realms = {
-              "${realm}" = {
-                admin_server = "machine";
-                kdc = "machine";
-              };
-            };
-          };
-        };
-
-        users.extraUsers.alice = {
-          isNormalUser = true;
         };
       };
+
+      services.kerberos_server = {
+        enable = true;
+        settings = {
+          libdefaults.default_realm = realm;
+          realms = {
+            "${realm}" = {
+              acl = [
+                {
+                  principal = "admin";
+                  access = "all";
+                }
+              ];
+            };
+          };
+          dbmodules = {
+            "${realm}" = {
+              db_library = "kldap";
+              ldap_kerberos_container_dn = "cn=realms,${DITRoot}";
+              ldap_kdc_dn = "cn=kdc,${DITRoot}";
+              ldap_kadmind_dn = "cn=kadmin,${DITRoot}";
+              ldap_service_password_file = toString krbPwdStash;
+              ldap_servers = "ldapi:///";
+            };
+          };
+        };
+      };
+
+      security.krb5 = {
+        enable = true;
+        package = krb5Package;
+        settings = {
+          libdefaults = {
+            default_realm = realm;
+          };
+          realms = {
+            "${realm}" = {
+              admin_server = "machine";
+              kdc = "machine";
+            };
+          };
+        };
+      };
+
+      users.extraUsers.alice = {
+        isNormalUser = true;
+      };
+    };
 
     testScript = ''
       machine.wait_for_unit("openldap.service")
@@ -187,6 +182,6 @@ import ../../make-test-python.nix (
            )
     '';
 
-    meta.maintainers = [ pkgs.lib.maintainers.nessdoor ];
+    meta.maintainers = [pkgs.lib.maintainers.nessdoor];
   }
 )

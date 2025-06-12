@@ -6,7 +6,6 @@
   poetry-core,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "hydrus-api";
   version = "5.1.1";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-oA3DbdX+MRZiInCKXurBdKlUFQ4jeU+jHr9NxMEHQmI=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
-  pythonImportsCheck = [ "hydrus_api" ];
+  pythonImportsCheck = ["hydrus_api"];
 
   # There are no unit tests
   doCheck = false;
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "Python module implementing the Hydrus API";
     homepage = "https://gitlab.com/cryzed/hydrus-api";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

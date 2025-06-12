@@ -3,14 +3,12 @@
   stdenv,
   python3Packages,
   fetchFromGitHub,
-
   # patches
   replaceVars,
   meek,
   obfs4,
   snowflake,
   tor,
-
   fetchpatch,
   versionCheckHook,
   gitUpdater,
@@ -47,7 +45,7 @@ python3Packages.buildPythonApplication rec {
     # https://github.com/onionshare/onionshare/pull/1907
     (fetchpatch {
       url = "https://github.com/onionshare/onionshare/commit/1fb1a470df20d8a7576c8cf51213e5928528d59a.patch";
-      includes = [ "onionshare_cli/onion.py" ];
+      includes = ["onionshare_cli/onion.py"];
       stripLen = 1;
       hash = "sha256-4XkqaEhMhvj6PyMssnLfXRazdP4k+c9mMDveho7pWg8=";
     })
@@ -59,8 +57,7 @@ python3Packages.buildPythonApplication rec {
 
   pythonRelaxDeps = true;
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       cffi
       click
@@ -118,7 +115,7 @@ python3Packages.buildPythonApplication rec {
   __darwinAllowLocalNetworking = true;
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     tests = {
       inherit onionshare-gui;
     };
@@ -145,7 +142,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://onionshare.org/";
     changelog = "https://github.com/onionshare/onionshare/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ bbjubjub ];
+    maintainers = with lib.maintainers; [bbjubjub];
     mainProgram = "onionshare-cli";
   };
 }

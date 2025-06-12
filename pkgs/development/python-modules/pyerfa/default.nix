@@ -11,7 +11,6 @@
   pytestCheckHook,
   pytest-doctestplus,
 }:
-
 buildPythonPackage rec {
   pname = "pyerfa";
   version = "2.0.1.5";
@@ -30,8 +29,8 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ numpy ];
-  buildInputs = [ liberfa ];
+  dependencies = [numpy];
+  buildInputs = [liberfa];
 
   preBuild = ''
     export PYERFA_USE_SYSTEM_LIBERFA=1
@@ -49,7 +48,7 @@ buildPythonPackage rec {
   preCheck = ''
     cd $out
   '';
-  pythonImportsCheck = [ "erfa" ];
+  pythonImportsCheck = ["erfa"];
 
   meta = with lib; {
     description = "Python bindings for ERFA routines";
@@ -63,6 +62,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/liberfa/pyerfa";
     license = licenses.bsd3;
-    maintainers = [ maintainers.rmcgibbo ];
+    maintainers = [maintainers.rmcgibbo];
   };
 }

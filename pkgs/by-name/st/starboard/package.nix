@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "starboard";
   version = "0.15.25";
@@ -27,9 +26,9 @@ buildGoModule rec {
   };
   vendorHash = "sha256-qujObGBxUFGxtrdlJmTOTW6HUbDCjNSElPqhQfYqId4=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "cmd/starboard" ];
+  subPackages = ["cmd/starboard"];
 
   ldflags = [
     "-s"
@@ -85,6 +84,6 @@ buildGoModule rec {
       tools.
     '';
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jk ];
+    maintainers = with lib.maintainers; [jk];
   };
 }

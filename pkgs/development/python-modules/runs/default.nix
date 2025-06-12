@@ -7,7 +7,6 @@
   pytestCheckHook,
   tdir,
 }:
-
 buildPythonPackage rec {
   pname = "runs";
   version = "1.2.2";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-aEamhXr3C+jYDzQGzcmGFyl5oEtovxlNacFM08y0ZEk=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ xmod ];
+  dependencies = [xmod];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     "test_many"
   ];
 
-  pythonImportsCheck = [ "runs" ];
+  pythonImportsCheck = ["runs"];
 
   meta = with lib; {
     description = "Run a block of text as a subprocess";
     homepage = "https://github.com/rec/runs";
     changelog = "https://github.com/rec/runs/blob/${src.rev}/CHANGELOG";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

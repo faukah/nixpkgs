@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "litecli";
   version = "1.12.3";
@@ -17,8 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-TPwzXfb4n6wTe6raQ5IowKdhGkKrf2pmSS2+Q03NKYk=";
   };
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       cli-helpers
       click
@@ -38,7 +36,7 @@ python3Packages.buildPythonApplication rec {
     mock
   ];
 
-  pythonImportsCheck = [ "litecli" ];
+  pythonImportsCheck = ["litecli"];
 
   disabledTests = [
     "test_auto_escaped_col_names"
@@ -53,6 +51,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://litecli.com";
     changelog = "https://github.com/dbcli/litecli/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ Scriptkiddi ];
+    maintainers = with lib.maintainers; [Scriptkiddi];
   };
 }

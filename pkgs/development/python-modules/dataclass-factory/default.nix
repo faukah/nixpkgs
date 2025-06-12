@@ -5,7 +5,6 @@
   nose2,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "dataclass-factory";
   version = "2.16";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-0BIWgyAV1hJzFX4xYFqswvQi5F1Ce+V9FKSmNYuJfZM=";
   };
 
-  nativeCheckInputs = [ nose2 ];
+  nativeCheckInputs = [nose2];
 
-  checkInputs = [ typing-extensions ];
+  checkInputs = [typing-extensions];
 
-  pythonImportsCheck = [ "dataclass_factory" ];
+  pythonImportsCheck = ["dataclass_factory"];
 
   checkPhase = ''
     runHook preCheck
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/reagento/dataclass-factory";
     changelog = "https://github.com/reagento/dataclass-factory/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

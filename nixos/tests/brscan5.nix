@@ -1,8 +1,7 @@
 # integration tests for brscan5 sane driver
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "brscan5";
-  meta.maintainers = with lib.maintainers; [ mattchrist ];
+  meta.maintainers = with lib.maintainers; [mattchrist];
 
   node.pkgsReadOnly = false;
 

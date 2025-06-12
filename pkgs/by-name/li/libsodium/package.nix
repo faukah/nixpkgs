@@ -5,7 +5,6 @@
   autoreconfHook,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libsodium";
   version = "1.0.20";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   separateDebugInfo = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.libc != "musl";
 
@@ -43,8 +42,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Modern and easy-to-use crypto library";
     homepage = "https://doc.libsodium.org/";
     license = licenses.isc;
-    maintainers = with maintainers; [ raskin ];
-    pkgConfigModules = [ "libsodium" ];
+    maintainers = with maintainers; [raskin];
+    pkgConfigModules = ["libsodium"];
     platforms = platforms.all;
   };
 })

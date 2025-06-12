@@ -8,7 +8,6 @@
   openssl,
   irssi,
 }:
-
 stdenv.mkDerivation {
   pname = "fish-irssi";
   version = "unstable-2021-04-16";
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
     hash = "sha256-KIPnz17a0CFfoPO2dZz90j+wG/dR4pv5d0iZMRf7Vkc=";
   };
 
-  patches = [ ./irssi-include-dir.patch ];
+  patches = [./irssi-include-dir.patch];
 
   nativeBuildInputs = [
     cmake
@@ -32,12 +31,12 @@ stdenv.mkDerivation {
     openssl
   ];
 
-  cmakeFlags = [ "-DIRSSI_INCLUDE_PATH:PATH=${irssi}/include" ];
+  cmakeFlags = ["-DIRSSI_INCLUDE_PATH:PATH=${irssi}/include"];
 
   meta = with lib; {
     homepage = "https://github.com/falsovsky/FiSH-irssi";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

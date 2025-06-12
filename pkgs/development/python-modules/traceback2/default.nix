@@ -5,7 +5,6 @@
   pbr,
   linecache2,
 }:
-
 buildPythonPackage rec {
   version = "1.4.0";
   format = "setuptools";

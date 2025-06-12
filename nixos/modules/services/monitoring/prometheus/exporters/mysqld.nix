@@ -4,10 +4,10 @@
   pkgs,
   options,
   ...
-}:
-let
+}: let
   cfg = config.services.prometheus.exporters.mysqld;
-  inherit (lib)
+  inherit
+    (lib)
     types
     mkOption
     mkIf
@@ -17,8 +17,7 @@ let
     optionalString
     escapeShellArgs
     ;
-in
-{
+in {
   port = 9104;
   extraOpts = {
     telemetryPath = mkOption {

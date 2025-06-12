@@ -4,14 +4,10 @@
   options,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.etcd;
   opt = options.services.etcd;
-
-in
-{
-
+in {
   options.services.etcd = {
     enable = lib.mkOption {
       description = "Whether to enable etcd.";
@@ -19,7 +15,7 @@ in
       type = lib.types.bool;
     };
 
-    package = lib.mkPackageOption pkgs "etcd" { };
+    package = lib.mkPackageOption pkgs "etcd" {};
 
     name = lib.mkOption {
       description = "Etcd unique node name.";
@@ -37,13 +33,13 @@ in
 
     listenClientUrls = lib.mkOption {
       description = "Etcd list of URLs to listen on for client traffic.";
-      default = [ "http://127.0.0.1:2379" ];
+      default = ["http://127.0.0.1:2379"];
       type = lib.types.listOf lib.types.str;
     };
 
     listenPeerUrls = lib.mkOption {
       description = "Etcd list of URLs to listen on for peer traffic.";
-      default = [ "http://127.0.0.1:2380" ];
+      default = ["http://127.0.0.1:2380"];
       type = lib.types.listOf lib.types.str;
     };
 
@@ -56,7 +52,7 @@ in
 
     initialCluster = lib.mkOption {
       description = "Etcd initial cluster configuration for bootstrapping.";
-      default = [ "${cfg.name}=http://127.0.0.1:2380" ];
+      default = ["${cfg.name}=http://127.0.0.1:2380"];
       defaultText = lib.literalExpression ''["''${config.${opt.name}}=http://127.0.0.1:2380"]'';
       type = lib.types.listOf lib.types.str;
     };
@@ -150,7 +146,7 @@ in
         <https://github.com/coreos/etcd/blob/master/Documentation/op-guide/configuration.md#configuration-flags>
       '';
       type = lib.types.attrsOf lib.types.str;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           "CORS" = "*";
@@ -177,13 +173,17 @@ in
 
     systemd.services.etcd = {
       description = "etcd key-value store";
-      wantedBy = [ "multi-user.target" ];
-      after = [
-        "network-online.target"
-      ] ++ lib.optional config.networking.firewall.enable "firewall.service";
-      wants = [
-        "network-online.target"
-      ] ++ lib.optional config.networking.firewall.enable "firewall.service";
+      wantedBy = ["multi-user.target"];
+      after =
+        [
+          "network-online.target"
+        ]
+        ++ lib.optional config.networking.firewall.enable "firewall.service";
+      wants =
+        [
+          "network-online.target"
+        ]
+        ++ lib.optional config.networking.firewall.enable "firewall.service";
 
       environment =
         (lib.filterAttrs (n: v: v != null) {
@@ -224,7 +224,7 @@ in
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     networking.firewall = lib.mkIf cfg.openFirewall {
       allowedTCPPorts = [
@@ -239,6 +239,6 @@ in
       description = "Etcd daemon user";
       home = cfg.dataDir;
     };
-    users.groups.etcd = { };
+    users.groups.etcd = {};
   };
 }

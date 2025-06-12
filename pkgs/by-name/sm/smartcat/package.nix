@@ -2,11 +2,9 @@
   lib,
   fetchFromGitHub,
   rustPlatform,
-
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "smartcat";
   version = "2.2.0";
@@ -36,6 +34,6 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
     mainProgram = "sc";
-    maintainers = with lib.maintainers; [ lpchaim ];
+    maintainers = with lib.maintainers; [lpchaim];
   };
 }

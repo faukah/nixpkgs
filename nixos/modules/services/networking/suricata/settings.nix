@@ -3,24 +3,22 @@
   config,
   yaml,
   ...
-}:
-let
+}: let
   cfg = config.services.suricata;
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkOption
     types
     literalExpression
     ;
-  mkDisableOption =
-    name:
+  mkDisableOption = name:
     mkEnableOption name
     // {
       default = true;
       example = false;
     };
-in
-{
+in {
   freeformType = yaml.type;
   options = {
     vars = mkOption {
@@ -124,7 +122,7 @@ in
                   };
                 }
               );
-              default = { };
+              default = {};
               example = {
                 HOME_NET = "[192.168.0.0/16,10.0.0.0/8,172.16.0.0/12]";
                 EXTERNAL_NET = "!$HOME_NET";
@@ -171,15 +169,14 @@ in
           };
         }
       );
-      default = { }; # add default values to config
+      default = {}; # add default values to config
       description = ''
         Variables to be used within the suricata rules.
       '';
     };
 
     stats = mkOption {
-      type =
-        with types;
+      type = with types;
         nullOr (submodule {
           options = {
             enable = mkEnableOption "suricata global stats";
@@ -234,8 +231,7 @@ in
     };
 
     outputs = mkOption {
-      type =
-        with types;
+      type = with types;
         nullOr (
           listOf (
             attrsOf (submodule {
@@ -422,8 +418,7 @@ in
     };
 
     "af-packet" = mkOption {
-      type =
-        with types;
+      type = with types;
         nullOr (
           listOf (submodule {
             freeformType = yaml.type;
@@ -445,8 +440,7 @@ in
     };
 
     "af-xdp" = mkOption {
-      type =
-        with types;
+      type = with types;
         nullOr (
           listOf (submodule {
             freeformType = yaml.type;
@@ -469,8 +463,7 @@ in
     };
 
     "dpdk" = mkOption {
-      type =
-        with types;
+      type = with types;
         nullOr (submodule {
           options = {
             eal-params.proc-type = mkOption {
@@ -481,8 +474,7 @@ in
               '';
             };
             interfaces = mkOption {
-              type =
-                with types;
+              type = with types;
                 nullOr (
                   listOf (submodule {
                     freeformType = yaml.type;
@@ -514,8 +506,7 @@ in
     };
 
     "pcap" = mkOption {
-      type =
-        with types;
+      type = with types;
         nullOr (
           listOf (submodule {
             freeformType = yaml.type;
@@ -554,8 +545,7 @@ in
     };
 
     "app-layer" = mkOption {
-      type =
-        with types;
+      type = with types;
         nullOr (submodule {
           options = {
             "error-policy" = mkOption {
@@ -576,8 +566,7 @@ in
               '';
             };
             protocols = mkOption {
-              type =
-                with types;
+              type = with types;
                 nullOr (
                   attrsOf (submodule {
                     freeformType = yaml.type;
@@ -640,12 +629,11 @@ in
     };
 
     "unix-command" = mkOption {
-      type =
-        with types;
+      type = with types;
         nullOr (submodule {
           options = {
             enabled = mkOption {
-              type = types.either types.bool (types.enum [ "auto" ]);
+              type = types.either types.bool (types.enum ["auto"]);
               default = "auto";
               description = ''
                 Enable unix-command socket.
@@ -660,7 +648,7 @@ in
             };
           };
         });
-      default = { };
+      default = {};
       description = ''
         Unix command socket that can be used to pass commands to Suricata.
         An external tool can then connect to get information from Suricata
@@ -703,7 +691,7 @@ in
 
     "rule-files" = mkOption {
       type = types.listOf types.str;
-      default = [ "suricata.rules" ];
+      default = ["suricata.rules"];
       description = "Files to load suricata-update managed rules, relative to 'default-rule-path'.";
     };
 

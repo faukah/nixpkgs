@@ -14,8 +14,7 @@
   stripJavaArchivesHook,
   wrapGAppsHook3,
   libGL,
-}:
-let
+}: let
   buildNumber = "1295";
   vaqua = fetchurl {
     name = "VAqua9.jar";
@@ -57,97 +56,99 @@ let
     {
       x86_64 = "amd64";
     }
-    .${stdenv.hostPlatform.parsed.cpu.name} or stdenv.hostPlatform.parsed.cpu.name;
+    .${
+      stdenv.hostPlatform.parsed.cpu.name
+    } or stdenv.hostPlatform.parsed.cpu.name;
 in
-stdenv.mkDerivation rec {
-  pname = "processing";
-  version = "4.3.2";
+  stdenv.mkDerivation rec {
+    pname = "processing";
+    version = "4.3.2";
 
-  src = fetchFromGitHub {
-    owner = "processing";
-    repo = "processing4";
-    rev = "processing-${buildNumber}-${version}";
-    sha256 = "sha256-jUkWnkP8up5vpaXfgFJ/jQjN1KfeX5EuYXSb+W6NEms=";
-  };
+    src = fetchFromGitHub {
+      owner = "processing";
+      repo = "processing4";
+      rev = "processing-${buildNumber}-${version}";
+      sha256 = "sha256-jUkWnkP8up5vpaXfgFJ/jQjN1KfeX5EuYXSb+W6NEms=";
+    };
 
-  # Processing did not update the todo.txt file before tagging this release, so
-  # the "revision-check" Ant target fails.
-  patches = [ ./disable-revision-check.patch ];
+    # Processing did not update the todo.txt file before tagging this release, so
+    # the "revision-check" Ant target fails.
+    patches = [./disable-revision-check.patch];
 
-  nativeBuildInputs = [
-    ant
-    unzip
-    makeWrapper
-    stripJavaArchivesHook
-    wrapGAppsHook3
-  ];
-  buildInputs = [
-    jdk
-    jogl
-    ant
-    rsync
-    ffmpeg
-    batik
-  ];
-
-  dontWrapGApps = true;
-
-  buildPhase = ''
-    runHook preBuild
-
-    echo "tarring jdk"
-    tar --checkpoint=10000 -czf build/linux/jdk-17.0.8-${arch}.tgz ${jdk}
-    cp ${ant.home}/lib/{ant.jar,ant-launcher.jar} app/lib/
-    mkdir -p core/library
-    ln -s ${jogl}/share/java/* core/library/
-    ln -s ${vaqua} app/lib/VAqua9.jar
-    ln -s ${flatlaf} app/lib/flatlaf.jar
-    ln -s ${lsp4j} java/mode/org.eclipse.lsp4j.jar
-    ln -s ${lsp4j-jsonrpc} java/mode/org.eclipse.lsp4j.jsonrpc.jar
-    ln -s ${gson} java/mode/gson.jar
-    unzip -qo ${jna} -d app/lib/
-    mv app/lib/{jna-5.10.0/dist/jna.jar,}
-    mv app/lib/{jna-5.10.0/dist/jna-platform.jar,}
-    ln -sf ${batik}/* java/libraries/svg/library/
-    cp java/libraries/svg/library/share/java/batik-all-${batik.version}.jar java/libraries/svg/library/batik.jar
-    echo "tarring ffmpeg"
-    tar --checkpoint=10000 -czf build/shared/tools/MovieMaker/ffmpeg-5.0.1.gz ${ffmpeg}
-    cd build
-    ant build
-    cd ..
-
-    runHook postBuild
-  '';
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/share/
-    mkdir -p $out/share/applications/
-    cp -dp build/linux/${pname}.desktop $out/share/applications/
-    cp -dpr build/linux/work $out/share/${pname}
-    rmdir $out/share/${pname}/java
-    ln -s ${jdk} $out/share/${pname}/java
-    makeWrapper $out/share/${pname}/processing $out/bin/processing \
-      ''${gappsWrapperArgs[@]} \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libGL ]}" \
-      --prefix _JAVA_OPTIONS " " -Dawt.useSystemAAFontSettings=lcd
-    makeWrapper $out/share/${pname}/processing-java $out/bin/processing-java \
-      ''${gappsWrapperArgs[@]} \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libGL ]}" \
-      --prefix _JAVA_OPTIONS " " -Dawt.useSystemAAFontSettings=lcd
-
-    runHook postInstall
-  '';
-
-  meta = with lib; {
-    description = "Language and IDE for electronic arts";
-    homepage = "https://processing.org";
-    license = with licenses; [
-      gpl2Only
-      lgpl21Only
+    nativeBuildInputs = [
+      ant
+      unzip
+      makeWrapper
+      stripJavaArchivesHook
+      wrapGAppsHook3
     ];
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ evan-goode ];
-  };
-}
+    buildInputs = [
+      jdk
+      jogl
+      ant
+      rsync
+      ffmpeg
+      batik
+    ];
+
+    dontWrapGApps = true;
+
+    buildPhase = ''
+      runHook preBuild
+
+      echo "tarring jdk"
+      tar --checkpoint=10000 -czf build/linux/jdk-17.0.8-${arch}.tgz ${jdk}
+      cp ${ant.home}/lib/{ant.jar,ant-launcher.jar} app/lib/
+      mkdir -p core/library
+      ln -s ${jogl}/share/java/* core/library/
+      ln -s ${vaqua} app/lib/VAqua9.jar
+      ln -s ${flatlaf} app/lib/flatlaf.jar
+      ln -s ${lsp4j} java/mode/org.eclipse.lsp4j.jar
+      ln -s ${lsp4j-jsonrpc} java/mode/org.eclipse.lsp4j.jsonrpc.jar
+      ln -s ${gson} java/mode/gson.jar
+      unzip -qo ${jna} -d app/lib/
+      mv app/lib/{jna-5.10.0/dist/jna.jar,}
+      mv app/lib/{jna-5.10.0/dist/jna-platform.jar,}
+      ln -sf ${batik}/* java/libraries/svg/library/
+      cp java/libraries/svg/library/share/java/batik-all-${batik.version}.jar java/libraries/svg/library/batik.jar
+      echo "tarring ffmpeg"
+      tar --checkpoint=10000 -czf build/shared/tools/MovieMaker/ffmpeg-5.0.1.gz ${ffmpeg}
+      cd build
+      ant build
+      cd ..
+
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/share/
+      mkdir -p $out/share/applications/
+      cp -dp build/linux/${pname}.desktop $out/share/applications/
+      cp -dpr build/linux/work $out/share/${pname}
+      rmdir $out/share/${pname}/java
+      ln -s ${jdk} $out/share/${pname}/java
+      makeWrapper $out/share/${pname}/processing $out/bin/processing \
+        ''${gappsWrapperArgs[@]} \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libGL]}" \
+        --prefix _JAVA_OPTIONS " " -Dawt.useSystemAAFontSettings=lcd
+      makeWrapper $out/share/${pname}/processing-java $out/bin/processing-java \
+        ''${gappsWrapperArgs[@]} \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libGL]}" \
+        --prefix _JAVA_OPTIONS " " -Dawt.useSystemAAFontSettings=lcd
+
+      runHook postInstall
+    '';
+
+    meta = with lib; {
+      description = "Language and IDE for electronic arts";
+      homepage = "https://processing.org";
+      license = with licenses; [
+        gpl2Only
+        lgpl21Only
+      ];
+      platforms = platforms.linux;
+      maintainers = with maintainers; [evan-goode];
+    };
+  }

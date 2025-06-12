@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     escapeShellArgs
     mkEnableOption
     mkIf
@@ -16,14 +15,11 @@ let
 
   cfg = config.services.loki;
 
-  prettyJSON =
-    conf:
-    pkgs.runCommand "loki-config.json" { } ''
+  prettyJSON = conf:
+    pkgs.runCommand "loki-config.json" {} ''
       echo '${builtins.toJSON conf}' | ${pkgs.jq}/bin/jq 'del(._module)' > $out
     '';
-
-in
-{
+in {
   options.services.loki = {
     enable = mkEnableOption "loki";
 
@@ -35,7 +31,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "grafana-loki" { };
+    package = lib.mkPackageOption pkgs "grafana-loki" {};
 
     group = mkOption {
       type = types.str;
@@ -54,8 +50,8 @@ in
     };
 
     configuration = mkOption {
-      type = (pkgs.formats.json { }).type;
-      default = { };
+      type = (pkgs.formats.json {}).type;
+      default = {};
       description = ''
         Specify the configuration for Loki in Nix.
       '';
@@ -71,8 +67,8 @@ in
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "--server.http-listen-port=3101" ];
+      default = [];
+      example = ["--server.http-listen-port=3101"];
       description = ''
         Specify a list of additional command line flags,
         which get escaped and are then passed to Loki.
@@ -84,8 +80,8 @@ in
     assertions = [
       {
         assertion = (
-          (cfg.configuration == { } -> cfg.configFile != null)
-          && (cfg.configFile != null -> cfg.configuration == { })
+          (cfg.configuration == {} -> cfg.configFile != null)
+          && (cfg.configFile != null -> cfg.configuration == {})
         );
         message = ''
           Please specify either
@@ -95,9 +91,9 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package ]; # logcli
+    environment.systemPackages = [cfg.package]; # logcli
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
     users.users.${cfg.user} = {
       description = "Loki Service User";
       group = cfg.group;
@@ -108,44 +104,40 @@ in
 
     systemd.services.loki = {
       description = "Loki Service Daemon";
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
-      serviceConfig =
-        let
-          conf =
-            if cfg.configFile == null then
-              # Config validation may fail when using extraFlags = [ "-config.expand-env=true" ].
-              # To work around this, we simply skip it when extraFlags is not empty.
-              if cfg.extraFlags == [ ] then
-                validateConfig (prettyJSON cfg.configuration)
-              else
-                prettyJSON cfg.configuration
-            else
-              cfg.configFile;
-          validateConfig =
-            file:
-            pkgs.runCommand "validate-loki-conf"
-              {
-                nativeBuildInputs = [ cfg.package ];
-              }
-              ''
-                loki -verify-config -config.file "${file}"
-                ln -s "${file}" "$out"
-              '';
-        in
-        {
-          ExecStart = "${cfg.package}/bin/loki --config.file=${conf} ${escapeShellArgs cfg.extraFlags}";
-          User = cfg.user;
-          Restart = "always";
-          PrivateTmp = true;
-          ProtectHome = true;
-          ProtectSystem = "full";
-          DevicePolicy = "closed";
-          NoNewPrivileges = true;
-          WorkingDirectory = cfg.dataDir;
-        };
+      serviceConfig = let
+        conf =
+          if cfg.configFile == null
+          then
+            # Config validation may fail when using extraFlags = [ "-config.expand-env=true" ].
+            # To work around this, we simply skip it when extraFlags is not empty.
+            if cfg.extraFlags == []
+            then validateConfig (prettyJSON cfg.configuration)
+            else prettyJSON cfg.configuration
+          else cfg.configFile;
+        validateConfig = file:
+          pkgs.runCommand "validate-loki-conf"
+          {
+            nativeBuildInputs = [cfg.package];
+          }
+          ''
+            loki -verify-config -config.file "${file}"
+            ln -s "${file}" "$out"
+          '';
+      in {
+        ExecStart = "${cfg.package}/bin/loki --config.file=${conf} ${escapeShellArgs cfg.extraFlags}";
+        User = cfg.user;
+        Restart = "always";
+        PrivateTmp = true;
+        ProtectHome = true;
+        ProtectSystem = "full";
+        DevicePolicy = "closed";
+        NoNewPrivileges = true;
+        WorkingDirectory = cfg.dataDir;
+      };
     };
   };
 }

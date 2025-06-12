@@ -6,7 +6,6 @@
   requests,
   pygments,
 }:
-
 buildPythonPackage rec {
   pname = "clf";
   version = "0.5.7";
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Command line tool to search snippets on Commandlinefu.com";
     mainProgram = "clf";
     license = licenses.mit;
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
   };
 }

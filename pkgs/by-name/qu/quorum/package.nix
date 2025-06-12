@@ -4,7 +4,6 @@
   buildGoModule,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "quorum";
   version = "24.4.1";
@@ -28,13 +27,13 @@ buildGoModule rec {
     "-w"
   ];
 
-  passthru.tests = { inherit (nixosTests) quorum; };
+  passthru.tests = {inherit (nixosTests) quorum;};
 
   meta = with lib; {
     description = "Permissioned implementation of Ethereum supporting data privacy";
     homepage = "https://consensys.net/quorum/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
     platforms = platforms.linux;
   };
 }

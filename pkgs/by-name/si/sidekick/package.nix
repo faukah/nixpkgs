@@ -6,7 +6,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "sidekick";
   version = "0.6.6";
@@ -18,7 +17,7 @@ buildGoModule rec {
     hash = "sha256-Y/dQRix/cxV3NGqTGtRP6Bcprj0jzzOpudgm9a1UMLc=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doInstallCheck = true;
 
@@ -49,6 +48,6 @@ buildGoModule rec {
     mainProgram = "sidekick";
     homepage = "https://github.com/MightyMoud/sidekick";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ nipeharefa ];
+    maintainers = with lib.maintainers; [nipeharefa];
   };
 }

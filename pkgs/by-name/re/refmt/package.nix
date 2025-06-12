@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "refmt";
   version = "1.6.1";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "refmt";
     homepage = "https://github.com/rjeczalik/refmt";
     license = licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ deemp ];
+    maintainers = with lib.maintainers; [deemp];
   };
 }

@@ -7,7 +7,6 @@
   rustPlatform,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fishy";
   version = "0.2.1";
@@ -24,20 +23,20 @@ rustPlatform.buildRustPackage rec {
 
   OPENSSL_NO_VENDOR = 1;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Create, manage and deploy p2panda schemas";
     homepage = "https://github.com/p2panda/fishy";
     changelog = "https://github.com/p2panda/fishy/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ confusedalex ];
+    maintainers = with lib.maintainers; [confusedalex];
     mainProgram = "fishy";
   };
 }

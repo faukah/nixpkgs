@@ -7,7 +7,6 @@
   openssl,
   libgit2,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "klipper-estimator";
   version = "3.7.3";
@@ -25,12 +24,12 @@ rustPlatform.buildRustPackage rec {
   env.TOOL_VERSION = "v${version}";
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libgit2
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = {
     description = "Tool for determining the time a print will take using the Klipper firmware";
@@ -38,6 +37,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/Annex-Engineering/klipper_estimator/releases/tag/v${version}";
     mainProgram = "klipper_estimator";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tmarkus ];
+    maintainers = with lib.maintainers; [tmarkus];
   };
 }

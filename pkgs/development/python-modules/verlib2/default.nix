@@ -5,7 +5,6 @@
   setuptools,
   versioningit,
 }:
-
 buildPythonPackage rec {
   pname = "verlib2";
   version = "0.3.1";
@@ -27,12 +26,12 @@ buildPythonPackage rec {
     versioningit
   ];
 
-  pythonImportsCheck = [ "verlib2" ];
+  pythonImportsCheck = ["verlib2"];
 
   meta = with lib; {
     description = "Standalone variant of packaging.version, without anything else";
     homepage = "https://pypi.org/project/verlib2/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

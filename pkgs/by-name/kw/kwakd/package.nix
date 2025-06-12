@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   pname = "kwakd";
   version = "0.5";
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
     description = "Super small webserver that serves blank pages";
     mainProgram = "kwakd";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.nicknovitski ];
+    maintainers = [maintainers.nicknovitski];
     platforms = platforms.unix;
   };
 }

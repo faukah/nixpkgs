@@ -9,7 +9,6 @@
   libpng,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libkate";
   version = "0.4.3";

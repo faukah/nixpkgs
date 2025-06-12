@@ -12,7 +12,6 @@
   libtiff,
   bzip2,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.9.1";
   pname = "rss-glx";

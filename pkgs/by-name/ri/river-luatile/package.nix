@@ -5,7 +5,6 @@
   pkg-config,
   luajit,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "river-luatile";
   version = "0.1.4";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/MaxVerevkin/river-luatile";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pinpox ];
+    maintainers = with maintainers; [pinpox];
     mainProgram = "river-luatile";
   };
 }

@@ -4,10 +4,7 @@
   lib,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.pdnsd;
   pdnsd = pkgs.pdnsd;
   pdnsdUser = "pdnsd";
@@ -24,9 +21,7 @@ let
     }
     ${cfg.extraConfig}
   '';
-in
-
-{
+in {
   options = {
     services.pdnsd = {
       enable = mkEnableOption "pdnsd";
@@ -78,8 +73,8 @@ in
     };
 
     systemd.services.pdnsd = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       preStart = ''
         mkdir -p "${cfg.cacheDir}"
         touch "${cfg.cacheDir}/pdnsd.cache"

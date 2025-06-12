@@ -7,9 +7,7 @@
   gnused,
   nix,
   writeScript,
-}:
-
-{
+}: {
   name ? null,
   pname ? null,
   version ? null,
@@ -21,9 +19,7 @@
   rev-suffix ? "",
   odd-unstable ? false,
   patchlevel-unstable ? false,
-}:
-
-let
+}: let
   # where to print git commands and debugging messages
   fileForGitCommands = "update-git-commits.txt";
 
@@ -138,9 +134,7 @@ let
 
     echo "" >> ${fileForGitCommands}
   '';
-
-in
-{
+in {
   name = "generic-update-script";
   command = [
     updateScript

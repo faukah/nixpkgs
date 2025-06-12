@@ -5,7 +5,6 @@
   nixosTests,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "ferretdb";
   version = "1.24.0";
@@ -26,14 +25,14 @@ buildGoModule (finalAttrs: {
 
   env.CGO_ENABLED = 0;
 
-  subPackages = [ "cmd/ferretdb" ];
+  subPackages = ["cmd/ferretdb"];
 
   # tests in cmd/ferretdb are not production relevant
   doCheck = false;
 
   # the binary panics if something required wasn't set during compilation
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   passthru.tests = nixosTests.ferretdb;

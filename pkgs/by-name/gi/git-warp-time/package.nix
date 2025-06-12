@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchurl,
-
   # nativeBuildInputs
   zstd,
   pkg-config,
@@ -10,11 +9,9 @@
   cargo,
   rustc,
   rustPlatform,
-
   # buildInputs
   libgit2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "git-warp-time";
   version = "0.8.5";
@@ -27,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
     dontConfigure = true;
-    nativeBuildInputs = [ zstd ];
+    nativeBuildInputs = [zstd];
     hash = "sha256-FNt9spOFOSbOgpZnxLl3aIvU6lnIJHaVMoAKxl4lzhU=";
   };
 

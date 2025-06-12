@@ -8,7 +8,6 @@
   wrapGAppsHook3,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sameboy";
   version = "0.16.7";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     glib
     wrapGAppsHook3
   ];
-  buildInputs = [ SDL2 ];
+  buildInputs = [SDL2];
 
   makeFlags = [
     "CONF=release"
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     '';
 
     license = licenses.mit;
-    maintainers = with maintainers; [ NieDzejkob ];
+    maintainers = with maintainers; [NieDzejkob];
     platforms = platforms.linux;
   };
 }

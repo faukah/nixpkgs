@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "nginx_exporter";
   version = "1.4.2";
@@ -18,20 +17,18 @@ buildGoModule rec {
 
   vendorHash = "sha256-gsdmLg4wtSoY9tg4hDzf4wuCgYEEzopSLJ/7qkVvIzU=";
 
-  ldflags =
-    let
-      t = "github.com/prometheus/common/version";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${t}.Version=${version}"
-      "-X ${t}.Branch=unknown"
-      "-X ${t}.BuildUser=nix@nixpkgs"
-      "-X ${t}.BuildDate=unknown"
-    ];
+  ldflags = let
+    t = "github.com/prometheus/common/version";
+  in [
+    "-s"
+    "-w"
+    "-X ${t}.Version=${version}"
+    "-X ${t}.Branch=unknown"
+    "-X ${t}.BuildUser=nix@nixpkgs"
+    "-X ${t}.BuildDate=unknown"
+  ];
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) nginx; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) nginx;};
 
   meta = with lib; {
     description = "NGINX Prometheus Exporter for NGINX and NGINX Plus";

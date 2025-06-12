@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "matrix-dl";
   version = "unstable-2020-07-14";
@@ -29,7 +28,7 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "matrix-dl";
     homepage = src.meta.homepage;
     license = licenses.gpl1Plus;
-    maintainers = with maintainers; [ aw ];
+    maintainers = with maintainers; [aw];
     platforms = platforms.unix;
   };
 }

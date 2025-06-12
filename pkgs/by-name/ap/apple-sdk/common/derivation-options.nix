@@ -1,6 +1,7 @@
-{ lib, config }:
-
-self: super: {
+{
+  lib,
+  config,
+}: self: super: {
   preBuild =
     super.preBuild or ""
     + ''

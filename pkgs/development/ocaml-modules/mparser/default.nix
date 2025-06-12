@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "mparser";
   version = "1.3";
@@ -20,6 +19,6 @@ buildDunePackage rec {
     description = "Simple monadic parser combinator OCaml library";
     license = lib.licenses.lgpl21Plus;
     homepage = "https://github.com/murmour/mparser";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

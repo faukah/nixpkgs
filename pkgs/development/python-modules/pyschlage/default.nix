@@ -9,7 +9,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pyschlage";
   version = "2025.4.0";
@@ -34,15 +33,15 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyschlage" ];
+  pythonImportsCheck = ["pyschlage"];
 
   meta = with lib; {
     description = "Library for interacting with Schlage Encode WiFi locks";
     homepage = "https://github.com/dknowles2/pyschlage";
     changelog = "https://github.com/dknowles2/pyschlage/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

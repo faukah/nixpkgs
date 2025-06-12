@@ -3,20 +3,19 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.youtrack;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "youtrack" "baseUrl" ]
-      [ "services" "youtrack" "environmentalParameters" "base-url" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "youtrack" "baseUrl"]
+      ["services" "youtrack" "environmentalParameters" "base-url"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "youtrack" "port" ]
-      [ "services" "youtrack" "environmentalParameters" "listen-port" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "youtrack" "port"]
+      ["services" "youtrack" "environmentalParameters" "listen-port"]
     )
     (lib.mkRemovedOptionModule [
       "services"
@@ -97,13 +96,12 @@ in
           "-Xmx1024m"
         ];
       '';
-      default = [ ];
+      default = [];
     };
 
     environmentalParameters = lib.mkOption {
       type = lib.types.submodule {
-        freeformType =
-          with lib.types;
+        freeformType = with lib.types;
           attrsOf (oneOf [
             int
             str
@@ -132,7 +130,7 @@ in
           secure-mode = "tls";
         }
       '';
-      default = { };
+      default = {};
     };
   };
 
@@ -141,51 +139,49 @@ in
       "-Ddisable.configuration.wizard.on.upgrade=${lib.boolToString cfg.autoUpgrade}"
     ];
 
-    systemd.services.youtrack =
-      let
-        jvmoptions = pkgs.writeTextFile {
-          name = "youtrack.jvmoptions";
-          text = (lib.concatStringsSep "\n" cfg.generalParameters);
-        };
-
-        package = cfg.package.override {
-          statePath = cfg.statePath;
-        };
-      in
-      {
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        path = with pkgs; [ unixtools.hostname ];
-        preStart = ''
-          # This detects old (i.e. <= 2022.3) installations that were not migrated yet
-          # and migrates them to the new state directory style
-          if [[ -d ${cfg.statePath}/teamsysdata ]] && [[ ! -d ${cfg.statePath}/2022_3 ]]
-          then
-            mkdir -p ${cfg.statePath}/2022_3
-            mv ${cfg.statePath}/teamsysdata ${cfg.statePath}/2022_3
-            mv ${cfg.statePath}/.youtrack ${cfg.statePath}/2022_3
-          fi
-          mkdir -p ${cfg.statePath}/{backups,conf,data,logs,temp}
-          ${pkgs.coreutils}/bin/ln -fs ${jvmoptions} ${cfg.statePath}/conf/youtrack.jvmoptions
-          ${package}/bin/youtrack configure ${
-            lib.concatStringsSep " " (
-              lib.mapAttrsToList (name: value: "--${name}=${toString value}") cfg.environmentalParameters
-            )
-          }
-        '';
-        serviceConfig = lib.mkMerge [
-          {
-            Type = "simple";
-            User = "youtrack";
-            Group = "youtrack";
-            Restart = "on-failure";
-            ExecStart = "${package}/bin/youtrack run";
-          }
-          (lib.mkIf (cfg.statePath == "/var/lib/youtrack") {
-            StateDirectory = "youtrack";
-          })
-        ];
+    systemd.services.youtrack = let
+      jvmoptions = pkgs.writeTextFile {
+        name = "youtrack.jvmoptions";
+        text = lib.concatStringsSep "\n" cfg.generalParameters;
       };
+
+      package = cfg.package.override {
+        statePath = cfg.statePath;
+      };
+    in {
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = with pkgs; [unixtools.hostname];
+      preStart = ''
+        # This detects old (i.e. <= 2022.3) installations that were not migrated yet
+        # and migrates them to the new state directory style
+        if [[ -d ${cfg.statePath}/teamsysdata ]] && [[ ! -d ${cfg.statePath}/2022_3 ]]
+        then
+          mkdir -p ${cfg.statePath}/2022_3
+          mv ${cfg.statePath}/teamsysdata ${cfg.statePath}/2022_3
+          mv ${cfg.statePath}/.youtrack ${cfg.statePath}/2022_3
+        fi
+        mkdir -p ${cfg.statePath}/{backups,conf,data,logs,temp}
+        ${pkgs.coreutils}/bin/ln -fs ${jvmoptions} ${cfg.statePath}/conf/youtrack.jvmoptions
+        ${package}/bin/youtrack configure ${
+          lib.concatStringsSep " " (
+            lib.mapAttrsToList (name: value: "--${name}=${toString value}") cfg.environmentalParameters
+          )
+        }
+      '';
+      serviceConfig = lib.mkMerge [
+        {
+          Type = "simple";
+          User = "youtrack";
+          Group = "youtrack";
+          Restart = "on-failure";
+          ExecStart = "${package}/bin/youtrack run";
+        }
+        (lib.mkIf (cfg.statePath == "/var/lib/youtrack") {
+          StateDirectory = "youtrack";
+        })
+      ];
+    };
 
     users.users.youtrack = {
       description = "Youtrack service user";
@@ -195,11 +191,10 @@ in
       group = "youtrack";
     };
 
-    users.groups.youtrack = { };
+    users.groups.youtrack = {};
 
     services.nginx = lib.mkIf (cfg.virtualHost != null) {
-      upstreams.youtrack.servers."${cfg.address}:${toString cfg.environmentalParameters.listen-port}" =
-        { };
+      upstreams.youtrack.servers."${cfg.address}:${toString cfg.environmentalParameters.listen-port}" = {};
       virtualHosts.${cfg.virtualHost}.locations = {
         "/" = {
           proxyPass = "http://youtrack";
@@ -233,5 +228,5 @@ in
   };
 
   meta.doc = ./youtrack.md;
-  meta.maintainers = [ lib.maintainers.leona ];
+  meta.maintainers = [lib.maintainers.leona];
 }

@@ -5,7 +5,6 @@
   autoreconfHook,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "advancecomp";
   version = "2.6";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-MwXdXT/ZEvTcYV4DjhCUFflrPKBFu0fk5PmaWt4MMOU=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ zlib ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [zlib];
 
   # autover.sh relies on 'git describe', which obviously doesn't work as we're not cloning
   # the full git repo. so we have to put the version number in `.version`, otherwise
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Set of tools to optimize deflate-compressed files";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     homepage = "https://github.com/amadvance/advancecomp";
     changelog = "https://github.com/amadvance/advancecomp/blob/v${version}/HISTORY";

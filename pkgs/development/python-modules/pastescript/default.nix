@@ -9,7 +9,6 @@
   pastedeploy,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pastescript";
   version = "3.7.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-U28CjftuUynGezIpnhyTA/kSZOSXk8xpFusKc+tKJSE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   propagatedBuildInputs = [
     paste
@@ -33,9 +32,9 @@ buildPythonPackage rec {
   # test suite seems to unset PYTHONPATH
   doCheck = false;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTestPaths = [ "appsetup/testfiles" ];
+  disabledTestPaths = ["appsetup/testfiles"];
 
   pythonImportsCheck = [
     "paste.script"
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     mainProgram = "paster";
     homepage = "https://github.com/cdent/pastescript/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

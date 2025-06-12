@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   demo-program = pkgs.writeShellScriptBin "demo" ''
     while ${pkgs.coreutils}/bin/sleep 3; do
         echo Hello World > /dev/null
@@ -40,11 +43,9 @@ let
       demo-socket
     ];
   };
-in
-{
-
+in {
   name = "systemd-portabled";
-  nodes.machine = { };
+  nodes.machine = {};
   testScript = ''
     machine.succeed("portablectl")
     machine.wait_for_unit("systemd-portabled.service")

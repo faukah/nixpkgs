@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-Juv38ALXf1nMeokBH7Z+39oIscXW7S+OxdD/ZSNs49U=";
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   nativeBuildInputs = [
     iproute2

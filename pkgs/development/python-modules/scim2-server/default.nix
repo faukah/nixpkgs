@@ -10,7 +10,6 @@
   httpx,
   time-machine,
 }:
-
 buildPythonPackage rec {
   pname = "scim2-server";
   version = "0.1.5";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-VCJVLnYg3+Kz7/DXWnZXkFqXVszsd2hm3cLY22J4NRw=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     scim2-filter-parser
@@ -37,13 +36,13 @@ buildPythonPackage rec {
     time-machine
   ];
 
-  pythonImportsCheck = [ "scim2_server" ];
+  pythonImportsCheck = ["scim2_server"];
 
   meta = with lib; {
     description = "Lightweight SCIM2 server prototype";
     homepage = "https://github.com/python-scim/scim2-server";
     changelog = "https://github.com/python-scim/scim2-server/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
   };
 }

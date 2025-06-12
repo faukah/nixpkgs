@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gerrit-queue";
   version = "0.0.1";
@@ -20,7 +19,7 @@ buildGoModule rec {
     description = "Merge bot for Gerrit";
     homepage = "https://github.com/flokli/gerrit-queue";
     license = licenses.asl20;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
     mainProgram = "gerrit-queue";
   };
 }

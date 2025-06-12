@@ -5,7 +5,6 @@
   python3,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nvd";
   version = "0.2.4";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://khumba.net/projects/nvd";
     license = lib.licenses.asl20;
     mainProgram = "nvd";
-    maintainers = with lib.maintainers; [ khumba ];
+    maintainers = with lib.maintainers; [khumba];
     platforms = lib.platforms.all;
   };
 })

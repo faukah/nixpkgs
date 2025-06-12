@@ -7,7 +7,6 @@
   rich,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rich-rst";
   version = "1.3.1";
@@ -20,21 +19,21 @@ buildPythonPackage rec {
     hash = "sha256-jbzGTEth5Qoc0ORFCS3sZMrGUpoQQOVsd+l3/zMWy20=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     docutils
     rich
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "rich_rst" ];
+  pythonImportsCheck = ["rich_rst"];
 
   meta = with lib; {
     description = "Beautiful reStructuredText renderer for rich";
     homepage = "https://github.com/wasi-master/rich-rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

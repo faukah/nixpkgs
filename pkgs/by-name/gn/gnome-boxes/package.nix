@@ -47,7 +47,6 @@
   qemu-utils,
   libportal-gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-boxes";
   version = "48.0";
@@ -81,7 +80,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Required for USB redirection PolicyKit rules file
-  propagatedUserEnvPkgs = [ spice-gtk ];
+  propagatedUserEnvPkgs = [spice-gtk];
 
   buildInputs = [
     acl
@@ -128,7 +127,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-boxes"; };
+    updateScript = gnome.updateScript {packageName = "gnome-boxes";};
   };
 
   meta = with lib; {
@@ -137,6 +136,6 @@ stdenv.mkDerivation rec {
     homepage = "https://apps.gnome.org/Boxes/";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 }

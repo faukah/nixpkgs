@@ -8,7 +8,6 @@
   setuptools,
   tabulate,
 }:
-
 buildPythonPackage rec {
   pname = "simsimd";
   version = "6.4.7";
@@ -49,6 +48,6 @@ buildPythonPackage rec {
       # or
       bsd3
     ];
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

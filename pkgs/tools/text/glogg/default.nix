@@ -6,7 +6,6 @@
   qmake,
   boost,
 }:
-
 mkDerivation rec {
   pname = "glogg";
   version = "1.1.4";
@@ -23,10 +22,10 @@ mkDerivation rec {
       --replace "boost_program_options-mt" "boost_program_options"
   '';
 
-  nativeBuildInputs = [ qmake ];
-  buildInputs = [ boost ];
+  nativeBuildInputs = [qmake];
+  buildInputs = [boost];
 
-  qmakeFlags = [ "VERSION=${version}" ];
+  qmakeFlags = ["VERSION=${version}"];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -p $out/Applications
@@ -43,6 +42,6 @@ mkDerivation rec {
     homepage = "https://glogg.bonnefon.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ c0bw3b ];
+    maintainers = with maintainers; [c0bw3b];
   };
 }

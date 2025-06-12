@@ -5,7 +5,6 @@
   perl,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xkbset";
   version = "0.6";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://faculty.missouri.edu/~stephen/software/#xkbset";
     description = "Program to help manage many of XKB features of X window";
-    maintainers = with maintainers; [ drets ];
+    maintainers = with maintainers; [drets];
     platforms = platforms.linux;
     license = licenses.bsd3;
     mainProgram = "xkbset";

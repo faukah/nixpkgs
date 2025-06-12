@@ -6,7 +6,6 @@
   flyctl,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "flyctl";
   version = "0.3.140";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-mOPOVVG7c3PI/ltlwHBzNGqSyj6nMIvemYObrWezrqQ=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -28,11 +27,11 @@ buildGoModule rec {
     "-X github.com/superfly/flyctl/internal/buildinfo.buildDate=1970-01-01T00:00:00Z"
     "-X github.com/superfly/flyctl/internal/buildinfo.buildVersion=${version}"
   ];
-  tags = [ "production" ];
+  tags = ["production"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  patches = [ ./disable-auto-update.patch ];
+  patches = [./disable-auto-update.patch];
 
   preBuild = ''
     GOOS= GOARCH= CGO_ENABLED=0 go generate ./...

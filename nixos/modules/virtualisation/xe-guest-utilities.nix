@@ -3,25 +3,23 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.xe-guest-utilities;
-in
-{
+in {
   options = {
     services.xe-guest-utilities = {
       enable = lib.mkEnableOption "the XenServer guest utilities daemon";
     };
   };
   config = lib.mkIf cfg.enable {
-    services.udev.packages = [ pkgs.xe-guest-utilities ];
-    systemd.tmpfiles.rules = [ "d /run/xenstored 0755 - - -" ];
+    services.udev.packages = [pkgs.xe-guest-utilities];
+    systemd.tmpfiles.rules = ["d /run/xenstored 0755 - - -"];
 
     systemd.services.xe-daemon = {
       description = "xen daemon file";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "xe-linux-distribution.service" ];
-      requires = [ "proc-xen.mount" ];
+      wantedBy = ["multi-user.target"];
+      after = ["xe-linux-distribution.service"];
+      requires = ["proc-xen.mount"];
       path = [
         pkgs.coreutils
         pkgs.iproute2
@@ -35,8 +33,8 @@ in
 
     systemd.services.xe-linux-distribution = {
       description = "xen linux distribution service";
-      wantedBy = [ "multi-user.target" ];
-      before = [ "xend.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["xend.service"];
       path = [
         pkgs.xe-guest-utilities
         pkgs.coreutils

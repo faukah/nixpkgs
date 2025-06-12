@@ -14,7 +14,6 @@
   pytest,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "knack";
   version = "0.12.0";
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     HOME=$TMPDIR pytest .
   '';
 
-  pythonImportsCheck = [ "knack" ];
+  pythonImportsCheck = ["knack"];
 
   meta = with lib; {
     homepage = "https://github.com/microsoft/knack";
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/microsoft/knack/blob/v${version}/HISTORY.rst";
     platforms = platforms.all;
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

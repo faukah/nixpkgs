@@ -7,7 +7,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "vg";
   version = "2.0.0";
@@ -27,21 +26,21 @@ buildPythonPackage rec {
       --replace 'requires = ["setuptools", "poetry-core>=1.0.0"]' 'requires = ["poetry-core>=1.0.0"]'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTests = [ "test_basic" ];
+  disabledTests = ["test_basic"];
 
-  pythonImportsCheck = [ "vg" ];
+  pythonImportsCheck = ["vg"];
 
   meta = {
     description = "Linear algebra for humans: a very good vector-geometry and linear-algebra toolbelt";
     homepage = "https://github.com/lace/vg";
     changelog = "https://github.com/lace/vg/blob/${version}/CHANGELOG.md";
-    license = [ lib.licenses.bsd2 ];
-    maintainers = with lib.maintainers; [ clerie ];
+    license = [lib.licenses.bsd2];
+    maintainers = with lib.maintainers; [clerie];
   };
 }

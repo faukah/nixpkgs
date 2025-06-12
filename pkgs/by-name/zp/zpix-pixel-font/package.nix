@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/SolidZORO/zpix-pixel-font/";
     changelog = "https://github.com/SolidZORO/zpix-pixel-font/blob/master/CHANGELOG.md";
     license = licenses.unfree;
-    maintainers = [ maintainers.adriangl ];
+    maintainers = [maintainers.adriangl];
     platforms = platforms.all;
   };
 }

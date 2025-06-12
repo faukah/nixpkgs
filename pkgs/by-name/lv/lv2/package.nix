@@ -4,11 +4,9 @@
   fetchurl,
   meson,
   ninja,
-
   pipewire,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lv2";
   version = "1.18.10";
@@ -65,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "Plugin standard for audio systems";
     mainProgram = "lv2_validate";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

@@ -14,7 +14,6 @@
   gnutar,
   ima-evm-utils,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ostree-rs-ext";
   version = "0.10.6";
@@ -83,7 +82,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     mainProgram = "ostree-ext-cli";
   };
 }

@@ -9,7 +9,6 @@
   xarray,
   xarray-dataclasses,
 }:
-
 buildPythonPackage rec {
   pname = "spatial-image";
   version = "1.2.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-PGc2uey2xcfE0PcYDaCp7U0lgeGL1I6MMP3vbTN+Alk=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     numpy
@@ -32,15 +31,15 @@ buildPythonPackage rec {
     xarray-dataclasses
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "spatial_image" ];
+  pythonImportsCheck = ["spatial_image"];
 
   meta = {
     description = "Multi-dimensional spatial image data structure for scientific Python";
     homepage = "https://github.com/spatial-image/spatial-image";
     changelog = "https://github.com/spatial-image/spatial-image/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

@@ -9,7 +9,6 @@
   pkg-config,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxtask";
   version = "0.1.12";
@@ -32,9 +31,9 @@ stdenv.mkDerivation rec {
     libintl
   ];
 
-  configureFlags = [ "--enable-gtk3" ];
+  configureFlags = ["--enable-gtk3"];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://lxde.sourceforge.net/";
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

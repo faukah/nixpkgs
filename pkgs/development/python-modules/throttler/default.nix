@@ -9,7 +9,6 @@
   pytest-asyncio,
   pytest-cov,
 }:
-
 buildPythonPackage rec {
   pname = "throttler";
   version = "1.2.2";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/" ];
+  pytestFlagsArray = ["tests/"];
 
   disabledTestPaths = [
     # time sensitive tests
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Zero-dependency Python package for easy throttling with asyncio support";
     homepage = "https://github.com/uburuntu/throttler";
     license = licenses.mit;
-    maintainers = with maintainers; [ renatoGarcia ];
+    maintainers = with maintainers; [renatoGarcia];
   };
 }

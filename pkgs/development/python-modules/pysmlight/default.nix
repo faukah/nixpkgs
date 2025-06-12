@@ -11,7 +11,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pysmlight";
   version = "0.2.6";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-mK9bWRo5l2t2E/TP7POj04z45zD/XZbNOkFXGvD23k8=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     mashumaro
   ];
 
-  pythonImportsCheck = [ "pysmlight" ];
+  pythonImportsCheck = ["pysmlight"];
 
   nativeCheckInputs = [
     aresponses
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     description = "Library implementing API control of the SMLIGHT SLZB-06 LAN Coordinators";
     homepage = "https://github.com/smlight-tech/pysmlight";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

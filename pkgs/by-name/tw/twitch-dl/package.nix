@@ -7,7 +7,6 @@
   ffmpeg,
   writableTmpDirAsHomeHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "twitch-dl";
   version = "3.1.0";
@@ -62,7 +61,7 @@ python3Packages.buildPythonApplication rec {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ ffmpeg ])
+    (lib.makeBinPath [ffmpeg])
   ];
 
   postInstall = ''

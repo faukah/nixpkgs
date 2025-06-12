@@ -5,18 +5,15 @@
   pname,
   version,
   sha256,
-  metaCommon ? { },
-}:
-
-let
+  metaCommon ? {},
+}: let
   src = fetchurl {
     url = "https://github.com/sindresorhus/caprine/releases/download/v${version}/Caprine-${version}.AppImage";
     name = "Caprine-${version}.AppImage";
     inherit sha256;
   };
-  extracted = appimageTools.extractType2 { inherit pname version src; };
-in
-(appimageTools.wrapType2 {
+  extracted = appimageTools.extractType2 {inherit pname version src;};
+in (appimageTools.wrapType2 {
   inherit pname version src;
 
   passthru = {
@@ -37,7 +34,9 @@ in
         --replace AppRun caprine
   '';
 
-  meta = metaCommon // {
-    platforms = [ "x86_64-linux" ];
-  };
+  meta =
+    metaCommon
+    // {
+      platforms = ["x86_64-linux"];
+    };
 })

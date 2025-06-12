@@ -13,7 +13,6 @@
   typing-extensions,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "spatialmath-python";
   version = "1.1.14";
@@ -32,9 +31,9 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonRemoveDeps = [ "pre-commit" ];
+  pythonRemoveDeps = ["pre-commit"];
 
-  pythonRelaxDeps = [ "matplotlib" ];
+  pythonRelaxDeps = ["matplotlib"];
 
   dependencies = [
     ansitable
@@ -44,9 +43,9 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "spatialmath" ];
+  pythonImportsCheck = ["spatialmath"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # tests hang

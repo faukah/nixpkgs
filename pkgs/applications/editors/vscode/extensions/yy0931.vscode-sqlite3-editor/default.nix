@@ -15,6 +15,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=yy0931.vscode-sqlite3-editor";
     homepage = "https://github.com/yy0931/sqlite3-editor";
     license = lib.licenses.gpl3Only;
-    maintainers = [ lib.maintainers.ch4og ];
+    maintainers = [lib.maintainers.ch4og];
   };
 }

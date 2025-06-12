@@ -11,7 +11,6 @@
   gtk4,
   wrapGAppsHook4,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "szyszka";
   version = "3.0.0";
@@ -56,7 +55,7 @@ rustPlatform.buildRustPackage rec {
     description = "Simple but powerful and fast bulk file renamer";
     homepage = "https://github.com/qarmin/szyszka";
     license = licenses.mit;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
     mainProgram = "szyszka";
   };
 }

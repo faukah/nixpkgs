@@ -5,7 +5,6 @@
   kernel,
   kernelModuleMakeFlags,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lttng-modules-${kernel.version}";
   version = "2.13.15";
@@ -19,16 +18,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    "INSTALL_MOD_PATH=${placeholder "out"}"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      "INSTALL_MOD_PATH=${placeholder "out"}"
+    ];
 
-  installTargets = [ "modules_install" ];
+  installTargets = ["modules_install"];
 
   enableParallelBuilding = true;
 
@@ -41,9 +42,10 @@ stdenv.mkDerivation rec {
       mit
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     broken =
-      (lib.versions.majorMinor kernel.modDirVersion) == "5.10"
+      (lib.versions.majorMinor kernel.modDirVersion)
+      == "5.10"
       || (lib.versions.majorMinor kernel.modDirVersion) == "5.4";
   };
 }

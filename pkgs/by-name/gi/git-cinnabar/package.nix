@@ -10,7 +10,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "git-cinnabar";
   version = "0.7.2";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "git remote helper to interact with mercurial repositories";
     homepage = "https://github.com/glandium/git-cinnabar";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ qyliss ];
+    maintainers = with lib.maintainers; [qyliss];
     platforms = lib.platforms.all;
   };
 })

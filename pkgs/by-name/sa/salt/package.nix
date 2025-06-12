@@ -7,9 +7,8 @@
   openssl,
   # Many Salt modules require various Python modules to be installed,
   # passing them in this array enables Salt to find them.
-  extraInputs ? [ ],
+  extraInputs ? [],
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "salt";
   version = "3007.1";
@@ -44,8 +43,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace 'pyzmq==25.0.2 ; sys_platform == "win32"' ""
   '';
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       distro
       jinja2
@@ -75,7 +73,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://saltproject.io/";
     changelog = "https://docs.saltproject.io/en/latest/topics/releases/${version}.html";
     description = "Portable, distributed, remote execution and configuration management system";
-    maintainers = with lib.maintainers; [ Flakebi ];
+    maintainers = with lib.maintainers; [Flakebi];
     license = lib.licenses.asl20;
   };
 }

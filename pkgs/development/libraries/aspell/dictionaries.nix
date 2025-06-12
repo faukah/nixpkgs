@@ -6,45 +6,44 @@
   which,
   writeScript,
 }:
-
 /*
-  HOWTO:
+HOWTO:
 
-  * Add some of these to your profile or systemPackages.
+* Add some of these to your profile or systemPackages.
 
-    ~~~~
-    environment.systemPackages = [
-      aspell
-      aspellDicts.en
-      aspellDicts.en-computers
-      aspellDicts.en-science
-    ];
-    ~~~~
+  ~~~~
+  environment.systemPackages = [
+    aspell
+    aspellDicts.en
+    aspellDicts.en-computers
+    aspellDicts.en-science
+  ];
+  ~~~~
 
-  * Rebuild and switch to the new profile.
-  * Add something like
+* Rebuild and switch to the new profile.
+* Add something like
 
-    ~~~~
-    master en_US
-    extra-dicts en-computers.rws
-    add-extra-dicts en_US-science.rws
-    ~~~~
+  ~~~~
+  master en_US
+  extra-dicts en-computers.rws
+  add-extra-dicts en_US-science.rws
+  ~~~~
 
-    to `/etc/aspell.conf` or `~/.aspell.conf`.
-  * Check that `aspell -a` starts without errors.
-  * (optional) Check your config with `aspell dump config | grep -vE '^(#|$)'`.
-  * Enjoy.
+  to `/etc/aspell.conf` or `~/.aspell.conf`.
+* Check that `aspell -a` starts without errors.
+* (optional) Check your config with `aspell dump config | grep -vE '^(#|$)'`.
+* Enjoy.
 */
-
 let
-
   /*
-    Function to compile an Aspell dictionary.  Fortunately, they all
-    build in the exact same way.
+  Function to compile an Aspell dictionary.  Fortunately, they all
+  build in the exact same way.
   */
-  buildDict =
-    { shortName, fullName, ... }@args:
-
+  buildDict = {
+    shortName,
+    fullName,
+    ...
+  } @ args:
     stdenv.mkDerivation (
       {
         pname = "aspell-dict-${shortName}";
@@ -58,120 +57,116 @@ let
 
         dontAddPrefix = true;
 
-        configurePlatforms = [ ];
+        configurePlatforms = [];
 
         preBuild = "makeFlagsArray=(dictdir=$out/lib/aspell datadir=$out/lib/aspell)";
 
-        meta = {
-          description = "Aspell dictionary for ${fullName}";
-          platforms = lib.platforms.all;
-        } // (args.meta or { });
+        meta =
+          {
+            description = "Aspell dictionary for ${fullName}";
+            platforms = lib.platforms.all;
+          }
+          // (args.meta or {});
       }
-      // removeAttrs args [ "meta" ]
+      // removeAttrs args ["meta"]
     );
 
-  buildOfficialDict =
-    {
-      language,
-      version,
-      filename,
-      fullName,
-      sha256,
-      ...
-    }@args:
-    let
-      buildArgs =
-        {
-          shortName = "${language}";
+  buildOfficialDict = {
+    language,
+    version,
+    filename,
+    fullName,
+    sha256,
+    ...
+  } @ args: let
+    buildArgs =
+      {
+        shortName = "${language}";
 
-          src = fetchurl {
-            url = "mirror://gnu/aspell/dict/${language}/${filename}-${language}-${version}.tar.bz2";
-            inherit sha256;
-          };
+        src = fetchurl {
+          url = "mirror://gnu/aspell/dict/${language}/${filename}-${language}-${version}.tar.bz2";
+          inherit sha256;
+        };
 
-          /*
-            Remove any instances of u-deva.cmap and u-deva.cset since
-            they are included in the main aspell package and can
-            cause conflicts otherwise.
-          */
-          postInstall = ''
-            rm -f $out/lib/aspell/u-deva.{cmap,cset}
-          '';
+        /*
+        Remove any instances of u-deva.cmap and u-deva.cset since
+        they are included in the main aspell package and can
+        cause conflicts otherwise.
+        */
+        postInstall = ''
+          rm -f $out/lib/aspell/u-deva.{cmap,cset}
+        '';
 
-          passthru.updateScript = writeScript "update-aspellDict-${language}" ''
-            #!/usr/bin/env nix-shell
-            #!nix-shell -i bash -p nix curl gnused common-updater-scripts
-            set -eu -o pipefail
+        passthru.updateScript = writeScript "update-aspellDict-${language}" ''
+          #!/usr/bin/env nix-shell
+          #!nix-shell -i bash -p nix curl gnused common-updater-scripts
+          set -eu -o pipefail
 
-            # List tarballs in the dictionary's subdirectory via HTTPS and
-            # the simple list method of Apache's mod_autoindex.
-            #
-            # Catalan dictionary has an exception where an earlier version
-            # compares as newer because the versioning scheme has changed.
-            versions=$(
-                echo '[';
-                curl -s 'https://ftp.gnu.org/gnu/aspell/dict/${language}/?F=0' | \
-                    sed -r 's/.* href="${filename}-${language}-([A-Za-z0-9_+.-]+)\.tar\.bz2".*/"\1"/;t;d' | \
-                    if [ '${language}' = "ca" ]; then grep -v 20040130-1; else cat; fi; \
-                echo ']')
+          # List tarballs in the dictionary's subdirectory via HTTPS and
+          # the simple list method of Apache's mod_autoindex.
+          #
+          # Catalan dictionary has an exception where an earlier version
+          # compares as newer because the versioning scheme has changed.
+          versions=$(
+              echo '[';
+              curl -s 'https://ftp.gnu.org/gnu/aspell/dict/${language}/?F=0' | \
+                  sed -r 's/.* href="${filename}-${language}-([A-Za-z0-9_+.-]+)\.tar\.bz2".*/"\1"/;t;d' | \
+                  if [ '${language}' = "ca" ]; then grep -v 20040130-1; else cat; fi; \
+              echo ']')
 
-            # Sort versions in descending order using Nix's and take the first as the latest.
-            sortVersions="(with builtins; head (sort (a: b: compareVersions a b > 0) $versions))"
-            # nix-instantiate outputs Nix strings (with quotes), so remove them to get
-            # a result similar to `nix eval --raw`.
-            latestVersion=$(nix-instantiate --eval --expr "$sortVersions" | tr -d '"')
+          # Sort versions in descending order using Nix's and take the first as the latest.
+          sortVersions="(with builtins; head (sort (a: b: compareVersions a b > 0) $versions))"
+          # nix-instantiate outputs Nix strings (with quotes), so remove them to get
+          # a result similar to `nix eval --raw`.
+          latestVersion=$(nix-instantiate --eval --expr "$sortVersions" | tr -d '"')
 
-            update-source-version aspellDicts.${language} "$latestVersion"
-          '';
+          update-source-version aspellDicts.${language} "$latestVersion"
+        '';
 
-          meta = {
+        meta =
+          {
             homepage = "http://ftp.gnu.org/gnu/aspell/dict/0index.html";
-          } // (args.meta or { });
+          }
+          // (args.meta or {});
+      }
+      // lib.optionalAttrs
+      (lib.elem language [
+        "is"
+        "nb"
+      ])
+      {
+        # These have Windows-1251 encoded non-ASCII characters,
+        # so need some special handling.
+        unpackPhase = ''
+          runHook preUnpack
 
-        }
-        //
-          lib.optionalAttrs
-            (lib.elem language [
-              "is"
-              "nb"
-            ])
-            {
-              # These have Windows-1251 encoded non-ASCII characters,
-              # so need some special handling.
-              unpackPhase = ''
-                runHook preUnpack
+          tar -xf $src --strip-components=1 || true
 
-                tar -xf $src --strip-components=1 || true
+          runHook postUnpack
+        '';
 
-                runHook postUnpack
-              '';
-
-              postPatch = lib.getAttr language {
-                is = ''
-                  cp icelandic.alias íslenska.alias
-                  sed -i 's/ .slenska\.alias/ íslenska.alias/g' Makefile.pre
-                '';
-                nb = ''
-                  cp bokmal.alias bokmål.alias
-                  sed -i 's/ bokm.l\.alias/ bokmål.alias/g' Makefile.pre
-                '';
-              };
-            }
-        // removeAttrs args [
-          "language"
-          "filename"
-          "sha256"
-          "meta"
-        ];
-    in
+        postPatch = lib.getAttr language {
+          is = ''
+            cp icelandic.alias íslenska.alias
+            sed -i 's/ .slenska\.alias/ íslenska.alias/g' Makefile.pre
+          '';
+          nb = ''
+            cp bokmal.alias bokmål.alias
+            sed -i 's/ bokm.l\.alias/ bokmål.alias/g' Makefile.pre
+          '';
+        };
+      }
+      // removeAttrs args [
+        "language"
+        "filename"
+        "sha256"
+        "meta"
+      ];
+  in
     buildDict buildArgs;
 
   # Function to compile txt dict files into Aspell dictionaries.
-  buildTxtDict =
-    {
-      langInputs ? [ ],
-      ...
-    }@args:
+  buildTxtDict = {langInputs ? [], ...} @ args:
     buildDict (
       {
         propagatedUserEnvPackages = langInputs;
@@ -181,7 +176,7 @@ let
           # Copy everything we might possibly need
           ${lib.concatMapStringsSep "\n" (p: ''
             cp -a ${p}/lib/aspell/* .
-          '') ([ aspell ] ++ langInputs)}
+          '') ([aspell] ++ langInputs)}
           export ASPELL_CONF="data-dir $(pwd)"
 
           aspell-create() {
@@ -223,10 +218,7 @@ let
       }
       // args
     );
-
-in
-rec {
-
+in rec {
   ### Languages
 
   af = buildOfficialDict {
@@ -1094,7 +1086,7 @@ rec {
       sha256 = "1vzk7cdvcm9r1c6mgxpabrdcpvghdv9mjmnf6iq5wllcif5nsw2b";
     };
 
-    langInputs = [ en ];
+    langInputs = [en];
 
     buildPhase = ''
       runHook preBuild
@@ -1124,7 +1116,7 @@ rec {
       hash = "sha256-oT4nUiev5q4QjHeuF8jNVBcyyHE9fdH9+uDMkZsOWp8=";
     };
 
-    langInputs = [ en ];
+    langInputs = [en];
 
     buildPhase = ''
       runHook preBuild
@@ -1139,7 +1131,5 @@ rec {
       # no license is given so we have to assume it is unfree
       license = lib.licenses.unfree;
     };
-
   };
-
 }

@@ -10,7 +10,6 @@
   readline,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "atari800";
   version = "5.2.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "atari800";
     repo = "atari800";
-    rev = "ATARI800_${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+    rev = "ATARI800_${lib.replaceStrings ["."] ["_"] finalAttrs.version}";
     hash = "sha256-D66YRRTqdoV9TqDFonJ9XNpfP52AicuYgdiW27RCIuQ=";
   };
 
@@ -54,8 +53,8 @@ stdenv.mkDerivation (finalAttrs: {
       WinCE, Sega Dreamcast, Android and other systems supported by the SDL
       library.
     '';
-    license = with lib.licenses; [ gpl2Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl2Plus];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

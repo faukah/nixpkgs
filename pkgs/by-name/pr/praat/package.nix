@@ -8,7 +8,6 @@
   stdenv,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "praat";
   version = "6.4.25";
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "praat";
     homepage = "https://www.fon.hum.uva.nl/praat/";
     license = lib.licenses.gpl2Plus; # Has some 3rd-party code in it though
-    maintainers = with lib.maintainers; [ orivej ];
+    maintainers = with lib.maintainers; [orivej];
     platforms = lib.platforms.linux;
   };
 })

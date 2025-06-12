@@ -3,11 +3,9 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build system
   setuptools,
   setuptools-scm,
-
   # dependencies
   numpy,
   scikit-image,
@@ -19,11 +17,9 @@
   pyyaml,
   torchmetrics,
   pandas,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fastmri";
   version = "0.3.0";
@@ -67,20 +63,20 @@ buildPythonPackage rec {
     pandas
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # much older version of pytorch-lightning is used
     "tests/test_modules.py"
   ];
 
-  pythonImportsCheck = [ "fastmri" ];
+  pythonImportsCheck = ["fastmri"];
 
   meta = {
     description = "Pytorch-based MRI reconstruction tooling";
     homepage = "https://github.com/facebookresearch/fastMRI";
     changelog = "https://github.com/facebookresearch/fastMRI/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ osbm ];
+    maintainers = with lib.maintainers; [osbm];
   };
 }

@@ -14,7 +14,6 @@
   makeDesktopItem,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gkrellm";
   version = "2.4.0";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     libICE
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # Makefiles are patched to fix references to `/usr/X11R6' and to add
   # `-lX11' to make sure libX11's store path is in the RPATH.
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     done
   '';
 
-  makeFlags = [ "STRIP=-s" ];
+  makeFlags = ["STRIP=-s"];
 
   installFlags = [
     "DESTDIR=$(out)"

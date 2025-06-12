@@ -3,7 +3,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qprint";
   version = "1.1";
@@ -27,8 +26,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.publicDomain;
     description = "Encode and decode Quoted-Printable files";
     mainProgram = "qprint";
-    maintainers = [ lib.maintainers.tv ];
+    maintainers = [lib.maintainers.tv];
     platforms = lib.platforms.all;
   };
-
 }

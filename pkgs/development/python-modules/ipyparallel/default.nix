@@ -16,7 +16,6 @@
   tqdm,
   traitlets,
 }:
-
 buildPythonPackage rec {
   pname = "ipyparallel";
   version = "9.0.1";
@@ -37,25 +36,27 @@ buildPythonPackage rec {
       --replace '"jupyterlab==4.*",' ""
   '';
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [
-    decorator
-    ipykernel
-    ipython
-    jupyter-client
-    psutil
-    python-dateutil
-    pyzmq
-    tornado
-    tqdm
-    traitlets
-  ] ++ lib.optional (pythonOlder "3.10") importlib-metadata;
+  dependencies =
+    [
+      decorator
+      ipykernel
+      ipython
+      jupyter-client
+      psutil
+      python-dateutil
+      pyzmq
+      tornado
+      tqdm
+      traitlets
+    ]
+    ++ lib.optional (pythonOlder "3.10") importlib-metadata;
 
   # Requires access to cluster
   doCheck = false;
 
-  pythonImportsCheck = [ "ipyparallel" ];
+  pythonImportsCheck = ["ipyparallel"];
 
   meta = with lib; {
     description = "Interactive Parallel Computing with IPython";

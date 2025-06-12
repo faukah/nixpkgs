@@ -13,7 +13,6 @@
   wrapGAppsHook4,
   gtk4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eiciel";
   version = "0.10.1";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     description = "Graphical editor for ACLs and extended attributes";
     homepage = "https://rofi.roger-ferrer.org/eiciel/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ keysmashes ];
+    maintainers = with maintainers; [keysmashes];
     platforms = platforms.linux;
     mainProgram = "eiciel";
   };

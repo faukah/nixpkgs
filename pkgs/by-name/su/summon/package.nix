@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "summon";
   version = "0.10.4";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-B6sbMKmuIQ+xoJspFCRtqe9IOLW+AFF5XQBDSLhM9cI=";
 
-  subPackages = [ "cmd" ];
+  subPackages = ["cmd"];
 
   postInstall = ''
     mv $out/bin/cmd $out/bin/summon
@@ -28,6 +27,6 @@ buildGoModule rec {
     mainProgram = "summon";
     homepage = "https://cyberark.github.io/summon";
     license = lib.licenses.mit;
-    maintainers = with maintainers; [ quentini ];
+    maintainers = with maintainers; [quentini];
   };
 }

@@ -29,7 +29,6 @@
   dbus,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-online-accounts";
   version = "3.54.2";
@@ -109,6 +108,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Single sign-on framework for GNOME";
     platforms = platforms.unix;
     license = licenses.lgpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 })

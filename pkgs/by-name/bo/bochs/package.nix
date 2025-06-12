@@ -23,7 +23,6 @@
   enableWx ? !stdenv.hostPlatform.isDarwin,
   enableX11 ? !stdenv.hostPlatform.isDarwin,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bochs";
   version = "3.0";
@@ -153,9 +152,10 @@ stdenv.mkDerivation (finalAttrs: {
       Intel x86 CPU, common I/O devices, and a custom BIOS.
     '';
     license = lib.licenses.lgpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })
 # TODO: a better way to organize the options
 # TODO: docbook (docbook-tools from RedHat mirrors should help)
+

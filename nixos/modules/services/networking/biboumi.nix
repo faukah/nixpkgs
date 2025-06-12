@@ -4,25 +4,24 @@
   pkgs,
   options,
   ...
-}:
-let
+}: let
   cfg = config.services.biboumi;
   inherit (config.environment) etc;
   rootDir = "/run/biboumi/mnt-root";
   stateDir = "/var/lib/biboumi";
   settingsFile = pkgs.writeText "biboumi.cfg" (
     lib.generators.toKeyValue {
-      mkKeyValue = k: v: lib.optionalString (v != null) (lib.generators.mkKeyValueDefault { } "=" k v);
-    } cfg.settings
+      mkKeyValue = k: v: lib.optionalString (v != null) (lib.generators.mkKeyValueDefault {} "=" k v);
+    }
+    cfg.settings
   );
   need_CAP_NET_BIND_SERVICE = cfg.settings.identd_port != 0 && cfg.settings.identd_port < 1024;
-in
-{
+in {
   options = {
     services.biboumi = {
       enable = lib.mkEnableOption "the Biboumi XMPP gateway to IRC";
 
-      package = lib.mkPackageOption pkgs "biboumi" { };
+      package = lib.mkPackageOption pkgs "biboumi" {};
 
       settings = lib.mkOption {
         description = ''
@@ -30,10 +29,9 @@ in
 
           for documentation.
         '';
-        default = { };
+        default = {};
         type = lib.types.submodule {
-          freeformType =
-            with lib.types;
+          freeformType = with lib.types;
             (attrsOf (
               nullOr (oneOf [
                 str
@@ -46,8 +44,8 @@ in
             };
           options.admin = lib.mkOption {
             type = with lib.types; listOf str;
-            default = [ ];
-            example = [ "admin@example.org" ];
+            default = [];
+            example = ["admin@example.org"];
             apply = lib.concatStringsSep ":";
             description = ''
               The bare JID of the gateway administrator. This JID will have more
@@ -191,13 +189,13 @@ in
 
   config = lib.mkIf cfg.enable {
     networking.firewall = lib.mkIf (cfg.openFirewall && cfg.settings.identd_port != 0) {
-      allowedTCPPorts = [ cfg.settings.identd_port ];
+      allowedTCPPorts = [cfg.settings.identd_port];
     };
 
     systemd.services.biboumi = {
       description = "Biboumi, XMPP to IRC gateway";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "notify";
@@ -227,7 +225,7 @@ in
         DynamicUser = true;
         RootDirectory = rootDir;
         RootDirectoryStartOnly = true;
-        InaccessiblePaths = [ "-+${rootDir}" ];
+        InaccessiblePaths = ["-+${rootDir}"];
         RuntimeDirectory = [
           "biboumi"
           (lib.removePrefix "/run/" rootDir)
@@ -250,8 +248,8 @@ in
         ];
         # The following options are only for optimizing:
         # systemd-analyze security biboumi
-        AmbientCapabilities = [ (lib.optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE") ];
-        CapabilityBoundingSet = [ (lib.optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE") ];
+        AmbientCapabilities = [(lib.optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE")];
+        CapabilityBoundingSet = [(lib.optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE")];
         # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;
@@ -304,5 +302,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ julm ];
+  meta.maintainers = with lib.maintainers; [julm];
 }

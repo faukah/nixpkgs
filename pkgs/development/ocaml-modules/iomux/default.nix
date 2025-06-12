@@ -5,7 +5,6 @@
   dune-configurator,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "iomux";
   version = "0.3";
@@ -29,7 +28,7 @@ buildDunePackage rec {
   meta = {
     homepage = "https://github.com/haesbaert/ocaml-${pname}";
     description = "IO Multiplexers for OCaml";
-    license = with lib.licenses; [ isc ];
-    maintainers = with lib.maintainers; [ toastal ];
+    license = with lib.licenses; [isc];
+    maintainers = with lib.maintainers; [toastal];
   };
 }

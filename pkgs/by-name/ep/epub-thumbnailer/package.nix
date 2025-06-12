@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "epub-thumbnailer";
   version = "0-unstable-2024-03-26";
@@ -29,13 +28,13 @@ python3.pkgs.buildPythonApplication {
     mv $out/bin/epub-thumbnailer.py $out/bin/epub-thumbnailer
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Script to extract the cover of an epub book and create a thumbnail for it";
     homepage = "https://github.com/marianosimone/epub-thumbnailer";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
     mainProgram = "epub-thumbnailer";
   };
 }

@@ -6,7 +6,6 @@
   docbook_xsl,
   libxslt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libfsm";
   version = "0.1pre2987_${builtins.substring 0 8 src.rev}";
@@ -65,6 +64,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/katef/libfsm";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

@@ -5,7 +5,6 @@
   gentium-plus,
   makeDesktopItem,
 }:
-
 buildNimPackage (finalAttrs: {
   pname = "hottext";
   version = "20231003";
@@ -22,7 +21,7 @@ buildNimPackage (finalAttrs: {
   HOTTEXT_FONT_PATH = "${gentium-plus}/share/fonts/truetype/GentiumPlus-Regular.ttf";
 
   desktopItem = makeDesktopItem {
-    categories = [ "Utility" ];
+    categories = ["Utility"];
     comment = finalAttrs.meta.description;
     desktopName = "hottext";
     exec = "hottext";
@@ -33,11 +32,13 @@ buildNimPackage (finalAttrs: {
     cp -r $desktopItem/* $out
   '';
 
-  meta = finalAttrs.src.meta // {
-    description = "Simple RSVP speed-reading utility";
-    license = lib.licenses.unlicense;
-    homepage = "https://git.sr.ht/~ehmry/hottext";
-    maintainers = with lib.maintainers; [ ehmry ];
-    mainProgram = "hottext";
-  };
+  meta =
+    finalAttrs.src.meta
+    // {
+      description = "Simple RSVP speed-reading utility";
+      license = lib.licenses.unlicense;
+      homepage = "https://git.sr.ht/~ehmry/hottext";
+      maintainers = with lib.maintainers; [ehmry];
+      mainProgram = "hottext";
+    };
 })

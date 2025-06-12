@@ -4,7 +4,6 @@
   fetchurl,
   musl-fts,
 }:
-
 stdenv.mkDerivation {
   pname = "rcshist";
   version = "1.04";
@@ -22,7 +21,7 @@ stdenv.mkDerivation {
     description = "Utitity to display complete revision history of a set of RCS files";
     homepage = "https://invisible-island.net/rcshist/rcshist.html";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.kaction ];
+    maintainers = [lib.maintainers.kaction];
     platforms = lib.platforms.unix;
     mainProgram = "rcshist";
   };

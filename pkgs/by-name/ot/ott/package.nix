@@ -6,7 +6,6 @@
   ocamlPackages,
   opaline,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ott";
   version = "0.34";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
       findlib
       ocaml
     ]);
-  buildInputs = with ocamlPackages; [ ocamlgraph ];
+  buildInputs = with ocamlPackages; [ocamlgraph];
 
   installTargets = "ott.install";
 
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.cl.cam.ac.uk/~pes20/ott";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ jwiegley ];
+    maintainers = with lib.maintainers; [jwiegley];
     platforms = lib.platforms.unix;
   };
 }

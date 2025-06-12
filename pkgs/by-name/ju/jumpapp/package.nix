@@ -9,7 +9,6 @@
   xprop,
   nettools,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jumpapp";
   version = "1.2";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9sh0+zpDxwqRGC1jUgGTDdSDRdAFsL12mQ/Opwh/UBc=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   nativeBuildInputs = [
     pandoc
     perl
@@ -33,19 +32,17 @@ stdenv.mkDerivation rec {
     nettools
     perl
   ];
-  postFixup =
-    let
-      runtimePath = lib.makeBinPath buildInputs;
-    in
-    ''
-      sed -i "2 i export PATH=${runtimePath}:\$PATH" $out/bin/jumpapp
-      sed -i "2 i export PATH=${perl}/bin:\$PATH" $out/bin/jumpappify-desktop-entry
-    '';
+  postFixup = let
+    runtimePath = lib.makeBinPath buildInputs;
+  in ''
+    sed -i "2 i export PATH=${runtimePath}:\$PATH" $out/bin/jumpapp
+    sed -i "2 i export PATH=${perl}/bin:\$PATH" $out/bin/jumpappify-desktop-entry
+  '';
 
   meta = {
     homepage = "https://github.com/mkropat/jumpapp";
     description = "Run-or-raise application switcher for any X11 desktop";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.matklad ];
+    maintainers = [lib.maintainers.matklad];
   };
 }

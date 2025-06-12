@@ -3,7 +3,6 @@
   fetchFromGitHub,
   gambit-support,
 }:
-
 callPackage ./build.nix rec {
   version = "unstable-2023-12-04";
   git-version = "4.9.5-84-g6b19d0c9";

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "csv-tui";
   version = "1.2";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Terminal based csv editor which is designed to be memory efficient but still useful";
     homepage = "https://github.com/nathangavin/csv-tui";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ottoblep ];
+    maintainers = with lib.maintainers; [ottoblep];
     mainProgram = "csv_tui";
   };
 }

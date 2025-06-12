@@ -16,7 +16,6 @@
   pyyaml,
   rich,
 }:
-
 buildPythonPackage rec {
   pname = "home-assistant-chip-core";
   inherit (home-assistant-chip-wheels) version;
@@ -31,20 +30,22 @@ buildPythonPackage rec {
     src=($src/home_assistant_chip_core*.whl)
   '';
 
-  propagatedBuildInputs = [
-    aenum
-    coloredlogs
-    construct
-    cryptography
-    dacite
-    ecdsa
-    rich
-    pyyaml
-    ipdb
-    deprecation
-    mobly
-    pygobject3
-  ] ++ home-assistant-chip-wheels.propagatedBuildInputs;
+  propagatedBuildInputs =
+    [
+      aenum
+      coloredlogs
+      construct
+      cryptography
+      dacite
+      ecdsa
+      rich
+      pyyaml
+      ipdb
+      deprecation
+      mobly
+      pygobject3
+    ]
+    ++ home-assistant-chip-wheels.propagatedBuildInputs;
 
   pythonNamespaces = [
     "chip"
@@ -68,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/home-assistant-libs/chip-wheels";
     changelog = "https://github.com/home-assistant-libs/chip-wheels/releases/tag/${version}";
     license = licenses.asl20;
-    teams = [ teams.home-assistant ];
+    teams = [teams.home-assistant];
   };
 }

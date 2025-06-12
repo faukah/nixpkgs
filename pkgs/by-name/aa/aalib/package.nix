@@ -4,7 +4,6 @@
   fetchurl,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aalib";
   version = "1.4rc5";
@@ -23,12 +22,14 @@ stdenv.mkDerivation rec {
   ];
   setOutputFlags = false; # Doesn't support all the flags
 
-  patches = [
-    # Fix implicit `int` on `main` error with newer versions of clang
-    ./clang.patch
-    # Fix build against opaque aalib API
-    ./ncurses-6.5.patch
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ ./darwin.patch ];
+  patches =
+    [
+      # Fix implicit `int` on `main` error with newer versions of clang
+      ./clang.patch
+      # Fix build against opaque aalib API
+      ./ncurses-6.5.patch
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [./darwin.patch];
 
   # The fuloong2f is not supported by aalib still
   preConfigure = ''
@@ -39,7 +40,7 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   configureFlags = [
     "--without-x"

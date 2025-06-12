@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   echoAll = pkgs.writeScript "echo-all" ''
     #! ${pkgs.runtimeShell}
     for s in "$@"; do
@@ -18,32 +16,27 @@ let
     4.2
     23
   ];
-in
-{
+in {
   name = "systemd-escaping";
 
-  nodes.machine =
-    {
-      pkgs,
-      lib,
-      utils,
-      ...
-    }:
-    {
-      systemd.services.echo =
-        assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ [ ] ])).success;
-        assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ { } ])).success;
-        assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ null ])).success;
-        assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ false ])).success;
-        assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ (_: _) ])).success;
-        {
-          description = "Echo to the journal";
-          serviceConfig.Type = "oneshot";
-          serviceConfig.ExecStart = ''
-            ${echoAll} ${utils.escapeSystemdExecArgs args}
-          '';
-        };
+  nodes.machine = {
+    pkgs,
+    lib,
+    utils,
+    ...
+  }: {
+    systemd.services.echo = assert !(builtins.tryEval (utils.escapeSystemdExecArgs [[]])).success;
+    assert !(builtins.tryEval (utils.escapeSystemdExecArgs [{}])).success;
+    assert !(builtins.tryEval (utils.escapeSystemdExecArgs [null])).success;
+    assert !(builtins.tryEval (utils.escapeSystemdExecArgs [false])).success;
+    assert !(builtins.tryEval (utils.escapeSystemdExecArgs [(_: _)])).success; {
+      description = "Echo to the journal";
+      serviceConfig.Type = "oneshot";
+      serviceConfig.ExecStart = ''
+        ${echoAll} ${utils.escapeSystemdExecArgs args}
+      '';
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("multi-user.target")

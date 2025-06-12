@@ -63,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/getnf/embellish";
     changelog = "https://github.com/getnf/embellish/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ normalcea ];
+    maintainers = with lib.maintainers; [normalcea];
     mainProgram = "io.github.getnf.embellish";
     platforms = lib.platforms.linux;
   };

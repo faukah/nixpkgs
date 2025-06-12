@@ -15,7 +15,6 @@
   libtool,
   libpulseaudio,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dsp";
   version = "2.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-WUH4+5v1wv6EXTOuRq9iVVZsXMt5DVrtgX8vLE7a8s8=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     fftw
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/bmc0/dsp";
     description = "Audio processing program with an interactive mode";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     platforms = lib.platforms.linux;
     mainProgram = "dsp";
   };

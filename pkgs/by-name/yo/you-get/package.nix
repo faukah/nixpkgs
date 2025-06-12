@@ -6,7 +6,6 @@
   ffmpeg,
   installShellFiles,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "you-get";
   version = "0.4.1700";
@@ -29,7 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     })
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd you-get \
@@ -47,7 +46,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://you-get.org";
     changelog = "https://github.com/soimort/you-get/raw/v${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ryneeverett ];
+    maintainers = with lib.maintainers; [ryneeverett];
     mainProgram = "you-get";
   };
 }

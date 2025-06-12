@@ -15,7 +15,6 @@
   sphinxHook,
   callPackage,
 }:
-
 buildPythonPackage rec {
   pname = "cliff";
   version = "4.10.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   dependencies = [
     autopage
@@ -48,16 +47,16 @@ buildPythonPackage rec {
   # check in passthru.tests.pytest to escape infinite recursion with stestr
   doCheck = false;
 
-  pythonImportsCheck = [ "cliff" ];
+  pythonImportsCheck = ["cliff"];
 
   passthru.tests = {
-    pytest = callPackage ./tests.nix { };
+    pytest = callPackage ./tests.nix {};
   };
 
   meta = with lib; {
     description = "Command Line Interface Formulation Framework";
     homepage = "https://github.com/openstack/cliff";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

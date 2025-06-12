@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   doCheck = false; # Tests do not support Python3
 
-  pythonImportsCheck = [ "pymeta" ];
+  pythonImportsCheck = ["pymeta"];
 
   meta = with lib; {
     description = "Pattern-matching language based on OMeta for Python 3 and 2";

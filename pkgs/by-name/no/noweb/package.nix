@@ -7,7 +7,6 @@
   icon-lang,
   useIcon ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "noweb";
   version = "2.13";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "nrnrnr";
     repo = "noweb";
-    rev = "v${builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+    rev = "v${builtins.replaceStrings ["."] ["_"] finalAttrs.version}";
     sha256 = "sha256-COcWyrYkheRaSr2gqreRRsz9SYRTX2PSl7km+g98ljs=";
   };
 
@@ -31,8 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace Makefile --replace '`./gitversion`' '${finalAttrs.src.rev}'
   '';
 
-  nativeBuildInputs = [ groff ] ++ lib.optionals useIcon [ icon-lang ];
-  buildInputs = [ nawk ];
+  nativeBuildInputs = [groff] ++ lib.optionals useIcon [icon-lang];
+  buildInputs = [nawk];
 
   preBuild = ''
     mkdir -p "$out/lib/noweb"
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
       "LIBSRC=icon"
       "ICONC=icont"
     ]
-    ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
+    ++ ["CC=${stdenv.cc.targetPrefix}cc"];
 
   preInstall = ''
     mkdir -p "$tex/tex/latex/noweb"
@@ -90,14 +89,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tlType = "run";
-    pkgs = [ finalAttrs.finalPackage.tex ];
+    pkgs = [finalAttrs.finalPackage.tex];
   };
 
   meta = with lib; {
     description = "Simple, extensible literate-programming tool";
     homepage = "https://www.cs.tufts.edu/~nr/noweb";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ yurrriq ];
+    maintainers = with maintainers; [yurrriq];
     platforms = with platforms; linux ++ darwin;
   };
 })

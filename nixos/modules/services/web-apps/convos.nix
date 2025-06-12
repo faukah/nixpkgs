@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.convos;
-in
-{
+in {
   options.services.convos = {
     enable = mkEnableOption "Convos";
     listenPort = mkOption {
@@ -40,11 +36,14 @@ in
   config = mkIf cfg.enable {
     systemd.services.convos = {
       description = "Convos Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "networking.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["networking.target"];
       environment = {
         CONVOS_HOME = "%S/convos";
-        CONVOS_REVERSE_PROXY = if cfg.reverseProxy then "1" else "0";
+        CONVOS_REVERSE_PROXY =
+          if cfg.reverseProxy
+          then "1"
+          else "0";
         MOJO_LISTEN = "http://${toString cfg.listenAddress}:${toString cfg.listenPort}";
       };
       serviceConfig = {

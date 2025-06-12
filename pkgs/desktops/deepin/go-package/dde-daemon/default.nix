@@ -32,7 +32,6 @@
   dmidecode,
   systemd,
 }:
-
 buildGoModule rec {
   pname = "dde-daemon";
   version = "6.0.43";
@@ -130,15 +129,15 @@ buildGoModule rec {
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : "${
-        lib.makeBinPath [
-          util-linux
-          dde-session-ui
-          glib
-          lshw
-          dmidecode
-          systemd
-        ]
-      }"
+      lib.makeBinPath [
+        util-linux
+        dde-session-ui
+        glib
+        lshw
+        dmidecode
+        systemd
+      ]
+    }"
     )
   '';
 
@@ -156,6 +155,6 @@ buildGoModule rec {
     homepage = "https://github.com/linuxdeepin/dde-daemon";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

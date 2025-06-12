@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "vhdl-ls";
   version = "0.85.0";
@@ -33,6 +32,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/VHDL-LS/rust_hdl";
     license = lib.licenses.mpl20;
     mainProgram = "vhdl_ls";
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

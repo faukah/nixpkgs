@@ -10,7 +10,6 @@
   sip-module ? "sip",
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = sip-module;
   version = "4.19.25";

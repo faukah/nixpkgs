@@ -15,7 +15,6 @@
   setuptools,
   orjson,
 }:
-
 buildPythonPackage rec {
   pname = "crate";
   version = "2.0.0";
@@ -72,6 +71,6 @@ buildPythonPackage rec {
     description = "Python client library for CrateDB";
     changelog = "https://github.com/crate/crate-python/blob/${version}/CHANGES.txt";
     license = licenses.asl20;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

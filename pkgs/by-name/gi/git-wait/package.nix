@@ -5,7 +5,6 @@
   stdenv,
   git,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "git-wait";
   version = "0.4.0-unstable-2024-12-01";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage {
 
   # versionCheckHook is too complex to use here
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ git ];
+  nativeInstallCheckInputs = [git];
   installCheckPhase = ''
     runHook preInstallCheck
 
@@ -45,7 +44,7 @@ rustPlatform.buildRustPackage {
     description = "Simple git wrapper that waits until index.lock file is removed when present before running the command";
     homepage = "https://github.com/darshanparajuli/git-wait";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
     mainProgram = "git-wait";
   };
 }

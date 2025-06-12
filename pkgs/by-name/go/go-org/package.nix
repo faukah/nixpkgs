@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "go-org";
   version = "1.7.0";
@@ -25,7 +24,7 @@ buildGoModule rec {
     description = "Org-mode parser and static site generator in go";
     homepage = "https://niklasfasching.github.io/go-org";
     license = licenses.mit;
-    maintainers = with maintainers; [ bhankas ];
+    maintainers = with maintainers; [bhankas];
     mainProgram = "go-org";
   };
 }

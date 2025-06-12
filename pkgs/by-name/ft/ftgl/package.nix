@@ -10,7 +10,6 @@
   libGLU,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ftgl";
   version = "2.4.0";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
       rendering modes.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

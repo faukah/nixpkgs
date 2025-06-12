@@ -11,7 +11,6 @@
   matrix-nio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zulip";
   version = "0.9.0";
@@ -29,26 +28,28 @@ buildPythonPackage rec {
   };
   sourceRoot = "${src.name}/zulip";
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [
-    requests
-    distro
-    click
-    typing-extensions
-  ] ++ requests.optional-dependencies.security;
+  propagatedBuildInputs =
+    [
+      requests
+      distro
+      click
+      typing-extensions
+    ]
+    ++ requests.optional-dependencies.security;
 
   nativeCheckInputs = [
     matrix-nio
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "zulip" ];
+  pythonImportsCheck = ["zulip"];
 
   meta = with lib; {
     description = "Bindings for the Zulip message API";
     homepage = "https://github.com/zulip/python-zulip-api";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -7,7 +7,6 @@
   zlib,
   ncurses,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sbt";
   version = "1.11.1";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     echo -java-home ${jre.home} >>conf/sbtopts
   '';
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     stdenv.cc.cc # libstdc++.so.6
@@ -40,12 +39,11 @@ stdenv.mkDerivation (finalAttrs: {
     cp -ra . $out/share/sbt
     ln -sT ../share/sbt/bin/sbt $out/bin/sbt
     ln -sT ../share/sbt/bin/sbtn-${
-      if (stdenv.hostPlatform.isDarwin) then
-        "universal-apple-darwin"
-      else if (stdenv.hostPlatform.isAarch64) then
-        "aarch64-pc-linux"
-      else
-        "x86_64-pc-linux"
+      if (stdenv.hostPlatform.isDarwin)
+      then "universal-apple-darwin"
+      else if (stdenv.hostPlatform.isAarch64)
+      then "aarch64-pc-linux"
+      else "x86_64-pc-linux"
     } $out/bin/sbtn
 
     runHook postInstall

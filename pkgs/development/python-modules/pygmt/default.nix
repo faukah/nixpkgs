@@ -15,7 +15,6 @@
   ghostscript,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pygmt";
   version = "0.15.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
       --replace-fail "env.get(\"GMT_LIBRARY_PATH\")" "env.get(\"GMT_LIBRARY_PATH\", \"${gmt}/lib\")"
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     numpy
@@ -59,13 +58,13 @@ buildPythonPackage rec {
     export HOME=$TMP
   '';
 
-  pythonImportsCheck = [ "pygmt" ];
+  pythonImportsCheck = ["pygmt"];
 
   meta = {
     description = "Python interface for the Generic Mapping Tools";
     homepage = "https://github.com/GenericMappingTools/pygmt";
     license = lib.licenses.bsd3;
     changelog = "https://github.com/GenericMappingTools/pygmt/releases/tag/${src.tag}";
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

@@ -13,7 +13,6 @@
   libportal-gtk4,
   pcre2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ptyxis";
   version = "48.4";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/chergert/ptyxis";
     license = lib.licenses.gpl3Plus;
     mainProgram = "ptyxis";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 })

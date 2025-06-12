@@ -8,11 +8,11 @@
   qcheck-core,
   cstruct,
 }:
-
 buildDunePackage {
   pname = "hacl-star";
 
-  inherit (hacl-star-raw)
+  inherit
+    (hacl-star-raw)
     version
     src
     meta

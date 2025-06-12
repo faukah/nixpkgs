@@ -7,7 +7,6 @@
   pytest-django,
   python,
 }:
-
 buildPythonPackage {
   pname = "django-crossdomainmedia";
   version = "0.0.4";
@@ -23,7 +22,7 @@ buildPythonPackage {
     hash = "sha256-nwFUm+cxokZ38c5D77z15gIO/kg49oRACOl6+eGGEtQ=";
   };
 
-  dependencies = [ django ];
+  dependencies = [django];
 
   checkPhase = ''
     ${python.interpreter} manage.py test
@@ -36,6 +35,6 @@ buildPythonPackage {
     description = "Django application to retrieve user's IP address";
     homepage = "https://github.com/stefanw/django-crossdomainmedia";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.onny ];
+    maintainers = [lib.maintainers.onny];
   };
 }

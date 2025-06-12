@@ -12,7 +12,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "compton-conf";
   version = "0.16.0";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
       --replace-fail "DESTINATION \"\''${LXQT_ETC_XDG_DIR}" "DESTINATION \"etc/xdg" \
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     mainProgram = "compton-conf";
     license = licenses.lgpl21Plus;
     platforms = with platforms; unix;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

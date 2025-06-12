@@ -24,7 +24,6 @@
   writeText,
   libsForQt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vulkan-tools-lunarg";
   version = "1.4.313.0";
@@ -96,6 +95,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/LunarG/VulkanTools";
     platforms = platforms.linux;
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

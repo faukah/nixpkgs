@@ -41,11 +41,11 @@ stdenv.mkDerivation {
       hash = "sha256-6IStysItOS7EltTCqdyo9vrsnSA1YYoN4y8Bjv1fhNk=";
       fetchSubmodules = true;
     }).overrideAttrs
-      (_: {
-        GIT_CONFIG_COUNT = 1;
-        GIT_CONFIG_KEY_0 = "url.https://github.com/.insteadOf";
-        GIT_CONFIG_VALUE_0 = "git@github.com:";
-      });
+    (_: {
+      GIT_CONFIG_COUNT = 1;
+      GIT_CONFIG_KEY_0 = "url.https://github.com/.insteadOf";
+      GIT_CONFIG_VALUE_0 = "git@github.com:";
+    });
 
   desktopItems = [
     (makeDesktopItem {
@@ -163,7 +163,7 @@ stdenv.mkDerivation {
     homepage = "https://socalabs.com/synths/commodore-64-sid/";
     mainProgram = "SID";
     platforms = lib.platforms.linux;
-    license = [ lib.licenses.gpl3 ] ++ lib.optional enableVST2 lib.licenses.unfree;
-    maintainers = [ lib.maintainers.l1npengtul ];
+    license = [lib.licenses.gpl3] ++ lib.optional enableVST2 lib.licenses.unfree;
+    maintainers = [lib.maintainers.l1npengtul];
   };
 }

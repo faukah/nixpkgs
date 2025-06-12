@@ -8,9 +8,7 @@
   toml,
   wheel,
 }:
-
 # TODO: offer meson as a Python package so we have dist-info folder.
-
 buildPythonPackage rec {
   pname = "mesonpep517";
   version = "0.2";
@@ -34,7 +32,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  dependencies = [ toml ];
+  dependencies = [toml];
 
   propagatedNativeBuildInputs = [
     meson

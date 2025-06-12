@@ -9,7 +9,6 @@
   check,
   libxcrypt,
 }:
-
 stdenv.mkDerivation {
   pname = "libsigrokdecode";
   version = "0.5.3-unstable-2024-10-01";
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
     python3
     libxcrypt
   ];
-  nativeCheckInputs = [ check ];
+  nativeCheckInputs = [check];
   doCheck = true;
 
   meta = with lib; {

@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "pydf";
   version = "12";
@@ -24,6 +23,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "http://kassiopeia.juls.savba.sk/~garabik/software/pydf/";
     mainProgram = "pydf";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ monsieurp ];
+    maintainers = with maintainers; [monsieurp];
   };
 }

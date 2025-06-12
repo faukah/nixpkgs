@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "vegur";
   version = "${finalAttrs.majorVersion}.${finalAttrs.minorVersion}";

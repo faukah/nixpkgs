@@ -5,7 +5,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "patchelf";
   version = "0.18.0-unstable-2025-02-15";
@@ -23,10 +22,10 @@ stdenv.mkDerivation {
       --replace "set-rpath-library.sh" ""
   '';
 
-  setupHook = [ ./setup-hook.sh ];
+  setupHook = [./setup-hook.sh];
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
@@ -41,7 +40,7 @@ stdenv.mkDerivation {
     license = licenses.gpl3;
     description = "Small utility to modify the dynamic linker and RPATH of ELF executables";
     mainProgram = "patchelf";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    maintainers = with lib.maintainers; [ xddxdd ];
+    maintainers = with lib.maintainers; [xddxdd];
     description = "RIME dictionary file for entries from zh.wikipedia.org";
     homepage = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki";
     license = [

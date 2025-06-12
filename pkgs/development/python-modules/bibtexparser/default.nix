@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "bibtexparser";
   version = "1.4.3";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-9m+7RbeJMJssviyIezPrSLMMGcQTHYaOFQwLhnu04Es=";
   };
 
-  propagatedBuildInputs = [ pyparsing ];
+  propagatedBuildInputs = [pyparsing];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "bibtexparser" ];
+  pythonImportsCheck = ["bibtexparser"];
 
   meta = with lib; {
     description = "Bibtex parser for Python";

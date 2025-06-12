@@ -8,7 +8,6 @@
   gtk_engines,
   librsvg,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "marwaita-x";
   version = "1.2.1";
@@ -37,13 +36,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "New version for Marwaita GTK theme";
     homepage = "https://www.pling.com/p/2044790/";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ romildo ];
+    maintainers = with lib.maintainers; [romildo];
   };
 })

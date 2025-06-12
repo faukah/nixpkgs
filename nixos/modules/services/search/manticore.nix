@@ -3,46 +3,36 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.manticore;
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
 
-  toSphinx =
-    {
-      mkKeyValue ? lib.generators.mkKeyValueDefault { } "=",
-      listsAsDuplicateKeys ? true,
-    }:
-    attrsOfAttrs:
-    let
-      # map function to string for each key val
-      mapAttrsToStringsSep =
-        sep: mapFn: attrs:
-        lib.concatStringsSep sep (lib.mapAttrsToList mapFn attrs);
-      mkSection =
-        sectName: sectValues:
-        ''
-          ${sectName} {
-        ''
-        + lib.generators.toKeyValue { inherit mkKeyValue listsAsDuplicateKeys; } sectValues
-        + ''}'';
-    in
+  toSphinx = {
+    mkKeyValue ? lib.generators.mkKeyValueDefault {} "=",
+    listsAsDuplicateKeys ? true,
+  }: attrsOfAttrs: let
+    # map function to string for each key val
+    mapAttrsToStringsSep = sep: mapFn: attrs:
+      lib.concatStringsSep sep (lib.mapAttrsToList mapFn attrs);
+    mkSection = sectName: sectValues:
+      ''
+        ${sectName} {
+      ''
+      + lib.generators.toKeyValue {inherit mkKeyValue listsAsDuplicateKeys;} sectValues
+      + ''}'';
+  in
     # map input to ini sections
     mapAttrsToStringsSep "\n" mkSection attrsOfAttrs;
 
   configFile = pkgs.writeText "manticore.conf" (
     toSphinx {
       mkKeyValue = k: v: "  ${k} = ${v}";
-    } cfg.settings
+    }
+    cfg.settings
   );
-
-in
-{
-
+in {
   options = {
     services.manticore = {
-
       enable = lib.mkEnableOption "Manticoresearch";
 
       settings = lib.mkOption {
@@ -83,17 +73,15 @@ in
           }
         '';
       };
-
     };
   };
 
   config = lib.mkIf cfg.enable {
-
     systemd = {
-      packages = [ pkgs.manticoresearch ];
+      packages = [pkgs.manticoresearch];
       services.manticore = {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         serviceConfig =
           {
             ExecStart = [
@@ -104,7 +92,7 @@ in
               ""
               "${pkgs.manticoresearch}/bin/searchd --config ${configFile} --stopwait"
             ];
-            ExecStartPre = [ "" ];
+            ExecStartPre = [""];
             DynamicUser = true;
             LogsDirectory = "manticore";
             RuntimeDirectory = "manticore";
@@ -141,9 +129,7 @@ in
           };
       };
     };
-
   };
 
-  meta.maintainers = with lib.maintainers; [ onny ];
-
+  meta.maintainers = with lib.maintainers; [onny];
 }

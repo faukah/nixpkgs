@@ -3,19 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.guacamole-server;
-in
-{
+in {
   options = {
     services.guacamole-server = {
       enable = lib.mkEnableOption "Apache Guacamole Server (guacd)";
-      package = lib.mkPackageOption pkgs "guacamole-server" { };
+      package = lib.mkPackageOption pkgs "guacamole-server" {};
 
       extraEnvironment = lib.mkOption {
         type = lib.types.attrsOf lib.types.str;
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             ENVIRONMENT = "production";
@@ -71,11 +69,13 @@ in
 
     systemd.services.guacamole-server = {
       description = "Apache Guacamole server (guacd)";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      environment = {
-        HOME = "/run/guacamole-server";
-      } // cfg.extraEnvironment;
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      environment =
+        {
+          HOME = "/run/guacamole-server";
+        }
+        // cfg.extraEnvironment;
       serviceConfig = {
         ExecStart = "${lib.getExe cfg.package} -f -b ${cfg.host} -l ${toString cfg.port}";
         RuntimeDirectory = "guacamole-server";

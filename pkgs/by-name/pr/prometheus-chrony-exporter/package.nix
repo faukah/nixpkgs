@@ -38,9 +38,9 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-TAj7tYDFKPsPCHpWT4UQ3oZkUcLbL4iliXghwZqwuC8=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doInstallCheck = true;
   versionCheckProgram = "${placeholder "out"}/bin/chrony_exporter";
@@ -52,6 +52,6 @@ buildGoModule (finalAttrs: {
     description = "Prometheus exporter for the chrony NTP service";
     license = lib.licenses.asl20;
     mainProgram = "chrony_exporter";
-    maintainers = with lib.maintainers; [ paepcke ];
+    maintainers = with lib.maintainers; [paepcke];
   };
 })

@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
 
   # ld: crtbegin.o: relocation R_X86_64_32 against hidden symbol `__TMC_END__' can not be used when making a PIE object
   # ld: failed to set dynamic section sizes: bad value
-  hardeningDisable = [ "pie" ];
+  hardeningDisable = ["pie"];
 
   enableParallelBuilding = true;
 
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "Turn your voice into a synthesizer";
     homepage = "https://github.com/magnetophon/VoiceOfFaust";
     license = lib.licenses.agpl3Only;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
   };
 }

@@ -12,7 +12,6 @@
   libyubikey,
   libykclient,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yubico-pam";
   version = "2.27";
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
     mainProgram = "ykpamcfg";
     homepage = "https://developers.yubico.com/yubico-pam";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

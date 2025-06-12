@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "srt-to-vtt-cl";
   version = "unstable-2019-01-03";
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Convert SRT files to VTT";
     license = licenses.mit;
-    maintainers = with maintainers; [ ericdallo ];
+    maintainers = with maintainers; [ericdallo];
     homepage = "https://github.com/nwoltman/srt-to-vtt-cl";
     platforms = platforms.unix;
     mainProgram = "srt-vtt";

@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/geoarrow-pandas";
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   env.SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -39,7 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "geoarrow.pandas" ];
+  pythonImportsCheck = ["geoarrow.pandas"];
 
   meta = with lib; {
     description = "Python implementation of the GeoArrow specification";

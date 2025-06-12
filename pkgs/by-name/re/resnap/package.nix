@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-thVyf1gTDPLQVtZKoWL7SGiWI++ICWqmF/Ar57I3WP8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   runtimeInputs = [
     ffmpeg
@@ -47,8 +47,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = {
     description = "Take screnshots of your reMarkable tablet over SSH";
     homepage = "https://github.com/cloudsftp/reSnap";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ _404wolf ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [_404wolf];
     mainProgram = "reSnap";
   };
 })

@@ -1,1 +1,1 @@
-{ python3Packages }: with python3Packages; toPythonApplication whisperx
+{python3Packages}: with python3Packages; toPythonApplication whisperx

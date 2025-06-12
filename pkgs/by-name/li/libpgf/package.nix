@@ -5,7 +5,6 @@
   autoreconfHook,
   dos2unix,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libpgf";
   version = "7.21.7";

@@ -3,17 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib) types;
 
   cfg = config.services.open-webui;
-in
-{
+in {
   options = {
     services.open-webui = {
       enable = lib.mkEnableOption "Open-WebUI server";
-      package = lib.mkPackageOption pkgs "open-webui" { };
+      package = lib.mkPackageOption pkgs "open-webui" {};
 
       stateDir = lib.mkOption {
         type = types.path;
@@ -85,16 +83,18 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.open-webui = {
       description = "User-friendly WebUI for LLMs";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
-      environment = {
-        STATIC_DIR = ".";
-        DATA_DIR = ".";
-        HF_HOME = ".";
-        SENTENCE_TRANSFORMERS_HOME = ".";
-        WEBUI_URL = "http://localhost:${toString cfg.port}";
-      } // cfg.environment;
+      environment =
+        {
+          STATIC_DIR = ".";
+          DATA_DIR = ".";
+          HF_HOME = ".";
+          SENTENCE_TRANSFORMERS_HOME = ".";
+          WEBUI_URL = "http://localhost:${toString cfg.port}";
+        }
+        // cfg.environment;
 
       serviceConfig = {
         ExecStart = "${lib.getExe cfg.package} serve --host \"${cfg.host}\" --port ${toString cfg.port}";
@@ -132,7 +132,7 @@ in
           "@system-service"
           "~@privileged"
         ];
-        SupplementaryGroups = [ "render" ]; # for rocm to access /dev/dri/renderD* devices
+        SupplementaryGroups = ["render"]; # for rocm to access /dev/dri/renderD* devices
         DeviceAllow = [
           # CUDA
           # https://docs.nvidia.com/dgx/pdf/dgx-os-5-user-guide.pdf
@@ -150,8 +150,8 @@ in
       };
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = lib.mkIf cfg.openFirewall {allowedTCPPorts = [cfg.port];};
   };
 
-  meta.maintainers = with lib.maintainers; [ shivaraj-bh ];
+  meta.maintainers = with lib.maintainers; [shivaraj-bh];
 }

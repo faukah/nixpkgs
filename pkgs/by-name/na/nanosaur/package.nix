@@ -8,7 +8,6 @@
   makeWrapper,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "nanosaur";
   version = "1.4.4-unstable-2024-04-06";
@@ -42,7 +41,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Port of Nanosaur, a 1998 Macintosh game by Pangea Software, for modern operating systems";
@@ -54,7 +53,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/jorio/Nanosaur";
     license = licenses.cc-by-sa-40;
     mainProgram = "Nanosaur";
-    maintainers = with maintainers; [ lux ];
+    maintainers = with maintainers; [lux];
     platforms = platforms.linux;
   };
 }

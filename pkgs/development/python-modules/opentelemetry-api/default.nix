@@ -9,9 +9,7 @@
   opentelemetry-test-utils,
   pytestCheckHook,
   writeScript,
-}:
-
-let
+}: let
   self = buildPythonPackage rec {
     pname = "opentelemetry-api";
     version = "1.31.1";
@@ -29,21 +27,21 @@ let
 
     sourceRoot = "${src.name}/opentelemetry-api";
 
-    build-system = [ hatchling ];
+    build-system = [hatchling];
 
     dependencies = [
       deprecated
       importlib-metadata
     ];
 
-    pythonRelaxDeps = [ "importlib-metadata" ];
+    pythonRelaxDeps = ["importlib-metadata"];
 
     nativeCheckInputs = [
       opentelemetry-test-utils
       pytestCheckHook
     ];
 
-    pythonImportsCheck = [ "opentelemetry" ];
+    pythonImportsCheck = ["opentelemetry"];
 
     doCheck = false;
 
@@ -57,7 +55,7 @@ let
         nix-update python3Packages.opentelemetry-instrumentation
       '';
       # Enable tests via passthru to avoid cyclic dependency with opentelemetry-test-utils.
-      tests.${self.pname} = self.overridePythonAttrs { doCheck = true; };
+      tests.${self.pname} = self.overridePythonAttrs {doCheck = true;};
     };
 
     meta = with lib; {
@@ -65,9 +63,9 @@ let
       description = "OpenTelemetry Python API";
       changelog = "https://github.com/open-telemetry/opentelemetry-python/releases/tag/${src.tag}";
       license = licenses.asl20;
-      maintainers = [ maintainers.natsukium ];
-      teams = [ teams.deshaw ];
+      maintainers = [maintainers.natsukium];
+      teams = [teams.deshaw];
     };
   };
 in
-self
+  self

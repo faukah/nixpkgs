@@ -7,7 +7,6 @@
   flake8,
   structlog,
 }:
-
 buildPythonPackage rec {
   pname = "logassert";
   version = "8.4";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-GKGNvOZde8Q6X5h+QC5936qTDWpcXYHuLXpsGuxw1Mw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "logassert" ];
+  pythonImportsCheck = ["logassert"];
 
   nativeCheckInputs = [
     flake8
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/facundobatista/logassert";
     changelog = "https://github.com/facundobatista/logassert/releases/tag/${version}";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
     platforms = lib.platforms.linux;
   };
 }

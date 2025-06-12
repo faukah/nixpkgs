@@ -8,7 +8,6 @@
   libidn2,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "maildrop";
   version = "3.1.8";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-foJsAxkXRE8berccH82QODWVZEhG4rOyYONSsc4D6VA=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     courier-unicode
     libidn2
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  patches = [ ./maildrop.configure.hack.patch ]; # for building in chroot
+  patches = [./maildrop.configure.hack.patch]; # for building in chroot
 
   doCheck = false; # fails with "setlocale: LC_ALL: cannot change locale (en_US.UTF-8)"
 

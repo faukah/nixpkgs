@@ -4,7 +4,6 @@
   fetchurl,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mpdecimal";
   version = "4.0.0";
@@ -20,9 +19,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-lCRFwyRbInMP1Bpnp8XCMdEcsbmTa5wPdjNPt9C0Row=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  configureFlags = [ "LD=${stdenv.cc.targetPrefix}cc" ];
+  configureFlags = ["LD=${stdenv.cc.targetPrefix}cc"];
 
   postPatch = ''
     # Use absolute library install names on Darwin.
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.bsd2;
 
-    maintainers = with lib.maintainers; [ kaction ];
+    maintainers = with lib.maintainers; [kaction];
 
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };

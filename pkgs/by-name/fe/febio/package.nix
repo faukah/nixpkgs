@@ -10,7 +10,6 @@
   mklSupport ? true,
   mkl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "FEBio";
   version = "4.8";
@@ -46,13 +45,13 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
   ];
 
-  buildInputs = [ zlib ] ++ lib.optionals mklSupport [ mkl ];
+  buildInputs = [zlib] ++ lib.optionals mklSupport [mkl];
 
   meta = {
     description = "FEBio Suite Solver";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     homepage = "https://febio.org/";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ Scriptkiddi ];
+    maintainers = with lib.maintainers; [Scriptkiddi];
   };
 })

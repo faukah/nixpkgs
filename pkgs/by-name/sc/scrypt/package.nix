@@ -6,7 +6,6 @@
   getconf,
   util-linux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scrypt";
   version = "1.3.3";
@@ -22,11 +21,11 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  configureFlags = [ "--enable-libscrypt-kdf" ];
+  configureFlags = ["--enable-libscrypt-kdf"];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  nativeBuildInputs = [ getconf ];
+  nativeBuildInputs = [getconf];
 
   patchPhase = ''
     for f in Makefile.in autotools/Makefile.am libcperciva/cpusupport/Build/cpusupport.sh configure ; do
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
   checkTarget = "test";
-  nativeCheckInputs = lib.optionals stdenv.hostPlatform.isLinux [ util-linux ];
+  nativeCheckInputs = lib.optionals stdenv.hostPlatform.isLinux [util-linux];
 
   meta = with lib; {
     description = "Encryption utility";
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.tarsnap.com/scrypt.html";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

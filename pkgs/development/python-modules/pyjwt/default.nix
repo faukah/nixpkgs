@@ -10,7 +10,6 @@
   zope-interface,
   oauthlib,
 }:
-
 buildPythonPackage rec {
   pname = "pyjwt";
   version = "2.10.1";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     "doc"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     sphinxHook
@@ -36,16 +35,16 @@ buildPythonPackage rec {
     zope-interface
   ];
 
-  optional-dependencies.crypto = [ cryptography ];
+  optional-dependencies.crypto = [cryptography];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ (lib.flatten (lib.attrValues optional-dependencies));
+  nativeCheckInputs = [pytestCheckHook] ++ (lib.flatten (lib.attrValues optional-dependencies));
 
   disabledTests = [
     # requires internet connection
     "test_get_jwt_set_sslcontext_default"
   ];
 
-  pythonImportsCheck = [ "jwt" ];
+  pythonImportsCheck = ["jwt"];
 
   passthru.tests = {
     inherit oauthlib;
@@ -56,6 +55,6 @@ buildPythonPackage rec {
     description = "JSON Web Token implementation in Python";
     homepage = "https://github.com/jpadilla/pyjwt";
     license = licenses.mit;
-    maintainers = with maintainers; [ prikhi ];
+    maintainers = with maintainers; [prikhi];
   };
 }

@@ -8,7 +8,6 @@
   ghostscript,
   nixosTests,
 }:
-
 buildNpmPackage rec {
   pname = "lanraragi";
   version = "0.9.21";
@@ -33,8 +32,7 @@ buildNpmPackage rec {
     makeBinaryWrapper
   ];
 
-  buildInputs =
-    with perl.pkgs;
+  buildInputs = with perl.pkgs;
     [
       perl
       ImageMagick
@@ -68,7 +66,7 @@ buildNpmPackage rec {
       YAMLPP
       StringSimilarity
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ LinuxInotify2 ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [LinuxInotify2];
 
   buildPhase = ''
     runHook preBuild
@@ -109,7 +107,7 @@ buildNpmPackage rec {
 
     makeWrapper $out/share/lanraragi/script/launcher.pl $out/bin/lanraragi \
       --prefix PERL5LIB : $PERL5LIB \
-      --prefix PATH : ${lib.makeBinPath [ ghostscript ]} \
+      --prefix PATH : ${lib.makeBinPath [ghostscript]} \
       --run "cp -n --no-preserve=all $out/share/lanraragi/lrr.conf ./lrr.conf 2>/dev/null || true" \
       --add-flags "-f $out/share/lanraragi/script/lanraragi"
 
@@ -128,7 +126,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/Difegue/LANraragi";
     license = lib.licenses.mit;
     mainProgram = "lanraragi";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.unix;
   };
 }

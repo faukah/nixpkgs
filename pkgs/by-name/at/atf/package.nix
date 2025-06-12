@@ -7,7 +7,6 @@
   kyua,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "atf";
   version = "0.23";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   enableParallelBuilding = true;
 
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstallCheck
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "atf-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "atf-";};
 
   __structuredAttrs = true;
 
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/freebsd/atf/";
     license = lib.licenses.bsd3;
     mainProgram = "atf-sh";
-    maintainers = with lib.maintainers; [ reckenrode ];
+    maintainers = with lib.maintainers; [reckenrode];
     platforms = lib.platforms.unix;
   };
 })

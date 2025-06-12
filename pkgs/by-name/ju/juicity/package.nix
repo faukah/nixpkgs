@@ -42,6 +42,6 @@ buildGoModule rec {
     homepage = "https://github.com/juicity/juicity";
     description = "Quic-based proxy protocol";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ oluceps ];
+    maintainers = with maintainers; [oluceps];
   };
 }

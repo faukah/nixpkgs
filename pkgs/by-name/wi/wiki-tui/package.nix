@@ -6,7 +6,6 @@
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wiki-tui";
   version = "0.9.1";
@@ -18,7 +17,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-eTDxRrTP9vX7F1lmDCuF6g1pfaZChqB8Pv1kfrd7I9w=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     ncurses

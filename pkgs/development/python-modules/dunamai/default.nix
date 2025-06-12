@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   packaging,
-
   # tests
   addBinToPathHook,
   gitMinimal,
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "dunamai";
   version = "1.23.0";
@@ -28,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-JuW/VL8kfzz5mSXRHtrg/hHykgcewaQYfDuO2PALbWc=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ packaging ];
+  dependencies = [packaging];
 
   preCheck = ''
     git config --global user.email "nobody@example.com"
@@ -49,7 +45,7 @@ buildPythonPackage rec {
     "test__version__from_git__shallow"
   ];
 
-  pythonImportsCheck = [ "dunamai" ];
+  pythonImportsCheck = ["dunamai"];
 
   meta = {
     description = "Dynamic version generation";
@@ -57,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mtkennerly/dunamai";
     changelog = "https://github.com/mtkennerly/dunamai/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jmgilman ];
+    maintainers = with lib.maintainers; [jmgilman];
   };
 }

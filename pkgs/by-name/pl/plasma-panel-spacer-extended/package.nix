@@ -7,7 +7,6 @@
   glib,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "plasma-panel-spacer-extended";
   version = "1.10.1";
@@ -31,20 +30,20 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  cmakeFlags = [ (lib.cmakeFeature "Qt6_DIR" "${kdePackages.qtbase}/lib/cmake/Qt6") ];
+  cmakeFlags = [(lib.cmakeFeature "Qt6_DIR" "${kdePackages.qtbase}/lib/cmake/Qt6")];
 
-  propagatedUserEnvPkgs = [ glib ];
+  propagatedUserEnvPkgs = [glib];
 
   dontWrapQtApps = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Spacer with mouse gestures for the KDE Plasma Panel";
     homepage = "https://github.com/luisbocanegra/plasma-panel-spacer-extended";
     changelog = "https://github.com/luisbocanegra/plasma-panel-spacer-extended/blob/main/CHANGELOG.md";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ HeitorAugustoLN ];
+    maintainers = with lib.maintainers; [HeitorAugustoLN];
     inherit (kdePackages.kwindowsystem.meta) platforms;
   };
 })

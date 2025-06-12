@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "systemd-journal-gateway";
   meta = with pkgs.lib.maintainers; {
     maintainers = [

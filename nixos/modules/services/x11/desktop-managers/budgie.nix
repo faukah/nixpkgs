@@ -4,10 +4,9 @@
   config,
   utils,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     concatMapStrings
     literalExpression
     mkDefault
@@ -59,8 +58,7 @@ let
   };
 
   notExcluded = pkg: utils.disablePackageByName pkg config.environment.budgie.excludePackages;
-in
-{
+in {
   meta.maintainers = lib.teams.budgie.members;
 
   options = {
@@ -75,7 +73,7 @@ in
           Note that this should be a last resort; patching the package is preferred (see GPaste).
         '';
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.gpaste ]";
       };
 
@@ -88,13 +86,13 @@ in
       extraGSettingsOverridePackages = mkOption {
         description = "List of packages for which GSettings are overridden.";
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
       };
 
       extraPlugins = mkOption {
         description = "Extra plugins for the Budgie desktop";
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.budgie-analogue-clock-applet ]";
       };
     };
@@ -102,7 +100,7 @@ in
     environment.budgie.excludePackages = mkOption {
       description = "Which packages Budgie should exclude from the default environment.";
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.mate-terminal ]";
     };
   };
@@ -128,27 +126,27 @@ in
       };
     };
 
-    services.xserver.desktopManager.budgie.sessionPath = [ pkgs.budgie-desktop-view ];
+    services.xserver.desktopManager.budgie.sessionPath = [pkgs.budgie-desktop-view];
 
     environment.extraInit = ''
       ${concatMapStrings (p: ''
-        if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
-          export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
-        fi
-        if [ -d "${p}/lib/girepository-1.0" ]; then
-          export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
-          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
-        fi
-      '') cfg.sessionPath}
+          if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
+            export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
+          fi
+          if [ -d "${p}/lib/girepository-1.0" ]; then
+            export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
+          fi
+        '')
+        cfg.sessionPath}
     '';
 
-    environment.systemPackages =
-      with pkgs;
+    environment.systemPackages = with pkgs;
       [
         # Budgie Desktop.
         budgie-backgrounds
         budgie-control-center'
-        (budgie-desktop-with-plugins.override { plugins = cfg.extraPlugins; })
+        (budgie-desktop-with-plugins.override {plugins = cfg.extraPlugins;})
         budgie-desktop-view
         budgie-screensaver
         budgie-session
@@ -167,23 +165,24 @@ in
       ]
       ++ lib.optional config.networking.networkmanager.enable pkgs.networkmanagerapplet
       ++ (utils.removePackagesByName [
-        nemo
-        mate.eom
-        mate.pluma
-        mate.atril
-        mate.engrampa
-        mate.mate-calc
-        mate.mate-system-monitor
-        vlc
+          nemo
+          mate.eom
+          mate.pluma
+          mate.atril
+          mate.engrampa
+          mate.mate-calc
+          mate.mate-system-monitor
+          vlc
 
-        # Desktop themes.
-        qogir-theme
-        qogir-icon-theme
-        nixos-background-info
+          # Desktop themes.
+          qogir-theme
+          qogir-icon-theme
+          nixos-background-info
 
-        # Default settings.
-        nixos-gsettings-overrides
-      ] config.environment.budgie.excludePackages)
+          # Default settings.
+          nixos-gsettings-overrides
+        ]
+        config.environment.budgie.excludePackages)
       ++ cfg.sessionPath;
 
     # Both budgie-desktop-view and nemo defaults to this emulator.
@@ -195,8 +194,8 @@ in
       pkgs.hack-font
     ];
     fonts.fontconfig.defaultFonts = {
-      sansSerif = mkDefault [ "Noto Sans" ];
-      monospace = mkDefault [ "Hack" ];
+      sansSerif = mkDefault ["Noto Sans"];
+      monospace = mkDefault ["Hack"];
     };
 
     environment.pathsToLink = [
@@ -211,7 +210,7 @@ in
     programs.dconf.enable = true;
 
     # Required by Budgie Screensaver.
-    security.pam.services.budgie-screensaver = { };
+    security.pam.services.budgie-screensaver = {};
 
     # Required by Budgie's Polkit Dialog.
     security.polkit.enable = mkDefault true;
@@ -227,7 +226,7 @@ in
     xdg.portal.extraPortals = with pkgs; [
       xdg-desktop-portal-gtk # provides a XDG Portals implementation.
     ];
-    xdg.portal.configPackages = mkDefault [ pkgs.budgie-desktop ];
+    xdg.portal.configPackages = mkDefault [pkgs.budgie-desktop];
 
     services.geoclue2.enable = mkDefault true; # for BCC's Privacy > Location Services panel.
     services.upower.enable = config.powerManagement.enable; # for Budgie's Status Indicator and BCC's Power panel.

@@ -16,7 +16,6 @@
   wrapGAppsHook3,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pluma";
   version = "1.28.0";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     patchPythonScript $out/lib/pluma/plugins/snippets/Snippet.py
   '';
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Powerful text editor for the MATE desktop";
@@ -69,6 +68,6 @@ stdenv.mkDerivation rec {
       fdl11Plus
     ];
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

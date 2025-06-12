@@ -5,23 +5,25 @@
 pkgs.testers.runNixOSTest {
   name = "pulsemeeter-version";
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      services.pulseaudio.enable = true;
-      services.pulseaudio.systemWide = true;
-      users.users.alice = {
-        isNormalUser = true;
-        password = "foo";
-        extraGroups = [
-          "wheel"
-          "pulse-access"
-        ];
-        packages = with pkgs; [
-          pulsemeeter
-        ];
-      };
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    services.pulseaudio.enable = true;
+    services.pulseaudio.systemWide = true;
+    users.users.alice = {
+      isNormalUser = true;
+      password = "foo";
+      extraGroups = [
+        "wheel"
+        "pulse-access"
+      ];
+      packages = with pkgs; [
+        pulsemeeter
+      ];
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("default.target")

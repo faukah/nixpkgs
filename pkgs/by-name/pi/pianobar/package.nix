@@ -9,7 +9,6 @@
   ffmpeg,
   curl,
 }:
-
 stdenv.mkDerivation {
   pname = "pianobar";
   version = "2022.04.01-unstable-2024-08-16";
@@ -21,7 +20,7 @@ stdenv.mkDerivation {
     hash = "sha256-5LTZ6J9bvfsnpD/bGuojekutFVdH9feWLF+nLFvkeOA=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libao
     json_c
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
     curl
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   CC = "gcc";
   CFLAGS = "-std=c99";

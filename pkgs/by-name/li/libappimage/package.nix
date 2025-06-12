@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     description = "Implements functionality for dealing with AppImage files";
     homepage = "https://github.com/AppImageCommunity/libappimage/";
     license = licenses.mit;
-    maintainers = with maintainers; [ k900 ];
+    maintainers = with maintainers; [k900];
     platforms = platforms.linux;
   };
 }

@@ -7,7 +7,6 @@
   cmdliner,
   re,
 }:
-
 buildDunePackage rec {
   pname = "ocp-index";
   version = "1.3.7";
@@ -21,19 +20,19 @@ buildDunePackage rec {
     hash = "sha256-FbkVJRbFNSho/E59QMUoGK+TrdnnacmykJWWG2JVDVA=";
   };
 
-  nativeBuildInputs = [ cppo ];
+  nativeBuildInputs = [cppo];
   buildInputs = [
     cmdliner
     re
   ];
 
-  propagatedBuildInputs = [ ocp-indent ];
+  propagatedBuildInputs = [ocp-indent];
 
   meta = {
     homepage = "https://www.typerex.org/ocp-index.html";
     description = "Simple and light-weight documentation extractor for OCaml";
     changelog = "https://github.com/OCamlPro/ocp-index/raw/${version}/CHANGES.md";
     license = lib.licenses.lgpl3;
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
   };
 }

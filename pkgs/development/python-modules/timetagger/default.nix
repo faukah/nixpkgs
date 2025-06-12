@@ -16,7 +16,6 @@
   requests,
   uvicorn,
 }:
-
 buildPythonPackage rec {
   pname = "timetagger";
   version = "25.06.1";
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/almarklein/timetagger";
     changelog = "https://github.com/almarklein/timetagger/releases/tag/${src.tag}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

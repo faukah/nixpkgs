@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "newman";
   version = "6.2.1";
@@ -24,7 +23,7 @@ buildNpmPackage rec {
     description = "Command-line collection runner for Postman";
     mainProgram = "newman";
     changelog = "https://github.com/postmanlabs/newman/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ freezeboy ];
+    maintainers = with lib.maintainers; [freezeboy];
     license = lib.licenses.asl20;
   };
 }

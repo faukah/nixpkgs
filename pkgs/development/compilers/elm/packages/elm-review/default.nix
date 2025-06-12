@@ -5,7 +5,6 @@
   testers,
   elm-review,
 }:
-
 buildNpmPackage rec {
   pname = "elm-review";
   version = "2.13.2";

@@ -8,7 +8,6 @@
   nssTools,
   makeBinaryWrapper,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "symfony-cli";
   version = "5.11.0";
@@ -37,21 +36,21 @@ buildGoModule (finalAttrs: {
     ldflags+=" -X main.buildDate=$(cat SOURCE_DATE)"
   '';
 
-  buildInputs = [ makeBinaryWrapper ];
+  buildInputs = [makeBinaryWrapper];
 
   postInstall = ''
     mkdir $out/libexec
     mv $out/bin/symfony-cli $out/libexec/symfony
 
     makeBinaryWrapper $out/libexec/symfony $out/bin/symfony \
-      --prefix PATH : ${lib.makeBinPath [ nssTools ]}
+      --prefix PATH : ${lib.makeBinPath [nssTools]}
   '';
 
   # Tests requires network access
   doCheck = false;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       inherit (finalAttrs) version;
       package = symfony-cli;
@@ -65,6 +64,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/symfony-cli/symfony-cli";
     license = lib.licenses.agpl3Plus;
     mainProgram = "symfony";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 })

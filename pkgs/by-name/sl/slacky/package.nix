@@ -20,7 +20,7 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsHash = "sha256-9+4cxeQw2Elug+xIgzNvpaSMgDVlBFz/+TW1jJwDm40=";
 
-  npmPackFlags = [ "--ignore-scripts" ];
+  npmPackFlags = ["--ignore-scripts"];
 
   nativeBuildInputs = [
     electron
@@ -53,15 +53,15 @@ buildNpmPackage (finalAttrs: {
     ];
   });
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Unofficial Slack desktop client for arm64 Linux";
     homepage = "https://github.com/andirsun/Slacky";
     changelog = "https://github.com/andirsun/Slacky/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ awwpotato ];
-    platforms = [ "aarch64-linux" ];
+    maintainers = with lib.maintainers; [awwpotato];
+    platforms = ["aarch64-linux"];
     mainProgram = "slacky";
   };
 })

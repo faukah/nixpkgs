@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.boot.tmp;
-in
-{
+in {
   options = {
     boot.tmp = {
       useZram = lib.mkOption {
@@ -86,20 +83,21 @@ in
     ];
 
     services.zram-generator.enable = true;
-    services.zram-generator.settings =
-      let
-        cfgz = cfg.zramSettings;
-      in
-      {
-        "zram${toString (if config.zramSwap.enable then config.zramSwap.swapDevices else 0)}" = {
-          mount-point = "/tmp";
-          zram-size = cfgz.zram-size;
-          compression-algorithm = cfgz.compression-algorithm;
-          options = cfgz.options;
-          fs-type = cfgz.fs-type;
-        };
+    services.zram-generator.settings = let
+      cfgz = cfg.zramSettings;
+    in {
+      "zram${toString (
+        if config.zramSwap.enable
+        then config.zramSwap.swapDevices
+        else 0
+      )}" = {
+        mount-point = "/tmp";
+        zram-size = cfgz.zram-size;
+        compression-algorithm = cfgz.compression-algorithm;
+        options = cfgz.options;
+        fs-type = cfgz.fs-type;
       };
-    systemd.services."systemd-zram-setup@".path = [ pkgs.util-linux ] ++ config.system.fsPackages;
-
+    };
+    systemd.services."systemd-zram-setup@".path = [pkgs.util-linux] ++ config.system.fsPackages;
   };
 }

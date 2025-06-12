@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   name = "rtl8761b-firmware";
 
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     description = "Firmware for Realtek RTL8761b";
     license = licenses.unfreeRedistributableFirmware;
-    maintainers = with maintainers; [ milibopp ];
+    maintainers = with maintainers; [milibopp];
     platforms = with platforms; linux;
   };
 }

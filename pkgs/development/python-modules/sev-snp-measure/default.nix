@@ -5,7 +5,6 @@
   lib,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "sev-snp-measure";
   version = "0.0.11";
@@ -23,18 +22,18 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonRelaxDeps = [ "cryptography" ];
+  pythonRelaxDeps = ["cryptography"];
 
-  propagatedBuildInputs = [ cryptography ];
+  propagatedBuildInputs = [cryptography];
 
-  pythonImportsCheck = [ "sevsnpmeasure" ];
+  pythonImportsCheck = ["sevsnpmeasure"];
 
   meta = {
     description = "Calculate AMD SEV/SEV-ES/SEV-SNP measurement for confidential computing";
     homepage = "https://github.com/virtee/sev-snp-measure";
     changelog = "https://github.com/virtee/sev-snp-measure/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ msanft ];
+    maintainers = with lib.maintainers; [msanft];
     mainProgram = "sev-snp-measure";
   };
 }

@@ -3,18 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.surrealdb;
-in
-{
-
+in {
   options = {
     services.surrealdb = {
       enable = lib.mkEnableOption "SurrealDB, a scalable, distributed, collaborative, document-graph database, for the realtime web";
 
-      package = lib.mkPackageOption pkgs "surrealdb" { };
+      package = lib.mkPackageOption pkgs "surrealdb" {};
 
       dbPath = lib.mkOption {
         type = lib.types.str;
@@ -46,7 +42,7 @@ in
 
       extraFlags = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         example = [
           "--allow-all"
           "--user"
@@ -62,14 +58,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     # Used to connect to the running service
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.surrealdb = {
       description = "A scalable, distributed, collaborative, document-graph database, for the realtime web";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/surreal start --bind ${cfg.host}:${toString cfg.port} ${lib.strings.concatStringsSep " " cfg.extraFlags} -- ${cfg.dbPath}";

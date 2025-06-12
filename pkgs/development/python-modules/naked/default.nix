@@ -11,7 +11,6 @@
   ruby,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "naked";
   version = "0.1.32";
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     PATH=$PATH:$out/bin
   '';
 
-  disabledTestPaths = [ "testfiles" ];
+  disabledTestPaths = ["testfiles"];
 
   disabledTests = [
     # test_NETWORK.py
@@ -102,13 +101,13 @@ buildPythonPackage rec {
     "test_xdict_key_random_sample"
   ];
 
-  pythonImportsCheck = [ "Naked" ];
+  pythonImportsCheck = ["Naked"];
 
   meta = with lib; {
     description = "Python command line application framework";
     homepage = "https://github.com/chrissimpkins/naked";
     downloadPage = "https://github.com/chrissimpkins/naked/tags";
     license = licenses.mit;
-    maintainers = [ maintainers.lucasew ];
+    maintainers = [maintainers.lucasew];
   };
 }

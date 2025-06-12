@@ -9,7 +9,6 @@
   pytestCheckHook,
   pandas,
 }:
-
 buildPythonPackage {
   pname = "objexplore";
   version = "1.6.2";
@@ -31,7 +30,7 @@ buildPythonPackage {
     "rich"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     blessed

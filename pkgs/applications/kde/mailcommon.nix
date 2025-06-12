@@ -23,7 +23,6 @@
   phonon,
   libkdepim,
 }:
-
 mkDerivation {
   pname = "mailcommon";
   meta = {

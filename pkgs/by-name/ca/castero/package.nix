@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "castero";
   version = "0.9.5";
@@ -21,8 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     wheel
   ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       requests
       grequests
@@ -77,6 +75,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/xgi/castero";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ keto ];
+    maintainers = with maintainers; [keto];
   };
 }

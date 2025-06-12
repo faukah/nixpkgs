@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "widevine-cdm";
   version = "4.10.2891.0";

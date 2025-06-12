@@ -17,7 +17,6 @@
   requests,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "nasdaq-data-link";
   version = "1.0.4";
@@ -51,12 +50,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "nasdaqdatalink" ];
+  pythonImportsCheck = ["nasdaqdatalink"];
 
   meta = with lib; {
     description = "Library for Nasdaq Data Link's RESTful API";
     homepage = "https://github.com/Nasdaq/data-link-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

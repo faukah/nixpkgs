@@ -9,7 +9,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "stix2-patterns";
   version = "2.0.0";
@@ -24,16 +23,16 @@ buildPythonPackage rec {
     hash = "sha256-lFgnvI5a7U7/Qj4Pqjr3mx4TNDnC2/Ru7tVG7VggR7Y=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
-    (antlr4-python3-runtime.override { antlr4 = antlr4_9; })
+    (antlr4-python3-runtime.override {antlr4 = antlr4_9;})
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "stix2patterns" ];
+  pythonImportsCheck = ["stix2patterns"];
 
   meta = with lib; {
     description = "Validate patterns used to express cyber observable content in STIX Indicators";
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/oasis-open/cti-pattern-validator";
     changelog = "https://github.com/oasis-open/cti-pattern-validator/blob/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

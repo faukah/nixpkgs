@@ -8,7 +8,6 @@
   ocl-icd,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "computecpp";
   version = "2.11.0";
@@ -52,8 +51,8 @@ stdenv.mkDerivation rec {
     description = "Accelerate Complex C++ Applications on Heterogeneous Compute Systems using Open Standards";
     homepage = "https://www.codeplay.com/products/computesuite/computecpp";
     license = licenses.unfree;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 }

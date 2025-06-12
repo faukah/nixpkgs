@@ -6,7 +6,6 @@
   nixosTests,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "eris-go";
   version = "20241028";
@@ -25,7 +24,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-0BI4U9p4R7umyXtHAQBLa5t5+ni4dDndLNXgTIAMsqw=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     install -D *.1.gz -t $man/share/man/man1
@@ -35,13 +34,15 @@ buildGoModule rec {
 
   env.skipNetworkTests = true;
 
-  passthru.tests = { inherit (nixosTests) eris-server; };
+  passthru.tests = {inherit (nixosTests) eris-server;};
 
-  meta = src.meta // {
-    description = "Implementation of ERIS for Go";
-    homepage = "https://codeberg.org/eris/eris-go";
-    license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ehmry ];
-    mainProgram = "eris-go";
-  };
+  meta =
+    src.meta
+    // {
+      description = "Implementation of ERIS for Go";
+      homepage = "https://codeberg.org/eris/eris-go";
+      license = lib.licenses.bsd3;
+      maintainers = with lib.maintainers; [ehmry];
+      mainProgram = "eris-go";
+    };
 }

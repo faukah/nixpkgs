@@ -6,41 +6,43 @@
   # Enable recursion into attribute sets that nix-env normally doesn't look into
   # so that we can get a more complete picture of the available packages for the
   # purposes of the index.
-  packageOverrides =
-    super:
+  packageOverrides = super:
     with super;
-    lib.mapAttrs (_: set: recurseIntoAttrs set) {
-      inherit (super)
-        agdaPackages
-        apacheHttpdPackages
-        fusePackages
-        gns3Packages
-        haskellPackages
-        idrisPackages
-        nodePackages
-        nodePackages_latest
-        platformioPackages
-        rPackages
-        roundcubePlugins
-        sourceHanPackages
-        zabbix60
-        ;
+      lib.mapAttrs (_: set: recurseIntoAttrs set) {
+        inherit
+          (super)
+          agdaPackages
+          apacheHttpdPackages
+          fusePackages
+          gns3Packages
+          haskellPackages
+          idrisPackages
+          nodePackages
+          nodePackages_latest
+          platformioPackages
+          rPackages
+          roundcubePlugins
+          sourceHanPackages
+          zabbix60
+          ;
 
-      # Make sure haskell.compiler is included, so alternative GHC versions show up,
-      # but don't add haskell.packages.* since they contain the same packages (at
-      # least by name) as haskellPackages.
-      haskell = super.haskell // {
-        compiler = recurseIntoAttrs super.haskell.compiler;
+        # Make sure haskell.compiler is included, so alternative GHC versions show up,
+        # but don't add haskell.packages.* since they contain the same packages (at
+        # least by name) as haskellPackages.
+        haskell =
+          super.haskell
+          // {
+            compiler = recurseIntoAttrs super.haskell.compiler;
+          };
+
+        # emacsPackages is an alias for emacs.pkgs
+        # Re-introduce emacsPackages here so that emacs.pkgs can be searched.
+        emacsPackages = emacs.pkgs;
+
+        # minimal-bootstrap packages aren't used for anything but bootstrapping our
+        # stdenv. They should not be used for any other purpose and therefore not
+        # show up in search results or repository tracking services that consume our
+        # packages.json https://github.com/NixOS/nixpkgs/issues/244966
+        minimal-bootstrap = {};
       };
-
-      # emacsPackages is an alias for emacs.pkgs
-      # Re-introduce emacsPackages here so that emacs.pkgs can be searched.
-      emacsPackages = emacs.pkgs;
-
-      # minimal-bootstrap packages aren't used for anything but bootstrapping our
-      # stdenv. They should not be used for any other purpose and therefore not
-      # show up in search results or repository tracking services that consume our
-      # packages.json https://github.com/NixOS/nixpkgs/issues/244966
-      minimal-bootstrap = { };
-    };
 }

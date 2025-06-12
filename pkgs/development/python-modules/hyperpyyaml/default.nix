@@ -6,7 +6,6 @@
   ruamel-yaml,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "hyperpyyaml";
   version = "1.2.2";
@@ -24,15 +23,15 @@ buildPythonPackage rec {
     ruamel-yaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "hyperpyyaml" ];
+  pythonImportsCheck = ["hyperpyyaml"];
 
   meta = with lib; {
     description = "Extensions to YAML syntax for better python interaction";
     homepage = "https://github.com/speechbrain/HyperPyYAML";
     changelog = "https://github.com/speechbrain/HyperPyYAML/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

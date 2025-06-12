@@ -6,7 +6,6 @@
   setuptools,
   libuv,
 }:
-
 buildPythonPackage rec {
   pname = "pyuv";
   version = "1.4.0";
@@ -32,20 +31,20 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  setupPyBuildFlags = [ "--use-system-libuv" ];
+  setupPyBuildFlags = ["--use-system-libuv"];
 
-  buildInputs = [ libuv ];
+  buildInputs = [libuv];
 
   doCheck = false; # doesn't work in sandbox
 
-  pythonImportsCheck = [ "pyuv" ];
+  pythonImportsCheck = ["pyuv"];
 
   meta = with lib; {
     description = "Python interface for libuv";
     homepage = "https://github.com/saghul/pyuv";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

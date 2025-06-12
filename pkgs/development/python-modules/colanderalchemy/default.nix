@@ -5,7 +5,6 @@
   colander,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "colanderclchemy";
   version = "0.3.4";

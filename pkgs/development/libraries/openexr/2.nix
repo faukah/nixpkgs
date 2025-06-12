@@ -7,7 +7,6 @@
   fetchpatch,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openexr";
   version = "2.5.10";
@@ -55,11 +54,13 @@ stdenv.mkDerivation rec {
     echo 'set_tests_properties(OpenEXR.IlmImf PROPERTIES TIMEOUT 3000)' >> OpenEXR/IlmImfTest/CMakeLists.txt
   '';
 
-  cmakeFlags = [
-    "-DCMAKE_CTEST_ARGUMENTS=--timeout;3600"
-  ] ++ lib.optional stdenv.hostPlatform.isStatic "-DCMAKE_SKIP_RPATH=ON";
+  cmakeFlags =
+    [
+      "-DCMAKE_CTEST_ARGUMENTS=--timeout;3600"
+    ]
+    ++ lib.optional stdenv.hostPlatform.isStatic "-DCMAKE_SKIP_RPATH=ON";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   propagatedBuildInputs = [
     ilmbase
     zlib

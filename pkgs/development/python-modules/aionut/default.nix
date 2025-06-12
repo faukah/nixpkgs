@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aionut";
   version = "4.3.4";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-mpWAxv6RUTecGp6Zdka+gC+12JWcPQaKgJlqGgEINu0=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -31,13 +30,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aionut" ];
+  pythonImportsCheck = ["aionut"];
 
   meta = with lib; {
     description = "Asyncio Network UPS Tools";
     homepage = "https://github.com/bdraco/aionut";
     changelog = "https://github.com/bdraco/aionut/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

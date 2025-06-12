@@ -21,7 +21,6 @@
   yelp-tools,
   qrencode,
 }:
-
 stdenv.mkDerivation rec {
   pname = "glabels";
   version = "3.4.1";
@@ -82,6 +81,6 @@ stdenv.mkDerivation rec {
       lgpl3Plus
     ];
     platforms = platforms.unix;
-    maintainers = [ maintainers.nico202 ];
+    maintainers = [maintainers.nico202];
   };
 }

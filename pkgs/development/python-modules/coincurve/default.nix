@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cmake,
   hatchling,
@@ -10,17 +9,14 @@
   pkg-config,
   setuptools,
   scikit-build-core,
-
   # dependencies
   asn1crypto,
   cffi,
   secp256k1,
-
   # checks
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "coincurve";
   version = "20.0.0";
@@ -49,7 +45,7 @@ buildPythonPackage rec {
 
   env.COINCURVE_IGNORE_SYSTEM_LIB = "OFF";
 
-  buildInputs = [ secp256k1 ];
+  buildInputs = [secp256k1];
 
   dependencies = [
     asn1crypto
@@ -64,9 +60,9 @@ buildPythonPackage rec {
     rm tests/test_bench.py
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "coincurve" ];
+  pythonImportsCheck = ["coincurve"];
 
   meta = with lib; {
     description = "Cross-platform bindings for libsecp256k1";
@@ -75,6 +71,6 @@ buildPythonPackage rec {
       asl20
       mit
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

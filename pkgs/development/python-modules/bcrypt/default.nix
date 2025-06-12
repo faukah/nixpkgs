@@ -18,7 +18,6 @@
   paramiko,
   twisted,
 }:
-
 buildPythonPackage rec {
   pname = "bcrypt";
   version = "4.3.0";
@@ -53,9 +52,9 @@ buildPythonPackage rec {
   # Remove when https://github.com/NixOS/nixpkgs/pull/190093 lands.
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "bcrypt" ];
+  pythonImportsCheck = ["bcrypt"];
 
   passthru.tests = {
     inherit
@@ -71,6 +70,6 @@ buildPythonPackage rec {
     description = "Modern password hashing for your software and your servers";
     homepage = "https://github.com/pyca/bcrypt/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

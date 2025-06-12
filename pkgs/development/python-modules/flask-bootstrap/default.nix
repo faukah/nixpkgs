@@ -9,7 +9,6 @@
   pytestCheckHook,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "flask-bootstrap";
   version = "3.3.7.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-TsRSNhrI1jZU/beX3G7LM64IrFagD6AYiluoGzy12jE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     flask
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     dominate
   ];
 
-  pythonImportsCheck = [ "flask_bootstrap" ];
+  pythonImportsCheck = ["flask_bootstrap"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mbr/flask-bootstrap";
     description = "Ready-to-use Twitter-bootstrap for use in Flask";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

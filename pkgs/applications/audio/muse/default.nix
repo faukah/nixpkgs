@@ -26,7 +26,6 @@
   sord,
   serd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "muse-sequencer";
   version = "4.2.1";
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     sord
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${lib.getDev serd}/include/serd-0" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${lib.getDev serd}/include/serd-0"];
 
   meta = {
     homepage = "https://muse-sequencer.github.io/";
@@ -82,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
       it is published under the GNU General Public License.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ orivej ];
+    maintainers = with lib.maintainers; [orivej];
     platforms = lib.platforms.linux;
     mainProgram = "muse4";
   };

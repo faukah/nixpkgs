@@ -5,7 +5,6 @@
   kernel,
   kernelModuleMakeFlags,
 }:
-
 stdenv.mkDerivation rec {
   pname = "acpi-call";
   version = "1.2.2";
@@ -18,13 +17,15 @@ stdenv.mkDerivation rec {
     sha256 = "1s7h9y3adyfhw7cjldlfmid79lrwz3vqlvziw9nwd6x5qdj4w9vp";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    ];
 
   installPhase = ''
     install -D acpi_call.ko $out/lib/modules/${kernel.modDirVersion}/misc/acpi_call.ko

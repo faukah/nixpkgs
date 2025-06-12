@@ -7,7 +7,6 @@
   pythonOlder,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "pysmb";
   version = "1.2.11";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-V5RSEHtAi8TaKlrSGc1EQbm1ty6mUonfZ3iME6fDwY8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyasn1
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://pysmb.readthedocs.io/";
     changelog = "https://github.com/miketeo/pysmb/releases/tag/pysmb-${version}";
     license = licenses.zlib;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

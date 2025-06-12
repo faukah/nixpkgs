@@ -10,7 +10,6 @@
   ninja,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "karp";
   version = "0-unstable-2025-03-05";
@@ -54,12 +53,12 @@ stdenv.mkDerivation {
     qt6.qtwebengine
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://apps.kde.org/karp/";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     description = "KDE alternative to PDF arranger";
     license = with lib.licenses; [
       bsd3

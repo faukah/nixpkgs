@@ -5,7 +5,6 @@
   fetchFromGitHub,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unicorn-angr";
   # Version must follow what angr requires
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Lightweight multi-platform CPU emulator library";
     homepage = "https://www.unicorn-engine.org";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

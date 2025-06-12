@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "krb5";
   version = "0.7.1";
@@ -28,21 +27,21 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeBuildInputs = [ krb5-c ];
+  nativeBuildInputs = [krb5-c];
 
   nativeCheckInputs = [
     k5test
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "krb5" ];
+  pythonImportsCheck = ["krb5"];
 
   meta = with lib; {
     changelog = "https://github.com/jborean93/pykrb5/blob/v${version}/CHANGELOG.md";
     description = "Kerberos API bindings for Python";
     homepage = "https://github.com/jborean93/pykrb5";
     license = licenses.mit;
-    teams = [ teams.deshaw ];
+    teams = [teams.deshaw];
     broken = stdenv.hostPlatform.isDarwin; # TODO: figure out how to build on Darwin
   };
 }

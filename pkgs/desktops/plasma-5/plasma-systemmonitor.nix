@@ -16,7 +16,6 @@
   qqc2-desktop-style,
   qtbase,
 }:
-
 mkDerivation {
   pname = "plasma-systemmonitor";
   nativeBuildInputs = [

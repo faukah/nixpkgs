@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildPythonPackage,
   poetry-core,
-
   anthropic,
   astor,
   fastapi,
@@ -36,10 +35,8 @@
   webdriver-manager,
   wget,
   yaspin,
-
   nltk,
 }:
-
 buildPythonPackage rec {
   pname = "open-interpreter";
   version = "0.4.2";
@@ -52,7 +49,7 @@ buildPythonPackage rec {
     hash = "sha256-fogCcWAhcrCrrcV0q4oKttkf/GeJaJSZnbgiFxvySs8=";
   };
 
-  pythonRemoveDeps = [ "git-python" ];
+  pythonRemoveDeps = ["git-python"];
 
   pythonRelaxDeps = [
     "anthropic"
@@ -65,7 +62,7 @@ buildPythonPackage rec {
     "yaspin"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     anthropic
@@ -105,7 +102,7 @@ buildPythonPackage rec {
     nltk
   ];
 
-  pythonImportsCheck = [ "interpreter" ];
+  pythonImportsCheck = ["interpreter"];
 
   # Most tests required network access
   doCheck = false;
@@ -115,7 +112,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/KillianLucas/open-interpreter";
     license = lib.licenses.mit;
     changelog = "https://github.com/KillianLucas/open-interpreter/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
     mainProgram = "interpreter";
   };
 }

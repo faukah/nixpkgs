@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mcfly";
   version = "0.9.3";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     description = "Upgraded ctrl-r where history results make sense for what you're working on right now";
     changelog = "https://github.com/cantino/mcfly/raw/v${version}/CHANGELOG.txt";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.melkor333 ];
+    maintainers = [lib.maintainers.melkor333];
     mainProgram = "mcfly";
   };
 }

@@ -8,7 +8,6 @@
   qtquickcontrols2,
   qttools,
 }:
-
 mkDerivation {
   pname = "kirigami-gallery";
 
@@ -29,6 +28,6 @@ mkDerivation {
     description = "View examples of Kirigami components";
     mainProgram = "kirigami2gallery";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ shadowrz ];
+    maintainers = with maintainers; [shadowrz];
   };
 }

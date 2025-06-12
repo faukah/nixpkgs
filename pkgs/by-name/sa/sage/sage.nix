@@ -10,16 +10,14 @@
   withDoc,
   requireSageTests,
 }:
-
 # A wrapper that makes sure sage finds its docs (if they were build) and the
 # jupyter kernel spec.
-
 stdenv.mkDerivation rec {
   version = src.version;
   pname = "sage";
   src = sage-with-env.env.lib.src;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = lib.optionals requireSageTests [
     # This is a hack to make sure sage-tests is evaluated. It doesn't actually
     # produce anything of value, it just decouples the tests from the build.
@@ -64,7 +62,7 @@ stdenv.mkDerivation rec {
     mainProgram = "sage";
     homepage = "https://www.sagemath.org";
     license = licenses.gpl2Plus;
-    teams = [ teams.sage ];
-    platforms = platforms.linux ++ [ "aarch64-darwin" ];
+    teams = [teams.sage];
+    platforms = platforms.linux ++ ["aarch64-darwin"];
   };
 }

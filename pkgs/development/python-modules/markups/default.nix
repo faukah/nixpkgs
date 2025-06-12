@@ -13,7 +13,6 @@
   setuptools,
   textile,
 }:
-
 buildPythonPackage rec {
   pname = "markups";
   version = "4.1.0";
@@ -28,30 +27,32 @@ buildPythonPackage rec {
     hash = "sha256-7/pXCSbVhLeX7PhacMQYwYMT7Og/tZplPPCvWDxJFck=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    docutils
-    markdown
-    pygments
-    python-markdown-math
-    pyyaml
-    textile
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  dependencies =
+    [
+      docutils
+      markdown
+      pygments
+      python-markdown-math
+      pyyaml
+      textile
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # AssertionError: '.selector .ch { color: #408080' not found in 'pre...
     "test_get_pygments_stylesheet"
   ];
 
-  pythonImportsCheck = [ "markups" ];
+  pythonImportsCheck = ["markups"];
 
   meta = with lib; {
     description = "Wrapper around various text markup languages";
     homepage = "https://github.com/retext-project/pymarkups";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ klntsky ];
+    maintainers = with maintainers; [klntsky];
   };
 }

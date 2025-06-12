@@ -3,14 +3,13 @@
   stdenv,
   tlsclient,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   inherit (tlsclient) src version enableParallelBuilding;
   pname = "9ptls";
 
   strictDeps = true;
 
-  buildFlags = [ "mount.9ptls" ];
+  buildFlags = ["mount.9ptls"];
   installFlags = [
     "PREFIX=$(out)"
     "SBIN=$(out)/bin"
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://git.sr.ht/~moody/tlsclient";
     license = licenses.mit;
-    maintainers = with maintainers; [ moody ];
+    maintainers = with maintainers; [moody];
     mainProgram = "mount.9ptls";
     platforms = platforms.linux;
   };

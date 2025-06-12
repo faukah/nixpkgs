@@ -2,16 +2,12 @@
   interpreter,
   writeText,
   runCommand,
-}:
-
-let
-
-  python =
-    let
-      packageOverrides = self: super: {
-        typeddep = self.callPackage ./typeddep { };
-      };
-    in
+}: let
+  python = let
+    packageOverrides = self: super: {
+      typeddep = self.callPackage ./typeddep {};
+    };
+  in
     interpreter.override {
       inherit packageOverrides;
       self = python;
@@ -27,9 +23,8 @@ let
     s: str = util.echo("hello")
     print(s)
   '';
-
 in
-runCommand "${interpreter.name}-site-prefix-mypy-test" { } ''
-  ${pythonEnv}/bin/mypy ${pythonScript}
-  touch $out
-''
+  runCommand "${interpreter.name}-site-prefix-mypy-test" {} ''
+    ${pythonEnv}/bin/mypy ${pythonScript}
+    touch $out
+  ''

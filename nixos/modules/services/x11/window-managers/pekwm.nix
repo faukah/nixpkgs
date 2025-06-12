@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.pekwm;
-in
-{
+in {
   ###### interface
   options = {
     services.xserver.windowManager.pekwm.enable = mkEnableOption "pekwm";
@@ -25,6 +21,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.pekwm ];
+    environment.systemPackages = [pkgs.pekwm];
   };
 }

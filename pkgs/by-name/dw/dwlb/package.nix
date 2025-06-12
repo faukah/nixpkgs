@@ -15,7 +15,6 @@
   # Configurable options
   configH ? null,
 }:
-
 stdenv.mkDerivation {
   pname = "dwlb";
   version = "0-unstable-2025-05-20";
@@ -40,14 +39,12 @@ stdenv.mkDerivation {
   ];
 
   # Allow alternative config.def.h usage. Taken from dwl.nix.
-  postPatch =
-    let
-      configFile =
-        if lib.isDerivation configH || builtins.isPath configH then
-          configH
-        else
-          writeText "config.h" configH;
-    in
+  postPatch = let
+    configFile =
+      if lib.isDerivation configH || builtins.isPath configH
+      then configH
+      else writeText "config.h" configH;
+  in
     lib.optionalString withCustomConfigH "cp ${configFile} config.h";
 
   env = {
@@ -59,7 +56,7 @@ stdenv.mkDerivation {
     "man"
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Fast, feature-complete bar for dwl";

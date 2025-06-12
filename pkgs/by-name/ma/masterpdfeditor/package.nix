@@ -8,15 +8,13 @@
   libsForQt5,
   pkcs11helper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "masterpdfeditor";
   version = "5.9.86";
 
-  src =
-    let
-      selectSystem = attrs: attrs.${stdenv.hostPlatform.system};
-    in
+  src = let
+    selectSystem = attrs: attrs.${stdenv.hostPlatform.system};
+  in
     fetchurl {
       url = selectSystem {
         x86_64-linux = "https://code-industry.net/public/master-pdf-editor-${version}-qt5.x86_64-qt_include.tar.gz";
@@ -72,13 +70,13 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Master PDF Editor";
     homepage = "https://code-industry.net/free-pdf-editor/";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfreeRedistributable;
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
     ];
-    maintainers = with lib.maintainers; [ cmcdragonkai ];
+    maintainers = with lib.maintainers; [cmcdragonkai];
     mainProgram = "masterpdfeditor5";
   };
 }

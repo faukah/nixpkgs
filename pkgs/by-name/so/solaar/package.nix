@@ -9,7 +9,6 @@
   libappindicator,
   librsvg,
 }:
-
 # Although we copy in the udev rules here, you probably just want to use
 # `logitech-udev-rules`, which is an alias to `udev` output of this derivation,
 # instead of adding this to `services.udev.packages` on NixOS,

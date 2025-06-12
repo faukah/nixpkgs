@@ -7,7 +7,6 @@
   libXext,
   libXrandr,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xcalib";
   version = "0.10";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     description = "Tiny monitor calibration loader for X and MS-Windows";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "xcalib";
   };

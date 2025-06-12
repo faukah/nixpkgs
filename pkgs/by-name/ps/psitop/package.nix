@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "psitop";
   version = "1.1.3";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Top for /proc/pressure";
     homepage = "https://github.com/jamespwilliams/psitop";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "psitop";
   };
 }

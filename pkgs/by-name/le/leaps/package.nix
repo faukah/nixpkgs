@@ -6,7 +6,6 @@
   leaps,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "leaps";
   version = "0.9.1";
@@ -28,7 +27,7 @@ buildGoModule rec {
   ];
 
   passthru.tests = {
-    version = testers.testVersion { package = leaps; };
+    version = testers.testVersion {package = leaps;};
     inherit (nixosTests) leaps;
   };
 
@@ -37,6 +36,6 @@ buildGoModule rec {
     mainProgram = "leaps";
     homepage = "https://github.com/jeffail/leaps/";
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ qknight ];
+    maintainers = with lib.maintainers; [qknight];
   };
 }

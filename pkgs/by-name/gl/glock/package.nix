@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildGoModule {
   pname = "glock";
   version = "0-unstable-2021-03-19";
@@ -26,7 +25,7 @@ buildGoModule {
 
   vendorHash = "sha256-v3lfb+CXbTxzObDpubufD3Q1h6IhULcC/6spA6StfGw=";
 
-  checkFlags = [ "-skip=^TestSave$" ];
+  checkFlags = ["-skip=^TestSave$"];
 
   meta = {
     homepage = "https://github.com/robfig/glock";

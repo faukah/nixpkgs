@@ -9,7 +9,6 @@
   skim,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "skim";
   version = "0.18.0";
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-N1s6Kf6iy28QcrLQy6TVbXjfSb9KtzJeaKksW4wXsMw=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postBuild = ''
     cat <<SCRIPT > sk-share
@@ -59,8 +58,8 @@ rustPlatform.buildRustPackage rec {
   cargoTestFlags = lib.optional stdenv.hostPlatform.isAarch64 "--all-targets";
 
   passthru = {
-    tests.version = testers.testVersion { package = skim; };
-    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {package = skim;};
+    updateScript = nix-update-script {};
   };
 
   meta = {

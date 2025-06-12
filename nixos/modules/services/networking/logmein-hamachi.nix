@@ -3,19 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.logmein-hamachi;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.logmein-hamachi.enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -24,18 +17,16 @@ in
         (closed source) commercial VPN software.
       '';
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.logmein-hamachi = {
       description = "LogMeIn Hamachi Daemon";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         Type = "forking";
@@ -43,8 +34,6 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.logmein-hamachi ];
-
+    environment.systemPackages = [pkgs.logmein-hamachi];
   };
-
 }

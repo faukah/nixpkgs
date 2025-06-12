@@ -8,7 +8,6 @@
   setuptools,
   pip,
 }:
-
 buildPythonPackage {
   inherit (faiss-build) pname version;
   pyproject = true;
@@ -36,18 +35,18 @@ buildPythonPackage {
 
   dontBuild = true;
 
-  pythonImportsCheck = [ "faiss" ];
+  pythonImportsCheck = ["faiss"];
 
   passthru = {
     inherit (faiss-build) cudaSupport cudaPackages pythonSupport;
 
     tests = {
-      pytest = callPackage ./pytest.nix { inherit faiss-build; };
+      pytest = callPackage ./pytest.nix {inherit faiss-build;};
     };
   };
 
-  meta = lib.pipe (faiss-build.meta or { }) [
-    (lib.flip builtins.removeAttrs [ "mainProgram" ])
-    (m: m // { description = "Bindings for faiss, the similarity search library"; })
+  meta = lib.pipe (faiss-build.meta or {}) [
+    (lib.flip builtins.removeAttrs ["mainProgram"])
+    (m: m // {description = "Bindings for faiss, the similarity search library";})
   ];
 }

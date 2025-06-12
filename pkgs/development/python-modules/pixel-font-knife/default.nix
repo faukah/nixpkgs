@@ -10,7 +10,6 @@
   unidata-blocks,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "pixel-font-knife";
   version = "0.0.12";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-raVWoMRHmaVaxAzxo+k1r3ldqSOBMbMvcEyuWHq7AaM=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     pypng
@@ -32,9 +31,9 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pixel_font_knife" ];
+  pythonImportsCheck = ["pixel_font_knife"];
 
   meta = {
     homepage = "https://github.com/TakWolf/pixel-font-knife";

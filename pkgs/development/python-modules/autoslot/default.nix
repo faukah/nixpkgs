@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "autoslot";
   version = "2024.12.1";
@@ -21,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-wYjsBrjvSZFHDt0HLrnS9Xwk8EHVQupfPSkQnUFmMAk=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "autoslot" ];
+  pythonImportsCheck = ["autoslot"];
 
   meta = with lib; {
     description = "Automatic __slots__ for your Python classes";
     homepage = "https://github.com/cjrh/autoslot";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

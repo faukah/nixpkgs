@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "tty-clock with weather effect";
     homepage = "https://github.com/ckaznable/tenki";
     license = licenses.mit;
-    maintainers = with maintainers; [ iynaix ];
+    maintainers = with maintainers; [iynaix];
     mainProgram = "tenki";
   };
 }

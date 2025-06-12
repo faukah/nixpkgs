@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation {
   pname = "lha";
   version = "1.14i-unstable-2024-11-27";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     hash = "sha256-jiYTBqDXvxTdrvHYaK+1eo4xIpl+B9ZljhBBYD0BGzQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = {
     description = "LHa is an archiver and compressor using the LZSS and Huffman encoding compression algorithms";

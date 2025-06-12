@@ -1,11 +1,10 @@
 {
   nixpkgs,
   officialRelease,
-  pkgs ? import nixpkgs.outPath { },
+  pkgs ? import nixpkgs.outPath {},
   nix ? pkgs.nix,
-  lib-tests ? import ../../lib/tests/release.nix { inherit pkgs; },
+  lib-tests ? import ../../lib/tests/release.nix {inherit pkgs;},
 }:
-
 pkgs.releaseTools.sourceTarball {
   name = "nixpkgs-tarball";
   src = nixpkgs;
@@ -13,10 +12,9 @@ pkgs.releaseTools.sourceTarball {
   inherit officialRelease;
   version = pkgs.lib.fileContents ../../.version;
   versionSuffix = "pre${
-    if nixpkgs ? lastModified then
-      builtins.substring 0 8 (nixpkgs.lastModifiedDate or nixpkgs.lastModified)
-    else
-      toString (nixpkgs.revCount or 0)
+    if nixpkgs ? lastModified
+    then builtins.substring 0 8 (nixpkgs.lastModifiedDate or nixpkgs.lastModified)
+    else toString (nixpkgs.revCount or 0)
   }.${nixpkgs.shortRev or "dirty"}";
 
   buildInputs = with pkgs; [

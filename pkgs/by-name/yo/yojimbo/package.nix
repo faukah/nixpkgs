@@ -8,7 +8,6 @@
   mbedtls_2,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "yojimbo";
   version = "1.2.3";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Network library for client/server games with dedicated servers";
@@ -61,6 +60,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/mas-bandwidth/yojimbo";
     license = licenses.bsd3;
     platforms = platforms.x86_64;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 })

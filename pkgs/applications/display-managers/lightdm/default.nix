@@ -32,7 +32,6 @@
   yelp-xsl,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lightdm";
   version = "1.32.0";
@@ -63,17 +62,19 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  buildInputs = [
-    accountsservice
-    audit
-    glib
-    libXdmcp
-    libgcrypt
-    libxcb
-    libxklavier
-    pam
-    polkit
-  ] ++ lib.optional withQt5 qtbase;
+  buildInputs =
+    [
+      accountsservice
+      audit
+      glib
+      libXdmcp
+      libgcrypt
+      libxcb
+      libxklavier
+      pam
+      polkit
+    ]
+    ++ lib.optional withQt5 qtbase;
 
   patches = [
     # Adds option to disable writing dmrc files
@@ -94,12 +95,14 @@ stdenv.mkDerivation rec {
 
   preConfigure = "NOCONFIGURE=1 ./autogen.sh";
 
-  configureFlags = [
-    "--localstatedir=/var"
-    "--sysconfdir=/etc"
-    "--disable-tests"
-    "--disable-dmrc"
-  ] ++ lib.optional withQt5 "--enable-liblightdm-qt5";
+  configureFlags =
+    [
+      "--localstatedir=/var"
+      "--sysconfdir=/etc"
+      "--disable-tests"
+      "--disable-dmrc"
+    ]
+    ++ lib.optional withQt5 "--enable-liblightdm-qt5";
 
   installFlags = [
     "sysconfdir=${placeholder "out"}/etc"
@@ -119,8 +122,8 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests = { inherit (nixosTests) lightdm; };
+    updateScript = nix-update-script {};
+    tests = {inherit (nixosTests) lightdm;};
   };
 
   meta = with lib; {
@@ -128,6 +131,6 @@ stdenv.mkDerivation rec {
     description = "Cross-desktop display manager";
     platforms = platforms.linux;
     license = licenses.gpl3;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

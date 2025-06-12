@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-i83BY7/p98/pfYzebolNW/6yNwtb2R5ARCSG3rAq2/M=";
   };
 
-  nativeBuildInputs = [ swig ];
+  nativeBuildInputs = [swig];
 
   build-system = [
     cython
@@ -39,15 +39,17 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    htseq-qa = [ matplotlib ];
+    htseq-qa = [matplotlib];
   };
 
-  pythonImportsCheck = [ "HTSeq" ];
+  pythonImportsCheck = ["HTSeq"];
 
-  nativeCheckInputs = [
-    pandas
-    pytestCheckHook
-  ] ++ optional-dependencies.htseq-qa;
+  nativeCheckInputs =
+    [
+      pandas
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.htseq-qa;
 
   preCheck = ''
     rm -r src HTSeq
@@ -64,6 +66,6 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://htseq.readthedocs.io/";
     description = "Framework to work with high-throughput sequencing data";
-    maintainers = with maintainers; [ unode ];
+    maintainers = with maintainers; [unode];
   };
 }

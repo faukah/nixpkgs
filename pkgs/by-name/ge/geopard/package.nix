@@ -14,7 +14,6 @@
   blueprint-compiler,
   glib-networking,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "geopard";
   version = "1.6.0";

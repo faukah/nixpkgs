@@ -4,18 +4,15 @@
   fetchFromGitHub,
   pythonAtLeast,
   pythonOlder,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # tests
   asttokens,
   littleutils,
   rich,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "executing";
   version = "2.2.0";
@@ -35,11 +32,13 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [
-    asttokens
-    littleutils
-    pytestCheckHook
-  ] ++ lib.optionals (pythonAtLeast "3.11") [ rich ];
+  nativeCheckInputs =
+    [
+      asttokens
+      littleutils
+      pytestCheckHook
+    ]
+    ++ lib.optionals (pythonAtLeast "3.11") [rich];
 
   disabledTests = [
     # requires ipython, which causes a circular dependency
@@ -54,12 +53,12 @@ buildPythonPackage rec {
     "test_exception_catching"
   ];
 
-  pythonImportsCheck = [ "executing" ];
+  pythonImportsCheck = ["executing"];
 
   meta = with lib; {
     description = "Get information about what a frame is currently doing, particularly the AST node being executed";
     homepage = "https://github.com/alexmojaki/executing";
     license = licenses.mit;
-    maintainers = with maintainers; [ renatoGarcia ];
+    maintainers = with maintainers; [renatoGarcia];
   };
 }

@@ -22,7 +22,6 @@
   libunistring,
   prqlSupport ? stdenv.hostPlatform == stdenv.buildPlatform,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lnav";
   version = "0.12.4";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   nativeBuildInputs =
     [
@@ -91,7 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
     ./autogen.sh
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/tstack/lnav";

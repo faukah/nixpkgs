@@ -10,7 +10,6 @@
   protobuf,
   buildPackages,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "quill";
   version = "0.5.3";
@@ -66,6 +65,6 @@ rustPlatform.buildRustPackage rec {
     description = "Minimalistic ledger and governance toolkit for cold wallets on the Internet Computer";
     mainProgram = "quill";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ imalison ];
+    maintainers = with lib.maintainers; [imalison];
   };
 }

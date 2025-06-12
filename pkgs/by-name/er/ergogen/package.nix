@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildNpmPackage (finalAttrs: {
   pname = "ergogen";
   version = "4.1.0";
@@ -23,19 +22,19 @@ buildNpmPackage (finalAttrs: {
 
   makeCacheWritable = true;
   dontNpmBuild = true;
-  npmPackFlags = [ "--ignore-scripts" ];
+  npmPackFlags = ["--ignore-scripts"];
   NODE_OPTIONS = "--openssl-legacy-provider";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Ergonomic keyboard layout generator.";
     homepage = "https://ergogen.xyz";
     mainProgram = "ergogen";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ Tygo-van-den-Hurk ];
+    maintainers = with lib.maintainers; [Tygo-van-den-Hurk];
   };
 })

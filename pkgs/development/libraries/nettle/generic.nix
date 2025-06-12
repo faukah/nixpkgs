@@ -4,12 +4,10 @@
   buildPackages,
   gmp,
   gnum4,
-
   # Version specific args
   version,
   src,
 }:
-
 stdenv.mkDerivation {
   pname = "nettle";
 
@@ -21,20 +19,20 @@ stdenv.mkDerivation {
   ];
   outputBin = "dev";
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ gnum4 ];
-  propagatedBuildInputs = [ gmp ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  nativeBuildInputs = [gnum4];
+  propagatedBuildInputs = [gmp];
 
   configureFlags =
     # runtime selection of HW-accelerated code; it's default since 3.7
-    [ "--enable-fat" ]
+    ["--enable-fat"]
     # Make sure the right <gmp.h> is found, and not the incompatible
     # /usr/include/mp.h from OpenSolaris.  See
     # <https://lists.gnu.org/archive/html/hydra-users/2012-08/msg00000.html>
     # for details.
     ++ lib.optional stdenv.hostPlatform.isSunOS "--with-include-path=${gmp.dev}/include";
 
-  doCheck = (stdenv.hostPlatform.system != "i686-cygwin" && !stdenv.hostPlatform.isDarwin);
+  doCheck = stdenv.hostPlatform.system != "i686-cygwin" && !stdenv.hostPlatform.isDarwin;
 
   enableParallelBuilding = true;
 
@@ -71,6 +69,6 @@ stdenv.mkDerivation {
     homepage = "https://www.lysator.liu.se/~nisse/nettle/";
 
     platforms = platforms.all;
-    maintainers = [ maintainers.vcunat ];
+    maintainers = [maintainers.vcunat];
   };
 }

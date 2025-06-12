@@ -2,19 +2,15 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # nativeBuildInputs
   ninja,
   makeWrapper,
-
   # buildInputs
   fmt,
   rsync,
-
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lua-language-server";
   version = "3.14.0";
@@ -90,7 +86,11 @@ stdenv.mkDerivation (finalAttrs: {
     );
 
   ninjaFlags = [
-    "-fcompile/ninja/${if stdenv.hostPlatform.isDarwin then "macos" else "linux"}.ninja"
+    "-fcompile/ninja/${
+      if stdenv.hostPlatform.isDarwin
+      then "macos"
+      else "linux"
+    }.ninja"
   ];
 
   postBuild = ''
@@ -127,7 +127,7 @@ stdenv.mkDerivation (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Language server that offers Lua language support";

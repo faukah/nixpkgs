@@ -4,7 +4,6 @@
   fetchurl,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "type_eq";
   version = "0.0.1";
@@ -27,6 +26,6 @@ buildDunePackage rec {
     homepage = "https://github.com/skolemlabs/type_eq";
     changelog = "https://github.com/skolemlabs/type_eq/blob/${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sixstring982 ];
+    maintainers = with lib.maintainers; [sixstring982];
   };
 }

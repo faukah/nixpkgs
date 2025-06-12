@@ -7,7 +7,6 @@
   alsa-lib,
   wayland,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eepers";
   version = "1.3";
@@ -51,11 +50,11 @@ stdenv.mkDerivation rec {
       --add-needed libwayland-egl.so \
       --add-needed libasound.so \
       --add-rpath ${
-        lib.makeLibraryPath [
-          alsa-lib
-          wayland
-        ]
-      }
+      lib.makeLibraryPath [
+        alsa-lib
+        wayland
+      ]
+    }
   '';
 
   installPhase = ''
@@ -74,7 +73,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/tsoding/eepers";
     changelog = "https://github.com/tsoding/eepers/blob/${src.rev}/CHANGELOG.txt";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "eepers";
     platforms = lib.platforms.all;
   };

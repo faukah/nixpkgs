@@ -11,7 +11,6 @@
   lilypond,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "abjad";
   version = "3.22";
@@ -33,9 +32,9 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  buildInputs = [ lilypond ];
+  buildInputs = [lilypond];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace abjad/io.py \
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     # get_lilypond_version_string
   '';
 
-  pythonImportsCheck = [ "abjad" ];
+  pythonImportsCheck = ["abjad"];
 
   meta = {
     description = "GNU LilyPond wrapper for Python";
@@ -64,6 +63,6 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     homepage = "https://abjad.github.io/";
     changelog = "https://abjad.github.io/appendices/changes.html";
-    maintainers = [ lib.maintainers.davisrichard437 ];
+    maintainers = [lib.maintainers.davisrichard437];
   };
 }

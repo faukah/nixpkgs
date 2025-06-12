@@ -9,7 +9,6 @@
   p7zip,
   rsync,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ply";
   version = "2.1.1-${lib.substring 0 7 src.rev}";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Dynamic tracing in Linux";
     mainProgram = "ply";
     homepage = "https://wkz.github.io/ply/";
-    license = [ licenses.gpl2Only ];
+    license = [licenses.gpl2Only];
     maintainers = with maintainers; [
       mic92
       mbbx6spp

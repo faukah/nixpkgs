@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kaf";
   version = "0.2.13";
@@ -25,6 +24,6 @@ buildGoModule rec {
     mainProgram = "kaf";
     homepage = "https://github.com/birdayz/kaf";
     license = licenses.asl20;
-    maintainers = with maintainers; [ zarelit ];
+    maintainers = with maintainers; [zarelit];
   };
 }

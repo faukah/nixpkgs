@@ -38,7 +38,6 @@
   yq,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hyperspeedcube";
   version = "1.0.12";
@@ -121,7 +120,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://ajfarkas.dev/hyperspeedcube/";
     license = lib.licenses.cc-by-nc-sa-40;
-    maintainers = [ lib.maintainers.omnipotententity ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [lib.maintainers.omnipotententity];
+    platforms = ["x86_64-linux"];
   };
 }

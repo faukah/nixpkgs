@@ -23,8 +23,7 @@
   enableWayland ? stdenv.hostPlatform.isLinux,
   wayland,
 }:
-
-rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } (finalAttrs: {
+rustPlatform.buildRustPackage.override {stdenv = clangStdenv;} (finalAttrs: {
   pname = "neovide";
   version = "0.15.0";
 
@@ -38,24 +37,23 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-1ni8AZIwAz5R2Ejt9Fj5qmybvL4KZV/M3BMqQx4HFLU=";
 
-  SKIA_SOURCE_DIR =
-    let
-      repo = fetchFromGitHub {
-        owner = "rust-skia";
-        repo = "skia";
-        # see rust-skia:skia-bindings/Cargo.toml#package.metadata skia
-        tag = "m135-0.83.1";
-        hash = "sha256-TSGPJl9DfWQtrkNIhv40s8VcuudCjbiSh+QjLc0hKN4=";
-      };
-      # The externals for skia are taken from skia/DEPS
-      externals = linkFarm "skia-externals" (
-        lib.mapAttrsToList (name: value: {
-          inherit name;
-          path = fetchgit value;
-        }) (lib.importJSON ./skia-externals.json)
-      );
-    in
-    runCommand "source" { } ''
+  SKIA_SOURCE_DIR = let
+    repo = fetchFromGitHub {
+      owner = "rust-skia";
+      repo = "skia";
+      # see rust-skia:skia-bindings/Cargo.toml#package.metadata skia
+      tag = "m135-0.83.1";
+      hash = "sha256-TSGPJl9DfWQtrkNIhv40s8VcuudCjbiSh+QjLc0hKN4=";
+    };
+    # The externals for skia are taken from skia/DEPS
+    externals = linkFarm "skia-externals" (
+      lib.mapAttrsToList (name: value: {
+        inherit name;
+        path = fetchgit value;
+      }) (lib.importJSON ./skia-externals.json)
+    );
+  in
+    runCommand "source" {} ''
       cp -R ${repo} $out
       chmod -R +w $out
       ln -s ${externals} $out/third_party/externals
@@ -75,7 +73,7 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } (finalAttrs: {
       cctools.libtool
     ];
 
-  nativeCheckInputs = [ neovim ];
+  nativeCheckInputs = [neovim];
 
   buildInputs = [
     SDL2
@@ -83,29 +81,27 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } (finalAttrs: {
     rustPlatform.bindgenHook
   ];
 
-  postFixup =
-    let
-      libPath = lib.makeLibraryPath (
-        [
-          libglvnd
-          libxkbcommon
-          xorg.libX11
-          xorg.libXcursor
-          xorg.libXext
-          xorg.libXrandr
-          xorg.libXi
-        ]
-        ++ lib.optionals enableWayland [ wayland ]
-      );
-    in
-    ''
-      # library skia embeds the path to its sources
-      remove-references-to -t "$SKIA_SOURCE_DIR" \
-        $out/bin/neovide
+  postFixup = let
+    libPath = lib.makeLibraryPath (
+      [
+        libglvnd
+        libxkbcommon
+        xorg.libX11
+        xorg.libXcursor
+        xorg.libXext
+        xorg.libXrandr
+        xorg.libXi
+      ]
+      ++ lib.optionals enableWayland [wayland]
+    );
+  in ''
+    # library skia embeds the path to its sources
+    remove-references-to -t "$SKIA_SOURCE_DIR" \
+      $out/bin/neovide
 
-      wrapProgram $out/bin/neovide \
-        --prefix LD_LIBRARY_PATH : ${libPath}
-    '';
+    wrapProgram $out/bin/neovide \
+      --prefix LD_LIBRARY_PATH : ${libPath}
+  '';
 
   postInstall =
     lib.optionalString stdenv.hostPlatform.isDarwin ''
@@ -122,7 +118,7 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } (finalAttrs: {
       install -m444 -Dt $out/share/applications assets/neovide.desktop
     '';
 
-  disallowedReferences = [ finalAttrs.SKIA_SOURCE_DIR ];
+  disallowedReferences = [finalAttrs.SKIA_SOURCE_DIR];
 
   meta = {
     description = "Neovide is a simple, no-nonsense, cross-platform graphical user interface for Neovim";

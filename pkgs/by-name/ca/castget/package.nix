@@ -2,12 +2,10 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # native
   autoreconfHook,
   glibcLocales,
   pkg-config,
-
   # host
   curl,
   glib,
@@ -15,7 +13,6 @@
   libxml2,
   taglib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "castget";
   # Using unstable version since it doesn't require `ronn`, see:
@@ -60,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://castget.johndal.com/";
     changelog = "https://github.com/mlj/castget/blob/${finalAttrs.version}/CHANGES.md";
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
   };

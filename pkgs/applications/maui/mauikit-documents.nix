@@ -14,7 +14,6 @@
   mauikit,
   poppler,
 }:
-
 mkDerivation {
   pname = "mauikit-documents";
 
@@ -43,6 +42,6 @@ mkDerivation {
       bsd2
       lgpl21Plus
     ];
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

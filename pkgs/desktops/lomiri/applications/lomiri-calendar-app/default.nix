@@ -18,7 +18,6 @@
   qtpim,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-calendar-app";
   version = "1.1.2";
@@ -118,41 +117,39 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelChecking = false;
 
-  preCheck =
-    let
-      listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
-    in
-    ''
-      export HOME=$TMP
-      export QT_PLUGIN_PATH=${
-        listToQtVar qtbase.qtPluginPrefix [
-          qtbase
-          qtorganizer-mkcal
+  preCheck = let
+    listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
+  in ''
+    export HOME=$TMP
+    export QT_PLUGIN_PATH=${
+      listToQtVar qtbase.qtPluginPrefix [
+        qtbase
+        qtorganizer-mkcal
+      ]
+    }
+    export QML2_IMPORT_PATH=${
+      listToQtVar qtbase.qtQmlPrefix (
+        [
+          lomiri-ui-toolkit
+          qtpim
         ]
-      }
-      export QML2_IMPORT_PATH=${
-        listToQtVar qtbase.qtQmlPrefix (
-          [
-            lomiri-ui-toolkit
-            qtpim
-          ]
-          ++ lomiri-ui-toolkit.propagatedBuildInputs
-        )
-      }
-    '';
+        ++ lomiri-ui-toolkit.propagatedBuildInputs
+      )
+    }
+  '';
 
   passthru = {
     tests.vm = nixosTests.lomiri-calendar-app;
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
     description = "Default Calendar application for Ubuntu Touch devices";
     homepage = "https://gitlab.com/ubports/development/apps/lomiri-calendar-app";
     changelog = "https://gitlab.com/ubports/development/apps/lomiri-calendar-app/-/blob/v${finalAttrs.version}/ChangeLog";
-    license = with lib.licenses; [ gpl3Only ];
+    license = with lib.licenses; [gpl3Only];
     mainProgram = "lomiri-calendar-app";
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
   };
 })

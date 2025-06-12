@@ -4,7 +4,6 @@
   python3Packages,
   git,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "git-bars";
   version = "unstable-2023-08-08";
@@ -25,7 +24,7 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/knadh/git-bars";
     description = "Utility for visualising git commit activity as bars on the terminal";
     license = licenses.mit;
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
     mainProgram = "git-bars";
   };
 }

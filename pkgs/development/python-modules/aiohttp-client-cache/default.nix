@@ -17,7 +17,6 @@
   redis,
   url-normalize,
 }:
-
 buildPythonPackage rec {
   pname = "aiohttp-client-cache";
   version = "0.13.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-3FzWI0CtvuGOD+3HsMN1Qmkt8I+O2ZRddRtykqBDOFM=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -55,18 +54,20 @@ buildPythonPackage rec {
       aiofiles
       aiosqlite
     ];
-    mongodb = [ motor ];
-    redis = [ redis ];
-    sqlite = [ aiosqlite ];
+    mongodb = [motor];
+    redis = [redis];
+    sqlite = [aiosqlite];
   };
 
-  nativeCheckInputs = [
-    faker
-    pytest-aiohttp
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      faker
+      pytest-aiohttp
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "aiohttp_client_cache" ];
+  pythonImportsCheck = ["aiohttp_client_cache"];
 
   disabledTestPaths = [
     # Tests require running instances of the services
@@ -80,6 +81,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/requests-cache/aiohttp-client-cache";
     changelog = "https://github.com/requests-cache/aiohttp-client-cache/blob/v${version}/HISTORY.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ seirl ];
+    maintainers = with maintainers; [seirl];
   };
 }

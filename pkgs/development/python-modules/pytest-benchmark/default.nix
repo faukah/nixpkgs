@@ -17,7 +17,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-benchmark";
   version = "5.1.0";
@@ -30,34 +29,36 @@ buildPythonPackage rec {
     hash = "sha256-4fD9UfZ6jtY7Gx/PVzd1JNWeQNz+DJ2kQmCku2TgxzI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  dependencies = [ py-cpuinfo ];
+  dependencies = [py-cpuinfo];
 
   optional-dependencies = {
-    aspect = [ aspectlib ];
+    aspect = [aspectlib];
     histogram = [
       pygal
       # FIXME package pygaljs
       setuptools
     ];
-    elasticsearch = [ elasticsearch ];
+    elasticsearch = [elasticsearch];
   };
 
-  pythonImportsCheck = [ "pytest_benchmark" ];
+  pythonImportsCheck = ["pytest_benchmark"];
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [
-    freezegun
-    git
-    mercurial
-    nbmake
-    pytestCheckHook
-    pytest-xdist
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      freezegun
+      git
+      mercurial
+      nbmake
+      pytestCheckHook
+      pytest-xdist
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   preCheck = ''
     export PATH="$out/bin:$PATH"
@@ -83,6 +84,6 @@ buildPythonPackage rec {
     description = "Pytest fixture for benchmarking code";
     homepage = "https://github.com/ionelmc/pytest-benchmark";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

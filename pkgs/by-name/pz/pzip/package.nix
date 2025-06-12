@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unzip,
 }:
-
 buildGoModule rec {
   pname = "pzip";
   version = "0.2.0";
@@ -32,7 +31,7 @@ buildGoModule rec {
     homepage = "https://github.com/ybirader/pzip";
     changelog = "https://github.com/ybirader/pzip/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "pzip";
   };
 }

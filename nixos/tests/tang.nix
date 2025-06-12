@@ -1,51 +1,48 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "tang";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ jfroche ];
+    maintainers = [jfroche];
   };
 
-  nodes.server =
-    {
-      config,
-      pkgs,
-      modulesPath,
-      ...
-    }:
-    {
-      imports = [
-        "${modulesPath}/../tests/common/auto-format-root-device.nix"
-      ];
-      virtualisation = {
-        emptyDiskImages = [ 512 ];
-        useBootLoader = true;
-        useEFIBoot = true;
-        # This requires to have access
-        # to a host Nix store as
-        # the new root device is /dev/vdb
-        # an empty 512MiB drive, containing no Nix store.
-        mountHostNixStore = true;
-      };
-
-      boot.loader.systemd-boot.enable = true;
-
-      networking.interfaces.eth1.ipv4.addresses = [
-        {
-          address = "192.168.0.1";
-          prefixLength = 24;
-        }
-      ];
-
-      environment.systemPackages = with pkgs; [
-        clevis
-        tang
-        cryptsetup
-      ];
-      services.tang = {
-        enable = true;
-        ipAddressAllow = [ "127.0.0.1/32" ];
-      };
+  nodes.server = {
+    config,
+    pkgs,
+    modulesPath,
+    ...
+  }: {
+    imports = [
+      "${modulesPath}/../tests/common/auto-format-root-device.nix"
+    ];
+    virtualisation = {
+      emptyDiskImages = [512];
+      useBootLoader = true;
+      useEFIBoot = true;
+      # This requires to have access
+      # to a host Nix store as
+      # the new root device is /dev/vdb
+      # an empty 512MiB drive, containing no Nix store.
+      mountHostNixStore = true;
     };
+
+    boot.loader.systemd-boot.enable = true;
+
+    networking.interfaces.eth1.ipv4.addresses = [
+      {
+        address = "192.168.0.1";
+        prefixLength = 24;
+      }
+    ];
+
+    environment.systemPackages = with pkgs; [
+      clevis
+      tang
+      cryptsetup
+    ];
+    services.tang = {
+      enable = true;
+      ipAddressAllow = ["127.0.0.1/32"];
+    };
+  };
   testScript = ''
     start_all()
     machine.wait_for_unit("sockets.target")

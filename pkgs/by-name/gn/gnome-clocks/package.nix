@@ -23,7 +23,6 @@
   libgweather,
   libadwaita,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-clocks";
   version = "48.0";
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = true;
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-clocks"; };
+    updateScript = gnome.updateScript {packageName = "gnome-clocks";};
   };
 
   meta = {
@@ -83,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
       - Set timers to properly cook your food
     '';
     mainProgram = "gnome-clocks";
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
   };

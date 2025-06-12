@@ -11,7 +11,6 @@
   avro-cpp,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libserdes";
   version = "7.9.1";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     # - NIX_CFLAGS_COMPILE - fails because of -Werror in compiler checks since --std=... has no effect for C compilers.
     # - CXXFLAGS without patching configure.self does nothing, because --std=c++11 is appended to the final flags, overriding
     #   everything specified manually.
-    "--CXXFLAGS=${toString [ "--std=c++17" ]}"
+    "--CXXFLAGS=${toString ["--std=c++17"]}"
   ];
 
   makeFlags = [
@@ -82,13 +81,13 @@ stdenv.mkDerivation rec {
     chmod -x ''${!outputInclude}/include/libserdes/*.h
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Schema-based serializer/deserializer C/C++ library with support for Avro and the Confluent Platform Schema Registry";
     homepage = "https://github.com/confluentinc/libserdes";
     license = licenses.asl20;
-    maintainers = with maintainers; [ liff ];
+    maintainers = with maintainers; [liff];
     platforms = platforms.all;
   };
 }

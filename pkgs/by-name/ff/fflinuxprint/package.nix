@@ -6,7 +6,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fflinuxprint";
   version = "1.1.3-4";
@@ -43,8 +42,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "FujiFILM Linux Printer Driver";
     homepage = "https://support-fb.fujifilm.com";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ jaduff ];
+    maintainers = with lib.maintainers; [jaduff];
     platforms = lib.platforms.linux;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

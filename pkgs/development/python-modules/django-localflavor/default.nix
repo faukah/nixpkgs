@@ -2,19 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   django,
   python-stdnum,
-
   # tests
   pytest-django,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-localflavor";
   version = "5.0";
@@ -27,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-eYhkWfxoZlnxhCIaqBhoEt0+SbkZKkUNUAy4p3tYf4A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -57,6 +53,6 @@ buildPythonPackage rec {
     description = "Country-specific Django helpers";
     homepage = "https://github.com/django/django-localflavor";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

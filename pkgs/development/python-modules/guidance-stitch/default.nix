@@ -2,22 +2,18 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   hatch-jupyter-builder,
   hatch-nodejs-version,
   hatchling,
   jupyterlab,
-
   # dependencies
   ipywidgets,
-
   # tests
   nbval,
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "guidance-stitch";
   version = "0.1.4";
@@ -40,7 +36,7 @@ buildPythonPackage rec {
     ipywidgets
   ];
 
-  pythonImportsCheck = [ "stitch" ];
+  pythonImportsCheck = ["stitch"];
 
   nativeCheckInputs = [
     nbval
@@ -54,6 +50,6 @@ buildPythonPackage rec {
     description = "Guidance language for controlling large language models";
     homepage = "https://github.com/guidance-ai/guidance/tree/main/packages/python/stitch";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

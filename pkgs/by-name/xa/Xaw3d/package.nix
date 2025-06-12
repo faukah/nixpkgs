@@ -14,7 +14,6 @@
   libXt,
   xorgproto,
 }:
-
 stdenv.mkDerivation rec {
   pname = "Xaw3d";
   version = "1.6.6";

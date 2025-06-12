@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ulid-transform";
   version = "1.4.0";
@@ -39,15 +38,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--benchmark-disable" ];
+  pytestFlagsArray = ["--benchmark-disable"];
 
-  pythonImportsCheck = [ "ulid_transform" ];
+  pythonImportsCheck = ["ulid_transform"];
 
   meta = with lib; {
     description = "Library to create and transform ULIDs";
     homepage = "https://github.com/bdraco/ulid-transform";
     changelog = "https://github.com/bdraco/ulid-transform/blob/${src.tag}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

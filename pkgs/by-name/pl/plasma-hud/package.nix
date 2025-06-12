@@ -6,7 +6,6 @@
   rofi,
   gobject-introspection,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "plasma-hud";
   version = "19.10.1";
@@ -31,7 +30,7 @@ python3Packages.buildPythonApplication rec {
       setproctitle
       xlib
     ])
-    ++ [ rofi ];
+    ++ [rofi];
 
   postPatch = ''
     sed -i "s:/usr/lib/plasma-hud:$out/bin:" etc/xdg/autostart/plasma-hud.desktop
@@ -51,7 +50,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/Zren/plasma-hud";
     platforms = lib.platforms.unix;
     description = "Run menubar commands, much like the Unity 7 Heads-Up Display (HUD)";
-    maintainers = with lib.maintainers; [ pasqui23 ];
+    maintainers = with lib.maintainers; [pasqui23];
     mainProgram = "plasma-hud";
   };
 }

@@ -2,22 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build system
   poetry-core,
-
   # dependencies
   aiosqlite,
   langgraph-checkpoint,
-
   # testing
   pytest-asyncio,
   pytestCheckHook,
-
   # passthru
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "langgraph-checkpoint-sqlite";
   version = "2.0.6";
@@ -32,7 +27,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/checkpoint-sqlite";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiosqlite
@@ -46,7 +41,7 @@ buildPythonPackage rec {
     "langgraph-checkpoint"
   ];
 
-  pythonImportsCheck = [ "langgraph.checkpoint.sqlite" ];
+  pythonImportsCheck = ["langgraph.checkpoint.sqlite"];
 
   nativeCheckInputs = [
     pytest-asyncio

@@ -18,23 +18,19 @@
   cmocka,
   llvmPackages,
 }:
-
 # wine fuzzing is only known to work for win32 binaries, and using a mixture of
 # 32 and 64-bit libraries ... complicates things, so it's recommended to build
 # a full 32bit version of this package if you want to do wine fuzzing
-assert (wine != null) -> (stdenv.targetPlatform.system == "i686-linux");
-
-let
-  aflplusplus-qemu = callPackage ./qemu.nix { };
+assert (wine != null) -> (stdenv.targetPlatform.system == "i686-linux"); let
+  aflplusplus-qemu = callPackage ./qemu.nix {};
   qemu-exe-name =
-    if stdenv.targetPlatform.system == "x86_64-linux" then
-      "qemu-x86_64"
-    else if stdenv.targetPlatform.system == "i686-linux" then
-      "qemu-i386"
-    else
-      throw "aflplusplus: no support for ${stdenv.targetPlatform.system}!";
-  libdislocator = callPackage ./libdislocator.nix { inherit aflplusplus; };
-  libtokencap = callPackage ./libtokencap.nix { inherit aflplusplus; };
+    if stdenv.targetPlatform.system == "x86_64-linux"
+    then "qemu-x86_64"
+    else if stdenv.targetPlatform.system == "i686-linux"
+    then "qemu-i386"
+    else throw "aflplusplus: no support for ${stdenv.targetPlatform.system}!";
+  libdislocator = callPackage ./libdislocator.nix {inherit aflplusplus;};
+  libtokencap = callPackage ./libtokencap.nix {inherit aflplusplus;};
   aflplusplus = stdenvNoCC.mkDerivation rec {
     pname = "aflplusplus";
     version = "4.32c";
@@ -56,16 +52,18 @@ let
       clang
       gcc
     ];
-    buildInputs = [
-      llvm
-      python3
-      gmp
-      llvmPackages.bintools
-    ] ++ lib.optional (wine != null) python3.pkgs.wrapPython;
+    buildInputs =
+      [
+        llvm
+        python3
+        gmp
+        llvmPackages.bintools
+      ]
+      ++ lib.optional (wine != null) python3.pkgs.wrapPython;
 
     # Flag is already set by package and causes some compiler warnings.
     # warning: "_FORTIFY_SOURCE" redefined
-    hardeningDisable = [ "fortify" ];
+    hardeningDisable = ["fortify"];
 
     postPatch = ''
       # Don't care about this.
@@ -214,4 +212,4 @@ let
     };
   };
 in
-aflplusplus
+  aflplusplus

@@ -13,7 +13,6 @@
   perl,
   patchPpdFilesHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ptouch-driver";
   version = "1.7";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     foomatic-db-engine
     patchPpdFilesHook
-    (perl.withPackages (pp: with pp; [ XMLLibXML ]))
+    (perl.withPackages (pp: with pp; [XMLLibXML]))
   ];
 
   postPatch = ''
@@ -79,7 +78,7 @@ stdenv.mkDerivation rec {
     downloadPage = "https://github.com/philpem/printer-driver-ptouch";
     homepage = "https://github.com/philpem/printer-driver-ptouch";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ sascha8a ];
+    maintainers = with lib.maintainers; [sascha8a];
     platforms = lib.platforms.linux;
     longDescription = ''
       This is ptouch-driver, a printer driver based on CUPS and foomatic,

@@ -12,7 +12,6 @@
   requests-mock,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "skybellpy";
   version = "0.6.3";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-/+9KYxXYTN0T6PoccAA/pwdwWqOzCSZdNxj6xi6oG74=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     colorlog
@@ -42,14 +41,14 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "skybellpy" ];
+  pythonImportsCheck = ["skybellpy"];
 
   meta = with lib; {
     description = "Python wrapper for the Skybell alarm API";
     homepage = "https://github.com/MisterWil/skybellpy";
     changelog = "https://github.com/MisterWil/skybellpy/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "skybellpy";
   };
 }

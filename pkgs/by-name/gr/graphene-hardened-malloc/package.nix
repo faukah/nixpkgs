@@ -7,7 +7,6 @@
   stdenv,
   stress-ng,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "graphene-hardened-malloc";
   version = "2025041100";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-HCuH5SUiw/+3T1dv+IKKsQEC1GbuG0Se376bw2fG5u8=";
   };
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
   # these tests cover use as a build-time-linked library
   checkTarget = "test";
   doCheck = true;
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
       name = "${finalAttrs.pname}-ld-preload-tests";
       inherit (finalAttrs) src;
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       # reuse the projects tests to cover use with LD_PRELOAD. we have
       # to convince the test programs to build as though they're naive
@@ -78,12 +77,12 @@ stdenv.mkDerivation (finalAttrs: {
       '';
     };
     tests = {
-      ld-preload = runCommand "ld-preload-test-run" { } ''
+      ld-preload = runCommand "ld-preload-test-run" {} ''
         ${finalAttrs.finalPackage}/bin/preload-hardened-malloc ${finalAttrs.passthru.ld-preload-tests}/bin/run-tests
         touch $out
       '';
       # to compensate for the lack of tests of correct normal malloc operation
-      stress = runCommand "stress-test-run" { } ''
+      stress = runCommand "stress-test-run" {} ''
         ${finalAttrs.finalPackage}/bin/preload-hardened-malloc ${stress-ng}/bin/stress-ng \
           --no-rand-seed \
           --malloc 8 \
@@ -104,7 +103,7 @@ stdenv.mkDerivation (finalAttrs: {
       corruption vulnerabilities yet aims to provide decent overall performance.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

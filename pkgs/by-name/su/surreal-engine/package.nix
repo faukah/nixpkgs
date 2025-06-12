@@ -16,7 +16,6 @@
   waylandpp,
   libxkbcommon,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "surreal-engine";
   version = "0-unstable-2024-11-08";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postFixup = ''
     for bin in $out/bin/Surreal{Debugger,Editor,Engine}; do
-      wrapProgram $bin --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}
+      wrapProgram $bin --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [vulkan-loader]}
     done
   '';
 
@@ -71,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "SurrealEngine";
     homepage = "https://github.com/dpjudas/SurrealEngine";
     license = licenses.zlib;
-    maintainers = with maintainers; [ hughobrien ];
+    maintainers = with maintainers; [hughobrien];
     platforms = platforms.linux;
   };
 })

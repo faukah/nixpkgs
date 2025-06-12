@@ -7,7 +7,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "screenly-cli";
   version = "1.0.3";
@@ -27,9 +26,9 @@ rustPlatform.buildRustPackage rec {
     perl
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tools for managing digital signs and screens at scale";

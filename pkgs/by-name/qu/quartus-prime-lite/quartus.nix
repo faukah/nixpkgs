@@ -12,9 +12,7 @@
     "MAX II/V"
     "MAX 10 FPGA"
   ],
-}:
-
-let
+}: let
   deviceIds = {
     "Arria II" = "arria_lite";
     "Cyclone V" = "cyclonev";
@@ -24,20 +22,23 @@ let
     "MAX 10 FPGA" = "max10";
   };
 
-  supportedDeviceIds =
-    assert lib.assertMsg (lib.all (
+  supportedDeviceIds = assert lib.assertMsg (lib.all (
       name: lib.hasAttr name deviceIds
-    ) supportedDevices) "Supported devices are: ${lib.concatStringsSep ", " (lib.attrNames deviceIds)}";
+    )
+    supportedDevices) "Supported devices are: ${lib.concatStringsSep ", " (lib.attrNames deviceIds)}";
     lib.listToAttrs (
       map (name: {
         inherit name;
         value = deviceIds.${name};
-      }) supportedDevices
+      })
+      supportedDevices
     );
 
-  unsupportedDeviceIds = lib.filterAttrs (
-    name: value: !(lib.hasAttr name supportedDeviceIds)
-  ) deviceIds;
+  unsupportedDeviceIds =
+    lib.filterAttrs (
+      name: value: !(lib.hasAttr name supportedDeviceIds)
+    )
+    deviceIds;
 
   componentHashes = {
     "arria_lite" = "sha256-PNoc15Y5h+2bxhYFIxkg1qVAsXIX3IMfEQSdPLVNUp4=";
@@ -50,8 +51,10 @@ let
 
   version = "23.1std.1.993";
 
-  download =
-    { name, sha256 }:
+  download = {
+    name,
+    sha256,
+  }:
     fetchurl {
       inherit name sha256;
       # e.g. "23.1std.1.993" -> "23.1std/993"
@@ -72,21 +75,19 @@ let
   );
   components = map (
     id:
-    download {
-      name = "${id}-${version}.qdz";
-      sha256 = lib.getAttr id componentHashes;
-    }
+      download {
+        name = "${id}-${version}.qdz";
+        sha256 = lib.getAttr id componentHashes;
+      }
   ) (lib.attrValues supportedDeviceIds);
-
 in
-stdenv.mkDerivation {
-  inherit version;
-  pname = "quartus-prime-lite-unwrapped";
+  stdenv.mkDerivation {
+    inherit version;
+    pname = "quartus-prime-lite-unwrapped";
 
-  nativeBuildInputs = [ unstick ];
+    nativeBuildInputs = [unstick];
 
-  buildCommand =
-    let
+    buildCommand = let
       copyInstaller = installer: ''
         # `$(cat $NIX_CC/nix-support/dynamic-linker) $src[0]` often segfaults, so cp + patchelf
         cp ${installer} $TEMP/${installer.name}
@@ -103,8 +104,7 @@ stdenv.mkDerivation {
         ]
         ++ (lib.optional (!withQuesta) "questa_fse")
         ++ (lib.attrValues unsupportedDeviceIds);
-    in
-    ''
+    in ''
       echo "setting up installer..."
       ${lib.concatMapStringsSep "\n" copyInstaller installers}
       ${lib.concatMapStringsSep "\n" copyComponent components}
@@ -125,15 +125,15 @@ stdenv.mkDerivation {
         --replace-fail 'grep sse /proc/cpuinfo > /dev/null 2>&1' ':'
     '';
 
-  meta = with lib; {
-    homepage = "https://fpgasoftware.intel.com";
-    description = "FPGA design and simulation software";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [
-      bjornfor
-      kwohlfahrt
-    ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://fpgasoftware.intel.com";
+      description = "FPGA design and simulation software";
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      license = licenses.unfree;
+      platforms = ["x86_64-linux"];
+      maintainers = with maintainers; [
+        bjornfor
+        kwohlfahrt
+      ];
+    };
+  }

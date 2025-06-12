@@ -7,7 +7,7 @@
 buildAstalModule {
   name = "astal3";
   sourceRoot = "lib/astal/gtk3";
-  buildInputs = [ io ];
+  buildInputs = [io];
   propagatedBuildInputs = [
     gtk3
     gtk-layer-shell

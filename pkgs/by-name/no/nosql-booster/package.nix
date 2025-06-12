@@ -3,8 +3,7 @@
   platforms,
   appimageTools,
   fetchurl,
-}:
-let
+}: let
   pname = "nosql-booster";
   version = "8.1.9";
   src = fetchurl {
@@ -15,27 +14,27 @@ let
     homepage = "https://nosqlbooster.com/";
     description = "GUI tool for MongoDB Server";
     changelog = "https://nosqlbooster.com/blog/announcing-nosqlbooster-81/#version-819";
-    maintainers = with lib.maintainers; [ guillaumematheron ];
+    maintainers = with lib.maintainers; [guillaumematheron];
     license = lib.licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "nosql-booster";
   };
 
-  appimageContents = appimageTools.extract { inherit pname version src; };
+  appimageContents = appimageTools.extract {inherit pname version src;};
 in
-appimageTools.wrapType2 {
-  inherit
-    pname
-    version
-    src
-    meta
-    ;
+  appimageTools.wrapType2 {
+    inherit
+      pname
+      version
+      src
+      meta
+      ;
 
-  extraInstallCommands = ''
-    install -m 444 -D ${appimageContents}/nosqlbooster4mongo.desktop $out/share/applications/nosqlbooster4mongo.desktop
-    install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/512x512/apps/nosqlbooster4mongo.png \
-      $out/share/icons/hicolor/512x512/apps/nosqlbooster4mongo.png
-    substituteInPlace $out/share/applications/nosqlbooster4mongo.desktop \
-      --replace-fail 'Exec=AppRun' 'Exec=${meta.mainProgram}'
-  '';
-}
+    extraInstallCommands = ''
+      install -m 444 -D ${appimageContents}/nosqlbooster4mongo.desktop $out/share/applications/nosqlbooster4mongo.desktop
+      install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/512x512/apps/nosqlbooster4mongo.png \
+        $out/share/icons/hicolor/512x512/apps/nosqlbooster4mongo.png
+      substituteInPlace $out/share/applications/nosqlbooster4mongo.desktop \
+        --replace-fail 'Exec=AppRun' 'Exec=${meta.mainProgram}'
+    '';
+  }

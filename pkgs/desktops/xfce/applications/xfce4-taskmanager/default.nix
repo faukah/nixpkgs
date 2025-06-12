@@ -17,7 +17,6 @@
   libXmu,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-taskmanager";
   version = "1.6.0";
@@ -52,14 +51,14 @@ stdenv.mkDerivation (finalAttrs: {
     libXmu
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "xfce4-taskmanager-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "xfce4-taskmanager-";};
 
   meta = {
     description = "Easy to use task manager for Xfce";
     homepage = "https://gitlab.xfce.org/apps/xfce4-taskmanager";
     license = lib.licenses.gpl2Plus;
     mainProgram = "xfce4-taskmanager";
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

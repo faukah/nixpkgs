@@ -30,7 +30,6 @@
   bash,
   gnome-session-ctl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-session";
   # Also bump ./ctl.nix when bumping major version.
@@ -135,7 +134,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-session";
     changelog = "https://gitlab.gnome.org/GNOME/gnome-session/-/blob/${finalAttrs.version}/NEWS?ref_type=tags";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 })

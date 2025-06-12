@@ -23,7 +23,6 @@
   pcre,
   jsoncpp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "springlobby";
   version = "0.273";

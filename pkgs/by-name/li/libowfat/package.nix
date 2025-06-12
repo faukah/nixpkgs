@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libowfat";
   version = "0.34";

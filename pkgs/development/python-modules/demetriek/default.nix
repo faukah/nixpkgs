@@ -15,7 +15,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "demetriek";
   version = "1.2.0";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
       --replace-fail "0.0.0" "${version}"
   '';
 
-  pythonRelaxDeps = [ "pydantic" ];
+  pythonRelaxDeps = ["pydantic"];
 
   build-system = [
     poetry-core
@@ -58,7 +57,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "demetriek" ];
+  pythonImportsCheck = ["demetriek"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -67,6 +66,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/frenck/python-demetriek";
     changelog = "https://github.com/frenck/python-demetriek/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "carbon-now-cli";
   version = "2.1.0";
@@ -33,6 +32,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/mixn/carbon-now-cli";
     license = lib.licenses.mit;
     mainProgram = "carbon-now";
-    maintainers = with lib.maintainers; [ rmcgibbo ];
+    maintainers = with lib.maintainers; [rmcgibbo];
   };
 }

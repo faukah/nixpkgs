@@ -12,7 +12,6 @@
   libGL,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "inlyne";
   version = "0.5.0";
@@ -62,11 +61,11 @@ rustPlatform.buildRustPackage rec {
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     patchelf $out/bin/inlyne \
       --add-rpath ${
-        lib.makeLibraryPath [
-          libGL
-          xorg.libX11
-        ]
-      }
+      lib.makeLibraryPath [
+        libGL
+        xorg.libX11
+      ]
+    }
   '';
 
   meta = with lib; {
@@ -74,7 +73,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Inlyne-Project/inlyne";
     changelog = "https://github.com/Inlyne-Project/inlyne/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "inlyne";
   };
 }

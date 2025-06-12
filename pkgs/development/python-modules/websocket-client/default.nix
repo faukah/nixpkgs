@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "websocket-client";
   version = "1.8.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-Mjnfn0TaYy+WASRygF1AojKBqZECfOEdL0Wm8krEw9o=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
     optional = [
@@ -30,16 +29,16 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "websocket" ];
+  pythonImportsCheck = ["websocket"];
 
   meta = with lib; {
     description = "Websocket client for Python";
     homepage = "https://github.com/websocket-client/websocket-client";
     changelog = "https://github.com/websocket-client/websocket-client/blob/v${version}/ChangeLog";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "wsdump";
   };
 }

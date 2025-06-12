@@ -9,7 +9,6 @@
   rich,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pygount";
   version = "3.1.0";
@@ -44,14 +43,14 @@ buildPythonPackage rec {
     "test_succeeds_on_not_git_extension"
   ];
 
-  pythonImportsCheck = [ "pygount" ];
+  pythonImportsCheck = ["pygount"];
 
   meta = {
     description = "Count lines of code for hundreds of languages using pygments";
     mainProgram = "pygount";
     homepage = "https://github.com/roskakori/pygount";
     changelog = "https://github.com/roskakori/pygount/blob/${src.tag}/docs/changes.md";
-    license = with lib.licenses; [ bsd3 ];
-    maintainers = with lib.maintainers; [ nickcao ];
+    license = with lib.licenses; [bsd3];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

@@ -7,7 +7,6 @@
   fetchpatch,
   replaceVars,
 }:
-
 stdenv.mkDerivation rec {
   pname = "howard-hinnant-date";
   version = "3.0.3";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
       --replace '@PACKAGE_VERSION@' '${version}'
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-DBUILD_TZ_LIB=true"
@@ -68,6 +67,6 @@ stdenv.mkDerivation rec {
     description = "Date and time library based on the C++11/14/17 <chrono> header";
     homepage = "https://github.com/HowardHinnant/date";
     platforms = with platforms; unix ++ windows;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

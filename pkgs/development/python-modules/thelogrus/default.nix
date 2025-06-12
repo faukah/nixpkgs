@@ -7,7 +7,6 @@
   pyaml,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "thelogrus";
   version = "0.7.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  pythonRelaxDeps = [ "pyaml" ];
+  pythonRelaxDeps = ["pyaml"];
 
   propagatedBuildInputs = [
     dateutils
@@ -36,7 +35,7 @@ buildPythonPackage rec {
   # Module has no unit tests
   doCheck = false;
 
-  pythonImportsCheck = [ "thelogrus" ];
+  pythonImportsCheck = ["thelogrus"];
 
   meta = with lib; {
     description = "Python 3 version of logrus";
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/unixorn/thelogrus";
     changelog = "https://github.com/unixorn/thelogrus/blob/${version}/ChangeLog.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

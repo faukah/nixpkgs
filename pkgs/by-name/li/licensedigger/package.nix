@@ -36,6 +36,6 @@ stdenv.mkDerivation {
       gpl2Only
       gpl3Only
     ];
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
   };
 }

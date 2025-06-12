@@ -16,13 +16,13 @@
   reproc,
   spdlog,
   tl-expected,
-}:
-
-let
+}: let
   libsolv' = libsolv.overrideAttrs (oldAttrs: {
-    cmakeFlags = oldAttrs.cmakeFlags ++ [
-      "-DENABLE_CONDA=true"
-    ];
+    cmakeFlags =
+      oldAttrs.cmakeFlags
+      ++ [
+        "-DENABLE_CONDA=true"
+      ];
 
     patches = [
       # Apply the same patch as in the "official" boa-forge build:
@@ -34,47 +34,47 @@ let
     ];
   });
 in
-stdenv.mkDerivation rec {
-  pname = "micromamba";
-  version = "1.5.8";
+  stdenv.mkDerivation rec {
+    pname = "micromamba";
+    version = "1.5.8";
 
-  src = fetchFromGitHub {
-    owner = "mamba-org";
-    repo = "mamba";
-    rev = "micromamba-" + version;
-    hash = "sha256-sxZDlMFoMLq2EAzwBVO++xvU1C30JoIoZXEX/sqkXS0=";
-  };
+    src = fetchFromGitHub {
+      owner = "mamba-org";
+      repo = "mamba";
+      rev = "micromamba-" + version;
+      hash = "sha256-sxZDlMFoMLq2EAzwBVO++xvU1C30JoIoZXEX/sqkXS0=";
+    };
 
-  nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
-  buildInputs = [
-    bzip2
-    cli11
-    nlohmann_json
-    curl
-    libarchive
-    yaml-cpp
-    libsolv'
-    reproc
-    spdlog
-    ghc_filesystem
-    python3
-    tl-expected
-  ];
+    buildInputs = [
+      bzip2
+      cli11
+      nlohmann_json
+      curl
+      libarchive
+      yaml-cpp
+      libsolv'
+      reproc
+      spdlog
+      ghc_filesystem
+      python3
+      tl-expected
+    ];
 
-  cmakeFlags = [
-    "-DBUILD_LIBMAMBA=ON"
-    "-DBUILD_SHARED=ON"
-    "-DBUILD_MICROMAMBA=ON"
-    # "-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON"
-  ];
+    cmakeFlags = [
+      "-DBUILD_LIBMAMBA=ON"
+      "-DBUILD_SHARED=ON"
+      "-DBUILD_MICROMAMBA=ON"
+      # "-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON"
+    ];
 
-  meta = with lib; {
-    description = "Reimplementation of the conda package manager";
-    homepage = "https://github.com/mamba-org/mamba";
-    license = licenses.bsd3;
-    platforms = platforms.all;
-    maintainers = with maintainers; [ mausch ];
-    mainProgram = "micromamba";
-  };
-}
+    meta = with lib; {
+      description = "Reimplementation of the conda package manager";
+      homepage = "https://github.com/mamba-org/mamba";
+      license = licenses.bsd3;
+      platforms = platforms.all;
+      maintainers = with maintainers; [mausch];
+      mainProgram = "micromamba";
+    };
+  }

@@ -7,7 +7,7 @@
 mkKdeDerivation {
   pname = "wacomtablet";
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     libwacom
     xf86_input_wacom

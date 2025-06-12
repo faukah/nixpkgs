@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytubefix";
   version = "9.1.1";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-OKOP1kDPYXMQkVOITSxYqMYQvtVom8VCaLnCBYEhgR8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # Tests require network access
@@ -39,13 +38,13 @@ buildPythonPackage rec {
     "test_create_mock_html_json"
   ];
 
-  pythonImportsCheck = [ "pytubefix" ];
+  pythonImportsCheck = ["pytubefix"];
 
   meta = {
     description = "Pytube fork with additional features and fixes";
     homepage = "https://github.com/JuanBindez/pytubefix";
     changelog = "https://github.com/JuanBindez/pytubefix/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ youhaveme9 ];
+    maintainers = with lib.maintainers; [youhaveme9];
   };
 }

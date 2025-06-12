@@ -41,14 +41,15 @@
   # 1. automated downloads for sims via their API are discouraged by the owner
   # 2. images for prerelease cards are unavailable on their service
   pics_url ? "https://pics.projectignis.org:2096/pics/{}.jpg",
-}:
-let
+}: let
   archLabel =
     {
       "x86_64-linux" = "x64";
       "aarch64-linux" = "arm64";
     }
-    .${stdenv.hostPlatform.system}
+    .${
+      stdenv.hostPlatform.system
+    }
       or (throw "${stdenv.hostPlatform.system} is an unsupported arch label for edopro");
 
   maintainers = with lib.maintainers; [
@@ -65,8 +66,7 @@ let
     fetchSubmodules = true;
     hash = deps.edopro-hash;
   };
-in
-let
+in let
   assets = fetchzip {
     url = "https://github.com/ProjectIgnis/edopro-assets/releases/download/${deps.edopro-version}/ProjectIgnis-EDOPro-${deps.edopro-version}-linux.tar.gz";
     hash = deps.assets-hash;
@@ -92,7 +92,7 @@ let
     ];
 
     enableParallelBuilding = true;
-    buildFlags = [ "NDEBUG=1" ];
+    buildFlags = ["NDEBUG=1"];
     makeFlags = [
       "-C"
       "source/Irrlicht"
@@ -115,34 +115,32 @@ let
     };
   };
 
-  ocgcore =
-    let
-      # Refer to CORENAME EPRO_TEXT in <edopro>/gframe/dllinterface.cpp for this
-      ocgcoreName = lib.strings.concatStrings [
-        (lib.optionalString (!stdenv.hostPlatform.isWindows) "lib")
-        "ocgcore"
-        (
-          if stdenv.hostPlatform.isiOS then
-            "-ios"
-          else if stdenv.hostPlatform.isAndroid then
-            (
-              if stdenv.hostPlatform.isx86_64 then
-                "x64"
-              else if stdenv.hostPlatform.isx86_32 then
-                "x86"
-              else if stdenv.hostPlatform.isAarch64 then
-                "v8"
-              else if stdenv.hostPlatform.isAarch32 then
-                "v7"
-              else
-                throw "Don't know what platform suffix edopro expects for ocgcore on: ${stdenv.hostPlatform.system}"
-            )
-          else
-            lib.optionalString (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64) ".aarch64"
-        )
-        stdenv.hostPlatform.extensions.sharedLibrary
-      ];
-    in
+  ocgcore = let
+    # Refer to CORENAME EPRO_TEXT in <edopro>/gframe/dllinterface.cpp for this
+    ocgcoreName = lib.strings.concatStrings [
+      (lib.optionalString (!stdenv.hostPlatform.isWindows) "lib")
+      "ocgcore"
+      (
+        if stdenv.hostPlatform.isiOS
+        then "-ios"
+        else if stdenv.hostPlatform.isAndroid
+        then
+          (
+            if stdenv.hostPlatform.isx86_64
+            then "x64"
+            else if stdenv.hostPlatform.isx86_32
+            then "x86"
+            else if stdenv.hostPlatform.isAarch64
+            then "v8"
+            else if stdenv.hostPlatform.isAarch32
+            then "v7"
+            else throw "Don't know what platform suffix edopro expects for ocgcore on: ${stdenv.hostPlatform.system}"
+          )
+        else lib.optionalString (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64) ".aarch64"
+      )
+      stdenv.hostPlatform.extensions.sharedLibrary
+    ];
+  in
     stdenv.mkDerivation {
       pname = "ocgcore-edopro";
       version = deps.edopro-version;
@@ -262,18 +260,18 @@ let
       mkdir -p $out/bin
       cp bin/${archLabel}/release/ygoprodll $out/bin
       wrapProgram $out/bin/ygoprodll \
-        --prefix PATH : ${lib.makeBinPath [ mono ]} \
+        --prefix PATH : ${lib.makeBinPath [mono]} \
         --prefix LD_LIBRARY_PATH : ${
-          lib.makeLibraryPath [
-            libGL
-            libX11
-            libxkbcommon
-            libXxf86vm
-            sqlite
-            wayland
-            egl-wayland
-          ]
-        }
+        lib.makeLibraryPath [
+          libGL
+          libX11
+          libxkbcommon
+          libXxf86vm
+          sqlite
+          wayland
+          egl-wayland
+        ]
+      }
 
       runHook postInstall
     '';
@@ -297,42 +295,41 @@ let
     };
   };
 
-  edopro-script =
-    let
-      assetsToCopy = lib.concatStringsSep "," [
-        # Needed if we download files from ProjectIgnis' website or any https-only website.
-        "cacert.pem"
-        "config"
-        "deck"
-        "COPYING.txt"
-        "expansions"
-        "lflists"
-        "notices"
-        "puzzles"
-        "fonts"
-        "script"
-        "skin"
-        "sound"
-        "textures"
-        "WindBot"
-      ];
-      wrapperZenityMessageTemplate = writeText "edopro-wrapper-multiple-versions-message.txt.in" ''
-        Nixpkgs' EDOPro wrapper has found more than 1 directory in: ''${EDOPRO_BASE_DIR}
+  edopro-script = let
+    assetsToCopy = lib.concatStringsSep "," [
+      # Needed if we download files from ProjectIgnis' website or any https-only website.
+      "cacert.pem"
+      "config"
+      "deck"
+      "COPYING.txt"
+      "expansions"
+      "lflists"
+      "notices"
+      "puzzles"
+      "fonts"
+      "script"
+      "skin"
+      "sound"
+      "textures"
+      "WindBot"
+    ];
+    wrapperZenityMessageTemplate = writeText "edopro-wrapper-multiple-versions-message.txt.in" ''
+      Nixpkgs' EDOPro wrapper has found more than 1 directory in: ''${EDOPRO_BASE_DIR}
 
-        We expected the only directory to be: ''${EDOPRO_DIR}
+      We expected the only directory to be: ''${EDOPRO_DIR}
 
-        There may have been an update, requiring you to migrate any files you care about from an older version.
+      There may have been an update, requiring you to migrate any files you care about from an older version.
 
-        Examples include:
+      Examples include:
 
-        - decks/*
-        - config/system.conf - which has your client's settings
-        - any custom things you may have installed into: fonts, skins, script, sound, ...
-        - anything you wish to preserve from: replay, screenshots
+      - decks/*
+      - config/system.conf - which has your client's settings
+      - any custom things you may have installed into: fonts, skins, script, sound, ...
+      - anything you wish to preserve from: replay, screenshots
 
-        Once you have copied over everything important to ''${EDOPRO_DIR}, delete the old version's path.
-      '';
-    in
+      Once you have copied over everything important to ''${EDOPRO_DIR}, delete the old version's path.
+    '';
+  in
     writeShellApplication {
       name = "edopro";
       runtimeInputs = [
@@ -373,7 +370,7 @@ let
       '';
     };
 
-  edopro-desktop = runCommandLocal "io.github.edo9300.EDOPro.desktop" { } ''
+  edopro-desktop = runCommandLocal "io.github.edo9300.EDOPro.desktop" {} ''
     mkdir -p $out/share/applications
 
     sed ${assets}/config/io.github.edo9300.EDOPro.desktop.in \
@@ -384,37 +381,38 @@ let
       >$out/share/applications/io.github.edo9300.EDOPro.desktop
   '';
 in
-symlinkJoin {
-  name = "edopro-application-${deps.edopro-version}";
-  version = deps.edopro-version;
-  paths = [
-    edopro-script
-    edopro-desktop
-  ];
+  symlinkJoin {
+    name = "edopro-application-${deps.edopro-version}";
+    version = deps.edopro-version;
+    paths = [
+      edopro-script
+      edopro-desktop
+    ];
 
-  postBuild = ''
-    for size in 16 32 48 64 128 256 512 1024; do
-      res="$size"x"$size"
-      mkdir -p $out/share/icons/hicolor/"$res"/apps/
-      ${imagemagick}/bin/magick \
-          ${assets}/textures/AppIcon.png \
-          -resize "$res" \
-          $out/share/icons/hicolor/"$res"/apps/edopro.png
-    done
-  '';
+    postBuild = ''
+      for size in 16 32 48 64 128 256 512 1024; do
+        res="$size"x"$size"
+        mkdir -p $out/share/icons/hicolor/"$res"/apps/
+        ${imagemagick}/bin/magick \
+            ${assets}/textures/AppIcon.png \
+            -resize "$res" \
+            $out/share/icons/hicolor/"$res"/apps/edopro.png
+      done
+    '';
 
-  passthru.updateScript = ./update.py;
+    passthru.updateScript = ./update.py;
 
-  meta = {
-    inherit (edopro.meta)
-      description
-      homepage
-      changelog
-      license
-      platforms
-      maintainers
-      ;
-    # To differentiate it from the original YGOPro
-    mainProgram = "edopro";
-  };
-}
+    meta = {
+      inherit
+        (edopro.meta)
+        description
+        homepage
+        changelog
+        license
+        platforms
+        maintainers
+        ;
+      # To differentiate it from the original YGOPro
+      mainProgram = "edopro";
+    };
+  }

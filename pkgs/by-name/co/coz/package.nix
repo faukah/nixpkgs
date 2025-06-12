@@ -8,7 +8,6 @@
   python3Packages,
   makeWrapper,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "coz";
   version = "0.2.2";
@@ -32,9 +31,9 @@ python3Packages.buildPythonApplication rec {
     libelfin
   ];
 
-  dependencies = [ python3Packages.docutils ];
+  dependencies = [python3Packages.docutils];
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   strictDeps = true;
 

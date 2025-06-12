@@ -6,7 +6,6 @@
   poetry-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "xdg-base-dirs";
   version = "6.0.2";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-iXK9WURTfmpl5vd7RsT0ptwfrb5UQQFqMMCu3+vL+EY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "xdg_base_dirs" ];
+  pythonImportsCheck = ["xdg_base_dirs"];
 
   # remove coverage flags from pytest config
   postPatch = ''
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/srstevenson/xdg-base-dirs";
     changelog = "https://github.com/srstevenson/xdg-base-dirs/releases/tag/${version}";
     license = licenses.isc;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -13,7 +13,6 @@
   libappindicator-gtk2,
   pcre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gxneur";
   version = "0.20.0";

@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.leftwm;
-in
-{
+in {
   ###### interface
   options = {
     services.xserver.windowManager.leftwm.enable = mkEnableOption "leftwm";
@@ -25,6 +21,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.leftwm ];
+    environment.systemPackages = [pkgs.leftwm];
   };
 }

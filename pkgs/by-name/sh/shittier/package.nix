@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage {
   pname = "shittier";
   # No tagged release on GitHub yet
@@ -25,6 +24,6 @@ buildNpmPackage {
     mainProgram = "shittier";
     homepage = "https://github.com/rohitdhas/shittier";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ totoroot ];
+    maintainers = with lib.maintainers; [totoroot];
   };
 }

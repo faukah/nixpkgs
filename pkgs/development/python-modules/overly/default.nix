@@ -7,7 +7,6 @@
   h11,
   sansio-multipart,
 }:
-
 buildPythonPackage rec {
   pname = "overly";
   version = "0.1.85";
@@ -29,13 +28,13 @@ buildPythonPackage rec {
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "overly" ];
+  pythonImportsCheck = ["overly"];
 
   meta = {
     description = "Overly configurable http server for client testing";
     homepage = "https://github.com/theelous3/overly";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     broken = stdenv.hostPlatform.isDarwin; # https://github.com/theelous3/overly/issues/2
   };
 }

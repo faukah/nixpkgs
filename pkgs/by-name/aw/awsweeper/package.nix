@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "awsweeper";
   version = "0.12.0";
@@ -31,7 +30,7 @@ buildGoModule rec {
     description = "Tool to clean out your AWS account";
     homepage = "https://github.com/jckuester/awsweeper";
     license = licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "awsweeper";
   };
 }

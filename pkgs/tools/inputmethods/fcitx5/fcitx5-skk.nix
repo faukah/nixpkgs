@@ -13,7 +13,6 @@
   skkDictionaries,
   enableQt ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fcitx5-skk";
   version = "5.1.6";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     description = "Input method engine for Fcitx5, which uses libskk as its backend";
     homepage = "https://github.com/fcitx/fcitx5-skk";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wattmto ];
+    maintainers = with maintainers; [wattmto];
     platforms = platforms.linux;
   };
 }

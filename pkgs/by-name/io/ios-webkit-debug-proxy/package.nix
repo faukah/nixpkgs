@@ -2,21 +2,17 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   autoconf,
   automake,
   libtool,
   pkg-config,
-
   libimobiledevice,
   libplist,
   libusb1,
   openssl,
-
   nix-update-script,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ios-webkit-debug-proxy";
   version = "1.9.1";
@@ -59,8 +55,8 @@ stdenv.mkDerivation (finalAttrs: {
   enableParallelBuilding = true;
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+    updateScript = nix-update-script {};
+    tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
   };
 
   meta = with lib; {

@@ -4,7 +4,6 @@
   fetchurl,
   gtk-engine-murrine,
 }:
-
 stdenv.mkDerivation rec {
   pname = "juno";
   version = "0.0.1";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   installPhase = ''
     runHook preInstall
@@ -45,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/EliverLara/Juno";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = [ maintainers.gvolpe ];
+    maintainers = [maintainers.gvolpe];
   };
 }

@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aiocomelit";
   version = "1.0.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-jne+epQQ3fvy1QqAnBcxdihd9/VJkLU5xoiT/WRTMh0=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -38,13 +37,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiocomelit" ];
+  pythonImportsCheck = ["aiocomelit"];
 
   meta = with lib; {
     description = "Library to control Comelit Simplehome";
     homepage = "https://github.com/chemelli74/aiocomelit";
     changelog = "https://github.com/chemelli74/aiocomelit/blob/${src.tag}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

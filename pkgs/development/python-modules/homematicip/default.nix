@@ -13,7 +13,6 @@
   setuptools,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "homematicip";
   version = "2.0.1.1";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" ];
+  pytestFlagsArray = ["--asyncio-mode=auto"];
 
   disabledTests = [
     # Assert issues with datetime
@@ -74,13 +73,13 @@ buildPythonPackage rec {
     "test_websocket"
   ];
 
-  pythonImportsCheck = [ "homematicip" ];
+  pythonImportsCheck = ["homematicip"];
 
   meta = with lib; {
     description = "Module for the homematicIP REST API";
     homepage = "https://github.com/hahn-th/homematicip-rest-api";
     changelog = "https://github.com/hahn-th/homematicip-rest-api/releases/tag/${src.tag}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

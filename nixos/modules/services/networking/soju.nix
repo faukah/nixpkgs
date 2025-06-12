@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.soju;
   stateDir = "/var/lib/soju";
   runtimeDir = "/run/soju";
@@ -33,18 +30,17 @@ let
   sojuctl = pkgs.writeShellScriptBin "sojuctl" ''
     exec ${lib.getExe' cfg.package "sojuctl"} --config ${cfg.configFile} "$@"
   '';
-in
-{
+in {
   ###### interface
 
   options.services.soju = {
     enable = mkEnableOption "soju";
 
-    package = mkPackageOption pkgs "soju" { };
+    package = mkPackageOption pkgs "soju" {};
 
     listen = mkOption {
       type = types.listOf types.str;
-      default = [ ":6697" ];
+      default = [":6697"];
       description = ''
         Where soju should listen for incoming connections. See the
         `listen` directive in
@@ -89,7 +85,7 @@ in
 
     httpOrigins = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = ''
         List of allowed HTTP origins for WebSocket listeners. The parameters are
         interpreted as shell patterns, see
@@ -99,7 +95,7 @@ in
 
     acceptProxyIP = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = ''
         Allow the specified IPs to act as a proxy. Proxys have the ability to
         overwrite the remote and local connection addresses (via the X-Forwarded-\*
@@ -139,14 +135,14 @@ in
       }
     ];
 
-    environment.systemPackages = [ sojuctl ];
+    environment.systemPackages = [sojuctl];
 
     systemd.services.soju = {
       description = "soju IRC bouncer";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      documentation = [ "man:soju(1)" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      documentation = ["man:soju(1)"];
       serviceConfig = {
         DynamicUser = true;
         Restart = "always";
@@ -157,5 +153,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ malte-v ];
+  meta.maintainers = with maintainers; [malte-v];
 }

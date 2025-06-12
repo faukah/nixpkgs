@@ -16,7 +16,6 @@
   dufte,
   perfplot,
 }:
-
 buildPythonPackage rec {
   pname = "accupy";
   version = "0.3.6";
@@ -36,13 +35,15 @@ buildPythonPackage rec {
     pybind11
   ];
 
-  buildInputs = [ eigen ];
+  buildInputs = [eigen];
 
-  dependencies = [
-    mpmath
-    numpy
-    pyfma
-  ] ++ lib.optional (pythonOlder "3.8") importlib-metadata;
+  dependencies =
+    [
+      mpmath
+      numpy
+      pyfma
+    ]
+    ++ lib.optional (pythonOlder "3.8") importlib-metadata;
 
   nativeCheckInputs = [
     perfplot
@@ -77,12 +78,12 @@ buildPythonPackage rec {
     "test_speed_comparison2"
   ];
 
-  pythonImportsCheck = [ "accupy" ];
+  pythonImportsCheck = ["accupy"];
 
   meta = with lib; {
     description = "Accurate sums and dot products for Python";
     homepage = "https://github.com/nschloe/accupy";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

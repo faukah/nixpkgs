@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "atkinson-hyperlegible";
   version = "unstable-2021-04-29";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://brailleinstitute.org/freefont";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

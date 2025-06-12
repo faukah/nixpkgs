@@ -10,7 +10,6 @@
   setuptools,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "weheat";
   version = "2025.6.10";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-CBW+LehZPZCHZ2zFeCOWwNAVlGcGdKQ5XgmCOv8jr5Q=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aenum
@@ -37,13 +36,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "weheat" ];
+  pythonImportsCheck = ["weheat"];
 
   meta = {
     description = "Library to interact with the weheat API";
     homepage = "https://github.com/wefabricate/wh-python";
     changelog = "https://github.com/wefabricate/wh-python/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

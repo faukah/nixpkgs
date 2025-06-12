@@ -11,7 +11,6 @@
   pkg-config,
   udebug,
 }:
-
 stdenv.mkDerivation {
   pname = "netifd";
   version = "unstable-2023-11-27";
@@ -56,7 +55,7 @@ stdenv.mkDerivation {
     homepage = "https://git.openwrt.org/?p=project/netifd.git;a=summary";
     license = licenses.lgpl21Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
     mainProgram = "netifd";
   };
 }

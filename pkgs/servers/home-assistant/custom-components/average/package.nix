@@ -3,7 +3,6 @@
   buildHomeAssistantComponent,
   fetchFromGitHub,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "Limych";
   domain = "average";
@@ -24,7 +23,7 @@ buildHomeAssistantComponent rec {
     changelog = "https://github.com/Limych/ha-average/releases/tag/${version}";
     description = "Average Sensor for Home Assistant";
     homepage = "https://github.com/Limych/ha-average";
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     license = licenses.cc-by-nc-40;
   };
 }

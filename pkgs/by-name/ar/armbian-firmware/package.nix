@@ -32,6 +32,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/armbian/firmware";
     license = licenses.unfree;
     platforms = platforms.all;
-    maintainers = with maintainers; [ zaldnoay ];
+    maintainers = with maintainers; [zaldnoay];
   };
 }

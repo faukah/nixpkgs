@@ -68,6 +68,6 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://github.com/nate-xyz/conjure";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ sund3RRR ];
+    maintainers = with maintainers; [sund3RRR];
   };
 }

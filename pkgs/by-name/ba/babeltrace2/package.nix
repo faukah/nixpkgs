@@ -19,7 +19,6 @@
   swig,
   ensureNewerSourcesForZipFilesHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "babeltrace2";
   version = "2.0.6";
@@ -74,10 +73,12 @@ stdenv.mkDerivation rec {
       ensureNewerSourcesForZipFilesHook
     ];
 
-  buildInputs = [
-    glib
-    elfutils
-  ] ++ lib.optional enablePython python;
+  buildInputs =
+    [
+      glib
+      elfutils
+    ]
+    ++ lib.optional enablePython python;
 
   configureFlags = [
     (lib.enableFeature enablePython "python-bindings")
@@ -86,7 +87,7 @@ stdenv.mkDerivation rec {
   ];
 
   # For cross-compilation of Python bindings
-  makeFlags = [ "CFLAGS=-Wno-error=stringop-truncation -Wno-error=null-dereference" ];
+  makeFlags = ["CFLAGS=-Wno-error=stringop-truncation -Wno-error=null-dereference"];
 
   enableParallelBuilding = true;
 
@@ -94,7 +95,7 @@ stdenv.mkDerivation rec {
     description = "Babeltrace /ˈbæbəltreɪs/ is an open-source trace manipulation toolkit";
     homepage = "https://babeltrace.org";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ wentasah ];
+    maintainers = with lib.maintainers; [wentasah];
     mainProgram = "babeltrace2";
     platforms = lib.platforms.all;
   };

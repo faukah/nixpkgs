@@ -22,7 +22,6 @@
   xine-lib,
   xorgproto,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xine-ui";
   version = "0.99.14-unstable-2024-08-26";
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     xorgproto
   ];
 
-  configureFlags = [ "--with-readline=${readline.dev}" ];
+  configureFlags = ["--with-readline=${readline.dev}"];
 
   env = {
     LIRC_CFLAGS = "-I${lib.getInclude lirc}/include";
@@ -79,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Xlib-based frontend for Xine video player";
     license = lib.licenses.gpl2Plus;
     mainProgram = "xine";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

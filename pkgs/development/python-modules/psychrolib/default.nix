@@ -5,7 +5,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "psychrolib";
   version = "2.5.0";
@@ -22,18 +21,18 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/src/python";
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "psychrolib" ];
+  pythonImportsCheck = ["psychrolib"];
 
   meta = with lib; {
     description = "Library of psychrometric functions to calculate thermodynamic properties";
     homepage = "https://github.com/psychrometrics/psychrolib";
     changelog = "https://github.com/psychrometrics/psychrolib/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aioweenect";
   version = "1.1.5";
@@ -30,11 +29,11 @@ buildPythonPackage rec {
       --replace-fail "--asyncio-mode=auto" ""
   '';
 
-  pythonRelaxDeps = [ "aiohttp" ];
+  pythonRelaxDeps = ["aiohttp"];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   nativeCheckInputs = [
     aresponses
@@ -45,13 +44,13 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "aioweenect" ];
+  pythonImportsCheck = ["aioweenect"];
 
   meta = with lib; {
     description = "Library for the weenect API";
     homepage = "https://github.com/eifinger/aioweenect";
     changelog = "https://github.com/eifinger/aioweenect/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

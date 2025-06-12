@@ -24,7 +24,10 @@ buildGoModule rec {
     "-X main.gitCommit=${src.rev}"
   ];
 
-  env.CGO_ENABLED = if stdenv.hostPlatform.isDarwin then "1" else "0";
+  env.CGO_ENABLED =
+    if stdenv.hostPlatform.isDarwin
+    then "1"
+    else "0";
 
   subPackages = [
     "cmd/newrelic-infra"
@@ -36,7 +39,7 @@ buildGoModule rec {
     description = "New Relic Infrastructure Agent";
     homepage = "https://github.com/newrelic/infrastructure-agent.git";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ davsanchez ];
+    maintainers = with lib.maintainers; [davsanchez];
     mainProgram = "newrelic-infra";
   };
 }

@@ -3,23 +3,19 @@
   buildPythonPackage,
   fetchFromGitHub,
   nix-update-script,
-
   # build-system
   pdm-backend,
-
   # dependencies
   aiohttp,
   fireworks-ai,
   langchain-core,
   openai,
   pydantic,
-
   # tests
   langchain-tests,
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-fireworks";
   version = "0.3.0";
@@ -34,7 +30,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/partners/fireworks";
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     aiohttp
@@ -56,9 +52,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlagsArray = ["tests/unit_tests"];
 
-  pythonImportsCheck = [ "langchain_fireworks" ];
+  pythonImportsCheck = ["langchain_fireworks"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

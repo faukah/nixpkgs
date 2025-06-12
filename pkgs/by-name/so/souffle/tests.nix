@@ -3,10 +3,11 @@
   lib,
   souffle,
   runCommand,
-}:
-let
-  simpleTest =
-    { name, commands }:
+}: let
+  simpleTest = {
+    name,
+    commands,
+  }:
     stdenv.mkDerivation {
       inherit name;
       meta.timeout = 60;
@@ -17,8 +18,7 @@ let
         touch $out
       '';
     };
-in
-{
+in {
   interpret = simpleTest {
     name = "souffle-test-interpret";
     commands = "${souffle}/bin/souffle A.dl";

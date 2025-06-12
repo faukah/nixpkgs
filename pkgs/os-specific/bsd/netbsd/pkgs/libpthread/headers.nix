@@ -1,5 +1,7 @@
-{ lib, mkDerivation }:
-
+{
+  lib,
+  mkDerivation,
+}:
 mkDerivation {
   path = "lib/libpthread";
   pname = "libpthread-headers";

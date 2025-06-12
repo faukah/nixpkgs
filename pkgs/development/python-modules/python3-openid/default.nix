@@ -5,7 +5,6 @@
   fetchPypi,
   defusedxml,
 }:
-
 buildPythonPackage rec {
   pname = "python3-openid";
   version = "3.2.0";
@@ -16,7 +15,7 @@ buildPythonPackage rec {
     sha256 = "1bxf9a3ny1js422j962zfzl4a9dhj192pvai05whn7j0iy9gdyrk";
   };
 
-  propagatedBuildInputs = [ defusedxml ];
+  propagatedBuildInputs = [defusedxml];
 
   doCheck = false;
 

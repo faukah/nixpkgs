@@ -6,7 +6,6 @@
   fuse3,
   pcre,
 }:
-
 stdenv.mkDerivation {
   pname = "rewritefs";
   version = "unstable-2021-10-03";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
     sha256 = "1w2rik0lhqm3wr68x51zs45gqfx79l7fi4p0sqznlfq7sz5s8xxn";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     fuse3
     pcre
@@ -35,7 +34,7 @@ stdenv.mkDerivation {
     description = "FUSE filesystem intended to be used like Apache mod_rewrite";
     homepage = "https://github.com/sloonz/rewritefs";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
     platforms = platforms.linux;
   };
 }

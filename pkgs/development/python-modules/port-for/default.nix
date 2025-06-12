@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "port-for";
   version = "0.7.1";
@@ -21,10 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-/45TQ2crmTupRgL9hgZGw5IvFKywezSIHqHFbeAkMoo=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "port_for" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["port_for"];
 
   meta = with lib; {
     homepage = "https://github.com/kmike/port-for";
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     mainProgram = "port-for";
     changelog = "https://github.com/kmike/port-for/blob/v${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

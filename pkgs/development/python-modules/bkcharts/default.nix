@@ -5,7 +5,6 @@
   numpy,
   pandas,
 }:
-
 buildPythonPackage rec {
   pname = "bkcharts";
   version = "0.2";

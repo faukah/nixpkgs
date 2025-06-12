@@ -1,7 +1,10 @@
 {
   lib,
   ocaml,
-  version ? if lib.versionAtLeast ocaml.version "5.1" then "1.2" else "0.12",
+  version ?
+    if lib.versionAtLeast ocaml.version "5.1"
+    then "1.2"
+    else "0.12",
   buildDunePackage,
   bigstringaf,
   cstruct,
@@ -16,9 +19,7 @@
   alcotest,
   crowbar,
   mdx,
-}:
-
-let
+}: let
   param =
     {
       "0.12" = {
@@ -32,43 +33,43 @@ let
     }
     ."${version}";
 in
-buildDunePackage rec {
-  pname = "eio";
-  inherit version;
-  inherit (param) minimalOCamlVersion;
+  buildDunePackage rec {
+    pname = "eio";
+    inherit version;
+    inherit (param) minimalOCamlVersion;
 
-  src = fetchurl {
-    url = "https://github.com/ocaml-multicore/${pname}/releases/download/v${version}/${pname}-${version}.tbz";
-    inherit (param) hash;
-  };
+    src = fetchurl {
+      url = "https://github.com/ocaml-multicore/${pname}/releases/download/v${version}/${pname}-${version}.tbz";
+      inherit (param) hash;
+    };
 
-  propagatedBuildInputs = [
-    bigstringaf
-    cstruct
-    domain-local-await
-    fmt
-    hmap
-    lwt-dllist
-    mtime
-    optint
-    psq
-  ];
+    propagatedBuildInputs = [
+      bigstringaf
+      cstruct
+      domain-local-await
+      fmt
+      hmap
+      lwt-dllist
+      mtime
+      optint
+      psq
+    ];
 
-  checkInputs = [
-    alcotest
-    crowbar
-    mdx
-  ];
+    checkInputs = [
+      alcotest
+      crowbar
+      mdx
+    ];
 
-  nativeCheckInputs = [
-    mdx.bin
-  ];
+    nativeCheckInputs = [
+      mdx.bin
+    ];
 
-  meta = {
-    homepage = "https://github.com/ocaml-multicore/${pname}";
-    changelog = "https://github.com/ocaml-multicore/${pname}/raw/v${version}/CHANGES.md";
-    description = "Effects-Based Parallel IO for OCaml";
-    license = with lib.licenses; [ isc ];
-    maintainers = with lib.maintainers; [ toastal ];
-  };
-}
+    meta = {
+      homepage = "https://github.com/ocaml-multicore/${pname}";
+      changelog = "https://github.com/ocaml-multicore/${pname}/raw/v${version}/CHANGES.md";
+      description = "Effects-Based Parallel IO for OCaml";
+      license = with lib.licenses; [isc];
+      maintainers = with lib.maintainers; [toastal];
+    };
+  }

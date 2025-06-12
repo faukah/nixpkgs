@@ -1,6 +1,5 @@
 # This test runs docker and checks if simple container starts
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "docker";
   meta = with pkgs.lib.maintainers; {
     maintainers = [
@@ -10,28 +9,26 @@
   };
 
   nodes = {
-    docker =
-      { pkgs, ... }:
-      {
-        virtualisation.docker.enable = true;
-        virtualisation.docker.autoPrune.enable = true;
-        virtualisation.docker.package = pkgs.docker;
+    docker = {pkgs, ...}: {
+      virtualisation.docker.enable = true;
+      virtualisation.docker.autoPrune.enable = true;
+      virtualisation.docker.package = pkgs.docker;
 
-        users.users = {
-          noprivs = {
-            isNormalUser = true;
-            description = "Can't access the docker daemon";
-            password = "foobar";
-          };
+      users.users = {
+        noprivs = {
+          isNormalUser = true;
+          description = "Can't access the docker daemon";
+          password = "foobar";
+        };
 
-          hasprivs = {
-            isNormalUser = true;
-            description = "Can access the docker daemon";
-            password = "foobar";
-            extraGroups = [ "docker" ];
-          };
+        hasprivs = {
+          isNormalUser = true;
+          description = "Can access the docker daemon";
+          password = "foobar";
+          extraGroups = ["docker"];
         };
       };
+    };
   };
 
   testScript = ''

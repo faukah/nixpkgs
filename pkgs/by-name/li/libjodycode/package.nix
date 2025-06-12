@@ -5,7 +5,6 @@
   jdupes,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libjodycode";
   version = "3.1.2";
@@ -38,6 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://codeberg.org/jbruchon/libjodycode/src/branch/master/CHANGES.txt";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
   };
 })

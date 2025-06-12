@@ -7,7 +7,6 @@
   perlPackages,
   libminc,
 }:
-
 stdenv.mkDerivation {
   pname = "mni_autoreg";
   version = "0.99.70-unstable-2024-10-04";
@@ -23,7 +22,7 @@ stdenv.mkDerivation {
     cmake
     makeWrapper
   ];
-  buildInputs = [ libminc ];
+  buildInputs = [libminc];
   propagatedBuildInputs = with perlPackages; [
     perl
     GetoptTabular
@@ -51,7 +50,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://github.com/BIC-MNI/mni_autoreg";
     description = "Tools for automated registration using the MINC image format";
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
     platforms = lib.platforms.unix;
     license = lib.licenses.free;
   };

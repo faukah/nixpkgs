@@ -6,7 +6,6 @@
   testers,
   editorconfig-checker,
 }:
-
 buildGoModule rec {
   pname = "editorconfig-checker";
   version = "3.3.0";
@@ -22,9 +21,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  ldflags = [ "-X main.version=${version}" ];
+  ldflags = ["-X main.version=${version}"];
 
   postInstall = ''
     installManPage docs/editorconfig-checker.1

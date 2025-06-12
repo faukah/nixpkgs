@@ -28,7 +28,6 @@
   python3,
   replaceVars,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnucash";
   version = "5.11";
@@ -123,7 +122,7 @@ stdenv.mkDerivation rec {
       hash = "sha256-uXpIAsucVUaAlqYTKfrfBg04Kb5Mza67l0ZU6fxkSUY=";
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
     buildInputs = [
       libxml2
       libxslt
@@ -153,12 +152,12 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/finance-quote-wrapper \
       --prefix PERL5LIB : "${
-        with perlPackages;
+      with perlPackages;
         makeFullPerlPath [
           JSONParse
           FinanceQuote
         ]
-      }"
+    }"
   '';
 
   passthru.updateScript = ./update.sh;
@@ -196,3 +195,4 @@ stdenv.mkDerivation rec {
   };
 }
 # TODO: investigate Darwin support
+

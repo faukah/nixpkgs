@@ -6,7 +6,6 @@
   pkg-config,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "krill";
   version = "0.14.6";
@@ -21,8 +20,8 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-PR8HoHroHp5nBbRwR8TZ5NeBH4eDXGV46HkDLeydmAk=";
 
-  buildInputs = [ openssl ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [openssl];
+  nativeBuildInputs = [pkg-config];
 
   # Needed to get openssl-sys to use pkgconfig.
   OPENSSL_NO_VENDOR = 1;
@@ -41,6 +40,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/NLnetLabs/krill";
     changelog = "https://github.com/NLnetLabs/krill/releases/tag/v${version}";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ steamwalker ];
+    maintainers = with lib.maintainers; [steamwalker];
   };
 }

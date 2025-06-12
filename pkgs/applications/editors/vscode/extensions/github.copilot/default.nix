@@ -2,7 +2,6 @@
   lib,
   vscode-utils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     publisher = "github";
@@ -16,6 +15,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=GitHub.copilot";
     homepage = "https://github.com/features/copilot";
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.Zimmi48 ];
+    maintainers = [lib.maintainers.Zimmi48];
   };
 }

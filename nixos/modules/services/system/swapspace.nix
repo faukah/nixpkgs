@@ -4,40 +4,40 @@
   pkgs,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.swapspace;
-  inherit (lib)
+  inherit
+    (lib)
     types
     mkIf
     mkOption
     mkPackageOption
     mkEnableOption
     ;
-  inherit (pkgs)
+  inherit
+    (pkgs)
     makeWrapper
     runCommand
     writeText
     ;
-  configFile = writeText "swapspace.conf" (lib.generators.toKeyValue { } cfg.settings);
+  configFile = writeText "swapspace.conf" (lib.generators.toKeyValue {} cfg.settings);
   userWrapper =
     runCommand "swapspace"
-      {
-        buildInputs = [ makeWrapper ];
-      }
-      ''
-        mkdir -p "$out/bin"
-        makeWrapper '${lib.getExe cfg.package}' "$out/bin/swapspace" \
-          --add-flags "-c '${configFile}'"
-      '';
-in
-{
+    {
+      buildInputs = [makeWrapper];
+    }
+    ''
+      mkdir -p "$out/bin"
+      makeWrapper '${lib.getExe cfg.package}' "$out/bin/swapspace" \
+        --add-flags "-c '${configFile}'"
+    '';
+in {
   options.services.swapspace = {
     enable = mkEnableOption "Swapspace, a dynamic swap space manager";
-    package = mkPackageOption pkgs "swapspace" { };
+    package = mkPackageOption pkgs "swapspace" {};
     extraArgs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "-P"
         "-v"
@@ -107,7 +107,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = ''
         Config file for swapspace.
         See the options here: <https://github.com/Tookmund/Swapspace/blob/master/swapspace.conf>
@@ -116,10 +116,16 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ (if cfg.installWrapper then userWrapper else cfg.package) ];
-    systemd.packages = [ cfg.package ];
+    environment.systemPackages = [
+      (
+        if cfg.installWrapper
+        then userWrapper
+        else cfg.package
+      )
+    ];
+    systemd.packages = [cfg.package];
     systemd.services.swapspace = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = [
           ""

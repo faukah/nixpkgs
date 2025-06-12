@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "zsh-fzf-history-search";
   version = "unstable-2024-05-15";
@@ -32,6 +31,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/joshskidmore/zsh-fzf-history-search";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

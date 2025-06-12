@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-e3N0m+oj2CMUXwI4dF/tXA+Lz+9+ZlbJAy+zHoRDNtw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     python-dateutil
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     export PYTHONPATH=${netbox}/opt/netbox/netbox:$PYTHONPATH
   '';
 
-  pythonImportsCheck = [ "netbox_contract" ];
+  pythonImportsCheck = ["netbox_contract"];
 
   meta = {
     description = "Contract plugin for netbox";
@@ -46,6 +46,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/mlebreuil/netbox-contract/releases/tag/${src.rev}";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ felbinger ];
+    maintainers = with lib.maintainers; [felbinger];
   };
 }

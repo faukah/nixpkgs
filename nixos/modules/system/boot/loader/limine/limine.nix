@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.boot.loader.limine;
   efi = config.boot.loader.efi;
   limineInstallConfig = pkgs.writeText "limine-install.json" (
@@ -25,9 +24,15 @@ let
       forceMbr = cfg.forceMbr;
       enrollConfig = cfg.enrollConfig;
       style = cfg.style;
-      maxGenerations = if cfg.maxGenerations == null then 0 else cfg.maxGenerations;
+      maxGenerations =
+        if cfg.maxGenerations == null
+        then 0
+        else cfg.maxGenerations;
       hostArchitecture = pkgs.stdenv.hostPlatform.parsed.cpu;
-      timeout = if config.boot.loader.timeout != null then config.boot.loader.timeout else 10;
+      timeout =
+        if config.boot.loader.timeout != null
+        then config.boot.loader.timeout
+        else 10;
       enableEditor = cfg.enableEditor;
       extraConfig = cfg.extraConfig;
       extraEntries = cfg.extraEntries;
@@ -37,8 +42,7 @@ let
     }
   );
   defaultWallpaper = pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader.gnomeFilePath;
-in
-{
+in {
   meta = {
     inherit (pkgs.limine.meta) maintainers;
   };
@@ -46,13 +50,15 @@ in
   options.boot.loader.limine = {
     enable = lib.mkEnableOption "the Limine Bootloader";
 
-    enableEditor = lib.mkEnableOption null // {
-      description = ''
-        Whether to allow editing the boot entries before booting them.
-        It is recommended to set this to false, as it allows gaining root
-        access by passing `init=/bin/sh` as a kernel parameter.
-      '';
-    };
+    enableEditor =
+      lib.mkEnableOption null
+      // {
+        description = ''
+          Whether to allow editing the boot entries before booting them.
+          It is recommended to set this to false, as it allows gaining root
+          access by passing `init=/bin/sh` as a kernel parameter.
+        '';
+      };
 
     maxGenerations = lib.mkOption {
       default = null;
@@ -91,7 +97,7 @@ in
     };
 
     additionalFiles = lib.mkOption {
-      default = { };
+      default = {};
       type = lib.types.attrsOf lib.types.path;
       example = lib.literalExpression ''
         { "efi/memtest86/memtest86.efi" = "''${pkgs.memtest86-efi}/BOOTX64.efi"; }
@@ -103,47 +109,57 @@ in
       '';
     };
 
-    validateChecksums = lib.mkEnableOption null // {
-      default = true;
-      description = ''
-        Whether to validate file checksums before booting.
-      '';
-    };
+    validateChecksums =
+      lib.mkEnableOption null
+      // {
+        default = true;
+        description = ''
+          Whether to validate file checksums before booting.
+        '';
+      };
 
-    panicOnChecksumMismatch = lib.mkEnableOption null // {
-      description = ''
-        Whether or not checksum validation failure should be a fatal
-        error at boot time.
-      '';
-    };
+    panicOnChecksumMismatch =
+      lib.mkEnableOption null
+      // {
+        description = ''
+          Whether or not checksum validation failure should be a fatal
+          error at boot time.
+        '';
+      };
 
-    package = lib.mkPackageOption pkgs "limine" { };
+    package = lib.mkPackageOption pkgs "limine" {};
 
-    efiSupport = lib.mkEnableOption null // {
-      default = pkgs.stdenv.hostPlatform.isEfi;
-      defaultText = lib.literalExpression "pkgs.stdenv.hostPlatform.isEfi";
-      description = ''
-        Whether or not to install the limine EFI files.
-      '';
-    };
+    efiSupport =
+      lib.mkEnableOption null
+      // {
+        default = pkgs.stdenv.hostPlatform.isEfi;
+        defaultText = lib.literalExpression "pkgs.stdenv.hostPlatform.isEfi";
+        description = ''
+          Whether or not to install the limine EFI files.
+        '';
+      };
 
-    efiInstallAsRemovable = lib.mkEnableOption null // {
-      default = !efi.canTouchEfiVariables;
-      defaultText = lib.literalExpression "!config.boot.loader.efi.canTouchEfiVariables";
-      description = ''
-        Whether or not to install the limine EFI files as removable.
+    efiInstallAsRemovable =
+      lib.mkEnableOption null
+      // {
+        default = !efi.canTouchEfiVariables;
+        defaultText = lib.literalExpression "!config.boot.loader.efi.canTouchEfiVariables";
+        description = ''
+          Whether or not to install the limine EFI files as removable.
 
-        See {option}`boot.loader.grub.efiInstallAsRemovable`
-      '';
-    };
+          See {option}`boot.loader.grub.efiInstallAsRemovable`
+        '';
+      };
 
-    biosSupport = lib.mkEnableOption null // {
-      default = !cfg.efiSupport && pkgs.stdenv.hostPlatform.isx86;
-      defaultText = lib.literalExpression "!config.boot.loader.limine.efiSupport && pkgs.stdenv.hostPlatform.isx86";
-      description = ''
-        Whether or not to install limine for BIOS.
-      '';
-    };
+    biosSupport =
+      lib.mkEnableOption null
+      // {
+        default = !cfg.efiSupport && pkgs.stdenv.hostPlatform.isx86;
+        defaultText = lib.literalExpression "!config.boot.loader.limine.efiSupport && pkgs.stdenv.hostPlatform.isx86";
+        description = ''
+          Whether or not to install limine for BIOS.
+        '';
+      };
 
     biosDevice = lib.mkOption {
       default = "nodev";
@@ -161,59 +177,67 @@ in
       '';
     };
 
-    enrollConfig = lib.mkEnableOption null // {
-      default = cfg.panicOnChecksumMismatch;
-      defaultText = lib.literalExpression "boot.loader.limine.panicOnChecksumMismatch";
-      description = ''
-        Whether or not to enroll the config.
-        Only works on EFI!
-      '';
-    };
+    enrollConfig =
+      lib.mkEnableOption null
+      // {
+        default = cfg.panicOnChecksumMismatch;
+        defaultText = lib.literalExpression "boot.loader.limine.panicOnChecksumMismatch";
+        description = ''
+          Whether or not to enroll the config.
+          Only works on EFI!
+        '';
+      };
 
-    forceMbr = lib.mkEnableOption null // {
-      description = ''
-        Force MBR detection to work even if the safety checks fail, use absolutely only if necessary!
-      '';
-    };
+    forceMbr =
+      lib.mkEnableOption null
+      // {
+        description = ''
+          Force MBR detection to work even if the safety checks fail, use absolutely only if necessary!
+        '';
+      };
 
     secureBoot = {
-      enable = lib.mkEnableOption null // {
-        description = ''
-          Whether to use sign the limine binary with sbctl.
+      enable =
+        lib.mkEnableOption null
+        // {
+          description = ''
+            Whether to use sign the limine binary with sbctl.
 
-          ::: {.note}
-          This requires you to already have generated the keys and enrolled them with {command}`sbctl`.
+            ::: {.note}
+            This requires you to already have generated the keys and enrolled them with {command}`sbctl`.
 
-          To create keys use {command}`sbctl create-keys`.
+            To create keys use {command}`sbctl create-keys`.
 
-          To enroll them first reset secure boot to "Setup Mode". This is device specific.
-          Then enroll them using {command}`sbctl enroll-keys -m -f`.
+            To enroll them first reset secure boot to "Setup Mode". This is device specific.
+            Then enroll them using {command}`sbctl enroll-keys -m -f`.
 
-          You can now rebuild your system with this option enabled.
+            You can now rebuild your system with this option enabled.
 
-          Afterwards turn setup mode off and enable secure boot.
-          :::
-        '';
-      };
+            Afterwards turn setup mode off and enable secure boot.
+            :::
+          '';
+        };
 
-      createAndEnrollKeys = lib.mkEnableOption null // {
-        internal = true;
-        description = ''
-          Creates secure boot signing keys and enrolls them during bootloader installation.
+      createAndEnrollKeys =
+        lib.mkEnableOption null
+        // {
+          internal = true;
+          description = ''
+            Creates secure boot signing keys and enrolls them during bootloader installation.
 
-          ::: {.note}
-          This is used for automated nixos tests.
-          NOT INTENDED to be used on a real system.
-          :::
-        '';
-      };
+            ::: {.note}
+            This is used for automated nixos tests.
+            NOT INTENDED to be used on a real system.
+            :::
+          '';
+        };
 
-      sbctl = lib.mkPackageOption pkgs "sbctl" { };
+      sbctl = lib.mkPackageOption pkgs "sbctl" {};
     };
 
     style = {
       wallpapers = lib.mkOption {
-        default = [ ];
+        default = [];
         example = lib.literalExpression "[ pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader.gnomeFilePath ]";
         type = lib.types.listOf lib.types.path;
         description = ''
@@ -268,11 +292,13 @@ in
           '';
         };
 
-        helpHidden = lib.mkEnableOption null // {
-          description = ''
-            Whether or not to hide the keybinds at the top of the screen.
-          '';
-        };
+        helpHidden =
+          lib.mkEnableOption null
+          // {
+            description = ''
+              Whether or not to hide the keybinds at the top of the screen.
+            '';
+          };
       };
       graphicalTerminal = {
         font = {
@@ -365,9 +391,9 @@ in
 
   config = lib.mkMerge [
     {
-      boot.loader.limine.style.wallpapers = lib.mkDefault [ defaultWallpaper ];
+      boot.loader.limine.style.wallpapers = lib.mkDefault [defaultWallpaper];
     }
-    (lib.mkIf (cfg.style.wallpapers == [ defaultWallpaper ]) {
+    (lib.mkIf (cfg.style.wallpapers == [defaultWallpaper]) {
       boot.loader.limine.style.backdrop = lib.mkDefault "2F302F";
       boot.loader.limine.style.wallpaperStyle = lib.mkDefault "streched";
     })
@@ -396,7 +422,7 @@ in
           src = ./limine-install.py;
           isExecutable = true;
           replacements = {
-            python3 = pkgs.python3.withPackages (python-packages: [ python-packages.psutil ]);
+            python3 = pkgs.python3.withPackages (python-packages: [python-packages.psutil]);
             configPath = limineInstallConfig;
           };
         };
@@ -435,9 +461,9 @@ in
 
       systemd.services.fwupd-efi = {
         description = "Sign fwupd EFI app for secure boot";
-        wantedBy = [ "fwupd.service" ];
-        partOf = [ "fwupd.service" ];
-        before = [ "fwupd.service" ];
+        wantedBy = ["fwupd.service"];
+        partOf = ["fwupd.service"];
+        before = ["fwupd.service"];
 
         unitConfig.ConditionPathIsDirectory = "/var/lib/sbctl";
         serviceConfig = {

@@ -10,7 +10,6 @@
   qtbase,
   libglvnd,
 }:
-
 mkDerivation rec {
   pname = "xp-pen-g430-driver";
   version = "1.2.13.1";
@@ -44,9 +43,9 @@ mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.xp-pen.com/download-46.html";
     description = "Driver for XP-PEN Pentablet drawing tablets";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ ];
+    platforms = ["x86_64-linux"];
+    maintainers = [];
   };
 }

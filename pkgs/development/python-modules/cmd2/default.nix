@@ -17,7 +17,6 @@
   typing-extensions,
   wcwidth,
 }:
-
 buildPythonPackage rec {
   pname = "cmd2";
   version = "2.6.0";
@@ -39,14 +38,16 @@ buildPythonPackage rec {
     export PATH=$(realpath bin):$PATH
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [
-    attrs
-    colorama
-    pyperclip
-    wcwidth
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin gnureadline;
+  dependencies =
+    [
+      attrs
+      colorama
+      pyperclip
+      wcwidth
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin gnureadline;
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
@@ -63,13 +64,13 @@ buildPythonPackage rec {
     "test_transcript"
   ];
 
-  pythonImportsCheck = [ "cmd2" ];
+  pythonImportsCheck = ["cmd2"];
 
   meta = with lib; {
     description = "Enhancements for standard library's cmd module";
     homepage = "https://github.com/python-cmd2/cmd2";
     changelog = "https://github.com/python-cmd2/cmd2/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ teto ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [teto];
   };
 }

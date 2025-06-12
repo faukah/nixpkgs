@@ -2,18 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   anyio,
   pycrdt,
   sqlite-anyio,
-
   # optional-dependencies
   channels,
-
   # tests
   httpx-ws,
   hypercorn,
@@ -23,7 +19,6 @@
   uvicorn,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "pycrdt-websocket";
   version = "0.15.5";
@@ -36,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-piNd85X5YsTAOC9frYQRDyb/DPfzZicIPJ+bEVzgOsU=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     anyio
@@ -45,10 +40,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    django = [ channels ];
+    django = [channels];
   };
 
-  pythonImportsCheck = [ "pycrdt_websocket" ];
+  pythonImportsCheck = ["pycrdt_websocket"];
 
   nativeCheckInputs = [
     httpx-ws
@@ -79,6 +74,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jupyter-server/pycrdt-websocket";
     changelog = "https://github.com/jupyter-server/pycrdt-websocket/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    teams = [ lib.teams.jupyter ];
+    teams = [lib.teams.jupyter];
   };
 }

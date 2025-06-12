@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   meson,
   ninja,
   vala,
@@ -10,14 +9,12 @@
   desktop-file-utils,
   pkg-config,
   imagemagick,
-
   gtk4,
   libadwaita,
   libgee,
   lua5_4,
   geoip,
   geolite-legacy,
-
   versionCheckHook,
   nix-update-script,
 }:
@@ -57,15 +54,15 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple game server monitor and administrative tool";
     homepage = "https://github.com/lxndr/gswatcher";
-    license = with lib.licenses; [ agpl3Plus ];
+    license = with lib.licenses; [agpl3Plus];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ pluiedev ];
+    maintainers = with lib.maintainers; [pluiedev];
   };
 })

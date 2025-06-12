@@ -4,14 +4,14 @@
   buildPythonPackage,
   python,
   fetchPypi,
-}:
-
-let
+}: let
   format = "wheel";
-  pyShortVersion = "cp" + builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;
+  pyShortVersion = "cp" + builtins.replaceStrings ["."] [""] python.pythonVersion;
   platforms = rec {
     aarch64-darwin =
-      if pyShortVersion == "cp313" then "macosx_10_13_universal2" else "macosx_10_9_universal2";
+      if pyShortVersion == "cp313"
+      then "macosx_10_13_universal2"
+      else "macosx_10_9_universal2";
     aarch64-linux = "manylinux2014_aarch64.manylinux_2_17_aarch64";
     x86_64-darwin = aarch64-darwin;
     x86_64-linux = "manylinux2014_x86_64.manylinux_2_17_x86_64";
@@ -31,26 +31,26 @@ let
     hashes."${pyShortVersion}-${stdenv.system}"
       or (throw "Unsupported Python version: ${python.pythonVersion}");
 in
-buildPythonPackage rec {
-  pname = "gurobipy";
-  version = "12.0.2";
-  inherit format;
+  buildPythonPackage rec {
+    pname = "gurobipy";
+    version = "12.0.2";
+    inherit format;
 
-  src = fetchPypi {
-    inherit pname version;
-    python = pyShortVersion;
-    abi = pyShortVersion;
-    dist = pyShortVersion;
-    inherit format platform hash;
-  };
+    src = fetchPypi {
+      inherit pname version;
+      python = pyShortVersion;
+      abi = pyShortVersion;
+      dist = pyShortVersion;
+      inherit format platform hash;
+    };
 
-  pythonImportsCheck = [ "gurobipy" ];
+    pythonImportsCheck = ["gurobipy"];
 
-  meta = {
-    description = "Python interface to Gurobi";
-    homepage = "https://www.gurobi.com";
-    license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ wegank ];
-    platforms = builtins.attrNames platforms;
-  };
-}
+    meta = {
+      description = "Python interface to Gurobi";
+      homepage = "https://www.gurobi.com";
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [wegank];
+      platforms = builtins.attrNames platforms;
+    };
+  }

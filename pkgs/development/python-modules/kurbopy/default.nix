@@ -6,7 +6,6 @@
   pytestCheckHook,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "kurbopy";
   version = "0.11.1";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-05ezUpcHxCxo/4oyPKogq4/vdfpNnEBhtv+lYBjKdvg=";
   };
 
-  propagatedBuildInputs = [ fonttools ];
+  propagatedBuildInputs = [fonttools];
   nativeBuildInputs = [
     rustPlatform.cargoSetupHook
     rustPlatform.maturinBuildHook
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-51qJAcJvolYCW3XWeymc2xd2QHiKLd7MdRdDedEH8QY=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   preCheck = ''
     # pytestCheckHook puts . at the front of Python's sys.path, due to:
     # https://github.com/NixOS/nixpkgs/issues/255262
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Python wrapper around the Rust kurbo library for 2D curve manipulation";
     homepage = "https://github.com/simoncozens/kurbopy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "seasonal";
   version = "0.3.1";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       --replace 'setup_requires=["pytest-runner"],' ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     numpy
@@ -40,8 +39,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    csv = [ pandas ];
-    plot = [ matplotlib ];
+    csv = [pandas];
+    plot = [matplotlib];
   };
 
   pythonImportsCheck = [
@@ -49,14 +48,16 @@ buildPythonPackage rec {
     "seasonal.trend"
     "seasonal.periodogram"
   ];
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   meta = with lib; {
     description = "Robustly estimate trend and periodicity in a timeseries";
     homepage = "https://github.com/welch/seasonal";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

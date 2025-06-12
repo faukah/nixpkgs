@@ -20,7 +20,6 @@
   xvfb-run,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libadwaita";
   version = "1.7.2";
@@ -135,9 +134,9 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "adwaita-1-demo";
     homepage = "https://gitlab.gnome.org/GNOME/libadwaita";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ dotlambda ];
-    teams = [ teams.gnome ];
+    maintainers = with maintainers; [dotlambda];
+    teams = [teams.gnome];
     platforms = platforms.unix;
-    pkgConfigModules = [ "libadwaita-1" ];
+    pkgConfigModules = ["libadwaita-1"];
   };
 })

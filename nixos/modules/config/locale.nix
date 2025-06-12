@@ -3,24 +3,19 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   tzdir = "${pkgs.tzdata}/share/zoneinfo";
-  nospace = str: lib.filter (c: c == " ") (lib.stringToCharacters str) == [ ];
-  timezone = lib.types.nullOr (lib.types.addCheck lib.types.str nospace) // {
-    description = "null or string without spaces";
-  };
+  nospace = str: lib.filter (c: c == " ") (lib.stringToCharacters str) == [];
+  timezone =
+    lib.types.nullOr (lib.types.addCheck lib.types.str nospace)
+    // {
+      description = "null or string without spaces";
+    };
 
   lcfg = config.location;
-
-in
-
-{
+in {
   options = {
-
     time = {
-
       timeZone = lib.mkOption {
         default = null;
         type = timezone;
@@ -39,11 +34,9 @@ in
         type = lib.types.bool;
         description = "If set, keep the hardware clock in local time instead of UTC.";
       };
-
     };
 
     location = {
-
       latitude = lib.mkOption {
         type = lib.types.float;
         description = ''
@@ -73,12 +66,10 @@ in
           `manual` you must also provide latitude/longitude.
         '';
       };
-
     };
   };
 
   config = {
-
     environment.sessionVariables.TZDIR = "/etc/zoneinfo";
 
     services.geoclue2.enable = lib.mkIf (lcfg.provider == "geoclue2") true;
@@ -99,5 +90,4 @@ in
         localtime.mode = "direct-symlink";
       };
   };
-
 }

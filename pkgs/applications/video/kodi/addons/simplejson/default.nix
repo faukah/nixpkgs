@@ -5,7 +5,6 @@
   fetchzip,
   addonUpdateScript,
 }:
-
 buildKodiAddon rec {
   pname = "simplejson";
   namespace = "script.module.simplejson";
@@ -27,6 +26,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/simplejson/simplejson";
     description = "Simple, fast, extensible JSON encoder/decoder for Python";
     license = licenses.mit;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

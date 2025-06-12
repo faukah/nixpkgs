@@ -18,7 +18,6 @@
   nix-update,
   pkgsCross,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "crosvm";
   version = "0-unstable-2025-06-06";
@@ -60,7 +59,7 @@ rustPlatform.buildRustPackage {
   CROSVM_USE_SYSTEM_MINIGBM = true;
   CROSVM_USE_SYSTEM_VIRGLRENDERER = true;
 
-  buildFeatures = [ "virgl_renderer" ];
+  buildFeatures = ["virgl_renderer"];
 
   passthru = {
     updateScript = writeShellScript "update-crosvm.sh" ''
@@ -81,7 +80,7 @@ rustPlatform.buildRustPackage {
     description = "Secure virtual machine monitor for KVM";
     homepage = "https://crosvm.dev/";
     mainProgram = "crosvm";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     license = licenses.bsd3;
     platforms = [
       "aarch64-linux"

@@ -4,11 +4,9 @@
   cppo,
   ocamlbuild,
 }:
-
-if lib.versionOlder (lib.getVersion cppo) "1.6" then
-  cppo
+if lib.versionOlder (lib.getVersion cppo) "1.6"
+then cppo
 else
-
   buildDunePackage {
     pname = "cppo_ocamlbuild";
 
@@ -17,9 +15,11 @@ else
     minimalOCamlVersion = "4.03";
     duneVersion = "3";
 
-    propagatedBuildInputs = [ ocamlbuild ];
+    propagatedBuildInputs = [ocamlbuild];
 
-    meta = cppo.meta // {
-      description = "Plugin to use cppo with ocamlbuild";
-    };
+    meta =
+      cppo.meta
+      // {
+        description = "Plugin to use cppo with ocamlbuild";
+      };
   }

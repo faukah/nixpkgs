@@ -11,7 +11,6 @@
   testers,
   leetcode-cli,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "leetcode-cli";
   version = "0.4.6";
@@ -53,7 +52,7 @@ rustPlatform.buildRustPackage rec {
     longDescription = "Use leetcode.com in command line";
     homepage = "https://github.com/clearloop/leetcode-cli";
     license = licenses.mit;
-    maintainers = with maintainers; [ congee ];
+    maintainers = with maintainers; [congee];
     mainProgram = "leetcode";
   };
 }

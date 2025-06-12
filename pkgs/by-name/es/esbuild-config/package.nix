@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "esbuild-config";
   version = "1.0.1";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Config files for esbuild";
     homepage = "https://github.com/bpierre/esbuild-config";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "esbuild-config";
   };
 }

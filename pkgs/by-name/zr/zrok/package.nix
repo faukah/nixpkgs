@@ -2,9 +2,7 @@
   lib,
   stdenv,
   fetchzip,
-}:
-
-let
+}: let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
 
@@ -14,7 +12,9 @@ let
       aarch64-linux = "linux_arm64";
       armv7l-linux = "linux_armv7";
     }
-    .${system} or throwSystem;
+    .${
+      system
+    } or throwSystem;
 
   hash =
     {
@@ -22,25 +22,25 @@ let
       aarch64-linux = "sha256-5hZaOqnTYWeUJXGObzUZMqE62ZgNvJ9Wi8shVng10l8=";
       armv7l-linux = "sha256-MOM0OS2/mhYaxowsBVnZH0poR+wXsbjsJKldU/nAfjU=";
     }
-    .${system} or throwSystem;
+    .${
+      system
+    } or throwSystem;
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "zrok";
-  version = "1.0.4";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "zrok";
+    version = "1.0.4";
 
-  src = fetchzip {
-    url = "https://github.com/openziti/zrok/releases/download/v${finalAttrs.version}/zrok_${finalAttrs.version}_${plat}.tar.gz";
-    stripRoot = false;
-    inherit hash;
-  };
+    src = fetchzip {
+      url = "https://github.com/openziti/zrok/releases/download/v${finalAttrs.version}/zrok_${finalAttrs.version}_${plat}.tar.gz";
+      stripRoot = false;
+      inherit hash;
+    };
 
-  updateScript = ./update.sh;
+    updateScript = ./update.sh;
 
-  installPhase =
-    let
+    installPhase = let
       interpreter = "$(< \"$NIX_CC/nix-support/dynamic-linker\")";
-    in
-    ''
+    in ''
       runHook preInstall
 
       mkdir -p $out/bin
@@ -51,17 +51,17 @@ stdenv.mkDerivation (finalAttrs: {
       runHook postInstall
     '';
 
-  meta = {
-    description = "Geo-scale, next-generation sharing platform built on top of OpenZiti";
-    homepage = "https://zrok.io";
-    license = lib.licenses.asl20;
-    mainProgram = "zrok";
-    maintainers = [ lib.maintainers.bandresen ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "armv7l-linux"
-    ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-  };
-})
+    meta = {
+      description = "Geo-scale, next-generation sharing platform built on top of OpenZiti";
+      homepage = "https://zrok.io";
+      license = lib.licenses.asl20;
+      mainProgram = "zrok";
+      maintainers = [lib.maintainers.bandresen];
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "armv7l-linux"
+      ];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    };
+  })

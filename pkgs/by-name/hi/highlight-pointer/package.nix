@@ -6,7 +6,6 @@
   xorg,
   libXext,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "highlight-pointer";
   version = "1.1.3";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/swillner/highlight-pointer/releases/tag/v${finalAttrs.version}";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ DCsunset ];
+    maintainers = with maintainers; [DCsunset];
     mainProgram = "highlight-pointer";
   };
 })

@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   agate,
   dbt-adapters,
@@ -14,11 +12,9 @@
   google-cloud-bigquery,
   google-cloud-dataproc,
   google-cloud-storage,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "dbt-bigquery";
   version = "1.9.1";
@@ -50,17 +46,17 @@ buildPythonPackage rec {
     google-cloud-storage
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
-  pythonImportsCheck = [ "dbt.adapters.bigquery" ];
+  pythonImportsCheck = ["dbt.adapters.bigquery"];
 
   meta = {
     description = "Plugin enabling dbt to operate on a BigQuery database";
     homepage = "https://github.com/dbt-labs/dbt-bigquery";
     changelog = "https://github.com/dbt-labs/dbt-bigquery/blob/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ tjni ];
+    maintainers = with lib.maintainers; [tjni];
   };
 }

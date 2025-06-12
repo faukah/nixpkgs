@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "galah";
   version = "0-unstable-2024-04-28";
@@ -26,7 +25,7 @@ buildGoModule {
     description = "LLM-powered web honeypot using the OpenAI API";
     homepage = "https://github.com/0x4D31/galah";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "galah";
   };
 }

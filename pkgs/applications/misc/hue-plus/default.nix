@@ -5,7 +5,6 @@
   wrapQtAppsHook,
   qtbase,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "hue-plus";
   version = "1.4.5";
@@ -17,9 +16,9 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-dDIJXhB3rmKnawOYJHE7WK38b0M5722zA+yLgpEjDyI=";
   };
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   propagatedBuildInputs = with python3Packages; [
     pyserial
@@ -43,6 +42,6 @@ python3Packages.buildPythonApplication rec {
       A cross-platform driver in Python for the NZXT Hue+. Supports all functionality except FPS, CPU, and GPU lighting.
     '';
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ garaiza-93 ];
+    maintainers = with maintainers; [garaiza-93];
   };
 }

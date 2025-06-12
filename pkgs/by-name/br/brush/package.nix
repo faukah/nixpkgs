@@ -9,7 +9,6 @@
   nix-update-script,
   brush,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "brush";
   version = "0.2.18";
@@ -47,16 +46,16 @@ rustPlatform.buildRustPackage rec {
         '';
         actual =
           runCommand "actual"
-            {
-              nativeBuildInputs = [ brush ];
-            }
-            ''
-              brush -c 'brushinfo complete line bru' >$out
-            '';
+          {
+            nativeBuildInputs = [brush];
+          }
+          ''
+            brush -c 'brushinfo complete line bru' >$out
+          '';
       };
     };
 
-    updateScript = nix-update-script { extraArgs = [ "--version-regex=brush-shell-v([\\d\\.]+)" ]; };
+    updateScript = nix-update-script {extraArgs = ["--version-regex=brush-shell-v([\\d\\.]+)"];};
   };
 
   meta = {
@@ -64,7 +63,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/reubeno/brush";
     changelog = "https://github.com/reubeno/brush/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kachick ];
+    maintainers = with lib.maintainers; [kachick];
     mainProgram = "brush";
   };
 }

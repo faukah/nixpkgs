@@ -4,19 +4,14 @@
 # `boot.initrd.systemd.enable = true`, you can use
 # `virtualisation.fileSystems."/".autoFormat = true;`
 # instead.
-
 {
   lib,
   config,
   pkgs,
   ...
-}:
-
-let
+}: let
   rootDevice = config.virtualisation.rootDevice;
-in
-{
-
+in {
   boot.initrd.extraUtilsCommands = lib.mkIf (!config.boot.initrd.systemd.enable) ''
     # We need mke2fs in the initrd.
     copy_bin_and_libs ${pkgs.e2fsprogs}/bin/mke2fs

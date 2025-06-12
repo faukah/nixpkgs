@@ -4,7 +4,6 @@
   containers,
   lib,
 }:
-
 mkDerivation {
   pname = "ghc-settings-edit";
   version = "0.1.0";

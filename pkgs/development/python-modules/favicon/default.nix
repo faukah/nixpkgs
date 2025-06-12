@@ -8,7 +8,6 @@
   requests,
   requests-mock,
 }:
-
 buildPythonPackage rec {
   pname = "favicon";
   version = "0.7.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "favicon" ];
+  pythonImportsCheck = ["favicon"];
 
   meta = with lib; {
     description = "Find a website's favicon";

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "paratype-pt-serif";
   version = "2.005";
@@ -36,6 +35,6 @@ stdenvNoCC.mkDerivation {
     # http://www.paratype.ru/public/pt_openlicense.asp
 
     platforms = platforms.all;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
   };
 }

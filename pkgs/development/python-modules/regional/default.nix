@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage {
   pname = "regional";
   version = "1.1.2";
@@ -29,9 +28,9 @@ buildPythonPackage {
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "regional" ];
+  pythonImportsCheck = ["regional"];
 
   disabledTests = [
     "test_dilate"
@@ -43,6 +42,6 @@ buildPythonPackage {
     description = "Simple manipualtion and display of spatial regions";
     homepage = "https://github.com/freeman-lab/regional";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

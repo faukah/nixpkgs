@@ -26,9 +26,7 @@
   xcbutilerrors,
   xcbutilimage,
   xcbutilwm,
-}:
-
-let
+}: let
   allSources = {
     # cereal.wrap
     cereal-wrap = fetchurl {
@@ -67,80 +65,80 @@ let
     };
   };
 in
-stdenv.mkDerivation {
-  pname = "cardboard";
-  version = "unstable-2021-05-10";
+  stdenv.mkDerivation {
+    pname = "cardboard";
+    version = "unstable-2021-05-10";
 
-  src = allSources.cardboard;
+    src = allSources.cardboard;
 
-  outputs = [
-    "out"
-    "dev"
-    "lib"
-    "man"
-  ];
+    outputs = [
+      "out"
+      "dev"
+      "lib"
+      "man"
+    ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pandoc
-    pkg-config
-    unzip
-    wayland-scanner
-  ];
+    nativeBuildInputs = [
+      meson
+      ninja
+      pandoc
+      pkg-config
+      unzip
+      wayland-scanner
+    ];
 
-  buildInputs = [
-    ffmpeg
-    libGL
-    libX11
-    libcap
-    libdrm
-    libinput
-    libpng
-    libxcb
-    libxkbcommon
-    libgbm
-    pixman
-    wayland
-    wayland-protocols
-    xcbutilerrors
-    xcbutilimage
-    xcbutilwm
-  ];
+    buildInputs = [
+      ffmpeg
+      libGL
+      libX11
+      libcap
+      libdrm
+      libinput
+      libpng
+      libxcb
+      libxkbcommon
+      libgbm
+      pixman
+      wayland
+      wayland-protocols
+      xcbutilerrors
+      xcbutilimage
+      xcbutilwm
+    ];
 
-  postPatch = ''
-    pushd subprojects
-    tar xvf ${allSources.cereal-wrap}
-    unzip ${allSources.cereal-wrapdb}
-    cp -r ${allSources.expected-wrap} ${allSources.expected-wrap.name}
-    cp -r ${allSources.wlroots-wrap} ${allSources.wlroots-wrap.name}
-    popd
+    postPatch = ''
+      pushd subprojects
+      tar xvf ${allSources.cereal-wrap}
+      unzip ${allSources.cereal-wrapdb}
+      cp -r ${allSources.expected-wrap} ${allSources.expected-wrap.name}
+      cp -r ${allSources.wlroots-wrap} ${allSources.wlroots-wrap.name}
+      popd
+
+      # gcc12
+      sed '1i#include <functional>' -i cardboard/ViewAnimation.h
+    '';
+
+    # "Inherited" from Nixpkgs expression for wlroots
+    mesonFlags = [
+      (lib.mesonBool "man" true)
+      (lib.mesonOption "wlroots:logind-provider" "systemd")
+      (lib.mesonEnable "wlroots:libseat" false)
+    ];
 
     # gcc12
-    sed '1i#include <functional>' -i cardboard/ViewAnimation.h
-  '';
+    env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=array-bounds"];
 
-  # "Inherited" from Nixpkgs expression for wlroots
-  mesonFlags = [
-    (lib.mesonBool "man" true)
-    (lib.mesonOption "wlroots:logind-provider" "systemd")
-    (lib.mesonEnable "wlroots:libseat" false)
-  ];
+    passthru = {
+      providedSessions = ["cardboard"];
+    };
 
-  # gcc12
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=array-bounds" ];
-
-  passthru = {
-    providedSessions = [ "cardboard" ];
-  };
-
-  meta = {
-    broken = true; # Upstream is archived, fails to build on gcc-13.
-    homepage = "https://gitlab.com/cardboardwm/cardboard";
-    description = "Scrollable, tiling Wayland compositor inspired on PaperWM";
-    license = lib.licenses.gpl3Only;
-    mainProgram = "cardboard";
-    maintainers = with lib.maintainers; [ ];
-    inherit (wayland.meta) platforms;
-  };
-}
+    meta = {
+      broken = true; # Upstream is archived, fails to build on gcc-13.
+      homepage = "https://gitlab.com/cardboardwm/cardboard";
+      description = "Scrollable, tiling Wayland compositor inspired on PaperWM";
+      license = lib.licenses.gpl3Only;
+      mainProgram = "cardboard";
+      maintainers = with lib.maintainers; [];
+      inherit (wayland.meta) platforms;
+    };
+  }

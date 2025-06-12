@@ -11,7 +11,6 @@
   bliss,
   nauty,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scipopt-gcg";
   version = "371";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
   '';
   doCheck = true;
   meta = {
-    maintainers = with lib.maintainers; [ fettgoenner ];
+    maintainers = with lib.maintainers; [fettgoenner];
     changelog = "https://scipopt.org/doc-${scipVersion}/html/RN${lib.versions.major scipVersion}.php";
     description = "Branch-and-Price & Column Generation for Everyone";
     license = lib.licenses.lgpl3Plus;

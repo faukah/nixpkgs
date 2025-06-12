@@ -23,7 +23,7 @@ buildGoModule {
 
   vendorHash = "sha256-17y+kxlLSqCFoxinNNKzg7IqGpbiv0IBsUuC9EC8xnk=";
 
-  buildInputs = [ libwebp ];
+  buildInputs = [libwebp];
 
   ldflags = [
     "-s"
@@ -34,7 +34,7 @@ buildGoModule {
     description = "YouTube traffic proxy for video playback and images";
     homepage = "https://github.com/TeamPiped/http3-ytproxy";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ _999eagle ];
+    maintainers = with maintainers; [_999eagle];
     mainProgram = "http3-ytproxy";
   };
 }

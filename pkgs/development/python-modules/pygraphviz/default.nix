@@ -10,7 +10,6 @@
   setuptools,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "pygraphviz";
   version = "1.14";
@@ -40,9 +39,9 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ graphviz ];
+  buildInputs = [graphviz];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     runHook preCheck
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "pygraphviz" ];
+  pythonImportsCheck = ["pygraphviz"];
 
   meta = with lib; {
     description = "Python interface to Graphviz graph drawing package";

@@ -4,7 +4,6 @@
   fetchurl,
   lwt,
 }:
-
 buildDunePackage rec {
   minimalOCamlVersion = "4.08";
 
@@ -18,12 +17,12 @@ buildDunePackage rec {
     hash = "sha256-DUCUm1jix+i3YszIzgZjRQRiM8jJXQ49F6JC/yicvXw=";
   };
 
-  propagatedBuildInputs = [ lwt ];
+  propagatedBuildInputs = [lwt];
 
   meta = with lib; {
     homepage = "https://github.com/mirage/mirage-time";
     description = "Time operations for MirageOS";
     license = licenses.isc;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

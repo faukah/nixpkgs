@@ -7,7 +7,6 @@
   fetchpatch,
   targetPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rpcsvc-proto";
   version = "1.4.4";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   RPCGEN_CPP = "${stdenv.cc.targetPrefix}cpp";
 
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
       `libtirpc` and this package instead.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
     mainProgram = "rpcgen";
   };
 }

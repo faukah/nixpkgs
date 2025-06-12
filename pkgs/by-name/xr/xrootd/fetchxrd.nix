@@ -2,25 +2,29 @@
   lib,
   runCommandLocal,
   xrootd,
-}:
-
-{
+}: {
   name ? "",
   pname ? "",
   version ? "",
-  urls ? [ ],
-  url ? if urls == [ ] then abort "Expect either non-empty `urls` or `url`" else builtins.head urls,
+  urls ? [],
+  url ?
+    if urls == []
+    then abort "Expect either non-empty `urls` or `url`"
+    else builtins.head urls,
   hash ? lib.fakeHash,
 }:
-
-(runCommandLocal name
+(
+  runCommandLocal name
   {
-    nativeBuildInputs = [ xrootd ];
+    nativeBuildInputs = [xrootd];
     outputHashAlgo = null;
     outputHashMode = "flat";
     outputHash = hash;
     inherit url;
-    urls = if urls == [ ] then lib.singleton url else urls;
+    urls =
+      if urls == []
+      then lib.singleton url
+      else urls;
   }
   ''
     for u in $urls; do
@@ -34,15 +38,17 @@
     fi
   ''
 ).overrideAttrs
-  (
-    finalAttrs:
-    if (pname != "" && version != "") then
-      {
-        inherit pname version;
-        name = "${pname}-${version}";
-      }
-    else
-      {
-        name = if (name != "") then name else (baseNameOf finalAttrs.url);
-      }
-  )
+(
+  finalAttrs:
+    if (pname != "" && version != "")
+    then {
+      inherit pname version;
+      name = "${pname}-${version}";
+    }
+    else {
+      name =
+        if (name != "")
+        then name
+        else (baseNameOf finalAttrs.url);
+    }
+)

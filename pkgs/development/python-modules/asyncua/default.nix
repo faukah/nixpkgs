@@ -18,7 +18,6 @@
   sortedcontainers,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "asyncua";
   version = "1.1.5";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
       --replace-fail "tools/" "$out/bin/"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiofiles
@@ -60,7 +59,7 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  pythonImportsCheck = [ "asyncua" ];
+  pythonImportsCheck = ["asyncua"];
 
   disabledTests =
     [
@@ -86,6 +85,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/FreeOpcUa/opcua-asyncio";
     changelog = "https://github.com/FreeOpcUa/opcua-asyncio/releases/tag/v${version}";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ harvidsen ];
+    maintainers = with maintainers; [harvidsen];
   };
 }

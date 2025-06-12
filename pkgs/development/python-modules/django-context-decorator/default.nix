@@ -6,7 +6,6 @@
   django,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-context-decorator";
   version = "1.6.1";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-lNmZDsguOu2+gtMVjbwr709sbLCQOQ1sAePN7UJQbcw=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  pythonImportsCheck = [ "django_context_decorator" ];
+  pythonImportsCheck = ["django_context_decorator"];
 
   nativeCheckInputs = [
     django
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Django @context decorator";
     homepage = "https://github.com/rixx/django-context-decorator";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

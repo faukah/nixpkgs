@@ -4,7 +4,6 @@
   callPackage,
   fetchFromGitHub,
   fetchpatch,
-
   useMinimalFeatures ? false,
   useArmadillo ? (!useMinimalFeatures),
   useArrow ? (!useMinimalFeatures),
@@ -17,9 +16,7 @@
   useNetCDF ? (!useMinimalFeatures),
   usePoppler ? (!useMinimalFeatures),
   usePostgres ? (!useMinimalFeatures),
-  useTiledb ?
-    (!useMinimalFeatures) && !(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64),
-
+  useTiledb ? (!useMinimalFeatures) && !(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64),
   ant,
   armadillo,
   arrow-cpp,
@@ -81,7 +78,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gdal" + lib.optionalString useMinimalFeatures "-minimal";
   version = "3.11.0";
@@ -149,43 +145,42 @@ stdenv.mkDerivation (finalAttrs: {
       "-DBUILD_JAVA_BINDINGS=OFF"
     ];
 
-  buildInputs =
-    let
-      tileDbDeps = lib.optionals useTiledb [ tiledb ];
-      libAvifDeps = lib.optionals useLibAvif [ libavif ];
-      libHeifDeps = lib.optionals useLibHEIF [
-        libheif
-        dav1d
-        libaom
-        libde265
-        rav1e
-        x265
-      ];
-      libJxlDeps = lib.optionals useLibJXL [
-        libjxl
-        libhwy
-      ];
-      mysqlDeps = lib.optionals useMysql [ libmysqlclient ];
-      postgresDeps = lib.optionals usePostgres [ libpq ];
-      popplerDeps = lib.optionals usePoppler [ poppler ];
-      arrowDeps = lib.optionals useArrow [ arrow-cpp ];
-      hdfDeps = lib.optionals useHDF [
-        hdf4
-        hdf5-cpp
-      ];
-      netCdfDeps = lib.optionals useNetCDF [ netcdf ];
-      armadilloDeps = lib.optionals useArmadillo [ armadillo ];
+  buildInputs = let
+    tileDbDeps = lib.optionals useTiledb [tiledb];
+    libAvifDeps = lib.optionals useLibAvif [libavif];
+    libHeifDeps = lib.optionals useLibHEIF [
+      libheif
+      dav1d
+      libaom
+      libde265
+      rav1e
+      x265
+    ];
+    libJxlDeps = lib.optionals useLibJXL [
+      libjxl
+      libhwy
+    ];
+    mysqlDeps = lib.optionals useMysql [libmysqlclient];
+    postgresDeps = lib.optionals usePostgres [libpq];
+    popplerDeps = lib.optionals usePoppler [poppler];
+    arrowDeps = lib.optionals useArrow [arrow-cpp];
+    hdfDeps = lib.optionals useHDF [
+      hdf4
+      hdf5-cpp
+    ];
+    netCdfDeps = lib.optionals useNetCDF [netcdf];
+    armadilloDeps = lib.optionals useArmadillo [armadillo];
 
-      darwinDeps = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
-      nonDarwinDeps = lib.optionals (!stdenv.hostPlatform.isDarwin) (
-        [
-          # tests for formats enabled by these packages fail on macos
-          openexr
-          xercesc
-        ]
-        ++ arrowDeps
-      );
-    in
+    darwinDeps = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
+    nonDarwinDeps = lib.optionals (!stdenv.hostPlatform.isDarwin) (
+      [
+        # tests for formats enabled by these packages fail on macos
+        openexr
+        xercesc
+      ]
+      ++ arrowDeps
+    );
+  in
     [
       c-blosc
       brunsli
@@ -234,7 +229,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ darwinDeps
     ++ nonDarwinDeps;
 
-  pythonPath = [ python3.pkgs.numpy ];
+  pythonPath = [python3.pkgs.numpy];
   postInstall =
     ''
       wrapPythonProgramsIn "$out/bin" "$out $pythonPath"
@@ -323,7 +318,7 @@ stdenv.mkDerivation (finalAttrs: {
     popd # autotest
   '';
 
-  passthru.tests = callPackage ./tests.nix { gdal = finalAttrs.finalPackage; };
+  passthru.tests = callPackage ./tests.nix {gdal = finalAttrs.finalPackage;};
 
   __darwinAllowLocalNetworking = true;
 
@@ -336,7 +331,7 @@ stdenv.mkDerivation (finalAttrs: {
       marcweber
       dotlambda
     ];
-    teams = [ teams.geospatial ];
+    teams = [teams.geospatial];
     platforms = platforms.unix;
   };
 })

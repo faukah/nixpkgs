@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pretender";
   version = "1.3.2";
@@ -25,7 +24,7 @@ buildGoModule rec {
     mainProgram = "pretender";
     homepage = "https://github.com/RedTeamPentesting/pretender";
     changelog = "https://github.com/RedTeamPentesting/pretender/releases/tag/v${version}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [fab];
   };
 }

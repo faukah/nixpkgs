@@ -19,7 +19,6 @@
   setuptools,
   sympy,
 }:
-
 buildPythonPackage rec {
   pname = "cfn-lint";
   version = "1.32.1";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-s0CYQ6r3rA1PEiZ9LLFL3RC2PdfCgZHTqQ9nZUi1m+Q=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aws-sam-translator
@@ -51,8 +50,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    graph = [ pydot ];
-    junit = [ junit-xml ];
+    graph = [pydot];
+    junit = [junit-xml];
     sarif = [
       jschema-to-python
       sarif-om
@@ -65,11 +64,13 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    defusedxml
-    mock
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      defusedxml
+      mock
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   preCheck = ''
     export PATH=$out/bin:$PATH
@@ -91,7 +92,7 @@ buildPythonPackage rec {
     "test_build_graph"
   ];
 
-  pythonImportsCheck = [ "cfnlint" ];
+  pythonImportsCheck = ["cfnlint"];
 
   meta = with lib; {
     description = "Checks cloudformation for practices and behaviour that could potentially be improved";
@@ -99,6 +100,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aws-cloudformation/cfn-lint";
     changelog = "https://github.com/aws-cloudformation/cfn-lint/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

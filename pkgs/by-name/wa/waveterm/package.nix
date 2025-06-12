@@ -27,8 +27,7 @@
   udev,
   libGL,
   unzip,
-}:
-let
+}: let
   selectSystem = attrs: attrs.${stdenv.hostPlatform.system};
   pname = "waveterm";
   version = "0.11.3";
@@ -38,7 +37,7 @@ let
   metaCommon = {
     description = "Open-source, cross-platform terminal for seamless workflows";
     homepage = "https://www.waveterm.dev";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.asl20;
     platforms = [
       "aarch64-linux"
@@ -46,19 +45,18 @@ let
       "x86_64-linux"
       "x86_64-darwin"
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 
   linux = stdenv.mkDerivation {
     inherit pname version passthru;
 
-    src =
-      let
-        arch = selectSystem {
-          x86_64-linux = "amd64";
-          aarch64-linux = "arm64";
-        };
-      in
+    src = let
+      arch = selectSystem {
+        x86_64-linux = "amd64";
+        aarch64-linux = "arm64";
+      };
+    in
       fetchurl {
         url = "https://github.com/wavetermdev/waveterm/releases/download/v${version}/waveterm-linux-${arch}-${version}.deb";
         hash = selectSystem {
@@ -111,28 +109,29 @@ let
     preFixup = ''
       patchelf --add-needed libGL.so.1 \
         --add-rpath ${
-          lib.makeLibraryPath [
-            libGL
-            udev
-          ]
-        } $out/app/waveterm/waveterm
+        lib.makeLibraryPath [
+          libGL
+          udev
+        ]
+      } $out/app/waveterm/waveterm
     '';
 
-    meta = metaCommon // {
-      mainProgram = "waveterm";
-    };
+    meta =
+      metaCommon
+      // {
+        mainProgram = "waveterm";
+      };
   };
 
   darwin = stdenv.mkDerivation {
     inherit pname version passthru;
 
-    src =
-      let
-        arch = selectSystem {
-          x86_64-darwin = "x64";
-          aarch64-darwin = "arm64";
-        };
-      in
+    src = let
+      arch = selectSystem {
+        x86_64-darwin = "x64";
+        aarch64-darwin = "arm64";
+      };
+    in
       fetchurl {
         url = "https://github.com/wavetermdev/waveterm/releases/download/v${version}/Wave-darwin-${arch}-${version}.zip";
         hash = selectSystem {
@@ -141,7 +140,7 @@ let
         };
       };
 
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
     installPhase = ''
       runHook preInstall
@@ -152,9 +151,13 @@ let
       runHook postInstall
     '';
 
-    meta = metaCommon // {
-      mainProgram = "Wave";
-    };
+    meta =
+      metaCommon
+      // {
+        mainProgram = "Wave";
+      };
   };
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

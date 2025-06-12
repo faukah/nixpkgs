@@ -9,7 +9,6 @@
   qt6,
   withPlugins ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "audacious";
   version = "4.4.2";

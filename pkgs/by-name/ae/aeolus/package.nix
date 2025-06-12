@@ -12,7 +12,6 @@
   readline,
   aeolus-stops,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aeolus";
   version = "0.10.4";
@@ -45,18 +44,16 @@ stdenv.mkDerivation rec {
     "PREFIX=$(out)"
   ];
 
-  postInstall =
-    let
-      cfg = ''
-        # Aeolus system wide default options
-        # Ignored if ~/.aeolusrc with local options exists
-        -u -S ${aeolus-stops}/${aeolus-stops.subdir}
-      '';
-    in
-    ''
-      mkdir -p $out/etc
-      echo -n "${cfg}" > $out/etc/aeolus.conf
+  postInstall = let
+    cfg = ''
+      # Aeolus system wide default options
+      # Ignored if ~/.aeolusrc with local options exists
+      -u -S ${aeolus-stops}/${aeolus-stops.subdir}
     '';
+  in ''
+    mkdir -p $out/etc
+    echo -n "${cfg}" > $out/etc/aeolus.conf
+  '';
 
   meta = with lib; {
     description = "Synthetized (not sampled) pipe organ emulator";

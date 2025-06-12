@@ -3,12 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.ferretdb;
-in
-{
-
+in {
   meta.maintainers = with lib.maintainers; [
     julienmalka
     camillemndn
@@ -79,12 +76,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.ferretdb.settings = { };
+    services.ferretdb.settings = {};
 
     systemd.services.ferretdb = {
       description = "FerretDB";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment = cfg.settings;
       serviceConfig = {
         Type = "simple";

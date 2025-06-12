@@ -6,7 +6,6 @@
   digestif,
   fmt,
 }:
-
 buildDunePackage rec {
   pname = "tezos-base58";
   version = "1.0.0";
@@ -29,7 +28,6 @@ buildDunePackage rec {
     description = "Base58 encoding for Tezos";
     homepage = "https://github.com/tarides/tezos-base58/";
     license = licenses.mit;
-    maintainers = with maintainers; [ bezmuth ];
+    maintainers = with maintainers; [bezmuth];
   };
-
 }

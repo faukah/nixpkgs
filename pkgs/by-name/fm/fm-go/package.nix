@@ -2,9 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-}:
-
-let
+}: let
   finalAttrs = {
     pname = "fm";
     version = "1.1.0";
@@ -22,10 +20,10 @@ let
       homepage = "https://github.com/mistakenelf/fm";
       description = "Terminal based file manager";
       changelog = "https://github.com/mistakenelf/fm/releases/tag/${finalAttrs.src.rev}";
-      license = with lib.licenses; [ mit ];
+      license = with lib.licenses; [mit];
       mainProgram = "fm";
-      maintainers = with lib.maintainers; [ ];
+      maintainers = with lib.maintainers; [];
     };
   };
 in
-buildGoModule finalAttrs
+  buildGoModule finalAttrs

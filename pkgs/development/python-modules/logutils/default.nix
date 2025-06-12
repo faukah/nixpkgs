@@ -10,7 +10,6 @@
   redis,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "logutils";
   version = "0.3.5";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
       --replace-fail "'redis-server'" "'${valkey}/bin/redis-server'"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pytestCheckHook
@@ -51,12 +50,12 @@ buildPythonPackage rec {
       "tests/test_dictconfig.py"
     ];
 
-  pythonImportsCheck = [ "logutils" ];
+  pythonImportsCheck = ["logutils"];
 
   meta = with lib; {
     description = "Logging utilities";
     homepage = "https://bitbucket.org/vinay.sajip/logutils/";
     license = licenses.bsd0;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

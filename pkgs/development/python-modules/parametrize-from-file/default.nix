@@ -12,7 +12,6 @@
   tidyexc,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "parametrize-from-file";
   version = "0.20.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       --replace "more_itertools~=8.10" "more_itertools"
   '';
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   nativeCheckInputs = [
     numpy
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     toml
   ];
 
-  pythonImportsCheck = [ "parametrize_from_file" ];
+  pythonImportsCheck = ["parametrize_from_file"];
 
   disabledTests = [
     # https://github.com/kalekundert/parametrize_from_file/issues/19
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/kalekundert/parametrize_from_file";
     changelog = "https://github.com/kalekundert/parametrize_from_file/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

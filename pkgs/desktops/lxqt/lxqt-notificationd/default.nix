@@ -15,7 +15,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxqt-notificationd";
   version = "2.2.0";
@@ -44,13 +43,13 @@ stdenv.mkDerivation rec {
     qtwayland
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lxqt-notificationd";
     description = "LXQt notification daemon";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

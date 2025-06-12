@@ -9,7 +9,6 @@
   pytest-cov-stub,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "birch";
   version = "0.0.35";
@@ -37,9 +36,9 @@ buildPythonPackage rec {
       --replace-fail '"0+unknown"' '"${version}"'
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  dependencies = [ strct ];
+  dependencies = [strct];
 
   pythonImportsCheck = [
     "birch"
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     description = "Simple hierarchical configuration for Python packages";
     homepage = "https://github.com/shaypal5/birch";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

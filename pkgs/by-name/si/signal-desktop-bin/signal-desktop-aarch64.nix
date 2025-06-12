@@ -1,5 +1,5 @@
-{ callPackage }:
-callPackage ./generic.nix { } {
+{callPackage}:
+callPackage ./generic.nix {} {
   pname = "signal-desktop-bin";
   version = "7.55.0";
 

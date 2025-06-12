@@ -5,7 +5,6 @@
   fetchFromGitHub,
   udev,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lianad";
   version = "11.0"; # keep in sync with liana
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-nyWTcKGTVCS1MHmSCiF2aEUtQaVyUfLYzJed+APrdCo=";
 
-  buildInputs = [ udev ];
+  buildInputs = [udev];
 
   buildAndTestSubdir = "lianad";
 

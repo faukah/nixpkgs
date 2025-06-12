@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bar";
   version = "1.11.1";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     description = "Console progress bar";
     homepage = "https://clpbar.sourceforge.net/";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.rdnetto ];
+    maintainers = [lib.maintainers.rdnetto];
     platforms = lib.platforms.all;
     mainProgram = "bar";
   };

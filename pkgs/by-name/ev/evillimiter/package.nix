@@ -5,7 +5,6 @@
   iptables,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "evillimiter";
   version = "1.5.0";
@@ -18,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-h6BReZcDW2UYaYYVQVgV0T91/+CsGuZf+J+boUhjCtA=";
   };
 
-  build-system = with python3Packages; [ setuptools-scm ];
+  build-system = with python3Packages; [setuptools-scm];
 
   dependencies = with python3Packages; [
     colorama
@@ -45,7 +44,7 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://github.com/bitbrute/evillimiter";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "evillimiter";
   };
 }

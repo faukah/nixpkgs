@@ -7,7 +7,6 @@
   xz,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   # Same name as the Debian library
   pname = "libstaden-read";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "jkbonfield";
     repo = "io_lib";
-    rev = "io_lib-" + builtins.replaceStrings [ "." ] [ "-" ] finalAttrs.version;
+    rev = "io_lib-" + builtins.replaceStrings ["."] ["-"] finalAttrs.version;
     fetchSubmodules = true;
     hash = "sha256-2Dlx+MXmqar81/Xmf0oE+6lWX461EDYijiZsZf/VD28=";
   };
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     xz
     zlib
   ];
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # autoreconfHook does not descend into htscodecs folder
   preAutoreconf = ''
@@ -50,6 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
       free
     ];
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.kupac ];
+    maintainers = [lib.maintainers.kupac];
   };
 })

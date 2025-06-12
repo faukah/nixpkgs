@@ -11,5 +11,5 @@ mkKdeDerivation {
     qt5compat
     qtsvg
   ];
-  extraNativeBuildInputs = [ shared-mime-info ];
+  extraNativeBuildInputs = [shared-mime-info];
 }

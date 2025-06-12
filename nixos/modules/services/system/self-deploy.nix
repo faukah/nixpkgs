@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.self-deploy;
 
   workingDirectory = "/var/lib/nixos-self-deploy";
@@ -14,22 +12,16 @@ let
 
   gitWithRepo = "git -C ${repositoryDirectory}";
 
-  renderNixArgs =
-    args:
-    let
-      toArg =
-        key: value:
-        if builtins.isString value then
-          " --argstr ${lib.escapeShellArg key} ${lib.escapeShellArg value}"
-        else
-          " --arg ${lib.escapeShellArg key} ${lib.escapeShellArg (toString value)}";
-    in
+  renderNixArgs = args: let
+    toArg = key: value:
+      if builtins.isString value
+      then " --argstr ${lib.escapeShellArg key} ${lib.escapeShellArg value}"
+      else " --arg ${lib.escapeShellArg key} ${lib.escapeShellArg (toString value)}";
+  in
     lib.concatStrings (lib.mapAttrsToList toArg args);
 
   isPathType = x: lib.types.path.check x;
-
-in
-{
+in {
   options.services.self-deploy = {
     enable = lib.mkEnableOption "self-deploy";
 
@@ -57,7 +49,7 @@ in
     nixArgs = lib.mkOption {
       type = lib.types.attrs;
 
-      default = { };
+      default = {};
 
       description = ''
         Arguments to `nix-build` passed as `--argstr` or `--arg` depending on
@@ -81,8 +73,7 @@ in
     };
 
     repository = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         oneOf [
           path
           str
@@ -148,7 +139,7 @@ in
 
       serviceConfig.Type = "oneshot";
 
-      requires = lib.mkIf (!(isPathType cfg.repository)) [ "network-online.target" ];
+      requires = lib.mkIf (!(isPathType cfg.repository)) ["network-online.target"];
 
       after = requires;
 
@@ -158,15 +149,14 @@ in
 
       restartIfChanged = false;
 
-      path =
-        with pkgs;
+      path = with pkgs;
         [
           git
           gnutar
           gzip
           nix
         ]
-        ++ lib.optionals (cfg.switchCommand == "boot") [ systemd ];
+        ++ lib.optionals (cfg.switchCommand == "boot") [systemd];
 
       script = ''
         if [ ! -e ${repositoryDirectory} ]; then
@@ -179,7 +169,7 @@ in
         ${gitWithRepo} checkout FETCH_HEAD
 
         nix-build${renderNixArgs cfg.nixArgs} ${
-          lib.cli.toGNUCommandLineShell { } {
+          lib.cli.toGNUCommandLineShell {} {
             attr = cfg.nixAttribute;
             out-link = outPath;
           }

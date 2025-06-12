@@ -24,7 +24,7 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doInstallCheck = true;
   versionCheckProgramArg = "version";
@@ -40,7 +40,7 @@ buildGoModule rec {
     description = "FUOTA server which can be used together with ChirpStack Application Server";
     homepage = "https://www.chirpstack.io/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.stv0g ];
+    maintainers = [lib.maintainers.stv0g];
     mainProgram = "chirpstack-fuota-server";
   };
 }

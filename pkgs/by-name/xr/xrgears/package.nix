@@ -17,7 +17,6 @@
   vulkan-loader,
   xxd,
 }:
-
 stdenv.mkDerivation {
   pname = "xrgears";
   version = "1.0.1-unstable-2025-03-03";
@@ -50,14 +49,14 @@ stdenv.mkDerivation {
   fixupPhase = ''
     wrapProgram $out/bin/xrgears \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          SDL2
-          libGL
-        ]
-      }
+      lib.makeLibraryPath [
+        SDL2
+        libGL
+      ]
+    }
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     homepage = "https://gitlab.freedesktop.org/monado/demos/xrgears";
@@ -65,6 +64,6 @@ stdenv.mkDerivation {
     mainProgram = "xrgears";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = with maintainers; [ Scrumplex ];
+    maintainers = with maintainers; [Scrumplex];
   };
 }

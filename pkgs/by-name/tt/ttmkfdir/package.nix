@@ -8,7 +8,6 @@
   bison,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "ttf-mkfontdir";
   version = "3.0.9-6";
@@ -51,7 +50,7 @@ stdenv.mkDerivation {
     bison
     pkg-config
   ];
-  buildInputs = [ freetype ];
+  buildInputs = [freetype];
 
   meta = {
     description = "Create fonts.dir for TTF font directory";

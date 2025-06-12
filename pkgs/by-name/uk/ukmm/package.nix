@@ -11,7 +11,6 @@
   openssl,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ukmm";
   version = "0.15.0";
@@ -68,14 +67,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=bnp::test_convert"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "New mod manager for The Legend of Zelda: Breath of the Wild";
     homepage = "https://github.com/NiceneNerd/ukmm";
     changelog = "https://github.com/NiceneNerd/ukmm/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
     platforms = platforms.linux;
     broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     mainProgram = "ukmm";

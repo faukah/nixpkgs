@@ -22,7 +22,6 @@
   sonnet,
   gperf,
 }:
-
 mkDerivation {
   pname = "khtml";
   nativeBuildInputs = [
@@ -49,5 +48,5 @@ mkDerivation {
     sonnet
     gperf
   ];
-  propagatedBuildInputs = [ kjs ];
+  propagatedBuildInputs = [kjs];
 }

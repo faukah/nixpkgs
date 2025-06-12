@@ -15,7 +15,6 @@
   stestr,
   multiprocess,
 }:
-
 buildPythonPackage rec {
   pname = "python-jenkins";
   version = "1.8.2";
@@ -33,9 +32,9 @@ buildPythonPackage rec {
       --replace test_jenkins_open_no_timeout dont_test_jenkins_open_no_timeout
   '';
 
-  pythonRelaxDeps = [ "setuptools" ];
+  pythonRelaxDeps = ["setuptools"];
 
-  buildInputs = [ mock ];
+  buildInputs = [mock];
   propagatedBuildInputs = [
     pbr
     pyyaml
@@ -64,6 +63,6 @@ buildPythonPackage rec {
     description = "Python bindings for the remote Jenkins API";
     homepage = "https://pypi.python.org/pypi/python-jenkins";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

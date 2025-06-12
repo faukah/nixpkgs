@@ -3,13 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.hardware.glasgow;
-
-in
-{
+in {
   options.hardware.glasgow = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -22,7 +18,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.udev.packages = [ pkgs.glasgow ];
-    users.groups.plugdev = { };
+    services.udev.packages = [pkgs.glasgow];
+    users.groups.plugdev = {};
   };
 }

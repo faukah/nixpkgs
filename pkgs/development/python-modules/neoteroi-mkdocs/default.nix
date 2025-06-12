@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-+bH4pkY+BE31t3b750ZAbbesKLFjgx6KF9b2tXFTmhI=";
   };
 
-  buildInputs = [ hatchling ];
+  buildInputs = [hatchling];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -47,7 +47,7 @@ buildPythonPackage rec {
     "test_contribs" # checks against its own git repository
   ];
 
-  pythonImportsCheck = [ "neoteroi.mkdocs" ];
+  pythonImportsCheck = ["neoteroi.mkdocs"];
 
   disabledTestPaths = lib.optionals stdenv.hostPlatform.isDarwin [
     # These tests start a server using a hardcoded port, and since

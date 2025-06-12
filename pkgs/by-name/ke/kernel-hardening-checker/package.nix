@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "kernel-hardening-checker";
   version = "0.6.10";
@@ -20,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/a13xp0p0v/kernel-hardening-checker";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ erdnaxe ];
+    maintainers = with maintainers; [erdnaxe];
     mainProgram = "kernel-hardening-checker";
   };
 }

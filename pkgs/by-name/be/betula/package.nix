@@ -25,6 +25,6 @@ buildGoModule rec {
     mainProgram = "betula";
     homepage = "https://betula.mycorrhiza.wiki/";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ GoldsteinE ];
+    maintainers = with maintainers; [GoldsteinE];
   };
 }

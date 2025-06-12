@@ -7,7 +7,6 @@
   rustc,
   asNightly ? false,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "rustfmt" + lib.optionalString asNightly "-nightly";
   inherit (rustc) version src;
@@ -44,11 +43,14 @@ rustPlatform.buildRustPackage {
   # As of rustc 1.45.0, these env vars are required to build rustfmt (due to
   # https://github.com/rust-lang/rust/pull/72001)
   CFG_RELEASE = rustc.version;
-  CFG_RELEASE_CHANNEL = if asNightly then "nightly" else "stable";
+  CFG_RELEASE_CHANNEL =
+    if asNightly
+    then "nightly"
+    else "stable";
 
   postInstall = ''
     wrapProgram $out/bin/cargo-fmt \
-      --suffix PATH : ${lib.makeBinPath [ cargo ]}
+      --suffix PATH : ${lib.makeBinPath [cargo]}
   '';
 
   meta = with lib; {

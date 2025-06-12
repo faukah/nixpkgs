@@ -9,7 +9,6 @@
   dotool,
   stdenv,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "voxinput";
   version = "0.3.0";
@@ -40,18 +39,18 @@ buildGoModule (finalAttrs: {
     ''
     + lib.optionalString stdenv.hostPlatform.isLinux ''
       wrapProgram $out/bin/voxinput \
-        --prefix PATH : ${lib.makeBinPath [ dotool ]}
+        --prefix PATH : ${lib.makeBinPath [dotool]}
       mkdir -p $out/lib/udev/rules.d
       echo 'KERNEL=="uinput", GROUP="input", MODE="0620", OPTIONS+="static_node=uinput"' > $out/lib/udev/rules.d/99-voxinput.rules
     '';
 
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     patchelf $out/bin/.voxinput-wrapped \
-      --add-rpath ${lib.makeLibraryPath [ libpulseaudio ]}
+      --add-rpath ${lib.makeLibraryPath [libpulseaudio]}
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = finalAttrs.finalPackage;
       command = "voxinput ver";
@@ -63,7 +62,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/richiejp/VoxInput";
     description = "Voice to text for any Linux app via dotool/uinput and the LocalAI/OpenAI transcription API";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.richiejp ];
+    maintainers = [lib.maintainers.richiejp];
     platforms = lib.platforms.unix;
     changelog = "https://github.com/richiejp/VoxInput/releases/tag/v${finalAttrs.version}";
     mainProgram = "voxinput";

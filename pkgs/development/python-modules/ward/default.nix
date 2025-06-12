@@ -13,7 +13,6 @@
   rich,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "ward";
   version = "0.68.0b0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-4dEMEEPySezgw3dIcYMl56HrhyaYlql9JvtamOn7Y8g=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     click
@@ -44,14 +43,14 @@ buildPythonPackage rec {
   # Fixture is missing. Looks like an issue with the import of the sample file
   doCheck = false;
 
-  pythonImportsCheck = [ "ward" ];
+  pythonImportsCheck = ["ward"];
 
   meta = with lib; {
     description = "Test framework for Python";
     homepage = "https://github.com/darrenburns/ward";
     changelog = "https://github.com/darrenburns/ward/releases/tag/release%2F${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "ward";
     # Old requirements (cucumber-tag-expressions and rich)
     # https://github.com/darrenburns/ward/issues/380

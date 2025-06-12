@@ -5,7 +5,6 @@
   mtime,
   version ? "5.0.0",
 }:
-
 buildDunePackage {
   pname = "mirage-mtime";
 
@@ -23,7 +22,7 @@ buildDunePackage {
   meta = {
     description = "Monotonic time for MirageOS";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     homepage = "https://github.com/mirage/mirage-mtime";
   };
 }

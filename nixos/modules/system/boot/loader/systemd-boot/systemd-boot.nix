@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.boot.loader.systemd-boot;
 
   efi = config.boot.loader.efi;
@@ -17,17 +14,17 @@ let
   # the necessary dependencies.
   checkedSource =
     pkgs.runCommand "systemd-boot"
-      {
-        preferLocalBuild = true;
-      }
-      ''
-        install -m755 -D ${./systemd-boot-builder.py} $out
-        ${lib.getExe pkgs.buildPackages.mypy} \
-          --no-implicit-optional \
-          --disallow-untyped-calls \
-          --disallow-untyped-defs \
-          $out
-      '';
+    {
+      preferLocalBuild = true;
+    }
+    ''
+      install -m755 -D ${./systemd-boot-builder.py} $out
+      ${lib.getExe pkgs.buildPackages.mypy} \
+        --no-implicit-optional \
+        --disallow-untyped-calls \
+        --disallow-untyped-defs \
+        $out
+    '';
 
   edk2ShellEspPath = "efi/edk2-uefi-shell/shell.efi";
 
@@ -51,11 +48,18 @@ let
 
       nix = config.nix.package.out;
 
-      timeout = if config.boot.loader.timeout == null then "menu-force" else config.boot.loader.timeout;
+      timeout =
+        if config.boot.loader.timeout == null
+        then "menu-force"
+        else config.boot.loader.timeout;
 
-      configurationLimit = if cfg.configurationLimit == null then 0 else cfg.configurationLimit;
+      configurationLimit =
+        if cfg.configurationLimit == null
+        then 0
+        else cfg.configurationLimit;
 
-      inherit (cfg)
+      inherit
+        (cfg)
         consoleMode
         graceful
         editor
@@ -65,7 +69,9 @@ let
       inherit (efi) efiSysMountPoint canTouchEfiVariables;
 
       bootMountPoint =
-        if cfg.xbootldrMountPoint != null then cfg.xbootldrMountPoint else efi.efiSysMountPoint;
+        if cfg.xbootldrMountPoint != null
+        then cfg.xbootldrMountPoint
+        else efi.efiSysMountPoint;
 
       nixosDir = "/EFI/nixos";
 
@@ -77,7 +83,8 @@ let
           exit 1
         }
         ${pkgs.util-linuxMinimal}/bin/findmnt ${efiSysMountPoint} > /dev/null || fail efiSysMountPoint ${efiSysMountPoint}
-        ${lib.optionalString (cfg.xbootldrMountPoint != null)
+        ${
+          lib.optionalString (cfg.xbootldrMountPoint != null)
           "${pkgs.util-linuxMinimal}/bin/findmnt ${cfg.xbootldrMountPoint} > /dev/null || fail xbootldrMountPoint ${cfg.xbootldrMountPoint}"
         }
       '';
@@ -89,14 +96,16 @@ let
           mapAttrsToList (n: v: ''
             ${pkgs.coreutils}/bin/install -Dp "${v}" "${bootMountPoint}/"${escapeShellArg n}
             ${pkgs.coreutils}/bin/install -D $empty_file "${bootMountPoint}/${nixosDir}/.extra-files/"${escapeShellArg n}
-          '') cfg.extraFiles
+          '')
+          cfg.extraFiles
         )}
 
         ${concatStrings (
           mapAttrsToList (n: v: ''
             ${pkgs.coreutils}/bin/install -Dp "${pkgs.writeText n v}" "${bootMountPoint}/loader/entries/"${escapeShellArg n}
             ${pkgs.coreutils}/bin/install -D $empty_file "${bootMountPoint}/${nixosDir}/.extra-files/loader/entries/"${escapeShellArg n}
-          '') cfg.extraEntries
+          '')
+          cfg.extraEntries
         )}
       '';
     };
@@ -107,13 +116,12 @@ let
     ${systemdBootBuilder}/bin/systemd-boot "$@"
     ${cfg.extraInstallCommands}
   '';
-in
-{
-
-  meta.maintainers = with lib.maintainers; [ julienmalka ];
+in {
+  meta.maintainers = with lib.maintainers; [julienmalka];
 
   imports = [
-    (mkRenamedOptionModule
+    (
+      mkRenamedOptionModule
       [
         "boot"
         "loader"
@@ -127,7 +135,8 @@ in
         "enable"
       ]
     )
-    (lib.mkChangedOptionModule
+    (
+      lib.mkChangedOptionModule
       [
         "boot"
         "loader"
@@ -144,7 +153,8 @@ in
       ]
       (config: lib.strings.removeSuffix ".conf" config.boot.loader.systemd-boot.memtest86.entryFilename)
     )
-    (lib.mkChangedOptionModule
+    (
+      lib.mkChangedOptionModule
       [
         "boot"
         "loader"
@@ -368,7 +378,7 @@ in
 
     extraEntries = mkOption {
       type = types.attrsOf types.lines;
-      default = { };
+      default = {};
       example = literalExpression ''
         { "memtest86.conf" = '''
           title Memtest86+
@@ -391,7 +401,7 @@ in
 
     extraFiles = mkOption {
       type = types.attrsOf types.path;
-      default = { };
+      default = {};
       example = literalExpression ''
         { "efi/memtest86/memtest.efi" = "''${pkgs.memtest86plus}/memtest.efi"; }
       '';
@@ -436,7 +446,7 @@ in
     };
 
     windows = mkOption {
-      default = { };
+      default = {};
       description = ''
         Make Windows bootable from systemd-boot. This option is not necessary when Windows and
         NixOS use the same EFI System Partition (ESP). In that case, Windows will automatically be
@@ -463,8 +473,7 @@ in
       '';
       type = types.attrsOf (
         types.submodule (
-          { name, ... }:
-          {
+          {name, ...}: {
             options = {
               efiDeviceHandle = mkOption {
                 type = types.str;
@@ -521,7 +530,7 @@ in
     assertions =
       [
         {
-          assertion = (hasPrefix "/" efi.efiSysMountPoint);
+          assertion = hasPrefix "/" efi.efiSysMountPoint;
           message = "The ESP mount point '${toString efi.efiSysMountPoint}' must be an absolute path";
         }
         {
@@ -533,7 +542,7 @@ in
           message = "The XBOOTLDR mount point '${toString cfg.xbootldrMountPoint}' cannot be the same as the ESP mount point '${toString efi.efiSysMountPoint}'";
         }
         {
-          assertion = (config.boot.kernelPackages.kernel.features or { efiBootStub = true; }) ? efiBootStub;
+          assertion = (config.boot.kernelPackages.kernel.features or {efiBootStub = true;}) ? efiBootStub;
           message = "This kernel does not support the EFI boot stub";
         }
         {
@@ -586,7 +595,7 @@ in
       (mkIf cfg.netbootxyz.enable {
         "efi/netbootxyz/netboot.xyz.efi" = "${pkgs.netbootxyz-efi}";
       })
-      (mkIf (cfg.edk2-uefi-shell.enable || cfg.windows != { }) {
+      (mkIf (cfg.edk2-uefi-shell.enable || cfg.windows != {}) {
         ${edk2ShellEspPath} = "${pkgs.edk2-uefi-shell}/shell.efi";
       })
     ];
@@ -616,13 +625,14 @@ in
         })
       ]
       ++ (mapAttrsToList (winVersion: cfg: {
-        "windows_${winVersion}.conf" = ''
-          title ${cfg.title}
-          efi /${edk2ShellEspPath}
-          options -nointerrupt -nomap -noversion ${cfg.efiDeviceHandle}:EFI\Microsoft\Boot\Bootmgfw.efi
-          sort-key ${cfg.sortKey}
-        '';
-      }) cfg.windows)
+          "windows_${winVersion}.conf" = ''
+            title ${cfg.title}
+            efi /${edk2ShellEspPath}
+            options -nointerrupt -nomap -noversion ${cfg.efiDeviceHandle}:EFI\Microsoft\Boot\Bootmgfw.efi
+            sort-key ${cfg.sortKey}
+          '';
+        })
+        cfg.windows)
     );
 
     boot.bootspec.extensions."org.nixos.systemd-boot" = {

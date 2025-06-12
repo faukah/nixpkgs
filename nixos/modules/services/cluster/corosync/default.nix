@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.corosync;
-in
-{
+in {
   # interface
   options.services.corosync = {
     enable = lib.mkEnableOption "corosync";
 
-    package = lib.mkPackageOption pkgs "corosync" { };
+    package = lib.mkPackageOption pkgs "corosync" {};
 
     clusterName = lib.mkOption {
       type = lib.types.str;
@@ -22,15 +20,14 @@ in
 
     extraOptions = lib.mkOption {
       type = with lib.types; listOf str;
-      default = [ ];
+      default = [];
       description = "Additional options with which to start corosync.";
     };
 
     nodelist = lib.mkOption {
       description = "Corosync nodelist: all cluster members.";
-      default = [ ];
-      type =
-        with lib.types;
+      default = [];
+      type = with lib.types;
         listOf (submodule {
           options = {
             nodeid = lib.mkOption {
@@ -52,7 +49,7 @@ in
 
   # implementation
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc."corosync/corosync.conf".text = ''
       totem {
@@ -68,19 +65,20 @@ in
             nodeid,
             name,
             ring_addrs,
-          }:
-          ''
+          }: ''
             node {
               nodeid: ${toString nodeid}
               name: ${name}
               ${lib.concatStrings (
-                lib.imap0 (i: addr: ''
-                  ring${toString i}_addr: ${addr}
-                '') ring_addrs
-              )}
+              lib.imap0 (i: addr: ''
+                ring${toString i}_addr: ${addr}
+              '')
+              ring_addrs
+            )}
             }
           ''
-        ) cfg.nodelist}
+        )
+        cfg.nodelist}
       }
 
       quorum {
@@ -88,8 +86,8 @@ in
         provider: corosync_votequorum
         wait_for_all: 0
         ${lib.optionalString (builtins.length cfg.nodelist < 3) ''
-          two_node: 1
-        ''}
+        two_node: 1
+      ''}
       }
 
       logging {
@@ -105,16 +103,16 @@ in
       }
     '';
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
     systemd.services.corosync = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         StateDirectory = "corosync";
         StateDirectoryMode = "0700";
       };
     };
 
-    environment.etc."sysconfig/corosync".text = lib.optionalString (cfg.extraOptions != [ ]) ''
+    environment.etc."sysconfig/corosync".text = lib.optionalString (cfg.extraOptions != []) ''
       COROSYNC_OPTIONS="${lib.escapeShellArgs cfg.extraOptions}"
     '';
   };

@@ -6,7 +6,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "selene";
   version = "0.28.0";
@@ -37,6 +36,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/kampfkarren/selene";
     changelog = "https://github.com/kampfkarren/selene/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

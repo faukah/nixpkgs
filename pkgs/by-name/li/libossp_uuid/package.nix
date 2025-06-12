@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libossp-uuid";
   version = "1.6.2";
@@ -13,11 +12,13 @@ stdenv.mkDerivation rec {
     sha256 = "11a615225baa5f8bb686824423f50e4427acd3f70d394765bdff32801f0fd5b0";
   };
 
-  configureFlags = [
-    "ac_cv_va_copy=C99"
-  ] ++ lib.optional stdenv.hostPlatform.isFreeBSD "--with-pic";
+  configureFlags =
+    [
+      "ac_cv_va_copy=C99"
+    ]
+    ++ lib.optional stdenv.hostPlatform.isFreeBSD "--with-pic";
 
-  patches = [ ./shtool.patch ];
+  patches = [./shtool.patch];
 
   meta = with lib; {
     homepage = "http://www.ossp.org/pkg/lib/uuid/";

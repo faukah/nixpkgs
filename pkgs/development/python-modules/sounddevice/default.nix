@@ -10,7 +10,6 @@
   portaudio,
   replaceVars,
 }:
-
 buildPythonPackage rec {
   pname = "sounddevice";
   version = "0.5.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-CcqZHa7ajOS+mskeFamoHI+B76a2laNIyRceoMFssEE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cffi
@@ -30,12 +29,12 @@ buildPythonPackage rec {
     portaudio
   ];
 
-  nativeBuildInputs = [ cffi ];
+  nativeBuildInputs = [cffi];
 
   # No tests included nor upstream available.
   doCheck = false;
 
-  pythonImportsCheck = [ "sounddevice" ];
+  pythonImportsCheck = ["sounddevice"];
 
   patches = [
     (replaceVars ./fix-portaudio-library-path.patch {
@@ -46,6 +45,6 @@ buildPythonPackage rec {
   meta = {
     description = "Play and Record Sound with Python";
     homepage = "http://python-sounddevice.rtfd.org/";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
   };
 }

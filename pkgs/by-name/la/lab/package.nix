@@ -7,7 +7,6 @@
   installShellFiles,
   git,
 }:
-
 buildGoModule rec {
   pname = "lab";
   version = "0.25.1";
@@ -19,7 +18,7 @@ buildGoModule rec {
     sha256 = "sha256-VCvjP/bSd/0ywvNWPsseXn/SPkdp+BsXc/jTvB11EOk=";
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorHash = "sha256-ChysquNuUffcM3qaWUdqu3Av33gnKkdlotEoFKoedA0=";
 
@@ -45,18 +44,18 @@ buildGoModule rec {
     # make xdg-open overrideable at runtime
     wrapProgram $out/bin/lab \
       --suffix PATH ":" "${
-        lib.makeBinPath [
-          git
-          xdg-utils
-        ]
-      }"
+      lib.makeBinPath [
+        git
+        xdg-utils
+      ]
+    }"
   '';
 
   meta = with lib; {
     description = "Lab wraps Git or Hub, making it simple to clone, fork, and interact with repositories on GitLab";
     homepage = "https://zaquestion.github.io/lab";
     license = licenses.cc0;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "lab";
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "clipse";
   version = "1.1.0";
@@ -22,6 +21,6 @@ buildGoModule rec {
     homepage = "https://github.com/savedra1/clipse";
     license = lib.licenses.mit;
     mainProgram = "clipse";
-    maintainers = [ lib.maintainers.savedra1 ];
+    maintainers = [lib.maintainers.savedra1];
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   containers,
 }:
-
 buildDunePackage rec {
   pname = "decoders";
   version = "1.0.0";
@@ -26,6 +25,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mattjbray/ocaml-decoders";
     changelog = "https://github.com/mattjbray/ocaml-decoders/blob/${version}/CHANGES.md";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ infinidoge ];
+    maintainers = with lib.maintainers; [infinidoge];
   };
 }

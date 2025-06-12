@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "polib";
   version = "1.2.0";

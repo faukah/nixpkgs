@@ -3,11 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.plex;
-in
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -54,7 +52,7 @@ in
 
       extraPlugins = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = ''
           A list of paths to extra plugin bundles to install in Plex's plugin
           directory. Every time the systemd unit for Plex starts up, all of the
@@ -78,7 +76,7 @@ in
 
       extraScanners = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = ''
           A list of paths to extra scanners to install in Plex's scanners
           directory.
@@ -101,8 +99,8 @@ in
 
       accelerationDevices = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ "*" ];
-        example = [ "/dev/dri/renderD128" ];
+        default = ["*"];
+        example = ["/dev/dri/renderD128"];
         description = ''
           A list of device paths to hardware acceleration devices that Plex should
           have access to. This is useful when transcoding media files.
@@ -123,8 +121,8 @@ in
     # Most of this is just copied from the RPM package's systemd service file.
     systemd.services.plex = {
       description = "Plex Media Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -133,19 +131,17 @@ in
 
         # Run the pre-start script with full permissions (the "!" prefix) so it
         # can create the data directory if necessary.
-        ExecStartPre =
-          let
-            preStartScript = pkgs.writeScript "plex-run-prestart" ''
-              #!${pkgs.bash}/bin/bash
+        ExecStartPre = let
+          preStartScript = pkgs.writeScript "plex-run-prestart" ''
+            #!${pkgs.bash}/bin/bash
 
-              # Create data directory if it doesn't exist
-              if ! test -d "$PLEX_DATADIR"; then
-                echo "Creating initial Plex data directory in: $PLEX_DATADIR"
-                install -d -m 0755 -o "${cfg.user}" -g "${cfg.group}" "$PLEX_DATADIR"
-              fi
-            '';
-          in
-          "!${preStartScript}";
+            # Create data directory if it doesn't exist
+            if ! test -d "$PLEX_DATADIR"; then
+              echo "Creating initial Plex data directory in: $PLEX_DATADIR"
+              install -d -m 0755 -o "${cfg.user}" -g "${cfg.group}" "$PLEX_DATADIR"
+            fi
+          '';
+        in "!${preStartScript}";
 
         ExecStart = "${cfg.package}/bin/plexmediaserver";
         KillSignal = "SIGQUIT";
@@ -155,10 +151,12 @@ in
         # Hardening
         NoNewPrivileges = true;
         PrivateTmp = true;
-        PrivateDevices = cfg.accelerationDevices == [ ];
-        DeviceAllow = lib.mkIf (
-          cfg.accelerationDevices != [ ] && !lib.elem "*" cfg.accelerationDevices
-        ) cfg.accelerationDevices;
+        PrivateDevices = cfg.accelerationDevices == [];
+        DeviceAllow =
+          lib.mkIf (
+            cfg.accelerationDevices != [] && !lib.elem "*" cfg.accelerationDevices
+          )
+          cfg.accelerationDevices;
         ProtectSystem = true;
         ProtectHome = true;
         ProtectControlGroups = true;

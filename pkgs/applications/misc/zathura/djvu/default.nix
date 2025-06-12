@@ -13,7 +13,6 @@
   desktop-file-utils,
   appstream-glib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zathura-djvu";
   version = "0.2.10";
@@ -50,6 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.zlib;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

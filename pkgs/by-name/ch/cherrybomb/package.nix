@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cherrybomb";
   version = "1.0.1";
@@ -22,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/blst-security/cherrybomb";
     changelog = "https://github.com/blst-security/cherrybomb/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

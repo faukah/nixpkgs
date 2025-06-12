@@ -9,7 +9,6 @@
   setuptools,
   werkzeug,
 }:
-
 buildPythonPackage rec {
   pname = "websockets";
   version = "15.0.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-DC1nK+TvCoCqchyWJOyT4Ul4gkTYXixu7XmTqvytqEo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   disabledTests =
     [
@@ -64,13 +63,13 @@ buildPythonPackage rec {
   # Tests fail on Darwin with `OSError: AF_UNIX path too long`
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  pythonImportsCheck = [ "websockets" ];
+  pythonImportsCheck = ["websockets"];
 
   meta = with lib; {
     description = "WebSocket implementation in Python";
     homepage = "https://websockets.readthedocs.io/";
     changelog = "https://github.com/aaugustin/websockets/blob/${src.tag}/docs/project/changelog.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

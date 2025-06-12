@@ -6,7 +6,6 @@
   smartmontools,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "snapraid";
   version = "12.4";
@@ -30,14 +29,14 @@ stdenv.mkDerivation rec {
   # SMART is only supported on Linux and requires the smartmontools package
   postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
     wrapProgram $out/bin/snapraid \
-     --prefix PATH : ${lib.makeBinPath [ smartmontools ]}
+     --prefix PATH : ${lib.makeBinPath [smartmontools]}
   '';
 
   meta = {
     homepage = "http://www.snapraid.it/";
     description = "Backup program for disk arrays";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.makefu ];
+    maintainers = [lib.maintainers.makefu];
     platforms = lib.platforms.unix;
     mainProgram = "snapraid";
   };

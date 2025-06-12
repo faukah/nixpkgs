@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyatag";
   version = "0.3.7.1";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-3h9mpopTbEULCx7rcEt/I/ZnUA0L/fJ7Y3L5h/6EuC4=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # no tests implemented
   doCheck = false;
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/MatsNl/pyatag";
     changelog = "https://github.com/MatsNl/pyatag/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

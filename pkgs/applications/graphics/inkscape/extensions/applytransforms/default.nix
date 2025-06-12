@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenv.mkDerivation {
   pname = "inkscape-applytransforms";
   version = "0.pre+unstable=2021-05-11";
@@ -37,7 +36,7 @@ stdenv.mkDerivation {
     description = "Inkscape extension which removes all matrix transforms by applying them recursively to shapes";
     homepage = "https://github.com/Klowner/inkscape-applytransforms";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.all;
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "chess-tui";
   version = "1.6.1";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Chess TUI implementation in rust";
     homepage = "https://github.com/thomas-mauran/chess-tui";
-    maintainers = with lib.maintainers; [ ByteSudoer ];
+    maintainers = with lib.maintainers; [ByteSudoer];
     license = lib.licenses.mit;
     mainProgram = "chess-tui";
   };

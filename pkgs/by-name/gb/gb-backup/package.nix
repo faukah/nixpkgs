@@ -5,7 +5,6 @@
   fetchFromGitHub,
   lepton,
 }:
-
 buildGoModule {
   pname = "gb-backup";
   version = "unstable-2021-10-27";
@@ -19,18 +18,18 @@ buildGoModule {
 
   vendorHash = "sha256-H3Zf4VNJVX9C3GTeqU4YhNqCIQz1R55MfhrygDgJTxc=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  nativeCheckInputs = [ lepton ];
+  nativeCheckInputs = [lepton];
 
   postFixup = ''
-    wrapProgram $out/bin/gb --prefix PATH : ${lib.makeBinPath [ lepton ]}
+    wrapProgram $out/bin/gb --prefix PATH : ${lib.makeBinPath [lepton]}
   '';
 
   meta = with lib; {
     description = "Gamer Backup, a super opinionated cloud backup system";
     homepage = "https://github.com/leijurv/gb";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ babbaj ];
+    maintainers = with maintainers; [babbaj];
   };
 }

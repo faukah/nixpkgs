@@ -3,7 +3,6 @@
   fetchFromGitLab,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "swayws";
   version = "1.3.0";
@@ -29,6 +28,6 @@ rustPlatform.buildRustPackage {
     mainProgram = "swayws";
     homepage = "https://gitlab.com/w0lff/swayws";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.atila ];
+    maintainers = [lib.maintainers.atila];
   };
 }

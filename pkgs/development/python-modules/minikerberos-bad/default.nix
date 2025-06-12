@@ -13,7 +13,6 @@
   tqdm,
   unicrypto,
 }:
-
 buildPythonPackage rec {
   pname = "minikerberos-bad";
   version = "0.4.4";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-pnIn7UOpnCke6voFvOwcONXDd9i/di1lE/57vkg0/0w=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     asn1crypto
@@ -41,13 +40,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "minikerberos" ];
+  pythonImportsCheck = ["minikerberos"];
 
   meta = {
     description = "Kerberos manipulation library in pure Python";
     homepage = "https://github.com/CravateRouge/minikerberos-bAD";
     changelog = "https://github.com/CravateRouge/minikerberos-bAD/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

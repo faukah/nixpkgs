@@ -5,16 +5,13 @@
   SDL2,
   stdenv,
   writeShellScript,
-
-  extraBuildInputs ? [ ],
+  extraBuildInputs ? [],
   extraMeta,
   patches,
   pname,
   version,
   src,
-}:
-
-let
+}: let
   launcher = writeShellScript "${pname}" ''
     set -eu
     assetDir="''${XDG_DATA_HOME:-$HOME/.local/share}/${pname}"
@@ -46,42 +43,41 @@ let
     exec @out@/libexec/${pname} "$@"
   '';
 in
-stdenv.mkDerivation {
-  inherit
-    pname
-    version
-    src
-    patches
-    ;
+  stdenv.mkDerivation {
+    inherit
+      pname
+      version
+      src
+      patches
+      ;
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ SDL2 ] ++ extraBuildInputs;
-  hardeningDisable = [ "format" ];
-  cmakeBuildType = "RelWithDebInfo";
+    nativeBuildInputs = [cmake];
+    buildInputs = [SDL2] ++ extraBuildInputs;
+    hardeningDisable = ["format"];
+    cmakeBuildType = "RelWithDebInfo";
 
-  postPatch = ''
-    substituteInPlace third_party/fpattern/CMakeLists.txt \
-      --replace "FetchContent_Populate" "#FetchContent_Populate" \
-      --replace "{fpattern_SOURCE_DIR}" "${fpattern}/include" \
-      --replace "$/nix/" "/nix/"
-  '';
+    postPatch = ''
+      substituteInPlace third_party/fpattern/CMakeLists.txt \
+        --replace "FetchContent_Populate" "#FetchContent_Populate" \
+        --replace "{fpattern_SOURCE_DIR}" "${fpattern}/include" \
+        --replace "$/nix/" "/nix/"
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -D ${pname} $out/libexec/${pname}
-    install -D ${launcher} $out/bin/${pname}
-    substituteInPlace $out/bin/${pname} --subst-var out
+      install -D ${pname} $out/libexec/${pname}
+      install -D ${launcher} $out/bin/${pname}
+      substituteInPlace $out/bin/${pname} --subst-var out
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta =
-    with lib;
-    {
-      license = licenses.sustainableUse;
-      maintainers = with maintainers; [ hughobrien ];
-      platforms = platforms.linux;
-    }
-    // extraMeta;
-}
+    meta = with lib;
+      {
+        license = licenses.sustainableUse;
+        maintainers = with maintainers; [hughobrien];
+        platforms = platforms.linux;
+      }
+      // extraMeta;
+  }

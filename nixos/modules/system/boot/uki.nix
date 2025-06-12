@@ -3,20 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.boot.uki;
 
   inherit (pkgs.stdenv.hostPlatform) efiArch;
 
-  format = pkgs.formats.ini { };
-in
-
-{
+  format = pkgs.formats.ini {};
+in {
   options = {
-
     boot.uki = {
       name = lib.mkOption {
         type = lib.types.str;
@@ -67,13 +61,13 @@ in
       internal = true;
       description = "Name of the UKI file";
     };
-
   };
 
   config = {
-
     boot.uki.name = lib.mkOptionDefault (
-      if config.system.image.id != null then config.system.image.id else "nixos"
+      if config.system.image.id != null
+      then config.system.image.id
+      else "nixos"
     );
 
     boot.uki.settings = {
@@ -89,23 +83,28 @@ in
           EFIArch = lib.mkOptionDefault efiArch;
         }
         // lib.optionalAttrs (config.hardware.deviceTree.enable && config.hardware.deviceTree.name != null)
-          {
-            DeviceTree = lib.mkOptionDefault "${config.hardware.deviceTree.package}/${config.hardware.deviceTree.name}";
-          };
+        {
+          DeviceTree = lib.mkOptionDefault "${config.hardware.deviceTree.package}/${config.hardware.deviceTree.name}";
+        };
     };
 
     boot.uki.configFile = lib.mkOptionDefault (format.generate "ukify.conf" cfg.settings);
 
-    system.boot.loader.ukiFile =
-      let
-        name = config.boot.uki.name;
-        version = config.boot.uki.version;
-        versionInfix = if version != null then "_${version}" else "";
-        triesInfix = if cfg.tries != null then "+${builtins.toString cfg.tries}" else "";
-      in
+    system.boot.loader.ukiFile = let
+      name = config.boot.uki.name;
+      version = config.boot.uki.version;
+      versionInfix =
+        if version != null
+        then "_${version}"
+        else "";
+      triesInfix =
+        if cfg.tries != null
+        then "+${builtins.toString cfg.tries}"
+        else "";
+    in
       name + versionInfix + triesInfix + ".efi";
 
-    system.build.uki = pkgs.runCommand config.system.boot.loader.ukiFile { } ''
+    system.build.uki = pkgs.runCommand config.system.boot.loader.ukiFile {} ''
       mkdir -p $out
       ${pkgs.buildPackages.systemdUkify}/lib/systemd/ukify build \
         --config=${cfg.configFile} \
@@ -113,5 +112,5 @@ in
     '';
   };
 
-  meta.maintainers = with lib.maintainers; [ nikstur ];
+  meta.maintainers = with lib.maintainers; [nikstur];
 }

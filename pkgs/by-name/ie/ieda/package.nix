@@ -22,8 +22,7 @@
   gmp,
   python3,
   onnxruntime,
-}:
-let
+}: let
   glog-lock = glog.overrideAttrs (oldAttrs: rec {
     version = "0.6.0";
     src = fetchFromGitHub {
@@ -69,88 +68,87 @@ let
     installPhase = ''
       cp -r . $out
     '';
-
   };
 
-  rustpkgs = callPackages ./rustpkgs.nix { inherit rootSrc; };
+  rustpkgs = callPackages ./rustpkgs.nix {inherit rootSrc;};
 in
-stdenv.mkDerivation {
-  pname = "iEDA";
-  version = "0-unstable-2025-05-30";
+  stdenv.mkDerivation {
+    pname = "iEDA";
+    version = "0-unstable-2025-05-30";
 
-  src = rootSrc;
+    src = rootSrc;
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    flex
-    bison
-    python3
-    tcl
-  ];
-
-  cmakeFlags = [
-    (lib.cmakeBool "CMD_BUILD" true)
-    (lib.cmakeBool "SANITIZER" false)
-    (lib.cmakeBool "BUILD_STATIC_LIB" false)
-  ];
-
-  preConfigure = ''
-    cmakeFlags+=" -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:FILEPATH=$out/bin -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:FILEPATH=$out/lib"
-  '';
-
-  buildInputs = [
-    rustpkgs.iir-rust
-    rustpkgs.sdf_parse
-    rustpkgs.spef-parser
-    rustpkgs.vcd_parser
-    rustpkgs.verilog-parser
-    rustpkgs.liberty-parser
-    gtest
-    glog-lock
-    gflags
-    boost
-    onnxruntime
-    eigen
-    yaml-cpp
-    libunwind
-    metis
-    gmp
-    tcl
-    zlib
-  ];
-
-  postInstall = ''
-    # Tests rely on hardcoded path, so they should not be included
-    rm $out/bin/*test $out/bin/*Test $out/bin/test_* $out/bin/*_app
-
-    # Copy scripts to the share directory for the test
-    mkdir -p $out/share/scripts
-    cp -r $src/scripts/hello.tcl $out/share/scripts/
-  '';
-
-  installCheckPhase = ''
-    runHook preInstallCheck
-
-    # Run the tests
-    $out/bin/iEDA -script $out/share/scripts/hello.tcl
-
-    runHook postInstallCheck
-  '';
-
-  doInstallCheck = true;
-
-  enableParallelBuild = true;
-
-  meta = {
-    description = "Open-source EDA infracstructure and tools from Netlist to GDS for ASIC design";
-    homepage = "https://gitee.com/oscc-project/iEDA";
-    license = lib.licenses.mulan-psl2;
-    maintainers = with lib.maintainers; [
-      xinyangli
-      Emin017
+    nativeBuildInputs = [
+      cmake
+      ninja
+      flex
+      bison
+      python3
+      tcl
     ];
-    mainProgram = "iEDA";
-    platforms = lib.platforms.linux;
-  };
-}
+
+    cmakeFlags = [
+      (lib.cmakeBool "CMD_BUILD" true)
+      (lib.cmakeBool "SANITIZER" false)
+      (lib.cmakeBool "BUILD_STATIC_LIB" false)
+    ];
+
+    preConfigure = ''
+      cmakeFlags+=" -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:FILEPATH=$out/bin -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:FILEPATH=$out/lib"
+    '';
+
+    buildInputs = [
+      rustpkgs.iir-rust
+      rustpkgs.sdf_parse
+      rustpkgs.spef-parser
+      rustpkgs.vcd_parser
+      rustpkgs.verilog-parser
+      rustpkgs.liberty-parser
+      gtest
+      glog-lock
+      gflags
+      boost
+      onnxruntime
+      eigen
+      yaml-cpp
+      libunwind
+      metis
+      gmp
+      tcl
+      zlib
+    ];
+
+    postInstall = ''
+      # Tests rely on hardcoded path, so they should not be included
+      rm $out/bin/*test $out/bin/*Test $out/bin/test_* $out/bin/*_app
+
+      # Copy scripts to the share directory for the test
+      mkdir -p $out/share/scripts
+      cp -r $src/scripts/hello.tcl $out/share/scripts/
+    '';
+
+    installCheckPhase = ''
+      runHook preInstallCheck
+
+      # Run the tests
+      $out/bin/iEDA -script $out/share/scripts/hello.tcl
+
+      runHook postInstallCheck
+    '';
+
+    doInstallCheck = true;
+
+    enableParallelBuild = true;
+
+    meta = {
+      description = "Open-source EDA infracstructure and tools from Netlist to GDS for ASIC design";
+      homepage = "https://gitee.com/oscc-project/iEDA";
+      license = lib.licenses.mulan-psl2;
+      maintainers = with lib.maintainers; [
+        xinyangli
+        Emin017
+      ];
+      mainProgram = "iEDA";
+      platforms = lib.platforms.linux;
+    };
+  }

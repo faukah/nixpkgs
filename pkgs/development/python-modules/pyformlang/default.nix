@@ -10,7 +10,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "pyformlang";
   version = "1.0.11";
@@ -34,14 +33,14 @@ buildPythonPackage rec {
     pydot
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyformlang" ];
+  pythonImportsCheck = ["pyformlang"];
 
   meta = with lib; {
     description = "Framework for formal grammars";
     homepage = "https://github.com/Aunsiels/pyformlang";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

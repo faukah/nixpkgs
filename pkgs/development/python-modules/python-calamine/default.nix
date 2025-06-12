@@ -10,7 +10,6 @@
   rustc,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "python-calamine";
   version = "0.3.2";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     };
   };
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
   build-system = [
     cargo
@@ -40,18 +39,18 @@ buildPythonPackage rec {
     rustc
   ];
 
-  dependencies = [ packaging ];
+  dependencies = [packaging];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "python_calamine" ];
+  pythonImportsCheck = ["python_calamine"];
 
   meta = {
     description = "Python binding for calamine";
     homepage = "https://github.com/dimastbk/python-calamine";
     changelog = "https://github.com/dimastbk/python-calamine/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "python-calamine";
   };
 }

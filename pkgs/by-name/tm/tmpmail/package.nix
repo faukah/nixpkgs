@@ -9,7 +9,6 @@
   installShellFiles,
   xclip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "tmpmail";
   version = "1.2.3";
@@ -48,7 +47,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/sdushantha/tmpmail";
     description = "Temporary email right from your terminal written in POSIX sh";
     license = licenses.mit;
-    maintainers = [ maintainers.lom ];
+    maintainers = [maintainers.lom];
     mainProgram = "tmpmail";
   };
 }

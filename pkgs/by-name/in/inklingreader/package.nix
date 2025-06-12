@@ -8,7 +8,6 @@
   librsvg,
   libusb1,
 }:
-
 stdenv.mkDerivation {
   pname = "inklingreader";
   version = "unstable-2017-09-07";
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/roelj/inklingreader";
     description = "GNU/Linux-friendly version of the Wacom Inkling SketchManager";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ totoroot ];
+    maintainers = with lib.maintainers; [totoroot];
     platforms = lib.platforms.linux;
     mainProgram = "inklingreader";
   };

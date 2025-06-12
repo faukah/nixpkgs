@@ -4,7 +4,6 @@
   fetchFromGitHub,
   imagemagick,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nixos-icons";
   version = "0-unstable-2024-04-10";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Icons of the Nix logo, in Freedesktop Icon Directory Layout";
     homepage = "https://github.com/NixOS/nixos-artwork";
     license = licenses.cc-by-40;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 })

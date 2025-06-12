@@ -24,10 +24,9 @@
   git,
   cacert,
   gnupg,
-}:
-
-let
-  inherit (python3Packages)
+}: let
+  inherit
+    (python3Packages)
     docutils
     python
     fb-re2
@@ -47,19 +46,22 @@ let
 
     format = "other";
 
-    passthru = { inherit python; }; # pass it so that the same version can be used in hg2git
+    passthru = {inherit python;}; # pass it so that the same version can be used in hg2git
 
     cargoDeps =
-      if rustSupport then
+      if rustSupport
+      then
         rustPlatform.fetchCargoVendor {
           inherit src;
           name = "mercurial-${version}";
           hash = "sha256-k/K1BupCqnlB++2T7hJxu82yID0jG8HwLNmb2eyx29o=";
           sourceRoot = "mercurial-${version}/rust";
         }
-      else
-        null;
-    cargoRoot = if rustSupport then "rust" else null;
+      else null;
+    cargoRoot =
+      if rustSupport
+      then "rust"
+      else null;
 
     propagatedBuildInputs =
       lib.optional re2Support fb-re2
@@ -77,9 +79,9 @@ let
         cargo
         rustc
       ];
-    buildInputs = [ docutils ];
+    buildInputs = [docutils];
 
-    makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional rustSupport "PURE=--rust";
+    makeFlags = ["PREFIX=$(out)"] ++ lib.optional rustSupport "PURE=--rust";
 
     postInstall =
       (lib.optionalString guiSupport ''
@@ -111,7 +113,7 @@ let
       '';
 
     passthru.tests = {
-      mercurial-tests = makeTests { flags = "--with-hg=$MERCURIAL_BASE/bin/hg"; };
+      mercurial-tests = makeTests {flags = "--with-hg=$MERCURIAL_BASE/bin/hg";};
     };
 
     meta = with lib; {
@@ -130,172 +132,174 @@ let
     };
   };
 
-  makeTests =
-    {
-      mercurial ? self,
-      nameSuffix ? "",
-      flags ? "",
-    }:
+  makeTests = {
+    mercurial ? self,
+    nameSuffix ? "",
+    flags ? "",
+  }:
     runCommand "${mercurial.pname}${nameSuffix}-tests"
-      {
-        inherit (mercurial) src;
+    {
+      inherit (mercurial) src;
 
-        SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt"; # needed for git
-        MERCURIAL_BASE = mercurial;
-        nativeBuildInputs = [
-          python
-          unzip
-          which
-          sqlite
-          git
-          gnupg
-        ];
+      SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt"; # needed for git
+      MERCURIAL_BASE = mercurial;
+      nativeBuildInputs = [
+        python
+        unzip
+        which
+        sqlite
+        git
+        gnupg
+      ];
+
+      # https://bz.mercurial-scm.org/show_bug.cgi?id=6887
+      propagatedBuildInputs = [setuptools];
+
+      postPatch = ''
+        patchShebangs .
+
+        for f in **/*.{py,c,t}; do
+          # not only used in shebangs
+          substituteAllInPlace "$f" '/bin/sh' '${stdenv.shell}'
+        done
+
+        for f in **/*.t; do
+          substituteInPlace 2>/dev/null "$f" \
+            --replace '*/hg:' '*/*hg*:' \${
+          # paths emitted by our wrapped hg look like ..hg-wrapped-wrapped
+          ""
+        }
+            --replace '"$PYTHON" "$BINDIR"/hg' '"$BINDIR"/hg' ${
+          # 'hg' is a wrapper; don't run using python directly
+          ""
+        }
+        done
 
         # https://bz.mercurial-scm.org/show_bug.cgi?id=6887
-        propagatedBuildInputs = [ setuptools ];
-
-        postPatch = ''
-          patchShebangs .
-
-          for f in **/*.{py,c,t}; do
-            # not only used in shebangs
-            substituteAllInPlace "$f" '/bin/sh' '${stdenv.shell}'
-          done
-
-          for f in **/*.t; do
-            substituteInPlace 2>/dev/null "$f" \
-              --replace '*/hg:' '*/*hg*:' \${
-                # paths emitted by our wrapped hg look like ..hg-wrapped-wrapped
-                ""
-              }
-              --replace '"$PYTHON" "$BINDIR"/hg' '"$BINDIR"/hg' ${
-                # 'hg' is a wrapper; don't run using python directly
-                ""
-              }
-          done
-
-          # https://bz.mercurial-scm.org/show_bug.cgi?id=6887
-          # Adding setuptools to the python path is not enough for the distutils
-          # module to be found, so we patch usage directly:
-          substituteInPlace tests/hghave.py \
-            --replace-fail "distutils" "setuptools._distutils"
-        '';
-
-        # This runs Mercurial _a lot_ of times.
-        requiredSystemFeatures = [ "big-parallel" ];
-
-        # Don't run tests if not-Linux or if cross-compiling.
-        meta.broken = !stdenv.hostPlatform.isLinux || stdenv.buildPlatform != stdenv.hostPlatform;
-      }
-      ''
-        addToSearchPathWithCustomDelimiter : PYTHONPATH "${mercurial}/${python.sitePackages}"
-
-        unpackPhase
-        cd "$sourceRoot"
-        patchPhase
-
-        cat << EOF > tests/blacklists/nix
-        # tests enforcing "/usr/bin/env" shebangs, which are patched for nix
-        test-run-tests.t
-        test-check-shbang.t
-
-        # unstable experimental/unsupported features
-        # https://bz.mercurial-scm.org/show_bug.cgi?id=6633#c1
-        test-git-interop.t
-
-        # doesn't like the extra setlocale warnings emitted by our bash wrappers
-        test-locale.t
-
-        # Python 3.10-3.12 deprecation warning: asyncore
-        # https://bz.mercurial-scm.org/show_bug.cgi?id=6727
-        test-patchbomb-tls.t
-
-        # Python 3.12 _lsprof module change, breaking profile test
-        # https://bz.mercurial-scm.org/show_bug.cgi?id=6846
-        test-profile.t
-
-        # Python 3.12 deprecation warning: multi-threaded fork in worker.py
-        # https://bz.mercurial-scm.org/show_bug.cgi?id=6892
-        test-clone-stream.t
-        test-clonebundles.t
-        test-fix-topology.t
-        test-fix.t
-        test-persistent-nodemap.t
-        test-profile.t
-        test-simple-update.t
-
-        EOF
-
-        export HGTEST_REAL_HG="${mercurial}/bin/hg"
-        # include tests for native components
-        export HGMODULEPOLICY="rust+c"
-        # extended timeout necessary for tests to pass on the busy CI workers
-        export HGTESTFLAGS="--blacklist blacklists/nix --timeout 1800 -j$NIX_BUILD_CORES ${flags}"
-        make check
-        touch $out
+        # Adding setuptools to the python path is not enough for the distutils
+        # module to be found, so we patch usage directly:
+        substituteInPlace tests/hghave.py \
+          --replace-fail "distutils" "setuptools._distutils"
       '';
+
+      # This runs Mercurial _a lot_ of times.
+      requiredSystemFeatures = ["big-parallel"];
+
+      # Don't run tests if not-Linux or if cross-compiling.
+      meta.broken = !stdenv.hostPlatform.isLinux || stdenv.buildPlatform != stdenv.hostPlatform;
+    }
+    ''
+      addToSearchPathWithCustomDelimiter : PYTHONPATH "${mercurial}/${python.sitePackages}"
+
+      unpackPhase
+      cd "$sourceRoot"
+      patchPhase
+
+      cat << EOF > tests/blacklists/nix
+      # tests enforcing "/usr/bin/env" shebangs, which are patched for nix
+      test-run-tests.t
+      test-check-shbang.t
+
+      # unstable experimental/unsupported features
+      # https://bz.mercurial-scm.org/show_bug.cgi?id=6633#c1
+      test-git-interop.t
+
+      # doesn't like the extra setlocale warnings emitted by our bash wrappers
+      test-locale.t
+
+      # Python 3.10-3.12 deprecation warning: asyncore
+      # https://bz.mercurial-scm.org/show_bug.cgi?id=6727
+      test-patchbomb-tls.t
+
+      # Python 3.12 _lsprof module change, breaking profile test
+      # https://bz.mercurial-scm.org/show_bug.cgi?id=6846
+      test-profile.t
+
+      # Python 3.12 deprecation warning: multi-threaded fork in worker.py
+      # https://bz.mercurial-scm.org/show_bug.cgi?id=6892
+      test-clone-stream.t
+      test-clonebundles.t
+      test-fix-topology.t
+      test-fix.t
+      test-persistent-nodemap.t
+      test-profile.t
+      test-simple-update.t
+
+      EOF
+
+      export HGTEST_REAL_HG="${mercurial}/bin/hg"
+      # include tests for native components
+      export HGMODULEPOLICY="rust+c"
+      # extended timeout necessary for tests to pass on the busy CI workers
+      export HGTESTFLAGS="--blacklist blacklists/nix --timeout 1800 -j$NIX_BUILD_CORES ${flags}"
+      make check
+      touch $out
+    '';
 in
-self.overridePythonAttrs (origAttrs: {
-  passthru = origAttrs.passthru // rec {
-    # withExtensions takes a function which takes the python packages set and
-    # returns a list of extensions to install.
-    #
-    # for instance: mercurial.withExtension (pm: [ pm.hg-evolve ])
-    withExtensions =
-      f:
-      let
-        python = self.python;
-        mercurialHighPrio =
-          ps:
-          (ps.toPythonModule self).overrideAttrs (oldAttrs: {
-            meta = oldAttrs.meta // {
-              priority = 50;
-            };
-          });
-        plugins = (f python.pkgs) ++ [ (mercurialHighPrio python.pkgs) ];
-        env = python.withPackages (ps: plugins);
-      in
-      stdenv.mkDerivation {
-        pname = "${self.pname}-with-extensions";
+  self.overridePythonAttrs (origAttrs: {
+    passthru =
+      origAttrs.passthru
+      // rec {
+        # withExtensions takes a function which takes the python packages set and
+        # returns a list of extensions to install.
+        #
+        # for instance: mercurial.withExtension (pm: [ pm.hg-evolve ])
+        withExtensions = f: let
+          python = self.python;
+          mercurialHighPrio = ps:
+            (ps.toPythonModule self).overrideAttrs (oldAttrs: {
+              meta =
+                oldAttrs.meta
+                // {
+                  priority = 50;
+                };
+            });
+          plugins = (f python.pkgs) ++ [(mercurialHighPrio python.pkgs)];
+          env = python.withPackages (ps: plugins);
+        in
+          stdenv.mkDerivation {
+            pname = "${self.pname}-with-extensions";
 
-        inherit (self) src version meta;
+            inherit (self) src version meta;
 
-        buildInputs = self.buildInputs ++ self.propagatedBuildInputs;
-        nativeBuildInputs = self.nativeBuildInputs;
+            buildInputs = self.buildInputs ++ self.propagatedBuildInputs;
+            nativeBuildInputs = self.nativeBuildInputs;
 
-        dontUnpack = true;
-        dontPatch = true;
-        dontConfigure = true;
-        dontBuild = true;
-        doCheck = false;
+            dontUnpack = true;
+            dontPatch = true;
+            dontConfigure = true;
+            dontBuild = true;
+            doCheck = false;
 
-        installPhase = ''
-          runHook preInstall
+            installPhase = ''
+              runHook preInstall
 
-          mkdir -p $out/bin
+              mkdir -p $out/bin
 
-          for bindir in ${lib.concatStringsSep " " (map (d: "${lib.getBin d}/bin") plugins)}; do
-            for bin in $bindir/*; do
-              ln -s ${env}/bin/$(basename $bin) $out/bin/
-            done
-          done
+              for bindir in ${lib.concatStringsSep " " (map (d: "${lib.getBin d}/bin") plugins)}; do
+                for bin in $bindir/*; do
+                  ln -s ${env}/bin/$(basename $bin) $out/bin/
+                done
+              done
 
-          ln -s ${self}/share $out/share
+              ln -s ${self}/share $out/share
 
-          runHook postInstall
-        '';
+              runHook postInstall
+            '';
 
-        installCheckPhase = ''
-          runHook preInstallCheck
+            installCheckPhase = ''
+              runHook preInstallCheck
 
-          $out/bin/hg help >/dev/null || exit 1
+              $out/bin/hg help >/dev/null || exit 1
 
-          runHook postInstallCheck
-        '';
+              runHook postInstallCheck
+            '';
+          };
+
+        tests =
+          origAttrs.passthru.tests
+          // {
+            withExtensions = withExtensions (pm: [pm.hg-evolve]);
+          };
       };
-
-    tests = origAttrs.passthru.tests // {
-      withExtensions = withExtensions (pm: [ pm.hg-evolve ]);
-    };
-  };
-})
+  })

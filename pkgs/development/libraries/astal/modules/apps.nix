@@ -4,6 +4,6 @@
 }:
 buildAstalModule {
   name = "apps";
-  buildInputs = [ json-glib ];
+  buildInputs = [json-glib];
   meta.description = "Astal module for application query";
 }

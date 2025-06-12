@@ -33,10 +33,10 @@ buildGoModule (finalAttrs: {
 
   postInstall =
     /*
-      jsHelper and css-map.json are required at runtime
-      and are looked for in the directory of the spicetify binary
-      so here we move spicetify to /share/spicetify
-      so that css-map.json and jsHelper don't pollute PATH
+    jsHelper and css-map.json are required at runtime
+    and are looked for in the directory of the spicetify binary
+    so here we move spicetify to /share/spicetify
+    so that css-map.json and jsHelper don't pollute PATH
     */
     ''
       mkdir -p $out/share/spicetify
@@ -49,7 +49,7 @@ buildGoModule (finalAttrs: {
       ln -s $out/share/spicetify/spicetify $out/bin/spicetify
     '';
 
-  passthru.tests.version = testers.testVersion { package = spicetify-cli; };
+  passthru.tests.version = testers.testVersion {package = spicetify-cli;};
 
   meta = {
     description = "Command-line tool to customize Spotify client";

@@ -7,16 +7,14 @@
   gtk-engine-murrine,
   jdupes,
   sassc,
-  themeVariants ? [ ], # default: blue
-  colorVariants ? [ ], # default: all
-  sizeVariants ? [ ], # default: standard
-  tweaks ? [ ],
-}:
-
-let
+  themeVariants ? [], # default: blue
+  colorVariants ? [], # default: all
+  sizeVariants ? [], # default: standard
+  tweaks ? [],
+}: let
   pname = "fluent-gtk-theme";
 in
-lib.checkListOfEnum "${pname}: theme variants"
+  lib.checkListOfEnum "${pname}: theme variants"
   [
     "default"
     "purple"
@@ -56,7 +54,6 @@ lib.checkListOfEnum "${pname}: theme variants"
     "square"
   ]
   tweaks
-
   stdenvNoCC.mkDerivation
   (finalAttrs: {
     inherit pname;
@@ -74,9 +71,9 @@ lib.checkListOfEnum "${pname}: theme variants"
       sassc
     ];
 
-    buildInputs = [ gnome-themes-extra ];
+    buildInputs = [gnome-themes-extra];
 
-    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+    propagatedUserEnvPkgs = [gtk-engine-murrine];
 
     postPatch = ''
       patchShebangs install.sh
@@ -86,10 +83,10 @@ lib.checkListOfEnum "${pname}: theme variants"
       runHook preInstall
 
       name= HOME="$TMPDIR" ./install.sh \
-        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (sizeVariants != [ ]) "--size " + builtins.toString sizeVariants} \
-        ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
+        ${lib.optionalString (themeVariants != []) "--theme " + builtins.toString themeVariants} \
+        ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
+        ${lib.optionalString (sizeVariants != []) "--size " + builtins.toString sizeVariants} \
+        ${lib.optionalString (tweaks != []) "--tweaks " + builtins.toString tweaks} \
         --icon nixos \
         --dest $out/share/themes
 
@@ -98,7 +95,7 @@ lib.checkListOfEnum "${pname}: theme variants"
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = {
       description = "Fluent design gtk theme";

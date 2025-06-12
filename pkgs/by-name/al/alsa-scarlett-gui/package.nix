@@ -10,7 +10,6 @@
   openssl,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "alsa-scarlett-gui";
   version = "0.5.1";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-DkfpMK0T67B4mnriignf4hx6Ifddls0rN0SxyfEsPZg=";
   };
 
-  NIX_CFLAGS_COMPILE = [ "-Wno-error=deprecated-declarations" ];
+  NIX_CFLAGS_COMPILE = ["-Wno-error=deprecated-declarations"];
 
   makeFlags = [
     "DESTDIR=\${out}"
@@ -46,21 +45,21 @@ stdenv.mkDerivation rec {
     openssl
   ];
   postInstall = ''
-    wrapProgram $out/bin/alsa-scarlett-gui --prefix PATH : ${lib.makeBinPath [ alsa-utils ]}
+    wrapProgram $out/bin/alsa-scarlett-gui --prefix PATH : ${lib.makeBinPath [alsa-utils]}
 
     substituteInPlace $out/share/applications/vu.b4.alsa-scarlett-gui.desktop \
       --replace-fail "Exec=/bin/alsa-scarlett-gui" "Exec=$out/bin/alsa-scarlett-gui"
   '';
 
   # causes redefinition of _FORTIFY_SOURCE
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   meta = with lib; {
     description = "GUI for alsa controls presented by Focusrite Scarlett Gen 2/3/4 Mixer Driver";
     mainProgram = "alsa-scarlett-gui";
     homepage = "https://github.com/geoffreybennett/alsa-scarlett-gui";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mdorman ];
+    maintainers = with maintainers; [mdorman];
     platforms = platforms.linux;
   };
 }

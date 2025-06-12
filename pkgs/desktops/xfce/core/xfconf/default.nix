@@ -12,7 +12,6 @@
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
   buildPackages,
 }:
-
 mkXfceDerivation {
   category = "xfce";
   pname = "xfconf";
@@ -29,13 +28,13 @@ mkXfceDerivation {
       vala # vala bindings require GObject introspection
     ];
 
-  buildInputs = [ libxfce4util ];
+  buildInputs = [libxfce4util];
 
-  propagatedBuildInputs = [ glib ];
+  propagatedBuildInputs = [glib];
 
   meta = with lib; {
     description = "Simple client-server configuration storage and query system for Xfce";
     mainProgram = "xfconf-query";
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

@@ -13,7 +13,6 @@
   libXext,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "plib";
   version = "1.8.5";

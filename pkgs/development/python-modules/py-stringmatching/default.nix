@@ -2,19 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython,
   setuptools,
-
   # dependencies
   numpy_1,
   six,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "py-stringmatching";
   version = "0.4.6";
@@ -38,13 +34,13 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     cd $out
   '';
 
-  pythonImportsCheck = [ "py_stringmatching" ];
+  pythonImportsCheck = ["py_stringmatching"];
 
   meta = with lib; {
     description = "Python string matching library including string tokenizers and string similarity measures";

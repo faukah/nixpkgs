@@ -7,7 +7,6 @@
   stdenv,
   systemd,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tbtools";
   version = "0.6.0";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

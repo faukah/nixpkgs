@@ -7,7 +7,6 @@
   stdenv,
   testers,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "boring";
   version = "0.11.5";

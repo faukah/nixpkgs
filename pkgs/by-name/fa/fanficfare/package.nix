@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "fanficfare";
   version = "4.45.0";
@@ -38,6 +37,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/JimmXinu/FanFicFare";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dwarfmaster ];
+    maintainers = with maintainers; [dwarfmaster];
   };
 }

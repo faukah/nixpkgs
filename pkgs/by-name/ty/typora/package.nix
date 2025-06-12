@@ -18,9 +18,7 @@
   alsa-lib,
   buildFHSEnv,
   writeTextFile,
-}:
-
-let
+}: let
   pname = "typora";
   version = "1.10.8";
   src = fetchurl {
@@ -31,7 +29,7 @@ let
   typoraBase = stdenv.mkDerivation {
     inherit pname version src;
 
-    nativeBuildInputs = [ dpkg ];
+    nativeBuildInputs = [dpkg];
 
     dontConfigure = true;
     dontBuild = true;
@@ -50,8 +48,7 @@ let
   typoraFHS = buildFHSEnv {
     pname = "typora-fhs";
     inherit version;
-    targetPkgs =
-      pkgs:
+    targetPkgs = pkgs:
       (with pkgs; [
         typoraBase
         udev
@@ -110,31 +107,30 @@ let
       exec ${typoraFHS}/bin/typora-fhs "$@" $TYPORA_USER_FLAGS
     '';
   };
-
 in
-stdenv.mkDerivation {
-  inherit pname version;
+  stdenv.mkDerivation {
+    inherit pname version;
 
-  dontUnpack = true;
-  dontConfigure = true;
-  dontBuild = true;
+    dontUnpack = true;
+    dontConfigure = true;
+    dontBuild = true;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/bin
-    ln -s ${launchScript} $out/bin/typora
-    ln -s ${typoraBase}/share/ $out
+      mkdir -p $out/bin
+      ln -s ${launchScript} $out/bin/typora
+      ln -s ${typoraBase}/share/ $out
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = {
-    description = "Markdown editor, a markdown reader";
-    homepage = "https://typora.io/";
-    license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ npulidomateo ];
-    platforms = [ "x86_64-linux" ];
-    mainProgram = "typora";
-  };
-}
+    meta = {
+      description = "Markdown editor, a markdown reader";
+      homepage = "https://typora.io/";
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [npulidomateo];
+      platforms = ["x86_64-linux"];
+      mainProgram = "typora";
+    };
+  }

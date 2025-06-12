@@ -1,14 +1,10 @@
 # Global configuration for the SSH client.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.programs.ssh;
 
   askPasswordWrapper = pkgs.writeScript "ssh-askpass-wrapper" ''
@@ -22,26 +18,28 @@ let
   knownHostsText =
     (lib.flip (lib.concatMapStringsSep "\n") knownHosts (
       h:
-      assert h.hostNames != [ ];
-      lib.optionalString h.certAuthority "@cert-authority "
-      + builtins.concatStringsSep "," h.hostNames
-      + " "
-      + (if h.publicKey != null then h.publicKey else builtins.readFile h.publicKeyFile)
+        assert h.hostNames != [];
+          lib.optionalString h.certAuthority "@cert-authority "
+          + builtins.concatStringsSep "," h.hostNames
+          + " "
+          + (
+            if h.publicKey != null
+            then h.publicKey
+            else builtins.readFile h.publicKeyFile
+          )
     ))
     + "\n";
 
-  knownHostsFiles = [
-    "/etc/ssh/ssh_known_hosts"
-  ] ++ builtins.map pkgs.copyPathToStore cfg.knownHostsFiles;
-
-in
-{
+  knownHostsFiles =
+    [
+      "/etc/ssh/ssh_known_hosts"
+    ]
+    ++ builtins.map pkgs.copyPathToStore cfg.knownHostsFiles;
+in {
   ###### interface
 
   options = {
-
     programs.ssh = {
-
       enableAskPassword = lib.mkOption {
         type = lib.types.bool;
         default = config.services.xserver.enable;
@@ -90,7 +88,7 @@ in
 
       pubkeyAcceptedKeyTypes = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         example = [
           "ssh-ed25519"
           "ssh-rsa"
@@ -102,7 +100,7 @@ in
 
       hostKeyAlgorithms = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         example = [
           "ssh-ed25519"
           "ssh-rsa"
@@ -153,10 +151,10 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "openssh" { };
+      package = lib.mkPackageOption pkgs "openssh" {};
 
       knownHosts = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf (
           lib.types.submodule (
             {
@@ -164,8 +162,7 @@ in
               config,
               options,
               ...
-            }:
-            {
+            }: {
               options = {
                 certAuthority = lib.mkOption {
                   type = lib.types.bool;
@@ -177,7 +174,7 @@ in
                 };
                 hostNames = lib.mkOption {
                   type = lib.types.listOf lib.types.str;
-                  default = [ name ] ++ config.extraHostNames;
+                  default = [name] ++ config.extraHostNames;
                   defaultText = lib.literalExpression "[ ${name} ] ++ config.${options.extraHostNames}";
                   description = ''
                     A list of host names and/or IP numbers used for accessing
@@ -191,7 +188,7 @@ in
                 };
                 extraHostNames = lib.mkOption {
                   type = lib.types.listOf lib.types.str;
-                  default = [ ];
+                  default = [];
                   description = ''
                     A list of additional host names and/or IP numbers used for
                     accessing the host's ssh service. This list is ignored if
@@ -251,7 +248,7 @@ in
       };
 
       knownHostsFiles = lib.mkOption {
-        default = [ ];
+        default = [];
         type = with lib.types; listOf path;
         description = ''
           Files containing SSH host keys to set as global known hosts.
@@ -308,11 +305,9 @@ in
         '';
       };
     };
-
   };
 
   config = {
-
     programs.ssh.setXAuthLocation = lib.mkDefault (
       config.services.xserver.enable
       || config.programs.ssh.forwardX11 == true
@@ -352,15 +347,20 @@ in
 
       ${lib.optionalString (!config.networking.enableIPv6) "AddressFamily inet"}
       ${lib.optionalString cfg.setXAuthLocation "XAuthLocation ${pkgs.xorg.xauth}/bin/xauth"}
-      ${lib.optionalString (cfg.forwardX11 != null)
-        "ForwardX11 ${if cfg.forwardX11 then "yes" else "no"}"
+      ${
+        lib.optionalString (cfg.forwardX11 != null)
+        "ForwardX11 ${
+          if cfg.forwardX11
+          then "yes"
+          else "no"
+        }"
       }
 
       ${lib.optionalString (
-        cfg.pubkeyAcceptedKeyTypes != [ ]
+        cfg.pubkeyAcceptedKeyTypes != []
       ) "PubkeyAcceptedKeyTypes ${builtins.concatStringsSep "," cfg.pubkeyAcceptedKeyTypes}"}
       ${lib.optionalString (
-        cfg.hostKeyAlgorithms != [ ]
+        cfg.hostKeyAlgorithms != []
       ) "HostKeyAlgorithms ${builtins.concatStringsSep "," cfg.hostKeyAlgorithms}"}
       ${lib.optionalString (
         cfg.kexAlgorithms != null
@@ -374,14 +374,14 @@ in
     # FIXME: this should really be socket-activated for über-awesomeness.
     systemd.user.services.ssh-agent = lib.mkIf cfg.startAgent {
       description = "SSH Agent";
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
       unitConfig.ConditionUser = "!@system";
       serviceConfig = {
         ExecStartPre = "${pkgs.coreutils}/bin/rm -f %t/ssh-agent";
         ExecStart =
           "${cfg.package}/bin/ssh-agent "
-          + lib.optionalString (cfg.agentTimeout != null) ("-t ${cfg.agentTimeout} ")
-          + lib.optionalString (cfg.agentPKCS11Whitelist != null) ("-P ${cfg.agentPKCS11Whitelist} ")
+          + lib.optionalString (cfg.agentTimeout != null) "-t ${cfg.agentTimeout} "
+          + lib.optionalString (cfg.agentPKCS11Whitelist != null) "-P ${cfg.agentPKCS11Whitelist} "
           + "-a %t/ssh-agent";
         StandardOutput = "null";
         Type = "forking";
@@ -402,6 +402,5 @@ in
     '';
 
     environment.variables.SSH_ASKPASS = lib.optionalString cfg.enableAskPassword cfg.askPassword;
-
   };
 }

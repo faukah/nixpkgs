@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "proxychains";
   version = "4.4.0";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "Proxifier for SOCKS proxies";
     homepage = "https://proxychains.sourceforge.net";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     platforms = platforms.linux;
     mainProgram = "proxychains4";
   };

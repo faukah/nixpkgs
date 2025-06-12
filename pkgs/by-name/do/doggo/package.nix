@@ -6,7 +6,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "doggo";
   version = "1.0.5";
@@ -19,8 +18,8 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-44gBPMr6gKaRaq7W69K7OBTVXvsz9pSEL1eOKYd4fT8=";
-  nativeBuildInputs = [ installShellFiles ];
-  subPackages = [ "cmd/doggo" ];
+  nativeBuildInputs = [installShellFiles];
+  subPackages = ["cmd/doggo"];
 
   ldflags = [
     "-s"
@@ -34,7 +33,7 @@ buildGoModule rec {
       --zsh <($out/bin/doggo completions zsh)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/mr-karan/doggo";

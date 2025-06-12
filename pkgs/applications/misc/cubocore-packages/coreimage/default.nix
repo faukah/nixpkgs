@@ -8,7 +8,6 @@
   libcprime,
   libcsys,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "coreimage";
   version = "5.0.0";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "coreimage";
     homepage = "https://gitlab.com/cubocore/coreapps/coreimage";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dan4ik605743 ];
+    maintainers = with lib.maintainers; [dan4ik605743];
     platforms = lib.platforms.linux;
   };
 })

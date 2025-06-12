@@ -5,7 +5,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "inih";
   version = "58";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/benhoyt/inih";
     changelog = "https://github.com/benhoyt/inih/releases/tag/r${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ TredwellGit ];
+    maintainers = with lib.maintainers; [TredwellGit];
     platforms = lib.platforms.all;
   };
 }

@@ -4,9 +4,7 @@
   buildNetSdk,
   fetchNupkg,
 }:
-
 # v10.0 (preview)
-
 let
   commonPackages = [
     (fetchNupkg {
@@ -400,9 +398,7 @@ let
       })
     ];
   };
-
-in
-rec {
+in rec {
   release_10_0 = "10.0.0-preview.4";
 
   aspnetcore_10_0 = buildAspNetCore {

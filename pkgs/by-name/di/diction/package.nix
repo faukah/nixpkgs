@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "diction";
   version = "1.13";

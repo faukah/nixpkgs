@@ -21,7 +21,6 @@
   jansson,
   ensureNewerSourcesForZipFilesHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spdk";
 
@@ -97,7 +96,7 @@ stdenv.mkDerivation rec {
     description = "Set of libraries for fast user-mode storage";
     homepage = "https://spdk.io/";
     license = licenses.bsd3;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ orivej ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [orivej];
   };
 }

@@ -13,7 +13,6 @@
   gnused,
   procps,
 }:
-
 stdenv.mkDerivation {
   pname = "rofi-screenshot";
   version = "2024-09-27";
@@ -25,23 +24,23 @@ stdenv.mkDerivation {
     hash = "sha256-3UpYdXAX3LD1ZAQ429JkzWWooiBpuf/uPf0CRh5EXd8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postFixup = ''
     wrapProgram $out/bin/rofi-screenshot \
       --set PATH ${
-        lib.makeBinPath [
-          libnotify
-          slop
-          ffcast
-          ffmpeg
-          xclip
-          rofi
-          coreutils
-          gnused
-          procps
-        ]
-      }
+      lib.makeBinPath [
+        libnotify
+        slop
+        ffcast
+        ffmpeg
+        xclip
+        rofi
+        coreutils
+        gnused
+        procps
+      ]
+    }
   '';
 
   installPhase = ''
@@ -52,7 +51,7 @@ stdenv.mkDerivation {
     description = "Use rofi to perform various types of screenshots and screen captures";
     mainProgram = "rofi-screenshot";
     homepage = "https://github.com/ceuk/rofi-screenshot";
-    maintainers = with lib.maintainers; [ zopieux ];
+    maintainers = with lib.maintainers; [zopieux];
     platforms = lib.platforms.all;
     license = lib.licenses.wtfpl;
   };

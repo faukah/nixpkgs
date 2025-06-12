@@ -3,7 +3,6 @@
   buildPythonPackage,
   hatchling,
 }:
-
 buildPythonPackage {
   pname = "pytest-cov-stub";
   # please use pythonRemoveDeps rather than change this version
@@ -12,11 +11,11 @@ buildPythonPackage {
 
   src = ./src;
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   meta = with lib; {
     description = "Nixpkgs checkPhase stub for pytest-cov";
     license = licenses.mit;
-    maintainers = [ lib.maintainers.pbsds ];
+    maintainers = [lib.maintainers.pbsds];
   };
 }

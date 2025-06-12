@@ -3,11 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.vdr;
 
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
@@ -15,10 +15,8 @@ let
     mkIf
     optional
     ;
-in
-{
+in {
   options = {
-
     services.vdr = {
       enable = mkEnableOption "VDR, a video disk recorder";
 
@@ -34,7 +32,7 @@ in
 
       extraArguments = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = "Additional command line arguments to pass to VDR.";
       };
 
@@ -56,11 +54,9 @@ in
         '';
       };
     };
-
   };
 
   config = mkIf cfg.enable {
-
     systemd.tmpfiles.rules = [
       "d ${cfg.videoDir} 0755 ${cfg.user} ${cfg.group} -"
       "Z ${cfg.videoDir} - ${cfg.user} ${cfg.group} -"
@@ -68,20 +64,18 @@ in
 
     systemd.services.vdr = {
       description = "VDR";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       wants = optional cfg.enableLirc "lircd.service";
-      after = [ "network.target" ] ++ optional cfg.enableLirc "lircd.service";
+      after = ["network.target"] ++ optional cfg.enableLirc "lircd.service";
       serviceConfig = {
-        ExecStart =
-          let
-            args =
-              [
-                "--video=${cfg.videoDir}"
-              ]
-              ++ optional cfg.enableLirc "--lirc=${config.passthru.lirc.socket}"
-              ++ cfg.extraArguments;
-          in
-          "${cfg.package}/bin/vdr ${lib.escapeShellArgs args}";
+        ExecStart = let
+          args =
+            [
+              "--video=${cfg.videoDir}"
+            ]
+            ++ optional cfg.enableLirc "--lirc=${config.passthru.lirc.socket}"
+            ++ cfg.extraArguments;
+        in "${cfg.package}/bin/vdr ${lib.escapeShellArgs args}";
         User = cfg.user;
         Group = cfg.group;
         CacheDirectory = "vdr";
@@ -91,21 +85,22 @@ in
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users.users = mkIf (cfg.user == "vdr") {
       vdr = {
         inherit (cfg) group;
         home = "/run/vdr";
         isSystemUser = true;
-        extraGroups = [
-          "video"
-          "audio"
-        ] ++ optional cfg.enableLirc "lirc";
+        extraGroups =
+          [
+            "video"
+            "audio"
+          ]
+          ++ optional cfg.enableLirc "lirc";
       };
     };
 
-    users.groups = mkIf (cfg.group == "vdr") { vdr = { }; };
-
+    users.groups = mkIf (cfg.group == "vdr") {vdr = {};};
   };
 }

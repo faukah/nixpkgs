@@ -11,7 +11,6 @@
   wrapGAppsHook4,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dynisland";
   version = "0.1.3";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-91dQG0NvEL28gHxn6zk3vLODNft8C5ymkLddMT+PB0Q=";
 
-  buildFeatures = [ "completions" ];
+  buildFeatures = ["completions"];
 
   buildInputs = [
     dbus
@@ -57,7 +56,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/cr3eperall/dynisland";
     changelog = "https://github.com/cr3eperall/dynisland/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ryand56 ];
+    maintainers = with lib.maintainers; [ryand56];
     mainProgram = "dynisland";
     platforms = lib.platforms.linux;
   };

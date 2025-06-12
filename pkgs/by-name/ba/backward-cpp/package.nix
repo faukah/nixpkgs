@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "backward";
   version = "1.6";
@@ -25,6 +24,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/bombela/backward-cpp";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 })

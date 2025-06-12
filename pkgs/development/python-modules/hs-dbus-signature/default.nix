@@ -5,7 +5,6 @@
   pytestCheckHook,
   hypothesis,
 }:
-
 buildPythonPackage rec {
   pname = "hs-dbus-signature";
   version = "0.7";
@@ -21,12 +20,12 @@ buildPythonPackage rec {
     hypothesis
   ];
 
-  pythonImportsCheck = [ "hs_dbus_signature" ];
+  pythonImportsCheck = ["hs_dbus_signature"];
 
   meta = with lib; {
     description = "Hypothesis Strategy for Generating Arbitrary DBus Signatures";
     homepage = "https://github.com/stratis-storage/hs-dbus-signature";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

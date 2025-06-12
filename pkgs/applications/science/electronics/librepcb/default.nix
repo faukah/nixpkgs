@@ -14,7 +14,6 @@
   cargo,
   rustc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "librepcb";
   version = "1.3.0";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     cargo
     rustc
   ];
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit src cargoRoot;

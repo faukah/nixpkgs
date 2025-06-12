@@ -17,7 +17,6 @@
   textx-flow-dsl,
   textx-types-dsl,
 }:
-
 buildPythonPackage {
   pname = "textx-tests";
   inherit (textx) version;
@@ -45,7 +44,7 @@ buildPythonPackage {
     textx-types-dsl
   ];
 
-  pytestFlagsArray = [ "tests/functional" ];
+  pytestFlagsArray = ["tests/functional"];
   disabledTests = [
     "test_examples" # assertion error: 0 == 12
   ];

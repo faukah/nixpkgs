@@ -7,8 +7,7 @@
   revision,
   system,
   throwSystem,
-}:
-let
+}: let
   firefox-linux = stdenv.mkDerivation {
     name = "playwright-firefox";
     src = fetchzip {
@@ -20,10 +19,13 @@ let
           x86_64-linux = "sha256-tZ5rDLVzNaGILydgGbSOjtgfoRx0DWesZMmW0X8Pphc=";
           aarch64-linux = "sha256-2NOK02C2APHVh4gVrQygrazGUJzJXH/3uOYDoyIn7fU=";
         }
-        .${system} or throwSystem;
+        .${
+          system
+        } or throwSystem;
     };
 
-    inherit (firefox-bin.unwrapped)
+    inherit
+      (firefox-bin.unwrapped)
       nativeBuildInputs
       buildInputs
       runtimeDependencies
@@ -44,13 +46,17 @@ let
         x86_64-darwin = "sha256-2j59mGvDiHMwmUQQFRVhToCooBdIGkF5s9iuXrVenHU=";
         aarch64-darwin = "sha256-L7ffypyrX8qSCXksNxnihEZaV+wChoggGIcCuqosXzA=";
       }
-      .${system} or throwSystem;
+      .${
+        system
+      } or throwSystem;
   };
 in
-{
-  x86_64-linux = firefox-linux;
-  aarch64-linux = firefox-linux;
-  x86_64-darwin = firefox-darwin;
-  aarch64-darwin = firefox-darwin;
-}
-.${system} or throwSystem
+  {
+    x86_64-linux = firefox-linux;
+    aarch64-linux = firefox-linux;
+    x86_64-darwin = firefox-darwin;
+    aarch64-darwin = firefox-darwin;
+  }
+.${
+    system
+  } or throwSystem

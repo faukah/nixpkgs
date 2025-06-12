@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-EJGKimf+mDSCG6+I7DZuo5GfPVqGPPkcADDtxoqV/8Q=";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -39,8 +39,8 @@ stdenv.mkDerivation (finalAttrs: {
   env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
 
   meta = {
-    maintainers = with lib.maintainers; [ ahoneybun ];
-    license = [ lib.licenses.gpl2Only ];
+    maintainers = with lib.maintainers; [ahoneybun];
+    license = [lib.licenses.gpl2Only];
     platforms = [
       "i686-linux"
       "x86_64-linux"

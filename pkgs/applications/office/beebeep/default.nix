@@ -8,7 +8,6 @@
   qtmultimedia,
   qtx11extras,
 }:
-
 mkDerivation rec {
   pname = "beebeep";
   version = "5.8.6";
@@ -40,6 +39,6 @@ mkDerivation rec {
     mainProgram = "beebeep";
     platforms = platforms.linux;
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ mglolenstine ];
+    maintainers = with maintainers; [mglolenstine];
   };
 }

@@ -6,7 +6,6 @@
   stdenvNoCC,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "stylelint-lsp";
   version = "2.0.1";
@@ -59,7 +58,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Stylelint Language Server";

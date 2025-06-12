@@ -2,7 +2,6 @@
   lib,
   vscode-utils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     publisher = "ms-pyright";
@@ -17,6 +16,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     homepage = "https://github.com/Microsoft/pyright#readme";
     changelog = "https://marketplace.visualstudio.com/items/ms-pyright.pyright/changelog";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ratsclub ];
+    maintainers = [lib.maintainers.ratsclub];
   };
 }

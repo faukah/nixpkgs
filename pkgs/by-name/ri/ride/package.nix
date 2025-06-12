@@ -13,7 +13,6 @@
   makeDesktopItem,
   electron,
 }:
-
 buildNpmPackage rec {
   pname = "ride";
   version = "4.5.4097";
@@ -67,10 +66,12 @@ buildNpmPackage rec {
     popd
   '';
 
-  nativeBuildInputs = [
-    zip
-    makeWrapper
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ copyDesktopItems ];
+  nativeBuildInputs =
+    [
+      zip
+      makeWrapper
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [copyDesktopItems];
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 

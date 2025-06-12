@@ -12,7 +12,6 @@
   gtk3,
   gupnp_1_6,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "upnp-router-control";
   version = "0.3.5";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
       It can manage port forwarding through a simple GUI interface.
     '';
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     platforms = lib.platforms.all;
     mainProgram = "upnp-router-control";
   };

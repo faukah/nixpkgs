@@ -3,30 +3,31 @@
   config,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.maubot;
 
-  wrapper1 = if cfg.plugins == [ ] then cfg.package else cfg.package.withPlugins (_: cfg.plugins);
+  wrapper1 =
+    if cfg.plugins == []
+    then cfg.package
+    else cfg.package.withPlugins (_: cfg.plugins);
 
   wrapper2 =
-    if cfg.pythonPackages == [ ] then wrapper1 else wrapper1.withPythonPackages (_: cfg.pythonPackages);
+    if cfg.pythonPackages == []
+    then wrapper1
+    else wrapper1.withPythonPackages (_: cfg.pythonPackages);
 
   settings = lib.recursiveUpdate cfg.settings {
     plugin_directories.trash =
-      if cfg.settings.plugin_directories.trash == null then
-        "delete"
-      else
-        cfg.settings.plugin_directories.trash;
+      if cfg.settings.plugin_directories.trash == null
+      then "delete"
+      else cfg.settings.plugin_directories.trash;
     server.unshared_secret = "generate";
   };
 
   finalPackage = wrapper2.withBaseConfig settings;
 
   isPostgresql = db: builtins.isString db && lib.hasPrefix "postgresql://" db;
-  isLocalPostgresDB =
-    db:
+  isLocalPostgresDB = db:
     isPostgresql db
     && builtins.any (x: lib.hasInfix x db) [
       "@127.0.0.1/"
@@ -34,15 +35,12 @@ let
       "@[::1]/"
       "@localhost/"
     ];
-  parsePostgresDB =
-    db:
-    let
-      noSchema = lib.removePrefix "postgresql://" db;
-    in
-    {
-      username = builtins.head (lib.splitString "@" noSchema);
-      database = lib.last (lib.splitString "/" noSchema);
-    };
+  parsePostgresDB = db: let
+    noSchema = lib.removePrefix "postgresql://" db;
+  in {
+    username = builtins.head (lib.splitString "@" noSchema);
+    database = lib.last (lib.splitString "/" noSchema);
+  };
 
   postgresDBs = builtins.filter isPostgresql [
     cfg.settings.database
@@ -55,17 +53,16 @@ let
   parsedLocalPostgresDBs = map parsePostgresDB localPostgresDBs;
   parsedPostgresDBs = map parsePostgresDB postgresDBs;
 
-  hasLocalPostgresDB = localPostgresDBs != [ ];
-in
-{
+  hasLocalPostgresDB = localPostgresDBs != [];
+in {
   options.services.maubot = with lib; {
     enable = mkEnableOption "maubot";
 
-    package = lib.mkPackageOption pkgs "maubot" { };
+    package = lib.mkPackageOption pkgs "maubot" {};
 
     plugins = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       example = literalExpression ''
         with config.services.maubot.package.plugins; [
           xyz.maubot.reactbot
@@ -79,7 +76,7 @@ in
 
     pythonPackages = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       example = literalExpression ''
         with pkgs.python3Packages; [
           aiohttp
@@ -118,7 +115,7 @@ in
     };
 
     settings = mkOption {
-      default = { };
+      default = {};
       description = ''
         YAML settings for maubot. See the
         [example configuration](https://github.com/maubot/maubot/blob/master/maubot/example-config.yaml)
@@ -126,8 +123,7 @@ in
 
         Secrets should be passed in by using `extraConfigFile`.
       '';
-      type =
-        with types;
+      type = with types;
         submodule {
           options = {
             database = mkOption {
@@ -151,14 +147,14 @@ in
 
             database_opts = mkOption {
               type = types.attrs;
-              default = { };
+              default = {};
               description = ''
                 Additional arguments for asyncpg.create_pool() or sqlite3.connect()
               '';
             };
 
             plugin_directories = mkOption {
-              default = { };
+              default = {};
               description = "Plugin directory paths";
               type = submodule {
                 options = {
@@ -172,7 +168,7 @@ in
                   };
                   load = mkOption {
                     type = types.listOf types.str;
-                    default = [ "./plugins" ];
+                    default = ["./plugins"];
                     defaultText = literalExpression ''[ "''${config.services.maubot.dataDir}/plugins" ]'';
                     description = ''
                       The directories from which plugins should be loaded. Duplicate plugin IDs will be moved to the trash.
@@ -192,7 +188,7 @@ in
 
             plugin_databases = mkOption {
               description = "Plugin database settings";
-              default = { };
+              default = {};
               type = submodule {
                 options = {
                   sqlite = mkOption {
@@ -206,7 +202,10 @@ in
 
                   postgres = mkOption {
                     type = types.nullOr types.str;
-                    default = if isPostgresql cfg.settings.database then "default" else null;
+                    default =
+                      if isPostgresql cfg.settings.database
+                      then "default"
+                      else null;
                     defaultText = literalExpression ''if isPostgresql config.services.maubot.settings.database then "default" else null'';
                     description = ''
                       The connection URL for plugin database. See [example config](https://github.com/maubot/maubot/blob/master/maubot/example-config.yaml) for exact format.
@@ -223,7 +222,7 @@ in
 
                   postgres_opts = mkOption {
                     type = types.attrs;
-                    default = { };
+                    default = {};
                     description = ''
                       Overrides for the default database_opts when using a non-default postgres connection URL.
                     '';
@@ -233,7 +232,7 @@ in
             };
 
             server = mkOption {
-              default = { };
+              default = {};
               description = "Listener config";
               type = submodule {
                 options = {
@@ -436,14 +435,14 @@ in
       isSystemUser = true;
     };
 
-    users.groups.maubot = { };
+    users.groups.maubot = {};
 
     systemd.services.maubot = rec {
       description = "maubot - a plugin-based Matrix bot system written in Python";
-      after = [ "network.target" ] ++ wants ++ lib.optional hasLocalPostgresDB "postgresql.service";
+      after = ["network.target"] ++ wants ++ lib.optional hasLocalPostgresDB "postgresql.service";
       # all plugins get automatically disabled if maubot starts before synapse
       wants = lib.optional config.services.matrix-synapse.enable config.services.matrix-synapse.serviceUnit;
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         if [ ! -f "${cfg.extraConfigFile}" ]; then
@@ -467,6 +466,6 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ chayleaf ];
+  meta.maintainers = with lib.maintainers; [chayleaf];
   meta.doc = ./maubot.md;
 }

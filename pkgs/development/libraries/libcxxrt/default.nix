@@ -5,7 +5,6 @@
   cmake,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "libcxxrt";
   version = "4.0.10-unstable-2025-02-25";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "+oTjU/DgOEIwJebSVkSEt22mJSdeONozB8FfzEiESHU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   outputs = [
     "out"
@@ -32,13 +31,13 @@ stdenv.mkDerivation {
 
   passthru = {
     libName = "cxxrt";
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = with lib; {
     homepage = "https://github.com/libcxxrt/libcxxrt";
     description = "Implementation of the Code Sourcery C++ ABI";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     platforms = platforms.all;
     license = licenses.bsd2;
   };

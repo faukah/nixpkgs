@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "iammeter";
   version = "0.2.1";
@@ -20,12 +19,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "iammeter" ];
+  pythonImportsCheck = ["iammeter"];
 
   meta = with lib; {
     description = "Module to work with the IamMeter API";
     homepage = "https://pypi.org/project/iammeter/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

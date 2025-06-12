@@ -5,7 +5,6 @@
   setuptools,
   tree-sitter,
 }:
-
 buildPythonPackage rec {
   pname = "tree-sitter-json";
   version = "0.24.8";
@@ -30,12 +29,12 @@ buildPythonPackage rec {
 
   # There are no tests
   doCheck = false;
-  pythonImportsCheck = [ "tree_sitter_json" ];
+  pythonImportsCheck = ["tree_sitter_json"];
 
   meta = with lib; {
     description = "JSON grammar for tree-sitter";
     homepage = "https://github.com/tree-sitter/tree-sitter-json";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

@@ -2,10 +2,8 @@
   lib,
   stdenv,
   fetchurl,
-
   libX11,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "3dpong";
   version = "0.5";
@@ -32,9 +30,9 @@ stdenv.mkDerivation (finalAttrs: {
        #include <string.h>"
   '';
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     homepage = "http://www.newbreedsoftware.com/3dpong/";

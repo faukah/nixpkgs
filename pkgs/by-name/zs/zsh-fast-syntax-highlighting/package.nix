@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "zsh-fast-syntax-highlighting";
   version = "1.55";

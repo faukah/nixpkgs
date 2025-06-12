@@ -22,12 +22,11 @@
   tcltk ? null,
   fltk ? null,
 }:
-
 stdenv.mkDerivation {
   pname = "csound";
   version = "6.18.1-unstable-2024-07-02";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   src = fetchFromGitHub {
     owner = "csound";
@@ -37,7 +36,7 @@ stdenv.mkDerivation {
   };
 
   cmakeFlags =
-    [ "-DBUILD_CSOUND_AC=0" ] # fails to find Score.hpp
+    ["-DBUILD_CSOUND_AC=0"] # fails to find Score.hpp
     ++ lib.optional stdenv.hostPlatform.isDarwin "-DCS_FRAMEWORK_DEST=${placeholder "out"}/lib"
     # Ignore gettext in CMAKE_PREFIX_PATH on cross to prevent find_program picking up the wrong gettext
     ++ lib.optional (
@@ -83,7 +82,7 @@ stdenv.mkDerivation {
     description = "Sound design, audio synthesis, and signal processing system, providing facilities for music composition and performance on all major operating systems and platforms";
     homepage = "https://csound.com/";
     license = licenses.lgpl21Plus;
-    maintainers = [ maintainers.marcweber ];
+    maintainers = [maintainers.marcweber];
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

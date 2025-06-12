@@ -6,7 +6,6 @@
   postgresqlBuildExtension,
   postgresqlTestExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pg_byteamagic";
   version = "0.2.4";
@@ -44,7 +43,7 @@ postgresqlBuildExtension (finalAttrs: {
     homepage = "https://github.com/nmandery/pg_byteamagic";
     changelog = "https://raw.githubusercontent.com/nmandery/pg_byteamagic/refs/tags/v${finalAttrs.version}/Changes";
     license = lib.licenses.bsd2WithViews;
-    teams = [ lib.teams.apm ];
+    teams = [lib.teams.apm];
     platforms = postgresql.meta.platforms;
   };
 })

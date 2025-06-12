@@ -2,11 +2,9 @@
   lib,
   stdenv,
   fetchurl,
-
   doCheck ? true, # test suite depends on dejagnu which cannot be used during bootstrapping
   dejagnu,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libffi";
   version = "3.3";
@@ -16,7 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-cvunkicD3fp6Ao1ROsFahcjVTI1n9V+lpIAohdxlIFY=";
   };
 
-  patches = [ ];
+  patches = [];
 
   outputs = [
     "out"
@@ -37,7 +35,7 @@ stdenv.mkDerivation rec {
   ];
 
   # with fortify3, tests fail for some reason
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   preCheck = ''
     # The tests use -O0 which is not compatible with -D_FORTIFY_SOURCE.
@@ -48,7 +46,7 @@ stdenv.mkDerivation rec {
 
   inherit doCheck;
 
-  nativeCheckInputs = [ dejagnu ];
+  nativeCheckInputs = [dejagnu];
 
   meta = with lib; {
     description = "Foreign function call interface library";
@@ -68,7 +66,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://sourceware.org/libffi/";
     license = licenses.mit;
-    maintainers = with maintainers; [ armeenm ];
+    maintainers = with maintainers; [armeenm];
     platforms = platforms.all;
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;

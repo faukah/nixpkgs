@@ -1,9 +1,11 @@
-{ lib, pkgs, ... }:
-
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   # Note: For some reason Privoxy can't issue valid
   # certificates if the CA is generated using gnutls :(
-  certs = pkgs.runCommand "example-certs" { buildInputs = [ pkgs.openssl ]; } ''
+  certs = pkgs.runCommand "example-certs" {buildInputs = [pkgs.openssl];} ''
     mkdir $out
 
     # generate CA keypair
@@ -23,92 +25,80 @@ let
     -CAkey $out/ca.key -CAcreateserial -out $out/server.crt \
     -days 500 -sha256
   '';
-in
-
-{
+in {
   name = "privoxy";
   meta = with lib.maintainers; {
-    maintainers = [ rnhmjoj ];
+    maintainers = [rnhmjoj];
   };
 
-  nodes.machine =
-    { ... }:
-    {
-      services.nginx.enable = true;
-      services.nginx.virtualHosts."example.com" = {
-        addSSL = true;
-        sslCertificate = "${certs}/server.crt";
-        sslCertificateKey = "${certs}/server.key";
-        locations."/".root = pkgs.writeTextFile {
-          name = "bad-day";
-          destination = "/how-are-you/index.html";
-          text = "I've had a bad day!\n";
-        };
-        locations."/ads".extraConfig = ''
-          return 200 "Hot Nixpkgs PRs in your area. Click here!\n";
-        '';
+  nodes.machine = {...}: {
+    services.nginx.enable = true;
+    services.nginx.virtualHosts."example.com" = {
+      addSSL = true;
+      sslCertificate = "${certs}/server.crt";
+      sslCertificateKey = "${certs}/server.key";
+      locations."/".root = pkgs.writeTextFile {
+        name = "bad-day";
+        destination = "/how-are-you/index.html";
+        text = "I've had a bad day!\n";
       };
-
-      services.privoxy = {
-        enable = true;
-        inspectHttps = true;
-        settings = {
-          ca-cert-file = "${certs}/ca.crt";
-          ca-key-file = "${certs}/ca.key";
-          debug = 65536;
-        };
-        userActions = ''
-          {+filter{positive}}
-          example.com
-
-          {+block{Fake ads}}
-          example.com/ads
-        '';
-        userFilters = ''
-          FILTER: positive This is a filter example.
-          s/bad/great/ig
-        '';
-      };
-
-      security.pki.certificateFiles = [ "${certs}/ca.crt" ];
-
-      networking.hosts."::1" = [ "example.com" ];
-      networking.proxy.httpProxy = "http://localhost:8118";
-      networking.proxy.httpsProxy = "http://localhost:8118";
+      locations."/ads".extraConfig = ''
+        return 200 "Hot Nixpkgs PRs in your area. Click here!\n";
+      '';
     };
 
-  nodes.machine_socks4 =
-    { ... }:
-    {
-      services.privoxy = {
-        enable = true;
-        settings.forward-socks4 = "/ 127.0.0.1:9050 .";
+    services.privoxy = {
+      enable = true;
+      inspectHttps = true;
+      settings = {
+        ca-cert-file = "${certs}/ca.crt";
+        ca-key-file = "${certs}/ca.key";
+        debug = 65536;
       };
+      userActions = ''
+        {+filter{positive}}
+        example.com
+
+        {+block{Fake ads}}
+        example.com/ads
+      '';
+      userFilters = ''
+        FILTER: positive This is a filter example.
+        s/bad/great/ig
+      '';
     };
-  nodes.machine_socks4a =
-    { ... }:
-    {
-      services.privoxy = {
-        enable = true;
-        settings.forward-socks4a = "/ 127.0.0.1:9050 .";
-      };
+
+    security.pki.certificateFiles = ["${certs}/ca.crt"];
+
+    networking.hosts."::1" = ["example.com"];
+    networking.proxy.httpProxy = "http://localhost:8118";
+    networking.proxy.httpsProxy = "http://localhost:8118";
+  };
+
+  nodes.machine_socks4 = {...}: {
+    services.privoxy = {
+      enable = true;
+      settings.forward-socks4 = "/ 127.0.0.1:9050 .";
     };
-  nodes.machine_socks5 =
-    { ... }:
-    {
-      services.privoxy = {
-        enable = true;
-        settings.forward-socks5 = "/ 127.0.0.1:9050 .";
-      };
+  };
+  nodes.machine_socks4a = {...}: {
+    services.privoxy = {
+      enable = true;
+      settings.forward-socks4a = "/ 127.0.0.1:9050 .";
     };
-  nodes.machine_socks5t =
-    { ... }:
-    {
-      services.privoxy = {
-        enable = true;
-        settings.forward-socks5t = "/ 127.0.0.1:9050 .";
-      };
+  };
+  nodes.machine_socks5 = {...}: {
+    services.privoxy = {
+      enable = true;
+      settings.forward-socks5 = "/ 127.0.0.1:9050 .";
     };
+  };
+  nodes.machine_socks5t = {...}: {
+    services.privoxy = {
+      enable = true;
+      settings.forward-socks5t = "/ 127.0.0.1:9050 .";
+    };
+  };
 
   testScript = ''
     with subtest("Privoxy is running"):

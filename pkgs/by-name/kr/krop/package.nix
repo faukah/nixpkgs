@@ -5,7 +5,6 @@
   libsForQt5,
   ghostscript,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "krop";
   version = "0.7.0";
@@ -17,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-8mhTUP0oS+AnZXVmywxBTbR1OOg18U0RQ1H9lyjaiVI=";
   };
 
-  nativeBuildInputs = [ libsForQt5.wrapQtAppsHook ];
+  nativeBuildInputs = [libsForQt5.wrapQtAppsHook];
 
   buildInputs = [
     libsForQt5.poppler
@@ -31,7 +30,7 @@ python3Packages.buildPythonApplication rec {
     ghostscript
   ];
 
-  makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${qtWrapperArgs[@]}"];
 
   # Disable checks because of interference with older Qt versions // xcb
   doCheck = false;
@@ -48,7 +47,7 @@ python3Packages.buildPythonApplication rec {
       interface.
     '';
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ leenaars ];
+    maintainers = with lib.maintainers; [leenaars];
     platforms = lib.platforms.linux;
     mainProgram = "krop";
   };

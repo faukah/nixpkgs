@@ -3,19 +3,16 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   ninja,
   setuptools,
   which,
-
   # dependencies
   cloudpickle,
   numpy,
   packaging,
   tensordict,
   torch,
-
   # optional-dependencies
   ale-py,
   gym,
@@ -37,7 +34,6 @@
   hydra-core,
   tensorboard,
   wandb,
-
   # tests
   imageio,
   pytest-rerunfailures,
@@ -45,7 +41,6 @@
   pyyaml,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "torchrl";
   version = "0.8.1";
@@ -78,7 +73,7 @@ buildPythonPackage rec {
       gym
       pygame
     ];
-    checkpointing = [ torchsnapshot ];
+    checkpointing = [torchsnapshot];
     gym-continuous = [
       gymnasium
       mujoco
@@ -94,7 +89,7 @@ buildPythonPackage rec {
       torchvision
       tqdm
     ];
-    rendering = [ moviepy ];
+    rendering = [moviepy];
     utils = [
       git
       hydra-core
@@ -109,7 +104,7 @@ buildPythonPackage rec {
     export D4RL_DATASET_DIR=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "torchrl" ];
+  pythonImportsCheck = ["torchrl"];
 
   # We have to delete the source because otherwise it is used instead of the installed package.
   preCheck = ''
@@ -199,6 +194,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pytorch/rl";
     changelog = "https://github.com/pytorch/rl/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

@@ -7,7 +7,6 @@
   hexdump,
   zsh,
 }:
-
 # Usage:
 #   hardware.firmware = [(edid-generator.overrideAttrs {
 #     clean = true;
@@ -17,7 +16,6 @@
 #       Modeline "U2711_60"       241.50   2560 2600 2632 2720   1440 1443 1448 1481   -hsync +vsync
 #     '';
 #   })];
-
 stdenv.mkDerivation {
   pname = "edid-generator";
   version = "master-2023-11-20";
@@ -43,7 +41,7 @@ stdenv.mkDerivation {
     patchShebangs modeline2edid
   '';
 
-  passAsFile = [ "modelines" ];
+  passAsFile = ["modelines"];
   clean = false;
   modelines = "";
 

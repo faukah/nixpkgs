@@ -13,7 +13,6 @@
   setuptools,
   distro,
 }:
-
 buildPythonPackage rec {
   pname = "asyncpg";
   version = "0.30.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
 
   # required for compatibility with Python versions older than 3.11
   # see https://github.com/MagicStack/asyncpg/blob/v0.29.0/asyncpg/_asyncio_compat.py#L13
-  dependencies = lib.optionals (pythonOlder "3.11") [ async-timeout ];
+  dependencies = lib.optionals (pythonOlder "3.11") [async-timeout];
 
   nativeCheckInputs = [
     libpq.pg_config
@@ -55,9 +54,9 @@ buildPythonPackage rec {
   '';
 
   # https://github.com/MagicStack/asyncpg/issues/1236
-  disabledTests = [ "test_connect_params" ];
+  disabledTests = ["test_connect_params"];
 
-  pythonImportsCheck = [ "asyncpg" ];
+  pythonImportsCheck = ["asyncpg"];
 
   meta = with lib; {
     description = "Asyncio PosgtreSQL driver";
@@ -70,6 +69,6 @@ buildPythonPackage rec {
       asyncio framework.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

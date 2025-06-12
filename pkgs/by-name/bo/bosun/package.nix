@@ -4,7 +4,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule {
   pname = "bosun";
   version = "unstable-2021-05-13";
@@ -32,7 +31,7 @@ buildGoModule {
     description = "Time Series Alerting Framework";
     license = licenses.mit;
     homepage = "https://bosun.org";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     broken = stdenv.hostPlatform.isDarwin;
   };
 }

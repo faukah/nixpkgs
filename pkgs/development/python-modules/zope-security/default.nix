@@ -16,7 +16,6 @@
   zope-exceptions,
   zope-testing,
 }:
-
 buildPythonPackage rec {
   pname = "zope-security";
   version = "7.3";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
       --replace-fail "setuptools<74" "setuptools"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     zope-component
@@ -46,19 +45,21 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    pytz = [ pytz ];
+    pytz = [pytz];
     # untrustedpython = [ zope-untrustedpython ];
-    zcml = [ zope-configuration ];
+    zcml = [zope-configuration];
   };
 
-  pythonImportsCheck = [ "zope.security" ];
+  pythonImportsCheck = ["zope.security"];
 
-  nativeCheckInputs = [
-    btrees
-    unittestCheckHook
-    zope-exceptions
-    zope-testing
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      btrees
+      unittestCheckHook
+      zope-exceptions
+      zope-testing
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   # Import process is too complex and some tests fail
   preCheck = ''
@@ -67,15 +68,15 @@ buildPythonPackage rec {
     rm -r src/zope/security/tests/test_zcml_functest.py
   '';
 
-  unittestFlagsArray = [ "src/zope/security/tests" ];
+  unittestFlagsArray = ["src/zope/security/tests"];
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = {
     description = "Zope Security Framework";
     homepage = "https://github.com/zopefoundation/zope.security";
     changelog = "https://github.com/zopefoundation/zope.security/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

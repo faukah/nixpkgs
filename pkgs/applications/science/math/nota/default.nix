@@ -4,7 +4,6 @@
   fetchurl,
   lib,
 }:
-
 mkDerivation rec {
   pname = "nota";
   version = "1.0";
@@ -41,6 +40,6 @@ mkDerivation rec {
   description = "Most beautiful command line calculator";
   homepage = "https://kary.us/nota";
   license = lib.licenses.mpl20;
-  maintainers = [ ];
+  maintainers = [];
   mainProgram = "nota";
 }

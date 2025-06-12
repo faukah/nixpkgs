@@ -4,7 +4,6 @@
   fetchFromGitHub,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "copyright-update";
   version = "2016.1018";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1kj6jlgyxrgvrpv7fcgbibfqqa83xljp17v6sas42dlb105h6sgd";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   installFlags = [
     "INSTALL=install"
@@ -30,6 +29,6 @@ stdenv.mkDerivation rec {
     mainProgram = "copyright-update";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
   };
 }

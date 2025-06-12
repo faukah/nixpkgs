@@ -7,7 +7,6 @@
   libunwind,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-bolero";
   version = "0.13.3";
@@ -27,14 +26,14 @@ rustPlatform.buildRustPackage rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Fuzzing and property testing front-end framework for Rust";
     mainProgram = "cargo-bolero";
     homepage = "https://github.com/camshaft/bolero";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ ekleog ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [ekleog];
   };
 }

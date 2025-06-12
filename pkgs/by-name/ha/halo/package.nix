@@ -64,13 +64,13 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://www.halo.run";
     description = "Self-hosted dynamic blogging program";
-    maintainers = with lib.maintainers; [ yah ];
+    maintainers = with lib.maintainers; [yah];
     license = lib.licenses.gpl3Only;
     platforms = [
       "aarch64-linux"
       "x86_64-linux"
     ];
     mainProgram = "halo";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
   };
 }

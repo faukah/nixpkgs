@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "shfm";
   version = "0.4.2";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dylanaraps/shfm";
     description = "POSIX-shell based file manager";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
     mainProgram = "shfm";
   };

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "criticality-score";
   version = "2.0.4";
@@ -38,7 +37,7 @@ buildGoModule rec {
 
   doInstallCheck = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   versionCheckProgram = "${placeholder "out"}/bin/${meta.mainProgram}";
   versionCheckProgramArg = "--version";
@@ -48,7 +47,7 @@ buildGoModule rec {
     homepage = "https://github.com/ossf/criticality_score";
     changelog = "https://github.com/ossf/criticality_score/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ wamserma ];
+    maintainers = with lib.maintainers; [wamserma];
     mainProgram = "criticality_score";
   };
 }

@@ -7,7 +7,6 @@
   setuptools-scm,
   cython,
 }:
-
 buildPythonPackage rec {
   pname = "ipadic";
   version = "1.0.0";
@@ -30,12 +29,12 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonImportsCheck = [ "ipadic" ];
+  pythonImportsCheck = ["ipadic"];
 
   meta = with lib; {
     description = "Contemporary Written Japanese dictionary";
     homepage = "https://github.com/polm/ipadic-py";
     license = licenses.mit;
-    maintainers = with maintainers; [ laurent-f1z1 ];
+    maintainers = with maintainers; [laurent-f1z1];
   };
 }

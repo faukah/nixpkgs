@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gcc-arm-embedded-13,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nitrokey-start-firmware";
   version = "13";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   # Avoid additional arguments are added to configureFlags
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   # from release/Makefile
   configureFlags = [
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--enable-certdo"
   ];
 
-  nativeBuildInputs = [ gcc-arm-embedded-13 ];
+  nativeBuildInputs = [gcc-arm-embedded-13];
 
   enableParallelBuilding = true;
 

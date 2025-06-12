@@ -3,7 +3,6 @@
   lib,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "xstatic-pygments";
   version = "2.9.0.1";
@@ -21,6 +20,6 @@ buildPythonPackage rec {
     homepage = "https://pygments.org";
     description = "pygments packaged static files for python";
     license = licenses.mit;
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
   };
 }

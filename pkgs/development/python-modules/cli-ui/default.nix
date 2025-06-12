@@ -23,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-kEML+V15bjSMoSf2NFc48A0ADsZ3nagllBpEXesMccc=";
   };
 
-  pythonRelaxDeps = [ "tabulate" ];
+  pythonRelaxDeps = ["tabulate"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     colorama
@@ -33,14 +33,14 @@ buildPythonPackage rec {
     unidecode
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cli_ui" ];
+  pythonImportsCheck = ["cli_ui"];
 
   meta = with lib; {
     description = "Build Nice User Interfaces In The Terminal";
     homepage = "https://github.com/your-tools/python-cli-ui";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ slashformotion ];
+    maintainers = with maintainers; [slashformotion];
   };
 }

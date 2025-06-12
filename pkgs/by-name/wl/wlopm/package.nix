@@ -5,7 +5,6 @@
   wayland,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation (finalAttr: {
   pname = "wlopm";
   version = "1.0.0";
@@ -19,11 +18,11 @@ stdenv.mkDerivation (finalAttr: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ wayland-scanner ];
+  nativeBuildInputs = [wayland-scanner];
 
-  buildInputs = [ wayland ];
+  buildInputs = [wayland];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   preInstall = ''
     mkdir -p $out/share/bash-completion/completions
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttr: {
     homepage = "https://git.sr.ht/~leon_plickat/wlopm";
     mainProgram = "wlopm";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ arjan-s ];
+    maintainers = with lib.maintainers; [arjan-s];
     platforms = lib.platforms.linux;
   };
 })

@@ -10,7 +10,6 @@
   urllib3,
   whisper,
 }:
-
 buildPythonPackage rec {
   pname = "carbon";
   version = "1.1.10";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
       --replace-fail "cf.readfp(f, 'setup.cfg')" "cf.read(f, 'setup.cfg')"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cachetools

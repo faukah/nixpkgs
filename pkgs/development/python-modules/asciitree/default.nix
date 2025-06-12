@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "asciitree";
   version = "0.3.3";
@@ -18,14 +17,14 @@ buildPythonPackage rec {
     hash = "sha256-AaLDO27W6fGHGU11rRpBf5gg1we+9SS1MEJdFP2lPBw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Draws ASCII trees";
     homepage = "https://github.com/mbr/asciitree";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

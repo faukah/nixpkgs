@@ -23,7 +23,6 @@
   versionCheckHook,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "identity";
   version = "25.03";
@@ -76,9 +75,12 @@ stdenv.mkDerivation (finalAttrs: {
   mesonBuildType = "release";
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
-  cargoCheckType = if (finalAttrs.mesonBuildType != "debug") then "release" else "debug";
+  cargoCheckType =
+    if (finalAttrs.mesonBuildType != "debug")
+    then "release"
+    else "debug";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
   checkPhase = ''
@@ -90,14 +92,14 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postCheck
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Program for comparing multiple versions of an image or video";
     homepage = "https://gitlab.gnome.org/YaLTeR/identity";
     changelog = "https://gitlab.gnome.org/YaLTeR/identity/-/releases/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     mainProgram = "identity";
     platforms = lib.platforms.linux;
   };

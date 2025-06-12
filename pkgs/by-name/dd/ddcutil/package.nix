@@ -12,7 +12,6 @@
   libdrm,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ddcutil";
   version = "2.2.0";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "Query and change Linux monitor settings using DDC/CI and USB";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ rnhmjoj ];
+    maintainers = with lib.maintainers; [rnhmjoj];
     changelog = "https://github.com/rockowitz/ddcutil/blob/v${version}/CHANGELOG.md";
     mainProgram = "ddcutil";
   };

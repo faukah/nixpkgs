@@ -3,17 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.shiori;
-in
-{
+in {
   options = {
     services.shiori = {
       enable = lib.mkEnableOption "Shiori simple bookmarks manager";
 
-      package = lib.mkPackageOption pkgs "shiori" { };
+      package = lib.mkPackageOption pkgs "shiori" {};
 
       address = lib.mkOption {
         type = lib.types.str;
@@ -60,7 +57,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.shiori = {
       description = "Shiori simple bookmarks manager";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "postgresql.service"
         "mysql.service"

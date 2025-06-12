@@ -8,7 +8,6 @@
   alcotest,
   file,
 }:
-
 buildDunePackage rec {
   pname = "luv";
   version = "0.5.12";
@@ -32,12 +31,12 @@ buildDunePackage rec {
     done
   '';
 
-  nativeBuildInputs = [ file ];
+  nativeBuildInputs = [file];
   propagatedBuildInputs = [
     ctypes
     result
   ];
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
   # Alcotest depends on fmt that needs 4.08 or newer
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 

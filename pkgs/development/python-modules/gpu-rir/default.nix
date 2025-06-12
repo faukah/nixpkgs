@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cmake,
   setuptools,
-
   # nativeBuildInputs
   autoAddDriverRunpath,
   cudaPackages,
-
   # dependencies
   numpy,
   scipy,
 }:
-
 buildPythonPackage {
   pname = "gpu-rir";
   version = "0-unstable-2025-01-20";
@@ -65,7 +61,7 @@ buildPythonPackage {
     scipy
   ];
 
-  pythonImportsCheck = [ "gpuRIR" ];
+  pythonImportsCheck = ["gpuRIR"];
   # Fails at import because there is no GPU access in the sandbox:
   # Check whether the following modules can be imported: gpuRIR
   # GPUassert: CUDA driver version is insufficient for CUDA runtime version /build/source/src/gpuRIR_cuda.cu 1037
@@ -78,6 +74,6 @@ buildPythonPackage {
     description = "Python library for Room Impulse Response (RIR) simulation with GPU acceleration";
     homepage = "https://github.com/DavidDiazGuerra/gpuRIR";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

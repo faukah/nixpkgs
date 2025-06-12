@@ -4,12 +4,11 @@
   fetchFromGitHub,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "kubectl-klock";
   version = "0.8.1";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   src = fetchFromGitHub {
     owner = "applejag";

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "misconfig-mapper";
   version = "1.14.4";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/intigriti/misconfig-mapper";
     changelog = "https://github.com/intigriti/misconfig-mapper/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "misconfig-mapper";
   };
 }

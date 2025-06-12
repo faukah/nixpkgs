@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   name = "kubetrim";
   version = "0.0.1";
@@ -28,7 +27,7 @@ buildGoModule rec {
     homepage = "https://github.com/alexellis/kubetrim";
     changelog = "https://github.com/alexellis/kubetrim/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bbigras ];
+    maintainers = with lib.maintainers; [bbigras];
     mainProgram = "kubetrim";
   };
 }

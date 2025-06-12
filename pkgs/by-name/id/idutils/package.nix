@@ -13,7 +13,6 @@
   perl,
   rsync,
 }:
-
 stdenv.mkDerivation rec {
   pname = "idutils";
   version = "4.6";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  patches = [ ./nix-mapping.patch ];
+  patches = [./nix-mapping.patch];
 
   meta = with lib; {
     description = "Text searching utility";
@@ -77,7 +76,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/idutils/";
     license = licenses.gpl3Plus;
 
-    maintainers = with maintainers; [ gfrascadorio ];
+    maintainers = with maintainers; [gfrascadorio];
     platforms = lib.platforms.all;
   };
 }

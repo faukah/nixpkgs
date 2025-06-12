@@ -8,7 +8,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libjaylink";
   version = "0.4.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
   postPatch = ''
     substituteInPlace contrib/60-libjaylink.rules \
@@ -38,13 +37,13 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm644 ../contrib/60-libjaylink.rules $out/lib/udev/rules.d/60-libjaylink.rules
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://gitlab.zapb.de/libjaylink/libjaylink";
     description = "libjaylink is a shared library written in C to access SEGGER J-Link and compatible devices";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ felixsinger ];
+    maintainers = with maintainers; [felixsinger];
     platforms = platforms.unix;
   };
 })

@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "protoc-gen-prost-crate";
   version = "0.4.1";
@@ -17,7 +16,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-DjxoORk/DNXQ7ht7L4lxzMfst1i3m/cT7sqn2HoRN9U=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Protoc plugin that generates Cargo crates and include files for `protoc-gen-prost`";

@@ -6,7 +6,6 @@
   pkg-config,
   scanmem,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.4.1";
   pname = "ugtrain";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/ugtrain/ugtrain";
     description = "Universal Elite Game Trainer for CLI (Linux game trainer research project)";
-    maintainers = with maintainers; [ mtrsk ];
+    maintainers = with maintainers; [mtrsk];
     platforms = platforms.linux;
     license = licenses.gpl3Only;
   };

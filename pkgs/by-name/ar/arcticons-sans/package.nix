@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "arcticons-sans";
   version = "0.593";
@@ -25,6 +24,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Arcticons Sans";
     homepage = "https://github.com/arcticons-team/arcticons-font";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ asininemonkey ];
+    maintainers = with lib.maintainers; [asininemonkey];
   };
 })

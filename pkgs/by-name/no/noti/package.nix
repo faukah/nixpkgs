@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "noti";
   version = "3.8.0";
@@ -18,9 +17,9 @@ buildGoModule (finalAttrs: {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "cmd/noti" ];
+  subPackages = ["cmd/noti"];
 
   ldflags = [
     "-s"
@@ -46,7 +45,7 @@ buildGoModule (finalAttrs: {
     '';
     homepage = "https://github.com/variadico/noti";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.stites ];
+    maintainers = [lib.maintainers.stites];
     mainProgram = "noti";
   };
 })

@@ -25,7 +25,6 @@
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
   gobject-introspection,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gdk-pixbuf";
   version = "2.42.12";
@@ -39,10 +38,9 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional withIntrospection "devdoc"
     ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform) "installedTests";
 
-  src =
-    let
-      inherit (finalAttrs) pname version;
-    in
+  src = let
+    inherit (finalAttrs) pname version;
+  in
     fetchurl {
       url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
       hash = "sha256-uVBbNEW5p+SM7TR2DDvLc+lm3zrJTJWhSMtmmrdI48c=";
@@ -177,9 +175,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library for image loading and manipulation";
     homepage = "https://gitlab.gnome.org/GNOME/gdk-pixbuf";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     mainProgram = "gdk-pixbuf-thumbnailer";
-    pkgConfigModules = [ "gdk-pixbuf-2.0" ];
+    pkgConfigModules = ["gdk-pixbuf-2.0"];
     platforms = platforms.unix;
   };
 })

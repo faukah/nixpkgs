@@ -5,7 +5,6 @@
   installShellFiles,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "glow";
   version = "2.1.1";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-JqQnLwkxRt+CiP90F+1i4MAiOw3akMQ5BeQXCplZdxA=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"

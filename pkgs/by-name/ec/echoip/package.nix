@@ -6,7 +6,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 buildGoModule {
   pname = "echoip";
   version = "0-unstable-2023-05-21";
@@ -20,7 +19,7 @@ buildGoModule {
 
   vendorHash = "sha256-lXYpkeGpBK+WGHqyLxJz7kS3t7a55q55QQLTqtxzroc=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     install -D html/* -t $out/share/echoip/html
@@ -29,8 +28,8 @@ buildGoModule {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) echoip; };
-    updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+    tests = {inherit (nixosTests) echoip;};
+    updateScript = nix-update-script {extraArgs = ["--version=branch"];};
   };
 
   meta = {

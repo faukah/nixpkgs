@@ -7,7 +7,6 @@
   libGLU,
   libGL,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vrpn";
   version = "07.35";
@@ -41,6 +40,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/vrpn/vrpn";
     license = licenses.boost; # see https://github.com/vrpn/vrpn/wiki/License
     platforms = platforms.darwin ++ platforms.linux;
-    maintainers = with maintainers; [ ludo ];
+    maintainers = with maintainers; [ludo];
   };
 }

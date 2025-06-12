@@ -3,7 +3,6 @@
   virtualbox,
   kernel,
 }:
-
 stdenv.mkDerivation {
   pname = "virtualbox-modules";
   version = "${virtualbox.version}-${kernel.version}";
@@ -18,12 +17,14 @@ stdenv.mkDerivation {
 
   KERN_DIR = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
 
-  makeFlags = [ "INSTALL_MOD_PATH=$(out)" ];
-  installTargets = [ "install" ];
+  makeFlags = ["INSTALL_MOD_PATH=$(out)"];
+  installTargets = ["install"];
 
   enableParallelBuilding = true;
 
-  meta = virtualbox.meta // {
-    description = virtualbox.meta.description + " (kernel modules)";
-  };
+  meta =
+    virtualbox.meta
+    // {
+      description = virtualbox.meta.description + " (kernel modules)";
+    };
 }

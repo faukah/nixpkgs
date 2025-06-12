@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools-scm,
-
   # dependencies
   h5py,
   numpy,
-
   # tests
   pytestCheckHook,
   scipy,
   tables,
 }:
-
 buildPythonPackage rec {
   pname = "h5io";
   version = "0.2.5";
@@ -35,7 +31,7 @@ buildPythonPackage rec {
       --replace "--cov=h5io" ""
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     h5py
@@ -53,13 +49,13 @@ buildPythonPackage rec {
     "test_state_with_pathlib"
   ];
 
-  pythonImportsCheck = [ "h5io" ];
+  pythonImportsCheck = ["h5io"];
 
   meta = {
     description = "Read and write simple Python objects using HDF5";
     homepage = "https://github.com/h5io/h5io";
     changelog = "https://github.com/h5io/h5io/releases/tag/h5io-${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ mbalatsko ];
+    maintainers = with lib.maintainers; [mbalatsko];
   };
 }

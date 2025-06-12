@@ -28,7 +28,7 @@ stdenv.mkDerivation {
     pkg-config
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   postFixup = ''
     wrapProgram $out/bin/syspower --prefix LD_LIBRARY_PATH : $out/lib
@@ -38,7 +38,7 @@ stdenv.mkDerivation {
     description = "Simple power menu/shutdown screen for Hyprland";
     homepage = "https://gihub.com/System64fumo/syspower";
     license = lib.licenses.wtfpl;
-    maintainers = with lib.maintainers; [ justdeeevin ];
+    maintainers = with lib.maintainers; [justdeeevin];
     mainProgram = "syspower";
     platforms = lib.platforms.linux;
   };

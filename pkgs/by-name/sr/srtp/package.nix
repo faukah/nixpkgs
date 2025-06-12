@@ -8,7 +8,6 @@
   openssl,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libsrtp";
   version = "2.7.0";
@@ -46,7 +45,11 @@ stdenv.mkDerivation rec {
     "-Dcrypto-library=openssl"
     "-Dcrypto-library-kdf=disabled"
     "-Ddoc=disabled"
-    "-Dtests=${if doCheck then "enabled" else "disabled"}"
+    "-Dtests=${
+      if doCheck
+      then "enabled"
+      else "disabled"
+    }"
   ];
 
   doCheck = true;
@@ -56,6 +59,6 @@ stdenv.mkDerivation rec {
     description = "Secure RTP (SRTP) Reference Implementation";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

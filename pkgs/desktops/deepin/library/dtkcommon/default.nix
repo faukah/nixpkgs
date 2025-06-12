@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dtkcommon";
   version = "5.7.13";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-yQKkqHL5W2mHPE3zchAwtWUH55zrCEJwcVWCheC0rW4=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   dontWrapQtApps = true;
 
@@ -25,6 +24,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dtkcommon";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

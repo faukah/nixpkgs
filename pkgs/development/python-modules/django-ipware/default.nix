@@ -6,7 +6,6 @@
   python-ipware,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "django-ipware";
   version = "7.0.1";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/un33k/django-ipware";
     changelog = "https://github.com/un33k/django-ipware/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

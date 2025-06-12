@@ -7,7 +7,6 @@
   setuptools,
   gmp,
 }:
-
 buildPythonPackage rec {
   pname = "gmpy";
   version = "1.17";
@@ -21,15 +20,15 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "aleaxit";
     repo = "gmpy";
-    rev = "refs/tags/gmpy_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "refs/tags/gmpy_${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-kMidOjhKJlDRu2qaiq9c+XcwD1tNAoPhRTvvGcOJe8I=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
-  pythonImportsCheck = [ "gmpy" ];
+  pythonImportsCheck = ["gmpy"];
 
   meta = {
     description = "GMP or MPIR interface to Python 2.4+ and 3.x";

@@ -15,7 +15,6 @@
   typing-extensions,
   yara-python,
 }:
-
 buildPythonPackage rec {
   pname = "malduck";
   version = "4.4.1";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-Btx0HxiZWrb0TDpBokQGtBE2EDK0htONe/DwqlPgAd4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     capstone
@@ -44,16 +43,16 @@ buildPythonPackage rec {
     yara-python
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "malduck" ];
+  pythonImportsCheck = ["malduck"];
 
   meta = with lib; {
     description = "Helper for malware analysis";
     homepage = "https://github.com/CERT-Polska/malduck";
     changelog = "https://github.com/CERT-Polska/malduck/releases/tag/v${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
     mainProgram = "malduck";
   };
 }

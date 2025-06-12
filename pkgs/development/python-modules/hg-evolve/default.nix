@@ -5,7 +5,6 @@
   mercurial,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "hg-evolve";
   version = "11.1.8";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-JIberZCiRmxPkn0P+Dsps42jHWhkA1hLKGXPlbb+APU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ mercurial ];
+  nativeCheckInputs = [mercurial];
 
   checkPhase = ''
     runHook preCheck

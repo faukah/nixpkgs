@@ -4,34 +4,33 @@
   pkgs,
   utils,
   ...
-}:
-let
-
+}: let
   dataDir = "/var/lib/consul";
   cfg = config.services.consul;
 
-  configOptions = {
-    data_dir = dataDir;
-    ui_config = {
-      enabled = cfg.webUi;
-    };
-  } // cfg.extraConfig;
+  configOptions =
+    {
+      data_dir = dataDir;
+      ui_config = {
+        enabled = cfg.webUi;
+      };
+    }
+    // cfg.extraConfig;
 
-  configFiles = [
-    "/etc/consul.json"
-    "/etc/consul-addrs.json"
-  ] ++ cfg.extraConfigFiles;
+  configFiles =
+    [
+      "/etc/consul.json"
+      "/etc/consul-addrs.json"
+    ]
+    ++ cfg.extraConfigFiles;
 
   devices = lib.attrValues (lib.filterAttrs (_: i: i != null) cfg.interface);
   systemdDevices = lib.forEach devices (
     i: "sys-subsystem-net-devices-${utils.escapeSystemdPath i}.device"
   );
-in
-{
+in {
   options = {
-
     services.consul = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -40,7 +39,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "consul" { };
+      package = lib.mkPackageOption pkgs "consul" {};
 
       webUi = lib.mkOption {
         type = lib.types.bool;
@@ -63,7 +62,6 @@ in
       };
 
       interface = {
-
         advertise = lib.mkOption {
           type = lib.types.nullOr lib.types.str;
           default = null;
@@ -111,7 +109,7 @@ in
       };
 
       extraConfig = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf lib.types.anything;
         description = ''
           Extra configuration options which are serialized to json and added
@@ -120,7 +118,7 @@ in
       };
 
       extraConfigFiles = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.str;
         description = ''
           Additional configuration files to pass to consul
@@ -131,7 +129,7 @@ in
       alerts = {
         enable = lib.mkEnableOption "consul-alerts";
 
-        package = lib.mkPackageOption pkgs "consul-alerts" { };
+        package = lib.mkPackageOption pkgs "consul-alerts" {};
 
         listenAddr = lib.mkOption {
           description = "Api listening address.";
@@ -157,15 +155,12 @@ in
           type = lib.types.bool;
         };
       };
-
     };
-
   };
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-
         users.users.consul = {
           description = "Consul agent daemon user";
           isSystemUser = true;
@@ -173,13 +168,13 @@ in
           # The shell is needed for health checks
           shell = "/run/current-system/sw/bin/bash";
         };
-        users.groups.consul = { };
+        users.groups.consul = {};
 
         environment = {
           etc."consul.json".text = builtins.toJSON configOptions;
           # We need consul.d to exist for consul to start
           etc."consul.d/dummy.json".text = "{ }";
-          systemPackages = [ cfg.package ];
+          systemPackages = [cfg.package];
         };
 
         warnings = lib.flatten [
@@ -190,11 +185,11 @@ in
         ];
 
         systemd.services.consul = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ] ++ systemdDevices;
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"] ++ systemdDevices;
           bindsTo = systemdDevices;
           restartTriggers =
-            [ config.environment.etc."consul.json".source ]
+            [config.environment.etc."consul.json".source]
             ++ lib.mapAttrsToList (_: d: d.source) (
               lib.filterAttrs (n: _: lib.hasPrefix "consul.d/" n) config.environment.etc
             );
@@ -206,7 +201,10 @@ in
                 + lib.concatMapStrings (n: " -config-file ${n}") configFiles;
               ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
               PermissionsStartOnly = true;
-              User = if cfg.dropPrivileges then "consul" else null;
+              User =
+                if cfg.dropPrivileges
+                then "consul"
+                else null;
               Restart = "on-failure";
               TimeoutStartSec = "infinity";
             }
@@ -219,16 +217,14 @@ in
             gawk
             cfg.package
           ];
-          preStart =
-            let
-              family =
-                if cfg.forceAddrFamily == "ipv6" then
-                  "-6"
-                else if cfg.forceAddrFamily == "ipv4" then
-                  "-4"
-                else
-                  "";
-            in
+          preStart = let
+            family =
+              if cfg.forceAddrFamily == "ipv6"
+              then "-6"
+              else if cfg.forceAddrFamily == "ipv4"
+              then "-4"
+              else "";
+          in
             ''
               mkdir -m 0700 -p ${dataDir}
               chown -R consul ${dataDir}
@@ -258,10 +254,10 @@ in
             + lib.concatStrings (
               lib.flip lib.mapAttrsToList cfg.interface (
                 name: i:
-                lib.optionalString (i != null) ''
-                  echo "$delim \"${name}_addr\": \"$(getAddr "${i}")\"" >> /etc/consul-addrs.json
-                  delim=","
-                ''
+                  lib.optionalString (i != null) ''
+                    echo "$delim \"${name}_addr\": \"$(getAddr "${i}")\"" >> /etc/consul-addrs.json
+                    delim=","
+                  ''
               )
             )
             + ''
@@ -277,10 +273,10 @@ in
 
       (lib.mkIf (cfg.alerts.enable) {
         systemd.services.consul-alerts = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "consul.service" ];
+          wantedBy = ["multi-user.target"];
+          after = ["consul.service"];
 
-          path = [ cfg.package ];
+          path = [cfg.package];
 
           serviceConfig = {
             ExecStart = ''
@@ -290,12 +286,14 @@ in
                 ${lib.optionalString cfg.alerts.watchChecks "--watch-checks"} \
                 ${lib.optionalString cfg.alerts.watchEvents "--watch-events"}
             '';
-            User = if cfg.dropPrivileges then "consul" else null;
+            User =
+              if cfg.dropPrivileges
+              then "consul"
+              else null;
             Restart = "on-failure";
           };
         };
       })
-
     ]
   );
 }

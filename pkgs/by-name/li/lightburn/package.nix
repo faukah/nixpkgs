@@ -19,7 +19,6 @@
   fontconfig,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lightburn";
   version = "1.7.08";
@@ -85,10 +84,10 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Layout, editing, and control software for your laser cutter";
     homepage = "https://lightburnsoftware.com";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ q3k ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [q3k];
+    platforms = ["x86_64-linux"];
     mainProgram = "lightburn";
   };
 }

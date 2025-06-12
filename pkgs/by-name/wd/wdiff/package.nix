@@ -5,7 +5,6 @@
   texinfo,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wdiff";
   version = "1.2.2";
@@ -16,11 +15,11 @@ stdenv.mkDerivation rec {
   };
 
   # for makeinfo
-  nativeBuildInputs = [ texinfo ];
+  nativeBuildInputs = [texinfo];
 
-  buildInputs = [ texinfo ];
+  buildInputs = [texinfo];
 
-  nativeCheckInputs = [ which ];
+  nativeCheckInputs = [which];
 
   strictDeps = true;
 
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "Comparing files on a word by word basis";
     mainProgram = "wdiff";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     platforms = platforms.unix;
   };
 }

@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
       version = "borders-v${finalAttrs.version}";
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/FelixKratz/JankyBorders";
     license = lib.licenses.gpl3;
     mainProgram = "borders";
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
     platforms = lib.platforms.darwin;
   };
 })

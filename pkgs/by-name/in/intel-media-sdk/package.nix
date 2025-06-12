@@ -14,7 +14,6 @@
   libpthreadstubs,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "intel-media-sdk";
   version = "23.2.2";
@@ -51,11 +50,15 @@ stdenv.mkDerivation rec {
     libXdmcp
     libpthreadstubs
   ];
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   cmakeFlags = [
     "-DBUILD_SAMPLES=OFF"
-    "-DBUILD_TESTS=${if doCheck then "ON" else "OFF"}"
+    "-DBUILD_TESTS=${
+      if doCheck
+      then "ON"
+      else "OFF"
+    }"
     "-DUSE_SYSTEM_GTEST=ON"
   ];
 
@@ -69,6 +72,6 @@ stdenv.mkDerivation rec {
       midchildan
       pjungkamp
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

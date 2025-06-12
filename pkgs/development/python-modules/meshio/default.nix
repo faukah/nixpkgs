@@ -2,21 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   h5py,
   netcdf4,
   numpy,
   rich,
-
   # tests
   exdown,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "meshio";
   version = "5.3.5";
@@ -29,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-2j+5BYftCiy+g33UbsgCMWBRggGBJBx5VoEdSqQ/mV0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     h5py
@@ -38,7 +34,7 @@ buildPythonPackage rec {
     rich
   ];
 
-  pythonImportsCheck = [ "meshio" ];
+  pythonImportsCheck = ["meshio"];
 
   nativeCheckInputs = [
     exdown
@@ -108,6 +104,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/nschloe/meshio/blob/v${version}/CHANGELOG.md";
     mainProgram = "meshio";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ wd15 ];
+    maintainers = with lib.maintainers; [wd15];
   };
 }

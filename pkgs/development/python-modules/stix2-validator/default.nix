@@ -12,7 +12,6 @@
   simplejson,
   stix2-patterns,
 }:
-
 buildPythonPackage rec {
   pname = "stix2-validator";
   version = "3.2.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-OI1SXILyCRGl1ZsoyYDl+/RsBhTP24eqECtW3uazS2k=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     colorama
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/oasis-open/cti-stix-validator/";
     changelog = "https://github.com/oasis-open/cti-stix-validator/blob/${src.rev}/CHANGELOG";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

@@ -6,7 +6,6 @@
   zlib,
   runtimeShell,
 }:
-
 stdenv.mkDerivation {
   pname = "avdump3";
   version = "8293_stable";
@@ -23,7 +22,7 @@ stdenv.mkDerivation {
     mv * $out/share/avdump3
     cat > $out/bin/avdump3 <<EOF
     #!${runtimeShell}
-    export LD_LIBRARY_PATH="${lib.makeLibraryPath [ zlib ]}:\$LD_LIBRARY_PATH"
+    export LD_LIBRARY_PATH="${lib.makeLibraryPath [zlib]}:\$LD_LIBRARY_PATH"
     exec ${dotnet-runtime}/bin/dotnet $out/share/avdump3/AVDump3CL.dll "\$@"
     EOF
     chmod +x $out/bin/avdump3
@@ -52,8 +51,8 @@ stdenv.mkDerivation {
       mit
       unfree
     ];
-    maintainers = with lib.maintainers; [ kini ];
+    maintainers = with lib.maintainers; [kini];
     # NOTE: aarch64-linux may also work but hasn't been tested; co-maintainers welcome.
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

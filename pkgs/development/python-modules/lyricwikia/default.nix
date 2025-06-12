@@ -9,7 +9,6 @@
   responses,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "lyricwikia";
   version = "0.1.11";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "lyricwikia" ];
+  pythonImportsCheck = ["lyricwikia"];
 
   disabledTests = [
     # Test requires network access
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/enricobacis/lyricwikia";
     changelog = "https://github.com/enricobacis/lyricwikia/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ kmein ];
+    maintainers = with maintainers; [kmein];
   };
 }

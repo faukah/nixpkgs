@@ -6,7 +6,6 @@
   llvmPackages,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "include-what-you-use";
   # Make sure to bump `llvmPackages` in "pkgs/top-level/all-packages.nix" to the supported version:
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
 
   clang = llvmPackages.clang;
 
-  cmakeFlags = [ "-DCMAKE_PREFIX_PATH=${llvmPackages.llvm.dev}" ];
+  cmakeFlags = ["-DCMAKE_PREFIX_PATH=${llvmPackages.llvm.dev}"];
 
   postInstall = ''
     substituteInPlace $out/bin/iwyu_tool.py \

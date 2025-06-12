@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   cmake,
   scikit-build-core,
@@ -11,14 +10,11 @@
   pathspec,
   ninja,
   pyproject-metadata,
-
   # dependencies
   numpy,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "iminuit";
   version = "2.31.1";
@@ -40,11 +36,11 @@ buildPythonPackage rec {
     pyproject-metadata
   ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   dontUseCmakeConfigure = true;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/scikit-hep/iminuit";
@@ -53,6 +49,6 @@ buildPythonPackage rec {
       mit
       lgpl2Only
     ];
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

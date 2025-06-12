@@ -9,7 +9,6 @@
   opencv,
   protobuf,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ncnn";
   version = "20250503";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-7wktoeei16QaPdcxVVS25sZYPhTQMEq9PjaHBwm5Eas=";
   };
 
-  patches = [ ./cmakelists.patch ];
+  patches = [./cmakelists.patch];
 
   cmakeFlags =
     [
@@ -35,9 +34,9 @@ stdenv.mkDerivation (finalAttrs: {
       "-DNCNN_PYTHON=0" # Should be an attribute
     ]
     # Requires setting `Vulkan_LIBRARY` on Darwin. Otherwise the build fails due to missing symbols.
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ "-DVulkan_LIBRARY=-lvulkan" ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["-DVulkan_LIBRARY=-lvulkan"];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     vulkan-headers
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Neural network inference framework";
     homepage = "https://github.com/Tencent/ncnn";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ tilcreator ];
+    maintainers = with lib.maintainers; [tilcreator];
     platforms = lib.platforms.all;
   };
 })

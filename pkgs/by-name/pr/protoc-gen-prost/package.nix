@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "protoc-gen-prost";
   version = "0.4.0";
@@ -17,7 +16,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-alzrgiOx9zTR9mgmtvcqpj9SxSz7Zz3mmZOX6vfAFeE=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Protocol Buffers compiler plugin powered by Prost";

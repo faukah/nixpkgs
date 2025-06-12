@@ -8,7 +8,7 @@
 mkDerivation {
   path = "usr.sbin/kldxref";
 
-  buildInputs = lib.optionals (!stdenv.hostPlatform.isFreeBSD) [ libelf ] ++ compatIfNeeded;
+  buildInputs = lib.optionals (!stdenv.hostPlatform.isFreeBSD) [libelf] ++ compatIfNeeded;
 
   # We symlink in our modules, make it follow symlinks
   postPatch = ''

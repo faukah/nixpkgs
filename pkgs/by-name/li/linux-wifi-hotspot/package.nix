@@ -23,7 +23,6 @@
   networkmanager,
   procps,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "linux-wifi-hotspot";
   version = "4.7.2";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     gtk3
   ];
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   postPatch = ''
     substituteInPlace ./src/scripts/Makefile \
@@ -61,36 +60,36 @@ stdenv.mkDerivation (finalAttrs: {
       --replace "/usr" "$out"
   '';
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   postInstall = ''
     wrapProgram $out/bin/create_ap \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          dnsmasq
-          flock
-          gawk
-          getopt
-          gnugrep
-          gnused
-          hostapd
-          iproute2
-          iptables
-          iw
-          kmod
-          networkmanager
-          procps
-          which
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        dnsmasq
+        flock
+        gawk
+        getopt
+        gnugrep
+        gnused
+        hostapd
+        iproute2
+        iptables
+        iw
+        kmod
+        networkmanager
+        procps
+        which
+      ]
+    }
 
     wrapProgram $out/bin/wihotspot-gui \
-      --prefix PATH : ${lib.makeBinPath [ iw ]} \
+      --prefix PATH : ${lib.makeBinPath [iw]} \
       --prefix PATH : "${placeholder "out"}/bin"
 
     wrapProgram $out/bin/wihotspot \
-      --prefix PATH : ${lib.makeBinPath [ iw ]} \
+      --prefix PATH : ${lib.makeBinPath [iw]} \
       --prefix PATH : "${placeholder "out"}/bin"
   '';
 
@@ -104,5 +103,4 @@ stdenv.mkDerivation (finalAttrs: {
     ];
     platforms = platforms.unix;
   };
-
 })

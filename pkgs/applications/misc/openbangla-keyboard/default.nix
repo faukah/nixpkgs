@@ -16,7 +16,6 @@
   withFcitx5Support ? false,
   withIbusSupport ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openbangla-keyboard";
   version = "unstable-2023-07-21";
@@ -85,7 +84,7 @@ stdenv.mkDerivation rec {
     mainProgram = "openbangla-gui";
     homepage = "https://openbangla.github.io/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ hqurve ];
+    maintainers = with lib.maintainers; [hqurve];
     platforms = lib.platforms.linux;
     # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;

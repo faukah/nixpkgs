@@ -1,6 +1,4 @@
-{ themeSources }:
-
-{
+{themeSources}: {
   aoi = {
     src = themeSources.aoi;
     paths = {

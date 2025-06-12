@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "rfcat";
   version = "2.0.1";
@@ -39,15 +38,15 @@ buildPythonPackage rec {
     cp etc/udev/rules.d/20-rfcat.rules $out/etc/udev/rules.d
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "rflib" ];
+  pythonImportsCheck = ["rflib"];
 
   meta = with lib; {
     description = "Swiss Army knife of sub-GHz ISM band radio";
     homepage = "https://github.com/atlas0fd00m/rfcat";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ trepetti ];
+    maintainers = with maintainers; [trepetti];
     changelog = "https://github.com/atlas0fd00m/rfcat/releases/tag/v${version}";
   };
 }

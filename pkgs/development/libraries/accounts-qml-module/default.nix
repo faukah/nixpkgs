@@ -13,7 +13,6 @@
   signond,
   xvfb-run,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "accounts-qml-module";
   version = "0.7-unstable-2023-10-28";
@@ -100,7 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "QML bindings for libaccounts-qt + libsignon-qt";
     homepage = "https://gitlab.com/accounts-sso/accounts-qml-module";
     license = lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     platforms = lib.platforms.linux;
   };
 })

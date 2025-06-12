@@ -10,7 +10,6 @@
   requests,
   securesystemslib,
 }:
-
 buildPythonPackage rec {
   pname = "tuf";
   version = "6.0.0";
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "tuf" ];
+  pythonImportsCheck = ["tuf"];
 
   preCheck = ''
     cd tests
@@ -61,6 +60,6 @@ buildPythonPackage rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

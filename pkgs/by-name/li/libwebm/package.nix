@@ -5,7 +5,6 @@
   cmake,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libwebm";
   version = "1.0.0.31";
@@ -37,13 +36,13 @@ stdenv.mkDerivation (finalAttrs: {
     "-DBUILD_SHARED_LIBS=ON"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "WebM file parser";
     homepage = "https://www.webmproject.org/code/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ niklaskorz ];
+    maintainers = with lib.maintainers; [niklaskorz];
     platforms = lib.platforms.all;
   };
 })

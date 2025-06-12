@@ -13,7 +13,6 @@
   TextCSV_XS,
   which,
 }:
-
 buildPerlPackage rec {
   pname = "pgbadger";
   version = "12.4";
@@ -36,7 +35,7 @@ buildPerlPackage rec {
     shortenPerlShebang ./pgbadger
   '';
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   PERL_MM_OPT = "INSTALL_BASE=${placeholder "out"}";
 
@@ -46,7 +45,7 @@ buildPerlPackage rec {
     TextCSV_XS
   ];
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ shortenPerlShebang ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [shortenPerlShebang];
 
   nativeCheckInputs = [
     bzip2
@@ -59,7 +58,7 @@ buildPerlPackage rec {
       command = "${lib.getExe pgbadger} --version";
       package = pgbadger;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -67,7 +66,7 @@ buildPerlPackage rec {
     description = "Fast PostgreSQL Log Analyzer";
     changelog = "https://github.com/darold/pgbadger/raw/v${version}/ChangeLog";
     license = lib.licenses.postgresql;
-    teams = [ lib.teams.determinatesystems ];
+    teams = [lib.teams.determinatesystems];
     mainProgram = "pgbadger";
   };
 }

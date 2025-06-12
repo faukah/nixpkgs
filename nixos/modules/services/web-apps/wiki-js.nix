@@ -4,17 +4,13 @@
   config,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.wiki-js;
 
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
 
   configFile = format.generate "wiki-js.yml" cfg.settings;
-in
-{
+in {
   options.services.wiki-js = {
     enable = mkEnableOption "wiki-js";
 
@@ -36,7 +32,7 @@ in
     };
 
     settings = mkOption {
-      default = { };
+      default = {};
       type = types.submodule {
         freeformType = format.type;
         options = {
@@ -103,12 +99,14 @@ in
             '';
           };
 
-          offline = mkEnableOption "offline mode" // {
-            description = ''
-              Disable latest file updates and enable
-              [sideloading](https://docs.requarks.io/install/sideload).
-            '';
-          };
+          offline =
+            mkEnableOption "offline mode"
+            // {
+              description = ''
+                Disable latest file updates and enable
+                [sideloading](https://docs.requarks.io/install/sideload).
+              '';
+            };
         };
       };
       description = ''
@@ -128,8 +126,8 @@ in
     services.wiki-js.settings.dataPath = "/var/lib/${cfg.stateDirectoryName}";
     systemd.services.wiki-js = {
       description = "A modern and powerful wiki app built on Node.js";
-      documentation = [ "https://docs.requarks.io/" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["https://docs.requarks.io/"];
+      wantedBy = ["multi-user.target"];
 
       path = with pkgs; [
         # Needed for git storage.
@@ -156,5 +154,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ ma27 ];
+  meta.maintainers = with maintainers; [ma27];
 }

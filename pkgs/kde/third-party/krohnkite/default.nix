@@ -52,7 +52,7 @@ buildNpmPackage (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Dynamic Tiling Extension for KWin 6";

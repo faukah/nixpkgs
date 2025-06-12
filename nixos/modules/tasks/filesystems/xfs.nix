@@ -4,19 +4,11 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   inInitrd = config.boot.initrd.supportedFilesystems.xfs or false;
-
-in
-
-{
+in {
   config = mkIf (config.boot.supportedFilesystems.xfs or false) {
-
-    system.fsPackages = [ pkgs.xfsprogs.bin ];
+    system.fsPackages = [pkgs.xfsprogs.bin];
 
     boot.initrd.availableKernelModules = mkIf inInitrd [
       "xfs"
@@ -33,6 +25,6 @@ in
       sed -i -e 's,^#!.*,#!'$out/bin/sh, $out/bin/fsck.xfs
     '';
 
-    boot.initrd.systemd.initrdBin = mkIf inInitrd [ pkgs.xfsprogs.bin ];
+    boot.initrd.systemd.initrdBin = mkIf inInitrd [pkgs.xfsprogs.bin];
   };
 }

@@ -21,7 +21,6 @@
   libXi,
   libXrandr,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gossip";
   version = "0.14.0";
@@ -89,13 +88,13 @@ rustPlatform.buildRustPackage rec {
 
     patchelf $out/bin/gossip \
       --add-rpath ${
-        lib.makeLibraryPath [
-          SDL2
-          libGL
-          libxkbcommon
-          wayland
-        ]
-      }
+      lib.makeLibraryPath [
+        SDL2
+        libGL
+        libxkbcommon
+        wayland
+      ]
+    }
   '';
 
   desktopItems = [
@@ -114,7 +113,7 @@ rustPlatform.buildRustPackage rec {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Desktop client for nostr, an open social media protocol";
@@ -122,7 +121,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/mikedilger/gossip";
     license = lib.licenses.mit;
     mainProgram = "gossip";
-    maintainers = with lib.maintainers; [ msanft ];
+    maintainers = with lib.maintainers; [msanft];
     platforms = lib.platforms.unix;
   };
 }

@@ -2,20 +2,16 @@
   lib,
   stdenv,
   fetchurl,
-
   # nativeBuildInputs
   pkg-config,
-
   # buildInputs
   libiconv,
   libshout,
   libxml2,
   taglib,
-
   # checkInputs
   check,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ezstream";
   version = "1.0.2";
@@ -34,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail 'ck_assert_int_eq(mdata_run_program(md, SRCDIR "/test-meta03-huge.sh"), 0);' ""
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     check
@@ -64,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://icecast.org/ezstream/";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.barrucadu ];
+    maintainers = [lib.maintainers.barrucadu];
     platforms = lib.platforms.all;
   };
 })

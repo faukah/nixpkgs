@@ -6,7 +6,6 @@
   inputstreamhelper,
   routing,
 }:
-
 buildKodiAddon rec {
   pname = "orftvthek";
   namespace = "plugin.video.orftvthek";
@@ -30,6 +29,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/s0faking/plugin.video.orftvthek";
     description = "Addon for accessing the Austrian ORF ON streaming service";
     license = licenses.gpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

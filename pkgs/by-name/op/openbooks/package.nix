@@ -3,32 +3,33 @@
   buildGoModule,
   callPackage,
   fetchFromGitHub,
-}:
-let
-  common = callPackage ./common.nix { };
+}: let
+  common = callPackage ./common.nix {};
 
-  frontend = callPackage ./frontend.nix { };
+  frontend = callPackage ./frontend.nix {};
 in
-buildGoModule (finalAttrs: {
-  pname = "openbooks";
-  inherit (common) version src;
+  buildGoModule (finalAttrs: {
+    pname = "openbooks";
+    inherit (common) version src;
 
-  vendorHash = "sha256-ETN5oZanDH7fOAVnfIHIoXyVof7CfEMkPSOHF2my5ys=";
+    vendorHash = "sha256-ETN5oZanDH7fOAVnfIHIoXyVof7CfEMkPSOHF2my5ys=";
 
-  postPatch = ''
-    cp -r ${finalAttrs.passthru.frontend} server/app/dist/
-  '';
+    postPatch = ''
+      cp -r ${finalAttrs.passthru.frontend} server/app/dist/
+    '';
 
-  subPackages = [ "cmd/openbooks" ];
+    subPackages = ["cmd/openbooks"];
 
-  passthru = {
-    inherit frontend;
+    passthru = {
+      inherit frontend;
 
-    updateScript = ./update.sh;
-  };
+      updateScript = ./update.sh;
+    };
 
-  meta = common.meta // {
-    description = "Search and Download eBooks";
-    mainProgram = "openbooks";
-  };
-})
+    meta =
+      common.meta
+      // {
+        description = "Search and Download eBooks";
+        mainProgram = "openbooks";
+      };
+  })

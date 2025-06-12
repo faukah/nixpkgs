@@ -12,7 +12,6 @@
   qtbase,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mpsolve";
   version = "3.2.1";
@@ -38,13 +37,13 @@ stdenv.mkDerivation (finalAttrs: {
     qtbase
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://numpi.dm.unipi.it/scientific-computing-libraries/mpsolve/";
     description = "Multiprecision Polynomial Solver";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ kilianar ];
+    maintainers = with lib.maintainers; [kilianar];
     mainProgram = "mpsolve";
     platforms = lib.platforms.linux;
   };

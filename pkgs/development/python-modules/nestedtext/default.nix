@@ -12,7 +12,6 @@
   quantiphy,
   voluptuous,
 }:
-
 buildPythonPackage rec {
   pname = "nestedtext";
   version = "3.7";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-lNqSmEmzuRGdXs/4mwKSh7yDGHnAykpIDIR+abbLCns=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ inform ];
+  propagatedBuildInputs = [inform];
 
   nativeCheckInputs = [
     docopt
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     });
   };
 
-  pythonImportsCheck = [ "nestedtext" ];
+  pythonImportsCheck = ["nestedtext"];
 
   meta = with lib; {
     description = "Human friendly data format";
@@ -77,6 +76,6 @@ buildPythonPackage rec {
     homepage = "https://nestedtext.org";
     changelog = "https://github.com/KenKundert/nestedtext/blob/v${version}/doc/releases.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ jeremyschlatter ];
+    maintainers = with maintainers; [jeremyschlatter];
   };
 }

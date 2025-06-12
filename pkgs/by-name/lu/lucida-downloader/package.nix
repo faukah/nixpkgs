@@ -4,7 +4,6 @@
   lib,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lucida-downloader";
   version = "0.2.0";
@@ -16,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-9wXnxsgZZprUez3PggBWbTU/Vx7JFkNC7fuOiqWG87Y=";
   };
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   cargoHash = "sha256-OfnCKFWUxpFu6NU4MNMCimXAbhspBf1n6Qz5ff7MHI4=";
 

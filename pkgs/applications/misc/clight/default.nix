@@ -17,7 +17,6 @@
   withUpower ? true,
   upower,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clight";
   version = "4.11";

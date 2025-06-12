@@ -10,7 +10,6 @@
   isPyPy,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "soundfile";
   version = "0.13.1";
@@ -37,9 +36,9 @@ buildPythonPackage rec {
     cffi
   ];
 
-  pythonImportsCheck = [ "soundfile" ];
+  pythonImportsCheck = ["soundfile"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Audio library based on libsndfile, CFFI and NumPy";

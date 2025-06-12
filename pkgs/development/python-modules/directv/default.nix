@@ -9,7 +9,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "directv";
   version = "0.4.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
       --replace-fail "with async_timeout.timeout" "async with async_timeout.timeout"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     "test_client_error"
   ];
 
-  pythonImportsCheck = [ "directv" ];
+  pythonImportsCheck = ["directv"];
 
   meta = {
     changelog = "https://github.com/ctalkington/python-directv/releases/tag/${src.tag}";
     description = "Asynchronous Python client for DirecTV (SHEF)";
     homepage = "https://github.com/ctalkington/python-directv";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

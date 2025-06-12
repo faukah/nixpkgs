@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   bitsandbytes,
   numpy,
@@ -28,7 +26,6 @@
   diffusers,
   torchvision,
 }:
-
 buildPythonPackage rec {
   pname = "unsloth";
   version = "2025.5.9";
@@ -88,6 +85,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/unslothai/unsloth";
     changelog = "https://github.com/unslothai/unsloth/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ hoh ];
+    maintainers = with lib.maintainers; [hoh];
   };
 }

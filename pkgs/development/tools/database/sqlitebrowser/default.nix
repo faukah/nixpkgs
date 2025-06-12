@@ -9,7 +9,6 @@
   wrapQtAppsHook,
   qtmacextras,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sqlitebrowser";
   version = "3.13.1";
@@ -27,10 +26,12 @@ stdenv.mkDerivation (finalAttrs: {
   # but qscintilla is currently in a bit of a mess as some consumers expect a
   # -qt4 or -qt5 prefix while others do not.
   # We *really* should get that cleaned up.
-  buildInputs = [
-    qtbase
-    sqlcipher
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin qtmacextras;
+  buildInputs =
+    [
+      qtbase
+      sqlcipher
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin qtmacextras;
 
   nativeBuildInputs = [
     cmake
@@ -50,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "sqlitebrowser";
     homepage = "https://sqlitebrowser.org/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
   };
 })

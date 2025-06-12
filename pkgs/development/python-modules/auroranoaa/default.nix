@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "auroranoaa";
   version = "0.0.5";
@@ -21,20 +20,20 @@ buildPythonPackage rec {
     hash = "sha256-bQDFSbYFsGtvPuJNMykynOpBTIeloUoCVRtIuHXR4n0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "auroranoaa" ];
+  pythonImportsCheck = ["auroranoaa"];
 
   meta = with lib; {
     description = "Python wrapper for the Aurora API";
     homepage = "https://github.com/djtimca/aurora-api";
     changelog = "https://github.com/djtimca/aurora-api/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

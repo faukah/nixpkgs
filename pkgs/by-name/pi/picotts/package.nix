@@ -7,7 +7,6 @@
   libtool,
   popt,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "picotts";
   version = "unstable-2018-10-19";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Text to speech voice sinthesizer from SVox";
     homepage = "https://github.com/naggety/picotts";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.canndrew ];
+    maintainers = [lib.maintainers.canndrew];
     platforms = lib.platforms.linux;
     mainProgram = "pico2wave";
   };

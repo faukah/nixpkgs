@@ -8,7 +8,6 @@
   libiconv,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "monolith";
   version = "2.10.1";
@@ -25,16 +24,16 @@ rustPlatform.buildRustPackage rec {
 
   OPENSSL_NO_VENDOR = true;
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
   buildInputs =
-    lib.optionals stdenv.hostPlatform.isLinux [ openssl ]
+    lib.optionals stdenv.hostPlatform.isLinux [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];
 
-  checkFlags = [ "--skip=tests::cli" ];
+  checkFlags = ["--skip=tests::cli"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Bundle any web page into a single HTML file";
@@ -43,6 +42,6 @@ rustPlatform.buildRustPackage rec {
     license = licenses.cc0;
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
   };
 }

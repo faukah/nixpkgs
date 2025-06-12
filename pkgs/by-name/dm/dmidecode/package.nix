@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dmidecode";
   version = "3.6";
@@ -23,6 +22,6 @@ stdenv.mkDerivation rec {
     description = "Tool that reads information about your system's hardware from the BIOS according to the SMBIOS/DMI standard";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "prr";
   version = "0.17.0";
@@ -20,15 +19,15 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-VIJFr1HpXMC2DXt79Yb1DuLYSbo9g6zsXaNDTXjtlR4=";
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "Tool that brings mailing list style code reviews to Github PRs";
     homepage = "https://github.com/danobi/prr";
     license = licenses.gpl2Only;
     mainProgram = "prr";
-    maintainers = with maintainers; [ evalexpr ];
+    maintainers = with maintainers; [evalexpr];
   };
 }

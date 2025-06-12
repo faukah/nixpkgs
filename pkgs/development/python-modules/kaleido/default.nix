@@ -18,7 +18,6 @@
   sbclPackages,
   sqlite,
 }:
-
 buildPythonPackage rec {
   pname = "kaleido";
   version = "0.2.1";
@@ -47,9 +46,11 @@ buildPythonPackage rec {
     ."${stdenv.hostPlatform.system}"
       or (throw "Unsupported system for ${pname}: ${stdenv.hostPlatform.system}");
 
-  nativeBuildInputs = (lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ]) ++ [
-    makeWrapper
-  ];
+  nativeBuildInputs =
+    (lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook])
+    ++ [
+      makeWrapper
+    ];
   buildInputs = [
     bash
     dejavu_fonts
@@ -63,7 +64,7 @@ buildPythonPackage rec {
     sqlite
   ];
 
-  pythonImportsCheck = [ "kaleido" ];
+  pythonImportsCheck = ["kaleido"];
 
   postInstall =
     ''
@@ -100,7 +101,7 @@ buildPythonPackage rec {
     '';
 
   passthru.tests = lib.optionalAttrs (!stdenv.hostPlatform.isDarwin) {
-    kaleido = callPackage ./tests.nix { };
+    kaleido = callPackage ./tests.nix {};
   };
 
   meta = {
@@ -113,8 +114,8 @@ buildPythonPackage rec {
       "aarch64-linux"
       "aarch64-darwin"
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ]; # Trust me, I'm not happy. But after literal hours of trying to reverse-engineer their build system and getting nowhere, I'll use the stupid binaries >:(
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode]; # Trust me, I'm not happy. But after literal hours of trying to reverse-engineer their build system and getting nowhere, I'll use the stupid binaries >:(
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    maintainers = with lib.maintainers; [pandapip1];
   };
 }

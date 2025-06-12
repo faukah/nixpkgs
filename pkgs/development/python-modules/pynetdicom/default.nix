@@ -10,7 +10,6 @@
   pythonOlder,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "pynetdicom";
   version = "2.1.1-unstable-2024-12-22";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-ydNFlSR/h9xJcJxHyRLpLfkaQwJABPt9PJMkPEWzf3s=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [ pydicom ];
+  dependencies = [pydicom];
 
   nativeCheckInputs = [
     pyfakefs
@@ -73,7 +72,7 @@ buildPythonPackage rec {
       "pynetdicom/tests/test_transport.py"
     ];
 
-  pythonImportsCheck = [ "pynetdicom" ];
+  pythonImportsCheck = ["pynetdicom"];
 
   pytestFlagsArray = [
     # https://github.com/pydicom/pynetdicom/issues/923
@@ -85,7 +84,7 @@ buildPythonPackage rec {
     description = "Python implementation of the DICOM networking protocol";
     homepage = "https://github.com/pydicom/pynetdicom";
     changelog = "https://github.com/pydicom/pynetdicom/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

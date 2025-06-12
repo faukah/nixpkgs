@@ -3,23 +3,20 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.chrysalis;
-in
-{
+in {
   options = {
     programs.chrysalis = {
       enable = lib.mkEnableOption "Chrysalis";
-      package = lib.mkPackageOption pkgs "Chrysalis" { default = "chrysalis"; };
+      package = lib.mkPackageOption pkgs "Chrysalis" {default = "chrysalis";};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-    services.udev.packages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
+    services.udev.packages = [cfg.package];
   };
 
-  meta.maintainers = with lib.maintainers; [ atalii ];
+  meta.maintainers = with lib.maintainers; [atalii];
 }

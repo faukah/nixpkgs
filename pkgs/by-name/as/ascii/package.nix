@@ -5,7 +5,6 @@
   gitUpdater,
   asciidoctor,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ascii";
   version = "3.30";
@@ -29,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -vp "$out/bin" "$out/share/man/man1"
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Interactive ASCII name and synonym chart";
@@ -38,6 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.com/esr/ascii/-/blob/${finalAttrs.version}/NEWS.adoc";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 })

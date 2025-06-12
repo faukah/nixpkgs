@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "figurine";
   version = "1.3.0";
@@ -29,6 +28,6 @@ buildGoModule rec {
     description = "Print your name in style";
     mainProgram = "figurine";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ironicbadger ];
+    maintainers = with maintainers; [ironicbadger];
   };
 }

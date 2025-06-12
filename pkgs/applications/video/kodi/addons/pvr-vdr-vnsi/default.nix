@@ -17,13 +17,13 @@ buildKodiBinaryAddon rec {
     sha256 = "sha256-V/ICEK006Zs4mipywAbRl8ZdezsprCgdC2WYtc/cAAY=";
   };
 
-  extraBuildInputs = [ libGL ];
+  extraBuildInputs = [libGL];
 
   meta = with lib; {
     homepage = "https://github.com/kodi-pvr/pvr.vdr.vnsi";
     description = "Kodi's VDR VNSI PVR client addon";
     platforms = platforms.all;
     license = licenses.gpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

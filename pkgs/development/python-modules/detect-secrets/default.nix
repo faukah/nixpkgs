@@ -13,7 +13,6 @@
   responses,
   unidiff,
 }:
-
 buildPythonPackage rec {
   pname = "detect-secrets";
   version = "1.5.0";
@@ -61,12 +60,12 @@ buildPythonPackage rec {
     "test_start_halfway"
   ];
 
-  pythonImportsCheck = [ "detect_secrets" ];
+  pythonImportsCheck = ["detect_secrets"];
 
   meta = with lib; {
     description = "Enterprise friendly way of detecting and preventing secrets in code";
     homepage = "https://github.com/Yelp/detect-secrets";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

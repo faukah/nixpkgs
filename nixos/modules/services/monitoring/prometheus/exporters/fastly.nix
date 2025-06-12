@@ -4,10 +4,9 @@
   pkgs,
   utils,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe
     mkOption
     optionals
@@ -17,8 +16,7 @@ let
   inherit (utils) escapeSystemdExecArgs;
 
   cfg = config.services.prometheus.exporters.fastly;
-in
-{
+in {
   port = 9118;
   extraOpts = with types; {
     configFile = mkOption {

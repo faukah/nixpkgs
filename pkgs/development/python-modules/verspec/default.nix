@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "verspec";
   version = "0.1.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     "test/test_specifiers.py"
   ];
 
-  pythonImportsCheck = [ "verspec" ];
+  pythonImportsCheck = ["verspec"];
 
   meta = with lib; {
     description = "Flexible version handling";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
       bsd2 # and
       asl20
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -7,7 +7,6 @@
   requests,
   filelock,
 }:
-
 buildPythonApplication {
   pname = "legendary-gl"; # Name in pypi
   version = "0.20.34";
@@ -29,15 +28,15 @@ buildPythonApplication {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "legendary" ];
+  pythonImportsCheck = ["legendary"];
 
   meta = with lib; {
     description = "Free and open-source Epic Games Launcher alternative";
     homepage = "https://github.com/derrod/legendary";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ equirosa ];
+    maintainers = with maintainers; [equirosa];
     mainProgram = "legendary";
   };
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 }

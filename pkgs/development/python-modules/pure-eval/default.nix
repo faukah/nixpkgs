@@ -7,7 +7,6 @@
   toml,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pure-eval";
   version = "0.2.3";
@@ -22,18 +21,18 @@ buildPythonPackage rec {
     hash = "sha256-gdP8/MkzTyjkZaWUG5PoaOtBqzbCXYNYBX2XBLWLh18=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [ toml ];
+  dependencies = [toml];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pure_eval" ];
+  pythonImportsCheck = ["pure_eval"];
 
   meta = with lib; {
     description = "Safely evaluate AST nodes without side effects";
     homepage = "https://github.com/alexmojaki/pure_eval";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

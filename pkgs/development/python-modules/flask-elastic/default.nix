@@ -5,7 +5,6 @@
   flask,
   elasticsearch,
 }:
-
 buildPythonPackage rec {
   pname = "flask-elastic";
   version = "0.2";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Integrates official client for Elasticsearch into Flask";
     license = licenses.bsd3;
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
     homepage = "https://github.com/marceltschoppch/flask-elastic";
   };
 }

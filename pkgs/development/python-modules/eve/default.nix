@@ -10,7 +10,6 @@
   setuptools,
   simplejson,
 }:
-
 buildPythonPackage rec {
   pname = "eve";
   version = "2.2.0";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-BLDuJLAN6ieaD7vBPV6AwlpPqbAyb+LzEp9AfCHveSY=";
   };
 
-  pythonRelaxDeps = [ "events" ];
+  pythonRelaxDeps = ["events"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   propagatedBuildInputs = [
     cerberus
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     simplejson
   ];
 
-  pythonImportsCheck = [ "eve" ];
+  pythonImportsCheck = ["eve"];
 
   # Tests call a running mongodb instance
   doCheck = false;
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://python-eve.org/";
     changelog = "https://github.com/pyeve/eve/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

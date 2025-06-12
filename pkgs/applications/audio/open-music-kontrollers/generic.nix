@@ -16,11 +16,10 @@
   sha256,
   description,
   url ? "https://git.open-music-kontrollers.ch/lv2/${pname}.lv2/snapshot/${pname}.lv2-${version}.tar.xz",
-  additionalBuildInputs ? [ ],
+  additionalBuildInputs ? [],
   postPatch ? "",
   ...
 }:
-
 stdenv.mkDerivation {
   inherit pname;
 
@@ -37,21 +36,23 @@ stdenv.mkDerivation {
     meson
     ninja
   ];
-  buildInputs = [
-    lv2
-    sord
-    libX11
-    libXext
-    glew
-    lv2lint
-  ] ++ additionalBuildInputs;
+  buildInputs =
+    [
+      lv2
+      sord
+      libX11
+      libXext
+      glew
+      lv2lint
+    ]
+    ++ additionalBuildInputs;
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
     description = description;
     homepage = "https://open-music-kontrollers.ch/lv2/${pname}:";
     license = licenses.artistic2;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.all;
   };
 }

@@ -3,16 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.spamassassin;
   spamassassin-local-cf = pkgs.writeText "local.cf" cfg.config;
-
-in
-
-{
+in {
   options = {
-
     services.spamassassin = {
       enable = lib.mkEnableOption "the SpamAssassin daemon";
 
@@ -60,7 +55,10 @@ in
       initPreConf = lib.mkOption {
         type = with lib.types; either str path;
         description = "The SpamAssassin init.pre config.";
-        apply = val: if builtins.isPath val then val else pkgs.writeText "init.pre" val;
+        apply = val:
+          if builtins.isPath val
+          then val
+          else pkgs.writeText "init.pre" val;
         default = ''
           #
           # to update this list, run this command in the rules directory:
@@ -117,7 +115,7 @@ in
     environment.etc."mail/spamassassin/local.cf".source = spamassassin-local-cf;
 
     # Allow users to run 'spamc'.
-    environment.systemPackages = [ pkgs.spamassassin ];
+    environment.systemPackages = [pkgs.spamassassin];
 
     users.users.spamd = {
       description = "Spam Assassin Daemon";
@@ -131,8 +129,8 @@ in
 
     systemd.services.sa-update = {
       # Needs to be able to contact the update server.
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
 
       serviceConfig = {
         Type = "oneshot";
@@ -165,8 +163,8 @@ in
 
     systemd.timers.sa-update = {
       description = "sa-update-service";
-      partOf = [ "sa-update.service" ];
-      wantedBy = [ "timers.target" ];
+      partOf = ["sa-update.service"];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnCalendar = "1:*";
         Persistent = true;
@@ -176,8 +174,8 @@ in
     systemd.services.spamd = {
       description = "SpamAssassin Server";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "sa-update.service" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["sa-update.service"];
       after = [
         "network.target"
         "sa-update.service"

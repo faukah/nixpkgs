@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "textplots";
   version = "0.8.5";
@@ -16,13 +15,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ep7gXTWHRhWpGo6n/EgjY0d/vqIqd3yEikzy9sLTtf8=";
 
-  buildFeatures = [ "tool" ];
+  buildFeatures = ["tool"];
 
   meta = with lib; {
     description = "Terminal plotting written in Rust";
     homepage = "https://github.com/loony-bean/textplots-rs";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "textplots";
   };
 }

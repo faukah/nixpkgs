@@ -1,13 +1,11 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   name = "leaps";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ qknight ];
+    maintainers = [qknight];
   };
 
   nodes = {
-    client = { };
+    client = {};
 
     server = {
       services.leaps = {

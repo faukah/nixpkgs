@@ -15,7 +15,6 @@
   python3Packages,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rethinkdb";
   version = "2.4.4";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     "--lib-path=${jemalloc}/lib"
   ];
 
-  makeFlags = [ "rethinkdb" ];
+  makeFlags = ["rethinkdb"];
 
   buildInputs =
     [

@@ -9,7 +9,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "langcodes";
   version = "3.5.0";
@@ -33,14 +32,14 @@ buildPythonPackage rec {
     setuptools # pkg_resources import in language_data/util.py
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # AssertionError: assert 'Unknown language [aqk]' == 'Aninka'
     "test_updated_iana"
   ];
 
-  pythonImportsCheck = [ "langcodes" ];
+  pythonImportsCheck = ["langcodes"];
 
   meta = with lib; {
     description = "Python toolkit for working with and comparing the standardized codes for languages";

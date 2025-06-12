@@ -1,10 +1,13 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "goss";
-  meta.maintainers = [ lib.maintainers.anthonyroussel ];
+  meta.maintainers = [lib.maintainers.anthonyroussel];
 
   nodes.machine = {
-    environment.systemPackages = [ pkgs.jq ];
+    environment.systemPackages = [pkgs.jq];
 
     services.goss = {
       enable = true;

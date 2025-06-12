@@ -10,7 +10,6 @@
   six,
   virtualenv,
 }:
-
 buildPythonPackage rec {
   pname = "paver";
   version = "1.3.4";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-0+ZJiIFIWrdQ7+QMUniYKpNDvGJ+E3sRrc7WJ3GTCMc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ six ];
+  dependencies = [six];
 
   checkInputs = [
     cogapp
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     virtualenv
   ];
 
-  pythonImportsCheck = [ "paver" ];
+  pythonImportsCheck = ["paver"];
 
   disabledTestPaths = [
     # Tests depend on distutils
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     mainProgram = "paver";
     homepage = "https://github.com/paver/paver";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ lovek323 ];
+    maintainers = with lib.maintainers; [lovek323];
   };
 }

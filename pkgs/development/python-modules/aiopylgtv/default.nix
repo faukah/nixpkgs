@@ -7,7 +7,6 @@
   sqlitedict,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "aiopylgtv";
   version = "0.4.1";
@@ -29,13 +28,13 @@ buildPythonPackage rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "aiopylgtv" ];
+  pythonImportsCheck = ["aiopylgtv"];
 
   meta = with lib; {
     description = "Python library to control webOS based LG TV units";
     mainProgram = "aiopylgtvcommand";
     homepage = "https://github.com/bendavid/aiopylgtv";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

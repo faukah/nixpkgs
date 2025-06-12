@@ -8,14 +8,11 @@
   pcsclite,
   testers,
 }:
-
 stdenv.mkDerivation (
-  finalAttrs:
-  let
+  finalAttrs: let
     version = "4.18.0";
     buildNum = "3768";
-  in
-  {
+  in {
     pname = "tlclient";
     version = "${version}-${buildNum}";
 
@@ -70,7 +67,7 @@ stdenv.mkDerivation (
       };
       homepage = "https://www.cendio.com/";
       changelog = "https://www.cendio.com/thinlinc/docs/relnotes/${version}/";
-      maintainers = with lib.maintainers; [ felixalbrigtsen ];
+      maintainers = with lib.maintainers; [felixalbrigtsen];
       platforms = with lib.platforms; linux ++ darwin ++ windows;
       broken = !(stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64);
       mainProgram = "tlclient";

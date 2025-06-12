@@ -21,7 +21,6 @@
   jellyfin-web,
   withDbus ? stdenv.hostPlatform.isLinux,
 }:
-
 mkDerivation rec {
   pname = "jellyfin-media-player";
   version = "1.12.0";

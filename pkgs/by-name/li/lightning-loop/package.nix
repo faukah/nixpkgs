@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "lightning-loop";
   version = "0.31.1-beta";

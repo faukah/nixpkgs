@@ -3,22 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.fprintd;
-  fprintdPkg = if cfg.tod.enable then pkgs.fprintd-tod else pkgs.fprintd;
-
-in
-
-{
-
+  fprintdPkg =
+    if cfg.tod.enable
+    then pkgs.fprintd-tod
+    else pkgs.fprintd;
+in {
   ###### interface
 
   options = {
-
     services.fprintd = {
-
       enable = lib.mkEnableOption "fprintd daemon and PAM module for fingerprint readers handling";
 
       package = lib.mkOption {
@@ -31,7 +26,6 @@ in
       };
 
       tod = {
-
         enable = lib.mkEnableOption "Touch OEM Drivers library support";
 
         driver = lib.mkOption {
@@ -48,17 +42,14 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
+    services.dbus.packages = [cfg.package];
 
-    services.dbus.packages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    environment.systemPackages = [ cfg.package ];
-
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
     systemd.services.fprintd.environment = lib.mkIf cfg.tod.enable {
       FP_TOD_DRIVERS_DIR = "${cfg.tod.driver}${cfg.tod.driver.driverPath}";
     };
-
   };
-
 }

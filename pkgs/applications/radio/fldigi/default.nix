@@ -16,7 +16,6 @@
   alsa-lib,
   udev,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fldigi";
   version = "4.2.06";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Q2DeIl1vjP65u2pb5qxJLlJwLI9wT4dgnEUtO8sbbAg=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [

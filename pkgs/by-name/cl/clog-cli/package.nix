@@ -3,7 +3,6 @@
   rustPlatform,
   lib,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "clog-cli";
   version = "0.10.0";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/clog-tool/clog-cli";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.nthorne ];
+    maintainers = [lib.maintainers.nthorne];
     mainProgram = "clog";
   };
 }

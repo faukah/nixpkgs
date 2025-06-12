@@ -12,7 +12,7 @@
 }:
 mkDerivation {
   path = "usr.bin/config";
-  env.NIX_CFLAGS_COMPILE = toString [ "-DMAKE_BOOTSTRAP" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-DMAKE_BOOTSTRAP"];
   nativeBuildInputs = [
     bsdSetupHook
     netbsdSetupHook
@@ -23,5 +23,5 @@ mkDerivation {
     flex
   ];
   buildInputs = compatIfNeeded;
-  extraPaths = [ cksum.path ];
+  extraPaths = [cksum.path];
 }

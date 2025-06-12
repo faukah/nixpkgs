@@ -4,7 +4,6 @@
   python3Packages,
   nixosTests,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "zeronet-conservancy";
   version = "0.7.10";
@@ -71,6 +70,6 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://github.com/zeronet-conservancy/zeronet-conservancy";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

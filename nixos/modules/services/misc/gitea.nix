@@ -5,10 +5,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.gitea;
   opt = options.services.gitea;
   exe = lib.getExe cfg.package;
@@ -16,69 +13,82 @@ let
   useMysql = cfg.database.type == "mysql";
   usePostgresql = cfg.database.type == "postgres";
   useSqlite = cfg.database.type == "sqlite3";
-  format = pkgs.formats.ini { };
+  format = pkgs.formats.ini {};
   configFile = pkgs.writeText "app.ini" ''
     APP_NAME = ${cfg.appName}
     RUN_USER = ${cfg.user}
     RUN_MODE = prod
     WORK_PATH = ${cfg.stateDir}
 
-    ${generators.toINI { } cfg.settings}
+    ${generators.toINI {} cfg.settings}
 
     ${optionalString (cfg.extraConfig != null) cfg.extraConfig}
   '';
-in
-
-{
+in {
   imports = [
-    (mkRenamedOptionModule
-      [ "services" "gitea" "cookieSecure" ]
-      [ "services" "gitea" "settings" "session" "COOKIE_SECURE" ]
+    (
+      mkRenamedOptionModule
+      ["services" "gitea" "cookieSecure"]
+      ["services" "gitea" "settings" "session" "COOKIE_SECURE"]
     )
-    (mkRenamedOptionModule
-      [ "services" "gitea" "disableRegistration" ]
-      [ "services" "gitea" "settings" "service" "DISABLE_REGISTRATION" ]
+    (
+      mkRenamedOptionModule
+      ["services" "gitea" "disableRegistration"]
+      ["services" "gitea" "settings" "service" "DISABLE_REGISTRATION"]
     )
-    (mkRenamedOptionModule
-      [ "services" "gitea" "domain" ]
-      [ "services" "gitea" "settings" "server" "DOMAIN" ]
+    (
+      mkRenamedOptionModule
+      ["services" "gitea" "domain"]
+      ["services" "gitea" "settings" "server" "DOMAIN"]
     )
-    (mkRenamedOptionModule
-      [ "services" "gitea" "httpAddress" ]
-      [ "services" "gitea" "settings" "server" "HTTP_ADDR" ]
+    (
+      mkRenamedOptionModule
+      ["services" "gitea" "httpAddress"]
+      ["services" "gitea" "settings" "server" "HTTP_ADDR"]
     )
-    (mkRenamedOptionModule
-      [ "services" "gitea" "httpPort" ]
-      [ "services" "gitea" "settings" "server" "HTTP_PORT" ]
+    (
+      mkRenamedOptionModule
+      ["services" "gitea" "httpPort"]
+      ["services" "gitea" "settings" "server" "HTTP_PORT"]
     )
-    (mkRenamedOptionModule
-      [ "services" "gitea" "log" "level" ]
-      [ "services" "gitea" "settings" "log" "LEVEL" ]
+    (
+      mkRenamedOptionModule
+      ["services" "gitea" "log" "level"]
+      ["services" "gitea" "settings" "log" "LEVEL"]
     )
-    (mkRenamedOptionModule
-      [ "services" "gitea" "log" "rootPath" ]
-      [ "services" "gitea" "settings" "log" "ROOT_PATH" ]
+    (
+      mkRenamedOptionModule
+      ["services" "gitea" "log" "rootPath"]
+      ["services" "gitea" "settings" "log" "ROOT_PATH"]
     )
-    (mkRenamedOptionModule
-      [ "services" "gitea" "rootUrl" ]
-      [ "services" "gitea" "settings" "server" "ROOT_URL" ]
+    (
+      mkRenamedOptionModule
+      ["services" "gitea" "rootUrl"]
+      ["services" "gitea" "settings" "server" "ROOT_URL"]
     )
-    (mkRenamedOptionModule
-      [ "services" "gitea" "ssh" "clonePort" ]
-      [ "services" "gitea" "settings" "server" "SSH_PORT" ]
+    (
+      mkRenamedOptionModule
+      ["services" "gitea" "ssh" "clonePort"]
+      ["services" "gitea" "settings" "server" "SSH_PORT"]
     )
-    (mkRenamedOptionModule
-      [ "services" "gitea" "staticRootPath" ]
-      [ "services" "gitea" "settings" "server" "STATIC_ROOT_PATH" ]
+    (
+      mkRenamedOptionModule
+      ["services" "gitea" "staticRootPath"]
+      ["services" "gitea" "settings" "server" "STATIC_ROOT_PATH"]
     )
 
-    (mkChangedOptionModule
-      [ "services" "gitea" "enableUnixSocket" ]
-      [ "services" "gitea" "settings" "server" "PROTOCOL" ]
-      (config: if config.services.gitea.enableUnixSocket then "http+unix" else "http")
+    (
+      mkChangedOptionModule
+      ["services" "gitea" "enableUnixSocket"]
+      ["services" "gitea" "settings" "server" "PROTOCOL"]
+      (config:
+        if config.services.gitea.enableUnixSocket
+        then "http+unix"
+        else "http")
     )
 
-    (mkRemovedOptionModule [ "services" "gitea" "ssh" "enable" ]
+    (
+      mkRemovedOptionModule ["services" "gitea" "ssh" "enable"]
       "It has been migrated into freeform setting services.gitea.settings.server.DISABLE_SSH. Keep in mind that the setting is inverted."
     )
     (mkRemovedOptionModule [
@@ -96,7 +106,7 @@ in
         description = "Enable Gitea Service.";
       };
 
-      package = mkPackageOption pkgs "gitea" { };
+      package = mkPackageOption pkgs "gitea" {};
 
       stateDir = mkOption {
         default = "/var/lib/gitea";
@@ -143,7 +153,10 @@ in
 
         port = mkOption {
           type = types.port;
-          default = if usePostgresql then pg.settings.port else 3306;
+          default =
+            if usePostgresql
+            then pg.settings.port
+            else 3306;
           defaultText = literalExpression ''
             if config.${opt.database.type} != "postgresql"
             then 3306
@@ -187,12 +200,11 @@ in
         socket = mkOption {
           type = types.nullOr types.path;
           default =
-            if (cfg.database.createDatabase && usePostgresql) then
-              "/run/postgresql"
-            else if (cfg.database.createDatabase && useMysql) then
-              "/run/mysqld/mysqld.sock"
-            else
-              null;
+            if (cfg.database.createDatabase && usePostgresql)
+            then "/run/postgresql"
+            else if (cfg.database.createDatabase && useMysql)
+            then "/run/mysqld/mysqld.sock"
+            else null;
           defaultText = literalExpression "null";
           example = "/run/mysqld/mysqld.sock";
           description = "Path to the unix socket file to use for authentication.";
@@ -374,7 +386,7 @@ in
       };
 
       settings = mkOption {
-        default = { };
+        default = {};
         description = ''
           Gitea configuration. Refer to <https://docs.gitea.io/en-us/config-cheat-sheet/>
           for details on supported values.
@@ -437,7 +449,9 @@ in
               HTTP_ADDR = mkOption {
                 type = types.either types.str types.path;
                 default =
-                  if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0";
+                  if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL
+                  then "/run/gitea/gitea.sock"
+                  else "0.0.0.0";
                 defaultText = literalExpression ''if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"'';
                 description = "Listen address. Must be a path when using a unix socket.";
               };
@@ -488,15 +502,17 @@ in
             };
 
             service = {
-              DISABLE_REGISTRATION = mkEnableOption "the registration lock" // {
-                description = ''
-                  By default any user can create an account on this `gitea` instance.
-                  This can be disabled by using this option.
+              DISABLE_REGISTRATION =
+                mkEnableOption "the registration lock"
+                // {
+                  description = ''
+                    By default any user can create an account on this `gitea` instance.
+                    This can be disabled by using this option.
 
-                  *Note:* please keep in mind that this should be added after the initial
-                  deploy as the first registered user will be the administrator.
-                '';
-              };
+                    *Note:* please keep in mind that this should be added after the initial
+                    deploy as the first registered user will be the administrator.
+                  '';
+                };
             };
 
             session = {
@@ -539,7 +555,8 @@ in
       {
         assertion =
           cfg.captcha.enable
-          -> cfg.captcha.type != "image"
+          -> cfg.captcha.type
+          != "image"
           -> (cfg.captcha.secretFile != null && cfg.captcha.siteKey != null);
         message = ''
           Using a CAPTCHA service that is not `image` requires providing a CAPTCHA secret through
@@ -548,7 +565,8 @@ in
       }
       {
         assertion =
-          cfg.captcha.url != null
+          cfg.captcha.url
+          != null
           -> (builtins.elem cfg.captcha.type [
             "mcaptcha"
             "recaptcha"
@@ -559,108 +577,105 @@ in
       }
     ];
 
-    services.gitea.settings =
-      let
-        captchaPrefix = optionalString cfg.captcha.enable (
-          {
-            image = "IMAGE";
-            recaptcha = "RECAPTCHA";
-            hcaptcha = "HCAPTCHA";
-            mcaptcha = "MCAPTCHA";
-            cfturnstile = "CF_TURNSTILE";
-          }
+    services.gitea.settings = let
+      captchaPrefix = optionalString cfg.captcha.enable (
+        {
+          image = "IMAGE";
+          recaptcha = "RECAPTCHA";
+          hcaptcha = "HCAPTCHA";
+          mcaptcha = "MCAPTCHA";
+          cfturnstile = "CF_TURNSTILE";
+        }
           ."${cfg.captcha.type}"
-        );
-      in
-      {
-        "cron.update_checker".ENABLED = lib.mkDefault false;
+      );
+    in {
+      "cron.update_checker".ENABLED = lib.mkDefault false;
 
-        database = mkMerge [
-          {
-            DB_TYPE = cfg.database.type;
-          }
-          (mkIf (useMysql || usePostgresql) {
-            HOST =
-              if cfg.database.socket != null then
-                cfg.database.socket
-              else
-                cfg.database.host + ":" + toString cfg.database.port;
-            NAME = cfg.database.name;
-            USER = cfg.database.user;
-            PASSWD = "#dbpass#";
-          })
-          (mkIf useSqlite {
-            PATH = cfg.database.path;
-          })
-          (mkIf usePostgresql {
-            SSL_MODE = "disable";
-          })
-        ];
+      database = mkMerge [
+        {
+          DB_TYPE = cfg.database.type;
+        }
+        (mkIf (useMysql || usePostgresql) {
+          HOST =
+            if cfg.database.socket != null
+            then cfg.database.socket
+            else cfg.database.host + ":" + toString cfg.database.port;
+          NAME = cfg.database.name;
+          USER = cfg.database.user;
+          PASSWD = "#dbpass#";
+        })
+        (mkIf useSqlite {
+          PATH = cfg.database.path;
+        })
+        (mkIf usePostgresql {
+          SSL_MODE = "disable";
+        })
+      ];
 
-        repository = {
-          ROOT = cfg.repositoryRoot;
-        };
-
-        server = mkIf cfg.lfs.enable {
-          LFS_START_SERVER = true;
-          LFS_JWT_SECRET = "#lfsjwtsecret#";
-        };
-
-        camo = mkIf (cfg.camoHmacKeyFile != null) {
-          HMAC_KEY = "#hmackey#";
-        };
-
-        session = {
-          COOKIE_NAME = lib.mkDefault "session";
-        };
-
-        security = {
-          SECRET_KEY = "#secretkey#";
-          INTERNAL_TOKEN = "#internaltoken#";
-          INSTALL_LOCK = true;
-        };
-
-        service = mkIf cfg.captcha.enable (mkMerge [
-          {
-            ENABLE_CAPTCHA = true;
-            CAPTCHA_TYPE = cfg.captcha.type;
-            REQUIRE_CAPTCHA_FOR_LOGIN = cfg.captcha.requireForLogin;
-            REQUIRE_EXTERNAL_REGISTRATION_CAPTCHA = cfg.captcha.requireForExternalRegistration;
-          }
-          (mkIf (cfg.captcha.secretFile != null) {
-            "${captchaPrefix}_SECRET" = "#captchasecret#";
-          })
-          (mkIf (cfg.captcha.siteKey != null) {
-            "${captchaPrefix}_SITEKEY" = cfg.captcha.siteKey;
-          })
-          (mkIf (cfg.captcha.url != null) {
-            "${captchaPrefix}_URL" = cfg.captcha.url;
-          })
-        ]);
-
-        mailer = mkIf (cfg.mailerPasswordFile != null) {
-          PASSWD = "#mailerpass#";
-        };
-
-        metrics = mkIf (cfg.metricsTokenFile != null) {
-          TOKEN = "#metricstoken#";
-        };
-
-        oauth2 = {
-          JWT_SECRET = "#oauth2jwtsecret#";
-        };
-
-        lfs = mkIf cfg.lfs.enable {
-          PATH = cfg.lfs.contentDir;
-        };
-
-        packages.CHUNKED_UPLOAD_PATH = "${cfg.stateDir}/tmp/package-upload";
+      repository = {
+        ROOT = cfg.repositoryRoot;
       };
+
+      server = mkIf cfg.lfs.enable {
+        LFS_START_SERVER = true;
+        LFS_JWT_SECRET = "#lfsjwtsecret#";
+      };
+
+      camo = mkIf (cfg.camoHmacKeyFile != null) {
+        HMAC_KEY = "#hmackey#";
+      };
+
+      session = {
+        COOKIE_NAME = lib.mkDefault "session";
+      };
+
+      security = {
+        SECRET_KEY = "#secretkey#";
+        INTERNAL_TOKEN = "#internaltoken#";
+        INSTALL_LOCK = true;
+      };
+
+      service = mkIf cfg.captcha.enable (mkMerge [
+        {
+          ENABLE_CAPTCHA = true;
+          CAPTCHA_TYPE = cfg.captcha.type;
+          REQUIRE_CAPTCHA_FOR_LOGIN = cfg.captcha.requireForLogin;
+          REQUIRE_EXTERNAL_REGISTRATION_CAPTCHA = cfg.captcha.requireForExternalRegistration;
+        }
+        (mkIf (cfg.captcha.secretFile != null) {
+          "${captchaPrefix}_SECRET" = "#captchasecret#";
+        })
+        (mkIf (cfg.captcha.siteKey != null) {
+          "${captchaPrefix}_SITEKEY" = cfg.captcha.siteKey;
+        })
+        (mkIf (cfg.captcha.url != null) {
+          "${captchaPrefix}_URL" = cfg.captcha.url;
+        })
+      ]);
+
+      mailer = mkIf (cfg.mailerPasswordFile != null) {
+        PASSWD = "#mailerpass#";
+      };
+
+      metrics = mkIf (cfg.metricsTokenFile != null) {
+        TOKEN = "#metricstoken#";
+      };
+
+      oauth2 = {
+        JWT_SECRET = "#oauth2jwtsecret#";
+      };
+
+      lfs = mkIf cfg.lfs.enable {
+        PATH = cfg.lfs.contentDir;
+      };
+
+      packages.CHUNKED_UPLOAD_PATH = "${cfg.stateDir}/tmp/package-upload";
+    };
 
     services.postgresql = optionalAttrs (usePostgresql && cfg.database.createDatabase) {
       enable = mkDefault true;
 
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -673,7 +688,7 @@ in
       enable = mkDefault true;
       package = mkDefault pkgs.mariadb;
 
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -707,7 +722,6 @@ in
         # If we have a folder or symlink with gitea locales, remove it
         # And symlink the current gitea locales in place
         "L+ '${cfg.stateDir}/conf/locale' - - - - ${cfg.package.out}/locale"
-
       ]
       ++ lib.optionals cfg.lfs.enable [
         "d '${cfg.lfs.contentDir}' 0750 ${cfg.user} ${cfg.group} - -"
@@ -717,13 +731,13 @@ in
     systemd.services.gitea = {
       description = "gitea";
       after =
-        [ "network.target" ]
+        ["network.target"]
         ++ optional usePostgresql "postgresql.service"
         ++ optional useMysql "mysql.service";
       requires =
         optional (cfg.database.createDatabase && usePostgresql) "postgresql.service"
         ++ optional (cfg.database.createDatabase && useMysql) "mysql.service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = [
         cfg.package
         pkgs.git
@@ -737,85 +751,83 @@ in
       # values for JWT_SECRET and the file jwt_secret gets renamed to
       # lfs_jwt_secret.
       # We have to consider this to stay compatible with older installations.
-      preStart =
-        let
-          runConfig = "${cfg.customDir}/conf/app.ini";
-          secretKey = "${cfg.customDir}/conf/secret_key";
-          oauth2JwtSecret = "${cfg.customDir}/conf/oauth2_jwt_secret";
-          oldLfsJwtSecret = "${cfg.customDir}/conf/jwt_secret"; # old file for LFS_JWT_SECRET
-          lfsJwtSecret = "${cfg.customDir}/conf/lfs_jwt_secret"; # new file for LFS_JWT_SECRET
-          internalToken = "${cfg.customDir}/conf/internal_token";
-          replaceSecretBin = "${pkgs.replace-secret}/bin/replace-secret";
-        in
-        ''
-          # copy custom configuration and generate random secrets if needed
-          function gitea_setup {
-            cp -f '${configFile}' '${runConfig}'
+      preStart = let
+        runConfig = "${cfg.customDir}/conf/app.ini";
+        secretKey = "${cfg.customDir}/conf/secret_key";
+        oauth2JwtSecret = "${cfg.customDir}/conf/oauth2_jwt_secret";
+        oldLfsJwtSecret = "${cfg.customDir}/conf/jwt_secret"; # old file for LFS_JWT_SECRET
+        lfsJwtSecret = "${cfg.customDir}/conf/lfs_jwt_secret"; # new file for LFS_JWT_SECRET
+        internalToken = "${cfg.customDir}/conf/internal_token";
+        replaceSecretBin = "${pkgs.replace-secret}/bin/replace-secret";
+      in ''
+        # copy custom configuration and generate random secrets if needed
+        function gitea_setup {
+          cp -f '${configFile}' '${runConfig}'
 
-            if [ ! -s '${secretKey}' ]; then
-                ${exe} generate secret SECRET_KEY > '${secretKey}'
-            fi
-
-            # Migrate LFS_JWT_SECRET filename
-            if [[ -s '${oldLfsJwtSecret}' && ! -s '${lfsJwtSecret}' ]]; then
-                mv '${oldLfsJwtSecret}' '${lfsJwtSecret}'
-            fi
-
-            if [ ! -s '${oauth2JwtSecret}' ]; then
-                ${exe} generate secret JWT_SECRET > '${oauth2JwtSecret}'
-            fi
-
-            ${lib.optionalString cfg.lfs.enable ''
-              if [ ! -s '${lfsJwtSecret}' ]; then
-                  ${exe} generate secret LFS_JWT_SECRET > '${lfsJwtSecret}'
-              fi
-            ''}
-
-            if [ ! -s '${internalToken}' ]; then
-                ${exe} generate secret INTERNAL_TOKEN > '${internalToken}'
-            fi
-
-            chmod u+w '${runConfig}'
-            ${replaceSecretBin} '#secretkey#' '${secretKey}' '${runConfig}'
-            ${replaceSecretBin} '#dbpass#' '${cfg.database.passwordFile}' '${runConfig}'
-            ${replaceSecretBin} '#oauth2jwtsecret#' '${oauth2JwtSecret}' '${runConfig}'
-            ${replaceSecretBin} '#internaltoken#' '${internalToken}' '${runConfig}'
-
-            ${lib.optionalString cfg.lfs.enable ''
-              ${replaceSecretBin} '#lfsjwtsecret#' '${lfsJwtSecret}' '${runConfig}'
-            ''}
-
-            ${lib.optionalString (cfg.camoHmacKeyFile != null) ''
-              ${replaceSecretBin} '#hmackey#' '${cfg.camoHmacKeyFile}' '${runConfig}'
-            ''}
-
-            ${lib.optionalString (cfg.mailerPasswordFile != null) ''
-              ${replaceSecretBin} '#mailerpass#' '${cfg.mailerPasswordFile}' '${runConfig}'
-            ''}
-
-            ${lib.optionalString (cfg.metricsTokenFile != null) ''
-              ${replaceSecretBin} '#metricstoken#' '${cfg.metricsTokenFile}' '${runConfig}'
-            ''}
-
-            ${lib.optionalString (cfg.captcha.secretFile != null) ''
-              ${replaceSecretBin} '#captchasecret#' '${cfg.captcha.secretFile}' '${runConfig}'
-            ''}
-            chmod u-w '${runConfig}'
-          }
-          (umask 027; gitea_setup)
-
-          # run migrations/init the database
-          ${exe} migrate
-
-          # update all hooks' binary paths
-          ${exe} admin regenerate hooks
-
-          # update command option in authorized_keys
-          if [ -r ${cfg.stateDir}/.ssh/authorized_keys ]
-          then
-            ${exe} admin regenerate keys
+          if [ ! -s '${secretKey}' ]; then
+              ${exe} generate secret SECRET_KEY > '${secretKey}'
           fi
-        '';
+
+          # Migrate LFS_JWT_SECRET filename
+          if [[ -s '${oldLfsJwtSecret}' && ! -s '${lfsJwtSecret}' ]]; then
+              mv '${oldLfsJwtSecret}' '${lfsJwtSecret}'
+          fi
+
+          if [ ! -s '${oauth2JwtSecret}' ]; then
+              ${exe} generate secret JWT_SECRET > '${oauth2JwtSecret}'
+          fi
+
+          ${lib.optionalString cfg.lfs.enable ''
+          if [ ! -s '${lfsJwtSecret}' ]; then
+              ${exe} generate secret LFS_JWT_SECRET > '${lfsJwtSecret}'
+          fi
+        ''}
+
+          if [ ! -s '${internalToken}' ]; then
+              ${exe} generate secret INTERNAL_TOKEN > '${internalToken}'
+          fi
+
+          chmod u+w '${runConfig}'
+          ${replaceSecretBin} '#secretkey#' '${secretKey}' '${runConfig}'
+          ${replaceSecretBin} '#dbpass#' '${cfg.database.passwordFile}' '${runConfig}'
+          ${replaceSecretBin} '#oauth2jwtsecret#' '${oauth2JwtSecret}' '${runConfig}'
+          ${replaceSecretBin} '#internaltoken#' '${internalToken}' '${runConfig}'
+
+          ${lib.optionalString cfg.lfs.enable ''
+          ${replaceSecretBin} '#lfsjwtsecret#' '${lfsJwtSecret}' '${runConfig}'
+        ''}
+
+          ${lib.optionalString (cfg.camoHmacKeyFile != null) ''
+          ${replaceSecretBin} '#hmackey#' '${cfg.camoHmacKeyFile}' '${runConfig}'
+        ''}
+
+          ${lib.optionalString (cfg.mailerPasswordFile != null) ''
+          ${replaceSecretBin} '#mailerpass#' '${cfg.mailerPasswordFile}' '${runConfig}'
+        ''}
+
+          ${lib.optionalString (cfg.metricsTokenFile != null) ''
+          ${replaceSecretBin} '#metricstoken#' '${cfg.metricsTokenFile}' '${runConfig}'
+        ''}
+
+          ${lib.optionalString (cfg.captcha.secretFile != null) ''
+          ${replaceSecretBin} '#captchasecret#' '${cfg.captcha.secretFile}' '${runConfig}'
+        ''}
+          chmod u-w '${runConfig}'
+        }
+        (umask 027; gitea_setup)
+
+        # run migrations/init the database
+        ${exe} migrate
+
+        # update all hooks' binary paths
+        ${exe} admin regenerate hooks
+
+        # update command option in authorized_keys
+        if [ -r ${cfg.stateDir}/.ssh/authorized_keys ]
+        then
+          ${exe} admin regenerate keys
+        fi
+      '';
 
       serviceConfig = {
         Type = "simple";
@@ -894,12 +906,12 @@ in
     };
 
     users.groups = mkIf (cfg.group == "gitea") {
-      gitea = { };
+      gitea = {};
     };
 
     warnings =
       optional (cfg.database.password != "")
-        "config.services.gitea.database.password will be stored as plaintext in the Nix store. Use database.passwordFile instead."
+      "config.services.gitea.database.password will be stored as plaintext in the Nix store. Use database.passwordFile instead."
       ++ optional (cfg.extraConfig != null) ''
         services.gitea.`extraConfig` is deprecated, please use services.gitea.`settings`.
       ''
@@ -921,8 +933,8 @@ in
 
     systemd.services.gitea-dump = mkIf cfg.dump.enable {
       description = "gitea dump";
-      after = [ "gitea.service" ];
-      path = [ cfg.package ];
+      after = ["gitea.service"];
+      path = [cfg.package];
 
       environment = {
         USER = cfg.user;
@@ -943,8 +955,8 @@ in
 
     systemd.timers.gitea-dump = mkIf cfg.dump.enable {
       description = "Update timer for gitea-dump";
-      partOf = [ "gitea-dump.service" ];
-      wantedBy = [ "timers.target" ];
+      partOf = ["gitea-dump.service"];
+      wantedBy = ["timers.target"];
       timerConfig.OnCalendar = cfg.dump.interval;
     };
   };

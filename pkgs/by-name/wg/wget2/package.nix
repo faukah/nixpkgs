@@ -25,7 +25,6 @@
   zstd,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wget2";
   version = "2.2.0";
@@ -116,7 +115,7 @@ stdenv.mkDerivation rec {
       gpl3Plus
       lgpl3Plus
     ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     mainProgram = "wget2";
   };
 }

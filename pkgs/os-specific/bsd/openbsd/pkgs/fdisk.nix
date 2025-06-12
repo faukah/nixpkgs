@@ -5,7 +5,7 @@
 }:
 mkDerivation {
   path = "sbin/fdisk";
-  extraNativeBuildInputs = [ mandoc ];
+  extraNativeBuildInputs = [mandoc];
   meta.mainProgram = "fdisk";
   meta.platforms = lib.platforms.openbsd;
 }

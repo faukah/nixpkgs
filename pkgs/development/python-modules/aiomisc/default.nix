@@ -19,7 +19,6 @@
   typing-extensions,
   uvloop,
 }:
-
 buildPythonPackage rec {
   pname = "aiomisc";
   version = "17.7.7";
@@ -32,35 +31,37 @@ buildPythonPackage rec {
     hash = "sha256-zN3ryxjgbaJ4lcm3qwUY74h/kBjaWhHsxGJSM/tn3yU=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies =
-    [ colorlog ]
-    ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ logging-journald ];
+    [colorlog]
+    ++ lib.optionals (pythonOlder "3.11") [typing-extensions]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [logging-journald];
 
-  nativeCheckInputs = [
-    aiocontextvars
-    async-timeout
-    fastapi
-    pytestCheckHook
-    setproctitle
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      aiocontextvars
+      async-timeout
+      fastapi
+      pytestCheckHook
+      setproctitle
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   optional-dependencies = {
-    aiohttp = [ aiohttp ];
+    aiohttp = [aiohttp];
     #asgi = [ aiohttp-asgi ];
-    cron = [ croniter ];
+    cron = [croniter];
     #carbon = [ aiocarbon ];
     raven = [
       aiohttp
       raven
     ];
-    rich = [ rich ];
-    uvloop = [ uvloop ];
+    rich = [rich];
+    uvloop = [uvloop];
   };
 
-  pythonImportsCheck = [ "aiomisc" ];
+  pythonImportsCheck = ["aiomisc"];
 
   # Upstream stopped tagging with 16.2
   doCheck = false;
@@ -76,6 +77,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aiokitchen/aiomisc";
     changelog = "https://github.com/aiokitchen/aiomisc/blob/master/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

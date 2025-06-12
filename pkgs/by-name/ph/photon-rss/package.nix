@@ -4,7 +4,6 @@
   lib,
   xorg,
 }:
-
 buildGoModule {
   pname = "photon";
   version = "unstable-2022-01-11";
@@ -16,7 +15,7 @@ buildGoModule {
     sha256 = "sha256-2RSGLWfthcChd5YhDSBfLSch6wuTUv1Sh1f7flgzQwc=";
   };
 
-  buildInputs = [ xorg.libX11 ];
+  buildInputs = [xorg.libX11];
 
   proxyVendor = true;
 
@@ -27,7 +26,7 @@ buildGoModule {
     mainProgram = "photon";
     homepage = "https://sr.ht/~ghost08/photon";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kmein ];
+    maintainers = with maintainers; [kmein];
     platforms = platforms.linux;
   };
 }

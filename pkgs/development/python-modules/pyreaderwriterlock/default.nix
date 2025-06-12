@@ -3,17 +3,13 @@
   fetchFromGitHub,
   buildPythonPackage,
   pythonOlder,
-
   # build-system
   setuptools,
-
   # dependencies
   typing-extensions,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyreaderwriterlock";
   version = "1.0.9";
@@ -28,19 +24,19 @@ buildPythonPackage rec {
     hash = "sha256-8FC+4aDgGpF1BmOdlkFtMy7OfWdSmvn9fjKXSmmeJlg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ typing-extensions ];
+  dependencies = [typing-extensions];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "readerwriterlock" ];
+  pythonImportsCheck = ["readerwriterlock"];
 
   meta = with lib; {
     changelog = "https://github.com/elarivie/pyReaderWriterLock/blob/master/CHANGELOG.md";
     description = "Implementation of the Readers-writers problem";
     homepage = "https://github.com/elarivie/pyReaderWriterLock";
     license = licenses.mit;
-    maintainers = with maintainers; [ MayNiklas ];
+    maintainers = with maintainers; [MayNiklas];
   };
 }

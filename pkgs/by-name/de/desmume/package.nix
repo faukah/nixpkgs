@@ -23,7 +23,6 @@
   tinyxml,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "desmume";
   version = "0.9.13";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "TASVideos";
     repo = "desmume";
-    rev = "release_${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+    rev = "release_${lib.replaceStrings ["."] ["_"] finalAttrs.version}";
     hash = "sha256-vmjKXa/iXLTwtqnG+ZUvOnOQPZROeMpfM5J3Jh/Ynfo=";
   };
 
@@ -74,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preConfigure = ''
     cd desmume/src/frontend/posix
@@ -97,7 +96,7 @@ stdenv.mkDerivation (finalAttrs: {
       commercial nds rom titles which other DS Emulators aren't.
     '';
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 })

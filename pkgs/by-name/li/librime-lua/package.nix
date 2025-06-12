@@ -5,7 +5,6 @@
   unstableGitUpdater,
   lua,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "librime-lua";
   version = "0-unstable-2024-12-21";
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-zx0F41szn5qlc2MNjt1vizLIsIFQ67fp5cb8U8UUgtY=";
   };
 
-  propagatedBuildInputs = [ lua ];
+  propagatedBuildInputs = [lua];
 
   installPhase = ''
     runHook preInstall
@@ -29,7 +28,7 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+  passthru.updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
 
   meta = {
     description = "Extending RIME with Lua scripts";

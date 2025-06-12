@@ -14,7 +14,6 @@
   findutils,
   gnused,
 }:
-
 stdenv.mkDerivation rec {
   pname = "keychain";
   version = "2.9.5";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     installShellFiles
     makeWrapper
   ];
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -38,17 +37,17 @@ stdenv.mkDerivation rec {
     installManPage keychain.1
     wrapProgram $out/bin/keychain \
       --prefix PATH ":" "${
-        lib.makeBinPath [
-          coreutils
-          findutils
-          gawk
-          gnupg
-          gnugrep
-          gnused
-          openssh
-          procps
-        ]
-      }" \
+      lib.makeBinPath [
+        coreutils
+        findutils
+        gawk
+        gnupg
+        gnugrep
+        gnused
+        openssh
+        procps
+      ]
+    }" \
   '';
 
   meta = with lib; {
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.funtoo.org/Keychain";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sigma ];
+    maintainers = with maintainers; [sigma];
     mainProgram = "keychain";
   };
 }

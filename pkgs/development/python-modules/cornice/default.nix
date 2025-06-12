@@ -11,7 +11,6 @@
   marshmallow,
   colander,
 }:
-
 buildPythonPackage rec {
   pname = "cornice";
   version = "6.1.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ pyramid ];
+  dependencies = [pyramid];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -38,12 +37,12 @@ buildPythonPackage rec {
     marshmallow
     colander
   ];
-  pythonImportsCheck = [ "cornice" ];
+  pythonImportsCheck = ["cornice"];
 
   meta = with lib; {
     homepage = "https://github.com/mozilla-services/cornice";
     description = "Build Web Services with Pyramid";
     license = licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

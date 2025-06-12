@@ -4,10 +4,9 @@
   bundlerUpdateScript,
   ruby,
 }:
-
 bundlerApp {
   pname = "hexapdf";
-  exes = [ "hexapdf" ];
+  exes = ["hexapdf"];
 
   inherit ruby;
   gemdir = ./.;
@@ -19,7 +18,7 @@ bundlerApp {
     homepage = "https://hexapdf.gettalong.org/";
     changelog = "https://github.com/gettalong/hexapdf/blob/master/CHANGELOG.md";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ bbenno ];
+    maintainers = with maintainers; [bbenno];
     platforms = platforms.unix;
     mainProgram = "hexapdf";
   };

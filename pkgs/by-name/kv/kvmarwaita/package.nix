@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "kvmarwaita";
   version = "0-unstable-2024-06-27";
@@ -23,13 +22,13 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Marwaita theme for Kvantum";
     homepage = "https://github.com/darkomarko42/KvMarwaita";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ romildo ];
+    maintainers = with lib.maintainers; [romildo];
   };
 }

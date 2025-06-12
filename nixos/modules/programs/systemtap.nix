@@ -1,10 +1,10 @@
-{ config, lib, ... }:
-
-let
-  cfg = config.programs.systemtap;
-in
 {
-
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.programs.systemtap;
+in {
   options = {
     programs.systemtap = {
       enable = lib.mkOption {
@@ -25,5 +25,4 @@ in
       config.boot.kernelPackages.systemtap
     ];
   };
-
 }

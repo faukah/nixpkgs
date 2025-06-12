@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-/aRr5UeGKGt+H9+C9MWcpMriPeIVEwp7xnigrUvMUiw=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage ./man/*.?
@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    maintainers = with maintainers; [ lenivaya ];
+    maintainers = with maintainers; [lenivaya];
     description = "CLI QR code generator and reader written in rust";
     license = licenses.mit;
     homepage = "https://github.com/Lenivaya/qrrs";

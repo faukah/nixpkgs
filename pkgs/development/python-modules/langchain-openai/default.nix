@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pdm-backend,
-
   # dependencies
   langchain-core,
   openai,
   tiktoken,
-
   # tests
   freezegun,
   langchain-tests,
@@ -24,11 +21,9 @@
   responses,
   syrupy,
   toml,
-
   # passthru
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-openai";
   version = "0.3.17";
@@ -48,7 +43,7 @@ buildPythonPackage rec {
       --replace-fail "--cov=langchain_openai" ""
   '';
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   pythonRelaxDeps = [
     # Each component release requests the exact latest core.
@@ -77,7 +72,7 @@ buildPythonPackage rec {
     toml
   ];
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlagsArray = ["tests/unit_tests"];
 
   disabledTests = [
     # These tests require network access
@@ -97,7 +92,7 @@ buildPythonPackage rec {
     "test_openai_get_num_tokens"
   ];
 
-  pythonImportsCheck = [ "langchain_openai" ];
+  pythonImportsCheck = ["langchain_openai"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

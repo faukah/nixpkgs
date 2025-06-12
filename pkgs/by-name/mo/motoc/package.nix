@@ -5,7 +5,6 @@
   openxr-loader,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "motoc";
   version = "0.3.4";
@@ -24,14 +23,14 @@ rustPlatform.buildRustPackage rec {
     openxr-loader
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "MOnado Tracking Origin Calibration program";
     homepage = "https://github.com/galister/motoc";
     changelog = "https://github.com/galister/motoc/releases";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    maintainers = with lib.maintainers; [pandapip1];
     mainProgram = "motoc";
   };
 }

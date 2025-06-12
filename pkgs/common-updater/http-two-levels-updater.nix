@@ -2,9 +2,7 @@
   lib,
   genericUpdater,
   common-updater-scripts,
-}:
-
-{
+}: {
   pname ? null,
   version ? null,
   attrPath ? null,
@@ -16,7 +14,6 @@
   patchlevel-unstable ? false,
   url ? null,
 }:
-
 genericUpdater {
   inherit
     pname

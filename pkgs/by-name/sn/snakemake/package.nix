@@ -7,7 +7,6 @@
   versionCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "snakemake";
   version = "9.5.1";
@@ -31,7 +30,7 @@ python3Packages.buildPythonApplication rec {
       --replace-fail "raise err" "return bytes('err','ascii')"
   '';
 
-  build-system = with python3Packages; [ setuptools-scm ];
+  build-system = with python3Packages; [setuptools-scm];
 
   dependencies = with python3Packages; [
     appdirs
@@ -84,7 +83,7 @@ python3Packages.buildPythonApplication rec {
       versionCheckHook
       polars
     ])
-    ++ [ writableTmpDirAsHomeHook ];
+    ++ [writableTmpDirAsHomeHook];
 
   versionCheckProgramArg = "--version";
 
@@ -169,7 +168,7 @@ python3Packages.buildPythonApplication rec {
       "test_access_patterns"
     ];
 
-  pythonImportsCheck = [ "snakemake" ];
+  pythonImportsCheck = ["snakemake"];
 
   meta = {
     homepage = "https://snakemake.github.io";

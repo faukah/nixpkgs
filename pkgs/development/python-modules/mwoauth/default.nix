@@ -9,7 +9,6 @@
   requests-oauthlib,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "mwoauth";
   version = "0.4.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
   # https://github.com/mediawiki-utilities/python-mwoauth/issues/44
   doCheck = false;
 
-  pythonImportsCheck = [ "mwoauth" ];
+  pythonImportsCheck = ["mwoauth"];
 
   meta = with lib; {
     description = "Python library to perform OAuth handshakes with a MediaWiki installation";

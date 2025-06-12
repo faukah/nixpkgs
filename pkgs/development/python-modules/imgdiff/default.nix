@@ -6,7 +6,6 @@
   mock,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "imgdiff";
   version = "1.7.1";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-Y5nUnjihRpVVehhP1LUgfuJN5nCxEJu6P1w99Igpxjs=";
   };
 
-  propagatedBuildInputs = [ pillow ];
+  propagatedBuildInputs = [pillow];
 
-  pythonImportsCheck = [ "imgdiff" ];
+  pythonImportsCheck = ["imgdiff"];
 
   nativeCheckInputs = [
     mock
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mgedmin/imgdiff";
     changelog = "https://github.com/mgedmin/imgdiff/blob/${src.rev}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ evils ];
+    maintainers = with maintainers; [evils];
   };
 }

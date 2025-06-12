@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-nk1Pl9K62RjmBUgTlbp3u6cCoiEwpUHavfT3Oy0iyGU=";
 
-  nativeBuildInputs = [ tailwindcss_3 ];
+  nativeBuildInputs = [tailwindcss_3];
 
   preBuild = ''
     tailwindcss -i static/tailwind.css -o static/app.css -m
@@ -35,6 +35,6 @@ buildGoModule rec {
     homepage = "https://codeberg.org/rimgo/rimgo";
     license = licenses.agpl3Only;
     mainProgram = "rimgo";
-    maintainers = with maintainers; [ quantenzitrone ];
+    maintainers = with maintainers; [quantenzitrone];
   };
 }

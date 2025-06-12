@@ -4,11 +4,10 @@
   lib,
   utils,
   ...
-}:
-
-let
+}: let
   cfg = config.services.docuum;
-  inherit (lib)
+  inherit
+    (lib)
     mkIf
     mkEnableOption
     mkOption
@@ -17,8 +16,7 @@ let
     optionals
     concatMap
     ;
-in
-{
+in {
   options.services.docuum = {
     enable = mkEnableOption "docuum daemon";
 
@@ -39,8 +37,8 @@ in
     keep = mkOption {
       description = "Prevents deletion of images for which repository:tag matches the specified regex.";
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "^my-image" ];
+      default = [];
+      example = ["^my-image"];
     };
 
     deletionChunkSize = mkOption {
@@ -60,16 +58,16 @@ in
     ];
 
     systemd.services.docuum = {
-      after = [ "docker.socket" ];
-      requires = [ "docker.socket" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ config.virtualisation.docker.package ];
+      after = ["docker.socket"];
+      requires = ["docker.socket"];
+      wantedBy = ["multi-user.target"];
+      path = [config.virtualisation.docker.package];
       environment.HOME = "/var/lib/docuum";
 
       serviceConfig = {
         DynamicUser = true;
         StateDirectory = "docuum";
-        SupplementaryGroups = [ "docker" ];
+        SupplementaryGroups = ["docker"];
         ExecStart = utils.escapeSystemdExecArgs (
           [
             (getExe pkgs.docuum)
@@ -79,9 +77,10 @@ in
             cfg.deletionChunkSize
           ]
           ++ (concatMap (keep: [
-            "--keep"
-            keep
-          ]) cfg.keep)
+              "--keep"
+              keep
+            ])
+            cfg.keep)
           ++ (optionals (cfg.minAge != null) [
             "--min-age"
             cfg.minAge

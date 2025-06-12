@@ -11,7 +11,6 @@
   SDL2_mixer,
   SDL2_net,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "chocolate-doom";
   version = "3.1.0";
@@ -58,6 +57,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "chocolate-doom";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ Gliczy ];
+    maintainers = with lib.maintainers; [Gliczy];
   };
 })

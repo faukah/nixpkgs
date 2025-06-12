@@ -8,7 +8,6 @@
   setuptools,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "walrus";
   version = "0.9.4";
@@ -23,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-cvoRiaGGTpZWfSE6DDT6GwDmc/TC/Z/E76Qy9Zzkpsw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ redis ];
+  dependencies = [redis];
 
   nativeCheckInputs = [
     unittestCheckHook
     redisTestHook
   ];
 
-  pythonImportsCheck = [ "walrus" ];
+  pythonImportsCheck = ["walrus"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/coleifer/walrus";
     changelog = "https://github.com/coleifer/walrus/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "modd";
   version = "unstable-2021-12-15";
@@ -27,6 +26,6 @@ buildGoModule {
     mainProgram = "modd";
     homepage = "https://github.com/cortesi/modd";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

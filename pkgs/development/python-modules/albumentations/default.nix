@@ -3,10 +3,8 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   albucore,
   numpy,
@@ -14,12 +12,10 @@
   pydantic,
   pyyaml,
   scipy,
-
   # optional dependencies
   huggingface-hub,
   pillow,
   torch,
-
   # tests
   deepdiff,
   pytestCheckHook,
@@ -28,7 +24,6 @@
   scikit-learn,
   torchvision,
 }:
-
 buildPythonPackage rec {
   pname = "albumentations";
   version = "2.0.8";
@@ -47,9 +42,9 @@ buildPythonPackage rec {
     ./dont-check-for-updates.patch
   ];
 
-  pythonRelaxDeps = [ "opencv-python" ];
+  pythonRelaxDeps = ["opencv-python"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     albucore
@@ -61,9 +56,9 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    hub = [ huggingface-hub ];
-    pytorch = [ torch ];
-    text = [ pillow ];
+    hub = [huggingface-hub];
+    pytorch = [torch];
+    text = [pillow];
   };
 
   nativeCheckInputs = [
@@ -83,13 +78,13 @@ buildPythonPackage rec {
     "test_multiprocessing_support"
   ];
 
-  pythonImportsCheck = [ "albumentations" ];
+  pythonImportsCheck = ["albumentations"];
 
   meta = {
     description = "Fast image augmentation library and easy to use wrapper around other libraries";
     homepage = "https://github.com/albumentations-team/albumentations";
     changelog = "https://github.com/albumentations-team/albumentations/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

@@ -12,7 +12,6 @@
   sqlalchemy,
   traitlets,
 }:
-
 buildPythonPackage rec {
   pname = "dask-gateway-server";
   version = "2023.9.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/${pname}";
 
-  nativeBuildInputs = [ go ];
+  nativeBuildInputs = [go];
 
   propagatedBuildInputs = [
     aiohttp
@@ -39,9 +38,9 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    kerberos = [ pykerberos ];
-    jobqueue = [ sqlalchemy ];
-    local = [ sqlalchemy ];
+    kerberos = [pykerberos];
+    jobqueue = [sqlalchemy];
+    local = [sqlalchemy];
     yarn = [
       skein
       sqlalchemy
@@ -55,12 +54,12 @@ buildPythonPackage rec {
   # Tests requires cluster for testing
   doCheck = false;
 
-  pythonImportsCheck = [ "dask_gateway_server" ];
+  pythonImportsCheck = ["dask_gateway_server"];
 
   meta = with lib; {
     description = "Multi-tenant server for securely deploying and managing multiple Dask clusters";
     homepage = "https://gateway.dask.org/";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

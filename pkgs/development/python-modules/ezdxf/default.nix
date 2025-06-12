@@ -16,7 +16,6 @@
   pymupdf,
   pyqt5,
 }:
-
 buildPythonPackage rec {
   version = "1.3.2";
   pname = "ezdxf";
@@ -59,9 +58,9 @@ buildPythonPackage rec {
     cython
   ];
 
-  checkInputs = [ pillow ];
+  checkInputs = [pillow];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "ezdxf"
@@ -73,7 +72,7 @@ buildPythonPackage rec {
     mainProgram = "ezdxf";
     homepage = "https://github.com/mozman/ezdxf/";
     license = licenses.mit;
-    maintainers = with maintainers; [ hodapp ];
+    maintainers = with maintainers; [hodapp];
     platforms = platforms.unix;
   };
 }

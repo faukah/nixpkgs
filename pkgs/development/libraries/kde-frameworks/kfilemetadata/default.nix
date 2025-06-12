@@ -15,10 +15,9 @@
   qtmultimedia,
   taglib,
 }:
-
 mkDerivation {
   pname = "kfilemetadata";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs =
     lib.optionals stdenv.hostPlatform.isLinux [
       attr

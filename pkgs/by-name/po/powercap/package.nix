@@ -5,7 +5,6 @@
   fetchpatch,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "powercap";
   version = "0.6.0";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=On"
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     description = "Tools and library to read/write to the Linux power capping framework (sysfs interface)";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rowanG077 ];
+    maintainers = with maintainers; [rowanG077];
   };
 }

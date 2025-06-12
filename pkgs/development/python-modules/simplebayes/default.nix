@@ -6,7 +6,6 @@
   mock,
   isPy3k,
 }:
-
 buildPythonPackage {
   pname = "simplebayes";
   version = "1.5.8";

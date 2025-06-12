@@ -2,12 +2,10 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   cmake,
   gettext,
   wrapGAppsHook3,
   pkg-config,
-
   adwaita-icon-theme,
   alsa-lib,
   binutils,
@@ -27,7 +25,6 @@
   withLua ? true,
   lua,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xournalpp";
   version = "1.2.7";
@@ -71,7 +68,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withLua lua;
 
-  buildFlags = [ "translations" ];
+  buildFlags = ["translations"];
 
   preFixup = ''
     gappsWrapperArgs+=(
@@ -84,7 +81,7 @@ stdenv.mkDerivation rec {
     homepage = "https://xournalpp.github.io/";
     changelog = "https://github.com/xournalpp/xournalpp/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
     mainProgram = "xournalpp";
   };

@@ -21,7 +21,6 @@
   pipewire,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "snapshot";
   version = "48.0.1";
@@ -87,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/snapshot";
     description = "Take pictures and videos on your computer, tablet, or phone";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
     mainProgram = "snapshot";

@@ -1,7 +1,10 @@
-{ lib, mkDerivation }:
+{
+  lib,
+  mkDerivation,
+}:
 mkDerivation {
   path = "sbin/fsck";
-  extraPaths = [ "sbin/mount" ];
+  extraPaths = ["sbin/mount"];
 
   meta.platforms = lib.platforms.freebsd;
 }

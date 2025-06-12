@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "trickest-cli";
   version = "2.1.1";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/trickest/trickest-cli";
     changelog = "https://github.com/trickest/trickest-cli/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "trickest";
   };
 }

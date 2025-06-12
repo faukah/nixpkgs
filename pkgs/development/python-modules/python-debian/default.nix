@@ -9,7 +9,6 @@
   charset-normalizer,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "python-debian";
   version = "1.0.1";
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     "tests/test_debfile.py"
   ];
 
-  pythonImportsCheck = [ "debian" ];
+  pythonImportsCheck = ["debian"];
 
   meta = {
     description = "Debian package related modules";
     homepage = "https://salsa.debian.org/python-debian-team/python-debian";
     changelog = "https://salsa.debian.org/python-debian-team/python-debian/-/blob/master/debian/changelog";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

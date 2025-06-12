@@ -7,13 +7,11 @@
   pytestCheckHook,
   pythonAtLeast,
   pythonOlder,
-
   # for passthru.tests
   pyramid,
   routes,
   tokenlib,
 }:
-
 buildPythonPackage rec {
   pname = "webob";
   version = "1.8.9";
@@ -28,14 +26,14 @@ buildPythonPackage rec {
     hash = "sha256-axJQwlybuqBS6RgI2z9pbw58vHF9aC9AxCg13CIKCLs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # https://github.com/Pylons/webob/issues/437
-  dependencies = lib.optionals (pythonAtLeast "3.13") [ legacy-cgi ];
+  dependencies = lib.optionals (pythonAtLeast "3.13") [legacy-cgi];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "webob" ];
+  pythonImportsCheck = ["webob"];
 
   disabledTestPaths = [
     # AttributeError: 'Thread' object has no attribute 'isAlive'
@@ -51,6 +49,6 @@ buildPythonPackage rec {
     description = "WSGI request and response object";
     homepage = "https://webob.org/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

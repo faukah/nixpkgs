@@ -4,11 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.wireguard;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     mkRenamedOptionModule
@@ -16,15 +15,14 @@ let
     optionalString
     escapeShellArg
     ;
-in
-{
+in {
   port = 9586;
   imports = [
-    (mkRenamedOptionModule [ "addr" ] [ "listenAddress" ])
-    ({
+    (mkRenamedOptionModule ["addr"] ["listenAddress"])
+    {
       options.warnings = options.warnings;
       options.assertions = options.assertions;
-    })
+    }
   ];
   extraOpts = {
     verbose = mkEnableOption "verbose logging mode for prometheus-wireguard-exporter";
@@ -64,11 +62,11 @@ in
     };
   };
   serviceOpts = {
-    path = [ pkgs.wireguard-tools ];
+    path = [pkgs.wireguard-tools];
 
     serviceConfig = {
-      AmbientCapabilities = [ "CAP_NET_ADMIN" ];
-      CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
+      AmbientCapabilities = ["CAP_NET_ADMIN"];
+      CapabilityBoundingSet = ["CAP_NET_ADMIN"];
       ExecStart = ''
         ${pkgs.prometheus-wireguard-exporter}/bin/prometheus_wireguard_exporter \
           -p ${toString cfg.port} \

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "hecate";
   version = "unstable-2022-05-03";
@@ -26,8 +25,8 @@ buildGoModule rec {
     inherit (src.meta) homepage;
     description = "terminal hex editor";
     longDescription = "The Hex Editor From Hell!";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ ramkromberg ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [ramkromberg];
     mainProgram = "hecate";
   };
 }

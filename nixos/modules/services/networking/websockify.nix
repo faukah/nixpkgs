@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.networking.websockify;
-in
-{
+in {
   options = {
     services.networking.websockify = {
       enable = mkOption {
@@ -35,7 +31,7 @@ in
 
       portMap = mkOption {
         description = "Ports to map by default.";
-        default = { };
+        default = {};
         type = types.attrsOf types.int;
       };
     };
@@ -56,7 +52,7 @@ in
       description = "Target to start all default websockify@ services";
       unitConfig.X-StopOnReconfiguration = true;
       wants = mapAttrsToList (name: value: "websockify@${name}:${toString value}.service") cfg.portMap;
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 }

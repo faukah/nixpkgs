@@ -3,23 +3,19 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   setuptools,
-
   # dependencies
   importlib-metadata,
   importlib-resources,
   mako,
   sqlalchemy,
   typing-extensions,
-
   # tests
   pytest7CheckHook,
   pytest-xdist,
   python-dateutil,
 }:
-
 buildPythonPackage rec {
   pname = "alembic";
   version = "1.15.2";
@@ -32,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-HHI5G73v/M/jF+77pobLmjwHgAVHiIVBO5XDsmxXqKc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -45,7 +41,7 @@ buildPythonPackage rec {
       importlib-metadata
     ];
 
-  pythonImportsCheck = [ "alembic" ];
+  pythonImportsCheck = ["alembic"];
 
   nativeCheckInputs = [
     pytest7CheckHook
@@ -57,7 +53,7 @@ buildPythonPackage rec {
     homepage = "https://bitbucket.org/zzzeek/alembic";
     description = "Database migration tool for SQLAlchemy";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "alembic";
   };
 }

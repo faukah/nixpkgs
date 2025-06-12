@@ -8,7 +8,6 @@
   pyserial,
   fetchpatch,
 }:
-
 buildPythonPackage rec {
   pname = "smbus-cffi";
   version = "0.5.1";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
   installCheckPhase = ''
     # we want to import the installed module that also contains the compiled library
@@ -38,7 +37,7 @@ buildPythonPackage rec {
   '';
 
   # requires hardware access
-  pytestFlagsArray = [ "--ignore=test/test_smbus_integration.py" ];
+  pytestFlagsArray = ["--ignore=test/test_smbus_integration.py"];
 
   nativeCheckInputs = [
     py
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     description = "Python module for SMBus access through Linux I2C /dev interface";
     homepage = "https://github.com/bivab/smbus-cffi";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
     platforms = platforms.linux;
   };
 }

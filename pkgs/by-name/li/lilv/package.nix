@@ -12,11 +12,9 @@
   sord,
   sratom,
   gitUpdater,
-
   # test derivations
   pipewire,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lilv";
   version = "0.24.24";
@@ -44,7 +42,7 @@ stdenv.mkDerivation rec {
     sord
     sratom
   ];
-  propagatedBuildInputs = [ lv2 ];
+  propagatedBuildInputs = [lv2];
 
   mesonFlags =
     [
@@ -79,7 +77,7 @@ stdenv.mkDerivation rec {
     homepage = "http://drobilla.net/software/lilv";
     description = "C library to make the use of LV2 plugins";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pysmartdl";
   version = "1.3.4";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-Etyv3xCB1cGozWDsskygwcTHJfC+V5hvqBNQAF8SIMM=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # https://docs.python.org/3/whatsnew/3.13.html#unittest
   preCheck = ''
@@ -41,13 +40,13 @@ buildPythonPackage rec {
     "test_unicode"
   ];
 
-  pythonImportsCheck = [ "pySmartDL" ];
+  pythonImportsCheck = ["pySmartDL"];
 
   meta = with lib; {
     homepage = "https://github.com/iTaybb/pySmartDL";
     description = "Smart Download Manager for Python";
     changelog = "https://github.com/iTaybb/pySmartDL/blob/${src.rev}/ChangeLog.txt";
     license = licenses.unlicense;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

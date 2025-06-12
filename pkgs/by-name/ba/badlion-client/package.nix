@@ -4,7 +4,6 @@
   appimageTools,
   makeWrapper,
 }:
-
 appimageTools.wrapAppImage rec {
   pname = "badlion-client";
   version = "4.5.4";
@@ -19,7 +18,7 @@ appimageTools.wrapAppImage rec {
     };
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   extraInstallCommands = ''
     install -Dm444 ${src}/BadlionClient.desktop $out/share/applications/BadlionClient.desktop
@@ -30,14 +29,14 @@ appimageTools.wrapAppImage rec {
       --set APPIMAGE 1
   '';
 
-  extraPkgs = pkgs: [ pkgs.xorg.libxshmfence ];
+  extraPkgs = pkgs: [pkgs.xorg.libxshmfence];
 
   meta = {
     description = "Most Complete All-In-One Mod Library for Minecraft with 100+ Mods, FPS Improvements, and more";
     homepage = "https://client.badlion.net";
     license = lib.licenses.unfree;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "badlion-client";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

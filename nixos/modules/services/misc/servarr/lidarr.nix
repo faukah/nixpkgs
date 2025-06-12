@@ -3,12 +3,10 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.lidarr;
-  servarr = import ./settings-options.nix { inherit lib pkgs; };
-in
-{
+  servarr = import ./settings-options.nix {inherit lib pkgs;};
+in {
   options = {
     services.lidarr = {
       enable = lib.mkEnableOption "Lidarr, a Usenet/BitTorrent music downloader";
@@ -19,7 +17,7 @@ in
         description = "The directory where Lidarr stores its data files.";
       };
 
-      package = lib.mkPackageOption pkgs "lidarr" { };
+      package = lib.mkPackageOption pkgs "lidarr" {};
 
       openFirewall = lib.mkOption {
         type = lib.types.bool;
@@ -59,8 +57,8 @@ in
 
     systemd.services.lidarr = {
       description = "Lidarr";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment = servarr.mkServarrSettingsEnvVars "LIDARR" cfg.settings;
 
       serviceConfig = {
@@ -74,7 +72,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings.server.port ];
+      allowedTCPPorts = [cfg.settings.server.port];
     };
 
     users.users = lib.mkIf (cfg.user == "lidarr") {

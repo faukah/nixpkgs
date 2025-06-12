@@ -6,7 +6,6 @@
   rime-data,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "rime-wanxiang";
   version = "7.0.5";
@@ -54,7 +53,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Feature-rich pinyin schema for Rime, basic edition";
@@ -85,7 +84,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     downloadPage = "https://github.com/amzxyz/rime_wanxiang/releases";
     changelog = "https://github.com/amzxyz/rime_wanxiang/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.cc-by-40;
-    maintainers = with lib.maintainers; [ rc-zb ];
+    maintainers = with lib.maintainers; [rc-zb];
     platforms = lib.platforms.all;
   };
 })

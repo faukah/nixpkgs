@@ -4,9 +4,7 @@
   fetchurl,
   texliveMedium,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "nuweb";
   version = "1.62";
 
@@ -15,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JVqPYkYPXBT0xLNWuW4DV6N6ZlKuBYQGT46frhnpU64=";
   };
 
-  buildInputs = [ texliveMedium ];
+  buildInputs = [texliveMedium];
 
   patchPhase = ''
     sed -i -e 's|nuweb -r|./nuweb -r|' Makefile
@@ -44,8 +42,9 @@ stdenv.mkDerivation rec {
     mainProgram = "nuweb";
     homepage = "https://nuweb.sourceforge.net";
     license = licenses.free;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }
 # TODO: nuweb.el Emacs integration
+

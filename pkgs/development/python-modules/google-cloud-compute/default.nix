@@ -11,7 +11,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-compute";
   version = "1.30.0";
@@ -25,13 +24,15 @@ buildPythonPackage rec {
     hash = "sha256-iy0/43OA3lhZp4YIHZvMEgOg86IFMAg5on+CjVmCiic=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    google-api-core
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      google-api-core
+      proto-plus
+      protobuf
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   nativeCheckInputs = [
     mock
@@ -57,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-compute";
     changelog = "https://github.com/googleapis/google-cloud-python/blob/google-cloud-compute-v${version}/packages/google-cloud-compute/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

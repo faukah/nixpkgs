@@ -6,7 +6,6 @@
   fetchFromGitHub,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mouse_m908";
   version = "3.4";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     installShellFiles
   ];
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
   # Uses proper nix directories rather than the ones specified in the makefile
   installPhase = ''
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Control various Redragon gaming mice from Linux, BSD and Haiku";
     mainProgram = "mouse_m908";
     license = lib.licenses.gpl3Plus;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ kylelovestoad ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [kylelovestoad];
   };
 })

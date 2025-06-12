@@ -7,7 +7,6 @@
   pkg-config,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libb2";
   version = "0.98.1";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "BLAKE2 family of cryptographic hash functions";
     homepage = "https://blake2.net/";
-    pkgConfigModules = [ "libb2" ];
+    pkgConfigModules = ["libb2"];
     platforms = platforms.all;
     maintainers = with maintainers; [
       dfoxfranke

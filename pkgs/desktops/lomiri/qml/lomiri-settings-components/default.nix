@@ -10,7 +10,6 @@
   qtbase,
   qtdeclarative,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-settings-components";
   version = "1.1.2";
@@ -57,14 +56,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "QML settings components for the Lomiri Desktop Environment";
     homepage = "https://gitlab.com/ubports/development/core/lomiri-settings-components";
     changelog = "https://gitlab.com/ubports/development/core/lomiri-settings-components/-/blob/${finalAttrs.version}/ChangeLog";
     license = licenses.lgpl3Only;
-    teams = [ teams.lomiri ];
+    teams = [teams.lomiri];
     platforms = platforms.linux;
   };
 })

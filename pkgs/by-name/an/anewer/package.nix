@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "anewer";
   version = "0.1.6";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "anewer";
     homepage = "https://github.com/ysf/anewer";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

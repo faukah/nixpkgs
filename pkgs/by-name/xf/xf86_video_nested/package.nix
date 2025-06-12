@@ -11,7 +11,6 @@
   utilmacros,
   xorgserver,
 }:
-
 stdenv.mkDerivation {
   pname = "xf86-video-nested";
   version = "unstable-2017-06-12";
@@ -36,14 +35,14 @@ stdenv.mkDerivation {
     xorgserver
   ];
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   CFLAGS = "-I${pixman}/include/pixman-1";
 
   meta = with lib; {
     homepage = "https://cgit.freedesktop.org/xorg/driver/xf86-video-nested";
     description = "Driver to run Xorg on top of Xorg or something else";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     license = licenses.mit;
   };

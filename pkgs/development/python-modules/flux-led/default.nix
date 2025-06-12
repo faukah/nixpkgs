@@ -9,7 +9,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "flux-led";
   version = "1.2.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
       --replace-fail '"pytest-runner>=5.2",' ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     async-timeout
@@ -41,14 +40,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "flux_led" ];
+  pythonImportsCheck = ["flux_led"];
 
   meta = with lib; {
     description = "Python library to communicate with the flux_led smart bulbs";
     homepage = "https://github.com/Danielhiversen/flux_led";
     changelog = "https://github.com/Danielhiversen/flux_led/releases/tag/${version}";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
     mainProgram = "flux_led";
   };

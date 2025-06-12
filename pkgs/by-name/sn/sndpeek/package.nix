@@ -12,7 +12,6 @@
   libXext,
   libXi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sndpeek";
   version = "1.4";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
 
   # this patch adds -lpthread to the list of libraries, without it a
   # symbol-not-found-error is thrown
-  patches = [ ./pthread.patch ];
+  patches = [./pthread.patch];
 
   buildInputs = [
     libglut
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     libXext
     libXi
   ];
-  buildFlags = [ "linux-alsa" ];
+  buildFlags = ["linux-alsa"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://soundlab.cs.princeton.edu/software/sndpeek/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.laikq ];
+    maintainers = [maintainers.laikq];
     mainProgram = "sndpeek";
   };
 }

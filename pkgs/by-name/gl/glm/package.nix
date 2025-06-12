@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.0.1";
   pname = "glm";
@@ -21,17 +20,16 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   env.NIX_CFLAGS_COMPILE =
     # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=102823
-    if (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11") then
-      "-fno-ipa-modref"
+    if (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
+    then "-fno-ipa-modref"
     # Fix compilation errors on darwin
-    else if (stdenv.cc.isClang) then
-      "-Wno-error"
-    else
-      "";
+    else if (stdenv.cc.isClang)
+    then "-Wno-error"
+    else "";
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_SHARED_LIBS" false)
@@ -62,6 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/g-truc/glm";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ smancill ];
+    maintainers = with maintainers; [smancill];
   };
 }

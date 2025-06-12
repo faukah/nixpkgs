@@ -6,7 +6,6 @@
   libuuid,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jfsutils";
   version = "1.1.15";
@@ -35,8 +34,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libuuid ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [libuuid];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

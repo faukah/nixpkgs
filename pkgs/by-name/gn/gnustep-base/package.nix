@@ -26,7 +26,6 @@
   portaudio,
   wrapGNUstepAppsHook,
 }:
-
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "gnustep-base";
   version = "1.29.0";
@@ -89,14 +88,14 @@ clangStdenv.mkDerivation (finalAttrs: {
     # https://github.com/gnustep/libs-base/pull/334
     (fetchpatch {
       url = "https://github.com/gnustep/libs-base/commit/b4feee311f2beaf499a5742967213f523de30f16.patch";
-      excludes = [ "ChangeLog" ];
+      excludes = ["ChangeLog"];
       hash = "sha256-r0qpxjpEM6y+F/gju6JhpDNxnFJNHFG/mt3NmC1hWrs=";
     })
   ];
 
   meta = {
     changelog = "https://github.com/gnustep/libs-base/releases/tag/base-${
-      builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version
+      builtins.replaceStrings ["."] ["_"] finalAttrs.version
     }";
     description = "Implementation of AppKit and Foundation libraries of OPENSTEP and Cocoa";
     homepage = "https://gnustep.github.io/";

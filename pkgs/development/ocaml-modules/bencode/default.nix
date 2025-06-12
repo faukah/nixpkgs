@@ -5,7 +5,6 @@
   ounit,
   qcheck,
 }:
-
 buildDunePackage rec {
   pname = "bencode";
   version = "2.0";
@@ -29,6 +28,6 @@ buildDunePackage rec {
     homepage = "https://github.com/rgrinberg/bencode";
     changelog = "https://github.com/rgrinberg/bencode/blob/${version}/Changelog.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ infinidoge ];
+    maintainers = with lib.maintainers; [infinidoge];
   };
 }

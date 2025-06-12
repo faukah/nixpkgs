@@ -3,10 +3,8 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-
   # propagates
   importlib-metadata,
-
   # tests
   editables,
   gitMinimal,
@@ -14,7 +12,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pdm-backend";
   version = "2.4.4";
@@ -29,9 +26,9 @@ buildPythonPackage rec {
 
   env.PDM_BUILD_SCM_VERSION = version;
 
-  dependencies = lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  dependencies = lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
-  pythonImportsCheck = [ "pdm.backend" ];
+  pythonImportsCheck = ["pdm.backend"];
 
   nativeCheckInputs = [
     editables
@@ -57,6 +54,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/pdm-project/pdm-backend/releases/tag/${version}";
     description = "Yet another PEP 517 backend";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

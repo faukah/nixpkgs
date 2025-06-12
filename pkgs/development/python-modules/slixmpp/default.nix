@@ -15,7 +15,6 @@
   rustPlatform,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "slixmpp";
   version = "1.10.0";
@@ -51,13 +50,13 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    xep-0363 = [ aiohttp ];
-    xep-0444-compliance = [ emoji ];
-    xep-0464 = [ cryptography ];
-    safer-xml-parserig = [ defusedxml ];
+    xep-0363 = [aiohttp];
+    xep-0444-compliance = [emoji];
+    xep-0464 = [cryptography];
+    safer-xml-parserig = [defusedxml];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs = [pytestCheckHook] ++ lib.flatten (lib.attrValues optional-dependencies);
 
   preCheck = ''
     # don't test against pure python version in the source tree
@@ -71,13 +70,13 @@ buildPythonPackage rec {
     "tests/live_test.py"
   ];
 
-  pythonImportsCheck = [ "slixmpp" ];
+  pythonImportsCheck = ["slixmpp"];
 
   meta = with lib; {
     description = "Python library for XMPP";
     homepage = "https://slixmpp.readthedocs.io/";
     changelog = "https://codeberg.org/poezio/slixmpp/releases/tag/slix-${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -13,7 +13,6 @@
   vte,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tilda";
   version = "2.0.0";
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Gtk based drop down terminal for Linux and Unix";
     mainProgram = "tilda";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 })

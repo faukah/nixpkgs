@@ -18,6 +18,6 @@ mkKdeDerivation {
     bison
     flex
   ];
-  extraBuildInputs = [ libimobiledevice ];
+  extraBuildInputs = [libimobiledevice];
   meta.mainProgram = "solid-hardware6";
 }

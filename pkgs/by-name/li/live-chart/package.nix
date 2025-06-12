@@ -9,7 +9,6 @@
   gtk4,
   libgee,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "live-chart";
   version = "1.10.0";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Real-time charting library for Vala and GTK4 based on Cairo";
     homepage = "https://github.com/lcallarec/live-chart";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
   };
 })

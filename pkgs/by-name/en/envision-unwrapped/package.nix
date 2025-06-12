@@ -30,7 +30,6 @@
   wrapGAppsHook4,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "envision-unwrapped";
   version = "2.0.1";
@@ -96,10 +95,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = ''
     wrapProgram $out/bin/envision \
-      --prefix PATH : "${lib.makeBinPath [ gdb ]}"
+      --prefix PATH : "${lib.makeBinPath [gdb]}"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "UI for building, configuring and running Monado, the open source OpenXR runtime";

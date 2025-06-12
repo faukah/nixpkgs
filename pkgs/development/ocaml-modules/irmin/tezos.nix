@@ -14,7 +14,6 @@
   irmin-test,
   fpath,
 }:
-
 buildDunePackage {
   pname = "irmin-tezos";
 
@@ -43,8 +42,10 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = irmin.meta // {
-    description = "Irmin implementation of the Tezos context hash specification";
-    maintainers = [ lib.maintainers.ulrikstrid ];
-  };
+  meta =
+    irmin.meta
+    // {
+      description = "Irmin implementation of the Tezos context hash specification";
+      maintainers = [lib.maintainers.ulrikstrid];
+    };
 }

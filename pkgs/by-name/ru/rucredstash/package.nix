@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rucredstash";
   version = "0.9.2";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     description = "Utility for managing credentials securely in AWS cloud";
     homepage = "https://github.com/psibi/rucredstash";
     license = licenses.mit;
-    maintainers = with maintainers; [ psibi ];
+    maintainers = with maintainers; [psibi];
     mainProgram = "rucredstash";
   };
 }

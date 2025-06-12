@@ -37,7 +37,6 @@
   gnome-user-share,
   gobject-introspection,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nautilus";
   version = "48.1";
@@ -100,7 +99,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   mesonFlags = [
     "-Ddocs=true"
-    "-Dtests=${if finalAttrs.finalPackage.doCheck then "all" else "none"}"
+    "-Dtests=${
+      if finalAttrs.finalPackage.doCheck
+      then "all"
+      else "none"
+    }"
   ];
 
   preFixup = ''
@@ -130,7 +133,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://apps.gnome.org/Nautilus/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     mainProgram = "nautilus";
   };
 })

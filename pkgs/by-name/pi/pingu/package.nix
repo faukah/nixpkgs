@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pingu";
   version = "0.0.5";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Ping command implementation in Go but with colorful output and pingu ascii art";
     homepage = "https://github.com/sheepla/pingu/";
     license = licenses.mit;
-    maintainers = with maintainers; [ CactiChameleon9 ];
+    maintainers = with maintainers; [CactiChameleon9];
     mainProgram = "pingu";
     # Doesn't build with Go toolchain >1.22, build error:
     # 'link: golang.org/x/net/internal/socket: invalid reference to syscall.recvmsg'.

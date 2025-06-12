@@ -13,7 +13,6 @@
   libXinerama,
   libXrandr,
 }:
-
 buildDunePackage rec {
   pname = "raylib";
   version = "1.4.0";
@@ -42,7 +41,7 @@ buildDunePackage rec {
   meta = {
     description = "OCaml bindings for Raylib (5.0.0)";
     homepage = "https://tjammer.github.io/raylib-ocaml";
-    maintainers = with lib.maintainers; [ r17x ];
+    maintainers = with lib.maintainers; [r17x];
     license = lib.licenses.mit;
   };
 }

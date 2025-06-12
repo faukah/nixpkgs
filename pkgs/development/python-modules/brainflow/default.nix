@@ -6,9 +6,9 @@
   python,
   setuptools,
 }:
-
 buildPythonPackage {
-  inherit (brainflow)
+  inherit
+    (brainflow)
     pname
     version
     src
@@ -17,14 +17,14 @@ buildPythonPackage {
     ;
 
   pyproject = true;
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
     nptyping
   ];
 
-  buildInputs = [ brainflow ];
+  buildInputs = [brainflow];
 
   postPatch = ''
     cd python_package
@@ -35,5 +35,5 @@ buildPythonPackage {
     cp -Tr "${brainflow}/lib" "$out/${python.sitePackages}/brainflow/lib/"
   '';
 
-  pythonImportsCheck = [ "brainflow" ];
+  pythonImportsCheck = ["brainflow"];
 }

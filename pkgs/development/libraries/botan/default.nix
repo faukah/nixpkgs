@@ -12,14 +12,12 @@
   esdm,
   tpm2-tss,
   static ? stdenv.hostPlatform.isStatic, # generates static libraries *only*
-
   # build ESDM RNG plugin
   withEsdm ? false,
   # useful, but have to disable tests for now, as /dev/tpmrm0 is not accessible
   withTpm2 ? false,
   policy ? null,
 }:
-
 assert lib.assertOneOf "policy" policy [
   # no explicit policy is given. The defaults by the library are used
   null
@@ -29,15 +27,12 @@ assert lib.assertOneOf "policy" policy [
   "fips140"
   # only allow "modern" algorithms
   "modern"
-];
-
-let
-  common =
-    {
-      version,
-      hash,
-      patches ? [ ],
-    }:
+]; let
+  common = {
+    version,
+    hash,
+    patches ? [],
+  }:
     stdenv.mkDerivation (finalAttrs: {
       pname = "botan";
       inherit version;
@@ -82,10 +77,10 @@ let
         ];
 
       buildTargets =
-        [ "cli" ]
-        ++ lib.optionals finalAttrs.finalPackage.doCheck [ "tests" ]
-        ++ lib.optionals static [ "static" ]
-        ++ lib.optionals (!static) [ "shared" ];
+        ["cli"]
+        ++ lib.optionals finalAttrs.finalPackage.doCheck ["tests"]
+        ++ lib.optionals static ["static"]
+        ++ lib.optionals (!static) ["shared"];
 
       botanConfigureFlags =
         [
@@ -156,8 +151,7 @@ let
         license = licenses.bsd2;
       };
     });
-in
-{
+in {
   botan3 = common {
     version = "3.8.1";
     hash = "sha256-sDloHUuGGi9YU3Rti6gG9VPiOGntctie2/o8Pb+hfmg=";

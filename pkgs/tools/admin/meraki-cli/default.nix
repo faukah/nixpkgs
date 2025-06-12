@@ -10,7 +10,6 @@
   requests-mock,
   setuptools,
 }:
-
 buildPythonApplication rec {
   pname = "meraki-cli";
   version = "1.5.0";
@@ -54,7 +53,7 @@ buildPythonApplication rec {
     homepage = "https://github.com/PackeTsar/meraki-cli";
     description = "Simple CLI tool to automate and control your Cisco Meraki Dashboard";
     license = licenses.mit;
-    maintainers = with maintainers; [ dylanmtaylor ];
+    maintainers = with maintainers; [dylanmtaylor];
     platforms = platforms.unix;
     mainProgram = "meraki";
   };

@@ -4,19 +4,11 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.networkd-dispatcher;
-
-in
-{
-
+in {
   options = {
     services.networkd-dispatcher = {
-
       enable = mkEnableOption ''
         Networkd-dispatcher service for systemd-networkd connection status
         change. See [upstream instructions](https://gitlab.com/craftyguy/networkd-dispatcher)
@@ -24,7 +16,7 @@ in
       '';
 
       rules = mkOption {
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           { "restart-tor" = {
               onState = ["routable" "off"];
@@ -81,57 +73,53 @@ in
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = ''
           Extra arguments to pass to the networkd-dispatcher command.
         '';
         apply = escapeShellArgs;
       };
-
     };
   };
 
   config = mkIf cfg.enable {
-
     systemd = {
-      packages = [ pkgs.networkd-dispatcher ];
+      packages = [pkgs.networkd-dispatcher];
       services.networkd-dispatcher = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         environment.networkd_dispatcher_args = cfg.extraArgs;
       };
     };
 
-    services.networkd-dispatcher.extraArgs =
-      let
-        scriptDir = pkgs.runCommand "networkd-dispatcher-script-dir" { } (
-          ''
-            mkdir $out
-          ''
-          + (lib.concatStrings (
-            lib.mapAttrsToList (
-              name: cfg:
-              (lib.concatStrings (
-                map (state: ''
-                  mkdir -p $out/${state}.d
-                  ln -s ${
-                    lib.getExe (
-                      pkgs.writeShellApplication {
-                        inherit name;
-                        text = cfg.script;
-                      }
-                    )
-                  } $out/${state}.d/${name}
-                '') cfg.onState
-              ))
-            ) cfg.rules
-          ))
-        );
-      in
-      [
-        "--verbose"
-        "--script-dir"
-        "${scriptDir}"
-      ];
-
+    services.networkd-dispatcher.extraArgs = let
+      scriptDir = pkgs.runCommand "networkd-dispatcher-script-dir" {} (
+        ''
+          mkdir $out
+        ''
+        + (lib.concatStrings (
+          lib.mapAttrsToList (
+            name: cfg: (lib.concatStrings (
+              map (state: ''
+                mkdir -p $out/${state}.d
+                ln -s ${
+                  lib.getExe (
+                    pkgs.writeShellApplication {
+                      inherit name;
+                      text = cfg.script;
+                    }
+                  )
+                } $out/${state}.d/${name}
+              '')
+              cfg.onState
+            ))
+          )
+          cfg.rules
+        ))
+      );
+    in [
+      "--verbose"
+      "--script-dir"
+      "${scriptDir}"
+    ];
   };
 }

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-run-bin";
   version = "1.7.4";

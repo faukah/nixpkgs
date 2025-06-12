@@ -22,7 +22,6 @@
   switchboard,
   gettext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-pantheon-shell";
   version = "8.2.0";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -67,6 +66,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/settings-desktop";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

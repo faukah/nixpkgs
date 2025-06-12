@@ -10,7 +10,6 @@
   stdenv,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lcevcdec";
   version = "3.3.5";
@@ -74,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
   };
 
@@ -82,8 +81,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/v-novaltd/LCEVCdec";
     description = "MPEG-5 LCEVC Decoder";
     license = lib.licenses.bsd3Clear;
-    pkgConfigModules = [ "lcevc_dec" ];
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    pkgConfigModules = ["lcevc_dec"];
+    maintainers = with lib.maintainers; [jopejoe1];
     # https://github.com/v-novaltd/LCEVCdec/blob/bf7e0d91c969502e90a925942510a1ca8088afec/cmake/modules/VNovaProject.cmake#L29
     platforms = lib.platforms.aarch ++ lib.platforms.x86;
   };

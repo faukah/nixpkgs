@@ -1,5 +1,7 @@
-{ alephone, fetchurl }:
-
+{
+  alephone,
+  fetchurl,
+}:
 alephone.makeWrapper {
   pname = "marathon-red";
   version = "0";
@@ -14,5 +16,4 @@ alephone.makeWrapper {
     description = "Survival horror-esque Marathon conversion";
     homepage = "https://alephone.lhowon.org/scenarios.html";
   };
-
 }

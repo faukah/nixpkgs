@@ -12,7 +12,6 @@
   withUdev ? stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isStatic,
   enablePrivSep ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dhcpcd";
   version = "10.1.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Qtg9jOFMR/9oWJDmoNNcEAMxG6G1F187HF4MMBJIoTw=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       runtimeShellPackage # So patchShebangs finds a bash suitable for the installed scripts
@@ -41,16 +40,18 @@ stdenv.mkDerivation rec {
     substituteInPlace hooks/dhcpcd-run-hooks.in --replace /bin/sh ${runtimeShell}
   '';
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-    "--disable-privsep"
-    "--dbdir=/var/lib/dhcpcd"
-    "--with-default-hostname=nixos"
-    (lib.enableFeature enablePrivSep "privsep")
-  ] ++ lib.optional enablePrivSep "--privsepuser=dhcpcd";
+  configureFlags =
+    [
+      "--sysconfdir=/etc"
+      "--localstatedir=/var"
+      "--disable-privsep"
+      "--dbdir=/var/lib/dhcpcd"
+      "--with-default-hostname=nixos"
+      (lib.enableFeature enablePrivSep "privsep")
+    ]
+    ++ lib.optional enablePrivSep "--privsepuser=dhcpcd";
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   # Hack to make installation succeed.  dhcpcd will still use /var/lib
   # at runtime.
@@ -63,7 +64,8 @@ stdenv.mkDerivation rec {
   postInstall = lib.optionalString withUdev "[ -e ${placeholder "out"}/lib/dhcpcd/dev/udev.so ]";
 
   passthru.tests = {
-    inherit (nixosTests.networking.scripted)
+    inherit
+      (nixosTests.networking.scripted)
       macvlan
       dhcpSimple
       dhcpHostname
@@ -76,7 +78,7 @@ stdenv.mkDerivation rec {
     homepage = "https://roy.marples.name/projects/dhcpcd";
     platforms = platforms.linux ++ platforms.freebsd ++ platforms.openbsd;
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "dhcpcd";
   };
 }

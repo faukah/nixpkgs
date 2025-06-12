@@ -8,52 +8,50 @@
   schema,
   pytestCheckHook,
   pytest-mock,
-}:
-
-let
+}: let
   version = "1.6.8";
 in
-buildPythonPackage {
-  pname = "sismic";
-  inherit version;
-  pyproject = true;
+  buildPythonPackage {
+    pname = "sismic";
+    inherit version;
+    pyproject = true;
 
-  build-system = [ setuptools ];
+    build-system = [setuptools];
 
-  src = fetchFromGitHub {
-    owner = "AlexandreDecan";
-    repo = "sismic";
-    tag = version;
-    hash = "sha256-0g39jJI3UIniJY/oHQMZ53GCOJIbqdVeOED9PWxlw6E=";
-  };
+    src = fetchFromGitHub {
+      owner = "AlexandreDecan";
+      repo = "sismic";
+      tag = version;
+      hash = "sha256-0g39jJI3UIniJY/oHQMZ53GCOJIbqdVeOED9PWxlw6E=";
+    };
 
-  pythonRelaxDeps = [ "behave" ];
+    pythonRelaxDeps = ["behave"];
 
-  dependencies = [
-    behave
-    ruamel-yaml
-    schema
-  ];
+    dependencies = [
+      behave
+      ruamel-yaml
+      schema
+    ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-  ];
+    nativeCheckInputs = [
+      pytestCheckHook
+      pytest-mock
+    ];
 
-  pythonImportsCheck = [ "sismic" ];
+    pythonImportsCheck = ["sismic"];
 
-  pytestFlagsArray = [ "tests/" ];
+    pytestFlagsArray = ["tests/"];
 
-  disabledTests = [
-    # Time related tests, might lead to flaky tests on slow/busy machines
-    "test_clock"
-  ];
+    disabledTests = [
+      # Time related tests, might lead to flaky tests on slow/busy machines
+      "test_clock"
+    ];
 
-  meta = {
-    changelog = "https://github.com/AlexandreDecan/sismic/releases/tag/${version}";
-    description = "Sismic Interactive Statechart Model Interpreter and Checker";
-    homepage = "https://github.com/AlexandreDecan/sismic";
-    license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ drupol ];
-  };
-}
+    meta = {
+      changelog = "https://github.com/AlexandreDecan/sismic/releases/tag/${version}";
+      description = "Sismic Interactive Statechart Model Interpreter and Checker";
+      homepage = "https://github.com/AlexandreDecan/sismic";
+      license = lib.licenses.lgpl3Only;
+      maintainers = with lib.maintainers; [drupol];
+    };
+  }

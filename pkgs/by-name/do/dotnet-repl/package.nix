@@ -3,7 +3,6 @@
   buildDotnetGlobalTool,
   dotnetCorePackages,
 }:
-
 buildDotnetGlobalTool {
   pname = "dotnet-repl";
   version = "0.3.247";
@@ -18,6 +17,6 @@ buildDotnetGlobalTool {
     homepage = "https://github.com/jonsequitur/dotnet-repl";
     license = lib.licenses.mit;
     mainProgram = "dotnet-repl";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

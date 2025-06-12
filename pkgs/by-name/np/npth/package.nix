@@ -5,7 +5,6 @@
   autoreconfHook,
   pkgsCross,
 }:
-
 stdenv.mkDerivation rec {
   pname = "npth";
   version = "1.8";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-i9JLTyOjBl1uWybpirqc54PqT9eBBpwbNdFJaU6Qyj4=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   doCheck = true;
 

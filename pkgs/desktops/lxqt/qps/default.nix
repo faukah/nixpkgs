@@ -14,7 +14,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qps";
   version = "2.11.1";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     qtwayland
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/qps";
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     mainProgram = "qps";
     license = licenses.gpl2Plus;
     platforms = with platforms; linux; # does not build on darwin
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

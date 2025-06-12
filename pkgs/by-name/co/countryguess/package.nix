@@ -4,7 +4,6 @@
   fetchFromGitHub,
   makeWrapper,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "countryguess";
   version = "0-unstable-2025-03-04";
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/swarbler/countryguess";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     mainProgram = "countryguess";
   };
 }

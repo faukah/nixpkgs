@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "gojo";
   version = "0.3.2";
@@ -29,14 +28,14 @@ buildGoModule (finalAttrs: {
   '';
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Yet another Go implementation of jo";
     homepage = "https://github.com/itchyny/gojo";
     changelog = "https://github.com/itchyny/gojo/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ xiaoxiangmoe ];
+    maintainers = with lib.maintainers; [xiaoxiangmoe];
     mainProgram = "gojo";
   };
 })

@@ -21,9 +21,7 @@
   libX11,
   libGLU,
   libGL,
-}:
-
-let
+}: let
   sharedLibs = [
     portaudio
     freetype
@@ -41,48 +39,47 @@ let
     libGL
     ffmpeg
   ];
-
 in
-stdenv.mkDerivation rec {
-  pname = "ultrastardx";
-  version = "2025.6.0";
+  stdenv.mkDerivation rec {
+    pname = "ultrastardx";
+    version = "2025.6.0";
 
-  src = fetchFromGitHub {
-    owner = "UltraStar-Deluxe";
-    repo = "USDX";
-    rev = "v${version}";
-    hash = "sha256-0M5z40DLZsw/MPjhxsXGwkJnd1dnV59UjR15UXQCChM=";
-  };
+    src = fetchFromGitHub {
+      owner = "UltraStar-Deluxe";
+      repo = "USDX";
+      rev = "v${version}";
+      hash = "sha256-0M5z40DLZsw/MPjhxsXGwkJnd1dnV59UjR15UXQCChM=";
+    };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
-  buildInputs = [
-    fpc
-    libpng
-  ] ++ sharedLibs;
+    nativeBuildInputs = [
+      pkg-config
+      autoreconfHook
+    ];
+    buildInputs =
+      [
+        fpc
+        libpng
+      ]
+      ++ sharedLibs;
 
-  preBuild =
-    let
+    preBuild = let
       items = lib.concatMapStringsSep " " (x: "-rpath ${lib.getLib x}/lib") sharedLibs;
-    in
-    ''
+    in ''
       export NIX_LDFLAGS="$NIX_LDFLAGS ${items}"
     '';
 
-  # dlopened libgcc requires the rpath not to be shrinked
-  dontPatchELF = true;
+    # dlopened libgcc requires the rpath not to be shrinked
+    dontPatchELF = true;
 
-  meta = with lib; {
-    homepage = "https://usdx.eu/";
-    description = "Free and open source karaoke game";
-    mainProgram = "ultrastardx";
-    license = licenses.gpl2Plus;
-    maintainers = with maintainers; [
-      diogotcorreia
-      Profpatsch
-    ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      homepage = "https://usdx.eu/";
+      description = "Free and open source karaoke game";
+      mainProgram = "ultrastardx";
+      license = licenses.gpl2Plus;
+      maintainers = with maintainers; [
+        diogotcorreia
+        Profpatsch
+      ];
+      platforms = platforms.linux;
+    };
+  }

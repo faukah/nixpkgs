@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargonode";
   version = "0.1.3";
@@ -41,6 +40,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with lib.maintainers; [ xosnrdev ];
+    maintainers = with lib.maintainers; [xosnrdev];
   };
 }

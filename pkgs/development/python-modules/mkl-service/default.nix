@@ -7,7 +7,6 @@
   mkl,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mkl-service";
   version = "2.4.2";
@@ -27,11 +26,11 @@ buildPythonPackage rec {
 
   env.MKLROOT = mkl;
 
-  dependencies = [ mkl ];
+  dependencies = [mkl];
 
-  pythonImportsCheck = [ "mkl" ];
+  pythonImportsCheck = ["mkl"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     cd $out
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "Python hooks for Intel(R) Math Kernel Library runtime control settings";
     homepage = "https://github.com/IntelPython/mkl-service";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
   };
 }

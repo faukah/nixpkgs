@@ -10,7 +10,6 @@
   unasync,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "pyosohotwaterapi";
   version = "1.1.4";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
   };
 
   # https://github.com/osohotwateriot/apyosohotwaterapi/pull/3
-  pythonRemoveDeps = [ "pre-commit" ];
+  pythonRemoveDeps = ["pre-commit"];
 
   build-system = [
     setuptools
@@ -47,13 +46,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "apyosoenergyapi" ];
+  pythonImportsCheck = ["apyosoenergyapi"];
 
   meta = with lib; {
     description = "Module for using the OSO Hotwater API";
     homepage = "https://github.com/osohotwateriot/apyosohotwaterapi";
     changelog = "https://github.com/osohotwateriot/apyosohotwaterapi/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

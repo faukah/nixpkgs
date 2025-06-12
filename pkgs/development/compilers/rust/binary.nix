@@ -12,17 +12,13 @@
   src,
   platform,
   versionType,
-}:
-
-let
+}: let
   inherit (lib) optionalString;
 
   bootstrapping = versionType == "bootstrap";
 
   installComponents = "rustc,rust-std-${platform}" + (optionalString bootstrapping ",cargo");
-in
-
-rec {
+in rec {
   rustc-unwrapped = stdenv.mkDerivation {
     pname = "rustc-${versionType}";
 
@@ -31,9 +27,9 @@ rec {
 
     meta = with lib; {
       homepage = "https://www.rust-lang.org/";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
       description = "Safe, concurrent, practical language";
-      maintainers = with maintainers; [ qknight ];
+      maintainers = with maintainers; [qknight];
       license = [
         licenses.mit
         licenses.asl20
@@ -42,7 +38,7 @@ rec {
 
     nativeBuildInputs = lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook;
     buildInputs =
-      [ bash ]
+      [bash]
       ++ lib.optional (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isFreeBSD) gcc.cc.lib
       ++ lib.optional (!stdenv.hostPlatform.isDarwin) zlib;
 
@@ -103,23 +99,25 @@ rec {
         "i686-windows"
         "x86_64-windows"
       ];
-      targetPlatforms = tier1TargetPlatforms ++ [
-        # Platforms without host tools from
-        # https://doc.rust-lang.org/nightly/rustc/platform-support.html
-        "armv5tel-linux"
-        "armv7a-linux"
-        "m68k-linux"
-        "mips-linux"
-        "mips64-linux"
-        "mipsel-linux"
-        "mips64el-linux"
-        "riscv32-linux"
-        "armv6l-netbsd"
-        "mipsel-netbsd"
-        "riscv64-netbsd"
-        "x86_64-redox"
-        "wasm32-wasi"
-      ];
+      targetPlatforms =
+        tier1TargetPlatforms
+        ++ [
+          # Platforms without host tools from
+          # https://doc.rust-lang.org/nightly/rustc/platform-support.html
+          "armv5tel-linux"
+          "armv7a-linux"
+          "m68k-linux"
+          "mips-linux"
+          "mips64-linux"
+          "mipsel-linux"
+          "mips64el-linux"
+          "riscv32-linux"
+          "armv6l-netbsd"
+          "mipsel-netbsd"
+          "riscv64-netbsd"
+          "x86_64-redox"
+          "wasm32-wasi"
+        ];
       badTargetPlatforms = [
         # Rust is currently unable to target the n32 ABI
         lib.systems.inspect.patterns.isMips64n32
@@ -137,21 +135,25 @@ rec {
 
     meta = with lib; {
       homepage = "https://doc.rust-lang.org/cargo/";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
       description = "Rust package manager";
-      maintainers = with maintainers; [ qknight ];
+      maintainers = with maintainers; [qknight];
       license = [
         licenses.mit
         licenses.asl20
       ];
     };
 
-    nativeBuildInputs = [
-      makeWrapper
-    ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook;
-    buildInputs = [
-      bash
-    ] ++ lib.optional (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isFreeBSD) gcc.cc.lib;
+    nativeBuildInputs =
+      [
+        makeWrapper
+      ]
+      ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook;
+    buildInputs =
+      [
+        bash
+      ]
+      ++ lib.optional (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isFreeBSD) gcc.cc.lib;
 
     postPatch = ''
       patchShebangs .

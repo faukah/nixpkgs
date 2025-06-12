@@ -4,7 +4,6 @@
   fetchgit,
   ncurses,
 }:
-
 gccStdenv.mkDerivation {
   pname = "uemacs";
   version = "4.0-unstable-2018-07-19";
@@ -15,7 +14,7 @@ gccStdenv.mkDerivation {
     hash = "sha256-QSouqZiBmKBU6FqRRfWtTGRIl5sqJ8tVPYwdytt/43w=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   postPatch = ''
     substituteInPlace Makefile --replace "lcurses" "lncurses"
@@ -25,7 +24,7 @@ gccStdenv.mkDerivation {
     substituteInPlace epath.h --replace "/usr/global/lib/" "$out/share/uemacs/"
   '';
 
-  makeFlags = [ "CC=${gccStdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${gccStdenv.cc.targetPrefix}cc"];
 
   strictDeps = true;
 
@@ -40,7 +39,7 @@ gccStdenv.mkDerivation {
     description = "Linus Torvalds's random version of microemacs with his personal modifications";
     homepage = "https://git.kernel.org/pub/scm/editors/uemacs/uemacs.git/about/";
     platforms = platforms.all;
-    maintainers = with maintainers; [ networkexception ];
+    maintainers = with maintainers; [networkexception];
     mainProgram = "em";
     # MicroEMACS 3.9 can be copied and distributed freely for any
     # non-commercial purposes. MicroEMACS 3.9 can only be incorporated

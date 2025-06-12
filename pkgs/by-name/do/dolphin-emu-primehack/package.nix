@@ -2,12 +2,10 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # nativeBuildInputs
   pkg-config,
   cmake,
   qt6,
-
   # buildInputs
   curl,
   enet,
@@ -44,12 +42,10 @@
   # darwin-only
   hidapi,
   libpng,
-
   # passthru
   testers,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dolphin-emu-primehack";
   version = "1.0.7a";
@@ -164,14 +160,14 @@ stdenv.mkDerivation (finalAttrs: {
         version = "v${finalAttrs.version}";
       };
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     homepage = "https://github.com/shiiion/dolphin";
     description = "Gamecube/Wii/Triforce emulator for x86_64 and ARMv8";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ Madouura ];
+    maintainers = with lib.maintainers; [Madouura];
     broken = stdenv.hostPlatform.isDarwin;
     platforms = lib.platforms.unix;
   };

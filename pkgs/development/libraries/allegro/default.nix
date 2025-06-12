@@ -22,7 +22,6 @@
   libGLU,
   libGL,
 }:
-
 stdenv.mkDerivation rec {
   pname = "allegro";
   version = "4.4.3.1";
@@ -61,15 +60,15 @@ stdenv.mkDerivation rec {
     libGL
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  cmakeFlags = [ "-DCMAKE_SKIP_RPATH=ON" ];
+  cmakeFlags = ["-DCMAKE_SKIP_RPATH=ON"];
 
   meta = with lib; {
     description = "Game programming library";
     homepage = "https://liballeg.org/";
     license = licenses.giftware;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
   };
 }

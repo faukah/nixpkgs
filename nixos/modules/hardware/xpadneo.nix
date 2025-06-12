@@ -1,8 +1,10 @@
-{ config, lib, ... }:
-let
-  cfg = config.hardware.xpadneo;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.hardware.xpadneo;
+in {
   options.hardware.xpadneo = {
     enable = lib.mkEnableOption "the xpadneo driver for Xbox One wireless controllers";
   };
@@ -16,12 +18,12 @@ in
         && (lib.versionOlder config.boot.kernelPackages.kernel.version "5.12")
       ) "options bluetooth disable_ertm=1";
 
-      extraModulePackages = with config.boot.kernelPackages; [ xpadneo ];
-      kernelModules = [ "hid_xpadneo" ];
+      extraModulePackages = with config.boot.kernelPackages; [xpadneo];
+      kernelModules = ["hid_xpadneo"];
     };
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ kira-bruneau ];
+    maintainers = with lib.maintainers; [kira-bruneau];
   };
 }

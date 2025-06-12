@@ -15,7 +15,6 @@
   wagtail,
   wagtail-modeladmin,
 }:
-
 buildPythonPackage rec {
   pname = "wagtail-localize";
   version = "1.11.3";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-uTZqpitexB5e2/W9HtNo0j4gOW9vDS2BsaVq16BUFM4=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     django
@@ -48,7 +47,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    google = [ google-cloud-translate ];
+    google = [google-cloud-translate];
   };
 
   checkPhase = ''
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/wagtail/wagtail-localize";
     changelog = "https://github.com/wagtail/wagtail-localize/blob/${src.tag}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

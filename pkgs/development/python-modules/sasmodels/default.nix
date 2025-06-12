@@ -14,7 +14,6 @@
   pyopencl,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "sasmodels";
   version = "1.0.9";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     hash = "sha256-eD0YTQYR64tKwG7VxmQkHV2ZACs24hx/sS4me7qTcu4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ opencl-headers ];
+  buildInputs = [opencl-headers];
 
   dependencies = [
     numpy
@@ -45,23 +44,23 @@ buildPythonPackage rec {
       matplotlib
       # columnize
     ];
-    server = [ bumps ];
-    opencl = [ pyopencl ];
-    cuda = [ pycuda ];
+    server = [bumps];
+    opencl = [pyopencl];
+    cuda = [pycuda];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.full;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.full;
 
   preCheck = ''
     export HOME=$TMPDIR
   '';
 
-  pythonImportsCheck = [ "sasmodels" ];
+  pythonImportsCheck = ["sasmodels"];
 
   meta = with lib; {
     description = "Library of small angle scattering models";
     homepage = "https://github.com/SasView/sasmodels";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ rprospero ];
+    maintainers = with maintainers; [rprospero];
   };
 }

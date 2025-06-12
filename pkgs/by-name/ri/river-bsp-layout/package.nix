@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "river-bsp-layout";
   version = "2.1.1";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/areif-dev/river-bsp-layout";
     description = "Binary space partition / grid layout manager for River WM";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ areif-dev ];
+    maintainers = with lib.maintainers; [areif-dev];
     mainProgram = "river-bsp-layout";
     platforms = lib.platforms.linux;
   };

@@ -9,7 +9,6 @@
   coincurve,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "ledger-bitcoin";
   version = "0.4.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-IkJFLnjPS1fIuNNQnoMYYP1IUbChv6uV8vXj9H1NFQA=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     ledgercomm
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "ledger_bitcoin" ];
+  pythonImportsCheck = ["ledger_bitcoin"];
 
   meta = with lib; {
     description = "Client library for Ledger Bitcoin application";

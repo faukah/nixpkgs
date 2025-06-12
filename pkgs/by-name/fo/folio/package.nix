@@ -13,7 +13,6 @@
   libgee,
   gtksourceview5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "folio";
   version = "25.02";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/toolstack/Folio";
     license = lib.licenses.gpl3Only;
     mainProgram = "com.toolstack.Folio";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
   };
 }

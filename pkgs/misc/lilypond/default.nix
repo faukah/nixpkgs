@@ -31,17 +31,18 @@
   rsync,
   coreutils,
   texliveSmall,
-  tex ? texliveSmall.withPackages (
-    ps: with ps; [
-      epsf
-      fontinst
-      fontware
-      lh
-      metafont
-    ]
-  ),
+  tex ?
+    texliveSmall.withPackages (
+      ps:
+        with ps; [
+          epsf
+          fontinst
+          fontware
+          lh
+          metafont
+        ]
+    ),
 }:
-
 stdenv.mkDerivation rec {
   pname = "lilypond";
   version = "2.24.4";
@@ -58,12 +59,12 @@ stdenv.mkDerivation rec {
         wrapProgram "$f" \
           --set GUILE_AUTO_COMPILE 0 \
           --prefix PATH : "${
-            lib.makeBinPath [
-              ghostscript
-              coreutils
-              (placeholder "out")
-            ]
-          }" \
+      lib.makeBinPath [
+        ghostscript
+        coreutils
+        (placeholder "out")
+      ]
+    }" \
           --argv0 "$f"
     done
   '';
@@ -117,12 +118,12 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   passthru.updateScript = {
-    command = [ ./update.sh ];
-    supportedFeatures = [ "commit" ];
+    command = [./update.sh];
+    supportedFeatures = ["commit"];
   };
 
   # documentation makefile uses "out" for different purposes, hence we explicitly set it to an empty string
-  makeFlags = [ "out=" ];
+  makeFlags = ["out="];
 
   meta = {
     description = "Music typesetting system";
@@ -141,6 +142,6 @@ stdenv.mkDerivation rec {
   };
 
   FONTCONFIG_FILE = lib.optional stdenv.hostPlatform.isDarwin (makeFontsConf {
-    fontDirectories = [ freefont_ttf ];
+    fontDirectories = [freefont_ttf];
   });
 }

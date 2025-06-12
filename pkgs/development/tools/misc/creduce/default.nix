@@ -12,7 +12,6 @@
   perlPackages,
   util-linux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "creduce";
   version = "2.10.0";
@@ -93,7 +92,7 @@ stdenv.mkDerivation rec {
       property.  It is intended for use by people who discover and report
       bugs in compilers and other tools that process C/C++ code.
     '';
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

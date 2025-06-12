@@ -11,9 +11,7 @@
   pkg-config,
   libsecret,
   setDefaultServerPath ? true,
-}:
-
-let
+}: let
   pname = "rust-analyzer";
   publisher = "rust-lang";
 
@@ -58,34 +56,33 @@ let
       npx vsce package -o $out/${pname}.zip
     '';
   };
-
 in
-vscode-utils.buildVscodeExtension {
-  inherit version vsix pname;
-  src = "${vsix}/${pname}.zip";
-  vscodeExtUniqueId = "${publisher}.${pname}";
-  vscodeExtPublisher = publisher;
-  vscodeExtName = pname;
+  vscode-utils.buildVscodeExtension {
+    inherit version vsix pname;
+    src = "${vsix}/${pname}.zip";
+    vscodeExtUniqueId = "${publisher}.${pname}";
+    vscodeExtPublisher = publisher;
+    vscodeExtName = pname;
 
-  nativeBuildInputs = lib.optionals setDefaultServerPath [
-    jq
-    moreutils
-  ];
-
-  preInstall = lib.optionalString setDefaultServerPath ''
-    jq '(.contributes.configuration[] | select(.title == "server") | .properties."rust-analyzer.server.path".default) = $s' \
-      --arg s "${rust-analyzer}/bin/rust-analyzer" \
-      package.json | sponge package.json
-  '';
-
-  meta = {
-    description = "Alternative rust language server to the RLS";
-    homepage = "https://github.com/rust-lang/rust-analyzer";
-    license = [
-      lib.licenses.mit
-      lib.licenses.asl20
+    nativeBuildInputs = lib.optionals setDefaultServerPath [
+      jq
+      moreutils
     ];
-    maintainers = [ ];
-    platforms = lib.platforms.all;
-  };
-}
+
+    preInstall = lib.optionalString setDefaultServerPath ''
+      jq '(.contributes.configuration[] | select(.title == "server") | .properties."rust-analyzer.server.path".default) = $s' \
+        --arg s "${rust-analyzer}/bin/rust-analyzer" \
+        package.json | sponge package.json
+    '';
+
+    meta = {
+      description = "Alternative rust language server to the RLS";
+      homepage = "https://github.com/rust-lang/rust-analyzer";
+      license = [
+        lib.licenses.mit
+        lib.licenses.asl20
+      ];
+      maintainers = [];
+      platforms = lib.platforms.all;
+    };
+  }

@@ -3,12 +3,10 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.prometheus.sachet;
   configFile = pkgs.writeText "sachet.yml" (builtins.toJSON cfg.configuration);
-in
-{
+in {
   options = {
     services.prometheus.sachet = {
       enable = lib.mkEnableOption "Sachet, an SMS alerting tool for the Prometheus Alertmanager";
@@ -54,7 +52,6 @@ in
           The port Sachet will listen to.
         '';
       };
-
     };
   };
 
@@ -65,7 +62,7 @@ in
     };
 
     systemd.services.sachet = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "network-online.target"

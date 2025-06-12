@@ -3,21 +3,17 @@
   buildPythonPackage,
   fetchFromGitHub,
   nix-update-script,
-
   # build-system
   pdm-backend,
-
   # dependencies
   anthropic,
   langchain-core,
   pydantic,
-
   # tests
   langchain-tests,
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-anthropic";
   version = "0.3.15";
@@ -32,7 +28,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/partners/anthropic";
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     anthropic
@@ -56,7 +52,7 @@ buildPythonPackage rec {
     "tests/integration_tests"
   ];
 
-  pythonImportsCheck = [ "langchain_anthropic" ];
+  pythonImportsCheck = ["langchain_anthropic"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

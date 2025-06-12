@@ -7,7 +7,6 @@
   gnome-icon-theme,
   hicolor-icon-theme,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "gruvbox-dark-icons-gtk";
   version = "1.0.0";
@@ -19,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "1fks2rrrb62ybzn8gqan5swcgksrb579vk37bx4xpwkc552dz2z2";
   };
 
-  nativeBuildInputs = [ gtk3 ];
+  nativeBuildInputs = [gtk3];
 
   propagatedBuildInputs = [
     breeze-icons
@@ -41,6 +40,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/jmattheis/gruvbox-dark-gtk";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = [ maintainers.nomisiv ];
+    maintainers = [maintainers.nomisiv];
   };
 }

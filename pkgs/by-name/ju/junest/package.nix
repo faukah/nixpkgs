@@ -4,7 +4,6 @@
   stdenvNoCC,
   wget,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "junest";
   version = "7.4.10";
@@ -37,7 +36,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/fsquillace/junest";
     license = lib.licenses.gpl3Only;
     mainProgram = "junest";
-    maintainers = with lib.maintainers; [ jdev082 ];
+    maintainers = with lib.maintainers; [jdev082];
     platforms = lib.platforms.linux;
   };
 }

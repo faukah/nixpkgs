@@ -5,7 +5,6 @@
   fftw,
   installShellFiles,
 }:
-
 stdenv.mkDerivation {
   pname = "sonic-unstable";
   version = "2020-12-27";
@@ -22,9 +21,9 @@ stdenv.mkDerivation {
     "CC=${stdenv.cc.targetPrefix}cc"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ fftw ];
+  buildInputs = [fftw];
 
   postInstall =
     ''
@@ -39,7 +38,7 @@ stdenv.mkDerivation {
     mainProgram = "sonic";
     homepage = "https://github.com/waywardgeek/sonic";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aske ];
+    maintainers = with maintainers; [aske];
     platforms = platforms.all;
   };
 }

@@ -8,7 +8,6 @@
   pythonOlder,
   poetry-core,
 }:
-
 buildPythonPackage rec {
   pname = "pytrafikverket";
   version = "1.1.1";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-yfo36fAVC2LaresQ1QcXq2EGhGtkVzNbWvD6lynhusQ=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -32,13 +31,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pytrafikverket" ];
+  pythonImportsCheck = ["pytrafikverket"];
 
   meta = with lib; {
     description = "Library to get data from the Swedish Transport Administration (Trafikverket) API";
     homepage = "https://github.com/gjohansson-ST/pytrafikverket";
     changelog = "https://github.com/gjohansson-ST/pytrafikverket/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

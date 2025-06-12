@@ -8,7 +8,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "parseable";
   version = "2.3.1";
@@ -28,24 +27,24 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-TCKYr288Ish2j+KNgLS462K7NdllzJRxcPKpXyYryzY=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ rdkafka ];
+  buildInputs = [rdkafka];
 
-  buildFeatures = [ "rdkafka/dynamic-linking" ];
+  buildFeatures = ["rdkafka/dynamic-linking"];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Disk less, cloud native database for logs, observability, security, and compliance";
     homepage = "https://www.parseable.com";
     changelog = "https://github.com/parseablehq/parseable/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ ilyakooo0 ];
+    maintainers = with lib.maintainers; [ilyakooo0];
     mainProgram = "parseable";
   };
 }

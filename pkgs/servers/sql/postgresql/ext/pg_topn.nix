@@ -4,7 +4,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension rec {
   pname = "pg_topn";
   version = "2.7.0";
@@ -20,7 +19,7 @@ postgresqlBuildExtension rec {
     description = "Efficient querying of 'top values' for PostgreSQL";
     homepage = "https://github.com/citusdata/postgresql-topn";
     changelog = "https://github.com/citusdata/postgresql-topn/raw/v${version}/CHANGELOG.md";
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [thoughtpolice];
     platforms = postgresql.meta.platforms;
     license = lib.licenses.agpl3Only;
   };

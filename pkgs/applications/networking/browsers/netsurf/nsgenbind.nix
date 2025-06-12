@@ -6,7 +6,6 @@
   flex,
   buildsystem,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netsurf-nsgenbind";
   version = "0.8";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     flex
   ];
 
-  buildInputs = [ buildsystem ];
+  buildInputs = [buildsystem];
 
   makeFlags = [
     "PREFIX=$(out)"

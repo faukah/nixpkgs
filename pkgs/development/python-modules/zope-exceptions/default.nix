@@ -6,7 +6,6 @@
   setuptools,
   zope-interface,
 }:
-
 buildPythonPackage rec {
   pname = "zope-exceptions";
   version = "5.2";
@@ -33,13 +32,13 @@ buildPythonPackage rec {
   # circular deps
   doCheck = false;
 
-  pythonImportsCheck = [ "zope.exceptions" ];
+  pythonImportsCheck = ["zope.exceptions"];
 
   meta = {
     description = "Exception interfaces and implementations";
     homepage = "https://pypi.python.org/pypi/zope.exceptions";
     changelog = "https://github.com/zopefoundation/zope.exceptions/blob/${version}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

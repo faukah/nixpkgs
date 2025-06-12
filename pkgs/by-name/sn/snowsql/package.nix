@@ -8,7 +8,6 @@
   openssl,
   libxcrypt-legacy,
 }:
-
 stdenv.mkDerivation rec {
   pname = "snowsql";
   version = "1.3.3";
@@ -47,10 +46,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Command line client for the Snowflake database";
     homepage = "https://www.snowflake.com";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ andehen ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [andehen];
+    platforms = ["x86_64-linux"];
     mainProgram = "snowsql";
   };
 }

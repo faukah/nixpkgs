@@ -5,7 +5,6 @@
   testers,
   gotrue-supabase,
 }:
-
 buildGoModule rec {
   pname = "auth";
   version = "2.175.0";
@@ -40,6 +39,6 @@ buildGoModule rec {
     mainProgram = "auth";
     changelog = "https://github.com/supabase/auth/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

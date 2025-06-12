@@ -1,9 +1,8 @@
-{
-  stdenv,
+{stdenv}: {
+  version,
+  src,
+  ...
 }:
-
-{ version, src, ... }:
-
 stdenv.mkDerivation {
   pname = "flutter_volume_controller";
   inherit version src;

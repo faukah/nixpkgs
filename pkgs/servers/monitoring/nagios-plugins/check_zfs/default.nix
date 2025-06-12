@@ -6,7 +6,6 @@
   sudo,
   zfs,
 }:
-
 stdenv.mkDerivation rec {
   pname = "check-zfs";
   version = "2.0";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/zlacelle/nagios_check_zfs_linux";
     license = lib.licenses.gpl3Only;
     mainProgram = "check_zfs";
-    maintainers = with lib.maintainers; [ mariaa144 ];
+    maintainers = with lib.maintainers; [mariaa144];
   };
 }

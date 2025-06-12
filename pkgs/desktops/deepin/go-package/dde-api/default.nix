@@ -16,7 +16,6 @@
   coreutils,
   dbus,
 }:
-
 buildGoModule rec {
   pname = "dde-api";
   version = "6.0.11";
@@ -95,6 +94,6 @@ buildGoModule rec {
     homepage = "https://github.com/linuxdeepin/dde-api";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

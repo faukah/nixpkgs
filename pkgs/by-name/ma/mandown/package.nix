@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ZyjoAvsqUyHgfEsG3+CvJatmBt0AJ2ga6HRJ8Y7her0=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Markdown to groff (man page) converter";
@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       asl20 # or
       mit
     ];
-    maintainers = [ lib.maintainers.awwpotato ];
+    maintainers = [lib.maintainers.awwpotato];
     mainProgram = "mandown";
   };
 })

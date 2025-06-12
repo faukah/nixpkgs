@@ -17,7 +17,6 @@
   qtkeychain,
   libsecret,
 }:
-
 mkDerivation {
   pname = "pim-sieve-editor";
   meta = {

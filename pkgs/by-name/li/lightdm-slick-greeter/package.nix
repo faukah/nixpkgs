@@ -20,7 +20,6 @@
   lightdm-slick-greeter,
   numlockx,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lightdm-slick-greeter";
   version = "2.0.9";

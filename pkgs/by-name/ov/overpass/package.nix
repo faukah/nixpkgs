@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "overpass";
   version = "3.0.5";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Font heavily inspired by Highway Gothic";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
   };
 }

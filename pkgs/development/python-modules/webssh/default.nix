@@ -7,7 +7,6 @@
   pytestCheckHook,
   tornado,
 }:
-
 buildPythonPackage rec {
   pname = "webssh";
   version = "1.6.2";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     tornado
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "webssh" ];
+  pythonImportsCheck = ["webssh"];
 
   meta = with lib; {
     description = "Web based SSH client";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/huashengdun/webssh/";
     changelog = "https://github.com/huashengdun/webssh/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     broken = stdenv.hostPlatform.isDarwin;
   };
 }

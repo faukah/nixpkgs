@@ -10,7 +10,6 @@
   testers,
   nixtract,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nixtract";
   version = "0.3.0";
@@ -25,15 +24,15 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-vG661ZXL87FiMy8yLOI7cagvunhzJhAsBR+VF6RfBxU=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];
 
-  nativeCheckInputs = [ nix ];
+  nativeCheckInputs = [nix];
 
   checkFlags = [
     # Requiring network access
@@ -44,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     "--skip=tests::test_main_fixtures"
   ];
 
-  passthru.tests.version = testers.testVersion { package = nixtract; };
+  passthru.tests.version = testers.testVersion {package = nixtract;};
 
   meta = {
     description = "CLI tool to extract the graph of derivations from a Nix flake";
@@ -54,6 +53,6 @@ rustPlatform.buildRustPackage rec {
       asl20
     ];
     mainProgram = "nixtract";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
   };
 }

@@ -5,7 +5,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "rootlesskit";
   version = "2.3.5";
@@ -20,7 +19,7 @@ buildGoModule rec {
   vendorHash = "sha256-sqmAOEapft5DLHWKwwuuzWY1RCzaKed8M1usyCjmKG8=";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = nixosTests.docker-rootless;
   };
 
@@ -28,7 +27,7 @@ buildGoModule rec {
     homepage = "https://github.com/rootless-containers/rootlesskit";
     description = ''Kind of Linux-native "fake root" utility, made for mainly running Docker and Kubernetes as an unprivileged user'';
     license = licenses.asl20;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.linux;
   };
 }

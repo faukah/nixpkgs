@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "lmtpd";
   version = "6.2.0";
@@ -20,14 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-LGgl0v+h3gmUQEEadC9Y4bPo3uszRa3P1MLDjUuvYrM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "lmtpd" ];
+  pythonImportsCheck = ["lmtpd"];
 
   meta = with lib; {
     description = "LMTP counterpart to smtpd in the Python standard library";
     homepage = "https://github.com/moggers87/lmtpd";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

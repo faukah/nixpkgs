@@ -4,7 +4,6 @@
   perlPackages,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "tes3cmd";
   version = "0.40-pre-release-2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "01zqplp8yb0xnl54963n0zkz66rf3hn2x3i255jlhdhx1c43jba7";
   };
 
-  buildInputs = [ perlPackages.perl ];
+  buildInputs = [perlPackages.perl];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
     mainProgram = "tes3cmd";
     homepage = "https://github.com/john-moonsugar/tes3cmd";
     license = licenses.mit;
-    maintainers = [ maintainers.marius851000 ];
+    maintainers = [maintainers.marius851000];
     platforms = platforms.linux;
   };
 }

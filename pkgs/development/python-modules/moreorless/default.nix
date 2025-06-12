@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "moreorless";
   version = "0.5.0";
@@ -20,16 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-VCvvPxDWriaeKeRaj/YbPLPfNL7fipGwCydr6K0HMjc=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [ click ];
+  dependencies = [click];
 
   nativeCheckInputs = [
     parameterized
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "moreorless" ];
+  pythonImportsCheck = ["moreorless"];
 
   pytestFlagsArray = [
     "moreorless/tests/click.py"
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Wrapper to make difflib.unified_diff more fun to use";
     homepage = "https://github.com/thatch/moreorless/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

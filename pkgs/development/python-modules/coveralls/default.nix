@@ -2,10 +2,8 @@
   buildPythonPackage,
   lib,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # checks
   mock,
   pytestCheckHook,
@@ -16,7 +14,6 @@
   git,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "coveralls";
   version = "4.0.1";
@@ -29,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-1MjP99NykWNDyzWwZopLAzZ93vGX1mXEU+m+zvOBIZA=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     coverage

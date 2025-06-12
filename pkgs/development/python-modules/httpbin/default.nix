@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
-
   # dependencies
   brotlicffi,
   decorator,
@@ -14,15 +12,12 @@
   greenlet,
   six,
   werkzeug,
-
   # optional-dependencies
   gunicorn,
   gevent,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "httpbin";
   version = "0.10.2";
@@ -37,7 +32,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonRelaxDeps = [ "greenlet" ];
+  pythonRelaxDeps = ["greenlet"];
 
   propagatedBuildInputs = [
     brotlicffi
@@ -56,7 +51,7 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Tests seems to be outdated
@@ -69,12 +64,12 @@ buildPythonPackage rec {
     "test_relative_redirect_n_higher_than_1"
   ];
 
-  pythonImportsCheck = [ "httpbin" ];
+  pythonImportsCheck = ["httpbin"];
 
   meta = with lib; {
     description = "HTTP Request and Response Service";
     homepage = "https://github.com/psf/httpbin";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

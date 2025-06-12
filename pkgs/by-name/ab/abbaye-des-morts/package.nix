@@ -6,7 +6,6 @@
   SDL2_image,
   SDL2_mixer,
 }:
-
 stdenv.mkDerivation rec {
   pname = "abbaye-des-morts";
   version = "2.0.4";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "Retro arcade video game";
     mainProgram = "abbayev2";
     license = licenses.gpl3;
-    maintainers = [ maintainers.marius851000 ];
+    maintainers = [maintainers.marius851000];
   };
 }

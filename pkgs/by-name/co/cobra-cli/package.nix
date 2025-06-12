@@ -5,7 +5,6 @@
   makeWrapper,
   go,
 }:
-
 buildGoModule rec {
   pname = "cobra-cli";
   version = "1.3.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-vrtGPQzY+NImOGaSxV+Dvch+GNPfL9XfY4lfCHTGXwY=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   allowGoReference = true;
 
@@ -41,6 +40,6 @@ buildGoModule rec {
     homepage = "https://github.com/spf13/cobra-cli/";
     changelog = "https://github.com/spf13/cobra-cli/releases/tag/${version}";
     license = lib.licenses.afl20;
-    maintainers = [ lib.maintainers.ivankovnatsky ];
+    maintainers = [lib.maintainers.ivankovnatsky];
   };
 }

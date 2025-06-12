@@ -3,40 +3,40 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.networking.networkmanager;
-  toml = pkgs.formats.toml { };
+  toml = pkgs.formats.toml {};
 
   enabled = (lib.length cfg.ensureProfiles.secrets.entries) > 0;
 
   nmFileSecretAgentConfig = {
-    entry = builtins.map (
-      i:
-      {
-        key = i.key;
-        file = i.file;
-      }
-      // lib.optionalAttrs (i.matchId != null) { match_id = i.matchId; }
-      // lib.optionalAttrs (i.matchUuid != null) { match_uuid = i.matchUuid; }
-      // lib.optionalAttrs (i.matchType != null) { match_type = i.matchType; }
-      // lib.optionalAttrs (i.matchIface != null) { match_iface = i.matchIface; }
-      // lib.optionalAttrs (i.matchSetting != null) {
-        match_setting = i.matchSetting;
-      }
-    ) cfg.ensureProfiles.secrets.entries;
+    entry =
+      builtins.map (
+        i:
+          {
+            key = i.key;
+            file = i.file;
+          }
+          // lib.optionalAttrs (i.matchId != null) {match_id = i.matchId;}
+          // lib.optionalAttrs (i.matchUuid != null) {match_uuid = i.matchUuid;}
+          // lib.optionalAttrs (i.matchType != null) {match_type = i.matchType;}
+          // lib.optionalAttrs (i.matchIface != null) {match_iface = i.matchIface;}
+          // lib.optionalAttrs (i.matchSetting != null) {
+            match_setting = i.matchSetting;
+          }
+      )
+      cfg.ensureProfiles.secrets.entries;
   };
   nmFileSecretAgentConfigFile = toml.generate "config.toml" nmFileSecretAgentConfig;
-in
-{
+in {
   meta = {
-    maintainers = [ lib.maintainers.lilioid ];
+    maintainers = [lib.maintainers.lilioid];
   };
 
   ####### interface
   options = {
     networking.networkmanager.ensureProfiles.secrets = {
-      package = lib.mkPackageOption pkgs "nm-file-secret-agent" { };
+      package = lib.mkPackageOption pkgs "nm-file-secret-agent" {};
       entries = lib.mkOption {
         description = ''
           A list of secrets to provide to NetworkManager by reading their values from configured files.
@@ -44,7 +44,7 @@ in
           Note that NetworkManager should be configured to read secrets from a secret agent.
           This can be done for example through the `networking.networkmanager.ensureProfiles.profiles` options.
         '';
-        default = [ ];
+        default = [];
         example = [
           {
             matchId = "My WireGuard VPN";
@@ -120,11 +120,11 @@ in
     # start nm-file-secret-agent if required
     systemd.services."nm-file-secret-agent" = {
       description = "NetworkManager secret agent that responds with the content of preconfigured files";
-      documentation = [ "https://github.com/lilioid/nm-file-secret-agent/" ];
-      requires = [ "NetworkManager.service" ];
-      after = [ "NetworkManager.service" ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ nmFileSecretAgentConfigFile ];
+      documentation = ["https://github.com/lilioid/nm-file-secret-agent/"];
+      requires = ["NetworkManager.service"];
+      after = ["NetworkManager.service"];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [nmFileSecretAgentConfigFile];
       script = "${lib.getExe cfg.ensureProfiles.secrets.package} --conf ${nmFileSecretAgentConfigFile}";
     };
   };

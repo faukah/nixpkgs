@@ -9,7 +9,6 @@
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nix-template";
   version = "0.4.1";
@@ -31,13 +30,13 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   # needed for nix-prefetch-url
   postInstall =
     ''
       wrapProgram $out/bin/nix-template \
-        --prefix PATH : ${lib.makeBinPath [ nix ]}
+        --prefix PATH : ${lib.makeBinPath [nix]}
 
     ''
     + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
@@ -52,7 +51,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/jonringer/nix-template/";
     changelog = "https://github.com/jonringer/nix-template/releases/tag/v${version}";
     license = lib.licenses.cc0;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "nix-template";
   };
 }

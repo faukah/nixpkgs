@@ -10,7 +10,6 @@
   cmake,
   libsForQt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-polkit-agent";
   version = "6.0.7";
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dde-polkit-agent";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

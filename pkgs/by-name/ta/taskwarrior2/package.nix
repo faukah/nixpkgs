@@ -9,7 +9,6 @@
   xdg-utils,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "taskwarrior";
   version = "2.6.2";

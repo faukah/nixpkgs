@@ -2,47 +2,48 @@ let
   certs = import ./common/acme/server/snakeoil-certs.nix;
   domain = certs.domain;
 in
-{ pkgs, ... }:
-{
-  name = "alps";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ hmenke ];
-  };
-
-  nodes = {
-    server = {
-      imports = [ ./common/user-account.nix ];
-      security.pki.certificateFiles = [
-        certs.ca.cert
-      ];
-      networking.extraHosts = ''
-        127.0.0.1 ${domain}
-      '';
-      networking.firewall.allowedTCPPorts = [
-        25
-        465
-        993
-      ];
-      services.postfix = {
-        enable = true;
-        enableSubmission = true;
-        enableSubmissions = true;
-        tlsTrustedAuthorities = "${certs.ca.cert}";
-        sslCert = "${certs.${domain}.cert}";
-        sslKey = "${certs.${domain}.key}";
-      };
-      services.dovecot2 = {
-        enable = true;
-        enableImap = true;
-        sslCACert = "${certs.ca.cert}";
-        sslServerCert = "${certs.${domain}.cert}";
-        sslServerKey = "${certs.${domain}.key}";
-      };
+  {pkgs, ...}: {
+    name = "alps";
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [hmenke];
     };
 
-    client =
-      { nodes, config, ... }:
-      {
+    nodes = {
+      server = {
+        imports = [./common/user-account.nix];
+        security.pki.certificateFiles = [
+          certs.ca.cert
+        ];
+        networking.extraHosts = ''
+          127.0.0.1 ${domain}
+        '';
+        networking.firewall.allowedTCPPorts = [
+          25
+          465
+          993
+        ];
+        services.postfix = {
+          enable = true;
+          enableSubmission = true;
+          enableSubmissions = true;
+          tlsTrustedAuthorities = "${certs.ca.cert}";
+          sslCert = "${certs.${domain}.cert}";
+          sslKey = "${certs.${domain}.key}";
+        };
+        services.dovecot2 = {
+          enable = true;
+          enableImap = true;
+          sslCACert = "${certs.ca.cert}";
+          sslServerCert = "${certs.${domain}.cert}";
+          sslServerKey = "${certs.${domain}.key}";
+        };
+      };
+
+      client = {
+        nodes,
+        config,
+        ...
+      }: {
         security.pki.certificateFiles = [
           certs.ca.cert
         ];
@@ -62,7 +63,7 @@ in
           };
         };
         environment.systemPackages = [
-          (pkgs.writers.writePython3Bin "test-alps-login" { } ''
+          (pkgs.writers.writePython3Bin "test-alps-login" {} ''
             from urllib.request import build_opener, HTTPCookieProcessor, Request
             from urllib.parse import urlencode, urljoin
             from http.cookiejar import CookieJar
@@ -98,11 +99,9 @@ in
           '')
         ];
       };
-  };
+    };
 
-  testScript =
-    { nodes, ... }:
-    ''
+    testScript = {nodes, ...}: ''
       server.start()
       server.wait_for_unit("postfix.service")
       server.wait_for_unit("dovecot2.service")
@@ -114,4 +113,4 @@ in
       client.wait_for_open_port(${toString nodes.client.config.services.alps.port})
       client.succeed("test-alps-login")
     '';
-}
+  }

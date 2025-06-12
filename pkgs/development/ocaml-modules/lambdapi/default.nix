@@ -17,7 +17,6 @@
   why3,
   yojson,
 }:
-
 buildDunePackage rec {
   pname = "lambdapi";
   version = "2.6.0";
@@ -33,7 +32,7 @@ buildDunePackage rec {
     dream
     menhir
   ];
-  buildInputs = [ lwt_ppx ];
+  buildInputs = [lwt_ppx];
   propagatedBuildInputs = [
     bindlib
     camlp-streams
@@ -58,6 +57,6 @@ buildDunePackage rec {
     description = "Proof assistant based on the λΠ-calculus modulo rewriting";
     license = licenses.cecill21;
     changelog = "https://github.com/Deducteam/lambdapi/raw/${version}/CHANGES.md";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

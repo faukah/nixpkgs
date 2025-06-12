@@ -4,7 +4,6 @@
   coq,
   version ? null,
 }:
-
 (mkCoqDerivation {
   pname = "zorns-lemma";
   repo = "topology";
@@ -22,8 +21,7 @@
   release."8.5.0".sha256 = "sha256-mH/v02ObMjbVPYx2H+Jhz+Xp0XRKN67iMAdA1VNFzso=";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = range "8.12" "8.20";
@@ -53,7 +51,8 @@
         case = "8.5";
         out = "8.5.0";
       }
-    ] null;
+    ]
+    null;
 
   useDuneifVersion = lib.versions.isGe "9.0";
 
@@ -64,8 +63,8 @@
       purpose the author had in writing it was as support for the
       Topology library.
     '';
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.lgpl21Plus;
   };
 }).overrideAttrs
-  ({ version, ... }: lib.optionalAttrs (lib.versions.isGe "9.0" version) { repo = "topology"; })
+({version, ...}: lib.optionalAttrs (lib.versions.isGe "9.0" version) {repo = "topology";})

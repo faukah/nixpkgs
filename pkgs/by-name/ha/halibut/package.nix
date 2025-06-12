@@ -5,7 +5,6 @@
   cmake,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "halibut";
   version = "1.3";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     description = "Documentation production system for software manuals";
     homepage = "https://www.chiark.greenend.org.uk/~sgtatham/halibut/";
     license = licenses.mit;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = with platforms; unix;
     mainProgram = "halibut";
   };

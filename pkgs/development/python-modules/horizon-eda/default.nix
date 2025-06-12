@@ -4,42 +4,43 @@
   pycairo,
   python,
   pythonOlder,
-}:
-
-let
+}: let
   base = horizon-eda.passthru.base;
 in
-buildPythonPackage {
-  inherit (base)
-    pname
-    version
-    src
-    meta
-    CASROOT
-    ;
+  buildPythonPackage {
+    inherit
+      (base)
+      pname
+      version
+      src
+      meta
+      CASROOT
+      ;
 
-  pyproject = false;
+    pyproject = false;
 
-  disabled = pythonOlder "3.9";
+    disabled = pythonOlder "3.9";
 
-  buildInputs = base.buildInputs ++ [
-    python
-  ];
+    buildInputs =
+      base.buildInputs
+      ++ [
+        python
+      ];
 
-  propagatedBuildInputs = [ pycairo ];
+    propagatedBuildInputs = [pycairo];
 
-  nativeBuildInputs = base.nativeBuildInputs;
+    nativeBuildInputs = base.nativeBuildInputs;
 
-  ninjaFlags = [ "horizon.so" ];
+    ninjaFlags = ["horizon.so"];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/${python.sitePackages}
-    cp horizon.so $out/${python.sitePackages}
+      mkdir -p $out/${python.sitePackages}
+      cp horizon.so $out/${python.sitePackages}
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  enableParallelBuilding = true;
-}
+    enableParallelBuilding = true;
+  }

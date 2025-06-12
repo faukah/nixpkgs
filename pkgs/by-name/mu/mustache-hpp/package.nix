@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mustache";
   version = "4.1";

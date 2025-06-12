@@ -9,7 +9,6 @@
   libparserutils,
   libwapcaplet,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netsurf-libcss";
   version = "0.9.2";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     perl
@@ -52,7 +51,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=implicit-fallthrough"
-    "-Wno-error=${if stdenv.cc.isGNU then "maybe-uninitialized" else "uninitialized"}"
+    "-Wno-error=${
+      if stdenv.cc.isGNU
+      then "maybe-uninitialized"
+      else "uninitialized"
+    }"
   ];
 
   enableParallelBuilding = true;

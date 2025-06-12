@@ -19,7 +19,6 @@
   vala,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ghex";
   version = "48.alpha";
@@ -88,6 +87,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "ghex";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 })

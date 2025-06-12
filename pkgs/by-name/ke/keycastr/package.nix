@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall
@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Open-source keystroke visualizer";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ matteopacini ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [matteopacini];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

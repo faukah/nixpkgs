@@ -10,7 +10,6 @@
   gdk-pixbuf,
   wrapGAppsHook3,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pizarra";
   version = "1.7.5";
@@ -63,6 +62,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://pizarra.categulario.xyz/en/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mglolenstine ];
+    maintainers = with maintainers; [mglolenstine];
   };
 }

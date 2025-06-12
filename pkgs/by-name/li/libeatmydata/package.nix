@@ -6,7 +6,6 @@
   strace,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libeatmydata";
   version = "131";

@@ -17,7 +17,6 @@
   xkeyboard_config,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxqt-wayland-session";
   version = "0.2.0";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://github.com/lxqt/lxqt-wayland-session";
@@ -72,6 +71,6 @@ stdenv.mkDerivation rec {
       mit
     ];
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.lxqt ];
+    teams = [lib.teams.lxqt];
   };
 }

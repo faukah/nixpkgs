@@ -9,7 +9,6 @@
   keyutils,
   libxcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mokutil";
   version = "0.7.2";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Utility to manipulate machines owner keys";
     mainProgram = "mokutil";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     platforms = platforms.linux;
   };
 }

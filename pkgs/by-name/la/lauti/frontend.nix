@@ -8,7 +8,6 @@
   yarnConfigHook,
   yarnBuildHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lauti";
   inherit version src;
@@ -41,7 +40,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    inherit (lauti.meta)
+    inherit
+      (lauti.meta)
       homepage
       description
       license

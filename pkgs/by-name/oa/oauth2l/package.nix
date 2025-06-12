@@ -4,7 +4,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "oauth2l";
   version = "1.3.3";
@@ -33,7 +32,7 @@ buildGoModule rec {
     description = "Simple CLI for interacting with Google API authentication";
     homepage = "https://github.com/google/oauth2l";
     license = licenses.asl20;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
     mainProgram = "oauth2l";
   };
 }

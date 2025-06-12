@@ -5,7 +5,6 @@
   libGL,
   libX11,
 }:
-
 stdenv.mkDerivation {
   pname = "soil";
   version = "unstable-2020-01-04";
@@ -40,6 +39,6 @@ stdenv.mkDerivation {
     homepage = "https://www.lonesock.net/soil.html";
     license = licenses.publicDomain;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

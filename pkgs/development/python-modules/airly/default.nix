@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "airly";
   version = "1.1.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-weliT/FYnRX+pzVAyRWFly7lfj2z7P+hpq5SIhyIgmI=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # aiounittest is not supported on 3.12
   doCheck = pythonOlder "3.12";
@@ -41,12 +40,12 @@ buildPythonPackage rec {
     "MeasurementsSessionTestCase"
   ];
 
-  pythonImportsCheck = [ "airly" ];
+  pythonImportsCheck = ["airly"];
 
   meta = with lib; {
     description = "Python module for getting air quality data from Airly sensors";
     homepage = "https://github.com/ak-ambi/python-airly";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

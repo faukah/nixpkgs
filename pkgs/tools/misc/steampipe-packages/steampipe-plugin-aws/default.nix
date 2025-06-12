@@ -5,7 +5,6 @@
   nix-update-script,
   steampipe,
 }:
-
 buildGoModule rec {
   pname = "steampipe-plugin-aws";
   version = "1.13.0";
@@ -37,7 +36,7 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/turbot/steampipe-plugin-aws/blob/v${version}/CHANGELOG.md";
@@ -45,7 +44,7 @@ buildGoModule rec {
     homepage = "https://github.com/turbot/steampipe-plugin-aws";
     license = lib.licenses.asl20;
     longDescription = "Use SQL to instantly query AWS resources across regions and accounts.";
-    maintainers = with lib.maintainers; [ anthonyroussel ];
+    maintainers = with lib.maintainers; [anthonyroussel];
     platforms = steampipe.meta.platforms;
   };
 }

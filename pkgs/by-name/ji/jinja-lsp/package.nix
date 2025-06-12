@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     description = "Language server implementation for jinja2";
     homepage = "https://github.com/uros-5/jinja-lsp";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ adamjhf ];
+    maintainers = with lib.maintainers; [adamjhf];
     mainProgram = "jinja-lsp";
   };
 }

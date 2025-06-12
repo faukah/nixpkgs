@@ -4,7 +4,6 @@
   docker,
   lib,
 }:
-
 buildGoModule rec {
   pname = "docker-sbom";
   version = "0.6.1";
@@ -24,7 +23,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-XPPVAdY2NaasZ9bkf24VWWk3X5pjnryvsErYIWkeekc=";
 
-  nativeBuildInputs = [ docker ];
+  nativeBuildInputs = [docker];
 
   installPhase = ''
     runHook preInstall
@@ -40,6 +39,6 @@ buildGoModule rec {
     mainProgram = "docker-sbom";
     homepage = "https://github.com/docker/sbom-cli-plugin";
     license = licenses.asl20;
-    maintainers = with maintainers; [ raboof ];
+    maintainers = with maintainers; [raboof];
   };
 }

@@ -7,7 +7,6 @@
   pythonOlder,
   yara,
 }:
-
 buildPythonPackage rec {
   pname = "yara-python";
   version = "4.5.4";
@@ -29,23 +28,23 @@ buildPythonPackage rec {
       --replace-fail "include_dirs=['yara/libyara/include', 'yara/libyara/', '.']" "libraries = ['yara']"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ yara ];
+  buildInputs = [yara];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  setupPyBuildFlags = [ "--dynamic-linking" ];
+  setupPyBuildFlags = ["--dynamic-linking"];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
-  pythonImportsCheck = [ "yara" ];
+  pythonImportsCheck = ["yara"];
 
   meta = with lib; {
     description = "Python interface for YARA";
     homepage = "https://github.com/VirusTotal/yara-python";
     changelog = "https://github.com/VirusTotal/yara-python/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

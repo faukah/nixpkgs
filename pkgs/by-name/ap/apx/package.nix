@@ -7,7 +7,6 @@
   podman,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule rec {
   pname = "apx";
   version = "2.4.5";

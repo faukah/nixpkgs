@@ -48,7 +48,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/octodns/octodns-ddns";
     changelog = "https://github.com/octodns/octodns-ddns/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.provokateurin ];
-    teams = [ lib.teams.octodns ];
+    maintainers = [lib.maintainers.provokateurin];
+    teams = [lib.teams.octodns];
   };
 }

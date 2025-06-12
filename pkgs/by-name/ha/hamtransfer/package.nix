@@ -6,7 +6,6 @@
   protobuf,
   sqlite,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "hamtransfer";
   version = "unstable-2024-04-05";

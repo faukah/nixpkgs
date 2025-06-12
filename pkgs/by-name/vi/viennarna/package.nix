@@ -8,7 +8,6 @@
   perl,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "viennarna";
   version = "2.7.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "Prediction and comparison of RNA secondary structures";
     homepage = "https://www.tbi.univie.ac.at/RNA/";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ prusnak ];
+    maintainers = with lib.maintainers; [prusnak];
     platforms = lib.platforms.unix;
   };
 }

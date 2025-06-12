@@ -19,7 +19,6 @@
   yarn,
   nodejs,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sticky-notes";
   version = "0.2.7";
@@ -83,7 +82,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/vixalien/sticky";
     changelog = "https://github.com/vixalien/sticky/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pokon548 ];
+    maintainers = with lib.maintainers; [pokon548];
     mainProgram = "com.vixalien.sticky";
     platforms = lib.platforms.linux;
   };

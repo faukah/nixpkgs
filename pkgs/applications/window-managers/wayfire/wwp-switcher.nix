@@ -14,7 +14,6 @@
   glibmm,
   xcbutilwm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wwp-switcher";
   version = "0-unstable-2024-07-23";
@@ -46,13 +45,13 @@ stdenv.mkDerivation (finalAttrs: {
     PKG_CONFIG_WAYFIRE_METADATADIR = "${placeholder "out"}/share/wayfire/metadata";
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://github.com/wb9688/wwp-switcher";
     description = "Plugin to switch active window";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [rewine];
     inherit (wayfire.meta) platforms;
   };
 })

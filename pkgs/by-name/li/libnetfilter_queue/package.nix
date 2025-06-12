@@ -6,7 +6,6 @@
   libmnl,
   libnfnetlink,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.0.5";
   pname = "libnetfilter_queue";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1xdra6i4p8jkv943ygjw646qx8df27f7p5852kc06vjx608krzzr";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libmnl
     libnfnetlink

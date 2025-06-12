@@ -29,12 +29,10 @@
   bubblewrap,
   autoconf,
   gnupg,
-
   # Disable the unshare RPM plugin, which can be useful if
   # RPM is ran within the Nix sandbox.
   disableUnshare ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rpm";
   version = "4.20.1";
@@ -65,13 +63,15 @@ stdenv.mkDerivation rec {
     ];
   separateDebugInfo = true;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    autoconf
-    python3
-    gettext
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ bubblewrap ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      autoconf
+      python3
+      gettext
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [bubblewrap];
   buildInputs =
     [
       bzip2
@@ -130,9 +130,11 @@ stdenv.mkDerivation rec {
     ];
 
   # rpm/rpmlib.h includes popt.h, and then the pkg-config file mentions these as linkage requirements
-  propagatedBuildInputs = [
-    popt
-  ] ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform elfutils) elfutils;
+  propagatedBuildInputs =
+    [
+      popt
+    ]
+    ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform elfutils) elfutils;
 
   enableParallelBuilding = true;
 
@@ -143,7 +145,7 @@ stdenv.mkDerivation rec {
       lgpl21Plus
     ];
     description = "RPM Package Manager";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

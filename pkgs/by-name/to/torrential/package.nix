@@ -24,7 +24,6 @@
   openssl,
   pantheon,
 }:
-
 stdenv.mkDerivation rec {
   pname = "torrential";
   version = "3.0.0";
@@ -71,14 +70,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Download torrents in style with this speedy, minimalist torrent client for elementary OS";
     homepage = "https://github.com/davidmhewitt/torrential";
-    maintainers = with maintainers; [ xiorcale ];
-    teams = [ teams.pantheon ];
+    maintainers = with maintainers; [xiorcale];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
     mainProgram = "com.github.davidmhewitt.torrential";

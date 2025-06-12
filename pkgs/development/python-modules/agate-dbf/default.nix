@@ -6,7 +6,6 @@
   dbf,
   dbfread,
 }:
-
 buildPythonPackage rec {
   pname = "agate-dbf";
   version = "0.2.3";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Adds read support for dbf files to agate";
     homepage = "https://github.com/wireservice/agate-dbf";
-    license = with licenses; [ mit ];
-    maintainers = [ ];
+    license = with licenses; [mit];
+    maintainers = [];
   };
 }

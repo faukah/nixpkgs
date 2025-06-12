@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "exiflooter";
   version = "1.0.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/aydinnyunus/exiflooter";
     changelog = "https://github.com/aydinnyunus/exifLooter/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ octodi ];
+    maintainers = with lib.maintainers; [octodi];
     mainProgram = "exiflooter";
   };
 }

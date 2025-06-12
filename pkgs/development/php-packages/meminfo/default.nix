@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 buildPecl rec {
   version = "unstable-2022-03-25";
   pname = "meminfo";
@@ -21,6 +20,6 @@ buildPecl rec {
     description = "PHP extension to get insight about memory usage";
     homepage = "https://github.com/BitOne/php-meminfo";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

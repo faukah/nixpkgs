@@ -5,7 +5,6 @@
   garminconnect,
   tzlocal,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "cyberjunky";
   domain = "garmin_connect";

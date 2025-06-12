@@ -1,7 +1,6 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "without-nix";
-  meta.maintainers = with lib.maintainers; [ ericson2314 ];
+  meta.maintainers = with lib.maintainers; [ericson2314];
 
   node.pkgsReadOnly = false;
 

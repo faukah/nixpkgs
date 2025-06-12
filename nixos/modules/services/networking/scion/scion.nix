@@ -4,16 +4,12 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.scion;
-in
-{
+in {
   options.services.scion = {
     enable = mkEnableOption "all of the scion components and services";
-    package = mkPackageOption pkgs "scion" { };
+    package = mkPackageOption pkgs "scion" {};
     stateless = mkOption {
       type = types.bool;
       default = true;

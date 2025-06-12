@@ -1,47 +1,44 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "matrix-synapse-workers";
   meta = {
     inherit (pkgs.matrix-synapse.meta) maintainers;
   };
 
   nodes = {
-    homeserver =
-      {
-        pkgs,
-        nodes,
-        ...
-      }:
-      {
-        services.postgresql = {
-          enable = true;
-          initialScript = pkgs.writeText "synapse-init.sql" ''
-            CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
-            CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
-            TEMPLATE template0
-            LC_COLLATE = "C"
-            LC_CTYPE = "C";
-          '';
+    homeserver = {
+      pkgs,
+      nodes,
+      ...
+    }: {
+      services.postgresql = {
+        enable = true;
+        initialScript = pkgs.writeText "synapse-init.sql" ''
+          CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
+          CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
+          TEMPLATE template0
+          LC_COLLATE = "C"
+          LC_CTYPE = "C";
+        '';
+      };
+
+      services.matrix-synapse = {
+        enable = true;
+        settings = {
+          database = {
+            name = "psycopg2";
+            args.password = "synapse";
+          };
+          enable_registration = true;
+          enable_registration_without_verification = true;
+
+          federation_sender_instances = ["federation_sender"];
         };
-
-        services.matrix-synapse = {
-          enable = true;
-          settings = {
-            database = {
-              name = "psycopg2";
-              args.password = "synapse";
-            };
-            enable_registration = true;
-            enable_registration_without_verification = true;
-
-            federation_sender_instances = [ "federation_sender" ];
-          };
-          configureRedisLocally = true;
-          workers = {
-            "federation_sender" = { };
-          };
+        configureRedisLocally = true;
+        workers = {
+          "federation_sender" = {};
         };
       };
+    };
   };
 
   testScript = ''

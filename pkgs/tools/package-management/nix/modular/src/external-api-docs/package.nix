@@ -1,14 +1,10 @@
 {
   lib,
   mkMesonDerivation,
-
   doxygen,
-
   # Configuration Options
-
   version,
 }:
-
 mkMesonDerivation (finalAttrs: {
   pname = "nix-external-api-docs";
   inherit version;

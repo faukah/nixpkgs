@@ -5,7 +5,6 @@
   buildGoModule,
   replaceVars,
 }:
-
 buildGoModule rec {
   pname = "fosrl-gerbil";
   version = "1.0.0";
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/fosrl/gerbil";
     changelog = "https://github.com/fosrl/gerbil/releases/tag/${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ jackr ];
+    maintainers = with lib.maintainers; [jackr];
     platforms = lib.platforms.linux;
   };
 }

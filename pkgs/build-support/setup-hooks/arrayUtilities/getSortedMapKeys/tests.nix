@@ -3,17 +3,15 @@
   getSortedMapKeys,
   lib,
   testers,
-}:
-let
+}: let
   inherit (lib.attrsets) recurseIntoAttrs;
   inherit (testers) shellcheck shfmt testEqualArrayOrMap;
 
-  check =
-    {
-      name,
-      valuesMap,
-      expectedArray,
-    }:
+  check = {
+    name,
+    valuesMap,
+    expectedArray,
+  }:
     (testEqualArrayOrMap {
       inherit name valuesMap expectedArray;
       script = ''
@@ -22,59 +20,59 @@ let
         getSortedMapKeys valuesMap actualArray
       '';
     }).overrideAttrs
-      (prevAttrs: {
-        nativeBuildInputs = prevAttrs.nativeBuildInputs or [ ] ++ [ getSortedMapKeys ];
-      });
+    (prevAttrs: {
+      nativeBuildInputs = prevAttrs.nativeBuildInputs or [] ++ [getSortedMapKeys];
+    });
 in
-recurseIntoAttrs {
-  shellcheck = shellcheck {
-    name = "getSortedMapKeys";
-    src = ./getSortedMapKeys.bash;
-  };
-
-  shfmt = shfmt {
-    name = "getSortedMapKeys";
-    src = ./getSortedMapKeys.bash;
-  };
-
-  empty = check {
-    name = "empty";
-    valuesMap = { };
-    expectedArray = [ ];
-  };
-
-  singleton = check {
-    name = "singleton";
-    valuesMap = {
-      "apple" = "fruit";
+  recurseIntoAttrs {
+    shellcheck = shellcheck {
+      name = "getSortedMapKeys";
+      src = ./getSortedMapKeys.bash;
     };
-    expectedArray = [ "apple" ];
-  };
 
-  keysAreSorted = check {
-    name = "keysAreSorted";
-    valuesMap = {
-      "apple" = "fruit";
-      "bee" = "insect";
-      "carrot" = "vegetable";
+    shfmt = shfmt {
+      name = "getSortedMapKeys";
+      src = ./getSortedMapKeys.bash;
     };
-    expectedArray = [
-      "apple"
-      "bee"
-      "carrot"
-    ];
-  };
 
-  # NOTE: While keys can be whitespace, they cannot be null (empty).
-  keysCanBeWhitespace = check {
-    name = "keysCanBeWhitespace";
-    valuesMap = {
-      " " = 1;
-      "  " = 2;
+    empty = check {
+      name = "empty";
+      valuesMap = {};
+      expectedArray = [];
     };
-    expectedArray = [
-      " "
-      "  "
-    ];
-  };
-}
+
+    singleton = check {
+      name = "singleton";
+      valuesMap = {
+        "apple" = "fruit";
+      };
+      expectedArray = ["apple"];
+    };
+
+    keysAreSorted = check {
+      name = "keysAreSorted";
+      valuesMap = {
+        "apple" = "fruit";
+        "bee" = "insect";
+        "carrot" = "vegetable";
+      };
+      expectedArray = [
+        "apple"
+        "bee"
+        "carrot"
+      ];
+    };
+
+    # NOTE: While keys can be whitespace, they cannot be null (empty).
+    keysCanBeWhitespace = check {
+      name = "keysCanBeWhitespace";
+      valuesMap = {
+        " " = 1;
+        "  " = 2;
+      };
+      expectedArray = [
+        " "
+        "  "
+      ];
+    };
+  }

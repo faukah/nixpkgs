@@ -12,7 +12,6 @@
   torch,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "gpytorch";
   version = "1.14";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonRelaxDeps = [ "jaxtyping" ];
+  pythonRelaxDeps = ["jaxtyping"];
 
   dependencies = [
     jaxtyping
@@ -41,9 +40,9 @@ buildPythonPackage rec {
     torch
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "gpytorch" ];
+  pythonImportsCheck = ["gpytorch"];
 
   disabledTests = [
     # AssertionError on number of warnings emitted
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     description = "Highly efficient and modular implementation of Gaussian Processes, with GPU acceleration";
     homepage = "https://gpytorch.ai";
     license = licenses.mit;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

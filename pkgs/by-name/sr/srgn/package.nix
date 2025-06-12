@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-H0LBH8nd/uyFufrUWVyNZjn9AKJcAlsv3UVuXoM7ZGM=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     for shell in bash zsh fish; do
@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Code surgeon for precise text and code transplantation";
     license = licenses.mit;
-    maintainers = with maintainers; [ magistau ];
+    maintainers = with maintainers; [magistau];
     mainProgram = "srgn";
     homepage = "https://github.com/${src.owner}/${src.repo}/";
     downloadPage = "https://github.com/${src.owner}/${src.repo}/releases/tag/${src.rev}";

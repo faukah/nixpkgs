@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.freeswitch;
   pkg = cfg.package;
-  configDirectory = pkgs.runCommand "freeswitch-config-d" { } ''
+  configDirectory = pkgs.runCommand "freeswitch-config-d" {} ''
     mkdir -p $out
     cp -rT ${cfg.configTemplate} $out
     chmod -R +w $out
@@ -15,12 +14,15 @@ let
       lib.mapAttrsToList (fileName: filePath: ''
         mkdir -p $out/$(dirname ${fileName})
         cp ${filePath} $out/${fileName}
-      '') cfg.configDir
+      '')
+      cfg.configDir
     )}
   '';
-  configPath = if cfg.enableReload then "/etc/freeswitch" else configDirectory;
-in
-{
+  configPath =
+    if cfg.enableReload
+    then "/etc/freeswitch"
+    else configDirectory;
+in {
   options = {
     services.freeswitch = {
       enable = lib.mkEnableOption "FreeSWITCH";
@@ -47,7 +49,7 @@ in
       };
       configDir = lib.mkOption {
         type = with lib.types; attrsOf path;
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             "freeswitch.xml" = ./freeswitch.xml;
@@ -63,7 +65,7 @@ in
           Also check available templates in [FreeSWITCH repository](https://github.com/signalwire/freeswitch/tree/master/conf).
         '';
       };
-      package = lib.mkPackageOption pkgs "freeswitch" { };
+      package = lib.mkPackageOption pkgs "freeswitch" {};
     };
   };
   config = lib.mkIf cfg.enable {
@@ -71,9 +73,9 @@ in
       source = configDirectory;
     };
     systemd.services.freeswitch-config-reload = lib.mkIf cfg.enableReload {
-      before = [ "freeswitch.service" ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ configDirectory ];
+      before = ["freeswitch.service"];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [configDirectory];
       serviceConfig = {
         ExecStart = "/run/current-system/systemd/bin/systemctl try-reload-or-restart freeswitch.service";
         RemainAfterExit = true;
@@ -82,8 +84,8 @@ in
     };
     systemd.services.freeswitch = {
       description = "Free and open-source application server for real-time communication";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         StateDirectory = "freeswitch";
@@ -97,6 +99,6 @@ in
         CPUSchedulingPolicy = "fifo";
       };
     };
-    environment.systemPackages = [ pkg ];
+    environment.systemPackages = [pkg];
   };
 }

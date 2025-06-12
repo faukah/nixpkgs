@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "gandom-fonts";
   version = "0.8";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Persian (Farsi) Font - فونت (قلم) فارسی گندم";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

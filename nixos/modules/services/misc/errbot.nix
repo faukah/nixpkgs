@@ -3,17 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.errbot;
-  pluginEnv =
-    plugins:
+  pluginEnv = plugins:
     pkgs.buildEnv {
       name = "errbot-plugins";
       paths = plugins;
     };
-  mkConfigDir =
-    instanceCfg: dataDir:
+  mkConfigDir = instanceCfg: dataDir:
     pkgs.writeTextDir "config.py" ''
       import logging
       BACKEND = '${instanceCfg.backend}'
@@ -29,11 +26,10 @@ let
 
       ${instanceCfg.extraConfig}
     '';
-in
-{
+in {
   options = {
     services.errbot.instances = lib.mkOption {
-      default = { };
+      default = {};
       description = "Errbot instance configs";
       type = lib.types.attrsOf (
         lib.types.submodule {
@@ -46,7 +42,7 @@ in
 
             plugins = lib.mkOption {
               type = lib.types.listOf lib.types.package;
-              default = [ ];
+              default = [];
               description = "List of errbot plugin derivations.";
             };
 
@@ -58,7 +54,7 @@ in
 
             admins = lib.mkOption {
               type = lib.types.listOf lib.types.str;
-              default = [ ];
+              default = [];
               description = "List of identifiers of errbot admins.";
             };
 
@@ -84,34 +80,38 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.instances != { }) {
+  config = lib.mkIf (cfg.instances != {}) {
     users.users.errbot = {
       group = "errbot";
       isSystemUser = true;
     };
-    users.groups.errbot = { };
+    users.groups.errbot = {};
 
-    systemd.services = lib.mapAttrs' (
-      name: instanceCfg:
-      lib.nameValuePair "errbot-${name}" (
-        let
-          dataDir = if instanceCfg.dataDir != null then instanceCfg.dataDir else "/var/lib/errbot/${name}";
-        in
-        {
-          after = [ "network-online.target" ];
-          wantedBy = [ "multi-user.target" ];
-          preStart = ''
-            mkdir -p ${dataDir}
-            chown -R errbot:errbot ${dataDir}
-          '';
-          serviceConfig = {
-            User = "errbot";
-            Restart = "on-failure";
-            ExecStart = "${pkgs.errbot}/bin/errbot -c ${mkConfigDir instanceCfg dataDir}/config.py";
-            PermissionsStartOnly = true;
-          };
-        }
+    systemd.services =
+      lib.mapAttrs' (
+        name: instanceCfg:
+          lib.nameValuePair "errbot-${name}" (
+            let
+              dataDir =
+                if instanceCfg.dataDir != null
+                then instanceCfg.dataDir
+                else "/var/lib/errbot/${name}";
+            in {
+              after = ["network-online.target"];
+              wantedBy = ["multi-user.target"];
+              preStart = ''
+                mkdir -p ${dataDir}
+                chown -R errbot:errbot ${dataDir}
+              '';
+              serviceConfig = {
+                User = "errbot";
+                Restart = "on-failure";
+                ExecStart = "${pkgs.errbot}/bin/errbot -c ${mkConfigDir instanceCfg dataDir}/config.py";
+                PermissionsStartOnly = true;
+              };
+            }
+          )
       )
-    ) cfg.instances;
+      cfg.instances;
   };
 }

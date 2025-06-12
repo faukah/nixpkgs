@@ -5,7 +5,6 @@
   perlPackages,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mylvmbackup";
   version = "0.16";
@@ -15,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vb7M3EPIrxIz6jUwm241fzaEz2czqdCObrFgSOSgJRU=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perlPackages.perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perlPackages.perl];
 
   dontConfigure = true;
 
@@ -31,17 +30,16 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram "$out/bin/mylvmbackup" \
       --prefix PERL5LIB : "${
-        perlPackages.makePerlPath (
-          with perlPackages;
-          [
-            ConfigIniFiles
-            DBDmysql
-            DBI
-            TimeDate
-            FileCopyRecursive
-          ]
-        )
-      }"
+      perlPackages.makePerlPath (
+        with perlPackages; [
+          ConfigIniFiles
+          DBDmysql
+          DBI
+          TimeDate
+          FileCopyRecursive
+        ]
+      )
+    }"
   '';
 
   meta = {
@@ -49,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Tool for quickly creating full physical backups of a MySQL server's data files";
     mainProgram = "mylvmbackup";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ ryantm ];
+    maintainers = with lib.maintainers; [ryantm];
     platforms = with lib.platforms; linux;
   };
 }

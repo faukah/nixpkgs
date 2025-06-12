@@ -18,7 +18,6 @@
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "radios";
   version = "0.3.2";
@@ -61,7 +60,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "radios" ];
+  pythonImportsCheck = ["radios"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -70,6 +69,6 @@ buildPythonPackage rec {
     description = "Asynchronous Python client for the Radio Browser API";
     homepage = "https://github.com/frenck/python-radios";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -7,7 +7,6 @@
   libxslt,
   html-tidy,
 }:
-
 stdenv.mkDerivation rec {
   pname = "html-tidy";
   version = "5.8.0";
@@ -27,10 +26,12 @@ stdenv.mkDerivation rec {
     }
   );
 
-  nativeBuildInputs = [
-    cmake
-    libxslt # manpage
-  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) html-tidy;
+  nativeBuildInputs =
+    [
+      cmake
+      libxslt # manpage
+    ]
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) html-tidy;
 
   cmakeFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "-DHOST_TIDY=tidy"
@@ -48,7 +49,7 @@ stdenv.mkDerivation rec {
     license = licenses.libpng; # very close to it - the 3 clauses are identical
     homepage = "http://html-tidy.org";
     platforms = platforms.all;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
     mainProgram = "tidy";
   };
 }

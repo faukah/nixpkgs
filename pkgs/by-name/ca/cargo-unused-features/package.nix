@@ -7,7 +7,6 @@
   libgit2,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-unused-features";
   version = "0.2.0";

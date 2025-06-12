@@ -15,7 +15,6 @@
   urllib3,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "pyppeteer";
   version = "1.0.2";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
       --replace 'websockets = "^10.0"' 'websockets = "*"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     appdirs
@@ -82,7 +81,7 @@ buildPythonPackage rec {
     "TestPDF"
   ];
 
-  pythonImportsCheck = [ "pyppeteer" ];
+  pythonImportsCheck = ["pyppeteer"];
 
   meta = with lib; {
     description = "Headless chrome/chromium automation library (unofficial port of puppeteer)";
@@ -90,6 +89,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pyppeteer/pyppeteer";
     changelog = "https://github.com/pyppeteer/pyppeteer/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ kmein ];
+    maintainers = with maintainers; [kmein];
   };
 }

@@ -44,7 +44,6 @@
   wxGTK32,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "opencpn";
   version = "5.10.2";

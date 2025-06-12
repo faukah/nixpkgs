@@ -6,7 +6,6 @@
   gtk2,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtkdialog";
   version = "0.8.3";
@@ -24,8 +23,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk2 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [gtk2];
 
   meta = {
     homepage = "https://code.google.com/archive/p/gtkdialog/";

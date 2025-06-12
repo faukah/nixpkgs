@@ -7,9 +7,7 @@
   mtime,
   uuidm,
 }:
-
 buildDunePackage {
-
   pname = "metrics-unix";
 
   inherit (metrics) version src;
@@ -22,13 +20,14 @@ buildDunePackage {
     uuidm
   ];
 
-  nativeCheckInputs = [ gnuplot ];
-  checkInputs = [ metrics-lwt ];
+  nativeCheckInputs = [gnuplot];
+  checkInputs = [metrics-lwt];
 
   doCheck = true;
 
-  meta = metrics.meta // {
-    description = "Unix backend for the Metrics library";
-  };
-
+  meta =
+    metrics.meta
+    // {
+      description = "Unix backend for the Metrics library";
+    };
 }

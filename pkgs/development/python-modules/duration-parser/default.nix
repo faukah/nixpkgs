@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "duration-parser";
   version = "1.0.1";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "A minimal duration parser written in python";
     homepage = "https://github.com/adriansahlman/duration-parser";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

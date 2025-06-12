@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.ivpn;
-in
-{
+in {
   options.services.ivpn = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -20,7 +18,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    boot.kernelModules = [ "tun" ];
+    boot.kernelModules = ["tun"];
 
     environment.systemPackages = with pkgs; [
       ivpn
@@ -33,7 +31,7 @@ in
 
     systemd.services.ivpn-service = {
       description = "iVPN daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       wants = [
         "network.target"
         "network-online.target"
@@ -57,5 +55,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ ataraxiasjel ];
+  meta.maintainers = with lib.maintainers; [ataraxiasjel];
 }

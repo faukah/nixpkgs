@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "json2hcl";
   version = "0.2.0";
@@ -27,6 +26,6 @@ buildGoModule rec {
     mainProgram = "json2hcl";
     homepage = "https://github.com/kvz/json2hcl";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
   };
 }

@@ -3,17 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   perlWrapped = pkgs.perl.withPackages (
-    p: with p; [
-      ConfigIniFiles
-      FileSlurp
-    ]
+    p:
+      with p; [
+        ConfigIniFiles
+        FileSlurp
+      ]
   );
-in
-{
+in {
   options.system.switch = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -101,5 +99,4 @@ in
       '';
     })
   ];
-
 }

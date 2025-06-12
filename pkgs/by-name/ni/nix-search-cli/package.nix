@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 buildGoModule {
   pname = "nix-search-cli";
   version = "0.2-unstable-2024-09-24";
@@ -18,13 +17,13 @@ buildGoModule {
 
   vendorHash = "sha256-RZuB0aRiMSccPhX30cGKBBEMCSvmC6r53dWaqDYbmyA=";
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "CLI for searching packages on search.nixos.org";
     homepage = "https://github.com/peterldowns/nix-search-cli";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ donovanglover ];
+    maintainers = with lib.maintainers; [donovanglover];
     platforms = lib.platforms.all;
     mainProgram = "nix-search";
   };

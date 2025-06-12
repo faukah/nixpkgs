@@ -23,7 +23,6 @@
   libwebp,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-photos";
   version = "8.0.1";
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
     ]);
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -76,7 +75,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/photos";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.photos";
   };
 }

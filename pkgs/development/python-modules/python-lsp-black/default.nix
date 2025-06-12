@@ -5,18 +5,14 @@
   fetchFromGitHub,
   black,
   fetchpatch,
-
   # build-system
   setuptools,
-
   # dependencies
   python-lsp-server,
   tomli,
-
   # checks
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "python-lsp-black";
   version = "2.0.0";
@@ -33,8 +29,8 @@ buildPythonPackage rec {
 
   patches =
     /**
-      includes a series of patches fixing tests not yet released as 2.0.1+ version
-       they are meant to keep up to date with black releases
+    includes a series of patches fixing tests not yet released as 2.0.1+ version
+     they are meant to keep up to date with black releases
     */
     lib.optional (lib.versionAtLeast black.version "24.2.0") (fetchpatch {
       url = "https://github.com/python-lsp/python-lsp-black/commit/d43b41431379f9c9bb05fab158c4d97e6d515f8f.patch";
@@ -45,22 +41,24 @@ buildPythonPackage rec {
       hash = "sha256-4u0VIS7eidVEiKRW2wc8lJVkJwhzJD/M+uuqmTtiZ7E=";
     });
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    black
-    python-lsp-server
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies =
+    [
+      black
+      python-lsp-server
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
-  pythonImportsCheck = [ "pylsp_black" ];
+  pythonImportsCheck = ["pylsp_black"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     homepage = "https://github.com/python-lsp/python-lsp-black";
     description = "Black plugin for the Python LSP Server";
     changelog = "https://github.com/python-lsp/python-lsp-black/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ cpcloud ];
+    maintainers = with lib.maintainers; [cpcloud];
   };
 }

@@ -20,7 +20,6 @@
   tomlkit,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "pylint";
   version = "3.3.6";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     hash = "sha256-c1Nh5g2ykvE+EmnSgpN3J7qMHPz93LZ0/snyIaYmPq4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -46,8 +45,8 @@ buildPythonPackage rec {
       platformdirs
       tomlkit
     ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+    ++ lib.optionals (pythonOlder "3.11") [tomli]
+    ++ lib.optionals (pythonOlder "3.10") [typing-extensions];
 
   nativeCheckInputs = [
     gitpython
@@ -118,7 +117,7 @@ buildPythonPackage rec {
       - epylint: Emacs and Flymake compatible Pylint
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "pylint";
   };
 }

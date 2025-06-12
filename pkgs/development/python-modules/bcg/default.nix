@@ -50,7 +50,7 @@ buildPythonPackage rec {
     simplejson
   ];
 
-  pythonImportsCheck = [ "bcg" ];
+  pythonImportsCheck = ["bcg"];
 
   meta = with lib; {
     homepage = "https://github.com/hardwario/bch-gateway";
@@ -58,6 +58,6 @@ buildPythonPackage rec {
     mainProgram = "bcg";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = with maintainers; [ cynerd ];
+    maintainers = with maintainers; [cynerd];
   };
 }

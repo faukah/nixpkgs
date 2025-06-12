@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Vij0aV4BIVrpRSzVneyP7MjlsdJSz1mbMCShEOOYVbQ=";
   };
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = {
     changelog = "https://codeberg.org/librecast/lcrq/src/tag/v${finalAttrs.version}/CHANGELOG.md";

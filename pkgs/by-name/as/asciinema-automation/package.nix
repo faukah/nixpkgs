@@ -4,7 +4,6 @@
   fetchFromGitHub,
   asciinema,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "asciinema-automation";
   version = "0.2.0";
@@ -36,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
     ];
   };
 
-  pythonImportsCheck = [ "asciinema_automation" ];
+  pythonImportsCheck = ["asciinema_automation"];
 
   meta = {
     changelog = "https://github.com/PierreMarchand20/asciinema_automation/blob/${src.rev}/CHANGELOG.md";
@@ -44,6 +43,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/PierreMarchand20/asciinema_automation";
     license = lib.licenses.mit;
     mainProgram = "asciinema-automation";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

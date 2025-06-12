@@ -6,7 +6,6 @@
   obs-studio,
   qtbase,
 }:
-
 stdenv.mkDerivation {
   pname = "obs-transition-table";
   version = "0.2.7-unstable-2024-11-27";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-TPRqKjEXdvjv+RfHTaeeO4GHur2j/+onehcu0I/HdD0=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     obs-studio
     qtbase
@@ -33,7 +32,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Plugin for OBS Studio to add a Transition Table to the tools menu";
     homepage = "https://github.com/exeldro/obs-transition-table";
-    maintainers = with maintainers; [ flexiondotorg ];
+    maintainers = with maintainers; [flexiondotorg];
     license = licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"

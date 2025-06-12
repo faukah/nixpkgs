@@ -7,7 +7,6 @@
   flex,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elkhound";
   version = "unstable-2020-04-13";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "Parser generator which emits GLR parsers, either in OCaml or C++";
     homepage = "https://scottmcpeak.com/elkhound/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
   };
 }

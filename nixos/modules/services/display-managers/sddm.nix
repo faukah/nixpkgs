@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   xcfg = config.services.xserver;
   dmcfg = config.services.displayManager;
   cfg = config.services.displayManager.sddm;
@@ -14,12 +12,13 @@ let
   sddm = cfg.package.override (old: {
     withWayland = cfg.wayland.enable;
     withLayerShellQt = cfg.wayland.compositor == "kwin";
-    extraPackages = old.extraPackages or [ ] ++ cfg.extraPackages;
+    extraPackages = old.extraPackages or [] ++ cfg.extraPackages;
   });
 
-  iniFmt = pkgs.formats.ini { };
+  iniFmt = pkgs.formats.ini {};
 
-  inherit (lib)
+  inherit
+    (lib)
     concatMapStrings
     concatStringsSep
     getExe
@@ -56,14 +55,20 @@ let
         {
           HaltCommand = "/run/current-system/systemd/bin/systemctl poweroff";
           RebootCommand = "/run/current-system/systemd/bin/systemctl reboot";
-          Numlock = if cfg.autoNumlock then "on" else "none"; # on, off none
+          Numlock =
+            if cfg.autoNumlock
+            then "on"
+            else "none"; # on, off none
 
           # Implementation is done via pkgs/applications/display-managers/sddm/sddm-default-session.patch
           DefaultSession = optionalString (
             config.services.displayManager.defaultSession != null
           ) "${config.services.displayManager.defaultSession}.desktop";
 
-          DisplayServer = if cfg.wayland.enable then "wayland" else "x11";
+          DisplayServer =
+            if cfg.wayland.enable
+            then "wayland"
+            else "x11";
         }
         // optionalAttrs (cfg.wayland.enable && cfg.wayland.compositor == "kwin") {
           GreeterEnvironment = "QT_WAYLAND_SHELL_INTEGRATION=layer-shell";
@@ -92,11 +97,13 @@ let
         SessionDir = "${dmcfg.sessionData.desktops}/share/wayland-sessions";
         CompositorCommand = lib.optionalString cfg.wayland.enable cfg.wayland.compositorCommand;
       };
-
     }
     // optionalAttrs xcfg.enable {
       X11 = {
-        MinimumVT = if xcfg.tty != null then xcfg.tty else 7;
+        MinimumVT =
+          if xcfg.tty != null
+          then xcfg.tty
+          else 7;
         ServerPath = toString xserverWrapper;
         XephyrPath = "${pkgs.xorg.xorgserver.out}/bin/Xephyr";
         SessionCommand = toString dmcfg.sessionData.wrapper;
@@ -129,74 +136,82 @@ let
     ];
     # This is basically the upstream default, but with Weston referenced by full path
     # and the configuration generated from NixOS options.
-    weston =
-      let
-        westonIni = (pkgs.formats.ini { }).generate "weston.ini" {
-          libinput = {
-            enable-tap = config.services.libinput.mouse.tapping;
-            left-handed = config.services.libinput.mouse.leftHanded;
-          };
-          keyboard = {
-            keymap_model = xcfg.xkb.model;
-            keymap_layout = xcfg.xkb.layout;
-            keymap_variant = xcfg.xkb.variant;
-            keymap_options = xcfg.xkb.options;
-          };
+    weston = let
+      westonIni = (pkgs.formats.ini {}).generate "weston.ini" {
+        libinput = {
+          enable-tap = config.services.libinput.mouse.tapping;
+          left-handed = config.services.libinput.mouse.leftHanded;
         };
-      in
-      "${getExe pkgs.weston} --shell=kiosk -c ${westonIni}";
+        keyboard = {
+          keymap_model = xcfg.xkb.model;
+          keymap_layout = xcfg.xkb.layout;
+          keymap_variant = xcfg.xkb.variant;
+          keymap_options = xcfg.xkb.options;
+        };
+      };
+    in "${getExe pkgs.weston} --shell=kiosk -c ${westonIni}";
   };
-
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "sddm" "autoLogin" "minimumUid" ]
-      [ "services" "displayManager" "sddm" "autoLogin" "minimumUid" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "sddm" "autoLogin" "minimumUid"]
+      ["services" "displayManager" "sddm" "autoLogin" "minimumUid"]
     )
-    (mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "sddm" "autoLogin" "relogin" ]
-      [ "services" "displayManager" "sddm" "autoLogin" "relogin" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "sddm" "autoLogin" "relogin"]
+      ["services" "displayManager" "sddm" "autoLogin" "relogin"]
     )
-    (mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "sddm" "autoNumlock" ]
-      [ "services" "displayManager" "sddm" "autoNumlock" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "sddm" "autoNumlock"]
+      ["services" "displayManager" "sddm" "autoNumlock"]
     )
-    (mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "sddm" "enable" ]
-      [ "services" "displayManager" "sddm" "enable" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "sddm" "enable"]
+      ["services" "displayManager" "sddm" "enable"]
     )
-    (mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "sddm" "enableHidpi" ]
-      [ "services" "displayManager" "sddm" "enableHidpi" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "sddm" "enableHidpi"]
+      ["services" "displayManager" "sddm" "enableHidpi"]
     )
-    (mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "sddm" "extraPackages" ]
-      [ "services" "displayManager" "sddm" "extraPackages" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "sddm" "extraPackages"]
+      ["services" "displayManager" "sddm" "extraPackages"]
     )
-    (mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "sddm" "package" ]
-      [ "services" "displayManager" "sddm" "package" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "sddm" "package"]
+      ["services" "displayManager" "sddm" "package"]
     )
-    (mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "sddm" "settings" ]
-      [ "services" "displayManager" "sddm" "settings" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "sddm" "settings"]
+      ["services" "displayManager" "sddm" "settings"]
     )
-    (mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "sddm" "setupScript" ]
-      [ "services" "displayManager" "sddm" "setupScript" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "sddm" "setupScript"]
+      ["services" "displayManager" "sddm" "setupScript"]
     )
-    (mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "sddm" "stopScript" ]
-      [ "services" "displayManager" "sddm" "stopScript" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "sddm" "stopScript"]
+      ["services" "displayManager" "sddm" "stopScript"]
     )
-    (mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "sddm" "theme" ]
-      [ "services" "displayManager" "sddm" "theme" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "sddm" "theme"]
+      ["services" "displayManager" "sddm" "theme"]
     )
-    (mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "sddm" "wayland" "enable" ]
-      [ "services" "displayManager" "sddm" "wayland" "enable" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "sddm" "wayland" "enable"]
+      ["services" "displayManager" "sddm" "wayland" "enable"]
     )
 
     (mkRemovedOptionModule [
@@ -205,13 +220,15 @@ in
       "sddm"
       "themes"
     ] "Set the option `services.displayManager.sddm.package' instead.")
-    (mkRenamedOptionModule
-      [ "services" "displayManager" "sddm" "autoLogin" "enable" ]
-      [ "services" "displayManager" "autoLogin" "enable" ]
+    (
+      mkRenamedOptionModule
+      ["services" "displayManager" "sddm" "autoLogin" "enable"]
+      ["services" "displayManager" "autoLogin" "enable"]
     )
-    (mkRenamedOptionModule
-      [ "services" "displayManager" "sddm" "autoLogin" "user" ]
-      [ "services" "displayManager" "autoLogin" "user" ]
+    (
+      mkRenamedOptionModule
+      ["services" "displayManager" "sddm" "autoLogin" "user"]
+      ["services" "displayManager" "autoLogin" "user"]
     )
     (mkRemovedOptionModule [
       "services"
@@ -222,7 +239,6 @@ in
   ];
 
   options = {
-
     services.displayManager.sddm = {
       enable = mkOption {
         type = types.bool;
@@ -232,7 +248,7 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs [ "plasma5Packages" "sddm" ] { };
+      package = mkPackageOption pkgs ["plasma5Packages" "sddm"] {};
 
       enableHidpi = mkOption {
         type = types.bool;
@@ -244,7 +260,7 @@ in
 
       settings = mkOption {
         type = iniFmt.type;
-        default = { };
+        default = {};
         example = {
           Autologin = {
             User = "john";
@@ -266,7 +282,7 @@ in
 
       extraPackages = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         defaultText = "[]";
         description = ''
           Extra Qt plugins / QML libraries to add to the environment.
@@ -344,7 +360,6 @@ in
   };
 
   config = mkIf cfg.enable {
-
     assertions = [
       {
         assertion = xcfg.enable || cfg.wayland.enable;
@@ -414,13 +429,13 @@ in
       pathsToLink = [
         "/share/sddm"
       ];
-      systemPackages = [ sddm ];
+      systemPackages = [sddm];
     };
 
     users.groups.sddm.gid = config.ids.gids.sddm;
 
     services = {
-      dbus.packages = [ sddm ];
+      dbus.packages = [sddm];
       xserver = {
         # To enable user switching, allow sddm to allocate TTYs/displays dynamically.
         tty = null;
@@ -429,7 +444,7 @@ in
     };
 
     systemd = {
-      tmpfiles.packages = [ sddm ];
+      tmpfiles.packages = [sddm];
 
       # We're not using the upstream unit, so copy these: https://github.com/sddm/sddm/blob/develop/services/sddm.service.in
       services.display-manager = {

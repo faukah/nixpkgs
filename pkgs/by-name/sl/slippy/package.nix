@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "slippy";
   version = "0.1.1";
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "slippy";
   };
 }

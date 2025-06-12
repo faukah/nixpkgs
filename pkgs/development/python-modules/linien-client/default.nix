@@ -8,7 +8,6 @@
   numpy,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "linien-client";
   pyproject = true;
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     fabric
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     linien-common
   ];
 
-  pythonImportsCheck = [ "linien_client" ];
+  pythonImportsCheck = ["linien_client"];
 
   meta = {
     description = "Client components of the Linien spectroscopy lock application";

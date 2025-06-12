@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "inotify";
   version = "unstable-2020-08-27";
@@ -24,9 +23,9 @@ buildPythonPackage {
       --replace-fail "assertEquals" "assertEqual" \
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Disable these tests as they're flaky.
   # The returned list can be in a different order, which causes the tests to fail.

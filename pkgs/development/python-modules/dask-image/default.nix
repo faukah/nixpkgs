@@ -2,24 +2,20 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   dask,
   numpy,
   scipy,
   pandas,
   pims,
-
   # tests
   pyarrow,
   pytestCheckHook,
   scikit-image,
 }:
-
 buildPythonPackage rec {
   pname = "dask-image";
   version = "2024.5.3";
@@ -59,7 +55,7 @@ buildPythonPackage rec {
     scikit-image
   ];
 
-  pythonImportsCheck = [ "dask_image" ];
+  pythonImportsCheck = ["dask_image"];
 
   disabledTests = [
     # The following tests are from 'tests/test_dask_image/test_ndmeasure/test_find_objects.py' and
@@ -77,6 +73,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dask/dask-image";
     changelog = "https://github.com/dask/dask-image/releases/tag/v${version}";
     license = lib.licenses.bsdOriginal;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

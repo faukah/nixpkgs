@@ -3,20 +3,16 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   cmake,
   ninja,
   pybind11,
   scikit-build-core,
-
   # dependencies
   numpy,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mapbox-earcut";
   version = "1.0.3";
@@ -43,11 +39,11 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mapbox_earcut" ];
+  pythonImportsCheck = ["mapbox_earcut"];
 
   meta = with lib; {
     homepage = "https://github.com/skogler/mapbox_earcut_python";
@@ -59,6 +55,6 @@ buildPythonPackage rec {
       library, which provides very fast and quite robust triangulation of 2D
       polygons.
     '';
-    maintainers = [ ];
+    maintainers = [];
   };
 }

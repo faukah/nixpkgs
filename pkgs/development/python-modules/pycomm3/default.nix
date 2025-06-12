@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pycomm3";
   version = "1.2.14";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-KdvmISMH2HHU8N665QevVw7q9Qs5CwjXxcWpLoziY/Y=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pycomm3" ];
+  pythonImportsCheck = ["pycomm3"];
 
   disabledTestPaths = [
     # Don't test examples as some have additional requirements
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ottowayi/pycomm3";
     changelog = "https://github.com/ottowayi/pycomm3/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

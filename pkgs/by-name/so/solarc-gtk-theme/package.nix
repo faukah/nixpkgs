@@ -8,7 +8,6 @@
   gtk-engine-murrine,
   gtk3,
 }:
-
 stdenv.mkDerivation {
   pname = "solarc-gtk-theme";
   version = "1.0.2";
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
     description = "Solarized version of the Arc theme";
     homepage = "https://github.com/schemar/solarc-theme";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

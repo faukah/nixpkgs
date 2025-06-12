@@ -9,14 +9,16 @@
   # This shouldn't have any effect on platforms that use clang as the default compiler already.
   enableLibcxx ? false,
 }:
-
 stdenv.mkDerivation {
   unwrapped = clang-unwrapped;
 
   pname = "clang-tools";
   version = lib.getVersion clang-unwrapped;
   dontUnpack = true;
-  clang = if enableLibcxx then libcxxClang else clang;
+  clang =
+    if enableLibcxx
+    then libcxxClang
+    else clang;
 
   installPhase = ''
     runHook preInstall
@@ -52,8 +54,10 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  meta = llvm_meta // {
-    description = "Standalone command line tools for C++ development";
-    maintainers = with lib.maintainers; [ patryk27 ];
-  };
+  meta =
+    llvm_meta
+    // {
+      description = "Standalone command line tools for C++ development";
+      maintainers = with lib.maintainers; [patryk27];
+    };
 }

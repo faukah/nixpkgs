@@ -21,7 +21,6 @@
   lmdb,
   tinycdb,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pdns";
   version = "4.9.5";
@@ -31,9 +30,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Zpu3uZgjsyw5ATN9abOMn4Bz8vwC6HZJM7jFwJdOJyQ=";
   };
   # redact configure flags from version output to reduce closure size
-  patches = [ ./version.patch ];
+  patches = [./version.patch];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     boost
     mariadb-connector-c
@@ -88,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
   # We want the various utilities to look for the powerdns config in
   # /etc/pdns, but to actually install the sample config file in
   # $out
-  installFlags = [ "sysconfdir=$(out)/etc/pdns" ];
+  installFlags = ["sysconfdir=$(out)/etc/pdns"];
 
   enableParallelBuilding = true;
   doCheck = true;

@@ -1,5 +1,4 @@
-lib:
-{
+lib: {
   rke2Version,
   rke2Commit,
   rke2TarballHash,
@@ -12,7 +11,6 @@ lib:
   dockerizedVersion,
   imagesVersions,
 }:
-
 # Build dependencies
 {
   lib,
@@ -22,7 +20,6 @@ lib:
   makeWrapper,
   fetchzip,
   fetchurl,
-
   # Runtime dependencies
   procps,
   coreutils,
@@ -34,12 +31,10 @@ lib:
   iproute2,
   kmod,
   lvm2,
-
   # Killall Script dependencies
   systemd,
   gnugrep,
   gnused,
-
   # Testing dependencies
   nixosTests,
   testers,
@@ -55,7 +50,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = rke2VendorHash;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # Important utilities used by the kubelet.
   # See: https://github.com/kubernetes/kubernetes/issues/26093#issuecomment-237202494
@@ -101,7 +96,7 @@ buildGoModule (finalAttrs: {
     "osusergo"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   installPhase = ''
     install -D $GOPATH/bin/rke2 $out/bin/rke2
@@ -111,12 +106,12 @@ buildGoModule (finalAttrs: {
     install -D ./bundle/bin/rke2-killall.sh $out/bin/rke2-killall.sh
     wrapProgram $out/bin/rke2-killall.sh \
       --prefix PATH : ${
-        lib.makeBinPath [
-          systemd
-          gnugrep
-          gnused
-        ]
-      } \
+      lib.makeBinPath [
+        systemd
+        gnugrep
+        gnused
+      ]
+    } \
       --prefix PATH : ${lib.makeBinPath finalAttrs.buildInputs}
   '';
 
@@ -130,25 +125,25 @@ buildGoModule (finalAttrs: {
     runHook postInstallCheck
   '';
 
-  passthru = {
-    inherit updateScript;
-    tests =
-      let
-        moduleTests =
-          let
-            package_version =
-              "rke2_" + lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor rke2Version);
-          in
+  passthru =
+    {
+      inherit updateScript;
+      tests = let
+        moduleTests = let
+          package_version =
+            "rke2_" + lib.replaceStrings ["."] ["_"] (lib.versions.majorMinor rke2Version);
+        in
           lib.mapAttrs (name: value: nixosTests.rke2.${name}.${package_version}) nixosTests.rke2;
       in
-      {
-        version = testers.testVersion {
-          package = finalAttrs.finalPackage;
-          version = "v${finalAttrs.version}";
-        };
-      }
-      // moduleTests;
-  } // (lib.mapAttrs (_: value: fetchurl value) imagesVersions);
+        {
+          version = testers.testVersion {
+            package = finalAttrs.finalPackage;
+            version = "v${finalAttrs.version}";
+          };
+        }
+        // moduleTests;
+    }
+    // (lib.mapAttrs (_: value: fetchurl value) imagesVersions);
 
   meta = {
     homepage = "https://github.com/rancher/rke2";

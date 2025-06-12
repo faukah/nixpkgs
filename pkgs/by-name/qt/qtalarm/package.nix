@@ -8,7 +8,6 @@
   nix-update-script,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qtalarm";
   version = "2.5.1";
@@ -30,18 +29,17 @@ stdenv.mkDerivation (finalAttrs: {
       runHook preInstall
     ''
     + (
-      if stdenv.hostPlatform.isDarwin then
-        ''
-          mkdir -p $out/Applications
-          mv qtalarm.app $out/Applications
-        ''
-      else
-        ''
-          install -Dm755 qtalarm -t $out/bin
-          install -Dm644 Icons/1349069370_Alarm_Clock.png $out/share/icons/hicolor/48x48/apps/qtalarm.png
-          install -Dm644 Icons/1349069370_Alarm_Clock24.png $out/share/icons/hicolor/24x24/apps/qtalarm.png
-          install -Dm644 Icons/1349069370_Alarm_Clock16.png $out/share/icons/hicolor/16x16/apps/qtalarm.png
-        ''
+      if stdenv.hostPlatform.isDarwin
+      then ''
+        mkdir -p $out/Applications
+        mv qtalarm.app $out/Applications
+      ''
+      else ''
+        install -Dm755 qtalarm -t $out/bin
+        install -Dm644 Icons/1349069370_Alarm_Clock.png $out/share/icons/hicolor/48x48/apps/qtalarm.png
+        install -Dm644 Icons/1349069370_Alarm_Clock24.png $out/share/icons/hicolor/24x24/apps/qtalarm.png
+        install -Dm644 Icons/1349069370_Alarm_Clock16.png $out/share/icons/hicolor/16x16/apps/qtalarm.png
+      ''
     )
     + ''
       runHook postInstall
@@ -53,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     copyDesktopItems
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   desktopItems = [
     (makeDesktopItem {
@@ -75,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/CountMurphy/QTalarm";
     license = lib.licenses.gpl3Only;
     mainProgram = "qtalarm";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     platforms = lib.platforms.unix;
   };
 })

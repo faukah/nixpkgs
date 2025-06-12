@@ -16,7 +16,6 @@
   wrapGAppsHook3,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-notification-daemon";
   version = "1.28.3";
@@ -43,13 +42,13 @@ stdenv.mkDerivation rec {
     mate-panel
   ];
 
-  configureFlags = [ "--enable-in-process" ];
+  configureFlags = ["--enable-in-process"];
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Notification daemon for MATE Desktop";
@@ -60,6 +59,6 @@ stdenv.mkDerivation rec {
       gpl3Plus
     ];
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

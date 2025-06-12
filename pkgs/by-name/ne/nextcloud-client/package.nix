@@ -20,7 +20,6 @@
   xdg-utils,
   libsysprof-capture,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nextcloud-client";
   version = "3.16.5";
@@ -78,9 +77,9 @@ stdenv.mkDerivation rec {
   ];
 
   qtWrapperArgs = [
-    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret ]}"
+    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libsecret]}"
     # make xdg-open overridable at runtime
-    "--suffix PATH : ${lib.makeBinPath [ xdg-utils ]}"
+    "--suffix PATH : ${lib.makeBinPath [xdg-utils]}"
   ];
 
   cmakeFlags = [
@@ -93,7 +92,7 @@ stdenv.mkDerivation rec {
     make doc-man
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     changelog = "https://github.com/nextcloud/desktop/releases/tag/v${version}";

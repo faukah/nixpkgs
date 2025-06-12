@@ -5,9 +5,7 @@
   fetchzip,
   johnny-reborn-engine,
   makeWrapper,
-}:
-
-let
+}: let
   sounds = fetchFromGitHub {
     owner = "nivs1978";
     repo = "Johnny-Castaway-Open-Source";
@@ -22,43 +20,42 @@ let
     stripRoot = false;
   };
 in
+  stdenvNoCC.mkDerivation {
+    pname = "johnny-reborn";
+    inherit (johnny-reborn-engine) version;
 
-stdenvNoCC.mkDerivation {
-  pname = "johnny-reborn";
-  inherit (johnny-reborn-engine) version;
+    srcs = [
+      sounds
+      resources
+    ];
 
-  srcs = [
-    sounds
-    resources
-  ];
+    nativeBuildInputs = [makeWrapper];
 
-  nativeBuildInputs = [ makeWrapper ];
+    sourceRoot = sounds.name;
 
-  sourceRoot = sounds.name;
+    dontConfigure = true;
+    dontBuild = true;
 
-  dontConfigure = true;
-  dontBuild = true;
+    installPhase = ''
+      runHook preInstall
 
-  installPhase = ''
-    runHook preInstall
+      mkdir -p $out/share/jc_reborn/data
+      cp -t $out/share/jc_reborn/data/ \
+        ../scrantic-source/RESOURCE.* \
+        JCOS/Resources/sound*.wav
 
-    mkdir -p $out/share/jc_reborn/data
-    cp -t $out/share/jc_reborn/data/ \
-      ../scrantic-source/RESOURCE.* \
-      JCOS/Resources/sound*.wav
+      makeWrapper \
+        ${johnny-reborn-engine}/bin/jc_reborn \
+        $out/bin/jc_reborn \
+        --chdir $out/share/jc_reborn
 
-    makeWrapper \
-      ${johnny-reborn-engine}/bin/jc_reborn \
-      $out/bin/jc_reborn \
-      --chdir $out/share/jc_reborn
+      runHook postInstall
+    '';
 
-    runHook postInstall
-  '';
-
-  meta = {
-    description = "Open-source engine for the classic \"Johnny Castaway\" screensaver (ready to use, with resources)";
-    license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ pedrohlc ];
-    inherit (johnny-reborn-engine.meta) homepage platforms mainProgram;
-  };
-}
+    meta = {
+      description = "Open-source engine for the classic \"Johnny Castaway\" screensaver (ready to use, with resources)";
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [pedrohlc];
+      inherit (johnny-reborn-engine.meta) homepage platforms mainProgram;
+    };
+  }

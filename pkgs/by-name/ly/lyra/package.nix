@@ -5,7 +5,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lyra";
   version = "1.6.1";
@@ -34,6 +33,6 @@ stdenv.mkDerivation rec {
     description = "Simple to use, composable, command line parser for C++ 11 and beyond";
     platforms = platforms.unix;
     license = licenses.boost;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

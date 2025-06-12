@@ -2,11 +2,11 @@
   buildDunePackage,
   mirage-clock,
 }:
-
 buildDunePackage {
   pname = "mirage-clock-solo5";
 
-  inherit (mirage-clock)
+  inherit
+    (mirage-clock)
     version
     src
     ;
@@ -15,7 +15,9 @@ buildDunePackage {
     mirage-clock
   ];
 
-  meta = mirage-clock.meta // {
-    description = "Paravirtual implementation of the MirageOS Clock interface";
-  };
+  meta =
+    mirage-clock.meta
+    // {
+      description = "Paravirtual implementation of the MirageOS Clock interface";
+    };
 }

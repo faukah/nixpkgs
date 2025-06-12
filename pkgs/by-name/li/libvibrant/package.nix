@@ -7,7 +7,6 @@
   libXrandr,
   linuxPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libvibrant";
   version = "1.1.1";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/libvibrant/libvibrant";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ Scrumplex ];
+    maintainers = with maintainers; [Scrumplex];
     mainProgram = "vibrant-cli";
   };
 })

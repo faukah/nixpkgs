@@ -7,8 +7,7 @@
   blast,
   diamond,
   python3Packages,
-}:
-let
+}: let
   finalAttrs = {
     pname = "phylophlan";
     version = "3.1.1";
@@ -21,7 +20,7 @@ let
       hash = "sha256-KlWKt2tH2lQBh/eQ2Hbcu2gXHEFfmFEc6LrybluxINc=";
     };
 
-    build-system = with python3Packages; [ setuptools ];
+    build-system = with python3Packages; [setuptools];
 
     # It has no tests
     doCheck = false;
@@ -57,9 +56,9 @@ let
       description = "Precise phylogenetic analysis of microbial isolates and genomes from metagenomes";
       changelog = "https://github.com/biobakery/phylophlan/releases";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ theobori ];
+      maintainers = with lib.maintainers; [theobori];
       mainProgram = "phylophlan";
     };
   };
 in
-python3Packages.buildPythonApplication finalAttrs
+  python3Packages.buildPythonApplication finalAttrs

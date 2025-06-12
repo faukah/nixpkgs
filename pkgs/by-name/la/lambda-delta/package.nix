@@ -6,7 +6,6 @@
   pkg-config,
   SDL2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lambda-delta";
   version = "0.98.3";
@@ -22,18 +21,18 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ SDL2 ];
+  buildInputs = [SDL2];
   env = lib.optionalAttrs stdenv.cc.isClang {
     NIX_CFLAGS_COMPILE = "-std=c89";
   };
 
-  configureFlags = [ "--without-SDL1" ];
+  configureFlags = ["--without-SDL1"];
 
   meta = with lib; {
     description = "LMI (Lambda Lisp Machine) emulator";
     homepage = "https://github.com/dseagrav/ld";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

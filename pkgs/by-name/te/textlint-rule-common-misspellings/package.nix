@@ -10,7 +10,6 @@
   textlint,
   textlint-rule-common-misspellings,
 }:
-
 # there is no lock file in this package, but it is old and stable enough
 # so that we handle dependencies manually
 let
@@ -89,47 +88,47 @@ let
     '';
   });
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "textlint-rule-common-misspellings";
-  version = "1.0.1";
+  stdenvNoCC.mkDerivation (finalAttrs: {
+    pname = "textlint-rule-common-misspellings";
+    version = "1.0.1";
 
-  src = fetchurl {
-    url = "https://registry.npmjs.org/textlint-rule-common-misspellings/-/textlint-rule-common-misspellings-${finalAttrs.version}.tgz";
-    hash = "sha256-5QVb5T2yGuunNhRQG5brJQyicRRbO8XewzjO2RzN0bI=";
-  };
+    src = fetchurl {
+      url = "https://registry.npmjs.org/textlint-rule-common-misspellings/-/textlint-rule-common-misspellings-${finalAttrs.version}.tgz";
+      hash = "sha256-5QVb5T2yGuunNhRQG5brJQyicRRbO8XewzjO2RzN0bI=";
+    };
 
-  dontBuild = true;
+    dontBuild = true;
 
-  buildInputs = [
-    misspellings
-    textlint-rule-helper
-  ];
+    buildInputs = [
+      misspellings
+      textlint-rule-helper
+    ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/lib/node_modules/textlint-rule-common-misspellings/node_modules/textlint-rule-helper
-    cp -r ${misspellings}/lib/node_modules/misspellings $out/lib/node_modules/textlint-rule-common-misspellings/node_modules/misspellings
-    cp -r ${textlint-rule-helper}/lib/node_modules/textlint-rule-helper/node_modules/* $out/lib/node_modules/textlint-rule-common-misspellings/node_modules
-    cp -r ${textlint-rule-helper}/lib/node_modules/textlint-rule-helper/lib $out/lib/node_modules/textlint-rule-common-misspellings/node_modules/textlint-rule-helper/lib
-    cp -r ${textlint-rule-helper}/lib/node_modules/textlint-rule-helper/package.json $out/lib/node_modules/textlint-rule-common-misspellings/node_modules/textlint-rule-helper/package.json
+      mkdir -p $out/lib/node_modules/textlint-rule-common-misspellings/node_modules/textlint-rule-helper
+      cp -r ${misspellings}/lib/node_modules/misspellings $out/lib/node_modules/textlint-rule-common-misspellings/node_modules/misspellings
+      cp -r ${textlint-rule-helper}/lib/node_modules/textlint-rule-helper/node_modules/* $out/lib/node_modules/textlint-rule-common-misspellings/node_modules
+      cp -r ${textlint-rule-helper}/lib/node_modules/textlint-rule-helper/lib $out/lib/node_modules/textlint-rule-common-misspellings/node_modules/textlint-rule-helper/lib
+      cp -r ${textlint-rule-helper}/lib/node_modules/textlint-rule-helper/package.json $out/lib/node_modules/textlint-rule-common-misspellings/node_modules/textlint-rule-helper/package.json
 
-    cp -r . $out/lib/node_modules/textlint-rule-common-misspellings/
+      cp -r . $out/lib/node_modules/textlint-rule-common-misspellings/
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru.tests = textlint.testPackages {
-    rule = textlint-rule-common-misspellings;
-    testFile = ./test.md;
-  };
+    passthru.tests = textlint.testPackages {
+      rule = textlint-rule-common-misspellings;
+      testFile = ./test.md;
+    };
 
-  meta = {
-    description = "Textlint rule to check common misspellings";
-    homepage = "https://github.com/io-monad/textlint-rule-common-misspellings";
-    license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ natsukium ];
-    mainProgram = "textlint-rule-common-misspellings";
-    platforms = textlint.meta.platforms;
-  };
-})
+    meta = {
+      description = "Textlint rule to check common misspellings";
+      homepage = "https://github.com/io-monad/textlint-rule-common-misspellings";
+      license = lib.licenses.gpl3Only;
+      maintainers = with lib.maintainers; [natsukium];
+      mainProgram = "textlint-rule-common-misspellings";
+      platforms = textlint.meta.platforms;
+    };
+  })

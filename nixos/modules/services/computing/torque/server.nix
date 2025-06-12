@@ -3,24 +3,18 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.torque.server;
   torque = pkgs.torque;
-in
-{
+in {
   options = {
-
     services.torque.server = {
-
       enable = lib.mkEnableOption "torque server";
-
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.torque ];
+    environment.systemPackages = [pkgs.torque];
 
     systemd.services.torque-server-init = {
       path = with pkgs; [
@@ -58,10 +52,10 @@ in
     };
 
     systemd.services.trqauthd = {
-      path = [ torque ];
+      path = [torque];
 
-      requires = [ "torque-server-init.service" ];
-      after = [ "torque-server-init.service" ];
+      requires = ["torque-server-init.service"];
+      after = ["torque-server-init.service"];
 
       serviceConfig = {
         Type = "forking";
@@ -70,16 +64,16 @@ in
     };
 
     systemd.services.torque-server = {
-      documentation = [ "man:pbs_server(8)" ];
-      path = [ torque ];
+      documentation = ["man:pbs_server(8)"];
+      path = [torque];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       wants = [
         "torque-scheduler.service"
         "trqauthd.service"
       ];
-      before = [ "trqauthd.service" ];
-      requires = [ "torque-server-init.service" ];
+      before = ["trqauthd.service"];
+      requires = ["torque-server-init.service"];
       after = [
         "torque-server-init.service"
         "network.target"
@@ -94,11 +88,11 @@ in
     };
 
     systemd.services.torque-scheduler = {
-      documentation = [ "man:pbs_sched(8)" ];
-      path = [ torque ];
+      documentation = ["man:pbs_sched(8)"];
+      path = [torque];
 
-      requires = [ "torque-server-init.service" ];
-      after = [ "torque-server-init.service" ];
+      requires = ["torque-server-init.service"];
+      after = ["torque-server-init.service"];
 
       serviceConfig = {
         Type = "forking";
@@ -106,6 +100,5 @@ in
         PIDFile = "/var/spool/torque/sched_priv/sched.lock";
       };
     };
-
   };
 }

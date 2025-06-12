@@ -9,7 +9,6 @@
   testers,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "spring-boot-cli";
   version = "3.4.5";
@@ -67,10 +66,10 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://spring.io/projects/spring-boot";
     changelog = "https://github.com/spring-projects/spring-boot/releases/tag/v${finalAttrs.version}";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     mainProgram = "spring";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ moaxcp ];
+    maintainers = with maintainers; [moaxcp];
   };
 })

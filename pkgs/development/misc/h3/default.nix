@@ -4,11 +4,11 @@
   cmake,
   fetchFromGitHub,
   withFilters ? false,
-}:
-
-let
-  generic =
-    { version, hash }:
+}: let
+  generic = {
+    version,
+    hash,
+  }:
     stdenv.mkDerivation {
       inherit version;
       pname = "h3";
@@ -25,7 +25,7 @@ let
         "dev"
       ];
 
-      nativeBuildInputs = [ cmake ];
+      nativeBuildInputs = [cmake];
 
       cmakeFlags = [
         (lib.cmakeBool "BUILD_SHARED_LIBS" true)
@@ -44,11 +44,10 @@ let
         license = lib.licenses.asl20;
         changelog = "https://github.com/uber/h3/raw/v${version}/CHANGELOG.md";
         platforms = lib.platforms.all;
-        maintainers = with lib.maintainers; [ kalbasit ];
+        maintainers = with lib.maintainers; [kalbasit];
       };
     };
-in
-{
+in {
   h3_3 = generic {
     version = "3.7.2";
     hash = "sha256-MvWqQraTnab6EuDx4V0v8EvrFWHT95f2EHTL2p2kei8=";

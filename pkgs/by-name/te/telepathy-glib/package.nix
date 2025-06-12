@@ -12,7 +12,6 @@
   glibcLocales,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "telepathy-glib";
   version = "0.24.2";

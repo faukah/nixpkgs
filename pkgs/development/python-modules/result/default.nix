@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "result";
   version = "0.17.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-o+7qKxGQCeMUnsmEReggvf+XwQWFHRCYArYk3DxCa50=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -31,13 +30,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "result" ];
+  pythonImportsCheck = ["result"];
 
   meta = with lib; {
     description = "A Rust-like result type for Python";
     homepage = "https://github.com/rustedpy/result";
     changelog = "https://github.com/rustedpy/result/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ emattiza ];
+    maintainers = with lib.maintainers; [emattiza];
   };
 }

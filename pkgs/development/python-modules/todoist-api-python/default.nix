@@ -9,7 +9,6 @@
   requests,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "todoist-api-python";
   version = "2.1.7";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-qOb9qAwjQ0MqR+mdNEkt7W8SiBhZ8gRf01TsHDkLPS4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "todoist_api_python" ];
+  pythonImportsCheck = ["todoist_api_python"];
 
   meta = with lib; {
     description = "Library for the Todoist REST API";
     homepage = "https://github.com/Doist/todoist-api-python";
     changelog = "https://github.com/Doist/todoist-api-python/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

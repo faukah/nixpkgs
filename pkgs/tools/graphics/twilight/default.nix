@@ -7,7 +7,6 @@
   libglut,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "twilight";
   version = "unstable-2018-04-19";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = src.meta.homepage;
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "twilight";
   };
 }

@@ -9,7 +9,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-esedb";
   version = "3.16";
@@ -34,15 +33,15 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dissect.esedb" ];
+  pythonImportsCheck = ["dissect.esedb"];
 
   meta = with lib; {
     description = "Dissect module implementing a parser for Microsofts Extensible Storage Engine Database (ESEDB)";
     homepage = "https://github.com/fox-it/dissect.esedb";
     changelog = "https://github.com/fox-it/dissect.esedb/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

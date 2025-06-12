@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "krep";
   version = "1.1.2";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   meta = {
     description = "Blazingly fast string search utility designed for performance-critical applications";

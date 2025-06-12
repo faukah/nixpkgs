@@ -8,7 +8,6 @@
   atk,
   gtk3,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "qwertone";
   version = "0.5.0";
@@ -41,6 +40,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://gitlab.com/azymohliad/qwertone";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ linsui ];
+    maintainers = with lib.maintainers; [linsui];
   };
 }

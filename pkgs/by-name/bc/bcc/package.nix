@@ -19,7 +19,6 @@
   stdenv,
   zip,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "bcc";
   version = "0.34.0";
@@ -56,7 +55,7 @@ python3Packages.buildPythonApplication rec {
     ./bashreadline.py-remove-dependency-on-elftools.patch
   ];
 
-  propagatedBuildInputs = [ python3Packages.netaddr ];
+  propagatedBuildInputs = [python3Packages.netaddr];
   nativeBuildInputs = [
     bison
     cmake

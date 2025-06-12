@@ -25,7 +25,6 @@
   restic,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "deja-dup";
   version = "48.2";
@@ -76,12 +75,12 @@ stdenv.mkDerivation (finalAttrs: {
   preFixup = ''
     gappsWrapperArgs+=(
       # Required by duplicity
-      --prefix PATH : "${lib.makeBinPath [ rclone ]}"
+      --prefix PATH : "${lib.makeBinPath [rclone]}"
     )
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -93,8 +92,8 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://apps.gnome.org/DejaDup/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jtojnar ];
-    teams = [ teams.gnome-circle ];
+    maintainers = with maintainers; [jtojnar];
+    teams = [teams.gnome-circle];
     platforms = platforms.linux;
     mainProgram = "deja-dup";
   };

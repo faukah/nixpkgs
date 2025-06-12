@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "banner";
   version = "1.3.6";
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = platforms.all;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

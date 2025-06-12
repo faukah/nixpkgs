@@ -1,10 +1,8 @@
 {
   lib,
   fetchFromGitHub,
-
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "mapproxy";
   version = "4.1.2";
@@ -44,7 +42,7 @@ python3Packages.buildPythonApplication rec {
     description = "Open source proxy for geospatial data";
     homepage = "https://mapproxy.org/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ rakesh4g ];
-    teams = [ lib.teams.geospatial ];
+    maintainers = with lib.maintainers; [rakesh4g];
+    teams = [lib.teams.geospatial];
   };
 }

@@ -11,7 +11,6 @@
   openssl,
   zlib,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "git-series";
   version = "0.9.1-unstable-2024-02-02";
@@ -26,17 +25,21 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-hFiNK0MQmCPciflMwwR4gzU0Z+Q1WkPJrd4Hs33W8kw=";
 
-  nativeBuildInputs = [
-    pkg-config
-    installShellFiles
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ curl ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      installShellFiles
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [curl];
 
-  buildInputs = [
-    libgit2
-    libssh2
-    openssl
-    zlib
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ curl ];
+  buildInputs =
+    [
+      libgit2
+      libssh2
+      openssl
+      zlib
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [curl];
 
   env = {
     LIBGIT2_SYS_USE_PKG_CONFIG = true;

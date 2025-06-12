@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     description = "Searchtimer and replacement of the VDR program menu";
     mainProgram = "createcats";
-    maintainers = [ lib.maintainers.ck3d ];
+    maintainers = [lib.maintainers.ck3d];
     license = lib.licenses.gpl2;
     inherit (vdr.meta) platforms;
   };

@@ -3,19 +3,19 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.evremap;
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
   settings = lib.attrsets.filterAttrs (n: v: v != null) cfg.settings;
   configFile = format.generate "evremap.toml" settings;
 
-  key = lib.types.strMatching "(BTN|KEY)_[[:upper:][:digit:]_]+" // {
-    description = "key ID prefixed with BTN_ or KEY_";
-  };
+  key =
+    lib.types.strMatching "(BTN|KEY)_[[:upper:][:digit:]_]+"
+    // {
+      description = "key ID prefixed with BTN_ or KEY_";
+    };
 
-  mkKeyOption =
-    description:
+  mkKeyOption = description:
     lib.mkOption {
       type = key;
       description = ''
@@ -24,8 +24,7 @@ let
         You can get a list of keys by running `evremap list-keys`.
       '';
     };
-  mkKeySeqOption =
-    description:
+  mkKeySeqOption = description:
     (mkKeyOption description)
     // {
       type = lib.types.listOf key;
@@ -45,8 +44,7 @@ let
       output = mkKeySeqOption "The key sequence that should be output when the input sequence is entered.";
     };
   };
-in
-{
+in {
   options.services.evremap = {
     enable = lib.mkEnableOption "evremap, a keyboard input remapper for Linux/Wayland systems";
 
@@ -79,12 +77,12 @@ in
 
           dual_role = lib.mkOption {
             type = lib.types.listOf dualRoleModule;
-            default = [ ];
+            default = [];
             example = [
               {
                 input = "KEY_CAPSLOCK";
-                hold = [ "KEY_LEFTCTRL" ];
-                tap = [ "KEY_ESC" ];
+                hold = ["KEY_LEFTCTRL"];
+                tap = ["KEY_ESC"];
               }
             ];
             description = ''
@@ -95,14 +93,14 @@ in
 
           remap = lib.mkOption {
             type = lib.types.listOf remapModule;
-            default = [ ];
+            default = [];
             example = [
               {
                 input = [
                   "KEY_LEFTALT"
                   "KEY_UP"
                 ];
-                output = [ "KEY_PAGEUP" ];
+                output = ["KEY_PAGEUP"];
               }
             ];
             description = ''
@@ -118,18 +116,18 @@ in
         See the [upstream documentation](https://github.com/wez/evremap/blob/master/README.md#configuration)
         for how to configure evremap.
       '';
-      default = { };
+      default = {};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.evremap ];
+    environment.systemPackages = [pkgs.evremap];
 
     hardware.uinput.enable = true;
 
     systemd.services.evremap = {
       description = "evremap - keyboard input remapper";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${lib.getExe pkgs.evremap} remap ${configFile}";

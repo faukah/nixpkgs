@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.mysql;
 
   isMariaDB = lib.getName cfg.package == lib.getName pkgs.mariadb;
@@ -15,7 +13,7 @@ let
 
   mysqldOptions = "--user=${cfg.user} --datadir=${cfg.dataDir} --basedir=${cfg.package}";
 
-  format = pkgs.formats.ini { listsAsDuplicateKeys = true; };
+  format = pkgs.formats.ini {listsAsDuplicateKeys = true;};
   configFile = format.generate "my.cnf" cfg.settings;
 
   generateClusterAddressExpr = ''
@@ -27,16 +25,14 @@ let
         "?gmcast.seg=1:''${config.services.mysql.galeraCluster.clusterPassword}"
   '';
   generateClusterAddress =
-    if (cfg.galeraCluster.nodeAddresses == [ ]) then
-      ""
+    if (cfg.galeraCluster.nodeAddresses == [])
+    then ""
     else
       "gcomm://${builtins.concatStringsSep "," cfg.galeraCluster.nodeAddresses}"
       + lib.optionalString (
         cfg.galeraCluster.clusterPassword != ""
       ) "?gmcast.seg=1:${cfg.galeraCluster.clusterPassword}";
-in
-
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -68,9 +64,7 @@ in
   ###### interface
 
   options = {
-
     services.mysql = {
-
       enable = lib.mkEnableOption "MySQL server";
 
       package = lib.mkOption {
@@ -146,7 +140,7 @@ in
 
       settings = lib.mkOption {
         type = format.type;
-        default = { };
+        default = {};
         description = ''
           MySQL configuration. Refer to
           <https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html>,
@@ -197,7 +191,7 @@ in
             };
           }
         );
-        default = [ ];
+        default = [];
         description = ''
           List of database names and their initial schemas that should be used to create databases on the first startup
           of MySQL. The schema attribute is optional: If not specified, an empty database is created.
@@ -218,7 +212,7 @@ in
 
       ensureDatabases = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           Ensures that the specified databases exist.
           This option will never delete existing databases, especially not when the value of this
@@ -243,7 +237,7 @@ in
               };
               ensurePermissions = lib.mkOption {
                 type = lib.types.attrsOf lib.types.str;
-                default = { };
+                default = {};
                 description = ''
                   Permissions to ensure for the user, specified as attribute set.
                   The attribute names specify the database and tables to grant the permissions for,
@@ -266,7 +260,7 @@ in
             };
           }
         );
-        default = [ ];
+        default = [];
         description = ''
           Ensures that the specified users exist and have at least the ensured permissions.
           The MySQL users will be identified using Unix socket authentication. This authenticates the Unix user with the
@@ -380,7 +374,7 @@ in
           type = lib.types.listOf lib.types.str;
           description = "IP addresses or hostnames of all nodes in the cluster, including this node. This is used to construct the default clusterAddress connection string.";
           example = lib.literalExpression ''["10.0.0.10" "10.0.0.20" "10.0.0.30"]'';
-          default = [ ];
+          default = [];
         };
 
         clusterPassword = lib.mkOption {
@@ -397,10 +391,8 @@ in
           default = ""; # will be evaluate by generateClusterAddress
           defaultText = lib.literalExpression generateClusterAddressExpr;
         };
-
       };
     };
-
   };
 
   ###### implementation
@@ -417,8 +409,9 @@ in
       ++ lib.optionals cfg.galeraCluster.enable [
         {
           assertion =
-            cfg.galeraCluster.localAddress != ""
-            && (cfg.galeraCluster.nodeAddresses != [ ] || cfg.galeraCluster.clusterAddress != "");
+            cfg.galeraCluster.localAddress
+            != ""
+            && (cfg.galeraCluster.nodeAddresses != [] || cfg.galeraCluster.clusterAddress != "");
           message = "mariadb galera cluster is enabled but the localAddress and (nodeAddresses or clusterAddress) are not set";
         }
         {
@@ -426,13 +419,15 @@ in
           message = "mariadb galera clusterPassword is set but overwritten by clusterAddress";
         }
         {
-          assertion = cfg.galeraCluster.nodeAddresses != [ ] || cfg.galeraCluster.clusterAddress != "";
+          assertion = cfg.galeraCluster.nodeAddresses != [] || cfg.galeraCluster.clusterAddress != "";
           message = "When services.mysql.galeraCluster.clusterAddress is set, setting services.mysql.galeraCluster.nodeAddresses is redundant and will be overwritten by clusterAddress. Choose one approach.";
         }
       ];
 
     services.mysql.dataDir = lib.mkDefault (
-      if lib.versionAtLeast config.system.stateVersion "17.09" then "/var/lib/mysql" else "/var/mysql"
+      if lib.versionAtLeast config.system.stateVersion "17.09"
+      then "/var/lib/mysql"
+      else "/var/mysql"
     );
 
     services.mysql.settings.mysqld = lib.mkMerge [
@@ -452,7 +447,7 @@ in
         ];
       })
       (lib.mkIf (!isMariaDB) {
-        plugin-load-add = [ "auth_socket.so" ];
+        plugin-load-add = ["auth_socket.so"];
       })
       (lib.mkIf cfg.galeraCluster.enable {
         # Ensure Only InnoDB is used as galera clusters can only work with them
@@ -474,10 +469,9 @@ in
 
       wsrep_cluster_name = cfg.galeraCluster.name;
       wsrep_cluster_address =
-        if (cfg.galeraCluster.clusterAddress != "") then
-          cfg.galeraCluster.clusterAddress
-        else
-          generateClusterAddress;
+        if (cfg.galeraCluster.clusterAddress != "")
+        then cfg.galeraCluster.clusterAddress
+        else generateClusterAddress;
 
       wsrep_node_address = cfg.galeraCluster.localAddress;
       wsrep_node_name = "${cfg.galeraCluster.localName}";
@@ -502,7 +496,7 @@ in
       mysql.gid = config.ids.gids.mysql;
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc."my.cnf".source = cfg.configFile;
 
@@ -515,9 +509,9 @@ in
     systemd.services.mysql = {
       description = "MySQL Server";
 
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ cfg.configFile ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [cfg.configFile];
 
       unitConfig.RequiresMountsFor = cfg.dataDir;
 
@@ -546,20 +540,19 @@ in
         ];
 
       preStart =
-        if isMariaDB then
-          ''
-            if ! test -e ${cfg.dataDir}/mysql; then
-              ${cfg.package}/bin/mysql_install_db --defaults-file=/etc/my.cnf ${mysqldOptions}
-              touch ${cfg.dataDir}/mysql_init
-            fi
-          ''
-        else
-          ''
-            if ! test -e ${cfg.dataDir}/mysql; then
-              ${cfg.package}/bin/mysqld --defaults-file=/etc/my.cnf ${mysqldOptions} --initialize-insecure
-              touch ${cfg.dataDir}/mysql_init
-            fi
-          '';
+        if isMariaDB
+        then ''
+          if ! test -e ${cfg.dataDir}/mysql; then
+            ${cfg.package}/bin/mysql_install_db --defaults-file=/etc/my.cnf ${mysqldOptions}
+            touch ${cfg.dataDir}/mysql_init
+          fi
+        ''
+        else ''
+          if ! test -e ${cfg.dataDir}/mysql; then
+            ${cfg.package}/bin/mysqld --defaults-file=/etc/my.cnf ${mysqldOptions} --initialize-insecure
+            touch ${cfg.dataDir}/mysql_init
+          fi
+        '';
 
       script = ''
         # https://mariadb.com/kb/en/getting-started-with-mariadb-galera-cluster/#systemd-and-galera-recovery
@@ -573,126 +566,138 @@ in
         exec ${cfg.package}/bin/mysqld --defaults-file=/etc/my.cnf ${mysqldOptions} $_WSREP_NEW_CLUSTER $_WSREP_START_POSITION
       '';
 
-      postStart =
-        let
-          # The super user account to use on *first* run of MySQL server
-          superUser = if isMariaDB then cfg.user else "root";
-        in
-        ''
-          ${lib.optionalString (!hasNotify) ''
-            # Wait until the MySQL server is available for use
-            while [ ! -e /run/mysqld/mysqld.sock ]
-            do
-                echo "MySQL daemon not yet started. Waiting for 1 second..."
+      postStart = let
+        # The super user account to use on *first* run of MySQL server
+        superUser =
+          if isMariaDB
+          then cfg.user
+          else "root";
+      in ''
+        ${lib.optionalString (!hasNotify) ''
+          # Wait until the MySQL server is available for use
+          while [ ! -e /run/mysqld/mysqld.sock ]
+          do
+              echo "MySQL daemon not yet started. Waiting for 1 second..."
+              sleep 1
+          done
+        ''}
+
+        ${lib.optionalString isMariaDB ''
+          # If MariaDB is used in an Galera cluster, we have to check if the sync is done,
+          # or it will fail to init the database while joining, so we get in an broken non recoverable state
+          # so we wait until we have an synced state
+          if ${cfg.package}/bin/mysql -u ${superUser} -N -e "SHOW VARIABLES LIKE 'wsrep_on'" 2>/dev/null | ${lib.getExe' pkgs.gnugrep "grep"} -q 'ON'; then
+            echo "Galera cluster detected, waiting for node to be synced..."
+            while true; do
+              STATE=$(${cfg.package}/bin/mysql -u ${superUser} -N -e "SHOW STATUS LIKE 'wsrep_local_state_comment'" | ${lib.getExe' pkgs.gawk "awk"} '{print $2}')
+              if [ "$STATE" = "Synced" ]; then
+                echo "Node is synced"
+                break
+              else
+                echo "Current state: $STATE - Waiting for 1 second..."
                 sleep 1
+              fi
             done
-          ''}
-
-          ${lib.optionalString isMariaDB ''
-            # If MariaDB is used in an Galera cluster, we have to check if the sync is done,
-            # or it will fail to init the database while joining, so we get in an broken non recoverable state
-            # so we wait until we have an synced state
-            if ${cfg.package}/bin/mysql -u ${superUser} -N -e "SHOW VARIABLES LIKE 'wsrep_on'" 2>/dev/null | ${lib.getExe' pkgs.gnugrep "grep"} -q 'ON'; then
-              echo "Galera cluster detected, waiting for node to be synced..."
-              while true; do
-                STATE=$(${cfg.package}/bin/mysql -u ${superUser} -N -e "SHOW STATUS LIKE 'wsrep_local_state_comment'" | ${lib.getExe' pkgs.gawk "awk"} '{print $2}')
-                if [ "$STATE" = "Synced" ]; then
-                  echo "Node is synced"
-                  break
-                else
-                  echo "Current state: $STATE - Waiting for 1 second..."
-                  sleep 1
-                fi
-              done
-            fi
-          ''}
-
-          if [ -f ${cfg.dataDir}/mysql_init ]
-          then
-              # While MariaDB comes with a 'mysql' super user account since 10.4.x, MySQL does not
-              # Since we don't want to run this service as 'root' we need to ensure the account exists on first run
-              ( echo "CREATE USER IF NOT EXISTS '${cfg.user}'@'localhost' IDENTIFIED WITH ${
-                if isMariaDB then "unix_socket" else "auth_socket"
-              };"
-                echo "GRANT ALL PRIVILEGES ON *.* TO '${cfg.user}'@'localhost' WITH GRANT OPTION;"
-              ) | ${cfg.package}/bin/mysql -u ${superUser} -N
-
-              ${lib.concatMapStrings (database: ''
-                # Create initial databases
-                if ! test -e "${cfg.dataDir}/${database.name}"; then
-                    echo "Creating initial database: ${database.name}"
-                    ( echo 'CREATE DATABASE IF NOT EXISTS `${database.name}`;'
-
-                      ${lib.optionalString (database.schema != null) ''
-                        echo 'USE `${database.name}`;'
-
-                        # TODO: this silently falls through if database.schema does not exist,
-                        # we should catch this somehow and exit, but can't do it here because we're in a subshell.
-                        if [ -f "${database.schema}" ]
-                        then
-                            cat ${database.schema}
-                        elif [ -d "${database.schema}" ]
-                        then
-                            cat ${database.schema}/mysql-databases/*.sql
-                        fi
-                      ''}
-                    ) | ${cfg.package}/bin/mysql -u ${superUser} -N
-                fi
-              '') cfg.initialDatabases}
-
-              ${lib.optionalString (cfg.replication.role == "master") ''
-                # Set up the replication master
-
-                ( echo "USE mysql;"
-                  echo "CREATE USER '${cfg.replication.masterUser}'@'${cfg.replication.slaveHost}' IDENTIFIED WITH mysql_native_password;"
-                  echo "SET PASSWORD FOR '${cfg.replication.masterUser}'@'${cfg.replication.slaveHost}' = PASSWORD('${cfg.replication.masterPassword}');"
-                  echo "GRANT REPLICATION SLAVE ON *.* TO '${cfg.replication.masterUser}'@'${cfg.replication.slaveHost}';"
-                ) | ${cfg.package}/bin/mysql -u ${superUser} -N
-              ''}
-
-              ${lib.optionalString (cfg.replication.role == "slave") ''
-                # Set up the replication slave
-
-                ( echo "STOP SLAVE;"
-                  echo "CHANGE MASTER TO MASTER_HOST='${cfg.replication.masterHost}', MASTER_USER='${cfg.replication.masterUser}', MASTER_PASSWORD='${cfg.replication.masterPassword}';"
-                  echo "START SLAVE;"
-                ) | ${cfg.package}/bin/mysql -u ${superUser} -N
-              ''}
-
-              ${lib.optionalString (cfg.initialScript != null) ''
-                # Execute initial script
-                # using toString to avoid copying the file to nix store if given as path instead of string,
-                # as it might contain credentials
-                cat ${toString cfg.initialScript} | ${cfg.package}/bin/mysql -u ${superUser} -N
-              ''}
-
-              rm ${cfg.dataDir}/mysql_init
           fi
+        ''}
 
-          ${lib.optionalString (cfg.ensureDatabases != [ ]) ''
-            (
+        if [ -f ${cfg.dataDir}/mysql_init ]
+        then
+            # While MariaDB comes with a 'mysql' super user account since 10.4.x, MySQL does not
+            # Since we don't want to run this service as 'root' we need to ensure the account exists on first run
+            ( echo "CREATE USER IF NOT EXISTS '${cfg.user}'@'localhost' IDENTIFIED WITH ${
+          if isMariaDB
+          then "unix_socket"
+          else "auth_socket"
+        };"
+              echo "GRANT ALL PRIVILEGES ON *.* TO '${cfg.user}'@'localhost' WITH GRANT OPTION;"
+            ) | ${cfg.package}/bin/mysql -u ${superUser} -N
+
             ${lib.concatMapStrings (database: ''
-              echo "CREATE DATABASE IF NOT EXISTS \`${database}\`;"
-            '') cfg.ensureDatabases}
-            ) | ${cfg.package}/bin/mysql -N
-          ''}
+            # Create initial databases
+            if ! test -e "${cfg.dataDir}/${database.name}"; then
+                echo "Creating initial database: ${database.name}"
+                ( echo 'CREATE DATABASE IF NOT EXISTS `${database.name}`;'
 
-          ${lib.concatMapStrings (user: ''
+                  ${lib.optionalString (database.schema != null) ''
+              echo 'USE `${database.name}`;'
+
+              # TODO: this silently falls through if database.schema does not exist,
+              # we should catch this somehow and exit, but can't do it here because we're in a subshell.
+              if [ -f "${database.schema}" ]
+              then
+                  cat ${database.schema}
+              elif [ -d "${database.schema}" ]
+              then
+                  cat ${database.schema}/mysql-databases/*.sql
+              fi
+            ''}
+                ) | ${cfg.package}/bin/mysql -u ${superUser} -N
+            fi
+          '')
+          cfg.initialDatabases}
+
+            ${lib.optionalString (cfg.replication.role == "master") ''
+          # Set up the replication master
+
+          ( echo "USE mysql;"
+            echo "CREATE USER '${cfg.replication.masterUser}'@'${cfg.replication.slaveHost}' IDENTIFIED WITH mysql_native_password;"
+            echo "SET PASSWORD FOR '${cfg.replication.masterUser}'@'${cfg.replication.slaveHost}' = PASSWORD('${cfg.replication.masterPassword}');"
+            echo "GRANT REPLICATION SLAVE ON *.* TO '${cfg.replication.masterUser}'@'${cfg.replication.slaveHost}';"
+          ) | ${cfg.package}/bin/mysql -u ${superUser} -N
+        ''}
+
+            ${lib.optionalString (cfg.replication.role == "slave") ''
+          # Set up the replication slave
+
+          ( echo "STOP SLAVE;"
+            echo "CHANGE MASTER TO MASTER_HOST='${cfg.replication.masterHost}', MASTER_USER='${cfg.replication.masterUser}', MASTER_PASSWORD='${cfg.replication.masterPassword}';"
+            echo "START SLAVE;"
+          ) | ${cfg.package}/bin/mysql -u ${superUser} -N
+        ''}
+
+            ${lib.optionalString (cfg.initialScript != null) ''
+          # Execute initial script
+          # using toString to avoid copying the file to nix store if given as path instead of string,
+          # as it might contain credentials
+          cat ${toString cfg.initialScript} | ${cfg.package}/bin/mysql -u ${superUser} -N
+        ''}
+
+            rm ${cfg.dataDir}/mysql_init
+        fi
+
+        ${lib.optionalString (cfg.ensureDatabases != []) ''
+          (
+          ${lib.concatMapStrings (database: ''
+              echo "CREATE DATABASE IF NOT EXISTS \`${database}\`;"
+            '')
+            cfg.ensureDatabases}
+          ) | ${cfg.package}/bin/mysql -N
+        ''}
+
+        ${lib.concatMapStrings (user: ''
             ( echo "CREATE USER IF NOT EXISTS '${user.name}'@'localhost' IDENTIFIED WITH ${
-              if isMariaDB then "unix_socket" else "auth_socket"
+              if isMariaDB
+              then "unix_socket"
+              else "auth_socket"
             };"
               ${lib.concatStringsSep "\n" (
-                lib.mapAttrsToList (database: permission: ''
-                  echo "GRANT ${permission} ON ${database} TO '${user.name}'@'localhost';"
-                '') user.ensurePermissions
-              )}
+              lib.mapAttrsToList (database: permission: ''
+                echo "GRANT ${permission} ON ${database} TO '${user.name}'@'localhost';"
+              '')
+              user.ensurePermissions
+            )}
             ) | ${cfg.package}/bin/mysql -N
-          '') cfg.ensureUsers}
-        '';
+          '')
+          cfg.ensureUsers}
+      '';
 
       serviceConfig = lib.mkMerge [
         {
-          Type = if hasNotify then "notify" else "simple";
+          Type =
+            if hasNotify
+            then "notify"
+            else "simple";
           Restart = "on-abort";
           RestartSec = "5s";
 
@@ -703,7 +708,7 @@ in
           RuntimeDirectory = "mysqld";
           RuntimeDirectoryMode = "0755";
           # Access write directories
-          ReadWritePaths = [ cfg.dataDir ];
+          ReadWritePaths = [cfg.dataDir];
           # Capabilities
           CapabilityBoundingSet = "";
           # Security
@@ -749,5 +754,5 @@ in
     ];
   };
 
-  meta.maintainers = [ lib.maintainers._6543 ];
+  meta.maintainers = [lib.maintainers._6543];
 }

@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "fe25519";
   version = "1.5.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-la+17tPHjceMTe7Wk8DGVaSptk8XJa+l7GTeqLIFDvs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     bitlist
@@ -36,12 +35,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "fe25519" ];
+  pythonImportsCheck = ["fe25519"];
 
   meta = with lib; {
     description = "Python field operations for Curve25519's prime";
     homepage = "https://github.com/BjoernMHaase/fe25519";
-    license = with licenses; [ cc0 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [cc0];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -3,13 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.openbao;
 
-  settingsFormat = pkgs.formats.json { };
-in
-{
+  settingsFormat = pkgs.formats.json {};
+in {
   options = {
     services.openbao = {
       enable = lib.mkEnableOption "OpenBao daemon";
@@ -50,8 +48,7 @@ in
             listener = lib.mkOption {
               type = lib.types.attrsOf (
                 lib.types.submodule (
-                  { config, ... }:
-                  {
+                  {config, ...}: {
                     freeformType = settingsFormat.type;
                     options = {
                       type = lib.mkOption {
@@ -65,7 +62,10 @@ in
                       };
                       address = lib.mkOption {
                         type = lib.types.str;
-                        default = if config.type == "unix" then "/run/openbao/openbao.sock" else "127.0.0.1:8200";
+                        default =
+                          if config.type == "unix"
+                          then "/run/openbao/openbao.sock"
+                          else "127.0.0.1:8200";
                         defaultText = lib.literalExpression ''if config.services.openbao.settings.listener.<name>.type == "unix" then "/run/openbao/openbao.sock" else "127.0.0.1:8200"'';
                         description = ''
                           The TCP address or UNIX socket path to listen on.
@@ -85,7 +85,7 @@ in
 
       extraArgs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           Additional arguments given to OpenBao.
         '';
@@ -94,13 +94,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.openbao = {
       description = "OpenBao - A tool for managing secrets";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       restartIfChanged = false; # do not restart on "nixos-rebuild switch". It would seal the storage and disrupt the clients.
 

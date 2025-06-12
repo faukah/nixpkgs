@@ -5,14 +5,11 @@
   bignums,
   version ? null,
 }:
-
 mkCoqDerivation {
-
   pname = "coqprime";
   owner = "thery";
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = range "8.14" "8.20";
@@ -34,7 +31,8 @@ mkCoqDerivation {
         case = "8.7";
         out = "8.7.2";
       }
-    ] null;
+    ]
+    null;
 
   release."8.18".sha256 = "sha256-KObBEYerWhIStmq90G3vs9K5LUEOfB2SPxirwLiWQ6E=";
   release."8.17".sha256 = "sha256-D878t/PijVCopRKHYqfwdNvt3arGlI8yxbK/vI6qZUY=";
@@ -48,11 +46,11 @@ mkCoqDerivation {
 
   mlPlugin = true; # uses coq-bignums.plugin
 
-  propagatedBuildInputs = [ bignums ];
+  propagatedBuildInputs = [bignums];
 
   meta = with lib; {
     description = "Library to certify primality using Pocklington certificate and Elliptic Curve Certificate";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

@@ -2,15 +2,13 @@
   expect,
   micro,
   runCommand,
-}:
-
-let
+}: let
   expect-script = builtins.path {
     name = "hello.tcl";
     path = ./hello.tcl;
   };
 in
-runCommand "micro-expect-hello-world"
+  runCommand "micro-expect-hello-world"
   {
     nativeBuildInputs = [
       expect

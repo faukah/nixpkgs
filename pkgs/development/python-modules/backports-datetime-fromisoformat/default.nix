@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # tests
   pytz,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "backports-datetime-fromisoformat";
   version = "2.0.3";
@@ -23,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-G1JMHa7r8KEOuIopXNBsPxu7yopFF1YlL5GUEmfuxqQ=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     pytz
@@ -35,13 +32,13 @@ buildPythonPackage rec {
     "release/test_developmental_release.py"
   ];
 
-  pythonImportsCheck = [ "backports.datetime_fromisoformat" ];
+  pythonImportsCheck = ["backports.datetime_fromisoformat"];
 
   meta = with lib; {
     changelog = "https://github.com/movermeyer/backports.datetime_fromisoformat/releases/tag/v${version}";
     description = "Backport of Python 3.11's datetime.fromisoformat";
     homepage = "https://github.com/movermeyer/backports.datetime_fromisoformat";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -2,8 +2,7 @@
   stdenv,
   lib,
   callPackage,
-}:
-let
+}: let
   pname = "miru";
   version = "5.5.10";
   meta = {
@@ -16,8 +15,8 @@ let
     ];
     mainProgram = "miru";
 
-    platforms = [ "x86_64-linux" ] ++ lib.platforms.darwin;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    platforms = ["x86_64-linux"] ++ lib.platforms.darwin;
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
 
     longDescription = ''
       A pure JS BitTorrent streaming environment, with a built-in list manager.
@@ -36,21 +35,22 @@ let
     updateScript = ./update.sh;
   };
 in
-if stdenv.hostPlatform.isDarwin then
-  callPackage ./darwin.nix {
-    inherit
-      pname
-      version
-      meta
-      passthru
-      ;
-  }
-else
-  callPackage ./linux.nix {
-    inherit
-      pname
-      version
-      meta
-      passthru
-      ;
-  }
+  if stdenv.hostPlatform.isDarwin
+  then
+    callPackage ./darwin.nix {
+      inherit
+        pname
+        version
+        meta
+        passthru
+        ;
+    }
+  else
+    callPackage ./linux.nix {
+      inherit
+        pname
+        version
+        meta
+        passthru
+        ;
+    }

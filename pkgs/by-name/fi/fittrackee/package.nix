@@ -34,8 +34,7 @@ python3Packages.buildPythonApplication rec {
     "sqlalchemy"
   ];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       authlib
       babel
@@ -67,7 +66,7 @@ python3Packages.buildPythonApplication rec {
     ++ dramatiq.optional-dependencies.redis
     ++ flask-limiter.optional-dependencies.redis;
 
-  pythonImportsCheck = [ "fittrackee" ];
+  pythonImportsCheck = ["fittrackee"];
 
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook

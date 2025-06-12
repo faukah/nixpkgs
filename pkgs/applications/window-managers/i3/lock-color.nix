@@ -17,7 +17,6 @@
   xcbutilxrm,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.13.c.5";
   pname = "i3lock-color";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     xorg.xcbutil
   ];
 
-  makeFlags = [ "all" ];
+  makeFlags = ["all"];
   preInstall = ''
     mkdir -p $out/share/man/man1
   '';
@@ -87,7 +86,7 @@ stdenv.mkDerivation rec {
         - keyboard-layout
     '';
     homepage = "https://github.com/PandorasFox/i3lock-color";
-    maintainers = with maintainers; [ malyn ];
+    maintainers = with maintainers; [malyn];
     mainProgram = "i3lock-color";
     license = licenses.bsd3;
 

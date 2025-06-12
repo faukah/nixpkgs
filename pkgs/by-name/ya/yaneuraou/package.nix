@@ -6,36 +6,34 @@
   # Available labels: https://github.com/yaneurao/YaneuraOu/blob/59f6265cebbd4f03138091098059a881a021eefa/source/Makefile#L53-L92
   targetLabel ?
     with stdenv.hostPlatform;
-    if isDarwin then
-      if isAarch64 then
-        "APPLEM1"
-      else if avx2Support then
-        "APPLEAVX2"
-      else
-        "APPLESSE42"
-    else if isx86_64 then
-      if avx512Support then
-        "AVX512"
-      else if avx2Support then
-        "AVX2"
-      else if sse4_2Support then
-        "SSE42"
-      else if sse4_1Support then
-        "SSE41"
-      else if ssse3Support then
-        "SSSE3"
-      else
-        "SSE2"
-    else if isx86_32 then
-      "NO_SSE"
-    else
-      "OTHER",
+      if isDarwin
+      then
+        if isAarch64
+        then "APPLEM1"
+        else if avx2Support
+        then "APPLEAVX2"
+        else "APPLESSE42"
+      else if isx86_64
+      then
+        if avx512Support
+        then "AVX512"
+        else if avx2Support
+        then "AVX2"
+        else if sse4_2Support
+        then "SSE42"
+        else if sse4_1Support
+        then "SSE41"
+        else if ssse3Support
+        then "SSSE3"
+        else "SSE2"
+      else if isx86_32
+      then "NO_SSE"
+      else "OTHER",
   fetchFromGitHub,
   fetchurl,
   _7zz,
   nix-update-script,
 }:
-
 # Use clangStdenv instead of the default stdenv because:
 # - The upstream author treats clang++ as the primary compiler in the docs
 #   and Makefile, even though the code also builds with g++.
@@ -82,26 +80,24 @@ clangStdenv.mkDerivation (finalAttrs: {
   nativeInstallCheckInputs = [
     _7zz
   ];
-  installCheckPhase =
-    let
-      nnue = fetchurl {
-        url = "https://github.com/yaneurao/YaneuraOu/releases/download/suisho5/Suisho5.7z";
-        hash = "sha256-ZzTjo9KOZ7kgbDRC9tEPFhSBODJ9/4Ecre389YH3mAk=";
-      };
-    in
-    ''
-      runHook preInstallCheck
+  installCheckPhase = let
+    nnue = fetchurl {
+      url = "https://github.com/yaneurao/YaneuraOu/releases/download/suisho5/Suisho5.7z";
+      hash = "sha256-ZzTjo9KOZ7kgbDRC9tEPFhSBODJ9/4Ecre389YH3mAk=";
+    };
+  in ''
+    runHook preInstallCheck
 
-      7zz x '${nnue}'
-      usi_command="setoption name EvalDir value $PWD
-      isready
-      go byoyomi 1000
-      wait"
-      usi_output="$("$out/bin/YaneuraOu" <<< "$usi_command")"
-      [[ "$usi_output" == *'bestmove'* ]]
+    7zz x '${nnue}'
+    usi_command="setoption name EvalDir value $PWD
+    isready
+    go byoyomi 1000
+    wait"
+    usi_output="$("$out/bin/YaneuraOu" <<< "$usi_command")"
+    [[ "$usi_output" == *'bestmove'* ]]
 
-      runHook postInstallCheck
-    '';
+    runHook postInstallCheck
+  '';
 
   passthru = {
     updateScript = nix-update-script {

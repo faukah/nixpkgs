@@ -15,7 +15,6 @@
   re,
   shell ? null,
 }:
-
 buildDunePackage rec {
   pname = "magic-trace";
   version = "1.2.3";
@@ -49,7 +48,7 @@ buildDunePackage rec {
   meta = with lib; {
     description = "Collects and displays high-resolution traces of what a process is doing";
     license = licenses.mit;
-    maintainers = [ maintainers.alizter ];
+    maintainers = [maintainers.alizter];
     homepage = "https://github.com/janestreet/magic-trace";
   };
 }

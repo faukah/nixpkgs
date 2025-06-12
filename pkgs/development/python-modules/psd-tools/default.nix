@@ -16,7 +16,6 @@
   ipython,
   cython,
 }:
-
 buildPythonPackage rec {
   pname = "psd-tools";
   version = "1.10.7";
@@ -52,7 +51,7 @@ buildPythonPackage rec {
     ipython
   ];
 
-  pythonImportsCheck = [ "psd_tools" ];
+  pythonImportsCheck = ["psd_tools"];
 
   meta = with lib; {
     description = "Python package for reading Adobe Photoshop PSD files";
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/kmike/psd-tools";
     changelog = "https://github.com/psd-tools/psd-tools/blob/${src.tag}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

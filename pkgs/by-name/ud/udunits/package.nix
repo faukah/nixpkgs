@@ -9,7 +9,6 @@
   flex,
   texinfo,
 }:
-
 stdenv.mkDerivation {
   pname = "udunits";
   version = "unstable-2021-03-17";
@@ -44,7 +43,7 @@ stdenv.mkDerivation {
       converting values.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.all;
     mainProgram = "udunits2";
   };

@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "graphql-core";
   version = "3.2.5";
@@ -39,13 +38,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "graphql" ];
+  pythonImportsCheck = ["graphql"];
 
   meta = with lib; {
     changelog = "https://github.com/graphql-python/graphql-core/releases/tag/v${version}";
     description = "Port of graphql-js to Python";
     homepage = "https://github.com/graphql-python/graphql-core";
     license = licenses.mit;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

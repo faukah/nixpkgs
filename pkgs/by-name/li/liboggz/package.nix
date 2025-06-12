@@ -5,7 +5,6 @@
   libogg,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "liboggz";
   version = "1.1.3";
@@ -15,9 +14,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JGbQO2fvC8ug4Q+zUtGp/9n5aRFlerzjy7a6Qpxlbi8=";
   };
 
-  propagatedBuildInputs = [ libogg ];
+  propagatedBuildInputs = [libogg];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     homepage = "https://xiph.org/oggz/";

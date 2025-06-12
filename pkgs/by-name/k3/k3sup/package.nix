@@ -7,7 +7,6 @@
   bash,
   openssh,
 }:
-
 buildGoModule rec {
   pname = "k3sup";
   version = "0.13.9";
@@ -42,7 +41,7 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram "$out/bin/k3sup" \
-      --prefix PATH : ${lib.makeBinPath [ openssh ]}
+      --prefix PATH : ${lib.makeBinPath [openssh]}
 
     installShellCompletion --cmd k3sup \
       --bash <($out/bin/k3sup completion bash) \

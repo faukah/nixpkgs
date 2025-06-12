@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "french-numbers";
   version = "1.2.0";
@@ -16,7 +15,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-HtgJsvl+BkvTapGxi7B/0QMEUolOw4gGndj4/9w7Z4Y=";
 
-  cargoBuildFlags = [ "--features=cli" ];
+  cargoBuildFlags = ["--features=cli"];
 
   meta = with lib; {
     description = "Represent numbers in French language";
@@ -26,6 +25,6 @@ rustPlatform.buildRustPackage rec {
       mit
     ];
     mainProgram = "french-numbers";
-    maintainers = with maintainers; [ samueltardieu ];
+    maintainers = with maintainers; [samueltardieu];
   };
 }

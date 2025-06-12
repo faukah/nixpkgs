@@ -3,7 +3,6 @@
   fetchFromGitHub,
   melpaBuild,
 }:
-
 melpaBuild {
   pname = "color-theme-solarized";
   ename = "solarized-theme";
@@ -25,6 +24,6 @@ melpaBuild {
     homepage = "http://ethanschoonover.com/solarized";
     description = "Precision colors for machines and people; Emacs implementation";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

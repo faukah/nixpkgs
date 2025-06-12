@@ -11,7 +11,6 @@
   gdk-pixbuf,
   atk,
 }:
-
 buildGoModule rec {
   pname = "nwg-menu";
   version = "0.1.8";
@@ -61,6 +60,6 @@ buildGoModule rec {
     mainProgram = "nwg-menu";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ berbiche ];
+    maintainers = with maintainers; [berbiche];
   };
 }

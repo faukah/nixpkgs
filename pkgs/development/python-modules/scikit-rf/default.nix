@@ -23,7 +23,6 @@
   pytestCheckHook,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "scikit-rf";
   version = "1.7.0";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
       --replace-fail "--cov=skrf" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -52,10 +51,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    plot = [ matplotlib ];
-    xlsx = [ openpyxl ];
-    netw = [ networkx ];
-    visa = [ pyvisa ];
+    plot = [matplotlib];
+    xlsx = [openpyxl];
+    netw = [networkx];
+    visa = [pyvisa];
     docs = [
       ipython
       ipykernel
@@ -69,7 +68,7 @@ buildPythonPackage rec {
     ];
   };
 
-  env = lib.optionalAttrs stdenv.hostPlatform.isDarwin { MPLBACKEND = "Agg"; };
+  env = lib.optionalAttrs stdenv.hostPlatform.isDarwin {MPLBACKEND = "Agg";};
 
   nativeCheckInputs = [
     pytest-mock
@@ -86,13 +85,13 @@ buildPythonPackage rec {
     stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform.isDarwin
   ) "skrf/calibration/tests/test_calibration.py";
 
-  pythonImportsCheck = [ "skrf" ];
+  pythonImportsCheck = ["skrf"];
 
   meta = with lib; {
     description = "Python library for RF/Microwave engineering";
     homepage = "https://scikit-rf.org/";
     changelog = "https://github.com/scikit-rf/scikit-rf/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lugarun ];
+    maintainers = with maintainers; [lugarun];
   };
 }

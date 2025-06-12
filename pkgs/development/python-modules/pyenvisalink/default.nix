@@ -7,7 +7,6 @@
   pyserial,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyenvisalink";
   version = "4.8";
@@ -29,12 +28,12 @@ buildPythonPackage rec {
   # Tests require an Envisalink device
   doCheck = false;
 
-  pythonImportsCheck = [ "pyenvisalink" ];
+  pythonImportsCheck = ["pyenvisalink"];
 
   meta = with lib; {
     description = "Python interface for Envisalink 2DS/3 Alarm API";
     homepage = "https://github.com/Cinntax/pyenvisalink";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

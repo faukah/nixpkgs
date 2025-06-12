@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "leptosfmt";
   version = "0.1.33";
@@ -28,6 +27,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

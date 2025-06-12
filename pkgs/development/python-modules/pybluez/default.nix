@@ -6,7 +6,6 @@
   bluez,
   gattlib,
 }:
-
 buildPythonPackage {
   pname = "pybluez";
   version = "unstable-2022-01-28";
@@ -19,9 +18,9 @@ buildPythonPackage {
     hash = "sha256-GA58DfCFaVzZQA1HYpGQ68bznrt4SX1ojyOVn8hyCGo=";
   };
 
-  buildInputs = [ bluez ];
+  buildInputs = [bluez];
 
-  propagatedBuildInputs = [ gattlib ];
+  propagatedBuildInputs = [gattlib];
 
   # there are no tests
   doCheck = false;
@@ -35,7 +34,7 @@ buildPythonPackage {
     description = "Bluetooth Python extension module";
     homepage = "https://github.com/pybluez/pybluez";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     broken = stdenv.hostPlatform.isDarwin; # requires pyobjc-core, pyobjc-framework-Cocoa
   };
 }

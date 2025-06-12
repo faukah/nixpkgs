@@ -14,7 +14,11 @@
     zathura_djvu
     zathura_ps
     zathura_cb
-    (if useMupdf then zathura_pdf_mupdf else zathura_pdf_poppler)
+    (
+      if useMupdf
+      then zathura_pdf_mupdf
+      else zathura_pdf_poppler
+    )
   ],
   stdenv,
 }:
@@ -22,8 +26,7 @@ symlinkJoin {
   inherit (zathura_core) version;
   pname = "zathura-with-plugins";
 
-  paths =
-    with zathura_core;
+  paths = with zathura_core;
     [
       man
       dev
@@ -31,20 +34,19 @@ symlinkJoin {
     ]
     ++ plugins;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  postBuild =
-    let
-      fishCompletion = "share/fish/vendor_completions.d/zathura.fish";
-    in
+  postBuild = let
+    fishCompletion = "share/fish/vendor_completions.d/zathura.fish";
+  in
     (lib.optionalString stdenv.hostPlatform.isLinux ''
       makeWrapper ${zathura_core.bin}/bin/zathura-sandbox $out/bin/zathura-sandbox \
-        --prefix PATH ":" "${lib.makeBinPath [ file ]}" \
+        --prefix PATH ":" "${lib.makeBinPath [file]}" \
         --prefix ZATHURA_PLUGINS_PATH : "$out/lib/zathura"
     '')
     + ''
       makeWrapper ${zathura_core.bin}/bin/zathura $out/bin/zathura \
-        --prefix PATH ":" "${lib.makeBinPath [ file ]}" \
+        --prefix PATH ":" "${lib.makeBinPath [file]}" \
         --prefix ZATHURA_PLUGINS_PATH : "$out/lib/zathura"
 
       # zathura fish completion references the zathura_core derivation to

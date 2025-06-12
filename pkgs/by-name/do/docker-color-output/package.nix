@@ -4,7 +4,6 @@
   buildGoModule,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "docker-color-output";
   version = "2.6.1";
@@ -19,7 +18,7 @@ buildGoModule rec {
   vendorHash = null;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -28,6 +27,6 @@ buildGoModule rec {
     license = lib.licenses.mit;
     homepage = "https://github.com/devemio/docker-color-output";
     changelog = "https://github.com/devemio/docker-color-output/releases/tag/${version}";
-    maintainers = with lib.maintainers; [ sguimmara ];
+    maintainers = with lib.maintainers; [sguimmara];
   };
 }

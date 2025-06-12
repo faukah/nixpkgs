@@ -12,7 +12,6 @@
   json-glib,
   libsoup_2_4,
 }:
-
 stdenv.mkDerivation {
   pname = "timezonemap";
   version = "0.4.5.1";
@@ -72,6 +71,6 @@ stdenv.mkDerivation {
     description = "GTK+3 Timezone Map Widget";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.mkg20001 ];
+    maintainers = [maintainers.mkg20001];
   };
 }

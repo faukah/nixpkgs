@@ -5,7 +5,6 @@
   go,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "pushup";
   version = "0.2";
@@ -25,11 +24,11 @@ buildGoModule rec {
     "-s"
     "-w"
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   # The Go compiler is a runtime dependency of Pushup.
   allowGoReference = true;
   postInstall = ''
-    wrapProgram $out/bin/${meta.mainProgram} --prefix PATH : ${lib.makeBinPath [ go ]}
+    wrapProgram $out/bin/${meta.mainProgram} --prefix PATH : ${lib.makeBinPath [go]}
   '';
 
   meta = with lib; {
@@ -38,6 +37,6 @@ buildGoModule rec {
     license = licenses.mit;
     changelog = "https://github.com/adhocteam/pushup/blob/${src.rev}/CHANGELOG.md";
     mainProgram = "pushup";
-    maintainers = with maintainers; [ paulsmith ];
+    maintainers = with maintainers; [paulsmith];
   };
 }

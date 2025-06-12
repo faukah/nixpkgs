@@ -17,13 +17,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/nn";
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "C code for Natural Neighbours interpolation of 2D scattered data";
     homepage = "https://github.com/sakov/nn-c/";
     platforms = platforms.unix;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mkez ];
+    maintainers = with maintainers; [mkez];
   };
 })

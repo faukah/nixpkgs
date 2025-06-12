@@ -9,7 +9,6 @@
   setuptools-scm,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "pylsl";
   version = "1.17.6";
@@ -25,8 +24,10 @@ buildPythonPackage rec {
   postPatch = ''
     substituteInPlace src/pylsl/lib/__init__.py \
       --replace "def find_liblsl_libraries(verbose=False):" "$(echo -e "def find_liblsl_libraries(verbose=False):\n    yield '${liblsl}/lib/liblsl.${
-        if stdenv.hostPlatform.isDarwin then "dylib" else "so"
-      }'")"
+      if stdenv.hostPlatform.isDarwin
+      then "dylib"
+      else "so"
+    }'")"
   '';
 
   build-system = [
@@ -40,12 +41,12 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "pylsl" ];
+  pythonImportsCheck = ["pylsl"];
 
   meta = with lib; {
     description = "Python bindings (pylsl) for liblsl";
     homepage = "https://github.com/labstreaminglayer/pylsl";
     license = licenses.mit;
-    maintainers = with maintainers; [ abcsds ];
+    maintainers = with maintainers; [abcsds];
   };
 }

@@ -1,19 +1,20 @@
-{ ... }:
-{
+{...}: {
   name = "tuxguitar";
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      imports = [
-        ./common/x11.nix
-      ];
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [
+      ./common/x11.nix
+    ];
 
-      services.xserver.enable = true;
+    services.xserver.enable = true;
 
-      environment.systemPackages = [ pkgs.tuxguitar ];
-    };
+    environment.systemPackages = [pkgs.tuxguitar];
+  };
 
   testScript = ''
     machine.wait_for_x()

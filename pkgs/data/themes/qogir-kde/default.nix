@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 # NOTE:
 #
 # In order to use the qogir sddm theme, the packages
@@ -25,7 +24,6 @@
 #       kdePackages.qtsvg
 #     ];
 # };
-
 stdenvNoCC.mkDerivation rec {
   pname = "qogir-kde";
   version = "0-unstable-2024-12-21";
@@ -61,13 +59,13 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Flat Design theme for KDE Plasma desktop";
     homepage = "https://github.com/vinceliuice/Qogir-kde";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
   };
 }

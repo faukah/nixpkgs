@@ -13,7 +13,6 @@
   s3fs,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "textual-universal-directorytree";
   version = "1.5.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-hUig0aJWSS0FsgRIrs74/uVaQgH6tczJWO5rj6TVOvQ=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     textual
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "textual_universal_directorytree" ];
+  pythonImportsCheck = ["textual_universal_directorytree"];
 
   meta = with lib; {
     description = "Textual plugin for a DirectoryTree compatible with remote filesystems";
     homepage = "https://github.com/juftin/textual-universal-directorytree";
     changelog = "https://github.com/juftin/textual-universal-directorytree/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

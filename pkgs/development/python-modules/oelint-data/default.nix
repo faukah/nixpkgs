@@ -5,7 +5,6 @@
   setuptools,
   oelint-parser,
 }:
-
 buildPythonPackage rec {
   pname = "oelint-data";
   version = "1.0.16";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     oelint-parser
   ];
 
-  pythonImportsCheck = [ "oelint_data" ];
+  pythonImportsCheck = ["oelint_data"];
 
   # No tests
   doCheck = false;
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/priv-kweihmann/oelint-data";
     changelog = "https://github.com/priv-kweihmann/oelint-data/releases/tag/${src.tag}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

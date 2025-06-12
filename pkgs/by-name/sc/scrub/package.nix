@@ -6,7 +6,6 @@
   automake,
   libtool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scrub";
   version = "2.6.1";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     autoconf
     automake
   ];
-  buildInputs = [ libtool ];
+  buildInputs = [libtool];
 
   preConfigure = "./autogen.sh";
 
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/chaos/scrub";
     changelog = "https://raw.githubusercontent.com/chaos/scrub/master/NEWS";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ j0hax ];
+    maintainers = with maintainers; [j0hax];
     platforms = platforms.unix;
     mainProgram = "scrub";
   };

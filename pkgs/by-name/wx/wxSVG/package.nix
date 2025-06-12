@@ -10,7 +10,6 @@
   pkg-config,
   wxGTK32,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wxsvg";
   version = "1.5.25";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
       Graphics (SVG) files with the wxWidgets toolkit.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     inherit (wxGTK32.meta) platforms;
   };
 })

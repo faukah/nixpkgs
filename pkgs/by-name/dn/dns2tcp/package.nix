@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dns2tcp";
   version = "0.5.2";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/alex-sector/dns2tcp";
     license = licenses.gpl2Plus;
     mainProgram = "dns2tcpc";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
   };
 })

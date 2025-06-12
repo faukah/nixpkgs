@@ -13,7 +13,6 @@
   lzlib,
   wcslib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnuastro";
   version = "0.23";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-+X53X/tZgcY/it++lY/Ov5FHwT8OfpZAfd398zs/dwI=";
   };
 
-  nativeBuildInputs = [ libtool ];
+  nativeBuildInputs = [libtool];
 
   buildInputs = [
     cfitsio
@@ -45,6 +44,6 @@ stdenv.mkDerivation rec {
     changelog = "https://git.savannah.gnu.org/cgit/gnuastro.git/plain/NEWS?id=gnuastro_v${version}";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
   };
 }

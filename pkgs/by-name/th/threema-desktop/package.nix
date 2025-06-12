@@ -7,9 +7,7 @@
   makeWrapper,
   electron,
   python3,
-}:
-
-let
+}: let
   version = "1.2.46";
   electronSrc = fetchFromGitHub {
     owner = "threema-ch";
@@ -33,7 +31,7 @@ let
     npmBuildScript = "dist";
 
     nativeBuildInputs = [
-      (python3.withPackages (ps: [ ps.setuptools ])) # Used by gyp
+      (python3.withPackages (ps: [ps.setuptools])) # Used by gyp
     ];
 
     patches = [
@@ -66,64 +64,63 @@ let
       cp -r . "$out"
     '';
   };
-
 in
-buildNpmPackage rec {
-  pname = "threema-desktop";
-  inherit version;
-  src = electronSrc;
+  buildNpmPackage rec {
+    pname = "threema-desktop";
+    inherit version;
+    src = electronSrc;
 
-  npmDepsHash = "sha256-OdxDAy9ybBUEFuQQtihEvUXCVtVtveksLlOBD8F1RP0=";
+    npmDepsHash = "sha256-OdxDAy9ybBUEFuQQtihEvUXCVtVtveksLlOBD8F1RP0=";
 
-  env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+    env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
-  postPatch = ''
-    rm -r app
-    cp -r ${consumer} app
-    chmod +w app
-  '';
+    postPatch = ''
+      rm -r app
+      cp -r ${consumer} app
+      chmod +w app
+    '';
 
-  npmBuildScript = "app:build:electron:main";
+    npmBuildScript = "app:build:electron:main";
 
-  # We need to install the consumer
-  dontNpmInstall = true;
+    # We need to install the consumer
+    dontNpmInstall = true;
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      copyDesktopItems
+      makeWrapper
+    ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "threema-desktop";
-      exec = meta.mainProgram;
-      icon = "threema";
-      desktopName = "Threema Desktop";
-      comment = meta.description;
-    })
-  ];
+    desktopItems = [
+      (makeDesktopItem {
+        name = "threema-desktop";
+        exec = meta.mainProgram;
+        icon = "threema";
+        desktopName = "Threema Desktop";
+        comment = meta.description;
+      })
+    ];
 
-  postInstall = ''
-    mkdir -p $out/opt
-    cp -r app $out/opt/threema
+    postInstall = ''
+      mkdir -p $out/opt
+      cp -r app $out/opt/threema
 
-    for dir in assets dependencies; do
-      ln -s $out/opt/threema/$dir $out/opt/threema/dist/src/$dir
-    done
+      for dir in assets dependencies; do
+        ln -s $out/opt/threema/$dir $out/opt/threema/dist/src/$dir
+      done
 
-    mkdir -p $out/share/pixmaps
-    cp $out/opt/threema/assets/icons/svg/consumer.svg $out/share/pixmaps/threema.svg
+      mkdir -p $out/share/pixmaps
+      cp $out/opt/threema/assets/icons/svg/consumer.svg $out/share/pixmaps/threema.svg
 
-    makeWrapper ${electron}/bin/electron $out/bin/threema \
-      --add-flags $out/opt/threema/dist/src/main.js
-  '';
+      makeWrapper ${electron}/bin/electron $out/bin/threema \
+        --add-flags $out/opt/threema/dist/src/main.js
+    '';
 
-  meta = with lib; {
-    description = "Desktop client for Threema, a privacy-focused end-to-end encrypted mobile messenger";
-    homepage = "https://threema.ch";
-    license = licenses.agpl3Only;
-    mainProgram = "threema";
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = with lib; {
+      description = "Desktop client for Threema, a privacy-focused end-to-end encrypted mobile messenger";
+      homepage = "https://threema.ch";
+      license = licenses.agpl3Only;
+      mainProgram = "threema";
+      maintainers = [];
+      platforms = ["x86_64-linux"];
+    };
+  }

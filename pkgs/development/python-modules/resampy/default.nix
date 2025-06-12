@@ -12,7 +12,6 @@
   setuptools,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "resampy";
   version = "0.4.3";
@@ -27,20 +26,22 @@ buildPythonPackage rec {
     hash = "sha256-LOWpOPAEK+ga7c3bR15QvnHmON6ARS1Qee/7U/VMlTY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
     numba
   ];
 
-  optional-dependencies.design = [ optuna ];
+  optional-dependencies.design = [optuna];
 
-  nativeCheckInputs = [
-    pytest-cov-stub
-    pytestCheckHook
-    scipy
-  ] ++ optional-dependencies.design;
+  nativeCheckInputs =
+    [
+      pytest-cov-stub
+      pytestCheckHook
+      scipy
+    ]
+    ++ optional-dependencies.design;
 
   disabledTests = lib.optionals (stdenv.hostPlatform.system == "aarch64-linux") [
     # crashing the interpreter
@@ -48,12 +49,12 @@ buildPythonPackage rec {
     "test_resample_nu_quality_sine_parallel"
   ];
 
-  pythonImportsCheck = [ "resampy" ];
+  pythonImportsCheck = ["resampy"];
 
   meta = with lib; {
     description = "Efficient signal resampling";
     homepage = "https://github.com/bmcfee/resampy";
     license = licenses.isc;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

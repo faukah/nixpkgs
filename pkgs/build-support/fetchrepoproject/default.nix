@@ -5,7 +5,7 @@
   cacert,
   copyPathsToStore,
 }:
-lib.fetchers.withNormalizedHash { } (
+lib.fetchers.withNormalizedHash {} (
   {
     name,
     manifest,
@@ -17,95 +17,96 @@ lib.fetchers.withNormalizedHash { } (
     repoRepoRev ? "",
     referenceDir ? "",
     manifestName ? "",
-    localManifests ? [ ],
+    localManifests ? [],
     createMirror ? false,
     useArchive ? false,
   }:
+    assert repoRepoRev != "" -> repoRepoURL != "";
+    assert createMirror -> !useArchive; let
+      inherit
+        (lib)
+        concatMapStringsSep
+        concatStringsSep
+        fetchers
+        optionalString
+        ;
 
-  assert repoRepoRev != "" -> repoRepoURL != "";
-  assert createMirror -> !useArchive;
+      extraRepoInitFlags = [
+        (optionalString (repoRepoURL != "") "--repo-url=${repoRepoURL}")
+        (optionalString (repoRepoRev != "") "--repo-branch=${repoRepoRev}")
+        (optionalString (referenceDir != "") "--reference=${referenceDir}")
+        (optionalString (manifestName != "") "--manifest-name=${manifestName}")
+      ];
 
-  let
-    inherit (lib)
-      concatMapStringsSep
-      concatStringsSep
-      fetchers
-      optionalString
-      ;
+      repoInitFlags =
+        [
+          "--manifest-url=${manifest}"
+          "--manifest-branch=${rev}"
+          "--depth=1"
+          (optionalString createMirror "--mirror")
+          (optionalString useArchive "--archive")
+        ]
+        ++ extraRepoInitFlags;
 
-    extraRepoInitFlags = [
-      (optionalString (repoRepoURL != "") "--repo-url=${repoRepoURL}")
-      (optionalString (repoRepoRev != "") "--repo-branch=${repoRepoRev}")
-      (optionalString (referenceDir != "") "--reference=${referenceDir}")
-      (optionalString (manifestName != "") "--manifest-name=${manifestName}")
-    ];
+      local_manifests = copyPathsToStore localManifests;
+    in
+      stdenvNoCC.mkDerivation {
+        inherit name;
 
-    repoInitFlags = [
-      "--manifest-url=${manifest}"
-      "--manifest-branch=${rev}"
-      "--depth=1"
-      (optionalString createMirror "--mirror")
-      (optionalString useArchive "--archive")
-    ] ++ extraRepoInitFlags;
+        inherit
+          cacert
+          manifest
+          rev
+          repoRepoURL
+          repoRepoRev
+          referenceDir
+          ; # TODO
 
-    local_manifests = copyPathsToStore localManifests;
+        inherit outputHash outputHashAlgo;
+        outputHashMode = "recursive";
 
-  in
-  stdenvNoCC.mkDerivation {
-    inherit name;
+        preferLocalBuild = true;
+        enableParallelBuilding = true;
 
-    inherit
-      cacert
-      manifest
-      rev
-      repoRepoURL
-      repoRepoRev
-      referenceDir
-      ; # TODO
+        impureEnvVars =
+          fetchers.proxyImpureEnvVars
+          ++ [
+            "GIT_PROXY_COMMAND"
+            "SOCKS_SERVER"
+          ];
 
-    inherit outputHash outputHashAlgo;
-    outputHashMode = "recursive";
+        nativeBuildInputs = [
+          gitRepo
+          cacert
+        ];
 
-    preferLocalBuild = true;
-    enableParallelBuilding = true;
+        GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-    impureEnvVars = fetchers.proxyImpureEnvVars ++ [
-      "GIT_PROXY_COMMAND"
-      "SOCKS_SERVER"
-    ];
+        buildCommand = ''
+          # Path must be absolute (e.g. for GnuPG: ~/.repoconfig/gnupg/pubring.kbx)
+          export HOME="$(pwd)"
 
-    nativeBuildInputs = [
-      gitRepo
-      cacert
-    ];
+          mkdir $out
+          cd $out
 
-    GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+          mkdir .repo
+          ${optionalString (local_manifests != []) ''
+            mkdir .repo/local_manifests
+            for local_manifest in ${concatMapStringsSep " " toString local_manifests}; do
+              cp $local_manifest .repo/local_manifests/$(stripHash $local_manifest)
+            done
+          ''}
 
-    buildCommand = ''
-      # Path must be absolute (e.g. for GnuPG: ~/.repoconfig/gnupg/pubring.kbx)
-      export HOME="$(pwd)"
+          repo init ${concatStringsSep " " repoInitFlags}
+          repo sync --jobs=$NIX_BUILD_CORES --current-branch
 
-      mkdir $out
-      cd $out
-
-      mkdir .repo
-      ${optionalString (local_manifests != [ ]) ''
-        mkdir .repo/local_manifests
-        for local_manifest in ${concatMapStringsSep " " toString local_manifests}; do
-          cp $local_manifest .repo/local_manifests/$(stripHash $local_manifest)
-        done
-      ''}
-
-      repo init ${concatStringsSep " " repoInitFlags}
-      repo sync --jobs=$NIX_BUILD_CORES --current-branch
-
-      # TODO: The git-index files (and probably the files in .repo as well) have
-      # different contents each time and will therefore change the final hash
-      # (i.e. creating a mirror probably won't work).
-      ${optionalString (!createMirror) ''
-        rm -rf .repo
-        find -type d -name '.git' -prune -exec rm -rf {} +
-      ''}
-    '';
-  }
+          # TODO: The git-index files (and probably the files in .repo as well) have
+          # different contents each time and will therefore change the final hash
+          # (i.e. creating a mirror probably won't work).
+          ${optionalString (!createMirror) ''
+            rm -rf .repo
+            find -type d -name '.git' -prune -exec rm -rf {} +
+          ''}
+        '';
+      }
 )

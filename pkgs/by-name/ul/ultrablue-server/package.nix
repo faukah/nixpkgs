@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "ultrablue-server";
   version = "unstable-fosdem2023";
@@ -28,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/ANSSI-FR/ultrablue";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

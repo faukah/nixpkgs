@@ -16,7 +16,6 @@
   xscreensaver,
   wrapGAppsHook3,
 }:
-
 mkDerivation rec {
   pname = "lumina";
   version = "1.6.2";
@@ -97,7 +96,7 @@ mkDerivation rec {
     "LRELEASE=${lib.getDev qttools}/bin/lrelease"
   ];
 
-  passthru.providedSessions = [ "Lumina-DE" ];
+  passthru.providedSessions = ["Lumina-DE"];
 
   meta = with lib; {
     description = "Lightweight, portable desktop environment";
@@ -109,6 +108,6 @@ mkDerivation rec {
     homepage = "https://lumina-desktop.org";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    teams = [ teams.lumina ];
+    teams = [teams.lumina];
   };
 }

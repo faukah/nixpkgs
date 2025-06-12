@@ -4,7 +4,6 @@
   fetchFromGitHub,
   perl,
 }:
-
 stdenv.mkDerivation {
   pname = "FlameGraph";
   version = "2023-11-06";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-hvp1HxmgNbe85kxe0NyolFUd+kPPBDYAt+g2K8pE1Ak=";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   strictDeps = true;
 

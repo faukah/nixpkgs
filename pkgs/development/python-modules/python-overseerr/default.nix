@@ -14,7 +14,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "python-overseerr";
   version = "0.7.1";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-J0n3uMZaSWcnf3c1d4wdg+OgB9wPE2i/835M6Z3fMPw=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "python_overseerr" ];
+  pythonImportsCheck = ["python_overseerr"];
 
   meta = {
     description = "Client for Overseerr";
     homepage = "https://github.com/joostlek/python-overseerr";
     changelog = "https://github.com/joostlek/python-overseerr/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

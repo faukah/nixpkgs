@@ -5,7 +5,6 @@
   installShellFiles,
   stdenv,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "temporal-cli";
   version = "1.3.0";
@@ -26,7 +25,7 @@ buildGoModule (finalAttrs: {
     '';
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   excludedPackages = [
     "./cmd/docgen"
@@ -59,7 +58,7 @@ buildGoModule (finalAttrs: {
     description = "Command-line interface for running Temporal Server and interacting with Workflows, Activities, Namespaces, and other parts of Temporal";
     homepage = "https://docs.temporal.io/cli";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "temporal";
   };
 })

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule {
   pname = "tsukae";
   version = "unstable-2021-04-19";
@@ -22,6 +21,6 @@ buildGoModule {
     homepage = "https://github.com/irevenko/tsukae";
     license = licenses.mit;
     mainProgram = "tsukae";
-    maintainers = with maintainers; [ l3af ];
+    maintainers = with maintainers; [l3af];
   };
 }

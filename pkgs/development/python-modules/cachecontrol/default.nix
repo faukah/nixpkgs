@@ -11,7 +11,6 @@
   redis,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "cachecontrol";
   version = "0.14.3";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-V8RWTDxhKCvf5bz2j6anp8bkCzkicTRY+Kd6eHu1peg=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     msgpack
@@ -34,18 +33,20 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    filecache = [ filelock ];
-    redis = [ redis ];
+    filecache = [filelock];
+    redis = [redis];
   };
 
-  nativeCheckInputs = [
-    cherrypy
-    mock
-    pytestCheckHook
-    requests
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      cherrypy
+      mock
+      pytestCheckHook
+      requests
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "cachecontrol" ];
+  pythonImportsCheck = ["cachecontrol"];
 
   meta = with lib; {
     description = "Httplib2 caching for requests";
@@ -53,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ionrock/cachecontrol";
     changelog = "https://github.com/psf/cachecontrol/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

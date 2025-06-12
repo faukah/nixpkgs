@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "zalgo";
   version = "unstable-2020-08-26";
@@ -24,7 +23,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/lunasorcery/zalgo";
     license = licenses.unfree;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ djanatyn ];
+    maintainers = with maintainers; [djanatyn];
     mainProgram = "zalgo";
   };
 }

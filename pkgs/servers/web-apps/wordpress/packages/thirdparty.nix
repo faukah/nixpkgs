@@ -2,8 +2,7 @@
   fetchzip,
   stdenv,
   lib,
-}:
-{
+}: {
   plugins.civicrm = stdenv.mkDerivation rec {
     pname = "civicrm";
     version = "6.2.0";

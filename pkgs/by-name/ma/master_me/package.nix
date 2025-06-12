@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-FG3X1dOF9KRHHSnd5/zP+GrYCB2O0y+tnI5/l9tNhyE=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       libGL
@@ -39,12 +39,12 @@ stdenv.mkDerivation rec {
     patchShebangs ./dpf/utils/
   '';
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     homepage = "https://github.com/trummerschlunk/master_me";
     description = "automatic mastering plugin for live streaming, podcasts and internet radio";
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin; # error: no type or protocol named 'NSPasteboardType'
     license = licenses.gpl3Plus;

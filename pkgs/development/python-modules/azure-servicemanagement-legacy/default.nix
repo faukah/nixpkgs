@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-servicemanagement-legacy";
   version = "0.20.8";
@@ -18,19 +17,19 @@ buildPythonPackage rec {
     hash = "sha256-42neKpeBjx26GTIzeBTyjTmj5tcNklNQoaBoEDjC+Xc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
     requests
   ];
 
-  pythonNamespaces = [ "azure" ];
+  pythonNamespaces = ["azure"];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.servicemanagement" ];
+  pythonImportsCheck = ["azure.servicemanagement"];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Service Management Legacy Client Library";

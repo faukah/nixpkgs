@@ -5,7 +5,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   pname = "SDL_sixel";
   version = "0-unstable-2016-02-06";
@@ -17,9 +16,9 @@ stdenv.mkDerivation {
     hash = "sha256-l5eLnfV2ozAlfiTo2pr0a2BXv/pwfpX4pycw1Z7doj4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libsixel ];
+  buildInputs = [libsixel];
 
   configureFlags = [
     (lib.enableFeature true "video-sixel")
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
     description = "SDL 1.2 patched with libsixel support";
     license = lib.licenses.lgpl21;
     mainProgram = "sdl-config";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 }

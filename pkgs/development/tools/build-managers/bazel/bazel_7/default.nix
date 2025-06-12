@@ -44,9 +44,7 @@
   # Also, don't clean up environment variables (so that NIX_ environment variables are passed to compilers).
   enableNixHacks ? false,
   version ? "7.6.0",
-}:
-
-let
+}: let
   sourceRoot = ".";
 
   src = fetchurl {
@@ -105,17 +103,20 @@ let
     name = "bazelBootstrap";
 
     src =
-      if stdenv.hostPlatform.system == "x86_64-linux" then
+      if stdenv.hostPlatform.system == "x86_64-linux"
+      then
         fetchurl {
           url = "https://github.com/bazelbuild/bazel/releases/download/${version}/bazel_nojdk-${version}-linux-x86_64";
           hash = "sha256-CYL1paAtzTbfl7TfsqwJry/dkoTO/yZdHrX0NSA1+Ig=";
         }
-      else if stdenv.hostPlatform.system == "aarch64-linux" then
+      else if stdenv.hostPlatform.system == "aarch64-linux"
+      then
         fetchurl {
           url = "https://github.com/bazelbuild/bazel/releases/download/${version}/bazel_nojdk-${version}-linux-arm64";
           hash = "sha256-6DzTEx218/Qq38eMWvXOX/t9VJDyPczz6Edh4eHdOfg=";
         }
-      else if stdenv.hostPlatform.system == "x86_64-darwin" then
+      else if stdenv.hostPlatform.system == "x86_64-darwin"
+      then
         fetchurl {
           url = "https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-darwin-x86_64";
           hash = "sha256-Ut00wXzJezqlvf49RcTjk4Im8j3Qv7R77t1iWpU/HwU=";
@@ -128,9 +129,11 @@ let
         };
 
     nativeBuildInputs = defaultShellUtils;
-    buildInputs = [
-      stdenv.cc.cc
-    ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook;
+    buildInputs =
+      [
+        stdenv.cc.cc
+      ]
+      ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook;
 
     dontUnpack = true;
     dontPatch = true;
@@ -150,13 +153,13 @@ let
         --prefix PATH : ${lib.makeBinPath nativeBuildInputs}
     '';
 
-    meta.sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    meta.sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 
   bazelFhs = buildFHSEnv {
     pname = "bazel";
     inherit version;
-    targetPkgs = _: [ bazelBootstrap ];
+    targetPkgs = _: [bazelBootstrap];
     runScript = "bazel";
   };
 
@@ -164,10 +167,12 @@ let
   # See https://bazel.build/versions/7.3.0/external/vendor for details.
   # Note that it may be possible to vendor less than the full set of deps in
   # the future, as this is approximately 16GB.
-  bazelDeps =
-    let
-      bazelForDeps = if stdenv.hostPlatform.isDarwin then bazelBootstrap else bazelFhs;
-    in
+  bazelDeps = let
+    bazelForDeps =
+      if stdenv.hostPlatform.isDarwin
+      then bazelBootstrap
+      else bazelFhs;
+  in
     stdenv.mkDerivation {
       name = "bazelDeps";
       inherit src version;
@@ -182,11 +187,13 @@ let
         "--no-backup-if-mismatch"
         "-p1"
       ];
-      nativeBuildInputs = [
-        unzip
-        runJdk
-        bazelForDeps
-      ] ++ lib.optional (stdenv.hostPlatform.isDarwin) libtool;
+      nativeBuildInputs =
+        [
+          unzip
+          runJdk
+          bazelForDeps
+        ]
+        ++ lib.optional (stdenv.hostPlatform.isDarwin) libtool;
       configurePhase = ''
         runHook preConfigure
 
@@ -240,17 +247,16 @@ let
 
       outputHashMode = "recursive";
       outputHash =
-        if stdenv.hostPlatform.system == "x86_64-linux" then
-          "sha256-yKy6IBIkjvN413kFMgkWCH3jAgF5AdpxrVnQyhgfWPA="
-        else if stdenv.hostPlatform.system == "aarch64-linux" then
-          "sha256-NW/JMVC7k2jBW+d8syMl9L5tDB7SQENJtlMFjAKascI="
-        else if stdenv.hostPlatform.system == "aarch64-darwin" then
-          "sha256-QVk0Qr86U350oLJ5P50SE6CUYqn5XEqgGCXVf+89wVY="
+        if stdenv.hostPlatform.system == "x86_64-linux"
+        then "sha256-yKy6IBIkjvN413kFMgkWCH3jAgF5AdpxrVnQyhgfWPA="
+        else if stdenv.hostPlatform.system == "aarch64-linux"
+        then "sha256-NW/JMVC7k2jBW+d8syMl9L5tDB7SQENJtlMFjAKascI="
+        else if stdenv.hostPlatform.system == "aarch64-darwin"
+        then "sha256-QVk0Qr86U350oLJ5P50SE6CUYqn5XEqgGCXVf+89wVY="
         else
           # x86_64-darwin
           "sha256-VDrqS9YByYxboF6AcjAR0BRZa5ioGgX1pjx09zPfWTE=";
       outputHashAlgo = "sha256";
-
     };
 
   defaultShellPath = lib.makeBinPath defaultShellUtils;
@@ -271,7 +277,7 @@ let
   bashWithDefaultShellUtils = stdenv.mkDerivation {
     name = "bash";
     src = bashWithDefaultShellUtilsSh;
-    nativeBuildInputs = [ makeBinaryWrapper ];
+    nativeBuildInputs = [makeBinaryWrapper];
     buildPhase = ''
       makeWrapper ${bashWithDefaultShellUtilsSh}/bin/bash $out/bin/bash
     '';
@@ -281,10 +287,16 @@ let
 
   inherit (stdenv.hostPlatform) isDarwin isAarch64;
 
-  system = if isDarwin then "darwin" else "linux";
+  system =
+    if isDarwin
+    then "darwin"
+    else "linux";
 
   # on aarch64 Darwin, `uname -m` returns "arm64"
-  arch = with stdenv.hostPlatform; if isDarwin && isAarch64 then "arm64" else parsed.cpu.name;
+  arch = with stdenv.hostPlatform;
+    if isDarwin && isAarch64
+    then "arm64"
+    else parsed.cpu.name;
 
   bazelRC = writeTextFile {
     name = "bazel-rc";
@@ -301,96 +313,94 @@ let
       try-import /etc/bazel.bazelrc
     '';
   };
-
 in
-stdenv.mkDerivation rec {
-  pname = "bazel";
-  inherit version src;
-  inherit sourceRoot;
+  stdenv.mkDerivation rec {
+    pname = "bazel";
+    inherit version src;
+    inherit sourceRoot;
 
-  patches =
-    [
-      # Remote java toolchains do not work on NixOS because they download binaries,
-      # so we need to use the @local_jdk//:jdk
-      # It could in theory be done by registering @local_jdk//:all toolchains,
-      # but these java toolchains still bundle binaries for ijar and stuff. So we
-      # need a nonprebult java toolchain (where ijar and stuff is built from
-      # sources).
-      # There is no such java toolchain, so we introduce one here.
-      # By providing no version information, the toolchain will set itself to the
-      # version of $JAVA_HOME/bin/java, just like the local_jdk does.
-      # To ensure this toolchain gets used, we can set
-      # --{,tool_}java_runtime_version=local_jdk and rely on the fact no java
-      # toolchain registered by default uses the local_jdk, making the selection
-      # unambiguous.
-      # This toolchain has the advantage that it can use any ambient java jdk,
-      # not only a given, fixed version. It allows bazel to work correctly in any
-      # environment where JAVA_HOME is set to the right java version, like inside
-      # nix derivations.
-      # However, this patch breaks bazel hermeticity, by picking the ambient java
-      # version instead of the more hermetic remote_jdk prebuilt binaries that
-      # rules_java provide by default. It also requires the user to have a
-      # JAVA_HOME set to the exact version required by the project.
-      # With more code, we could define java toolchains for all the java versions
-      # supported by the jdk as in rules_java's
-      # toolchains/local_java_repository.bzl, but this is not implemented here.
-      # To recover vanilla behavior, non NixOS users can set
-      # --{,tool_}java_runtime_version=remote_jdk, effectively reverting the
-      # effect of this patch and the fake system bazelrc.
-      ./java_toolchain.patch
+    patches =
+      [
+        # Remote java toolchains do not work on NixOS because they download binaries,
+        # so we need to use the @local_jdk//:jdk
+        # It could in theory be done by registering @local_jdk//:all toolchains,
+        # but these java toolchains still bundle binaries for ijar and stuff. So we
+        # need a nonprebult java toolchain (where ijar and stuff is built from
+        # sources).
+        # There is no such java toolchain, so we introduce one here.
+        # By providing no version information, the toolchain will set itself to the
+        # version of $JAVA_HOME/bin/java, just like the local_jdk does.
+        # To ensure this toolchain gets used, we can set
+        # --{,tool_}java_runtime_version=local_jdk and rely on the fact no java
+        # toolchain registered by default uses the local_jdk, making the selection
+        # unambiguous.
+        # This toolchain has the advantage that it can use any ambient java jdk,
+        # not only a given, fixed version. It allows bazel to work correctly in any
+        # environment where JAVA_HOME is set to the right java version, like inside
+        # nix derivations.
+        # However, this patch breaks bazel hermeticity, by picking the ambient java
+        # version instead of the more hermetic remote_jdk prebuilt binaries that
+        # rules_java provide by default. It also requires the user to have a
+        # JAVA_HOME set to the exact version required by the project.
+        # With more code, we could define java toolchains for all the java versions
+        # supported by the jdk as in rules_java's
+        # toolchains/local_java_repository.bzl, but this is not implemented here.
+        # To recover vanilla behavior, non NixOS users can set
+        # --{,tool_}java_runtime_version=remote_jdk, effectively reverting the
+        # effect of this patch and the fake system bazelrc.
+        ./java_toolchain.patch
 
-      # Bazel integrates with apple IOKit to inhibit and track system sleep.
-      # Inside the darwin sandbox, these API calls are blocked, and bazel
-      # crashes. It seems possible to allow these APIs inside the sandbox, but it
-      # feels simpler to patch bazel not to use it at all. So our bazel is
-      # incapable of preventing system sleep, which is a small price to pay to
-      # guarantee that it will always run in any nix context.
-      #
-      # See also ./bazel_darwin_sandbox.patch in bazel_5. That patch uses
-      # NIX_BUILD_TOP env var to conditionally disable sleep features inside the
-      # sandbox.
-      #
-      # If you want to investigate the sandbox profile path,
-      # IORegisterForSystemPower can be allowed with
-      #
-      #     propagatedSandboxProfile = ''
-      #       (allow iokit-open (iokit-user-client-class "RootDomainUserClient"))
-      #     '';
-      #
-      # I do not know yet how to allow IOPMAssertion{CreateWithName,Release}
-      ./darwin_sleep.patch
+        # Bazel integrates with apple IOKit to inhibit and track system sleep.
+        # Inside the darwin sandbox, these API calls are blocked, and bazel
+        # crashes. It seems possible to allow these APIs inside the sandbox, but it
+        # feels simpler to patch bazel not to use it at all. So our bazel is
+        # incapable of preventing system sleep, which is a small price to pay to
+        # guarantee that it will always run in any nix context.
+        #
+        # See also ./bazel_darwin_sandbox.patch in bazel_5. That patch uses
+        # NIX_BUILD_TOP env var to conditionally disable sleep features inside the
+        # sandbox.
+        #
+        # If you want to investigate the sandbox profile path,
+        # IORegisterForSystemPower can be allowed with
+        #
+        #     propagatedSandboxProfile = ''
+        #       (allow iokit-open (iokit-user-client-class "RootDomainUserClient"))
+        #     '';
+        #
+        # I do not know yet how to allow IOPMAssertion{CreateWithName,Release}
+        ./darwin_sleep.patch
 
-      # Fix DARWIN_XCODE_LOCATOR_COMPILE_COMMAND by removing multi-arch support.
-      # Nixpkgs toolcahins do not support that (yet?) and get confused.
-      # Also add an explicit /usr/bin prefix that will be patched below.
-      ./xcode_locator.patch
+        # Fix DARWIN_XCODE_LOCATOR_COMPILE_COMMAND by removing multi-arch support.
+        # Nixpkgs toolcahins do not support that (yet?) and get confused.
+        # Also add an explicit /usr/bin prefix that will be patched below.
+        ./xcode_locator.patch
 
-      # On Darwin, the last argument to gcc is coming up as an empty string. i.e: ''
-      # This is breaking the build of any C target. This patch removes the last
-      # argument if it's found to be an empty string.
-      ../trim-last-argument-to-gcc-if-empty.patch
+        # On Darwin, the last argument to gcc is coming up as an empty string. i.e: ''
+        # This is breaking the build of any C target. This patch removes the last
+        # argument if it's found to be an empty string.
+        ../trim-last-argument-to-gcc-if-empty.patch
 
-      # --experimental_strict_action_env (which may one day become the default
-      # see bazelbuild/bazel#2574) hardcodes the default
-      # action environment to a non hermetic value (e.g. "/usr/local/bin").
-      # This is non hermetic on non-nixos systems. On NixOS, bazel cannot find the required binaries.
-      # So we are replacing this bazel paths by defaultShellPath,
-      # improving hermeticity and making it work in nixos.
-      (replaceVars ../strict_action_env.patch {
-        strictActionEnvPatch = defaultShellPath;
-      })
+        # --experimental_strict_action_env (which may one day become the default
+        # see bazelbuild/bazel#2574) hardcodes the default
+        # action environment to a non hermetic value (e.g. "/usr/local/bin").
+        # This is non hermetic on non-nixos systems. On NixOS, bazel cannot find the required binaries.
+        # So we are replacing this bazel paths by defaultShellPath,
+        # improving hermeticity and making it work in nixos.
+        (replaceVars ../strict_action_env.patch {
+          strictActionEnvPatch = defaultShellPath;
+        })
 
-      # bazel reads its system bazelrc in /etc
-      # override this path to a builtin one
-      (replaceVars ../bazel_rc.patch {
-        bazelSystemBazelRCPath = bazelRC;
-      })
-    ]
-    # See enableNixHacks argument above.
-    ++ lib.optional enableNixHacks ./nix-build-bazel-package-hacks.patch;
+        # bazel reads its system bazelrc in /etc
+        # override this path to a builtin one
+        (replaceVars ../bazel_rc.patch {
+          bazelSystemBazelRCPath = bazelRC;
+        })
+      ]
+      # See enableNixHacks argument above.
+      ++ lib.optional enableNixHacks ./nix-build-bazel-package-hacks.patch;
 
-  postPatch =
-    let
+    postPatch = let
       darwinPatches = ''
         bazelLinkFlags () {
           eval set -- "$NIX_LDFLAGS"
@@ -507,207 +517,209 @@ stdenv.mkDerivation rec {
         patchShebangs . >/dev/null
       '';
     in
-    ''
-      function sedVerbose() {
-        local path=$1; shift;
-        sed -i".bak-nix" "$path" "$@"
-        diff -U0 "$path.bak-nix" "$path" | sed "s/^/  /" || true
-        rm -f "$path.bak-nix"
-      }
-    ''
-    + lib.optionalString stdenv.hostPlatform.isDarwin darwinPatches
-    + genericPatches;
+      ''
+        function sedVerbose() {
+          local path=$1; shift;
+          sed -i".bak-nix" "$path" "$@"
+          diff -U0 "$path.bak-nix" "$path" | sed "s/^/  /" || true
+          rm -f "$path.bak-nix"
+        }
+      ''
+      + lib.optionalString stdenv.hostPlatform.isDarwin darwinPatches
+      + genericPatches;
 
-  meta = with lib; {
-    homepage = "https://github.com/bazelbuild/bazel/";
-    description = "Build tool that builds code quickly and reliably";
-    sourceProvenance = with sourceTypes; [
-      fromSource
-      binaryBytecode # source bundles dependencies as jars
-    ];
-    license = licenses.asl20;
-    teams = [ lib.teams.bazel ];
-    mainProgram = "bazel";
-    inherit platforms;
-  };
+    meta = with lib; {
+      homepage = "https://github.com/bazelbuild/bazel/";
+      description = "Build tool that builds code quickly and reliably";
+      sourceProvenance = with sourceTypes; [
+        fromSource
+        binaryBytecode # source bundles dependencies as jars
+      ];
+      license = licenses.asl20;
+      teams = [lib.teams.bazel];
+      mainProgram = "bazel";
+      inherit platforms;
+    };
 
-  # Bazel starts a local server and needs to bind a local address.
-  __darwinAllowLocalNetworking = true;
+    # Bazel starts a local server and needs to bind a local address.
+    __darwinAllowLocalNetworking = true;
 
-  buildInputs = [
-    buildJdk
-    bashWithDefaultShellUtils
-  ] ++ defaultShellUtils;
+    buildInputs =
+      [
+        buildJdk
+        bashWithDefaultShellUtils
+      ]
+      ++ defaultShellUtils;
 
-  # when a command can’t be found in a bazel build, you might also
-  # need to add it to `defaultShellPath`.
-  nativeBuildInputs =
-    [
-      installShellFiles
-      makeWrapper
-      python3
-      unzip
-      which
-      zip
-      python3.pkgs.absl-py # Needed to build fish completion
-    ]
-    ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
-      cctools
-    ];
+    # when a command can’t be found in a bazel build, you might also
+    # need to add it to `defaultShellPath`.
+    nativeBuildInputs =
+      [
+        installShellFiles
+        makeWrapper
+        python3
+        unzip
+        which
+        zip
+        python3.pkgs.absl-py # Needed to build fish completion
+      ]
+      ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
+        cctools
+      ];
 
-  # Bazel makes extensive use of symlinks in the WORKSPACE.
-  # This causes problems with infinite symlinks if the build output is in the same location as the
-  # Bazel WORKSPACE. This is why before executing the build, the source code is moved into a
-  # subdirectory.
-  # Failing to do this causes "infinite symlink expansion detected"
-  preBuildPhases = [ "preBuildPhase" ];
-  preBuildPhase = ''
-    mkdir bazel_src
-    shopt -s dotglob extglob
-    mv !(bazel_src) bazel_src
-    # Augment bundled repository_cache with our extra paths
-    mkdir vendor_dir
-    ${lndir}/bin/lndir ${bazelDeps}/vendor_dir vendor_dir
-    rm vendor_dir/VENDOR.bazel
-    find vendor_dir -maxdepth 1 -type d -printf "pin(\"@@%P\")\n" > vendor_dir/VENDOR.bazel
-  '';
-  buildPhase = ''
-    runHook preBuild
-    export HOME=$(mktemp -d)
+    # Bazel makes extensive use of symlinks in the WORKSPACE.
+    # This causes problems with infinite symlinks if the build output is in the same location as the
+    # Bazel WORKSPACE. This is why before executing the build, the source code is moved into a
+    # subdirectory.
+    # Failing to do this causes "infinite symlink expansion detected"
+    preBuildPhases = ["preBuildPhase"];
+    preBuildPhase = ''
+      mkdir bazel_src
+      shopt -s dotglob extglob
+      mv !(bazel_src) bazel_src
+      # Augment bundled repository_cache with our extra paths
+      mkdir vendor_dir
+      ${lndir}/bin/lndir ${bazelDeps}/vendor_dir vendor_dir
+      rm vendor_dir/VENDOR.bazel
+      find vendor_dir -maxdepth 1 -type d -printf "pin(\"@@%P\")\n" > vendor_dir/VENDOR.bazel
+    '';
+    buildPhase = ''
+      runHook preBuild
+      export HOME=$(mktemp -d)
 
-    # If EMBED_LABEL isn't set, it'd be auto-detected from CHANGELOG.md
-    # and `git rev-parse --short HEAD` which would result in
-    # "3.7.0- (@non-git)" due to non-git build and incomplete changelog.
-    # Actual bazel releases use scripts/release/common.sh which is based
-    # on branch/tag information which we don't have with tarball releases.
-    # Note that .bazelversion is always correct and is based on bazel-*
-    # executable name, version checks should work fine
-    export EMBED_LABEL="${version}- (@non-git)"
+      # If EMBED_LABEL isn't set, it'd be auto-detected from CHANGELOG.md
+      # and `git rev-parse --short HEAD` which would result in
+      # "3.7.0- (@non-git)" due to non-git build and incomplete changelog.
+      # Actual bazel releases use scripts/release/common.sh which is based
+      # on branch/tag information which we don't have with tarball releases.
+      # Note that .bazelversion is always correct and is based on bazel-*
+      # executable name, version checks should work fine
+      export EMBED_LABEL="${version}- (@non-git)"
 
-    echo "Stage 1 - Running bazel bootstrap script"
-    ${bash}/bin/bash ./bazel_src/compile.sh
+      echo "Stage 1 - Running bazel bootstrap script"
+      ${bash}/bin/bash ./bazel_src/compile.sh
 
-    # XXX: get rid of this, or move it to another stage.
-    # It is plain annoying when builds fail.
-    echo "Stage 2 - Generate bazel completions"
-    ${bash}/bin/bash ./bazel_src/scripts/generate_bash_completion.sh \
-        --bazel=./bazel_src/output/bazel \
-        --output=./bazel_src/output/bazel-complete.bash \
-        --prepend=./bazel_src/scripts/bazel-complete-header.bash \
-        --prepend=./bazel_src/scripts/bazel-complete-template.bash
-    ${python3}/bin/python3 ./bazel_src/scripts/generate_fish_completion.py \
-        --bazel=./bazel_src/output/bazel \
-        --output=./bazel_src/output/bazel-complete.fish
+      # XXX: get rid of this, or move it to another stage.
+      # It is plain annoying when builds fail.
+      echo "Stage 2 - Generate bazel completions"
+      ${bash}/bin/bash ./bazel_src/scripts/generate_bash_completion.sh \
+          --bazel=./bazel_src/output/bazel \
+          --output=./bazel_src/output/bazel-complete.bash \
+          --prepend=./bazel_src/scripts/bazel-complete-header.bash \
+          --prepend=./bazel_src/scripts/bazel-complete-template.bash
+      ${python3}/bin/python3 ./bazel_src/scripts/generate_fish_completion.py \
+          --bazel=./bazel_src/output/bazel \
+          --output=./bazel_src/output/bazel-complete.fish
 
-    runHook postBuild
-  '';
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/bin
-
-    # official wrapper scripts that searches for $WORKSPACE_ROOT/tools/bazel if
-    # it can’t find something in tools, it calls
-    # $out/bin/bazel-{version}-{os_arch} The binary _must_ exist with this
-    # naming if your project contains a .bazelversion file.
-    cp ./bazel_src/scripts/packages/bazel.sh $out/bin/bazel
-    versionned_bazel="$out/bin/bazel-${version}-${system}-${arch}"
-    mv ./bazel_src/output/bazel "$versionned_bazel"
-    wrapProgram "$versionned_bazel" --suffix PATH : ${defaultShellPath}
-
-    mkdir $out/share
-    cp ./bazel_src/output/parser_deploy.jar $out/share/parser_deploy.jar
-    cat <<EOF > $out/bin/bazel-execlog
-    #!${runtimeShell} -e
-    ${runJdk}/bin/java -jar $out/share/parser_deploy.jar \$@
-    EOF
-    chmod +x $out/bin/bazel-execlog
-
-    # shell completion files
-    installShellCompletion --bash \
-      --name bazel.bash \
-      ./bazel_src/output/bazel-complete.bash
-    installShellCompletion --zsh \
-      --name _bazel \
-      ./bazel_src/scripts/zsh_completion/_bazel
-    installShellCompletion --fish \
-      --name bazel.fish \
-      ./bazel_src/output/bazel-complete.fish
-  '';
-
-  installCheckPhase = ''
-    export TEST_TMPDIR=$(pwd)
-
-    hello_test () {
-      $out/bin/bazel test \
-        --test_output=errors \
-        examples/cpp:hello-success_test \
-        examples/java-native/src/test/java/com/example/myproject:hello
-    }
-
-    cd ./bazel_src
-
-    # If .bazelversion file is present in dist files and doesn't match `bazel` version
-    # running `bazel` command within bazel_src will fail.
-    # Let's remove .bazelversion within the test, if present it is meant to indicate bazel version
-    # to compile bazel with, not version of bazel to be built and tested.
-    rm -f .bazelversion
-
-    # test whether $WORKSPACE_ROOT/tools/bazel works
-
-    mkdir -p tools
-    cat > tools/bazel <<"EOF"
-    #!${runtimeShell} -e
-    exit 1
-    EOF
-
-    chmod +x tools/bazel
-
-    # first call should fail if tools/bazel is used
-    ! hello_test
-
-    cat > tools/bazel <<"EOF"
-    #!${runtimeShell} -e
-    exec "$BAZEL_REAL" "$@"
-    EOF
-
-    # second call succeeds because it defers to $out/bin/bazel-{version}-{os_arch}
-    hello_test
-
-    ## Test that the GSON serialisation files are present
-    gson_classes=$(unzip -l $(bazel info install_base)/A-server.jar | grep GsonTypeAdapter.class | wc -l)
-    if [ "$gson_classes" -lt 10 ]; then
-      echo "Missing GsonTypeAdapter classes in A-server.jar. Lockfile generation will not work"
-      exit 1
-    fi
-
-    runHook postInstall
-  '';
-
-  # Save paths to hardcoded dependencies so Nix can detect them.
-  # This is needed because the templates get tar’d up into a .jar.
-  postFixup =
-    ''
-      mkdir -p $out/nix-support
-      echo "${defaultShellPath}" >> $out/nix-support/depends
-      # The string literal specifying the path to the bazel-rc file is sometimes
-      # stored non-contiguously in the binary due to gcc optimisations, which leads
-      # Nix to miss the hash when scanning for dependencies
-      echo "${bazelRC}" >> $out/nix-support/depends
-    ''
-    + lib.optionalString stdenv.hostPlatform.isDarwin ''
-      echo "${cctools}" >> $out/nix-support/depends
+      runHook postBuild
     '';
 
-  dontStrip = true;
-  dontPatchELF = true;
+    installPhase = ''
+      runHook preInstall
 
-  passthru = {
-    # TODO add some tests to cover basic functionality, and also tests for enableNixHacks=true (buildBazelPackage tests)
-    # tests = ...
+      mkdir -p $out/bin
 
-    # For ease of debugging
-    inherit bazelDeps bazelFhs bazelBootstrap;
-  };
-}
+      # official wrapper scripts that searches for $WORKSPACE_ROOT/tools/bazel if
+      # it can’t find something in tools, it calls
+      # $out/bin/bazel-{version}-{os_arch} The binary _must_ exist with this
+      # naming if your project contains a .bazelversion file.
+      cp ./bazel_src/scripts/packages/bazel.sh $out/bin/bazel
+      versionned_bazel="$out/bin/bazel-${version}-${system}-${arch}"
+      mv ./bazel_src/output/bazel "$versionned_bazel"
+      wrapProgram "$versionned_bazel" --suffix PATH : ${defaultShellPath}
+
+      mkdir $out/share
+      cp ./bazel_src/output/parser_deploy.jar $out/share/parser_deploy.jar
+      cat <<EOF > $out/bin/bazel-execlog
+      #!${runtimeShell} -e
+      ${runJdk}/bin/java -jar $out/share/parser_deploy.jar \$@
+      EOF
+      chmod +x $out/bin/bazel-execlog
+
+      # shell completion files
+      installShellCompletion --bash \
+        --name bazel.bash \
+        ./bazel_src/output/bazel-complete.bash
+      installShellCompletion --zsh \
+        --name _bazel \
+        ./bazel_src/scripts/zsh_completion/_bazel
+      installShellCompletion --fish \
+        --name bazel.fish \
+        ./bazel_src/output/bazel-complete.fish
+    '';
+
+    installCheckPhase = ''
+      export TEST_TMPDIR=$(pwd)
+
+      hello_test () {
+        $out/bin/bazel test \
+          --test_output=errors \
+          examples/cpp:hello-success_test \
+          examples/java-native/src/test/java/com/example/myproject:hello
+      }
+
+      cd ./bazel_src
+
+      # If .bazelversion file is present in dist files and doesn't match `bazel` version
+      # running `bazel` command within bazel_src will fail.
+      # Let's remove .bazelversion within the test, if present it is meant to indicate bazel version
+      # to compile bazel with, not version of bazel to be built and tested.
+      rm -f .bazelversion
+
+      # test whether $WORKSPACE_ROOT/tools/bazel works
+
+      mkdir -p tools
+      cat > tools/bazel <<"EOF"
+      #!${runtimeShell} -e
+      exit 1
+      EOF
+
+      chmod +x tools/bazel
+
+      # first call should fail if tools/bazel is used
+      ! hello_test
+
+      cat > tools/bazel <<"EOF"
+      #!${runtimeShell} -e
+      exec "$BAZEL_REAL" "$@"
+      EOF
+
+      # second call succeeds because it defers to $out/bin/bazel-{version}-{os_arch}
+      hello_test
+
+      ## Test that the GSON serialisation files are present
+      gson_classes=$(unzip -l $(bazel info install_base)/A-server.jar | grep GsonTypeAdapter.class | wc -l)
+      if [ "$gson_classes" -lt 10 ]; then
+        echo "Missing GsonTypeAdapter classes in A-server.jar. Lockfile generation will not work"
+        exit 1
+      fi
+
+      runHook postInstall
+    '';
+
+    # Save paths to hardcoded dependencies so Nix can detect them.
+    # This is needed because the templates get tar’d up into a .jar.
+    postFixup =
+      ''
+        mkdir -p $out/nix-support
+        echo "${defaultShellPath}" >> $out/nix-support/depends
+        # The string literal specifying the path to the bazel-rc file is sometimes
+        # stored non-contiguously in the binary due to gcc optimisations, which leads
+        # Nix to miss the hash when scanning for dependencies
+        echo "${bazelRC}" >> $out/nix-support/depends
+      ''
+      + lib.optionalString stdenv.hostPlatform.isDarwin ''
+        echo "${cctools}" >> $out/nix-support/depends
+      '';
+
+    dontStrip = true;
+    dontPatchELF = true;
+
+    passthru = {
+      # TODO add some tests to cover basic functionality, and also tests for enableNixHacks=true (buildBazelPackage tests)
+      # tests = ...
+
+      # For ease of debugging
+      inherit bazelDeps bazelFhs bazelBootstrap;
+    };
+  }

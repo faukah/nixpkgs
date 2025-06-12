@@ -5,7 +5,6 @@
   extlib,
   num,
 }:
-
 buildOasisPackage rec {
   pname = "tcslib";
   version = "0.3";
@@ -28,6 +27,6 @@ buildOasisPackage rec {
     homepage = "https://github.com/tcsprojects/tcslib";
     description = "Multi-purpose library for OCaml";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ mgttlinger ];
+    maintainers = with lib.maintainers; [mgttlinger];
   };
 }

@@ -14,6 +14,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=natqe.reload";
     homepage = "https://github.com/natqe/reload";
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.therobot2105 ];
+    maintainers = [lib.maintainers.therobot2105];
   };
 }

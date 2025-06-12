@@ -3,16 +3,13 @@
   buildPythonPackage,
   fetchPypi,
   pythonAtLeast,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # tests
   pytestCheckHook,
   simplejson,
 }:
-
 buildPythonPackage rec {
   pname = "jsonpickle";
   version = "4.0.5";

@@ -31,7 +31,6 @@
   withGui ? true,
   qt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tiscamera";
   version = "1.1.1";
@@ -96,7 +95,7 @@ stdenv.mkDerivation rec {
       qt5.qtbase
     ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   cmakeFlags = [
     "-DTCAM_BUILD_GST_1_0=ON"
@@ -104,12 +103,28 @@ stdenv.mkDerivation rec {
     "-DTCAM_BUILD_V4L2=ON"
     "-DTCAM_BUILD_LIBUSB=ON"
     "-DTCAM_BUILD_TESTS=ON"
-    "-DTCAM_BUILD_ARAVIS=${if withAravis then "ON" else "OFF"}"
-    "-DTCAM_BUILD_DOCUMENTATION=${if withDoc then "ON" else "OFF"}"
-    "-DTCAM_BUILD_WITH_GUI=${if withGui then "ON" else "OFF"}"
+    "-DTCAM_BUILD_ARAVIS=${
+      if withAravis
+      then "ON"
+      else "OFF"
+    }"
+    "-DTCAM_BUILD_DOCUMENTATION=${
+      if withDoc
+      then "ON"
+      else "OFF"
+    }"
+    "-DTCAM_BUILD_WITH_GUI=${
+      if withGui
+      then "ON"
+      else "OFF"
+    }"
     "-DTCAM_DOWNLOAD_MESON=OFF"
     "-DTCAM_INTERNAL_ARAVIS=OFF"
-    "-DTCAM_ARAVIS_USB_VISION=${if withAravis && withAravisUsbVision then "ON" else "OFF"}"
+    "-DTCAM_ARAVIS_USB_VISION=${
+      if withAravis && withAravisUsbVision
+      then "ON"
+      else "OFF"
+    }"
     "-DTCAM_INSTALL_FORCE_PREFIX=ON"
   ];
 
@@ -136,8 +151,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Linux sources and UVC firmwares for The Imaging Source cameras";
     homepage = "https://github.com/TheImagingSource/tiscamera";
-    license = with licenses; [ asl20 ];
+    license = with licenses; [asl20];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jraygauthier ];
+    maintainers = with maintainers; [jraygauthier];
   };
 }

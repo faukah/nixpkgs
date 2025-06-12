@@ -3,7 +3,6 @@
   lib,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "xstatic";
   version = "1.0.3";
@@ -21,6 +20,6 @@ buildPythonPackage rec {
     homepage = "https://bitbucket.org/thomaswaldmann/xstatic";
     description = "Base packaged static files for python";
     license = licenses.mit;
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
   };
 }

@@ -5,7 +5,6 @@
   testers,
   kube-score,
 }:
-
 buildGoModule rec {
   pname = "kube-score";
   version = "1.20.0";
@@ -39,6 +38,6 @@ buildGoModule rec {
     homepage = "https://github.com/zegl/kube-score";
     changelog = "https://github.com/zegl/kube-score/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ j4m3s ];
+    maintainers = with lib.maintainers; [j4m3s];
   };
 }

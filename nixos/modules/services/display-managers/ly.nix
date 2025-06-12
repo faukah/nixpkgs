@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   dmcfg = config.services.displayManager;
   xcfg = config.services.xserver;
   xdmcfg = xcfg.displayManager;
@@ -14,9 +12,10 @@ let
 
   ly = cfg.package;
 
-  iniFmt = pkgs.formats.iniWithGlobalSection { };
+  iniFmt = pkgs.formats.iniWithGlobalSection {};
 
-  inherit (lib)
+  inherit
+    (lib)
     concatMapStrings
     attrNames
     getAttr
@@ -52,25 +51,22 @@ let
 
   finalConfig = defaultConfig // cfg.settings;
 
-  cfgFile = iniFmt.generate "config.ini" { globalSection = finalConfig; };
-
-in
-{
+  cfgFile = iniFmt.generate "config.ini" {globalSection = finalConfig;};
+in {
   options = {
     services.displayManager.ly = {
       enable = mkEnableOption "ly as the display manager";
 
-      package = mkPackageOption pkgs [ "ly" ] { };
+      package = mkPackageOption pkgs ["ly"] {};
 
       settings = mkOption {
-        type =
-          with lib.types;
+        type = with lib.types;
           attrsOf (oneOf [
             str
             int
             bool
           ]);
-        default = { };
+        default = {};
         example = {
           load = false;
           save = false;
@@ -83,7 +79,6 @@ in
   };
 
   config = mkIf cfg.enable {
-
     assertions = [
       {
         assertion = !dmcfg.autoLogin.enable;
@@ -101,13 +96,13 @@ in
 
     environment = {
       etc."ly/config.ini".source = cfgFile;
-      systemPackages = [ ly ];
+      systemPackages = [ly];
 
-      pathsToLink = [ "/share/ly" ];
+      pathsToLink = ["/share/ly"];
     };
 
     services = {
-      dbus.packages = [ ly ];
+      dbus.packages = [ly];
 
       displayManager = {
         enable = true;
@@ -131,7 +126,7 @@ in
           "getty@tty${toString finalConfig.tty}.service"
         ];
 
-        conflicts = [ "getty@tty7.service" ];
+        conflicts = ["getty@tty7.service"];
 
         serviceConfig = {
           Type = "idle";
@@ -144,5 +139,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ vonfry ];
+  meta.maintainers = with lib.maintainers; [vonfry];
 }

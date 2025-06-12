@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "kubectl-kcl";
   version = "0.9.0";
@@ -22,7 +21,7 @@ buildGoModule (finalAttrs: {
     "-X kcl-lang.io/kubectl-kcl/cmd.Version=${finalAttrs.version}"
   ];
 
-  versionCheckProgramArg = [ "version" ];
+  versionCheckProgramArg = ["version"];
   nativeInstallCheckInputs = [
     versionCheckHook
   ];
@@ -34,7 +33,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/kcl-lang/kubectl-kcl";
     changelog = "https://github.com/kcl-lang/kubectl-kcl/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.arichtman ];
+    maintainers = [lib.maintainers.arichtman];
     platforms = lib.platforms.unix;
   };
 })

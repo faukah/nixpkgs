@@ -7,7 +7,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "nwdiag";
   version = "3.0.0";
@@ -22,15 +21,15 @@ buildPythonPackage rec {
     hash = "sha256-uKrdkXpL5YBr953sRsHknYg+2/WwrZmyDf8BMA2+0tU=";
   };
 
-  patches = [ ./fix_test_generate.patch ];
+  patches = [./fix_test_generate.patch];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ blockdiag ];
+  dependencies = [blockdiag];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "src/nwdiag/tests/" ];
+  pytestFlagsArray = ["src/nwdiag/tests/"];
 
   disabledTests = [
     # AttributeError: 'TestRstDirectives' object has no attribute 'assertRegexpMatches'
@@ -38,14 +37,14 @@ buildPythonPackage rec {
     "noviewbox"
   ];
 
-  pythonImportsCheck = [ "nwdiag" ];
+  pythonImportsCheck = ["nwdiag"];
 
   meta = with lib; {
     description = "Generate network-diagram image from spec-text file (similar to Graphviz)";
     homepage = "http://blockdiag.com/";
     changelog = "https://github.com/blockdiag/nwdiag/blob/${version}/CHANGES.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
     mainProgram = "rackdiag";
     platforms = platforms.unix;
   };

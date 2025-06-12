@@ -3,7 +3,6 @@
   lib,
   fetchurl,
 }:
-
 buildGoModule rec {
   pname = "filegive";
   version = "unstable-2022-05-29";
@@ -25,7 +24,7 @@ buildGoModule rec {
     homepage = "https://viric.name/cgi-bin/filegive";
     description = "Easy p2p file sending program";
     license = licenses.agpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "filegive";
   };
 }

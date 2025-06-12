@@ -12,12 +12,10 @@
   gnome-keyring,
   polkit,
   polkit_gnome,
-}:
-
-let
+}: let
   pname = "beyond-identity";
   version = "2.97.0-0";
-  libPath = lib.makeLibraryPath ([
+  libPath = lib.makeLibraryPath [
     glib
     glibc
     openssl
@@ -26,18 +24,18 @@ let
     gnome-keyring
     polkit
     polkit_gnome
-  ]);
+  ];
   meta = with lib; {
     description = "Passwordless MFA identities for workforces, customers, and developers";
     homepage = "https://www.beyondidentity.com";
     downloadPage = "https://app.byndid.com/downloads";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     maintainers = with maintainers; [
       klden
       hornwall
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 
   beyond-identity = stdenv.mkDerivation {
@@ -90,25 +88,25 @@ let
     '';
   };
 in
-# /usr/bin/pkcheck is hardcoded in binary - we need FHS
-buildFHSEnv {
-  inherit pname version meta;
+  # /usr/bin/pkcheck is hardcoded in binary - we need FHS
+  buildFHSEnv {
+    inherit pname version meta;
 
-  targetPkgs = pkgs: [
-    beyond-identity
-    glib
-    glibc
-    openssl
-    tpm2-tss
-    gtk3
-    gnome-keyring
-    polkit
-    polkit_gnome
-  ];
+    targetPkgs = pkgs: [
+      beyond-identity
+      glib
+      glibc
+      openssl
+      tpm2-tss
+      gtk3
+      gnome-keyring
+      polkit
+      polkit_gnome
+    ];
 
-  extraInstallCommands = ''
-    ln -s ${beyond-identity}/share $out
-  '';
+    extraInstallCommands = ''
+      ln -s ${beyond-identity}/share $out
+    '';
 
-  runScript = "beyond-identity";
-}
+    runScript = "beyond-identity";
+  }

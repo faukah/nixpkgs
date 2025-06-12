@@ -12,7 +12,6 @@
   rresult,
   sexplib,
 }:
-
 buildDunePackage rec {
   pname = "pgocaml";
   version = "4.4.0";
@@ -41,6 +40,6 @@ buildDunePackage rec {
     description = "Interface to PostgreSQL databases for OCaml applications";
     homepage = "https://github.com/darioteixeira/pgocaml";
     license = licenses.lgpl2Only;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

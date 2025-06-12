@@ -6,7 +6,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ec2-api-tools";
   version = "1.7.5.1";

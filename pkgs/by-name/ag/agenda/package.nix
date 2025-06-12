@@ -15,7 +15,6 @@
   libgee,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "agenda";
   version = "1.1.2";
@@ -53,14 +52,14 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Simple, fast, no-nonsense to-do (task) list designed for elementary OS";
     homepage = "https://github.com/dahenson/agenda";
-    maintainers = with maintainers; [ xiorcale ];
-    teams = [ teams.pantheon ];
+    maintainers = with maintainers; [xiorcale];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     license = licenses.gpl3;
     mainProgram = "com.github.dahenson.agenda";

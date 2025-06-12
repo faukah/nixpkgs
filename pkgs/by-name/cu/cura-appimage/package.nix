@@ -10,7 +10,6 @@
   nix-update-script,
   wrapGAppsHook3,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "cura-appimage";
   version = "5.10.1";
@@ -34,7 +33,7 @@ stdenvNoCC.mkDerivation rec {
     # For `appimageTools.wrapType2`, `pname` determines the binary's name in `bin/`.
     pname = appimageBinName;
     inherit version;
-    extraPkgs = _: [ ];
+    extraPkgs = _: [];
   };
 
   # The `QT_QPA_PLATFORM=xcb` fixes Wayland support, see https://github.com/NixOS/nixpkgs/issues/186570#issuecomment-2526277637
@@ -90,7 +89,7 @@ stdenvNoCC.mkDerivation rec {
         "model/gltf+json"
         "model/vnd.collada+xml+zip"
       ];
-      categories = [ "Graphics" ];
+      categories = ["Graphics"];
       keywords = [
         "3D"
         "Printing"
@@ -110,7 +109,7 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex=([56789].+)" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version-regex=([56789].+)"];};
 
   meta = {
     description = "3D printing software";
@@ -120,7 +119,7 @@ stdenvNoCC.mkDerivation rec {
       Cura converts 3D models into paths for a 3D printer. It prepares your print for maximum accuracy, minimum printing time and good reliability with many extra features that make your print come out great.
     '';
     license = lib.licenses.lgpl3Plus;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "cura";
     maintainers = with lib.maintainers; [
       pbek

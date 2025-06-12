@@ -17,7 +17,6 @@
   starlette,
   werkzeug,
 }:
-
 buildPythonPackage rec {
   pname = "authlib";
   version = "1.5.2";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-ra1RKprUAqhax0z1osl0lFgFENQZuSW/5FxSmsCdKNY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cryptography
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  pythonImportsCheck = [ "authlib" ];
+  pythonImportsCheck = ["authlib"];
 
   disabledTestPaths = [
     # Django tests require a running instance
@@ -66,6 +65,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/lepture/authlib";
     changelog = "https://github.com/lepture/authlib/blob/${src.tag}/docs/changelog.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

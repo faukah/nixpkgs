@@ -12,8 +12,7 @@
   protobufc,
   systemd,
   buildPackages,
-}:
-let
+}: let
   munit = fetchFromGitHub {
     owner = "nemequ";
     repo = "munit";
@@ -21,52 +20,53 @@ let
     hash = "sha256-qm30C++rpLtxBhOABBzo+6WILSpKz2ibvUvoe8ku4ow=";
   };
 in
-stdenv.mkDerivation rec {
-  pname = "libei";
-  version = "1.4.1";
+  stdenv.mkDerivation rec {
+    pname = "libei";
+    version = "1.4.1";
 
-  src = fetchFromGitLab {
-    domain = "gitlab.freedesktop.org";
-    owner = "libinput";
-    repo = "libei";
-    rev = version;
-    hash = "sha256-DoPQaTry1uzu6sM/wWEl4xeGq3h3BuMDeVYusHge6AI=";
-  };
+    src = fetchFromGitLab {
+      domain = "gitlab.freedesktop.org";
+      owner = "libinput";
+      repo = "libei";
+      rev = version;
+      hash = "sha256-DoPQaTry1uzu6sM/wWEl4xeGq3h3BuMDeVYusHge6AI=";
+    };
 
-  buildInputs = [
-    libevdev
-    libxkbcommon
-    protobuf
-    protobufc
-    systemd
-  ];
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    (buildPackages.python3.withPackages (
-      ps: with ps; [
-        attrs
-        jinja2
-        pytest
-        python-dbusmock
-        strenum
-        structlog
-      ]
-    ))
-  ];
+    buildInputs = [
+      libevdev
+      libxkbcommon
+      protobuf
+      protobufc
+      systemd
+    ];
+    nativeBuildInputs = [
+      meson
+      ninja
+      pkg-config
+      (buildPackages.python3.withPackages (
+        ps:
+          with ps; [
+            attrs
+            jinja2
+            pytest
+            python-dbusmock
+            strenum
+            structlog
+          ]
+      ))
+    ];
 
-  postPatch = ''
-    ln -s "${munit}" ./subprojects/munit
-    patchShebangs ./proto/ei-scanner
-  '';
+    postPatch = ''
+      ln -s "${munit}" ./subprojects/munit
+      patchShebangs ./proto/ei-scanner
+    '';
 
-  meta = with lib; {
-    description = "Library for Emulated Input";
-    mainProgram = "ei-debug-events";
-    homepage = "https://gitlab.freedesktop.org/libinput/libei";
-    license = licenses.mit;
-    maintainers = [ maintainers.pedrohlc ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "Library for Emulated Input";
+      mainProgram = "ei-debug-events";
+      homepage = "https://gitlab.freedesktop.org/libinput/libei";
+      license = licenses.mit;
+      maintainers = [maintainers.pedrohlc];
+      platforms = platforms.linux;
+    };
+  }

@@ -10,7 +10,6 @@
   libmikmod,
   tinyxml,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tecnoballz";
   version = "0.93.1";
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
       game. This game was ported from the Commodore Amiga.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin;
   };

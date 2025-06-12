@@ -19,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-uochXC0AtOw8N/ycyVJdiRw4pibCW2ENrFMT3jtxDSg=";
   };
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  checkInputs = [ gtest ];
+  checkInputs = [gtest];
 
   cmakeFlags = [
     (lib.cmakeBool "CPUINFO_BUILD_UNIT_TESTS" finalAttrs.finalPackage.doCheck)
@@ -48,8 +48,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/pytorch/cpuinfo";
     license = lib.licenses.bsd2;
     mainProgram = "cpu-info";
-    maintainers = with lib.maintainers; [ pawelchcki ];
-    pkgConfigModules = [ "libcpuinfo" ];
+    maintainers = with lib.maintainers; [pawelchcki];
+    pkgConfigModules = ["libcpuinfo"];
     platforms = lib.platforms.all;
   };
 })

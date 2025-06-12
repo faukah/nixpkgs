@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitLab,
 }:
-
 buildGoModule rec {
   pname = "check";
   version = "unstable-2018-12-24";
@@ -22,6 +21,6 @@ buildGoModule rec {
     description = "Set of utilities for checking Go sources";
     homepage = "https://gitlab.com/opennota/check";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

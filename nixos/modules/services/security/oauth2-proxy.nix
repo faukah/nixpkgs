@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.oauth2-proxy;
 
   # oauth2-proxy provides many options that are only relevant if you are using
@@ -25,9 +23,8 @@ let
     };
 
     google = cfg: {
-      google =
-        with cfg.google;
-        lib.optionalAttrs (groups != [ ]) {
+      google = with cfg.google;
+        lib.optionalAttrs (groups != []) {
           admin-email = adminEmail;
           service-account = serviceAccountJSON;
           group = groups;
@@ -37,10 +34,9 @@ let
 
   authenticatedEmailsFile = pkgs.writeText "authenticated-emails" cfg.email.addresses;
 
-  getProviderOptions = cfg: provider: providerSpecificOptions.${provider} or (_: { }) cfg;
+  getProviderOptions = cfg: provider: providerSpecificOptions.${provider} or (_: {}) cfg;
 
-  allConfig =
-    with cfg;
+  allConfig = with cfg;
     {
       inherit (cfg) provider scope upstream;
       approval-prompt = approvalPrompt;
@@ -66,7 +62,8 @@ let
       validate-url = validateURL;
       htpasswd-file = htpasswd.file;
       cookie = {
-        inherit (cookie)
+        inherit
+          (cookie)
           domain
           secure
           expire
@@ -95,30 +92,27 @@ let
     // (getProviderOptions cfg cfg.provider)
     // cfg.extraConfig;
 
-  mapConfig =
-    key: attr:
-    lib.optionalString (attr != null && attr != [ ]) (
-      if lib.isDerivation attr then
-        mapConfig key (toString attr)
-      else if (builtins.typeOf attr) == "set" then
-        lib.concatStringsSep " " (lib.mapAttrsToList (name: value: mapConfig (key + "-" + name) value) attr)
-      else if (builtins.typeOf attr) == "list" then
-        lib.concatMapStringsSep " " (mapConfig key) attr
-      else if (builtins.typeOf attr) == "bool" then
-        "--${key}=${lib.boolToString attr}"
-      else if (builtins.typeOf attr) == "string" then
-        "--${key}='${attr}'"
-      else
-        "--${key}=${toString attr}"
+  mapConfig = key: attr:
+    lib.optionalString (attr != null && attr != []) (
+      if lib.isDerivation attr
+      then mapConfig key (toString attr)
+      else if (builtins.typeOf attr) == "set"
+      then lib.concatStringsSep " " (lib.mapAttrsToList (name: value: mapConfig (key + "-" + name) value) attr)
+      else if (builtins.typeOf attr) == "list"
+      then lib.concatMapStringsSep " " (mapConfig key) attr
+      else if (builtins.typeOf attr) == "bool"
+      then "--${key}=${lib.boolToString attr}"
+      else if (builtins.typeOf attr) == "string"
+      then "--${key}='${attr}'"
+      else "--${key}=${toString attr}"
     );
 
   configString = lib.concatStringsSep " " (lib.mapAttrsToList mapConfig allConfig);
-in
-{
+in {
   options.services.oauth2-proxy = {
     enable = lib.mkEnableOption "oauth2-proxy";
 
-    package = lib.mkPackageOption pkgs "oauth2-proxy" { };
+    package = lib.mkPackageOption pkgs "oauth2-proxy" {};
 
     ##############################################
     # PROVIDER configuration
@@ -183,7 +177,7 @@ in
 
     skipAuthRegexes = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         Skip authentication for requests matching any of these regular
         expressions.
@@ -194,7 +188,7 @@ in
     email = {
       domains = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           Authenticate emails with the specified domains. Use
           `*` to authenticate any email.
@@ -293,7 +287,7 @@ in
 
       groups = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           Restrict logins to members of these Google groups.
         '';
@@ -328,8 +322,8 @@ in
     ####################################################
     # UPSTREAM Configuration
     upstream = lib.mkOption {
-      type = with lib.types; coercedTo str (x: [ x ]) (listOf str);
-      default = [ ];
+      type = with lib.types; coercedTo str (x: [x]) (listOf str);
+      default = [];
       description = ''
         The http url(s) of the upstream endpoint or `file://`
         paths for static files. Routing is based on the path.
@@ -573,7 +567,7 @@ in
     };
 
     extraConfig = lib.mkOption {
-      default = { };
+      default = {};
       type = lib.types.attrsOf lib.types.anything;
       description = ''
         Extra config to pass to oauth2-proxy.
@@ -594,7 +588,7 @@ in
   };
 
   imports = [
-    (lib.mkRenamedOptionModule [ "services" "oauth2_proxy" ] [ "services" "oauth2-proxy" ])
+    (lib.mkRenamedOptionModule ["services" "oauth2_proxy"] ["services" "oauth2-proxy"])
   ];
 
   config = lib.mkIf cfg.enable {
@@ -610,30 +604,28 @@ in
       group = "oauth2-proxy";
     };
 
-    users.groups.oauth2-proxy = { };
+    users.groups.oauth2-proxy = {};
 
-    systemd.services.oauth2-proxy =
-      let
-        needsKeycloak =
-          lib.elem cfg.provider [
-            "keycloak"
-            "keycloak-oidc"
-          ]
-          && config.services.keycloak.enable;
-      in
-      {
-        description = "OAuth2 Proxy";
-        path = [ cfg.package ];
-        wantedBy = [ "multi-user.target" ];
-        wants = [ "network-online.target" ] ++ lib.optionals needsKeycloak [ "keycloak.service" ];
-        after = [ "network-online.target" ] ++ lib.optionals needsKeycloak [ "keycloak.service" ];
-        restartTriggers = [ cfg.keyFile ];
-        serviceConfig = {
-          User = "oauth2-proxy";
-          Restart = "always";
-          ExecStart = "${lib.getExe cfg.package} ${configString}";
-          EnvironmentFile = lib.mkIf (cfg.keyFile != null) cfg.keyFile;
-        };
+    systemd.services.oauth2-proxy = let
+      needsKeycloak =
+        lib.elem cfg.provider [
+          "keycloak"
+          "keycloak-oidc"
+        ]
+        && config.services.keycloak.enable;
+    in {
+      description = "OAuth2 Proxy";
+      path = [cfg.package];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"] ++ lib.optionals needsKeycloak ["keycloak.service"];
+      after = ["network-online.target"] ++ lib.optionals needsKeycloak ["keycloak.service"];
+      restartTriggers = [cfg.keyFile];
+      serviceConfig = {
+        User = "oauth2-proxy";
+        Restart = "always";
+        ExecStart = "${lib.getExe cfg.package} ${configString}";
+        EnvironmentFile = lib.mkIf (cfg.keyFile != null) cfg.keyFile;
       };
+    };
   };
 }

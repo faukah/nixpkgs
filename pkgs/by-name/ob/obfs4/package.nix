@@ -4,7 +4,6 @@
   fetchFromGitLab,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "obfs4";
   version = "0.4.0";
@@ -27,9 +26,9 @@ buildGoModule rec {
     "-w"
   ];
 
-  subPackages = [ "cmd/lyrebird" ];
+  subPackages = ["cmd/lyrebird"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage doc/lyrebird.1
@@ -50,7 +49,7 @@ buildGoModule rec {
       multiple pluggable transports.
     '';
     homepage = "https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird";
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
     mainProgram = "lyrebird";
     changelog = "https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird/-/raw/${src.rev}/ChangeLog";
     license = with lib.licenses; [

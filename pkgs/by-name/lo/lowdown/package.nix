@@ -11,7 +11,6 @@
   # for passthru.tests
   nix,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lowdown${
     lib.optionalString (stdenv.hostPlatform.isDarwin && !enableDarwinSandbox) "-unsandboxed"
@@ -30,10 +29,12 @@ stdenv.mkDerivation rec {
     hash = "sha512-IQmgPm2zE+B82Zdg+ldjtU/XI+qab9YRAzwzRMYv32KKjql0YLDEgc/m6DbgyCiNBkulD0dVExCtrTM+nBFHzw==";
   };
 
-  nativeBuildInputs = [
-    which
-    dieHook
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs =
+    [
+      which
+      dieHook
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [fixDarwinDylibNames];
 
   # The Darwin sandbox calls fail inside Nix builds, presumably due to
   # being nested inside another sandbox.
@@ -72,11 +73,9 @@ stdenv.mkDerivation rec {
       "install_static"
     ];
 
-  postInstall =
-    let
-      soVersion = "1";
-    in
-
+  postInstall = let
+    soVersion = "1";
+  in
     # Check that soVersion is up to date even if we are not on darwin
     lib.optionalString (enableShared && !stdenv.hostPlatform.isDarwin) ''
       test -f $lib/lib/liblowdown.so.${soVersion} || \
@@ -118,7 +117,7 @@ stdenv.mkDerivation rec {
     homepage = "https://kristaps.bsd.lv/lowdown/";
     description = "Simple markdown translator";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     platforms = platforms.unix;
   };
 }

@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ldfparser";
   version = "0.26.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-SVl/O0/2k1Y4lta+3BFkddyBZfYO2vqh4Xx1ZXNwXN4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     bitstruct
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "ldfparser" ];
+  pythonImportsCheck = ["ldfparser"];
 
   disabledTestPaths = [
     # We don't care about benchmarks
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/c4deszes/ldfparser";
     changelog = "https://github.com/c4deszes/ldfparser/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "ldfparser";
   };
 }

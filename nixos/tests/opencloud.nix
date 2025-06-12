@@ -1,6 +1,8 @@
-{ lib, pkgs, ... }:
-
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   certs = import ./common/acme/server/snakeoil-certs.nix;
   inherit (certs) domain;
 
@@ -12,41 +14,39 @@ let
   adminPassword = "hunter2";
   testRunner =
     pkgs.writers.writePython3Bin "test-runner"
-      {
-        libraries = [ pkgs.python3Packages.selenium ];
-        flakeIgnore = [ "E501" ];
-      }
-      ''
-        import sys
-        from selenium.webdriver.common.by import By
-        from selenium.webdriver import Firefox
-        from selenium.webdriver.firefox.options import Options
-        from selenium.webdriver.support.ui import WebDriverWait
-        from selenium.webdriver.support import expected_conditions as EC
+    {
+      libraries = [pkgs.python3Packages.selenium];
+      flakeIgnore = ["E501"];
+    }
+    ''
+      import sys
+      from selenium.webdriver.common.by import By
+      from selenium.webdriver import Firefox
+      from selenium.webdriver.firefox.options import Options
+      from selenium.webdriver.support.ui import WebDriverWait
+      from selenium.webdriver.support import expected_conditions as EC
 
-        options = Options()
-        options.add_argument('--headless')
-        driver = Firefox(options=options)
+      options = Options()
+      options.add_argument('--headless')
+      driver = Firefox(options=options)
 
-        host = sys.argv[1]
-        user = sys.argv[2]
-        password = sys.argv[3]
+      host = sys.argv[1]
+      user = sys.argv[2]
+      password = sys.argv[3]
 
-        driver.get(f"https://{host}/")
-        wait = WebDriverWait(driver, 60)
-        wait.until(EC.title_contains("Sign in"))
-        wait.until(EC.url_contains(f"https://{host}/signin/v1/identifier"))
-        wait.until(EC.visibility_of_element_located((By.ID, 'oc-login-username')))
-        driver.find_element(By.ID, 'oc-login-username').send_keys(user)
-        driver.find_element(By.ID, 'oc-login-password').send_keys(password)
-        wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@type="submit"]')))
-        driver.find_element(By.XPATH, '//button[@type="submit"]').click()
-        wait.until(EC.visibility_of_element_located((By.ID, 'new-file-menu-btn')))
-        wait.until(EC.title_contains("Personal"))
-      '';
-in
-
-{
+      driver.get(f"https://{host}/")
+      wait = WebDriverWait(driver, 60)
+      wait.until(EC.title_contains("Sign in"))
+      wait.until(EC.url_contains(f"https://{host}/signin/v1/identifier"))
+      wait.until(EC.visibility_of_element_located((By.ID, 'oc-login-username')))
+      driver.find_element(By.ID, 'oc-login-username').send_keys(user)
+      driver.find_element(By.ID, 'oc-login-password').send_keys(password)
+      wait.until(EC.visibility_of_element_located((By.XPATH, '//button[@type="submit"]')))
+      driver.find_element(By.XPATH, '//button[@type="submit"]').click()
+      wait.until(EC.visibility_of_element_located((By.ID, 'new-file-menu-btn')))
+      wait.until(EC.title_contains("Personal"))
+    '';
+in {
   name = "opencloud";
 
   meta.maintainers = with lib.maintainers; [
@@ -62,8 +62,8 @@ in
       testRunner
     ];
 
-    networking.hosts."127.0.0.1" = [ domain ];
-    security.pki.certificateFiles = [ certs.ca.cert ];
+    networking.hosts."127.0.0.1" = [domain];
+    security.pki.certificateFiles = [certs.ca.cert];
 
     services.opencloud = {
       enable = true;

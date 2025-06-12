@@ -6,7 +6,6 @@
   gtk3,
   xsettingsd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "font-config-info";
   version = "1.0.0";
@@ -40,9 +39,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Prints a Linux system's font configuration";
     homepage = "https://github.com/derat/font-config-info";
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
     mainProgram = "font-config-info";
   };
 }

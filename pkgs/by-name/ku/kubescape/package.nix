@@ -6,7 +6,6 @@
   installShellFiles,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "kubescape";
   version = "3.0.25";
@@ -22,14 +21,14 @@ buildGoModule rec {
   proxyVendor = true;
   vendorHash = "sha256-GL5V3f2hiTzNDhBKyvyT8BlbRCaPSJXLy/+xiYjhsvw=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   nativeBuildInputs = [
     installShellFiles
     versionCheckHook
   ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   ldflags = [
     "-s"

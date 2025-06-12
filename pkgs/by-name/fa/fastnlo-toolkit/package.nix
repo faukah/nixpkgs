@@ -12,7 +12,6 @@
   zlib,
   withPython ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fastnlo-toolkit";
   version = "2.5.0-2826";
@@ -34,10 +33,12 @@ stdenv.mkDerivation rec {
     ./yoda2_support.patch
   ];
 
-  nativeBuildInputs = [
-    lhapdf # lhapdf-config
-    yoda # yoda-config
-  ] ++ lib.optional withPython python;
+  nativeBuildInputs =
+    [
+      lhapdf # lhapdf-config
+      yoda # yoda-config
+    ]
+    ++ lib.optional withPython python;
 
   buildInputs =
     [
@@ -48,7 +49,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withPython python
     ++ lib.optional (withPython && python.isPy3k) ncurses;
 
-  propagatedNativeBuildInputs = lib.optional withPython [ swig ];
+  propagatedNativeBuildInputs = lib.optional withPython [swig];
   propagatedBuildInputs =
     [
       zlib
@@ -66,9 +67,11 @@ stdenv.mkDerivation rec {
     chmod +x check/fnlo-tk-stattest.pl.in
   '';
 
-  configureFlags = [
-    "--with-yoda=${yoda}"
-  ] ++ lib.optional withPython "--enable-pyext";
+  configureFlags =
+    [
+      "--with-yoda=${yoda}"
+    ]
+    ++ lib.optional withPython "--enable-pyext";
 
   strictDeps = true;
 
@@ -103,7 +106,7 @@ stdenv.mkDerivation rec {
       recalculations are thus avoided.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
     platforms = platforms.unix;
   };
 }

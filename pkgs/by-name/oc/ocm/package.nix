@@ -6,7 +6,6 @@
   testers,
   ocm,
 }:
-
 buildGoModule rec {
   pname = "ocm";
   version = "1.0.6";
@@ -26,7 +25,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # Tests expect the binary to be located in the root directory.
   preCheck = ''

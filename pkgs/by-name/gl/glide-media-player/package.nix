@@ -15,7 +15,6 @@
   gst_all_1,
   glib-networking,
 }:
-
 stdenv.mkDerivation rec {
   pname = "glide-media-player";
   version = "0.6.5";
@@ -67,7 +66,7 @@ stdenv.mkDerivation rec {
     description = "Linux/macOS media player based on GStreamer and GTK";
     homepage = "https://philn.github.io/glide";
     license = licenses.mit;
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     mainProgram = "glide";
     # Required gdk4-{wayland,x11} and gstreamer-gl not available on darwin
     platforms = subtractLists platforms.darwin platforms.unix;

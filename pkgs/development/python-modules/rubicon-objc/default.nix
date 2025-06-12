@@ -7,7 +7,6 @@
   setuptools-scm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rubicon-objc";
   version = "0.5.0";
@@ -37,9 +36,9 @@ buildPythonPackage rec {
     make -C tests/objc
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "rubicon.objc" ];
+  pythonImportsCheck = ["rubicon.objc"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/beeware/rubicon-objc/";
     changelog = "https://github.com/beeware/rubicon-objc/releases/tag/${src.tag}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     platforms = lib.platforms.darwin;
   };
 }

@@ -9,7 +9,6 @@
   gobject-introspection,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgee";
   version = "0.20.8";
@@ -59,6 +58,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/GNOME/libgee";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 })

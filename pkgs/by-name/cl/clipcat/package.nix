@@ -6,7 +6,6 @@
   protobuf,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "clipcat";
   version = "0.21.0";

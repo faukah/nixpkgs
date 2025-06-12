@@ -17,13 +17,11 @@
   pythonOlder,
   c-ares,
   libuv,
-
   # for passthru.tests
   dulwich,
   gunicorn,
   pika,
 }:
-
 buildPythonPackage rec {
   pname = "gevent";
   version = "24.11.1";
@@ -36,11 +34,13 @@ buildPythonPackage rec {
     hash = "sha256-i9FBkRTp5KPtM6W612av/5o892XLRApYKhs6m8gMGso=";
   };
 
-  nativeBuildInputs = [
-    cython
-    setuptools
-    wheel
-  ] ++ lib.optionals (!isPyPy) [ cffi ];
+  nativeBuildInputs =
+    [
+      cython
+      setuptools
+      wheel
+    ]
+    ++ lib.optionals (!isPyPy) [cffi];
 
   buildInputs = [
     libev
@@ -48,11 +48,13 @@ buildPythonPackage rec {
     c-ares
   ];
 
-  propagatedBuildInputs = [
-    importlib-metadata
-    zope-event
-    zope-interface
-  ] ++ lib.optionals (!isPyPy) [ greenlet ];
+  propagatedBuildInputs =
+    [
+      importlib-metadata
+      zope-event
+      zope-interface
+    ]
+    ++ lib.optionals (!isPyPy) [greenlet];
 
   env = lib.optionalAttrs stdenv.cc.isGNU {
     NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
@@ -66,13 +68,15 @@ buildPythonPackage rec {
     "gevent.events"
   ];
 
-  passthru.tests = {
-    inherit
-      dulwich
-      gunicorn
-      pika
-      ;
-  } // lib.filterAttrs (k: v: lib.hasInfix "gevent" k) python.pkgs;
+  passthru.tests =
+    {
+      inherit
+        dulwich
+        gunicorn
+        pika
+        ;
+    }
+    // lib.filterAttrs (k: v: lib.hasInfix "gevent" k) python.pkgs;
 
   GEVENTSETUP_EMBED = "0";
 
@@ -80,7 +84,7 @@ buildPythonPackage rec {
     description = "Coroutine-based networking library";
     homepage = "http://www.gevent.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
     platforms = platforms.unix;
   };
 }

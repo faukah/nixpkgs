@@ -14,7 +14,6 @@
   libwebp,
   pixman,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hyprgraphics";
   version = "0.1.3";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -58,6 +57,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Cpp graphics library for Hypr* ecosystem";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux ++ lib.platforms.freebsd;
-    teams = [ lib.teams.hyprland ];
+    teams = [lib.teams.hyprland];
   };
 })

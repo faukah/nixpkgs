@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.goeland;
-  tomlFormat = pkgs.formats.toml { };
-in
-{
+  tomlFormat = pkgs.formats.toml {};
+in {
   options.services.goeland = {
     enable = lib.mkEnableOption "goeland, an alternative to rss2email";
 
@@ -17,7 +15,7 @@ in
         Configuration of goeland.
         See the [example config file](https://github.com/slurdge/goeland/blob/master/cmd/asset/config.default.toml) for the available options.
       '';
-      default = { };
+      default = {};
       type = tomlFormat.type;
     };
     schedule = lib.mkOption {
@@ -42,10 +40,9 @@ in
     services.goeland.settings.database = "${cfg.stateDir}/goeland.db";
 
     systemd.services.goeland = {
-      serviceConfig =
-        let
-          confFile = tomlFormat.generate "config.toml" cfg.settings;
-        in
+      serviceConfig = let
+        confFile = tomlFormat.generate "config.toml" cfg.settings;
+      in
         lib.mkMerge [
           {
             ExecStart = "${pkgs.goeland}/bin/goeland run -c ${confFile}";
@@ -65,7 +62,7 @@ in
       group = "goeland";
       isSystemUser = true;
     };
-    users.groups.goeland = { };
+    users.groups.goeland = {};
 
     warnings = lib.optionals (lib.hasAttr "password" cfg.settings.email) [
       ''
@@ -76,5 +73,5 @@ in
     ];
   };
 
-  meta.maintainers = with lib.maintainers; [ sweenu ];
+  meta.maintainers = with lib.maintainers; [sweenu];
 }

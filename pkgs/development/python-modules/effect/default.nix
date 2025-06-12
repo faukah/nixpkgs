@@ -8,7 +8,6 @@
   six,
   testtools,
 }:
-
 buildPythonPackage rec {
   pname = "effect";
   version = "1.1.0";
@@ -31,17 +30,17 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  checkInputs = [ testtools ];
+  checkInputs = [testtools];
 
-  pythonImportsCheck = [ "effect" ];
+  pythonImportsCheck = ["effect"];
 
   meta = with lib; {
     description = "Pure effects for Python";
     homepage = "https://effect.readthedocs.io/";
     changelog = "https://github.com/python-effect/effect/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

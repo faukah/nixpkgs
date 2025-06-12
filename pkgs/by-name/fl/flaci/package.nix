@@ -5,7 +5,6 @@
   makeWrapper,
   electron,
 }:
-
 buildNpmPackage {
   pname = "flaci";
   version = "0-unstable-2024-12-10";
@@ -46,7 +45,7 @@ buildNpmPackage {
     description = "Create and test formal languages with automaton and create diagrams for them";
     homepage = "https://flaci.com";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ annaaurora ];
+    maintainers = with lib.maintainers; [annaaurora];
     mainProgram = "FLACI";
   };
 }

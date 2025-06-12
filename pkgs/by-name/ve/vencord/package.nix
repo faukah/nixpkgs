@@ -11,7 +11,6 @@
   writeShellScript,
   buildWebExtension ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vencord";
   version = "1.12.3";
@@ -42,7 +41,11 @@ stdenv.mkDerivation (finalAttrs: {
   buildPhase = ''
     runHook preBuild
 
-    pnpm run ${if buildWebExtension then "buildWeb" else "build"} \
+    pnpm run ${
+      if buildWebExtension
+      then "buildWeb"
+      else "build"
+    } \
       -- --standalone --disable-updater
 
     runHook postBuild

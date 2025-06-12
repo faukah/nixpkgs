@@ -1,24 +1,19 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "magic-wormhole-mailbox-server";
-  meta.maintainers = [ lib.maintainers.mmahut ];
+  meta.maintainers = [lib.maintainers.mmahut];
 
   nodes = {
     server = {
-      networking.firewall.allowedTCPPorts = [ 4000 ];
+      networking.firewall.allowedTCPPorts = [4000];
       services.magic-wormhole-mailbox-server.enable = true;
     };
-    client_alice =
-      { pkgs, ... }:
-      {
-        networking.firewall.enable = false;
-        environment.systemPackages = [ pkgs.magic-wormhole ];
-      };
-    client_bob =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = [ pkgs.magic-wormhole ];
-      };
+    client_alice = {pkgs, ...}: {
+      networking.firewall.enable = false;
+      environment.systemPackages = [pkgs.magic-wormhole];
+    };
+    client_bob = {pkgs, ...}: {
+      environment.systemPackages = [pkgs.magic-wormhole];
+    };
   };
 
   testScript = ''

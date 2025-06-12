@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 maven.buildMavenPackage rec {
   pname = "exificient";
   version = "1.0.7";
@@ -21,7 +20,7 @@ maven.buildMavenPackage rec {
 
   mvnParameters = "package assembly:single -Dmaven.test.skip=true";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -38,7 +37,7 @@ maven.buildMavenPackage rec {
     description = "Java implementation of the W3C Efficient Extensible Interchange (EXI) format specification";
     homepage = "http://exificient.github.io/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ samw ];
+    maintainers = with lib.maintainers; [samw];
     mainProgram = "exificient";
   };
 }

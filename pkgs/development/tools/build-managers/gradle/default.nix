@@ -2,63 +2,51 @@
   jdk17,
   jdk21,
   jdk23,
-}:
-
-rec {
-  gen =
-
-    {
-      version,
-      hash,
-
-      # The default JDK/JRE that will be used for derived Gradle packages.
-      # A current LTS version of a JDK is a good choice.
-      defaultJava,
-
-      # The platforms supported by this Gradle package.
-      # Gradle Native-Platform ships some binaries that
-      # are compatible only with specific platforms.
-      # As of 2022-04 this affects platform compatibility
-      # of multiple Gradle releases, so this is used as default.
-      # See https://github.com/gradle/native-platform#supported-platforms
-      platforms ? [
-        "aarch64-darwin"
-        "aarch64-linux"
-        "i686-windows"
-        "x86_64-cygwin"
-        "x86_64-darwin"
-        "x86_64-linux"
-        "x86_64-windows"
-      ],
-
-      # Extra attributes to be merged into the resulting derivation's
-      # meta attribute.
-      meta ? { },
-    }:
-
-    {
-      lib,
-      stdenv,
-      fetchurl,
-      makeWrapper,
-      unzip,
-      ncurses5,
-      ncurses6,
-      udev,
-      testers,
-      runCommand,
-      writeText,
-      autoPatchelfHook,
-      buildPackages,
-
-      # The JDK/JRE used for running Gradle.
-      java ? defaultJava,
-
-      # Additional JDK/JREs to be registered as toolchains.
-      # See https://docs.gradle.org/current/userguide/toolchains.html
-      javaToolchains ? [ ],
-    }:
-
+}: rec {
+  gen = {
+    version,
+    hash,
+    # The default JDK/JRE that will be used for derived Gradle packages.
+    # A current LTS version of a JDK is a good choice.
+    defaultJava,
+    # The platforms supported by this Gradle package.
+    # Gradle Native-Platform ships some binaries that
+    # are compatible only with specific platforms.
+    # As of 2022-04 this affects platform compatibility
+    # of multiple Gradle releases, so this is used as default.
+    # See https://github.com/gradle/native-platform#supported-platforms
+    platforms ? [
+      "aarch64-darwin"
+      "aarch64-linux"
+      "i686-windows"
+      "x86_64-cygwin"
+      "x86_64-darwin"
+      "x86_64-linux"
+      "x86_64-windows"
+    ],
+    # Extra attributes to be merged into the resulting derivation's
+    # meta attribute.
+    meta ? {},
+  }: {
+    lib,
+    stdenv,
+    fetchurl,
+    makeWrapper,
+    unzip,
+    ncurses5,
+    ncurses6,
+    udev,
+    testers,
+    runCommand,
+    writeText,
+    autoPatchelfHook,
+    buildPackages,
+    # The JDK/JRE used for running Gradle.
+    java ? defaultJava,
+    # Additional JDK/JREs to be registered as toolchains.
+    # See https://docs.gradle.org/current/userguide/toolchains.html
+    javaToolchains ? [],
+  }:
     stdenv.mkDerivation (finalAttrs: {
       pname = "gradle";
       inherit version;
@@ -88,78 +76,81 @@ rec {
       # We only need to patchelf some libs embedded in JARs.
       dontAutoPatchelf = true;
 
-      installPhase =
-        with builtins;
-        let
-          # set toolchains via installations.path property in gradle.properties.
-          # See https://docs.gradle.org/current/userguide/toolchains.html#sec:custom_loc
-          toolchainPaths = "org.gradle.java.installations.paths=${concatStringsSep "," javaToolchains}";
-          jnaLibraryPath = if stdenv.hostPlatform.isLinux then lib.makeLibraryPath [ udev ] else "";
-          jnaFlag =
-            if stdenv.hostPlatform.isLinux then "--add-flags \"-Djna.library.path=${jnaLibraryPath}\"" else "";
-        in
-        ''
-          mkdir -pv $out/lib/gradle/
-          cp -rv lib/ $out/lib/gradle/
+      installPhase = with builtins; let
+        # set toolchains via installations.path property in gradle.properties.
+        # See https://docs.gradle.org/current/userguide/toolchains.html#sec:custom_loc
+        toolchainPaths = "org.gradle.java.installations.paths=${concatStringsSep "," javaToolchains}";
+        jnaLibraryPath =
+          if stdenv.hostPlatform.isLinux
+          then lib.makeLibraryPath [udev]
+          else "";
+        jnaFlag =
+          if stdenv.hostPlatform.isLinux
+          then "--add-flags \"-Djna.library.path=${jnaLibraryPath}\""
+          else "";
+      in ''
+        mkdir -pv $out/lib/gradle/
+        cp -rv lib/ $out/lib/gradle/
 
-          gradle_launcher_jar=$(echo $out/lib/gradle/lib/gradle-launcher-*.jar)
-          test -f $gradle_launcher_jar
-          makeWrapper ${java}/bin/java $out/bin/gradle \
-            --set JAVA_HOME ${java} \
-            ${jnaFlag} \
-            --add-flags "-classpath $gradle_launcher_jar org.gradle.launcher.GradleMain"
+        gradle_launcher_jar=$(echo $out/lib/gradle/lib/gradle-launcher-*.jar)
+        test -f $gradle_launcher_jar
+        makeWrapper ${java}/bin/java $out/bin/gradle \
+          --set JAVA_HOME ${java} \
+          ${jnaFlag} \
+          --add-flags "-classpath $gradle_launcher_jar org.gradle.launcher.GradleMain"
 
-          echo "${toolchainPaths}" > $out/lib/gradle/gradle.properties
-        '';
+        echo "${toolchainPaths}" > $out/lib/gradle/gradle.properties
+      '';
 
       dontFixup = !stdenv.hostPlatform.isLinux;
 
-      fixupPhase =
-        let
-          arch = if stdenv.hostPlatform.is64bit then "amd64" else "i386";
-          newFileEvents = toString (lib.versionAtLeast version "8.12");
-        in
-        ''
-          # get the correct jar executable for cross
-          export PATH="${buildPackages.jdk}/bin:$PATH"
-          . ${./patching.sh}
+      fixupPhase = let
+        arch =
+          if stdenv.hostPlatform.is64bit
+          then "amd64"
+          else "i386";
+        newFileEvents = toString (lib.versionAtLeast version "8.12");
+      in ''
+        # get the correct jar executable for cross
+        export PATH="${buildPackages.jdk}/bin:$PATH"
+        . ${./patching.sh}
 
-          nativeVersion="$(extractVersion native-platform $out/lib/gradle/lib/native-platform-*.jar)"
-          for variant in "" "-ncurses5" "-ncurses6"; do
-            autoPatchelfInJar \
-              $out/lib/gradle/lib/native-platform-linux-${arch}$variant-''${nativeVersion}.jar \
-              "${lib.getLib stdenv.cc.cc}/lib64:${
-                lib.makeLibraryPath [
-                  stdenv.cc.cc
-                  ncurses5
-                  ncurses6
-                ]
-              }"
-          done
+        nativeVersion="$(extractVersion native-platform $out/lib/gradle/lib/native-platform-*.jar)"
+        for variant in "" "-ncurses5" "-ncurses6"; do
+          autoPatchelfInJar \
+            $out/lib/gradle/lib/native-platform-linux-${arch}$variant-''${nativeVersion}.jar \
+            "${lib.getLib stdenv.cc.cc}/lib64:${
+          lib.makeLibraryPath [
+            stdenv.cc.cc
+            ncurses5
+            ncurses6
+          ]
+        }"
+        done
 
-          # The file-events library _seems_ to follow the native-platform version, but
-          # we won’t assume that.
-          if [ -n "${newFileEvents}" ]; then
-            fileEventsVersion="$(extractVersion gradle-fileevents $out/lib/gradle/lib/gradle-fileevents-*.jar)"
-            autoPatchelfInJar \
-              $out/lib/gradle/lib/gradle-fileevents-''${fileEventsVersion}.jar \
-              "${lib.getLib stdenv.cc.cc}/lib64:${lib.makeLibraryPath [ stdenv.cc.cc ]}"
-          else
-            fileEventsVersion="$(extractVersion file-events $out/lib/gradle/lib/file-events-*.jar)"
-            autoPatchelfInJar \
-              $out/lib/gradle/lib/file-events-linux-${arch}-''${fileEventsVersion}.jar \
-              "${lib.getLib stdenv.cc.cc}/lib64:${lib.makeLibraryPath [ stdenv.cc.cc ]}"
-          fi
+        # The file-events library _seems_ to follow the native-platform version, but
+        # we won’t assume that.
+        if [ -n "${newFileEvents}" ]; then
+          fileEventsVersion="$(extractVersion gradle-fileevents $out/lib/gradle/lib/gradle-fileevents-*.jar)"
+          autoPatchelfInJar \
+            $out/lib/gradle/lib/gradle-fileevents-''${fileEventsVersion}.jar \
+            "${lib.getLib stdenv.cc.cc}/lib64:${lib.makeLibraryPath [stdenv.cc.cc]}"
+        else
+          fileEventsVersion="$(extractVersion file-events $out/lib/gradle/lib/file-events-*.jar)"
+          autoPatchelfInJar \
+            $out/lib/gradle/lib/file-events-linux-${arch}-''${fileEventsVersion}.jar \
+            "${lib.getLib stdenv.cc.cc}/lib64:${lib.makeLibraryPath [stdenv.cc.cc]}"
+        fi
 
-          # The scanner doesn't pick up the runtime dependency in the jar.
-          # Manually add a reference where it will be found.
-          mkdir $out/nix-support
-          echo ${stdenv.cc.cc} > $out/nix-support/manual-runtime-dependencies
-          # Gradle will refuse to start without _both_ 5 and 6 versions of ncurses.
-          echo ${ncurses5} >> $out/nix-support/manual-runtime-dependencies
-          echo ${ncurses6} >> $out/nix-support/manual-runtime-dependencies
-          ${lib.optionalString stdenv.hostPlatform.isLinux "echo ${udev} >> $out/nix-support/manual-runtime-dependencies"}
-        '';
+        # The scanner doesn't pick up the runtime dependency in the jar.
+        # Manually add a reference where it will be found.
+        mkdir $out/nix-support
+        echo ${stdenv.cc.cc} > $out/nix-support/manual-runtime-dependencies
+        # Gradle will refuse to start without _both_ 5 and 6 versions of ncurses.
+        echo ${ncurses5} >> $out/nix-support/manual-runtime-dependencies
+        echo ${ncurses6} >> $out/nix-support/manual-runtime-dependencies
+        ${lib.optionalString stdenv.hostPlatform.isLinux "echo ${udev} >> $out/nix-support/manual-runtime-dependencies"}
+      '';
 
       passthru.tests = {
         version = testers.testVersion {
@@ -175,21 +166,20 @@ rec {
           expected = writeText "expected" "hello\n";
           actual =
             runCommand "actual"
-              {
-                nativeBuildInputs = [ finalAttrs.finalPackage ];
-                src = ./tests/java-application;
-              }
-              ''
-                cp -a $src/* .
-                env GRADLE_USER_HOME=$TMPDIR/gradle org.gradle.native.dir=$TMPDIR/native \
-                  gradle run --no-daemon --quiet --console plain > $out
-              '';
+            {
+              nativeBuildInputs = [finalAttrs.finalPackage];
+              src = ./tests/java-application;
+            }
+            ''
+              cp -a $src/* .
+              env GRADLE_USER_HOME=$TMPDIR/gradle org.gradle.native.dir=$TMPDIR/native \
+                gradle run --no-daemon --quiet --console plain > $out
+            '';
         };
       };
       passthru.jdk = defaultJava;
 
-      meta =
-        with lib;
+      meta = with lib;
         {
           inherit platforms;
           description = "Enterprise-grade build system";
@@ -214,7 +204,7 @@ rec {
             liff
             lorenzleutgeb
           ];
-          teams = [ lib.teams.java ];
+          teams = [lib.teams.java];
           mainProgram = "gradle";
         }
         // meta;
@@ -236,98 +226,98 @@ rec {
     defaultJava = jdk17;
   };
 
-  wrapGradle =
-    {
-      lib,
-      callPackage,
-      mitm-cache,
-      replaceVars,
-      symlinkJoin,
-      concatTextFile,
-      makeSetupHook,
-      nix-update-script,
-      runCommand,
-    }:
-    gradle-unwrapped: updateAttrPath:
+  wrapGradle = {
+    lib,
+    callPackage,
+    mitm-cache,
+    replaceVars,
+    symlinkJoin,
+    concatTextFile,
+    makeSetupHook,
+    nix-update-script,
+    runCommand,
+  }: gradle-unwrapped: updateAttrPath:
     lib.makeOverridable (
-      args:
-      let
+      args: let
         gradle = gradle-unwrapped.override args;
       in
-      symlinkJoin {
-        pname = "gradle";
-        inherit (gradle) version;
+        symlinkJoin {
+          pname = "gradle";
+          inherit (gradle) version;
 
-        paths = [
-          (makeSetupHook { name = "gradle-setup-hook"; } (concatTextFile {
-            name = "setup-hook.sh";
-            files = [
-              (mitm-cache.setupHook)
-              (replaceVars ./setup-hook.sh {
-                # jdk used for keytool
-                inherit (gradle) jdk;
-                init_script = "${./init-build.gradle}";
-              })
-            ];
-          }))
-          gradle
-          mitm-cache
-        ];
-
-        passthru =
-          {
-            fetchDeps = callPackage ./fetch-deps.nix { inherit mitm-cache; };
-            inherit (gradle) jdk;
-            unwrapped = gradle;
-            tests = {
-              toolchains =
-                let
-                  javaVersion = lib.getVersion jdk23;
-                  javaMajorVersion = lib.versions.major javaVersion;
-                in
-                runCommand "detects-toolchains-from-nix-env"
-                  {
-                    # Use JDKs that are not the default for any of the gradle versions
-                    nativeBuildInputs = [
-                      (gradle.override {
-                        javaToolchains = [
-                          jdk23
-                        ];
-                      })
-                    ];
-                    src = ./tests/toolchains;
-                  }
-                  ''
-                    cp -a $src/* .
-                    substituteInPlace ./build.gradle --replace-fail '@JAVA_VERSION@' '${javaMajorVersion}'
-                    env GRADLE_USER_HOME=$TMPDIR/gradle org.gradle.native.dir=$TMPDIR/native \
-                    gradle run --no-daemon --quiet --console plain > $out
-                    actual="$(<$out)"
-                    if [[ "${javaVersion}" != "$actual"* ]]; then
-                      echo "Error: Expected '${javaVersion}', to start with '$actual'" >&2
-                      exit 1
-                    fi
-                  '';
-            } // gradle.tests;
-          }
-          // lib.optionalAttrs (updateAttrPath != null) {
-            updateScript = nix-update-script {
-              attrPath = updateAttrPath;
-              extraArgs = [
-                "--url=https://github.com/gradle/gradle"
-                # Gradle’s .0 releases are tagged as `vX.Y.0`, but the actual
-                # release version omits the `.0`, so we’ll wanto to only capture
-                # the version up but not including the the trailing `.0`.
-                "--version-regex=^v(\\d+\\.\\d+(?:\\.[1-9]\\d?)?)(\\.0)?$"
+          paths = [
+            (makeSetupHook {name = "gradle-setup-hook";} (concatTextFile {
+              name = "setup-hook.sh";
+              files = [
+                (mitm-cache.setupHook)
+                (replaceVars ./setup-hook.sh {
+                  # jdk used for keytool
+                  inherit (gradle) jdk;
+                  init_script = "${./init-build.gradle}";
+                })
               ];
-            };
-          };
+            }))
+            gradle
+            mitm-cache
+          ];
 
-        meta = gradle.meta // {
-          # prefer normal gradle/mitm-cache over this wrapper, this wrapper only provides the setup hook
-          # and passthru
-          priority = (gradle.meta.priority or lib.meta.defaultPriority) + 1;
-        };
-      }
-    ) { };
+          passthru =
+            {
+              fetchDeps = callPackage ./fetch-deps.nix {inherit mitm-cache;};
+              inherit (gradle) jdk;
+              unwrapped = gradle;
+              tests =
+                {
+                  toolchains = let
+                    javaVersion = lib.getVersion jdk23;
+                    javaMajorVersion = lib.versions.major javaVersion;
+                  in
+                    runCommand "detects-toolchains-from-nix-env"
+                    {
+                      # Use JDKs that are not the default for any of the gradle versions
+                      nativeBuildInputs = [
+                        (gradle.override {
+                          javaToolchains = [
+                            jdk23
+                          ];
+                        })
+                      ];
+                      src = ./tests/toolchains;
+                    }
+                    ''
+                      cp -a $src/* .
+                      substituteInPlace ./build.gradle --replace-fail '@JAVA_VERSION@' '${javaMajorVersion}'
+                      env GRADLE_USER_HOME=$TMPDIR/gradle org.gradle.native.dir=$TMPDIR/native \
+                      gradle run --no-daemon --quiet --console plain > $out
+                      actual="$(<$out)"
+                      if [[ "${javaVersion}" != "$actual"* ]]; then
+                        echo "Error: Expected '${javaVersion}', to start with '$actual'" >&2
+                        exit 1
+                      fi
+                    '';
+                }
+                // gradle.tests;
+            }
+            // lib.optionalAttrs (updateAttrPath != null) {
+              updateScript = nix-update-script {
+                attrPath = updateAttrPath;
+                extraArgs = [
+                  "--url=https://github.com/gradle/gradle"
+                  # Gradle’s .0 releases are tagged as `vX.Y.0`, but the actual
+                  # release version omits the `.0`, so we’ll wanto to only capture
+                  # the version up but not including the the trailing `.0`.
+                  "--version-regex=^v(\\d+\\.\\d+(?:\\.[1-9]\\d?)?)(\\.0)?$"
+                ];
+              };
+            };
+
+          meta =
+            gradle.meta
+            // {
+              # prefer normal gradle/mitm-cache over this wrapper, this wrapper only provides the setup hook
+              # and passthru
+              priority = (gradle.meta.priority or lib.meta.defaultPriority) + 1;
+            };
+        }
+    ) {};
 }

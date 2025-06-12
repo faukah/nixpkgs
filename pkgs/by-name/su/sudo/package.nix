@@ -12,7 +12,6 @@
   withInsults ? false,
   withSssd ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sudo";
   # be sure to check if nixos/modules/security/sudo.nix needs updating when bumping
@@ -61,9 +60,9 @@ stdenv.mkDerivation (finalAttrs: {
     installFlags="sudoers_uid=$(id -u) sudoers_gid=$(id -g) sysconfdir=$out/etc rundir=$TMPDIR/dummy vardir=$TMPDIR/dummy DESTDIR=/"
   '';
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ groff ];
-  buildInputs = lib.optionals (!stdenv.hostPlatform.isOpenBSD) [ pam ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  nativeBuildInputs = [groff];
+  buildInputs = lib.optionals (!stdenv.hostPlatform.isOpenBSD) [pam];
 
   enableParallelBuilding = true;
 
@@ -73,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
     rm $out/share/doc/sudo/ChangeLog
   '';
 
-  passthru.tests = { inherit (nixosTests) sudo; };
+  passthru.tests = {inherit (nixosTests) sudo;};
 
   meta = with lib; {
     description = "Command to run commands as root";
@@ -91,7 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
       bsd3
       zlib
     ];
-    maintainers = with maintainers; [ rhendric ];
+    maintainers = with maintainers; [rhendric];
     platforms = platforms.linux ++ platforms.freebsd ++ platforms.openbsd;
     mainProgram = "sudo";
   };

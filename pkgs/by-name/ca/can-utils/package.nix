@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "can-utils";
   version = "2025.01";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-wum0hqPj3rCHHubNsOnj89tvrRQxoXrGQvZFcMKAGME=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "CAN userspace utilities and tools (for use with Linux SocketCAN)";

@@ -17,7 +17,6 @@
   desktop-file-utils,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "textpieces";
   version = "4.2.0";
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -74,6 +73,6 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [
       zendo
     ];
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
   };
 })

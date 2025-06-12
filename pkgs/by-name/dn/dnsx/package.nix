@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "dnsx";
   version = "1.2.2";
@@ -18,9 +17,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-B9GwQaX/W2xjpIFicfFFGBcopxyhMKZZRKBPcQ/r5Oo=";
 
-  subPackages = [ "cmd/dnsx" ];
+  subPackages = ["cmd/dnsx"];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   ldflags = [
     "-s"
@@ -45,7 +44,7 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/dnsx";
     changelog = "https://github.com/projectdiscovery/dnsx/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "dnsx";
   };
 }

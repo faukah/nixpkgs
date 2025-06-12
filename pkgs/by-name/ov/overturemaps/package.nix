@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "overturemaps";
   version = "0.14.0";
@@ -14,7 +13,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-UtYS5FcNBT9IIiybKUXK+jwGnXQ+oR/HQI3ntfV8NYg=";
   };
 
-  build-system = with python3Packages; [ poetry-core ];
+  build-system = with python3Packages; [poetry-core];
 
   dependencies = with python3Packages; [
     click
@@ -27,6 +26,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://overturemaps.org/";
     mainProgram = "overturemaps";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ crimeminister ];
+    maintainers = with lib.maintainers; [crimeminister];
   };
 }

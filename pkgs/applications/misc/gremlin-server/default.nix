@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cS7R7Raz5tkrr5DNeW7jbEYDee2OgE4htTXJRnqXlqI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # Note you'll want to prefix any commands with LOG_DIR, PID_DIR, and RUN_DIR
   # environment variables set to a writable director(y/ies).
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://tinkerpop.apache.org/";
     description = "Server of the Apache TinkerPop graph computing framework";
     license = licenses.asl20;
-    maintainers = [ maintainers.jrpotter ];
+    maintainers = [maintainers.jrpotter];
     platforms = platforms.all;
     mainProgram = "gremlin-server";
   };

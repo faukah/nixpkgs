@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ocamlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rml";
   version = "1.09.07";
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
       qpl
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

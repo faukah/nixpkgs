@@ -5,7 +5,6 @@
   luaPackages,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nelua";
   version = "0-unstable-2024-12-14";
@@ -23,9 +22,9 @@ stdenv.mkDerivation rec {
       --replace "NELUA_GIT_DATE = nil" "NELUA_GIT_DATE = '${lib.removePrefix "0-unstable-" version}'"
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  nativeCheckInputs = [ luaPackages.luacheck ];
+  nativeCheckInputs = [luaPackages.luacheck];
 
   doCheck = true;
 
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://nelua.io/";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -3,16 +3,13 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # propagates
   packaging,
-
   # tests
   pyqt5,
   pyside2,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "qtpy";
   version = "2.4.3";
@@ -25,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-23RPeDLm09qQVoumzLyj7is7SokMPW+7xjFC9uTN9bs=";
   };
 
-  propagatedBuildInputs = [ packaging ];
+  propagatedBuildInputs = [packaging];
 
   doCheck = false; # ModuleNotFoundError: No module named 'PyQt5.QtConnectivity'
   nativeCheckInputs = [

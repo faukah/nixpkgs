@@ -17,7 +17,6 @@
   pytest-twisted,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fedora-messaging";
   version = "3.7.1";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-ZITCX6MFPpQvhr3OoFT/yxOubXihrljv5hwntUOSpf4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     blinker
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     twisted
   ];
 
-  pythonImportsCheck = [ "fedora_messaging" ];
+  pythonImportsCheck = ["fedora_messaging"];
 
   nativeCheckInputs = [
     pytest-mock
@@ -53,13 +52,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
   meta = {
     description = "Library for sending AMQP messages with JSON schema in Fedora infrastructure";
     homepage = "https://github.com/fedora-infra/fedora-messaging";
     changelog = "https://github.com/fedora-infra/fedora-messaging/releases/tag/${src.tag}";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ erictapen ];
+    maintainers = with lib.maintainers; [erictapen];
   };
 }

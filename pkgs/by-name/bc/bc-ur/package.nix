@@ -5,7 +5,6 @@
   cmake,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bc-ur";
   version = "0.3.0";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/BlockchainCommons/bc-ur";
     description = "UR reference library in C++";
     license = licenses.bsd2Patent;
-    maintainers = with maintainers; [ surfaceflinger ];
+    maintainers = with maintainers; [surfaceflinger];
     platforms = platforms.linux;
   };
 })

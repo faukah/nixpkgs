@@ -4,7 +4,6 @@
   fetchurl,
   pcre2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "leafnode";
   version = "1.12.0";
@@ -18,13 +17,13 @@ stdenv.mkDerivation (finalAttrs: {
     "--with-ipv6"
   ];
 
-  buildInputs = [ pcre2 ];
+  buildInputs = [pcre2];
 
   meta = {
     homepage = "https://leafnode.sourceforge.io/index.shtml";
     description = "Implementation of a store & forward NNTP proxy, stable release";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.ne9z ];
+    maintainers = [lib.maintainers.ne9z];
   };
 })

@@ -4,7 +4,6 @@
   python3Packages,
   addBinToPathHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "parquet-tools";
   version = "0.2.16";
@@ -51,8 +50,7 @@ python3Packages.buildPythonApplication rec {
     thrift
   ];
 
-  nativeCheckInputs =
-    with python3Packages;
+  nativeCheckInputs = with python3Packages;
     [
       moto
       pytest-mock
@@ -76,7 +74,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/ktrueda/parquet-tools";
     changelog = "https://github.com/ktrueda/parquet-tools/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ cpcloud ];
+    maintainers = with lib.maintainers; [cpcloud];
     mainProgram = "parquet-tools";
   };
 }

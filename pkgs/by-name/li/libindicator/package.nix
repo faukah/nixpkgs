@@ -9,7 +9,6 @@
   gtk2,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libindicator-gtk${gtkVersion}";
   version = "12.10.1";
@@ -26,7 +25,13 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  buildInputs = [ (if gtkVersion == "2" then gtk2 else gtk3) ];
+  buildInputs = [
+    (
+      if gtkVersion == "2"
+      then gtk2
+      else gtk3
+    )
+  ];
 
   postPatch = ''
     substituteInPlace configure \
@@ -56,6 +61,6 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/libindicator";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.msteen ];
+    maintainers = [maintainers.msteen];
   };
 }

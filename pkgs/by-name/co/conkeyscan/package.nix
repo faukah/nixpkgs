@@ -2,9 +2,7 @@
   lib,
   python3,
   fetchFromGitHub,
-}:
-
-let
+}: let
   python = python3.override {
     self = python3;
     packageOverrides = self: super: {
@@ -19,50 +17,48 @@ let
       });
     };
   };
-
 in
+  python.pkgs.buildPythonApplication rec {
+    pname = "conkeyscan";
+    version = "1.1.0";
+    pyproject = true;
 
-python.pkgs.buildPythonApplication rec {
-  pname = "conkeyscan";
-  version = "1.1.0";
-  pyproject = true;
+    src = fetchFromGitHub {
+      owner = "CompassSecurity";
+      repo = "conkeyscan";
+      tag = "v${version}";
+      hash = "sha256-xYCms+Su7FmaG7KVHZpzfD/wx9Gepz11t8dEK/YDfvI=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "CompassSecurity";
-    repo = "conkeyscan";
-    tag = "v${version}";
-    hash = "sha256-xYCms+Su7FmaG7KVHZpzfD/wx9Gepz11t8dEK/YDfvI=";
-  };
+    postPatch = ''
+      substituteInPlace setup.py \
+        --replace-fail "{{VERSION_PLACEHOLDER}}" "${version}"
+    '';
 
-  postPatch = ''
-    substituteInPlace setup.py \
-      --replace-fail "{{VERSION_PLACEHOLDER}}" "${version}"
-  '';
+    build-system = with python.pkgs; [setuptools];
 
-  build-system = with python.pkgs; [ setuptools ];
+    dependencies = with python.pkgs; [
+      atlassian-python-api
+      beautifulsoup4
+      clize
+      loguru
+      pysocks
+      random-user-agent
+      readchar
+      requests-ratelimiter
+    ];
 
-  dependencies = with python.pkgs; [
-    atlassian-python-api
-    beautifulsoup4
-    clize
-    loguru
-    pysocks
-    random-user-agent
-    readchar
-    requests-ratelimiter
-  ];
+    # Project has no tests
+    doCheck = false;
 
-  # Project has no tests
-  doCheck = false;
+    pythonImportsCheck = ["conkeyscan"];
 
-  pythonImportsCheck = [ "conkeyscan" ];
-
-  meta = {
-    description = "Tool to scan Confluence for keywords";
-    homepage = "https://github.com/CompassSecurity/conkeyscan";
-    changelog = "https://github.com/CompassSecurity/conkeyscan/releases/tag/v${version}";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
-    mainProgram = "conkeyscan";
-  };
-}
+    meta = {
+      description = "Tool to scan Confluence for keywords";
+      homepage = "https://github.com/CompassSecurity/conkeyscan";
+      changelog = "https://github.com/CompassSecurity/conkeyscan/releases/tag/v${version}";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [fab];
+      mainProgram = "conkeyscan";
+    };
+  }

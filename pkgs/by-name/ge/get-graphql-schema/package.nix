@@ -36,6 +36,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/prisma-labs/get-graphql-schema";
     license = lib.licenses.mit;
     mainProgram = "get-graphql-schema";
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 })

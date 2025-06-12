@@ -8,9 +8,7 @@
   eigen,
   runCommand,
 }:
-
 lib.recurseIntoAttrs {
-
   boost-versions-match = testers.hasCmakeConfigModules {
     package = boost;
     moduleNames = [
@@ -43,16 +41,16 @@ lib.recurseIntoAttrs {
   };
 
   boost-has-boost_mpi = testers.hasCmakeConfigModules {
-    package = boost.override { useMpi = true; };
+    package = boost.override {useMpi = true;};
     moduleNames = [
       "boost_mpi"
     ];
-    buildInputs = [ mpi ];
+    buildInputs = [mpi];
   };
 
   boost_mpi-does-not-have-mpi = testers.testBuildFailure (
     testers.hasCmakeConfigModules {
-      package = boost.override { useMpi = true; };
+      package = boost.override {useMpi = true;};
       moduleNames = [
         "boost_mpi"
       ];
@@ -61,13 +59,13 @@ lib.recurseIntoAttrs {
 
   eigen-has-Eigen = testers.hasCmakeConfigModules {
     package = eigen;
-    moduleNames = [ "Eigen3" ];
+    moduleNames = ["Eigen3"];
   };
 
   eigen-does-not-have-eigen = testers.testBuildFailure (
     testers.hasCmakeConfigModules {
       package = eigen;
-      moduleNames = [ "eigen3" ];
+      moduleNames = ["eigen3"];
     }
   );
 }

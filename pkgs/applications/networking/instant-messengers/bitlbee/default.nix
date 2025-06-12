@@ -14,7 +14,6 @@
   enablePam ? false,
   pam ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bitlbee";
   version = "3.6";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "0zhhcbcr59sx9h4maf8zamzv2waya7sbsl7w74gbyilvy93dw5cz";
   };
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optional doCheck check;
+  nativeBuildInputs = [pkg-config] ++ lib.optional doCheck check;
 
   buildInputs =
     [
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableLibPurple pidgin
     ++ lib.optional enablePam pam;
 
-  propagatedBuildInputs = [ glib ];
+  propagatedBuildInputs = [glib];
 
   configureFlags =
     [

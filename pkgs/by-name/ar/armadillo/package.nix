@@ -8,7 +8,6 @@
   superlu,
   hdf5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "armadillo";
   version = "14.4.2";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-bf3c+9kecGedfBHpSlljp+/aAC/sNR5vSHWsjiRcURc=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     blas
     lapack
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     "-DDETECT_HDF5=ON"
   ];
 
-  patches = [ ./use-unix-config-on-OS-X.patch ];
+  patches = [./use-unix-config-on-OS-X.patch];
 
   meta = with lib; {
     description = "C++ linear algebra library";

@@ -8,7 +8,6 @@
   testers,
   shadcn,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "shadcn";
   version = "2.0.3";
@@ -20,9 +19,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-OBLKCj+v5KgYslJGuwLgJHjgcrxLPiiyO5/ucrJ14Ws=";
   };
 
-  pnpmWorkspaces = [ "shadcn" ];
+  pnpmWorkspaces = ["shadcn"];
   pnpmDeps = pnpm_9.fetchDeps {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       pname
       version
       src
@@ -70,13 +70,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = {
     changelog = "https://github.com/shadcn-ui/ui/blob/${finalAttrs.src.rev}/packages/shadcn/CHANGELOG.md#${
-      builtins.replaceStrings [ "." ] [ "" ] finalAttrs.version
+      builtins.replaceStrings ["."] [""] finalAttrs.version
     }";
     description = "Beautifully designed components that you can copy and paste into your apps";
     homepage = "https://ui.shadcn.com/docs/cli";
     license = lib.licenses.mit;
     mainProgram = "shadcn";
-    maintainers = with lib.maintainers; [ getpsyched ];
+    maintainers = with lib.maintainers; [getpsyched];
     platforms = lib.platforms.all;
   };
 })

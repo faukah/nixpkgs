@@ -5,7 +5,6 @@
   testers,
   piknik,
 }:
-
 buildGoModule rec {
   pname = "piknik";
   version = "0.10.2";
@@ -36,7 +35,7 @@ buildGoModule rec {
     homepage = "https://github.com/jedisct1/piknik";
     changelog = "https://github.com/jedisct1/piknik/blob/${src.rev}/ChangeLog";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "piknik";
   };
 }

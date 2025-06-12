@@ -1,10 +1,11 @@
 {
   stdenv,
   pdfium-binaries,
+}: {
+  version,
+  src,
+  ...
 }:
-
-{ version, src, ... }:
-
 stdenv.mkDerivation rec {
   pname = "pdfrx";
   inherit version src;

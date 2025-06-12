@@ -12,7 +12,6 @@
   setuptools-scm,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "pyvisa-sim";
   version = "0.6.0";
@@ -39,17 +38,17 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyvisa_sim" ];
+  pythonImportsCheck = ["pyvisa_sim"];
 
   # should be fixed after 0.5.1, remove at next release
-  disabledTestPaths = [ "pyvisa_sim/testsuite/test_all.py" ];
+  disabledTestPaths = ["pyvisa_sim/testsuite/test_all.py"];
 
   meta = with lib; {
     description = "Simulated backend for PyVISA implementing TCPIP, GPIB, RS232, and USB resources";
     homepage = "https://pyvisa.readthedocs.io/projects/pyvisa-sim/en/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ evilmav ];
+    maintainers = with maintainers; [evilmav];
   };
 }

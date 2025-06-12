@@ -16,7 +16,6 @@
   rocrand,
   gpuTargets ? clr.localGpuTargets or clr.gpuTargets,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocfft${clr.gpuArchSuffix}";
   version = "6.3.3";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # FIXME: rocfft_aot_helper runs at the end of the build and has a risk of timing it out
   # due to a long period with no terminal output
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
   cmakeFlags =
     [
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
     ]
-    ++ lib.optionals (gpuTargets != [ ]) [
+    ++ lib.optionals (gpuTargets != []) [
       "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
     ];
 
@@ -105,10 +104,11 @@ stdenv.mkDerivation (finalAttrs: {
         finalAttrs.finalPackage
         openmp
         (python3.withPackages (
-          ps: with ps; [
-            pandas
-            scipy
-          ]
+          ps:
+            with ps; [
+              pandas
+              scipy
+            ]
         ))
         rocrand
       ];
@@ -162,13 +162,13 @@ stdenv.mkDerivation (finalAttrs: {
     };
   };
 
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   meta = with lib; {
     description = "FFT implementation for ROCm";
     homepage = "https://github.com/ROCm/rocFFT";
-    license = with licenses; [ mit ];
-    teams = [ teams.rocm ];
+    license = with licenses; [mit];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

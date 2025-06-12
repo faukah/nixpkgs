@@ -11,7 +11,6 @@
   torch,
   torchlibrosa,
 }:
-
 buildPythonPackage rec {
   pname = "piano-transcription-inference";
   version = "0.0.6";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-w/qXMHJb9Kdi8cFLyAzVmG6s2gGwJvWkolJc1geHYUE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     librosa
@@ -72,12 +71,12 @@ buildPythonPackage rec {
   checkPhase = ''
     export NUMBA_CACHE_DIR="$(mktemp -d)"
   '';
-  pythonImportsCheck = [ "piano_transcription_inference" ];
+  pythonImportsCheck = ["piano_transcription_inference"];
 
   meta = with lib; {
     description = "Piano transcription inference package";
     homepage = "https://github.com/qiuqiangkong/piano_transcription_inference";
     license = licenses.mit;
-    maintainers = with maintainers; [ azuwis ];
+    maintainers = with maintainers; [azuwis];
   };
 }

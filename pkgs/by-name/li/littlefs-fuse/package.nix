@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fuse,
 }:
-
 stdenv.mkDerivation rec {
   pname = "littlefs-fuse";
   version = "2.7.12";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-BgvdwEEzJ5QtdXTXHLmLPSoyTs6Svd7ESJULxPbjgJk=";
   };
-  buildInputs = [ fuse ];
+  buildInputs = [fuse];
   installPhase = ''
     runHook preInstall
     install -D lfs $out/bin/littlefs-fuse
@@ -22,12 +21,14 @@ stdenv.mkDerivation rec {
     ln -s $out/bin $out/sbin
     runHook postInstall
   '';
-  meta = src.meta // {
-    description = "FUSE wrapper that puts the littlefs in user-space";
-    license = lib.licenses.bsd3;
-    mainProgram = "littlefs-fuse";
-    inherit (fuse.meta) platforms;
-    # fatal error: 'linux/fs.h' file not found
-    broken = stdenv.hostPlatform.isDarwin;
-  };
+  meta =
+    src.meta
+    // {
+      description = "FUSE wrapper that puts the littlefs in user-space";
+      license = lib.licenses.bsd3;
+      mainProgram = "littlefs-fuse";
+      inherit (fuse.meta) platforms;
+      # fatal error: 'linux/fs.h' file not found
+      broken = stdenv.hostPlatform.isDarwin;
+    };
 }

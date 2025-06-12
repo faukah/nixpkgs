@@ -15,7 +15,6 @@
   qtpy,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "superqt";
   version = "0.7.3";
@@ -43,13 +42,13 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    quantity = [ pint ];
-    pyside2 = [ pyside2 ];
-    pyside6 = [ pyside6 ];
-    pyqt6 = [ pyqt6 ];
+    quantity = [pint];
+    pyside2 = [pyside2];
+    pyside6 = [pyside6];
+    pyqt6 = [pyqt6];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Segmentation fault
   doCheck = false;
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/napari/superqt";
     changelog = "https://github.com/pyapp-kit/superqt/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SomeoneSerge ];
+    maintainers = with maintainers; [SomeoneSerge];
   };
 }

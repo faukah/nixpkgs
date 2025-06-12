@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   ];
 
   # TODO: investigate why <algorithm> isn't found
-  cmakeFlags = lib.optionals stdenv.hostPlatform.isDarwin [ "-DVULKAN_HEADERS_ENABLE_MODULE=OFF" ];
+  cmakeFlags = lib.optionals stdenv.hostPlatform.isDarwin ["-DVULKAN_HEADERS_ENABLE_MODULE=OFF"];
 
   src = fetchFromGitHub {
     owner = "KhronosGroup";
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.lunarg.com";
     platforms = platforms.unix ++ platforms.windows;
     license = licenses.asl20;
-    maintainers = [ maintainers.ralith ];
+    maintainers = [maintainers.ralith];
   };
 }

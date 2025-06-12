@@ -11,7 +11,6 @@
   sqlalchemy,
   sqlmodel,
 }:
-
 buildPythonPackage rec {
   pname = "sqlalchemy-file";
   version = "0.6.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-gtW7YA/rQ48tnqPdypMnSqqtwb90nhAkiQNhgEr1M3I=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     libcloud
@@ -73,6 +72,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jowilf/sqlalchemy-file";
     changelog = "https://github.com/jowilf/sqlalchemy-file/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

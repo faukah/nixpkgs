@@ -6,7 +6,6 @@
   python3Packages,
   perlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-gettext-tools";
   version = "1.0.11";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     substituteInPlace src/generate_mo.py --replace "sudo cp" "cp"
   '';
 
-  nativeBuildInputs = [ python3Packages.wrapPython ];
+  nativeBuildInputs = [python3Packages.wrapPython];
 
   buildInputs = [
     gettext
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     perlPackages.XMLLibXML
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   postFixup = ''
     wrapPythonPrograms
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-gettext-tools";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

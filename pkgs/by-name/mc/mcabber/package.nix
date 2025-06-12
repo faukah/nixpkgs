@@ -11,7 +11,6 @@
   libotr,
   gpgme,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mcabber";
   version = "1.1.2";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openssl
     ncurses
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     description = "Small Jabber console client";
     mainProgram = "mcabber";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = with platforms; linux;
     downloadPage = "http://mcabber.com/files/";
   };

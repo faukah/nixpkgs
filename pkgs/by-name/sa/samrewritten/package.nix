@@ -22,9 +22,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-+f/j2q1lJ3yp3/BBgnK9kS4P3ULQ5onQPAcUV12LYnI=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     curl
@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "Exec=/usr/bin/samrewritten" "Exec=samrewritten"
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Steam Achievement Manager For Linux. Rewritten in C++";
@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/PaulCombal/SamRewritten";
     changelog = "https://github.com/PaulCombal/SamRewritten/releases";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ludovicopiero ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [ludovicopiero];
+    platforms = ["x86_64-linux"];
   };
 })

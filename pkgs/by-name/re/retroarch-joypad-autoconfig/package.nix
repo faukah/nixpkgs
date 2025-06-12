@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gitUpdater,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "retroarch-joypad-autoconfig";
   version = "1.21.1";
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Joypad autoconfig files";
     homepage = "https://www.libretro.com/";
     license = licenses.mit;
-    teams = [ teams.libretro ];
+    teams = [teams.libretro];
     platforms = platforms.all;
   };
 }

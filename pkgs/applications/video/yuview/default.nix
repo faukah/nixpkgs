@@ -5,7 +5,6 @@
   qmake,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yuview";
   version = "2.13";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  patches = [ ./disable_version_check.patch ];
+  patches = [./disable_version_check.patch];
 
   enableParallelBuilding = true;
 
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
       in the application itself or in our wiki.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ leixb ];
+    maintainers = with maintainers; [leixb];
     platforms = platforms.unix;
     mainProgram = "YUView";
   };

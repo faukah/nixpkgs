@@ -9,7 +9,6 @@
   libffi_3_3,
   ncurses6,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hopper";
   version = "5.18.0";
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.hopperapp.com/index.html";
     description = "MacOS and Linux Disassembler";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ Enteee ];
+    maintainers = with lib.maintainers; [Enteee];
     platforms = lib.platforms.linux;
   };
 })

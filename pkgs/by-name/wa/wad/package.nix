@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "wad";
   version = "0.4.6";
@@ -44,6 +43,6 @@ python3.pkgs.buildPythonApplication rec {
       gpl3Plus
       mit
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

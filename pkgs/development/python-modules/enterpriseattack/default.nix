@@ -7,7 +7,6 @@
   setuptools,
   ujson,
 }:
-
 buildPythonPackage rec {
   pname = "enterpriseattack";
   version = "0.1.8";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-cxbGc9iQe94Th6MSUldI17oVCclFhUM78h1w+6KXzm4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -32,13 +31,13 @@ buildPythonPackage rec {
   # Tests require network access
   doCheck = false;
 
-  pythonImportsCheck = [ "enterpriseattack" ];
+  pythonImportsCheck = ["enterpriseattack"];
 
   meta = with lib; {
     description = "Module to interact with the Mitre Att&ck Enterprise dataset";
     homepage = "https://github.com/xakepnz/enterpriseattack";
     changelog = "https://github.com/xakepnz/enterpriseattack/releases/tag/v.${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

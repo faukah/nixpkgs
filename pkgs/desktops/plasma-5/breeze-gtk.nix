@@ -6,7 +6,6 @@
   python3,
   breeze-qt5,
 }:
-
 mkDerivation {
   pname = "breeze-gtk";
   nativeBuildInputs = [
@@ -16,9 +15,9 @@ mkDerivation {
     python3.pkgs.pycairo
     breeze-qt5
   ];
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
   patches = [
     ./patches/0001-fix-add-executable-bit.patch
   ];
-  cmakeFlags = [ "-DWITH_GTK3_VERSION=3.22" ];
+  cmakeFlags = ["-DWITH_GTK3_VERSION=3.22"];
 }

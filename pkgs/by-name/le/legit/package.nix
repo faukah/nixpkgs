@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "legit";
   version = "1.2.0.post0";
@@ -28,7 +27,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/frostming/legit";
     description = "Git for Humans, Inspired by GitHub for Mac";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ryneeverett ];
+    maintainers = with maintainers; [ryneeverett];
     mainProgram = "legit";
   };
 }

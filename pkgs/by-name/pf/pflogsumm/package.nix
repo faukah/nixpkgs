@@ -3,7 +3,6 @@
   fetchurl,
   perlPackages,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "pflogsumm";
   version = "1.1.3";
@@ -17,7 +16,7 @@ perlPackages.buildPerlPackage rec {
     "out"
     "man"
   ];
-  buildInputs = [ perlPackages.DateCalc ];
+  buildInputs = [perlPackages.DateCalc];
 
   preConfigure = ''
     touch Makefile.PL
@@ -34,7 +33,7 @@ perlPackages.buildPerlPackage rec {
 
   meta = {
     homepage = "http://jimsun.linxnet.com/postfix_contrib.html";
-    maintainers = with lib.maintainers; [ schneefux ];
+    maintainers = with lib.maintainers; [schneefux];
     description = "Postfix activity overview";
     mainProgram = "pflogsumm";
     license = lib.licenses.gpl2Plus;

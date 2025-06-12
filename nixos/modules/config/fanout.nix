@@ -3,16 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.fanout;
-  mknodCmds =
-    n:
+  mknodCmds = n:
     lib.lists.imap0 (i: s: "mknod /dev/fanout${builtins.toString i} c $MAJOR ${builtins.toString i}") (
       lib.lists.replicate n ""
     );
-in
-{
+in {
   options.services.fanout = {
     enable = lib.mkEnableOption "fanout";
     fanoutDevices = lib.mkOption {
@@ -28,9 +25,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    boot.extraModulePackages = [ config.boot.kernelPackages.fanout.out ];
+    boot.extraModulePackages = [config.boot.kernelPackages.fanout.out];
 
-    boot.kernelModules = [ "fanout" ];
+    boot.kernelModules = ["fanout"];
 
     boot.extraModprobeConfig = ''
       options fanout buffersize=${builtins.toString cfg.bufferSize}
@@ -43,7 +40,7 @@ in
         ${lib.strings.concatLines (mknodCmds cfg.fanoutDevices)}
       '';
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "oneshot";

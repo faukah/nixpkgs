@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gitfs";
   version = "0.5.2";
@@ -51,7 +50,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/PressLabs/gitfs";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.robbinch ];
+    maintainers = [lib.maintainers.robbinch];
     mainProgram = "gitfs";
   };
 }

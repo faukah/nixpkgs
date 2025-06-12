@@ -7,7 +7,6 @@
   ninja,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-sound-theme";
   version = "1.1.0";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -34,6 +33,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/sound-theme";
     license = licenses.unlicense;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

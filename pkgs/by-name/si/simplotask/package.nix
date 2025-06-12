@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "simplotask";
   version = "1.17.1";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s -w"
@@ -35,7 +34,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Tool for effortless deployment and configuration management";
     homepage = "https://spot.umputun.dev/";
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     license = licenses.mit;
     mainProgram = "spot";
   };

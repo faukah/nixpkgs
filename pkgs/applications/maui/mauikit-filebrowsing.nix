@@ -7,7 +7,6 @@
   kio,
   mauikit,
 }:
-
 mkDerivation {
   pname = "mauikit-filebrowsing";
 
@@ -26,6 +25,6 @@ mkDerivation {
     homepage = "https://invent.kde.org/maui/mauikit-filebrowsing";
     description = "MauiKit File Browsing utilities and controls";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

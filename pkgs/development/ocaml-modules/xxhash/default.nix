@@ -8,7 +8,6 @@
   dune-configurator,
   ppx_expect,
 }:
-
 buildDunePackage rec {
   pname = "xxhash";
   version = "0.2";
@@ -45,7 +44,7 @@ buildDunePackage rec {
   meta = {
     homepage = "https://github.com/314eter/ocaml-xxhash";
     description = "Bindings for xxHash, an extremely fast hash algorithm";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ toastal ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [toastal];
   };
 }

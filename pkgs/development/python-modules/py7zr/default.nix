@@ -19,7 +19,6 @@
   pytest-timeout,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "py7zr";
   version = "0.22.0";
@@ -73,7 +72,7 @@ buildPythonPackage rec {
     description = "7zip in Python 3 with ZStandard, PPMd, LZMA2, LZMA1, Delta, BCJ, BZip2";
     homepage = "https://github.com/miurahr/py7zr";
     changelog = "https://github.com/miurahr/py7zr/blob/v${version}/docs/Changelog.rst#v${
-      builtins.replaceStrings [ "." ] [ "" ] version
+      builtins.replaceStrings ["."] [""] version
     }";
     license = lib.licenses.gpl2Only;
     maintainers = with lib.maintainers; [

@@ -10,7 +10,6 @@
   pcre,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "the-foundation";
   version = "1.9.1";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Opinionated C11 library for low-level functionality";
     homepage = "https://git.skyjake.fi/skyjake/the_Foundation";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 })

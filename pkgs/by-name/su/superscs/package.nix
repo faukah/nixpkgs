@@ -5,7 +5,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "superscs";
   version = "1.3.3";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     lapack
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   doCheck = true;
 
@@ -39,6 +38,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/kul-optec/superscs";
     changelog = "https://github.com/kul-optec/superscs/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
   };
 })

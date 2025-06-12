@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   httpx,
   orjson,
@@ -14,7 +12,6 @@
   requests,
   requests-toolbelt,
   zstandard,
-
   # tests
   anthropic,
   dataclasses-json,
@@ -27,7 +24,6 @@
   uvicorn,
   attr,
 }:
-
 buildPythonPackage rec {
   pname = "langsmith";
   version = "0.3.22";
@@ -42,9 +38,9 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/python";
 
-  pythonRelaxDeps = [ "orjson" ];
+  pythonRelaxDeps = ["orjson"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     httpx
@@ -55,17 +51,19 @@ buildPythonPackage rec {
     zstandard
   ];
 
-  nativeCheckInputs = [
-    anthropic
-    dataclasses-json
-    fastapi
-    freezegun
-    instructor
-    pytest-asyncio
-    pytest-vcr
-    pytestCheckHook
-    uvicorn
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ attr ];
+  nativeCheckInputs =
+    [
+      anthropic
+      dataclasses-json
+      fastapi
+      freezegun
+      instructor
+      pytest-asyncio
+      pytest-vcr
+      pytestCheckHook
+      uvicorn
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [attr];
 
   disabledTests = [
     # These tests require network access
@@ -98,7 +96,7 @@ buildPythonPackage rec {
     "tests/unit_tests/test_run_helpers.py"
   ];
 
-  pythonImportsCheck = [ "langsmith" ];
+  pythonImportsCheck = ["langsmith"];
 
   __darwinAllowLocalNetworking = true;
 

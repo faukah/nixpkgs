@@ -6,7 +6,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "korrect";
   version = "0.2.1";
@@ -17,9 +16,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
   cargoHash = "sha256-bG31pqI/eB+J0FUq/lWak6Ekf+00JiCfuKZdyUkIAAw=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd ${finalAttrs.meta.mainProgram} \
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Kubectl version managing shim that invokes the correct kubectl version";
     homepage = "https://gitlab.com/cromulentbanana/korrect";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.dwt ];
+    maintainers = [lib.maintainers.dwt];
     mainProgram = "korrect";
   };
 })

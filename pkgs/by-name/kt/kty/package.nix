@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kty";
   version = "0.3.1";
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://kty.dev/";
     changelog = "https://github.com/grampelberg/kty/releases/tag/v${version}";
     description = "Terminal for Kubernetes";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     platforms = lib.platforms.unix;
     mainProgram = "kty";
   };

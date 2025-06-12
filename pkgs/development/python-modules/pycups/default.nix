@@ -6,7 +6,6 @@
   cups,
   libiconv,
 }:
-
 buildPythonPackage rec {
   pname = "pycups";
   version = "2.0.4";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-hD44XB2/aUmWyoTvAqfzDCg3YDVYj1++rNa64AXPfI0=";
   };
 
-  buildInputs = [ cups ] ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
+  buildInputs = [cups] ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
   # Wants to connect to CUPS
   doCheck = false;
@@ -25,6 +24,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python bindings for libcups";
     homepage = "http://cyberelk.net/tim/software/pycups/";
-    license = with licenses; [ gpl2Plus ];
+    license = with licenses; [gpl2Plus];
   };
 }

@@ -16,7 +16,6 @@
   redisTestHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aiocache";
   version = "0.12.3";
@@ -29,24 +28,26 @@ buildPythonPackage rec {
     hash = "sha256-4QYCRXMWlt9fsiWgUTc2pKzXG7AG/zGmd4HT5ggIZNM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
-    redis = [ redis ];
-    memcached = [ aiomcache ];
-    msgpack = [ msgpack ];
+    redis = [redis];
+    memcached = [aiomcache];
+    msgpack = [msgpack];
   };
 
-  nativeCheckInputs = [
-    aiohttp
-    marshmallow
-    memcachedTestHook
-    pytest-asyncio
-    pytest-cov-stub
-    pytest-mock
-    pytestCheckHook
-    redisTestHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      aiohttp
+      marshmallow
+      memcachedTestHook
+      pytest-asyncio
+      pytest-cov-stub
+      pytest-mock
+      pytestCheckHook
+      redisTestHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   pytestFlagsArray = [
     "-W"
@@ -81,13 +82,13 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "aiocache" ];
+  pythonImportsCheck = ["aiocache"];
 
   meta = {
     description = "Asyncio cache supporting multiple backends (memory, redis, memcached, etc.)";
     homepage = "https://github.com/aio-libs/aiocache";
     changelog = "https://github.com/aio-libs/aiocache/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

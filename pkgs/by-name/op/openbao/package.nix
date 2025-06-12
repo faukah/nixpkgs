@@ -11,7 +11,6 @@
   withUi ? true,
   withHsm ? stdenvNoCC.hostPlatform.isLinux,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "openbao";
   version = "2.2.2";
@@ -27,7 +26,7 @@ buildGoModule (finalAttrs: {
 
   proxyVendor = true;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   tags = lib.optional withHsm "hsm" ++ lib.optional withUi "ui";
 
@@ -62,8 +61,8 @@ buildGoModule (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    ui = callPackage ./ui.nix { };
-    tests = { inherit (nixosTests) openbao; };
+    ui = callPackage ./ui.nix {};
+    tests = {inherit (nixosTests) openbao;};
     updateScript = nix-update-script {
       extraArgs = [
         "--subpackage"
@@ -78,6 +77,6 @@ buildGoModule (finalAttrs: {
     changelog = "https://github.com/openbao/openbao/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mpl20;
     mainProgram = "bao";
-    maintainers = with lib.maintainers; [ brianmay ];
+    maintainers = with lib.maintainers; [brianmay];
   };
 })

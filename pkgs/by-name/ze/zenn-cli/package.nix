@@ -8,8 +8,7 @@
   nodejs,
   pnpm_9,
   testers,
-}:
-let
+}: let
   go-turbo-version = "1.7.4";
   go-turbo-srcs = {
     x86_64-linux = fetchurl {
@@ -25,78 +24,77 @@ let
     pname = "go-turbo";
     version = go-turbo-version;
     src = go-turbo-srcs.${stdenv.hostPlatform.system};
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     dontBuild = true;
     installPhase = ''
       install -Dm755 bin/go-turbo -t $out/bin
     '';
   };
 in
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "zenn-cli";
+    version = "0.1.159";
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "zenn-cli";
-  version = "0.1.159";
+    src = fetchFromGitHub {
+      owner = "zenn-dev";
+      repo = "zenn-editor";
+      tag = finalAttrs.version;
+      hash = "sha256-q28XSsGf+Uz+FTRwyu1xg/8bnYxuL6Jt+t3mk0CcWGY=";
+      # turborepo requires .git directory
+      leaveDotGit = true;
+    };
 
-  src = fetchFromGitHub {
-    owner = "zenn-dev";
-    repo = "zenn-editor";
-    tag = finalAttrs.version;
-    hash = "sha256-q28XSsGf+Uz+FTRwyu1xg/8bnYxuL6Jt+t3mk0CcWGY=";
-    # turborepo requires .git directory
-    leaveDotGit = true;
-  };
+    nativeBuildInputs = [
+      nodejs
+      pnpm_9.configHook
+      makeWrapper
+    ];
 
-  nativeBuildInputs = [
-    nodejs
-    pnpm_9.configHook
-    makeWrapper
-  ];
+    pnpmDeps = pnpm_9.fetchDeps {
+      inherit (finalAttrs) pname version src;
+      hash = "sha256-AjdXclrNl1AHJ4LXq9I5Rk6KGyDaWXW187o2uLwRy/o=";
+    };
 
-  pnpmDeps = pnpm_9.fetchDeps {
-    inherit (finalAttrs) pname version src;
-    hash = "sha256-AjdXclrNl1AHJ4LXq9I5Rk6KGyDaWXW187o2uLwRy/o=";
-  };
+    preBuild =
+      ''
+        echo VITE_EMBED_SERVER_ORIGIN="https://embed.zenn.studio" > packages/zenn-cli/.env
+      ''
+      # replace go-turbo since the existing one can't be executed
+      + lib.optionalString stdenv.hostPlatform.isLinux ''
+        cp ${go-turbo}/bin/go-turbo node_modules/.pnpm/turbo-linux-*/node_modules/turbo-linux*/bin/go-turbo
+      '';
 
-  preBuild =
-    ''
-      echo VITE_EMBED_SERVER_ORIGIN="https://embed.zenn.studio" > packages/zenn-cli/.env
-    ''
-    # replace go-turbo since the existing one can't be executed
-    + lib.optionalString stdenv.hostPlatform.isLinux ''
-      cp ${go-turbo}/bin/go-turbo node_modules/.pnpm/turbo-linux-*/node_modules/turbo-linux*/bin/go-turbo
+    buildPhase = ''
+      runHook preBuild
+
+      pnpm build --no-daemon
+
+      runHook postBuild
     '';
 
-  buildPhase = ''
-    runHook preBuild
+    installPhase = ''
+      runHook preInstall
 
-    pnpm build --no-daemon
+      mkdir -p $out/{bin,lib/node_modules/zenn-cli}
+      cp -r packages/zenn-cli/{dist,LICENSE,package.json,README.md} $out/lib/node_modules/zenn-cli
 
-    runHook postBuild
-  '';
+      makeWrapper "${lib.getExe nodejs}" "$out/bin/zenn" \
+        --add-flags "$out/lib/node_modules/zenn-cli/dist/server/zenn.js"
 
-  installPhase = ''
-    runHook preInstall
+      runHook postInstall
+    '';
 
-    mkdir -p $out/{bin,lib/node_modules/zenn-cli}
-    cp -r packages/zenn-cli/{dist,LICENSE,package.json,README.md} $out/lib/node_modules/zenn-cli
+    passthru = {
+      tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
+    };
 
-    makeWrapper "${lib.getExe nodejs}" "$out/bin/zenn" \
-      --add-flags "$out/lib/node_modules/zenn-cli/dist/server/zenn.js"
-
-    runHook postInstall
-  '';
-
-  passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
-  };
-
-  meta = {
-    description = "Preview Zenn content locally";
-    homepage = "https://github.com/zenn-dev/zenn-editor";
-    changelog = "https://github.com/zenn-dev/zenn-editor/releases/tag/${finalAttrs.version}";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
-    mainProgram = "zenn";
-    platforms = nodejs.meta.platforms;
-  };
-})
+    meta = {
+      description = "Preview Zenn content locally";
+      homepage = "https://github.com/zenn-dev/zenn-editor";
+      changelog = "https://github.com/zenn-dev/zenn-editor/releases/tag/${finalAttrs.version}";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [natsukium];
+      mainProgram = "zenn";
+      platforms = nodejs.meta.platforms;
+    };
+  })

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "ostrich-sans";
   version = "2014-04-18";
@@ -31,6 +30,6 @@ stdenvNoCC.mkDerivation {
     '';
     homepage = "https://www.theleagueofmoveabletype.com/ostrich-sans";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ minijackson ];
+    maintainers = with lib.maintainers; [minijackson];
   };
 }

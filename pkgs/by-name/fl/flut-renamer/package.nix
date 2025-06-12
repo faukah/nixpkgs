@@ -3,7 +3,6 @@
   fetchFromGitHub,
   flutter324,
 }:
-
 flutter324.buildFlutterApplication rec {
   pname = "flut-renamer";
   version = "1.5.4";
@@ -29,7 +28,7 @@ flutter324.buildFlutterApplication rec {
     homepage = "https://github.com/sun-jiao/flut-renamer";
     mainProgram = "flut-renamer";
     platforms = lib.platforms.linux;
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [];
   };
 }

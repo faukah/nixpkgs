@@ -39,9 +39,9 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Assortment of scripts around Git";
     homepage = "https://github.com/da-x/misc-gitology";
-    license = [ licenses.bsd2 ];
-    maintainers = [ maintainers._9999years ];
+    license = [licenses.bsd2];
+    maintainers = [maintainers._9999years];
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 }

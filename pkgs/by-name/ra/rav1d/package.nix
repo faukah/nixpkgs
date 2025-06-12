@@ -6,10 +6,8 @@
   meson,
   ninja,
   pkg-config,
-
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rav1d";
   version = "1.1.0";
@@ -35,21 +33,19 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pkg-config
   ];
 
-  checkPhase =
-    let
-      cargoTarget = rustPlatform.cargoInstallHook.targetSubdirectory;
-    in
-    ''
-      runHook preCheck
+  checkPhase = let
+    cargoTarget = rustPlatform.cargoInstallHook.targetSubdirectory;
+  in ''
+    runHook preCheck
 
-      patchShebangs .github/workflows/test.sh
-      .github/workflows/test.sh -r target/${cargoTarget}/release/dav1d
+    patchShebangs .github/workflows/test.sh
+    .github/workflows/test.sh -r target/${cargoTarget}/release/dav1d
 
-      runHook postCheck
-    '';
+    runHook postCheck
+  '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -57,7 +53,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/memorysafety/rav1d";
     changelog = "https://github.com/memorysafety/rav1d/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     mainProgram = "dav1d";
   };
 })

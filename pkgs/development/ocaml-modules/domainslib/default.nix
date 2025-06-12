@@ -8,7 +8,6 @@
   mirage-clock-unix,
   qcheck-stm,
 }:
-
 buildDunePackage rec {
   pname = "domainslib";
   version = "0.5.1";
@@ -36,7 +35,7 @@ buildDunePackage rec {
     homepage = "https://github.com/ocaml-multicore/domainslib";
     description = "Nested-parallel programming";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     broken = true; # Not compatible with saturn > 0.4.0
   };
 }

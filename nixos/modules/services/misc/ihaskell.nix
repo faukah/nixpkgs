@@ -3,17 +3,12 @@
   lib,
   config,
   ...
-}:
-let
-
+}: let
   cfg = config.services.ihaskell;
   ihaskell = pkgs.ihaskell.override {
     packages = cfg.extraPackages;
   };
-
-in
-
-{
+in {
   options = {
     services.ihaskell = {
       enable = lib.mkOption {
@@ -24,7 +19,7 @@ in
 
       extraPackages = lib.mkOption {
         type = lib.types.functionTo (lib.types.listOf lib.types.package);
-        default = haskellPackages: [ ];
+        default = haskellPackages: [];
         defaultText = lib.literalExpression "haskellPackages: []";
         example = lib.literalExpression ''
           haskellPackages: [
@@ -42,7 +37,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     users.users.ihaskell = {
       group = config.users.groups.ihaskell.name;
       description = "IHaskell user";
@@ -55,8 +49,8 @@ in
 
     systemd.services.ihaskell = {
       description = "IHaskell notebook instance";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         User = config.users.users.ihaskell.name;
         Group = config.users.groups.ihaskell.name;

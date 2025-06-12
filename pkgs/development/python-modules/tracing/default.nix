@@ -4,7 +4,6 @@
   fetchurl,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "tracing";
   version = "0.8";
@@ -15,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "1l4ybj5rvrrcxf8csyq7qx52izybd502pmx70zxp46gxqm60d2l0";
   };
 
-  buildInputs = [ sphinx ];
+  buildInputs = [sphinx];
 
   # error: invalid command 'test'
   doCheck = false;
@@ -24,6 +23,6 @@ buildPythonPackage rec {
     homepage = "https://liw.fi/tracing/";
     description = "Python debug logging helper";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

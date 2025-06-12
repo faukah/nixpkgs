@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "standard-chunk";
   version = "3.13.0";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/chunk";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   doCheck = false; # no tests
 
@@ -27,6 +26,6 @@ buildPythonPackage rec {
     description = "Python dead batteries. See PEP 594";
     homepage = "https://github.com/youknowone/python-deadlib";
     license = lib.licenses.psfl;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

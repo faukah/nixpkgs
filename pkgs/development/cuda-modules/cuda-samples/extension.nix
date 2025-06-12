@@ -2,8 +2,7 @@
   cudaMajorMinorVersion,
   lib,
   stdenv,
-}:
-let
+}: let
   cudaVersionToHash = {
     "10.0" = "sha256-XAI6iiPpDVbZtFoRaP1s6VKpu9aV3bwOqqkw33QncP8=";
     "10.1" = "sha256-DY8E2FKCFj27jPgQEB1qE9HcLn7CfSiVGdFm+yFQE+k=";
@@ -32,12 +31,11 @@ let
   isSupported = cudaVersionIsSupported && platformIsSupported;
 
   # Build our extension
-  extension =
-    final: _:
+  extension = final: _:
     lib.attrsets.optionalAttrs isSupported {
       cuda-samples = final.callPackage ./generic.nix {
         hash = cudaVersionToHash.${cudaMajorMinorVersion};
       };
     };
 in
-extension
+  extension

@@ -7,7 +7,6 @@
   menhir,
   re,
 }:
-
 buildDunePackage rec {
   pname = "graphql_parser";
   version = "0.14.0";
@@ -20,13 +19,13 @@ buildDunePackage rec {
     sha256 = "sha256-v4v1ueF+NV7LvYIVinaf4rE450Z1P9OiMAito6/NHAY=";
   };
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
   propagatedBuildInputs = [
     fmt
     re
   ];
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   doCheck = true;
 
@@ -34,7 +33,6 @@ buildDunePackage rec {
     homepage = "https://github.com/andreas/ocaml-graphql-server";
     description = "Library for parsing GraphQL queries";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

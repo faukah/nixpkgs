@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "pgpdump";
   version = "1.5";

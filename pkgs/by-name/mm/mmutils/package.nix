@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libxcb,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wmutils";
   version = "1.4.1";
@@ -16,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "08wlb278m5lr218c87yqashk7farzny51ybl5h6j60i7pbpm01ml";
   };
 
-  buildInputs = [ libxcb ];
+  buildInputs = [libxcb];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Set of utilities for querying xrandr monitor information";

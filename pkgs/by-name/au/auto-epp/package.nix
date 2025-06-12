@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-7sI8K+7ZAdzBN/XOzYQQZ1f9t+fFo6fcXYzX6abNyQ8=";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     runHook preInstall
@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     description = "Auto-epp (energy performance preference) for AMD processors when amd_pstate=active";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = [ maintainers.lamarios ];
+    maintainers = [maintainers.lamarios];
   };
 }

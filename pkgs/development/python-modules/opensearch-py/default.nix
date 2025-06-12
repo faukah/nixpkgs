@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   certifi,
   python-dateutil,
@@ -14,10 +12,8 @@
   six,
   urllib3,
   events,
-
   # optional-dependencies
   aiohttp,
-
   # tests
   botocore,
   mock,
@@ -27,7 +23,6 @@
   pyyaml,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "opensearch-py";
   version = "2.8.0";
@@ -40,7 +35,7 @@ buildPythonPackage rec {
     hash = "sha256-rPHpGKEIINAEUu2UkJwAM60i0hTzXd1ec6WD50RrgL8=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     certifi
@@ -51,17 +46,19 @@ buildPythonPackage rec {
     events
   ];
 
-  optional-dependencies.async = [ aiohttp ];
+  optional-dependencies.async = [aiohttp];
 
-  nativeCheckInputs = [
-    botocore
-    mock
-    pytest-asyncio
-    pytest-mock
-    pytestCheckHook
-    pyyaml
-    pytz
-  ] ++ optional-dependencies.async;
+  nativeCheckInputs =
+    [
+      botocore
+      mock
+      pytest-asyncio
+      pytest-mock
+      pytestCheckHook
+      pyyaml
+      pytz
+    ]
+    ++ optional-dependencies.async;
 
   __darwinAllowLocalNetworking = true;
 
@@ -94,6 +91,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/opensearch-project/opensearch-py";
     changelog = "https://github.com/opensearch-project/opensearch-py/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ mcwitt ];
+    maintainers = with lib.maintainers; [mcwitt];
   };
 }

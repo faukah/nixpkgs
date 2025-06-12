@@ -14,7 +14,6 @@
   withNetworking ? true,
   withALSA ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pcem";
   version = "17";
@@ -30,16 +29,18 @@ stdenv.mkDerivation rec {
     pkg-config
     wrapGAppsHook3
   ];
-  buildInputs = [
-    wxGTK32
-    coreutils
-    SDL2
-    openal
-    gtk3
-  ] ++ lib.optional withALSA alsa-lib;
+  buildInputs =
+    [
+      wxGTK32
+      coreutils
+      SDL2
+      openal
+      gtk3
+    ]
+    ++ lib.optional withALSA alsa-lib;
 
   configureFlags =
-    [ "--enable-release-build" ]
+    ["--enable-release-build"]
     ++ lib.optional withNetworking "--enable-networking"
     ++ lib.optional withALSA "--enable-alsa";
 
@@ -51,7 +52,7 @@ stdenv.mkDerivation rec {
     mainProgram = "pcem";
     homepage = "https://pcem-emulator.co.uk/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.terin ];
+    maintainers = [maintainers.terin];
     platforms = platforms.linux ++ platforms.windows;
   };
 }

@@ -5,7 +5,6 @@
   rustPlatform,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nyaa";
   version = "0.9.1";
@@ -21,9 +20,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-oCe0Yn0DuwF7rG+MGBGQ0Fsgt3c4Wju7uFkp3+IiP0I=";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/Beastwick18/nyaa/releases/tag/v${finalAttrs.version}";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/Beastwick18/nyaa";
     license = lib.licenses.gpl3Plus;
     mainProgram = "nyaa";
-    maintainers = with lib.maintainers; [ redyf ];
+    maintainers = with lib.maintainers; [redyf];
     platforms = lib.platforms.unix;
   };
 })

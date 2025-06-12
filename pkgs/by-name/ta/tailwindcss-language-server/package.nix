@@ -7,7 +7,6 @@
   cacert,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tailwindcss-language-server";
   version = "0.14.21";
@@ -20,7 +19,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   pnpmDeps = pnpm_9.fetchDeps {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       pname
       version
       src
@@ -35,9 +35,9 @@ stdenv.mkDerivation (finalAttrs: {
     pnpm_9.configHook
   ];
 
-  buildInputs = [ nodejs_latest ];
+  buildInputs = [nodejs_latest];
 
-  pnpmWorkspaces = [ "@tailwindcss/language-server..." ];
+  pnpmWorkspaces = ["@tailwindcss/language-server..."];
   prePnpmInstall = ''
     # Warning section for "pnpm@v8"
     # https://pnpm.io/cli/install#--filter-package_selector
@@ -66,14 +66,14 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tailwind CSS Language Server";
     homepage = "https://github.com/tailwindlabs/tailwindcss-intellisense";
     changelog = "https://github.com/tailwindlabs/tailwindcss-intellisense/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
     mainProgram = "tailwindcss-language-server";
     platforms = lib.platforms.all;
   };

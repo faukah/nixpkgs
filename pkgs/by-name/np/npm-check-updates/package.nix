@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "npm-check-updates";
   version = "18.0.1";
@@ -29,6 +28,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/raineorshine/npm-check-updates";
     license = lib.licenses.asl20;
     mainProgram = "ncu";
-    maintainers = with lib.maintainers; [ flosse ];
+    maintainers = with lib.maintainers; [flosse];
   };
 }

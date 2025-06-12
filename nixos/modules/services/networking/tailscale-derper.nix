@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.tailscale.derper;
-in
-{
-  meta.maintainers = with lib.maintainers; [ SuperSandro2000 ];
+in {
+  meta.maintainers = with lib.maintainers; [SuperSandro2000];
 
   options = {
     services.tailscale.derper = {
@@ -32,7 +29,7 @@ in
       package = lib.mkPackageOption pkgs [
         "tailscale"
         "derper"
-      ] { };
+      ] {};
 
       stunPort = lib.mkOption {
         type = lib.types.port;
@@ -62,7 +59,7 @@ in
   config = lib.mkIf cfg.enable {
     networking.firewall = lib.mkIf cfg.openFirewall {
       # port 80 and 443 are opened by nginx already
-      allowedUDPPorts = [ cfg.stunPort ];
+      allowedUDPPorts = [cfg.stunPort];
     };
 
     services = {
@@ -95,7 +92,7 @@ in
         StateDirectory = "derper";
         Type = "simple";
 
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DeviceAllow = null;
         LockPersonality = true;
         NoNewPrivileges = true;
@@ -118,9 +115,9 @@ in
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" ];
+        SystemCallFilter = ["@system-service"];
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 }

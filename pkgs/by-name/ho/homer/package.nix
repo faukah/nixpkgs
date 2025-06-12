@@ -29,7 +29,7 @@ stdenvNoCC.mkDerivation rec {
   };
 
   # Enables specifying a custom Sass compiler binary path via `SASS_EMBEDDED_BIN_PATH` environment variable.
-  patches = [ ./0001-build-enable-specifying-custom-sass-compiler-path-by.patch ];
+  patches = [./0001-build-enable-specifying-custom-sass-compiler-path-by.patch];
 
   nativeBuildInputs = [
     nodejs
@@ -56,7 +56,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       inherit (nixosTests.homer) caddy nginx;
     };

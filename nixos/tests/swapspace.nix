@@ -1,7 +1,5 @@
 import ./make-test-python.nix (
-  { lib, ... }:
-
-  {
+  {lib, ...}: {
     name = "swapspace";
 
     meta = with lib.maintainers; {
@@ -16,7 +14,7 @@ import ./make-test-python.nix (
 
       services.swapspace = {
         enable = true;
-        extraArgs = [ "-v" ];
+        extraArgs = ["-v"];
         settings = {
           # test outside /var/lib/swapspace
           swappath = "/swamp";

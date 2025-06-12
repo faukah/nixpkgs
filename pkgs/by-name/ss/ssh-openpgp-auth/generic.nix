@@ -19,7 +19,6 @@
   cargoHash,
   metaDescription,
 }:
-
 rustPlatform.buildRustPackage {
   inherit pname version;
 
@@ -76,7 +75,7 @@ rustPlatform.buildRustPackage {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     mainProgram = pname;
   };
 }

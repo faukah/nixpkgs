@@ -4,7 +4,6 @@
   fetchurl,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.1.29";
   pname = "libpaper";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-JjMOIemjEkZY1RX9hQsM3lRv9C2JsllqUmTF8Wd/BUc=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # The configure script of libpaper is buggy: it uses AC_SUBST on a headerfile
   # to compile sysconfdir into the library. Autoconf however defines sysconfdir

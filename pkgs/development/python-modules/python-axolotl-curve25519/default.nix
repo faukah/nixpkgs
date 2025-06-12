@@ -5,7 +5,6 @@
   fetchpatch,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-axolotl-curve25519";
   version = "0.4.1.post2";
@@ -24,12 +23,12 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   meta = {
     homepage = "https://github.com/tgalal/python-axolotl-curve25519";
     description = "Curve25519 with ed25519 signatures";
-    maintainers = with lib.maintainers; [ abbradar ];
+    maintainers = with lib.maintainers; [abbradar];
     license = lib.licenses.gpl3;
   };
 }

@@ -5,9 +5,7 @@
   fetchhg ? null,
   fetchsvn ? null,
   noDev ? false,
-}:
-
-let
+}: let
   packages = {
     "aws/aws-crt-php" = {
       targetDir = "";
@@ -1110,15 +1108,15 @@ let
       };
     };
   };
-  devPackages = { };
+  devPackages = {};
 in
-composerEnv.buildPackage {
-  inherit packages devPackages noDev;
-  name = "bookstack";
-  src = composerEnv.filterSrc ./.;
-  executable = false;
-  symlinkDependencies = false;
-  meta = {
-    license = "MIT";
-  };
-}
+  composerEnv.buildPackage {
+    inherit packages devPackages noDev;
+    name = "bookstack";
+    src = composerEnv.filterSrc ./.;
+    executable = false;
+    symlinkDependencies = false;
+    meta = {
+      license = "MIT";
+    };
+  }

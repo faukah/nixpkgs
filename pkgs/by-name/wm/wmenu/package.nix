@@ -13,7 +13,6 @@
   libxkbcommon,
   scdoc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wmenu";
   version = "0.2.0";

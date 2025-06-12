@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "tempora";
   version = "5.8.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-ojllPOmz+laxFMCobLcDnCVMvo1354vS5nBnO1mxokM=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     jaraco-functools
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jaraco/tempora";
     changelog = "https://github.com/jaraco/tempora/blob/${src.tag}/NEWS.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

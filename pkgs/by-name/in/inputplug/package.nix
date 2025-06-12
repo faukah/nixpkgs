@@ -7,7 +7,6 @@
   rustPlatform,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "inputplug";
   version = "0.4.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ libbsd ];
+  buildInputs = [libbsd];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-+GbbCAdEkxhyQoe8g4me2jlsuHx4R5vibd2PQLmqNM4=";
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     platforms = platforms.unix;
     # `daemon(3)` is deprecated on macOS and `pidfile-rs` needs updating
     broken = stdenv.hostPlatform.isDarwin;
-    maintainers = with maintainers; [ jecaro ];
+    maintainers = with maintainers; [jecaro];
     mainProgram = "inputplug";
   };
 }

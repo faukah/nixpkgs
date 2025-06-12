@@ -9,7 +9,6 @@
   systemd,
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dtklog";
   version = "0.0.1";
@@ -29,10 +28,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontWrapQtApps = true;
 
-  buildInputs = [
-    libsForQt5.qtbase
-    spdlog
-  ] ++ lib.optional withSystemd systemd;
+  buildInputs =
+    [
+      libsForQt5.qtbase
+      spdlog
+    ]
+    ++ lib.optional withSystemd systemd;
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_WITH_SYSTEMD" withSystemd)
@@ -45,6 +46,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/linuxdeepin/dtklog";
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 })

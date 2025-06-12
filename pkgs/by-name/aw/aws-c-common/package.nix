@@ -5,7 +5,6 @@
   cmake,
   nix,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aws-c-common";
   # nixpkgs-update: no auto update
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-sA6CsLLHh4Ce/+ffl4OhisMSgdrD+EmXvTNGSq7/vvk=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags =
     [
@@ -33,17 +32,15 @@ stdenv.mkDerivation rec {
   setupHook = ./setup-hook.sh;
 
   # Prevent the execution of tests known to be flaky.
-  preCheck =
-    let
-      ignoreTests = [
-        "promise_test_multiple_waiters"
-      ];
-    in
-    ''
-      cat <<EOW >CTestCustom.cmake
-      SET(CTEST_CUSTOM_TESTS_IGNORE ${toString ignoreTests})
-      EOW
-    '';
+  preCheck = let
+    ignoreTests = [
+      "promise_test_multiple_waiters"
+    ];
+  in ''
+    cat <<EOW >CTestCustom.cmake
+    SET(CTEST_CUSTOM_TESTS_IGNORE ${toString ignoreTests})
+    EOW
+  '';
 
   doCheck = true;
 

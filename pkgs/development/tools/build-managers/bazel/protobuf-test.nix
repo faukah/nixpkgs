@@ -13,9 +13,7 @@
   writeScript,
   writeText,
   distDir,
-}:
-
-let
+}: let
   com_google_protobuf = fetchFromGitHub {
     owner = "protocolbuffers";
     repo = "protobuf";
@@ -145,7 +143,7 @@ let
     exec "$BAZEL_REAL" "$@"
   '';
 
-  workspaceDir = runLocal "our_workspace" { } (
+  workspaceDir = runLocal "our_workspace" {} (
     ''
       mkdir $out
       cp ${WORKSPACE} $out/WORKSPACE
@@ -166,7 +164,11 @@ let
     inherit workspaceDir;
     bazelPkg = bazel;
     buildInputs = [
-      (if lib.strings.versionOlder bazel.version "5.0.0" then openjdk8 else jdk11_headless)
+      (
+        if lib.strings.versionOlder bazel.version "5.0.0"
+        then openjdk8
+        else jdk11_headless
+      )
     ];
     bazelScript =
       ''
@@ -190,6 +192,5 @@ let
         --linkopt=-stdlib=libc++ --host_linkopt=-stdlib=libc++ \
       '';
   };
-
 in
-testBazel
+  testBazel

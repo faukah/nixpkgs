@@ -10,7 +10,6 @@
   extra-cmake-modules,
   esbuild,
 }:
-
 mkDerivation rec {
   pname = "bismuth";
   version = "3.1.4";
@@ -47,7 +46,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "Dynamic tiling extension for KWin";
     license = licenses.mit;
-    maintainers = with maintainers; [ pasqui23 ];
+    maintainers = with maintainers; [pasqui23];
     homepage = "https://bismuth-forge.github.io/bismuth/";
     inherit (kwindowsystem.meta) platforms;
   };

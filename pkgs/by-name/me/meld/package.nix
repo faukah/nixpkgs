@@ -19,7 +19,6 @@
   gsettings-desktop-schemas,
   desktopToDarwinBundle,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "meld";
   version = "3.23.0";
@@ -31,18 +30,20 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-mDwqQkDgJaIQnHc4GYcQ6dawY8kQsEgzLRRpDPU4wqY=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    gettext
-    itstool
-    libxml2
-    pkg-config
-    desktop-file-utils
-    gobject-introspection
-    wrapGAppsHook3
-    gtk3 # for gtk-update-icon-cache
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ desktopToDarwinBundle ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      gettext
+      itstool
+      libxml2
+      pkg-config
+      desktop-file-utils
+      gobject-introspection
+      wrapGAppsHook3
+      gtk3 # for gtk-update-icon-cache
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [desktopToDarwinBundle];
 
   buildInputs = [
     gtk3

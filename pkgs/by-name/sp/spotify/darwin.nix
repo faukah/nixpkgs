@@ -7,14 +7,14 @@
   updateScript,
   lib,
 }:
-
 stdenv.mkDerivation {
   inherit pname;
 
   version = "1.2.64.408";
 
   src =
-    if stdenv.hostPlatform.isAarch64 then
+    if stdenv.hostPlatform.isAarch64
+    then
       (fetchurl {
         url = "https://web.archive.org/web/20250522123639/https://download.scdn.co/SpotifyARM64.dmg";
         hash = "sha256-28T+AxhnM1K6W50JUu9RdFRKsBRDTQulKK2+kk2RTMQ=";
@@ -25,7 +25,7 @@ stdenv.mkDerivation {
         hash = "sha256-P8itkT2w7xQl0WfMLcNHgi1zcoYMqOdGmNDXdwhZBUs=";
       });
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = ".";
 
@@ -38,12 +38,14 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru = { inherit updateScript; };
+  passthru = {inherit updateScript;};
 
-  meta = meta // {
-    maintainers = with lib.maintainers; [
-      matteopacini
-      Enzime
-    ];
-  };
+  meta =
+    meta
+    // {
+      maintainers = with lib.maintainers; [
+        matteopacini
+        Enzime
+      ];
+    };
 }

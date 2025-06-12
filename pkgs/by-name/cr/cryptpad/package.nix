@@ -11,15 +11,12 @@
   nodejs,
   rdfind,
   unzip,
-}:
-
-let
+}: let
   version = "2025.3.0";
   # nix version of install-onlyoffice.sh
   # a later version could rebuild from sdkjs/web-apps as per
   # https://github.com/cryptpad/onlyoffice-builds/blob/main/build.sh
-  onlyoffice_build =
-    rev: hash:
+  onlyoffice_build = rev: hash:
     fetchFromGitHub {
       inherit rev hash;
       owner = "cryptpad";
@@ -74,87 +71,86 @@ let
     unzip ${x2t} -d "$X2T_DIR"
     echo "${x2t_version}" > "$X2T_DIR"/.version
   '';
-
 in
-buildNpmPackage {
-  inherit version;
-  pname = "cryptpad";
+  buildNpmPackage {
+    inherit version;
+    pname = "cryptpad";
 
-  src = fetchFromGitHub {
-    owner = "cryptpad";
-    repo = "cryptpad";
-    rev = version;
-    hash = "sha256-NxkVMsfLzdzifdn+f0C6mBJGd1oLwcMTAIXv+gBG7rI=";
-  };
+    src = fetchFromGitHub {
+      owner = "cryptpad";
+      repo = "cryptpad";
+      rev = version;
+      hash = "sha256-NxkVMsfLzdzifdn+f0C6mBJGd1oLwcMTAIXv+gBG7rI=";
+    };
 
-  npmDepsHash = "sha256-GWkyRlizPSA72WwoY+mRLwaMeD/SXdo6oUVwsd2gp7c=";
+    npmDepsHash = "sha256-GWkyRlizPSA72WwoY+mRLwaMeD/SXdo6oUVwsd2gp7c=";
 
-  nativeBuildInputs = [
-    makeBinaryWrapper
-    rdfind
-    unzip
-    bash
-  ];
+    nativeBuildInputs = [
+      makeBinaryWrapper
+      rdfind
+      unzip
+      bash
+    ];
 
-  patches = [
-    # fix httpSafePort setting
-    # https://github.com/cryptpad/cryptpad/pull/1571
-    ./0001-env.js-fix-httpSafePort-handling.patch
-  ];
+    patches = [
+      # fix httpSafePort setting
+      # https://github.com/cryptpad/cryptpad/pull/1571
+      ./0001-env.js-fix-httpSafePort-handling.patch
+    ];
 
-  # cryptpad build tries to write in cache dir
-  makeCacheWritable = true;
+    # cryptpad build tries to write in cache dir
+    makeCacheWritable = true;
 
-  # 'npm build run' (scripts/build.js) generates a customize directory, but:
-  # - that is not installed by npm install
-  # - it embeds values from config into the directory, so needs to be
-  # run before starting the server (it's just a few quick replaces)
-  # Skip it here.
-  dontNpmBuild = true;
+    # 'npm build run' (scripts/build.js) generates a customize directory, but:
+    # - that is not installed by npm install
+    # - it embeds values from config into the directory, so needs to be
+    # run before starting the server (it's just a few quick replaces)
+    # Skip it here.
+    dontNpmBuild = true;
 
-  postInstall = ''
-    out_cryptpad="$out/lib/node_modules/cryptpad"
+    postInstall = ''
+      out_cryptpad="$out/lib/node_modules/cryptpad"
 
-    # 'npm run install:components' (scripts/copy-component.js) copies
-    # required node modules to www/component in the build tree...
-    # Move to install directory manually.
-    npm run install:components
-    mv www/components "$out_cryptpad/www/"
-    # and fix absolute symlink to /build...
-    ln -Tfs ../../src/tweetnacl "$out_cryptpad/www/components/tweetnacl"
+      # 'npm run install:components' (scripts/copy-component.js) copies
+      # required node modules to www/component in the build tree...
+      # Move to install directory manually.
+      npm run install:components
+      mv www/components "$out_cryptpad/www/"
+      # and fix absolute symlink to /build...
+      ln -Tfs ../../src/tweetnacl "$out_cryptpad/www/components/tweetnacl"
 
-    # install OnlyOffice (install-onlyoffice.sh without network)
-    mkdir -p "$out_cryptpad/www/common/onlyoffice/dist"
-    ${lib.concatMapStringsSep "\n" onlyoffice_install onlyoffice_versions}
-    ${x2t_install}
-    # Run upstream's `install-onlyoffice.sh` script in `--check` mode to
-    # verify that we've installed the correct versions of the various
-    # OnlyOffice components.
-    patchShebangs --build $out_cryptpad/install-onlyoffice.sh
-    $out_cryptpad/install-onlyoffice.sh --accept-license --check --rdfind
+      # install OnlyOffice (install-onlyoffice.sh without network)
+      mkdir -p "$out_cryptpad/www/common/onlyoffice/dist"
+      ${lib.concatMapStringsSep "\n" onlyoffice_install onlyoffice_versions}
+      ${x2t_install}
+      # Run upstream's `install-onlyoffice.sh` script in `--check` mode to
+      # verify that we've installed the correct versions of the various
+      # OnlyOffice components.
+      patchShebangs --build $out_cryptpad/install-onlyoffice.sh
+      $out_cryptpad/install-onlyoffice.sh --accept-license --check --rdfind
 
-    # cryptpad assumes it runs in the source directory and also outputs
-    # its state files there, which is not exactly great for us.
-    # There are relative paths everywhere so just substituing source paths
-    # is difficult and will likely break on a future update, instead we
-    # make links to the required source directories before running.
-    # The build.js step populates 'customize' from customize.dist and config;
-    # one would normally want to re-run it after modifying config but since it
-    # would overwrite user modifications only run it if there is no customize
-    # directory.
-    makeWrapper "${lib.getExe nodejs}" "$out/bin/cryptpad" \
-      --add-flags "$out_cryptpad/server.js" \
-      --run "for d in customize.dist lib www scripts; do ${coreutils}/bin/ln -sf \"$out_cryptpad/\$d\" .; done" \
-      --run "if ! [ -d customize ]; then \"${lib.getExe nodejs}\" \"$out_cryptpad/scripts/build.js\"; fi"
-  '';
+      # cryptpad assumes it runs in the source directory and also outputs
+      # its state files there, which is not exactly great for us.
+      # There are relative paths everywhere so just substituing source paths
+      # is difficult and will likely break on a future update, instead we
+      # make links to the required source directories before running.
+      # The build.js step populates 'customize' from customize.dist and config;
+      # one would normally want to re-run it after modifying config but since it
+      # would overwrite user modifications only run it if there is no customize
+      # directory.
+      makeWrapper "${lib.getExe nodejs}" "$out/bin/cryptpad" \
+        --add-flags "$out_cryptpad/server.js" \
+        --run "for d in customize.dist lib www scripts; do ${coreutils}/bin/ln -sf \"$out_cryptpad/\$d\" .; done" \
+        --run "if ! [ -d customize ]; then \"${lib.getExe nodejs}\" \"$out_cryptpad/scripts/build.js\"; fi"
+    '';
 
-  passthru.tests.cryptpad = nixosTests.cryptpad;
+    passthru.tests.cryptpad = nixosTests.cryptpad;
 
-  meta = {
-    description = "Collaborative office suite, end-to-end encrypted and open-source.";
-    homepage = "https://cryptpad.org/";
-    license = lib.licenses.agpl3Plus;
-    mainProgram = "cryptpad";
-    maintainers = with lib.maintainers; [ martinetd ];
-  };
-}
+    meta = {
+      description = "Collaborative office suite, end-to-end encrypted and open-source.";
+      homepage = "https://cryptpad.org/";
+      license = lib.licenses.agpl3Plus;
+      mainProgram = "cryptpad";
+      maintainers = with lib.maintainers; [martinetd];
+    };
+  }

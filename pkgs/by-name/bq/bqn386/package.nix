@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "bqn386";
   version = "unstable-2022-05-16";
@@ -33,7 +32,7 @@ stdenvNoCC.mkDerivation {
     description = "APL and BQN font extending on APL386";
     homepage = "https://dzaima.github.io/BQN386/";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ skykanin ];
+    maintainers = with lib.maintainers; [skykanin];
     platforms = lib.platforms.all;
   };
 }

@@ -8,7 +8,6 @@
   openssl,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rathole";
   version = "0.5.0-unstable-2024-06-06";
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-IgPDe8kuWzJ6nF2DceUbN7fw0eGkoYhu1IGMdlSMFos=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
@@ -44,7 +43,7 @@ rustPlatform.buildRustPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [ openssl ];
+  nativeCheckInputs = [openssl];
   preCheck = ''
     patchShebangs examples/tls/create_self_signed_cert.sh
     (cd examples/tls && chmod +x create_self_signed_cert.sh && ./create_self_signed_cert.sh)

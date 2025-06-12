@@ -4,15 +4,10 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-{
-
+with lib; {
   ###### interface
 
   options = {
-
     services.oidentd.enable = mkOption {
       default = false;
       type = types.bool;
@@ -22,15 +17,14 @@ with lib;
         name of the user associated with a TCP connection.
       '';
     };
-
   };
 
   ###### implementation
 
   config = mkIf config.services.oidentd.enable {
     systemd.services.oidentd = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig.Type = "forking";
       script = "${pkgs.oidentd}/sbin/oidentd -u oidentd -g nogroup";
     };
@@ -42,7 +36,5 @@ with lib;
     };
 
     users.groups.oidentd.gid = config.ids.gids.oidentd;
-
   };
-
 }

@@ -7,7 +7,6 @@
   pkg-config,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xprintidle";
   version = "0.3.0";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/g0hl1n/xprintidle";
     description = "Utility that queries the X server for the user's idle time and prints it to stdout";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.linux;
     mainProgram = "xprintidle";
   };

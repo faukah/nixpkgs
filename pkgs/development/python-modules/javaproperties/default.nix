@@ -7,7 +7,6 @@
   python-dateutil,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   version = "0.8.2";
   pname = "javaproperties";
@@ -22,21 +21,21 @@ buildPythonPackage rec {
     sha256 = "sha256-8Deo6icInp7QpTqa+Ou6l36/23skxKOYRef2GbumDqo=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   nativeCheckInputs = [
     python-dateutil
     pytestCheckHook
   ];
 
-  disabledTests = [ "time" ];
+  disabledTests = ["time"];
 
-  disabledTestPaths = [ "test/test_propclass.py" ];
+  disabledTestPaths = ["test/test_propclass.py"];
 
   meta = {
     description = "Python library for reading and writing Java .properties files";
     homepage = "https://github.com/jwodder/javaproperties";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

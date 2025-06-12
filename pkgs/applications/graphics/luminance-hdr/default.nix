@@ -17,7 +17,6 @@
   libsForQt5,
   eigen,
 }:
-
 stdenv.mkDerivation rec {
   pname = "luminance-hdr";
   version = "2.6.1.1";
@@ -86,6 +85,6 @@ stdenv.mkDerivation rec {
     description = "Complete open source solution for HDR photography";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.hrdinka ];
+    maintainers = [maintainers.hrdinka];
   };
 }

@@ -1,4 +1,7 @@
-{ lib, buildDotnetGlobalTool }:
+{
+  lib,
+  buildDotnetGlobalTool,
+}:
 buildDotnetGlobalTool {
   pname = "upgrade-assistant";
   version = "0.5.1084";
@@ -9,7 +12,7 @@ buildDotnetGlobalTool {
     homepage = "https://github.com/dotnet/upgrade-assistant";
     description = "Tool to assist developers in upgrading .NET Framework applications to .NET 6 and beyond";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
     mainProgram = "ugprade-assistant";
     platforms = lib.platforms.all;
   };

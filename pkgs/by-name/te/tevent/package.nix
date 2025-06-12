@@ -15,7 +15,6 @@
   buildPackages,
   libxcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tevent";
   version = "0.16.2";

@@ -6,7 +6,6 @@
   mypy-extensions,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "typing-inspect";
   version = "0.9.0";
@@ -23,19 +22,19 @@ buildPythonPackage rec {
     mypy-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # https://github.com/ilevkivskyi/typing_inspect/issues/84
     "test_typed_dict_typing_extension"
   ];
 
-  pythonImportsCheck = [ "typing_inspect" ];
+  pythonImportsCheck = ["typing_inspect"];
 
   meta = with lib; {
     description = "Runtime inspection utilities for Python typing module";
     homepage = "https://github.com/ilevkivskyi/typing_inspect";
     license = licenses.mit;
-    maintainers = with maintainers; [ albakham ];
+    maintainers = with maintainers; [albakham];
   };
 }

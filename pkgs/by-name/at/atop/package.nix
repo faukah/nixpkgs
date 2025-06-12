@@ -13,7 +13,6 @@
   # makes the package unfree via pynvml
   withAtopgpu ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "atop";
   version = "2.11.1";
@@ -83,21 +82,20 @@ stdenv.mkDerivation rec {
       rm -r $out/{var,etc} $out/bin/atop{sar,}-${version}
     ''
     + (
-      if withAtopgpu then
-        ''
-          wrapPythonPrograms
-        ''
-      else
-        ''
-          rm $out/lib/systemd/system/atopgpu.service $out/bin/atopgpud $out/share/man/man8/atopgpud.8
-        ''
+      if withAtopgpu
+      then ''
+        wrapPythonPrograms
+      ''
+      else ''
+        rm $out/lib/systemd/system/atopgpu.service $out/bin/atopgpud $out/share/man/man8/atopgpud.8
+      ''
     );
 
-  passthru.tests = { inherit (nixosTests) atop; };
+  passthru.tests = {inherit (nixosTests) atop;};
 
   meta = with lib; {
     platforms = platforms.linux;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     description = "Console system performance monitor";
     longDescription = ''
       Atop is an ASCII full-screen performance monitor that is capable of reporting the activity of

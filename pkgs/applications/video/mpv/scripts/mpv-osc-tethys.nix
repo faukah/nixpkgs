@@ -8,7 +8,7 @@ buildLua (finalAttrs: {
   version = "0-unstable-2024-08-19";
 
   scriptPath = "osc_tethys.lua";
-  extraScripts = [ "mpv_thumbnail_script_server.lua" ];
+  extraScripts = ["mpv_thumbnail_script_server.lua"];
 
   src = fetchFromGitHub {
     owner = "Zren";
@@ -21,6 +21,6 @@ buildLua (finalAttrs: {
     description = "OSC UI replacement for MPV with icons from the bomi video player";
     homepage = "https://github.com/Zren/mpv-osc-tethys";
     license = lib.licenses.unfree; # no license specified
-    maintainers = with lib.maintainers; [ luftmensch-luftmensch ];
+    maintainers = with lib.maintainers; [luftmensch-luftmensch];
   };
 })

@@ -12,7 +12,6 @@
   libXrender,
   conf ? null,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pmenu";
   version = "3.1.1";
@@ -34,11 +33,12 @@ stdenv.mkDerivation (finalAttrs: {
     libXrender
   ];
 
-  postPatch =
-    let
-      configFile =
-        if lib.isDerivation conf || builtins.isPath conf then conf else writeText "config.h" conf;
-    in
+  postPatch = let
+    configFile =
+      if lib.isDerivation conf || builtins.isPath conf
+      then conf
+      else writeText "config.h" conf;
+  in
     lib.optionalString (conf != null) "mv ${configFile} config.h";
 
   makeFlags = [
@@ -56,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
       stdin, shows a menu for the user to select one of the options, and outputs
       the option selected to stdout.
     '';
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
     mainProgram = "pmenu";
   };

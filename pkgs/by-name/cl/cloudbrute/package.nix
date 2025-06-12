@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "cloudbrute";
   version = "1.0.7";
@@ -26,7 +25,7 @@ buildGoModule rec {
       Alibaba, Vultr, Linode).
     '';
     homepage = "https://github.com/0xsha/CloudBrute";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

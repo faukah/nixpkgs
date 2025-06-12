@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubeseal";
   version = "0.29.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-4BseFdfJjR8Th+NJ82dYsz9Dym1hzDa4kB4bpy71q7Q=";
 
-  subPackages = [ "cmd/kubeseal" ];
+  subPackages = ["cmd/kubeseal"];
 
   ldflags = [
     "-s"
@@ -31,6 +30,6 @@ buildGoModule rec {
     homepage = "https://github.com/bitnami-labs/sealed-secrets";
     changelog = "https://github.com/bitnami-labs/sealed-secrets/blob/v${version}/RELEASE-NOTES.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ groodt ];
+    maintainers = with lib.maintainers; [groodt];
   };
 }

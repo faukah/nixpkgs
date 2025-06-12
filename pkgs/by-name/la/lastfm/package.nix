@@ -7,7 +7,6 @@
   xmlstarlet,
   common-updater-scripts,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "lastfm";
   version = "2.1.39";
@@ -51,8 +50,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Music services manager";
     homepage = "https://www.last.fm/";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ iivusly ];
+    maintainers = with lib.maintainers; [iivusly];
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

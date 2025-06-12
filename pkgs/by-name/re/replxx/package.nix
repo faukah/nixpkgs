@@ -5,7 +5,6 @@
   cmake,
   enableStatic ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "replxx";
   version = "0.0.4";
@@ -17,16 +16,22 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-WGiczMJ64YPq0DHKZRBDa7EGlRx7hPlpnk6zPdIVFh4=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=${if enableStatic then "OFF" else "ON"}" ];
+  cmakeFlags = [
+    "-DBUILD_SHARED_LIBS=${
+      if enableStatic
+      then "OFF"
+      else "ON"
+    }"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/AmokHuginnsson/replxx";
     changelog = "https://github.com/AmokHuginnsson/replxx/releases/tag/release-${finalAttrs.version}";
     description = "Readline and libedit replacement that supports UTF-8, syntax highlighting, hints and Windows and is BSD licensed";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 })

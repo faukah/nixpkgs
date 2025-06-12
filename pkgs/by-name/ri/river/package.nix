@@ -21,12 +21,11 @@
   withManpages ? true,
   xwaylandSupport ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "river";
   version = "0.3.9";
 
-  outputs = [ "out" ] ++ lib.optionals withManpages [ "man" ];
+  outputs = ["out"] ++ lib.optionals withManpages ["man"];
 
   src = fetchFromGitea {
     domain = "codeberg.org";
@@ -41,24 +40,28 @@ stdenv.mkDerivation (finalAttrs: {
     zig = zig_0_14;
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    wayland-scanner
-    xwayland
-    zig_0_14.hook
-  ] ++ lib.optional withManpages scdoc;
+  nativeBuildInputs =
+    [
+      pkg-config
+      wayland-scanner
+      xwayland
+      zig_0_14.hook
+    ]
+    ++ lib.optional withManpages scdoc;
 
-  buildInputs = [
-    libGL
-    libevdev
-    libinput
-    libxkbcommon
-    pixman
-    udev
-    wayland
-    wayland-protocols
-    wlroots_0_18
-  ] ++ lib.optional xwaylandSupport libX11;
+  buildInputs =
+    [
+      libGL
+      libevdev
+      libinput
+      libxkbcommon
+      pixman
+      udev
+      wayland
+      wayland-protocols
+      wlroots_0_18
+    ]
+    ++ lib.optional xwaylandSupport libX11;
 
   dontConfigure = true;
 
@@ -75,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    providedSessions = [ "river" ];
+    providedSessions = ["river"];
     updateScript = ./update.sh;
   };
 

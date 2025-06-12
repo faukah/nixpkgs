@@ -15,7 +15,6 @@
   vala,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "haguichi";
   version = "1.5.2";
@@ -60,10 +59,10 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "haguichi";
     homepage = "https://haguichi.net/";
     changelog = "https://haguichi.net/news/release${
-      lib.strings.replaceStrings [ "." ] [ "" ] finalAttrs.version
+      lib.strings.replaceStrings ["."] [""] finalAttrs.version
     }";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
   };
 })

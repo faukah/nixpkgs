@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-reverse";
   version = "1.8.0";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-JEJwl/4RL1THQ7cGaS/84KdhIQHB9eLTY5uV+84ald8=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_reverse" ];
+  pythonImportsCheck = ["pytest_reverse"];
 
   meta = with lib; {
     description = "Pytest plugin to reverse test order";
     homepage = "https://github.com/adamchainz/pytest-reverse";
     changelog = "https://github.com/adamchainz/pytest-reverse/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

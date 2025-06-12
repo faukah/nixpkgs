@@ -17,7 +17,6 @@
   libhandy,
   glib-networking,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "web-archives";
   version = "0.5.0";
@@ -72,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/birros/web-archives";
     license = lib.licenses.gpl3Plus;
     mainProgram = "web-archives";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
   };
 })

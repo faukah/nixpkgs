@@ -5,8 +5,7 @@
   nixosTests,
   lib,
   nix-update-script,
-}:
-let
+}: let
   pname = "scrutiny";
   version = "0.8.1";
 
@@ -38,37 +37,37 @@ let
       runHook postInstall
     '';
 
-    passthru.updatescript = nix-update-script { };
+    passthru.updatescript = nix-update-script {};
   };
 in
-buildGoModule rec {
-  inherit pname src version;
+  buildGoModule rec {
+    inherit pname src version;
 
-  subPackages = "webapp/backend/cmd/scrutiny";
+    subPackages = "webapp/backend/cmd/scrutiny";
 
-  vendorHash = "sha256-SiQw6pq0Fyy8Ia39S/Vgp9Mlfog2drtVn43g+GXiQuI=";
+    vendorHash = "sha256-SiQw6pq0Fyy8Ia39S/Vgp9Mlfog2drtVn43g+GXiQuI=";
 
-  env.CGO_ENABLED = 0;
+    env.CGO_ENABLED = 0;
 
-  ldflags = [ "-extldflags=-static" ];
+    ldflags = ["-extldflags=-static"];
 
-  tags = [ "static" ];
+    tags = ["static"];
 
-  postInstall = ''
-    mkdir -p $out/share/scrutiny
-    cp -r ${frontend}/* $out/share/scrutiny
-  '';
+    postInstall = ''
+      mkdir -p $out/share/scrutiny
+      cp -r ${frontend}/* $out/share/scrutiny
+    '';
 
-  passthru.tests.scrutiny = nixosTests.scrutiny;
-  passthru.updatescript = nix-update-script { };
+    passthru.tests.scrutiny = nixosTests.scrutiny;
+    passthru.updatescript = nix-update-script {};
 
-  meta = {
-    description = "Hard Drive S.M.A.R.T Monitoring, Historical Trends & Real World Failure Thresholds";
-    homepage = "https://github.com/AnalogJ/scrutiny";
-    changelog = "https://github.com/AnalogJ/scrutiny/releases/tag/v${version}";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jnsgruk ];
-    mainProgram = "scrutiny";
-    platforms = lib.platforms.linux;
-  };
-}
+    meta = {
+      description = "Hard Drive S.M.A.R.T Monitoring, Historical Trends & Real World Failure Thresholds";
+      homepage = "https://github.com/AnalogJ/scrutiny";
+      changelog = "https://github.com/AnalogJ/scrutiny/releases/tag/v${version}";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [jnsgruk];
+      mainProgram = "scrutiny";
+      platforms = lib.platforms.linux;
+    };
+  }

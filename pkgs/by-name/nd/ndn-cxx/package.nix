@@ -11,7 +11,6 @@
   openssl,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ndn-cxx";
   version = "0.9.0";

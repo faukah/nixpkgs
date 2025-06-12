@@ -7,7 +7,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "uart-devices";
   version = "0.1.0";
@@ -27,21 +26,21 @@ buildPythonPackage rec {
       --replace-fail "-Wdefault --cov=uart_devices --cov-report=term-missing:skip-covered" ""
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     pytest-asyncio
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "uart_devices" ];
+  pythonImportsCheck = ["uart_devices"];
 
   meta = with lib; {
     description = "UART Devices for Linux";
     homepage = "https://github.com/bdraco/uart-devices";
     changelog = "https://github.com/bdraco/uart-devices/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     platforms = platforms.linux;
   };
 }

@@ -6,7 +6,6 @@
   xorg,
   clapper-enhancers,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "clapper";
   inherit (clapper-unwrapped) version meta;
@@ -22,7 +21,7 @@ stdenvNoCC.mkDerivation {
     xorg.lndir
   ];
 
-  buildInputs = [ clapper-unwrapped ] ++ clapper-unwrapped.buildInputs;
+  buildInputs = [clapper-unwrapped] ++ clapper-unwrapped.buildInputs;
 
   installPhase = ''
     runHook preInstall

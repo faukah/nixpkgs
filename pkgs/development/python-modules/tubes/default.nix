@@ -7,7 +7,6 @@
   six,
   twisted,
 }:
-
 buildPythonPackage {
   pname = "tubes";
   version = "0.2.1-unstable-2023-11-06";
@@ -30,12 +29,12 @@ buildPythonPackage {
     ${python.interpreter} -m twisted.trial -j $NIX_BUILD_CORES tubes
   '';
 
-  pythonImportsCheck = [ "tubes" ];
+  pythonImportsCheck = ["tubes"];
 
   meta = with lib; {
     description = "Data-processing and flow-control engine for event-driven programs";
     homepage = "https://github.com/twisted/tubes";
     license = licenses.mit;
-    maintainers = with maintainers; [ exarkun ];
+    maintainers = with maintainers; [exarkun];
   };
 }

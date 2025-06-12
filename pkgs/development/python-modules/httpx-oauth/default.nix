@@ -12,7 +12,6 @@
   pytestCheckHook,
   respx,
 }:
-
 buildPythonPackage rec {
   pname = "httpx-oauth";
   version = "0.16.1";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hatch-regex-commit
   ];
 
-  dependencies = [ httpx ];
+  dependencies = [httpx];
 
   nativeCheckInputs = [
     fastapi
@@ -41,13 +40,13 @@ buildPythonPackage rec {
     respx
   ];
 
-  pythonImportsCheck = [ "httpx_oauth" ];
+  pythonImportsCheck = ["httpx_oauth"];
 
   meta = with lib; {
     description = "Async OAuth client using HTTPX";
     homepage = "https://github.com/frankie567/httpx-oauth";
     changelog = "https://github.com/frankie567/httpx-oauth/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

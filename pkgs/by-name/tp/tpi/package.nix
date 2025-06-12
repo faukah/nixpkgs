@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "CLI tool to control your Turing Pi 2 board";
     homepage = "https://github.com/turing-machines/tpi";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ WoutSwinkels ];
+    maintainers = with lib.maintainers; [WoutSwinkels];
     mainProgram = "tpi";
   };
 }

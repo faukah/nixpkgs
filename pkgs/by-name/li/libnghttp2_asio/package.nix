@@ -7,7 +7,6 @@
   openssl,
   boost,
 }:
-
 stdenv.mkDerivation {
   pname = "libnghttp2_asio";
   version = "unstable-2022-08-11";
@@ -44,7 +43,7 @@ stdenv.mkDerivation {
       OpenSSL. libnghttp2_asio provides both client and server APIs.
     '';
     homepage = "https://github.com/nghttp2/nghttp2-asio";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ izorkin ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [izorkin];
   };
 }

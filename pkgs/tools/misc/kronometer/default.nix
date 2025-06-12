@@ -8,7 +8,6 @@
   kcrash,
   kinit,
 }:
-
 mkDerivation rec {
   pname = "kronometer";
   version = "2.3.0";
@@ -22,7 +21,7 @@ mkDerivation rec {
     homepage = "https://kde.org/applications/utilities/kronometer/";
     description = "Stopwatch application";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     mainProgram = "kronometer";
   };
   nativeBuildInputs = [

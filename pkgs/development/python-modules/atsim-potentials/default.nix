@@ -15,7 +15,6 @@
   deepdiff,
   sympy,
 }:
-
 buildPythonPackage rec {
   pname = "atsim-potentials";
   version = "0.4.1";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-G7lNqwEUwAT0f7M2nUTCxpXOAl6FWKlh7tcsvbur1eM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cexprtk
@@ -63,13 +62,13 @@ buildPythonPackage rec {
     "eam_tabulate_example2TestCase"
   ];
 
-  pythonImportsCheck = [ "atsim.potentials" ];
+  pythonImportsCheck = ["atsim.potentials"];
 
   meta = with lib; {
     homepage = "https://github.com/mjdrushton/atsim-potentials";
     description = "Provides tools for working with pair and embedded atom method potential models including tabulation routines for DL_POLY and LAMMPS";
     mainProgram = "potable";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

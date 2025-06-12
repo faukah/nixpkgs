@@ -7,7 +7,6 @@
   pythonOlder,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-nwdiag";
   version = "2.0.0";
@@ -26,14 +25,14 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  pythonImportsCheck = [ "sphinxcontrib.nwdiag" ];
+  pythonImportsCheck = ["sphinxcontrib.nwdiag"];
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     description = "Sphinx nwdiag extension";
     homepage = "https://github.com/blockdiag/sphinxcontrib-nwdiag";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -4,7 +4,6 @@
   lib,
   libpcap,
 }:
-
 buildGoModule {
   pname = "httpdump";
   version = "unstable-2023-05-07";
@@ -18,7 +17,7 @@ buildGoModule {
 
   vendorHash = "sha256-NKCAzx1+BkqZGeAORl7gCA7f9PSsyKxP2eggZyBB2l8=";
 
-  propagatedBuildInputs = [ libpcap ];
+  propagatedBuildInputs = [libpcap];
 
   ldflags = [
     "-s"
@@ -29,7 +28,7 @@ buildGoModule {
     description = "Parse and display HTTP traffic from network device or pcap file";
     mainProgram = "httpdump";
     homepage = "https://github.com/hsiafan/httpdump";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd2];
+    maintainers = with maintainers; [fab];
   };
 }

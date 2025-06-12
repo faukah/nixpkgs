@@ -9,7 +9,6 @@
   xapian,
   icu,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dovecot-fts-xapian";
   version = "1.9";

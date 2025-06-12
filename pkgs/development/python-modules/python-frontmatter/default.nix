@@ -7,7 +7,6 @@
   pytest,
   pyaml,
 }:
-
 buildPythonPackage rec {
   pname = "python-frontmatter";
   version = "1.1.0";
@@ -29,15 +28,15 @@ buildPythonPackage rec {
   # tries to import test.test, which conflicts with module
   # exported by python interpreter
   doCheck = false;
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
-  pythonImportsCheck = [ "frontmatter" ];
+  pythonImportsCheck = ["frontmatter"];
 
   meta = with lib; {
     homepage = "https://github.com/eyeseast/python-frontmatter";
     description = "Parse and manage posts with YAML (or other) frontmatter";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

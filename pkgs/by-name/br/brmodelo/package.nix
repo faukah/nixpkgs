@@ -11,7 +11,6 @@
   strip-nondeterminism,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "brmodelo";
   version = "3.31";
@@ -127,6 +126,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/chcandido/brModelo";
     license = licenses.gpl3;
     mainProgram = "brmodelo";
-    maintainers = with maintainers; [ yuu ];
+    maintainers = with maintainers; [yuu];
   };
 })

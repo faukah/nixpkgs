@@ -10,7 +10,6 @@
   nodejs,
   udev,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ratman";
   version = "0.7.0";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
   ];
 
-  buildInputs = [ udev ];
+  buildInputs = [udev];
 
   cargoBuildFlags = [
     "-p"
@@ -75,6 +74,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://git.irde.st/we/irdest";
     platforms = platforms.unix;
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ spacekookie ];
+    maintainers = with maintainers; [spacekookie];
   };
 }

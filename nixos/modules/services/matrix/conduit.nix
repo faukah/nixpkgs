@@ -3,28 +3,26 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.matrix-conduit;
 
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
   configFile = format.generate "conduit.toml" cfg.settings;
-in
-{
-  meta.maintainers = with lib.maintainers; [ pstn ];
+in {
+  meta.maintainers = with lib.maintainers; [pstn];
   options.services.matrix-conduit = {
     enable = lib.mkEnableOption "matrix-conduit";
 
     extraEnvironment = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
       description = "Extra Environment variables to pass to the conduit server.";
-      default = { };
+      default = {};
       example = {
         RUST_BACKTRACE = "yes";
       };
     };
 
-    package = lib.mkPackageOption pkgs "matrix-conduit" { };
+    package = lib.mkPackageOption pkgs "matrix-conduit" {};
 
     settings = lib.mkOption {
       type = lib.types.submodule {
@@ -64,7 +62,7 @@ in
           };
           global.trusted_servers = lib.mkOption {
             type = lib.types.listOf lib.types.str;
-            default = [ "matrix.org" ];
+            default = ["matrix.org"];
             description = "Servers trusted with signing server keys.";
           };
           global.address = lib.mkOption {
@@ -106,7 +104,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = ''
         Generates the conduit.toml configuration file. Refer to
         <https://docs.conduit.rs/configuration.html>
@@ -119,14 +117,14 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.conduit = {
       description = "Conduit Matrix Server";
-      documentation = [ "https://gitlab.com/famedly/conduit/" ];
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      environment = lib.mkMerge ([
-        { CONDUIT_CONFIG = configFile; }
+      documentation = ["https://gitlab.com/famedly/conduit/"];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      environment = lib.mkMerge [
+        {CONDUIT_CONFIG = configFile;}
         cfg.extraEnvironment
-      ]);
+      ];
       serviceConfig = {
         DynamicUser = true;
         User = "conduit";

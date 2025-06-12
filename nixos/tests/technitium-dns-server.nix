@@ -1,16 +1,17 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "technitium-dns-server";
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
-        services.technitium-dns-server = {
-          enable = true;
-          openFirewall = true;
-        };
+    machine = {pkgs, ...}: {
+      services.technitium-dns-server = {
+        enable = true;
+        openFirewall = true;
       };
+    };
   };
 
   testScript = ''
@@ -25,5 +26,5 @@
     assert "ok" == output['status'], "status not ok"
   '';
 
-  meta.maintainers = with lib.maintainers; [ fabianrig ];
+  meta.maintainers = with lib.maintainers; [fabianrig];
 }

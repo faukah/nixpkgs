@@ -37,11 +37,8 @@
   nlohmann_json,
   xar,
   makeWrapper,
-}:
-
-let
-  generic =
-    overrides: source:
+}: let
+  generic = overrides: source:
     (overrides.stdenv or stdenv).mkDerivation (
       source
       // overrides
@@ -49,13 +46,15 @@ let
         pname = overrides.type;
         version = source.version;
 
-        nativeBuildInputs = [
-          cmake
-          pkg-config
-          python3
-          qt5.wrapQtAppsHook
-          qt5.qttools
-        ] ++ (overrides.nativeBuildInputs or [ ]);
+        nativeBuildInputs =
+          [
+            cmake
+            pkg-config
+            python3
+            qt5.wrapQtAppsHook
+            qt5.qttools
+          ]
+          ++ (overrides.nativeBuildInputs or []);
 
         buildInputs =
           [
@@ -65,16 +64,18 @@ let
             microsoft-gsl
             nlohmann_json
           ]
-          ++ lib.optionals stdenv.hostPlatform.isLinux [ avahi ]
-          ++ (overrides.buildInputs or [ ]);
+          ++ lib.optionals stdenv.hostPlatform.isLinux [avahi]
+          ++ (overrides.buildInputs or []);
 
-        cmakeFlags = [
-          "-D g15=OFF"
-          "-D CMAKE_CXX_STANDARD=17" # protobuf >22 requires C++ 17
-          "-D BUILD_NUMBER=${lib.versions.patch source.version}"
-          "-D bundled-gsl=OFF"
-          "-D bundled-json=OFF"
-        ] ++ (overrides.cmakeFlags or [ ]);
+        cmakeFlags =
+          [
+            "-D g15=OFF"
+            "-D CMAKE_CXX_STANDARD=17" # protobuf >22 requires C++ 17
+            "-D BUILD_NUMBER=${lib.versions.patch source.version}"
+            "-D bundled-gsl=OFF"
+            "-D bundled-json=OFF"
+          ]
+          ++ (overrides.cmakeFlags or []);
 
         preConfigure = ''
           patchShebangs scripts
@@ -90,19 +91,18 @@ let
             felixsinger
             lilacious
           ];
-          platforms = platforms.linux ++ (overrides.platforms or [ ]);
+          platforms = platforms.linux ++ (overrides.platforms or []);
         };
       }
     );
 
-  client =
-    source:
+  client = source:
     generic {
       type = "mumble";
 
       platforms = lib.platforms.darwin;
       nativeBuildInputs =
-        [ qt5.qttools ]
+        [qt5.qttools]
         ++ lib.optionals stdenv.hostPlatform.isDarwin [
           makeWrapper
         ];
@@ -181,16 +181,15 @@ let
       postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
         wrapProgram $out/bin/mumble \
           --prefix LD_LIBRARY_PATH : "${
-            lib.makeLibraryPath (
-              lib.optional pulseSupport libpulseaudio ++ lib.optional pipewireSupport pipewire
-            )
-          }"
+          lib.makeLibraryPath (
+            lib.optional pulseSupport libpulseaudio ++ lib.optional pipewireSupport pipewire
+          )
+        }"
       '';
+    }
+    source;
 
-    } source;
-
-  server =
-    source:
+  server = source:
     generic {
       type = "murmur";
 
@@ -204,11 +203,11 @@ let
           "-D Ice_SLICE_DIR=${lib.getDev zeroc-ice}/share/ice/slice"
         ];
 
-      buildInputs = [ libcap ] ++ lib.optional iceSupport zeroc-ice;
-    } source;
+      buildInputs = [libcap] ++ lib.optional iceSupport zeroc-ice;
+    }
+    source;
 
-  overlay =
-    source:
+  overlay = source:
     generic {
       stdenv = stdenv_32bit;
       type = "mumble-overlay";
@@ -218,7 +217,8 @@ let
         "-D client=OFF"
         "-D overlay=ON"
       ];
-    } source;
+    }
+    source;
 
   source = rec {
     version = "1.5.735";
@@ -232,9 +232,8 @@ let
       fetchSubmodules = true;
     };
   };
-in
-{
-  mumble = lib.recursiveUpdate (client source) { meta.mainProgram = "mumble"; };
-  murmur = lib.recursiveUpdate (server source) { meta.mainProgram = "mumble-server"; };
+in {
+  mumble = lib.recursiveUpdate (client source) {meta.mainProgram = "mumble";};
+  murmur = lib.recursiveUpdate (server source) {meta.mainProgram = "mumble-server";};
   overlay = overlay source;
 }

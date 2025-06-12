@@ -1,10 +1,11 @@
 {
   stdenv,
   mdk-sdk,
+}: {
+  version,
+  src,
+  ...
 }:
-
-{ version, src, ... }:
-
 stdenv.mkDerivation rec {
   pname = "fvp";
   inherit version src;

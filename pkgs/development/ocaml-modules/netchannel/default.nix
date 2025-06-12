@@ -17,7 +17,6 @@
   lwt-dllist,
   result,
 }:
-
 buildDunePackage rec {
   pname = "netchannel";
   version = "2.1.3";
@@ -53,7 +52,7 @@ buildDunePackage rec {
   meta = with lib; {
     description = "Network device for reading and writing Ethernet frames via then Xen netfront/netback protocol";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     homepage = "https://github.com/mirage/mirage-net-xen";
   };
 }

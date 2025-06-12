@@ -3,7 +3,6 @@
   fetchFromGitHub,
   ocamlPackages,
 }:
-
 ocamlPackages.buildDunePackage rec {
   pname = "gradescope_submit";
   version = "2.0.2";
@@ -30,7 +29,7 @@ ocamlPackages.buildDunePackage rec {
     description = "Small script to submit to Gradescope via GitHub";
     homepage = "https://github.com/nmittu/gradescope-submit";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "submit";
   };
 }

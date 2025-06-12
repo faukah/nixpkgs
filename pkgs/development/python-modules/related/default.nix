@@ -9,7 +9,6 @@
   pythonOlder,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "related";
   version = "0.7.3";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     # Remove outdated setup.cfg
@@ -46,12 +45,12 @@ buildPythonPackage rec {
     "test_store_data_from_json"
   ];
 
-  pythonImportsCheck = [ "related" ];
+  pythonImportsCheck = ["related"];
 
   meta = with lib; {
     description = "Nested Object Models in Python";
     homepage = "https://github.com/genomoncology/related";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

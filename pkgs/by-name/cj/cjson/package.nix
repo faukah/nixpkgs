@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cjson";
   version = "1.7.18";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UgUWc/+Zie2QNijxKK5GFe4Ypk97EidG8nTiiHhn5Ys=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = lib.optional (stdenv.cc.isClang && !stdenv.hostPlatform.isDarwin) (
     lib.cmakeBool "ENABLE_CUSTOM_COMPILER_FLAGS" false
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/DaveGamble/cJSON";
     description = "Ultralightweight JSON parser in ANSI C";
     license = licenses.mit;
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
     platforms = platforms.unix;
   };
 }

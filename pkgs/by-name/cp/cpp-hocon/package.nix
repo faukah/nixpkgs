@@ -7,7 +7,6 @@
   curl,
   leatherman,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cpp-hocon";
   version = "0.3.0";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     boost
@@ -37,8 +36,7 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     description = "C++ port of the Typesafe Config library";
     license = licenses.asl20;
-    maintainers = [ maintainers.womfoo ];
+    maintainers = [maintainers.womfoo];
     platforms = platforms.unix;
   };
-
 }

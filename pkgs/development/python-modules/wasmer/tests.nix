@@ -6,7 +6,6 @@
   wasmer-compiler-llvm,
   wasmer-compiler-singlepass,
 }:
-
 buildPythonPackage {
   pname = "wasmer-tests";
   inherit (wasmer) version;

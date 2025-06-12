@@ -3,14 +3,10 @@
   stdenv,
   fetchFromGitHub,
   buildGo123Module,
-
   nodejs_22,
   pnpm_9,
-
   nixosTests,
-}:
-
-let
+}: let
   version = "2.32.0";
 
   pnpm = pnpm_9;
@@ -52,36 +48,35 @@ let
       runHook postInstall
     '';
   });
-
 in
-buildGo123Module {
-  pname = "filebrowser";
-  inherit version src;
+  buildGo123Module {
+    pname = "filebrowser";
+    inherit version src;
 
-  vendorHash = "sha256-Jce90mvNzjElCtEMQSSU3IQPz+WLhyEol1ktW4FG7yk=";
+    vendorHash = "sha256-Jce90mvNzjElCtEMQSSU3IQPz+WLhyEol1ktW4FG7yk=";
 
-  excludedPackages = [ "tools" ];
+    excludedPackages = ["tools"];
 
-  preBuild = ''
-    cp -r ${frontend}/dist frontend/
-  '';
+    preBuild = ''
+      cp -r ${frontend}/dist frontend/
+    '';
 
-  ldflags = [
-    "-X github.com/filebrowser/filebrowser/v2/version.Version=v${version}"
-  ];
+    ldflags = [
+      "-X github.com/filebrowser/filebrowser/v2/version.Version=v${version}"
+    ];
 
-  passthru = {
-    inherit frontend;
-    tests = {
-      inherit (nixosTests) filebrowser;
+    passthru = {
+      inherit frontend;
+      tests = {
+        inherit (nixosTests) filebrowser;
+      };
     };
-  };
 
-  meta = with lib; {
-    description = "Filebrowser is a web application for managing files and directories";
-    homepage = "https://filebrowser.org";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ oakenshield ];
-    mainProgram = "filebrowser";
-  };
-}
+    meta = with lib; {
+      description = "Filebrowser is a web application for managing files and directories";
+      homepage = "https://filebrowser.org";
+      license = licenses.asl20;
+      maintainers = with maintainers; [oakenshield];
+      mainProgram = "filebrowser";
+    };
+  }

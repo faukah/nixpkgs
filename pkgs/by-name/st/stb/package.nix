@@ -5,7 +5,6 @@
   copyPkgconfigItems,
   makePkgconfigItem,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stb";
   version = "unstable-2023-01-29";
@@ -17,13 +16,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-s2ASdlT3bBNrqvwfhhN6skjbmyEnUgvNOrvhgUSRj98=";
   };
 
-  nativeBuildInputs = [ copyPkgconfigItems ];
+  nativeBuildInputs = [copyPkgconfigItems];
 
   pkgconfigItems = [
     (makePkgconfigItem rec {
       name = "stb";
       version = "1";
-      cflags = [ "-I${variables.includedir}/stb" ];
+      cflags = ["-I${variables.includedir}/stb"];
       variables = rec {
         prefix = "${placeholder "out"}";
         includedir = "${prefix}/include";
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nothings/stb";
     license = licenses.publicDomain;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

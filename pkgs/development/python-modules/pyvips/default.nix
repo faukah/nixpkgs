@@ -12,7 +12,6 @@
   setuptools,
   vips,
 }:
-
 buildPythonPackage rec {
   pname = "pyvips";
   version = "2.2.3";
@@ -41,13 +40,13 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ cffi ];
+  dependencies = [cffi];
 
   env = lib.optionalAttrs stdenv.cc.isClang {
     NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-function-pointer-types";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pyvips/__init__.py \
@@ -57,7 +56,7 @@ buildPythonPackage rec {
       --replace 'libgobject-2.0.dylib' '${glib.out}/lib/libgobject-2.0${stdenv.hostPlatform.extensions.sharedLibrary}' \
   '';
 
-  pythonImportsCheck = [ "pyvips" ];
+  pythonImportsCheck = ["pyvips"];
 
   meta = with lib; {
     description = "Python wrapper for libvips";

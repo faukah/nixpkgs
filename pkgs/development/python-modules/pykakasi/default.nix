@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pykakasi";
   version = "2.3.0";
@@ -27,12 +26,14 @@ buildPythonPackage rec {
     hash = "sha256-b2lYYdg1RW1xRD3hym7o1EnxzN/U5txVTWRifwZn3k0=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [
-    jaconv
-    deprecated
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  dependencies =
+    [
+      jaconv
+      deprecated
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
   nativeCheckInputs = [
     py-cpuinfo
@@ -45,16 +46,16 @@ buildPythonPackage rec {
     "test_aozora"
   ];
 
-  pytestFlagsArray = [ "--benchmark-disable" ];
+  pytestFlagsArray = ["--benchmark-disable"];
 
-  pythonImportsCheck = [ "pykakasi" ];
+  pythonImportsCheck = ["pykakasi"];
 
   meta = with lib; {
     description = "Python converter for Japanese Kana-kanji sentences into Kana-Roman";
     homepage = "https://codeberg.org/miurahr/pykakasi";
     changelog = "https://codeberg.org/miurahr/pykakasi/src/tag/v${version}/CHANGELOG.rst";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "kakasi";
   };
 }

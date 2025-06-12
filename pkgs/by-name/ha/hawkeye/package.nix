@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pkg-config,
 }:
-
 rustPackages.rustPlatform.buildRustPackage (finalAttrs: {
   pname = "hawkeye";
   version = "6.0.4";
@@ -28,6 +27,6 @@ rustPackages.rustPlatform.buildRustPackage (finalAttrs: {
     description = "Simple license header checker and formatter, in multiple distribution forms";
     license = lib.licenses.asl20;
     mainProgram = "hawkeye";
-    maintainers = with lib.maintainers; [ matthiasbeyer ];
+    maintainers = with lib.maintainers; [matthiasbeyer];
   };
 })

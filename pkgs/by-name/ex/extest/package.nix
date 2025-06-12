@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "extest";
   version = "1.0.2";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Supreeeme/extest";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = [ maintainers.puffnfresh ];
+    maintainers = [maintainers.puffnfresh];
   };
 }

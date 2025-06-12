@@ -10,7 +10,6 @@
   alsa-lib,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "espeakup";
   version = "0.90";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linux-speakup/espeakup";
     description = "Lightweight connector for espeak-ng and speakup";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ethindp ];
+    maintainers = with maintainers; [ethindp];
     platforms = with platforms; linux;
     mainProgram = "espeakup";
   };

@@ -7,7 +7,6 @@
   psutil,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pandoc-xnos";
   version = "2.5.0";
@@ -29,16 +28,16 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "psutil" ];
+  pythonRelaxDeps = ["psutil"];
 
   dependencies = [
     pandocfilters
     psutil
   ];
 
-  pythonImportsCheck = [ "pandocxnos" ];
+  pythonImportsCheck = ["pandocxnos"];
 
   # tests need some patching
   doCheck = false;
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     mainProgram = "pandoc-xnos";
     homepage = "https://github.com/tomduck/pandoc-xnos";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ ppenguin ];
+    maintainers = with lib.maintainers; [ppenguin];
   };
 }

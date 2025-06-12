@@ -11,7 +11,6 @@
   libsndfile,
   zita-convolver,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jconvolver";
   version = "1.1.0";
@@ -127,7 +126,7 @@ stdenv.mkDerivation rec {
     description = "JACK client and audio file convolver with reverb samples";
     homepage = "https://kokkinizita.linuxaudio.org/linuxaudio/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
 }

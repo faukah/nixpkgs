@@ -11,7 +11,6 @@
   libpng,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dcmtk";
   version = "3.6.9";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libpng
     zlib
@@ -99,7 +98,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://dicom.offis.de/dcmtk";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ iimog ];
+    maintainers = with lib.maintainers; [iimog];
     platforms = with lib.platforms; linux ++ darwin;
   };
 }

@@ -3,7 +3,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gendef";
   version = "11.0.1";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "gendef";
     homepage = "https://sourceforge.net/p/mingw-w64/wiki2/gendef/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ hughobrien ];
+    maintainers = with lib.maintainers; [hughobrien];
     platforms = lib.platforms.linux;
   };
 })

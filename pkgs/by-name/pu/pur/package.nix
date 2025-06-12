@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "pur";
   version = "7.3.3";
@@ -16,13 +15,13 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-zSEzYYpDmu3fennTZNvQjAoMekzxoMDUEqvSjN6hNUk=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
-  dependencies = with python3.pkgs; [ click ];
+  dependencies = with python3.pkgs; [click];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
-  pythonImportsCheck = [ "pur" ];
+  pythonImportsCheck = ["pur"];
 
   disabledTests = [
     # Tests are failing after the last mass update
@@ -35,7 +34,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/alanhamlett/pip-update-requirements";
     changelog = "https://github.com/alanhamlett/pip-update-requirements/blob/${version}/HISTORY.rst";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "pur";
   };
 }

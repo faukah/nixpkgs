@@ -6,12 +6,14 @@
   mathcomp-boot,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "relation-algebra";
   owner = "damien-pous";
 
-  releaseRev = v: if lib.versions.range "1.7.6" "1.7.9" v then "v.${v}" else "v${v}";
+  releaseRev = v:
+    if lib.versions.range "1.7.6" "1.7.9" v
+    then "v.${v}"
+    else "v${v}";
 
   release."1.7.11".sha256 = "sha256-ZOV0lUdduSabW9Qsz70clkO7QK/NK2STaHqBWcXb7nI=";
   release."1.7.10".sha256 = "sha256-h738L+dybhmWZwTSLJrhv+sB+cIbj0+62Zcy9BH5sVo=";
@@ -26,8 +28,7 @@ mkCoqDerivation {
   release."1.7.1".sha256 = "sha256-WWVMcR6z8rT4wzZPb8SlaVWGe7NC8gScPqawd7bltQA=";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = isEq "8.20";
@@ -73,7 +74,8 @@ mkCoqDerivation {
         case = isEq "8.9";
         out = "1.7.1";
       }
-    ] null;
+    ]
+    null;
 
   mlPlugin = true;
 
@@ -84,7 +86,7 @@ mkCoqDerivation {
 
   meta = with lib; {
     description = "Relation algebra library for Coq";
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

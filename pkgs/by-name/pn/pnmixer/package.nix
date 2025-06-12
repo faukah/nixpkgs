@@ -12,7 +12,6 @@
   libX11,
   pcre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pnmixer";
   version = "0.7.2";

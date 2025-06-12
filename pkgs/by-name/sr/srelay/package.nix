@@ -4,7 +4,6 @@
   fetchurl,
   libxcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "srelay";
   version = "0.4.8";
@@ -14,9 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "1sn6005aqyfvrlkm5445cyyaj6h6wfyskfncfmds55x34hfyxpvl";
   };
 
-  patches = [ ./arm.patch ];
+  patches = [./arm.patch];
 
-  buildInputs = [ libxcrypt ];
+  buildInputs = [libxcrypt];
 
   installPhase = "install -D srelay $out/bin/srelay";
 

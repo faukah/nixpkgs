@@ -1,9 +1,7 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "non-switchable-system";
 
-  meta.maintainers = with lib.maintainers; [ nikstur ];
+  meta.maintainers = with lib.maintainers; [nikstur];
 
   nodes.machine = {
     system.switch.enable = false;

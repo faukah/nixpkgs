@@ -9,10 +9,7 @@
   flex,
   rsync,
   writeTextFile,
-}:
-
-let
-
+}: let
   # As part of building a hostPlatform=mips kernel, Linux creates and runs a
   # tiny utility `arch/mips/boot/tools/relocs_main.c` for the buildPlatform.
   # This utility references a glibc-specific header `byteswap.h`.  There is a
@@ -37,12 +34,11 @@ let
     destination = "/include/byteswap.h";
   };
 
-  makeLinuxHeaders =
-    {
-      src,
-      version,
-      patches ? [ ],
-    }:
+  makeLinuxHeaders = {
+    src,
+    version,
+    patches ? [],
+  }:
     stdenvNoCC.mkDerivation {
       inherit src;
 
@@ -56,7 +52,7 @@ let
 
       # It may look odd that we use `stdenvNoCC`, and yet explicit depend on a cc.
       # We do this so we have a build->build, not build->host, C compiler.
-      depsBuildBuild = [ buildPackages.stdenv.cc ];
+      depsBuildBuild = [buildPackages.stdenv.cc];
       # `elf-header` is null when libc provides `elf.h`.
       nativeBuildInputs =
         [
@@ -99,15 +95,14 @@ let
           make mrproper $makeFlags
         ''
         + (
-          if stdenvNoCC.hostPlatform.isAndroid then
-            ''
-              make defconfig
-              make headers_install
-            ''
-          else
-            ''
-              make headers $makeFlags
-            ''
+          if stdenvNoCC.hostPlatform.isAndroid
+          then ''
+            make defconfig
+            make headers_install
+          ''
+          else ''
+            make headers $makeFlags
+          ''
         );
 
       checkPhase = ''
@@ -137,14 +132,12 @@ let
         platforms = platforms.linux;
       };
     };
-in
-{
+in {
   inherit makeLinuxHeaders;
 
-  linuxHeaders =
-    let
-      version = "6.12.7";
-    in
+  linuxHeaders = let
+    version = "6.12.7";
+  in
     makeLinuxHeaders {
       inherit version;
       src = fetchurl {

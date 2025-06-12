@@ -3,23 +3,18 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   importlib-metadata,
-
   # Reverse dependency
   sage,
-
   # tests
   jaraco-collections,
   jaraco-test,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "importlib-resources";
   version = "6.5.2";
@@ -38,7 +33,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ importlib-metadata ];
+  dependencies = [importlib-metadata];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -46,7 +41,7 @@ buildPythonPackage rec {
     jaraco-test
   ];
 
-  pythonImportsCheck = [ "importlib_resources" ];
+  pythonImportsCheck = ["importlib_resources"];
 
   passthru.tests = {
     inherit sage;
@@ -56,6 +51,6 @@ buildPythonPackage rec {
     description = "Read resources from Python packages";
     homepage = "https://importlib-resources.readthedocs.io/";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

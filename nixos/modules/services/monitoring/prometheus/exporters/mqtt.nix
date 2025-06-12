@@ -4,20 +4,21 @@
   pkgs,
   options,
   utils,
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkIf
     mkEnableOption
     mkOption
     types
     ;
   cfg = config.services.prometheus.exporters.mqtt;
-  toConfigBoolean = x: if x then "True" else "False";
+  toConfigBoolean = x:
+    if x
+    then "True"
+    else "False";
   toConfigList = builtins.concatStringsSep ",";
-in
-{
+in {
   # https://github.com/kpetremann/mqtt-exporter/tree/master?tab=readme-ov-file#configuration
   port = 9000;
   extraOpts = {
@@ -37,7 +38,7 @@ in
     logMqttMessage = mkEnableOption "Log MQTT original message, only if `LOG_LEVEL` is set to DEBUG.";
     mqttIgnoredTopics = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = "Lists of topics to ignore. Accepts wildcards.";
     };
     mqttAddress = mkOption {
@@ -92,18 +93,18 @@ in
     };
     esphomeTopicPrefixes = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = "MQTT topic used for ESPHome messages.";
     };
     hubitatTopicPrefixes = mkOption {
       type = types.listOf types.str;
-      default = [ "hubitat/" ];
+      default = ["hubitat/"];
       description = "MQTT topic used for Hubitat messages.";
     };
     environmentFile = mkOption {
       type = types.nullOr types.path;
       default = null;
-      example = [ "/run/secrets/mqtt-exporter" ];
+      example = ["/run/secrets/mqtt-exporter"];
       description = ''
         File to load as environment file. Useful for e.g. setting `MQTT_PASSWORD`
         without putting any secrets into the Nix store.

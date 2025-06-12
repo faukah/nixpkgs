@@ -8,7 +8,6 @@
   ncurses,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tomato-c";
   version = "0-unstable-2024-04-19";
@@ -55,11 +54,11 @@ stdenv.mkDerivation (finalAttrs: {
     for file in $out/bin/*; do
       wrapProgram $file \
         --prefix PATH : ${
-          lib.makeBinPath [
-            libnotify
-            mpv
-          ]
-        }
+      lib.makeBinPath [
+        libnotify
+        mpv
+      ]
+    }
     done
   '';
 
@@ -68,8 +67,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/gabrielzschmitz/Tomato.C";
     description = " A pomodoro timer written in pure C";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [];
     mainProgram = "tomato";
     platforms = lib.platforms.unix;
   };

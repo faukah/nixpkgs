@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # core networking and async dependencies
   anyio,
   backoff,
@@ -18,7 +16,6 @@
   requests-toolbelt,
   sniffio,
   urllib3,
-
   # core parsing and processing
   beautifulsoup4,
   chardet,
@@ -40,7 +37,6 @@
   regex,
   soupsieve,
   webencodings,
-
   # core data handling
   dataclasses-json,
   deepdiff,
@@ -49,7 +45,6 @@
   packaging,
   typing-extensions,
   typing-inspect,
-
   # core system utilities
   cffi,
   cryptography,
@@ -58,7 +53,6 @@
   six,
   tqdm,
   wrapt,
-
   # document format support
   markdown,
   pdfminer-six,
@@ -114,172 +108,171 @@
   pytest-mock,
   vcrpy,
   grpcio,
-}:
-let
+}: let
   version = "0.17.2";
 in
-buildPythonPackage {
-  pname = "unstructured";
-  inherit version;
-  pyproject = true;
+  buildPythonPackage {
+    pname = "unstructured";
+    inherit version;
+    pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "Unstructured-IO";
-    repo = "unstructured";
-    tag = version;
-    hash = "sha256-DbNfhJzpPJObACWSc2r16kjIE2X/CrOCiT7fdgGNwIg=";
-  };
+    src = fetchFromGitHub {
+      owner = "Unstructured-IO";
+      repo = "unstructured";
+      tag = version;
+      hash = "sha256-DbNfhJzpPJObACWSc2r16kjIE2X/CrOCiT7fdgGNwIg=";
+    };
 
-  build-system = [ setuptools ];
+    build-system = [setuptools];
 
-  dependencies = [
-    # Base dependencies
-    anyio
-    backoff
-    beautifulsoup4
-    certifi
-    cffi
-    chardet
-    charset-normalizer
-    click
-    cryptography
-    dataclasses-json
-    deepdiff
-    emoji
-    filetype
-    h11
-    html5lib
-    httpcore
-    httpx
-    idna
-    joblib
-    # jsonpath-python
-    langdetect
-    lxml
-    marshmallow
-    mypy-extensions
-    nest-asyncio
-    nltk
-    numpy
-    olefile
-    orderly-set
-    packaging
-    psutil
-    pycparser
-    pypdf
-    python-dateutil
-    python-iso639
-    python-magic
-    python-oxmsg
-    rapidfuzz
-    regex
-    requests
-    requests-toolbelt
-    six
-    sniffio
-    soupsieve
-    tqdm
-    typing-extensions
-    typing-inspect
-    unstructured-client
-    urllib3
-    webencodings
-    wrapt
-  ];
-
-  optional-dependencies = rec {
-    all-docs = csv ++ docx ++ epub ++ pdf ++ req-markdown ++ odt ++ org ++ pptx ++ xlsx;
-    csv = [
-      numpy
-      pandas
-      python-dateutil
-      pytz
-      tzdata
-    ];
-    docx = [
-      lxml
-      python-docx
-      typing-extensions
-    ];
-    epub = [ pypandoc ];
-    req-markdown = [
-      importlib-metadata
-      markdown
-      zipp
-    ];
-    odt = [
-      lxml
-      pypandoc
-      python-docx
-      typing-extensions
-    ];
-    org = [
-      pypandoc
-    ];
-    paddleocr = [
-      opencv-python
-      # paddlepaddle # 3.12 not supported for now
-      pdf2image
-      # unstructured-paddleocr
-    ];
-    pdf = [
-      pdf2image
-      pdfminer-six
-      pdfplumber
-      # pi-heif
-      pikepdf
-      pypdf
-      unstructured-inference
-      # unstructured-pytesseract
-    ];
-    pptx = [
-      lxml
-      pillow
-      python-pptx
-      xlsxwriter
-    ];
-    xlsx = [
-      et-xmlfile
-      networkx
-      numpy
-      openpyxl
-      pandas
-      xlrd
-    ];
-    huggingface = [
+    dependencies = [
+      # Base dependencies
+      anyio
+      backoff
+      beautifulsoup4
+      certifi
+      cffi
+      chardet
+      charset-normalizer
+      click
+      cryptography
+      dataclasses-json
+      deepdiff
+      emoji
+      filetype
+      h11
+      html5lib
+      httpcore
+      httpx
+      idna
+      joblib
+      # jsonpath-python
       langdetect
-      sacremoses
-      sentencepiece
-      torch
-      transformers
+      lxml
+      marshmallow
+      mypy-extensions
+      nest-asyncio
+      nltk
+      numpy
+      olefile
+      orderly-set
+      packaging
+      psutil
+      pycparser
+      pypdf
+      python-dateutil
+      python-iso639
+      python-magic
+      python-oxmsg
+      rapidfuzz
+      regex
+      requests
+      requests-toolbelt
+      six
+      sniffio
+      soupsieve
+      tqdm
+      typing-extensions
+      typing-inspect
+      unstructured-client
+      urllib3
+      webencodings
+      wrapt
     ];
-  };
 
-  pythonImportsCheck = [ "unstructured" ];
+    optional-dependencies = rec {
+      all-docs = csv ++ docx ++ epub ++ pdf ++ req-markdown ++ odt ++ org ++ pptx ++ xlsx;
+      csv = [
+        numpy
+        pandas
+        python-dateutil
+        pytz
+        tzdata
+      ];
+      docx = [
+        lxml
+        python-docx
+        typing-extensions
+      ];
+      epub = [pypandoc];
+      req-markdown = [
+        importlib-metadata
+        markdown
+        zipp
+      ];
+      odt = [
+        lxml
+        pypandoc
+        python-docx
+        typing-extensions
+      ];
+      org = [
+        pypandoc
+      ];
+      paddleocr = [
+        opencv-python
+        # paddlepaddle # 3.12 not supported for now
+        pdf2image
+        # unstructured-paddleocr
+      ];
+      pdf = [
+        pdf2image
+        pdfminer-six
+        pdfplumber
+        # pi-heif
+        pikepdf
+        pypdf
+        unstructured-inference
+        # unstructured-pytesseract
+      ];
+      pptx = [
+        lxml
+        pillow
+        python-pptx
+        xlsxwriter
+      ];
+      xlsx = [
+        et-xmlfile
+        networkx
+        numpy
+        openpyxl
+        pandas
+        xlrd
+      ];
+      huggingface = [
+        langdetect
+        sacremoses
+        sentencepiece
+        torch
+        transformers
+      ];
+    };
 
-  # test try to download punkt from nltk
-  # figure out how to make it available to enable the tests
-  doCheck = false;
+    pythonImportsCheck = ["unstructured"];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    black
-    coverage
-    click
-    freezegun
-    mypy
-    pytest-cov-stub
-    pytest-mock
-    vcrpy
-    grpcio
-  ];
+    # test try to download punkt from nltk
+    # figure out how to make it available to enable the tests
+    doCheck = false;
 
-  meta = with lib; {
-    description = "Open source libraries and APIs to build custom preprocessing pipelines for labeling, training, or production machine learning pipelines";
-    mainProgram = "unstructured-ingest";
-    homepage = "https://github.com/Unstructured-IO/unstructured";
-    changelog = "https://github.com/Unstructured-IO/unstructured/blob/${version}/CHANGELOG.md";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ happysalada ];
-  };
-}
+    nativeCheckInputs = [
+      pytestCheckHook
+      black
+      coverage
+      click
+      freezegun
+      mypy
+      pytest-cov-stub
+      pytest-mock
+      vcrpy
+      grpcio
+    ];
+
+    meta = with lib; {
+      description = "Open source libraries and APIs to build custom preprocessing pipelines for labeling, training, or production machine learning pipelines";
+      mainProgram = "unstructured-ingest";
+      homepage = "https://github.com/Unstructured-IO/unstructured";
+      changelog = "https://github.com/Unstructured-IO/unstructured/blob/${version}/CHANGELOG.md";
+      license = licenses.asl20;
+      maintainers = with maintainers; [happysalada];
+    };
+  }

@@ -11,7 +11,6 @@
   librsvg,
   bc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "equilux-theme";
   version = "20181029";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     librsvg
   ];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   dontBuild = true;
 
@@ -54,6 +53,6 @@ stdenv.mkDerivation rec {
     description = "Material Design theme for GNOME/GTK based desktop environments";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = [ maintainers.fpletz ];
+    maintainers = [maintainers.fpletz];
   };
 }

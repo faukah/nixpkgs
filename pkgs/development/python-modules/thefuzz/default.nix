@@ -8,7 +8,6 @@
   levenshtein,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "thefuzz";
   version = "0.22.1";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
       --replace-fail "import pycodestyle" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ levenshtein ];
+  dependencies = [levenshtein];
 
   nativeCheckInputs = [
     hypothesis
@@ -37,10 +36,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    speedup = [ ];
+    speedup = [];
   };
 
-  pythonImportsCheck = [ "thefuzz" ];
+  pythonImportsCheck = ["thefuzz"];
 
   disabledTests = [
     # Skip linting
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/seatgeek/thefuzz";
     changelog = "https://github.com/seatgeek/thefuzz/blob/${version}/CHANGES.rst";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ sumnerevans ];
+    maintainers = with maintainers; [sumnerevans];
   };
 }

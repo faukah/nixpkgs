@@ -10,9 +10,7 @@
   writeText,
   terraform-providers,
   installShellFiles,
-}:
-
-let
+}: let
   package = buildGoModule rec {
     pname = "opentofu";
     version = "1.9.1";
@@ -38,8 +36,8 @@ let
         --replace-fail "/bin/stty" "${coreutils}/bin/stty"
     '';
 
-    nativeBuildInputs = [ installShellFiles ];
-    patches = [ ./provider-path-0_15.patch ];
+    nativeBuildInputs = [installShellFiles];
+    patches = [./provider-path-0_15.patch];
 
     passthru = {
       inherit full plugins withPlugins;
@@ -58,7 +56,7 @@ let
       export TF_SKIP_REMOTE_TESTS=1
     '';
 
-    subPackages = [ "./cmd/..." ];
+    subPackages = ["./cmd/..."];
 
     meta = {
       description = "Tool for building, changing, and versioning infrastructure";
@@ -75,28 +73,27 @@ let
 
   full = withPlugins (p: lib.filter lib.isDerivation (lib.attrValues p.actualProviders));
 
-  opentofu_plugins_test =
-    let
-      mainTf = writeText "main.tf" ''
-        terraform {
-          required_providers {
-            random = {
-              source  = "hashicorp/random"
-            }
+  opentofu_plugins_test = let
+    mainTf = writeText "main.tf" ''
+      terraform {
+        required_providers {
+          random = {
+            source  = "hashicorp/random"
           }
         }
+      }
 
-        resource "random_id" "test" {}
-      '';
-      opentofu = package.withPlugins (p: [ p.random ]);
-      test = runCommand "opentofu-plugin-test" { buildInputs = [ opentofu ]; } ''
-        # make it fail outside of sandbox
-        export HTTP_PROXY=http://127.0.0.1:0 HTTPS_PROXY=https://127.0.0.1:0
-        cp ${mainTf} main.tf
-        tofu init
-        touch $out
-      '';
-    in
+      resource "random_id" "test" {}
+    '';
+    opentofu = package.withPlugins (p: [p.random]);
+    test = runCommand "opentofu-plugin-test" {buildInputs = [opentofu];} ''
+      # make it fail outside of sandbox
+      export HTTP_PROXY=http://127.0.0.1:0 HTTPS_PROXY=https://127.0.0.1:0
+      cp ${mainTf} main.tf
+      tofu init
+      touch $out
+    '';
+  in
     test;
 
   plugins = removeAttrs terraform-providers [
@@ -105,47 +102,46 @@ let
     "recurseForDerivations"
   ];
 
-  withPlugins =
-    plugins:
-    let
-      actualPlugins = plugins package.plugins;
+  withPlugins = plugins: let
+    actualPlugins = plugins package.plugins;
 
-      # Wrap PATH of plugins propagatedBuildInputs, plugins may have runtime dependencies on external binaries
-      wrapperInputs = lib.unique (
-        lib.flatten (lib.catAttrs "propagatedBuildInputs" (builtins.filter (x: x != null) actualPlugins))
-      );
+    # Wrap PATH of plugins propagatedBuildInputs, plugins may have runtime dependencies on external binaries
+    wrapperInputs = lib.unique (
+      lib.flatten (lib.catAttrs "propagatedBuildInputs" (builtins.filter (x: x != null) actualPlugins))
+    );
 
-      passthru = {
-        withPlugins = newplugins: withPlugins (x: newplugins x ++ actualPlugins);
+    passthru = {
+      withPlugins = newplugins: withPlugins (x: newplugins x ++ actualPlugins);
 
-        # Expose wrappers around the override* functions of the terraform
-        # derivation.
-        #
-        # Note that this does not behave as anyone would expect if plugins
-        # are specified. The overrides are not on the user-visible wrapper
-        # derivation but instead on the function application that eventually
-        # generates the wrapper. This means:
-        #
-        # 1. When using overrideAttrs, only `passthru` attributes will
-        #    become visible on the wrapper derivation. Other overrides that
-        #    modify the derivation *may* still have an effect, but it can be
-        #    difficult to follow.
-        #
-        # 2. Other overrides may work if they modify the terraform
-        #    derivation, or they may have no effect, depending on what
-        #    exactly is being changed.
-        #
-        # 3. Specifying overrides on the wrapper is unsupported.
-        #
-        # See nixpkgs#158620 for details.
-        overrideDerivation = f: (package.overrideDerivation f).withPlugins plugins;
-        overrideAttrs = f: (package.overrideAttrs f).withPlugins plugins;
-        override = x: (package.override x).withPlugins plugins;
-      };
-    in
+      # Expose wrappers around the override* functions of the terraform
+      # derivation.
+      #
+      # Note that this does not behave as anyone would expect if plugins
+      # are specified. The overrides are not on the user-visible wrapper
+      # derivation but instead on the function application that eventually
+      # generates the wrapper. This means:
+      #
+      # 1. When using overrideAttrs, only `passthru` attributes will
+      #    become visible on the wrapper derivation. Other overrides that
+      #    modify the derivation *may* still have an effect, but it can be
+      #    difficult to follow.
+      #
+      # 2. Other overrides may work if they modify the terraform
+      #    derivation, or they may have no effect, depending on what
+      #    exactly is being changed.
+      #
+      # 3. Specifying overrides on the wrapper is unsupported.
+      #
+      # See nixpkgs#158620 for details.
+      overrideDerivation = f: (package.overrideDerivation f).withPlugins plugins;
+      overrideAttrs = f: (package.overrideAttrs f).withPlugins plugins;
+      override = x: (package.override x).withPlugins plugins;
+    };
+  in
     # Don't bother wrapping unless we actually have plugins, since the wrapper will stop automatic downloading
     # of plugins, which might be counterintuitive if someone just wants a vanilla Terraform.
-    if actualPlugins == [ ] then
+    if actualPlugins == []
+    then
       package.overrideAttrs (orig: {
         passthru = orig.passthru // passthru;
       })
@@ -153,7 +149,7 @@ let
       lib.appendToName "with-plugins" (
         stdenv.mkDerivation {
           inherit (package) meta pname version;
-          nativeBuildInputs = [ makeWrapper ];
+          nativeBuildInputs = [makeWrapper];
 
           # Expose the passthru set with the override functions
           # defined above, as well as any passthru values already
@@ -190,4 +186,4 @@ let
         }
       );
 in
-package
+  package

@@ -28,7 +28,6 @@
   moreTests ? false,
   withoutBin ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "simgrid";
   version = "4.0";
@@ -41,29 +40,29 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wRyUeXx8mvrwBLoj8nHNdjJuUjYfWoXuZS1+E7lmCLc=";
   };
 
-  propagatedBuildInputs = [ boost ];
+  propagatedBuildInputs = [boost];
   nativeBuildInputs =
     [
       cmake
       perl
       python3
     ]
-    ++ lib.optionals fortranSupport [ gfortran ]
-    ++ lib.optionals buildJavaBindings [ openjdk ]
-    ++ lib.optionals buildPythonBindings [ python3Packages.pybind11 ]
+    ++ lib.optionals fortranSupport [gfortran]
+    ++ lib.optionals buildJavaBindings [openjdk]
+    ++ lib.optionals buildPythonBindings [python3Packages.pybind11]
     ++ lib.optionals buildDocumentation [
       fig2dev
       ghostscript
       doxygen
     ]
-    ++ lib.optionals bmfSupport [ eigen ]
+    ++ lib.optionals bmfSupport [eigen]
     ++ lib.optionals modelCheckingSupport [
       libunwind
       libevent
       elfutils
     ];
 
-  outputs = [ "out" ] ++ lib.optionals buildPythonBindings [ "python" ];
+  outputs = ["out"] ++ lib.optionals buildPythonBindings ["python"];
 
   # "Release" does not work. non-debug mode is Debug compiled with optimization
   cmakeBuildType = "Debug";
@@ -129,7 +128,7 @@ stdenv.mkDerivation rec {
     '';
 
   # improve debuggability if requested
-  hardeningDisable = lib.optionals debug [ "fortify" ];
+  hardeningDisable = lib.optionals debug ["fortify"];
   dontStrip = debug;
 
   meta = with lib; {

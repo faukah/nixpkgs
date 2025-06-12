@@ -6,7 +6,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "dllogger";
   version = "1.1.0";
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "dllogger" ];
+  pythonImportsCheck = ["dllogger"];
 
   meta = with lib; {
     description = "Logging tool for deep learning";
     homepage = "https://github.com/NVIDIA/dllogger";
     changelog = "https://github.com/NVIDIA/dllogger/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

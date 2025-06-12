@@ -5,7 +5,6 @@
   jdk,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "asciidoctorj";
   version = "3.0.0";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-F4tmpdNS0PIoLpqV9gifJf2iQ/kX+cp3EssRyhzyOUw=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     rm bin/asciidoctorj.bat
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = "https://asciidoctor.org/docs/asciidoctorj/";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ moaxcp ];
+    maintainers = with maintainers; [moaxcp];
     mainProgram = "asciidoctorj";
   };
 }

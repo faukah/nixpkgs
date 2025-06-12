@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   aenum,
   cachetools,
@@ -24,11 +22,9 @@
   tomli,
   toolz,
   typer,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "kfactory";
   version = "1.4.4";
@@ -65,9 +61,9 @@ buildPythonPackage rec {
     typer
   ];
 
-  pythonImportsCheck = [ "kfactory" ];
+  pythonImportsCheck = ["kfactory"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # https://github.com/gdsfactory/kfactory/issues/511
@@ -79,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/gdsfactory/kfactory";
     changelog = "https://github.com/gdsfactory/kfactory/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fbeffa ];
+    maintainers = with lib.maintainers; [fbeffa];
   };
 }

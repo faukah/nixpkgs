@@ -3,21 +3,17 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   hatchling,
-
   # dependencies
   django,
   pydantic,
   typing-extensions,
-
   # tests
   django-stubs,
   pytestCheckHook,
   pytest-asyncio,
 }:
-
 buildPythonPackage rec {
   pname = "pyngo";
   version = "2.3.0";
@@ -47,7 +43,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "pyngo" ];
+  pythonImportsCheck = ["pyngo"];
 
   nativeCheckInputs = [
     django-stubs
@@ -60,6 +56,6 @@ buildPythonPackage rec {
     description = "Pydantic model support for Django & Django-Rest-Framework";
     homepage = "https://github.com/yezz123/pyngo";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

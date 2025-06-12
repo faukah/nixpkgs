@@ -14,7 +14,6 @@
   restructuredtext-lint,
   pygments,
 }:
-
 buildPythonPackage rec {
   pname = "recurring-ical-events";
   version = "3.7.0";
@@ -51,13 +50,13 @@ buildPythonPackage rec {
     pygments
   ];
 
-  pythonImportsCheck = [ "recurring_ical_events" ];
+  pythonImportsCheck = ["recurring_ical_events"];
 
   meta = {
     changelog = "https://github.com/niccokunzmann/python-recurring-ical-events/blob/${src.tag}/README.rst#changelog";
     description = "Repeat ICalendar events by RRULE, RDATE and EXDATE";
     homepage = "https://github.com/niccokunzmann/python-recurring-ical-events";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

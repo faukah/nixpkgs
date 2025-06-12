@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyvex";
   version = "9.2.154";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-a3ei2w66v18QKAofpPvDUoM42zHRHPrNQic+FE+rLKY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     bitstring
@@ -31,9 +30,9 @@ buildPythonPackage rec {
     pycparser
   ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
-  nativeBuildInputs = [ cffi ];
+  nativeBuildInputs = [cffi];
 
   postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
     substituteInPlace vex/Makefile-gcc \
@@ -55,7 +54,7 @@ buildPythonPackage rec {
   # Switch to GitHub release after all angr parts are present
   doCheck = false;
 
-  pythonImportsCheck = [ "pyvex" ];
+  pythonImportsCheck = ["pyvex"];
 
   meta = with lib; {
     description = "Python interface to libVEX and VEX IR";
@@ -65,6 +64,6 @@ buildPythonPackage rec {
       gpl3Plus
       lgpl3Plus
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

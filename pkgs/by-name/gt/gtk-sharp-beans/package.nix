@@ -9,7 +9,6 @@
   gtk-sharp-2_0,
   gio-sharp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtk-sharp-beans";
   version = "2.14.0";

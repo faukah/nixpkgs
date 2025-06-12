@@ -4,7 +4,6 @@
   fetchFromGitHub,
   mpi,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hypre";
   version = "2.33.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/src";
 
-  buildInputs = [ mpi ];
+  buildInputs = [mpi];
 
   configureFlags = [
     "--enable-mpi"
@@ -42,6 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://computing.llnl.gov/projects/hypre-scalable-linear-solvers-multigrid-methods";
     platforms = platforms.unix;
     license = licenses.mit;
-    maintainers = with maintainers; [ mkez ];
+    maintainers = with maintainers; [mkez];
   };
 })

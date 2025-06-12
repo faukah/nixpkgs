@@ -8,7 +8,6 @@
   setuptools-scm,
   selenium,
 }:
-
 buildPythonPackage rec {
   pname = "branca";
   version = "0.8.1";
@@ -28,16 +27,16 @@ buildPythonPackage rec {
     rm setup.cfg
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [ jinja2 ];
+  dependencies = [jinja2];
 
   nativeCheckInputs = [
     pytestCheckHook
     selenium
   ];
 
-  pythonImportsCheck = [ "branca" ];
+  pythonImportsCheck = ["branca"];
 
   disabledTestPaths = [
     # Some tests require a browser
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     description = "Generate complex HTML+JS pages with Python";
     homepage = "https://github.com/python-visualization/branca";
     changelog = "https://github.com/python-visualization/branca/blob/v${version}/CHANGES.txt";
-    license = with licenses; [ mit ];
-    maintainers = [ ];
+    license = with licenses; [mit];
+    maintainers = [];
   };
 }

@@ -36,8 +36,8 @@ stdenv.mkDerivation (finalAttrs: {
       qt6.qtbase
       qt6.qtspeech
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ qt6.qtwayland ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ freetype ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [qt6.qtwayland]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [freetype];
 
   nativeBuildInputs = [
     installShellFiles
@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.wrapQtAppsHook
   ];
 
-  qmakeFlags = lib.optionals stdenv.hostPlatform.isDarwin [ "CONFIG+=non_portable" ];
+  qmakeFlags = lib.optionals stdenv.hostPlatform.isDarwin ["CONFIG+=non_portable"];
 
   postPatch = ''
     substituteInPlace pdf_viewer_build_config.pro \
@@ -57,22 +57,21 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   postInstall =
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        cp -r pdf_viewer/shaders sioyek.app/Contents/MacOS/shaders
-        cp pdf_viewer/{prefs,prefs_user,keys,keys_user}.config tutorial.pdf sioyek.app/Contents/MacOS/
+    if stdenv.hostPlatform.isDarwin
+    then ''
+      cp -r pdf_viewer/shaders sioyek.app/Contents/MacOS/shaders
+      cp pdf_viewer/{prefs,prefs_user,keys,keys_user}.config tutorial.pdf sioyek.app/Contents/MacOS/
 
-        mkdir -p $out/Applications $out/bin
-        cp -r sioyek.app $out/Applications
-        ln -s $out/Applications/sioyek.app/Contents/MacOS/sioyek $out/bin/sioyek
-      ''
-    else
-      ''
-        install -Dm644 tutorial.pdf $out/share/tutorial.pdf
-        cp -r pdf_viewer/shaders $out/share/
-        install -Dm644 -t $out/etc/ pdf_viewer/{keys,prefs}.config
-        installManPage resources/sioyek.1
-      '';
+      mkdir -p $out/Applications $out/bin
+      cp -r sioyek.app $out/Applications
+      ln -s $out/Applications/sioyek.app/Contents/MacOS/sioyek $out/bin/sioyek
+    ''
+    else ''
+      install -Dm644 tutorial.pdf $out/share/tutorial.pdf
+      cp -r pdf_viewer/shaders $out/share/
+      install -Dm644 -t $out/etc/ pdf_viewer/{keys,prefs}.config
+      installManPage resources/sioyek.1
+    '';
 
   passthru.updateScript = unstableGitUpdater {
     branch = "development";

@@ -6,7 +6,6 @@
   libXrandr,
   xorgproto,
 }:
-
 stdenv.mkDerivation {
   pname = "sct";
   version = "0.5";
@@ -26,7 +25,7 @@ stdenv.mkDerivation {
     mkdir -p $out/bin $out/share/man/man1
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://www.umaxx.net/";

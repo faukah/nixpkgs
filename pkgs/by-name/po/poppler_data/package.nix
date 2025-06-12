@@ -6,7 +6,6 @@
   ninja,
   poppler,
 }:
-
 stdenv.mkDerivation rec {
   pname = "poppler-data";
   version = "0.4.12";

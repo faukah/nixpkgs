@@ -1,17 +1,12 @@
-pkgs: lib:
-
-self: super:
-
-let
-  inherit (import ./lib-override-helper.nix pkgs lib)
+pkgs: lib: self: super: let
+  inherit
+    (import ./lib-override-helper.nix pkgs lib)
     addPackageRequires
     ;
-in
-{
+in {
   # missing optional dependencies
   haskell-tng-mode = addPackageRequires super.haskell-tng-mode (
-    with self;
-    [
+    with self; [
       s
       company
       projectile

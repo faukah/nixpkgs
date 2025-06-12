@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "msldapdump";
   version = "unstable-2023-06-12";
@@ -42,6 +41,6 @@ python3.pkgs.buildPythonApplication {
     description = "LDAP enumeration tool";
     homepage = "https://github.com/dievus/msLDAPDump";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

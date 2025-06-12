@@ -88,7 +88,6 @@
   sqlalchemy-utils,
   weaviate-client,
 }:
-
 buildPythonPackage rec {
   pname = "haystack-ai";
   version = "2.9.0";
@@ -145,7 +144,7 @@ buildPythonPackage rec {
     # all-gpu = [
     #   farm-haystack
     # ];
-    audio = [ openai-whisper ];
+    audio = [openai-whisper];
     aws = [
       boto3
       botocore
@@ -153,8 +152,8 @@ buildPythonPackage rec {
     # beir = [
     #   beir
     # ];
-    colab = [ pillow ];
-    crawler = [ selenium ];
+    colab = [pillow];
+    crawler = [selenium];
     dev = [
       coverage
       dulwich
@@ -194,7 +193,7 @@ buildPythonPackage rec {
       # python-magic-bin
       tika
     ];
-    formatting = [ black ];
+    formatting = [black];
     inference = [
       huggingface-hub
       sentence-transformers
@@ -210,11 +209,11 @@ buildPythonPackage rec {
       pdf2image
       pytesseract
     ];
-    only-faiss = [ faiss ];
+    only-faiss = [faiss];
     # only-faiss-gpu = [
     #   faiss-gpu
     # ];
-    only-pinecone = [ pinecone-client ];
+    only-pinecone = [pinecone-client];
     onnx = [
       onnxruntime
       onnxruntime-tools
@@ -223,8 +222,8 @@ buildPythonPackage rec {
     #   onnxruntime-gpu
     #   onnxruntime-tools
     # ];
-    opensearch = [ opensearch-py ];
-    pdf = [ pymupdf ];
+    opensearch = [opensearch-py];
+    pdf = [pymupdf];
     preprocessing = [
       langdetect
       nltk
@@ -249,13 +248,13 @@ buildPythonPackage rec {
       sqlalchemy
       sqlalchemy-utils
     ];
-    weaviate = [ weaviate-client ];
+    weaviate = [weaviate-client];
   };
 
   # the setup for test is intensive, hopefully can be done at some point
   doCheck = false;
 
-  pythonImportsCheck = [ "haystack" ];
+  pythonImportsCheck = ["haystack"];
 
   meta = with lib; {
     description = "LLM orchestration framework to build customizable, production-ready LLM applications";
@@ -265,7 +264,7 @@ buildPythonPackage rec {
     changelog = "https://github.com/deepset-ai/haystack/releases/tag/${src.tag}";
     homepage = "https://github.com/deepset-ai/haystack";
     license = licenses.asl20;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
     # https://github.com/deepset-ai/haystack/issues/5304
     broken = versionAtLeast pydantic.version "2";
   };

@@ -16,7 +16,6 @@
   libxml2,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "industrializer";
   version = "0.2.7";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://sourceforge.net/projects/industrializer/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
     platforms = lib.platforms.linux;
     mainProgram = "psindustrializer";
   };

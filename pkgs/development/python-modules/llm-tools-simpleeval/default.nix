@@ -10,7 +10,6 @@
   simpleeval,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "llm-tools-simpleeval";
   version = "0.1.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-IOmYu7zoim7Co/xIm5VLaGkCPI0o+2Nb2Pu3U2fH0BU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     llm
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "llm_tools_simpleeval" ];
+  pythonImportsCheck = ["llm_tools_simpleeval"];
 
   passthru.tests = llm.mkPluginTest llm-tools-simpleeval;
 
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-tools-simpleeval";
     changelog = "https://github.com/simonw/llm-tools-simpleeval/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

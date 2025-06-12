@@ -17,6 +17,6 @@ mkYaziPlugin {
   meta = {
     description = "Execute chmod on the selected files to change their mode";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
   };
 }

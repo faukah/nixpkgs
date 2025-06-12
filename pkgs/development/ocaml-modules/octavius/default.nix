@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "octavius";
   version = "1.2.2";
@@ -23,6 +22,6 @@ buildDunePackage rec {
     description = "Ocamldoc comment syntax parser";
     homepage = "https://github.com/ocaml-doc/octavius";
     license = licenses.isc;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

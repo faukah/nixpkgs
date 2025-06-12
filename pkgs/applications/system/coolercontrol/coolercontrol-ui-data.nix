@@ -1,11 +1,8 @@
-{ buildNpmPackage }:
-
-{
+{buildNpmPackage}: {
   version,
   src,
   meta,
 }:
-
 buildNpmPackage {
   pname = "coolercontrol-ui";
   inherit version src;
@@ -19,7 +16,9 @@ buildNpmPackage {
 
   dontInstall = true;
 
-  meta = meta // {
-    description = "${meta.description} (UI data)";
-  };
+  meta =
+    meta
+    // {
+      description = "${meta.description} (UI data)";
+    };
 }

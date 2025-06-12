@@ -3,19 +3,15 @@
   buildPythonPackage,
   fetchFromGitHub,
   nix-update-script,
-
   # build-system
   pdm-backend,
-
   # dependencies
   langchain-core,
-
   # tests
   httpx,
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-text-splitters";
   version = "0.3.8";
@@ -30,7 +26,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/text-splitters";
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   pythonRelaxDeps = [
     # Each component release requests the exact latest core.
@@ -38,9 +34,9 @@ buildPythonPackage rec {
     "langchain-core"
   ];
 
-  dependencies = [ langchain-core ];
+  dependencies = [langchain-core];
 
-  pythonImportsCheck = [ "langchain_text_splitters" ];
+  pythonImportsCheck = ["langchain_text_splitters"];
 
   nativeCheckInputs = [
     httpx
@@ -48,7 +44,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlagsArray = ["tests/unit_tests"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

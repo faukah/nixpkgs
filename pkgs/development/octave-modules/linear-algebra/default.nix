@@ -3,7 +3,6 @@
   lib,
   fetchurl,
 }:
-
 buildOctavePackage rec {
   pname = "linear-algebra";
   version = "2.2.3";
@@ -20,7 +19,7 @@ buildOctavePackage rec {
       lgpl3Plus
     ];
     # They claim to have a FreeBSD license, but none of their code seems to have it.
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Additional linear algebra code, including matrix functions";
   };
 }

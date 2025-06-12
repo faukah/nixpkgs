@@ -13,7 +13,6 @@
   nix,
   ...
 }:
-
 writeScript "update-librewolf" ''
   #!${runtimeShell}
   PATH=${

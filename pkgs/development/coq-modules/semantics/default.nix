@@ -4,7 +4,6 @@
   coq,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "semantics";
   owner = "coq-community";
@@ -19,8 +18,7 @@ mkCoqDerivation {
   release."8.6.0".sha256 = "sha256-GltkGQ3tJqUPAbdDkqqvKLLhMOap50XvGaCkjshiNdY=";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = range "8.10" "8.18";
@@ -42,11 +40,12 @@ mkCoqDerivation {
         case = "8.6";
         out = "8.6.0";
       }
-    ] null;
+    ]
+    null;
 
   mlPlugin = true;
-  nativeBuildInputs = (with coq.ocamlPackages; [ ocamlbuild ]);
-  propagatedBuildInputs = (with coq.ocamlPackages; [ num ]);
+  nativeBuildInputs = with coq.ocamlPackages; [ocamlbuild];
+  propagatedBuildInputs = with coq.ocamlPackages; [num];
 
   postPatch = ''
     for p in Make Makefile.coq.local
@@ -62,7 +61,7 @@ mkCoqDerivation {
       structural operational, axiomatic, and denotational semantics, to
       abstract interpretation
     '';
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.mit;
   };
 }

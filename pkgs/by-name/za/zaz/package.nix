@@ -13,7 +13,6 @@
   ftgl,
   freetype,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zaz";
   version = "1.0.1";
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Puzzle game about arranging balls in triplets, like Luxor, Zuma, or Puzzle Bobble";
     homepage = "https://zaz.sourceforge.net/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     mainProgram = "zaz";
   };

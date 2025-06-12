@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   planDescription = ''
     The znapzend backup plan to use for the source.
 
@@ -30,10 +28,12 @@ let
   planExample = "1h=>10min,1d=>1h,1w=>1d,1m=>1w,1y=>1m";
 
   # A type for a string of the form number{b|k|M|G}
-  mbufferSizeType = lib.types.str // {
-    check = x: lib.types.str.check x && builtins.isList (builtins.match "^[0-9]+[bkMG]$" x);
-    description = "string of the form number{b|k|M|G}";
-  };
+  mbufferSizeType =
+    lib.types.str
+    // {
+      check = x: lib.types.str.check x && builtins.isList (builtins.match "^[0-9]+[bkMG]$" x);
+      description = "string of the form number{b|k|M|G}";
+    };
 
   enabledFeatures = lib.concatLists (
     lib.mapAttrsToList (name: enabled: lib.optional enabled name) cfg.features
@@ -41,11 +41,9 @@ let
 
   # Type for a string that must contain certain other strings (the list parameter).
   # Note that these would need regex escaping.
-  stringContainingStrings =
-    list:
-    let
-      matching = s: map (str: builtins.match ".*${str}.*" s) list;
-    in
+  stringContainingStrings = list: let
+    matching = s: map (str: builtins.match ".*${str}.*" s) list;
+  in
     lib.types.str
     // {
       check = x: lib.types.str.check x && lib.all lib.isList (matching x);
@@ -61,13 +59,10 @@ let
     "%S"
   ];
 
-  destType =
-    srcConfig:
+  destType = srcConfig:
     lib.types.submodule (
-      { name, ... }:
-      {
+      {name, ...}: {
         options = {
-
           label = lib.mkOption {
             type = lib.types.str;
             description = "Label for this destination. Defaults to the attribute name.";
@@ -128,10 +123,12 @@ let
     );
 
   srcType = lib.types.submodule (
-    { name, config, ... }:
     {
+      name,
+      config,
+      ...
+    }: {
       options = {
-
         enable = lib.mkOption {
           type = lib.types.bool;
           description = "Whether to enable this source.";
@@ -241,7 +238,7 @@ let
         destinations = lib.mkOption {
           type = lib.types.attrsOf (destType config);
           description = "Additional destinations.";
-          default = { };
+          default = {};
           example = lib.literalExpression ''
             {
               local = {
@@ -261,7 +258,6 @@ let
       config = {
         dataset = lib.mkDefault name;
       };
-
     }
   );
 
@@ -269,62 +265,64 @@ let
 
   cfg = config.services.znapzend;
 
-  onOff = b: if b then "on" else "off";
-  nullOff = b: if b == null then "off" else toString b;
-  stripSlashes = lib.replaceStrings [ "/" ] [ "." ];
+  onOff = b:
+    if b
+    then "on"
+    else "off";
+  nullOff = b:
+    if b == null
+    then "off"
+    else toString b;
+  stripSlashes = lib.replaceStrings ["/"] ["."];
 
-  attrsToFile =
-    config: lib.concatStringsSep "\n" (builtins.attrValues (lib.mapAttrs (n: v: "${n}=${v}") config));
+  attrsToFile = config: lib.concatStringsSep "\n" (builtins.attrValues (lib.mapAttrs (n: v: "${n}=${v}") config));
 
-  mkDestAttrs =
-    dst:
+  mkDestAttrs = dst:
     with dst;
-    lib.mapAttrs' (n: v: lib.nameValuePair "dst_${label}${n}" v) (
-      {
-        "" = lib.optionalString (host != null) "${host}:" + dataset;
-        _plan = plan;
-      }
-      // lib.optionalAttrs (presend != null) {
-        _precmd = presend;
-      }
-      // lib.optionalAttrs (postsend != null) {
-        _pstcmd = postsend;
-      }
-    );
+      lib.mapAttrs' (n: v: lib.nameValuePair "dst_${label}${n}" v) (
+        {
+          "" = lib.optionalString (host != null) "${host}:" + dataset;
+          _plan = plan;
+        }
+        // lib.optionalAttrs (presend != null) {
+          _precmd = presend;
+        }
+        // lib.optionalAttrs (postsend != null) {
+          _pstcmd = postsend;
+        }
+      );
 
-  mkSrcAttrs =
-    srcCfg:
+  mkSrcAttrs = srcCfg:
     with srcCfg;
-    {
-      enabled = onOff enable;
-      # mbuffer is not referenced by its full path to accommodate non-NixOS systems or differing mbuffer versions between source and target
-      mbuffer =
-        with mbuffer;
-        if enable then "mbuffer" + lib.optionalString (port != null) ":${toString port}" else "off";
-      mbuffer_size = mbuffer.size;
-      post_znap_cmd = nullOff postsnap;
-      pre_znap_cmd = nullOff presnap;
-      recursive = onOff recursive;
-      src = dataset;
-      src_plan = plan;
-      tsformat = timestampFormat;
-      zend_delay = toString sendDelay;
-    }
-    // lib.foldr (a: b: a // b) { } (map mkDestAttrs (builtins.attrValues destinations));
+      {
+        enabled = onOff enable;
+        # mbuffer is not referenced by its full path to accommodate non-NixOS systems or differing mbuffer versions between source and target
+        mbuffer = with mbuffer;
+          if enable
+          then "mbuffer" + lib.optionalString (port != null) ":${toString port}"
+          else "off";
+        mbuffer_size = mbuffer.size;
+        post_znap_cmd = nullOff postsnap;
+        pre_znap_cmd = nullOff presnap;
+        recursive = onOff recursive;
+        src = dataset;
+        src_plan = plan;
+        tsformat = timestampFormat;
+        zend_delay = toString sendDelay;
+      }
+      // lib.foldr (a: b: a // b) {} (map mkDestAttrs (builtins.attrValues destinations));
 
-  files = lib.mapAttrs' (
-    n: srcCfg:
-    let
-      fileText = attrsToFile (mkSrcAttrs srcCfg);
-    in
-    {
-      name = srcCfg.dataset;
-      value = pkgs.writeText (stripSlashes srcCfg.dataset) fileText;
-    }
-  ) cfg.zetup;
-
-in
-{
+  files =
+    lib.mapAttrs' (
+      n: srcCfg: let
+        fileText = attrsToFile (mkSrcAttrs srcCfg);
+      in {
+        name = srcCfg.dataset;
+        value = pkgs.writeText (stripSlashes srcCfg.dataset) fileText;
+      }
+    )
+    cfg.zetup;
+in {
   options = {
     services.znapzend = {
       enable = lib.mkEnableOption "ZnapZend ZFS backup daemon";
@@ -377,7 +375,7 @@ in
       zetup = lib.mkOption {
         type = lib.types.attrsOf srcType;
         description = "Znapzend configuration.";
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             "tank/home" = {
@@ -465,13 +463,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.znapzend ];
+    environment.systemPackages = [pkgs.znapzend];
 
     systemd.services = {
       znapzend = {
         description = "ZnapZend - ZFS Backup System";
-        wantedBy = [ "zfs.target" ];
-        after = [ "zfs.target" ];
+        wantedBy = ["zfs.target"];
+        after = ["zfs.target"];
 
         path = with pkgs; [
           config.boot.zfs.package
@@ -490,7 +488,8 @@ in
             lib.mapAttrsToList (dataset: config: ''
               echo Importing znapzend zetup ${config} for dataset ${dataset}
               ${pkgs.znapzend}/bin/znapzendzetup import --write ${dataset} ${config} &
-            '') files
+            '')
+            files
           )
           + ''
             wait
@@ -505,20 +504,18 @@ in
           TimeoutStartSec = 180;
           # Needs to have write access to ZFS
           User = "root";
-          ExecStart =
-            let
-              args = lib.concatStringsSep " " [
-                "--logto=${cfg.logTo}"
-                "--loglevel=${cfg.logLevel}"
-                (lib.optionalString cfg.noDestroy "--nodestroy")
-                (lib.optionalString cfg.autoCreation "--autoCreation")
-                (lib.optionalString (cfg.mailErrorSummaryTo != "") "--mailErrorSummaryTo=${cfg.mailErrorSummaryTo}")
-                (lib.optionalString (
-                  enabledFeatures != [ ]
-                ) "--features=${lib.concatStringsSep "," enabledFeatures}")
-              ];
-            in
-            "${pkgs.znapzend}/bin/znapzend ${args}";
+          ExecStart = let
+            args = lib.concatStringsSep " " [
+              "--logto=${cfg.logTo}"
+              "--loglevel=${cfg.logLevel}"
+              (lib.optionalString cfg.noDestroy "--nodestroy")
+              (lib.optionalString cfg.autoCreation "--autoCreation")
+              (lib.optionalString (cfg.mailErrorSummaryTo != "") "--mailErrorSummaryTo=${cfg.mailErrorSummaryTo}")
+              (lib.optionalString (
+                enabledFeatures != []
+              ) "--features=${lib.concatStringsSep "," enabledFeatures}")
+            ];
+          in "${pkgs.znapzend}/bin/znapzend ${args}";
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           Restart = "on-failure";
         };
@@ -526,5 +523,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ SlothOfAnarchy ];
+  meta.maintainers = with lib.maintainers; [SlothOfAnarchy];
 }

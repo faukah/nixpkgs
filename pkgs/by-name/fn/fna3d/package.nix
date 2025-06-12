@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-0rRwIbOciPepo+ApvJiK5IyhMdq/4jsMlCSv0UeDETs=";
   };
 
-  buildInputs = [ SDL2 ];
-  nativeBuildInputs = [ cmake ];
+  buildInputs = [SDL2];
+  nativeBuildInputs = [cmake];
 
   installPhase = ''
     runHook preInstall
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mspl;
     platforms = lib.platforms.linux;
     mainProgram = pname;
-    maintainers = with lib.maintainers; [ mrtnvgr ];
+    maintainers = with lib.maintainers; [mrtnvgr];
   };
 }

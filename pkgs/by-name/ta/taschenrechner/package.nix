@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitLab,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "taschenrechner";
   version = "1.5.0";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     description = "Cli-calculator written in Rust";
     homepage = "https://gitlab.fem-net.de/mabl/taschenrechner";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ netali ];
+    maintainers = with maintainers; [netali];
     mainProgram = "taschenrechner";
   };
 }

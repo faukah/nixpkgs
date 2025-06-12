@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ecm-tools";
   version = "1.0.3";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/alucryd/ecm-tools";
     license = lib.licenses.gpl3Plus;
     mainProgram = "bin2ecm";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

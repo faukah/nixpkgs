@@ -16,7 +16,6 @@
   cyrus-sasl-xoauth2,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "isync";
   version = "1.5.1";
@@ -36,11 +35,13 @@ stdenv.mkDerivation (finalAttrs: {
     ./autogen.sh
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    perl
-  ] ++ lib.optionals withCyrusSaslXoauth2 [ makeWrapper ];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      pkg-config
+      perl
+    ]
+    ++ lib.optionals withCyrusSaslXoauth2 [makeWrapper];
   buildInputs = [
     perl538Packages.TimeDate
     openssl
@@ -52,11 +53,11 @@ stdenv.mkDerivation (finalAttrs: {
   postInstall = lib.optionalString withCyrusSaslXoauth2 ''
     wrapProgram "$out/bin/mbsync" \
         --prefix SASL_PATH : "${
-          lib.makeSearchPath "lib/sasl2" [
-            cyrus-sasl-xoauth2
-            cyrus_sasl.out
-          ]
-        }"
+      lib.makeSearchPath "lib/sasl2" [
+        cyrus-sasl-xoauth2
+        cyrus_sasl.out
+      ]
+    }"
   '';
 
   meta = {
@@ -71,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ primeos ];
+    maintainers = with lib.maintainers; [primeos];
     mainProgram = "mbsync";
   };
 })

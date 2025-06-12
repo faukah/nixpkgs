@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-34K8Vjb7MrB8WGGLase+GnN2bUDuAnvU6VWRV1k+ZYM=";
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   postInstall = ''
     mkdir -p $out/share
@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/lelgenio/wl-crosshair";
     license = lib.licenses.unfree; # didn't found a license
     mainProgram = "wl-crosshair";
-    maintainers = with lib.maintainers; [ Guanran928 ];
+    maintainers = with lib.maintainers; [Guanran928];
     platforms = lib.platforms.linux;
   };
 }

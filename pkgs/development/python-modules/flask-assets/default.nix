@@ -8,7 +8,6 @@
   webassets,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flask-assets";
   version = "2.1.0";
@@ -30,21 +29,21 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     flask
     webassets
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "flask_assets" ];
+  pythonImportsCheck = ["flask_assets"];
 
   meta = {
     homepage = "https://github.com/miracle2k/flask-assets";
     description = "Asset management for Flask, to compress and merge CSS and Javascript files";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ abbradar ];
+    maintainers = with lib.maintainers; [abbradar];
   };
 }

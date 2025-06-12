@@ -3,12 +3,12 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.suricata;
   pkg = cfg.package;
-  yaml = pkgs.formats.yaml { };
-  inherit (lib)
+  yaml = pkgs.formats.yaml {};
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
@@ -20,14 +20,13 @@ let
     lists
     mkIf
     ;
-in
-{
-  meta.maintainers = with lib.maintainers; [ felbinger ];
+in {
+  meta.maintainers = with lib.maintainers; [felbinger];
 
   options.services.suricata = {
     enable = mkEnableOption "Suricata";
 
-    package = mkPackageOption pkgs "suricata" { };
+    package = mkPackageOption pkgs "suricata" {};
 
     configFile = mkOption {
       type = types.path;
@@ -53,7 +52,7 @@ in
     };
 
     settings = mkOption {
-      type = types.submodule (import ./settings.nix { inherit config lib yaml; });
+      type = types.submodule (import ./settings.nix {inherit config lib yaml;});
       example = literalExpression ''
         vars.address-groups.HOME_NET = "192.168.178.0/24";
         outputs = [
@@ -150,23 +149,22 @@ in
     };
   };
 
-  config =
-    let
-      captureInterfaces =
-        let
-          inherit (lists) unique optionals;
-        in
-        unique (
-          map (e: e.interface) (
-            (optionals (cfg.settings.af-packet != null) cfg.settings.af-packet)
-            ++ (optionals (cfg.settings.af-xdp != null) cfg.settings.af-xdp)
-            ++ (optionals (
-              cfg.settings.dpdk != null && cfg.settings.dpdk.interfaces != null
-            ) cfg.settings.dpdk.interfaces)
-            ++ (optionals (cfg.settings.pcap != null) cfg.settings.pcap)
-          )
-        );
+  config = let
+    captureInterfaces = let
+      inherit (lists) unique optionals;
     in
+      unique (
+        map (e: e.interface) (
+          (optionals (cfg.settings.af-packet != null) cfg.settings.af-packet)
+          ++ (optionals (cfg.settings.af-xdp != null) cfg.settings.af-xdp)
+          ++ (optionals (
+              cfg.settings.dpdk != null && cfg.settings.dpdk.interfaces != null
+            )
+            cfg.settings.dpdk.interfaces)
+          ++ (optionals (cfg.settings.pcap != null) cfg.settings.pcap)
+        )
+      );
+  in
     mkIf cfg.enable {
       assertions = [
         {
@@ -181,10 +179,10 @@ in
         }
       ];
 
-      boot.kernelModules = mkIf (cfg.settings.af-packet != null) [ "af_packet" ];
+      boot.kernelModules = mkIf (cfg.settings.af-packet != null) ["af_packet"];
 
       users = {
-        groups.${cfg.settings.run-as.group} = { };
+        groups.${cfg.settings.run-as.group} = {};
         users.${cfg.settings.run-as.user} = {
           group = cfg.settings.run-as.group;
           isSystemUser = true;
@@ -200,23 +198,23 @@ in
       systemd.services = {
         suricata-update = {
           description = "Update Suricata Rules";
-          wantedBy = [ "multi-user.target" ];
-          wants = [ "network-online.target" ];
-          after = [ "network-online.target" ];
+          wantedBy = ["multi-user.target"];
+          wants = ["network-online.target"];
+          after = ["network-online.target"];
 
-          script =
-            let
-              python = pkgs.python3.withPackages (ps: with ps; [ pyyaml ]);
-              enabledSourcesCmds = map (
+          script = let
+            python = pkgs.python3.withPackages (ps: with ps; [pyyaml]);
+            enabledSourcesCmds =
+              map (
                 src: "${python.interpreter} ${pkg}/bin/suricata-update enable-source ${src}"
-              ) cfg.enabledSources;
-            in
-            ''
-              ${concatStringsSep "\n" enabledSourcesCmds}
-              ${python.interpreter} ${pkg}/bin/suricata-update update-sources
-              ${python.interpreter} ${pkg}/bin/suricata-update update --suricata-conf ${cfg.configFile} --no-test \
-                --disable-conf ${pkgs.writeText "suricata-disable-conf" "${concatStringsSep "\n" cfg.disabledRules}"}
-            '';
+              )
+              cfg.enabledSources;
+          in ''
+            ${concatStringsSep "\n" enabledSourcesCmds}
+            ${python.interpreter} ${pkg}/bin/suricata-update update-sources
+            ${python.interpreter} ${pkg}/bin/suricata-update update --suricata-conf ${cfg.configFile} --no-test \
+              --disable-conf ${pkgs.writeText "suricata-disable-conf" "${concatStringsSep "\n" cfg.disabledRules}"}
+          '';
           serviceConfig = {
             Type = "oneshot";
 
@@ -237,45 +235,43 @@ in
         };
         suricata = {
           description = "Suricata";
-          wantedBy = [ "multi-user.target" ];
-          after = [ "suricata-update.service" ];
-          serviceConfig =
-            let
-              interfaceOptions = strings.concatMapStrings (interface: " -i ${interface}") captureInterfaces;
-            in
-            {
-              ExecStartPre = "!${pkg}/bin/suricata -c ${cfg.configFile} -T";
-              ExecStart = "!${pkg}/bin/suricata -c ${cfg.configFile}${interfaceOptions}";
-              Restart = "on-failure";
+          wantedBy = ["multi-user.target"];
+          after = ["suricata-update.service"];
+          serviceConfig = let
+            interfaceOptions = strings.concatMapStrings (interface: " -i ${interface}") captureInterfaces;
+          in {
+            ExecStartPre = "!${pkg}/bin/suricata -c ${cfg.configFile} -T";
+            ExecStart = "!${pkg}/bin/suricata -c ${cfg.configFile}${interfaceOptions}";
+            Restart = "on-failure";
 
-              User = cfg.settings.run-as.user;
-              Group = cfg.settings.run-as.group;
+            User = cfg.settings.run-as.user;
+            Group = cfg.settings.run-as.group;
 
-              NoNewPrivileges = true;
-              PrivateTmp = true;
-              PrivateDevices = true;
-              PrivateIPC = true;
-              ProtectSystem = "strict";
-              DevicePolicy = "closed";
-              LockPersonality = true;
-              MemoryDenyWriteExecute = true;
-              ProtectHostname = true;
-              ProtectProc = true;
-              ProtectKernelLogs = true;
-              ProtectKernelModules = true;
-              ProtectKernelTunables = true;
-              ProtectControlGroups = true;
-              ProcSubset = "pid";
-              RestrictNamespaces = true;
-              RestrictRealtime = true;
-              RestrictSUIDSGID = true;
-              SystemCallArchitectures = "native";
-              RemoveIPC = true;
+            NoNewPrivileges = true;
+            PrivateTmp = true;
+            PrivateDevices = true;
+            PrivateIPC = true;
+            ProtectSystem = "strict";
+            DevicePolicy = "closed";
+            LockPersonality = true;
+            MemoryDenyWriteExecute = true;
+            ProtectHostname = true;
+            ProtectProc = true;
+            ProtectKernelLogs = true;
+            ProtectKernelModules = true;
+            ProtectKernelTunables = true;
+            ProtectControlGroups = true;
+            ProcSubset = "pid";
+            RestrictNamespaces = true;
+            RestrictRealtime = true;
+            RestrictSUIDSGID = true;
+            SystemCallArchitectures = "native";
+            RemoveIPC = true;
 
-              ReadOnlyPaths = cfg.configFile;
-              ReadWritePaths = cfg.settings."default-log-dir";
-              RuntimeDirectory = "suricata";
-            };
+            ReadOnlyPaths = cfg.configFile;
+            ReadWritePaths = cfg.settings."default-log-dir";
+            RuntimeDirectory = "suricata";
+          };
         };
       };
     };

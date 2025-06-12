@@ -3,7 +3,6 @@
   lib,
   fetchurl,
 }:
-
 buildOctavePackage rec {
   pname = "image";
   version = "2.16.1";
@@ -16,7 +15,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/image/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Functions for processing images";
     longDescription = ''
       The Octave-forge Image package provides functions for processing

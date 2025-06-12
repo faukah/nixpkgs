@@ -13,7 +13,6 @@
   ffmpeg,
   aria2,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "tartube";
   version = "2.5.100";
@@ -66,14 +65,14 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   makeWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ youtube-dl ]}"
+    "--prefix PATH : ${lib.makeBinPath [youtube-dl]}"
   ];
 
   meta = with lib; {
     description = "GUI front-end for youtube-dl";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
     homepage = "https://tartube.sourceforge.io/";
     mainProgram = "tartube";
   };

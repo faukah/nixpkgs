@@ -3,23 +3,18 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.git-worktree-switcher;
 
-  initScript =
-    shell:
-    if (shell == "fish") then
-      ''
-        ${lib.getExe pkgs.git-worktree-switcher} init ${shell} | source
-      ''
-    else
-      ''
-        eval "$(${lib.getExe pkgs.git-worktree-switcher} init ${shell})"
-      '';
-in
-{
+  initScript = shell:
+    if (shell == "fish")
+    then ''
+      ${lib.getExe pkgs.git-worktree-switcher} init ${shell} | source
+    ''
+    else ''
+      eval "$(${lib.getExe pkgs.git-worktree-switcher} init ${shell})"
+    '';
+in {
   options = {
     programs.git-worktree-switcher = {
       enable = lib.mkEnableOption "git-worktree-switcher, switch between git worktrees with speed.";
@@ -27,7 +22,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ git-worktree-switcher ];
+    environment.systemPackages = with pkgs; [git-worktree-switcher];
 
     programs.bash.interactiveShellInit = initScript "bash";
     programs.zsh.interactiveShellInit = lib.optionalString config.programs.zsh.enable (

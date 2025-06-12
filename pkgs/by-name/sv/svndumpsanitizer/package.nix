@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "svndumpsanitizer";
   version = "2.0.7";
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
     homepage = "https://miria.homelinuxserver.org/svndumpsanitizer";
     downloadPage = "https://github.com/dsuni/svndumpsanitizer";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ lafrenierejm ];
+    maintainers = with maintainers; [lafrenierejm];
     mainProgram = "svndumpsanitizer";
     platforms = platforms.unix;
   };

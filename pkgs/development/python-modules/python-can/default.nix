@@ -19,7 +19,6 @@
   wrapt,
   uptime,
 }:
-
 buildPythonPackage rec {
   pname = "python-can";
   version = "4.5.0";
@@ -47,19 +46,21 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    serial = [ pyserial ];
-    seeedstudio = [ pyserial ];
-    pcan = [ uptime ];
+    serial = [pyserial];
+    seeedstudio = [pyserial];
+    pcan = [uptime];
   };
 
-  nativeCheckInputs = [
-    future
-    hypothesis
-    parameterized
-    pytest-cov-stub
-    pytest-timeout
-    pytestCheckHook
-  ] ++ optional-dependencies.serial;
+  nativeCheckInputs =
+    [
+      future
+      hypothesis
+      parameterized
+      pytest-cov-stub
+      pytest-timeout
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.serial;
 
   disabledTestPaths = [
     # We don't support all interfaces
@@ -87,7 +88,7 @@ buildPythonPackage rec {
     export CI=1
   '';
 
-  pythonImportsCheck = [ "can" ];
+  pythonImportsCheck = ["can"];
 
   meta = with lib; {
     description = "CAN support for Python";

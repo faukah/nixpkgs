@@ -4,7 +4,6 @@
   fetchurl,
   libxcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "thttpd";
   version = "2.29";

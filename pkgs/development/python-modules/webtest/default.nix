@@ -13,7 +13,6 @@
   webob,
   wsgiproxy2,
 }:
-
 buildPythonPackage rec {
   pname = "webtest";
   version = "3.0.4";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-lHeNGaN+Wr1ziNrU2Th0QQ7M7VOhc5qOX/Lby6HPwMQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     beautifulsoup4
@@ -44,12 +43,12 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "webtest" ];
+  pythonImportsCheck = ["webtest"];
 
   meta = with lib; {
     description = "Helper to test WSGI applications";
     homepage = "https://webtest.readthedocs.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

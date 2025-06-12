@@ -14,9 +14,7 @@
   stdenvNoCC,
   xz,
   zlib,
-}:
-
-let
+}: let
   Libc = apple-sdk.sourceRelease "Libc";
   Libinfo = apple-sdk.sourceRelease "Libinfo";
   CommonCrypto = apple-sdk.sourceRelease "CommonCrypto";
@@ -80,64 +78,64 @@ let
     '';
   };
 in
-mkAppleDerivation {
-  releaseName = "file_cmds";
+  mkAppleDerivation {
+    releaseName = "file_cmds";
 
-  outputs = [
-    "out"
-    "man"
-    "xattr"
-  ];
-
-  xcodeHash = "sha256-u23AoLa7J0eFtf4dXKkVO59eYL2I3kRsHcWPfT03MCU=";
-
-  patches = [
-    # Fixes build of ls
-    ./patches/0001-Add-missing-extern-unix2003_compat-to-ls.patch
-    # Add missing conditional to avoid using private APFS APIs that we lack headers for using.
-    ./patches/0002-Add-missing-ifdef-for-private-APFS-APIs.patch
-  ];
-
-  nativeBuildInputs = [ pkg-config ];
-
-  env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
-
-  buildInputs = [
-    bzip2
-    copyfile
-    libmd
-    libutil
-    libxo
-    removefile
-    xz
-    zlib
-  ];
-
-  postInstall = ''
-    HOST_PATH='${lib.getBin shell_cmds}/bin' patchShebangs --host "$out/bin"
-
-    substituteInPlace "$out/bin/zmore" \
-      --replace-fail 'PAGER-less' '${lib.getBin less}/bin/less' \
-      --replace-fail 'PAGER-more' '${lib.getBin less}/bin/more'
-
-    # Work around Meson limitations.
-    mv "$out/bin/install-bin" "$out/bin/install"
-
-    # Make xattr available in its own output, so darwin.xattr can be an alias to it.
-    moveToOutput bin/xattr "$xattr"
-    ln -s "$xattr/bin/xattr" "$out/bin/xattr"
-  '';
-
-  meta = {
-    description = "File commands for Darwin";
-    license = with lib.licenses; [
-      apple-psl10
-      bsd2
-      # bsd2-freebsd
-      # bsd2-netbsd
-      bsd3
-      bsdOriginal
-      mit
+    outputs = [
+      "out"
+      "man"
+      "xattr"
     ];
-  };
-}
+
+    xcodeHash = "sha256-u23AoLa7J0eFtf4dXKkVO59eYL2I3kRsHcWPfT03MCU=";
+
+    patches = [
+      # Fixes build of ls
+      ./patches/0001-Add-missing-extern-unix2003_compat-to-ls.patch
+      # Add missing conditional to avoid using private APFS APIs that we lack headers for using.
+      ./patches/0002-Add-missing-ifdef-for-private-APFS-APIs.patch
+    ];
+
+    nativeBuildInputs = [pkg-config];
+
+    env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
+
+    buildInputs = [
+      bzip2
+      copyfile
+      libmd
+      libutil
+      libxo
+      removefile
+      xz
+      zlib
+    ];
+
+    postInstall = ''
+      HOST_PATH='${lib.getBin shell_cmds}/bin' patchShebangs --host "$out/bin"
+
+      substituteInPlace "$out/bin/zmore" \
+        --replace-fail 'PAGER-less' '${lib.getBin less}/bin/less' \
+        --replace-fail 'PAGER-more' '${lib.getBin less}/bin/more'
+
+      # Work around Meson limitations.
+      mv "$out/bin/install-bin" "$out/bin/install"
+
+      # Make xattr available in its own output, so darwin.xattr can be an alias to it.
+      moveToOutput bin/xattr "$xattr"
+      ln -s "$xattr/bin/xattr" "$out/bin/xattr"
+    '';
+
+    meta = {
+      description = "File commands for Darwin";
+      license = with lib.licenses; [
+        apple-psl10
+        bsd2
+        # bsd2-freebsd
+        # bsd2-netbsd
+        bsd3
+        bsdOriginal
+        mit
+      ];
+    };
+  }

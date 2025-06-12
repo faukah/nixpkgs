@@ -7,7 +7,6 @@
   pycsdr,
   codecserver,
 }:
-
 buildPythonPackage rec {
   pname = "pydigiham";
   version = "0.6.2";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-QenoMyVFs8MEDPoMV6TT6XfzktfN/gAMIHR0Scq11wk=";
   };
 
-  propagatedBuildInputs = [ digiham ];
+  propagatedBuildInputs = [digiham];
   buildInputs = [
     codecserver
     pycsdr
@@ -32,12 +31,12 @@ buildPythonPackage rec {
 
   # has no tests
   doCheck = false;
-  pythonImportsCheck = [ "digiham" ];
+  pythonImportsCheck = ["digiham"];
 
   meta = {
     homepage = "https://github.com/jketterl/pydigiham";
     description = "bindings for the csdr library";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.c3d2 ];
+    teams = [lib.teams.c3d2];
   };
 }

@@ -35,7 +35,6 @@
   withRealtimeGPSTracking ? (!stdenv.hostPlatform.isDarwin),
   gpsd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "viking";
   version = "1.10";
@@ -53,16 +52,18 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    docbook_xml_dtd_45
-    docbook_xsl
-    intltool
-    itstool
-    libxslt
-    pkg-config
-    wrapGAppsHook3
-    yelp-tools
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs =
+    [
+      docbook_xml_dtd_45
+      docbook_xsl
+      intltool
+      itstool
+      libxslt
+      pkg-config
+      wrapGAppsHook3
+      yelp-tools
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
   buildInputs =
     [
@@ -92,13 +93,13 @@ stdenv.mkDerivation rec {
     (lib.enableFeature withRealtimeGPSTracking "realtime-gps-tracking")
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doCheck = true;
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : ${lib.makeBinPath [ gpsbabel ]}
+      --prefix PATH : ${lib.makeBinPath [gpsbabel]}
     )
   '';
 

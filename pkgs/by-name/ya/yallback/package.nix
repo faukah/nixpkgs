@@ -6,7 +6,6 @@
   coreutils,
   bashInteractive,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.2.0";
   pname = "yallback";
@@ -21,11 +20,11 @@ stdenv.mkDerivation rec {
     coreutils
     bashInteractive
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dv yallback $out/bin/yallback
-    wrapProgram $out/bin/yallback --prefix PATH : ${lib.makeBinPath [ coreutils ]}
+    wrapProgram $out/bin/yallback --prefix PATH : ${lib.makeBinPath [coreutils]}
   '';
 
   meta = with lib; {
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     mainProgram = "yallback";
     homepage = "https://github.com/abathur/yallback";
     license = licenses.mit;
-    maintainers = with maintainers; [ abathur ];
+    maintainers = with maintainers; [abathur];
     platforms = platforms.all;
   };
 }

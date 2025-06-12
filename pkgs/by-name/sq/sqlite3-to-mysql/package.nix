@@ -7,7 +7,6 @@
   sqlite3-to-mysql,
   mysql80,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "sqlite3-to-mysql";
   version = "2.4.0";
@@ -62,7 +61,7 @@ python3Packages.buildPythonApplication rec {
     description = "Simple Python tool to transfer data from SQLite 3 to MySQL";
     homepage = "https://github.com/techouse/sqlite3-to-mysql";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ gador ];
+    maintainers = with lib.maintainers; [gador];
     mainProgram = "sqlite3mysql";
   };
 }

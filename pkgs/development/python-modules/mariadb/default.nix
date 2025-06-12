@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "mariadb";
   version = "1.1.11";
@@ -22,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-f3WeVtsjxm/HVPv0cbpPkmklcNFWJaFqI2LxDElcCFw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     libmysqlclient # for mariadb_config
   ];
 
-  buildInputs = [ libmysqlclient ];
+  buildInputs = [libmysqlclient];
 
   dependencies = [
     packaging # do not rely on pythonImportsCheck when removing, it pulls in build-system dependencies
@@ -37,12 +36,12 @@ buildPythonPackage rec {
   # Requires a running MariaDB instance
   doCheck = false;
 
-  pythonImportsCheck = [ "mariadb" ];
+  pythonImportsCheck = ["mariadb"];
 
   meta = {
     description = "MariaDB Connector/Python";
     homepage = "https://github.com/mariadb-corporation/mariadb-connector-python";
     license = lib.licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

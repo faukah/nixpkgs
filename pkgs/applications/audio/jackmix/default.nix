@@ -11,7 +11,6 @@
   alsa-lib,
   fetchpatch,
 }:
-
 mkDerivation rec {
   pname = "jackmix";
   version = "0.6.0";
@@ -52,7 +51,7 @@ mkDerivation rec {
     mainProgram = "jackmix";
     homepage = "https://github.com/kampfschlaefer/jackmix";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ kampfschlaefer ];
+    maintainers = with maintainers; [kampfschlaefer];
     platforms = platforms.linux;
   };
 }

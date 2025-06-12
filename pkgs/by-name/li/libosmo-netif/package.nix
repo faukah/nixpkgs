@@ -7,7 +7,6 @@
   pkg-config,
   libosmocore,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libosmo-netif";
   version = "1.6.0";

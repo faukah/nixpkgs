@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "koto-ls";
   version = "0.15.3";
@@ -19,14 +18,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ewBAixbksI9ora5hBZR12lzxCPzxM2Cp6GvQz6hGCSY=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Language server for Koto";
     homepage = "https://github.com/koto-lang/koto-ls";
     changelog = "https://github.com/koto-lang/koto-ls/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
     mainProgram = "koto-ls";
   };
 })

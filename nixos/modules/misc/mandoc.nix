@@ -3,33 +3,31 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   makewhatis = "${lib.getBin cfg.package}/bin/makewhatis";
 
   cfg = config.documentation.man.mandoc;
 
-  toMandocOutput =
-    output:
-    (lib.mapAttrsToList (
+  toMandocOutput = output: (lib.mapAttrsToList (
       name: value:
-      if lib.isString value || lib.isPath value then
-        "output ${name} ${value}"
-      else if lib.isInt value then
-        "output ${name} ${builtins.toString value}"
-      else if lib.isBool value then
-        lib.optionalString value "output ${name}"
-      else if value == null then
-        ""
-      else
-        throw "Unrecognized value type ${builtins.typeOf value} of key ${name} in mandoc output settings"
-    ) output);
+        if lib.isString value || lib.isPath value
+        then "output ${name} ${value}"
+        else if lib.isInt value
+        then "output ${name} ${builtins.toString value}"
+        else if lib.isBool value
+        then lib.optionalString value "output ${name}"
+        else if value == null
+        then ""
+        else throw "Unrecognized value type ${builtins.typeOf value} of key ${name} in mandoc output settings"
+    )
+    output);
 
-  makeLeadingSlashes = map (path: if builtins.substring 0 1 path != "/" then "/${path}" else path);
-in
-{
-  meta.maintainers = [ lib.maintainers.sternenseemann ];
+  makeLeadingSlashes = map (path:
+    if builtins.substring 0 1 path != "/"
+    then "/${path}"
+    else path);
+in {
+  meta.maintainers = [lib.maintainers.sternenseemann];
 
   options = {
     documentation.man.mandoc = {
@@ -37,7 +35,7 @@ in
 
       manPath = lib.mkOption {
         type = with lib.types; listOf str;
-        default = [ "share/man" ];
+        default = ["share/man"];
         example = lib.literalExpression "[ \"share/man\" \"share/man/fr\" ]";
         apply = makeLeadingSlashes;
         description = ''
@@ -86,12 +84,12 @@ in
 
       settings = lib.mkOption {
         description = "Configuration for {manpage}`man.conf(5)`";
-        default = { };
+        default = {};
         type = lib.types.submodule {
           options = {
             manpath = lib.mkOption {
               type = with lib.types; listOf str;
-              default = [ ];
+              default = [];
               example = lib.literalExpression "[ \"/run/current-system/sw/share/man\" ]";
               description = ''
                 Override the default search path for {manpage}`man(1)`,
@@ -204,12 +202,12 @@ in
 
   config = lib.mkIf cfg.enable {
     environment = {
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
 
       etc."man.conf".text = lib.concatStringsSep "\n" (
         (map (path: "manpath ${path}") cfg.settings.manpath)
         ++ (toMandocOutput cfg.settings.output)
-        ++ [ cfg.extraConfig ]
+        ++ [cfg.extraConfig]
       );
 
       # create mandoc.db for whatis(1), apropos(1) and man(1) -k
@@ -225,7 +223,7 @@ in
       '';
 
       # tell mandoc the paths containing man pages
-      profileRelativeSessionVariables."MANPATH" = lib.mkIf (cfg.manPath != [ ]) cfg.manPath;
+      profileRelativeSessionVariables."MANPATH" = lib.mkIf (cfg.manPath != []) cfg.manPath;
     };
   };
 }

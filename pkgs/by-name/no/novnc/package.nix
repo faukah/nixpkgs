@@ -5,7 +5,6 @@
   replaceVars,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "novnc";
   version = "1.6.0";
@@ -17,14 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VYG0p70ZvRzK9IeA+5J95FqF+zWgj/8EcxnVOk+YL9o=";
   };
 
-  patches =
-    with python3.pkgs;
+  patches = with python3.pkgs;
     [
       (replaceVars ./websockify.patch {
         inherit websockify;
       })
     ]
-    ++ [ ./fix-paths.patch ];
+    ++ [./fix-paths.patch];
 
   postPatch = ''
     substituteAllInPlace utils/novnc_proxy
@@ -50,7 +48,7 @@ stdenv.mkDerivation rec {
       bsd2
       mit
     ];
-    maintainers = with maintainers; [ neverbehave ];
+    maintainers = with maintainers; [neverbehave];
     mainProgram = "novnc";
   };
 }

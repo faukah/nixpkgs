@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.gotenberg;
 
   args =
@@ -35,9 +34,10 @@ let
     ) "--api-download-from-deny-list=${cfg.downloadFrom.denyList}"
     ++ optional cfg.downloadFrom.disable "--api-disable-download-from"
     ++ optional (cfg.bodyLimit != null) "--api-body-limit=${cfg.bodyLimit}"
-    ++ lib.optionals (cfg.extraArgs != [ ]) cfg.extraArgs;
+    ++ lib.optionals (cfg.extraArgs != []) cfg.extraArgs;
 
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
@@ -46,8 +46,7 @@ let
     optional
     optionalAttrs
     ;
-in
-{
+in {
   options = {
     services.gotenberg = {
       enable = mkEnableOption "Gotenberg, a stateless API for PDF files";
@@ -55,7 +54,7 @@ in
       # Users can override only gotenberg, libreoffice and chromium if they want to (eg. ungoogled-chromium, different LO version, etc)
       # Don't allow setting the qpdf, pdftk, or unoconv paths, as those are very stable
       # and there's only one version of each.
-      package = mkPackageOption pkgs "gotenberg" { };
+      package = mkPackageOption pkgs "gotenberg" {};
 
       port = mkOption {
         type = types.port;
@@ -100,12 +99,12 @@ in
 
       extraFontPackages = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         description = "Extra fonts to make available.";
       };
 
       chromium = {
-        package = mkPackageOption pkgs "chromium" { };
+        package = mkPackageOption pkgs "chromium" {};
 
         maxQueueSize = mkOption {
           type = types.int;
@@ -156,7 +155,7 @@ in
       };
 
       libreoffice = {
-        package = mkPackageOption pkgs "libreoffice" { };
+        package = mkPackageOption pkgs "libreoffice" {};
 
         restartAfter = mkOption {
           type = types.int;
@@ -259,7 +258,7 @@ in
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = "Any extra command-line flags to pass to the Gotenberg service.";
       };
     };
@@ -289,65 +288,67 @@ in
 
     systemd.services.gotenberg = {
       description = "Gotenberg API server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ cfg.package ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = [cfg.package];
       environment = {
         LIBREOFFICE_BIN_PATH = "${cfg.libreoffice.package}/lib/libreoffice/program/soffice.bin";
         CHROMIUM_BIN_PATH = lib.getExe cfg.chromium.package;
         FONTCONFIG_FILE = pkgs.makeFontsConf {
-          fontDirectories = [ pkgs.liberation_ttf_v2 ] ++ cfg.extraFontPackages;
+          fontDirectories = [pkgs.liberation_ttf_v2] ++ cfg.extraFontPackages;
         };
         # Needed for LibreOffice to work correctly.
         # https://github.com/NixOS/nixpkgs/issues/349123#issuecomment-2418330936
         HOME = "/run/gotenberg";
       };
-      serviceConfig = {
-        Type = "simple";
-        DynamicUser = true;
-        ExecStart = "${lib.getExe cfg.package} ${lib.escapeShellArgs args}";
+      serviceConfig =
+        {
+          Type = "simple";
+          DynamicUser = true;
+          ExecStart = "${lib.getExe cfg.package} ${lib.escapeShellArgs args}";
 
-        # Needed for LibreOffice to work correctly.
-        # See above issue comment.
-        WorkingDirectory = "/run/gotenberg";
-        RuntimeDirectory = "gotenberg";
+          # Needed for LibreOffice to work correctly.
+          # See above issue comment.
+          WorkingDirectory = "/run/gotenberg";
+          RuntimeDirectory = "gotenberg";
 
-        # Hardening options
-        PrivateDevices = true;
-        PrivateIPC = true;
-        PrivateUsers = true;
+          # Hardening options
+          PrivateDevices = true;
+          PrivateIPC = true;
+          PrivateUsers = true;
 
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectProc = "invisible";
+          ProtectClock = true;
+          ProtectControlGroups = true;
+          ProtectHome = true;
+          ProtectHostname = true;
+          ProtectKernelLogs = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          ProtectProc = "invisible";
 
-        RestrictAddressFamilies = [
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-          "AF_NETLINK"
-        ];
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
+          RestrictAddressFamilies = [
+            "AF_UNIX"
+            "AF_INET"
+            "AF_INET6"
+            "AF_NETLINK"
+          ];
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
 
-        LockPersonality = true;
+          LockPersonality = true;
 
-        SystemCallFilter = [
-          "@sandbox"
-          "@system-service"
-          "@chown"
-        ];
-        SystemCallArchitectures = "native";
+          SystemCallFilter = [
+            "@sandbox"
+            "@system-service"
+            "@chown"
+          ];
+          SystemCallArchitectures = "native";
 
-        UMask = 77;
-      } // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
+          UMask = 77;
+        }
+        // optionalAttrs (cfg.environmentFile != null) {EnvironmentFile = cfg.environmentFile;};
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ pyrox0 ];
+  meta.maintainers = with lib.maintainers; [pyrox0];
 }

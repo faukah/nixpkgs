@@ -15,7 +15,6 @@
   makeWrapper,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vpkedit";
   version = "4.4.2";
@@ -134,8 +133,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/craftablescience/VPKEdit";
     mainProgram = "vpkeditcli";
     license = lib.licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ srp ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [srp];
     changelog = "https://github.com/craftablescience/VPKEdit/releases/tag/v${finalAttrs.version}";
   };
 })

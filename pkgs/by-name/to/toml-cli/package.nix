@@ -5,7 +5,6 @@
   testers,
   toml-cli,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "toml-cli";
   version = "0.2.3";
@@ -27,14 +26,14 @@ rustPlatform.buildRustPackage rec {
   ];
 
   passthru.tests = {
-    version = testers.testVersion { package = toml-cli; };
+    version = testers.testVersion {package = toml-cli;};
   };
 
   meta = {
     description = "Simple CLI for editing and querying TOML files";
     homepage = "https://github.com/gnprice/toml-cli";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ phlip9 ];
+    maintainers = with lib.maintainers; [phlip9];
     mainProgram = "toml";
   };
 }

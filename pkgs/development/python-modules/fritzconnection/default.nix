@@ -7,7 +7,6 @@
   segno,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "fritzconnection";
   version = "1.15.0";
@@ -20,21 +19,21 @@ buildPythonPackage rec {
     hash = "sha256-ulY+nh9CSnxrktTlFSXAWJALkS4GwP/3dRIG07jQCWs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   optional-dependencies = {
-    qr = [ segno ];
+    qr = [segno];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$TEMP
   '';
 
-  pythonImportsCheck = [ "fritzconnection" ];
+  pythonImportsCheck = ["fritzconnection"];
 
   disabledTestPaths = [
     # Functional tests require network access

@@ -16,7 +16,6 @@
   xorg,
   xosd,
 }:
-
 stdenv.mkDerivation {
   pname = "xneur";
   version = "0.20.0";
@@ -71,7 +70,7 @@ stdenv.mkDerivation {
     mainProgram = "xneur";
     homepage = "https://xneur.ru";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
   };
 }

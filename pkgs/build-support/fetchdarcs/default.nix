@@ -4,9 +4,8 @@
   cacert,
   lib,
 }:
-
 lib.makeOverridable (
-  lib.fetchers.withNormalizedHash { } (
+  lib.fetchers.withNormalizedHash {} (
     {
       url,
       rev ? null,
@@ -15,23 +14,22 @@ lib.makeOverridable (
       outputHashAlgo ? null,
       name ? "fetchdarcs",
     }:
+      stdenvNoCC.mkDerivation {
+        builder = ./builder.sh;
+        nativeBuildInputs = [
+          cacert
+          darcs
+        ];
 
-    stdenvNoCC.mkDerivation {
-      builder = ./builder.sh;
-      nativeBuildInputs = [
-        cacert
-        darcs
-      ];
+        inherit outputHash outputHashAlgo;
+        outputHashMode = "recursive";
 
-      inherit outputHash outputHashAlgo;
-      outputHashMode = "recursive";
-
-      inherit
-        url
-        rev
-        context
-        name
-        ;
-    }
+        inherit
+          url
+          rev
+          context
+          name
+          ;
+      }
   )
 )

@@ -6,7 +6,6 @@
   libGL,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libstrangle";
   version = "unstable-202202022";
@@ -54,8 +53,8 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/torkel104/libstrangle";
     description = "Frame rate limiter for Linux/OpenGL";
     license = licenses.gpl3;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ aske ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [aske];
     mainProgram = "strangle";
   };
 }

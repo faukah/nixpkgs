@@ -14,7 +14,6 @@
   llama-index-readers-file,
   llama-index-readers-llama-parse,
 }:
-
 buildPythonPackage {
   pname = "llama-index";
 
@@ -22,7 +21,7 @@ buildPythonPackage {
 
   pyproject = true;
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   pythonRelaxDeps = [
     "llama-index-core"
@@ -44,5 +43,5 @@ buildPythonPackage {
     llama-index-readers-llama-parse
   ];
 
-  pythonImportsCheck = [ "llama_index" ];
+  pythonImportsCheck = ["llama_index"];
 }

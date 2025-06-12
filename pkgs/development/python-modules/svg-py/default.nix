@@ -7,7 +7,6 @@
   pythonOlder,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "svg-py";
   version = "1.6.0";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-XuSv4CVcbwWHuHiXxx4PfGJ8Pi+tfufbAdUiTFWNLcc=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   nativeCheckInputs = [
     pytestCheckHook
     pyyaml
   ];
 
-  pythonImportsCheck = [ "svg" ];
+  pythonImportsCheck = ["svg"];
 
   disabledTestPaths = [
     # Tests need additional files
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/orsinium-labs/svg.py";
     changelog = "https://github.com/orsinium-labs/svg.py/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

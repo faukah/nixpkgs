@@ -6,7 +6,6 @@
   setuptools,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "ed25519";
   version = "1.5";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     versioneer
   ];
 
-  pythonImportsCheck = [ "ed25519" ];
+  pythonImportsCheck = ["ed25519"];
 
   meta = with lib; {
     description = "Ed25519 public-key signatures";
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/warner/python-ed25519";
     changelog = "https://github.com/warner/python-ed25519/blob/${version}/NEWS";
     license = licenses.mit;
-    maintainers = with maintainers; [ np ];
+    maintainers = with maintainers; [np];
   };
 }

@@ -4,7 +4,6 @@
   unstableGitUpdater,
   buildLua,
 }:
-
 buildLua rec {
   pname = "mpv-reload";
 
@@ -15,7 +14,7 @@ buildLua rec {
     rev = "1a6a9383ba1774708fddbd976e7a9b72c3eec938";
     hash = "sha256-BshxCjec/UNGyiC0/g1Rai2NvG2qOIHXDDEUYwwdij0=";
   };
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Manual & automatic reloading of videos";
@@ -26,6 +25,6 @@ buildLua rec {
     '';
     homepage = "https://github.com/4e6/mpv-reload";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nicoo ];
+    maintainers = with lib.maintainers; [nicoo];
   };
 }

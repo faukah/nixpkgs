@@ -10,7 +10,6 @@
   pyramid,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyramid-jinja2";
   version = "2.10.1";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
       --replace " --cov" ""
   '';
 
-  pythonImportsCheck = [ "pyramid_jinja2" ];
+  pythonImportsCheck = ["pyramid_jinja2"];
 
   disabledTests = [
     # AssertionError: Lists differ: ['pyramid_jinja2-2.10',...
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     description = "Jinja2 template bindings for the Pyramid web framework";
     homepage = "https://github.com/Pylons/pyramid_jinja2";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

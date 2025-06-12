@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "temporalite";
   version = "0.3.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-w86/XCMRGBmXM+oQ5+0qiX0fdwiKXvsmEkApuRLUOiA=";
 
-  subPackages = [ "cmd/temporalite" ];
+  subPackages = ["cmd/temporalite"];
 
   postPatch = ''
     substituteInPlace cmd/temporalite/ui_test.go \
@@ -32,6 +31,6 @@ buildGoModule rec {
     mainProgram = "temporalite";
     homepage = "https://github.com/temporalio/temporalite";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
   };
 }

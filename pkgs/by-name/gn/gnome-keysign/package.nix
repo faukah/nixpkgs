@@ -8,7 +8,6 @@
   glib,
   gst_all_1,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "gnome-keysign";
   version = "1.3.0";
@@ -37,8 +36,8 @@ python3.pkgs.buildPythonApplication rec {
     glib
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
-    (gst_all_1.gst-plugins-good.override { gtkSupport = true; })
-    (gst_all_1.gst-plugins-bad.override { enableZbar = true; }) # for zbar plug-in
+    (gst_all_1.gst-plugins-good.override {gtkSupport = true;})
+    (gst_all_1.gst-plugins-bad.override {enableZbar = true;}) # for zbar plug-in
   ];
 
   propagatedBuildInputs = with python3.pkgs; [
@@ -60,7 +59,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "GTK/GNOME application to use GnuPG for signing other peoples’ keys";
     homepage = "https://gitlab.gnome.org/GNOME/gnome-keysign";
     license = licenses.gpl3Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 }

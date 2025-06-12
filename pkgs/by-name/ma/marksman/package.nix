@@ -6,7 +6,6 @@
   marksman,
   testers,
 }:
-
 buildDotnetModule rec {
   pname = "marksman";
   version = "2024-12-18";
@@ -19,7 +18,7 @@ buildDotnetModule rec {
   };
 
   projectFile = "Marksman/Marksman.fsproj";
-  dotnetBuildFlags = [ "-p:VersionString=${version}" ];
+  dotnetBuildFlags = ["-p:VersionString=${version}"];
 
   __darwinAllowLocalNetworking = true;
 

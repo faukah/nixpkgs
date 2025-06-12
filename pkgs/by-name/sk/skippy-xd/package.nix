@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     rev = "30da57cb59ccf77f766718f7d533ddbe533ba241";
     hash = "sha256-YBUDbI1SHsBI/fA3f3W1sPu3wXSodMbTGvAMqOz7RCM=";
   };
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     xorgproto
     libX11
@@ -34,7 +34,7 @@ stdenv.mkDerivation {
     libjpeg
     giflib
   ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   preInstall = ''
     sed -e "s@/etc/xdg@$out&@" -i Makefile
   '';
@@ -42,7 +42,7 @@ stdenv.mkDerivation {
     description = "Expose-style compositing-based standalone window switcher";
     homepage = "https://github.com/felixfung/skippy-xd";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 }

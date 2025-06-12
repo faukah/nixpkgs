@@ -14,9 +14,9 @@ stdenv.mkDerivation {
   };
 
   # hcitool is deprecated
-  patches = [ ./hcitool.patch ];
+  patches = [./hcitool.patch];
 
-  buildInputs = [ libusb-compat-0_1 ];
+  buildInputs = [libusb-compat-0_1];
 
   unpackPhase = ''
     cp $src sixpair.c
@@ -38,7 +38,7 @@ stdenv.mkDerivation {
     '';
     homepage = "http://www.pabr.org/sixlinux/";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.tomsmeets ];
+    maintainers = [lib.maintainers.tomsmeets];
     platforms = lib.platforms.linux;
     mainProgram = "sixpair";
   };

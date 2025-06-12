@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "docker-compose";
   version = "2.36.0";
@@ -43,6 +42,6 @@ buildGoModule rec {
     mainProgram = "docker-compose";
     homepage = "https://github.com/docker/compose";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

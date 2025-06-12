@@ -4,8 +4,7 @@
   options,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.terraria;
   opt = options.services.terraria;
   worldSizeMap = {
@@ -13,9 +12,8 @@ let
     medium = 2;
     large = 3;
   };
-  valFlag =
-    name: val:
-    lib.optionalString (val != null) "-${name} \"${lib.escape [ "\\" "\"" ] (toString val)}\"";
+  valFlag = name: val:
+    lib.optionalString (val != null) "-${name} \"${lib.escape ["\\" "\""] (toString val)}\"";
   boolFlag = name: val: lib.optionalString val "-${name}";
   flags = [
     (valFlag "port" cfg.port)
@@ -51,8 +49,7 @@ let
     # Wait for the process to stop
     tail --pid="$1" -f /dev/null
   '';
-in
-{
+in {
   options = {
     services.terraria = {
       enable = lib.mkOption {
@@ -169,8 +166,8 @@ in
 
     systemd.services.terraria = {
       description = "Terraria Server Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = "terraria";
@@ -184,9 +181,8 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
-      allowedUDPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
+      allowedUDPPorts = [cfg.port];
     };
-
   };
 }

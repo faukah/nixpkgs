@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "stardust-xr-flatland";
   version = "0-unstable-2024-04-13";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-oM4nQUEc3iq1x4uRp8Kw5WtE/L5b6VlLOfElMT9Tk98=";
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = {

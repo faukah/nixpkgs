@@ -4,7 +4,6 @@
   fetchFromGitHub,
   jdupes,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "fcitx5-fluent";
   version = "0.4.0-unstable-2024-03-30";
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-d1Y0MUOofBxwyeoXxUzQHrngL1qnL3TMa5DhDki7Pk8=";
   };
 
-  nativeBuildInputs = [ jdupes ];
+  nativeBuildInputs = [jdupes];
 
   installPhase = ''
     runHook preInstall
@@ -33,6 +32,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/Reverier-Xu/Fluent-fcitx5";
     license = licenses.mpl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ oosquare ];
+    maintainers = with maintainers; [oosquare];
   };
 }

@@ -16,7 +16,6 @@
   libintl,
   zathura,
 }:
-
 stdenv.mkDerivation rec {
   pname = "girara";
   version = "0.4.5";
@@ -87,6 +86,6 @@ stdenv.mkDerivation rec {
     '';
     license = lib.licenses.zlib;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

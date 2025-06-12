@@ -10,13 +10,11 @@
   gitUpdater,
   allColorVariants ? false,
   circularFolder ? false,
-  colorVariants ? [ ], # default is standard
-}:
-
-let
+  colorVariants ? [], # default is standard
+}: let
   pname = "tela-circle-icon-theme";
 in
-lib.checkListOfEnum "${pname}: color variants"
+  lib.checkListOfEnum "${pname}: color variants"
   [
     "standard"
     "black"
@@ -35,7 +33,6 @@ lib.checkListOfEnum "${pname}: color variants"
     "nord"
   ]
   colorVariants
-
   stdenvNoCC.mkDerivation
   rec {
     inherit pname;
@@ -75,20 +72,24 @@ lib.checkListOfEnum "${pname}: color variants"
 
       ./install.sh -d $out/share/icons \
         ${lib.optionalString circularFolder "-c"} \
-        ${if allColorVariants then "-a" else builtins.toString colorVariants}
+        ${
+        if allColorVariants
+        then "-a"
+        else builtins.toString colorVariants
+      }
 
       jdupes --quiet --link-soft --recurse $out/share
 
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "Flat and colorful personality icon theme";
       homepage = "https://github.com/vinceliuice/Tela-circle-icon-theme";
       license = licenses.gpl3Only;
       platforms = platforms.linux; # darwin use case-insensitive filesystems that cause hash mismatches
-      maintainers = with maintainers; [ romildo ];
+      maintainers = with maintainers; [romildo];
     };
   }

@@ -22,7 +22,7 @@ buildNpmPackage rec {
     description = "MapSCII is a Braille & ASCII world map renderer for your console";
     homepage = "https://github.com/rastapasta/mapscii";
     license = licenses.mit;
-    maintainers = with maintainers; [ kinzoku ];
+    maintainers = with maintainers; [kinzoku];
     mainProgram = "mapscii";
     platforms = platforms.all;
   };

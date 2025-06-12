@@ -6,7 +6,6 @@
   libX11,
   libXext,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nvfancontrol";
   version = "0.5.1";
@@ -36,9 +35,9 @@ rustPlatform.buildRustPackage rec {
     description = "Nvidia dynamic fan control for Linux";
     homepage = "https://github.com/foucault/nvfancontrol";
     changelog = "https://github.com/foucault/nvfancontrol/releases/tag/${version}";
-    license = with licenses; [ gpl3Only ];
+    license = with licenses; [gpl3Only];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ devins2518 ];
+    maintainers = with maintainers; [devins2518];
     mainProgram = "nvfancontrol";
   };
 }

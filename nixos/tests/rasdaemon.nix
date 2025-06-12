@@ -1,27 +1,24 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "rasdaemon";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ evils ];
+    maintainers = [evils];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [ ../modules/profiles/minimal.nix ];
-      hardware.rasdaemon = {
-        enable = true;
-        # should be enabled by default, just making sure
-        record = true;
-        # nonsense label
-        labels = ''
-          vendor: none
-            product: none
-            model: none
-              DIMM_0: 0.0.0;
-        '';
-      };
+  nodes.machine = {pkgs, ...}: {
+    imports = [../modules/profiles/minimal.nix];
+    hardware.rasdaemon = {
+      enable = true;
+      # should be enabled by default, just making sure
+      record = true;
+      # nonsense label
+      labels = ''
+        vendor: none
+          product: none
+          model: none
+            DIMM_0: 0.0.0;
+      '';
     };
+  };
 
   testScript = ''
     start_all()

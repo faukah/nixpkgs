@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "cfssl";
   version = "1.6.5";
@@ -37,13 +36,13 @@ buildGoModule rec {
     "-X github.com/cloudflare/cfssl/cli/version.version=v${version}"
   ];
 
-  passthru.tests = { inherit (nixosTests) cfssl; };
+  passthru.tests = {inherit (nixosTests) cfssl;};
 
   meta = with lib; {
     homepage = "https://cfssl.org/";
     description = "Cloudflare's PKI and TLS toolkit";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ mbrgm ];
+    maintainers = with maintainers; [mbrgm];
     mainProgram = "cfssl";
   };
 }

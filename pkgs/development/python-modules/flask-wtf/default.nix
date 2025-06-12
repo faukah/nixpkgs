@@ -11,7 +11,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "flask-wtf";
   version = "1.2.2";
@@ -37,12 +36,12 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    email = [ email-validator ];
+    email = [email-validator];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "flask_wtf" ];
+  pythonImportsCheck = ["flask_wtf"];
 
   meta = with lib; {
     description = "Simple integration of Flask and WTForms";

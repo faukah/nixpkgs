@@ -23,11 +23,9 @@
   uutf,
   ...
 }:
-
 # The ocamlformat package have been split into two in version 0.25.1:
 # one for the library and one for the executable.
 # Both have the same sources and very similar dependencies.
-
 rec {
   tarballName = "ocamlformat-${version}.tbz";
 
@@ -56,15 +54,17 @@ rec {
 
   odoc-parser_v = odoc-parser.override {
     version =
-      if lib.versionAtLeast version "0.24.0" then
-        "2.0.0"
-      else if lib.versionAtLeast version "0.20.1" then
-        "1.0.1"
-      else
-        "0.9.0";
+      if lib.versionAtLeast version "0.24.0"
+      then "2.0.0"
+      else if lib.versionAtLeast version "0.20.1"
+      then "1.0.1"
+      else "0.9.0";
   };
 
-  cmdliner_v = if lib.versionAtLeast version "0.21.0" then cmdliner_1_1 else cmdliner_1_0;
+  cmdliner_v =
+    if lib.versionAtLeast version "0.21.0"
+    then cmdliner_1_1
+    else cmdliner_1_0;
 
   library_deps =
     [
@@ -84,15 +84,14 @@ rec {
       either
       ocaml-version
     ]
-    ++ lib.optionals (lib.versionAtLeast version "0.22.4") [ csexp ]
+    ++ lib.optionals (lib.versionAtLeast version "0.22.4") [csexp]
     ++ (
-      if lib.versionOlder version "0.25.1" then
-        [ odoc-parser_v ]
-      else
-        [
-          camlp-streams
-          result
-          astring
-        ]
+      if lib.versionOlder version "0.25.1"
+      then [odoc-parser_v]
+      else [
+        camlp-streams
+        result
+        astring
+      ]
     );
 }

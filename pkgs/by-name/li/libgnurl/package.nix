@@ -11,7 +11,6 @@
   libidn2,
   libunistring,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgnurl";
   version = "7.72.0";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Fork of libcurl used by GNUnet";
     homepage = "https://gnunet.org/en/gnurl.html";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     license = licenses.curl;
   };

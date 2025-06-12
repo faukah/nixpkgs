@@ -5,7 +5,6 @@
   boost,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vsqlite";
   version = "0.3.13";

@@ -14,7 +14,6 @@
   pythonOlder,
   referencing,
   rpds-py,
-
   # optionals
   fqdn,
   idna,
@@ -26,7 +25,6 @@
   uri-template,
   webcolors,
 }:
-
 buildPythonPackage rec {
   pname = "jsonschema";
   version = "4.23.0";
@@ -89,14 +87,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "jsonschema" ];
+  pythonImportsCheck = ["jsonschema"];
 
   meta = with lib; {
     description = "Implementation of JSON Schema validation";
     homepage = "https://github.com/python-jsonschema/jsonschema";
     changelog = "https://github.com/python-jsonschema/jsonschema/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "jsonschema";
   };
 }

@@ -22,9 +22,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-x8nieQ1X5BLDTjYh67ApWDoS6chLy2DYAehgnPnhrVk=";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Command line tool for datetime arithmetic, parsing, formatting and more";
@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       lib.licenses.mit
       lib.licenses.unlicense
     ];
-    maintainers = [ lib.maintainers.kpbaks ];
+    maintainers = [lib.maintainers.kpbaks];
     mainProgram = "biff";
     platforms = lib.platforms.all;
   };

@@ -13,7 +13,6 @@
   responses,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-api) version src;
   pname = "opentelemetry-exporter-otlp-proto-http";
@@ -23,7 +22,7 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-api.src.name}/exporter/opentelemetry-exporter-otlp-proto-http";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     deprecated
@@ -41,10 +40,12 @@ buildPythonPackage {
     responses
   ];
 
-  pythonImportsCheck = [ "opentelemetry.exporter.otlp.proto.http" ];
+  pythonImportsCheck = ["opentelemetry.exporter.otlp.proto.http"];
 
-  meta = opentelemetry-api.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-otlp-proto-http";
-    description = "OpenTelemetry Collector Protobuf over HTTP Exporter";
-  };
+  meta =
+    opentelemetry-api.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-otlp-proto-http";
+      description = "OpenTelemetry Collector Protobuf over HTTP Exporter";
+    };
 }

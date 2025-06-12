@@ -10,7 +10,6 @@
   gobject-introspection,
   glib,
 }:
-
 buildPythonApplication rec {
   pname = "protonvpn-cli";
   version = "3.13.0";
@@ -52,7 +51,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "Linux command-line client for ProtonVPN";
     homepage = "https://github.com/protonvpn/linux-cli";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     mainProgram = "protonvpn-cli";

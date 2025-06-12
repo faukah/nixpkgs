@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lksctp-tools";
   version = "1.0.21";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-+vbdNvHuJLYp901QgtBzMejlbzMyr9Z1eXxR3Zy7eAE=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   enableParallelBuilding = true;
 

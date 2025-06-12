@@ -11,7 +11,6 @@
   toml,
   yamllint,
 }:
-
 buildPythonPackage rec {
   pname = "ntc-templates";
   version = "7.8.0";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-v9+d9nZiYneG3vULtQZsa/gD6FCyBrrbGxUJsv1sMYA=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  propagatedBuildInputs = [ textfsm ];
+  propagatedBuildInputs = [textfsm];
 
   nativeCheckInputs = [
     invoke
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/networktocode/ntc-templates";
     changelog = "https://github.com/networktocode/ntc-templates/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

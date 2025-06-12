@@ -8,7 +8,6 @@
   withPcap ? (!stdenv.hostPlatform.isLinux && !withRawsocket),
   withRawsocket ? (stdenv.hostPlatform.isLinux && !withPcap),
 }:
-
 buildGoModule {
   pname = "phantomsocks";
   version = "unstable-2023-11-30";
@@ -37,7 +36,7 @@ buildGoModule {
       to implement TCB desync to bypass detection and censoring.
     '';
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ oluceps ];
+    maintainers = with maintainers; [oluceps];
     mainProgram = "phantomsocks";
   };
 }

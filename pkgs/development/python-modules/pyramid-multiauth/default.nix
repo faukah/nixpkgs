@@ -7,7 +7,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pyramid-multiauth";
   version = "1.0.2";
@@ -25,15 +24,15 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ pyramid ];
+  dependencies = [pyramid];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     changelog = "https://github.com/mozilla-services/pyramid_multiauth/releases/tag/${version}";
     description = "Authentication policy for Pyramid that proxies to a stack of other authentication policies";
     homepage = "https://github.com/mozilla-services/pyramid_multiauth";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
   };
 }

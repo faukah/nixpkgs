@@ -4,8 +4,7 @@
   fontconfig,
   libvterm-neovim,
   ...
-}@args:
-
+} @ args:
 callPackage ./generic.nix (
   args
   // rec {

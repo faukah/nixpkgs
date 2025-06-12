@@ -15,7 +15,6 @@
   zlib,
   c-ares,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "apt-cacher-ng";
   version = "3.7.5";
@@ -48,6 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.unix-ag.uni-kl.de/~bloch/acng/";
     license = lib.licenses.bsdOriginal;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.makefu ];
+    maintainers = [lib.maintainers.makefu];
   };
 })

@@ -1,93 +1,92 @@
 # Tests: ./tests.nix
-
 /**
-  Generates documentation for [nix modules](https://nix.dev/tutorials/module-system/index.html).
+Generates documentation for [nix modules](https://nix.dev/tutorials/module-system/index.html).
 
-  It uses the declared `options` to generate documentation in various formats.
+It uses the declared `options` to generate documentation in various formats.
 
-  # Outputs
+# Outputs
 
-  This function returns an attribute set with the following entries.
+This function returns an attribute set with the following entries.
 
-  ## optionsCommonMark
+## optionsCommonMark
 
-  Documentation in CommonMark text format.
+Documentation in CommonMark text format.
 
-  ## optionsJSON
+## optionsJSON
 
-  All options in a JSON format suitable for further automated processing.
+All options in a JSON format suitable for further automated processing.
 
-  `example.json`
-  ```json
-  {
-    ...
-    "fileSystems.<name>.options": {
-      "declarations": ["nixos/modules/tasks/filesystems.nix"],
-      "default": {
-        "_type": "literalExpression",
-        "text": "[\n  \"defaults\"\n]"
-      },
-      "description": "Options used to mount the file system.",
-      "example": {
-        "_type": "literalExpression",
-        "text": "[\n  \"data=journal\"\n]"
-      },
-      "loc": ["fileSystems", "<name>", "options"],
-      "readOnly": false,
-      "type": "non-empty (list of string (with check: non-empty))"
-      "relatedPackages": "- [`pkgs.tmux`](\n    https://search.nixos.org/packages?show=tmux&sort=relevance&query=tmux\n  )\n",
+`example.json`
+```json
+{
+  ...
+  "fileSystems.<name>.options": {
+    "declarations": ["nixos/modules/tasks/filesystems.nix"],
+    "default": {
+      "_type": "literalExpression",
+      "text": "[\n  \"defaults\"\n]"
     },
-    ...
+    "description": "Options used to mount the file system.",
+    "example": {
+      "_type": "literalExpression",
+      "text": "[\n  \"data=journal\"\n]"
+    },
+    "loc": ["fileSystems", "<name>", "options"],
+    "readOnly": false,
+    "type": "non-empty (list of string (with check: non-empty))"
+    "relatedPackages": "- [`pkgs.tmux`](\n    https://search.nixos.org/packages?show=tmux&sort=relevance&query=tmux\n  )\n",
+  },
+  ...
+}
+```
+
+## optionsAsciiDoc
+
+Documentation rendered as AsciiDoc. This is useful for e.g. man pages.
+
+> Note: NixOS itself uses this output to to build the configuration.nix man page"
+
+## optionsNix
+
+All options as a Nix attribute set value, with the same schema as `optionsJSON`.
+
+# Example
+
+## Example: NixOS configuration
+
+```nix
+let
+  # Evaluate a NixOS configuration
+  eval = import (pkgs.path + "/nixos/lib/eval-config.nix") {
+    # Overridden explicitly here, this would include all modules from NixOS otherwise.
+    # See: docs of eval-config.nix for more details
+    baseModules = [];
+    modules = [
+      ./module.nix
+    ];
+  };
+in
+  pkgs.nixosOptionsDoc {
+    inherit (eval) options;
   }
-  ```
+```
 
-  ## optionsAsciiDoc
+## Example: non-NixOS modules
 
-  Documentation rendered as AsciiDoc. This is useful for e.g. man pages.
+`nixosOptionsDoc` can also be used to build documentation for non-NixOS modules.
 
-  > Note: NixOS itself uses this output to to build the configuration.nix man page"
-
-  ## optionsNix
-
-  All options as a Nix attribute set value, with the same schema as `optionsJSON`.
-
-  # Example
-
-  ## Example: NixOS configuration
-
-  ```nix
-  let
-    # Evaluate a NixOS configuration
-    eval = import (pkgs.path + "/nixos/lib/eval-config.nix") {
-      # Overridden explicitly here, this would include all modules from NixOS otherwise.
-      # See: docs of eval-config.nix for more details
-      baseModules = [];
-      modules = [
-        ./module.nix
-      ];
-    };
-  in
-    pkgs.nixosOptionsDoc {
-      inherit (eval) options;
-    }
-  ```
-
-  ## Example: non-NixOS modules
-
-  `nixosOptionsDoc` can also be used to build documentation for non-NixOS modules.
-
-  ```nix
-  let
-    eval = lib.evalModules {
-      modules = [
-        ./module.nix
-      ];
-    };
-  in
-    pkgs.nixosOptionsDoc {
-      inherit (eval) options;
-    }
-  ```
+```nix
+let
+  eval = lib.evalModules {
+    modules = [
+      ./module.nix
+    ];
+  };
+in
+  pkgs.nixosOptionsDoc {
+    inherit (eval) options;
+  }
+```
 */
 {
   pkgs,
@@ -97,7 +96,6 @@
   documentType ? "appendix",
   # TODO deprecate "appendix" in favor of "none"
   #      and/or rename function to moduleOptionDoc for clean slate
-
   # If you include more than one option list into a document, you need to
   # provide different ids.
   variablelistId ? "configuration-variable-list",
@@ -111,18 +109,16 @@
   # instead of printing warnings for eg options with missing descriptions (which may be lost
   # by nix build unless -L is given), emit errors instead and fail the build
   warningsAreErrors ? true,
-}:
-
-let
+}: let
   rawOpts = lib.optionAttrSetToDocList options;
   transformedOpts = map transformOptions rawOpts;
   filteredOpts = lib.filter (opt: opt.visible && !opt.internal) transformedOpts;
   optionsList = lib.flip map filteredOpts (
     opt:
-    opt
-    // lib.optionalAttrs (opt ? relatedPackages && opt.relatedPackages != [ ]) {
-      relatedPackages = genRelatedPackages opt.relatedPackages opt.name;
-    }
+      opt
+      // lib.optionalAttrs (opt ? relatedPackages && opt.relatedPackages != []) {
+        relatedPackages = genRelatedPackages opt.relatedPackages opt.name;
+      }
   );
 
   # Generate DocBook documentation for a list of packages. This is
@@ -139,29 +135,22 @@ let
   #
   # NOTE: No checks against `pkgs` are made to ensure that the referenced package actually exists.
   # Such checks are not compatible with option docs caching.
-  genRelatedPackages =
-    packages: optName:
-    let
-      unpack =
-        p:
-        if lib.isString p then
-          { name = p; }
-        else if lib.isList p then
-          { path = p; }
-        else
-          p;
-      describe =
-        args:
-        let
-          title = args.title or null;
-          name = args.name or (lib.concatStringsSep "." args.path);
-        in
-        ''
-          - [${lib.optionalString (title != null) "${title} aka "}`pkgs.${name}`](
-              https://search.nixos.org/packages?show=${name}&sort=relevance&query=${name}
-            )${lib.optionalString (args ? comment) "\n\n  ${args.comment}"}
-        '';
-    in
+  genRelatedPackages = packages: optName: let
+    unpack = p:
+      if lib.isString p
+      then {name = p;}
+      else if lib.isList p
+      then {path = p;}
+      else p;
+    describe = args: let
+      title = args.title or null;
+      name = args.name or (lib.concatStringsSep "." args.path);
+    in ''
+      - [${lib.optionalString (title != null) "${title} aka "}`pkgs.${name}`](
+          https://search.nixos.org/packages?show=${name}&sort=relevance&query=${name}
+        )${lib.optionalString (args ? comment) "\n\n  ${args.comment}"}
+    '';
+  in
     lib.concatMapStrings (p: describe (unpack p)) packages;
 
   optionsNix = builtins.listToAttrs (
@@ -172,81 +161,83 @@ let
         "visible"
         "internal"
       ];
-    }) optionsList
+    })
+    optionsList
   );
-
-in
-rec {
+in rec {
   inherit optionsNix;
 
   optionsAsciiDoc =
     pkgs.runCommand "options.adoc"
-      {
-        nativeBuildInputs = [ pkgs.nixos-render-docs ];
-      }
-      ''
-        nixos-render-docs -j $NIX_BUILD_CORES options asciidoc \
-          --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
-          --revision ${lib.escapeShellArg revision} \
-          ${optionsJSON}/share/doc/nixos/options.json \
-          $out
-      '';
+    {
+      nativeBuildInputs = [pkgs.nixos-render-docs];
+    }
+    ''
+      nixos-render-docs -j $NIX_BUILD_CORES options asciidoc \
+        --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
+        --revision ${lib.escapeShellArg revision} \
+        ${optionsJSON}/share/doc/nixos/options.json \
+        $out
+    '';
 
   optionsCommonMark =
     pkgs.runCommand "options.md"
-      {
-        __structuredAttrs = true;
-        nativeBuildInputs = [ pkgs.nixos-render-docs ];
-        # For overriding
-        extraArgs = [ ];
-      }
-      ''
-        nixos-render-docs -j $NIX_BUILD_CORES options commonmark \
-          --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
-          --revision ${lib.escapeShellArg revision} \
-          ''${extraArgs[@]} \
-          ${optionsJSON}/share/doc/nixos/options.json \
-          $out
-      '';
+    {
+      __structuredAttrs = true;
+      nativeBuildInputs = [pkgs.nixos-render-docs];
+      # For overriding
+      extraArgs = [];
+    }
+    ''
+      nixos-render-docs -j $NIX_BUILD_CORES options commonmark \
+        --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
+        --revision ${lib.escapeShellArg revision} \
+        ''${extraArgs[@]} \
+        ${optionsJSON}/share/doc/nixos/options.json \
+        $out
+    '';
 
   optionsJSON =
     pkgs.runCommand "options.json"
-      {
-        meta.description = "List of NixOS options in JSON format";
-        nativeBuildInputs = [
-          pkgs.brotli
-          pkgs.python3
-        ];
-        options = builtins.toFile "options.json" (
-          builtins.unsafeDiscardStringContext (builtins.toJSON optionsNix)
-        );
-        # merge with an empty set if baseOptionsJSON is null to run markdown
-        # processing on the input options
-        baseJSON = if baseOptionsJSON == null then builtins.toFile "base.json" "{}" else baseOptionsJSON;
-      }
-      ''
-          # Export list of options in different format.
-          dst=$out/share/doc/nixos
-          mkdir -p $dst
+    {
+      meta.description = "List of NixOS options in JSON format";
+      nativeBuildInputs = [
+        pkgs.brotli
+        pkgs.python3
+      ];
+      options = builtins.toFile "options.json" (
+        builtins.unsafeDiscardStringContext (builtins.toJSON optionsNix)
+      );
+      # merge with an empty set if baseOptionsJSON is null to run markdown
+      # processing on the input options
+      baseJSON =
+        if baseOptionsJSON == null
+        then builtins.toFile "base.json" "{}"
+        else baseOptionsJSON;
+    }
+    ''
+        # Export list of options in different format.
+        dst=$out/share/doc/nixos
+        mkdir -p $dst
 
-          TOUCH_IF_DB=$dst/.used-docbook \
-          python ${./mergeJSON.py} \
-            ${lib.optionalString warningsAreErrors "--warnings-are-errors"} \
-            $baseJSON $options \
-            > $dst/options.json
+        TOUCH_IF_DB=$dst/.used-docbook \
+        python ${./mergeJSON.py} \
+          ${lib.optionalString warningsAreErrors "--warnings-are-errors"} \
+          $baseJSON $options \
+          > $dst/options.json
 
-        if grep /nixpkgs/nixos/modules $dst/options.json; then
-          echo "The manual appears to depend on the location of Nixpkgs, which is bad"
-          echo "since this prevents sharing via the NixOS channel.  This is typically"
-          echo "caused by an option default that refers to a relative path (see above"
-          echo "for hints about the offending path)."
-          exit 1
-        fi
+      if grep /nixpkgs/nixos/modules $dst/options.json; then
+        echo "The manual appears to depend on the location of Nixpkgs, which is bad"
+        echo "since this prevents sharing via the NixOS channel.  This is typically"
+        echo "caused by an option default that refers to a relative path (see above"
+        echo "for hints about the offending path)."
+        exit 1
+      fi
 
-          brotli -9 < $dst/options.json > $dst/options.json.br
+        brotli -9 < $dst/options.json > $dst/options.json.br
 
-          mkdir -p $out/nix-support
-          echo "file json $dst/options.json" >> $out/nix-support/hydra-build-products
-          echo "file json-br $dst/options.json.br" >> $out/nix-support/hydra-build-products
-      '';
+        mkdir -p $out/nix-support
+        echo "file json $dst/options.json" >> $out/nix-support/hydra-build-products
+        echo "file json-br $dst/options.json.br" >> $out/nix-support/hydra-build-products
+    '';
 }

@@ -4,7 +4,6 @@
   setuptools-scm,
   fetchFromGitLab,
 }:
-
 buildPythonPackage rec {
   pname = "git-versioner";
   version = "7.1";
@@ -17,14 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-bnpuFJSd4nBXJA75V61kiB+nU5pUzdEAIScfKx7aaGU=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  pythonImportsCheck = [ "__version__" ];
+  pythonImportsCheck = ["__version__"];
 
   meta = with lib; {
     description = "Manage current / next version for project";
     homepage = "https://gitlab.com/alelec/__version__";
     license = licenses.mit;
-    maintainers = with maintainers; [ slotThe ];
+    maintainers = with maintainers; [slotThe];
   };
 }

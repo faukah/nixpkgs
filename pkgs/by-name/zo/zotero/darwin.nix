@@ -6,7 +6,6 @@
   fetchurl,
   undmg,
 }:
-
 stdenv.mkDerivation rec {
   inherit pname version meta;
 
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
   };
   sourceRoot = ".";
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   dontConfigure = true;
   dontBuild = true;

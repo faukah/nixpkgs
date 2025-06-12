@@ -7,7 +7,6 @@
   withPayload ? null,
   withFDT ? null,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "opensbi";
   version = "1.6";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs ./scripts
   '';
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   installFlags = [
     "I=$(out)"

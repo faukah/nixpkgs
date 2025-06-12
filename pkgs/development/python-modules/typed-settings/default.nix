@@ -32,9 +32,9 @@ buildPythonPackage rec {
     hash = "sha256-mlWV3jP4BFKiA44Bi8RVCP/8I4qHUvCPXAPcjnvA0eI=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies = lib.optionals (pythonOlder "3.11") [tomli];
 
   optional-dependencies = {
     all = [
@@ -45,18 +45,18 @@ buildPythonPackage rec {
       jinja2
       pydantic
     ];
-    attrs = [ attrs ];
-    cattrs = [ cattrs ];
-    click = [ click ];
+    attrs = [attrs];
+    cattrs = [cattrs];
+    click = [click];
     option-groups = [
       click
       click-option-group
     ];
-    jinja = [ jinja2 ];
-    pydantic = [ pydantic ];
+    jinja = [jinja2];
+    pydantic = [pydantic];
   };
 
-  nativeBuildInputs = [ hatch-vcs ];
+  nativeBuildInputs = [hatch-vcs];
 
   nativeCheckInputs =
     [
@@ -69,7 +69,7 @@ buildPythonPackage rec {
     ++ (lib.optional (pythonOlder "3.11") typing-extensions)
     ++ (lib.flatten (lib.attrValues optional-dependencies));
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   disabledTests = [
     # 1Password CLI is not available
@@ -82,13 +82,13 @@ buildPythonPackage rec {
     "tests/test_onepassword.py"
   ];
 
-  pythonImportsCheck = [ "typed_settings" ];
+  pythonImportsCheck = ["typed_settings"];
 
   meta = with lib; {
     description = "Typed settings based on attrs classes";
     homepage = "https://gitlab.com/sscherfke/typed-settings";
     changelog = "https://gitlab.com/sscherfke/typed-settings/-/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

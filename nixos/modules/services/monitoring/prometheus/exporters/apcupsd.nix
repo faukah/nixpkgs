@@ -4,13 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.apcupsd;
   inherit (lib) mkOption types concatStringsSep;
-in
-{
+in {
   port = 9162;
   extraOpts = {
     apcupsdAddress = mkOption {

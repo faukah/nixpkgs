@@ -8,7 +8,6 @@
   libGL,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "krillinai";
   version = "1.2.1-hotfix-2";
@@ -22,7 +21,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-14YNdIfylUpcWqHhrpgmjxBHYRXaoR59jb1QdTckuLY=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     xorg.libXinerama
@@ -42,7 +41,7 @@ buildGoModule (finalAttrs: {
     mv $out/bin/server $out/bin/krillinai-server
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Video translation and dubbing tool";
@@ -50,6 +49,6 @@ buildGoModule (finalAttrs: {
     changelog = "https://github.com/krillinai/KrillinAI/releases/tag/v${finalAttrs.version}";
     mainProgram = "krillinai-desktop";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 })

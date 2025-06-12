@@ -4,7 +4,6 @@
   lib,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rust-parallel";
   version = "1.18.1";
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/aaronriekenberg/rust-parallel";
     license = lib.licenses.mit;
     mainProgram = "rust-parallel";
-    maintainers = with lib.maintainers; [ sedlund ];
+    maintainers = with lib.maintainers; [sedlund];
     platforms = lib.platforms.linux;
   };
 }

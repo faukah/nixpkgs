@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.pleroma;
-in
-{
+in {
   options = {
     services.pleroma = with lib; {
       enable = mkEnableOption "pleroma";
 
-      package = mkPackageOption pkgs "pleroma" { };
+      package = mkPackageOption pkgs "pleroma" {};
 
       user = mkOption {
         type = types.str;
@@ -79,10 +77,10 @@ in
         group = cfg.group;
         isSystemUser = true;
       };
-      groups."${cfg.group}" = { };
+      groups."${cfg.group}" = {};
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc."/pleroma/config.exs".text = ''
       ${lib.concatMapStrings (x: "${x}") cfg.configs}
@@ -96,37 +94,36 @@ in
       import_config "${cfg.secretConfigFile}"
     '';
 
-    systemd.services =
-      let
-        commonSystemdServiceConfig = {
-          User = cfg.user;
-          Group = cfg.group;
-          WorkingDirectory = "~";
-          StateDirectory = "pleroma pleroma/static pleroma/uploads";
-          StateDirectoryMode = "700";
-          # Systemd sandboxing directives.
-          # Taken from the upstream contrib systemd service at
-          # pleroma/installation/pleroma.service
-          PrivateTmp = true;
-          ProtectHome = true;
-          ProtectSystem = "full";
-          PrivateDevices = false;
-          NoNewPrivileges = true;
-          CapabilityBoundingSet = "~CAP_SYS_ADMIN";
-        };
-
-      in
-      {
-        pleroma-migrations = {
-          description = "Pleroma social network migrations";
-          wants = [ "network-online.target" ];
-          after = [
-            "network-online.target"
-            "postgresql.service"
-          ];
-          wantedBy = [ "pleroma.service" ];
-          environment.RELEASE_COOKIE = "/var/lib/pleroma/.cookie";
-          serviceConfig = commonSystemdServiceConfig // {
+    systemd.services = let
+      commonSystemdServiceConfig = {
+        User = cfg.user;
+        Group = cfg.group;
+        WorkingDirectory = "~";
+        StateDirectory = "pleroma pleroma/static pleroma/uploads";
+        StateDirectoryMode = "700";
+        # Systemd sandboxing directives.
+        # Taken from the upstream contrib systemd service at
+        # pleroma/installation/pleroma.service
+        PrivateTmp = true;
+        ProtectHome = true;
+        ProtectSystem = "full";
+        PrivateDevices = false;
+        NoNewPrivileges = true;
+        CapabilityBoundingSet = "~CAP_SYS_ADMIN";
+      };
+    in {
+      pleroma-migrations = {
+        description = "Pleroma social network migrations";
+        wants = ["network-online.target"];
+        after = [
+          "network-online.target"
+          "postgresql.service"
+        ];
+        wantedBy = ["pleroma.service"];
+        environment.RELEASE_COOKIE = "/var/lib/pleroma/.cookie";
+        serviceConfig =
+          commonSystemdServiceConfig
+          // {
             Type = "oneshot";
             # Checking the conf file is there then running the database
             # migration before each service start, just in case there are
@@ -135,41 +132,41 @@ in
             # It's sub-optimal as we'll always run this, even if pleroma
             # has not been updated. But the no-op process is pretty fast.
             # Better be safe than sorry migration-wise.
-            ExecStart =
-              let
-                preScript = pkgs.writers.writeBashBin "pleroma-migrations" ''
-                  if [ ! -f /var/lib/pleroma/.cookie ]
-                  then
-                    echo "Creating cookie file"
-                    dd if=/dev/urandom bs=1 count=16 | hexdump -e '16/1 "%02x"' > /var/lib/pleroma/.cookie
-                  fi
-                  ${cfg.package}/bin/pleroma_ctl migrate
-                '';
-              in
-              "${preScript}/bin/pleroma-migrations";
+            ExecStart = let
+              preScript = pkgs.writers.writeBashBin "pleroma-migrations" ''
+                if [ ! -f /var/lib/pleroma/.cookie ]
+                then
+                  echo "Creating cookie file"
+                  dd if=/dev/urandom bs=1 count=16 | hexdump -e '16/1 "%02x"' > /var/lib/pleroma/.cookie
+                fi
+                ${cfg.package}/bin/pleroma_ctl migrate
+              '';
+            in "${preScript}/bin/pleroma-migrations";
           };
-          # disksup requires bash
-          path = [ pkgs.bash ];
-        };
+        # disksup requires bash
+        path = [pkgs.bash];
+      };
 
-        pleroma = {
-          description = "Pleroma social network";
-          wants = [ "pleroma-migrations.service" ];
-          after = [ "pleroma-migrations.service" ];
-          wantedBy = [ "multi-user.target" ];
-          restartTriggers = [ config.environment.etc."/pleroma/config.exs".source ];
-          environment.RELEASE_COOKIE = "/var/lib/pleroma/.cookie";
-          serviceConfig = commonSystemdServiceConfig // {
+      pleroma = {
+        description = "Pleroma social network";
+        wants = ["pleroma-migrations.service"];
+        after = ["pleroma-migrations.service"];
+        wantedBy = ["multi-user.target"];
+        restartTriggers = [config.environment.etc."/pleroma/config.exs".source];
+        environment.RELEASE_COOKIE = "/var/lib/pleroma/.cookie";
+        serviceConfig =
+          commonSystemdServiceConfig
+          // {
             Type = "exec";
             ExecStart = "${cfg.package}/bin/pleroma start";
             ExecStop = "${cfg.package}/bin/pleroma stop";
             ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           };
-          # disksup requires bash
-          path = [ pkgs.bash ];
-        };
+        # disksup requires bash
+        path = [pkgs.bash];
       };
+    };
   };
-  meta.maintainers = with lib.maintainers; [ picnoir ];
+  meta.maintainers = with lib.maintainers; [picnoir];
   meta.doc = ./pleroma.md;
 }

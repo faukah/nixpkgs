@@ -1,19 +1,13 @@
-{
-  pkgs,
-  ...
-}:
-
-let
+{pkgs, ...}: let
   port = 10004;
   tcpPort = 10005;
   httpPort = 10080;
   tcpStreamPort = 10006;
   bufferSize = 742;
-in
-{
+in {
   name = "snapcast";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ hexa ];
+    maintainers = [hexa];
   };
 
   nodes = {
@@ -45,10 +39,10 @@ in
           };
         };
       };
-      environment.systemPackages = [ pkgs.snapcast ];
+      environment.systemPackages = [pkgs.snapcast];
     };
     client = {
-      environment.systemPackages = [ pkgs.snapcast ];
+      environment.systemPackages = [pkgs.snapcast];
     };
   };
 

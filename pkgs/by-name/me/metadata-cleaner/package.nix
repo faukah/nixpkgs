@@ -17,7 +17,6 @@
   poppler_gi,
   wrapGAppsHook4,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "metadata-cleaner";
   version = "2.5.6";
@@ -57,7 +56,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -69,6 +68,6 @@ python3.pkgs.buildPythonApplication rec {
       gpl3Plus
       cc-by-sa-40
     ];
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

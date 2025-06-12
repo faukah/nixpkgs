@@ -18,7 +18,6 @@
   pytest-cov-stub,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "fslpy";
   version = "3.21.1";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-O0bhzu6zZeuGJqXAwlgM8qHkgtaGCmg7xSkOqbZH2eA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     dill
@@ -54,11 +53,13 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-cov-stub
-    tomli
-  ] ++ optional-dependencies.extra;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-cov-stub
+      tomli
+    ]
+    ++ optional-dependencies.extra;
 
   disabledTestPaths = [
     # tries to download data:
@@ -93,6 +94,6 @@ buildPythonPackage rec {
     homepage = "https://git.fmrib.ox.ac.uk/fsl/fslpy";
     changelog = "https://git.fmrib.ox.ac.uk/fsl/fslpy/-/blob/main/CHANGELOG.rst";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

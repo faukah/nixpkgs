@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "snet";
   version = "unstable-2021-11-26";
@@ -18,13 +17,13 @@ buildGoModule {
   vendorHash = "sha256-dubmCLeD8Fwe1msfLN+5WzdbFkfTRnZDU3F49gjWTS4=";
 
   # flaky test, random failures
-  checkFlags = [ "-skip=TestBloomfilter" ];
+  checkFlags = ["-skip=TestBloomfilter"];
 
   meta = {
     description = "Transparent proxy works on linux desktop, MacOS, router";
     homepage = "https://github.com/monsterxx03/snet";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ azuwis ];
+    maintainers = with lib.maintainers; [azuwis];
     mainProgram = "snet";
   };
 }

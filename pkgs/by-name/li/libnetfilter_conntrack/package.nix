@@ -6,7 +6,6 @@
   libnfnetlink,
   libmnl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libnetfilter_conntrack";
   version = "1.1.0";
@@ -16,11 +15,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-Z+3LTrgmwvjcmK8I2r/2jzs9D+b7fZ0Kwe5+zOD+aU4=";
   };
 
-  hardeningDisable = [ "trivialautovarinit" ];
+  hardeningDisable = ["trivialautovarinit"];
 
-  buildInputs = [ libmnl ];
-  propagatedBuildInputs = [ libnfnetlink ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [libmnl];
+  propagatedBuildInputs = [libnfnetlink];
+  nativeBuildInputs = [pkg-config];
 
   enableParallelBuilding = true;
 

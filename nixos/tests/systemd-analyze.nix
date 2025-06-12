@@ -2,19 +2,19 @@
   latestKernel,
   lib,
   ...
-}:
-
-{
+}: {
   name = "systemd-analyze";
-  meta.maintainers = with lib.maintainers; [ raskin ];
+  meta.maintainers = with lib.maintainers; [raskin];
 
   _module.args.latestKernel = lib.mkDefault false;
 
-  nodes.machine =
-    { pkgs, lib, ... }:
-    {
-      boot.kernelPackages = lib.mkIf latestKernel pkgs.linuxPackages_latest;
-    };
+  nodes.machine = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    boot.kernelPackages = lib.mkIf latestKernel pkgs.linuxPackages_latest;
+  };
 
   testScript = ''
     machine.wait_for_unit("multi-user.target")

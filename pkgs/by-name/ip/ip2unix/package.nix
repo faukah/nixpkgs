@@ -17,7 +17,6 @@
   docbook5,
   mesonEmulatorHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ip2unix";
   version = "2.2.1";
@@ -38,22 +37,24 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    asciidoc
-    libxslt.bin
-    docbook_xml_dtd_45
-    docbook_xsl
-    libxml2.bin
-    docbook5
-    python3Packages.pytest
-    python3Packages.pytest-timeout
-    systemd
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      asciidoc
+      libxslt.bin
+      docbook_xml_dtd_45
+      docbook_xsl
+      libxml2.bin
+      docbook5
+      python3Packages.pytest
+      python3Packages.pytest-timeout
+      systemd
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
-  buildInputs = [ yaml-cpp ];
+  buildInputs = [yaml-cpp];
 
   doCheck = true;
 
@@ -74,7 +75,7 @@ stdenv.mkDerivation rec {
     description = "Turn IP sockets into Unix domain sockets";
     platforms = lib.platforms.linux;
     license = lib.licenses.lgpl3;
-    maintainers = [ lib.maintainers.aszlig ];
+    maintainers = [lib.maintainers.aszlig];
     mainProgram = "ip2unix";
   };
 }

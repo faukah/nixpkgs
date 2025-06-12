@@ -5,7 +5,6 @@
   pkg-config,
   libressl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "notemap";
   version = "1.3";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
       from the phone.
     '';
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
     homepage = "https://git.causal.agency/notemap/about/";
     platforms = lib.platforms.unix;
   };

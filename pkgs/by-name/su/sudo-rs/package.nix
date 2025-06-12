@@ -10,7 +10,6 @@
   rustPlatform,
   tzdata,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sudo-rs";
   version = "0.2.6";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pandoc
   ];
 
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   # Don't attempt to generate the docs in a (pan)Docker container
   postPatch = ''
@@ -75,7 +74,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = nixosTests.sudo-rs;
   };
 

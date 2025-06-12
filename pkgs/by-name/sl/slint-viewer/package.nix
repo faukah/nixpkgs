@@ -25,14 +25,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
     libGL
   ];
 
-  nativeBuildInputs = [ qt6.wrapQtAppsHook ];
+  nativeBuildInputs = [qt6.wrapQtAppsHook];
 
   # There are no tests
   doCheck = false;
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Viewer for .slint files from the Slint Project";
@@ -40,6 +40,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://crates.io/crates/slint-viewer";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ dtomvan ];
+    maintainers = with lib.maintainers; [dtomvan];
   };
 })

@@ -11,7 +11,6 @@
   libxml2,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libwmf";
   version = "0.2.13";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vffohx57OvQKu8DfNXNBm9bPsA8KgkQWs/3mmFn7L6M=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     zlib
     imagemagick

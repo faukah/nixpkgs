@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatch-fancy-pypi-readme,
   hatchling,
-
   # dependencies
   anyio,
   distro,
@@ -16,10 +14,8 @@
   sniffio,
   tokenizers,
   typing-extensions,
-
   # optional dependencies
   google-auth,
-
   # test
   dirty-equals,
   nest-asyncio,
@@ -27,7 +23,6 @@
   pytestCheckHook,
   respx,
 }:
-
 buildPythonPackage rec {
   pname = "anthropic";
   version = "0.52.2";
@@ -62,7 +57,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    vertex = [ google-auth ];
+    vertex = [google-auth];
   };
 
   nativeCheckInputs = [
@@ -73,7 +68,7 @@ buildPythonPackage rec {
     respx
   ];
 
-  pythonImportsCheck = [ "anthropic" ];
+  pythonImportsCheck = ["anthropic"];
 
   disabledTests = [
     # Test require network access

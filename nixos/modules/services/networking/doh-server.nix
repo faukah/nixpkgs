@@ -3,30 +3,26 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.doh-server;
-  toml = pkgs.formats.toml { };
-in
-{
+  toml = pkgs.formats.toml {};
+in {
   options.services.doh-server = {
     enable = lib.mkEnableOption "DNS-over-HTTPS server";
 
-    package = lib.mkPackageOption pkgs "dns-over-https" { };
+    package = lib.mkPackageOption pkgs "dns-over-https" {};
 
     settings = lib.mkOption {
       type = lib.types.submodule {
         freeformType = toml.type;
         options = {
-
           listen = lib.mkOption {
             type = lib.types.listOf lib.types.str;
             default = [
               "127.0.0.1:8053"
               "[::1]:8053"
             ];
-            example = [ ":443" ];
+            example = [":443"];
             description = "HTTP listen address and port";
           };
 
@@ -45,7 +41,7 @@ in
               "udp:8.8.8.8:53"
               "udp:8.8.4.4:53"
             ];
-            example = [ "udp:127.0.0.1:53" ];
+            example = ["udp:127.0.0.1:53"];
             description = ''
               Upstream DNS resolver.
               If multiple servers are specified, a random one will be chosen each time.
@@ -111,10 +107,10 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       example = {
-        listen = [ ":8153" ];
-        upstream = [ "udp:127.0.0.1:53" ];
+        listen = [":8153"];
+        upstream = ["udp:127.0.0.1:53"];
       };
       description = "Configuration of doh-server in toml. See example in https://github.com/m13253/dns-over-https/blob/master/doh-server/doh-server.conf";
     };
@@ -143,20 +139,21 @@ in
     services.doh-server.settings = lib.mkIf (cfg.useACMEHost != null) (
       let
         sslCertDir = config.security.acme.certs.${cfg.useACMEHost}.directory;
-      in
-      {
+      in {
         cert = "${sslCertDir}/cert.pem";
         key = "${sslCertDir}/key.pem";
       }
     );
     systemd.services.doh-server = {
       description = "DNS-over-HTTPS Server";
-      documentation = [ "https://github.com/m13253/dns-over-https" ];
-      after = [
-        "network.target"
-      ] ++ lib.optional (cfg.useACMEHost != null) "acme-${cfg.useACMEHost}.service";
+      documentation = ["https://github.com/m13253/dns-over-https"];
+      after =
+        [
+          "network.target"
+        ]
+        ++ lib.optional (cfg.useACMEHost != null) "acme-${cfg.useACMEHost}.service";
       wants = lib.optional (cfg.useACMEHost != null) "acme-finished-${cfg.useACMEHost}.target";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         AmbientCapabilities = "CAP_NET_BIND_SERVICE";
         ExecStart = "${cfg.package}/bin/doh-server -conf ${cfg.configFile}";
@@ -170,6 +167,6 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ DictXiong ];
+  meta.maintainers = with lib.maintainers; [DictXiong];
   meta.doc = ./doh-server.md;
 }

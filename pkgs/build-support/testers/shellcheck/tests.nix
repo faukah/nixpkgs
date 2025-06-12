@@ -1,6 +1,5 @@
 # Run:
 #   nix-build -A tests.testers.shellcheck
-
 {
   lib,
   testers,

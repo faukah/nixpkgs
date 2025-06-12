@@ -7,7 +7,6 @@
   qtbase,
   lib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cutechess";
   version = "1.3.1";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "GUI, CLI, and library for playing chess";
     homepage = "https://cutechess.com/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = with platforms; (linux ++ windows);
     mainProgram = "cutechess";
   };

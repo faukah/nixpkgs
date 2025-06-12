@@ -9,7 +9,6 @@
   testers,
   fzf,
 }:
-
 buildGoModule rec {
   pname = "fzf";
   version = "0.62.0";
@@ -30,9 +29,9 @@ buildGoModule rec {
     "man"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   ldflags = [
     "-s"

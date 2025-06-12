@@ -4,7 +4,6 @@
   stestr,
   stevedore,
 }:
-
 buildPythonPackage {
   pname = "stevedore-tests";
   inherit (stevedore) version src;

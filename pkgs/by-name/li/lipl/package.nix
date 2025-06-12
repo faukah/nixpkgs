@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "lipl";
   version = "0.1.3-unstable-2022-08-23";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage {
     description = "Command line tool to analyse the output over time of custom shell commands";
     homepage = "https://github.com/yxdunc/lipl";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "lipl";
   };
 }

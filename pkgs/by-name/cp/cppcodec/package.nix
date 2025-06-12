@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cppcodec";
   version = "0.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-k4EACtDOSkTXezTeFtVdM1EVJjvGga/IQSrvDzhyaXw=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Header-only C++11 library for encode/decode functions as in RFC 4648";

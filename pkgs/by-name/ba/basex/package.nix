@@ -8,14 +8,13 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation rec {
   pname = "basex";
   version = "11.9";
 
   src = fetchurl {
     url = "http://files.basex.org/releases/${version}/BaseX${
-      builtins.replaceStrings [ "." ] [ "" ] version
+      builtins.replaceStrings ["."] [""] version
     }.zip";
     hash = "sha256-55bZL/ogND4/X8ysMUC67C8AVv3eBWTm3iKfyR7bPVM=";
   };
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     unzip
     copyDesktopItems
   ];
-  buildInputs = [ jre ];
+  buildInputs = [jre];
 
   desktopItems = lib.optional (!stdenv.hostPlatform.isDarwin) (makeDesktopItem {
     name = "basex";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
       "Utility"
       "Database"
     ];
-    mimeTypes = [ "text/xml" ];
+    mimeTypes = ["text/xml"];
   });
 
   dontBuild = true;
@@ -78,9 +77,9 @@ stdenv.mkDerivation rec {
       modes, BaseX offers a client/server architecture.
     '';
     homepage = "https://basex.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

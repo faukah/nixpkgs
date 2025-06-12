@@ -8,7 +8,6 @@
   pytest-asyncio,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "linode-metadata";
   version = "0.3.1";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [ "linode_metadata" ];
+  pythonImportsCheck = ["linode_metadata"];
 
   meta = {
     description = "Python package for interacting with the Linode Metadata Service";

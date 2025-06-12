@@ -11,7 +11,6 @@
   torch,
   fetchpatch2,
 }:
-
 buildPythonPackage rec {
   pname = "rlcard";
   version = "1.0.7";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     termcolor
   ];
 
-  pythonImportsCheck = [ "rlcard" ];
+  pythonImportsCheck = ["rlcard"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -79,6 +78,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/datamllab/rlcard";
     changelog = "https://github.com/datamllab/rlcard/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

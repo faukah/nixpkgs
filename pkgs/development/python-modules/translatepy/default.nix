@@ -9,7 +9,6 @@
   inquirer,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "translatepy";
   version = "2.3";
@@ -30,19 +29,19 @@ buildPythonPackage rec {
     inquirer
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   disabledTestPaths = [
     # Requires network connection
     "tests/test_translate.py"
     "tests/test_translators.py"
   ];
-  pythonImportsCheck = [ "translatepy" ];
+  pythonImportsCheck = ["translatepy"];
 
   meta = with lib; {
     description = "Module grouping multiple translation APIs";
     mainProgram = "translatepy";
     homepage = "https://github.com/Animenosekai/translate";
-    license = with licenses; [ agpl3Only ];
-    maintainers = with maintainers; [ emilytrau ];
+    license = with licenses; [agpl3Only];
+    maintainers = with maintainers; [emilytrau];
   };
 }

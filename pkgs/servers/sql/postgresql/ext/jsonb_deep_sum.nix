@@ -4,7 +4,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension {
   pname = "jsonb_deep_sum";
   version = "0-unstable-2021-12-24";
@@ -19,7 +18,7 @@ postgresqlBuildExtension {
   meta = {
     description = "PostgreSQL extension to easily add jsonb numeric";
     homepage = "https://github.com/furstenheim/jsonb_deep_sum";
-    maintainers = with lib.maintainers; [ _1000101 ];
+    maintainers = with lib.maintainers; [_1000101];
     platforms = postgresql.meta.platforms;
     license = lib.licenses.mit;
   };

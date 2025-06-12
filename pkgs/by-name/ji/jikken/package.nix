@@ -22,18 +22,18 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-nwFTKol5phXFuDzAcnPoFq8UrrqMDE6NuitpXE5qJwU=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ apple-sdk_15 ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.hostPlatform.isDarwin [apple-sdk_15];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Powerful, source control friendly REST API testing toolkit";
     homepage = "https://jikken.io/";
     changelog = "https://github.com/jikkenio/jikken/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ vinnymeller ];
+    maintainers = with maintainers; [vinnymeller];
     mainProgram = "jk";
   };
 }

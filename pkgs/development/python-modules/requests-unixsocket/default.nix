@@ -8,7 +8,6 @@
   setuptools,
   waitress,
 }:
-
 buildPythonPackage rec {
   pname = "requests-unixsocket";
   version = "0.4.1";
@@ -25,20 +24,20 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   nativeCheckInputs = [
     pytestCheckHook
     waitress
   ];
 
-  pythonImportsCheck = [ "requests_unixsocket" ];
+  pythonImportsCheck = ["requests_unixsocket"];
 
   meta = with lib; {
     description = "Use requests to talk HTTP via a UNIX domain socket";
     homepage = "https://github.com/msabramo/requests-unixsocket";
     changelog = "https://github.com/msabramo/requests-unixsocket/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ catern ];
+    maintainers = with maintainers; [catern];
   };
 }

@@ -7,7 +7,6 @@
   boost,
   lapack,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.6.2";
   pname = "vmmlib";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
 
     license = licenses.bsd2;
     homepage = "https://github.com/VMML/vmmlib/";
-    maintainers = [ maintainers.adev ];
+    maintainers = [maintainers.adev];
     platforms = platforms.all;
   };
 }

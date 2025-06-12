@@ -8,9 +8,7 @@
   icu,
   libappindicator-gtk3,
   undmg,
-}:
-
-let
+}: let
   pname = "jetbrains-toolbox";
   version = "2.6.2.41321";
 
@@ -20,7 +18,7 @@ let
     description = "Jetbrains Toolbox";
     homepage = "https://jetbrains.com/";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ AnatolyPopov ];
+    maintainers = with lib.maintainers; [AnatolyPopov];
     platforms = [
       "aarch64-linux"
       "aarch64-darwin"
@@ -30,20 +28,18 @@ let
     mainProgram = "jetbrains-toolbox";
   };
 
-  selectSystem =
-    attrs:
+  selectSystem = attrs:
     attrs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   linux = appimageTools.wrapAppImage rec {
     inherit pname version meta;
 
-    source =
-      let
-        arch = selectSystem {
-          x86_64-linux = "";
-          aarch64-linux = "-arm64";
-        };
-      in
+    source = let
+      arch = selectSystem {
+        x86_64-linux = "";
+        aarch64-linux = "-arm64";
+      };
+    in
       fetchzip {
         url = "https://download.jetbrains.com/toolbox/jetbrains-toolbox-${version}${arch}.tar.gz";
         hash = selectSystem {
@@ -56,17 +52,17 @@ let
       inherit pname version;
       src = source + "/jetbrains-toolbox";
       postExtract = ''
-        patchelf --add-rpath ${lib.makeLibraryPath [ icu ]} $out/jetbrains-toolbox
+        patchelf --add-rpath ${lib.makeLibraryPath [icu]} $out/jetbrains-toolbox
       '';
     };
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     extraInstallCommands = ''
       install -Dm644 ${src}/jetbrains-toolbox.desktop $out/share/applications/jetbrains-toolbox.desktop
       install -Dm644 ${src}/.DirIcon $out/share/icons/hicolor/scalable/apps/jetbrains-toolbox.svg
       wrapProgram $out/bin/jetbrains-toolbox \
-        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libappindicator-gtk3 ]} \
+        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libappindicator-gtk3]} \
         --append-flags "--update-failed"
     '';
 
@@ -79,13 +75,12 @@ let
   darwin = stdenv.mkDerivation (finalAttrs: {
     inherit pname version meta;
 
-    src =
-      let
-        arch = selectSystem {
-          x86_64-darwin = "";
-          aarch64-darwin = "-arm64";
-        };
-      in
+    src = let
+      arch = selectSystem {
+        x86_64-darwin = "";
+        aarch64-darwin = "-arm64";
+      };
+    in
       fetchurl {
         url = "https://download.jetbrains.com/toolbox/jetbrains-toolbox-${finalAttrs.version}${arch}.dmg";
         hash = selectSystem {
@@ -94,7 +89,7 @@ let
         };
       };
 
-    nativeBuildInputs = [ undmg ];
+    nativeBuildInputs = [undmg];
 
     sourceRoot = "JetBrains Toolbox.app";
 
@@ -113,4 +108,6 @@ let
     };
   });
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

@@ -28,7 +28,6 @@
   systemd,
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "modemmanager";
   version = "1.22.0";
@@ -105,7 +104,11 @@ stdenv.mkDerivation rec {
     (lib.mesonBool "vapi" withIntrospection)
     (lib.mesonBool "systemd_suspend_resume" withSystemd)
     (lib.mesonBool "systemd_journal" withSystemd)
-    (lib.mesonOption "polkit" (if withPolkit then "strict" else "no"))
+    (lib.mesonOption "polkit" (
+      if withPolkit
+      then "strict"
+      else "no"
+    ))
   ];
 
   postPatch = ''
@@ -131,7 +134,7 @@ stdenv.mkDerivation rec {
     description = "WWAN modem manager, part of NetworkManager";
     homepage = "https://www.freedesktop.org/wiki/Software/ModemManager/";
     license = licenses.gpl2Plus;
-    teams = [ teams.freedesktop ];
+    teams = [teams.freedesktop];
     platforms = platforms.linux;
   };
 }

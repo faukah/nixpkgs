@@ -9,7 +9,6 @@
   pango,
   gtk3,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "myxer";
   version = "1.3.0";

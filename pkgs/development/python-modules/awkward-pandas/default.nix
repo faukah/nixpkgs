@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   hatch-vcs,
   hatchling,
-
   # dependencies
   awkward,
   pandas,
 }:
-
 buildPythonPackage rec {
   pname = "awkward-pandas";
   version = "2023.8.0";
@@ -44,6 +41,6 @@ buildPythonPackage rec {
     description = "Awkward Array Pandas Extension";
     homepage = "https://pypi.org/project/awkward-pandas/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

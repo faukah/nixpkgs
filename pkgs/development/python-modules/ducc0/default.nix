@@ -12,7 +12,6 @@
   scipy,
   pytest-xdist,
 }:
-
 buildPythonPackage rec {
   pname = "ducc0";
   version = "0.38.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     domain = "gitlab.mpcdf.mpg.de";
     owner = "mtr";
     repo = "ducc";
-    tag = "ducc0_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    tag = "ducc0_${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-Be7lw9i1uEOY3w/Efnn7sZ4Xg5DenQuih6uReCmOI1I=";
   };
 
@@ -41,15 +40,15 @@ buildPythonPackage rec {
     setuptools
   ];
   dontUseCmakeConfigure = true;
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   nativeCheckInputs = [
     pytestCheckHook
     scipy
     pytest-xdist
   ];
-  pytestFlagsArray = [ "python/test" ];
-  pythonImportsCheck = [ "ducc0" ];
+  pytestFlagsArray = ["python/test"];
+  pythonImportsCheck = ["ducc0"];
 
   postInstall = ''
     mkdir -p $out/include
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://gitlab.mpcdf.mpg.de/mtr/ducc";
     description = "Efficient algorithms for Fast Fourier transforms and more";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ parras ];
+    maintainers = with lib.maintainers; [parras];
   };
 }

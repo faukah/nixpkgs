@@ -17,7 +17,6 @@
   x11Support ? (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin),
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dbus";
   version = "1.14.10";
@@ -71,8 +70,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     lib.optionals x11Support (
-      with xorg;
-      [
+      with xorg; [
         libX11
         libICE
         libSM
@@ -107,7 +105,7 @@ stdenv.mkDerivation rec {
       "--enable-apparmor"
       "--enable-libaudit"
     ]
-    ++ lib.optionals enableSystemd [ "SYSTEMCTL=${systemdMinimal}/bin/systemctl" ];
+    ++ lib.optionals enableSystemd ["SYSTEMCTL=${systemdMinimal}/bin/systemctl"];
 
   NIX_CFLAGS_LINK = lib.optionalString (!stdenv.hostPlatform.isDarwin) "-Wl,--as-needed";
 
@@ -140,7 +138,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.freedesktop.org/wiki/Software/dbus/";
     changelog = "https://gitlab.freedesktop.org/dbus/dbus/-/blob/dbus-${version}/NEWS";
     license = licenses.gpl2Plus; # most is also under AFL-2.1
-    teams = [ teams.freedesktop ];
+    teams = [teams.freedesktop];
     platforms = platforms.unix;
   };
 }

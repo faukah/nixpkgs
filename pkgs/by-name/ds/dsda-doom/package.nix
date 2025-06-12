@@ -16,7 +16,6 @@
   alsa-lib,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dsda-doom";
   version = "0.29.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/prboom2";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     alsa-lib
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     SDL2_mixer
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/kraflab/dsda-doom";
@@ -55,6 +54,6 @@ stdenv.mkDerivation rec {
     mainProgram = "dsda-doom";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ Gliczy ];
+    maintainers = with lib.maintainers; [Gliczy];
   };
 }

@@ -2,7 +2,6 @@
   lib,
   mkDerivation,
 }:
-
 mkDerivation {
   path = "libexec/ld.so";
   extraPaths = [

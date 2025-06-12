@@ -1,29 +1,26 @@
-{ pkgs, lib, ... }:
-
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   port = 1080;
 
-  client =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = [ pkgs.curl ];
-    };
+  client = {pkgs, ...}: {
+    environment.systemPackages = [pkgs.curl];
+  };
 
-  server =
-    { pkgs, ... }:
-    {
-      # tusd does not have a NixOS service yet.
-      systemd.services.tusd = {
-        wantedBy = [ "multi-user.target" ];
+  server = {pkgs, ...}: {
+    # tusd does not have a NixOS service yet.
+    systemd.services.tusd = {
+      wantedBy = ["multi-user.target"];
 
-        serviceConfig = {
-          ExecStart = ''${pkgs.tusd}/bin/tusd -port "${toString port}" -upload-dir=/data'';
-        };
+      serviceConfig = {
+        ExecStart = ''${pkgs.tusd}/bin/tusd -port "${toString port}" -upload-dir=/data'';
       };
-      networking.firewall.allowedTCPPorts = [ port ];
     };
-in
-{
+    networking.firewall.allowedTCPPorts = [port];
+  };
+in {
   name = "tusd";
   meta.maintainers = with lib.maintainers; [
     nh2

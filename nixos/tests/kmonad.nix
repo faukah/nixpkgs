@@ -1,10 +1,8 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "kmonad";
 
   meta = {
-    maintainers = with lib.maintainers; [ linj ];
+    maintainers = with lib.maintainers; [linj];
   };
 
   nodes = {

@@ -1,9 +1,11 @@
 import ../../make-test-python.nix (
-  { pkgs, lib, ... }:
-  let
-    cfgNodes = pkgs.callPackage ../common/nodes.nix { inherit lib; };
-  in
   {
+    pkgs,
+    lib,
+    ...
+  }: let
+    cfgNodes = pkgs.callPackage ../common/nodes.nix {inherit lib;};
+  in {
     # NOTE: The Nexus conversion subtest requires internet access, so to run it
     # you must run the test with:
     # - nix run .#nixosTests.taler.basic.driver
@@ -18,7 +20,8 @@ import ../../make-test-python.nix (
 
     # Taler components virtual-machine nodes
     nodes = {
-      inherit (cfgNodes.nodes)
+      inherit
+        (cfgNodes.nodes)
         bank
         client
         exchange
@@ -27,29 +30,26 @@ import ../../make-test-python.nix (
     };
 
     # TODO: make tests for each component?
-    testScript =
-      { nodes, ... }:
-      let
-        cfgScripts = pkgs.callPackage ../common/scripts.nix { inherit lib pkgs nodes; };
+    testScript = {nodes, ...}: let
+      cfgScripts = pkgs.callPackage ../common/scripts.nix {inherit lib pkgs nodes;};
 
-        inherit (cfgNodes) CURRENCY FIAT_CURRENCY;
-        inherit (cfgScripts) commonScripts;
+      inherit (cfgNodes) CURRENCY FIAT_CURRENCY;
+      inherit (cfgScripts) commonScripts;
 
-        configFile = nodes.exchange.environment.etc."taler/taler.conf".source;
-        bankConfig = nodes.bank.environment.etc."libeufin/libeufin.conf".source;
-        bankSettings = nodes.bank.services.libeufin.settings.libeufin-bank;
-        nexusSettings = nodes.bank.services.libeufin.nexus.settings;
+      configFile = nodes.exchange.environment.etc."taler/taler.conf".source;
+      bankConfig = nodes.bank.environment.etc."libeufin/libeufin.conf".source;
+      bankSettings = nodes.bank.services.libeufin.settings.libeufin-bank;
+      nexusSettings = nodes.bank.services.libeufin.nexus.settings;
 
-        # Bank admin account credentials
-        AUSER = "admin";
-        APASS = "testAdmin";
+      # Bank admin account credentials
+      AUSER = "admin";
+      APASS = "testAdmin";
 
-        TUSER = "testUser";
-        TPASS = "testUser";
+      TUSER = "testUser";
+      TPASS = "testUser";
 
-        exchangeAccount = ../conf/exchange-account.json;
-      in
-
+      exchangeAccount = ../conf/exchange-account.json;
+    in
       # python
       ''
         import json

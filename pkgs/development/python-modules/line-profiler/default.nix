@@ -11,7 +11,6 @@
   pytestCheckHook,
   ubelt,
 }:
-
 buildPythonPackage rec {
   pname = "line-profiler";
   version = "4.2.0";
@@ -32,13 +31,15 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    ipython = [ ipython ];
+    ipython = [ipython];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    ubelt
-  ] ++ optional-dependencies.ipython;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      ubelt
+    ]
+    ++ optional-dependencies.ipython;
 
   dontUseCmakeConfigure = true;
 
@@ -51,7 +52,7 @@ buildPythonPackage rec {
     export PATH=$out/bin:$PATH
   '';
 
-  pythonImportsCheck = [ "line_profiler" ];
+  pythonImportsCheck = ["line_profiler"];
 
   meta = with lib; {
     description = "Line-by-line profiler";

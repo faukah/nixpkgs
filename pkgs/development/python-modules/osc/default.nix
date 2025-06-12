@@ -9,7 +9,6 @@
   urllib3,
   keyring,
 }:
-
 buildPythonPackage rec {
   pname = "osc";
   version = "1.9.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-03EDarU7rmsiE96IYHXFuPtD8nWur0qwj8NDzSj8OX0=";
   };
 
-  buildInputs = [ bashInteractive ]; # needed for bash-completion helper
+  buildInputs = [bashInteractive]; # needed for bash-completion helper
   nativeCheckInputs = [
     rpm
     diffstat

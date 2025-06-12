@@ -6,7 +6,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "annexremote";
   version = "1.6.6";
@@ -24,15 +23,15 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "annexremote" ];
+  pythonImportsCheck = ["annexremote"];
 
   meta = with lib; {
     description = "Helper module to easily develop git-annex remotes";
     homepage = "https://github.com/Lykos153/AnnexRemote";
     changelog = "https://github.com/Lykos153/AnnexRemote/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ montag451 ];
+    maintainers = with maintainers; [montag451];
   };
 }

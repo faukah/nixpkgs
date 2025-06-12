@@ -4,7 +4,6 @@
   fetchurl,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "getxbook";
   version = "1.2";
@@ -15,22 +14,22 @@ stdenv.mkDerivation rec {
   };
 
   env.NIX_CFLAGS_COMPILE = builtins.toString (
-    [ "-Wno-error=deprecated-declarations" ]
+    ["-Wno-error=deprecated-declarations"]
     ++ lib.optionals (!stdenv.cc.isClang) [
       "-Wno-error=format-truncation"
       "-Wno-error=stringop-overflow"
     ]
   );
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Collection of tools to download books from Google Books";
     homepage = "https://njw.me.uk/getxbook/";
     license = licenses.isc;
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
     platforms = platforms.all;
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   qcheck,
 }:
-
 buildDunePackage rec {
   pname = "qtest";
   version = "2.11.2";
@@ -22,13 +21,13 @@ buildDunePackage rec {
       --replace "libraries qcheck ounit2 bytes" "libraries qcheck ounit2"
   '';
 
-  propagatedBuildInputs = [ qcheck ];
+  propagatedBuildInputs = [qcheck];
 
   meta = {
     description = "Inline (Unit) Tests for OCaml";
     mainProgram = "qtest";
     inherit (src.meta) homepage;
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
     license = lib.licenses.gpl3;
   };
 }

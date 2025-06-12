@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "simple64-netplay-server";
   version = "2025.03.1";
@@ -22,6 +21,6 @@ buildGoModule rec {
     homepage = "https://github.com/simple64/simple64-netplay-server";
     license = lib.licenses.gpl3Only;
     mainProgram = "simple64-netplay-server";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

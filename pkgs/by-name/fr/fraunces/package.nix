@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "fraunces";
   version = "1.000";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Display, “Old Style” soft-serif typeface inspired by early 20th century typefaces";
     homepage = "https://github.com/undercasetype/Fraunces";
     license = licenses.ofl;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aioeafm";
   version = "1.0.0";
@@ -33,22 +32,22 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   nativeCheckInputs = [
     pytest-aiohttp
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aioeafm" ];
+  pythonImportsCheck = ["aioeafm"];
 
   meta = with lib; {
     description = "Python client for access the Real Time flood monitoring API";
     homepage = "https://github.com/Jc2k/aioeafm";
     changelog = "https://github.com/Jc2k/aioeafm/releases/tag/${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -5,7 +5,6 @@
   xenstore,
   lwt,
 }:
-
 buildDunePackage {
   pname = "xenstore-tool";
 
@@ -18,7 +17,9 @@ buildDunePackage {
     lwt
   ];
 
-  meta = xenstore_transport.meta // {
-    description = "Command line tool for interfacing with xenstore";
-  };
+  meta =
+    xenstore_transport.meta
+    // {
+      description = "Command line tool for interfacing with xenstore";
+    };
 }

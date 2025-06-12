@@ -19,7 +19,6 @@
   yarl,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "wled";
   version = "0.21.0";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
       --replace-fail "0.0.0" "${version}" \
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -67,13 +66,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "wled" ];
+  pythonImportsCheck = ["wled"];
 
   meta = with lib; {
     description = "Asynchronous Python client for WLED";
     homepage = "https://github.com/frenck/python-wled";
     changelog = "https://github.com/frenck/python-wled/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

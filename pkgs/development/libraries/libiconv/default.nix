@@ -7,9 +7,7 @@
   enableShared ? !stdenv.hostPlatform.isStatic,
   enableDarwinABICompat ? false,
 }:
-
 # assert !stdenv.hostPlatform.isLinux || stdenv.hostPlatform != stdenv.buildPlatform; # TODO: improve on cross
-
 stdenv.mkDerivation rec {
   pname = "libiconv";
   version = "1.17";
@@ -23,7 +21,7 @@ stdenv.mkDerivation rec {
 
   # necessary to build on FreeBSD native pending inclusion of
   # https://git.savannah.gnu.org/cgit/config.git/commit/?id=e4786449e1c26716e3f9ea182caf472e4dbc96e0
-  nativeBuildInputs = [ updateAutotoolsGnuConfigScriptsHook ];
+  nativeBuildInputs = [updateAutotoolsGnuConfigScriptsHook];
 
   # https://github.com/NixOS/nixpkgs/pull/192630#discussion_r978985593
   hardeningDisable = lib.optional (stdenv.hostPlatform.libc == "bionic") "fortify";
@@ -35,12 +33,12 @@ stdenv.mkDerivation rec {
 
   postPatch =
     lib.optionalString
-      (
-        (stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform.isMinGW) || stdenv.cc.nativeLibc
-      )
-      ''
-        sed '/^_GL_WARN_ON_USE (gets/d' -i srclib/stdio.in.h
-      ''
+    (
+      (stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform.isMinGW) || stdenv.cc.nativeLibc
+    )
+    ''
+      sed '/^_GL_WARN_ON_USE (gets/d' -i srclib/stdio.in.h
+    ''
     + lib.optionalString (!enableShared) ''
       sed -i -e '/preload/d' Makefile.in
     ''
@@ -72,12 +70,14 @@ stdenv.mkDerivation rec {
     NIX_CFLAGS_COMPILE+=" -Wl,-reexport-lcharset -L. " make -C lib -j$NIX_BUILD_CORES SHELL=$SHELL
   '';
 
-  configureFlags = [
-    (lib.enableFeature enableStatic "static")
-    (lib.enableFeature enableShared "shared")
-  ] ++ lib.optional stdenv.hostPlatform.isFreeBSD "--with-pic";
+  configureFlags =
+    [
+      (lib.enableFeature enableStatic "static")
+      (lib.enableFeature enableShared "shared")
+    ]
+    ++ lib.optional stdenv.hostPlatform.isFreeBSD "--with-pic";
 
-  passthru = { inherit setupHooks; };
+  passthru = {inherit setupHooks;};
 
   meta = {
     description = "Iconv(3) implementation";
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/libiconv/";
     license = lib.licenses.lgpl2Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "iconv";
 
     # This library is not needed on GNU platforms.

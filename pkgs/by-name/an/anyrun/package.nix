@@ -14,7 +14,6 @@
   gtk-layer-shell,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "anyrun";
   version = "0-unstable-2025-05-27";
@@ -59,7 +58,7 @@ rustPlatform.buildRustPackage {
     install -Dm444 anyrun/res/style.css examples/config.ron -t $out/share/doc/anyrun/examples/
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = {
     description = "Wayland-native, highly customizable runner";

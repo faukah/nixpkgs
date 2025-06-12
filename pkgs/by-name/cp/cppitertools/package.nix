@@ -6,7 +6,6 @@
   catch2,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cppitertools";
   version = "2.1";
@@ -37,11 +36,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
-  nativeCheckInputs = [ catch2 ];
+  nativeCheckInputs = [catch2];
 
   # Required on case-sensitive filesystems to not conflict with the Bazel BUILD
   # files that are also in that repo.
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
   # variable at all though, so we still need to pass it in cmakeFlags.
   env.cppitertools_INSTALL_CMAKE_DIR = finalAttrs.cmakeInstallDir;
 
-  cmakeFlags = [ "-Dcppitertools_INSTALL_CMAKE_DIR=${finalAttrs.cmakeInstallDir}" ];
+  cmakeFlags = ["-Dcppitertools_INSTALL_CMAKE_DIR=${finalAttrs.cmakeInstallDir}"];
 
   prePatch =
     ''
@@ -93,7 +92,7 @@ stdenv.mkDerivation (finalAttrs: {
       for C++17, using lazy evaluation wherever possible.
     '';
     homepage = "https://github.com/ryanhaining/cppitertools";
-    maintainers = with lib.maintainers; [ qyriad ];
+    maintainers = with lib.maintainers; [qyriad];
     license = with lib.licenses; bsd2;
   };
 })

@@ -5,7 +5,6 @@
   requests,
   infotagger,
 }:
-
 buildKodiAddon rec {
   pname = "jurialmunkey";
   namespace = "script.module.jurialmunkey";
@@ -31,6 +30,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/jurialmunkey/script.module.jurialmunkey/tree/main";
     description = "Common code required by TMDbHelper and other related jurialmunkey add-ons";
     license = licenses.gpl3Plus;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

@@ -3,7 +3,6 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "redis-dump";
   gemdir = ./.;

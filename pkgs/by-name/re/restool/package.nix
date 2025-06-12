@@ -12,7 +12,6 @@
   pandoc,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "restool";
   version = "2.4";
@@ -71,6 +70,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nxp-qoriq/restool";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

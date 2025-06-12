@@ -5,7 +5,6 @@
   testers,
   runitor,
 }:
-
 buildGoModule rec {
   pname = "runitor";
   version = "1.4.0";
@@ -46,7 +45,7 @@ buildGoModule rec {
       or terminate with a failure.
     '';
     license = licenses.bsd0;
-    maintainers = with maintainers; [ bdd ];
+    maintainers = with maintainers; [bdd];
     mainProgram = "runitor";
   };
 }

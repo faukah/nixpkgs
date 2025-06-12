@@ -9,7 +9,6 @@
   shiboken2,
   pyside2,
 }:
-
 stdenv.mkDerivation {
   pname = "pyside2-tools";
 
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
     qt5.qtbase
   ];
 
-  cmakeFlags = [ "-DBUILD_TESTS=OFF" ];
+  cmakeFlags = ["-DBUILD_TESTS=OFF"];
 
   dontWrapQtApps = true;
 
@@ -64,6 +63,6 @@ stdenv.mkDerivation {
     description = "PySide2 development tools";
     license = licenses.gpl2;
     homepage = "https://wiki.qt.io/Qt_for_Python";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -6,7 +6,6 @@
   cmake,
   brotli,
 }:
-
 stdenv.mkDerivation rec {
   pname = "brunsli";
   version = "0.1";
@@ -57,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "Lossless JPEG repacking library";
     homepage = "https://github.com/google/brunsli";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

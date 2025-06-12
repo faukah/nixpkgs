@@ -9,7 +9,6 @@
   stestr,
   testscenarios,
 }:
-
 buildPythonPackage {
   pname = "oslo-config-tests";
   inherit (oslo-config) version src;

@@ -2,7 +2,6 @@
   lib,
   vscode-utils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "claude-dev";
@@ -16,6 +15,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://github.com/cline/cline";
     homepage = "https://github.com/cline/cline";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.drupol ];
+    maintainers = [lib.maintainers.drupol];
   };
 }

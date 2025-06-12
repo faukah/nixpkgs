@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "trojan-go";
   version = "0.10.6";
@@ -38,13 +37,13 @@ buildGoModule rec {
   # tests fail due to requiring networking
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Proxy mechanism to bypass GFW";
     homepage = "https://p4gefau1t.github.io/trojan-go/";
     changelog = "https://github.com/p4gefau1t/trojan-go/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     license = lib.licenses.gpl3Only;
     mainProgram = "trojan-go";
   };

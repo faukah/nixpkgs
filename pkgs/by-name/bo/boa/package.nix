@@ -7,7 +7,6 @@
   openssl,
   zstd,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "boa";
   version = "0.20";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     "boa_cli"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     bzip2
@@ -49,6 +48,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       unlicense
     ];
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

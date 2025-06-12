@@ -5,7 +5,6 @@
   makeWrapper,
   gforth,
 }:
-
 stdenv.mkDerivation {
   pname = "gbforth";
   version = "unstable-2023-03-02";
@@ -51,6 +50,6 @@ stdenv.mkDerivation {
     '';
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

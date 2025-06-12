@@ -20,7 +20,6 @@
   taglibSupport ? true,
   taglib, # tag editor
 }:
-
 stdenv.mkDerivation rec {
   pname = "ncmpcpp";
   version = "0.10.1";

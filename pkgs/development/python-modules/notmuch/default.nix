@@ -1,11 +1,9 @@
 {
   lib,
-
   buildPythonPackage,
   notmuch,
   python,
 }:
-
 buildPythonPackage {
   inherit (notmuch) pname version src;
 
@@ -25,12 +23,12 @@ buildPythonPackage {
 
   # no tests
   doCheck = false;
-  pythonImportsCheck = [ "notmuch" ];
+  pythonImportsCheck = ["notmuch"];
 
   meta = with lib; {
     description = "Python wrapper around notmuch";
     homepage = "https://notmuchmail.org/";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

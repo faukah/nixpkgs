@@ -1,35 +1,36 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "documize";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ ];
+    maintainers = [];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = [ pkgs.jq ];
+  nodes.machine = {pkgs, ...}: {
+    environment.systemPackages = [pkgs.jq];
 
-      services.documize = {
-        enable = true;
-        port = 3000;
-        dbtype = "postgresql";
-        db = "host=localhost port=5432 sslmode=disable user=documize password=documize dbname=documize";
-      };
-
-      systemd.services.documize-server = {
-        after = [ "postgresql.service" ];
-        requires = [ "postgresql.service" ];
-      };
-
-      services.postgresql = {
-        enable = true;
-        initialScript = pkgs.writeText "psql-init" ''
-          CREATE ROLE documize WITH LOGIN PASSWORD 'documize';
-          CREATE DATABASE documize WITH OWNER documize;
-        '';
-      };
+    services.documize = {
+      enable = true;
+      port = 3000;
+      dbtype = "postgresql";
+      db = "host=localhost port=5432 sslmode=disable user=documize password=documize dbname=documize";
     };
+
+    systemd.services.documize-server = {
+      after = ["postgresql.service"];
+      requires = ["postgresql.service"];
+    };
+
+    services.postgresql = {
+      enable = true;
+      initialScript = pkgs.writeText "psql-init" ''
+        CREATE ROLE documize WITH LOGIN PASSWORD 'documize';
+        CREATE DATABASE documize WITH OWNER documize;
+      '';
+    };
+  };
 
   testScript = ''
     start_all()

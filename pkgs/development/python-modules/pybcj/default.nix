@@ -7,7 +7,6 @@
   hypothesis,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pybcj";
   version = "1.0.3";

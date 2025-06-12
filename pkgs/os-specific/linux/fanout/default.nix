@@ -7,7 +7,6 @@
   kmod,
   nixosTests,
 }:
-
 stdenv.mkDerivation {
   pname = "fanout";
   version = "unstable-2022-10-17-${kernel.version}";
@@ -32,19 +31,21 @@ stdenv.mkDerivation {
     "pic"
   ];
 
-  nativeBuildInputs = [ kmod ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs = [kmod] ++ kernel.moduleBuildDependencies;
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    ];
 
-  passthru.tests = { inherit (nixosTests) fanout; };
+  passthru.tests = {inherit (nixosTests) fanout;};
 
   meta = with lib; {
     description = "Kernel-based publish-subscribe system";
     homepage = "https://github.com/bob-linuxtoys/fanout";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ therishidesai ];
+    maintainers = with maintainers; [therishidesai];
     platforms = platforms.linux;
   };
 }

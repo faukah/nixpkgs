@@ -7,7 +7,6 @@
   iptables,
   util-linux,
 }:
-
 buildPythonPackage rec {
   pname = "namespaced-openvpn";
   version = "0.6.0";
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/slingamn/namespaced-openvpn";
     description = "Network namespace isolation for OpenVPN tunnels";
     license = licenses.mit;
-    maintainers = [ maintainers.lodi ];
+    maintainers = [maintainers.lodi];
     platforms = platforms.linux;
     mainProgram = "namespaced-openvpn";
   };

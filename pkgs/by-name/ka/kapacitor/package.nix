@@ -7,9 +7,7 @@
   libiconv,
   buildGoModule,
   pkg-config,
-}:
-
-let
+}: let
   libflux_version = "0.171.0";
   flux = rustPlatform.buildRustPackage rec {
     pname = "libflux";
@@ -45,7 +43,7 @@ let
     sourceRoot = "${src.name}/libflux";
     useFetchCargoVendor = true;
     cargoHash = "sha256-kbI1uUDE8JyFFtwV5k0EeeNGCZFQLXLobW/MilHX2Sg=";
-    nativeBuildInputs = [ rustPlatform.bindgenHook ];
+    nativeBuildInputs = [rustPlatform.bindgenHook];
     buildInputs = lib.optional stdenv.hostPlatform.isDarwin libiconv;
     pkgcfg = ''
       Name: flux
@@ -54,7 +52,7 @@ let
       Cflags: -I/out/include
       Libs: -L/out/lib -lflux -lpthread
     '';
-    passAsFile = [ "pkgcfg" ];
+    passAsFile = ["pkgcfg"];
     postInstall =
       ''
         mkdir -p $out/include $out/pkgconfig
@@ -67,63 +65,61 @@ let
       '';
   };
 in
-buildGoModule rec {
-  pname = "kapacitor";
-  version = "1.7.5";
+  buildGoModule rec {
+    pname = "kapacitor";
+    version = "1.7.5";
 
-  src = fetchFromGitHub {
-    owner = "influxdata";
-    repo = "kapacitor";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-vxaLfJq0NFAJst0/AEhNJUl9dAaZY3blZAFthseMSX0=";
-  };
+    src = fetchFromGitHub {
+      owner = "influxdata";
+      repo = "kapacitor";
+      rev = "refs/tags/v${version}";
+      hash = "sha256-vxaLfJq0NFAJst0/AEhNJUl9dAaZY3blZAFthseMSX0=";
+    };
 
-  vendorHash = "sha256-myToEgta8R5R4v2/nZqtQQvNdy1kWgwklbQeFxzIdgs=";
+    vendorHash = "sha256-myToEgta8R5R4v2/nZqtQQvNdy1kWgwklbQeFxzIdgs=";
 
-  nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
-  PKG_CONFIG_PATH = "${flux}/pkgconfig";
+    PKG_CONFIG_PATH = "${flux}/pkgconfig";
 
-  # Check that libflux is at the right version
-  preBuild = ''
-    flux_ver=$(grep github.com/influxdata/flux go.mod | awk '{print $2}')
-    if [ "$flux_ver" != "v${libflux_version}" ]; then
-      echo "go.mod wants libflux $flux_ver, but nix derivation provides ${libflux_version}"
-      exit 1
-    fi
-  '';
+    # Check that libflux is at the right version
+    preBuild = ''
+      flux_ver=$(grep github.com/influxdata/flux go.mod | awk '{print $2}')
+      if [ "$flux_ver" != "v${libflux_version}" ]; then
+        echo "go.mod wants libflux $flux_ver, but nix derivation provides ${libflux_version}"
+        exit 1
+      fi
+    '';
 
-  # Remove failing server tests
-  preCheck = ''
-    rm server/server_test.go
-    rm pipeline/tick/*test.go
-  '';
+    # Remove failing server tests
+    preCheck = ''
+      rm server/server_test.go
+      rm pipeline/tick/*test.go
+    '';
 
-  checkFlags =
-    let
+    checkFlags = let
       skippedTests = [
         "TestBatch_KapacitorLoopback"
       ];
-    in
-    [
+    in [
       "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"
     ];
 
-  # Tests start http servers which need to bind to local addresses,
-  # but that fails in the Darwin sandbox by default unless this option is turned on
-  # Error is: panic: httptest: failed to listen on a port: listen tcp6 [::1]:0: bind: operation not permitted
-  # See also https://github.com/NixOS/nix/pull/1646
-  __darwinAllowLocalNetworking = true;
+    # Tests start http servers which need to bind to local addresses,
+    # but that fails in the Darwin sandbox by default unless this option is turned on
+    # Error is: panic: httptest: failed to listen on a port: listen tcp6 [::1]:0: bind: operation not permitted
+    # See also https://github.com/NixOS/nix/pull/1646
+    __darwinAllowLocalNetworking = true;
 
-  meta = {
-    description = "Open source framework for processing, monitoring, and alerting on time series data";
-    homepage = "https://influxdata.com/time-series-platform/kapacitor/";
-    downloadPage = "https://github.com/influxdata/kapacitor/releases";
-    license = lib.licenses.mit;
-    changelog = "https://github.com/influxdata/kapacitor/blob/master/CHANGELOG.md";
-    maintainers = with lib.maintainers; [
-      offline
-      totoroot
-    ];
-  };
-}
+    meta = {
+      description = "Open source framework for processing, monitoring, and alerting on time series data";
+      homepage = "https://influxdata.com/time-series-platform/kapacitor/";
+      downloadPage = "https://github.com/influxdata/kapacitor/releases";
+      license = lib.licenses.mit;
+      changelog = "https://github.com/influxdata/kapacitor/blob/master/CHANGELOG.md";
+      maintainers = with lib.maintainers; [
+        offline
+        totoroot
+      ];
+    };
+  }

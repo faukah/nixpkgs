@@ -1,37 +1,36 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "keepalived";
-  meta.maintainers = [ lib.maintainers.raitobezarius ];
+  meta.maintainers = [lib.maintainers.raitobezarius];
 
   nodes = {
-    node1 =
-      { pkgs, ... }:
-      {
-        services.keepalived.enable = true;
-        services.keepalived.openFirewall = true;
-        services.keepalived.vrrpInstances.test = {
-          interface = "eth1";
-          state = "MASTER";
-          priority = 50;
-          virtualIps = [ { addr = "192.168.1.200"; } ];
-          virtualRouterId = 1;
-        };
-        environment.systemPackages = [ pkgs.tcpdump ];
+    node1 = {pkgs, ...}: {
+      services.keepalived.enable = true;
+      services.keepalived.openFirewall = true;
+      services.keepalived.vrrpInstances.test = {
+        interface = "eth1";
+        state = "MASTER";
+        priority = 50;
+        virtualIps = [{addr = "192.168.1.200";}];
+        virtualRouterId = 1;
       };
-    node2 =
-      { pkgs, ... }:
-      {
-        services.keepalived.enable = true;
-        services.keepalived.openFirewall = true;
-        services.keepalived.vrrpInstances.test = {
-          interface = "eth1";
-          state = "MASTER";
-          priority = 100;
-          virtualIps = [ { addr = "192.168.1.200"; } ];
-          virtualRouterId = 1;
-        };
-        environment.systemPackages = [ pkgs.tcpdump ];
+      environment.systemPackages = [pkgs.tcpdump];
+    };
+    node2 = {pkgs, ...}: {
+      services.keepalived.enable = true;
+      services.keepalived.openFirewall = true;
+      services.keepalived.vrrpInstances.test = {
+        interface = "eth1";
+        state = "MASTER";
+        priority = 100;
+        virtualIps = [{addr = "192.168.1.200";}];
+        virtualRouterId = 1;
       };
+      environment.systemPackages = [pkgs.tcpdump];
+    };
   };
 
   testScript = ''

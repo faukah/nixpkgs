@@ -1,13 +1,11 @@
 {
   name = "systemd-initrd-simple";
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      testing.initrdBackdoor = true;
-      boot.initrd.systemd.enable = true;
-      virtualisation.fileSystems."/".autoResize = true;
-    };
+  nodes.machine = {pkgs, ...}: {
+    testing.initrdBackdoor = true;
+    boot.initrd.systemd.enable = true;
+    virtualisation.fileSystems."/".autoResize = true;
+  };
 
   testScript =
     # python

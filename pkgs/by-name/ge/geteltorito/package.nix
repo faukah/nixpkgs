@@ -5,7 +5,6 @@
   ronn,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "geteltorito";
   version = "0.6";
@@ -50,9 +49,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Extract the initial/default boot image from a CD image if existent";
     homepage = "https://userpages.uni-koblenz.de/~krienke/ftp/noarch/geteltorito/";
-    maintainers = [ maintainers.Profpatsch ];
+    maintainers = [maintainers.Profpatsch];
     license = licenses.gpl2Only;
     mainProgram = "geteltorito";
   };
-
 }

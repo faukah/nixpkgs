@@ -7,7 +7,6 @@
   six,
   tldextract,
 }:
-
 buildPythonPackage {
   pname = "surt";
   version = "0.3.1";
@@ -28,9 +27,9 @@ buildPythonPackage {
     tldextract
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "surt" ];
+  pythonImportsCheck = ["surt"];
 
   disabledTests = [
     # Tests want to download Public Suffix List
@@ -42,6 +41,6 @@ buildPythonPackage {
     description = "Sort-friendly URI Reordering Transform (SURT) python module";
     homepage = "https://github.com/internetarchive/surt";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

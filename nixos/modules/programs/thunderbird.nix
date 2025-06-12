@@ -3,21 +3,19 @@
   config,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.programs.thunderbird;
-  policyFormat = pkgs.formats.json { };
+  policyFormat = pkgs.formats.json {};
   policyDoc = "https://github.com/thunderbird/policy-templates";
-in
-{
+in {
   options.programs.thunderbird = {
     enable = lib.mkEnableOption "Thunderbird mail client";
 
-    package = lib.mkPackageOption pkgs "thunderbird" { };
+    package = lib.mkPackageOption pkgs "thunderbird" {};
 
     policies = lib.mkOption {
       type = policyFormat.type;
-      default = { };
+      default = {};
       description = ''
         Group policies to install.
 
@@ -31,14 +29,13 @@ in
     };
 
     preferences = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (oneOf [
           bool
           int
           str
         ]);
-      default = { };
+      default = {};
       description = ''
         Preferences to set from `about:config`.
 
@@ -68,22 +65,23 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    environment.etc =
-      let
-        policiesJSON = policyFormat.generate "thunderbird-policies.json" { inherit (cfg) policies; };
-      in
-      lib.mkIf (cfg.policies != { }) { "thunderbird/policies/policies.json".source = policiesJSON; };
+    environment.etc = let
+      policiesJSON = policyFormat.generate "thunderbird-policies.json" {inherit (cfg) policies;};
+    in
+      lib.mkIf (cfg.policies != {}) {"thunderbird/policies/policies.json".source = policiesJSON;};
 
     programs.thunderbird.policies = {
       DisableAppUpdate = true;
-      Preferences = builtins.mapAttrs (_: value: {
-        Value = value;
-        Status = cfg.preferencesStatus;
-      }) cfg.preferences;
+      Preferences =
+        builtins.mapAttrs (_: value: {
+          Value = value;
+          Status = cfg.preferencesStatus;
+        })
+        cfg.preferences;
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ nydragon ];
+  meta.maintainers = with lib.maintainers; [nydragon];
 }

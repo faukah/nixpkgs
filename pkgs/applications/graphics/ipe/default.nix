@@ -23,7 +23,6 @@
   withQVoronoi ? false,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ipe";
   version = "7.2.30";
@@ -75,7 +74,7 @@ stdenv.mkDerivation rec {
       "QHULL_CFLAGS=-I${qhull}/include/libqhull_r"
     ]);
 
-  qtWrapperArgs = lib.optionals withTeXLive [ "--prefix PATH : ${lib.makeBinPath [ texliveSmall ]}" ];
+  qtWrapperArgs = lib.optionals withTeXLive ["--prefix PATH : ${lib.makeBinPath [texliveSmall]}"];
 
   enableParallelBuilding = true;
 
@@ -114,7 +113,7 @@ stdenv.mkDerivation rec {
       It supports making small figures for inclusion into LaTeX-documents
       as well as presentations in PDF.
     '';
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
     platforms = platforms.linux;
   };
 }

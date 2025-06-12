@@ -8,7 +8,6 @@
   jre8,
   logOutput ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jquake";
   version = "1.8.5";
@@ -29,7 +28,9 @@ stdenv.mkDerivation rec {
     # JQuake emits a lot of debug-like messages on stdout. Either drop the output
     # stream entirely or log them at 'user.debug' level.
     sed -i "/^java/ s/$/ ${
-      if logOutput then "| logger -p user.debug" else "> \\/dev\\/null"
+      if logOutput
+      then "| logger -p user.debug"
+      else "> \\/dev\\/null"
     }/" JQuake.sh
 
     # By default, an 'errors.log' file is created in the current directory.
@@ -72,8 +73,8 @@ stdenv.mkDerivation rec {
     homepage = "https://jquake.net";
     downloadPage = "https://jquake.net/en/terms.html?os=linux&arch=any";
     changelog = "https://jquake.net/en/changelog.html";
-    maintainers = with maintainers; [ nessdoor ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    maintainers = with maintainers; [nessdoor];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.unfree;
     platforms = platforms.linux;
     mainProgram = "JQuake";

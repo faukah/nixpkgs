@@ -24,9 +24,7 @@
   libgbm,
   xz,
   libxkbcommon,
-}:
-
-let
+}: let
   all_data = lib.importJSON ./data.json;
   system_map = {
     # i686-linux = "i386"; Uncomment if enpass 6 becomes available on i386
@@ -43,8 +41,7 @@ let
 
   # used of both wrappers and libpath
   libPath = lib.makeLibraryPath (
-    with xorg;
-    [
+    with xorg; [
       libGLU
       libGL
       fontconfig
@@ -75,7 +72,6 @@ let
     ]
   );
   package = stdenv.mkDerivation {
-
     inherit (data) version;
     pname = "enpass";
 
@@ -87,7 +83,7 @@ let
     meta = with lib; {
       description = "Well known password manager";
       homepage = "https://www.enpass.io/";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
       license = licenses.unfree;
       platforms = [
         "x86_64-linux"
@@ -99,8 +95,8 @@ let
       ];
     };
 
-    nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ dpkg ];
+    nativeBuildInputs = [makeWrapper];
+    buildInputs = [dpkg];
 
     unpackPhase = "dpkg -X $src .";
     installPhase = ''
@@ -139,8 +135,6 @@ let
       shellHook = ''
         exec python $SCRIPT --target pkgs/tools/security/enpass/data.json --repo ${baseUrl}
       '';
-
     };
   };
-in
-(package // { refresh = updater; })
+in (package // {refresh = updater;})

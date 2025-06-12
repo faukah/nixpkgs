@@ -5,7 +5,6 @@
   opencbm,
   cc65,
 }:
-
 stdenv.mkDerivation {
   pname = "nibtools";
   version = "0-unstable-2024-11-30";
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
     description = "disk transfer utility for imaging and converting commodore 64 disk images";
     homepage = "https://github.com/OpenCBM/nibtools/";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ matthewcroughan ];
+    maintainers = with lib.maintainers; [matthewcroughan];
     platforms = lib.platforms.all;
   };
 }

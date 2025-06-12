@@ -15,7 +15,6 @@
   brotli,
   enableGui ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "apitrace";
   version = "12.0";
@@ -92,7 +91,7 @@ stdenv.mkDerivation rec {
       for i in $out/bin/eglretrace $out/bin/glretrace
       do
         echo "Patching RPath for $i"
-        patchelf --set-rpath "${lib.makeLibraryPath [ libglvnd ]}:$(patchelf --print-rpath $i)" $i
+        patchelf --set-rpath "${lib.makeLibraryPath [libglvnd]}:$(patchelf --print-rpath $i)" $i
       done
 
     ''

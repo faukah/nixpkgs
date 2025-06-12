@@ -2,11 +2,9 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-
   pkg-config,
   udev,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tangara-cli";
   version = "0.4.3";
@@ -36,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "tangara";
     homepage = "https://github.com/haileys/tangara-companion";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ stevestreza ];
+    maintainers = with lib.maintainers; [stevestreza];
     platforms = lib.platforms.linux;
   };
 }

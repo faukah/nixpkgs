@@ -5,7 +5,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "python-linux-procfs";
   version = "0.7.3";
@@ -16,13 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-6js8+PBqMwNYSe74zqZP8CZ5nt1ByjCWnex+wBY/LZU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ six ];
+  dependencies = [six];
 
   # contains no tests
   doCheck = false;
-  pythonImportsCheck = [ "procfs" ];
+  pythonImportsCheck = ["procfs"];
 
   meta = with lib; {
     description = "Python classes to extract information from the Linux kernel /proc files";

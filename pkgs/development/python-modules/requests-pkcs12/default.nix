@@ -6,7 +6,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "requests-pkcs12";
   version = "1.25";
@@ -29,12 +28,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "requests_pkcs12" ];
+  pythonImportsCheck = ["requests_pkcs12"];
 
   meta = with lib; {
     description = "PKCS#12 support for the Python requests library";
     homepage = "https://github.com/m-click/requests_pkcs12";
-    license = with licenses; [ isc ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [isc];
+    maintainers = with maintainers; [fab];
   };
 }

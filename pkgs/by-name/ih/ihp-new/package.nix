@@ -5,7 +5,6 @@
   git,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ihp-new";
   version = "1.3.0";
@@ -20,12 +19,12 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
   sourceRoot = "${src.name}/ProjectGenerator";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dm755 bin/ihp-new -t $out/bin
     wrapProgram $out/bin/ihp-new \
-      --suffix PATH ":" "${lib.makeBinPath [ git ]}";
+      --suffix PATH ":" "${lib.makeBinPath [git]}";
   '';
 
   meta = with lib; {
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     mainProgram = "ihp-new";
     homepage = "https://ihp.digitallyinduced.com";
     license = licenses.mit;
-    maintainers = [ maintainers.mpscholten ];
+    maintainers = [maintainers.mpscholten];
     platforms = platforms.unix;
   };
 }

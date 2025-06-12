@@ -5,7 +5,6 @@
   jpegoptim,
   optipng,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "sacad";
   version = "2.8.0";
@@ -34,12 +33,12 @@ python3Packages.buildPythonApplication rec {
   # tests require internet connection
   doCheck = false;
 
-  pythonImportsCheck = [ "sacad" ];
+  pythonImportsCheck = ["sacad"];
 
   meta = with lib; {
     description = "Smart Automatic Cover Art Downloader";
     homepage = "https://github.com/desbma/sacad";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
   };
 }

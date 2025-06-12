@@ -1,19 +1,12 @@
-{ pkgs, ... }:
-
-let
-  client =
-    { pkgs, ... }:
-
-    {
-      imports = [ ./common/x11.nix ];
-      environment.systemPackages = [ pkgs.teeworlds ];
-    };
-
-in
-{
+{pkgs, ...}: let
+  client = {pkgs, ...}: {
+    imports = [./common/x11.nix];
+    environment.systemPackages = [pkgs.teeworlds];
+  };
+in {
   name = "teeworlds";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ hax404 ];
+    maintainers = [hax404];
   };
 
   nodes = {
@@ -52,5 +45,4 @@ in
     client1.screenshot("screen_client1")
     client2.screenshot("screen_client2")
   '';
-
 }

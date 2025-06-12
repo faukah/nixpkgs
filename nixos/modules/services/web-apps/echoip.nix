@@ -3,17 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.echoip;
-in
-{
-  meta.maintainers = with lib.maintainers; [ defelo ];
+in {
+  meta.maintainers = with lib.maintainers; [defelo];
 
   options.services.echoip = {
     enable = lib.mkEnableOption "echoip";
 
-    package = lib.mkPackageOption pkgs "echoip" { };
+    package = lib.mkPackageOption pkgs "echoip" {};
 
     virtualHost = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
@@ -26,7 +24,7 @@ in
     extraArgs = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "Extra command line arguments to pass to echoip. See <https://github.com/mpolden/echoip> for details.";
-      default = [ ];
+      default = [];
     };
 
     listenAddress = lib.mkOption {
@@ -50,10 +48,10 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.services.echoip = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
 
       serviceConfig = {
         User = "echoip";
@@ -76,7 +74,7 @@ in
 
         # Hardening
         AmbientCapabilities = "";
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DevicePolicy = "closed";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -95,7 +93,7 @@ in
         ProtectProc = "invisible";
         ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET AF_INET6 AF_UNIX" ];
+        RestrictAddressFamilies = ["AF_INET AF_INET6 AF_UNIX"];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;

@@ -1,8 +1,7 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
-  {
+  {pkgs, ...}: {
     name = "peertube";
-    meta.maintainers = with pkgs.lib.maintainers; [ izorkin ];
+    meta.maintainers = with pkgs.lib.maintainers; [izorkin];
 
     nodes = {
       database = {
@@ -24,7 +23,7 @@ import ../make-test-python.nix (
         services.postgresql = {
           enable = true;
           enableTCPIP = true;
-          ensureDatabases = [ "peertube_test" ];
+          ensureDatabases = ["peertube_test"];
           ensureUsers = [
             {
               name = "peertube_test";
@@ -47,75 +46,73 @@ import ../make-test-python.nix (
         };
       };
 
-      server =
-        { pkgs, ... }:
-        {
-          environment = {
-            etc = {
-              "peertube/password-init-root".text = ''
-                PT_INITIAL_ROOT_PASSWORD=zw4SqYVdcsXUfRX8aaFX
-              '';
-              "peertube/secrets-peertube".text = ''
-                063d9c60d519597acef26003d5ecc32729083965d09181ef3949200cbe5f09ee
-              '';
-              "peertube/password-posgressql-db".text = ''
-                0gUN0C1mgST6czvjZ8T9
-              '';
-              "peertube/password-redis-db".text = ''
-                turrQfaQwnanGbcsdhxy
-              '';
-            };
-          };
-
-          networking = {
-            interfaces.eth1 = {
-              ipv4.addresses = [
-                {
-                  address = "192.168.2.11";
-                  prefixLength = 24;
-                }
-              ];
-            };
-            extraHosts = ''
-              192.168.2.11 peertube.local
+      server = {pkgs, ...}: {
+        environment = {
+          etc = {
+            "peertube/password-init-root".text = ''
+              PT_INITIAL_ROOT_PASSWORD=zw4SqYVdcsXUfRX8aaFX
             '';
-            firewall.allowedTCPPorts = [ 9000 ];
+            "peertube/secrets-peertube".text = ''
+              063d9c60d519597acef26003d5ecc32729083965d09181ef3949200cbe5f09ee
+            '';
+            "peertube/password-posgressql-db".text = ''
+              0gUN0C1mgST6czvjZ8T9
+            '';
+            "peertube/password-redis-db".text = ''
+              turrQfaQwnanGbcsdhxy
+            '';
+          };
+        };
+
+        networking = {
+          interfaces.eth1 = {
+            ipv4.addresses = [
+              {
+                address = "192.168.2.11";
+                prefixLength = 24;
+              }
+            ];
+          };
+          extraHosts = ''
+            192.168.2.11 peertube.local
+          '';
+          firewall.allowedTCPPorts = [9000];
+        };
+
+        services.peertube = {
+          enable = true;
+          localDomain = "peertube.local";
+          enableWebHttps = false;
+
+          serviceEnvironmentFile = "/etc/peertube/password-init-root";
+
+          secrets = {
+            secretsFile = "/etc/peertube/secrets-peertube";
           };
 
-          services.peertube = {
-            enable = true;
-            localDomain = "peertube.local";
-            enableWebHttps = false;
+          database = {
+            host = "192.168.2.10";
+            name = "peertube_test";
+            user = "peertube_test";
+            passwordFile = "/etc/peertube/password-posgressql-db";
+          };
 
-            serviceEnvironmentFile = "/etc/peertube/password-init-root";
+          redis = {
+            host = "192.168.2.10";
+            port = 31638;
+            passwordFile = "/etc/peertube/password-redis-db";
+          };
 
-            secrets = {
-              secretsFile = "/etc/peertube/secrets-peertube";
+          settings = {
+            listen = {
+              hostname = "0.0.0.0";
             };
-
-            database = {
-              host = "192.168.2.10";
-              name = "peertube_test";
-              user = "peertube_test";
-              passwordFile = "/etc/peertube/password-posgressql-db";
-            };
-
-            redis = {
-              host = "192.168.2.10";
-              port = 31638;
-              passwordFile = "/etc/peertube/password-redis-db";
-            };
-
-            settings = {
-              listen = {
-                hostname = "0.0.0.0";
-              };
-              instance = {
-                name = "PeerTube Test Server";
-              };
+            instance = {
+              name = "PeerTube Test Server";
             };
           };
         };
+      };
 
       client = {
         environment.systemPackages = [
@@ -136,7 +133,6 @@ import ../make-test-python.nix (
           '';
         };
       };
-
     };
 
     testScript = ''

@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "oset";
   version = "0.1.3";

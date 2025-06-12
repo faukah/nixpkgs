@@ -3,11 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.vmagent;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
 
   startCLIList =
     [
@@ -28,14 +26,12 @@ let
     settingsFormat.generate "prometheusConfig.yaml" cfg.prometheusConfig
   );
 
-  checkedConfig =
-    file:
-    pkgs.runCommand "checked-config" { nativeBuildInputs = [ cfg.package ]; } ''
+  checkedConfig = file:
+    pkgs.runCommand "checked-config" {nativeBuildInputs = [cfg.package];} ''
       ln -s ${file} $out
       ${lib.escapeShellArgs startCLIList} -promscrape.config=${file} -dryRun
     '';
-in
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -52,9 +48,10 @@ in
       "vmagent"
       "group"
     ] "group has been deprecated in favor of systemd DynamicUser")
-    (lib.mkRenamedOptionModule
-      [ "services" "vmagent" "remoteWriteUrl" ]
-      [ "services" "vmagent" "remoteWrite" "url" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "vmagent" "remoteWriteUrl"]
+      ["services" "vmagent" "remoteWrite" "url"]
     )
   ];
 
@@ -69,7 +66,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "vmagent" { };
+    package = lib.mkPackageOption pkgs "vmagent" {};
 
     remoteWrite = {
       url = lib.mkOption {
@@ -96,7 +93,7 @@ in
     };
 
     prometheusConfig = lib.mkOption {
-      type = lib.types.submodule { freeformType = settingsFormat.type; };
+      type = lib.types.submodule {freeformType = settingsFormat.type;};
       description = ''
         Config for prometheus style metrics
       '';
@@ -112,7 +109,7 @@ in
 
     extraArgs = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         Extra args to pass to `vmagent`. See the docs:
         <https://docs.victoriametrics.com/vmagent.html#advanced-usage>
@@ -122,11 +119,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ 8429 ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [8429];
 
     systemd.services.vmagent = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       description = "vmagent system service";
       serviceConfig = {
         DynamicUser = true;
@@ -137,7 +134,7 @@ in
         CacheDirectory = "vmagent";
         ExecStart = lib.escapeShellArgs (
           startCLIList
-          ++ lib.optionals (cfg.prometheusConfig != { }) [ "-promscrape.config=${prometheusConfigYml}" ]
+          ++ lib.optionals (cfg.prometheusConfig != {}) ["-promscrape.config=${prometheusConfigYml}"]
         );
         LoadCredential = lib.optional (cfg.remoteWrite.basicAuthPasswordFile != null) [
           "remote_write_basic_auth_password:${cfg.remoteWrite.basicAuthPasswordFile}"

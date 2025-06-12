@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "nuclei";
   version = "3.4.4";
@@ -20,9 +19,9 @@ buildGoModule rec {
 
   proxyVendor = true; # hash mismatch between Linux and Darwin
 
-  subPackages = [ "cmd/nuclei/" ];
+  subPackages = ["cmd/nuclei/"];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   ldflags = [
     "-w"

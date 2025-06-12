@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.syslogd;
 
   syslogConf = pkgs.writeText "syslog.conf" ''
@@ -28,16 +26,11 @@ let
 
     *.*;mail.none;local1.none    -/var/log/messages
   '';
-
-in
-
-{
+in {
   ###### interface
 
   options = {
-
     services.syslogd = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -86,21 +79,18 @@ in
 
       extraParams = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
-        example = [ "-m 0" ];
+        default = [];
+        example = ["-m 0"];
         description = ''
           Additional parameters passed to {command}`syslogd`.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     assertions = [
       {
         assertion = !config.services.rsyslogd.enable;
@@ -108,7 +98,7 @@ in
       }
     ];
 
-    environment.systemPackages = [ pkgs.sysklogd ];
+    environment.systemPackages = [pkgs.sysklogd];
 
     services.syslogd.extraParams = lib.optional cfg.enableNetworkInput "-r";
 
@@ -116,9 +106,9 @@ in
     systemd.services.syslog = {
       description = "Syslog Daemon";
 
-      requires = [ "syslog.socket" ];
+      requires = ["syslog.socket"];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.sysklogd}/sbin/syslogd ${toString cfg.extraParams} -f ${syslogConf} -n";
@@ -126,7 +116,5 @@ in
         StandardOutput = "null";
       };
     };
-
   };
-
 }

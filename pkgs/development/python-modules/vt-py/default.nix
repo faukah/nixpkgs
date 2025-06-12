@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "vt-py";
   version = "0.21.0";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
       --replace-fail "pytest-runner" ""
   '';
 
-  pythonRelaxDeps = [ "aiohttp" ];
+  pythonRelaxDeps = ["aiohttp"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiofiles
@@ -47,13 +46,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "vt" ];
+  pythonImportsCheck = ["vt"];
 
   meta = with lib; {
     description = "Python client library for VirusTotal";
     homepage = "https://virustotal.github.io/vt-py/";
     changelog = "https://github.com/VirusTotal/vt-py/releases/tag//${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

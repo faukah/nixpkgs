@@ -6,7 +6,6 @@
   ocaml,
   re,
 }:
-
 buildDunePackage rec {
   pname = "coin";
   version = "0.1.4";
@@ -22,8 +21,8 @@ buildDunePackage rec {
       'ocaml} -I ${findlib}/lib/ocaml/${ocaml.version}/site-lib '
   '';
 
-  nativeBuildInputs = [ findlib ];
-  buildInputs = [ re ];
+  nativeBuildInputs = [findlib];
+  buildInputs = [re];
 
   doCheck = true;
 
@@ -31,7 +30,7 @@ buildDunePackage rec {
     description = "Library to normalize an KOI8-{U,R} input to Unicode";
     homepage = "https://github.com/mirage/coin";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "coin.generate";
   };
 }

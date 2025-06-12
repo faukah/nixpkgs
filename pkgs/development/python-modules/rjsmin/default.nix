@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "rjsmin";
   version = "1.2.4";
@@ -21,12 +20,12 @@ buildPythonPackage rec {
   # tests auto-discovery
   doCheck = false;
 
-  pythonImportsCheck = [ "rjsmin" ];
+  pythonImportsCheck = ["rjsmin"];
 
   meta = with lib; {
     description = "Module to minify Javascript";
     homepage = "http://opensource.perlig.de/rjsmin/";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

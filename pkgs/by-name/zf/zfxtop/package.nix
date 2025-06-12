@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "zfxtop";
   version = "0.3.2";
@@ -22,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/ssleert/zfxtop";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ wozeparrot ];
+    maintainers = with maintainers; [wozeparrot];
     mainProgram = "zfxtop";
   };
 }

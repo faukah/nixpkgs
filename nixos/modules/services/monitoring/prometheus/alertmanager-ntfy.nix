@@ -3,33 +3,29 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.alertmanager-ntfy;
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   settingsFile = settingsFormat.generate "settings.yml" cfg.settings;
 
   configsArg = lib.concatStringsSep "," (
-    [ settingsFile ] ++ lib.imap0 (i: _: "%d/config-${toString i}.yml") cfg.extraConfigFiles
+    [settingsFile] ++ lib.imap0 (i: _: "%d/config-${toString i}.yml") cfg.extraConfigFiles
   );
-in
-
-{
-  meta.maintainers = with lib.maintainers; [ defelo ];
+in {
+  meta.maintainers = with lib.maintainers; [defelo];
 
   options.services.prometheus.alertmanager-ntfy = {
     enable = lib.mkEnableOption "alertmanager-ntfy";
 
-    package = lib.mkPackageOption pkgs "alertmanager-ntfy" { };
+    package = lib.mkPackageOption pkgs "alertmanager-ntfy" {};
 
     settings = lib.mkOption {
       description = ''
         Configuration of alertmanager-ntfy.
         See <https://github.com/alexbakker/alertmanager-ntfy> for more information.
       '';
-      default = { };
+      default = {};
 
       type = lib.types.submodule {
         freeformType = settingsFormat.type;
@@ -134,8 +130,8 @@ in
 
     extraConfigFiles = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
-      example = [ "/run/secrets/alertmanager-ntfy.yml" ];
+      default = [];
+      example = ["/run/secrets/alertmanager-ntfy.yml"];
       description = ''
         Config files to merge into the settings defined in [](#opt-services.prometheus.alertmanager-ntfy.settings).
         This is useful to avoid putting secrets into the Nix store.
@@ -146,10 +142,10 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.services.alertmanager-ntfy = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
 
       serviceConfig = {
         User = "alertmanager-ntfy";
@@ -165,7 +161,7 @@ in
 
         # Hardening
         AmbientCapabilities = "";
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DevicePolicy = "closed";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -184,7 +180,7 @@ in
         ProtectProc = "invisible";
         ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET AF_INET6" ];
+        RestrictAddressFamilies = ["AF_INET AF_INET6"];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;

@@ -20,7 +20,7 @@ buildGoModule rec {
     homepage = "https://github.com/tomnomnom/meg";
     description = "Fetch many paths for many hosts without flooding hosts";
     mainProgram = "meg";
-    maintainers = with maintainers; [ averagebit ];
+    maintainers = with maintainers; [averagebit];
     license = licenses.mit;
   };
 }

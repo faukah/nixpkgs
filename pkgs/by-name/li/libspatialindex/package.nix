@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libspatialindex";
   version = "2.1.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs test/
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_TESTING" finalAttrs.finalPackage.doCheck)
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Extensible spatial index library in C++";
     homepage = "https://libspatialindex.org";
     license = lib.licenses.mit;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
     platforms = lib.platforms.unix;
   };
 })

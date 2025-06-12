@@ -12,7 +12,6 @@
   enableX11 ? true,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "centerpiece";
   version = "1.1.1";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-qwKn9NN7+F/S8ojObjWBU2y2wG0TNeYbYHiwou8AhnI=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       dbus
@@ -37,8 +36,7 @@ rustPlatform.buildRustPackage rec {
       wayland
     ]
     ++ lib.optionals enableX11 (
-      with xorg;
-      [
+      with xorg; [
         libX11
         libXcursor
         libXi

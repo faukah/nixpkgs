@@ -5,7 +5,6 @@
   stdenv,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fst";
   version = "0.4.3";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-zO2RYJpTyFFEQ+xZH4HU0CPaeiy6G3uq/qOwPawYSkk=";
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -39,6 +38,6 @@ rustPlatform.buildRustPackage rec {
       unlicense # or
       mit
     ];
-    maintainers = with maintainers; [ rmcgibbo ];
+    maintainers = with maintainers; [rmcgibbo];
   };
 }

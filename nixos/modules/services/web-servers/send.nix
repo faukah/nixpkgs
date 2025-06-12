@@ -3,21 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib) mkOption types;
   cfg = config.services.send;
-in
-{
+in {
   options = {
     services.send = {
       enable = lib.mkEnableOption "Send, a file sharing web sevice for ffsend.";
 
-      package = lib.mkPackageOption pkgs "send" { };
+      package = lib.mkPackageOption pkgs "send" {};
 
       environment = mkOption {
-        type =
-          with types;
+        type = with types;
           attrsOf (
             nullOr (oneOf [
               bool
@@ -129,7 +126,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     services.send.environment.DETECT_BASE_URL = cfg.baseUrl == null;
 
     assertions = [
@@ -192,20 +188,23 @@ in
         {
           IP_ADDRESS = cfg.host;
           PORT = toString cfg.port;
-          BASE_URL = if (cfg.baseUrl == null) then "http://${cfg.host}:${toString cfg.port}" else cfg.baseUrl;
+          BASE_URL =
+            if (cfg.baseUrl == null)
+            then "http://${cfg.host}:${toString cfg.port}"
+            else cfg.baseUrl;
           FILE_DIR = cfg.dataDir + "/uploads";
           REDIS_HOST = cfg.redis.host;
           REDIS_PORT = toString cfg.redis.port;
         }
         // (lib.mapAttrs (
-          name: value:
-          if lib.isList value then
-            "[" + lib.concatStringsSep ", " (map (x: toString x) value) + "]"
-          else if lib.isBool value then
-            lib.boolToString value
-          else
-            toString value
-        ) cfg.environment);
+            name: value:
+              if lib.isList value
+              then "[" + lib.concatStringsSep ", " (map (x: toString x) value) + "]"
+              else if lib.isBool value
+              then lib.boolToString value
+              else toString value
+          )
+          cfg.environment);
       after =
         [
           "network.target"
@@ -214,7 +213,7 @@ in
           "redis-${cfg.redis.name}.service"
         ];
       description = "Send web service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       script = ''
         ${lib.optionalString (cfg.redis.passwordFile != null) ''
           export REDIS_PASSWORD="$(cat $CREDENTIALS_DIRECTORY/redis-password)"
@@ -224,5 +223,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ moraxyc ];
+  meta.maintainers = with lib.maintainers; [moraxyc];
 }

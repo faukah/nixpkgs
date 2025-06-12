@@ -6,7 +6,6 @@
   ncurses,
   db,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nvi";
   version = "1.81.6";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     cd build.unix
   '';
   configureScript = "../dist/configure";
-  configureFlags = [ "vi_cv_path_preserve=/tmp" ];
+  configureFlags = ["vi_cv_path_preserve=/tmp"];
 
   meta = with lib; {
     description = "Berkeley Vi Editor";

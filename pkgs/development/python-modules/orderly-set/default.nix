@@ -2,14 +2,11 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "orderly-set";
   version = "5.4.1";
@@ -42,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/seperman/orderly-set";
     changelog = "https://github.com/seperman/orderly-set/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

@@ -8,7 +8,6 @@
   qt6,
   systemd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dfl-login1";
   version = "0.3.0";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/desktop-frameworks/login1";
     changelog = "https://gitlab.com/desktop-frameworks/login1/-/blob/${finalAttrs.src.rev}/ChangeLog";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ arthsmn ];
+    maintainers = with lib.maintainers; [arthsmn];
     platforms = lib.platforms.linux;
   };
 })

@@ -8,13 +8,12 @@
   fetchpatch,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tableaudocumentapi";
   version = "0.11";
 
   pyproject = true;
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   disabled = pythonOlder "3.7";
 
@@ -32,11 +31,11 @@ buildPythonPackage rec {
     })
   ];
 
-  dependencies = [ lxml ];
+  dependencies = [lxml];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "tableaudocumentapi" ];
+  pythonImportsCheck = ["tableaudocumentapi"];
 
   # ModuleNotFoundError: No module named 'test.assets'
   doCheck = false;
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tableau/document-api-python";
     changelog = "https://github.com/tableau/document-api-python/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

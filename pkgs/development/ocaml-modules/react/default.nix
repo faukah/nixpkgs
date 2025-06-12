@@ -7,7 +7,6 @@
   topkg,
   ocamlbuild,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ocaml-react";
   version = "1.2.2";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     findlib
     ocamlbuild
   ];
-  buildInputs = [ topkg ];
+  buildInputs = [topkg];
 
   strictDeps = true;
 

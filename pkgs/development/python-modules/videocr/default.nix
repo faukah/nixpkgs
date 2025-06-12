@@ -8,7 +8,6 @@
   opencv-python,
   fuzzywuzzy,
 }:
-
 buildPythonPackage rec {
   pname = "videocr";
   version = "0.1.6";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-w0hPfUK4un5JAjAP7vwOAuKlsZ+zv6sFV2vD/Rl3kbI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     levenshtein
@@ -40,12 +39,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "videocr" ];
+  pythonImportsCheck = ["videocr"];
 
   meta = with lib; {
     description = "Extract hardcoded subtitles from videos using machine learning";
     homepage = "https://github.com/apm1467/videocr";
     license = licenses.mit;
-    maintainers = with maintainers; [ ozkutuk ];
+    maintainers = with maintainers; [ozkutuk];
   };
 }

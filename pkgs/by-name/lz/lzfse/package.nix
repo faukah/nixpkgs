@@ -4,7 +4,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lzfse";
   version = "1.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-pcGnes966TSdYeIwjJv4F7C++cRzuYorb7rvu4030NU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     homepage = "https://github.com/lzfse/lzfse";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     platforms = lib.platforms.unix;
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ KSJ2000 ];
+    maintainers = with lib.maintainers; [KSJ2000];
     mainProgram = "lzfse";
   };
 })

@@ -11,7 +11,6 @@
   libGL,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "movit";
   version = "1.7.1";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     description = "High-performance, high-quality video filters for the GPU";
     homepage = "https://movit.sesse.net";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

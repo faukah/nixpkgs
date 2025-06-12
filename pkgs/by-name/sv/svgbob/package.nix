@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "svgbob";
   version = "0.7.6";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ivanceras/svgbob";
     changelog = "https://github.com/ivanceras/svgbob/raw/${version}/Changelog.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ cafkafk ];
+    maintainers = with lib.maintainers; [cafkafk];
     mainProgram = "svgbob";
   };
 }

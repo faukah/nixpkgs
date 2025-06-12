@@ -4,20 +4,16 @@
   pythonOlder,
   fetchFromGitHub,
   fetchpatch,
-
   # build-system
   poetry-core,
-
   # dependencies
   django,
   django-debug-toolbar,
   graphene-django,
-
   # tests
   pytest-django,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-graphiql-debug-toolbar";
   version = "0.2.0";
@@ -40,7 +36,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     django
@@ -48,7 +44,7 @@ buildPythonPackage rec {
     graphene-django
   ];
 
-  pythonImportsCheck = [ "graphiql_debug_toolbar" ];
+  pythonImportsCheck = ["graphiql_debug_toolbar"];
 
   nativeCheckInputs = [
     pytest-django
@@ -66,6 +62,6 @@ buildPythonPackage rec {
     description = "Django Debug Toolbar for GraphiQL IDE";
     homepage = "https://github.com/flavors/django-graphiql-debug-toolbar";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

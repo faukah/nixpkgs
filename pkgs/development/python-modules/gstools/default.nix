@@ -2,25 +2,21 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython,
   extension-helpers,
   numpy,
   setuptools,
   setuptools-scm,
-
   # dependencies
   hankel,
   emcee,
   meshio,
   pyevtk,
   scipy,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "gstools";
   version = "1.6.1";
@@ -50,14 +46,14 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pythonImportsCheck = [ "gstools" ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  pythonImportsCheck = ["gstools"];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Geostatistical toolbox";
     homepage = "https://github.com/GeoStat-Framework/GSTools";
     changelog = "https://github.com/GeoStat-Framework/GSTools/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

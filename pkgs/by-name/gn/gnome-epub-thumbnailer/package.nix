@@ -13,7 +13,6 @@
   librsvg,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-epub-thumbnailer";
   version = "1.8";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Thumbnailer for EPub and MOBI books";
     homepage = "https://gitlab.gnome.org/GNOME/gnome-epub-thumbnailer";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 }

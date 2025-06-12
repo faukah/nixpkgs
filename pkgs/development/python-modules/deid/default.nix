@@ -8,17 +8,15 @@
   python-dateutil,
   pytestCheckHook,
   versionCheckHook,
-}:
-
-let
+}: let
   deid-data = buildPythonPackage {
     pname = "deid-data";
     version = "unstable-2022-12-06";
     pyproject = true;
 
-    build-system = [ setuptools ];
+    build-system = [setuptools];
 
-    dependencies = [ pydicom ];
+    dependencies = [pydicom];
 
     src = fetchFromGitHub {
       owner = "pydicom";
@@ -31,47 +29,47 @@ let
       description = "Supplementary data for deid package";
       homepage = "https://github.com/pydicom/deid-data";
       license = lib.licenses.mit;
-      maintainers = [ lib.maintainers.bcdarwin ];
+      maintainers = [lib.maintainers.bcdarwin];
     };
   };
 in
-buildPythonPackage rec {
-  pname = "deid";
-  version = "0.4.0";
-  pyproject = true;
+  buildPythonPackage rec {
+    pname = "deid";
+    version = "0.4.0";
+    pyproject = true;
 
-  # Pypi version has no tests
-  src = fetchFromGitHub {
-    owner = "pydicom";
-    repo = "deid";
-    # the github repo does not contain Pypi version tags:
-    rev = "14d1e4eb70f2c9fda43fca411794be9d8a5a8516";
-    hash = "sha256-YsLWHIO6whcBQriMYb0tDD9s/RrxlfeKGORF1UCOilI=";
-  };
+    # Pypi version has no tests
+    src = fetchFromGitHub {
+      owner = "pydicom";
+      repo = "deid";
+      # the github repo does not contain Pypi version tags:
+      rev = "14d1e4eb70f2c9fda43fca411794be9d8a5a8516";
+      hash = "sha256-YsLWHIO6whcBQriMYb0tDD9s/RrxlfeKGORF1UCOilI=";
+    };
 
-  build-system = [ setuptools ];
+    build-system = [setuptools];
 
-  dependencies = [
-    matplotlib
-    pydicom
-    python-dateutil
-  ];
+    dependencies = [
+      matplotlib
+      pydicom
+      python-dateutil
+    ];
 
-  nativeCheckInputs = [
-    deid-data
-    pytestCheckHook
-    versionCheckHook
-  ];
-  versionCheckProgramArg = "--version";
+    nativeCheckInputs = [
+      deid-data
+      pytestCheckHook
+      versionCheckHook
+    ];
+    versionCheckProgramArg = "--version";
 
-  pythonImportsCheck = [ "deid" ];
+    pythonImportsCheck = ["deid"];
 
-  meta = {
-    description = "Best-effort anonymization for medical images";
-    mainProgram = "deid";
-    changelog = "https://github.com/pydicom/deid/blob/${src.rev}/CHANGELOG.md";
-    homepage = "https://pydicom.github.io/deid";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
-  };
-}
+    meta = {
+      description = "Best-effort anonymization for medical images";
+      mainProgram = "deid";
+      changelog = "https://github.com/pydicom/deid/blob/${src.rev}/CHANGELOG.md";
+      homepage = "https://pydicom.github.io/deid";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [bcdarwin];
+    };
+  }

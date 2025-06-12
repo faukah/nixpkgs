@@ -15,7 +15,6 @@
   stdenv,
   whoosh,
 }:
-
 buildPythonPackage rec {
   pname = "django-haystack";
   version = "3.3.0";
@@ -34,24 +33,26 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ django ];
+  buildInputs = [django];
 
-  dependencies = [ packaging ];
+  dependencies = [packaging];
 
   optional-dependencies = {
-    elasticsearch = [ elasticsearch ];
+    elasticsearch = [elasticsearch];
   };
 
   # tests fail and get stuck on darwin
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  nativeCheckInputs = [
-    geopy
-    pysolr
-    python-dateutil
-    requests
-    whoosh
-  ] ++ optional-dependencies.elasticsearch;
+  nativeCheckInputs =
+    [
+      geopy
+      pysolr
+      python-dateutil
+      requests
+      whoosh
+    ]
+    ++ optional-dependencies.elasticsearch;
 
   checkPhase = ''
     runHook preCheck
@@ -64,6 +65,6 @@ buildPythonPackage rec {
     homepage = "http://haystacksearch.org/";
     changelog = "https://github.com/django-haystack/django-haystack/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

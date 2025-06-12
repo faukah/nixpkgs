@@ -25,7 +25,6 @@
   fftw,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "denemo";
   version = "2.6.43";
@@ -78,6 +77,6 @@ stdenv.mkDerivation rec {
     homepage = "http://denemo.org";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.olynch ];
+    maintainers = [lib.maintainers.olynch];
   };
 }

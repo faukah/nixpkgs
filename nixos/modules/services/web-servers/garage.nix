@@ -4,15 +4,11 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.garage;
-  toml = pkgs.formats.toml { };
+  toml = pkgs.formats.toml {};
   configFile = toml.generate "garage.toml" cfg.settings;
-in
-{
+in {
   meta = {
     doc = ./garage.md;
     maintainers = with lib.maintainers; [
@@ -27,7 +23,7 @@ in
     extraEnvironment = mkOption {
       type = types.attrsOf types.str;
       description = "Extra environment variables to pass to the Garage server.";
-      default = { };
+      default = {};
       example = {
         RUST_BACKTRACE = "yes";
       };
@@ -117,14 +113,15 @@ in
         "network.target"
         "network-online.target"
       ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [
-        configFile
-      ] ++ (lib.optional (cfg.environmentFile != null) cfg.environmentFile);
-      serviceConfig =
-        let
-          paths = lib.flatten (
-            with cfg.settings;
+      wantedBy = ["multi-user.target"];
+      restartTriggers =
+        [
+          configFile
+        ]
+        ++ (lib.optional (cfg.environmentFile != null) cfg.environmentFile);
+      serviceConfig = let
+        paths = lib.flatten (
+          with cfg.settings;
             [
               metadata_dir
             ]
@@ -132,24 +129,25 @@ in
             # if data_dir is a list, the actual path will in in the `path` attribute of each item
             # see https://garagehq.deuxfleurs.fr/documentation/reference-manual/configuration/#data_dir
             ++ lib.optional (lib.isList data_dir) (map (item: item.path) data_dir)
-            ++ lib.optional (lib.isString data_dir) [ data_dir ]
-          );
-          isDefault = lib.hasPrefix "/var/lib/garage";
-          isDefaultStateDirectory = lib.any isDefault paths;
-        in
-        {
-          ExecStart = "${cfg.package}/bin/garage server";
+            ++ lib.optional (lib.isString data_dir) [data_dir]
+        );
+        isDefault = lib.hasPrefix "/var/lib/garage";
+        isDefaultStateDirectory = lib.any isDefault paths;
+      in {
+        ExecStart = "${cfg.package}/bin/garage server";
 
-          StateDirectory = lib.mkIf isDefaultStateDirectory "garage";
-          DynamicUser = lib.mkDefault true;
-          ProtectHome = true;
-          NoNewPrivileges = true;
-          EnvironmentFile = lib.optional (cfg.environmentFile != null) cfg.environmentFile;
-          ReadWritePaths = lib.filter (x: !(isDefault x)) (lib.flatten [ paths ]);
-        };
-      environment = {
-        RUST_LOG = lib.mkDefault "garage=${cfg.logLevel}";
-      } // cfg.extraEnvironment;
+        StateDirectory = lib.mkIf isDefaultStateDirectory "garage";
+        DynamicUser = lib.mkDefault true;
+        ProtectHome = true;
+        NoNewPrivileges = true;
+        EnvironmentFile = lib.optional (cfg.environmentFile != null) cfg.environmentFile;
+        ReadWritePaths = lib.filter (x: !(isDefault x)) (lib.flatten [paths]);
+      };
+      environment =
+        {
+          RUST_LOG = lib.mkDefault "garage=${cfg.logLevel}";
+        }
+        // cfg.extraEnvironment;
     };
   };
 }

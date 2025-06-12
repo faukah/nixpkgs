@@ -13,7 +13,6 @@
   qtx11extras,
   qtmacextras,
 }:
-
 mkDerivation {
   pname = "knotifications";
   nativeBuildInputs = [

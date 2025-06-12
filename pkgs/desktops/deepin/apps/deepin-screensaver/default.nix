@@ -9,7 +9,6 @@
   xorg,
   xscreensaver,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-screensaver";
   version = "5.0.18";
@@ -60,6 +59,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-screensaver";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

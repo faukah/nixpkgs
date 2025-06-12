@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.lighttpd.cgit;
   pathPrefix = optionalString (stringLength cfg.subdir != 0) ("/" + cfg.subdir);
   configFile = pkgs.writeText "cgitrc" ''
@@ -19,11 +16,8 @@ let
     # user configuration
     ${cfg.configText}
   '';
-in
-{
-
+in {
   options.services.lighttpd.cgit = {
-
     enable = mkOption {
       default = false;
       type = types.bool;
@@ -60,13 +54,11 @@ in
         <http://git.zx2c4.com/cgit/tree/cgitrc.5.txt>
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
-
     # make the cgitrc manpage available
-    environment.systemPackages = [ pkgs.cgit ];
+    environment.systemPackages = [pkgs.cgit];
 
     # declare module dependencies
     services.lighttpd.enableModules = [
@@ -95,7 +87,5 @@ in
       mkdir -p /var/cache/cgit
       chown lighttpd:lighttpd /var/cache/cgit
     '';
-
   };
-
 }

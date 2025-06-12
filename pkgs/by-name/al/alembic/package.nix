@@ -6,7 +6,6 @@
   openexr,
   hdf5-threadsafe,
 }:
-
 stdenv.mkDerivation rec {
   pname = "alembic";
   version = "1.8.8";
@@ -27,9 +26,9 @@ stdenv.mkDerivation rec {
   ];
 
   # Prevent cycle between bin and dev (only occurs on Darwin for some reason)
-  propagatedBuildOutputs = [ "lib" ];
+  propagatedBuildOutputs = ["lib"];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     openexr

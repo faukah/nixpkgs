@@ -22,7 +22,6 @@
   akonadi-search,
   xapian,
 }:
-
 mkDerivation {
   pname = "akonadiconsole";
   meta = {

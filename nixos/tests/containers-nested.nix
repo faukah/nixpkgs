@@ -1,25 +1,21 @@
 # Test for NixOS' container nesting.
-
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "nested";
 
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ sorki ];
+    maintainers = [sorki];
   };
 
-  nodes.machine =
-    { lib, ... }:
-    let
-      makeNested = subConf: {
-        containers.nested = {
-          autoStart = true;
-          privateNetwork = true;
-          config = subConf;
-        };
+  nodes.machine = {lib, ...}: let
+    makeNested = subConf: {
+      containers.nested = {
+        autoStart = true;
+        privateNetwork = true;
+        config = subConf;
       };
-    in
-    makeNested (makeNested { });
+    };
+  in
+    makeNested (makeNested {});
 
   testScript = ''
     machine.start()

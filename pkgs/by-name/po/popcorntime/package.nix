@@ -15,7 +15,6 @@
   wrapGAppsHook3,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation rec {
   pname = "popcorntime";
   version = "0.5.1";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
         libGL
       ]
     }"
-    "--prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}"
+    "--prefix PATH : ${lib.makeBinPath [stdenv.cc]}"
   ];
 
   desktopItem = makeDesktopItem {
@@ -97,10 +96,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/popcorn-official/popcorn-desktop";
     description = "Application that streams movies and TV shows from torrents";
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = lib.licenses.gpl3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     mainProgram = "popcorntime";
   };
 }

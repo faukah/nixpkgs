@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "grafana-discourse-datasource";
   version = "2.0.2";
@@ -7,7 +9,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "The Discourse data source plugin allows users to search and view topics, posts, users, tags, categories, and reports on a given Discourse forum.";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nagisa ];
+    maintainers = with maintainers; [nagisa];
     platforms = platforms.unix;
   };
 }

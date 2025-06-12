@@ -28,6 +28,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "mdbook-variables";
     homepage = "https://gitlab.com/tglman/mdbook-variables";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ kraftnix ];
+    maintainers = with lib.maintainers; [kraftnix];
   };
 }

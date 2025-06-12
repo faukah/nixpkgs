@@ -5,7 +5,6 @@
   base,
   fmt,
 }:
-
 buildDunePackage rec {
   pname = "genspio";
   version = "0.0.3";
@@ -25,7 +24,7 @@ buildDunePackage rec {
   ];
 
   # base v0.17 compatibility
-  patches = [ ./genspio.patch ];
+  patches = [./genspio.patch];
 
   doCheck = true;
 
@@ -33,6 +32,6 @@ buildDunePackage rec {
     homepage = "https://smondet.gitlab.io/genspio-doc/";
     description = "Typed EDSL to generate POSIX Shell scripts";
     license = licenses.asl20;
-    maintainers = [ maintainers.alexfmpe ];
+    maintainers = [maintainers.alexfmpe];
   };
 }

@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "protoc-gen-prost-serde";
   version = "0.3.1";
@@ -17,7 +16,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-OWSXA3S3o5eqM3pg2MPxx3HrCma778YJaPFOJq7S5zY=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Protoc plugin that generates serde serialization implementations for `protoc-gen-prost`";

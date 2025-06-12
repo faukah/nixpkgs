@@ -17,7 +17,6 @@
   python3,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ola";
   version = "0.10.9";
@@ -54,11 +53,11 @@ stdenv.mkDerivation rec {
     python3
   ];
   propagatedBuildInputs = [
-    (python3.pkgs.protobuf4.override { protobuf = protobuf; })
+    (python3.pkgs.protobuf4.override {protobuf = protobuf;})
     python3.pkgs.numpy
   ];
 
-  configureFlags = [ "--enable-python-libs" ];
+  configureFlags = ["--enable-python-libs"];
 
   enableParallelBuilding = true;
 
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
     broken = stdenv.hostPlatform.isDarwin;
     description = "Framework for controlling entertainment lighting equipment";
     homepage = "https://www.openlighting.org/ola/";
-    maintainers = [ ];
+    maintainers = [];
     license = with licenses; [
       lgpl21
       gpl2Plus

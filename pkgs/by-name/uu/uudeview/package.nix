@@ -6,7 +6,6 @@
   tk,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "uudeview";
   version = "0.5.20-unstable-2025-03-20";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     tk
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags = [
     "--enable-tk=${tk.dev}"
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Nice and Friendly Decoder";
     homepage = "http://www.fpx.de/fp/Software/UUDeview/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ woffs ];
+    maintainers = with lib.maintainers; [woffs];
     platforms = lib.platforms.linux;
   };
 }

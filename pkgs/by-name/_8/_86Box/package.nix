@@ -28,7 +28,6 @@
   libvorbis,
   libopus,
   libmpg123,
-
   enableDynarec ? with stdenv.hostPlatform; isx86 || isAarch,
   enableNewDynarec ? enableDynarec && stdenv.hostPlatform.isAarch,
   enableVncRenderer ? false,
@@ -36,7 +35,6 @@
   unfreeEnableDiscord ? false,
   unfreeEnableRoms ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "86Box";
   version = "4.2.1";
@@ -48,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ue5Coy2MpP7Iwl81KJPQPC7eD53/Db5a0PGIR+DdPYI=";
   };
 
-  patches = [ ./darwin.patch ];
+  patches = [./darwin.patch];
 
   postPatch = ''
     substituteAllInPlace src/qt/qt_platform.cpp
@@ -124,23 +122,23 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Some libraries are loaded dynamically, but QLibrary doesn't seem to search
   # the runpath, so use a wrapper instead.
-  preFixup =
-    let
-      libPath = lib.makeLibraryPath ([ libpcap ] ++ lib.optional unfreeEnableDiscord discord-gamesdk);
-      libPathVar = if stdenv.hostPlatform.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
-    in
-    ''
-      makeWrapperArgs+=(--prefix ${libPathVar} : "${libPath}")
-    '';
+  preFixup = let
+    libPath = lib.makeLibraryPath ([libpcap] ++ lib.optional unfreeEnableDiscord discord-gamesdk);
+    libPathVar =
+      if stdenv.hostPlatform.isDarwin
+      then "DYLD_LIBRARY_PATH"
+      else "LD_LIBRARY_PATH";
+  in ''
+    makeWrapperArgs+=(--prefix ${libPathVar} : "${libPath}")
+  '';
 
   meta = {
     description = "Emulator of x86-based machines based on PCem";
     mainProgram = "86Box";
     homepage = "https://86box.net/";
     changelog = "https://github.com/86Box/86Box/releases/tag/v${finalAttrs.version}";
-    license =
-      with lib.licenses;
-      [ gpl2Only ] ++ lib.optional (unfreeEnableDiscord || unfreeEnableRoms) unfree;
+    license = with lib.licenses;
+      [gpl2Only] ++ lib.optional (unfreeEnableDiscord || unfreeEnableRoms) unfree;
     maintainers = with lib.maintainers; [
       jchw
       matteopacini

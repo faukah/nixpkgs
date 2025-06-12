@@ -8,7 +8,6 @@
   nix-update-script,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libvarlink";
   version = "24";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       version = testers.testVersion {
         package = finalAttrs.finalPackage;
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "varlink";
     homepage = "https://github.com/varlink/libvarlink";
     license = licenses.asl20;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
     platforms = platforms.linux;
   };
 })

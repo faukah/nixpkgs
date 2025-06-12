@@ -48,16 +48,15 @@ rustPlatform.buildRustPackage rec {
     #
     # [1]: https://crates.io/crates/sequoia-openpgp#user-content-intermediate-crate
     (
-      if stdenv.targetPlatform.isWindows then
-        "sequoia-openpgp/crypto-cng"
-      else
-        "sequoia-openpgp/crypto-nettle"
+      if stdenv.targetPlatform.isWindows
+      then "sequoia-openpgp/crypto-cng"
+      else "sequoia-openpgp/crypto-nettle"
     )
   ];
 
   doCheck = true;
 
-  nativeCheckInputs = [ gnupg ];
+  nativeCheckInputs = [gnupg];
 
   # Install shell completion files and manual pages. Unfortunately it is hard to
   # predict the paths to all of these files generated during the build, and it

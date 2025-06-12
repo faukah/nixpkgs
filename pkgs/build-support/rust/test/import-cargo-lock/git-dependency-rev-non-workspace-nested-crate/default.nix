@@ -4,7 +4,6 @@
   openssl,
   zlib,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "git-dependency-rev-non-workspace-nested-crate";
   version = "0.1.0";

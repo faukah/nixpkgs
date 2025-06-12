@@ -4,7 +4,6 @@
   lib,
   avahi-compat,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "altserver-linux";
   version = "0.0.5";
@@ -31,8 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "AltServer for AltStore, but on-device. Requires root privileges as well as running a custom anisette server currently";
     license = licenses.agpl3Only;
     mainProgram = "alt-server";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ max-amb ];
+    maintainers = with maintainers; [max-amb];
   };
 })

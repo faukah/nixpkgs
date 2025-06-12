@@ -7,7 +7,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "pyobihai";
   version = "1.4.2";
@@ -27,15 +26,15 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyobihai" ];
+  pythonImportsCheck = ["pyobihai"];
 
   meta = with lib; {
     description = "Module to interact with Obihai devices";
     homepage = "https://github.com/ejpenney/pyobihai";
     changelog = "https://github.com/ejpenney/pyobihai/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

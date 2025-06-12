@@ -4,7 +4,6 @@
   fetchurl,
   ocamlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hevea";
   version = "2.36";
@@ -21,14 +20,14 @@ stdenv.mkDerivation rec {
     ocamlbuild
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Quite complete and fast LATEX to HTML translator";
     homepage = "https://hevea.inria.fr/";
     changelog = "https://github.com/maranget/hevea/raw/v${version}/CHANGES";
     license = lib.licenses.qpl;
-    maintainers = with lib.maintainers; [ pSub ];
+    maintainers = with lib.maintainers; [pSub];
     platforms = with lib.platforms; unix;
   };
 }

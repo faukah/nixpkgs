@@ -6,7 +6,6 @@
   which,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "yajl";
   version = "2.1.0-unstable-2024-02-01";
@@ -18,10 +17,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-vY0tqCkz6PN00Qbip5ViO64L3C06fJ4JjFuIk0TWgCo=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = true;
-  nativeCheckInputs = [ which ];
+  nativeCheckInputs = [which];
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
@@ -35,8 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "http://lloyd.github.com/yajl/";
     license = lib.licenses.isc;
-    pkgConfigModules = [ "yajl" ];
+    pkgConfigModules = ["yajl"];
     platforms = with lib.platforms; linux ++ darwin;
-    maintainers = with lib.maintainers; [ maggesi ];
+    maintainers = with lib.maintainers; [maggesi];
   };
 })

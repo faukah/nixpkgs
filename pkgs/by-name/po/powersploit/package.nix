@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "powersploit";
   version = "3.0.0-unstable-2020-08-22";
@@ -26,9 +25,9 @@ stdenvNoCC.mkDerivation {
   meta = {
     changelog = "https://github.com/PowerShellMafia/PowerSploit/releases/";
     description = "PowerShell Post-Exploitation Framework";
-    license = with lib.licenses; [ bsd3 ];
-    maintainers = with lib.maintainers; [ shard7 ];
+    license = with lib.licenses; [bsd3];
+    maintainers = with lib.maintainers; [shard7];
     platforms = lib.platforms.all;
-    sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    sourceProvenance = with lib.sourceTypes; [fromSource];
   };
 }

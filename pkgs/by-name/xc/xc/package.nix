@@ -5,7 +5,6 @@
   gitUpdater,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "xc";
   version = "0.8.5";
@@ -25,7 +24,7 @@ buildGoModule rec {
     "-X=main.version=${version}"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   postInstallCheck = ''
     cp ${./example.md} example.md
@@ -36,7 +35,7 @@ buildGoModule rec {
     fi
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "Markdown defined task runner";

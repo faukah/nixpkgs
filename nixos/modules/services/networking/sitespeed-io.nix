@@ -3,12 +3,10 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.sitespeed-io;
-  format = pkgs.formats.json { };
-in
-{
+  format = pkgs.formats.json {};
+in {
   options.services.sitespeed-io = {
     enable = lib.mkEnableOption "Sitespeed.io";
 
@@ -40,7 +38,7 @@ in
     };
 
     runs = lib.mkOption {
-      default = [ ];
+      default = [];
       description = ''
         A list of run configurations. The service will call sitespeed-io once
         for every run listed here. This lets you examine different websites
@@ -51,7 +49,7 @@ in
           options = {
             urls = lib.mkOption {
               type = with lib.types; listOf str;
-              default = [ ];
+              default = [];
               description = ''
                 URLs the service should monitor.
               '';
@@ -60,9 +58,9 @@ in
             settings = lib.mkOption {
               type = lib.types.submodule {
                 freeformType = format.type;
-                options = { };
+                options = {};
               };
-              default = { };
+              default = {};
               description = ''
                 Configuration for sitespeed-io, see
                 <https://www.sitespeed.io/documentation/sitespeed.io/configuration/>
@@ -73,7 +71,7 @@ in
 
             extraArgs = lib.mkOption {
               type = with lib.types; listOf str;
-              default = [ ];
+              default = [];
               description = ''
                 Extra command line arguments to pass to the program.
               '';
@@ -87,11 +85,11 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.runs != [ ];
+        assertion = cfg.runs != [];
         message = "At least one run must be configured.";
       }
       {
-        assertion = lib.all (run: run.urls != [ ]) cfg.runs;
+        assertion = lib.all (run: run.urls != []) cfg.runs;
         message = "All runs must have at least one url configured.";
       }
     ];
@@ -106,11 +104,12 @@ in
       preStart = "chmod u+w -R ${cfg.dataDir}"; # Make sure things are writable
       script =
         (lib.concatMapStrings (run: ''
-          ${lib.getExe cfg.package} \
-            --config ${format.generate "sitespeed.json" run.settings} \
-            ${lib.escapeShellArgs run.extraArgs} \
-            ${builtins.toFile "urls.txt" (lib.concatLines run.urls)} &
-        '') cfg.runs)
+            ${lib.getExe cfg.package} \
+              --config ${format.generate "sitespeed.json" run.settings} \
+              ${lib.escapeShellArgs run.extraArgs} \
+              ${builtins.toFile "urls.txt" (lib.concatLines run.urls)} &
+          '')
+          cfg.runs)
         + ''
           wait
         '';
@@ -124,7 +123,7 @@ in
         createHome = true;
         homeMode = "755";
       };
-      extraGroups.${cfg.user} = { };
+      extraGroups.${cfg.user} = {};
     };
   };
 }

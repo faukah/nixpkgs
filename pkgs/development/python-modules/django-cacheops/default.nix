@@ -18,7 +18,6 @@
   pkgs,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "django-cacheops";
   version = "7.2";
@@ -32,9 +31,9 @@ buildPythonPackage rec {
     hash = "sha256-y8EcwDISlaNkTie8smlA8Iy5wucdPuUGy8/wvdoanzM=";
   };
 
-  pythonRelaxDeps = [ "funcy" ];
+  pythonRelaxDeps = ["funcy"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -64,6 +63,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Suor/django-cacheops";
     changelog = "https://github.com/Suor/django-cacheops/blob/${version}/CHANGELOG";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

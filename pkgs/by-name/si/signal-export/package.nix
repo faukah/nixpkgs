@@ -4,7 +4,6 @@
   fetchPypi,
   nix-update-script,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "signal-export";
   version = "3.5.1";
@@ -29,7 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     sqlcipher3-wheels
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     mainProgram = "sigexport";

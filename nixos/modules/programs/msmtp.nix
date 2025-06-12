@@ -3,14 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.msmtp;
-
-in
-{
-  meta.maintainers = with lib.maintainers; [ euxane ];
+in {
+  meta.maintainers = with lib.maintainers; [euxane];
 
   options = {
     programs.msmtp = {
@@ -26,7 +22,7 @@ in
 
       defaults = lib.mkOption {
         type = lib.types.attrs;
-        default = { };
+        default = {};
         example = {
           aliases = "/etc/aliases";
           port = 587;
@@ -40,7 +36,7 @@ in
 
       accounts = lib.mkOption {
         type = with lib.types; attrsOf attrs;
-        default = { };
+        default = {};
         example = {
           "default" = {
             host = "smtp.example";
@@ -75,7 +71,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.msmtp ];
+    environment.systemPackages = [pkgs.msmtp];
 
     services.mail.sendmailSetuidWrapper = lib.mkIf cfg.setSendmail {
       program = "sendmail";
@@ -86,31 +82,26 @@ in
       group = "root";
     };
 
-    environment.etc."msmtprc".text =
-      let
-        mkValueString =
-          v:
-          if v == true then
-            "on"
-          else if v == false then
-            "off"
-          else
-            lib.generators.mkValueStringDefault { } v;
-        mkKeyValueString = k: v: "${k} ${mkValueString v}";
-        mkInnerSectionString =
-          attrs: builtins.concatStringsSep "\n" (lib.mapAttrsToList mkKeyValueString attrs);
-        mkAccountString = name: attrs: ''
-          account ${name}
-          ${mkInnerSectionString attrs}
-        '';
-      in
-      ''
-        defaults
-        ${mkInnerSectionString cfg.defaults}
-
-        ${builtins.concatStringsSep "\n" (lib.mapAttrsToList mkAccountString cfg.accounts)}
-
-        ${cfg.extraConfig}
+    environment.etc."msmtprc".text = let
+      mkValueString = v:
+        if v == true
+        then "on"
+        else if v == false
+        then "off"
+        else lib.generators.mkValueStringDefault {} v;
+      mkKeyValueString = k: v: "${k} ${mkValueString v}";
+      mkInnerSectionString = attrs: builtins.concatStringsSep "\n" (lib.mapAttrsToList mkKeyValueString attrs);
+      mkAccountString = name: attrs: ''
+        account ${name}
+        ${mkInnerSectionString attrs}
       '';
+    in ''
+      defaults
+      ${mkInnerSectionString cfg.defaults}
+
+      ${builtins.concatStringsSep "\n" (lib.mapAttrsToList mkAccountString cfg.accounts)}
+
+      ${cfg.extraConfig}
+    '';
   };
 }

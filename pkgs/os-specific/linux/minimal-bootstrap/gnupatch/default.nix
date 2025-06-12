@@ -3,8 +3,7 @@
   fetchurl,
   kaem,
   tinycc,
-}:
-let
+}: let
   pname = "gnupatch";
   # 2.6.x and later use features not implemented in mes-libc (eg. quotearg.h)
   version = "2.5.9";
@@ -61,24 +60,26 @@ let
     "version.c"
     "xmalloc.c"
   ];
-  sources = SRCS ++ [
-    # mes-libc doesn't implement `error()`
-    "error.c"
-  ];
+  sources =
+    SRCS
+    ++ [
+      # mes-libc doesn't implement `error()`
+      "error.c"
+    ];
 
-  objects = map (x: lib.replaceStrings [ ".c" ] [ ".o" ] (builtins.baseNameOf x)) sources;
+  objects = map (x: lib.replaceStrings [".c"] [".o"] (builtins.baseNameOf x)) sources;
 in
-kaem.runCommand "${pname}-${version}"
+  kaem.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
-    nativeBuildInputs = [ tinycc.compiler ];
+    nativeBuildInputs = [tinycc.compiler];
 
     meta = with lib; {
       description = "GNU Patch, a program to apply differences to files";
       homepage = "https://www.gnu.org/software/patch";
       license = licenses.gpl3Plus;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       mainProgram = "patch";
       platforms = platforms.unix;
     };

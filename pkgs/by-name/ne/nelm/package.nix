@@ -20,7 +20,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-jzzIvxEJhGPb0bO5S400PGIWCEaOxQcgsybXziY652E=";
 
-  subPackages = [ "cmd/nelm" ];
+  subPackages = ["cmd/nelm"];
 
   ldflags = [
     "-s"
@@ -29,7 +29,7 @@ buildGoModule (finalAttrs: {
     "-X github.com/werf/nelm/internal/common.Version=${finalAttrs.version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   preCheck = ''
     # Test all packages.
@@ -39,8 +39,7 @@ buildGoModule (finalAttrs: {
   postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
+    in ''
       for shell in bash fish zsh; do
         installShellCompletion \
           --cmd nelm \
@@ -49,7 +48,7 @@ buildGoModule (finalAttrs: {
     ''
   );
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgramArg = "version";
 
@@ -62,7 +61,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/werf/nelm";
     changelog = "https://github.com/werf/nelm/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.azahi ];
+    maintainers = [lib.maintainers.azahi];
     mainProgram = "nelm";
   };
 })

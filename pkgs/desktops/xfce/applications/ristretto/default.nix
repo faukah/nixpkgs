@@ -21,7 +21,6 @@
   webp-pixbuf-loader,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ristretto";
   version = "0.13.4";
@@ -70,14 +69,14 @@ stdenv.mkDerivation (finalAttrs: {
     }"
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "ristretto-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "ristretto-";};
 
   meta = {
     description = "Fast and lightweight picture-viewer for the Xfce desktop environment";
     homepage = "https://gitlab.xfce.org/apps/ristretto";
     license = lib.licenses.gpl2Plus;
     mainProgram = "ristretto";
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

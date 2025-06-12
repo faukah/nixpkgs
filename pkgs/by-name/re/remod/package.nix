@@ -10,7 +10,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "remod";
   version = "1.0.1";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "chmod for human beings!";
     homepage = "https://github.com/samuela/remod";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
     mainProgram = "remod";
   };
 })

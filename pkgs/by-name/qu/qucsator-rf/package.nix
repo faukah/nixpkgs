@@ -10,7 +10,6 @@
   adms,
   withAdms ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qucsator-rf";
   version = "1.0.6";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     dos2unix
   ];
 
-  buildInputs = lib.optionals withAdms [ adms ];
+  buildInputs = lib.optionals withAdms [adms];
 
   cmakeFlags = [
     "-DBISON_DIR=${bison}/bin"
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ra3xdh/qucsator_rf";
     license = lib.licenses.gpl2Plus;
     mainProgram = "qucsator_rf";
-    maintainers = with lib.maintainers; [ thomaslepoix ];
+    maintainers = with lib.maintainers; [thomaslepoix];
     platforms = lib.platforms.unix;
   };
 }

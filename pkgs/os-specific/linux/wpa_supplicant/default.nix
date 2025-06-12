@@ -15,7 +15,6 @@
   withPcsclite ? !stdenv.hostPlatform.isStatic,
   pcsclite,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.11";
 
@@ -104,14 +103,13 @@ stdenv.mkDerivation rec {
       undefine CONFIG_CTRL_IFACE_DBUS_INTRO
     ''
     + (
-      if withReadline then
-        ''
-          CONFIG_READLINE=y
-        ''
-      else
-        ''
-          CONFIG_WPA_CLI_EDIT=y
-        ''
+      if withReadline
+      then ''
+        CONFIG_READLINE=y
+      ''
+      else ''
+        CONFIG_WPA_CLI_EDIT=y
+      ''
     );
 
   preBuild = ''
@@ -137,7 +135,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withReadline readline
     ++ lib.optional withPcsclite pcsclite;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   postInstall =
     ''

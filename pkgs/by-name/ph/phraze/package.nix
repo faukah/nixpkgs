@@ -7,7 +7,6 @@
   rustPlatform,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "phraze";
   version = "0.3.23";
@@ -24,12 +23,12 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-d4qj4rvH5CyHTH3RWDV6ADSGK/kz6yQLp3JjQdb6Wyo=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
-      version = testers.testVersion { package = phraze; };
+      version = testers.testVersion {package = phraze;};
     };
   };
 

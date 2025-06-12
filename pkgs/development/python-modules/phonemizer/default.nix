@@ -13,13 +13,12 @@
   setuptools,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "phonemizer";
   version = "3.3.0";
   pyproject = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   src = fetchPypi {
     inherit pname version;
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     description = "Simple text to phones converter for multiple languages";
     mainProgram = "phonemize";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
   };
 }

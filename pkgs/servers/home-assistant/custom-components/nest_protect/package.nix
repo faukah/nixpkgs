@@ -22,7 +22,7 @@ buildHomeAssistantComponent rec {
     changelog = "https://github.com/iMicknl/ha-nest-protect/releases/tag/v${version}";
     description = "Nest Protect integration for Home Assistant";
     homepage = "https://github.com/iMicknl/ha-nest-protect";
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
     license = licenses.mit;
   };
 }

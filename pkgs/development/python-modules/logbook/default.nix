@@ -14,7 +14,6 @@
   setuptools,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "logbook";
   version = "1.8.1";
@@ -35,12 +34,12 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    execnet = [ execnet ];
-    sqlalchemy = [ sqlalchemy ];
-    redis = [ redis ];
-    zmq = [ pyzmq ];
-    compression = [ brotli ];
-    jinja = [ jinja2 ];
+    execnet = [execnet];
+    sqlalchemy = [sqlalchemy];
+    redis = [redis];
+    zmq = [pyzmq];
+    compression = [brotli];
+    jinja = [jinja2];
     all = [
       brotli
       execnet
@@ -51,15 +50,17 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-rerunfailures
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-rerunfailures
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "logbook" ];
+  pythonImportsCheck = ["logbook"];
 
   disabledTests = [
     # Test require Redis instance
@@ -71,6 +72,6 @@ buildPythonPackage rec {
     homepage = "https://logbook.readthedocs.io/";
     changelog = "https://github.com/getlogbook/logbook/blob/${src.tag}/CHANGES";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

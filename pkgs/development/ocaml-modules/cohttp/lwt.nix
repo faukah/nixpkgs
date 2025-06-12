@@ -7,17 +7,17 @@
   logs,
   sexplib0,
 }:
-
 buildDunePackage {
   pname = "cohttp-lwt";
-  inherit (cohttp)
+  inherit
+    (cohttp)
     version
     src
     ;
 
   duneVersion = "3";
 
-  buildInputs = [ ppx_sexp_conv ];
+  buildInputs = [ppx_sexp_conv];
 
   propagatedBuildInputs = [
     cohttp
@@ -27,7 +27,9 @@ buildDunePackage {
     uri
   ];
 
-  meta = cohttp.meta // {
-    description = "CoHTTP implementation using the Lwt concurrency library";
-  };
+  meta =
+    cohttp.meta
+    // {
+      description = "CoHTTP implementation using the Lwt concurrency library";
+    };
 }

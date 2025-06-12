@@ -27,7 +27,6 @@
   sqlite,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "librasterlite2";
   version = "1.1.0-beta1";
@@ -89,6 +88,6 @@ stdenv.mkDerivation rec {
       mpl11
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

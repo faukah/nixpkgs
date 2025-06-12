@@ -4,10 +4,9 @@
   utils,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     attrValues
     literalExpression
     mkEnableOption
@@ -19,13 +18,10 @@ let
 
   cfg = config.services.filebeat;
 
-  json = pkgs.formats.json { };
-in
-{
+  json = pkgs.formats.json {};
+in {
   options = {
-
     services.filebeat = {
-
       enable = mkEnableOption "filebeat";
 
       package = mkPackageOption pkgs "filebeat" {
@@ -48,11 +44,10 @@ in
 
           See <https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html>.
         '';
-        default = { };
+        default = {};
         type = types.attrsOf (
           types.submodule (
-            { name, ... }:
-            {
+            {name, ...}: {
               freeformType = json.type;
               options = {
                 type = mkOption {
@@ -103,11 +98,10 @@ in
 
           See <https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-modules.html>.
         '';
-        default = { };
+        default = {};
         type = types.attrsOf (
           types.submodule (
-            { name, ... }:
-            {
+            {name, ...}: {
               freeformType = json.type;
               options = {
                 module = mkOption {
@@ -146,11 +140,10 @@ in
           freeformType = json.type;
 
           options = {
-
             output.elasticsearch.hosts = mkOption {
               type = with types; listOf str;
-              default = [ "127.0.0.1:9200" ];
-              example = [ "myEShost:9200" ];
+              default = ["127.0.0.1:9200"];
+              example = ["myEShost:9200"];
               description = ''
                 The list of Elasticsearch nodes to connect to.
 
@@ -169,7 +162,7 @@ in
             filebeat = {
               inputs = mkOption {
                 type = types.listOf json.type;
-                default = [ ];
+                default = [];
                 internal = true;
                 description = ''
                   Inputs specify how Filebeat locates and processes
@@ -180,7 +173,7 @@ in
               };
               modules = mkOption {
                 type = types.listOf json.type;
-                default = [ ];
+                default = [];
                 internal = true;
                 description = ''
                   Filebeat modules provide a quick way to get started
@@ -197,7 +190,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             settings = {
@@ -231,15 +224,14 @@ in
   };
 
   config = mkIf cfg.enable {
-
     services.filebeat.settings.filebeat.inputs = attrValues cfg.inputs;
     services.filebeat.settings.filebeat.modules = attrValues cfg.modules;
 
     systemd.services.filebeat = {
       description = "Filebeat log shipper";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "elasticsearch.service" ];
-      after = [ "elasticsearch.service" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["elasticsearch.service"];
+      after = ["elasticsearch.service"];
       serviceConfig = {
         ExecStartPre = pkgs.writeShellScript "filebeat-exec-pre" ''
           set -euo pipefail

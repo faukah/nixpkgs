@@ -7,7 +7,6 @@
   pyasn1-modules,
   rsa,
 }:
-
 buildPythonPackage rec {
   pname = "oauth2client";
   version = "4.1.3";

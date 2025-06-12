@@ -5,7 +5,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "rx";
   version = "3.2.0";
@@ -21,16 +20,16 @@ buildPythonPackage rec {
     sha256 = "b657ca2b45aa485da2f7dcfd09fac2e554f7ac51ff3c2f8f2ff962ecd963d91c";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   doCheck = false; # PyPI tarball does not provides tests
 
-  pythonImportsCheck = [ "rx" ];
+  pythonImportsCheck = ["rx"];
 
   meta = {
     homepage = "https://github.com/ReactiveX/RxPY";
     description = "Reactive Extensions for Python";
-    maintainers = with lib.maintainers; [ thanegill ];
+    maintainers = with lib.maintainers; [thanegill];
     license = lib.licenses.asl20;
   };
 }

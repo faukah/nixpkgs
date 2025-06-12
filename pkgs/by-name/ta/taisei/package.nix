@@ -25,10 +25,8 @@
   zlib,
   zstd,
   spirv-cross,
-
   gamemodeSupport ? stdenv.hostPlatform.isLinux,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "taisei";
   version = "1.4.2";
@@ -52,21 +50,23 @@ stdenv.mkDerivation (finalAttrs: {
     shaderc
   ];
 
-  buildInputs = [
-    glfw
-    SDL2
-    SDL2_mixer
-    cglm
-    freetype
-    libpng
-    libwebp
-    libzip
-    zlib
-    zstd
-    opusfile
-    openssl
-    spirv-cross
-  ] ++ lib.optional gamemodeSupport gamemode;
+  buildInputs =
+    [
+      glfw
+      SDL2
+      SDL2_mixer
+      cglm
+      freetype
+      libpng
+      libwebp
+      libzip
+      zlib
+      zstd
+      opusfile
+      openssl
+      spirv-cross
+    ]
+    ++ lib.optional gamemodeSupport gamemode;
 
   mesonFlags = [
     (lib.mesonBool "b_lto" false)

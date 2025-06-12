@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-hakari";
   version = "0.9.35";
@@ -29,12 +28,12 @@ rustPlatform.buildRustPackage rec {
     "cargo-hakari"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgramArg = "--version";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

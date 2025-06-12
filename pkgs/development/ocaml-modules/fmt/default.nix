@@ -8,11 +8,9 @@
   topkg,
   cmdliner,
 }:
-
-if lib.versionOlder ocaml.version "4.08" then
-  throw "fmt is not available for OCaml ${ocaml.version}"
+if lib.versionOlder ocaml.version "4.08"
+then throw "fmt is not available for OCaml ${ocaml.version}"
 else
-
   stdenv.mkDerivation rec {
     version = "0.10.0";
     pname = "ocaml${ocaml.version}-fmt";
@@ -42,6 +40,6 @@ else
       license = licenses.isc;
       description = "OCaml Format pretty-printer combinators";
       inherit (ocaml.meta) platforms;
-      maintainers = [ maintainers.vbgl ];
+      maintainers = [maintainers.vbgl];
     };
   }

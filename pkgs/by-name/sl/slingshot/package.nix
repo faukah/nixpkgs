@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "slingshot";
   version = "0.3.0";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/caio-ishikawa/slingshot";
     changelog = "https://github.com/caio-ishikawa/slingshot/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "slingshot";
   };
 }

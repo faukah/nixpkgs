@@ -12,7 +12,6 @@
   libmysqlclient,
   qttools,
 }:
-
 mkDerivation rec {
   pname = "kdb";
   version = "3.2.0";
@@ -48,13 +47,13 @@ mkDerivation rec {
     libmysqlclient
   ];
 
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
 
   meta = with lib; {
     description = "Database connectivity and creation framework for various database vendors";
     mainProgram = "kdb3_sqlite3_dump";
     license = licenses.lgpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zraexy ];
+    maintainers = with maintainers; [zraexy];
   };
 }

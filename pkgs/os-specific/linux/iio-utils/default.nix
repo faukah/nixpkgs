@@ -3,12 +3,11 @@
   stdenv,
   kernel,
 }:
-
 stdenv.mkDerivation {
   pname = "iio-utils";
   inherit (kernel) src version;
 
-  makeFlags = [ "bindir=${placeholder "out"}/bin" ];
+  makeFlags = ["bindir=${placeholder "out"}/bin"];
 
   postPatch = ''
     cd tools/iio

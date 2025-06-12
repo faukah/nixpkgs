@@ -9,7 +9,6 @@
   setuptools-scm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "uharfbuzz";
   version = "0.45.0";
@@ -37,14 +36,14 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "uharfbuzz" ];
+  pythonImportsCheck = ["uharfbuzz"];
 
   meta = with lib; {
     description = "Streamlined Cython bindings for the harfbuzz shaping engine";
     homepage = "https://github.com/harfbuzz/uharfbuzz";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

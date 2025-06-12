@@ -9,7 +9,6 @@
   readline,
   removeReferencesTo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lldpd";
   version = "1.0.19";
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     description = "802.1ab implementation (LLDP) to help you locate neighbors of all your equipments";
     homepage = "https://lldpd.github.io/";
     license = licenses.isc;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     platforms = platforms.unix;
   };
 }

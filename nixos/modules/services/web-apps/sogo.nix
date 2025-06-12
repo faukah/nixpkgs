@@ -4,34 +4,30 @@
   lib,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.sogo;
 
   preStart = pkgs.writeShellScriptBin "sogo-prestart" ''
     ${
-      if (cfg.configReplaces != { }) then
-        ''
-          # Insert secrets
-          ${concatStringsSep "\n" (
-            mapAttrsToList (k: v: ''export ${k}="$(cat "${v}" | tr -d '\n')"'') cfg.configReplaces
-          )}
+      if (cfg.configReplaces != {})
+      then ''
+        # Insert secrets
+        ${concatStringsSep "\n" (
+          mapAttrsToList (k: v: ''export ${k}="$(cat "${v}" | tr -d '\n')"'') cfg.configReplaces
+        )}
 
-          ${pkgs.perl}/bin/perl -p ${
-            concatStringsSep " " (
-              mapAttrsToList (k: v: ''-e 's/${k}/''${ENV{"${k}"}}/g;' '') cfg.configReplaces
-            )
-          } /etc/sogo/sogo.conf.raw | install -m 640 -o sogo -g sogo /dev/stdin /etc/sogo/sogo.conf
-        ''
-      else
-        ''
-          install -m 640 -o sogo -g sogo /etc/sogo/sogo.conf.raw /etc/sogo/sogo.conf
-        ''
+        ${pkgs.perl}/bin/perl -p ${
+          concatStringsSep " " (
+            mapAttrsToList (k: v: ''-e 's/${k}/''${ENV{"${k}"}}/g;' '') cfg.configReplaces
+          )
+        } /etc/sogo/sogo.conf.raw | install -m 640 -o sogo -g sogo /dev/stdin /etc/sogo/sogo.conf
+      ''
+      else ''
+        install -m 640 -o sogo -g sogo /etc/sogo/sogo.conf.raw /etc/sogo/sogo.conf
+      ''
     }
   '';
-
-in
-{
+in {
   options.services.sogo = with types; {
     enable = mkEnableOption "SOGo groupware";
 
@@ -68,7 +64,7 @@ in
         specified file.
       '';
       type = attrsOf str;
-      default = { };
+      default = {};
       example = {
         LDAP_BINDPW = "/var/lib/secrets/sogo/ldappw";
       };
@@ -82,7 +78,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.sogo ];
+    environment.systemPackages = [pkgs.sogo];
 
     environment.etc."sogo/sogo.conf.raw".text = ''
       {
@@ -110,8 +106,8 @@ in
         "openldap.service"
         "dovecot2.service"
       ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ config.environment.etc."sogo/sogo.conf.raw".source ];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [config.environment.etc."sogo/sogo.conf.raw".source];
 
       environment.LDAPTLS_CACERT = config.security.pki.caBundle;
 
@@ -150,7 +146,7 @@ in
     systemd.services.sogo-tmpwatch = {
       description = "SOGo tmpwatch";
 
-      startAt = [ "hourly" ];
+      startAt = ["hourly"];
       script = ''
         SOGOSPOOL=/var/lib/sogo/spool
 
@@ -198,9 +194,9 @@ in
         "dovecot2.service"
         "sogo.service"
       ];
-      restartTriggers = [ config.environment.etc."sogo/sogo.conf.raw".source ];
+      restartTriggers = [config.environment.etc."sogo/sogo.conf.raw".source];
 
-      startAt = [ "minutely" ];
+      startAt = ["minutely"];
 
       serviceConfig = {
         Type = "oneshot";
@@ -285,14 +281,13 @@ in
         alias ${pkgs.sogo}/lib/GNUstep/SOGo/$1.SOGo/Resources/$2;
       '';
 
-      locations."~ ^/SOGo/so/ControlPanel/Products/[^/]*UI/Resources/.*\\.(jpg|png|gif|css|js)$".extraConfig =
-        ''
-          alias ${pkgs.sogo}/lib/GNUstep/SOGo/$1.SOGo/Resources/$2;
-        '';
+      locations."~ ^/SOGo/so/ControlPanel/Products/[^/]*UI/Resources/.*\\.(jpg|png|gif|css|js)$".extraConfig = ''
+        alias ${pkgs.sogo}/lib/GNUstep/SOGo/$1.SOGo/Resources/$2;
+      '';
     };
 
     # User and group
-    users.groups.sogo = { };
+    users.groups.sogo = {};
     users.users.sogo = {
       group = "sogo";
       isSystemUser = true;

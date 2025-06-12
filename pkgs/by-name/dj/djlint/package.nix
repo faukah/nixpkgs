@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "djlint";
   version = "1.36.4";
@@ -38,7 +37,7 @@ python3.pkgs.buildPythonApplication rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "djlint" ];
+  pythonImportsCheck = ["djlint"];
 
   meta = {
     description = "HTML Template Linter and Formatter. Django - Jinja - Nunjucks - Handlebars - GoLang";
@@ -46,6 +45,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/Riverside-Healthcare/djlint";
     license = lib.licenses.gpl3Only;
     changelog = "https://github.com/djlint/djLint/blob/v${version}/CHANGELOG.md";
-    maintainers = with lib.maintainers; [ traxys ];
+    maintainers = with lib.maintainers; [traxys];
   };
 }

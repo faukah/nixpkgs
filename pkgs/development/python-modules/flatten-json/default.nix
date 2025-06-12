@@ -7,7 +7,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "flatten-json";
   version = "0.1.13";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-ViOLbfJtFWkDQ5cGNYerTk2BqVg5f5B3hZ96t0uvhpk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ six ];
+  dependencies = [six];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "flatten_json" ];
+  pythonImportsCheck = ["flatten_json"];
 
   meta = {
     description = "Flatten JSON in Python";
     homepage = "https://github.com/amirziai/flatten";
     changelog = "https://github.com/amirziai/flatten/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

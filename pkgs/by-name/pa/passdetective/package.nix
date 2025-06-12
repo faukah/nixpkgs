@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "passdetective";
   version = "1.0.7";
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/aydinnyunus/PassDetective";
     changelog = "https://github.com/aydinnyunus/PassDetective/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ octodi ];
+    maintainers = with lib.maintainers; [octodi];
     mainProgram = "PassDetective";
   };
 }

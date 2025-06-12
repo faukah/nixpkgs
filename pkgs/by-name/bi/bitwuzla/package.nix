@@ -17,7 +17,6 @@
   pkg-config,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bitwuzla";
   version = "0.7.0";
@@ -59,8 +58,8 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.strings.mesonEnable "testing" finalAttrs.finalPackage.doCheck)
   ];
 
-  nativeCheckInputs = [ python3 ];
-  checkInputs = [ gtest ];
+  nativeCheckInputs = [python3];
+  checkInputs = [gtest];
   # two tests fail on darwin
   doCheck = stdenv.hostPlatform.isLinux;
   doInstallCheck = true;
@@ -93,6 +92,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://bitwuzla.github.io";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ symphorien ];
+    maintainers = with lib.maintainers; [symphorien];
   };
 })

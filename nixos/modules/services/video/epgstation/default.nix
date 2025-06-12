@@ -4,9 +4,7 @@
   options,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.epgstation;
   opt = options.services.epgstation;
 
@@ -19,7 +17,7 @@ let
     option = options.services.mirakurun.unixSocket;
   };
 
-  yaml = pkgs.formats.yaml { };
+  yaml = pkgs.formats.yaml {};
   settingsTemplate = yaml.generate "config.yml" cfg.settings;
   preStartScript = pkgs.writeScript "epgstation-prestart" ''
     #!${pkgs.runtimeShell}
@@ -55,68 +53,66 @@ let
     appenders.stdout.type = "stdout";
     categories = {
       default = {
-        appenders = [ "stdout" ];
+        appenders = ["stdout"];
         level = "info";
       };
       system = {
-        appenders = [ "stdout" ];
+        appenders = ["stdout"];
         level = "info";
       };
       access = {
-        appenders = [ "stdout" ];
+        appenders = ["stdout"];
         level = "info";
       };
       stream = {
-        appenders = [ "stdout" ];
+        appenders = ["stdout"];
         level = "info";
       };
     };
   };
 
   # Deprecate top level options that are redundant.
-  deprecateTopLevelOption =
-    config:
+  deprecateTopLevelOption = config:
     lib.mkRenamedOptionModule
-      (
-        [
-          "services"
-          "epgstation"
-        ]
-        ++ config
-      )
-      (
-        [
-          "services"
-          "epgstation"
-          "settings"
-        ]
-        ++ config
-      );
+    (
+      [
+        "services"
+        "epgstation"
+      ]
+      ++ config
+    )
+    (
+      [
+        "services"
+        "epgstation"
+        "settings"
+      ]
+      ++ config
+    );
 
-  removeOption =
-    config: instruction:
+  removeOption = config: instruction:
     lib.mkRemovedOptionModule (
       [
         "services"
         "epgstation"
       ]
       ++ config
-    ) instruction;
-in
-{
-  meta.maintainers = with lib.maintainers; [ midchildan ];
+    )
+    instruction;
+in {
+  meta.maintainers = with lib.maintainers; [midchildan];
 
   imports = [
-    (deprecateTopLevelOption [ "port" ])
-    (deprecateTopLevelOption [ "socketioPort" ])
-    (deprecateTopLevelOption [ "clientSocketioPort" ])
-    (removeOption [ "basicAuth" ] "Use a TLS-terminated reverse proxy with authentication instead.")
+    (deprecateTopLevelOption ["port"])
+    (deprecateTopLevelOption ["socketioPort"])
+    (deprecateTopLevelOption ["clientSocketioPort"])
+    (removeOption ["basicAuth"] "Use a TLS-terminated reverse proxy with authentication instead.")
   ];
 
   options.services.epgstation = {
     enable = lib.mkEnableOption description;
 
-    package = lib.mkPackageOption pkgs "epgstation" { };
+    package = lib.mkPackageOption pkgs "epgstation" {};
 
     ffmpeg = lib.mkPackageOption pkgs "ffmpeg" {
       default = "ffmpeg-headless";
@@ -185,7 +181,7 @@ in
         <https://github.com/l3tnun/EPGStation/blob/master/doc/conf-manual.md>
       '';
 
-      default = { };
+      default = {};
       example = {
         recPriority = 20;
         conflictPriority = 10;
@@ -223,11 +219,10 @@ in
           '';
         };
 
-        options.mirakurunPath =
-          with mirakurun;
+        options.mirakurunPath = with mirakurun;
           lib.mkOption {
             type = lib.types.str;
-            default = "http+unix://${lib.replaceStrings [ "/" ] [ "%2F" ] sock}";
+            default = "http+unix://${lib.replaceStrings ["/"] ["%2F"] sock}";
             defaultText = lib.literalExpression ''
               "http+unix://''${lib.replaceStrings ["/"] ["%2F"] config.${option}}"
             '';
@@ -310,14 +305,14 @@ in
       home = "/var/cache/epgstation";
     };
 
-    users.groups.epgstation = { };
+    users.groups.epgstation = {};
 
     services.mirakurun.enable = lib.mkDefault true;
 
     services.mysql = {
       enable = lib.mkDefault true;
       package = lib.mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       # FIXME: enable once mysqljs supports auth_socket
       # https://github.com/mysqljs/mysql/issues/1507
       #
@@ -327,24 +322,23 @@ in
       # } ];
     };
 
-    services.epgstation.settings =
-      let
-        defaultSettings = {
-          dbtype = lib.mkDefault "mysql";
-          mysql = {
-            socketPath = lib.mkDefault "/run/mysqld/mysqld.sock";
-            user = username;
-            password = lib.mkDefault "@dbPassword@";
-            database = cfg.database.name;
-          };
-
-          ffmpeg = lib.mkDefault "${cfg.ffmpeg}/bin/ffmpeg";
-          ffprobe = lib.mkDefault "${cfg.ffmpeg}/bin/ffprobe";
-
-          # for disambiguation with TypeScript files
-          recordedFileExtension = lib.mkDefault ".m2ts";
+    services.epgstation.settings = let
+      defaultSettings = {
+        dbtype = lib.mkDefault "mysql";
+        mysql = {
+          socketPath = lib.mkDefault "/run/mysqld/mysqld.sock";
+          user = username;
+          password = lib.mkDefault "@dbPassword@";
+          database = cfg.database.name;
         };
-      in
+
+        ffmpeg = lib.mkDefault "${cfg.ffmpeg}/bin/ffmpeg";
+        ffprobe = lib.mkDefault "${cfg.ffmpeg}/bin/ffprobe";
+
+        # for disambiguation with TypeScript files
+        recordedFileExtension = lib.mkDefault ".m2ts";
+      };
+    in
       lib.mkMerge [
         defaultSettings
         (lib.mkIf cfg.usePreconfiguredStreaming streamingConfig)
@@ -352,34 +346,34 @@ in
 
     systemd.tmpfiles.settings."10-epgstation" = lib.listToAttrs (
       map
-        (
-          dir:
+      (
+        dir:
           lib.nameValuePair dir {
             d = {
               user = username;
               group = groupname;
             };
           }
-        )
-        [
-          "/var/lib/epgstation/key"
-          "/var/lib/epgstation/streamfiles"
-          "/var/lib/epgstation/drop"
-          "/var/lib/epgstation/recorded"
-          "/var/lib/epgstation/thumbnail"
-          "/var/lib/epgstation/db/subscribers"
-          "/var/lib/epgstation/db/migrations/mysql"
-          "/var/lib/epgstation/db/migrations/postgres"
-          "/var/lib/epgstation/db/migrations/sqlite"
-        ]
+      )
+      [
+        "/var/lib/epgstation/key"
+        "/var/lib/epgstation/streamfiles"
+        "/var/lib/epgstation/drop"
+        "/var/lib/epgstation/recorded"
+        "/var/lib/epgstation/thumbnail"
+        "/var/lib/epgstation/db/subscribers"
+        "/var/lib/epgstation/db/migrations/mysql"
+        "/var/lib/epgstation/db/migrations/postgres"
+        "/var/lib/epgstation/db/migrations/sqlite"
+      ]
     );
 
     systemd.services.epgstation = {
       inherit description;
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after =
-        [ "network.target" ]
+        ["network.target"]
         ++ lib.optional config.services.mirakurun.enable "mirakurun.service"
         ++ lib.optional config.services.mysql.enable "mysql.service";
 

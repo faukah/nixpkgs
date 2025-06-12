@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "yggdrasil-jumper";
   version = "0.3.1";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-EbG83rGlUbiJC1qm9H1+YrCFSq23kSDeW7KMHP8Wee8=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Reduce latency of a connection over Yggdrasil Network";
@@ -33,6 +32,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/one-d-wide/yggdrasil-jumper";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ one-d-wide ];
+    maintainers = with maintainers; [one-d-wide];
   };
 }

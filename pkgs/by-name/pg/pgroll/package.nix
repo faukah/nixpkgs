@@ -5,7 +5,6 @@
   libpg_query,
   xxHash,
 }:
-
 buildGoModule rec {
   pname = "pgroll";
   version = "0.13.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-o1ei6KSZUclKqAxkzQgtLnvttzMOK1IWrpbwq7AufO8=";
 
-  excludedPackages = [ "dev" ];
+  excludedPackages = ["dev"];
 
   buildInputs = [
     libpg_query
@@ -36,6 +35,6 @@ buildGoModule rec {
     license = lib.licenses.asl20;
     mainProgram = "pgroll";
     homepage = "https://github.com/xataio/pgroll";
-    maintainers = with lib.maintainers; [ ilyakooo0 ];
+    maintainers = with lib.maintainers; [ilyakooo0];
   };
 }

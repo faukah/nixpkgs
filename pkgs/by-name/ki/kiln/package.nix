@@ -5,7 +5,6 @@
   scdoc,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "kiln";
   version = "0.4.1";
@@ -33,7 +32,7 @@ buildGoModule rec {
     description = "Simple static site generator for Gemini";
     homepage = "https://kiln.adnano.co/";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     mainProgram = "kiln";
   };
 }

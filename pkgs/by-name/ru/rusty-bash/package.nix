@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rusty-bash";
   version = "0.8.5";
@@ -28,6 +27,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/shellgei/rusty_bash";
     license = lib.licenses.bsd3;
     mainProgram = "sush";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
   };
 }

@@ -8,7 +8,6 @@
   cryptography,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pgpy";
   version = "0.6.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-47YiHNxmjyCOYHHUV3Zyhs3Att9HZtCXYfbN34ooTxU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyasn1
@@ -42,7 +41,7 @@ buildPythonPackage rec {
       --replace-fail ", 512" ", 1024" # We need longer test key because pgp deprecated length=512
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     homepage = "https://github.com/SecurityInnovation/PGPy";

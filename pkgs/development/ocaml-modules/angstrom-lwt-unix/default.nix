@@ -4,7 +4,6 @@
   angstrom,
   lwt,
 }:
-
 buildDunePackage {
   pname = "angstrom-lwt-unix";
 
@@ -20,6 +19,6 @@ buildDunePackage {
   meta = {
     inherit (angstrom.meta) homepage license;
     description = "Lwt_unix support for Angstrom";
-    maintainers = with lib.maintainers; [ romildo ];
+    maintainers = with lib.maintainers; [romildo];
   };
 }

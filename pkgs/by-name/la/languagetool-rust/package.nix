@@ -7,7 +7,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "languagetool-rust";
   version = "2.1.5";
@@ -22,13 +21,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-MIGoGEd/N2qlcawYRLMuac4SexHEMJnOS+FbPFJIsso=";
 
-  buildFeatures = [ "full" ];
+  buildFeatures = ["full"];
 
   nativeBuildInputs = [
     installShellFiles
     pkg-config
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   checkFlags = [
     # requires network access
@@ -83,7 +82,7 @@ rustPlatform.buildRustPackage rec {
     description = "LanguageTool API in Rust";
     homepage = "https://github.com/jeertmans/languagetool-rust";
     license = licenses.mit;
-    maintainers = with maintainers; [ name-snrl ];
+    maintainers = with maintainers; [name-snrl];
     mainProgram = "ltrs";
   };
 }

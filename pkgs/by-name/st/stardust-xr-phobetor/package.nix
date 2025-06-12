@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "stardust-xr-phobetor";
   version = "0-unstable-2024-02-10";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-H65uAHMAIkJ9D5q/5HxMEbvcfoRhYdFgTQejp6bvu5w=";
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = {

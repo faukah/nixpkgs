@@ -5,7 +5,6 @@
   ncurses,
   pulseaudio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qrq";
   version = "0.3.5";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dj1yfk/qrq";
     changelog = "https://github.com/dj1yfk/qrq/blob/${src.rev}/ChangeLog";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ pkharvey ];
+    maintainers = with lib.maintainers; [pkharvey];
     mainProgram = "qrq";
     platforms = lib.platforms.all;
   };

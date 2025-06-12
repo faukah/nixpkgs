@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "glooctl";
   version = "1.18.17";
@@ -18,9 +17,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-QS/fYVIMOqVNkej9xtim0bgKOLazwBkKpcjz1YPzQOo=";
 
-  subPackages = [ "projects/gloo/cli/cmd" ];
+  subPackages = ["projects/gloo/cli/cmd"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   strictDeps = true;
 
@@ -46,6 +45,6 @@ buildGoModule rec {
     homepage = "https://docs.solo.io/gloo-edge/latest/reference/cli/glooctl/";
     changelog = "https://github.com/solo-io/gloo/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

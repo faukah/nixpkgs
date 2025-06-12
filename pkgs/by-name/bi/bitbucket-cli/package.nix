@@ -24,7 +24,7 @@ buildGoModule rec {
     homepage = "https://github.com/swisscom/bitbucket-cli";
     mainProgram = "bitbucket-cli";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ attila ];
+    maintainers = with lib.maintainers; [attila];
     platforms = with lib.platforms; linux ++ darwin;
   };
 }

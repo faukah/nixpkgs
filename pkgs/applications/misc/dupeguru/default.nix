@@ -6,7 +6,6 @@
   qt5,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "dupeguru";
   version = "4.3.1";
@@ -72,7 +71,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/arsenetar/dupeguru";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ novoxd ];
+    maintainers = with maintainers; [novoxd];
     mainProgram = "dupeguru";
   };
 }

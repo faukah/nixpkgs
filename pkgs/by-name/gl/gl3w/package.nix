@@ -8,7 +8,6 @@
   libGLU,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "gl3w";
   version = "0-unstable-2025-04-08";
@@ -42,13 +41,13 @@ stdenv.mkDerivation {
     cp ${libglvnd.dev}/include/KHR/khrplatform.h include/KHR/khrplatform.h
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Simple OpenGL core profile loading";
     homepage = "https://github.com/skaslev/gl3w";
     license = licenses.unlicense;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

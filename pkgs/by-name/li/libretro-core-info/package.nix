@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gitUpdater,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "libretro-core-info";
   version = "1.21.1";
@@ -33,7 +32,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Libretro's core info files";
     homepage = "https://libretro.com";
     license = licenses.mit;
-    teams = [ teams.libretro ];
+    teams = [teams.libretro];
     platforms = platforms.all;
   };
 }

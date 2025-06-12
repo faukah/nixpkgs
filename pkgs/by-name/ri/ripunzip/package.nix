@@ -8,7 +8,6 @@
   fetchzip,
   ripunzip,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ripunzip";
   version = "2.0.3";
@@ -23,8 +22,8 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-uz07yZBkmBTEGB64rhBYQ2iL0KbrY4UAM96utv8HCSE=";
 
-  buildInputs = [ openssl ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [openssl];
+  nativeBuildInputs = [pkg-config];
 
   checkFlags = [
     # Skip tests involving network
@@ -45,11 +44,11 @@ rustPlatform.buildRustPackage rec {
 
   passthru.tests = {
     fetchzipWithRipunzip =
-      testers.invalidateFetcherByDrvHash (fetchzip.override { unzip = ripunzip; })
-        {
-          url = "https://github.com/google/ripunzip/archive/cb9caa3ba4b0e27a85e165be64c40f1f6dfcc085.zip";
-          hash = "sha256-BoErC5VL3Vpvkx6xJq6J+eUJrBnjVEdTuSo7zh98Jy4=";
-        };
+      testers.invalidateFetcherByDrvHash (fetchzip.override {unzip = ripunzip;})
+      {
+        url = "https://github.com/google/ripunzip/archive/cb9caa3ba4b0e27a85e165be64c40f1f6dfcc085.zip";
+        hash = "sha256-BoErC5VL3Vpvkx6xJq6J+eUJrBnjVEdTuSo7zh98Jy4=";
+      };
     version = testers.testVersion {
       package = ripunzip;
     };
@@ -63,6 +62,6 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = [ maintainers.lesuisse ];
+    maintainers = [maintainers.lesuisse];
   };
 }

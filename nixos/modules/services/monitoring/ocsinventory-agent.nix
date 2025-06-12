@@ -3,27 +3,23 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.ocsinventory-agent;
 
   settingsFormat = pkgs.formats.keyValue {
-    mkKeyValue = lib.generators.mkKeyValueDefault { } "=";
+    mkKeyValue = lib.generators.mkKeyValueDefault {} "=";
   };
-
-in
-{
+in {
   meta = {
     doc = ./ocsinventory-agent.md;
-    maintainers = with lib.maintainers; [ anthonyroussel ];
+    maintainers = with lib.maintainers; [anthonyroussel];
   };
 
   options = {
     services.ocsinventory-agent = {
       enable = lib.mkEnableOption "OCS Inventory Agent";
 
-      package = lib.mkPackageOption pkgs "ocsinventory-agent" { };
+      package = lib.mkPackageOption pkgs "ocsinventory-agent" {};
 
       settings = lib.mkOption {
         type = lib.types.submodule {
@@ -71,7 +67,7 @@ in
             debug = lib.mkEnableOption "debug mode";
           };
         };
-        default = { };
+        default = {};
         example = {
           debug = true;
           server = "https://ocsinventory.localhost:8080/ocsinventory";
@@ -99,11 +95,9 @@ in
     };
   };
 
-  config =
-    let
-      configFile = settingsFormat.generate "ocsinventory-agent.cfg" cfg.settings;
-
-    in
+  config = let
+    configFile = settingsFormat.generate "ocsinventory-agent.cfg" cfg.settings;
+  in
     lib.mkIf cfg.enable {
       # Path of the configuration file is hard-coded and cannot be changed
       # https://github.com/OCSInventory-NG/UnixAgent/blob/v2.10.0/lib/Ocsinventory/Agent/Config.pm#L78
@@ -112,10 +106,10 @@ in
 
       systemd.services.ocsinventory-agent = {
         description = "OCS Inventory Agent service";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
 
-        reloadTriggers = [ configFile ];
+        reloadTriggers = [configFile];
 
         serviceConfig = {
           ExecStart = lib.getExe cfg.package;
@@ -126,7 +120,7 @@ in
 
       systemd.timers.ocsinventory-agent = {
         description = "Launch OCS Inventory Agent regularly";
-        wantedBy = [ "timers.target" ];
+        wantedBy = ["timers.target"];
 
         timerConfig = {
           OnCalendar = cfg.interval;

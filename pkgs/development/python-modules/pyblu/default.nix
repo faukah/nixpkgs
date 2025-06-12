@@ -9,7 +9,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyblu";
   version = "2.0.1";
@@ -22,16 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-4dWRz7KPLgjN57U/jsm6VCqzkzfMY5yuHL0ZSBeALyI=";
   };
 
-  pythonRelaxDeps = [ "aiohttp" ];
+  pythonRelaxDeps = ["aiohttp"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
     lxml
   ];
 
-  pythonImportsCheck = [ "pyblu" ];
+  pythonImportsCheck = ["pyblu"];
 
   nativeCheckInputs = [
     aioresponses
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "BluOS API client";
     homepage = "https://github.com/LouisChrist/pyblu";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

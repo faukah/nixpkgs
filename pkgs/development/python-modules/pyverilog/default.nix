@@ -9,7 +9,6 @@
   iverilog,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyverilog";
   version = "1.3.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
         "iverilog = '${lib.getExe' iverilog "iverilog"}'"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     jinja2
@@ -43,12 +42,12 @@ buildPythonPackage rec {
       --replace-fail "python_paths" "pythonpath"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/PyHDI/Pyverilog";
     description = "Python-based Hardware Design Processing Toolkit for Verilog HDL";
     license = licenses.asl20;
-    maintainers = with maintainers; [ trepetti ];
+    maintainers = with maintainers; [trepetti];
   };
 }

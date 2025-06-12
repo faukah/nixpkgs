@@ -30,7 +30,6 @@
   withLuaJIT ? stdenv.hostPlatform.isx86_64,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rspamd";
   version = "3.12.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-4C+bhUkqdn9RelHf6LfcfxVCIiBUCt4BxuI9TGdlIMc=";
   };
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   nativeBuildInputs = [
     cmake
@@ -76,23 +75,29 @@ stdenv.mkDerivation rec {
     ++ lib.optional withLuaJIT luajit
     ++ lib.optional (!withLuaJIT) lua;
 
-  cmakeFlags = [
-    # pcre2 jit seems to cause crashes: https://github.com/NixOS/nixpkgs/pull/181908
-    "-DENABLE_PCRE2=OFF"
-    "-DDEBIAN_BUILD=ON"
-    "-DRUNDIR=/run/rspamd"
-    "-DDBDIR=/var/lib/rspamd"
-    "-DLOGDIR=/var/log/rspamd"
-    "-DLOCAL_CONFDIR=/etc/rspamd"
-    "-DENABLE_BLAS=${if withBlas then "ON" else "OFF"}"
-    "-DENABLE_FASTTEXT=ON"
-    "-DENABLE_JEMALLOC=ON"
-    "-DSYSTEM_DOCTEST=ON"
-    "-DSYSTEM_FMT=ON"
-    "-DSYSTEM_XXHASH=ON"
-    "-DSYSTEM_ZSTD=ON"
-    "-DENABLE_HYPERSCAN=ON"
-  ] ++ lib.optional (!withLuaJIT) "-DENABLE_LUAJIT=OFF";
+  cmakeFlags =
+    [
+      # pcre2 jit seems to cause crashes: https://github.com/NixOS/nixpkgs/pull/181908
+      "-DENABLE_PCRE2=OFF"
+      "-DDEBIAN_BUILD=ON"
+      "-DRUNDIR=/run/rspamd"
+      "-DDBDIR=/var/lib/rspamd"
+      "-DLOGDIR=/var/log/rspamd"
+      "-DLOCAL_CONFDIR=/etc/rspamd"
+      "-DENABLE_BLAS=${
+        if withBlas
+        then "ON"
+        else "OFF"
+      }"
+      "-DENABLE_FASTTEXT=ON"
+      "-DENABLE_JEMALLOC=ON"
+      "-DSYSTEM_DOCTEST=ON"
+      "-DSYSTEM_FMT=ON"
+      "-DSYSTEM_XXHASH=ON"
+      "-DSYSTEM_ZSTD=ON"
+      "-DENABLE_HYPERSCAN=ON"
+    ]
+    ++ lib.optional (!withLuaJIT) "-DENABLE_LUAJIT=OFF";
 
   passthru.tests.rspamd = nixosTests.rspamd;
 

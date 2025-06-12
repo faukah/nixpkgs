@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "protoc-gen-doc";
   version = "1.5.1";
@@ -30,6 +29,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/pseudomuto/protoc-gen-doc";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

@@ -4,10 +4,12 @@
   fetchpatch,
   ocaml,
   buildDunePackage,
-  version ? if lib.versionAtLeast ocaml.version "5.0" then "0.6.3" else "0.6.2",
+  version ?
+    if lib.versionAtLeast ocaml.version "5.0"
+    then "0.6.3"
+    else "0.6.2",
   benchmark,
 }:
-
 buildDunePackage {
   pname = "rope";
   inherit version;
@@ -23,7 +25,7 @@ buildDunePackage {
       ."${version}";
   };
 
-  buildInputs = [ benchmark ];
+  buildInputs = [benchmark];
 
   patches = lib.optional (version == "0.6.3") (fetchpatch {
     url = "https://github.com/Chris00/ocaml-rope/commit/be53daa18dd3d1450a92881b33c997eafb1dc958.patch";
@@ -34,6 +36,6 @@ buildDunePackage {
     homepage = "https://github.com/Chris00/ocaml-rope";
     description = "Ropes (“heavyweight strings”) in OCaml";
     license = lib.licenses.lgpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

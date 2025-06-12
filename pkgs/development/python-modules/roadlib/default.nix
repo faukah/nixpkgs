@@ -10,7 +10,6 @@
   requests,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "roadlib";
   version = "1.3.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-RI6gUqCaOeLesIwHtsASEkTtdRxLCAP6+C5Yj8mBb2o=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cryptography
@@ -33,18 +32,18 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    async = [ aiohttp ];
+    async = [aiohttp];
   };
 
   # Module has no test
   doCheck = false;
 
-  pythonImportsCheck = [ "roadtools.roadlib" ];
+  pythonImportsCheck = ["roadtools.roadlib"];
 
   meta = with lib; {
     description = "ROADtools common components library";
     homepage = "https://pypi.org/project/roadlib/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

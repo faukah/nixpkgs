@@ -3,37 +3,40 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.snapper;
 
-  mkValue =
-    v:
-    if lib.isList v then
-      "\"${
-        lib.concatMapStringsSep " " (lib.escape [
-          "\\"
-          " "
-        ]) v
-      }\""
-    else if v == true then
-      "yes"
-    else if v == false then
-      "no"
-    else if lib.isString v then
-      "\"${v}\""
-    else
-      builtins.toJSON v;
+  mkValue = v:
+    if lib.isList v
+    then "\"${
+      lib.concatMapStringsSep " " (lib.escape [
+        "\\"
+        " "
+      ])
+      v
+    }\""
+    else if v == true
+    then "yes"
+    else if v == false
+    then "no"
+    else if lib.isString v
+    then "\"${v}\""
+    else builtins.toJSON v;
 
   mkKeyValue = k: v: "${k}=${mkValue v}";
 
   # "it's recommended to always specify the filesystem type"  -- man snapper-configs
-  defaultOf = k: if k == "FSTYPE" then null else configOptions.${k}.default or null;
+  defaultOf = k:
+    if k == "FSTYPE"
+    then null
+    else configOptions.${k}.default or null;
 
-  safeStr = lib.types.strMatching "[^\n\"]*" // {
-    description = "string without line breaks or quotes";
-    descriptionClass = "conjunction";
-  };
+  safeStr =
+    lib.types.strMatching "[^\n\"]*"
+    // {
+      description = "string without line breaks or quotes";
+      descriptionClass = "conjunction";
+    };
 
   intOrNumberOrRange = lib.types.either lib.types.ints.unsigned (
     lib.types.strMatching "[[:digit:]]+(-[[:digit:]]+)?"
@@ -69,7 +72,7 @@ let
 
     ALLOW_GROUPS = lib.mkOption {
       type = lib.types.listOf safeStr;
-      default = [ ];
+      default = [];
       description = ''
         List of groups allowed to operate with the config.
 
@@ -79,8 +82,8 @@ let
 
     ALLOW_USERS = lib.mkOption {
       type = lib.types.listOf safeStr;
-      default = [ ];
-      example = [ "alice" ];
+      default = [];
+      example = ["alice"];
       description = ''
         List of users allowed to operate with the config. "root" is always
         implicitly included.
@@ -153,11 +156,8 @@ let
       '';
     };
   };
-in
-
-{
+in {
   options.services.snapper = {
-
     snapshotRootOnBoot = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -209,7 +209,7 @@ in
     };
 
     configs = lib.mkOption {
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           home = {
@@ -243,39 +243,37 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.configs != { }) (
+  config = lib.mkIf (cfg.configs != {}) (
     let
       documentation = [
         "man:snapper(8)"
         "man:snapper-configs(5)"
       ];
-    in
-    {
+    in {
       environment = {
-
-        systemPackages = [ pkgs.snapper ];
+        systemPackages = [pkgs.snapper];
 
         # Note: snapper/config-templates/default is only needed for create-config
         #       which is not the NixOS way to configure.
         etc =
           {
-
             "sysconfig/snapper".text = ''
               SNAPPER_CONFIGS="${lib.concatStringsSep " " (builtins.attrNames cfg.configs)}"
             '';
           }
           // (lib.mapAttrs' (
-            name: subvolume:
-            lib.nameValuePair "snapper/configs/${name}" ({
-              text = lib.generators.toKeyValue { inherit mkKeyValue; } (
-                lib.filterAttrs (k: v: v != defaultOf k) subvolume
-              );
-            })
-          ) cfg.configs)
-          // (lib.optionalAttrs (cfg.filters != null) { "snapper/filters/default.txt".text = cfg.filters; });
+              name: subvolume:
+                lib.nameValuePair "snapper/configs/${name}" {
+                  text = lib.generators.toKeyValue {inherit mkKeyValue;} (
+                    lib.filterAttrs (k: v: v != defaultOf k) subvolume
+                  );
+                }
+            )
+            cfg.configs)
+          // (lib.optionalAttrs (cfg.filters != null) {"snapper/filters/default.txt".text = cfg.filters;});
       };
 
-      services.dbus.packages = [ pkgs.snapper ];
+      services.dbus.packages = [pkgs.snapper];
 
       systemd.services.snapperd = {
         description = "DBus interface for snapper";
@@ -297,12 +295,12 @@ in
       systemd.services.snapper-timeline = {
         description = "Timeline of Snapper Snapshots";
         inherit documentation;
-        requires = [ "local-fs.target" ];
+        requires = ["local-fs.target"];
         serviceConfig.ExecStart = "${pkgs.snapper}/lib/snapper/systemd-helper --timeline";
       };
 
       systemd.timers.snapper-timeline = {
-        wantedBy = [ "timers.target" ];
+        wantedBy = ["timers.target"];
         timerConfig = {
           Persistent = cfg.persistentTimer;
           OnCalendar = cfg.snapshotInterval;
@@ -318,8 +316,8 @@ in
       systemd.timers.snapper-cleanup = {
         description = "Cleanup of Snapper Snapshots";
         inherit documentation;
-        wantedBy = [ "timers.target" ];
-        requires = [ "local-fs.target" ];
+        wantedBy = ["timers.target"];
+        requires = ["local-fs.target"];
         timerConfig.OnBootSec = "10m";
         timerConfig.OnUnitActiveSec = cfg.cleanupInterval;
       };
@@ -329,40 +327,38 @@ in
         inherit documentation;
         serviceConfig.ExecStart = "${pkgs.snapper}/bin/snapper --config root create --cleanup-algorithm number --description boot";
         serviceConfig.Type = "oneshot";
-        requires = [ "local-fs.target" ];
-        wantedBy = [ "multi-user.target" ];
+        requires = ["local-fs.target"];
+        wantedBy = ["multi-user.target"];
         unitConfig.ConditionPathExists = "/etc/snapper/configs/root";
       };
 
       assertions = lib.concatMap (
-        name:
-        let
+        name: let
           sub = cfg.configs.${name};
         in
-        [
-          {
-            assertion = !(sub ? extraConfig);
-            message = ''
-              The option definition `services.snapper.configs.${name}.extraConfig' no longer has any effect; please remove it.
-              The contents of this option should be migrated to attributes on `services.snapper.configs.${name}'.
-            '';
-          }
-        ]
-        ++
-          map
-            (attr: {
-              assertion = !(lib.hasAttr attr sub);
+          [
+            {
+              assertion = !(sub ? extraConfig);
               message = ''
-                The option definition `services.snapper.configs.${name}.${attr}' has been renamed to `services.snapper.configs.${name}.${lib.toUpper attr}'.
+                The option definition `services.snapper.configs.${name}.extraConfig' no longer has any effect; please remove it.
+                The contents of this option should be migrated to attributes on `services.snapper.configs.${name}'.
               '';
-            })
-            [
-              "fstype"
-              "subvolume"
-            ]
+            }
+          ]
+          ++ map
+          (attr: {
+            assertion = !(lib.hasAttr attr sub);
+            message = ''
+              The option definition `services.snapper.configs.${name}.${attr}' has been renamed to `services.snapper.configs.${name}.${lib.toUpper attr}'.
+            '';
+          })
+          [
+            "fstype"
+            "subvolume"
+          ]
       ) (lib.attrNames cfg.configs);
     }
   );
 
-  meta.maintainers = with lib.maintainers; [ Djabx ];
+  meta.maintainers = with lib.maintainers; [Djabx];
 }

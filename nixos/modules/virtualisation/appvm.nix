@@ -4,16 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.virtualisation.appvm;
-
-in
-{
-
+in {
   options = {
     virtualisation.appvm = {
       enable = mkOption {
@@ -30,7 +23,6 @@ in
         '';
       };
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -45,10 +37,8 @@ in
     };
 
     users.users."${cfg.user}" = {
-      packages = [ pkgs.appvm ];
-      extraGroups = [ "libvirtd" ];
+      packages = [pkgs.appvm];
+      extraGroups = ["libvirtd"];
     };
-
   };
-
 }

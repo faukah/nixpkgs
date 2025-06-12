@@ -12,7 +12,6 @@
   sonic,
   utf8cpp,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ekho";
   version = "9.0";
@@ -60,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "ekho";
   };
 })

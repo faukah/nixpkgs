@@ -9,7 +9,6 @@
   # External poll is required for e.g. mosquitto, but discouraged by the maintainer.
   withExternalPoll ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libwebsockets";
   version = "4.3.5";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     libuv
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags =
     [
@@ -45,13 +44,12 @@ stdenv.mkDerivation rec {
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "-DLWS_WITHOUT_TESTAPPS=ON"
     ++ lib.optional withExternalPoll "-DLWS_WITH_EXTERNAL_POLL=ON"
     ++ (
-      if stdenv.hostPlatform.isStatic then
-        [ "-DLWS_WITH_SHARED=OFF" ]
-      else
-        [
-          "-DLWS_WITH_STATIC=OFF"
-          "-DLWS_LINK_TESTAPPS_DYNAMIC=ON"
-        ]
+      if stdenv.hostPlatform.isStatic
+      then ["-DLWS_WITH_SHARED=OFF"]
+      else [
+        "-DLWS_WITH_STATIC=OFF"
+        "-DLWS_LINK_TESTAPPS_DYNAMIC=ON"
+      ]
     );
 
   postInstall = ''
@@ -66,7 +64,7 @@ stdenv.mkDerivation rec {
   '';
 
   # $out/share/libwebsockets-test-server/plugins/libprotocol_*.so refers to crtbeginS.o
-  disallowedReferences = [ stdenv.cc.cc ];
+  disallowedReferences = [stdenv.cc.cc];
 
   meta = with lib; {
     description = "Light, portable C library for websockets";
@@ -84,7 +82,7 @@ stdenv.mkDerivation rec {
       bsd3
       asl20
     ];
-    maintainers = with maintainers; [ mindavi ];
+    maintainers = with maintainers; [mindavi];
     platforms = platforms.all;
   };
 }

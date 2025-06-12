@@ -4,7 +4,6 @@
   fetchCrate,
   fetchpatch,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "jen";
   version = "1.7.0";
@@ -30,6 +29,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "jen";
     homepage = "https://github.com/whitfin/jen";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

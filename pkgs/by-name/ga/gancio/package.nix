@@ -3,20 +3,16 @@
   stdenv,
   fetchFromGitLab,
   fetchYarnDeps,
-
   yarnConfigHook,
   yarnBuildHook,
   yarnInstallHook,
   nodejs,
   pkg-config,
-
   vips,
   sqlite,
-
   nixosTests,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gancio";
   version = "1.26.1";
@@ -39,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     yarnBuildHook
     yarnInstallHook
     nodejs
-    (nodejs.python.withPackages (ps: [ ps.setuptools ]))
+    (nodejs.python.withPackages (ps: [ps.setuptools]))
     pkg-config
   ];
 
@@ -70,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       inherit (nixosTests) gancio;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -80,6 +76,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.agpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "gancio";
-    maintainers = with lib.maintainers; [ jbgi ];
+    maintainers = with lib.maintainers; [jbgi];
   };
 })

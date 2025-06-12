@@ -15,7 +15,7 @@ mkLibretroCore {
     hash = "sha256-Cwf6hZKl+rE00C0rFq7VhTj3qG4rszQ+8qZQMZ+H7e8=";
   };
 
-  extraNativeBuildInputs = [ cmake ];
+  extraNativeBuildInputs = [cmake];
   makefile = "Makefile";
   cmakeFlags = [
     "-DBUILD_LIBRETRO_CORE=ON"

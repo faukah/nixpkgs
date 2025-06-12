@@ -5,7 +5,6 @@
   fetchpatch,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libargon2";
   version = "20190702";

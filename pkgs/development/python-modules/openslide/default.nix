@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "openslide";
   version = "1.4.2";
@@ -28,13 +27,13 @@ buildPythonPackage rec {
       --replace-fail "return cdll.LoadLibrary(names[0])" "return cdll.LoadLibrary(f'${lib.getLib openslide}/lib/{names[0]}')"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pillow ];
+  dependencies = [pillow];
 
-  pythonImportsCheck = [ "openslide" ];
+  pythonImportsCheck = ["openslide"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''rm -rf openslide/'';
 
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/openslide/openslide-python";
     changelog = "https://github.com/openslide/openslide-python/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

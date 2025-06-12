@@ -20,7 +20,6 @@
   systemdMinimal,
   zlib, # optional
 }:
-
 stdenv.mkDerivation rec {
   pname = "lizardfs";
   version = "3.13.0-rc3";

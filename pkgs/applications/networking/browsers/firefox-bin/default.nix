@@ -28,14 +28,13 @@
   patchelfUnstable, # have to use patchelfUnstable to support --no-clobber-old-sections
   applicationName ? "Firefox",
   undmg,
-}:
-
-let
-
+}: let
   inherit (generated) version sources;
 
   binaryName =
-    if (channel == "release" || stdenv.hostPlatform.isDarwin) then "firefox" else "firefox-${channel}";
+    if (channel == "release" || stdenv.hostPlatform.isDarwin)
+    then "firefox"
+    else "firefox-${channel}";
 
   mozillaPlatforms = {
     i686-linux = "linux-i686";
@@ -52,75 +51,74 @@ let
 
   sourceMatches = locale: source: (isPrefixOf source.locale locale) && source.arch == arch;
 
-  policies = {
-    DisableAppUpdate = true;
-  } // config.firefox.policies or { };
+  policies =
+    {
+      DisableAppUpdate = true;
+    }
+    // config.firefox.policies or {};
 
-  policiesJson = writeText "firefox-policies.json" (builtins.toJSON { inherit policies; });
+  policiesJson = writeText "firefox-policies.json" (builtins.toJSON {inherit policies;});
 
-  defaultSource = lib.findFirst (sourceMatches "en-US") { } sources;
+  defaultSource = lib.findFirst (sourceMatches "en-US") {} sources;
 
   mozLocale =
-    if systemLocale == "ca_ES@valencia" then
-      "ca-valencia"
-    else
-      lib.replaceStrings [ "_" ] [ "-" ] systemLocale;
+    if systemLocale == "ca_ES@valencia"
+    then "ca-valencia"
+    else lib.replaceStrings ["_"] ["-"] systemLocale;
 
   source = lib.findFirst (sourceMatches mozLocale) defaultSource sources;
 
   pname = "firefox-${channel}-bin-unwrapped";
 in
+  stdenv.mkDerivation {
+    inherit pname version;
 
-stdenv.mkDerivation {
-  inherit pname version;
+    src = fetchurl {inherit (source) url sha256;};
 
-  src = fetchurl { inherit (source) url sha256; };
+    sourceRoot = lib.optional stdenv.hostPlatform.isDarwin ".";
 
-  sourceRoot = lib.optional stdenv.hostPlatform.isDarwin ".";
-
-  nativeBuildInputs =
-    [
-      wrapGAppsHook3
-    ]
-    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
-      autoPatchelfHook
-      patchelfUnstable
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      undmg
+    nativeBuildInputs =
+      [
+        wrapGAppsHook3
+      ]
+      ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
+        autoPatchelfHook
+        patchelfUnstable
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        undmg
+      ];
+    buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [
+      gtk3
+      adwaita-icon-theme
+      alsa-lib
+      dbus-glib
+      libXtst
     ];
-  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [
-    gtk3
-    adwaita-icon-theme
-    alsa-lib
-    dbus-glib
-    libXtst
-  ];
-  runtimeDependencies =
-    [
-      curl
-      pciutils
-    ]
-    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
-      libva.out
+    runtimeDependencies =
+      [
+        curl
+        pciutils
+      ]
+      ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
+        libva.out
+      ];
+    appendRunpaths = lib.optionals (!stdenv.hostPlatform.isDarwin) [
+      "${pipewire}/lib"
     ];
-  appendRunpaths = lib.optionals (!stdenv.hostPlatform.isDarwin) [
-    "${pipewire}/lib"
-  ];
-  # Firefox uses "relrhack" to manually process relocations from a fixed offset
-  patchelfFlags = [ "--no-clobber-old-sections" ];
+    # Firefox uses "relrhack" to manually process relocations from a fixed offset
+    patchelfFlags = ["--no-clobber-old-sections"];
 
-  # don't break code signing
-  dontFixup = stdenv.hostPlatform.isDarwin;
+    # don't break code signing
+    dontFixup = stdenv.hostPlatform.isDarwin;
 
-  installPhase =
-    if stdenv.hostPlatform.isDarwin then
-      ''
+    installPhase =
+      if stdenv.hostPlatform.isDarwin
+      then ''
         mkdir -p $out/Applications
         mv Firefox*.app "$out/Applications/${applicationName}.app"
       ''
-    else
-      ''
+      else ''
         mkdir -p "$prefix/lib/firefox-bin-${version}"
         cp -r * "$prefix/lib/firefox-bin-${version}"
 
@@ -132,69 +130,68 @@ stdenv.mkDerivation {
         ln -s ${policiesJson} "$out/lib/firefox-bin-${version}/distribution/policies.json";
       '';
 
-  passthru = {
-    inherit applicationName binaryName;
-    libName = "firefox-bin-${version}";
-    ffmpegSupport = true;
-    gssSupport = true;
-    gtk3 = gtk3;
+    passthru = {
+      inherit applicationName binaryName;
+      libName = "firefox-bin-${version}";
+      ffmpegSupport = true;
+      gssSupport = true;
+      gtk3 = gtk3;
 
-    # update with:
-    # $ nix-shell maintainers/scripts/update.nix --argstr package firefox-bin-unwrapped
-    updateScript = import ./update.nix {
-      inherit
-        pname
-        channel
-        lib
-        writeScript
-        xidel
-        coreutils
-        gnused
-        gnugrep
-        gnupg
-        curl
-        runtimeShell
-        ;
-      baseUrl =
-        if channel == "developer-edition" then
-          "https://archive.mozilla.org/pub/devedition/releases/"
-        else
-          "https://archive.mozilla.org/pub/firefox/releases/";
+      # update with:
+      # $ nix-shell maintainers/scripts/update.nix --argstr package firefox-bin-unwrapped
+      updateScript = import ./update.nix {
+        inherit
+          pname
+          channel
+          lib
+          writeScript
+          xidel
+          coreutils
+          gnused
+          gnugrep
+          gnupg
+          curl
+          runtimeShell
+          ;
+        baseUrl =
+          if channel == "developer-edition"
+          then "https://archive.mozilla.org/pub/devedition/releases/"
+          else "https://archive.mozilla.org/pub/firefox/releases/";
+      };
     };
-  };
 
-  meta = {
-    changelog = "https://www.mozilla.org/en-US/firefox/${version}/releasenotes/";
-    description = "Mozilla Firefox, free web browser (binary package)";
-    homepage = "https://www.mozilla.org/firefox/";
-    license = {
-      shortName = "firefox";
-      fullName = "Firefox Terms of Use";
-      url = "https://www.mozilla.org/about/legal/terms/firefox/";
-      # "You Are Responsible for the Consequences of Your Use of Firefox"
-      # (despite the heading, not an indemnity clause) states the following:
-      #
-      # > You agree that you will not use Firefox to infringe anyone’s rights
-      # > or violate any applicable laws or regulations.
-      # >
-      # > You will not do anything that interferes with or disrupts Mozilla’s
-      # > services or products (or the servers and networks which are connected
-      # > to Mozilla’s services).
-      #
-      # This conflicts with FSF freedom 0: "The freedom to run the program as
-      # you wish, for any purpose". (Why should Mozilla be involved in
-      # instances where you break your local laws just because you happen to
-      # use Firefox whilst doing it?)
-      free = false;
-      redistributable = true; # since MPL-2.0 still applies
+    meta = {
+      changelog = "https://www.mozilla.org/en-US/firefox/${version}/releasenotes/";
+      description = "Mozilla Firefox, free web browser (binary package)";
+      homepage = "https://www.mozilla.org/firefox/";
+      license = {
+        shortName = "firefox";
+        fullName = "Firefox Terms of Use";
+        url = "https://www.mozilla.org/about/legal/terms/firefox/";
+        # "You Are Responsible for the Consequences of Your Use of Firefox"
+        # (despite the heading, not an indemnity clause) states the following:
+        #
+        # > You agree that you will not use Firefox to infringe anyone’s rights
+        # > or violate any applicable laws or regulations.
+        # >
+        # > You will not do anything that interferes with or disrupts Mozilla’s
+        # > services or products (or the servers and networks which are connected
+        # > to Mozilla’s services).
+        #
+        # This conflicts with FSF freedom 0: "The freedom to run the program as
+        # you wish, for any purpose". (Why should Mozilla be involved in
+        # instances where you break your local laws just because you happen to
+        # use Firefox whilst doing it?)
+        free = false;
+        redistributable = true; # since MPL-2.0 still applies
+      };
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      platforms = builtins.attrNames mozillaPlatforms;
+      hydraPlatforms = [];
+      maintainers = with lib.maintainers; [
+        taku0
+        lovesegfault
+      ];
+      mainProgram = binaryName;
     };
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    platforms = builtins.attrNames mozillaPlatforms;
-    hydraPlatforms = [ ];
-    maintainers = with lib.maintainers; [
-      taku0
-      lovesegfault
-    ];
-    mainProgram = binaryName;
-  };
-}
+  }

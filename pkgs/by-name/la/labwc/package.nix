@@ -26,7 +26,6 @@
   xcbutilwm,
   xwayland,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "labwc";
   version = "0.8.4";
@@ -72,9 +71,9 @@ stdenv.mkDerivation (finalAttrs: {
     xwayland
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  mesonFlags = [ (lib.mesonEnable "xwayland" true) ];
+  mesonFlags = [(lib.mesonEnable "xwayland" true)];
 
   strictDeps = true;
 
@@ -82,16 +81,16 @@ stdenv.mkDerivation (finalAttrs: {
   versionCheckProgramArg = "--version";
 
   passthru = {
-    providedSessions = [ "labwc" ];
+    providedSessions = ["labwc"];
   };
 
   meta = {
     homepage = "https://github.com/labwc/labwc";
     description = "Wayland stacking compositor, inspired by Openbox";
     changelog = "https://github.com/labwc/labwc/blob/master/NEWS.md";
-    license = with lib.licenses; [ gpl2Plus ];
+    license = with lib.licenses; [gpl2Plus];
     mainProgram = "labwc";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (wayland.meta) platforms;
   };
 })

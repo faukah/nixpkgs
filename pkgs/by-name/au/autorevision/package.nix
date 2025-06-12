@@ -12,7 +12,6 @@
   gnugrep,
   gnused,
 }:
-
 stdenv.mkDerivation rec {
   pname = "autorevision";
   version = "1.22";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     docbook_xsl
   ];
 
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
 
   postInstall = ''
     sed -e "s|\<cmp\>|${diffutils}/bin/cmp|g" \
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     homepage = "https://autorevision.github.io/";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     mainProgram = "autorevision";
   };
 }

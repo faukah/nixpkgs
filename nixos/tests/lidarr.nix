@@ -1,14 +1,10 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "lidarr";
-  meta.maintainers = with lib.maintainers; [ etu ];
+  meta.maintainers = with lib.maintainers; [etu];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.lidarr.enable = true;
-    };
+  nodes.machine = {pkgs, ...}: {
+    services.lidarr.enable = true;
+  };
 
   testScript = ''
     start_all()

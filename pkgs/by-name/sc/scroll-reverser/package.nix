@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall
@@ -34,6 +34,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       stackptr
     ];
     platforms = lib.platforms.darwin;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 })

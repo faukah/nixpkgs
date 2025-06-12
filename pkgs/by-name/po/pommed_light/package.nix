@@ -11,7 +11,6 @@
   zlib,
   eject,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pommed-light";
   version = "1.51lw";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     substituteInPlace pommed/cd_eject.c --replace /usr/bin/eject ${eject}/bin/eject
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     pciutils
     libconfuse
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
       and the like.
     '';
     homepage = "https://github.com/bytbox/pommed-light";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     license = lib.licenses.gpl2Only;
   };
 }

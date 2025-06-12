@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "gnome-pomodoro-watcher";
   version = "0-unstable-2023-12-20";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage {
     description = "Helper tool to watch GNOME Pomodoro timer";
     homepage = "https://github.com/sei40kr/gnome-pomodoro-watcher";
     license = licenses.mit;
-    maintainers = with maintainers; [ sei40kr ];
+    maintainers = with maintainers; [sei40kr];
     mainProgram = "gnome-pomodoro-watcher";
   };
 }

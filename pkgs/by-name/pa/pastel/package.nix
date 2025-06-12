@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pastel";
   version = "0.10.0";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "pastel";
   };
 }

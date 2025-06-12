@@ -20,7 +20,6 @@
   torch,
   transformers,
 }:
-
 buildPythonPackage rec {
   pname = "outlines-core";
   version = "0.1.26";
@@ -74,7 +73,7 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs = [pytestCheckHook] ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTests = [
     # Tests that need to download from Hugging Face Hub.
@@ -83,13 +82,13 @@ buildPythonPackage rec {
     "test_reduced_vocabulary_with_rare_tokens"
   ];
 
-  pythonImportsCheck = [ "outlines_core" ];
+  pythonImportsCheck = ["outlines_core"];
 
   meta = {
     description = "Structured text generation (core)";
     homepage = "https://github.com/outlines-dev/outlines-core";
     changelog = "https://github.com/dottxt-ai/outlines-core/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ danieldk ];
+    maintainers = with lib.maintainers; [danieldk];
   };
 }

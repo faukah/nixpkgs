@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "gatekeeper";
   version = "3.19.1";
@@ -26,7 +25,7 @@ buildGoModule rec {
     "-X github.com/open-policy-agent/gatekeeper/v3/pkg/version.Version=${version}"
   ];
 
-  subPackages = [ "cmd/gator" ];
+  subPackages = ["cmd/gator"];
 
   postInstall = ''
     installShellCompletion --cmd gator \
@@ -40,6 +39,6 @@ buildGoModule rec {
     mainProgram = "gator";
     homepage = "https://github.com/open-policy-agent/gatekeeper";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

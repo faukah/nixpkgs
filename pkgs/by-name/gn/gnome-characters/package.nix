@@ -19,7 +19,6 @@
   gsettings-desktop-schemas,
   gnome-desktop,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-characters";
   version = "48.0";
@@ -61,14 +60,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-characters"; };
+    updateScript = gnome.updateScript {packageName = "gnome-characters";};
   };
 
   meta = with lib; {
     homepage = "https://apps.gnome.org/Characters/";
     description = "Simple utility application to find and insert unusual characters";
     mainProgram = "gnome-characters";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

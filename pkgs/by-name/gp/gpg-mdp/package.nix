@@ -3,11 +3,9 @@
   fetchFromGitHub,
   stdenv,
   nix-update-script,
-
   ncurses,
   gnupg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   # mdp renamed to gpg-mdp because there is a mdp package already.
   pname = "gpg-mdp";
@@ -16,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://tamentis.com/projects/mdp/";
     changelog = "https://github.com/tamentis/mdp/releases/tag/v${finalAttrs.version}";
-    license = [ lib.licenses.isc ];
+    license = [lib.licenses.isc];
     description = "Manage your passwords with GnuPG and a text editor";
   };
 
@@ -27,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Y92y70XkUbB+lhWAzEkCB/cvfUPPKIfu0yrlCS2pKn0=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   prePatch = ''
     substituteInPlace ./configure \
@@ -49,5 +47,5 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s $out/share/man/man1/mdp.1.gz $out/share/man/man1/gpg-mdp.1.gz
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 })

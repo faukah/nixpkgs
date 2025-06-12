@@ -9,7 +9,6 @@
   pkg-config,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fuse-7z-ng";
   version = "unstable-2014-06-08";
@@ -36,11 +35,11 @@ stdenv.mkDerivation rec {
     autoconf
     automake
   ];
-  buildInputs = [ fuse ];
+  buildInputs = [fuse];
 
   preConfigure = "./autogen.sh";
 
-  libs = lib.makeLibraryPath [ p7zip ]; # 'cause 7z.so is loaded manually
+  libs = lib.makeLibraryPath [p7zip]; # 'cause 7z.so is loaded manually
   postInstall = ''
     wrapProgram $out/bin/fuse-7z-ng --suffix LD_LIBRARY_PATH : "${libs}/p7zip"
 

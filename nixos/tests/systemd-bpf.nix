@@ -1,12 +1,11 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "systemd-bpf";
   meta = with lib.maintainers; {
-    maintainers = [ veehaitch ];
+    maintainers = [veehaitch];
   };
   nodes = {
     node1 = {
-      virtualisation.vlans = [ 1 ];
+      virtualisation.vlans = [1];
       networking = {
         useNetworkd = true;
         useDHCP = false;
@@ -21,7 +20,7 @@
     };
 
     node2 = {
-      virtualisation.vlans = [ 1 ];
+      virtualisation.vlans = [1];
       networking = {
         useNetworkd = true;
         useDHCP = false;

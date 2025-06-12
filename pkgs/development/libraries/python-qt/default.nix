@@ -8,7 +8,6 @@
   qtxmlpatterns,
   qttools,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "python-qt";
   version = "3.6.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     qtwebengine
   ];
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   qmakeFlags = [
     "PYTHON_DIR=${python3}"
@@ -61,6 +60,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://pythonqt.sourceforge.net/";
     license = licenses.lgpl21;
     platforms = platforms.all;
-    maintainers = with maintainers; [ hlolli ];
+    maintainers = with maintainers; [hlolli];
   };
 })

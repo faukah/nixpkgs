@@ -15,7 +15,6 @@
   libpulseaudio,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openal-soft";
   version = "1.24.2";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
     description = "OpenAL alternative";
     homepage = "https://openal-soft.org/";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ ftrvxmtrx ];
+    maintainers = with maintainers; [ftrvxmtrx];
     platforms = platforms.unix;
   };
 }

@@ -8,7 +8,6 @@
   gobject-introspection,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-menus";
   version = "3.36.0";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     gettext
     gobject-introspection
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   passthru = {
     updateScript = gnome.updateScript {

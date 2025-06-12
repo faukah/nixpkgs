@@ -3,7 +3,6 @@
   lib,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "snowmachine";
   version = "2.0.2";
@@ -21,13 +20,13 @@ python3Packages.buildPythonApplication rec {
   ];
 
   doCheck = false;
-  pythonImportsCheck = [ "snowmachine" ];
+  pythonImportsCheck = ["snowmachine"];
 
   meta = with lib; {
     description = "Python script that will make your terminal snow";
     homepage = "https://github.com/sontek/snowmachine";
     mainProgram = "snowmachine";
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
     maintainers = with maintainers; [
       djanatyn
       sontek

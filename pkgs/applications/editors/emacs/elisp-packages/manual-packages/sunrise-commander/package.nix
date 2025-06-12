@@ -3,7 +3,6 @@
   melpaBuild,
   fetchFromGitHub,
 }:
-
 melpaBuild {
   pname = "sunrise-commander";
   ename = "sunrise";
@@ -20,7 +19,7 @@ melpaBuild {
     homepage = "https://github.com/sunrise-commander/sunrise-commander/";
     description = "Orthodox (two-pane) file manager for Emacs";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 }

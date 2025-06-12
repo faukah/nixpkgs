@@ -34,11 +34,10 @@
   writeScript,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mame";
   version = "0.277";
-  srcVersion = builtins.replaceStrings [ "." ] [ "" ] version;
+  srcVersion = builtins.replaceStrings ["."] [""] version;
 
   src = fetchFromGitHub {
     owner = "mamedev";
@@ -166,34 +165,32 @@ stdenv.mkDerivation rec {
 
   # TODO: copy shaders from src/osd/modules/opengl/shader/glsl*.*h
   # to the final package after we figure out how they work
-  installPhase =
-    let
-      icon = fetchurl {
-        url = "https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/refs/heads/master/Papirus/32x32/apps/mame.svg";
-        hash = "sha256-s44Xl9UGizmddd/ugwABovM8w35P0lW9ByB69MIpG+E=";
-      };
-    in
-    ''
-      runHook preInstall
+  installPhase = let
+    icon = fetchurl {
+      url = "https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/refs/heads/master/Papirus/32x32/apps/mame.svg";
+      hash = "sha256-s44Xl9UGizmddd/ugwABovM8w35P0lW9ByB69MIpG+E=";
+    };
+  in ''
+    runHook preInstall
 
-      # mame
-      mkdir -p $out/opt/mame
+    # mame
+    mkdir -p $out/opt/mame
 
-      install -Dm755 mame -t $out/bin
-      install -Dm644 ${icon} $out/share/icons/hicolor/scalable/apps/mame.svg
-      installManPage docs/man/*.1 docs/man/*.6
-      cp -ar {artwork,bgfx,plugins,language,ctrlr,keymaps,hash} $out/opt/mame
+    install -Dm755 mame -t $out/bin
+    install -Dm644 ${icon} $out/share/icons/hicolor/scalable/apps/mame.svg
+    installManPage docs/man/*.1 docs/man/*.6
+    cp -ar {artwork,bgfx,plugins,language,ctrlr,keymaps,hash} $out/opt/mame
 
-      # mame-tools
-      for _tool in castool chdman floptool imgtool jedutil ldresample ldverify \
-                   nltool nlwav pngcmp regrep romcmp split srcclean testkeys \
-                   unidasm; do
-         install -Dm755 $_tool -t $tools/bin
-      done
-      mv $tools/bin/{,mame-}split
+    # mame-tools
+    for _tool in castool chdman floptool imgtool jedutil ldresample ldverify \
+                 nltool nlwav pngcmp regrep romcmp split srcclean testkeys \
+                 unidasm; do
+       install -Dm755 $_tool -t $tools/bin
+    done
+    mv $tools/bin/{,mame-}split
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   # man1 is the tools documentation, man6 is the emulator documentation
   # Need to be done in postFixup otherwise multi-output hook will move it back to $out
@@ -204,7 +201,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "-h";
 
   passthru.updateScript = writeScript "mame-update-script" ''

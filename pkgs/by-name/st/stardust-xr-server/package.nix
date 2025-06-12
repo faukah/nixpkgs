@@ -13,7 +13,6 @@
   pkg-config,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "stardust-xr-server";
   version = "0.44.1";
@@ -50,7 +49,7 @@ rustPlatform.buildRustPackage rec {
     install -D ${cpm-cmake}/share/cpm/CPM.cmake $(echo $cargoDepsCopy/stereokit-sys-*/StereoKit)/build/cpm/CPM_0.32.2.cmake
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Wayland compositor and display server for 3D applications";

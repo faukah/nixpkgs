@@ -19,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-yhqL0G4ohy11Hb1BMthjcSfCW0COo6NJN3MUpUkUJvM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "pwinput" ];
+  pythonImportsCheck = ["pwinput"];
 
   # Requires graphical environment to use pyautogui
   doCheck = false;
@@ -30,6 +30,6 @@ buildPythonPackage rec {
     description = "Python module that masks password input";
     homepage = "https://github.com/asweigart/pwinput";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bwkam ];
+    maintainers = with lib.maintainers; [bwkam];
   };
 }

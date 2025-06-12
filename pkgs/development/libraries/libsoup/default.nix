@@ -21,7 +21,6 @@
     lib.meta.availableOn stdenv.hostPlatform gobject-introspection
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libsoup";
   version = "2.74.3";
@@ -100,8 +99,16 @@ stdenv.mkDerivation rec {
     [
       "-Dtls_check=false" # glib-networking is a runtime dependency, not a compile-time dependency
       "-Dgssapi=disabled"
-      "-Dvapi=${if withIntrospection then "enabled" else "disabled"}"
-      "-Dintrospection=${if withIntrospection then "enabled" else "disabled"}"
+      "-Dvapi=${
+        if withIntrospection
+        then "enabled"
+        else "disabled"
+      }"
+      "-Dintrospection=${
+        if withIntrospection
+        then "enabled"
+        else "disabled"
+      }"
       "-Dgnome=${lib.boolToString gnomeSupport}"
       "-Dntlm=disabled"
     ]

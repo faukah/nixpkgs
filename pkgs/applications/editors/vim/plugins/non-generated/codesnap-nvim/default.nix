@@ -7,8 +7,7 @@
   rustPlatform,
   vimUtils,
   libuv,
-}:
-let
+}: let
   version = "1.6.3";
   src = fetchFromGitHub {
     owner = "mistricky";
@@ -35,35 +34,36 @@ let
     ];
   };
 in
-vimUtils.buildVimPlugin {
-  pname = "codesnap.nvim";
-  inherit version src;
+  vimUtils.buildVimPlugin {
+    pname = "codesnap.nvim";
+    inherit version src;
 
-  # - Remove the shipped pre-built binaries
-  # - Copy the resulting binary from the codesnap-lib derivation
-  # Note: the destination should be generator.so, even on darwin
-  # https://github.com/mistricky/codesnap.nvim/blob/main/scripts/build_generator.sh
-  postInstall =
-    let
-      extension = if stdenv.hostPlatform.isDarwin then "dylib" else "so";
-    in
-    ''
+    # - Remove the shipped pre-built binaries
+    # - Copy the resulting binary from the codesnap-lib derivation
+    # Note: the destination should be generator.so, even on darwin
+    # https://github.com/mistricky/codesnap.nvim/blob/main/scripts/build_generator.sh
+    postInstall = let
+      extension =
+        if stdenv.hostPlatform.isDarwin
+        then "dylib"
+        else "so";
+    in ''
       rm -r $out/lua/*.so
       cp ${codesnap-lib}/lib/libgenerator.${extension} $out/lua/generator.so
     '';
 
-  passthru = {
-    updateScript = nix-update-script {
-      attrPath = "vimPlugins.codesnap-nvim.codesnap-lib";
+    passthru = {
+      updateScript = nix-update-script {
+        attrPath = "vimPlugins.codesnap-nvim.codesnap-lib";
+      };
+
+      # needed for the update script
+      inherit codesnap-lib;
     };
 
-    # needed for the update script
-    inherit codesnap-lib;
-  };
-
-  meta = {
-    homepage = "https://github.com/mistricky/codesnap.nvim/";
-    changelog = "https://github.com/mistricky/codesnap.nvim/releases/tag/${src.tag}";
-    license = lib.licenses.mit;
-  };
-}
+    meta = {
+      homepage = "https://github.com/mistricky/codesnap.nvim/";
+      changelog = "https://github.com/mistricky/codesnap.nvim/releases/tag/${src.tag}";
+      license = lib.licenses.mit;
+    };
+  }

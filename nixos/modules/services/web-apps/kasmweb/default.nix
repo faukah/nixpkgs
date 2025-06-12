@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.kasmweb;
-in
-{
+in {
   options.services.kasmweb = {
     enable = lib.mkEnableOption "kasmweb";
 
@@ -135,8 +132,8 @@ in
           "docker-kasm_db.service"
           "podman-kasm_db.service"
         ];
-        wants = [ "network-online.target" ];
-        after = [ "network-online.target" ];
+        wants = ["network-online.target"];
+        after = ["network-online.target"];
         serviceConfig = {
           Type = "oneshot";
           TimeoutStartSec = 300;
@@ -154,7 +151,8 @@ in
               kasmweb = pkgs.kasmweb;
               postgresUser = "postgres";
               postgresPassword = "postgres";
-              inherit (cfg)
+              inherit
+                (cfg)
                 datastorePath
                 sslCertificate
                 sslCertificateKey
@@ -188,7 +186,7 @@ in
             "${cfg.datastorePath}/conf/database/:/tmp/"
             "kasmweb_db:/var/lib/postgresql/data"
           ];
-          extraOptions = [ "--network=kasm_default_network" ];
+          extraOptions = ["--network=kasm_default_network"];
         };
         kasm_db_init = {
           image = "kasmweb/api:${pkgs.kasmweb.version}";
@@ -198,9 +196,9 @@ in
             "${cfg.datastorePath}/:/opt/kasm/current/"
             "kasmweb_api_data:/tmp"
           ];
-          dependsOn = [ "kasm_db" ];
+          dependsOn = ["kasm_db"];
           entrypoint = "/bin/bash";
-          cmd = [ "/opt/kasm/current/init_seeds.sh" ];
+          cmd = ["/opt/kasm/current/init_seeds.sh"];
           extraOptions = [
             "--network=kasm_default_network"
             "--userns=host"
@@ -227,7 +225,7 @@ in
             "${cfg.datastorePath}/:/opt/kasm/current/"
             "kasmweb_api_data:/tmp"
           ];
-          dependsOn = [ "kasm_db_init" ];
+          dependsOn = ["kasm_db_init"];
           extraOptions = [
             "--network=kasm_default_network"
             "--userns=host"
@@ -261,7 +259,7 @@ in
             "${pkgs.docker}/bin/docker:/usr/bin/docker"
             "${cfg.datastorePath}/conf/nginx:/etc/nginx/conf.d"
           ];
-          dependsOn = [ "kasm_manager" ];
+          dependsOn = ["kasm_manager"];
           extraOptions = [
             "--network=kasm_default_network"
             "--userns=host"
@@ -306,7 +304,7 @@ in
         kasm_proxy = {
           image = "kasmweb/nginx:latest";
           autoStart = false;
-          ports = [ "${cfg.listenAddress}:${toString cfg.listenPort}:443" ];
+          ports = ["${cfg.listenAddress}:${toString cfg.listenPort}:443"];
           user = "root:root";
           volumes = [
             "${cfg.datastorePath}/conf/nginx:/etc/nginx/conf.d:ro"

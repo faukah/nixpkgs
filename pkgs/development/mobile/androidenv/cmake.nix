@@ -9,10 +9,9 @@
   stdenv,
   meta,
 }:
-
 deployAndroidPackage {
   inherit package os arch;
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
   buildInputs = lib.optionals (os == "linux") [
     pkgs.stdenv.cc.libc
     pkgs.stdenv.cc.cc
@@ -22,7 +21,9 @@ deployAndroidPackage {
     autoPatchelf $packageBaseDir/bin
   '';
 
-  meta = meta // {
-    license = lib.licenses.bsd3;
-  };
+  meta =
+    meta
+    // {
+      license = lib.licenses.bsd3;
+    };
 }

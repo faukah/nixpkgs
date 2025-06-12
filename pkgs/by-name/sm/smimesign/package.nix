@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "smimesign";
   version = "0.2.0";
@@ -31,6 +30,6 @@ buildGoModule rec {
     homepage = "https://github.com/github/smimesign";
     license = licenses.mit;
     platforms = platforms.darwin ++ platforms.windows;
-    maintainers = [ maintainers.enorris ];
+    maintainers = [maintainers.enorris];
   };
 }

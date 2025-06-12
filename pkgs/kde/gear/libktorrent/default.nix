@@ -9,8 +9,8 @@
 mkKdeDerivation {
   pname = "libktorrent";
 
-  extraNativeBuildInputs = [ doxygen ];
-  extraBuildInputs = [ qt5compat ];
+  extraNativeBuildInputs = [doxygen];
+  extraBuildInputs = [qt5compat];
   extraPropagatedBuildInputs = [
     boost
     gmp

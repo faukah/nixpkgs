@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "dcmstack";
   version = "0.9-unstable-2024-12-05";
@@ -25,7 +24,7 @@ buildPythonPackage {
     hash = "sha256-QXnBtlXkxYDJFdjiqCoEuBMcHnq+87YmHX8j5EPW7HU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     nibabel
@@ -34,9 +33,9 @@ buildPythonPackage {
     pint
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dcmstack" ];
+  pythonImportsCheck = ["dcmstack"];
 
   disabledTestPaths = [
     # AttributeError: 'TestNitoolCli' object has no attribute 'out_dir'
@@ -47,6 +46,6 @@ buildPythonPackage {
     description = "DICOM to Nifti conversion preserving metadata";
     homepage = "https://github.com/moloney/dcmstack";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

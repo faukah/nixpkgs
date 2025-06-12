@@ -9,7 +9,6 @@
   spdlog,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vowpal-wabbit";
   version = "9.10.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
       --replace-fail "add_library(RapidJSON INTERFACE)" ""
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     boost
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
       Machine learning system which pushes the frontier of machine learning with techniques such as online,
       hashing, allreduce, reductions, learning2search, active, and interactive and reinforcement learning
     '';
-    maintainers = with lib.maintainers; [ jackgerrits ];
+    maintainers = with lib.maintainers; [jackgerrits];
     platforms = lib.platforms.unix;
   };
 }

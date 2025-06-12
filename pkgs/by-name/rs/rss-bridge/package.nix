@@ -5,7 +5,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rss-bridge";
   version = "2025-06-03";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     tests = {
       inherit (nixosTests.rss-bridge) caddy nginx;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

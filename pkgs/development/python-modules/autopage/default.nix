@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "autopage";
   version = "0.5.2";
@@ -16,14 +15,14 @@ buildPythonPackage rec {
     hash = "sha256-gmmW10xaqfS2kWGVVHMSrGOEusOBC4UXBj8pMkgle3I=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "autopage" ];
+  pythonImportsCheck = ["autopage"];
 
   meta = with lib; {
     description = "Library to provide automatic paging for console output";
     homepage = "https://github.com/zaneb/autopage";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

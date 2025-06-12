@@ -14,7 +14,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pokefinder";
   version = "4.2.1";
@@ -70,14 +69,16 @@ stdenv.mkDerivation rec {
       icon = "pokefinder";
       comment = "Cross platform Pokémon RNG tool";
       desktopName = "PokéFinder";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
-  buildInputs = [
-    qtbase
-    qttools
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ qtwayland ];
+  buildInputs =
+    [
+      qtbase
+      qttools
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [qtwayland];
 
   passthru.updateScript = gitUpdater {
     rev-prefix = "v";
@@ -89,6 +90,6 @@ stdenv.mkDerivation rec {
     mainProgram = "PokeFinder";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ leo60228 ];
+    maintainers = with maintainers; [leo60228];
   };
 }

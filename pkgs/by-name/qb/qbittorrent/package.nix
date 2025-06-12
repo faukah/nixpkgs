@@ -17,7 +17,6 @@
   wrapGAppsHook3,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qbittorrent" + lib.optionalString (!guiSupport) "-nox";
   version = "5.1.0";
@@ -46,20 +45,20 @@ stdenv.mkDerivation (finalAttrs: {
       qt6.qttools
       zlib
     ]
-    ++ lib.optionals guiSupport [ dbus ]
-    ++ lib.optionals (guiSupport && stdenv.hostPlatform.isLinux) [ qt6.qtwayland ]
-    ++ lib.optionals trackerSearch [ python3 ];
+    ++ lib.optionals guiSupport [dbus]
+    ++ lib.optionals (guiSupport && stdenv.hostPlatform.isLinux) [qt6.qtwayland]
+    ++ lib.optionals trackerSearch [python3];
 
   cmakeFlags =
-    [ "-DVERBOSE_CONFIGURE=ON" ]
+    ["-DVERBOSE_CONFIGURE=ON"]
     ++ lib.optionals (!guiSupport) [
       "-DGUI=OFF"
       "-DSYSTEMD=ON"
       "-DSYSTEMD_SERVICES_INSTALL_DIR=${placeholder "out"}/lib/systemd/system"
     ]
-    ++ lib.optionals (!webuiSupport) [ "-DWEBUI=OFF" ];
+    ++ lib.optionals (!webuiSupport) ["-DWEBUI=OFF"];
 
-  qtWrapperArgs = lib.optionals trackerSearch [ "--prefix PATH : ${lib.makeBinPath [ python3 ]}" ];
+  qtWrapperArgs = lib.optionals trackerSearch ["--prefix PATH : ${lib.makeBinPath [python3]}"];
 
   dontWrapGApps = true;
 
@@ -74,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex=release-(.*)" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version-regex=release-(.*)"];};
 
   meta = {
     description = "Featureful free software BitTorrent client";

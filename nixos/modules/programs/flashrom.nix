@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.flashrom;
-in
-{
+in {
   options.programs.flashrom = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -19,11 +16,11 @@ in
         group.
       '';
     };
-    package = lib.mkPackageOption pkgs "flashrom" { };
+    package = lib.mkPackageOption pkgs "flashrom" {};
   };
 
   config = lib.mkIf cfg.enable {
-    services.udev.packages = [ cfg.package ];
-    environment.systemPackages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
+    environment.systemPackages = [cfg.package];
   };
 }

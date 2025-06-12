@@ -7,7 +7,6 @@
   pcsclite,
   pkg-config,
 }:
-
 buildGoModule rec {
   pname = "yubikey-agent";
 
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   buildInputs = lib.optional stdenv.hostPlatform.isLinux (lib.getDev pcsclite);
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
 
   postPatch = lib.optionalString stdenv.hostPlatform.isLinux ''
     substituteInPlace main.go --replace 'notify-send' ${libnotify}/bin/notify-send
@@ -31,7 +30,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"

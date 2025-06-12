@@ -4,16 +4,10 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.displayManager.xpra;
   dmcfg = config.services.xserver.displayManager;
-
-in
-
-{
+in {
   ###### interface
 
   options = {
@@ -49,7 +43,7 @@ in
 
       extraOptions = mkOption {
         description = "Extra xpra options";
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
       };
     };
@@ -58,7 +52,7 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    services.xserver.videoDrivers = [ "dummy" ];
+    services.xserver.videoDrivers = ["dummy"];
 
     services.xserver.monitorSection = ''
       HorizSync   1.0 - 2000.0
@@ -303,7 +297,9 @@ in
     services.displayManager.execCmd = ''
       ${optionalString (cfg.pulseaudio) "export PULSE_COOKIE=/run/pulse/.config/pulse/cookie"}
       exec ${pkgs.xpra}/bin/xpra ${
-        if cfg.desktop == null then "start" else "start-desktop --start=${cfg.desktop}"
+        if cfg.desktop == null
+        then "start"
+        else "start-desktop --start=${cfg.desktop}"
       } \
         --daemon=off \
         --log-dir=/var/log \
@@ -324,10 +320,9 @@ in
 
     services.xserver.terminateOnReset = false;
 
-    environment.systemPackages = [ pkgs.xpra ];
+    environment.systemPackages = [pkgs.xpra];
 
     services.pulseaudio.enable = mkDefault cfg.pulseaudio;
     services.pulseaudio.systemWide = mkDefault cfg.pulseaudio;
   };
-
 }

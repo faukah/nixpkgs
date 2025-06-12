@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "physac";
   version = "1.1-unstable-2023-12-11";
@@ -41,7 +40,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "2D physics header-only library for raylib";
     homepage = "https://github.com/victorfisac/Physac";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.unix;
   };
 })

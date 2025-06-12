@@ -12,7 +12,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "owslib";
   version = "0.34.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
       --replace-fail "--doctest-glob='tests/**/*.txt'" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     lxml
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "owslib" ];
+  pythonImportsCheck = ["owslib"];
 
   preCheck = ''
     # _pytest.pathlib.ImportPathMismatchError: ('owslib.swe.sensor.sml', '/build/source/build/...
@@ -70,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://www.osgeo.org/projects/owslib/";
     changelog = "https://github.com/geopython/OWSLib/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    teams = [ teams.geospatial ];
+    teams = [teams.geospatial];
   };
 }

@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "Wakapi";
 
   nodes = {
@@ -61,5 +60,5 @@
       wakapiSqlite.succeed("curl --fail http://localhost:3001")
   '';
 
-  meta.maintainers = [ lib.maintainers.NotAShelf ];
+  meta.maintainers = [lib.maintainers.NotAShelf];
 }

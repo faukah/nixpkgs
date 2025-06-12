@@ -7,7 +7,6 @@
   setuptools,
   smmap,
 }:
-
 buildPythonPackage rec {
   pname = "gitdb";
   version = "4.0.12";
@@ -24,13 +23,13 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonRelaxDeps = [ "smmap" ];
+  pythonRelaxDeps = ["smmap"];
 
-  propagatedBuildInputs = [ smmap ];
+  propagatedBuildInputs = [smmap];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "gitdb" ];
+  pythonImportsCheck = ["gitdb"];
 
   disabledTests = [
     # Tests need part which are not shipped with PyPI releases
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/gitpython-developers/gitdb";
     changelog = "https://github.com/gitpython-developers/gitdb/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

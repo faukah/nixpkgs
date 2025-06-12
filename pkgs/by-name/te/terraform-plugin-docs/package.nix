@@ -8,7 +8,6 @@
   terraform-plugin-docs,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "terraform-plugin-docs";
   version = "0.21.0";
@@ -22,7 +21,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-y69F/KF7cQvtZ4/ZNpw86l/xZgn4aTzmVBw1bs+AtZI=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   subPackages = [
     "cmd/tfplugindocs"
@@ -40,7 +39,7 @@ buildGoModule rec {
   ];
 
   postInstall = ''
-    wrapProgram $out/bin/tfplugindocs --prefix PATH : ${lib.makeBinPath [ go ]}
+    wrapProgram $out/bin/tfplugindocs --prefix PATH : ${lib.makeBinPath [go]}
   '';
 
   passthru = {
@@ -48,7 +47,7 @@ buildGoModule rec {
       command = "tfplugindocs --version";
       package = terraform-plugin-docs;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -57,6 +56,6 @@ buildGoModule rec {
     changelog = "https://github.com/hashicorp/terraform-plugin-docs/releases/tag/v${version}";
     license = lib.licenses.mpl20;
     mainProgram = "tfplugindocs";
-    maintainers = with lib.maintainers; [ lewo ];
+    maintainers = with lib.maintainers; [lewo];
   };
 }

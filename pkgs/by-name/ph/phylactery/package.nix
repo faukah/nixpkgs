@@ -4,7 +4,6 @@
   fetchzip,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "phylactery";
   version = "0.2.0";
@@ -28,7 +27,7 @@ buildGoModule rec {
     mainProgram = "phylactery";
     homepage = "https://trong.loang.net/phylactery/about";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ McSinyx ];
+    maintainers = with maintainers; [McSinyx];
     platforms = platforms.all;
   };
 }

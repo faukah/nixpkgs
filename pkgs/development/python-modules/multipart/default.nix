@@ -5,7 +5,6 @@
   flit-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "multipart";
   version = "1.2.1";
@@ -18,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-mQMv5atWrWpwyY9YYjaRYNDm5AfW54drPSKL7qiae+I=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "multipart" ];
+  pythonImportsCheck = ["multipart"];
 
   meta = {
     changelog = "https://github.com/defnull/multipart/blob/${src.rev}/CHANGELOG.rst";
     description = "Parser for multipart/form-data";
     homepage = "https://github.com/defnull/multipart";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

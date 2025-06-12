@@ -9,7 +9,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "chart-studio";
   version = "1.1.0-unstable-2024-07-23";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/packages/python/chart-studio";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     plotly
@@ -52,7 +51,7 @@ buildPythonPackage rec {
   meta = {
     description = "Utilities for interfacing with Plotly's Chart Studio service";
     homepage = "https://github.com/plotly/plotly.py/tree/master/packages/python/chart-studio";
-    license = with lib.licenses; [ mit ];
-    maintainers = [ ];
+    license = with lib.licenses; [mit];
+    maintainers = [];
   };
 }

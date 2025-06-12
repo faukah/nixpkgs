@@ -12,7 +12,6 @@
   mock,
   util-linux,
 }:
-
 buildPythonPackage rec {
   pname = "coloredlogs";
   version = "15.0.1";
@@ -34,9 +33,9 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ humanfriendly ];
+  dependencies = [humanfriendly];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -60,13 +59,13 @@ buildPythonPackage rec {
     "test_auto_install"
   ];
 
-  pythonImportsCheck = [ "coloredlogs" ];
+  pythonImportsCheck = ["coloredlogs"];
 
   meta = with lib; {
     description = "Colored stream handler for Python's logging module";
     mainProgram = "coloredlogs";
     homepage = "https://github.com/xolox/python-coloredlogs";
     license = licenses.mit;
-    maintainers = with maintainers; [ eyjhb ];
+    maintainers = with maintainers; [eyjhb];
   };
 }

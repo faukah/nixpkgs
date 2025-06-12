@@ -26,7 +26,6 @@
   qtdeclarative,
   validatePkgConfig,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "trust-store";
   version = "2.0.2";
@@ -132,14 +131,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = with lib; {
     description = "Common implementation of a trust store to be used by trusted helpers";
     homepage = "https://gitlab.com/ubports/development/core/trust-store";
     license = licenses.lgpl3Only;
-    teams = [ teams.lomiri ];
+    teams = [teams.lomiri];
     platforms = platforms.linux;
     pkgConfigModules = [
       "trust-store"

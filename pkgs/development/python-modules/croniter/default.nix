@@ -9,7 +9,6 @@
   pytz,
   tzlocal,
 }:
-
 buildPythonPackage rec {
   pname = "croniter";
   version = "6.0.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-N8UEsxOVYRSpg+ziwrB3kLHxCU/p2BzJRzkhR0glVXc=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     python-dateutil
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     tzlocal
   ];
 
-  pythonImportsCheck = [ "croniter" ];
+  pythonImportsCheck = ["croniter"];
 
   meta = with lib; {
     description = "Library to iterate over datetime object with cron like format";
     homepage = "https://github.com/kiorky/croniter";
     changelog = "https://github.com/kiorky/croniter/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

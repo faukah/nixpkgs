@@ -5,7 +5,6 @@
   pkg-config,
   oniguruma,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "codevis";
   version = "0.8.4";
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/sloganking/codevis";
     changelog = "https://github.com/sloganking/codevis/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "codevis";
   };
 }

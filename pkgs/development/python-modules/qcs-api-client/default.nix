@@ -21,7 +21,6 @@
   rfc3339,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "qcs-api-client";
   version = "0.26.5";
@@ -53,7 +52,7 @@ buildPythonPackage rec {
     "tenacity"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     attrs
@@ -78,13 +77,13 @@ buildPythonPackage rec {
   # Tests are failing on Python 3.11, Fatal Python error: Aborted
   doCheck = !(pythonAtLeast "3.11");
 
-  pythonImportsCheck = [ "qcs_api_client" ];
+  pythonImportsCheck = ["qcs_api_client"];
 
   meta = with lib; {
     description = "Python library for accessing the Rigetti QCS API";
     homepage = "https://qcs-api-client-python.readthedocs.io/";
     changelog = "https://github.com/rigetti/qcs-api-client-python/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

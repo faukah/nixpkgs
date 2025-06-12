@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "findimports";
   version = "2.5.2";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-W4GKnIYOh3bk18yviL7GfMyXoWNLFWWDhKur9id1a78=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "findimports" ];
+  pythonImportsCheck = ["findimports"];
 
   checkPhase = ''
     # Tests fails
@@ -42,7 +41,7 @@ buildPythonPackage rec {
       gpl2Only # or
       gpl3Only
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "findimports";
   };
 }

@@ -6,12 +6,9 @@
   esbuild,
   versionCheckHook,
   nix-update-script,
-}:
-
-let
+}: let
   esbuild' = esbuild.override {
-    buildGoModule =
-      args:
+    buildGoModule = args:
       buildGoModule (
         args
         // rec {
@@ -27,33 +24,33 @@ let
       );
   };
 in
-buildNpmPackage (finalAttrs: {
-  pname = "zx";
-  version = "8.5.4";
+  buildNpmPackage (finalAttrs: {
+    pname = "zx";
+    version = "8.5.4";
 
-  src = fetchFromGitHub {
-    owner = "google";
-    repo = "zx";
-    tag = finalAttrs.version;
-    hash = "sha256-328I8SgBIeTCNFH3Ahm9Zb1OCxwGuhWE/iWmDHElbsA=";
-  };
+    src = fetchFromGitHub {
+      owner = "google";
+      repo = "zx";
+      tag = finalAttrs.version;
+      hash = "sha256-328I8SgBIeTCNFH3Ahm9Zb1OCxwGuhWE/iWmDHElbsA=";
+    };
 
-  npmDepsHash = "sha256-R0pCoITmLQBj0T1iIXXN4clpEKDn9wkG5Ke0AedgnlQ=";
+    npmDepsHash = "sha256-R0pCoITmLQBj0T1iIXXN4clpEKDn9wkG5Ke0AedgnlQ=";
 
-  env.ESBUILD_BINARY_PATH = lib.getExe esbuild';
+    env.ESBUILD_BINARY_PATH = lib.getExe esbuild';
 
-  doInstallCheck = true;
+    doInstallCheck = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+    nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+    passthru.updateScript = nix-update-script {};
 
-  meta = {
-    description = "Tool for writing scripts using JavaScript";
-    homepage = "https://github.com/google/zx";
-    changelog = "https://github.com/google/zx/releases/tag/${finalAttrs.version}";
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jlbribeiro ];
-    mainProgram = "zx";
-  };
-})
+    meta = {
+      description = "Tool for writing scripts using JavaScript";
+      homepage = "https://github.com/google/zx";
+      changelog = "https://github.com/google/zx/releases/tag/${finalAttrs.version}";
+      license = lib.licenses.asl20;
+      maintainers = with lib.maintainers; [jlbribeiro];
+      mainProgram = "zx";
+    };
+  })

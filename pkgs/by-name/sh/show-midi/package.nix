@@ -13,7 +13,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "show-midi";
   version = "1.0.1";
@@ -78,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
       type = "Application";
       icon = "show-midi";
       desktopName = "ShowMIDI";
-      categories = [ "Audio" ];
+      categories = ["Audio"];
     })
   ];
 
@@ -96,7 +95,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Multi-platform GUI application to effortlessly visualize MIDI activity";
     homepage = "https://github.com/gbevin/ShowMIDI";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ minijackson ];
+    maintainers = with maintainers; [minijackson];
     mainProgram = "ShowMIDI";
     platforms = platforms.linux;
   };

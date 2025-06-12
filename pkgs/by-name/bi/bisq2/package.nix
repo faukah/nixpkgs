@@ -15,15 +15,12 @@
   zip,
   gnupg,
   coreutils,
-}:
-
-let
+}: let
   version = "2.1.7";
 
-  jdk = jdk23.override { enableJavaFX = true; };
+  jdk = jdk23.override {enableJavaFX = true;};
 
-  bisq-launcher =
-    args:
+  bisq-launcher = args:
     writeShellScript "bisq-launcher" ''
       rm -fR $HOME/.local/share/Bisq2/tor
 
@@ -47,130 +44,130 @@ let
     }
     ."E222AA02";
 in
-stdenvNoCC.mkDerivation rec {
-  inherit version;
+  stdenvNoCC.mkDerivation rec {
+    inherit version;
 
-  pname = "bisq2";
+    pname = "bisq2";
 
-  src = fetchurl {
-    url = "https://github.com/bisq-network/bisq2/releases/download/v${version}/Bisq-${version}.deb";
-    hash = "sha256-kNQbTZoHFR2qFw/Jjc9iaEews/oUOYoJanmbVH/vs44=";
+    src = fetchurl {
+      url = "https://github.com/bisq-network/bisq2/releases/download/v${version}/Bisq-${version}.deb";
+      hash = "sha256-kNQbTZoHFR2qFw/Jjc9iaEews/oUOYoJanmbVH/vs44=";
 
-    # Verify the upstream Debian package prior to extraction.
-    # See https://bisq.wiki/Bisq_2#Installation
-    # This ensures that a successful build of this Nix package requires the Debian
-    # package to pass verification.
-    nativeBuildInputs = [ gnupg ];
-    downloadToTemp = true;
+      # Verify the upstream Debian package prior to extraction.
+      # See https://bisq.wiki/Bisq_2#Installation
+      # This ensures that a successful build of this Nix package requires the Debian
+      # package to pass verification.
+      nativeBuildInputs = [gnupg];
+      downloadToTemp = true;
 
-    postFetch = ''
-      pushd $(mktemp -d)
-      export GNUPGHOME=./gnupg
-      mkdir -m 700 -p $GNUPGHOME
-      ln -s $downloadedFile ./Bisq-${version}.deb
-      ln -s ${signature} ./signature.asc
-      gpg --import ${publicKey}
-      gpg --batch --verify signature.asc Bisq-${version}.deb
-      popd
-      mv $downloadedFile $out
-    '';
-  };
+      postFetch = ''
+        pushd $(mktemp -d)
+        export GNUPGHOME=./gnupg
+        mkdir -m 700 -p $GNUPGHOME
+        ln -s $downloadedFile ./Bisq-${version}.deb
+        ln -s ${signature} ./signature.asc
+        gpg --import ${publicKey}
+        gpg --batch --verify signature.asc Bisq-${version}.deb
+        popd
+        mv $downloadedFile $out
+      '';
+    };
 
-  signature = fetchurl {
-    url = "https://github.com/bisq-network/bisq2/releases/download/v${version}/Bisq-${version}.deb.asc";
-    hash = "sha256-Cl9EIp+ycD8Tp/bx5dXQK206jZzrYJkI/U9ItfXDRWw=";
-  };
+    signature = fetchurl {
+      url = "https://github.com/bisq-network/bisq2/releases/download/v${version}/Bisq-${version}.deb.asc";
+      hash = "sha256-Cl9EIp+ycD8Tp/bx5dXQK206jZzrYJkI/U9ItfXDRWw=";
+    };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    dpkg
-    imagemagick
-    makeBinaryWrapper
-    zip
-    gnupg
-  ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "bisq2";
-      exec = "bisq2";
-      icon = "bisq2";
-      desktopName = "Bisq 2";
-      genericName = "Decentralized bitcoin exchange";
-      categories = [
-        "Network"
-        "P2P"
-      ];
-    })
-
-    (makeDesktopItem {
-      name = "bisq2-hidpi";
-      exec = "bisq2-hidpi";
-      icon = "bisq2";
-      desktopName = "Bisq 2 (HiDPI)";
-      genericName = "Decentralized bitcoin exchange";
-      categories = [
-        "Network"
-        "P2P"
-      ];
-    })
-  ];
-
-  unpackPhase = ''
-    dpkg -x $src .
-  '';
-
-  buildPhase = ''
-    # Replace the Tor binary embedded in tor.jar (which is in the zip archive tor.zip)
-    # with the Tor binary from Nixpkgs.
-
-    makeWrapper ${lib.getExe' tor "tor"} ./tor
-    zip tor.zip ./tor
-    zip opt/bisq2/lib/app/tor.jar tor.zip
-  '';
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/lib $out/bin
-    cp -r opt/bisq2/lib/app $out/lib
-
-    install -D -m 777 ${bisq-launcher ""} $out/bin/bisq2
-    substituteAllInPlace $out/bin/bisq2
-    wrapProgram $out/bin/bisq2 --prefix PATH : ${
-      lib.makeBinPath [
-        coreutils
-        tor
-      ]
-    }
-
-    install -D -m 777 ${bisq-launcher "-Dglass.gtk.uiScale=2.0"} $out/bin/bisq2-hidpi
-    substituteAllInPlace $out/bin/bisq2-hidpi
-    wrapProgram $out/bin/bisq2-hidpi --prefix PATH : ${
-      lib.makeBinPath [
-        coreutils
-        tor
-      ]
-    }
-
-    for n in 16 24 32 48 64 96 128 256; do
-      size=$n"x"$n
-      magick convert opt/bisq2/lib/Bisq2.png -resize $size bisq2.png
-      install -Dm644 -t $out/share/icons/hicolor/$size/apps bisq2.png
-    done;
-
-    runHook postInstall
-  '';
-
-  meta = with lib; {
-    description = "Decentralized bitcoin exchange network";
-    homepage = "https://bisq.network";
-    mainProgram = "bisq2";
-    sourceProvenance = with sourceTypes; [
-      binaryBytecode
+    nativeBuildInputs = [
+      copyDesktopItems
+      dpkg
+      imagemagick
+      makeBinaryWrapper
+      zip
+      gnupg
     ];
-    license = licenses.mit;
-    maintainers = with maintainers; [ emmanuelrosa ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+
+    desktopItems = [
+      (makeDesktopItem {
+        name = "bisq2";
+        exec = "bisq2";
+        icon = "bisq2";
+        desktopName = "Bisq 2";
+        genericName = "Decentralized bitcoin exchange";
+        categories = [
+          "Network"
+          "P2P"
+        ];
+      })
+
+      (makeDesktopItem {
+        name = "bisq2-hidpi";
+        exec = "bisq2-hidpi";
+        icon = "bisq2";
+        desktopName = "Bisq 2 (HiDPI)";
+        genericName = "Decentralized bitcoin exchange";
+        categories = [
+          "Network"
+          "P2P"
+        ];
+      })
+    ];
+
+    unpackPhase = ''
+      dpkg -x $src .
+    '';
+
+    buildPhase = ''
+      # Replace the Tor binary embedded in tor.jar (which is in the zip archive tor.zip)
+      # with the Tor binary from Nixpkgs.
+
+      makeWrapper ${lib.getExe' tor "tor"} ./tor
+      zip tor.zip ./tor
+      zip opt/bisq2/lib/app/tor.jar tor.zip
+    '';
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/lib $out/bin
+      cp -r opt/bisq2/lib/app $out/lib
+
+      install -D -m 777 ${bisq-launcher ""} $out/bin/bisq2
+      substituteAllInPlace $out/bin/bisq2
+      wrapProgram $out/bin/bisq2 --prefix PATH : ${
+        lib.makeBinPath [
+          coreutils
+          tor
+        ]
+      }
+
+      install -D -m 777 ${bisq-launcher "-Dglass.gtk.uiScale=2.0"} $out/bin/bisq2-hidpi
+      substituteAllInPlace $out/bin/bisq2-hidpi
+      wrapProgram $out/bin/bisq2-hidpi --prefix PATH : ${
+        lib.makeBinPath [
+          coreutils
+          tor
+        ]
+      }
+
+      for n in 16 24 32 48 64 96 128 256; do
+        size=$n"x"$n
+        magick convert opt/bisq2/lib/Bisq2.png -resize $size bisq2.png
+        install -Dm644 -t $out/share/icons/hicolor/$size/apps bisq2.png
+      done;
+
+      runHook postInstall
+    '';
+
+    meta = with lib; {
+      description = "Decentralized bitcoin exchange network";
+      homepage = "https://bisq.network";
+      mainProgram = "bisq2";
+      sourceProvenance = with sourceTypes; [
+        binaryBytecode
+      ];
+      license = licenses.mit;
+      maintainers = with maintainers; [emmanuelrosa];
+      platforms = ["x86_64-linux"];
+    };
+  }

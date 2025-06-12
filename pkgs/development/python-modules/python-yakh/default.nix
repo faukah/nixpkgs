@@ -2,14 +2,11 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # nativeCheckInputs
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   # NOTE that this is not https://pypi.org/project/yakh/
   pname = "python-yakh";
@@ -39,6 +36,6 @@ buildPythonPackage rec {
     description = "Yet Another Keypress Handler";
     homepage = "https://pypi.org/project/python-yakh";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

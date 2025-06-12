@@ -5,7 +5,6 @@
   lib,
   texliveMedium,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fastcap";
   version = "2.0-18Sep92";
@@ -94,7 +93,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.rle.mit.edu/cpg/research_codes.htm";
     license = licenses.mit;
-    maintainers = with maintainers; [ fbeffa ];
+    maintainers = with maintainers; [fbeffa];
     platforms = platforms.linux;
     mainProgram = "fastcap";
   };

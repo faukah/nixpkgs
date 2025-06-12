@@ -5,7 +5,6 @@
   testers,
   cbfmt,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cbfmt";
   version = "0.2.0";
@@ -29,6 +28,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "cbfmt";
     homepage = "https://github.com/lukas-reineke/cbfmt";
     license = licenses.mit;
-    maintainers = [ maintainers.stehessel ];
+    maintainers = [maintainers.stehessel];
   };
 }

@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     qt6Packages.wrapQtAppsHook
     qt6Packages.qmake
   ];
-  buildInputs = [ qt6Packages.qtwebengine ];
+  buildInputs = [qt6Packages.qtwebengine];
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "Perform the SAML single sign-on and easily retrieve the SVPNCOOKIE needed by openfortivpn";
     homepage = "https://github.com/gm-vm/openfortivpn-webview/tree/main";
     license = licenses.mit;
-    maintainers = [ lib.maintainers.jonboh ];
+    maintainers = [lib.maintainers.jonboh];
     platforms = platforms.linux;
     mainProgram = "openfortivpn-webview";
   };

@@ -5,7 +5,6 @@
   scdoc,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "himitsu";
   version = "0.8";
@@ -22,13 +21,13 @@ stdenv.mkDerivation (finalAttrs: {
     scdoc
   ];
 
-  installFlags = [ "PREFIX=${builtins.placeholder "out"}" ];
+  installFlags = ["PREFIX=${builtins.placeholder "out"}"];
 
   meta = with lib; {
     homepage = "https://himitsustore.org/";
     description = "Secret storage manager";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ auchter ];
+    maintainers = with maintainers; [auchter];
     inherit (hareHook.meta) platforms badPlatforms;
   };
 })

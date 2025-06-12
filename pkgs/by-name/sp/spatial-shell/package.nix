@@ -4,7 +4,6 @@
   fetchFromGitHub,
   scdoc,
 }:
-
 ocamlPackages.buildDunePackage rec {
   pname = "spatial-shell";
   version = "7";
@@ -31,7 +30,7 @@ ocamlPackages.buildDunePackage rec {
     homepage = "https://spatial-shell.app";
     changelog = "https://github.com/lthms/spatial-shell/blob/${src.rev}/CHANGES.md";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     mainProgram = "spatial";
     platforms = lib.platforms.linux;
   };

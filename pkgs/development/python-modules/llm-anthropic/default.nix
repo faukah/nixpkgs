@@ -11,7 +11,6 @@
   pytest-recording,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "llm-anthropic";
   version = "0.17";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "llm_anthropic" ];
+  pythonImportsCheck = ["llm_anthropic"];
 
   passthru.tests = llm.mkPluginTest llm-anthropic;
 
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-anthropic";
     changelog = "https://github.com/simonw/llm-anthropic/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ aos ];
+    maintainers = with lib.maintainers; [aos];
   };
 }

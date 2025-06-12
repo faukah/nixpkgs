@@ -17,7 +17,6 @@
   stdenv,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "switcheroo";
   version = "2.2.0";
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ imagemagick ]}"
+      --prefix PATH : "${lib.makeBinPath [imagemagick]}"
     )
   '';
 
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
   ) "-Wno-error=incompatible-function-pointer-types";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -75,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://apps.gnome.org/Converter/";
     license = lib.licenses.gpl3Plus;
     mainProgram = "switcheroo";
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.unix;
   };
 })

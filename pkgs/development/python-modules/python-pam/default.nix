@@ -7,7 +7,6 @@
   six,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "python-pam";
   version = "2.0.2";
@@ -26,16 +25,16 @@ buildPythonPackage rec {
       --replace 'find_library("pam_misc")' '"${pam}/lib/libpam_misc.so"'
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   propagatedBuildInputs = [
     six
     toml
   ];
 
-  pythonImportsCheck = [ "pam" ];
+  pythonImportsCheck = ["pam"];
 
   meta = with lib; {
     description = "Python pam module";

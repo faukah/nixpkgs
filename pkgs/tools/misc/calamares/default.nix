@@ -29,7 +29,6 @@
   # passthru.tests
   calamares-nixos,
 }:
-
 mkDerivation rec {
   pname = "calamares";
   version = "3.3.13";

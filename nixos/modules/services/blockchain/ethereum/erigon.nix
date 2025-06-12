@@ -3,26 +3,22 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.erigon;
 
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   configFile = settingsFormat.generate "config.toml" cfg.settings;
-in
-{
-
+in {
   options = {
     services.erigon = {
       enable = lib.mkEnableOption "Ethereum implementation on the efficiency frontier";
 
-      package = lib.mkPackageOption pkgs "erigon" { };
+      package = lib.mkPackageOption pkgs "erigon" {};
 
       extraArgs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         description = "Additional arguments passed to Erigon";
-        default = [ ];
+        default = [];
       };
 
       secretJwtPath = lib.mkOption {
@@ -107,8 +103,8 @@ in
 
     systemd.services.erigon = {
       description = "Erigon ethereum implemenntation";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         LoadCredential = "ERIGON_JWT:${cfg.secretJwtPath}";

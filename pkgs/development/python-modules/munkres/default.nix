@@ -6,7 +6,6 @@
   isPy3k,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "munkres";
   version = "1.1.4";
@@ -28,12 +27,12 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "http://bmc.github.com/munkres/";
     description = "Munkres algorithm for the Assignment Problem";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

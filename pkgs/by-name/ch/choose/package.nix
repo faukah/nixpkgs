@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "choose";
   version = "1.3.6";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "choose";
     homepage = "https://github.com/theryangeary/choose";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ sohalt ];
+    maintainers = with maintainers; [sohalt];
   };
 }

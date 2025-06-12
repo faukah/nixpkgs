@@ -3,7 +3,6 @@
   jasmin,
   jre,
 }:
-
 stdenv.mkDerivation {
   name = "jasmin-test-assemble-hello-world";
   meta.timeout = 60;

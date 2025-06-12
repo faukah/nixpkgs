@@ -4,7 +4,6 @@
   melpaBuild,
   unstableGitUpdater,
 }:
-
 melpaBuild {
   pname = "emacs-conflict";
   version = "0-unstable-2022-11-21";
@@ -16,12 +15,12 @@ melpaBuild {
     hash = "sha256-DIGvnotSQYIgHxGxtyCALHd8ZbrfkmdvjLXlkcqQ6v4=";
   };
 
-  passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+  passthru.updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
 
   meta = {
     homepage = "https://github.com/ibizaman/emacs-conflict";
     description = "Resolve conflicts happening when using file synchronization tools";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ibizaman ];
+    maintainers = with lib.maintainers; [ibizaman];
   };
 }

@@ -5,9 +5,7 @@
   rustPlatform,
   stdenv,
   nix-update-script,
-}:
-
-let
+}: let
   libExt = stdenv.hostPlatform.extensions.sharedLibrary;
 
   tsc-dyn = rustPlatform.buildRustPackage rec {
@@ -34,20 +32,20 @@ let
     '';
   };
 in
-melpaBuild {
-  pname = "tsc";
-  inherit (tsc-dyn) version src;
+  melpaBuild {
+    pname = "tsc";
+    inherit (tsc-dyn) version src;
 
-  files = ''("core/*.el" "${tsc-dyn}/lib/*")'';
+    files = ''("core/*.el" "${tsc-dyn}/lib/*")'';
 
-  passthru = {
-    inherit tsc-dyn;
-    updateScript = nix-update-script { attrPath = "emacsPackages.tsc.tsc-dyn"; };
-  };
+    passthru = {
+      inherit tsc-dyn;
+      updateScript = nix-update-script {attrPath = "emacsPackages.tsc.tsc-dyn";};
+    };
 
-  meta = {
-    description = "Core APIs of the Emacs binding for tree-sitter";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pimeys ];
-  };
-}
+    meta = {
+      description = "Core APIs of the Emacs binding for tree-sitter";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [pimeys];
+    };
+  }

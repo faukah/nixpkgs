@@ -10,7 +10,6 @@
   pycairo,
   pillow,
 }:
-
 buildPythonPackage rec {
   pname = "blackrenderer";
   version = "0.6.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    cairo = [ pycairo ];
+    cairo = [pycairo];
   };
 
   nativeCheckInputs = [
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     "Tests/test_glyph_render.py"
   ];
 
-  pythonImportsCheck = [ "blackrenderer" ];
+  pythonImportsCheck = ["blackrenderer"];
 
   meta = {
     description = "Renderer for OpenType COLR fonts, with multiple backends";
@@ -56,6 +55,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/BlackFoundryCom/black-renderer/releases/tag/v${version}";
     license = lib.licenses.asl20;
     mainProgram = "blackrenderer";
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
   };
 }

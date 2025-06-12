@@ -11,7 +11,6 @@
   scikit-build,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "parselmouth";
   version = "0.4.5";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   nativeCheckInputs = [
     future
@@ -52,13 +51,13 @@ buildPythonPackage rec {
     "-v"
   ];
 
-  pythonImportsCheck = [ "parselmouth" ];
+  pythonImportsCheck = ["parselmouth"];
 
   meta = {
     description = "Praat in Python, the Pythonic way";
     homepage = "https://github.com/YannickJadoul/Parselmouth";
     changelog = "https://github.com/YannickJadoul/Parselmouth/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ derdennisop ];
+    maintainers = with lib.maintainers; [derdennisop];
   };
 }

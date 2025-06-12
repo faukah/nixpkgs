@@ -4,16 +4,14 @@
   fetchFromGitHub,
   lmdb,
   ...
-}:
-
-{
+}: {
   pname = "gerbil-lmdb";
   version = "unstable-2023-09-23";
   git-version = "6d64813";
   gerbil-package = "clan";
-  gerbilInputs = [ ];
-  nativeBuildInputs = [ pkgs.pkg-config ];
-  buildInputs = [ lmdb ];
+  gerbilInputs = [];
+  nativeBuildInputs = [pkgs.pkg-config];
+  buildInputs = [lmdb];
   version-path = "";
   softwareName = "Gerbil-LMDB";
 
@@ -30,7 +28,7 @@
     homepage = "https://github.com/mighty-gerbils/gerbil-lmdb";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fare ];
+    maintainers = with maintainers; [fare];
   };
 
   # "-L${lmdb.out}/lib"

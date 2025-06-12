@@ -16,7 +16,6 @@
   # Boolean guards
   aria2Support ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "uget";
   version = "2.2.3-1";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.ugetdm.com";
     license = licenses.lgpl21;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
     mainProgram = "uget-gtk";
   };
 }

@@ -2,12 +2,9 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   pythonOlder,
-
   poetry-core,
 }:
-
 buildPythonPackage rec {
   pname = "spylls";
   version = "0.1.7";
@@ -26,7 +23,7 @@ buildPythonPackage rec {
     --replace-fail "poetry>=" "poetry-core>="
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   # no unit tests in source distribution...
   doCheck = false;
@@ -48,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zverok/spylls";
     changelog = "https://github.com/zverok/spylls/blob/master/CHANGELOG.rst";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ vizid ];
+    maintainers = with maintainers; [vizid];
   };
 }

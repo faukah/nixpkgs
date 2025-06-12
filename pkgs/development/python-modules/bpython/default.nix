@@ -15,7 +15,6 @@
   urwid,
   watchdog,
 }:
-
 buildPythonPackage rec {
   pname = "bpython";
   version = "0.25";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
       --replace-fail 'version = "unknown"' 'version = "${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     curtsies
@@ -45,10 +44,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    clipboard = [ pyperclip ];
-    jedi = [ jedi ];
-    urwid = [ urwid ];
-    watch = [ watchdog ];
+    clipboard = [pyperclip];
+    jedi = [jedi];
+    urwid = [urwid];
+    watch = [watchdog];
   };
 
   postInstall = ''
@@ -56,11 +55,13 @@ buildPythonPackage rec {
       --replace "Exec=/usr/bin/bpython" "Exec=bpython"
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "bpython" ];
+  pythonImportsCheck = ["bpython"];
 
   meta = with lib; {
     changelog = "https://github.com/bpython/bpython/blob/${src.tag}/CHANGELOG.rst";

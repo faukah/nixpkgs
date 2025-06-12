@@ -8,7 +8,6 @@
   setuptools-scm,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-ole";
   version = "3.11";
@@ -36,13 +35,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "dissect.ole" ];
+  pythonImportsCheck = ["dissect.ole"];
 
   meta = with lib; {
     description = "Dissect module implementing a parser for the Object Linking & Embedding (OLE) format";
     homepage = "https://github.com/fox-it/dissect.ole";
     changelog = "https://github.com/fox-it/dissect.ole/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

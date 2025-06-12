@@ -15,64 +15,62 @@
   portaudioSupport ? false,
   portaudio ? null,
 }:
-
 assert alsaSupport -> alsa-lib != null;
 assert jackSupport -> libjack2 != null;
 assert portaudioSupport -> portaudio != null;
+  mkDerivation rec {
+    pname = "fmit";
+    version = "1.2.14";
 
-mkDerivation rec {
-  pname = "fmit";
-  version = "1.2.14";
+    src = fetchFromGitHub {
+      owner = "gillesdegottex";
+      repo = "fmit";
+      rev = "v${version}";
+      sha256 = "1q062pfwz2vr9hbfn29fv54ip3jqfd9r99nhpr8w7mn1csy38azx";
+    };
 
-  src = fetchFromGitHub {
-    owner = "gillesdegottex";
-    repo = "fmit";
-    rev = "v${version}";
-    sha256 = "1q062pfwz2vr9hbfn29fv54ip3jqfd9r99nhpr8w7mn1csy38azx";
-  };
-
-  nativeBuildInputs = [
-    qmake
-    itstool
-    wrapQtAppsHook
-  ];
-  buildInputs =
-    [
-      fftw
-      qtbase
-      qtmultimedia
-    ]
-    ++ lib.optionals alsaSupport [ alsa-lib ]
-    ++ lib.optionals jackSupport [ libjack2 ]
-    ++ lib.optionals portaudioSupport [ portaudio ];
-
-  postPatch = ''
-    substituteInPlace fmit.pro --replace '$$FMITVERSIONGITPRO' '${version}'
-  '';
-
-  qmakeFlags =
-    [
-      "PREFIXSHORTCUT=${placeholder "out"}"
-    ]
-    ++ lib.optionals alsaSupport [
-      "CONFIG+=acs_alsa"
-    ]
-    ++ lib.optionals jackSupport [
-      "CONFIG+=acs_jack"
-    ]
-    ++ lib.optionals portaudioSupport [
-      "CONFIG+=acs_portaudio"
+    nativeBuildInputs = [
+      qmake
+      itstool
+      wrapQtAppsHook
     ];
+    buildInputs =
+      [
+        fftw
+        qtbase
+        qtmultimedia
+      ]
+      ++ lib.optionals alsaSupport [alsa-lib]
+      ++ lib.optionals jackSupport [libjack2]
+      ++ lib.optionals portaudioSupport [portaudio];
 
-  meta = with lib; {
-    description = "Free Musical Instrument Tuner";
-    longDescription = ''
-      FMIT is a graphical utility for tuning musical instruments, with error
-      and volume history, and advanced features.
+    postPatch = ''
+      substituteInPlace fmit.pro --replace '$$FMITVERSIONGITPRO' '${version}'
     '';
-    homepage = "http://gillesdegottex.github.io/fmit/";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ orivej ];
-    platforms = platforms.linux;
-  };
-}
+
+    qmakeFlags =
+      [
+        "PREFIXSHORTCUT=${placeholder "out"}"
+      ]
+      ++ lib.optionals alsaSupport [
+        "CONFIG+=acs_alsa"
+      ]
+      ++ lib.optionals jackSupport [
+        "CONFIG+=acs_jack"
+      ]
+      ++ lib.optionals portaudioSupport [
+        "CONFIG+=acs_portaudio"
+      ];
+
+    meta = with lib; {
+      description = "Free Musical Instrument Tuner";
+      longDescription = ''
+        FMIT is a graphical utility for tuning musical instruments, with error
+        and volume history, and advanced features.
+      '';
+      homepage = "http://gillesdegottex.github.io/fmit/";
+      license = licenses.gpl3Plus;
+      maintainers = with maintainers; [orivej];
+      platforms = platforms.linux;
+    };
+  }

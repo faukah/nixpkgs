@@ -4,15 +4,12 @@
   fetchFromGitea,
   makeWrapper,
   bash,
-
   git,
   nix-prefetch-git,
   rWrapper,
   rPackages,
-
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "git-unroll";
   version = "0-unstable-2024-11-04";
@@ -48,33 +45,33 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 unroll $out/bin/unroll
     wrapProgram $out/bin/unroll \
       --prefix PATH : ${
-        lib.makeBinPath [
-          git
-          nix-prefetch-git
-          (rWrapper.override {
-            packages = with rPackages; [
-              jsonlite
-              processx
-              dplyr
-              plyr
-              stringr
-            ];
-          })
-        ]
-      }
+      lib.makeBinPath [
+        git
+        nix-prefetch-git
+        (rWrapper.override {
+          packages = with rPackages; [
+            jsonlite
+            processx
+            dplyr
+            plyr
+            stringr
+          ];
+        })
+      ]
+    }
 
     runHook postInstall
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = {
     description = "Convert Git repositories with submodules to a Nix expression based on non-recursive Git sources";
     homepage = "https://codeberg.org/gm6k/git-unroll";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "unroll";
     platforms = lib.platforms.all;
   };

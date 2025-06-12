@@ -39,11 +39,13 @@ python3Packages.buildPythonApplication rec {
     "torchvision"
   ];
 
-  pythonImportsCheck = [ "rclip" ];
+  pythonImportsCheck = ["rclip"];
 
-  nativeCheckInputs = [
-    versionCheckHook
-  ] ++ (with python3Packages; [ pytestCheckHook ]);
+  nativeCheckInputs =
+    [
+      versionCheckHook
+    ]
+    ++ (with python3Packages; [pytestCheckHook]);
   versionCheckProgramArg = "--version";
 
   disabledTestPaths = [
@@ -63,7 +65,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/yurijmikhalevich/rclip";
     changelog = "https://github.com/yurijmikhalevich/rclip/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ iynaix ];
+    maintainers = with lib.maintainers; [iynaix];
     mainProgram = "rclip";
   };
 }

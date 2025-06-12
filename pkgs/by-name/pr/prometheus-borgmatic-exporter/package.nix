@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "prometheus-borgmatic-exporter";
   version = "0.3.0";
@@ -17,12 +16,12 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-QbpHSpcXJdmi6oiPTFT6XwNLtaXSAGavHeEoz3IV73I=";
   };
 
-  pythonRelaxDeps = [ "prometheus-client" ];
+  pythonRelaxDeps = ["prometheus-client"];
 
-  build-system = with python3Packages; [ poetry-core ];
+  build-system = with python3Packages; [poetry-core];
 
   propagatedBuildInputs =
-    [ borgmatic ]
+    [borgmatic]
     ++ (with python3Packages; [
       arrow
       click
@@ -44,7 +43,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/maxim-mityutko/borgmatic-exporter";
     changelog = "https://github.com/maxim-mityutko/borgmatic-exporter/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ flandweber ];
+    maintainers = with maintainers; [flandweber];
     mainProgram = "borgmatic-exporter";
     platforms = platforms.unix;
   };

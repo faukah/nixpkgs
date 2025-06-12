@@ -40,7 +40,6 @@
   nixosTests,
   gmobile,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "phosh";
   version = "0.44.1";
@@ -121,9 +120,9 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    providedSessions = [ "phosh" ];
+    providedSessions = ["phosh"];
     tests.phosh = nixosTests.phosh;
-    updateScript = directoryListingUpdater { };
+    updateScript = directoryListingUpdater {};
   };
 
   meta = with lib; {

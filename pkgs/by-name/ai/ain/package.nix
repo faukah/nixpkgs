@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "ain";
   version = "1.6.0";
@@ -31,7 +30,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/jonaslu/ain";
     changelog = "https://github.com/jonaslu/ain/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "ain";
   };
 })

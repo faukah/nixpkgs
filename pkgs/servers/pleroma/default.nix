@@ -14,7 +14,6 @@
   fetchpatch,
   ...
 }:
-
 beamPackages.mixRelease rec {
   pname = "pleroma";
   version = "2.9.1";
@@ -27,7 +26,7 @@ beamPackages.mixRelease rec {
     sha256 = "sha256-mZcr+LlRQFDZVU5yAm0XkFdFHCDp4DZNLoVUlWxknMI=";
   };
 
-  patches = [ ./Revert-Config-Restrict-permissions-of-OTP-config.patch ];
+  patches = [./Revert-Config-Restrict-permissions-of-OTP-config.patch];
 
   mixNixDeps = import ./mix.nix {
     inherit beamPackages lib;
@@ -77,7 +76,7 @@ beamPackages.mixRelease rec {
           rev = "90f6ce7672f70f56708792a98d98bd05176c9176";
           sha256 = "sha256-s7EuAhmCsQA/4p2NJHJSWB/DZ5hA+7EelPsUOvKr2Po=";
         };
-        beamDeps = [ ];
+        beamDeps = [];
       };
       prometheus_ex = beamPackages.buildMix {
         name = "prometheus_ex";
@@ -89,7 +88,7 @@ beamPackages.mixRelease rec {
           rev = "31f7fbe4b71b79ba27efc2a5085746c4011ceb8f";
           hash = "sha256-2PZP+YnwnHt69HtIAQvjMBqBbfdbkRSoMzb1AL2Zsyc=";
         };
-        beamDeps = with final; [ prometheus ];
+        beamDeps = with final; [prometheus];
       };
       remote_ip = beamPackages.buildMix {
         name = "remote_ip";
@@ -108,7 +107,7 @@ beamPackages.mixRelease rec {
           inet_cidr
         ];
       };
-      majic = prev.majic.override { buildInputs = [ file ]; };
+      majic = prev.majic.override {buildInputs = [file];};
       # Some additional build inputs and build fixes
       http_signatures = prev.http_signatures.override {
         patchPhase = ''
@@ -116,14 +115,14 @@ beamPackages.mixRelease rec {
         '';
       };
       fast_html = prev.fast_html.override {
-        nativeBuildInputs = [ cmake ];
+        nativeBuildInputs = [cmake];
         dontUseCmakeConfigure = true;
       };
 
-      syslog = prev.syslog.override { buildPlugins = with beamPackages; [ pc ]; };
+      syslog = prev.syslog.override {buildPlugins = with beamPackages; [pc];};
 
       vix = prev.vix.override {
-        nativeBuildInputs = [ pkg-config ];
+        nativeBuildInputs = [pkg-config];
         buildInputs = [
           vips
           glib.dev
@@ -146,9 +145,9 @@ beamPackages.mixRelease rec {
         patchPhase = ''
           echo '{plugins, [pc]}.' >> rebar.config
         '';
-        buildPlugins = with beamPackages; [ pc ];
+        buildPlugins = with beamPackages; [pc];
 
-        beamDeps = with final; [ p1_utils ];
+        beamDeps = with final; [p1_utils];
       };
       # Required by eimp
       p1_utils = beamPackages.buildRebar3 rec {
@@ -161,27 +160,25 @@ beamPackages.mixRelease rec {
           sha256 = "120znzz0yw1994nk6v28zql9plgapqpv51n9g6qm6md1f4x7gj0z";
         };
 
-        beamDeps = [ ];
+        beamDeps = [];
       };
 
       mime = prev.mime.override {
-        patchPhase =
-          let
-            cfgFile = writeText "config.exs" ''
-              use Mix.Config
-              config :mime, :types, %{
-                "application/activity+json" => ["activity+json"],
-                "application/jrd+json" => ["jrd+json"],
-                "application/ld+json" => ["activity+json"],
-                "application/xml" => ["xml"],
-                "application/xrd+xml" => ["xrd+xml"]
-              }
-            '';
-          in
-          ''
-            mkdir config
-            cp ${cfgFile} config/config.exs
+        patchPhase = let
+          cfgFile = writeText "config.exs" ''
+            use Mix.Config
+            config :mime, :types, %{
+              "application/activity+json" => ["activity+json"],
+              "application/jrd+json" => ["jrd+json"],
+              "application/ld+json" => ["activity+json"],
+              "application/xml" => ["xml"],
+              "application/xrd+xml" => ["xrd+xml"]
+            }
           '';
+        in ''
+          mkdir config
+          cp ${cfgFile} config/config.exs
+        '';
       };
     };
   };

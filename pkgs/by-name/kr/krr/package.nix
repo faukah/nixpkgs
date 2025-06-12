@@ -5,7 +5,6 @@
   testers,
   krr,
 }:
-
 python3.pkgs.buildPythonPackage rec {
   pname = "krr";
   version = "1.7.1";
@@ -67,7 +66,7 @@ python3.pkgs.buildPythonPackage rec {
     homepage = "https://github.com/robusta-dev/krr";
     changelog = "https://github.com/robusta-dev/krr/releases/tag/v${src.rev}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "krr";
   };
 }

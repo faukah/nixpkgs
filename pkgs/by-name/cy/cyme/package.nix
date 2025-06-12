@@ -9,7 +9,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cyme";
   version = "2.2.2";
@@ -56,14 +55,14 @@ rustPlatform.buildRustPackage rec {
   versionCheckProgram = "${placeholder "out"}/bin/${meta.mainProgram}";
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/tuna-f1sh/cyme";
     changelog = "https://github.com/tuna-f1sh/cyme/releases/tag/${src.rev}";
     description = "Modern cross-platform lsusb";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ h7x4 ];
+    maintainers = with maintainers; [h7x4];
     platforms = platforms.linux ++ platforms.darwin ++ platforms.windows;
     mainProgram = "cyme";
   };

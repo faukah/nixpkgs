@@ -31,7 +31,6 @@
   tabulate,
   wcwidth,
 }:
-
 buildPythonPackage rec {
   pname = "meshtastic";
   version = "2.6.3";
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     "protobuf"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     bleak
@@ -86,19 +85,21 @@ buildPythonPackage rec {
       pyarrow
       riden
     ];
-    tunnel = [ pytap2 ];
+    tunnel = [pytap2];
   };
 
-  nativeCheckInputs = [
-    hypothesis
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      hypothesis
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   preCheck = ''
     export PATH="$PATH:$out/bin";
   '';
 
-  pythonImportsCheck = [ "meshtastic" ];
+  pythonImportsCheck = ["meshtastic"];
 
   disabledTestPaths = [
     # Circular import with dash-bootstrap-components
@@ -126,6 +127,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/meshtastic/python";
     changelog = "https://github.com/meshtastic/python/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

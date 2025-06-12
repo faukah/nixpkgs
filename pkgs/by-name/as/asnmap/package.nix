@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "asnmap";
   version = "1.1.1";
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/asnmap";
     changelog = "https://github.com/projectdiscovery/asnmap/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "asnmap";
   };
 }

@@ -9,7 +9,6 @@
   popt,
   libintl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "exif";
   version = "0.6.22";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "libexif";
     repo = "exif";
-    rev = "exif-${builtins.replaceStrings [ "." ] [ "_" ] version}-release";
+    rev = "exif-${builtins.replaceStrings ["."] ["_"] version}-release";
     sha256 = "1xlb1gdwxm3rmw7vlrynhvjp9dkwmvw23mxisdbdmma7ah2nda3i";
   };
 

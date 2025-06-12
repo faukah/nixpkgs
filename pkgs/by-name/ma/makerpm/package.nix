@@ -6,7 +6,6 @@
   libarchive,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.0";
   pname = "makerpm";
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
     mainProgram = "makerpm";
     license = licenses.free;
     platforms = platforms.all;
-    maintainers = [ maintainers.ivan-tkatchev ];
+    maintainers = [maintainers.ivan-tkatchev];
   };
 }

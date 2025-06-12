@@ -10,7 +10,6 @@
   requests,
   requests-oauthlib,
 }:
-
 buildPythonPackage rec {
   pname = "garth";
   version = "0.5.12";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-bzEPHhIg6F/WQOUoXuaVlZGxn9PU8VdevA/DQuQ7fBw=";
   };
 
-  pythonRelaxDeps = [ "requests-oauthlib" ];
+  pythonRelaxDeps = ["requests-oauthlib"];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     pydantic
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "garth" ];
+  pythonImportsCheck = ["garth"];
 
   disabledTests = [
     # Tests require network access
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/matin/garth";
     changelog = "https://github.com/matin/garth/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -9,7 +9,6 @@
   openssl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aerospike-server";
   version = "8.0.0.7";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     mainProgram = "asd";
     homepage = "https://aerospike.com/";
     license = licenses.agpl3Only;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ kalbasit ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [kalbasit];
   };
 }

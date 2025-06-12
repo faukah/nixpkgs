@@ -6,7 +6,6 @@
   makeWrapper,
   freeipmi,
 }:
-
 buildGoModule rec {
   pname = "ipmi_exporter";
   version = "1.10.0";
@@ -20,13 +19,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-OXVUFamFv1BZTXuIfmaYHc1y9B9j4ndo1/2CGLNavh0=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
-    wrapProgram $out/bin/ipmi_exporter --prefix PATH : ${lib.makeBinPath [ freeipmi ]}
+    wrapProgram $out/bin/ipmi_exporter --prefix PATH : ${lib.makeBinPath [freeipmi]}
   '';
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) ipmi; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) ipmi;};
 
   ldflags = [
     "-s"
@@ -44,6 +43,6 @@ buildGoModule rec {
     homepage = "https://github.com/prometheus-community/ipmi_exporter";
     changelog = "https://github.com/prometheus-community/ipmi_exporter/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ snaar ];
+    maintainers = with maintainers; [snaar];
   };
 }

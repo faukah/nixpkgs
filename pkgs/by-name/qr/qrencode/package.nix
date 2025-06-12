@@ -7,7 +7,6 @@
   libpng,
   libiconv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qrencode";
   version = "4.1.1";
@@ -24,14 +23,14 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-2kSO1PUqumvLDNSMrA3VG4aSvMxM0SdDFAL8pvgXHo4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libiconv
     libpng
   ];
 
-  nativeCheckInputs = [ SDL2 ];
+  nativeCheckInputs = [SDL2];
 
   doCheck = false;
 
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.tests = finalAttrs.finalPackage.overrideAttrs (_: {
-    configureFlags = [ "--with-tests" ];
+    configureFlags = ["--with-tests"];
     doCheck = true;
   });
 
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
       such as a mobile phone with CCD.
     '';
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
     mainProgram = "qrencode";
   };

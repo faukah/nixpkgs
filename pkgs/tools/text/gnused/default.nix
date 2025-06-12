@@ -5,7 +5,6 @@
   updateAutotoolsGnuConfigScriptsHook,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnused";
   version = "4.9";
@@ -27,7 +26,10 @@ stdenv.mkDerivation rec {
   preConfigure = "patchShebangs ./build-aux/help2man";
 
   # Prevents attempts of running 'help2man' on cross-built binaries.
-  PERL = if stdenv.hostPlatform == stdenv.buildPlatform then null else "missing";
+  PERL =
+    if stdenv.hostPlatform == stdenv.buildPlatform
+    then null
+    else "missing";
 
   meta = {
     homepage = "https://www.gnu.org/software/sed/";
@@ -45,7 +47,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
 
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ mic92 ];
+    maintainers = with lib.maintainers; [mic92];
     mainProgram = "sed";
   };
 }

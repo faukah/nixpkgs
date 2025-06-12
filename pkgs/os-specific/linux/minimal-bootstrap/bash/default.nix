@@ -16,8 +16,7 @@
   derivationWithMeta,
   bash,
   coreutils,
-}:
-let
+}: let
   pname = "bash";
   version = "5.2.15";
 
@@ -31,7 +30,7 @@ let
     ./mksignames-flush.patch
   ];
 in
-bootBash.runCommand "${pname}-${version}"
+  bootBash.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -48,8 +47,7 @@ bootBash.runCommand "${pname}-${version}"
       diffutils
     ];
 
-    passthru.runCommand =
-      name: env: buildCommand:
+    passthru.runCommand = name: env: buildCommand:
       derivationWithMeta (
         {
           inherit name buildCommand;
@@ -72,23 +70,22 @@ bootBash.runCommand "${pname}-${version}"
               bash -eux $buildCommandPath
             '')
           ];
-          passAsFile = [ "buildCommand" ];
+          passAsFile = ["buildCommand"];
 
           SHELL = "${bash}/bin/bash";
           PATH = lib.makeBinPath (
-            (env.nativeBuildInputs or [ ])
+            (env.nativeBuildInputs or [])
             ++ [
               bash
               coreutils
             ]
           );
         }
-        // (builtins.removeAttrs env [ "nativeBuildInputs" ])
+        // (builtins.removeAttrs env ["nativeBuildInputs"])
       );
 
-    passthru.tests.get-version =
-      result:
-      bootBash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bootBash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/bash --version
         mkdir $out
       '';
@@ -97,7 +94,7 @@ bootBash.runCommand "${pname}-${version}"
       description = "GNU Bourne-Again Shell, the de facto standard shell on Linux";
       homepage = "https://www.gnu.org/software/bash";
       license = licenses.gpl3Plus;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       platforms = platforms.unix;
     };
   }

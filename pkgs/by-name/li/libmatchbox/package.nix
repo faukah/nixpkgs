@@ -10,7 +10,6 @@
   pango,
   libjpeg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmatchbox";
   version = "1.11";

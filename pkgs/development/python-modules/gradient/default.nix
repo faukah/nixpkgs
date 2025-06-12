@@ -21,7 +21,6 @@
   terminaltables,
   websocket-client,
 }:
-
 buildPythonPackage rec {
   pname = "gradient";
   version = "2.0.6";
@@ -78,6 +77,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Paperspace/gradient-cli";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

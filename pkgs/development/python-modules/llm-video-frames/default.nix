@@ -6,7 +6,6 @@
   llm,
   llm-video-frames,
 }:
-
 buildPythonPackage rec {
   pname = "llm-video-frames";
   version = "0.1";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-brTyBymoFuvSQzsD/4aWzFGCrh3yEmWbpsUNGKT9dcU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ llm ];
+  dependencies = [llm];
 
-  pythonImportsCheck = [ "llm_video_frames" ];
+  pythonImportsCheck = ["llm_video_frames"];
 
   passthru.tests = llm.mkPluginTest llm-video-frames;
 
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-video-frames";
     changelog = "https://github.com/simonw/llm-video-frames/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

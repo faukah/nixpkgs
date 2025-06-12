@@ -17,7 +17,6 @@
   setuptools-rust,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "dulwich";
   version = "0.22.8";
@@ -42,24 +41,26 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    fastimport = [ fastimport ];
-    https = [ urllib3 ];
+    fastimport = [fastimport];
+    https = [urllib3];
     pgp = [
       gpgme
       gnupg
     ];
-    paramiko = [ paramiko ];
+    paramiko = [paramiko];
   };
 
-  nativeCheckInputs = [
-    gevent
-    geventhttpclient
-    git
-    glibcLocales
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      gevent
+      geventhttpclient
+      git
+      glibcLocales
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   disabledTests = [
     # AssertionError: 'C:\\\\foo.bar\\\\baz' != 'C:\\foo.bar\\baz'
@@ -73,7 +74,7 @@ buildPythonPackage rec {
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  pythonImportsCheck = [ "dulwich" ];
+  pythonImportsCheck = ["dulwich"];
 
   meta = with lib; {
     description = "Implementation of the Git file formats and protocols";
@@ -87,6 +88,6 @@ buildPythonPackage rec {
       asl20
       gpl2Plus
     ];
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
   };
 }

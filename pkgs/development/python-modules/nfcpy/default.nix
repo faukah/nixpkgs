@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "nfcpy";
   version = "1.0.4";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "nfc" ];
+  pythonImportsCheck = ["nfc"];
 
   disabledTestPaths = [
     # AttributeError: 'NoneType' object has no attribute 'EC_KEY'
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/nfcpy/nfcpy";
     changelog = "https://github.com/nfcpy/nfcpy/blob/v${version}/HISTORY.rst";
     license = licenses.eupl11;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

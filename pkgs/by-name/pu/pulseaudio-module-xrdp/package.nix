@@ -8,7 +8,6 @@
   nixosTests,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pulseaudio-module-xrdp";
   version = "0.8";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     tests = {
       inherit (nixosTests) xrdp-with-audio-pulseaudio;
     };
@@ -58,8 +57,8 @@ stdenv.mkDerivation rec {
     description = "xrdp sink/source pulseaudio modules";
     homepage = "https://github.com/neutrinolabs/pulseaudio-module-xrdp";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ lucasew ];
+    maintainers = with maintainers; [lucasew];
     platforms = platforms.linux;
-    sourceProvenance = [ sourceTypes.fromSource ];
+    sourceProvenance = [sourceTypes.fromSource];
   };
 }

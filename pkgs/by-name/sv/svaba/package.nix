@@ -6,7 +6,6 @@
   xz,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.1.0";
   pname = "svaba";
@@ -45,12 +44,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     description = "Structural variant and INDEL caller for DNA sequencing data, using genome-wide local assembly";
     mainProgram = "svaba";
     license = licenses.gpl3;
     homepage = "https://github.com/walaj/svaba";
-    maintainers = with maintainers; [ scalavision ];
+    maintainers = with maintainers; [scalavision];
     platforms = platforms.linux;
     longDescription = ''
       SvABA is a method for detecting structural variants in sequencing data
@@ -63,6 +62,5 @@ stdenv.mkDerivation rec {
       These contigs are then immediately aligned to the reference with BWA-MEM and parsed to identify variants.
       Sequencing reads are then realigned to the contigs with BWA-MEM, and variants are scored by their read support.
     '';
-
   };
 }

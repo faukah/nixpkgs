@@ -7,7 +7,6 @@
   nodejs,
   nixosTests,
 }:
-
 buildNpmPackage rec {
   pname = "uptime-kuma";
   version = "1.23.16";
@@ -27,7 +26,7 @@ buildNpmPackage rec {
     ./fix-database-permissions.patch
   ];
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   CYPRESS_INSTALL_BINARY = 0; # Stops Cypress from trying to download binaries
 
@@ -52,7 +51,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/louislam/uptime-kuma";
     changelog = "https://github.com/louislam/uptime-kuma/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ julienmalka ];
+    maintainers = with lib.maintainers; [julienmalka];
     # FileNotFoundError: [Errno 2] No such file or directory: 'xcrun'
     broken = stdenv.hostPlatform.isDarwin;
   };

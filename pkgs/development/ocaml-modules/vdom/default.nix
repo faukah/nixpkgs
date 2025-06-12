@@ -6,7 +6,6 @@
   gen_js_api,
   ojs,
 }:
-
 buildDunePackage rec {
   pname = "vdom";
   version = "0.3";
@@ -34,6 +33,6 @@ buildDunePackage rec {
     homepage = "https://github.com/LexiFi/ocaml-vdom";
     description = "Elm architecture and (V)DOM for OCaml";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jayesh-bhoot ];
+    maintainers = with lib.maintainers; [jayesh-bhoot];
   };
 }

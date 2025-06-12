@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libX11,
 }:
-
 stdenv.mkDerivation {
   pname = "disk-indicator";
   version = "unstable-2018-12-18";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-cRqgIxF6H1WyJs5hhaAXVdWAlv6t22BZLp3p/qRlCSM=";
   };
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   postPatch = ''
     # avoid -Werror

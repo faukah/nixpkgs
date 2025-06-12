@@ -6,7 +6,6 @@
   nix,
   unstableGitUpdater,
 }:
-
 buildNpmPackage rec {
   pname = "bower2nix";
   version = "3.2.0-unstable-2024-06-25";
@@ -31,7 +30,7 @@ buildNpmPackage rec {
     }"
   ];
 
-  passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
+  passthru.updateScript = unstableGitUpdater {tagPrefix = "v";};
 
   meta = {
     changelog = "https://github.com/rvl/bower2nix/releases/tag/v${version}";
@@ -39,6 +38,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/rvl/bower2nix";
     license = lib.licenses.gpl3Only;
     mainProgram = "bower2nix";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

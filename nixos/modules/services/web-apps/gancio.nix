@@ -3,11 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.gancio;
-  settingsFormat = pkgs.formats.json { };
-  inherit (lib)
+  settingsFormat = pkgs.formats.json {};
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
@@ -22,16 +22,15 @@ let
     mkMerge
     mkDefault
     ;
-in
-{
+in {
   options.services.gancio = {
     enable = mkEnableOption "Gancio, a shared agenda for local communities";
 
-    package = mkPackageOption pkgs "gancio" { };
+    package = mkPackageOption pkgs "gancio" {};
 
     plugins = mkOption {
       type = with types; listOf package;
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.gancioPlugins.telegram-bridge ]";
       description = ''
         Paths of gancio plugins to activate (linked under $WorkingDirectory/plugins/).
@@ -88,7 +87,10 @@ in
               '';
               readOnly = true;
               type = types.nullOr types.str;
-              default = if cfg.settings.db.dialect == "sqlite" then "/var/lib/gancio/db.sqlite" else null;
+              default =
+                if cfg.settings.db.dialect == "sqlite"
+                then "/var/lib/gancio/db.sqlite"
+                else null;
               defaultText = ''if config.services.gancio.settings.db.dialect == "sqlite" then "/var/lib/gancio/db.sqlite" else null'';
             };
             host = mkOption {
@@ -97,7 +99,10 @@ in
               '';
               readOnly = true;
               type = types.nullOr types.str;
-              default = if cfg.settings.db.dialect == "postgres" then "/run/postgresql" else null;
+              default =
+                if cfg.settings.db.dialect == "postgres"
+                then "/run/postgresql"
+                else null;
               defaultText = ''if config.services.gancio.settings.db.dialect == "postgres" then "/run/postgresql" else null'';
             };
             database = mkOption {
@@ -106,7 +111,10 @@ in
               '';
               readOnly = true;
               type = types.nullOr types.str;
-              default = if cfg.settings.db.dialect == "postgres" then cfg.user else null;
+              default =
+                if cfg.settings.db.dialect == "postgres"
+                then cfg.user
+                else null;
               defaultText = ''if config.services.gancio.settings.db.dialect == "postgres" then cfg.user else null'';
             };
           };
@@ -136,7 +144,7 @@ in
 
     userLocale = mkOption {
       type = with types; attrsOf (attrsOf (attrsOf str));
-      default = { };
+      default = {};
       example = {
         en.register.description = "My new registration page description";
       };
@@ -148,14 +156,14 @@ in
 
     nginx = mkOption {
       type = types.submodule (
-        lib.recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) {
+        lib.recursiveUpdate (import ../web-servers/nginx/vhost-options.nix {inherit config lib;}) {
           # enable encryption by default,
           # as sensitive login credentials should not be transmitted in clear text.
           options.forceSSL.default = true;
           options.enableACME.default = true;
         }
       );
-      default = { };
+      default = {};
       example = {
         enableACME = false;
         forceSSL = false;
@@ -166,7 +174,7 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = [
-      (pkgs.runCommand "gancio" { } ''
+      (pkgs.runCommand "gancio" {} ''
         mkdir -p $out/bin
         echo '#!${pkgs.runtimeShell}
         cd /var/lib/gancio/
@@ -185,87 +193,86 @@ in
       group = cfg.user;
       home = "/var/lib/gancio";
     };
-    users.groups.gancio = lib.mkIf (cfg.user == "gancio") { };
+    users.groups.gancio = lib.mkIf (cfg.user == "gancio") {};
 
-    systemd.tmpfiles.settings."10-gancio" =
-      let
-        rules = {
-          mode = "0755";
-          user = cfg.user;
-          group = config.users.users.${cfg.user}.group;
-        };
-      in
-      {
-        "/var/lib/gancio/user_locale".d = rules;
-        "/var/lib/gancio/plugins".d = rules;
+    systemd.tmpfiles.settings."10-gancio" = let
+      rules = {
+        mode = "0755";
+        user = cfg.user;
+        group = config.users.users.${cfg.user}.group;
       };
+    in {
+      "/var/lib/gancio/user_locale".d = rules;
+      "/var/lib/gancio/plugins".d = rules;
+    };
 
-    systemd.services.gancio =
-      let
-        configFile = settingsFormat.generate "gancio-config.json" cfg.settings;
-      in
-      {
-        description = "Gancio server";
-        documentation = [ "https://gancio.org/" ];
+    systemd.services.gancio = let
+      configFile = settingsFormat.generate "gancio-config.json" cfg.settings;
+    in {
+      description = "Gancio server";
+      documentation = ["https://gancio.org/"];
 
-        wantedBy = [ "multi-user.target" ];
-        after = [
+      wantedBy = ["multi-user.target"];
+      after =
+        [
           "network.target"
-        ] ++ optional (cfg.settings.db.dialect == "postgres") "postgresql.service";
+        ]
+        ++ optional (cfg.settings.db.dialect == "postgres") "postgresql.service";
 
-        environment = {
-          NODE_ENV = "production";
-        };
-
-        path = [
-          # required for sendmail
-          "/run/wrappers"
-        ];
-
-        preStart = ''
-          # We need this so the gancio executable run by the user finds the right settings.
-          ln -sf ${configFile} config.json
-
-          rm -f user_locale/*
-          ${concatStringsSep "\n" (
-            mapAttrsToList (
-              l: c: "ln -sf ${settingsFormat.generate "gancio-${l}-locale.json" c} user_locale/${l}.json"
-            ) cfg.userLocale
-          )}
-
-          rm -f plugins/*
-          ${concatMapStringsSep "\n" (p: "ln -sf ${p} plugins/") cfg.plugins}
-        '';
-
-        serviceConfig = {
-          ExecStart = "${getExe cfg.package} start ${configFile}";
-          # set umask so that nginx can write to the server socket
-          # FIXME: upstream socket permission configuration in Nuxt
-          UMask = "0002";
-          RuntimeDirectory = "gancio";
-          StateDirectory = "gancio";
-          WorkingDirectory = "/var/lib/gancio";
-          LogsDirectory = "gancio";
-          User = cfg.user;
-          # hardening
-          RestrictRealtime = true;
-          RestrictNamespaces = true;
-          LockPersonality = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          ProtectKernelLogs = true;
-          ProtectControlGroups = true;
-          ProtectClock = true;
-          RestrictSUIDSGID = true;
-          SystemCallArchitectures = "native";
-          CapabilityBoundingSet = "";
-          ProtectProc = "invisible";
-        };
+      environment = {
+        NODE_ENV = "production";
       };
+
+      path = [
+        # required for sendmail
+        "/run/wrappers"
+      ];
+
+      preStart = ''
+        # We need this so the gancio executable run by the user finds the right settings.
+        ln -sf ${configFile} config.json
+
+        rm -f user_locale/*
+        ${concatStringsSep "\n" (
+          mapAttrsToList (
+            l: c: "ln -sf ${settingsFormat.generate "gancio-${l}-locale.json" c} user_locale/${l}.json"
+          )
+          cfg.userLocale
+        )}
+
+        rm -f plugins/*
+        ${concatMapStringsSep "\n" (p: "ln -sf ${p} plugins/") cfg.plugins}
+      '';
+
+      serviceConfig = {
+        ExecStart = "${getExe cfg.package} start ${configFile}";
+        # set umask so that nginx can write to the server socket
+        # FIXME: upstream socket permission configuration in Nuxt
+        UMask = "0002";
+        RuntimeDirectory = "gancio";
+        StateDirectory = "gancio";
+        WorkingDirectory = "/var/lib/gancio";
+        LogsDirectory = "gancio";
+        User = cfg.user;
+        # hardening
+        RestrictRealtime = true;
+        RestrictNamespaces = true;
+        LockPersonality = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectKernelLogs = true;
+        ProtectControlGroups = true;
+        ProtectClock = true;
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
+        CapabilityBoundingSet = "";
+        ProtectProc = "invisible";
+      };
+    };
 
     services.postgresql = mkIf (cfg.settings.db.dialect == "postgres") {
       enable = true;
-      ensureDatabases = [ cfg.user ];
+      ensureDatabases = [cfg.user];
       ensureUsers = [
         {
           name = cfg.user;
@@ -295,7 +302,7 @@ in
     };
     # for nginx to access gancio socket
     users.users."${config.services.nginx.user}" = lib.mkIf (config.services.nginx.enable) {
-      extraGroups = [ config.users.users.${cfg.user}.group ];
+      extraGroups = [config.users.users.${cfg.user}.group];
     };
   };
 }

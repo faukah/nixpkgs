@@ -14,7 +14,6 @@
   xfce4-panel,
   xfconf,
 }:
-
 mkXfceDerivation {
   category = "apps";
   pname = "xfce4-notifyd";
@@ -46,6 +45,6 @@ mkXfceDerivation {
   meta = with lib; {
     description = "Simple notification daemon for Xfce";
     mainProgram = "xfce4-notifyd-config";
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

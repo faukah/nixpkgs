@@ -4,7 +4,6 @@
   cmake,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jitterentropy";
   version = "3.6.3";
@@ -16,14 +15,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-A7a0kg9JRiNNKJbLJu5Fbu6ZgCwv3+3oDhZr3jwNXmM=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   outputs = [
     "out"
     "dev"
   ];
 
-  hardeningDisable = [ "fortify" ]; # avoid warnings
+  hardeningDisable = ["fortify"]; # avoid warnings
 
   meta = {
     description = "Provides a noise source using the CPU execution timing jitter";

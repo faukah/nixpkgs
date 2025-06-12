@@ -10,7 +10,6 @@
   protobuf,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zbackup";
   version = "1.4.4";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
 
   # zbackup uses dynamic exception specifications which are not
   # allowed in C++17
-  env.NIX_CFLAGS_COMPILE = toString [ "--std=c++14" ];
+  env.NIX_CFLAGS_COMPILE = toString ["--std=c++14"];
 
   buildInputs = [
     zlib

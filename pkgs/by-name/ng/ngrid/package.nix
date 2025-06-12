@@ -4,7 +4,6 @@
   python3,
   expect,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "ngrid";
   version = "0.1.0";
@@ -29,7 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     python3.pkgs.pandas
   ];
 
-  pythonImportsCheck = [ "ngrid.main" ];
+  pythonImportsCheck = ["ngrid.main"];
 
   nativeCheckInputs = [
     python3.pkgs.pytest
@@ -67,7 +66,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "It's \"less\" for data";
     homepage = "https://github.com/twosigma/ngrid";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ twitchy0 ];
+    maintainers = with maintainers; [twitchy0];
     mainProgram = "ngrid";
   };
 }

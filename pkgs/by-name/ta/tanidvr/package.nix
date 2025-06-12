@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tanidvr";
   version = "1.4.1";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     description = "CLI tool for managing and capturing video from DVRs which use the DVR-IP protocol";
     homepage = "https://tanidvr.sourceforge.net/";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ pho ];
+    maintainers = with lib.maintainers; [pho];
     platforms = lib.platforms.linux;
   };
 }

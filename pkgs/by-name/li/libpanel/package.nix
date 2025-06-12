@@ -13,7 +13,6 @@
   libadwaita,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libpanel";
   version = "1.10.0";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -72,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "libpanel-example";
     homepage = "https://gitlab.gnome.org/GNOME/libpanel";
     license = licenses.lgpl3Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 })

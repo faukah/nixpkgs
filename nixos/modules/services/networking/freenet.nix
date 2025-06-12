@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.freenet;
   varDir = "/var/lib/freenet";
-in
-{
+in {
   options = {
     services.freenet = {
       enable = lib.mkEnableOption "Freenet daemon";
@@ -25,8 +22,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.freenet = {
       description = "Freenet daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = lib.getExe pkgs.freenet;
         User = "freenet";
@@ -47,5 +44,5 @@ in
     users.groups.freenet.gid = config.ids.gids.freenet;
   };
 
-  meta.maintainers = with lib.maintainers; [ nagy ];
+  meta.maintainers = with lib.maintainers; [nagy];
 }

@@ -7,7 +7,6 @@
   autoconf-archive,
   parallel,
 }:
-
 buildOctavePackage rec {
   pname = "level-set";
   version = "2019-04-13";
@@ -49,7 +48,7 @@ buildOctavePackage rec {
     name = "Level Set";
     homepage = "https://gnu-octave.github.io/packages/level-set/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Routines for calculating the time-evolution of the level-set equation and extracting geometric information from the level-set function";
     # Got broke with octave 8.x update, and wasn't updated since 2019
     broken = true;

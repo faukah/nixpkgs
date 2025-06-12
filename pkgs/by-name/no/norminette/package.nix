@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "norminette";
   version = "3.3.58";
@@ -28,6 +27,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "norminette";
     homepage = "https://github.com/42School/norminette";
     license = licenses.mit;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

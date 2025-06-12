@@ -14,7 +14,6 @@
   pythonOlder,
   winacl,
 }:
-
 buildPythonPackage rec {
   pname = "bloodyad";
   version = "2.1.18";
@@ -29,14 +28,14 @@ buildPythonPackage rec {
     hash = "sha256-4/5cAYt3IhRxbd8bSXlyvCOCMLIJjWxWnke0vslyD2Y=";
   };
 
-  pythonRelaxDeps = [ "cryptography" ];
+  pythonRelaxDeps = ["cryptography"];
 
   pythonRemoveDeps = [
     "minikerberos-bad"
     "msldap-bad"
   ];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     asn1crypto
@@ -52,7 +51,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "bloodyAD" ];
+  pythonImportsCheck = ["bloodyAD"];
 
   disabledTests = [
     # Tests require network access
@@ -70,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/CravateRouge/bloodyAD";
     changelog = "https://github.com/CravateRouge/bloodyAD/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

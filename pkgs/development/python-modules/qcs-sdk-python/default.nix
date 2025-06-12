@@ -14,7 +14,6 @@
   libiconv,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "qcs-sdk-python";
   version = "0.21.18";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    tracing-opentelemetry = [ opentelemetry-api ];
+    tracing-opentelemetry = [opentelemetry-api];
   };
 
   buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
@@ -77,6 +76,6 @@ buildPythonPackage rec {
     description = "Python interface for the QCS Rust SDK";
     homepage = "https://github.com/rigetti/qcs-sdk-rust/tree/main/crates/python";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

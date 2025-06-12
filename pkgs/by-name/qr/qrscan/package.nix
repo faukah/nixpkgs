@@ -5,7 +5,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "qrscan";
   version = "0.1.9";
@@ -41,6 +40,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/sayanarijit/qrscan";
     license = licenses.mit;
     broken = stdenv.hostPlatform.isDarwin;
-    maintainers = [ maintainers.sayanarijit ];
+    maintainers = [maintainers.sayanarijit];
   };
 }

@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pest-ide-tools";
   version = "0.3.11";
@@ -19,14 +18,14 @@ rustPlatform.buildRustPackage rec {
   };
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "IDE support for Pest, via the LSP";
     homepage = "https://pest.rs";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ nickhu ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [nickhu];
     mainProgram = "pest-language-server";
   };
 }

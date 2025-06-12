@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "airscan";
   version = "0.3";
@@ -23,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/stapelberg/airscan";
     changelog = "https://github.com/stapelberg/airscan/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ johannwagner ];
+    maintainers = with lib.maintainers; [johannwagner];
   };
 }

@@ -3,7 +3,6 @@
   buildFishPlugin,
   fetchFromGitHub,
 }:
-
 buildFishPlugin rec {
   pname = "autopair";
   version = "1.0.4";

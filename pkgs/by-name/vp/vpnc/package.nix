@@ -13,7 +13,6 @@
   opensslSupport ? false,
   openssl, # Distributing this is a GPL violation.
 }:
-
 stdenv.mkDerivation {
   pname = "vpnc";
   version = "unstable-2024-12-20";
@@ -26,21 +25,31 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    perl
-  ] ++ lib.optional (!opensslSupport) pkg-config;
+  nativeBuildInputs =
+    [
+      makeWrapper
+      perl
+    ]
+    ++ lib.optional (!opensslSupport) pkg-config;
 
-  buildInputs = [
-    libgcrypt
-    perl
-  ] ++ (if opensslSupport then [ openssl ] else [ gnutls ]);
+  buildInputs =
+    [
+      libgcrypt
+      perl
+    ]
+    ++ (
+      if opensslSupport
+      then [openssl]
+      else [gnutls]
+    );
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "ETCDIR=$(out)/etc/vpnc"
-    "SCRIPT_PATH=${vpnc-scripts}/bin/vpnc-script"
-  ] ++ lib.optional opensslSupport "OPENSSL_GPL_VIOLATION=yes";
+  makeFlags =
+    [
+      "PREFIX=$(out)"
+      "ETCDIR=$(out)/etc/vpnc"
+      "SCRIPT_PATH=${vpnc-scripts}/bin/vpnc-script"
+    ]
+    ++ lib.optional opensslSupport "OPENSSL_GPL_VIOLATION=yes";
 
   env = lib.optionalAttrs stdenv.cc.isGNU {
     NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
@@ -69,7 +78,10 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://davidepucci.it/doc/vpnc/";
     description = "Virtual private network (VPN) client for Cisco's VPN concentrators";
-    license = if opensslSupport then licenses.unfree else licenses.gpl2Plus;
+    license =
+      if opensslSupport
+      then licenses.unfree
+      else licenses.gpl2Plus;
     platforms = platforms.linux;
   };
 }

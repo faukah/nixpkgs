@@ -5,8 +5,7 @@
   fetchurl,
   runCommand,
   lib,
-}:
-let
+}: let
   sourceDerivations = {
     "src" = fetchFromGitHub {
       owner = "webrtc-sdk";
@@ -231,19 +230,22 @@ let
       hash = "sha256-19oGSveaPv8X+/hsevUe4fFtLASC3HfPtbnw3TWpYQk=";
     };
   };
-  namedSourceDerivations = builtins.mapAttrs (
-    path: drv:
-    drv.overrideAttrs {
-      name = lib.strings.sanitizeDerivationName path;
-    }
-  ) sourceDerivations;
+  namedSourceDerivations =
+    builtins.mapAttrs (
+      path: drv:
+        drv.overrideAttrs {
+          name = lib.strings.sanitizeDerivationName path;
+        }
+    )
+    sourceDerivations;
 in
-runCommand "combined-sources" { } (
-  lib.concatLines (
-    [ "mkdir $out" ]
-    ++ (lib.mapAttrsToList (path: drv: ''
-      mkdir -p $out/${path}
-      cp --no-preserve=mode --reflink=auto -rfT ${drv} $out/${path}
-    '') namedSourceDerivations)
+  runCommand "combined-sources" {} (
+    lib.concatLines (
+      ["mkdir $out"]
+      ++ (lib.mapAttrsToList (path: drv: ''
+          mkdir -p $out/${path}
+          cp --no-preserve=mode --reflink=auto -rfT ${drv} $out/${path}
+        '')
+        namedSourceDerivations)
+    )
   )
-)

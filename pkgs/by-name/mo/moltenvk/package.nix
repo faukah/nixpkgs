@@ -19,7 +19,6 @@
   # See: https://github.com/KhronosGroup/MoltenVK/blob/main/README.md#metal_private_api
   enablePrivateAPIUsage ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "MoltenVK";
   version = "1.2.11";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     vulkan-headers
   ];
 
-  nativeBuildInputs = [ xcbuildHook ];
+  nativeBuildInputs = [xcbuildHook];
 
   outputs = [
     "out"
@@ -144,40 +143,47 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postBuild =
-    if enableStatic then
-      ''
-        mkdir -p Package/Release/MoltenVK/static
-        cp Products/Release/libMoltenVK.a Package/Release/MoltenVK/static
-      ''
-    else
-      ''
-        # MoltenVK’s Xcode project builds the dylib, but it doesn’t seem to work with
-        # xcbuild. This is based on the script versions prior to 1.2.8 used.
-        mkdir -p Package/Release/MoltenVK/dynamic/dylib
-        clang++ -Wl,-all_load -Wl,-w \
-          -dynamiclib \
-          -compatibility_version 1.0.0 -current_version 1.0.0 \
-          -LProducts/Release \
-          -framework AppKit \
-          -framework CoreGraphics \
-          -framework Foundation \
-          -framework IOKit \
-          -framework IOSurface \
-          -framework Metal \
-          -framework QuartzCore \
-          -lobjc \
-          -lMoltenVKShaderConverter \
-          -lspirv-cross-reflect \
-          -install_name "$out/lib/libMoltenVK.dylib" \
-          -o Package/Release/MoltenVK/dynamic/dylib/libMoltenVK.dylib \
-          -force_load Products/Release/libMoltenVK.a
-      '';
+    if enableStatic
+    then ''
+      mkdir -p Package/Release/MoltenVK/static
+      cp Products/Release/libMoltenVK.a Package/Release/MoltenVK/static
+    ''
+    else ''
+      # MoltenVK’s Xcode project builds the dylib, but it doesn’t seem to work with
+      # xcbuild. This is based on the script versions prior to 1.2.8 used.
+      mkdir -p Package/Release/MoltenVK/dynamic/dylib
+      clang++ -Wl,-all_load -Wl,-w \
+        -dynamiclib \
+        -compatibility_version 1.0.0 -current_version 1.0.0 \
+        -LProducts/Release \
+        -framework AppKit \
+        -framework CoreGraphics \
+        -framework Foundation \
+        -framework IOKit \
+        -framework IOSurface \
+        -framework Metal \
+        -framework QuartzCore \
+        -lobjc \
+        -lMoltenVKShaderConverter \
+        -lspirv-cross-reflect \
+        -install_name "$out/lib/libMoltenVK.dylib" \
+        -o Package/Release/MoltenVK/dynamic/dylib/libMoltenVK.dylib \
+        -force_load Products/Release/libMoltenVK.a
+    '';
 
   installPhase = ''
     runHook preInstall
 
-    libraryExtension=${if enableStatic then ".a" else ".dylib"}
-    packagePath=${if enableStatic then "static" else "dynamic/dylib"}
+    libraryExtension=${
+      if enableStatic
+      then ".a"
+      else ".dylib"
+    }
+    packagePath=${
+      if enableStatic
+      then "static"
+      else "dynamic/dylib"
+    }
 
     mkdir -p "$out/lib" "$out/share/vulkan/icd.d" "$bin/bin" "$dev"
 
@@ -205,7 +211,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Vulkan Portability implementation built on top of Apple’s Metal API";
     homepage = "https://github.com/KhronosGroup/MoltenVK";
     changelog = "https://github.com/KhronosGroup/MoltenVK/releases";
-    maintainers = [ lib.maintainers.reckenrode ];
+    maintainers = [lib.maintainers.reckenrode];
     license = lib.licenses.asl20;
     platforms = lib.platforms.darwin;
   };

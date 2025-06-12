@@ -3,40 +3,38 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.niri;
-in
-{
+in {
   options.programs.niri = {
     enable = lib.mkEnableOption "Niri, a scrollable-tiling Wayland compositor";
 
-    package = lib.mkPackageOption pkgs "niri" { };
+    package = lib.mkPackageOption pkgs "niri" {};
   };
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        environment.systemPackages = [ cfg.package ];
+        environment.systemPackages = [cfg.package];
 
         services = {
-          displayManager.sessionPackages = [ cfg.package ];
+          displayManager.sessionPackages = [cfg.package];
 
           # Recommended by upstream
           # https://github.com/YaLTeR/niri/wiki/Important-Software#portals
           gnome.gnome-keyring.enable = lib.mkDefault true;
         };
 
-        systemd.packages = [ cfg.package ];
+        systemd.packages = [cfg.package];
 
         xdg.portal = {
           enable = lib.mkDefault true;
 
-          configPackages = [ cfg.package ];
+          configPackages = [cfg.package];
 
           # Recommended by upstream, required for screencast support
           # https://github.com/YaLTeR/niri/wiki/Important-Software#portals
-          extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+          extraPortals = [pkgs.xdg-desktop-portal-gnome];
         };
       }
 

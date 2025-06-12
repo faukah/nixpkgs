@@ -6,7 +6,6 @@
   python,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "futures";
   version = "3.3.0";
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     description = "Backport of the concurrent.futures package from Python 3.2";
     homepage = "https://github.com/agronholm/pythonfutures";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

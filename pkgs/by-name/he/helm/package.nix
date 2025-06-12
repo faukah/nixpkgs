@@ -13,7 +13,6 @@
   libGLU,
   libGL,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "helm";
   version = "0.9.0";
@@ -41,14 +40,14 @@ stdenv.mkDerivation (finalAttrs: {
     libGL
     lv2
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   CXXFLAGS = [
     "-DHAVE_LROUND"
     "-fpermissive"
   ];
   enableParallelBuilding = true;
-  makeFlags = [ "DESTDIR=${placeholder "out"}" ];
+  makeFlags = ["DESTDIR=${placeholder "out"}"];
 
   patches = [
     # gcc9 compatibility https://github.com/mtytel/helm/pull/233

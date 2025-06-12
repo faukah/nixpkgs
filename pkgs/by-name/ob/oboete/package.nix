@@ -6,7 +6,6 @@
   sqlite,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "oboete";
   version = "0.1.9";
@@ -21,12 +20,12 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-bhSkQcDqYhkRwqLbiOLXprQnMqjDKRetZ97K1ES5hrw=";
 
-  nativeBuildInputs = [ libcosmicAppHook ];
+  nativeBuildInputs = [libcosmicAppHook];
 
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

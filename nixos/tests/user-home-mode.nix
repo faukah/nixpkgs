@@ -1,8 +1,7 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "user-home-mode";
   meta = with lib.maintainers; {
-    maintainers = [ fbeffa ];
+    maintainers = [fbeffa];
   };
 
   nodes.machine = {

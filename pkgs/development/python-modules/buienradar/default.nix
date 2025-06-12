@@ -12,7 +12,6 @@
   requests-mock,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "buienradar";
   version = "1.0.9";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-DTdxzBe9fBOH5fHME++oq62xMtBKnjY7BCevwjl8VZ8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     docopt
@@ -73,6 +72,6 @@ buildPythonPackage rec {
     mainProgram = "buienradar";
     homepage = "https://github.com/mjj4791/python-buienradar";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

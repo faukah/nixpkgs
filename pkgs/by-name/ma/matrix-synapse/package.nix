@@ -10,11 +10,9 @@
       "user-search"
     ]
     ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform matrix-synapse-unwrapped.python.pkgs.systemd) "systemd",
-  plugins ? [ ],
+  plugins ? [],
   ...
-}:
-
-let
+}: let
   extraPackages = lib.concatMap (extra: matrix-synapse-unwrapped.optional-dependencies.${extra}) (
     lib.unique extras
   );
@@ -25,28 +23,28 @@ let
 
   searchPath = "${pythonEnv}/${matrix-synapse-unwrapped.python.sitePackages}";
 in
-stdenv.mkDerivation {
-  name = (lib.appendToName "wrapped" matrix-synapse-unwrapped).name;
+  stdenv.mkDerivation {
+    name = (lib.appendToName "wrapped" matrix-synapse-unwrapped).name;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+    ];
 
-  buildCommand = ''
-    for bin in ${matrix-synapse-unwrapped}/bin/*; do
-      echo $bin
-      makeWrapper "$bin" "$out/bin/$(basename $bin)" \
-        --set PYTHONPATH ${searchPath}
-    done;
-  '';
+    buildCommand = ''
+      for bin in ${matrix-synapse-unwrapped}/bin/*; do
+        echo $bin
+        makeWrapper "$bin" "$out/bin/$(basename $bin)" \
+          --set PYTHONPATH ${searchPath}
+      done;
+    '';
 
-  passthru = {
-    unwrapped = matrix-synapse-unwrapped;
+    passthru = {
+      unwrapped = matrix-synapse-unwrapped;
 
-    # for backward compatibility
-    inherit (matrix-synapse-unwrapped) plugins tests;
-  };
+      # for backward compatibility
+      inherit (matrix-synapse-unwrapped) plugins tests;
+    };
 
-  # Carry the maintainer, licenses, and various useful information.
-  inherit (matrix-synapse-unwrapped) meta;
-}
+    # Carry the maintainer, licenses, and various useful information.
+    inherit (matrix-synapse-unwrapped) meta;
+  }

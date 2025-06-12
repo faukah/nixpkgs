@@ -4,7 +4,6 @@
   buildDunePackage,
   cudf,
 }:
-
 buildDunePackage rec {
   pname = "mccs";
   version = "1.1+19";
@@ -30,6 +29,6 @@ buildDunePackage rec {
       lgpl21
       gpl3
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

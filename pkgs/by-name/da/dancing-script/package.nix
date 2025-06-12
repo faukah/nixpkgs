@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "dancing-script";
   version = "2.0";
@@ -29,6 +28,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/impallari/DancingScript";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ wdavidw ];
+    maintainers = with maintainers; [wdavidw];
   };
 }

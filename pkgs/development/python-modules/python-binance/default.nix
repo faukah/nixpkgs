@@ -16,7 +16,6 @@
   setuptools,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "python-binance";
   version = "1.0.27";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-nsJuHxPXhMBRY4BUDDLj5sHK/GuJA0pBU3RGUDxVm50=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -79,12 +78,12 @@ buildPythonPackage rec {
     "tests/test_ws_api.py"
   ];
 
-  pythonImportsCheck = [ "binance" ];
+  pythonImportsCheck = ["binance"];
 
   meta = with lib; {
     description = "Binance Exchange API python implementation for automated trading";
     homepage = "https://github.com/sammchardy/python-binance";
     license = licenses.mit;
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
   };
 }

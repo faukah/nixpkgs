@@ -5,7 +5,6 @@
   zope-testing,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "plone-testing";
   version = "9.0.3";
@@ -18,19 +17,19 @@ buildPythonPackage rec {
     hash = "sha256-EjKKwLUBhzjtk3stHkdUDsteXQGJcrwdu9EEA4FFK1w=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     setuptools
     zope-testing
   ];
 
-  pythonImportsCheck = [ "plone.testing" ];
+  pythonImportsCheck = ["plone.testing"];
 
   # Huge amount of testing dependencies (including Zope2)
   doCheck = false;
 
-  pythonNamespaces = [ "plone" ];
+  pythonNamespaces = ["plone"];
 
   meta = {
     description = "Testing infrastructure for Zope and Plone projects";

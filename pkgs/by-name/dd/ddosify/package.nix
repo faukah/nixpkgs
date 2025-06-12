@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "ddosify";
   version = "2.6.0";
@@ -33,7 +32,7 @@ buildGoModule (finalAttrs: {
 
   doInstallCheck = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   versionCheckProgramArg = "-version";
 
@@ -43,6 +42,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://ddosify.com/";
     changelog = "https://github.com/ddosify/ddosify/releases/tag/selfhosted-${finalAttrs.version}";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ bryanasdev000 ];
+    maintainers = with lib.maintainers; [bryanasdev000];
   };
 })

@@ -11,7 +11,6 @@
   libmikmod,
   SDL_sound,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gltron";
   version = "0.70";
@@ -37,9 +36,9 @@ stdenv.mkDerivation rec {
   '';
 
   # The build fails, unless we disable the default -Wall -Werror
-  configureFlags = [ "--disable-warn" ];
+  configureFlags = ["--disable-warn"];
 
-  makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];
+  makeFlags = ["AR=${stdenv.cc.targetPrefix}ar"];
 
   env.SDL_CONFIG = lib.getExe' (lib.getDev SDL) "sdl-config";
 
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "Game based on the movie Tron";
     mainProgram = "gltron";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux;
   };
 }

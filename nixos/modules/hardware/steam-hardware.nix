@@ -3,14 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.hardware.steam-hardware;
-
-in
-
-{
+in {
   options.hardware.steam-hardware = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -29,6 +24,6 @@ in
     #
     # If the udev rules are not triggered, some controllers won't work with
     # steam.
-    boot.kernelModules = [ "uinput" ];
+    boot.kernelModules = ["uinput"];
   };
 }

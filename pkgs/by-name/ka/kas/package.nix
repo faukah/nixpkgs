@@ -5,7 +5,6 @@
   testers,
   kas,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "kas";
   version = "4.7";
@@ -17,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-P2I3lLa8kuCORdlrwcswrWFwOA8lW2WL4Apv/2T7+f8=";
   };
 
-  patches = [ ./pass-terminfo-env.patch ];
+  patches = [./pass-terminfo-env.patch];
 
   propagatedBuildInputs = with python3.pkgs; [
     setuptools
@@ -39,6 +38,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/siemens/kas";
     description = "Setup tool for bitbake based projects";
     license = licenses.mit;
-    maintainers = with maintainers; [ bachp ];
+    maintainers = with maintainers; [bachp];
   };
 }

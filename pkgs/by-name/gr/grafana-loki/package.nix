@@ -10,7 +10,6 @@
   testers,
   grafana-loki,
 }:
-
 buildGoModule rec {
   version = "3.5.1";
   pname = "grafana-loki";
@@ -33,10 +32,10 @@ buildGoModule rec {
     "cmd/lokitool"
   ];
 
-  tags = [ "promtail_journal_enabled" ];
+  tags = ["promtail_journal_enabled"];
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ systemd.dev ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [systemd.dev];
 
   preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     wrapProgram $out/bin/promtail \
@@ -52,22 +51,20 @@ buildGoModule rec {
       };
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
-  ldflags =
-    let
-      t = "github.com/grafana/loki/v3/pkg/util/build";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${t}.Version=${version}"
-      "-X ${t}.BuildUser=nix@nixpkgs"
-      "-X ${t}.BuildDate=unknown"
-      "-X ${t}.Branch=unknown"
-      "-X ${t}.Revision=unknown"
-    ];
+  ldflags = let
+    t = "github.com/grafana/loki/v3/pkg/util/build";
+  in [
+    "-s"
+    "-w"
+    "-X ${t}.Version=${version}"
+    "-X ${t}.BuildUser=nix@nixpkgs"
+    "-X ${t}.BuildDate=unknown"
+    "-X ${t}.Branch=unknown"
+    "-X ${t}.Revision=unknown"
+  ];
 
   meta = {
     description = "Like Prometheus, but for logs";

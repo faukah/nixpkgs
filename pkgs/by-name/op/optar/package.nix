@@ -5,7 +5,6 @@
   imagemagick,
   libpng,
 }:
-
 stdenv.mkDerivation {
   pname = "optar";
   version = "20150210";
@@ -15,7 +14,7 @@ stdenv.mkDerivation {
     sha256 = "10lr31k3xfcpa6vxkbl3abph7j3gks2210489khnnzmhmfdnm1a4";
   };
 
-  buildInputs = [ libpng ];
+  buildInputs = [libpng];
 
   enableParallelBuilding = true;
 
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
       --replace 'convert ' "${lib.getBin imagemagick}/bin/convert "
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=implicit-int" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=implicit-int"];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -37,7 +36,7 @@ stdenv.mkDerivation {
     description = "OPTical ARchiver - it's a codec for encoding data on paper";
     homepage = "http://ronja.twibright.com/optar/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = with platforms; linux; # possibly others, but only tested on Linux
   };
 }

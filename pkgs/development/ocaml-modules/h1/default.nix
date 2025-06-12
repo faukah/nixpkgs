@@ -9,7 +9,6 @@
   alcotest,
   version ? "1.0.0",
 }:
-
 buildDunePackage {
   inherit version;
 
@@ -35,7 +34,7 @@ buildDunePackage {
   meta = {
     description = "A high-performance, memory-efficient, and scalable web server for OCaml";
     homepage = "https://github.com/robur-coop/ocaml-h1";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     license = lib.licenses.bsd3;
   };
 }

@@ -19,9 +19,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-s7Iu0ZxahQekG02oCvI0WH0OiqAez+l7wvJq1xCQINY=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ oniguruma ];
+  buildInputs = [oniguruma];
 
   env = {
     RUSTONIG_SYSTEM_LIBONIG = true;
@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     description = "Simple API client (postman like) in your terminal";
     homepage = "https://github.com/Julien-cpsn/ATAC";
     license = licenses.mit;
-    maintainers = with maintainers; [ vinnymeller ];
+    maintainers = with maintainers; [vinnymeller];
     mainProgram = "atac";
   };
 }

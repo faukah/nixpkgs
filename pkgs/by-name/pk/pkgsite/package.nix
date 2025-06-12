@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule {
   pname = "pkgsite";
   version = "0-unstable-2025-06-08";
@@ -18,17 +17,17 @@ buildGoModule {
 
   vendorHash = "sha256-dZKm3dMI969HKPBrC95vVmY1cZmjy+NWq7xOzXsTE14=";
 
-  subPackages = [ "cmd/pkgsite" ];
+  subPackages = ["cmd/pkgsite"];
 
-  ldflags = [ "-s" ];
+  ldflags = ["-s"];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = {
     description = "Official tool to extract and generate documentation for Go projects like pkg.go.dev";
     homepage = "https://github.com/golang/pkgsite";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ phanirithvij ];
+    maintainers = with lib.maintainers; [phanirithvij];
     mainProgram = "pkgsite";
   };
 }

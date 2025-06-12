@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "frogatto-data";
   version = "unstable-2023-02-27";
@@ -27,6 +26,6 @@ stdenv.mkDerivation {
       cc-by-30
       unfree
     ];
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
   };
 }

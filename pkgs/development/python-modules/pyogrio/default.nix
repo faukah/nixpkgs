@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pytestCheckHook,
   pythonOlder,
-
   certifi,
   cython,
   gdal,
@@ -14,7 +13,6 @@
   versioneer,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "pyogrio";
   version = "0.11.0";
@@ -33,15 +31,17 @@ buildPythonPackage rec {
       --replace-fail "versioneer[toml]==0.28" "versioneer[toml]"
   '';
 
-  nativeBuildInputs = [
-    cython
-    gdal # for gdal-config
-    setuptools
-    versioneer
-    wheel
-  ] ++ versioneer.optional-dependencies.toml;
+  nativeBuildInputs =
+    [
+      cython
+      gdal # for gdal-config
+      setuptools
+      versioneer
+      wheel
+    ]
+    ++ versioneer.optional-dependencies.toml;
 
-  buildInputs = [ gdal ];
+  buildInputs = [gdal];
 
   propagatedBuildInputs = [
     certifi
@@ -49,7 +49,7 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     python setup.py build_ext --inplace
@@ -60,13 +60,13 @@ buildPythonPackage rec {
     "-m 'not network'"
   ];
 
-  pythonImportsCheck = [ "pyogrio" ];
+  pythonImportsCheck = ["pyogrio"];
 
   meta = {
     description = "Vectorized spatial vector file format I/O using GDAL/OGR";
     homepage = "https://pyogrio.readthedocs.io/";
     changelog = "https://github.com/geopandas/pyogrio/blob/${src.rev}/CHANGES.md";
     license = lib.licenses.mit;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

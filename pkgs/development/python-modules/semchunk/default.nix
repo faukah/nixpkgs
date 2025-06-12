@@ -6,7 +6,6 @@
   mpire,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "semchunk";
   version = "3.2.1";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "A fast, lightweight and easy-to-use Python library for splitting text into semantically meaningful chunks";
     homepage = "https://pypi.org/project/semchunk/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ booxter ];
+    maintainers = with lib.maintainers; [booxter];
   };
 }

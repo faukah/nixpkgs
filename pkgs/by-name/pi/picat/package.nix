@@ -4,7 +4,6 @@
   fetchurl,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "picat";
   version = "3.8#7";
@@ -14,7 +13,7 @@ stdenv.mkDerivation {
     hash = "sha256-H+aFmagdb7jU4LZCYrNPa4ZWVB1ziiJHrUe4b1ImWks=";
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   env.ARCH =
     {
@@ -26,7 +25,7 @@ stdenv.mkDerivation {
     }
     ."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   enableParallelBuilding = true;
 

@@ -5,7 +5,6 @@
   testers,
   updateAutotoolsGnuConfigScriptsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gdbm";
   version = "1.25";
@@ -22,9 +21,9 @@ stdenv.mkDerivation (finalAttrs: {
     ./upstream-musl-ssize_t-fix.patch
   ];
 
-  nativeBuildInputs = [ updateAutotoolsGnuConfigScriptsHook ];
+  nativeBuildInputs = [updateAutotoolsGnuConfigScriptsHook];
 
-  configureFlags = [ (lib.enableFeature true "libgdbm-compat") ];
+  configureFlags = [(lib.enableFeature true "libgdbm-compat")];
 
   outputs = [
     "out"
@@ -90,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl3Plus;
     mainProgram = "gdbmtool";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

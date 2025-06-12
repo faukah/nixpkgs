@@ -9,7 +9,6 @@
   libbsd,
   argp-standalone,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mya";
   version = "1.0.0";
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/jmakhack/myanimelist-cli";
     changelog = "https://github.com/jmakhack/myanimelist-cli/releases/tag/v${finalAttrs.version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
     mainProgram = "mya";
     platforms = platforms.all;
   };

@@ -17,6 +17,6 @@ mkYaziPlugin {
   meta = {
     description = "Switch the preview pane between hidden and shown";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
   };
 }

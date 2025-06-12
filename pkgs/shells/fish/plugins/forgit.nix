@@ -3,7 +3,6 @@
   buildFishPlugin,
   fetchFromGitHub,
 }:
-
 buildFishPlugin rec {
   pname = "forgit";
   version = "25.06.0";
@@ -23,6 +22,6 @@ buildFishPlugin rec {
     description = "Utility tool powered by fzf for using git interactively";
     homepage = "https://github.com/wfxr/forgit";
     license = licenses.mit;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

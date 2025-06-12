@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ctrtool";
   version = "1.2.1";
@@ -32,14 +31,13 @@ stdenv.mkDerivation rec {
     cp bin/ctrtool${stdenv.hostPlatform.extensions.executable} $out/bin/
   ";
 
-  passthru.updateScript = gitUpdater { rev-prefix = "ctrtool-v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "ctrtool-v";};
 
   meta = with lib; {
     license = licenses.mit;
     description = "Tool to extract data from a 3ds rom";
     platforms = platforms.linux;
-    maintainers = [ maintainers.marius851000 ];
+    maintainers = [maintainers.marius851000];
     mainProgram = "ctrtool";
   };
-
 }

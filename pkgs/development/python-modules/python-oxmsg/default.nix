@@ -8,7 +8,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "python-oxmsg";
   version = "0.0.2";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-ramM27+SylBeJyb3kkRm1xn3qAefiLuBOvI/iucK2wM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     click
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "oxmsg" ];
+  pythonImportsCheck = ["oxmsg"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/scanny/python-oxmsg";
     license = lib.licenses.mit;
     mainProgram = "oxmsg";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

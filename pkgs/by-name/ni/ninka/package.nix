@@ -4,7 +4,6 @@
   perl,
   perlPackages,
 }:
-
 perlPackages.buildPerlPackage {
   pname = "ninka";
   version = "2.0-pre";
@@ -42,7 +41,7 @@ perlPackages.buildPerlPackage {
     mainProgram = "ninka";
     homepage = "http://ninka.turingmachine.org/";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

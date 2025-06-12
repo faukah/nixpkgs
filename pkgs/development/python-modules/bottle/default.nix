@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "bottle";
   version = "0.13.2";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-5TgDudKYx9ND0Aun0nsAWUFfBLn29AuNWLW/kUup00g=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     cd test
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     mainProgram = "bottle.py";
     downloadPage = "https://github.com/bottlepy/bottle";
     license = licenses.mit;
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
   };
 }

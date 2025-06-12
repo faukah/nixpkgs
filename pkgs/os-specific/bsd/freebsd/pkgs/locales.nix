@@ -12,25 +12,25 @@
   groff,
   localedef,
   allLocales ? true,
-  locales ? [ "en_US.UTF-8" ],
-}:
-let
-  build =
-    name: needsLocaledef:
+  locales ? ["en_US.UTF-8"],
+}: let
+  build = name: needsLocaledef:
     mkDerivation {
       path = "share/${name}";
 
       extraPaths = lib.optional needsLocaledef "tools/tools/locale/etc/final-maps";
-      nativeBuildInputs = [
-        bsdSetupHook
-        freebsdSetupHook
-        makeMinimal
-        install
-        tsort
-        lorder
-        mandoc
-        groff
-      ] ++ lib.optional needsLocaledef localedef;
+      nativeBuildInputs =
+        [
+          bsdSetupHook
+          freebsdSetupHook
+          makeMinimal
+          install
+          tsort
+          lorder
+          mandoc
+          groff
+        ]
+        ++ lib.optional needsLocaledef localedef;
     };
   directories = {
     colldef = true;
@@ -45,7 +45,7 @@ let
     timedef = false;
   };
 in
-symlinkJoin {
-  name = "freebsd-locales";
-  paths = lib.mapAttrsToList build directories;
-}
+  symlinkJoin {
+    name = "freebsd-locales";
+    paths = lib.mapAttrsToList build directories;
+  }

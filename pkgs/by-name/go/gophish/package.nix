@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gophish";
   version = "0.12.1";
@@ -25,7 +24,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/gophish/gophish";
     license = licenses.mit;
-    maintainers = with maintainers; [ mib ];
+    maintainers = with maintainers; [mib];
     mainProgram = "gophish";
   };
 }

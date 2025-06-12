@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGo124Module,
 }:
-
 buildGo124Module rec {
   pname = "otpauth";
   version = "0.6.0";
@@ -22,6 +21,6 @@ buildGo124Module rec {
     mainProgram = "otpauth";
     homepage = "https://github.com/dim13/otpauth";
     license = licenses.isc;
-    maintainers = with maintainers; [ ereslibre ];
+    maintainers = with maintainers; [ereslibre];
   };
 }

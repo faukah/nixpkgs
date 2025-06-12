@@ -6,7 +6,6 @@
   bison,
   flex,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.5.1";
   pname = "sshguard";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     flex
   ];
 
-  configureFlags = [ "--sysconfdir=/etc" ];
+  configureFlags = ["--sysconfdir=/etc"];
 
   meta = with lib; {
     description = "Protects hosts from brute-force attacks";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://sshguard.net";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sargon ];
+    maintainers = with maintainers; [sargon];
     platforms = with platforms; linux ++ darwin ++ freebsd ++ netbsd ++ openbsd;
   };
 }

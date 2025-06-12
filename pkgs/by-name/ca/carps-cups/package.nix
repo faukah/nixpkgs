@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cups,
 }:
-
 stdenv.mkDerivation {
   pname = "carps-cups";
   version = "unstable-2018-03-05";
@@ -31,7 +30,7 @@ stdenv.mkDerivation {
     install -m 644 carps.usb-quirks $CUPSDATADIR/usb/
   '';
 
-  buildInputs = [ cups ];
+  buildInputs = [cups];
 
   meta = with lib; {
     description = "CUPS Linux drivers for Canon printers";

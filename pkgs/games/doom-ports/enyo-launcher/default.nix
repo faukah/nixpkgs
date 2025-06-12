@@ -5,7 +5,6 @@
   cmake,
   qtbase,
 }:
-
 mkDerivation rec {
   pname = "enyo-launcher";
   version = "2.0.6";
@@ -17,9 +16,9 @@ mkDerivation rec {
     hash = "sha256-k6Stc1tQOcdS//j+bFUNfnOUlwuhIPKxf9DHU+ng164=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   meta = {
     homepage = "https://gitlab.com/sdcofer70/enyo-launcher";
@@ -27,6 +26,6 @@ mkDerivation rec {
     mainProgram = "enyo-launcher";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.usrfriendly ];
+    maintainers = [lib.maintainers.usrfriendly];
   };
 }

@@ -4,48 +4,44 @@
   fetchFromGitHub,
   pythonOlder,
   setuptools,
-
   # propagated
   aiohttp,
-
   # tests
   pytest-asyncio,
   pytestCheckHook,
-}:
-
-let
+}: let
   pname = "pyoctoprintapi";
   version = "0.1.14";
 in
-buildPythonPackage {
-  inherit pname version;
-  pyproject = true;
+  buildPythonPackage {
+    inherit pname version;
+    pyproject = true;
 
-  disabled = pythonOlder "3.7";
+    disabled = pythonOlder "3.7";
 
-  src = fetchFromGitHub {
-    owner = "rfleming71";
-    repo = "pyoctoprintapi";
-    tag = "v${version}";
-    hash = "sha256-DKqkT0Wyxf4grXBqei9IYBGMOgPxjzuo955M/nHDLo8=";
-  };
+    src = fetchFromGitHub {
+      owner = "rfleming71";
+      repo = "pyoctoprintapi";
+      tag = "v${version}";
+      hash = "sha256-DKqkT0Wyxf4grXBqei9IYBGMOgPxjzuo955M/nHDLo8=";
+    };
 
-  nativeBuildInputs = [ setuptools ];
+    nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ aiohttp ];
+    propagatedBuildInputs = [aiohttp];
 
-  pythonImportsCheck = [ "pyoctoprintapi" ];
+    pythonImportsCheck = ["pyoctoprintapi"];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+    nativeCheckInputs = [
+      pytest-asyncio
+      pytestCheckHook
+    ];
 
-  meta = with lib; {
-    description = "Simple async wrapper around the Octoprint API";
-    homepage = "https://github.com/rfleming71/pyoctoprintapi";
-    changelog = "https://github.com/rfleming71/pyoctoprintapi/releases/tag/v${version}";
-    license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
-  };
-}
+    meta = with lib; {
+      description = "Simple async wrapper around the Octoprint API";
+      homepage = "https://github.com/rfleming71/pyoctoprintapi";
+      changelog = "https://github.com/rfleming71/pyoctoprintapi/releases/tag/v${version}";
+      license = licenses.mit;
+      maintainers = with maintainers; [hexa];
+    };
+  }

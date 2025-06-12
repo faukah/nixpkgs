@@ -9,7 +9,6 @@
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "noseyparker";
   version = "0.24.0";
@@ -58,6 +57,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/praetorian-inc/noseyparker";
     changelog = "https://github.com/praetorian-inc/noseyparker/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ _0x4A6F ];
+    maintainers = with lib.maintainers; [_0x4A6F];
   };
 }

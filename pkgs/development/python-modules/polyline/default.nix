@@ -7,7 +7,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "polyline";
   version = "2.0.1";
@@ -32,9 +31,9 @@ buildPythonPackage rec {
     wheel
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "polyline" ];
+  pythonImportsCheck = ["polyline"];
 
   meta = with lib; {
     description = "Python implementation of Google's Encoded Polyline Algorithm Format";
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/frederickjansen/polyline";
     changelog = "https://github.com/frederickjansen/polyline/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ersin ];
+    maintainers = with maintainers; [ersin];
   };
 }

@@ -4,14 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.spectrwm;
-in
-
-{
+in {
   options = {
     services.xserver.windowManager.spectrwm.enable = mkEnableOption "spectrwm";
   };
@@ -28,6 +23,6 @@ in
         }
       ];
     };
-    environment.systemPackages = [ pkgs.spectrwm ];
+    environment.systemPackages = [pkgs.spectrwm];
   };
 }

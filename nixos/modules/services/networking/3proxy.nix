@@ -3,13 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   pkg = pkgs._3proxy;
   cfg = config.services._3proxy;
-  optionalList = list: if list == [ ] then "*" else lib.concatMapStringsSep "," toString list;
-in
-{
+  optionalList = list:
+    if list == []
+    then "*"
+    else lib.concatMapStringsSep "," toString list;
+in {
   options.services._3proxy = {
     enable = lib.mkEnableOption "3proxy";
     confFile = lib.mkOption {
@@ -156,7 +157,7 @@ in
                     };
                     users = lib.mkOption {
                       type = lib.types.listOf lib.types.str;
-                      default = [ ];
+                      default = [];
                       example = [
                         "user1"
                         "user2"
@@ -168,7 +169,7 @@ in
                     };
                     sources = lib.mkOption {
                       type = lib.types.listOf lib.types.str;
-                      default = [ ];
+                      default = [];
                       example = [
                         "127.0.0.1"
                         "192.168.1.0/24"
@@ -179,7 +180,7 @@ in
                     };
                     targets = lib.mkOption {
                       type = lib.types.listOf lib.types.str;
-                      default = [ ];
+                      default = [];
                       example = [
                         "127.0.0.1"
                         "192.168.1.0/24"
@@ -193,7 +194,7 @@ in
                     };
                     targetPorts = lib.mkOption {
                       type = lib.types.listOf lib.types.int;
-                      default = [ ];
+                      default = [];
                       example = [
                         80
                         443
@@ -205,7 +206,7 @@ in
                   };
                 }
               );
-              default = [ ];
+              default = [];
               example = lib.literalExpression ''
                 [
                   {
@@ -245,7 +246,7 @@ in
           };
         }
       );
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''
         [
           {
@@ -301,7 +302,7 @@ in
         options = {
           nserver = lib.mkOption {
             type = lib.types.listOf lib.types.str;
-            default = [ ];
+            default = [];
             example = [
               "127.0.0.53"
               "192.168.1.3:5353/tcp"
@@ -325,7 +326,7 @@ in
           };
           nsrecord = lib.mkOption {
             type = lib.types.attrsOf lib.types.str;
-            default = { };
+            default = {};
             example = lib.literalExpression ''
               {
                 "files.local" = "192.168.1.12";
@@ -336,7 +337,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = ''
         Use this option to configure name resolution and DNS caching.
       '';
@@ -369,40 +370,41 @@ in
         ${lib.optionalString (cfg.usersFile != null) ''users $"${cfg.usersFile}"''}
 
         ${lib.concatMapStringsSep "\n" (service: ''
-          auth ${lib.concatStringsSep " " service.auth}
+            auth ${lib.concatStringsSep " " service.auth}
 
-          ${lib.optionalString (cfg.denyPrivate) "deny * * ${optionalList cfg.privateRanges}"}
+            ${lib.optionalString (cfg.denyPrivate) "deny * * ${optionalList cfg.privateRanges}"}
 
-          ${lib.concatMapStringsSep "\n" (
-            acl:
-            "${acl.rule} ${
-              lib.concatMapStringsSep " " optionalList [
-                acl.users
-                acl.sources
-                acl.targets
-                acl.targetPorts
-              ]
-            }"
-          ) service.acl}
+            ${lib.concatMapStringsSep "\n" (
+                acl: "${acl.rule} ${
+                  lib.concatMapStringsSep " " optionalList [
+                    acl.users
+                    acl.sources
+                    acl.targets
+                    acl.targetPorts
+                  ]
+                }"
+              )
+              service.acl}
 
-          maxconn ${toString service.maxConnections}
+            maxconn ${toString service.maxConnections}
 
-          ${lib.optionalString (service.extraConfig != null) service.extraConfig}
+            ${lib.optionalString (service.extraConfig != null) service.extraConfig}
 
-          ${service.type} -i${toString service.bindAddress} ${
-            lib.optionalString (service.bindPort != null) "-p${toString service.bindPort}"
-          } ${lib.optionalString (service.extraArguments != null) service.extraArguments}
+            ${service.type} -i${toString service.bindAddress} ${
+              lib.optionalString (service.bindPort != null) "-p${toString service.bindPort}"
+            } ${lib.optionalString (service.extraArguments != null) service.extraArguments}
 
-          flush
-        '') cfg.services}
+            flush
+          '')
+          cfg.services}
         ${lib.optionalString (cfg.extraConfig != null) cfg.extraConfig}
       ''
     );
     systemd.services."3proxy" = {
       description = "Tiny free proxy server";
-      documentation = [ "https://github.com/z3APA3A/3proxy/wiki" ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["https://github.com/z3APA3A/3proxy/wiki"];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         StateDirectory = "3proxy";
@@ -412,5 +414,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ misuzu ];
+  meta.maintainers = with lib.maintainers; [misuzu];
 }

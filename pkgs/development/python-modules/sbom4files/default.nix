@@ -6,7 +6,6 @@
   lib4sbom,
   python-magic,
 }:
-
 buildPythonPackage rec {
   pname = "sbom4files";
   version = "0.4.5";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "SBOM generator for files within a directory";
     homepage = "https://github.com/anthonyharrison/sbom4files";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

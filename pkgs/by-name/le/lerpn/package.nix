@@ -3,7 +3,6 @@
   lib,
   fetchFromGitea,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "lerpn";
   version = "unstable-2023-06-09";
@@ -28,7 +27,7 @@ python3.pkgs.buildPythonApplication {
   meta = with lib; {
     homepage = "https://gitea.alexisvl.rocks/alexisvl/lerpn";
     description = "Curses RPN calculator written in straight Python";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl3Plus;
     mainProgram = "lerpn";
   };

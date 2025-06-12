@@ -10,7 +10,6 @@
   setuptools,
   propcache,
 }:
-
 buildPythonPackage rec {
   pname = "cached-ipaddress";
   version = "0.10.0";
@@ -31,20 +30,20 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ propcache ];
+  dependencies = [propcache];
 
   nativeCheckInputs = [
     pytest-cov-stub
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "cached_ipaddress" ];
+  pythonImportsCheck = ["cached_ipaddress"];
 
   meta = with lib; {
     description = "Cache construction of ipaddress objects";
     homepage = "https://github.com/bdraco/cached-ipaddress";
     changelog = "https://github.com/bdraco/cached-ipaddress/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

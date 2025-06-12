@@ -15,7 +15,6 @@
   udev,
   extraScripts ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "direwolf";
   version = "1.7";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Vbxc6a6CK+wrBfs15dtjfRa1LJDKKyHMrg8tqsF7EX4=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   strictDeps = true;
 
@@ -36,9 +35,9 @@ stdenv.mkDerivation rec {
       alsa-lib
       udev
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ portaudio ]
-    ++ lib.optionals gpsdSupport [ gpsd ]
-    ++ lib.optionals hamlibSupport [ hamlib ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [portaudio]
+    ++ lib.optionals gpsdSupport [gpsd]
+    ++ lib.optionals hamlibSupport [hamlib]
     ++ lib.optionals extraScripts [
       python3
       perl

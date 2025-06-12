@@ -3,7 +3,6 @@
   lib,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "zd1211-firmware";
   version = "1.5";

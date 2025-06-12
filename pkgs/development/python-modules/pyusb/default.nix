@@ -6,7 +6,6 @@
   libusb1,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pyusb";
   version = "1.3.1";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "sha256-OvBwtgdGfBwWT0nVsMqr6Kx42+2SmNcDqNv530BS0X4=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   # Fix the USB backend library lookup
   postPatch = ''
@@ -29,12 +28,12 @@ buildPythonPackage rec {
   # No tests included
   doCheck = false;
 
-  pythonImportsCheck = [ "usb" ];
+  pythonImportsCheck = ["usb"];
 
   meta = with lib; {
     description = "Python USB access module (wraps libusb 1.0)"; # can use other backends
     homepage = "https://pyusb.github.io/pyusb/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

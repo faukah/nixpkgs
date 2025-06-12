@@ -7,7 +7,6 @@
   versionCheckHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "softflowd";
   version = "1.1.1";
@@ -33,14 +32,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   doInstallCheck = true;
 
-  passthru.updateScript = gitUpdater { rev-prefix = "softflowd-v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "softflowd-v";};
 
   meta = {
     description = "Flow-based network traffic analyser capable of Cisco NetFlow";
     homepage = "https://github.com/irino/softflowd";
     changelog = "https://github.com/irino/softflowd/releases/tag/spftflowd-v${finalAttrs.version}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ fooker ];
+    maintainers = with lib.maintainers; [fooker];
     platforms = lib.platforms.unix;
   };
 })

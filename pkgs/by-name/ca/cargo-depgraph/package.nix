@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromSourcehut,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-depgraph";
   version = "1.6.0";

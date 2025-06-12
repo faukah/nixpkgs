@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   adminPrivateKey = pkgs.writeText "id_ed25519" ''
     -----BEGIN OPENSSH PRIVATE KEY-----
     b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
@@ -47,45 +45,38 @@ let
     repo alice-project
         RW+     =   alice
   '';
-in
-{
+in {
   name = "gitolite";
 
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ bjornfor ];
+    maintainers = [bjornfor];
   };
 
   nodes = {
-
-    server =
-      { ... }:
-      {
-        services.gitolite = {
-          enable = true;
-          adminPubkey = adminPublicKey;
-        };
-        services.openssh.enable = true;
+    server = {...}: {
+      services.gitolite = {
+        enable = true;
+        adminPubkey = adminPublicKey;
       };
+      services.openssh.enable = true;
+    };
 
-    client =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = [ pkgs.git ];
-        programs.ssh.extraConfig = ''
-          Host *
-            UserKnownHostsFile /dev/null
-            StrictHostKeyChecking no
-            # there's nobody around that can input password
-            PreferredAuthentications publickey
-        '';
-        users.users.alice = {
-          isNormalUser = true;
-        };
-        users.users.bob = {
-          isNormalUser = true;
-        };
+    client = {pkgs, ...}: {
+      environment.systemPackages = [pkgs.git];
+      programs.ssh.extraConfig = ''
+        Host *
+          UserKnownHostsFile /dev/null
+          StrictHostKeyChecking no
+          # there's nobody around that can input password
+          PreferredAuthentications publickey
+      '';
+      users.users.alice = {
+        isNormalUser = true;
       };
-
+      users.users.bob = {
+        isNormalUser = true;
+      };
+    };
   };
 
   testScript = ''

@@ -28,19 +28,15 @@
   automake,
   libtool,
   autoconf-archive,
-
   # List of { src name backend } attribute sets - see installFirmware below:
-  extraFirmware ? [ ],
-
+  extraFirmware ? [],
   # For backwards compatibility with older setups; use extraFirmware instead:
   gt68xxFirmware ? null,
   snapscanFirmware ? null,
-
   # Not included by default, scan snap drivers require fetching of unfree binaries.
   scanSnapDriversUnfree ? false,
   scanSnapDriversPackage ? sane-drivers.epjitsu,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sane-backends";
   version = "1.3.1";
@@ -83,7 +79,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   nativeBuildInputs = [
     autoconf
@@ -120,38 +116,39 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   configureFlags =
-    [ "--with-lockdir=/var/lock/sane" ]
+    ["--with-lockdir=/var/lock/sane"]
     ++ lib.optional (avahi != null) "--with-avahi"
     ++ lib.optional (libusb1 != null) "--with-usb";
 
   # autoconf check for HAVE_MMAP is never set on cross compilation.
   # The pieusb backend fails compilation if HAVE_MMAP is not set.
   buildFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "CFLAGS=-DHAVE_MMAP=${if stdenv.hostPlatform.isLinux then "1" else "0"}"
+    "CFLAGS=-DHAVE_MMAP=${
+      if stdenv.hostPlatform.isLinux
+      then "1"
+      else "0"
+    }"
   ];
 
-  postInstall =
-    let
+  postInstall = let
+    compatFirmware =
+      extraFirmware
+      ++ lib.optional (gt68xxFirmware != null) {
+        src = gt68xxFirmware.fw;
+        inherit (gt68xxFirmware) name;
+        backend = "gt68xx";
+      }
+      ++ lib.optional (snapscanFirmware != null) {
+        src = snapscanFirmware;
+        name = "your-firmwarefile.bin";
+        backend = "snapscan";
+      };
 
-      compatFirmware =
-        extraFirmware
-        ++ lib.optional (gt68xxFirmware != null) {
-          src = gt68xxFirmware.fw;
-          inherit (gt68xxFirmware) name;
-          backend = "gt68xx";
-        }
-        ++ lib.optional (snapscanFirmware != null) {
-          src = snapscanFirmware;
-          name = "your-firmwarefile.bin";
-          backend = "snapscan";
-        };
-
-      installFirmware = f: ''
-        mkdir -p $out/share/sane/${f.backend}
-        ln -sv ${f.src} $out/share/sane/${f.backend}/${f.name}
-      '';
-
-    in
+    installFirmware = f: ''
+      mkdir -p $out/share/sane/${f.backend}
+      ln -sv ${f.src} $out/share/sane/${f.backend}/${f.name}
+    '';
+  in
     ''
       mkdir -p $out/etc/udev/rules.d/ $out/etc/udev/hwdb.d
       ./tools/sane-desc -m udev+hwdb -s doc/descriptions:doc/descriptions-external > $out/etc/udev/rules.d/49-libsane.rules
@@ -194,6 +191,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.sane-project.org/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = [ lib.maintainers.symphorien ];
+    maintainers = [lib.maintainers.symphorien];
   };
 }

@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchFromGitHub,
   writableTmpDirAsHomeHook,
-
   # build-system
   cmake,
   cython_0,
@@ -11,7 +10,6 @@
   oldest-supported-numpy,
   setuptools,
   scikit-build,
-
   # dependencies
   matplotlib,
   meshio,
@@ -22,12 +20,10 @@
   scipy,
   sympy,
   tables,
-
   # tests
   pytest,
   openssh,
 }:
-
 buildPythonPackage rec {
   pname = "sfepy";
   version = "2024.4";
@@ -115,6 +111,6 @@ buildPythonPackage rec {
     homepage = "https://sfepy.org/";
     description = "Simple Finite Elements in Python";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ wd15 ];
+    maintainers = with lib.maintainers; [wd15];
   };
 }

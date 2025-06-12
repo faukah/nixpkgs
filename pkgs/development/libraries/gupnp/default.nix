@@ -19,15 +19,16 @@
   libuuid,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gupnp";
   version = "1.4.4";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) ["devdoc"];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gupnp/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";

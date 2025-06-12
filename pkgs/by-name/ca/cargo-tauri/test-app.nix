@@ -11,63 +11,62 @@
   rustPlatform,
   webkitgtk_4_1,
   wrapGAppsHook4,
-}:
-
-let
+}: let
   pnpm = pnpm_9;
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "test-app";
-  inherit (cargo-tauri) version src;
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "test-app";
+    inherit (cargo-tauri) version src;
 
-  postPatch = lib.optionalString stdenv.hostPlatform.isLinux ''
-    substituteInPlace $cargoDepsCopy/libappindicator-sys-*/src/lib.rs \
-      --replace "libayatana-appindicator3.so.1" "${libayatana-appindicator}/lib/libayatana-appindicator3.so.1"
-  '';
+    postPatch = lib.optionalString stdenv.hostPlatform.isLinux ''
+      substituteInPlace $cargoDepsCopy/libappindicator-sys-*/src/lib.rs \
+        --replace "libayatana-appindicator3.so.1" "${libayatana-appindicator}/lib/libayatana-appindicator3.so.1"
+    '';
 
-  inherit (cargo-tauri) cargoDeps;
+    inherit (cargo-tauri) cargoDeps;
 
-  pnpmDeps = pnpm.fetchDeps {
-    inherit (finalAttrs)
-      pname
-      version
-      src
-      ;
+    pnpmDeps = pnpm.fetchDeps {
+      inherit
+        (finalAttrs)
+        pname
+        version
+        src
+        ;
 
-    hash = "sha256-plANa/+9YEQ4ipgdQ7QzPyxgz6eDCBhO7qFlxK6Ab58=";
-  };
+      hash = "sha256-plANa/+9YEQ4ipgdQ7QzPyxgz6eDCBhO7qFlxK6Ab58=";
+    };
 
-  nativeBuildInputs = [
-    cargo-tauri.hook
+    nativeBuildInputs = [
+      cargo-tauri.hook
 
-    nodejs
-    pkg-config
-    pnpm.configHook
-    rustPlatform.cargoCheckHook
-    rustPlatform.cargoSetupHook
-    wrapGAppsHook4
-  ];
-
-  buildInputs =
-    [ openssl ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      glib-networking
-      libayatana-appindicator
-      webkitgtk_4_1
+      nodejs
+      pkg-config
+      pnpm.configHook
+      rustPlatform.cargoCheckHook
+      rustPlatform.cargoSetupHook
+      wrapGAppsHook4
     ];
 
-  buildAndTestSubdir = "examples/api/src-tauri";
+    buildInputs =
+      [openssl]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
+        glib-networking
+        libayatana-appindicator
+        webkitgtk_4_1
+      ];
 
-  # This example depends on the actual `api` package to be built in-tree
-  preBuild = ''
-    pnpm --filter '@tauri-apps/api' build
-  '';
+    buildAndTestSubdir = "examples/api/src-tauri";
 
-  # No one should be actually running this, so lets save some time
-  buildType = "debug";
-  doCheck = false;
+    # This example depends on the actual `api` package to be built in-tree
+    preBuild = ''
+      pnpm --filter '@tauri-apps/api' build
+    '';
 
-  meta = {
-    inherit (cargo-tauri.hook.meta) platforms;
-  };
-})
+    # No one should be actually running this, so lets save some time
+    buildType = "debug";
+    doCheck = false;
+
+    meta = {
+      inherit (cargo-tauri.hook.meta) platforms;
+    };
+  })

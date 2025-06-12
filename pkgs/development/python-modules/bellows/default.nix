@@ -13,7 +13,6 @@
   voluptuous,
   zigpy,
 }:
-
 buildPythonPackage rec {
   pname = "bellows";
   version = "0.45.0";
@@ -32,14 +31,16 @@ buildPythonPackage rec {
       --replace-fail 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    click
-    click-log
-    voluptuous
-    zigpy
-  ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
+  dependencies =
+    [
+      click
+      click-log
+      voluptuous
+      zigpy
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [async-timeout];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -47,14 +48,14 @@ buildPythonPackage rec {
     pytest-timeout
   ];
 
-  pythonImportsCheck = [ "bellows" ];
+  pythonImportsCheck = ["bellows"];
 
   meta = with lib; {
     description = "Python module to implement EZSP for EmberZNet devices";
     homepage = "https://github.com/zigpy/bellows";
     changelog = "https://github.com/zigpy/bellows/releases/tag/${src.tag}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mvnetbiz ];
+    maintainers = with maintainers; [mvnetbiz];
     mainProgram = "bellows";
   };
 }

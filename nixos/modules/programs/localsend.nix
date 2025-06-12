@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.localsend;
   firewallPort = 53317;
-in
-{
+in {
   options.programs.localsend = {
     enable = lib.mkEnableOption "localsend, an open source cross-platform alternative to AirDrop";
 
-    package = lib.mkPackageOption pkgs "localsend" { };
+    package = lib.mkPackageOption pkgs "localsend" {};
 
     openFirewall =
       lib.mkEnableOption "opening the firewall port ${toString firewallPort} for receiving files"
@@ -22,10 +20,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-    networking.firewall.allowedTCPPorts = lib.optionals cfg.openFirewall [ firewallPort ];
-    networking.firewall.allowedUDPPorts = lib.optionals cfg.openFirewall [ firewallPort ];
+    environment.systemPackages = [cfg.package];
+    networking.firewall.allowedTCPPorts = lib.optionals cfg.openFirewall [firewallPort];
+    networking.firewall.allowedUDPPorts = lib.optionals cfg.openFirewall [firewallPort];
   };
 
-  meta.maintainers = with lib.maintainers; [ pandapip1 ];
+  meta.maintainers = with lib.maintainers; [pandapip1];
 }

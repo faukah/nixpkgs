@@ -8,7 +8,6 @@
   pcre,
   tinycc,
 }:
-
 buildNimPackage {
   pname = "nrpl";
   version = "20150522";
@@ -20,8 +19,8 @@ buildNimPackage {
     hash = "sha256-YpP1LJKX3cTPficoBUBGnUETwQX5rDCyIMxylSFNnrI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ pcre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [pcre];
 
   patches = [
     (fetchpatch {
@@ -36,11 +35,11 @@ buildNimPackage {
   postFixup = ''
     wrapProgram $out/bin/nrpl \
       --prefix PATH : ${
-        lib.makeBinPath [
-          nim
-          tinycc
-        ]
-      }
+      lib.makeBinPath [
+        nim
+        tinycc
+      ]
+    }
   '';
 
   meta = with lib; {
@@ -48,7 +47,7 @@ buildNimPackage {
     mainProgram = "nrpl";
     homepage = "https://github.com/wheineman/nrpl";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = with platforms; linux ++ darwin;
   };
 }

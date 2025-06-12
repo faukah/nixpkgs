@@ -3,7 +3,6 @@
   qcheck-core,
   ounit2,
 }:
-
 buildDunePackage {
   pname = "qcheck-ounit";
 
@@ -14,8 +13,9 @@ buildDunePackage {
     ounit2
   ];
 
-  meta = qcheck-core.meta // {
-    description = "OUnit backend for qcheck";
-  };
-
+  meta =
+    qcheck-core.meta
+    // {
+      description = "OUnit backend for qcheck";
+    };
 }

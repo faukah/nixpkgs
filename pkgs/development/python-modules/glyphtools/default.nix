@@ -6,7 +6,6 @@
   glyphslib,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "glyphtools";
   version = "0.8.0";
@@ -27,12 +26,12 @@ buildPythonPackage rec {
   # imports the library.
   doCheck = false;
 
-  pythonImportsCheck = [ "glyphtools" ];
+  pythonImportsCheck = ["glyphtools"];
 
   meta = with lib; {
     description = "Python library for extracting information from font glyphs";
     homepage = "https://github.com/simoncozens/glyphtools";
     license = licenses.asl20;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

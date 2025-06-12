@@ -20,7 +20,6 @@
   kldap,
   kwallet,
 }:
-
 mkDerivation {
   pname = "libkdepim";
   meta = {

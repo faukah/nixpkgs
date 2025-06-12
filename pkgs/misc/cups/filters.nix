@@ -31,26 +31,22 @@
   withAvahi ? true,
   glib,
 }:
-
 (
-  if !withAvahi then
-    lib.warn "the 'withAvahi' parameter to 'cups-filters' is deprecated, as the cups-browsed component (which does not make sense without avahi) has been split out of the cups-filters package (which no longer needs avahi)"
-  else
-    lib.id
+  if !withAvahi
+  then lib.warn "the 'withAvahi' parameter to 'cups-filters' is deprecated, as the cups-browsed component (which does not make sense without avahi) has been split out of the cups-filters package (which no longer needs avahi)"
+  else lib.id
 )
-
-  (
-    let
-      binPath = lib.makeBinPath [
-        bc
-        coreutils
-        gawk
-        gnused
-        gnugrep
-        which
-      ];
-
-    in
+(
+  let
+    binPath = lib.makeBinPath [
+      bc
+      coreutils
+      gawk
+      gnused
+      gnugrep
+      which
+    ];
+  in
     stdenv.mkDerivation rec {
       pname = "cups-filters";
       version = "2.0.1";
@@ -127,4 +123,4 @@
         platforms = lib.platforms.linux;
       };
     }
-  )
+)

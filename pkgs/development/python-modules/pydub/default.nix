@@ -10,7 +10,6 @@
   setuptools,
   replaceVars,
 }:
-
 buildPythonPackage rec {
   pname = "pydub";
   version = "0.25.1";
@@ -40,9 +39,9 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  dependencies = [ audioop-lts ];
+  dependencies = [audioop-lts];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -54,13 +53,13 @@ buildPythonPackage rec {
     "pydub.playback"
   ];
 
-  pytestFlagsArray = [ "test/test.py" ];
+  pytestFlagsArray = ["test/test.py"];
 
   meta = with lib; {
     description = "Manipulate audio with a simple and easy high level interface";
     homepage = "http://pydub.com";
     changelog = "https://github.com/jiaaro/pydub/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

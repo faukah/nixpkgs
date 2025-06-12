@@ -17,14 +17,13 @@
   plasma-framework,
   qtdeclarative,
 }:
-
 mkDerivation {
   pname = "print-manager";
   meta = {
-    license = [ lib.licenses.gpl2 ];
-    maintainers = [ lib.maintainers.ttuegel ];
+    license = [lib.licenses.gpl2];
+    maintainers = [lib.maintainers.ttuegel];
   };
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     cups
     ki18n

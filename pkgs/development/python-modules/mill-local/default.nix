@@ -6,7 +6,6 @@
   fetchFromGitHub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "mill-local";
   version = "0.4.0";
@@ -29,13 +28,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "mill_local" ];
+  pythonImportsCheck = ["mill_local"];
 
   meta = with lib; {
     description = "Python module to communicate locally with Mill heaters";
     homepage = "https://github.com/Danielhiversen/pyMillLocal";
     changelog = "https://github.com/Danielhiversen/pyMillLocal/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

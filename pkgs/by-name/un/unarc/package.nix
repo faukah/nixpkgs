@@ -4,7 +4,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenv.mkDerivation {
   pname = "unarc";
   version = "0-unstable-2020-06-05";
@@ -31,13 +30,13 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Unpacker for ArC (FreeArc) archives ('ArC\\1' header)";
     homepage = "https://github.com/xredor/unarc";
     license = lib.licenses.unfree; # unknown
-    maintainers = [ lib.maintainers.lucasew ];
+    maintainers = [lib.maintainers.lucasew];
     mainProgram = "unarc";
   };
 }

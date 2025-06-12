@@ -8,7 +8,6 @@
   pam,
   openssh,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pam_rssh";
   version = "1.2.0-rc2";
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
       --replace '/bin/false' '${coreutils}/bin/false'
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
@@ -44,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     "--skip=sign_verify::test_dsa_sign_verify"
   ];
 
-  nativeCheckInputs = [ openssh ];
+  nativeCheckInputs = [openssh];
 
   env.USER = "nixbld";
 
@@ -71,6 +70,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/z4yx/pam_rssh";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
   };
 }

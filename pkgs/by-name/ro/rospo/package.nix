@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "rospo";
   version = "0.14.0";
@@ -25,7 +24,7 @@ buildGoModule rec {
     "-X github.com/ferama/rospo/cmd.Version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = false;
 
@@ -40,7 +39,7 @@ buildGoModule rec {
     description = "Simple, reliable, persistent ssh tunnels with embedded ssh server";
     homepage = "https://github.com/ferama/rospo";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     mainProgram = "rospo";
   };
 }

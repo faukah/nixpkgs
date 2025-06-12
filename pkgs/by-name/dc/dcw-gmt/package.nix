@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dcw-gmt";
   version = "2.1.2";
@@ -30,8 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
       for use by GMT, the Generic Mapping Tools.
     '';
     license = licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ tviti ];
-    teams = [ lib.teams.geospatial ];
+    maintainers = with lib.maintainers; [tviti];
+    teams = [lib.teams.geospatial];
   };
-
 })

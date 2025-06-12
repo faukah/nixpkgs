@@ -9,7 +9,6 @@
   python3,
   wafHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ntk";
   version = "1.3.1001";

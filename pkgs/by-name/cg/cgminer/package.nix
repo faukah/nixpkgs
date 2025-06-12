@@ -14,7 +14,6 @@
   xorg,
   jansson,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cgminer";
   version = "4.11.1";

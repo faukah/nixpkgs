@@ -18,7 +18,6 @@
   funcsigs ? null,
   pycryptopp ? null,
 }:
-
 buildPythonPackage rec {
   pname = "beaker";
   version = "1.13.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-HzjhOPXElwKoJLrhGIbVn798tbX/kaS1EpQIX+vXCtE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -40,7 +39,7 @@ buildPythonPackage rec {
       pycrypto
       cryptography
     ]
-    ++ lib.optionals (isPy27) [
+    ++ lib.optionals isPy27 [
       funcsigs
       pycryptopp
     ];
@@ -67,7 +66,7 @@ buildPythonPackage rec {
     description = "Session and Caching library with WSGI Middleware";
     homepage = "https://github.com/bbangert/beaker";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ];
-    knownVulnerabilities = [ "CVE-2013-7489" ];
+    maintainers = with lib.maintainers; [];
+    knownVulnerabilities = ["CVE-2013-7489"];
   };
 }

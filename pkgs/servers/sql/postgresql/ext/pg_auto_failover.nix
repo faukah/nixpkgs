@@ -4,7 +4,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pg_auto_failover";
   version = "2.2";
@@ -23,7 +22,7 @@ postgresqlBuildExtension (finalAttrs: {
     mainProgram = "pg_autoctl";
     homepage = "https://github.com/citusdata/pg_auto_failover";
     changelog = "https://github.com/citusdata/pg_auto_failover/blob/v${finalAttrs.version}/CHANGELOG.md";
-    maintainers = [ ];
+    maintainers = [];
     platforms = postgresql.meta.platforms;
     license = lib.licenses.postgresql;
   };

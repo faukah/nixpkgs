@@ -17,7 +17,6 @@
   atk,
   cairo,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "coulomb";
   version = "0.6.1";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     data = ./deps.json;
   };
 
-  gradleFlags = [ "-Dfile.encoding=utf-8" ];
+  gradleFlags = ["-Dfile.encoding=utf-8"];
 
   dontWrapGApps = true;
 
@@ -84,13 +83,13 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple and beautiful circuit simulator app";
     homepage = "https://github.com/hamza-algohary/Coulomb";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ thtrf ];
+    maintainers = with lib.maintainers; [thtrf];
     platforms = lib.platforms.linux;
     mainProgram = "coulomb";
   };

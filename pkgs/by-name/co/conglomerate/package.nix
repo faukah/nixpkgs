@@ -11,7 +11,6 @@
   minc_tools,
   makeWrapper,
 }:
-
 stdenv.mkDerivation {
   pname = "conglomerate";
   version = "unstable-2023-01-19";
@@ -51,18 +50,18 @@ stdenv.mkDerivation {
   postFixup = ''
     for p in $out/bin/*; do
       wrapProgram $p --prefix PERL5LIB : $PERL5LIB --set PATH "${
-        lib.makeBinPath [
-          coreutils
-          minc_tools
-        ]
-      }";
+      lib.makeBinPath [
+        coreutils
+        minc_tools
+      ]
+    }";
     done
   '';
 
   meta = {
     homepage = "https://github.com/BIC-MNI/conglomerate";
     description = "More command-line utilities for working with MINC files";
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
     platforms = lib.platforms.unix;
     license = lib.licenses.hpndUc;
   };

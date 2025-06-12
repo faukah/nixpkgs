@@ -6,7 +6,6 @@
   pygments,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jello";
   version = "1.6.1";
@@ -19,13 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-RAQ04R1zDL9hk1q19GSFvdkxse5rJZXpboAondOoHEc=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  propagatedBuildInputs = [ pygments ];
+  propagatedBuildInputs = [pygments];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "jello" ];
+  pythonImportsCheck = ["jello"];
 
   postInstall = ''
     installManPage man/jello.1
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/kellyjonbrazil/jello";
     changelog = "https://github.com/kellyjonbrazil/jello/blob/${src.tag}/CHANGELOG";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -6,7 +6,6 @@
   ihm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "modelcif";
   version = "1.3";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ ihm ];
+  dependencies = [ihm];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # require network access
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     "test_validate_modbase_example"
   ];
 
-  pythonImportsCheck = [ "modelcif" ];
+  pythonImportsCheck = ["modelcif"];
 
   meta = with lib; {
     description = "Python package for handling ModelCIF mmCIF and BinaryCIF files";
     homepage = "https://github.com/ihmwg/python-modelcif";
     changelog = "https://github.com/ihmwg/python-modelcif/blob/${src.rev}/ChangeLog.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

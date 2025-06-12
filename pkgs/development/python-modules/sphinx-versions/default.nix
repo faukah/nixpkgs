@@ -8,7 +8,6 @@
   colorclass,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-versions";
   version = "1.1.3";
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Sphinx extension that allows building versioned docs for self-hosting";
     homepage = "https://pypi.org/project/sphinx-versions/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ booxter ];
+    maintainers = with lib.maintainers; [booxter];
   };
 }

@@ -4,9 +4,7 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.dmarc;
   inherit (lib) mkOption types optionalString;
 
@@ -14,10 +12,12 @@ let
     inherit (cfg) folders port;
     listen_addr = cfg.listenAddress;
     storage_path = "$STATE_DIRECTORY";
-    imap = (builtins.removeAttrs cfg.imap [ "passwordFile" ]) // {
-      password = "$IMAP_PASSWORD";
-      use_ssl = true;
-    };
+    imap =
+      (builtins.removeAttrs cfg.imap ["passwordFile"])
+      // {
+        password = "$IMAP_PASSWORD";
+        use_ssl = true;
+      };
     poll_interval_seconds = cfg.pollIntervalSeconds;
     deduplication_max_seconds = cfg.deduplicationMaxSeconds;
     logging = {
@@ -25,8 +25,7 @@ let
       disable_existing_loggers = false;
     };
   };
-in
-{
+in {
   port = 9797;
   extraOpts = {
     imap = {

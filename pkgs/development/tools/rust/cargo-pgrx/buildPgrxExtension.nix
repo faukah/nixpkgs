@@ -26,7 +26,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
 {
   lib,
   cargo-pgrx,
@@ -35,7 +34,6 @@
   stdenv,
   writeShellScriptBin,
 }:
-
 # The idea behind: Use it mostly like rustPlatform.buildRustPackage and so
 # we hand most of the arguments down.
 #
@@ -56,28 +54,24 @@ lib.extendMkDerivation {
     "usePgTestCheckFeature"
   ];
 
-  extendDrvArgs =
-    finalAttrs:
-    {
-      buildAndTestSubdir ? null,
-      buildType ? "release",
-      buildFeatures ? [ ],
-      cargoBuildFlags ? [ ],
-      cargoPgrxFlags ? [ ],
-      postgresql,
-      # cargo-pgrx calls rustfmt on generated bindings, this is not strictly necessary, so we avoid the
-      # dependency here. Set to false and provide rustfmt in nativeBuildInputs, if you need it, e.g.
-      # if you include the generated code in the output via postInstall.
-      useFakeRustfmt ? true,
-      usePgTestCheckFeature ? true,
-      ...
-    }@args:
-    let
-      rustfmtInNativeBuildInputs = lib.lists.any (dep: lib.getName dep == "rustfmt") (
-        args.nativeBuildInputs or [ ]
-      );
-    in
-
+  extendDrvArgs = finalAttrs: {
+    buildAndTestSubdir ? null,
+    buildType ? "release",
+    buildFeatures ? [],
+    cargoBuildFlags ? [],
+    cargoPgrxFlags ? [],
+    postgresql,
+    # cargo-pgrx calls rustfmt on generated bindings, this is not strictly necessary, so we avoid the
+    # dependency here. Set to false and provide rustfmt in nativeBuildInputs, if you need it, e.g.
+    # if you include the generated code in the output via postInstall.
+    useFakeRustfmt ? true,
+    usePgTestCheckFeature ? true,
+    ...
+  } @ args: let
+    rustfmtInNativeBuildInputs = lib.lists.any (dep: lib.getName dep == "rustfmt") (
+      args.nativeBuildInputs or []
+    );
+  in
     assert lib.asserts.assertMsg (
       (args.installPhase or "") == ""
     ) "buildPgrxExtension overwrites the installPhase, so providing one does nothing";
@@ -85,11 +79,9 @@ lib.extendMkDerivation {
       (args.buildPhase or "") == ""
     ) "buildPgrxExtension overwrites the buildPhase, so providing one does nothing";
     assert lib.asserts.assertMsg (useFakeRustfmt -> !rustfmtInNativeBuildInputs)
-      "The parameter useFakeRustfmt is set to true, but rustfmt is included in nativeBuildInputs. Either set useFakeRustfmt to false or remove rustfmt from nativeBuildInputs.";
+    "The parameter useFakeRustfmt is set to true, but rustfmt is included in nativeBuildInputs. Either set useFakeRustfmt to false or remove rustfmt from nativeBuildInputs.";
     assert lib.asserts.assertMsg (!useFakeRustfmt -> rustfmtInNativeBuildInputs)
-      "The parameter useFakeRustfmt is set to false, but rustfmt is not included in nativeBuildInputs. Either set useFakeRustfmt to true or add rustfmt from nativeBuildInputs.";
-
-    let
+    "The parameter useFakeRustfmt is set to false, but rustfmt is not included in nativeBuildInputs. Either set useFakeRustfmt to true or add rustfmt from nativeBuildInputs."; let
       fakeRustfmt = writeShellScriptBin "rustfmt" ''
         exit 0
       '';
@@ -121,19 +113,18 @@ lib.extendMkDerivation {
       '';
 
       cargoPgrxFlags' = lib.escapeShellArgs cargoPgrxFlags;
-    in
-    {
-      buildInputs = (args.buildInputs or [ ]);
+    in {
+      buildInputs = args.buildInputs or [];
 
       nativeBuildInputs =
-        (args.nativeBuildInputs or [ ])
+        (args.nativeBuildInputs or [])
         ++ [
           cargo-pgrx
           postgresql
           pkg-config
           rustPlatform.bindgenHook
         ]
-        ++ lib.optionals useFakeRustfmt [ fakeRustfmt ];
+        ++ lib.optionals useFakeRustfmt [fakeRustfmt];
 
       buildPhase = ''
         runHook preBuild
@@ -181,13 +172,15 @@ lib.extendMkDerivation {
 
       checkNoDefaultFeatures = true;
       checkFeatures =
-        (args.checkFeatures or [ ])
-        ++ (lib.optionals usePgTestCheckFeature [ "pg_test" ])
-        ++ [ "pg${pgrxPostgresMajor}" ];
+        (args.checkFeatures or [])
+        ++ (lib.optionals usePgTestCheckFeature ["pg_test"])
+        ++ ["pg${pgrxPostgresMajor}"];
 
-      meta = (args.meta or { }) // {
-        # See comment in postgresql's generic.nix doInstallCheck section
-        broken = (args.meta.broken or false) || stdenv.hostPlatform.isDarwin;
-      };
+      meta =
+        (args.meta or {})
+        // {
+          # See comment in postgresql's generic.nix doInstallCheck section
+          broken = (args.meta.broken or false) || stdenv.hostPlatform.isDarwin;
+        };
     };
 }

@@ -3,7 +3,6 @@
   buildPythonPackage,
   flit,
 }:
-
 buildPythonPackage rec {
   pname = "flit-core";
   inherit (flit) version;
@@ -25,6 +24,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pypa/flit";
     changelog = "https://github.com/pypa/flit/blob/${src.rev}/doc/history.rst";
     license = licenses.bsd3;
-    teams = [ teams.python ];
+    teams = [teams.python];
   };
 }

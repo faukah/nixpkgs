@@ -12,7 +12,6 @@
   pytestCheckHook,
   trio,
 }:
-
 buildPythonPackage rec {
   pname = "asks";
   version = "3.0.0";
@@ -47,12 +46,12 @@ buildPythonPackage rec {
     "test_https_get_checks_cert"
   ];
 
-  pythonImportsCheck = [ "asks" ];
+  pythonImportsCheck = ["asks"];
 
   meta = {
     description = "Async requests-like HTTP library for Python";
     homepage = "https://github.com/theelous3/asks";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

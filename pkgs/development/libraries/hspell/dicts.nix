@@ -2,21 +2,19 @@
   lib,
   stdenv,
   hspell,
-}:
-
-let
-  dict =
-    variant: a:
+}: let
+  dict = variant: a:
     stdenv.mkDerivation (
       {
-        inherit (hspell)
+        inherit
+          (hspell)
           version
           src
           patches
           postPatch
           nativeBuildInputs
           ;
-        buildFlags = [ variant ];
+        buildFlags = [variant];
 
         meta =
           hspell.meta
@@ -26,10 +24,9 @@ let
           }
           // (lib.optionalAttrs (a ? meta) a.meta);
       }
-      // (removeAttrs a [ "meta" ])
+      // (removeAttrs a ["meta"])
     );
-in
-{
+in {
   recurseForDerivations = true;
 
   aspell = dict "aspell" {

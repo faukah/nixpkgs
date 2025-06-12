@@ -3,8 +3,7 @@
   formats,
   runCommand,
   makeWrapper,
-
-  extraPackages ? [ ],
+  extraPackages ? [],
   optionalDeps ? [
     jq
     poppler-utils
@@ -18,11 +17,9 @@
     chafa
     resvg
   ],
-
   # deps
   file,
   yazi-unwrapped,
-
   # optional deps
   jq,
   poppler-utils,
@@ -35,17 +32,14 @@
   imagemagick,
   chafa,
   resvg,
-
-  settings ? { },
-  plugins ? { },
-  flavors ? { },
+  settings ? {},
+  plugins ? {},
+  flavors ? {},
   initLua ? null,
-}:
+}: let
+  runtimePaths = [file] ++ optionalDeps ++ extraPackages;
 
-let
-  runtimePaths = [ file ] ++ optionalDeps ++ extraPackages;
-
-  settingsFormat = formats.toml { };
+  settingsFormat = formats.toml {};
 
   files = [
     "yazi"
@@ -54,35 +48,44 @@ let
   ];
 
   configHome =
-    if (settings == { } && initLua == null && plugins == { } && flavors == { }) then
-      null
+    if (settings == {} && initLua == null && plugins == {} && flavors == {})
+    then null
     else
-      runCommand "YAZI_CONFIG_HOME" { } ''
+      runCommand "YAZI_CONFIG_HOME" {} ''
         mkdir -p $out
         ${lib.concatMapStringsSep "\n" (
-          name:
-          lib.optionalString (settings ? ${name} && settings.${name} != { }) ''
-            ln -s ${settingsFormat.generate "${name}.toml" settings.${name}} $out/${name}.toml
-          ''
-        ) files}
+            name:
+              lib.optionalString (settings ? ${name} && settings.${name} != {}) ''
+                ln -s ${settingsFormat.generate "${name}.toml" settings.${name}} $out/${name}.toml
+              ''
+          )
+          files}
 
         mkdir $out/plugins
-        ${lib.optionalString (plugins != { }) ''
+        ${lib.optionalString (plugins != {}) ''
           ${lib.concatStringsSep "\n" (
             lib.mapAttrsToList (
-              name: value:
-              "ln -s ${value} $out/plugins/${if lib.hasSuffix ".yazi" name then name else "${name}.yazi"}"
-            ) plugins
+              name: value: "ln -s ${value} $out/plugins/${
+                if lib.hasSuffix ".yazi" name
+                then name
+                else "${name}.yazi"
+              }"
+            )
+            plugins
           )}
         ''}
 
         mkdir $out/flavors
-        ${lib.optionalString (flavors != { }) ''
+        ${lib.optionalString (flavors != {}) ''
           ${lib.concatStringsSep "\n" (
             lib.mapAttrsToList (
-              name: value:
-              "ln -s ${value} $out/flavors/${if lib.hasSuffix ".yazi" name then name else "${name}.yazi"}"
-            ) flavors
+              name: value: "ln -s ${value} $out/flavors/${
+                if lib.hasSuffix ".yazi" name
+                then name
+                else "${name}.yazi"
+              }"
+            )
+            flavors
           )}
         ''}
 
@@ -90,11 +93,11 @@ let
         ${lib.optionalString (initLua != null) "ln -s ${initLua} $out/init.lua"}
       '';
 in
-runCommand yazi-unwrapped.name
+  runCommand yazi-unwrapped.name
   {
     inherit (yazi-unwrapped) pname version meta;
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
   }
   ''
     mkdir -p $out/bin

@@ -12,7 +12,6 @@
   xdotool,
   wl-clipboard,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "smile";
   version = "2.10.1";
@@ -50,11 +49,11 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
       --prefix PATH : ${
-        lib.makeBinPath [
-          xdotool
-          wl-clipboard
-        ]
-      }
+      lib.makeBinPath [
+        xdotool
+        wl-clipboard
+      ]
+    }
     )
   '';
 

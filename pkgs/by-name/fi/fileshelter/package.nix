@@ -10,7 +10,6 @@
   pkg-config,
   libarchive,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fileshelter";
   version = "6.2.0";
@@ -51,8 +50,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/epoupon/fileshelter";
     description = "FileShelter is a 'one-click' file sharing web application";
     mainProgram = "fileshelter";
-    maintainers = [ ];
+    maintainers = [];
     license = lib.licenses.gpl3;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 })

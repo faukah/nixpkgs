@@ -12,7 +12,6 @@
   sphinxygen,
   writeScript,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "serd";
   version = "0.32.4";
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Lightweight C library for RDF syntax which supports reading and writing Turtle and NTriples";
     homepage = "https://drobilla.net/software/serd";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ samueltardieu ];
+    maintainers = with lib.maintainers; [samueltardieu];
     mainProgram = "serdi";
     platforms = lib.platforms.unix;
   };

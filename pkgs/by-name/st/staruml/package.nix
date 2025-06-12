@@ -24,9 +24,7 @@
   at-spi2-core,
   cups,
   libxkbcommon,
-}:
-
-let
+}: let
   LD_LIBRARY_PATH = lib.makeLibraryPath [
     glib
     gtk3
@@ -59,58 +57,58 @@ let
     cups
   ];
 in
-stdenv.mkDerivation (finalAttrs: {
-  version = "6.3.2";
-  pname = "staruml";
+  stdenv.mkDerivation (finalAttrs: {
+    version = "6.3.2";
+    pname = "staruml";
 
-  src = fetchurl {
-    url = "https://files.staruml.io/releases-v6/StarUML_${finalAttrs.version}_amd64.deb";
-    sha256 = "sha256-hN37cDsh+wWB0hIewRn/xeLXINX7MGA+9MPfi8X91qs=";
-  };
+    src = fetchurl {
+      url = "https://files.staruml.io/releases-v6/StarUML_${finalAttrs.version}_amd64.deb";
+      sha256 = "sha256-hN37cDsh+wWB0hIewRn/xeLXINX7MGA+9MPfi8X91qs=";
+    };
 
-  nativeBuildInputs = [
-    wrapGAppsHook3
-    dpkg
-  ];
-  buildInputs = [
-    glib
-    hicolor-icon-theme
-  ];
+    nativeBuildInputs = [
+      wrapGAppsHook3
+      dpkg
+    ];
+    buildInputs = [
+      glib
+      hicolor-icon-theme
+    ];
 
-  installPhase = ''
-    mkdir -p $out/bin
-    mv opt $out
+    installPhase = ''
+      mkdir -p $out/bin
+      mv opt $out
 
-    mv usr/share $out
-    rm -rf $out/share/doc
+      mv usr/share $out
+      rm -rf $out/share/doc
 
-    substituteInPlace $out/share/applications/staruml.desktop \
-      --replace "/opt/StarUML/staruml" "$out/bin/staruml"
+      substituteInPlace $out/share/applications/staruml.desktop \
+        --replace "/opt/StarUML/staruml" "$out/bin/staruml"
 
-    mkdir -p $out/lib
-    ln -s ${lib.getLib stdenv.cc.cc}/lib/libstdc++.so.6 $out/lib/
-    ln -s ${lib.getLib systemd}/lib/libudev.so.1 $out/lib/libudev.so.0
+      mkdir -p $out/lib
+      ln -s ${lib.getLib stdenv.cc.cc}/lib/libstdc++.so.6 $out/lib/
+      ln -s ${lib.getLib systemd}/lib/libudev.so.1 $out/lib/libudev.so.0
 
-    patchelf \
-      --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      $out/opt/StarUML/staruml
+      patchelf \
+        --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        $out/opt/StarUML/staruml
 
-    ln -s $out/opt/StarUML/staruml $out/bin/staruml
-  '';
+      ln -s $out/opt/StarUML/staruml $out/bin/staruml
+    '';
 
-  preFixup = ''
-    gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH ':' $out/lib:${LD_LIBRARY_PATH}
-    )
-  '';
+    preFixup = ''
+      gappsWrapperArgs+=(
+        --prefix LD_LIBRARY_PATH ':' $out/lib:${LD_LIBRARY_PATH}
+      )
+    '';
 
-  meta = with lib; {
-    description = "Sophisticated software modeler";
-    homepage = "https://staruml.io/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    maintainers = with maintainers; [ kashw2 ];
-    platforms = [ "x86_64-linux" ];
-    mainProgram = "staruml";
-  };
-})
+    meta = with lib; {
+      description = "Sophisticated software modeler";
+      homepage = "https://staruml.io/";
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      license = licenses.unfree;
+      maintainers = with maintainers; [kashw2];
+      platforms = ["x86_64-linux"];
+      mainProgram = "staruml";
+    };
+  })

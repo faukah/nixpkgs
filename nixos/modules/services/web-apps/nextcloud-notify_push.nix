@@ -4,13 +4,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.nextcloud.notify_push;
   cfgN = config.services.nextcloud;
-in
-{
+in {
   options.services.nextcloud.notify_push =
     {
       enable = lib.mkEnableOption "Notify push";
@@ -57,7 +54,8 @@ in
         '';
       };
     }
-    // (lib.genAttrs
+    // (
+      lib.genAttrs
       [
         "dbtype"
         "dbname"
@@ -69,11 +67,11 @@ in
       ]
       (
         opt:
-        options.services.nextcloud.config.${opt}
-        // {
-          default = config.services.nextcloud.config.${opt};
-          defaultText = lib.literalExpression "config.services.nextcloud.config.${opt}";
-        }
+          options.services.nextcloud.config.${opt}
+          // {
+            default = config.services.nextcloud.config.${opt};
+            defaultText = lib.literalExpression "config.services.nextcloud.config.${opt}";
+          }
       )
     );
 
@@ -81,7 +79,7 @@ in
     systemd.services = {
       nextcloud-notify_push = {
         description = "Push daemon for Nextcloud clients";
-        documentation = [ "https://github.com/nextcloud/notify_push" ];
+        documentation = ["https://github.com/nextcloud/notify_push"];
         after = [
           "nextcloud-setup.service"
           "phpfpm-nextcloud.service"
@@ -90,36 +88,39 @@ in
         requires = [
           "nextcloud-setup.service"
         ];
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         environment = {
           NEXTCLOUD_URL = cfg.nextcloudUrl;
           SOCKET_PATH = cfg.socketPath;
           DATABASE_PREFIX = cfg.dbtableprefix;
           LOG = cfg.logLevel;
         };
-        script =
-          let
-            dbType = if cfg.dbtype == "pgsql" then "postgresql" else cfg.dbtype;
-            dbUser = lib.optionalString (cfg.dbuser != null) cfg.dbuser;
-            dbPass = lib.optionalString (cfg.dbpassFile != null) ":$DATABASE_PASSWORD";
-            dbHostHasPrefix = prefix: lib.hasPrefix prefix (toString cfg.dbhost);
-            isPostgresql = dbType == "postgresql";
-            isMysql = dbType == "mysql";
-            isSocket = (isPostgresql && dbHostHasPrefix "/") || (isMysql && dbHostHasPrefix "localhost:/");
-            dbHost = lib.optionalString (cfg.dbhost != null) (
-              if isSocket then lib.optionalString isMysql "@localhost" else "@${cfg.dbhost}"
-            );
-            dbOpts = lib.optionalString (cfg.dbhost != null && isSocket) (
-              if isPostgresql then
-                "?host=${cfg.dbhost}"
-              else if isMysql then
-                "?socket=${lib.removePrefix "localhost:" cfg.dbhost}"
-              else
-                throw "unsupported dbtype"
-            );
-            dbName = lib.optionalString (cfg.dbname != null) "/${cfg.dbname}";
-            dbUrl = "${dbType}://${dbUser}${dbPass}${dbHost}${dbName}${dbOpts}";
-          in
+        script = let
+          dbType =
+            if cfg.dbtype == "pgsql"
+            then "postgresql"
+            else cfg.dbtype;
+          dbUser = lib.optionalString (cfg.dbuser != null) cfg.dbuser;
+          dbPass = lib.optionalString (cfg.dbpassFile != null) ":$DATABASE_PASSWORD";
+          dbHostHasPrefix = prefix: lib.hasPrefix prefix (toString cfg.dbhost);
+          isPostgresql = dbType == "postgresql";
+          isMysql = dbType == "mysql";
+          isSocket = (isPostgresql && dbHostHasPrefix "/") || (isMysql && dbHostHasPrefix "localhost:/");
+          dbHost = lib.optionalString (cfg.dbhost != null) (
+            if isSocket
+            then lib.optionalString isMysql "@localhost"
+            else "@${cfg.dbhost}"
+          );
+          dbOpts = lib.optionalString (cfg.dbhost != null && isSocket) (
+            if isPostgresql
+            then "?host=${cfg.dbhost}"
+            else if isMysql
+            then "?socket=${lib.removePrefix "localhost:" cfg.dbhost}"
+            else throw "unsupported dbtype"
+          );
+          dbName = lib.optionalString (cfg.dbname != null) "/${cfg.dbname}";
+          dbUrl = "${dbType}://${dbUser}${dbPass}${dbHost}${dbName}${dbOpts}";
+        in
           lib.optionalString (cfg.dbpassFile != null) ''
             export DATABASE_PASSWORD="$(<"$CREDENTIALS_DIRECTORY/dbpass")"
           ''
@@ -130,7 +131,7 @@ in
         serviceConfig = {
           User = "nextcloud";
           Group = "nextcloud";
-          RuntimeDirectory = [ "nextcloud-notify_push" ];
+          RuntimeDirectory = ["nextcloud-notify_push"];
           Restart = "on-failure";
           RestartSec = "5s";
           Type = "notify";
@@ -139,9 +140,9 @@ in
       };
 
       nextcloud-notify_push_setup = {
-        wantedBy = [ "multi-user.target" ];
-        requiredBy = [ "nextcloud-notify_push.service" ];
-        after = [ "nextcloud-notify_push.service" ];
+        wantedBy = ["multi-user.target"];
+        requiredBy = ["nextcloud-notify_push.service"];
+        after = ["nextcloud-notify_push.service"];
         serviceConfig = {
           Type = "oneshot";
           User = "nextcloud";
@@ -155,8 +156,8 @@ in
     };
 
     networking.hosts = lib.mkIf cfg.bendDomainToLocalhost {
-      "127.0.0.1" = [ cfgN.hostName ];
-      "::1" = [ cfgN.hostName ];
+      "127.0.0.1" = [cfgN.hostName];
+      "::1" = [cfgN.hostName];
     };
 
     services = lib.mkMerge [
@@ -165,7 +166,8 @@ in
           proxyPass = "http://unix:${cfg.socketPath}";
           proxyWebsockets = true;
           recommendedProxySettings = true;
-          extraConfig = # nginx
+          extraConfig =
+            # nginx
             ''
               # disable in case it was configured on a higher level
               keepalive_timeout 0;

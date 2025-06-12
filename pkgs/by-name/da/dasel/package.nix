@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "dasel";
   version = "2.8.1";
@@ -25,7 +24,7 @@ buildGoModule rec {
     "-X github.com/tomwright/dasel/v2/internal.Version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd dasel \
@@ -57,6 +56,6 @@ buildGoModule rec {
     changelog = "https://github.com/TomWright/dasel/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
     mainProgram = "dasel";
-    maintainers = with lib.maintainers; [ _0x4A6F ];
+    maintainers = with lib.maintainers; [_0x4A6F];
   };
 }

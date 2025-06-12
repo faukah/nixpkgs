@@ -4,7 +4,6 @@
   perl,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "davtest";
   version = "1.0";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs = [
-    (perl.withPackages (p: with p; [ HTTPDAV ]))
+    (perl.withPackages (p: with p; [HTTPDAV]))
   ];
 
   installPhase = ''
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://code.google.com/p/davtest/";
     mainProgram = "davtest.pl";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.unix;
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pkcrack";
   version = "1.2.3";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace '#include <malloc.h>' ""
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
   enableParallelBuilding = true;
 
   installPhase = ''
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
       url = "https://www.unix-ag.uni-kl.de/~conrad/krypto/pkcrack/pkcrack-readme.html";
       free = false;
     };
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.all;
     mainProgram = "pkcrack";
   };

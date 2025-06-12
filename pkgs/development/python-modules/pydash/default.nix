@@ -10,7 +10,6 @@
   sphinx-rtd-theme,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "pydash";
   version = "8.0.1";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
     sed -i "/--no-cov/d" pyproject.toml
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ typing-extensions ];
+  dependencies = [typing-extensions];
 
   nativeCheckInputs = [
     invoke
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     sphinx-rtd-theme
   ];
 
-  pythonImportsCheck = [ "pydash" ];
+  pythonImportsCheck = ["pydash"];
 
   disabledTestPaths = [
     # Disable mypy testing
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://pydash.readthedocs.io";
     changelog = "https://github.com/dgilland/pydash/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
   };
 }

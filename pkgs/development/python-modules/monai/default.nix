@@ -10,7 +10,6 @@
   torch,
   which,
 }:
-
 buildPythonPackage rec {
   pname = "monai";
   version = "1.4.0";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     which
   ];
 
-  buildInputs = [ pybind11 ];
+  buildInputs = [pybind11];
 
   dependencies = [
     numpy
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     torch
   ];
 
-  pythonRelaxDeps = [ "numpy" ]; # supported; see https://github.com/Project-MONAI/MONAI/pull/7857
+  pythonRelaxDeps = ["numpy"]; # supported; see https://github.com/Project-MONAI/MONAI/pull/7857
 
   env.BUILD_MONAI = 1;
 
@@ -71,6 +70,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Project-MONAI/MONAI";
     changelog = "https://github.com/Project-MONAI/MONAI/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
   };
 }

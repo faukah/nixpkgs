@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "termbg";
   version = "0.6.0";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ pinpox ];
+    maintainers = with lib.maintainers; [pinpox];
     mainProgram = "termbg";
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "k2tf";
   version = "0.7.0";
@@ -39,6 +38,6 @@ buildGoModule rec {
     mainProgram = "k2tf";
     homepage = "https://github.com/sl1pm4t/k2tf";
     license = licenses.mpl20;
-    maintainers = [ maintainers.flokli ];
+    maintainers = [maintainers.flokli];
   };
 }

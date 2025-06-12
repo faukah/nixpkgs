@@ -25,8 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook3
   ];
 
-  buildInputs =
-    with pkgs;
+  buildInputs = with pkgs;
     [
       alsa-lib
       at-spi2-atk
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
       libxshmfence
     ]);
 
-  runtimeDependencies = with pkgs; [ eudev ];
+  runtimeDependencies = with pkgs; [eudev];
 
   unpackCmd = "dpkg -x $src .";
 
@@ -88,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Unofficial Electron-based Figma desktop app for Linux";
     homepage = "https://github.com/Figma-Linux/figma-linux";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [
       ercao

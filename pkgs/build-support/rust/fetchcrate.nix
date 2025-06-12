@@ -2,9 +2,7 @@
   lib,
   fetchzip,
   fetchurl,
-}:
-
-{
+}: {
   crateName ? args.pname,
   pname ? null,
   # The `dl` field of the registry's index configuration
@@ -13,25 +11,27 @@
   version,
   unpack ? true,
   ...
-}@args:
-
+} @ args:
 assert pname == null || pname == crateName;
+  (
+    if unpack
+    then fetchzip
+    else fetchurl
+  ) (
+    {
+      name = "${crateName}-${version}.tar.gz";
+      url = "${registryDl}/${crateName}/${version}/download";
 
-(if unpack then fetchzip else fetchurl) (
-  {
-    name = "${crateName}-${version}.tar.gz";
-    url = "${registryDl}/${crateName}/${version}/download";
-
-    passthru = { inherit pname version; };
-  }
-  // lib.optionalAttrs unpack {
-    extension = "tar.gz";
-  }
-  // removeAttrs args [
-    "crateName"
-    "pname"
-    "registryDl"
-    "version"
-    "unpack"
-  ]
-)
+      passthru = {inherit pname version;};
+    }
+    // lib.optionalAttrs unpack {
+      extension = "tar.gz";
+    }
+    // removeAttrs args [
+      "crateName"
+      "pname"
+      "registryDl"
+      "version"
+      "unpack"
+    ]
+  )

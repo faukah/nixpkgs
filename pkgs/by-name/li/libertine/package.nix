@@ -4,7 +4,6 @@
   fetchurl,
   fontforge,
 }:
-
 stdenv.mkDerivation {
   pname = "linux-libertine";
   version = "5.3.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ fontforge ];
+  nativeBuildInputs = [fontforge];
 
   dontConfigure = true;
 
@@ -53,7 +52,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Linux Libertine Fonts";
     homepage = "http://linuxlibertine.sf.net";
-    maintainers = with maintainers; [ erdnaxe ];
+    maintainers = with maintainers; [erdnaxe];
     license = licenses.ofl;
   };
 }

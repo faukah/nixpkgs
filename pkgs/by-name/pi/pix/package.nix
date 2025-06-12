@@ -31,7 +31,6 @@
   itstool,
   xapp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pix";
   version = "3.4.5";
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     glib
     gsettings-desktop-schemas
     gst_all_1.gst-plugins-base
-    (gst_all_1.gst-plugins-good.override { gtkSupport = true; })
+    (gst_all_1.gst-plugins-good.override {gtkSupport = true;})
     gst_all_1.gst-libav
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-ugly
@@ -92,7 +91,7 @@ stdenv.mkDerivation rec {
 
   # Avoid direct dependency on webkit2gtk-4.0
   # https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
-  mesonFlags = [ "-Dwebservices=false" ];
+  mesonFlags = ["-Dwebservices=false"];
 
   preFixup = ''
     gappsWrapperArgs+=(--prefix XDG_DATA_DIRS : "${shared-mime-info}/share")
@@ -104,6 +103,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxmint/pix";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

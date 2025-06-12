@@ -13,7 +13,6 @@
   xz,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ciel";
   version = "3.9.6";

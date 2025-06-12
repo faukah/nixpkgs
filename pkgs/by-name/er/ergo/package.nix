@@ -6,7 +6,6 @@
   jre,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ergo";
   version = "5.0.26";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WVrImdtn6UPWMpd6ltUbJGyqnLPud7JuFPuU4lHS8AE=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
 
@@ -24,15 +23,15 @@ stdenv.mkDerivation rec {
     makeWrapper ${jre}/bin/java $out/bin/ergo --add-flags "-jar $src"
   '';
 
-  passthru.tests = { inherit (nixosTests) ergo; };
+  passthru.tests = {inherit (nixosTests) ergo;};
 
   meta = with lib; {
     description = "Open protocol that implements modern scientific ideas in the blockchain area";
     homepage = "https://ergoplatform.org/en/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.cc0;
     platforms = platforms.all;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
     mainProgram = "ergo";
   };
 }

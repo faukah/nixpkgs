@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "LAStools";
   version = "2.0.3";
@@ -34,8 +33,8 @@ stdenv.mkDerivation rec {
     description = "Software for rapid LiDAR processing";
     homepage = "http://lastools.org/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ stephenwithph ];
-    teams = [ teams.geospatial ];
+    maintainers = with maintainers; [stephenwithph];
+    teams = [teams.geospatial];
     platforms = platforms.unix;
   };
 }

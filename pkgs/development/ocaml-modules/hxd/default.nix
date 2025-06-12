@@ -7,7 +7,6 @@
   lwt,
   withLwt ? true,
 }:
-
 buildDunePackage rec {
   pname = "hxd";
   version = "0.3.3";
@@ -36,7 +35,7 @@ buildDunePackage rec {
     description = "Hexdump in OCaml";
     homepage = "https://github.com/dinosaure/hxd";
     license = licenses.mit;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     mainProgram = "hxd.xxd";
   };
 }

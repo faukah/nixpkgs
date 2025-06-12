@@ -6,7 +6,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bitlbee-discord";
   version = "0.4.3";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ bitlbee ];
+  buildInputs = [bitlbee];
 
   preConfigure = ''
     export BITLBEE_PLUGINDIR=$out/lib/bitlbee
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://github.com/sm00th/bitlbee-discord";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ lassulus ];
+    maintainers = with maintainers; [lassulus];
     platforms = lib.platforms.linux;
   };
 }

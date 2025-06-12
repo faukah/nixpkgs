@@ -18,8 +18,8 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ifVhVFiTO1CVpWo6B9OZXJwuc40IRkSc4ncMXG+5DnE=";
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ openssl ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [openssl];
 
   OPENSSL_NO_VENDOR = 1;
 
@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     description = "CLI for Rustfinity challenges solving";
     homepage = "https://github.com/dcodesdev/rustfinity.com/tree/main/crates/cli";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nartsiss ];
+    maintainers = with lib.maintainers; [nartsiss];
     mainProgram = "rustfinity";
   };
 }

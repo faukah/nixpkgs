@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "oshka";
   version = "0.4.1";
@@ -31,6 +30,6 @@ buildGoModule rec {
     mainProgram = "oshka";
     homepage = "https://github.com/k1LoW/oshka";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

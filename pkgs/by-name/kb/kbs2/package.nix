@@ -7,7 +7,6 @@
   python3,
   libxcb,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kbs2";
   version = "0.7.2";
@@ -22,17 +21,19 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-+TJ/QG+6ZILcSZEIXj6B4qYF0P5pQpo1kw2qEfE0FDw=";
 
-  nativeBuildInputs = [ installShellFiles ] ++ lib.optionals stdenv.hostPlatform.isLinux [ python3 ];
+  nativeBuildInputs = [installShellFiles] ++ lib.optionals stdenv.hostPlatform.isLinux [python3];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ libxcb ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [libxcb];
 
   preCheck = ''
     export HOME=$TMPDIR
   '';
 
-  checkFlags = [
-    "--skip=kbs2::config::tests::test_find_config_dir"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "--skip=test_ragelib_rewrap_keyfile" ];
+  checkFlags =
+    [
+      "--skip=kbs2::config::tests::test_find_config_dir"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["--skip=test_ragelib_rewrap_keyfile"];
 
   postInstall =
     ''
@@ -52,6 +53,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/woodruffw/kbs2";
     changelog = "https://github.com/woodruffw/kbs2/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

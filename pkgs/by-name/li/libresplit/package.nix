@@ -10,7 +10,6 @@
   wrapGAppsHook3,
   xxd,
 }:
-
 stdenv.mkDerivation {
   pname = "libresplit";
   version = "0-unstable-2025-04-05";
@@ -34,15 +33,15 @@ stdenv.mkDerivation {
     luajit
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://github.com/wins1ey/LibreSplit";
     description = "Speedrun timer with auto splitting and load removal for Linux";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     mainProgram = "libresplit";
     platforms = lib.platforms.linux;
   };

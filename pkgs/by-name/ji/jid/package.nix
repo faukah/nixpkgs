@@ -5,7 +5,6 @@
   testers,
   jid,
 }:
-
 buildGoModule rec {
   pname = "jid";
   version = "0.7.6";
@@ -39,6 +38,6 @@ buildGoModule rec {
     mainProgram = "jid";
     homepage = "https://github.com/simeji/jid";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ stesie ];
+    maintainers = with lib.maintainers; [stesie];
   };
 }

@@ -14,7 +14,6 @@
   scipy,
   statsmodels,
 }:
-
 buildPythonPackage rec {
   pname = "seaborn";
   version = "0.13.2";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     matplotlib
@@ -78,12 +77,12 @@ buildPythonPackage rec {
   # backends (leads to crashes on macOS).
   env.MPLBACKEND = "Agg";
 
-  pythonImportsCheck = [ "seaborn" ];
+  pythonImportsCheck = ["seaborn"];
 
   meta = with lib; {
     description = "Statistical data visualization";
     homepage = "https://seaborn.pydata.org/";
     changelog = "https://github.com/mwaskom/seaborn/blob/master/doc/whatsnew/${src.rev}.rst";
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
   };
 }

@@ -8,7 +8,6 @@
   xorgproto,
   libXi,
 }:
-
 stdenv.mkDerivation {
   pname = "xcape";
   version = "unstable-2018-03-01";
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
     sha256 = "04grs4w9kpfzz25mqw82zdiy51g0w355gpn5b170p7ha5972ykc8";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libX11
@@ -48,7 +47,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/alols/xcape";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     mainProgram = "xcape";
   };

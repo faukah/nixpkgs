@@ -6,7 +6,6 @@
   unstableGitUpdater,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rapidcheck";
   version = "0-unstable-2023-12-14";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_SHARED_LIBS" (!stdenv.hostPlatform.isStatic))
@@ -31,14 +30,14 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
   };
 
   meta = with lib; {
     description = "C++ framework for property based testing inspired by QuickCheck";
     inherit (finalAttrs.src.meta) homepage;
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.bsd2;
     pkgConfigModules = [
       "rapidcheck"

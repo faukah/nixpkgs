@@ -8,7 +8,6 @@
   libXt,
   libXft,
 }:
-
 stdenv.mkDerivation {
   pname = "deadpixi-sam-unstable";
   version = "2020-07-14";
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
   '';
 
   CFLAGS = "-D_DARWIN_C_SOURCE";
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
   buildInputs = [
     libX11
     libXi
@@ -51,7 +50,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/deadpixi/sam";
     description = "Updated version of the sam text editor";
     license = licenses.lpl-102;
-    maintainers = with maintainers; [ ramkromberg ];
+    maintainers = with maintainers; [ramkromberg];
     platforms = platforms.unix;
   };
 }

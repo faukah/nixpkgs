@@ -4,8 +4,7 @@
 
   nodes = {
     machine = (
-      { pkgs, ... }:
-      {
+      {pkgs, ...}: {
       }
     );
   };

@@ -6,16 +6,13 @@
   setuptools,
   poetry-core,
   rbw,
-
   waylandSupport ? false,
   wl-clipboard,
   wtype,
-
   x11Support ? false,
   xclip,
   xdotool,
 }:
-
 buildPythonApplication rec {
   pname = "rofi-rbw";
   version = "1.4.2";
@@ -46,9 +43,9 @@ buildPythonApplication rec {
       xdotool
     ];
 
-  propagatedBuildInputs = [ configargparse ];
+  propagatedBuildInputs = [configargparse];
 
-  pythonImportsCheck = [ "rofi_rbw" ];
+  pythonImportsCheck = ["rofi_rbw"];
 
   wrapper_paths =
     [

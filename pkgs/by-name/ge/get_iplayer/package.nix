@@ -11,7 +11,6 @@
   testers,
   get_iplayer,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "get_iplayer";
   version = "3.36";
@@ -23,8 +22,8 @@ perlPackages.buildPerlPackage rec {
     hash = "sha256-O/mVtbudrYw0jKeSckZlgonFDiWxfeiVc8gdcy4iNBw=";
   };
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optional stdenv.hostPlatform.isDarwin shortenPerlShebang;
-  buildInputs = [ perl ];
+  nativeBuildInputs = [makeWrapper] ++ lib.optional stdenv.hostPlatform.isDarwin shortenPerlShebang;
+  buildInputs = [perl];
   propagatedBuildInputs = with perlPackages; [
     LWP
     LWPProtocolHttps
@@ -75,5 +74,4 @@ perlPackages.buildPerlPackage rec {
       chewblacka
     ];
   };
-
 }

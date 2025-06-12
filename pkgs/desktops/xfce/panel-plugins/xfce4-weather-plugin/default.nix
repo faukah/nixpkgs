@@ -19,7 +19,6 @@
   xfconf,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-weather-plugin";
   version = "0.12.0";
@@ -71,6 +70,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Weather plugin for the Xfce desktop environment";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
   };
 })

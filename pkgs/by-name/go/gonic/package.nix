@@ -6,7 +6,6 @@
   pkg-config,
   taglib,
   zlib,
-
   # Disable on-the-fly transcoding,
   # removing the dependency on ffmpeg.
   # The server will (as of 0.11.0) gracefully fall back
@@ -17,7 +16,6 @@
   ffmpeg,
   mpv,
 }:
-
 buildGoModule rec {
   pname = "gonic";
   version = "0.16.4";
@@ -28,7 +26,7 @@ buildGoModule rec {
     sha256 = "sha256-+8rKODoADU2k1quKvbijjs/6S/hpkegHhG7Si0LSE0k=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     taglib
     zlib
@@ -70,7 +68,7 @@ buildGoModule rec {
     homepage = "https://github.com/sentriz/gonic";
     description = "Music streaming server / subsonic server API implementation";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ autrimpo ];
+    maintainers = with lib.maintainers; [autrimpo];
     mainProgram = "gonic";
   };
 }

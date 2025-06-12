@@ -4,10 +4,7 @@
   config,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.flarum;
 
   flarumInstallConfig = pkgs.writeText "config.json" (
@@ -27,12 +24,11 @@ let
       };
     }
   );
-in
-{
+in {
   options.services.flarum = {
     enable = mkEnableOption "Flarum discussion platform";
 
-    package = mkPackageOption pkgs "flarum" { };
+    package = mkPackageOption pkgs "flarum" {};
 
     forumTitle = mkOption {
       type = types.str;
@@ -91,8 +87,7 @@ in
     };
 
     database = mkOption rec {
-      type =
-        with types;
+      type = with types;
         attrsOf (oneOf [
           str
           bool
@@ -139,7 +134,7 @@ in
       homeMode = "755";
       group = cfg.group;
     };
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
 
     services.phpfpm.pools.flarum = {
       user = cfg.user;
@@ -178,7 +173,7 @@ in
     services.mysql = mkIf cfg.enable {
       enable = true;
       package = pkgs.mariadb;
-      ensureDatabases = [ cfg.database.database ];
+      ensureDatabases = [cfg.database.database];
       ensureUsers = [
         {
           name = cfg.database.username;
@@ -197,21 +192,21 @@ in
     ];
 
     systemd.services."phpfpm-flarum" = {
-      restartTriggers = [ cfg.package ];
+      restartTriggers = [cfg.package];
     };
 
     systemd.services.flarum-install = {
       description = "Flarum installation";
-      requiredBy = [ "phpfpm-flarum.service" ];
-      before = [ "phpfpm-flarum.service" ];
-      requires = [ "mysql.service" ];
-      after = [ "mysql.service" ];
+      requiredBy = ["phpfpm-flarum.service"];
+      before = ["phpfpm-flarum.service"];
+      requires = ["mysql.service"];
+      after = ["mysql.service"];
       serviceConfig = {
         Type = "oneshot";
         User = cfg.user;
         Group = cfg.group;
       };
-      path = [ config.services.phpfpm.phpPackage ];
+      path = [config.services.phpfpm.phpPackage];
       script =
         ''
           mkdir -p ${cfg.stateDir}/{extensions,public/assets/avatars}

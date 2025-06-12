@@ -19,7 +19,6 @@
   stestr,
   stevedore,
 }:
-
 buildPythonPackage rec {
   pname = "python-zaqarclient";
   version = "3.0.0";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   dependencies = [
     jsonschema
@@ -71,12 +70,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "zaqarclient" ];
+  pythonImportsCheck = ["zaqarclient"];
 
   meta = {
     homepage = "https://github.com/openstack/python-zaqarclient";
     description = "Client library for OpenStack Zaqar API";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.openstack ];
+    teams = [lib.teams.openstack];
   };
 }

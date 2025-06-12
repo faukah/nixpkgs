@@ -41,14 +41,12 @@
   libsForQt5,
   # Features available to override, the list of them is in featuresInfo. They
   # are all turned on by default.
-  features ? { },
+  features ? {},
   # If one wishes to use a different src or name for a very custom build
-  overrideSrc ? { },
+  overrideSrc ? {},
   pname ? "gnuradio",
   version ? "3.10.12.0",
-}:
-
-let
+}: let
   sourceSha256 = "sha256-489Pc6z6Ha7jkTzZSEArDQJGkWdWRDIn1uhfFyLLiCo=";
   featuresInfo = {
     # Needed always
@@ -67,28 +65,28 @@ let
         ]
         # when gr-qtgui is disabled, icu needs to be included, otherwise
         # building with boost 1.7x fails
-        ++ lib.optionals (!(hasFeature "gr-qtgui")) [ icu ];
+        ++ lib.optionals (!(hasFeature "gr-qtgui")) [icu];
       pythonNative = with python.pkgs; [
         mako
         six
       ];
     };
     doxygen = {
-      native = [ doxygen ];
+      native = [doxygen];
       cmakeEnableFlag = "DOXYGEN";
     };
     man-pages = {
       cmakeEnableFlag = "MANPAGES";
     };
     python-support = {
-      pythonRuntime = [ python.pkgs.six ];
+      pythonRuntime = [python.pkgs.six];
       native = [
         python
       ];
       cmakeEnableFlag = "PYTHON";
     };
     testing-support = {
-      native = [ cppunit ];
+      native = [cppunit];
       cmakeEnableFlag = "TESTING";
     };
     post-install = {
@@ -149,11 +147,11 @@ let
       cmakeEnableFlag = "GR_FEC";
     };
     gr-fft = {
-      runtime = [ fftwFloat ];
+      runtime = [fftwFloat];
       cmakeEnableFlag = "GR_FFT";
     };
     gr-filter = {
-      runtime = [ fftwFloat ];
+      runtime = [fftwFloat];
       cmakeEnableFlag = "GR_FILTER";
       pythonRuntime = with python.pkgs; [
         scipy
@@ -172,7 +170,7 @@ let
     };
     gr-audio = {
       runtime =
-        [ ]
+        []
         ++ lib.optionals stdenv.hostPlatform.isLinux [
           alsa-lib
           libjack2
@@ -203,7 +201,7 @@ let
         qt5.qtbase
         libsForQt5.qwt
       ];
-      pythonRuntime = [ python.pkgs.pyqt5 ];
+      pythonRuntime = [python.pkgs.pyqt5];
       cmakeEnableFlag = "GR_QTGUI";
     };
     gr-trellis = {
@@ -241,7 +239,7 @@ let
       cmakeEnableFlag = "GR_BLOCKTOOL";
     };
     gr-video-sdl = {
-      runtime = [ SDL ];
+      runtime = [SDL];
       cmakeEnableFlag = "GR_VIDEO_SDL";
     };
     gr-vocoder = {
@@ -259,7 +257,7 @@ let
       ];
     };
     gr-zeromq = {
-      runtime = [ cppzmq ];
+      runtime = [cppzmq];
       cmakeEnableFlag = "GR_ZEROMQ";
       pythonRuntime = [
         # Will compile without this, but it is required by tests, and by some
@@ -297,50 +295,48 @@ let
   );
   inherit (shared.passthru) hasFeature; # function
 in
+  stdenv.mkDerivation (
+    finalAttrs: (
+      shared
+      // {
+        inherit pname version;
+        # Will still evaluate correctly if not used here. It only helps nix-update
+        # find the right file in which version is defined.
+        inherit (shared) src;
+        patches = [
+          # Not accepted upstream, see https://github.com/gnuradio/gnuradio/pull/5227
+          ./modtool-newmod-permissions.patch
+        ];
+        passthru =
+          shared.passthru
+          // {
+            # Deps that are potentially overridden and are used inside GR plugins - the same version must
+            inherit
+              boost
+              volk
+              ;
+            # Used by many gnuradio modules, the same attribute is present in
+            # previous gnuradio versions where there it's log4cpp.
+            logLib = spdlog;
+          }
+          // lib.optionalAttrs (hasFeature "gr-uhd") {
+            inherit uhd;
+          }
+          // lib.optionalAttrs (hasFeature "gr-pdu") {
+            inherit libiio libad9361;
+          }
+          // lib.optionalAttrs (hasFeature "gr-qtgui") {
+            inherit (libsForQt5) qwt;
+          };
 
-stdenv.mkDerivation (
-  finalAttrs:
-  (
-    shared
-    // {
-      inherit pname version;
-      # Will still evaluate correctly if not used here. It only helps nix-update
-      # find the right file in which version is defined.
-      inherit (shared) src;
-      patches = [
-        # Not accepted upstream, see https://github.com/gnuradio/gnuradio/pull/5227
-        ./modtool-newmod-permissions.patch
-      ];
-      passthru =
-        shared.passthru
-        // {
-          # Deps that are potentially overridden and are used inside GR plugins - the same version must
-          inherit
-            boost
-            volk
-            ;
-          # Used by many gnuradio modules, the same attribute is present in
-          # previous gnuradio versions where there it's log4cpp.
-          logLib = spdlog;
-        }
-        // lib.optionalAttrs (hasFeature "gr-uhd") {
-          inherit uhd;
-        }
-        // lib.optionalAttrs (hasFeature "gr-pdu") {
-          inherit libiio libad9361;
-        }
-        // lib.optionalAttrs (hasFeature "gr-qtgui") {
-          inherit (libsForQt5) qwt;
-        };
-
-      postInstall =
-        shared.postInstall
-        # This is the only python reference worth removing, if needed.
-        + lib.optionalString (!hasFeature "python-support") ''
-          remove-references-to -t ${python} $out/lib/cmake/gnuradio/GnuradioConfig.cmake
-          remove-references-to -t ${python} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
-          remove-references-to -t ${python.pkgs.pybind11} $out/lib/cmake/gnuradio/gnuradio-runtimeTargets.cmake
-        '';
-    }
+        postInstall =
+          shared.postInstall
+          # This is the only python reference worth removing, if needed.
+          + lib.optionalString (!hasFeature "python-support") ''
+            remove-references-to -t ${python} $out/lib/cmake/gnuradio/GnuradioConfig.cmake
+            remove-references-to -t ${python} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
+            remove-references-to -t ${python.pkgs.pybind11} $out/lib/cmake/gnuradio/gnuradio-runtimeTargets.cmake
+          '';
+      }
+    )
   )
-)

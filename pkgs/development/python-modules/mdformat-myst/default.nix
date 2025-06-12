@@ -11,7 +11,6 @@
   ruamel-yaml,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mdformat-myst";
   version = "0.2.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-Ty9QOsOTCNfhdLVuLfD0x63OFfHhODr14i/dhN+Sqnc=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     mdformat
@@ -35,15 +34,15 @@ buildPythonPackage rec {
     ruamel-yaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mdformat_myst" ];
+  pythonImportsCheck = ["mdformat_myst"];
 
   meta = {
     description = "Mdformat plugin for MyST compatibility";
     homepage = "https://github.com/executablebooks/mdformat-myst";
     changelog = "https://github.com/executablebooks/mdformat-myst/releases/tag/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mattkang ];
+    maintainers = with lib.maintainers; [mattkang];
   };
 }

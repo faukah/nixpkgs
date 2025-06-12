@@ -6,7 +6,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "findomain";
   version = "9.0.4";

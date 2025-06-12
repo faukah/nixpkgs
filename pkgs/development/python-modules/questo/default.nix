@@ -2,18 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   python-yakh,
   rich,
-
   # nativeCheckInputs
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "questo";
   version = "0.4.1";
@@ -47,6 +43,6 @@ buildPythonPackage rec {
     description = "A library of extensible and modular CLI prompt elements";
     homepage = "https://github.com/petereon/questo";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

@@ -19,11 +19,11 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-A3zdDzmwX2gdTLLWnUGeiqY1R5PBKZRmEHdIi1Uveaw=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Easily query TOML files from bash";
@@ -31,6 +31,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/snyball/tombl/releases/tag/v${version}";
     mainProgram = "tombl";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ oskardotglobal ];
+    maintainers = with lib.maintainers; [oskardotglobal];
   };
 }

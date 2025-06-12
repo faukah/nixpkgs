@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   uid = config.ids.uids.mopidy;
   gid = config.ids.gids.mopidy;
   cfg = config.services.mopidy;
@@ -15,20 +14,16 @@ let
     name = "mopidy-with-extensions-${pkgs.mopidy.version}";
     ignoreCollisions = true;
     paths = lib.closePropagation cfg.extensionPackages;
-    pathsToLink = [ "/${pkgs.mopidyPackages.python.sitePackages}" ];
-    nativeBuildInputs = [ pkgs.makeWrapper ];
+    pathsToLink = ["/${pkgs.mopidyPackages.python.sitePackages}"];
+    nativeBuildInputs = [pkgs.makeWrapper];
     postBuild = ''
       makeWrapper ${lib.getExe pkgs.mopidy} $out/bin/mopidy \
         --prefix PYTHONPATH : $out/${pkgs.mopidyPackages.python.sitePackages}
     '';
   };
-in
-{
-
+in {
   options = {
-
     services.mopidy = {
-
       enable = lib.mkEnableOption "Mopidy, a music player daemon";
 
       dataDir = lib.mkOption {
@@ -40,7 +35,7 @@ in
       };
 
       extensionPackages = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.package;
         example = lib.literalExpression "[ pkgs.mopidy-spotify ]";
         description = ''
@@ -57,7 +52,7 @@ in
       };
 
       extraConfigFiles = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.str;
         description = ''
           Extra config file read by Mopidy when the service starts.
@@ -70,23 +65,22 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     systemd.tmpfiles.settings."10-mopidy".${cfg.dataDir}.d = {
       user = "mopidy";
       group = "mopidy";
     };
 
     systemd.services.mopidy = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network-online.target"
         "sound.target"
       ];
-      wants = [ "network-online.target" ];
+      wants = ["network-online.target"];
       description = "mopidy music player daemon";
       serviceConfig = {
         ExecStart = "${mopidyEnv}/bin/mopidy --config ${
-          lib.concatStringsSep ":" ([ mopidyConf ] ++ cfg.extraConfigFiles)
+          lib.concatStringsSep ":" ([mopidyConf] ++ cfg.extraConfigFiles)
         }";
         Restart = "on-failure";
         User = "mopidy";
@@ -97,7 +91,7 @@ in
       description = "mopidy local files scanner";
       serviceConfig = {
         ExecStart = "${mopidyEnv}/bin/mopidy --config ${
-          lib.concatStringsSep ":" ([ mopidyConf ] ++ cfg.extraConfigFiles)
+          lib.concatStringsSep ":" ([mopidyConf] ++ cfg.extraConfigFiles)
         } local scan";
         User = "mopidy";
         Type = "oneshot";
@@ -107,7 +101,7 @@ in
     users.users.mopidy = {
       inherit uid;
       group = "mopidy";
-      extraGroups = [ "audio" ];
+      extraGroups = ["audio"];
       description = "Mopidy daemon user";
       home = cfg.dataDir;
     };

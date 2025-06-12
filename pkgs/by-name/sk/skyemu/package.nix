@@ -18,7 +18,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "skyemu";
   version = "3-unstable-2025-02-23";
@@ -87,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Low level GameBoy, GameBoy Color, Game Boy Advance, and DS emulator";
     homepage = "https://github.com/skylersaleh/SkyEmu";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     mainProgram = "SkyEmu";
     platforms = with lib.platforms; unix ++ windows;
   };

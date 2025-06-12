@@ -7,7 +7,6 @@
   ninja,
   cairo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pscircle";
   version = "1.4.0";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Visualize Linux processes in a form of a radial tree";
     mainProgram = "pscircle";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.ldesgoui ];
+    maintainers = [maintainers.ldesgoui];
     platforms = platforms.linux;
   };
 }

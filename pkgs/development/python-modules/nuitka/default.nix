@@ -9,7 +9,6 @@
   zstandard,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "nuitka";
   version = "2.6.9";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "nuitka" ];
+  pythonImportsCheck = ["nuitka"];
 
   # Requires CPython
   disabled = isPyPy;

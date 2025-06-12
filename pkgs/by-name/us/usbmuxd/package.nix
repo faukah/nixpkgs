@@ -7,7 +7,6 @@
   libimobiledevice,
   libusb1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "usbmuxd";
   version = "1.1.1+date=2023-05-05";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "usbmuxd";
   };
 }

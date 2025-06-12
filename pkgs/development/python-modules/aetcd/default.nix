@@ -12,7 +12,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "aetcd";
   version = "1.0.0a4";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       --replace-fail "setuptools_scm==6.3.2" "setuptools_scm"
   '';
 
-  pythonRelaxDeps = [ "protobuf" ];
+  pythonRelaxDeps = ["protobuf"];
 
   build-system = [
     setuptools
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aetcd" ];
+  pythonImportsCheck = ["aetcd"];
 
   disabledTestPaths = [
     # Tests require a running ectd instance
@@ -63,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/martyanov/aetcd";
     changelog = "https://github.com/martyanov/aetcd/blob/v${version}/docs/changelog.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

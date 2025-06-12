@@ -20,7 +20,6 @@
   autoPatchelfHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "birdfont";
   version = "2.33.6";
@@ -64,12 +63,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = "./install.py";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Font editor which can generate fonts in TTF, EOT, SVG and BIRDFONT format";
     homepage = "https://birdfont.org";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 })

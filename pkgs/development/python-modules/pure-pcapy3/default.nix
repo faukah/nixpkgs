@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pure-pcapy3";
   version = "1.0.1";
@@ -23,12 +22,12 @@ buildPythonPackage rec {
       --replace-fail "assertEquals" "assertEqual"
   '';
 
-  pythonImportsCheck = [ "pure_pcapy" ];
+  pythonImportsCheck = ["pure_pcapy"];
 
   meta = with lib; {
     description = "Reimplementation of pcapy";
     homepage = "https://github.com/rcloran/pure-pcapy-3";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

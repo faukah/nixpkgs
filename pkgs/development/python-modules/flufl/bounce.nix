@@ -8,7 +8,6 @@
   zope-interface,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flufl-bounce";
   version = "4.0";
@@ -28,24 +27,24 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     atpublic
     zope-interface
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "flufl.bounce" ];
+  pythonImportsCheck = ["flufl.bounce"];
 
-  pythonNamespaces = [ "flufl" ];
+  pythonNamespaces = ["flufl"];
 
   meta = with lib; {
     description = "Email bounce detectors";
     homepage = "https://gitlab.com/warsaw/flufl.bounce";
     changelog = "https://gitlab.com/warsaw/flufl.bounce/-/blob/${version}/flufl/bounce/NEWS.rst";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.asl20;
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchYarnDeps,
 }:
-
 mkYarnPackage rec {
   pname = "near-cli";
   version = "3.4.2";
@@ -48,6 +47,6 @@ mkYarnPackage rec {
       mit
     ];
     mainProgram = "near";
-    maintainers = with lib.maintainers; [ ekleog ];
+    maintainers = with lib.maintainers; [ekleog];
   };
 }

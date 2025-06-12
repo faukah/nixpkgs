@@ -2,19 +2,15 @@
   stdenv,
   lib,
   fetchFromGitHub,
-
   # build time
   cmake,
   pkg-config,
-
   # dependencies
   pcre2,
   xxHash,
-
   # update script
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libyang";
   version = "3.12.2";
@@ -61,8 +57,8 @@ stdenv.mkDerivation rec {
       sysrepo or FRRouting projects.
     '';
     homepage = "https://github.com/CESNET/libyang";
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ woffs ];
+    maintainers = with maintainers; [woffs];
   };
 }

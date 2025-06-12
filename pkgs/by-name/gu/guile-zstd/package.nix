@@ -8,7 +8,6 @@
   texinfo,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guile-zstd";
   version = "0.1.1";
@@ -28,9 +27,9 @@ stdenv.mkDerivation rec {
     pkg-config
     texinfo
   ];
-  buildInputs = [ guile ];
-  propagatedBuildInputs = [ zstd ];
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  buildInputs = [guile];
+  propagatedBuildInputs = [zstd];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "GNU Guile library providing bindings to zstd";
     homepage = "https://notabug.org/guile-zstd/guile-zstd";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
     platforms = guile.meta.platforms;
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "tomlc99";
   version = "0.pre+date=2022-04-04";
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/cktan/tomlc99";
     description = "TOML v1.0.0-compliant library written in C99";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = with platforms; unix;
   };
 }

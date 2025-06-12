@@ -8,7 +8,6 @@
   pkg-config,
   qt6,
 }:
-
 stdenv.mkDerivation rec {
   pname = "android-file-transfer";
   version = "4.5";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-G+ErwZ/F8Cl8WLSzC+5LrEWWqNZL3xDMBvx/gjkgAXk=";
   };
 
-  patches = [ ./darwin-dont-vendor-dependencies.patch ];
+  patches = [./darwin-dont-vendor-dependencies.patch];
 
   nativeBuildInputs = [
     cmake
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "Reliable MTP client with minimalistic UI";
     homepage = "https://whoozle.github.io/android-file-transfer-linux/";
     license = licenses.lgpl21Plus;
-    maintainers = [ maintainers.xaverdh ];
+    maintainers = [maintainers.xaverdh];
     platforms = platforms.unix;
   };
 }

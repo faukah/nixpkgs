@@ -3,9 +3,7 @@
   stdenv,
   fetchurl,
   makeWrapper,
-
   perlPackages,
-
   cdparanoia,
   coreutils,
   eject,
@@ -17,7 +15,6 @@
   vorbisgain,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "crip";
   version = "3.9";
@@ -30,7 +27,7 @@ stdenv.mkDerivation rec {
     perlPackages.perl
     perlPackages.CDDB_get
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   toolDeps = lib.makeBinPath [
     cdparanoia
@@ -60,7 +57,7 @@ stdenv.mkDerivation rec {
         --replace-fail '$editor = "vim";' '$editor = "${nano}/bin/nano";'
 
       wrapProgram $out/bin/$script \
-        --set PERL5LIB "${perlPackages.makePerlPath [ perlPackages.CDDB_get ]}" \
+        --set PERL5LIB "${perlPackages.makePerlPath [perlPackages.CDDB_get]}" \
         --set PATH "${toolDeps}"
     done
   '';
@@ -70,6 +67,6 @@ stdenv.mkDerivation rec {
     description = "Terminal-based ripper/encoder/tagger tool for creating Ogg Vorbis/FLAC files";
     license = lib.licenses.gpl1Only;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.endgame ];
+    maintainers = [lib.maintainers.endgame];
   };
 }

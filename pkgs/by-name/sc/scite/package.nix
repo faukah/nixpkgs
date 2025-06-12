@@ -5,13 +5,12 @@
   pkg-config,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "scite";
   version = "5.5.7";
 
   src = fetchurl {
-    url = "https://www.scintilla.org/scite${lib.replaceStrings [ "." ] [ "" ] finalAttrs.version}.tgz";
+    url = "https://www.scintilla.org/scite${lib.replaceStrings ["."] [""] finalAttrs.version}.tgz";
     hash = "sha256-L/UceHGFgFbzUPvc2VBehXXJNmwyyPwBfgxvuv3Vxu8=";
   };
 

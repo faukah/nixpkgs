@@ -12,7 +12,6 @@
   soundfont-fluid,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zmusic";
   version = "1.1.14";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  patches = [ ./fluidsynth.patch ];
+  patches = [./fluidsynth.patch];
 
   postPatch = ''
     substituteInPlace source/mididevices/music_fluidsynth_mididevice.cpp \
@@ -43,12 +42,14 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    fluidsynth
-    libsndfile
-    mpg123
-    zlib
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ alsa-lib ];
+  buildInputs =
+    [
+      fluidsynth
+      libsndfile
+      mpg123
+      zlib
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [alsa-lib];
 
   meta = {
     description = "GZDoom's music system as a standalone library";

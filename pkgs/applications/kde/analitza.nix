@@ -9,7 +9,6 @@
   kdoctools,
   qttools,
 }:
-
 mkDerivation {
   pname = "analitza";
 
@@ -34,6 +33,6 @@ mkDerivation {
       lgpl2Only
       fdl12Only
     ];
-    maintainers = with maintainers; [ hqurve ];
+    maintainers = with maintainers; [hqurve];
   };
 }

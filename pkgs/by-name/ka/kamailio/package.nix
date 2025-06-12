@@ -19,7 +19,6 @@
   gnused,
   openssl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kamailio";
   version = "6.0.1";
@@ -99,14 +98,14 @@ stdenv.mkDerivation (finalAttrs: {
   enableParallelBuilding = true;
 
   passthru.tests = {
-    kamailio-bin = callPackage ./test-kamailio-bin { };
+    kamailio-bin = callPackage ./test-kamailio-bin {};
   };
 
   meta = {
     description = "Fast and flexible SIP server, proxy, SBC, and load balancer";
     homepage = "https://www.kamailio.org/";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ mawis ];
+    maintainers = with lib.maintainers; [mawis];
     platforms = lib.platforms.linux;
   };
 })

@@ -6,7 +6,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "kanidm-provision";
   version = "1.3.0";
@@ -21,13 +20,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-dPTrIc/hTbMlFDXYMk/dTjqaNECazldfW43egDOwyLM=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   passthru = {
-    tests = { inherit (nixosTests) kanidm-provisioning; };
-    updateScript = nix-update-script { };
+    tests = {inherit (nixosTests) kanidm-provisioning;};
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ oddlama ];
+    maintainers = with lib.maintainers; [oddlama];
     mainProgram = "kanidm-provision";
   };
 })

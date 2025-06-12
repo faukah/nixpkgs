@@ -3,13 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.ulogd;
-  settingsFormat = pkgs.formats.ini { listsAsDuplicateKeys = true; };
+  settingsFormat = pkgs.formats.ini {listsAsDuplicateKeys = true;};
   settingsFile = settingsFormat.generate "ulogd.conf" cfg.settings;
-in
-{
+in {
   options = {
     services.ulogd = {
       enable = lib.mkEnableOption "ulogd, a userspace logging daemon for netfilter/iptables related logging";
@@ -34,7 +32,7 @@ in
           };
         };
         type = settingsFormat.type;
-        default = { };
+        default = {};
         description = "Configuration for ulogd. See {file}`/share/doc/ulogd/` in `pkgs.ulogd.doc`.";
       };
 
@@ -55,9 +53,9 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.ulogd = {
       description = "Ulogd Daemon";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-pre.target" ];
-      before = [ "network-pre.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-pre.target"];
+      before = ["network-pre.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.ulogd}/bin/ulogd -c ${settingsFile} --verbose --loglevel ${toString cfg.logLevel}";

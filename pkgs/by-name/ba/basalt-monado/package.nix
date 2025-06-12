@@ -65,14 +65,14 @@ stdenv.mkDerivation {
     (lib.cmakeFeature "EIGEN_ROOT" "${eigen}/include/eigen3")
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Fork of Basalt improved for tracking XR devices with Monado";
     homepage = "https://gitlab.freedesktop.org/mateosss/basalt";
     license = lib.licenses.bsd3;
     mainProgram = "basalt_vio";
-    maintainers = [ lib.maintainers.locochoco ];
+    maintainers = [lib.maintainers.locochoco];
     platforms = lib.platforms.linux;
   };
 }

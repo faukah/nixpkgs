@@ -7,7 +7,6 @@
   static ? stdenv.hostPlatform.isStatic,
   cxxStandard ? null,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "abseil-cpp";
   version = "20250127.1";
@@ -31,9 +30,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ gtest ];
+  buildInputs = [gtest];
 
   meta = {
     description = "Open-source collection of C++ code designed to augment the C++ standard library";
@@ -41,6 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/abseil/abseil-cpp/releases/tag/${finalAttrs.version}";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.GaetanLepage ];
+    maintainers = [lib.maintainers.GaetanLepage];
   };
 })

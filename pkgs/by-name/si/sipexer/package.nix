@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "sipexer";
   version = "1.2.0";
@@ -22,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/miconda/sipexer";
     changelog = "https://github.com/miconda/sipexer/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ astro ];
+    maintainers = with lib.maintainers; [astro];
     mainProgram = "sipexer";
   };
 }

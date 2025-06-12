@@ -6,7 +6,6 @@
   makeWrapper,
   babashka-unwrapped,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "bbin";
   version = "0.2.4";
@@ -18,7 +17,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-26uZqHSLi+qnilyPWt/2mCr1wyu1flxNd+jq9zbumrg=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontConfigure = true;
   dontBuild = true;
@@ -31,17 +30,17 @@ stdenvNoCC.mkDerivation rec {
     cp -r docs $out/share/docs
     wrapProgram $out/bin/bbin \
       --prefix PATH : "${
-        lib.makeBinPath [
-          babashka-unwrapped
-          babashka-unwrapped.graalvmDrv
-        ]
-      }"
+      lib.makeBinPath [
+        babashka-unwrapped
+        babashka-unwrapped.graalvmDrv
+      ]
+    }"
 
     runHook postInstall
   '';
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = with lib; {
@@ -50,6 +49,6 @@ stdenvNoCC.mkDerivation rec {
     mainProgram = "bbin";
     license = licenses.mit;
     inherit (babashka-unwrapped.meta) platforms;
-    maintainers = with maintainers; [ sohalt ];
+    maintainers = with maintainers; [sohalt];
   };
 }

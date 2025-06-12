@@ -14,7 +14,6 @@
   kmailtransport,
   messagelib,
 }:
-
 mkDerivation {
   pname = "akonadi-calendar";
   meta = {

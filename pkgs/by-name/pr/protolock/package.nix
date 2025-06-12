@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "protolock";
   version = "0.17.0";
@@ -26,6 +25,6 @@ buildGoModule rec {
     mainProgram = "protolock";
     homepage = "https://github.com/nilslice/protolock";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ groodt ];
+    maintainers = with maintainers; [groodt];
   };
 }

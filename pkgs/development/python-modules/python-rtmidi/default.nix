@@ -15,7 +15,6 @@
   tox,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "python-rtmidi";
   version = "1.5.8";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
   ];
 
   buildInputs =
-    [ ]
+    []
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       libjack2
       alsa-lib
@@ -50,13 +49,13 @@ buildPythonPackage rec {
     alabaster
   ];
 
-  pythonImportsCheck = [ "rtmidi" ];
+  pythonImportsCheck = ["rtmidi"];
 
   meta = with lib; {
     description = "Python binding for the RtMidi C++ library implemented using Cython";
     homepage = "https://github.com/SpotlightKid/python-rtmidi";
     changelog = "https://github.com/SpotlightKid/python-rtmidi/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

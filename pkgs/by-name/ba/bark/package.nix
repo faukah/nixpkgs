@@ -49,13 +49,13 @@ rustPlatform.buildRustPackage (final: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Live sync audio streaming for local networks";
     homepage = "https://github.com/haileys/bark";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ samw ];
+    maintainers = with lib.maintainers; [samw];
     platforms = lib.platforms.linux;
     mainProgram = "bark";
   };

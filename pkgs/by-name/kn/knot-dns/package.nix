@@ -30,7 +30,6 @@
   knot-dns,
   runCommandLocal,
 }:
-
 stdenv.mkDerivation rec {
   pname = "knot-dns";
   version = "3.4.7";
@@ -104,7 +103,7 @@ stdenv.mkDerivation rec {
   __darwinAllowLocalNetworking = true;
 
   doCheck = true;
-  checkFlags = [ "V=1" ]; # verbose output in case some test fails
+  checkFlags = ["V=1"]; # verbose output in case some test fails
   doInstallCheck = true;
 
   postInstall = ''
@@ -121,7 +120,7 @@ stdenv.mkDerivation rec {
       # Some dependencies are very version-sensitive, so the might get dropped
       # or embedded after some update, even if the nixPackagers didn't intend to.
       # For non-linux I don't know a good replacement for `ldd`.
-      deps = runCommandLocal "knot-deps-test" { nativeBuildInputs = [ (lib.getBin stdenv.cc.libc) ]; } ''
+      deps = runCommandLocal "knot-deps-test" {nativeBuildInputs = [(lib.getBin stdenv.cc.libc)];} ''
         for libname in libngtcp2 libxdp libbpf; do
           echo "Checking for $libname:"
           ldd '${knot-dns.bin}/bin/knotd' | grep -F "$libname"
@@ -137,7 +136,7 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.nic.cz/knot/knot-dns/-/releases/v${version}";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.vcunat ];
+    maintainers = [lib.maintainers.vcunat];
     mainProgram = "knotd";
   };
 }

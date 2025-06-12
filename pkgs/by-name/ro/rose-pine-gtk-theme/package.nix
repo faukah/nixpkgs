@@ -6,7 +6,6 @@
   gtk-engine-murrine,
   gtk_engines,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "rose-pine-gtk-theme";
   version = "2.2.0";

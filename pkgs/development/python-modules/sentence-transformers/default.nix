@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   accelerate,
   datasets,
@@ -18,12 +16,10 @@
   tqdm,
   transformers,
   typing-extensions,
-
   # tests
   pytestCheckHook,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "sentence-transformers";
   version = "4.1.0";
@@ -36,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-9Mg3+7Yxf195h4cUNLP/Z1PrauxanHJfS8OV2JIwRj4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     huggingface-hub
@@ -54,17 +50,19 @@ buildPythonPackage rec {
       accelerate
       datasets
     ];
-    onnx = [ optimum ] ++ optimum.optional-dependencies.onnxruntime;
+    onnx = [optimum] ++ optimum.optional-dependencies.onnxruntime;
     # onnx-gpu = [ optimum ] ++ optimum.optional-dependencies.onnxruntime-gpu;
     # openvino = [ optimum-intel ] ++ optimum-intel.optional-dependencies.openvino;
   };
 
-  nativeCheckInputs = [
-    pytest-cov-stub
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-cov-stub
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "sentence_transformers" ];
+  pythonImportsCheck = ["sentence_transformers"];
 
   disabledTests = [
     # Tests require network access
@@ -112,6 +110,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/UKPLab/sentence-transformers";
     changelog = "https://github.com/UKPLab/sentence-transformers/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
   };
 }

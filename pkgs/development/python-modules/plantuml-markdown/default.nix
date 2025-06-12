@@ -11,7 +11,6 @@
   plantuml-markdown,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "plantuml-markdown";
   version = "3.11.1";
@@ -36,17 +35,16 @@ buildPythonPackage rec {
   # The package uses a custom script that downloads a certain version of plantuml for testing.
   doCheck = false;
 
-  pythonImportsCheck = [ "plantuml_markdown" ];
+  pythonImportsCheck = ["plantuml_markdown"];
 
-  passthru.tests.example-doc =
-    let
-      exampleDoc = writeText "plantuml-markdown-example-doc.md" ''
-        ```plantuml
-          Bob -> Alice: Hello
-        ```
-      '';
-    in
-    runCommand "plantuml-markdown-example-doc" { nativeBuildInputs = [ plantuml-markdown ]; } ''
+  passthru.tests.example-doc = let
+    exampleDoc = writeText "plantuml-markdown-example-doc.md" ''
+      ```plantuml
+        Bob -> Alice: Hello
+      ```
+    '';
+  in
+    runCommand "plantuml-markdown-example-doc" {nativeBuildInputs = [plantuml-markdown];} ''
       markdown_py -x plantuml_markdown ${exampleDoc} > $out
 
       ! grep -q "Error" $out
@@ -61,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mikitex70/plantuml-markdown";
     changelog = "https://github.com/mikitex70/plantuml-markdown/releases/tag/${src.tag}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nikstur ];
+    maintainers = with maintainers; [nikstur];
   };
 }

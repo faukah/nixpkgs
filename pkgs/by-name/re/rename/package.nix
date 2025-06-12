@@ -3,11 +3,10 @@
   fetchFromGitHub,
   perlPackages,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "rename";
   version = "1.11";
-  outputs = [ "out" ];
+  outputs = ["out"];
   src = fetchFromGitHub {
     owner = "pstray";
     repo = "rename";
@@ -21,7 +20,7 @@ perlPackages.buildPerlPackage rec {
       mkg
       cyplo
     ];
-    license = with licenses; [ gpl1Plus ];
+    license = with licenses; [gpl1Plus];
     mainProgram = "rename";
   };
 }

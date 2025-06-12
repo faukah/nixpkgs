@@ -9,7 +9,6 @@
   pyasn1,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "dploot";
   version = "3.1.2";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     "pyasn1"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     impacket
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     lxml
   ];
 
-  pythonImportsCheck = [ "dploot" ];
+  pythonImportsCheck = ["dploot"];
 
   # No tests
   doCheck = false;
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/zblurx/dploot";
     changelog = "https://github.com/zblurx/dploot/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ vncsb ];
+    maintainers = with maintainers; [vncsb];
     mainProgram = "dploot";
   };
 }

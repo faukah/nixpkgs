@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "lato";
   version = "2.0";
@@ -44,6 +43,6 @@ stdenvNoCC.mkDerivation {
 
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ chris-martin ];
+    maintainers = with maintainers; [chris-martin];
   };
 }

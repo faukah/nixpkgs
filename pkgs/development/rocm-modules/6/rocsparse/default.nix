@@ -17,7 +17,6 @@
   buildBenchmarks ? false, # Seems to depend on tests
   gpuTargets ? clr.localGpuTargets or clr.gpuTargets,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocsparse${clr.gpuArchSuffix}";
   version = "6.3.3";
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
     ]
-    ++ lib.optionals (gpuTargets != [ ]) [
+    ++ lib.optionals (gpuTargets != []) [
       "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
     ]
     ++ lib.optionals (buildTests || buildBenchmarks) [
@@ -154,8 +153,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "ROCm SPARSE implementation";
     homepage = "https://github.com/ROCm/rocSPARSE";
-    license = with licenses; [ mit ];
-    teams = [ teams.rocm ];
+    license = with licenses; [mit];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

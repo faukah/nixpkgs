@@ -1,6 +1,4 @@
-{ lib, ... }:
-{
-
+{lib, ...}: {
   options.value = lib.mkOption {
     type = lib.types.anything;
   };
@@ -16,7 +14,7 @@
       value.list = [
         1
         "a"
-        { x = null; }
+        {x = null;}
       ];
     }
     {
@@ -29,9 +27,8 @@
       value.list = [
         1
         "a"
-        { x = null; }
+        {x = null;}
       ];
     }
   ];
-
 }

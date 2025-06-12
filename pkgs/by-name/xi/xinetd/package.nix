@@ -5,7 +5,6 @@
   pkg-config,
   libtirpc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xinetd";
   version = "2.3.15.4";
@@ -28,6 +27,6 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = lib.platforms.linux;
     homepage = "https://github.com/openSUSE/xinetd";
     license = lib.licenses.xinetd;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
   };
 })

@@ -20,7 +20,6 @@
   libxml2,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-sudoku";
   version = "48.1";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-sudoku"; };
+    updateScript = gnome.updateScript {packageName = "gnome-sudoku";};
   };
 
   meta = {
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.gnome.org/GNOME/gnome-sudoku/-/blob/${version}/NEWS?ref_type=tags";
     description = "Test your logic skills in this number grid puzzle";
     mainProgram = "gnome-sudoku";
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
   };

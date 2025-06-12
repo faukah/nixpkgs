@@ -8,7 +8,6 @@
   xcbutilkeysyms,
   xcbutilwm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bspwm";
   version = "0.9.10";
@@ -28,12 +27,12 @@ stdenv.mkDerivation rec {
     xcbutilwm
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Tiling window manager based on binary space partitioning";
     homepage = "https://github.com/baskerville/bspwm";
-    maintainers = with maintainers; [ meisternu ];
+    maintainers = with maintainers; [meisternu];
     license = licenses.bsd2;
     platforms = platforms.linux;
   };

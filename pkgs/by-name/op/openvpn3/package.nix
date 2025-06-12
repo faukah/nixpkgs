@@ -24,7 +24,6 @@
   git,
   enableSystemdResolved ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openvpn3";
   # also update openvpn3-core
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     echo '#define OPENVPN_VERSION "3.git:unknown:unknown"
-    #define PACKAGE_GUIVERSION "v${builtins.replaceStrings [ "_" ] [ ":" ] version}"
+    #define PACKAGE_GUIVERSION "v${builtins.replaceStrings ["_"] [":"] version}"
     #define PACKAGE_NAME "openvpn3-linux"
     ' > ./src/build-version.h
 
@@ -75,19 +74,21 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    asio
-    glib
-    jsoncpp
-    libcap_ng
-    libnl
-    libuuid
-    lz4
-    openssl
-    protobuf
-    tinyxml-2
-    gdbuspp
-  ] ++ lib.optionals enableSystemdResolved [ systemd.dev ];
+  buildInputs =
+    [
+      asio
+      glib
+      jsoncpp
+      libcap_ng
+      libnl
+      libuuid
+      lz4
+      openssl
+      protobuf
+      tinyxml-2
+      gdbuspp
+    ]
+    ++ lib.optionals enableSystemdResolved [systemd.dev];
 
   mesonFlags = [
     (lib.mesonOption "selinux" "disabled")

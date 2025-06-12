@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "as-tree";
   version = "unstable-2021-03-09";
@@ -21,8 +20,8 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     description = "Print a list of paths as a tree of paths";
     homepage = "https://github.com/jez/as-tree";
-    license = with licenses; [ blueOak100 ];
-    maintainers = with maintainers; [ jshholland ];
+    license = with licenses; [blueOak100];
+    maintainers = with maintainers; [jshholland];
     mainProgram = "as-tree";
   };
 }

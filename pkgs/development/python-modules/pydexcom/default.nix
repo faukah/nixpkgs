@@ -7,7 +7,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "pydexcom";
   version = "0.4.1";
@@ -27,18 +26,18 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   # Tests are interacting with the Dexcom API
   doCheck = false;
 
-  pythonImportsCheck = [ "pydexcom" ];
+  pythonImportsCheck = ["pydexcom"];
 
   meta = with lib; {
     description = "Python API to interact with Dexcom Share service";
     homepage = "https://github.com/gagebenne/pydexcom";
     changelog = "https://github.com/gagebenne/pydexcom/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

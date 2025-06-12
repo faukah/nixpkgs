@@ -10,7 +10,6 @@
   kwidgetsaddons,
   kdbusaddons,
 }:
-
 mkDerivation {
   pname = "kmplot";
   meta = {
@@ -21,7 +20,7 @@ mkDerivation {
       gpl2Plus
       fdl12Plus
     ];
-    maintainers = [ lib.maintainers.orivej ];
+    maintainers = [lib.maintainers.orivej];
   };
   nativeBuildInputs = [
     extra-cmake-modules

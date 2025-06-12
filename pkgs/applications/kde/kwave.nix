@@ -22,7 +22,6 @@
   fftw,
   librsvg,
 }:
-
 mkDerivation {
   pname = "kwave";
 
@@ -30,7 +29,7 @@ mkDerivation {
     homepage = "https://kde.org/applications/en/multimedia/org.kde.kwave";
     description = "Simple media player";
     mainProgram = "kwave";
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

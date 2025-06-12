@@ -17,7 +17,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ringracers";
   version = "2.3";
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
       comment = "This is Racing at the Next Level";
       desktopName = "Dr. Robotnik's Ring Racers";
       startupWMClass = ".ringracers-wrapped";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 

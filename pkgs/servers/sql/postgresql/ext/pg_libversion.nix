@@ -7,7 +7,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pg_libversion";
   version = "2.0.1";
@@ -27,13 +26,13 @@ postgresqlBuildExtension (finalAttrs: {
     libversion
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "PostgreSQL extension with support for version string comparison";
     homepage = "https://github.com/repology/postgresql-libversion";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
     platforms = postgresql.meta.platforms;
   };
 })

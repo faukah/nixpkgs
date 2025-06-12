@@ -13,7 +13,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rubberband";
   version = "4.0.0";
@@ -37,11 +36,11 @@ stdenv.mkDerivation rec {
     ladspaH
     lv2
   ];
-  makeFlags = [ "AR:=$(AR)" ];
+  makeFlags = ["AR:=$(AR)"];
 
   # TODO: package boost-test, so we can run the test suite. (Currently it fails
   # to find libboost_unit_test_framework.a.)
-  mesonFlags = [ "-Dtests=disabled" ];
+  mesonFlags = ["-Dtests=disabled"];
   doCheck = false;
 
   meta = with lib; {
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://breakfastquay.com/rubberband/";
     # commercial license available as well, see homepage. You'll get some more optimized routines
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.marcweber ];
+    maintainers = [maintainers.marcweber];
     platforms = platforms.all;
   };
 }

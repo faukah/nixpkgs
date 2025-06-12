@@ -20,7 +20,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openslide";
   version = "4.0.0";
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.lgpl21;
     changelog = "https://github.com/openslide/openslide/releases/tag/v${finalAttrs.version}";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ lromor ];
+    maintainers = with maintainers; [lromor];
     mainProgram = "slidetool";
   };
 })

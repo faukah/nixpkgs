@@ -38,6 +38,6 @@ rustPlatform.buildRustPackage {
     description = "Wire gateway for Bitcoin/Ethereum";
     homepage = "https://git.taler.net/depolymerization.git/";
     license = lib.licenses.agpl3Only;
-    teams = [ lib.teams.ngi ];
+    teams = [lib.teams.ngi];
   };
 }

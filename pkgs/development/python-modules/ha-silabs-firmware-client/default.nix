@@ -9,7 +9,6 @@
   setuptools,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "ha-silabs-firmware-client";
   version = "0.2.0";
@@ -30,14 +29,14 @@ buildPythonPackage rec {
       --replace-fail 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
     yarl
   ];
 
-  pythonImportsCheck = [ "ha_silabs_firmware_client" ];
+  pythonImportsCheck = ["ha_silabs_firmware_client"];
 
   nativeCheckInputs = [
     aioresponses
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     description = "Home Assistant client for firmwares released with silabs-firmware-builder";
     homepage = "https://github.com/home-assistant-libs/ha-silabs-firmware-client";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

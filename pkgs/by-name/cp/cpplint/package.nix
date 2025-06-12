@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "cpplint";
   version = "2.0.2";
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     description = "Static code checker for C++";
     changelog = "https://github.com/cpplint/cpplint/releases/tag/${version}";
     mainProgram = "cpplint";
-    maintainers = [ lib.maintainers.bhipple ];
-    license = [ lib.licenses.bsd3 ];
+    maintainers = [lib.maintainers.bhipple];
+    license = [lib.licenses.bsd3];
   };
 }

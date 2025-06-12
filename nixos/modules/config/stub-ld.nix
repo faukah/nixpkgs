@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     optionalString
     mkOption
     types
@@ -22,29 +21,27 @@ let
     https://nix.dev/permalink/stub-ld
   '';
 
-  stub-ld-for =
-    pkgsArg: messageArg:
+  stub-ld-for = pkgsArg: messageArg:
     pkgsArg.pkgsStatic.runCommandCC "stub-ld"
-      {
-        nativeBuildInputs = [ pkgsArg.unixtools.xxd ];
-        inherit messageArg;
+    {
+      nativeBuildInputs = [pkgsArg.unixtools.xxd];
+      inherit messageArg;
+    }
+    ''
+      printf "%s" "$messageArg" | xxd -i -n message >main.c
+      cat <<EOF >>main.c
+      #include <stdio.h>
+      int main(int argc, char * argv[]) {
+        fprintf(stderr, "Could not start dynamically linked executable: %s\n", argv[0]);
+        fwrite(message, sizeof(unsigned char), message_len, stderr);
+        return 127; // matches behavior of bash and zsh without a loader. fish uses 139
       }
-      ''
-        printf "%s" "$messageArg" | xxd -i -n message >main.c
-        cat <<EOF >>main.c
-        #include <stdio.h>
-        int main(int argc, char * argv[]) {
-          fprintf(stderr, "Could not start dynamically linked executable: %s\n", argv[0]);
-          fwrite(message, sizeof(unsigned char), message_len, stderr);
-          return 127; // matches behavior of bash and zsh without a loader. fish uses 139
-        }
-        EOF
-        $CC -Os main.c -o $out
-      '';
+      EOF
+      $CC -Os main.c -o $out
+    '';
 
   stub-ld = stub-ld-for pkgs message;
-in
-{
+in {
   options = {
     environment.stub-ld = {
       enable = mkOption {
@@ -64,5 +61,5 @@ in
     environment.ldso = mkDefault stub-ld;
   };
 
-  meta.maintainers = with lib.maintainers; [ tejing ];
+  meta.maintainers = with lib.maintainers; [tejing];
 }

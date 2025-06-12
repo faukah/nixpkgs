@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ctre";
   version = "3.10.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-/44oZi6j8+a1D6ZGZpoy82GHjPtqzOvuS7d3SPbH7fs=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   postPatch = ''
     substituteInPlace packaging/pkgconfig.pc.in \
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.asl20;
     homepage = "https://compile-time.re";
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.all;
   };
 }

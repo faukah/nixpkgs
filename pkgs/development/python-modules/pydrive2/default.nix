@@ -14,7 +14,6 @@
   setuptools-scm,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "pydrive2";
   version = "1.21.3";
@@ -51,7 +50,7 @@ buildPythonPackage rec {
   # Tests require a account and network access
   doCheck = false;
 
-  pythonImportsCheck = [ "pydrive2" ];
+  pythonImportsCheck = ["pydrive2"];
 
   meta = with lib; {
     description = "Google Drive API Python wrapper library";
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     # TODO: re-enable it in `duplicity` when fixed
     broken = true;
     license = licenses.asl20;
-    maintainers = with maintainers; [ sei40kr ];
+    maintainers = with maintainers; [sei40kr];
   };
 }

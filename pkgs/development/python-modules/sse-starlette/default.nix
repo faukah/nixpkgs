@@ -19,7 +19,6 @@
   testcontainers,
   uvicorn,
 }:
-
 buildPythonPackage rec {
   pname = "sse-starlette";
   version = "2.3.6";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-7FlyV+TsVKGFsecONPm/Z50cCnyuUsr6pimPdc4Cs6c=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     anyio
@@ -42,8 +41,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    examples = [ fastapi ];
-    uvicorn = [ uvicorn ];
+    examples = [fastapi];
+    uvicorn = [uvicorn];
   };
 
   nativeCheckInputs = [
@@ -61,7 +60,7 @@ buildPythonPackage rec {
     uvicorn
   ];
 
-  pythonImportsCheck = [ "sse_starlette" ];
+  pythonImportsCheck = ["sse_starlette"];
 
   disabledTests = [
     # AssertionError
@@ -78,6 +77,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sysid/sse-starlette";
     changelog = "https://github.com/sysid/sse-starlette/blob/${src.tag}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

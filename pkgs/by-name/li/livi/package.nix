@@ -13,7 +13,6 @@
   desktop-file-utils,
   libGL,
 }:
-
 stdenv.mkDerivation rec {
   pname = "livi";
   version = "0.3.1";
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "livi";
-    maintainers = with lib.maintainers; [ mksafavi ];
+    maintainers = with lib.maintainers; [mksafavi];
   };
 }

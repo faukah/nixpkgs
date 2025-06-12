@@ -6,7 +6,6 @@
   pytestCheckHook,
   beautifulsoup4,
 }:
-
 buildPythonPackage rec {
   pname = "airium";
   version = "0.2.6";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-qAU+rmj2ZHw7KdxVvRyponcPiRcyENfDyW1y9JTiwsY=";
   };
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     mainProgram = "airium";
     homepage = "https://gitlab.com/kamichal/airium";
     license = licenses.mit;
-    maintainers = with maintainers; [ hulr ];
+    maintainers = with maintainers; [hulr];
   };
 }

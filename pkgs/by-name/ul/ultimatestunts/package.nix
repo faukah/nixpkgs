@@ -11,18 +11,17 @@
   libvorbis,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ultimate-stunts";
   version = "0.7.7.1";
   src = fetchurl {
     url = "mirror://sourceforge/ultimatestunts/ultimatestunts-srcdata-${
-      lib.replaceStrings [ "." ] [ "" ] version
+      lib.replaceStrings ["."] [""] version
     }.tar.gz";
     sha256 = "sha256-/MBuSi/yxcG9k3ZwrNsHkUDzzg798AV462VZog67JtM=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     SDL
     libGLU
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.ultimatestunts.nl/";
     description = "Remake of the popular racing DOS-game Stunts";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux;
   };
 }

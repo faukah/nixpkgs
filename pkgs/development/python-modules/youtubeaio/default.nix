@@ -12,7 +12,6 @@
   pytestCheckHook,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "youtubeaio";
   version = "1.1.5";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     sed -i "/^addopts/d" pyproject.toml
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [ "youtubeaio" ];
+  pythonImportsCheck = ["youtubeaio"];
 
   nativeCheckInputs = [
     aresponses
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     description = "Asynchronous Python client for the YouTube V3 API";
     homepage = "https://github.com/joostlek/python-youtube";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

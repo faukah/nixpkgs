@@ -5,7 +5,6 @@
   dpkg,
   nautilus-python,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "insync-nautilus";
   version = "3.9.5.60024";
@@ -20,9 +19,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-yfPZ58xWZknpCqE8cJ7e7fR4+nzsCdprgBFRL0U0LvM=";
   };
 
-  nativeBuildInputs = [ dpkg ];
+  nativeBuildInputs = [dpkg];
 
-  buildInputs = [ nautilus-python ];
+  buildInputs = [nautilus-python];
 
   installPhase = ''
     runHook preInstall
@@ -33,10 +32,10 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with lib.sourceTypes; [fromSource];
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ hellwolf ];
+    maintainers = with lib.maintainers; [hellwolf];
     homepage = "https://www.insynchq.com";
     description = "This package contains the Python extension and icons for integrating Insync with Nautilus";
   };

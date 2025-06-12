@@ -16,7 +16,6 @@
   template-glib,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elastic";
   version = "0.1.6";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     mainProgram = "app.drey.Elastic";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ _0xMRTT ];
-    teams = [ teams.gnome-circle ];
+    maintainers = with maintainers; [_0xMRTT];
+    teams = [teams.gnome-circle];
   };
 }

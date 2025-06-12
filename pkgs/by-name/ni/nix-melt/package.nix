@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nix-melt";
   version = "0.1.3";
@@ -38,6 +37,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/nix-community/nix-melt";
     changelog = "https://github.com/nix-community/nix-melt/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -17,7 +17,6 @@
   ninja,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lightsoff";
   version = "48.1";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "lightsoff"; };
+    updateScript = gnome.updateScript {packageName = "lightsoff";};
   };
 
   meta = {
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.gnome.org/GNOME/lightsoff/-/blob/${version}/NEWS?ref_type=tags";
     description = "Puzzle game, where the objective is to turn off all of the tiles on the board";
     mainProgram = "lightsoff";
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
   };

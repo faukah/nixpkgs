@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "gotify-cli";
   version = "2.3.2";
@@ -31,7 +30,7 @@ buildGoModule rec {
     license = licenses.mit;
     homepage = "https://github.com/gotify/cli";
     description = "Command line interface for pushing messages to gotify/server";
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "gotify";
   };
 }

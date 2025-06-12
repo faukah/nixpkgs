@@ -12,7 +12,6 @@
   libjack2,
   zita-alsa-pcmi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jaaa";
   version = "0.9.2";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "http://kokkinizita.linuxaudio.org/linuxaudio/index.html";
     description = "JACK and ALSA Audio Analyser";
     license = licenses.gpl2;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
     mainProgram = "jaaa";
   };

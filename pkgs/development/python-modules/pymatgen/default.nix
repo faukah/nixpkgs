@@ -4,14 +4,11 @@
   buildPythonPackage,
   pythonAtLeast,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # nativeBuildInputs
   cython,
   glibcLocales,
-
   # dependencies
   joblib,
   matplotlib,
@@ -30,7 +27,6 @@
   tabulate,
   tqdm,
   uncertainties,
-
   # optional-dependencies
   netcdf4,
   ase,
@@ -41,13 +37,11 @@
   sphinx-rtd-theme,
   numba,
   vtk,
-
   # tests
   addBinToPathHook,
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pymatgen";
   version = "2025.1.24";
@@ -62,7 +56,7 @@ buildPythonPackage rec {
     hash = "sha256-0P3/M6VI2RKPArMwXD95sjW7dYOTXxUeu4tOliN0IGk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     cython
@@ -90,8 +84,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    abinit = [ netcdf4 ];
-    ase = [ ase ];
+    abinit = [netcdf4];
+    ase = [ase];
     ci = [
       pytest
       pytest-cov
@@ -110,17 +104,19 @@ buildPythonPackage rec {
       # chgnet
       # matgl
     ];
-    numba = [ numba ];
-    vis = [ vtk ];
+    numba = [numba];
+    vis = [vtk];
   };
 
-  pythonImportsCheck = [ "pymatgen" ];
+  pythonImportsCheck = ["pymatgen"];
 
-  nativeCheckInputs = [
-    addBinToPathHook
-    pytestCheckHook
-    pytest-xdist
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      addBinToPathHook
+      pytestCheckHook
+      pytest-xdist
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   preCheck =
     # ensure tests can find these
@@ -171,6 +167,6 @@ buildPythonPackage rec {
     homepage = "https://pymatgen.org/";
     changelog = "https://github.com/materialsproject/pymatgen/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ psyanticy ];
+    maintainers = with lib.maintainers; [psyanticy];
   };
 }

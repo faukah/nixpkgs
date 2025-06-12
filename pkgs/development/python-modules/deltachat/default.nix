@@ -11,7 +11,6 @@
   pluggy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "deltachat";
   inherit (libdeltachat) version src;
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ libdeltachat ];
+  buildInputs = [libdeltachat];
 
   propagatedBuildInputs = [
     cffi
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "deltachat"
@@ -46,8 +45,10 @@ buildPythonPackage rec {
     "deltachat.message"
   ];
 
-  meta = libdeltachat.meta // {
-    description = "Python bindings for the Delta Chat Core library";
-    homepage = "https://github.com/deltachat/deltachat-core-rust/tree/master/python";
-  };
+  meta =
+    libdeltachat.meta
+    // {
+      description = "Python bindings for the Delta Chat Core library";
+      homepage = "https://github.com/deltachat/deltachat-core-rust/tree/master/python";
+    };
 }

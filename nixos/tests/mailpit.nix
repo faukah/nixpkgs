@@ -1,15 +1,12 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "mailpit";
   meta.maintainers = lib.teams.flyingcircus.members;
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.mailpit.instances.default = { };
+  nodes.machine = {pkgs, ...}: {
+    services.mailpit.instances.default = {};
 
-      environment.systemPackages = with pkgs; [ swaks ];
-    };
+    environment.systemPackages = with pkgs; [swaks];
+  };
 
   testScript = ''
     start_all()

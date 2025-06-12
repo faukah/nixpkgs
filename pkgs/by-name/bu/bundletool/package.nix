@@ -5,7 +5,6 @@
   makeBinaryWrapper,
   jre_headless,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "bundletool";
   version = "1.18.1";
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -30,8 +29,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mainProgram = "bundletool";
     homepage = "https://developer.android.com/studio/command-line/bundletool";
     changelog = "https://github.com/google/bundletool/releases/tag/${finalAttrs.version}";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-    maintainers = with lib.maintainers; [ momeemt ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
+    maintainers = with lib.maintainers; [momeemt];
     platforms = jre_headless.meta.platforms;
     license = lib.licenses.asl20;
   };

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "uthash";
   version = "2.3.0";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   doCheck = true;
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
   checkTarget = "all";
   preCheck = "cd tests";
 

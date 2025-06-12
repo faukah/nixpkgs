@@ -7,7 +7,6 @@
   aiocoap,
   pycryptodomex,
 }:
-
 buildPythonPackage rec {
   pname = "aioairctrl";
   version = "0.2.5";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     pycryptodomex
   ];
 
-  pythonImportsCheck = [ "aioairctrl" ];
+  pythonImportsCheck = ["aioairctrl"];
 
   doCheck = false; # no tests
 
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Library for controlling Philips air purifiers (using encrypted CoAP)";
     homepage = "https://github.com/kongo09/aioairctrl";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ justinas ];
+    maintainers = with lib.maintainers; [justinas];
   };
 }

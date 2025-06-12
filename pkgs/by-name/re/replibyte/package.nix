@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "replibyte";
   version = "0.10.0";
@@ -28,11 +27,11 @@ rustPlatform.buildRustPackage rec {
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  cargoBuildFlags = [ "--all-features" ];
+  cargoBuildFlags = ["--all-features"];
 
   doCheck = false; # requires multiple dbs to be installed
 
@@ -41,6 +40,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "replibyte";
     homepage = "https://github.com/Qovery/replibyte";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

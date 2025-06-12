@@ -5,7 +5,6 @@
   testers,
   temporal,
 }:
-
 buildGoModule rec {
   pname = "temporal";
   version = "1.27.2";
@@ -19,11 +18,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-g3XASZFZPS2Zs7gvGQpy9GO5kpA9gSL4Ur3LQhKIL6Y=";
 
-  excludedPackages = [ "./build" ];
+  excludedPackages = ["./build"];
 
   env.CGO_ENABLED = 0;
 
-  tags = [ "test_dep" ];
+  tags = ["test_dep"];
   ldflags = [
     "-s"
     "-w"
@@ -55,7 +54,7 @@ buildGoModule rec {
     homepage = "https://temporal.io";
     changelog = "https://github.com/temporalio/temporal/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jpds ];
+    maintainers = with lib.maintainers; [jpds];
     mainProgram = "temporal-server";
   };
 }

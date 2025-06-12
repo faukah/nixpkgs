@@ -41,11 +41,10 @@
     PYTHON = true;
   },
   # Extra cmakeFlags to add as "-D${attr}=${value}"
-  extraCmakeFlags ? { },
+  extraCmakeFlags ? {},
   # Extra `buildInputs` - meant for packages that require more inputs
-  extraBuildInputs ? [ ],
+  extraBuildInputs ? [],
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   # LAMMPS has weird versioning convention. Updates should go smoothly with:
   # nix-update --commit lammps --version-regex 'stable_(.*)'
@@ -89,7 +88,7 @@ stdenv.mkDerivation (finalAttrs: {
       lapack
       gzip
     ]
-    ++ lib.optionals packages.PYTHON [ python3 ]
+    ++ lib.optionals packages.PYTHON [python3]
     ++ extraBuildInputs;
 
   postInstall = ''
@@ -117,7 +116,7 @@ stdenv.mkDerivation (finalAttrs: {
     # compiling lammps with 64 bit support blas and lapack might cause runtime
     # segfaults. In anycase both blas and lapack should have the same #bits
     # support.
-    broken = (blas.isILP64 && lapack.isILP64);
+    broken = blas.isILP64 && lapack.isILP64;
     maintainers = with lib.maintainers; [
       costrouc
       doronbehar

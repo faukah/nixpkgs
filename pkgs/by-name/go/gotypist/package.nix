@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gotypist";
   version = "0.8.2";
@@ -26,6 +25,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/pb-/gotypist";
     license = licenses.mit;
-    maintainers = with maintainers; [ pb- ];
+    maintainers = with maintainers; [pb-];
   };
 }

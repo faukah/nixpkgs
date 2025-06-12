@@ -6,7 +6,6 @@
   perlPackages,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "7z2hashcat";
   version = "2.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     install -D 7z2hashcat.pl $out/bin/7z2hashcat
     wrapProgram $out/bin/7z2hashcat \
-      --set PERL5LIB "${perlPackages.makePerlPath [ perlPackages.CompressRawLzma ]}" \
+      --set PERL5LIB "${perlPackages.makePerlPath [perlPackages.CompressRawLzma]}" \
 
     runHook postInstall
   '';
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/philsmd/7z2hashcat";
     license = lib.licenses.publicDomain;
     mainProgram = "7z2hashcat";
-    maintainers = with lib.maintainers; [ emilytrau ];
+    maintainers = with lib.maintainers; [emilytrau];
     platforms = lib.platforms.unix;
   };
 })

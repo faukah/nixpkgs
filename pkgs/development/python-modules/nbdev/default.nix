@@ -12,7 +12,6 @@
   pyyaml,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "nbdev";
   version = "2.4.2";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-OtCpN2Jw4ghv19jY4N2Yn46CxxZuPQSybFw62MIIf0g=";
   };
 
-  pythonRelaxDeps = [ "ipywidgets" ];
+  pythonRelaxDeps = ["ipywidgets"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     astunparse
@@ -42,13 +41,13 @@ buildPythonPackage rec {
   # no real tests
   doCheck = false;
 
-  pythonImportsCheck = [ "nbdev" ];
+  pythonImportsCheck = ["nbdev"];
 
   meta = with lib; {
     homepage = "https://github.com/fastai/nbdev";
     description = "Create delightful software with Jupyter Notebooks";
     changelog = "https://github.com/fastai/nbdev/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rxiao ];
+    maintainers = with maintainers; [rxiao];
   };
 }

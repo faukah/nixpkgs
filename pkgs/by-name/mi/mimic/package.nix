@@ -15,7 +15,6 @@
   pulseaudioSupport ? config.pulseaudio or false,
   libpulseaudio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mimic";
   version = "1.3.0.1";
@@ -43,13 +42,15 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    alsa-lib
-    alsa-plugins
-    libtool
-    icu
-    pcre2
-  ] ++ lib.optional pulseaudioSupport libpulseaudio;
+  buildInputs =
+    [
+      alsa-lib
+      alsa-plugins
+      libtool
+      icu
+      pcre2
+    ]
+    ++ lib.optional pulseaudioSupport libpulseaudio;
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12
@@ -66,6 +67,6 @@ stdenv.mkDerivation rec {
     homepage = "https://mimic.mycroft.ai/";
     license = lib.licenses.free;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.fx-chun ];
+    maintainers = [lib.maintainers.fx-chun];
   };
 }

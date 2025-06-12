@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-tASjV5MZ1ClumZqu/R61b6XE9CGTuVFfpxyC89fwN9o=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   dontWrapQtApps = true;
 

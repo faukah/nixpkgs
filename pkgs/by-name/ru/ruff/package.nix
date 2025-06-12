@@ -4,16 +4,13 @@
   rustPlatform,
   fetchFromGitHub,
   installShellFiles,
-
   rust-jemalloc-sys,
   buildPackages,
   versionCheckHook,
-
   # passthru
   nixosTests,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ruff";
   version = "0.11.13";
@@ -25,12 +22,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-qa4TCvjk0zrXRdiTTqjJbUnCXQKpwiRwtA28y8ZuGpw=";
   };
 
-  cargoBuildFlags = [ "--package=ruff" ];
+  cargoBuildFlags = ["--package=ruff"];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-JkhvTONWKd3/2jI/yQU2jRfEQ2eAp3drup9SsYWOXNA=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = [
     rust-jemalloc-sys
@@ -39,8 +36,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
+    in ''
       installShellCompletion --cmd ruff \
         --bash <(${emulator} $out/bin/ruff generate-shell-completion bash) \
         --fish <(${emulator} $out/bin/ruff generate-shell-completion fish) \
@@ -82,7 +78,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     tests = lib.optionalAttrs stdenv.hostPlatform.isLinux {
       nixos-test-driver-busybox = nixosTests.nixos-test-driver.busybox;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

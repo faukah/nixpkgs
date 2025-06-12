@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.soundmodem;
-in
-{
+in {
   options = {
     programs.soundmodem = {
       enable = lib.mkOption {
@@ -19,13 +16,13 @@ in
           wrapper for 'soundmodemconfig' for users in the 'soundmodem' group.
         '';
       };
-      package = lib.mkPackageOption pkgs "soundmodem" { };
+      package = lib.mkPackageOption pkgs "soundmodem" {};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-    users.groups.soundmodem = { };
+    environment.systemPackages = [cfg.package];
+    users.groups.soundmodem = {};
 
     security.wrappers.soundmodemconfig = {
       source = "${cfg.package}/bin/soundmodemconfig";

@@ -4,13 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.influxdb;
   inherit (lib) mkOption types concatStringsSep;
-in
-{
+in {
   port = 9122;
   extraOpts = {
     sampleExpiry = mkOption {

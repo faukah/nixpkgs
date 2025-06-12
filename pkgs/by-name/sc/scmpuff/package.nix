@@ -5,7 +5,6 @@
   testers,
   scmpuff,
 }:
-
 buildGoModule rec {
   pname = "scmpuff";
   version = "0.5.0";
@@ -34,7 +33,7 @@ buildGoModule rec {
     description = "Add numbered shortcuts to common git commands";
     homepage = "https://github.com/mroth/scmpuff";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
     mainProgram = "scmpuff";
   };
 }

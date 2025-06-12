@@ -3,9 +3,8 @@
   lib,
   buildKakounePluginFrom2Nix,
   fetchFromGitHub,
-  overrides ? (self: super: { }),
-}:
-let
+  overrides ? (self: super: {}),
+}: let
   packages = (
     self: {
       active-window-kak = buildKakounePluginFrom2Nix {
@@ -248,8 +247,7 @@ let
         };
         meta.homepage = "https://github.com/adrusi/zig.kak/";
       };
-
     }
   );
 in
-lib.fix' (lib.extends overrides packages)
+  lib.fix' (lib.extends overrides packages)

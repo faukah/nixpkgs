@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ripmime";
   version = "1.4.0.10";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Attachment extractor for MIME messages";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     homepage = "https://pldaniels.com/ripmime/";
     platforms = platforms.all;
     mainProgram = "ripmime";

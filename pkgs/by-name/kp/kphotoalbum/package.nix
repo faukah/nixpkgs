@@ -8,7 +8,6 @@
   libvlc,
   kdePackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kphotoalbum";
   version = "6.0.1";
@@ -44,14 +43,14 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   qtWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ ffmpeg ]}"
+    "--prefix PATH : ${lib.makeBinPath [ffmpeg]}"
   ];
 
   meta = with lib; {
     description = "Efficient image organization and indexing";
     homepage = "https://www.kphotoalbum.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     inherit (kdePackages.kconfig.meta) platforms;
   };
 })

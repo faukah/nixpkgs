@@ -8,7 +8,6 @@
   installShellFiles,
   which,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "git-absorb";
   version = "0.8.0";
@@ -50,7 +49,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     homepage = "https://github.com/tummychow/git-absorb";
     description = "git commit --fixup, but automatic";
-    license = [ licenses.bsd3 ];
+    license = [licenses.bsd3];
     maintainers = with maintainers; [
       matthiasbeyer
     ];

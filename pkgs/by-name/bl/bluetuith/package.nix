@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "bluetuith";
   version = "0.2.3";
@@ -26,7 +25,7 @@ buildGoModule (finalAttrs: {
     "-X github.com/darkhz/bluetuith/cmd.Version=${finalAttrs.version}@nixpkgs"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "TUI-based bluetooth connection manager";

@@ -7,7 +7,6 @@
   unittestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyperf";
   version = "2.9.0";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-2+D+747BpGXfGRu6JXYUl2LRWoyZhcn+qTq2Jdh1w2I=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ psutil ];
+  propagatedBuildInputs = [psutil];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     "-v"
   ];
 
-  pythonImportsCheck = [ "pyperf" ];
+  pythonImportsCheck = ["pyperf"];
 
   meta = with lib; {
     description = "Python module to generate and modify perf";
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://pyperf.readthedocs.io/";
     changelog = "https://github.com/psf/pyperf/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

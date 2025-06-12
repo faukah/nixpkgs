@@ -13,7 +13,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pygit2";
   version = "1.18.0";
@@ -30,18 +29,20 @@ buildPythonPackage rec {
     export DYLD_LIBRARY_PATH="${libgit2}/lib"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ libgit2 ];
+  buildInputs = [libgit2];
 
-  dependencies = [
-    cached-property
-    pycparser
-  ] ++ lib.optionals (!isPyPy) [ cffi ];
+  dependencies =
+    [
+      cached-property
+      pycparser
+    ]
+    ++ lib.optionals (!isPyPy) [cffi];
 
-  propagatedNativeBuildInputs = lib.optionals (!isPyPy) [ cffi ];
+  propagatedNativeBuildInputs = lib.optionals (!isPyPy) [cffi];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # Disable tests that require networking
@@ -54,13 +55,13 @@ buildPythonPackage rec {
   # https://github.com/NixOS/nixpkgs/pull/72544#issuecomment-582674047
   SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-  pythonImportsCheck = [ "pygit2" ];
+  pythonImportsCheck = ["pygit2"];
 
   meta = with lib; {
     description = "Set of Python bindings to the libgit2 shared library";
     homepage = "https://github.com/libgit2/pygit2";
     changelog = "https://github.com/libgit2/pygit2/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

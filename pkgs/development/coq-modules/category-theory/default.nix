@@ -6,9 +6,7 @@
   equations,
   version ? null,
 }:
-
 mkCoqDerivation {
-
   pname = "category-theory";
   owner = "jwiegley";
 
@@ -23,8 +21,7 @@ mkCoqDerivation {
   release."20180709".sha256 = "0f2nr8dgn1ab7hr7jrdmr1zla9g9h8216q4yf4wnff9qkln8sbbs";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = range "8.14" "8.17";
@@ -42,7 +39,8 @@ mkCoqDerivation {
         case = range "8.6" "8.7";
         out = "20180709";
       }
-    ] null;
+    ]
+    null;
 
   mlPlugin = true;
   propagatedBuildInputs = [
@@ -52,6 +50,6 @@ mkCoqDerivation {
 
   meta = {
     description = "Formalization of category theory in Coq for personal study and practical work";
-    maintainers = with lib.maintainers; [ jwiegley ];
+    maintainers = with lib.maintainers; [jwiegley];
   };
 }

@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   meta = {
     maintainers = lib.teams.freedesktop.members;
   };
@@ -20,7 +19,7 @@
     };
     xdg.icons.fallbackCursorThemes = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         Names of the fallback cursor themes, in order of preference, to be used when no other icon source can be found.
         Set to `[]` to disable the fallback entirely.
@@ -40,7 +39,7 @@
         # where toolkits should look for icons installed by apps.
         pkgs.hicolor-icon-theme
       ]
-      ++ lib.optionals (config.xdg.icons.fallbackCursorThemes != [ ]) [
+      ++ lib.optionals (config.xdg.icons.fallbackCursorThemes != []) [
         (pkgs.writeTextFile {
           name = "fallback-cursor-theme";
           text = ''
@@ -66,5 +65,4 @@
       "/share/pixmaps"
     ];
   };
-
 }

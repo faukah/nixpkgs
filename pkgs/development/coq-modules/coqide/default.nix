@@ -9,15 +9,17 @@
   coq,
   version ? null,
 }:
-
 mkCoqDerivation rec {
   pname = "coqide";
   inherit version;
 
   inherit (coq) src;
-  release."${coq.version}" = { };
+  release."${coq.version}" = {};
 
-  defaultVersion = if lib.versions.range "8.14" "8.20" coq.version then coq.version else null;
+  defaultVersion =
+    if lib.versions.range "8.14" "8.20" coq.version
+    then coq.version
+    else null;
 
   preConfigure = ''
     patchShebangs dev/tools/
@@ -67,6 +69,6 @@ mkCoqDerivation rec {
     description = "CoqIDE user interface for the Coq proof assistant";
     mainProgram = "coqide";
     license = licenses.lgpl21Plus;
-    maintainers = [ maintainers.Zimmi48 ];
+    maintainers = [maintainers.Zimmi48];
   };
 }

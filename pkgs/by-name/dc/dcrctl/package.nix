@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "dcrctl";
   version = "1.8.0";
@@ -25,8 +24,8 @@ buildGoModule rec {
   meta = {
     homepage = "https://decred.org";
     description = "Secure Decred wallet daemon written in Go (golang)";
-    license = with lib.licenses; [ isc ];
-    maintainers = [ ];
+    license = with lib.licenses; [isc];
+    maintainers = [];
     mainProgram = "dcrctl";
   };
 }

@@ -14,7 +14,6 @@
   rightToLeftTextSupport ? false,
   unstableGitUpdater,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "ranger";
   version = "1.9.3-unstable-2025-06-04";
@@ -38,11 +37,11 @@ python3Packages.buildPythonApplication {
       less
       file
     ]
-    ++ lib.optionals imagePreviewSupport [ python3Packages.pillow ]
-    ++ lib.optionals sixelPreviewSupport [ imagemagick ]
-    ++ lib.optionals neoVimSupport [ python3Packages.pynvim ]
-    ++ lib.optionals improvedEncodingDetection [ python3Packages.chardet ]
-    ++ lib.optionals rightToLeftTextSupport [ python3Packages.python-bidi ];
+    ++ lib.optionals imagePreviewSupport [python3Packages.pillow]
+    ++ lib.optionals sixelPreviewSupport [imagemagick]
+    ++ lib.optionals neoVimSupport [python3Packages.pynvim]
+    ++ lib.optionals improvedEncodingDetection [python3Packages.chardet]
+    ++ lib.optionals rightToLeftTextSupport [python3Packages.python-bidi];
 
   preConfigure =
     ''
@@ -68,7 +67,7 @@ python3Packages.buildPythonApplication {
         --replace "set preview_images false" "set preview_images true"
     '';
 
-  passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
+  passthru.updateScript = unstableGitUpdater {tagPrefix = "v";};
 
   meta = {
     description = "File manager with minimalistic curses interface";

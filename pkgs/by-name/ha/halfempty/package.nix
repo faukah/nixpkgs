@@ -8,7 +8,6 @@
   hexdump,
   scowl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "halfempty";
   version = "0.40";
@@ -24,9 +23,9 @@ stdenv.mkDerivation rec {
     pkg-config
     hexdump
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   enableParallelBuilding = true;
 
@@ -54,8 +53,8 @@ stdenv.mkDerivation rec {
     description = "Fast, parallel test case minimization tool";
     mainProgram = "halfempty";
     homepage = "https://github.com/googleprojectzero/halfempty/";
-    maintainers = with lib.maintainers; [ fpletz ];
-    license = with lib.licenses; [ asl20 ];
+    maintainers = with lib.maintainers; [fpletz];
+    license = with lib.licenses; [asl20];
     platforms = lib.platforms.unix;
   };
 }

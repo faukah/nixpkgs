@@ -9,7 +9,6 @@
   # We depend on ZooKeeper for the Jute compiler.
   zookeeper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zookeeper_mt";
   version = lib.getVersion zookeeper;

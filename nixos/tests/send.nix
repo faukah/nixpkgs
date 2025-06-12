@@ -2,8 +2,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   name = "send";
 
   meta = {
@@ -13,18 +12,16 @@
     ];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = with pkgs; [
-        curl
-        ffsend
-      ];
+  nodes.machine = {pkgs, ...}: {
+    environment.systemPackages = with pkgs; [
+      curl
+      ffsend
+    ];
 
-      services.send = {
-        enable = true;
-      };
+    services.send = {
+      enable = true;
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("send.service")

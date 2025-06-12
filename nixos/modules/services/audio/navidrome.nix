@@ -3,31 +3,29 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
     maintainers
     ;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     bool
     port
     str
     submodule
     ;
   cfg = config.services.navidrome;
-  settingsFormat = pkgs.formats.json { };
-in
-{
+  settingsFormat = pkgs.formats.json {};
+in {
   options = {
     services.navidrome = {
-
       enable = mkEnableOption "Navidrome music server";
 
-      package = mkPackageOption pkgs "navidrome" { };
+      package = mkPackageOption pkgs "navidrome" {};
 
       settings = mkOption {
         type = submodule {
@@ -53,7 +51,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         example = {
           MusicFolder = "/mnt/music";
         };
@@ -86,11 +84,10 @@ in
     };
   };
 
-  config =
-    let
-      inherit (lib) mkIf optional getExe;
-      WorkingDirectory = "/var/lib/navidrome";
-    in
+  config = let
+    inherit (lib) mkIf optional getExe;
+    WorkingDirectory = "/var/lib/navidrome";
+  in
     mkIf cfg.enable {
       systemd = {
         tmpfiles.settings.navidromeDirs = {
@@ -110,13 +107,13 @@ in
         };
         services.navidrome = {
           description = "Navidrome Media Server";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
           serviceConfig = {
             ExecStart = ''
               ${getExe cfg.package} --configfile ${settingsFormat.generate "navidrome.json" cfg.settings}
             '';
-            EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+            EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [cfg.environmentFile];
             User = cfg.user;
             Group = cfg.group;
             StateDirectory = "navidrome";
@@ -175,9 +172,9 @@ in
         };
       };
 
-      users.groups = mkIf (cfg.group == "navidrome") { navidrome = { }; };
+      users.groups = mkIf (cfg.group == "navidrome") {navidrome = {};};
 
-      networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.Port ];
+      networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.settings.Port];
     };
-  meta.maintainers = with maintainers; [ fsnkty ];
+  meta.maintainers = with maintainers; [fsnkty];
 }

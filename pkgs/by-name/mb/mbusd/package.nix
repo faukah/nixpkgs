@@ -5,7 +5,6 @@
   cmake,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mbusd";
   version = "0.5.2";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/3cky/mbusd";
     changelog = "https://github.com/3cky/mbusd/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
     mainProgram = "mbusd";
   };

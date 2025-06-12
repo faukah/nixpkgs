@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "crypto-tracker";
   version = "0.1.8";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Program to retrieve the latest price for several cryptocurrencies using the CoinMarketCap API";
     homepage = "https://github.com/Nox04/crypto-tracker";
     license = licenses.mit;
-    maintainers = with maintainers; [ tiredofit ];
+    maintainers = with maintainers; [tiredofit];
     mainProgram = "crypto-tracker";
   };
 }

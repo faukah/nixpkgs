@@ -6,7 +6,6 @@
   crossandra,
   dahlia,
 }:
-
 buildPythonPackage rec {
   pname = "samarium";
   version = "0.6.2";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-sOkJ67B8LaIA2cwCHaFnc16lMG8uaegBJCzF6Li77vk=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
   dependencies = [
     crossandra
     dahlia
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     description = "The Samarium Programming Language";
     license = licenses.mit;
     homepage = "https://samarium-lang.github.io/Samarium";
-    maintainers = with maintainers; [ sigmanificient ];
+    maintainers = with maintainers; [sigmanificient];
   };
 }

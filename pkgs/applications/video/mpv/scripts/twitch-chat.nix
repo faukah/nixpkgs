@@ -20,16 +20,16 @@ buildLua {
 
   scriptPath = ".";
 
-  runtime-dependencies = [ curl ];
+  runtime-dependencies = [curl];
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = {
     description = "Show Twitch chat messages as subtitles when watching Twitch VOD with mpv.";
     homepage = "https://github.com/CrendKing/mpv-twitch-chat";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.naho ];
+    maintainers = [lib.maintainers.naho];
   };
 }

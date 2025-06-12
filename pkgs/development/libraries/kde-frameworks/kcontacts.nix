@@ -9,16 +9,15 @@
   ki18n,
   qtbase,
 }:
-
 mkDerivation {
   pname = "kcontacts";
   meta = {
-    license = [ lib.licenses.lgpl21 ];
+    license = [lib.licenses.lgpl21];
   };
   propagatedBuildInputs = [
     isocodes
   ];
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kcoreaddons
     kconfig

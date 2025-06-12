@@ -54,7 +54,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/Watfaq/clash-rs";
     mainProgram = "clash";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 })

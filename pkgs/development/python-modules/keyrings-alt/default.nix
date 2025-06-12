@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "keyrings-alt";
   version = "5.0.2";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-m/hIXjri3FZ3rPIymiIBy8cKNOwJoj14WjsOyDtcWmU=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     jaraco-classes
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     keyring
   ];
 
-  pythonImportsCheck = [ "keyrings.alt" ];
+  pythonImportsCheck = ["keyrings.alt"];
 
   meta = with lib; {
     description = "Alternate keyring implementations";
     homepage = "https://github.com/jaraco/keyrings.alt";
     changelog = "https://github.com/jaraco/keyrings.alt/blob/v${version}/NEWS.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ nyarly ];
+    maintainers = with maintainers; [nyarly];
   };
 }

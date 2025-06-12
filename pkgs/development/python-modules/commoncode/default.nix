@@ -14,7 +14,6 @@
   setuptools-scm,
   text-unidecode,
 }:
-
 buildPythonPackage rec {
   pname = "commoncode";
   version = "32.2.1";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  pythonRelaxDeps = [ "beautifulsoup4" ];
+  pythonRelaxDeps = ["beautifulsoup4"];
 
   dependencies = [
     attrs
@@ -65,13 +64,13 @@ buildPythonPackage rec {
       "test_searchable_paths"
     ];
 
-  pythonImportsCheck = [ "commoncode" ];
+  pythonImportsCheck = ["commoncode"];
 
   meta = with lib; {
     description = "Set of common utilities, originally split from ScanCode";
     homepage = "https://github.com/nexB/commoncode";
     changelog = "https://github.com/nexB/commoncode/blob/v${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,9 +5,7 @@
   openssl,
   postgresql,
   postgresqlBuildExtension,
-}:
-
-let
+}: let
   source =
     {
       "17" = {
@@ -31,35 +29,37 @@ let
         hash = "sha256-fyf2Ym0fAAXjc28iFCGDEftPAyDLXmEgi/0DaTJJiIg=";
       };
     }
-    .${lib.versions.major postgresql.version}
+    .${
+      lib.versions.major postgresql.version
+    }
     or (throw "Source for pgaudit is not available for ${postgresql.version}");
 in
-postgresqlBuildExtension {
-  pname = "pgaudit";
-  inherit (source) version;
+  postgresqlBuildExtension {
+    pname = "pgaudit";
+    inherit (source) version;
 
-  src = fetchFromGitHub {
-    owner = "pgaudit";
-    repo = "pgaudit";
-    tag = source.version;
-    hash = source.hash;
-  };
+    src = fetchFromGitHub {
+      owner = "pgaudit";
+      repo = "pgaudit";
+      tag = source.version;
+      hash = source.hash;
+    };
 
-  buildInputs = [
-    libkrb5
-    openssl
-  ];
+    buildInputs = [
+      libkrb5
+      openssl
+    ];
 
-  makeFlags = [ "USE_PGXS=1" ];
+    makeFlags = ["USE_PGXS=1"];
 
-  enableUpdateScript = false;
+    enableUpdateScript = false;
 
-  meta = {
-    description = "Open Source PostgreSQL Audit Logging";
-    homepage = "https://github.com/pgaudit/pgaudit";
-    changelog = "https://github.com/pgaudit/pgaudit/releases/tag/${source.version}";
-    maintainers = with lib.maintainers; [ idontgetoutmuch ];
-    platforms = postgresql.meta.platforms;
-    license = lib.licenses.postgresql;
-  };
-}
+    meta = {
+      description = "Open Source PostgreSQL Audit Logging";
+      homepage = "https://github.com/pgaudit/pgaudit";
+      changelog = "https://github.com/pgaudit/pgaudit/releases/tag/${source.version}";
+      maintainers = with lib.maintainers; [idontgetoutmuch];
+      platforms = postgresql.meta.platforms;
+      license = lib.licenses.postgresql;
+    };
+  }

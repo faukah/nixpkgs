@@ -7,7 +7,6 @@
   minixml,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aj-snapshot";
   version = "0.9.9";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     alsa-lib
     minixml
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
 
     homepage = "http://aj-snapshot.sourceforge.net/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.mrVanDalo ];
+    maintainers = [maintainers.mrVanDalo];
     platforms = platforms.all;
     mainProgram = "aj-snapshot";
   };

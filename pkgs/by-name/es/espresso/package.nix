@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-z5By57VbmIt4sgRgvECnLbZklnDDWUA6fyvWVyXUzsI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = true;
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Multi-valued PLA minimization";
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       heuristic Boolean minimization.
     '';
     homepage = "https://github.com/chipsalliance/espresso";
-    maintainers = with maintainers; [ pineapplehunter ];
+    maintainers = with maintainers; [pineapplehunter];
     mainProgram = "espresso";
     platforms = lib.platforms.all;
 

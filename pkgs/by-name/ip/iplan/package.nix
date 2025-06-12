@@ -12,7 +12,6 @@
   desktop-file-utils,
   libadwaita,
 }:
-
 stdenv.mkDerivation rec {
   pname = "iplan";
   version = "1.9.2";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/iman-salmani/iplan";
     license = licenses.gpl3Plus;
     mainProgram = "iplan";
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.linux;
   };
 }

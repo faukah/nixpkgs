@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "prettypst";
   version = "2.0.0";
@@ -24,6 +23,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/antonWetzel/prettypst";
     license = lib.licenses.mit;
     mainProgram = "prettypst";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

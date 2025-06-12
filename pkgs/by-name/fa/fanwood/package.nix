@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "fanwood";
   version = "2011-05-11";
@@ -31,6 +30,6 @@ stdenvNoCC.mkDerivation {
     '';
     homepage = "https://www.theleagueofmoveabletype.com/fanwood";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ minijackson ];
+    maintainers = with lib.maintainers; [minijackson];
   };
 }

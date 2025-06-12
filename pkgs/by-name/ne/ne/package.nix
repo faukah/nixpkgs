@@ -8,7 +8,6 @@
   perl,
   ghostscript,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ne";
   version = "3.3.4";
@@ -33,9 +32,9 @@ stdenv.mkDerivation (finalAttrs: {
     perl
     ghostscript
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = {
     description = "Nice editor";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ geri1701 ];
+    maintainers = with lib.maintainers; [geri1701];
     mainProgram = "ne";
   };
 })

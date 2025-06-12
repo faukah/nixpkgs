@@ -5,7 +5,6 @@
   beautifulsoup4,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "pylyrics";
   version = "1.1.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "PyLyrics" ];
+  pythonImportsCheck = ["PyLyrics"];
 
   # tries to connect to lyrics.wikia.com
   doCheck = false;
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Pythonic Implementation of lyrics.wikia.com for getting lyrics of songs";
     homepage = "https://github.com/geekpradd/PyLyrics";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

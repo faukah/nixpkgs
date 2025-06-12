@@ -7,7 +7,6 @@
   pkg-config,
   mono,
 }:
-
 stdenv.mkDerivation rec {
   pname = "taglib-sharp";
   version = "2.1.0.0";
@@ -24,11 +23,11 @@ stdenv.mkDerivation rec {
     autoreconfHook
     which
   ];
-  buildInputs = [ mono ];
+  buildInputs = [mono];
 
   dontStrip = true;
 
-  configureFlags = [ "--disable-docs" ];
+  configureFlags = ["--disable-docs"];
 
   meta = with lib; {
     description = "Library for reading and writing metadata in media files";

@@ -14,7 +14,6 @@
   alsa-lib,
   libjack2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dexed";
   version = "0.9.8";
@@ -69,30 +68,32 @@ stdenv.mkDerivation (finalAttrs: {
     "-ljack"
   ]);
 
-  installPhase =
-    let
-      vst3Dir =
-        if stdenv.hostPlatform.isDarwin then "$out/Library/Audio/Plug-Ins/VST3" else "$out/lib/vst3";
-      # this one's a guess, don't know where ppl have agreed to put them yet
-      clapDir =
-        if stdenv.hostPlatform.isDarwin then "$out/Library/Audio/Plug-Ins/CLAP" else "$out/lib/clap";
-      auDir = "$out/Library/Audio/Plug-Ins/Components";
-    in
+  installPhase = let
+    vst3Dir =
+      if stdenv.hostPlatform.isDarwin
+      then "$out/Library/Audio/Plug-Ins/VST3"
+      else "$out/lib/vst3";
+    # this one's a guess, don't know where ppl have agreed to put them yet
+    clapDir =
+      if stdenv.hostPlatform.isDarwin
+      then "$out/Library/Audio/Plug-Ins/CLAP"
+      else "$out/lib/clap";
+    auDir = "$out/Library/Audio/Plug-Ins/Components";
+  in
     ''
       runHook preInstall
 
     ''
     + (
-      if stdenv.hostPlatform.isDarwin then
-        ''
-          mkdir -p $out/{Applications,bin}
-          mv Source/Dexed_artefacts/Release/Standalone/Dexed.app $out/Applications/
-          ln -s $out/{Applications/Dexed.app/Contents/MacOS,bin}/Dexed
-        ''
-      else
-        ''
-          install -Dm755 {Source/Dexed_artefacts/Release/Standalone,$out/bin}/Dexed
-        ''
+      if stdenv.hostPlatform.isDarwin
+      then ''
+        mkdir -p $out/{Applications,bin}
+        mv Source/Dexed_artefacts/Release/Standalone/Dexed.app $out/Applications/
+        ln -s $out/{Applications/Dexed.app/Contents/MacOS,bin}/Dexed
+      ''
+      else ''
+        install -Dm755 {Source/Dexed_artefacts/Release/Standalone,$out/bin}/Dexed
+      ''
     )
     + ''
       mkdir -p ${vst3Dir} ${clapDir}
@@ -108,7 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
       runHook postInstall
     '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "DX7 FM multi platform/multi format plugin";
@@ -116,6 +117,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://asb2m10.github.io/dexed";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
   };
 })

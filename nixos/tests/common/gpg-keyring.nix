@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-
-pkgs.runCommand "gpg-keyring" { nativeBuildInputs = [ pkgs.gnupg ]; } ''
+{pkgs, ...}:
+pkgs.runCommand "gpg-keyring" {nativeBuildInputs = [pkgs.gnupg];} ''
   mkdir -p $out
   export GNUPGHOME=$out
   cat > foo <<EOF

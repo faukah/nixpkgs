@@ -7,7 +7,6 @@
   sudachi-rs,
   writeScript,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sudachi-rs";
   version = "0.6.10";
@@ -49,7 +48,7 @@ rustPlatform.buildRustPackage rec {
     '';
     tests = {
       # detects an error that sudachidict is not found
-      cli = runCommand "${pname}-cli-test" { } ''
+      cli = runCommand "${pname}-cli-test" {} ''
         mkdir $out
         echo "高輪ゲートウェイ駅" | ${lib.getExe sudachi-rs} > $out/result
       '';
@@ -61,7 +60,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/WorksApplications/sudachi.rs";
     changelog = "https://github.com/WorksApplications/sudachi.rs/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
     mainProgram = "sudachi";
   };
 }

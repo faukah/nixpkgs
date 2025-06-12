@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "scrounge-ntfs";
   version = "0.9";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Data recovery program for NTFS file systems";
     mainProgram = "scrounge-ntfs";
     homepage = "http://thewalter.net/stef/software/scrounge/";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
     license = licenses.bsd3;
   };

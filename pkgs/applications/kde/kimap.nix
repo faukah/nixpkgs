@@ -11,7 +11,6 @@
   kmime,
   kitemmodels,
 }:
-
 mkDerivation {
   pname = "kimap";
   meta = {

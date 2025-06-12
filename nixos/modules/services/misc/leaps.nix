@@ -3,12 +3,10 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.leaps;
   stateDir = "/var/lib/leaps/";
-in
-{
+in {
   options = {
     services.leaps = {
       enable = lib.mkEnableOption "leaps, a pair programming service";
@@ -48,8 +46,8 @@ in
 
     systemd.services.leaps = {
       description = "leaps service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = "leaps";

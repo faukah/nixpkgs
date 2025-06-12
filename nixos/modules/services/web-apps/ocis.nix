@@ -3,15 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) types;
   cfg = config.services.ocis;
   defaultUser = "ocis";
   defaultGroup = defaultUser;
-in
-{
+in {
   options = {
     services.ocis = {
       enable = lib.mkEnableOption "ownCloud Infinite Scale";
@@ -19,7 +16,7 @@ in
       package = lib.mkOption {
         type = types.package;
         description = "Which package to use for the ownCloud Infinite Scale instance.";
-        relatedPackages = [ "ocis_5-bin" ];
+        relatedPackages = ["ocis_5-bin"];
       };
 
       configDir = lib.mkOption {
@@ -98,7 +95,7 @@ in
 
       environment = lib.mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         description = ''
           Extra config options.
 
@@ -151,18 +148,23 @@ in
       description = "ownCloud Infinite Scale daemon user";
     };
 
-    users.groups = lib.mkIf (cfg.group == defaultGroup) { ${defaultGroup} = { }; };
+    users.groups = lib.mkIf (cfg.group == defaultGroup) {${defaultGroup} = {};};
 
     systemd = {
       services.ocis = {
         description = "ownCloud Infinite Scale Stack";
-        wantedBy = [ "multi-user.target" ];
-        environment = {
-          PROXY_HTTP_ADDR = "${cfg.address}:${toString cfg.port}";
-          OCIS_URL = cfg.url;
-          OCIS_CONFIG_DIR = if (cfg.configDir == null) then "${cfg.stateDir}/config" else cfg.configDir;
-          OCIS_BASE_DATA_PATH = cfg.stateDir;
-        } // cfg.environment;
+        wantedBy = ["multi-user.target"];
+        environment =
+          {
+            PROXY_HTTP_ADDR = "${cfg.address}:${toString cfg.port}";
+            OCIS_URL = cfg.url;
+            OCIS_CONFIG_DIR =
+              if (cfg.configDir == null)
+              then "${cfg.stateDir}/config"
+              else cfg.configDir;
+            OCIS_BASE_DATA_PATH = cfg.stateDir;
+          }
+          // cfg.environment;
         serviceConfig = {
           Type = "simple";
           ExecStart = "${lib.getExe cfg.package} server";
@@ -171,8 +173,8 @@ in
           Group = cfg.group;
           Restart = "always";
           EnvironmentFile = lib.optional (cfg.environmentFile != null) cfg.environmentFile;
-          ReadWritePaths = [ cfg.stateDir ];
-          ReadOnlyPaths = [ cfg.configDir ];
+          ReadWritePaths = [cfg.stateDir];
+          ReadOnlyPaths = [cfg.configDir];
           MemoryDenyWriteExecute = true;
           NoNewPrivileges = true;
           PrivateTmp = true;

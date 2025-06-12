@@ -8,7 +8,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "citeproc-py";
   version = "0.8.2";
@@ -20,24 +19,24 @@ buildPythonPackage rec {
     hash = "sha256-swsQocrDW4IaQEQiOdGEdL34rns+NrjufmsujuQt0ZI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ rnc2rng ];
+  buildInputs = [rnc2rng];
 
-  dependencies = [ lxml ];
+  dependencies = [lxml];
 
   nativeCheckInputs = [
     git
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "citeproc" ];
+  pythonImportsCheck = ["citeproc"];
 
   meta = {
     homepage = "https://github.com/citeproc-py/citeproc-py";
     description = "Citation Style Language (CSL) parser for Python";
     mainProgram = "csl_unsorted";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

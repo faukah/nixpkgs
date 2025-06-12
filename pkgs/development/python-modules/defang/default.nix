@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "defang";
   version = "0.5.3";
@@ -21,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-OJfayJeVf2H1/jg7/fu2NiHhRHNCaLGI29SY8BnJyxI=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "defang" ];
+  pythonImportsCheck = ["defang"];
 
   meta = with lib; {
     description = "Module to defang and refang malicious URLs";
     homepage = "https://bitbucket.org/johannestaas/defang";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

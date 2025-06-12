@@ -6,7 +6,6 @@
   gbenchmark,
   gtest,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ethash";
   version = "1.1.0";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "PoW algorithm for Ethereum 1.0 based on Dagger-Hashimoto";
     homepage = "https://github.com/ethereum/ethash";
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.asl20;
   };
 }

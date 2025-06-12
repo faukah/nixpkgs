@@ -11,7 +11,6 @@
   stdenv,
   zstd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zchunk";
   version = "1.5.1";
@@ -29,10 +28,12 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [
-    curl
-    zstd
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ argp-standalone ];
+  buildInputs =
+    [
+      curl
+      zstd
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [argp-standalone];
 
   outputs = [
     "out"
@@ -44,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
     tests = lib.packagesFromDirectoryRecursive {
       inherit callPackage;
       directory = ./tests;
@@ -64,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.bsd2;
     mainProgram = "zck";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

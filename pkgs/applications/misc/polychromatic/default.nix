@@ -15,7 +15,6 @@
   usbutils,
   psmisc,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "polychromatic";
   version = "0.9.3";
@@ -52,10 +51,9 @@ python3Packages.buildPythonApplication rec {
     qt6.qtbase
   ];
 
-  buildInputs = [ qt6.qtwayland ];
+  buildInputs = [qt6.qtwayland];
 
-  propagatedBuildInputs =
-    with python3Packages;
+  propagatedBuildInputs = with python3Packages;
     [
       colorama
       colour
@@ -91,7 +89,7 @@ python3Packages.buildPythonApplication rec {
     '';
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ evanjs ];
+    maintainers = with maintainers; [evanjs];
     mainProgram = "polychromatic-controller";
   };
 }

@@ -18,7 +18,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-tp83T6V4HM7SgpZASMWnIoqgw/s/DhdJMsCu2C6OuTo=";
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   nativeInstallCheckInputs = [
     versionCheckHook
@@ -27,7 +27,7 @@ buildGoModule rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -35,7 +35,7 @@ buildGoModule rec {
     homepage = "https://github.com/itchyny/bed";
     changelog = "https://github.com/itchyny/bed/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ xiaoxiangmoe ];
+    maintainers = with lib.maintainers; [xiaoxiangmoe];
     mainProgram = "bed";
   };
 }

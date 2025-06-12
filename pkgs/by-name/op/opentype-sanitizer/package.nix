@@ -10,7 +10,6 @@
   pkg-config,
   woff2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "opentype-sanitizer";
   version = "9.2.0";
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-QRbF2GUDQsp8i6qVYlafSb9HaaozRuJ8dn1mhMMLeLc=";
   };
 
-  mesonFlags = [ "-Dcpp_std=c++14" ];
+  mesonFlags = ["-Dcpp_std=c++14"];
 
   buildInputs = [
     freetype
@@ -42,6 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Sanitizing parser for OpenType fonts";
     homepage = "https://github.com/khaledhosny/ots";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 })

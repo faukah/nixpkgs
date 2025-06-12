@@ -6,7 +6,6 @@
   kdePackages,
   qt6,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kile";
   version = "2.9.94";

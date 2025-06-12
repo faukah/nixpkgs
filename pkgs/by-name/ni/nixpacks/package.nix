@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nixpacks";
   version = "1.39.0";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     description = "App source + Nix packages + Docker = Image Resources";
     homepage = "https://github.com/railwayapp/nixpacks";
     license = licenses.mit;
-    maintainers = [ maintainers.zoedsoupe ];
+    maintainers = [maintainers.zoedsoupe];
     mainProgram = "nixpacks";
   };
 }

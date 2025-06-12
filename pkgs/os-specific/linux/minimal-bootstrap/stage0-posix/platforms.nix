@@ -2,9 +2,7 @@
 {
   lib,
   hostPlatform,
-}:
-
-rec {
+}: rec {
   # meta.platforms
   platforms = [
     "aarch64-linux"
@@ -19,14 +17,18 @@ rec {
       "i686-linux" = "x86";
       "x86_64-linux" = "AMD64";
     }
-    .${hostPlatform.system} or (throw "Unsupported system: ${hostPlatform.system}");
+    .${
+      hostPlatform.system
+    } or (throw "Unsupported system: ${hostPlatform.system}");
 
   # lower-case form is widely used by m2libc
   m2libcArch = lib.toLower stage0Arch;
 
   # Passed to M2-Mesoplanet as --operating-system
   m2libcOS =
-    if hostPlatform.isLinux then "linux" else throw "Unsupported system: ${hostPlatform.system}";
+    if hostPlatform.isLinux
+    then "linux"
+    else throw "Unsupported system: ${hostPlatform.system}";
 
   baseAddress =
     {
@@ -34,5 +36,7 @@ rec {
       "i686-linux" = "0x08048000";
       "x86_64-linux" = "0x00600000";
     }
-    .${hostPlatform.system} or (throw "Unsupported system: ${hostPlatform.system}");
+    .${
+      hostPlatform.system
+    } or (throw "Unsupported system: ${hostPlatform.system}");
 }

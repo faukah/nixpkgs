@@ -5,7 +5,6 @@
   pytestCheckHook,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "py-radix-sr";
   version = "1.0.2";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
       --replace-warn assertNotEquals assertNotEqual
   '';
 
-  pythonImportsCheck = [ "radix" ];
+  pythonImportsCheck = ["radix"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = lib.optionals (pythonAtLeast "3.12") [
     # test does not complete on 3.12+
@@ -43,6 +42,6 @@ buildPythonPackage rec {
       isc
       bsdOriginal
     ];
-    teams = [ teams.wdz ];
+    teams = [teams.wdz];
   };
 }

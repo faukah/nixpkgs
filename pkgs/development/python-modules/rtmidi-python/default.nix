@@ -6,7 +6,6 @@
   cython_0,
   alsa-lib,
 }:
-
 buildPythonPackage rec {
   pname = "rtmidi-python";
   version = "0.2.2";
@@ -21,20 +20,20 @@ buildPythonPackage rec {
     rm rtmidi_python.cpp
   '';
 
-  nativeBuildInputs = [ cython_0 ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ alsa-lib ];
+  nativeBuildInputs = [cython_0];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [alsa-lib];
 
-  setupPyBuildFlags = [ "--from-cython" ];
+  setupPyBuildFlags = ["--from-cython"];
 
   # package has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "rtmidi_python" ];
+  pythonImportsCheck = ["rtmidi_python"];
 
   meta = with lib; {
     description = "Python wrapper for RtMidi";
     homepage = "https://github.com/superquadratic/rtmidi-python";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

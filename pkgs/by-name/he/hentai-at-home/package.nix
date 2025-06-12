@@ -27,7 +27,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     stdenvNoCC.buildPlatform.libc == "glibc"
   ) "${buildPackages.glibcLocales}/lib/locale/locale-archive";
 
-  makeFlags = [ "all" ];
+  makeFlags = ["all"];
   enableParallelBuilding = false;
 
   installPhase = ''
@@ -60,7 +60,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://ehwiki.org/wiki/Hentai@Home";
     description = "Open-source P2P gallery distribution system which reduces the load on the E-Hentai Galleries";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ terrorjack ];
+    maintainers = with maintainers; [terrorjack];
     mainProgram = "HentaiAtHome";
     platforms = jdk_headless.meta.platforms;
   };

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wg-netmanager";
   version = "0.5.1";
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage rec {
       bsd3
       mpl20
     ];
-    maintainers = with maintainers; [ gin66 ];
+    maintainers = with maintainers; [gin66];
     platforms = platforms.linux;
     mainProgram = "wg_netmanager";
   };

@@ -3,19 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.gitDaemon;
-
-in
-{
-
+in {
   ###### interface
 
   options = {
     services.gitDaemon = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -31,7 +25,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "git" { };
+      package = lib.mkPackageOption pkgs "git" {};
 
       basePath = lib.mkOption {
         type = lib.types.str;
@@ -61,7 +55,7 @@ in
 
       repositories = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         example = [
           "/srv/git"
           "/home/user/git/repo2"
@@ -105,14 +99,12 @@ in
         default = "git";
         description = "Group under which Git daemon would be running.";
       };
-
     };
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     users.users = lib.optionalAttrs (cfg.user == "git") {
       git = {
         uid = config.ids.uids.git;
@@ -126,8 +118,8 @@ in
     };
 
     systemd.services.git-daemon = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       script =
         "${lib.getExe cfg.package} daemon --reuseaddr "
         + (lib.optionalString (cfg.basePath != "") "--base-path=${cfg.basePath} ")
@@ -137,7 +129,5 @@ in
         + (lib.optionalString cfg.exportAll "--export-all ")
         + lib.concatStringsSep " " cfg.repositories;
     };
-
   };
-
 }

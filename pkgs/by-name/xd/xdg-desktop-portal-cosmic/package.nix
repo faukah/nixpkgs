@@ -14,7 +14,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "xdg-desktop-portal-cosmic";
   version = "1.0.0-alpha.7";
@@ -49,7 +48,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pipewire
   ];
 
-  checkInputs = [ gst_all_1.gstreamer ];
+  checkInputs = [gst_all_1.gstreamer];
 
   postPatch = ''
     # While the `kate-hazen-COSMIC-desktop-wallpaper.png` image is present
@@ -80,7 +79,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru = {
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         cosmic
         cosmic-autologin
         cosmic-noxwayland
@@ -101,7 +101,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/pop-os/xdg-desktop-portal-cosmic";
     description = "XDG Desktop Portal for the COSMIC Desktop Environment";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
     mainProgram = "xdg-desktop-portal-cosmic";
     platforms = lib.platforms.linux;
   };

@@ -9,7 +9,6 @@
   pango,
   vte-gtk4,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "neovim-gtk";
   version = "1.0.4";
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     vte-gtk4
   ];
 
-  patches = [ ./collect-box.patch ];
+  patches = [./collect-box.patch];
 
   postInstall = ''
     make PREFIX=$out install-resources

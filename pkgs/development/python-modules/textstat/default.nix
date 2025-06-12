@@ -45,6 +45,6 @@ buildPythonPackage rec {
     description = "Python package to calculate readability statistics of a text object";
     homepage = "https://textstat.org";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
   };
 }

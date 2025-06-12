@@ -3,9 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   installShellFiles,
-}:
-
-let
+}: let
   argset = {
     pname = "chezmoi";
     version = "2.62.5";
@@ -38,7 +36,7 @@ let
       installShellCompletion --zsh completions/chezmoi.zsh
     '';
 
-    subPackages = [ "." ];
+    subPackages = ["."];
 
     meta = {
       homepage = "https://www.chezmoi.io/";
@@ -46,8 +44,8 @@ let
       changelog = "https://github.com/twpayne/chezmoi/releases/tag/${argset.src.rev}";
       license = lib.licenses.mit;
       mainProgram = "chezmoi";
-      maintainers = with lib.maintainers; [ ];
+      maintainers = with lib.maintainers; [];
     };
   };
 in
-buildGoModule argset
+  buildGoModule argset

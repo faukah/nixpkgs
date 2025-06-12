@@ -8,7 +8,6 @@
   libxml2,
   fplll,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sollya";
   version = "8.0";
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.sollya.org/";
     license = licenses.cecill-c;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

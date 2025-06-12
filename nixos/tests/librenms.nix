@@ -1,10 +1,11 @@
-{ pkgs, lib, ... }:
-
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   api_token = "f87f42114e44b63ad1b9e3c3d33d6fbe"; # random md5 hash
   wrong_api_token = "e68ba041fcf1eab923a7a6de3af5f726"; # another random md5 hash
-in
-{
+in {
   name = "librenms";
   meta.maintainers = lib.teams.wdz.members;
 
@@ -38,8 +39,8 @@ in
     # systemd oneshot to create a dummy admin user and a API token for testing
     systemd.services.lnms-api-init = {
       description = "LibreNMS API init";
-      after = [ "librenms-setup.service" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["librenms-setup.service"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -61,7 +62,6 @@ in
   };
 
   nodes.snmphost = {
-
     services.snmpd = {
       enable = true;
       openFirewall = true;
@@ -76,7 +76,6 @@ in
         syslocation Testcity, Testcountry
         syscontact Testi mc Test <test@example.com>
       '';
-
     };
   };
 

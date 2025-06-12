@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.gotosocial;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configFile = settingsFormat.generate "config.yml" cfg.settings;
   defaultSettings = {
     application-name = "gotosocial";
@@ -29,15 +28,14 @@ let
       -q -t -G --wait --service-type=exec \
       ${cfg.package}/bin/gotosocial --config-path ${configFile} admin "$@"
   '';
-in
-{
+in {
   meta.doc = ./gotosocial.md;
-  meta.maintainers = with lib.maintainers; [ blakesmith ];
+  meta.maintainers = with lib.maintainers; [blakesmith];
 
   options.services.gotosocial = {
     enable = lib.mkEnableOption "ActivityPub social network server";
 
-    package = lib.mkPackageOption pkgs "gotosocial" { };
+    package = lib.mkPackageOption pkgs "gotosocial" {};
 
     openFirewall = lib.mkOption {
       type = lib.types.bool;
@@ -90,7 +88,6 @@ in
       default = null;
       example = "/root/nixos/secrets/gotosocial.env";
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -118,21 +115,21 @@ in
         db-user = "gotosocial";
       });
 
-    environment.systemPackages = [ gotosocial-admin ];
+    environment.systemPackages = [gotosocial-admin];
 
-    users.groups.gotosocial = { };
+    users.groups.gotosocial = {};
     users.users.gotosocial = {
       group = "gotosocial";
       isSystemUser = true;
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings.port ];
+      allowedTCPPorts = [cfg.settings.port];
     };
 
     services.postgresql = lib.mkIf cfg.setupPostgresqlDB {
       enable = true;
-      ensureDatabases = [ "gotosocial" ];
+      ensureDatabases = ["gotosocial"];
       ensureUsers = [
         {
           name = "gotosocial";
@@ -143,10 +140,10 @@ in
 
     systemd.services.gotosocial = {
       description = "ActivityPub social network server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ] ++ lib.optional cfg.setupPostgresqlDB "postgresql.service";
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"] ++ lib.optional cfg.setupPostgresqlDB "postgresql.service";
       requires = lib.optional cfg.setupPostgresqlDB "postgresql.service";
-      restartTriggers = [ configFile ];
+      restartTriggers = [configFile];
 
       serviceConfig = {
         EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;

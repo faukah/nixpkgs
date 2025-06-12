@@ -7,7 +7,6 @@
   pkg-config,
   texinfo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guile-lib";
   version = "0.2.8.1";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
       --replace 'SITECCACHEDIR="$libdir/guile-lib/guile/$GUILE_EFFECTIVE_VERSION/site-ccache"' 'SITECCACHEDIR="$libdir/guile/$GUILE_EFFECTIVE_VERSION/site-ccache"'
   '';
 
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 

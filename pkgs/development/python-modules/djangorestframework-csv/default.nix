@@ -9,7 +9,6 @@
   pytest-django,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "djangorestframework-csv";
   version = "3.0.2";
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "rest_framework_csv" ];
+  pythonImportsCheck = ["rest_framework_csv"];
 
   meta = {
     description = "CSV Tools for Django REST Framework";
     homepage = "https://github.com/mjumbewu/django-rest-framework-csv";
     changelog = "https://github.com/mjumbewu/django-rest-framework-csv/releases/tag/${version}";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.onny ];
+    maintainers = [lib.maintainers.onny];
   };
 }

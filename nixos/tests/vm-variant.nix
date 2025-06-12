@@ -1,8 +1,4 @@
-{
-  pkgs,
-  ...
-}:
-let
+{pkgs, ...}: let
   evalConfig = import ../lib/eval-config.nix;
 
   nixos = evalConfig {
@@ -18,14 +14,14 @@ let
     ];
   };
 in
-assert nixos.config.virtualisation.vmVariant.networking.hostName == "vm";
-assert nixos.config.virtualisation.vmVariantWithBootLoader.networking.hostName == "vm-w-bl";
-assert nixos.config.networking.hostName == "nixos";
-pkgs.symlinkJoin {
-  name = "nixos-test-vm-variant-drvs";
-  paths = with nixos.config.system.build; [
-    toplevel
-    vm
-    vmWithBootLoader
-  ];
-}
+  assert nixos.config.virtualisation.vmVariant.networking.hostName == "vm";
+  assert nixos.config.virtualisation.vmVariantWithBootLoader.networking.hostName == "vm-w-bl";
+  assert nixos.config.networking.hostName == "nixos";
+    pkgs.symlinkJoin {
+      name = "nixos-test-vm-variant-drvs";
+      paths = with nixos.config.system.build; [
+        toplevel
+        vm
+        vmWithBootLoader
+      ];
+    }

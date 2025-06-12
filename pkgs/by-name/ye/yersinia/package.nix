@@ -13,7 +13,6 @@
   # enable remote admin interface
   enableAdmin ? false,
 }:
-
 stdenv.mkDerivation {
   pname = "yersinia";
   version = "unstable-2022-11-20";
@@ -29,11 +28,13 @@ stdenv.mkDerivation {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [
-    libpcap
-    libnet
-    ncurses
-  ] ++ lib.optional withGtk gtk2;
+  buildInputs =
+    [
+      libpcap
+      libnet
+      ncurses
+    ]
+    ++ lib.optional withGtk gtk2;
 
   autoreconfPhase = "./autogen.sh";
 
@@ -45,14 +46,14 @@ stdenv.mkDerivation {
     ++ lib.optional (!enableAdmin) "--disable-admin"
     ++ lib.optional (!withGtk) "--disable-gtk";
 
-  makeFlags = [ "LDFLAGS=-lncurses" ];
+  makeFlags = ["LDFLAGS=-lncurses"];
 
   meta = with lib; {
     description = "Framework for layer 2 attacks";
     mainProgram = "yersinia";
     homepage = "https://github.com/tomac/yersinia";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ vdot0x23 ];
+    maintainers = with maintainers; [vdot0x23];
     # INSTALL and FAQ in this package seem a little outdated
     # so not sure, but it could work on openbsd, illumos, and freebsd
     # if you have a machine to test with, feel free to add these

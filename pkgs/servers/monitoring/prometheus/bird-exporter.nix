@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "bird-exporter";
   version = "1.4.3";
@@ -18,13 +17,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-0EXRpehdpOYpq6H9udmNnQ24EucvAcPUKOlFSAAewbE=";
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) bird; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) bird;};
 
   meta = with lib; {
     description = "Prometheus exporter for the bird routing daemon";
     mainProgram = "bird_exporter";
     homepage = "https://github.com/czerwonk/bird_exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
   };
 }

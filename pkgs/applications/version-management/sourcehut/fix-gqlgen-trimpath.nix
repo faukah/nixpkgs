@@ -1,8 +1,7 @@
 {
   unzip,
   gqlgenVersion,
-}:
-{
+}: {
   overrideModAttrs = (
     _: {
       # No need to workaround -trimpath: it's not used in goModules,
@@ -20,7 +19,7 @@
   #   graph/generate.go:10: running "go": exit status 1
   proxyVendor = true;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   # Workaround -trimpath in the package derivation:
   # https://github.com/99designs/gqlgen/issues/1537

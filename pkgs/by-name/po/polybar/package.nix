@@ -30,7 +30,6 @@
   libnl,
   i3,
   jsoncpp,
-
   # override the variables ending in 'Support' to enable or disable modules
   alsaSupport ? true,
   githubSupport ? false,
@@ -40,7 +39,6 @@
   nlSupport ? true,
   i3Support ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "polybar";
   version = "3.7.2";
@@ -53,12 +51,14 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    python3Packages.sphinx
-    removeReferencesTo
-  ] ++ lib.optional i3Support makeWrapper;
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      python3Packages.sphinx
+      removeReferencesTo
+    ]
+    ++ lib.optional i3Support makeWrapper;
 
   buildInputs =
     [
@@ -88,7 +88,7 @@ stdenv.mkDerivation (finalAttrs: {
       i3
     ];
 
-  patches = [ ./remove-hardcoded-etc.diff ];
+  patches = [./remove-hardcoded-etc.diff];
 
   # Replace hardcoded /etc when copying and reading the default config.
   postPatch = ''

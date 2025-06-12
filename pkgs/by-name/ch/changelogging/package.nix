@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "changelogging";
   version = "0.7.0";
@@ -19,9 +18,9 @@ rustPlatform.buildRustPackage rec {
 
   useFetchCargoVendor = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
   meta = {
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/nekitdev/changelogging/releases/tag/v${version}";
     platforms = lib.platforms.all;
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.nekitdev ];
+    maintainers = [lib.maintainers.nekitdev];
     mainProgram = "changelogging";
   };
 }

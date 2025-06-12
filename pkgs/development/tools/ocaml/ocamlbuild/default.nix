@@ -4,9 +4,11 @@
   fetchFromGitHub,
   ocaml,
   findlib,
-  version ? if lib.versionAtLeast ocaml.version "4.08" then "0.16.1" else "0.14.3",
+  version ?
+    if lib.versionAtLeast ocaml.version "4.08"
+    then "0.16.1"
+    else "0.14.3",
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ocaml${ocaml.version}-ocamlbuild";
   inherit version;
@@ -50,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Build system with builtin rules to easily build most OCaml projects";
     homepage = "https://github.com/ocaml/ocamlbuild/";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
     mainProgram = "ocamlbuild";
     inherit (ocaml.meta) platforms;
   };

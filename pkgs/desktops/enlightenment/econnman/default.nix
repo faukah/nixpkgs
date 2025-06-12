@@ -9,7 +9,6 @@
   python3Packages,
   directoryListingUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "econnman";
   version = "1.1";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     wrapPythonPrograms
   '';
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "User interface for the connman network connection manager";
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
       matejc
       ftrvxmtrx
     ];
-    teams = [ teams.enlightenment ];
+    teams = [teams.enlightenment];
   };
 }

@@ -13,7 +13,6 @@
   toml,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "setuptools-git-versioning";
   version = "2.1.0";
@@ -30,12 +29,14 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [
-    packaging
-    setuptools
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies =
+    [
+      packaging
+      setuptools
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
-  pythonImportsCheck = [ "setuptools_git_versioning" ];
+  pythonImportsCheck = ["setuptools_git_versioning"];
 
   nativeCheckInputs = [
     build
@@ -68,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dolfinus/setuptools-git-versioning";
     changelog = "https://github.com/dolfinus/setuptools-git-versioning/blob/${src.rev}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ tjni ];
+    maintainers = with maintainers; [tjni];
   };
 }

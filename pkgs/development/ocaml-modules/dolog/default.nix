@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchFromGitHub,
 }:
-
 buildDunePackage rec {
   pname = "dolog";
   version = "6.0.0";
@@ -19,6 +18,6 @@ buildDunePackage rec {
     homepage = "https://github.com/UnixJunkie/dolog";
     description = "Minimalistic lazy logger in OCaml";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
   };
 }

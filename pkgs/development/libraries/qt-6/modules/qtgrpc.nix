@@ -6,7 +6,6 @@
   protobuf,
   grpc,
 }:
-
 qtModule {
   pname = "qtgrpc";
 

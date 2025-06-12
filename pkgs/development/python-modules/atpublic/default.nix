@@ -7,7 +7,6 @@
   hatchling,
   sybil,
 }:
-
 buildPythonPackage rec {
   pname = "atpublic";
   version = "5.0";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-cqum+4hREu0jO9iFoUUzfzn597BoMAhG+aanwnh8hb8=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   nativeCheckInputs = [
     pytestCheckHook
     sybil
   ];
 
-  pythonImportsCheck = [ "public" ];
+  pythonImportsCheck = ["public"];
 
   meta = with lib; {
     changelog = "https://gitlab.com/warsaw/public/-/blob/${version}/docs/NEWS.rst";
@@ -40,6 +39,6 @@ buildPythonPackage rec {
       __all__ and optionally the module globals.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

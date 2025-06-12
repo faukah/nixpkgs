@@ -8,7 +8,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bitbox-bridge";
   version = "1.6.1";
@@ -45,7 +44,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru = {
     tests.basic = nixosTests.bitbox-bridge;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

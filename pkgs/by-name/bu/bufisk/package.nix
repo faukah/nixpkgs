@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "bufisk";
   version = "0.1.0";
@@ -26,7 +25,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/bufbuild/bufisk";
     description = "User-friendly launcher for Buf";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "bufisk";
   };
 })

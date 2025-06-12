@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "volkovlabs-rss-datasource";
   version = "4.3.0";
@@ -7,7 +9,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "The RSS/Atom data source is a plugin for Grafana that retrieves RSS/Atom feeds and allows visualizing them using Dynamic Text and other panels.";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nagisa ];
+    maintainers = with maintainers; [nagisa];
     platforms = platforms.unix;
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tidb";
   version = "8.5.1";
@@ -22,13 +21,13 @@ buildGoModule rec {
     "-X github.com/pingcap/tidb/pkg/util/versioninfo.TiDBEdition=Community"
   ];
 
-  subPackages = [ "cmd/tidb-server" ];
+  subPackages = ["cmd/tidb-server"];
 
   meta = with lib; {
     description = "Open-source, cloud-native, distributed, MySQL-Compatible database for elastic scale and real-time analytics";
     homepage = "https://pingcap.com";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Makuru ];
+    maintainers = with maintainers; [Makuru];
     mainProgram = "tidb-server";
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation {
   pname = "nvidia-texture-tools";
   version = "2.1.2-unstable-2020-12-21";
@@ -51,7 +50,7 @@ stdenv.mkDerivation {
     description = "Set of cuda-enabled texture tools and compressors";
     homepage = "https://github.com/castano/nvidia-texture-tools";
     license = licenses.mit;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 }

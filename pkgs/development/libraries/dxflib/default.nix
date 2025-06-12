@@ -4,7 +4,6 @@
   fetchurl,
   qmake,
 }:
-
 stdenv.mkDerivation rec {
   version = "3.26.4";
   pname = "dxflib";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://qcad.org/en/90-dxflib";
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = lib.platforms.unix;
     description = "DXF file format library";
   };

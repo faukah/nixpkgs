@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "epy";
   version = "2023.6.11";
@@ -15,7 +14,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-gel503e8DXjrMJK9lpAZ6GxQsrahKX+SjiyRwKbiJUY=";
   };
 
-  nativeBuildInputs = [ python3Packages.poetry-core ];
+  nativeBuildInputs = [python3Packages.poetry-core];
 
   pythonImportsCheck = [
     "epy_reader.cli"
@@ -27,6 +26,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/wustho/epy";
     mainProgram = "epy";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ perstark ];
+    maintainers = with lib.maintainers; [perstark];
   };
 }

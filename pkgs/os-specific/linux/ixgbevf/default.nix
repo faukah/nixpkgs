@@ -5,7 +5,6 @@
   kernel,
   kmod,
 }:
-
 stdenv.mkDerivation rec {
   name = "ixgbevf-${version}-${kernel.version}";
   version = "4.6.1";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   configurePhase = ''
     cd src

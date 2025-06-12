@@ -4,7 +4,6 @@
   fetchzip,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "mmc-utils";
   version = "unstable-2024-03-07";
@@ -21,7 +20,7 @@ stdenv.mkDerivation {
   ];
 
   # causes redefinition of _FORTIFY_SOURCE
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   postInstall = ''
     mkdir -p $out/share/man/man1
@@ -39,7 +38,7 @@ stdenv.mkDerivation {
     mainProgram = "mmc";
     homepage = "https://git.kernel.org/pub/scm/utils/mmc/mmc-utils.git/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
     platforms = platforms.linux;
   };
 }

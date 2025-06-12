@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lethe";
   version = "0.8.2";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Tool to wipe drives in a secure way";
     homepage = "https://github.com/kostassoid/lethe";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "lethe";
   };
 }

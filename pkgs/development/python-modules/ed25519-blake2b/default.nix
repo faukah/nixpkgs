@@ -5,7 +5,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ed25519-blake2b";
   version = "1.4.1";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-cx6fk80awaZGSVdfNRmpn/4LseTPe/X18L5ROjnfc2M=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "ed25519_blake2b" ];
+  pythonImportsCheck = ["ed25519_blake2b"];
 
   meta = with lib; {
     description = "Ed25519 public-key signatures (BLAKE2b fork)";

@@ -8,7 +8,6 @@
   ninja,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libaudec";
   version = "0.3.4";

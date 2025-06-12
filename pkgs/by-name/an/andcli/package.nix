@@ -3,12 +3,11 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "andcli";
   version = "2.1.3";
 
-  subPackages = [ "cmd/andcli" ];
+  subPackages = ["cmd/andcli"];
 
   src = fetchFromGitHub {
     owner = "tjblackheart";
@@ -33,7 +32,7 @@ buildGoModule (finalAttrs: {
     description = "2FA TUI for your shell";
     changelog = "https://github.com/tjblackheart/andcli/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ Cameo007 ];
+    maintainers = with lib.maintainers; [Cameo007];
     mainProgram = "andcli";
   };
 })

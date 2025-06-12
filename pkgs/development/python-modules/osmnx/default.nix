@@ -18,7 +18,6 @@
   scipy,
   shapely,
 }:
-
 buildPythonPackage rec {
   pname = "osmnx";
   version = "2.0.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-5IvohqEYYvFqAKOYreEsEKjzfJaqShYck2xCSQXXfyQ=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     geopandas
@@ -54,13 +53,13 @@ buildPythonPackage rec {
   # Tests require network
   doCheck = false;
 
-  pythonImportsCheck = [ "osmnx" ];
+  pythonImportsCheck = ["osmnx"];
 
   meta = {
     description = "Package to easily download, construct, project, visualize, and analyze complex street networks from OpenStreetMap with NetworkX";
     homepage = "https://github.com/gboeing/osmnx";
     changelog = "https://github.com/gboeing/osmnx/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ psyanticy ];
+    maintainers = with lib.maintainers; [psyanticy];
   };
 }

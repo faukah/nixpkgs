@@ -7,7 +7,6 @@
   gettext,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-no-title-bar";
   version = "11";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  makeFlags = [ "INSTALLBASE=$(out)/share/gnome-shell/extensions" ];
+  makeFlags = ["INSTALLBASE=$(out)/share/gnome-shell/extensions"];
 
   passthru = {
     extensionUuid = "no-title-bar@jonaspoehler.de";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Integrates maximized windows with the top panel";
     homepage = "https://github.com/poehlerj/no-title-bar";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ svsdep ];
+    maintainers = with maintainers; [svsdep];
     platforms = platforms.linux;
   };
 }

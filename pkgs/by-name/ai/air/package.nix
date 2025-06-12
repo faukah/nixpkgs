@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "air";
   version = "1.62.0";
@@ -23,13 +22,13 @@ buildGoModule rec {
     "-X=main.airVersion=${version}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Live reload for Go apps";
     mainProgram = "air";
     homepage = "https://github.com/air-verse/air";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ Gonzih ];
+    maintainers = with maintainers; [Gonzih];
   };
 }

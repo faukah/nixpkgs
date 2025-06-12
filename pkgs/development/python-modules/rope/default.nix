@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "rope";
   version = "1.13.0";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-g/fta5gW/xPs3VaVuLtikfLhqCKyy1AKRnOcOXjQ8bA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pytoolconfig ] ++ pytoolconfig.optional-dependencies.global;
+  dependencies = [pytoolconfig] ++ pytoolconfig.optional-dependencies.global;
 
   __darwinAllowLocalNetworking = true;
 
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/python-rope/rope";
     changelog = "https://github.com/python-rope/rope/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

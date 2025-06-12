@@ -16,7 +16,6 @@
   timeout-decorator,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "checkdmarc";
   version = "5.8.1";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
     hash = "sha256-mdEfVfqK277A8QUc8rpLxS2pfdyg4Z5XqWpWkh9mFLk=";
   };
 
-  pythonRelaxDeps = [ "xmltodict" ];
+  pythonRelaxDeps = ["xmltodict"];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     cryptography
@@ -48,11 +47,11 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "checkdmarc" ];
+  pythonImportsCheck = ["checkdmarc"];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
   disabledTests = [
     # Tests require network access
@@ -71,6 +70,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/domainaware/checkdmarc";
     changelog = "https://github.com/domainaware/checkdmarc/blob/${src.tag}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

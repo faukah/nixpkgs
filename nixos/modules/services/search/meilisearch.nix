@@ -3,13 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.meilisearch;
-
-in
-{
-
+in {
   meta.maintainers = with lib.maintainers; [
     Br1ght0ne
     happysalada
@@ -122,13 +118,11 @@ in
       '';
       type = lib.types.bool;
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     warnings = lib.optional (lib.versionOlder cfg.package.version "1.12") ''
       Meilisearch 1.11 will be removed in NixOS 25.11. As it was the last
       version not to support dumpless upgrades, you will have to manually
@@ -139,19 +133,18 @@ in
     '';
 
     services.meilisearch.package = lib.mkDefault (
-      if lib.versionAtLeast config.system.stateVersion "25.05" then
-        pkgs.meilisearch
-      else
-        pkgs.meilisearch_1_11
+      if lib.versionAtLeast config.system.stateVersion "25.05"
+      then pkgs.meilisearch
+      else pkgs.meilisearch_1_11
     );
 
     # used to restore dumps
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.meilisearch = {
       description = "MeiliSearch daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       environment = {
         MEILI_DB_PATH = "/var/lib/meilisearch";
         MEILI_HTTP_ADDR = "${cfg.listenAddress}:${toString cfg.listenPort}";

@@ -9,7 +9,6 @@
   gawk,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "parallel";
   version = "20250522";
@@ -47,13 +46,13 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/parallel \
       --prefix PATH : "${
-        lib.makeBinPath [
-          procps
-          perl
-          coreutils
-          gawk
-        ]
-      }"
+      lib.makeBinPath [
+        procps
+        perl
+        coreutils
+        gawk
+      ]
+    }"
   '';
 
   doCheck = true;

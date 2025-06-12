@@ -9,7 +9,6 @@
   setuptools-scm,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "blurhash-python";
   version = "1.2.2";
@@ -36,14 +35,14 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "blurhash" ];
+  pythonImportsCheck = ["blurhash"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Compact representation of a placeholder for an image";
     homepage = "https://github.com/woltapp/blurhash-python";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

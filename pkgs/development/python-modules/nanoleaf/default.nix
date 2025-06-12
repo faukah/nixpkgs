@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "nanoleaf";
   version = "0.4.1";
@@ -25,20 +24,20 @@ buildPythonPackage rec {
       --replace-fail 'gitVersion' '"${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   # Module has no test
   doCheck = false;
 
-  pythonImportsCheck = [ "nanoleaf" ];
+  pythonImportsCheck = ["nanoleaf"];
 
   meta = with lib; {
     description = "Module for interacting with Nanoleaf Aurora lighting";
     homepage = "https://github.com/software-2/nanoleaf";
     changelog = "https://github.com/software-2/nanoleaf/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

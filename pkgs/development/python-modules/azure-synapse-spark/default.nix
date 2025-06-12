@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-synapse-spark";
   version = "0.7.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -30,13 +29,13 @@ buildPythonPackage rec {
     msrest
   ];
 
-  pythonImportsCheck = [ "azure.synapse.spark" ];
+  pythonImportsCheck = ["azure.synapse.spark"];
 
   meta = with lib; {
     description = "Microsoft Azure Synapse Spark Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/synapse/azure-synapse-spark";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-synapse-spark_${version}/sdk/synapse/azure-synapse-spark/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -8,7 +8,6 @@
   system-sendmail,
   udev,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mdadm";
   version = "4.3";
@@ -51,13 +50,13 @@ stdenv.mkDerivation rec {
       "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
     ];
 
-  installFlags = [ "install-systemd" ];
+  installFlags = ["install-systemd"];
 
   enableParallelBuilding = true;
 
-  buildInputs = [ udev ];
+  buildInputs = [udev];
 
-  nativeBuildInputs = [ groff ];
+  nativeBuildInputs = [groff];
 
   postPatch = ''
     sed -e 's@/lib/udev@''${out}/lib/udev@' \
@@ -80,7 +79,7 @@ stdenv.mkDerivation rec {
     homepage = "https://git.kernel.org/pub/scm/utils/mdadm/mdadm.git";
     license = licenses.gpl2Plus;
     mainProgram = "mdadm";
-    maintainers = with maintainers; [ ekleog ];
+    maintainers = with maintainers; [ekleog];
     platforms = platforms.linux;
   };
 }

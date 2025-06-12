@@ -8,7 +8,6 @@
   gen_js_api,
   ojs,
 }:
-
 buildDunePackage rec {
   pname = "promise_jsoo";
   version = "0.3.1";
@@ -35,6 +34,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mnxn/promise_jsoo";
     description = "Js_of_ocaml bindings to JS Promises with supplemental functions";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jayesh-bhoot ];
+    maintainers = with lib.maintainers; [jayesh-bhoot];
   };
 }

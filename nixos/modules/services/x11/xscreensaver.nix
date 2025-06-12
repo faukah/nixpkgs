@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.xscreensaver;
-in
-{
+in {
   options.services.xscreensaver = {
     enable = lib.mkEnableOption "xscreensaver user service";
 
@@ -33,10 +30,10 @@ in
     systemd.user.services.xscreensaver = {
       enable = true;
       description = "XScreenSaver";
-      after = [ "graphical-session-pre.target" ];
-      partOf = [ "graphical-session.target" ];
-      wantedBy = [ "graphical-session.target" ];
-      path = [ cfg.package ];
+      after = ["graphical-session-pre.target"];
+      partOf = ["graphical-session.target"];
+      wantedBy = ["graphical-session.target"];
+      path = [cfg.package];
       serviceConfig.ExecStart = "${cfg.package}/bin/xscreensaver -no-splash";
     };
   };

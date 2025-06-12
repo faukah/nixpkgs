@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "xurls";
   version = "2.6.0";
@@ -26,7 +25,7 @@ buildGoModule (finalAttrs: {
     description = "Extract urls from text";
     homepage = "https://github.com/mvdan/xurls";
     mainProgram = "xurls";
-    maintainers = with lib.maintainers; [ koral ];
+    maintainers = with lib.maintainers; [koral];
     license = lib.licenses.bsd3;
   };
 })

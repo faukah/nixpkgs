@@ -28,7 +28,6 @@
   pytest7CheckHook,
   deprecated,
 }:
-
 buildPythonPackage rec {
   pname = "commitizen";
   version = "4.8.3";
@@ -49,9 +48,9 @@ buildPythonPackage rec {
     "termcolor"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   dependencies = [
     argcomplete
@@ -78,7 +77,7 @@ buildPythonPackage rec {
     pytest7CheckHook
   ];
 
-  pythonImportsCheck = [ "commitizen" ];
+  pythonImportsCheck = ["commitizen"];
 
   # The tests require a functional git installation
   # which requires a valid HOME directory.
@@ -103,10 +102,9 @@ buildPythonPackage rec {
     "test_commitizen_debug_excepthook"
   ];
 
-  postInstall =
-    let
-      register-python-argcomplete = lib.getExe' argcomplete "register-python-argcomplete";
-    in
+  postInstall = let
+    register-python-argcomplete = lib.getExe' argcomplete "register-python-argcomplete";
+  in
     lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
       installShellCompletion --cmd cz \
         --bash <(${register-python-argcomplete} --shell bash $out/bin/cz) \
@@ -115,7 +113,7 @@ buildPythonPackage rec {
     '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = commitizen;
       command = "cz version";

@@ -14,7 +14,6 @@
   SDL2_image,
   SDL2_ttf,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tome4";
   version = "1.7.6";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-I${lib.getInclude SDL2}/include/SDL2 -I${SDL2_image}/include/SDL2 -I${SDL2_ttf}/include/SDL2";
 
-  makeFlags = [ "config=release" ];
+  makeFlags = ["config=release"];
 
   # The wrapper needs to cd into the correct directory as tome4's detection of
   # the game asset root directory is faulty.
@@ -98,7 +97,7 @@ stdenv.mkDerivation rec {
     mainProgram = "tome4";
     homepage = "https://te4.org/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = [
       "i686-linux"
       "x86_64-linux"

@@ -6,7 +6,6 @@
   cmake,
   pkg-config,
 }:
-
 mkDerivation {
   pname = "extra-cmake-modules";
 
@@ -18,7 +17,7 @@ mkDerivation {
     })
   ];
 
-  outputs = [ "out" ]; # this package has no runtime components
+  outputs = ["out"]; # this package has no runtime components
 
   nativeBuildInputs = [
     cmake

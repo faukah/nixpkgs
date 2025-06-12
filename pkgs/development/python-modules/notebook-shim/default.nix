@@ -7,7 +7,6 @@
   pytestCheckHook,
   pytest-tornasync,
 }:
-
 buildPythonPackage rec {
   pname = "notebook-shim";
   version = "0.2.4";
@@ -20,8 +19,8 @@ buildPythonPackage rec {
     hash = "sha256-CWnXOKE1xvr+a/qWNY6XCTB5+G/fg2O/glgeLzYD+Zc=";
   };
 
-  nativeBuildInputs = [ hatchling ];
-  propagatedBuildInputs = [ jupyter-server ];
+  nativeBuildInputs = [hatchling];
+  propagatedBuildInputs = [jupyter-server];
 
   preCheck = ''
     mv notebook_shim/conftest.py notebook_shim/tests
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     pytest-tornasync
   ];
 
-  pythonImportsCheck = [ "notebook_shim" ];
+  pythonImportsCheck = ["notebook_shim"];
 
   meta = with lib; {
     description = "Switch frontends to Jupyter Server";
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/jupyter/notebook_shim";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

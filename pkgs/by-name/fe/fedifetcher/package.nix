@@ -4,7 +4,6 @@
   python3,
   stdenv,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "fedifetcher";
   version = "7.1.16";
@@ -50,7 +49,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://blog.thms.uk/fedifetcher";
     changelog = "https://github.com/nanos/FediFetcher/releases/tag/${src.tag}";
     license = licenses.mit;
-    teams = [ teams.c3d2 ];
+    teams = [teams.c3d2];
     mainProgram = "fedifetcher";
   };
 }

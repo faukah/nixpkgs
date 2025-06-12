@@ -17,7 +17,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-YlOK+NvyH/3uvvFcCZixv2+Y2m26TP8+ohUSdl3ppro=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "TUI for Jujutsu VCS";

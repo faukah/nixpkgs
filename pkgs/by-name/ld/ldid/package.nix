@@ -6,7 +6,6 @@
   libxml2,
   openssl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ldid";
   version = "2.1.5";
@@ -25,10 +24,10 @@ stdenv.mkDerivation (finalAttrs: {
     openssl
   ];
 
-  env.NIX_LDFLAGS = toString ([
+  env.NIX_LDFLAGS = toString [
     "-lcrypto"
     "-lplist-2.0"
-  ]);
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://cydia.saurik.com/info/ldid/";
     license = lib.licenses.agpl3Only;
     mainProgram = "ldid";
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     platforms = lib.platforms.unix;
   };
 })

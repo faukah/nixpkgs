@@ -6,7 +6,6 @@
   six,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "more-itertools";
   version = "5.0.0";
@@ -16,8 +15,8 @@ buildPythonPackage rec {
     sha256 = "38a936c0a6d98a38bcc2d03fdaaedaba9f412879461dd2ceff8d37564d6522e4";
   };
 
-  nativeCheckInputs = [ unittestCheckHook ];
-  propagatedBuildInputs = [ six ];
+  nativeCheckInputs = [unittestCheckHook];
+  propagatedBuildInputs = [six];
 
   # iterable = range(10 ** 10)  # Is efficiently reversible
   # OverflowError: Python int too large to convert to C long

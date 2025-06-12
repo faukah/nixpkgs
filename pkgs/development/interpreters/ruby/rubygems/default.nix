@@ -4,7 +4,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rubygems";
   version = "3.6.6";
@@ -41,6 +40,6 @@ stdenv.mkDerivation rec {
       ruby
     ];
     mainProgram = "gem";
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
   };
 }

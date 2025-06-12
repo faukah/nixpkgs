@@ -15,7 +15,6 @@
   six,
   xvfb-run,
 }:
-
 buildPythonPackage rec {
   pname = "pywebview";
   version = "5.3.2";
@@ -35,12 +34,14 @@ buildPythonPackage rec {
     qt5.wrapQtAppsHook
   ];
 
-  propagatedBuildInputs = [
-    bottle
-    pyqtwebengine
-    proxy-tools
-    six
-  ] ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ];
+  propagatedBuildInputs =
+    [
+      bottle
+      pyqtwebengine
+      proxy-tools
+      six
+    ]
+    ++ lib.optionals (pythonOlder "3.7") [importlib-resources];
 
   nativeCheckInputs = [
     pygobject3
@@ -63,12 +64,12 @@ buildPythonPackage rec {
       xvfb-run -s '-screen 0 800x600x24' tests/run.sh
   '';
 
-  pythonImportsCheck = [ "webview" ];
+  pythonImportsCheck = ["webview"];
 
   meta = with lib; {
     description = "Lightweight cross-platform wrapper around a webview";
     homepage = "https://github.com/r0x0r/pywebview";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

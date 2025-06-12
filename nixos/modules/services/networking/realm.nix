@@ -3,12 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.realm;
-  configFormat = pkgs.formats.json { };
+  configFormat = pkgs.formats.json {};
   configFile = configFormat.generate "config.json" cfg.config;
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
@@ -16,20 +16,18 @@ let
     types
     getExe
     ;
-in
-{
-
-  meta.maintainers = with lib.maintainers; [ ocfox ];
+in {
+  meta.maintainers = with lib.maintainers; [ocfox];
 
   options = {
     services.realm = {
       enable = mkEnableOption "A simple, high performance relay server written in rust";
-      package = mkPackageOption pkgs "realm" { };
+      package = mkPackageOption pkgs "realm" {};
       config = mkOption {
         type = types.submodule {
           freeformType = configFormat.type;
         };
-        default = { };
+        default = {};
         description = ''
           The realm configuration, see <https://github.com/zhboner/realm#overview> for documentation.
         '';
@@ -54,7 +52,7 @@ in
           "CAP_NET_BIND_SERVICE"
         ];
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 }

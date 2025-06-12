@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-toolbox";
   version = "1.0.11";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-Y9RmVndgsBESrUCEORUwAdaFYBiunY3kWArhB9d7bw4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     docutils
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/cool-RR/python_toolbox";
     changelog = "https://github.com/cool-RR/python_toolbox/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ seqizz ];
+    maintainers = with maintainers; [seqizz];
   };
 }

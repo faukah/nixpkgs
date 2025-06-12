@@ -15,16 +15,16 @@
   withFreestanding ? false,
   ocaml-freestanding,
 }:
-
 buildDunePackage {
   pname = "mirage-crypto-ec";
 
-  inherit (mirage-crypto)
+  inherit
+    (mirage-crypto)
     src
     version
     ;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     dune-configurator
   ];
@@ -48,7 +48,9 @@ buildDunePackage {
     yojson
   ];
 
-  meta = mirage-crypto.meta // {
-    description = "Elliptic Curve Cryptography with primitives taken from Fiat";
-  };
+  meta =
+    mirage-crypto.meta
+    // {
+      description = "Elliptic Curve Cryptography with primitives taken from Fiat";
+    };
 }

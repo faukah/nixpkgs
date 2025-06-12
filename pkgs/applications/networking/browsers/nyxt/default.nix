@@ -28,7 +28,6 @@
   wl-clipboard,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nyxt";
   version = "3.12.0";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [ wrapGAppsHook3 ];
+  nativeBuildInputs = [wrapGAppsHook3];
 
   buildInputs = [
     sbcl
@@ -100,8 +99,8 @@ stdenv.mkDerivation (finalAttrs: {
   dontStrip = true;
 
   passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
-    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "martian-mono";
   version = "1.1.0";
@@ -33,7 +32,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/evilmartians/mono";
     changelog = "https://github.com/evilmartians/mono/raw/v${version}/Changelog.md";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 }

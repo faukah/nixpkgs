@@ -30,7 +30,6 @@
   transformers,
   xgboost,
 }:
-
 buildPythonPackage rec {
   pname = "dvclive";
   version = "3.48.2";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     hash = "sha256-KwS5426EU0vym2fDbtIH4bmlSLKWLfZRRxXE+bEmGfc=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     dvc
@@ -60,37 +59,39 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    all = [
-      jsonargparse
-      lightgbm
-      lightning
-      matplotlib
-      mmcv
-      numpy
-      optuna
-      pandas
-      pillow
-      scikit-learn
-      tensorflow
-      torch
-      transformers
-      xgboost
-    ] ++ jsonargparse.optional-dependencies.signatures;
+    all =
+      [
+        jsonargparse
+        lightgbm
+        lightning
+        matplotlib
+        mmcv
+        numpy
+        optuna
+        pandas
+        pillow
+        scikit-learn
+        tensorflow
+        torch
+        transformers
+        xgboost
+      ]
+      ++ jsonargparse.optional-dependencies.signatures;
     image = [
       numpy
       pillow
     ];
-    sklearn = [ scikit-learn ];
+    sklearn = [scikit-learn];
     plots = [
       pandas
       scikit-learn
       numpy
     ];
-    markdown = [ matplotlib ];
-    mmcv = [ mmcv ];
-    tf = [ tensorflow ];
-    xgb = [ xgboost ];
-    lgbm = [ lightgbm ];
+    markdown = [matplotlib];
+    mmcv = [mmcv];
+    tf = [tensorflow];
+    xgb = [xgboost];
+    lgbm = [lightgbm];
     huggingface = [
       datasets
       transformers
@@ -98,25 +99,27 @@ buildPythonPackage rec {
     # catalyst = [
     #   catalyst
     # ];
-    fastai = [ fastai ];
-    lightning = [
-      lightning
-      torch
-      jsonargparse
-    ] ++ jsonargparse.optional-dependencies.signatures;
-    optuna = [ optuna ];
+    fastai = [fastai];
+    lightning =
+      [
+        lightning
+        torch
+        jsonargparse
+      ]
+      ++ jsonargparse.optional-dependencies.signatures;
+    optuna = [optuna];
   };
 
   # Circular dependency with dvc
   doCheck = false;
 
-  pythonImportsCheck = [ "dvclive" ];
+  pythonImportsCheck = ["dvclive"];
 
   meta = with lib; {
     description = "Library for logging machine learning metrics and other metadata in simple file formats";
     homepage = "https://github.com/iterative/dvclive";
     changelog = "https://github.com/iterative/dvclive/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

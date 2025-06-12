@@ -4,7 +4,6 @@
   buildDunePackage,
   qcheck-core,
 }:
-
 buildDunePackage rec {
   pname = "qcheck-multicoretests-util";
   version = "0.8";
@@ -16,7 +15,7 @@ buildDunePackage rec {
     hash = "sha256-4aAukkhyxJ4EojLF+rrxSRRz4isUelcVEYNP2UYR7WY=";
   };
 
-  propagatedBuildInputs = [ qcheck-core ];
+  propagatedBuildInputs = [qcheck-core];
 
   doCheck = true;
 
@@ -26,6 +25,6 @@ buildDunePackage rec {
     homepage = "https://github.com/ocaml-multicore/multicoretests";
     description = "Utility functions for property-based testing of multicore programs";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

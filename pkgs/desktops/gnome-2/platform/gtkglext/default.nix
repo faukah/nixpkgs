@@ -16,7 +16,6 @@
   pango,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtkglext";
   version = "unstable-2019-12-19";

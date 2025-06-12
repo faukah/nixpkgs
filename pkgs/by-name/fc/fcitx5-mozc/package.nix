@@ -13,7 +13,6 @@
   stdenv,
   unzip,
 }:
-
 buildBazelPackage {
   pname = "fcitx5-mozc";
   version = "2.30.5544.102"; # make sure to update protobuf if needed

@@ -5,7 +5,6 @@
   installShellFiles,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cauwugo";
   version = "0.1.0";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-05wx0lqgMIVTe6OQTCUQXmaPeGPw43wuEuuGUsGV4VM=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd cauwugo \
@@ -36,6 +35,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

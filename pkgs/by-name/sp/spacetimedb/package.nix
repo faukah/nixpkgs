@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     git
   ];
 
-  cargoBuildFlags = [ "-p spacetimedb-standalone -p spacetimedb-cli" ];
+  cargoBuildFlags = ["-p spacetimedb-standalone -p spacetimedb-cli"];
 
   checkFlags = [
     # requires wasm32-unknown-unknown target
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/spacetime";
   versionCheckProgramArg = "--version";
 
@@ -48,6 +48,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/clockworklabs/SpacetimeDB";
     license = lib.licenses.bsl11;
     mainProgram = "spacetime";
-    maintainers = with lib.maintainers; [ akotro ];
+    maintainers = with lib.maintainers; [akotro];
   };
 })

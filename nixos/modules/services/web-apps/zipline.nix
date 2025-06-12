@@ -3,23 +3,21 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.zipline;
-in
-{
-  meta.maintainers = with lib.maintainers; [ defelo ];
+in {
+  meta.maintainers = with lib.maintainers; [defelo];
 
   options.services.zipline = {
     enable = lib.mkEnableOption "Zipline";
 
-    package = lib.mkPackageOption pkgs "zipline" { };
+    package = lib.mkPackageOption pkgs "zipline" {};
 
     settings = lib.mkOption {
       description = ''
         Configuration of Zipline. See <https://zipline.diced.sh/docs/config> for more information.
       '';
-      default = { };
+      default = {};
       example = {
         DATABASE_URL = "postgres://postgres:postgres@postgres/postgres";
         CORE_SECRET = "changethis";
@@ -30,8 +28,7 @@ in
       };
 
       type = lib.types.submodule {
-        freeformType =
-          with lib.types;
+        freeformType = with lib.types;
           attrsOf (oneOf [
             str
             int
@@ -57,8 +54,8 @@ in
 
     environmentFiles = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
-      example = [ "/run/secrets/zipline.env" ];
+      default = [];
+      example = ["/run/secrets/zipline.env"];
       description = ''
         Files to load environment variables from (in addition to [](#opt-services.zipline.settings)). This is useful to avoid putting secrets into the nix store. See <https://zipline.diced.sh/docs/config> for more information.
       '';
@@ -86,14 +83,14 @@ in
         name = "zipline";
         ensureDBOwnership = true;
       };
-      ensureDatabases = [ "zipline" ];
+      ensureDatabases = ["zipline"];
     };
 
     systemd.services.zipline = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ] ++ lib.optional cfg.database.createLocally "postgresql.service";
+      wants = ["network-online.target"];
+      after = ["network-online.target"] ++ lib.optional cfg.database.createLocally "postgresql.service";
       requires = lib.optional cfg.database.createLocally "postgresql.service";
 
       environment = lib.mapAttrs (_: value: toString value) cfg.settings;
@@ -108,7 +105,7 @@ in
 
         # Hardening
         AmbientCapabilities = "";
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DevicePolicy = "closed";
         LockPersonality = true;
         NoNewPrivileges = true;
@@ -126,7 +123,7 @@ in
         ProtectProc = "invisible";
         ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET AF_INET6 AF_UNIX AF_NETLINK" ];
+        RestrictAddressFamilies = ["AF_INET AF_INET6 AF_UNIX AF_NETLINK"];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;

@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.nimdow;
-in
-{
+in {
   options = {
     services.xserver.windowManager.nimdow.enable = mkEnableOption "nimdow";
     services.xserver.windowManager.nimdow.package = mkOption {

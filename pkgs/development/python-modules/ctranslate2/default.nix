@@ -2,16 +2,13 @@
   lib,
   stdenv,
   buildPythonPackage,
-
   # build-system
   pybind11,
   setuptools,
-
   # dependencies
   ctranslate2-cpp,
   numpy,
   pyyaml,
-
   # tests
   pytestCheckHook,
   torch,
@@ -19,7 +16,6 @@
   writableTmpDirAsHomeHook,
   wurlitzer,
 }:
-
 buildPythonPackage rec {
   inherit (ctranslate2-cpp) pname version src;
   pyproject = true;
@@ -32,7 +28,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ ctranslate2-cpp ];
+  buildInputs = [ctranslate2-cpp];
 
   dependencies = [
     numpy
@@ -77,6 +73,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/OpenNMT/CTranslate2";
     changelog = "https://github.com/OpenNMT/CTranslate2/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

@@ -6,7 +6,6 @@
   pkg-config,
   libspnav,
   libX11,
-
   # Qt6 support is close: https://github.com/FreeSpacenav/spnavcfg/issues/43
   libsForQt5,
 }:
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Interactive configuration GUI for space navigator input devices";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "spnavcfg";
   };
 })

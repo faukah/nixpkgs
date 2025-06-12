@@ -6,7 +6,6 @@
   pytest-trio,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "pytest-asyncio-tests";
   inherit (pytest-asyncio) version;
@@ -18,7 +17,7 @@ buildPythonPackage {
   dontBuild = true;
   dontInstall = true;
 
-  propagatedBuildInputs = [ pytest-asyncio ];
+  propagatedBuildInputs = [pytest-asyncio];
 
   nativeCheckInputs = [
     flaky

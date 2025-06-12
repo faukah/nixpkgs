@@ -6,7 +6,6 @@
   yaml-cpp,
   libevdev,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dual-function-keys";
   version = "1.5.0";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-m/oEczUNKqj0gs/zMOIBxoQaffNg+YyPINMXArkATJ4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libevdev
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/interception/linux/plugins/dual-function-keys";
     description = "Tap for one key, hold for another";
     license = licenses.mit;
-    maintainers = with maintainers; [ svend ];
+    maintainers = with maintainers; [svend];
     platforms = platforms.linux;
     mainProgram = "dual-function-keys";
   };

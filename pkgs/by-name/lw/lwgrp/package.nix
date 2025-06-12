@@ -5,7 +5,6 @@
   mpi,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lwgrp";
   version = "1.0.6";
@@ -22,15 +21,15 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  propagatedBuildInputs = [ mpi ];
+  propagatedBuildInputs = [mpi];
 
   meta = with lib; {
     description = "Data structures and operations to group MPI processes as an ordered set";
     homepage = "https://github.com/LLNL/lwgrp";
     platforms = platforms.linux;
     license = licenses.bsd3;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
   };
 }

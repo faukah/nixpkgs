@@ -4,16 +4,14 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.unpoller;
   inherit (lib) mkEnableOption generators;
 
   configFile = pkgs.writeText "prometheus-unpoller-exporter.json" (
-    generators.toJSON { } {
-      poller = { inherit (cfg.log) debug quiet; };
-      unifi = { inherit (cfg) controllers; };
+    generators.toJSON {} {
+      poller = {inherit (cfg.log) debug quiet;};
+      unifi = {inherit (cfg) controllers;};
       influxdb.disable = true;
       datadog.disable = true; # workaround for https://github.com/unpoller/unpoller/issues/442
       prometheus = {
@@ -23,9 +21,7 @@ let
       inherit (cfg) loki;
     }
   );
-
-in
-{
+in {
   port = 9130;
 
   extraOpts = {

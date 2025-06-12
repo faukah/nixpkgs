@@ -6,7 +6,6 @@
   ncurses,
   asciidoc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yash";
   version = "2.59";
@@ -23,14 +22,14 @@ stdenv.mkDerivation rec {
     asciidoc
     gettext
   ];
-  buildInputs = [ ncurses ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ gettext ];
+  buildInputs = [ncurses] ++ lib.optionals stdenv.hostPlatform.isDarwin [gettext];
 
   meta = with lib; {
     homepage = "https://yash.osdn.jp/index.html.en";
     description = "Yet another POSIX-compliant shell";
     mainProgram = "yash";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ qbit ];
+    maintainers = with maintainers; [qbit];
     platforms = platforms.all;
   };
 

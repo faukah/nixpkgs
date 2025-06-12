@@ -17,14 +17,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-9bUQpEP+vc3xwWCicHpl+56OYz3huirSOA4yw1iaxaY=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Fast timezone finder for Rust";
     homepage = "https://github.com/ringsaturn/tzf-rs";
     changelog = "https://github.com/ringsaturn/tzf-rs/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pcboy ];
+    maintainers = with lib.maintainers; [pcboy];
     mainProgram = "tzf";
     platforms = lib.platforms.unix;
   };

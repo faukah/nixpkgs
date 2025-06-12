@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "span-lite";
   version = "0.11.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     description = "C++20-like span for C++98, C++11 and later in a single-file header-only library";
     homepage = "https://github.com/martinmoene/span-lite";
     license = lib.licenses.bsd1;
-    maintainers = with lib.maintainers; [ icewind1991 ];
+    maintainers = with lib.maintainers; [icewind1991];
     platforms = lib.platforms.all;
   };
 }

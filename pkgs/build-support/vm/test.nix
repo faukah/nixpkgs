@@ -1,29 +1,28 @@
 let
-  pkgs = import ../../.. { };
+  pkgs = import ../../.. {};
 
-  inherit (pkgs)
+  inherit
+    (pkgs)
     hello
     patchelf
     pcmanfm
     stdenv
     ;
 
-  inherit (pkgs.vmTools)
+  inherit
+    (pkgs.vmTools)
     buildRPM
     diskImages
     makeImageTestScript
     runInLinuxImage
     runInLinuxVM
     ;
-in
-
-{
-
+in {
   # Run the PatchELF derivation in a VM.
   buildPatchelfInVM = runInLinuxVM patchelf;
 
   buildHelloInVM = runInLinuxVM hello;
-  buildStructuredAttrsHelloInVM = runInLinuxVM (hello.overrideAttrs { __structuredAttrs = true; });
+  buildStructuredAttrsHelloInVM = runInLinuxVM (hello.overrideAttrs {__structuredAttrs = true;});
 
   buildPcmanrmInVM = runInLinuxVM (
     pcmanfm.overrideAttrs (old: {
@@ -55,5 +54,4 @@ in
       '';
     }
   );
-
 }

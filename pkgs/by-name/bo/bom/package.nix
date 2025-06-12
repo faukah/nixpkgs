@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "bom";
   version = "0.6.0";
@@ -28,7 +27,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-q2dK1hO3ruvts4BtQ1VGgTH3qNMzmS22CUuA52t5OvE=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -65,7 +64,7 @@ buildGoModule rec {
     changelog = "https://github.com/kubernetes-sigs/bom/releases/tag/v${version}";
     description = "Utility to generate SPDX-compliant Bill of Materials manifests";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ developer-guy ];
+    maintainers = with lib.maintainers; [developer-guy];
     mainProgram = "bom";
   };
 }

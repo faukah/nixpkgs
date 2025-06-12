@@ -68,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
       "x86_64-windows"
       "aarch64-windows"
     ];
-    maintainers = with lib.maintainers; [ pluiedev ];
+    maintainers = with lib.maintainers; [pluiedev];
     mainProgram = "vgmtrans";
   };
 })

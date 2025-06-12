@@ -8,7 +8,6 @@
   flask,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "flask-testing";
   version = "0.8.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-CnNNe2jmOpQQtBPNex+WRW+ahYvQmmIi1GVlDMeC6wE=";
   };
 
-  propagatedBuildInputs = [ flask ];
+  propagatedBuildInputs = [flask];
 
   nativeCheckInputs = [
     blinker
@@ -46,12 +45,12 @@ buildPythonPackage rec {
     "tests/test_twill.py"
   ];
 
-  pythonImportsCheck = [ "flask_testing" ];
+  pythonImportsCheck = ["flask_testing"];
 
   meta = with lib; {
     description = "Extension provides unit testing utilities for Flask";
     homepage = "https://pythonhosted.org/Flask-Testing/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

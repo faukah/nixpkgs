@@ -5,7 +5,6 @@
   buildNpmPackage,
   nodejs,
 }:
-
 buildNpmPackage rec {
   pname = "math-preview";
   version = "5.1.1";
@@ -22,7 +21,7 @@ buildNpmPackage rec {
   dontNpmBuild = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -30,7 +29,7 @@ buildNpmPackage rec {
     mainProgram = "math-preview";
     license = licenses.gpl3Plus;
     homepage = "https://gitlab.com/matsievskiysv/math-preview";
-    maintainers = with maintainers; [ renesat ];
+    maintainers = with maintainers; [renesat];
     inherit (nodejs.meta) platforms;
   };
 }

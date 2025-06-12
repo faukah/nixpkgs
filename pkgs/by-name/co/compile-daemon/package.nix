@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "compile-daemon";
   version = "1.4.0";
@@ -34,7 +33,7 @@ buildGoModule rec {
     description = "Very simple compile daemon for Go";
     homepage = "https://github.com/githubnemo/CompileDaemon";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "CompileDaemon";
   };
 }

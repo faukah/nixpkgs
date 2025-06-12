@@ -3,10 +3,8 @@
   fetchFromGitHub,
   buildPythonPackage,
   pythonOlder,
-
   # build-system
   setuptools,
-
   # dependencies
   deprecation,
   prompt-toolkit,
@@ -14,7 +12,6 @@
   pyvcd,
   pyxdg,
 }:
-
 buildPythonPackage rec {
   pname = "apollo-fpga";
   version = "1.1.1";
@@ -58,6 +55,6 @@ buildPythonPackage rec {
     description = "microcontroller-based FPGA / JTAG programmer";
     homepage = "https://github.com/greatscottgadgets/apollo";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ carlossless ];
+    maintainers = with lib.maintainers; [carlossless];
   };
 }

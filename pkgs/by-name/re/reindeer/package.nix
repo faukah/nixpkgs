@@ -6,7 +6,6 @@
   openssl,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "reindeer";
   version = "2025.06.02.00";
@@ -21,17 +20,17 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-PNCcTztLMt0d8L+tcvOgl4y85Zs4CJR6fDehUImNu6Y=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Reindeer is a tool which takes Rust Cargo dependencies and generates Buck build rules";
     mainProgram = "reindeer";
     homepage = "https://github.com/facebookincubator/reindeer";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ nickgerace ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [nickgerace];
   };
 }

@@ -15,7 +15,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "shazamio";
   version = "0.7.0";
@@ -65,14 +64,14 @@ buildPythonPackage rec {
     "test_recognize_song_bytes"
   ];
 
-  pythonImportsCheck = [ "shazamio" ];
+  pythonImportsCheck = ["shazamio"];
 
   meta = with lib; {
     description = "Free asynchronous library from reverse engineered Shazam API";
     homepage = "https://github.com/dotX12/ShazamIO";
     changelog = "https://github.com/dotX12/ShazamIO/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     # https://github.com/shazamio/ShazamIO/issues/80
     broken = versionAtLeast pydantic.version "2";
   };

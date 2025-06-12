@@ -27,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-5up44edivGWj0nQOOL3+lqjdOBBfxk01nFokG5ht+5Y=";
   };
 
-  patches = [ ./add-qt-plugin-path-to-env.patch ];
+  patches = [./add-qt-plugin-path-to-env.patch];
 
   nativeBuildInputs = [
     setuptools
@@ -45,7 +45,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "uxsim" ];
+  pythonImportsCheck = ["uxsim"];
 
   # QT_PLUGIN_PATH is required to be set for the program to produce its images
   # our patch sets it to $NIX_QT_PLUGIN_PATH if QT_PLUGIN_PATH is not set
@@ -59,6 +59,6 @@ buildPythonPackage rec {
     description = "Vehicular traffic flow simulator in road network, written in pure Python";
     homepage = "https://github.com/toruseo/UXsim";
     license = licenses.mit;
-    maintainers = with maintainers; [ vinnymeller ];
+    maintainers = with maintainers; [vinnymeller];
   };
 }

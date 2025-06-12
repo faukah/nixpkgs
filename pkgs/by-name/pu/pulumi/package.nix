@@ -32,12 +32,12 @@ buildGoModule rec {
 
   sourceRoot = "${src.name}/pkg";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   # https://github.com/pulumi/pulumi/blob/3ec1aa75d5bf7103b283f46297321a9a4b1a8a33/.goreleaser.yml#L20-L26
-  tags = [ "osusergo" ];
+  tags = ["osusergo"];
   ldflags = [
     "-s"
     "-w"
@@ -115,10 +115,9 @@ buildGoModule rec {
 
   # Use pulumi from the previous stage if we can’t execute compiled binary.
   pulumiExe =
-    if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
-      "${placeholder "out"}/bin/pulumi"
-    else
-      "${buildPackages.pulumi}/bin/pulumi";
+    if stdenv.buildPlatform.canExecute stdenv.hostPlatform
+    then "${placeholder "out"}/bin/pulumi"
+    else "${buildPackages.pulumi}/bin/pulumi";
 
   postInstall = ''
     for shell in bash fish zsh; do
@@ -128,21 +127,21 @@ buildGoModule rec {
   '';
 
   passthru = {
-    pkgs = callPackage ./plugins.nix { };
-    withPackages = callPackage ./with-packages.nix { };
+    pkgs = callPackage ./plugins.nix {};
+    withPackages = callPackage ./with-packages.nix {};
     updateScript = _experimental-update-script-combinators.sequence [
-      (nix-update-script { })
+      (nix-update-script {})
       (nix-update-script {
         attrPath = "pulumiPackages.pulumi-go";
-        extraArgs = [ "--version=skip" ];
+        extraArgs = ["--version=skip"];
       })
       (nix-update-script {
         attrPath = "pulumiPackages.pulumi-nodejs";
-        extraArgs = [ "--version=skip" ];
+        extraArgs = ["--version=skip"];
       })
       (nix-update-script {
         attrPath = "pulumiPackages.pulumi-python";
-        extraArgs = [ "--version=skip" ];
+        extraArgs = ["--version=skip"];
       })
     ];
     tests = {
@@ -173,7 +172,7 @@ buildGoModule rec {
   meta = {
     homepage = "https://www.pulumi.com";
     description = "Pulumi is a cloud development platform that makes creating cloud programs easy and productive";
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
     license = lib.licenses.asl20;
     mainProgram = "pulumi";
     maintainers = with lib.maintainers; [

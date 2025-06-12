@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.journalwatch;
   user = "journalwatch";
   # for journal access
@@ -32,14 +31,14 @@ let
   '';
 
   # empty line at the end needed to to separate the blocks
-  mkPatterns =
-    filterBlocks:
+  mkPatterns = filterBlocks:
     lib.concatStringsSep "\n" (
       map (block: ''
         ${block.match}
         ${block.filters}
 
-      '') filterBlocks
+      '')
+      filterBlocks
     );
 
   # can't use joinSymlinks directly, because when we point $XDG_CONFIG_HOME
@@ -47,18 +46,16 @@ let
   # to match journalwatch's expectations
   journalwatchConfigDir =
     pkgs.runCommand "journalwatch-config"
-      {
-        preferLocalBuild = true;
-        allowSubstitutes = false;
-      }
-      ''
-        mkdir -p $out/journalwatch
-        ln -sf ${journalwatchConfig} $out/journalwatch/config
-        ln -sf ${journalwatchPatterns} $out/journalwatch/patterns
-      '';
-
-in
-{
+    {
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+    }
+    ''
+      mkdir -p $out/journalwatch
+      ln -sf ${journalwatchConfig} $out/journalwatch/config
+      ln -sf ${journalwatchPatterns} $out/journalwatch/patterns
+    '';
+in {
   options = {
     services.journalwatch = {
       enable = lib.mkOption {
@@ -69,7 +66,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "journalwatch" { };
+      package = lib.mkPackageOption pkgs "journalwatch" {};
 
       priority = lib.mkOption {
         type = lib.types.int;
@@ -226,7 +223,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     users.users.${user} = {
       isSystemUser = true;
       home = dataDir;
@@ -240,7 +236,6 @@ in
     ];
 
     systemd.services.journalwatch = {
-
       environment = {
         # journalwatch stores the last processed timpestamp here
         # the share subdirectory is historic now that config home lives in /nix/store,
@@ -265,17 +260,16 @@ in
 
     systemd.timers.journalwatch = {
       description = "Periodic journalwatch run";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnCalendar = cfg.interval;
         AccuracySec = cfg.accuracy;
         Persistent = true;
       };
     };
-
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ florianjacob ];
+    maintainers = with lib.maintainers; [florianjacob];
   };
 }

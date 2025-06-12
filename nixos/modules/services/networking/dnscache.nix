@@ -3,23 +3,25 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.dnscache;
 
-  dnscache-root = pkgs.runCommand "dnscache-root" { preferLocalBuild = true; } ''
+  dnscache-root = pkgs.runCommand "dnscache-root" {preferLocalBuild = true;} ''
     mkdir -p $out/{servers,ip}
 
     ${lib.concatMapStrings (ip: ''
-      touch "$out/ip/"${lib.escapeShellArg ip}
-    '') cfg.clientIps}
+        touch "$out/ip/"${lib.escapeShellArg ip}
+      '')
+      cfg.clientIps}
 
     ${lib.concatStrings (
       lib.mapAttrsToList (host: ips: ''
         ${lib.concatMapStrings (ip: ''
-          echo ${lib.escapeShellArg ip} >> "$out/servers/"${lib.escapeShellArg host}
-        '') ips}
-      '') cfg.domainServers
+            echo ${lib.escapeShellArg ip} >> "$out/servers/"${lib.escapeShellArg host}
+          '')
+          ips}
+      '')
+      cfg.domainServers
     )}
 
     # if a list of root servers was not provided in config, copy it
@@ -31,15 +33,11 @@ let
       cp ${pkgs.djbdns}/etc/dnsroots.global $out/servers/@;
     fi
   '';
-
-in
-{
-
+in {
   ###### interface
 
   options = {
     services.dnscache = {
-
       enable = lib.mkOption {
         default = false;
         type = lib.types.bool;
@@ -53,7 +51,7 @@ in
       };
 
       clientIps = lib.mkOption {
-        default = [ "127.0.0.1" ];
+        default = ["127.0.0.1"];
         type = lib.types.listOf lib.types.str;
         description = "Client IP addresses (or prefixes) from which to accept connections.";
         example = [
@@ -63,7 +61,7 @@ in
       };
 
       domainServers = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf (lib.types.listOf lib.types.str);
         description = ''
           Table of {hostname: server} pairs to use as authoritative servers for hosts (and subhosts).
@@ -86,23 +84,22 @@ in
           needed if you want to use e.g. Google DNS as your upstream DNS.
         '';
       };
-
     };
   };
 
   ###### implementation
 
   config = lib.mkIf config.services.dnscache.enable {
-    environment.systemPackages = [ pkgs.djbdns ];
+    environment.systemPackages = [pkgs.djbdns];
     users.users.dnscache = {
       isSystemUser = true;
       group = "dnscache";
     };
-    users.groups.dnscache = { };
+    users.groups.dnscache = {};
 
     systemd.services.dnscache = {
       description = "djbdns dnscache server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = with pkgs; [
         bash
         daemontools

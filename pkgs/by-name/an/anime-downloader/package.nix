@@ -7,7 +7,6 @@
   qt5,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "anime-downloader";
   version = "5.0.14";
@@ -19,7 +18,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-Uk2mtsSrb8fCD9JCFzvLBzMEB7ViVDrKPSOKy9ALJ6o=";
   };
 
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
 
   propagatedBuildInputs =
     [
@@ -59,7 +58,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Simple but powerful anime downloader and streamer";
     license = licenses.unlicense;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "anime";
   };
 }

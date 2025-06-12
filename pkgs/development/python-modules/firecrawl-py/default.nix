@@ -9,7 +9,6 @@
   requests,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "firecrawl-py";
   version = "1.7.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/apps/python-sdk";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     nest-asyncio
@@ -37,13 +36,13 @@ buildPythonPackage rec {
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "firecrawl" ];
+  pythonImportsCheck = ["firecrawl"];
 
   meta = {
     description = "Turn entire websites into LLM-ready markdown or structured data. Scrape, crawl and extract with a single API";
     homepage = "https://firecrawl.dev";
     changelog = "https://github.com/mendableai/firecrawl/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

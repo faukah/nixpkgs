@@ -6,7 +6,6 @@
   ruamel-yaml,
   python-dateutil,
 }:
-
 buildPythonPackage rec {
   pname = "strictyaml";
   version = "1.7.3";
@@ -33,13 +32,13 @@ buildPythonPackage rec {
   # https://hitchdev.com/approach/contributing-to-hitch-libraries/
   doCheck = false;
 
-  pythonImportsCheck = [ "strictyaml" ];
+  pythonImportsCheck = ["strictyaml"];
 
   meta = with lib; {
     description = "Strict, typed YAML parser";
     homepage = "https://hitchdev.com/strictyaml/";
     changelog = "https://hitchdev.com/strictyaml/changelog/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

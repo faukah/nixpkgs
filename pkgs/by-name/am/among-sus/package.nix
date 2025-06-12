@@ -4,7 +4,6 @@
   fetchFromSourcehut,
   port ? "1234",
 }:
-
 stdenv.mkDerivation {
   pname = "among-sus-unstable";
   version = "2021-05-19";
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
     description = "Among us, but it's a text adventure";
     mainProgram = "among-sus";
     license = licenses.agpl3Plus;
-    maintainers = [ maintainers.eyjhb ];
+    maintainers = [maintainers.eyjhb];
     platforms = platforms.unix;
   };
 }

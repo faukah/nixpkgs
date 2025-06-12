@@ -24,7 +24,6 @@
   tcpdump,
   wireshark-cli,
 }:
-
 stdenv.mkDerivation rec {
   pname = "compactor";
   version = "1.2.3";
@@ -95,7 +94,7 @@ stdenv.mkDerivation rec {
     homepage = "https://dns-stats.org/";
     changelog = "https://github.com/dns-stats/compactor/raw/${version}/ChangeLog.txt";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ fdns ];
+    maintainers = with lib.maintainers; [fdns];
     platforms = lib.platforms.unix;
   };
 }

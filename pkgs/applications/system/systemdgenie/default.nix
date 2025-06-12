@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     mainProgram = "systemdgenie";
     homepage = "https://kde.org";
     license = licenses.gpl2;
-    maintainers = [ maintainers.pasqui23 ];
+    maintainers = [maintainers.pasqui23];
     platforms = platforms.linux;
   };
 }

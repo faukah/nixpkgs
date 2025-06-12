@@ -13,7 +13,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "influxdb";
   version = "5.3.2";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     done
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     msgpack
@@ -81,13 +80,13 @@ buildPythonPackage rec {
     "testWarnBulkSizeNoEffect"
   ];
 
-  pythonImportsCheck = [ "influxdb" ];
+  pythonImportsCheck = ["influxdb"];
 
   meta = with lib; {
     description = "Python client for InfluxDB";
     homepage = "https://github.com/influxdb/influxdb-python";
     changelog = "https://github.com/influxdata/influxdb-python/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

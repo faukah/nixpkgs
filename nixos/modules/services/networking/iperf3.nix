@@ -4,13 +4,12 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.iperf3;
 
   api = {
     enable = mkEnableOption "iperf3 network throughput testing server";
-    package = mkPackageOption pkgs "iperf3" { };
+    package = mkPackageOption pkgs "iperf3" {};
     port = mkOption {
       type = types.ints.u16;
       default = 5201;
@@ -58,22 +57,21 @@ let
     };
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = "Extra flags to pass to iperf3(1).";
     };
   };
 
   imp = {
-
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
 
     systemd.services.iperf3 = {
       description = "iperf3 daemon";
       unitConfig.Documentation = "man:iperf3(1) https://iperf.fr/iperf-doc.php";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         Restart = "on-failure";
@@ -90,10 +88,10 @@ let
             ${optionalString (cfg.bind != null) "--bind ${cfg.bind}"} \
             ${optionalString (cfg.rsaPrivateKey != null) "--rsa-private-key-path ${cfg.rsaPrivateKey}"} \
             ${
-              optionalString (
-                cfg.authorizedUsersFile != null
-              ) "--authorized-users-path ${cfg.authorizedUsersFile}"
-            } \
+            optionalString (
+              cfg.authorizedUsersFile != null
+            ) "--authorized-users-path ${cfg.authorizedUsersFile}"
+          } \
             ${optionalString cfg.verbose "--verbose"} \
             ${optionalString cfg.debug "--debug"} \
             ${optionalString cfg.forceFlush "--forceflush"} \
@@ -102,8 +100,7 @@ let
       };
     };
   };
-in
-{
+in {
   options.services.iperf3 = api;
   config = mkIf cfg.enable imp;
 }

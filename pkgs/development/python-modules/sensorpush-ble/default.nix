@@ -11,7 +11,6 @@
   pythonOlder,
   sensor-state-data,
 }:
-
 buildPythonPackage rec {
   pname = "sensorpush-ble";
   version = "1.9.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-Jsf/NTVwEHoH989yQqWEdG43H74JHlKpUvMWuH4paOw=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     bluetooth-data-tools
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "sensorpush_ble" ];
+  pythonImportsCheck = ["sensorpush_ble"];
 
   meta = with lib; {
     description = "Library for SensorPush BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/sensorpush-ble";
     changelog = "https://github.com/Bluetooth-Devices/sensorpush-ble/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

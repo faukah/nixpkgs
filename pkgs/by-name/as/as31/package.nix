@@ -5,7 +5,6 @@
   fetchpatch,
   bison,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "as31";
   version = "2.3.1";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "8031/8051 assembler";
     mainProgram = "as31";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

@@ -7,7 +7,6 @@
   fluidsynth,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "pyfluidsynth";
   version = "1.3.4";
@@ -25,16 +24,16 @@ buildPythonPackage rec {
         '"${lib.getLib fluidsynth}/lib/libfluidsynth${stdenv.hostPlatform.extensions.sharedLibrary}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  pythonImportsCheck = [ "fluidsynth" ];
+  pythonImportsCheck = ["fluidsynth"];
 
   meta = with lib; {
     description = "Python bindings for FluidSynth, a MIDI synthesizer that uses SoundFont instruments";
     homepage = "https://github.com/nwhitehead/pyfluidsynth";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

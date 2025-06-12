@@ -9,7 +9,6 @@
   gtk3,
   libnotify,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "bleachbit";
   version = "4.6.0";

@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aiovodafone";
   version = "1.1.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-xz5NilxPN5KyC4NYmx4Ax0L3khtD2oo3s7gxXWclCI4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiovodafone" ];
+  pythonImportsCheck = ["aiovodafone"];
 
   meta = with lib; {
     description = "Library to control Vodafon Station";
     homepage = "https://github.com/chemelli74/aiovodafone";
     changelog = "https://github.com/chemelli74/aiovodafone/blob/${src.tag}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

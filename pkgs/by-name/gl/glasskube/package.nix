@@ -6,9 +6,7 @@
   nix-update-script,
   installShellFiles,
   versionCheckHook,
-}:
-
-let
+}: let
   version = "0.25.0";
   gitSrc = fetchFromGitHub {
     owner = "glasskube";
@@ -35,54 +33,53 @@ let
       runHook postInstall
     '';
   };
-
 in
-buildGo123Module rec {
-  inherit version;
-  pname = "glasskube";
+  buildGo123Module rec {
+    inherit version;
+    pname = "glasskube";
 
-  src = gitSrc;
+    src = gitSrc;
 
-  vendorHash = "sha256-oly6SLgXVyvKQQuPrb76LYngoDPNLjTAs4gWCT3/kew=";
+    vendorHash = "sha256-oly6SLgXVyvKQQuPrb76LYngoDPNLjTAs4gWCT3/kew=";
 
-  env.CGO_ENABLED = 0;
+    env.CGO_ENABLED = 0;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/glasskube/glasskube/internal/config.Version=${version}"
-    "-X github.com/glasskube/glasskube/internal/config.Commit=${src.rev}"
-  ];
+    ldflags = [
+      "-s"
+      "-w"
+      "-X github.com/glasskube/glasskube/internal/config.Version=${version}"
+      "-X github.com/glasskube/glasskube/internal/config.Commit=${src.rev}"
+    ];
 
-  subPackages = [
-    "cmd/glasskube"
-    "cmd/package-operator"
-  ];
+    subPackages = [
+      "cmd/glasskube"
+      "cmd/package-operator"
+    ];
 
-  nativeBuildInputs = [ installShellFiles ];
-  nativeCheckInputs = [ versionCheckHook ];
-  doInstallCheck = true;
+    nativeBuildInputs = [installShellFiles];
+    nativeCheckInputs = [versionCheckHook];
+    doInstallCheck = true;
 
-  preBuild = ''
-    cp -r ${web-bundle}/bundle internal/web/root/static/bundle
-  '';
+    preBuild = ''
+      cp -r ${web-bundle}/bundle internal/web/root/static/bundle
+    '';
 
-  postInstall = ''
-    # Completions
-    installShellCompletion --cmd glasskube \
-      --bash <($out/bin/glasskube completion bash) \
-      --fish <($out/bin/glasskube completion fish) \
-      --zsh <($out/bin/glasskube completion zsh)
-  '';
+    postInstall = ''
+      # Completions
+      installShellCompletion --cmd glasskube \
+        --bash <($out/bin/glasskube completion bash) \
+        --fish <($out/bin/glasskube completion fish) \
+        --zsh <($out/bin/glasskube completion zsh)
+    '';
 
-  passthru.updateScript = nix-update-script { };
+    passthru.updateScript = nix-update-script {};
 
-  meta = {
-    description = "Missing Package Manager for Kubernetes featuring a GUI and a CLI";
-    homepage = "https://github.com/glasskube/glasskube";
-    changelog = "https://github.com/glasskube/glasskube/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ jakuzure ];
-    license = lib.licenses.asl20;
-    mainProgram = "glasskube";
-  };
-}
+    meta = {
+      description = "Missing Package Manager for Kubernetes featuring a GUI and a CLI";
+      homepage = "https://github.com/glasskube/glasskube";
+      changelog = "https://github.com/glasskube/glasskube/releases/tag/v${version}";
+      maintainers = with lib.maintainers; [jakuzure];
+      license = lib.licenses.asl20;
+      mainProgram = "glasskube";
+    };
+  }

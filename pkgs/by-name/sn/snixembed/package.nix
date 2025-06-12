@@ -7,7 +7,6 @@
   stdenv,
   vala,
 }:
-
 stdenv.mkDerivation rec {
   pname = "snixembed";
   version = "0.3.3";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     libdbusmenu-gtk3
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Proxy StatusNotifierItems as XEmbedded systemtray-spec icons";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     changelog = "https://git.sr.ht/~steef/snixembed/refs/${version}";
     license = lib.licenses.isc;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "snixembed";
   };
 }

@@ -6,7 +6,6 @@
   fuse,
   xz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "avfs";
   version = "1.2.0";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-olqOxDwe4XJiThpMec5mobkwhBzbVFtyXx7GS8q+iJw=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     fuse

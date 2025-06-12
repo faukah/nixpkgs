@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "onmetal-image";
   version = "0.1.1";
@@ -35,7 +34,7 @@ buildGoModule rec {
     description = "Onmetal OCI Image Specification, Library and Tooling";
     homepage = "https://github.com/onmetal/onmetal-image";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "onmetal-image";
   };
 }

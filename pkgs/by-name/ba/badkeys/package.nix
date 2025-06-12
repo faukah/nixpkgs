@@ -5,7 +5,6 @@
   python3Packages,
   testers,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "badkeys";
   version = "0.0.13";
@@ -33,12 +32,12 @@ python3Packages.buildPythonApplication rec {
     paramiko
   ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [pytestCheckHook];
 
-  pythonImportsCheck = [ "badkeys" ];
+  pythonImportsCheck = ["badkeys"];
 
   passthru = {
-    tests.version = testers.testVersion { package = badkeys; };
+    tests.version = testers.testVersion {package = badkeys;};
   };
 
   meta = {
@@ -46,7 +45,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://badkeys.info/";
     changelog = "https://github.com/badkeys/badkeys/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "badkeys";
   };
 }

@@ -10,7 +10,6 @@
   setuptools,
   zigpy,
 }:
-
 buildPythonPackage rec {
   pname = "zigpy-xbee";
   version = "0.21.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
       --replace 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     pyserial
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     description = "Library which communicates with XBee radios for zigpy";
     homepage = "https://github.com/zigpy/zigpy-xbee";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mvnetbiz ];
+    maintainers = with maintainers; [mvnetbiz];
     platforms = platforms.linux;
   };
 }

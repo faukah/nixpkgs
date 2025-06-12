@@ -4,27 +4,21 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # builds
   poetry-core,
-
   # propagates
   isodate,
   pyparsing,
-
   # extras: networkx
   networkx,
-
   # extras: html
   html5lib,
-
   # tests
   pip,
   pytest-cov-stub,
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "rdflib";
   version = "7.1.4";
@@ -39,15 +33,17 @@ buildPythonPackage rec {
     hash = "sha256-u9hdwxAJIuTQ3zKstbwn88u1opzWXc8otJKbtIl4Li4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [
-    pyparsing
-  ] ++ lib.optionals (pythonOlder "3.11") [ isodate ];
+  dependencies =
+    [
+      pyparsing
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [isodate];
 
   optional-dependencies = {
-    html = [ html5lib ];
-    networkx = [ networkx ];
+    html = [html5lib];
+    networkx = [networkx];
   };
 
   __darwinAllowLocalNetworking = true;
@@ -84,12 +80,12 @@ buildPythonPackage rec {
       "TestGraphHTTP"
     ];
 
-  pythonImportsCheck = [ "rdflib" ];
+  pythonImportsCheck = ["rdflib"];
 
   meta = with lib; {
     description = "Python library for working with RDF";
     homepage = "https://rdflib.readthedocs.io";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

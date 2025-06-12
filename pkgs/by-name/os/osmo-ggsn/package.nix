@@ -6,7 +6,6 @@
   pkg-config,
   libosmocore,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osmo-ggsn";
   version = "1.13.0";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Osmocom Gateway GPRS Support Node (GGSN), successor of OpenGGSN";
     homepage = "https://osmocom.org/projects/openggsn";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.markuskowa ];
+    maintainers = [lib.maintainers.markuskowa];
     platforms = lib.platforms.linux;
     mainProgram = "osmo-ggsn";
   };

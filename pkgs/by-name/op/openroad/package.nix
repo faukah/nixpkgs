@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # nativeBuildInputs
   bison,
   cmake,
@@ -13,7 +12,6 @@
   libsForQt5,
   pkg-config,
   swig,
-
   # buildInputs
   boost186, # 1.87.0 broken https://github.com/boostorg/asio/issues/442
   cbc, # for clp
@@ -38,7 +36,6 @@
   xorg,
   llvmPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openroad";
   version = "2.0-unstable-2025-03-01";
@@ -90,8 +87,8 @@ stdenv.mkDerivation rec {
       yosys
       zlib
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ xorg.libX11 ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ llvmPackages.openmp ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [xorg.libX11]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [llvmPackages.openmp];
 
   postPatch = ''
     patchShebangs --build etc/find_messages.py
@@ -116,7 +113,7 @@ stdenv.mkDerivation rec {
     ];
 
   # Resynthesis needs access to the Yosys binaries.
-  qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ yosys ]}" ];
+  qtWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [yosys]}"];
 
   # Upstream uses vendored package versions for some dependencies, so regression testing is prudent
   # to see if there are any breaking changes in unstable that should be vendored as well.

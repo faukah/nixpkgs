@@ -6,7 +6,6 @@
   perl,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rush";
   version = "2.4";
@@ -17,14 +16,14 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   # Make sure that Rush looks for rush.rc in a directory that users can
   # modify easily.
-  configureFlags = [ "--sysconfdir=/etc" ];
+  configureFlags = ["--sysconfdir=/etc"];
   # Prevent “make install” from trying to copy something to
   # /etc/rush.rc.
-  installFlags = [ "sysconfdir=$(out)/etc" ];
+  installFlags = ["sysconfdir=$(out)/etc"];
   postInstall = ''
     substituteInPlace $out/bin/rush-po \
       --replace "exec perl" "exec ${lib.getExe perl}"
@@ -62,6 +61,6 @@ stdenv.mkDerivation rec {
 
   passthru = {
     shellPath = "/bin/rush";
-    tests = { inherit (nixosTests) rush; };
+    tests = {inherit (nixosTests) rush;};
   };
 }

@@ -14,7 +14,6 @@
   pkg-config,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "supergee";
   version = "0-unstable-2023-11-21";
@@ -70,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
   dontUseCmakeConfigure = true;
 
   passthru = {
-    updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+    updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
   };
 
   meta = {
@@ -79,6 +78,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
     mainProgram = "SuperG";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
   };
 })

@@ -30,7 +30,7 @@ buildGoModule rec {
 
   env.CGO_ENABLED = 0;
 
-  passthru.tests.version = testers.testVersion { package = cloudflare-dynamic-dns; };
+  passthru.tests.version = testers.testVersion {package = cloudflare-dynamic-dns;};
 
   meta = {
     changelog = "https://github.com/Zebradil/cloudflare-dynamic-dns/blob/${version}/CHANGELOG.md";
@@ -38,6 +38,6 @@ buildGoModule rec {
     homepage = "https://github.com/Zebradil/cloudflare-dynamic-dns";
     license = lib.licenses.mit;
     mainProgram = "cloudflare-dynamic-dns";
-    maintainers = [ lib.maintainers.zebradil ];
+    maintainers = [lib.maintainers.zebradil];
   };
 }

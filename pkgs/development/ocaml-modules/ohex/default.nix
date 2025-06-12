@@ -4,7 +4,6 @@
   buildDunePackage,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "ohex";
   version = "0.2.0";
@@ -15,11 +14,11 @@ buildDunePackage rec {
   };
 
   doCheck = true;
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   meta = {
     description = "Hexadecimal encoding and decoding";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

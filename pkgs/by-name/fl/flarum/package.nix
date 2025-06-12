@@ -3,7 +3,6 @@
   php,
   fetchFromGitHub,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "flarum";
   version = "1.8.1";

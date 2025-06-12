@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation {
   version = "20090618";
   pname = "pari-seadata-small";
@@ -23,6 +22,6 @@ stdenv.mkDerivation {
     homepage = "http://pari.math.u-bordeaux.fr/";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    teams = [ teams.sage ];
+    teams = [teams.sage];
   };
 }

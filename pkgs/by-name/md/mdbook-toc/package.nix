@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-toc";
   version = "0.14.2";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "mdbook-toc";
     homepage = "https://github.com/badboy/mdbook-toc";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ matthiasbeyer ];
+    maintainers = with lib.maintainers; [matthiasbeyer];
   };
 }

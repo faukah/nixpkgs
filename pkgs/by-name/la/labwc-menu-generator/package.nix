@@ -8,7 +8,6 @@
   pkg-config,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "labwc-menu-generator";
   version = "0.2.0-unstable-2025-04-30";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://github.com/labwc/labwc-menu-generator";
@@ -42,6 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "labwc-menu-generator";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ romildo ];
+    maintainers = with lib.maintainers; [romildo];
   };
 })

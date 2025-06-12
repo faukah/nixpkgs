@@ -12,10 +12,9 @@
   vulkan-headers,
   wayland,
   cudaSupport ? config.cudaSupport,
-  cudaPackages ? { },
+  cudaPackages ? {},
   autoAddDriverRunpath,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gpt4all";
   version = "3.9.0";
@@ -71,8 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
       wayland
     ]
     ++ lib.optionals cudaSupport (
-      with cudaPackages;
-      [
+      with cudaPackages; [
         cuda_cccl
         cuda_cudart
         libcublas

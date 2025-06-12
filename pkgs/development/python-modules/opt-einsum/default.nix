@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   version = "3.4.0";
   pname = "opt-einsum";
@@ -29,16 +28,16 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "opt_einsum" ];
+  pythonImportsCheck = ["opt_einsum"];
 
   meta = with lib; {
     description = "Optimizing NumPy's einsum function with order optimization and GPU support";
     homepage = "https://github.com/dgasmith/opt_einsum";
     license = licenses.mit;
-    maintainers = with maintainers; [ teh ];
+    maintainers = with maintainers; [teh];
   };
 }

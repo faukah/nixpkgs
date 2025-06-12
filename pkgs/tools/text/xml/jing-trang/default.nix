@@ -7,7 +7,6 @@
   ant,
   saxon,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jing-trang";
   version = "20181222";
@@ -62,6 +61,6 @@ stdenv.mkDerivation rec {
       fromSource
       binaryBytecode # source bundles dependencies as jars
     ];
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

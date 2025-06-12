@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "codespelunker";
   version = "1.4.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Command code search tool";
@@ -26,7 +25,7 @@ buildGoModule rec {
       mit
       unlicense
     ];
-    maintainers = with maintainers; [ viraptor ];
+    maintainers = with maintainers; [viraptor];
     mainProgram = "cs";
   };
 }

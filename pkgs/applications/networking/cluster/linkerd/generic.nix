@@ -3,15 +3,12 @@
   fetchFromGitHub,
   buildGoModule,
   installShellFiles,
-}:
-
-{
+}: {
   channel,
   version,
   sha256,
   vendorHash,
 }:
-
 buildGoModule rec {
   pname = "linkerd-${channel}";
   inherit version vendorHash;
@@ -23,7 +20,7 @@ buildGoModule rec {
     inherit sha256;
   };
 
-  subPackages = [ "cli" ];
+  subPackages = ["cli"];
 
   preBuild = ''
     env GOFLAGS="" go generate ./pkg/charts/static
@@ -47,7 +44,7 @@ buildGoModule rec {
     "-X github.com/linkerd/linkerd2/pkg/version.Version=${src.rev}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     mv $out/bin/cli $out/bin/linkerd
@@ -62,7 +59,7 @@ buildGoModule rec {
     $out/bin/linkerd version --client | grep ${src.rev} > /dev/null
   '';
 
-  passthru.updateScript = (./. + "/update-${channel}.sh");
+  passthru.updateScript = ./. + "/update-${channel}.sh";
 
   meta = with lib; {
     description = "Simple Kubernetes service mesh that improves security, observability and reliability";

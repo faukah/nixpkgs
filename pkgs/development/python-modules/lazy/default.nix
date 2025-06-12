@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "lazy";
   version = "1.6";
@@ -16,11 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-cScyTscJ6DJPCMtGEcGr4Bd2vaU7uc5o3F36RsoO0+k=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "lazy" ];
+  pythonImportsCheck = ["lazy"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Lazy attributes for Python objects";

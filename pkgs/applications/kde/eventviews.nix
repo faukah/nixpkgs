@@ -13,7 +13,6 @@
   qttools,
   kholidays,
 }:
-
 mkDerivation {
   pname = "eventviews";
   meta = {

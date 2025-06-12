@@ -7,7 +7,6 @@
   mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "python-memcached";
   version = "1.62";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-Qko4Qr9WofeklU0uRRrSPrT8YaBYMCy0GP+TF7YZHLI=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     memcached
@@ -38,12 +37,12 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "memcache" ];
+  pythonImportsCheck = ["memcache"];
 
   meta = with lib; {
     description = "Pure python memcached client";
     homepage = "https://github.com/linsomniac/python-memcached";
     license = licenses.psfl;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

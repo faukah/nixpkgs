@@ -6,7 +6,6 @@
   sqlite,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nunicode";
   version = "1.11";
@@ -63,14 +62,14 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postCheck
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Fast, small and portable Unicode library with SQLite extension";
     homepage = "https://bitbucket.org/alekseyt/nunicode";
     changelog = "https://bitbucket.org/alekseyt/nunicode/src/${finalAttrs.version}/CHANGELOG";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.mjoerg ];
+    maintainers = [lib.maintainers.mjoerg];
     platforms = lib.platforms.unix;
   };
 })

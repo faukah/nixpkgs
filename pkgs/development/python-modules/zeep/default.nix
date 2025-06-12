@@ -26,7 +26,6 @@
   setuptools,
   xmlsec,
 }:
-
 buildPythonPackage rec {
   pname = "zeep";
   version = "4.3.1";
@@ -41,9 +40,9 @@ buildPythonPackage rec {
     hash = "sha256-Bt0QqzJMKPXV91hZYETy9DKoQAELUWlYIh8w/IFTE8E=";
   };
 
-  patches = [ ./httpx-compat.patch ];
+  patches = [./httpx-compat.patch];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     attrs
@@ -59,23 +58,25 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    async = [ httpx ];
-    xmlsec = [ xmlsec ];
+    async = [httpx];
+    xmlsec = [xmlsec];
   };
 
-  pythonImportsCheck = [ "zeep" ];
+  pythonImportsCheck = ["zeep"];
 
-  nativeCheckInputs = [
-    aiohttp
-    aioresponses
-    freezegun
-    mock
-    pretend
-    pytest-asyncio
-    pytest-httpx
-    pytestCheckHook
-    requests-mock
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      aiohttp
+      aioresponses
+      freezegun
+      mock
+      pretend
+      pytest-asyncio
+      pytest-httpx
+      pytestCheckHook
+      requests-mock
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   disabledTests = [
     # Failed: External connections not allowed during tests.

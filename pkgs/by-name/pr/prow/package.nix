@@ -4,7 +4,6 @@
   fetchFromGitHub,
   git,
 }:
-
 buildGoModule rec {
   pname = "prow";
   version = "0-unstable-2024-08-27";
@@ -62,7 +61,7 @@ buildGoModule rec {
     "cmd/webhook-server"
   ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   meta = {
     description = "Kubernetes based CI/CD system developed to serve the Kubernetes community";
@@ -75,7 +74,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/kubernetes-sigs/prow";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ kalbasit ];
+    maintainers = with lib.maintainers; [kalbasit];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

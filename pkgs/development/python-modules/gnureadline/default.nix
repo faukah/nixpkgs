@@ -5,7 +5,6 @@
   isPyPy,
   pkgs,
 }:
-
 buildPythonPackage rec {
   version = "8.2.13";
   format = "setuptools";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-ybnh57qZqAu1DBICfWzmkldPd6Zb9XvJcEHPgcD0m9E=";
   };
 
-  buildInputs = [ pkgs.ncurses ];
+  buildInputs = [pkgs.ncurses];
   patchPhase = ''
     substituteInPlace setup.py --replace "/bin/bash" "${pkgs.bash}/bin/bash"
   '';

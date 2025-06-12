@@ -7,7 +7,6 @@
   dill,
   tabulate,
 }:
-
 buildPythonPackage {
   pname = "pyfunctional";
   version = "1.5.0";
@@ -20,7 +19,7 @@ buildPythonPackage {
     hash = "sha256-u7gcZEeg1exb98aVUOorVhxUHqjX50aPTpE5gR6sONI=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -33,13 +32,13 @@ buildPythonPackage {
     tabulate
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "functional" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["functional"];
 
   meta = {
     description = "Python library for creating data pipelines with chain functional programming";
     homepage = "https://github.com/EntilZha/PyFunctional";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

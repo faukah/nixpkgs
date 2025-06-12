@@ -5,7 +5,6 @@
   fetchPypi,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "python_ffmpeg";
   version = "2.0.12";
@@ -16,15 +15,15 @@ buildPythonPackage rec {
     sha256 = "GayAr1oGSi9TwkWvGpCbLXZI6gRVANltO81Qe4jUPcc=";
   };
 
-  propagatedBuildInputs = [ pyee ];
+  propagatedBuildInputs = [pyee];
 
-  nativeBuildInputs = [ setuptools-scm ];
-  pythonImportsCheck = [ "ffmpeg" ];
+  nativeBuildInputs = [setuptools-scm];
+  pythonImportsCheck = ["ffmpeg"];
 
   meta = {
     homepage = "https://github.com/jonghwanhyeon/python-ffmpeg";
     description = "Python binding for FFmpeg which provides sync and async APIs";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ youhaveme9 ];
+    maintainers = with lib.maintainers; [youhaveme9];
   };
 }

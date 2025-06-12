@@ -7,7 +7,6 @@
   libpcap,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dynamips";
   version = "0.2.23";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-+h+WsZ/QrDd+dNrR6CJb2uMG+vbUvK8GTxFJZOxknL0=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     libelf
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

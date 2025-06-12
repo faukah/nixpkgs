@@ -72,7 +72,6 @@
   wrapGAppsHook4,
   xorgserver,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-control-center";
   version = "48.1";
@@ -212,7 +211,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Utilities to configure the GNOME desktop";
     mainProgram = "gnome-control-center";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 })

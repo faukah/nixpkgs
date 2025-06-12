@@ -8,7 +8,6 @@
   tqdm,
   z3-solver,
 }:
-
 buildPythonPackage rec {
   pname = "model-checker";
   version = "0.9.21";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
   };
 
   # z3 does not provide a dist-info, so python-runtime-deps-check will fail
-  pythonRemoveDeps = [ "z3-solver" ];
+  pythonRemoveDeps = ["z3-solver"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     networkx
@@ -37,12 +36,12 @@ buildPythonPackage rec {
   # Check with the next release > 0.3.13
   doCheck = false;
 
-  pythonImportsCheck = [ "model_checker" ];
+  pythonImportsCheck = ["model_checker"];
 
   meta = with lib; {
     description = "Hyperintensional theorem prover for counterfactual conditionals and modal operators";
     homepage = "https://pypi.org/project/model-checker/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   version = "1.0.1";
   pname = "ipgrep";
@@ -37,7 +36,7 @@ python3Packages.buildPythonApplication rec {
       from text, resolves host names, and prints them, sorted by ASN.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.all;
   };
 }

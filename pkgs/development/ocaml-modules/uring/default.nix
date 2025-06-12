@@ -8,7 +8,6 @@
   optint,
   mdx,
 }:
-
 buildDunePackage rec {
   pname = "uring";
   version = "0.9";
@@ -53,6 +52,6 @@ buildDunePackage rec {
       mit
     ];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ toastal ];
+    maintainers = with lib.maintainers; [toastal];
   };
 }

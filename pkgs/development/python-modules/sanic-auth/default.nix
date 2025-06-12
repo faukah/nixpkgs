@@ -7,7 +7,6 @@
   sanic-testing,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sanic-auth";
   version = "0.3.0";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-KAU066S70GO1hURQrW0n+L5/kFzpgen341hlia0ngjU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ sanic ];
+  dependencies = [sanic];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -39,12 +38,12 @@ buildPythonPackage rec {
       --replace-fail "allow_redirects=False" "follow_redirects=False"
   '';
 
-  pythonImportsCheck = [ "sanic_auth" ];
+  pythonImportsCheck = ["sanic_auth"];
 
   meta = with lib; {
     description = "Simple Authentication for Sanic";
     homepage = "https://github.com/pyx/sanic-auth/";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ arnoldfarkas ];
+    maintainers = with maintainers; [arnoldfarkas];
   };
 }

@@ -14,7 +14,6 @@
   openssl,
   which,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zesarux";
   version = "unstable-2023-10-31";
@@ -76,8 +75,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/chernandezba/zesarux";
     description = "ZX Second-Emulator And Released for UniX";
     mainProgram = "zesarux";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

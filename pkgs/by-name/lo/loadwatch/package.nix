@@ -3,7 +3,6 @@
   stdenv,
   fetchFromSourcehut,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "loadwatch";
   version = "1.1-4-g868bd29";
@@ -15,12 +14,12 @@ stdenv.mkDerivation (finalAttrs: {
     rev = finalAttrs.version;
   };
 
-  makeFlags = [ "bindir=$(out)/bin" ];
+  makeFlags = ["bindir=$(out)/bin"];
 
   meta = {
     description = "Run a program using only idle cycles";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ woffs ];
+    maintainers = with lib.maintainers; [woffs];
     platforms = lib.platforms.all;
   };
 })

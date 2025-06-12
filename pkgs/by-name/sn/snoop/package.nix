@@ -17,7 +17,6 @@
   gtksourceview5,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "snoop";
   version = "0.4.2";
@@ -60,13 +59,13 @@ stdenv.mkDerivation (finalAttrs: {
     gtksourceview5
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://gitlab.gnome.org/philippun1/snoop";
     changelog = "https://gitlab.gnome.org/philippun1/snoop/-/releases/${finalAttrs.version}";
     description = "Search through file contents in a given folder";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     license = lib.licenses.gpl3Plus;
     mainProgram = "snoop";
     platforms = lib.platforms.unix;

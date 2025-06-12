@@ -1,16 +1,15 @@
 # Minica can provide a CA key and cert, plus a key
 # and cert for our fake CA server's Web Front End (WFE).
 {
-  pkgs ? import <nixpkgs> { },
+  pkgs ? import <nixpkgs> {},
   minica ? pkgs.minica,
   runCommandCC ? pkgs.runCommandCC,
-}:
-let
+}: let
   conf = import ./snakeoil-certs.nix;
   domain = conf.domain;
-  domainSanitized = pkgs.lib.replaceStrings [ "*" ] [ "_" ] domain;
+  domainSanitized = pkgs.lib.replaceStrings ["*"] ["_"] domain;
 in
-runCommandCC "generate-tests-certs"
+  runCommandCC "generate-tests-certs"
   {
     buildInputs = [
       (minica.overrideAttrs (old: {
@@ -19,7 +18,6 @@ runCommandCC "generate-tests-certs"
         '';
       }))
     ];
-
   }
   ''
     minica \

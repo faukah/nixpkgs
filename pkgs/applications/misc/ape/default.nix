@@ -9,13 +9,12 @@
   description ? "Parser for Attempto Controlled English (ACE)",
   license ? lib.licenses.lgpl3,
 }:
-
 stdenv.mkDerivation {
   inherit pname;
   version = "2019-08-10";
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ swi-prolog ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [swi-prolog];
 
   src = fetchFromGitHub {
     owner = "Attempto";
@@ -46,7 +45,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Attempto/APE";
     license = license;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ yrashk ];
+    maintainers = with maintainers; [yrashk];
     mainProgram = "ape";
   };
 }

@@ -15,7 +15,6 @@
   libmad,
   pcre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "prboom-plus";
   version = "2.6.66";
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
     description = "Advanced, Vanilla-compatible Doom engine based on PrBoom";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.ashley ];
+    maintainers = [maintainers.ashley];
   };
 }

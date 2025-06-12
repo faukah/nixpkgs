@@ -4,7 +4,6 @@
   fetchFromGitHub,
   kernel,
 }:
-
 stdenv.mkDerivation rec {
   name = "tp_smapi-${version}-${kernel.version}";
   version = "0.44-unstable-2025-05-26";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   makeFlags = [
     "KBASE=${kernel.dev}/lib/modules/${kernel.modDirVersion}"
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "IBM ThinkPad hardware functions driver";
     homepage = "https://github.com/linux-thinkpad/tp_smapi";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     # driver is only meant for linux thinkpads i think  bellow platforms should cover it.
     platforms = [
       "x86_64-linux"

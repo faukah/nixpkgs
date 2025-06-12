@@ -3,7 +3,6 @@
   lib,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "ograc";
   version = "0.1.6";
@@ -21,6 +20,6 @@ rustPlatform.buildRustPackage {
     mainProgram = "ograc";
     homepage = "https://crates.io/crates/ograc";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ sciencentistguy ];
+    maintainers = with maintainers; [sciencentistguy];
   };
 }

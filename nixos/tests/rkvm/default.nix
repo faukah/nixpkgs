@@ -1,81 +1,75 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
-  let
+  {pkgs, ...}: let
     # Generated with
     #
     # nix shell .#rkvm --command "rkvm-certificate-gen --ip-addresses 10.0.0.1 cert.pem key.pem"
     #
     snakeoil-cert = ./cert.pem;
     snakeoil-key = ./key.pem;
-  in
-  {
+  in {
     name = "rkvm";
 
     nodes = {
-      server =
-        { pkgs, ... }:
-        {
-          imports = [ ../common/user-account.nix ];
+      server = {pkgs, ...}: {
+        imports = [../common/user-account.nix];
 
-          virtualisation.vlans = [ 1 ];
+        virtualisation.vlans = [1];
 
-          networking = {
-            useNetworkd = true;
-            useDHCP = false;
-            firewall.enable = false;
-          };
-
-          systemd.network.networks."01-eth1" = {
-            name = "eth1";
-            networkConfig.Address = "10.0.0.1/24";
-          };
-
-          services.getty.autologinUser = "alice";
-
-          services.rkvm.server = {
-            enable = true;
-            settings = {
-              certificate = snakeoil-cert;
-              key = snakeoil-key;
-              password = "snakeoil";
-              switch-keys = [
-                "left-alt"
-                "right-alt"
-              ];
-            };
-          };
+        networking = {
+          useNetworkd = true;
+          useDHCP = false;
+          firewall.enable = false;
         };
 
-      client =
-        { pkgs, ... }:
-        {
-          imports = [ ../common/user-account.nix ];
+        systemd.network.networks."01-eth1" = {
+          name = "eth1";
+          networkConfig.Address = "10.0.0.1/24";
+        };
 
-          virtualisation.vlans = [ 1 ];
+        services.getty.autologinUser = "alice";
 
-          networking = {
-            useNetworkd = true;
-            useDHCP = false;
-            firewall.enable = false;
-          };
-
-          systemd.network.networks."01-eth1" = {
-            name = "eth1";
-            networkConfig.Address = "10.0.0.2/24";
-          };
-
-          services.getty.autologinUser = "alice";
-
-          services.rkvm.client = {
-            enable = true;
-            settings = {
-              server = "10.0.0.1:5258";
-              certificate = snakeoil-cert;
-              key = snakeoil-key;
-              password = "snakeoil";
-            };
+        services.rkvm.server = {
+          enable = true;
+          settings = {
+            certificate = snakeoil-cert;
+            key = snakeoil-key;
+            password = "snakeoil";
+            switch-keys = [
+              "left-alt"
+              "right-alt"
+            ];
           };
         };
+      };
+
+      client = {pkgs, ...}: {
+        imports = [../common/user-account.nix];
+
+        virtualisation.vlans = [1];
+
+        networking = {
+          useNetworkd = true;
+          useDHCP = false;
+          firewall.enable = false;
+        };
+
+        systemd.network.networks."01-eth1" = {
+          name = "eth1";
+          networkConfig.Address = "10.0.0.2/24";
+        };
+
+        services.getty.autologinUser = "alice";
+
+        services.rkvm.client = {
+          enable = true;
+          settings = {
+            server = "10.0.0.1:5258";
+            certificate = snakeoil-cert;
+            key = snakeoil-key;
+            password = "snakeoil";
+          };
+        };
+      };
     };
 
     testScript = ''

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "pgf";
   version = "3.1.10";
@@ -32,7 +31,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Portable Graphic Format for TeX - version ${finalAttrs.version}";
     branch = lib.versions.major version;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 })

@@ -10,7 +10,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mfcl2700dncupswrapper";
   version = "3.2.0-1";
@@ -40,12 +39,12 @@ stdenv.mkDerivation rec {
 
     wrapProgram $dir/cupswrapper/brother_lpdwrapper_MFCL2700DN \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          gnugrep
-          gnused
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        gnugrep
+        gnused
+      ]
+    }
 
     mkdir -p $out/lib/cups/filter
     mkdir -p $out/share/cups/model
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
     description = "Brother MFC-L2700DN CUPS wrapper driver";
     homepage = "http://www.brother.com/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.tv ];
+    maintainers = [lib.maintainers.tv];
     platforms = lib.platforms.linux;
   };
 }

@@ -5,7 +5,6 @@
   angstrom,
   faraday,
 }:
-
 buildDunePackage rec {
   pname = "hpack";
   version = "0.13.0";

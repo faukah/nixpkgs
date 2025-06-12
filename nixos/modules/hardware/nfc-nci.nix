@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.hardware.nfc-nci;
 
   # To understand these settings in more detail, refer to the upstream configuration templates
@@ -123,15 +121,11 @@ let
     };
   };
 
-  generateSettings =
-    cfgName:
-    let
-      toKeyValueLines =
-        obj: builtins.concatStringsSep "\n" (map (key: "${key}=${obj.${key}}") (builtins.attrNames obj));
-    in
-    toKeyValueLines (defaultSettings.${cfgName} // (cfg.settings.${cfgName} or { }));
-in
-{
+  generateSettings = cfgName: let
+    toKeyValueLines = obj: builtins.concatStringsSep "\n" (map (key: "${key}=${obj.${key}}") (builtins.attrNames obj));
+  in
+    toKeyValueLines (defaultSettings.${cfgName} // (cfg.settings.${cfgName} or {}));
+in {
   options.hardware.nfc-nci = {
     enable = lib.mkEnableOption "PN5xx kernel module with udev rules, libnfc-nci userland, and optional ifdnfc-nci PC/SC driver";
 
@@ -201,5 +195,5 @@ in
     '';
   };
 
-  meta.maintainers = with lib.maintainers; [ stargate01 ];
+  meta.maintainers = with lib.maintainers; [stargate01];
 }

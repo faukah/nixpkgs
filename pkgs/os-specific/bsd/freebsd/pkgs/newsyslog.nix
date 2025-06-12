@@ -6,7 +6,7 @@
 mkDerivation {
   path = "usr.sbin/newsyslog";
 
-  buildInputs = compatIfNeeded ++ [ libsbuf ];
+  buildInputs = compatIfNeeded ++ [libsbuf];
 
   # The only subdir is newsyslog.conf.d, all config files we don't want
   postPatch = ''

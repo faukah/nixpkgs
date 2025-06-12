@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "each";
   version = "0.2.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = " A better way of working with structured data on the command line";
     mainProgram = "each";
     homepage = "https://github.com/arraypad/each";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ thiagokokada ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [thiagokokada];
   };
 }

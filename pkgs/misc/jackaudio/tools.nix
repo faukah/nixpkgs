@@ -1,13 +1,10 @@
 {
   stdenv,
   lib,
-
   fetchFromGitHub,
-
   pkg-config,
   meson,
   ninja,
-
   jack,
   alsa-lib,
   libopus,
@@ -16,10 +13,8 @@
   readline,
   zita-alsa-pcmi,
   zita-resampler,
-
   enableAlsa ? stdenv.hostPlatform.isLinux,
 }:
-
 stdenv.mkDerivation (final: {
   pname = "jack-example-tools";
   version = "4";
@@ -67,6 +62,6 @@ stdenv.mkDerivation (final: {
     homepage = "https://jackaudio.org";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

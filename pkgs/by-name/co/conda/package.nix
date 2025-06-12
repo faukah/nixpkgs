@@ -26,9 +26,8 @@
     zlib
   ],
   # Any extra nixpkgs you'd like available in the FHS env for Conda to use
-  extraPkgs ? [ ],
+  extraPkgs ? [],
 }:
-
 # How to use this package?
 #
 # First-time setup: this nixpkg downloads the conda installer and provides a FHS
@@ -45,17 +44,15 @@
 let
   version = "25.3.1-1";
 
-  src =
-    let
-      selectSystem =
-        attrs:
-        attrs.${stdenv.hostPlatform.system}
+  src = let
+    selectSystem = attrs:
+      attrs.${stdenv.hostPlatform.system}
           or (throw "conda: ${stdenv.hostPlatform.system} is not supported");
-      arch = selectSystem {
-        x86_64-linux = "x86_64";
-        aarch64-linux = "aarch64";
-      };
-    in
+    arch = selectSystem {
+      x86_64-linux = "x86_64";
+      aarch64-linux = "aarch64";
+    };
+  in
     fetchurl {
       url = "https://repo.anaconda.com/miniconda/Miniconda3-py313_${version}-Linux-${arch}.sh";
       hash = selectSystem {
@@ -70,10 +67,10 @@ let
         zlib # libz.so.1
       ];
     in
-    runCommand "install-conda"
+      runCommand "install-conda"
       {
-        nativeBuildInputs = [ makeWrapper ];
-        buildInputs = [ zlib ];
+        nativeBuildInputs = [makeWrapper];
+        buildInputs = [zlib];
       }
       # on line 10, we have 'unset LD_LIBRARY_PATH'
       # we have to comment it out however in a way that the number of bytes in the
@@ -96,48 +93,45 @@ let
       ''
   );
 in
+  buildFHSEnv {
+    pname = "conda-shell";
+    inherit version;
 
-buildFHSEnv {
-  pname = "conda-shell";
-  inherit version;
-
-  targetPkgs =
-    pkgs:
-    (builtins.concatLists [
-      [ conda ]
+    targetPkgs = pkgs: (builtins.concatLists [
+      [conda]
       condaDeps
       extraPkgs
     ]);
 
-  profile = ''
-    # Add conda to PATH
-    export PATH=${installationPath}/bin:$PATH
-    # Paths for gcc if compiling some C sources with pip
-    export NIX_CFLAGS_COMPILE="-I${installationPath}/include"
-    export NIX_CFLAGS_LINK="-L${installationPath}lib"
-    # Some other required environment variables
-    export FONTCONFIG_FILE=/etc/fonts/fonts.conf
-    export QTCOMPOSE=${xorg.libX11}/share/X11/locale
-    export LIBARCHIVE=${lib.getLib libarchive}/lib/libarchive.so
-    # Allows `conda activate` to work properly
-    condaSh=${installationPath}/etc/profile.d/conda.sh
-    if [ ! -f $condaSh ]; then
-      install-conda
-    fi
-    source $condaSh
-  '';
+    profile = ''
+      # Add conda to PATH
+      export PATH=${installationPath}/bin:$PATH
+      # Paths for gcc if compiling some C sources with pip
+      export NIX_CFLAGS_COMPILE="-I${installationPath}/include"
+      export NIX_CFLAGS_LINK="-L${installationPath}lib"
+      # Some other required environment variables
+      export FONTCONFIG_FILE=/etc/fonts/fonts.conf
+      export QTCOMPOSE=${xorg.libX11}/share/X11/locale
+      export LIBARCHIVE=${lib.getLib libarchive}/lib/libarchive.so
+      # Allows `conda activate` to work properly
+      condaSh=${installationPath}/etc/profile.d/conda.sh
+      if [ ! -f $condaSh ]; then
+        install-conda
+      fi
+      source $condaSh
+    '';
 
-  runScript = "bash -l";
+    runScript = "bash -l";
 
-  meta = {
-    description = "Package manager for Python";
-    mainProgram = "conda-shell";
-    homepage = "https://conda.io";
-    platforms = [
-      "aarch64-linux"
-      "x86_64-linux"
-    ];
-    license = with lib.licenses; [ bsd3 ];
-    maintainers = with lib.maintainers; [ jluttine ];
-  };
-}
+    meta = {
+      description = "Package manager for Python";
+      mainProgram = "conda-shell";
+      homepage = "https://conda.io";
+      platforms = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
+      license = with lib.licenses; [bsd3];
+      maintainers = with lib.maintainers; [jluttine];
+    };
+  }

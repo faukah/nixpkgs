@@ -24,7 +24,6 @@
   vimAlias ? false,
   globalConfig ? "",
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   inherit
     nvimAlias
@@ -138,7 +137,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "IDE layer for Neovim";
     homepage = "https://www.lunarvim.org/";
     changelog = "https://github.com/LunarVim/LunarVim/blob/${finalAttrs.src.rev}/CHANGELOG.md";
-    sourceProvenance = with sourceTypes; [ fromSource ];
+    sourceProvenance = with sourceTypes; [fromSource];
     license = licenses.gpl3Only;
     maintainers = with maintainers; [
       prominentretail

@@ -13,7 +13,6 @@
   requests,
   starlette,
 }:
-
 buildPythonPackage rec {
   pname = "prometheus-fastapi-instrumentator";
   version = "7.1.0";
@@ -48,7 +47,7 @@ buildPythonPackage rec {
   # numerous test failures on Darwin
   doCheck = stdenv.hostPlatform.isLinux;
 
-  pythonImportsCheck = [ "prometheus_fastapi_instrumentator" ];
+  pythonImportsCheck = ["prometheus_fastapi_instrumentator"];
 
   meta = {
     description = "Instrument FastAPI with Prometheus metrics";
@@ -58,7 +57,7 @@ buildPythonPackage rec {
       isc
       bsd3
     ];
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
     platforms = lib.platforms.unix;
   };
 }

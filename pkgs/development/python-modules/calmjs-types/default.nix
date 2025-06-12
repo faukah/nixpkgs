@@ -4,7 +4,6 @@
   buildPythonPackage,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "calmjs-types";
   version = "1.0.1";
@@ -17,14 +16,14 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  checkInputs = [ pytestCheckHook ];
+  checkInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "calmjs.types" ];
+  pythonImportsCheck = ["calmjs.types"];
 
   meta = with lib; {
     description = "Types for the calmjs framework";
     homepage = "https://github.com/calmjs/calmjs.types";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

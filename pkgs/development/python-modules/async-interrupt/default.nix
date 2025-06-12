@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "async-interrupt";
   version = "1.2.2";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-M0ftyHstBP7+6M2b6yV33mSuO4B8QF3ixRvNJ/WeSEA=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -31,13 +30,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "async_interrupt" ];
+  pythonImportsCheck = ["async_interrupt"];
 
   meta = with lib; {
     description = "Context manager to raise an exception when a future is done";
     homepage = "https://github.com/bdraco/async_interrupt";
     changelog = "https://github.com/bdraco/async_interrupt/blob/${src.tag}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

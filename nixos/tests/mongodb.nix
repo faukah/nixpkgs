@@ -1,6 +1,9 @@
 # This test starts mongodb and runs a query using mongo shell
-{ config, lib, ... }:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   # required for test execution on darwin
   pkgs = config.node.pkgs;
   testQuery = pkgs.writeScript "nixtest.js" ''
@@ -8,8 +11,7 @@ let
     print(db.greetings.findOne().greeting);
   '';
   mongoshExe = lib.getExe pkgs.mongosh;
-in
-{
+in {
   name = "mongodb";
   meta.maintainers = with pkgs.lib.maintainers; [
     bluescreen303

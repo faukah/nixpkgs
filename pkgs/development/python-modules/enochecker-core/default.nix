@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "enochecker-core";
   version = "0.10.0";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-N41p2XRCp55rcPXLpA4rPIARsva/dQzK8qafjzXtavI=";
   };
 
-  pythonImportsCheck = [ "enochecker_core" ];
+  pythonImportsCheck = ["enochecker_core"];
 
   # no tests upstream
   doCheck = false;
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/enowars/enochecker_core";
     changelog = "https://github.com/enowars/enochecker_core/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fwc ];
+    maintainers = with maintainers; [fwc];
   };
 }

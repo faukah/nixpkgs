@@ -6,7 +6,6 @@
   kubeone,
   testers,
 }:
-
 buildGoModule rec {
   pname = "kubeone";
   version = "1.10.0";
@@ -47,6 +46,6 @@ buildGoModule rec {
     homepage = "https://kubeone.io/";
     changelog = "https://github.com/kubermatic/kubeone/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ lblasc ];
+    maintainers = with lib.maintainers; [lblasc];
   };
 }

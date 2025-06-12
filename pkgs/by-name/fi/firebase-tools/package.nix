@@ -7,7 +7,6 @@
   xcbuild,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "firebase-tools";
   version = "14.6.0";
@@ -35,7 +34,7 @@ buildNpmPackage rec {
 
   env.PUPPETEER_SKIP_DOWNLOAD = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/firebase/firebase-tools/blob/v${version}/CHANGELOG.md";

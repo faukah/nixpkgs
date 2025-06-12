@@ -8,7 +8,6 @@
   httpx,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "wn";
   version = "0.11.0";
@@ -21,26 +20,26 @@ buildPythonPackage rec {
     hash = "sha256-TDvTNh+5cxgBoy9nuXItHOdtfbsP+3F16egZjUBSpak=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     httpx
     tomli
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "wn" ];
+  pythonImportsCheck = ["wn"];
 
   meta = with lib; {
     description = "Modern, interlingual wordnet interface for Python";
     homepage = "https://github.com/goodmami/wn";
     changelog = "https://github.com/goodmami/wn/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

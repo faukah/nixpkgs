@@ -15,7 +15,6 @@
   libpng,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "freedroid";
   version = "1.2.1";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     mainProgram = "freedroid";
     homepage = "https://github.com/ReinhardPrix/FreedroidClassic";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ iblech ];
+    maintainers = with maintainers; [iblech];
     platforms = platforms.unix;
     # Builds but fails to render to the screen at runtime.
     broken = stdenv.hostPlatform.isDarwin;

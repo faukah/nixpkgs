@@ -6,7 +6,6 @@
   pytest,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-check";
   version = "2.5.3";
@@ -18,19 +17,19 @@ buildPythonPackage rec {
     hash = "sha256-I1fX33fDldMMDElXck/fzhp16ovJ6yMIwP/lb2KscMo=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_check" ];
+  pythonImportsCheck = ["pytest_check"];
 
   meta = with lib; {
     description = "pytest plugin allowing multiple failures per test";
     homepage = "https://github.com/okken/pytest-check";
     changelog = "https://github.com/okken/pytest-check/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

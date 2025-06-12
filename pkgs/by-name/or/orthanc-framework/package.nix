@@ -6,10 +6,10 @@
   icu,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "orthanc-framework";
-  inherit (orthanc)
+  inherit
+    (orthanc)
     src
     version
     nativeBuildInputs
@@ -19,9 +19,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/OrthancFramework/SharedLibrary";
 
-  buildInputs = orthanc.buildInputs ++ [
-    icu
-  ];
+  buildInputs =
+    orthanc.buildInputs
+    ++ [
+      icu
+    ];
 
   NIX_LDFLAGS = lib.strings.concatStringsSep " " [
     "-L${lib.getLib zlib}"
@@ -34,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "SDK for building Orthanc plugins and related applications";
     homepage = "https://www.orthanc-server.com/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     platforms = lib.platforms.linux;
   };
 })

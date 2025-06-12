@@ -26,7 +26,6 @@
   pywinrm,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "ansible-core";
   version = "2.18.6";
@@ -64,32 +63,34 @@ buildPythonPackage rec {
     docutils
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    # depend on ansible instead of the other way around
-    ansible
-    # from requirements.txt
-    cryptography
-    jinja2
-    packaging
-    pyyaml
-    resolvelib
-    # optional dependencies
-    junit-xml
-    lxml
-    ncclient
-    paramiko
-    ansible-pylibssh
-    pexpect
-    psutil
-    pycrypto
-    requests
-    scp
-    xmltodict
-  ] ++ lib.optionals windowsSupport [ pywinrm ];
+  dependencies =
+    [
+      # depend on ansible instead of the other way around
+      ansible
+      # from requirements.txt
+      cryptography
+      jinja2
+      packaging
+      pyyaml
+      resolvelib
+      # optional dependencies
+      junit-xml
+      lxml
+      ncclient
+      paramiko
+      ansible-pylibssh
+      pexpect
+      psutil
+      pycrypto
+      requests
+      scp
+      xmltodict
+    ]
+    ++ lib.optionals windowsSupport [pywinrm];
 
-  pythonRelaxDeps = [ "resolvelib" ];
+  pythonRelaxDeps = ["resolvelib"];
 
   postInstall = ''
     export HOME="$(mktemp -d)"
@@ -105,6 +106,6 @@ buildPythonPackage rec {
     description = "Radically simple IT automation";
     homepage = "https://www.ansible.com";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

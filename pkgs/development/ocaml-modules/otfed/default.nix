@@ -8,7 +8,6 @@
   uutf,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "otfed";
   version = "0.3.1";
@@ -42,6 +41,6 @@ buildDunePackage rec {
     homepage = "https://github.com/gfngfn/otfed";
     description = "OpenType Font Format Encoder & Decoder";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

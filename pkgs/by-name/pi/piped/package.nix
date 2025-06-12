@@ -5,7 +5,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 buildNpmPackage rec {
   pname = "piped";
   version = "0-unstable-2024-11-04";
@@ -31,13 +30,12 @@ buildNpmPackage rec {
     hash = "sha256-WtZfRZFRV9I1iBlAoV69GGFjdiQhTSBG/iiEadPVcys=";
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://github.com/TeamPiped/Piped";
     description = "Efficient and privacy-friendly YouTube frontend";
-    maintainers = [ lib.maintainers.lucasew ];
-    license = [ lib.licenses.agpl3Plus ];
+    maintainers = [lib.maintainers.lucasew];
+    license = [lib.licenses.agpl3Plus];
   };
-
 }

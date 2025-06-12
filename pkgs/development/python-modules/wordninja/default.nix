@@ -6,7 +6,6 @@
   setuptools-scm,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "wordninja";
   version = "2.0.0";
@@ -23,12 +22,12 @@ buildPythonPackage rec {
     wheel
   ];
 
-  pythonImportsCheck = [ "wordninja" ];
+  pythonImportsCheck = ["wordninja"];
 
   meta = {
     description = "Probabilistically split concatenated words using NLP based on English Wikipedia unigram frequencies";
     homepage = "https://github.com/keredson/wordninja";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
   };
 }

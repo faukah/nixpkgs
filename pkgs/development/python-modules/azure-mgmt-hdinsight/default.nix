@@ -7,7 +7,6 @@
   msrest,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-hdinsight";
   version = "9.0.0";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -30,7 +29,7 @@ buildPythonPackage rec {
   # no tests included
   doCheck = false;
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
   pythonImportsCheck = [
     "azure.mgmt.hdinsight"
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/hdinsight/azure-mgmt-hdinsight";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-mgmt-hdinsight_${version}/sdk/hdinsight/azure-mgmt-hdinsight/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdaemon";
   version = "0.14";
@@ -19,13 +18,17 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  patches = [ ./fix-includes.patch ];
+  patches = [./fix-includes.patch];
 
   configureFlags =
-    [ "--disable-lynx" ]
+    ["--disable-lynx"]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # Can't run this test while cross-compiling
-      "ac_cv_func_setpgrp_void=${if stdenv.hostPlatform.isBSD then "no" else "yes"}"
+      "ac_cv_func_setpgrp_void=${
+        if stdenv.hostPlatform.isBSD
+        then "no"
+        else "yes"
+      }"
     ];
 
   meta = {

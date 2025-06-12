@@ -6,7 +6,6 @@
   mlkit,
   futhark,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "smlfut";
   version = "1.6.4";
@@ -20,11 +19,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ mlton ];
+  nativeBuildInputs = [mlton];
 
   env.MLCOMP = "mlton";
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   doCheck = true;
 
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/diku-dk/smlfut";
     license = licenses.gpl3Plus;
     platforms = mlton.meta.platforms;
-    maintainers = with maintainers; [ athas ];
+    maintainers = with maintainers; [athas];
     mainProgram = "smlfut";
   };
 })

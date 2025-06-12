@@ -5,7 +5,6 @@
   fetchFromGitHub,
   jq,
 }:
-
 mkYarnPackage rec {
   name = "awk-language-server";
   version = "0.10.6";
@@ -15,7 +14,7 @@ mkYarnPackage rec {
     repo = "awk-language-server";
     rev = "server-${version}";
     hash = "sha256-YtduDfMAUAoQY9tgyhgERFwx9TEgD52KdeHnX2MrjjI=";
-    sparseCheckout = [ "server" ];
+    sparseCheckout = ["server"];
     postFetch = ''
       # combine both yarn lock files
       tail -n+4 $out/server/yarn.lock >> $out/yarn.lock
@@ -61,7 +60,7 @@ mkYarnPackage rec {
     description = "Language Server for AWK and associated VSCode client extension";
     homepage = "https://github.com/Beaglefoot/awk-language-server";
     license = licenses.mit;
-    maintainers = with maintainers; [ mathiassven ];
+    maintainers = with maintainers; [mathiassven];
     mainProgram = "awk-language-server";
   };
 }

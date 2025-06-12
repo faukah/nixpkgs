@@ -3,7 +3,6 @@
   fetchurl,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   minimalOCamlVersion = "4.07";
   pname = "eqaf";
@@ -18,7 +17,6 @@ buildDunePackage rec {
     description = "Constant time equal function to avoid timing attacks in OCaml";
     homepage = "https://github.com/mirage/eqaf";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

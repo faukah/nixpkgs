@@ -3,7 +3,6 @@
   stdenv,
   fetchFromBitbucket,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sowing";
   version = "1.1.26.12";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Tools for documenting and improving portability";
     homepage = "https://wgropp.cs.illinois.edu/projects/software/sowing/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
     platforms = lib.platforms.unix;
   };
 })

@@ -11,7 +11,6 @@
   libxfce4ui,
   libxslt,
 }:
-
 mkXfceDerivation {
   category = "apps";
   pname = "xfburn";
@@ -39,6 +38,6 @@ mkXfceDerivation {
   meta = with lib; {
     description = "Disc burner and project creator for Xfce";
     mainProgram = "xfburn";
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

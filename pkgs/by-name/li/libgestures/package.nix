@@ -6,7 +6,6 @@
   glib,
   jsoncpp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgestures";
   version = "2.0.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "0dfvads2adzx4k8cqc1rbwrk1jm2wn9wl2jk51m26xxpmh1g0zab";
   };
-  patches = [ ./include-fix.patch ];
+  patches = [./include-fix.patch];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
       --replace '$(DESTDIR)/usr/include' '$(DESTDIR)/include'
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     jsoncpp
@@ -40,6 +39,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     platforms = platforms.linux;
     homepage = "https://chromium.googlesource.com/chromiumos/platform/gestures";
-    maintainers = with maintainers; [ kcalvinalvin ];
+    maintainers = with maintainers; [kcalvinalvin];
   };
 }

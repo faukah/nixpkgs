@@ -8,7 +8,6 @@
   glib,
   libusb1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libticables2";
   version = "1.3.5";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
     description = "This library is part of the TiLP framework";
     homepage = "http://lpg.ticalc.org/prj_tilp/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = with platforms; linux ++ darwin;
   };
 }

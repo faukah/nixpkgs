@@ -5,7 +5,6 @@
   testers,
   mockgen,
 }:
-
 buildGoModule rec {
   pname = "mockgen";
   version = "0.5.2";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   env.CGO_ENABLED = 0;
 
-  subPackages = [ "mockgen" ];
+  subPackages = ["mockgen"];
 
   ldflags = [
     "-X=main.version=${version}"
@@ -44,7 +43,7 @@ buildGoModule rec {
     homepage = "https://github.com/uber-go/mock";
     changelog = "https://github.com/uber-go/mock/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bouk ];
+    maintainers = with lib.maintainers; [bouk];
     mainProgram = "mockgen";
   };
 }

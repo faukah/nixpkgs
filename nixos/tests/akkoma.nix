@@ -4,26 +4,24 @@
   pkgs,
   confined ? false,
   ...
-}:
-let
-  inherit ((pkgs.formats.elixirConf { }).lib) mkRaw;
+}: let
+  inherit ((pkgs.formats.elixirConf {}).lib) mkRaw;
 
   package = pkgs.akkoma;
 
-  tlsCert =
-    names:
+  tlsCert = names:
     pkgs.runCommand "certificates-${lib.head names}"
-      {
-        nativeBuildInputs = with pkgs; [ openssl ];
-      }
-      ''
-        mkdir -p $out
-        openssl req -x509 \
-          -subj '/CN=${lib.head names}/' -days 49710 \
-          -addext 'subjectAltName = ${lib.concatStringsSep ", " (map (name: "DNS:${name}") names)}' \
-          -keyout "$out/key.pem" -newkey ed25519 \
-          -out "$out/cert.pem" -noenc
-      '';
+    {
+      nativeBuildInputs = with pkgs; [openssl];
+    }
+    ''
+      mkdir -p $out
+      openssl req -x509 \
+        -subj '/CN=${lib.head names}/' -days 49710 \
+        -addext 'subjectAltName = ${lib.concatStringsSep ", " (map (name: "DNS:${name}") names)}' \
+        -keyout "$out/key.pem" -newkey ed25519 \
+        -out "$out/cert.pem" -noenc
+    '';
 
   tlsCertA = tlsCert [
     "akkoma-a.nixos.test"
@@ -35,13 +33,13 @@ let
     "media.akkoma-b.nixos.test"
   ];
 
-  testMedia = pkgs.runCommand "blank.png" { nativeBuildInputs = with pkgs; [ imagemagick ]; } ''
+  testMedia = pkgs.runCommand "blank.png" {nativeBuildInputs = with pkgs; [imagemagick];} ''
     magick -size 640x480 canvas:transparent "PNG8:$out"
   '';
 
   checkFe = pkgs.writeShellApplication {
     name = "checkFe";
-    runtimeInputs = with pkgs; [ curl ];
+    runtimeInputs = with pkgs; [curl];
     text = ''
       paths=( / /static/{config,styles}.json /pleroma/admin/ )
 
@@ -53,129 +51,118 @@ let
     '';
   };
 
-  commonConfig =
-    { nodes, ... }:
-    {
-      security.pki.certificateFiles = [
-        "${tlsCertA}/cert.pem"
-        "${tlsCertB}/cert.pem"
-      ];
+  commonConfig = {nodes, ...}: {
+    security.pki.certificateFiles = [
+      "${tlsCertA}/cert.pem"
+      "${tlsCertB}/cert.pem"
+    ];
 
-      networking.extraHosts = ''
-        ${nodes.akkoma-a.networking.primaryIPAddress} akkoma-a.nixos.test media.akkoma-a.nixos.test
-        ${nodes.akkoma-b.networking.primaryIPAddress} akkoma-b.nixos.test media.akkoma-b.nixos.test
-        ${nodes.client-a.networking.primaryIPAddress} client-a.nixos.test
-        ${nodes.client-b.networking.primaryIPAddress} client-b.nixos.test
-      '';
+    networking.extraHosts = ''
+      ${nodes.akkoma-a.networking.primaryIPAddress} akkoma-a.nixos.test media.akkoma-a.nixos.test
+      ${nodes.akkoma-b.networking.primaryIPAddress} akkoma-b.nixos.test media.akkoma-b.nixos.test
+      ${nodes.client-a.networking.primaryIPAddress} client-a.nixos.test
+      ${nodes.client-b.networking.primaryIPAddress} client-b.nixos.test
+    '';
+  };
+
+  clientConfig = {pkgs, ...}: {
+    environment = {
+      sessionVariables = {
+        REQUESTS_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt";
+      };
+      systemPackages = with pkgs; [toot];
+    };
+  };
+
+  serverConfig = {
+    config,
+    pkgs,
+    ...
+  }: {
+    networking = {
+      domain = "nixos.test";
+      firewall.allowedTCPPorts = [443];
     };
 
-  clientConfig =
-    { pkgs, ... }:
-    {
-      environment = {
-        sessionVariables = {
-          REQUESTS_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt";
-        };
-        systemPackages = with pkgs; [ toot ];
-      };
-    };
+    systemd.services.akkoma.confinement.enable = confined;
 
-  serverConfig =
-    { config, pkgs, ... }:
-    {
-      networking = {
-        domain = "nixos.test";
-        firewall.allowedTCPPorts = [ 443 ];
-      };
-
-      systemd.services.akkoma.confinement.enable = confined;
-
-      services.akkoma = {
-        enable = true;
-        inherit package;
-        config = {
-          ":pleroma" = {
-            ":instance" = {
-              name = "NixOS test Akkoma server";
-              description = "NixOS test Akkoma server";
-              email = "akkoma@nixos.test";
-              notify_email = "akkoma@nixos.test";
-              registration_open = true;
-            };
-
-            ":media_proxy" = {
-              enabled = false;
-            };
-
-            "Pleroma.Web.Endpoint" = {
-              url.host = config.networking.fqdn;
-            };
-
-            "Pleroma.Upload" = {
-              base_url = "https://media.${config.networking.fqdn}/media/";
-            };
-
-            # disable certificate verification until we figure out how to
-            # supply our own certificates
-            ":http".adapter.pools = mkRaw "%{default: [conn_opts: [transport_opts: [verify: :verify_none]]]}";
+    services.akkoma = {
+      enable = true;
+      inherit package;
+      config = {
+        ":pleroma" = {
+          ":instance" = {
+            name = "NixOS test Akkoma server";
+            description = "NixOS test Akkoma server";
+            email = "akkoma@nixos.test";
+            notify_email = "akkoma@nixos.test";
+            registration_open = true;
           };
-        };
 
-        nginx.addSSL = true;
+          ":media_proxy" = {
+            enabled = false;
+          };
+
+          "Pleroma.Web.Endpoint" = {
+            url.host = config.networking.fqdn;
+          };
+
+          "Pleroma.Upload" = {
+            base_url = "https://media.${config.networking.fqdn}/media/";
+          };
+
+          # disable certificate verification until we figure out how to
+          # supply our own certificates
+          ":http".adapter.pools = mkRaw "%{default: [conn_opts: [transport_opts: [verify: :verify_none]]]}";
+        };
       };
 
-      services.nginx.enable = true;
-      services.postgresql.enable = true;
+      nginx.addSSL = true;
     };
-in
-{
+
+    services.nginx.enable = true;
+    services.postgresql.enable = true;
+  };
+in {
   name = "akkoma";
   nodes = {
-    client-a =
-      { ... }:
-      {
-        imports = [
-          clientConfig
-          commonConfig
-        ];
+    client-a = {...}: {
+      imports = [
+        clientConfig
+        commonConfig
+      ];
+    };
+
+    client-b = {...}: {
+      imports = [
+        clientConfig
+        commonConfig
+      ];
+    };
+
+    akkoma-a = {...}: {
+      imports = [
+        commonConfig
+        serverConfig
+      ];
+
+      services.akkoma.nginx = {
+        sslCertificate = "${tlsCertA}/cert.pem";
+        sslCertificateKey = "${tlsCertA}/key.pem";
       };
+    };
 
-    client-b =
-      { ... }:
-      {
-        imports = [
-          clientConfig
-          commonConfig
-        ];
+    akkoma-b = {...}: {
+      imports = [
+        commonConfig
+        serverConfig
+      ];
+
+      services.akkoma.nginx = {
+        sslCertificate = "${tlsCertB}/cert.pem";
+        sslCertificateKey = "${tlsCertB}/key.pem";
       };
-
-    akkoma-a =
-      { ... }:
-      {
-        imports = [
-          commonConfig
-          serverConfig
-        ];
-
-        services.akkoma.nginx = {
-          sslCertificate = "${tlsCertA}/cert.pem";
-          sslCertificateKey = "${tlsCertA}/key.pem";
-        };
-      };
-
-    akkoma-b =
-      { ... }:
-      {
-        imports = [
-          commonConfig
-          serverConfig
-        ];
-
-        services.akkoma.nginx = {
-          sslCertificate = "${tlsCertB}/cert.pem";
-          sslCertificateKey = "${tlsCertB}/key.pem";
-        };
-      };
+    };
   };
 
   testScript = ''

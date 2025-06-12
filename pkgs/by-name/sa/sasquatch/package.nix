@@ -9,9 +9,7 @@
   zlib,
   zstd,
   bigEndian ? false,
-}:
-
-let
+}: let
   drv = stdenv.mkDerivation (finalAttrs: {
     pname = "sasquatch";
     version = "4.5.1-5";
@@ -26,7 +24,7 @@ let
     patches = lib.optional stdenv.hostPlatform.isDarwin ./darwin.patch;
 
     strictDeps = true;
-    nativeBuildInputs = [ which ];
+    nativeBuildInputs = [which];
     buildInputs = [
       zlib
       xz
@@ -64,10 +62,13 @@ let
       homepage = "https://github.com/onekey-sec/sasquatch";
       description = "Set of patches to the standard unsquashfs utility (part of squashfs-tools) that attempts to add support for as many hacked-up vendor-specific SquashFS implementations as possible";
       license = lib.licenses.gpl2Plus;
-      maintainers = with lib.maintainers; [ vlaci ];
+      maintainers = with lib.maintainers; [vlaci];
       platforms = lib.platforms.unix;
-      mainProgram = if bigEndian then "sasquatch-v4be" else "sasquatch";
+      mainProgram =
+        if bigEndian
+        then "sasquatch-v4be"
+        else "sasquatch";
     };
   });
 in
-drv
+  drv

@@ -13,8 +13,7 @@
   makeWrapper,
   runCommand,
   cacert,
-}:
-let
+}: let
   inherit (stdenv.hostPlatform) system;
 
   throwSystem = throw "Unsupported system: ${system}";
@@ -25,7 +24,9 @@ let
       x86_64-darwin = "mac";
       aarch64-darwin = "mac-arm64";
     }
-    .${system} or throwSystem;
+    .${
+      system
+    } or throwSystem;
 
   version = "1.52.0";
 
@@ -171,7 +172,7 @@ let
 
     passthru = {
       browsersJSON = (lib.importJSON ./browsers.json).browsers;
-      browsers = browsers { };
+      browsers = browsers {};
       browsers-chromium = browsers {
         withFirefox = false;
         withWebkit = false;
@@ -185,7 +186,7 @@ let
     pname = "playwright-test";
     inherit (playwright) version src;
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
     installPhase = ''
       runHook preInstall
 
@@ -201,9 +202,11 @@ let
       runHook postInstall
     '';
 
-    meta = playwright.meta // {
-      mainProgram = "playwright";
-    };
+    meta =
+      playwright.meta
+      // {
+        mainProgram = "playwright";
+      };
   });
 
   components = {
@@ -211,7 +214,7 @@ let
       inherit suffix system throwSystem;
       inherit (playwright-core.passthru.browsersJSON.chromium) revision;
       fontconfig_file = makeFontsConf {
-        fontDirectories = [ ];
+        fontDirectories = [];
       };
     };
     chromium-headless-shell = callPackage ./chromium-headless-shell.nix {
@@ -239,36 +242,38 @@ let
       withWebkit ? true, # may require `export PLAYWRIGHT_HOST_PLATFORM_OVERRIDE="ubuntu-24.04"`
       withFfmpeg ? true,
       withChromiumHeadlessShell ? true,
-      fontconfig_file ? makeFontsConf {
-        fontDirectories = [ ];
-      },
-    }:
-    let
+      fontconfig_file ?
+        makeFontsConf {
+          fontDirectories = [];
+        },
+    }: let
       browsers =
-        lib.optionals withChromium [ "chromium" ]
-        ++ lib.optionals withChromiumHeadlessShell [ "chromium-headless-shell" ]
-        ++ lib.optionals withFirefox [ "firefox" ]
-        ++ lib.optionals withWebkit [ "webkit" ]
-        ++ lib.optionals withFfmpeg [ "ffmpeg" ];
+        lib.optionals withChromium ["chromium"]
+        ++ lib.optionals withChromiumHeadlessShell ["chromium-headless-shell"]
+        ++ lib.optionals withFirefox ["firefox"]
+        ++ lib.optionals withWebkit ["webkit"]
+        ++ lib.optionals withFfmpeg ["ffmpeg"];
     in
-    linkFarm "playwright-browsers" (
-      lib.listToAttrs (
-        map (
-          name:
-          let
-            revName = if name == "chromium-headless-shell" then "chromium" else name;
-            value = playwright-core.passthru.browsersJSON.${revName};
-          in
-          lib.nameValuePair
-            # TODO check platform for revisionOverrides
-            "${lib.replaceStrings [ "-" ] [ "_" ] name}-${value.revision}"
-            components.${name}
-        ) browsers
+      linkFarm "playwright-browsers" (
+        lib.listToAttrs (
+          map (
+            name: let
+              revName =
+                if name == "chromium-headless-shell"
+                then "chromium"
+                else name;
+              value = playwright-core.passthru.browsersJSON.${revName};
+            in
+              lib.nameValuePair
+              # TODO check platform for revisionOverrides
+              "${lib.replaceStrings ["-"] ["_"] name}-${value.revision}"
+              components.${name}
+          )
+          browsers
+        )
       )
-    )
   );
-in
-{
+in {
   playwright-core = playwright-core;
   playwright-test = playwright-test;
 }

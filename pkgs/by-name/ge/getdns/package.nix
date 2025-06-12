@@ -8,10 +8,8 @@
   openssl,
   unbound,
   yq,
-
   enableStubOnly ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "getdns";
   version = "1.7.3";
@@ -33,12 +31,14 @@ stdenv.mkDerivation (finalAttrs: {
     doxygen
   ];
 
-  buildInputs = [
-    libidn2
-    openssl
-  ] ++ lib.optional (!enableStubOnly) unbound;
+  buildInputs =
+    [
+      libidn2
+      openssl
+    ]
+    ++ lib.optional (!enableStubOnly) unbound;
 
-  cmakeFlags = [ (lib.strings.cmakeBool "ENABLE_STUB_ONLY" enableStubOnly) ];
+  cmakeFlags = [(lib.strings.cmakeBool "ENABLE_STUB_ONLY" enableStubOnly)];
 
   # https://github.com/getdnsapi/getdns/issues/517
   postPatch = ''

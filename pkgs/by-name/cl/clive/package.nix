@@ -20,8 +20,8 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-ljjSopfKGSotJx52SScl7KwFyKbFF9uxQMODjuZH4vc=";
-  subPackages = [ "." ];
-  buildInputs = [ ttyd ];
+  subPackages = ["."];
+  buildInputs = [ttyd];
   nativeBuildInputs = [
     installShellFiles
     makeWrapper
@@ -39,18 +39,18 @@ buildGoModule rec {
       --zsh <($out/bin/clive completion zsh)
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doinstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Automates terminal operations";
     homepage = "https://github.com/koki-develop/clive";
     changelog = "https://github.com/koki-develop/clive/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ misilelab ];
+    maintainers = with lib.maintainers; [misilelab];
     mainProgram = "clive";
   };
 }

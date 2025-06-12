@@ -38,12 +38,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     unlink $out/lib/node_modules/coc-diagnostic/node_modules/.bin/node-which
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "diagnostic-languageserver extension for coc.nvim";
     homepage = "https://github.com/iamcco/coc-diagnostic";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 })

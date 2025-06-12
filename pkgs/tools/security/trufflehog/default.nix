@@ -5,7 +5,6 @@
   versionCheckHook,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "trufflehog";
   version = "3.89.1";
@@ -19,11 +18,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-Zum9Clc7yL81QT6dA6sjLV2HmB5Why76fmooSSAo63Y=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   proxyVendor = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   ldflags = [
     "-s"
@@ -48,7 +47,7 @@ buildGoModule rec {
     description = "Find credentials all over the place";
     homepage = "https://github.com/trufflesecurity/trufflehog";
     changelog = "https://github.com/trufflesecurity/trufflehog/releases/tag/v${version}";
-    license = with licenses; [ agpl3Only ];
+    license = with licenses; [agpl3Only];
     maintainers = with maintainers; [
       fab
       sarcasticadmin

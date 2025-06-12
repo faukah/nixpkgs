@@ -1,8 +1,6 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "echoip";
-  meta.maintainers = with lib.maintainers; [ defelo ];
+  meta.maintainers = with lib.maintainers; [defelo];
 
   nodes.machine = {
     services.echoip = {
@@ -11,8 +9,8 @@
     };
 
     networking.hosts = {
-      "127.0.0.1" = [ "echoip.local" ];
-      "::1" = [ "echoip.local" ];
+      "127.0.0.1" = ["echoip.local"];
+      "::1" = ["echoip.local"];
     };
   };
 

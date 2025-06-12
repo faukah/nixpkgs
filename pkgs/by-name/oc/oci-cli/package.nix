@@ -4,9 +4,7 @@
   python3,
   installShellFiles,
   nix-update-script,
-}:
-
-let
+}: let
   py = python3.override {
     self = py;
     packageOverrides = self: super: {
@@ -22,89 +20,88 @@ let
     };
   };
 in
+  py.pkgs.buildPythonApplication rec {
+    pname = "oci-cli";
+    version = "3.56.1";
+    format = "setuptools";
 
-py.pkgs.buildPythonApplication rec {
-  pname = "oci-cli";
-  version = "3.56.1";
-  format = "setuptools";
+    src = fetchFromGitHub {
+      owner = "oracle";
+      repo = "oci-cli";
+      tag = "v${version}";
+      hash = "sha256-KvyhQ8MM74MYR8gf18XVYZrOSEKcOqdmyITg2UyNqp8=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "oracle";
-    repo = "oci-cli";
-    tag = "v${version}";
-    hash = "sha256-KvyhQ8MM74MYR8gf18XVYZrOSEKcOqdmyITg2UyNqp8=";
-  };
+    nativeBuildInputs = [installShellFiles];
 
-  nativeBuildInputs = [ installShellFiles ];
-
-  propagatedBuildInputs = with py.pkgs; [
-    arrow
-    certifi
-    click
-    cryptography
-    jmespath
-    oci
-    prompt-toolkit
-    pyopenssl
-    python-dateutil
-    pytz
-    pyyaml
-    retrying
-    six
-    terminaltables
-  ];
-
-  pythonRelaxDeps = [
-    "PyYAML"
-    "cryptography"
-    "oci"
-    "prompt-toolkit"
-    "pyOpenSSL"
-    "terminaltables"
-  ];
-
-  # Propagating dependencies leaks them through $PYTHONPATH which causes issues
-  # when used in nix-shell.
-  postFixup = ''
-    rm $out/nix-support/propagated-build-inputs
-  '';
-
-  postInstall = ''
-    cat >oci.zsh <<EOF
-    #compdef oci
-    zmodload -i zsh/parameter
-    autoload -U +X bashcompinit && bashcompinit
-    if ! (( $+functions[compdef] )) ; then
-        autoload -U +X compinit && compinit
-    fi
-
-    EOF
-    cat src/oci_cli/bin/oci_autocomplete.sh >>oci.zsh
-
-    installShellCompletion \
-      --cmd oci \
-      --bash src/oci_cli/bin/oci_autocomplete.sh \
-      --zsh oci.zsh
-  '';
-
-  doCheck = true;
-
-  pythonImportsCheck = [
-    "oci_cli"
-  ];
-
-  passthru.updateScript = nix-update-script { };
-
-  meta = with lib; {
-    description = "Command Line Interface for Oracle Cloud Infrastructure";
-    homepage = "https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm";
-    license = with licenses; [
-      asl20 # or
-      upl
+    propagatedBuildInputs = with py.pkgs; [
+      arrow
+      certifi
+      click
+      cryptography
+      jmespath
+      oci
+      prompt-toolkit
+      pyopenssl
+      python-dateutil
+      pytz
+      pyyaml
+      retrying
+      six
+      terminaltables
     ];
-    maintainers = with maintainers; [
-      ilian
-      FKouhai
+
+    pythonRelaxDeps = [
+      "PyYAML"
+      "cryptography"
+      "oci"
+      "prompt-toolkit"
+      "pyOpenSSL"
+      "terminaltables"
     ];
-  };
-}
+
+    # Propagating dependencies leaks them through $PYTHONPATH which causes issues
+    # when used in nix-shell.
+    postFixup = ''
+      rm $out/nix-support/propagated-build-inputs
+    '';
+
+    postInstall = ''
+      cat >oci.zsh <<EOF
+      #compdef oci
+      zmodload -i zsh/parameter
+      autoload -U +X bashcompinit && bashcompinit
+      if ! (( $+functions[compdef] )) ; then
+          autoload -U +X compinit && compinit
+      fi
+
+      EOF
+      cat src/oci_cli/bin/oci_autocomplete.sh >>oci.zsh
+
+      installShellCompletion \
+        --cmd oci \
+        --bash src/oci_cli/bin/oci_autocomplete.sh \
+        --zsh oci.zsh
+    '';
+
+    doCheck = true;
+
+    pythonImportsCheck = [
+      "oci_cli"
+    ];
+
+    passthru.updateScript = nix-update-script {};
+
+    meta = with lib; {
+      description = "Command Line Interface for Oracle Cloud Infrastructure";
+      homepage = "https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm";
+      license = with licenses; [
+        asl20 # or
+        upl
+      ];
+      maintainers = with maintainers; [
+        ilian
+        FKouhai
+      ];
+    };
+  }

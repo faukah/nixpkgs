@@ -3,18 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.rmfakecloud;
   serviceDataDir = "/var/lib/rmfakecloud";
-
-in
-{
+in {
   options = {
     services.rmfakecloud = {
       enable = lib.mkEnableOption "rmfakecloud remarkable self-hosted cloud";
 
-      package = lib.mkPackageOption pkgs "rmfakecloud" { };
+      package = lib.mkPackageOption pkgs "rmfakecloud" {};
 
       storageUrl = lib.mkOption {
         type = lib.types.str;
@@ -47,7 +44,7 @@ in
 
       extraSettings = lib.mkOption {
         type = with lib.types; attrsOf str;
-        default = { };
+        default = {};
         example = {
           DATADIR = "/custom/path/for/rmfakecloud/data";
         };
@@ -79,11 +76,13 @@ in
     systemd.services.rmfakecloud = {
       description = "rmfakecloud remarkable self-hosted cloud";
 
-      environment = {
-        STORAGE_URL = cfg.storageUrl;
-        PORT = toString cfg.port;
-        LOGLEVEL = cfg.logLevel;
-      } // cfg.extraSettings;
+      environment =
+        {
+          STORAGE_URL = cfg.storageUrl;
+          PORT = toString cfg.port;
+          LOGLEVEL = cfg.logLevel;
+        }
+        // cfg.extraSettings;
 
       preStart = ''
         # Generate the secret key used to sign client session tokens.
@@ -102,9 +101,9 @@ in
         ${cfg.package}/bin/rmfakecloud
       '';
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -112,7 +111,7 @@ in
 
         EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
 
-        AmbientCapabilities = lib.mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = lib.mkIf (cfg.port < 1024) ["CAP_NET_BIND_SERVICE"];
 
         DynamicUser = true;
         PrivateDevices = true;
@@ -120,7 +119,7 @@ in
         ProtectKernelTunables = true;
         ProtectKernelModules = true;
         ProtectControlGroups = true;
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DevicePolicy = "closed";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -145,5 +144,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ euxane ];
+  meta.maintainers = with lib.maintainers; [euxane];
 }

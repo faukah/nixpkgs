@@ -1,8 +1,6 @@
 # This module provides configuration for the OATH PAM modules.
-{ lib, ... }:
-{
+{lib, ...}: {
   options = {
-
     security.pam.oath = {
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -45,6 +43,5 @@
         '';
       };
     };
-
   };
 }

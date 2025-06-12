@@ -1,20 +1,16 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   name = "power-profiles-daemon";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ mvnetbiz ];
+    maintainers = [mvnetbiz];
   };
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      security.polkit.enable = true;
-      services.power-profiles-daemon.enable = true;
-      environment.systemPackages = [
-        pkgs.glib
-        pkgs.power-profiles-daemon
-      ];
-    };
+  nodes.machine = {pkgs, ...}: {
+    security.polkit.enable = true;
+    services.power-profiles-daemon.enable = true;
+    environment.systemPackages = [
+      pkgs.glib
+      pkgs.power-profiles-daemon
+    ];
+  };
 
   testScript = ''
     def get_profile():

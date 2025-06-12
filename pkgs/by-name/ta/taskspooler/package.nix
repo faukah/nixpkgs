@@ -5,7 +5,6 @@
   makeWrapper,
   coreutils,
 }:
-
 stdenv.mkDerivation {
   pname = "taskspooler";
   version = "1.0.1";
@@ -15,7 +14,7 @@ stdenv.mkDerivation {
     sha256 = "11i21s8sdmjl4gy5f3dyfsxsmg1japgs4r5ym0b3jdyp99xhpbl1";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -31,7 +30,7 @@ stdenv.mkDerivation {
     description = "Simple single node task scheduler";
     homepage = "https://vicerveza.homeunix.net/~viric/wsgi-bin/hgweb.wsgi/ts";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
     mainProgram = "ts";
     platforms = platforms.unix;
   };

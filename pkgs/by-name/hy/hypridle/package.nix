@@ -15,7 +15,6 @@
   systemdLibs,
   nix-update-script,
 }:
-
 gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "hypridle";
   version = "0.1.6";
@@ -46,7 +45,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -56,7 +55,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [
       iogamaster
     ];
-    teams = [ lib.teams.hyprland ];
+    teams = [lib.teams.hyprland];
     mainProgram = "hypridle";
     platforms = [
       "aarch64-linux"

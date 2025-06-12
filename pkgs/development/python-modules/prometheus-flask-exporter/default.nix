@@ -6,7 +6,6 @@
   prometheus-client,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "prometheus-flask-exporter";
   version = "0.22.4";
@@ -24,13 +23,13 @@ buildPythonPackage rec {
     prometheus-client
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pytestFlagsArray = [ "tests/" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pytestFlagsArray = ["tests/"];
 
   meta = with lib; {
     description = "Prometheus exporter for Flask applications";
     homepage = "https://github.com/rycus86/prometheus_flask_exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ lbpdt ];
+    maintainers = with maintainers; [lbpdt];
   };
 }

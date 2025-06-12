@@ -7,17 +7,12 @@
   topkg,
   ocamlbuild,
   cmdliner,
-}:
-
-let
-
+}: let
 in
-lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
+  lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
   "b0 is not available for OCaml ${ocaml.version}"
-
   stdenv.mkDerivation
   rec {
-
     pname = "ocaml${ocaml.version}-b0";
     version = "0.0.5";
 
@@ -60,6 +55,6 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       homepage = "https://erratique.ch/software/b0";
       inherit (ocaml.meta) platforms;
       license = licenses.isc;
-      maintainers = [ maintainers.Julow ];
+      maintainers = [maintainers.Julow];
     };
   }

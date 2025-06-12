@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "notifications-android-tv";
   version = "1.2.2";
@@ -23,15 +22,15 @@ buildPythonPackage rec {
     hash = "sha256-JUvxxVCiQtywAWU5AYnPm4SueIWIXkzLxPYveVXpc2E=";
   };
 
-  pythonRelaxDeps = [ "httpx" ];
+  pythonRelaxDeps = ["httpx"];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ httpx ];
+  propagatedBuildInputs = [httpx];
 
-  pythonImportsCheck = [ "notifications_android_tv" ];
+  pythonImportsCheck = ["notifications_android_tv"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   checkInputs = [
     pytest-asyncio
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/engrbm87/notifications_android_tv";
     changelog = "https://github.com/engrbm87/notifications_android_tv/blob/${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dominikh ];
+    maintainers = with maintainers; [dominikh];
   };
 }

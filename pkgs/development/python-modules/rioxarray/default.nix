@@ -2,24 +2,20 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   numpy,
   packaging,
   pyproj,
   rasterio,
   xarray,
-
   # tests
   dask,
   netcdf4,
   pytestCheckHook,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "rioxarray";
   version = "0.19.0";
@@ -32,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-tNcBuMyBVDVPbmujfn4WauquutOEn727lxcR19hfyuE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -64,13 +60,13 @@ buildPythonPackage rec {
       "test_open_rasterio_mask_chunk_clip"
     ];
 
-  pythonImportsCheck = [ "rioxarray" ];
+  pythonImportsCheck = ["rioxarray"];
 
   meta = {
     description = "Geospatial xarray extension powered by rasterio";
     homepage = "https://corteva.github.io/rioxarray/";
     changelog = "https://github.com/corteva/rioxarray/releases/tag/${version}";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

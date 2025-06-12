@@ -9,7 +9,6 @@
   inputstream-adaptive,
   inputstreamhelper,
 }:
-
 buildKodiAddon rec {
   pname = "invidious";
   namespace = "plugin.video.invidious";
@@ -38,6 +37,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/petterreinholdtsen/kodi-invidious-plugin";
     description = "Privacy-friendly way of watching YouTube content";
     license = licenses.mit;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

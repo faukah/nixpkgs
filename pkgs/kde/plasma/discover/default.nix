@@ -15,7 +15,7 @@ mkKdeDerivation {
     ./qml-deps.patch
   ];
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     qtwebview
     discount
@@ -25,5 +25,5 @@ mkKdeDerivation {
 
   # The PackageKit backend doesn't work for us and causes Discover
   # to freak out when loading. Disable it to not confuse users.
-  excludeDependencies = [ "packagekit-qt" ];
+  excludeDependencies = ["packagekit-qt"];
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rar2hashcat";
   version = "1.0";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/hashstation/rar2hashcat";
     license = lib.licenses.mit;
     mainProgram = "rar2hashcat";
-    maintainers = with lib.maintainers; [ emilytrau ];
+    maintainers = with lib.maintainers; [emilytrau];
     platforms = lib.platforms.unix;
   };
 })

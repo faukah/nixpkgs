@@ -2,12 +2,10 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # dependencies
   numpy,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "resize-right";
   version = "0.0.2";
@@ -23,7 +21,7 @@ buildPythonPackage rec {
     torch
   ];
 
-  pythonImportsCheck = [ "resize_right" ];
+  pythonImportsCheck = ["resize_right"];
 
   # no tests
   doCheck = false;
@@ -32,6 +30,6 @@ buildPythonPackage rec {
     description = "Correct way to resize images or tensors. For Numpy or Pytorch (differentiable";
     homepage = "https://github.com/assafshocher/ResizeRight";
     license = licenses.mit;
-    teams = [ teams.tts ];
+    teams = [teams.tts];
   };
 }

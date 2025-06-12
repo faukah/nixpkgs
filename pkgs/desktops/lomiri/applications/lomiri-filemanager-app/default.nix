@@ -18,7 +18,6 @@
   samba,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-filemanager-app";
   version = "1.1.4";
@@ -75,18 +74,20 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.vm = nixosTests.lomiri-filemanager-app;
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
     description = "File Manager application for Ubuntu Touch devices";
     homepage = "https://gitlab.com/ubports/development/apps/lomiri-filemanager-app";
     changelog = "https://gitlab.com/ubports/development/apps/lomiri-filemanager-app/-/blob/${
-      if (!builtins.isNull finalAttrs.src.tag) then finalAttrs.src.tag else finalAttrs.src.rev
+      if (!builtins.isNull finalAttrs.src.tag)
+      then finalAttrs.src.tag
+      else finalAttrs.src.rev
     }/ChangeLog";
     license = lib.licenses.gpl3Only;
     mainProgram = "lomiri-filemanager-app";
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
   };
 })

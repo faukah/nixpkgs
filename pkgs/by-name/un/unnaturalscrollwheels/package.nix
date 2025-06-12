@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   sourceRoot = ".";
 
   # APFS format is unsupported by undmg
-  nativeBuildInputs = [ _7zz ];
+  nativeBuildInputs = [_7zz];
 
   installPhase = ''
     runHook preInstall
@@ -30,8 +30,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Invert scroll direction for physical scroll wheels";
     homepage = "https://github.com/ther0n/UnnaturalScrollWheels";
     license = licenses.gpl3Plus;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ emilytrau ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.darwin;
   };
 })

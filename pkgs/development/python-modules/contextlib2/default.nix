@@ -6,7 +6,6 @@
   pythonOlder,
   unittestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "contextlib2";
   version = "21.6.0-unstable-2024-05-23";
@@ -21,16 +20,16 @@ buildPythonPackage {
     hash = "sha256-HX9N8G8jl6cpEwdJ80pDcoo4osTO/f8fz5sNcY/R1Nk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "contextlib2" ];
+  pythonImportsCheck = ["contextlib2"];
 
   meta = {
     description = "Backports and enhancements for the contextlib module";
     homepage = "https://contextlib2.readthedocs.org/";
     license = lib.licenses.psfl;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

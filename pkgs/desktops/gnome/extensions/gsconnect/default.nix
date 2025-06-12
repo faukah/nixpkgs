@@ -20,7 +20,6 @@
   nixosTests,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-gsconnect";
   version = "62";
@@ -120,8 +119,8 @@ stdenv.mkDerivation rec {
     description = "KDE Connect implementation for Gnome Shell";
     homepage = "https://github.com/GSConnect/gnome-shell-extension-gsconnect/wiki";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.doronbehar ];
-    teams = [ teams.gnome ];
+    maintainers = [maintainers.doronbehar];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 }

@@ -6,7 +6,6 @@
   testers,
   gambit-chess,
 }:
-
 buildGoModule rec {
   pname = "gambit";
   version = "0.1.0";
@@ -51,6 +50,6 @@ buildGoModule rec {
     homepage = "https://github.com/maaslalani/gambit";
     changelog = "https://github.com/maaslalani/gambit/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

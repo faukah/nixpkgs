@@ -9,7 +9,6 @@
   setuptools,
   weasyprint,
 }:
-
 buildPythonPackage rec {
   pname = "md2pdf";
   version = "1.0.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
       --replace-fail '"pytest-runner",' ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     docopt
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     weasyprint
   ];
 
-  pythonImportsCheck = [ "md2pdf" ];
+  pythonImportsCheck = ["md2pdf"];
 
   nativeCheckInputs = [
     pytest-cov-stub
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jmaupetit/md2pdf";
     license = lib.licenses.mit;
     mainProgram = "md2pdf";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

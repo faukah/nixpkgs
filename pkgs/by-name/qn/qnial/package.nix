@@ -7,7 +7,6 @@
   stdenv,
   unzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qnial";
   version = "6.3_1";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://bitbucket.com/museoa/qnial";
     license = lib.licenses.artistic1;
     mainProgram = "nial";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 })

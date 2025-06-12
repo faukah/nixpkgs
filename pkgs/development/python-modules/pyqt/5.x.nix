@@ -25,7 +25,6 @@
   pkgsBuildTarget,
   dbusSupport ? !stdenv.hostPlatform.isDarwin,
 }:
-
 buildPythonPackage rec {
   pname = "pyqt5";
   version = "5.15.10";
@@ -65,7 +64,6 @@ buildPythonPackage rec {
     + ''
       EOF
     ''
-
     # pyqt-builder tries to compile *and run* these programs.  This
     # is really sad because the only thing they do is print out a
     # flag based on whether or not some compile-time symbol was
@@ -109,7 +107,7 @@ buildPythonPackage rec {
   '';
 
   # tons of warnings from subpackages, no point in playing whack-a-mole
-  env = lib.optionalAttrs (!enableVerbose) { NIX_CFLAGS_COMPILE = "-w"; };
+  env = lib.optionalAttrs (!enableVerbose) {NIX_CFLAGS_COMPILE = "-w";};
 
   outputs = [
     "out"
@@ -119,8 +117,8 @@ buildPythonPackage rec {
   dontWrapQtApps = true;
 
   nativeBuildInputs =
-    [ pkg-config ]
-    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ libsForQt5.qmake ]
+    [pkg-config]
+    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [libsForQt5.qmake]
     ++ [
       setuptools
       lndir
@@ -128,27 +126,26 @@ buildPythonPackage rec {
     ]
     ++ (
       with pkgsBuildTarget.targetPackages.libsForQt5;
-      [ ]
-      ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ qmake ]
-      ++ [
-        qtbase
-        qtsvg
-        qtdeclarative
-        qtwebchannel
-      ]
-      ++ lib.optional withConnectivity qtconnectivity
-      ++ lib.optional withMultimedia qtmultimedia
-      ++ lib.optional withWebKit qtwebkit
-      ++ lib.optional withWebSockets qtwebsockets
-      ++ lib.optional withLocation qtlocation
-      ++ lib.optional withSerialPort qtserialport
-      ++ lib.optional withTools qttools
+        []
+        ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [qmake]
+        ++ [
+          qtbase
+          qtsvg
+          qtdeclarative
+          qtwebchannel
+        ]
+        ++ lib.optional withConnectivity qtconnectivity
+        ++ lib.optional withMultimedia qtmultimedia
+        ++ lib.optional withWebKit qtwebkit
+        ++ lib.optional withWebSockets qtwebsockets
+        ++ lib.optional withLocation qtlocation
+        ++ lib.optional withSerialPort qtserialport
+        ++ lib.optional withTools qttools
     );
 
-  buildInputs =
-    with libsForQt5;
-    [ dbus ]
-    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ qtbase ]
+  buildInputs = with libsForQt5;
+    [dbus]
+    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [qtbase]
     ++ [
       qtsvg
       qtdeclarative
@@ -203,6 +200,6 @@ buildPythonPackage rec {
     homepage = "https://riverbankcomputing.com/";
     license = licenses.gpl3Only;
     inherit (mesa.meta) platforms;
-    maintainers = with maintainers; [ sander ];
+    maintainers = with maintainers; [sander];
   };
 }

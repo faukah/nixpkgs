@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aenum";
   version = "3.1.15";
@@ -21,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-jL12zRjE+HD/ObJChNPqAo++hzGljfOqWB5DTFdblVk=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     pyparsing
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aenum" ];
+  pythonImportsCheck = ["aenum"];
 
   disabledTests =
     [
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     description = "Advanced Enumerations (compatible with Python's stdlib Enum), NamedTuples, and NamedConstants";
     homepage = "https://github.com/ethanfurman/aenum";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

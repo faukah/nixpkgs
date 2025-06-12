@@ -17,6 +17,6 @@ mkYaziPlugin {
   meta = {
     description = "Show the status of Git file changes as linemode in the file list";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
   };
 }

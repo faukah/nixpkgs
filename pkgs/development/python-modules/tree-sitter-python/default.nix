@@ -5,7 +5,6 @@
   setuptools,
   tree-sitter,
 }:
-
 buildPythonPackage rec {
   pname = "tree-sitter-python";
   version = "0.23.6";
@@ -30,12 +29,12 @@ buildPythonPackage rec {
 
   # There are no tests
   doCheck = false;
-  pythonImportsCheck = [ "tree_sitter_python" ];
+  pythonImportsCheck = ["tree_sitter_python"];
 
   meta = with lib; {
     description = "Python grammar for tree-sitter";
     homepage = "https://github.com/tree-sitter/tree-sitter-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

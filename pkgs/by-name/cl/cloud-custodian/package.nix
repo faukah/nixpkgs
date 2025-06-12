@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "cloud-custodian";
   version = "0.9.38.0";
@@ -23,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
     "urllib3"
   ];
 
-  build-system = with python3.pkgs; [ poetry-core ];
+  build-system = with python3.pkgs; [poetry-core];
 
   dependencies = with python3.pkgs; [
     argcomplete
@@ -50,7 +49,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://cloudcustodian.io";
     changelog = "https://github.com/cloud-custodian/cloud-custodian/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bhipple ];
+    maintainers = with lib.maintainers; [bhipple];
     mainProgram = "custodian";
   };
 }

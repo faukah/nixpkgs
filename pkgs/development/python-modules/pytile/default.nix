@@ -12,7 +12,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "pytile";
   version = "2024.12.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-6vcFGMj7E1xw01yHOq/WDpqMxd7OIiRBCmw5LForAR0=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     "examples/"
   ];
 
-  pythonImportsCheck = [ "pytile" ];
+  pythonImportsCheck = ["pytile"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/bachya/pytile";
     changelog = "https://github.com/bachya/pytile/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

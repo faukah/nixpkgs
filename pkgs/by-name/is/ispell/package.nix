@@ -5,7 +5,6 @@
   bison,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ispell";
   version = "3.4.06";

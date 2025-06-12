@@ -7,7 +7,6 @@
   glib,
   gst_all_1,
 }:
-
 buildDunePackage rec {
   pname = "gstreamer";
   version = "0.3.1";
@@ -19,8 +18,8 @@ buildDunePackage rec {
     sha256 = "0y8xi1q0ld4hrk96bn6jfh9slyjrxmnlhm662ynacp3yzalp8jji";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     glib.dev
     gst_all_1.gstreamer.dev
@@ -38,6 +37,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-gstreamer";
     description = "Bindings for the GStreamer library which provides functions for playning and manipulating multimedia streams";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

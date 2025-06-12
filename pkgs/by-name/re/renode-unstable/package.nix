@@ -3,7 +3,6 @@
   fetchurl,
   writeScript,
 }:
-
 renode.overrideAttrs (
   finalAttrs: _: {
     pname = "renode-unstable";
@@ -14,10 +13,9 @@ renode.overrideAttrs (
       hash = "sha256-x0g7wsaDCi3QUTEQcw/gGtzkWTmJB7ZZVqCE9fOyCFI=";
     };
 
-    passthru.updateScript =
-      let
-        versionRegex = "[0-9\\.\\+]+[^\\+]*.";
-      in
+    passthru.updateScript = let
+      versionRegex = "[0-9\\.\\+]+[^\\+]*.";
+    in
       writeScript "${finalAttrs.pname}-updater" ''
         #!/usr/bin/env nix-shell
         #!nix-shell -i bash -p common-updater-scripts curl gnugrep gnused pup

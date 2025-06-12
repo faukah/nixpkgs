@@ -7,7 +7,6 @@
   common-updater-scripts,
   unzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "istat-menus";
   version = "7.10.2";
@@ -19,7 +18,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall
@@ -48,8 +47,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "iStat Menus is set of nine separate and highly configurable menu items that let you know exactly what's going on inside your Mac";
     homepage = "https://bjango.com/mac/istatmenus/";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ donteatoreo ];
+    maintainers = with lib.maintainers; [donteatoreo];
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

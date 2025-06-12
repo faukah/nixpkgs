@@ -27,9 +27,7 @@
   libXcomposite,
   bluez,
   writeScript,
-}:
-
-let
+}: let
   version = "6.0.5231";
 
   subsurfaceSrc = (
@@ -67,7 +65,7 @@ let
     meta = with lib; {
       homepage = "https://www.libdivecomputer.org";
       description = "Cross-platform and open source library for communication with dive computers from various manufacturers";
-      maintainers = with maintainers; [ mguentner ];
+      maintainers = with maintainers; [mguentner];
       license = licenses.lgpl21;
       platforms = platforms.all;
     };
@@ -84,7 +82,7 @@ let
       hash = "sha256-PfSLFQeCeVNcCVDCZehxyNLQGT6gff5jNxMW8lAaP8c=";
     };
 
-    nativeBuildInputs = [ qmake ];
+    nativeBuildInputs = [qmake];
 
     buildInputs = [
       qtbase
@@ -106,7 +104,7 @@ let
     meta = with lib; {
       inherit (src.meta) homepage;
       description = "QtLocation plugin for Google maps tile API";
-      maintainers = with maintainers; [ orivej ];
+      maintainers = with maintainers; [orivej];
       license = licenses.mit;
       platforms = platforms.all;
     };
@@ -115,79 +113,78 @@ let
   get-version = writeShellScriptBin "get-version" ''
     echo -n ${version}
   '';
-
 in
-stdenv.mkDerivation {
-  pname = "subsurface";
-  inherit version;
+  stdenv.mkDerivation {
+    pname = "subsurface";
+    inherit version;
 
-  src = subsurfaceSrc;
+    src = subsurfaceSrc;
 
-  postPatch = ''
-    install -m555 -t scripts ${lib.getExe get-version}
-  '';
-
-  buildInputs = [
-    bluez
-    curl
-    googlemaps
-    grantlee
-    libdc
-    libgit2
-    libssh2
-    libxml2
-    libxslt
-    libzip
-    qtbase
-    qtconnectivity
-    qtsvg
-    qttools
-    qtwebengine
-  ];
-
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-    pkg-config
-  ];
-
-  cmakeFlags = [
-    "-DLIBDC_FROM_PKGCONFIG=ON"
-    "-DNO_PRINTING=OFF"
-  ];
-
-  passthru = {
-    inherit version libdc googlemaps;
-    updateScript = writeScript "update-subsurface" ''
-      #!/usr/bin/env nix-shell
-      #!nix-shell -i bash -p git common-updater-scripts
-
-      set -eu -o pipefail
-      tmpdir=$(mktemp -d)
-      pushd $tmpdir
-      git clone -b current https://github.com/subsurface/subsurface.git
-      cd subsurface
-      # this returns 6.0.????-local
-      new_version=$(./scripts/get-version.sh | cut -d '-' -f 1)
-      new_rev=$(git rev-list -1 HEAD)
-      popd
-      update-source-version subsurface "$new_version" --rev="$new_rev"
-      rm -rf $tmpdir
+    postPatch = ''
+      install -m555 -t scripts ${lib.getExe get-version}
     '';
-  };
 
-  meta = with lib; {
-    description = "Divelog program";
-    mainProgram = "subsurface";
-    longDescription = ''
-      Subsurface can track single- and multi-tank dives using air, Nitrox or TriMix.
-      It allows tracking of dive locations including GPS coordinates (which can also
-      conveniently be entered using a map interface), logging of equipment used and
-      names of other divers, and lets users rate dives and provide additional notes.
-    '';
-    homepage = "https://subsurface-divelog.org";
-    license = licenses.gpl2;
-    maintainers = with maintainers; [ mguentner ];
-    platforms = platforms.all;
-  };
-}
+    buildInputs = [
+      bluez
+      curl
+      googlemaps
+      grantlee
+      libdc
+      libgit2
+      libssh2
+      libxml2
+      libxslt
+      libzip
+      qtbase
+      qtconnectivity
+      qtsvg
+      qttools
+      qtwebengine
+    ];
+
+    nativeBuildInputs = [
+      cmake
+      wrapQtAppsHook
+      pkg-config
+    ];
+
+    cmakeFlags = [
+      "-DLIBDC_FROM_PKGCONFIG=ON"
+      "-DNO_PRINTING=OFF"
+    ];
+
+    passthru = {
+      inherit version libdc googlemaps;
+      updateScript = writeScript "update-subsurface" ''
+        #!/usr/bin/env nix-shell
+        #!nix-shell -i bash -p git common-updater-scripts
+
+        set -eu -o pipefail
+        tmpdir=$(mktemp -d)
+        pushd $tmpdir
+        git clone -b current https://github.com/subsurface/subsurface.git
+        cd subsurface
+        # this returns 6.0.????-local
+        new_version=$(./scripts/get-version.sh | cut -d '-' -f 1)
+        new_rev=$(git rev-list -1 HEAD)
+        popd
+        update-source-version subsurface "$new_version" --rev="$new_rev"
+        rm -rf $tmpdir
+      '';
+    };
+
+    meta = with lib; {
+      description = "Divelog program";
+      mainProgram = "subsurface";
+      longDescription = ''
+        Subsurface can track single- and multi-tank dives using air, Nitrox or TriMix.
+        It allows tracking of dive locations including GPS coordinates (which can also
+        conveniently be entered using a map interface), logging of equipment used and
+        names of other divers, and lets users rate dives and provide additional notes.
+      '';
+      homepage = "https://subsurface-divelog.org";
+      license = licenses.gpl2;
+      maintainers = with maintainers; [mguentner];
+      platforms = platforms.all;
+    };
+  }

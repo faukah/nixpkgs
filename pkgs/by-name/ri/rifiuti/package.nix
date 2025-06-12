@@ -4,7 +4,6 @@
   fetchzip,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rifiuti";
   version = "20040505_1";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Analyze Windows Recycle Bin INFO2 file";
     mainProgram = "rifiuti";
     homepage = "https://sourceforge.net/projects/odessa/files/Rifiuti";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
     license = licenses.bsd3;
   };

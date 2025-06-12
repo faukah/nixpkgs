@@ -11,7 +11,6 @@
   openssl,
   tinyxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "encfs";
   version = "1.9.5";

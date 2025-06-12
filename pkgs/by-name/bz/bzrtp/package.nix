@@ -6,7 +6,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bzrtp";
   version = "5.2.111";
@@ -24,10 +23,10 @@ stdenv.mkDerivation rec {
     bctoolbox
     sqlite
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # Do not build static libraries
-  cmakeFlags = [ "-DENABLE_STATIC=NO" ];
+  cmakeFlags = ["-DENABLE_STATIC=NO"];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12
@@ -40,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.linphone.org/BC/public/bzrtp";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

@@ -6,7 +6,6 @@
   python3,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "doclifter";
   version = "2.21";
@@ -27,11 +26,11 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper
   ];
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   strictDeps = true;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   preInstall = ''
     mkdir -p $out/bin

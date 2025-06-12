@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "limitlessled";
   version = "1.1.3";
@@ -18,6 +17,6 @@ buildPythonPackage rec {
     description = "Control LimitlessLED products";
     homepage = "https://github.com/happyleavesaoc/python-limitlessled/";
     license = licenses.mit;
-    maintainers = with maintainers; [ sephalon ];
+    maintainers = with maintainers; [sephalon];
   };
 }

@@ -3,23 +3,19 @@
   buildPythonPackage,
   fetchFromGitHub,
   nix-update-script,
-
   # build-system
   pdm-backend,
-
   # dependencies
   aiohttp,
   langchain-core,
   langchain-openai,
   requests,
-
   # tests
   langchain-tests,
   pytest-asyncio,
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-xai";
   version = "0.2.3";
@@ -34,7 +30,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/partners/xai";
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     aiohttp
@@ -56,9 +52,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlagsArray = ["tests/unit_tests"];
 
-  pythonImportsCheck = [ "langchain_xai" ];
+  pythonImportsCheck = ["langchain_xai"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

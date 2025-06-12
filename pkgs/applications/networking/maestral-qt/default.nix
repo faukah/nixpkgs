@@ -8,7 +8,6 @@
   nixosTests,
   wrapQtAppsHook,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "maestral-qt";
   version = "1.9.4";
@@ -23,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-VkJOKKYnoXux3WjD1JwINGWwv1SMIXfidyV2ITE7dJc=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     click
@@ -39,7 +38,7 @@ python3.pkgs.buildPythonApplication rec {
     qtsvg # Needed for the systray icon
   ];
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   dontWrapQtApps = true;
 
@@ -49,13 +48,13 @@ python3.pkgs.buildPythonApplication rec {
 
     # Add the installed directories to the python path so the daemon can find them
     "--prefix PYTHONPATH : ${makePythonPath (requiredPythonModules maestral.propagatedBuildInputs)}"
-    "--prefix PYTHONPATH : ${makePythonPath [ maestral ]}"
+    "--prefix PYTHONPATH : ${makePythonPath [maestral]}"
   ];
 
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "maestral_qt" ];
+  pythonImportsCheck = ["maestral_qt"];
 
   passthru.tests.maestral = nixosTests.maestral;
 

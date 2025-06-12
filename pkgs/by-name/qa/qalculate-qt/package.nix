@@ -7,7 +7,6 @@
   qt6,
   libqalculate,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qalculate-qt";
   version = "5.5.1";
@@ -26,14 +25,13 @@ stdenv.mkDerivation (finalAttrs: {
     qttools
     wrapQtAppsHook
   ];
-  buildInputs =
-    with qt6;
+  buildInputs = with qt6;
     [
       libqalculate
       qtbase
       qtsvg
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ qtwayland ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [qtwayland];
 
   postPatch = ''
     substituteInPlace qalculate-qt.pro\
@@ -49,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Ultimate desktop calculator";
     homepage = "http://qalculate.github.io";
-    maintainers = with maintainers; [ _4825764518 ];
+    maintainers = with maintainers; [_4825764518];
     license = licenses.gpl2Plus;
     mainProgram = "qalculate-qt";
     platforms = platforms.unix;

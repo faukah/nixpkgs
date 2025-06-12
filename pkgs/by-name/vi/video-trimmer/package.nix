@@ -17,7 +17,6 @@
   ffmpeg-headless,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "video-trimmer";
   version = "25.03";
@@ -66,12 +65,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ ffmpeg-headless ]}"
+      --prefix PATH : "${lib.makeBinPath [ffmpeg-headless]}"
     )
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -81,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [
       doronbehar
     ];
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "video-trimmer";

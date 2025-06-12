@@ -14,7 +14,6 @@
   zlib,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hyp2mat";
   version = "0.0.18";
@@ -30,11 +29,10 @@ stdenv.mkDerivation rec {
     substituteInPlace doc/Makefile.am --replace-fail \
       '$(HELP2MAN) --output=$@ --no-info --include=$< $(PROGNAME)' \
       '$(HELP2MAN) --output=$@ --no-info --include=$< ${
-        if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
-          (placeholder "out")
-        else
-          buildPackages.hyp2mat
-      }/bin/`basename $(PROGNAME)`'
+      if stdenv.buildPlatform.canExecute stdenv.hostPlatform
+      then (placeholder "out")
+      else buildPackages.hyp2mat
+    }/bin/`basename $(PROGNAME)`'
   '';
 
   nativeBuildInputs = [
@@ -53,7 +51,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  configureFlags = [ "--enable-library" ];
+  configureFlags = ["--enable-library"];
 
   enableParallelBuilding = true;
 
@@ -62,7 +60,7 @@ stdenv.mkDerivation rec {
     mainProgram = "hyp2mat";
     homepage = "https://github.com/koendv/hyp2mat";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ matthuszagh ];
+    maintainers = with maintainers; [matthuszagh];
     platforms = platforms.linux;
   };
 }

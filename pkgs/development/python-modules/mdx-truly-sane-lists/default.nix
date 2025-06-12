@@ -6,7 +6,6 @@
   markdown,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mdx-truly-sane-lists";
   version = "1.3";
@@ -19,15 +18,15 @@ buildPythonPackage rec {
     hash = "sha256-hPnqF1UA4peW8hzeFiMlsBPfodC1qJXETGoq2yUm7d4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ markdown ];
+  dependencies = [markdown];
 
-  pythonImportsCheck = [ "mdx_truly_sane_lists" ];
+  pythonImportsCheck = ["mdx_truly_sane_lists"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "mdx_truly_sane_lists/tests.py" ];
+  pytestFlagsArray = ["mdx_truly_sane_lists/tests.py"];
 
   meta = {
     description = "Extension for Python-Markdown that makes lists truly sane";
@@ -36,6 +35,6 @@ buildPythonPackage rec {
       paragraphs between lists.
     '';
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kaction ];
+    maintainers = with lib.maintainers; [kaction];
   };
 }

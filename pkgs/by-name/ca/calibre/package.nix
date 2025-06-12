@@ -33,7 +33,6 @@
   speechSupport ? true,
   unrarSupport ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "calibre";
   version = "8.4.0";
@@ -43,19 +42,21 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-5uexcItbBgO2Tv52clS0N+IhplqpKwq43p2yqSxANek=";
   };
 
-  patches = [
-    #  allow for plugin update check, but no calibre version check
-    (fetchpatch {
-      name = "0001-only-plugin-update.patch";
-      url = "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}+ds-1/debian/patches/0001-only-plugin-update.patch";
-      hash = "sha256-mHZkUoVcoVi9XBOSvM5jyvpOTCcM91g9+Pa/lY6L5p8=";
-    })
-    (fetchpatch {
-      name = "0007-Hardening-Qt-code.patch";
-      url = "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}+ds-1/debian/patches/hardening/0007-Hardening-Qt-code.patch";
-      hash = "sha256-V/ZUTH0l4QSfM0dHrgLGdJjF/CCQ0S/fnCP/ZKD563U=";
-    })
-  ] ++ lib.optional (!unrarSupport) ./dont_build_unrar_plugin.patch;
+  patches =
+    [
+      #  allow for plugin update check, but no calibre version check
+      (fetchpatch {
+        name = "0001-only-plugin-update.patch";
+        url = "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}+ds-1/debian/patches/0001-only-plugin-update.patch";
+        hash = "sha256-mHZkUoVcoVi9XBOSvM5jyvpOTCcM91g9+Pa/lY6L5p8=";
+      })
+      (fetchpatch {
+        name = "0007-Hardening-Qt-code.patch";
+        url = "https://raw.githubusercontent.com/debian-calibre/calibre/debian/${finalAttrs.version}+ds-1/debian/patches/hardening/0007-Hardening-Qt-code.patch";
+        hash = "sha256-V/ZUTH0l4QSfM0dHrgLGdJjF/CCQ0S/fnCP/ZKD563U=";
+      })
+    ]
+    ++ lib.optional (!unrarSupport) ./dont_build_unrar_plugin.patch;
 
   prePatch = ''
     sed -i "s@\[tool.sip.project\]@[tool.sip.project]\nsip-include-dirs = [\"${python3Packages.pyqt6}/${python3Packages.python.sitePackages}/PyQt6/bindings\"]@g" \
@@ -76,75 +77,76 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook3
   ];
 
-  buildInputs = [
-    ffmpeg
-    fontconfig
-    hunspell
-    hyphen
-    icu
-    imagemagick
-    libjpeg
-    libmtp
-    libpng
-    libstemmer
-    libuchardet
-    libusb1
-    piper-tts
-    podofo
-    poppler-utils
-    qt6.qtbase
-    qt6.qtwayland
-    sqlite
-    (python3Packages.python.withPackages (
-      ps:
-      with ps;
-      [
-        (apsw.overrideAttrs (_oldAttrs: {
-          setupPyBuildFlags = [ "--enable=load_extension" ];
-        }))
-        beautifulsoup4
-        css-parser
-        cssselect
-        fonttools
-        python-dateutil
-        dnspython
-        faust-cchardet
-        feedparser
-        html2text
-        html5-parser
-        lxml
-        markdown
-        mechanize
-        msgpack
-        netifaces
-        pillow
-        pychm
-        pykakasi
-        pyqt-builder
-        pyqt6
-        python
-        regex
-        sip
-        setuptools
-        zeroconf
-        jeepney
-        pycryptodome
-        xxhash
-        # the following are distributed with calibre, but we use upstream instead
-        odfpy
-      ]
-      ++
-        lib.optionals (lib.lists.any (p: p == stdenv.hostPlatform.system) pyqt6-webengine.meta.platforms)
-          [
-            # much of calibre's functionality is usable without a web
-            # browser, so we enable building on platforms which qtwebengine
-            # does not support by simply omitting qtwebengine.
-            pyqt6-webengine
-          ]
-      ++ lib.optional unrarSupport unrardll
-    ))
-    xdg-utils
-  ] ++ lib.optional speechSupport speechd-minimal;
+  buildInputs =
+    [
+      ffmpeg
+      fontconfig
+      hunspell
+      hyphen
+      icu
+      imagemagick
+      libjpeg
+      libmtp
+      libpng
+      libstemmer
+      libuchardet
+      libusb1
+      piper-tts
+      podofo
+      poppler-utils
+      qt6.qtbase
+      qt6.qtwayland
+      sqlite
+      (python3Packages.python.withPackages (
+        ps:
+          with ps;
+            [
+              (apsw.overrideAttrs (_oldAttrs: {
+                setupPyBuildFlags = ["--enable=load_extension"];
+              }))
+              beautifulsoup4
+              css-parser
+              cssselect
+              fonttools
+              python-dateutil
+              dnspython
+              faust-cchardet
+              feedparser
+              html2text
+              html5-parser
+              lxml
+              markdown
+              mechanize
+              msgpack
+              netifaces
+              pillow
+              pychm
+              pykakasi
+              pyqt-builder
+              pyqt6
+              python
+              regex
+              sip
+              setuptools
+              zeroconf
+              jeepney
+              pycryptodome
+              xxhash
+              # the following are distributed with calibre, but we use upstream instead
+              odfpy
+            ]
+            ++ lib.optionals (lib.lists.any (p: p == stdenv.hostPlatform.system) pyqt6-webengine.meta.platforms)
+            [
+              # much of calibre's functionality is usable without a web
+              # browser, so we enable building on platforms which qtwebengine
+              # does not support by simply omitting qtwebengine.
+              pyqt6-webengine
+            ]
+            ++ lib.optional unrarSupport unrardll
+      ))
+      xdg-utils
+    ]
+    ++ lib.optional speechSupport speechd-minimal;
 
   installPhase = ''
     runHook preInstall
@@ -186,25 +188,27 @@ stdenv.mkDerivation (finalAttrs: {
   dontWrapQtApps = true;
   dontWrapGApps = true;
 
-  preFixup =
-    let
-      popplerArgs = "--prefix PATH : ${poppler-utils.out}/bin";
-    in
-    ''
-      for program in $out/bin/*; do
-        wrapProgram $program \
-          ''${qtWrapperArgs[@]} \
-          ''${gappsWrapperArgs[@]} \
-          --prefix PATH : ${
-            lib.makeBinPath [
-              libjpeg
-              libwebp
-              optipng
-            ]
-          } \
-          ${if popplerSupport then popplerArgs else ""}
-      done
-    '';
+  preFixup = let
+    popplerArgs = "--prefix PATH : ${poppler-utils.out}/bin";
+  in ''
+    for program in $out/bin/*; do
+      wrapProgram $program \
+        ''${qtWrapperArgs[@]} \
+        ''${gappsWrapperArgs[@]} \
+        --prefix PATH : ${
+      lib.makeBinPath [
+        libjpeg
+        libwebp
+        optipng
+      ]
+    } \
+        ${
+      if popplerSupport
+      then popplerArgs
+      else ""
+    }
+    done
+  '';
 
   doInstallCheck = true;
   installCheckInputs = with python3Packages; [
@@ -230,7 +234,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--url=https://github.com/kovidgoyal/calibre" ];
+    extraArgs = ["--url=https://github.com/kovidgoyal/calibre"];
   };
 
   meta = {
@@ -243,8 +247,11 @@ stdenv.mkDerivation (finalAttrs: {
       free and open source and great for both casual users and computer experts.
     '';
     changelog = "https://github.com/kovidgoyal/calibre/releases/tag/v${finalAttrs.version}";
-    license = if unrarSupport then lib.licenses.unfreeRedistributable else lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ pSub ];
+    license =
+      if unrarSupport
+      then lib.licenses.unfreeRedistributable
+      else lib.licenses.gpl3Plus;
+    maintainers = with lib.maintainers; [pSub];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

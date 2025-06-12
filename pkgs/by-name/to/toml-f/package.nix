@@ -8,7 +8,6 @@
   pkg-config,
   test-drive,
 }:
-
 stdenv.mkDerivation rec {
   pname = "toml-f";
   version = "0.4.2";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ test-drive ];
+  buildInputs = [test-drive];
 
   outputs = [
     "out"
@@ -45,6 +44,6 @@ stdenv.mkDerivation rec {
     ];
     homepage = "https://github.com/toml-f/toml-f";
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

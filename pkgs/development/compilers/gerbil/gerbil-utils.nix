@@ -1,6 +1,8 @@
-{ lib, fetchFromGitHub, ... }:
-
 {
+  lib,
+  fetchFromGitHub,
+  ...
+}: {
   pname = "gerbil-utils";
   version = "unstable-2023-12-06";
   git-version = "0.4-13-g9398865";
@@ -21,6 +23,6 @@
     homepage = "https://github.com/fare/gerbil-utils";
     license = licenses.lgpl21;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fare ];
+    maintainers = with maintainers; [fare];
   };
 }

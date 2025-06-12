@@ -6,7 +6,6 @@
   setuptools,
   swig,
 }:
-
 buildPythonPackage rec {
   pname = "pykcs11";
   version = "1.5.17";
@@ -17,11 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-e2Z+lZ+gtq0HULA+IIGgWcvppieJdmFD5Q+QmIoziZQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ swig ];
+  nativeBuildInputs = [swig];
 
-  pypaBuildFlags = [ "--skip-dependency-check" ];
+  pypaBuildFlags = ["--skip-dependency-check"];
 
   outputs = [
     "out"
@@ -33,13 +32,13 @@ buildPythonPackage rec {
     cp -R test $testout/test
   '';
 
-  pythonImportsCheck = [ "PyKCS11" ];
+  pythonImportsCheck = ["PyKCS11"];
 
   doCheck = false;
 
   # tests complain about circular import, do testing with passthru.tests instead
   passthru.tests = {
-    pytest = callPackage ./tests.nix { };
+    pytest = callPackage ./tests.nix {};
   };
 
   meta = with lib; {
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/LudovicRousseau/PyKCS11";
     changelog = "https://github.com/LudovicRousseau/PyKCS11/releases/tag/${version}";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ hulr ];
+    maintainers = with maintainers; [hulr];
   };
 }

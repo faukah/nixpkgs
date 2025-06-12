@@ -29,7 +29,6 @@
   basemap-data-hires,
   geopy,
 }:
-
 buildPythonPackage rec {
   pname = "lida";
   version = "0.0.14";
@@ -96,13 +95,13 @@ buildPythonPackage rec {
   # require network
   doCheck = false;
 
-  pythonImportsCheck = [ "lida" ];
+  pythonImportsCheck = ["lida"];
 
   meta = {
     description = "Automatic Generation of Visualizations and Infographics using Large Language Models";
     homepage = "https://github.com/microsoft/lida";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "lida";
   };
 }

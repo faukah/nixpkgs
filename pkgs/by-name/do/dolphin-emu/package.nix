@@ -2,14 +2,12 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # nativeBuildInputs
   cmake,
   pkg-config,
   qt6,
   # darwin-only
   xcbuild,
-
   # buildInputs
   bzip2,
   cubeb,
@@ -45,12 +43,10 @@
   vulkan-loader,
   # darwin-only
   moltenvk,
-
   # passthru
   testers,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dolphin-emu";
   version = "2506";
@@ -150,7 +146,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   qtWrapperArgs = lib.optionals stdenv.hostPlatform.isLinux [
-    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}"
+    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [vulkan-loader]}"
     # https://bugs.dolphin-emu.org/issues/11807
     # The .desktop file should already set this, but Dolphin may be launched in other ways
     "--set QT_QPA_PLATFORM xcb"
@@ -186,7 +182,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://dolphin-emu.org";
     description = "Gamecube/Wii/Triforce emulator for x86_64 and ARMv8";
-    mainProgram = if stdenv.hostPlatform.isDarwin then "Dolphin" else "dolphin-emu";
+    mainProgram =
+      if stdenv.hostPlatform.isDarwin
+      then "Dolphin"
+      else "dolphin-emu";
     branch = "master";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
@@ -194,6 +193,6 @@ stdenv.mkDerivation (finalAttrs: {
       # error: implicit instantiation of undefined template 'std::char_traits<unsigned int>'
       lib.systems.inspect.patterns.isDarwin
     ];
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
   };
 })

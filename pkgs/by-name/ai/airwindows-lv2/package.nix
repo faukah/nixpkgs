@@ -7,7 +7,6 @@
   pkg-config,
   lv2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "airwindows-lv2";
   version = "28.0";
@@ -23,13 +22,13 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
   ];
-  buildInputs = [ lv2 ];
+  buildInputs = [lv2];
 
   meta = with lib; {
     description = "Airwindows plugins (ported to LV2)";
     homepage = "https://sr.ht/~hannes/airwindows-lv2";
     license = licenses.mit;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.unix;
   };
 }

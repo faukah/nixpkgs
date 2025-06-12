@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rust-petname";
   version = "2.0.2";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     description = "Generate human readable random names";
     homepage = "https://github.com/allenap/rust-petname";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "petname";
   };
 }

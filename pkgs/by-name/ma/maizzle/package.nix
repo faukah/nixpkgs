@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "maizzle";
   version = "2.0.0";
@@ -24,6 +23,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/maizzle/cli";
     license = lib.licenses.mit;
     mainProgram = "maizzle";
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 }

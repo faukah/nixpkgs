@@ -8,7 +8,6 @@
   pytest-html,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "cons";
   version = "0.4.6";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-XssERKiv4A8x7dZhLeFSciN6RCEfGs0or3PAQiYSPII=";
   };
 
-  propagatedBuildInputs = [ logical-unification ];
+  propagatedBuildInputs = [logical-unification];
 
   nativeCheckInputs = [
     py
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     "--self-contained-html"
   ];
 
-  pythonImportsCheck = [ "cons" ];
+  pythonImportsCheck = ["cons"];
 
   meta = with lib; {
     description = "Implementation of Lisp/Scheme-like cons in Python";
     homepage = "https://github.com/pythological/python-cons";
     changelog = "https://github.com/pythological/python-cons/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ Etjean ];
+    maintainers = with maintainers; [Etjean];
   };
 }

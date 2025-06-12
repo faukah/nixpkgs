@@ -15,7 +15,6 @@
   pyyaml,
   tag-expressions,
 }:
-
 buildPythonPackage rec {
   pname = "radish-bdd";
   version = "0.18.2";
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "radish" ];
+  pythonImportsCheck = ["radish"];
 
   meta = with lib; {
     description = "Behaviour-Driven-Development tool for python";

@@ -15,7 +15,6 @@
   lib,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rustworkx";
   version = "0.16.0";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     setuptools-rust
   ];
 
-  buildInputs = [ numpy ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = [numpy] ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   nativeCheckInputs = [
     fixtures
@@ -57,12 +56,12 @@ buildPythonPackage rec {
     rm -r rustworkx
   '';
 
-  pythonImportsCheck = [ "rustworkx" ];
+  pythonImportsCheck = ["rustworkx"];
 
   meta = with lib; {
     description = "High performance Python graph library implemented in Rust";
     homepage = "https://github.com/Qiskit/rustworkx";
     license = licenses.asl20;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

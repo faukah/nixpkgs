@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyasn1-modules";
   version = "0.4.2";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-jpMIxQ4BJ7MY3cV276sVJv+3M/MMFKRIoL2m2QJFxRY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pyasn1 ];
+  dependencies = [pyasn1];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyasn1_modules" ];
+  pythonImportsCheck = ["pyasn1_modules"];
 
   meta = {
     description = "Collection of ASN.1-based protocols modules";
     homepage = "https://pyasn1.readthedocs.io";
     changelog = "https://github.com/pyasn1/pyasn1-modules/releases/tag/v${version}";
     license = lib.licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

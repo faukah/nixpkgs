@@ -8,7 +8,6 @@
   sqlite,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "intelli-shell";
   version = "0.2.7";
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     description = "Like IntelliSense, but for shells";
     homepage = "https://github.com/lasantosr/intelli-shell";
     license = licenses.asl20;
-    maintainers = with maintainers; [ iogamaster ];
+    maintainers = with maintainers; [iogamaster];
     mainProgram = "intelli-shell";
   };
 }

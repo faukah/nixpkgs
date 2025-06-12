@@ -23,7 +23,7 @@
   sox,
   vid-stab,
   cudaSupport ? config.cudaSupport,
-  cudaPackages ? { },
+  cudaPackages ? {},
   enableJackrack ? stdenv.hostPlatform.isLinux,
   glib,
   ladspa-sdk,
@@ -37,7 +37,6 @@
   gitUpdater,
   libarchive,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mlt";
   version = "7.30.0";
@@ -73,7 +72,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [
-      (opencv4.override { inherit ffmpeg; })
+      (opencv4.override {inherit ffmpeg;})
       ffmpeg
       fftw
       frei0r
@@ -123,7 +122,11 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (qt != null) [
       "-DMOD_QT${lib.versions.major qt.qtbase.version}=ON"
-      "-DMOD_GLAXNIMATE${if lib.versions.major qt.qtbase.version == "5" then "" else "_QT6"}=ON"
+      "-DMOD_GLAXNIMATE${
+        if lib.versions.major qt.qtbase.version == "5"
+        then ""
+        else "_QT6"
+      }=ON"
     ];
 
   preFixup = ''
@@ -154,7 +157,7 @@ stdenv.mkDerivation rec {
       lgpl21Plus
       gpl2Plus
     ];
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

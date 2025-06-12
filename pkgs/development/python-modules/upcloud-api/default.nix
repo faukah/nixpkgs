@@ -7,7 +7,6 @@
   pytestCheckHook,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "upcloud-api";
   version = "2.6.0";
@@ -20,22 +19,22 @@ buildPythonPackage rec {
     hash = "sha256-RDGRue9hejNPKIP61GtJHMG5rG3CKvJdsYxVrp6I5W0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   nativeCheckInputs = [
     pytestCheckHook
     responses
   ];
 
-  pythonImportsCheck = [ "upcloud_api" ];
+  pythonImportsCheck = ["upcloud_api"];
 
   meta = with lib; {
     changelog = "https://github.com/UpCloudLtd/upcloud-python-api/blob/${src.rev}/CHANGELOG.md";
     description = "UpCloud API Client";
     homepage = "https://github.com/UpCloudLtd/upcloud-python-api";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

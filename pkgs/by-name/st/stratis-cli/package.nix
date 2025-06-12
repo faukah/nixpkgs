@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "stratis-cli";
   version = "3.8.1";
@@ -40,7 +39,7 @@ python3Packages.buildPythonApplication rec {
     "tests/whitebox/integration"
   ];
 
-  pythonImportsCheck = [ "stratis_cli" ];
+  pythonImportsCheck = ["stratis_cli"];
 
   env.STRATIS_STRICT_POOL_FEATURES = "1"; # required for unit tests
 
@@ -50,7 +49,7 @@ python3Packages.buildPythonApplication rec {
     description = "CLI for the Stratis project";
     homepage = "https://stratis-storage.github.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     mainProgram = "stratis";
   };
 }

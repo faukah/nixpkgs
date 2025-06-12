@@ -6,7 +6,6 @@
   zlib,
   libxcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ircd-hybrid";
   version = "8.2.46";

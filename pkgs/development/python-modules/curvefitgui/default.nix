@@ -9,7 +9,6 @@
   pyqt5,
   matplotlib,
 }:
-
 buildPythonPackage {
   pname = "curvefitgui";
   version = "0-unstable-2021-08-25";
@@ -27,7 +26,7 @@ buildPythonPackage {
     hash = "sha256-oK0ROKxh/91OrHhuufG6pvc2EMBeMP8R5O+ED2thyW8=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     numpy
@@ -36,12 +35,12 @@ buildPythonPackage {
     matplotlib
   ];
 
-  pythonImportsCheck = [ "curvefitgui" ];
+  pythonImportsCheck = ["curvefitgui"];
 
   meta = {
     description = "Graphical interface to the non-linear curvefit function scipy.optimise.curve_fit";
     homepage = "https://github.com/moosepy/curvefitgui";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

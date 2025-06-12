@@ -4,7 +4,6 @@
   fetchFromGitHub,
   asciidoc-full,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rep";
   version = "0.2.2";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace rc/rep.kak --replace '$(rep' '$('"$out/bin/rep"
   '';
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   meta = with lib; {
     description = "Single-shot nREPL client";
@@ -31,6 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/eraserhd/rep";
     license = licenses.epl10;
     platforms = platforms.all;
-    maintainers = [ maintainers.eraserhd ];
+    maintainers = [maintainers.eraserhd];
   };
 }

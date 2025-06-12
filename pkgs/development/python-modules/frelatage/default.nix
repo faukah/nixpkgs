@@ -8,7 +8,6 @@
   pythonOlder,
   timeout-decorator,
 }:
-
 buildPythonPackage rec {
   pname = "frelatage";
   version = "0.1.0";
@@ -23,24 +22,24 @@ buildPythonPackage rec {
     hash = "sha256-eHVqp6govBV9FvSQyaZuEEImHQRs/mbLaW86RCvtDbM=";
   };
 
-  pythonRelaxDeps = [ "numpy" ];
+  pythonRelaxDeps = ["numpy"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     numpy
     timeout-decorator
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "frelatage" ];
+  pythonImportsCheck = ["frelatage"];
 
   meta = with lib; {
     description = "Greybox and Coverage-based library to fuzz Python applications";
     homepage = "https://github.com/Rog3rSm1th/frelatage";
     changelog = "https://github.com/Rog3rSm1th/frelatage/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

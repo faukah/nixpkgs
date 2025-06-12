@@ -7,7 +7,6 @@
   db4,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netboot";
   version = "0.10.2";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     db4
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # mgllex.l:398:53: error: passing argument 1 of 'copy_string' from incompatible pointer type []
   env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
@@ -32,14 +31,14 @@ stdenv.mkDerivation (finalAttrs: {
   #  link: `parseopt.lo' is not a valid libtool object
   enableParallelBuilding = false;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/nbdbtool";
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   meta = {
     description = "Mini PXE server";
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

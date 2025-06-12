@@ -8,7 +8,6 @@
   twisted,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "txi2p-tahoe";
   version = "0.3.7";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     twisted
   ];
 
-  pythonImportsCheck = [ "txi2p" ];
+  pythonImportsCheck = ["txi2p"];
 
   checkPhase = ''
     runHook preCheck
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "I2P bindings for Twisted";
     homepage = "https://github.com/tahoe-lafs/txi2p";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

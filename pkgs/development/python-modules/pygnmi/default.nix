@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pygnmi";
   version = "0.8.15";
@@ -35,9 +34,9 @@ buildPythonPackage rec {
   # TypeError: expected string or bytes-like object
   doCheck = false;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pygnmi" ];
+  pythonImportsCheck = ["pygnmi"];
 
   meta = with lib; {
     description = "Pure Python gNMI client to manage network functions and collect telemetry";
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/akarneliuk/pygnmi";
     changelog = "https://github.com/akarneliuk/pygnmi/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

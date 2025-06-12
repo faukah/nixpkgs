@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "tproxy";
   version = "0.9.0";
@@ -23,14 +22,14 @@ buildGoModule rec {
     "-s"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "CLI tool to proxy and analyze TCP connections";
     homepage = "https://github.com/kevwan/tproxy";
     changelog = "https://github.com/kevwan/tproxy/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ DCsunset ];
+    maintainers = with lib.maintainers; [DCsunset];
     mainProgram = "tproxy";
   };
 }

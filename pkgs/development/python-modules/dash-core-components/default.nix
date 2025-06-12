@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "dash-core-components";
   version = "2.0.0";
@@ -22,6 +21,6 @@ buildPythonPackage rec {
     description = "Dash component starter pack";
     homepage = "https://dash.plot.ly/dash-core-components";
     license = licenses.mit;
-    maintainers = [ maintainers.antoinerg ];
+    maintainers = [maintainers.antoinerg];
   };
 }

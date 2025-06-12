@@ -11,7 +11,6 @@
   setuptools,
   unixtools,
 }:
-
 buildPythonApplication rec {
   pname = "vpn-slice";
   version = "0.16.1";
@@ -48,7 +47,7 @@ buildPythonApplication rec {
   doCheck = false;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -56,6 +55,6 @@ buildPythonApplication rec {
     description = "vpnc-script replacement for easy and secure split-tunnel VPN setup";
     mainProgram = "vpn-slice";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

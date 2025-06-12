@@ -9,7 +9,6 @@
   krunner,
   pass,
 }:
-
 mkDerivation rec {
   pname = "krunner-pass";
   # when upgrading the version, check if cmakeFlags is still needed
@@ -25,7 +24,7 @@ mkDerivation rec {
   buildInputs = [
     kauth
     krunner
-    (pass.withExtensions (p: with p; [ pass-otp ]))
+    (pass.withExtensions (p: with p; [pass-otp]))
   ];
 
   nativeBuildInputs = [
@@ -57,7 +56,7 @@ mkDerivation rec {
     description = "Integrates krunner with pass the unix standard password manager (https://www.passwordstore.org/)";
     homepage = "https://github.com/akermu/krunner-pass";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ysndr ];
+    maintainers = with maintainers; [ysndr];
     platforms = platforms.unix;
   };
 }

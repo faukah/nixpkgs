@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "shadow-tls";
   version = "0.2.25";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     description = "Proxy to expose real tls handshake to the firewall";
     license = licenses.mit;
     mainProgram = "shadow-tls";
-    maintainers = with maintainers; [ oluceps ];
+    maintainers = with maintainers; [oluceps];
     platforms = platforms.linux;
   };
 }

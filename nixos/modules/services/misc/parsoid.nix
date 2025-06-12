@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.parsoid;
 
   parsoid = pkgs.nodePackages.parsoid;
@@ -20,7 +18,11 @@ let
         module = "lib/index.js";
         entrypoint = "apiServiceWorker";
         conf = {
-          mwApis = map (x: if lib.isAttrs x then x else { uri = x; }) cfg.wikis;
+          mwApis = map (x:
+            if lib.isAttrs x
+            then x
+            else {uri = x;})
+          cfg.wikis;
           serverInterface = cfg.interface;
           serverPort = cfg.port;
         };
@@ -31,9 +33,7 @@ let
   confFile = pkgs.writeText "config.yml" (
     builtins.toJSON (lib.recursiveUpdate confTree cfg.extraConfig)
   );
-
-in
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -45,9 +45,7 @@ in
   ##### interface
 
   options = {
-
     services.parsoid = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -59,7 +57,7 @@ in
 
       wikis = lib.mkOption {
         type = lib.types.listOf (lib.types.either lib.types.str lib.types.attrs);
-        example = [ "http://localhost/api.php" ];
+        example = ["http://localhost/api.php"];
         description = ''
           Used MediaWiki API endpoints.
         '';
@@ -91,24 +89,21 @@ in
 
       extraConfig = lib.mkOption {
         type = lib.types.attrs;
-        default = { };
+        default = {};
         description = ''
           Extra configuration to add to parsoid configuration.
         '';
       };
-
     };
-
   };
 
   ##### implementation
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.parsoid = {
       description = "Bidirectional wikitext parser";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = "${parsoid}/lib/node_modules/parsoid/bin/server.js -c ${confFile} -n ${toString cfg.workers}";
 
@@ -138,7 +133,5 @@ in
         RemoveIPC = true;
       };
     };
-
   };
-
 }

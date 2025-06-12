@@ -20,7 +20,6 @@
   tzdata,
   w3lib,
 }:
-
 buildPythonPackage rec {
   pname = "playwrightcapture";
   version = "1.29.1";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     "tzdata"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -73,13 +72,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "playwrightcapture" ];
+  pythonImportsCheck = ["playwrightcapture"];
 
   meta = with lib; {
     description = "Capture a URL with Playwright";
     homepage = "https://github.com/Lookyloo/PlaywrightCapture";
     changelog = "https://github.com/Lookyloo/PlaywrightCapture/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

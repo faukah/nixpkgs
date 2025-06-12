@@ -13,7 +13,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "nbxmpp";
   version = "6.2.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ precis-i18n ];
+  buildInputs = [precis-i18n];
 
   propagatedBuildInputs = [
     gobject-introspection
@@ -46,14 +45,14 @@ buildPythonPackage rec {
     pyopenssl
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "nbxmpp" ];
+  pythonImportsCheck = ["nbxmpp"];
 
   meta = with lib; {
     homepage = "https://dev.gajim.org/gajim/python-nbxmpp";
     description = "Non-blocking Jabber/XMPP module";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

@@ -2,14 +2,12 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   cmake,
   ninja,
   pkg-config,
   makeWrapper,
   zip,
   gettext,
-
   libpng,
   zlib,
   gnutls,
@@ -27,14 +25,11 @@
   openexr,
   sqlite,
   addDriverRunpath,
-
   enableEGL ? true,
   libglvnd,
-
   enableVulkan ? true,
   vulkan-headers,
   vulkan-loader,
-
   enableWayland ? true,
   wayland,
   libxkbcommon,
@@ -99,46 +94,43 @@ stdenv.mkDerivation (finalAttrs: {
     mv $out/games $out/bin
   '';
 
-  postFixup =
-    let
-      # grep for `Sys_LoadLibrary` for more.
-      # Some of the deps listed in the source code are actually not active
-      # due to being either disabled by the nzportable profile (e.g. lua, bz2),
-      # available in /run/opengl-driver,
-      # or statically linked (e.g. libpng, libjpeg, zlib, freetype)
-      # Some of them are also just deprecated by better backend options
-      # (SDL audio is preferred over ALSA, OpenAL and PulseAudio, for example)
+  postFixup = let
+    # grep for `Sys_LoadLibrary` for more.
+    # Some of the deps listed in the source code are actually not active
+    # due to being either disabled by the nzportable profile (e.g. lua, bz2),
+    # available in /run/opengl-driver,
+    # or statically linked (e.g. libpng, libjpeg, zlib, freetype)
+    # Some of them are also just deprecated by better backend options
+    # (SDL audio is preferred over ALSA, OpenAL and PulseAudio, for example)
+    libs =
+      [
+        addDriverRunpath.driverLink
 
-      libs =
-        [
-          addDriverRunpath.driverLink
+        # gl/gl_vidlinuxglx.c
+        xorg.libX11
+        xorg.libXrandr
+        xorg.libXxf86vm
+        xorg.libXxf86dga
+        xorg.libXi
+        xorg.libXcursor
+        libGL
 
-          # gl/gl_vidlinuxglx.c
-          xorg.libX11
-          xorg.libXrandr
-          xorg.libXxf86vm
-          xorg.libXxf86dga
-          xorg.libXi
-          xorg.libXcursor
-          libGL
+        libvorbis
 
-          libvorbis
+        sqlite # server/sv_sql.c
 
-          sqlite # server/sv_sql.c
+        SDL2 # a lot of different files
+        gnutls # common/net_ssl_gnutls.c
+        openexr # client/image.c
 
-          SDL2 # a lot of different files
-          gnutls # common/net_ssl_gnutls.c
-          openexr # client/image.c
-
-          (placeholder "out")
-        ]
-        ++ lib.optional enableWayland wayland
-        ++ lib.optional enableVulkan vulkan-loader;
-    in
-    ''
-      wrapProgram $out/bin/fteqw \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libs}"
-    '';
+        (placeholder "out")
+      ]
+      ++ lib.optional enableWayland wayland
+      ++ lib.optional enableVulkan vulkan-loader;
+  in ''
+    wrapProgram $out/bin/fteqw \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libs}"
+  '';
 
   meta = {
     description = "Nazi Zombies: Portable's fork of Spike's FTEQW engine/client";
@@ -173,7 +165,7 @@ stdenv.mkDerivation (finalAttrs: {
       "x86_64-windows"
       "i686-windows"
     ];
-    maintainers = with lib.maintainers; [ pluiedev ];
+    maintainers = with lib.maintainers; [pluiedev];
     mainProgram = "fteqw";
   };
 })

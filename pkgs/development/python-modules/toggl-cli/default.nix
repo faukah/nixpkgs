@@ -3,12 +3,10 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pbr,
   setuptools,
   twine,
-
   # dependencies
   click,
   click-completion,
@@ -18,7 +16,6 @@
   prettytable,
   requests,
   validate-email,
-
   # tests
   factory-boy,
   pytest-cov-stub,
@@ -26,7 +23,6 @@
   pytestCheckHook,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "toggl-cli";
   version = "3.0.3";
@@ -85,14 +81,14 @@ buildPythonPackage rec {
     "tests/unit/cli/test_types.py"
   ];
 
-  pythonImportsCheck = [ "toggl" ];
+  pythonImportsCheck = ["toggl"];
 
   meta = {
     description = "Command line tool and set of Python wrapper classes for interacting with toggl's API";
     homepage = "https://toggl.uhlir.dev/";
     changelog = "https://github.com/AuHau/toggl-cli/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mmahut ];
+    maintainers = with lib.maintainers; [mmahut];
     mainProgram = "toggl";
   };
 }

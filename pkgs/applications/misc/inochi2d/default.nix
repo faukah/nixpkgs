@@ -5,7 +5,6 @@
   replaceVars,
   callPackage,
 }:
-
 # Note for maintainers:
 #
 # These packages are only allowed to be packaged under the the condition that we
@@ -14,11 +13,9 @@
 #
 # We have received permission by the owner to go ahead with the packaging, as we have met all the criteria
 # https://github.com/NixOS/nixpkgs/pull/288841#issuecomment-1950247467
-
 let
-  mkGeneric = builderArgs: callPackage ./generic.nix { inherit builderArgs; };
-in
-{
+  mkGeneric = builderArgs: callPackage ./generic.nix {inherit builderArgs;};
+in {
   inochi-creator = mkGeneric rec {
     pname = "inochi-creator";
     appname = "Inochi Creator";

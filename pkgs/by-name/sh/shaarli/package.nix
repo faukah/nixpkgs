@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "shaarli";
   version = "0.14.0";
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "Personal, minimalist, super-fast, database free, bookmarking service";
     license = licenses.gpl3Plus;
     homepage = "https://github.com/shaarli/Shaarli";
-    maintainers = with maintainers; [ schneefux ];
+    maintainers = with maintainers; [schneefux];
     platforms = platforms.all;
   };
 }

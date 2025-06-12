@@ -1,12 +1,11 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "xterm";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ nequissimus ];
+    maintainers = [nequissimus];
   };
 
   nodes.machine = {
-    imports = [ ./common/x11.nix ];
+    imports = [./common/x11.nix];
     services.xserver.desktopManager.xterm.enable = false;
   };
 

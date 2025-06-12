@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "frugal";
   version = "3.17.13";
@@ -15,7 +14,7 @@ buildGoModule rec {
     sha256 = "sha256-giPlv3pf0hz2zlQ/9o12SGfwFLCtpN96tfQwP9AaPNo=";
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorHash = "sha256-DCSS2kH2yco8cfbQBw3IZHcEE4BP5ir7ikxsIsFDqg0=";
 
@@ -23,7 +22,7 @@ buildGoModule rec {
     description = "Thrift improved";
     mainProgram = "frugal";
     homepage = "https://github.com/Workiva/frugal";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ diogox ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [diogox];
   };
 }

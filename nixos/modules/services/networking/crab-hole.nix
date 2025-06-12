@@ -3,42 +3,39 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.crab-hole;
 
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
 
-  checkConfig =
-    file:
+  checkConfig = file:
     pkgs.runCommand "check-config"
-      {
-        nativeBuildInputs = [
-          cfg.package
-          pkgs.cacert
-          pkgs.dig
-        ];
-      }
-      ''
-        ln -s ${file} $out
+    {
+      nativeBuildInputs = [
+        cfg.package
+        pkgs.cacert
+        pkgs.dig
+      ];
+    }
+    ''
+      ln -s ${file} $out
 
-        ln -s ${file} ./config.toml
-        export CRAB_HOLE_DIR=$(pwd)
+      ln -s ${file} ./config.toml
+      export CRAB_HOLE_DIR=$(pwd)
 
-        ${lib.getExe cfg.package} validate-config
-      '';
-in
-{
+      ${lib.getExe cfg.package} validate-config
+    '';
+in {
   options = {
     services.crab-hole = {
       enable = lib.mkEnableOption "Crab-hole Service";
 
-      package = lib.mkPackageOption pkgs "crab-hole" { };
+      package = lib.mkPackageOption pkgs "crab-hole" {};
 
       supplementaryGroups = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
-        example = [ "acme" ];
+        default = [];
+        example = ["acme"];
         description = "Adds additional groups to the crab-hole service. Can be useful to prevent permission issues.";
       };
 
@@ -103,22 +100,22 @@ in
         type = lib.types.submodule {
           freeformType = settingsFormat.type;
           options = {
-            blocklist =
-              let
-                listOption =
-                  name:
-                  lib.mkOption {
-                    type = lib.types.listOf (lib.types.either lib.types.str lib.types.path);
-                    default = [ ];
-                    description = "List of ${name}. If files are added via url, make sure the service has access to them!";
-                    apply = map (v: if builtins.isPath v then "file://${v}" else v);
-                  };
-              in
-              {
-                include_subdomains = lib.mkEnableOption "Include subdomains";
-                lists = listOption "blocklists";
-                allow_list = listOption "allowlists";
-              };
+            blocklist = let
+              listOption = name:
+                lib.mkOption {
+                  type = lib.types.listOf (lib.types.either lib.types.str lib.types.path);
+                  default = [];
+                  description = "List of ${name}. If files are added via url, make sure the service has access to them!";
+                  apply = map (v:
+                    if builtins.isPath v
+                    then "file://${v}"
+                    else v);
+                };
+            in {
+              include_subdomains = lib.mkEnableOption "Include subdomains";
+              lists = listOption "blocklists";
+              allow_list = listOption "allowlists";
+            };
           };
         };
       };
@@ -147,12 +144,12 @@ in
     environment.etc."crab-hole.toml".source = cfg.configFile;
 
     systemd.services.crab-hole = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
       description = "Crab-hole dns server";
       environment.HOME = "/var/lib/crab-hole";
-      restartTriggers = [ cfg.configFile ];
+      restartTriggers = [cfg.configFile];
       serviceConfig = {
         Type = "simple";
         DynamicUser = true;

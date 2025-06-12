@@ -5,7 +5,6 @@
   postgresqlBuildExtension,
   postgresqlTestExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "rum";
   version = "1.3.14";
@@ -17,7 +16,7 @@ postgresqlBuildExtension (finalAttrs: {
     hash = "sha256-VsfpxQqRBu9bIAP+TfMRXd+B3hSjuhU2NsutocNiCt8=";
   };
 
-  makeFlags = [ "USE_PGXS=1" ];
+  makeFlags = ["USE_PGXS=1"];
 
   passthru.tests.extension = postgresqlTestExtension {
     inherit (finalAttrs) finalPackage;
@@ -33,6 +32,6 @@ postgresqlBuildExtension (finalAttrs: {
     homepage = "https://github.com/postgrespro/rum";
     license = lib.licenses.postgresql;
     platforms = postgresql.meta.platforms;
-    maintainers = with lib.maintainers; [ DeeUnderscore ];
+    maintainers = with lib.maintainers; [DeeUnderscore];
   };
 })

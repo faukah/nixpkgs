@@ -24,7 +24,6 @@
   uharfbuzz,
   pytest7CheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fonttools";
   version = "4.56.0";
@@ -44,29 +43,36 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  optional-dependencies =
-    let
-      extras = {
-        ufo = [ fs ];
-        lxml = [ lxml ];
-        woff = [
-          (if isPyPy then brotlicffi else brotli)
-          zopfli
-        ];
-        unicode = lib.optional (pythonOlder "3.13") unicodedata2;
-        graphite = [ lz4 ];
-        interpolatable = [
-          pycairo
-          (if isPyPy then munkres else scipy)
-        ];
-        plot = [ matplotlib ];
-        symfont = [ sympy ];
-        type1 = lib.optional stdenv.hostPlatform.isDarwin xattr;
-        pathops = [ skia-pathops ];
-        repacker = [ uharfbuzz ];
-      };
-    in
-    extras // { all = lib.concatLists (lib.attrValues extras); };
+  optional-dependencies = let
+    extras = {
+      ufo = [fs];
+      lxml = [lxml];
+      woff = [
+        (
+          if isPyPy
+          then brotlicffi
+          else brotli
+        )
+        zopfli
+      ];
+      unicode = lib.optional (pythonOlder "3.13") unicodedata2;
+      graphite = [lz4];
+      interpolatable = [
+        pycairo
+        (
+          if isPyPy
+          then munkres
+          else scipy
+        )
+      ];
+      plot = [matplotlib];
+      symfont = [sympy];
+      type1 = lib.optional stdenv.hostPlatform.isDarwin xattr;
+      pathops = [skia-pathops];
+      repacker = [uharfbuzz];
+    };
+  in
+    extras // {all = lib.concatLists (lib.attrValues extras);};
 
   nativeCheckInputs =
     [
@@ -84,11 +90,12 @@ buildPythonPackage rec {
         ++ lib.optionals (!skia-pathops.meta.broken) [
           "pathops" # broken
         ]
-        ++ [ "repacker" ]
-      ) optional-dependencies
+        ++ ["repacker"]
+      )
+      optional-dependencies
     );
 
-  pythonImportsCheck = [ "fontTools" ];
+  pythonImportsCheck = ["fontTools"];
 
   preCheck = ''
     # tests want to execute the "fonttools" executable from $PATH
@@ -121,6 +128,6 @@ buildPythonPackage rec {
     description = "Library to manipulate font files from Python";
     changelog = "https://github.com/fonttools/fonttools/blob/${src.tag}/NEWS.rst";
     license = licenses.mit;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

@@ -9,7 +9,6 @@
   textlint,
   textlint-rule-max-comma,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "textlint-rule-max-comma";
   version = "4.0.0";
@@ -73,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/textlint-rule/textlint-rule-max-comma";
     changelog = "https://github.com/textlint-rule/textlint-rule-max-comma/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     platforms = textlint.meta.platforms;
   };
 })

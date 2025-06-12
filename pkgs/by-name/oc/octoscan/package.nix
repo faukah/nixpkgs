@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "octoscan";
   version = "0.1.5";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/synacktiv/octoscan";
     changelog = "https://github.com/synacktiv/octoscan/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "octoscan";
   };
 }

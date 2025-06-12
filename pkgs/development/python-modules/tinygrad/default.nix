@@ -4,7 +4,6 @@
   config,
   buildPythonPackage,
   fetchFromGitHub,
-
   # patches
   replaceVars,
   addDriverRunpath,
@@ -12,15 +11,12 @@
   llvmPackages,
   ocl-icd,
   rocmPackages,
-
   # build-system
   setuptools,
-
   # optional-dependencies
   llvmlite,
   triton,
   unicorn,
-
   # tests
   pytestCheckHook,
   writableTmpDirAsHomeHook,
@@ -46,14 +42,11 @@
   tqdm,
   transformers,
   z3-solver,
-
   # passthru
   tinygrad,
-
   cudaSupport ? config.cudaSupport,
   rocmSupport ? config.rocmSupport,
 }:
-
 buildPythonPackage rec {
   pname = "tinygrad";
   version = "0.10.3";
@@ -70,10 +63,9 @@ buildPythonPackage rec {
     (replaceVars ./fix-dlopen-cuda.patch {
       inherit (addDriverRunpath) driverLink;
       libnvrtc =
-        if cudaSupport then
-          "${lib.getLib cudaPackages.cuda_nvrtc}/lib/libnvrtc.so"
-        else
-          "Please import nixpkgs with `config.cudaSupport = true`";
+        if cudaSupport
+        then "${lib.getLib cudaPackages.cuda_nvrtc}/lib/libnvrtc.so"
+        else "Please import nixpkgs with `config.cudaSupport = true`";
     })
   ];
 
@@ -124,12 +116,12 @@ buildPythonPackage rec {
         --replace-fail "/opt/rocm/" "${rocmPackages.rocm-comgr}/"
     '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
-    llvm = [ llvmlite ];
-    arm = [ unicorn ];
-    triton = [ triton ];
+    llvm = [llvmlite];
+    arm = [unicorn];
+    triton = [triton];
   };
 
   pythonImportsCheck =
@@ -140,33 +132,35 @@ buildPythonPackage rec {
       "tinygrad.runtime.ops_nv"
     ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    writableTmpDirAsHomeHook
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      writableTmpDirAsHomeHook
 
-    blobfile
-    bottle
-    capstone
-    clang
-    hexdump
-    hypothesis
-    jax
-    librosa
-    ml-dtypes
-    networkx
-    numpy
-    onnx
-    onnxruntime
-    pillow
-    pytest-xdist
-    safetensors
-    sentencepiece
-    tiktoken
-    torch
-    tqdm
-    transformers
-    z3-solver
-  ] ++ networkx.optional-dependencies.extra;
+      blobfile
+      bottle
+      capstone
+      clang
+      hexdump
+      hypothesis
+      jax
+      librosa
+      ml-dtypes
+      networkx
+      numpy
+      onnx
+      onnxruntime
+      pillow
+      pytest-xdist
+      safetensors
+      sentencepiece
+      tiktoken
+      torch
+      tqdm
+      transformers
+      z3-solver
+    ]
+    ++ networkx.optional-dependencies.extra;
 
   disabledTests =
     [
@@ -235,7 +229,7 @@ buildPythonPackage rec {
   ];
 
   passthru.tests = {
-    withCuda = tinygrad.override { cudaSupport = true; };
+    withCuda = tinygrad.override {cudaSupport = true;};
   };
 
   meta = {
@@ -243,7 +237,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/tinygrad/tinygrad";
     changelog = "https://github.com/tinygrad/tinygrad/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     badPlatforms = [
       # Fatal Python error: Aborted
       # onnxruntime/capi/_pybind_state.py", line 32 in <module>

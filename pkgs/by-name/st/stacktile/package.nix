@@ -5,7 +5,6 @@
   wayland,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stacktile";
   version = "1.0.0";
@@ -40,9 +39,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://sr.ht/~leon_plickat/stacktile/";
     description = "Layout generator for the river Wayland compositor";
-    license = with lib.licenses; [ gpl3Plus ];
+    license = with lib.licenses; [gpl3Plus];
     mainProgram = "stacktile";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

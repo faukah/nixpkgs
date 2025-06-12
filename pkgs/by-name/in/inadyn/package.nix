@@ -8,7 +8,6 @@
   libite,
   libconfuse,
 }:
-
 stdenv.mkDerivation rec {
   pname = "inadyn";
   version = "2.12.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://troglobit.com/projects/inadyn/";
     description = "Free dynamic DNS client";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "inadyn";
   };

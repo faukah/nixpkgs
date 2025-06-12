@@ -13,7 +13,6 @@
   writableTmpDirAsHomeHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "espup";
   version = "0.15.1";
@@ -45,7 +44,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ZSTD_SYS_USE_PKG_CONFIG = true;
   };
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeCheckInputs = [writableTmpDirAsHomeHook];
 
   checkFlags = [
     # makes network calls
@@ -60,7 +59,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = finalAttrs.finalPackage;
     };

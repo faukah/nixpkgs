@@ -4,14 +4,12 @@
   cmake,
   extra-cmake-modules,
   makeWrapper,
-
   qtbase,
   qtquickcontrols2,
   qtsvg,
   qtlocation,
   qtdeclarative,
   qqc2-desktop-style,
-
   kirigami2,
   kirigami-addons,
   kdbusaddons,
@@ -30,7 +28,6 @@
   kpackage,
   eventviews,
   calendarsupport,
-
   akonadi,
   akonadi-search,
   akonadi-contacts,
@@ -41,7 +38,6 @@
   mailcommon,
   messagelib,
 }:
-
 mkDerivation {
   pname = "merkuro";
 
@@ -96,19 +92,19 @@ mkDerivation {
   ];
   qtWrapperArgs = [
     ''--prefix PATH : "${
-      lib.makeBinPath [
-        akonadi
-        kdepim-runtime
-        akonadi-search
-      ]
-    }"''
+        lib.makeBinPath [
+          akonadi
+          kdepim-runtime
+          akonadi-search
+        ]
+      }"''
   ];
 
   meta = with lib; {
     description = "Calendar application using Akonadi to sync with external services (Nextcloud, GMail, ...)";
     homepage = "https://invent.kde.org/pim/merkuro";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ Thra11 ];
+    maintainers = with maintainers; [Thra11];
     platforms = platforms.linux;
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   cups,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rastertoezpl";
   version = "1.1.12";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-iBhM8Mht/XncWU75cd485WK5GZtJNv78yMsFsD0eKWQ=";
   };
 
-  buildInputs = [ cups ];
+  buildInputs = [cups];
 
   configureFlags = [
     "--datarootdir=${placeholder "out"}/share"
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "CUPS driver for GODEX printers";
     homepage = "https://www.godexintl.com/downloads";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ stargate01 ];
+    maintainers = with lib.maintainers; [stargate01];
     platforms = lib.platforms.linux;
   };
 })

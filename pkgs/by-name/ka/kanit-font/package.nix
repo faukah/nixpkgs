@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "kanit";
   version = "unstable-2020-06-16";
@@ -42,6 +41,6 @@ stdenv.mkDerivation {
     '';
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.toastal ];
+    maintainers = [maintainers.toastal];
   };
 }

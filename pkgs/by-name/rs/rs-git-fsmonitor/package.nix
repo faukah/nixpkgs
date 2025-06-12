@@ -5,7 +5,6 @@
   makeWrapper,
   watchman,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rs-git-fsmonitor";
   version = "0.2.0";
@@ -20,17 +19,17 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-WkqJSbtaJxaagJMsdFiVozi1SkrfxXyM9bdZeimwJag=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postFixup = ''
-    wrapProgram $out/bin/rs-git-fsmonitor --prefix PATH ":" "${lib.makeBinPath [ watchman ]}"
+    wrapProgram $out/bin/rs-git-fsmonitor --prefix PATH ":" "${lib.makeBinPath [watchman]}"
   '';
 
   meta = {
     description = "Fast git core.fsmonitor hook written in Rust";
     homepage = "https://github.com/jgavris/rs-git-fsmonitor";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nilscc ];
+    maintainers = with lib.maintainers; [nilscc];
     mainProgram = "rs-git-fsmonitor";
   };
 }

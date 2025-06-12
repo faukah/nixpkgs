@@ -13,7 +13,6 @@
   gawk,
   gnused,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "tinystatus";
   version = "unstable-2021-07-09";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-FvQwibm6F10l9/U3RnNTGu+C2JjHOwbv62VxXAfI7/s=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   runtimeInputs = [
     curl
@@ -67,6 +66,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/bderenzo/tinystatus";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

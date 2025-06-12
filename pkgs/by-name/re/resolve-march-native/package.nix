@@ -4,7 +4,6 @@
   gcc,
   lib,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "resolve-march-native";
   version = "6.0.1";
@@ -17,7 +16,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   # NB: The tool uses gcc at runtime to resolve the -march=native flags
-  propagatedBuildInputs = [ gcc ];
+  propagatedBuildInputs = [gcc];
 
   doCheck = true;
 
@@ -26,7 +25,7 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "resolve-march-native";
     homepage = "https://github.com/hartwork/resolve-march-native";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
     platforms = platforms.unix;
   };
 }

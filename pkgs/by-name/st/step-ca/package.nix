@@ -9,7 +9,6 @@
   hsmSupport ? true,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "step-ca";
   version = "0.28.3";
@@ -28,9 +27,9 @@ buildGoModule rec {
     "-X main.Version=${version}"
   ];
 
-  nativeBuildInputs = lib.optionals hsmSupport [ pkg-config ];
+  nativeBuildInputs = lib.optionals hsmSupport [pkg-config];
 
-  buildInputs = lib.optionals (hsmSupport && stdenv.hostPlatform.isLinux) [ pcsclite ];
+  buildInputs = lib.optionals (hsmSupport && stdenv.hostPlatform.isLinux) [pcsclite];
   postPatch = ''
     substituteInPlace authority/http_client_test.go --replace-fail 't.Run("SystemCertPool", func(t *testing.T) {' 't.Skip("SystemCertPool", func(t *testing.T) {'
     substituteInPlace systemd/step-ca.service --replace "/bin/kill" "${coreutils}/bin/kill"
@@ -54,7 +53,7 @@ buildGoModule rec {
 
   # Tests need to run in a reproducible order, otherwise they run unreliably on
   # (at least) x86_64-linux.
-  checkFlags = [ "-p 1" ];
+  checkFlags = ["-p 1"];
 
   passthru.tests.step-ca = nixosTests.step-ca;
 

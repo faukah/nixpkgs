@@ -4,25 +4,22 @@
   fetchurl,
   autoPatchelfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "confluent-cli";
   version = "4.26.1";
 
   # To get the latest version:
   # curl -L https://cnfl.io/cli | sh -s -- -l | grep -v latest | sort -V | tail -n1
-  src =
-    let
-      selectSystem =
-        attrs:
-        attrs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-      system = selectSystem {
-        x86_64-linux = "linux_amd64";
-        aarch64-linux = "linux_arm64";
-        x86_64-darwin = "darwin_amd64";
-        aarch64-darwin = "darwin_arm64";
-      };
-    in
+  src = let
+    selectSystem = attrs:
+      attrs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    system = selectSystem {
+      x86_64-linux = "linux_amd64";
+      aarch64-linux = "linux_arm64";
+      x86_64-darwin = "darwin_amd64";
+      aarch64-darwin = "darwin_arm64";
+    };
+  in
     fetchurl {
       url = "https://s3-us-west-2.amazonaws.com/confluent.cloud/confluent-cli/archives/${finalAttrs.version}/confluent_${finalAttrs.version}_${system}.tar.gz";
       hash = selectSystem {
@@ -33,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
       };
     };
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
 
   dontStrip = stdenv.hostPlatform.isDarwin;
 
@@ -53,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Confluent CLI";
     homepage = "https://docs.confluent.io/confluent-cli/current/overview.html";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfreeRedistributable;
     maintainers = with lib.maintainers; [
       rguevara84

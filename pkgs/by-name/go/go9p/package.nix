@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go9p";
   version = "0.25.0";
@@ -22,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/knusbaum/go9p";
     license = lib.licenses.mit;
     mainProgram = "mount9p";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
   };
 }

@@ -18,7 +18,6 @@
   pytestCheckHook,
   shippinglabel,
 }:
-
 buildPythonPackage rec {
   pname = "whey";
   version = "0.1.1";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
       --replace-fail 'setuptools!=61.*,<=67.1.0,>=40.6.0' setuptools
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     attrs
@@ -52,17 +51,19 @@ buildPythonPackage rec {
     shippinglabel
   ];
 
-  pythonImportsCheck = [ "whey" ];
+  pythonImportsCheck = ["whey"];
 
   optional-dependencies = {
     all = lib.flatten (lib.attrValues (lib.filterAttrs (n: v: n != "all") optional-dependencies));
     editable = [
       editables
     ];
-    readme = [
-      docutils
-      pyproject-parser
-    ] ++ pyproject-parser.optional-dependencies.readme;
+    readme =
+      [
+        docutils
+        pyproject-parser
+      ]
+      ++ pyproject-parser.optional-dependencies.readme;
   };
 
   nativeCheckInputs = [
@@ -76,6 +77,6 @@ buildPythonPackage rec {
     description = "Simple Python wheel builder for simple projects";
     homepage = "https://github.com/repo-helper/whey";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tyberius-prime ];
+    maintainers = with lib.maintainers; [tyberius-prime];
   };
 }

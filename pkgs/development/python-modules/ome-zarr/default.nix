@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   aiohttp,
   dask,
@@ -16,11 +14,9 @@
   scikit-image,
   toolz,
   zarr,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ome-zarr";
   version = "0.11.1";
@@ -38,16 +34,18 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [
-    aiohttp
-    dask
-    fsspec
-    numpy
-    requests
-    scikit-image
-    toolz
-    zarr
-  ] ++ fsspec.optional-dependencies.s3;
+  dependencies =
+    [
+      aiohttp
+      dask
+      fsspec
+      numpy
+      requests
+      scikit-image
+      toolz
+      zarr
+    ]
+    ++ fsspec.optional-dependencies.s3;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -97,7 +95,7 @@ buildPythonPackage rec {
     homepage = "https://pypi.org/project/ome-zarr";
     changelog = "https://github.com/ome/ome-zarr-py/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.bcdarwin ];
+    maintainers = [lib.maintainers.bcdarwin];
     mainProgram = "ome_zarr";
   };
 }

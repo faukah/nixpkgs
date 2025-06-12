@@ -4,7 +4,6 @@
   stdenvNoCC,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "chemacs2";
   version = "0-unstable-2023-01-20";
@@ -33,7 +32,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://github.com/plexus/chemacs2";
@@ -44,8 +43,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
       Think of it as a bootloader for Emacs.
     '';
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

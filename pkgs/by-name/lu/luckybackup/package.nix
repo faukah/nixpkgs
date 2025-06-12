@@ -8,7 +8,6 @@
   rsync,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "luckybackup";
   version = "0.5.0";
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl3Plus;
     mainProgram = "luckybackup";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

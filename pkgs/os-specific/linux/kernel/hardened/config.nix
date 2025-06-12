@@ -7,19 +7,14 @@
 # flexibility.
 #
 # See also <nixos/modules/profiles/hardened.nix>
-
 {
   stdenv,
   lib,
   version,
 }:
-
 with lib.kernel;
 with (lib.kernel.whenHelpers version);
-
-assert (lib.versionAtLeast version "4.9");
-
-{
+assert (lib.versionAtLeast version "4.9"); {
   # Mark LSM hooks read-only after init.  SECURITY_WRITABLE_HOOKS n
   # conflicts with SECURITY_SELINUX_DISABLE y; disabling the latter
   # implicitly marks LSM hooks read-only after init.

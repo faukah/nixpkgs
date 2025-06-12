@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "timy";
   version = "0.4.2";
@@ -24,6 +23,6 @@ buildPythonPackage {
     description = "Minimalist measurement of python code time";
     homepage = "https://github.com/ramonsaraiva/timy";
     license = licenses.mit;
-    maintainers = with maintainers; [ flandweber ];
+    maintainers = with maintainers; [flandweber];
   };
 }

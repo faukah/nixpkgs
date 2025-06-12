@@ -5,7 +5,6 @@
   libpcap,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "naabu";
   version = "2.3.4";
@@ -19,11 +18,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-HpkFUHD3B09nxGK75zELTsjr4wXivY2o/DCjYSDepRI=";
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  subPackages = [ "cmd/naabu/" ];
+  subPackages = ["cmd/naabu/"];
 
   ldflags = [
     "-w"
@@ -45,7 +44,7 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/naabu";
     changelog = "https://github.com/projectdiscovery/naabu/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "naabu";
   };
 }

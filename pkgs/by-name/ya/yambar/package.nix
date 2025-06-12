@@ -28,103 +28,102 @@
   waylandSupport ? true,
   x11Support ? true,
 }:
-
 assert (x11Support || waylandSupport);
-stdenv.mkDerivation (finalAttrs: {
-  pname = "yambar";
-  version = "1.11.0";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "yambar";
+    version = "1.11.0";
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
-    owner = "dnkl";
-    repo = "yambar";
-    rev = finalAttrs.version;
-    hash = "sha256-QCwwMpBYuMWYqxE2ugPFpG/QtZDW7VsSBYs5EqKYejA=";
-  };
+    src = fetchFromGitea {
+      domain = "codeberg.org";
+      owner = "dnkl";
+      repo = "yambar";
+      rev = finalAttrs.version;
+      hash = "sha256-QCwwMpBYuMWYqxE2ugPFpG/QtZDW7VsSBYs5EqKYejA=";
+    };
 
-  outputs = [
-    "out"
-    "man"
-  ];
-
-  depsBuildBuild = [ pkg-config ];
-
-  nativeBuildInputs = [
-    bison
-    flex
-    meson
-    ninja
-    pkg-config
-    scdoc
-    wayland-scanner
-  ];
-
-  buildInputs =
-    [
-      alsa-lib
-      fcft
-      json_c
-      libmpdclient
-      libyaml
-      pipewire
-      pixman
-      pulseaudio
-      tllist
-      udev
-    ]
-    ++ lib.optionals (waylandSupport) [
-      wayland
-      wayland-protocols
-    ]
-    ++ lib.optionals (x11Support) [
-      xcbutil
-      xcbutilcursor
-      xcbutilerrors
-      xcbutilwm
+    outputs = [
+      "out"
+      "man"
     ];
 
-  strictDeps = true;
+    depsBuildBuild = [pkg-config];
 
-  mesonBuildType = "release";
+    nativeBuildInputs = [
+      bison
+      flex
+      meson
+      ninja
+      pkg-config
+      scdoc
+      wayland-scanner
+    ];
 
-  mesonFlags = [
-    (lib.mesonBool "werror" false)
-    (lib.mesonEnable "backend-x11" x11Support)
-    (lib.mesonEnable "backend-wayland" waylandSupport)
-  ];
+    buildInputs =
+      [
+        alsa-lib
+        fcft
+        json_c
+        libmpdclient
+        libyaml
+        pipewire
+        pixman
+        pulseaudio
+        tllist
+        udev
+      ]
+      ++ lib.optionals waylandSupport [
+        wayland
+        wayland-protocols
+      ]
+      ++ lib.optionals x11Support [
+        xcbutil
+        xcbutilcursor
+        xcbutilerrors
+        xcbutilwm
+      ];
 
-  meta = {
-    homepage = "https://codeberg.org/dnkl/yambar";
-    description = "Modular status panel for X11 and Wayland";
-    longDescription = ''
-      yambar is a lightweight and configurable status panel (bar, for short) for
-      X11 and Wayland, that goes to great lengths to be both CPU and battery
-      efficient - polling is only done when absolutely necessary.
+    strictDeps = true;
 
-      It has a number of modules that provide information in the form of tags.
-      For example, the clock module has a date tag that contains the current
-      date.
+    mesonBuildType = "release";
 
-      The modules do not know how to present the information though. This is
-      instead done by particles. And the user, you, decides which particles (and
-      thus how to present the data) to use.
+    mesonFlags = [
+      (lib.mesonBool "werror" false)
+      (lib.mesonEnable "backend-x11" x11Support)
+      (lib.mesonEnable "backend-wayland" waylandSupport)
+    ];
 
-      Furthermore, each particle can have a decoration - a background color or a
-      graphical underline, for example.
+    meta = {
+      homepage = "https://codeberg.org/dnkl/yambar";
+      description = "Modular status panel for X11 and Wayland";
+      longDescription = ''
+        yambar is a lightweight and configurable status panel (bar, for short) for
+        X11 and Wayland, that goes to great lengths to be both CPU and battery
+        efficient - polling is only done when absolutely necessary.
 
-      There is no support for images or icons. use an icon font (e.g. Font
-      Awesome, or Material Icons) if you want a graphical representation.
+        It has a number of modules that provide information in the form of tags.
+        For example, the clock module has a date tag that contains the current
+        date.
 
-      There are a number of modules and particles builtin. More can be added as
-      plugins. You can even write your own!
+        The modules do not know how to present the information though. This is
+        instead done by particles. And the user, you, decides which particles (and
+        thus how to present the data) to use.
 
-      To summarize: a bar displays information provided by modules, using
-      particles and decorations. How is configured by you.
-    '';
-    changelog = "https://codeberg.org/dnkl/yambar/releases/tag/${finalAttrs.version}";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
-    platforms = lib.platforms.linux;
-    mainProgram = "yambar";
-  };
-})
+        Furthermore, each particle can have a decoration - a background color or a
+        graphical underline, for example.
+
+        There is no support for images or icons. use an icon font (e.g. Font
+        Awesome, or Material Icons) if you want a graphical representation.
+
+        There are a number of modules and particles builtin. More can be added as
+        plugins. You can even write your own!
+
+        To summarize: a bar displays information provided by modules, using
+        particles and decorations. How is configured by you.
+      '';
+      changelog = "https://codeberg.org/dnkl/yambar/releases/tag/${finalAttrs.version}";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [];
+      platforms = lib.platforms.linux;
+      mainProgram = "yambar";
+    };
+  })

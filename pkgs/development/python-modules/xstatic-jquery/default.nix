@@ -3,7 +3,6 @@
   lib,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "xstatic-jquery";
   version = "3.5.1.1";
@@ -21,6 +20,6 @@ buildPythonPackage rec {
     homepage = "https://jquery.org";
     description = "jquery packaged static files for python";
     license = licenses.mit;
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
   };
 }

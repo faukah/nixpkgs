@@ -11,7 +11,6 @@
   gengetopt,
   vsmartcard-vpcd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vsmartcard-pcsc-relay";
 
@@ -31,13 +30,14 @@ stdenv.mkDerivation (finalAttrs: {
     libnfc
     gengetopt
     (python3.withPackages (
-      pp: with pp; [
-        pyscard
-        pycrypto
-        pbkdf2
-        pillow
-        gnureadline
-      ]
+      pp:
+        with pp; [
+          pyscard
+          pycrypto
+          pbkdf2
+          pillow
+          gnureadline
+        ]
     ))
   ];
 
@@ -47,6 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;
     broken = stdenv.hostPlatform.isDarwin;
-    maintainers = with lib.maintainers; [ stargate01 ];
+    maintainers = with lib.maintainers; [stargate01];
   };
 })

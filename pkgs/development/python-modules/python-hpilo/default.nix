@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-hpilo";
   version = "4.4.3";
@@ -17,12 +16,12 @@ buildPythonPackage rec {
     hash = "sha256-O0WGJRxzT9R9abFOsXHSiv0aFOtBWQqTrfbw5rnuZbY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Most tests requires an actual iLO to run
   doCheck = false;
 
-  pythonImportsCheck = [ "hpilo" ];
+  pythonImportsCheck = ["hpilo"];
 
   meta = with lib; {
     description = "Python module to access the HP iLO XML interface";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       asl20
       gpl3Plus
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "hpilo_cli";
   };
 }

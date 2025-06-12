@@ -3,7 +3,6 @@
   lib,
   fetchurl,
 }:
-
 buildOctavePackage rec {
   pname = "instrument-control";
   version = "0.9.5";
@@ -16,7 +15,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/instrument-control/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Low level I/O functions for serial, i2c, spi, parallel, tcp, gpib, vxi11, udp and usbtmc interfaces";
   };
 }

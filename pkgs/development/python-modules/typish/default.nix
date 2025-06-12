@@ -7,7 +7,6 @@
   pythonAtLeast,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "typish";
   version = "1.9.3";
@@ -38,13 +37,13 @@ buildPythonPackage rec {
     "test_get_origin"
   ];
 
-  pythonImportsCheck = [ "typish" ];
+  pythonImportsCheck = ["typish"];
 
   meta = with lib; {
     description = "Python module for checking types of objects";
     homepage = "https://github.com/ramonhagenaars/typish";
     changelog = "https://github.com/ramonhagenaars/typish/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fmoda3 ];
+    maintainers = with maintainers; [fmoda3];
   };
 }

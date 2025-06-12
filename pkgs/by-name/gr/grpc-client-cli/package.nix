@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "grpc-client-cli";
   version = "1.22.3";
@@ -20,7 +19,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "generic gRPC command line client";
     mainProgram = "grpc-client-cli";
-    maintainers = with maintainers; [ Philipp-M ];
+    maintainers = with maintainers; [Philipp-M];
     homepage = "https://github.com/vadimi/grpc-client-cli";
     license = licenses.mit;
   };

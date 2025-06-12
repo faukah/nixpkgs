@@ -3,7 +3,6 @@
   lib,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "iwmenu";
   version = "0.2.0";
@@ -28,6 +27,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "iwmenu";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ vuimuich ];
+    maintainers = with lib.maintainers; [vuimuich];
   };
 }

@@ -3,12 +3,11 @@
   dune-configurator,
   pkg-config,
   callPackage,
-  ffmpeg-base ? callPackage ./base.nix { },
+  ffmpeg-base ? callPackage ./base.nix {},
   ffmpeg-avutil,
   ffmpeg-avcodec,
   ffmpeg,
 }:
-
 buildDunePackage {
   pname = "ffmpeg-av";
 
@@ -16,8 +15,8 @@ buildDunePackage {
 
   inherit (ffmpeg-base) version src;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     ffmpeg-avutil
     ffmpeg-avcodec
@@ -26,8 +25,9 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = ffmpeg-base.meta // {
-    description = "Bindings for the ffmpeg libraries -- top-level helpers";
-  };
-
+  meta =
+    ffmpeg-base.meta
+    // {
+      description = "Bindings for the ffmpeg libraries -- top-level helpers";
+    };
 }

@@ -7,7 +7,6 @@
   pscale,
   testers,
 }:
-
 buildGoModule rec {
   pname = "pscale";
   version = "0.245.0";
@@ -29,7 +28,7 @@ buildGoModule rec {
     "-X main.date=unknown"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd pscale \

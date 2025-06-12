@@ -5,10 +5,9 @@
   extendModules,
   noUserModules,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     concatStringsSep
     escapeShellArg
     hasInfix
@@ -24,12 +23,12 @@ let
   # you can provide an easy way to boot the same configuration
   # as you use, but with another kernel
   # !!! fix this
-  children = mapAttrs (
-    childName: childConfig: childConfig.configuration.system.build.toplevel
-  ) config.specialisation;
-
-in
-{
+  children =
+    mapAttrs (
+      childName: childConfig: childConfig.configuration.system.build.toplevel
+    )
+    config.specialisation;
+in {
   options = {
     isSpecialisation = mkOption {
       type = lib.types.bool;
@@ -39,7 +38,7 @@ in
     };
 
     specialisation = mkOption {
-      default = { };
+      default = {};
       example = lib.literalExpression "{ fewJobsManyCores.configuration = { nix.settings = { core = 0; max-jobs = 1; }; }; }";
       description = ''
         Additional configurations to build. If
@@ -55,11 +54,12 @@ in
       '';
       type = types.attrsOf (
         types.submodule (
-          local@{ ... }:
-          let
-            extend = if local.config.inheritParentConfig then extendModules else noUserModules.extendModules;
-          in
-          {
+          local @ {...}: let
+            extend =
+              if local.config.inheritParentConfig
+              then extendModules
+              else noUserModules.extendModules;
+          in {
             options.inheritParentConfig = mkOption {
               type = types.bool;
               default = true;
@@ -67,7 +67,7 @@ in
             };
 
             options.configuration = mkOption {
-              default = { };
+              default = {};
               description = ''
                 Arbitrary NixOS configuration.
 
@@ -76,23 +76,24 @@ in
                 specialisations will be ignored.
               '';
               visible = "shallow";
-              inherit (extend { modules = [ ./no-clone.nix ]; }) type;
+              inherit (extend {modules = [./no-clone.nix];}) type;
             };
           }
         )
       );
     };
-
   };
 
   config = {
-    assertions = mapAttrsToList (name: _: {
-      assertion = !hasInfix "/" name;
-      message = ''
-        Specialisation names must not contain forward slashes.
-        Invalid specialisation name: ${name}
-      '';
-    }) config.specialisation;
+    assertions =
+      mapAttrsToList (name: _: {
+        assertion = !hasInfix "/" name;
+        message = ''
+          Specialisation names must not contain forward slashes.
+          Invalid specialisation name: ${name}
+        '';
+      })
+      config.specialisation;
 
     system.systemBuilderCommands = ''
       mkdir $out/specialisation

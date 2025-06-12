@@ -8,7 +8,6 @@
   louvain-community,
   lib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "arjun-cnf";
   version = "2.5.2";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     ./fix-red-clause.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     boost
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "CNF minimizer and minimal independent set calculator";
     homepage = "https://github.com/meelgroup/arjun";
     license = licenses.mit;
-    maintainers = with maintainers; [ t4ccer ];
+    maintainers = with maintainers; [t4ccer];
     platforms = platforms.linux;
     mainProgram = "arjun";
   };

@@ -12,7 +12,6 @@
   openssh,
   procps,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "sshuttle";
   version = "1.3.1";
@@ -25,7 +24,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-/ThWsPtFuUo41+Xw23UigZup1fq6/SAzDpxIaT0Vhvg=";
   };
 
-  build-system = [ python3Packages.hatchling ];
+  build-system = [python3Packages.hatchling];
 
   nativeBuildInputs = [
     installShellFiles
@@ -47,18 +46,18 @@ python3Packages.buildPythonApplication rec {
 
     wrapProgram $out/bin/sshuttle \
       --prefix PATH : "${
-        lib.makeBinPath (
-          [
-            coreutils
-            openssh
-            procps
-          ]
-          ++ lib.optionals stdenv.hostPlatform.isLinux [
-            iptables
-            nettools
-          ]
-        )
-      }" \
+      lib.makeBinPath (
+        [
+          coreutils
+          openssh
+          procps
+        ]
+        ++ lib.optionals stdenv.hostPlatform.isLinux [
+          iptables
+          nettools
+        ]
+      )
+    }" \
   '';
 
   meta = {

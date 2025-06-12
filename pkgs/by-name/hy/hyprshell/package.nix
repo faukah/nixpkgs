@@ -6,7 +6,6 @@
   wrapGAppsHook4,
   gtk4-layer-shell,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "hyprshell";
   version = "4.2.1";
@@ -36,6 +35,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/H3rmt/hyprswitch";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ arminius-smh ];
+    maintainers = with lib.maintainers; [arminius-smh];
   };
 })

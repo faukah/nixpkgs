@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage {
   pname = "coc-pyright";
   version = "1.1.371";
@@ -22,6 +21,6 @@ buildNpmPackage {
     description = "Pyright extension for coc.nvim";
     homepage = "https://github.com/fannheyward/coc-pyright";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

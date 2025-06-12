@@ -5,7 +5,6 @@
   buildGoModule,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "gost";
   version = "2.12.0";
@@ -54,7 +53,7 @@ buildGoModule rec {
 
   doInstallCheck = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   versionCheckProgramArg = "-V";
 
@@ -62,7 +61,7 @@ buildGoModule rec {
     description = "Simple tunnel written in golang";
     homepage = "https://github.com/ginuerzh/gost";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pmy ];
+    maintainers = with lib.maintainers; [pmy];
     mainProgram = "gost";
   };
 }

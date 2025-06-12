@@ -16,7 +16,6 @@
   libxml2,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "iconic";
   version = "2025.3.2";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     libxml2
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/youpie/Iconic";
@@ -70,6 +69,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "folder_icon";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 })

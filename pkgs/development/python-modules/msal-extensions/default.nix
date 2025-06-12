@@ -9,7 +9,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "msal-extensions";
   version = "1.3.1";
@@ -24,16 +23,16 @@ buildPythonPackage rec {
     hash = "sha256-LRopszB8+8N9EajSmZvz0MTomp/qWZ5O3q00AHimZbY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "portalocker" ];
+  pythonRelaxDeps = ["portalocker"];
 
   dependencies = [
     msal
     portalocker
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -50,13 +49,13 @@ buildPythonPackage rec {
       "test_keychain_persistence"
     ];
 
-  pythonImportsCheck = [ "msal_extensions" ];
+  pythonImportsCheck = ["msal_extensions"];
 
   meta = with lib; {
     description = "Microsoft Authentication Library Extensions (MSAL-Extensions) for Python";
     homepage = "https://github.com/AzureAD/microsoft-authentication-extensions-for-python";
     changelog = "https://github.com/AzureAD/microsoft-authentication-extensions-for-python/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

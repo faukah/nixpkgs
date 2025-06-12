@@ -9,7 +9,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "aiomodernforms";
   version = "0.1.8";
@@ -46,12 +45,12 @@ buildPythonPackage rec {
     "test_empty_response"
   ];
 
-  pythonImportsCheck = [ "aiomodernforms" ];
+  pythonImportsCheck = ["aiomodernforms"];
 
   meta = with lib; {
     description = "Asynchronous Python client for Modern Forms fans";
     homepage = "https://github.com/wonderslug/aiomodernforms";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

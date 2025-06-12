@@ -7,7 +7,6 @@
   python3,
   wafHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ttl2c";
   version = "1.0.1";

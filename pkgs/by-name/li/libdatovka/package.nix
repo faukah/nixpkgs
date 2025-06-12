@@ -13,7 +13,6 @@
   curl,
   docbook_xsl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdatovka";
   version = "0.7.1";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Client library for accessing SOAP services of Czech government-provided Databox infomation system";
     homepage = "https://gitlab.nic.cz/datovka/libdatovka";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.ovlach ];
+    maintainers = [maintainers.ovlach];
     platforms = platforms.linux;
   };
 }

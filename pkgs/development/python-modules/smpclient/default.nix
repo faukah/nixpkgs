@@ -11,7 +11,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "smpclient";
   version = "4.5.0";
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/intercreate/smpclient";
     changelog = "https://github.com/intercreate/smpclient/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ otavio ];
+    maintainers = with lib.maintainers; [otavio];
   };
 }

@@ -15,7 +15,6 @@
   wrapGAppsHook3,
   hicolor-icon-theme,
 }:
-
 stdenv.mkDerivation rec {
   pname = "swappy";
   version = "1.5.1";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jtheoof/swappy";
     license = licenses.mit;
     mainProgram = "swappy";
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
     platforms = platforms.linux;
   };
 }

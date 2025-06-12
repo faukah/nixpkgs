@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pe-parse";
   version = "2.1.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-XegSZWRoQg6NEWuTSFI1RMvN3GbpLDrZrloPU2XdK2M=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.cc.isClang [
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/trailofbits/pe-parse";
     changelog = "https://github.com/trailofbits/pe-parse/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ arturcygan ];
+    maintainers = with lib.maintainers; [arturcygan];
     mainProgram = "dump-pe";
     platforms = lib.platforms.unix;
   };

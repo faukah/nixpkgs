@@ -8,7 +8,6 @@
   kcalutils,
   kcontacts,
 }:
-
 mkDerivation {
   pname = "ktnef";
   meta = {

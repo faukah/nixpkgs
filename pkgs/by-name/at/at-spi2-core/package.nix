@@ -24,7 +24,6 @@
   systemd,
   systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "at-spi2-core";
   version = "2.56.2";
@@ -111,8 +110,8 @@ stdenv.mkDerivation rec {
     description = "Assistive Technology Service Provider Interface protocol definitions and daemon for D-Bus";
     homepage = "https://gitlab.gnome.org/GNOME/at-spi2-core";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ raskin ];
-    teams = [ teams.gnome ];
+    maintainers = with maintainers; [raskin];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 }

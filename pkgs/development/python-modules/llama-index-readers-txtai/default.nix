@@ -6,7 +6,6 @@
   poetry-core,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "llama-index-readers-txtai";
   version = "0.3.0";
@@ -20,19 +19,19 @@ buildPythonPackage rec {
     hash = "sha256-N5FiwVZ+KWEQlcfVqHVcHJHzRb6Ct+iR2Dc+Wee7y+M=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ llama-index-core ];
+  dependencies = [llama-index-core];
 
   # Tests are only available in the mono repo
   doCheck = false;
 
-  pythonImportsCheck = [ "llama_index.readers.txtai" ];
+  pythonImportsCheck = ["llama_index.readers.txtai"];
 
   meta = with lib; {
     description = "LlamaIndex Readers Integration for txtai";
     homepage = "https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/readers/llama-index-readers-txtai";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

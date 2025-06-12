@@ -6,17 +6,14 @@
   gtk-engine-murrine,
   jdupes,
   sassc,
-  themeVariants ? [ ], # default: teal
-  colorVariants ? [ ], # default: all
-  sizeVariants ? [ ], # default: standard
-  tweaks ? [ ],
-}:
-
-let
+  themeVariants ? [], # default: teal
+  colorVariants ? [], # default: all
+  sizeVariants ? [], # default: standard
+  tweaks ? [],
+}: let
   pname = "jasper-gtk-theme";
-
 in
-lib.checkListOfEnum "${pname}: theme variants"
+  lib.checkListOfEnum "${pname}: theme variants"
   [
     "default"
     "purple"
@@ -32,11 +29,11 @@ lib.checkListOfEnum "${pname}: theme variants"
   themeVariants
   lib.checkListOfEnum
   "${pname}: color variants"
-  [ "standard" "light" "dark" ]
+  ["standard" "light" "dark"]
   colorVariants
   lib.checkListOfEnum
   "${pname}: size variants"
-  [ "standard" "compact" ]
+  ["standard" "compact"]
   sizeVariants
   lib.checkListOfEnum
   "${pname}: tweaks"
@@ -47,7 +44,6 @@ lib.checkListOfEnum "${pname}: theme variants"
     "macos"
   ]
   tweaks
-
   stdenvNoCC.mkDerivation
   rec {
     inherit pname;
@@ -81,10 +77,10 @@ lib.checkListOfEnum "${pname}: theme variants"
       runHook preInstall
 
       name= HOME="$TMPDIR" ./install.sh \
-        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (sizeVariants != [ ]) "--size " + builtins.toString sizeVariants} \
-        ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
+        ${lib.optionalString (themeVariants != []) "--theme " + builtins.toString themeVariants} \
+        ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
+        ${lib.optionalString (sizeVariants != []) "--size " + builtins.toString sizeVariants} \
+        ${lib.optionalString (tweaks != []) "--tweaks " + builtins.toString tweaks} \
         --dest $out/share/themes
 
       jdupes --quiet --link-soft --recurse $out/share
@@ -97,6 +93,6 @@ lib.checkListOfEnum "${pname}: theme variants"
       homepage = "https://github.com/vinceliuice/Jasper-gtk-theme";
       license = lib.licenses.gpl3Only;
       platforms = lib.platforms.unix;
-      maintainers = [ lib.maintainers.romildo ];
+      maintainers = [lib.maintainers.romildo];
     };
   }

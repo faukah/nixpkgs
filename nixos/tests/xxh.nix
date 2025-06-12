@@ -1,6 +1,8 @@
-{ pkgs, lib, ... }:
-
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
   xxh-shell-zsh = pkgs.stdenv.mkDerivation {
     pname = "xxh-shell-zsh";
@@ -30,31 +32,26 @@ let
     url = "https://github.com/romkatv/zsh-bin/releases/download/v3.0.1/zsh-5.8-linux-x86_64.tar.gz";
     sha256 = "sha256-i8flMd2Isc0uLoeYQNDnOGb/kK3oTFVqQgIx7aOAIIo=";
   };
-in
-{
+in {
   name = "xxh";
   meta = with lib.maintainers; {
-    maintainers = [ lom ];
+    maintainers = [lom];
   };
 
   nodes = {
-    server =
-      { ... }:
-      {
-        services.openssh.enable = true;
-        users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-      };
+    server = {...}: {
+      services.openssh.enable = true;
+      users.users.root.openssh.authorizedKeys.keys = [snakeOilPublicKey];
+    };
 
-    client =
-      { ... }:
-      {
-        programs.zsh.enable = true;
-        users.users.root.shell = pkgs.zsh;
-        environment.systemPackages = with pkgs; [
-          xxh
-          git
-        ];
-      };
+    client = {...}: {
+      programs.zsh.enable = true;
+      users.users.root.shell = pkgs.zsh;
+      environment.systemPackages = with pkgs; [
+        xxh
+        git
+      ];
+    };
   };
 
   testScript = ''

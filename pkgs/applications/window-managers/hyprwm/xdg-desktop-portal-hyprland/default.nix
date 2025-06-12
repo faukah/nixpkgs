@@ -66,7 +66,10 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     wayland-scanner
   ];
 
-  cmakeBuildType = if debug then "Debug" else "RelWithDebInfo";
+  cmakeBuildType =
+    if debug
+    then "Debug"
+    else "RelWithDebInfo";
 
   dontStrip = debug;
 
@@ -76,18 +79,18 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     wrapProgramShell $out/bin/hyprland-share-picker \
       "''${qtWrapperArgs[@]}" \
       --prefix PATH ":" ${
-        lib.makeBinPath [
-          slurp
-          hyprland
-        ]
-      }
+      lib.makeBinPath [
+        slurp
+        hyprland
+      ]
+    }
 
     wrapProgramShell $out/libexec/xdg-desktop-portal-hyprland \
-      --prefix PATH ":" ${lib.makeBinPath [ (placeholder "out") ]}
+      --prefix PATH ":" ${lib.makeBinPath [(placeholder "out")]}
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -96,7 +99,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/hyprwm/xdg-desktop-portal-hyprland/releases/tag/v${finalAttrs.version}";
     mainProgram = "hyprland-share-picker";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.hyprland ];
+    teams = [lib.teams.hyprland];
     platforms = lib.platforms.linux;
   };
 })

@@ -6,19 +6,14 @@
   ocaml,
   findlib,
   javalib,
-}:
-
-let
+}: let
   pname = "sawja";
   version = "1.5.12";
 in
-
-lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
+  lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
   "${pname} is not available for OCaml ${ocaml.version}"
-
   stdenv.mkDerivation
   {
-
     pname = "ocaml${ocaml.version}-${pname}";
 
     inherit version;
@@ -48,15 +43,15 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
     configureScript = "./configure.sh";
     dontAddPrefix = "true";
     dontAddStaticConfigureFlags = true;
-    configurePlatforms = [ ];
+    configurePlatforms = [];
 
-    propagatedBuildInputs = [ javalib ];
+    propagatedBuildInputs = [javalib];
 
     meta = with lib; {
       description = "Library written in OCaml, relying on Javalib to provide a high level representation of Java bytecode programs";
       homepage = "http://sawja.inria.fr/";
       license = licenses.gpl3Plus;
-      maintainers = [ maintainers.vbgl ];
+      maintainers = [maintainers.vbgl];
       inherit (ocaml.meta) platforms;
     };
   }

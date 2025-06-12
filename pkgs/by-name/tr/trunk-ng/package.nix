@@ -7,7 +7,6 @@
   openssl,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "trunk-ng";
   version = "0.17.16";
@@ -19,17 +18,16 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-SnE0z9Wa4gtX/ts0vG9pYnnxumILHTSV9/tVYkCHFck=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    if stdenv.hostPlatform.isDarwin then
-      [
-        libiconv
-      ]
-    else
-      [ openssl ];
+    if stdenv.hostPlatform.isDarwin
+    then [
+      libiconv
+    ]
+    else [openssl];
 
   # requires network
-  checkFlags = [ "--skip=tools::tests::download_and_install_binaries" ];
+  checkFlags = ["--skip=tools::tests::download_and_install_binaries"];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-jDewjDm7Nh09CkRdPG0/ELn4odz/aaRNg8GegDxK6f8=";
@@ -38,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ctron/trunk";
     description = "Build, bundle & ship your Rust WASM application to the web";
     mainProgram = "trunk-ng";
-    maintainers = with maintainers; [ ctron ];
-    license = with licenses; [ asl20 ];
+    maintainers = with maintainers; [ctron];
+    license = with licenses; [asl20];
   };
 }

@@ -3,7 +3,6 @@
   buildHomeAssistantComponent,
   fetchFromGitHub,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "tesharp";
   domain = "systemair";
@@ -20,7 +19,7 @@ buildHomeAssistantComponent rec {
     changelog = "https://github.com/tesharp/systemair/releases/tag/v${version}";
     description = "Home Assistant component for Systemair SAVE Connect 2";
     homepage = "https://github.com/tesharp/systemair";
-    maintainers = with maintainers; [ uvnikita ];
+    maintainers = with maintainers; [uvnikita];
     license = licenses.mit;
   };
 }

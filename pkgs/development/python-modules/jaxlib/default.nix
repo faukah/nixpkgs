@@ -2,7 +2,6 @@
   lib,
   pkgs,
   stdenv,
-
   # Build-time dependencies:
   addDriverRunpath,
   autoAddDriverRunpath,
@@ -24,7 +23,6 @@
   wheel,
   build,
   which,
-
   # Python dependencies:
   absl-py,
   flatbuffers,
@@ -32,7 +30,6 @@
   numpy,
   scipy,
   six,
-
   # Runtime dependencies:
   double-conversion,
   giflib,
@@ -40,18 +37,15 @@
   python,
   snappy,
   zlib,
-
   config,
   # CUDA flags:
   cudaSupport ? config.cudaSupport,
   cudaPackages,
-
   # MKL:
   mklSupport ? true,
-}@inputs:
-
-let
-  inherit (cudaPackages)
+} @ inputs: let
+  inherit
+    (cudaPackages)
     cudaMajorMinorVersion
     flags
     nccl
@@ -63,13 +57,16 @@ let
   # It's necessary to consistently use backendStdenv when building with CUDA
   # support, otherwise we get libstdc++ errors downstream
   stdenv = throw "Use effectiveStdenv instead";
-  effectiveStdenv = if cudaSupport then cudaPackages.backendStdenv else inputs.stdenv;
+  effectiveStdenv =
+    if cudaSupport
+    then cudaPackages.backendStdenv
+    else inputs.stdenv;
 
   meta = with lib; {
     description = "Source-built JAX backend. JAX is Autograd and XLA, brought together for high-performance machine learning research";
     homepage = "https://github.com/google/jax";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ndl ];
+    maintainers = with maintainers; [ndl];
 
     # Make this platforms.unix once Darwin is supported.
     # The top-level jaxlib now falls back to jaxlib-bin on unsupported platforms.
@@ -185,10 +182,9 @@ let
 
   arch =
     # KeyError: ('Linux', 'arm64')
-    if effectiveStdenv.hostPlatform.isLinux && effectiveStdenv.hostPlatform.linuxArch == "arm64" then
-      "aarch64"
-    else
-      effectiveStdenv.hostPlatform.linuxArch;
+    if effectiveStdenv.hostPlatform.isLinux && effectiveStdenv.hostPlatform.linuxArch == "arm64"
+    then "aarch64"
+    else effectiveStdenv.hostPlatform.linuxArch;
 
   xla = effectiveStdenv.mkDerivation {
     pname = "xla-src";
@@ -205,7 +201,7 @@ let
     dontBuild = true;
 
     # This is necessary for patchShebangs to know the right path to use.
-    nativeBuildInputs = [ python ];
+    nativeBuildInputs = [python];
 
     # Main culprits we're targeting are third_party/tsl/third_party/gpus/crosstool/clang/bin/*.tpl
     postPatch = ''
@@ -231,32 +227,36 @@ let
       hash = "sha256-qSHPwi3is6Ts7pz5s4KzQHBMbcjGp+vAOsejW3o36Ek=";
     };
 
-    nativeBuildInputs = [
-      cython
-      pkgs.flatbuffers
-      git
-      setuptools
-      wheel
-      build
-      which
-    ] ++ lib.optionals effectiveStdenv.hostPlatform.isDarwin [ cctools ];
+    nativeBuildInputs =
+      [
+        cython
+        pkgs.flatbuffers
+        git
+        setuptools
+        wheel
+        build
+        which
+      ]
+      ++ lib.optionals effectiveStdenv.hostPlatform.isDarwin [cctools];
 
-    buildInputs = [
-      curl
-      double-conversion
-      giflib
-      jsoncpp
-      libjpeg_turbo
-      numpy
-      openssl
-      pkgs.flatbuffers
-      pkgs.protobuf
-      pybind11
-      scipy
-      six
-      snappy
-      zlib
-    ] ++ lib.optionals (!effectiveStdenv.hostPlatform.isDarwin) [ nsync ];
+    buildInputs =
+      [
+        curl
+        double-conversion
+        giflib
+        jsoncpp
+        libjpeg_turbo
+        numpy
+        openssl
+        pkgs.flatbuffers
+        pkgs.protobuf
+        pybind11
+        scipy
+        six
+        snappy
+        zlib
+      ]
+      ++ lib.optionals (!effectiveStdenv.hostPlatform.isDarwin) [nsync];
 
     # We don't want to be quite so picky regarding bazel version
     postPatch = ''
@@ -289,29 +289,28 @@ let
         export PATH="$PWD/dummy-ldconfig:$PATH"
       ''
       +
-
-        # Construct .jax_configure.bazelrc. See https://github.com/google/jax/blob/b9824d7de3cb30f1df738cc42e486db3e9d915ff/build/build.py#L259-L345
-        # for more info. We assume
-        # * `cpu = None`
-        # * `enable_nccl = True`
-        # * `target_cpu_features = "release"`
-        # * `rocm_amdgpu_targets = None`
-        # * `enable_rocm = False`
-        # * `build_gpu_plugin = False`
-        # * `use_clang = False` (Should we use `effectiveStdenv.cc.isClang` instead?)
-        #
-        # Note: We should try just running https://github.com/google/jax/blob/ceb198582b62b9e6f6bdf20ab74839b0cf1db16e/build/build.py#L259-L266
-        # instead of duplicating the logic here. Perhaps we can leverage the
-        # `--configure_only` flag (https://github.com/google/jax/blob/ceb198582b62b9e6f6bdf20ab74839b0cf1db16e/build/build.py#L544-L548)?
-        ''
-          cat <<CFG > ./.jax_configure.bazelrc
-          build --strategy=Genrule=standalone
-          build --repo_env PYTHON_BIN_PATH="${python}/bin/python"
-          build --action_env=PYENV_ROOT
-          build --python_path="${python}/bin/python"
-          build --distinct_host_configuration=false
-          build --define PROTOBUF_INCLUDE_PATH="${pkgs.protobuf}/include"
-        ''
+      # Construct .jax_configure.bazelrc. See https://github.com/google/jax/blob/b9824d7de3cb30f1df738cc42e486db3e9d915ff/build/build.py#L259-L345
+      # for more info. We assume
+      # * `cpu = None`
+      # * `enable_nccl = True`
+      # * `target_cpu_features = "release"`
+      # * `rocm_amdgpu_targets = None`
+      # * `enable_rocm = False`
+      # * `build_gpu_plugin = False`
+      # * `use_clang = False` (Should we use `effectiveStdenv.cc.isClang` instead?)
+      #
+      # Note: We should try just running https://github.com/google/jax/blob/ceb198582b62b9e6f6bdf20ab74839b0cf1db16e/build/build.py#L259-L266
+      # instead of duplicating the logic here. Perhaps we can leverage the
+      # `--configure_only` flag (https://github.com/google/jax/blob/ceb198582b62b9e6f6bdf20ab74839b0cf1db16e/build/build.py#L544-L548)?
+      ''
+        cat <<CFG > ./.jax_configure.bazelrc
+        build --strategy=Genrule=standalone
+        build --repo_env PYTHON_BIN_PATH="${python}/bin/python"
+        build --action_env=PYENV_ROOT
+        build --python_path="${python}/bin/python"
+        build --distinct_host_configuration=false
+        build --define PROTOBUF_INCLUDE_PATH="${pkgs.protobuf}/include"
+      ''
       + lib.optionalString cudaSupport ''
         build --config=cuda
         build --action_env CUDA_TOOLKIT_PATH="${cuda_build_deps_joined}"
@@ -322,14 +321,14 @@ let
         build:cuda --action_env TF_CUDA_COMPUTE_CAPABILITIES="${builtins.concatStringsSep "," flags.realArches}"
       ''
       +
-        # Note that upstream conditions this on `wheel_cpu == "x86_64"`. We just
-        # rely on `effectiveStdenv.hostPlatform.avxSupport` instead. So far so
-        # good. See https://github.com/google/jax/blob/b9824d7de3cb30f1df738cc42e486db3e9d915ff/build/build.py#L322
-        # for upstream's version.
-        lib.optionalString (effectiveStdenv.hostPlatform.avxSupport && effectiveStdenv.hostPlatform.isUnix)
-          ''
-            build --config=avx_posix
-          ''
+      # Note that upstream conditions this on `wheel_cpu == "x86_64"`. We just
+      # rely on `effectiveStdenv.hostPlatform.avxSupport` instead. So far so
+      # good. See https://github.com/google/jax/blob/b9824d7de3cb30f1df738cc42e486db3e9d915ff/build/build.py#L322
+      # for upstream's version.
+      lib.optionalString (effectiveStdenv.hostPlatform.avxSupport && effectiveStdenv.hostPlatform.isUnix)
+      ''
+        build --config=avx_posix
+      ''
       + lib.optionalString mklSupport ''
         build --config=mkl_open_source_only
       ''
@@ -380,14 +379,15 @@ let
 
       sha256 =
         (
-          if cudaSupport then
-            { x86_64-linux = "sha256-Uf0VMRE0jgaWEYiuphWkWloZ5jMeqaWBl3lSvk2y1HI="; }
-          else
-            {
-              x86_64-linux = "sha256-NzJJg6NlrPGMiR8Fn8u4+fu0m+AulfmN5Xqk63Um6sw=";
-              aarch64-linux = "sha256-Ro3qzrUxSR+3TH6ROoJTq+dLSufrDN/9oEo2MRkx7wM=";
-            }
-        ).${effectiveStdenv.system} or (throw "jaxlib: unsupported system: ${effectiveStdenv.system}");
+          if cudaSupport
+          then {x86_64-linux = "sha256-Uf0VMRE0jgaWEYiuphWkWloZ5jMeqaWBl3lSvk2y1HI=";}
+          else {
+            x86_64-linux = "sha256-NzJJg6NlrPGMiR8Fn8u4+fu0m+AulfmN5Xqk63Um6sw=";
+            aarch64-linux = "sha256-Ro3qzrUxSR+3TH6ROoJTq+dLSufrDN/9oEo2MRkx7wM=";
+          }
+        ).${
+          effectiveStdenv.system
+        } or (throw "jaxlib: unsupported system: ${effectiveStdenv.system}");
 
       # Non-reproducible fetch https://github.com/NixOS/nixpkgs/issues/321920#issuecomment-2184940546
       preInstall = ''
@@ -398,7 +398,7 @@ let
     };
 
     buildAttrs = {
-      outputs = [ "out" ];
+      outputs = ["out"];
 
       TF_SYSTEM_LIBS = lib.concatStringsSep "," (
         tf_system_libs
@@ -420,74 +420,71 @@ let
     inherit meta;
   };
   platformTag =
-    if effectiveStdenv.hostPlatform.isLinux then
-      "manylinux2014_${arch}"
-    else if effectiveStdenv.system == "x86_64-darwin" then
-      "macosx_10_9_${arch}"
-    else if effectiveStdenv.system == "aarch64-darwin" then
-      "macosx_11_0_${arch}"
-    else
-      throw "Unsupported target platform: ${effectiveStdenv.hostPlatform}";
+    if effectiveStdenv.hostPlatform.isLinux
+    then "manylinux2014_${arch}"
+    else if effectiveStdenv.system == "x86_64-darwin"
+    then "macosx_10_9_${arch}"
+    else if effectiveStdenv.system == "aarch64-darwin"
+    then "macosx_11_0_${arch}"
+    else throw "Unsupported target platform: ${effectiveStdenv.hostPlatform}";
 in
-buildPythonPackage {
-  inherit pname version;
-  format = "wheel";
+  buildPythonPackage {
+    inherit pname version;
+    format = "wheel";
 
-  src =
-    let
-      cp = "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
-    in
-    "${bazel-build}/jaxlib-${version}-${cp}-${cp}-${platformTag}.whl";
+    src = let
+      cp = "cp${builtins.replaceStrings ["."] [""] python.pythonVersion}";
+    in "${bazel-build}/jaxlib-${version}-${cp}-${cp}-${platformTag}.whl";
 
-  # Note that jaxlib looks for "ptxas" in $PATH. See https://github.com/NixOS/nixpkgs/pull/164176#discussion_r828801621
-  # for more info.
-  postInstall = lib.optionalString cudaSupport ''
-    mkdir -p $out/bin
-    ln -s ${lib.getExe' cudaPackages.cuda_nvcc "ptxas"} $out/bin/ptxas
+    # Note that jaxlib looks for "ptxas" in $PATH. See https://github.com/NixOS/nixpkgs/pull/164176#discussion_r828801621
+    # for more info.
+    postInstall = lib.optionalString cudaSupport ''
+      mkdir -p $out/bin
+      ln -s ${lib.getExe' cudaPackages.cuda_nvcc "ptxas"} $out/bin/ptxas
 
-    find $out -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do
-      patchelf --add-rpath "${
+      find $out -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do
+        patchelf --add-rpath "${
         lib.makeLibraryPath [
           cuda_libs_joined
           (lib.getLib cudaPackages.cudnn)
           nccl
         ]
       }" "$lib"
-    done
-  '';
+      done
+    '';
 
-  nativeBuildInputs = lib.optionals cudaSupport [ autoAddDriverRunpath ];
+    nativeBuildInputs = lib.optionals cudaSupport [autoAddDriverRunpath];
 
-  dependencies = [
-    absl-py
-    curl
-    double-conversion
-    flatbuffers
-    giflib
-    jsoncpp
-    libjpeg_turbo
-    ml-dtypes
-    numpy
-    scipy
-    six
-    snappy
-  ];
+    dependencies = [
+      absl-py
+      curl
+      double-conversion
+      flatbuffers
+      giflib
+      jsoncpp
+      libjpeg_turbo
+      ml-dtypes
+      numpy
+      scipy
+      six
+      snappy
+    ];
 
-  pythonImportsCheck = [
-    "jaxlib"
-    # `import jaxlib` loads surprisingly little. These imports are actually bugs that appeared in the 0.4.11 upgrade.
-    "jaxlib.cpu_feature_guard"
-    "jaxlib.xla_client"
-  ];
+    pythonImportsCheck = [
+      "jaxlib"
+      # `import jaxlib` loads surprisingly little. These imports are actually bugs that appeared in the 0.4.11 upgrade.
+      "jaxlib.cpu_feature_guard"
+      "jaxlib.xla_client"
+    ];
 
-  # Without it there are complaints about libcudart.so.11.0 not being found
-  # because RPATH path entries added above are stripped.
-  dontPatchELF = cudaSupport;
+    # Without it there are complaints about libcudart.so.11.0 not being found
+    # because RPATH path entries added above are stripped.
+    dontPatchELF = cudaSupport;
 
-  passthru = {
-    # Note "bazel.*.tar.gz" can be accessed as `jaxlib.bazel-build.deps`
-    inherit bazel-build;
-  };
+    passthru = {
+      # Note "bazel.*.tar.gz" can be accessed as `jaxlib.bazel-build.deps`
+      inherit bazel-build;
+    };
 
-  inherit meta;
-}
+    inherit meta;
+  }

@@ -1,7 +1,10 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "xpadneo";
-  meta.maintainers = with lib.maintainers; [ kira-bruneau ];
+  meta.maintainers = with lib.maintainers; [kira-bruneau];
 
   nodes = {
     machine = {

@@ -2,21 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   pyasn1,
   pysmi,
   pysnmpcrypto,
-
   # tests
   pytestCheckHook,
   pytest-asyncio,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "pysnmp";
   version = "7.1.16";
@@ -29,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-HGIbxvq4twyZavtjkf2Uu9SEFIXzPCT34lAJEeprwXU=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     pyasn1
@@ -78,13 +74,13 @@ buildPythonPackage rec {
     "tests/smi/manager/test_mib-tree-inspection.py"
   ];
 
-  pythonImportsCheck = [ "pysnmp" ];
+  pythonImportsCheck = ["pysnmp"];
 
   meta = with lib; {
     description = "Python SNMP library";
     homepage = "https://github.com/lextudio/pysnmp";
     changelog = "https://github.com/lextudio/pysnmp/blob/${src.rev}/CHANGES.rst";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "hn-text";
   version = "0.1.4";
@@ -23,13 +22,13 @@ buildGoModule rec {
     "-w"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Fast, easy-to-use and distraction-free Hacker News terminal client";
     homepage = "https://github.com/piqoni/hn-text";
     license = lib.licenses.mit;
     mainProgram = "hn-text";
-    maintainers = with lib.maintainers; [ Guanran928 ];
+    maintainers = with lib.maintainers; [Guanran928];
   };
 }

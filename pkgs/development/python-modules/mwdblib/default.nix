@@ -12,7 +12,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "mwdblib";
   version = "4.5.0";
@@ -37,16 +36,16 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "mwdblib" ];
+  pythonImportsCheck = ["mwdblib"];
 
   meta = with lib; {
     description = "Python client library for the mwdb service";
     mainProgram = "mwdb";
     homepage = "https://github.com/CERT-Polska/mwdblib";
     changelog = "https://github.com/CERT-Polska/mwdblib/releases/tag/v${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

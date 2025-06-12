@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "dnscrypt-proxy";
   version = "2.1.12";
@@ -20,7 +19,7 @@ buildGoModule rec {
     hash = "sha256-HgpcZccx3gaR3dTJJRKPICvNxZj9KdeC0+2ll8TWgeM=";
   };
 
-  passthru.tests = { inherit (nixosTests) dnscrypt-proxy2; };
+  passthru.tests = {inherit (nixosTests) dnscrypt-proxy2;};
 
   meta = with lib; {
     description = "Tool that provides secure DNS resolution";

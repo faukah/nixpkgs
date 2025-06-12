@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stress";
   version = "1.0.7";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-1r0n/KE4RpO0txIViGxuc7G+I4Ds9AJYcuMx2/R97jg=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = {
     description = "Simple workload generator for POSIX systems. It imposes a configurable amount of CPU, memory, I/O, and disk stress on the system";

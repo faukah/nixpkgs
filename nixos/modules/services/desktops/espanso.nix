@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.espanso;
-in
-{
+in {
   meta = {
     maintainers = with lib.maintainers; [
       n8henrie
@@ -31,9 +29,9 @@ in
         ExecStart = "${lib.getExe cfg.package} daemon";
         Restart = "on-failure";
       };
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

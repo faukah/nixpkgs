@@ -14,7 +14,6 @@
   gtk4,
   libgee,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-calculator";
   version = "8.0.0";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Calculator app designed for elementary OS";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.calculator";
   };
 }

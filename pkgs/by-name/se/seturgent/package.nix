@@ -5,7 +5,6 @@
   libX11,
   xorgproto,
 }:
-
 stdenv.mkDerivation rec {
   pname = "seturgent";
   version = "1.5";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     description = "Set an application's urgency hint (or not)";
     mainProgram = "seturgent";
-    maintainers = with maintainers; [ yarr ];
+    maintainers = with maintainers; [yarr];
     homepage = "https://codemadness.org/seturgent-set-urgency-hints-for-x-applications.html";
     license = licenses.mit;
   };

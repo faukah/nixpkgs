@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.stargazer;
   globalSection = ''
     listen = ${lib.concatStringsSep " " cfg.listen}
@@ -23,31 +21,29 @@ let
     ${lib.optionalString (cfg.certLifetime != "") "cert-lifetime = ${cfg.certLifetime}"}
 
   '';
-  genINI = lib.generators.toINI { };
+  genINI = lib.generators.toINI {};
   configFile = pkgs.writeText "config.ini" (
     lib.strings.concatStrings (
-      [ globalSection ]
+      [globalSection]
       ++ (lib.lists.forEach cfg.routes (
-        section:
-        let
+        section: let
           name = section.route;
-          params = builtins.removeAttrs section [ "route" ];
+          params = builtins.removeAttrs section ["route"];
         in
-        genINI {
-          "${name}" = params;
-        }
-        + "\n"
+          genINI {
+            "${name}" = params;
+          }
+          + "\n"
       ))
     )
   );
-in
-{
+in {
   options.services.stargazer = {
     enable = lib.mkEnableOption "Stargazer Gemini server";
 
     listen = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]";
+      default = ["0.0.0.0"] ++ lib.optional config.networking.enableIPv6 "[::0]";
       defaultText = lib.literalExpression ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"'';
       example = lib.literalExpression ''[ "10.0.0.12" "[2002:a00:1::]" ]'';
       description = ''
@@ -162,8 +158,7 @@ in
     routes = lib.mkOption {
       type = lib.types.listOf (
         lib.types.submodule {
-          freeformType =
-            with lib.types;
+          freeformType = with lib.types;
             attrsOf (
               nullOr (oneOf [
                 bool
@@ -181,7 +176,7 @@ in
           };
         }
       );
-      default = [ ];
+      default = [];
       description = ''
         Routes that Stargazer should server.
 
@@ -227,8 +222,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.stargazer = {
       description = "Stargazer gemini server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.stargazer}/bin/stargazer ${configFile} ${lib.optionalString cfg.debugMode "-D"}";
         Restart = "always";
@@ -277,9 +272,11 @@ in
             "~CAP_SETUID"
           ];
         SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "~@cpu-emulation @debug @keyring @mount @obsolete"
-        ] ++ lib.lists.optional (!cfg.allowCgiUser) [ "@privileged @setuid" ];
+        SystemCallFilter =
+          [
+            "~@cpu-emulation @debug @keyring @mount @obsolete"
+          ]
+          ++ lib.lists.optional (!cfg.allowCgiUser) ["@privileged @setuid"];
       };
     };
 
@@ -296,9 +293,9 @@ in
     };
 
     users.groups = lib.optionalAttrs (cfg.group == "stargazer") {
-      stargazer = { };
+      stargazer = {};
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ gaykitty ];
+  meta.maintainers = with lib.maintainers; [gaykitty];
 }

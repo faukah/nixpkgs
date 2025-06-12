@@ -31,7 +31,6 @@
   installLib ? false,
   apparmorRulesFromClosure,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "transmission";
   version = "3.00";
@@ -56,26 +55,27 @@ stdenv.mkDerivation (finalAttrs: {
     "apparmor"
   ];
 
-  cmakeFlags =
-    let
-      mkFlag = opt: if opt then "ON" else "OFF";
-    in
-    [
-      "-DENABLE_MAC=OFF" # requires xcodebuild
-      "-DENABLE_GTK=${mkFlag enableGTK3}"
-      "-DENABLE_QT=${mkFlag enableQt}"
-      "-DENABLE_DAEMON=${mkFlag enableDaemon}"
-      "-DENABLE_CLI=${mkFlag enableCli}"
-      "-DINSTALL_LIB=${mkFlag installLib}"
-    ];
+  cmakeFlags = let
+    mkFlag = opt:
+      if opt
+      then "ON"
+      else "OFF";
+  in [
+    "-DENABLE_MAC=OFF" # requires xcodebuild
+    "-DENABLE_GTK=${mkFlag enableGTK3}"
+    "-DENABLE_QT=${mkFlag enableQt}"
+    "-DENABLE_DAEMON=${mkFlag enableDaemon}"
+    "-DENABLE_CLI=${mkFlag enableCli}"
+    "-DINSTALL_LIB=${mkFlag installLib}"
+  ];
 
   nativeBuildInputs =
     [
       pkg-config
       cmake
     ]
-    ++ lib.optionals enableGTK3 [ wrapGAppsHook3 ]
-    ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ];
+    ++ lib.optionals enableGTK3 [wrapGAppsHook3]
+    ++ lib.optionals enableQt [qt5.wrapQtAppsHook];
 
   buildInputs =
     [
@@ -98,9 +98,9 @@ stdenv.mkDerivation (finalAttrs: {
       gtk3
       xorg.libpthreadstubs
     ]
-    ++ lib.optionals enableSystemd [ systemd ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ inotify-tools ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+    ++ lib.optionals enableSystemd [systemd]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [inotify-tools]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   postInstall = ''
     mkdir $apparmor
@@ -111,20 +111,20 @@ stdenv.mkDerivation (finalAttrs: {
       include <abstractions/nameservice>
       include <abstractions/ssl_certs>
       include "${
-        apparmorRulesFromClosure { name = "transmission-daemon"; } (
-          [
-            curl
-            libevent
-            openssl
-            pcre
-            zlib
-            libnatpmp
-            miniupnpc
-          ]
-          ++ lib.optionals enableSystemd [ systemd ]
-          ++ lib.optionals stdenv.hostPlatform.isLinux [ inotify-tools ]
-        )
-      }"
+      apparmorRulesFromClosure {name = "transmission-daemon";} (
+        [
+          curl
+          libevent
+          openssl
+          pcre
+          zlib
+          libnatpmp
+          miniupnpc
+        ]
+        ++ lib.optionals enableSystemd [systemd]
+        ++ lib.optionals stdenv.hostPlatform.isLinux [inotify-tools]
+      )
+    }"
       r @{PROC}/sys/kernel/random/uuid,
       r @{PROC}/sys/vm/overcommit_memory,
       r @{PROC}/@{pid}/environ,
@@ -151,12 +151,11 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Fast, easy and free BitTorrent client (deprecated version 3)";
     mainProgram =
-      if enableQt then
-        "transmission-qt"
-      else if enableGTK3 then
-        "transmission-gtk"
-      else
-        "transmission-cli";
+      if enableQt
+      then "transmission-qt"
+      else if enableGTK3
+      then "transmission-gtk"
+      else "transmission-cli";
     longDescription = ''
       Transmission is a BitTorrent client which features a simple interface
       on top of a cross-platform back-end.
@@ -170,8 +169,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "http://www.transmissionbt.com/";
     license = lib.licenses.gpl2Plus; # parts are under MIT
-    maintainers = with lib.maintainers; [ astsmtl ];
+    maintainers = with lib.maintainers; [astsmtl];
     platforms = lib.platforms.unix;
   };
-
 })

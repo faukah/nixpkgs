@@ -13,7 +13,6 @@
   qmltermwidget,
   qtmultimedia,
 }:
-
 mkDerivation {
   pname = "station";
 
@@ -39,6 +38,6 @@ mkDerivation {
     mainProgram = "station";
     homepage = "https://invent.kde.org/maui/station";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

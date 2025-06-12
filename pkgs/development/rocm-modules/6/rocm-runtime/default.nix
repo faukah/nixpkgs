@@ -16,7 +16,6 @@
   libxml2,
   rocm-merged-llvm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-runtime";
   version = "6.3.3";
@@ -107,9 +106,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Platform runtime for ROCm";
     homepage = "https://github.com/ROCm/ROCR-Runtime";
-    license = with licenses; [ ncsa ];
-    maintainers = with maintainers; [ lovesegfault ];
-    teams = [ teams.rocm ];
+    license = with licenses; [ncsa];
+    maintainers = with maintainers; [lovesegfault];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

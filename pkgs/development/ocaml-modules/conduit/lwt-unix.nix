@@ -12,12 +12,11 @@
   lwt_log,
   ssl,
 }:
-
 buildDunePackage {
   pname = "conduit-lwt-unix";
   inherit (conduit-lwt) version src;
 
-  buildInputs = [ ppx_sexp_conv ];
+  buildInputs = [ppx_sexp_conv];
 
   propagatedBuildInputs = [
     conduit-lwt
@@ -36,7 +35,9 @@ buildDunePackage {
     ssl
   ];
 
-  meta = conduit-lwt.meta // {
-    description = "Network connection establishment library for Lwt_unix";
-  };
+  meta =
+    conduit-lwt.meta
+    // {
+      description = "Network connection establishment library for Lwt_unix";
+    };
 }

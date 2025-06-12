@@ -23,7 +23,6 @@
   hidapi,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyocd";
   version = "0.36.0";
@@ -46,30 +45,32 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonRelaxDeps = [ "capstone" ];
-  pythonRemoveDeps = [ "libusb-package" ];
+  pythonRelaxDeps = ["capstone"];
+  pythonRemoveDeps = ["libusb-package"];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [
-    capstone
-    cmsis-pack-manager
-    colorama
-    importlib-metadata
-    importlib-resources
-    intelhex
-    intervaltree
-    lark
-    natsort
-    prettytable
-    pyelftools
-    pylink-square
-    pyusb
-    pyyaml
-    typing-extensions
-  ] ++ lib.optionals (!stdenv.hostPlatform.isLinux) [ hidapi ];
+  dependencies =
+    [
+      capstone
+      cmsis-pack-manager
+      colorama
+      importlib-metadata
+      importlib-resources
+      intelhex
+      intervaltree
+      lark
+      natsort
+      prettytable
+      pyelftools
+      pylink-square
+      pyusb
+      pyyaml
+      typing-extensions
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isLinux) [hidapi];
 
-  pythonImportsCheck = [ "pyocd" ];
+  pythonImportsCheck = ["pyocd"];
 
   disabledTests = [
     # AttributeError: 'not_called' is not a valid assertion
@@ -77,7 +78,7 @@ buildPythonPackage rec {
     "test_transfer_err_not_flushed"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     changelog = "https://github.com/pyocd/pyOCD/releases/tag/v${version}";

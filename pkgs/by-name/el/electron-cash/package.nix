@@ -6,7 +6,6 @@
   qt5,
   secp256k1,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "electron-cash";
   version = "4.4.2";
@@ -56,9 +55,9 @@ python3Packages.buildPythonApplication rec {
     pysatochip
   ];
 
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
 
-  buildInputs = [ ] ++ lib.optional stdenv.hostPlatform.isLinux qt5.qtwayland;
+  buildInputs = [] ++ lib.optional stdenv.hostPlatform.isLinux qt5.qtwayland;
 
   # If secp256k1 wasn't added to the library path, the following warning is given:
   #

@@ -1,5 +1,5 @@
-{ mkDerivation }:
+{mkDerivation}:
 mkDerivation {
   path = "lib/libkiconv";
-  extraPaths = [ "sys" ];
+  extraPaths = ["sys"];
 }

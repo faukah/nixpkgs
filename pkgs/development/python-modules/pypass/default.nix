@@ -17,7 +17,6 @@
   tree,
   xclip,
 }:
-
 # Use the `pypass` top-level attribute, if you're interested in the
 # application
 buildPythonPackage rec {
@@ -46,9 +45,9 @@ buildPythonPackage rec {
     "enum34"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   dependencies = [
     click
@@ -73,7 +72,7 @@ buildPythonPackage rec {
 
   # Presumably this test needs the X clipboard, which we don't have
   # as the test environment is non-graphical.
-  disabledTests = [ "test_show_clip" ];
+  disabledTests = ["test_show_clip"];
 
   meta = {
     broken = stdenv.hostPlatform.isDarwin;
@@ -82,6 +81,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aviau/python-pass";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ jluttine ];
+    maintainers = with lib.maintainers; [jluttine];
   };
 }

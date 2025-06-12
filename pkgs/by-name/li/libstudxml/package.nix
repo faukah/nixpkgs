@@ -4,7 +4,6 @@
   fetchgit,
   build2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libstudxml";
   version = "1.1.0";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ build2 ];
+  nativeBuildInputs = [build2];
 
   # lib files are not marked as executable by default
   postInstall = ''
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Streaming XML pull parser and streaming XML serializer implementation for modern, standard C++";
     homepage = "https://www.codesynthesis.com/projects/libstudxml/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.all;
   };
 })

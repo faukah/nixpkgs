@@ -6,7 +6,6 @@
   bc,
   nukeReferences,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rtl8852au";
   version = "${kernel.version}-unstable-2024-05-06";
@@ -18,10 +17,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-c2dpnZS6a0waL1khB9ZEglTwJIBsyRebTMig1B4A0xU=";
   };
 
-  nativeBuildInputs = [
-    bc
-    nukeReferences
-  ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs =
+    [
+      bc
+      nukeReferences
+    ]
+    ++ kernel.moduleBuildDependencies;
   hardeningDisable = [
     "pic"
     "format"
@@ -44,8 +45,18 @@ stdenv.mkDerivation (finalAttrs: {
   makeFlags =
     [
       "ARCH=${stdenv.hostPlatform.linuxArch}"
-      ("CONFIG_PLATFORM_I386_PC=" + (if stdenv.hostPlatform.isx86 then "y" else "n"))
-      ("CONFIG_PLATFORM_ARM_RPI=" + (if stdenv.hostPlatform.isAarch then "y" else "n"))
+      ("CONFIG_PLATFORM_I386_PC="
+        + (
+          if stdenv.hostPlatform.isx86
+          then "y"
+          else "n"
+        ))
+      ("CONFIG_PLATFORM_ARM_RPI="
+        + (
+          if stdenv.hostPlatform.isAarch
+          then "y"
+          else "n"
+        ))
     ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
@@ -69,9 +80,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Driver for Realtek 802.11ac, rtl8852au, provides the 8852au mod";
     homepage = "https://github.com/lwfinger/rtl8852au";
     license = licenses.gpl2Only;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     # FIX: error: invalid initializer
     broken = kernel.kernelOlder "6" && kernel.isHardened;
-    maintainers = with maintainers; [ lonyelon ];
+    maintainers = with maintainers; [lonyelon];
   };
 })

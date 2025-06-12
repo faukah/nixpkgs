@@ -3,7 +3,6 @@
   fetchurl,
   lib,
 }:
-
 buildGoModule rec {
   pname = "ntfy-alertmanager";
   version = "0.4.0";

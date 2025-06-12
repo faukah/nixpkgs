@@ -29,6 +29,6 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://github.com/lkrms/pretty-php";
     license = lib.licenses.mit;
     mainProgram = "pretty-php";
-    maintainers = with lib.maintainers; [ piotrkwiecinski ];
+    maintainers = with lib.maintainers; [piotrkwiecinski];
   };
 })

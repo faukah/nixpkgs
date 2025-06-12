@@ -13,7 +13,6 @@
   valgrind-light,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdrm";
   version = "2.4.124";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     docutils
   ];
   buildInputs =
-    [ libpthreadstubs ]
+    [libpthreadstubs]
     ++ lib.optional withIntel libpciaccess
     ++ lib.optional withValgrind valgrind-light;
 
@@ -83,6 +82,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     platforms = lib.subtractLists platforms.darwin platforms.unix;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

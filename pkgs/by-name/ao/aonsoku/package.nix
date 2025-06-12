@@ -12,7 +12,6 @@
   glib-networking,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "aonsoku";
   version = "0.9.1";
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-8UtfL8iB1XKP31GT9Ok5hIQSobQTm681uiluG+IhK/s=";
 
-  patches = [ ./remove_updater.patch ];
+  patches = [./remove_updater.patch];
 
   nativeBuildInputs = [
     nodejs
@@ -51,14 +50,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
     glib-networking
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Modern desktop client for Navidrome/Subsonic servers";
     homepage = "https://github.com/victoralvesf/aonsoku";
     changelog = "https://github.com/victoralvesf/aonsoku/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "Aonsoku";
   };
 })

@@ -8,7 +8,6 @@
   ronn,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "httplz";
   version = "1.13.2";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     ronn
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   cargoBuildFlags = [
     "--bin"
@@ -50,6 +49,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/thecoshman/http";
     changelog = "https://github.com/thecoshman/http/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

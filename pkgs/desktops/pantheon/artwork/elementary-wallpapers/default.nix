@@ -8,7 +8,6 @@
   ninja,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-wallpapers";
   version = "8.0.0";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -41,6 +40,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/wallpapers";
     license = licenses.publicDomain;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

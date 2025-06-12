@@ -8,7 +8,6 @@
   zlib,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vdo";
   version = "8.3.1.1";
@@ -67,7 +66,7 @@ stdenv.mkDerivation rec {
       "powerpc64-linux"
       "powerpc64le-linux"
     ];
-    license = with licenses; [ gpl2Plus ];
-    maintainers = [ ];
+    license = with licenses; [gpl2Plus];
+    maintainers = [];
   };
 }

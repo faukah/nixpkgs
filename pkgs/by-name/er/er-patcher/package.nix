@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "er-patcher";
   version = "1.12-3";
@@ -36,7 +35,7 @@ stdenvNoCC.mkDerivation rec {
       that ensures the patched executable is never run with EAC enabled (unless explicity told to do so). Use at your own risk!
     '';
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.sigmasquadron ];
+    maintainers = [lib.maintainers.sigmasquadron];
     mainProgram = "er-patcher";
   };
 }

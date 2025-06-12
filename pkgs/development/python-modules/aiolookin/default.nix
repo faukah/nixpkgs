@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aiolookin";
   version = "1.0.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-G3/lUgV60CMLskUo83TlvLLIfJtu5DEz+94mdVI4OrI=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     faker
@@ -38,13 +37,13 @@ buildPythonPackage rec {
     "test_successful"
   ];
 
-  pythonImportsCheck = [ "aiolookin" ];
+  pythonImportsCheck = ["aiolookin"];
 
   meta = with lib; {
     description = "Python client for interacting with LOOKin devices";
     homepage = "https://github.com/ANMalko/aiolookin";
     changelog = "https://github.com/ANMalko/aiolookin/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

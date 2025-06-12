@@ -5,7 +5,6 @@
   fetchpatch,
   jansson,
 }:
-
 stdenv.mkDerivation {
   pname = "jshon";
   version = "20170302";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "1x4zfmsjq0l2y994bxkhx3mn5vzjxxr39iib213zjchi9h6yxvnc";
   };
 
-  buildInputs = [ jansson ];
+  buildInputs = [jansson];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=strict-prototypes";
 
@@ -43,6 +42,6 @@ stdenv.mkDerivation {
     mainProgram = "jshon";
     license = licenses.free;
     platforms = platforms.all;
-    maintainers = with maintainers; [ rushmorem ];
+    maintainers = with maintainers; [rushmorem];
   };
 }

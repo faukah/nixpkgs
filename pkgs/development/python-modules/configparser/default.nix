@@ -6,7 +6,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "configparser";
   version = "7.2.0";
@@ -24,12 +23,12 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Updated configparser from Python 3.7 for Python 2.6+";
     homepage = "https://github.com/jaraco/configparser";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

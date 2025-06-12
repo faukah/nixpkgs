@@ -13,7 +13,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-monitoring";
   version = "2.27.1";
@@ -27,24 +26,28 @@ buildPythonPackage rec {
     hash = "sha256-9HAJAKZYzWybf3FLsp0Af6zvDPDWKNAHVpnDpzvOilU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    google-api-core
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      google-api-core
+      proto-plus
+      protobuf
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   optional-dependencies = {
-    pandas = [ pandas ];
+    pandas = [pandas];
   };
 
-  nativeCheckInputs = [
-    google-cloud-testutils
-    mock
-    pytestCheckHook
-    pytest-asyncio
-  ] ++ optional-dependencies.pandas;
+  nativeCheckInputs =
+    [
+      google-cloud-testutils
+      mock
+      pytestCheckHook
+      pytest-asyncio
+    ]
+    ++ optional-dependencies.pandas;
 
   disabledTests = [
     # Test requires credentials
@@ -63,6 +66,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-monitoring";
     changelog = "https://github.com/googleapis/google-cloud-python/tree/google-cloud-monitoring-v${version}/packages/google-cloud-monitoring";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

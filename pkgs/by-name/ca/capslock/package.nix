@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "capslock";
   version = "0.2.7";
@@ -18,19 +17,19 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-CUw4ukSAs12dprgcQRfdoKzY7gbzUCHk0t2SrUMtrxo=";
 
-  subPackages = [ "cmd/capslock" ];
+  subPackages = ["cmd/capslock"];
 
   env.CGO_ENABLED = "0";
 
-  ldflags = [ "-s" ];
+  ldflags = ["-s"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Capability analysis CLI for Go packages that informs users of which privileged operations a given package can access";
     homepage = "https://github.com/google/capslock";
     license = lib.licenses.bsd3;
     mainProgram = "capslock";
-    maintainers = with lib.maintainers; [ katexochen ];
+    maintainers = with lib.maintainers; [katexochen];
   };
 })

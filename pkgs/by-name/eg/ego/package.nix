@@ -6,7 +6,6 @@
   acl,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ego";
   version = "1.1.7";
@@ -18,9 +17,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-613RM7Ldye0wHAH3VMhzhyT5WVTybph3gS/WNMrsgGI=";
   };
 
-  buildInputs = [ acl ];
+  buildInputs = [acl];
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-GwWDH3np/YKUx7BLmKxUui2CXLYbHjivWC1av9jaccA=";
@@ -31,14 +30,14 @@ rustPlatform.buildRustPackage rec {
   ];
 
   postInstall = ''
-    wrapProgram $out/bin/ego --prefix PATH : ${lib.makeBinPath [ xorg.xhost ]}
+    wrapProgram $out/bin/ego --prefix PATH : ${lib.makeBinPath [xorg.xhost]}
   '';
 
   meta = {
     description = "Run Linux desktop applications under a different local user";
     homepage = "https://github.com/intgr/ego";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
     mainProgram = "ego";
   };
 }

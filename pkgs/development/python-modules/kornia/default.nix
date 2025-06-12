@@ -8,7 +8,6 @@
   torch,
   kornia-rs,
 }:
-
 buildPythonPackage rec {
   pname = "kornia";
   version = "0.8.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-pMCGL33DTnMLlxRbhBhRuR/ZA575+kbUJ59N3nuqpdI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     kornia-rs
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/kornia/kornia/releases/tag/v${version}";
     description = "Differentiable computer vision library";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

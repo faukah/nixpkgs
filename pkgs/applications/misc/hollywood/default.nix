@@ -22,7 +22,6 @@
   ncurses,
   tmux,
 }:
-
 stdenv.mkDerivation {
   pname = "hollywood";
   version = "1.22";
@@ -34,9 +33,9 @@ stdenv.mkDerivation {
     sha256 = "sha256-faIm1uXERvIDZ6SK6uarVkWGNJskAroHgq5Cg7nUZc4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  patches = [ ./nixos-paths.patch ];
+  patches = [./nixos-paths.patch];
   postPatch = ''
     rm lib/hollywood/speedometer
     rm bin/wallstreet
@@ -45,46 +44,44 @@ stdenv.mkDerivation {
 
   dontBuild = true;
 
-  installPhase =
-    let
-      pathDeps = [
-        tmux
-        coreutils
-        ncurses
-        jp2a
-        mlocate
-        apg
-        atop
-        bmon
-        cmatrix
-        pygments
-        moreutils
-        util-linux
-        man
-        mplayer
-        openssh
-        tree
-        findutils
-        ccze
-      ];
-    in
-    ''
-      runHook preInstall
+  installPhase = let
+    pathDeps = [
+      tmux
+      coreutils
+      ncurses
+      jp2a
+      mlocate
+      apg
+      atop
+      bmon
+      cmatrix
+      pygments
+      moreutils
+      util-linux
+      man
+      mplayer
+      openssh
+      tree
+      findutils
+      ccze
+    ];
+  in ''
+    runHook preInstall
 
-      mkdir -p $out
-      cp -r bin $out/bin
-      cp -r lib $out/lib
-      cp -r share $out/share
-      wrapProgram $out/bin/hollywood --prefix PATH : ${lib.makeBinPath pathDeps}
+    mkdir -p $out
+    cp -r bin $out/bin
+    cp -r lib $out/lib
+    cp -r share $out/share
+    wrapProgram $out/bin/hollywood --prefix PATH : ${lib.makeBinPath pathDeps}
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   meta = {
     description = "Fill your console with Hollywood melodrama technobabble";
     mainProgram = "hollywood";
     homepage = "https://a.hollywood.computer/";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

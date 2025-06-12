@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
   };
 
@@ -35,8 +35,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Apple Lossless Codec and Utility with Autotools";
     homepage = "https://github.com/mikebrady/alac";
     license = lib.licenses.asl20;
-    pkgConfigModules = [ "alac" ];
+    pkgConfigModules = ["alac"];
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
   };
 })

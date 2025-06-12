@@ -5,7 +5,6 @@
   pkg-config,
   libusb1,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ecpdap";
   version = "0.2.0";
@@ -20,9 +19,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-o+qm4MFZt+BzqhQsaI5EU9lZz4LI9D75eL+VKIKbIyI=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
   postInstall = ''
     mkdir -p $out/etc/udev/rules.d
@@ -38,6 +37,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/adamgreig/ecpdap";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pymdstat";
   version = "0.4.3";
@@ -18,18 +17,18 @@ buildPythonPackage rec {
     hash = "sha256-ifQZXc+it/UTltHc1ZL2zxJu7GvAxYzzmB4D+mCqEoE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "pymdstat" ];
+  pythonImportsCheck = ["pymdstat"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "unitest.py" ];
+  pytestFlagsArray = ["unitest.py"];
 
   meta = with lib; {
     description = "Pythonic library to parse Linux /proc/mdstat file";
     homepage = "https://github.com/nicolargo/pymdstat";
-    maintainers = with maintainers; [ rhoriguchi ];
+    maintainers = with maintainers; [rhoriguchi];
     license = licenses.mit;
   };
 }

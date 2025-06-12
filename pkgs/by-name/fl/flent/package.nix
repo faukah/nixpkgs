@@ -15,9 +15,9 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-BPwh3oWIY1YEI+ecgi9AUiX4Ka/Y5dYikwmfvvNB+eg=";
   };
 
-  build-system = [ python3Packages.sphinx ];
+  build-system = [python3Packages.sphinx];
 
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
 
   dependencies = with python3Packages; [
     matplotlib
@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
     qtpy
   ];
 
-  nativeCheckInputs = [ python3Packages.unittestCheckHook ];
+  nativeCheckInputs = [python3Packages.unittestCheckHook];
 
   preCheck = ''
     # we want the gui tests to always run
@@ -39,16 +39,16 @@ python3Packages.buildPythonApplication rec {
   preFixup = ''
     makeWrapperArgs+=(
       "''${qtWrapperArgs[@]}"
-      --prefix PATH : ${lib.makeBinPath [ procps ]}
+      --prefix PATH : ${lib.makeBinPath [procps]}
     )
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
   meta = {
     description = "FLExible Network Tester";
     homepage = "https://flent.org";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ mmlb ];
+    maintainers = with lib.maintainers; [mmlb];
     mainProgram = "flent";
     badPlatforms = lib.platforms.darwin;
   };

@@ -10,7 +10,6 @@
   pythonOlder,
   stestr,
 }:
-
 buildPythonPackage rec {
   pname = "python-swiftclient";
   version = "4.8.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-RBYsq0aTaMr9wl4MjE6VornbGkRFakjOCA/iyppLOGM=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   build-system = [
     pbr
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     stestr run
   '';
 
-  pythonImportsCheck = [ "swiftclient" ];
+  pythonImportsCheck = ["swiftclient"];
 
   meta = with lib; {
     homepage = "https://github.com/openstack/python-swiftclient";
     description = "Python bindings to the OpenStack Object Storage API";
     mainProgram = "swift";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

@@ -6,7 +6,6 @@
   kmod,
   gnugrep,
 }:
-
 stdenv.mkDerivation {
   pname = "vmware-modules";
   version = "workstation-17.6.3-${kernel.version}";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
     hash = "sha256-n9aLpHcO7m51eRtcWWBfTpze0JIWvne+UcYACoA5afc=";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -45,8 +44,8 @@ stdenv.mkDerivation {
     description = "Kernel modules needed for VMware hypervisor";
     homepage = "https://github.com/mkubecek/vmware-host-modules";
     license = licenses.gpl2Only;
-    platforms = [ "x86_64-linux" ];
-    broken = (kernel.kernelOlder "5.5" && kernel.isHardened);
+    platforms = ["x86_64-linux"];
+    broken = kernel.kernelOlder "5.5" && kernel.isHardened;
     maintainers = with maintainers; [
       deinferno
       vifino

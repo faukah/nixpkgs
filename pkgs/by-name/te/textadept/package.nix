@@ -21,12 +21,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-nPgpQeBq5Stv2o0Ke4W2Ltnx6qLe5TIC5a8HSYVkmfI=";
   };
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals withQt [ libsForQt5.wrapQtAppsHook ];
+  nativeBuildInputs = [cmake] ++ lib.optionals withQt [libsForQt5.wrapQtAppsHook];
 
-  buildInputs = lib.optionals withQt [ libsForQt5.qtbase ] ++ lib.optionals withCurses ncurses;
+  buildInputs = lib.optionals withQt [libsForQt5.qtbase] ++ lib.optionals withCurses ncurses;
 
   cmakeFlags =
-    lib.optional withQt [ "-DQT=ON" ]
+    lib.optional withQt ["-DQT=ON"]
     ++ lib.optional withCurses [
       "-DCURSES=ON"
       "-DQT=OFF"

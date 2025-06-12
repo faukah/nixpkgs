@@ -8,7 +8,6 @@
   six,
   zope-testing,
 }:
-
 buildPythonPackage rec {
   pname = "manuel";
   version = "1.13.0";
@@ -30,8 +29,8 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ six ];
-  nativeCheckInputs = [ zope-testing ];
+  propagatedBuildInputs = [six];
+  nativeCheckInputs = [zope-testing];
 
   meta = with lib; {
     description = "Documentation builder";

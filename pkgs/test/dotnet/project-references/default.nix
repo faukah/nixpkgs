@@ -1,15 +1,12 @@
 # Tests the `projectReferences = [ ... ];` feature of buildDotnetModule.
 # The `library` derivation exposes a .nupkg, which is then consumed by the `application` derivation.
 # https://nixos.org/manual/nixpkgs/unstable/index.html#packaging-a-dotnet-application
-
 {
   lib,
   dotnet-sdk,
   buildPackages, # buildDotnetModule
   runCommand,
-}:
-
-let
+}: let
   inherit (buildPackages) buildDotnetModule;
 
   nugetDeps = ./nuget-deps.json;
@@ -33,11 +30,10 @@ let
     inherit nugetDeps;
     env.TargetFramework = TargetFramework;
 
-    projectReferences = [ library ];
+    projectReferences = [library];
   };
 in
-
-runCommand "project-references-test" { } ''
-  ${application}/bin/Application
-  mkdir $out
-''
+  runCommand "project-references-test" {} ''
+    ${application}/bin/Application
+    mkdir $out
+  ''

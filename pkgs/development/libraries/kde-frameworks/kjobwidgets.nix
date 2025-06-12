@@ -6,7 +6,6 @@
   kwidgetsaddons,
   qtx11extras,
 }:
-
 mkDerivation {
   pname = "kjobwidgets";
   nativeBuildInputs = [

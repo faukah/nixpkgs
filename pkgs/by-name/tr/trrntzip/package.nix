@@ -6,7 +6,6 @@
 #
 # Besides the new one is on github instead of sourceforge
 # which makes life for us easier
-
 {
   lib,
   stdenv,
@@ -14,7 +13,6 @@
   cmake,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "trrntzip";
   version = "1.3";
@@ -26,9 +24,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-whxPqXT6w91jWv9aoTE4ITbjqohgwytzA0HN7WXKcTA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   meta = with lib; {
     description = "Goal of the program is to use standard values when creating zips to create identical files over multiple systems";
@@ -49,6 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
       gpl2Plus
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 })

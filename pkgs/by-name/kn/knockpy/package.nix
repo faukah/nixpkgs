@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "knockpy";
   version = "7.0.2";
@@ -39,14 +38,14 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "knock" ];
+  pythonImportsCheck = ["knock"];
 
   meta = {
     description = "Tool to scan subdomains";
     homepage = "https://github.com/guelfoweb/knock";
     changelog = "https://github.com/guelfoweb/knock/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "knockpy";
   };
 }

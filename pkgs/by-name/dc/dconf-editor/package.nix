@@ -20,7 +20,6 @@
   wrapGAppsHook3,
   gobject-introspection,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dconf-editor";
   version = "45.0.1";
@@ -75,7 +74,7 @@ stdenv.mkDerivation rec {
     homepage = "https://apps.gnome.org/DconfEditor/";
     changelog = "https://gitlab.gnome.org/GNOME/dconf-editor/-/blob/${version}/NEWS?ref_type=tags";
     license = lib.licenses.gpl3Plus;
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     platforms = lib.platforms.unix;
   };
 }

@@ -13,7 +13,6 @@
   pkg-config,
   tzdata,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mkcal";
   version = "0.7.27";
@@ -100,7 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
     tests.pkg-config = testers.hasPkgConfigModules {
       package = finalAttrs.finalPackage;
       # version field doesn't exactly match current version
@@ -113,7 +112,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/sailfishos/mkcal/releases/tag/${finalAttrs.version}";
     license = lib.licenses.lgpl2Plus;
     mainProgram = "mkcaltool";
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
     pkgConfigModules = [
       "libmkcal-qt5"

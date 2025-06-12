@@ -9,7 +9,6 @@
   pythonOlder,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "auditok";
   version = "0.1.5";
@@ -30,14 +29,14 @@ buildPythonPackage rec {
     pydub
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"
     "tests"
   ];
 
-  pythonImportsCheck = [ "auditok" ];
+  pythonImportsCheck = ["auditok"];
 
   # The most recent version is 0.2.0, but the only dependent package is
   # ffsubsync, which is pinned at 0.1.5.
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/amsehili/auditok/";
     changelog = "https://github.com/amsehili/auditok/blob/v${version}/CHANGELOG";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

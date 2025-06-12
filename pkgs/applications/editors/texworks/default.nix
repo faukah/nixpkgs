@@ -15,7 +15,6 @@
   withPython ? true,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "texworks";
   version = "0.6.10";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "Simple TeX front-end program inspired by TeXShop";
     homepage = "http://www.tug.org/texworks/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = with platforms; linux;
     mainProgram = "texworks";
   };

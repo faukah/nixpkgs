@@ -30,7 +30,6 @@
   zlib,
   texinfo,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "proxysql";
   version = "2.7.1";
@@ -74,7 +73,8 @@ stdenv.mkDerivation (finalAttrs: {
   dontConfigure = true;
 
   # replace and fix some vendored dependencies
-  preBuild = # sh
+  preBuild =
+    # sh
     ''
       pushd deps
 
@@ -98,76 +98,78 @@ stdenv.mkDerivation (finalAttrs: {
         popd
       }
 
-      ${lib.concatMapStringsSep "\n"
+      ${
+        lib.concatMapStringsSep "\n"
         (
-          x:
-          ''replace_dep "${x.f}" "${x.p.src}" "${
-            x.p.pname or (builtins.parseDrvName x.p.name).name
-          }" "${x.p.name}"''
+          x: ''replace_dep "${x.f}" "${x.p.src}" "${
+              x.p.pname or (builtins.parseDrvName x.p.name).name
+            }" "${x.p.name}"''
         )
         (
           map
-            (x: {
-              inherit (x) f;
-              p = x.p // {
+          (x: {
+            inherit (x) f;
+            p =
+              x.p
+              // {
                 src = applyPatches {
                   inherit (x.p) src patches;
                 };
               };
-            })
-            [
-              {
-                f = "curl";
-                p = curl;
-              }
-              {
-                f = "libconfig";
-                p = libconfig;
-              }
-              {
-                f = "libdaemon";
-                p = libdaemon;
-              }
-              {
-                f = "libev";
-                p = libev;
-              }
-              {
-                f = "libinjection";
-                p = libinjection;
-              }
-              {
-                f = "libmicrohttpd";
-                p = libmicrohttpd;
-              }
-              {
-                f = "libssl";
-                p = openssl;
-              }
-              {
-                f = "lz4";
-                p = lz4;
-              }
-              {
-                f = "pcre";
-                p = pcre;
-              }
-              {
-                f = "prometheus-cpp";
-                p = prometheus-cpp.overrideAttrs (
-                  finalAttrs: _: {
-                    version = "1.1.0";
+          })
+          [
+            {
+              f = "curl";
+              p = curl;
+            }
+            {
+              f = "libconfig";
+              p = libconfig;
+            }
+            {
+              f = "libdaemon";
+              p = libdaemon;
+            }
+            {
+              f = "libev";
+              p = libev;
+            }
+            {
+              f = "libinjection";
+              p = libinjection;
+            }
+            {
+              f = "libmicrohttpd";
+              p = libmicrohttpd;
+            }
+            {
+              f = "libssl";
+              p = openssl;
+            }
+            {
+              f = "lz4";
+              p = lz4;
+            }
+            {
+              f = "pcre";
+              p = pcre;
+            }
+            {
+              f = "prometheus-cpp";
+              p = prometheus-cpp.overrideAttrs (
+                finalAttrs: _: {
+                  version = "1.1.0";
 
-                    src = fetchFromGitHub {
-                      owner = "jupp0r";
-                      repo = "prometheus-cpp";
-                      tag = "v${finalAttrs.version}";
-                      hash = "sha256-qx6oBxd0YrUyFq+7ArnKBqOwrl5X8RS9nErhRDUJ7+8=";
-                    };
-                  }
-                );
-              }
-            ]
+                  src = fetchFromGitHub {
+                    owner = "jupp0r";
+                    repo = "prometheus-cpp";
+                    tag = "v${finalAttrs.version}";
+                    hash = "sha256-qx6oBxd0YrUyFq+7ArnKBqOwrl5X8RS9nErhRDUJ7+8=";
+                  };
+                }
+              );
+            }
+          ]
         )
       }
 
@@ -220,8 +222,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "High-performance MySQL proxy";
     mainProgram = "proxysql";
     homepage = "https://proxysql.com/";
-    license = with licenses; [ gpl3Only ];
-    teams = [ teams.helsinki-systems ];
+    license = with licenses; [gpl3Only];
+    teams = [teams.helsinki-systems];
     platforms = platforms.unix;
   };
 })

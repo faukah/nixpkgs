@@ -18,7 +18,6 @@
   wrapGAppsHook3,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gromit-mpx";
   version = "1.7.0";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     lz4
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Desktop annotation tool";

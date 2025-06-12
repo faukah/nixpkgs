@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "apl386";
   version = "0-unstable-2024-01-10";
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation {
     homepage = "https://abrudz.github.io/APL386/";
     description = "APL385 Unicode font evolved";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.all;
   };
 }

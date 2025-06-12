@@ -11,7 +11,6 @@
   libvarlink,
   libscfg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kanshi";
   version = "1.7.0";

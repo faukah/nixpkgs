@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   matplotlib,
   numpy,
@@ -14,7 +12,6 @@
   requests,
   scikit-learn,
   scipy,
-
   # tests
   astropy,
   coverage,
@@ -23,7 +20,6 @@
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "neurokit2";
   version = "0.2.10";
@@ -106,6 +102,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/neuropsychology/NeuroKit";
     changelog = "https://github.com/neuropsychology/NeuroKit/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
   };
 }

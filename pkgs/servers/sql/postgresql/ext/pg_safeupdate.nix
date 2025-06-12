@@ -4,7 +4,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 with {
   "13" = {
     version = "1.4";
@@ -29,24 +28,23 @@ with {
 }
 ."${lib.versions.major postgresql.version}"
   or (throw "pg_safeupdate: version specification for pg ${postgresql.version} missing.");
+  postgresqlBuildExtension rec {
+    pname = "pg-safeupdate";
+    inherit version;
 
-postgresqlBuildExtension rec {
-  pname = "pg-safeupdate";
-  inherit version;
+    src = fetchFromGitHub {
+      owner = "eradman";
+      repo = "pg-safeupdate";
+      tag = version;
+      inherit hash;
+    };
 
-  src = fetchFromGitHub {
-    owner = "eradman";
-    repo = "pg-safeupdate";
-    tag = version;
-    inherit hash;
-  };
-
-  meta = {
-    description = "Simple extension to PostgreSQL that requires criteria for UPDATE and DELETE";
-    homepage = "https://github.com/eradman/pg-safeupdate";
-    changelog = "https://github.com/eradman/pg-safeupdate/raw/${src.rev}/NEWS";
-    platforms = postgresql.meta.platforms;
-    maintainers = with lib.maintainers; [ wolfgangwalther ];
-    license = lib.licenses.postgresql;
-  };
-}
+    meta = {
+      description = "Simple extension to PostgreSQL that requires criteria for UPDATE and DELETE";
+      homepage = "https://github.com/eradman/pg-safeupdate";
+      changelog = "https://github.com/eradman/pg-safeupdate/raw/${src.rev}/NEWS";
+      platforms = postgresql.meta.platforms;
+      maintainers = with lib.maintainers; [wolfgangwalther];
+      license = lib.licenses.postgresql;
+    };
+  }

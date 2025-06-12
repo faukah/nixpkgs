@@ -8,7 +8,6 @@
   withPam ? stdenv.hostPlatform.isLinux,
   pam,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pgpool-II";
   version = "4.6.0";
@@ -19,17 +18,21 @@ stdenv.mkDerivation rec {
     hash = "sha256-9oplcUQtfqU7afOddJrUV3kLABgOGbAZ/ILiNbqwcyE=";
   };
 
-  buildInputs = [
-    libpq
-    openssl
-    libxcrypt
-  ] ++ lib.optional withPam pam;
+  buildInputs =
+    [
+      libpq
+      openssl
+      libxcrypt
+    ]
+    ++ lib.optional withPam pam;
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-    "--with-openssl"
-  ] ++ lib.optional withPam "--with-pam";
+  configureFlags =
+    [
+      "--sysconfdir=/etc"
+      "--localstatedir=/var"
+      "--with-openssl"
+    ]
+    ++ lib.optional withPam "--with-pam";
 
   installFlags = [
     "sysconfdir=\${out}/etc"
@@ -47,10 +50,10 @@ stdenv.mkDerivation rec {
     homepage = "https://www.pgpool.net/mediawiki/index.php/Main_Page";
     description = "Middleware that works between PostgreSQL servers and PostgreSQL clients";
     changelog = "https://www.pgpool.net/docs/latest/en/html/release-${
-      builtins.replaceStrings [ "." ] [ "-" ] version
+      builtins.replaceStrings ["."] ["-"] version
     }.html";
     license = licenses.free;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.tinywm;
-in
-{
+in {
   ###### interface
   options = {
     services.xserver.windowManager.tinywm.enable = mkEnableOption "tinywm";
@@ -25,6 +21,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.tinywm ];
+    environment.systemPackages = [pkgs.tinywm];
   };
 }

@@ -16,7 +16,6 @@
   libdrm,
   libinput,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "waylib";
   version = "0.6.14";
@@ -69,6 +68,6 @@ stdenv.mkDerivation (finalAttrs: {
       asl20
     ];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [rewine];
   };
 })

@@ -38,7 +38,6 @@
   videoSupport ? true,
   libmpeg2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libextractor";
   version = "1.13";
@@ -58,7 +57,6 @@ stdenv.mkDerivation rec {
       })
     ]
     ++ lib.optionals gstreamerSupport [
-
       # Libraries cannot be wrapped so we need to hardcode the plug-in paths.
       (replaceVars ./gst-hardcode-plugins.patch {
         load_gst_plugins = lib.concatMapStrings (
@@ -73,7 +71,7 @@ stdenv.mkDerivation rec {
         -e "s|pexe[[:blank:]]*=.*$|pexe = strdup(\"$out/lib/\");|g"
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -86,13 +84,13 @@ stdenv.mkDerivation rec {
       exiv2
       libgsf
     ]
-    ++ lib.optionals rpmSupport [ rpm ]
-    ++ lib.optionals gstreamerSupport ([ gst_all_1.gstreamer ] ++ gstPlugins gst_all_1)
+    ++ lib.optionals rpmSupport [rpm]
+    ++ lib.optionals gstreamerSupport ([gst_all_1.gstreamer] ++ gstPlugins gst_all_1)
     ++ lib.optionals gtkSupport [
       glib
       gtk3
     ]
-    ++ lib.optionals videoSupport [ libmpeg2 ];
+    ++ lib.optionals videoSupport [libmpeg2];
 
   # Checks need to be run after "make install", otherwise plug-ins are not in
   # the search path, etc.
@@ -127,7 +125,7 @@ stdenv.mkDerivation rec {
 
     license = licenses.gpl3Plus;
 
-    maintainers = [ maintainers.jorsn ];
+    maintainers = [maintainers.jorsn];
     platforms = platforms.unix;
   };
 }

@@ -6,7 +6,6 @@
   postgresqlTestExtension,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tsja";
   version = "0.5.0";
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "PostgreSQL extension implementing Japanese text search";
     homepage = "https://www.amris.jp/tsja/index.html";
-    maintainers = with lib.maintainers; [ chayleaf ];
+    maintainers = with lib.maintainers; [chayleaf];
     # GNU-specific linker options are used
     platforms = lib.platforms.gnu;
     license = lib.licenses.gpl2Only;

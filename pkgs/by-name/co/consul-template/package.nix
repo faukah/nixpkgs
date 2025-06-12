@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "consul-template";
   version = "0.41.0";

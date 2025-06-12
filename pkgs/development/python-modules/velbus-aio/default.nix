@@ -11,7 +11,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "velbus-aio";
   version = "2025.5.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiofile
@@ -45,13 +44,13 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "velbusaio" ];
+  pythonImportsCheck = ["velbusaio"];
 
   meta = with lib; {
     description = "Python library to support the Velbus home automation system";
     homepage = "https://github.com/Cereal2nd/velbus-aio";
     changelog = "https://github.com/Cereal2nd/velbus-aio/releases/tag/${src.tag}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -5,7 +5,6 @@
   curses,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stag";
   version = "1.0.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  buildInputs = [ curses ];
+  buildInputs = [curses];
 
   installPhase = ''
     make install PREFIX=$out
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/seenaburns/stag";
     description = "Terminal streaming bar graph passed through stdin";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     platforms = platforms.unix;
     mainProgram = "stag";
   };

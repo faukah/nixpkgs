@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "corkscrew";
   version = "2.0";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-JiddvTbuOysenrVWGUEyKSzpCF1PJaYWQUdz3FuLCdw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     homepage = "https://github.com/bryanpkc/corkscrew";

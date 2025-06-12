@@ -5,7 +5,6 @@
   fetchpatch,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eigen";
   version = "3.4.0";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://eigen.tuxfamily.org";

@@ -11,7 +11,6 @@
   yamale,
   yamllint,
 }:
-
 buildGoModule rec {
   pname = "chart-testing";
   version = "3.13.0";
@@ -68,7 +67,7 @@ buildGoModule rec {
     description = "Tool for testing Helm charts";
     homepage = "https://github.com/helm/chart-testing";
     license = licenses.asl20;
-    maintainers = with maintainers; [ atkinschang ];
+    maintainers = with maintainers; [atkinschang];
     mainProgram = "ct";
   };
 }

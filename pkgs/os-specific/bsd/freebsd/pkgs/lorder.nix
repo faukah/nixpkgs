@@ -17,7 +17,7 @@ mkDerivation {
     bsdSetupHook
     freebsdSetupHook
   ];
-  buildInputs = [ ];
+  buildInputs = [];
   outputs = [
     "out"
     "man"

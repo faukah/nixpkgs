@@ -7,7 +7,6 @@
   pytestCheckHook,
   kgb,
 }:
-
 buildPythonPackage rec {
   pname = "pydiffx";
   version = "1.1";
@@ -27,11 +26,11 @@ buildPythonPackage rec {
       --replace-fail "assertRaisesRegexp" "assertRaisesRegex"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ six ];
+  dependencies = [six];
 
-  pythonImportsCheck = [ "pydiffx" ];
+  pythonImportsCheck = ["pydiffx"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "DiffX file format and utilities";
     homepage = "https://github.com/beanbaginc/diffx";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 }

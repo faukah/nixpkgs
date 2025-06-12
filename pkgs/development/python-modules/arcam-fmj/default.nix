@@ -12,7 +12,6 @@
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "arcam-fmj";
   version = "1.8.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-sNV2k3cbQe60Jpq1J2T6TQAz+NEyLXvS97//vXJ17TM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -67,6 +66,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/elupus/arcam_fmj";
     changelog = "https://github.com/elupus/arcam_fmj/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -6,7 +6,6 @@
   installShellFiles,
   versionCheckHook,
 }:
-
 buildGo124Module rec {
   pname = "hubble";
   version = "1.17.2";
@@ -35,7 +34,7 @@ buildGo124Module rec {
   doCheck = true;
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "version";
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''

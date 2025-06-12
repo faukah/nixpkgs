@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pingtunnel";
   version = "2.8";
@@ -30,7 +29,7 @@ buildGoModule rec {
     description = "Tool that send TCP/UDP traffic over ICMP";
     homepage = "https://github.com/esrrhs/pingtunnel";
     license = licenses.mit;
-    maintainers = with maintainers; [ oluceps ];
+    maintainers = with maintainers; [oluceps];
     mainProgram = "pingtunnel";
   };
 }

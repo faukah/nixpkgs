@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   layouts = config.services.xserver.xkb.extraLayouts;
 
   layoutOpts = {
@@ -79,18 +76,13 @@ let
           It must contain a `xkb_types "name" { ... }` block.
         '';
       };
-
     };
   };
 
   xkb_patched = pkgs.xorg.xkeyboardconfig_custom {
     layouts = config.services.xserver.xkb.extraLayouts;
   };
-
-in
-
-{
-
+in {
   imports = [
     (lib.mkRenamedOptionModuleWith {
       sinceRelease = 2311;
@@ -113,7 +105,7 @@ in
   options.services.xserver.xkb = {
     extraLayouts = mkOption {
       type = types.attrsOf (types.submodule layoutOpts);
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           mine = {
@@ -131,13 +123,11 @@ in
         <https://wiki.archlinux.org/index.php/X_KeyBoard_extension#Basic_examples>
       '';
     };
-
   };
 
   ###### implementation
 
-  config = mkIf (layouts != { }) {
-
+  config = mkIf (layouts != {}) {
     environment.sessionVariables = {
       # runtime override supported by multiple libraries e. g. libxkbcommon
       # https://xkbcommon.org/doc/current/group__include-path.html
@@ -150,7 +140,5 @@ in
         config.services.xserver.displayManager.startx.enable
         || config.services.xserver.displayManager.sx.enable;
     };
-
   };
-
 }

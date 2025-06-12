@@ -8,7 +8,6 @@
   cmake,
   kmod,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mcontrolcenter";
   version = "0.5.0";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
       icon = "mcontrolcenter";
       comment = finalAttrs.meta.description;
       desktopName = "MControlCenter";
-      categories = [ "System" ];
+      categories = ["System"];
     })
   ];
 
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Tool to change the settings of MSI laptops running Linux";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.Tommimon ];
+    maintainers = [lib.maintainers.Tommimon];
     mainProgram = "mcontrolcenter";
   };
 })

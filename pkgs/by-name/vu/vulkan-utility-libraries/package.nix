@@ -6,7 +6,6 @@
   python3,
   vulkan-headers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vulkan-utility-libraries";
   version = "1.4.313.0";
@@ -22,13 +21,13 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
     python3
   ];
-  buildInputs = [ vulkan-headers ];
+  buildInputs = [vulkan-headers];
 
   meta = with lib; {
     description = "Set of utility libraries for Vulkan";
     homepage = "https://github.com/KhronosGroup/Vulkan-Utility-Libraries";
     platforms = platforms.all;
     license = licenses.asl20;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 })

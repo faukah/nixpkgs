@@ -7,7 +7,6 @@
   perf,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-flamegraph";
   version = "0.6.8";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-FjLjEoorbZC2WZ424w2aFLmd4dIfy5s13sR8BSRVNIo=";
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ makeWrapper ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [makeWrapper];
 
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     wrapProgram $out/bin/cargo-flamegraph \
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       --set-default PERF ${perf}/bin/perf
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Easy flamegraphs for Rust projects and everything else, without Perl or pipes <3";

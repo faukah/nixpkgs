@@ -10,7 +10,6 @@
   testers,
   runme,
 }:
-
 buildGoModule rec {
   pname = "runme";
   version = "3.14.0";
@@ -76,6 +75,6 @@ buildGoModule rec {
     homepage = "https://runme.dev";
     changelog = "https://github.com/runmedev/runme/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

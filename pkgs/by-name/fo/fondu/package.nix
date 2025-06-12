@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   version = "060102";
   pname = "fondu";
@@ -17,9 +16,9 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace /System/Library/Frameworks/CoreServices.framework/CoreServices "-framework CoreServices"
   '';
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   meta = {
     platforms = lib.platforms.unix;

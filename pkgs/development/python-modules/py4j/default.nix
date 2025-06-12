@@ -3,7 +3,6 @@
   fetchPypi,
   lib,
 }:
-
 buildPythonPackage rec {
   pname = "py4j";
 
@@ -26,6 +25,6 @@ buildPythonPackage rec {
       binaryBytecode
     ];
     license = licenses.bsd3;
-    maintainers = [ maintainers.shlevy ];
+    maintainers = [maintainers.shlevy];
   };
 }

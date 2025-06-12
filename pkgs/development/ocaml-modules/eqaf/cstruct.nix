@@ -3,7 +3,6 @@
   eqaf,
   cstruct,
 }:
-
 buildDunePackage {
   pname = "eqaf-cstruct";
 

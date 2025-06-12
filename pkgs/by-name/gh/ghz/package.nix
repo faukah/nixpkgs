@@ -5,7 +5,6 @@
   testers,
   ghz,
 }:
-
 buildGoModule rec {
   pname = "ghz";
   version = "0.120.0";

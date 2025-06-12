@@ -13,7 +13,6 @@
   libffi,
   libintl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "p11-kit";
   version = "0.25.5";

@@ -11,7 +11,6 @@
   stdenv,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "oddjob";
   version = "0.34.7";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
     description = "Odd Job Daemon";
     homepage = "https://pagure.io/oddjob";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ SohamG ];
+    maintainers = with lib.maintainers; [SohamG];
     platforms = lib.platforms.linux;
   };
 }

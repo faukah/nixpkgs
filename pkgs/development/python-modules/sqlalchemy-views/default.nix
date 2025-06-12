@@ -6,7 +6,6 @@
   sqlalchemy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sqlalchemy-views";
   version = "0.3.2";
@@ -23,18 +22,18 @@ buildPythonPackage rec {
     substituteInPlace tox.ini --replace '--cov=sqlalchemy_views --cov-report=term' ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ sqlalchemy ];
+  propagatedBuildInputs = [sqlalchemy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "sqlalchemy_views" ];
+  pythonImportsCheck = ["sqlalchemy_views"];
 
   meta = with lib; {
     description = "Adds CreateView and DropView constructs to SQLAlchemy";
     homepage = "https://github.com/jklukas/sqlalchemy-views";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

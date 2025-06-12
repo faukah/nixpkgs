@@ -3,7 +3,6 @@
   mkDiscoursePlugin,
   fetchFromGitHub,
 }:
-
 mkDiscoursePlugin {
   name = "discourse-openid-connect";
   bundlerEnvArgs.gemdir = ./.;
@@ -15,7 +14,7 @@ mkDiscoursePlugin {
   };
   meta = with lib; {
     homepage = "https://github.com/discourse/discourse-openid-connect";
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
     license = licenses.mit;
     description = "Discourse plugin to integrate Discourse with an openid-connect login provider";
   };

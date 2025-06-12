@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   certs = import ../common/acme/server/snakeoil-certs.nix;
 
   serverDomain = certs.domain;
@@ -11,58 +9,61 @@ let
   };
   # An API token that we manually insert into the db as a valid one.
   apiToken = "OVJh65sXaAfQMZ4NTcIGbFZIyBZbEZqWTi7azdDf";
-in
-{
+in {
   name = "weblate";
-  meta.maintainers = with pkgs.lib.maintainers; [ erictapen ];
+  meta.maintainers = with pkgs.lib.maintainers; [erictapen];
 
-  nodes.server =
-    { pkgs, lib, ... }:
-    {
-      virtualisation.memorySize = 2048;
+  nodes.server = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    virtualisation.memorySize = 2048;
 
-      services.weblate = {
-        enable = true;
-        localDomain = "${serverDomain}";
-        djangoSecretKeyFile = pkgs.writeText "weblate-django-secret" "thisissnakeoilsecretwithmorethan50characterscorrecthorsebatterystaple";
-        extraConfig = ''
-          # Weblate tries to fetch Avatars from the network
-          ENABLE_AVATARS = False
-        '';
-      };
-
-      services.nginx.virtualHosts."${serverDomain}" = {
-        enableACME = lib.mkForce false;
-        sslCertificate = certs."${serverDomain}".cert;
-        sslCertificateKey = certs."${serverDomain}".key;
-      };
-
-      security.pki.certificateFiles = [ certs.ca.cert ];
-
-      networking.hosts."::1" = [ "${serverDomain}" ];
-      networking.firewall.allowedTCPPorts = [
-        80
-        443
-      ];
-
-      users.users.weblate.shell = pkgs.bashInteractive;
-    };
-
-  nodes.client =
-    { pkgs, nodes, ... }:
-    {
-      environment.systemPackages = [ pkgs.wlc ];
-
-      environment.etc."xdg/weblate".text = ''
-        [weblate]
-        url = https://${serverDomain}/api/
-        key = ${apiToken}
+    services.weblate = {
+      enable = true;
+      localDomain = "${serverDomain}";
+      djangoSecretKeyFile = pkgs.writeText "weblate-django-secret" "thisissnakeoilsecretwithmorethan50characterscorrecthorsebatterystaple";
+      extraConfig = ''
+        # Weblate tries to fetch Avatars from the network
+        ENABLE_AVATARS = False
       '';
-
-      networking.hosts."${nodes.server.networking.primaryIPAddress}" = [ "${serverDomain}" ];
-
-      security.pki.certificateFiles = [ certs.ca.cert ];
     };
+
+    services.nginx.virtualHosts."${serverDomain}" = {
+      enableACME = lib.mkForce false;
+      sslCertificate = certs."${serverDomain}".cert;
+      sslCertificateKey = certs."${serverDomain}".key;
+    };
+
+    security.pki.certificateFiles = [certs.ca.cert];
+
+    networking.hosts."::1" = ["${serverDomain}"];
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
+
+    users.users.weblate.shell = pkgs.bashInteractive;
+  };
+
+  nodes.client = {
+    pkgs,
+    nodes,
+    ...
+  }: {
+    environment.systemPackages = [pkgs.wlc];
+
+    environment.etc."xdg/weblate".text = ''
+      [weblate]
+      url = https://${serverDomain}/api/
+      key = ${apiToken}
+    '';
+
+    networking.hosts."${nodes.server.networking.primaryIPAddress}" = ["${serverDomain}"];
+
+    security.pki.certificateFiles = [certs.ca.cert];
+  };
 
   testScript = ''
     import json

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "dracula-theme";
   version = "unstable-2022-05-21";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/dracula/qt5";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ vonfry ];
+    maintainers = with maintainers; [vonfry];
   };
 }

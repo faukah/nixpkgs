@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 llvmPackages.stdenv.mkDerivation rec {
   pname = "cone";
   version = "unstable-2022-12-12";
@@ -16,7 +15,7 @@ llvmPackages.stdenv.mkDerivation rec {
     sha256 = "0y2s9xgkci8n72v6gnc1i7shr2y3g2sa8fbr25gpxa9ipiq9khg7";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     llvmPackages.llvm
@@ -38,7 +37,7 @@ llvmPackages.stdenv.mkDerivation rec {
     mainProgram = "conec";
     homepage = "https://cone.jondgoodwin.com";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
   };
 }

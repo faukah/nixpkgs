@@ -4,7 +4,6 @@
   buildDunePackage,
   uri,
 }:
-
 buildDunePackage rec {
   pname = "resto";
   version = "1.2";
@@ -27,6 +26,6 @@ buildDunePackage rec {
     description = "Minimal OCaml library for type-safe HTTP/JSON RPCs";
     homepage = "https://gitlab.com/nomadic-labs/resto";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

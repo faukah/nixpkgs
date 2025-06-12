@@ -10,7 +10,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mpc-qt";
   version = "24.12.1-flatpak";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     "MPCQT_VERSION=${version}"
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "Media Player Classic Qute Theater";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
     mainProgram = "mpc-qt";
   };
 }

@@ -2,8 +2,7 @@
   lib,
   buildFishPlugin,
   fetchFromGitHub,
-}:
-let
+}: let
   self = buildFishPlugin {
     pname = "spark";
     version = "1.2.0";
@@ -19,8 +18,8 @@ let
       description = "Sparklines for Fish";
       homepage = "https://github.com/jorgebucaran/spark.fish";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ theobori ];
+      maintainers = with lib.maintainers; [theobori];
     };
   };
 in
-self
+  self

@@ -10,7 +10,6 @@
   setuptools,
   sip,
 }:
-
 buildPythonPackage rec {
   pname = "pyqt3d";
   version = "5.15.7";
@@ -54,21 +53,21 @@ buildPythonPackage rec {
     pyqt-builder
   ];
 
-  buildInputs = [ qt3d ];
+  buildInputs = [qt3d];
 
-  propagatedBuildInputs = [ pyqt5 ];
+  propagatedBuildInputs = [pyqt5];
 
   dontConfigure = true;
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "PyQt5.Qt3DCore" ];
+  pythonImportsCheck = ["PyQt5.Qt3DCore"];
 
   meta = with lib; {
     description = "Python bindings for the Qt 3D framework";
     homepage = "https://riverbankcomputing.com/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ panicgh ];
+    maintainers = with maintainers; [panicgh];
   };
 }

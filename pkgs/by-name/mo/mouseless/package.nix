@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "mouseless";
   version = "0.2.0";
@@ -26,7 +25,7 @@ buildGoModule (finalAttrs: {
     '';
     homepage = "https://github.com/jbensmann/mouseless";
     changelog = "https://github.com/jbensmann/mouseless/releases/tag/v${finalAttrs.version}";
-    maintainers = with lib.maintainers; [ imsuck ];
+    maintainers = with lib.maintainers; [imsuck];
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     mainProgram = "mouseless";

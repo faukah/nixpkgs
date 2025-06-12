@@ -8,7 +8,6 @@
   rustPlatform,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "comma";
   version = "1.9.0";
@@ -23,21 +22,21 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-vNXczPhCfoXHy5IT/ybuKEQ7I08eJJdP+6+iXfwWjdU=";
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/comma \
       --prefix PATH : ${
-        lib.makeBinPath [
-          fzy
-          nix-index-unwrapped
-        ]
-      }
+      lib.makeBinPath [
+        fzy
+        nix-index-unwrapped
+      ]
+    }
     ln -s $out/bin/comma $out/bin/,
   '';
 
   passthru.tests = {
-    version = testers.testVersion { package = comma; };
+    version = testers.testVersion {package = comma;};
   };
 
   meta = with lib; {
@@ -45,6 +44,6 @@ rustPlatform.buildRustPackage rec {
     description = "Runs programs without installing them";
     license = licenses.mit;
     mainProgram = "comma";
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "sokol";
   version = "0-unstable-2024-09-20";
@@ -33,6 +32,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/floooh/sokol";
     license = licenses.zlib;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jonnybolton ];
+    maintainers = with maintainers; [jonnybolton];
   };
 }

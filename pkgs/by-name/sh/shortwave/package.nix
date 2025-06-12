@@ -25,7 +25,6 @@
   lcms2,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "shortwave";
   version = "5.0.0";
@@ -78,15 +77,15 @@ stdenv.mkDerivation rec {
     ]);
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     homepage = "https://gitlab.gnome.org/World/Shortwave";
     description = "Find and listen to internet radio stations";
     mainProgram = "shortwave";
-    maintainers = with lib.maintainers; [ lasandell ];
-    teams = [ lib.teams.gnome-circle ];
+    maintainers = with lib.maintainers; [lasandell];
+    teams = [lib.teams.gnome-circle];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
   };

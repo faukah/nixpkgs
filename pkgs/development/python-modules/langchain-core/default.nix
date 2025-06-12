@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pdm-backend,
-
   # dependencies
   jsonpatch,
   langsmith,
@@ -15,7 +13,6 @@
   pyyaml,
   tenacity,
   typing-extensions,
-
   # tests
   blockbuster,
   freezegun,
@@ -29,11 +26,9 @@
   pytest-xdist,
   pytestCheckHook,
   syrupy,
-
   # passthru
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-core";
   version = "0.3.62";
@@ -48,9 +43,9 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/core";
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
-  pythonRelaxDeps = [ "tenacity" ];
+  pythonRelaxDeps = ["tenacity"];
 
   dependencies = [
     jsonpatch
@@ -62,7 +57,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "langchain_core" ];
+  pythonImportsCheck = ["langchain_core"];
 
   # avoid infinite recursion
   doCheck = false;
@@ -81,7 +76,7 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlagsArray = ["tests/unit_tests"];
 
   passthru = {
     tests.pytest = langchain-core.overridePythonAttrs (_: {
@@ -135,7 +130,7 @@ buildPythonPackage rec {
       "test_rate_limit_astream"
     ];
 
-  disabledTestPaths = [ "tests/unit_tests/runnables/test_runnable_events_v2.py" ];
+  disabledTestPaths = ["tests/unit_tests/runnables/test_runnable_events_v2.py"];
 
   meta = {
     description = "Building applications with LLMs through composability";

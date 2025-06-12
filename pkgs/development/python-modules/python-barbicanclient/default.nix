@@ -17,7 +17,6 @@
   sphinxHook,
   stestr,
 }:
-
 buildPythonPackage rec {
   pname = "python-barbicanclient";
   version = "7.1.0";
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     sphinxcontrib-apidoc
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   dependencies = [
     cliff
@@ -71,13 +70,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "barbicanclient" ];
+  pythonImportsCheck = ["barbicanclient"];
 
   meta = {
     homepage = "https://opendev.org/openstack/python-barbicanclient";
     description = "Client library for OpenStack Barbican API";
     license = lib.licenses.asl20;
     mainProgram = "barbican";
-    teams = [ lib.teams.openstack ];
+    teams = [lib.teams.openstack];
   };
 }

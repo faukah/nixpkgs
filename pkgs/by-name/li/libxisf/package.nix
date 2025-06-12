@@ -9,7 +9,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libxisf";
   version = "0.2.13";
@@ -31,9 +30,11 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  cmakeFlags = [
-    "-DUSE_BUNDLED_LIBS=OFF"
-  ] ++ lib.optional stdenv.hostPlatform.isStatic "-DBUILD_SHARED_LIBS=OFF";
+  cmakeFlags =
+    [
+      "-DUSE_BUNDLED_LIBS=OFF"
+    ]
+    ++ lib.optional stdenv.hostPlatform.isStatic "-DBUILD_SHARED_LIBS=OFF";
 
   buildInputs = [
     lz4
@@ -48,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library to load and write XISF format from PixInsight";
     homepage = "https://gitea.nouspiro.space/nou/libXISF";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ panicgh ];
+    maintainers = with maintainers; [panicgh];
     platforms = platforms.linux;
   };
 })

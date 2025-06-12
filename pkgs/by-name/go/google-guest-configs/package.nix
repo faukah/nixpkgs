@@ -12,7 +12,6 @@
   gnused,
   nvme-cli,
 }:
-
 stdenv.mkDerivation rec {
   pname = "google-guest-configs";
   version = "20211116.00";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     iproute2
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontConfigure = true;
   dontBuild = true;
@@ -67,6 +66,6 @@ stdenv.mkDerivation rec {
     description = "Linux Guest Environment for Google Compute Engine";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

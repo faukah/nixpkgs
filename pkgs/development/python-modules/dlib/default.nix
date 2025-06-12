@@ -4,9 +4,9 @@
   pytestCheckHook,
   more-itertools,
 }:
-
 buildPythonPackage {
-  inherit (dlib)
+  inherit
+    (dlib)
     stdenv
     pname
     version
@@ -20,7 +20,7 @@ buildPythonPackage {
 
   format = "setuptools";
 
-  patches = [ ./build-cores.patch ];
+  patches = [./build-cores.patch];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -49,7 +49,6 @@ buildPythonPackage {
       # The tests attempt to use CUDA on the build platform.
       # https://github.com/NixOS/nixpkgs/issues/225912
       dlib.cudaSupport
-
       # although AVX can be enabled, we never test with it. Some Hydra machines
       # fail because of this, however their build results are probably used on hardware
       # with AVX support.

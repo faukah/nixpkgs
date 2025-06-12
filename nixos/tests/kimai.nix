@@ -1,16 +1,12 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "kimai";
-  meta.maintainers = with lib.maintainers; [ peat-psuwit ];
+  meta.maintainers = with lib.maintainers; [peat-psuwit];
 
-  nodes.machine =
-    { ... }:
-    {
-      services.kimai.sites."localhost" = {
-        database.createLocally = true;
-      };
+  nodes.machine = {...}: {
+    services.kimai.sites."localhost" = {
+      database.createLocally = true;
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("phpfpm-kimai-localhost.service")

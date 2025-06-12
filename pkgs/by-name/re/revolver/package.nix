@@ -9,7 +9,6 @@
   testers,
   runCommand,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "revolver";
   version = "0.2.4-unstable-2020-09-30";
@@ -24,14 +23,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   strictDeps = true;
   doInstallCheck = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   buildInputs = [
     zsh
     ncurses
   ];
-  nativeInstallCheckInputs = [ zsh ];
+  nativeInstallCheckInputs = [zsh];
 
-  patches = [ ./no-external-call.patch ];
+  patches = [./no-external-call.patch];
 
   postPatch = ''
     substituteInPlace revolver \
@@ -60,7 +59,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru = {
     tests = {
-      demo = runCommand "revolver-demo" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
+      demo = runCommand "revolver-demo" {nativeBuildInputs = [finalAttrs.finalPackage];} ''
         export HOME="$TEMPDIR"
 
         # Drop stdout, redirect stderr to stdout and check if it's not empty
@@ -91,6 +90,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "revolver";
     inherit (zsh.meta) platforms;
-    maintainers = with lib.maintainers; [ d-brasher ];
+    maintainers = with lib.maintainers; [d-brasher];
   };
 })

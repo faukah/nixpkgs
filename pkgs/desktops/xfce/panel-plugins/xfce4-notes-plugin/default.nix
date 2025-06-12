@@ -17,7 +17,6 @@
   xfconf,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-notes-plugin";
   version = "1.12.0";
@@ -51,13 +50,13 @@ stdenv.mkDerivation (finalAttrs: {
     xfconf
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "xfce4-notes-plugin-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "xfce4-notes-plugin-";};
 
   meta = {
     homepage = "https://docs.xfce.org/panel-plugins/xfce4-notes-plugin";
     description = "Sticky notes plugin for Xfce panel";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
   };
 })

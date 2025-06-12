@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitLab,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "ion";
   version = "unstable-2024-09-20";

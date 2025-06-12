@@ -14,7 +14,6 @@
   pkg-config,
   vala,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "budgie-systemmonitor-applet";
   version = "0.2.1";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   # Remove if/when https://github.com/prateekmedia/budgie-systemmonitor-applet/pull/3 is merged
-  patches = [ ./install-schemas-to-datadir.patch ];
+  patches = [./install-schemas-to-datadir.patch];
 
   strictDeps = true;
 
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

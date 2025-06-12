@@ -3,9 +3,7 @@
   callPackage,
   jdk,
   jre_minimal,
-}:
-
-let
+}: let
   hello-logging = callPackage ./hello-logging.nix {
     jdk = jdk;
     jre = jre_minimal.override {
@@ -16,7 +14,7 @@ let
     };
   };
 in
-runCommand "test" { } ''
-  ${hello-logging}/bin/hello &>/dev/stdout | grep "Hello, world!"
-  touch $out
-''
+  runCommand "test" {} ''
+    ${hello-logging}/bin/hello &>/dev/stdout | grep "Hello, world!"
+    touch $out
+  ''

@@ -8,7 +8,6 @@
   bigarray-compat,
   ounit2,
 }:
-
 buildDunePackage rec {
   pname = "ctypes";
   version = "0.23.0";
@@ -20,7 +19,7 @@ buildDunePackage rec {
     hash = "sha256-fZfTsOMppHiI7BVvgICVt/9ofGFAfYjXzHSDA7L4vZk=";
   };
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
 
   propagatedBuildInputs = [
     integers
@@ -28,12 +27,12 @@ buildDunePackage rec {
   ];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
-  checkInputs = [ ounit2 ];
+  checkInputs = [ounit2];
 
   meta = with lib; {
     homepage = "https://github.com/ocamllabs/ocaml-ctypes";
     description = "Library for binding to C libraries using pure OCaml";
     license = licenses.mit;
-    maintainers = [ maintainers.ericbmerritt ];
+    maintainers = [maintainers.ericbmerritt];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "extism-cli";
   version = "1.6.2";
@@ -18,9 +17,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-51/fzq2j55GHmEx2twb0DSi0AmBS4DbViZzo1c5Xn1M=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "./extism" ];
+  subPackages = ["./extism"];
 
   doCheck = false; # Tests require network access
 
@@ -36,7 +35,7 @@ buildGoModule rec {
     description = "Extism CLI is used to manage Extism installations";
     homepage = "https://github.com/extism/cli";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ zshipko ];
+    maintainers = with maintainers; [zshipko];
     mainProgram = "extism";
     platforms = platforms.all;
   };

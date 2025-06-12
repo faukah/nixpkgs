@@ -15,7 +15,6 @@
   xorg,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "powertop";
   version = "2.15";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = powertop;
       command = "powertop --version";

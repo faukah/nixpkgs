@@ -7,7 +7,6 @@
   nix,
   nix-prefetch-git,
 }:
-
 buildRubyGem rec {
   inherit (bundler) ruby;
 
@@ -26,7 +25,7 @@ buildRubyGem rec {
     ruby
     bundler
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   preFixup = ''
     wrapProgram $out/bin/bundix \

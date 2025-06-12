@@ -3,7 +3,6 @@
   buildDunePackage,
   ringo,
 }:
-
 buildDunePackage {
   pname = "aches";
   inherit (ringo) src version;
@@ -15,6 +14,6 @@ buildDunePackage {
   meta = {
     description = "Caches (bounded-size stores) for in-memory values and for resources";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

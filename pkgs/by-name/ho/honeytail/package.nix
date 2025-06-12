@@ -19,6 +19,6 @@ buildGoModule rec {
     description = "agent for ingesting log file data into honeycomb.io and making it available for exploration";
     homepage = "https://honeycomb.io/";
     license = licenses.asl20;
-    maintainers = [ maintainers.iand675 ];
+    maintainers = [maintainers.iand675];
   };
 }

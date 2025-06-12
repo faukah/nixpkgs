@@ -19,7 +19,6 @@
   testers,
   w3m,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xmlto";
   version = "0.0.29";
@@ -64,13 +63,13 @@ stdenv.mkDerivation (finalAttrs: {
     # `w3m' is needed for HTML to text conversions.
     wrapProgram "$out/bin/xmlto" \
        --prefix PATH : "${
-         lib.makeBinPath [
-           libxslt
-           libxml2
-           getopt
-           w3m
-         ]
-       }"
+      lib.makeBinPath [
+        libxslt
+        libxml2
+        getopt
+        w3m
+      ]
+    }"
   '';
 
   passthru.tests.version = testers.testVersion {
@@ -90,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
       necessary post-processing.
     '';
     mainProgram = "xmlto";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

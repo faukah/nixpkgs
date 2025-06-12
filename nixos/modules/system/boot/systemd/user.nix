@@ -7,14 +7,13 @@
 }:
 with utils;
 with systemdUtils.unitOptions;
-with lib;
-
-let
+with lib; let
   cfg = config.systemd.user;
 
   systemd = config.systemd.package;
 
-  inherit (systemdUtils.lib)
+  inherit
+    (systemdUtils.lib)
     makeUnit
     generateUnits
     targetToUnit
@@ -25,35 +24,35 @@ let
     pathToUnit
     ;
 
-  upstreamUserUnits = [
-    "app.slice"
-    "background.slice"
-    "basic.target"
-    "bluetooth.target"
-    "default.target"
-    "exit.target"
-    "graphical-session-pre.target"
-    "graphical-session.target"
-    "paths.target"
-    "printer.target"
-    "session.slice"
-    "shutdown.target"
-    "smartcard.target"
-    "sockets.target"
-    "sound.target"
-    "systemd-exit.service"
-    "timers.target"
-    "xdg-desktop-autostart.target"
-  ] ++ config.systemd.additionalUpstreamUserUnits;
+  upstreamUserUnits =
+    [
+      "app.slice"
+      "background.slice"
+      "basic.target"
+      "bluetooth.target"
+      "default.target"
+      "exit.target"
+      "graphical-session-pre.target"
+      "graphical-session.target"
+      "paths.target"
+      "printer.target"
+      "session.slice"
+      "shutdown.target"
+      "smartcard.target"
+      "sockets.target"
+      "sound.target"
+      "systemd-exit.service"
+      "timers.target"
+      "xdg-desktop-autostart.target"
+    ]
+    ++ config.systemd.additionalUpstreamUserUnits;
 
-  writeTmpfiles =
-    {
-      rules,
-      user ? null,
-    }:
-    let
-      suffix = optionalString (user != null) "-${user}";
-    in
+  writeTmpfiles = {
+    rules,
+    user ? null,
+  }: let
+    suffix = optionalString (user != null) "-${user}";
+  in
     pkgs.writeTextFile {
       name = "nixos-user-tmpfiles.d${suffix}";
       destination = "/etc/xdg/user-tmpfiles.d/00-nixos${suffix}.conf";
@@ -63,8 +62,7 @@ let
         ${concatStringsSep "\n" rules}
       '';
     };
-in
-{
+in {
   options = {
     systemd.user.extraConfig = mkOption {
       default = "";
@@ -78,42 +76,42 @@ in
 
     systemd.user.units = mkOption {
       description = "Definition of systemd per-user units.";
-      default = { };
+      default = {};
       type = systemdUtils.types.units;
     };
 
     systemd.user.paths = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.paths;
       description = "Definition of systemd per-user path units.";
     };
 
     systemd.user.services = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.services;
       description = "Definition of systemd per-user service units.";
     };
 
     systemd.user.slices = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.slices;
       description = "Definition of systemd per-user slice units.";
     };
 
     systemd.user.sockets = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.sockets;
       description = "Definition of systemd per-user socket units.";
     };
 
     systemd.user.targets = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.targets;
       description = "Definition of systemd per-user target units.";
     };
 
     systemd.user.timers = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.timers;
       description = "Definition of systemd per-user timer units.";
     };
@@ -121,8 +119,8 @@ in
     systemd.user.tmpfiles = {
       rules = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "D %C - - - 7d" ];
+        default = [];
+        example = ["D %C - - - 7d"];
         description = ''
           Global user rules for creation, deletion and cleaning of volatile and
           temporary files automatically. See
@@ -136,14 +134,14 @@ in
           Per-user rules for creation, deletion and cleaning of volatile and
           temporary files automatically.
         '';
-        default = { };
+        default = {};
         type = types.attrsOf (
           types.submodule {
             options = {
               rules = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
-                example = [ "D %C - - - 7d" ];
+                default = [];
+                example = ["D %C - - - 7d"];
                 description = ''
                   Per-user rules for creation, deletion and cleaning of volatile and
                   temporary files automatically. See
@@ -159,7 +157,7 @@ in
 
     systemd.user.generators = mkOption {
       type = types.attrsOf types.path;
-      default = { };
+      default = {};
       example = {
         systemd-gpt-auto-generator = "/dev/null";
       };
@@ -172,9 +170,9 @@ in
     };
 
     systemd.additionalUpstreamUserUnits = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
-      example = [ ];
+      example = [];
       description = ''
         Additional units shipped with systemd that should be enabled for per-user systemd instances.
       '';
@@ -192,7 +190,7 @@ in
         type = "user";
         inherit (cfg) units;
         upstreamUnits = upstreamUserUnits;
-        upstreamWants = [ ];
+        upstreamWants = [];
       };
 
       "systemd/user.conf".text = ''
@@ -211,9 +209,9 @@ in
 
     # Generate timer units for all services that have a ‘startAt’ value.
     systemd.user.timers = mapAttrs (name: service: {
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig.OnCalendar = service.startAt;
-    }) (filterAttrs (name: service: service.startAt != [ ]) cfg.services);
+    }) (filterAttrs (name: service: service.startAt != []) cfg.services);
 
     # Provide the systemd-user PAM service, required to run systemd
     # user instances.
@@ -233,23 +231,25 @@ in
 
     # enable systemd user tmpfiles
     systemd.user.services.systemd-tmpfiles-setup.wantedBy = optional (
-      cfg.tmpfiles.rules != [ ] || any (cfg': cfg'.rules != [ ]) (attrValues cfg.tmpfiles.users)
+      cfg.tmpfiles.rules != [] || any (cfg': cfg'.rules != []) (attrValues cfg.tmpfiles.users)
     ) "basic.target";
 
     # /run/current-system/sw/etc/xdg is in systemd's $XDG_CONFIG_DIRS so we can
     # write the tmpfiles.d rules for everyone there
-    environment.systemPackages = optional (cfg.tmpfiles.rules != [ ]) (writeTmpfiles {
+    environment.systemPackages = optional (cfg.tmpfiles.rules != []) (writeTmpfiles {
       inherit (cfg.tmpfiles) rules;
     });
 
     # /etc/profiles/per-user/$USER/etc/xdg is in systemd's $XDG_CONFIG_DIRS so
     # we can write a single user's tmpfiles.d rules there
-    users.users = mapAttrs (user: cfg': {
-      packages = optional (cfg'.rules != [ ]) (writeTmpfiles {
-        inherit (cfg') rules;
-        inherit user;
-      });
-    }) cfg.tmpfiles.users;
+    users.users =
+      mapAttrs (user: cfg': {
+        packages = optional (cfg'.rules != []) (writeTmpfiles {
+          inherit (cfg') rules;
+          inherit user;
+        });
+      })
+      cfg.tmpfiles.users;
 
     system.userActivationScripts.tmpfiles = ''
       ${config.systemd.package}/bin/systemd-tmpfiles --user --create --remove

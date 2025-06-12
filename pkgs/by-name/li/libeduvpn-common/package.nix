@@ -3,7 +3,6 @@
   buildGoModule,
   fetchurl,
 }:
-
 buildGoModule rec {
   pname = "libeduvpn-common";
   version = "3.0.0";

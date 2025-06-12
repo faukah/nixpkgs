@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitLab,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "undertime";
   version = "4.0.0";
@@ -43,6 +42,6 @@ python3Packages.buildPythonApplication rec {
     '';
     license = lib.licenses.agpl3Only;
     mainProgram = "undertime";
-    maintainers = with lib.maintainers; [ dvn0 ];
+    maintainers = with lib.maintainers; [dvn0];
   };
 }

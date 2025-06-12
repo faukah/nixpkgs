@@ -4,7 +4,6 @@
   fetchFromGitHub,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-log-cabinet";
   version = "1.0.1";
@@ -17,18 +16,18 @@ buildPythonPackage rec {
     sha256 = "03cxspgqsap9q74sqkdx6r6b4gs4hq6dpvx4j58hm50yfhs06wn1";
   };
 
-  propagatedBuildInputs = [ sphinx ];
+  propagatedBuildInputs = [sphinx];
 
-  pythonImportsCheck = [ "sphinxcontrib.log_cabinet" ];
+  pythonImportsCheck = ["sphinxcontrib.log_cabinet"];
 
   doCheck = false; # no tests
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     homepage = "https://github.com/davidism/sphinxcontrib-log-cabinet";
     description = "Sphinx extension to organize changelogs";
     license = licenses.mit;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

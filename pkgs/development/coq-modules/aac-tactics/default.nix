@@ -5,7 +5,6 @@
   stdlib,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "aac-tactics";
 
@@ -31,8 +30,7 @@ mkCoqDerivation {
   release."8.5.0".sha256 = "sha256-7yNxJn6CH5xS5w/zsXfcZYORa6e5/qS9v8PUq2o02h4=";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = "8.20";
@@ -94,11 +92,12 @@ mkCoqDerivation {
         case = "8.5";
         out = "8.5.0";
       }
-    ] null;
+    ]
+    null;
 
   mlPlugin = true;
 
-  propagatedBuildInputs = [ stdlib ];
+  propagatedBuildInputs = [stdlib];
 
   meta = with lib; {
     description = "Coq plugin providing tactics for rewriting universally quantified equations";
@@ -110,7 +109,7 @@ mkCoqDerivation {
       operator instances, such as for Z binary arithmetic and booleans, are
       provided with the plugin.
     '';
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

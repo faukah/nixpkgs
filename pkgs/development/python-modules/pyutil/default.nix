@@ -12,7 +12,6 @@
   twisted,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "pyutil";
   version = "3.3.6";
@@ -35,20 +34,22 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    jsonutil = [ simplejson ];
+    jsonutil = [simplejson];
     # Module not available
     # randcookie = [
     #   zbase32
     # ];
   };
 
-  nativeCheckInputs = [
-    mock
-    twisted
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      mock
+      twisted
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "pyutil" ];
+  pythonImportsCheck = ["pyutil"];
 
   disabledTests = lib.optionals (pythonAtLeast "3.12") [
     # https://github.com/tpltnt/pyutil/issues/10
@@ -69,6 +70,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/tpltnt/pyutil";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

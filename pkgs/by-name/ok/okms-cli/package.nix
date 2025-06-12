@@ -6,7 +6,6 @@
   okms-cli,
   testers,
 }:
-
 buildGoModule rec {
   pname = "okms-cli";
   version = "0.2.1";
@@ -33,7 +32,7 @@ buildGoModule rec {
       package = okms-cli;
       command = "okms version";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -42,6 +41,6 @@ buildGoModule rec {
     description = "Command Line Interface to interact with your OVHcloud KMS services";
     mainProgram = "okms";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.anthonyroussel ];
+    maintainers = [lib.maintainers.anthonyroussel];
   };
 }

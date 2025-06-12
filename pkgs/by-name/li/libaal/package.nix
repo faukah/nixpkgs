@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.0.7";
   pname = "libaal";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.namesys.com/";
     description = "Support library for Reiser4";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ mglolenstine ];
+    maintainers = with lib.maintainers; [mglolenstine];
     platforms = with lib.platforms; linux;
   };
 }

@@ -4,12 +4,10 @@
   fetchFromGitHub,
   coreutils,
   bash,
-
   linuxManualConfig,
   fetchurl,
   linux_latest,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "u-root";
   version = "0.14.0-unstable-2024-09-26";
@@ -23,11 +21,11 @@ buildGoModule (finalAttrs: {
 
   vendorHash = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   env.CGO_ENABLED = "0";
 
-  ldflags = [ "-s" ];
+  ldflags = ["-s"];
 
   allowGoReference = true;
 
@@ -65,7 +63,7 @@ buildGoModule (finalAttrs: {
     downloadPage = "https://github.com/u-root/u-root";
     changelog = "https://github.com/u-root/u-root/blob/${finalAttrs.src.rev}/RELEASES";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ katexochen ];
+    maintainers = with lib.maintainers; [katexochen];
     mainProgram = "u-root";
     platforms = lib.platforms.linux;
   };

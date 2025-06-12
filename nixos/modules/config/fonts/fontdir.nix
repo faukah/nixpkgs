@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.fonts.fontDir;
 
   x11Fonts = pkgs.callPackage (
@@ -14,7 +12,7 @@ let
       gzip,
       xorg,
     }:
-    runCommand "X11-fonts"
+      runCommand "X11-fonts"
       {
         preferLocalBuild = true;
         nativeBuildInputs = [
@@ -36,15 +34,10 @@ let
         mkfontdir
         cat $(find ${pkgs.xorg.fontalias}/ -name fonts.alias) >fonts.alias
       ''
-  ) { };
-
-in
-
-{
-
+  ) {};
+in {
   options = {
     fonts.fontDir = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -63,23 +56,19 @@ in
           {file}`/run/current-system/sw/share/X11/fonts`.
         '';
       };
-
     };
   };
 
   config = lib.mkIf cfg.enable {
-
-    environment.systemPackages = [ x11Fonts ];
-    environment.pathsToLink = [ "/share/X11/fonts" ];
+    environment.systemPackages = [x11Fonts];
+    environment.pathsToLink = ["/share/X11/fonts"];
 
     services.xserver.filesSection = ''
       FontPath "${x11Fonts}/share/X11/fonts"
     '';
-
   };
 
   imports = [
-    (lib.mkRenamedOptionModule [ "fonts" "enableFontDir" ] [ "fonts" "fontDir" "enable" ])
+    (lib.mkRenamedOptionModule ["fonts" "enableFontDir"] ["fonts" "fontDir" "enable"])
   ];
-
 }

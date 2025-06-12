@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyecowitt";
   version = "0.21";
@@ -21,20 +20,20 @@ buildPythonPackage rec {
     hash = "sha256-5VdVo6j2HZXSCWU4NvfWzyS/KJfVb7N1KSMeu8TvWaQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   # Project thas no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyecowitt" ];
+  pythonImportsCheck = ["pyecowitt"];
 
   meta = with lib; {
     description = "Python module for the EcoWitt Protocol";
     homepage = "https://github.com/garbled1/pyecowitt";
     changelog = "https://github.com/garbled1/pyecowitt/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

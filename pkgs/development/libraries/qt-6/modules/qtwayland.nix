@@ -11,7 +11,6 @@
   libdrm,
   fetchpatch,
 }:
-
 qtModule {
   pname = "qtwayland";
 
@@ -37,8 +36,8 @@ qtModule {
     wayland
     wayland-scanner
   ];
-  buildInputs = [ libdrm ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [libdrm];
+  nativeBuildInputs = [pkg-config];
 
   cmakeFlags = lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
     "-DQt6WaylandScannerTools_DIR=${pkgsBuildBuild.qt6.qtwayland}/lib/cmake/Qt6WaylandScannerTools"

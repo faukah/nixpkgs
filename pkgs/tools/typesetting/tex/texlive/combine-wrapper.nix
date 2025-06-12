@@ -4,16 +4,14 @@
   toTLPkgList,
   toTLPkgSets,
   buildTeXEnv,
-}:
-args@{
+}: args @ {
   pkgFilter ? (
     pkg: pkg.tlType == "run" || pkg.tlType == "bin" || pkg.pname == "core" || pkg.hasManpages or false
   ),
   extraName ? "combined",
   extraVersion ? "",
   ...
-}:
-let
+}: let
   pkgSet = removeAttrs args [
     "pkgFilter"
     "extraName"
@@ -21,22 +19,19 @@ let
   ];
 
   # combine a set of TL packages into a single TL meta-package
-  combinePkgs =
-    pkgList:
+  combinePkgs = pkgList:
     lib.catAttrs "pkg" (
       let
         # a TeX package used to be an attribute set { pkgs = [ ... ]; ... } where pkgs is a list of derivations
         # the derivations make up the TeX package and optionally (for backward compatibility) its dependencies
-        tlPkgToSets =
-          drv:
+        tlPkgToSets = drv:
           map (
             {
               tlType,
               version ? "",
               outputName ? "",
               ...
-            }@pkg:
-            {
+            } @ pkg: {
               # outputName required to distinguish among bin.core-big outputs
               key = "${pkg.pname or pkg.name}.${tlType}-${version}-${outputName}";
               inherit pkg;
@@ -44,10 +39,10 @@ let
           ) (drv.pkgs or (toTLPkgList drv));
         pkgListToSets = lib.concatMap tlPkgToSets;
       in
-      builtins.genericClosure {
-        startSet = pkgListToSets pkgList;
-        operator = { pkg, ... }: pkgListToSets (pkg.tlDeps or [ ]);
-      }
+        builtins.genericClosure {
+          startSet = pkgListToSets pkgList;
+          operator = {pkg, ...}: pkgListToSets (pkg.tlDeps or []);
+        }
     );
   combined = combinePkgs (lib.attrValues pkgSet);
 
@@ -59,8 +54,7 @@ let
     bin = "out";
     tlpkg = "tlpkg";
   };
-  toSpecified =
-    { tlType, ... }@drv:
+  toSpecified = {tlType, ...} @ drv:
     drv
     // {
       outputSpecified = true;
@@ -69,10 +63,10 @@ let
   all = lib.filter pkgFilter combined ++ lib.filter (pkg: pkg.tlType == "tlpkg") combined;
   converted = builtins.map toSpecified all;
 in
-buildTeXEnv {
-  __extraName = extraName;
-  __extraVersion = extraVersion;
-  requiredTeXPackages = _: converted;
-  __combine = true;
-  __fromCombineWrapper = true;
-}
+  buildTeXEnv {
+    __extraName = extraName;
+    __extraVersion = extraVersion;
+    requiredTeXPackages = _: converted;
+    __combine = true;
+    __fromCombineWrapper = true;
+  }

@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   name = "gerrit";
 
   meta = with pkgs.lib.maintainers; {
@@ -11,36 +9,36 @@
   };
 
   nodes = {
-    server =
-      { config, pkgs, ... }:
-      {
-        networking.firewall.allowedTCPPorts = [
-          80
-          2222
+    server = {
+      config,
+      pkgs,
+      ...
+    }: {
+      networking.firewall.allowedTCPPorts = [
+        80
+        2222
+      ];
+
+      services.gerrit = {
+        enable = true;
+        serverId = "aa76c84b-50b0-4711-a0a0-1ee30e45bbd0";
+        listenAddress = "[::]:80";
+        jvmHeapLimit = "1g";
+
+        builtinPlugins = [
+          "hooks"
+          "webhooks"
         ];
-
-        services.gerrit = {
-          enable = true;
-          serverId = "aa76c84b-50b0-4711-a0a0-1ee30e45bbd0";
-          listenAddress = "[::]:80";
-          jvmHeapLimit = "1g";
-
-          builtinPlugins = [
-            "hooks"
-            "webhooks"
-          ];
-          settings = {
-            gerrit.canonicalWebUrl = "http://server";
-            sshd.listenAddress = "[::]:2222";
-            sshd.advertisedAddress = "[::]:2222";
-          };
+        settings = {
+          gerrit.canonicalWebUrl = "http://server";
+          sshd.listenAddress = "[::]:2222";
+          sshd.advertisedAddress = "[::]:2222";
         };
       };
+    };
 
-    client =
-      { ... }:
-      {
-      };
+    client = {...}: {
+    };
   };
 
   testScript = ''

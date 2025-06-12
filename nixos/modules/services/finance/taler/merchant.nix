@@ -4,8 +4,7 @@
   options,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = cfgTaler.merchant;
   cfgTaler = config.services.taler;
 
@@ -21,10 +20,9 @@ let
   ];
 
   configFile = config.environment.etc."taler/taler.conf".source;
-in
-{
+in {
   imports = [
-    (import ./common.nix { inherit talerComponent servicesDB; })
+    (import ./common.nix {inherit talerComponent servicesDB;})
   ];
 
   options.services.taler.merchant = {
@@ -39,7 +37,7 @@ in
         options = {
           merchant = {
             DB = lib.mkOption {
-              type = lib.types.enum [ "postgres" ];
+              type = lib.types.enum ["postgres"];
               default = "postgres";
               description = "Plugin to use for the database.";
             };
@@ -79,7 +77,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
     };
   };
 
@@ -87,7 +85,7 @@ in
     systemd.services.taler-merchant-depositcheck = {
       # taler-merchant-depositcheck needs its executable is in the PATH
       # NOTE: couldn't use `lib.getExe` to only get that single executable
-      path = [ cfg.package ];
+      path = [cfg.package];
     };
 
     systemd.services."taler-${talerComponent}-dbinit".script = ''

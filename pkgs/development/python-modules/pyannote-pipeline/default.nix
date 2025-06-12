@@ -13,7 +13,6 @@
   tqdm,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "pyannote-pipeline";
   version = "3.0.1";
@@ -47,13 +46,13 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-  pythonImportsCheck = [ "pyannote.pipeline" ];
+  pythonImportsCheck = ["pyannote.pipeline"];
 
   meta = with lib; {
     description = "Tunable pipelines";
     homepage = "https://github.com/pyannote/pyannote-pipeline";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "pyannote-pipeline";
   };
 }

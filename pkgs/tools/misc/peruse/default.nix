@@ -16,7 +16,6 @@
   okular,
   plasma-framework,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "peruse";
   # while technically a beta, the latest release is from 2016 and doesn't build without a lot of
@@ -48,15 +47,15 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   # the build is otherwise crazy loud
-  cmakeFlags = [ "-Wno-dev" ];
+  cmakeFlags = ["-Wno-dev"];
 
-  pathsToLink = [ "/etc/xdg/peruse.knsrc" ];
+  pathsToLink = ["/etc/xdg/peruse.knsrc"];
 
   meta = with lib; {
     description = "Comic book reader";
     homepage = "https://peruse.kde.org";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     mainProgram = "peruse";
     inherit (kirigami2.meta) platforms;
   };

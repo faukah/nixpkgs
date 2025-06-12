@@ -4,7 +4,6 @@
   fetchPypi,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "olefile";
   version = "0.47";
@@ -16,9 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-WZODOBoL89+9kyygymUVrNF07UiHDL9/7hI9aYwZLBw=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "olefile" ];
+  pythonImportsCheck = ["olefile"];
 
   meta = with lib; {
     description = "Python package to parse, read and write Microsoft OLE2 files";
@@ -29,6 +28,6 @@ buildPythonPackage rec {
       bsd2 # and
       hpnd
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

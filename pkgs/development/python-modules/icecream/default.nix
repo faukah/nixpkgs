@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
-
   # dependencies
   asttokens,
   colorama,
   executing,
   pygments,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "icecream";
   version = "2.1.4";
@@ -31,7 +27,7 @@ buildPythonPackage rec {
       --replace assertRegexpMatches assertRegex
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     asttokens
@@ -40,7 +36,7 @@ buildPythonPackage rec {
     pygments
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # icecream.icecream.NoSourceAvailableError
@@ -53,6 +49,6 @@ buildPythonPackage rec {
     description = "Little library for sweet and creamy print debugging";
     homepage = "https://github.com/gruns/icecream";
     license = licenses.mit;
-    maintainers = with maintainers; [ renatoGarcia ];
+    maintainers = with maintainers; [renatoGarcia];
   };
 }

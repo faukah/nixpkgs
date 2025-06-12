@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "braintree";
   version = "4.29.0";
@@ -19,13 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-5MF8W2zUVvNiOnmszgJkMDmeYLZ6ppFHqmH6dmlCzQY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "braintree" ];
+  pythonImportsCheck = ["braintree"];
 
   pytestFlagsArray = [
     "tests/"
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Python library for integration with Braintree";
     homepage = "https://github.com/braintree/braintree_python";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

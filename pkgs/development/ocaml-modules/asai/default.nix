@@ -5,7 +5,6 @@
   algaeff,
   bwd,
 }:
-
 buildDunePackage rec {
   pname = "asai";
   version = "0.3.1";
@@ -28,6 +27,6 @@ buildDunePackage rec {
     description = "Library for constructing and printing compiler diagnostics";
     homepage = "https://redprl.org/asai/asai/";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

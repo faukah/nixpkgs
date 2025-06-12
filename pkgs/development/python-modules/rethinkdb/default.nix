@@ -6,7 +6,6 @@
   six,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "rethinkdb";
   version = "2.4.10.post1";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-NjTgPuE91jf9cZa4BHS/RMZNProd0GnqkrlJJnAqYL0=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     looseversion
@@ -26,7 +25,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "rethinkdb" ];
+  pythonImportsCheck = ["rethinkdb"];
 
   meta = with lib; {
     description = "Python driver library for the RethinkDB database server";

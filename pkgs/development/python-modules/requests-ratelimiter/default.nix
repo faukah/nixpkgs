@@ -10,7 +10,6 @@
   requests,
   requests-cache,
 }:
-
 buildPythonPackage rec {
   pname = "requests-ratelimiter";
   version = "0.7.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-DS4BzS8AD4axniyV6jVYXWZ6cQLvMPp8tdGoBhYu51o=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     pyrate-limiter
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "requests_ratelimiter" ];
+  pythonImportsCheck = ["requests_ratelimiter"];
 
   meta = with lib; {
     # https://github.com/JWCook/requests-ratelimiter/issues/78
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/JWCook/requests-ratelimiter";
     changelog = "https://github.com/JWCook/requests-ratelimiter/blob/${src.rev}/HISTORY.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

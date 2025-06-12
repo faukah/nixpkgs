@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   appstream,
   appstream-glib,
   desktop-file-utils,
@@ -13,7 +12,6 @@
   ninja,
   pkg-config,
   wrapGAppsHook4,
-
   blueprint-compiler,
   gtk4,
   json-glib,
@@ -22,7 +20,6 @@
   libsoup_3,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-extension-manager";
   version = "0.6.3";
@@ -68,6 +65,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "extension-manager";
-    maintainers = with lib.maintainers; [ foo-dogsquared ];
+    maintainers = with lib.maintainers; [foo-dogsquared];
   };
 }

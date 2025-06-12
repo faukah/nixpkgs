@@ -6,7 +6,6 @@
   wxGTK31,
   withGui ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gambit-project";
   version = "16.3.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-waRGnkykkKqOs7G1nlkL+eO4QRmerhGrZ7wjRgBsZc0=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ] ++ lib.optional withGui wxGTK31;
+  nativeBuildInputs = [autoreconfHook] ++ lib.optional withGui wxGTK31;
 
   buildInputs = lib.optional withGui wxGTK31;
 
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Open-source collection of tools for doing computation in game theory";
     homepage = "https://www.gambit-project.org";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ t4ccer ];
+    maintainers = with lib.maintainers; [t4ccer];
     platforms = with lib.platforms; unix ++ windows;
   };
 })

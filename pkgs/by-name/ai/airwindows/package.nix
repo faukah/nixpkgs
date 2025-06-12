@@ -35,7 +35,7 @@ stdenv.mkDerivation {
 
   cmakeBuildType = "Release";
 
-  cmakeFlags = [ ];
+  cmakeFlags = [];
 
   nativeBuildInputs = [
     cmake
@@ -54,7 +54,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = {
     description = "All Airwindows VST Plugins";
@@ -63,6 +63,6 @@ stdenv.mkDerivation {
     license = [
       lib.licenses.mit
     ];
-    maintainers = [ lib.maintainers.l1npengtul ];
+    maintainers = [lib.maintainers.l1npengtul];
   };
 }

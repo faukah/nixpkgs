@@ -5,7 +5,6 @@
   zlib,
   gmp,
 }:
-
 stdenv.mkDerivation {
   pname = "open-wbo";
   version = "2.0";
@@ -22,16 +21,16 @@ stdenv.mkDerivation {
     gmp
   ];
 
-  makeFlags = [ "r" ];
+  makeFlags = ["r"];
   installPhase = ''
     install -Dm0755 open-wbo_release $out/bin/open-wbo
   '';
 
   meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     description = "State-of-the-art MaxSAT and Pseudo-Boolean solver";
     mainProgram = "open-wbo";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
     license = licenses.mit;
     homepage = "http://sat.inesc-id.pt/open-wbo/";

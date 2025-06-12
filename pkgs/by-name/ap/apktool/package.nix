@@ -6,7 +6,6 @@
   jdk_headless,
   aapt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "apktool";
   version = "2.11.1";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   sourceRoot = ".";
 
@@ -38,9 +37,9 @@ stdenv.mkDerivation rec {
     mainProgram = "apktool";
     homepage = "https://ibotpeaches.github.io/Apktool/";
     changelog = "https://github.com/iBotPeaches/Apktool/releases/tag/v${version}";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ offline ];
+    maintainers = with lib.maintainers; [offline];
     platforms = with lib.platforms; unix;
   };
 }

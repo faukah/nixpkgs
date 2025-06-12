@@ -8,7 +8,6 @@
   pytestCheckHook,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "jwt";
   version = "1.3.1";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace "--flake8" ""
   '';
 
-  propagatedBuildInputs = [ cryptography ];
+  propagatedBuildInputs = [cryptography];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -36,12 +35,12 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pythonImportsCheck = [ "jwt" ];
+  pythonImportsCheck = ["jwt"];
 
   meta = with lib; {
     description = "JSON Web Token library for Python 3";
     homepage = "https://github.com/GehirnInc/python-jwt";
     license = licenses.asl20;
-    maintainers = with maintainers; [ thornycrackers ];
+    maintainers = with maintainers; [thornycrackers];
   };
 }

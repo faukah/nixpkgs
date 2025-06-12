@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "smu";
   version = "1.5";
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     mainProgram = "smu";
     homepage = "https://github.com/Gottox/smu";
     license = licenses.mit;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

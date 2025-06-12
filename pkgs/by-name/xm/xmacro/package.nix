@@ -7,7 +7,6 @@
   xorgproto,
   libXi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xmacro";
   version = "0.4.6";

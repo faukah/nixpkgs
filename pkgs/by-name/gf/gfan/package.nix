@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     "CC=${stdenv.cc.targetPrefix}cc"
     "CXX=${stdenv.cc.targetPrefix}c++"
   ];
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
   buildInputs = [
     gmp
     mpir
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Software package for computing Gröbner fans and tropical varieties";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.unix;
     homepage = "http://home.math.au.dk/jensen/software/gfan/gfan.html";
   };

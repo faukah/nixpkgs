@@ -6,8 +6,7 @@
   papirus-icon-theme,
   flavor ? "mocha",
   accent ? "blue",
-}:
-let
+}: let
   validAccents = [
     "blue"
     "flamingo"
@@ -32,11 +31,10 @@ let
   ];
   pname = "catppuccin-papirus-folders";
 in
-lib.checkListOfEnum "${pname}: accent colors" validAccents [ accent ] lib.checkListOfEnum
+  lib.checkListOfEnum "${pname}: accent colors" validAccents [accent] lib.checkListOfEnum
   "${pname}: flavors"
   validFlavors
-  [ flavor ]
-
+  [flavor]
   stdenvNoCC.mkDerivation
   {
     inherit pname;
@@ -49,7 +47,7 @@ lib.checkListOfEnum "${pname}: accent colors" validAccents [ accent ] lib.checkL
       sha256 = "sha256-3yjIGzN+/moP2OVGDIAy4zPqUroSjx3c2mJjdZGhTsY=";
     };
 
-    nativeBuildInputs = [ gtk3 ];
+    nativeBuildInputs = [gtk3];
 
     postPatch = ''
       patchShebangs ./papirus-folders
@@ -73,6 +71,6 @@ lib.checkListOfEnum "${pname}: accent colors" validAccents [ accent ] lib.checkL
       homepage = "https://github.com/catppuccin/papirus-folders";
       license = licenses.mit;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ rubyowo ];
+      maintainers = with maintainers; [rubyowo];
     };
   }

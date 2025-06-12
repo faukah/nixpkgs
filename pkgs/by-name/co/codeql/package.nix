@@ -8,7 +8,6 @@
   jdk17,
   curl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "codeql";
   version = "2.21.3";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Semantic code analysis engine";
     homepage = "https://codeql.github.com";
-    maintainers = [ maintainers.dump_stack ];
+    maintainers = [maintainers.dump_stack];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     license = licenses.unfree;
   };

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "shellnoob";
   version = "unstable-2022-03-16";
@@ -33,6 +32,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/reyammer/shellnoob";
     mainProgram = "snoob";
     license = licenses.mit;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   version = "25.04";
   pname = "intel-cmt-cat";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "User space software for Intel(R) Resource Director Technology";
     homepage = "https://github.com/intel/intel-cmt-cat";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ arkivm ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [arkivm];
+    platforms = ["x86_64-linux"];
   };
 }

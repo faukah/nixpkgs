@@ -34,7 +34,6 @@
   markdown,
   nh3,
 }:
-
 buildPythonPackage rec {
   pname = "django-filingcabinet";
   version = "0.17-unstable-2025-04-10";
@@ -56,7 +55,7 @@ buildPythonPackage rec {
       --replace-fail "zipstream" "zipstream-ng"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     nodejs
@@ -85,8 +84,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    tabledetection = [ camelot ];
-    ocr = [ pytesseract ];
+    tabledetection = [camelot];
+    ocr = [pytesseract];
     # Dependencies not yet packaged
     #webp = [ webp ];
     #annotate = [ fcdocs-annotate ];
@@ -132,7 +131,7 @@ buildPythonPackage rec {
       export PLAYWRIGHT_BROWSERS_PATH="${playwright-driver.browsers}"
     '';
 
-  pythonImportsCheck = [ "filingcabinet" ];
+  pythonImportsCheck = ["filingcabinet"];
 
   # Playwright tests not supported on RiscV yet
   doCheck = lib.meta.availableOn stdenv.hostPlatform playwright-driver.browsers;
@@ -142,6 +141,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/okfde/django-filingcabinet";
     changelog = "https://github.com/feincms/django-cabinet/blob/${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.onny ];
+    maintainers = [lib.maintainers.onny];
   };
 }

@@ -1,6 +1,4 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   nodes = {
     machine = {
       services.alloy = {
@@ -9,8 +7,7 @@ let
       environment.etc."alloy/config.alloy".text = "";
     };
   };
-in
-{
+in {
   name = "alloy";
 
   meta = with lib.maintainers; {

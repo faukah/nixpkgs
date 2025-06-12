@@ -4,7 +4,6 @@
   netbsdSetupHook,
   compatIfNeeded,
 }:
-
 mkDerivation {
   pname = "fts";
   path = "include/fts.h";

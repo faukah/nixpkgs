@@ -23,11 +23,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-fRGSlgtbjDyhbEJEMG8eTMCxeIbA/tBO+MplCXTgWm8=";
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs =
-    [ ncurses ]
+    [ncurses]
     ++ lib.optionals enableSdl2 [
       SDL2
       SDL2_image
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = lib.optional enableSdl2 "--enable-sdl2";
 
-  installFlags = [ "bindir=$(out)/bin" ];
+  installFlags = ["bindir=$(out)/bin"];
 
   meta = {
     homepage = "https://github.com/NickMcConnell/NarSil/";

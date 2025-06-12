@@ -8,19 +8,18 @@
 lib.makeScope (self: newScope (self.python.pkgs // self)) (self: {
   python = python3;
 
-  buildbot-pkg = self.callPackage ./pkg.nix { };
+  buildbot-pkg = self.callPackage ./pkg.nix {};
 
-  buildbot-worker = self.callPackage ./worker.nix { };
+  buildbot-worker = self.callPackage ./worker.nix {};
 
-  buildbot = self.callPackage ./master.nix { };
+  buildbot = self.callPackage ./master.nix {};
 
-  buildbot-plugins = recurseIntoAttrs (self.callPackage ./plugins.nix { });
+  buildbot-plugins = recurseIntoAttrs (self.callPackage ./plugins.nix {});
 
-  buildbot-ui = self.buildbot.withPlugins (with self.buildbot-plugins; [ www ]);
+  buildbot-ui = self.buildbot.withPlugins (with self.buildbot-plugins; [www]);
 
   buildbot-full = self.buildbot.withPlugins (
-    with self.buildbot-plugins;
-    [
+    with self.buildbot-plugins; [
       www
       console-view
       waterfall-view

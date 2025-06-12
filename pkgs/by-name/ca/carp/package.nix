@@ -6,7 +6,6 @@
   clang,
   haskellPackages,
 }:
-
 haskellPackages.mkDerivation rec {
   pname = "carp";
   version = "0.5.5";
@@ -34,7 +33,7 @@ haskellPackages.mkDerivation rec {
     substituteInPlace CarpHask.cabal --replace "-Werror" ""
   '';
 
-  buildTools = [ makeWrapper ];
+  buildTools = [makeWrapper];
 
   executableHaskellDepends = with haskellPackages; [
     HUnit
@@ -70,7 +69,7 @@ haskellPackages.mkDerivation rec {
   description = "Statically typed lisp, without a GC, for real-time applications";
   homepage = "https://github.com/carp-lang/Carp";
   license = lib.licenses.asl20;
-  maintainers = with lib.maintainers; [ jluttine ];
+  maintainers = with lib.maintainers; [jluttine];
   # Not actively maintained at the moment
   broken = true;
 

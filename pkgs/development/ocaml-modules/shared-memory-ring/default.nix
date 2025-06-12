@@ -7,7 +7,6 @@
   lwt,
   ounit,
 }:
-
 buildDunePackage rec {
   pname = "shared-memory-ring";
   version = "3.2.1";
@@ -37,6 +36,6 @@ buildDunePackage rec {
     description = "Shared memory rings for RPC and bytestream communications";
     license = licenses.isc;
     homepage = "https://github.com/mirage/shared-memory-ring";
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

@@ -21,7 +21,6 @@
   gnome,
   kmod,
 }:
-
 stdenv.mkDerivation rec {
   pname = "NetworkManager-openconnect";
   version = "1.2.10";
@@ -61,8 +60,16 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-    "--with-gnome=${if withGnome then "yes" else "no"}"
-    "--with-gtk4=${if withGnome then "yes" else "no"}"
+    "--with-gnome=${
+      if withGnome
+      then "yes"
+      else "no"
+    }"
+    "--with-gtk4=${
+      if withGnome
+      then "yes"
+      else "no"
+    }"
     "--enable-absolute-paths"
   ];
 

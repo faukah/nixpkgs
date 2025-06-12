@@ -5,7 +5,6 @@
   pnpm,
   nodejs,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "custom-sidebar";
   version = "10.2.0";
@@ -52,6 +51,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     downloadPage = "https://github.com/elchininet/custom-sidebar";
     changelog = "https://github.com/elchininet/custom-sidebar/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
   };
 })

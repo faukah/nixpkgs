@@ -3,10 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.rimgo;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     mkEnableOption
     mkPackageOption
@@ -18,11 +18,10 @@ let
     getExe
     mapAttrs
     ;
-in
-{
+in {
   options.services.rimgo = {
     enable = mkEnableOption "rimgo";
-    package = mkPackageOption pkgs "rimgo" { };
+    package = mkPackageOption pkgs "rimgo" {};
     settings = mkOption {
       type = types.submodule {
         freeformType = with types; attrsOf str;
@@ -56,8 +55,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.rimgo = {
       description = "Rimgo";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       environment = mapAttrs (_: toString) cfg.settings;
       serviceConfig = {
         ExecStart = getExe cfg.package;
@@ -70,7 +69,7 @@ in
         CapabilityBoundingSet = [
           (optionalString (cfg.settings.PORT < 1024) "CAP_NET_BIND_SERVICE")
         ];
-        DeviceAllow = [ "" ];
+        DeviceAllow = [""];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         PrivateDevices = true;
@@ -102,6 +101,6 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ quantenzitrone ];
+    maintainers = with lib.maintainers; [quantenzitrone];
   };
 }

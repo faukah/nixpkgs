@@ -3,15 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.services.tomcat;
   tomcat = cfg.package;
-in
-
-{
+in {
   meta = {
     maintainers = with lib.maintainers; [
       danbst
@@ -60,28 +55,28 @@ in
       };
 
       logDirs = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.path;
         description = "Directories to create in baseDir/logs/";
       };
 
       extraConfigFiles = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.path;
         description = "Extra configuration files to pull into the tomcat conf directory";
       };
 
       extraEnvironment = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
-        example = [ "ENVIRONMENT=production" ];
+        default = [];
+        example = ["ENVIRONMENT=production"];
         description = "Environment Variables to pass to the tomcat service";
       };
 
       extraGroups = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.str;
-        example = [ "users" ];
+        example = ["users"];
         description = "Defines extra groups to which the tomcat user belongs.";
       };
 
@@ -111,7 +106,7 @@ in
 
       sharedLibs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = "List containing JAR files or directories with JAR files which are libraries shared by the web applications";
       };
 
@@ -126,13 +121,13 @@ in
 
       commonLibs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = "List containing JAR files or directories with JAR files which are libraries shared by the web applications and the servlet container";
       };
 
       webapps = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ tomcat.webapps ];
+        default = [tomcat.webapps];
         defaultText = lib.literalExpression "[ config.services.tomcat.package.webapps ]";
         description = "List containing WAR files or directories with WAR files which are web applications to be deployed on Tomcat";
       };
@@ -148,7 +143,7 @@ in
               aliases = lib.mkOption {
                 type = lib.types.listOf lib.types.str;
                 description = "aliases of the virtualhost";
-                default = [ ];
+                default = [];
               };
               webapps = lib.mkOption {
                 type = lib.types.listOf lib.types.path;
@@ -156,12 +151,12 @@ in
                   List containing web application WAR files and/or directories containing
                   web applications and configuration files for the virtual host.
                 '';
-                default = [ ];
+                default = [];
               };
             };
           }
         );
-        default = [ ];
+        default = [];
         description = "List consisting of a virtual host name and a list of web applications to deploy on each virtual host";
       };
 
@@ -171,13 +166,13 @@ in
         description = "Whether to enable logging per virtual host.";
       };
 
-      jdk = lib.mkPackageOption pkgs "jdk" { };
+      jdk = lib.mkPackageOption pkgs "jdk" {};
 
       axis2 = {
         enable = lib.mkEnableOption "Apache Axis2 container";
 
         services = lib.mkOption {
-          default = [ ];
+          default = [];
           type = lib.types.listOf lib.types.str;
           description = "List containing AAR files or directories with AAR files which are web services to be deployed on Axis2";
         };
@@ -188,7 +183,6 @@ in
   ###### implementation
 
   config = lib.mkIf config.services.tomcat.enable {
-
     users.groups.tomcat.gid = config.ids.gids.tomcat;
 
     users.users.tomcat = {
@@ -201,8 +195,8 @@ in
 
     systemd.services.tomcat = {
       description = "Apache Tomcat server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       preStart = ''
         ${lib.optionalString cfg.purifyOnStart ''
@@ -228,7 +222,7 @@ in
           ln -sfn ${tomcat}/conf/$i ${cfg.baseDir}/conf/`basename $i`
         done
 
-        ${lib.optionalString (cfg.extraConfigFiles != [ ]) ''
+        ${lib.optionalString (cfg.extraConfigFiles != []) ''
           for i in ${toString cfg.extraConfigFiles}; do
             ln -sfn $i ${cfg.baseDir}/conf/`basename $i`
           done
@@ -241,45 +235,42 @@ in
           ${tomcat}/conf/catalina.properties > ${cfg.baseDir}/conf/catalina.properties
 
         ${
-          if cfg.serverXml != "" then
-            ''
-              cp -f ${pkgs.writeTextDir "server.xml" cfg.serverXml}/* ${cfg.baseDir}/conf/
-            ''
-          else
-            let
-              hostElementForVirtualHost =
-                virtualHost:
-                ''
-                  <Host name="${virtualHost.name}" appBase="virtualhosts/${virtualHost.name}/webapps"
-                        unpackWARs="true" autoDeploy="true" xmlValidation="false" xmlNamespaceAware="false">
-                ''
-                + lib.concatStrings (innerElementsForVirtualHost virtualHost)
-                + ''
-                  </Host>
-                '';
-              innerElementsForVirtualHost =
-                virtualHost:
-                (map (alias: ''
+          if cfg.serverXml != ""
+          then ''
+            cp -f ${pkgs.writeTextDir "server.xml" cfg.serverXml}/* ${cfg.baseDir}/conf/
+          ''
+          else let
+            hostElementForVirtualHost = virtualHost:
+              ''
+                <Host name="${virtualHost.name}" appBase="virtualhosts/${virtualHost.name}/webapps"
+                      unpackWARs="true" autoDeploy="true" xmlValidation="false" xmlNamespaceAware="false">
+              ''
+              + lib.concatStrings (innerElementsForVirtualHost virtualHost)
+              + ''
+                </Host>
+              '';
+            innerElementsForVirtualHost = virtualHost:
+              (map (alias: ''
                   <Alias>${alias}</Alias>
-                '') virtualHost.aliases)
-                ++ (lib.optional cfg.logPerVirtualHost ''
-                  <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs/${virtualHost.name}"
-                         prefix="${virtualHost.name}_access_log." pattern="combined" resolveHosts="false"/>
-                '');
-              hostElementsString = lib.concatMapStringsSep "\n" hostElementForVirtualHost cfg.virtualHosts;
-              hostElementsSedString = lib.replaceStrings [ "\n" ] [ "\\\n" ] hostElementsString;
-            in
-            ''
-              # Create a modified server.xml which listens on the given port,
-              # and also includes all virtual hosts.
-              # The host modification must be last here,
-              # else if hostElementsSedString is empty sed gets confused as to what to append
-              sed -e 's/<Connector port="8080"/<Connector port="${toString cfg.port}"/' \
-                  -e "/<Engine name=\"Catalina\" defaultHost=\"localhost\">/a\\"${lib.escapeShellArg hostElementsSedString} \
-                    ${tomcat}/conf/server.xml > ${cfg.baseDir}/conf/server.xml
-            ''
+                '')
+                virtualHost.aliases)
+              ++ (lib.optional cfg.logPerVirtualHost ''
+                <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs/${virtualHost.name}"
+                       prefix="${virtualHost.name}_access_log." pattern="combined" resolveHosts="false"/>
+              '');
+            hostElementsString = lib.concatMapStringsSep "\n" hostElementForVirtualHost cfg.virtualHosts;
+            hostElementsSedString = lib.replaceStrings ["\n"] ["\\\n"] hostElementsString;
+          in ''
+            # Create a modified server.xml which listens on the given port,
+            # and also includes all virtual hosts.
+            # The host modification must be last here,
+            # else if hostElementsSedString is empty sed gets confused as to what to append
+            sed -e 's/<Connector port="8080"/<Connector port="${toString cfg.port}"/' \
+                -e "/<Engine name=\"Catalina\" defaultHost=\"localhost\">/a\\"${lib.escapeShellArg hostElementsSedString} \
+                  ${tomcat}/conf/server.xml > ${cfg.baseDir}/conf/server.xml
+          ''
         }
-        ${lib.optionalString (cfg.logDirs != [ ]) ''
+        ${lib.optionalString (cfg.logDirs != []) ''
           for i in ${toString cfg.logDirs}; do
             mkdir -p ${cfg.baseDir}/logs/$i
             chown ${cfg.user}:${cfg.group} ${cfg.baseDir}/logs/$i
@@ -290,7 +281,8 @@ in
             map (h: ''
               mkdir -p ${cfg.baseDir}/logs/${h.name}
               chown ${cfg.user}:${cfg.group} ${cfg.baseDir}/logs/${h.name}
-            '') cfg.virtualHosts
+            '')
+            cfg.virtualHosts
           )
         )}
 
@@ -378,7 +370,8 @@ in
                 fi
               fi
             done
-          '') cfg.virtualHosts
+          '')
+          cfg.virtualHosts
         )}
 
         ${lib.optionalString cfg.axis2.enable ''
@@ -421,13 +414,15 @@ in
         PIDFile = "/run/tomcat/tomcat.pid";
         RuntimeDirectory = "tomcat";
         User = cfg.user;
-        Environment = [
-          "CATALINA_BASE=${cfg.baseDir}"
-          "CATALINA_PID=/run/tomcat/tomcat.pid"
-          "JAVA_HOME='${cfg.jdk}'"
-          "JAVA_OPTS='${builtins.toString cfg.javaOpts}'"
-          "CATALINA_OPTS='${builtins.toString cfg.catalinaOpts}'"
-        ] ++ cfg.extraEnvironment;
+        Environment =
+          [
+            "CATALINA_BASE=${cfg.baseDir}"
+            "CATALINA_PID=/run/tomcat/tomcat.pid"
+            "JAVA_HOME='${cfg.jdk}'"
+            "JAVA_OPTS='${builtins.toString cfg.javaOpts}'"
+            "CATALINA_OPTS='${builtins.toString cfg.catalinaOpts}'"
+          ]
+          ++ cfg.extraEnvironment;
         ExecStart = "${tomcat}/bin/startup.sh";
         ExecStop = "${tomcat}/bin/shutdown.sh";
       };

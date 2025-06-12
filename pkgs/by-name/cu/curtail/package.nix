@@ -19,7 +19,6 @@
   oxipng,
   nix-update-script,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "curtail";
   version = "1.13.0";
@@ -66,19 +65,19 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
       "--prefix" "PATH" ":" "${
-        lib.makeBinPath [
-          jpegoptim
-          libwebp
-          optipng
-          pngquant
-          oxipng
-        ]
-      }"
+      lib.makeBinPath [
+        jpegoptim
+        libwebp
+        optipng
+        pngquant
+        oxipng
+      ]
+    }"
     )
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -86,6 +85,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "curtail";
     homepage = "https://github.com/Huluti/Curtail";
     license = licenses.gpl3Only;
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
   };
 }

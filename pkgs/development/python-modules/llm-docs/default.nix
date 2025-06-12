@@ -6,7 +6,6 @@
   llm,
   llm-docs,
 }:
-
 buildPythonPackage rec {
   pname = "llm-docs";
   version = "0.2.1";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-+Ha6L2h8p/yA073MfO2Uvd6E4bKA2xAvaBWtvjqglOw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ llm ];
+  dependencies = [llm];
 
-  pythonImportsCheck = [ "llm_docs" ];
+  pythonImportsCheck = ["llm_docs"];
 
   passthru.tests = llm.mkPluginTest llm-docs;
 
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-docs";
     changelog = "https://github.com/simonw/llm-docs/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

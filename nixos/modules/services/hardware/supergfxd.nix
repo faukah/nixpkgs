@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.supergfxd;
-  json = pkgs.formats.json { };
-in
-{
+  json = pkgs.formats.json {};
+in {
   options = {
     services.supergfxd = {
       enable = lib.mkEnableOption "the supergfxd service";
@@ -26,7 +23,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.supergfxctl ];
+    environment.systemPackages = [pkgs.supergfxctl];
 
     environment.etc."supergfxd.conf" = lib.mkIf (cfg.settings != null) {
       source = json.generate "supergfxd.conf" cfg.settings;
@@ -35,15 +32,15 @@ in
 
     services.dbus.enable = true;
 
-    systemd.packages = [ pkgs.supergfxctl ];
-    systemd.services.supergfxd.wantedBy = [ "multi-user.target" ];
+    systemd.packages = [pkgs.supergfxctl];
+    systemd.services.supergfxd.wantedBy = ["multi-user.target"];
     systemd.services.supergfxd.path = [
       pkgs.kmod
       pkgs.pciutils
     ];
 
-    services.dbus.packages = [ pkgs.supergfxctl ];
-    services.udev.packages = [ pkgs.supergfxctl ];
+    services.dbus.packages = [pkgs.supergfxctl];
+    services.udev.packages = [pkgs.supergfxctl];
   };
 
   meta.maintainers = pkgs.supergfxctl.meta.maintainers;

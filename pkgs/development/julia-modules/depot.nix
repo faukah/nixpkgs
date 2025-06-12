@@ -1,14 +1,12 @@
 {
   lib,
   runCommand,
-
   cacert,
   curl,
   git,
   julia,
   python3,
   stdenv,
-
   closureYaml,
   extraLibs,
   juliaCpuTarget,
@@ -17,9 +15,7 @@
   packageNames,
   precompile,
   registry,
-}:
-
-let
+}: let
   # On darwin, we don't want to specify JULIA_SSL_CA_ROOTS_PATH. If we do (using a -bin julia derivation, which is the
   # only kind darwin currently supports), you get an error like this:
   #
@@ -28,21 +24,20 @@ let
   # variable. If you believe your system's root certificates are safe to use, you can `export JULIA_SSL_CA_ROOTS_PATH=""`
   # in your environment to use those instead.)
   setJuliaSslCaRootsPath =
-    if stdenv.targetPlatform.isDarwin then
-      ''export JULIA_SSL_CA_ROOTS_PATH=""''
-    else
-      ''export JULIA_SSL_CA_ROOTS_PATH="${cacert}/etc/ssl/certs/ca-bundle.crt"'';
-
+    if stdenv.targetPlatform.isDarwin
+    then ''export JULIA_SSL_CA_ROOTS_PATH=""''
+    else ''export JULIA_SSL_CA_ROOTS_PATH="${cacert}/etc/ssl/certs/ca-bundle.crt"'';
 in
-
-runCommand "julia-depot"
+  runCommand "julia-depot"
   {
-    nativeBuildInputs = [
-      curl
-      git
-      julia
-      (python3.withPackages (ps: with ps; [ pyyaml ]))
-    ] ++ extraLibs;
+    nativeBuildInputs =
+      [
+        curl
+        git
+        julia
+        (python3.withPackages (ps: with ps; [pyyaml]))
+      ]
+      ++ extraLibs;
     inherit precompile registry;
   }
   (
@@ -82,7 +77,7 @@ runCommand "julia-depot"
       # it's available, which is slightly weird, but it should work just as well
       # for finding the extra packages we need to add
       python ${./python}/find_package_implications.py "${closureYaml}" '${
-        lib.generators.toJSON { } packageImplications
+        lib.generators.toJSON {} packageImplications
       }' extra_package_names.txt
 
       # Work around new git security features added in git 2.44.1
@@ -103,7 +98,7 @@ runCommand "julia-depot"
 
         Pkg.Registry.add(Pkg.RegistrySpec(path="${registry}"))
 
-        input = ${lib.generators.toJSON { } packageNames} ::Vector{String}
+        input = ${lib.generators.toJSON {} packageNames} ::Vector{String}
 
         if isfile("extra_package_names.txt")
           append!(input, readlines("extra_package_names.txt"))

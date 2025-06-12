@@ -4,7 +4,6 @@
   lwt,
   gluten-lwt,
 }:
-
 buildDunePackage {
   pname = "h2-lwt";
 
@@ -16,7 +15,9 @@ buildDunePackage {
     h2
   ];
 
-  meta = h2.meta // {
-    description = "Lwt support for h2";
-  };
+  meta =
+    h2.meta
+    // {
+      description = "Lwt support for h2";
+    };
 }

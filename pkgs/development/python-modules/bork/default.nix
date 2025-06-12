@@ -5,7 +5,6 @@
   fetchFromGitHub,
   pytestCheckHook,
   pythonOlder,
-
   setuptools,
   build,
   coloredlogs,
@@ -15,7 +14,6 @@
   toml,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "bork";
   version = "9.0.0";
@@ -46,8 +44,8 @@ buildPythonPackage rec {
       pip
       urllib3
     ]
-    ++ lib.optionals (pythonOlder "3.11") [ toml ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+    ++ lib.optionals (pythonOlder "3.11") [toml]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   pythonImportsCheck = [
     "bork"
@@ -55,22 +53,22 @@ buildPythonPackage rec {
     "bork.cli"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "-m 'not network'" ];
+  pytestFlagsArray = ["-m 'not network'"];
 
   disabledTests = [
     # tries to call python -m bork
     "test_repo"
   ];
 
-  passthru.tests = callPackage ./tests.nix { };
+  passthru.tests = callPackage ./tests.nix {};
 
   meta = with lib; {
     description = "Python build and release management tool";
     mainProgram = "bork";
     homepage = "https://github.com/duckinator/bork";
     license = licenses.mit;
-    maintainers = with maintainers; [ nicoo ];
+    maintainers = with maintainers; [nicoo];
   };
 }

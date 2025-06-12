@@ -29,7 +29,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Free IP to ASN Lite database by DB-IP";
     homepage = "https://db-ip.com/db/download/ip-to-asn-lite";
     license = lib.licenses.cc-by-40;
-    maintainers = with lib.maintainers; [ Guanran928 ];
+    maintainers = with lib.maintainers; [Guanran928];
     platforms = lib.platforms.all;
   };
 })

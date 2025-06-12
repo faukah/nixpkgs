@@ -12,7 +12,6 @@
   nix-update-script,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "rlama";
   version = "0.1.39";
@@ -50,18 +49,18 @@ buildGoModule (finalAttrs: {
   postInstall = ''
     wrapProgram $out/bin/rlama \
       --prefix PATH : ${
-        lib.makeBinPath [
-          poppler-utils
-          tesseract
-          catdoc
-          unrtf
-          python3Packages.pdfminer-six
-          python3Packages.docx2txt
-          python3Packages.xlsx2csv
-          python3Packages.torch
-          python3Packages.transformers
-        ]
-      }
+      lib.makeBinPath [
+        poppler-utils
+        tesseract
+        catdoc
+        unrtf
+        python3Packages.pdfminer-six
+        python3Packages.docx2txt
+        python3Packages.xlsx2csv
+        python3Packages.torch
+        python3Packages.transformers
+      ]
+    }
   '';
 
   nativeInstallCheckInputs = [
@@ -83,7 +82,7 @@ buildGoModule (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -91,7 +90,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/dontizi/rlama";
     changelog = "https://github.com/dontizi/rlama/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     mainProgram = "rlama";
   };
 })

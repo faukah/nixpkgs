@@ -11,7 +11,8 @@
 }:
 python3Packages.buildPythonApplication rec {
   pname = "onionshare";
-  inherit (onionshare)
+  inherit
+    (onionshare)
     src
     version
     build-system
@@ -44,7 +45,7 @@ python3Packages.buildPythonApplication rec {
     # https://github.com/onionshare/onionshare/pull/1907
     (fetchpatch {
       url = "https://github.com/onionshare/onionshare/commit/1fb1a470df20d8a7576c8cf51213e5928528d59a.patch";
-      includes = [ "onionshare/update_checker.py" ];
+      includes = ["onionshare/update_checker.py"];
       stripLen = 1;
       hash = "sha256-mRRj9cALZVHw86CgU17sp9EglKhkRRcGfROyQpsXVfU=";
     })
@@ -57,9 +58,9 @@ python3Packages.buildPythonApplication rec {
     qrcode
   ];
 
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
 
-  buildInputs = [ qt5.qtwayland ];
+  buildInputs = [qt5.qtwayland];
 
   postInstall = ''
     mkdir -p $out/share/{appdata,applications,icons}
@@ -76,9 +77,11 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "onionshare" ];
+  pythonImportsCheck = ["onionshare"];
 
-  meta = onionshare.meta // {
-    mainProgram = "onionshare";
-  };
+  meta =
+    onionshare.meta
+    // {
+      mainProgram = "onionshare";
+    };
 }

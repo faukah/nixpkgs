@@ -9,7 +9,6 @@
   mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "libarchive-c";
   version = "5.1";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
       "find_library('archive')" "'${libarchive.lib}/lib/libarchive${stdenv.hostPlatform.extensions.sharedLibrary}'"
   '';
 
-  pythonImportsCheck = [ "libarchive" ];
+  pythonImportsCheck = ["libarchive"];
 
   nativeCheckInputs = [
     glibcLocales

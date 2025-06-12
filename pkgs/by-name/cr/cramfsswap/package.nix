@@ -4,7 +4,6 @@
   fetchurl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cramfsswap";
   version = "1.4.2";
@@ -14,14 +13,14 @@ stdenv.mkDerivation rec {
     sha256 = "10mj45zx71inaa3l1d81g64f7yn1xcprvq4v4yzpdwbxqmqaikw1";
   };
   #  https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=996964
-  patches = [ ./parallel-make.patch ];
+  patches = [./parallel-make.patch];
 
   # Needed for cross-compilation
   postPatch = ''
     substituteInPlace Makefile --replace 'strip ' '$(STRIP) '
   '';
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   installPhase = ''
     install --target $out/bin -D cramfsswap

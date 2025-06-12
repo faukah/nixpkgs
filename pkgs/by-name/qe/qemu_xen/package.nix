@@ -1,1 +1,1 @@
-{ qemu }: qemu.override { xenSupport = true; }
+{qemu}: qemu.override {xenSupport = true;}

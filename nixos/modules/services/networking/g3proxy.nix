@@ -3,11 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.g3proxy;
 
-  inherit (lib)
+  inherit
+    (lib)
     mkPackageOption
     mkEnableOption
     mkOption
@@ -15,17 +15,16 @@ let
     literalExpression
     ;
 
-  settingsFormat = pkgs.formats.yaml { };
-in
-{
+  settingsFormat = pkgs.formats.yaml {};
+in {
   options.services.g3proxy = {
     enable = mkEnableOption "g3proxy, a generic purpose forward proxy";
 
-    package = mkPackageOption pkgs "g3proxy" { };
+    package = mkPackageOption pkgs "g3proxy" {};
 
     settings = mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           server = [{
@@ -47,14 +46,12 @@ in
   config = mkIf cfg.enable {
     systemd.services.g3proxy = {
       description = "g3proxy server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
-        ExecStart =
-          let
-            g3proxy-yaml = settingsFormat.generate "g3proxy.yaml" cfg.settings;
-          in
-          "${lib.getExe cfg.package} --config-file ${g3proxy-yaml}";
+        ExecStart = let
+          g3proxy-yaml = settingsFormat.generate "g3proxy.yaml" cfg.settings;
+        in "${lib.getExe cfg.package} --config-file ${g3proxy-yaml}";
 
         WorkingDirectory = "/var/lib/g3proxy";
         StateDirectory = "g3proxy";

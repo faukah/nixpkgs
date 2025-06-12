@@ -27,7 +27,7 @@ buildPythonPackage rec {
       --replace-fail 'pass_binary = "pass"' 'pass_binary = "${lib.getExe pass}"'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   nativeCheckInputs = [
     keyring
@@ -64,12 +64,12 @@ buildPythonPackage rec {
     keyring del test-service test-username
   '';
 
-  pythonImportsCheck = [ "keyring_pass" ];
+  pythonImportsCheck = ["keyring_pass"];
 
   meta = {
     description = "Password Store (pass) backend for python's keyring";
     homepage = "https://github.com/nazarewk/keyring_pass";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.nazarewk ];
+    maintainers = [lib.maintainers.nazarewk];
   };
 }

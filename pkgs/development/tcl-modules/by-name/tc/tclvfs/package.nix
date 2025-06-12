@@ -3,7 +3,6 @@
   mkTclDerivation,
   fetchzip,
 }:
-
 mkTclDerivation {
   pname = "tclvfs";
   version = "1.4-unstable-2023-11-23";
@@ -23,6 +22,6 @@ mkTclDerivation {
       a repository of such Tcl-implemented filesystems (metakit, zip, ftp, tar,
       http, webdav, namespace, url)
     '';
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
   };
 }

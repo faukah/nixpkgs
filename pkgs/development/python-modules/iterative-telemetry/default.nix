@@ -11,7 +11,6 @@
   requests,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "iterative-telemtry";
   version = "0.0.10";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-+l9JH9MbN+Pai3MIcKZJObzoPGhQipfMd7T8v4SoSws=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     requests
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  pythonImportsCheck = [ "iterative_telemetry" ];
+  pythonImportsCheck = ["iterative_telemetry"];
 
   meta = with lib; {
     description = "Common library to send usage telemetry";
     homepage = "https://github.com/iterative/iterative-telemetry";
     changelog = "https://github.com/iterative/iterative-telemetry/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

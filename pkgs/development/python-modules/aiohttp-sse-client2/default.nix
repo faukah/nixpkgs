@@ -10,7 +10,6 @@
   setuptools,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aiohttp-sse-client2";
   version = "0.3.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
       --replace-fail "pytest-runner" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [ "aiohttp_sse_client2" ];
+  pythonImportsCheck = ["aiohttp_sse_client2"];
 
   nativeCheckInputs = [
     pytest-aiohttp
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     description = "Server-Sent Event python client library based on aiohttp";
     homepage = "https://github.com/compat-fork/aiohttp-sse-client";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

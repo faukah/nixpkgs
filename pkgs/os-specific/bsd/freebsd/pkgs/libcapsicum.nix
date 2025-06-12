@@ -1,1 +1,1 @@
-{ mkDerivation }: mkDerivation { path = "lib/libcapsicum"; }
+{mkDerivation}: mkDerivation {path = "lib/libcapsicum";}

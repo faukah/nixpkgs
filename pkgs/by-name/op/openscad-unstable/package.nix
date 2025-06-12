@@ -55,14 +55,15 @@ clangStdenv.mkDerivation rec {
     fetchSubmodules = true; # Only really need sanitizers-cmake and MCAD and manifold
   };
 
-  patches = [ ./test.diff ];
+  patches = [./test.diff];
 
   nativeBuildInputs = [
     (python3.withPackages (
-      ps: with ps; [
-        numpy
-        pillow
-      ]
+      ps:
+        with ps; [
+          numpy
+          pillow
+        ]
     ))
     bison
     cmake
@@ -73,9 +74,8 @@ clangStdenv.mkDerivation rec {
     ninja
     pkg-config
   ];
-  buildInputs =
-    with libsForQt5;
-    with qt5;
+  buildInputs = with libsForQt5;
+  with qt5;
     [
       clipper2
       glm
@@ -118,7 +118,7 @@ clangStdenv.mkDerivation rec {
     "-DUSE_BUILTIN_OPENCSG=OFF"
     "-DUSE_BUILTIN_MANIFOLD=OFF"
     "-DUSE_BUILTIN_CLIPPER2=OFF"
-    "-DOPENSCAD_VERSION=\"${builtins.replaceStrings [ "-" ] [ "." ] version}\""
+    "-DOPENSCAD_VERSION=\"${builtins.replaceStrings ["-"] ["."] version}\""
     "-DCMAKE_UNITY_BUILD=OFF" # broken compile with unity
     # IPO
     "-DCMAKE_EXE_LINKER_FLAGS=-fuse-ld=lld"

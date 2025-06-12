@@ -32,7 +32,7 @@
   pkg-config,
   python3,
   pidgin,
-  plugins ? [ ],
+  plugins ? [],
   withOpenssl ? false,
   openssl,
   withGnutls ? false,
@@ -41,9 +41,7 @@
   cyrus_sasl,
   pidginPackages,
 }:
-
 # FIXME: clean the mess around choosing the SSL library (nss by default)
-
 let
   unwrapped = stdenv.mkDerivation rec {
     pname = "pidgin";
@@ -61,10 +59,9 @@ let
 
     env.NIX_CFLAGS_COMPILE = "-I${gst_all_1.gst-plugins-base.dev}/include/gstreamer-1.0";
 
-    buildInputs =
-      let
-        python-with-dbus = python3.withPackages (pp: with pp; [ dbus-python ]);
-      in
+    buildInputs = let
+      python-with-dbus = python3.withPackages (pp: with pp; [dbus-python]);
+    in
       [
         aspell
         avahi
@@ -129,7 +126,7 @@ let
         "--disable-tcl"
         "--disable-gevolution"
       ]
-      ++ lib.optionals withCyrus_sasl [ "--enable-cyrus-sasl=yes" ]
+      ++ lib.optionals withCyrus_sasl ["--enable-cyrus-sasl=yes"]
       ++ lib.optionals withGnutls [
         "--enable-gnutls=yes"
         "--enable-nss=no"
@@ -138,7 +135,7 @@ let
         "--disable-gtkspell"
         "--disable-vv"
       ]
-      ++ lib.optionals stdenv.cc.isClang [ "CFLAGS=-Wno-error=int-conversion" ];
+      ++ lib.optionals stdenv.cc.isClang ["CFLAGS=-Wno-error=int-conversion"];
 
     enableParallelBuilding = true;
 
@@ -149,11 +146,10 @@ let
 
     doInstallCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
     # In particular, this detects missing python imports in some of the tools.
-    postFixup =
-      let
-        # TODO: python is a script, so it doesn't work as interpreter on darwin
-        binsToTest = lib.optionalString stdenv.hostPlatform.isLinux "purple-remote," + "pidgin,finch";
-      in
+    postFixup = let
+      # TODO: python is a script, so it doesn't work as interpreter on darwin
+      binsToTest = lib.optionalString stdenv.hostPlatform.isLinux "purple-remote," + "pidgin,finch";
+    in
       lib.optionalString doInstallCheck ''
         for f in "''${!outputBin}"/bin/{${binsToTest}}; do
           echo "Testing: $f --help"
@@ -163,8 +159,7 @@ let
 
     passthru = {
       makePluginPath = lib.makeSearchPathOutput "lib" "lib/purple-${lib.versions.major version}";
-      withPlugins =
-        pluginfn:
+      withPlugins = pluginfn:
         callPackage ./wrapper.nix {
           plugins = pluginfn pidginPackages;
           pidgin = unwrapped;
@@ -177,9 +172,10 @@ let
       homepage = "https://pidgin.im/";
       license = lib.licenses.gpl2Plus;
       platforms = lib.platforms.unix;
-      maintainers = [ lib.maintainers.lucasew ];
+      maintainers = [lib.maintainers.lucasew];
     };
   };
-
 in
-if plugins == [ ] then unwrapped else unwrapped.withPlugins (_: plugins)
+  if plugins == []
+  then unwrapped
+  else unwrapped.withPlugins (_: plugins)

@@ -9,9 +9,7 @@
   pkg-config,
   stdenvNoCC,
   fetchurl,
-}:
-
-let
+}: let
   # libdyld needs CrashReporterClient.h, which is hard to find, but WebKit2 has it.
   # Fetch it directly because the Darwin stdenv bootstrap can’t depend on fetchgit.
   crashreporter_h = fetchurl {
@@ -80,92 +78,92 @@ let
     '';
   };
 in
-mkAppleDerivation {
-  releaseName = "dyld";
+  mkAppleDerivation {
+    releaseName = "dyld";
 
-  outputs = [
-    "out"
-    "lib"
-    "man"
-  ];
+    outputs = [
+      "out"
+      "lib"
+      "man"
+    ];
 
-  propagatedBuildOutputs = [ ];
+    propagatedBuildOutputs = [];
 
-  xcodeHash = "sha256-NfaENSF699xjc+eKtOm1RyXUCMD6xTaJ5+9arLllqyw=";
+    xcodeHash = "sha256-NfaENSF699xjc+eKtOm1RyXUCMD6xTaJ5+9arLllqyw=";
 
-  patches = [
-    # Disable use of private kdebug API
-    ./patches/0001-Disable-kdebug-trace.patch
-    # dyld_info requires `startsWith`, but it’s not normally built for `dyld_info`.
-    ./patches/0002-Provide-startsWith-for-dyld_info.patch
-    # dyld_info tries to weakly link against libLTO using this macro.
-    ./patches/0003-Add-weaklinking_h.patch
-    # The LLVMOpInfoCallback args comment out one of the args. Fix that for compatibility with nixpkgs LLVM.
-    ./patches/0004-Fix-llvm-op-info-callback-args.patch
-    # Some private headers depend on corecrypto, which we can’t use.
-    # Use the headers from the ld64 port, which delegates to OpenSSL.
-    ./patches/0005-Add-OpenSSL-based-CoreCrypto-digest-functions.patch
-    # `dsc_extractor` builds a dylib, but it includes a program that can perform cache extraction.
-    # This extracts just the driver into a file to make building the actual program easier.
-    ./patches/0006-Add-dsc_extractor_bin_cpp.patch
-  ];
+    patches = [
+      # Disable use of private kdebug API
+      ./patches/0001-Disable-kdebug-trace.patch
+      # dyld_info requires `startsWith`, but it’s not normally built for `dyld_info`.
+      ./patches/0002-Provide-startsWith-for-dyld_info.patch
+      # dyld_info tries to weakly link against libLTO using this macro.
+      ./patches/0003-Add-weaklinking_h.patch
+      # The LLVMOpInfoCallback args comment out one of the args. Fix that for compatibility with nixpkgs LLVM.
+      ./patches/0004-Fix-llvm-op-info-callback-args.patch
+      # Some private headers depend on corecrypto, which we can’t use.
+      # Use the headers from the ld64 port, which delegates to OpenSSL.
+      ./patches/0005-Add-OpenSSL-based-CoreCrypto-digest-functions.patch
+      # `dsc_extractor` builds a dylib, but it includes a program that can perform cache extraction.
+      # This extracts just the driver into a file to make building the actual program easier.
+      ./patches/0006-Add-dsc_extractor_bin_cpp.patch
+    ];
 
-  postPatch = ''
-    substituteInPlace include/mach-o/dyld.h \
-      --replace-fail '#ifdef __DRIVERKIT_19_0' "#if 0" \
-      --replace-fail ', bridgeos(5.0)' "" \
-      --replace-fail 'DYLD_EXCLAVEKIT_UNAVAILABLE' "" \
-      --replace-fail '__API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos)' ""
+    postPatch = ''
+      substituteInPlace include/mach-o/dyld.h \
+        --replace-fail '#ifdef __DRIVERKIT_19_0' "#if 0" \
+        --replace-fail ', bridgeos(5.0)' "" \
+        --replace-fail 'DYLD_EXCLAVEKIT_UNAVAILABLE' "" \
+        --replace-fail '__API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos)' ""
 
-    substituteInPlace include/mach-o/dyld_priv.h \
-      --replace-fail ', bridgeos(3.0)' ""
+      substituteInPlace include/mach-o/dyld_priv.h \
+        --replace-fail ', bridgeos(3.0)' ""
 
-    substituteInPlace include/mach-o/dyld_process_info.h \
-      --replace-fail '__API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos)' ""
+      substituteInPlace include/mach-o/dyld_process_info.h \
+        --replace-fail '__API_UNAVAILABLE(ios, tvos, watchos) __API_UNAVAILABLE(bridgeos)' ""
 
-    substituteInPlace include/mach-o/utils_priv.h \
-      --replace-fail 'SPI_AVAILABLE(macos(15.0), ios(18.0), tvos(18.0), watchos(11.0))' ""
+      substituteInPlace include/mach-o/utils_priv.h \
+        --replace-fail 'SPI_AVAILABLE(macos(15.0), ios(18.0), tvos(18.0), watchos(11.0))' ""
 
-    substituteInPlace libdyld/utils.cpp \
-      --replace-fail 'DYLD_EXCLAVEKIT_UNAVAILABLE' ""
+      substituteInPlace libdyld/utils.cpp \
+        --replace-fail 'DYLD_EXCLAVEKIT_UNAVAILABLE' ""
 
-    cat <<EOF > libdyld/CrashReporterAnnotations.c
-    #include <CrashReporterClient.h>
-    struct crashreporter_annotations_t gCRAnnotations
-        __attribute__((section("__DATA," CRASHREPORTER_ANNOTATIONS_SECTION)))
-        = { CRASHREPORTER_ANNOTATIONS_VERSION, 0, 0, 0, 0, 0, 0 };
-    EOF
+      cat <<EOF > libdyld/CrashReporterAnnotations.c
+      #include <CrashReporterClient.h>
+      struct crashreporter_annotations_t gCRAnnotations
+          __attribute__((section("__DATA," CRASHREPORTER_ANNOTATIONS_SECTION)))
+          = { CRASHREPORTER_ANNOTATIONS_VERSION, 0, 0, 0, 0, 0, 0 };
+      EOF
 
-    # Fix header includes
-    substituteInPlace libdyld_introspection/dyld_introspection.cpp \
-      --replace-fail 'dyld_introspection.h' 'mach-o/dyld_introspection.h'
+      # Fix header includes
+      substituteInPlace libdyld_introspection/dyld_introspection.cpp \
+        --replace-fail 'dyld_introspection.h' 'mach-o/dyld_introspection.h'
 
-    substituteInPlace dyld/Loader.h \
-      --replace-fail 'dyld_priv.h' 'mach-o/dyld_priv.h'
+      substituteInPlace dyld/Loader.h \
+        --replace-fail 'dyld_priv.h' 'mach-o/dyld_priv.h'
 
-    # Remove unused header include (since the compat shims don’t provide it).
-    substituteInPlace other-tools/dsc_extractor.cpp \
-      --replace-fail '#include <CommonCrypto/CommonHMAC.h>' ""
+      # Remove unused header include (since the compat shims don’t provide it).
+      substituteInPlace other-tools/dsc_extractor.cpp \
+        --replace-fail '#include <CommonCrypto/CommonHMAC.h>' ""
 
-    # Specify path to `dsc_extractor.bundle` for `dlopen`
-    substituteInPlace other-tools/dsc_extractor_bin.cpp \
-      --subst-var lib
-  '';
+      # Specify path to `dsc_extractor.bundle` for `dlopen`
+      substituteInPlace other-tools/dsc_extractor_bin.cpp \
+        --subst-var lib
+    '';
 
-  env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
+    env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
 
-  buildInputs = [
-    apple-sdk_12 # Needed for `PLATFORM_FIRMWARE` and `PLATFORM_SEPOS` defines in `mach-o/loader.h`.
-    llvmPackages.llvm
-    openssl
-  ];
+    buildInputs = [
+      apple-sdk_12 # Needed for `PLATFORM_FIRMWARE` and `PLATFORM_SEPOS` defines in `mach-o/loader.h`.
+      llvmPackages.llvm
+      openssl
+    ];
 
-  nativeBuildInputs = [
-    cmake # CMake is required for Meson to find LLVM as a dependency.
-    pkg-config
-  ];
+    nativeBuildInputs = [
+      cmake # CMake is required for Meson to find LLVM as a dependency.
+      pkg-config
+    ];
 
-  dontUseCmakeConfigure = true;
+    dontUseCmakeConfigure = true;
 
-  meta.description = "dyld-related commands for Darwin";
-}
+    meta.description = "dyld-related commands for Darwin";
+  }

@@ -8,7 +8,6 @@
   jdk11,
   maven,
 }:
-
 maven.buildMavenPackage rec {
   pname = "protege";
   version = "5.6.4";
@@ -66,7 +65,7 @@ maven.buildMavenPackage rec {
       genericName = "Ontology Editor";
       icon = "protege";
       comment = meta.description;
-      categories = [ "Development" ];
+      categories = ["Development"];
       exec = "protege";
     })
   ];
@@ -80,8 +79,8 @@ maven.buildMavenPackage rec {
       support for the OWL 2 Web Ontology Language, and direct in-memory
       connections to description logic reasoners.
     '';
-    maintainers = with lib.maintainers; [ nessdoor ];
-    license = with lib.licenses; [ bsd2 ];
+    maintainers = with lib.maintainers; [nessdoor];
+    license = with lib.licenses; [bsd2];
     # TODO Protege is able to run on Darwin as well, but I (@nessdoor) had no
     #      way of testing it nor any experience in packaging Darwin apps, so I
     #      will leave the task to someone who has the right tools and knowledge.

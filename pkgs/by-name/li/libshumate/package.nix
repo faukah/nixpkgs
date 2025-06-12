@@ -20,7 +20,6 @@
   xvfb-run,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libshumate";
   version = "1.4.0";
@@ -100,7 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "shumate-demo";
     homepage = "https://gitlab.gnome.org/GNOME/libshumate";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 })

@@ -11,7 +11,6 @@
   publicsuffix2,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "mailsuite";
   version = "1.10.0";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-xYM4/Ou91WtYwiobE9ihlYGu8ViNTVbSLFGi8Y9yPc4=";
   };
 
-  pythonRelaxDeps = [ "mail-parser" ];
+  pythonRelaxDeps = ["mail-parser"];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     dnspython
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     publicsuffix2
   ];
 
-  pythonImportsCheck = [ "mailsuite" ];
+  pythonImportsCheck = ["mailsuite"];
 
   # Module has no tests
   doCheck = false;
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://seanthegeek.github.io/mailsuite/";
     changelog = "https://github.com/seanthegeek/mailsuite/blob/master/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ talyz ];
+    maintainers = with lib.maintainers; [talyz];
   };
 }

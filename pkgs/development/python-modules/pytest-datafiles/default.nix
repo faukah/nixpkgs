@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-datafiles";
   version = "3.0.0";
@@ -27,14 +26,14 @@ buildPythonPackage rec {
     pytest
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_datafiles" ];
+  pythonImportsCheck = ["pytest_datafiles"];
 
   meta = with lib; {
     description = "Pytest plugin to create a tmpdir containing predefined files/directories";
     homepage = "https://github.com/omarkohl/pytest-datafiles";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

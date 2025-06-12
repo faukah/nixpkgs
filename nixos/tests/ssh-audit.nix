@@ -1,12 +1,10 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   sshKeys = import (pkgs.path + "/nixos/tests/ssh-keys.nix") pkgs;
   sshUsername = "any-user";
   serverName = "server";
   clientName = "client";
   sshAuditPort = 2222;
-in
-{
+in {
   name = "ssh";
 
   nodes = {

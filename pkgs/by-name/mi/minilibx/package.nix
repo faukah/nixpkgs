@@ -7,7 +7,6 @@
   libXext,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "minilibx";
   version = "0-unstable-2021-10-30";
@@ -54,14 +53,14 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = with lib; {
     description = "Simple X-Window (X11R6) programming API in C";
     homepage = "https://github.com/42Paris/minilibx-linux";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 }

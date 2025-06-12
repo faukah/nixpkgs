@@ -1,5 +1,7 @@
-{ stdenv, klibc }:
-
+{
+  stdenv,
+  klibc,
+}:
 stdenv.mkDerivation {
   # !!! For now, the name has to be exactly as long as the original
   # name due to the sed hackery below.  Once patchelf 0.4 is in the
@@ -20,7 +22,7 @@ stdenv.mkDerivation {
       #patchelf --set-interpreter $new $i
     done
   ''; # */
-  allowedReferences = [ "out" ];
+  allowedReferences = ["out"];
 
   inherit (klibc) meta;
 }

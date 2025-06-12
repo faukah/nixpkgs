@@ -5,7 +5,6 @@
   cmake,
   gtest,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "verdict";
   version = "1.4.2";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/sandialabs/verdict";
     license = licenses.bsd3;
     changelog = "https://github.com/sandialabs/verdict/releases/tag/${finalAttrs.version}";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
   };
 })

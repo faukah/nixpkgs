@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
   poetry-dynamic-versioning,
-
   # dependencies
   pytest,
   ruff,
-
   # tests
   pytestCheckHook,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-ruff";
   version = "0.4.1";
@@ -43,13 +39,13 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  pythonImportsCheck = [ "pytest_ruff" ];
+  pythonImportsCheck = ["pytest_ruff"];
 
   meta = {
     description = "A pytest plugin to run ruff";
     homepage = "https://github.com/businho/pytest-ruff";
     changelog = "https://github.com/businho/pytest-ruff/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ baloo ];
+    maintainers = with lib.maintainers; [baloo];
   };
 }

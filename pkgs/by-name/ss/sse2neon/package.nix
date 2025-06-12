@@ -4,7 +4,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sse2neon";
   version = "1.8.0";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace sse2neon.h --replace-fail "#warning \"GCC versions" "// "
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   dontInstall = true;
   # use postBuild instead of installPhase, because the build
@@ -36,6 +35,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.mono-project.com/docs/gui/libgdiplus/";
     platforms = lib.platforms.unix;
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.gador ];
+    maintainers = [lib.maintainers.gador];
   };
 })

@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "randomfiletree";
   version = "1.2.0";
@@ -15,13 +14,13 @@ buildPythonPackage rec {
     hash = "sha256-OpLhLsvwk9xrP8FAXGkDDtMts6ikpx8ockvTR/TEmvw=";
   };
 
-  pythonImportsCheck = [ "randomfiletree" ];
+  pythonImportsCheck = ["randomfiletree"];
   doCheck = false;
 
   meta = with lib; {
     description = "Create a random file/directory tree/structure in python fortesting purposes";
     homepage = "https://pypi.org/project/RandomFileTree/";
     license = licenses.mit;
-    maintainers = with maintainers; [ twitchy0 ];
+    maintainers = with maintainers; [twitchy0];
   };
 }

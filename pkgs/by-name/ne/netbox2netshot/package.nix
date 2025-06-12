@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "netbox2netshot";
   version = "0.2.0";
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     description = "Inventory synchronization tool between Netbox and Netshot";
     homepage = "https://github.com/scaleway/netbox2netshot";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "netbox2netshot";
   };
 }

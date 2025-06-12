@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "omnictl";
   version = "0.50.1";
@@ -25,9 +24,9 @@ buildGoModule rec {
 
   env.GOWORK = "off";
 
-  subPackages = [ "cmd/omnictl" ];
+  subPackages = ["cmd/omnictl"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd omnictl \
@@ -43,6 +42,6 @@ buildGoModule rec {
     mainProgram = "omnictl";
     homepage = "https://omni.siderolabs.com/";
     license = licenses.bsl11;
-    maintainers = with maintainers; [ raylas ];
+    maintainers = with maintainers; [raylas];
   };
 }

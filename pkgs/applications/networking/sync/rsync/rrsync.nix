@@ -3,14 +3,13 @@
   python3,
   rsync,
 }:
-
 stdenv.mkDerivation {
   pname = "rrsync";
   inherit (rsync) version src;
 
   buildInputs = [
     rsync
-    (python3.withPackages (pythonPackages: with pythonPackages; [ braceexpand ]))
+    (python3.withPackages (pythonPackages: with pythonPackages; [braceexpand]))
   ];
   # Skip configure and build phases.
   # We just want something from the support directory
@@ -29,8 +28,10 @@ stdenv.mkDerivation {
     chmod a+x $out/bin/rrsync
   '';
 
-  meta = rsync.meta // {
-    description = "Helper to run rsync-only environments from ssh-logins";
-    mainProgram = "rrsync";
-  };
+  meta =
+    rsync.meta
+    // {
+      description = "Helper to run rsync-only environments from ssh-logins";
+      mainProgram = "rrsync";
+    };
 }

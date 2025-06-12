@@ -10,7 +10,6 @@
   udev,
   wrapQtAppsHook,
 }:
-
 qtModule {
   pname = "qtsystems";
 
@@ -54,6 +53,6 @@ qtModule {
   '';
 
   meta = {
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
   };
 }

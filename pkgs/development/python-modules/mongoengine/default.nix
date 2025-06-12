@@ -10,7 +10,6 @@
   pillow,
   coverage,
 }:
-
 buildPythonPackage rec {
   pname = "mongoengine";
   version = "0.29.1";
@@ -45,12 +44,12 @@ buildPythonPackage rec {
   # tests require mongodb running in background
   doCheck = false;
 
-  pythonImportsCheck = [ "mongoengine" ];
+  pythonImportsCheck = ["mongoengine"];
 
   meta = with lib; {
     description = "MongoEngine is a Python Object-Document Mapper for working with MongoDB";
     homepage = "http://mongoengine.org/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

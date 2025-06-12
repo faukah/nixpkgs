@@ -12,11 +12,11 @@ buildPythonPackage {
 
   src = "${uv.src}/scripts/packages/built-by-uv";
 
-  build-system = [ uv-build ];
+  build-system = [uv-build];
 
-  dependencies = [ anyio ];
+  dependencies = [anyio];
 
-  pythonImportsCheck = [ "built_by_uv" ];
+  pythonImportsCheck = ["built_by_uv"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 }

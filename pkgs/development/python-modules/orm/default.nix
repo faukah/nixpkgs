@@ -9,7 +9,6 @@
   pythonOlder,
   typesystem,
 }:
-
 buildPythonPackage rec {
   pname = "orm";
   version = "0.3.1";
@@ -40,12 +39,12 @@ buildPythonPackage rec {
   # Tests require databases
   doCheck = false;
 
-  pythonImportsCheck = [ "orm" ];
+  pythonImportsCheck = ["orm"];
 
   meta = with lib; {
     description = "Async ORM";
     homepage = "https://github.com/encode/orm";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

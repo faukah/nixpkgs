@@ -5,7 +5,6 @@
   memcached,
   netcat,
 }:
-
 makeSetupHook {
   name = "memcached-test-hook";
   substitutions = {
@@ -13,6 +12,7 @@ makeSetupHook {
     nc = lib.getExe netcat;
   };
   passthru.tests = {
-    simple = callPackage ./test.nix { };
+    simple = callPackage ./test.nix {};
   };
-} ./memcached-test-hook.sh
+}
+./memcached-test-hook.sh

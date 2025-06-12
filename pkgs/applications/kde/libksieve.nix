@@ -19,7 +19,6 @@
   qtwebengine,
   syntax-highlighting,
 }:
-
 mkDerivation {
   pname = "libksieve";
   meta = {
@@ -53,5 +52,5 @@ mkDerivation {
     pimcommon
     qtwebengine
   ];
-  propagatedBuildInputs = [ syntax-highlighting ];
+  propagatedBuildInputs = [syntax-highlighting];
 }

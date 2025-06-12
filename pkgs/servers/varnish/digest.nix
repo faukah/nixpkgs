@@ -11,7 +11,6 @@
   version,
   sha256,
 }:
-
 stdenv.mkDerivation rec {
   pname = "${varnish.name}-digest";
   inherit version;
@@ -38,9 +37,9 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile.am --replace "''${LIBVARNISHAPI_DATAROOTDIR}/aclocal" "${varnish.dev}/share/aclocal"
   '';
 
-  configureFlags = [ "VMOD_DIR=$(out)/lib/varnish/vmods" ];
+  configureFlags = ["VMOD_DIR=$(out)/lib/varnish/vmods"];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=deprecated-declarations" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=deprecated-declarations"];
 
   doCheck = true;
 

@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kdoctor";
   version = "1.1.0";
@@ -14,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-H4lpdMf1AIU8BC+6DlvcwM1wLuEl+Hd9xBli/TGFMV4=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   unpackPhase = ''
     runHook preUnpack
@@ -37,8 +36,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Kotlin/kdoctor";
     license = licenses.asl20;
     mainProgram = "kdoctor";
-    maintainers = with maintainers; [ sironheart ];
+    maintainers = with maintainers; [sironheart];
     platforms = platforms.darwin;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 })

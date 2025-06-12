@@ -5,7 +5,6 @@
   asciidoctor,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "webcat";
   version = "0.2.0";
@@ -33,7 +32,7 @@ buildGoModule rec {
     homepage = "https://rumpelsepp.org/blog/ssh-through-websocket/";
     description = "Lightweight swiss army knife for websockets";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ montag451 ];
+    maintainers = with maintainers; [montag451];
     mainProgram = "webcat";
   };
 }

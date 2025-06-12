@@ -6,7 +6,6 @@
   pgocaml,
   xml-light,
 }:
-
 buildDunePackage {
   pname = "ocsipersist-pgsql";
   inherit (ocsipersist-lib) version src;
@@ -20,7 +19,9 @@ buildDunePackage {
     xml-light
   ];
 
-  meta = ocsipersist-lib.meta // {
-    description = "Persistent key/value storage (for Ocsigen) using PostgreSQL";
-  };
+  meta =
+    ocsipersist-lib.meta
+    // {
+      description = "Persistent key/value storage (for Ocsigen) using PostgreSQL";
+    };
 }

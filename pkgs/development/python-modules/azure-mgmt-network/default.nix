@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-network";
   version = "28.1.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-jIS/+17HXG4CROWOzwfADV/EIdYWsMs2nG/lha8zz4c=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -33,9 +32,9 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
-  pythonImportsCheck = [ "azure.mgmt.network" ];
+  pythonImportsCheck = ["azure.mgmt.network"];
 
   meta = with lib; {
     description = "Microsoft Azure SDK for Python";

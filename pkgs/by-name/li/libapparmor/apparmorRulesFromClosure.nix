@@ -2,10 +2,9 @@
   runCommand,
   closureInfo,
   lib,
-}:
-{
+}: {
   # The store path of the derivation is given in $path
-  additionalRules ? [ ],
+  additionalRules ? [],
   # TODO: factorize here some other common paths
   # that may emerge from use cases.
   baseRules ? [
@@ -23,13 +22,12 @@
     "ixr $path/libexec/**"
   ],
   name ? "",
-}:
-rootPaths:
-runCommand ("apparmor-closure-rules" + lib.optionalString (name != "") "-${name}") { } ''
+}: rootPaths:
+runCommand ("apparmor-closure-rules" + lib.optionalString (name != "") "-${name}") {} ''
   touch $out
   while read -r path
   do printf >>$out "%s,\n" ${
     lib.concatMapStringsSep " " (x: "\"${x}\"") (baseRules ++ additionalRules)
   }
-  done <${closureInfo { inherit rootPaths; }}/store-paths
+  done <${closureInfo {inherit rootPaths;}}/store-paths
 ''

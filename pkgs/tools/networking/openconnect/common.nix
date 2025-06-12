@@ -1,9 +1,7 @@
 {
   version,
   src,
-}:
-
-{
+}: {
   lib,
   stdenv,
   pkg-config,
@@ -17,12 +15,10 @@
   zlib,
   pcsclite,
   vpnc-scripts,
-  useDefaultExternalBrowser ?
-    stdenv.hostPlatform.isLinux && stdenv.buildPlatform == stdenv.hostPlatform, # xdg-utils doesn't cross-compile
+  useDefaultExternalBrowser ? stdenv.hostPlatform.isLinux && stdenv.buildPlatform == stdenv.hostPlatform, # xdg-utils doesn't cross-compile
   xdg-utils,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation {
   pname = "openconnect";
   inherit version src;
@@ -44,7 +40,11 @@ stdenv.mkDerivation {
       libxml2
       stoken
       zlib
-      (if useOpenSSL then openssl else gnutls)
+      (
+        if useOpenSSL
+        then openssl
+        else gnutls
+      )
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       p11-kit

@@ -8,14 +8,12 @@
   flex,
   automake,
 }:
-
 stdenv.mkDerivation (
   import ./common.nix {
     inherit fetchurl lib;
     pname = "linux-gpib-user";
   }
   // {
-
     nativeBuildInputs = [
       autoconf
       libtool

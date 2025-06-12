@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "py-zabbix";
   version = "1.1.7";
@@ -32,11 +31,11 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyzabbix" ];
+  pythonImportsCheck = ["pyzabbix"];
 
   disabledTests = lib.optionals (pythonAtLeast "3.12") [
     # AttributeError: 'RawConfigParser' object has no attribute 'readfp'
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/adubkov/py-zabbix";
     changelog = "https://github.com/adubkov/py-zabbix/releases/tag/${version}";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

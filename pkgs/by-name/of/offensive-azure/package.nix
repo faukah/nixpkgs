@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "offensive-azure";
   # nixpkgs-update: no auto update
@@ -52,6 +51,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Collection of offensive tools targeting Microsoft Azure";
     homepage = "https://github.com/blacklanternsecurity/offensive-azure";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

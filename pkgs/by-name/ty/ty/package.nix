@@ -3,15 +3,12 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
-
   # nativeBuildInputs
   installShellFiles,
-
   buildPackages,
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ty";
   version = "0.0.1-alpha.9";
@@ -33,11 +30,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoRoot = "ruff";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
-  cargoBuildFlags = [ "--package=ty" ];
+  cargoBuildFlags = ["--package=ty"];
 
   cargoHash = "sha256-ePk7bB3oMTJ2cJBQ2OoNu3WUMAZVA+loYySPhTjBidE=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # `ty`'s tests use `insta-cmd`, which depends on the structure of the `target/` directory,
   # and also fails to find the environment variable `$CARGO_BIN_EXE_ty`, which leads to tests failing.
@@ -56,15 +53,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--package=ty_test" # test framework tests
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
+    in ''
       installShellCompletion --cmd ty \
         --bash <(${emulator} $out/bin/ty generate-shell-completion bash) \
         --fish <(${emulator} $out/bin/ty generate-shell-completion fish) \
@@ -73,7 +69,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   );
 
   passthru = {
-    updateScript = nix-update-script { extraArgs = [ "--version=unstable" ]; };
+    updateScript = nix-update-script {extraArgs = ["--version=unstable"];};
   };
 
   meta = {

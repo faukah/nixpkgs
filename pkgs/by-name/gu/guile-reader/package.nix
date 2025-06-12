@@ -8,7 +8,6 @@
   libffi,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guile-reader";
   version = "0.6.3";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
   };
 
-  configureFlags = [ "--with-guilemoduledir=$(out)/${guile.siteDir}" ];
+  configureFlags = ["--with-guilemoduledir=$(out)/${guile.siteDir}"];
 
   meta = with lib; {
     homepage = "https://www.nongnu.org/guile-reader/";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
       R5RS-derived document syntax.
     '';
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = guile.meta.platforms;
   };
 }

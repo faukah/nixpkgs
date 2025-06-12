@@ -11,7 +11,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "simplesat";
   version = "0.9.1";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
       --replace-fail "version = file: VERSION" "version = ${version}"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     attrs
@@ -45,20 +44,20 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  pythonImportsCheck = [ "simplesat" ];
+  pythonImportsCheck = ["simplesat"];
 
   preCheck = ''
     substituteInPlace simplesat/tests/test_pool.py \
       --replace-fail "assertRaisesRegexp" "assertRaisesRegex"
   '';
 
-  pytestFlagsArray = [ "simplesat/tests" ];
+  pytestFlagsArray = ["simplesat/tests"];
 
   meta = with lib; {
     description = "Prototype for SAT-based dependency handling";
     homepage = "https://github.com/enthought/sat-solver";
     changelog = "https://github.com/enthought/sat-solver/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
   };
 }

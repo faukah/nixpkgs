@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "carapace-bridge";
   version = "1.2.10";
@@ -27,17 +26,17 @@ buildGoModule (finalAttrs: {
       --replace-fail "var version = \"develop\"" "var version = \"$version\""
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Multi-shell completion bridge for carapace";
     homepage = "https://carapace.sh/";
     changelog = "https://github.com/carapace-sh/carapace-bridge/releases/tag/v${finalAttrs.version}";
-    maintainers = with lib.maintainers; [ famfo ];
+    maintainers = with lib.maintainers; [famfo];
     license = lib.licenses.mit;
     mainProgram = "carapace-bridge";
   };

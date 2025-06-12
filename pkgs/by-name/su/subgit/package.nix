@@ -6,7 +6,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "subgit";
   version = "3.3.18";

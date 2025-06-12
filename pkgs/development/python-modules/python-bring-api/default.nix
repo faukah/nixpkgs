@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "python-bring-api";
   version = "3.0.0-unstable-2024-02-03";
@@ -22,19 +21,19 @@ buildPythonPackage {
     hash = "sha256-VCGCm9N6pMhEYT9WuWh7qKacZEf6bcIpEsILfCC6his=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "python_bring_api" ];
+  pythonImportsCheck = ["python_bring_api"];
 
   meta = with lib; {
     description = "Module to access the Bring! shopping lists API";
     homepage = "https://github.com/eliasball/python-bring-api";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -4,7 +4,6 @@
   substitute,
   fetchurl,
 }:
-
 stdenv.mkDerivation {
   pname = "libamplsolver";
   version = "20211109";
@@ -44,9 +43,9 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Library of routines that help solvers work with AMPL";
     homepage = "https://ampl.com/netlib/ampl/";
-    license = [ licenses.mit ];
+    license = [licenses.mit];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ aanderse ];
+    maintainers = with maintainers; [aanderse];
     # generates header at compile time
     broken = !stdenv.buildPlatform.canExecute stdenv.hostPlatform;
   };

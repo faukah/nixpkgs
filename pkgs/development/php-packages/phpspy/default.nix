@@ -10,7 +10,6 @@
   testers,
   phpPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "phpspy";
   version = "0.7.0";
@@ -48,12 +47,12 @@ stdenv.mkDerivation (finalAttrs: {
   postFixup = ''
     wrapProgram "$out/bin/phpspy" \
       --prefix PATH : "${
-        lib.makeBinPath [
-          gnugrep
-          # for objdump
-          binutils
-        ]
-      }"
+      lib.makeBinPath [
+        gnugrep
+        # for objdump
+        binutils
+      ]
+    }"
   '';
 
   passthru.tests.version = testers.testVersion {
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/adsr/phpspy";
     license = licenses.mit;
     mainProgram = "phpspy";
-    maintainers = with maintainers; [ gaelreyrol ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [gaelreyrol];
+    platforms = ["x86_64-linux"];
   };
 })

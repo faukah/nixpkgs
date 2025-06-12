@@ -1,11 +1,11 @@
-{ config, lib, ... }:
-
-let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib) mkOption types;
   cfg = config.services.xserver.windowManager;
-in
-
-{
+in {
   imports = [
     ./2bwm.nix
     ./afterstep.nix
@@ -52,12 +52,10 @@ in
   ];
 
   options = {
-
     services.xserver.windowManager = {
-
       session = mkOption {
         internal = true;
-        default = [ ];
+        default = [];
         example = [
           {
             name = "wmii";
@@ -71,15 +69,13 @@ in
         '';
         apply = map (
           d:
-          d
-          // {
-            manage = "window";
-          }
+            d
+            // {
+              manage = "window";
+            }
         );
       };
-
     };
-
   };
 
   config = {

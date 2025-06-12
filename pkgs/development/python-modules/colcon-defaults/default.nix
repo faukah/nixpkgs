@@ -50,12 +50,12 @@ buildPythonPackage rec {
     "test/test_flake8.py"
   ];
 
-  pythonImportsCheck = [ "colcon_defaults" ];
+  pythonImportsCheck = ["colcon_defaults"];
 
   meta = {
     description = "Extension for colcon to read defaults from a config file";
     homepage = "https://github.com/colcon/colcon-defaults";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ guelakais ];
+    maintainers = with lib.maintainers; [guelakais];
   };
 }

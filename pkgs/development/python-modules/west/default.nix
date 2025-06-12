@@ -9,7 +9,6 @@
   pythonOlder,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "west";
   version = "1.3.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-iTIANL6HCZ0W519HYKwNHtZ+iXiSjkaKuZPj+6DP6S8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     colorama
@@ -35,7 +34,7 @@ buildPythonPackage rec {
   # tests run under 'tox' and have west try to git clone repos (not sandboxable)
   doCheck = false;
 
-  pythonImportsCheck = [ "west" ];
+  pythonImportsCheck = ["west"];
 
   meta = with lib; {
     description = "Zephyr RTOS meta tool";
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zephyrproject-rtos/west";
     changelog = "https://github.com/zephyrproject-rtos/west/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ siriobalmelli ];
+    maintainers = with maintainers; [siriobalmelli];
   };
 }

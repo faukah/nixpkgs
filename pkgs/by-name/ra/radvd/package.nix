@@ -11,7 +11,6 @@
   check,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "radvd";
   version = "2.20";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   # Needed for cross-compilation
-  makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];
+  makeFlags = ["AR=${stdenv.cc.targetPrefix}ar"];
 
   passthru.tests = {
     inherit (nixosTests) connman ipv6 systemd-networkd-ipv6-prefix-delegation;
@@ -52,6 +51,6 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://github.com/radvd-project/radvd";
     platforms = platforms.linux;
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 })

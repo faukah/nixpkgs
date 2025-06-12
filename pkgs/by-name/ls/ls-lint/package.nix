@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ls-lint";
   version = "2.3.1";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "ls_lint";
     homepage = "https://ls-lint.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

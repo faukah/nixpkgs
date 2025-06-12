@@ -6,7 +6,6 @@
   pkg-config,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "batsignal";
   version = "1.8.0";
@@ -22,14 +21,14 @@ stdenv.mkDerivation rec {
     libnotify
     glib
   ];
-  nativeBuildInputs = [ pkg-config ];
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  nativeBuildInputs = [pkg-config];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     homepage = "https://github.com/electrickite/batsignal";
     description = "Lightweight battery daemon written in C";
     license = licenses.isc;
-    maintainers = with maintainers; [ SlothOfAnarchy ];
+    maintainers = with maintainers; [SlothOfAnarchy];
     platforms = platforms.linux;
     mainProgram = "batsignal";
   };

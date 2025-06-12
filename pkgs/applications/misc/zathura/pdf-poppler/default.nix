@@ -11,7 +11,6 @@
   desktop-file-utils,
   appstream-glib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zathura-pdf-poppler";
   version = "0.3.3";
@@ -46,6 +45,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.zlib;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

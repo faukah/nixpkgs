@@ -1,8 +1,10 @@
-{ lib, pkgs, ... }:
-let
-  genNodeId =
-    name:
-    pkgs.runCommand "syncthing-test-certs-${name}" { } ''
+{
+  lib,
+  pkgs,
+  ...
+}: let
+  genNodeId = name:
+    pkgs.runCommand "syncthing-test-certs-${name}" {} ''
       mkdir -p $out
       ${pkgs.syncthing}/bin/syncthing generate --config=$out
       ${pkgs.libxml2}/bin/xmllint --xpath 'string(configuration/device/@id)' $out/config.xml > $out/id
@@ -11,68 +13,63 @@ let
   idB = genNodeId "b";
   idC = genNodeId "c";
   testPassword = "it's a secret";
-in
-{
+in {
   name = "syncthing";
-  meta.maintainers = with pkgs.lib.maintainers; [ zarelit ];
+  meta.maintainers = with pkgs.lib.maintainers; [zarelit];
 
   nodes = {
-    a =
-      { config, ... }:
-      {
-        environment.etc.bar-encryption-password.text = testPassword;
-        services.syncthing = {
-          enable = true;
-          openDefaultPorts = true;
-          cert = "${idA}/cert.pem";
-          key = "${idA}/key.pem";
-          settings = {
-            devices.b.id = lib.fileContents "${idB}/id";
-            devices.c.id = lib.fileContents "${idC}/id";
-            folders.foo = {
-              path = "/var/lib/syncthing/foo";
-              devices = [ "b" ];
-            };
-            folders.bar = {
-              path = "/var/lib/syncthing/bar";
-              devices = [
-                {
-                  name = "c";
-                  encryptionPasswordFile = "/etc/${config.environment.etc.bar-encryption-password.target}";
-                }
-              ];
-            };
+    a = {config, ...}: {
+      environment.etc.bar-encryption-password.text = testPassword;
+      services.syncthing = {
+        enable = true;
+        openDefaultPorts = true;
+        cert = "${idA}/cert.pem";
+        key = "${idA}/key.pem";
+        settings = {
+          devices.b.id = lib.fileContents "${idB}/id";
+          devices.c.id = lib.fileContents "${idC}/id";
+          folders.foo = {
+            path = "/var/lib/syncthing/foo";
+            devices = ["b"];
+          };
+          folders.bar = {
+            path = "/var/lib/syncthing/bar";
+            devices = [
+              {
+                name = "c";
+                encryptionPasswordFile = "/etc/${config.environment.etc.bar-encryption-password.target}";
+              }
+            ];
           };
         };
       };
-    b =
-      { config, ... }:
-      {
-        environment.etc.bar-encryption-password.text = testPassword;
-        services.syncthing = {
-          enable = true;
-          openDefaultPorts = true;
-          cert = "${idB}/cert.pem";
-          key = "${idB}/key.pem";
-          settings = {
-            devices.a.id = lib.fileContents "${idA}/id";
-            devices.c.id = lib.fileContents "${idC}/id";
-            folders.foo = {
-              path = "/var/lib/syncthing/foo";
-              devices = [ "a" ];
-            };
-            folders.bar = {
-              path = "/var/lib/syncthing/bar";
-              devices = [
-                {
-                  name = "c";
-                  encryptionPasswordFile = "/etc/${config.environment.etc.bar-encryption-password.target}";
-                }
-              ];
-            };
+    };
+    b = {config, ...}: {
+      environment.etc.bar-encryption-password.text = testPassword;
+      services.syncthing = {
+        enable = true;
+        openDefaultPorts = true;
+        cert = "${idB}/cert.pem";
+        key = "${idB}/key.pem";
+        settings = {
+          devices.a.id = lib.fileContents "${idA}/id";
+          devices.c.id = lib.fileContents "${idC}/id";
+          folders.foo = {
+            path = "/var/lib/syncthing/foo";
+            devices = ["a"];
+          };
+          folders.bar = {
+            path = "/var/lib/syncthing/bar";
+            devices = [
+              {
+                name = "c";
+                encryptionPasswordFile = "/etc/${config.environment.etc.bar-encryption-password.target}";
+              }
+            ];
           };
         };
       };
+    };
     c = {
       services.syncthing = {
         enable = true;

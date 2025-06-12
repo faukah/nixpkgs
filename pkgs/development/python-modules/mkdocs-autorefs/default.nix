@@ -8,7 +8,6 @@
   pdm-backend,
   markupsafe,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocs-autorefs";
   version = "1.4.2";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
       --replace 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     markdown
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     mkdocs-material
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # Circular dependencies
@@ -47,13 +46,13 @@ buildPythonPackage rec {
     "test_reference_implicit_with_code_inlinehilite_python"
   ];
 
-  pythonImportsCheck = [ "mkdocs_autorefs" ];
+  pythonImportsCheck = ["mkdocs_autorefs"];
 
   meta = {
     description = "Automatically link across pages in MkDocs";
     homepage = "https://github.com/mkdocstrings/autorefs/";
     changelog = "https://github.com/mkdocstrings/autorefs/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

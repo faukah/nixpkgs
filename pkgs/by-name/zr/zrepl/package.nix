@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-75fGejR7eiECsm1j3yIU1lAWaW9GrorrVnv8JEzkAtU=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   nativeBuildInputs = [
     makeWrapper
@@ -37,7 +37,7 @@ buildGoModule rec {
       --replace /usr/local/bin/zrepl $out/bin/zrepl
 
     wrapProgram $out/bin/zrepl \
-      --prefix PATH : ${lib.makeBinPath [ openssh ]}
+      --prefix PATH : ${lib.makeBinPath [openssh]}
   '';
 
   passthru.tests = {

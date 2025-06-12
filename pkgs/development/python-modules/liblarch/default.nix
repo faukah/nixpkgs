@@ -10,7 +10,6 @@
   pytest,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "liblarch";
   version = "3.2.0";
@@ -35,9 +34,9 @@ buildPythonPackage rec {
     pytest
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
-  propagatedBuildInputs = [ pygobject3 ];
+  propagatedBuildInputs = [pygobject3];
 
   checkPhase = ''
     runHook preCheck
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/getting-things-gnome/liblarch";
     downloadPage = "https://github.com/getting-things-gnome/liblarch/releases";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ oyren ];
+    maintainers = with maintainers; [oyren];
     platforms = platforms.linux;
   };
 }

@@ -3,13 +3,11 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.nextjs-ollama-llm-ui;
   # we have to override the URL to a Ollama service here, because it gets baked into the web app.
-  nextjs-ollama-llm-ui = cfg.package.override { inherit (cfg) ollamaUrl; };
-in
-{
+  nextjs-ollama-llm-ui = cfg.package.override {inherit (cfg) ollamaUrl;};
+in {
   options = {
     services.nextjs-ollama-llm-ui = {
       enable = lib.mkEnableOption ''
@@ -24,7 +22,7 @@ in
         "services.nextjs-ollama-llm-ui.ollamaUrl" point to the correct url.
         You can host such a backend service with NixOS through "services.ollama".
       '';
-      package = lib.mkPackageOption pkgs "nextjs-ollama-llm-ui" { };
+      package = lib.mkPackageOption pkgs "nextjs-ollama-llm-ui" {};
 
       hostname = lib.mkOption {
         type = lib.types.str;
@@ -66,11 +64,10 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.services = {
-
       nextjs-ollama-llm-ui = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         description = "Nextjs Ollama LLM Ui.";
-        after = [ "network.target" ];
+        after = ["network.target"];
         environment = {
           HOSTNAME = cfg.hostname;
           PORT = toString cfg.port;
@@ -84,5 +81,5 @@ in
       };
     };
   };
-  meta.maintainers = with lib.maintainers; [ malteneuss ];
+  meta.maintainers = with lib.maintainers; [malteneuss];
 }

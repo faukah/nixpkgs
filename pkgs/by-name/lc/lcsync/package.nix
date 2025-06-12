@@ -22,8 +22,8 @@ stdenv.mkDerivation (finalAttrs: {
     librecast
     libsodium
   ];
-  configureFlags = [ "SETCAP_PROGRAM=true" ];
-  installFlags = [ "PREFIX=$(out)" ];
+  configureFlags = ["SETCAP_PROGRAM=true"];
+  installFlags = ["PREFIX=$(out)"];
   doCheck = true;
 
   meta = {

@@ -19,9 +19,7 @@
   zlib,
   # Settings
   debug ? false,
-}:
-
-let
+}: let
   # Nixpkgs moved to argparse 3.x, but we need ~2.9
   argparse_2_9 = argparse.overrideAttrs (oldAttrs: {
     version = "2.9";
@@ -48,61 +46,62 @@ let
 
     buildInputs = oldAttrs.buildInputs ++ lib.singleton xtl;
   });
-
 in
+  clangStdenv.mkDerivation rec {
+    pname = "xeus-cling";
+    version = "0.15.3";
 
-clangStdenv.mkDerivation rec {
-  pname = "xeus-cling";
-  version = "0.15.3";
+    src = fetchFromGitHub {
+      owner = "QuantStack";
+      repo = "xeus-cling";
+      rev = "${version}";
+      hash = "sha256-OfZU+z+p3/a36GntusBfwfFu3ssJW4Fu7SV3SMCoo1I=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "QuantStack";
-    repo = "xeus-cling";
-    rev = "${version}";
-    hash = "sha256-OfZU+z+p3/a36GntusBfwfFu3ssJW4Fu7SV3SMCoo1I=";
-  };
+    patches = [
+      ./0001-Fix-bug-in-extract_filename.patch
+      ./0002-Don-t-pass-extra-includes-configure-this-with-flags.patch
+    ];
 
-  patches = [
-    ./0001-Fix-bug-in-extract_filename.patch
-    ./0002-Don-t-pass-extra-includes-configure-this-with-flags.patch
-  ];
+    nativeBuildInputs = [cmake];
+    buildInputs = [
+      argparse_2_9
+      cling.unwrapped
+      cppzmq
+      libuuid
+      llvmPackages_13.llvm
+      ncurses
+      openssl
+      pugixml
+      xeus_3_2_0
+      xeus-zmq
+      xtl
+      zeromq
+      zlib
+    ];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    argparse_2_9
-    cling.unwrapped
-    cppzmq
-    libuuid
-    llvmPackages_13.llvm
-    ncurses
-    openssl
-    pugixml
-    xeus_3_2_0
-    xeus-zmq
-    xtl
-    zeromq
-    zlib
-  ];
+    cmakeBuildType =
+      if debug
+      then "Debug"
+      else "Release";
 
-  cmakeBuildType = if debug then "Debug" else "Release";
+    postPatch = ''
+      substituteInPlace src/xmagics/executable.cpp \
+        --replace-fail "getDataLayout" "getDataLayoutString"
+      substituteInPlace src/xmagics/execution.cpp \
+        --replace-fail "simplisticCastAs" "castAs"
+      substituteInPlace src/xmime_internal.hpp \
+        --replace-fail "code.str()" "code.str().str()"
+    '';
 
-  postPatch = ''
-    substituteInPlace src/xmagics/executable.cpp \
-      --replace-fail "getDataLayout" "getDataLayoutString"
-    substituteInPlace src/xmagics/execution.cpp \
-      --replace-fail "simplisticCastAs" "castAs"
-    substituteInPlace src/xmime_internal.hpp \
-      --replace-fail "code.str()" "code.str().str()"
-  '';
+    dontStrip = debug;
 
-  dontStrip = debug;
-
-  meta = {
-    description = "Jupyter kernel for the C++ programming language";
-    mainProgram = "xcpp";
-    homepage = "https://github.com/jupyter-xeus/xeus-cling";
-    maintainers = with lib.maintainers; [ thomasjm ];
-    platforms = lib.platforms.unix;
-    license = lib.licenses.mit;
-  };
-}
+    meta = {
+      description = "Jupyter kernel for the C++ programming language";
+      mainProgram = "xcpp";
+      homepage = "https://github.com/jupyter-xeus/xeus-cling";
+      maintainers = with lib.maintainers; [thomasjm];
+      platforms = lib.platforms.unix;
+      license = lib.licenses.mit;
+    };
+  }

@@ -4,7 +4,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "http-scanner";
   version = "1.0.1";
@@ -29,7 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/aymaneallaoui/kafka-http-scanner";
     changelog = "https://github.com/aymaneallaoui/kafka-http-scanner/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "http-scanner";
     broken = stdenv.hostPlatform.isDarwin;
   };

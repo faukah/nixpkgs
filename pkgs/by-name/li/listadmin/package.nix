@@ -6,7 +6,6 @@
   perl,
   installShellFiles,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "listadmin";
   version = "2.73";
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "00333d65ygdbm1hqr4yp2j8vh1cgh3hyfm7iy9y1alf0p0f6aqac";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
   nativeBuildInputs = [
     makeWrapper
     installShellFiles
@@ -32,13 +31,13 @@ stdenvNoCC.mkDerivation rec {
 
     wrapProgram $out/bin/listadmin \
       --prefix PERL5LIB : "${
-        with perl.pkgs;
+      with perl.pkgs;
         makeFullPerlPath [
           TextReform
           NetINET6Glue
           LWPProtocolHttps
         ]
-      }"
+    }"
   '';
 
   doInstallCheck = true;
@@ -58,7 +57,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/listadmin/";
     license = licenses.publicDomain;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ nomeata ];
+    maintainers = with maintainers; [nomeata];
     mainProgram = "listadmin";
   };
 }

@@ -4,7 +4,7 @@
   fetchFromGitHub,
   gitUpdater,
   nixosTests,
-  variants ? [ ],
+  variants ? [],
   suffix ? "",
   longDescription ? ''
     When text is rendered by a computer, sometimes characters are
@@ -17,7 +17,6 @@
     weights, and freely available to all.
   '',
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "noto-fonts${suffix}";
   version = "2025.06.01";
@@ -34,7 +33,7 @@ stdenvNoCC.mkDerivation rec {
     "megamerge" # Experimental fonts created by merging regular notofonts
   ];
 
-  _variants = map (variant: builtins.replaceStrings [ " " ] [ "" ] variant) variants;
+  _variants = map (variant: builtins.replaceStrings [" "] [""] variant) variants;
 
   installPhase =
     ''
@@ -48,37 +47,36 @@ stdenvNoCC.mkDerivation rec {
       install -m444 -Dt $megamerge/share/fonts/truetype/ megamerge/*.ttf
     ''
     + (
-      if _variants == [ ] then
-        ''
-          for folder in $(ls -d fonts/*/); do
-            if [[ -d "$folder"unhinted/variable-ttf ]]; then
-              install -m444 -Dt $out_font "$folder"unhinted/variable-ttf/*.ttf
-            elif [[ -d "$folder"unhinted/otf ]]; then
-              install -m444 -Dt $out_font "$folder"unhinted/otf/*.otf
-            else
-              install -m444 -Dt $out_font "$folder"unhinted/ttf/*.ttf
-            fi
-          done
-        ''
-      else
-        ''
-          for variant in $_variants; do
-            if [[ -d fonts/"$variant"/unhinted/variable-ttf ]]; then
-              install -m444 -Dt $out_font fonts/"$variant"/unhinted/variable-ttf/*.ttf
-            elif [[ -d fonts/"$variant"/unhinted/otf ]]; then
-              install -m444 -Dt $out_font fonts/"$variant"/unhinted/otf/*.otf
-            else
-              install -m444 -Dt $out_font fonts/"$variant"/unhinted/ttf/*.ttf
-            fi
-          done
-        ''
+      if _variants == []
+      then ''
+        for folder in $(ls -d fonts/*/); do
+          if [[ -d "$folder"unhinted/variable-ttf ]]; then
+            install -m444 -Dt $out_font "$folder"unhinted/variable-ttf/*.ttf
+          elif [[ -d "$folder"unhinted/otf ]]; then
+            install -m444 -Dt $out_font "$folder"unhinted/otf/*.otf
+          else
+            install -m444 -Dt $out_font "$folder"unhinted/ttf/*.ttf
+          fi
+        done
+      ''
+      else ''
+        for variant in $_variants; do
+          if [[ -d fonts/"$variant"/unhinted/variable-ttf ]]; then
+            install -m444 -Dt $out_font fonts/"$variant"/unhinted/variable-ttf/*.ttf
+          elif [[ -d fonts/"$variant"/unhinted/otf ]]; then
+            install -m444 -Dt $out_font fonts/"$variant"/unhinted/otf/*.otf
+          else
+            install -m444 -Dt $out_font fonts/"$variant"/unhinted/ttf/*.ttf
+          fi
+        done
+      ''
     );
 
   passthru.updateScript = gitUpdater {
     rev-prefix = "noto-monthly-release-";
   };
 
-  passthru.tests = { inherit (nixosTests) noto-fonts; };
+  passthru.tests = {inherit (nixosTests) noto-fonts;};
 
   meta = {
     description = "Beautiful and free fonts for many languages";

@@ -3,11 +3,9 @@
   buildPythonPackage,
   fetchPypi,
   pythonAtLeast,
-
   # build-system
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "future";
   version = "1.0.0";
@@ -21,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-vSloMJMHhh7a4UWKT4pPNZjAO+Q7l1IQdq6/XZTAewU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   pythonImportsCheck = [
     "future.builtins"
@@ -50,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://python-future.org";
     downloadPage = "https://github.com/PythonCharmers/python-future/releases";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ prikhi ];
+    maintainers = with lib.maintainers; [prikhi];
   };
 }

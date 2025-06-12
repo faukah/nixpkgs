@@ -9,7 +9,6 @@
   setuptools,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "sensorpush-api";
   version = "2.1.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-0cB0F1Clf3rpAOSTa/YcEMchBIQv+0cQwsGE1qlroKA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "urllib3"
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  pythonImportsCheck = [ "sensorpush_api" ];
+  pythonImportsCheck = ["sensorpush_api"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     description = "SensorPush Public API for Python";
     homepage = "https://github.com/sstallion/sensorpush-api";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

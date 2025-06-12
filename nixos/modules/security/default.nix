@@ -1,12 +1,14 @@
-{ config, lib, ... }:
-let
-  cfg = config.security;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.security;
+in {
   options = {
     security.lsm = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         A list of the LSMs to initialize in order.
       '';

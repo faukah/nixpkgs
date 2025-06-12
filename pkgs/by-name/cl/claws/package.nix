@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "claws";
   version = "0.4.1";
@@ -26,7 +25,7 @@ buildGoModule rec {
     homepage = "https://github.com/thehowl/claws";
     description = "Interactive command line client for testing websocket servers";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "claws";
   };
 }

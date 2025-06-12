@@ -6,7 +6,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pure-python-adb";
   version = "0.3.0.dev0";
@@ -20,19 +19,19 @@ buildPythonPackage rec {
   };
 
   optional-dependencies = {
-    async = [ aiofiles ];
+    async = [aiofiles];
   };
 
   doCheck = pythonOlder "3.10"; # all tests result in RuntimeError on 3.10
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.async;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.async;
 
-  pythonImportsCheck = [ "ppadb.client" ] ++ lib.optionals doCheck [ "ppadb.client_async" ];
+  pythonImportsCheck = ["ppadb.client"] ++ lib.optionals doCheck ["ppadb.client_async"];
 
   meta = with lib; {
     description = "Pure python implementation of the adb client";
     homepage = "https://github.com/Swind/pure-python-adb";
     license = licenses.mit;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
   };
 }

@@ -5,7 +5,6 @@
   makeBinaryWrapper,
   jre_headless,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "ltex-ls";
   version = "16.0.0";
@@ -15,7 +14,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-lW1TfTckqhCmhjcvduISY9qAdKPM/0cobxbIrCq5JkQ=";
   };
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -35,7 +34,7 @@ stdenvNoCC.mkDerivation rec {
     description = "LSP language server for LanguageTool";
     license = licenses.mpl20;
     mainProgram = "ltex-ls";
-    maintainers = with maintainers; [ vinnymeller ];
+    maintainers = with maintainers; [vinnymeller];
     platforms = jre_headless.meta.platforms;
   };
 }

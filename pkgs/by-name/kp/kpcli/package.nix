@@ -6,7 +6,6 @@
   perl,
   perlPackages,
 }:
-
 stdenv.mkDerivation rec {
   version = "4.1.3";
   pname = "kpcli";
@@ -16,8 +15,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-yRNj5OB/NSGoZ/aNtgLJW1PcFn5DZu5/8lQlK0F2xi8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perl];
 
   dontUnpack = true;
 
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
 
     makeWrapper $out/share/kpcli.pl $out/bin/kpcli --set PERL5LIB \
       "${
-        with perlPackages;
+      with perlPackages;
         makePerlPath (
           [
             BHooksEndOfScope
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
           ]
           ++ lib.optional stdenv.hostPlatform.isDarwin MacPasteboard
         )
-      }"
+    }"
   '';
 
   meta = with lib; {
@@ -69,6 +68,6 @@ stdenv.mkDerivation rec {
     license = licenses.artistic1;
     homepage = "http://kpcli.sourceforge.net";
     platforms = platforms.all;
-    maintainers = [ maintainers.j-keck ];
+    maintainers = [maintainers.j-keck];
   };
 }

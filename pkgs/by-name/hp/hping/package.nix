@@ -7,7 +7,6 @@
   withTcl ? true,
   tcl,
 }:
-
 stdenv.mkDerivation {
   pname = "hping";
   version = "2014-12-26";
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
     })
   ];
 
-  buildInputs = [ libpcap ] ++ lib.optional withTcl tcl;
+  buildInputs = [libpcap] ++ lib.optional withTcl tcl;
 
   postPatch =
     ''
@@ -45,12 +44,20 @@ stdenv.mkDerivation {
           littleEndian = "__LITTLE_ENDIAN_BITFIELD";
           bigEndian = "__BIG_ENDIAN_BITFIELD";
         }
-        .${stdenv.hostPlatform.parsed.cpu.significantByte.name}
+        .${
+          stdenv.hostPlatform.parsed.cpu.significantByte.name
+        }
       }
       substituteInPlace Makefile.in --replace './hping3 -v' ""
     '';
 
-  configureFlags = [ (if withTcl then "TCLSH=${tcl}/bin/tclsh" else "--no-tcl") ];
+  configureFlags = [
+    (
+      if withTcl
+      then "TCLSH=${tcl}/bin/tclsh"
+      else "--no-tcl"
+    )
+  ];
 
   installPhase = ''
     install -Dm755 hping3 -t $out/sbin

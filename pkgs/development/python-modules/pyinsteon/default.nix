@@ -15,7 +15,6 @@
   setuptools,
   voluptuous,
 }:
-
 buildPythonPackage rec {
   pname = "pyinsteon";
   version = "1.6.3";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-SyhPM3NS7iJX8jwTJ4YWZ72eYLn9JT6eESekPf5eCKI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiofiles
@@ -57,7 +56,7 @@ buildPythonPackage rec {
     "tests/test_handlers/"
   ];
 
-  pythonImportsCheck = [ "pyinsteon" ];
+  pythonImportsCheck = ["pyinsteon"];
 
   meta = with lib; {
     description = "Python library to support Insteon home automation projects";
@@ -68,8 +67,8 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/pyinsteon/pyinsteon";
     changelog = "https://github.com/pyinsteon/pyinsteon/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
     mainProgram = "insteon_tools";
   };
 }

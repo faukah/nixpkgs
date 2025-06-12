@@ -20,7 +20,6 @@
   pytestCheckHook,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "aiosonic";
   version = "0.22.0";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
       "addopts = "
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     charset-normalizer
@@ -62,7 +61,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiosonic" ];
+  pythonImportsCheck = ["aiosonic"];
 
   disabledTests =
     lib.optionals stdenv.hostPlatform.isLinux [
@@ -117,6 +116,6 @@ buildPythonPackage rec {
     description = "Very fast Python asyncio http client";
     license = lib.licenses.mit;
     homepage = "https://github.com/sonic182/aiosonic";
-    maintainers = with lib.maintainers; [ geraldog ];
+    maintainers = with lib.maintainers; [geraldog];
   };
 }

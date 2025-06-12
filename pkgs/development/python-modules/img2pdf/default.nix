@@ -19,7 +19,6 @@
   runCommand,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "img2pdf";
   version = "0.6.1";
@@ -36,17 +35,17 @@ buildPythonPackage rec {
   patches = [
     (replaceVars ./default-icc-profile.patch {
       srgbProfile =
-        if stdenv.hostPlatform.isDarwin then
-          "/System/Library/ColorSync/Profiles/sRGB Profile.icc"
+        if stdenv.hostPlatform.isDarwin
+        then "/System/Library/ColorSync/Profiles/sRGB Profile.icc"
         else
           # break runtime dependency chain all of colord dependencies
-          runCommand "sRGC.icc" { } ''
+          runCommand "sRGC.icc" {} ''
             cp ${colord}/share/color/icc/colord/sRGB.icc $out
           '';
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pikepdf
@@ -85,7 +84,7 @@ buildPythonPackage rec {
     "test_png_rgb16"
   ];
 
-  pythonImportsCheck = [ "img2pdf" ];
+  pythonImportsCheck = ["img2pdf"];
 
   meta = {
     changelog = "https://gitlab.mister-muffin.de/josch/img2pdf/src/tag/${src.tag}/CHANGES.rst";

@@ -5,7 +5,6 @@
   cmake,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nettee";
   version = "0.3.5";
@@ -15,9 +14,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-WeZ18CLexdWy8RlHNh0Oo/6KXxzShZT8/xklAWyB8ss=";
   };
 
-  patches = [ ./fix-cmake-output.patch ];
+  patches = [./fix-cmake-output.patch];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # additional shell scripts require accudate (not in nixpkgs)
   postInstall = ''
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://sourceforge.net/projects/nettee";
     description = ''Network "tee" program'';
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ Profpatsch ];
+    maintainers = with lib.maintainers; [Profpatsch];
     platforms = lib.platforms.linux;
     mainProgram = "nettee";
   };

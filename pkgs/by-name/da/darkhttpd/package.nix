@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "darkhttpd";
   version = "1.16";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     mainProgram = "darkhttpd";
     homepage = "https://unix4lyfe.org/darkhttpd/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bobvanderlinden ];
+    maintainers = with maintainers; [bobvanderlinden];
     platforms = platforms.all;
   };
 }

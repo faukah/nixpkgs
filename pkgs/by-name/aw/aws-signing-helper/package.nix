@@ -33,6 +33,6 @@ buildGoModule rec {
     changelog = "https://github.com/aws/rolesanywhere-credential-helper/releases/tag/v${version}";
     license = lib.licenses.asl20;
     mainProgram = "aws_signing_helper";
-    maintainers = with lib.maintainers; [ pandanz ];
+    maintainers = with lib.maintainers; [pandanz];
   };
 }

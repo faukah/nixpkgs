@@ -13,7 +13,6 @@
   requests-wsgi-adapter,
   trustme,
 }:
-
 buildPythonPackage rec {
   pname = "unearth";
   version = "0.17.5";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-oZ4cAuZLQFGNCIB5x0FvxBtFpki4GkEoqsAllyNO5ro=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     packaging
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     trustme
   ];
 
-  pythonImportsCheck = [ "unearth" ];
+  pythonImportsCheck = ["unearth"];
 
   meta = with lib; {
     description = "Utility to fetch and download Python packages";
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/frostming/unearth";
     changelog = "https://github.com/frostming/unearth/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ betaboon ];
+    maintainers = with maintainers; [betaboon];
   };
 }

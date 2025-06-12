@@ -23,7 +23,6 @@
   makeDesktopItem,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "yarg";
   version = "0.12.6";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Za+CnuSTfJZVdW0pWvGDnKcbhZsgtNPRWYj1qOA8+Zs=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   buildInputs = [
     # Load-time libraries (loaded from DT_NEEDED section in ELF binary)
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     comment = finalAttrs.meta.description;
     icon = "yarg";
     exec = "yarg";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 
   installPhase = ''
@@ -114,14 +113,14 @@ stdenv.mkDerivation (finalAttrs: {
       "$out/libexec/yarg/UnityPlayer.so"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Free, open-source, plastic guitar game";
     homepage = "https://yarg.in";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ kira-bruneau ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    maintainers = with maintainers; [kira-bruneau];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 })

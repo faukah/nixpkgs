@@ -9,12 +9,11 @@
   python312,
   stdenv,
   lib,
-}:
-prevAttrs: {
+}: prevAttrs: {
   buildInputs =
-    prevAttrs.buildInputs or [ ]
+    prevAttrs.buildInputs or []
     # x86_64 only needs gmp from 12.0 and on
-    ++ lib.lists.optionals (cudaAtLeast "12.0") [ gmp ]
+    ++ lib.lists.optionals (cudaAtLeast "12.0") [gmp]
     # Additional dependencies for CUDA 12.5 and later, which
     # support multiple Python versions.
     ++ lib.lists.optionals (cudaAtLeast "12.5") [
@@ -25,7 +24,7 @@ prevAttrs: {
       python312
     ]
     # aarch64,sbsa needs expat
-    ++ lib.lists.optionals (stdenv.hostPlatform.isAarch64) [ expat ];
+    ++ lib.lists.optionals (stdenv.hostPlatform.isAarch64) [expat];
 
   installPhase =
     prevAttrs.installPhase or ""

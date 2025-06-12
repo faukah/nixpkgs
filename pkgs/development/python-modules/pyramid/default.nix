@@ -19,7 +19,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyramid";
   version = "2.0.2";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     hupper
@@ -62,13 +61,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyramid" ];
+  pythonImportsCheck = ["pyramid"];
 
   meta = with lib; {
     description = "Python web framework";
     homepage = "https://trypyramid.com/";
     changelog = "https://github.com/Pylons/pyramid/blob/${version}/CHANGES.rst";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

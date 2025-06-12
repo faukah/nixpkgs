@@ -35,7 +35,6 @@
   wsproto,
   zstandard,
 }:
-
 buildPythonPackage rec {
   pname = "mitmproxy";
   version = "12.1.1";
@@ -56,7 +55,7 @@ buildPythonPackage rec {
     "tornado"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aioquic
@@ -138,13 +137,13 @@ buildPythonPackage rec {
 
   dontUsePytestXdist = true;
 
-  pythonImportsCheck = [ "mitmproxy" ];
+  pythonImportsCheck = ["mitmproxy"];
 
   meta = with lib; {
     description = "Man-in-the-middle proxy";
     homepage = "https://mitmproxy.org/";
     changelog = "https://github.com/mitmproxy/mitmproxy/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

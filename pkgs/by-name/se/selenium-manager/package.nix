@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "selenium-manager";
   version = "4.29.0";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     description = "Browser automation framework and ecosystem";
     homepage = "https://github.com/SeleniumHQ/selenium";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "selenium-manager";
     platforms = platforms.all;
   };

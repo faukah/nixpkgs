@@ -3,13 +3,12 @@
   lib,
   mkDerivation,
 }:
-
 mkDerivation {
   path = "share/mk";
   noCC = true;
 
-  buildInputs = [ ];
-  nativeBuildInputs = [ ];
+  buildInputs = [];
+  nativeBuildInputs = [];
 
   dontBuild = true;
 
@@ -26,7 +25,7 @@ mkDerivation {
       name = "nolibstatic-support.patch";
       url = "https://marc.info/?l=openbsd-tech&m=171972639411562&q=raw";
       hash = "sha256-p4izV6ZXkfgJud+ZZU1Wqr5qFuHUzE6qVXM7QnXvV3k=";
-      includes = [ "share/mk/*" ];
+      includes = ["share/mk/*"];
     })
   ];
 

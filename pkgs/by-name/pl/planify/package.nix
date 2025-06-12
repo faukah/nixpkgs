@@ -26,7 +26,6 @@
   sqlite,
   webkitgtk_6_0,
 }:
-
 stdenv.mkDerivation rec {
   pname = "planify";
   version = "4.12.0";
@@ -77,7 +76,7 @@ stdenv.mkDerivation rec {
     description = "Task manager with Todoist support designed for GNU/Linux";
     homepage = "https://github.com/alainm23/planify";
     license = licenses.gpl3Plus;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     mainProgram = "io.github.alainm23.planify";
   };

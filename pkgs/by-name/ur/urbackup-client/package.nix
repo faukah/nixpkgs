@@ -6,7 +6,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "urbackup-client";
   version = "2.5.25";
@@ -41,6 +40,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.urbackup.org/index.html";
     license = licenses.agpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.mgttlinger ];
+    maintainers = [maintainers.mgttlinger];
   };
 }

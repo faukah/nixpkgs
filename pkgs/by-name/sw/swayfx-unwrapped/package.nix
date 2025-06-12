@@ -34,7 +34,6 @@
   systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
   trayEnabled ? systemdSupport,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   inherit
     enableXWayland
@@ -73,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
     ];
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -83,40 +82,43 @@ stdenv.mkDerivation (finalAttrs: {
     wayland-scanner
   ];
 
-  buildInputs = [
-    cairo
-    gdk-pixbuf
-    json_c
-    libdrm
-    libevdev
-    libGL
-    libinput
-    librsvg
-    libxkbcommon
-    pango
-    pcre2
-    scenefx
-    wayland
-    wayland-protocols
-    (wlroots_0_18.override { inherit (finalAttrs) enableXWayland; })
-  ] ++ lib.optionals finalAttrs.enableXWayland [ xcbutilwm ];
-
-  mesonFlags =
-    let
-      inherit (lib.strings) mesonEnable mesonOption;
-
-      # The "sd-bus-provider" meson option does not include a "none" option,
-      # but it is silently ignored iff "-Dtray=disabled".  We use "basu"
-      # (which is not in nixpkgs) instead of "none" to alert us if this
-      # changes: https://github.com/swaywm/sway/issues/6843#issuecomment-1047288761
-      # assert trayEnabled -> systemdSupport && dbusSupport;
-
-      sd-bus-provider = if systemdSupport then "libsystemd" else "basu";
-    in
+  buildInputs =
     [
-      (mesonOption "sd-bus-provider" sd-bus-provider)
-      (mesonEnable "tray" finalAttrs.trayEnabled)
-    ];
+      cairo
+      gdk-pixbuf
+      json_c
+      libdrm
+      libevdev
+      libGL
+      libinput
+      librsvg
+      libxkbcommon
+      pango
+      pcre2
+      scenefx
+      wayland
+      wayland-protocols
+      (wlroots_0_18.override {inherit (finalAttrs) enableXWayland;})
+    ]
+    ++ lib.optionals finalAttrs.enableXWayland [xcbutilwm];
+
+  mesonFlags = let
+    inherit (lib.strings) mesonEnable mesonOption;
+
+    # The "sd-bus-provider" meson option does not include a "none" option,
+    # but it is silently ignored iff "-Dtray=disabled".  We use "basu"
+    # (which is not in nixpkgs) instead of "none" to alert us if this
+    # changes: https://github.com/swaywm/sway/issues/6843#issuecomment-1047288761
+    # assert trayEnabled -> systemdSupport && dbusSupport;
+
+    sd-bus-provider =
+      if systemdSupport
+      then "libsystemd"
+      else "basu";
+  in [
+    (mesonOption "sd-bus-provider" sd-bus-provider)
+    (mesonEnable "tray" finalAttrs.trayEnabled)
+  ];
 
   passthru = {
     tests = {

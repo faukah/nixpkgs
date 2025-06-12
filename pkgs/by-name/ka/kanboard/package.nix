@@ -6,7 +6,6 @@
   nix-update-script,
   php,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "kanboard";
   version = "1.2.45";
@@ -30,7 +29,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = lib.optionalAttrs stdenvNoCC.hostPlatform.isLinux {
       inherit (nixosTests) kanboard;
     };
@@ -41,6 +40,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Kanban project management software";
     homepage = "https://kanboard.org";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ yzx9 ];
+    maintainers = with lib.maintainers; [yzx9];
   };
 })

@@ -8,7 +8,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pulp";
   version = "2.8.0";
@@ -34,15 +33,15 @@ buildPythonPackage rec {
     pyparsing
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pulp" ];
+  pythonImportsCheck = ["pulp"];
 
   meta = with lib; {
     description = "Module to generate MPS or LP files";
     mainProgram = "pulptest";
     homepage = "https://github.com/coin-or/pulp";
     license = licenses.mit;
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
   };
 }

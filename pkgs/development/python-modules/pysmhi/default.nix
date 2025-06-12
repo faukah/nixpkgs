@@ -10,7 +10,6 @@
   pytestCheckHook,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "pysmhi";
   version = "1.0.2";
@@ -23,13 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-9jsSvitxcjH2oFCdSm1203UwG5xjOwQDTaU4Z9Cqs+A=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
   ];
 
-  pythonImportsCheck = [ "pysmhi" ];
+  pythonImportsCheck = ["pysmhi"];
 
   nativeCheckInputs = [
     aresponses
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Retrieve open data from SMHI api";
     homepage = "https://github.com/gjohansson-ST/pysmhi";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

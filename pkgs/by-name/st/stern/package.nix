@@ -8,7 +8,6 @@
   stern,
   testers,
 }:
-
 buildGoModule rec {
   pname = "stern";
   version = "1.32.0";
@@ -22,7 +21,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-pIjDx/6n2Vw8f2puQAbI+Bl5dwQp2GF0ie4ToSIguts=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -30,18 +29,19 @@ buildGoModule rec {
     "-X github.com/stern/stern/cmd.version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  postInstall =
-    let
-      stern = if stdenv.buildPlatform.canExecute stdenv.hostPlatform then "$out" else buildPackages.stern;
-    in
-    ''
-      for shell in bash zsh fish; do
-        ${stern}/bin/stern --completion $shell > stern.$shell
-        installShellCompletion stern.$shell
-      done
-    '';
+  postInstall = let
+    stern =
+      if stdenv.buildPlatform.canExecute stdenv.hostPlatform
+      then "$out"
+      else buildPackages.stern;
+  in ''
+    for shell in bash zsh fish; do
+      ${stern}/bin/stern --completion $shell > stern.$shell
+      installShellCompletion stern.$shell
+    done
+  '';
 
   passthru.tests.version = testers.testVersion {
     package = stern;

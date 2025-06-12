@@ -6,7 +6,6 @@
   pokete,
   faketty,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "pokete";
   version = "0.9.1";
@@ -53,6 +52,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "pokete";
     homepage = "https://lxgr-linux.github.io/pokete";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

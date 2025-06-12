@@ -4,7 +4,6 @@
   stdenv,
   undmg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "syncthing-macos";
   version = "1.29.2-2";
@@ -14,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-KbUpc2gymxkhkpSvIpy2fF3xAKsDqHHwlfUB8BF8+Sc=";
   };
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = "Syncthing.app";
 
@@ -31,9 +30,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Official frugal and native macOS Syncthing application bundle";
     homepage = "https://github.com/syncthing/syncthing-macos";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ Enzime ];
-    hydraPlatforms = [ ]; # no building required
+    maintainers = with lib.maintainers; [Enzime];
+    hydraPlatforms = []; # no building required
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

@@ -4,7 +4,6 @@
   php,
   versionCheckHook,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "phpmd";
   version = "2.15.0";
@@ -21,7 +20,7 @@ php.buildComposerProject2 (finalAttrs: {
   composerLock = ./composer.lock;
   vendorHash = "sha256-AahAs3Gq1OQ+CW3+rU8NnWcR3hKzVNq7s3llsO4mQ38=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
@@ -31,6 +30,6 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://phpmd.org/";
     license = lib.licenses.bsd3;
     mainProgram = "phpmd";
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 })

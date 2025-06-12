@@ -12,9 +12,7 @@
   stdenv,
   testers,
   vulkan-loader,
-}:
-
-let
+}: let
   description = "OpenGL and Vulkan Benchmark and Stress Test";
 
   versions = {
@@ -38,77 +36,79 @@ let
     };
   };
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "furmark";
-  version =
-    versions.${stdenv.hostPlatform.system}
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "furmark";
+    version =
+      versions.${stdenv.hostPlatform.system}
       or (throw "Furmark is not available on ${stdenv.hostPlatform.system}");
 
-  src = fetchzip sources.${stdenv.hostPlatform.system};
+    src = fetchzip sources.${stdenv.hostPlatform.system};
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    copyDesktopItems
-    makeWrapper
-  ];
-
-  buildInputs = [
-    libGL
-    libGLU
-  ] ++ lib.optionals stdenv.hostPlatform.isAarch64 [ libxcrypt-legacy ];
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/share/furmark
-    cp -rp * $out/share/furmark
-
-    mkdir -p $out/bin
-    for i in $(find $out/share/furmark -maxdepth 1 -type f -executable); do
-      ln -s "$i" "$out/bin/$(basename "$i")"
-    done
-
-    runHook postInstall
-  '';
-
-  appendRunpaths = [ (lib.makeLibraryPath [ vulkan-loader ]) ];
-
-  desktopItems = [
-    (makeDesktopItem rec {
-      name = "FurMark";
-      exec = "FurMark_GUI";
-      comment = description;
-      desktopName = name;
-      genericName = name;
-      icon = fetchurl {
-        url = "https://www.geeks3d.com/furmark/i/20240220-furmark-logo-02.png";
-        hash = "sha256-EqhWQgTEmF/2AcqDxgGtr2m5SMYup28hPEhI6ssFw7g=";
-      };
-      categories = [
-        "System"
-        "Monitor"
-      ];
-    })
-  ];
-
-  passthru = {
-    tests.version = testers.testVersion {
-      package = finalAttrs.finalPackage;
-      command = "furmark --version";
-    };
-  };
-
-  meta = {
-    homepage = "https://www.geeks3d.com/furmark/v2/";
-    license = lib.licenses.unfree;
-    mainProgram = "FurMark_GUI";
-    maintainers = with lib.maintainers; [ surfaceflinger ];
-    platforms = [
-      "aarch64-linux"
-      "i686-linux"
-      "x86_64-linux"
+    nativeBuildInputs = [
+      autoPatchelfHook
+      copyDesktopItems
+      makeWrapper
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    inherit description;
-  };
-})
+
+    buildInputs =
+      [
+        libGL
+        libGLU
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isAarch64 [libxcrypt-legacy];
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/share/furmark
+      cp -rp * $out/share/furmark
+
+      mkdir -p $out/bin
+      for i in $(find $out/share/furmark -maxdepth 1 -type f -executable); do
+        ln -s "$i" "$out/bin/$(basename "$i")"
+      done
+
+      runHook postInstall
+    '';
+
+    appendRunpaths = [(lib.makeLibraryPath [vulkan-loader])];
+
+    desktopItems = [
+      (makeDesktopItem rec {
+        name = "FurMark";
+        exec = "FurMark_GUI";
+        comment = description;
+        desktopName = name;
+        genericName = name;
+        icon = fetchurl {
+          url = "https://www.geeks3d.com/furmark/i/20240220-furmark-logo-02.png";
+          hash = "sha256-EqhWQgTEmF/2AcqDxgGtr2m5SMYup28hPEhI6ssFw7g=";
+        };
+        categories = [
+          "System"
+          "Monitor"
+        ];
+      })
+    ];
+
+    passthru = {
+      tests.version = testers.testVersion {
+        package = finalAttrs.finalPackage;
+        command = "furmark --version";
+      };
+    };
+
+    meta = {
+      homepage = "https://www.geeks3d.com/furmark/v2/";
+      license = lib.licenses.unfree;
+      mainProgram = "FurMark_GUI";
+      maintainers = with lib.maintainers; [surfaceflinger];
+      platforms = [
+        "aarch64-linux"
+        "i686-linux"
+        "x86_64-linux"
+      ];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      inherit description;
+    };
+  })

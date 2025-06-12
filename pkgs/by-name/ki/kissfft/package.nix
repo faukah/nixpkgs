@@ -14,7 +14,6 @@
   enableOpenmp ? false,
   llvmPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kissfft-${datatype}${lib.optionalString enableOpenmp "-openmp"}";
   version = "131.1.0";
@@ -45,13 +44,19 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs =
-    lib.optionals (datatype != "simd") [ libpng ]
+    lib.optionals (datatype != "simd") [libpng]
     # TODO: This may mismatch the LLVM version in the stdenv, see #79818.
     ++ lib.optional (enableOpenmp && stdenv.cc.isClang) llvmPackages.openmp;
 
-  nativeCheckInputs = [ (python3.withPackages (ps: [ ps.numpy ])) ];
+  nativeCheckInputs = [(python3.withPackages (ps: [ps.numpy]))];
 
-  checkInputs = [ (if datatype == "float" then fftwFloat else fftw) ];
+  checkInputs = [
+    (
+      if datatype == "float"
+      then fftwFloat
+      else fftw
+    )
+  ];
 
   cmakeFlags = [
     (lib.cmakeFeature "KISSFFT_DATATYPE" datatype)
@@ -70,17 +75,17 @@ stdenv.mkDerivation (finalAttrs: {
   # https://bugs.llvm.org/show_bug.cgi?id=45034
   postPatch =
     lib.optionalString
-      (stdenv.hostPlatform.isLinux && stdenv.cc.isClang && lib.versionOlder stdenv.cc.version "10")
-      ''
-        substituteInPlace CMakeLists.txt \
-          --replace "-ffast-math" ""
-      '';
+    (stdenv.hostPlatform.isLinux && stdenv.cc.isClang && lib.versionOlder stdenv.cc.version "10")
+    ''
+      substituteInPlace CMakeLists.txt \
+        --replace "-ffast-math" ""
+    '';
 
   meta = {
     description = "Mixed-radix Fast Fourier Transform based up on the KISS principle";
     homepage = "https://github.com/mborgerding/kissfft";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 })

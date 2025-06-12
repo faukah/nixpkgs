@@ -5,7 +5,6 @@
   pbr,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-apidoc";
   version = "0.5.0";
@@ -29,12 +28,12 @@ buildPythonPackage rec {
   # Check is disabled due to circular dependency of sphinx
   doCheck = false;
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     description = "Sphinx extension for running sphinx-apidoc on each build";
     homepage = "https://github.com/sphinx-contrib/apidoc";
     license = licenses.bsd2;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

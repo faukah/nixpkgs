@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation {
   pname = "flip";
   version = "1.2";
@@ -26,7 +25,7 @@ stdenv.mkDerivation {
     description = "Tool for visualizing and communicating the errors in rendered images";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ zmitchell ];
+    maintainers = with maintainers; [zmitchell];
     mainProgram = "flip";
   };
 }

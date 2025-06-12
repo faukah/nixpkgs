@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sarasa-gothic";
   version = "1.0.30";
@@ -18,7 +17,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall

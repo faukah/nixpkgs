@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "grafana-to-ntfy";
   version = "0-unstable-2025-01-25";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/kittyandrew/grafana-to-ntfy";
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ kranzes ];
+    maintainers = with lib.maintainers; [kranzes];
     mainProgram = "grafana-to-ntfy";
   };
 }

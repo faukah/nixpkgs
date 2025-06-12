@@ -15,10 +15,10 @@ mkLibretroCore {
     hash = "sha256-ZPzwUBaxs2ivE9n9cb5XB5mhixY9b6qIlq7OiVSLbqg=";
   };
 
-  extraNativeBuildInputs = [ which ];
+  extraNativeBuildInputs = [which];
   dontConfigure = true;
   # zlib is already included in mkLibretroCore as buildInputs
-  makeFlags = [ "EXTERNAL_ZLIB=1" ];
+  makeFlags = ["EXTERNAL_ZLIB=1"];
 
   meta = {
     description = "Port of Hatari to libretro";

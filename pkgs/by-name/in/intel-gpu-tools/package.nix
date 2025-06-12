@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitLab,
-
   # build time
   bison,
   docbook_xsl,
@@ -13,7 +12,6 @@
   ninja,
   pkg-config,
   utilmacros,
-
   # runtime
   alsa-lib,
   cairo,
@@ -40,7 +38,6 @@
   xmlrpc_c,
   xorgproto,
 }:
-
 stdenv.mkDerivation rec {
   pname = "intel-gpu-tools";
   version = "2.0";
@@ -96,7 +93,7 @@ stdenv.mkDerivation rec {
     patchShebangs lib man scripts tests
   '';
 
-  hardeningDisable = [ "bindnow" ];
+  hardeningDisable = ["bindnow"];
 
   meta = {
     changelog = "https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/blob/v${version}/NEWS";
@@ -107,6 +104,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = with lib.maintainers; [ pSub ];
+    maintainers = with lib.maintainers; [pSub];
   };
 }

@@ -4,14 +4,10 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   pkg = pkgs.nixops-dns;
   cfg = config.services.nixops-dns;
-in
-
-{
+in {
   options = {
     services.nixops-dns = {
       enable = mkOption {
@@ -51,14 +47,13 @@ in
           while forwarding the rest of the queries to original resolvers.
         '';
       };
-
     };
   };
 
   config = mkIf cfg.enable {
     systemd.services.nixops-dns = {
       description = "nixops-dns: DNS server for resolving NixOps machines";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -78,6 +73,5 @@ in
         listen-address = "127.0.0.1";
       };
     };
-
   };
 }

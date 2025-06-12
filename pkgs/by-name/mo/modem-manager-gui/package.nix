@@ -16,7 +16,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "modem-manager-gui";
   version = "0.0.20";

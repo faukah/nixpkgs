@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   anyio,
   asyncpg,
@@ -29,7 +27,6 @@
   time-machine,
   trio,
   typing-extensions,
-
   # tests
   pytestCheckHook,
   pytest-lazy-fixtures,
@@ -40,7 +37,6 @@
   pytest-rerunfailures,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "litestar";
   version = "2.13.0";
@@ -104,7 +100,7 @@ buildPythonPackage rec {
   meta = {
     homepage = "https://litestar.dev/";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     changelog = "https://github.com/litestar-org/litestar/releases/tag/v${version}";
     description = "Production-ready, Light, Flexible and Extensible ASGI API framework";
     license = lib.licenses.mit;

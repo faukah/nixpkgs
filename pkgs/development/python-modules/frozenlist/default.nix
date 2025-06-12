@@ -10,7 +10,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "frozenlist";
   version = "1.5.0";
@@ -37,19 +36,19 @@ buildPythonPackage rec {
     wheel
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preBuild = ''
     cython frozenlist/_frozenlist.pyx
   '';
 
-  pythonImportsCheck = [ "frozenlist" ];
+  pythonImportsCheck = ["frozenlist"];
 
   meta = with lib; {
     description = "Python module for list-like structure";
     homepage = "https://github.com/aio-libs/frozenlist";
     changelog = "https://github.com/aio-libs/frozenlist/blob/v${version}/CHANGES.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

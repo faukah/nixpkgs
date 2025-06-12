@@ -6,7 +6,6 @@
   fetchFromGitHub,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "red";
   version = "0.6.4";
@@ -95,7 +94,7 @@ stdenv.mkDerivation rec {
       concurrency and multi-core CPUs
     '';
     mainProgram = "red";
-    maintainers = with maintainers; [ uralbash ];
+    maintainers = with maintainers; [uralbash];
     platforms = [
       "i686-linux"
       "x86_64-linux"

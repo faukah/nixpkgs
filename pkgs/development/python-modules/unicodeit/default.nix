@@ -5,7 +5,6 @@
   fetchpatch,
   pytestCheckHook,
   runCommand,
-
   setuptools,
   unicodeit,
 }:
@@ -29,8 +28,8 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  build-system = [setuptools];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "unicodeit"
@@ -39,14 +38,14 @@ buildPythonPackage rec {
 
   passthru.tests.entrypoint =
     runCommand "python3-unicodeit-test-entrypoint"
-      {
-        nativeBuildInputs = [ unicodeit ];
-        preferLocalBuild = true;
-      }
-      ''
-        [[ "$(unicodeit "\BbbR")" = "ℝ" ]]
-        touch $out
-      '';
+    {
+      nativeBuildInputs = [unicodeit];
+      preferLocalBuild = true;
+    }
+    ''
+      [[ "$(unicodeit "\BbbR")" = "ℝ" ]]
+      touch $out
+    '';
 
   meta = {
     description = "Converts LaTeX tags to unicode";
@@ -56,6 +55,6 @@ buildPythonPackage rec {
       lppl13c
       mit
     ];
-    maintainers = with lib.maintainers; [ nicoo ];
+    maintainers = with lib.maintainers; [nicoo];
   };
 }

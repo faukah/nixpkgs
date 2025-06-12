@@ -4,8 +4,7 @@
   stdenv,
   python3,
   makeWrapper,
-}:
-let
+}: let
   pythonEnv = python3.buildEnv.override {
     extraLibs = with python3.pkgs; [
       tkinter
@@ -22,42 +21,42 @@ let
     ignoreCollisions = true;
   };
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "edmarketconnector";
-  version = "5.13.1";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "edmarketconnector";
+    version = "5.13.1";
 
-  src = fetchFromGitHub {
-    owner = "EDCD";
-    repo = "EDMarketConnector";
-    tag = "Release/${finalAttrs.version}";
-    hash = "sha256-50OPbAXrDKodN0o6UibGUmMqQ/accF2/gNHnms+8rOI=";
-  };
+    src = fetchFromGitHub {
+      owner = "EDCD";
+      repo = "EDMarketConnector";
+      tag = "Release/${finalAttrs.version}";
+      hash = "sha256-50OPbAXrDKodN0o6UibGUmMqQ/accF2/gNHnms+8rOI=";
+    };
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  installPhase = ''
-    runHook preInstallPhase
+    installPhase = ''
+      runHook preInstallPhase
 
-    mkdir -p $out/share/icons/hicolor/512x512/apps/
-    ln -s ${finalAttrs.src}/io.edcd.EDMarketConnector.png $out/share/icons/hicolor/512x512/apps/io.edcd.EDMarketConnector.png
+      mkdir -p $out/share/icons/hicolor/512x512/apps/
+      ln -s ${finalAttrs.src}/io.edcd.EDMarketConnector.png $out/share/icons/hicolor/512x512/apps/io.edcd.EDMarketConnector.png
 
-    mkdir -p "$out/share/applications/"
-    ln -s "${finalAttrs.src}/io.edcd.EDMarketConnector.desktop" "$out/share/applications/"
+      mkdir -p "$out/share/applications/"
+      ln -s "${finalAttrs.src}/io.edcd.EDMarketConnector.desktop" "$out/share/applications/"
 
-    makeWrapper ${pythonEnv}/bin/python $out/bin/edmarketconnector \
-      --add-flags "${finalAttrs.src}/EDMarketConnector.py $@"
+      makeWrapper ${pythonEnv}/bin/python $out/bin/edmarketconnector \
+        --add-flags "${finalAttrs.src}/EDMarketConnector.py $@"
 
-    runHook postInstallPhase
-  '';
+      runHook postInstallPhase
+    '';
 
-  meta = {
-    homepage = "https://github.com/EDCD/EDMarketConnector";
-    description = "Uploads Elite: Dangerous market data to popular trading tools";
-    longDescription = "Downloads commodity market and other station data from the game Elite: Dangerous for use with all popular online and offline trading tools.";
-    changelog = "https://github.com/EDCD/EDMarketConnector/releases/tag/Release%2F${finalAttrs.version}";
-    license = lib.licenses.gpl2Only;
-    platforms = lib.platforms.x86_64;
-    mainProgram = "edmarketconnector";
-    maintainers = with lib.maintainers; [ jiriks74 ];
-  };
-})
+    meta = {
+      homepage = "https://github.com/EDCD/EDMarketConnector";
+      description = "Uploads Elite: Dangerous market data to popular trading tools";
+      longDescription = "Downloads commodity market and other station data from the game Elite: Dangerous for use with all popular online and offline trading tools.";
+      changelog = "https://github.com/EDCD/EDMarketConnector/releases/tag/Release%2F${finalAttrs.version}";
+      license = lib.licenses.gpl2Only;
+      platforms = lib.platforms.x86_64;
+      mainProgram = "edmarketconnector";
+      maintainers = with lib.maintainers; [jiriks74];
+    };
+  })

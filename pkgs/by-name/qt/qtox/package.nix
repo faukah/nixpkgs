@@ -22,7 +22,6 @@
   qt6,
   sqlcipher,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qtox";
   version = "1.18.3";
@@ -54,12 +53,14 @@ stdenv.mkDerivation rec {
     sqlcipher
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    qt6.qttools
-    qt6.wrapQtAppsHook
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ perl ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      qt6.qttools
+      qt6.wrapQtAppsHook
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [perl];
 
   cmakeFlags = [
     "-DGIT_DESCRIBE=v${version}"

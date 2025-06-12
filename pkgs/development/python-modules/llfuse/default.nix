@@ -12,7 +12,6 @@
   setuptools,
   which,
 }:
-
 buildPythonPackage rec {
   pname = "llfuse";
   version = "1.5.1";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ fuse ];
+  buildInputs = [fuse];
 
   preConfigure = ''
     substituteInPlace setup.py \

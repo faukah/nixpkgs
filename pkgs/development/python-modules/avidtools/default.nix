@@ -9,7 +9,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "avidtools";
   version = "0.1.2";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     sed -i "/'typing'/d" setup.py
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     datetime
@@ -38,12 +37,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "avidtools" ];
+  pythonImportsCheck = ["avidtools"];
 
   meta = with lib; {
     description = "Developer tools for AVID";
     homepage = "https://github.com/avidml/avidtools";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

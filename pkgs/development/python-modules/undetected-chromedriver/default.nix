@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   setuptools,
-
   looseversion,
   requests,
   selenium,
   websockets,
 }:
-
 buildPythonPackage {
   pname = "undetected-chromedriver";
   version = "3.5.5";
@@ -24,7 +21,7 @@ buildPythonPackage {
     hash = "sha256-Qe+GrsUPnhjJMDgjdUCloapjj0ggFlm/Dr42WLcmb1o=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     looseversion
@@ -36,7 +33,7 @@ buildPythonPackage {
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "undetected_chromedriver" ];
+  pythonImportsCheck = ["undetected_chromedriver"];
 
   postPatch = ''
     substituteInPlace undetected_chromedriver/patcher.py \
@@ -49,6 +46,6 @@ buildPythonPackage {
     description = "Python library for the custom Selenium ChromeDriver that passes all bot mitigation systems";
     homepage = "https://github.com/ultrafunkamsterdam/undetected-chromedriver";
     license = licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ paveloom ];
+    maintainers = with lib.maintainers; [paveloom];
   };
 }

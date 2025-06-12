@@ -24,7 +24,6 @@
   enableSound ? tileMode,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "crawl${lib.optionalString tileMode "-tiles"}";
   version = "0.32.1";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
       sqlite
       ncurses
     ]
-    ++ (with python3.pkgs; [ pyyaml ])
+    ++ (with python3.pkgs; [pyyaml])
     ++ lib.optionals tileMode [
       libpng
       SDL2
@@ -135,6 +134,6 @@ stdenv.mkDerivation rec {
       licenses.zlib
       cc0
     ];
-    maintainers = [ maintainers.abbradar ];
+    maintainers = [maintainers.abbradar];
   };
 }

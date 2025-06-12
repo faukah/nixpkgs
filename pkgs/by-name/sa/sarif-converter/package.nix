@@ -6,7 +6,6 @@
   sarif-converter,
   testers,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "sarif-converter";
   version = "0.9.4";
@@ -34,14 +33,14 @@ buildGoModule (finalAttrs: {
     tests.version = testers.testVersion {
       package = sarif-converter;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Convert from [SARIF](https://sarifweb.azurewebsites.net/) to GitLab Code Quality and SAST report";
     homepage = "https://gitlab.com/ignis-build/sarif-converter";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
     mainProgram = "sarif-converter";
   };
 })

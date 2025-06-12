@@ -5,7 +5,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hare-json";
   version = "0-unstable-2024-04-19";
@@ -17,17 +16,17 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-mgUzHGXbaJdWm7qUn7mWdDUQBgbEjh42O+Lo0ok80Wo=";
   };
 
-  nativeBuildInputs = [ hareHook ];
+  nativeBuildInputs = [hareHook];
 
-  makeFlags = [ "PREFIX=${builtins.placeholder "out"}" ];
+  makeFlags = ["PREFIX=${builtins.placeholder "out"}"];
 
   doCheck = true;
 
   meta = with lib; {
     homepage = "https://git.sr.ht/~sircmpwn/hare-json/";
     description = "This package provides JSON support for Hare";
-    license = with licenses; [ mpl20 ];
-    maintainers = with maintainers; [ starzation ];
+    license = with licenses; [mpl20];
+    maintainers = with maintainers; [starzation];
     inherit (harec.meta) platforms badPlatforms;
   };
 })

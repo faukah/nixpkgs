@@ -22,7 +22,6 @@
   sonnet,
   kdelibs4support,
 }:
-
 mkDerivation rec {
   pname = "semantik";
   version = "1.2.10";
@@ -94,7 +93,7 @@ mkDerivation rec {
     description = "Mind-mapping application for KDE";
     license = licenses.mit;
     homepage = "https://waf.io/semantik.html";
-    maintainers = [ maintainers.shamilton ];
+    maintainers = [maintainers.shamilton];
     platforms = platforms.linux;
     mainProgram = "semantik";
   };

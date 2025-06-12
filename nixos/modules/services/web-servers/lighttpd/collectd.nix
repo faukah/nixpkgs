@@ -5,10 +5,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.lighttpd.collectd;
   opt = options.services.lighttpd.collectd;
 
@@ -26,11 +23,8 @@ let
       cp contrib/collection.cgi $out
     '';
   });
-in
-{
-
+in {
   options.services.lighttpd.collectd = {
-
     enable = mkEnableOption "collectd subservice accessible at http://yourserver/collectd";
 
     collectionCgi = mkOption {
@@ -63,18 +57,17 @@ in
         )
         setenv.add-environment = (
           "PERL5LIB" => "${
-            with pkgs.perlPackages;
-            makePerlPath [
-              CGI
-              HTMLParser
-              URI
-              pkgs.rrdtool
-            ]
-          }",
+        with pkgs.perlPackages;
+          makePerlPath [
+            CGI
+            HTMLParser
+            URI
+            pkgs.rrdtool
+          ]
+      }",
           "COLLECTION_CONF" => "${collectionConf}"
         )
       }
     '';
   };
-
 }

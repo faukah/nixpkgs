@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   setuptools,
-
   # optional-dependencies
   lxml,
   matplotlib,
@@ -16,15 +14,12 @@
   pygraphviz,
   scipy,
   sympy,
-
   # tests
   pytest-xdist,
   pytestCheckHook,
-
   # reverse dependency
   sage,
 }:
-
 buildPythonPackage rec {
   pname = "networkx";
   # upgrade may break sage, please test the sage build or ping @timokau on upgrade
@@ -38,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-MHw2aUKMU2KqsnyKEmCqj0fE6R04kfSL4BQXONjQU+E=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   optional-dependencies = {
     default = [

@@ -18,7 +18,6 @@
   sqlite,
   glib-networking,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jogger";
   version = "1.2.5";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
       cc0
     ];
     mainProgram = "jogger";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 })

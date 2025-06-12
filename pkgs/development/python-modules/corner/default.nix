@@ -2,14 +2,11 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatch-vcs,
   hatchling,
-
   # dependencies
   matplotlib,
-
   # optional-dependencies
   arviz,
   ipython,
@@ -19,12 +16,10 @@
   sphinx-book-theme,
   pytest,
   scipy,
-
   # tests
   pytestCheckHook,
   corner,
 }:
-
 buildPythonPackage rec {
   pname = "corner";
   version = "2.2.3";
@@ -42,10 +37,10 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  dependencies = [ matplotlib ];
+  dependencies = [matplotlib];
 
   optional-dependencies = {
-    arviz = [ arviz ];
+    arviz = [arviz];
     docs = [
       arviz
       ipython
@@ -61,9 +56,9 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "corner" ];
+  pythonImportsCheck = ["corner"];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ corner.optional-dependencies.test;
+  nativeCheckInputs = [pytestCheckHook] ++ corner.optional-dependencies.test;
 
   # matplotlib.testing.exceptions.ImageComparisonFailure: images not close
   disabledTests = [
@@ -104,6 +99,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dfm/corner.py";
     changelog = "https://github.com/dfm/corner.py/releases/tag/v${version}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

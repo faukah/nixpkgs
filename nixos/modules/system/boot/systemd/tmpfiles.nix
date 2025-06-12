@@ -4,16 +4,12 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.systemd.tmpfiles;
   initrdCfg = config.boot.initrd.systemd.tmpfiles;
   systemd = config.systemd.package;
 
-  attrsWith' =
-    placeholder: elemType:
+  attrsWith' = placeholder: elemType:
     types.attrsWith {
       inherit elemType placeholder;
     };
@@ -43,13 +39,16 @@ let
         };
       };
     };
-    default = { };
+    default = {};
     type = attrsWith' "config-name" (
       attrsWith' "path" (
         attrsWith' "tmpfiles-type" (
           types.submodule (
-            { name, config, ... }:
             {
+              name,
+              config,
+              ...
+            }: {
               options.type = mkOption {
                 type = types.str;
                 default = name;
@@ -143,13 +142,12 @@ let
   );
 
   mkRuleFileContent = paths: concatStrings (pathsToRules paths);
-in
-{
+in {
   options = {
     systemd.tmpfiles.rules = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "d /tmp 1777 root root 10d" ];
+      default = [];
+      example = ["d /tmp 1777 root root 10d"];
       description = ''
         Rules for creation, deletion and cleaning of volatile and temporary files
         automatically. See
@@ -174,7 +172,7 @@ in
 
     systemd.tmpfiles.packages = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.lvm2 ]";
       apply = map getLib;
       description = ''
@@ -193,12 +191,11 @@ in
   };
 
   config = {
-    warnings =
-      let
-        paths = lib.filter (path: path != null && lib.hasPrefix "/etc/tmpfiles.d/" path) (
-          map (path: path.target) config.boot.initrd.systemd.storePaths
-        );
-      in
+    warnings = let
+      paths = lib.filter (path: path != null && lib.hasPrefix "/etc/tmpfiles.d/" path) (
+        map (path: path.target) config.boot.initrd.systemd.storePaths
+      );
+    in
       lib.optional (lib.length paths > 0) (
         lib.concatStringsSep " " [
           "Files inside /etc/tmpfiles.d in the initrd need to be created with"
@@ -211,20 +208,23 @@ in
       ++ (lib.flatten (
         lib.mapAttrsToList (
           name: paths:
-          lib.mapAttrsToList (
-            path: entries:
             lib.mapAttrsToList (
-              type': entry:
-              lib.optional (lib.match ''.*\\([nrt]|x[0-9A-Fa-f]{2}).*'' entry.argument != null) (
-                lib.concatStringsSep " " [
-                  "The argument option of ${name}.${type'}.${path} appears to"
-                  "contain escape sequences, which will be escaped again."
-                  "Unescape them if this is not intended: \"${entry.argument}\""
-                ]
-              )
-            ) entries
-          ) paths
-        ) cfg.settings
+              path: entries:
+                lib.mapAttrsToList (
+                  type': entry:
+                    lib.optional (lib.match ''.*\\([nrt]|x[0-9A-Fa-f]{2}).*'' entry.argument != null) (
+                      lib.concatStringsSep " " [
+                        "The argument option of ${name}.${type'}.${path} appears to"
+                        "contain escape sequences, which will be escaped again."
+                        "Unescape them if this is not intended: \"${entry.argument}\""
+                      ]
+                    )
+                )
+                entries
+            )
+            paths
+        )
+        cfg.settings
       ));
 
     systemd.additionalUpstreamSystemUnits = [
@@ -253,7 +253,7 @@ in
     systemd.services."systemd-tmpfiles-resetup" = {
       description = "Re-setup tmpfiles on a system that is already running.";
 
-      requiredBy = [ "sysinit-reactivation.target" ];
+      requiredBy = ["sysinit-reactivation.target"];
       after = [
         "local-fs.target"
         "systemd-sysusers.service"
@@ -263,8 +263,8 @@ in
         "sysinit-reactivation.target"
         "shutdown.target"
       ];
-      conflicts = [ "shutdown.target" ];
-      restartTriggers = [ config.environment.etc."tmpfiles.d".source ];
+      conflicts = ["shutdown.target"];
+      restartTriggers = [config.environment.etc."tmpfiles.d".source];
 
       unitConfig.DefaultDependencies = false;
 
@@ -299,10 +299,11 @@ in
             ''
             + concatMapStrings (
               name:
-              optionalString (hasPrefix "tmpfiles.d/" name) ''
-                rm -f $out/${removePrefix "tmpfiles.d/" name}
-              ''
-            ) config.system.build.etc.passthru.targets;
+                optionalString (hasPrefix "tmpfiles.d/" name) ''
+                  rm -f $out/${removePrefix "tmpfiles.d/" name}
+                ''
+            )
+            config.system.build.etc.passthru.targets;
         })
         + "/*";
       "mtab" = {
@@ -314,7 +315,7 @@ in
     systemd.tmpfiles.packages =
       [
         # Default tmpfiles rules provided by systemd
-        (pkgs.runCommand "systemd-default-tmpfiles" { } ''
+        (pkgs.runCommand "systemd-default-tmpfiles" {} ''
           mkdir -p $out/lib/tmpfiles.d
           cd $out/lib/tmpfiles.d
 
@@ -343,8 +344,9 @@ in
         })
       ]
       ++ (mapAttrsToList (
-        name: paths: pkgs.writeTextDir "lib/tmpfiles.d/${name}.conf" (mkRuleFileContent paths)
-      ) cfg.settings);
+          name: paths: pkgs.writeTextDir "lib/tmpfiles.d/${name}.conf" (mkRuleFileContent paths)
+        )
+        cfg.settings);
 
     systemd.tmpfiles.rules =
       [
@@ -385,7 +387,7 @@ in
       # sets up files under the prefix /sysroot, after the hierarchy is available and before nixos activation
       services.systemd-tmpfiles-setup-sysroot = {
         description = "Create Volatile Files and Directories in the Real Root";
-        after = [ "initrd-fs.target" ];
+        after = ["initrd-fs.target"];
         before = [
           "initrd.target"
           "shutdown.target"
@@ -395,12 +397,12 @@ in
           "shutdown.target"
           "initrd-switch-root.target"
         ];
-        wantedBy = [ "initrd.target" ];
+        wantedBy = ["initrd.target"];
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
           ExecStart = "systemd-tmpfiles --create --remove --boot --exclude-prefix=/dev --prefix=/sysroot";
-          SuccessExitStatus = [ "DATAERR CANTCREAT" ];
+          SuccessExitStatus = ["DATAERR CANTCREAT"];
           ImportCredential = [
             "tmpfiles.*"
             "login.motd"
@@ -413,15 +415,15 @@ in
           DefaultDependencies = false;
           RefuseManualStop = true;
         };
-
       };
 
-      contents."/etc/tmpfiles.d" = mkIf (initrdCfg.settings != { }) {
+      contents."/etc/tmpfiles.d" = mkIf (initrdCfg.settings != {}) {
         source = pkgs.linkFarm "initrd-tmpfiles.d" (
           mapAttrsToList (name: paths: {
             name = "${name}.conf";
             path = pkgs.writeText "${name}.conf" (mkRuleFileContent paths);
-          }) initrdCfg.settings
+          })
+          initrdCfg.settings
         );
       };
     };

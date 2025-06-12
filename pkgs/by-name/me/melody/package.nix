@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "melody";
   version = "0.20.0";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     description = "Language that compiles to regular expressions";
     homepage = "https://github.com/yoav-lavi/melody";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "melody";
   };
 }

@@ -7,7 +7,6 @@
   pkg-config,
   dtc,
 }:
-
 stdenv.mkDerivation {
   pname = "culvert";
   version = "0.4.0.unstable-2024-10-17";
@@ -39,7 +38,7 @@ stdenv.mkDerivation {
     description = "Test and Debug Tool for BMC AHB Interfaces ";
     mainProgram = "culvert";
     license = licenses.asl20;
-    maintainers = [ maintainers.baloo ];
+    maintainers = [maintainers.baloo];
     platforms = platforms.linux;
   };
 }

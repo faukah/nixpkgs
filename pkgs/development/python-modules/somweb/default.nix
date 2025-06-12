@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "somweb";
   version = "1.2.1";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-cLKEKDCMK7lCtbmj2KbhgJUCZpPnPI5tZvO5L+ey8qI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
     requests
   ];
 
-  pythonImportsCheck = [ "somweb" ];
+  pythonImportsCheck = ["somweb"];
 
   doCheck = false; # no tests
 
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     description = "A client library to control garage door operators produced by SOMMER through their SOMweb device";
     homepage = "https://github.com/taarskog/pysomweb";
     license = licenses.mit;
-    maintainers = with maintainers; [ uvnikita ];
+    maintainers = with maintainers; [uvnikita];
     mainProgram = "somweb";
   };
 }

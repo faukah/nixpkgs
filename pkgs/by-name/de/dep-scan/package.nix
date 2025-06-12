@@ -2,9 +2,7 @@
   lib,
   fetchFromGitHub,
   python3,
-}:
-
-let
+}: let
   appthreat-vulnerability-db = (
     python3.pkgs.appthreat-vulnerability-db.overrideAttrs (oldAttrs: rec {
       version = "5.8.1";
@@ -14,62 +12,61 @@ let
       };
     })
   );
-
 in
-python3.pkgs.buildPythonApplication rec {
-  pname = "dep-scan";
-  version = "5.5.0";
-  pyproject = true;
+  python3.pkgs.buildPythonApplication rec {
+    pname = "dep-scan";
+    version = "5.5.0";
+    pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "owasp-dep-scan";
-    repo = "dep-scan";
-    tag = "v${version}";
-    hash = "sha256-lgqS8GY5JuHL3strNcb0B3mGieFkQTzGuRyV4dBp5e4=";
-  };
+    src = fetchFromGitHub {
+      owner = "owasp-dep-scan";
+      repo = "dep-scan";
+      tag = "v${version}";
+      hash = "sha256-lgqS8GY5JuHL3strNcb0B3mGieFkQTzGuRyV4dBp5e4=";
+    };
 
-  pythonRelaxDeps = [ "oras" ];
+    pythonRelaxDeps = ["oras"];
 
-  build-system = with python3.pkgs; [ setuptools ];
+    build-system = with python3.pkgs; [setuptools];
 
-  dependencies = with python3.pkgs; [
-    appthreat-vulnerability-db
-    cvss
-    defusedxml
-    jinja2
-    oras
-    packageurl-python
-    pdfkit
-    pygithub
-    pyyaml
-    quart
-    rich
-    toml
-  ];
+    dependencies = with python3.pkgs; [
+      appthreat-vulnerability-db
+      cvss
+      defusedxml
+      jinja2
+      oras
+      packageurl-python
+      pdfkit
+      pygithub
+      pyyaml
+      quart
+      rich
+      toml
+    ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    httpretty
-    pytest-cov-stub
-    pytestCheckHook
-  ];
+    nativeCheckInputs = with python3.pkgs; [
+      httpretty
+      pytest-cov-stub
+      pytestCheckHook
+    ];
 
-  pythonImportsCheck = [ "depscan" ];
+    pythonImportsCheck = ["depscan"];
 
-  preCheck = ''
-    export HOME=$(mktemp -d)
-  '';
+    preCheck = ''
+      export HOME=$(mktemp -d)
+    '';
 
-  disabledTests = [
-    # Test is not present
-    "test_query_metadata2"
-  ];
+    disabledTests = [
+      # Test is not present
+      "test_query_metadata2"
+    ];
 
-  meta = {
-    description = "Security and risk audit tool based on known vulnerabilities, advisories, and license limitations for project dependencies";
-    homepage = "https://github.com/owasp-dep-scan/dep-scan";
-    changelog = "https://github.com/owasp-dep-scan/dep-scan/releases/tag/v${version}";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
-    mainProgram = "dep-scan";
-  };
-}
+    meta = {
+      description = "Security and risk audit tool based on known vulnerabilities, advisories, and license limitations for project dependencies";
+      homepage = "https://github.com/owasp-dep-scan/dep-scan";
+      changelog = "https://github.com/owasp-dep-scan/dep-scan/releases/tag/v${version}";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [fab];
+      mainProgram = "dep-scan";
+    };
+  }

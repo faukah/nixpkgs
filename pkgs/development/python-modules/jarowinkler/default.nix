@@ -8,7 +8,6 @@
   hypothesis,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jarowinkler";
   version = "2.0.1";
@@ -24,22 +23,22 @@ buildPythonPackage rec {
     hash = "sha256-B3upTBNqMyi+CH7Zx04wceEXjGJnr6S3BIl87AQkfbo=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ rapidfuzz ];
+  propagatedBuildInputs = [rapidfuzz];
 
   nativeCheckInputs = [
     hypothesis
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "jarowinkler" ];
+  pythonImportsCheck = ["jarowinkler"];
 
   meta = with lib; {
     description = "Library for fast approximate string matching using Jaro and Jaro-Winkler similarity";
     homepage = "https://github.com/maxbachmann/JaroWinkler";
     changelog = "https://github.com/maxbachmann/JaroWinkler/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -7,7 +7,6 @@
   ronn,
   opencv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "focus-stack";
   version = "1.4";
@@ -24,15 +23,15 @@ stdenv.mkDerivation rec {
     which
     ronn
   ];
-  buildInputs = [ opencv ];
+  buildInputs = [opencv];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   meta = with lib; {
     description = "Fast and easy focus stacking";
     homepage = "https://github.com/PetteriAimonen/focus-stack";
     license = licenses.mit;
-    maintainers = with maintainers; [ paperdigits ];
+    maintainers = with maintainers; [paperdigits];
     mainProgram = "focus-stack";
   };
 }

@@ -16,46 +16,46 @@
     lua = false;
     utils = false;
   },
-}:
-
-let
+}: let
   featureDeps = {
-    urls = [ curl ];
-    signatures = [ openssl ];
-    lua = [ lua ];
+    urls = [curl];
+    signatures = [openssl];
+    lua = [lua];
   };
 in
-stdenv.mkDerivation rec {
-  pname = "libucl";
-  version = "0.9.2";
+  stdenv.mkDerivation rec {
+    pname = "libucl";
+    version = "0.9.2";
 
-  src = fetchFromGitHub {
-    owner = "vstakhov";
-    repo = "libucl";
-    rev = version;
-    sha256 = "sha256-esNEVBa660rl3Oo2SLaLrFThFkjbqtZ1r0tjMq3h6cM=";
-  };
+    src = fetchFromGitHub {
+      owner = "vstakhov";
+      repo = "libucl";
+      rev = version;
+      sha256 = "sha256-esNEVBa660rl3Oo2SLaLrFThFkjbqtZ1r0tjMq3h6cM=";
+    };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
+    nativeBuildInputs = [
+      pkg-config
+      autoreconfHook
+    ];
 
-  buildInputs = lib.concatLists (
-    lib.mapAttrsToList (feat: enabled: lib.optionals enabled (featureDeps."${feat}" or [ ])) features
-  );
+    buildInputs = lib.concatLists (
+      lib.mapAttrsToList (feat: enabled: lib.optionals enabled (featureDeps."${feat}" or [])) features
+    );
 
-  enableParallelBuilding = true;
+    enableParallelBuilding = true;
 
-  configureFlags = lib.mapAttrsToList (
-    feat: enabled: lib.strings.enableFeature enabled feat
-  ) features;
+    configureFlags =
+      lib.mapAttrsToList (
+        feat: enabled: lib.strings.enableFeature enabled feat
+      )
+      features;
 
-  meta = with lib; {
-    description = "Universal configuration library parser";
-    homepage = "https://github.com/vstakhov/libucl";
-    license = licenses.bsd2;
-    platforms = platforms.unix;
-    maintainers = with maintainers; [ jpotier ];
-  };
-}
+    meta = with lib; {
+      description = "Universal configuration library parser";
+      homepage = "https://github.com/vstakhov/libucl";
+      license = licenses.bsd2;
+      platforms = platforms.unix;
+      maintainers = with maintainers; [jpotier];
+    };
+  }

@@ -21,7 +21,6 @@
   # installation directory here
   gurobiHome ? null,
 }:
-
 buildPythonPackage rec {
   pname = "mip";
   version = "1.15.0";
@@ -48,9 +47,11 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [
-    cffi
-  ] ++ lib.optionals gurobiSupport ([ gurobipy ] ++ lib.optional (gurobiHome == null) gurobi);
+  propagatedBuildInputs =
+    [
+      cffi
+    ]
+    ++ lib.optionals gurobiSupport ([gurobipy] ++ lib.optional (gurobiHome == null) gurobi);
 
   # Source files have CRLF terminators, which make patch error out when supplied
   # with diffs made on *nix machines
@@ -73,7 +74,9 @@ buildPythonPackage rec {
 
   # Make MIP use the Gurobi solver, if configured to do so
   makeWrapperArgs = lib.optional gurobiSupport "--set GUROBI_HOME ${
-    if gurobiHome == null then gurobi.outPath else gurobiHome
+    if gurobiHome == null
+    then gurobi.outPath
+    else gurobiHome
   }";
 
   # Tests that rely on Gurobi are activated only when Gurobi support is enabled
@@ -90,6 +93,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/coin-or/python-mip/releases/tag/${version}";
     license = licenses.epl20;
     broken = stdenv.hostPlatform.isAarch64;
-    maintainers = with maintainers; [ nessdoor ];
+    maintainers = with maintainers; [nessdoor];
   };
 }

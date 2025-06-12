@@ -16,7 +16,7 @@ mkLibretroCore {
   };
 
   makefile = "Makefile";
-  makeFlags = lib.optionals withBlarggAPU [ "USE_BLARGG_APU=1" ];
+  makeFlags = lib.optionals withBlarggAPU ["USE_BLARGG_APU=1"];
 
   meta = {
     description = "Optimized port/rewrite of SNES9x 1.43 to Libretro";

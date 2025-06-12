@@ -13,7 +13,6 @@
   vulkan-loader,
   which,
 }:
-
 buildNpmPackage rec {
   pname = "teams-for-linux";
   version = "2.0.14";
@@ -27,10 +26,12 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-JJUkZlol09Hehxc26DMdEzdxy8Nxa16G8YdTZkHhi78=";
 
-  nativeBuildInputs = [
-    makeWrapper
-    versionCheckHook
-  ] ++ lib.optionals (stdenv.hostPlatform.isLinux) [ copyDesktopItems ];
+  nativeBuildInputs =
+    [
+      makeWrapper
+      versionCheckHook
+    ]
+    ++ lib.optionals (stdenv.hostPlatform.isLinux) [copyDesktopItems];
 
   doInstallCheck = stdenv.hostPlatform.isLinux;
 
@@ -85,11 +86,11 @@ buildNpmPackage rec {
       # Linux needs 'aplay' for notification sounds
       makeWrapper '${lib.getExe electron_35}' "$out/bin/teams-for-linux" \
         --prefix PATH : ${
-          lib.makeBinPath [
-            alsa-utils
-            which
-          ]
-        } \
+        lib.makeBinPath [
+          alsa-utils
+          which
+        ]
+      } \
         --add-flags "$out/share/teams-for-linux/app.asar" \
         --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}"
     ''
@@ -118,7 +119,7 @@ buildNpmPackage rec {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   versionCheckProgramArg = "--version";
 

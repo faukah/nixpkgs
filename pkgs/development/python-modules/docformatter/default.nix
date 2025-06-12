@@ -10,7 +10,6 @@
   mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "docformatter";
   version = "1.7.7";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-eLjaHso1p/nD9K0E+HkeBbnCnvjZ1sdpfww9tzBh0TI=";
   };
 
-  patches = [ ./test-path.patch ];
+  patches = [./test-path.patch];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -35,7 +34,7 @@ buildPythonPackage rec {
       --subst-var-by docformatter $out/bin/docformatter
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     charset-normalizer
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     "test_docformatter.py"
   ];
 
-  pythonImportsCheck = [ "docformatter" ];
+  pythonImportsCheck = ["docformatter"];
 
   meta = {
     changelog = "https://github.com/PyCQA/docformatter/blob/${src.tag}/CHANGELOG.md";
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     mainProgram = "docformatter";
     homepage = "https://github.com/myint/docformatter";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -9,7 +9,6 @@
   openssl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nuraft";
   version = "2.1.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     asio
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/eBay/NuRaft";
     description = "C++ implementation of Raft core logic as a replication library";
     license = licenses.asl20;
-    maintainers = with maintainers; [ wheelsandmetal ];
+    maintainers = with maintainers; [wheelsandmetal];
     platforms = platforms.all;
   };
 }

@@ -6,7 +6,6 @@
   dotnetCorePackages,
   unzip,
 }:
-
 buildDotnetModule rec {
   pname = "roslyn";
   version = "4.2.0";
@@ -28,7 +27,7 @@ buildDotnetModule rec {
 
   dontDotnetFixup = true;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   postPatch = ''
     sed -i 's/latestPatch/latestFeature/' global.json
@@ -66,6 +65,6 @@ buildDotnetModule rec {
     homepage = "https://github.com/dotnet/roslyn";
     mainProgram = "csc";
     license = licenses.mit;
-    maintainers = with maintainers; [ corngood ];
+    maintainers = with maintainers; [corngood];
   };
 }

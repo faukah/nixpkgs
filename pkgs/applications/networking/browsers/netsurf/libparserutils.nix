@@ -6,7 +6,6 @@
   buildsystem,
   libiconv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netsurf-libparserutils";
   version = "0.2.5";

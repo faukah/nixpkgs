@@ -5,7 +5,6 @@
   rustPlatform,
   mitmproxy-rs,
 }:
-
 buildPythonPackage {
   pname = "mitmproxy-linux";
   inherit (mitmproxy-rs) version src cargoDeps;
@@ -39,7 +38,7 @@ buildPythonPackage {
   # repo has no python tests
   doCheck = false;
 
-  pythonImportsCheck = [ "mitmproxy_linux" ];
+  pythonImportsCheck = ["mitmproxy_linux"];
 
   meta =
     {

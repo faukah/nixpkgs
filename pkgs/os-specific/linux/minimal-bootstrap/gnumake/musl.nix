@@ -12,8 +12,7 @@
   gawk,
   gnutar,
   gzip,
-}:
-let
+}: let
   pname = "gnumake-musl";
   version = "4.4.1";
 
@@ -31,7 +30,7 @@ let
     ./0002-remove-impure-dirs.patch
   ];
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -46,9 +45,8 @@ bash.runCommand "${pname}-${version}"
       gzip
     ];
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/make --version
         mkdir $out
       '';
@@ -57,7 +55,7 @@ bash.runCommand "${pname}-${version}"
       description = "Tool to control the generation of non-source files from sources";
       homepage = "https://www.gnu.org/software/make";
       license = licenses.gpl3Plus;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       mainProgram = "make";
       platforms = platforms.unix;
     };

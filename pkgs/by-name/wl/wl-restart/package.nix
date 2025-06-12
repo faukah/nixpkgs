@@ -5,7 +5,6 @@
   cmake,
   scdoc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wl-restart";
   version = "0.3.0";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-wLaZBqw/Yx0Oc7s3ffAmx3zakjhEBHM09uJcfsVHbnQ=";
   };
 
-  cmakeFlags = [ (lib.cmakeBool "INSTALL_DOCUMENTATION" true) ];
+  cmakeFlags = [(lib.cmakeBool "INSTALL_DOCUMENTATION" true)];
 
   nativeBuildInputs = [
     scdoc
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/Ferdi265/wl-restart/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
     mainProgram = "wl-restart";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     platforms = lib.platforms.linux;
   };
 })

@@ -6,7 +6,6 @@
   stdenv,
   installShellFiles,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "vimiv-qt";
   version = "0.9.0";
@@ -29,7 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     py3exiv2
   ];
 
-  buildInputs = [ qt5.qtsvg ] ++ lib.optionals stdenv.hostPlatform.isLinux [ qt5.qtwayland ];
+  buildInputs = [qt5.qtsvg] ++ lib.optionals stdenv.hostPlatform.isLinux [qt5.qtwayland];
 
   postInstall = ''
     install -Dm644 misc/vimiv.desktop $out/share/applications/vimiv.desktop
@@ -53,7 +52,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Image viewer with Vim-like keybindings (Qt port)";
     license = licenses.gpl3Plus;
     homepage = "https://github.com/karlch/vimiv-qt";
-    maintainers = with maintainers; [ dschrempf ];
+    maintainers = with maintainers; [dschrempf];
     mainProgram = "vimiv";
     platforms = platforms.all;
   };

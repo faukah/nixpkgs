@@ -9,7 +9,6 @@
   typing-extensions,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "pyvlx";
   version = "0.2.26";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-JwgElt0FFSGs3v+04AKPwTTpxvn8YzihJeD/+llbSMI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyyaml
@@ -32,9 +31,9 @@ buildPythonPackage rec {
     zeroconf
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyvlx" ];
+  pythonImportsCheck = ["pyvlx"];
 
   meta = with lib; {
     description = "Python client to work with Velux units";
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Julius2342/pyvlx";
     changelog = "https://github.com/Julius2342/pyvlx/releases/tag/${version}";
     license = licenses.lgpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

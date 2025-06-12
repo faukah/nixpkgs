@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "modemmanager-exporter";
   version = "0.2.0";
@@ -18,13 +17,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-wGCRpFnt9bxc5Ygg6H1kI9sXB4mVFBdLeaahAFtvNbg=";
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) modemmanager; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) modemmanager;};
 
   meta = with lib; {
     homepage = "https://github.com/mdlayher/modemmanager_exporter";
     description = "Prometheus exporter for ModemManager and its devices";
     mainProgram = "modemmanager_exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ mdlayher ];
+    maintainers = with maintainers; [mdlayher];
   };
 }

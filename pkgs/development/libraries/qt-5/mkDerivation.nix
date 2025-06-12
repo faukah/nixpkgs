@@ -1,15 +1,6 @@
-{ wrapQtAppsHook }:
-
-mkDerivation:
-
-args:
-
-let
+{wrapQtAppsHook}: mkDerivation: args: let
   args_ = {
-
-    nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [ wrapQtAppsHook ];
-
+    nativeBuildInputs = (args.nativeBuildInputs or []) ++ [wrapQtAppsHook];
   };
 in
-
-mkDerivation (args // args_)
+  mkDerivation (args // args_)

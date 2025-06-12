@@ -3,11 +3,9 @@
   lib,
   fetchurl,
   fetchpatch,
-
   # nativeBuildInputs
   scons,
   pkg-config,
-
   # buildInputs
   dbus,
   libusb1,
@@ -15,7 +13,6 @@
   kppsSupport ? stdenv.hostPlatform.isLinux,
   pps-tools,
   python3Packages,
-
   # optional deps for GUI packages
   guiSupport ? true,
   dbus-glib,
@@ -29,11 +26,9 @@
   gdk-pixbuf,
   atk,
   wrapGAppsHook3,
-
   gpsdUser ? "gpsd",
   gpsdGroup ? "dialout",
 }:
-
 stdenv.mkDerivation rec {
   pname = "gpsd";
   version = "3.25";
@@ -107,7 +102,11 @@ stdenv.mkDerivation rec {
     "gpsd_user=${gpsdUser}"
     "gpsd_group=${gpsdGroup}"
     "systemd=yes"
-    "xgps=${if guiSupport then "True" else "False"}"
+    "xgps=${
+      if guiSupport
+      then "True"
+      else "False"
+    }"
     "udevdir=${placeholder "out"}/lib/udev"
     "python_libdir=${placeholder "out"}/${python3Packages.python.sitePackages}"
   ];

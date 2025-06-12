@@ -4,35 +4,34 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   globalCfg = config.services.scion;
   cfg = config.services.scion.scion-ip-gateway;
-  toml = pkgs.formats.toml { };
-  json = pkgs.formats.json { };
-  connectionDir = if globalCfg.stateless then "/run" else "/var/lib";
+  toml = pkgs.formats.toml {};
+  json = pkgs.formats.json {};
+  connectionDir =
+    if globalCfg.stateless
+    then "/run"
+    else "/var/lib";
   defaultConfig = {
-    tunnel = { };
+    tunnel = {};
     gateway = {
       traffic_policy_file = "${trafficConfigFile}";
     };
   };
   defaultTrafficConfig = {
-    ASes = { };
+    ASes = {};
     ConfigVersion = 9001;
   };
   configFile = toml.generate "scion-ip-gateway.toml" (recursiveUpdate defaultConfig cfg.config);
   trafficConfigFile = json.generate "scion-ip-gateway-traffic.json" (
     recursiveUpdate defaultTrafficConfig cfg.trafficConfig
   );
-in
-{
+in {
   options.services.scion.scion-ip-gateway = {
     enable = mkEnableOption "the scion-ip-gateway service";
     config = mkOption {
-      default = { };
+      default = {};
       type = toml.type;
       example = literalExpression ''
         {
@@ -46,7 +45,7 @@ in
       '';
     };
     trafficConfig = mkOption {
-      default = { };
+      default = {};
       type = json.type;
       example = literalExpression ''
         {
@@ -76,13 +75,16 @@ in
         "network-online.target"
         "scion-dispatcher.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
-        Group = if (config.services.scion.scion-dispatcher.enable == true) then "scion" else null;
+        Group =
+          if (config.services.scion.scion-dispatcher.enable == true)
+          then "scion"
+          else null;
         ExecStart = "${globalCfg.package}/bin/scion-ip-gateway --config ${configFile}";
         DynamicUser = true;
-        AmbientCapabilities = [ "CAP_NET_ADMIN" ];
+        AmbientCapabilities = ["CAP_NET_ADMIN"];
         Restart = "on-failure";
         KillMode = "control-group";
         RemainAfterExit = false;

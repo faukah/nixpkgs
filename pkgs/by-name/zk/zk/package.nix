@@ -4,7 +4,6 @@
   buildGoModule,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "zk";
   version = "0.15.1";
@@ -29,12 +28,12 @@ buildGoModule rec {
     "-X=main.Version=${version}"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  tags = [ "fts5" ];
+  tags = ["fts5"];
 
   meta = with lib; {
-    maintainers = with maintainers; [ pinpox ];
+    maintainers = with maintainers; [pinpox];
     license = licenses.gpl3;
     description = "Zettelkasten plain text note-taking assistant";
     homepage = "https://github.com/mickael-menu/zk";

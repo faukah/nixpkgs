@@ -5,7 +5,6 @@
   installShellFiles,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "gojq";
   version = "0.12.17";
@@ -24,7 +23,7 @@ buildGoModule (finalAttrs: {
     "-w"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd gojq --zsh _gojq

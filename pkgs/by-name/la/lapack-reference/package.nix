@@ -9,7 +9,6 @@
   blas64 ? false,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "liblapack";
   version = "3.12.1";
@@ -43,20 +42,16 @@ stdenv.mkDerivation (finalAttrs: {
     # Tries to run host platform binaries during the build
     # Will likely be disabled by default in 3.12, see:
     # https://github.com/Reference-LAPACK/lapack/issues/757
-    ++ lib.optional (
-      !stdenv.buildPlatform.canExecute stdenv.hostPlatform
-    ) "-DTEST_FORTRAN_COMPILER=OFF";
+    ++ lib.optional (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) "-DTEST_FORTRAN_COMPILER=OFF";
 
-  passthru = { inherit blas64; };
+  passthru = {inherit blas64;};
 
-  postInstall =
-    let
-      canonicalExtension =
-        if stdenv.hostPlatform.isLinux then
-          "${stdenv.hostPlatform.extensions.sharedLibrary}.${lib.versions.major finalAttrs.version}"
-        else
-          stdenv.hostPlatform.extensions.sharedLibrary;
-    in
+  postInstall = let
+    canonicalExtension =
+      if stdenv.hostPlatform.isLinux
+      then "${stdenv.hostPlatform.extensions.sharedLibrary}.${lib.versions.major finalAttrs.version}"
+      else stdenv.hostPlatform.extensions.sharedLibrary;
+  in
     lib.optionalString blas64 ''
       ln -s $out/lib/liblapack64${canonicalExtension} $out/lib/liblapack${canonicalExtension}
       ln -s $out/lib/liblapacke64${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
@@ -89,9 +84,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Linear Algebra PACKage";
     homepage = "http://www.netlib.org/lapack/";
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
     license = licenses.bsd3;
-    pkgConfigModules = [ "lapack" ];
+    pkgConfigModules = ["lapack"];
     platforms = platforms.all;
   };
 })

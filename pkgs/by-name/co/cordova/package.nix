@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "cordova";
   version = "12.0.0";
@@ -24,6 +23,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/apache/cordova-cli";
     license = lib.licenses.asl20;
     mainProgram = "cordova";
-    maintainers = with lib.maintainers; [ flosse ];
+    maintainers = with lib.maintainers; [flosse];
   };
 }

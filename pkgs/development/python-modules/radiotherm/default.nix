@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "radiotherm";
   version = "2.1.0";
@@ -25,12 +24,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "radiotherm" ];
+  pythonImportsCheck = ["radiotherm"];
 
   meta = with lib; {
     description = "Python library for Wifi Radiothermostat";
     homepage = "https://github.com/mhrivnak/radiotherm";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

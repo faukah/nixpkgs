@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "kubesec";
   version = "2.14.2";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-6jXGc9tkqRTjzEiug8lGursPm9049THWlk8xY3pyVgo=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -51,7 +50,7 @@ buildGoModule rec {
     mainProgram = "kubesec";
     homepage = "https://github.com/controlplaneio/kubesec";
     changelog = "https://github.com/controlplaneio/kubesec/blob/v${version}/CHANGELOG.md";
-    license = with lib.licenses; [ asl20 ];
+    license = with lib.licenses; [asl20];
     maintainers = with lib.maintainers; [
       fab
       jk

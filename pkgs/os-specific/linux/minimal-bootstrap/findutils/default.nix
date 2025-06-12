@@ -11,8 +11,7 @@
   gawk,
   gnutar,
   xz,
-}:
-let
+}: let
   pname = "findutils";
   version = "4.9.0";
 
@@ -21,7 +20,7 @@ let
     hash = "sha256-or+4wJ1DZ3DtxZ9Q+kg+eFsWGjt7nVR1c8sIBl/UYv4=";
   };
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -35,9 +34,8 @@ bash.runCommand "${pname}-${version}"
       xz
     ];
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/find --version
         mkdir $out
       '';
@@ -46,7 +44,7 @@ bash.runCommand "${pname}-${version}"
       description = "GNU Find Utilities, the basic directory searching utilities of the GNU operating system";
       homepage = "https://www.gnu.org/software/findutils";
       license = licenses.gpl3Plus;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       platforms = platforms.unix;
     };
   }

@@ -3,7 +3,6 @@
   fetchCrate,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "b3sum";
   version = "1.8.2";

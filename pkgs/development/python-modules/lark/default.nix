@@ -5,7 +5,6 @@
   regex,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "lark";
   version = "1.2.2";
@@ -18,10 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-02NX/2bHTYSVTDLLudJmEU2DcQNn0Ke+5ayilKLlwqA=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # Optional import, but fixes some re known bugs & allows advanced regex features
-  propagatedBuildInputs = [ regex ];
+  propagatedBuildInputs = [regex];
 
   pythonImportsCheck = [
     "lark"
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://lark-parser.readthedocs.io/";
     changelog = "https://github.com/lark-parser/lark/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

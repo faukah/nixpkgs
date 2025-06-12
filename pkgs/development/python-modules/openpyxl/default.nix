@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "openpyxl";
   version = "3.1.5";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-vp+TIWcHCAWlDaBcmC7w/kV7DZTZpa6463NusaJmqKo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ et-xmlfile ];
+  dependencies = [et-xmlfile];
 
   nativeCheckInputs = [
     lxml
@@ -67,13 +66,13 @@ buildPythonPackage rec {
       "test_no_styles"
     ];
 
-  pythonImportsCheck = [ "openpyxl" ];
+  pythonImportsCheck = ["openpyxl"];
 
   meta = with lib; {
     description = "Python library to read/write Excel 2010 xlsx/xlsm files";
     homepage = "https://openpyxl.readthedocs.org";
     changelog = "https://foss.heptapod.net/openpyxl/openpyxl/-/blob/${version}/doc/changes.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ lihop ];
+    maintainers = with maintainers; [lihop];
   };
 }

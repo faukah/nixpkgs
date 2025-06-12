@@ -9,7 +9,6 @@
   yarnConfigHook,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "graphql-language-service-cli";
   version = "3.5.0";
@@ -57,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgram = "${placeholder "out"}/bin/${finalAttrs.meta.mainProgram}";
 
@@ -70,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/graphql/graphiql";
     changelog = "https://github.com/graphql/graphiql/blob/${finalAttrs.src.tag}/packages/graphql-language-service-cli/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nathanregner ];
+    maintainers = with lib.maintainers; [nathanregner];
     mainProgram = "graphql-lsp";
   };
 })

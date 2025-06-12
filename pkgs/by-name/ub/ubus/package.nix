@@ -6,7 +6,6 @@
   libubox,
   libjson,
 }:
-
 stdenv.mkDerivation {
   pname = "ubus";
   version = "unstable-2023-12-18";
@@ -17,12 +16,12 @@ stdenv.mkDerivation {
     hash = "sha256-n82Ub0IiuvWbnlDCoN+0hjo/1PbplEbc56kuOYMrHxQ=";
   };
 
-  cmakeFlags = [ "-DBUILD_LUA=OFF" ];
+  cmakeFlags = ["-DBUILD_LUA=OFF"];
   buildInputs = [
     libubox
     libjson
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64) [
@@ -35,6 +34,6 @@ stdenv.mkDerivation {
     homepage = "https://git.openwrt.org/?p=project/ubus.git;a=summary";
     license = licenses.lgpl21Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
   };
 }

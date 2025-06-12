@@ -15,7 +15,6 @@
   setuptools,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "soco";
   version = "0.30.10";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-BTDKn6JVqXfLiry6jES/OnsO3SGniEMWW2osf9veukU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     appdirs
@@ -47,15 +46,15 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "soco" ];
+  pythonImportsCheck = ["soco"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "CLI and library to control Sonos speakers";
     homepage = "http://python-soco.com/";
     changelog = "https://github.com/SoCo/SoCo/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

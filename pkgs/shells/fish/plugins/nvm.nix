@@ -19,6 +19,6 @@ buildFishPlugin rec {
     changelog = "https://github.com/jorgebucaran/nvm.fish/releases/tag/${version}/CHANGELOG.md";
     downloadPage = "https://github.com/jorgebucaran/nvm.fish/releases";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pta2002 ];
+    maintainers = with lib.maintainers; [pta2002];
   };
 }

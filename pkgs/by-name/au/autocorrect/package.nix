@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "autocorrect";
   version = "2.14.0";
@@ -40,6 +39,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://huacnlee.github.io/autocorrect";
     changelog = "https://github.com/huacnlee/autocorrect/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

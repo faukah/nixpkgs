@@ -7,7 +7,6 @@
   mbedtlsSupport ? true,
   mbedtls,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nng";
   version = "1.10.1";
@@ -19,12 +18,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-BBYfJ2j2IQkbluR3HQjEh1zFWPgOVX6kfyI0jG741Y4=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ] ++ lib.optionals mbedtlsSupport [ mbedtls ];
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+    ]
+    ++ lib.optionals mbedtlsSupport [mbedtls];
 
-  buildInputs = lib.optionals mbedtlsSupport [ mbedtls ];
+  buildInputs = lib.optionals mbedtlsSupport [mbedtls];
 
   cmakeFlags =
     [
@@ -42,6 +43,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     mainProgram = "nngcat";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ nviets ];
+    maintainers = with maintainers; [nviets];
   };
 }

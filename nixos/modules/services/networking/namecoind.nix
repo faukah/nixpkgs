@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.namecoind;
   dataDir = "/var/lib/namecoind";
   useSSL = (cfg.rpc.certificate != null) && (cfg.rpc.key != null);
@@ -22,7 +19,11 @@ let
       txindex=1
       txprevcache=1
       walletpath=${cfg.wallet}
-      gen=${if cfg.generate then "1" else "0"}
+      gen=${
+        if cfg.generate
+        then "1"
+        else "0"
+      }
       ${listToConf "addnode" cfg.extraNodes}
       ${listToConf "connect" cfg.trustedNodes}
     ''
@@ -40,17 +41,11 @@ let
       rpcsslciphers=TLSv1.2+HIGH:TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!3DES:@STRENGTH
     ''
   );
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.namecoind = {
-
       enable = mkEnableOption "namecoind, Namecoin client";
 
       wallet = mkOption {
@@ -72,7 +67,7 @@ in
 
       extraNodes = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = ''
           List of additional peer IP addresses to connect to.
         '';
@@ -80,7 +75,7 @@ in
 
       trustedNodes = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = ''
           List of the only peer IP addresses to connect to. If specified
           no other connection will be made.
@@ -139,21 +134,18 @@ in
 
       rpc.allowFrom = mkOption {
         type = types.listOf types.str;
-        default = [ "127.0.0.1" ];
+        default = ["127.0.0.1"];
         description = ''
           List of IP address ranges allowed to use the RPC API.
           Wiledcards (*) can be user to specify a range.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
-
     users.users.namecoin = {
       uid = config.ids.uids.namecoin;
       description = "Namecoin daemon user";
@@ -167,8 +159,8 @@ in
 
     systemd.services.namecoind = {
       description = "Namecoind daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       startLimitIntervalSec = 120;
       startLimitBurst = 5;
@@ -194,11 +186,8 @@ in
            exit 1
         fi
       '';
-
     };
-
   };
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

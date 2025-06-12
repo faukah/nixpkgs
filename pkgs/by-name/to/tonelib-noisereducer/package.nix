@@ -38,13 +38,15 @@ stdenv.mkDerivation rec {
     libjack2
   ];
 
-  buildInputs = [
-    (lib.getLib stdenv.cc.cc)
-    alsa-lib
-    freetype
-    libglvnd
-    libgbm
-  ] ++ runtimeDependencies;
+  buildInputs =
+    [
+      (lib.getLib stdenv.cc.cc)
+      alsa-lib
+      freetype
+      libglvnd
+      libgbm
+    ]
+    ++ runtimeDependencies;
 
   installPhase = ''
     runHook preInstall
@@ -57,10 +59,10 @@ stdenv.mkDerivation rec {
   meta = {
     description = "ToneLib NoiseReducer – two-unit noise reduction rack effect plugin";
     homepage = "https://tonelib.net/tl-noisereducer.html";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ orivej ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [orivej];
+    platforms = ["x86_64-linux"];
     mainProgram = "ToneLib-NoiseReducer";
   };
 }

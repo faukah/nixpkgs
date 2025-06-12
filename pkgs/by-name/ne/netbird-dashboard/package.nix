@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "netbird-dashboard";
   version = "2.9.0";
@@ -16,7 +15,7 @@ buildNpmPackage rec {
   };
 
   npmDepsHash = "sha256-TELyc62l/8IaX9eL2lxRFth0AAZ4LXsV2WNzXSHRnTw=";
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = ["--legacy-peer-deps"];
 
   installPhase = ''
     cp -R out $out
@@ -30,6 +29,6 @@ buildNpmPackage rec {
     description = "NetBird Management Service Web UI Panel";
     homepage = "https://github.com/netbirdio/dashboard";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

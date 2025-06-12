@@ -10,7 +10,7 @@
   zlib,
   setuptools,
   cudaSupport ? config.cudaSupport or false,
-  cudaPackages_11 ? { },
+  cudaPackages_11 ? {},
   addDriverRunpath,
   # runtime dependencies
   httpx,
@@ -21,14 +21,18 @@
   astor,
   opt-einsum,
   typing-extensions,
-}:
-
-let
+}: let
   pname = "paddlepaddle" + lib.optionalString cudaSupport "-gpu";
-  version = if cudaSupport then "2.6.2" else "3.0.0";
+  version =
+    if cudaSupport
+    then "2.6.2"
+    else "3.0.0";
   format = "wheel";
-  pyShortVersion = "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
-  cpuOrGpu = if cudaSupport then "gpu" else "cpu";
+  pyShortVersion = "cp${builtins.replaceStrings ["."] [""] python.pythonVersion}";
+  cpuOrGpu =
+    if cudaSupport
+    then "gpu"
+    else "cpu";
   allHashAndPlatform = import ./binary-hashes.nix;
   hash =
     allHashAndPlatform."${stdenv.hostPlatform.system}"."${cpuOrGpu}"."${pyShortVersion}"
@@ -41,86 +45,83 @@ let
       hash
       platform
       ;
-    pname = builtins.replaceStrings [ "-" ] [ "_" ] pname;
+    pname = builtins.replaceStrings ["-"] ["_"] pname;
     dist = pyShortVersion;
     python = pyShortVersion;
     abi = pyShortVersion;
   };
 in
-buildPythonPackage {
-  inherit
-    pname
-    version
-    format
-    src
-    ;
+  buildPythonPackage {
+    inherit
+      pname
+      version
+      format
+      src
+      ;
 
-  disabled =
-    if cudaSupport then
-      (pythonOlder "3.11" || pythonAtLeast "3.13")
-    else
-      (pythonOlder "3.12" || pythonAtLeast "3.14");
+    disabled =
+      if cudaSupport
+      then (pythonOlder "3.11" || pythonAtLeast "3.13")
+      else (pythonOlder "3.12" || pythonAtLeast "3.14");
 
-  nativeBuildInputs = [ addDriverRunpath ];
+    nativeBuildInputs = [addDriverRunpath];
 
-  dependencies = [
-    setuptools
-    httpx
-    numpy
-    protobuf
-    pillow
-    decorator
-    astor
-    opt-einsum
-    typing-extensions
-  ];
+    dependencies = [
+      setuptools
+      httpx
+      numpy
+      protobuf
+      pillow
+      decorator
+      astor
+      opt-einsum
+      typing-extensions
+    ];
 
-  pythonImportsCheck = [ "paddle" ];
+    pythonImportsCheck = ["paddle"];
 
-  # no tests
-  doCheck = false;
+    # no tests
+    doCheck = false;
 
-  postFixup = lib.optionalString stdenv.hostPlatform.isLinux (
-    let
-      libraryPath = lib.makeLibraryPath (
-        [
-          zlib
-          (lib.getLib stdenv.cc.cc)
-        ]
-        ++ lib.optionals cudaSupport (
-          with cudaPackages_11;
+    postFixup = lib.optionalString stdenv.hostPlatform.isLinux (
+      let
+        libraryPath = lib.makeLibraryPath (
           [
-            cudatoolkit.lib
-            cudatoolkit.out
-            cudnn
+            zlib
+            (lib.getLib stdenv.cc.cc)
           ]
-        )
-      );
-    in
-    ''
-      function fixRunPath {
-        p=$(patchelf --print-rpath $1)
-        patchelf --set-rpath "$p:${libraryPath}" $1
-        ${lib.optionalString cudaSupport ''
+          ++ lib.optionals cudaSupport (
+            with cudaPackages_11; [
+              cudatoolkit.lib
+              cudatoolkit.out
+              cudnn
+            ]
+          )
+        );
+      in ''
+        function fixRunPath {
+          p=$(patchelf --print-rpath $1)
+          patchelf --set-rpath "$p:${libraryPath}" $1
+          ${lib.optionalString cudaSupport ''
           addDriverRunpath $1
         ''}
-      }
-      fixRunPath $out/${python.sitePackages}/paddle/base/libpaddle.so
-      fixRunPath $out/${python.sitePackages}/paddle/libs/lib*.so
-    ''
-  );
+        }
+        fixRunPath $out/${python.sitePackages}/paddle/base/libpaddle.so
+        fixRunPath $out/${python.sitePackages}/paddle/libs/lib*.so
+      ''
+    );
 
-  meta = {
-    description = "Machine Learning Framework from Industrial Practice";
-    homepage = "https://github.com/PaddlePaddle/Paddle";
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ happysalada ];
-    platforms =
-      [ "x86_64-linux" ]
-      ++ lib.optionals (!cudaSupport) [
-        "aarch64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
-  };
-}
+    meta = {
+      description = "Machine Learning Framework from Industrial Practice";
+      homepage = "https://github.com/PaddlePaddle/Paddle";
+      license = lib.licenses.asl20;
+      maintainers = with lib.maintainers; [happysalada];
+      platforms =
+        ["x86_64-linux"]
+        ++ lib.optionals (!cudaSupport) [
+          "aarch64-linux"
+          "x86_64-darwin"
+          "aarch64-darwin"
+        ];
+    };
+  }

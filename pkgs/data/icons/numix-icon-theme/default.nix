@@ -9,7 +9,6 @@
   hicolor-icon-theme,
   gitUpdater,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "numix-icon-theme";
   version = "25.01.31";
@@ -49,7 +48,7 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Numix icon theme";
@@ -57,6 +56,6 @@ stdenvNoCC.mkDerivation rec {
     license = licenses.gpl3Only;
     # darwin cannot deal with file names differing only in case
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

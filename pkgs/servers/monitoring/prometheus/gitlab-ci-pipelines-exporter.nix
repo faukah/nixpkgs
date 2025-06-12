@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gitlab-ci-pipelines-exporter";
   version = "0.5.10";
@@ -15,7 +14,7 @@ buildGoModule rec {
     sha256 = "sha256-G298u9bitEst8QzZd1/B6PTCNpGqq88Z8W8w67/cVkQ=";
   };
 
-  subPackages = [ "cmd/${pname}" ];
+  subPackages = ["cmd/${pname}"];
 
   ldflags = [
     "-X main.version=v${version}"

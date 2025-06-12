@@ -4,7 +4,6 @@
   fetchurl,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jflex";
   version = "1.9.1";

@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.freeradius;
 
   freeradiusService = cfg: {
     description = "FreeRadius server";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
-    wants = [ "network.target" ];
+    wantedBy = ["multi-user.target"];
+    after = ["network.target"];
+    wants = ["network.target"];
     preStart = ''
       ${cfg.package}/bin/radiusd -C -d ${cfg.configDir} -l stdout
     '';
@@ -36,7 +34,7 @@ let
   freeradiusConfig = {
     enable = lib.mkEnableOption "the freeradius server";
 
-    package = lib.mkPackageOption pkgs "freeradius" { };
+    package = lib.mkPackageOption pkgs "freeradius" {};
 
     configDir = lib.mkOption {
       type = lib.types.path;
@@ -55,13 +53,8 @@ let
         sensitive data such as passwords in the logs.
       '';
     };
-
   };
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
@@ -71,7 +64,6 @@ in
   ###### implementation
 
   config = lib.mkIf (cfg.enable) {
-
     users = {
       users.radius = {
         # uid = config.ids.uids.radius;
@@ -79,12 +71,10 @@ in
         isSystemUser = true;
         group = "radius";
       };
-      groups.radius = { };
+      groups.radius = {};
     };
 
     systemd.services.freeradius = freeradiusService cfg;
     warnings = lib.optional cfg.debug "Freeradius debug logging is enabled. This will log passwords in plaintext to the journal!";
-
   };
-
 }

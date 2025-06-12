@@ -7,7 +7,6 @@
   rustPlatform,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gitlab-timelogs";
   version = "0.5.0";
@@ -17,10 +16,10 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-KTOI1NDsozALXqXHuF6kj/ADW7TzH8CkVvCOgrEwdxc=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       iconv
     ];
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/phip1611/gitlab-timelogs";
     changelog = "https://github.com/phip1611/gitlab-timelogs/blob/v${version}/CHANGELOG.md";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     maintainers = with lib.maintainers; [
       blitz
       phip1611

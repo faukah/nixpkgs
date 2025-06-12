@@ -35,7 +35,6 @@
   unicorn-angr,
   unique-log-filter,
 }:
-
 buildPythonPackage rec {
   pname = "angr";
   version = "9.2.154";
@@ -50,9 +49,9 @@ buildPythonPackage rec {
     hash = "sha256-aOgZXHk6GTWZAEraZQahEXUYs8LWAWv1n9GfX+2XTPU=";
   };
 
-  pythonRelaxDeps = [ "capstone" ];
+  pythonRelaxDeps = ["capstone"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     ailment
@@ -85,8 +84,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    angrdb = [ sqlalchemy ];
-    unicorn = [ unicorn-angr ];
+    angrdb = [sqlalchemy];
+    unicorn = [unicorn-angr];
   };
 
   setupPyBuildFlags = lib.optionals stdenv.hostPlatform.isLinux [
@@ -110,6 +109,6 @@ buildPythonPackage rec {
     description = "Powerful and user-friendly binary analysis platform";
     homepage = "https://angr.io/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -6,7 +6,7 @@
   compat ? false,
   makeWrapper,
   self,
-  packageOverrides ? (final: prev: { }),
+  packageOverrides ? (final: prev: {}),
   replaceVars,
   pkgsBuildBuild,
   pkgsBuildHost,
@@ -16,50 +16,44 @@
   version,
   hash,
   passthruFun,
-  patches ? [ ],
+  patches ? [],
   postConfigure ? null,
   postBuild ? null,
   staticOnly ? stdenv.hostPlatform.isStatic,
   luaAttr ? "lua${lib.versions.major version}_${lib.versions.minor version}",
-}@inputs:
-
+} @ inputs:
 stdenv.mkDerivation (
-  finalAttrs:
-  let
+  finalAttrs: let
     luaPackages = self.pkgs;
 
     luaversion = lib.versions.majorMinor finalAttrs.version;
 
     plat =
-      if (stdenv.hostPlatform.isLinux && lib.versionOlder self.luaversion "5.4") then
-        "linux"
-      else if (stdenv.hostPlatform.isLinux && lib.versionAtLeast self.luaversion "5.4") then
-        "linux-readline"
-      else if stdenv.hostPlatform.isDarwin then
-        "macosx"
-      else if stdenv.hostPlatform.isMinGW then
-        "mingw"
-      else if stdenv.hostPlatform.isFreeBSD then
-        "freebsd"
-      else if stdenv.hostPlatform.isSunOS then
-        "solaris"
-      else if stdenv.hostPlatform.isBSD then
-        "bsd"
-      else if stdenv.hostPlatform.isUnix then
-        "posix"
-      else
-        "generic";
+      if (stdenv.hostPlatform.isLinux && lib.versionOlder self.luaversion "5.4")
+      then "linux"
+      else if (stdenv.hostPlatform.isLinux && lib.versionAtLeast self.luaversion "5.4")
+      then "linux-readline"
+      else if stdenv.hostPlatform.isDarwin
+      then "macosx"
+      else if stdenv.hostPlatform.isMinGW
+      then "mingw"
+      else if stdenv.hostPlatform.isFreeBSD
+      then "freebsd"
+      else if stdenv.hostPlatform.isSunOS
+      then "solaris"
+      else if stdenv.hostPlatform.isBSD
+      then "bsd"
+      else if stdenv.hostPlatform.isUnix
+      then "posix"
+      else "generic";
 
     compatFlags =
-      if (lib.versionOlder self.luaversion "5.3") then
-        " -DLUA_COMPAT_ALL"
-      else if (lib.versionOlder self.luaversion "5.4") then
-        " -DLUA_COMPAT_5_1 -DLUA_COMPAT_5_2"
-      else
-        " -DLUA_COMPAT_5_3";
-  in
-
-  {
+      if (lib.versionOlder self.luaversion "5.3")
+      then " -DLUA_COMPAT_ALL"
+      else if (lib.versionOlder self.luaversion "5.4")
+      then " -DLUA_COMPAT_5_1 -DLUA_COMPAT_5_2"
+      else " -DLUA_COMPAT_5_3";
+  in {
     pname = "lua";
     inherit version;
     outputs = [
@@ -79,8 +73,8 @@ stdenv.mkDerivation (
       addEnvHooks "$hostOffset" luaEnvHook
     '';
 
-    nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ readline ];
+    nativeBuildInputs = [makeWrapper];
+    buildInputs = [readline];
 
     inherit patches;
 
@@ -119,7 +113,9 @@ stdenv.mkDerivation (
       runHook preConfigure
 
       makeFlagsArray+=(CFLAGS='-O2 -fPIC${lib.optionalString compat compatFlags} $(${
-        if lib.versionAtLeast luaversion "5.2" then "SYSCFLAGS" else "MYCFLAGS"
+        if lib.versionAtLeast luaversion "5.2"
+        then "SYSCFLAGS"
+        else "MYCFLAGS"
       })' )
       makeFlagsArray+=(${lib.optionalString stdenv.hostPlatform.isDarwin "CC=\"$CC\""}${
         lib.optionalString (
@@ -129,16 +125,14 @@ stdenv.mkDerivation (
 
       installFlagsArray=( TO_BIN="lua luac" INSTALL_DATA='cp -d' \
         TO_LIB="${
-          if stdenv.hostPlatform.isDarwin then
-            "liblua.${finalAttrs.version}.dylib"
-          else
-            (
-              "liblua.a"
-              + lib.optionalString (
-                !staticOnly
-              ) " liblua.so liblua.so.${luaversion} liblua.so.${finalAttrs.version}"
-            )
-        }" )
+        if stdenv.hostPlatform.isDarwin
+        then "liblua.${finalAttrs.version}.dylib"
+        else
+          (
+            "liblua.a"
+            + lib.optionalString (!staticOnly) " liblua.so liblua.so.${luaversion} liblua.so.${finalAttrs.version}"
+          )
+      }" )
 
       runHook postConfigure
     '';
@@ -177,7 +171,7 @@ stdenv.mkDerivation (
       ln -s "$out/lib/pkgconfig/lua.pc" "$out/lib/pkgconfig/lua-${luaversion}.pc"
       ln -s "$out/lib/pkgconfig/lua.pc" "$out/lib/pkgconfig/lua${luaversion}.pc"
       ln -s "$out/lib/pkgconfig/lua.pc" "$out/lib/pkgconfig/lua${
-        lib.replaceStrings [ "." ] [ "" ] luaversion
+        lib.replaceStrings ["."] [""] luaversion
       }.pc"
 
       # Make documentation outputs of different versions co-installable.
@@ -185,17 +179,14 @@ stdenv.mkDerivation (
     '';
 
     # copied from python
-    passthru =
-      let
-        # When we override the interpreter we also need to override the spliced versions of the interpreter
-        inputs' = lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs;
-        override =
-          attr:
-          let
-            lua = attr.override (inputs' // { self = lua; });
-          in
-          lua;
+    passthru = let
+      # When we override the interpreter we also need to override the spliced versions of the interpreter
+      inputs' = lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs;
+      override = attr: let
+        lua = attr.override (inputs' // {self = lua;});
       in
+        lua;
+    in
       passthruFun rec {
         inherit
           self

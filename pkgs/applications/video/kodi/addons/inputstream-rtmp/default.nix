@@ -7,7 +7,6 @@
   rtmpdump,
   zlib,
 }:
-
 buildKodiBinaryAddon rec {
   pname = "inputstream-rtmp";
   namespace = "inputstream.rtmp";
@@ -31,6 +30,6 @@ buildKodiBinaryAddon rec {
     description = "Client for RTMP streams";
     platforms = platforms.all;
     license = licenses.gpl2Plus;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

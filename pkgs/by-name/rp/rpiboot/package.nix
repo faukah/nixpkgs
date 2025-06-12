@@ -6,7 +6,6 @@
   libusb1,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rpiboot";
   version = "20250227-132106";
@@ -19,16 +18,16 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ libusb1 ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [libusb1];
+  nativeBuildInputs = [pkg-config];
 
-  makeFlags = [ "INSTALL_PREFIX=$(out)" ];
+  makeFlags = ["INSTALL_PREFIX=$(out)"];
 
   preInstall = ''
     mkdir -p $out/bin
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://github.com/raspberrypi/usbboot";

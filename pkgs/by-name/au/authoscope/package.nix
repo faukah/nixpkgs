@@ -9,7 +9,6 @@
   rustPlatform,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "authoscope";
   version = "0.8.1";
@@ -42,13 +41,13 @@ rustPlatform.buildRustPackage rec {
   # Tests requires access to httpin.org
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Scriptable network authentication cracker";
     homepage = "https://github.com/kpcyrd/authoscope";
     changelog = "https://github.com/kpcyrd/authoscope/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

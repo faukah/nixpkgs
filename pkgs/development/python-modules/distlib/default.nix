@@ -5,7 +5,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "distlib";
   version = "0.3.9";
@@ -16,7 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-pg8g3qZGuKM/Pndy903AstB3LSg37hNCoAZFyB7flAM=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   postFixup = lib.optionalString (!stdenv.hostPlatform.isWindows) ''
     find $out -name '*.exe' -delete
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     description = "Low-level components of distutils2/packaging";
     homepage = "https://distlib.readthedocs.io";
     license = licenses.psfl;
-    maintainers = with maintainers; [ lnl7 ];
+    maintainers = with maintainers; [lnl7];
   };
 }

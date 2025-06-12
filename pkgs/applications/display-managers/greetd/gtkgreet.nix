@@ -13,7 +13,6 @@
   librsvg,
   scdoc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtkgreet";
   version = "0.8";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GKBYql0hzqB6uY87SsAqHwf3qLAr7xznMnAjRtP4HS8=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     pkg-config
     meson
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
     description = "GTK based greeter for greetd, to be run under cage or similar";
     homepage = "https://git.sr.ht/~kennylevinsen/gtkgreet";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
     mainProgram = "gtkgreet";
   };

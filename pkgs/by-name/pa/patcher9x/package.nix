@@ -4,7 +4,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttr: {
   pname = "patcher9x";
   version = "0.8.50";
@@ -27,9 +26,9 @@ stdenv.mkDerivation (finalAttr: {
     })
   ];
 
-  buildInputs = [ fasm ];
+  buildInputs = [fasm];
   sourceRoot = "src";
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   preBuild = ''
     rmdir nocrt
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttr: {
     mainProgram = "patcher9x";
     homepage = "https://github.com/JHRobotics/patcher9x";
     license = licenses.mit;
-    maintainers = with maintainers; [ hughobrien ];
+    maintainers = with maintainers; [hughobrien];
     platforms = platforms.linux;
   };
 })

@@ -8,7 +8,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "path";
   version = "17.1.0";
@@ -37,13 +36,13 @@ buildPythonPackage rec {
     "test_utime"
   ];
 
-  pythonImportsCheck = [ "path" ];
+  pythonImportsCheck = ["path"];
 
   meta = with lib; {
     description = "Object-oriented file system path manipulation";
     homepage = "https://github.com/jaraco/path";
     changelog = "https://github.com/jaraco/path/blob/v${version}/NEWS.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

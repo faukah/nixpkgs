@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "kube-bench";
   version = "0.10.7";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-fmhlqPizAIVVzJAIHfY2gtCpJZY5Sx1Uih/7m7YEM98=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -50,6 +49,6 @@ buildGoModule rec {
     description = "Checks whether Kubernetes is deployed according to security best practices as defined in the CIS Kubernetes Benchmark";
     mainProgram = "kube-bench";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jk ];
+    maintainers = with lib.maintainers; [jk];
   };
 }

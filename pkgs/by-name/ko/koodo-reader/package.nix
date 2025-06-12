@@ -12,7 +12,6 @@
   wrapGAppsHook3,
   electron,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "koodo-reader";
   version = "1.7.4";
@@ -93,7 +92,7 @@ stdenv.mkDerivation (finalAttrs: {
       exec = "koodo-reader %U";
       icon = "koodo-reader";
       comment = finalAttrs.meta.description;
-      categories = [ "Office" ];
+      categories = ["Office"];
       mimeTypes = [
         "application/epub+zip"
         "application/pdf"
@@ -122,7 +121,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/troyeguo/koodo-reader";
     license = lib.licenses.agpl3Only;
     mainProgram = "koodo-reader";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = electron.meta.platforms;
   };
 })

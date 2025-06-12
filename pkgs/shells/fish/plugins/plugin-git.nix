@@ -3,7 +3,6 @@
   buildFishPlugin,
   fetchFromGitHub,
 }:
-
 buildFishPlugin rec {
   pname = "plugin-git";
   version = "0.3";

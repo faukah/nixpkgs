@@ -6,7 +6,6 @@
   hypothesis,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ochre";
   version = "0.4.0";
@@ -19,20 +18,20 @@ buildPythonPackage rec {
     hash = "sha256-U6qycLnldwNze3XMAn6DS3XGX4RaCZgW0pH/y/FEAkk=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     hypothesis
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "ochre" ];
+  pythonImportsCheck = ["ochre"];
 
   meta = with lib; {
     description = "Down-to-earth approach to colors";
     homepage = "https://github.com/getcuia/ochre";
     changelog = "https://github.com/getcuia/ochre/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

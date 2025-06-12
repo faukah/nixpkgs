@@ -5,7 +5,6 @@
   netcdf,
   statistics,
 }:
-
 buildOctavePackage rec {
   pname = "ncarray";
   version = "1.0.6";
@@ -26,7 +25,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/ncarray/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Access a single or a collection of NetCDF files as a multi-dimensional array";
   };
 }

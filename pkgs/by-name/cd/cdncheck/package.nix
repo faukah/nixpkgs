@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cdncheck";
   version = "1.1.22";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-/1REkZ5+sz/H4T4lXhloz7fu5cLv1GoaD3dlttN+Qd4=";
 
-  subPackages = [ "cmd/cdncheck/" ];
+  subPackages = ["cmd/cdncheck/"];
 
   ldflags = [
     "-s"
@@ -36,7 +35,7 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/cdncheck";
     changelog = "https://github.com/projectdiscovery/cdncheck/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "cdncheck";
   };
 }

@@ -5,7 +5,6 @@
   fetchurl,
   openfst,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opengrm-ngram";
   version = "1.3.16";
@@ -15,9 +14,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-pcwP0VVW8H+0Y2Fsmh4WaH4whPPJlE3WyBI4VJfsES4=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ openfst ];
+  buildInputs = [openfst];
 
   enableParallelBuilding = true;
 
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     description = "Library to make and modify n-gram language models encoded as weighted finite-state transducers";
     homepage = "https://www.openfst.org/twiki/bin/view/GRM/NGramLibrary";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
     platforms = platforms.unix;
   };
 }

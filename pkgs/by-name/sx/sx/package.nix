@@ -8,7 +8,6 @@
   xorg,
   nixosTests,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sx";
   version = "3.0";
@@ -20,9 +19,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-hKoz7Kuus8Yp7D0F05wCOQs6BvV0NkRM9uUXTntLJxQ=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  nativeBuildInputs = [ patsh ];
+  nativeBuildInputs = [patsh];
 
   buildInputs = [
     coreutils # needed for cross
@@ -44,7 +43,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    providedSessions = [ "sx" ];
+    providedSessions = ["sx"];
     tests = {
       inherit (nixosTests) sx;
     };

@@ -17,7 +17,6 @@
   importlib-metadata,
   packaging,
 }:
-
 buildPythonPackage rec {
   pname = "sopel";
   version = "8.0.2";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-7LNbnSri+yjH2Nw8rBCTO8Lg84VXY6A+xMXscEkUVK8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -50,14 +49,14 @@ buildPythonPackage rec {
     packaging
   ];
 
-  pythonRemoveDeps = [ "sopel-help" ];
+  pythonRemoveDeps = ["sopel-help"];
 
   pythonRelaxDeps = [
     "sqlalchemy"
     "xmltodict"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # requires network access
@@ -76,13 +75,13 @@ buildPythonPackage rec {
     "test_example_wiktionary_ety_0"
   ];
 
-  pythonImportsCheck = [ "sopel" ];
+  pythonImportsCheck = ["sopel"];
 
   meta = with lib; {
     description = "Simple and extensible IRC bot";
     homepage = "https://sopel.chat";
     license = licenses.efl20;
-    maintainers = with maintainers; [ mog ];
+    maintainers = with maintainers; [mog];
     mainProgram = "sopel";
   };
 }

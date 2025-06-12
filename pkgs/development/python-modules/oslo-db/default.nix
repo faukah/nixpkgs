@@ -19,7 +19,6 @@
   testresources,
   testscenarios,
 }:
-
 buildPythonPackage rec {
   pname = "oslo-db";
   version = "17.2.1";
@@ -60,12 +59,12 @@ buildPythonPackage rec {
     stestr run -e <(echo "oslo_db.tests.sqlalchemy.test_utils.TestModelQuery.test_project_filter_allow_none")
   '';
 
-  pythonImportsCheck = [ "oslo_db" ];
+  pythonImportsCheck = ["oslo_db"];
 
   meta = with lib; {
     description = "Oslo Database library";
     homepage = "https://github.com/openstack/oslo.db";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

@@ -7,7 +7,6 @@
   libzip,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vgm2x";
   version = "0-unstable-2024-12-13";
@@ -29,14 +28,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libarchive
     libzip
   ];
 
-  buildFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  buildFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     runHook preInstall
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = {
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/vampirefrog/vgm2x";
     license = lib.licenses.gpl3Only;
     mainProgram = "vgm2x";
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     platforms = lib.platforms.all;
   };
 })

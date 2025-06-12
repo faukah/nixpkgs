@@ -9,7 +9,6 @@
   python3,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-menus";
   version = "1.28.0";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
       lgpl2Plus
     ];
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

@@ -23,7 +23,6 @@
   zlib,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "torcs";
   version = "1.3.7";
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     sed -i -e s,/bin/bash,`type -P bash`, src/linux/torcs.in
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     libGLU
     libglut
@@ -89,8 +88,8 @@ stdenv.mkDerivation rec {
     description = "Car racing game";
     homepage = "https://torcs.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

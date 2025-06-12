@@ -1,11 +1,11 @@
-{ mkDprintPlugin }:
+{mkDprintPlugin}:
 mkDprintPlugin {
   description = "Jupyter notebook code block formatter.";
   hash = "sha256-IlGwt2TnKeH9NwmUmU1keaTInXgYQVLIPNnr30A9lsM=";
   initConfig = {
-    configExcludes = [ ];
+    configExcludes = [];
     configKey = "jupyter";
-    fileExtensions = [ "ipynb" ];
+    fileExtensions = ["ipynb"];
   };
   pname = "dprint-plugin-jupyter";
   updateUrl = "https://plugins.dprint.dev/dprint/jupyter/latest.json";

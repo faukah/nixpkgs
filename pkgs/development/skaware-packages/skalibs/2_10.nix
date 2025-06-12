@@ -1,5 +1,4 @@
-{ skawarePackages }:
-
+{skawarePackages}:
 skawarePackages.buildPackage {
   pname = "skalibs";
   version = "2.10.0.3";
@@ -32,5 +31,4 @@ skawarePackages.buildPackage {
 
     mv doc $doc/share/doc/skalibs/html
   '';
-
 }

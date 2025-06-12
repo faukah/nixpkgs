@@ -5,7 +5,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "phone-modem";
   version = "0.1.2";
@@ -24,17 +23,17 @@ buildPythonPackage rec {
       --replace "aioserial==1.3.0" "aioserial"
   '';
 
-  propagatedBuildInputs = [ aioserial ];
+  propagatedBuildInputs = [aioserial];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "phone_modem" ];
+  pythonImportsCheck = ["phone_modem"];
 
   meta = with lib; {
     description = "Python module for receiving caller ID and call rejection";
     homepage = "https://github.com/tkdrob/phone_modem";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

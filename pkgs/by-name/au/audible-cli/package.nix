@@ -6,7 +6,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "audible-cli";
   version = "0.3.1";
@@ -19,8 +18,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-AYL7lcYYY7gK12Id94aHRWRlCiznnF4r+lpI5VFpAWY=";
   };
 
-  nativeBuildInputs =
-    with python3Packages;
+  nativeBuildInputs = with python3Packages;
     [
       setuptools
     ]
@@ -73,7 +71,7 @@ python3Packages.buildPythonApplication rec {
     license = licenses.agpl3Only;
     homepage = "https://github.com/mkb79/audible-cli";
     changelog = "https://github.com/mkb79/audible-cli/blob/${src.rev}/CHANGELOG.md";
-    maintainers = with maintainers; [ jvanbruegge ];
+    maintainers = with maintainers; [jvanbruegge];
     mainProgram = "audible";
   };
 }

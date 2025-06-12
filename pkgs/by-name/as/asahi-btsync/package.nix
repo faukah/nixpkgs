@@ -3,7 +3,6 @@
   fetchCrate,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "asahi-btsync";
   version = "0.2.0";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     description = "Tool to sync Bluetooth pairing keys with macos on ARM Macs";
     homepage = "https://crates.io/crates/asahi-btsync";
     license = licenses.mit;
-    maintainers = with maintainers; [ lukaslihotzki ];
+    maintainers = with maintainers; [lukaslihotzki];
     mainProgram = "asahi-btsync";
     platforms = platforms.linux;
   };

@@ -73,13 +73,13 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "BUILD_SHARED_LIBS" false)
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -87,8 +87,8 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/k4yt3x/video2x/releases/tag/${finalAttrs.version}/CHANGELOG.md";
     homepage = "https://github.com/k4yt3x/video2x";
     license = lib.licenses.agpl3Plus;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "video2x";
-    maintainers = [ lib.maintainers.matteopacini ];
+    maintainers = [lib.maintainers.matteopacini];
   };
 })

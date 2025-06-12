@@ -11,12 +11,12 @@
   aspellDicts,
   # Use `lib.collect lib.isDerivation aspellDicts;` to make all dictionaries
   # available.
-  enchantAspellDicts ? with aspellDicts; [
-    en
-    en-computers
-  ],
+  enchantAspellDicts ?
+    with aspellDicts; [
+      en
+      en-computers
+    ],
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "retext";
   version = "8.1.0";
@@ -34,7 +34,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-nqKAUg9nTzGPPxr80KTn6JX9JgCUJwpcwp8aOIlcxPY=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   nativeBuildInputs = [
     wrapQtAppsHook
@@ -74,11 +74,11 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")
     makeWrapperArgs+=(
       "--set" "ASPELL_CONF" "dict-dir ${
-        buildEnv {
-          name = "aspell-all-dicts";
-          paths = map (path: "${path}/lib/aspell") enchantAspellDicts;
-        }
-      }"
+      buildEnv {
+        name = "aspell-all-dicts";
+        paths = map (path: "${path}/lib/aspell") enchantAspellDicts;
+      }
+    }"
     )
 
     cp ${toolbarIcons}/* $out/${python3.pkgs.python.sitePackages}/ReText/icons
@@ -98,7 +98,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Editor for Markdown and reStructuredText";
     homepage = "https://github.com/retext-project/retext/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ klntsky ];
+    maintainers = with lib.maintainers; [klntsky];
     platforms = lib.platforms.unix;
     mainProgram = "retext";
   };

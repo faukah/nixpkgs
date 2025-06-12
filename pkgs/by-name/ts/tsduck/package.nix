@@ -18,7 +18,6 @@
   openssl,
   srt,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tsduck";
   version = "3.40-4165";
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   # remove tests which break the sandbox
-  patches = [ ./tests.patch ];
+  patches = [./tests.patch];
   checkTarget = "test";
   doCheck = true;
 
@@ -82,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/tsduck/tsduck";
     mainProgram = "tsversion";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ siriobalmelli ];
+    maintainers = with lib.maintainers; [siriobalmelli];
     platforms = lib.platforms.all;
   };
 })

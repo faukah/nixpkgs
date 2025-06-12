@@ -1,10 +1,9 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "turn-rs";
 
   nodes = {
     server = {
-      virtualisation.vlans = [ 1 ];
+      virtualisation.vlans = [1];
 
       networking = {
         useNetworkd = true;
@@ -45,7 +44,8 @@
     };
   };
 
-  testScript = # python
+  testScript =
+    # python
     ''
       import json
 

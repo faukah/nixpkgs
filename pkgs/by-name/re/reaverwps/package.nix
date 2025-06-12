@@ -6,7 +6,6 @@
   sqlite,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.4";
   pname = "reaver-wps";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0bdjai4p8xbsw8zdkkk43rgsif79x0nyx4djpyv0mzh59850blxd";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     libpcap
     sqlite
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     sourceRoot=$(echo */src)
   '';
 
-  configureFlags = [ "--sysconfdir=${confdir}" ];
+  configureFlags = ["--sysconfdir=${confdir}"];
 
   installPhase = ''
     mkdir -p $out/{bin,etc}
@@ -45,13 +44,13 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  patches = [ ./parallel-build.patch ];
+  patches = [./parallel-build.patch];
 
   meta = with lib; {
     description = "Brute force attack against Wifi Protected Setup";
     homepage = "https://code.google.com/archive/p/reaver-wps/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ nico202 ];
+    maintainers = with maintainers; [nico202];
   };
 }

@@ -7,7 +7,6 @@
   hunspell,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "featherpad";
   version = "1.6.2";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Lightweight Qt5 Plain-Text Editor for Linux";
     homepage = "https://github.com/tsujan/FeatherPad";
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.flosse ];
+    maintainers = [lib.maintainers.flosse];
     license = lib.licenses.gpl3Plus;
   };
 })

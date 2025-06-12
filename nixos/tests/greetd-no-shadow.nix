@@ -2,36 +2,36 @@
   pkgs,
   latestKernel ? false,
   ...
-}:
-{
+}: {
   name = "greetd-no-shadow";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ ];
+    maintainers = [];
   };
 
-  nodes.machine =
-    { pkgs, lib, ... }:
-    {
+  nodes.machine = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    users.users.alice = {
+      isNormalUser = true;
+      group = "alice";
+      password = "foobar";
+    };
+    users.groups.alice = {};
 
-      users.users.alice = {
-        isNormalUser = true;
-        group = "alice";
-        password = "foobar";
-      };
-      users.groups.alice = { };
+    # This means login(1) breaks, so we must use greetd/agreety instead.
+    security.shadow.enable = false;
 
-      # This means login(1) breaks, so we must use greetd/agreety instead.
-      security.shadow.enable = false;
-
-      services.greetd = {
-        enable = true;
-        settings = {
-          default_session = {
-            command = "${pkgs.greetd.greetd}/bin/agreety --cmd bash";
-          };
+    services.greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.greetd}/bin/agreety --cmd bash";
         };
       };
     };
+  };
 
   testScript = ''
     machine.start()

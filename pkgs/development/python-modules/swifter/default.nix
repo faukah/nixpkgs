@@ -10,7 +10,6 @@
   ipywidgets,
   ray,
 }:
-
 buildPythonPackage rec {
   pname = "swifter";
   version = "1.4.0";
@@ -23,21 +22,23 @@ buildPythonPackage rec {
     hash = "sha256-lgdf8E9GGjeLY4ERzxqtjQuYVtdtIZt2HFLSiNBbtX4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    pandas
-    psutil
-    dask
-    tqdm
-  ] ++ dask.optional-dependencies.dataframe;
+  dependencies =
+    [
+      pandas
+      psutil
+      dask
+      tqdm
+    ]
+    ++ dask.optional-dependencies.dataframe;
 
   optional-dependencies = {
-    groupby = [ ray ];
-    notebook = [ ipywidgets ];
+    groupby = [ray];
+    notebook = [ipywidgets];
   };
 
-  pythonImportsCheck = [ "swifter" ];
+  pythonImportsCheck = ["swifter"];
 
   # tests may hang due to ignoring cpu core limit
   # https://github.com/jmcarpenter2/swifter/issues/221
@@ -47,6 +48,6 @@ buildPythonPackage rec {
     description = "Package which efficiently applies any function to a pandas dataframe or series in the fastest available manner";
     homepage = "https://github.com/jmcarpenter2/swifter";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

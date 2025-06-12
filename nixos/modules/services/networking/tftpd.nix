@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   options = {
     services.tftpd.enable = lib.mkOption {
       type = lib.types.bool;

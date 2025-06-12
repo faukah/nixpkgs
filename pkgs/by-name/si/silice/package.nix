@@ -16,7 +16,6 @@
   trellis,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "silice";
   version = "0-unstable-2025-03-05";
@@ -61,54 +60,51 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.tests =
-    let
-      silice = finalAttrs.finalPackage;
-      testProject =
-        project:
-        stdenv.mkDerivation {
-          name = "${silice.name}-test-${project}";
-          nativeBuildInputs = [
-            silice
-            yosys
-            nextpnr
-            verilator
-            dfu-util
-            icestorm
-            trellis
-          ];
-          src = "${silice.src}/projects";
-          sourceRoot = "projects/${project}";
-          buildPhase = ''
-            targets=()
-            for target in $(cat configs | tr -d '\r') ; do
-              [[ $target != Makefile* ]] || continue
-              make $target ARGS="--no_program"
-              targets+=($target)
-            done
-            if test "''${#targets[@]}" -eq 0; then
-              >&2 echo "ERROR: no target found!"
-              false
-            fi
-          '';
-          installPhase = ''
-            mkdir $out
-            for target in "''${targets[@]}" ; do
-              [[ $target != Makefile* ]] || continue
-            done
-          '';
-        };
-    in
-    {
-      # a selection of test projects that build with the FPGA tools in
-      # nixpkgs
-      audio_sdcard_streamer = testProject "audio_sdcard_streamer";
-      bram_interface = testProject "bram_interface";
-      blinky = testProject "blinky";
-      pipeline_sort = testProject "pipeline_sort";
-    };
+  passthru.tests = let
+    silice = finalAttrs.finalPackage;
+    testProject = project:
+      stdenv.mkDerivation {
+        name = "${silice.name}-test-${project}";
+        nativeBuildInputs = [
+          silice
+          yosys
+          nextpnr
+          verilator
+          dfu-util
+          icestorm
+          trellis
+        ];
+        src = "${silice.src}/projects";
+        sourceRoot = "projects/${project}";
+        buildPhase = ''
+          targets=()
+          for target in $(cat configs | tr -d '\r') ; do
+            [[ $target != Makefile* ]] || continue
+            make $target ARGS="--no_program"
+            targets+=($target)
+          done
+          if test "''${#targets[@]}" -eq 0; then
+            >&2 echo "ERROR: no target found!"
+            false
+          fi
+        '';
+        installPhase = ''
+          mkdir $out
+          for target in "''${targets[@]}" ; do
+            [[ $target != Makefile* ]] || continue
+          done
+        '';
+      };
+  in {
+    # a selection of test projects that build with the FPGA tools in
+    # nixpkgs
+    audio_sdcard_streamer = testProject "audio_sdcard_streamer";
+    bram_interface = testProject "bram_interface";
+    blinky = testProject "blinky";
+    pipeline_sort = testProject "pipeline_sort";
+  };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Open source language that simplifies prototyping and writing algorithms on FPGA architectures";

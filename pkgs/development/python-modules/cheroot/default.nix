@@ -17,7 +17,6 @@
   setuptools-scm,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "cheroot";
   version = "10.0.1";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
       --replace "setuptools_scm_git_archive>=1.0" ""
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     jaraco-functools
@@ -90,7 +89,7 @@ buildPythonPackage rec {
     "cheroot/test/test_ssl.py"
   ];
 
-  pythonImportsCheck = [ "cheroot" ];
+  pythonImportsCheck = ["cheroot"];
 
   # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
@@ -100,6 +99,6 @@ buildPythonPackage rec {
     mainProgram = "cheroot";
     homepage = "https://github.com/cherrypy/cheroot";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

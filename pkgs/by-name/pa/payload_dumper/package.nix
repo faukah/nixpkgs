@@ -5,7 +5,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "payload_dumper";
   version = "unstable-2022-04-11";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "1j1hbh5vqq33wq2b9gqvm1qs9nl0bmqklbnyyyhwkcha7zxn0aki";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = with python3.pkgs; [
     bsdiff4
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = finalAttrs.src.meta.homepage;
     description = "Android OTA payload dumper";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ DamienCassou ];
+    maintainers = with maintainers; [DamienCassou];
     mainProgram = "payload_dumper";
   };
 })

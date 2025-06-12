@@ -8,7 +8,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "aiosolaredge";
   version = "0.2.0";
@@ -25,14 +24,14 @@ buildPythonPackage rec {
     sed -i "/^addopts/d" pyproject.toml
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
     yarl
   ];
 
-  pythonImportsCheck = [ "aiosolaredge" ];
+  pythonImportsCheck = ["aiosolaredge"];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Asyncio SolarEdge API client";
     homepage = "https://github.com/bdraco/aiosolaredge";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

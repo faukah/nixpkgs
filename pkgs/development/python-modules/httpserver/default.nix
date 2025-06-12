@@ -9,7 +9,6 @@
   selenium,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "httpserver";
   version = "1.1.0";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-W8Pa+CUS8vCzEcymjY6no5GMdSDSZs4bhmDtRsR4wuA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ docopt ];
+  dependencies = [docopt];
 
   nativeCheckInputs = [
     freezegun
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "httpserver" ];
+  pythonImportsCheck = ["httpserver"];
 
   disabledTestPaths = [
     # Tests want driver for Firefox
@@ -42,8 +41,8 @@ buildPythonPackage rec {
   meta = {
     description = "Asyncio implementation of an HTTP server";
     homepage = "https://github.com/thomwiggers/httpserver";
-    license = with lib.licenses; [ bsd3 ];
-    maintainers = [ ];
+    license = with lib.licenses; [bsd3];
+    maintainers = [];
     mainProgram = "httpserver";
   };
 }

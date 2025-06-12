@@ -17,17 +17,17 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-cTBXStAA+oCRze2Bh/trultdqtBNOOpXQltJ6R34nF8=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "CLI tool to convert clang-tidy diagnostics into SARIF";
     homepage = "https://psastras.github.io/sarif-rs";
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "clang-tidy-sarif";
     license = lib.licenses.mit;
   };

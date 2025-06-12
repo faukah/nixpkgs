@@ -3,15 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.zeronsd;
-  settingsFormat = pkgs.formats.json { };
-in
-{
+  settingsFormat = pkgs.formats.json {};
+in {
   options.services.zeronsd.servedNetworks = lib.mkOption {
-    default = { };
+    default = {};
     example = {
       "a8a2c3c10c1a68de".settings.token = "/var/lib/zeronsd/apitoken";
     };
@@ -19,11 +16,11 @@ in
     type = lib.types.attrsOf (
       lib.types.submodule {
         options = {
-          package = lib.mkPackageOption pkgs "zeronsd" { };
+          package = lib.mkPackageOption pkgs "zeronsd" {};
 
           settings = lib.mkOption {
             description = "Settings for zeronsd";
-            default = { };
+            default = {};
             type = lib.types.submodule {
               freeformType = settingsFormat.type;
 
@@ -65,7 +62,7 @@ in
     );
   };
 
-  config = lib.mkIf (cfg.servedNetworks != { }) {
+  config = lib.mkIf (cfg.servedNetworks != {}) {
     assertions = [
       {
         assertion = config.services.zerotierone.enable;
@@ -73,23 +70,22 @@ in
       }
     ];
 
-    systemd.services = lib.mapAttrs' (netname: netcfg: {
-      name = "zeronsd-${netname}";
-      value = {
-        description = "ZeroTier DNS server for Network ${netname}";
+    systemd.services =
+      lib.mapAttrs' (netname: netcfg: {
+        name = "zeronsd-${netname}";
+        value = {
+          description = "ZeroTier DNS server for Network ${netname}";
 
-        wantedBy = [ "multi-user.target" ];
-        after = [
-          "network.target"
-          "zerotierone.service"
-        ];
-        wants = [ "network-online.target" ];
+          wantedBy = ["multi-user.target"];
+          after = [
+            "network.target"
+            "zerotierone.service"
+          ];
+          wants = ["network-online.target"];
 
-        serviceConfig =
-          let
+          serviceConfig = let
             configFile = pkgs.writeText "zeronsd.json" (builtins.toJSON netcfg.settings);
-          in
-          {
+          in {
             ExecStart = "${netcfg.package}/bin/zeronsd start --config ${configFile} --config-type json ${netname}";
             Restart = "on-failure";
             RestartSec = 2;
@@ -98,8 +94,9 @@ in
             Group = "zeronsd";
             AmbientCapabilities = "CAP_NET_BIND_SERVICE";
           };
-      };
-    }) cfg.servedNetworks;
+        };
+      })
+      cfg.servedNetworks;
 
     systemd.tmpfiles.rules = [
       "a+ /var/lib/zerotier-one - - - - mask::x,u:zeronsd:x"
@@ -112,6 +109,6 @@ in
       isSystemUser = true;
     };
 
-    users.groups.zeronsd = { };
+    users.groups.zeronsd = {};
   };
 }

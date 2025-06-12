@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchurl,
 }:
-
 buildDunePackage rec {
   pname = "randomconv";
   version = "0.2.0";
@@ -19,7 +18,6 @@ buildDunePackage rec {
     homepage = "https://github.com/hannesm/randomconv";
     description = "Convert from random bytes to random native numbers";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

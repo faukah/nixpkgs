@@ -16,7 +16,6 @@
   email-validator,
   pytest-lazy-fixtures,
 }:
-
 buildPythonPackage rec {
   pname = "polyfactory";
   version = "2.19.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-0VsH2J+vEk3cF7AYvirnXPupSLE2EGrp9FF+/EOWAbw=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     faker
@@ -53,12 +52,12 @@ buildPythonPackage rec {
     "test_type_alias"
   ];
 
-  pythonImportsCheck = [ "polyfactory" ];
+  pythonImportsCheck = ["polyfactory"];
 
   meta = {
     homepage = "https://polyfactory.litestar.dev/";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     changelog = "https://github.com/litestar-org/polyfactory/releases/tag/v${version}";
     description = "Simple and powerful factories for mock data generation";
     license = lib.licenses.mit;

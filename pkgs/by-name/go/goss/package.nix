@@ -12,7 +12,6 @@
   systemd,
   testers,
 }:
-
 buildGoModule rec {
   pname = "goss";
   version = "0.4.9";
@@ -34,19 +33,19 @@ buildGoModule rec {
     "-X github.com/goss-org/goss/util.Version=v${version}"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  postInstall =
-    let
-      runtimeDependencies = [
+  postInstall = let
+    runtimeDependencies =
+      [
         bash
         getent
-      ] ++ lib.optionals stdenv.hostPlatform.isLinux [ systemd ];
-    in
-    ''
-      wrapProgram $out/bin/goss \
-        --prefix PATH : "${lib.makeBinPath runtimeDependencies}"
-    '';
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [systemd];
+  in ''
+    wrapProgram $out/bin/goss \
+      --prefix PATH : "${lib.makeBinPath runtimeDependencies}"
+  '';
 
   passthru = {
     tests = {
@@ -57,7 +56,7 @@ buildGoModule rec {
         version = "v${version}";
       };
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

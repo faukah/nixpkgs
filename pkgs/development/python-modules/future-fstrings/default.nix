@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "future-fstrings";
   version = "1.2.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     description = "Backport of fstrings to python<3.6";
     mainProgram = "future-fstrings-show";
     license = licenses.mit;
-    maintainers = with maintainers; [ nyanloutre ];
+    maintainers = with maintainers; [nyanloutre];
     broken = pythonOlder "3.6"; # dependency tokenize-rt not packaged
   };
 }

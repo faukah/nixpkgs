@@ -9,7 +9,6 @@
   pam,
   sblim-sfcc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openwsman";
   version = "2.8.1";
@@ -43,14 +42,14 @@ stdenv.mkDerivation rec {
     appendToVar cmakeFlags "-DPACKAGE_ARCHITECTURE=$(uname -m)"
   '';
 
-  configureFlags = [ "--disable-more-warnings" ];
+  configureFlags = ["--disable-more-warnings"];
 
   meta = {
     description = "Openwsman server implementation and client API with bindings";
     downloadPage = "https://github.com/Openwsman/openwsman/releases";
     homepage = "https://openwsman.github.io";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ deepfire ];
+    maintainers = with lib.maintainers; [deepfire];
     platforms = lib.platforms.linux; # PAM is not available on Darwin
   };
 }

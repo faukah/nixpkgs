@@ -9,7 +9,6 @@
   pytestCheckHook,
   pytest-xdist,
 }:
-
 buildPythonPackage rec {
   pname = "eth-typing";
   version = "5.1.0";
@@ -22,16 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-IOWd6WFPAYO+VZwlMilRVHtudEjHt5p8Xu4WloFB/ww=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ typing-extensions ];
+  dependencies = [typing-extensions];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytest-xdist
   ];
 
-  pythonImportsCheck = [ "eth_typing" ];
+  pythonImportsCheck = ["eth_typing"];
 
   disabledTests = [
     # side-effect: runs pip online check and is blocked by sandbox
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ethereum/eth-typing";
     changelog = "https://github.com/ethereum/eth-typing/blob/v${version}/docs/release_notes.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ siraben ];
+    maintainers = with lib.maintainers; [siraben];
   };
 }

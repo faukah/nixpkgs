@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "goblob";
   version = "1.2.2";
@@ -28,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/Macmod/goblob";
     changelog = "https://github.com/Macmod/goblob/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

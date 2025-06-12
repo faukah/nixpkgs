@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hyprland-monitor-attached";
   version = "0.1.6";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Automatically run a script when a monitor connects (or disconnects) in Hyprland";
     homepage = "https://github.com/coffebar/hyprland-monitor-attached";
     license = licenses.mit;
-    maintainers = with maintainers; [ bddvlpr ];
+    maintainers = with maintainers; [bddvlpr];
     mainProgram = "hyprland-monitor-attached";
     platforms = platforms.linux;
   };

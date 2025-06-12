@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "standard-pipes";
   version = "3.13.0";
@@ -20,16 +19,16 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/pipes";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "pipes" ];
+  pythonImportsCheck = ["pipes"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Standard library pipes redistribution";
     homepage = "https://github.com/youknowone/python-deadlib/tree/main/pipes";
     license = lib.licenses.psfl;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

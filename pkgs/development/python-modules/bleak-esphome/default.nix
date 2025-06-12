@@ -16,7 +16,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "bleak-esphome";
   version = "2.16.0";
@@ -56,13 +55,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "bleak_esphome" ];
+  pythonImportsCheck = ["bleak_esphome"];
 
   meta = with lib; {
     description = "Bleak backend of ESPHome";
     homepage = "https://github.com/bluetooth-devices/bleak-esphome";
     changelog = "https://github.com/bluetooth-devices/bleak-esphome/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

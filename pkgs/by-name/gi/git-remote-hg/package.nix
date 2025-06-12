@@ -9,7 +9,6 @@
   libxslt,
   libxml2,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "git-remote-hg";
   version = "1.0.4";
@@ -30,7 +29,7 @@ python3Packages.buildPythonApplication rec {
     libxml2
   ];
 
-  dependencies = with python3Packages; [ mercurial ];
+  dependencies = with python3Packages; [mercurial];
 
   postInstall = ''
     make install-doc prefix=$out
@@ -40,7 +39,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/mnauw/git-remote-hg";
     description = "Semi-official Mercurial bridge from Git project";
     license = lib.licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

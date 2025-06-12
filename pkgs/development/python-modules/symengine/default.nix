@@ -10,12 +10,11 @@
   python,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "symengine";
   version = "0.14.1";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
   pyproject = true;
 
   src = fetchFromGitHub {
@@ -56,6 +55,6 @@ buildPythonPackage rec {
     description = "Python library providing wrappers to SymEngine";
     homepage = "https://github.com/symengine/symengine.py";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

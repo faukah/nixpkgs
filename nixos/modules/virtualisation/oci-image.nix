@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.oci;
-in
-{
+in {
   imports = [
     ./oci-common.nix
     ../image/file-options.nix
@@ -20,7 +17,7 @@ in
     virtualisation.diskSize = lib.mkOverride 1490 (8 * 1024);
     virtualisation.diskSizeAutoSupported = false;
 
-    system.nixos.tags = [ "oci" ];
+    system.nixos.tags = ["oci"];
     image.extension = "qcow2";
     system.build.image = config.system.build.OCIImage;
     system.build.OCIImage = import ../../lib/make-disk-image.nix {
@@ -30,17 +27,20 @@ in
       baseName = config.image.baseName;
       configFile = ./oci-config-user.nix;
       format = "qcow2";
-      partitionTableType = if cfg.efi then "efi" else "legacy";
+      partitionTableType =
+        if cfg.efi
+        then "efi"
+        else "legacy";
     };
 
     systemd.services.fetch-ssh-keys = {
       description = "Fetch authorized_keys for root user";
 
-      wantedBy = [ "sshd.service" ];
-      before = [ "sshd.service" ];
+      wantedBy = ["sshd.service"];
+      before = ["sshd.service"];
 
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
 
       path = [
         pkgs.coreutils

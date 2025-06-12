@@ -8,7 +8,6 @@
   pytest-cov-stub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "camel-converter";
   version = "4.0.1";
@@ -23,18 +22,20 @@ buildPythonPackage rec {
     hash = "sha256-cHrMaf5PyFWacoi4t+Clow9qFAxbdn71p8ckuYMt27w=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   optional-dependencies = {
-    pydantic = [ pydantic ];
+    pydantic = [pydantic];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-cov-stub
-  ] ++ optional-dependencies.pydantic;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-cov-stub
+    ]
+    ++ optional-dependencies.pydantic;
 
-  pythonImportsCheck = [ "camel_converter" ];
+  pythonImportsCheck = ["camel_converter"];
 
   disabledTests = [
     # AttributeError: 'Test' object has no attribute 'model_dump'
@@ -46,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sanders41/camel-converter";
     changelog = "https://github.com/sanders41/camel-converter/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

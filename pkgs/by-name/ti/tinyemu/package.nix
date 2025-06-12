@@ -6,7 +6,6 @@
   curl,
   openssl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tinyemu";
   version = "2019-12-21";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-voNR8hIYGbMXL87c5csYJvoSyH2ht+2Y8mnT6AKgVVU=";
   };
 
-  nativeBuildInputs = [ SDL ];
+  nativeBuildInputs = [SDL];
 
   buildInputs = [
     SDL
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
       mit
       bsd2
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

@@ -8,7 +8,6 @@
   python-dateutil,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyhocon";
   version = "0.3.61";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
       --replace "pyparsing~=2.0" "pyparsing>=2.0"
   '';
 
-  pythonImportsCheck = [ "pyhocon" ];
+  pythonImportsCheck = ["pyhocon"];
 
   disabledTestPaths = [
     # pyparsing.exceptions.ParseException: Expected end of text, found '='
@@ -62,6 +61,6 @@ buildPythonPackage rec {
       any HOCON content into JSON, YAML and properties format.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ chreekat ];
+    maintainers = with maintainers; [chreekat];
   };
 }

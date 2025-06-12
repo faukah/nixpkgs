@@ -5,7 +5,6 @@
   dbus,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ianny";
   version = "2.1.1";
@@ -20,8 +19,8 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-A5ZInR6gXvDPpa2azF1ZmVANzm3v1YAvxJjJ7h32J2A=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dbus.dev ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dbus.dev];
 
   postPatch = ''
     substituteInPlace src/main.rs \
@@ -39,7 +38,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/zefr0x/ianny";
     license = licenses.gpl3;
     mainProgram = "ianny";
-    maintainers = with maintainers; [ max-amb ];
+    maintainers = with maintainers; [max-amb];
     platforms = platforms.linux;
   };
 }

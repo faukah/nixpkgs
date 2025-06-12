@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-M+b49KhbzvwpMvnfiNe4yy50aUjrGXEajLMmiXEOCgE=";
   };
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   installPhase = ''
     install -Dm755 hellwal -t $out/bin
     mkdir -p $out/share/docs/hellwal
@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ danihek ];
+    maintainers = with lib.maintainers; [danihek];
     mainProgram = "hellwal";
   };
 })

@@ -18,7 +18,6 @@
   stdenv,
   urdfdom,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pinocchio";
   version = "3.7.0";
@@ -77,16 +76,16 @@ stdenv.mkDerivation (finalAttrs: {
       boost
       eigen
     ]
-    ++ lib.optionals (!pythonSupport && collisionSupport) [ coal ]
+    ++ lib.optionals (!pythonSupport && collisionSupport) [coal]
     ++ lib.optionals pythonSupport [
       python3Packages.boost
       python3Packages.eigenpy
     ]
-    ++ lib.optionals (pythonSupport && collisionSupport) [ python3Packages.coal ]
-    ++ lib.optionals (!pythonSupport && casadiSupport) [ casadi ]
-    ++ lib.optionals (pythonSupport && casadiSupport) [ python3Packages.casadi ];
+    ++ lib.optionals (pythonSupport && collisionSupport) [python3Packages.coal]
+    ++ lib.optionals (!pythonSupport && casadiSupport) [casadi]
+    ++ lib.optionals (pythonSupport && casadiSupport) [python3Packages.casadi];
 
-  checkInputs = lib.optionals (pythonSupport && casadiSupport) [ python3Packages.matplotlib ];
+  checkInputs = lib.optionals (pythonSupport && casadiSupport) [python3Packages.matplotlib];
 
   cmakeFlags =
     [
@@ -103,7 +102,7 @@ stdenv.mkDerivation (finalAttrs: {
     ];
 
   doCheck = true;
-  pythonImportsCheck = [ "pinocchio" ];
+  pythonImportsCheck = ["pinocchio"];
 
   meta = {
     description = "Fast and flexible implementation of Rigid Body Dynamics algorithms and their analytical derivatives";

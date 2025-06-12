@@ -21,9 +21,8 @@
   #, musepackSupport ? false, TODO: mpcenc
   monkeysAudioSupport ? false,
   monkeysAudio,
-#, aacSupport ? false, TODO: neroAacEnc
+  #, aacSupport ? false, TODO: neroAacEnc
 }:
-
 stdenv.mkDerivation rec {
   version = "3.0.1";
   pname = "asunder";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional opusSupport opusTools
     ++ lib.optional wavpackSupport wavpack
     ++ lib.optional monkeysAudioSupport monkeysAudio
-    ++ [ cdparanoia ];
+    ++ [cdparanoia];
 
   postInstall = ''
     wrapProgram "$out/bin/asunder" \
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     mainProgram = "asunder";
     homepage = "http://littlesvr.ca/asunder/index.php";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ mudri ];
+    maintainers = with maintainers; [mudri];
     platforms = platforms.linux;
 
     longDescription = ''

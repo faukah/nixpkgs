@@ -8,7 +8,6 @@
   param,
   panel,
 }:
-
 buildPythonPackage rec {
   pname = "pyviz-comms";
   version = "3.0.4";
@@ -31,12 +30,12 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  dependencies = [ param ];
+  dependencies = [param];
 
   # there are not tests with the package
   doCheck = false;
 
-  pythonImportsCheck = [ "pyviz_comms" ];
+  pythonImportsCheck = ["pyviz_comms"];
 
   passthru.tests = {
     inherit panel;
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     description = "Bidirectional communication for the HoloViz ecosystem";
     homepage = "https://pyviz.org/";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

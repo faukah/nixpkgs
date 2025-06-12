@@ -31,7 +31,6 @@
   writableTmpDirAsHomeHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "deskflow";
   version = "1.22.0";
@@ -95,7 +94,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeCheckInputs = [writableTmpDirAsHomeHook];
 
   checkPhase = ''
     runHook preCheck
@@ -121,7 +120,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/deskflow/deskflow";
     description = "Share one mouse and keyboard between multiple computers on Windows, macOS and Linux";
     mainProgram = "deskflow";
-    maintainers = with lib.maintainers; [ flacks ];
+    maintainers = with lib.maintainers; [flacks];
     license = with lib; [
       licenses.gpl2Plus
       licenses.openssl

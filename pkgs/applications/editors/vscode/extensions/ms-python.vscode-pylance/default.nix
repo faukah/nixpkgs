@@ -3,7 +3,6 @@
   pyright,
   vscode-utils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "vscode-pylance";
@@ -12,7 +11,7 @@ vscode-utils.buildVscodeMarketplaceExtension {
     hash = "sha256-6HnWqD6wTRPjkHYN6HaPHJbbK0wWk/boBtqBhuR7W7U=";
   };
 
-  buildInputs = [ pyright ];
+  buildInputs = [pyright];
 
   meta = {
     changelog = "https://marketplace.visualstudio.com/items/ms-python.vscode-pylance/changelog";
@@ -20,6 +19,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance";
     homepage = "https://github.com/microsoft/pylance-release";
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.ericthemagician ];
+    maintainers = [lib.maintainers.ericthemagician];
   };
 }

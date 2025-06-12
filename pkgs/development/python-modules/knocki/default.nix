@@ -13,7 +13,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "knocki";
   version = "0.4.2";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
       --replace-fail "addopts = \"--cov\"" ""
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -49,13 +48,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "knocki" ];
+  pythonImportsCheck = ["knocki"];
 
   meta = with lib; {
     description = "Asynchronous Python client for Knocki vibration / door sensors";
     homepage = "https://github.com/swan-solutions/knocki-homeassistant";
     changelog = "https://github.com/swan-solutions/knocki-homeassistant/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ mindstorms6 ];
+    maintainers = with maintainers; [mindstorms6];
   };
 }

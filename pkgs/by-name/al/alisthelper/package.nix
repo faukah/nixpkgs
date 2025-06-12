@@ -11,7 +11,6 @@
   _experimental-update-script-combinators,
   gitUpdater,
 }:
-
 flutter327.buildFlutterApplication {
   pname = "alisthelper";
   version = "0.2.0-unstable-2025-01-04";
@@ -53,15 +52,15 @@ flutter327.buildFlutterApplication {
   passthru = {
     pubspecSource =
       runCommand "pubspec.lock.json"
-        {
-          buildInputs = [ yq ];
-          inherit (alisthelper) src;
-        }
-        ''
-          cat $src/pubspec.lock | yq > $out
-        '';
+      {
+        buildInputs = [yq];
+        inherit (alisthelper) src;
+      }
+      ''
+        cat $src/pubspec.lock | yq > $out
+      '';
     updateScript = _experimental-update-script-combinators.sequence [
-      (gitUpdater { rev-prefix = "v"; })
+      (gitUpdater {rev-prefix = "v";})
       (_experimental-update-script-combinators.copyAttrOutputToFile "alisthelper.pubspecSource" ./pubspec.lock.json)
     ];
   };
@@ -70,8 +69,8 @@ flutter327.buildFlutterApplication {
     description = "Designed to simplify the use of the desktop version of alist";
     homepage = "https://github.com/Xmarmalade/alisthelper";
     mainProgram = "alisthelper";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ emaryn ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [emaryn];
     platforms = lib.platforms.linux;
   };
 }

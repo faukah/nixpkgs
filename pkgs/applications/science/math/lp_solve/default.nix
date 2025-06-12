@@ -6,7 +6,6 @@
   fixDarwinDylibNames,
   autoSignDarwinBinariesHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lp_solve";
   version = "5.5.2.11";
@@ -35,18 +34,19 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  buildPhase =
-    let
-      ccc = if stdenv.hostPlatform.isDarwin then "ccc.osx" else "ccc";
-    in
-    ''
-      runHook preBuild
+  buildPhase = let
+    ccc =
+      if stdenv.hostPlatform.isDarwin
+      then "ccc.osx"
+      else "ccc";
+  in ''
+    runHook preBuild
 
-      (cd lpsolve55 && bash -x -e ${ccc})
-      (cd lp_solve  && bash -x -e ${ccc})
+    (cd lpsolve55 && bash -x -e ${ccc})
+    (cd lp_solve  && bash -x -e ${ccc})
 
-      runHook postBuild
-    '';
+    runHook postBuild
+  '';
 
   installPhase = ''
     runHook preInstall
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     mainProgram = "lp_solve";
     homepage = "https://lpsolve.sourceforge.net";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ smironov ];
+    maintainers = with maintainers; [smironov];
     platforms = platforms.unix;
   };
 }

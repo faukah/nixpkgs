@@ -6,7 +6,6 @@
   cmake,
   python3,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "obitools3";
   version = "3.0.1b11";
@@ -40,7 +39,7 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "obi";
     homepage = "https://git.metabarcoding.org/obitools/obitools3";
     license = licenses.cecill20;
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
     platforms = platforms.all;
   };
 }

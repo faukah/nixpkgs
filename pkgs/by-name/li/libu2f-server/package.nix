@@ -12,7 +12,6 @@
   which,
   gengetopt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libu2f-server";
   version = "1.1.0";
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     mainProgram = "u2f-server";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ philandstuff ];
+    maintainers = with maintainers; [philandstuff];
   };
 }

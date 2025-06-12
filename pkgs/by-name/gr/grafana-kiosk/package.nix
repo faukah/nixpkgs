@@ -5,7 +5,6 @@
   chromium,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "grafana-kiosk";
   version = "1.0.9";
@@ -19,9 +18,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-LZLmXGPYvNR4meqen0h0UHj62392hfPs9BLNK+X6sKA=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   postFixup = ''
-    wrapProgram $out/bin/grafana-kiosk --prefix PATH : ${lib.makeBinPath [ chromium ]}
+    wrapProgram $out/bin/grafana-kiosk --prefix PATH : ${lib.makeBinPath [chromium]}
   '';
 
   meta = with lib; {
@@ -29,7 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/grafana/grafana-kiosk";
     changelog = "https://github.com/grafana/grafana-kiosk/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ marcusramberg ];
+    maintainers = with maintainers; [marcusramberg];
     mainProgram = "grafana-kiosk";
   };
 }

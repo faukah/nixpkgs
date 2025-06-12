@@ -10,7 +10,6 @@
   iproute2,
   procps,
 }:
-
 stdenv.mkDerivation {
   pname = "fancy-motd";
   version = "unstable-2022-06-06";
@@ -58,7 +57,7 @@ stdenv.mkDerivation {
     description = "Fancy, colorful MOTD written in bash. Server status at a glance";
     homepage = "https://github.com/bcyran/fancy-motd";
     license = licenses.mit;
-    maintainers = with maintainers; [ rhoriguchi ];
+    maintainers = with maintainers; [rhoriguchi];
     platforms = platforms.linux;
     mainProgram = "motd";
   };

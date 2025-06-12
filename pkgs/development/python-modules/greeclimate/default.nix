@@ -9,7 +9,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "greeclimate";
   version = "2.1.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-SO7/uheAPVFZ1C2qrzP7jB88u6EH79f1+qMZIgHZaCE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     netifaces
@@ -66,6 +65,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/cmroche/greeclimate";
     changelog = "https://github.com/cmroche/greeclimate/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

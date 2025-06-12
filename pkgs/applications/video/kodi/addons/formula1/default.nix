@@ -6,7 +6,6 @@
   addonUpdateScript,
   requests,
 }:
-
 buildKodiAddon rec {
   pname = "formula1";
   namespace = "plugin.video.formula1";
@@ -31,6 +30,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/jaylinski/kodi-addon-formula1";
     description = "Videos from the Formula 1 website";
     license = licenses.mit;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

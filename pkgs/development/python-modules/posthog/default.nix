@@ -16,7 +16,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "posthog";
   version = "4.2.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-RpD4+NuClYmmXCn9eBa2oxMW3TwvVZcTkgaV+mNOkYU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     backoff
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "posthog" ];
+  pythonImportsCheck = ["posthog"];
 
   disabledTests = [
     "test_load_feature_flags_wrong_key"
@@ -73,6 +72,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/PostHog/posthog-python";
     changelog = "https://github.com/PostHog/posthog-python/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 }

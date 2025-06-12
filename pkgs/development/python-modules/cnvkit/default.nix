@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-
   # dependencies
   R,
   biopython,
@@ -17,11 +16,9 @@
   reportlab,
   scikit-learn,
   scipy,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "cnvkit";
   version = "0.9.12";
@@ -67,7 +64,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pythonImportsCheck = [ "cnvlib" ];
+  pythonImportsCheck = ["cnvlib"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -86,6 +83,6 @@ buildPythonPackage rec {
     description = "Python library and command-line software toolkit to infer and visualize copy number from high-throughput DNA sequencing data";
     changelog = "https://github.com/etal/cnvkit/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.jbedo ];
+    maintainers = [lib.maintainers.jbedo];
   };
 }

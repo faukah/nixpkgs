@@ -13,7 +13,6 @@
   withClipboard ? true,
   withTrash ? !stdenv.hostPlatform.isDarwin,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "broot";
   version = "1.46.5";
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       zlib
     ];
 
-  buildFeatures = lib.optionals withTrash [ "trash" ] ++ lib.optionals withClipboard [ "clipboard" ];
+  buildFeatures = lib.optionals withTrash ["trash"] ++ lib.optionals withClipboard ["clipboard"];
 
   env.RUSTONIG_SYSTEM_LIBONIG = true;
 
@@ -85,15 +84,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
     '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = with lib; {
     description = "Interactive tree view, a fuzzy search, a balanced BFS descent and customizable commands";
     homepage = "https://dystroy.org/broot/";
     changelog = "https://github.com/Canop/broot/releases/tag/v${finalAttrs.version}";
-    maintainers = with maintainers; [ dywedir ];
-    license = with licenses; [ mit ];
+    maintainers = with maintainers; [dywedir];
+    license = with licenses; [mit];
     mainProgram = "broot";
   };
 })

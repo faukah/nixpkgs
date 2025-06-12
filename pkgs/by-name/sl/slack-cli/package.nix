@@ -4,7 +4,6 @@
 # There is no reason that we couldn't change the file path that slack-cli uses
 # for token storage, except that it would make the Nix package inconsistent with
 # upstream and other distributions.
-
 {
   stdenv,
   lib,
@@ -16,7 +15,6 @@
   gnused,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "slack-cli";
   version = "0.18.0";
@@ -60,7 +58,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "slack";
     platforms = lib.platforms.unix;
   };

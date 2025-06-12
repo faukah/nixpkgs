@@ -2,16 +2,16 @@
   symlinkJoin,
   nickel,
 }:
-
 symlinkJoin {
   name = "nls-${nickel.version}";
   pname = "nls";
   inherit (nickel) version;
 
-  paths = [ nickel.nls ];
+  paths = [nickel.nls];
 
   meta = {
-    inherit (nickel.meta)
+    inherit
+      (nickel.meta)
       homepage
       changelog
       license

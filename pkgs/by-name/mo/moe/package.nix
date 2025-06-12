@@ -5,7 +5,6 @@
   lzip,
   ncurses,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "moe";
   version = "1.15";
@@ -44,9 +43,10 @@ stdenv.mkDerivation (finalAttrs: {
       delimiter matching, text conversion from/to UTF-8, romanization, etc.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
     mainProgram = "moe";
   };
 })
 # TODO: a configurable, global moerc file
+

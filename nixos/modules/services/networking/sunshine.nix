@@ -4,9 +4,9 @@
   pkgs,
   utils,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
@@ -24,16 +24,15 @@ let
   generatePorts = port: offsets: map (offset: port + offset) offsets;
   defaultPort = 47989;
 
-  appsFormat = pkgs.formats.json { };
-  settingsFormat = pkgs.formats.keyValue { };
+  appsFormat = pkgs.formats.json {};
+  settingsFormat = pkgs.formats.keyValue {};
 
   appsFile = appsFormat.generate "apps.json" cfg.applications;
   configFile = settingsFormat.generate "sunshine.conf" cfg.settings;
-in
-{
+in {
   options.services.sunshine = with types; {
     enable = mkEnableOption "Sunshine, a self-hosted game stream host for Moonlight";
-    package = mkPackageOption pkgs "sunshine" { };
+    package = mkPackageOption pkgs "sunshine" {};
     openFirewall = mkOption {
       type = bool;
       default = false;
@@ -56,7 +55,7 @@ in
       '';
     };
     settings = mkOption {
-      default = { };
+      default = {};
       description = ''
         Settings to be rendered into the configuration file. If this is set, no configuration is possible from the web UI.
 
@@ -79,7 +78,7 @@ in
       });
     };
     applications = mkOption {
-      default = { };
+      default = {};
       description = ''
         Configuration for applications to be exposed to Moonlight. If this is set, no configuration is possible from the web UI, and must be by the `settings` option.
       '';
@@ -106,14 +105,14 @@ in
       type = submodule {
         options = {
           env = mkOption {
-            default = { };
+            default = {};
             description = ''
               Environment variables to be set for the applications.
             '';
             type = attrsOf str;
           };
           apps = mkOption {
-            default = [ ];
+            default = [];
             description = ''
               Applications to be exposed to Moonlight.
             '';
@@ -125,7 +124,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.sunshine.settings.file_apps = mkIf (cfg.applications.apps != [ ]) "${appsFile}";
+    services.sunshine.settings.file_apps = mkIf (cfg.applications.apps != []) "${appsFile}";
 
     environment.systemPackages = [
       cfg.package
@@ -147,9 +146,9 @@ in
       ];
     };
 
-    boot.kernelModules = [ "uinput" ];
+    boot.kernelModules = ["uinput"];
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
     services.avahi = {
       enable = mkDefault true;
@@ -169,10 +168,10 @@ in
     systemd.user.services.sunshine = {
       description = "Self-hosted game stream host for Moonlight";
 
-      wantedBy = mkIf cfg.autoStart [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = mkIf cfg.autoStart ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
+      wants = ["graphical-session.target"];
+      after = ["graphical-session.target"];
 
       startLimitIntervalSec = 500;
       startLimitBurst = 5;
@@ -183,12 +182,17 @@ in
         # only add configFile if an application or a setting other than the default port is set to allow configuration from web UI
         ExecStart = escapeSystemdExecArgs (
           [
-            (if cfg.capSysAdmin then "${config.security.wrapperDir}/sunshine" else "${getExe cfg.package}")
+            (
+              if cfg.capSysAdmin
+              then "${config.security.wrapperDir}/sunshine"
+              else "${getExe cfg.package}"
+            )
           ]
           ++ optionals (
-            cfg.applications.apps != [ ]
+            cfg.applications.apps
+            != []
             || (builtins.length (builtins.attrNames cfg.settings) > 1 || cfg.settings.port != defaultPort)
-          ) [ "${configFile}" ]
+          ) ["${configFile}"]
         );
         Restart = "on-failure";
         RestartSec = "5s";

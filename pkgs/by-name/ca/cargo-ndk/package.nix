@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-ndk";
   version = "3.5.7";
@@ -26,6 +25,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ mglolenstine ];
+    maintainers = with maintainers; [mglolenstine];
   };
 }

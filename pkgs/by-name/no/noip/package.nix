@@ -3,7 +3,6 @@
   rustPlatform,
   fetchurl,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "noip";
   version = "3.3.0";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Dynamic DNS daemon for no-ip accounts";
     homepage = "http://noip.com/download?page=linux";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.iand675 ];
+    maintainers = [lib.maintainers.iand675];
     platforms = lib.platforms.linux;
     mainProgram = "noip-duc";
   };

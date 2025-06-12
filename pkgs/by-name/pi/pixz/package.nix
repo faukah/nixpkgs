@@ -14,7 +14,6 @@
   libarchive,
   xz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pixz";
   version = "1.0.7";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Parallel compressor/decompressor for xz format";
     license = licenses.bsd2;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.unix;
     mainProgram = "pixz";
   };

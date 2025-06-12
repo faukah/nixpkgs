@@ -9,7 +9,6 @@
   gettext,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xdg-user-dirs";
   version = "0.18";
@@ -24,13 +23,15 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail 'libraries = $(LIBINTL)' 'libraries = $(LIBICONV) $(LIBINTL)'
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    makeWrapper
-    libxslt
-    docbook_xsl
-    docbook_xml_dtd_43
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ gettext ];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      makeWrapper
+      libxslt
+      docbook_xsl
+      docbook_xml_dtd_43
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [gettext];
 
   preFixup = ''
     # fallback values need to be last

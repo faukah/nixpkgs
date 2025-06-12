@@ -15,7 +15,6 @@
   gtk3,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libepc";
   version = "0.4.6";
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Easy Publish and Consume Library";
     homepage = "https://gitlab.gnome.org/Archive/libepc";
     license = licenses.lgpl21Plus;
-    maintainers = [ maintainers.bot-wxt1221 ];
+    maintainers = [maintainers.bot-wxt1221];
     platforms = platforms.linux;
   };
 })

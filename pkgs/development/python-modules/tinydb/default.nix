@@ -8,7 +8,6 @@
   pytest-cov-stub,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "tinydb";
   version = "4.8.2";
@@ -33,13 +32,13 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  pythonImportsCheck = [ "tinydb" ];
+  pythonImportsCheck = ["tinydb"];
 
   meta = {
     description = "Lightweight document oriented database written in Python";
     homepage = "https://tinydb.readthedocs.org/";
     changelog = "https://tinydb.readthedocs.io/en/latest/changelog.html";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ marcus7070 ];
+    maintainers = with lib.maintainers; [marcus7070];
   };
 }

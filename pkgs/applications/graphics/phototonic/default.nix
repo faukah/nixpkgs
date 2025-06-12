@@ -6,7 +6,6 @@
   libsForQt5,
   exiv2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "phototonic";
   version = "2.1";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     mainProgram = "phototonic";
     homepage = "https://github.com/oferkv/phototonic";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.linux;
   };
 }

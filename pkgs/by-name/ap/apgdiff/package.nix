@@ -10,7 +10,7 @@ maven.buildMavenPackage rec {
   version = "2.7.0";
 
   src = fetchFromGitHub {
-    sparseCheckout = [ "src" ];
+    sparseCheckout = ["src"];
     owner = "fordfrog";
     repo = "apgdiff";
     tag = "release_${version}";
@@ -25,7 +25,7 @@ maven.buildMavenPackage rec {
 
   mvnHash = "sha256-zJQirS8sVqHKZsBukEOf7ox5IeiAVOP6wEHWb4CAyxc=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dm644 target/apgdiff-${version}.jar $out/lib/apgdiff.jar
@@ -42,6 +42,6 @@ maven.buildMavenPackage rec {
     homepage = "https://apgdiff.com";
     license = licenses.mit;
     inherit (jre.meta) platforms;
-    maintainers = [ maintainers.misterio77 ];
+    maintainers = [maintainers.misterio77];
   };
 }

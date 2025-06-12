@@ -4,7 +4,6 @@
   fetchurl,
   testers,
 }:
-
 buildGraalvmNativeImage (finalAttrs: {
   pname = "zprint";
   version = "1.3.0";
@@ -38,7 +37,7 @@ buildGraalvmNativeImage (finalAttrs: {
     '';
     homepage = "https://github.com/kkinnear/zprint";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ stelcodes ];
+    maintainers = with lib.maintainers; [stelcodes];
     mainProgram = "zprint";
   };
 })

@@ -9,8 +9,8 @@ stdenv.mkDerivation rec {
   src = ./test_dummy.c;
 
   dontUnpack = true;
-  buildInputs = [ criterion ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [criterion];
+  nativeBuildInputs = [pkg-config];
 
   buildPhase = ''
     cc -o ${name} $src `pkg-config --libs criterion`

@@ -3,23 +3,28 @@
   mkXfsFlags ? "",
 }:
 import ../make-test-python.nix (
-  { pkgs, lib, ... }:
   {
+    pkgs,
+    lib,
+    ...
+  }: {
     name = "lvm2-vdo";
-    meta.maintainers = [ ];
+    meta.maintainers = [];
 
-    nodes.machine =
-      { pkgs, lib, ... }:
-      {
-        # Minimum required size for VDO volume: 5063921664 bytes
-        virtualisation.emptyDiskImages = [ 8192 ];
-        services.lvm = {
-          boot.vdo.enable = true;
-          dmeventd.enable = true;
-        };
-        environment.systemPackages = with pkgs; [ xfsprogs ];
-        boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
+    nodes.machine = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      # Minimum required size for VDO volume: 5063921664 bytes
+      virtualisation.emptyDiskImages = [8192];
+      services.lvm = {
+        boot.vdo.enable = true;
+        dmeventd.enable = true;
       };
+      environment.systemPackages = with pkgs; [xfsprogs];
+      boot = lib.mkIf (kernelPackages != null) {inherit kernelPackages;};
+    };
 
     testScript = ''
       machine.succeed("vgcreate test_vg /dev/vdb")

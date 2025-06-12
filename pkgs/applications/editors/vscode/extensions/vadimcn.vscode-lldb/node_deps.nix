@@ -1,10 +1,8 @@
 {
   buildNpmPackage,
-
   libsecret,
   python3,
   pkg-config,
-
   pname,
   src,
   version,
@@ -20,7 +18,7 @@ buildNpmPackage {
     pkg-config
   ];
 
-  buildInputs = [ libsecret ];
+  buildInputs = [libsecret];
 
   dontNpmBuild = true;
 

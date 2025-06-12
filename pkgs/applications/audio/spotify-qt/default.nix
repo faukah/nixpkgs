@@ -9,7 +9,6 @@
   wrapQtAppsHook,
   procps,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "spotify-qt";
   version = "4.0.0";
@@ -37,9 +36,9 @@ stdenv.mkDerivation (finalAttrs: {
     wrapQtAppsHook
   ];
 
-  cmakeFlags = [ (lib.cmakeFeature "CMAKE_INSTALL_PREFIX" "") ];
+  cmakeFlags = [(lib.cmakeFeature "CMAKE_INSTALL_PREFIX" "")];
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -p $out/Applications
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "spotify-qt";
     homepage = "https://github.com/kraxarn/spotify-qt";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ iivusly ];
+    maintainers = with maintainers; [iivusly];
     platforms = platforms.unix;
   };
 })

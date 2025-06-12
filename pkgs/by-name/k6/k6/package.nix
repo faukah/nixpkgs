@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "k6";
   version = "1.0.0";
@@ -17,11 +16,11 @@ buildGoModule rec {
     hash = "sha256-xHT7V933BzRVzqufPF9bUNU68xIEEAOD9KTNK5cRSmI=";
   };
 
-  subPackages = [ "./" ];
+  subPackages = ["./"];
 
   vendorHash = null;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doInstallCheck = true;
   installCheckPhase = ''

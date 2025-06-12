@@ -16,7 +16,6 @@
   pytest-httpx,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "llm-git";
   version = "0.2.2";
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "llm_git" ];
+  pythonImportsCheck = ["llm_git"];
 
   passthru.tests = llm.mkPluginTest llm-git;
 
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/OttoAllmendinger/llm-git";
     changelog = "https://github.com/OttoAllmendinger/llm-git/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

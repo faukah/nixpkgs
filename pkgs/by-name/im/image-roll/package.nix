@@ -7,7 +7,6 @@
   wrapGAppsHook4,
   gtk4,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "image-roll";
   version = "2.1.0";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ gtk4 ];
+  buildInputs = [gtk4];
 
   checkFlags = [
     # fails in the sandbox
@@ -49,6 +48,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "image-roll";
     homepage = "https://github.com/weclaw1/image-roll";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

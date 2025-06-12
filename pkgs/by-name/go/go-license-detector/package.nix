@@ -4,7 +4,6 @@
   fetchFromGitHub,
   git,
 }:
-
 buildGoModule rec {
   pname = "go-license-detector";
   version = "4.3.1";
@@ -18,13 +17,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-MtQsUsFd9zQGbP7NGZ4zcSoa6O2WSWvGig0GUwCc6uM=";
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   meta = with lib; {
     description = "Reliable project licenses detector";
     homepage = "https://github.com/go-enry/go-license-detector";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "license-detector";
   };
 }

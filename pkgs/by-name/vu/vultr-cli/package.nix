@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "vultr-cli";
   version = "3.4.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-qf0l76MGIFv5m7uSjo4FgS6XxYzCT4+Efgt6W6jA1i8=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -38,7 +37,7 @@ buildGoModule rec {
     homepage = "https://github.com/vultr/vultr-cli";
     changelog = "https://github.com/vultr/vultr-cli/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ Br1ght0ne ];
+    maintainers = with lib.maintainers; [Br1ght0ne];
     mainProgram = "vultr-cli";
   };
 }

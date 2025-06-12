@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "git-when-merged";
   version = "1.2.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Yp/GNzD+7EPlk/kzZnT1eiSNsSxpYEiZezRbUU3HfLc=";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     install -D --target-directory $out/bin/ bin/git-when-merged
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mhagger/git-when-merged";
     license = licenses.gpl2Only;
     platforms = python3.meta.platforms;
-    maintainers = with maintainers; [ DamienCassou ];
+    maintainers = with maintainers; [DamienCassou];
     mainProgram = "git-when-merged";
   };
 }

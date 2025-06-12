@@ -53,7 +53,7 @@ python3Packages.buildPythonApplication rec {
       gstreamer
     ]);
 
-  pythonRelaxDeps = [ "mpris_server" ];
+  pythonRelaxDeps = ["mpris_server"];
 
   postInstall = ''
     make install prefix=$out
@@ -63,12 +63,12 @@ python3Packages.buildPythonApplication rec {
 
   preFixup = ''
     makeWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ yt-dlp ]}"
+      --prefix PATH : "${lib.makeBinPath [yt-dlp]}"
       "''${gappsWrapperArgs[@]}"
     )
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Linux app for streaming music from YouTube";
@@ -76,7 +76,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://gitlab.com/zehkira/monophony";
     license = lib.licenses.agpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ quadradical ];
+    maintainers = with lib.maintainers; [quadradical];
     mainProgram = "monophony";
   };
 }

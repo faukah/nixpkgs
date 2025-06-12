@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyvisa";
   version = "1.14.1";
@@ -28,17 +27,17 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [ typing-extensions ];
+  propagatedBuildInputs = [typing-extensions];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Test can't find cli tool bin path correctly
-  disabledTests = [ "test_visa_info" ];
+  disabledTests = ["test_visa_info"];
 
   meta = with lib; {
     description = "Python package for support of the Virtual Instrument Software Architecture (VISA)";
     homepage = "https://github.com/pyvisa/pyvisa";
     license = licenses.mit;
-    maintainers = with maintainers; [ mvnetbiz ];
+    maintainers = with maintainers; [mvnetbiz];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "knewave";
   version = "2012-07-30";
@@ -31,6 +30,6 @@ stdenvNoCC.mkDerivation {
     '';
     homepage = "https://www.theleagueofmoveabletype.com/knewave";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ minijackson ];
+    maintainers = with lib.maintainers; [minijackson];
   };
 }

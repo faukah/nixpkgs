@@ -3,7 +3,6 @@
   fetchzip,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "league-gothic";
   version = "1.601";
@@ -38,6 +37,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
     homepage = "https://www.theleagueofmoveabletype.com/league-gothic";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ minijackson ];
+    maintainers = with lib.maintainers; [minijackson];
   };
 })

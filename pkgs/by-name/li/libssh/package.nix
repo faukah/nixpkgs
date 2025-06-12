@@ -7,13 +7,11 @@
   zlib,
   openssl,
   libsodium,
-
   # for passthru.tests
   ffmpeg,
   sshping,
   wireshark,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libssh";
   version = "0.11.1";
@@ -35,7 +33,7 @@ stdenv.mkDerivation rec {
 
   # Don’t build examples, which are not installed and require additional dependencies not
   # included in `buildInputs` such as libX11.
-  cmakeFlags = [ "-DWITH_EXAMPLES=OFF" ];
+  cmakeFlags = ["-DWITH_EXAMPLES=OFF"];
 
   buildInputs = [
     zlib
@@ -61,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "SSH client library";
     homepage = "https://libssh.org";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ sander ];
+    maintainers = with maintainers; [sander];
     platforms = platforms.all;
   };
 }

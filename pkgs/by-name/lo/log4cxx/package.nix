@@ -12,7 +12,6 @@
   db,
   expat,
 }:
-
 stdenv.mkDerivation rec {
   pname = "log4cxx";
   version = "1.2.0";

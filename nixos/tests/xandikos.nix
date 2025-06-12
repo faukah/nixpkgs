@@ -1,14 +1,12 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "xandikos";
 
-  meta.maintainers = with lib.maintainers; [ _0x4A6F ];
+  meta.maintainers = with lib.maintainers; [_0x4A6F];
 
   nodes = {
-    xandikos_client = { };
+    xandikos_client = {};
     xandikos_default = {
-      networking.firewall.allowedTCPPorts = [ 8080 ];
+      networking.firewall.allowedTCPPorts = [8080];
       services.xandikos.enable = true;
     };
     xandikos_proxy = {

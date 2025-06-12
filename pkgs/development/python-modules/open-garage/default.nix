@@ -6,7 +6,6 @@
   fetchFromGitHub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "open-garage";
   version = "0.2.0";
@@ -29,12 +28,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "opengarage" ];
+  pythonImportsCheck = ["opengarage"];
 
   meta = with lib; {
     description = "Python module to communicate with opengarage.io";
     homepage = "https://github.com/Danielhiversen/pyOpenGarage";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

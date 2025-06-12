@@ -19,54 +19,58 @@
   btrfs-progs,
   libfaketime,
   fakeroot,
-}:
-
-let
-  sdClosureInfo = pkgs.buildPackages.closureInfo { rootPaths = storePaths; };
+}: let
+  sdClosureInfo = pkgs.buildPackages.closureInfo {rootPaths = storePaths;};
 in
-pkgs.stdenv.mkDerivation {
-  name = "btrfs-fs.img${lib.optionalString compressImage ".zst"}";
+  pkgs.stdenv.mkDerivation {
+    name = "btrfs-fs.img${lib.optionalString compressImage ".zst"}";
 
-  nativeBuildInputs = [
-    btrfs-progs
-    libfaketime
-    fakeroot
-  ] ++ lib.optional compressImage zstd;
+    nativeBuildInputs =
+      [
+        btrfs-progs
+        libfaketime
+        fakeroot
+      ]
+      ++ lib.optional compressImage zstd;
 
-  buildCommand = ''
-    ${if compressImage then "img=temp.img" else "img=$out"}
+    buildCommand = ''
+      ${
+        if compressImage
+        then "img=temp.img"
+        else "img=$out"
+      }
 
-    set -x
-    (
-        mkdir -p ./files
-        ${populateImageCommands}
-    )
+      set -x
+      (
+          mkdir -p ./files
+          ${populateImageCommands}
+      )
 
-    mkdir -p ./rootImage/nix/store
+      mkdir -p ./rootImage/nix/store
 
-    xargs -I % cp -a --reflink=auto % -t ./rootImage/nix/store/ < ${sdClosureInfo}/store-paths
-    (
-      GLOBIGNORE=".:.."
-      shopt -u dotglob
+      xargs -I % cp -a --reflink=auto % -t ./rootImage/nix/store/ < ${sdClosureInfo}/store-paths
+      (
+        GLOBIGNORE=".:.."
+        shopt -u dotglob
 
-      for f in ./files/*; do
-          cp -a --reflink=auto -t ./rootImage/ "$f"
-      done
-    )
+        for f in ./files/*; do
+            cp -a --reflink=auto -t ./rootImage/ "$f"
+        done
+      )
 
-    cp ${sdClosureInfo}/registration ./rootImage/nix-path-registration
+      cp ${sdClosureInfo}/registration ./rootImage/nix-path-registration
 
-    touch $img
-    faketime -f "1970-01-01 00:00:01" fakeroot mkfs.btrfs -L ${volumeLabel} -U ${uuid} -r ./rootImage --shrink $img
+      touch $img
+      faketime -f "1970-01-01 00:00:01" fakeroot mkfs.btrfs -L ${volumeLabel} -U ${uuid} -r ./rootImage --shrink $img
 
-    if ! btrfs check $img; then
-      echo "--- 'btrfs check' failed for BTRFS image ---"
-      return 1
-    fi
+      if ! btrfs check $img; then
+        echo "--- 'btrfs check' failed for BTRFS image ---"
+        return 1
+      fi
 
-    if [ ${builtins.toString compressImage} ]; then
-      echo "Compressing image"
-      zstd -v --no-progress ./$img -o $out
-    fi
-  '';
-}
+      if [ ${builtins.toString compressImage} ]; then
+        echo "Compressing image"
+        zstd -v --no-progress ./$img -o $out
+      fi
+    '';
+  }

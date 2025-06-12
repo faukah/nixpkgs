@@ -10,7 +10,6 @@
   gtk3,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xdg-user-dirs-gtk";
   version = "0.14";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook3
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   postPatch = ''
     # Fetch “xdg-user-dirs” translations from correct localedir.
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   preFixup = ''
-    gappsWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [ xdg-user-dirs ]}")
+    gappsWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [xdg-user-dirs]}")
   '';
 
   passthru.updateScript = gnome.updateScript {
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/GNOME/xdg-user-dirs-gtk";
     description = "Companion to xdg-user-dirs that integrates it into the GNOME desktop and GTK applications";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     platforms = lib.platforms.unix;
     mainProgram = "xdg-user-dirs-gtk-update";
   };

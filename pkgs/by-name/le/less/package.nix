@@ -9,7 +9,6 @@
   # Boolean options
   withSecure ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "less";
   version = "668";

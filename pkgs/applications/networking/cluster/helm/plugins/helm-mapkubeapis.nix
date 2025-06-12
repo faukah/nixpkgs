@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "helm-mapkubeapis";
   version = "0.6.1";
@@ -32,7 +31,7 @@ buildGoModule rec {
   meta = {
     description = "Helm plugin which maps deprecated or removed Kubernetes APIs in a release to supported APIs";
     homepage = "https://github.com/helm/helm-mapkubeapis";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ aos ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [aos];
   };
 }

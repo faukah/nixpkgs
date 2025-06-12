@@ -8,7 +8,6 @@
   pahole,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tuxedo-drivers-${kernel.version}";
   version = "4.13.1";
@@ -21,14 +20,16 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-RXicBP4LVQnCcI99ZD0Fwx9BQAMvHJjFUqJE/wsWbdU=";
   };
 
-  buildInputs = [ pahole ];
-  nativeBuildInputs = [ kmod ] ++ kernel.moduleBuildDependencies;
+  buildInputs = [pahole];
+  nativeBuildInputs = [kmod] ++ kernel.moduleBuildDependencies;
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KERNELRELEASE=${kernel.modDirVersion}"
-    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    "INSTALL_MOD_PATH=${placeholder "out"}"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KERNELRELEASE=${kernel.modDirVersion}"
+      "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      "INSTALL_MOD_PATH=${placeholder "out"}"
+    ];
 
   passthru.updateScript = gitUpdater {
     rev-prefix = "v";

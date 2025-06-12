@@ -28,12 +28,11 @@ python3Packages.buildPythonApplication rec {
     "tree-sitter-sql"
   ];
 
-  build-system = with python3Packages; [ poetry-core ];
+  build-system = with python3Packages; [poetry-core];
 
-  nativeBuildInputs = [ glibcLocales ];
+  nativeBuildInputs = [glibcLocales];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       click
       duckdb
@@ -51,8 +50,8 @@ python3Packages.buildPythonApplication rec {
       tomlkit
       tree-sitter-sql
     ]
-    ++ lib.optionals withPostgresAdapter [ harlequin-postgres ]
-    ++ lib.optionals withBigQueryAdapter [ harlequin-bigquery ];
+    ++ lib.optionals withPostgresAdapter [harlequin-postgres]
+    ++ lib.optionals withBigQueryAdapter [harlequin-bigquery];
 
   pythonImportsCheck = [
     "harlequin"
@@ -62,7 +61,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   preCheck = ''
@@ -97,7 +96,7 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/tconbeer/harlequin/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = "harlequin";
-    maintainers = with lib.maintainers; [ pcboy ];
+    maintainers = with lib.maintainers; [pcboy];
     platforms = lib.platforms.unix;
   };
 }

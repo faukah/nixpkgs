@@ -7,7 +7,6 @@
   zig_0_13,
   callPackage,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zf";
   version = "0.10.2";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postPatch = ''
-    cp -a ${callPackage ./deps.nix { }}/. $ZIG_GLOBAL_CACHE_DIR/p
+    cp -a ${callPackage ./deps.nix {}}/. $ZIG_GLOBAL_CACHE_DIR/p
   '';
 
   postInstall = ''
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
       --zsh complete/_zf
   '';
 
-  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  passthru.tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
 
   meta = {
     homepage = "https://github.com/natecraddock/zf";

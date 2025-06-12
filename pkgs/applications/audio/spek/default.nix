@@ -10,7 +10,6 @@
   gtk3,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spek";
   version = "0.8.5";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     mainProgram = "spek";
     homepage = "http://spek.cc/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
     platforms = platforms.all;
   };
 }

@@ -5,7 +5,6 @@
   makeWrapper,
   babashka,
 }:
-
 stdenv.mkDerivation rec {
   pname = "neil";
   version = "0.3.68";
@@ -17,14 +16,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ulqVrFsuYvRKxASHI6AqnHkKKdmDVgtivsRIscivcXw=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
   installPhase = ''
     install -D neil $out/bin/neil
     wrapProgram $out/bin/neil \
-      --prefix PATH : "${lib.makeBinPath [ babashka ]}"
+      --prefix PATH : "${lib.makeBinPath [babashka]}"
   '';
 
   meta = with lib; {
@@ -33,6 +32,6 @@ stdenv.mkDerivation rec {
     mainProgram = "neil";
     license = licenses.mit;
     platforms = babashka.meta.platforms;
-    maintainers = with maintainers; [ jlesquembre ];
+    maintainers = with maintainers; [jlesquembre];
   };
 }

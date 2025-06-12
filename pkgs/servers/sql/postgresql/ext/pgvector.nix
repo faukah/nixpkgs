@@ -4,7 +4,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pgvector";
   version = "0.8.0";
@@ -22,6 +21,6 @@ postgresqlBuildExtension (finalAttrs: {
     changelog = "https://github.com/pgvector/pgvector/raw/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.postgresql;
     platforms = postgresql.meta.platforms;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

@@ -5,7 +5,6 @@
   dotnetCorePackages,
   fetchFromGitHub,
 }:
-
 buildDotnetModule rec {
   pname = "inklecate";
   version = "1.1.1";
@@ -17,13 +16,13 @@ buildDotnetModule rec {
     hash = "sha512-aUjjT5Qf64wrKRn1vkwJadMOBWMkvsXUjtZ7S3/ZWAh1CCDkQNO84mSbtbVc9ny0fKeJEqaDX2tJNwq7pYqAbA==";
   };
 
-  patches = [ ./dotnet-8-upgrade.patch ];
+  patches = [./dotnet-8-upgrade.patch];
 
-  buildInputs = [ (lib.getLib stdenv.cc.cc) ];
+  buildInputs = [(lib.getLib stdenv.cc.cc)];
 
   projectFile = "inklecate/inklecate.csproj";
   nugetDeps = ./deps.json;
-  executables = [ "inklecate" ];
+  executables = ["inklecate"];
 
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
 
@@ -39,6 +38,6 @@ buildDotnetModule rec {
     license = licenses.mit;
     platforms = platforms.unix;
     badPlatforms = platforms.aarch64;
-    maintainers = with maintainers; [ shreerammodi ];
+    maintainers = with maintainers; [shreerammodi];
   };
 }

@@ -6,7 +6,6 @@
   testers,
   distribution,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "distribution";
   version = "3.0.0";
@@ -32,7 +31,7 @@ buildGoModule (finalAttrs: {
       package = distribution;
       version = "v${finalAttrs.version}";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -46,7 +45,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://distribution.github.io/distribution/";
     changelog = "https://github.com/distribution/distribution/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ katexochen ];
+    maintainers = with lib.maintainers; [katexochen];
     mainProgram = "registry";
     platforms = lib.platforms.unix;
   };

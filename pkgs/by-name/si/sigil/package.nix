@@ -9,7 +9,6 @@
   python3Packages,
   qt6,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sigil";
   version = "2.5.1";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-1Z+OosEZJEHiUz+62wYuNeAyQXARh14WAtqBVjq1FZw=";
   };
 
-  pythonPath = with python3Packages; [ lxml ];
+  pythonPath = with python3Packages; [lxml];
 
   nativeBuildInputs = [
     cmake
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
     description = "Free, open source, multi-platform ebook (ePub) editor";
     homepage = "https://github.com/Sigil-Ebook/Sigil/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ prince213 ];
+    maintainers = with lib.maintainers; [prince213];
     platforms = with lib.platforms; linux ++ darwin;
     mainProgram = "sigil";
   };

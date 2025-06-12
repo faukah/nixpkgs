@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "httptap";
   version = "0.1.1";
@@ -19,7 +18,7 @@ buildGoModule (finalAttrs: {
 
   env.CGO_ENABLED = 0;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -30,7 +29,7 @@ buildGoModule (finalAttrs: {
     description = "View HTTP/HTTPS requests made by any Linux program";
     homepage = "https://github.com/monasticacademy/httptap";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jpetrucciani ];
+    maintainers = with lib.maintainers; [jpetrucciani];
     mainProgram = "httptap";
   };
 })

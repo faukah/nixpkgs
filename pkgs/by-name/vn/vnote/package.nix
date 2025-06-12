@@ -5,7 +5,6 @@
   cmake,
   qt6,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vnote";
   version = "3.19.2";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "vnote";
     changelog = "https://github.com/vnotex/vnote/releases/tag/${finalAttrs.src.rev}";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

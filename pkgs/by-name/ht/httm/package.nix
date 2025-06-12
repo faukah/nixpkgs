@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "httm";
   version = "0.48.3";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Hbn+PlmJ9FiwHme3kXjvG7m2rkgR4nGnpTT04JHJrao=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postPatch = ''
     chmod +x scripts/*.bash
@@ -44,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/kimono-koans/httm";
     changelog = "https://github.com/kimono-koans/httm/releases/tag/${version}";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ wyndon ];
+    maintainers = with lib.maintainers; [wyndon];
     mainProgram = "httm";
   };
 }

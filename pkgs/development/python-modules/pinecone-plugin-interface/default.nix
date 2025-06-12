@@ -4,7 +4,6 @@
   fetchPypi,
   poetry-core,
 }:
-
 buildPythonPackage rec {
   pname = "pinecone-plugin-interface";
   version = "0.0.7";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://www.pinecone.io/";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
     description = "Plugin interface for the Pinecone python client";

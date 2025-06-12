@@ -5,7 +5,6 @@
   nix-update-script,
   testers,
 }:
-
 buildGraalvmNativeImage (finalAttrs: {
   pname = "cljfmt";
   version = "0.13.1";
@@ -24,7 +23,7 @@ buildGraalvmNativeImage (finalAttrs: {
     "--no-fallback"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   passthru.tests.version = testers.testVersion {
     inherit (finalAttrs) version;
@@ -36,9 +35,9 @@ buildGraalvmNativeImage (finalAttrs: {
     mainProgram = "cljfmt";
     description = "Tool for formatting Clojure code";
     homepage = "https://github.com/weavejester/cljfmt";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.epl10;
     changelog = "https://github.com/weavejester/cljfmt/blob/${finalAttrs.version}/CHANGELOG.md";
-    maintainers = with lib.maintainers; [ sg-qwt ];
+    maintainers = with lib.maintainers; [sg-qwt];
   };
 })

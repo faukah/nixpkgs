@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "craft-platforms";
   version = "0.9.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     substituteInPlace craft_platforms/__init__.py --replace-fail "dev" "${version}"
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     annotated-types
@@ -43,9 +42,9 @@ buildPythonPackage rec {
     pytest-check
   ];
 
-  pythonImportsCheck = [ "craft_platforms" ];
+  pythonImportsCheck = ["craft_platforms"];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
   disabledTests = [
     # Attempts to get distro information, and expects "ubuntu-ish"
@@ -53,14 +52,14 @@ buildPythonPackage rec {
     "test_fuzz_get_platforms_build_plan_single_base"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Manage platforms and architectures for charm applications";
     homepage = "https://github.com/canonical/craft-platforms";
     changelog = "https://github.com/canonical/craft-platforms/releases/tag/${version}";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
     platforms = lib.platforms.linux;
   };
 }

@@ -13,7 +13,6 @@
   chrpath,
   lxqt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-terminal";
   version = "6.0.17";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-T5tjjbNYUaiG9a5zMoKN6I0ec/WLftF2xwUPczlNwB8=";
   };
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   nativeBuildInputs = [
     cmake
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-terminal";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

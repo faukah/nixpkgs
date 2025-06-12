@@ -5,8 +5,7 @@
   rustPlatform,
   rustfmt,
   protobuf,
-}:
-let
+}: let
   src = fetchFromGitHub {
     owner = "indradb";
     repo = "indradb";
@@ -18,11 +17,10 @@ let
     description = "Graph database written in rust";
     homepage = "https://github.com/indradb/indradb";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
     platforms = platforms.unix;
   };
-in
-{
+in {
   indradb-server = rustPlatform.buildRustPackage {
     pname = "indradb-server";
     version = "unstable-2021-01-05";

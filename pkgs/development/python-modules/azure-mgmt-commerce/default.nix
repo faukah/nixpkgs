@@ -8,7 +8,6 @@
   azure-mgmt-core,
   azure-mgmt-nspkg,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-commerce";
   version = "6.0.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "6f5447395503b2318f451d24f8021ee08db1cac44f1c3337ea690700419626b6";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     msrestazure
@@ -34,16 +33,16 @@ buildPythonPackage rec {
     sed -i "/azure-namespace-package/c\ " setup.cfg
   '';
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
   # has no tests
   doCheck = false;
-  pythonImportsCheck = [ "azure.mgmt.commerce" ];
+  pythonImportsCheck = ["azure.mgmt.commerce"];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Commerce Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

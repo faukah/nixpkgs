@@ -5,7 +5,6 @@
   rustPlatform,
   fetchFromGitHub,
   fetchYarnDeps,
-
   cargo-tauri,
   desktop-file-utils,
   installShellFiles,
@@ -16,16 +15,12 @@
   pkg-config,
   yarnConfigHook,
   wrapGAppsHook3,
-
   glib-networking,
   libayatana-appindicator,
   openssl,
   webkitgtk_4_1,
-
   testers,
-}:
-
-let
+}: let
   version = "0.6.15";
 
   src = fetchFromGitHub {
@@ -58,9 +53,9 @@ let
       "-X github.com/loft-sh/devpod/pkg/version.version=v${version}"
     ];
 
-    excludedPackages = [ "./e2e" ];
+    excludedPackages = ["./e2e"];
 
-    nativeBuildInputs = [ installShellFiles ];
+    nativeBuildInputs = [installShellFiles];
 
     postInstall = ''
       $out/bin/devpod completion bash >devpod.bash
@@ -181,12 +176,13 @@ let
       wrapGApp "$out/bin/DevPod Desktop"
     '';
 
-    meta = meta // {
-      mainProgram = "DevPod Desktop";
-      platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    };
+    meta =
+      meta
+      // {
+        mainProgram = "DevPod Desktop";
+        platforms = lib.platforms.linux ++ lib.platforms.darwin;
+      };
   };
-in
-{
+in {
   inherit devpod devpod-desktop;
 }

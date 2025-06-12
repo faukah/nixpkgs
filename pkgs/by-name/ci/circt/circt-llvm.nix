@@ -11,7 +11,7 @@ stdenv.mkDerivation {
   pname = circt.pname + "-llvm";
   inherit (circt) version src;
 
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   nativeBuildInputs = [
     cmake
@@ -98,7 +98,9 @@ stdenv.mkDerivation {
   doCheck = false;
   checkTarget = "check-mlir";
 
-  meta = llvm.meta // {
-    inherit (circt.meta) maintainers;
-  };
+  meta =
+    llvm.meta
+    // {
+      inherit (circt.meta) maintainers;
+    };
 }

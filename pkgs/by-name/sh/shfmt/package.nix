@@ -5,7 +5,6 @@
   installShellFiles,
   scdoc,
 }:
-
 buildGoModule rec {
   pname = "shfmt";
   version = "3.11.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-2TSQYcKSzAHbqocQ5iboEUGM1DRis3J1TFlz0fOYQog=";
 
-  subPackages = [ "cmd/shfmt" ];
+  subPackages = ["cmd/shfmt"];
 
   ldflags = [
     "-s"

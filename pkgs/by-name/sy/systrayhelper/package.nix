@@ -5,7 +5,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "systrayhelper";
   version = "unstable-2021-05-20";
@@ -34,14 +33,14 @@ buildGoModule rec {
     pkg-config
     libappindicator-gtk3
   ];
-  buildInputs = [ libappindicator-gtk3 ];
+  buildInputs = [libappindicator-gtk3];
 
   doCheck = false; # Display required
 
   meta = with lib; {
     description = "Systray utility written in go, using json over stdio for control and events";
     homepage = "https://github.com/ssbc/systrayhelper";
-    maintainers = with maintainers; [ cryptix ];
+    maintainers = with maintainers; [cryptix];
     license = licenses.mit;
     # It depends on the inputs, i guess? not sure about solaris, for instance. go supports it though
     # I hope nix can figure this out?! ¯\\_(ツ)_/¯

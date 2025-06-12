@@ -3,11 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.pufferpanel;
-in
-{
+in {
   options.services.pufferpanel = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -38,12 +36,12 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "pufferpanel" { };
+    package = lib.mkPackageOption pkgs "pufferpanel" {};
 
     extraGroups = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
-      example = [ "podman" ];
+      default = [];
+      example = ["podman"];
       description = ''
         Additional groups for the systemd service.
       '';
@@ -51,7 +49,7 @@ in
 
     extraPackages = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = [ ];
+      default = [];
       example = lib.literalExpression "[ pkgs.jre ]";
       description = ''
         Packages to add to the PATH environment variable. Both the {file}`bin`
@@ -61,7 +59,7 @@ in
 
     environment = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           PUFFER_WEB_HOST = ":8080";
@@ -108,8 +106,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.pufferpanel = {
       description = "PufferPanel game management server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       path = cfg.extraPackages;
       environment = cfg.environment;
@@ -123,15 +121,15 @@ in
       script = ''
         ${lib.concatLines (
           lib.mapAttrsToList
-            (name: value: ''
-              export ${name}="''${${name}-${value}}"
-            '')
-            {
-              PUFFER_LOGS = "$LOGS_DIRECTORY";
-              PUFFER_DAEMON_DATA_CACHE = "$CACHE_DIRECTORY";
-              PUFFER_DAEMON_DATA_SERVERS = "$STATE_DIRECTORY/servers";
-              PUFFER_DAEMON_DATA_BINARIES = "$STATE_DIRECTORY/binaries";
-            }
+          (name: value: ''
+            export ${name}="''${${name}-${value}}"
+          '')
+          {
+            PUFFER_LOGS = "$LOGS_DIRECTORY";
+            PUFFER_DAEMON_DATA_CACHE = "$CACHE_DIRECTORY";
+            PUFFER_DAEMON_DATA_SERVERS = "$STATE_DIRECTORY/servers";
+            PUFFER_DAEMON_DATA_BINARIES = "$STATE_DIRECTORY/binaries";
+          }
         )}
         exec ${lib.getExe cfg.package} run --workDir "$STATE_DIRECTORY"
       '';
@@ -181,12 +179,12 @@ in
           "AF_UNIX"
         ];
         LockPersonality = true;
-        DeviceAllow = [ "" ];
+        DeviceAllow = [""];
         DevicePolicy = "closed";
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
       };
     };
   };
 
-  meta.maintainers = [ lib.maintainers.tie ];
+  meta.maintainers = [lib.maintainers.tie];
 }

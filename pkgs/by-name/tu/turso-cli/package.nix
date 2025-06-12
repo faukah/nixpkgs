@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-tBO21IgUczwMgrEyV7scV3YTY898lYHASaLeXqvBopU=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-X github.com/tursodatabase/turso-cli/internal/cmd.version=v${version}"
@@ -36,7 +36,7 @@ buildGoModule rec {
       --zsh <($out/bin/turso completion zsh)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "This is the command line interface (CLI) to Turso";

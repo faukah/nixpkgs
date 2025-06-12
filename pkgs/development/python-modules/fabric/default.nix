@@ -13,7 +13,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "fabric";
   version = "3.2.2";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-h4PKQuOwB28IsmkBqsa52bHxnEEAdOesz6uQLBhP9KM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     invoke
@@ -42,9 +41,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/*.py" ];
+  pytestFlagsArray = ["tests/*.py"];
 
-  pythonImportsCheck = [ "fabric" ];
+  pythonImportsCheck = ["fabric"];
 
   disabledTests = [
     # Tests are out-dated
@@ -65,7 +64,7 @@ buildPythonPackage rec {
     homepage = "https://www.fabfile.org/";
     changelog = "https://www.fabfile.org/changelog.html";
     license = lib.licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "fab";
   };
 }

@@ -3,29 +3,26 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.kavita;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   appsettings = settingsFormat.generate "appsettings.json" (
-    { TokenKey = "@TOKEN@"; } // cfg.settings
+    {TokenKey = "@TOKEN@";} // cfg.settings
   );
-in
-{
+in {
   imports = [
-    (lib.mkChangedOptionModule
-      [ "services" "kavita" "ipAdresses" ]
-      [ "services" "kavita" "settings" "IpAddresses" ]
+    (
+      lib.mkChangedOptionModule
+      ["services" "kavita" "ipAdresses"]
+      ["services" "kavita" "settings" "IpAddresses"]
       (
-        config:
-        let
-          value = lib.getAttrFromPath [ "services" "kavita" "ipAdresses" ] config;
+        config: let
+          value = lib.getAttrFromPath ["services" "kavita" "ipAdresses"] config;
         in
-        lib.concatStringsSep "," value
+          lib.concatStringsSep "," value
       )
     )
-    (lib.mkRenamedOptionModule [ "services" "kavita" "port" ] [ "services" "kavita" "settings" "Port" ])
+    (lib.mkRenamedOptionModule ["services" "kavita" "port"] ["services" "kavita" "settings" "Port"])
   ];
 
   options.services.kavita = {
@@ -37,7 +34,7 @@ in
       description = "User account under which Kavita runs.";
     };
 
-    package = lib.mkPackageOption pkgs "kavita" { };
+    package = lib.mkPackageOption pkgs "kavita" {};
 
     dataDir = lib.mkOption {
       default = "/var/lib/kavita";
@@ -54,7 +51,7 @@ in
     };
 
     settings = lib.mkOption {
-      default = { };
+      default = {};
       description = ''
         Kavita configuration options, as configured in {file}`appsettings.json`.
       '';
@@ -83,8 +80,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.kavita = {
       description = "Kavita";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       preStart = ''
         install -m600 ${appsettings} ${lib.escapeShellArg cfg.dataDir}/config/appsettings.json
         ${pkgs.replace-secret}/bin/replace-secret '@TOKEN@' \
@@ -93,7 +90,7 @@ in
       '';
       serviceConfig = {
         WorkingDirectory = cfg.dataDir;
-        LoadCredential = [ "token:${cfg.tokenKeyFile}" ];
+        LoadCredential = ["token:${cfg.tokenKeyFile}"];
         ExecStart = lib.getExe cfg.package;
         Restart = "always";
         User = cfg.user;
@@ -112,9 +109,9 @@ in
         group = cfg.user;
         home = cfg.dataDir;
       };
-      groups.${cfg.user} = { };
+      groups.${cfg.user} = {};
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ misterio77 ];
+  meta.maintainers = with lib.maintainers; [misterio77];
 }

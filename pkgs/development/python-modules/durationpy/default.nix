@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "durationpy";
   version = "0.9";
@@ -18,18 +17,18 @@ buildPythonPackage rec {
     hash = "sha256-R/cZPnUUlosGHCOcqwRJ0GJlcB6Lu5a3e5h1CQ6fysA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "test.py" ];
+  pytestFlagsArray = ["test.py"];
 
-  pythonImportsCheck = [ "durationpy" ];
+  pythonImportsCheck = ["durationpy"];
 
   meta = {
     description = "Module for converting between datetime.timedelta and Go's time.Duration strings";
     homepage = "https://github.com/icholy/durationpy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

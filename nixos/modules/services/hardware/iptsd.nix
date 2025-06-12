@@ -3,19 +3,16 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.iptsd;
-  format = pkgs.formats.ini { };
+  format = pkgs.formats.ini {};
   configFile = format.generate "iptsd.conf" cfg.config;
-in
-{
+in {
   options.services.iptsd = {
     enable = lib.mkEnableOption "the userspace daemon for Intel Precise Touch & Stylus";
 
     config = lib.mkOption {
-      default = { };
+      default = {};
       description = ''
         Configuration for IPTSD. See the
         [reference configuration](https://github.com/linux-surface/iptsd/blob/master/etc/iptsd.conf)
@@ -53,11 +50,11 @@ in
       The option `services.iptsd.config.Touch` has been renamed to `services.iptsd.config.Touchscreen`.
     '';
 
-    systemd.packages = [ pkgs.iptsd ];
+    systemd.packages = [pkgs.iptsd];
     environment.etc."iptsd.conf".source = configFile;
-    systemd.services."iptsd@".restartTriggers = [ configFile ];
-    services.udev.packages = [ pkgs.iptsd ];
+    systemd.services."iptsd@".restartTriggers = [configFile];
+    services.udev.packages = [pkgs.iptsd];
   };
 
-  meta.maintainers = with lib.maintainers; [ dotlambda ];
+  meta.maintainers = with lib.maintainers; [dotlambda];
 }

@@ -12,7 +12,6 @@
   openssl,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ssl-cert-check";
   version = "4.14";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     mainProgram = "ssl-cert-check";
     homepage = "https://github.com/Matty9191/ssl-cert-check";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ryantm ];
+    maintainers = with maintainers; [ryantm];
     platforms = platforms.linux;
   };
 }

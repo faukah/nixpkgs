@@ -8,7 +8,6 @@
   railroad-diagrams,
   pyparsing,
 }:
-
 buildPythonPackage rec {
   pname = "pyparsing";
   version = "3.2.3";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-irRSylY16Vcm2zsue1Iv+1eqYGZSAqhkqHrdjdhznlM=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   # circular dependencies with pytest if enabled by default
   doCheck = false;
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     railroad-diagrams
   ];
 
-  pythonImportsCheck = [ "pyparsing" ];
+  pythonImportsCheck = ["pyparsing"];
 
   passthru.tests = {
     check = pyparsing.overridePythonAttrs (_: {
@@ -49,6 +48,6 @@ buildPythonPackage rec {
       that client code uses to construct the grammar directly in Python code.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

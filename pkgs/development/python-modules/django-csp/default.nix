@@ -2,19 +2,15 @@
   lib,
   fetchPypi,
   buildPythonPackage,
-
   # build-system
   setuptools,
-
   # dependencies
   django,
-
   # tests
   jinja2,
   pytest-django,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-csp";
   version = "3.8";
@@ -30,9 +26,9 @@ buildPythonPackage rec {
     sed -i "/addopts =/d" pyproject.toml
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
   nativeCheckInputs = [
     jinja2

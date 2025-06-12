@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # tests
   django,
   djangorestframework,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "nested-multipart-parser";
   version = "1.5.0";
@@ -24,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-9IGfYb6mVGkoE/6iDg0ap8c+0vrBDKK1DxzLRyfeWOk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     django

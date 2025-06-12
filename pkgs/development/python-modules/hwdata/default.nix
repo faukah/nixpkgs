@@ -5,7 +5,6 @@
   pkgs,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "hwdata";
   version = "2.4.1";
@@ -18,13 +17,13 @@ buildPythonPackage rec {
     hash = "sha256-hmvxVF9LOkezXnJdbtbEJWhU4uvUJgxQHYeWUoiniF0=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   patchPhase = ''
     substituteInPlace hwdata.py --replace "/usr/share/hwdata" "${pkgs.hwdata}/share/hwdata"
   '';
 
-  pythonImportsCheck = [ "hwdata" ];
+  pythonImportsCheck = ["hwdata"];
 
   doCheck = false; # no tests
 
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Python bindings to hwdata";
     homepage = "https://github.com/xsuchy/python-hwdata";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ lurkki ];
+    maintainers = with maintainers; [lurkki];
   };
 }

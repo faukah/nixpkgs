@@ -4,10 +4,8 @@
   buildPythonPackage,
   rerun,
   python,
-
   # nativeBuildInputs
   rustPlatform,
-
   # dependencies
   attrs,
   numpy,
@@ -16,17 +14,16 @@
   pyarrow,
   semver,
   typing-extensions,
-
   # tests
   pytestCheckHook,
   torch,
 }:
-
 buildPythonPackage {
   pname = "rerun-sdk";
   pyproject = true;
 
-  inherit (rerun)
+  inherit
+    (rerun)
     src
     version
     cargoDeps
@@ -61,7 +58,7 @@ buildPythonPackage {
     ln -s rerun_sdk/rerun $out/${python.sitePackages}/rerun
   '';
 
-  pythonImportsCheck = [ "rerun" ];
+  pythonImportsCheck = ["rerun"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -69,7 +66,7 @@ buildPythonPackage {
   ];
 
   inherit (rerun) addDlopenRunpaths addDlopenRunpathsPhase;
-  postPhases = lib.optionals stdenv.hostPlatform.isLinux [ "addDlopenRunpathsPhase" ];
+  postPhases = lib.optionals stdenv.hostPlatform.isLinux ["addDlopenRunpathsPhase"];
 
   disabledTests = [
     # numpy 2 incompatibility: AssertionError / IndexError
@@ -87,7 +84,8 @@ buildPythonPackage {
 
   meta = {
     description = "Python bindings for `rerun` (an interactive visualization tool for stream data)";
-    inherit (rerun.meta)
+    inherit
+      (rerun.meta)
       changelog
       homepage
       license

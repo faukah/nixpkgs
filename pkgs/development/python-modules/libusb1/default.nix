@@ -8,7 +8,6 @@
   libusb1,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "libusb1";
   version = "3.3.1";
@@ -27,13 +26,13 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "usb1/testUSB1.py" ];
+  pytestFlagsArray = ["usb1/testUSB1.py"];
 
   meta = with lib; {
     homepage = "https://github.com/vpelletier/python-libusb1";

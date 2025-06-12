@@ -50,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -59,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Vysp3r/ProtonPlus";
     changelog = "https://github.com/Vysp3r/ProtonPlus/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     platforms = lib.platforms.linux;
   };
 })

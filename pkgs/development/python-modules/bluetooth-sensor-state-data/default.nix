@@ -9,7 +9,6 @@
   pythonOlder,
   sensor-state-data,
 }:
-
 buildPythonPackage rec {
   pname = "bluetooth-sensor-state-data";
   version = "1.9.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-V7stHAID6zkLFYDX5HUVF38/8OHa4AZr48FPmSoDcAE=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     home-assistant-bluetooth
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "bluetooth_sensor_state_data" ];
+  pythonImportsCheck = ["bluetooth_sensor_state_data"];
 
   meta = with lib; {
     description = "Models for storing and converting Bluetooth Sensor State Data";
     homepage = "https://github.com/bluetooth-devices/bluetooth-sensor-state-data";
     changelog = "https://github.com/Bluetooth-Devices/bluetooth-sensor-state-data/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

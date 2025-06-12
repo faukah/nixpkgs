@@ -3,7 +3,6 @@
   buildGhidraExtension,
   ghidra,
 }:
-
 buildGhidraExtension {
   pname = "machinelearning";
   version = lib.getVersion ghidra;

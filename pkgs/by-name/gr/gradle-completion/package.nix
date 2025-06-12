@@ -5,7 +5,6 @@
   installShellFiles,
   gitUpdater,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "gradle-completion";
   version = "1.4.1";
@@ -47,6 +46,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Gradle tab completion for bash and zsh";
     homepage = "https://github.com/gradle/gradle-completion";
     license = lib.licenses.mit;
-    teams = [ lib.teams.java ];
+    teams = [lib.teams.java];
   };
 })

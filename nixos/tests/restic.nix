@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   remoteRepository = "/root/restic-backup";
   remoteFromFileRepository = "/root/restic-backup-from-file";
   remoteInhibitTestRepository = "/root/restic-backup-inhibit-test";
@@ -31,16 +29,15 @@ let
   };
 
   passwordFile = "${pkgs.writeText "password" "correcthorsebatterystaple"}";
-  paths = [ "/opt" ];
-  exclude = [ "/opt/excluded_file_*" ];
+  paths = ["/opt"];
+  exclude = ["/opt/excluded_file_*"];
   pruneOpts = [
     "--keep-daily 2"
     "--keep-weekly 1"
     "--keep-monthly 1"
     "--keep-yearly 99"
   ];
-in
-{
+in {
   name = "restic";
 
   meta = with pkgs.lib.maintainers; {
@@ -51,95 +48,93 @@ in
   };
 
   nodes = {
-    server =
-      { pkgs, ... }:
-      {
-        services.restic.backups = {
-          remotebackup = {
-            inherit
-              passwordFile
-              paths
-              exclude
-              pruneOpts
-              backupPrepareCommand
-              backupCleanupCommand
-              ;
-            repository = remoteRepository;
-            initialize = true;
-            timerConfig = null; # has no effect here, just checking that it doesn't break the service
-          };
-          remote-from-file-backup = {
-            inherit passwordFile exclude pruneOpts;
-            initialize = true;
-            repositoryFile = pkgs.writeText "repositoryFile" remoteFromFileRepository;
-            paths = [
-              "/opt/a_dir/a_file"
-              "/opt/a_dir/a_file_2"
-            ];
-            dynamicFilesFrom = ''
-              find /opt -mindepth 1 -maxdepth 1 ! -name a_dir # all files in /opt except for a_dir
-            '';
-          };
-          inhibit-test = {
-            inherit
-              passwordFile
-              paths
-              exclude
-              pruneOpts
-              ;
-            repository = remoteInhibitTestRepository;
-            initialize = true;
-            inhibitsSleep = true;
-          };
-          remote-noinit-backup = {
-            inherit
-              passwordFile
-              exclude
-              pruneOpts
-              paths
-              ;
-            initialize = false;
-            repository = remoteNoInitRepository;
-          };
-          rclonebackup = {
-            inherit
-              passwordFile
-              paths
-              exclude
-              pruneOpts
-              ;
-            initialize = true;
-            repository = rcloneRepository;
-            rcloneConfig = {
-              type = "local";
-              one_file_system = true;
-            };
-
-            # This gets overridden by rcloneConfig.type
-            rcloneConfigFile = pkgs.writeText "rclone.conf" ''
-              [local]
-              type=ftp
-            '';
-          };
-          remoteprune = {
-            inherit passwordFile;
-            repository = remoteRepository;
-            pruneOpts = [ "--keep-last 1" ];
-          };
-          custompackage = {
-            inherit passwordFile paths;
-            repository = "some-fake-repository";
-            package = pkgs.writeShellScriptBin "restic" ''
-              echo "$@" >> /root/fake-restic.log;
-            '';
-
-            pruneOpts = [ "--keep-last 1" ];
-            checkOpts = [ "--some-check-option" ];
-          };
+    server = {pkgs, ...}: {
+      services.restic.backups = {
+        remotebackup = {
+          inherit
+            passwordFile
+            paths
+            exclude
+            pruneOpts
+            backupPrepareCommand
+            backupCleanupCommand
+            ;
+          repository = remoteRepository;
+          initialize = true;
+          timerConfig = null; # has no effect here, just checking that it doesn't break the service
         };
+        remote-from-file-backup = {
+          inherit passwordFile exclude pruneOpts;
+          initialize = true;
+          repositoryFile = pkgs.writeText "repositoryFile" remoteFromFileRepository;
+          paths = [
+            "/opt/a_dir/a_file"
+            "/opt/a_dir/a_file_2"
+          ];
+          dynamicFilesFrom = ''
+            find /opt -mindepth 1 -maxdepth 1 ! -name a_dir # all files in /opt except for a_dir
+          '';
+        };
+        inhibit-test = {
+          inherit
+            passwordFile
+            paths
+            exclude
+            pruneOpts
+            ;
+          repository = remoteInhibitTestRepository;
+          initialize = true;
+          inhibitsSleep = true;
+        };
+        remote-noinit-backup = {
+          inherit
+            passwordFile
+            exclude
+            pruneOpts
+            paths
+            ;
+          initialize = false;
+          repository = remoteNoInitRepository;
+        };
+        rclonebackup = {
+          inherit
+            passwordFile
+            paths
+            exclude
+            pruneOpts
+            ;
+          initialize = true;
+          repository = rcloneRepository;
+          rcloneConfig = {
+            type = "local";
+            one_file_system = true;
+          };
 
-        environment.sessionVariables.RCLONE_CONFIG_LOCAL_TYPE = "local";
+          # This gets overridden by rcloneConfig.type
+          rcloneConfigFile = pkgs.writeText "rclone.conf" ''
+            [local]
+            type=ftp
+          '';
+        };
+        remoteprune = {
+          inherit passwordFile;
+          repository = remoteRepository;
+          pruneOpts = ["--keep-last 1"];
+        };
+        custompackage = {
+          inherit passwordFile paths;
+          repository = "some-fake-repository";
+          package = pkgs.writeShellScriptBin "restic" ''
+            echo "$@" >> /root/fake-restic.log;
+          '';
+
+          pruneOpts = ["--keep-last 1"];
+          checkOpts = ["--some-check-option"];
+        };
       };
+
+      environment.sessionVariables.RCLONE_CONFIG_LOCAL_TYPE = "local";
+    };
   };
 
   testScript = ''

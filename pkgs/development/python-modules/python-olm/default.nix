@@ -8,7 +8,6 @@
   pytest-benchmark,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "python-olm";
   format = "setuptools";
@@ -17,7 +16,7 @@ buildPythonPackage {
   disabled = !isPy3k;
 
   sourceRoot = "${olm.src.name}/python";
-  buildInputs = [ olm ];
+  buildInputs = [olm];
 
   preBuild = ''
     make include/olm/olm.h
@@ -28,9 +27,9 @@ buildPythonPackage {
     future
   ];
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
-  pythonImportsCheck = [ "olm" ];
+  pythonImportsCheck = ["olm"];
 
   nativeCheckInputs = [
     aspectlib

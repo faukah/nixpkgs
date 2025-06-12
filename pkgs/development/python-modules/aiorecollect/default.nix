@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aiorecollect";
   version = "2023.12.0";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
     sed -i '/certifi =/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   __darwinAllowLocalNetworking = true;
 
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     "examples/"
   ];
 
-  pythonImportsCheck = [ "aiorecollect" ];
+  pythonImportsCheck = ["aiorecollect"];
 
   meta = with lib; {
     description = "Python library for the Recollect Waste API";
@@ -60,7 +59,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/bachya/aiorecollect";
     changelog = "https://github.com/bachya/aiorecollect/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

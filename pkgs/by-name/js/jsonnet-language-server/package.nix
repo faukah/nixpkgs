@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "jsonnet-language-server";
   version = "0.16.0";
@@ -29,6 +28,6 @@ buildGoModule rec {
     homepage = "https://github.com/grafana/jsonnet-language-server";
     changelog = "https://github.com/grafana/jsonnet-language-server/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ hardselius ];
+    maintainers = with lib.maintainers; [hardselius];
   };
 }

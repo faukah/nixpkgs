@@ -24,7 +24,6 @@
   writeText,
   useWrappedDaemon ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-keyring";
   version = "48.0";
@@ -127,7 +126,7 @@ stdenv.mkDerivation rec {
       # Some stragglers
       lib.licenses.gpl2Plus
     ];
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     platforms = lib.platforms.linux;
   };
 }

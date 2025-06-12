@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "imgp";
   version = "2.9";
@@ -16,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-yQ2BzOBn6Bl9ieZkREKsj1zLnoPcf0hZhZ90Za5kiKA=";
   };
 
-  propagatedBuildInputs = [ python3Packages.pillow ];
+  propagatedBuildInputs = [python3Packages.pillow];
 
   installFlags = [
     "DESTDIR=$(out)"
@@ -39,6 +38,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/jarun/imgp";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

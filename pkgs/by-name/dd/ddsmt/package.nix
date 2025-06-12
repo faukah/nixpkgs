@@ -2,35 +2,33 @@
   lib,
   python3Packages,
   fetchPypi,
-}:
-
-let
+}: let
   version = "2.0.3";
 in
-python3Packages.buildPythonApplication {
-  pname = "ddsmt";
-  inherit version;
-  pyproject = true;
-
-  src = fetchPypi {
+  python3Packages.buildPythonApplication {
+    pname = "ddsmt";
     inherit version;
-    pname = "ddSMT";
-    hash = "sha256-nmhEG4sUmgpgRUduVTtwDLGPJVKx+dEaPb+KjFRwV2Q=";
-  };
+    pyproject = true;
 
-  nativeBuildInputs = with python3Packages; [
-    setuptools
-  ];
+    src = fetchPypi {
+      inherit version;
+      pname = "ddSMT";
+      hash = "sha256-nmhEG4sUmgpgRUduVTtwDLGPJVKx+dEaPb+KjFRwV2Q=";
+    };
 
-  propagatedBuildInputs = with python3Packages; [
-    gprof2dot
-    progressbar
-  ];
+    nativeBuildInputs = with python3Packages; [
+      setuptools
+    ];
 
-  meta = {
-    description = "Delta debugger for SMT benchmarks in SMT-LIB v2";
-    homepage = "https://ddsmt.readthedocs.io/";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
-  };
-}
+    propagatedBuildInputs = with python3Packages; [
+      gprof2dot
+      progressbar
+    ];
+
+    meta = {
+      description = "Delta debugger for SMT benchmarks in SMT-LIB v2";
+      homepage = "https://ddsmt.readthedocs.io/";
+      license = with lib.licenses; [gpl3Plus];
+      maintainers = with lib.maintainers; [];
+    };
+  }

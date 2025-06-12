@@ -5,10 +5,8 @@
   hash,
   npmDepsHash,
   vendorHash,
-  nixUpdateExtraArgs ? [ ],
-}:
-
-{
+  nixUpdateExtraArgs ? [],
+}: {
   bash,
   brotli,
   buildGoModule,
@@ -26,9 +24,7 @@
   stdenv,
   fetchFromGitea,
   buildNpmPackage,
-}:
-
-let
+}: let
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "forgejo";
@@ -51,73 +47,72 @@ let
     '';
   };
 in
-buildGoModule rec {
-  pname = "forgejo" + lib.optionalString lts "-lts";
+  buildGoModule rec {
+    pname = "forgejo" + lib.optionalString lts "-lts";
 
-  inherit
-    version
-    src
-    vendorHash
-    ;
+    inherit
+      version
+      src
+      vendorHash
+      ;
 
-  subPackages = [
-    "."
-    "contrib/environment-to-ini"
-  ];
+    subPackages = [
+      "."
+      "contrib/environment-to-ini"
+    ];
 
-  outputs = [
-    "out"
-    "data"
-  ];
+    outputs = [
+      "out"
+      "data"
+    ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+    ];
 
-  nativeCheckInputs = [
-    git
-    openssh
-  ];
+    nativeCheckInputs = [
+      git
+      openssh
+    ];
 
-  patches = [
-    ./static-root-path.patch
-  ];
+    patches = [
+      ./static-root-path.patch
+    ];
 
-  postPatch = ''
-    substituteInPlace modules/setting/server.go --subst-var data
-  '';
+    postPatch = ''
+      substituteInPlace modules/setting/server.go --subst-var data
+    '';
 
-  tags = lib.optionals sqliteSupport [
-    "sqlite"
-    "sqlite_unlock_notify"
-  ];
+    tags = lib.optionals sqliteSupport [
+      "sqlite"
+      "sqlite_unlock_notify"
+    ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.Version=${version}"
-    "-X 'main.Tags=${lib.concatStringsSep " " tags}'"
-  ];
+    ldflags = [
+      "-s"
+      "-w"
+      "-X main.Version=${version}"
+      "-X 'main.Tags=${lib.concatStringsSep " " tags}'"
+    ];
 
-  preConfigure = ''
-    export ldflags+=" -X main.ForgejoVersion=$(GITEA_VERSION=${version} make show-version-api)"
-  '';
+    preConfigure = ''
+      export ldflags+=" -X main.ForgejoVersion=$(GITEA_VERSION=${version} make show-version-api)"
+    '';
 
-  preCheck = ''
-    # $HOME is required for ~/.ssh/authorized_keys and such
-    export HOME="$TMPDIR/home"
+    preCheck = ''
+      # $HOME is required for ~/.ssh/authorized_keys and such
+      export HOME="$TMPDIR/home"
 
-    # expose and use the GO_TEST_PACKAGES var from the Makefile
-    # instead of manually copying over the entire list:
-    # https://codeberg.org/forgejo/forgejo/src/tag/v7.0.4/Makefile#L124
-    echo -e 'show-backend-tests:\n\t@echo ''${GO_TEST_PACKAGES}' >> Makefile
-    getGoDirs() {
-      make show-backend-tests
-    }
-  '';
+      # expose and use the GO_TEST_PACKAGES var from the Makefile
+      # instead of manually copying over the entire list:
+      # https://codeberg.org/forgejo/forgejo/src/tag/v7.0.4/Makefile#L124
+      echo -e 'show-backend-tests:\n\t@echo ''${GO_TEST_PACKAGES}' >> Makefile
+      getGoDirs() {
+        make show-backend-tests
+      }
+    '';
 
-  checkFlags =
-    let
+    checkFlags = let
       skippedTests = [
         "TestPassword" # requires network: api.pwnedpasswords.com
         "TestCaptcha" # requires network: hcaptcha.com
@@ -125,20 +120,19 @@ buildGoModule rec {
         "TestMigrateWhiteBlocklist" # requires network: gitlab.com (DNS)
         "TestURLAllowedSSH/Pushmirror_URL" # requires network git.gay (DNS)
       ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+    in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
-  preInstall = ''
-    mv "$GOPATH/bin/forgejo.org" "$GOPATH/bin/gitea"
-  '';
+    preInstall = ''
+      mv "$GOPATH/bin/forgejo.org" "$GOPATH/bin/gitea"
+    '';
 
-  postInstall = ''
-    mkdir $data
-    cp -R ./{templates,options} ${frontend}/public $data
-    mkdir -p $out
-    cp -R ./options/locale $out/locale
-    wrapProgram $out/bin/gitea \
-      --prefix PATH : ${
+    postInstall = ''
+      mkdir $data
+      cp -R ./{templates,options} ${frontend}/public $data
+      mkdir -p $out
+      cp -R ./options/locale $out/locale
+      wrapProgram $out/bin/gitea \
+        --prefix PATH : ${
         lib.makeBinPath [
           bash
           git
@@ -146,21 +140,21 @@ buildGoModule rec {
           openssh
         ]
       }
-  '';
+    '';
 
-  # $data is not available in goModules.drv
-  overrideModAttrs = (
-    _: {
-      postPatch = null;
-    }
-  );
+    # $data is not available in goModules.drv
+    overrideModAttrs = (
+      _: {
+        postPatch = null;
+      }
+    );
 
-  passthru = {
-    # allow nix-update to handle npmDepsHash
-    inherit (frontend) npmDeps;
+    passthru = {
+      # allow nix-update to handle npmDepsHash
+      inherit (frontend) npmDeps;
 
-    data-compressed =
-      runCommand "forgejo-data-compressed"
+      data-compressed =
+        runCommand "forgejo-data-compressed"
         {
           nativeBuildInputs = [
             brotli
@@ -177,30 +171,35 @@ buildGoModule rec {
             -exec brotli --best --keep --no-copy-stat {} ';'
         '';
 
-    tests = if lts then nixosTests.forgejo-lts else nixosTests.forgejo;
+      tests =
+        if lts
+        then nixosTests.forgejo-lts
+        else nixosTests.forgejo;
 
-    updateScript = nix-update-script {
-      extraArgs = nixUpdateExtraArgs ++ [
-        "--version-regex"
-        "v(${lib.versions.major version}\\.[0-9.]+)"
-      ];
+      updateScript = nix-update-script {
+        extraArgs =
+          nixUpdateExtraArgs
+          ++ [
+            "--version-regex"
+            "v(${lib.versions.major version}\\.[0-9.]+)"
+          ];
+      };
     };
-  };
 
-  meta = {
-    description = "Self-hosted lightweight software forge";
-    homepage = "https://forgejo.org";
-    changelog = "https://codeberg.org/forgejo/forgejo/releases/tag/v${version}";
-    license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [
-      emilylange
-      urandom
-      bendlas
-      adamcstephens
-      marie
-      pyrox0
-    ];
-    broken = stdenv.hostPlatform.isDarwin;
-    mainProgram = "gitea";
-  };
-}
+    meta = {
+      description = "Self-hosted lightweight software forge";
+      homepage = "https://forgejo.org";
+      changelog = "https://codeberg.org/forgejo/forgejo/releases/tag/v${version}";
+      license = lib.licenses.gpl3Plus;
+      maintainers = with lib.maintainers; [
+        emilylange
+        urandom
+        bendlas
+        adamcstephens
+        marie
+        pyrox0
+      ];
+      broken = stdenv.hostPlatform.isDarwin;
+      mainProgram = "gitea";
+    };
+  }

@@ -6,7 +6,6 @@
   texliveFull,
   xercesc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "blahtexml";
   version = "1.0";
@@ -24,33 +23,32 @@ stdenv.mkDerivation rec {
         --replace "\$(CXX)" "\$(CXX) -std=c++98"
     ''
     +
-      # fix the doc build on TeX Live 2023
-      ''
-        substituteInPlace Documentation/manual.tex \
-          --replace '\usepackage[utf8x]{inputenc}' '\usepackage[utf8]{inputenc}'
-      '';
+    # fix the doc build on TeX Live 2023
+    ''
+      substituteInPlace Documentation/manual.tex \
+        --replace '\usepackage[utf8x]{inputenc}' '\usepackage[utf8]{inputenc}'
+    '';
 
   outputs = [
     "out"
     "doc"
   ];
 
-  nativeBuildInputs = [ texliveFull ]; # scheme-full needed for ucs package
-  buildInputs = [ xercesc ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  nativeBuildInputs = [texliveFull]; # scheme-full needed for ucs package
+  buildInputs = [xercesc] ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   buildFlags =
-    [ "doc" ]
+    ["doc"]
     ++ (
-      if stdenv.hostPlatform.isDarwin then
-        [
-          "blahtex-mac"
-          "blahtexml-mac"
-        ]
-      else
-        [
-          "blahtex-linux"
-          "blahtexml-linux"
-        ]
+      if stdenv.hostPlatform.isDarwin
+      then [
+        "blahtex-mac"
+        "blahtexml-mac"
+      ]
+      else [
+        "blahtex-linux"
+        "blahtexml-linux"
+      ]
     );
 
   installPhase = ''
@@ -73,7 +71,7 @@ stdenv.mkDerivation rec {
       convert all the formulas of the given XML file into MathML.
     '';
     license = licenses.bsd3;
-    maintainers = [ maintainers.xworld21 ];
+    maintainers = [maintainers.xworld21];
     platforms = platforms.all;
   };
 }

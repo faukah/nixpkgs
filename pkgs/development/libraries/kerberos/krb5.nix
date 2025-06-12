@@ -8,7 +8,6 @@
   openssl,
   perl,
   pkg-config,
-
   # for passthru.tests
   bind,
   curl,
@@ -16,7 +15,6 @@
   openssh,
   postgresql,
   python3,
-
   # Extra Arguments
   withLdap ? false,
   openldap,
@@ -24,12 +22,10 @@
   libedit,
   withVerto ? false,
   libverto,
-
   # This is called "staticOnly" because krb5 does not support
   # builting both static and shared, see below.
   staticOnly ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "krb5";
   version = "1.21.3";
@@ -84,15 +80,15 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.hostPlatform.isDarwin bootstrap_cmds;
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals (
       stdenv.hostPlatform.isLinux
       && stdenv.hostPlatform.libc != "bionic"
       && !(stdenv.hostPlatform.useLLVM or false)
-    ) [ keyutils ]
-    ++ lib.optionals withLdap [ openldap ]
-    ++ lib.optionals withLibedit [ libedit ]
-    ++ lib.optionals withVerto [ libverto ];
+    ) [keyutils]
+    ++ lib.optionals withLdap [openldap]
+    ++ lib.optionals withLibedit [libedit]
+    ++ lib.optionals withVerto [libverto];
 
   sourceRoot = "krb5-${version}/src";
 
@@ -155,10 +151,10 @@ stdenv.mkDerivation rec {
     tests = {
       inherit (nixosTests) kerberos;
       inherit (python3.pkgs) requests-credssp;
-      bind = bind.override { enableGSSAPI = true; };
-      curl = curl.override { gssSupport = true; };
-      openssh = openssh.override { withKerberos = true; };
-      postgresql = postgresql.override { gssSupport = true; };
+      bind = bind.override {enableGSSAPI = true;};
+      curl = curl.override {gssSupport = true;};
+      openssh = openssh.override {withKerberos = true;};
+      postgresql = postgresql.override {gssSupport = true;};
     };
   };
 }

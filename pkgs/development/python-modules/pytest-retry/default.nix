@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-retry";
   version = "1.7.0";
@@ -19,13 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-Gf+L7zvC1FGAm0Wd6E6fV3KynassoGyHSD0CPgEJ02k=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pytest ];
+  dependencies = [pytest];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_retry" ];
+  pythonImportsCheck = ["pytest_retry"];
 
   meta = {
     description = "Plugin for retrying flaky tests in CI environments";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/str0zzapreti/pytest-retry";
     changelog = "https://github.com/str0zzapreti/pytest-retry/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fliegendewurst ];
+    maintainers = with lib.maintainers; [fliegendewurst];
   };
 }

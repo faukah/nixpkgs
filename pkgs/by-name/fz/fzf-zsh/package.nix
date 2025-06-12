@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fzf,
 }:
-
 stdenv.mkDerivation {
   pname = "fzf-zsh-unstable";
   version = "2019-09-09";
@@ -37,7 +36,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/wyntau/fzf-zsh";
     description = "wrap fzf to use in oh-my-zsh";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

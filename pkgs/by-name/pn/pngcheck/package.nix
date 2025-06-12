@@ -5,7 +5,6 @@
   zlib,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pngcheck";
   version = "3.0.2";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DX4mLyQRb93yhHqM61yS2fXybvtC6f/2PsK7dnYTHKc=";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postPatch = ''
     substituteInPlace $makefile \
@@ -23,11 +22,11 @@ stdenv.mkDerivation rec {
   '';
 
   makefile = "Makefile.unx";
-  makeFlags = [ "ZPATH=${zlib.static}/lib" ];
+  makeFlags = ["ZPATH=${zlib.static}/lib"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   installPhase = ''
     runHook preInstall
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Verifies the integrity of PNG, JNG and MNG files";
     license = licenses.free;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ starcraft66 ];
+    maintainers = with maintainers; [starcraft66];
     mainProgram = "pngcheck";
   };
 }

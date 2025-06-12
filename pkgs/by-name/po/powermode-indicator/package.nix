@@ -34,7 +34,7 @@ stdenv.mkDerivation {
     description = "Tray tool for power profiles management";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.aacebedo ];
+    maintainers = [maintainers.aacebedo];
     mainProgram = "powermode-indicator";
   };
 }

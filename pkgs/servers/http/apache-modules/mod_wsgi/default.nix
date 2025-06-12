@@ -6,7 +6,6 @@
   python3,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mod_wsgi";
   version = "5.0.2";

@@ -7,7 +7,6 @@
   pkg-config,
   libtool,
 }:
-
 stdenv.mkDerivation rec {
   version = "3.2p4";
   pname = "libow";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "1-Wire File System full library";
     homepage = "https://owfs.org/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ disserman ];
+    maintainers = with maintainers; [disserman];
     platforms = platforms.unix;
   };
 }

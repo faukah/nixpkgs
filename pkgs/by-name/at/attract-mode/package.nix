@@ -14,7 +14,6 @@
   openal,
   fontconfig,
 }:
-
 stdenv.mkDerivation {
   pname = "attract-mode";
   version = "2.7.0-unstable-2024-08-02";
@@ -26,7 +25,7 @@ stdenv.mkDerivation {
     hash = "sha256-uhbu/DaQSE9Dissv7XLFMVYitPn8ZEewq90poCtEfYY=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -44,16 +43,18 @@ stdenv.mkDerivation {
       fontconfig
     ];
 
-  makeFlags = [
-    "prefix=$(out)"
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "CXX=${stdenv.cc.targetPrefix}c++"
-    "STRIP=${stdenv.cc.targetPrefix}strip"
-    "OBJCOPY=${stdenv.cc.targetPrefix}objcopy"
-    "PKG_CONFIG=${stdenv.cc.targetPrefix}pkg-config"
-    "AR=${stdenv.cc.targetPrefix}ar"
-    "BUILD_EXPAT=0"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "USE_FONTCONFIG=0" ];
+  makeFlags =
+    [
+      "prefix=$(out)"
+      "CC=${stdenv.cc.targetPrefix}cc"
+      "CXX=${stdenv.cc.targetPrefix}c++"
+      "STRIP=${stdenv.cc.targetPrefix}strip"
+      "OBJCOPY=${stdenv.cc.targetPrefix}objcopy"
+      "PKG_CONFIG=${stdenv.cc.targetPrefix}pkg-config"
+      "AR=${stdenv.cc.targetPrefix}ar"
+      "BUILD_EXPAT=0"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["USE_FONTCONFIG=0"];
 
   enableParallelBuilding = true;
 
@@ -61,7 +62,7 @@ stdenv.mkDerivation {
     description = "Frontend for arcade cabinets and media PCs";
     homepage = "http://attractmode.org";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.hrdinka ];
+    maintainers = [lib.maintainers.hrdinka];
     platforms = lib.platforms.unix;
     mainProgram = "attract";
   };

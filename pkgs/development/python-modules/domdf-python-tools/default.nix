@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-KuMI0vTx6RRfX0ulf4QPv9HCmD7ibkgkNHeJZJ064pg=";
   };
 
-  build-system = [ hatch-requirements-txt ];
+  build-system = [hatch-requirements-txt];
 
   dependencies = [
     natsort
@@ -28,6 +28,6 @@ buildPythonPackage rec {
     description = "Helpful functions for Python";
     homepage = "https://github.com/domdfcoding/domdf_python_tools";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tyberius-prime ];
+    maintainers = with lib.maintainers; [tyberius-prime];
   };
 }

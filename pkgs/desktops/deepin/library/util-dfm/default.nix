@@ -11,7 +11,6 @@
   libuuid,
   udisks,
 }:
-
 stdenv.mkDerivation rec {
   pname = "util-dfm";
   version = "1.3.2";
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/util-dfm";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

@@ -6,8 +6,7 @@
   gnumake,
   gnused,
   gnugrep,
-}:
-let
+}: let
   pname = "gzip";
   version = "1.2.4";
 
@@ -16,7 +15,7 @@ let
     sha256 = "0ryr5b00qz3xcdcv03qwjdfji8pasp0007ay3ppmk71wl8c1i90w";
   };
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -27,9 +26,8 @@ bash.runCommand "${pname}-${version}"
       gnugrep
     ];
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/gzip --version
         mkdir $out
       '';
@@ -38,7 +36,7 @@ bash.runCommand "${pname}-${version}"
       description = "GNU zip compression program";
       homepage = "https://www.gnu.org/software/gzip";
       license = licenses.gpl3Plus;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       platforms = platforms.unix;
     };
   }

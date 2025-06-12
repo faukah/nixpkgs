@@ -8,7 +8,6 @@
   requests,
   myconnpy,
 }:
-
 buildKodiAddon rec {
   pname = "netflix";
   namespace = "plugin.video.netflix";
@@ -33,7 +32,7 @@ buildKodiAddon rec {
     homepage = "https://github.com/CastagnaIT/plugin.video.netflix";
     description = "Netflix VOD Services Add-on";
     license = licenses.mit;
-    maintainers = [ maintainers.pks ];
-    teams = [ teams.kodi ];
+    maintainers = [maintainers.pks];
+    teams = [teams.kodi];
   };
 }

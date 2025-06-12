@@ -3,16 +3,13 @@
   stdenv,
   fetchurl,
   geant4,
-}:
-
-let
-  mkDataset =
-    {
-      pname,
-      version,
-      sha256,
-      envvar,
-    }:
+}: let
+  mkDataset = {
+    pname,
+    version,
+    sha256,
+    envvar,
+  }:
     stdenv.mkDerivation {
       inherit pname version;
       geant_version = geant4.version;
@@ -43,8 +40,8 @@ let
       };
     };
 in
-builtins.listToAttrs (
-  map
+  builtins.listToAttrs (
+    map
     (a: {
       name = a.pname;
       value = mkDataset a;
@@ -155,4 +152,4 @@ builtins.listToAttrs (
         envvar = "URRPT";
       }
     ]
-)
+  )

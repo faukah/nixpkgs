@@ -5,7 +5,6 @@
   cmake,
   obs-studio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-vintage-filter";
   version = "1.0.0";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-K7AxvwVLe4G+75aY430lygSRB7rMtsGi17pGzdygEac=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ obs-studio ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [obs-studio];
 
   postInstall = ''
     mkdir $out/lib $out/share
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "OBS Studio filter where the source can be set to be black & white or sepia";
     homepage = "https://github.com/cg2121/obs-vintage-filter";
-    maintainers = with maintainers; [ flexiondotorg ];
+    maintainers = with maintainers; [flexiondotorg];
     license = licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"

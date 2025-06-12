@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fast-ssh";
   version = "0.3.2";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "TUI tool to use the SSH config for connections";
     homepage = "https://github.com/julien-r44/fast-ssh";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "fast-ssh";
   };
 }

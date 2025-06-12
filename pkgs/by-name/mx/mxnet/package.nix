@@ -16,12 +16,10 @@
   # and fail to compile without the cudatoolkit
   # mxnet cuda support will not be available, as mxnet requires version <=11
   cudaSupport ? config.cudaSupport,
-  cudaPackages ? { },
+  cudaPackages ? {},
 }:
-
 # mxnet is not maintained, and other projects are migrating away from it.
 # https://github.com/apache/mxnet/issues/21206
-
 stdenv.mkDerivation rec {
   pname = "mxnet";
   version = "1.9.1";
@@ -42,7 +40,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "2-auto-disable-sse-for-non-x86.patch";
       url = "https://github.com/apache/incubator-mxnet/commit/c1b96f562f55dfa024ac941d7b104f00e239ee0f.patch";
-      excludes = [ "ci/docker/runtime_functions.sh" ];
+      excludes = ["ci/docker/runtime_functions.sh"];
       hash = "sha256-r1LbC8ueRooW5tTNakAlRSJ+9aR4WXXoEKx895DgOs4=";
     })
   ];
@@ -92,7 +90,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Lightweight, Portable, Flexible Distributed/Mobile Deep Learning with Dynamic, Mutation-aware Dataflow Dep Scheduler";
     homepage = "https://mxnet.incubator.apache.org/";
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     license = licenses.asl20;
     platforms = platforms.linux;
   };

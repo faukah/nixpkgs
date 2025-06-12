@@ -10,7 +10,6 @@
   stdenv,
   fixDarwinDylibNames,
 }:
-
 buildPythonPackage rec {
   pname = "klayout";
   version = "0.30.1";
@@ -38,13 +37,13 @@ buildPythonPackage rec {
     fixDarwinDylibNames
   ];
 
-  pythonImportsCheck = [ "klayout" ];
+  pythonImportsCheck = ["klayout"];
 
   meta = with lib; {
     description = "KLayout’s Python API";
     homepage = "https://github.com/KLayout/klayout";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fbeffa ];
+    maintainers = with maintainers; [fbeffa];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

@@ -4,7 +4,6 @@
   fetchgit,
   fontforge,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "newcomputermodern";
   version = "6.0.0";
@@ -15,7 +14,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-AMzEytBn9PbyYFNJ2CMPg8ejsL3eFhY+eZHXShaLG9E=";
   };
 
-  nativeBuildInputs = [ fontforge ];
+  nativeBuildInputs = [fontforge];
 
   dontConfigure = true;
 
@@ -43,7 +42,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     # equivalent to the LaTeX Project Public License (LPPL), version 1.3c or
     # later." - GUST website
     license = lib.licenses.lppl13c;
-    maintainers = [ lib.maintainers.drupol ];
+    maintainers = [lib.maintainers.drupol];
     platforms = lib.platforms.all;
   };
 })

@@ -15,7 +15,6 @@
   gtk4,
   gtksourceview5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-iconbrowser";
   version = "8.0.0";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     description = "Browse and find system icons";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.iconbrowser";
   };
 }

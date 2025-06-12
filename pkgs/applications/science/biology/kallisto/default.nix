@@ -8,7 +8,6 @@
   zlib,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kallisto";
   version = "0.51.1";
@@ -30,12 +29,12 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  cmakeFlags = [ "-DUSE_HDF5=ON" ];
+  cmakeFlags = ["-DUSE_HDF5=ON"];
 
   # Parallel build fails in some cases: https://github.com/pachterlab/kallisto/issues/160
   enableParallelBuilding = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Program for quantifying abundances of transcripts from RNA-Seq data";
@@ -43,6 +42,6 @@ stdenv.mkDerivation rec {
     homepage = "https://pachterlab.github.io/kallisto";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ arcadio ];
+    maintainers = with maintainers; [arcadio];
   };
 }

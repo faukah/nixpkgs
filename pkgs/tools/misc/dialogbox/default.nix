@@ -6,7 +6,6 @@
   qmake,
   qtbase,
 }:
-
 mkDerivation rec {
   pname = "dialogbox";
   version = "1.0+unstable=2020-11-16";
@@ -42,7 +41,7 @@ mkDerivation rec {
     homepage = "https://github.com/martynets/dialogbox/";
     description = "Qt-based scriptable engine providing GUI dialog boxes";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
     mainProgram = "dialogbox";
   };

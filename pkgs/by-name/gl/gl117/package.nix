@@ -11,7 +11,6 @@
   automake,
   libtool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gl-117";
   version = "1.3.2";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Air combat simulator";
     mainProgram = "gl-117";
     homepage = "https://sourceforge.net/projects/gl-117";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

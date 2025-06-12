@@ -7,7 +7,6 @@
   cython,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyclipper";
   version = "1.3.0.post6";
@@ -26,14 +25,14 @@ buildPythonPackage rec {
     cython
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyclipper" ];
+  pythonImportsCheck = ["pyclipper"];
 
   meta = with lib; {
     description = "Cython wrapper for clipper library";
     homepage = "https://github.com/fonttools/pyclipper";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthuszagh ];
+    maintainers = with maintainers; [matthuszagh];
   };
 }

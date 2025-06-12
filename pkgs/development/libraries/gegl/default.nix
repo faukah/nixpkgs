@@ -34,7 +34,6 @@
   withLuaJIT ? lib.meta.availableOn stdenv.hostPlatform luajit,
   gimp,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gegl";
   version = "0.4.62";
@@ -134,7 +133,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Graph-based image processing framework";
     homepage = "https://www.gegl.org";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 })

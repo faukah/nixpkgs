@@ -15,7 +15,6 @@
   busybox,
   gnugrep, # We can't use busybox's 'grep' as it doesn't support perl '-P' expressions.
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "bootiso";
   version = "4.2.0";
@@ -35,10 +34,10 @@ stdenvNoCC.mkDerivation rec {
   ];
 
   strictDeps = true;
-  buildInputs = [ bash ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [bash];
+  nativeBuildInputs = [makeWrapper];
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   postPatch = ''
     substituteInPlace bootiso \
@@ -49,25 +48,25 @@ stdenvNoCC.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/bootiso \
       --prefix PATH : ${
-        lib.makeBinPath [
-          bc
-          jq
-          coreutils
-          util-linux
-          wimlib
-          file
-          syslinux
-          gnugrep
-          busybox
-        ]
-      } \
+      lib.makeBinPath [
+        bc
+        jq
+        coreutils
+        util-linux
+        wimlib
+        file
+        syslinux
+        gnugrep
+        busybox
+      ]
+    } \
   '';
 
   meta = with lib; {
     description = "Script for securely creating a bootable USB device from one image file";
     homepage = "https://github.com/jsamr/bootiso";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ muscaln ];
+    maintainers = with maintainers; [muscaln];
     platforms = platforms.all;
     mainProgram = "bootiso";
   };

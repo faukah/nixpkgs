@@ -10,7 +10,6 @@
   librsvg,
   sassc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "plano-theme";
   version = "4.0";
@@ -43,6 +42,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/lassekongo83/plano-theme";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

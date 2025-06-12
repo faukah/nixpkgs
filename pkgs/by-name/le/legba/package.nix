@@ -7,7 +7,6 @@
   openssl,
   samba,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "legba";
   version = "0.10.0";
@@ -39,7 +38,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/evilsocket/legba";
     changelog = "https://github.com/evilsocket/legba/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ mikaelfangel ];
+    maintainers = with lib.maintainers; [mikaelfangel];
     mainProgram = "legba";
   };
 }

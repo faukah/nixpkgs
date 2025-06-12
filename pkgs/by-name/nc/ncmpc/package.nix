@@ -14,7 +14,6 @@
   fmt,
   pcre2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ncmpc";
   version = "0.52";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     badPlatforms = platforms.darwin;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     mainProgram = "ncmpc";
   };
 }

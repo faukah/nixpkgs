@@ -5,7 +5,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openpam";
   version = "20230627";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.openpam.org";
     description = "Open source PAM library that focuses on simplicity, correctness, and cleanliness";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     license = licenses.bsd3;
   };
 })

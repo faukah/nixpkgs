@@ -8,7 +8,6 @@
   pkg-config,
   runCommand,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rpm-sequoia";
   version = "1.8.0";
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
   ];
 
-  propagatedBuildInputs = [ nettle ];
+  propagatedBuildInputs = [nettle];
 
   # Tests will parse the symbols, on darwin we have two issues:
   # - library name is hardcoded to librpm_sequoia.so
@@ -55,25 +54,25 @@ rustPlatform.buildRustPackage rec {
       install -Dm644 target/release/rpm-sequoia.pc -t $dev/lib/pkgconfig
     ''
     +
-      # Dependents will rely on the versioned symlinks
-      lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
-        install -d $out/lib
-        find target/release/ \
-          -maxdepth 1 \
-          -type l -name 'librpm_sequoia.*' \
-          -exec cp --no-dereference {} $out/lib/ \;
-      ''
+    # Dependents will rely on the versioned symlinks
+    lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
+      install -d $out/lib
+      find target/release/ \
+        -maxdepth 1 \
+        -type l -name 'librpm_sequoia.*' \
+        -exec cp --no-dereference {} $out/lib/ \;
+    ''
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       install -d $out/lib
       ln -s librpm_sequoia.dylib $out/lib/librpm_sequoia.${version}.dylib
     '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "OpenPGP backend for rpm using Sequoia PGP";
     homepage = "https://sequoia-pgp.org/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ baloo ];
+    maintainers = with lib.maintainers; [baloo];
   };
 }

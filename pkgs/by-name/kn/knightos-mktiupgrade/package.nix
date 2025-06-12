@@ -6,7 +6,6 @@
   libxslt,
   asciidoc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mktiupgrade";
   version = "1.1.6";
@@ -26,14 +25,14 @@ stdenv.mkDerivation rec {
     libxslt.bin
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://knightos.org/";
     description = "Makes TI calculator upgrade files from ROM dumps";
     mainProgram = "mktiupgrade";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

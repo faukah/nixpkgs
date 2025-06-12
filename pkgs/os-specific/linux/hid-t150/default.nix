@@ -5,7 +5,6 @@
   kernel,
   kernelModuleMakeFlags,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hid-t150";
   #https://github.com/scarburato/t150_driver/blob/165d0601e11576186c9416c40144927549ef804d/install.sh#L3
@@ -22,10 +21,12 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/hid-t150";
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    "INSTALL_MOD_PATH=${placeholder "out"}"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      "INSTALL_MOD_PATH=${placeholder "out"}"
+    ];
 
   installPhase = ''
     make -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build M=$(pwd) modules_install $makeFlags
@@ -35,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Linux kernel driver for Thrustmaster T150 and TMX Force Feedback wheel";
     homepage = "https://github.com/scarburato/t150_driver";
     license = licenses.gpl2;
-    maintainers = [ maintainers.dbalan ];
+    maintainers = [maintainers.dbalan];
     platforms = platforms.linux;
   };
 }

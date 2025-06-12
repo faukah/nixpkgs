@@ -8,10 +8,7 @@
 # The result is a script that can be used to validate the input data (JSON/YAML and more can be supported depending on Cue)
 # against the fragment described by `document` or the whole definition.
 # The script will be strict and enforce concrete values, i.e. partial documents are not supported.
-cueSchemaFile:
-{
-  document ? null,
-}:
+cueSchemaFile: {document ? null}:
 writeShellScript "validate-using-cue" ''
   ${cue}/bin/cue \
     --all-errors \

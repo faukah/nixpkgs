@@ -8,7 +8,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mobile-broadband-provider-info";
   version = "20240407";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
+    updateScript = gnome.updateScript {packageName = pname;};
   };
 
   meta = {
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/mobile-broadband-provider-info";
     changelog = "https://gitlab.gnome.org/GNOME/mobile-broadband-provider-info/-/blob/${version}/NEWS?ref_type=tags";
     license = lib.licenses.publicDomain;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 }

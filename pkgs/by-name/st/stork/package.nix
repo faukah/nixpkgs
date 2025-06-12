@@ -6,7 +6,6 @@
   pkg-config,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "stork";
   version = "1.6.0";
@@ -18,7 +17,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-qGcEhoytkCkcaA5eHc8GVgWvbOIyrO6BCp+EHva6wTw=";
   };
 
-  cargoPatches = [ ./update-wasm-bindgen.patch ];
+  cargoPatches = [./update-wasm-bindgen.patch];
 
   cargoHash = "sha256-d6PLrs/n9riQ9oQTWn+6Ec1E5JhJZ7akDg8/UB21GzI=";
 
@@ -27,18 +26,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=pretty_print_search_results::tests::display_pretty_search_results_given_output"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   meta = {
     description = "Impossibly fast web search, made for static sites";
     homepage = "https://github.com/jameslittle230/stork";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ chuahou ];
+    maintainers = with lib.maintainers; [chuahou];
     mainProgram = "stork";
   };
 })

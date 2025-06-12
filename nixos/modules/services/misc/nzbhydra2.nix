@@ -3,12 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.nzbhydra2;
-
-in
-{
+in {
   options = {
     services.nzbhydra2 = {
       enable = lib.mkEnableOption "NZBHydra2, Usenet meta search";
@@ -25,17 +22,17 @@ in
         description = "Open ports in the firewall for the NZBHydra2 web interface.";
       };
 
-      package = lib.mkPackageOption pkgs "nzbhydra2" { };
+      package = lib.mkPackageOption pkgs "nzbhydra2" {};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 nzbhydra2 nzbhydra2 - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' 0700 nzbhydra2 nzbhydra2 - -"];
 
     systemd.services.nzbhydra2 = {
       description = "NZBHydra2";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -62,13 +59,13 @@ in
       };
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ 5076 ]; };
+    networking.firewall = lib.mkIf cfg.openFirewall {allowedTCPPorts = [5076];};
 
     users.users.nzbhydra2 = {
       group = "nzbhydra2";
       isSystemUser = true;
     };
 
-    users.groups.nzbhydra2 = { };
+    users.groups.nzbhydra2 = {};
   };
 }

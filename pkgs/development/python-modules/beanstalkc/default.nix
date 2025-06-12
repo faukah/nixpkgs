@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildPythonPackage,
 }:
-
 buildPythonPackage rec {
   pname = "beanstalkc";
   version = "0.5.2";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Simple beanstalkd client library for Python";
-    maintainers = with maintainers; [ aanderse ];
+    maintainers = with maintainers; [aanderse];
     license = licenses.asl20;
     homepage = "https://github.com/earl/beanstalkc";
   };

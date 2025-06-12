@@ -5,7 +5,6 @@
   unstableGitUpdater,
   lib,
 }:
-
 melpaBuild {
   pname = "straight";
   version = "0-unstable-2025-01-30";
@@ -17,14 +16,14 @@ melpaBuild {
     hash = "sha256-riKagjhCn5NyTerw1WqGOn37TZNfmhPb7DS49TXw1CA=";
   };
 
-  nativeBuildInputs = [ git ];
+  nativeBuildInputs = [git];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://github.com/radian-software/straight.el";
     description = "Next-generation, purely functional package manager for the Emacs hacker";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ abhisheksingh0x558 ];
+    maintainers = with lib.maintainers; [abhisheksingh0x558];
   };
 }

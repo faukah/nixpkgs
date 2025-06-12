@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "vazir-fonts";
   version = "33.003";
@@ -30,6 +29,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Persian (Farsi) Font - قلم (فونت) فارسی وزیر";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

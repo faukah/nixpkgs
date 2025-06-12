@@ -2,11 +2,12 @@
 # main server configuration, and for the virtual hosts.  (The latter
 # has additional options that affect the web server as a whole, like
 # the user/group to run under.)
-
-{ config, lib, ... }:
-
-with lib;
 {
+  config,
+  lib,
+  ...
+}:
+with lib; {
   options = {
     serverName = mkOption {
       type = types.nullOr types.str;
@@ -19,7 +20,7 @@ with lib;
 
     serverAliases = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "www.example.org"
         "example.org"
@@ -30,8 +31,7 @@ with lib;
     };
 
     listen = mkOption {
-      type =
-        with types;
+      type = with types;
         listOf (submodule {
           options = {
             addr = mkOption {
@@ -59,7 +59,7 @@ with lib;
             extraParameters = mkOption {
               type = listOf str;
               description = "Extra parameters of this listen directive.";
-              default = [ ];
+              default = [];
               example = [
                 "backlog=1024"
                 "deferred"
@@ -67,7 +67,7 @@ with lib;
             };
           };
         });
-      default = [ ];
+      default = [];
       example = [
         {
           addr = "195.154.1.1";
@@ -78,7 +78,7 @@ with lib;
           addr = "192.154.1.1";
           port = 80;
         }
-        { addr = "unix:/var/run/nginx.sock"; }
+        {addr = "unix:/var/run/nginx.sock";}
       ];
       description = ''
         Listen addresses and ports for this virtual host.
@@ -101,7 +101,7 @@ with lib;
 
         Note: This option overrides `enableIPv6`
       '';
-      default = [ ];
+      default = [];
       example = [
         "127.0.0.1"
         "[::1]"
@@ -344,7 +344,7 @@ with lib;
 
     basicAuth = mkOption {
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           user = "password";
@@ -375,7 +375,7 @@ with lib;
           }
         )
       );
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           "/" = {

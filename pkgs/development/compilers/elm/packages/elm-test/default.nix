@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "elm-test";
   version = "0.19.1-revision15";
@@ -36,6 +35,6 @@ buildNpmPackage rec {
     mainProgram = "elm-test";
     homepage = "https://github.com/rtfeldman/node-test-runner";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ turbomack ];
+    maintainers = with lib.maintainers; [turbomack];
   };
 }

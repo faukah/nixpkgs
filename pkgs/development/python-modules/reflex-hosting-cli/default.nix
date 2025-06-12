@@ -15,7 +15,6 @@
   typer,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "reflex-hosting-cli";
   version = "0.1.49";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     "pipdeptree"
   ];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     charset-normalizer
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     description = "Reflex Hosting CLI";
     homepage = "https://pypi.org/project/reflex-hosting-cli/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

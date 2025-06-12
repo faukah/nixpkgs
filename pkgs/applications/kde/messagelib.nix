@@ -33,7 +33,6 @@
   qtwebengine,
   syntax-highlighting,
 }:
-
 mkDerivation {
   pname = "messagelib";
   meta = {

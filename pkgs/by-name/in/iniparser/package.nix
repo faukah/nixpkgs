@@ -11,7 +11,6 @@
   validatePkgConfig,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "iniparser";
   version = "4.2.6";
@@ -42,13 +41,21 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-    validatePkgConfig
-  ] ++ lib.optionals finalAttrs.finalPackage.doCheck [ ruby ];
+  nativeBuildInputs =
+    [
+      cmake
+      doxygen
+      validatePkgConfig
+    ]
+    ++ lib.optionals finalAttrs.finalPackage.doCheck [ruby];
 
-  cmakeFlags = [ "-DBUILD_TESTING=${if finalAttrs.finalPackage.doCheck then "ON" else "OFF"}" ];
+  cmakeFlags = [
+    "-DBUILD_TESTING=${
+      if finalAttrs.finalPackage.doCheck
+      then "ON"
+      else "OFF"
+    }"
+  ];
 
   doCheck = false;
 
@@ -69,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.com/iniparser/iniparser/-/releases/v${finalAttrs.version}";
     license = licenses.mit;
     platforms = platforms.unix;
-    pkgConfigModules = [ "iniparser" ];
-    maintainers = [ maintainers.primeos ];
+    pkgConfigModules = ["iniparser"];
+    maintainers = [maintainers.primeos];
   };
 })

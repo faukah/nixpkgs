@@ -7,7 +7,6 @@
   dart-sass,
   git,
 }:
-
 buildGoModule rec {
   pname = "shopware-cli";
   version = "0.6.8";
@@ -38,7 +37,7 @@ buildGoModule rec {
 
   preFixup = ''
     wrapProgram $out/bin/shopware-cli \
-      --prefix PATH : ${lib.makeBinPath [ dart-sass ]}
+      --prefix PATH : ${lib.makeBinPath [dart-sass]}
   '';
 
   ldflags = [
@@ -53,6 +52,6 @@ buildGoModule rec {
     homepage = "https://github.com/FriendsOfShopware/shopware-cli";
     changelog = "https://github.com/FriendsOfShopware/shopware-cli/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ shyim ];
+    maintainers = with lib.maintainers; [shyim];
   };
 }

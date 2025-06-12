@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.hardware.intel-gpu-tools;
-in
-{
+in {
   options = {
     hardware.intel-gpu-tools = {
       enable = lib.mkEnableOption "a setcap wrapper for intel-gpu-tools";
@@ -25,6 +22,6 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ kira-bruneau ];
+    maintainers = with lib.maintainers; [kira-bruneau];
   };
 }

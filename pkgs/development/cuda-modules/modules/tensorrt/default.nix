@@ -1,5 +1,4 @@
-{ options, ... }:
-{
+{options, ...}: {
   options.tensorrt.releases = options.generic.releases;
   # TODO(@connorbaker): Figure out how to add additional options to the
   # to the generic release.

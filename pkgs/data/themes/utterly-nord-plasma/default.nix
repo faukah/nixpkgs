@@ -8,7 +8,6 @@
   plasma-framework,
   plasma-workspace,
 }:
-
 stdenv.mkDerivation rec {
   pname = "utterly-nord-plasma";
   version = "3.2";
@@ -59,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "https://himdek.com/Utterly-Nord-Plasma/";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

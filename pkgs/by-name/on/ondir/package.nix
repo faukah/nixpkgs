@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "ondir";
   version = "0.2.3";
@@ -39,7 +38,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/alecthomas/ondir/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.michaelCTS ];
+    maintainers = [maintainers.michaelCTS];
     mainProgram = "ondir";
   };
 }

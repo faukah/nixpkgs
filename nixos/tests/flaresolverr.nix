@@ -1,16 +1,13 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "flaresolverr";
-  meta.maintainers = with lib.maintainers; [ paveloom ];
+  meta.maintainers = with lib.maintainers; [paveloom];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.flaresolverr = {
-        enable = true;
-        port = 8888;
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.flaresolverr = {
+      enable = true;
+      port = 8888;
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("flaresolverr.service")

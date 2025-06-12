@@ -5,7 +5,6 @@
   setuptools,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "inwx-domrobot";
   version = "3.2.0";
@@ -18,20 +17,20 @@ buildPythonPackage rec {
     hash = "sha256-Nbs3xroJD61NbpaiTdjA3VFxzXIlnqmB1d7SJDj8VN8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "INWX" ];
+  pythonImportsCheck = ["INWX"];
 
   meta = {
     description = "INWX Domrobot Python Client";
     homepage = "https://github.com/inwx/python-client";
     changelog = "https://github.com/inwx/python-client/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.amadejkastelic ];
+    maintainers = [lib.maintainers.amadejkastelic];
   };
 }

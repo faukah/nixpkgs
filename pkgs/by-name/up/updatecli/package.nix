@@ -8,7 +8,6 @@
   testers,
   updatecli,
 }:
-
 buildGoModule rec {
   pname = "updatecli";
   version = "0.101.0";
@@ -36,14 +35,14 @@ buildGoModule rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = updatecli;
       command = "updatecli version";
     };
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd updatecli \
@@ -64,6 +63,6 @@ buildGoModule rec {
     changelog = "https://github.com/updatecli/updatecli/releases/tag/${src.rev}";
     license = licenses.asl20;
     mainProgram = "updatecli";
-    maintainers = with maintainers; [ croissong ];
+    maintainers = with maintainers; [croissong];
   };
 }

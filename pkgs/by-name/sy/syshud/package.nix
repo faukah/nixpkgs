@@ -11,7 +11,6 @@
   wireplumber,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "syshud";
   version = "0-unstable-2025-03-11";
@@ -78,6 +77,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/System64fumo/syshud";
     license = lib.licenses.wtfpl;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ colinsane ];
+    maintainers = with lib.maintainers; [colinsane];
   };
 })

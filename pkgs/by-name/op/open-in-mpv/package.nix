@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "open-in-mpv";
   version = "2.4.3";
@@ -37,7 +36,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/Baldomo/open-in-mpv";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     mainProgram = "open-in-mpv";
   };
 }

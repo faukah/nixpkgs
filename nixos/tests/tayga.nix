@@ -21,13 +21,14 @@
 # Server | eth1    Address: 100.64.0.2/24
 #        |         Route:   192.0.2.0/24 via 100.64.0.1
 #        +------
-
-{ pkgs, lib, ... }:
-
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "tayga";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ hax404 ];
+    maintainers = [hax404];
   };
 
   nodes = {
@@ -45,7 +46,7 @@
       ];
       networking = {
         useDHCP = false;
-        interfaces.eth1 = lib.mkForce { };
+        interfaces.eth1 = lib.mkForce {};
       };
       systemd.network = {
         enable = true;
@@ -214,7 +215,7 @@
 
       networking = {
         useDHCP = false;
-        interfaces.eth1 = lib.mkForce { };
+        interfaces.eth1 = lib.mkForce {};
       };
 
       systemd.network = {

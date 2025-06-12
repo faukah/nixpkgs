@@ -17,7 +17,6 @@
   pinecone-plugin-inference,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "pinecone-client";
   version = "5.4.2";
@@ -51,13 +50,13 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  pythonImportsCheck = [ "pinecone" ];
+  pythonImportsCheck = ["pinecone"];
 
   meta = {
     description = "Pinecone python client";
     homepage = "https://www.pinecone.io/";
     changelog = "https://github.com/pinecone-io/pinecone-python-client/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 }

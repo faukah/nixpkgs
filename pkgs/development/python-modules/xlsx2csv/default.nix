@@ -6,7 +6,6 @@
   setuptools-scm,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "xlsx2csv";
   version = "0.8.4";
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     description = "Convert xlsx to csv";
     mainProgram = "xlsx2csv";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jb55 ];
+    maintainers = with maintainers; [jb55];
   };
 }

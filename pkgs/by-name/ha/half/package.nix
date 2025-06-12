@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.2.0";
   pname = "half";
@@ -24,6 +23,6 @@ stdenv.mkDerivation rec {
     description = "C++ library for half precision floating point arithmetics";
     platforms = platforms.all;
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

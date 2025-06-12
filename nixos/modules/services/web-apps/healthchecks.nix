@@ -6,22 +6,24 @@
   buildEnv,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   defaultUser = "healthchecks";
   cfg = config.services.healthchecks;
   opt = options.services.healthchecks;
   pkg = cfg.package;
-  boolToPython = b: if b then "True" else "False";
-  environment = {
-    PYTHONPATH = pkg.pythonPath;
-    STATIC_ROOT = cfg.dataDir + "/static";
-  } // lib.filterAttrs (_: v: !builtins.isNull v) cfg.settings;
+  boolToPython = b:
+    if b
+    then "True"
+    else "False";
+  environment =
+    {
+      PYTHONPATH = pkg.pythonPath;
+      STATIC_ROOT = cfg.dataDir + "/static";
+    }
+    // lib.filterAttrs (_: v: !builtins.isNull v) cfg.settings;
 
   environmentFile = pkgs.writeText "healthchecks-environment" (
-    lib.generators.toKeyValue { } environment
+    lib.generators.toKeyValue {} environment
   );
 
   healthchecksManageScript = pkgs.writeShellScriptBin "healthchecks-manage" ''
@@ -33,17 +35,18 @@ let
     ${lib.optionalString (cfg.settingsFile != null) "export $(cat ${cfg.settingsFile} | xargs)"}
     $sudo ${pkg}/opt/healthchecks/manage.py "$@"
   '';
-in
-{
+in {
   options.services.healthchecks = {
-    enable = mkEnableOption "healthchecks" // {
-      description = ''
-        Enable healthchecks.
-        It is expected to be run behind a HTTP reverse proxy.
-      '';
-    };
+    enable =
+      mkEnableOption "healthchecks"
+      // {
+        description = ''
+          Enable healthchecks.
+          It is expected to be run behind a HTTP reverse proxy.
+        '';
+      };
 
-    package = mkPackageOption pkgs "healthchecks" { };
+    package = mkPackageOption pkgs "healthchecks" {};
 
     user = mkOption {
       default = defaultUser;
@@ -133,7 +136,7 @@ in
         options = {
           ALLOWED_HOSTS = lib.mkOption {
             type = types.listOf types.str;
-            default = [ "*" ];
+            default = ["*"];
             description = "The host/domain names that this site can serve.";
             apply = lib.concatStringsSep ",";
           };
@@ -177,7 +180,10 @@ in
 
           DB_NAME = mkOption {
             type = types.str;
-            default = if settings.config.DB == "sqlite" then "${cfg.dataDir}/healthchecks.sqlite" else "hc";
+            default =
+              if settings.config.DB == "sqlite"
+              then "${cfg.dataDir}/healthchecks.sqlite"
+              else "hc";
             defaultText = lib.literalExpression ''
               if config.${settings.options.DB} == "sqlite"
               then "''${config.${opt.dataDir}}/healthchecks.sqlite"
@@ -191,58 +197,62 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ healthchecksManageScript ];
+    environment.systemPackages = [healthchecksManageScript];
 
     systemd.targets.healthchecks = {
       description = "Target for all Healthchecks services";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
       after = [
         "network.target"
         "network-online.target"
       ];
     };
 
-    systemd.services =
-      let
-        commonConfig = {
-          WorkingDirectory = cfg.dataDir;
-          User = cfg.user;
-          Group = cfg.group;
-          EnvironmentFile = [
+    systemd.services = let
+      commonConfig = {
+        WorkingDirectory = cfg.dataDir;
+        User = cfg.user;
+        Group = cfg.group;
+        EnvironmentFile =
+          [
             environmentFile
-          ] ++ lib.optional (cfg.settingsFile != null) cfg.settingsFile;
-          StateDirectory = mkIf (cfg.dataDir == "/var/lib/healthchecks") "healthchecks";
-          StateDirectoryMode = mkIf (cfg.dataDir == "/var/lib/healthchecks") "0750";
-        };
-      in
-      {
-        healthchecks-migration = {
-          description = "Healthchecks migrations";
-          wantedBy = [ "healthchecks.target" ];
+          ]
+          ++ lib.optional (cfg.settingsFile != null) cfg.settingsFile;
+        StateDirectory = mkIf (cfg.dataDir == "/var/lib/healthchecks") "healthchecks";
+        StateDirectoryMode = mkIf (cfg.dataDir == "/var/lib/healthchecks") "0750";
+      };
+    in {
+      healthchecks-migration = {
+        description = "Healthchecks migrations";
+        wantedBy = ["healthchecks.target"];
 
-          serviceConfig = commonConfig // {
+        serviceConfig =
+          commonConfig
+          // {
             Restart = "on-failure";
             Type = "oneshot";
             ExecStart = ''
               ${pkg}/opt/healthchecks/manage.py migrate
             '';
           };
-        };
+      };
 
-        healthchecks = {
-          description = "Healthchecks WSGI Service";
-          wantedBy = [ "healthchecks.target" ];
-          after = [ "healthchecks-migration.service" ];
+      healthchecks = {
+        description = "Healthchecks WSGI Service";
+        wantedBy = ["healthchecks.target"];
+        after = ["healthchecks-migration.service"];
 
-          preStart =
-            ''
-              ${pkg}/opt/healthchecks/manage.py collectstatic --no-input
-              ${pkg}/opt/healthchecks/manage.py remove_stale_contenttypes --no-input
-            ''
-            + lib.optionalString (cfg.settings.DEBUG != "True") "${pkg}/opt/healthchecks/manage.py compress";
+        preStart =
+          ''
+            ${pkg}/opt/healthchecks/manage.py collectstatic --no-input
+            ${pkg}/opt/healthchecks/manage.py remove_stale_contenttypes --no-input
+          ''
+          + lib.optionalString (cfg.settings.DEBUG != "True") "${pkg}/opt/healthchecks/manage.py compress";
 
-          serviceConfig = commonConfig // {
+        serviceConfig =
+          commonConfig
+          // {
             Restart = "always";
             ExecStart = ''
               ${pkgs.python3Packages.gunicorn}/bin/gunicorn hc.wsgi \
@@ -250,34 +260,38 @@ in
                 --pythonpath ${pkg}/opt/healthchecks
             '';
           };
-        };
+      };
 
-        healthchecks-sendalerts = {
-          description = "Healthchecks Alert Service";
-          wantedBy = [ "healthchecks.target" ];
-          after = [ "healthchecks.service" ];
+      healthchecks-sendalerts = {
+        description = "Healthchecks Alert Service";
+        wantedBy = ["healthchecks.target"];
+        after = ["healthchecks.service"];
 
-          serviceConfig = commonConfig // {
+        serviceConfig =
+          commonConfig
+          // {
             Restart = "always";
             ExecStart = ''
               ${pkg}/opt/healthchecks/manage.py sendalerts
             '';
           };
-        };
+      };
 
-        healthchecks-sendreports = {
-          description = "Healthchecks Reporting Service";
-          wantedBy = [ "healthchecks.target" ];
-          after = [ "healthchecks.service" ];
+      healthchecks-sendreports = {
+        description = "Healthchecks Reporting Service";
+        wantedBy = ["healthchecks.target"];
+        after = ["healthchecks.service"];
 
-          serviceConfig = commonConfig // {
+        serviceConfig =
+          commonConfig
+          // {
             Restart = "always";
             ExecStart = ''
               ${pkg}/opt/healthchecks/manage.py sendreports --loop
             '';
           };
-        };
       };
+    };
 
     users.users = optionalAttrs (cfg.user == defaultUser) {
       ${defaultUser} = {
@@ -289,7 +303,7 @@ in
 
     users.groups = optionalAttrs (cfg.user == defaultUser) {
       ${defaultUser} = {
-        members = [ defaultUser ];
+        members = [defaultUser];
       };
     };
   };

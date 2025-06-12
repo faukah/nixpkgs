@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   ipykernel,
   ipython,
@@ -15,13 +13,11 @@
   pygments,
   pyzmq,
   traitlets,
-
   # tests
   flaky,
   pexpect,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-console";
   version = "6.6.3";
@@ -38,14 +34,13 @@ buildPythonPackage rec {
     # Use wrapped executable in tests
     let
       binPath = "${placeholder "out"}/bin/jupyter-console";
-    in
-    ''
+    in ''
       substituteInPlace jupyter_console/tests/test_console.py \
         --replace-fail "'-m', 'jupyter_console', " "" \
         --replace-fail "sys.executable" "'${binPath}'"
     '';
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     ipykernel
@@ -58,7 +53,7 @@ buildPythonPackage rec {
     traitlets
   ];
 
-  pythonImportsCheck = [ "jupyter_console" ];
+  pythonImportsCheck = ["jupyter_console"];
 
   nativeCheckInputs = [
     flaky
@@ -84,6 +79,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jupyter/jupyter_console";
     changelog = "https://github.com/jupyter/jupyter_console/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.jupyter ];
+    teams = [lib.teams.jupyter];
   };
 }

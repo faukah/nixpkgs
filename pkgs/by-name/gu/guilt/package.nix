@@ -13,7 +13,6 @@
   stdenv,
   xmlto,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guilt";
   version = "0.37-rc1";
@@ -39,11 +38,13 @@ stdenv.mkDerivation rec {
     perl
     xmlto
   ];
-  buildInputs = [
-    gawk
-    git
-    gnused
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ openssl ];
+  buildInputs =
+    [
+      gawk
+      git
+      gnused
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [openssl];
   makeFlags = [
     "PREFIX=$(out)"
   ];
@@ -86,8 +87,8 @@ stdenv.mkDerivation rec {
       made to your patches.
     '';
     homepage = "https://github.com/jeffpc/guilt";
-    maintainers = with lib.maintainers; [ javimerino ];
-    license = [ licenses.gpl2 ];
+    maintainers = with lib.maintainers; [javimerino];
+    license = [licenses.gpl2];
     platforms = platforms.all;
     mainProgram = "guilt";
   };

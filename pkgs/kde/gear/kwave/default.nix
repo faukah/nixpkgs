@@ -1,9 +1,7 @@
 {
   mkKdeDerivation,
   pkg-config,
-
   qtmultimedia,
-
   alsa-lib,
   audiofile,
   fftw,
@@ -19,7 +17,7 @@
 mkKdeDerivation {
   pname = "kwave";
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     qtmultimedia
 

@@ -12,7 +12,6 @@
   pytest-vcr,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "connect-box";
   version = "0.4.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-zUvZRnxVzg9izvUbp7QVcyu6Bw3dUXHOr0kOQRWEZVc=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiohttp
@@ -42,9 +41,9 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "connect_box" ];
+  pythonImportsCheck = ["connect_box"];
 
-  pytestFlagsArray = [ "--vcr-record=none" ];
+  pytestFlagsArray = ["--vcr-record=none"];
 
   meta = with lib; {
     description = "Interact with a Compal CH7465LG cable modem/router";
@@ -56,7 +55,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/home-assistant-ecosystem/python-connect-box";
     changelog = "https://github.com/home-assistant-ecosystem/python-connect-box/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

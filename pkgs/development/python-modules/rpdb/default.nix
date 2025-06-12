@@ -5,7 +5,6 @@
   poetry-core,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "rpdb";
   version = "0.2.0";
@@ -26,6 +25,6 @@ buildPythonPackage rec {
     description = "PDB wrapper with remote access via TCP socket";
     homepage = "https://github.com/tamentis/rpdb";
     license = lib.licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

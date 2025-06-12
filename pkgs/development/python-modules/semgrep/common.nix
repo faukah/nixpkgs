@@ -1,6 +1,4 @@
-{ lib }:
-
-rec {
+{lib}: rec {
   version = "1.104.0";
 
   srcHash = "sha256-rVBnjG+g7OaOQ8LYCurqNC2dYY/Dm4hdocgotc4lADg=";

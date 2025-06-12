@@ -9,21 +9,20 @@
   openssl,
   pcre,
   nim-unwrapped-2_2 ? buildPackages.nim-unwrapped-2_2,
-}:
-
-let
-  wrapNim =
-    { nimUnwrapped, patches }:
-    let
-      targetPlatformConfig = stdenv.targetPlatform.config;
-    in
+}: let
+  wrapNim = {
+    nimUnwrapped,
+    patches,
+  }: let
+    targetPlatformConfig = stdenv.targetPlatform.config;
+  in
     stdenv.mkDerivation (finalAttrs: {
       name = "${targetPlatformConfig}-nim-wrapper-${nimUnwrapped.version}";
       inherit (nimUnwrapped) version;
       preferLocalBuild = true;
       strictDeps = true;
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       # Needed for any nim package that uses the standard library's
       # 'std/sysrand' module.
@@ -87,7 +86,7 @@ let
         '';
 
       wrapperArgs = lib.optionals (!(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)) [
-        "--prefix PATH : ${lib.makeBinPath [ buildPackages.gdb ]}:${placeholder "out"}/bin"
+        "--prefix PATH : ${lib.makeBinPath [buildPackages.gdb]}:${placeholder "out"}/bin"
         # Used by nim-gdb
 
         "--prefix LD_LIBRARY_PATH : ${
@@ -137,18 +136,22 @@ let
           runHook postInstall
         '';
 
-      passthru = nimUnwrapped.passthru // {
-        inherit wrapNim;
-        nim = nimUnwrapped;
-      };
+      passthru =
+        nimUnwrapped.passthru
+        // {
+          inherit wrapNim;
+          nim = nimUnwrapped;
+        };
 
-      meta = nimUnwrapped.meta // {
-        description = nimUnwrapped.meta.description + " (${targetPlatformConfig} wrapper)";
-        platforms = with lib.platforms; unix ++ genode ++ windows;
-      };
+      meta =
+        nimUnwrapped.meta
+        // {
+          description = nimUnwrapped.meta.description + " (${targetPlatformConfig} wrapper)";
+          platforms = with lib.platforms; unix ++ genode ++ windows;
+        };
     });
 in
-wrapNim {
-  nimUnwrapped = nim-unwrapped-2_2;
-  patches = [ ./nim2.cfg.patch ];
-}
+  wrapNim {
+    nimUnwrapped = nim-unwrapped-2_2;
+    patches = [./nim2.cfg.patch];
+  }

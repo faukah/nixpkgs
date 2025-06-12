@@ -5,7 +5,6 @@
   pkg-config,
   libmnl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libnetfilter_cttimeout";
   version = "1.0.1";
@@ -20,8 +19,8 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libmnl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libmnl];
 
   meta = {
     description = "Userspace library that provides the programming interface to the connection tracking timeout infrastructure";

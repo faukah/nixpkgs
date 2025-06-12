@@ -8,7 +8,6 @@
   setuptools,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "matrix-client";
   version = "0.4.0";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-BnivQPLLLwkoqQikEMApdH1Ay5YaxaPxvQWqNVY8MVY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "urllib3" ];
+  pythonRelaxDeps = ["urllib3"];
 
   dependencies = [
     requests
@@ -39,12 +38,12 @@ buildPythonPackage rec {
       "pytest-runner~=5.1" ""
   '';
 
-  pythonImportsCheck = [ "matrix_client" ];
+  pythonImportsCheck = ["matrix_client"];
 
   meta = {
     description = "Python Matrix Client-Server SDK";
     homepage = "https://github.com/matrix-org/matrix-python-sdk";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ olejorgenb ];
+    maintainers = with lib.maintainers; [olejorgenb];
   };
 }

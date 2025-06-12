@@ -14,7 +14,6 @@
   pytestCheckHook,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "macaroonbakery";
   version = "1.3.4";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
       --replace-fail "VERSION = (1, 3, 3)" "VERSION = (1, 3, 4)"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     protobuf
@@ -46,7 +45,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = true;
 
-  pythonImportsCheck = [ "macaroonbakery" ];
+  pythonImportsCheck = ["macaroonbakery"];
 
   nativeCheckInputs = [
     fixtures
@@ -55,14 +54,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Python library for working with macaroons";
     homepage = "https://github.com/go-macaroon-bakery/py-macaroon-bakery";
     changelog = "https://github.com/go-macaroon-bakery/py-macaroon-bakery/releases/tag/${version}";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
     platforms = lib.platforms.linux;
   };
 }

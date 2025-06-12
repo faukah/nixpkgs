@@ -10,7 +10,6 @@
   nemo,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nemo-python";
   version = "6.4.0";
@@ -55,13 +54,13 @@ stdenv.mkDerivation rec {
 
   PKG_CONFIG_LIBNEMO_EXTENSION_EXTENSIONDIR = "${placeholder "out"}/${nemo.extensiondir}";
 
-  passthru.nemoPythonExtensionDeps = [ python3.pkgs.pygobject3 ];
+  passthru.nemoPythonExtensionDeps = [python3.pkgs.pygobject3];
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/nemo-extensions/tree/master/nemo-python";
     description = "Python bindings for the Nemo extension library";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

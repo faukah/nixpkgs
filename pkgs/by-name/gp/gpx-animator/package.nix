@@ -11,7 +11,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "gpx-animator";
   version = "1.8.2";
 
-  gradle = gradle_8.override { java = jdk17; };
+  gradle = gradle_8.override {java = jdk17;};
 
   nativeBuildInputs = [
     finalAttrs.gradle
@@ -51,7 +51,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "GPX track to video animator";
@@ -67,7 +67,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://gpx-animator.app";
     changelog = "https://github.com/gpx-animator/gpx-animator/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.markasoftware ];
+    maintainers = [lib.maintainers.markasoftware];
     mainProgram = "gpx-animator";
     platforms = lib.platforms.unix;
   };

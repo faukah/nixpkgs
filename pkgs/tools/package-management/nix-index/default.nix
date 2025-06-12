@@ -7,7 +7,6 @@
   curl,
   sqlite,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nix-index";
   version = "0.1.8";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-BKVxtd+gbCHzpnr5LZmKMUMEEZvsZMT0AdlfrLpMYpc=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openssl
     curl
@@ -39,7 +38,7 @@ rustPlatform.buildRustPackage rec {
     description = "Files database for nixpkgs";
     homepage = "https://github.com/nix-community/nix-index";
     changelog = "https://github.com/nix-community/nix-index/blob/${src.rev}/CHANGELOG.md";
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
     maintainers = with maintainers; [
       bennofs
       figsoda

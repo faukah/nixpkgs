@@ -5,7 +5,6 @@
   libgcc,
   csu,
 }:
-
 mkDerivation {
   path = "lib/msun";
   extraPaths = [

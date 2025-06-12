@@ -4,7 +4,6 @@
   fetchFromGitHub,
   xxd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "otus-lisp";
   version = "2.6";
@@ -16,9 +15,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-5ixpTTXwJbLM2mJ/nwzjz0aKG/QGVLPScY8EaG7swGU=";
   };
 
-  nativeBuildInputs = [ xxd ];
+  nativeBuildInputs = [xxd];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Purely functional dialect of Lisp";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl3Only
     ]; # dual licensed
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ nagy ];
+    maintainers = with lib.maintainers; [nagy];
     mainProgram = "ol";
   };
 })

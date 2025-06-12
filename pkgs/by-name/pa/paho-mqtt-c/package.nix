@@ -7,7 +7,6 @@
   enableStatic ? stdenv.hostPlatform.isStatic,
   enableShared ? !stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "paho.mqtt.c";
   version = "1.3.14";
@@ -25,9 +24,9 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-warn "lib%s" "$out/lib/lib%s"
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   cmakeFlags = [
     (lib.cmakeBool "PAHO_WITH_SSL" true)
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "MQTTVersion";
     homepage = "https://www.eclipse.org/paho/";
     license = lib.licenses.epl20;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 })

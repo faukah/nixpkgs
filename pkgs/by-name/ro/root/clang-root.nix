@@ -9,7 +9,6 @@
   pkg-config,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clang-root";
   version = "18-20250506-01";
@@ -50,9 +49,8 @@ stdenv.mkDerivation rec {
       "-DLLVM_MAIN_SRC_DIR=${llvm_18.src}"
     ]
     ++ (
-      if stdenv.hostPlatform.isDarwin then
-        [ "-DC_INCLUDE_DIRS=${apple-sdk.sdkroot}/usr/include" ]
-      else
-        lib.optional (stdenv.cc.libc != null) "-DC_INCLUDE_DIRS=${lib.getDev stdenv.cc.libc}/include"
+      if stdenv.hostPlatform.isDarwin
+      then ["-DC_INCLUDE_DIRS=${apple-sdk.sdkroot}/usr/include"]
+      else lib.optional (stdenv.cc.libc != null) "-DC_INCLUDE_DIRS=${lib.getDev stdenv.cc.libc}/include"
     );
 }

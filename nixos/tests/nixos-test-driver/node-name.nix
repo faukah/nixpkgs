@@ -1,13 +1,13 @@
 {
   name = "nixos-test-driver.node-name";
   nodes = {
-    "ok" = { };
+    "ok" = {};
 
     # Valid node name, but not a great host name.
-    "one_two" = { };
+    "one_two" = {};
 
     # Valid node name, good host name
-    "a-b" = { };
+    "a-b" = {};
 
     # TODO: would be nice to test these eval failures
     # Not allowed by lib/testing/network.nix (yet?)

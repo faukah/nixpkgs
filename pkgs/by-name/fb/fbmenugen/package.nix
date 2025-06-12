@@ -10,7 +10,6 @@
   wrapGAppsHook3,
   gitUpdater,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "fbmenugen";
   version = "0.87";
@@ -31,7 +30,7 @@ perlPackages.buildPerlPackage rec {
     })
   ];
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   nativeBuildInputs = [
     makeWrapper
@@ -68,7 +67,7 @@ perlPackages.buildPerlPackage rec {
     wrapProgram "$out/bin/fbmenugen" --prefix PERL5LIB : "$PERL5LIB"
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/trizen/fbmenugen";
@@ -76,6 +75,6 @@ perlPackages.buildPerlPackage rec {
     mainProgram = "fbmenugen";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

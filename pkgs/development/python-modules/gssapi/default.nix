@@ -4,23 +4,18 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-
   # build-system
   cython,
   setuptools,
-
   # dependencies
   decorator,
-
   # native dependencies
   krb5-c, # C krb5 library, not PyPI krb5
-
   # tests
   parameterized,
   k5test,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "gssapi";
   version = "1.9.0";
@@ -50,7 +45,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ decorator ];
+  dependencies = [decorator];
 
   # k5test is marked as broken on darwin
   doCheck = !stdenv.hostPlatform.isDarwin;
@@ -70,7 +65,7 @@ buildPythonPackage rec {
     popd
   '';
 
-  pythonImportsCheck = [ "gssapi" ];
+  pythonImportsCheck = ["gssapi"];
 
   meta = with lib; {
     homepage = "https://pypi.python.org/pypi/gssapi";

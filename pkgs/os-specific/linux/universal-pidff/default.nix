@@ -4,7 +4,6 @@
   fetchFromGitHub,
   kernel,
 }:
-
 stdenv.mkDerivation rec {
   pname = "universal-pidff";
   version = "0.1.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     "INSTALL_MOD_PATH=$(out)"
   ];
-  installTargets = [ "install" ];
+  installTargets = ["install"];
 
   meta = {
     description = "PIDFF driver with useful patches for initialization of FFB devices";

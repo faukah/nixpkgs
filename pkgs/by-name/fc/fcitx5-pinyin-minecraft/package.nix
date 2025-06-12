@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Fcitx 5 pinyin dictionary from zh.minecraft.wiki";
@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       unlicense
       cc-by-nc-sa-30
     ];
-    maintainers = with lib.maintainers; [ Guanran928 ];
+    maintainers = with lib.maintainers; [Guanran928];
     platforms = lib.platforms.all;
   };
 })

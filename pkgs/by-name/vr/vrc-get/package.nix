@@ -7,7 +7,6 @@
   stdenv,
   buildPackages,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "vrc-get";
   version = "1.9.0";
@@ -27,10 +26,9 @@ rustPlatform.buildRustPackage rec {
 
   # Execute the resulting binary to generate shell completions, using emulation if necessary when cross-compiling.
   # If no emulator is available, then give up on generating shell completions
-  postInstall =
-    let
-      vrc-get = "${stdenv.hostPlatform.emulator buildPackages} $out/bin/vrc-get";
-    in
+  postInstall = let
+    vrc-get = "${stdenv.hostPlatform.emulator buildPackages} $out/bin/vrc-get";
+  in
     lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) ''
       installShellCompletion --cmd vrc-get \
         --bash <(${vrc-get} completion bash) \
@@ -42,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     description = "Command line client of VRChat Package Manager, the main feature of VRChat Creator Companion (VCC)";
     homepage = "https://github.com/vrc-get/vrc-get";
     license = licenses.mit;
-    maintainers = with maintainers; [ bddvlpr ];
+    maintainers = with maintainers; [bddvlpr];
     mainProgram = "vrc-get";
   };
 }

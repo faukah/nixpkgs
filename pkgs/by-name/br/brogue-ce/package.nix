@@ -7,7 +7,6 @@
   SDL2,
   SDL2_image,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "brogue-ce";
   version = "1.14.1";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2_image
   ];
 
-  makeFlags = [ "DATADIR=$(out)/opt/brogue-ce" ];
+  makeFlags = ["DATADIR=$(out)/opt/brogue-ce"];
 
   desktopItems = [
     (makeDesktopItem {

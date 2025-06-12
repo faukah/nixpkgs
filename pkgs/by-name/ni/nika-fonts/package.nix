@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "nika-fonts";
   version = "1.0.0";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Persian/Arabic Open Source Font";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

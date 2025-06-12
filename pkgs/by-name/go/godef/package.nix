@@ -3,13 +3,12 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "godef";
   version = "1.1.2";
   rev = "v${version}";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorHash = null;
 

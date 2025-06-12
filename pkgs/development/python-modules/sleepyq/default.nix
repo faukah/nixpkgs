@@ -5,7 +5,6 @@
   inflection,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "sleepyq";
   version = "0.8.1";
@@ -23,12 +22,12 @@ buildPythonPackage rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "sleepyq" ];
+  pythonImportsCheck = ["sleepyq"];
 
   meta = with lib; {
     description = "Python module for SleepIQ API";
     homepage = "https://github.com/technicalpickles/sleepyq";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

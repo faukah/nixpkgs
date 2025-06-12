@@ -27,7 +27,6 @@
   tzdata,
   writeText,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-maps";
   version = "48.2";
@@ -111,14 +110,14 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-maps"; };
+    updateScript = gnome.updateScript {packageName = "gnome-maps";};
   };
 
   meta = with lib; {
     homepage = "https://apps.gnome.org/Maps/";
     description = "Map application for GNOME 3";
     mainProgram = "gnome-maps";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
   };

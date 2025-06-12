@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "py-synologydsm-api";
   version = "2.7.2";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-I9Ew3rBmgG+FuT66e8VgMa0WzAwr+ng5R8uYMzSyYyg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiofiles
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "synology_dsm" ];
+  pythonImportsCheck = ["synology_dsm"];
 
   meta = with lib; {
     description = "Python API for Synology DSM";
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mib1185/py-synologydsm-api";
     changelog = "https://github.com/mib1185/py-synologydsm-api/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ uvnikita ];
+    maintainers = with maintainers; [uvnikita];
   };
 }

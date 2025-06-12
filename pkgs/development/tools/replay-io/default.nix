@@ -16,22 +16,20 @@
   nodejs,
   zlib,
   fetchzip,
-}:
-let
+}: let
   metadata = lib.importJSON ./meta.json;
-in
-rec {
+in rec {
   replay-recordreplay = stdenv.mkDerivation {
     pname = "replay-recordreplay";
     version = builtins.head (builtins.match ".*/linux-recordreplay-(.*).tgz" metadata.recordreplay.url);
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
     buildInputs = [
       (lib.getLib stdenv.cc.cc)
       openssl
       zlib
     ];
 
-    src = (fetchzip metadata.recordreplay);
+    src = fetchzip metadata.recordreplay;
     dontBuild = true;
     installPhase = ''
       runHook preInstall
@@ -39,14 +37,14 @@ rec {
       runHook postInstall
     '';
     postFixup = ''
-      patchelf --set-rpath "$(patchelf --print-rpath $out):${lib.makeLibraryPath [ openssl ]}" $out
+      patchelf --set-rpath "$(patchelf --print-rpath $out):${lib.makeLibraryPath [openssl]}" $out
     '';
     meta = with lib; {
       description = "RecordReplay internal recording library";
       homepage = "https://www.replay.io/";
       license = lib.licenses.unfree;
-      maintainers = with maintainers; [ phryneas ];
-      platforms = [ "x86_64-linux" ];
+      maintainers = with maintainers; [phryneas];
+      platforms = ["x86_64-linux"];
     };
   };
 
@@ -91,8 +89,8 @@ rec {
       downloadPage = "https://www.replay.io/";
       mainProgram = "replay-io";
       license = lib.licenses.mpl20;
-      maintainers = with maintainers; [ phryneas ];
-      platforms = [ "x86_64-linux" ];
+      maintainers = with maintainers; [phryneas];
+      platforms = ["x86_64-linux"];
     };
   };
 
@@ -103,9 +101,9 @@ rec {
       autoPatchelfHook
       makeWrapper
     ];
-    buildInputs = [ (lib.getLib stdenv.cc.cc) ];
+    buildInputs = [(lib.getLib stdenv.cc.cc)];
 
-    src = (fetchurl metadata.replay-node);
+    src = fetchurl metadata.replay-node;
     dontUnpack = true;
     dontBuild = true;
     installPhase = ''
@@ -126,7 +124,7 @@ rec {
       description = "Event-driven I/O framework for the V8 JavaScript engine, patched for replay";
       homepage = "https://github.com/RecordReplay/node";
       license = licenses.mit;
-      maintainers = with maintainers; [ phryneas ];
+      maintainers = with maintainers; [phryneas];
       platforms = platforms.linux;
       mainProgram = "replay-node";
     };
@@ -142,7 +140,7 @@ rec {
       sha256 = "04d22q3dvs9vxpb9ps64pdxq9ziwgvnzdgsn6p9p0lzjagh0f5n0";
     };
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
     buildInputs = [
       (lib.getLib stdenv.cc.cc)
       nodejs
@@ -171,9 +169,9 @@ rec {
       homepage = "https://www.replay.io/";
       mainProgram = "replay-node";
       license = lib.licenses.bsd3;
-      maintainers = with maintainers; [ phryneas ];
-      platforms = [ "x86_64-linux" ];
-      sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+      maintainers = with maintainers; [phryneas];
+      platforms = ["x86_64-linux"];
+      sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };
   };
 }

@@ -7,7 +7,6 @@
   soapysdr,
   sdrplay,
 }:
-
 stdenv.mkDerivation rec {
   pname = "soapysdr-sdrplay3";
   version = "0.4.0";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Soapy SDR module for SDRplay";
     homepage = "https://github.com/pothosware/SoapySDRPlay3";
     license = licenses.mit;
-    maintainers = [ maintainers.pmenke ];
+    maintainers = [maintainers.pmenke];
     platforms = platforms.linux;
   };
 }

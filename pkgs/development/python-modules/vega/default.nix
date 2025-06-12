@@ -13,7 +13,6 @@
   poetry-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "vega";
   version = "4.1.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  pythonRelaxDeps = [ "pandas" ];
+  pythonRelaxDeps = ["pandas"];
 
   propagatedBuildInputs = [
     ipytablewidgets
@@ -40,8 +39,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    widget = [ ipywidgets ];
-    jupyterlab = [ jupyterlab ];
+    widget = [ipywidgets];
+    jupyterlab = [jupyterlab];
   };
 
   nativeCheckInputs = [
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     "vega/tests/test_entrypoint.py"
   ];
 
-  pythonImportsCheck = [ "vega" ];
+  pythonImportsCheck = ["vega"];
 
   meta = with lib; {
     description = "IPython/Jupyter widget for Vega and Vega-Lite";
@@ -66,6 +65,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/vega/ipyvega";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ teh ];
+    maintainers = with maintainers; [teh];
   };
 }

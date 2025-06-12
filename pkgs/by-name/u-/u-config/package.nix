@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "u-config";
   version = "0.33.1";
@@ -21,9 +20,9 @@ stdenv.mkDerivation (finalAttrs: {
     "CC=${lib.getExe stdenv.cc}"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildFlags = [ "pkg-config" ];
+  buildFlags = ["pkg-config"];
 
   installPhase = ''
     runHook preInstall
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Smaller, simpler, portable pkg-config clone";
     homepage = "https://github.com/skeeto/u-config";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.all;
   };
 })

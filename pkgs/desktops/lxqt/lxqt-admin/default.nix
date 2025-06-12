@@ -15,7 +15,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxqt-admin";
   version = "2.2.0";
@@ -61,13 +60,13 @@ stdenv.mkDerivation rec {
       --replace-fail "/usr/share/zoneinfo/zone.tab" "${tzdata}/share/zoneinfo/zone.tab"
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lxqt-admin";
     description = "LXQt system administration tool";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

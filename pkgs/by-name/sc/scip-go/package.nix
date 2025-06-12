@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "scip-go";
   version = "0.1.24";
@@ -28,7 +27,7 @@ buildGoModule rec {
     description = "SCIP (SCIP Code Intelligence Protocol) indexer for Golang";
     homepage = "https://github.com/sourcegraph/scip-go/tree/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ arikgrahl ];
+    maintainers = with maintainers; [arikgrahl];
     mainProgram = "scip-go";
   };
 }

@@ -9,7 +9,6 @@
   util-linux,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "eudev";
   version = "3.2.14";

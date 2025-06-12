@@ -9,12 +9,11 @@
   rlwrap,
   xsel,
 }:
-
 stdenv.mkDerivation {
   pname = "cht.sh";
   version = "0-unstable-2024-12-31";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   src = fetchFromGitHub {
     owner = "chubin";
@@ -36,13 +35,13 @@ stdenv.mkDerivation {
 
     wrapProgram "$out/bin/cht.sh" \
       --prefix PATH : "${
-        lib.makeBinPath [
-          curl
-          rlwrap
-          ncurses
-          xsel
-        ]
-      }"
+      lib.makeBinPath [
+        curl
+        rlwrap
+        ncurses
+        xsel
+      ]
+    }"
   '';
 
   passthru.updateScript = unstableGitUpdater {

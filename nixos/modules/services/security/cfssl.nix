@@ -4,11 +4,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.cfssl;
-in
-{
+in {
   options.services.cfssl = {
     enable = lib.mkEnableOption "the CFSSL CA api-server";
 
@@ -186,8 +184,8 @@ in
 
     systemd.services.cfssl = {
       description = "CFSSL CA API server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = lib.mkMerge [
         {
@@ -196,11 +194,9 @@ in
           User = "cfssl";
           Group = "cfssl";
 
-          ExecStart =
-            with cfg;
-            let
-              opt = n: v: lib.optionalString (v != null) ''-${n}="${v}"'';
-            in
+          ExecStart = with cfg; let
+            opt = n: v: lib.optionalString (v != null) ''-${n}="${v}"'';
+          in
             lib.concatStringsSep " \\\n" [
               "${pkgs.cfssl}/bin/cfssl serve"
               (opt "address" address)

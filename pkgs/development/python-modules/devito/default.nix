@@ -3,11 +3,9 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   anytree,
   cgen,
@@ -20,7 +18,6 @@
   psutil,
   py-cpuinfo,
   sympy,
-
   # tests
   click,
   gcc,
@@ -29,7 +26,6 @@
   pytestCheckHook,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "devito";
   version = "4.8.17";
@@ -42,7 +38,7 @@ buildPythonPackage rec {
     hash = "sha256-1aZSL23yNi/X9hnYKpIvgEOjEZtvPgTo5Pi5kKOWJhQ=";
   };
 
-  pythonRemoveDeps = [ "pip" ];
+  pythonRemoveDeps = ["pip"];
 
   pythonRelaxDeps = true;
 
@@ -51,18 +47,20 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [
-    anytree
-    cgen
-    cloudpickle
-    codepy
-    multidict
-    numpy
-    packaging
-    psutil
-    py-cpuinfo
-    sympy
-  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  dependencies =
+    [
+      anytree
+      cgen
+      cloudpickle
+      codepy
+      multidict
+      numpy
+      packaging
+      psutil
+      py-cpuinfo
+      sympy
+    ]
+    ++ lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
   nativeCheckInputs = [
     click
@@ -139,19 +137,19 @@ buildPythonPackage rec {
 
   disabledTestPaths =
     lib.optionals
-      ((stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64) || stdenv.hostPlatform.isDarwin)
-      [
-        # Flaky: codepy.CompileError: module compilation failed
-        "tests/test_dse.py"
-      ];
+    ((stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64) || stdenv.hostPlatform.isDarwin)
+    [
+      # Flaky: codepy.CompileError: module compilation failed
+      "tests/test_dse.py"
+    ];
 
-  pythonImportsCheck = [ "devito" ];
+  pythonImportsCheck = ["devito"];
 
   meta = {
     description = "Code generation framework for automated finite difference computation";
     homepage = "https://www.devitoproject.org/";
     changelog = "https://github.com/devitocodes/devito/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ atila ];
+    maintainers = with lib.maintainers; [atila];
   };
 }

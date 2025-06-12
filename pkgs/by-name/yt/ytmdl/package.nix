@@ -5,14 +5,13 @@
   yt-dlp,
   ffmpeg,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ytmdl";
   version = "2023.11.26";
 
   src = fetchPypi {
     inherit pname;
-    version = builtins.replaceStrings [ ".0" ] [ "." ] version;
+    version = builtins.replaceStrings [".0"] ["."] version;
     hash = "sha256-Im3rQAs/TYookv6FeGpU6tJxUGBMb6/UW1ZMDg9FW4s=";
   };
 
@@ -47,7 +46,7 @@ python3Packages.buildPythonApplication rec {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ ffmpeg ])
+    (lib.makeBinPath [ffmpeg])
   ];
 
   # This application has no tests
@@ -57,7 +56,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/deepjyoti30/ytmdl";
     description = "YouTube Music Downloader";
     license = licenses.mit;
-    maintainers = with maintainers; [ j0hax ];
+    maintainers = with maintainers; [j0hax];
     mainProgram = "ytmdl";
   };
 }

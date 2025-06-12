@@ -8,7 +8,6 @@
   install,
   include,
 }:
-
 mkDerivation {
   noLibc = true;
   path = "lib/csu";
@@ -18,7 +17,7 @@ mkDerivation {
       name = "nolibstatic-support.patch";
       url = "https://marc.info/?l=openbsd-tech&m=171972639411562&q=raw";
       hash = "sha256-ZMegMq/A/SeFp8fofIyF0AA0IUo/11ZgKxg/UNT4z3E=";
-      includes = [ "libexec/ld.so/*" ];
+      includes = ["libexec/ld.so/*"];
     })
   ];
   nativeBuildInputs = [
@@ -27,7 +26,7 @@ mkDerivation {
     makeMinimal
     install
   ];
-  buildInputs = [ include ];
+  buildInputs = [include];
   meta.platforms = lib.platforms.openbsd;
-  extraPaths = [ "libexec/ld.so" ];
+  extraPaths = ["libexec/ld.so"];
 }

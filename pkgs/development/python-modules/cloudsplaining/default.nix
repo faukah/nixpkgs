@@ -16,7 +16,6 @@
   schema,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cloudsplaining";
   version = "0.8.0";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     sed -i "s/'\(.*\)\(==\|>=\).*'/'\1'/g" requirements.txt
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     boto3
@@ -51,21 +50,21 @@ buildPythonPackage rec {
     schema
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     "test_policy_expansion"
     "test_statement_details_for_allow_not_action"
   ];
 
-  pythonImportsCheck = [ "cloudsplaining" ];
+  pythonImportsCheck = ["cloudsplaining"];
 
   meta = with lib; {
     description = "Python module for AWS IAM security assessment";
     homepage = "https://github.com/salesforce/cloudsplaining";
     changelog = "https://github.com/salesforce/cloudsplaining/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "cloudsplaining";
   };
 }

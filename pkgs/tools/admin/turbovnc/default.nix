@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
   nixosTests,
-
   # Dependencies
   bzip2,
   cmake,
@@ -28,7 +27,6 @@
   xorg,
   xterm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "turbovnc";
   version = "3.2";
@@ -132,7 +130,7 @@ stdenv.mkDerivation (finalAttrs: {
   postInstall = ''
     # turbovnc dlopen()s libssl.so depending on the requested encryption.
     wrapProgram $out/bin/Xvnc \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ openssl ]}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [openssl]}
 
     # `twm` is the default window manager that `vncserver` tries to start,
     # and it has minimal dependencies (no non-Xorg).
@@ -142,13 +140,13 @@ stdenv.mkDerivation (finalAttrs: {
     # vncserver needs also needs `xauth` and we add in `xterm` for convenience
     wrapProgram $out/bin/vncserver \
       --prefix PATH : ${
-        lib.makeBinPath [
-          which
-          xorg.twm
-          xorg.xauth
-          xterm
-        ]
-      }
+      lib.makeBinPath [
+        which
+        xorg.twm
+        xorg.xauth
+        xterm
+      ]
+    }
 
     # Patch /usr/bin/perl
     patchShebangs $out/bin/vncserver
@@ -157,8 +155,8 @@ stdenv.mkDerivation (finalAttrs: {
     # path, cannot be multiple separated paths).
     # For SSH support, `ssh` is required on `PATH`.
     wrapProgram $out/bin/vncviewer \
-      --set JAVA_HOME "${lib.makeLibraryPath [ openjdk ]}/openjdk" \
-      --prefix PATH : ${lib.makeBinPath [ openssh ]}
+      --set JAVA_HOME "${lib.makeLibraryPath [openjdk]}/openjdk" \
+      --prefix PATH : ${lib.makeBinPath [openssh]}
   '';
 
   passthru.tests.turbovnc-headless-server = nixosTests.turbovnc-headless-server;
@@ -167,7 +165,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://turbovnc.org/";
     license = lib.licenses.gpl2Plus;
     description = "High-speed version of VNC derived from TightVNC";
-    maintainers = with lib.maintainers; [ nh2 ];
+    maintainers = with lib.maintainers; [nh2];
     platforms = with lib.platforms; linux;
     changelog = "https://github.com/TurboVNC/turbovnc/blob/${finalAttrs.version}/ChangeLog.md";
   };

@@ -17,7 +17,6 @@
   libgnomekbd,
   ibus,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wingpanel-indicator-keyboard";
   version = "2.4.2";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -61,6 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/wingpanel-indicator-keyboard";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

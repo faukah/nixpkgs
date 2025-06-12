@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "prometheus-json-exporter";
   version = "0.7.0";
@@ -18,13 +17,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-41JsxA3CfQjiwZw/2KP4Re4g3gmexadHuN0lUP5rjdo=";
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) json; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) json;};
 
   meta = with lib; {
     description = "Prometheus exporter which scrapes remote JSON by JSONPath";
     homepage = "https://github.com/prometheus-community/json_exporter";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "json_exporter";
   };
 }

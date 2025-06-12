@@ -7,7 +7,6 @@
   mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "smpplib";
   version = "2.2.4";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-bzsDb8smQ8G3oyibtaxMmnIK8b9z5XLicp22tdgAwnM=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     mock
@@ -29,13 +28,13 @@ buildPythonPackage rec {
     rm -rf $out/${python.sitePackages}/tests
   '';
 
-  pythonImportsCheck = [ "smpplib" ];
+  pythonImportsCheck = ["smpplib"];
 
   meta = with lib; {
     description = "SMPP library for Python";
     homepage = "https://github.com/python-smpplib/python-smpplib";
     changelog = "https://github.com/python-smpplib/python-smpplib/releases/tag/${version}";
     license = licenses.lgpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

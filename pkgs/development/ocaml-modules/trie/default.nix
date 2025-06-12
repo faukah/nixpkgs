@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchFromGitHub,
 }:
-
 buildDunePackage rec {
   pname = "trie";
   version = "1.0.0";
@@ -21,7 +20,6 @@ buildDunePackage rec {
     inherit (src.meta) homepage;
     license = lib.licenses.mit;
     description = "Strict impure trie tree";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

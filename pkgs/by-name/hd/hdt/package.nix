@@ -9,7 +9,6 @@
   zlib,
   serd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hdt";
   version = "1.3.3";
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     description = "Header Dictionary Triples (HDT) is a compression format for RDF data that can also be queried for Triple Patterns";
     license = licenses.lgpl21;
     platforms = platforms.linux;
-    maintainers = [ maintainers.koslambrou ];
+    maintainers = [maintainers.koslambrou];
   };
 }

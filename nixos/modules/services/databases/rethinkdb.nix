@@ -3,20 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.rethinkdb;
   rethinkdb = cfg.package;
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.rethinkdb = {
-
       enable = lib.mkEnableOption "RethinkDB server";
 
       #package = lib.mkOption {
@@ -55,21 +49,18 @@ in
       #  default = {};
       #  description = "List of named RethinkDB instances in our cluster.";
       #};
-
     };
-
   };
 
   ###### implementation
   config = lib.mkIf config.services.rethinkdb.enable {
-
-    environment.systemPackages = [ rethinkdb ];
+    environment.systemPackages = [rethinkdb];
 
     systemd.services.rethinkdb = {
       description = "RethinkDB server";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         # TODO: abstract away 'default', which is a per-instance directory name
@@ -106,7 +97,5 @@ in
         name = "rethinkdb";
       }
     );
-
   };
-
 }

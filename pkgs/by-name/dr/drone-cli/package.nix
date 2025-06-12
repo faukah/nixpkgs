@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   version = "1.8.0";
   pname = "drone-cli";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   # patch taken from https://patch-diff.githubusercontent.com/raw/harness/drone-cli/pull/179.patch
   # but with go.mod changes removed due to conflict
-  patches = [ ./0001-use-builtin-go-syscerts.patch ];
+  patches = [./0001-use-builtin-go-syscerts.patch];
 
   ldflags = [
     "-X main.version=${version}"
@@ -30,7 +29,7 @@ buildGoModule rec {
 
   meta = with lib; {
     mainProgram = "drone";
-    maintainers = with maintainers; [ techknowlogick ];
+    maintainers = with maintainers; [techknowlogick];
     license = licenses.asl20;
     description = "Command line client for the Drone continuous integration server";
   };

@@ -5,7 +5,6 @@
   installShellFiles,
   awscli,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "nimbo";
   version = "0.3.0";
@@ -26,7 +25,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace "rich>=10.1.0" ""
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   propagatedBuildInputs = with python3.pkgs; [
     setuptools
@@ -41,13 +40,13 @@ python3.pkgs.buildPythonApplication rec {
 
   # nimbo tests require an AWS instance
   doCheck = false;
-  pythonImportsCheck = [ "nimbo" ];
+  pythonImportsCheck = ["nimbo"];
 
   makeWrapperArgs = [
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ awscli ])
+    (lib.makeBinPath [awscli])
   ];
 
   postInstall = ''
@@ -61,6 +60,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Run machine learning jobs on AWS with a single command";
     homepage = "https://github.com/nimbo-sh/nimbo";
     license = licenses.bsl11;
-    maintainers = with maintainers; [ noreferences ];
+    maintainers = with maintainers; [noreferences];
   };
 }

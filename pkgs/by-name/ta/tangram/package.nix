@@ -24,7 +24,6 @@
   blueprint-compiler,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tangram";
   version = "3.3";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
       gstreamer
       gst-libav
       gst-plugins-base
-      (gst-plugins-good.override { gtkSupport = true; })
+      (gst-plugins-good.override {gtkSupport = true;})
       gst-plugins-bad
     ]);
 
@@ -85,7 +84,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -98,6 +97,6 @@ stdenv.mkDerivation rec {
       austinbutler
       chuangzhu
     ];
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
   };
 }

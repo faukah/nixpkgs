@@ -4,7 +4,6 @@
   fetchFromGitHub,
   mlton,
 }:
-
 stdenv.mkDerivation {
   pname = "ceptre";
   version = "0-unstable-2024-8-26";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ mlton ];
+  nativeBuildInputs = [mlton];
 
   installPhase = ''
     runHook preInstall

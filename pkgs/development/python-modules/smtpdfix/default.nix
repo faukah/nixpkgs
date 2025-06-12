@@ -11,7 +11,6 @@
   pytestCheckHook,
   pytest-asyncio,
 }:
-
 buildPythonPackage rec {
   pname = "smtpdfix";
   version = "0.5.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-5NGs6Q83EqGRJ+2IdOaXqGFIwfSNKy2wwHIJaOjj7JU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiosmtpd
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/bebleo/smtpdfix";
     changelog = "https://github.com/bebleo/smtpdfix/releases/tag/v${version}";
     license = licenses.mit;
-    teams = [ teams.wdz ];
+    teams = [teams.wdz];
   };
 }

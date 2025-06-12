@@ -4,7 +4,6 @@
   python3Packages,
   unhide,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "unhide-gui";
   version = "20240510";
@@ -17,9 +16,9 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-CcS/rR/jPgbcF09aM4l6z52kwFhdQI1VZOyDF2/X6Us=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ tkinter ];
+  propagatedBuildInputs = with python3Packages; [tkinter];
 
-  buildInputs = [ unhide ];
+  buildInputs = [unhide];
 
   postPatch = ''
     substituteInPlace unhideGui.py \
@@ -53,7 +52,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/YJesus/Unhide";
     changelog = "https://github.com/YJesus/Unhide/blob/${src.rev}/NEWS";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
     mainProgram = "unhide-gui";
     platforms = lib.platforms.all;
   };

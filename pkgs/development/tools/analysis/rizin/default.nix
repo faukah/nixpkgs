@@ -24,9 +24,7 @@
   capstone,
   tree-sitter,
   zstd,
-}:
-
-let
+}: let
   rizin = stdenv.mkDerivation rec {
     pname = "rizin";
     version = "0.8.1";
@@ -66,9 +64,10 @@ let
       pkg-config
       meson
       (python3.withPackages (
-        pp: with pp; [
-          pyyaml
-        ]
+        pp:
+          with pp; [
+            pyyaml
+          ]
       ))
       ninja
       cmake
@@ -129,10 +128,9 @@ let
         };
         # sigdb isn't a real plugin, but it's separated from the main rizin
         # derivation so that only those who need it will download it
-        sigdb = pkgs.callPackage ./sigdb.nix { };
+        sigdb = pkgs.callPackage ./sigdb.nix {};
       };
-      withPlugins =
-        filter:
+      withPlugins = filter:
         pkgs.callPackage ./wrapper.nix {
           inherit rizin;
           plugins = filter plugins;
@@ -153,4 +151,4 @@ let
     };
   };
 in
-rizin
+  rizin

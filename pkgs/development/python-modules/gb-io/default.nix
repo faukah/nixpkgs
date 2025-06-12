@@ -7,7 +7,6 @@
   rustc,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "gb-io";
   version = "0.3.5";
@@ -38,16 +37,16 @@ buildPythonPackage rec {
     rustPlatform.cargoSetupHook
   ];
 
-  build-system = [ rustPlatform.maturinBuildHook ];
+  build-system = [rustPlatform.maturinBuildHook];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "gb_io" ];
+  pythonImportsCheck = ["gb_io"];
 
   meta = with lib; {
     homepage = "https://github.com/althonos/gb-io.py";
     description = "Python interface to gb-io, a fast GenBank parser written in Rust";
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ dlesl ];
+    maintainers = with lib.maintainers; [dlesl];
   };
 }

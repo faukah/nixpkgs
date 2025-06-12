@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "klog-time-tracker";
   version = "6.5";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Command line tool for time tracking in a human-readable, plain-text file format";
     homepage = "https://klog.jotaen.net";
     license = licenses.mit;
-    maintainers = [ maintainers.blinry ];
+    maintainers = [maintainers.blinry];
     mainProgram = "klog";
   };
 }

@@ -3,14 +3,13 @@
   stdenv,
   fetchzip,
   replaceVars,
-}:
-
-{ version, src, ... }:
-
-let
+}: {
+  version,
+  src,
+  ...
+}: let
   inherit (stdenv.hostPlatform) system;
-  selectSystem =
-    attrs: attrs.${system} or (throw "metadata_god: ${stdenv.hostPlatform.system} is not supported");
+  selectSystem = attrs: attrs.${system} or (throw "metadata_god: ${stdenv.hostPlatform.system} is not supported");
   suffix = selectSystem {
     x86_64-linux = "linux-x64";
     aarch64-linux = "linux-arm64";
@@ -21,24 +20,24 @@ let
     stripRoot = false;
   };
 in
-stdenv.mkDerivation {
-  pname = "metadata_god";
-  inherit version src;
-  inherit (src) passthru;
+  stdenv.mkDerivation {
+    pname = "metadata_god";
+    inherit version src;
+    inherit (src) passthru;
 
-  patches = [
-    (replaceVars ./metadata_god.patch {
-      output_lib = "${metadata_god}/${suffix}/libmetadata_god.so";
-    })
-  ];
+    patches = [
+      (replaceVars ./metadata_god.patch {
+        output_lib = "${metadata_god}/${suffix}/libmetadata_god.so";
+      })
+    ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    cp -r . $out
+      cp -r . $out
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta.sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-}
+    meta.sourceProvenance = with lib.sourceTypes; [binaryBytecode];
+  }

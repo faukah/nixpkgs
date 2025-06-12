@@ -10,7 +10,6 @@
   pyngrok,
   pillow,
 }:
-
 buildPythonPackage rec {
   pname = "meshcat";
   version = "0.3.2";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-  pythonImportsCheck = [ "meshcat" ];
+  pythonImportsCheck = ["meshcat"];
 
   # requires a running MeshCat viewer
   doCheck = false;
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     description = "WebGL-based 3D visualizer for Python";
     mainProgram = "meshcat-server";
     license = licenses.mit;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

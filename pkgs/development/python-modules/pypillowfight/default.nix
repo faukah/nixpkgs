@@ -25,16 +25,16 @@ buildPythonPackage rec {
     echo '#define INTERNAL_PILLOWFIGHT_VERSION "${version}"' > src/pillowfight/_version.h
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pillow ];
+  dependencies = [pillow];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Library containing various image processing algorithms";
     inherit (src.meta) homepage;
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

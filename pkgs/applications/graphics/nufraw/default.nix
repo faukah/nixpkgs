@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
   fetchpatch,
-
   autoreconfHook,
   bzip2,
   cfitsio,
@@ -18,10 +17,8 @@
   perl,
   pkg-config,
   zlib,
-
   addThumbnailer ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nufraw";
   version = "0.43-3";
@@ -91,7 +88,7 @@ stdenv.mkDerivation rec {
       ufraw in a brand new improved user interface.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ asbachb ];
+    maintainers = with maintainers; [asbachb];
     platforms = platforms.linux;
   };
 }

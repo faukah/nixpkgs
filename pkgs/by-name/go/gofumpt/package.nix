@@ -5,7 +5,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "gofumpt";
   version = "0.8.0";
@@ -32,9 +31,9 @@ buildGoModule (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Stricter gofmt";

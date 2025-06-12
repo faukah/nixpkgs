@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "bento";
   version = "1.7.1";
@@ -32,18 +31,18 @@ buildGoModule rec {
     "-X main.Version=${version}"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "High performance and resilient stream processor";
     homepage = "https://warpstreamlabs.github.io/bento/";
     changelog = "https://github.com/warpstreamlabs/bento/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "bento";
   };
 }

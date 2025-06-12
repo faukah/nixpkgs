@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ruby,
 }:
-
 stdenv.mkDerivation {
   pname = "username-anarchy";
   version = "0.5";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     hash = "sha256-1he1FzNc6y7jm/UwedG81z5QGehh2qsd1QkAsIXwrag=";
   };
 
-  buildInputs = [ ruby ];
+  buildInputs = [ruby];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/urbanadventurer/username-anarchy/";
     description = "Username generator tool for penetration testing";
     license = licenses.mit;
-    maintainers = [ maintainers.akechishiro ];
+    maintainers = [maintainers.akechishiro];
     platforms = platforms.unix;
     mainProgram = "username-anarchy";
   };

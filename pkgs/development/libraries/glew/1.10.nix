@@ -9,7 +9,6 @@
   testers,
   mesa,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "glew";
   version = "1.10.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     libXi
     libXext
   ];
-  propagatedBuildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ libGLU ]; # GL/glew.h includes GL/glu.h
+  propagatedBuildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [libGLU]; # GL/glew.h includes GL/glu.h
 
   outputs = [
     "out"
@@ -38,8 +37,8 @@ stdenv.mkDerivation (finalAttrs: {
     ''}
   '';
 
-  buildFlags = [ "all" ];
-  installFlags = [ "install.all" ];
+  buildFlags = ["all"];
+  installFlags = ["install.all"];
 
   preInstall = ''
     export GLEW_DEST="$out"
@@ -53,7 +52,11 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   makeFlags = [
-    "SYSTEM=${if stdenv.hostPlatform.isMinGW then "mingw" else stdenv.hostPlatform.parsed.kernel.name}"
+    "SYSTEM=${
+      if stdenv.hostPlatform.isMinGW
+      then "mingw"
+      else stdenv.hostPlatform.parsed.kernel.name
+    }"
     "CC:=$(CC)"
     "LD:=$(CC)"
   ];
@@ -65,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://glew.sourceforge.net/";
     license = licenses.free; # different files under different licenses
     #["BSD" "GLX" "SGI-B" "GPL2"]
-    pkgConfigModules = [ "glew" ];
+    pkgConfigModules = ["glew"];
     inherit (mesa.meta) platforms;
   };
 })

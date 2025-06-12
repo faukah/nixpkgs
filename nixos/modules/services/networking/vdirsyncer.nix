@@ -4,33 +4,31 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.vdirsyncer;
 
-  toIniJson =
-    with generators;
+  toIniJson = with generators;
     toINI {
       mkKeyValue = mkKeyValueDefault {
         mkValueString = builtins.toJSON;
       } "=";
     };
 
-  toConfigFile =
-    name: cfg':
-    if cfg'.configFile != null then
-      cfg'.configFile
+  toConfigFile = name: cfg':
+    if cfg'.configFile != null
+    then cfg'.configFile
     else
       pkgs.writeText "vdirsyncer-${name}.conf" (
         toIniJson (
           {
-            general = cfg'.config.general // {
-              status_path =
-                if cfg'.config.statusPath == null then "/var/lib/vdirsyncer/${name}" else cfg'.config.statusPath;
-            };
+            general =
+              cfg'.config.general
+              // {
+                status_path =
+                  if cfg'.config.statusPath == null
+                  then "/var/lib/vdirsyncer/${name}"
+                  else cfg'.config.statusPath;
+              };
           }
           // (mapAttrs' (name: nameValuePair "pair ${name}") cfg'.config.pairs)
           // (mapAttrs' (name: nameValuePair "storage ${name}") cfg'.config.storages)
@@ -40,14 +38,20 @@ let
   userUnitConfig = name: cfg': {
     serviceConfig =
       {
-        User = if cfg'.user == null then "vdirsyncer" else cfg'.user;
-        Group = if cfg'.group == null then "vdirsyncer" else cfg'.group;
+        User =
+          if cfg'.user == null
+          then "vdirsyncer"
+          else cfg'.user;
+        Group =
+          if cfg'.group == null
+          then "vdirsyncer"
+          else cfg'.group;
       }
       // (optionalAttrs (cfg'.user == null) {
         DynamicUser = true;
         ProtectHome = true;
       })
-      // (optionalAttrs (cfg'.additionalGroups != [ ]) {
+      // (optionalAttrs (cfg'.additionalGroups != []) {
         SupplementaryGroups = cfg'.additionalGroups;
       })
       // (optionalAttrs (cfg'.config.statusPath == null) {
@@ -57,7 +61,7 @@ let
   };
 
   commonUnitConfig = {
-    after = [ "network.target" ];
+    after = ["network.target"];
     serviceConfig = {
       Type = "oneshot";
       # Sandboxing
@@ -75,24 +79,24 @@ let
       LockPersonality = true;
     };
   };
-
-in
-{
+in {
   options = {
     services.vdirsyncer = {
       enable = mkEnableOption "vdirsyncer";
 
-      package = mkPackageOption pkgs "vdirsyncer" { };
+      package = mkPackageOption pkgs "vdirsyncer" {};
 
       jobs = mkOption {
         description = "vdirsyncer job configurations";
         type = types.attrsOf (
           types.submodule {
             options = {
-              enable = (mkEnableOption "this vdirsyncer job") // {
-                default = true;
-                example = false;
-              };
+              enable =
+                (mkEnableOption "this vdirsyncer job")
+                // {
+                  default = true;
+                  example = false;
+                };
 
               user = mkOption {
                 type = types.nullOr types.str;
@@ -111,7 +115,7 @@ in
 
               additionalGroups = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 description = "additional groups to add the dynamic user to";
               };
 
@@ -148,13 +152,13 @@ in
 
                 general = mkOption {
                   type = types.attrs;
-                  default = { };
+                  default = {};
                   description = "general configuration";
                 };
 
                 pairs = mkOption {
                   type = types.attrsOf types.attrs;
-                  default = { };
+                  default = {};
                   description = "vdirsyncer pair configurations";
                   example = literalExpression ''
                     {
@@ -171,7 +175,7 @@ in
 
                 storages = mkOption {
                   type = types.attrsOf types.attrs;
-                  default = { };
+                  default = {};
                   description = "vdirsyncer storage configurations";
                   example = literalExpression ''
                     {
@@ -202,33 +206,35 @@ in
   config = mkIf cfg.enable {
     systemd.services = mapAttrs' (
       name: cfg':
-      nameValuePair "vdirsyncer@${name}" (
-        foldr recursiveUpdate { } [
-          commonUnitConfig
-          (userUnitConfig name cfg')
-          {
-            description = "synchronize calendars and contacts (${name})";
-            environment.VDIRSYNCER_CONFIG = toConfigFile name cfg';
-            serviceConfig.ExecStart =
-              (optional cfg'.forceDiscover (
-                pkgs.writeShellScript "vdirsyncer-discover-yes" ''
-                  set -e
-                  yes | ${cfg.package}/bin/vdirsyncer discover
-                ''
-              ))
-              ++ [ "${cfg.package}/bin/vdirsyncer sync" ];
-          }
-        ]
-      )
+        nameValuePair "vdirsyncer@${name}" (
+          foldr recursiveUpdate {} [
+            commonUnitConfig
+            (userUnitConfig name cfg')
+            {
+              description = "synchronize calendars and contacts (${name})";
+              environment.VDIRSYNCER_CONFIG = toConfigFile name cfg';
+              serviceConfig.ExecStart =
+                (optional cfg'.forceDiscover (
+                  pkgs.writeShellScript "vdirsyncer-discover-yes" ''
+                    set -e
+                    yes | ${cfg.package}/bin/vdirsyncer discover
+                  ''
+                ))
+                ++ ["${cfg.package}/bin/vdirsyncer sync"];
+            }
+          ]
+        )
     ) (filterAttrs (name: cfg': cfg'.enable) cfg.jobs);
 
-    systemd.timers = mapAttrs' (
-      name: cfg':
-      nameValuePair "vdirsyncer@${name}" {
-        wantedBy = [ "timers.target" ];
-        description = "synchronize calendars and contacts (${name})";
-        inherit (cfg') timerConfig;
-      }
-    ) cfg.jobs;
+    systemd.timers =
+      mapAttrs' (
+        name: cfg':
+          nameValuePair "vdirsyncer@${name}" {
+            wantedBy = ["timers.target"];
+            description = "synchronize calendars and contacts (${name})";
+            inherit (cfg') timerConfig;
+          }
+      )
+      cfg.jobs;
   };
 }

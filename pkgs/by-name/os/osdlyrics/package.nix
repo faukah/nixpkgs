@@ -2,11 +2,9 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   autoreconfHook,
   pkg-config,
   intltool,
-
   glib,
   gtk2,
   dbus-glib,
@@ -15,7 +13,6 @@
   python3,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osdlyrics";
   version = "0.5.15";
@@ -41,12 +38,13 @@ stdenv.mkDerivation rec {
     libnotify
     python3.pkgs.wrapPython
     (python3.withPackages (
-      pp: with pp; [
-        chardet
-        dbus-python
-        pycurl
-        pygobject3
-      ]
+      pp:
+        with pp; [
+          chardet
+          dbus-python
+          pycurl
+          pygobject3
+        ]
     ))
   ];
 
@@ -83,7 +81,7 @@ stdenv.mkDerivation rec {
     description = "Standalone lyrics fetcher/displayer";
     homepage = "https://github.com/osdlyrics/osdlyrics";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pedrohlc ];
+    maintainers = with maintainers; [pedrohlc];
     platforms = platforms.linux;
   };
 }

@@ -6,7 +6,6 @@
   odoc,
   b0,
 }:
-
 buildTopkgPackage rec {
   pname = "odig";
   version = "0.0.9";
@@ -31,6 +30,6 @@ buildTopkgPackage rec {
     '';
     homepage = "https://erratique.ch/software/odig";
     license = licenses.isc;
-    maintainers = [ maintainers.Julow ];
+    maintainers = [maintainers.Julow];
   };
 }

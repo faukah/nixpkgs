@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildGoModule {
   pname = "primitive";
   version = "0-unstable-2020-05-04";
@@ -29,7 +28,7 @@ buildGoModule {
     description = "Reproducing images with geometric primitives";
     homepage = "https://github.com/fogleman/primitive";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ stunkymonkey ];
+    maintainers = with lib.maintainers; [stunkymonkey];
     mainProgram = "primitive";
     platforms = lib.platforms.all;
   };

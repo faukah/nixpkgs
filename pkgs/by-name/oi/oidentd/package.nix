@@ -5,7 +5,6 @@
   bison,
   flex,
 }:
-
 stdenv.mkDerivation rec {
   pname = "oidentd";
   version = "3.1.0";

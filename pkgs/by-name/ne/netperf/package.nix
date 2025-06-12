@@ -6,7 +6,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation {
   pname = "netperf";
   version = "20210121";
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
   ];
 
   buildInputs = lib.optional (with stdenv.hostPlatform; isx86 && isLinux) libsmbios;
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   autoreconfPhase = ''
     autoreconf -i -I src/missing/m4
   '';
@@ -45,6 +44,6 @@ stdenv.mkDerivation {
     license = lib.licenses.mit;
 
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.mmlb ];
+    maintainers = [lib.maintainers.mmlb];
   };
 }

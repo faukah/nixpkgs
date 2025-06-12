@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libiscsi";
   version = "1.20.0";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
       --replace-fail "void iscsi_decrement_iface_rr() {" "void iscsi_decrement_iface_rr(void) {"
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   env = lib.optionalAttrs (stdenv.hostPlatform.is32bit || stdenv.hostPlatform.isDarwin) {
     # iscsi-discard.c:223:57: error: format specifies type 'unsigned long' but the argument has type 'uint64_t' (aka 'unsigned long long') [-Werror,-Wformat]
@@ -33,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/sahlberg/libiscsi";
     license = licenses.lgpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ misuzu ];
+    maintainers = with maintainers; [misuzu];
   };
 }

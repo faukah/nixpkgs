@@ -1,23 +1,21 @@
-{ newScope }:
-
-let
+{newScope}: let
   callPackage = newScope self;
 
   stable = rec {
-    tiles = callPackage ./stable.nix { };
+    tiles = callPackage ./stable.nix {};
 
-    curses = tiles.override { tiles = false; };
+    curses = tiles.override {tiles = false;};
   };
 
   git = rec {
-    tiles = callPackage ./git.nix { };
+    tiles = callPackage ./git.nix {};
 
-    curses = tiles.override { tiles = false; };
+    curses = tiles.override {tiles = false;};
   };
 
-  lib = callPackage ./lib.nix { };
+  lib = callPackage ./lib.nix {};
 
-  pkgs = callPackage ./pkgs { };
+  pkgs = callPackage ./pkgs {};
 
   self = {
     inherit
@@ -26,7 +24,8 @@ let
       git
       ;
 
-    inherit (lib)
+    inherit
+      (lib)
       buildMod
       buildSoundPack
       buildTileSet
@@ -37,5 +36,4 @@ let
     inherit pkgs;
   };
 in
-
-self
+  self

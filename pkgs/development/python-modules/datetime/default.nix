@@ -6,7 +6,6 @@
   pytz,
   zope-interface,
 }:
-
 buildPythonPackage rec {
   pname = "datetime";
   version = "5.4";
@@ -26,13 +25,13 @@ buildPythonPackage rec {
     zope-interface
   ];
 
-  pythonImportsCheck = [ "DateTime" ];
+  pythonImportsCheck = ["DateTime"];
 
   meta = with lib; {
     description = "DateTime data type, as known from Zope";
     homepage = "https://github.com/zopefoundation/DateTime";
     changelog = "https://github.com/zopefoundation/DateTime/blob/${version}/CHANGES.rst";
     license = licenses.zpl21;
-    maintainers = with maintainers; [ icyrockcom ];
+    maintainers = with maintainers; [icyrockcom];
   };
 }

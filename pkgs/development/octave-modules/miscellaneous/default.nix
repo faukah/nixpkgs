@@ -6,7 +6,6 @@
   ncurses, # >= 5
   units,
 }:
-
 buildOctavePackage rec {
   pname = "miscellaneous";
   version = "1.3.1";
@@ -27,7 +26,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/miscellaneous/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Miscellaneous tools that don't fit somewhere else";
   };
 }

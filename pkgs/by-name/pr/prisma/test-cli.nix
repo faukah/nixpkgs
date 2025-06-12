@@ -4,13 +4,11 @@
   prisma,
   prisma-engines,
   sqlite-interactive,
-}:
-
-let
+}: let
   prismaMajorVersion = lib.versions.majorMinor prisma.version;
   enginesMajorVersion = lib.versions.majorMinor prisma-engines.version;
 in
-runCommand "prisma-cli-tests"
+  runCommand "prisma-cli-tests"
   {
     nativeBuildInputs = [
       prisma

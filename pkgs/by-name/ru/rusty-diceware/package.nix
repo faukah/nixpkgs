@@ -3,7 +3,6 @@
   lib,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rusty-diceware";
   version = "0.5.8";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://gitlab.com/yuvallanger/rusty-diceware";
     changelog = "https://gitlab.com/yuvallanger/rusty-diceware/-/blob/v${version}/CHANGELOG.md?ref_type=heads";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ cherrykitten ];
+    maintainers = with lib.maintainers; [cherrykitten];
     mainProgram = "diceware";
   };
 }

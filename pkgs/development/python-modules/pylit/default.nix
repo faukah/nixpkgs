@@ -5,7 +5,6 @@
   flit-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   version = "0.8.0";
   pname = "pylit";
@@ -34,19 +33,19 @@ buildPythonPackage rec {
     flit-core
   ];
 
-  pythonImportsCheck = [ "pylit" ];
+  pythonImportsCheck = ["pylit"];
 
   nativeCheckInputs = [
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "test" ];
+  pytestFlagsArray = ["test"];
 
   meta = {
     homepage = "https://codeberg.org/milde/pylit";
     description = "Bidirectional text/code converter";
     mainProgram = "pylit";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 }

@@ -8,7 +8,6 @@
   mmdbctl,
   dbip-country-lite,
 }:
-
 buildGoModule rec {
   pname = "mmdbctl";
   version = "1.4.7";
@@ -27,7 +26,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd mmdbctl \
@@ -37,7 +36,7 @@ buildGoModule rec {
   '';
 
   passthru.tests = {
-    simple = runCommand "${pname}-test" { } ''
+    simple = runCommand "${pname}-test" {} ''
       ${lib.getExe mmdbctl} verify ${dbip-country-lite.mmdb} | grep valid
       ${lib.getExe mmdbctl} metadata ${dbip-country-lite.mmdb} | grep DBIP-Country-Lite
       touch $out
@@ -49,7 +48,7 @@ buildGoModule rec {
     homepage = "https://github.com/ipinfo/mmdbctl";
     changelog = "https://github.com/ipinfo/mmdbctl/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "mmdbctl";
   };
 }

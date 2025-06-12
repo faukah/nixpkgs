@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-aCP0YjcghzpgceuZRKGTN15wm7OIPCwcJAJJBxh78f4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     httpx
@@ -41,7 +41,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "llm_gemini" ];
+  pythonImportsCheck = ["llm_gemini"];
 
   passthru.tests = llm.mkPluginTest llm-gemini;
 
@@ -50,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-gemini";
     changelog = "https://github.com/simonw/llm-gemini/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ josh ];
+    maintainers = with lib.maintainers; [josh];
   };
 }

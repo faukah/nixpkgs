@@ -9,7 +9,6 @@
   libxfce4util,
   tzdata,
 }:
-
 mkXfceDerivation {
   category = "apps";
   pname = "orage";
@@ -34,6 +33,6 @@ mkXfceDerivation {
   meta = with lib; {
     description = "Simple calendar application for Xfce";
     mainProgram = "orage";
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

@@ -5,7 +5,6 @@
   hex,
   uri,
 }:
-
 buildDunePackage rec {
   pname = "json-data-encoding";
   version = "1.0.1";
@@ -26,6 +25,6 @@ buildDunePackage rec {
     homepage = "https://gitlab.com/nomadic-labs/json-data-encoding";
     description = "Type-safe encoding to and decoding from JSON";
     license = lib.licenses.lgpl3;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

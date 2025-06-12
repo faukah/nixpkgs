@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "iferr";
   version = "0-unstable-2024-01-22";
@@ -26,7 +25,7 @@ buildGoModule {
     description = ''Generate "if err != nil {" block'';
     homepage = "https://github.com/koron/iferr";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     mainProgram = "iferr";
   };
 }

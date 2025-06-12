@@ -10,15 +10,15 @@
   librsvg,
   wrapGAppsHook3,
   nixosTests,
-}:
-
-let
+}: let
   inherit (lib) optionals;
 
   pypkgs = python3Packages;
 
-  generic =
-    { pname, withGUI }:
+  generic = {
+    pname,
+    withGUI,
+  }:
     pypkgs.buildPythonPackage rec {
       inherit pname;
       version = "2.2.0";
@@ -28,8 +28,7 @@ let
         hash = "sha256-ubonK1ukKq8caU5sKWKKuBbMGnAKN7rAiqy1JXFgas0=";
       };
 
-      propagatedBuildInputs =
-        with pypkgs;
+      propagatedBuildInputs = with pypkgs;
         [
           twisted
           mako
@@ -81,18 +80,17 @@ let
           install -Dm444 -t $out/lib/systemd/system packaging/systemd/*.service
         ''
         + (
-          if withGUI then
-            ''
-              mkdir -p $out/share
-              cp -R deluge/ui/data/{icons,pixmaps} $out/share/
-              install -Dm444 -t $out/share/applications deluge/ui/data/share/applications/deluge.desktop
-            ''
-          else
-            ''
-              rm -r $out/bin/deluge-gtk
-              rm -r $out/${python3Packages.python.sitePackages}/deluge/ui/gtk3
-              rm -r $out/share/{icons,man/man1/deluge-gtk*,pixmaps}
-            ''
+          if withGUI
+          then ''
+            mkdir -p $out/share
+            cp -R deluge/ui/data/{icons,pixmaps} $out/share/
+            install -Dm444 -t $out/share/applications deluge/ui/data/share/applications/deluge.desktop
+          ''
+          else ''
+            rm -r $out/bin/deluge-gtk
+            rm -r $out/${python3Packages.python.sitePackages}/deluge/ui/gtk3
+            rm -r $out/share/{icons,man/man1/deluge-gtk*,pixmaps}
+          ''
         );
 
       postFixup = ''
@@ -101,7 +99,7 @@ let
         done
       '';
 
-      passthru.tests = { inherit (nixosTests) deluge; };
+      passthru.tests = {inherit (nixosTests) deluge;};
 
       meta = with lib; {
         description = "Torrent client";
@@ -113,9 +111,7 @@ let
         platforms = platforms.all;
       };
     };
-
-in
-rec {
+in rec {
   deluge-gtk = generic {
     pname = "deluge-gtk";
     withGUI = true;

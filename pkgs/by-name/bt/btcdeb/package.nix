@@ -7,7 +7,6 @@
   openssl,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "btcdeb";
   version = "0.3.20-unstable-2024-04-09";
@@ -23,18 +22,18 @@ stdenv.mkDerivation {
     pkg-config
     autoreconfHook
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Bitcoin Script Debugger";
     homepage = "https://github.com/bitcoin-core/btcdeb";
     changelog = "https://github.com/bitcoin-core/btcdeb/releases";
     license = licenses.mit;
-    maintainers = with maintainers; [ akru ];
+    maintainers = with maintainers; [akru];
     platforms = platforms.unix;
   };
 }

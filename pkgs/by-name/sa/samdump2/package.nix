@@ -7,7 +7,6 @@
   pkg-config,
   which,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "samdump2";
   version = "3.0.0";
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "samdump2";
     homepage = "https://sourceforge.net/projects/ophcrack/files/samdump2";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
   };
 })

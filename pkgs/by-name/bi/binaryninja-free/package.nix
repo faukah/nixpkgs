@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
         "application/x-binaryninja"
         "x-scheme-handler/binaryninja"
       ];
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://binary.ninja/changelog/#${lib.replaceStrings [ "." ] [ "-" ] version}";
+    changelog = "https://binary.ninja/changelog/#${lib.replaceStrings ["."] ["-"] version}";
     description = "Interactive decompiler, disassembler, debugger";
     homepage = "https://binary.ninja/";
     license = {
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
       free = false;
     };
     mainProgram = "binaryninja";
-    maintainers = with lib.maintainers; [ scoder12 ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [scoder12];
+    platforms = ["x86_64-linux"];
   };
 }

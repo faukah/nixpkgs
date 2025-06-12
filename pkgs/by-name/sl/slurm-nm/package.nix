@@ -7,7 +7,6 @@
   ncurses,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "slurm-nm";
   version = "0.4.4";
@@ -24,14 +23,14 @@ stdenv.mkDerivation rec {
     meson
     ninja
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   meta = with lib; {
     description = "Generic network load monitor";
     homepage = "https://github.com/mattthias/slurm";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ mikaelfangel ];
+    maintainers = with maintainers; [mikaelfangel];
     mainProgram = "slurm";
   };
 }

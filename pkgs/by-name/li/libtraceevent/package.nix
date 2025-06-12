@@ -12,7 +12,6 @@
   cunit,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libtraceevent";
   version = "1.8.4";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  checkInputs = [ cunit ];
+  checkInputs = [cunit];
 
   passthru.updateScript = gitUpdater {
     # No nicer place to find latest release.
@@ -63,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "https://git.kernel.org/pub/scm/libs/libtrace/libtraceevent.git/";
     license = licenses.lgpl21Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ wentasah ];
+    maintainers = with maintainers; [wentasah];
   };
 }

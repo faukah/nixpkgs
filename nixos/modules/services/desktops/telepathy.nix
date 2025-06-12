@@ -4,19 +4,15 @@
   lib,
   pkgs,
   ...
-}:
-{
-
+}: {
   meta = {
-    maintainers = [ ];
+    maintainers = [];
   };
 
   ###### interface
 
   options = {
-
     services.telepathy = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -25,18 +21,14 @@
           that enables real-time communication via pluggable protocol backends.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf config.services.telepathy.enable {
+    environment.systemPackages = [pkgs.telepathy-mission-control];
 
-    environment.systemPackages = [ pkgs.telepathy-mission-control ];
-
-    services.dbus.packages = [ pkgs.telepathy-mission-control ];
+    services.dbus.packages = [pkgs.telepathy-mission-control];
   };
-
 }

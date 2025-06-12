@@ -13,7 +13,6 @@
   gtk3,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-fsguard-plugin";
   version = "1.2.0";
@@ -50,6 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Filesystem usage monitor plugin for the Xfce panel";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
   };
 })

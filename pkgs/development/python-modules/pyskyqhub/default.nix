@@ -5,7 +5,6 @@
   fetchFromGitHub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyskyqhub";
   version = "0.1.9";
@@ -20,17 +19,17 @@ buildPythonPackage rec {
     hash = "sha256-yXqtABbsCh1yb96lsEA0gquikVenGLCo6J93AeXAC8k=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # Tests require physical hardware
   doCheck = false;
 
-  pythonImportsCheck = [ "pyskyqhub" ];
+  pythonImportsCheck = ["pyskyqhub"];
 
   meta = with lib; {
     description = "Python module for accessing SkyQ Hub";
     homepage = "https://github.com/RogerSelwyn/skyq_hub";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

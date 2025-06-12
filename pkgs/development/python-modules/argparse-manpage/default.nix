@@ -9,7 +9,6 @@
   pytestCheckHook,
   pip,
 }:
-
 buildPythonPackage rec {
   pname = "argparse-manpage";
   version = "4.6";
@@ -22,12 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-2GJDFLCaPTb8sQCAv9qZ+pIysFE7IaKh9co3Mb8Dutc=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    packaging
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  nativeBuildInputs =
+    [
+      setuptools
+      packaging
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.11") [tomli];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -40,10 +41,10 @@ buildPythonPackage rec {
     "test_old_example_file_name"
   ];
 
-  pythonImportsCheck = [ "argparse_manpage" ];
+  pythonImportsCheck = ["argparse_manpage"];
 
   optional-dependencies = {
-    setuptools = [ setuptools ];
+    setuptools = [setuptools];
   };
 
   meta = with lib; {
@@ -51,7 +52,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/praiskup/argparse-manpage";
     changelog = "https://github.com/praiskup/argparse-manpage/blob/${src.rev}/NEWS";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     mainProgram = "argparse-manpage";
   };
 }

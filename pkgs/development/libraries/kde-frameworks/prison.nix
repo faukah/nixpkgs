@@ -7,10 +7,9 @@
   qtmultimedia,
   zxing-cpp,
 }:
-
 mkDerivation {
   pname = "prison";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     libdmtx
     qrencode

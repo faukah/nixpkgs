@@ -13,7 +13,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-workstations";
   version = "0.5.14";
@@ -27,15 +26,17 @@ buildPythonPackage rec {
     hash = "sha256-LwIsVouAh/obOaGx+EvT8gmEJ+NdQNSsfkwEtoxE07I=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    google-api-core
-    google-auth
-    grpc-google-iam-v1
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      google-api-core
+      google-auth
+      grpc-google-iam-v1
+      proto-plus
+      protobuf
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   nativeCheckInputs = [
     mock
@@ -54,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-workstations";
     changelog = "https://github.com/googleapis/google-cloud-python/blob/google-cloud-workstations-v${version}/packages/google-cloud-workstations/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

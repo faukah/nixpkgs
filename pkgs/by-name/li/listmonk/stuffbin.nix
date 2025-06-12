@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "stuffbin";
   version = "1.1.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     description = "Compress and embed static files and assets into Go binaries and access them with a virtual file system in production";
     homepage = "https://github.com/knadh/stuffbin";
     changelog = "https://github.com/knadh/stuffbin/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ raitobezarius ];
+    maintainers = with lib.maintainers; [raitobezarius];
     license = lib.licenses.mit;
   };
 }

@@ -6,7 +6,6 @@
   makeWrapper,
   git,
 }:
-
 stdenv.mkDerivation rec {
   pname = "svn2git";
   version = "2.4.0";

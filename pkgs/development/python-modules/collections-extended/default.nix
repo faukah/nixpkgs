@@ -6,7 +6,6 @@
   poetry-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "collections-extended";
   version = "2.0.2";
@@ -27,20 +26,20 @@ buildPythonPackage rec {
         "random_.shuffle(self._list)"
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   nativeCheckInputs = [
     hypothesis
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "collections_extended" ];
+  pythonImportsCheck = ["collections_extended"];
 
   meta = {
     description = "Extra Python Collections - bags (multisets), setlists (unique list/indexed set), RangeMap and IndexedDict";
     homepage = "https://github.com/mlenzen/collections-extended";
     changelog = "https://github.com/mlenzen/collections-extended/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ exarkun ];
+    maintainers = with lib.maintainers; [exarkun];
   };
 }

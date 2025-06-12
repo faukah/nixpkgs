@@ -22,7 +22,6 @@
   replaceVars,
   vala ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libosinfo";
   version = "1.12.0";
@@ -32,10 +31,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rYVX7OJnk9pD0m3lZePWjOLua/uNARO3zH3+B/a/xrY=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc";
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc";
 
   nativeBuildInputs = [
     pkg-config
@@ -90,6 +91,6 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.com/libosinfo/libosinfo/-/blob/v${version}/NEWS";
     license = lib.licenses.lgpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.bjornfor ];
+    maintainers = [lib.maintainers.bjornfor];
   };
 }

@@ -1,10 +1,11 @@
 {
   stdenv,
   xdg-user-dirs,
+}: {
+  version,
+  src,
+  ...
 }:
-
-{ version, src, ... }:
-
 stdenv.mkDerivation rec {
   pname = "xdg_directories";
   inherit version src;

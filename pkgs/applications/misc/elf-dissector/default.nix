@@ -11,7 +11,6 @@
   libopcodes,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation {
   pname = "elf-dissector";
   version = "unstable-2023-12-24";

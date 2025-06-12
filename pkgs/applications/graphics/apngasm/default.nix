@@ -8,7 +8,6 @@
   libpng,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "apngasm";
   version = "3.1.10";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     boost
@@ -40,9 +39,8 @@ stdenv.mkDerivation rec {
     description = "Create an APNG from multiple PNG files";
     homepage = "https://github.com/apngasm/apngasm";
     license = licenses.zlib;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
     mainProgram = "apngasm";
   };
-
 }

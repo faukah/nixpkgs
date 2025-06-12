@@ -13,12 +13,12 @@
   fpath,
   randomconv,
 }:
-
 buildDunePackage {
   pname = "letsencrypt-app";
   minimalOCamlVersion = "4.08";
 
-  inherit (letsencrypt)
+  inherit
+    (letsencrypt)
     src
     version
     ;
@@ -38,8 +38,10 @@ buildDunePackage {
     randomconv
   ];
 
-  meta = letsencrypt.meta // {
-    description = "ACME client implementation of the ACME protocol (RFC 8555) for OCaml";
-    mainProgram = "oacmel";
-  };
+  meta =
+    letsencrypt.meta
+    // {
+      description = "ACME client implementation of the ACME protocol (RFC 8555) for OCaml";
+      mainProgram = "oacmel";
+    };
 }

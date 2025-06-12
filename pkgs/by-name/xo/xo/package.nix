@@ -32,8 +32,7 @@ buildGoModule rec {
   postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
+    in ''
       installShellCompletion --cmd xo \
         --bash <(${emulator} $out/bin/xo completion bash) \
         --fish <(${emulator} $out/bin/xo completion fish) \
@@ -47,14 +46,14 @@ buildGoModule rec {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Command line tool to generate idiomatic Go code for SQL databases supporting PostgreSQL, MySQL, SQLite, Oracle, and Microsoft SQL Server";
     homepage = "https://github.com/xo/xo";
     changelog = "https://github.com/xo/xo/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ xiaoxiangmoe ];
+    maintainers = with lib.maintainers; [xiaoxiangmoe];
     mainProgram = "xo";
   };
 }

@@ -9,7 +9,6 @@
   stringext,
   alcotest,
 }:
-
 buildDunePackage {
   pname = "gitlab-unix";
   inherit (gitlab) version src;
@@ -33,11 +32,13 @@ buildDunePackage {
     lwt
   ];
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   doCheck = true;
 
-  meta = gitlab.meta // {
-    description = "Gitlab APIv4 Unix library";
-  };
+  meta =
+    gitlab.meta
+    // {
+      description = "Gitlab APIv4 Unix library";
+    };
 }

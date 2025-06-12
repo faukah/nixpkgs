@@ -5,7 +5,6 @@
   ghcWithPackages,
   nixosTests,
 }:
-
 mkDerivation rec {
   pname = "standard-library";
   version = "2.2";
@@ -17,7 +16,7 @@ mkDerivation rec {
     hash = "sha256-/Fy5EOSbVNXt6Jq0yKSnlNPW4SYfn+eCTAYFnMZrbR0=";
   };
 
-  nativeBuildInputs = [ (ghcWithPackages (self: [ self.filemanip ])) ];
+  nativeBuildInputs = [(ghcWithPackages (self: [self.filemanip]))];
   preConfigure = ''
     runhaskell GenerateEverything.hs --include-deprecated
     # We will only build/consider Everything.agda, in particular we don't want Everything*.agda
@@ -25,7 +24,7 @@ mkDerivation rec {
     rm EverythingSafe.agda
   '';
 
-  passthru.tests = { inherit (nixosTests) agda; };
+  passthru.tests = {inherit (nixosTests) agda;};
   meta = with lib; {
     homepage = "https://wiki.portal.chalmers.se/agda/pmwiki.php?n=Libraries.StandardLibrary";
     description = "Standard library for use with the Agda compiler";

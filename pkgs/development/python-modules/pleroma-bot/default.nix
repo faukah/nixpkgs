@@ -10,7 +10,6 @@
   pyaml,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pleroma-bot";
   version = "0.8.6";
@@ -37,13 +36,13 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "pleroma_bot" ];
+  pythonImportsCheck = ["pleroma_bot"];
 
   meta = with lib; {
     description = "Bot for mirroring one or multiple Twitter accounts in Pleroma/Mastodon";
     mainProgram = "pleroma-bot";
     homepage = "https://robertoszek.github.io/pleroma-bot/";
     license = licenses.mit;
-    maintainers = with maintainers; [ robertoszek ];
+    maintainers = with maintainers; [robertoszek];
   };
 }

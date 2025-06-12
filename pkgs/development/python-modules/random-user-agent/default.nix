@@ -5,7 +5,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage {
   pname = "random-user-agent";
   version = "1.0.1-unstable-2018-12-26";
@@ -20,17 +19,17 @@ buildPythonPackage {
     hash = "sha256-BkMx7N8O9I4rD8lvpoyXTZbZDsoozIpYUQh+zkLQ7Uc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "random_user_agent" ];
+  pythonImportsCheck = ["random_user_agent"];
 
   meta = with lib; {
     description = "Module to get list of user agents based on filters";
     homepage = "https://github.com/Luqman-Ud-Din/random_user_agent";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

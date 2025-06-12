@@ -9,7 +9,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aiostreammagic";
   version = "2.11.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-8ahLB5F2JKpA4F21WWDFzrDxoOpIq+d1iXuCjQngGtc=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -36,13 +35,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aiostreammagic" ];
+  pythonImportsCheck = ["aiostreammagic"];
 
   meta = {
     description = "Module for interfacing with Cambridge Audio/Stream Magic compatible streamers";
     homepage = "https://github.com/noahhusby/aiostreammagic";
     changelog = "https://github.com/noahhusby/aiostreammagic/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

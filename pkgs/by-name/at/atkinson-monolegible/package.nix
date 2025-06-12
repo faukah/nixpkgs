@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "atkinson-monolegible";
   version = "0-unstable-2023-02-27";
@@ -26,6 +25,6 @@ stdenvNoCC.mkDerivation {
     description = "Mono variant of the Atkinson Hyperlegible typeface";
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ Gliczy ];
+    maintainers = with lib.maintainers; [Gliczy];
   };
 }

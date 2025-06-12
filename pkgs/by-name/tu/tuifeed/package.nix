@@ -3,7 +3,6 @@
   fetchCrate,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tuifeed";
   version = "0.4.2";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Terminal feed reader with a fancy UI";
     mainProgram = "tuifeed";
     homepage = "https://github.com/veeso/tuifeed";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ devhell ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [devhell];
   };
 }

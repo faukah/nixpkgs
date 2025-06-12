@@ -21,9 +21,9 @@
   enableStoneSense ? false,
   enableTWBT ? false,
   twbt,
-  themes ? { },
+  themes ? {},
   theme ? null,
-  extraPackages ? [ ],
+  extraPackages ? [],
   # General config options:
   enableIntro ? true,
   enableTruetype ? null, # defaults to 24, see init.txt
@@ -32,11 +32,9 @@
   enableSound ? true,
   # An attribute set of settings to override in data/init/*.txt.
   # For example, `init.FOO = true;` is translated to `[FOO:YES]` in init.txt
-  settings ? { },
-# TODO world-gen.txt, interface.txt require special logic
-}:
-
-let
+  settings ? {},
+  # TODO world-gen.txt, interface.txt require special logic
+}: let
   dfhack' = dfhack.override {
     inherit enableStoneSense;
   };
@@ -46,7 +44,10 @@ let
   # If TWBT is null or the dfVersion is wrong, it isn't supported (for example, on version 50).
   enableTWBT' = enableTWBT && twbt != null && (twbt.dfVersion or null) == dwarf-fortress.version;
 
-  ptheme = if builtins.isString theme then builtins.getAttr theme themes else theme;
+  ptheme =
+    if builtins.isString theme
+    then builtins.getAttr theme themes
+    else theme;
 
   baseEnv = buildEnv {
     name = "dwarf-fortress-base-env-${dwarf-fortress.dfVersion}";
@@ -61,71 +62,73 @@ let
         twbt.lib
         twbt.art
       ]
-      ++ [ dwarf-fortress ];
+      ++ [dwarf-fortress];
 
     ignoreCollisions = true;
   };
 
-  settings' = lib.recursiveUpdate {
-    init = {
-      PRINT_MODE =
-        if enableTextMode then
-          "TEXT"
-        else if enableTWBT' then
-          "TWBT"
-        else if stdenv.hostPlatform.isDarwin then
-          "STANDARD" # https://www.bay12games.com/dwarves/mantisbt/view.php?id=11680
-        else
-          null;
-      INTRO = enableIntro;
-      TRUETYPE = enableTruetype;
-      FPS = enableFPS;
-      SOUND = enableSound;
-    };
-  } settings;
+  settings' =
+    lib.recursiveUpdate {
+      init = {
+        PRINT_MODE =
+          if enableTextMode
+          then "TEXT"
+          else if enableTWBT'
+          then "TWBT"
+          else if stdenv.hostPlatform.isDarwin
+          then "STANDARD" # https://www.bay12games.com/dwarves/mantisbt/view.php?id=11680
+          else null;
+        INTRO = enableIntro;
+        TRUETYPE = enableTruetype;
+        FPS = enableFPS;
+        SOUND = enableSound;
+      };
+    }
+    settings;
 
   forEach = attrs: f: lib.concatStrings (lib.mapAttrsToList f attrs);
 
-  toTxt =
-    v:
-    if lib.isBool v then
-      if v then "YES" else "NO"
-    else if lib.isInt v then
-      toString v
-    else if lib.isString v then
-      v
-    else
-      throw "dwarf-fortress: unsupported configuration value ${toString v}";
+  toTxt = v:
+    if lib.isBool v
+    then
+      if v
+      then "YES"
+      else "NO"
+    else if lib.isInt v
+    then toString v
+    else if lib.isString v
+    then v
+    else throw "dwarf-fortress: unsupported configuration value ${toString v}";
 
   config =
     runCommand "dwarf-fortress-config"
-      {
-        nativeBuildInputs = [
-          gawk
-          makeWrapper
-        ];
-      }
-      (
-        ''
-          mkdir -p $out/data/init
+    {
+      nativeBuildInputs = [
+        gawk
+        makeWrapper
+      ];
+    }
+    (
+      ''
+        mkdir -p $out/data/init
 
-          edit_setting() {
-            v=''${v//'&'/'\&'}
-            if [ -f "$out/$file" ]; then
-              if ! gawk -i inplace -v RS='\r?\n' '
-                { n += sub("\\[" ENVIRON["k"] ":[^]]*\\]", "[" ENVIRON["k"] ":" ENVIRON["v"] "]"); print }
-                END { exit(!n) }
-              ' "$out/$file"; then
-                echo "error: no setting named '$k' in $out/$file" >&2
-                exit 1
-              fi
-            else
-              echo "warning: no file $out/$file; cannot edit" >&2
+        edit_setting() {
+          v=''${v//'&'/'\&'}
+          if [ -f "$out/$file" ]; then
+            if ! gawk -i inplace -v RS='\r?\n' '
+              { n += sub("\\[" ENVIRON["k"] ":[^]]*\\]", "[" ENVIRON["k"] ":" ENVIRON["v"] "]"); print }
+              END { exit(!n) }
+            ' "$out/$file"; then
+              echo "error: no setting named '$k' in $out/$file" >&2
+              exit 1
             fi
-          }
-        ''
-        + forEach settings' (
-          file: kv:
+          else
+            echo "warning: no file $out/$file; cannot edit" >&2
+          fi
+        }
+      ''
+      + forEach settings' (
+        file: kv:
           ''
             file=data/init/${lib.escapeShellArg file}.txt
             if [ -f "${baseEnv}/$file" ]; then
@@ -136,30 +139,30 @@ let
           ''
           + forEach kv (
             k: v:
-            lib.optionalString (v != null) ''
-              export k=${lib.escapeShellArg k} v=${lib.escapeShellArg (toTxt v)}
-              edit_setting
-            ''
+              lib.optionalString (v != null) ''
+                export k=${lib.escapeShellArg k} v=${lib.escapeShellArg (toTxt v)}
+                edit_setting
+              ''
           )
-        )
-        + lib.optionalString enableDFHack ''
-          mkdir -p $out/hack
+      )
+      + lib.optionalString enableDFHack ''
+        mkdir -p $out/hack
 
-          # Patch the MD5
-          orig_md5=$(< "${dwarf-fortress}/hash.md5.orig")
-          patched_md5=$(< "${dwarf-fortress}/hash.md5")
-          input_file="${dfhack'}/hack/symbols.xml"
-          output_file="$out/hack/symbols.xml"
+        # Patch the MD5
+        orig_md5=$(< "${dwarf-fortress}/hash.md5.orig")
+        patched_md5=$(< "${dwarf-fortress}/hash.md5")
+        input_file="${dfhack'}/hack/symbols.xml"
+        output_file="$out/hack/symbols.xml"
 
-          echo "[DFHack Wrapper] Fixing Dwarf Fortress MD5:"
-          echo "  Input:   $input_file"
-          echo "  Search:  $orig_md5"
-          echo "  Output:  $output_file"
-          echo "  Replace: $patched_md5"
+        echo "[DFHack Wrapper] Fixing Dwarf Fortress MD5:"
+        echo "  Input:   $input_file"
+        echo "  Search:  $orig_md5"
+        echo "  Output:  $output_file"
+        echo "  Replace: $patched_md5"
 
-          substitute "$input_file" "$output_file" --replace-fail "$orig_md5" "$patched_md5"
-        ''
-      );
+        substitute "$input_file" "$output_file" --replace-fail "$orig_md5" "$patched_md5"
+      ''
+    );
 
   # This is a separate environment because the config files to modify may come
   # from any of the paths in baseEnv.
@@ -172,15 +175,13 @@ let
     ignoreCollisions = true;
   };
 in
-
-lib.throwIf (enableTWBT' && !enableDFHack) "dwarf-fortress: TWBT requires DFHack to be enabled"
+  lib.throwIf (enableTWBT' && !enableDFHack) "dwarf-fortress: TWBT requires DFHack to be enabled"
   lib.throwIf
   (enableStoneSense && !enableDFHack)
   "dwarf-fortress: StoneSense requires DFHack to be enabled"
   lib.throwIf
   (enableTextMode && enableTWBT')
   "dwarf-fortress: text mode and TWBT are mutually exclusive"
-
   stdenv.mkDerivation
   {
     pname = "dwarf-fortress";
@@ -246,38 +247,36 @@ lib.throwIf (enableTWBT' && !enableDFHack) "dwarf-fortress: TWBT requires DFHack
       xvfb-run
     ];
 
-    installCheckPhase =
-      let
-        commonExpectStatements = ''
-          expect "Loading bindings from data/init/interface.txt"
-        '';
-        dfHackExpectScript = writeText "dfhack-test.exp" (
+    installCheckPhase = let
+      commonExpectStatements = ''
+        expect "Loading bindings from data/init/interface.txt"
+      '';
+      dfHackExpectScript = writeText "dfhack-test.exp" (
+        ''
+          spawn env NIXPKGS_DF_OPTS=debug xvfb-run $env(out)/bin/dfhack
+        ''
+        + commonExpectStatements
+        + ''
+          expect "DFHack is ready. Have a nice day!"
+          expect "DFHack version ${dfhack'.version}"
+          expect "\[DFHack\]#"
+          send -- "lua print(os.getenv('out'))\r"
+          expect "$env(out)"
+          # Don't send 'die' here; just exit. Some versions of dfhack crash on exit.
+          exit 0
+        ''
+      );
+      vanillaExpectScript = fmod:
+        writeText "vanilla-test.exp" (
           ''
-            spawn env NIXPKGS_DF_OPTS=debug xvfb-run $env(out)/bin/dfhack
+            spawn env NIXPKGS_DF_OPTS=debug,${lib.optionalString fmod "fmod"} xvfb-run $env(out)/bin/dwarf-fortress
           ''
           + commonExpectStatements
           + ''
-            expect "DFHack is ready. Have a nice day!"
-            expect "DFHack version ${dfhack'.version}"
-            expect "\[DFHack\]#"
-            send -- "lua print(os.getenv('out'))\r"
-            expect "$env(out)"
-            # Don't send 'die' here; just exit. Some versions of dfhack crash on exit.
             exit 0
           ''
         );
-        vanillaExpectScript =
-          fmod:
-          writeText "vanilla-test.exp" (
-            ''
-              spawn env NIXPKGS_DF_OPTS=debug,${lib.optionalString fmod "fmod"} xvfb-run $env(out)/bin/dwarf-fortress
-            ''
-            + commonExpectStatements
-            + ''
-              exit 0
-            ''
-          );
-      in
+    in
       ''
         export HOME="$(mktemp -dt dwarf-fortress.XXXXXX)"
       ''

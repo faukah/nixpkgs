@@ -6,7 +6,6 @@
   opentelemetry-test-utils,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-instrumentation) version src;
   pname = "opentelemetry-util-http";
@@ -16,7 +15,7 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-instrumentation.src.name}/util/opentelemetry-util-http";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   nativeCheckInputs = [
     opentelemetry-instrumentation
@@ -30,12 +29,14 @@ buildPythonPackage {
     "test_nonstandard_method_allowed"
   ];
 
-  pythonImportsCheck = [ "opentelemetry.util.http" ];
+  pythonImportsCheck = ["opentelemetry.util.http"];
 
   __darwinAllowLocalNetworking = true;
 
-  meta = opentelemetry-instrumentation.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/tree/main/util/opentelemetry-util-http";
-    description = "Web util for OpenTelemetry";
-  };
+  meta =
+    opentelemetry-instrumentation.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/tree/main/util/opentelemetry-util-http";
+      description = "Web util for OpenTelemetry";
+    };
 }

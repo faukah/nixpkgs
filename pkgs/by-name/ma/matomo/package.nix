@@ -7,7 +7,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "matomo";
   version = "5.3.2";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-rn5Lr2BSrGitI16MLlP91znSPm2Asd6j0qI8N+1c+Lo=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   patches = [
     # This changes the default value of the database server field
@@ -118,6 +117,6 @@ stdenv.mkDerivation (finalAttrs: {
       boozedog
       niklaskorz
     ];
-    teams = [ lib.teams.flyingcircus ];
+    teams = [lib.teams.flyingcircus];
   };
 })

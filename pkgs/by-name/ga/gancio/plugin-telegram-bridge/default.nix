@@ -8,7 +8,6 @@
   nodejs,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gancio-plugin-telegram-bridge";
   version = "1.0.5";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     inherit nodejs;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "https://framagit.org/bcn.convocala/gancio-plugin-telegram-bridge";
     license = lib.licenses.agpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ jbgi ];
+    maintainers = with lib.maintainers; [jbgi];
   };
 }

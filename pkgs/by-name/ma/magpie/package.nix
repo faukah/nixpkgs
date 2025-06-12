@@ -48,7 +48,6 @@
   libcap_ng,
   graphene,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "magpie";
   version = "0.9.4";
@@ -157,7 +156,7 @@ stdenv.mkDerivation (finalAttrs: {
     libdir = "${finalAttrs.finalPackage}/lib/magpie-0";
 
     tests = {
-      libdirExists = runCommand "magpie-libdir-exists" { } ''
+      libdirExists = runCommand "magpie-libdir-exists" {} ''
         if [[ ! -d ${finalAttrs.finalPackage.libdir} ]]; then
           echo "passthru.libdir should contain a directory, “${finalAttrs.finalPackage.libdir}” is not one."
           exit 1
@@ -165,10 +164,10 @@ stdenv.mkDerivation (finalAttrs: {
         touch $out
       '';
 
-      pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+      pkg-config = testers.hasPkgConfigModules {package = finalAttrs.finalPackage;};
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -176,7 +175,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/BuddiesOfBudgie/magpie";
     changelog = "https://github.com/BuddiesOfBudgie/magpie/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.budgie ];
+    teams = [lib.teams.budgie];
     platforms = lib.platforms.linux;
     pkgConfigModules = [
       "libmagpie-0"

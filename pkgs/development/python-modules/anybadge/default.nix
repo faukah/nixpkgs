@@ -9,7 +9,6 @@
   requests,
   sh,
 }:
-
 buildPythonPackage rec {
   pname = "anybadge";
   version = "1.16.0";
@@ -53,13 +52,13 @@ buildPythonPackage rec {
     "tests/test_server.py"
   ];
 
-  pythonImportsCheck = [ "anybadge" ];
+  pythonImportsCheck = ["anybadge"];
 
   meta = {
     description = "Python tool for generating badges for your projects";
     homepage = "https://github.com/jongracecox/anybadge";
     changelog = "https://github.com/jongracecox/anybadge/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fabiangd ];
+    maintainers = with lib.maintainers; [fabiangd];
   };
 }

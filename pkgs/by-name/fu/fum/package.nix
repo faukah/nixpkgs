@@ -36,14 +36,14 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Fully ricable tui-based music client";
     homepage = "https://github.com/qxb3/fum";
     changelog = "https://github.com/qxb3/fum/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ FKouhai ];
+    maintainers = with lib.maintainers; [FKouhai];
     platforms = lib.platforms.linux;
     mainProgram = "fum";
   };

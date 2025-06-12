@@ -9,7 +9,6 @@
   libX11,
   SDL2,
 }:
-
 buildDotnetModule rec {
   pname = "mesen";
   version = "2.0.0-unstable-2025-04-01";
@@ -31,19 +30,19 @@ buildDotnetModule rec {
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.runtime_8_0;
 
-  projectFile = [ "UI/UI.csproj" ];
+  projectFile = ["UI/UI.csproj"];
 
   dotnetFlags = [
     "-p:RuntimeIdentifier=${dotnetCorePackages.systemToDotnetRid clangStdenv.hostPlatform.system}"
   ];
 
-  executables = [ "Mesen" ];
+  executables = ["Mesen"];
 
   nugetDeps = ./deps.json;
 
-  nativeBuildInputs = [ wrapGAppsHook3 ];
+  nativeBuildInputs = [wrapGAppsHook3];
 
-  runtimeDeps = [ gtk3 ];
+  runtimeDeps = [gtk3];
 
   postInstall = ''
     ln -s ${passthru.core}/lib/MesenCore.* $out/lib/mesen
@@ -58,11 +57,11 @@ buildDotnetModule rec {
 
     strictDeps = true;
 
-    nativeBuildInputs = [ SDL2 ];
+    nativeBuildInputs = [SDL2];
 
-    buildInputs = [ SDL2 ] ++ lib.optionals clangStdenv.hostPlatform.isLinux [ libX11 ];
+    buildInputs = [SDL2] ++ lib.optionals clangStdenv.hostPlatform.isLinux [libX11];
 
-    makeFlags = [ "core" ];
+    makeFlags = ["core"];
 
     installPhase = ''
       runHook preInstall
@@ -72,11 +71,11 @@ buildDotnetModule rec {
   };
 
   meta = {
-    badPlatforms = [ "aarch64-linux" ]; # not sure what the issue is
+    badPlatforms = ["aarch64-linux"]; # not sure what the issue is
     description = "Multi-system emulator that supports NES, SNES, Game Boy (Color) and PC Engine games";
     homepage = "https://www.mesen.ca";
     license = lib.licenses.gpl3Plus;
     mainProgram = "Mesen";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

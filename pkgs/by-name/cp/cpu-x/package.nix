@@ -31,12 +31,10 @@
   libXtst,
   gtkmm3,
 }:
-
 # Known issues:
 # - The daemon can't be started from the GUI, because pkexec requires a shell
 #   registered in /etc/shells. The nix's bash is not in there when running
 #   cpu-x from nixpkgs.
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cpu-x";
   version = "5.3.0";
@@ -83,14 +81,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}
+      --prefix PATH : ${lib.makeBinPath [stdenv.cc]}
       --prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib
     )
   '';
 
   passthru = {
     tests = {
-      version = testers.testVersion { package = finalAttrs.finalPackage; };
+      version = testers.testVersion {package = finalAttrs.finalPackage;};
     };
   };
 
@@ -99,7 +97,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "cpu-x";
     homepage = "https://thetumultuousunicornofdarkness.github.io/CPU-X";
     license = lib.licenses.gpl3Plus;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ viraptor ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [viraptor];
   };
 })

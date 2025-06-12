@@ -3,13 +3,12 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hyx";
   version = "2024.02.29";
 
   src = fetchurl {
-    url = "https://yx7.cc/code/hyx/hyx-${lib.replaceStrings [ "-" ] [ "." ] version}.tar.xz";
+    url = "https://yx7.cc/code/hyx/hyx-${lib.replaceStrings ["-"] ["."] version}.tar.xz";
     sha256 = "sha256-dufx3zsabeet7Rp0d60MIuNqisIQd6UgE7WDZYNHl3E=";
   };
 
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     mainProgram = "hyx";
     homepage = "https://yx7.cc/code/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     platforms = with platforms; linux ++ darwin;
   };
 }

@@ -5,7 +5,6 @@
   isPy3k,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "arrayqueues";
   version = "1.4.1";
@@ -17,12 +16,12 @@ buildPythonPackage rec {
     hash = "sha256-7I+5BQO/gsvTREDkBfxrMblw3JPfY48S4KI4PCGPtFY=";
   };
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   meta = {
     homepage = "https://github.com/portugueslab/arrayqueues";
     description = "Multiprocessing queues for numpy arrays using shared memory";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tbenst ];
+    maintainers = with lib.maintainers; [tbenst];
   };
 }

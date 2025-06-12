@@ -12,7 +12,6 @@
   gtk3,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openboardview";
   version = "9.95.0";
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
       wrapGApp "$out/bin/${pname}" \
-        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ gtk3 ]}
+        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [gtk3]}
     '';
 
   passthru.updateScript = gitUpdater {
@@ -77,6 +76,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/OpenBoardView/OpenBoardView";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ k3a ];
+    maintainers = with maintainers; [k3a];
   };
 }

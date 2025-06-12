@@ -6,7 +6,6 @@
   openssl,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-edit";
   version = "0.13.6";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-/+DDA64kemZKzKdaKnXK+R4e8FV59qT5HCGcwyOz7R8=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl

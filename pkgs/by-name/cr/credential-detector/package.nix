@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "credential-detector";
   version = "1.14.3";
@@ -27,6 +26,6 @@ buildGoModule rec {
     mainProgram = "credential-detector";
     homepage = "https://github.com/ynori7/credential-detector";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

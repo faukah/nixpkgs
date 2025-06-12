@@ -25,7 +25,6 @@
   xz,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "reqable";
   version = "2.33.12";
@@ -78,15 +77,15 @@ stdenv.mkDerivation (finalAttrs: {
       --prefix LD_LIBRARY_PATH : $out/share/reqable/lib
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Generation API debugging and testing one-stop solution";
     homepage = "https://reqable.com";
     mainProgram = "reqable";
     license = lib.licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with lib.maintainers; [ emaryn ];
-    platforms = [ "x86_64-linux" ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with lib.maintainers; [emaryn];
+    platforms = ["x86_64-linux"];
   };
 })

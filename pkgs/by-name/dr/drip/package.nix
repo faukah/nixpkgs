@@ -9,7 +9,6 @@
   gnumake,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "drip";
   version = "0.2.4";
@@ -21,11 +20,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ASsEPS8l3E3ReerIrVRQ1ICyMKMFa1XE+WYqxxsXhv4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ jdk8 ];
+  buildInputs = [jdk8];
 
-  patches = [ ./wait.patch ];
+  patches = [./wait.patch];
 
   postPatch = ''
     patchShebangs .
@@ -37,18 +36,18 @@ stdenv.mkDerivation (finalAttrs: {
     cp ./* $out -r
     wrapProgram $out/bin/drip \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          which
-          gnumake
-          jdk8
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        which
+        gnumake
+        jdk8
+      ]
+    }
     runHook postInstall
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "version";
 
   meta = {

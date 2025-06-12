@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     hash = "sha256-k6UDLOyP+EvKmC1TmbMObgAw2IIs7ekIZxJOWbwc+jg=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   patchPhase = ''
     runHook prePatch
@@ -43,20 +43,20 @@ stdenv.mkDerivation {
     install -Dm555 lldap-cli -t $out/bin
     wrapProgram $out/bin/lldap-cli \
       --prefix PATH : ${
-        lib.makeBinPath [
-          bash
-          unixtools.column
-          coreutils
-          gnugrep
-          gnused
-          jq
-          lldap # Needed for lldap_set_password
-          curl
-        ]
-      }
+      lib.makeBinPath [
+        bash
+        unixtools.column
+        coreutils
+        gnugrep
+        gnused
+        jq
+        lldap # Needed for lldap_set_password
+        curl
+      ]
+    }
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Command line tool for managing LLDAP";
@@ -71,7 +71,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/Zepmann/lldap-cli";
     license = lib.licenses.gpl3Only;
-    maintainers = [ lib.maintainers.nw ];
+    maintainers = [lib.maintainers.nw];
     mainProgram = "lldap-cli";
     platforms = lib.platforms.unix;
   };

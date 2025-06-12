@@ -10,7 +10,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "clifm";
   version = "1.25";
@@ -37,17 +36,17 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
   doCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/leo-arch/clifm";
     changelog = "https://github.com/leo-arch/clifm/releases/tag/v${finalAttrs.version}";
     description = "CLI-based, shell-like, and non-curses terminal file manager";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ nadir-ishiguro ];
+    maintainers = with lib.maintainers; [nadir-ishiguro];
     platforms = lib.platforms.unix;
     mainProgram = "clifm";
   };

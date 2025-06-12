@@ -8,14 +8,12 @@
   buildLinux,
   rpiVersion,
   ...
-}@args:
-
-let
+} @ args: let
   # NOTE: raspberrypifw & raspberryPiWirelessFirmware should be updated with this
   modDirVersion = "6.6.51";
   tag = "stable_20241008";
 in
-lib.overrideDerivation
+  lib.overrideDerivation
   (buildLinux (
     args
     // {
@@ -34,29 +32,35 @@ lib.overrideDerivation
         {
           "1" = "bcmrpi_defconfig";
           "2" = "bcm2709_defconfig";
-          "3" = if stdenv.hostPlatform.isAarch64 then "bcmrpi3_defconfig" else "bcm2709_defconfig";
+          "3" =
+            if stdenv.hostPlatform.isAarch64
+            then "bcmrpi3_defconfig"
+            else "bcm2709_defconfig";
           "4" = "bcm2711_defconfig";
         }
-        .${toString rpiVersion};
+        .${
+          toString rpiVersion
+        };
 
-      features = {
-        efiBootStub = false;
-      } // (args.features or { });
+      features =
+        {
+          efiBootStub = false;
+        }
+        // (args.features or {});
 
       extraMeta =
-        if (rpiVersion < 3) then
-          {
-            platforms = with lib.platforms; arm;
-            hydraPlatforms = [ ];
-          }
-        else
-          {
-            platforms = with lib.platforms; arm ++ aarch64;
-            hydraPlatforms = [ "aarch64-linux" ];
-          };
+        if (rpiVersion < 3)
+        then {
+          platforms = with lib.platforms; arm;
+          hydraPlatforms = [];
+        }
+        else {
+          platforms = with lib.platforms; arm ++ aarch64;
+          hydraPlatforms = ["aarch64-linux"];
+        };
       ignoreConfigErrors = true;
     }
-    // (args.argsOverride or { })
+    // (args.argsOverride or {})
   ))
   (oldAttrs: {
     postConfigure = ''
@@ -69,13 +73,17 @@ lib.overrideDerivation
     # This is ugly as heck, but I don't know a better solution so far.
     postFixup =
       ''
-        dtbDir=${if stdenv.hostPlatform.isAarch64 then "$out/dtbs/broadcom" else "$out/dtbs"}
+        dtbDir=${
+          if stdenv.hostPlatform.isAarch64
+          then "$out/dtbs/broadcom"
+          else "$out/dtbs"
+        }
         rm $dtbDir/bcm283*.dtb
         copyDTB() {
           cp -v "$dtbDir/$1" "$dtbDir/$2"
         }
       ''
-      + lib.optionalString (lib.elem stdenv.hostPlatform.system [ "armv6l-linux" ]) ''
+      + lib.optionalString (lib.elem stdenv.hostPlatform.system ["armv6l-linux"]) ''
         copyDTB bcm2708-rpi-zero-w.dtb bcm2835-rpi-zero.dtb
         copyDTB bcm2708-rpi-zero-w.dtb bcm2835-rpi-zero-w.dtb
         copyDTB bcm2708-rpi-b.dtb bcm2835-rpi-a.dtb
@@ -86,22 +94,21 @@ lib.overrideDerivation
         copyDTB bcm2708-rpi-b-plus.dtb bcm2835-rpi-zero.dtb
         copyDTB bcm2708-rpi-cm.dtb bcm2835-rpi-cm.dtb
       ''
-      + lib.optionalString (lib.elem stdenv.hostPlatform.system [ "armv7l-linux" ]) ''
+      + lib.optionalString (lib.elem stdenv.hostPlatform.system ["armv7l-linux"]) ''
         copyDTB bcm2709-rpi-2-b.dtb bcm2836-rpi-2-b.dtb
       ''
-      +
-        lib.optionalString
-          (lib.elem stdenv.hostPlatform.system [
-            "armv7l-linux"
-            "aarch64-linux"
-          ])
-          ''
-            copyDTB bcm2710-rpi-zero-2.dtb bcm2837-rpi-zero-2.dtb
-            copyDTB bcm2710-rpi-zero-2-w.dtb bcm2837-rpi-zero-2-w.dtb
-            copyDTB bcm2710-rpi-3-b.dtb bcm2837-rpi-3-b.dtb
-            copyDTB bcm2710-rpi-3-b-plus.dtb bcm2837-rpi-3-a-plus.dtb
-            copyDTB bcm2710-rpi-3-b-plus.dtb bcm2837-rpi-3-b-plus.dtb
-            copyDTB bcm2710-rpi-cm3.dtb bcm2837-rpi-cm3.dtb
-            copyDTB bcm2711-rpi-4-b.dtb bcm2838-rpi-4-b.dtb
-          '';
+      + lib.optionalString
+      (lib.elem stdenv.hostPlatform.system [
+        "armv7l-linux"
+        "aarch64-linux"
+      ])
+      ''
+        copyDTB bcm2710-rpi-zero-2.dtb bcm2837-rpi-zero-2.dtb
+        copyDTB bcm2710-rpi-zero-2-w.dtb bcm2837-rpi-zero-2-w.dtb
+        copyDTB bcm2710-rpi-3-b.dtb bcm2837-rpi-3-b.dtb
+        copyDTB bcm2710-rpi-3-b-plus.dtb bcm2837-rpi-3-a-plus.dtb
+        copyDTB bcm2710-rpi-3-b-plus.dtb bcm2837-rpi-3-b-plus.dtb
+        copyDTB bcm2710-rpi-cm3.dtb bcm2837-rpi-cm3.dtb
+        copyDTB bcm2711-rpi-4-b.dtb bcm2838-rpi-4-b.dtb
+      '';
   })

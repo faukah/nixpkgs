@@ -5,7 +5,6 @@
   pythonOlder,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "simplefix";
   version = "1.0.17";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-D85JW3JRQ1xErw6krMbAg94WYjPi76Xqjv/MGNMY5ZU=";
   };
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "simplefix" ];
+  pythonImportsCheck = ["simplefix"];
 
   unittestFlagsArray = [
     "-s"
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/da4089/simplefix";
     changelog = "https://github.com/da4089/simplefix/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ catern ];
+    maintainers = with maintainers; [catern];
   };
 }

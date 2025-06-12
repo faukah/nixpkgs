@@ -5,7 +5,6 @@
   textlint,
   textlint-rule-stop-words,
 }:
-
 buildNpmPackage rec {
   pname = "textlint-rule-stop-words";
   version = "5.0.0";
@@ -31,6 +30,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/sapegin/textlint-rule-stop-words";
     changelog = "https://github.com/sapegin/textlint-rule-stop-words/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

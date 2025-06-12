@@ -3,29 +3,27 @@
   callPackage,
   buildNpmPackage,
   imagemagick,
-}:
-
-let
-  common = callPackage ./common.nix { };
+}: let
+  common = callPackage ./common.nix {};
 in
-buildNpmPackage {
-  inherit (common) pname version src;
+  buildNpmPackage {
+    inherit (common) pname version src;
 
-  npmDepsHash = "sha256-vf8qEXMZ+TGqKjDN7LjUyOm98EQqweW6NKdJuNoMuVc=";
+    npmDepsHash = "sha256-vf8qEXMZ+TGqKjDN7LjUyOm98EQqweW6NKdJuNoMuVc=";
 
-  nativeBuildInputs = [ imagemagick ];
+    nativeBuildInputs = [imagemagick];
 
-  postInstall = ''
-    cp -r priv/static $out/static
-  '';
+    postInstall = ''
+      cp -r priv/static $out/static
+    '';
 
-  meta = with lib; {
-    description = "Frontend for the Mobilizon server";
-    homepage = "https://joinmobilizon.org/";
-    license = licenses.agpl3Plus;
-    maintainers = with maintainers; [
-      minijackson
-      erictapen
-    ];
-  };
-}
+    meta = with lib; {
+      description = "Frontend for the Mobilizon server";
+      homepage = "https://joinmobilizon.org/";
+      license = licenses.agpl3Plus;
+      maintainers = with maintainers; [
+        minijackson
+        erictapen
+      ];
+    };
+  }

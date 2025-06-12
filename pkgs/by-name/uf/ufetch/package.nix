@@ -6,7 +6,6 @@
   # see https://gitlab.com/jschx/ufetch for a list
   osName ? "nixos",
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ufetch";
   version = "0.4";
@@ -22,13 +21,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook preInstall
     mkdir -p $out/bin $out/share/licenses/ufetch
     ${
-      if !full then
-        "install -Dm755 ufetch-${osName} $out/bin/ufetch"
-      else
-        ''
-          install -Dm755 ufetch-* $out/bin
-          ln -s $out/bin/ufetch-${osName} $out/bin/ufetch
-        ''
+      if !full
+      then "install -Dm755 ufetch-${osName} $out/bin/ufetch"
+      else ''
+        install -Dm755 ufetch-* $out/bin
+        ln -s $out/bin/ufetch-${osName} $out/bin/ufetch
+      ''
     }
     install -Dm644 LICENSE $out/share/licenses/ufetch/LICENSE
     runHook postInstall
@@ -40,6 +38,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     mainProgram = "ufetch";
-    maintainers = with lib.maintainers; [ mrtnvgr ];
+    maintainers = with lib.maintainers; [mrtnvgr];
   };
 })

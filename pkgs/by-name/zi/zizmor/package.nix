@@ -7,7 +7,6 @@
   rustPlatform,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zizmor";
   version = "1.9.0";
@@ -33,12 +32,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --fish <("$out/bin/zizmor" --completions fish)
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doInstallCheck = true;
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version-regex=^v([0-9.]+\.[0-9.]+\.[0-9.])+$" ];
+    extraArgs = ["--version-regex=^v([0-9.]+\.[0-9.]+\.[0-9.])+$"];
   };
 
   meta = {
@@ -46,7 +45,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://docs.zizmor.sh/";
     changelog = "https://github.com/zizmorcore/zizmor/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lesuisse ];
+    maintainers = with lib.maintainers; [lesuisse];
     mainProgram = "zizmor";
   };
 })

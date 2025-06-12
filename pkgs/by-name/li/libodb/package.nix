@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-04Et/wHYsWvJPLlcL0J2iOPV2SBFC6J32EleGw38K2Q=";
   };
 
-  nativeBuildInputs = [ build2 ];
+  nativeBuildInputs = [build2];
   build2ConfigureFlags = [
     "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"
   ];
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.codesynthesis.com/products/odb/";
     changelog = "https://git.codesynthesis.com/cgit/odb/libodb/tree/NEWS";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
     platforms = platforms.all;
   };
 }

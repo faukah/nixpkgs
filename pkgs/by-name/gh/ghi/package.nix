@@ -6,7 +6,6 @@
   bundlerEnv,
   tree,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ghi";
   version = "1.2.1";
@@ -26,9 +25,9 @@ stdenv.mkDerivation (finalAttrs: {
     gemset = ./gemset.nix;
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ finalAttrs.env.wrappedRuby ];
+  buildInputs = [finalAttrs.env.wrappedRuby];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -41,6 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "ghi";
     homepage = "https://github.com/drazisil/ghi";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 })

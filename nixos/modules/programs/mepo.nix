@@ -3,11 +3,9 @@
   config,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.programs.mepo;
-in
-{
+in {
   options.programs.mepo = {
     enable = lib.mkEnableOption "Mepo, a fast, simple and hackable OSM map viewer";
 
@@ -30,8 +28,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages =
-      with pkgs;
+    environment.systemPackages = with pkgs;
       [
         mepo
       ]
@@ -49,5 +46,5 @@ in
     services.gpsd.enable = cfg.locationBackends.gpsd;
   };
 
-  meta.maintainers = with lib.maintainers; [ laalsaas ];
+  meta.maintainers = with lib.maintainers; [laalsaas];
 }

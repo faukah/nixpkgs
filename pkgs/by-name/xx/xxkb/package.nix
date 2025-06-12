@@ -14,7 +14,6 @@
   gdk-pixbuf,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xxkb";
   version = "1.11.1";
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "Keyboard layout indicator and switcher";
     homepage = "http://xxkb.sourceforge.net/";
     license = licenses.artistic2;
-    maintainers = with maintainers; [ rasendubi ];
+    maintainers = with maintainers; [rasendubi];
     platforms = platforms.linux;
     mainProgram = "xxkb";
   };

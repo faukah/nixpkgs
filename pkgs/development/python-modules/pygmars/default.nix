@@ -6,7 +6,6 @@
   setuptools-scm,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pygmars";
   version = "0.9.0";
@@ -23,17 +22,17 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pygmars" ];
+  pythonImportsCheck = ["pygmars"];
 
   meta = with lib; {
     description = "Python lexing and parsing library";
     homepage = "https://github.com/nexB/pygmars";
     changelog = "https://github.com/aboutcode-org/pygmars/blob/v${version}/CHANGELOG.rst";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

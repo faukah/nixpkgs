@@ -1,9 +1,7 @@
 {
   python3,
   fetchFromGitHub,
-}:
-
-let
+}: let
   python = python3.override {
     self = python;
     packageOverrides = self: super: {
@@ -35,10 +33,10 @@ let
           "tests/integration"
         ];
 
-        pythonImportsCheck = [ "msgraph.core" ];
+        pythonImportsCheck = ["msgraph.core"];
       });
     };
   };
 in
-with python.pkgs;
-toPythonApplication parsedmarc
+  with python.pkgs;
+    toPythonApplication parsedmarc

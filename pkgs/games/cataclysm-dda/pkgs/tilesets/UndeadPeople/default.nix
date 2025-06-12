@@ -3,7 +3,6 @@
   buildTileSet,
   fetchFromGitHub,
 }:
-
 buildTileSet {
   modName = "UndeadPeople";
   version = "2020-07-08";
@@ -21,7 +20,7 @@ buildTileSet {
     description = "Cataclysm DDA tileset based on MSX++ tileset";
     homepage = "https://github.com/jmz-b/UndeadPeopleTileset";
     license = licenses.unfree;
-    maintainers = with maintainers; [ mnacamura ];
+    maintainers = with maintainers; [mnacamura];
     platforms = platforms.all;
   };
 }

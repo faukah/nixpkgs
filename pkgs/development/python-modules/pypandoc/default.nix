@@ -9,7 +9,6 @@
   replaceVars,
   texliveSmall,
 }:
-
 buildPythonPackage rec {
   pname = "pypandoc";
   version = "1.13";
@@ -32,14 +31,14 @@ buildPythonPackage rec {
     ./skip-tests.patch
   ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     texliveSmall
     pandocfilters
   ];
 
-  pythonImportsCheck = [ "pypandoc" ];
+  pythonImportsCheck = ["pypandoc"];
 
   meta = with lib; {
     description = "Thin wrapper for pandoc";

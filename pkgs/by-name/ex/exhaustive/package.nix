@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "exhaustive";
   version = "0.12.0";
@@ -24,7 +23,7 @@ buildGoModule rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -32,6 +31,6 @@ buildGoModule rec {
     mainProgram = "exhaustive";
     homepage = "https://github.com/nishanths/exhaustive";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ meain ];
+    maintainers = with maintainers; [meain];
   };
 }

@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aiosonos";
   version = "0.1.9";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
       --replace-fail 'version = "0.0.0"' 'version = "${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     description = "Async python library to communicate with Sonos devices ";
     homepage = "https://github.com/music-assistant/aiosonos";
     changelog = "https://github.com/music-assistant/aiosonos/releases/tag/${version}";
-    license = [ lib.licenses.asl20 ];
-    maintainers = [ lib.maintainers.autrimpo ];
+    license = [lib.licenses.asl20];
+    maintainers = [lib.maintainers.autrimpo];
   };
 }

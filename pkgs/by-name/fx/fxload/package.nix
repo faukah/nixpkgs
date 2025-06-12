@@ -3,7 +3,6 @@
   stdenv,
   libusb1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fxload";
   version = libusb1.version;
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     ln -s ${passthru.libusb}/examples/bin/fxload $out/bin/fxload
   '';
 
-  passthru.libusb = libusb1.override { withExamples = true; };
+  passthru.libusb = libusb1.override {withExamples = true;};
 
   meta = with lib; {
     homepage = "https://github.com/libusb/libusb";
@@ -28,6 +27,6 @@ stdenv.mkDerivation rec {
     mainProgram = "fxload";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ realsnick ];
+    maintainers = with maintainers; [realsnick];
   };
 }

@@ -12,7 +12,6 @@
   pythonOlder,
   tornado,
 }:
-
 buildPythonPackage rec {
   pname = "apispec-webframeworks";
   version = "1.2.0";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-V4tdqcHfYRh9VoXUTPXM3SIOogJDJB14SLj5dSd7LzU=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [ apispec ] ++ apispec.optional-dependencies.yaml;
+  dependencies = [apispec] ++ apispec.optional-dependencies.yaml;
 
   nativeCheckInputs = [
     aiohttp
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     tornado
   ];
 
-  pythonImportsCheck = [ "apispec_webframeworks" ];
+  pythonImportsCheck = ["apispec_webframeworks"];
 
   meta = with lib; {
     description = "Web framework plugins for apispec";
     homepage = "https://github.com/marshmallow-code/apispec-webframeworks";
     changelog = "https://github.com/marshmallow-code/apispec-webframeworks/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -18,7 +18,6 @@
   libadwaita,
   aria2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gabutdm";
   version = "2.6.0";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : ${lib.makeBinPath [ aria2 ]}
+      --prefix PATH : ${lib.makeBinPath [aria2]}
     )
   '';
 
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/gabutakut/gabutdm";
     license = licenses.lgpl21Plus;
     mainProgram = "com.github.gabutakut.gabutdm";
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.unix;
   };
 }

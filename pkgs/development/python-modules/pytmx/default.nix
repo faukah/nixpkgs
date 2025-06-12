@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage {
   pname = "pytmx";
   version = "3.32";
@@ -44,7 +43,7 @@ buildPythonPackage {
     "pytmx.util_pysdl2"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # AssertionError on the property name
@@ -55,6 +54,6 @@ buildPythonPackage {
     homepage = "https://github.com/bitcraft/PyTMX";
     description = "Python library to read Tiled Map Editor's TMX maps";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

@@ -12,7 +12,6 @@
   pytestCheckHook,
   llm-cmd,
 }:
-
 buildPythonPackage rec {
   pname = "llm-cmd";
   version = "0.2a0";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
   };
 
   # Only needed until https://github.com/simonw/llm-cmd/pull/18 is merged and released
-  patches = [ ./fix-test.patch ];
+  patches = [./fix-test.patch];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     llm

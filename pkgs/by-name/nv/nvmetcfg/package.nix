@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nvmetcfg";
   version = "0.1.0";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     description = "NVMe-oF Target Configuration Utility for Linux";
     homepage = "https://github.com/vifino/nvmetcfg";
     license = licenses.isc;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     mainProgram = "nvmetcfg";
     platforms = platforms.linux;
   };

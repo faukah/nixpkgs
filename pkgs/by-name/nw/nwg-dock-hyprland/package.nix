@@ -7,7 +7,6 @@
   gobject-introspection,
   gtk-layer-shell,
 }:
-
 buildGoModule rec {
   pname = "nwg-dock-hyprland";
   version = "0.4.6";
@@ -32,7 +31,7 @@ buildGoModule rec {
     wrapGAppsHook3
   ];
 
-  buildInputs = [ gtk-layer-shell ];
+  buildInputs = [gtk-layer-shell];
 
   postInstall = ''
     install -d $out/share/nwg-dock-hyprland
@@ -46,6 +45,6 @@ buildGoModule rec {
     homepage = "https://github.com/nwg-piotr/nwg-dock-hyprland";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
   };
 }

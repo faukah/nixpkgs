@@ -7,7 +7,6 @@
   kmod,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "usbip-ssh";
   version = "0-unstable-2024-10-09";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/turistu/usbip-ssh";
     description = "Import usb devices from another linux machine with ssh's connection forwarding mechanism";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ kagehisa ];
+    maintainers = with lib.maintainers; [kagehisa];
     mainProgram = "usbip-ssh";
     platforms = lib.platforms.linux;
   };

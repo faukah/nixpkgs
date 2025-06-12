@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "tensorman";
   version = "0.1.0-unstable-2024-06-24";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage {
     description = "Utility for easy management of Tensorflow containers";
     homepage = "https://github.com/pop-os/tensorman";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ thefenriswolf ];
+    maintainers = with maintainers; [thefenriswolf];
     mainProgram = "tensorman";
   };
 }

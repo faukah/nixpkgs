@@ -14,9 +14,7 @@
   libXinerama,
   imlib2,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "fluxbox";
   version = "1.3.7";
 
@@ -34,7 +32,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     freetype
@@ -67,8 +65,9 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://fluxbox.org/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }
 # Many thanks Jack Ryan from Nix-dev mailing list!
+

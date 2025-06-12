@@ -3,14 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.gamemode;
-  settingsFormat = pkgs.formats.ini { listsAsDuplicateKeys = true; };
+  settingsFormat = pkgs.formats.ini {listsAsDuplicateKeys = true;};
   configFile = settingsFormat.generate "gamemode.ini" cfg.settings;
-in
-{
+in {
   options = {
     programs.gamemode = {
       enable = lib.mkEnableOption "GameMode to optimise system performance on demand";
@@ -23,7 +20,7 @@ in
 
       settings = lib.mkOption {
         type = settingsFormat.type;
-        default = { };
+        default = {};
         description = ''
           System-wide configuration for GameMode (/etc/gamemode.ini).
           See {manpage}`gamemoded(8)` man page for available settings.
@@ -53,7 +50,7 @@ in
 
   config = lib.mkIf cfg.enable {
     environment = {
-      systemPackages = [ pkgs.gamemode ];
+      systemPackages = [pkgs.gamemode];
       etc."gamemode.ini".source = configFile;
     };
 
@@ -70,11 +67,11 @@ in
     };
 
     systemd = {
-      packages = [ pkgs.gamemode ];
+      packages = [pkgs.gamemode];
       user.services.gamemoded = {
         # The upstream service already defines this, but doesn't get applied.
         # See https://github.com/NixOS/nixpkgs/issues/81138
-        wantedBy = [ "default.target" ];
+        wantedBy = ["default.target"];
 
         # Use pkexec from the security wrappers to allow users to
         # run libexec/cpugovctl & libexec/gpuclockctl as root with
@@ -98,10 +95,10 @@ in
       };
     };
 
-    users.groups.gamemode = { };
+    users.groups.gamemode = {};
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ kira-bruneau ];
+    maintainers = with lib.maintainers; [kira-bruneau];
   };
 }

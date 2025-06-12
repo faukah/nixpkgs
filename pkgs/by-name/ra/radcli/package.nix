@@ -10,7 +10,6 @@
   nettle,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "radcli";
   version = "1.4.0";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/radcli/radcli";
     changelog = "https://github.com/radcli/radcli/blob/${version}/NEWS";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "radcli";
     platforms = lib.platforms.all;
   };

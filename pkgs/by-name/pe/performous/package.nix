@@ -22,7 +22,6 @@
   pkg-config,
   portaudio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "performous";
   version = "1.3.1";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "performous-ffmpeg.patch";
       url = "https://github.com/performous/performous/commit/f26c27bf74b85fa3e3b150682ab9ecf9aecb3c50.patch";
-      excludes = [ ".github/workflows/macos.yml" ];
+      excludes = [".github/workflows/macos.yml"];
       hash = "sha256-cQVelET/g2Kx2PlV3pspjEoNIwwn5Yz6enYl5vCMMKo=";
     })
     (fetchpatch {
@@ -94,7 +93,7 @@ stdenv.mkDerivation rec {
     mainProgram = "performous";
     homepage = "https://performous.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.linux;
   };
 }

@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "saml2aws";
   version = "2.36.19";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-oCYtEMx3+wK1TyS18iYgRwH3NopWY63xsguvanNDSEo=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   subPackages = [
     "."
@@ -41,6 +40,6 @@ buildGoModule rec {
     mainProgram = "saml2aws";
     homepage = "https://github.com/Versent/saml2aws";
     license = licenses.mit;
-    maintainers = [ lib.maintainers.pmyjavec ];
+    maintainers = [lib.maintainers.pmyjavec];
   };
 }

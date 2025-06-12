@@ -6,7 +6,6 @@
   stdenv,
   python3,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "tere";
   version = "1.6.0";
@@ -35,33 +34,31 @@ rustPlatform.buildRustPackage {
 
   # NOTE: workaround for build fail on aarch64
   # See https://github.com/NixOS/nixpkgs/issues/145726#issuecomment-971331986
-  preBuild =
-    let
-      python-with-toml = python3.withPackages (ps: [ ps.toml ]);
-      script = builtins.toFile "clear_linkers.py" ''
-        from os import path
-        import toml
+  preBuild = let
+    python-with-toml = python3.withPackages (ps: [ps.toml]);
+    script = builtins.toFile "clear_linkers.py" ''
+      from os import path
+      import toml
 
-        if path.exists(".cargo/config.toml"):
-          config = toml.load(open(".cargo/config.toml"))
+      if path.exists(".cargo/config.toml"):
+        config = toml.load(open(".cargo/config.toml"))
 
-          for target in config.get("target",{}).values():
-            if "linker" in target:
-              del target["linker"]
+        for target in config.get("target",{}).values():
+          if "linker" in target:
+            del target["linker"]
 
-          toml.dump(config,open(".cargo/config.toml", "w"))
-        else:
-          print(__file__, ":  CONFIG.TOML EXPECTED")
-          exit(1)
-      '';
-    in
-    "${python-with-toml}/bin/python3 ${script}";
+        toml.dump(config,open(".cargo/config.toml", "w"))
+      else:
+        print(__file__, ":  CONFIG.TOML EXPECTED")
+        exit(1)
+    '';
+  in "${python-with-toml}/bin/python3 ${script}";
 
   meta = with lib; {
     description = "Faster alternative to cd + ls";
     homepage = "https://github.com/mgunyho/tere";
     license = licenses.eupl12;
-    maintainers = with maintainers; [ ProducerMatt ];
+    maintainers = with maintainers; [ProducerMatt];
     mainProgram = "tere";
   };
 }

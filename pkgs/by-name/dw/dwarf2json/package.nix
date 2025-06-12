@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule {
   pname = "dwarf2json";
   version = "unstable-2021-04-15";
@@ -21,7 +20,7 @@ buildGoModule {
     homepage = "https://github.com/volatilityfoundation/dwarf2json";
     description = "Convert ELF/DWARF symbol and type information into vol3's intermediate JSON";
     license = licenses.vol-sl;
-    maintainers = with maintainers; [ arkivm ];
+    maintainers = with maintainers; [arkivm];
     mainProgram = "dwarf2json";
   };
 }

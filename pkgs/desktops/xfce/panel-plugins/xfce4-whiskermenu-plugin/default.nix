@@ -19,7 +19,6 @@
   xfconf,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-whiskermenu-plugin";
   version = "2.10.0";
@@ -55,14 +54,14 @@ stdenv.mkDerivation (finalAttrs: {
     xfconf
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "xfce4-whiskermenu-plugin-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "xfce4-whiskermenu-plugin-";};
 
   meta = {
     description = "Alternate application launcher for Xfce";
     mainProgram = "xfce4-popup-whiskermenu";
     homepage = "https://gitlab.xfce.org/panel-plugins/xfce4-whiskermenu-plugin";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

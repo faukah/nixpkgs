@@ -3,16 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.xwayland;
-
-in
-
-{
+in {
   options.programs.xwayland = {
-
     enable = lib.mkEnableOption "Xwayland (an X server for interfacing X11 apps with the Wayland protocol)";
 
     defaultFontPath = lib.mkOption {
@@ -38,15 +32,12 @@ in
       '';
       description = "The Xwayland package to use.";
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     # Needed by some applications for fonts and default settings
-    environment.pathsToLink = [ "/share/X11" ];
+    environment.pathsToLink = ["/share/X11"];
 
-    environment.systemPackages = [ cfg.package ];
-
+    environment.systemPackages = [cfg.package];
   };
 }

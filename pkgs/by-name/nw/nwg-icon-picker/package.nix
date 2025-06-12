@@ -49,6 +49,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/nwg-piotr/nwg-icon-picker";
     license = lib.licenses.mit;
     mainProgram = "nwg-icon-picker";
-    maintainers = with lib.maintainers; [ quantenzitrone ];
+    maintainers = with lib.maintainers; [quantenzitrone];
   };
 }

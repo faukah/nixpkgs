@@ -4,19 +4,15 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   setuptools-scm,
-
   # dependencies
   exceptiongroup,
   idna,
   sniffio,
   typing-extensions,
-
   # optionals
   trio,
-
   # tests
   blockbuster,
   hypothesis,
@@ -26,11 +22,9 @@
   pytestCheckHook,
   trustme,
   uvloop,
-
   # smoke tests
   starlette,
 }:
-
 buildPythonPackage rec {
   pname = "anyio";
   version = "4.9.0";
@@ -45,7 +39,7 @@ buildPythonPackage rec {
     hash = "sha256-kISaBHDkMOYYU9sdiQAXiq3jp1ehWOYFpvFbuceBWB0=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies =
     [
@@ -60,20 +54,22 @@ buildPythonPackage rec {
     ];
 
   optional-dependencies = {
-    trio = [ trio ];
+    trio = [trio];
   };
 
-  nativeCheckInputs = [
-    blockbuster
-    exceptiongroup
-    hypothesis
-    psutil
-    pytest-mock
-    pytest-xdist
-    pytestCheckHook
-    trustme
-    uvloop
-  ] ++ optional-dependencies.trio;
+  nativeCheckInputs =
+    [
+      blockbuster
+      exceptiongroup
+      hypothesis
+      psutil
+      pytest-mock
+      pytest-xdist
+      pytestCheckHook
+      trustme
+      uvloop
+    ]
+    ++ optional-dependencies.trio;
 
   pytestFlagsArray = [
     "-W"
@@ -118,7 +114,7 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "anyio" ];
+  pythonImportsCheck = ["anyio"];
 
   passthru.tests = {
     inherit starlette;
@@ -129,6 +125,6 @@ buildPythonPackage rec {
     description = "High level compatibility layer for multiple asynchronous event loop implementations on Python";
     homepage = "https://github.com/agronholm/anyio";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

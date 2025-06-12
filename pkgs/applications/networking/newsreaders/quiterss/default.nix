@@ -10,7 +10,6 @@
   qtwebkit,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "quiterss";
   version = "0.19.4";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/QuiteRSS/quiterss/blob/${version}/CHANGELOG";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ primeos ];
+    maintainers = with lib.maintainers; [primeos];
   };
 }

@@ -9,7 +9,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 swift.stdenv.mkDerivation rec {
   pname = "swiftformat";
   version = "0.56.3";
@@ -36,7 +35,7 @@ swift.stdenv.mkDerivation rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

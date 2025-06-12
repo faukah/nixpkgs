@@ -14,7 +14,6 @@
   gtk3,
   hicolor-icon-theme,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "diffuse";
   version = "0.10.0";
@@ -75,7 +74,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Graphical tool for merging and comparing text files";
     mainProgram = "diffuse";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ k3a ];
+    maintainers = with maintainers; [k3a];
     platforms = platforms.unix;
   };
 }

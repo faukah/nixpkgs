@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "pure-splitmix";
   version = "0.3";
@@ -21,6 +20,6 @@ buildDunePackage rec {
     homepage = "https://github.com/Lysxia/pure-splitmix";
     description = "Purely functional splittable PRNG";
     license = licenses.mit;
-    maintainers = [ maintainers.ulrikstrid ];
+    maintainers = [maintainers.ulrikstrid];
   };
 }

@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ToBinio/cargo-features-manager";
     changelog = "https://github.com/ToBinio/cargo-features-manager/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ luftmensch-luftmensch ];
+    maintainers = with lib.maintainers; [luftmensch-luftmensch];
     mainProgram = "cargo-features-manager";
   };
 }

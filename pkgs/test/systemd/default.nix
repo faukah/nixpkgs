@@ -1,5 +1,7 @@
-{ lib, callPackage }:
-
+{
+  lib,
+  callPackage,
+}:
 lib.recurseIntoAttrs {
-  nixos = callPackage ./nixos { };
+  nixos = callPackage ./nixos {};
 }

@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "inori";
   version = "0.2.5";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-AvYNeWyitoi9hDqiy5hl/VM4LO8J2xmLgl0y8P4xYNA=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Client for the Music Player Daemon (MPD)";

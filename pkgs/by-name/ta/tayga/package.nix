@@ -4,7 +4,6 @@
   fetchurl,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "0.9.2";
   pname = "tayga";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "http://www.litech.org/tayga";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ _0x4A6F ];
+    maintainers = with maintainers; [_0x4A6F];
     platforms = platforms.linux;
     mainProgram = "tayga";
   };

@@ -4,7 +4,6 @@
   fetchurl,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "log4cplus";
   version = "2.1.2";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-JFDfu0qzXdLJ5k2MdQxRS/cpO4HY8yr3qxJEF/cK360=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   enableParallelBuilding = true;
 

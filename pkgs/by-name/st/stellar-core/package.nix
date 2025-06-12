@@ -14,7 +14,6 @@
   ripgrep,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stellar-core";
   version = "19.14.0";
@@ -88,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
       instances of stellar-core on the network. Optionally, stellar-core can
       store historical records of the ledger and participate in consensus.
     '';
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
     mainProgram = "stellar-core";
   };

@@ -7,7 +7,6 @@
   polkit,
   glib,
 }:
-
 mkDerivation rec {
   pname = "polkit-qt-1";
   version = "0.114.0";
@@ -29,7 +28,7 @@ mkDerivation rec {
 
   meta = {
     description = "Qt wrapper around PolKit";
-    maintainers = with lib.maintainers; [ ttuegel ];
+    maintainers = with lib.maintainers; [ttuegel];
     platforms = lib.platforms.linux;
   };
 }

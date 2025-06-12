@@ -5,7 +5,6 @@
   testers,
   ginkgo,
 }:
-
 buildGoModule rec {
   pname = "ginkgo";
   version = "2.23.4";

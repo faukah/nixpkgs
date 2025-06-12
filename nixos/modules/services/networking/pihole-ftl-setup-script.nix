@@ -3,20 +3,16 @@
   config,
   lib,
   pkgs,
-}:
-
-let
+}: let
   pihole = pkgs.pihole;
-  makePayload =
-    list:
+  makePayload = list:
     builtins.toJSON {
       inherit (list) type enabled;
       address = list.url;
       comment = list.description;
     };
   payloads = map makePayload cfg.lists;
-in
-''
+in ''
   # Can't use -u (unset) because api.sh uses API_URL before it is set
   set -eo pipefail
   pihole="${lib.getExe pihole}"
@@ -69,11 +65,12 @@ in
   ${builtins.concatStringsSep "\n" (
     map (
       payload:
-      lib.pipe payload [
-        lib.strings.escapeShellArg
-        (payload: "addList ${payload}")
-      ]
-    ) payloads
+        lib.pipe payload [
+          lib.strings.escapeShellArg
+          (payload: "addList ${payload}")
+        ]
+    )
+    payloads
   )}
 
   # Run gravity.sh to load any new lists

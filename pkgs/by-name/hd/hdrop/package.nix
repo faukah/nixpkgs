@@ -12,7 +12,6 @@
   util-linux,
   withHyprland ? true,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "hdrop";
   version = "0.7.7";
@@ -29,22 +28,22 @@ stdenvNoCC.mkDerivation rec {
     scdoc
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     wrapProgram $out/bin/hdrop --prefix PATH ':' \
       "${
-        lib.makeBinPath (
-          [
-            coreutils
-            util-linux
-            jq
-            libnotify
-            gawk
-          ]
-          ++ lib.optional withHyprland hyprland
-        )
-      }"
+      lib.makeBinPath (
+        [
+          coreutils
+          util-linux
+          jq
+          libnotify
+          gawk
+        ]
+        ++ lib.optional withHyprland hyprland
+      )
+    }"
   '';
 
   meta = {
@@ -53,7 +52,7 @@ stdenvNoCC.mkDerivation rec {
     changelog = "https://github.com/Schweber/hdrop/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ Schweber ];
+    maintainers = with lib.maintainers; [Schweber];
     mainProgram = "hdrop";
   };
 }

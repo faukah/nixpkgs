@@ -31,8 +31,8 @@ stdenvNoCC.mkDerivation rec {
     changelog = "https://github.com/PowerShell/PowerShellEditorServices/releases/tag/v${version}";
     platforms = lib.platforms.unix;
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sharpchen ];
+    maintainers = with lib.maintainers; [sharpchen];
     mainProgram = "powershell-editor-services";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
   };
 }

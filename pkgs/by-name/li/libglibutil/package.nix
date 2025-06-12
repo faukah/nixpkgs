@@ -5,7 +5,6 @@
   pkg-config,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libglibutil";
   version = "1.0.80";
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
     homepage = "https://git.sailfishos.org/mer-core/libglibutil";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-9/shOxoKwJ4uDTHmvXqhemgy3W+GUCmoqFm5e1t3W0M=";
   };
 
-  buildInputs = [ mitschemeX11 ];
+  buildInputs = [mitschemeX11];
 
   configurePhase = ''
     runHook preConfigure
@@ -63,6 +63,6 @@ stdenv.mkDerivation (finalAttrs: {
 
     homepage = "https://groups.csail.mit.edu/mac/users/gjs/6.5160/installation.html";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.fbeffa ];
+    maintainers = [lib.maintainers.fbeffa];
   };
 })

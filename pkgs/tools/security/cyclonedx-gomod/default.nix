@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cyclonedx-gomod";
   version = "1.9.0";
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/CycloneDX/cyclonedx-gomod";
     changelog = "https://github.com/CycloneDX/cyclonedx-gomod/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "cyclonedx-gomod";
   };
 }

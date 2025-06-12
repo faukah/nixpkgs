@@ -14,7 +14,6 @@
   qtdeclarative,
   qtlocation,
 }:
-
 stdenv.mkDerivation rec {
   pname = "krunner-translator";
   version = "1.5.0";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "Plugin for KRunner which integrates a translator, supports Google Translate, Bing Translator, youdao and Baidu Fanyi";
     homepage = "https://github.com/naraesk/krunner-translator";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ pongo1231 ];
+    maintainers = with maintainers; [pongo1231];
     platforms = platforms.unix;
   };
 }

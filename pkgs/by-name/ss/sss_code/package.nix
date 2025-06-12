@@ -8,7 +8,6 @@
   libxcb,
   lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sss_code";
   version = "0.2.0";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     "sss_code"
   ];
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.buildPlatform.isDarwin [ libiconv ];
+  nativeBuildInputs = [pkg-config] ++ lib.optionals stdenv.buildPlatform.isDarwin [libiconv];
 
   buildInputs = [
     fontconfig
@@ -46,6 +45,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ krovuxdev ];
+    maintainers = with maintainers; [krovuxdev];
   };
 }

@@ -10,7 +10,6 @@
   libmad,
   libid3tag,
 }:
-
 stdenv.mkDerivation rec {
   pname = "audiowaveform";
   version = "1.10.2";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/bbc/audiowaveform/blob/${version}/ChangeLog";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ edbentley ];
+    maintainers = with lib.maintainers; [edbentley];
     mainProgram = "audiowaveform";
   };
 }

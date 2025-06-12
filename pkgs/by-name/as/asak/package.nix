@@ -7,7 +7,6 @@
   alsa-lib,
   libjack2,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "asak";
   version = "0.3.5";
@@ -47,7 +46,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/chaosprint/asak/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = "asak";
-    maintainers = with lib.maintainers; [ anas ];
+    maintainers = with lib.maintainers; [anas];
     platforms = with lib.platforms; unix ++ windows;
   };
 }

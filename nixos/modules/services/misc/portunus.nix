@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.portunus;
-
-in
-{
+in {
   options.services.portunus = {
     enable = lib.mkEnableOption "Portunus, a self-contained user/group management and authentication service for LDAP";
 
@@ -28,7 +25,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "portunus" { };
+    package = lib.mkPackageOption pkgs "portunus" {};
 
     seedPath = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
@@ -90,7 +87,7 @@ in
             };
           }
         );
-        default = [ ];
+        default = [];
         example = [
           {
             callbackURL = "https://example.com/client/oidc/callback";
@@ -178,12 +175,12 @@ in
     ];
 
     # add ldapsearch(1) etc. to interactive shells
-    environment.systemPackages = [ cfg.ldap.package ];
+    environment.systemPackages = [cfg.ldap.package];
 
     # allow connecting via ldaps /w certificate without opening ports
     networking.hosts = lib.mkIf cfg.ldap.tls {
-      "::1" = [ cfg.domain ];
-      "127.0.0.1" = [ cfg.domain ];
+      "::1" = [cfg.domain];
+      "127.0.0.1" = [cfg.domain];
     };
 
     services = {
@@ -232,7 +229,7 @@ in
 
           staticClients = lib.forEach cfg.dex.oidcClients (client: {
             inherit (client) id;
-            redirectURIs = [ client.callbackURL ];
+            redirectURIs = [client.callbackURL];
             name = "OIDC for ${client.id}";
             secretEnv = "DEX_CLIENT_${client.id}";
           });
@@ -257,8 +254,8 @@ in
 
       portunus = {
         description = "Self-contained authentication service";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         serviceConfig = {
           ExecStart = "${cfg.package}/bin/portunus-orchestrator";
           Restart = "on-failure";
@@ -276,14 +273,13 @@ in
             PORTUNUS_SLAPD_USER = cfg.ldap.user;
             PORTUNUS_SLAPD_SCHEMA_DIR = "${cfg.ldap.package}/etc/schema";
           }
-          // (lib.optionalAttrs (cfg.seedPath != null) ({
+          // (lib.optionalAttrs (cfg.seedPath != null) {
             PORTUNUS_SEED_PATH = cfg.seedPath;
-          }))
+          })
           // (lib.optionalAttrs cfg.ldap.tls (
             let
               acmeDirectory = config.security.acme.certs."${cfg.domain}".directory;
-            in
-            {
+            in {
               PORTUNUS_SERVER_HTTP_SECURE = "true";
               PORTUNUS_SLAPD_TLS_CA_CERTIFICATE = config.security.pki.caBundle;
               PORTUNUS_SLAPD_TLS_CERTIFICATE = "${acmeDirectory}/cert.pem";
@@ -311,13 +307,13 @@ in
 
     users.groups = lib.mkMerge [
       (lib.mkIf (cfg.ldap.user == "openldap") {
-        openldap = { };
+        openldap = {};
       })
       (lib.mkIf (cfg.user == "portunus") {
-        portunus = { };
+        portunus = {};
       })
     ];
   };
 
-  meta.maintainers = [ lib.maintainers.majewsky ] ++ lib.teams.c3d2.members;
+  meta.maintainers = [lib.maintainers.majewsky] ++ lib.teams.c3d2.members;
 }

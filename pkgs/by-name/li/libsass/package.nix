@@ -4,13 +4,11 @@
   fetchFromGitHub,
   autoreconfHook,
   testers,
-
   # for passthru.tests
   gtk3,
   gtk4,
   sassc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libsass";
   version = "3.6.6"; # also check sassc for updates
@@ -31,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     export LIBSASS_VERSION=${finalAttrs.version}
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   enableParallelBuilding = true;
 
@@ -48,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
       codyopel
       offline
     ];
-    pkgConfigModules = [ "libsass" ];
+    pkgConfigModules = ["libsass"];
     platforms = platforms.unix;
   };
 })

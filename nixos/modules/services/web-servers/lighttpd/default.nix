@@ -1,16 +1,11 @@
 # NixOS module for lighttpd web server
-
 {
   config,
   lib,
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.lighttpd;
 
   # List of known lighttpd modules, ordered by how the lighttpd documentation
@@ -68,15 +63,15 @@ let
     "mod_wstunnel" # since v1.4.46
   ];
 
-  maybeModuleString =
-    moduleName: optionalString (elem moduleName cfg.enableModules) ''"${moduleName}"'';
+  maybeModuleString = moduleName: optionalString (elem moduleName cfg.enableModules) ''"${moduleName}"'';
 
   modulesIncludeString = concatStringsSep ",\n" (
     filter (x: x != "") (map maybeModuleString allKnownModules)
   );
 
   configFile =
-    if cfg.configText != "" then
+    if cfg.configText != ""
+    then
       pkgs.writeText "lighttpd.conf" ''
         ${cfg.configText}
       ''
@@ -125,15 +120,9 @@ let
 
         ${cfg.extraConfig}
       '';
-
-in
-
-{
-
+in {
   options = {
-
     services.lighttpd = {
-
       enable = mkOption {
         default = false;
         type = types.bool;
@@ -142,7 +131,7 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs "lighttpd" { };
+      package = mkPackageOption pkgs "lighttpd" {};
 
       port = mkOption {
         default = 80;
@@ -171,7 +160,7 @@ in
 
       enableModules = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "mod_cgi"
           "mod_status"
@@ -224,13 +213,10 @@ in
           {option}`configText` option is used.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
-
     assertions = [
       {
         assertion = all (x: elem x allKnownModules) cfg.enableModules;
@@ -246,16 +232,16 @@ in
     ];
 
     services.lighttpd.enableModules = mkMerge [
-      (mkIf cfg.mod_status [ "mod_status" ])
-      (mkIf cfg.mod_userdir [ "mod_userdir" ])
+      (mkIf cfg.mod_status ["mod_status"])
+      (mkIf cfg.mod_userdir ["mod_userdir"])
       # always load mod_accesslog so that we can log to the journal
-      [ "mod_accesslog" ]
+      ["mod_accesslog"]
     ];
 
     systemd.services.lighttpd = {
       description = "Lighttpd Web Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig.ExecStart = "${cfg.package}/sbin/lighttpd -D -f ${configFile}";
       serviceConfig.ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR1 $MAINPID";
       # SIGINT => graceful shutdown

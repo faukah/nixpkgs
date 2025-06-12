@@ -4,7 +4,6 @@
   fetchFromGitHub,
   uglify-js,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "zerobin";
   version = "1.0.5";
@@ -57,13 +56,13 @@ python3Packages.buildPythonApplication rec {
   # See https://github.com/NixOS/nixpkgs/pull/98734#discussion_r495823510
   doCheck = false;
 
-  pythonImportsCheck = [ "zerobin" ];
+  pythonImportsCheck = ["zerobin"];
 
   meta = with lib; {
     description = "Client side encrypted pastebin";
     homepage = "https://0bin.net/";
     license = licenses.wtfpl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ julm ];
+    maintainers = with maintainers; [julm];
   };
 }

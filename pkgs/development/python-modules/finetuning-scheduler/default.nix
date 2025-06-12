@@ -4,20 +4,16 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-
   # build-system
   setuptools,
-
   # dependencies
   pytorch-lightning,
   torch,
-
   # tests
   pythonOlder,
   pythonAtLeast,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "finetuning-scheduler";
   version = "2.5.1";
@@ -42,7 +38,7 @@ buildPythonPackage rec {
       --replace-fail "setuptools<77.0.0" "setuptools"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "pytorch-lightning"
@@ -56,8 +52,8 @@ buildPythonPackage rec {
   # needed while lightning is installed as package `pytorch-lightning` rather than`lightning`:
   env.PACKAGE_NAME = "pytorch";
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pytestFlagsArray = [ "tests" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pytestFlagsArray = ["tests"];
   disabledTests =
     lib.optionals (pythonOlder "3.12") [
       # torch._dynamo.exc.BackendCompilerFailed: backend='inductor' raised:
@@ -76,7 +72,7 @@ buildPythonPackage rec {
       "test_fts_frozen_bn_track_running_stats"
     ];
 
-  pythonImportsCheck = [ "finetuning_scheduler" ];
+  pythonImportsCheck = ["finetuning_scheduler"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -85,6 +81,6 @@ buildPythonPackage rec {
     homepage = "https://finetuning-scheduler.readthedocs.io";
     changelog = "https://github.com/speediedan/finetuning-scheduler/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

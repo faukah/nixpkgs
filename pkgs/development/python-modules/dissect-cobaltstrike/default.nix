@@ -16,7 +16,6 @@
   pythonOlder,
   rich,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-cobaltstrike";
   version = "1.2.1";
@@ -65,18 +64,20 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [
-    pytest-httpserver
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-httpserver
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "dissect.cobaltstrike" ];
+  pythonImportsCheck = ["dissect.cobaltstrike"];
 
   meta = with lib; {
     description = "Dissect module implementing a parser for Cobalt Strike related data";
     homepage = "https://github.com/fox-it/dissect.cobaltstrike";
     changelog = "https://github.com/fox-it/dissect.cobaltstrike/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

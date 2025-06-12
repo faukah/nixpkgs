@@ -6,22 +6,21 @@
   gnugrep,
   libinput,
 }:
-
 bundlerApp {
   pname = "fusuma";
   gemdir = ./.;
-  exes = [ "fusuma" ];
+  exes = ["fusuma"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     wrapProgram "$out/bin/fusuma" \
       --prefix PATH : ${
-        lib.makeBinPath [
-          gnugrep
-          libinput
-        ]
-      }
+      lib.makeBinPath [
+        gnugrep
+        libinput
+      ]
+    }
   '';
 
   passthru.updateScript = bundlerUpdateScript "fusuma";

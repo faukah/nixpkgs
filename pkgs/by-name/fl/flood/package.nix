@@ -6,7 +6,6 @@
   pnpm_9,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "flood";
   version = "4.9.3";
@@ -29,7 +28,7 @@ buildNpmPackage rec {
     tests = {
       inherit (nixosTests) flood;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

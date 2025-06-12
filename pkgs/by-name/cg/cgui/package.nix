@@ -7,7 +7,6 @@
   perl,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cgui";
   version = "2.1.0";
@@ -28,13 +27,13 @@ stdenv.mkDerivation rec {
     sh fix.sh unix
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  makeFlags = [ "SYSTEM_DIR=$(out)" ];
+  makeFlags = ["SYSTEM_DIR=$(out)"];
 
   meta = with lib; {
     description = "Multiplatform basic GUI library";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
     license = licenses.free;
   };

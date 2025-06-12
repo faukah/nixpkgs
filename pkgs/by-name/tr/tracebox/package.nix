@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     libpcap
     lua5_1
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.tracebox.org/";
     description = "Middlebox detection tool";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ck3d ];
+    maintainers = with maintainers; [ck3d];
     platforms = platforms.linux;
   };
 }

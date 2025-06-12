@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "git-vanity-hash";
   version = "1.0.0";
@@ -27,8 +26,8 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     homepage = "https://github.com/prasmussen/git-vanity-hash";
     description = "Tool for creating commit hashes with a specific prefix";
-    license = [ licenses.mit ];
-    maintainers = [ maintainers.kaction ];
+    license = [licenses.mit];
+    maintainers = [maintainers.kaction];
     mainProgram = "git-vanity-hash";
   };
 }

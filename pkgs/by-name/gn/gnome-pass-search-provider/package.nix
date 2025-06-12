@@ -7,7 +7,6 @@
   gtk3,
   gobject-introspection,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-pass-search-provider";
   version = "1.4.0";
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Pass password manager search provider for gnome-shell";
     homepage = "https://github.com/jle64/gnome-pass-search-provider";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ lelgenio ];
+    maintainers = with lib.maintainers; [lelgenio];
     platforms = lib.platforms.linux;
   };
 })

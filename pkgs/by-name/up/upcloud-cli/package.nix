@@ -5,7 +5,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "upcloud-cli";
   version = "3.15.0";
@@ -36,7 +35,7 @@ buildGoModule rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -44,7 +43,7 @@ buildGoModule rec {
     description = "Command-line tool for managing UpCloud services";
     homepage = "https://github.com/UpCloudLtd/upcloud-cli";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lu1a ];
+    maintainers = with lib.maintainers; [lu1a];
     mainProgram = "upctl";
   };
 }

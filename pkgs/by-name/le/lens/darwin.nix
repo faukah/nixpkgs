@@ -6,7 +6,6 @@
   meta,
   undmg,
 }:
-
 stdenv.mkDerivation {
   inherit
     pname
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   installPhase = ''
     runHook preInstall

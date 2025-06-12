@@ -9,7 +9,6 @@
   guile,
   guile-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guile-hall";
   version = "0.4.1";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     mainProgram = "hall";
     homepage = "https://gitlab.com/a-sassmannshausen/guile-hall";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = guile.meta.platforms;
   };
 }

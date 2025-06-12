@@ -4,7 +4,6 @@
   openldap,
   buildPerlPackage,
 }:
-
 buildPerlPackage rec {
   pname = "Mozilla-Ldap";
   version = "1.5.3";

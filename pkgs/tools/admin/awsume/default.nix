@@ -11,7 +11,6 @@
   pyyaml,
   setuptools,
 }:
-
 buildPythonApplication rec {
   pname = "awsume";
   version = "4.5.5";
@@ -25,7 +24,7 @@ buildPythonApplication rec {
 
   AWSUME_SKIP_ALIAS_SETUP = 1;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   propagatedBuildInputs = [
     colorama
@@ -56,8 +55,8 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "Utility for easily assuming AWS IAM roles from the command line";
     homepage = "https://github.com/trek10inc/awsume";
-    license = [ licenses.mit ];
+    license = [licenses.mit];
     mainProgram = "awsume";
-    maintainers = [ maintainers.nilp0inter ];
+    maintainers = [maintainers.nilp0inter];
   };
 }

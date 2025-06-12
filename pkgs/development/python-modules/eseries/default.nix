@@ -8,7 +8,6 @@
   pytestCheckHook,
   hypothesis,
 }:
-
 buildPythonPackage {
   pname = "eseries";
   version = "1.2.1-unstable-2023-12-17";
@@ -21,14 +20,14 @@ buildPythonPackage {
     hash = "sha256-iQBh4L+t24pOBh86wEqu5e6/RUmTQdCX+rOV/H2ywaY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     docopt-subcommands
     future
   ];
 
-  pythonImportsCheck = [ "eseries" ];
+  pythonImportsCheck = ["eseries"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -39,7 +38,7 @@ buildPythonPackage {
     description = "Find value in the E-series used for electronic components values";
     homepage = "https://github.com/rob-smallshire/eseries";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     mainProgram = "eseries";
   };
 }

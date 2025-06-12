@@ -14,7 +14,6 @@
   fontconfig,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xconq";
   version = "7.5.0-0pre.0.20050612";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "1za78yx57mgwcmmi33wx3533yz1x093dnqis8q2qmqivxav51lca";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     cpio
     xorgproto
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   patchPhase = ''
     # Fix Makefiles
@@ -79,7 +78,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Programmable turn-based strategy game";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
   };

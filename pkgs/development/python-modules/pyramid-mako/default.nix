@@ -7,7 +7,6 @@
   pyramid,
   mako,
 }:
-
 buildPythonPackage rec {
   pname = "pyramid-mako";
   version = "1.1.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     })
   ];
 
-  buildInputs = [ webtest ];
+  buildInputs = [webtest];
   propagatedBuildInputs = [
     pyramid
     mako
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Pylons/pyramid_mako";
     description = "Mako template bindings for the Pyramid web framework";
     license = licenses.bsd0;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

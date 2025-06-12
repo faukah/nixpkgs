@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "ttf-envy-code-r";
   version = "PR7";
@@ -26,6 +25,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://damieng.com/blog/tag/envy-code-r";
     description = "Free scalable coding font by DamienG";
     license = licenses.unfree;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

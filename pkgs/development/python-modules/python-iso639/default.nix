@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-iso639";
   version = "2025.2.18";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-CVLyeXA0FXLCthNO3SLgTvxi4sJI5fPhuqEbnDb4L/s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "iso639" ];
+  pythonImportsCheck = ["iso639"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "ISO 639 language codes, names, and other associated information";
     homepage = "https://github.com/jacksonllee/iso639";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

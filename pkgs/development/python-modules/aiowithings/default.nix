@@ -12,7 +12,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aiowithings";
   version = "3.1.6";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-YC1rUyPXWbJ/xfUus5a7vw44gw7PIAdwhrUstXB/+nI=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -42,9 +41,9 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "aiowithings" ];
+  pythonImportsCheck = ["aiowithings"];
 
-  pytestFlagsArray = [ "--snapshot-update" ];
+  pytestFlagsArray = ["--snapshot-update"];
 
   disabledTests = [
     # Tests require network access
@@ -72,6 +71,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/joostlek/python-withings";
     changelog = "https://github.com/joostlek/python-withings/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

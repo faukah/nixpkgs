@@ -5,7 +5,6 @@
   lib,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "telepath";
   version = "0.3.1";
@@ -18,19 +17,19 @@ buildPythonPackage rec {
     hash = "sha256-MS4Q41WVSrjFmFjv4fztyf0U2+5WkNU79aPEKv/CeUQ=";
   };
 
-  checkInputs = [ django ];
+  checkInputs = [django];
 
   checkPhase = ''
     ${python.interpreter} -m django test --settings=telepath.test_settings
   '';
 
-  pythonImportsCheck = [ "telepath" ];
+  pythonImportsCheck = ["telepath"];
 
   meta = with lib; {
     description = "Library for exchanging data between Python and JavaScript";
     homepage = "https://github.com/wagtail/telepath";
     changelog = "https://github.com/wagtail/telepath/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

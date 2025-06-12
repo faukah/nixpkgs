@@ -4,7 +4,6 @@
   linux-firmware,
   libarchive,
 }:
-
 stdenv.mkDerivation {
   pname = "amd-ucode";
   version = linux-firmware.version;
@@ -13,7 +12,7 @@ stdenv.mkDerivation {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ libarchive ];
+  nativeBuildInputs = [libarchive];
 
   buildPhase = ''
     mkdir -p kernel/x86/microcode

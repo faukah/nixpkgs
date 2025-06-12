@@ -3,12 +3,10 @@
   stdenv,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   hatch-jupyter-builder,
   hatchling,
   jupyterlab,
-
   # dependencies
   colorama,
   gitpython,
@@ -19,14 +17,12 @@
   pygments,
   requests,
   tornado,
-
   # tests
   gitMinimal,
   pytest-tornado,
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "nbdime";
   version = "4.0.2";
@@ -88,13 +84,13 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "nbdime" ];
+  pythonImportsCheck = ["nbdime"];
 
   meta = {
     homepage = "https://github.com/jupyter/nbdime";
     changelog = "https://github.com/jupyter/nbdime/blob/${version}/CHANGELOG.md";
     description = "Tools for diffing and merging of Jupyter notebooks";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ tbenst ];
+    maintainers = with lib.maintainers; [tbenst];
   };
 }

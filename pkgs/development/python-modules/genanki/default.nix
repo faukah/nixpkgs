@@ -9,7 +9,6 @@
   pythonOlder,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "genanki";
   version = "0.13.1";
@@ -38,12 +37,12 @@ buildPythonPackage rec {
   # relies on upstream anki
   doCheck = false;
 
-  pythonImportsCheck = [ "genanki" ];
+  pythonImportsCheck = ["genanki"];
 
   meta = with lib; {
     description = "Generate Anki decks programmatically";
     homepage = "https://github.com/kerrickstaley/genanki";
     license = licenses.mit;
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
   };
 }

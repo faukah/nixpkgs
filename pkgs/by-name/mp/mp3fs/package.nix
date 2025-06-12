@@ -12,7 +12,6 @@
   pandoc,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mp3fs";
   version = "1.1.1";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     homepage = "https://khenriks.github.io/mp3fs/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
     mainProgram = "mp3fs";
   };
 }

@@ -1,26 +1,27 @@
-{ hostPkgs, lib, ... }:
 {
+  hostPkgs,
+  lib,
+  ...
+}: {
   name = "cups-pdf";
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [ ./common/user-account.nix ];
-      environment.systemPackages = [ pkgs.poppler-utils ];
-      fonts.packages = [ pkgs.dejavu_fonts ]; # yields more OCR-able pdf
-      services.printing.cups-pdf.enable = true;
-      services.printing.cups-pdf.instances = {
-        opt = { };
-        noopt.installPrinter = false;
-      };
-      hardware.printers.ensurePrinters = [
-        {
-          name = "noopt";
-          model = "CUPS-PDF_noopt.ppd";
-          deviceUri = "cups-pdf:/noopt";
-        }
-      ];
+  nodes.machine = {pkgs, ...}: {
+    imports = [./common/user-account.nix];
+    environment.systemPackages = [pkgs.poppler-utils];
+    fonts.packages = [pkgs.dejavu_fonts]; # yields more OCR-able pdf
+    services.printing.cups-pdf.enable = true;
+    services.printing.cups-pdf.instances = {
+      opt = {};
+      noopt.installPrinter = false;
     };
+    hardware.printers.ensurePrinters = [
+      {
+        name = "noopt";
+        model = "CUPS-PDF_noopt.ppd";
+        deviceUri = "cups-pdf:/noopt";
+      }
+    ];
+  };
 
   # we cannot check the files with pdftotext, due to
   # https://github.com/alexivkin/CUPS-PDF-to-PDF/issues/7
@@ -41,5 +42,5 @@
         assert text.encode() in run(f"${lib.getExe hostPkgs.tesseract} $out/{name}.jpeg stdout", shell=True, check=True, capture_output=True).stdout
   '';
 
-  meta.maintainers = [ lib.maintainers.yarny ];
+  meta.maintainers = [lib.maintainers.yarny];
 }

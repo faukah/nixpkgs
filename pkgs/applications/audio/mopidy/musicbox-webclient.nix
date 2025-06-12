@@ -4,7 +4,6 @@
   pythonPackages,
   mopidy,
 }:
-
 pythonPackages.buildPythonApplication rec {
   pname = "mopidy-musicbox-webclient";
   version = "3.1.0";
@@ -27,6 +26,6 @@ pythonPackages.buildPythonApplication rec {
     homepage = "https://github.com/pimusicbox/mopidy-musicbox-webclient";
     changelog = "https://github.com/pimusicbox/mopidy-musicbox-webclient/blob/v${version}/CHANGELOG.rst";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

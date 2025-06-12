@@ -10,7 +10,6 @@
   openbabel,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "molsketch";
   version = "0.8.1";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
     description = "2D molecule editor";
     homepage = "https://sourceforge.net/projects/molsketch/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.moni ];
+    maintainers = [maintainers.moni];
     mainProgram = "molsketch";
     platforms = platforms.unix;
   };

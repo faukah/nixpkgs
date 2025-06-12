@@ -21,7 +21,6 @@
   tqdm,
   wget,
 }:
-
 buildPythonPackage rec {
   pname = "pyro-ppl";
   version = "1.9.1";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     hash = "sha256-Dvbl/80EGoGWGhWYVIf/xjovUJG1+3WtpMH+lx1oB2E=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy

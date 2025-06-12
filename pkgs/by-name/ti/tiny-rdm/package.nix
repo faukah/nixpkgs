@@ -14,7 +14,6 @@
   autoPatchelfHook,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "tiny-rdm";
   version = "1.2.3";
@@ -73,8 +72,8 @@ buildGoModule (finalAttrs: {
       terminal = false;
       desktopName = "Tiny RDM";
       startupWMClass = "tinyrdm";
-      categories = [ "Office" ];
-      mimeTypes = [ "x-scheme-handler/tinyrdm" ];
+      categories = ["Office"];
+      mimeTypes = ["x-scheme-handler/tinyrdm"];
       comment = "Tiny Redis Desktop Manager";
     })
   ];
@@ -88,14 +87,14 @@ buildGoModule (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Modern, colorful, super lightweight Redis GUI client";
     homepage = "https://github.com/tiny-craft/tiny-rdm";
     mainProgram = "tiny-rdm";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ emaryn ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [emaryn];
     platforms = lib.platforms.linux;
   };
 })

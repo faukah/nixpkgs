@@ -5,7 +5,6 @@
   testers,
   mermerd,
 }:
-
 buildGoModule rec {
   pname = "mermerd";
   version = "0.12.0";
@@ -42,6 +41,6 @@ buildGoModule rec {
     homepage = "https://github.com/KarnerTh/mermerd";
     changelog = "https://github.com/KarnerTh/mermerd/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ austin-artificial ];
+    maintainers = with lib.maintainers; [austin-artificial];
   };
 }

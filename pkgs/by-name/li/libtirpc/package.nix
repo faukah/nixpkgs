@@ -5,14 +5,13 @@
   autoreconfHook,
   libkrb5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libtirpc";
   version = "1.3.6";
 
   src = fetchurl {
     url = "http://git.linux-nfs.org/?p=steved/libtirpc.git;a=snapshot;h=refs/tags/libtirpc-${
-      lib.replaceStrings [ "." ] [ "-" ] version
+      lib.replaceStrings ["."] ["-"] version
     };sf=tgz";
     hash = "sha256-pTUfqnfHOQKCV0svKF/lo4hq1GlD/+YFjXP2CNygx9I=";
     name = "${pname}-${version}.tar.gz";
@@ -24,8 +23,8 @@ stdenv.mkDerivation rec {
   ];
 
   KRB5_CONFIG = "${libkrb5.dev}/bin/krb5-config";
-  nativeBuildInputs = [ autoreconfHook ];
-  propagatedBuildInputs = [ libkrb5 ];
+  nativeBuildInputs = [autoreconfHook];
+  propagatedBuildInputs = [libkrb5];
   strictDeps = true;
 
   preConfigure = ''
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "Transport-independent Sun RPC implementation (TI-RPC)";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     longDescription = ''
       Currently, NFS commands use the SunRPC routines provided by the
       glibc.  These routines do not support IPv6 addresses.  Ulrich

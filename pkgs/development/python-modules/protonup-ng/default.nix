@@ -6,7 +6,6 @@
   requests,
   configparser,
 }:
-
 buildPythonPackage rec {
   pname = "protonup-ng";
   version = "0.2.1";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
   ];
 
   doCheck = false; # protonup does not have any tests
-  pythonImportsCheck = [ "protonup" ];
+  pythonImportsCheck = ["protonup"];
 
   meta = with lib; {
     homepage = "https://github.com/cloudishBenne/protonup-ng";

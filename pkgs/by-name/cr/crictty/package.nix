@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "crictty";
   version = "0.1.2";
@@ -30,14 +29,14 @@ buildGoModule (finalAttrs: {
     versionCheckHook
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/ashish0kumar/crictty/releases/tag/v${finalAttrs.version}";
     description = "Terminal-based cricket scorecard viewer";
     homepage = "https://github.com/ashish0kumar/crictty";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ashish0kumar ];
+    maintainers = with lib.maintainers; [ashish0kumar];
     mainProgram = "crictty";
     platforms = lib.platforms.unix;
   };

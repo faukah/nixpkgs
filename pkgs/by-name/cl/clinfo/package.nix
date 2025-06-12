@@ -5,7 +5,6 @@
   ocl-icd,
   opencl-headers,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clinfo";
   version = "3.0.25.02.14";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     opencl-headers
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Print all known information about all available OpenCL platforms and devices in the system";

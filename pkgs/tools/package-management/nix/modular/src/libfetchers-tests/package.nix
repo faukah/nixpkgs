@@ -3,22 +3,17 @@
   buildPackages,
   stdenv,
   mkMesonExecutable,
-
   nix-fetchers,
   nix-fetchers-c,
   nix-store-test-support,
-
   libgit2,
   rapidcheck,
   gtest,
   runCommand,
-
   # Configuration Options
-
   version,
   resolvePath,
 }:
-
 mkMesonExecutable (finalAttrs: {
   pname = "nix-fetchers-tests";
   inherit version;
@@ -46,20 +41,20 @@ mkMesonExecutable (finalAttrs: {
     tests = {
       run =
         runCommand "${finalAttrs.pname}-run"
-          {
-            meta.broken = !stdenv.hostPlatform.emulatorAvailable buildPackages;
-          }
-          (
-            lib.optionalString stdenv.hostPlatform.isWindows ''
-              export HOME="$PWD/home-dir"
-              mkdir -p "$HOME"
-            ''
-            + ''
-              export _NIX_TEST_UNIT_DATA=${resolvePath ./data}
-              ${stdenv.hostPlatform.emulator buildPackages} ${lib.getExe finalAttrs.finalPackage}
-              touch $out
-            ''
-          );
+        {
+          meta.broken = !stdenv.hostPlatform.emulatorAvailable buildPackages;
+        }
+        (
+          lib.optionalString stdenv.hostPlatform.isWindows ''
+            export HOME="$PWD/home-dir"
+            mkdir -p "$HOME"
+          ''
+          + ''
+            export _NIX_TEST_UNIT_DATA=${resolvePath ./data}
+            ${stdenv.hostPlatform.emulator buildPackages} ${lib.getExe finalAttrs.finalPackage}
+            touch $out
+          ''
+        );
     };
   };
 
@@ -67,5 +62,4 @@ mkMesonExecutable (finalAttrs: {
     platforms = lib.platforms.unix ++ lib.platforms.windows;
     mainProgram = finalAttrs.pname + stdenv.hostPlatform.extensions.executable;
   };
-
 })

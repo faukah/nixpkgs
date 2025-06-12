@@ -5,20 +5,14 @@
   modules,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   # Location of the repository on the harddrive
   nixosPath = toString ../..;
 
   # Check if the path is from the NixOS repository
-  isNixOSFile =
-    path:
-    let
-      s = toString path;
-    in
+  isNixOSFile = path: let
+    s = toString path;
+  in
     removePrefix nixosPath s != s;
 
   # Copy modules given as extra configuration files.  Unfortunately, we
@@ -30,25 +24,21 @@ let
 
   # Partition module files because between NixOS and non-NixOS files.  NixOS
   # files may change if the repository is updated.
-  partitionedModuleFiles =
-    let
-      p = partition isNixOSFile moduleFiles;
-    in
-    {
-      nixos = p.right;
-      others = p.wrong;
-    };
+  partitionedModuleFiles = let
+    p = partition isNixOSFile moduleFiles;
+  in {
+    nixos = p.right;
+    others = p.wrong;
+  };
 
   # Path transformed to be valid on the installation device.  Thus the
   # device configuration could be rebuild.
-  relocatedModuleFiles =
-    let
-      relocateNixOS = path: "<nixpkgs/nixos" + removePrefix nixosPath (toString path) + ">";
-    in
-    {
-      nixos = map relocateNixOS partitionedModuleFiles.nixos;
-      others = [ ]; # TODO: copy the modules to the install-device repository.
-    };
+  relocatedModuleFiles = let
+    relocateNixOS = path: "<nixpkgs/nixos" + removePrefix nixosPath (toString path) + ">";
+  in {
+    nixos = map relocateNixOS partitionedModuleFiles.nixos;
+    others = []; # TODO: copy the modules to the install-device repository.
+  };
 
   # A dummy /etc/nixos/configuration.nix in the booted CD that
   # rebuilds the CD's configuration (and allows the configuration to
@@ -65,13 +55,8 @@ let
       ${config.installer.cloneConfigExtra}
     }
   '';
-
-in
-
-{
-
+in {
   options = {
-
     installer.cloneConfig = mkOption {
       default = true;
       description = ''
@@ -81,8 +66,8 @@ in
     };
 
     installer.cloneConfigIncludes = mkOption {
-      default = [ ];
-      example = [ "./nixos/modules/hardware/network/rt73.nix" ];
+      default = [];
+      example = ["./nixos/modules/hardware/network/rt73.nix"];
       description = ''
         List of modules used to re-build this installation device profile.
       '';
@@ -98,7 +83,6 @@ in
   };
 
   config = {
-
     installer.cloneConfigIncludes = relocatedModuleFiles.nixos ++ relocatedModuleFiles.others;
 
     boot.postBootCommands = ''
@@ -114,7 +98,5 @@ in
         fi
       ''}
     '';
-
   };
-
 }

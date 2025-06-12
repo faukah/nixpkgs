@@ -26,7 +26,6 @@
   qtquickcontrols2,
   shared-mime-info,
 }:
-
 mkDerivation {
   pname = "itinerary";
   outputs = [

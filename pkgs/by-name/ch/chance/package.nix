@@ -46,14 +46,14 @@ stdenv.mkDerivation (finalAttrs: {
     libadwaita
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Dice roller built using GTK4 and libadwaita";
     homepage = "https://gitlab.com/zelikos/rollit";
     changelog = "https://gitlab.com/zelikos/rollit/-/releases/${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ Guanran928 ];
+    maintainers = with lib.maintainers; [Guanran928];
     mainProgram = "rollit";
     platforms = lib.platforms.linux;
   };

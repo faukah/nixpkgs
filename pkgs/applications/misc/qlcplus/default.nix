@@ -15,7 +15,6 @@
   libsndfile,
   libmad,
 }:
-
 mkDerivation rec {
   pname = "qlcplus";
   version = "4.13.1";
@@ -44,7 +43,7 @@ mkDerivation rec {
     libmad
   ];
 
-  qmakeFlags = [ "INSTALLROOT=$(out)" ];
+  qmakeFlags = ["INSTALLROOT=$(out)"];
 
   postPatch = ''
     patchShebangs .
@@ -66,7 +65,7 @@ mkDerivation rec {
 
   meta = with lib; {
     description = "Free and cross-platform software to control DMX or analog lighting systems like moving heads, dimmers, scanners etc";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.asl20;
     platforms = platforms.all;
     homepage = "https://www.qlcplus.org/";

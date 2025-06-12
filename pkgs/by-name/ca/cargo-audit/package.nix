@@ -6,7 +6,6 @@
   openssl,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-audit";
   version = "0.21.2";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     zlib
   ];
 
-  buildFeatures = [ "fix" ];
+  buildFeatures = ["fix"];
 
   # The tests require network access which is not available in sandboxed Nix builds.
   doCheck = false;

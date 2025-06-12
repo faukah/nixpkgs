@@ -6,7 +6,6 @@
   wheel,
   colorama,
 }:
-
 buildPythonPackage rec {
   pname = "pretty-errors";
   version = "1.2.25";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     wheel
   ];
 
-  dependencies = [ colorama ];
+  dependencies = [colorama];
 
-  pythonImportsCheck = [ "pretty_errors" ];
+  pythonImportsCheck = ["pretty_errors"];
 
   # No test
   doCheck = false;
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "Prettifies Python exception output to make it legible";
     homepage = "https://pypi.org/project/pretty-errors/";
     license = licenses.mit;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

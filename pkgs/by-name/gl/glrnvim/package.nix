@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "glrnvim";
   version = "1.5.0";
@@ -28,6 +27,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/beeender/glrnvim";
     mainProgram = "glrnvim";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ aacebedo ];
+    maintainers = with lib.maintainers; [aacebedo];
   };
 }

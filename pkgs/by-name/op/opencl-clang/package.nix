@@ -8,11 +8,8 @@
   llvmPackages_15,
   spirv-llvm-translator,
   buildWithPatches ? true,
-}:
-
-let
-  addPatches =
-    component: pkg:
+}: let
+  addPatches = component: pkg:
     pkg.overrideAttrs (oldAttrs: {
       postPatch =
         oldAttrs.postPatch or ""
@@ -25,8 +22,11 @@ let
 
   llvmPkgs = llvmPackages_15;
   inherit (llvmPkgs) llvm;
-  spirv-llvm-translator' = spirv-llvm-translator.override { inherit llvm; };
-  libclang = if buildWithPatches then passthru.libclang else llvmPkgs.libclang;
+  spirv-llvm-translator' = spirv-llvm-translator.override {inherit llvm;};
+  libclang =
+    if buildWithPatches
+    then passthru.libclang
+    else llvmPkgs.libclang;
 
   passthru = rec {
     spirv-llvm-translator = spirv-llvm-translator';
@@ -87,40 +87,39 @@ let
       '';
   };
 in
+  stdenv.mkDerivation {
+    pname = "opencl-clang";
+    inherit version src;
 
-stdenv.mkDerivation {
-  pname = "opencl-clang";
-  inherit version src;
+    nativeBuildInputs = [
+      cmake
+      git
+      llvm.dev
+    ];
 
-  nativeBuildInputs = [
-    cmake
-    git
-    llvm.dev
-  ];
+    buildInputs = [
+      libclang
+      llvm
+      spirv-llvm-translator'
+    ];
 
-  buildInputs = [
-    libclang
-    llvm
-    spirv-llvm-translator'
-  ];
+    cmakeFlags = [
+      "-DPREFERRED_LLVM_VERSION=${lib.getVersion llvm}"
+      "-DOPENCL_HEADERS_DIR=${lib.getLib libclang}/lib/clang/${lib.getVersion libclang}/include/"
 
-  cmakeFlags = [
-    "-DPREFERRED_LLVM_VERSION=${lib.getVersion llvm}"
-    "-DOPENCL_HEADERS_DIR=${lib.getLib libclang}/lib/clang/${lib.getVersion libclang}/include/"
+      "-DLLVMSPIRV_INCLUDED_IN_LLVM=OFF"
+      "-DSPIRV_TRANSLATOR_DIR=${spirv-llvm-translator'}"
+    ];
 
-    "-DLLVMSPIRV_INCLUDED_IN_LLVM=OFF"
-    "-DSPIRV_TRANSLATOR_DIR=${spirv-llvm-translator'}"
-  ];
+    inherit passthru;
 
-  inherit passthru;
-
-  meta = with lib; {
-    homepage = "https://github.com/intel/opencl-clang/";
-    description = "Clang wrapper library with an OpenCL-oriented API and the ability to compile OpenCL C kernels to SPIR-V modules";
-    license = licenses.ncsa;
-    maintainers = [ ];
-    platforms = platforms.all;
-    # error: invalid value 'CL3.0' in '-cl-std=CL3.0'
-    broken = stdenv.hostPlatform.isDarwin;
-  };
-}
+    meta = with lib; {
+      homepage = "https://github.com/intel/opencl-clang/";
+      description = "Clang wrapper library with an OpenCL-oriented API and the ability to compile OpenCL C kernels to SPIR-V modules";
+      license = licenses.ncsa;
+      maintainers = [];
+      platforms = platforms.all;
+      # error: invalid value 'CL3.0' in '-cl-std=CL3.0'
+      broken = stdenv.hostPlatform.isDarwin;
+    };
+  }

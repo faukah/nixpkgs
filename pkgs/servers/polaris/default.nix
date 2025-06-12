@@ -6,7 +6,6 @@
   polaris-web,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "polaris";
   version = "0.14.3";
@@ -51,7 +50,7 @@ rustPlatform.buildRustPackage rec {
   __darwinAllowLocalNetworking = true;
 
   passthru.tests = nixosTests.polaris;
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Self-host your music collection, and access it from any computer and mobile device";
@@ -63,7 +62,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/agersant/polaris";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
     platforms = platforms.unix;
     mainProgram = "polaris";
   };

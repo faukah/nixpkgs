@@ -3,7 +3,6 @@
   pluggy,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "pluggy-tests";
   inherit (pluggy) version;

@@ -33,7 +33,6 @@
   sofia_sip,
   writeShellScriptBin,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "calls";
   version = "48.1";
@@ -129,7 +128,7 @@ stdenv.mkDerivation (finalAttrs: {
     longDescription = "GNOME Calls is a phone dialer and call handler. Setting NixOS option `programs.calls.enable = true` is recommended.";
     homepage = "https://gitlab.gnome.org/GNOME/calls";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ craigem ];
+    maintainers = with maintainers; [craigem];
     platforms = platforms.linux;
     mainProgram = "gnome-calls";
   };

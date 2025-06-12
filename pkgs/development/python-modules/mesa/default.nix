@@ -10,7 +10,6 @@
   tqdm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mesa";
   version = "3.1.5";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     "test_examples"
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/projectmesa/mesa";
     description = "Agent-based modeling (or ABM) framework in Python";
     license = licenses.asl20;
-    maintainers = [ maintainers.dpaetzel ];
+    maintainers = [maintainers.dpaetzel];
     broken = true; # missing dependencies
   };
 }

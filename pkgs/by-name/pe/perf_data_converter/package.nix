@@ -7,9 +7,7 @@
   jdk,
   elfutils,
   libcap,
-}:
-
-let
+}: let
   system = stdenv.hostPlatform.system;
   registry = fetchFromGitHub {
     owner = "bazelbuild";
@@ -18,60 +16,62 @@ let
     hash = "sha256-PhacBegQDwWZqZeoZjoLR4akhVV3QrSPr1KflCuied0=";
   };
 in
-buildBazelPackage {
-  pname = "perf_data_converter";
-  version = "0-unstable-2024-10-14";
+  buildBazelPackage {
+    pname = "perf_data_converter";
+    version = "0-unstable-2024-10-14";
 
-  src = fetchFromGitHub {
-    owner = "google";
-    repo = "perf_data_converter";
-    rev = "f76cd4dd1e85bb54d60ea3fe69f92168fdf94edb";
-    hash = "sha256-AScXL74K0Eiajdib56+7ay3K/MMWbmeUWkRWMaEJRC8=";
-  };
+    src = fetchFromGitHub {
+      owner = "google";
+      repo = "perf_data_converter";
+      rev = "f76cd4dd1e85bb54d60ea3fe69f92168fdf94edb";
+      hash = "sha256-AScXL74K0Eiajdib56+7ay3K/MMWbmeUWkRWMaEJRC8=";
+    };
 
-  bazel = bazel_6;
-  bazelFlags = [
-    "--registry"
-    "file://${registry}"
-  ];
+    bazel = bazel_6;
+    bazelFlags = [
+      "--registry"
+      "file://${registry}"
+    ];
 
-  fetchAttrs = {
-    hash =
-      {
-        aarch64-linux = "sha256-Ksae4VC2FbkW79N5EGn/rTdj+GFKQsZCdi4LPfnzV7Y=";
-        x86_64-linux = "sha256-TYeS1bax7sA0hJLXqtE8Q5FLnIylcWPZynVE2LhvZKc=";
-      }
-      .${system} or (throw "No hash for system: ${system}");
-  };
+    fetchAttrs = {
+      hash =
+        {
+          aarch64-linux = "sha256-Ksae4VC2FbkW79N5EGn/rTdj+GFKQsZCdi4LPfnzV7Y=";
+          x86_64-linux = "sha256-TYeS1bax7sA0hJLXqtE8Q5FLnIylcWPZynVE2LhvZKc=";
+        }
+      .${
+          system
+        } or (throw "No hash for system: ${system}");
+    };
 
-  nativeBuildInputs = [ jdk ];
+    nativeBuildInputs = [jdk];
 
-  buildInputs = [
-    elfutils
-    libcap
-  ];
+    buildInputs = [
+      elfutils
+      libcap
+    ];
 
-  removeRulesCC = false;
+    removeRulesCC = false;
 
-  bazelBuildFlags = [ "-c opt" ];
-  bazelTargets = [ "src:perf_to_profile" ];
+    bazelBuildFlags = ["-c opt"];
+    bazelTargets = ["src:perf_to_profile"];
 
-  doCheck = true;
-  bazelTestTargets = [ "src:all" ];
+    doCheck = true;
+    bazelTestTargets = ["src:all"];
 
-  buildAttrs = {
-    installPhase = ''
-      runHook preInstall
-      install -Dm555 -t "$out/bin" bazel-bin/src/perf_to_profile
-      runHook postInstall
-    '';
-  };
+    buildAttrs = {
+      installPhase = ''
+        runHook preInstall
+        install -Dm555 -t "$out/bin" bazel-bin/src/perf_to_profile
+        runHook postInstall
+      '';
+    };
 
-  meta = with lib; {
-    description = "Tool to convert Linux perf files to the profile.proto format used by pprof";
-    homepage = "https://github.com/google/perf_data_converter";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [ hzeller ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "Tool to convert Linux perf files to the profile.proto format used by pprof";
+      homepage = "https://github.com/google/perf_data_converter";
+      license = licenses.bsd3;
+      maintainers = with maintainers; [hzeller];
+      platforms = platforms.linux;
+    };
+  }

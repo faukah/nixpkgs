@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.postgres-websockets;
 
   # Turns an attrset of libpq connection params:
@@ -17,22 +15,19 @@ let
   #   dbname=postgres user=authenticator
   PGWS_DB_URI = lib.pipe cfg.environment.PGWS_DB_URI [
     (lib.filterAttrs (_: v: v != null))
-    (lib.mapAttrsToList (k: v: "${k}='${lib.escape [ "'" "\\" ] v}'"))
+    (lib.mapAttrsToList (k: v: "${k}='${lib.escape ["'" "\\"] v}'"))
     (lib.concatStringsSep " ")
   ];
-in
-
-{
+in {
   meta = {
-    maintainers = with lib.maintainers; [ wolfgangwalther ];
+    maintainers = with lib.maintainers; [wolfgangwalther];
   };
 
   options.services.postgres-websockets = {
     enable = lib.mkEnableOption "postgres-websockets";
 
     pgpassFile = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         nullOr (pathWith {
           inStore = false;
           absolute = true;
@@ -54,8 +49,7 @@ in
     };
 
     jwtSecretFile = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         nullOr (pathWith {
           inStore = false;
           absolute = true;
@@ -88,7 +82,7 @@ in
                 internal = true;
               };
             };
-            default = { };
+            default = {};
             description = ''
               libpq connection parameters as documented in:
 
@@ -123,7 +117,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = ''
         postgres-websockets configuration as defined in:
         <https://github.com/diogob/postgres-websockets/blob/master/src/PostgresWebsockets/Config.hs#L71-L87>
@@ -145,15 +139,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.postgres-websockets.environment.PGWS_DB_URI.application_name =
-      with pkgs.postgres-websockets;
-      "${pname} ${version}";
+    services.postgres-websockets.environment.PGWS_DB_URI.application_name = with pkgs.postgres-websockets; "${pname} ${version}";
 
     systemd.services.postgres-websockets = {
       description = "postgres-websockets";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
       after = [
         "network-online.target"
         "postgresql.service"
@@ -172,14 +164,16 @@ in
       serviceConfig = {
         CacheDirectory = "postgres-websockets";
         CacheDirectoryMode = "0700";
-        LoadCredential = [
-          "jwt_secret:${cfg.jwtSecretFile}"
-        ] ++ lib.optional (cfg.pgpassFile != null) "pgpass:${cfg.pgpassFile}";
+        LoadCredential =
+          [
+            "jwt_secret:${cfg.jwtSecretFile}"
+          ]
+          ++ lib.optional (cfg.pgpassFile != null) "pgpass:${cfg.pgpassFile}";
         Restart = "always";
         User = "postgres-websockets";
 
         # Hardening
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DevicePolicy = "closed";
         DynamicUser = true;
         LockPersonality = true;
@@ -204,7 +198,7 @@ in
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "" ];
+        SystemCallFilter = [""];
         UMask = "0077";
       };
 

@@ -47,6 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.mit;
     mainProgram = "zmkbatx";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ aciceri ];
+    maintainers = with maintainers; [aciceri];
   };
 })

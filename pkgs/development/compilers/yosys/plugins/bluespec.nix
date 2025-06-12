@@ -8,7 +8,6 @@
   zlib,
   bluespec,
 }:
-
 stdenv.mkDerivation {
   pname = "yosys-bluespec";
   version = "2021.09.08";
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
     zlib
     bluespec
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   doCheck = true;
   makeFlags = [
@@ -40,6 +39,6 @@ stdenv.mkDerivation {
     description = "Bluespec plugin for Yosys";
     license = licenses.isc;
     platforms = platforms.all;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

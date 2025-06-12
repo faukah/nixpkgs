@@ -1,8 +1,7 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "nginx-sso";
   meta = {
-    maintainers = with pkgs.lib.maintainers; [ ambroisie ];
+    maintainers = with pkgs.lib.maintainers; [ambroisie];
   };
 
   nodes.machine = {
@@ -29,7 +28,7 @@
                   equals = "MyApp";
                 }
               ];
-              allow = [ "myuser" ];
+              allow = ["myuser"];
             }
           ];
         };

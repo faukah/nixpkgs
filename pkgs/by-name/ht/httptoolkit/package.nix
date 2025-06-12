@@ -9,7 +9,6 @@
   electron,
   httptoolkit-server,
 }:
-
 buildNpmPackage rec {
   pname = "httptoolkit";
   version = "1.19.4";
@@ -29,9 +28,11 @@ buildNpmPackage rec {
     CSC_IDENTITY_AUTO_DISCOVERY = "false";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ copyDesktopItems ];
+  nativeBuildInputs =
+    [
+      makeWrapper
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [copyDesktopItems];
 
   npmBuildScript = "build:src";
 
@@ -87,7 +88,7 @@ buildNpmPackage rec {
       icon = "httptoolkit";
       startupWMClass = "HTTP Toolkit";
       comment = meta.description;
-      categories = [ "Development" ];
+      categories = ["Development"];
       startupNotify = true;
     })
   ];
@@ -97,7 +98,7 @@ buildNpmPackage rec {
     homepage = "https://httptoolkit.com/";
     license = lib.licenses.agpl3Plus;
     mainProgram = "httptoolkit";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = electron.meta.platforms;
   };
 }

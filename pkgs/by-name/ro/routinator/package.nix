@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "routinator";
   version = "0.14.2";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/NLnetLabs/routinator";
     changelog = "https://github.com/NLnetLabs/routinator/blob/v${version}/Changelog.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ _0x4A6F ];
+    maintainers = with lib.maintainers; [_0x4A6F];
     mainProgram = "routinator";
   };
 

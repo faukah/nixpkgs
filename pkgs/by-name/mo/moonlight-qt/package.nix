@@ -21,7 +21,6 @@
   libdrm,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "moonlight-qt";
   version = "6.1.0";
@@ -71,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
       libdrm
     ];
 
-  qmakeFlags = [ "CONFIG+=disable-prebuilts" ];
+  qmakeFlags = ["CONFIG+=disable-prebuilts"];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir $out/Applications $out/bin
@@ -79,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s $out/Applications/Moonlight.app/Contents/MacOS/Moonlight $out/bin/moonlight
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/moonlight-stream/moonlight-qt/releases/tag/v${finalAttrs.version}";

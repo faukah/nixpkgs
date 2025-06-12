@@ -16,7 +16,7 @@ buildNpmPackage rec {
   };
 
   npmDepsHash = "sha256-Z5fLGMvxVhM8nW81PQ5ZFPHK6m2uoYUv0A4XsTa3Z2Y=";
-  npmPackFlags = [ "--ignore-scripts" ];
+  npmPackFlags = ["--ignore-scripts"];
 
   dontNpmBuild = true;
 
@@ -26,10 +26,10 @@ buildNpmPackage rec {
     wrapProgram $out/bin/decktape \
       --add-flags "--chrome-path ${chromium}/bin/chromium" \
       --set PATH ${
-        lib.makeBinPath [
-          chromium
-        ]
-      }
+      lib.makeBinPath [
+        chromium
+      ]
+    }
   '';
 
   meta = {
@@ -38,6 +38,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/astefanutti/decktape";
     changelog = "https://github.com/astefanutti/decktape/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fidgetingbits ];
+    maintainers = with lib.maintainers; [fidgetingbits];
   };
 }

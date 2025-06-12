@@ -5,7 +5,6 @@
   guile,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gash";
   version = "0.3.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "gash";
     homepage = "https://savannah.nongnu.org/projects/gash/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.all;
   };
 })

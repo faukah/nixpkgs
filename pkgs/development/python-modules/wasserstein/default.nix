@@ -8,7 +8,6 @@
   wurlitzer,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "wasserstein";
   version = "1.1.0";
@@ -28,14 +27,14 @@ buildPythonPackage rec {
     })
   ];
 
-  buildInputs = [ llvmPackages.openmp ];
+  buildInputs = [llvmPackages.openmp];
   propagatedBuildInputs = [
     numpy
     wurlitzer
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pytestFlagsArray = [ "wasserstein/tests" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pytestFlagsArray = ["wasserstein/tests"];
   disabledTestPaths = [
     "wasserstein/tests/test_emd.py" # requires "ot"
     # cyclic dependency on energyflow
@@ -43,12 +42,12 @@ buildPythonPackage rec {
     "wasserstein/tests/test_pairwiseemd.py"
   ];
 
-  pythonImportsCheck = [ "wasserstein" ];
+  pythonImportsCheck = ["wasserstein"];
 
   meta = with lib; {
     description = "Python/C++ library for computing Wasserstein distances efficiently";
     homepage = "https://github.com/pkomiske/Wasserstein";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

@@ -2,31 +2,26 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython,
   gdal,
   setuptools,
-
   # dependencies
   attrs,
   certifi,
   click,
   click-plugins,
   cligj,
-
   # optional-dependencies
   pyparsing,
   shapely,
   boto3,
-
   # tests
   fsspec,
   pytestCheckHook,
   pytz,
   snuggs,
 }:
-
 buildPythonPackage rec {
   pname = "fiona";
   version = "1.10.1";
@@ -45,7 +40,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ gdal ];
+  buildInputs = [gdal];
 
   dependencies = [
     attrs
@@ -60,16 +55,18 @@ buildPythonPackage rec {
       pyparsing
       shapely
     ];
-    s3 = [ boto3 ];
+    s3 = [boto3];
   };
 
-  nativeCheckInputs = [
-    fsspec
-    pytestCheckHook
-    pytz
-    shapely
-    snuggs
-  ] ++ optional-dependencies.s3;
+  nativeCheckInputs =
+    [
+      fsspec
+      pytestCheckHook
+      pytz
+      shapely
+      snuggs
+    ]
+    ++ optional-dependencies.s3;
 
   preCheck = ''
     rm -r fiona # prevent importing local fiona
@@ -91,7 +88,7 @@ buildPythonPackage rec {
     "test_append_memoryfile_drivers"
   ];
 
-  pythonImportsCheck = [ "fiona" ];
+  pythonImportsCheck = ["fiona"];
 
   doInstallCheck = true;
 
@@ -101,6 +98,6 @@ buildPythonPackage rec {
     mainProgram = "fio";
     homepage = "https://fiona.readthedocs.io/";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

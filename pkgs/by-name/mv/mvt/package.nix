@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "mvt";
   pyproject = true;
@@ -16,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-xDUjyvOsiweRqibTe7V8I/ABeaahCoR/d5w23qixp9A";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     adb-shell
@@ -46,6 +45,6 @@ python3.pkgs.buildPythonApplication rec {
     # https://github.com/mvt-project/mvt/blob/main/LICENSE
     license = lib.licenses.unfree;
     changelog = "https://github.com/mvt-project/mvt/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ PapayaJackal ];
+    maintainers = with lib.maintainers; [PapayaJackal];
   };
 }

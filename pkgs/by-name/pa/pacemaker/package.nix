@@ -19,7 +19,6 @@
   pkg-config,
   python3,
   nixosTests,
-
   # Pacemaker is compiled twice, once with forOCF = true to extract its
   # OCF definitions for use in the ocf-resource-agents derivation, then
   # again with forOCF = false, where the ocf-resource-agents is provided
@@ -27,7 +26,6 @@
   forOCF ? false,
   ocf-resource-agents,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pacemaker";
   version = "3.0.0";
@@ -64,18 +62,20 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     ./autogen.sh --prefix="$out"
   '';
-  configureFlags = [
-    "--exec-prefix=${placeholder "out"}"
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-    "--with-initdir=/etc/systemd/system"
-    "--with-systemdsystemunitdir=/etc/systemd/system"
-    "--with-corosync"
-    # allows Type=notify in the systemd service
-    "--enable-systemd"
-  ] ++ lib.optional (!forOCF) "--with-ocfdir=${ocf-resource-agents}/usr/lib/ocf";
+  configureFlags =
+    [
+      "--exec-prefix=${placeholder "out"}"
+      "--sysconfdir=/etc"
+      "--localstatedir=/var"
+      "--with-initdir=/etc/systemd/system"
+      "--with-systemdsystemunitdir=/etc/systemd/system"
+      "--with-corosync"
+      # allows Type=notify in the systemd service
+      "--enable-systemd"
+    ]
+    ++ lib.optional (!forOCF) "--with-ocfdir=${ocf-resource-agents}/usr/lib/ocf";
 
-  installFlags = [ "DESTDIR=${placeholder "out"}" ];
+  installFlags = ["DESTDIR=${placeholder "out"}"];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.cc.isGNU [

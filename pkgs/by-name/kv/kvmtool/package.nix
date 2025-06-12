@@ -4,7 +4,6 @@
   lib,
   dtc,
 }:
-
 stdenv.mkDerivation {
   pname = "kvmtool";
   version = "0-unstable-2024-04-09";
@@ -15,9 +14,9 @@ stdenv.mkDerivation {
     hash = "sha256-05tNsZauOXe1L1y1YchzvLZm3xOctPJhHCjyAyRnwy4=";
   };
 
-  patches = [ ./strlcpy-glibc-2.38-fix.patch ];
+  patches = [./strlcpy-glibc-2.38-fix.patch];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isAarch64 [ dtc ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isAarch64 [dtc];
 
   enableParallelBuilding = true;
 
@@ -27,9 +26,9 @@ stdenv.mkDerivation {
       "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
       "ARCH=${stdenv.hostPlatform.linuxArch}"
     ]
-    ++ lib.optionals stdenv.hostPlatform.isAarch64 ([
+    ++ lib.optionals stdenv.hostPlatform.isAarch64 [
       "LIBFDT_DIR=${dtc}/lib"
-    ]);
+    ];
 
   meta = with lib; {
     description = "Lightweight tool for hosting KVM guests";

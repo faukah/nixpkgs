@@ -3,7 +3,6 @@
   u-root,
   which,
 }:
-
 u-root.overrideAttrs (prevAttrs: {
   subPackages = [
     "cmds/boot/boot"
@@ -188,7 +187,7 @@ u-root.overrideAttrs (prevAttrs: {
 
   allowGoReference = false;
 
-  nativeCheckInputs = [ which ];
+  nativeCheckInputs = [which];
 
   preCheck = ''
     rm cmds/core/brctl/*_test.go # Error: open /sys/class/net: no such file or directory
@@ -198,7 +197,9 @@ u-root.overrideAttrs (prevAttrs: {
     rm cmds/exp/bzimage/*_test.go # Error: compressed KernelCode too big: was 611116, now 611124
   '';
 
-  meta = (lib.removeAttrs prevAttrs.meta [ "mainProgram" ]) // {
-    longDescription = "All u-root commands compiles as standalone binaries";
-  };
+  meta =
+    (lib.removeAttrs prevAttrs.meta ["mainProgram"])
+    // {
+      longDescription = "All u-root commands compiles as standalone binaries";
+    };
 })

@@ -5,13 +5,12 @@
   bundlerUpdateScript,
   makeWrapper,
 }:
-
 bundlerApp {
   pname = "one_gadget";
   gemdir = ./.;
-  exes = [ "one_gadget" ];
+  exes = ["one_gadget"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     wrapProgram $out/bin/one_gadget --prefix PATH : ${binutils}/bin

@@ -10,7 +10,6 @@
   qt5integration,
   libsecret,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dpa-ext-gnomekeyring";
   version = "6.0.1";
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dpa-ext-gnomekeyring";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

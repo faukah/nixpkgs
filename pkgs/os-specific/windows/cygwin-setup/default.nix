@@ -13,7 +13,6 @@
   xz,
   libgcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cygwin-setup";
   version = "20131101";
@@ -34,15 +33,14 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    let
-      mkStatic = lib.flip lib.overrideDerivation (o: {
-        dontDisableStatic = true;
-        configureFlags = lib.toList (o.configureFlags or [ ]) ++ [ "--enable-static" ];
-        buildInputs = map mkStatic (o.buildInputs or [ ]);
-        propagatedBuildInputs = map mkStatic (o.propagatedBuildInputs or [ ]);
-      });
-    in
+  buildInputs = let
+    mkStatic = lib.flip lib.overrideDerivation (o: {
+      dontDisableStatic = true;
+      configureFlags = lib.toList (o.configureFlags or []) ++ ["--enable-static"];
+      buildInputs = map mkStatic (o.buildInputs or []);
+      propagatedBuildInputs = map mkStatic (o.propagatedBuildInputs or []);
+    });
+  in
     map mkStatic [
       zlib
       bzip2
@@ -50,7 +48,7 @@ stdenv.mkDerivation rec {
       libgcrypt
     ];
 
-  configureFlags = [ "--disable-shared" ];
+  configureFlags = ["--disable-shared"];
 
   dontDisableStatic = true;
 

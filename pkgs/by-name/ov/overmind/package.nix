@@ -6,12 +6,11 @@
   which,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "overmind";
   version = "2.5.1";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram "$out/bin/overmind" --prefix PATH : "${
@@ -35,7 +34,7 @@ buildGoModule rec {
     homepage = "https://github.com/DarthSim/overmind";
     description = "Process manager for Procfile-based applications and tmux";
     mainProgram = "overmind";
-    license = with licenses; [ mit ];
-    maintainers = [ ];
+    license = with licenses; [mit];
+    maintainers = [];
   };
 }

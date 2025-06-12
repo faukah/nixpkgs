@@ -11,7 +11,6 @@
   flask-sqlalchemy,
   flask-sqlalchemy-lite,
 }:
-
 buildPythonPackage rec {
   pname = "flask-alembic";
   version = "3.1.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-iHJr9l3w1WwZXDl573IV7+A7RDcawGL20sxxhAQQ628=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     alembic
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     flask-sqlalchemy-lite
   ];
 
-  pythonImportsCheck = [ "flask_alembic" ];
+  pythonImportsCheck = ["flask_alembic"];
 
   meta = with lib; {
     # https://github.com/pallets-eco/flask-alembic/issues/47
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pallets-eco/flask-alembic";
     changelog = "https://github.com/pallets-eco/flask-alembic/blob/${src.tag}/CHANGES.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
   };
 }

@@ -17,10 +17,9 @@
   jansson,
   enable9361 ? true,
   libad9361,
-# enable9166 ? true,
-# libad9166,
+  # enable9166 ? true,
+  # libad9166,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "iio-oscilloscope";
   version = "0.17";
@@ -51,17 +50,19 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook3
   ];
 
-  buildInputs = [
-    libiio
-    glib
-    gtk3
-    gtkdatabox
-    matio
-    fftw
-    libxml2
-    curl
-    jansson
-  ] ++ lib.optional enable9361 libad9361;
+  buildInputs =
+    [
+      libiio
+      glib
+      gtk3
+      gtkdatabox
+      matio
+      fftw
+      libxml2
+      curl
+      jansson
+    ]
+    ++ lib.optional enable9361 libad9361;
 
   cmakeFlags = [
     "-DCMAKE_POLKIT_PREFIX=${placeholder "out"}"
@@ -73,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "osc";
     license = lib.licenses.gpl2Only;
     changelog = "https://github.com/analogdevicesinc/iio-oscilloscope/releases/tag/v${finalAttrs.version}-master";
-    maintainers = with lib.maintainers; [ chuangzhu ];
+    maintainers = with lib.maintainers; [chuangzhu];
     platforms = lib.platforms.linux;
   };
 })

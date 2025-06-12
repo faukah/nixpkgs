@@ -4,7 +4,6 @@
   fetchFromGitHub,
   bash,
 }:
-
 buildGoModule rec {
   pname = "kubectl-neat";
   version = "2.0.3";
@@ -30,6 +29,6 @@ buildGoModule rec {
     homepage = "https://github.com/itaysk/kubectl-neat";
     changelog = "https://github.com/itaysk/kubectl-neat/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.koralowiec ];
+    maintainers = [lib.maintainers.koralowiec];
   };
 }

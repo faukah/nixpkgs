@@ -3,17 +3,13 @@
   stdenv,
   buildPythonPackage,
   fetchPypi,
-
   # nativeBuildInputs
   cmake,
-
   # build-system
   setuptools,
-
   # buildInputs
   mujoco,
   pybind11,
-
   # dependencies
   absl-py,
   etils,
@@ -21,11 +17,9 @@
   numpy,
   pyopengl,
   typing-extensions,
-
   perl,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "mujoco";
   inherit (mujoco) version;
@@ -41,11 +35,11 @@ buildPythonPackage rec {
     hash = "sha256-d3c8cU9XL25xqTe8OH96NsEp0JMv0kaWLD5qSP32u6w=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   dontUseCmakeConfigure = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   buildInputs = [
     mujoco
@@ -61,7 +55,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "${pname}" ];
+  pythonImportsCheck = ["${pname}"];
 
   env.MUJOCO_PATH = "${mujoco}";
   env.MUJOCO_PLUGIN_PATH = "${mujoco}/lib";
@@ -76,14 +70,11 @@ buildPythonPackage rec {
     (
       let
         # E.g. 3.11.2 -> "311"
-        pythonVersionMajorMinor =
-          with lib.versions;
-          "${major python.pythonVersion}${minor python.pythonVersion}";
+        pythonVersionMajorMinor = with lib.versions; "${major python.pythonVersion}${minor python.pythonVersion}";
 
         # E.g. "linux-aarch64"
         platform = with stdenv.hostPlatform.parsed; "${kernel.name}-${cpu.name}";
-      in
-      ''
+      in ''
         ${lib.getExe perl} -0777 -i -pe "s/GIT_REPO\n.*\n.*GIT_TAG\n.*\n//gm" mujoco/CMakeLists.txt
         ${lib.getExe perl} -0777 -i -pe "s/(FetchContent_Declare\(\n.*lodepng\n.*)(GIT_REPO.*\n.*GIT_TAG.*\n)(.*\))/\1\3/gm" mujoco/simulate/CMakeLists.txt
 

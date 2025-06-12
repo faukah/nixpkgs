@@ -3,7 +3,7 @@
   lib,
   stdenv,
   pname ? "telegram-desktop",
-  unwrapped ? callPackage ./unwrapped.nix { inherit stdenv; },
+  unwrapped ? callPackage ./unwrapped.nix {inherit stdenv;},
   qtbase,
   qtimageformats,
   qtsvg,
@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--prefix"
     "LD_LIBRARY_PATH"
     ":"
-    (lib.makeLibraryPath [ webkitgtk_4_1 ])
+    (lib.makeLibraryPath [webkitgtk_4_1])
   ];
 
   dontUnpack = true;

@@ -9,7 +9,6 @@
   isodate,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-postgresqlflexibleservers";
   version = "1.1.0";
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     description = "Microsoft Azure Postgresqlflexibleservers Management Client Library for Python";
     homepage = "https://pypi.org/project/azure-mgmt-postgresqlflexibleservers/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

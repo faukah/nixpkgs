@@ -9,7 +9,6 @@
   xorg,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lazpaint";
   version = "7.3";
@@ -72,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Python is needed for scripts
   preFixup = ''
-    qtWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ python3 ]})
+    qtWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [python3]})
   '';
 
   meta = {
@@ -81,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://github.com/bgrabitmap/lazpaint/";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     mainProgram = "lazpaint";
   };
 })

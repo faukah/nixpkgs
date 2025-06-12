@@ -12,7 +12,6 @@
   ctestCheckHook,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "eztrace";
   version = "2.1.1";
@@ -85,14 +84,14 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   meta = {
     description = "Tool that aims at generating automatically execution trace from HPC programs";
     homepage = "https://eztrace.gitlab.io/eztrace/index.html";
     downloadPage = "https://gitlab.com/eztrace/eztrace/";
     license = lib.licenses.cecill-b;
-    maintainers = [ lib.maintainers.xokdvium ];
+    maintainers = [lib.maintainers.xokdvium];
     mainProgram = "eztrace";
     badPlatforms = [
       # Undefined symbols for architecture x86_64:

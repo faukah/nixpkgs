@@ -24,7 +24,6 @@
   tqdm,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "insightface";
   version = "0.7.3";
@@ -87,6 +86,6 @@ buildPythonPackage rec {
     mainProgram = "insightface-cli";
     homepage = "https://github.com/deepinsight/insightface";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ oddlama ];
+    maintainers = with lib.maintainers; [oddlama];
   };
 }

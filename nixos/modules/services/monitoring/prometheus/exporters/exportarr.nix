@@ -5,17 +5,16 @@
   options,
   type,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters."exportarr-${type}";
-  exportarrEnvironment = (lib.mapAttrs (_: toString) cfg.environment) // {
-    PORT = toString cfg.port;
-    URL = cfg.url;
-    API_KEY_FILE = lib.mkIf (cfg.apiKeyFile != null) "%d/api-key";
-  };
-in
-{
+  exportarrEnvironment =
+    (lib.mapAttrs (_: toString) cfg.environment)
+    // {
+      PORT = toString cfg.port;
+      URL = cfg.url;
+      API_KEY_FILE = lib.mkIf (cfg.apiKeyFile != null) "%d/api-key";
+    };
+in {
   port = 9708;
   extraOpts = {
     url = lib.mkOption {
@@ -34,11 +33,11 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "exportarr" { };
+    package = lib.mkPackageOption pkgs "exportarr" {};
 
     environment = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = { };
+      default = {};
       description = ''
         See [the configuration guide](https://github.com/onedr0p/exportarr#configuration) for available options.
       '';

@@ -33,7 +33,6 @@
   wayland-scanner,
   plasma-wayland-protocols,
 }:
-
 mkDerivation {
   pname = "kdeconnect-kde";
 
@@ -75,13 +74,13 @@ mkDerivation {
   ];
 
   qtWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ sshfs ]}"
+    "--prefix PATH : ${lib.makeBinPath [sshfs]}"
   ];
 
   meta = with lib; {
     description = "KDE Connect provides several features to integrate your phone and your computer";
     homepage = "https://community.kde.org/KDEConnect";
-    license = with licenses; [ gpl2 ];
+    license = with licenses; [gpl2];
     mainProgram = "kdeconnect-app";
   };
 }

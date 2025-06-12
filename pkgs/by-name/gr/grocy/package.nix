@@ -7,7 +7,6 @@
   fixup-yarn-lock,
   nixosTests,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "grocy";
   version = "4.5.0";
@@ -58,11 +57,11 @@ php.buildComposerProject2 (finalAttrs: {
     rm -r $out/share
   '';
 
-  passthru.tests = { inherit (nixosTests) grocy; };
+  passthru.tests = {inherit (nixosTests) grocy;};
 
   meta = with lib; {
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     description = "ERP beyond your fridge - grocy is a web-based self-hosted groceries & household management solution for your home";
     homepage = "https://grocy.info/";
   };

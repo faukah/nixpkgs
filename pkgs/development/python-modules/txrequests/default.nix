@@ -7,7 +7,6 @@
   cryptography,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "txrequests";
   version = "0.9.6";
@@ -27,12 +26,12 @@ buildPythonPackage rec {
   # Require network access
   doCheck = false;
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   meta = with lib; {
     description = "Asynchronous Python HTTP for Humans";
     homepage = "https://github.com/tardyp/txrequests";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

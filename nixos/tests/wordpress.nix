@@ -1,6 +1,8 @@
-{ lib, config, ... }:
-
-rec {
+{
+  lib,
+  config,
+  ...
+}: rec {
   name = "wordpress";
   meta = with lib.maintainers; {
     maintainers = [
@@ -12,11 +14,10 @@ rec {
 
   nodes =
     lib.foldl
-      (
-        a: version:
-        let
-          package = config.node.pkgs."wordpress_${version}";
-        in
+    (
+      a: version: let
+        package = config.node.pkgs."wordpress_${version}";
+      in
         a
         // {
           "wp${version}_httpd" = _: {
@@ -35,7 +36,7 @@ rec {
               };
             };
 
-            networking.firewall.allowedTCPPorts = [ 80 ];
+            networking.firewall.allowedTCPPorts = [80];
             networking.hosts."127.0.0.1" = [
               "site1.local"
               "site2.local"
@@ -55,7 +56,7 @@ rec {
               };
             };
 
-            networking.firewall.allowedTCPPorts = [ 80 ];
+            networking.firewall.allowedTCPPorts = [80];
             networking.hosts."127.0.0.1" = [
               "site1.local"
               "site2.local"
@@ -85,12 +86,12 @@ rec {
             ];
           };
         }
-      )
-      { }
-      [
-        "6_7"
-        "6_8"
-      ];
+    )
+    {}
+    [
+      "6_7"
+      "6_8"
+    ];
 
   testScript = ''
     import re
@@ -100,7 +101,8 @@ rec {
     ${lib.concatStrings (
       lib.mapAttrsToList (name: value: ''
         ${name}.wait_for_unit("${(value null).services.wordpress.webserver}")
-      '') nodes
+      '')
+      nodes
     )}
 
     site_names = ["site1.local", "site2.local"]

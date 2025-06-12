@@ -9,7 +9,6 @@
   gawk,
   bashNonInteractive,
 }:
-
 stdenv.mkDerivation rec {
   pname = "neo4j";
   version = "5.26.1";
@@ -19,8 +18,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-RiCUpsUxUaMSz1a4ptNQ8rp99ffj0r4DPggt8RgSj7U=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ bashNonInteractive ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [bashNonInteractive];
   strictDeps = true;
 
   installPhase = ''
@@ -34,12 +33,12 @@ stdenv.mkDerivation rec {
         makeWrapper "$out/share/neo4j/bin/$NEO4J_SCRIPT" \
             "$out/bin/$NEO4J_SCRIPT" \
             --prefix PATH : "${
-              lib.makeBinPath [
-                openjdk17
-                which
-                gawk
-              ]
-            }" \
+      lib.makeBinPath [
+        openjdk17
+        which
+        gawk
+      ]
+    }" \
             --set JAVA_HOME "${openjdk17}"
     done
 
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "Highly scalable, robust (fully ACID) native graph database";
     homepage = "https://neo4j.com/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.unix;
   };
 }

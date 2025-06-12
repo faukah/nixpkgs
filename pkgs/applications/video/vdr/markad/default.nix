@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     description = "Plugin for VDR that marks advertisements";
     mainProgram = "markad";
-    maintainers = [ lib.maintainers.ck3d ];
+    maintainers = [lib.maintainers.ck3d];
     inherit (vdr.meta) platforms license;
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zps";
   version = "2.0.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/orhun/zps";
     changelog = "https://github.com/orhun/zps/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     platforms = lib.platforms.linux;
     mainProgram = "zps";
   };

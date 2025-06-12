@@ -11,7 +11,6 @@
   ocl-icd,
   openclSupport ? true,
 }:
-
 stdenv.mkDerivation {
   pname = "vapoursynth-eedi3";
   version = "unstable-2019-09-30";
@@ -44,13 +43,13 @@ stdenv.mkDerivation {
       --replace-fail "vapoursynth_dep.get_pkgconfig_variable('libdir')" "get_option('libdir')"
   '';
 
-  mesonFlags = [ (lib.mesonBool "opencl" openclSupport) ];
+  mesonFlags = [(lib.mesonBool "opencl" openclSupport)];
 
   meta = {
     description = "Filter for VapourSynth";
     homepage = "https://github.com/HomeOfVapourSynthEvolution/VapourSynth-EEDI3";
-    license = with lib.licenses; [ gpl2Plus ];
-    maintainers = with lib.maintainers; [ snaki ];
+    license = with lib.licenses; [gpl2Plus];
+    maintainers = with lib.maintainers; [snaki];
     platforms = lib.platforms.x86_64;
   };
 }

@@ -10,7 +10,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "progressbar2";
   version = "4.5.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [ python-utils ];
+  propagatedBuildInputs = [python-utils];
 
   nativeCheckInputs = [
     dill
@@ -40,12 +39,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "progressbar" ];
+  pythonImportsCheck = ["progressbar"];
 
   meta = with lib; {
     description = "Text progressbar library";
     homepage = "https://progressbar-2.readthedocs.io/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ashgillman ];
+    maintainers = with maintainers; [ashgillman];
   };
 }

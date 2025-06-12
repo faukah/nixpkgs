@@ -10,7 +10,6 @@
   mbedtls_2,
   symlinkJoin,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openrgb";
   version = "0.9";
@@ -33,7 +32,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs =
     [
-
       libusb1
       hidapi
       mbedtls_2
@@ -55,38 +53,38 @@ stdenv.mkDerivation (finalAttrs: {
     HOME=$TMPDIR $out/bin/openrgb --help > /dev/null
   '';
 
-  passthru.withPlugins =
-    plugins:
-    let
-      pluginsDir = symlinkJoin {
-        name = "openrgb-plugins";
-        paths = plugins;
-        # Remove all library version symlinks except one,
-        # or they will result in duplicates in the UI.
-        # We leave the one pointing to the actual library, usually the most
-        # qualified one (eg. libOpenRGBHardwareSyncPlugin.so.1.0.0).
-        postBuild = ''
-          for f in $out/lib/*; do
-            if [ "$(dirname $(readlink "$f"))" == "." ]; then
-              rm "$f"
-            fi
-          done
-        '';
-      };
-    in
+  passthru.withPlugins = plugins: let
+    pluginsDir = symlinkJoin {
+      name = "openrgb-plugins";
+      paths = plugins;
+      # Remove all library version symlinks except one,
+      # or they will result in duplicates in the UI.
+      # We leave the one pointing to the actual library, usually the most
+      # qualified one (eg. libOpenRGBHardwareSyncPlugin.so.1.0.0).
+      postBuild = ''
+        for f in $out/lib/*; do
+          if [ "$(dirname $(readlink "$f"))" == "." ]; then
+            rm "$f"
+          fi
+        done
+      '';
+    };
+  in
     finalAttrs.finalPackage.overrideAttrs (old: {
-      qmakeFlags = old.qmakeFlags or [ ] ++ [
-        # Welcome to Escape Hell, we have backslashes
-        ''DEFINES+=OPENRGB_EXTRA_PLUGIN_DIRECTORY=\\\""${
-          lib.escape [ "\\" "\"" " " ] (toString pluginsDir)
-        }/lib\\\""''
-      ];
+      qmakeFlags =
+        old.qmakeFlags or []
+        ++ [
+          # Welcome to Escape Hell, we have backslashes
+          ''DEFINES+=OPENRGB_EXTRA_PLUGIN_DIRECTORY=\\\""${
+              lib.escape ["\\" "\"" " "] (toString pluginsDir)
+            }/lib\\\""''
+        ];
     });
 
   meta = {
     description = "Open source RGB lighting control";
     homepage = "https://gitlab.com/CalcProgrammer1/OpenRGB";
-    maintainers = with lib.maintainers; [ johnrtitor ];
+    maintainers = with lib.maintainers; [johnrtitor];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     mainProgram = "openrgb";

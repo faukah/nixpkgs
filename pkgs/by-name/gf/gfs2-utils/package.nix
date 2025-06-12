@@ -12,7 +12,6 @@
   util-linux,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gfs2-utils";
   version = "3.6.1";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  nativeCheckInputs = [ check ];
+  nativeCheckInputs = [check];
   doCheck = true;
 
   enableParallelBuilding = true;
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://pagure.io/gfs2-utils";
     description = "Tools for creating, checking and working with gfs2 filesystems";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     license = [
       licenses.gpl2Plus
       licenses.lgpl2Plus

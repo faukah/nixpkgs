@@ -1,1 +1,1 @@
-_: _: { outputs = [ "out" ]; }
+_: _: {outputs = ["out"];}

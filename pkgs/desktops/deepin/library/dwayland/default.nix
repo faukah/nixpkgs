@@ -10,7 +10,6 @@
   extra-cmake-modules,
   deepin-wayland-protocols,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dwayland";
   version = "5.25.0";
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dwayland";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

@@ -11,7 +11,6 @@
   sphinx-mdinclude,
   sphinxcontrib-httpdomain,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-openapi";
   version = "0.8.4";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-34g4CKW15LQROtaXGFxDo/Qt89znBFOveLpwdpB+miA=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
   propagatedBuildInputs = [
     deepmerge
     jsonschema
@@ -35,12 +34,12 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     homepage = "https://github.com/ikalnytskyi/sphinxcontrib-openapi";
     description = "OpenAPI (fka Swagger) spec renderer for Sphinx";
     license = licenses.bsd0;
-    maintainers = [ maintainers.flokli ];
+    maintainers = [maintainers.flokli];
   };
 }

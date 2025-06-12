@@ -10,7 +10,6 @@
   pkg-config,
   gtest,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-calculator";
   version = "6.5.7";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
   # qtsvg can't not be found with strictDeps
   strictDeps = false;
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   meta = {
     description = "Easy to use calculator for ordinary users";
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-calculator";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

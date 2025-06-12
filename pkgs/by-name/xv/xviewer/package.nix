@@ -25,7 +25,6 @@
   yelp-tools,
   xapp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xviewer";
   version = "3.4.8";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxmint/xviewer";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ tu-maurice ];
-    teams = [ teams.cinnamon ];
+    maintainers = with maintainers; [tu-maurice];
+    teams = [teams.cinnamon];
   };
 }

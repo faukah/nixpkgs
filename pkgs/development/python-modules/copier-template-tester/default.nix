@@ -33,6 +33,6 @@ buildPythonPackage rec {
     description = "ctt: CLI and pre-commit tool for testing copier";
     homepage = "https://copier-template-tester.kyleking.me";
     license = licenses.mit;
-    maintainers = with maintainers; [ yajo ];
+    maintainers = with maintainers; [yajo];
   };
 }

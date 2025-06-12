@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "graphinder";
   version = "1.11.6";
@@ -52,7 +51,7 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "graphinder";
     homepage = "https://github.com/Escape-Technologies/graphinder";
     changelog = "https://github.com/Escape-Technologies/graphinder/releases/tag/v${version}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [fab];
   };
 }

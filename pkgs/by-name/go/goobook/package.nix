@@ -5,7 +5,6 @@
   installShellFiles,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "goobook";
   version = "3.5.2";
@@ -49,7 +48,7 @@ python3Packages.buildPythonApplication rec {
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "goobook" ];
+  pythonImportsCheck = ["goobook"];
 
   meta = {
     description = "Access your Google contacts from the command line";
@@ -62,6 +61,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://gitlab.com/goobook/goobook";
     changelog = "https://gitlab.com/goobook/goobook/-/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ primeos ];
+    maintainers = with lib.maintainers; [primeos];
   };
 }

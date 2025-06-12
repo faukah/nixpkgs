@@ -21,7 +21,6 @@
   pytest,
   py-cpuinfo,
 }:
-
 buildPythonPackage rec {
   pname = "tables";
   version = "3.10.2";
@@ -80,7 +79,7 @@ buildPythonPackage rec {
     "--blosc2=${lib.getDev blosc2.c-blosc2}"
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -95,13 +94,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "tables" ];
+  pythonImportsCheck = ["tables"];
 
   meta = with lib; {
     description = "Hierarchical datasets for Python";
     homepage = "https://www.pytables.org/";
     changelog = "https://github.com/PyTables/PyTables/releases/tag/v${version}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

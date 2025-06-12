@@ -11,7 +11,6 @@
   voluptuous,
   callPackage,
 }:
-
 buildPythonPackage rec {
   pname = "stestr";
   version = "4.2.0";
@@ -39,16 +38,16 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
-  pythonImportsCheck = [ "stestr" ];
+  pythonImportsCheck = ["stestr"];
 
   meta = with lib; {
     description = "Parallel Python test runner built around subunit";
     mainProgram = "stestr";
     homepage = "https://github.com/mtreinish/stestr";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

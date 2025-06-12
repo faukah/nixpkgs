@@ -10,7 +10,6 @@
   systemd,
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dtk6log";
   version = "0.0.2";
@@ -38,10 +37,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontWrapQtApps = true;
 
-  buildInputs = [
-    qt6Packages.qtbase
-    spdlog
-  ] ++ lib.optional withSystemd systemd;
+  buildInputs =
+    [
+      qt6Packages.qtbase
+      spdlog
+    ]
+    ++ lib.optional withSystemd systemd;
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_WITH_QT6" true)
@@ -55,6 +56,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/linuxdeepin/dtk6log";
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 })

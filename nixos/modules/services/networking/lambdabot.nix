@@ -3,49 +3,38 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.lambdabot;
 
   rc = builtins.toFile "script.rc" cfg.script;
-
-in
-
-{
-
+in {
   ### configuration
 
   options = {
-
     services.lambdabot = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         description = "Enable the Lambdabot IRC bot";
       };
 
-      package = lib.mkPackageOption pkgs "lambdabot" { };
+      package = lib.mkPackageOption pkgs "lambdabot" {};
 
       script = lib.mkOption {
         type = lib.types.str;
         default = "";
         description = "Lambdabot script";
       };
-
     };
-
   };
 
   ### implementation
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.lambdabot = {
       description = "Lambdabot daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       # Workaround for https://github.com/lambdabot/lambdabot/issues/117
       script = ''
         mkdir -p ~/.lambdabot
@@ -60,7 +49,7 @@ in
       '';
       serviceConfig = {
         User = "lambdabot";
-        RuntimeDirectory = [ "lambdabot" ];
+        RuntimeDirectory = ["lambdabot"];
       };
     };
 
@@ -73,7 +62,5 @@ in
     };
 
     users.groups.lambdabot.gid = config.ids.gids.lambdabot;
-
   };
-
 }

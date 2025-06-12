@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-kVI1DigDlTvrYLVRUYoW+AAkd31d9EehjRJxrqo8OB4=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd astartectl \
@@ -31,6 +31,6 @@ buildGoModule rec {
     description = "Astarte command line client utility";
     license = licenses.asl20;
     mainProgram = "astartectl";
-    maintainers = with maintainers; [ noaccos ];
+    maintainers = with maintainers; [noaccos];
   };
 }

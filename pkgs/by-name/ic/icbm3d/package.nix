@@ -4,7 +4,6 @@
   fetchurl,
   libX11,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "icbm3d";
   version = "0.4";
@@ -14,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-mtQcFU70dpV3GiaHXVQVvO3LE5NSseIXXzhtIGsAOP0=";
   };
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   # Function are declared after they are used in the file, this is error since gcc-14.
   #   randnum.c:25:3: warning: implicit declaration of function 'srand' [-Wimplicit-function-declaration]

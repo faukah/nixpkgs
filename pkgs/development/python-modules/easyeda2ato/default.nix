@@ -6,7 +6,6 @@
   pydantic,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "easyeda2ato";
   version = "0.2.7";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-bHhBN+h9Vx9Q4wZVKxMzkEEXzV7hKoQz8i+JpkSFsYA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pydantic
     requests
   ];
 
-  pythonImportsCheck = [ "easyeda2kicad" ];
+  pythonImportsCheck = ["easyeda2kicad"];
 
   doCheck = false; # no tests
 
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/uPesy/easyeda2kicad.py";
     changelog = "https://github.com/uPesy/easyeda2kicad.py/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     mainProgram = "easyeda2kicad";
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "inform6";
   version = "6.42-r8";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Co3XNcr0LDGeEYTxIFmqTsaKm4q5VpLpVsTNnJHUX8o=";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/DavidGriffith/inform6unix";
     changelog = "https://gitlab.com/DavidGriffith/inform6unix/-/raw/${version}/NEWS";
     license = lib.licenses.artistic2;
-    maintainers = with lib.maintainers; [ ddelabru ];
+    maintainers = with lib.maintainers; [ddelabru];
     platforms = lib.platforms.all;
   };
 }

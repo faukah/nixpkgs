@@ -7,7 +7,6 @@
   flask,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flask-themes2";
   version = "1.0.1";
@@ -21,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-gsMgQQXjhDfQRhm7H0kBy8jKxd75WY+PhHR6Rk/PUPs=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ flask ];
+  propagatedBuildInputs = [flask];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Easily theme your Flask app";
     homepage = "https://github.com/sysr-q/flask-themes2";
     license = licenses.mit;
-    maintainers = with maintainers; [ ruby0b ];
+    maintainers = with maintainers; [ruby0b];
   };
 }

@@ -3,14 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.dkimproxy-out;
   keydir = "/var/lib/dkimproxy-out";
   privkey = "${keydir}/private.key";
   pubkey = "${keydir}/public.key";
-in
-{
+in {
   ##### interface
   options = {
     services.dkimproxy-out = {
@@ -75,22 +73,21 @@ in
   };
 
   ##### implementation
-  config =
-    let
-      configfile = pkgs.writeText "dkimproxy_out.conf" ''
-        listen ${cfg.listen}
-        relay ${cfg.relay}
+  config = let
+    configfile = pkgs.writeText "dkimproxy_out.conf" ''
+      listen ${cfg.listen}
+      relay ${cfg.relay}
 
-        domain ${lib.concatStringsSep "," cfg.domains}
-        selector ${cfg.selector}
+      domain ${lib.concatStringsSep "," cfg.domains}
+      selector ${cfg.selector}
 
-        signature dkim(c=relaxed/relaxed)
+      signature dkim(c=relaxed/relaxed)
 
-        keyfile ${privkey}
-      '';
-    in
+      keyfile ${privkey}
+    '';
+  in
     lib.mkIf cfg.enable {
-      users.groups.dkimproxy-out = { };
+      users.groups.dkimproxy-out = {};
       users.users.dkimproxy-out = {
         description = "DKIMproxy_out daemon";
         group = "dkimproxy-out";
@@ -99,7 +96,7 @@ in
 
       systemd.services.dkimproxy-out = {
         description = "DKIMproxy_out";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         preStart = ''
           if [ ! -d "${keydir}" ]; then
             mkdir -p "${keydir}"
@@ -119,5 +116,5 @@ in
       };
     };
 
-  meta.maintainers = with lib.maintainers; [ ekleog ];
+  meta.maintainers = with lib.maintainers; [ekleog];
 }

@@ -4,15 +4,11 @@
 #
 # The wrapper has to be static so LD_* environment variables
 # cannot affect the execution of the wrapper itself.
-
 {
   lib,
   stdenv,
   enableDebug ? false,
-}:
-
-name: emulator:
-
+}: name: emulator:
 stdenv.mkDerivation {
   inherit name;
 
@@ -21,7 +17,7 @@ stdenv.mkDerivation {
   dontUnpack = true;
   dontInstall = true;
 
-  buildInputs = [ stdenv.cc.libc.static or null ];
+  buildInputs = [stdenv.cc.libc.static or null];
 
   buildPhase = ''
     runHook preBuild

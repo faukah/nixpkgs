@@ -6,7 +6,6 @@
   bison,
   flex,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcue";
   version = "2.3.0";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/lipnitsk/libcue";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ astsmtl ];
+    maintainers = with maintainers; [astsmtl];
     platforms = platforms.unix;
   };
 }

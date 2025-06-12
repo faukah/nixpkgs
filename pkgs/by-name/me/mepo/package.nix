@@ -20,7 +20,6 @@
   zenity,
   zig_0_13,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mepo";
   version = "1.3.3";
@@ -64,18 +63,18 @@ stdenv.mkDerivation (finalAttrs: {
     for program in $out/bin/* ; do
       wrapProgram $program \
         --suffix PATH : $out/bin:${
-          lib.makeBinPath ([
-            busybox
-            curl
-            gpsd
-            jq
-            mobroute
-            ncurses
-            util-linux
-            xwininfo
-            zenity
-          ])
-        }
+      lib.makeBinPath [
+        busybox
+        curl
+        gpsd
+        jq
+        mobroute
+        ncurses
+        util-linux
+        xwininfo
+        zenity
+      ]
+    }
     done
   '';
 

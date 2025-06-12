@@ -6,7 +6,6 @@
   cython,
   libjxl,
 }:
-
 buildPythonPackage rec {
   pname = "jxlpy";
   version = "0.9.5";
@@ -23,18 +22,18 @@ buildPythonPackage rec {
     cython
   ];
 
-  buildInputs = [ libjxl ];
+  buildInputs = [libjxl];
 
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "jxlpy" ];
+  pythonImportsCheck = ["jxlpy"];
 
   meta = {
     description = "Cython bindings and Pillow plugin for JPEG XL";
     homepage = "https://github.com/olokelo/jxlpy";
     changelog = "https://github.com/olokelo/jxlpy/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.huantian ];
+    maintainers = [lib.maintainers.huantian];
   };
 }

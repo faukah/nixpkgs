@@ -9,8 +9,7 @@
   makeWrapper,
   symlinkJoin,
   testers,
-}:
-let
+}: let
   pname = "dependabot-cli";
   version = "1.66.0";
 
@@ -27,53 +26,52 @@ let
   updaterGitHubActions.imageDigest = "sha256:11de6594db1c23e7ed4a6b621e8584b4a3b34484d51f2f8aa850c21fbce9094f";
   updaterGitHubActions.hash = "sha256-cImOCW7tggBWEPlmE55b4OFMxf/+VGLoqx0tRualowo=";
 in
-buildGoModule {
-  inherit pname version;
+  buildGoModule {
+    inherit pname version;
 
-  src = fetchFromGitHub {
-    owner = "dependabot";
-    repo = "cli";
-    rev = "v${version}";
-    hash = "sha256-9VgcQgiNv1v6+jnaWK10yccC1ILSxiIj9ZCIhHY57jk=";
-  };
+    src = fetchFromGitHub {
+      owner = "dependabot";
+      repo = "cli";
+      rev = "v${version}";
+      hash = "sha256-9VgcQgiNv1v6+jnaWK10yccC1ILSxiIj9ZCIhHY57jk=";
+    };
 
-  vendorHash = "sha256-gENlo1EPzsML+HkDBg4a2VGTUhyKY8AhlpHVszYWBno=";
+    vendorHash = "sha256-gENlo1EPzsML+HkDBg4a2VGTUhyKY8AhlpHVszYWBno=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/dependabot/cli/cmd/dependabot/internal/cmd.version=v${version}"
-  ];
+    ldflags = [
+      "-s"
+      "-w"
+      "-X github.com/dependabot/cli/cmd/dependabot/internal/cmd.version=v${version}"
+    ];
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+      installShellFiles
+    ];
 
-  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    installShellCompletion --cmd dependabot \
-      --bash <($out/bin/dependabot completion bash) \
-      --fish <($out/bin/dependabot completion fish) \
-      --zsh <($out/bin/dependabot completion zsh)
-  '';
+    postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+      installShellCompletion --cmd dependabot \
+        --bash <($out/bin/dependabot completion bash) \
+        --fish <($out/bin/dependabot completion fish) \
+        --zsh <($out/bin/dependabot completion zsh)
+    '';
 
-  checkFlags = [
-    "-skip=TestDependabot"
-  ];
+    checkFlags = [
+      "-skip=TestDependabot"
+    ];
 
-  doInstallCheck = true;
-  installCheckPhase = ''
-    $out/bin/dependabot --help
-  '';
+    doInstallCheck = true;
+    installCheckPhase = ''
+      $out/bin/dependabot --help
+    '';
 
-  passthru.updateScript = ./update.sh;
+    passthru.updateScript = ./update.sh;
 
-  passthru.withDockerImages = symlinkJoin {
-    name = "dependabot-cli-with-docker-images";
-    paths = [ dependabot-cli ];
-    buildInputs = [ makeWrapper ];
-    postBuild =
-      let
+    passthru.withDockerImages = symlinkJoin {
+      name = "dependabot-cli-with-docker-images";
+      paths = [dependabot-cli];
+      buildInputs = [makeWrapper];
+      postBuild = let
         updateJobProxyImage = dockerTools.pullImage {
           imageName = "ghcr.io/github/dependabot-update-job-proxy/dependabot-update-job-proxy";
           finalImageName = "dependabot-update-job-proxy";
@@ -87,8 +85,7 @@ buildGoModule {
           finalImageTag = tag;
           inherit (updaterGitHubActions) imageDigest hash;
         };
-      in
-      ''
+      in ''
         # Create a wrapper that pins the docker images that `dependabot` uses.
         wrapProgram $out/bin/dependabot \
           --run "docker load --input ${updateJobProxyImage} >&2" \
@@ -96,23 +93,23 @@ buildGoModule {
           --run "docker load --input ${updaterGitHubActionsImage} >&2" \
           --add-flags "--updater-image=dependabot-updater-github-actions:${tag}"
       '';
-  };
+    };
 
-  passthru.tests.version = testers.testVersion {
-    package = dependabot-cli;
-    command = "dependabot --version";
-    version = "v${version}";
-  };
+    passthru.tests.version = testers.testVersion {
+      package = dependabot-cli;
+      command = "dependabot --version";
+      version = "v${version}";
+    };
 
-  meta = {
-    changelog = "https://github.com/dependabot/cli/releases/tag/v${version}";
-    description = "Tool for testing and debugging Dependabot update jobs";
-    mainProgram = "dependabot";
-    homepage = "https://github.com/dependabot/cli";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [
-      infinisil
-      philiptaron
-    ];
-  };
-}
+    meta = {
+      changelog = "https://github.com/dependabot/cli/releases/tag/v${version}";
+      description = "Tool for testing and debugging Dependabot update jobs";
+      mainProgram = "dependabot";
+      homepage = "https://github.com/dependabot/cli";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [
+        infinisil
+        philiptaron
+      ];
+    };
+  }

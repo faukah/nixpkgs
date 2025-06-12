@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubernetes-metrics-server";
   version = "0.6.4";
@@ -27,6 +26,6 @@ buildGoModule rec {
     description = "Kubernetes container resource metrics collector";
     mainProgram = "metrics-server";
     license = licenses.asl20;
-    maintainers = with maintainers; [ eskytthe ];
+    maintainers = with maintainers; [eskytthe];
   };
 }

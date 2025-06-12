@@ -7,7 +7,6 @@
   libGL,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "glee";
   rev = "f727ec7463d514b6279981d12833f2e11d62b33d";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "13mf3s7nvmj26vr2wbcg08l4xxqsc1ha41sx3bfghvq8c5qpk2ph";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     libGLU
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "GL Easy Extension Library";
     homepage = "https://sourceforge.net/p/glee/glee/";
-    maintainers = with maintainers; [ crertel ];
+    maintainers = with maintainers; [crertel];
     platforms = platforms.linux;
     license = licenses.gpl3;
   };

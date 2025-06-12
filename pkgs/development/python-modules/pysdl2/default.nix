@@ -5,26 +5,23 @@
   fetchFromGitHub,
   buildPythonPackage,
   setuptools,
-
   # native dependencies
   SDL2,
   SDL2_ttf,
   SDL2_image,
   SDL2_gfx,
   SDL2_mixer,
-
   # tests
   numpy,
   pillow,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pysdl2";
   version = "0.9.17-unstable-2025-04-03";
   pyproject = true;
 
-  pythonImportsCheck = [ "sdl2" ];
+  pythonImportsCheck = ["sdl2"];
 
   src = fetchFromGitHub {
     owner = "py-sdl";
@@ -35,7 +32,8 @@ buildPythonPackage rec {
 
   patches = [
     (replaceVars ./PySDL2-dll.patch (
-      (builtins.mapAttrs
+      (
+        builtins.mapAttrs
         (_: pkg: "${pkg}/lib/lib${pkg.pname}${stdenv.hostPlatform.extensions.sharedLibrary}")
         {
           inherit
@@ -55,7 +53,7 @@ buildPythonPackage rec {
     ))
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   buildInputs = [
     SDL2
@@ -93,6 +91,6 @@ buildPythonPackage rec {
     description = "Wrapper around the SDL2 library and as such similar to the discontinued PySDL project";
     homepage = "https://github.com/py-sdl/py-sdl2";
     license = lib.licenses.publicDomain;
-    maintainers = with lib.maintainers; [ pmiddend ];
+    maintainers = with lib.maintainers; [pmiddend];
   };
 }

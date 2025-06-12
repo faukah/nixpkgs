@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     nodejs
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "CLI to load dotenv files";
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/entropitor/dotenv-cli/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = "dotenv";
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

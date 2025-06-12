@@ -13,7 +13,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "squashfs-tools-ng";
   version = "1.3.2";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/AgentD/squashfs-tools-ng";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     platforms = platforms.unix;
   };
 }

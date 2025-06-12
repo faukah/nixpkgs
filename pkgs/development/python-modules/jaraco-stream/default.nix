@@ -8,7 +8,6 @@
   setuptools-scm,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "jaraco-stream";
   version = "3.0.4";
@@ -22,21 +21,21 @@ buildPythonPackage rec {
     sha256 = "sha256-4rxQKOch7SzIUrluyaM/K3Zk6bLb+H7vvmF9EmZBk0s=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  propagatedBuildInputs = [ more-itertools ];
+  propagatedBuildInputs = [more-itertools];
 
-  pythonNamespaces = [ "jaraco" ];
+  pythonNamespaces = ["jaraco"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jaraco.stream" ];
+  pythonImportsCheck = ["jaraco.stream"];
 
   meta = with lib; {
     description = "Module with routines for handling streaming data";
     homepage = "https://github.com/jaraco/jaraco.stream";
     changelog = "https://github.com/jaraco/jaraco.stream/blob/v${version}/NEWS.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

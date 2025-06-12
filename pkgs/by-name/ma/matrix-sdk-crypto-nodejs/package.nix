@@ -9,7 +9,6 @@
   nodejs,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "matrix-sdk-crypto-nodejs";
   version = "0.3.0-beta.1-unstable-2025-02-11";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     nodejs
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   buildPhase = ''
     runHook preBuild

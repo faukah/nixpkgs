@@ -18,7 +18,6 @@
   webkitgtk_6_0,
   wrapGAppsHook4,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "setzer";
   version = "66";
@@ -76,6 +75,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "setzer";
     homepage = "https://www.cvfosammmm.org/setzer/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

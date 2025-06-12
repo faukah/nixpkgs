@@ -12,7 +12,6 @@
   pango,
   gtk-layer-shell,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sway-easyfocus";
   version = "0.2.0";
@@ -46,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     description = "Tool to help efficiently focus windows in Sway, inspired by i3-easyfocus";
     homepage = "https://github.com/edzdez/sway-easyfocus";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pjones ];
+    maintainers = with lib.maintainers; [pjones];
     mainProgram = "sway-easyfocus";
   };
 }

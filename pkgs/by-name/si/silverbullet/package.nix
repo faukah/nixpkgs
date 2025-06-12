@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -38,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Open-source, self-hosted, offline-capable Personal Knowledge Management (PKM) web application";
     homepage = "https://silverbullet.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ aorith ];
+    maintainers = with lib.maintainers; [aorith];
     mainProgram = "silverbullet";
     inherit (deno.meta) platforms;
   };

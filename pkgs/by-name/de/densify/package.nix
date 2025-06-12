@@ -9,7 +9,6 @@
   gnugrep,
   ghostscript,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "densify";
   version = "0.3.2";
@@ -28,24 +27,24 @@ python3Packages.buildPythonApplication rec {
       --replace-fail "/icon.png" "/../share/densify/icon.png"
   '';
 
-  dependencies = with python3Packages; [ pygobject3 ];
+  dependencies = with python3Packages; [pygobject3];
 
   nativeBuildInputs = [
     gobject-introspection
     wrapGAppsHook3
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : "${
-        lib.makeBinPath [
-          ghostscript
-          gnugrep
-          xorg.xrandr
-        ]
-      }"
+      lib.makeBinPath [
+        ghostscript
+        gnugrep
+        xorg.xrandr
+      ]
+    }"
     )
   '';
 
@@ -71,7 +70,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/hkdb/Densify";
     changelog = "https://github.com/hkdb/Densify/blob/${src.rev}/README.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
     platforms = lib.platforms.all;
   };
 }

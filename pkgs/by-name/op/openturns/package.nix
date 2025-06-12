@@ -22,7 +22,6 @@
   runTests ? false, # tests take an hour to build on a 48-core machine
   enablePython ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openturns";
   version = "1.24";
@@ -34,9 +33,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-88wxgifLuF/P/qeMLVP0S5Agutf022Dsysu38mh9+8w=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ] ++ lib.optionals enablePython [ python3Packages.sphinx ];
+  nativeBuildInputs =
+    [
+      cmake
+    ]
+    ++ lib.optionals enablePython [python3Packages.sphinx];
 
   buildInputs =
     [
@@ -88,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl3Plus
       gpl3Plus
     ];
-    maintainers = with lib.maintainers; [ gdinh ];
+    maintainers = with lib.maintainers; [gdinh];
     platforms = lib.platforms.unix;
   };
 })

@@ -20,9 +20,7 @@
   graphviz,
   python3,
   rizin,
-}:
-
-let
+}: let
   cutter = stdenv.mkDerivation rec {
     pname = "cutter";
     version = "2.4.1";
@@ -74,14 +72,15 @@ let
     '';
 
     passthru = rec {
-      plugins = rizin.plugins // {
-        rz-ghidra = rizin.plugins.rz-ghidra.override {
-          inherit cutter qtbase qtsvg;
-          enableCutterPlugin = true;
+      plugins =
+        rizin.plugins
+        // {
+          rz-ghidra = rizin.plugins.rz-ghidra.override {
+            inherit cutter qtbase qtsvg;
+            enableCutterPlugin = true;
+          };
         };
-      };
-      withPlugins =
-        filter:
+      withPlugins = filter:
         pkgs.callPackage ./wrapper.nix {
           inherit rizin cutter;
           isCutter = true;
@@ -102,4 +101,4 @@ let
     };
   };
 in
-cutter
+  cutter

@@ -2,21 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   av,
   ctranslate2,
   huggingface-hub,
   onnxruntime,
   tokenizers,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "faster-whisper";
   version = "1.1.1";
@@ -46,12 +42,12 @@ buildPythonPackage rec {
     tokenizers
   ];
 
-  pythonImportsCheck = [ "faster_whisper" ];
+  pythonImportsCheck = ["faster_whisper"];
 
   # all tests require downloads
   doCheck = false;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -62,6 +58,6 @@ buildPythonPackage rec {
     description = "Faster Whisper transcription with CTranslate2";
     homepage = "https://github.com/SYSTRAN/faster-whisper";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

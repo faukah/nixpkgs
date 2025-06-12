@@ -3,16 +3,13 @@
   python3Packages,
   fetchFromGitHub,
   installShellFiles,
-
   waylandSupport ? true,
   x11Support ? true,
-
   wl-clipboard,
   wtype,
   xdotool,
   xsel,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "rofimoji";
   version = "6.5.0";
@@ -62,6 +59,6 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/fdw/rofimoji/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ justinlovinger ];
+    maintainers = with maintainers; [justinlovinger];
   };
 }

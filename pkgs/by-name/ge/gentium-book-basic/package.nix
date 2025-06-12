@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "gentium-book-basic";
   version = "1.102";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     homepage = "https://software.sil.org/gentium/";
     description = "High-quality typeface family for Latin, Cyrillic, and Greek";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.ofl;
     platforms = platforms.all;
   };

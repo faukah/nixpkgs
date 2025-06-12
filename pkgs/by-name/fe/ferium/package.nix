@@ -4,7 +4,6 @@
   rustPlatform,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ferium";
   version = "4.7.1";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
   # Requires an internet connection
   doCheck = false;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     for shell in bash fish zsh; do

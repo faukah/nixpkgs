@@ -5,7 +5,6 @@
   xcbuild,
   apple-sdk_11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "choose-gui";
   version = "1.3.1";
@@ -17,9 +16,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-oR0GgMinKcBHaZWdE7O+mdbiLKKjkweECKbi80bjW+c=";
   };
 
-  nativeBuildInputs = [ xcbuild ];
+  nativeBuildInputs = [xcbuild];
 
-  buildInputs = [ apple-sdk_11 ];
+  buildInputs = [apple-sdk_11];
 
   buildPhase = ''
     runHook preBuild
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mit;
     platforms = lib.platforms.darwin;
     changelog = "https://github.com/chipsenkbeil/choose/blob/${version}/CHANGELOG.md";
-    maintainers = with lib.maintainers; [ heywoodlh ];
+    maintainers = with lib.maintainers; [heywoodlh];
     mainProgram = "choose";
   };
 }

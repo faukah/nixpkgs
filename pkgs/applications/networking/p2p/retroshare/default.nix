@@ -20,7 +20,6 @@
   qtmultimedia,
   libgnome-keyring,
 }:
-
 mkDerivation rec {
   pname = "retroshare";
   version = "0.6.7.2";
@@ -98,6 +97,6 @@ mkDerivation rec {
     homepage = "https://retroshare.cc/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ StijnDW ];
+    maintainers = with maintainers; [StijnDW];
   };
 }

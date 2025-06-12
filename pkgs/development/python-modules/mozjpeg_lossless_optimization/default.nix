@@ -27,20 +27,20 @@ buildPythonPackage rec {
   # This package needs cmake, but it is not the default builder
   dontUseCmakeConfigure = true;
 
-  buildInputs = [ mozjpeg ];
-  nativeBuildInputs = [ cmake ];
-  propagatedBuildInputs = [ cffi ];
+  buildInputs = [mozjpeg];
+  nativeBuildInputs = [cmake];
+  propagatedBuildInputs = [cffi];
 
   # https://github.com/NixOS/nixpkgs/issues/255262
   preCheck = ''
     rm -r mozjpeg_lossless_optimization
   '';
 
-  build-system = [ setuptools ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  build-system = [setuptools];
+  nativeCheckInputs = [pytestCheckHook];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -48,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/wanadev/mozjpeg-lossless-optimization";
     changelog = "https://github.com/wanadev/mozjpeg-lossless-optimization/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.adfaure ];
+    maintainers = [lib.maintainers.adfaure];
   };
 }

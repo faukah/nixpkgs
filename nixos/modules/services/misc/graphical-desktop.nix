@@ -3,13 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.graphical-desktop;
   xcfg = config.services.xserver;
   dmcfg = config.services.displayManager;
-in
-{
+in {
   options = {
     services.graphical-desktop.enable =
       lib.mkEnableOption "bits and pieces required for a graphical desktop session"

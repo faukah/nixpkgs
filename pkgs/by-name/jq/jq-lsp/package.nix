@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "jq-lsp";
   version = "0.1.12";
@@ -32,7 +31,7 @@ buildGoModule rec {
     description = "jq language server";
     homepage = "https://github.com/wader/jq-lsp";
     license = licenses.mit;
-    maintainers = with maintainers; [ sysedwinistrator ];
+    maintainers = with maintainers; [sysedwinistrator];
     mainProgram = "jq-lsp";
   };
 }

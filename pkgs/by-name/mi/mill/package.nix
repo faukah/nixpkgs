@@ -5,7 +5,6 @@
   jre,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mill";
   version = "0.12.14";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-2MyufFcgKH/bxVB83qXNESByAdgbzhyIHqAr36Bb9o0=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
   dontConfigure = true;

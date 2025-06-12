@@ -6,7 +6,6 @@
   unstableGitUpdater,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation {
   pname = "lv";
   version = "4.51-unstable-2020-08-03";
@@ -18,10 +17,10 @@ stdenv.mkDerivation {
     hash = "sha256-mUFiWzTTM6nAKQgXA0sYIUm1MwN7HBHD8LWBgzu3ZUk=";
   };
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ ncurses ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [ncurses];
 
   preAutoreconf = "cd src";
   postAutoreconf = "cd ..";
@@ -45,6 +44,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/ttdoda/lv";
     license = licenses.gpl2Plus;
     platforms = with platforms; linux ++ darwin;
-    maintainers = with maintainers; [ kayhide ];
+    maintainers = with maintainers; [kayhide];
   };
 }

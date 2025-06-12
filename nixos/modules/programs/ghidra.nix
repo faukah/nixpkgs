@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.ghidra;
-in
-{
+in {
   options.programs.ghidra = {
     enable = lib.mkEnableOption "Ghidra, a software reverse engineering (SRE) suite of tools";
 
@@ -20,12 +17,12 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "ghidra" { example = "ghidra-bin"; };
+    package = lib.mkPackageOption pkgs "ghidra" {example = "ghidra-bin";};
   };
 
   config = lib.mkIf cfg.enable {
     environment = {
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
 
       etc = lib.mkIf cfg.gdb {
         "gdb/gdbinit.d/ghidra-modules.gdb".text = with pkgs.python3.pkgs; ''
@@ -43,5 +40,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ govanify ];
+  meta.maintainers = with lib.maintainers; [govanify];
 }

@@ -5,7 +5,6 @@
   lua5_3,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bam";
   version = "0.5.1";

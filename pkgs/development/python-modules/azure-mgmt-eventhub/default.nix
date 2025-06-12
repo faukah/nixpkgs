@@ -9,7 +9,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-eventhub";
   version = "11.2.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-McR/GPc9LYM0XN5ZCVaOKIWMJUijWxDiMZS0dnqc5+M=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/eventhub/azure-mgmt-eventhub";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-mgmt-eventhub_${version}/sdk/eventhub/azure-mgmt-eventhub/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "toastify";
   version = "0.5.4";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/hoodie/toastify";
     changelog = "https://github.com/hoodie/toastify/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ colemickens ];
+    maintainers = with maintainers; [colemickens];
     mainProgram = "toastify";
   };
 }

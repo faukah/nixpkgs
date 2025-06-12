@@ -12,7 +12,6 @@
   tls-client,
   beautifulsoup4,
 }:
-
 buildPythonPackage rec {
   pname = "jobspy";
   version = "1.1.79";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     "markdownify"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     numpy
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     beautifulsoup4
   ];
 
-  pythonImportsCheck = [ "jobspy" ];
+  pythonImportsCheck = ["jobspy"];
 
   # no package tests because they all require networking/polling
 
@@ -52,7 +51,7 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/Bunsly/JobSpy";
     homepage = "https://github.com/Bunsly/JobSpy";
     changelog = "https://github.com/Bunsly/JobSpy/releases/tag/${src.tag}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [ethancedwards8];
   };
 }

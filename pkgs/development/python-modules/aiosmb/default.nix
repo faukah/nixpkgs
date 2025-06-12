@@ -16,7 +16,6 @@
   winacl,
   winsspi,
 }:
-
 buildPythonPackage rec {
   pname = "aiosmb";
   version = "0.4.11";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-bWb1HtI1T3byBmE+rA1j83z9ntRL6figZZTUECRCc9c=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     asyauth
@@ -48,13 +47,13 @@ buildPythonPackage rec {
   # Project doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aiosmb" ];
+  pythonImportsCheck = ["aiosmb"];
 
   meta = with lib; {
     description = "Python SMB library";
     homepage = "https://github.com/skelsec/aiosmb";
     changelog = "https://github.com/skelsec/aiosmb/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "soxr";
   version = "0.1.3";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     # Workaround for upstream not using GNUInstallDirs.
@@ -37,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://soxr.sourceforge.net";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix ++ platforms.windows;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "grafanactl";
   version = "0.0.6";
@@ -25,7 +24,7 @@ buildGoModule (finalAttrs: {
     "-X main.date=unknown"
   ];
 
-  subPackage = [ "cmd/grafanactl" ];
+  subPackage = ["cmd/grafanactl"];
 
   postInstall = ''
     rm $out/bin/cmd-reference
@@ -39,14 +38,14 @@ buildGoModule (finalAttrs: {
   ];
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tool designed to simplify interaction with Grafana instances";
     homepage = "https://github.com/grafana/grafanactl";
     changelog = "https://github.com/grafana/grafanactl/tags/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ wcarlsen ];
+    maintainers = with lib.maintainers; [wcarlsen];
     mainProgram = "grafanactl";
   };
 })

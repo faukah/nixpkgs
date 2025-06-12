@@ -7,7 +7,6 @@
   libxml2,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "flam3";
   version = "3.1.1+date=2018-04-12";
@@ -37,7 +36,7 @@ stdenv.mkDerivation {
       is specified by a long string of numbers - a genetic code of sorts.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

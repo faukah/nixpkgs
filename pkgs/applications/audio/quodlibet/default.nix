@@ -2,12 +2,10 @@
   lib,
   fetchFromGitHub,
   tag ? "",
-
   # build time
   gettext,
   gobject-introspection,
   wrapGAppsHook3,
-
   # runtime
   adwaita-icon-theme,
   gdk-pixbuf,
@@ -21,21 +19,18 @@
   libmodplug,
   librsvg,
   libsoup_3,
-
   # optional features
   withDbusPython ? false,
   withMusicBrainzNgs ? false,
   withPahoMqtt ? false,
   withPypresence ? false,
   withSoco ? false,
-
   # backends
   withGstPlugins ? withGstreamerBackend,
   withGstreamerBackend ? true,
   gst_all_1,
   withXineBackend ? true,
   xine-lib,
-
   # tests
   dbus,
   glibcLocales,
@@ -43,7 +38,6 @@
   python3,
   xvfb-run,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "quodlibet${tag}";
   version = "4.6.0-unstable-2024-08-08";
@@ -61,9 +55,9 @@ python3.pkgs.buildPythonApplication {
     hash = "sha256-8qWuxTvMF6ksDkbZ6wRLPCJK1cSqgGMPac/ht6qVpnA=";
   };
 
-  patches = [ ./fix-gdist-python-3.12.patch ];
+  patches = [./fix-gdist-python-3.12.patch];
 
-  build-system = [ python3.pkgs.setuptools ];
+  build-system = [python3.pkgs.setuptools];
 
   nativeBuildInputs =
     [
@@ -90,23 +84,22 @@ python3.pkgs.buildPythonApplication {
       libmodplug
       libsoup_3
     ]
-    ++ lib.optionals (withXineBackend) [ xine-lib ]
-    ++ lib.optionals (withGstreamerBackend) (
+    ++ lib.optionals withXineBackend [xine-lib]
+    ++ lib.optionals withGstreamerBackend (
       with gst_all_1;
-      [
-        gst-plugins-base
-        gstreamer
-      ]
-      ++ lib.optionals (withGstPlugins) [
-        gst-libav
-        gst-plugins-bad
-        gst-plugins-good
-        gst-plugins-ugly
-      ]
+        [
+          gst-plugins-base
+          gstreamer
+        ]
+        ++ lib.optionals withGstPlugins [
+          gst-libav
+          gst-plugins-bad
+          gst-plugins-good
+          gst-plugins-ugly
+        ]
     );
 
-  dependencies =
-    with python3.pkgs;
+  dependencies = with python3.pkgs;
     [
       feedparser
       gst-python
@@ -114,11 +107,11 @@ python3.pkgs.buildPythonApplication {
       pycairo
       pygobject3
     ]
-    ++ lib.optionals withDbusPython [ dbus-python ]
-    ++ lib.optionals withMusicBrainzNgs [ musicbrainzngs ]
-    ++ lib.optionals withPahoMqtt [ paho-mqtt ]
-    ++ lib.optionals withPypresence [ pypresence ]
-    ++ lib.optionals withSoco [ soco ];
+    ++ lib.optionals withDbusPython [dbus-python]
+    ++ lib.optionals withMusicBrainzNgs [musicbrainzngs]
+    ++ lib.optionals withPahoMqtt [paho-mqtt]
+    ++ lib.optionals withPypresence [pypresence]
+    ++ lib.optionals withSoco [soco];
 
   nativeCheckInputs =
     [

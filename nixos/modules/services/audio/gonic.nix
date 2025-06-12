@@ -3,18 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.gonic;
   settingsFormat = pkgs.formats.keyValue {
-    mkKeyValue = lib.generators.mkKeyValueDefault { } " ";
+    mkKeyValue = lib.generators.mkKeyValueDefault {} " ";
     listsAsDuplicateKeys = true;
   };
-in
-{
+in {
   options = {
     services.gonic = {
-
       enable = lib.mkEnableOption "Gonic music server";
 
       settings = lib.mkOption rec {
@@ -27,31 +24,30 @@ in
           tls-key = null;
         };
         example = {
-          music-path = [ "/mnt/music" ];
+          music-path = ["/mnt/music"];
           podcast-path = "/mnt/podcasts";
         };
         description = ''
           Configuration for Gonic, see <https://github.com/sentriz/gonic#configuration-options> for supported values.
         '';
       };
-
     };
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.gonic = {
       description = "Gonic Media Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
-        ExecStart =
-          let
-            # these values are null by default but should not appear in the final config
-            filteredSettings = lib.filterAttrs (
+        ExecStart = let
+          # these values are null by default but should not appear in the final config
+          filteredSettings =
+            lib.filterAttrs (
               n: v: !((n == "tls-cert" || n == "tls-key") && v == null)
-            ) cfg.settings;
-          in
-          "${pkgs.gonic}/bin/gonic -config-path ${settingsFormat.generate "gonic" filteredSettings}";
+            )
+            cfg.settings;
+        in "${pkgs.gonic}/bin/gonic -config-path ${settingsFormat.generate "gonic" filteredSettings}";
         DynamicUser = true;
         StateDirectory = "gonic";
         CacheDirectory = "gonic";
@@ -102,5 +98,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.autrimpo ];
+  meta.maintainers = [lib.maintainers.autrimpo];
 }

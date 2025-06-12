@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "scout";
   version = "0.15.1";
@@ -23,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/liamg/scout";
     platforms = platforms.unix;
     license = licenses.unlicense;
-    maintainers = with maintainers; [ totoroot ];
+    maintainers = with maintainers; [totoroot];
   };
 }

@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "uritemplate";
   version = "4.1.1";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-Q0bt/Fw7efaUvM1tYJmjIrvrYo2/LNhu6lWkVs5RJPA=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "uritemplate" ];
+  pythonImportsCheck = ["uritemplate"];
 
   meta = with lib; {
     description = "Implementation of RFC 6570 URI templates";
@@ -33,6 +32,6 @@ buildPythonPackage rec {
       asl20
       bsd3
     ];
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

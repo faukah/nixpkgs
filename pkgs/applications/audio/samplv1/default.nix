@@ -15,7 +15,6 @@
   cmake,
   qtsvg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "samplv1";
   version = "1.3.2";
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "http://samplv1.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

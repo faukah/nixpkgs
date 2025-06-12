@@ -5,7 +5,6 @@
   pypaInstallHook,
   setuptoolsBuildHook,
 }:
-
 buildPythonPackage rec {
   pname = "urlobject";
   version = "2.4.3";
@@ -26,12 +25,12 @@ buildPythonPackage rec {
   # Tests use `nose`
   doInstallCheck = false;
 
-  pythonImportsCheck = [ "urlobject" ];
+  pythonImportsCheck = ["urlobject"];
 
   meta = {
     description = "Python library for manipulating URLs (and some URIs) in a more natural way";
     homepage = "http://zacharyvoase.github.com/urlobject";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
   };
 }

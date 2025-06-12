@@ -15,7 +15,6 @@
   withPython ? true,
   python3,
 }:
-
 stdenv.mkDerivation {
   pname = "libyafaray";
   version = "unstable-2022-09-17";
@@ -37,22 +36,24 @@ stdenv.mkDerivation {
     pkg-config
   ];
 
-  buildInputs = [
-    freetype
-    libjpeg
-    libtiff
-    libxml2
-    opencv
-    openexr
-    swig
-    zlib
-  ] ++ lib.optional withPython python3;
+  buildInputs =
+    [
+      freetype
+      libjpeg
+      libtiff
+      libxml2
+      opencv
+      openexr
+      swig
+      zlib
+    ]
+    ++ lib.optional withPython python3;
 
   meta = with lib; {
     description = "Free, open source raytracer";
     downloadPage = "https://github.com/YafaRay/libYafaRay";
     homepage = "http://www.yafaray.org";
-    maintainers = with maintainers; [ hodapp ];
+    maintainers = with maintainers; [hodapp];
     license = licenses.lgpl21;
     platforms = [
       "aarch64-linux"
@@ -60,6 +61,6 @@ stdenv.mkDerivation {
     ];
   };
 }
-
 # TODO: Add optional Ruby support
 # TODO: Add Qt support? (CMake looks for it, but what for?)
+

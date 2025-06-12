@@ -13,7 +13,6 @@
   pkg-config,
   which,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "berry";
   version = "0.1.12";
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
       comment = "A healthy, bite-sized window manager";
       desktopName = "Berry Window Manager";
       genericName = "Berry Window Manager";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -86,7 +85,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.mit;
     mainProgram = "berry";
-    maintainers = [ ];
+    maintainers = [];
     inherit (libX11.meta) platforms;
   };
 })

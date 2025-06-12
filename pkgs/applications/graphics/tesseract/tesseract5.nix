@@ -13,7 +13,6 @@
   icu,
   pango,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tesseract";
   version = "5.5.0";
@@ -42,12 +41,12 @@ stdenv.mkDerivation rec {
     pango
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
   meta = {
     description = "OCR engine";
     homepage = "https://github.com/tesseract-ocr/tesseract";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ patrickdag ];
+    maintainers = with lib.maintainers; [patrickdag];
     platforms = lib.platforms.unix;
     mainProgram = "tesseract";
   };

@@ -5,7 +5,6 @@
   python3Packages,
   wrapQtAppsHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "manuskript";
   version = "0.16.1";
@@ -19,7 +18,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-/Ryvv5mHdZ3iwMpZjOa62h8D2B00pzknJ70DfjDTPPA=";
   };
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   propagatedBuildInputs = [
     python3Packages.pyqt5
@@ -62,7 +61,7 @@ python3Packages.buildPythonApplication rec {
       characters live in.
     '';
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ strawbee ];
+    maintainers = with lib.maintainers; [strawbee];
     platforms = lib.platforms.unix;
     mainProgram = "manuskript";
   };

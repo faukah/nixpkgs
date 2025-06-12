@@ -14,7 +14,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "blocksat-cli";
   version = "2.5.1";
@@ -35,20 +34,22 @@ buildPythonPackage rec {
     mv setup_cli.py setup.py
   '';
 
-  pythonRelaxDeps = [ "pyasyncore" ];
+  pythonRelaxDeps = ["pyasyncore"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    distro
-    pysnmp
-    pysnmplib
-    python-gnupg
-    qrcode
-    requests
-  ] ++ lib.optionals (pythonAtLeast "3.12") [ pyasyncore ];
+  dependencies =
+    [
+      distro
+      pysnmp
+      pysnmplib
+      python-gnupg
+      qrcode
+      requests
+    ]
+    ++ lib.optionals (pythonAtLeast "3.12") [pyasyncore];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     "test_monitor_get_stats"
@@ -59,16 +60,16 @@ buildPythonPackage rec {
     "test_parse_upgradable_list_dnf"
   ];
 
-  disabledTestPaths = [ "blocksatgui/tests/" ];
+  disabledTestPaths = ["blocksatgui/tests/"];
 
-  pythonImportsCheck = [ "blocksatcli" ];
+  pythonImportsCheck = ["blocksatcli"];
 
   meta = with lib; {
     description = "Blockstream Satellite CLI";
     homepage = "https://github.com/Blockstream/satellite";
     changelog = "https://github.com/Blockstream/satellite/releases/tag/${src.tag}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     mainProgram = "blocksat-cli";
   };
 }

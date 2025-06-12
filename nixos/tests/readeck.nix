@@ -1,19 +1,15 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "readeck";
-  meta.maintainers = with lib.maintainers; [ julienmalka ];
+  meta.maintainers = with lib.maintainers; [julienmalka];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.readeck = {
-        enable = true;
-        environmentFile = pkgs.writeText "env-file" ''
-          READECK_SECRET_KEY="verysecretkey"
-        '';
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.readeck = {
+      enable = true;
+      environmentFile = pkgs.writeText "env-file" ''
+        READECK_SECRET_KEY="verysecretkey"
+      '';
     };
+  };
 
   testScript = ''
     machine.start()

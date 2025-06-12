@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fping";
   version = "5.3";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/schweikert/fping/releases/tag/v${version}";
     license = lib.licenses.bsd0;
     mainProgram = "fping";
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     platforms = lib.platforms.all;
   };
 }

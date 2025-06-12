@@ -1,26 +1,20 @@
 # Sources required to build CBQN
 # Update them all at the same time, or else misbuilds will happen!
 # TODO: automate the update of this file
+{fetchFromGitHub}: {
+  cbqn = let
+    self = {
+      pname = "cbqn";
+      version = "0.9.0";
 
-{
-  fetchFromGitHub,
-}:
-
-{
-  cbqn =
-    let
-      self = {
-        pname = "cbqn";
-        version = "0.9.0";
-
-        src = fetchFromGitHub {
-          owner = "dzaima";
-          repo = "CBQN";
-          rev = "v${self.version}";
-          hash = "sha256-WGQvnNVnNkz0PR/E5L05KvaaRZ9hgt9gNdzsR9OFYxA=";
-        };
+      src = fetchFromGitHub {
+        owner = "dzaima";
+        repo = "CBQN";
+        rev = "v${self.version}";
+        hash = "sha256-WGQvnNVnNkz0PR/E5L05KvaaRZ9hgt9gNdzsR9OFYxA=";
       };
-    in
+    };
+  in
     self;
 
   cbqn-bytecode = {

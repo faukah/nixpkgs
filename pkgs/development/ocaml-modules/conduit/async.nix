@@ -10,10 +10,10 @@
   ipaddr-sexp,
   sexplib0,
 }:
-
 buildDunePackage {
   pname = "conduit-async";
-  inherit (conduit)
+  inherit
+    (conduit)
     version
     src
     ;
@@ -33,7 +33,9 @@ buildDunePackage {
     sexplib0
   ];
 
-  meta = conduit.meta // {
-    description = "Network connection establishment library for Async";
-  };
+  meta =
+    conduit.meta
+    // {
+      description = "Network connection establishment library for Async";
+    };
 }

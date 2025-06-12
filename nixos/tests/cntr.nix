@@ -1,16 +1,13 @@
 # Test for cntr tool
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
   lib ? pkgs.lib,
-}:
+}: let
+  inherit (import ../lib/testing-python.nix {inherit system pkgs;}) makeTest;
 
-let
-  inherit (import ../lib/testing-python.nix { inherit system pkgs; }) makeTest;
-
-  mkOCITest =
-    backend:
+  mkOCITest = backend:
     makeTest {
       name = "cntr-${backend}";
 
@@ -22,19 +19,17 @@ let
       };
 
       nodes = {
-        ${backend} =
-          { pkgs, ... }:
-          {
-            environment.systemPackages = [ pkgs.cntr ];
-            virtualisation.oci-containers = {
-              inherit backend;
-              containers.nginx = {
-                image = "nginx-container";
-                imageStream = pkgs.dockerTools.examples.nginxStream;
-                ports = [ "8181:80" ];
-              };
+        ${backend} = {pkgs, ...}: {
+          environment.systemPackages = [pkgs.cntr];
+          virtualisation.oci-containers = {
+            inherit backend;
+            containers.nginx = {
+              image = "nginx-container";
+              imageStream = pkgs.dockerTools.examples.nginxStream;
+              ports = ["8181:80"];
             };
           };
+        };
       };
 
       testScript = ''
@@ -63,18 +58,16 @@ let
       ];
     };
 
-    nodes.machine =
-      { lib, ... }:
-      {
-        environment.systemPackages = [ pkgs.cntr ];
-        containers.test = {
-          autoStart = true;
-          privateNetwork = true;
-          hostAddress = "172.16.0.1";
-          localAddress = "172.16.0.2";
-          config = { };
-        };
+    nodes.machine = {lib, ...}: {
+      environment.systemPackages = [pkgs.cntr];
+      containers.test = {
+        autoStart = true;
+        privateNetwork = true;
+        hostAddress = "172.16.0.1";
+        localAddress = "172.16.0.2";
+        config = {};
       };
+    };
 
     testScript = ''
       machine.start()
@@ -89,7 +82,7 @@ let
     '';
   };
 in
-{
-  nixos-container = mkContainersTest;
-}
-// (lib.genAttrs [ "docker" "podman" ] mkOCITest)
+  {
+    nixos-container = mkContainersTest;
+  }
+  // (lib.genAttrs ["docker" "podman"] mkOCITest)

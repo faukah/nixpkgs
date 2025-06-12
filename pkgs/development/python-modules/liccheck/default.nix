@@ -11,7 +11,6 @@
   semantic-version,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "liccheck";
   version = "0.9.2";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     python3-openid
   ];
 
-  pythonImportsCheck = [ "liccheck" ];
+  pythonImportsCheck = ["liccheck"];
 
   meta = with lib; {
     description = "Check python packages from requirement.txt and report issues";
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dhatim/python-license-check";
     changelog = "https://github.com/dhatim/python-license-check/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

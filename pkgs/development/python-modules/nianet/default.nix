@@ -12,7 +12,6 @@
   tomli,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "nianet";
   version = "1.1.4";
@@ -54,13 +53,13 @@ buildPythonPackage rec {
     tomli
   ];
 
-  pythonImportsCheck = [ "nianet" ];
+  pythonImportsCheck = ["nianet"];
 
   meta = with lib; {
     description = "Designing and constructing neural network topologies using nature-inspired algorithms";
     homepage = "https://github.com/SasoPavlic/NiaNet";
     changelog = "https://github.com/SasoPavlic/NiaNet/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ firefly-cpp ];
+    maintainers = with maintainers; [firefly-cpp];
   };
 }

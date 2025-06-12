@@ -10,7 +10,6 @@
   gtksourceview,
   writableTmpDirAsHomeHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pychess";
   version = "1.0.5";
@@ -70,6 +69,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "pychess";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ lgbishop ];
+    maintainers = with lib.maintainers; [lgbishop];
   };
 }

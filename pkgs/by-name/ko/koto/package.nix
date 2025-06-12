@@ -6,7 +6,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "koto";
   version = "0.15.3";
@@ -29,20 +28,20 @@ rustPlatform.buildRustPackage (finalAttrs: {
     yq # for `tomlq`
   ];
 
-  cargoBuildFlags = [ "--package=koto_cli" ];
+  cargoBuildFlags = ["--package=koto_cli"];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple, expressive, embeddable programming language";
     homepage = "https://github.com/koto-lang/koto";
     changelog = "https://github.com/koto-lang/koto/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
     mainProgram = "koto";
   };
 })

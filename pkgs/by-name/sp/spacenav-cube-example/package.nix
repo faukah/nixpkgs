@@ -5,7 +5,6 @@
   libX11,
   mesa_glu,
 }:
-
 stdenv.mkDerivation {
   pname = "spacenav-cube-example";
   inherit (libspnav) version src;
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
     libspnav
   ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     runHook preInstall
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
     description = "Example application to test the spacenavd driver";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sohalt ];
+    maintainers = with maintainers; [sohalt];
     mainProgram = "spacenav-cube-example";
   };
 }

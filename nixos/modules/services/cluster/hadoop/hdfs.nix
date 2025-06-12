@@ -3,20 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.hadoop;
 
   # Config files for hadoop services
-  hadoopConf = "${import ./conf.nix { inherit cfg pkgs lib; }}/";
+  hadoopConf = "${import ./conf.nix {inherit cfg pkgs lib;}}/";
 
   # Generator for HDFS service options
-  hadoopServiceOption =
-    {
-      serviceName,
-      firewallOption ? true,
-      extraOpts ? null,
-    }:
+  hadoopServiceOption = {
+    serviceName,
+    firewallOption ? true,
+    extraOpts ? null,
+  }:
     {
       enable = lib.mkEnableOption serviceName;
       restartIfChanged = lib.mkOption {
@@ -31,7 +29,7 @@ let
       };
       extraFlags = lib.mkOption {
         type = with lib.types; listOf str;
-        default = [ ];
+        default = [];
         description = "Extra command line flags to pass to ${serviceName}";
         example = [
           "-Dcom.sun.management.jmxremote"
@@ -40,7 +38,7 @@ let
       };
       extraEnv = lib.mkOption {
         type = with lib.types; attrsOf str;
-        default = { };
+        default = {};
         description = "Extra environment variables for ${serviceName}";
       };
     }
@@ -54,110 +52,110 @@ let
     // (lib.optionalAttrs (extraOpts != null) extraOpts);
 
   # Generator for HDFS service configs
-  hadoopServiceConfig =
-    {
-      name,
-      serviceOptions ? cfg.hdfs."${lib.toLower name}",
-      description ? "Hadoop HDFS ${name}",
-      User ? "hdfs",
-      allowedTCPPorts ? [ ],
-      preStart ? "",
-      environment ? { },
-      extraConfig ? { },
-    }:
-    (
-
-      lib.mkIf serviceOptions.enable (
-        lib.mkMerge [
-          {
-            systemd.services."hdfs-${lib.toLower name}" = {
-              inherit description preStart;
-              environment = environment // serviceOptions.extraEnv;
-              wantedBy = [ "multi-user.target" ];
-              inherit (serviceOptions) restartIfChanged;
-              serviceConfig = {
-                inherit User;
-                SyslogIdentifier = "hdfs-${lib.toLower name}";
-                ExecStart = "${cfg.package}/bin/hdfs --config ${hadoopConf} ${lib.toLower name} ${lib.escapeShellArgs serviceOptions.extraFlags}";
-                Restart = "always";
-              };
+  hadoopServiceConfig = {
+    name,
+    serviceOptions ? cfg.hdfs."${lib.toLower name}",
+    description ? "Hadoop HDFS ${name}",
+    User ? "hdfs",
+    allowedTCPPorts ? [],
+    preStart ? "",
+    environment ? {},
+    extraConfig ? {},
+  }: (
+    lib.mkIf serviceOptions.enable (
+      lib.mkMerge [
+        {
+          systemd.services."hdfs-${lib.toLower name}" = {
+            inherit description preStart;
+            environment = environment // serviceOptions.extraEnv;
+            wantedBy = ["multi-user.target"];
+            inherit (serviceOptions) restartIfChanged;
+            serviceConfig = {
+              inherit User;
+              SyslogIdentifier = "hdfs-${lib.toLower name}";
+              ExecStart = "${cfg.package}/bin/hdfs --config ${hadoopConf} ${lib.toLower name} ${lib.escapeShellArgs serviceOptions.extraFlags}";
+              Restart = "always";
             };
+          };
 
-            services.hadoop.gatewayRole.enable = true;
+          services.hadoop.gatewayRole.enable = true;
 
-            networking.firewall.allowedTCPPorts = lib.mkIf (
+          networking.firewall.allowedTCPPorts =
+            lib.mkIf (
               (builtins.hasAttr "openFirewall" serviceOptions) && serviceOptions.openFirewall
-            ) allowedTCPPorts;
-          }
-          extraConfig
-        ]
-      )
-    );
-
-in
-{
+            )
+            allowedTCPPorts;
+        }
+        extraConfig
+      ]
+    )
+  );
+in {
   options.services.hadoop.hdfs = {
-
-    namenode = hadoopServiceOption { serviceName = "HDFS NameNode"; } // {
-      formatOnInit = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = ''
-          Format HDFS namenode on first start. This is useful for quickly spinning up
-          ephemeral HDFS clusters with a single namenode.
-          For HA clusters, initialization involves multiple steps across multiple nodes.
-          Follow this guide to initialize an HA cluster manually:
-          <https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html>
-        '';
+    namenode =
+      hadoopServiceOption {serviceName = "HDFS NameNode";}
+      // {
+        formatOnInit = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = ''
+            Format HDFS namenode on first start. This is useful for quickly spinning up
+            ephemeral HDFS clusters with a single namenode.
+            For HA clusters, initialization involves multiple steps across multiple nodes.
+            Follow this guide to initialize an HA cluster manually:
+            <https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html>
+          '';
+        };
       };
-    };
 
-    datanode = hadoopServiceOption { serviceName = "HDFS DataNode"; } // {
-      dataDirs = lib.mkOption {
-        default = null;
-        description = "Tier and path definitions for datanode storage.";
-        type =
-          with lib.types;
-          nullOr (
-            listOf (submodule {
-              options = {
-                type = lib.mkOption {
-                  type = enum [
-                    "SSD"
-                    "DISK"
-                    "ARCHIVE"
-                    "RAM_DISK"
-                  ];
-                  description = ''
-                    Storage types ([SSD]/[DISK]/[ARCHIVE]/[RAM_DISK]) for HDFS storage policies.
-                  '';
+    datanode =
+      hadoopServiceOption {serviceName = "HDFS DataNode";}
+      // {
+        dataDirs = lib.mkOption {
+          default = null;
+          description = "Tier and path definitions for datanode storage.";
+          type = with lib.types;
+            nullOr (
+              listOf (submodule {
+                options = {
+                  type = lib.mkOption {
+                    type = enum [
+                      "SSD"
+                      "DISK"
+                      "ARCHIVE"
+                      "RAM_DISK"
+                    ];
+                    description = ''
+                      Storage types ([SSD]/[DISK]/[ARCHIVE]/[RAM_DISK]) for HDFS storage policies.
+                    '';
+                  };
+                  path = lib.mkOption {
+                    type = path;
+                    example = ["/var/lib/hadoop/hdfs/dn"];
+                    description = "Determines where on the local filesystem a data node should store its blocks.";
+                  };
                 };
-                path = lib.mkOption {
-                  type = path;
-                  example = [ "/var/lib/hadoop/hdfs/dn" ];
-                  description = "Determines where on the local filesystem a data node should store its blocks.";
-                };
-              };
-            })
-          );
+              })
+            );
+        };
       };
-    };
 
-    journalnode = hadoopServiceOption { serviceName = "HDFS JournalNode"; };
+    journalnode = hadoopServiceOption {serviceName = "HDFS JournalNode";};
 
     zkfc = hadoopServiceOption {
       serviceName = "HDFS ZooKeeper failover controller";
       firewallOption = false;
     };
 
-    httpfs = hadoopServiceOption { serviceName = "HDFS JournalNode"; } // {
-      tempPath = lib.mkOption {
-        type = lib.types.path;
-        default = "/tmp/hadoop/httpfs";
-        description = "HTTPFS_TEMP path used by HTTPFS";
+    httpfs =
+      hadoopServiceOption {serviceName = "HDFS JournalNode";}
+      // {
+        tempPath = lib.mkOption {
+          type = lib.types.path;
+          default = "/tmp/hadoop/httpfs";
+          description = "HTTPFS_TEMP path used by HTTPFS";
+        };
       };
-    };
-
   };
 
   config = lib.mkMerge [
@@ -178,18 +176,17 @@ in
       name = "DataNode";
       # port numbers for datanode changed between hadoop 2 and 3
       allowedTCPPorts =
-        if lib.versionAtLeast cfg.package.version "3" then
-          [
-            9864 # datanode.http.address
-            9866 # datanode.address
-            9867 # datanode.ipc.address
-          ]
-        else
-          [
-            50075 # datanode.http.address
-            50010 # datanode.address
-            50020 # datanode.ipc.address
-          ];
+        if lib.versionAtLeast cfg.package.version "3"
+        then [
+          9864 # datanode.http.address
+          9866 # datanode.address
+          9867 # datanode.ipc.address
+        ]
+        else [
+          50075 # datanode.http.address
+          50010 # datanode.address
+          50020 # datanode.ipc.address
+        ];
       extraConfig.services.hadoop.hdfsSiteInternal."dfs.datanode.data.dir" = lib.mkIf (
         cfg.hdfs.datanode.dataDirs != null
       ) (lib.concatMapStringsSep "," (x: "[" + x.type + "]file://" + x.path) cfg.hdfs.datanode.dataDirs);
@@ -232,6 +229,5 @@ in
         isSystemUser = true;
       };
     })
-
   ];
 }

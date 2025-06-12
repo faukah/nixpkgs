@@ -5,7 +5,6 @@
   pyserial,
   pyudev,
 }:
-
 buildPythonApplication rec {
   pname = "rshell";
   version = "0.0.36";
@@ -24,6 +23,6 @@ buildPythonApplication rec {
     homepage = "https://github.com/dhylands/rshell";
     description = "Remote Shell for MicroPython";
     license = licenses.mit;
-    maintainers = with maintainers; [ c0deaddict ];
+    maintainers = with maintainers; [c0deaddict];
   };
 }

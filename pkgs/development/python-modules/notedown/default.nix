@@ -8,7 +8,6 @@
   pandoc-attributes,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "notedown";
   version = "1.5.1";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Convert IPython Notebooks to markdown (and back)";
     mainProgram = "notedown";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ vcanadi ];
+    maintainers = with lib.maintainers; [vcanadi];
   };
 }

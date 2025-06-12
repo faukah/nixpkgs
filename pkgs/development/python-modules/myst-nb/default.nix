@@ -16,7 +16,6 @@
   typing-extensions,
   ipykernel,
 }:
-
 buildPythonPackage rec {
   pname = "myst-nb";
   version = "1.2.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-r0Wex1OzQZUhgrRbCoC0d2zr+Aye5qrKKj9AJ7RAyd4=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     importlib-metadata
@@ -56,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/executablebooks/MyST-NB";
     changelog = "https://github.com/executablebooks/MyST-NB/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

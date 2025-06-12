@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "mdformat-toc";
   version = "0.3.0";
@@ -22,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-3EX6kGez408tEYiR9VSvi3GTrb4ds+HJwpFflv77nkg=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ mdformat ];
+  propagatedBuildInputs = [mdformat];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mdformat_toc" ];
+  pythonImportsCheck = ["mdformat_toc"];
 
   meta = with lib; {
     description = "Mdformat plugin to generate a table of contents";

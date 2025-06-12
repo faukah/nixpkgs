@@ -29,7 +29,6 @@
   xorg,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sumo";
   version = "1.23.1";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "eclipse";
     repo = "sumo";
-    rev = "v${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "v${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-yXXOCvlHAzGmNQeXyWQtmq1UdkQ6qt4L9noUii/voP4=";
     fetchSubmodules = true;
   };
@@ -93,6 +92,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/eclipse/sumo";
     license = licenses.epl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

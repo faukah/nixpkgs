@@ -15,7 +15,6 @@
   libxcrypt,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opensmtpd";
   version = "7.7.0p0";

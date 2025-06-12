@@ -14,7 +14,6 @@
   libxml2,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gupnp-av";
   version = "0.14.3";

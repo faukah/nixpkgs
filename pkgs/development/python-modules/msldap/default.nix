@@ -14,7 +14,6 @@
   wcwidth,
   tabulate,
 }:
-
 buildPythonPackage rec {
   pname = "msldap";
   version = "0.5.15";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-uAJKLAVZFY7EB8tjFyAezINicki6ruzuXf1EGcp3Pj0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     unicrypto
@@ -44,13 +43,13 @@ buildPythonPackage rec {
   # Project doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "msldap" ];
+  pythonImportsCheck = ["msldap"];
 
   meta = with lib; {
     description = "Python LDAP library for auditing MS AD";
     homepage = "https://github.com/skelsec/msldap";
     changelog = "https://github.com/skelsec/msldap/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

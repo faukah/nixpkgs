@@ -6,7 +6,6 @@
   libpcap,
   libxcrypt,
 }:
-
 stdenv.mkDerivation {
   pname = "asleap";
   version = "unstable-2021-06-20";
@@ -37,7 +36,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/zackw/asleap";
     description = "Recovers weak LEAP and PPTP passwords";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
     platforms = lib.platforms.linux;
   };
 }

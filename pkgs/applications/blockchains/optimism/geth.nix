@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "op-geth";
   version = "1.101305.3";
@@ -42,6 +41,6 @@ buildGoModule rec {
     description = "";
     homepage = "https://github.com/ethereum-optimism/op-geth";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

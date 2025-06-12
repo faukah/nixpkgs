@@ -16,7 +16,6 @@
   process-cpp,
   properties-cpp,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dbus-cpp";
   version = "5.0.4";
@@ -97,7 +96,7 @@ stdenv.mkDerivation (finalAttrs: {
       package = finalAttrs.finalPackage;
       versionCheck = true;
     };
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -105,7 +104,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/ubports/development/core/lib-cpp/dbus-cpp";
     changelog = "https://gitlab.com/ubports/development/core/lib-cpp/dbus-cpp/-/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     mainProgram = "dbus-cppc";
     platforms = lib.platforms.linux;
     pkgConfigModules = [

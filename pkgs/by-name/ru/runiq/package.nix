@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "runiq";
   version = "2.0.0-unstable-2024-08-19";
@@ -26,6 +25,6 @@ rustPlatform.buildRustPackage {
     mainProgram = "runiq";
     homepage = "https://github.com/whitfin/runiq";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -9,104 +9,101 @@
   python3,
   nodejs_20,
   matrix-sdk-crypto-nodejs,
-}:
-
-let
+}: let
   nodejs = nodejs_20; # only supports nodejs v18.X - v20.X
   pin = lib.importJSON ./pin.json;
   nodeSources = srcOnly nodejs;
-
 in
-mkYarnPackage rec {
-  pname = "matrix-appservice-discord";
-  inherit (pin) version;
-  inherit nodejs;
+  mkYarnPackage rec {
+    pname = "matrix-appservice-discord";
+    inherit (pin) version;
+    inherit nodejs;
 
-  src = fetchFromGitHub {
-    owner = "matrix-org";
-    repo = "matrix-appservice-discord";
-    rev = "v${version}";
-    hash = pin.srcHash;
-  };
-
-  packageJSON = ./package.json;
-  offlineCache = fetchYarnDeps {
-    yarnLock = "${src}/yarn.lock";
-    sha256 = pin.yarnSha256;
-  };
-
-  pkgConfig = {
-    "@matrix-org/matrix-sdk-crypto-nodejs" = {
-      postInstall = ''
-        # replace with the built package
-        cd ..
-        rm -r matrix-sdk-crypto-nodejs
-        ln -s ${matrix-sdk-crypto-nodejs}/lib/node_modules/@matrix-org/* ./
-      '';
+    src = fetchFromGitHub {
+      owner = "matrix-org";
+      repo = "matrix-appservice-discord";
+      rev = "v${version}";
+      hash = pin.srcHash;
     };
 
-    better-sqlite3 = {
-      nativeBuildInputs = [ python3 ];
-      postInstall = ''
-        # build native sqlite bindings
-        npm run build-release --offline --nodedir="${nodeSources}"
-        find build -type f -exec \
-          ${removeReferencesTo}/bin/remove-references-to \
-          -t "${nodeSources}" {} \;
-      '';
+    packageJSON = ./package.json;
+    offlineCache = fetchYarnDeps {
+      yarnLock = "${src}/yarn.lock";
+      sha256 = pin.yarnSha256;
     };
-  };
 
-  nativeBuildInputs = [ makeWrapper ];
+    pkgConfig = {
+      "@matrix-org/matrix-sdk-crypto-nodejs" = {
+        postInstall = ''
+          # replace with the built package
+          cd ..
+          rm -r matrix-sdk-crypto-nodejs
+          ln -s ${matrix-sdk-crypto-nodejs}/lib/node_modules/@matrix-org/* ./
+        '';
+      };
 
-  buildPhase = ''
-    runHook preBuild
+      better-sqlite3 = {
+        nativeBuildInputs = [python3];
+        postInstall = ''
+          # build native sqlite bindings
+          npm run build-release --offline --nodedir="${nodeSources}"
+          find build -type f -exec \
+            ${removeReferencesTo}/bin/remove-references-to \
+            -t "${nodeSources}" {} \;
+        '';
+      };
+    };
 
-    # compile TypeScript sources
-    yarn --offline build
+    nativeBuildInputs = [makeWrapper];
 
-    runHook postBuild
-  '';
+    buildPhase = ''
+      runHook preBuild
 
-  doCheck = true;
-  checkPhase = ''
-    runHook preCheck
+      # compile TypeScript sources
+      yarn --offline build
 
-    # the default 2000ms timeout is sometimes too short on our busy builders
-    yarn --offline test --timeout 10000
+      runHook postBuild
+    '';
 
-    runHook postCheck
-  '';
+    doCheck = true;
+    checkPhase = ''
+      runHook preCheck
 
-  postInstall = ''
-    OUT_JS_DIR="$out/${passthru.nodeAppDir}/build"
+      # the default 2000ms timeout is sometimes too short on our busy builders
+      yarn --offline test --timeout 10000
 
-    # server wrapper
-    makeWrapper '${nodejs}/bin/node' "$out/bin/${pname}" \
-      --add-flags "$OUT_JS_DIR/src/discordas.js"
+      runHook postCheck
+    '';
 
-    # admin tools wrappers
-    for toolPath in $OUT_JS_DIR/tools/*; do
-      makeWrapper '${nodejs}/bin/node' \
-        "$out/bin/${pname}-$(basename $toolPath .js)" \
-        --add-flags "$toolPath"
-    done
-  '';
+    postInstall = ''
+      OUT_JS_DIR="$out/${passthru.nodeAppDir}/build"
 
-  # don't generate the dist tarball
-  doDist = false;
+      # server wrapper
+      makeWrapper '${nodejs}/bin/node' "$out/bin/${pname}" \
+        --add-flags "$OUT_JS_DIR/src/discordas.js"
 
-  passthru = {
-    nodeAppDir = "libexec/${pname}/deps/${pname}";
-    updateScript = ./update.sh;
-  };
+      # admin tools wrappers
+      for toolPath in $OUT_JS_DIR/tools/*; do
+        makeWrapper '${nodejs}/bin/node' \
+          "$out/bin/${pname}-$(basename $toolPath .js)" \
+          --add-flags "$toolPath"
+      done
+    '';
 
-  meta = {
-    description = "Bridge between Matrix and Discord";
-    homepage = "https://github.com/matrix-org/matrix-appservice-discord";
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ euxane ];
-    platforms = lib.platforms.linux;
-    mainProgram = "matrix-appservice-discord";
-  };
-}
+    # don't generate the dist tarball
+    doDist = false;
+
+    passthru = {
+      nodeAppDir = "libexec/${pname}/deps/${pname}";
+      updateScript = ./update.sh;
+    };
+
+    meta = {
+      description = "Bridge between Matrix and Discord";
+      homepage = "https://github.com/matrix-org/matrix-appservice-discord";
+      license = lib.licenses.asl20;
+      maintainers = with lib.maintainers; [euxane];
+      platforms = lib.platforms.linux;
+      mainProgram = "matrix-appservice-discord";
+    };
+  }

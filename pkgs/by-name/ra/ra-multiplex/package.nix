@@ -5,7 +5,6 @@
   rustPlatform,
   rust-analyzer,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ra-multiplex";
   version = "0.2.5";
@@ -20,18 +19,18 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-NVE/ROk6x1R0D5eyOzz1gYPvgG0lX5L2tCuZGIS9kzs=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/ra-multiplex \
-      --suffix PATH : ${lib.makeBinPath [ rust-analyzer ]}
+      --suffix PATH : ${lib.makeBinPath [rust-analyzer]}
   '';
 
   meta = with lib; {
     description = "Multiplexer for rust-analyzer";
     mainProgram = "ra-multiplex";
     homepage = "https://github.com/pr2502/ra-multiplex";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ norfair ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [norfair];
   };
 }

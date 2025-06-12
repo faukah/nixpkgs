@@ -6,7 +6,6 @@
   setuptools,
   installShellFiles,
 }:
-
 buildPythonApplication rec {
   version = "0.16.6.1";
   pname = "gita";
@@ -23,7 +22,7 @@ buildPythonApplication rec {
     setuptools
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # 3 of the tests are failing
   doCheck = false;
@@ -37,7 +36,7 @@ buildPythonApplication rec {
     description = "Command-line tool to manage multiple git repos";
     homepage = "https://github.com/nosarthur/gita";
     license = licenses.mit;
-    maintainers = with maintainers; [ seqizz ];
+    maintainers = with maintainers; [seqizz];
     mainProgram = "gita";
   };
 }

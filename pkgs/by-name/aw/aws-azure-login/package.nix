@@ -77,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/aws-azure-login/aws-azure-login";
     license = lib.licenses.mit;
     mainProgram = "aws-azure-login";
-    maintainers = with lib.maintainers; [ l0b0 ];
+    maintainers = with lib.maintainers; [l0b0];
     platforms = lib.platforms.all;
   };
 })

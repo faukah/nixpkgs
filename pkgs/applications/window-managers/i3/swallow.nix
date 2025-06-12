@@ -7,7 +7,6 @@
   xlib,
   six,
 }:
-
 buildPythonApplication {
   pname = "i3-swallow";
   version = "unstable-2022-02-19";
@@ -40,6 +39,6 @@ buildPythonApplication {
     license = licenses.mit;
     platforms = platforms.linux;
     mainProgram = "swallow";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

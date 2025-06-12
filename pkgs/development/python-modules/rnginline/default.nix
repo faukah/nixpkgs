@@ -11,7 +11,6 @@
   pytestCheckHook,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "rnginline";
   version = "1.0.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     "lxml"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     docopt-ng
@@ -43,13 +42,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "rnginline" ];
+  pythonImportsCheck = ["rnginline"];
 
   meta = with lib; {
     description = "Python library and command-line tool for loading multi-file RELAX NG schemas from arbitary URLs, and flattening them into a single RELAX NG schema";
     homepage = "https://github.com/h4l/rnginline";
     changelog = "https://github.com/h4l/rnginline/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lesuisse ];
+    maintainers = with maintainers; [lesuisse];
   };
 }

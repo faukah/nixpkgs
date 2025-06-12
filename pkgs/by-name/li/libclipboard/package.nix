@@ -8,7 +8,6 @@
   libXdmcp,
   lib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   name = "libclipboard";
   version = "1.1";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"];
   outputs = [
     "out"
     "dev"
@@ -42,6 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/jtanx/libclipboard/releases/tag/${finalAttrs.src.rev}";
     platforms = lib.platforms.unix;
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.sigmanificient ];
+    maintainers = [lib.maintainers.sigmanificient];
   };
 })

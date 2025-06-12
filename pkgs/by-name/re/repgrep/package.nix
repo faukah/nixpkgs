@@ -8,7 +8,6 @@
   makeWrapper,
   ripgrep,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "repgrep";
   version = "0.16.1";
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage rec {
   postInstall =
     ''
       wrapProgram $out/bin/rgr \
-        --prefix PATH : ${lib.makeBinPath [ ripgrep ]}
+        --prefix PATH : ${lib.makeBinPath [ripgrep]}
 
       pushd "$(dirname "$(find -path '**/repgrep-stamp' | head -n 1)")"
       installManPage rgr.1
@@ -55,7 +54,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       unlicense
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "rgr";
   };
 }

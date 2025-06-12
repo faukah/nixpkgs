@@ -8,7 +8,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "taxii2-client";
   version = "2.3.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-e22bJdLAlm30vv/xIgLSjcwmzfN0Pwt2JydLgEbA+Is=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pytz
@@ -31,13 +30,13 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "taxii2client" ];
+  pythonImportsCheck = ["taxii2client"];
 
   meta = {
     description = "TAXII 2 client library";
     homepage = "https://github.com/oasis-open/cti-taxii-client/";
     changelog = "https://github.com/oasis-open/cti-taxii-client/blob/${src.rev}/CHANGES.txt";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

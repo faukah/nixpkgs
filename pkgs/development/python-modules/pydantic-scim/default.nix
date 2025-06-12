@@ -6,7 +6,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pydantic-scim";
   version = "0.0.8";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
       --replace 'version=get_version(),' 'version="${version}",'
   '';
 
-  propagatedBuildInputs = [ pydantic ] ++ pydantic.optional-dependencies.email;
+  propagatedBuildInputs = [pydantic] ++ pydantic.optional-dependencies.email;
 
-  pythonImportsCheck = [ "pydanticscim" ];
+  pythonImportsCheck = ["pydanticscim"];
 
   # no tests
   doCheck = false;
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     description = "Pydantic types for SCIM";
     homepage = "https://github.com/chalk-ai/pydantic-scim";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

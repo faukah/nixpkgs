@@ -4,11 +4,9 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   runXdgAutostart = config.services.xserver.desktopManager.runXdgAutostartIfNone;
-in
-{
+in {
   options = {
     services.xserver.desktopManager.runXdgAutostartIfNone = mkOption {
       type = types.bool;
@@ -50,7 +48,7 @@ in
           "xdg-desktop-autostart.target"
           "graphical-session.target"
         ];
-        bindsTo = [ "graphical-session.target" ];
+        bindsTo = ["graphical-session.target"];
       };
     })
   ];

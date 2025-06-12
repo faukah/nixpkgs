@@ -8,7 +8,6 @@
   gitUpdater,
   elfutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "strace";
   version = "6.15";
@@ -25,8 +24,8 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ perl ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  nativeBuildInputs = [perl];
 
   enableParallelBuilding = true;
 
@@ -34,13 +33,15 @@ stdenv.mkDerivation rec {
   # On RISC-V platforms, LLVM's libunwind implementation is unsupported by strace.
   # The build will silently fall back and -k will not work on RISC-V.
   buildInputs =
-    [ libunwind ]
+    [libunwind]
     # -kk
     ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform elfutils) elfutils;
 
-  configureFlags = [
-    "--enable-mpers=check"
-  ] ++ lib.optional stdenv.cc.isClang "CFLAGS=-Wno-unused-function";
+  configureFlags =
+    [
+      "--enable-mpers=check"
+    ]
+    ++ lib.optional stdenv.cc.isClang "CFLAGS=-Wno-unused-function";
 
   passthru.updateScript = gitUpdater {
     # No nicer place to find latest release.

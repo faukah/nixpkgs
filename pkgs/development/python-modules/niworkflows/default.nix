@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatch-vcs,
   hatchling,
-
   # dependencies
   acres,
   attrs,
@@ -30,14 +28,12 @@
   templateflow,
   traits,
   transforms3d,
-
   # tests
   pytest-cov-stub,
   pytest-env,
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "niworkflows";
   version = "1.12.2";
@@ -50,7 +46,7 @@ buildPythonPackage rec {
     hash = "sha256-rgnfp12SHlL3LFFMSrHlTd0tWNnA4ekxZ9kKYRvZWlw=";
   };
 
-  pythonRelaxDeps = [ "traits" ];
+  pythonRelaxDeps = ["traits"];
 
   build-system = [
     hatch-vcs
@@ -91,7 +87,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pytestFlagsArray = [ "niworkflows" ];
+  pytestFlagsArray = ["niworkflows"];
 
   disabledTests = [
     # try to download data:
@@ -108,7 +104,7 @@ buildPythonPackage rec {
     "niworkflows/tests/test_registration.py"
   ];
 
-  pythonImportsCheck = [ "niworkflows" ];
+  pythonImportsCheck = ["niworkflows"];
 
   meta = {
     description = "Common workflows for MRI (anatomical, functional, diffusion, etc.)";
@@ -116,6 +112,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/nipreps/niworkflows";
     changelog = "https://github.com/nipreps/niworkflows/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

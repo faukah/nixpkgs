@@ -12,7 +12,6 @@
   libsoup_3,
   webkitgtk_4_1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fontfinder";
   version = "2.1.0";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mmstick/fontfinder";
     changelog = "https://github.com/mmstick/fontfinder/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "fontfinder-gtk";
   };
 }

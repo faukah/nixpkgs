@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   cmakeBuildType = "RelWithDebInfo";
 
-  cmakeFlags = [ "-DKTX_FEATURE_DOC=ON" ];
+  cmakeFlags = ["-DKTX_FEATURE_DOC=ON"];
 
   postPatch = ''
     patchShebangs .
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/KhronosGroup/KTX-Software";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bonsairobo ];
+    maintainers = with maintainers; [bonsairobo];
     platforms = platforms.linux;
   };
 }

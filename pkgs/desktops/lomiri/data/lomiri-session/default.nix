@@ -15,7 +15,6 @@
   systemd,
   xdg-user-dirs,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "lomiri-session";
   version = "0.3";
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-XduE3tPUjw/wIjFCACasxtN33KO4bDLWrpl7pZcYaAA=";
   };
 
-  patches = [ ./1001-Unset-QT_QPA_PLATFORMTHEME.patch ];
+  patches = [./1001-Unset-QT_QPA_PLATFORMTHEME.patch];
 
   postPatch = ''
     substituteInPlace lomiri-session.in \
@@ -65,12 +64,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     patchShebangs $out/bin/lomiri-session
     wrapProgram $out/bin/lomiri-session \
       --prefix PATH : ${
-        lib.makeBinPath [
-          deviceinfo
-          inotify-tools
-          lomiri
-        ]
-      }
+      lib.makeBinPath [
+        deviceinfo
+        inotify-tools
+        lomiri
+      ]
+    }
   '';
 
   passthru = {
@@ -80,7 +79,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       # "lomiri-touch"
     ];
     tests.lomiri = nixosTests.lomiri;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = with lib; {
@@ -89,7 +88,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.com/ubports/development/core/lomiri-session/-/blob/${finalAttrs.version}/ChangeLog";
     license = licenses.gpl3Only;
     mainProgram = "lomiri-session";
-    teams = [ teams.lomiri ];
+    teams = [teams.lomiri];
     platforms = platforms.linux;
   };
 })

@@ -9,7 +9,6 @@
   validatePkgConfig,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mongocxx";
   version = "4.0.0";
@@ -59,6 +58,6 @@ stdenv.mkDerivation (finalAttrs: {
       "libbsoncxx"
     ];
     platforms = platforms.all;
-    badPlatforms = [ "x86_64-darwin" ]; # needs sdk >= 10.14
+    badPlatforms = ["x86_64-darwin"]; # needs sdk >= 10.14
   };
 })

@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     literalExpression
     mkEnableOption
     mkIf
@@ -17,10 +16,7 @@ let
     ;
 
   cfg = config.services.plantuml-server;
-
-in
-
-{
+in {
   imports = [
     (mkRemovedOptionModule [
       "services"
@@ -33,12 +29,12 @@ in
     services.plantuml-server = {
       enable = mkEnableOption "PlantUML server";
 
-      package = mkPackageOption pkgs "plantuml-server" { };
+      package = mkPackageOption pkgs "plantuml-server" {};
 
       packages = {
-        jdk = mkPackageOption pkgs "jdk" { };
+        jdk = mkPackageOption pkgs "jdk" {};
         jetty = mkPackageOption pkgs "jetty" {
-          default = [ "jetty_11" ];
+          default = ["jetty_11"];
           extraDescription = ''
             At the time of writing (v1.2023.12), PlantUML Server does not support
             Jetty versions higher than 12.x.
@@ -86,7 +82,7 @@ in
         description = "Limits image width and height.";
       };
 
-      graphvizPackage = mkPackageOption pkgs "graphviz" { };
+      graphvizPackage = mkPackageOption pkgs "graphviz" {};
 
       plantumlStats = mkOption {
         type = types.bool;
@@ -105,12 +101,15 @@ in
   config = mkIf cfg.enable {
     systemd.services.plantuml-server = {
       description = "PlantUML server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         PLANTUML_LIMIT_SIZE = builtins.toString cfg.plantumlLimitSize;
         GRAPHVIZ_DOT = "${cfg.graphvizPackage}/bin/dot";
-        PLANTUML_STATS = if cfg.plantumlStats then "on" else "off";
+        PLANTUML_STATS =
+          if cfg.plantumlStats
+          then "on"
+          else "off";
         HTTP_AUTHORIZATION = cfg.httpAuthorization;
       };
       script = ''
@@ -130,8 +129,8 @@ in
         StateDirectoryMode = mkIf (cfg.home == "/var/lib/plantuml") "0750";
 
         # Hardening
-        AmbientCapabilities = [ "" ];
-        CapabilityBoundingSet = [ "" ];
+        AmbientCapabilities = [""];
+        CapabilityBoundingSet = [""];
         DynamicUser = true;
         LockPersonality = true;
         NoNewPrivileges = true;
@@ -156,7 +155,7 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" ];
+        SystemCallFilter = ["@system-service"];
       };
     };
   };

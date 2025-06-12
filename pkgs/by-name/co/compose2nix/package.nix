@@ -5,7 +5,6 @@
   testers,
   compose2nix,
 }:
-
 buildGoModule rec {
   pname = "compose2nix";
   version = "0.3.1";
@@ -32,6 +31,6 @@ buildGoModule rec {
     description = "Generate a NixOS config from a Docker Compose project";
     license = lib.licenses.mit;
     mainProgram = "compose2nix";
-    maintainers = with lib.maintainers; [ aksiksi ];
+    maintainers = with lib.maintainers; [aksiksi];
   };
 }

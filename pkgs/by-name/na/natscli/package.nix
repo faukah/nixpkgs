@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "natscli";
   version = "0.2.2";
@@ -24,7 +23,7 @@ buildGoModule rec {
     "-X=main.version=${version}"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   preCheck = ''
     # Remove tests that depend on CLI output
@@ -41,7 +40,7 @@ buildGoModule rec {
     homepage = "https://github.com/nats-io/natscli";
     changelog = "https://github.com/nats-io/natscli/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "nats";
   };
 }

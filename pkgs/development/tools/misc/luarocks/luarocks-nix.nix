@@ -5,7 +5,6 @@
   nurl,
   file,
 }:
-
 luarocks_bootstrap.overrideAttrs (old: {
   pname = "luarocks-nix";
   version = "0-unstable-2024-05-31";
@@ -17,12 +16,14 @@ luarocks_bootstrap.overrideAttrs (old: {
     hash = "sha256-9SC+YQ06u35LN3mPohG7Lz0eLXPsMGKG3mhS+0zSO7Y=";
   };
 
-  propagatedNativeBuildInputs = old.propagatedNativeBuildInputs ++ [
-    file
-    nurl
-  ];
+  propagatedNativeBuildInputs =
+    old.propagatedNativeBuildInputs
+    ++ [
+      file
+      nurl
+    ];
 
-  patches = [ ];
+  patches = [];
 
   passthru = {
     updateScript = unstableGitUpdater {
@@ -33,7 +34,8 @@ luarocks_bootstrap.overrideAttrs (old: {
 
   # old.meta // { /* ... */ } doesn't update meta.position, which breaks the updateScript
   meta = {
-    inherit (old.meta)
+    inherit
+      (old.meta)
       description
       license
       maintainers

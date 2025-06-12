@@ -18,16 +18,16 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-8ghHTRneLeiFgzF9zHFjFu46qopc3l2Svku1H06XQTw=";
   };
 
-  patches = [ ./pytest-CMakeLists.patch ];
+  patches = [./pytest-CMakeLists.patch];
 
   nativeCheckInputs = [
     gtest
     python3
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
   cmakeFlags = lib.optionals finalAttrs.finalPackage.doCheck [
     "-DBUILD_TESTS=ON"
@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Templatized Header Only C++ Implementation of the Python NumPy Library";
     homepage = "https://github.com/dpilger26/NumCpp";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ spalf ];
+    maintainers = with lib.maintainers; [spalf];
     platforms = lib.platforms.unix;
   };
 })

@@ -12,7 +12,6 @@
   gzip,
   killall,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "htb-toolkit";
   version = "0-unstable-2025-03-15";
@@ -62,7 +61,7 @@ rustPlatform.buildRustPackage {
     description = "Play Hack The Box directly on your system";
     mainProgram = "htb-toolkit";
     homepage = "https://github.com/D3vil0p3r/htb-toolkit";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
     license = licenses.gpl3Plus;
   };

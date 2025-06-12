@@ -7,7 +7,6 @@
   nltk,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "ttstokenizer";
   version = "1.1.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "ttstokenizer" ];
+  pythonImportsCheck = ["ttstokenizer"];
 
   # no tests
   doCheck = false;
@@ -33,7 +32,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Tokenizer for Text to Speech (TTS) models";
     homepage = "https://pypi.org/project/ttstokenizer";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ happysalada ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [happysalada];
   };
 }

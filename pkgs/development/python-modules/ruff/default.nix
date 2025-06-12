@@ -4,9 +4,9 @@
   lib,
   ruff,
 }:
-
 buildPythonPackage {
-  inherit (ruff)
+  inherit
+    (ruff)
     pname
     version
     src
@@ -14,7 +14,7 @@ buildPythonPackage {
     ;
   pyproject = true;
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   postPatch =
     # Do not rely on path lookup at runtime to find the ruff binary.
@@ -43,5 +43,5 @@ buildPythonPackage {
     mkdir -p $out/bin && ln -s ${lib.getExe ruff} $out/bin/ruff
   '';
 
-  pythonImportsCheck = [ "ruff" ];
+  pythonImportsCheck = ["ruff"];
 }

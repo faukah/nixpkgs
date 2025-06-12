@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "helm-s3";
   version = "0.16.3";
@@ -33,7 +32,7 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  subPackages = [ "cmd/helm-s3" ];
+  subPackages = ["cmd/helm-s3"];
 
   postInstall = ''
     install -dm755 $out/${pname}
@@ -45,6 +44,6 @@ buildGoModule rec {
     description = "Helm plugin that allows to set up a chart repository using AWS S3";
     homepage = "https://github.com/hypnoglow/helm-s3";
     license = licenses.mit;
-    maintainers = with maintainers; [ yurrriq ];
+    maintainers = with maintainers; [yurrriq];
   };
 }

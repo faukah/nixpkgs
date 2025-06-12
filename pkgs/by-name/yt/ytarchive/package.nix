@@ -5,7 +5,6 @@
   makeBinaryWrapper,
   ffmpeg-headless,
 }:
-
 buildGoModule rec {
   pname = "ytarchive";
   version = "0.5.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-hVAiWJKdDQB+6UlARFdjVATCMiGrEK2US62KAxCquvU=";
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   ldflags = [
     "-s"
@@ -28,14 +27,14 @@ buildGoModule rec {
   ];
 
   postInstall = ''
-    wrapProgram $out/bin/ytarchive --prefix PATH : ${lib.makeBinPath [ ffmpeg-headless ]}
+    wrapProgram $out/bin/ytarchive --prefix PATH : ${lib.makeBinPath [ffmpeg-headless]}
   '';
 
   meta = with lib; {
     homepage = "https://github.com/Kethsar/ytarchive";
     description = "Garbage Youtube livestream downloader";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "ytarchive";
   };
 }

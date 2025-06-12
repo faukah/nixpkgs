@@ -5,7 +5,6 @@
   testers,
   tf-summarize,
 }:
-
 buildGoModule rec {
   pname = "tf-summarize";
   version = "0.3.14";
@@ -36,6 +35,6 @@ buildGoModule rec {
     mainProgram = "tf-summarize";
     homepage = "https://github.com/dineshba/tf-summarize";
     license = licenses.mit;
-    maintainers = with maintainers; [ pjrm ];
+    maintainers = with maintainers; [pjrm];
   };
 }

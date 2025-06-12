@@ -15,7 +15,6 @@
   libjpeg,
   callPackage,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "texpresso";
   version = "0-unstable-2025-01-29";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     libjpeg
   ];
 
-  buildFlags = [ "texpresso" ];
+  buildFlags = ["texpresso"];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.hostPlatform.isDarwin [
@@ -63,11 +62,11 @@ stdenv.mkDerivation (finalAttrs: {
   # needs to have texpresso-tonic on its path
   postInstall = ''
     wrapProgram $out/bin/texpresso \
-      --prefix PATH : ${lib.makeBinPath [ finalAttrs.finalPackage.passthru.tectonic ]}
+      --prefix PATH : ${lib.makeBinPath [finalAttrs.finalPackage.passthru.tectonic]}
   '';
 
   passthru = {
-    tectonic = callPackage ./tectonic.nix { };
+    tectonic = callPackage ./tectonic.nix {};
     updateScript = writeScript "update-texpresso" ''
       #!/usr/bin/env nix-shell
       #!nix-shell -i bash -p curl jq nix-update
@@ -81,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     inherit (finalAttrs.src.meta) homepage;
     description = "Live rendering and error reporting for LaTeX";
-    maintainers = with lib.maintainers; [ nickhu ];
+    maintainers = with lib.maintainers; [nickhu];
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
   };

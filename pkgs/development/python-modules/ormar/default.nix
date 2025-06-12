@@ -24,7 +24,6 @@
   sqlalchemy,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "ormar";
   version = "0.20.2";
@@ -63,13 +62,13 @@ buildPythonPackage rec {
     ];
 
   optional-dependencies = {
-    postgresql = [ asyncpg ];
-    postgres = [ asyncpg ];
-    aiopg = [ aiopg ];
-    mysql = [ aiomysql ];
-    sqlite = [ aiosqlite ];
-    orjson = [ orjson ];
-    crypto = [ cryptography ];
+    postgresql = [asyncpg];
+    postgres = [asyncpg];
+    aiopg = [aiopg];
+    mysql = [aiomysql];
+    sqlite = [aiosqlite];
+    orjson = [orjson];
+    crypto = [cryptography];
     all = [
       aiomysql
       aiopg
@@ -82,16 +81,18 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  checkInputs = [
-    fastapi
-    httpx
-    nest-asyncio
-    pytest-asyncio
-  ] ++ optional-dependencies.all;
+  checkInputs =
+    [
+      fastapi
+      httpx
+      nest-asyncio
+      pytest-asyncio
+    ]
+    ++ optional-dependencies.all;
 
-  disabledTestPaths = [ "benchmarks/test_benchmark_*.py" ];
+  disabledTestPaths = ["benchmarks/test_benchmark_*.py"];
 
   disabledTests = [
     # TypeError: Object of type bytes is not JSON serializable
@@ -137,14 +138,14 @@ buildPythonPackage rec {
     "test_quering_of_related_model_works_but_no_result"
   ];
 
-  pythonImportsCheck = [ "ormar" ];
+  pythonImportsCheck = ["ormar"];
 
   meta = with lib; {
     description = "Async ORM with fastapi in mind and pydantic validation";
     homepage = "https://github.com/collerek/ormar";
     changelog = "https://github.com/collerek/ormar/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ andreasfelix ];
+    maintainers = with maintainers; [andreasfelix];
     broken = true;
   };
 }

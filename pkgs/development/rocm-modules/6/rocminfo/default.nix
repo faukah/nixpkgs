@@ -16,9 +16,8 @@
   # we can specify the GPU targets for this system (e.g. "gfx803" for
   # Polaris) such that no system call is needed for downstream
   # compilers to determine the desired target.
-  defaultTargets ? (clr.localGpuTargets or [ ]),
+  defaultTargets ? (clr.localGpuTargets or []),
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "6.3.3";
   pname = "rocminfo";
@@ -35,16 +34,16 @@ stdenv.mkDerivation (finalAttrs: {
     rocm-cmake
   ];
 
-  buildInputs = [ rocm-runtime ];
-  propagatedBuildInputs = [ python3 ];
-  cmakeFlags = [ "-DROCRTST_BLD_TYPE=Release" ];
+  buildInputs = [rocm-runtime];
+  propagatedBuildInputs = [python3];
+  cmakeFlags = ["-DROCRTST_BLD_TYPE=Release"];
 
   prePatch = ''
     patchShebangs rocm_agent_enumerator
     sed 's,lsmod | grep ,${busybox}/bin/lsmod | ${gnugrep}/bin/grep ,' -i rocminfo.cc
   '';
 
-  postInstall = lib.optionalString (defaultTargets != [ ]) ''
+  postInstall = lib.optionalString (defaultTargets != []) ''
     echo '${lib.concatStringsSep "\n" defaultTargets}' > $out/bin/target.lst
   '';
 
@@ -58,8 +57,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "ROCm Application for Reporting System Info";
     homepage = "https://github.com/ROCm/rocminfo";
     license = licenses.ncsa;
-    maintainers = with maintainers; [ lovesegfault ];
-    teams = [ teams.rocm ];
+    maintainers = with maintainers; [lovesegfault];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

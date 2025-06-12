@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.oci;
-in
-{
-  imports = [ ../profiles/qemu-guest.nix ];
+in {
+  imports = [../profiles/qemu-guest.nix];
 
   # Taken from /proc/cmdline of Ubuntu 20.04.2 LTS on OCI
   boot.kernelParams = [
@@ -43,7 +40,10 @@ in
 
   boot.loader.efi.canTouchEfiVariables = false;
   boot.loader.grub = {
-    device = if cfg.efi then "nodev" else "/dev/sda";
+    device =
+      if cfg.efi
+      then "nodev"
+      else "/dev/sda";
     splashImage = null;
     extraConfig = ''
       serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1
@@ -55,7 +55,7 @@ in
   };
 
   # https://docs.oracle.com/en-us/iaas/Content/Compute/Tasks/configuringntpservice.htm#Configuring_the_Oracle_Cloud_Infrastructure_NTP_Service_for_an_Instance
-  networking.timeServers = [ "169.254.169.254" ];
+  networking.timeServers = ["169.254.169.254"];
 
   services.openssh.enable = true;
 

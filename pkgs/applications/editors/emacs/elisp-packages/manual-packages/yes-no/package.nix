@@ -3,7 +3,6 @@
   fetchurl,
   melpaBuild,
 }:
-
 melpaBuild {
   pname = "yes-no";
   version = "0-unstable-2017-10-01";
@@ -17,6 +16,6 @@ melpaBuild {
     homepage = "https://www.emacswiki.org/emacs/yes-no.el";
     description = "Specify use of `y-or-n-p' or `yes-or-no-p' on a case-by-case basis";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ jcs090218 ];
+    maintainers = with lib.maintainers; [jcs090218];
   };
 }

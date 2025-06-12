@@ -6,7 +6,6 @@
   testers,
   geo,
 }:
-
 buildGoModule rec {
   pname = "geo";
   version = "1.1";
@@ -31,7 +30,7 @@ buildGoModule rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = geo;
       command = "${lib.getExe geo} --help";
@@ -44,7 +43,7 @@ buildGoModule rec {
     homepage = "https://github.com/MetaCubeX/geo";
     changelog = "https://github.com/MetaCubeX/geo/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ oluceps ];
+    maintainers = with lib.maintainers; [oluceps];
     mainProgram = "geo";
   };
 }

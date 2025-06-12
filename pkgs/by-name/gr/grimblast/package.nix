@@ -15,7 +15,6 @@
   bash,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "grimblast";
   version = "0.1-unstable-2025-05-18";
@@ -34,7 +33,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     scdoc
   ];
 
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -45,26 +44,26 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   postInstall = ''
     wrapProgram $out/bin/grimblast --prefix PATH ':' \
       "${
-        lib.makeBinPath [
-          coreutils
-          grim
-          hyprland
-          hyprpicker
-          jq
-          libnotify
-          slurp
-          wl-clipboard
-        ]
-      }"
+      lib.makeBinPath [
+        coreutils
+        grim
+        hyprland
+        hyprpicker
+        jq
+        libnotify
+        slurp
+        wl-clipboard
+      ]
+    }"
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = with lib; {
     description = "Helper for screenshots within Hyprland, based on grimshot";
     license = licenses.mit;
     platforms = platforms.unix;
-    teams = [ lib.teams.hyprland ];
+    teams = [lib.teams.hyprland];
     mainProgram = "grimblast";
   };
 })

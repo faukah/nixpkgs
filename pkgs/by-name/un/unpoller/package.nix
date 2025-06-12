@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "unpoller";
   version = "2.15.3";
@@ -24,13 +23,13 @@ buildGoModule rec {
     "-X golift.io/version.Version=${version}"
   ];
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) unpoller; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) unpoller;};
 
   meta = {
     description = "Collect ALL UniFi Controller, Site, Device & Client Data - Export to InfluxDB or Prometheus";
     homepage = "https://github.com/unpoller/unpoller";
     changelog = "https://github.com/unpoller/unpoller/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ Frostman ];
+    maintainers = with lib.maintainers; [Frostman];
   };
 }

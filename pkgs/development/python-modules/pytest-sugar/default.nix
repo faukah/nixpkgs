@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-sugar";
   version = "1.0.0";
@@ -21,20 +20,20 @@ buildPythonPackage rec {
     hash = "sha256-ZCLoMlj1sMBM58YyF2x3Msq1/bkJyznMpckTn4EnbAo=";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     termcolor
     packaging
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Plugin that changes the default look and feel of pytest";
     homepage = "https://github.com/Frozenball/pytest-sugar";
     changelog = "https://github.com/Teemu/pytest-sugar/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

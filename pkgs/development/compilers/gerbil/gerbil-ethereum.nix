@@ -5,9 +5,7 @@
   gerbil-support,
   gerbil,
   ...
-}:
-
-rec {
+}: rec {
   pname = "gerbil-ethereum";
   version = "unstable-2023-12-04";
   git-version = "0.2-11-g124ec58";
@@ -41,7 +39,7 @@ rec {
     ORIG_GERBIL_PATH="\$GERBIL_PATH"
     ORIG_GERBIL_HOME="\$GERBIL_HOME"
     unset GERBIL_HOME
-    GERBIL_LOADPATH="${gerbil-support.gerbilLoadPath ([ "$out" ] ++ gerbilInputs)}"
+    GERBIL_LOADPATH="${gerbil-support.gerbilLoadPath (["$out"] ++ gerbilInputs)}"
     GERBIL_PATH="\$HOME/.cache/gerbil-ethereum/gerbil"
     export GERBIL_PATH GERBIL_LOADPATH GLOW_SOURCE ORIG_GERBIL_PATH ORIG_GERBIL_LOADPATH
     exec ${gerbil}/bin/gxi "\$0" "\$@"
@@ -57,6 +55,6 @@ rec {
     homepage = "https://github.com/fare/gerbil-ethereum";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fare ];
+    maintainers = with maintainers; [fare];
   };
 }

@@ -1,14 +1,10 @@
 # GNOME Initial Setup.
-
 {
   config,
   pkgs,
   lib,
   ...
-}:
-
-let
-
+}: let
   # GNOME initial setup's run is conditioned on whether
   # the gnome-initial-setup-done file exists in XDG_CONFIG_HOME
   # Because of this, every existing user will have initial setup
@@ -16,7 +12,6 @@ let
   #
   # To prevent this we create the file if the users stateVersion
   # is older than 20.03 (the release we added this module).
-
   script = pkgs.writeScript "create-gis-stamp-files" ''
     #!${pkgs.runtimeShell}
     setup_done=$HOME/.config/gnome-initial-setup-done
@@ -42,11 +37,7 @@ let
       X-GNOME-Autostart-Phase=EarlyInitialization
     '';
   };
-
-in
-
-{
-
+in {
   meta = {
     maintainers = lib.teams.gnome.members;
   };
@@ -54,19 +45,14 @@ in
   ###### interface
 
   options = {
-
     services.gnome.gnome-initial-setup = {
-
       enable = lib.mkEnableOption "GNOME Initial Setup, a Simple, easy, and safe way to prepare a new system";
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf config.services.gnome.gnome-initial-setup.enable {
-
     environment.systemPackages =
       [
         pkgs.gnome-initial-setup
@@ -91,5 +77,4 @@ in
       "${pkgs.gnome-initial-setup}/share/gnome-initial-setup/initial-setup-dconf-defaults"
     ];
   };
-
 }

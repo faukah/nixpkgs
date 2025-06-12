@@ -3,12 +3,11 @@
   qtModule,
   qtbase,
 }:
-
 qtModule {
   pname = "qtmacextras";
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
   meta = with lib; {
-    maintainers = with maintainers; [ periklis ];
+    maintainers = with maintainers; [periklis];
     platforms = platforms.darwin;
   };
 }

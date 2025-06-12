@@ -8,7 +8,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ghost-cli";
   version = "1.27.0";
@@ -29,12 +28,12 @@ stdenv.mkDerivation (finalAttrs: {
     yarnConfigHook
     yarnInstallHook
   ];
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgram = ''${placeholder "out"}/bin/ghost'';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -43,6 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://ghost.org/docs/ghost-cli/";
     changelog = "https://github.com/TryGhost/Ghost-CLI/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ cything ];
+    maintainers = with lib.maintainers; [cything];
   };
 })

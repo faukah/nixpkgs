@@ -18,7 +18,6 @@
   yojson,
   version ? "0.19",
 }:
-
 buildDunePackage {
   pname = "sail";
   inherit version;
@@ -80,7 +79,7 @@ buildDunePackage {
   meta = with lib; {
     homepage = "https://github.com/rems-project/sail";
     description = "Language for describing the instruction-set architecture (ISA) semantics of processors";
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     license = licenses.bsd2;
   };
 }

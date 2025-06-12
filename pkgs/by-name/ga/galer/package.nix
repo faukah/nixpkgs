@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "galer";
   version = "0.2.0";
@@ -22,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/dwisiswant0/galer";
     changelog = "https://github.com/dwisiswant0/galer/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "galer";
   };
 }

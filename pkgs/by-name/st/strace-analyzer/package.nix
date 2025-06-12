@@ -5,7 +5,6 @@
   strace,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "strace-analyzer";
   version = "0.5.4";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ZvbWJSe/jQEswcdFM/Akb6hW/0iqMNbtEyzcxsbemFQ=";
 
-  nativeCheckInputs = [ strace ];
+  nativeCheckInputs = [strace];
 
   checkFlags = lib.optionals stdenv.hostPlatform.isAarch64 [
     # thread 'analysis::tests::analyze_dd' panicked at 'assertion failed: ...'
@@ -32,6 +31,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "strace-analyzer";
     homepage = "https://github.com/wookietreiber/strace-analyzer";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

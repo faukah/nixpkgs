@@ -6,7 +6,6 @@
   jre,
   docbook_xml_dtd_42,
 }:
-
 maven.buildMavenPackage rec {
   pname = "sqlline";
   version = "1.12.0";
@@ -50,6 +49,6 @@ maven.buildMavenPackage rec {
     homepage = "https://github.com/julianhyde/sqlline";
     mainProgram = "sqlline";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ taranarmo ];
+    maintainers = with lib.maintainers; [taranarmo];
   };
 }

@@ -4,7 +4,6 @@
   fetchzip,
   autoreconfHook,
 }:
-
 mkTclDerivation {
   pname = "lexec";
   version = "0-unstable-2020-03-11";
@@ -22,7 +21,7 @@ mkTclDerivation {
     description = "Implementation of Tcl TIP 424 \"Improving [exec]\" as a separate package";
     homepage = "https://chiselapp.com/user/pooryorick/repository/lexec/index";
     license = lib.licenses.tcltk;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     platforms = lib.platforms.all;
   };
 }

@@ -8,7 +8,6 @@
   pkg-config,
   installShellFiles,
 }:
-
 stdenv.mkDerivation {
   pname = "freesweep";
   version = "1.0.2-unstable-2024-04-19";
@@ -41,7 +40,7 @@ stdenv.mkDerivation {
     pkg-config
     installShellFiles
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   enableParallelBuilding = true;
 
@@ -60,7 +59,7 @@ stdenv.mkDerivation {
     mainProgram = "freesweep";
     homepage = "https://github.com/rwestlund/freesweep";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ lzcunt ];
+    maintainers = with lib.maintainers; [lzcunt];
     platforms = lib.platforms.unix;
   };
 }

@@ -6,7 +6,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "yalesmartalarmclient";
   version = "0.4.3";
@@ -21,20 +20,20 @@ buildPythonPackage rec {
     hash = "sha256-a0rzPEixJXLBfN+kJRPYiJiHY1BKxg/mM14RO3RiVdA=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "yalesmartalarmclient" ];
+  pythonImportsCheck = ["yalesmartalarmclient"];
 
   meta = with lib; {
     description = "Python module to interface with Yale Smart Alarm Systems";
     homepage = "https://github.com/domwillcode/yale-smart-alarm-client";
     changelog = "https://github.com/domwillcode/yale-smart-alarm-client/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

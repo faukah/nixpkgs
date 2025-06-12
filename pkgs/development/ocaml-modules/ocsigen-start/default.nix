@@ -14,7 +14,6 @@
   resource-pooling,
   ocsigen-ppx-rpc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-ocsigen-start";
   version = "6.2.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     findlib
     eliom
   ];
-  buildInputs = [ ocsigen-ppx-rpc ];
+  buildInputs = [ocsigen-ppx-rpc];
   propagatedBuildInputs = [
     pgocaml_ppx
     safepass
@@ -64,7 +63,6 @@ stdenv.mkDerivation rec {
     '';
     license = lib.licenses.lgpl21Only;
     inherit (ocaml.meta) platforms;
-    maintainers = [ lib.maintainers.gal_bolle ];
+    maintainers = [lib.maintainers.gal_bolle];
   };
-
 }

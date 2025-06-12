@@ -1,8 +1,7 @@
-with import ../../.. { };
-
-runCommand "gen-keys"
+with import ../../.. {};
+  runCommand "gen-keys"
   {
-    buildInputs = [ openssh ];
+    buildInputs = [openssh];
   }
   ''
     mkdir $out

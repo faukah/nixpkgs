@@ -5,7 +5,6 @@
   fetchFromGitLab,
   gitUpdater,
   ffmpeg_6,
-
   # for daemon
   autoreconfHook,
   perl, # for pod2man
@@ -33,10 +32,8 @@
   webrtc-audio-processing,
   yaml-cpp,
   zlib,
-
   # for dhtnet
   expected-lite,
-
   # for client
   cmake,
   git,
@@ -57,15 +54,12 @@
   qtwebchannel,
   wrapGAppsHook3,
   withWebengine ? true,
-
   # for pjsip
   fetchFromGitHub,
   pjsip,
-
   # for opendht
   opendht,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jami";
   version = "20250523.0";
@@ -89,31 +83,33 @@ stdenv.mkDerivation rec {
       hash = "sha256-7gAiriuooqqF38oajAuD/Lj5trn/9VMkCGOumcV45NA=";
     };
 
-    configureFlags = [
-      "--disable-sound"
-      "--enable-video"
-      "--enable-ext-sound"
-      "--disable-android-mediacodec"
-      "--disable-speex-aec"
-      "--disable-g711-codec"
-      "--disable-l16-codec"
-      "--disable-gsm-codec"
-      "--disable-g722-codec"
-      "--disable-g7221-codec"
-      "--disable-speex-codec"
-      "--disable-ilbc-codec"
-      "--disable-opencore-amr"
-      "--disable-silk"
-      "--disable-sdl"
-      "--disable-ffmpeg"
-      "--disable-v4l2"
-      "--disable-openh264"
-      "--disable-resample"
-      "--disable-libwebrtc"
-      "--with-gnutls=yes"
-    ] ++ lib.optionals stdenv.hostPlatform.isLinux [ "--enable-epoll" ];
+    configureFlags =
+      [
+        "--disable-sound"
+        "--enable-video"
+        "--enable-ext-sound"
+        "--disable-android-mediacodec"
+        "--disable-speex-aec"
+        "--disable-g711-codec"
+        "--disable-l16-codec"
+        "--disable-gsm-codec"
+        "--disable-g722-codec"
+        "--disable-g7221-codec"
+        "--disable-speex-codec"
+        "--disable-ilbc-codec"
+        "--disable-opencore-amr"
+        "--disable-silk"
+        "--disable-sdl"
+        "--disable-ffmpeg"
+        "--disable-v4l2"
+        "--disable-openh264"
+        "--disable-resample"
+        "--disable-libwebrtc"
+        "--with-gnutls=yes"
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux ["--enable-epoll"];
 
-    buildInputs = old.buildInputs ++ [ gnutls ];
+    buildInputs = old.buildInputs ++ [gnutls];
   });
 
   opendht-jami = opendht.override {
@@ -173,7 +169,7 @@ stdenv.mkDerivation rec {
       description = "Lightweight Peer-to-Peer Communication Library";
       license = licenses.gpl3Only;
       platforms = platforms.linux;
-      maintainers = [ maintainers.linsui ];
+      maintainers = [maintainers.linsui];
     };
   };
 
@@ -262,22 +258,24 @@ stdenv.mkDerivation rec {
     qttools
   ];
 
-  buildInputs = [
-    ffmpeg_6
-    libnotify
-    networkmanager
-    qtbase
-    qt5compat
-    qrencode
-    qtnetworkauth
-    qtdeclarative
-    qtmultimedia
-    qtpositioning
-    qtsvg
-    qtwebchannel
-  ] ++ lib.optionals withWebengine [ qtwebengine ];
+  buildInputs =
+    [
+      ffmpeg_6
+      libnotify
+      networkmanager
+      qtbase
+      qt5compat
+      qrencode
+      qtnetworkauth
+      qtdeclarative
+      qtmultimedia
+      qtpositioning
+      qtsvg
+      qtwebchannel
+    ]
+    ++ lib.optionals withWebengine [qtwebengine];
 
-  cmakeFlags = lib.optionals (!withWebengine) [ "-DWITH_WEBENGINE=false" ];
+  cmakeFlags = lib.optionals (!withWebengine) ["-DWITH_WEBENGINE=false"];
 
   qtWrapperArgs = [
     # With wayland the titlebar is not themed and the wmclass is wrong.
@@ -288,7 +286,7 @@ stdenv.mkDerivation rec {
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "stable/"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "stable/";};
 
   meta = with lib; {
     homepage = "https://jami.net/";
@@ -296,6 +294,6 @@ stdenv.mkDerivation rec {
     mainProgram = "jami";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.linsui ];
+    maintainers = [maintainers.linsui];
   };
 }

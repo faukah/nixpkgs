@@ -1,23 +1,24 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "healthchecks";
 
   meta = with lib.maintainers; {
-    maintainers = [ phaer ];
+    maintainers = [phaer];
   };
 
-  nodes.machine =
-    { ... }:
-    {
-      services.healthchecks = {
-        enable = true;
-        settings = {
-          SITE_NAME = "MyUniqueInstance";
-          COMPRESS_ENABLED = "True";
-          SECRET_KEY_FILE = pkgs.writeText "secret" "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        };
+  nodes.machine = {...}: {
+    services.healthchecks = {
+      enable = true;
+      settings = {
+        SITE_NAME = "MyUniqueInstance";
+        COMPRESS_ENABLED = "True";
+        SECRET_KEY_FILE = pkgs.writeText "secret" "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
       };
     };
+  };
 
   testScript = ''
     machine.start()

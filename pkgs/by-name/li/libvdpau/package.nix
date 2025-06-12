@@ -8,7 +8,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libvdpau";
   version = "1.5";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     url = "https://gitlab.freedesktop.org/vdpau/libvdpau/-/archive/${version}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-pdUKQrjCiP68BxUatkOsjeBqGERpZcckH4m06BCCGRM=";
   };
-  patches = [ ./tracing.patch ];
+  patches = [./tracing.patch];
 
   outputs = [
     "out"
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     libXext
   ];
 
-  propagatedBuildInputs = [ xorg.libX11 ];
+  propagatedBuildInputs = [xorg.libX11];
 
   mesonFlags = lib.optionals stdenv.hostPlatform.isLinux [
     "-Dmoduledir=${mesa.driverLink}/lib/vdpau"
@@ -53,6 +52,6 @@ stdenv.mkDerivation rec {
     description = "Library to use the Video Decode and Presentation API for Unix (VDPAU)";
     license = licenses.mit; # expat version
     platforms = platforms.unix;
-    maintainers = [ maintainers.vcunat ];
+    maintainers = [maintainers.vcunat];
   };
 }

@@ -7,7 +7,6 @@
   procps,
   ...
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pihole-web";
   version = "6.1";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
       FTLDNS.
     '';
     license = lib.licenses.eupl12;
-    maintainers = with lib.maintainers; [ averyvigolo ];
+    maintainers = with lib.maintainers; [averyvigolo];
     platforms = lib.platforms.linux;
   };
 })

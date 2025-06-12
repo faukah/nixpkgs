@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "popeye";
   version = "0.22.1";
@@ -25,7 +24,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Xhn1iOqzCY8fW2lODXwqY4XQZTAPWXaZ0XM5j02bnCs=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd popeye \
@@ -45,6 +44,6 @@ buildGoModule rec {
     homepage = "https://github.com/derailed/popeye";
     changelog = "https://github.com/derailed/popeye/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.bryanasdev000 ];
+    maintainers = [lib.maintainers.bryanasdev000];
   };
 }

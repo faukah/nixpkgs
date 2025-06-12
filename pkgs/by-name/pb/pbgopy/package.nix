@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pbgopy";
   version = "0.3.0";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "pbgopy";
     homepage = "https://github.com/nakabonne/pbgopy";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

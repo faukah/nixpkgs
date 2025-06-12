@@ -10,9 +10,7 @@
   perl,
   python3,
   stdenv,
-}:
-
-let
+}: let
   version = "0.16.1";
 
   src = fetchFromGitHub {
@@ -88,56 +86,55 @@ let
     '';
 
     outputHash =
-      if stdenv.hostPlatform.isDarwin then
-        "sha256-KfemYV42xBAhsPbwTkzdc3GxCVHiWRbyUZORPWxx4vg="
-      else
-        "sha256-a1zGSpbMjfQBrcgW/aiIdKX8+uI3p/S9pgZjHe2HtWs=";
+      if stdenv.hostPlatform.isDarwin
+      then "sha256-KfemYV42xBAhsPbwTkzdc3GxCVHiWRbyUZORPWxx4vg="
+      else "sha256-a1zGSpbMjfQBrcgW/aiIdKX8+uI3p/S9pgZjHe2HtWs=";
 
     outputHashAlgo = "sha256";
   };
 in
-stdenv.mkDerivation {
-  pname = "codon";
+  stdenv.mkDerivation {
+    pname = "codon";
 
-  inherit src version;
+    inherit src version;
 
-  patches = [
-    # Without the hash, CMake will try to replace the `.zip` file
-    ./Add-a-hash-to-the-googletest-binary.patch
-  ];
+    patches = [
+      # Without the hash, CMake will try to replace the `.zip` file
+      ./Add-a-hash-to-the-googletest-binary.patch
+    ];
 
-  nativeBuildInputs = [
-    cmake
-    git
-    lld
-    ninja
-    perl
-    python3
-  ];
+    nativeBuildInputs = [
+      cmake
+      git
+      lld
+      ninja
+      perl
+      python3
+    ];
 
-  postUnpack = ''
-    mkdir -p $sourceRoot/build
-    tar -xf ${codon-deps} -C $sourceRoot/build
-  '';
+    postUnpack = ''
+      mkdir -p $sourceRoot/build
+      tar -xf ${codon-deps} -C $sourceRoot/build
+    '';
 
-  cmakeFlags = [
-    "-DCPM_SOURCE_CACHE=${depsDir}"
-    "-DLLVM_DIR=${codon-llvm}/lib/cmake/llvm"
-    "-DLLVM_USE_LINKER=lld"
-  ];
+    cmakeFlags = [
+      "-DCPM_SOURCE_CACHE=${depsDir}"
+      "-DLLVM_DIR=${codon-llvm}/lib/cmake/llvm"
+      "-DLLVM_USE_LINKER=lld"
+    ];
 
-  postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
-    ln -s $out/lib/codon/*.dylib $out/lib/
-  '';
+    postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
+      ln -s $out/lib/codon/*.dylib $out/lib/
+    '';
 
-  passthru.updateScript = nix-update-script { };
+    passthru.updateScript = nix-update-script {};
 
-  meta = {
-    description = "High-performance, zero-overhead, extensible Python compiler using LLVM";
-    homepage = "https://docs.exaloop.io/codon";
-    maintainers = [ ];
-    license = lib.licenses.bsl11;
-    platforms = lib.platforms.all;
-    broken = true; # `codon-llvm` build fails on darwin and linux
-  };
-}
+    meta = {
+      description = "High-performance, zero-overhead, extensible Python compiler using LLVM";
+      homepage = "https://docs.exaloop.io/codon";
+      maintainers = [];
+      license = lib.licenses.bsl11;
+      platforms = lib.platforms.all;
+      broken = true; # `codon-llvm` build fails on darwin and linux
+    };
+  }

@@ -6,7 +6,6 @@
   sox,
   libnotify,
 }:
-
 stdenv.mkDerivation {
   pname = "pell";
   version = "0.0.4";
@@ -39,7 +38,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/ebzzry/pell";
     description = "Simple host availability monitor";
     license = licenses.mit;
-    maintainers = [ maintainers.ebzzry ];
+    maintainers = [maintainers.ebzzry];
     platforms = platforms.unix;
     mainProgram = "pell";
   };

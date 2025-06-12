@@ -1,4 +1,7 @@
-{ mkDerivation, pkgsBuildBuild }:
+{
+  mkDerivation,
+  pkgsBuildBuild,
+}:
 mkDerivation {
   path = "lib/ncurses/tinfo";
   extraPaths = [

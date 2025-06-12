@@ -3,19 +3,16 @@
   libfprint,
   fetchFromGitLab,
 }:
-
 # for the curious, "tod" means "Touch OEM Drivers" meaning it can load
 # external .so's.
 libfprint.overrideAttrs (
   {
     postPatch ? "",
-    mesonFlags ? [ ],
+    mesonFlags ? [],
     ...
-  }:
-  let
+  }: let
     version = "1.94.9+tod1";
-  in
-  {
+  in {
     pname = "libfprint-tod";
     inherit version;
 
@@ -47,7 +44,7 @@ libfprint.overrideAttrs (
       description = "Library designed to make it easy to add support for consumer fingerprint readers, with support for loaded drivers";
       license = licenses.lgpl21;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ grahamc ];
+      maintainers = with maintainers; [grahamc];
     };
   }
 )

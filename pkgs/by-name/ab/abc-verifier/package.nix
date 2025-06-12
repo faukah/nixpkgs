@@ -5,7 +5,6 @@
   readline,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "abc-verifier";
   version = "unstable-2023-10-13";
@@ -17,8 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ou+E2lvDEOxXRXNygE/TyVi7quqk+CJHRI+HDI0xljE=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ readline ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [readline];
 
   installPhase = ''
     runHook preInstall

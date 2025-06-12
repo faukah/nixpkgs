@@ -17,7 +17,6 @@
   miniupnpc,
   hexdump,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gridcoin-research";
   version = "5.4.9.0";
@@ -67,7 +66,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gridcoin.us/";
     license = licenses.mit;
-    maintainers = with maintainers; [ gigglesquid ];
+    maintainers = with maintainers; [gigglesquid];
     platforms = platforms.linux;
   };
 }

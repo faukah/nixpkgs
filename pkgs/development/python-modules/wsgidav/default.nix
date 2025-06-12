@@ -15,7 +15,6 @@
   setuptools,
   webtest,
 }:
-
 buildPythonPackage rec {
   pname = "wsgidav";
   version = "4.3.3";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     defusedxml
@@ -44,7 +43,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    pam = [ python-pam ];
+    pam = [python-pam];
   };
 
   nativeCheckInputs = [
@@ -53,14 +52,14 @@ buildPythonPackage rec {
     webtest
   ];
 
-  pythonImportsCheck = [ "wsgidav" ];
+  pythonImportsCheck = ["wsgidav"];
 
   meta = with lib; {
     description = "Generic and extendable WebDAV server based on WSGI";
     homepage = "https://wsgidav.readthedocs.io/";
     changelog = "https://github.com/mar10/wsgidav/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
     mainProgram = "wsgidav";
   };
 }

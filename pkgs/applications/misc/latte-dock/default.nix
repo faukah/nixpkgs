@@ -18,7 +18,6 @@
   wayland,
   xorg,
 }:
-
 mkDerivation {
   pname = "latte-dock";
   version = "unstable-2024-01-31";
@@ -69,7 +68,6 @@ mkDerivation {
     homepage = "https://invent.kde.org/plasma/latte-dock";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.ysndr ];
+    maintainers = [maintainers.ysndr];
   };
-
 }

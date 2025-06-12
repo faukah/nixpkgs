@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-6lLYtBKZTmi+fBkCyDysJS1O37/Z6ir9hU3pX4X1VHQ=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   doCheck = true;
   checkTarget = "test";
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/rmyorston/pdpmake";
     description = "Public domain POSIX make";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ eownerdead ];
+    maintainers = with maintainers; [eownerdead];
     mainProgram = "pdpmake";
     platforms = platforms.all;
     badPlatforms = platforms.darwin; # Requires `uimensat`

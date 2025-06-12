@@ -6,7 +6,6 @@
   libfaketime,
   xorg,
 }:
-
 stdenv.mkDerivation {
   pname = "ucs-fonts";
   version = "20090406";
@@ -65,7 +64,7 @@ stdenv.mkDerivation {
     homepage = "https://www.cl.cam.ac.uk/~mgk25/ucs-fonts.html";
     description = "Unicode bitmap fonts";
     license = licenses.publicDomain;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.all;
   };
 }

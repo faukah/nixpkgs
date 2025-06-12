@@ -8,7 +8,6 @@
   pkg-config,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mldonkey";
   version = "3.2.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ygrek";
     repo = "mldonkey";
-    tag = "release-${lib.replaceStrings [ "." ] [ "-" ] version}";
+    tag = "release-${lib.replaceStrings ["."] ["-"] version}";
     hash = "sha256-Dbb7163CdqHY7/FJY2yWBFRudT+hTFT6fO4sFgt6C/A=";
   };
 

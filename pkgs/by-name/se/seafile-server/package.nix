@@ -22,9 +22,7 @@
   cmake,
   oniguruma,
   nixosTests,
-}:
-
-let
+}: let
   # seafile-server relies on a specific version of libevhtp.
   # It contains non upstreamed patches and is forked off an outdated version.
   libevhtp = import ./libevhtp.nix {
@@ -37,68 +35,68 @@ let
       ;
   };
 in
-stdenv.mkDerivation {
-  pname = "seafile-server";
-  version = "11.0.12";
+  stdenv.mkDerivation {
+    pname = "seafile-server";
+    version = "11.0.12";
 
-  src = fetchFromGitHub {
-    owner = "haiwen";
-    repo = "seafile-server";
-    rev = "5e6c0974e6abe5d92b8ba1db41c6ddbc1029f2d5"; # using a fixed revision because upstream may re-tag releases :/
-    hash = "sha256-BVa4QZiHPkqRB5FvDlCSbEVxdnyxVy2KuCDb2orRMuI=";
-  };
+    src = fetchFromGitHub {
+      owner = "haiwen";
+      repo = "seafile-server";
+      rev = "5e6c0974e6abe5d92b8ba1db41c6ddbc1029f2d5"; # using a fixed revision because upstream may re-tag releases :/
+      hash = "sha256-BVa4QZiHPkqRB5FvDlCSbEVxdnyxVy2KuCDb2orRMuI=";
+    };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    python3
-    libsearpc # searpc-codegen.py
-    vala # valac
-    which
-  ];
-
-  buildInputs = [
-    libuuid
-    libmysqlclient
-    sqlite
-    glib
-    libsearpc
-    libevent
-    python3
-    fuse
-    libarchive
-    libjwt
-    libevhtp
-    oniguruma
-  ];
-
-  patches = [
-    # https://github.com/haiwen/seafile-server/pull/658
-    (fetchpatch {
-      url = "https://github.com/haiwen/seafile-server/commit/8029a11a731bfe142af43f230f47b93811ebaaaa.patch";
-      hash = "sha256-AWNDXIyrKXgqgq3p0m8+s3YH8dKxWnf7uEMYzSsjmX4=";
-    })
-  ];
-
-  postInstall = ''
-    mkdir -p $out/share/seafile/sql
-    cp -r scripts/sql $out/share/seafile
-  '';
-
-  passthru.tests = {
-    inherit (nixosTests) seafile;
-  };
-
-  meta = with lib; {
-    description = "File syncing and sharing software with file encryption and group sharing, emphasis on reliability and high performance";
-    homepage = "https://github.com/haiwen/seafile-server";
-    license = licenses.agpl3Plus;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [
-      greizgh
-      schmittlauch
-      melvyn2
+    nativeBuildInputs = [
+      autoreconfHook
+      pkg-config
+      python3
+      libsearpc # searpc-codegen.py
+      vala # valac
+      which
     ];
-    mainProgram = "seaf-server";
-  };
-}
+
+    buildInputs = [
+      libuuid
+      libmysqlclient
+      sqlite
+      glib
+      libsearpc
+      libevent
+      python3
+      fuse
+      libarchive
+      libjwt
+      libevhtp
+      oniguruma
+    ];
+
+    patches = [
+      # https://github.com/haiwen/seafile-server/pull/658
+      (fetchpatch {
+        url = "https://github.com/haiwen/seafile-server/commit/8029a11a731bfe142af43f230f47b93811ebaaaa.patch";
+        hash = "sha256-AWNDXIyrKXgqgq3p0m8+s3YH8dKxWnf7uEMYzSsjmX4=";
+      })
+    ];
+
+    postInstall = ''
+      mkdir -p $out/share/seafile/sql
+      cp -r scripts/sql $out/share/seafile
+    '';
+
+    passthru.tests = {
+      inherit (nixosTests) seafile;
+    };
+
+    meta = with lib; {
+      description = "File syncing and sharing software with file encryption and group sharing, emphasis on reliability and high performance";
+      homepage = "https://github.com/haiwen/seafile-server";
+      license = licenses.agpl3Plus;
+      platforms = platforms.linux;
+      maintainers = with maintainers; [
+        greizgh
+        schmittlauch
+        melvyn2
+      ];
+      mainProgram = "seaf-server";
+    };
+  }

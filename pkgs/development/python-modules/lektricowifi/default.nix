@@ -9,7 +9,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "lektricowifi";
   version = "0.0.43";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
       --replace-fail "from asyncmock import AsyncMock" "from unittest.mock import AsyncMock"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "pydantic"
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     pydantic
   ];
 
-  pythonImportsCheck = [ "lektricowifi" ];
+  pythonImportsCheck = ["lektricowifi"];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     description = "Communication with Lektrico's chargers";
     homepage = "https://github.com/Lektrico/lektricowifi";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

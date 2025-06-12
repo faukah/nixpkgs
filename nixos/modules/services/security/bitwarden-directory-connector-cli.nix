@@ -4,15 +4,13 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.bitwarden-directory-connector-cli;
-in
-{
+in {
   options.services.bitwarden-directory-connector-cli = {
     enable = mkEnableOption "Bitwarden Directory Connector";
 
-    package = mkPackageOption pkgs "bitwarden-directory-connector-cli" { };
+    package = mkPackageOption pkgs "bitwarden-directory-connector-cli" {};
 
     domain = mkOption {
       type = types.str;
@@ -37,15 +35,14 @@ in
         Options to configure the LDAP connection.
         If you used the desktop application to test the configuration you can find the settings by searching for `ldap` in `~/.config/Bitwarden\ Directory\ Connector/data.json`.
       '';
-      default = { };
+      default = {};
       type = types.submodule (
         {
           config,
           options,
           ...
-        }:
-        {
-          freeformType = types.attrsOf (pkgs.formats.json { }).type;
+        }: {
+          freeformType = types.attrsOf (pkgs.formats.json {}).type;
 
           config.finalJSON = builtins.toJSON (
             removeAttrs config (
@@ -55,7 +52,7 @@ in
 
           options = {
             finalJSON = mkOption {
-              type = (pkgs.formats.json { }).type;
+              type = (pkgs.formats.json {}).type;
               internal = true;
               readOnly = true;
               visible = false;
@@ -117,15 +114,14 @@ in
         Options to configure what gets synced.
         If you used the desktop application to test the configuration you can find the settings by searching for `sync` in `~/.config/Bitwarden\ Directory\ Connector/data.json`.
       '';
-      default = { };
+      default = {};
       type = types.submodule (
         {
           config,
           options,
           ...
-        }:
-        {
-          freeformType = types.attrsOf (pkgs.formats.json { }).type;
+        }: {
+          freeformType = types.attrsOf (pkgs.formats.json {}).type;
 
           config.finalJSON = builtins.toJSON (
             removeAttrs config (
@@ -135,7 +131,7 @@ in
 
           options = {
             finalJSON = mkOption {
-              type = (pkgs.formats.json { }).type;
+              type = (pkgs.formats.json {}).type;
               internal = true;
               readOnly = true;
               visible = false;
@@ -265,7 +261,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.groups."${cfg.user}" = { };
+    users.groups."${cfg.user}" = {};
     users.users."${cfg.user}" = {
       isSystemUser = true;
       group = cfg.user;
@@ -274,9 +270,9 @@ in
     systemd = {
       timers.bitwarden-directory-connector-cli = {
         description = "Sync timer for Bitwarden Directory Connector";
-        wantedBy = [ "timers.target" ];
-        after = [ "network-online.target" ];
-        wants = [ "network-online.target" ];
+        wantedBy = ["timers.target"];
+        after = ["network-online.target"];
+        wants = ["network-online.target"];
         timerConfig = {
           OnCalendar = cfg.interval;
           Unit = "bitwarden-directory-connector-cli.service";
@@ -286,7 +282,7 @@ in
 
       services.bitwarden-directory-connector-cli = {
         description = "Main process for Bitwarden Directory Connector";
-        path = [ pkgs.jq ];
+        path = [pkgs.jq];
 
         environment = {
           BITWARDENCLI_CONNECTOR_APPDATA_DIR = "/tmp";
@@ -335,5 +331,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ Silver-Golden ];
+  meta.maintainers = with maintainers; [Silver-Golden];
 }

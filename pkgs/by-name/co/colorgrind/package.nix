@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-KVR2IeoAkaTXDjEndPvrKUzOf4Zkha20vcH4TTJqXfM=";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   installPhase = ''
     runHook preInstall
@@ -26,8 +26,8 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "Perl wrapper for Valgrind with ANSI escape code colored output";
     homepage = "http://renatocf.github.io/colorgrind/";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ pluiedev ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [pluiedev];
     mainProgram = "colorgrind";
   };
 }

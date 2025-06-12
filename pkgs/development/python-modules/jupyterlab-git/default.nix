@@ -22,7 +22,6 @@
   pytestCheckHook,
   traitlets,
 }:
-
 buildPythonPackage rec {
   pname = "jupyterlab-git";
   version = "0.51.1";
@@ -61,7 +60,7 @@ buildPythonPackage rec {
     traitlets
   ];
 
-  propagatedBuildInputs = [ git ];
+  propagatedBuildInputs = [git];
 
   nativeCheckInputs = [
     gitMinimal
@@ -81,7 +80,7 @@ buildPythonPackage rec {
     "test_Git_get_nbdiff_dict"
   ];
 
-  pythonImportsCheck = [ "jupyterlab_git" ];
+  pythonImportsCheck = ["jupyterlab_git"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -89,7 +88,7 @@ buildPythonPackage rec {
     description = "Jupyter lab extension for version control with Git";
     homepage = "https://github.com/jupyterlab/jupyterlab-git";
     changelog = "https://github.com/jupyterlab/jupyterlab-git/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ chiroptical ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [chiroptical];
   };
 }

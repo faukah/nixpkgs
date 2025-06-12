@@ -8,7 +8,6 @@
   ocamlmod,
   ocamlify,
 }:
-
 stdenv.mkDerivation {
   version = "0.4.11";
   pname = "ocaml-oasis";
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
     ocamlify
   ];
 
-  buildInputs = [ ocamlbuild ];
+  buildInputs = [ocamlbuild];
 
   configurePhase = ''
     runHook preConfigure

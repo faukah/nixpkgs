@@ -10,7 +10,6 @@
   pytz,
   sentinels,
 }:
-
 buildPythonPackage rec {
   pname = "mongomock";
   version = "4.3.0";
@@ -34,15 +33,15 @@ buildPythonPackage rec {
     sentinels
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mongomock" ];
+  pythonImportsCheck = ["mongomock"];
 
   meta = with lib; {
     description = "Fake pymongo stub for testing simple MongoDB-dependent code";
     homepage = "https://github.com/mongomock/mongomock";
     changelog = "https://github.com/mongomock/mongomock/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

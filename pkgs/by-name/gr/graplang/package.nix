@@ -5,7 +5,6 @@
   flex,
   bison,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "graplang";
   version = "1.46";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.lunabase.org/~faber/Vault/software/grap/";
     changelog = "https://github.com/snorerot13/grap/blob/master/CHANGES";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ afh ];
+    maintainers = with maintainers; [afh];
     mainProgram = "grap";
   };
 })

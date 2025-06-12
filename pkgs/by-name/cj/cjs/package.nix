@@ -16,7 +16,6 @@
   which,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cjs";
   version = "6.4.0";
@@ -84,6 +83,6 @@ stdenv.mkDerivation rec {
     ];
 
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

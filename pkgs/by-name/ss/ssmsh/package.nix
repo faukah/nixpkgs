@@ -5,7 +5,6 @@
   testers,
   ssmsh,
 }:
-
 buildGoModule rec {
   pname = "ssmsh";
   version = "1.4.9";
@@ -37,7 +36,7 @@ buildGoModule rec {
     homepage = "https://github.com/bwhaley/ssmsh";
     description = "Interactive shell for AWS Parameter Store";
     license = licenses.mit;
-    maintainers = with maintainers; [ dbirks ];
+    maintainers = with maintainers; [dbirks];
     mainProgram = "ssmsh";
   };
 }

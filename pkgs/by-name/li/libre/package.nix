@@ -6,7 +6,6 @@
   openssl,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   version = "3.10.0";
   pname = "libre";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   makeFlags =
     [
       "USE_ZLIB=1"
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Library for real-time communications with async IO support and a complete SIP stack";
     homepage = "https://github.com/baresip/re";
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     license = lib.licenses.bsd3;
   };
 }

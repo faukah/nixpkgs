@@ -7,7 +7,6 @@
   pkg-config,
   fftwFloat,
 }:
-
 stdenv.mkDerivation rec {
   pname = "waveform";
   version = "1.8.1";
@@ -40,8 +39,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Audio spectral analysis plugin for OBS";
     homepage = "https://github.com/phandasm/waveform";
-    maintainers = with lib.maintainers; [ matthewcroughan ];
+    maintainers = with lib.maintainers; [matthewcroughan];
     license = lib.licenses.gpl3;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

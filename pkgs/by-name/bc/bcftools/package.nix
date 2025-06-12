@@ -11,7 +11,6 @@
   python3,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bcftools";
   version = "1.21";
@@ -57,6 +56,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = "http://www.htslib.org/";
     platforms = platforms.unix;
-    maintainers = [ maintainers.mimame ];
+    maintainers = [maintainers.mimame];
   };
 }

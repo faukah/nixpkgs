@@ -5,7 +5,6 @@
   clang-tools,
   prettier,
   rustfmt,
-
   withShFmt ? true,
   withPrettier ? true,
   withClangTools ? true,

@@ -6,7 +6,6 @@
   smbus-cffi,
   urwid,
 }:
-
 buildPythonPackage rec {
   pname = "pijuice";
   version = "1.7";
@@ -66,6 +65,6 @@ buildPythonPackage rec {
     mainProgram = "pijuice_cli";
     homepage = "https://github.com/PiSupply/PiJuice";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hexagonal-sun ];
+    maintainers = with maintainers; [hexagonal-sun];
   };
 }

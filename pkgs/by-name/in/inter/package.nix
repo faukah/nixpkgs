@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "inter";
   version = "4.1";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Typeface specially designed for user interfaces";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ demize ];
+    maintainers = with maintainers; [demize];
   };
 }

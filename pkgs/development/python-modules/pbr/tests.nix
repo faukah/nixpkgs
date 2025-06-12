@@ -10,7 +10,6 @@
   testscenarios,
   virtualenv,
 }:
-
 buildPythonPackage {
   pname = "pbr";
   inherit (pbr) version src;

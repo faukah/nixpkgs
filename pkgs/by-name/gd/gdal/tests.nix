@@ -4,13 +4,9 @@
   jdk,
   lib,
   testers,
-}:
-
-let
+}: let
   inherit (gdal) pname version;
-
-in
-{
+in {
   ogrinfo-version = testers.testVersion {
     package = gdal;
     command = "ogrinfo --version";
@@ -21,25 +17,25 @@ in
     command = "gdalinfo --version";
   };
 
-  ogrinfo-format-geopackage = runCommand "${pname}-ogrinfo-format-geopackage" { } ''
+  ogrinfo-format-geopackage = runCommand "${pname}-ogrinfo-format-geopackage" {} ''
     ${lib.getExe' gdal "ogrinfo"} --formats \
       | grep 'GPKG.*GeoPackage'
     touch $out
   '';
 
-  gdalinfo-format-geotiff = runCommand "${pname}-gdalinfo-format-geotiff" { } ''
+  gdalinfo-format-geotiff = runCommand "${pname}-gdalinfo-format-geotiff" {} ''
     ${lib.getExe' gdal "gdalinfo"} --formats \
       | grep 'GTiff.*GeoTIFF'
     touch $out
   '';
 
-  vector-file = runCommand "${pname}-vector-file" { } ''
+  vector-file = runCommand "${pname}-vector-file" {} ''
     echo -e "Latitude,Longitude,Name\n48.1,0.25,'Test point'" > test.csv
     ${lib.getExe' gdal "ogrinfo"} ./test.csv
     touch $out
   '';
 
-  raster-file = runCommand "${pname}-raster-file" { } ''
+  raster-file = runCommand "${pname}-raster-file" {} ''
     ${lib.getExe' gdal "gdal_create"} \
       -a_srs "EPSG:4326" \
       -of GTiff \
@@ -54,7 +50,7 @@ in
     touch $out
   '';
 
-  java-bindings = runCommand "${pname}-java-bindings" { } ''
+  java-bindings = runCommand "${pname}-java-bindings" {} ''
     cat <<EOF > main.java
     import org.gdal.gdal.gdal;
     class Main {

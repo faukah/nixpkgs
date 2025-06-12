@@ -15,7 +15,6 @@
   tenacity,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "devolo-plc-api";
   version = "1.5.1";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
       --replace-fail "protobuf>=4.22.0" "protobuf"
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     httpx
@@ -60,13 +59,13 @@ buildPythonPackage rec {
     "test_wrong_password_type"
   ];
 
-  pythonImportsCheck = [ "devolo_plc_api" ];
+  pythonImportsCheck = ["devolo_plc_api"];
 
   meta = with lib; {
     description = "Module to interact with Devolo PLC devices";
     homepage = "https://github.com/2Fake/devolo_plc_api";
     changelog = "https://github.com/2Fake/devolo_plc_api/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

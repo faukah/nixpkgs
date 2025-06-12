@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cached-property";
   version = "2.0.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-sOThFJs18DR9aBgIpqkORU4iRmhCVKehyM3DLYUt/Wc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     freezegun
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     "test_threads_ttl_expiry"
   ];
 
-  pythonImportsCheck = [ "cached_property" ];
+  pythonImportsCheck = ["cached_property"];
 
   meta = with lib; {
     description = "Decorator for caching properties in classes";
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/pydanny/cached-property/releases/tag/${version}";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

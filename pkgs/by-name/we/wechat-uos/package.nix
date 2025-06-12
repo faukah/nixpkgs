@@ -45,8 +45,7 @@
   libnotify,
   buildFHSEnv,
   writeShellScript,
-}:
-let
+}: let
   wechat-uos-env = stdenvNoCC.mkDerivation {
     meta.priority = 1;
     name = "wechat-uos-env";
@@ -144,9 +143,11 @@ let
           hash = sources.loongarch64_hash;
         };
       }
-      .${stdenv.system} or (throw "${pname}-${version}: ${stdenv.system} is unsupported.");
+      .${
+        stdenv.system
+      } or (throw "${pname}-${version}: ${stdenv.system} is unsupported.");
 
-    nativeBuildInputs = [ dpkg ];
+    nativeBuildInputs = [dpkg];
 
     unpackPhase = ''
       runHook preUnpack
@@ -175,7 +176,7 @@ let
         "aarch64-linux"
         "loongarch64-linux"
       ];
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
       maintainers = with maintainers; [
         pokon548
         xddxdd
@@ -184,47 +185,47 @@ let
     };
   };
 in
-buildFHSEnv {
-  inherit (wechat) pname version meta;
-  runScript = writeShellScript "wechat-uos-launcher" ''
-    export QT_QPA_PLATFORM=xcb
-    export QT_AUTO_SCREEN_SCALE_FACTOR=1
-    export LD_LIBRARY_PATH=${lib.makeLibraryPath wechat-uos-runtime}
+  buildFHSEnv {
+    inherit (wechat) pname version meta;
+    runScript = writeShellScript "wechat-uos-launcher" ''
+      export QT_QPA_PLATFORM=xcb
+      export QT_AUTO_SCREEN_SCALE_FACTOR=1
+      export LD_LIBRARY_PATH=${lib.makeLibraryPath wechat-uos-runtime}
 
-    if [[ ''${XMODIFIERS} =~ fcitx ]]; then
-      export QT_IM_MODULE=fcitx
-      export GTK_IM_MODULE=fcitx
-    elif [[ ''${XMODIFIERS} =~ ibus ]]; then
-      export QT_IM_MODULE=ibus
-      export GTK_IM_MODULE=ibus
-      export IBUS_USE_PORTAL=1
-    fi
+      if [[ ''${XMODIFIERS} =~ fcitx ]]; then
+        export QT_IM_MODULE=fcitx
+        export GTK_IM_MODULE=fcitx
+      elif [[ ''${XMODIFIERS} =~ ibus ]]; then
+        export QT_IM_MODULE=ibus
+        export GTK_IM_MODULE=ibus
+        export IBUS_USE_PORTAL=1
+      fi
 
-    ${wechat.outPath}/opt/apps/com.tencent.wechat/files/wechat
-  '';
-  extraInstallCommands = ''
-    mkdir -p $out/share/applications
-    mkdir -p $out/share/icons
-    cp -r ${wechat.outPath}/opt/apps/com.tencent.wechat/entries/applications/com.tencent.wechat.desktop $out/share/applications
-    cp -r ${wechat.outPath}/opt/apps/com.tencent.wechat/entries/icons/* $out/share/icons/
+      ${wechat.outPath}/opt/apps/com.tencent.wechat/files/wechat
+    '';
+    extraInstallCommands = ''
+      mkdir -p $out/share/applications
+      mkdir -p $out/share/icons
+      cp -r ${wechat.outPath}/opt/apps/com.tencent.wechat/entries/applications/com.tencent.wechat.desktop $out/share/applications
+      cp -r ${wechat.outPath}/opt/apps/com.tencent.wechat/entries/icons/* $out/share/icons/
 
-    substituteInPlace $out/share/applications/com.tencent.wechat.desktop \
-      --replace-quiet 'Exec=/usr/bin/wechat' "Exec=$out/bin/wechat-uos --"
+      substituteInPlace $out/share/applications/com.tencent.wechat.desktop \
+        --replace-quiet 'Exec=/usr/bin/wechat' "Exec=$out/bin/wechat-uos --"
 
-    # See https://github.com/NixOS/nixpkgs/issues/413491
-    sed -i \
-      -e '/\[Desktop Entry\]/a\' \
-      -e 'StartupWMClass=wechat' \
-      $out/share/applications/com.tencent.wechat.desktop
-  '';
-  targetPkgs = pkgs: [ wechat-uos-env ];
+      # See https://github.com/NixOS/nixpkgs/issues/413491
+      sed -i \
+        -e '/\[Desktop Entry\]/a\' \
+        -e 'StartupWMClass=wechat' \
+        $out/share/applications/com.tencent.wechat.desktop
+    '';
+    targetPkgs = pkgs: [wechat-uos-env];
 
-  passthru.updateScript = ./update.sh;
+    passthru.updateScript = ./update.sh;
 
-  extraOutputsToInstall = [
-    "usr"
-    "var/lib/uos"
-    "var/uos"
-    "etc"
-  ];
-}
+    extraOutputsToInstall = [
+      "usr"
+      "var/lib/uos"
+      "var/uos"
+      "etc"
+    ];
+  }

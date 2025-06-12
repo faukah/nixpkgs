@@ -5,7 +5,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "checksumdir";
   version = "1.2.0";
@@ -20,15 +19,15 @@ buildPythonPackage rec {
     hash = "sha256-PO8sRGFQ1Dt/UYJuFH6Y3EaQVaS+4DJlOQtvF8ZmBWQ=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   doCheck = false; # Package does not contain tests
-  pythonImportsCheck = [ "checksumdir" ];
+  pythonImportsCheck = ["checksumdir"];
 
   meta = with lib; {
     description = "Simple package to compute a single deterministic hash of the file contents of a directory";
     homepage = "https://github.com/to-mc/checksumdir";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

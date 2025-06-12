@@ -5,7 +5,6 @@
   textlint,
   textlint-rule-diacritics,
 }:
-
 buildNpmPackage rec {
   pname = "textlint-rule-diacritics";
   version = "1.0.0-unstable-2023-01-05";
@@ -31,6 +30,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/sapegin/textlint-rule-diacritics?tab=readme-ov-file";
     changelog = "https://github.com/sapegin/textlint-rule-diacritics/releases/tag/${src.rev}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

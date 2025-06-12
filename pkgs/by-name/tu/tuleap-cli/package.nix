@@ -4,7 +4,6 @@
   fetchFromGitLab,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "tuleap-cli";
   version = "1.1.0";
@@ -18,14 +17,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-N9Hmxw/70Cgc790AVRn7lmuhMtDhI94CTUlqHU4VbaY=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
     "-w"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   postInstall = ''
     installShellCompletion --cmd tuleap-cli \
@@ -38,7 +37,7 @@ buildGoModule rec {
     description = "Command-line interface for the Tuleap API";
     homepage = "https://gitlab.com/csgroup-oss/tuleap-cli";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ lesuisse ];
+    maintainers = with lib.maintainers; [lesuisse];
     mainProgram = "tuleap-cli";
   };
 }

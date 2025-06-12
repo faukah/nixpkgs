@@ -1,15 +1,12 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "overlayfs";
-  meta.maintainers = with pkgs.lib.maintainers; [ bachp ];
+  meta.maintainers = with pkgs.lib.maintainers; [bachp];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      virtualisation.emptyDiskImages = [ 512 ];
-      networking.hostId = "deadbeef";
-      environment.systemPackages = with pkgs; [ parted ];
-    };
+  nodes.machine = {pkgs, ...}: {
+    virtualisation.emptyDiskImages = [512];
+    networking.hostId = "deadbeef";
+    environment.systemPackages = with pkgs; [parted];
+  };
 
   testScript = ''
     machine.succeed("ls /dev")

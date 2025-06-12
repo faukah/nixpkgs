@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     concatMapStringsSep
     generators
     mkEnableOption
@@ -18,17 +18,19 @@ let
 
   cfg = config.services.typesense;
   settingsFormatIni = pkgs.formats.ini {
-    listToValue = concatMapStringsSep " " (generators.mkValueStringDefault { });
+    listToValue = concatMapStringsSep " " (generators.mkValueStringDefault {});
     mkKeyValue = generators.mkKeyValueDefault {
-      mkValueString = v: if v == null then "" else generators.mkValueStringDefault { } v;
+      mkValueString = v:
+        if v == null
+        then ""
+        else generators.mkValueStringDefault {} v;
     } "=";
   };
   configFile = settingsFormatIni.generate "typesense.ini" cfg.settings;
-in
-{
+in {
   options.services.typesense = {
     enable = mkEnableOption "typesense";
-    package = mkPackageOption pkgs "typesense" { };
+    package = mkPackageOption pkgs "typesense" {};
 
     apiKeyFile = mkOption {
       type = types.path;
@@ -41,7 +43,7 @@ in
 
     settings = mkOption {
       description = "Typesense configuration. Refer to [the documentation](https://typesense.org/docs/0.24.1/api/server-configuration.html) for supported values.";
-      default = { };
+      default = {};
       type = types.submodule {
         freeformType = settingsFormatIni.type;
         options.server = {
@@ -69,8 +71,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.typesense = {
       description = "Typesense search engine";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       script = ''
         export TYPESENSE_API_KEY=$(cat ${cfg.apiKeyFile})

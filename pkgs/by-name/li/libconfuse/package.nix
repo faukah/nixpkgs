@@ -6,7 +6,6 @@
   autoreconfHook,
   flex,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libconfuse";
   version = "3.3";

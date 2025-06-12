@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "simpy";
   version = "4.1.1";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonImportsCheck = [ "simpy" ];
+  pythonImportsCheck = ["simpy"];
 
   nativeCheckInputs = [
     py
@@ -55,7 +54,7 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/simpx/simpy";
     homepage = "https://simpy.readthedocs.io/en/${version}/";
     description = "Process-based discrete-event simulation framework based on standard Python";
-    license = [ lib.licenses.mit ];
+    license = [lib.licenses.mit];
     maintainers = with lib.maintainers; [
       shlevy
     ];

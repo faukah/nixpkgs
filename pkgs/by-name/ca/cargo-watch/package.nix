@@ -4,7 +4,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-watch";
   version = "8.5.3";

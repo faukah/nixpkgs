@@ -15,7 +15,6 @@
   setuptools-scm,
   textparser,
 }:
-
 buildPythonPackage rec {
   pname = "cantools";
   version = "40.2.2";
@@ -42,14 +41,16 @@ buildPythonPackage rec {
     textparser
   ];
 
-  optional-dependencies.plot = [ matplotlib ];
+  optional-dependencies.plot = [matplotlib];
 
-  nativeCheckInputs = [
-    parameterized
-    pytestCheckHook
-  ] ++ optional-dependencies.plot;
+  nativeCheckInputs =
+    [
+      parameterized
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.plot;
 
-  pythonImportsCheck = [ "cantools" ];
+  pythonImportsCheck = ["cantools"];
 
   meta = with lib; {
     description = "Tools to work with CAN bus";
@@ -57,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/cantools/cantools";
     changelog = "https://github.com/cantools/cantools/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ gray-heron ];
+    maintainers = with maintainers; [gray-heron];
   };
 }

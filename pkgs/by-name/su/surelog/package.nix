@@ -14,7 +14,6 @@
   capnproto,
   nlohmann_json,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "surelog";
   version = "1.84-unstable-2024-12-06";
@@ -33,10 +32,11 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     openjdk
     (python3.withPackages (
-      p: with p; [
-        psutil
-        orderedmultidict
-      ]
+      p:
+        with p; [
+          psutil
+          orderedmultidict
+        ]
     ))
     gtest
     antlr4

@@ -15,7 +15,6 @@
   tomli,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "sqlfmt";
   version = "0.26.0";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
     hash = "sha256-q0pkwuQY0iLzK+Lef6k62UxMKJy592RsJnSZnVYdMa8=";
   };
 
-  pythonRelaxDeps = [ "platformdirs" ];
+  pythonRelaxDeps = ["platformdirs"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     click
@@ -44,28 +43,30 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    jinjafmt = [ black ];
-    sqlfmt_primer = [ gitpython ];
+    jinjafmt = [black];
+    sqlfmt_primer = [gitpython];
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   preCheck = ''
     export HOME=$(mktemp -d)
     export PATH="$PATH:$out/bin";
   '';
 
-  pythonImportsCheck = [ "sqlfmt" ];
+  pythonImportsCheck = ["sqlfmt"];
 
   meta = {
     description = "Sqlfmt formats your dbt SQL files so you don't have to";
     homepage = "https://github.com/tconbeer/sqlfmt";
     changelog = "https://github.com/tconbeer/sqlfmt/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ pcboy ];
+    maintainers = with lib.maintainers; [pcboy];
     mainProgram = "sqlfmt";
   };
 }

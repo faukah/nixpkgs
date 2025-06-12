@@ -14,7 +14,6 @@
   setuptools,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "ical";
   version = "10.0.1";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-KUrsg42sNOtsmpS7rTPm1uiFU+jXbb25/Auk8Utp8Ks=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     python-dateutil
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "ical" ];
+  pythonImportsCheck = ["ical"];
 
   meta = {
     description = "Library for handling iCalendar";
     homepage = "https://github.com/allenporter/ical";
     changelog = "https://github.com/allenporter/ical/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

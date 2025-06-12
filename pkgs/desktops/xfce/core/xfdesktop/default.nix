@@ -13,7 +13,6 @@
   gtk-layer-shell,
   thunar,
 }:
-
 mkXfceDerivation {
   category = "xfce";
   pname = "xfdesktop";
@@ -37,6 +36,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Xfce's desktop manager";
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

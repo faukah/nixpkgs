@@ -17,7 +17,6 @@
   qt6,
   zug,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kazv";
   version = "0.5.0";
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Convergent matrix client and instant messaging app";
     homepage = "https://kazv.chat/";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     mainProgram = "kazv";
     platforms = lib.platforms.all;
   };

@@ -11,7 +11,6 @@
   pytest-xprocess,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flask-caching";
   version = "2.3.1";
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     description = "Caching extension for Flask";
     homepage = "https://github.com/pallets-eco/flask-caching";
     changelog = "https://github.com/pallets-eco/flask-caching/blob/v${version}/CHANGES.rst";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.bsd3;
   };
 }

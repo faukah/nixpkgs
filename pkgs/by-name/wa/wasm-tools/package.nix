@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wasm-tools";
   version = "1.233.0";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     "wasm-tools"
   ];
   cargoTestFlags =
-    [ "--all" ]
+    ["--all"]
     ++
     # Due to https://github.com/bytecodealliance/wasm-tools/issues/1820
     [
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     description = "Low level tooling for WebAssembly in Rust";
     homepage = "https://github.com/bytecodealliance/wasm-tools";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ereslibre ];
+    maintainers = with maintainers; [ereslibre];
     mainProgram = "wasm-tools";
   };
 }

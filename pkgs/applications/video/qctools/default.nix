@@ -8,7 +8,6 @@
   qtmultimedia,
   qwt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qctools";
   version = "1.4";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Audiovisual analytics and filtering of video files";
     homepage = "https://mediaarea.net/QCTools";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ orivej ];
+    maintainers = with lib.maintainers; [orivej];
     platforms = lib.platforms.linux;
   };
 }

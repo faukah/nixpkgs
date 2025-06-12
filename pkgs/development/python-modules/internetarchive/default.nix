@@ -13,7 +13,6 @@
   pythonOlder,
   importlib-metadata,
 }:
-
 buildPythonPackage rec {
   pname = "internetarchive";
   version = "5.4.0";
@@ -28,15 +27,17 @@ buildPythonPackage rec {
     hash = "sha256-2IL4VUt958atKDqCmj6rZ9I74tBRsA42EF1F1YT433E=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    tqdm
-    requests
-    jsonpatch
-    schema
-    urllib3
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  dependencies =
+    [
+      tqdm
+      requests
+      jsonpatch
+      schema
+      urllib3
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   nativeCheckInputs = [
     responses
@@ -59,14 +60,14 @@ buildPythonPackage rec {
     "tests/cli/test_ia_download.py"
   ];
 
-  pythonImportsCheck = [ "internetarchive" ];
+  pythonImportsCheck = ["internetarchive"];
 
   meta = {
     description = "Python and Command-Line Interface to Archive.org";
     homepage = "https://github.com/jjjake/internetarchive";
     changelog = "https://github.com/jjjake/internetarchive/blob/${src.tag}/HISTORY.rst";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
     mainProgram = "ia";
   };
 }

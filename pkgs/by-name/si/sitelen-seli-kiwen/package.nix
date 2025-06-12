@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "sitelen-seli-kiwen";
   version = "unstable-2022-06-28";
@@ -29,6 +28,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://www.kreativekorp.com/software/fonts/sitelenselikiwen/";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ somasis ];
+    maintainers = with maintainers; [somasis];
   };
 }

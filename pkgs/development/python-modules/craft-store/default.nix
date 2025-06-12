@@ -22,7 +22,6 @@
   requests-toolbelt,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "craft-store";
   version = "3.2.1";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonRelaxDeps = [ "httpx" ];
+  pythonRelaxDeps = ["httpx"];
 
   dependencies = [
     annotated-types
@@ -62,7 +61,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "craft_store" ];
+  pythonImportsCheck = ["craft_store"];
 
   nativeCheckInputs = [
     pytest-check
@@ -72,16 +71,16 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Interfaces for communicating with Canonical Stores (e.g. Snap Store)";
     homepage = "https://github.com/canonical/craft-store";
     changelog = "https://github.com/canonical/craft-store/releases/tag/${version}";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
     platforms = lib.platforms.linux;
   };
 }

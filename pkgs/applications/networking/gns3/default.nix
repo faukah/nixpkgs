@@ -1,18 +1,14 @@
 {
   callPackage,
   libsForQt5,
-}:
-
-let
-  mkGui =
-    args:
-    callPackage (import ./gui.nix (args)) {
+}: let
+  mkGui = args:
+    callPackage (import ./gui.nix args) {
       inherit (libsForQt5) wrapQtAppsHook;
     };
 
-  mkServer = args: callPackage (import ./server.nix (args)) { };
-in
-{
+  mkServer = args: callPackage (import ./server.nix args) {};
+in {
   guiStable = mkGui {
     channel = "stable";
     version = "2.2.51";

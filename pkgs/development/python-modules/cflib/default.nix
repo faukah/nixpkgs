@@ -14,7 +14,6 @@
   pyyaml,
   udevCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "cflib";
   version = "0.1.28";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonRelaxDeps = [ "numpy" ];
+  pythonRelaxDeps = ["numpy"];
 
   dependencies = [
     libusb-package
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     "sys_test/swarm_test_rig/"
   ];
 
-  pythonImportsCheck = [ "cflib" ];
+  pythonImportsCheck = ["cflib"];
   nativeCheckInputs = [
     pytestCheckHook
     pyyaml
@@ -84,7 +83,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/bitcraze/crazyflie-lib-python";
     changelog = "https://github.com/bitcraze/crazyflie-lib-python/releases/tag/${version}";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.brianmcgillion ];
+    maintainers = [lib.maintainers.brianmcgillion];
     platforms = lib.platforms.linux;
   };
 }

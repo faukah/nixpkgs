@@ -7,7 +7,6 @@
   libX11,
   libXpm,
 }:
-
 gccStdenv.mkDerivation {
   pname = "0verkill";
   version = "unstable-2011-01-13";
@@ -19,14 +18,14 @@ gccStdenv.mkDerivation {
     sha256 = "WO7PN192HhcDl6iHIbVbH7MVMi1Tl2KyQbDa9DWRO6M=";
   };
 
-  nativeBuildInputs = [ autoreconfHook269 ];
+  nativeBuildInputs = [autoreconfHook269];
   buildInputs = [
     libX11
     xorgproto
     libXpm
   ];
 
-  configureFlags = [ "--with-x" ];
+  configureFlags = ["--with-x"];
 
   preAutoreconf = ''
     autoupdate
@@ -35,13 +34,13 @@ gccStdenv.mkDerivation {
   # The code needs an update for gcc-10:
   #   https://github.com/hackndev/0verkill/issues/7
   env.NIX_CFLAGS_COMPILE = "-fcommon";
-  hardeningDisable = [ "all" ]; # Someday the upstream will update the code...
+  hardeningDisable = ["all"]; # Someday the upstream will update the code...
 
   meta = with lib; {
     homepage = "https://github.com/hackndev/0verkill";
     description = "ASCII-ART bloody 2D action deathmatch-like game";
     license = with licenses; gpl2Only;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = with platforms; unix;
   };
 }

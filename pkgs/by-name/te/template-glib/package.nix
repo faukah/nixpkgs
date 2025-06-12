@@ -16,7 +16,6 @@
   docbook_xsl,
   docbook_xml_dtd_43,
 }:
-
 stdenv.mkDerivation rec {
   pname = "template-glib";
   version = "3.36.3";
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "Library for template expansion which supports calling into GObject Introspection from templates";
     homepage = "https://gitlab.gnome.org/GNOME/template-glib";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 }

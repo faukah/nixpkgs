@@ -4,7 +4,6 @@
   fetchFromGitLab,
   installShellFiles,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "dwt1-shell-color-scripts";
   version = "unstable-2023-03-27";
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-1iDcUv6uVq5LzFgZo36RRKqAzKoYKZW/MnlbneayvCY=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postPatch = ''
     patchShebangs ./colorscript.sh
@@ -49,8 +48,8 @@ stdenvNoCC.mkDerivation {
   meta = {
     homepage = "https://gitlab.com/dwt1/shell-color-scripts";
     description = "Collection of shell color scripts collected by dt (Derek Taylor)";
-    license = with lib.licenses; [ mit ];
-    maintainers = [ ];
+    license = with lib.licenses; [mit];
+    maintainers = [];
     platforms = lib.platforms.all;
     mainProgram = "colorscript";
   };

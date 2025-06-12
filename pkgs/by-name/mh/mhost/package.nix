@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mhost";
   version = "0.3.1";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = [ maintainers.mgttlinger ];
+    maintainers = [maintainers.mgttlinger];
     mainProgram = "mhost";
   };
 }

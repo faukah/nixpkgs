@@ -8,7 +8,6 @@
   pkg-config,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qdocumentview";
   version = "0.3.0.1";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "qdocumentview";
     homepage = "https://gitlab.com/extraqt/qdocumentview";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
     platforms = lib.platforms.linux;
   };
 })

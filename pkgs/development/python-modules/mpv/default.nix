@@ -8,7 +8,6 @@
   mpv,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "mpv";
   version = "1.0.7";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.9";
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  buildInputs = [ mpv ];
+  buildInputs = [mpv];
 
   postPatch = ''
     substituteInPlace mpv.py \
@@ -41,12 +40,12 @@ buildPythonPackage rec {
                      'sofile = "${mpv}/lib/libmpv${stdenv.hostPlatform.extensions.sharedLibrary}"'
   '';
 
-  pythonImportsCheck = [ "mpv" ];
+  pythonImportsCheck = ["mpv"];
 
   meta = with lib; {
     description = "Python interface to the mpv media player";
     homepage = "https://github.com/jaseg/python-mpv";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

@@ -5,13 +5,11 @@
   utils,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.lemmy;
-  settingsFormat = pkgs.formats.json { };
-in
-{
-  meta.maintainers = with maintainers; [ happysalada ];
+  settingsFormat = pkgs.formats.json {};
+in {
+  meta.maintainers = with maintainers; [happysalada];
   meta.doc = ./lemmy.md;
 
   imports = [
@@ -23,15 +21,14 @@ in
   ];
 
   options.services.lemmy = {
-
     enable = mkEnableOption "lemmy a federated alternative to reddit in rust";
 
     server = {
-      package = mkPackageOption pkgs "lemmy-server" { };
+      package = mkPackageOption pkgs "lemmy-server" {};
     };
 
     ui = {
-      package = mkPackageOption pkgs "lemmy-ui" { };
+      package = mkPackageOption pkgs "lemmy-ui" {};
 
       port = mkOption {
         type = types.port;
@@ -78,7 +75,7 @@ in
     };
 
     settings = mkOption {
-      default = { };
+      default = {};
       description = "Lemmy configuration";
 
       type = types.submodule {
@@ -116,82 +113,82 @@ in
     };
   };
 
-  config =
-    let
-      secretOptions = {
-        pictrsApiKeyFile = {
-          setting = [
-            "pictrs"
-            "api_key"
-          ];
-          path = cfg.pictrsApiKeyFile;
-        };
-        smtpPasswordFile = {
-          setting = [
-            "email"
-            "smtp_password"
-          ];
-          path = cfg.smtpPasswordFile;
-        };
-        adminPasswordFile = {
-          setting = [
-            "setup"
-            "admin_password"
-          ];
-          path = cfg.adminPasswordFile;
-        };
-        uriFile = {
-          setting = [
-            "database"
-            "uri"
-          ];
-          path = cfg.database.uriFile;
-        };
+  config = let
+    secretOptions = {
+      pictrsApiKeyFile = {
+        setting = [
+          "pictrs"
+          "api_key"
+        ];
+        path = cfg.pictrsApiKeyFile;
       };
-      secrets = lib.filterAttrs (option: data: data.path != null) secretOptions;
-    in
+      smtpPasswordFile = {
+        setting = [
+          "email"
+          "smtp_password"
+        ];
+        path = cfg.smtpPasswordFile;
+      };
+      adminPasswordFile = {
+        setting = [
+          "setup"
+          "admin_password"
+        ];
+        path = cfg.adminPasswordFile;
+      };
+      uriFile = {
+        setting = [
+          "database"
+          "uri"
+        ];
+        path = cfg.database.uriFile;
+      };
+    };
+    secrets = lib.filterAttrs (option: data: data.path != null) secretOptions;
+  in
     lib.mkIf cfg.enable {
       services.lemmy.settings =
         lib.attrsets.recursiveUpdate
-          (
-            mapAttrs (name: mkDefault) {
-              bind = "127.0.0.1";
-              tls_enabled = true;
-              pictrs = {
-                url = with config.services.pict-rs; "http://${address}:${toString port}";
-              };
-              actor_name_max_length = 20;
+        (
+          mapAttrs (name: mkDefault) {
+            bind = "127.0.0.1";
+            tls_enabled = true;
+            pictrs = {
+              url = with config.services.pict-rs; "http://${address}:${toString port}";
+            };
+            actor_name_max_length = 20;
 
-              rate_limit.message = 180;
-              rate_limit.message_per_second = 60;
-              rate_limit.post = 6;
-              rate_limit.post_per_second = 600;
-              rate_limit.register = 3;
-              rate_limit.register_per_second = 3600;
-              rate_limit.image = 6;
-              rate_limit.image_per_second = 3600;
-            }
-            // {
-              database = mapAttrs (name: mkDefault) {
-                user = "lemmy";
-                host = "/run/postgresql";
-                port = 5432;
-                database = "lemmy";
-                pool_size = 5;
-              };
-            }
-          )
-          (
-            lib.foldlAttrs (
-              acc: option: data:
-              acc // lib.setAttrByPath data.setting { _secret = option; }
-            ) { } secrets
-          );
+            rate_limit.message = 180;
+            rate_limit.message_per_second = 60;
+            rate_limit.post = 6;
+            rate_limit.post_per_second = 600;
+            rate_limit.register = 3;
+            rate_limit.register_per_second = 3600;
+            rate_limit.image = 6;
+            rate_limit.image_per_second = 3600;
+          }
+          // {
+            database = mapAttrs (name: mkDefault) {
+              user = "lemmy";
+              host = "/run/postgresql";
+              port = 5432;
+              database = "lemmy";
+              pool_size = 5;
+            };
+          }
+        )
+        (
+          lib.foldlAttrs (
+            acc: option: data:
+              acc // lib.setAttrByPath data.setting {_secret = option;}
+          ) {}
+          secrets
+        );
       # the option name is the id of the credential loaded by LoadCredential
 
       services.postgresql = mkIf cfg.database.createLocally {
         enable = true;
-        ensureDatabases = [ cfg.settings.database.database ];
+        ensureDatabases = [cfg.settings.database.database];
         ensureUsers = [
           {
             name = cfg.settings.database.user;
@@ -242,44 +239,42 @@ in
 
       services.nginx = mkIf cfg.nginx.enable {
         enable = mkDefault true;
-        virtualHosts."${cfg.settings.hostname}".locations =
-          let
-            ui = "http://127.0.0.1:${toString cfg.ui.port}";
-            backend = "http://127.0.0.1:${toString cfg.settings.port}";
-          in
-          {
-            "~ ^/(api|pictrs|feeds|nodeinfo|.well-known)" = {
-              # backend requests
-              proxyPass = backend;
-              proxyWebsockets = true;
-              recommendedProxySettings = true;
-            };
-            "/" = {
-              # mixed frontend and backend requests, based on the request headers
-              extraConfig = ''
-                set $proxpass "${ui}";
-                if ($http_accept = "application/activity+json") {
-                  set $proxpass "${backend}";
-                }
-                if ($http_accept = "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"") {
-                  set $proxpass "${backend}";
-                }
-                if ($request_method = POST) {
-                  set $proxpass "${backend}";
-                }
-
-                # Cuts off the trailing slash on URLs to make them valid
-                rewrite ^(.+)/+$ $1 permanent;
-
-                proxy_pass $proxpass;
-                # Proxied `Host` header is required to validate ActivityPub HTTP signatures for incoming events.
-                # The other headers are optional, for the sake of better log data.
-                proxy_set_header X-Real-IP $remote_addr;
-                proxy_set_header Host $host;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-              '';
-            };
+        virtualHosts."${cfg.settings.hostname}".locations = let
+          ui = "http://127.0.0.1:${toString cfg.ui.port}";
+          backend = "http://127.0.0.1:${toString cfg.settings.port}";
+        in {
+          "~ ^/(api|pictrs|feeds|nodeinfo|.well-known)" = {
+            # backend requests
+            proxyPass = backend;
+            proxyWebsockets = true;
+            recommendedProxySettings = true;
           };
+          "/" = {
+            # mixed frontend and backend requests, based on the request headers
+            extraConfig = ''
+              set $proxpass "${ui}";
+              if ($http_accept = "application/activity+json") {
+                set $proxpass "${backend}";
+              }
+              if ($http_accept = "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"") {
+                set $proxpass "${backend}";
+              }
+              if ($request_method = POST) {
+                set $proxpass "${backend}";
+              }
+
+              # Cuts off the trailing slash on URLs to make them valid
+              rewrite ^(.+)/+$ $1 permanent;
+
+              proxy_pass $proxpass;
+              # Proxied `Host` header is required to validate ActivityPub HTTP signatures for incoming events.
+              # The other headers are optional, for the sake of better log data.
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header Host $host;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            '';
+          };
+        };
       };
 
       assertions = [
@@ -291,8 +286,8 @@ in
         }
         {
           assertion =
-            (!(hasAttrByPath [ "federation" ] cfg.settings))
-            && (!(hasAttrByPath [ "federation" "enabled" ] cfg.settings));
+            (!(hasAttrByPath ["federation"] cfg.settings))
+            && (!(hasAttrByPath ["federation" "enabled"] cfg.settings));
           message = "`services.lemmy.settings.federation` was removed in 0.17.0 and no longer has any effect";
         }
         {
@@ -301,56 +296,57 @@ in
         }
       ];
 
-      systemd.services.lemmy =
-        let
-          substitutedConfig = "/run/lemmy/config.hjson";
-        in
-        {
-          description = "Lemmy server";
+      systemd.services.lemmy = let
+        substitutedConfig = "/run/lemmy/config.hjson";
+      in {
+        description = "Lemmy server";
 
-          environment = {
-            LEMMY_CONFIG_LOCATION =
-              if secrets == { } then settingsFormat.generate "config.hjson" cfg.settings else substitutedConfig;
-            LEMMY_DATABASE_URL =
-              if cfg.database.uri != null then
-                cfg.database.uri
-              else
-                (mkIf (cfg.database.createLocally) "postgres:///lemmy?host=/run/postgresql&user=lemmy");
-          };
-
-          documentation = [
-            "https://join-lemmy.org/docs/en/admins/from_scratch.html"
-            "https://join-lemmy.org/docs/en/"
-          ];
-
-          wantedBy = [ "multi-user.target" ];
-
-          after = [ "pict-rs.service" ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
-
-          requires = lib.optionals cfg.database.createLocally [ "postgresql.service" ];
-
-          # substitute secrets and prevent others from reading the result
-          # if somehow $CREDENTIALS_DIRECTORY is not set we fail
-          preStart = mkIf (secrets != { }) ''
-            set -u
-            umask u=rw,g=,o=
-            cd "$CREDENTIALS_DIRECTORY"
-            ${utils.genJqSecretsReplacementSnippet cfg.settings substitutedConfig}
-          '';
-
-          serviceConfig = {
-            DynamicUser = true;
-            RuntimeDirectory = "lemmy";
-            ExecStart = "${cfg.server.package}/bin/lemmy_server";
-            LoadCredential = lib.foldlAttrs (
-              acc: option: data:
-              acc ++ [ "${option}:${toString data.path}" ]
-            ) [ ] secrets;
-            PrivateTmp = true;
-            MemoryDenyWriteExecute = true;
-            NoNewPrivileges = true;
-          };
+        environment = {
+          LEMMY_CONFIG_LOCATION =
+            if secrets == {}
+            then settingsFormat.generate "config.hjson" cfg.settings
+            else substitutedConfig;
+          LEMMY_DATABASE_URL =
+            if cfg.database.uri != null
+            then cfg.database.uri
+            else (mkIf (cfg.database.createLocally) "postgres:///lemmy?host=/run/postgresql&user=lemmy");
         };
+
+        documentation = [
+          "https://join-lemmy.org/docs/en/admins/from_scratch.html"
+          "https://join-lemmy.org/docs/en/"
+        ];
+
+        wantedBy = ["multi-user.target"];
+
+        after = ["pict-rs.service"] ++ lib.optionals cfg.database.createLocally ["postgresql.service"];
+
+        requires = lib.optionals cfg.database.createLocally ["postgresql.service"];
+
+        # substitute secrets and prevent others from reading the result
+        # if somehow $CREDENTIALS_DIRECTORY is not set we fail
+        preStart = mkIf (secrets != {}) ''
+          set -u
+          umask u=rw,g=,o=
+          cd "$CREDENTIALS_DIRECTORY"
+          ${utils.genJqSecretsReplacementSnippet cfg.settings substitutedConfig}
+        '';
+
+        serviceConfig = {
+          DynamicUser = true;
+          RuntimeDirectory = "lemmy";
+          ExecStart = "${cfg.server.package}/bin/lemmy_server";
+          LoadCredential =
+            lib.foldlAttrs (
+              acc: option: data:
+                acc ++ ["${option}:${toString data.path}"]
+            ) []
+            secrets;
+          PrivateTmp = true;
+          MemoryDenyWriteExecute = true;
+          NoNewPrivileges = true;
+        };
+      };
 
       systemd.services.lemmy-ui = {
         description = "Lemmy ui";
@@ -368,11 +364,11 @@ in
           "https://join-lemmy.org/docs/en/"
         ];
 
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
 
-        after = [ "lemmy.service" ];
+        after = ["lemmy.service"];
 
-        requires = [ "lemmy.service" ];
+        requires = ["lemmy.service"];
 
         serviceConfig = {
           DynamicUser = true;
@@ -381,5 +377,4 @@ in
         };
       };
     };
-
 }

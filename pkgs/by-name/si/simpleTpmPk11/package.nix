@@ -8,7 +8,6 @@
   autoreconfHook,
   libtool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "simple-tpm-pk11";
   version = "0.06";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/ThomasHabets/simple-tpm-pk11";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

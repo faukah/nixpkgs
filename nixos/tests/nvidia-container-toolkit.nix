@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   testCDIScript = pkgs.writeShellScriptBin "test-cdi" ''
     die() {
       echo "$1"
@@ -30,7 +33,7 @@ let
     name = "cdi-test";
     tag = "latest";
     config = {
-      Cmd = [ (lib.getExe testCDIScript) ];
+      Cmd = [(lib.getExe testCDIScript)];
     };
     copyToRoot = with pkgs.dockerTools; [
       usrBinEnv
@@ -71,7 +74,7 @@ let
       dontBuild = true;
 
       inherit emptyCDISpec;
-      passAsFile = [ "emptyCDISpec" ];
+      passAsFile = ["emptyCDISpec"];
 
       installPhase = ''
         mkdir -p $out/bin $out/share/nvidia-container-toolkit
@@ -86,8 +89,7 @@ let
       meta.mainProgram = "nvidia-ctk";
     };
   };
-in
-{
+in {
   name = "nvidia-container-toolkit";
   meta = with lib.maintainers; {
     maintainers = [
@@ -95,32 +97,28 @@ in
       christoph-heiss
     ];
   };
-  defaults =
-    { config, ... }:
-    {
-      environment.systemPackages = with pkgs; [ jq ];
-      virtualisation.diskSize = lib.mkDefault 10240;
-      virtualisation.containers.enable = lib.mkDefault true;
-      hardware = {
-        inherit nvidia-container-toolkit;
-        nvidia = {
-          open = true;
-          package = config.boot.kernelPackages.nvidiaPackages.stable.open;
-        };
-        graphics.enable = lib.mkDefault true;
+  defaults = {config, ...}: {
+    environment.systemPackages = with pkgs; [jq];
+    virtualisation.diskSize = lib.mkDefault 10240;
+    virtualisation.containers.enable = lib.mkDefault true;
+    hardware = {
+      inherit nvidia-container-toolkit;
+      nvidia = {
+        open = true;
+        package = config.boot.kernelPackages.nvidiaPackages.stable.open;
       };
+      graphics.enable = lib.mkDefault true;
     };
+  };
   nodes = {
     no-gpus = {
       virtualisation.containers.enable = false;
       hardware.graphics.enable = false;
     };
-    one-gpu =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [ podman ];
-        hardware.graphics.enable = true;
-      };
+    one-gpu = {pkgs, ...}: {
+      environment.systemPackages = with pkgs; [podman];
+      hardware.graphics.enable = true;
+    };
 
     one-gpu-invalid-host-paths = {
       hardware.nvidia-container-toolkit.mounts = [

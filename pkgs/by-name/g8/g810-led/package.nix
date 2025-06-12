@@ -5,7 +5,6 @@
   hidapi,
   profile ? "/etc/g810-led/profile",
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "g810-led";
   version = "0.4.3";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Linux LED controller for some Logitech G Keyboards";
     homepage = "https://github.com/MatMoul/g810-led";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     platforms = platforms.linux;
   };
 })

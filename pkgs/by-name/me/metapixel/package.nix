@@ -8,7 +8,6 @@
   perl,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "metapixel";
   version = "1.0.2";
@@ -21,9 +20,9 @@ stdenv.mkDerivation {
     sha256 = "0r7n3a6bvcxkbpda4mwmrpicii09iql5z69nkjqygkwxw7ny3309";
   };
 
-  makeFlags = [ "metapixel" ];
+  makeFlags = ["metapixel"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libpng
     libjpeg
@@ -42,6 +41,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/schani/metapixel";
     description = "Tool for generating photomosaics";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

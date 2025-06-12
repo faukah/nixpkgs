@@ -5,7 +5,6 @@
   sys-headers,
   libpthread-headers,
 }:
-
 symlinkJoin {
   name = "netbsd-headers-9.2";
   paths = [

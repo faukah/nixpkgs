@@ -25,7 +25,6 @@
   installShellFiles,
   fuseSupport ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bcachefs-tools";
   version = "1.25.2";
@@ -47,34 +46,38 @@ stdenv.mkDerivation (finalAttrs: {
     installShellFiles
   ];
 
-  buildInputs = [
-    libaio
-    keyutils
-    lz4
+  buildInputs =
+    [
+      libaio
+      keyutils
+      lz4
 
-    libsodium
-    liburcu
-    libuuid
-    zstd
-    zlib
-    attr
-    udev
-  ] ++ lib.optional fuseSupport fuse3;
+      libsodium
+      liburcu
+      libuuid
+      zstd
+      zlib
+      attr
+      udev
+    ]
+    ++ lib.optional fuseSupport fuse3;
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     src = finalAttrs.src;
     hash = "sha256-juXRmI3tz2BXQsRaRRGyBaGqeLk2QHfJb2sKPmWur8s=";
   };
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-    "VERSION=${finalAttrs.version}"
-    "INITRAMFS_DIR=${placeholder "out"}/etc/initramfs-tools"
+  makeFlags =
+    [
+      "PREFIX=${placeholder "out"}"
+      "VERSION=${finalAttrs.version}"
+      "INITRAMFS_DIR=${placeholder "out"}/etc/initramfs-tools"
 
-    # Tries to install to the 'systemd-minimal' and 'udev' nix installation paths
-    "PKGCONFIG_SERVICEDIR=$(out)/lib/systemd/system"
-    "PKGCONFIG_UDEVDIR=$(out)/lib/udev"
-  ] ++ lib.optional fuseSupport "BCACHEFS_FUSE=1";
+      # Tries to install to the 'systemd-minimal' and 'udev' nix installation paths
+      "PKGCONFIG_SERVICEDIR=$(out)/lib/systemd/system"
+      "PKGCONFIG_UDEVDIR=$(out)/lib/udev"
+    ]
+    ++ lib.optional fuseSupport "BCACHEFS_FUSE=1";
 
   env = {
     CARGO_BUILD_TARGET = stdenv.hostPlatform.rust.rustcTargetSpec;
@@ -92,7 +95,7 @@ stdenv.mkDerivation (finalAttrs: {
   preCheck = lib.optionalString (!fuseSupport) ''
     rm tests/test_fuse.py
   '';
-  checkFlags = [ "BCACHEFS_TEST_USE_VALGRIND=no" ];
+  checkFlags = ["BCACHEFS_TEST_USE_VALGRIND=no"];
 
   postInstall =
     ''
@@ -117,7 +120,7 @@ stdenv.mkDerivation (finalAttrs: {
       inherit (nixosTests.installer) bcachefsSimple bcachefsEncrypted bcachefsMulti;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   enableParallelBuilding = true;

@@ -25,7 +25,7 @@ buildGoModule (finalAttrs: {
     "-X main.date=1970-01-01"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/AlexNabokikh/tfsort/releases/tag/v${finalAttrs.version}";

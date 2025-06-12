@@ -7,7 +7,6 @@
   pcre2,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gitaly-git";
   version = "2.49.0.gl2";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
   '';
   sourceRoot = src.name;
 
-  buildFlags = [ "git" ];
+  buildFlags = ["git"];
 
   buildInputs = [
     curl
@@ -53,6 +52,6 @@ stdenv.mkDerivation rec {
     description = "Distributed version control system - with Gitaly patches";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.all;
-    teams = [ lib.teams.gitlab ];
+    teams = [lib.teams.gitlab];
   };
 }

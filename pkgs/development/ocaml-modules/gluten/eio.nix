@@ -3,7 +3,6 @@
   gluten,
   eio,
 }:
-
 buildDunePackage {
   pname = "gluten-eio";
   inherit (gluten) src version;
@@ -13,7 +12,9 @@ buildDunePackage {
     eio
   ];
 
-  meta = gluten.meta // {
-    description = "EIO runtime for gluten";
-  };
+  meta =
+    gluten.meta
+    // {
+      description = "EIO runtime for gluten";
+    };
 }

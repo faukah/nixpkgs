@@ -12,7 +12,6 @@
   flask,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pycurl";
   version = "7.45.3-unstable-2024-10-17";
@@ -35,16 +34,16 @@ buildPythonPackage rec {
     export PYCURL_SSL_LIBRARY=openssl
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ curl ];
+  nativeBuildInputs = [curl];
 
   buildInputs = [
     curl
     openssl
   ];
 
-  pythonImportsCheck = [ "pycurl" ];
+  pythonImportsCheck = ["pycurl"];
 
   nativeCheckInputs = [
     bottle
@@ -100,12 +99,12 @@ buildPythonPackage rec {
     homepage = "http://pycurl.io/";
     changelog =
       "https://github.com/pycurl/pycurl/blob/REL_"
-      + replaceStrings [ "." ] [ "_" ] version
+      + replaceStrings ["."] ["_"] version
       + "/ChangeLog";
     license = with licenses; [
       lgpl2Only
       mit
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

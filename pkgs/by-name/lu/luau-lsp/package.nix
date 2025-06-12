@@ -6,7 +6,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "luau-lsp";
   version = "1.49.1";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeFeature "CMAKE_OSX_ARCHITECTURES" stdenv.hostPlatform.darwinArch)
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildPhase = ''
     runHook preBuild
@@ -43,11 +42,11 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Language Server Implementation for Luau";

@@ -15,8 +15,7 @@ buildNpmPackage rec {
   pname = "jellyfin-web";
   version = "10.10.7";
 
-  src =
-    assert version == jellyfin.version;
+  src = assert version == jellyfin.version;
     fetchFromGitHub {
       owner = "jellyfin";
       repo = "jellyfin-web";
@@ -38,12 +37,12 @@ buildNpmPackage rec {
     rm -r node_modules/sass-embedded*
   '';
 
-  npmBuildScript = [ "build:production" ];
+  npmBuildScript = ["build:production"];
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcbuild ];
+  nativeBuildInputs = [pkg-config] ++ lib.optionals stdenv.hostPlatform.isDarwin [xcbuild];
 
   buildInputs =
-    [ pango ]
+    [pango]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       giflib
     ];
@@ -57,7 +56,7 @@ buildNpmPackage rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Web Client for Jellyfin";

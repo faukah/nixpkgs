@@ -4,7 +4,6 @@
   makeBinaryWrapper,
   undmg,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "krunker";
   version = "2.1.3";

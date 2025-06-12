@@ -3,7 +3,6 @@
   caqti,
   mariadb,
 }:
-
 buildDunePackage {
   pname = "caqti-driver-mariadb";
   inherit (caqti) version src;
@@ -13,7 +12,9 @@ buildDunePackage {
     mariadb
   ];
 
-  meta = caqti.meta // {
-    description = "MariaDB driver for Caqti using C bindings";
-  };
+  meta =
+    caqti.meta
+    // {
+      description = "MariaDB driver for Caqti using C bindings";
+    };
 }

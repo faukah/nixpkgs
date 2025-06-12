@@ -9,7 +9,6 @@
   doxygen,
   buildDocs ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gio-qt";
   version = "0.0.14";
@@ -39,12 +38,14 @@ stdenv.mkDerivation rec {
       libsForQt5.qttools
     ];
 
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-    "-DPROJECT_VERSION=${version}"
-  ] ++ lib.optionals (!buildDocs) [ "-DBUILD_DOCS=OFF" ];
+  cmakeFlags =
+    [
+      "-DCMAKE_INSTALL_LIBDIR=lib"
+      "-DPROJECT_VERSION=${version}"
+    ]
+    ++ lib.optionals (!buildDocs) ["-DBUILD_DOCS=OFF"];
 
-  propagatedBuildInputs = [ glibmm ];
+  propagatedBuildInputs = [glibmm];
 
   preConfigure = ''
     # qt.qpa.plugin: Could not find the Qt platform plugin "minimal"
@@ -57,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/gio-qt";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

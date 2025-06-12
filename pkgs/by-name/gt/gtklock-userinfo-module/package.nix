@@ -10,7 +10,6 @@
   accountsservice,
   gtklock,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtklock-userinfo-module";
   version = "4.0.1";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Gtklock module adding user info to the lockscreen";
     homepage = "https://github.com/jovanlanik/gtklock-userinfo-module";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 })

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "gof5";
   version = "0.1.4";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Open Source F5 BIG-IP VPN client";
     homepage = "https://github.com/kayrus/gof5";
     license = licenses.asl20;
-    maintainers = with maintainers; [ leixb ];
+    maintainers = with maintainers; [leixb];
     mainProgram = "gof5";
   };
 }

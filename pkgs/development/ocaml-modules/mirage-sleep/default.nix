@@ -6,7 +6,6 @@
   duration,
   version ? "4.0.0",
 }:
-
 buildDunePackage {
   inherit version;
   pname = "mirage-sleep";
@@ -26,6 +25,6 @@ buildDunePackage {
     homepage = "https://github.com/mirage/mirage-sleep";
     changelog = "https://raw.githubusercontent.com/mirage/mirage-sleep/refs/tags/v${version}/CHANGES.md";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

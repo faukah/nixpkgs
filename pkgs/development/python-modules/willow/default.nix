@@ -13,7 +13,6 @@
   pythonOlder,
   wand,
 }:
-
 buildPythonPackage rec {
   pname = "willow";
   version = "1.9.0";
@@ -28,9 +27,9 @@ buildPythonPackage rec {
     hash = "sha256-H/UXE6gA6x849aqBcUgl3JYZ87OMNpuFyWGSsgqW1Rk=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  pythonRelaxDeps = [ "defusedxml" ];
+  pythonRelaxDeps = ["defusedxml"];
 
   dependencies = [
     filetype
@@ -38,16 +37,18 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    heif = [ pillow-heif ];
+    heif = [pillow-heif];
   };
 
-  nativeCheckInputs = [
-    numpy
-    opencv4
-    pytestCheckHook
-    pillow
-    wand
-  ] ++ optional-dependencies.heif;
+  nativeCheckInputs =
+    [
+      numpy
+      opencv4
+      pytestCheckHook
+      pillow
+      wand
+    ]
+    ++ optional-dependencies.heif;
 
   disabledTests = [
     # ValueError: Invalid quality setting
@@ -59,6 +60,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/torchbox/Willow/";
     changelog = "https://github.com/wagtail/Willow/releases/tag/v${version}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ desiderius ];
+    maintainers = with maintainers; [desiderius];
   };
 }

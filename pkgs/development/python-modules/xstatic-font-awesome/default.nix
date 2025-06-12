@@ -3,7 +3,6 @@
   lib,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "xstatic-font-awesome";
   version = "6.2.1.1";
@@ -21,6 +20,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/python-xstatic/font-awesome";
     description = "Font Awesome packaged for python";
     license = licenses.ofl;
-    maintainers = with maintainers; [ aither64 ];
+    maintainers = with maintainers; [aither64];
   };
 }

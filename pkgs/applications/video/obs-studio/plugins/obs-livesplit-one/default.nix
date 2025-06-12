@@ -7,7 +7,6 @@
   obs-studio,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "obs-livesplit-one";
   version = "0.4.1";
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = [ maintainers.Bauke ];
+    maintainers = [maintainers.Bauke];
     platforms = obs-studio.meta.platforms;
   };
 }

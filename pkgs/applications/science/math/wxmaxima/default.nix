@@ -10,7 +10,6 @@
   adwaita-icon-theme,
   glib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wxmaxima";
   version = "25.04.0";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "wxmaxima";
     license = licenses.gpl2;
     homepage = "https://wxmaxima-developers.github.io/wxmaxima/";
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.linux;
   };
 })

@@ -9,7 +9,6 @@
   openssl,
   nixosTests,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "convos";
   version = "8.05";
@@ -21,9 +20,11 @@ perlPackages.buildPerlPackage rec {
     sha256 = "sha256-dBvXo8y4OMKcb0imgnnzoklnPN3YePHDvy5rIBOkTfs=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ shortenPerlShebang ];
+  nativeBuildInputs =
+    [
+      makeWrapper
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [shortenPerlShebang];
 
   buildInputs = with perlPackages; [
     CryptPassphrase
@@ -51,9 +52,9 @@ perlPackages.buildPerlPackage rec {
     YAMLLibYAML
   ];
 
-  propagatedBuildInputs = [ openssl ];
+  propagatedBuildInputs = [openssl];
 
-  nativeCheckInputs = with perlPackages; [ TestDeep ];
+  nativeCheckInputs = with perlPackages; [TestDeep];
 
   postPatch = ''
     patchShebangs script/convos
@@ -122,6 +123,6 @@ perlPackages.buildPerlPackage rec {
     description = "Convos is the simplest way to use IRC in your browser";
     mainProgram = "convos";
     license = lib.licenses.artistic2;
-    maintainers = with lib.maintainers; [ sgo ];
+    maintainers = with lib.maintainers; [sgo];
   };
 }

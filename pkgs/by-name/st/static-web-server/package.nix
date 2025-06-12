@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "static-web-server";
   version = "2.37.0";

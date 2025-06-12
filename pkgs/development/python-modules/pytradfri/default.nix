@@ -8,7 +8,6 @@
   pydantic,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytradfri";
   version = "14.0.0";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-oYYi1P0Zu9PLsacUW//BlJlLmeOVvHgb/lR52KwZ7N8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pydantic ];
+  dependencies = [pydantic];
 
   optional-dependencies = {
     async = [
@@ -32,15 +31,15 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.async;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.async;
 
-  pythonImportsCheck = [ "pytradfri" ];
+  pythonImportsCheck = ["pytradfri"];
 
   meta = with lib; {
     description = "Python package to communicate with the IKEA Trådfri ZigBee Gateway";
     homepage = "https://github.com/home-assistant-libs/pytradfri";
     changelog = "https://github.com/home-assistant-libs/pytradfri/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

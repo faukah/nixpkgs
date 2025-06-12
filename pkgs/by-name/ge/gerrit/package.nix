@@ -5,7 +5,6 @@
   gitUpdater,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gerrit";
   version = "3.12.0";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gerritcodereview.com/index.md";
     license = licenses.asl20;
     description = "Web based code review and repository management for the git version control system";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     maintainers = with maintainers; [
       flokli
       zimbatm

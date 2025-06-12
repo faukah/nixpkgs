@@ -13,13 +13,10 @@
   gnugrep,
   which,
   gawk,
-}:
-
-let
+}: let
   version = "1.1.2";
   model = "dcp9020cdw";
-in
-rec {
+in rec {
   driver = stdenv.mkDerivation {
     pname = "${model}-lpr";
     inherit version;
@@ -53,27 +50,27 @@ rec {
 
       wrapProgram $out/opt/brother/Printers/${model}/lpd/filter${model} \
         --prefix PATH ":" ${
-          lib.makeBinPath [
-            gawk
-            ghostscript
-            a2ps
-            file
-            gnused
-            gnugrep
-            coreutils
-            which
-          ]
-        }
+        lib.makeBinPath [
+          gawk
+          ghostscript
+          a2ps
+          file
+          gnused
+          gnugrep
+          coreutils
+          which
+        ]
+      }
     '';
 
     meta = with lib; {
       homepage = "http://www.brother.com/";
       description = "Brother ${model} printer driver";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
       license = licenses.unfree;
       platforms = platforms.linux;
       downloadPage = "https://support.brother.com/g/b/downloadlist.aspx?c=gb&lang=en&prod=${model}_eu&os=128";
-      maintainers = with maintainers; [ pshirshov ];
+      maintainers = with maintainers; [pshirshov];
     };
   };
 
@@ -101,13 +98,13 @@ rec {
     installPhase = ''
       for f in $out/opt/brother/Printers/${model}/cupswrapper/cupswrapper${model}; do
         wrapProgram $f --prefix PATH : ${
-          lib.makeBinPath [
-            coreutils
-            ghostscript
-            gnugrep
-            gnused
-          ]
-        }
+        lib.makeBinPath [
+          coreutils
+          ghostscript
+          gnugrep
+          gnused
+        ]
+      }
       done
 
       mkdir -p $out/share/cups/model
@@ -117,11 +114,11 @@ rec {
     meta = with lib; {
       homepage = "http://www.brother.com/";
       description = "Brother ${model} printer CUPS wrapper driver";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
       license = licenses.unfree;
       platforms = platforms.linux;
       downloadPage = "https://support.brother.com/g/b/downloadlist.aspx?c=gb&lang=en&prod=${model}_eu&os=128";
-      maintainers = with maintainers; [ pshirshov ];
+      maintainers = with maintainers; [pshirshov];
     };
   };
 }

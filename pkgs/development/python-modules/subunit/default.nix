@@ -6,7 +6,6 @@
   pkg-config,
   subunit,
   pythonOlder,
-
   # python dependencies
   extras,
   fixtures,
@@ -16,7 +15,6 @@
   testscenarios,
   testtools,
 }:
-
 buildPythonPackage {
   inherit (subunit) name src meta;
   format = "pyproject";
@@ -50,7 +48,7 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "python/subunit" ];
+  pytestFlagsArray = ["python/subunit"];
 
   disabledTestPaths = [
     # these tests require testtools and don't work with pytest

@@ -6,7 +6,6 @@
   nix-update-script,
   unzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "adminer";
   version = "5.3.0";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

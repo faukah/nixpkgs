@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "boofuzz";
   version = "0.4.2";
@@ -62,7 +61,7 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "boo";
     homepage = "https://github.com/jtpereyda/boofuzz";
     changelog = "https://github.com/jtpereyda/boofuzz/blob/v${version}/CHANGELOG.rst";
-    license = with lib.licenses; [ gpl2Plus ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [gpl2Plus];
+    maintainers = with lib.maintainers; [fab];
   };
 }

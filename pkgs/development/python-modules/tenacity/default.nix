@@ -9,7 +9,6 @@
   tornado,
   typeguard,
 }:
-
 buildPythonPackage rec {
   pname = "tenacity";
   version = "9.0.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-gH83ypfWKqNhJk1Jew4x6SuAJwRJQr+nVhYNkIMg1zs=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -31,13 +30,13 @@ buildPythonPackage rec {
     typeguard
   ];
 
-  pythonImportsCheck = [ "tenacity" ];
+  pythonImportsCheck = ["tenacity"];
 
   meta = with lib; {
     homepage = "https://github.com/jd/tenacity";
     changelog = "https://github.com/jd/tenacity/releases/tag/${version}";
     description = "Retrying library for Python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jakewaksbaum ];
+    maintainers = with maintainers; [jakewaksbaum];
   };
 }

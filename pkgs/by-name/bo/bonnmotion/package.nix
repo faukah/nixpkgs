@@ -6,7 +6,6 @@
   bash,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bonnmotion";
   version = "3.0.1";
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
       binaryBytecode # source bundles dependency jars
     ];
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

@@ -7,7 +7,6 @@
   zc-buildout,
   zope-testrunner,
 }:
-
 buildPythonPackage rec {
   pname = "z3c-checkversions";
   version = "2.1";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-j5So40SyJf7XfCz3P9YFR/6z94up3LY2/dfEmmIbxAk=";
   };
 
-  propagatedBuildInputs = [ zc-buildout ];
+  propagatedBuildInputs = [zc-buildout];
 
-  nativeCheckInputs = [ zope-testrunner ];
+  nativeCheckInputs = [zope-testrunner];
 
   checkPhase = ''
     ${python.interpreter} -m zope.testrunner --test-path=src []

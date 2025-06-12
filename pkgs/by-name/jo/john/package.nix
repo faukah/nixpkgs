@@ -22,7 +22,6 @@
   replaceVars,
   makeWrapper,
 }:
-
 stdenv.mkDerivation {
   pname = "john";
   version = "rolling-2404";
@@ -62,10 +61,12 @@ stdenv.mkDerivation {
     + lib.optionalString withOpenCL ''
       python ./opencl_generate_dynamic_loader.py  # Update opencl_dynamic_loader.c
     '';
-  configureFlags = [
-    "--disable-native-tests"
-    "--with-systemwide"
-  ] ++ lib.optionals (!enableUnfree) [ "--without-unrar" ];
+  configureFlags =
+    [
+      "--disable-native-tests"
+      "--with-systemwide"
+    ]
+    ++ lib.optionals (!enableUnfree) ["--without-unrar"];
 
   buildInputs =
     [
@@ -133,7 +134,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "John the Ripper password cracker";
-    license = [ licenses.gpl2Plus ] ++ lib.optionals enableUnfree [ licenses.unfreeRedistributable ];
+    license = [licenses.gpl2Plus] ++ lib.optionals enableUnfree [licenses.unfreeRedistributable];
     homepage = "https://github.com/openwall/john/";
     maintainers = with maintainers; [
       offline

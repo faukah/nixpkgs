@@ -1,4 +1,4 @@
-{ fetchgit, ... }:
+{fetchgit, ...}:
 fetchgit {
   url = "https://gerrit.libreoffice.org/translations";
   rev = "refs/tags/cp-25.04.1-1";

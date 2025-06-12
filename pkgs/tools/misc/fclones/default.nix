@@ -5,7 +5,6 @@
   stdenv,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fclones";
   version = "0.35.0";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-aEjsBhm0iPysA1Wz1Ea7rtX0g/yH/rklUkYV/Elxcq8=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # device::test_physical_device_name test fails on Darwin
   doCheck = !stdenv.hostPlatform.isDarwin;

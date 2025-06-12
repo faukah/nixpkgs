@@ -29,7 +29,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ta3eCdXyKTVKhCU2/zC+XljU1Tq5huIyuFBtzOcUU4c=";
   };
 
-  cmakeBuildType = if debug then "Debug" else "Release";
+  cmakeBuildType =
+    if debug
+    then "Debug"
+    else "Release";
 
   nativeBuildInputs = [
     cmake
@@ -55,13 +58,13 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm644 $src/LICENSE -t $out/share/licenses/hyprpicker
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Wlroots-compatible Wayland color picker that does not suck";
     homepage = "https://github.com/hyprwm/hyprpicker";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.hyprland ];
+    teams = [lib.teams.hyprland];
     platforms = wayland.meta.platforms;
     mainProgram = "hyprpicker";
   };

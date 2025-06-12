@@ -6,38 +6,33 @@
   utils,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.environment;
 
-  exportedEnvVars =
-    let
-      absoluteVariables = lib.mapAttrs (n: lib.toList) cfg.variables;
+  exportedEnvVars = let
+    absoluteVariables = lib.mapAttrs (n: lib.toList) cfg.variables;
 
-      suffixedVariables = lib.flip lib.mapAttrs cfg.profileRelativeEnvVars (
-        envVar: listSuffixes:
+    suffixedVariables = lib.flip lib.mapAttrs cfg.profileRelativeEnvVars (
+      envVar: listSuffixes:
         lib.concatMap (profile: map (suffix: "${profile}${suffix}") listSuffixes) cfg.profiles
-      );
+    );
 
-      allVariables = lib.zipAttrsWith (n: lib.concatLists) [
-        absoluteVariables
-        suffixedVariables
-      ];
+    allVariables = lib.zipAttrsWith (n: lib.concatLists) [
+      absoluteVariables
+      suffixedVariables
+    ];
 
-      exportVariables = lib.mapAttrsToList (
+    exportVariables =
+      lib.mapAttrsToList (
         n: v: ''export ${n}="${lib.concatStringsSep ":" v}"''
-      ) allVariables;
-    in
+      )
+      allVariables;
+  in
     lib.concatStringsSep "\n" exportVariables;
-in
-
-{
-
+in {
   options = {
-
     environment.variables = lib.mkOption {
-      default = { };
+      default = {};
       example = {
         EDITOR = "nvim";
         VISUAL = "nvim";
@@ -53,8 +48,7 @@ in
         Setting a variable to `null` does nothing. You can override a
         variable set by another module to `null` to unset it.
       '';
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (
           nullOr (oneOf [
             (listOf (oneOf [
@@ -67,18 +61,23 @@ in
             path
           ])
         );
-      apply =
-        let
-          toStr = v: if lib.isPath v then "${v}" else toString v;
-        in
+      apply = let
+        toStr = v:
+          if lib.isPath v
+          then "${v}"
+          else toString v;
+      in
         attrs:
-        lib.mapAttrs (n: v: if lib.isList v then lib.concatMapStringsSep ":" toStr v else toStr v) (
-          lib.filterAttrs (n: v: v != null) attrs
-        );
+          lib.mapAttrs (n: v:
+            if lib.isList v
+            then lib.concatMapStringsSep ":" toStr v
+            else toStr v) (
+            lib.filterAttrs (n: v: v != null) attrs
+          );
     };
 
     environment.profiles = lib.mkOption {
-      default = [ ];
+      default = [];
       description = ''
         A list of profiles used to setup the global environment.
       '';
@@ -88,7 +87,7 @@ in
     environment.profileRelativeEnvVars = lib.mkOption {
       type = lib.types.attrsOf (lib.types.listOf lib.types.str);
       example = {
-        PATH = [ "/bin" ];
+        PATH = ["/bin"];
         MANPATH = [
           "/man"
           "/share/man"
@@ -189,7 +188,7 @@ in
     };
 
     environment.shells = lib.mkOption {
-      default = [ ];
+      default = [];
       example = lib.literalExpression "[ pkgs.bashInteractive pkgs.zsh ]";
       description = ''
         A list of permissible login shells for user accounts.
@@ -198,11 +197,9 @@ in
       '';
       type = lib.types.listOf (lib.types.either lib.types.shellPackage lib.types.path);
     };
-
   };
 
   config = {
-
     system.build.binsh = pkgs.bashInteractive;
 
     # Set session variables in the shell as well. This is usually
@@ -248,7 +245,7 @@ in
       ''}
     '';
 
-    system.activationScripts.binsh = lib.stringAfter [ "stdio" ] ''
+    system.activationScripts.binsh = lib.stringAfter ["stdio"] ''
       # Create the required /bin/sh symlink; otherwise lots of things
       # (notably the system() function) won't work.
       mkdir -p /bin
@@ -256,7 +253,5 @@ in
       ln -sfn "${cfg.binsh}" /bin/.sh.tmp
       mv /bin/.sh.tmp /bin/sh # atomically replace /bin/sh
     '';
-
   };
-
 }

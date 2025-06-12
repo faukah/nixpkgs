@@ -8,7 +8,6 @@
   makeWrapper,
   sbcl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "roswell";
   version = "24.10.115";
@@ -31,13 +30,13 @@ stdenv.mkDerivation rec {
     sh bootstrap
   '';
 
-  configureFlags = [ "--prefix=${placeholder "out"}" ];
+  configureFlags = ["--prefix=${placeholder "out"}"];
 
   postInstall = ''
     wrapProgram $out/bin/ros \
       --set image `basename $out` \
       --add-flags 'lisp=sbcl-bin/system sbcl-bin.version=system -L sbcl-bin' \
-      --prefix PATH : ${lib.makeBinPath [ sbcl ]} --argv0 ros
+      --prefix PATH : ${lib.makeBinPath [sbcl]} --argv0 ros
   '';
 
   nativeBuildInputs = [
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Lisp implementation installer/manager and launcher";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hiro98 ];
+    maintainers = with lib.maintainers; [hiro98];
     platforms = lib.platforms.unix;
     homepage = "https://github.com/roswell/roswell";
     changelog = "https://github.com/roswell/roswell/blob/v${version}/ChangeLog";

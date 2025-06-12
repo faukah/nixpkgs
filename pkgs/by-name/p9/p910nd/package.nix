@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "p910nd";
   version = "0.97";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace gcc clang
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   enableParallelBuilding = true;
 
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/kenyapcomau/p910nd";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
     mainProgram = "p910nd";
   };

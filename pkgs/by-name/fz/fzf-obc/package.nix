@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fzf-obc";
   version = "1.3.0";
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://fzf-obc.readthedocs.io";
     description = "Completion script adding fzf over all know bash completion functions";
     license = licenses.unfree;
-    maintainers = with maintainers; [ loicreynier ];
+    maintainers = with maintainers; [loicreynier];
   };
 }

@@ -5,7 +5,6 @@
   fetchpatch,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "page";
   version = "4.6.3";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = ''
     completions_dir=$(find "target" -name "assets" -type d -printf "%T+\t%p\n" | sort | awk 'NR==1{print $2}')
     installShellCompletion --bash $completions_dir/page.bash
@@ -42,6 +41,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/I60R/page";
     license = licenses.mit;
     mainProgram = "page";
-    maintainers = [ maintainers.s1341 ];
+    maintainers = [maintainers.s1341];
   };
 }

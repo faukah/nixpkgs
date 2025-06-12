@@ -6,7 +6,6 @@
   stdenv,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "talhelper";
   version = "3.0.29";
@@ -31,7 +30,7 @@ buildGoModule (finalAttrs: {
     "./cmd"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doInstallCheck = true;
   nativeInstallCheckInputs = [
@@ -54,7 +53,7 @@ buildGoModule (finalAttrs: {
     '';
     homepage = "https://github.com/budimanjojo/talhelper";
     mainProgram = "talhelper";
-    maintainers = with lib.maintainers; [ madeddie ];
+    maintainers = with lib.maintainers; [madeddie];
     license = lib.licenses.bsd3;
   };
 })

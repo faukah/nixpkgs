@@ -76,16 +76,18 @@
   systemdSupport ? lib.meta.availableOn clangStdenv.hostPlatform systemd,
   testers,
 }:
-
 # https://webkitgtk.org/2024/10/04/webkitgtk-2.46.html recommends building with clang.
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "webkitgtk";
   version = "2.48.3";
   name = "${finalAttrs.pname}-${finalAttrs.version}+abi=${
-    if lib.versionAtLeast gtk3.version "4.0" then
-      "6.0"
-    else
-      "4.${if lib.versions.major libsoup.version == "2" then "0" else "1"}"
+    if lib.versionAtLeast gtk3.version "4.0"
+    then "6.0"
+    else "4.${
+      if lib.versions.major libsoup.version == "2"
+      then "0"
+      else "1"
+    }"
   }";
 
   outputs = [
@@ -204,10 +206,12 @@ clangStdenv.mkDerivation (finalAttrs: {
     libsoup
   ];
 
-  cmakeFlags =
-    let
-      cmakeBool = x: if x then "ON" else "OFF";
-    in
+  cmakeFlags = let
+    cmakeBool = x:
+      if x
+      then "ON"
+      else "OFF";
+  in
     [
       "-DENABLE_INTROSPECTION=ON"
       "-DPORT=GTK"
@@ -246,7 +250,7 @@ clangStdenv.mkDerivation (finalAttrs: {
     moveToOutput "share/doc" "$devdoc"
   '';
 
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
@@ -261,7 +265,7 @@ clangStdenv.mkDerivation (finalAttrs: {
       "webkit2gtk-web-extension-4.0"
     ];
     platforms = platforms.linux ++ platforms.darwin;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     broken = clangStdenv.hostPlatform.isDarwin;
   };
 })

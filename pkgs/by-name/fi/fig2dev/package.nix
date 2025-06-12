@@ -11,7 +11,6 @@
   gawk,
   gnused,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fig2dev";
   version = "3.2.9a";
@@ -21,25 +20,25 @@ stdenv.mkDerivation rec {
     hash = "sha256-YeGFOTF2hS8DuQGzsFsZ+8Wtglj/FC89pucLG4NRMyY=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ libpng ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [libpng];
 
   GSEXE = "${ghostscript}/bin/gs";
 
-  configureFlags = [ "--enable-transfig" ];
+  configureFlags = ["--enable-transfig"];
 
   postInstall = ''
     wrapProgram $out/bin/fig2ps2tex \
         --set PATH ${
-          lib.makeBinPath [
-            coreutils
-            bc
-            gnugrep
-            gawk
-          ]
-        }
+      lib.makeBinPath [
+        coreutils
+        bc
+        gnugrep
+        gawk
+      ]
+    }
     wrapProgram $out/bin/pic2tpic \
-        --set PATH ${lib.makeBinPath [ gnused ]}
+        --set PATH ${lib.makeBinPath [gnused]}
   '';
 
   meta = with lib; {
@@ -47,6 +46,6 @@ stdenv.mkDerivation rec {
     homepage = "https://mcj.sourceforge.net/";
     license = licenses.xfig;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ lesuisse ];
+    maintainers = with maintainers; [lesuisse];
   };
 }

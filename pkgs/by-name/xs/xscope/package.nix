@@ -7,7 +7,6 @@
   xorg-autoconf,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xscope";
   version = "1.4.5";
@@ -34,8 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "program to monitor X11/Client conversations";
     homepage = "https://cgit.freedesktop.org/xorg/app/xscope/";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ crertel ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [crertel];
     platforms = lib.platforms.unix;
     mainProgram = "xscope";
   };

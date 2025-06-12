@@ -7,7 +7,6 @@
   testers,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xevd";
   version = "0.5.0";
@@ -53,13 +52,12 @@ stdenv.mkDerivation (finalAttrs: {
     echo v$version > version.txt
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags =
-    let
-      inherit (lib) cmakeBool cmakeFeature optional;
-      inherit (stdenv.hostPlatform) isAarch64 isDarwin;
-    in
+  cmakeFlags = let
+    inherit (lib) cmakeBool cmakeFeature optional;
+    inherit (stdenv.hostPlatform) isAarch64 isDarwin;
+  in
     optional isAarch64 (cmakeBool "ARM" true)
     ++ optional isDarwin (cmakeFeature "CMAKE_SYSTEM_NAME" "Darwin");
 
@@ -88,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
   meta = {
@@ -96,8 +94,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "eXtra-fast Essential Video Decoder, MPEG-5 EVC";
     license = lib.licenses.bsd3;
     mainProgram = "xevd_app";
-    pkgConfigModules = [ "xevd" ];
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    pkgConfigModules = ["xevd"];
+    maintainers = with lib.maintainers; [jopejoe1];
     platforms = lib.platforms.all;
     broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
   };

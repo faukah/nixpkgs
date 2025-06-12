@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "stix-otf";
   version = "1.1.1";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Fonts for Scientific and Technical Information eXchange";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
   };
 }

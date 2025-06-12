@@ -9,7 +9,6 @@
   makeDesktopItem,
   electron,
 }:
-
 buildNpmPackage rec {
   pname = "blockbench";
   version = "4.12.4";
@@ -22,7 +21,7 @@ buildNpmPackage rec {
   };
 
   nativeBuildInputs =
-    [ makeWrapper ]
+    [makeWrapper]
     ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
       imagemagick # for icon resizing
       copyDesktopItems
@@ -86,7 +85,7 @@ buildNpmPackage rec {
       icon = "blockbench";
       desktopName = "Blockbench";
       comment = meta.description;
-      categories = [ "3DGraphics" ];
+      categories = ["3DGraphics"];
       startupWMClass = "Blockbench";
       terminal = false;
     })
@@ -98,6 +97,6 @@ buildNpmPackage rec {
     homepage = "https://blockbench.net/";
     license = lib.licenses.gpl3Only;
     mainProgram = "blockbench";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

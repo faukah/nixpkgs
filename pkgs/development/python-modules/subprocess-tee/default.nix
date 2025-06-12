@@ -7,7 +7,6 @@
   pytestCheckHook,
   enrich,
 }:
-
 buildPythonPackage rec {
   pname = "subprocess-tee";
   version = "0.4.2";
@@ -37,13 +36,13 @@ buildPythonPackage rec {
     "test_rich_console_ex"
   ];
 
-  pythonImportsCheck = [ "subprocess_tee" ];
+  pythonImportsCheck = ["subprocess_tee"];
 
   meta = with lib; {
     homepage = "https://github.com/pycontribs/subprocess-tee";
     description = "Subprocess.run drop-in replacement that supports a tee mode";
     changelog = "https://github.com/pycontribs/subprocess-tee/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ putchar ];
+    maintainers = with maintainers; [putchar];
   };
 }

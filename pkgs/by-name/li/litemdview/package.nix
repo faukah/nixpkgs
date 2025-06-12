@@ -7,7 +7,6 @@
   pkg-config,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "litemdview";
   version = "0.0.32";
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
         - Syntax highlighting
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ WhiteBlackGoose ];
+    maintainers = with lib.maintainers; [WhiteBlackGoose];
     platforms = lib.platforms.linux;
     mainProgram = "litemdview";
   };

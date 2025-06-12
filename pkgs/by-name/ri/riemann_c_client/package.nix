@@ -14,7 +14,6 @@
   withJSON ? true,
   json_c,
 }:
-
 stdenv.mkDerivation rec {
   pname = "riemann-c-client";
   version = "2.2.2";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withJSON json_c;
 
   configureFlags =
-    [ ] ++ lib.optional withWolfSSL "--with-tls=wolfssl" ++ lib.optional withGnuTLS "--with-tls=gnutls";
+    [] ++ lib.optional withWolfSSL "--with-tls=wolfssl" ++ lib.optional withGnuTLS "--with-tls=gnutls";
 
   doCheck = true;
   enableParallelBuilding = true;
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
     description = "C client library for the Riemann monitoring system";
     mainProgram = "riemann-client";
     license = licenses.eupl12;
-    maintainers = with maintainers; [ pradeepchhetri ];
+    maintainers = with maintainers; [pradeepchhetri];
     platforms = platforms.linux;
   };
 }

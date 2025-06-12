@@ -9,7 +9,6 @@
   yojson,
   ounit2,
 }:
-
 buildDunePackage rec {
   pname = "gapi-ocaml";
   version = "0.4.5";
@@ -23,7 +22,7 @@ buildDunePackage rec {
     hash = "sha256-qlQEE8l/H22bb1VcK9YehR+9L5XepMu8JY7OLw1OIXg=";
   };
 
-  nativeBuildInputs = [ cppo ];
+  nativeBuildInputs = [cppo];
 
   propagatedBuildInputs = [
     camlp-streams
@@ -33,12 +32,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ ounit2 ];
+  checkInputs = [ounit2];
 
   meta = {
     description = "OCaml client for google services";
     homepage = "https://github.com/astrada/gapi-ocaml";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bennofs ];
+    maintainers = with lib.maintainers; [bennofs];
   };
 }

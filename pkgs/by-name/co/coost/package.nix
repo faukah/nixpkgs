@@ -9,7 +9,6 @@
   withCurl ? true,
   withOpenSSL ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "coost";
   version = "3.0.2";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace '$'{prefix}/@CMAKE_INSTALL_INCLUDEDIR@ @CMAKE_INSTALL_FULL_INCLUDEDIR@ \
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = lib.optional withCurl curl ++ lib.optional withOpenSSL openssl;
 
   cmakeFlags =
@@ -41,13 +40,13 @@ stdenv.mkDerivation (finalAttrs: {
     "out"
     "dev"
   ];
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Tiny boost library in C++11";
     homepage = "https://github.com/idealvin/coost";
     license = licenses.mit;
-    maintainers = [ maintainers.sigmanificient ];
+    maintainers = [maintainers.sigmanificient];
     platforms = platforms.unix;
   };
 })

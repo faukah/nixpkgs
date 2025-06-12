@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "prometheus-aruba-exporter";
   version = "unstable-2023-01-18";
@@ -22,6 +21,6 @@ buildGoModule {
     mainProgram = "aruba_exporter";
     homepage = "https://github.com/slashdoom/aruba_exporter";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ netali ];
+    maintainers = with lib.maintainers; [netali];
   };
 }

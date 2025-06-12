@@ -4,7 +4,6 @@
   rustPlatform,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tex-fmt";
   version = "0.5.4";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ZXoaQYUYut11r6zvvIihZ3myL4B4y5yKq6P1BBtky/c=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage man/tex-fmt.1
@@ -35,6 +34,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/WGUNDERWOOD/tex-fmt/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = "tex-fmt";
-    maintainers = with lib.maintainers; [ wgunderwood ];
+    maintainers = with lib.maintainers; [wgunderwood];
   };
 }

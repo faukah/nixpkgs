@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "cloudlist";
   version = "1.2.2";
@@ -18,14 +17,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-PW9Yu8d5PPIL6cc692N8e5qO73drEgfu7JrVeihggcs=";
 
-  subPackages = [ "cmd/cloudlist/" ];
+  subPackages = ["cmd/cloudlist/"];
 
   ldflags = [
     "-w"
     "-s"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doInstallCheck = true;
 
@@ -36,7 +35,7 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/cloudlist";
     changelog = "https://github.com/projectdiscovery/cloudlist/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "cloudlist";
   };
 }

@@ -4,11 +4,9 @@
   buildPythonPackage,
   pythonOlder,
   nix-update-script,
-
   # build-system
   poetry-core,
   poetry-dynamic-versioning,
-
   # dependencies
   click,
   cryptography,
@@ -18,13 +16,11 @@
   pydantic,
   typing-extensions,
   websockets,
-
   # nativeCheckInputs
   pytestCheckHook,
   pytest-asyncio,
   coverage,
 }:
-
 buildPythonPackage rec {
   pname = "atproto";
   version = "0.0.61";
@@ -95,13 +91,13 @@ buildPythonPackage rec {
     "atproto_server"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "AT Protocol (Bluesky) SDK for Python";
     homepage = "https://github.com/MarshalX/atproto";
     changelog = "https://github.com/MarshalX/atproto/blob/v${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ vji ];
+    maintainers = with lib.maintainers; [vji];
   };
 }

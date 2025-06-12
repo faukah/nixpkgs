@@ -15,7 +15,6 @@
   cppunit,
   doxygen,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libvisio";
   version = "0.1.8";
@@ -59,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "https://wiki.documentfoundation.org/DLP/Libraries/libvisio";
     license = licenses.mpl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

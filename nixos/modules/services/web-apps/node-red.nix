@@ -4,18 +4,14 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.node-red;
   defaultUser = "node-red";
-in
-{
+in {
   options.services.node-red = {
     enable = mkEnableOption "the Node-RED service";
 
-    package = mkPackageOption pkgs [ "node-red" ] { };
+    package = mkPackageOption pkgs ["node-red"] {};
 
     openFirewall = mkOption {
       type = types.bool;
@@ -90,7 +86,7 @@ in
 
     define = mkOption {
       type = types.attrs;
-      default = { };
+      default = {};
       description = "List of settings.js overrides to pass via -D to Node-RED.";
       example = literalExpression ''
         {
@@ -109,17 +105,17 @@ in
     };
 
     users.groups = optionalAttrs (cfg.group == defaultUser) {
-      ${defaultUser} = { };
+      ${defaultUser} = {};
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
 
     systemd.services.node-red = {
       description = "Node-RED Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "networking.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["networking.target"];
       environment = {
         HOME = cfg.userDir;
       };
@@ -138,7 +134,7 @@ in
           Restart = "always";
           WorkingDirectory = cfg.userDir;
         }
-        (mkIf (cfg.userDir == "/var/lib/node-red") { StateDirectory = "node-red"; })
+        (mkIf (cfg.userDir == "/var/lib/node-red") {StateDirectory = "node-red";})
       ];
     };
   };

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unar,
 }:
-
 buildPythonApplication rec {
   pname = "unrar-wrapper";
   version = "1.0.0";
@@ -20,7 +19,7 @@ buildPythonApplication rec {
     "--prefix"
     "PATH"
     ":"
-    "${lib.makeBinPath [ unar ]}"
+    "${lib.makeBinPath [unar]}"
   ];
 
   postFixup = ''
@@ -39,6 +38,6 @@ buildPythonApplication rec {
     '';
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

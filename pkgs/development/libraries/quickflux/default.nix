@@ -6,7 +6,6 @@
   qtbase,
   qtquickcontrols2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "quickflux";
   version = "1.1-unstable-2020-11-10";
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Flux implementation for QML";
     homepage = "https://github.com/benlau/quickflux";
     license = licenses.asl20;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.unix;
   };
 })

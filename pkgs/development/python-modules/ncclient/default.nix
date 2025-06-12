@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "ncclient";
   version = "0.6.19";
@@ -32,15 +31,15 @@ buildPythonPackage rec {
     lxml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ncclient" ];
+  pythonImportsCheck = ["ncclient"];
 
   meta = with lib; {
     description = "Python library for NETCONF clients";
     homepage = "https://github.com/ncclient/ncclient";
     changelog = "https://github.com/ncclient/ncclient/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ xnaveira ];
+    maintainers = with maintainers; [xnaveira];
   };
 }

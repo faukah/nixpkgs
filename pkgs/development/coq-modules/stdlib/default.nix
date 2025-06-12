@@ -4,17 +4,15 @@
   mkCoqDerivation,
   lib,
   version ? null,
-}@args:
+} @ args:
 (mkCoqDerivation {
-
   pname = "stdlib";
   repo = "stdlib";
   owner = "coq";
   opam-name = "coq-stdlib";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.version [
       {
         case = isEq "9.0";
@@ -25,7 +23,8 @@
         case = isLt "9.0";
         out = "9.0.0";
       }
-    ] null;
+    ]
+    null;
   releaseRev = v: "V${v}";
 
   release."9.0.0".sha256 = "sha256-2l7ak5Q/NbiNvUzIVXOniEneDXouBMNSSVFbD1Pf8cQ=";
@@ -44,17 +43,15 @@
     description = "Compatibility metapackage for Coq Stdlib library after the Rocq renaming";
     license = lib.licenses.lgpl21Only;
   };
-
 }).overrideAttrs
-  (
-    o:
-    # stdlib is already included in Coq <= 8.20
-    if coq.version != null && coq.version != "dev" && lib.versions.isLt "8.21" coq.version then
-      {
-        installPhase = ''
-          touch $out
-        '';
-      }
-    else
-      { propagatedBuildInputs = [ rocqPackages.stdlib ]; }
-  )
+(
+  o:
+  # stdlib is already included in Coq <= 8.20
+    if coq.version != null && coq.version != "dev" && lib.versions.isLt "8.21" coq.version
+    then {
+      installPhase = ''
+        touch $out
+      '';
+    }
+    else {propagatedBuildInputs = [rocqPackages.stdlib];}
+)

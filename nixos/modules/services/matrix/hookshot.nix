@@ -3,18 +3,16 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.matrix-hookshot;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configFile = settingsFormat.generate "matrix-hookshot-config.yml" cfg.settings;
-in
-{
+in {
   options = {
     services.matrix-hookshot = {
       enable = lib.mkEnableOption "matrix-hookshot, a bridge between Matrix and project management services";
 
-      package = lib.mkPackageOption pkgs "matrix-hookshot" { };
+      package = lib.mkPackageOption pkgs "matrix-hookshot" {};
 
       registrationFile = lib.mkOption {
         type = lib.types.path;
@@ -58,7 +56,7 @@ in
             {
               port = 9000;
               bindAddress = "0.0.0.0";
-              resources = [ "webhooks" ];
+              resources = ["webhooks"];
             }
             {
               port = 9001;
@@ -70,7 +68,7 @@ in
             }
           ];
         };
-        default = { };
+        default = {};
         type = lib.types.submodule {
           freeformType = settingsFormat.type;
           options = {
@@ -104,9 +102,9 @@ in
     systemd.services.matrix-hookshot = {
       description = "a bridge between Matrix and multiple project management services";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ] ++ cfg.serviceDependencies;
-      after = [ "network-online.target" ] ++ cfg.serviceDependencies;
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"] ++ cfg.serviceDependencies;
+      after = ["network-online.target"] ++ cfg.serviceDependencies;
 
       preStart = ''
         if [ ! -f '${cfg.settings.passFile}' ]; then
@@ -123,5 +121,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ flandweber ];
+  meta.maintainers = with lib.maintainers; [flandweber];
 }

@@ -4,14 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.touchegg;
-
-in
-{
+in {
   meta = {
     maintainers = teams.pantheon.members;
   };
@@ -20,7 +15,7 @@ in
   options.services.touchegg = {
     enable = mkEnableOption "touchegg, a multi-touch gesture recognizer";
 
-    package = mkPackageOption pkgs "touchegg" { };
+    package = mkPackageOption pkgs "touchegg" {};
   };
 
   ###### implementation
@@ -32,9 +27,9 @@ in
         ExecStart = "${cfg.package}/bin/touchegg --daemon";
         Restart = "on-failure";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

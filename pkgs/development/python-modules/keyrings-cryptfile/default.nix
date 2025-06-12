@@ -10,7 +10,6 @@
   pytest-cov-stub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "keyrings-cryptfile";
   version = "1.4.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-cDXx0s3o8hNqgzX4oNkjGhNcaUX5vi1uN2d9sdbiZwk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     argon2-cffi
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     pycryptodome
   ];
 
-  pythonImportsCheck = [ "keyrings.cryptfile" ];
+  pythonImportsCheck = ["keyrings.cryptfile"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/frispete/keyrings.cryptfile";
     changelog = "https://github.com/frispete/keyrings.cryptfile/blob/v${version}/CHANGES.md";
     license = licenses.mit;
-    maintainers = [ maintainers.bbjubjub ];
+    maintainers = [maintainers.bbjubjub];
   };
 }

@@ -17,7 +17,6 @@
   intltool,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-dev-tools";
   version = "4.20.0";
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   dontUseMesonConfigure = true;
-  configureFlags = [ "--enable-maintainer-mode" ];
+  configureFlags = ["--enable-maintainer-mode"];
 
   enableParallelBuilding = true;
 
@@ -70,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.xfce.org/xfce/xfce4-dev-tools";
     description = "Autoconf macros and scripts to augment app build systems";
     license = licenses.gpl2Plus;
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
     platforms = platforms.linux;
   };
 })

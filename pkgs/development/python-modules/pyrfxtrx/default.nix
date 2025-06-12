@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyrfxtrx";
   version = "0.32.0";
@@ -19,17 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-6gD6ch7DyaD9nCY/VfyJHmV4gEDPsDfVKjNaNedmVVE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pyserial ];
+  dependencies = [pyserial];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Library to communicate with the RFXtrx family of devices";
     homepage = "https://github.com/Danielhiversen/pyRFXtrx";
     changelog = "https://github.com/Danielhiversen/pyRFXtrx/releases/tag/${src.tag}";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

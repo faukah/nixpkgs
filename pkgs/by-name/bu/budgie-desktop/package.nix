@@ -42,7 +42,6 @@
   wrapGAppsHook3,
   zenity,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "budgie-desktop";
   version = "10.9.2";
@@ -133,14 +132,14 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    providedSessions = [ "budgie-desktop" ];
+    providedSessions = ["budgie-desktop"];
 
     tests = {
       inherit (nixosTests) budgie;
-      pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+      pkg-config = testers.hasPkgConfigModules {package = finalAttrs.finalPackage;};
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -152,7 +151,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl21Plus
       cc-by-sa-30
     ];
-    teams = [ lib.teams.budgie ];
+    teams = [lib.teams.budgie];
     platforms = lib.platforms.linux;
     pkgConfigModules = [
       "budgie-1.0"

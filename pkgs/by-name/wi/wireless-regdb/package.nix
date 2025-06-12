@@ -4,7 +4,6 @@
   fetchurl,
   directoryListingUpdater,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "wireless-regdb";
   version = "2025.02.20";
@@ -21,13 +20,13 @@ stdenvNoCC.mkDerivation rec {
     "PREFIX="
   ];
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "Wireless regulatory database for CRDA";
     homepage = "http://wireless.kernel.org/en/developers/Regulatory/";
     license = licenses.isc;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

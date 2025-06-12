@@ -1,8 +1,9 @@
-{ lib, fetchFromGitHub }:
-let
-  version = "0.22.1";
-in
 {
+  lib,
+  fetchFromGitHub,
+}: let
+  version = "0.22.1";
+in {
   inherit version;
 
   src = fetchFromGitHub {

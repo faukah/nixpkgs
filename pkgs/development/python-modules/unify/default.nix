@@ -8,7 +8,6 @@
   pytestCheckHook,
   untokenize,
 }:
-
 buildPythonPackage rec {
   pname = "unify";
   version = "0.5";
@@ -24,13 +23,13 @@ buildPythonPackage rec {
     hash = "sha256-cWV/Q+LbeIxnQNqyatRWQUF8X+HHlQdc10y9qJ7v3dA=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ untokenize ];
+  propagatedBuildInputs = [untokenize];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "unify" ];
+  pythonImportsCheck = ["unify"];
 
   disabledTests = [
     # https://github.com/myint/unify/issues/21
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     mainProgram = "unify";
     homepage = "https://github.com/myint/unify";
     license = licenses.mit;
-    maintainers = with maintainers; [ FlorianFranzen ];
+    maintainers = with maintainers; [FlorianFranzen];
   };
 }

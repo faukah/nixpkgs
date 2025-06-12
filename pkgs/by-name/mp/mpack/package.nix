@@ -7,7 +7,6 @@
   testers,
   mpack,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mpack";
   version = "1.6";
@@ -17,16 +16,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-J0EIuzo5mCpO/BT7OmUpjmbI5xNnw9q/STOBYtIHqUw=";
   };
 
-  patches =
-    let
-      # https://salsa.debian.org/debian/mpack/-/tree/7d6514b314a7341614ec8275b03acfcb6a854a6f/debian/patches
-      fetchDebPatch =
-        { name, hash }:
-        fetchpatch {
-          inherit name hash;
-          url = "https://salsa.debian.org/debian/mpack/-/raw/7d6514b314a7341614ec8275b03acfcb6a854a6f/debian/patches/${name}";
-        };
-    in
+  patches = let
+    # https://salsa.debian.org/debian/mpack/-/tree/7d6514b314a7341614ec8275b03acfcb6a854a6f/debian/patches
+    fetchDebPatch = {
+      name,
+      hash,
+    }:
+      fetchpatch {
+        inherit name hash;
+        url = "https://salsa.debian.org/debian/mpack/-/raw/7d6514b314a7341614ec8275b03acfcb6a854a6f/debian/patches/${name}";
+      };
+  in
     [
       ./sendmail-via-execvp.diff
     ]
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       --replace-fail "char buf[1024], buf2[1024];" "char buf[1024], buf2[1066];"
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   postInstall = ''
     install -Dm644 -t $out/share/doc/mpack INSTALL README.*
@@ -94,6 +94,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Utilities for encoding and decoding binary files in MIME";
     license = licenses.free;
-    maintainers = with maintainers; [ tomodachi94 ];
+    maintainers = with maintainers; [tomodachi94];
   };
 }

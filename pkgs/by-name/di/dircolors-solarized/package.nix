@@ -4,7 +4,6 @@
   stdenv,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "dircolors-solarized";
   version = "0-unstable-2025-02-03";
@@ -28,12 +27,12 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Repository of themes for GNU, supporting Solarized color scheme";
     homepage = "https://github.com/seebi/dircolors-solarized";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ polyfloyd ];
+    maintainers = with lib.maintainers; [polyfloyd];
   };
 }

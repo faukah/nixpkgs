@@ -3,34 +3,28 @@
   runCommand,
   jq,
   yq,
-}:
-
-{
+}: {
   pname ? null,
-
   # A list of dependency package names.
   dependencies,
-
   # An attribute set of package names to sources.
   dependencySources,
-}:
-
-let
+}: let
   packages = lib.genAttrs dependencies (dependency: rec {
     src = dependencySources.${dependency};
     inherit (src) packageRoot;
   });
 in
-(runCommand "${lib.optionalString (pname != null) "${pname}-"}package-config.json" {
-  inherit packages;
+  (runCommand "${lib.optionalString (pname != null) "${pname}-"}package-config.json" {
+    inherit packages;
 
-  nativeBuildInputs = [
-    jq
-    yq
-  ];
+    nativeBuildInputs = [
+      jq
+      yq
+    ];
 
-  __structuredAttrs = true;
-})
+    __structuredAttrs = true;
+  })
   ''
     declare -A packageSources
     declare -A packageRoots

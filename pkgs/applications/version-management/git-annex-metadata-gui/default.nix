@@ -6,7 +6,6 @@
   qt5,
   git-annex-adapter,
 }:
-
 buildPythonApplication rec {
   pname = "git-annex-metadata-gui";
   version = "0.2.0";
@@ -22,7 +21,7 @@ buildPythonApplication rec {
     substituteInPlace setup.py --replace "'PyQt5', " ""
   '';
 
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
 
   preFixup = ''
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")

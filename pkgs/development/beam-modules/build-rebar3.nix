@@ -6,37 +6,32 @@
   openssl,
   libyaml,
   lib,
-}:
-
-{
+}: {
   name,
   version,
   src,
   setupHook ? null,
-  buildInputs ? [ ],
-  beamDeps ? [ ],
-  buildPlugins ? [ ],
+  buildInputs ? [],
+  beamDeps ? [],
+  buildPlugins ? [],
   postPatch ? "",
   installPhase ? null,
   buildPhase ? null,
   configurePhase ? null,
-  meta ? { },
+  meta ? {},
   enableDebugInfo ? false,
   ...
-}@attrs:
-
-let
+} @ attrs: let
   debugInfoFlag = lib.optionalString (enableDebugInfo || erlang.debugInfo) "debug-info";
 
   rebar3 = rebar3WithPlugins {
     plugins = buildPlugins;
   };
 
-  shell =
-    drv:
+  shell = drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
-      buildInputs = [ drv ];
+      buildInputs = [drv];
     };
 
   customPhases = lib.filterAttrs (_: v: v != null) {
@@ -48,21 +43,21 @@ let
       ;
   };
 
-  pkg =
-    self:
+  pkg = self:
     stdenv.mkDerivation (
       attrs
       // {
-
         name = "${name}-${version}";
         inherit version;
 
-        buildInputs = buildInputs ++ [
-          erlang
-          rebar3
-          openssl
-          libyaml
-        ];
+        buildInputs =
+          buildInputs
+          ++ [
+            erlang
+            rebar3
+            openssl
+            libyaml
+          ];
         propagatedBuildInputs = lib.unique beamDeps;
 
         inherit src;
@@ -99,9 +94,11 @@ let
           runHook postInstall
         '';
 
-        meta = {
-          inherit (erlang.meta) platforms;
-        } // meta;
+        meta =
+          {
+            inherit (erlang.meta) platforms;
+          }
+          // meta;
 
         passthru = {
           packageName = name;
@@ -112,4 +109,4 @@ let
       // customPhases
     );
 in
-lib.fix pkg
+  lib.fix pkg

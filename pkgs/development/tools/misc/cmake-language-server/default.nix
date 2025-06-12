@@ -10,7 +10,6 @@
   pytest-datadir,
   pytestCheckHook,
 }:
-
 buildPythonApplication rec {
   pname = "cmake-language-server";
   version = "0.1.11";
@@ -63,7 +62,7 @@ buildPythonApplication rec {
     homepage = "https://github.com/regen100/cmake-language-server";
     changelog = "https://github.com/regen100/cmake-language-server/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
     mainProgram = "cmake-language-server";
   };
 }

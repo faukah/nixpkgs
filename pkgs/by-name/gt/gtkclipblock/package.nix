@@ -9,9 +9,7 @@
   gtk2,
   gtk3,
   gtk4,
-}:
-
-let
+}: let
   distorm-src = fetchFromGitHub {
     owner = "gdabah";
     repo = "distorm";
@@ -29,33 +27,33 @@ let
     fetchSubmodules = true;
   };
 in
-stdenv.mkDerivation {
-  inherit pname version src;
+  stdenv.mkDerivation {
+    inherit pname version src;
 
-  nativeBuildInputs = [
-    meson
-    cmake
-    ninja
-    pkg-config
-  ];
+    nativeBuildInputs = [
+      meson
+      cmake
+      ninja
+      pkg-config
+    ];
 
-  buildInputs = [
-    gtk2
-    gtk3
-    gtk4
-  ];
+    buildInputs = [
+      gtk2
+      gtk3
+      gtk4
+    ];
 
-  postPatch = ''
-    substituteInPlace subprojects/funchook-helper/subprojects/funchook/CMakeLists.txt \
-      --replace "GIT_REPOSITORY https://github.com/gdabah/distorm.git" "SOURCE_DIR ${distorm-src}"
-  '';
+    postPatch = ''
+      substituteInPlace subprojects/funchook-helper/subprojects/funchook/CMakeLists.txt \
+        --replace "GIT_REPOSITORY https://github.com/gdabah/distorm.git" "SOURCE_DIR ${distorm-src}"
+    '';
 
-  dontUseCmakeConfigure = true;
+    dontUseCmakeConfigure = true;
 
-  meta = with lib; {
-    description = "LD_PRELOAD hack to prevent GTK programs from interacting with the primary clipboard";
-    license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ uartman ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = with lib; {
+      description = "LD_PRELOAD hack to prevent GTK programs from interacting with the primary clipboard";
+      license = licenses.lgpl3Only;
+      maintainers = with maintainers; [uartman];
+      platforms = ["x86_64-linux"];
+    };
+  }

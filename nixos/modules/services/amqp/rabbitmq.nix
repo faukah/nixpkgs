@@ -3,22 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.rabbitmq;
 
   inherit (builtins) concatStringsSep;
 
-  config_file_content = lib.generators.toKeyValue { } cfg.configItems;
+  config_file_content = lib.generators.toKeyValue {} cfg.configItems;
   config_file = pkgs.writeText "rabbitmq.conf" config_file_content;
 
   advanced_config_file = pkgs.writeText "advanced.config" cfg.config;
-
-in
-{
-
+in {
   imports = [
-    (lib.mkRemovedOptionModule [ "services" "rabbitmq" "cookie" ] ''
+    (lib.mkRemovedOptionModule ["services" "rabbitmq" "cookie"] ''
       This option wrote the Erlang cookie to the store, while it should be kept secret.
       Please remove it from your NixOS configuration and deploy a cookie securely instead.
       The renamed `unsafeCookie` must ONLY be used in isolated non-production environments such as NixOS VM tests.
@@ -37,7 +33,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "rabbitmq-server" { };
+      package = lib.mkPackageOption pkgs "rabbitmq-server" {};
 
       listenAddress = lib.mkOption {
         default = "127.0.0.1";
@@ -89,7 +85,7 @@ in
       };
 
       configItems = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf lib.types.str;
         example = lib.literalExpression ''
           {
@@ -133,13 +129,13 @@ in
       };
 
       plugins = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.str;
         description = "The names of plugins to enable";
       };
 
       pluginDirs = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.path;
         description = "The list of directories containing external plugins";
       };
@@ -159,9 +155,8 @@ in
 
   ###### implementation
   config = lib.mkIf cfg.enable {
-
     # This is needed so we will have 'rabbitmqctl' in our PATH
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     services.epmd.enable = true;
 
@@ -189,7 +184,7 @@ in
     systemd.services.rabbitmq = {
       description = "RabbitMQ Server";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "epmd.socket"
@@ -204,16 +199,18 @@ in
         pkgs.coreutils # mkdir/chown/chmod for preStart
       ];
 
-      environment = {
-        RABBITMQ_MNESIA_BASE = "${cfg.dataDir}/mnesia";
-        RABBITMQ_LOGS = "-";
-        SYS_PREFIX = "";
-        RABBITMQ_CONFIG_FILE = config_file;
-        RABBITMQ_PLUGINS_DIR = lib.concatStringsSep ":" cfg.pluginDirs;
-        RABBITMQ_ENABLED_PLUGINS_FILE = pkgs.writeText "enabled_plugins" ''
-          [ ${lib.concatStringsSep "," cfg.plugins} ].
-        '';
-      } // lib.optionalAttrs (cfg.config != "") { RABBITMQ_ADVANCED_CONFIG_FILE = advanced_config_file; };
+      environment =
+        {
+          RABBITMQ_MNESIA_BASE = "${cfg.dataDir}/mnesia";
+          RABBITMQ_LOGS = "-";
+          SYS_PREFIX = "";
+          RABBITMQ_CONFIG_FILE = config_file;
+          RABBITMQ_PLUGINS_DIR = lib.concatStringsSep ":" cfg.pluginDirs;
+          RABBITMQ_ENABLED_PLUGINS_FILE = pkgs.writeText "enabled_plugins" ''
+            [ ${lib.concatStringsSep "," cfg.plugins} ].
+          '';
+        }
+        // lib.optionalAttrs (cfg.config != "") {RABBITMQ_ADVANCED_CONFIG_FILE = advanced_config_file;};
 
       serviceConfig = {
         ExecStart = "${cfg.package}/sbin/rabbitmq-server";
@@ -237,7 +234,5 @@ in
         ''}
       '';
     };
-
   };
-
 }

@@ -5,7 +5,6 @@
   mkfontdir,
   mkfontscale,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "beon";
   version = "2024-02-26";
@@ -38,7 +37,7 @@ stdenvNoCC.mkDerivation {
     homepage = "https://noirblancrouge.com/fonts/beon-display";
     changelog = "https://github.com/noirblancrouge/Beon#changelog";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ raboof ];
+    maintainers = with lib.maintainers; [raboof];
     platforms = lib.platforms.all;
   };
 }

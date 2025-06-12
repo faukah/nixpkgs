@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkIf mkOption;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     nullOr
     path
     bool
@@ -17,16 +16,16 @@ let
   keysPath = "/var/lib/yggdrasil/keys.json";
 
   cfg = config.services.yggdrasil;
-  settingsProvided = cfg.settings != { };
+  settingsProvided = cfg.settings != {};
   configFileProvided = cfg.configFile != null;
 
-  format = pkgs.formats.json { };
-in
-{
+  format = pkgs.formats.json {};
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "yggdrasil" "config" ]
-      [ "services" "yggdrasil" "settings" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "yggdrasil" "config"]
+      ["services" "yggdrasil" "settings"]
     )
   ];
 
@@ -36,7 +35,7 @@ in
 
       settings = mkOption {
         type = format.type;
-        default = { };
+        default = {};
         example = {
           Peers = [
             "tcp://aa.bb.cc.dd:eeeee"
@@ -110,8 +109,8 @@ in
 
       denyDhcpcdInterfaces = mkOption {
         type = listOf str;
-        default = [ ];
-        example = [ "tap*" ];
+        default = [];
+        example = ["tap*"];
         description = ''
           Disable the DHCP client for any interface whose name matches
           any of the shell glob patterns in this list.  Use this
@@ -122,7 +121,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "yggdrasil" { };
+      package = lib.mkPackageOption pkgs "yggdrasil" {};
 
       persistentKeys = lib.mkEnableOption ''
         persistent keys. If enabled then keys will be generated once and Yggdrasil
@@ -132,14 +131,13 @@ in
 
       extraArgs = mkOption {
         type = listOf str;
-        default = [ ];
+        default = [];
         example = [
           "-loglevel"
           "info"
         ];
         description = "Extra command line arguments.";
       };
-
     };
   };
 
@@ -147,8 +145,7 @@ in
     let
       binYggdrasil = "${cfg.package}/bin/yggdrasil";
       binHjson = "${pkgs.hjson-go}/bin/hjson-cli";
-    in
-    {
+    in {
       assertions = [
         {
           assertion = config.networking.enableIPv6;
@@ -159,8 +156,8 @@ in
       # This needs to be a separate service. The yggdrasil service fails if
       # this is put into its preStart.
       systemd.services.yggdrasil-persistent-keys = lib.mkIf cfg.persistentKeys {
-        wantedBy = [ "multi-user.target" ];
-        before = [ "yggdrasil.service" ];
+        wantedBy = ["multi-user.target"];
+        before = ["yggdrasil.service"];
         serviceConfig.Type = "oneshot";
         serviceConfig.RemainAfterExit = true;
         script = ''
@@ -177,10 +174,10 @@ in
 
       systemd.services.yggdrasil = {
         description = "Yggdrasil Network Service";
-        after = [ "network-pre.target" ];
-        wants = [ "network.target" ];
-        before = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network-pre.target"];
+        wants = ["network.target"];
+        before = ["network.target"];
+        wantedBy = ["multi-user.target"];
 
         # This script first prepares the config file, then it starts Yggdrasil.
         # The preparation could also be done in ExecStartPre/preStart but only
@@ -199,15 +196,14 @@ in
           # prepare config file
           ${
             (
-              if settingsProvided || configFileProvided || cfg.persistentKeys then
+              if settingsProvided || configFileProvided || cfg.persistentKeys
+              then
                 "echo "
-
                 + (lib.optionalString settingsProvided "'${builtins.toJSON cfg.settings}'")
                 + (lib.optionalString configFileProvided "$(${binHjson} -c \"$CREDENTIALS_DIRECTORY/yggdrasil.conf\")")
                 + (lib.optionalString cfg.persistentKeys "$(cat ${keysPath})")
                 + " | ${pkgs.jq}/bin/jq -s add | ${binYggdrasil} -normaliseconf -useconf"
-              else
-                "${binYggdrasil} -genconf"
+              else "${binYggdrasil} -genconf"
             )
             + " > /run/yggdrasil/yggdrasil.conf"
           }
@@ -245,20 +241,19 @@ in
             ];
           }
           // (
-            if (cfg.group != null) then
-              {
-                Group = cfg.group;
-              }
-            else
-              { }
+            if (cfg.group != null)
+            then {
+              Group = cfg.group;
+            }
+            else {}
           );
       };
 
       networking.dhcpcd.denyInterfaces = cfg.denyDhcpcdInterfaces;
-      networking.firewall.allowedUDPPorts = mkIf cfg.openMulticastPort [ 9001 ];
+      networking.firewall.allowedUDPPorts = mkIf cfg.openMulticastPort [9001];
 
       # Make yggdrasilctl available on the command line.
-      environment.systemPackages = [ cfg.package ];
+      environment.systemPackages = [cfg.package];
     }
   );
   meta = {

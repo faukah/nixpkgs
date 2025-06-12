@@ -16,7 +16,6 @@
   docbook_xml_dtd_412,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opensc";
   version = "0.26.1";
@@ -33,15 +32,17 @@ stdenv.mkDerivation rec {
     autoreconfHook
     libxslt # xsltproc
   ];
-  buildInputs = [
-    zlib
-    readline
-    openssl
-    libassuan
-    libXt
-    libiconv
-    docbook_xml_dtd_412
-  ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) pcsclite;
+  buildInputs =
+    [
+      zlib
+      readline
+      openssl
+      libassuan
+      libXt
+      libiconv
+      docbook_xml_dtd_412
+    ]
+    ++ lib.optional (!stdenv.hostPlatform.isDarwin) pcsclite;
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
@@ -59,20 +60,20 @@ stdenv.mkDerivation rec {
       "--with-xsl-stylesheetsdir=${docbook_xsl}/xml/xsl/docbook"
     ]
     ++ lib.optional (!stdenv.hostPlatform.isDarwin)
-      "--with-pcsc-provider=${lib.getLib pcsclite}/lib/libpcsclite${stdenv.hostPlatform.extensions.sharedLibrary}";
+    "--with-pcsc-provider=${lib.getLib pcsclite}/lib/libpcsclite${stdenv.hostPlatform.extensions.sharedLibrary}";
 
   installFlags = [
     "sysconfdir=$(out)/etc"
     "completiondir=$(out)/etc"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Set of libraries and utilities to access smart cards";
     homepage = "https://github.com/OpenSC/OpenSC/wiki";
     license = licenses.lgpl21Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.michaeladler ];
+    maintainers = [maintainers.michaeladler];
   };
 }

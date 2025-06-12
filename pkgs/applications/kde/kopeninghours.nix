@@ -7,7 +7,6 @@
   kholidays,
   ki18n,
 }:
-
 mkDerivation {
   pname = "kopeninghours";
   outputs = [

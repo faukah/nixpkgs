@@ -8,7 +8,6 @@
   gtk3,
   spdlog,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wsysmon";
   version = "0.1.0";
@@ -42,9 +41,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Windows task manager clone for Linux";
     homepage = "https://github.com/SlyFabi/WSysMon";
-    license = [ licenses.mit ];
+    license = [licenses.mit];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ totoroot ];
+    maintainers = with maintainers; [totoroot];
     mainProgram = "WSysMon";
   };
 }

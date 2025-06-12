@@ -8,13 +8,12 @@
   libGLU,
   libGL,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tibia";
   version = "10.90";
 
   src = fetchurl {
-    url = "http://static.tibia.com/download/tibia${lib.replaceStrings [ "." ] [ "" ] version}.tgz";
+    url = "http://static.tibia.com/download/tibia${lib.replaceStrings ["."] [""] version}.tgz";
     sha256 = "11mkh2dynmbpay51yfaxm5dmcys3rnpk579s9ypfkhblsrchbkhx";
   };
 
@@ -34,13 +33,13 @@ stdenv.mkDerivation rec {
 
     patchelf --set-interpreter ${glibc.out}/lib/ld-linux.so.2 \
              --set-rpath ${
-               lib.makeLibraryPath [
-                 stdenv.cc.cc
-                 libX11
-                 libGLU
-                 libGL
-               ]
-             } \
+      lib.makeLibraryPath [
+        stdenv.cc.cc
+        libX11
+        libGLU
+        libGL
+      ]
+    } \
              "$out/res/Tibia"
 
     # We've patchelf'd the files. The main ‘Tibia’ binary is a bit
@@ -67,7 +66,7 @@ stdenv.mkDerivation rec {
     description = "Top-down MMORPG set in a fantasy world";
     homepage = "http://tibia.com";
     license = lib.licenses.unfree;
-    platforms = [ "i686-linux" ];
-    maintainers = [ ];
+    platforms = ["i686-linux"];
+    maintainers = [];
   };
 }

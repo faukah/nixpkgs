@@ -6,7 +6,6 @@
   pkg-config,
   glib,
 }:
-
 stdenv.mkDerivation {
   name = "chrootenv";
   src = ./src;
@@ -16,12 +15,12 @@ stdenv.mkDerivation {
     ninja
     pkg-config
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   meta = with lib; {
     description = "Setup mount/user namespace for FHS emulation";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

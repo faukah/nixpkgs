@@ -3,14 +3,11 @@
   fetchurl,
   cpio,
   pbzx,
-}:
-
-{
+}: {
   urls,
   version,
   hash,
 }:
-
 fetchurl {
   pname = "macOS-SDK";
   inherit version urls hash;

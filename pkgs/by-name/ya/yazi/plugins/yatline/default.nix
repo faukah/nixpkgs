@@ -18,6 +18,6 @@ mkYaziPlugin {
     description = "Yazi plugin for customizing both header-line and status-line";
     homepage = "https://github.com/imsi32/yatline.yazi";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
   };
 }

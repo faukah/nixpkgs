@@ -3,7 +3,6 @@
   buildGo124Module,
   fetchFromGitHub,
 }:
-
 buildGo124Module rec {
   pname = "vuls";
   version = "0.30.0";
@@ -34,7 +33,7 @@ buildGo124Module rec {
     homepage = "https://github.com/future-architect/vuls";
     changelog = "https://github.com/future-architect/vuls/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "vuls";
   };
 }

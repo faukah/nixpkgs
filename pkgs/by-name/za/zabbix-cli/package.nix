@@ -5,7 +5,6 @@
   testers,
   zabbix-cli,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "zabbix-cli";
   version = "3.5.2";
@@ -22,8 +21,7 @@ python3Packages.buildPythonApplication rec {
     hatchling
   ];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       httpx
       httpx.optional-dependencies.socks
@@ -56,7 +54,7 @@ python3Packages.buildPythonApplication rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "zabbix_cli" ];
+  pythonImportsCheck = ["zabbix_cli"];
 
   passthru.tests.version = testers.testVersion {
     package = zabbix-cli;
@@ -68,6 +66,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/unioslo/zabbix-cli";
     license = lib.licenses.gpl3Plus;
     mainProgram = "zabbix-cli";
-    maintainers = [ lib.maintainers.anthonyroussel ];
+    maintainers = [lib.maintainers.anthonyroussel];
   };
 }

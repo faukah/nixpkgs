@@ -4,7 +4,6 @@
   fetchFromGitHub,
   bgpq4,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "arouteserver";
   version = "1.23.2";
@@ -24,7 +23,7 @@ python3Packages.buildPythonPackage rec {
       --replace-fail '"bgpq4"' '"${lib.getExe bgpq4}"'
   '';
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     aggregate6
@@ -46,7 +45,7 @@ python3Packages.buildPythonPackage rec {
     "pierky.arouteserver"
   ];
 
-  pytestFlagsArray = [ "tests/static" ];
+  pytestFlagsArray = ["tests/static"];
 
   disabledTests = [
     # disable copyright year check of files
@@ -58,8 +57,8 @@ python3Packages.buildPythonPackage rec {
     mainProgram = "arouteserver";
     homepage = "https://github.com/pierky/arouteserver";
     changelog = "https://github.com/pierky/arouteserver/blob/v${version}/CHANGES.rst";
-    license = with lib.licenses; [ gpl3Only ];
-    maintainers = with lib.maintainers; [ marcel ];
-    teams = [ lib.teams.wdz ];
+    license = with lib.licenses; [gpl3Only];
+    maintainers = with lib.maintainers; [marcel];
+    teams = [lib.teams.wdz];
   };
 }

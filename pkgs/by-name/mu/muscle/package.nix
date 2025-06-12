@@ -3,7 +3,6 @@
   gccStdenv,
   fetchFromGitHub,
 }:
-
 gccStdenv.mkDerivation rec {
   pname = "muscle";
   version = "5.1.0";
@@ -21,13 +20,14 @@ gccStdenv.mkDerivation rec {
     ./muscle-darwin-g++.patch
   ];
 
-  installPhase =
-    let
-      target = if gccStdenv.hostPlatform.isDarwin then "Darwin" else "Linux";
-    in
-    ''
-      install -m755 -D ${target}/muscle $out/bin/muscle
-    '';
+  installPhase = let
+    target =
+      if gccStdenv.hostPlatform.isDarwin
+      then "Darwin"
+      else "Linux";
+  in ''
+    install -m755 -D ${target}/muscle $out/bin/muscle
+  '';
 
   meta = with lib; {
     description = "Multiple sequence alignment with top benchmark scores scalable to thousands of sequences";

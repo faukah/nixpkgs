@@ -4,7 +4,6 @@
   fetchzip,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "atlassian-cli";
   version = "9.6.0";
@@ -47,8 +46,8 @@ stdenv.mkDerivation rec {
     description = "Integrated family of CLI’s for various Atlassian applications";
     homepage = "https://bobswift.atlassian.net/wiki/spaces/ACLI/overview";
     license = licenses.unfreeRedistributable;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    maintainers = with maintainers; [ twey ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
+    maintainers = with maintainers; [twey];
     inherit (jre.meta) platforms;
   };
 }

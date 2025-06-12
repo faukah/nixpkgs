@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "entropy";
   version = "1.0.7";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Tool to scan your codebase for high entropy lines, which are often secrets";
     homepage = "https://github.com/EwenQuim/entropy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ starsep ];
+    maintainers = with lib.maintainers; [starsep];
     mainProgram = "entropy";
   };
 }

@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchFromGitHub,
 }:
-
 buildDunePackage rec {
   pname = "qcheck-core";
   version = "0.25";
@@ -21,7 +20,6 @@ buildDunePackage rec {
     description = "Core qcheck library";
     homepage = "https://c-cube.github.io/qcheck/";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

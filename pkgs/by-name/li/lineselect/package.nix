@@ -5,7 +5,6 @@
   makeBinaryWrapper,
   nodejs,
 }:
-
 buildNpmPackage rec {
   pname = "lineselect";
   version = "0.1.6";
@@ -33,7 +32,7 @@ buildNpmPackage rec {
     description = "Shell utility to interactively select lines from stdin";
     homepage = "https://github.com/chfritz/lineselect";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "lineselect";
   };
 }

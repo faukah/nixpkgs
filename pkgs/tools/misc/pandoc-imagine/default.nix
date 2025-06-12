@@ -5,7 +5,6 @@
   pandocfilters,
   six,
 }:
-
 buildPythonApplication rec {
   pname = "pandoc-imagine";
   version = "0.1.6";
@@ -31,8 +30,8 @@ buildPythonApplication rec {
       A pandoc filter that will turn code blocks tagged with certain classes
       into images or ASCII art
     '';
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ synthetica ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [synthetica];
     mainProgram = "pandoc-imagine";
   };
 }

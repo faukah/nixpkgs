@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.6.8";
   pname = "nix-bash-completions";

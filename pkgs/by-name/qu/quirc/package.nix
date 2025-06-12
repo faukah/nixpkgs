@@ -6,7 +6,6 @@
   libjpeg,
   libpng,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "quirc";
   version = "1.2";
@@ -76,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Small QR code decoding library";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.unix;
   };
 })

@@ -5,7 +5,6 @@
   ruby,
   libkrb5,
 }:
-
 buildGoModule rec {
   pname = "gitlab-shell";
   version = "14.42.0";
@@ -46,7 +45,7 @@ buildGoModule rec {
     description = "SSH access and repository management app for GitLab";
     homepage = "http://www.gitlab.com/";
     platforms = platforms.linux;
-    teams = [ teams.gitlab ];
+    teams = [teams.gitlab];
     license = licenses.mit;
   };
 }

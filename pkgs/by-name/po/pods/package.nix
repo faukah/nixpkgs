@@ -17,7 +17,6 @@
   libpanel,
   vte-gtk4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pods";
   version = "2.1.2";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/marhkb/pods";
     changelog = "https://github.com/marhkb/pods/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     platforms = lib.platforms.linux;
     mainProgram = "pods";
   };

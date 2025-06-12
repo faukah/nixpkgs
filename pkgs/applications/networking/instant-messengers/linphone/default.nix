@@ -16,7 +16,6 @@
   qtquickcontrols2,
   qttools,
 }:
-
 # How to update Linphone? (The Qt desktop app)
 #
 # Belledonne Communications (BC), the company making Linphone, has split the
@@ -32,7 +31,6 @@
 # So, in order to update the desktop app to a new release, one has to follow
 # the submodule chain and update the corresponding derivations here, in nixpkgs,
 # with the corresponding version number (or commit hash)
-
 mkDerivation rec {
   pname = "linphone-desktop";
   version = "5.1.2";
@@ -139,6 +137,6 @@ mkDerivation rec {
     mainProgram = "linphone";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

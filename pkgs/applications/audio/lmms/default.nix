@@ -24,7 +24,6 @@
   SDL ? null,
   mkDerivation,
 }:
-
 mkDerivation rec {
   pname = "lmms";
   version = "1.2.2";
@@ -70,7 +69,7 @@ mkDerivation rec {
     })
   ];
 
-  cmakeFlags = [ "-DWANT_QT5=ON" ];
+  cmakeFlags = ["-DWANT_QT5=ON"];
 
   meta = with lib; {
     description = "DAW similar to FL Studio (music production software)";
@@ -81,6 +80,6 @@ mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

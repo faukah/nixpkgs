@@ -6,7 +6,6 @@
   autoconf,
   automake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmkv";
   version = "0.6.5.1";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/saintdev/libmkv";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.wmertens ];
+    maintainers = [lib.maintainers.wmertens];
     platforms = lib.platforms.unix;
   };
 }

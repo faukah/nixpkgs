@@ -14,7 +14,6 @@
   wrapGAppsHook3,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-packagekit";
   version = "43.0";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.freedesktop.org/software/PackageKit/";
     platforms = platforms.linux;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2;
     description = "Tools for installing software on the GNOME desktop using PackageKit";
   };

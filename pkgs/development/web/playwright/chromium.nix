@@ -33,8 +33,7 @@
   vulkan-loader,
   xorg,
   ...
-}:
-let
+}: let
   chromium-linux = stdenv.mkDerivation {
     name = "playwright-chromium";
     src = fetchzip {
@@ -44,7 +43,9 @@ let
           x86_64-linux = "sha256-7oQQCAIt1VJiMNFEJO40K8oENK/L0BICXm2D/3fZ8bA=";
           aarch64-linux = "sha256-1OmByLX2jNHXAzWdXF8Od7S7pj/jl4wwvOQcsZc5R7o=";
         }
-        .${system} or throwSystem;
+        .${
+          system
+        } or throwSystem;
     };
 
     nativeBuildInputs = [
@@ -112,13 +113,17 @@ let
         x86_64-darwin = "sha256-IJxCYtHTOtBxQdGbiLz+PODQL4rmBn4WXNJ3QNr0D/I=";
         aarch64-darwin = "sha256-6QP1OY1krhcfMf5rNzbd55W/Wg02LnbqaU7aKWhJ7qM=";
       }
-      .${system} or throwSystem;
+      .${
+        system
+      } or throwSystem;
   };
 in
-{
-  x86_64-linux = chromium-linux;
-  aarch64-linux = chromium-linux;
-  x86_64-darwin = chromium-darwin;
-  aarch64-darwin = chromium-darwin;
-}
-.${system} or throwSystem
+  {
+    x86_64-linux = chromium-linux;
+    aarch64-linux = chromium-linux;
+    x86_64-darwin = chromium-darwin;
+    aarch64-darwin = chromium-darwin;
+  }
+.${
+    system
+  } or throwSystem

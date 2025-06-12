@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "trak";
   version = "0.0.5";
@@ -23,13 +22,13 @@ python3Packages.buildPythonApplication rec {
     typer
   ];
 
-  build-system = [ python3Packages.poetry-core ];
+  build-system = [python3Packages.poetry-core];
 
   meta = {
     description = "Keep a record of the time you dedicate to your projects";
     homepage = "https://github.com/lcfd/trak";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ buurro ];
+    maintainers = with lib.maintainers; [buurro];
     mainProgram = "trak";
   };
 }

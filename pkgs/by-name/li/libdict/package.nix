@@ -5,7 +5,6 @@
   cmake,
   cunit,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libdict";
   version = "1.0.4";
@@ -25,8 +24,16 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags = [
-    "-DLIBDICT_TESTS=${if finalAttrs.finalPackage.doCheck then "ON" else "OFF"}"
-    "-DLIBDICT_SHARED=${if stdenv.hostPlatform.isStatic then "OFF" else "ON"}"
+    "-DLIBDICT_TESTS=${
+      if finalAttrs.finalPackage.doCheck
+      then "ON"
+      else "OFF"
+    }"
+    "-DLIBDICT_SHARED=${
+      if stdenv.hostPlatform.isStatic
+      then "OFF"
+      else "ON"
+    }"
   ];
 
   env.NIX_CFLAGS_COMPILE = toString (
@@ -43,6 +50,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/rtbrick/libdict/releases/tag/${finalAttrs.version}";
     description = "C library of key-value data structures";
     license = licenses.bsd2;
-    teams = [ teams.wdz ];
+    teams = [teams.wdz];
   };
 })

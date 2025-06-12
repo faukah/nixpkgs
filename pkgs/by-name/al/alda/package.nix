@@ -7,8 +7,7 @@
   makeWrapper,
   jre,
   symlinkJoin,
-}:
-let
+}: let
   pname = "alda";
   version = "2.3.1";
   src = fetchFromGitHub {
@@ -35,8 +34,8 @@ let
       "-w"
       "-extldflags '-static'"
     ];
-    tags = [ "netgo" ];
-    subPackages = [ "." ];
+    tags = ["netgo"];
+    subPackages = ["."];
 
     postInstall = ''
       mv $out/bin/client $out/bin/alda
@@ -46,7 +45,7 @@ let
       inherit license;
       homepage = "https://github.com/alda-lang/alda/tree/master/client";
       broken = !stdenv.buildPlatform.canExecute stdenv.hostPlatform;
-      maintainers = [ lib.maintainers.ericdallo ];
+      maintainers = [lib.maintainers.ericdallo];
       platforms = lib.platforms.unix;
     };
   };
@@ -83,27 +82,27 @@ let
     meta = {
       inherit license;
       homepage = "https://github.com/alda-lang/alda/tree/master/player";
-      maintainers = [ lib.maintainers.ericdallo ];
+      maintainers = [lib.maintainers.ericdallo];
       platforms = lib.platforms.unix;
     };
   };
 in
-symlinkJoin {
-  inherit pname version;
-  paths = [
-    alda_client
-    alda_player
-  ];
-
-  meta = {
-    inherit license;
-    description = "Music programming language for musicians";
-    homepage = "https://alda.io";
-    sourceProvenance = with lib.sourceTypes; [
-      fromSource
-      binaryBytecode
+  symlinkJoin {
+    inherit pname version;
+    paths = [
+      alda_client
+      alda_player
     ];
-    maintainers = [ lib.maintainers.ericdallo ];
-    platforms = lib.platforms.unix;
-  };
-}
+
+    meta = {
+      inherit license;
+      description = "Music programming language for musicians";
+      homepage = "https://alda.io";
+      sourceProvenance = with lib.sourceTypes; [
+        fromSource
+        binaryBytecode
+      ];
+      maintainers = [lib.maintainers.ericdallo];
+      platforms = lib.platforms.unix;
+    };
+  }

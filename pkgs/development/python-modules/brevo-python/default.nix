@@ -9,7 +9,6 @@
   urllib3,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "brevo-python";
   version = "1.1.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-XOUFyUrqVlI7Qr4uzeXr6GJuQ+QTVhsueT1xxVQMm14=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     certifi
@@ -35,12 +34,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "brevo_python" ];
+  pythonImportsCheck = ["brevo_python"];
 
   meta = {
     description = "Fully-featured Python API client to interact with Brevo";
     homepage = "https://github.com/getbrevo/brevo-python";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ soyouzpanda ];
+    maintainers = with lib.maintainers; [soyouzpanda];
   };
 }

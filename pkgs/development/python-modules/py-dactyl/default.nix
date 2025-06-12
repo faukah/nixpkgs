@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "py-dactyl";
   version = "2.0.5";
@@ -19,13 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-yw5S4I4mtb9URnZ1So1nlZi4v7y0Nz4msx+8SwSi8N4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
   ];
 
-  pythonImportsCheck = [ "pydactyl" ];
+  pythonImportsCheck = ["pydactyl"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Python wrapper for the Pterodactyl Panel API";
     homepage = "https://github.com/iamkubi/pydactyl";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

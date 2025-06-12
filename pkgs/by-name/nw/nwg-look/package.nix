@@ -11,7 +11,6 @@
   libX11,
   zlib,
 }:
-
 buildGoModule rec {
   pname = "nwg-look";
   version = "1.0.5";
@@ -71,7 +70,7 @@ buildGoModule rec {
     description = "GTK settings editor, designed to work properly in wlroots-based Wayland environment";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ max-amb ];
+    maintainers = with maintainers; [max-amb];
     mainProgram = "nwg-look";
   };
 }

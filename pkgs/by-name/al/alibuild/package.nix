@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "alibuild";
   version = "1.17.18";
@@ -19,7 +18,7 @@ python3Packages.buildPythonApplication rec {
     setuptools-scm
   ];
 
-  nativeBuildInputs = with python3Packages; [ pip ];
+  nativeBuildInputs = with python3Packages; [pip];
 
   dependencies = with python3Packages; [
     requests
@@ -29,7 +28,7 @@ python3Packages.buildPythonApplication rec {
     distro
   ];
 
-  pythonRelaxDeps = [ "boto3" ];
+  pythonRelaxDeps = ["boto3"];
 
   doCheck = false;
 
@@ -37,6 +36,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://alisw.github.io/alibuild/";
     description = "Build tool for ALICE experiment software";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ ktf ];
+    maintainers = with lib.maintainers; [ktf];
   };
 }

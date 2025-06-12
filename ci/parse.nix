@@ -2,16 +2,14 @@
   lib,
   nix,
   runCommand,
-}:
-let
-  nixpkgs =
-    with lib.fileset;
+}: let
+  nixpkgs = with lib.fileset;
     toSource {
       root = ../.;
-      fileset = (fileFilter (file: file.hasExt "nix") ../.);
+      fileset = fileFilter (file: file.hasExt "nix") ../.;
     };
 in
-runCommand "nix-parse-${nix.name}"
+  runCommand "nix-parse-${nix.name}"
   {
     nativeBuildInputs = [
       nix

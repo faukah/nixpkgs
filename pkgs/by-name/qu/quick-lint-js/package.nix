@@ -7,9 +7,7 @@
   stdenv,
   testers,
   quick-lint-js,
-}:
-
-let
+}: let
   version = "3.2.0";
 
   src = fetchFromGitHub {
@@ -43,35 +41,35 @@ let
     '';
   };
 in
-stdenv.mkDerivation {
-  pname = "quick-lint-js";
-  inherit version src;
+  stdenv.mkDerivation {
+    pname = "quick-lint-js";
+    inherit version src;
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
-  doCheck = true;
+    nativeBuildInputs = [
+      cmake
+      ninja
+    ];
+    doCheck = true;
 
-  cmakeFlags = [
-    "-DQUICK_LINT_JS_USE_BUILD_TOOLS=${quick-lint-js-build-tools}/bin"
-    # Temporary workaround for https://github.com/NixOS/nixpkgs/pull/108496#issuecomment-1192083379
-    "-DCMAKE_SKIP_BUILD_RPATH=ON"
-  ];
+    cmakeFlags = [
+      "-DQUICK_LINT_JS_USE_BUILD_TOOLS=${quick-lint-js-build-tools}/bin"
+      # Temporary workaround for https://github.com/NixOS/nixpkgs/pull/108496#issuecomment-1192083379
+      "-DCMAKE_SKIP_BUILD_RPATH=ON"
+    ];
 
-  passthru.tests = {
-    version = testers.testVersion { package = quick-lint-js; };
-  };
+    passthru.tests = {
+      version = testers.testVersion {package = quick-lint-js;};
+    };
 
-  meta = with lib; {
-    description = "Find bugs in Javascript programs";
-    mainProgram = "quick-lint-js";
-    homepage = "https://quick-lint-js.com";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ratsclub ];
-    platforms = platforms.all;
-  };
+    meta = with lib; {
+      description = "Find bugs in Javascript programs";
+      mainProgram = "quick-lint-js";
+      homepage = "https://quick-lint-js.com";
+      license = licenses.gpl3Plus;
+      maintainers = with maintainers; [ratsclub];
+      platforms = platforms.all;
+    };
 
-  # Expose quick-lint-js-build-tools to nix repl as quick-lint-js.build-tools.
-  passthru.build-tools = quick-lint-js-build-tools;
-}
+    # Expose quick-lint-js-build-tools to nix repl as quick-lint-js.build-tools.
+    passthru.build-tools = quick-lint-js-build-tools;
+  }

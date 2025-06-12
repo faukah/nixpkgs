@@ -1,11 +1,7 @@
-{
-  lib,
-  ...
-}:
-{
+{lib, ...}: {
   name = "postfix-tlspol";
 
-  meta.maintainers = with lib.maintainers; [ hexa ];
+  meta.maintainers = with lib.maintainers; [hexa];
 
   nodes.machine = {
     services.postfix-tlspol.enable = true;
@@ -25,5 +21,4 @@
       machine.log(json.dumps(response, indent=2))
 
   '';
-
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "murex";
   version = "6.4.2063";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-NIhg8D8snCNxpb3i2JG5tLcZteYBCGN4QbOowG/vgJE=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Bash-like shell and scripting environment with advanced features designed for safety and productivity";

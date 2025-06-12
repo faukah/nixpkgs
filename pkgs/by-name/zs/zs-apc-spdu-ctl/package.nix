@@ -7,7 +7,6 @@
   net-snmp,
   stdenv,
 }:
-
 # TODO: add a services entry for the /etc/zs-apc-spdu.conf file
 stdenv.mkDerivation rec {
   pname = "zs-apc-spdu-ctl";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "TMV9ETWBVeXq6tZ2e0CrvHBXoyKfOLCQurjBdf/iw/M=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libowlevelzs
     net-snmp
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "APC SPDU control utility";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "zs-apc-spdu-ctl";
   };

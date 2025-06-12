@@ -12,7 +12,6 @@
   rtl-sdr,
   soapysdr-with-plugins,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dump1090";
   version = "10.1";
@@ -24,16 +23,18 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-8J17fqNrn5Mqqv4lFHEp4zjc/zeyMUb+fWdk+ssPBwU=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [
-    hackrf
-    libbladeRF
-    libusb1
-    ncurses
-    rtl-sdr
-    soapysdr-with-plugins
-  ] ++ lib.optional stdenv.hostPlatform.isLinux limesuite;
+  buildInputs =
+    [
+      hackrf
+      libbladeRF
+      libusb1
+      ncurses
+      rtl-sdr
+      soapysdr-with-plugins
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux limesuite;
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-implicit-function-declaration -Wno-int-conversion -Wno-unknown-warning-option";
 

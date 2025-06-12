@@ -14,7 +14,6 @@
   pythonOlder,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "sqlmodel";
   version = "0.0.24";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     pydantic
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "sqlmodel" ];
+  pythonImportsCheck = ["sqlmodel"];
 
   disabledTests = [
     # AssertionError: assert 'enum_field VARCHAR(1)
@@ -72,6 +71,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tiangolo/sqlmodel";
     changelog = "https://github.com/tiangolo/sqlmodel/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

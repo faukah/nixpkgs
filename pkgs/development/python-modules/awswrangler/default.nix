@@ -23,7 +23,6 @@
   requests-aws4auth,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "awswrangler";
   version = "3.12.0";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     "pyarrow"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     boto3
@@ -62,8 +61,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    sqlserver = [ pyodbc ];
-    sparql = [ sparqlwrapper ];
+    sqlserver = [pyodbc];
+    sparql = [sparqlwrapper];
   };
 
   nativeCheckInputs = [
@@ -72,7 +71,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "awswrangler" ];
+  pythonImportsCheck = ["awswrangler"];
 
   pytestFlagsArray = [
     # Subset of tests that run in upstream CI (many others require credentials)
@@ -88,6 +87,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aws/aws-sdk-pandas";
     changelog = "https://github.com/aws/aws-sdk-pandas/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mcwitt ];
+    maintainers = with maintainers; [mcwitt];
   };
 }

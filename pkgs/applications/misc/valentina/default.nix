@@ -10,7 +10,6 @@
   wrapQtAppsHook,
   autoPatchelfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "valentina";
   version = "0.7.53";
@@ -60,6 +59,6 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.com/smart-pattern/valentina/-/blob/v${version}/ChangeLog.txt";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

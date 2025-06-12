@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "viddy";
   version = "1.3.0";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   env.VERGEN_BUILD_DATE = "2024-11-28"; # managed via the update script
   env.VERGEN_GIT_DESCRIBE = "Nixpkgs";
 
-  passthru.updateScript.command = [ ./update.sh ];
+  passthru.updateScript.command = [./update.sh];
 
   meta = {
     description = "Modern watch command, time machine and pager etc.";

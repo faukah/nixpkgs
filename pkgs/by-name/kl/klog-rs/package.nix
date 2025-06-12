@@ -4,7 +4,6 @@
   rustPlatform,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "klog-rs";
   version = "0.4.2";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/tobifroe/klog/releases/tag/${version}";
     license = lib.licenses.mit;
     mainProgram = "klog";
-    maintainers = with lib.maintainers; [ tobifroe ];
+    maintainers = with lib.maintainers; [tobifroe];
     broken = stdenv.hostPlatform.isDarwin;
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "authz0";
   version = "1.1.2";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "authz0";
     homepage = "https://github.com/hahwul/authz0";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

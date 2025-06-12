@@ -11,7 +11,6 @@
   wrapGAppsHook3,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-indicator-applet";
   version = "1.28.0";
@@ -40,11 +39,11 @@ stdenv.mkDerivation rec {
     hicolor-icon-theme
   ];
 
-  configureFlags = [ "--with-ayatana-indicators" ];
+  configureFlags = ["--with-ayatana-indicators"];
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     homepage = "https://github.com/mate-desktop/mate-indicator-applet";
@@ -65,6 +64,6 @@ stdenv.mkDerivation rec {
       lgpl2Plus
     ];
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

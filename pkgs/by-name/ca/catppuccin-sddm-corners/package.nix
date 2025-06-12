@@ -5,7 +5,6 @@
   nix-update-script,
   qt6,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "catppuccin-sddm-corners";
   version = "0-unstable-2025-03-25";
@@ -37,13 +36,13 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = {
     description = "Soothing pastel theme for SDDM based on corners theme";
     homepage = "https://github.com/khaneliman/sddm-catppuccin-corners";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
     platforms = lib.platforms.linux;
   };
 }

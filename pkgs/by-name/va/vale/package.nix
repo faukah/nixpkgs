@@ -8,12 +8,11 @@
   vale,
   valeStyles,
 }:
-
 buildGoModule rec {
   pname = "vale";
   version = "3.12.0";
 
-  subPackages = [ "cmd/vale" ];
+  subPackages = ["cmd/vale"];
 
   src = fetchFromGitHub {
     owner = "errata-ai";
@@ -33,14 +32,13 @@ buildGoModule rec {
   doCheck = false;
   doInstallCheck = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.withStyles =
-    selector:
+  passthru.withStyles = selector:
     symlinkJoin {
       name = "vale-with-styles-${vale.version}";
-      paths = [ vale ] ++ selector valeStyles;
-      nativeBuildInputs = [ makeBinaryWrapper ];
+      paths = [vale] ++ selector valeStyles;
+      nativeBuildInputs = [makeBinaryWrapper];
       postBuild = ''
         wrapProgram "$out/bin/vale" \
           --set VALE_STYLES_PATH "$out/share/vale/styles/"
@@ -64,6 +62,6 @@ buildGoModule rec {
     changelog = "https://github.com/errata-ai/vale/releases/tag/v${version}";
     mainProgram = "vale";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
   };
 }

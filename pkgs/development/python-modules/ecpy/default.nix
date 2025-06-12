@@ -5,7 +5,6 @@
   isPy3k,
   future,
 }:
-
 buildPythonPackage rec {
   pname = "ecpy";
   version = "1.2.5";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
   # No tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "ecpy" ];
+  pythonImportsCheck = ["ecpy"];
 
   meta = with lib; {
     description = "Pure Pyhton Elliptic Curve Library";

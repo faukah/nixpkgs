@@ -8,7 +8,6 @@
   xclip,
   xvfb-run,
 }:
-
 buildPythonPackage rec {
   pname = "pyclip";
   version = "0.7.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
   '';
 
   nativeCheckInputs =
-    [ pytest ]
+    [pytest]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       xclip
       xvfb-run
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     mainProgram = "pyclip";
     homepage = "https://github.com/spyoungtech/pyclip";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

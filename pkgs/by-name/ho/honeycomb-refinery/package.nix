@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "honeycomb-refinery";
   version = "1.19.0";
@@ -24,7 +23,7 @@ buildGoModule rec {
     ./0001-add-NO_REDIS_TEST-env-var-that-disables-Redis-requir.patch
   ];
 
-  excludedPackages = [ "cmd/test_redimem" ];
+  excludedPackages = ["cmd/test_redimem"];
 
   ldflags = [
     "-s"
@@ -40,7 +39,7 @@ buildGoModule rec {
     homepage = "https://github.com/honeycombio/refinery";
     description = "Tail-sampling proxy for OpenTelemetry";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "refinery";
   };
 }

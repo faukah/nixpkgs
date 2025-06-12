@@ -19,7 +19,6 @@
   csu,
   headers,
 }:
-
 mkDerivation {
   noLibc = true;
   path = "lib/libc";
@@ -74,7 +73,7 @@ mkDerivation {
   MK_LIBC_TAGS = "no";
   NLSDIR = "$(out)/share/nls";
 
-  makeFlags = defaultMakeFlags ++ [ "FILESDIR=$(out)/var/db" ];
+  makeFlags = defaultMakeFlags ++ ["FILESDIR=$(out)/var/db"];
 
   postInstall = ''
     pushd ${headers}

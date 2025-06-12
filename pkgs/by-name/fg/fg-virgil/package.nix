@@ -4,7 +4,6 @@
   fetchFromGitHub,
   woff2,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "fg-virgil";
   version = "0.18.0";
@@ -43,7 +42,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/excalidraw/virgil";
     description = "Font that powers Excalidraw";
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     license = lib.licenses.ofl;
   };
 })

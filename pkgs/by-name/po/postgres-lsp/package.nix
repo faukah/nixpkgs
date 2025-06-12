@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     PGT_VERSION = finalAttrs.version;
   };
 
-  cargoBuildFlags = [ "-p=pgt_cli" ];
+  cargoBuildFlags = ["-p=pgt_cli"];
   cargoTestFlags = finalAttrs.cargoBuildFlags;
   checkFlags = [
     # Tries to write to the file system relatively to the current path

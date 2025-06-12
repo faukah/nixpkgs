@@ -6,7 +6,6 @@
   six,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ush";
   version = "4.1.0";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-a6ICbd8647DRtuHl2vs64bsChUjlpuWHV1ipBdFA600=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "ush" ];
+  pythonImportsCheck = ["ush"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "Powerful API for invoking with external commands";
     homepage = "https://github.com/tarruda/python-ush";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

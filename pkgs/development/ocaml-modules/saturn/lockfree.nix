@@ -5,7 +5,6 @@
   backoff,
   multicore-magic,
 }:
-
 buildDunePackage rec {
   pname = "saturn_lockfree";
   version = "0.5.0";
@@ -26,6 +25,6 @@ buildDunePackage rec {
     description = "Lock-free data structures for multicore OCaml";
     homepage = "https://github.com/ocaml-multicore/lockfree";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
@@ -16,11 +15,9 @@ let
 
   cfg = config.services.isso;
 
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
   configFile = settingsFormat.generate "isso.conf" cfg.settings;
-in
-{
-
+in {
   options = {
     services.isso = {
       enable = mkEnableOption ''
@@ -59,7 +56,7 @@ in
 
     systemd.services.isso = {
       description = "isso, a commenting server similar to Disqus";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = "isso";
@@ -77,8 +74,8 @@ in
         RestartSec = 1;
 
         # Hardening
-        CapabilityBoundingSet = [ "" ];
-        DeviceAllow = [ "" ];
+        CapabilityBoundingSet = [""];
+        DeviceAllow = [""];
         LockPersonality = true;
         PrivateDevices = true;
         PrivateUsers = true;

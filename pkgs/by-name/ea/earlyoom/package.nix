@@ -10,7 +10,6 @@
   # pandoc is hard to build on your platform.
   withManpage ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "earlyoom";
   version = "1.8.2";
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-HZ7llMNdx2u1a6loIFjXt5QNkYpJp8GqLKxDf9exuzE=";
   };
 
-  outputs = [ "out" ] ++ lib.optionals withManpage [ "man" ];
+  outputs = ["out"] ++ lib.optionals withManpage ["man"];
 
   patches = [
     ./0000-fix-dbus-path.patch
@@ -38,12 +37,14 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = lib.optionals withManpage [ pandoc ];
+  nativeBuildInputs = lib.optionals withManpage [pandoc];
 
-  makeFlags = [
-    "VERSION=${finalAttrs.version}"
-    "PREFIX=${placeholder "out"}"
-  ] ++ lib.optional withManpage "MANDIR=${placeholder "man"}/share/man";
+  makeFlags =
+    [
+      "VERSION=${finalAttrs.version}"
+      "PREFIX=${placeholder "out"}"
+    ]
+    ++ lib.optional withManpage "MANDIR=${placeholder "man"}/share/man";
 
   passthru.tests = {
     inherit (nixosTests) earlyoom;

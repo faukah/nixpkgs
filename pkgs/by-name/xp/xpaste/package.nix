@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "xpaste";
   version = "1.6";
@@ -28,6 +27,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "xpaste";
     homepage = "https://github.com/ossobv/xpaste";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

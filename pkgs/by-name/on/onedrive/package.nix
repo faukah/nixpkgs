@@ -2,13 +2,11 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # native
   autoreconfHook,
   installShellFiles,
   ldc,
   pkg-config,
-
   # host
   coreutils,
   curl,
@@ -17,11 +15,9 @@
   sqlite,
   systemd,
   testers,
-
   # Boolean flags
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "onedrive";
   version = "2.5.6";
@@ -46,12 +42,14 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [
-    curl
-    dbus
-    libnotify
-    sqlite
-  ] ++ lib.optionals withSystemd [ systemd ];
+  buildInputs =
+    [
+      curl
+      dbus
+      libnotify
+      sqlite
+    ]
+    ++ lib.optionals withSystemd [systemd];
 
   configureFlags = [
     (lib.enableFeature true "notifications")

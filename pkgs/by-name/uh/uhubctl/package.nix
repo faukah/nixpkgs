@@ -6,7 +6,6 @@
   pkg-config,
   libusb1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "uhubctl";
   version = "2.6.0";
@@ -23,9 +22,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
-  installFlags = [ "prefix=${placeholder "out"}" ];
+  installFlags = ["prefix=${placeholder "out"}"];
 
   meta = with lib; {
     homepage = "https://github.com/mvp/uhubctl";

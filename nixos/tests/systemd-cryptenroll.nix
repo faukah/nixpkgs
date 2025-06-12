@@ -1,19 +1,20 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "systemd-cryptenroll";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ ymatsiuk ];
+    maintainers = [ymatsiuk];
   };
 
-  nodes.machine =
-    { pkgs, lib, ... }:
-    {
-      environment.systemPackages = [ pkgs.cryptsetup ];
-      virtualisation = {
-        emptyDiskImages = [ 512 ];
-        tpm.enable = true;
-      };
+  nodes.machine = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    environment.systemPackages = [pkgs.cryptsetup];
+    virtualisation = {
+      emptyDiskImages = [512];
+      tpm.enable = true;
     };
+  };
 
   testScript = ''
     machine.start()

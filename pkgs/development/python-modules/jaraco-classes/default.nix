@@ -7,7 +7,6 @@
   more-itertools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jaraco-classes";
   version = "3.4.0";
@@ -22,13 +21,13 @@ buildPythonPackage rec {
     sha256 = "sha256-pXDsLKiEru+UXcEBT4/cP1u8s9vSn1Zhf7Qnwy9Zr0I=";
   };
 
-  pythonNamespaces = [ "jaraco" ];
+  pythonNamespaces = ["jaraco"];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ more-itertools ];
+  propagatedBuildInputs = [more-itertools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Utility functions for Python class constructs";

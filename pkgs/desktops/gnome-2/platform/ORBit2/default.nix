@@ -8,7 +8,6 @@
   libintl,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ORBit2";
   version = "2.14.19";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
   # Processing file orbit-interface.idl
   # sh: gcc: not found
   # output does not contain binaries for build
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     pkg-config
     libintl
@@ -61,7 +60,11 @@ stdenv.mkDerivation rec {
     "ac_cv_alignof_CORBA_short=2"
     "ac_cv_alignof_CORBA_struct=1"
     "ac_cv_alignof_CORBA_wchar=2"
-    "ac_cv_alignof_CORBA_pointer=${if stdenv.hostPlatform.is64bit then "8" else "4"}"
+    "ac_cv_alignof_CORBA_pointer=${
+      if stdenv.hostPlatform.is64bit
+      then "8"
+      else "4"
+    }"
   ];
 
   preBuild = ''
@@ -84,7 +87,7 @@ stdenv.mkDerivation rec {
     homepage = "https://developer-old.gnome.org/ORBit2/";
     description = "CORBA 2.4-compliant Object Request Broker";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
 
     longDescription = ''
       ORBit2 is a CORBA 2.4-compliant Object Request Broker (ORB) featuring

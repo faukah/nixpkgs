@@ -6,7 +6,6 @@
   eigen,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.1.2";
   pname = "libnabo";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/XXRwiLLaEvp+Q+c6lBiuWBb9by6o0pDf8wFtBNp7o8=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     eigen
     boost
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     description = "Fast K Nearest Neighbor library for low-dimensional spaces";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cryptix ];
+    maintainers = with maintainers; [cryptix];
   };
 }

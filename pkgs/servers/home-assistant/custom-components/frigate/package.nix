@@ -2,10 +2,8 @@
   lib,
   fetchFromGitHub,
   buildHomeAssistantComponent,
-
   # dependencies
   hass-web-proxy-lib,
-
   # tests
   homeassistant,
   pytest-aiohttp,
@@ -14,7 +12,6 @@
   pytest-timeout,
   pytestCheckHook,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "blakeblackshear";
   domain = "frigate";
@@ -27,7 +24,7 @@ buildHomeAssistantComponent rec {
     hash = "sha256-XVHw9AjngzbMnzRPJ/VL1Hy0gG3q+rV4Gfh8K7pIW6M=";
   };
 
-  dependencies = [ hass-web-proxy-lib ];
+  dependencies = [hass-web-proxy-lib];
 
   nativeCheckInputs =
     [
@@ -50,7 +47,7 @@ buildHomeAssistantComponent rec {
     description = "Provides Home Assistant integration to interface with a separately running Frigate service";
     homepage = "https://github.com/blakeblackshear/frigate-hass-integration";
     changelog = "https://github.com/blakeblackshear/frigate-hass-integration/releases/tag/v${version}";
-    maintainers = with maintainers; [ presto8 ];
+    maintainers = with maintainers; [presto8];
     license = licenses.mit;
   };
 }

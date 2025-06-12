@@ -6,7 +6,6 @@
   pytest,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   version = "0.3.0";
   format = "setuptools";
@@ -26,12 +25,12 @@ buildPythonPackage rec {
 
   doCheck = false; # both tests access network
 
-  pythonImportsCheck = [ "ci_info" ];
+  pythonImportsCheck = ["ci_info"];
 
   meta = with lib; {
     description = "Gather continuous integration information on the fly";
     homepage = "https://github.com/mgxd/ci-info";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

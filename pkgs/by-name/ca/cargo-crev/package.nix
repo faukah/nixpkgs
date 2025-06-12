@@ -10,7 +10,6 @@
   openssl,
   gitMinimal,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-crev";
   version = "0.26.4";
@@ -37,13 +36,13 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
       curl
     ];
 
-  nativeCheckInputs = [ gitMinimal ];
+  nativeCheckInputs = [gitMinimal];
 
   meta = with lib; {
     description = "Cryptographically verifiable code review system for the cargo (Rust) package manager";

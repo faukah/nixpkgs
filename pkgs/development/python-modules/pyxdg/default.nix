@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchFromGitLab,
 }:
-
 buildPythonPackage rec {
   pname = "pyxdg";
   version = "0.28";
@@ -20,12 +19,12 @@ buildPythonPackage rec {
   # Tests failed (errors=4, failures=4) on NixOS
   doCheck = false;
 
-  pythonImportsCheck = [ "xdg" ];
+  pythonImportsCheck = ["xdg"];
 
   meta = with lib; {
     homepage = "http://freedesktop.org/wiki/Software/pyxdg";
     description = "Contains implementations of freedesktop.org standards";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

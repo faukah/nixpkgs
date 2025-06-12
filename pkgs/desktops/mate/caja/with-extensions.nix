@@ -6,62 +6,60 @@
   xorg,
   caja,
   cajaExtensions,
-  extensions ? [ ],
+  extensions ? [],
   useDefaultExtensions ? true,
-}:
-
-let
+}: let
   selectedExtensions = extensions ++ (lib.optionals useDefaultExtensions cajaExtensions);
 in
-stdenv.mkDerivation {
-  pname = "${caja.pname}-with-extensions";
-  version = caja.version;
+  stdenv.mkDerivation {
+    pname = "${caja.pname}-with-extensions";
+    version = caja.version;
 
-  src = null;
+    src = null;
 
-  nativeBuildInputs = [
-    glib
-    wrapGAppsHook3
-  ];
+    nativeBuildInputs = [
+      glib
+      wrapGAppsHook3
+    ];
 
-  buildInputs =
-    lib.forEach selectedExtensions (x: x.buildInputs)
-    ++ selectedExtensions
-    ++ [ caja ]
-    ++ caja.buildInputs;
+    buildInputs =
+      lib.forEach selectedExtensions (x: x.buildInputs)
+      ++ selectedExtensions
+      ++ [caja]
+      ++ caja.buildInputs;
 
-  dontUnpack = true;
-  dontConfigure = true;
-  dontBuild = true;
+    dontUnpack = true;
+    dontConfigure = true;
+    dontBuild = true;
 
-  preferLocalBuild = true;
-  allowSubstitutes = false;
+    preferLocalBuild = true;
+    allowSubstitutes = false;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out
-    ${xorg.lndir}/bin/lndir -silent ${caja} $out
+      mkdir -p $out
+      ${xorg.lndir}/bin/lndir -silent ${caja} $out
 
-    dbus_service_path="share/dbus-1/services/org.mate.freedesktop.FileManager1.service"
-    rm -f $out/share/applications/* "$out/$dbus_service_path"
-    for file in ${caja}/share/applications/*; do
-      substitute "$file" "$out/share/applications/$(basename $file)" \
+      dbus_service_path="share/dbus-1/services/org.mate.freedesktop.FileManager1.service"
+      rm -f $out/share/applications/* "$out/$dbus_service_path"
+      for file in ${caja}/share/applications/*; do
+        substitute "$file" "$out/share/applications/$(basename $file)" \
+          --replace-fail "${caja}" "$out"
+      done
+      substitute "${caja}/$dbus_service_path" "$out/$dbus_service_path" \
         --replace-fail "${caja}" "$out"
-    done
-    substitute "${caja}/$dbus_service_path" "$out/$dbus_service_path" \
-      --replace-fail "${caja}" "$out"
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  preFixup = lib.optionalString (selectedExtensions != [ ]) ''
-    gappsWrapperArgs+=(
-      --set CAJA_EXTENSION_DIRS ${
+    preFixup = lib.optionalString (selectedExtensions != []) ''
+      gappsWrapperArgs+=(
+        --set CAJA_EXTENSION_DIRS ${
         lib.concatMapStringsSep ":" (x: "${x.outPath}/lib/caja/extensions-2.0") selectedExtensions
       }
-    )
-  '';
+      )
+    '';
 
-  inherit (caja) meta;
-}
+    inherit (caja) meta;
+  }

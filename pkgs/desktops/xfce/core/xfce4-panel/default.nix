@@ -24,7 +24,6 @@
   gobject-introspection,
   vala,
 }:
-
 mkXfceDerivation {
   category = "xfce";
   pname = "xfce4-panel";
@@ -78,6 +77,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Panel for the Xfce desktop environment";
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

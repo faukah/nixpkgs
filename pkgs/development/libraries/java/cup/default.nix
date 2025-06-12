@@ -7,7 +7,6 @@
   makeWrapper,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "java-cup";
   version = "11b-20160615";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  patches = [ ./javacup-0.11b_beta20160615-build-xml-git.patch ];
+  patches = [./javacup-0.11b_beta20160615-build-xml-git.patch];
 
   nativeBuildInputs = [
     ant
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www2.cs.tum.edu/projects/cup/";
     license = lib.licenses.mit;
     mainProgram = "javacup";
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
     platforms = lib.platforms.all;
   };
 })

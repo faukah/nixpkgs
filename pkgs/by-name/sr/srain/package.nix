@@ -19,7 +19,6 @@
   ninja,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "srain";
   version = "1.8.1";
@@ -59,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "https://srain.silverrainz.me";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rewine ];
+    maintainers = with maintainers; [rewine];
   };
 }

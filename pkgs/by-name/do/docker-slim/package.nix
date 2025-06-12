@@ -4,7 +4,6 @@
   fetchFromGitHub,
   makeBinaryWrapper,
 }:
-
 buildGoModule rec {
   pname = "docker-slim";
   version = "1.40.11";
@@ -25,7 +24,7 @@ buildGoModule rec {
     "cmd/slim-sensor"
   ];
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   preBuild = ''
     go generate ./...

@@ -5,12 +5,10 @@
   python,
   pythonOlder,
   setuptools,
-
   # passthru tests
   apache-beam,
   datasets,
 }:
-
 buildPythonPackage rec {
   pname = "dill";
   version = "0.3.9";
@@ -25,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-p+W0ppNMfSgplKsQjaTnTrMvQ5poF/E/xSzsiLf9h58=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   checkPhase = ''
     runHook preCheck
@@ -37,13 +35,13 @@ buildPythonPackage rec {
     inherit apache-beam datasets;
   };
 
-  pythonImportsCheck = [ "dill" ];
+  pythonImportsCheck = ["dill"];
 
   meta = with lib; {
     description = "Serialize all of python (almost)";
     homepage = "https://github.com/uqfoundation/dill/";
     changelog = "https://github.com/uqfoundation/dill/releases/tag/dill-${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ tjni ];
+    maintainers = with maintainers; [tjni];
   };
 }

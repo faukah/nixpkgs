@@ -13,7 +13,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-ndn";
   version = "0.5.0";
@@ -43,17 +42,17 @@ buildPythonPackage rec {
     aiohttp
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonRelaxDeps = [ "lark" ];
+  pythonRelaxDeps = ["lark"];
 
-  pythonImportsCheck = [ "ndn" ];
+  pythonImportsCheck = ["ndn"];
 
   meta = with lib; {
     description = "NDN client library with AsyncIO support";
     homepage = "https://github.com/named-data/python-ndn";
     changelog = "https://github.com/named-data/python-ndn/blob/${src.tag}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

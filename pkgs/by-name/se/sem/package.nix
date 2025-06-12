@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "sem";
   version = "0.31.0";
@@ -16,7 +15,7 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-p8+M+pRp12P7tYlFpXjU94JcJOugQpD8rFdowhonh74=";
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-X main.version=${version}"
@@ -32,7 +31,7 @@ buildGoModule rec {
     homepage = "https://github.com/semaphoreci/cli";
     changelog = "https://github.com/semaphoreci/cli/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ liberatys ];
+    maintainers = with lib.maintainers; [liberatys];
     platforms = lib.platforms.linux;
   };
 }

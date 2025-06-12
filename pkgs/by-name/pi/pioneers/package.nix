@@ -8,7 +8,6 @@
   gtk3,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pioneers";
   version = "15.6";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "Addicting game based on The Settlers of Catan";
     homepage = "https://pio.sourceforge.net/"; # https does not work
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

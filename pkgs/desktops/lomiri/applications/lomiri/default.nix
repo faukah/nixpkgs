@@ -58,7 +58,6 @@
   wrapGAppsHook3,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri";
   version = "0.4.1";
@@ -188,7 +187,7 @@ stdenv.mkDerivation (finalAttrs: {
     qtmultimedia
   ];
 
-  nativeCheckInputs = [ (python3.withPackages (ps: with ps; [ python-dbusmock ])) ];
+  nativeCheckInputs = [(python3.withPackages (ps: with ps; [python-dbusmock]))];
 
   checkInputs = [
     libqtdbustest
@@ -228,26 +227,26 @@ stdenv.mkDerivation (finalAttrs: {
 
     wrapProgram $out/bin/lomiri-greeter-wrapper \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          dbus
-          deviceinfo
-          glib
-        ]
-      } \
+      lib.makeBinPath [
+        coreutils
+        dbus
+        deviceinfo
+        glib
+      ]
+    } \
       --set LOMIRI_BINARY "$out/bin/lomiri"
 
     wrapProgram $out/libexec/Xwayland.lomiri \
-      --prefix PATH : ${lib.makeBinPath [ deviceinfo ]}
+      --prefix PATH : ${lib.makeBinPath [deviceinfo]}
 
     wrapProgram $out/libexec/lomiri-systemd-wrapper \
-      --prefix PATH : ${lib.makeBinPath [ dbus ]}
+      --prefix PATH : ${lib.makeBinPath [dbus]}
   '';
 
   passthru = {
     etcLayoutsFile = "lomiri/keymaps";
     tests = nixosTests.lomiri;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
     greeter = linkFarm "lomiri-greeter" [
       {
         path = "${finalAttrs.finalPackage}/share/lightdm/greeters/lomiri-greeter.desktop";
@@ -268,7 +267,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.com/ubports/development/core/lomiri/-/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl3Only;
     mainProgram = "lomiri";
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
   };
 })

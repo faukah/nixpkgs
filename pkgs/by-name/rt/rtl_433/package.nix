@@ -8,7 +8,6 @@
   rtl-sdr,
   soapysdr-with-plugins,
 }:
-
 stdenv.mkDerivation rec {
   version = "25.02";
   pname = "rtl_433";

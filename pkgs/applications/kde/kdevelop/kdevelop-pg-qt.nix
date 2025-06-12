@@ -7,7 +7,6 @@
   extra-cmake-modules,
   qtbase,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kdevelop-pg-qt";
   version = "2.2.2";
@@ -23,12 +22,12 @@ stdenv.mkDerivation rec {
     extra-cmake-modules
   ];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   dontWrapQtApps = true;
 
   meta = with lib; {
-    maintainers = [ maintainers.ambrop72 ];
+    maintainers = [maintainers.ambrop72];
     platforms = platforms.linux;
     description = "Parser-generator from KDevplatform";
     mainProgram = "kdev-pg-qt";
@@ -37,6 +36,6 @@ stdenv.mkDerivation rec {
       It is used for some KDevelop-languagesupport-plugins (Ruby, PHP, CSS...).
     '';
     homepage = "https://www.kdevelop.org";
-    license = with lib.licenses; [ lgpl2Plus ];
+    license = with lib.licenses; [lgpl2Plus];
   };
 }

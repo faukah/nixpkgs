@@ -7,7 +7,6 @@
   pkg-config,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "preload";
   version = "0.6.4";
@@ -27,9 +26,9 @@ stdenv.mkDerivation rec {
     automake
     pkg-config
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
-  configureFlags = [ "--localstatedir=/var" ];
+  configureFlags = ["--localstatedir=/var"];
 
   postInstall = ''
     make sysconfigdir=$out/etc/conf.d install
@@ -41,6 +40,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Only;
     platforms = lib.platforms.linux;
     mainProgram = "preload";
-    maintainers = with maintainers; [ ldprg ];
+    maintainers = with maintainers; [ldprg];
   };
 }

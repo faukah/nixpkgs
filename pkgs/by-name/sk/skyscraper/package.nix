@@ -6,12 +6,10 @@
   p7zip,
   python3,
   installShellFiles,
-
   # Whether to compile with XDG support
   # (See: https://gemba.github.io/skyscraper/XDG/)
   enableXdg ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "skyscraper";
   version = "3.17.2";
@@ -31,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     installShellFiles
   ];
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   postPatch = lib.optionalString enableXdg ''
     substituteInPlace skyscraper.pro --replace-fail "#DEFINES+=XDG" "DEFINES+=XDG"
@@ -43,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   preFixup = ''
-    qtWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ p7zip ]})
+    qtWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [p7zip]})
     chmod +x $out/bin/*.py
   '';
 
@@ -54,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gemba.github.io/skyscraper/";
     downloadPage = "https://github.com/Gemba/skyscraper/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ashgoldofficial ];
+    maintainers = with lib.maintainers; [ashgoldofficial];
     mainProgram = "Skyscraper";
     platforms = lib.platforms.linux;
   };

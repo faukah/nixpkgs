@@ -17,7 +17,6 @@
   writableTmpDirAsHomeHook,
   xorg,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "universal-android-debloater";
   version = "1.1.2";
@@ -62,10 +61,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
         xorg.libXi
         xorg.libXrandr
       ]
-    } --suffix PATH : ${lib.makeBinPath [ android-tools ]}
+    } --suffix PATH : ${lib.makeBinPath [android-tools]}
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/releases/tag/v${finalAttrs.version}";
@@ -73,7 +72,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation";
     license = lib.licenses.gpl3Only;
     mainProgram = "uad-ng";
-    maintainers = with lib.maintainers; [ lavafroth ];
+    maintainers = with lib.maintainers; [lavafroth];
     platforms = lib.platforms.linux;
   };
 })

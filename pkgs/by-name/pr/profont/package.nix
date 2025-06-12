@@ -4,7 +4,6 @@
   fetchzip,
   xorg,
 }:
-
 stdenv.mkDerivation {
   pname = "profont";
   version = "2019-11";
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ xorg.mkfontscale ];
+  nativeBuildInputs = [xorg.mkfontscale];
 
   installPhase = ''
     mkdir -p "$out/share/fonts/misc"
@@ -44,9 +43,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://tobiasjung.name/profont/";
     description = "Monospaced font created to be a most readable font for programming";
-    maintainers = with maintainers; [ myrl ];
+    maintainers = with maintainers; [myrl];
     license = licenses.mit;
     platforms = platforms.all;
   };
-
 }

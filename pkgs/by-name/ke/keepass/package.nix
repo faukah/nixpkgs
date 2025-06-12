@@ -15,9 +15,8 @@
   glib,
   gtk2,
   makeDesktopItem,
-  plugins ? [ ],
+  plugins ? [],
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "keepass";
   version = "2.57.1";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     mono
     makeWrapper
   ];
-  buildInputs = [ icoutils ];
+  buildInputs = [icoutils];
 
   patches = [
     (replaceVars ./fix-paths.patch {
@@ -53,30 +52,31 @@ stdenv.mkDerivation (finalAttrs: {
   #
   # This derivation patches KeePass to search for plugins in specified
   # plugin derivations in the Nix store and nowhere else.
-  pluginLoadPathsPatch =
-    let
-      inherit (builtins) toString;
-      inherit (lib.strings)
-        readFile
-        concatStrings
-        replaceStrings
-        unsafeDiscardStringContext
-        ;
-      inherit (lib.lists) map length;
-      inherit (lib) add;
+  pluginLoadPathsPatch = let
+    inherit (builtins) toString;
+    inherit
+      (lib.strings)
+      readFile
+      concatStrings
+      replaceStrings
+      unsafeDiscardStringContext
+      ;
+    inherit (lib.lists) map length;
+    inherit (lib) add;
 
-      outputLc = toString (add 7 (length plugins));
-      patchTemplate = readFile ./keepass-plugins.patch;
-      loadTemplate = readFile ./keepass-plugins-load.patch;
-      loads = concatStrings (
-        map (
-          p: replaceStrings [ "$PATH$" ] [ (unsafeDiscardStringContext (toString p)) ] loadTemplate
-        ) plugins
-      );
-    in
-    replaceStrings [ "$OUTPUT_LC$" "$DO_LOADS$" ] [ outputLc loads ] patchTemplate;
+    outputLc = toString (add 7 (length plugins));
+    patchTemplate = readFile ./keepass-plugins.patch;
+    loadTemplate = readFile ./keepass-plugins-load.patch;
+    loads = concatStrings (
+      map (
+        p: replaceStrings ["$PATH$"] [(unsafeDiscardStringContext (toString p))] loadTemplate
+      )
+      plugins
+    );
+  in
+    replaceStrings ["$OUTPUT_LC$" "$DO_LOADS$"] [outputLc loads] patchTemplate;
 
-  passAsFile = [ "pluginLoadPathsPatch" ];
+  passAsFile = ["pluginLoadPathsPatch"];
   postPatch = ''
     sed -i 's/\r*$//' KeePass/Forms/MainForm.cs
     patch -p1 <$pluginLoadPathsPatchPath
@@ -118,7 +118,7 @@ stdenv.mkDerivation (finalAttrs: {
   # is found and does not pollute output path.
   binPaths = lib.concatStringsSep ":" (map (x: x + "/bin") plugins);
 
-  dynlibPath = lib.makeLibraryPath [ gtk2 ];
+  dynlibPath = lib.makeLibraryPath [gtk2];
 
   installPhase = ''
     runHook preInstall
@@ -157,8 +157,8 @@ stdenv.mkDerivation (finalAttrs: {
     icon = "keepass";
     desktopName = "Keepass";
     genericName = "Password manager";
-    categories = [ "Utility" ];
-    mimeTypes = [ "application/x-keepass2" ];
+    categories = ["Utility"];
+    mimeTypes = ["application/x-keepass2"];
   };
 
   meta = {

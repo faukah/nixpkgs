@@ -5,12 +5,11 @@
   gtk-engine-murrine,
   jdupes,
   sassc,
-  accent ? [ "default" ],
+  accent ? ["default"],
   shade ? "dark",
   size ? "standard",
-  tweaks ? [ ],
-}:
-let
+  tweaks ? [],
+}: let
   validAccents = [
     "default"
     "purple"
@@ -43,7 +42,7 @@ let
   single = x: lib.optional (x != null) x;
   pname = "Catppuccin-GTK";
 in
-lib.checkListOfEnum "${pname} Valid theme accent(s)" validAccents accent lib.checkListOfEnum
+  lib.checkListOfEnum "${pname} Valid theme accent(s)" validAccents accent lib.checkListOfEnum
   "${pname} Valid shades"
   validShades
   (single shade)
@@ -55,7 +54,6 @@ lib.checkListOfEnum "${pname} Valid theme accent(s)" validAccents accent lib.che
   "${pname} Valid tweaks"
   validTweaks
   tweaks
-
   stdenv.mkDerivation
   {
     pname = "magnetic-${lib.toLower pname}";
@@ -73,7 +71,7 @@ lib.checkListOfEnum "${pname} Valid theme accent(s)" validAccents accent lib.che
       sassc
     ];
 
-    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+    propagatedUserEnvPkgs = [gtk-engine-murrine];
 
     postPatch = ''
       find -name "*.sh" -print0 | while IFS= read -r -d ''' file; do
@@ -105,7 +103,7 @@ lib.checkListOfEnum "${pname} Valid theme accent(s)" validAccents accent lib.che
       description = "GTK Theme with Catppuccin colour scheme";
       homepage = "https://github.com/Fausto-Korpsvart/Catppuccin-GTK-Theme";
       license = lib.licenses.gpl3Only;
-      maintainers = with lib.maintainers; [ icy-thought ];
+      maintainers = with lib.maintainers; [icy-thought];
       platforms = lib.platforms.all;
     };
   }

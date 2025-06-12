@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "atlantis";
   version = "0.34.0";
@@ -23,10 +22,10 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-1xII3GIQQCku3UzwPJnJu//zAJGuGCOSETR6sU4lPR8=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/atlantis";
   versionCheckProgramArg = "version";
 
@@ -35,6 +34,6 @@ buildGoModule (finalAttrs: {
     description = "Terraform Pull Request Automation";
     mainProgram = "atlantis";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jpotier ];
+    maintainers = with lib.maintainers; [jpotier];
   };
 })

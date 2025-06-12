@@ -8,7 +8,6 @@
   xorg,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ydotool";
   version = "1.0.4";

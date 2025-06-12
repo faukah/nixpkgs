@@ -8,7 +8,6 @@
   wayland-protocols,
   plasma-wayland-protocols,
 }:
-
 mkDerivation {
   pname = "kidletime";
   nativeBuildInputs = [
@@ -21,5 +20,5 @@ mkDerivation {
     wayland-protocols
     plasma-wayland-protocols
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
 }

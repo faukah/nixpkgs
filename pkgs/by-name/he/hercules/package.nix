@@ -9,15 +9,22 @@
   bzip2,
   enableRexx ? stdenv.hostPlatform.isLinux,
   regina,
-}:
-let
-  herculesCpu = if stdenv.hostPlatform.isx86 then "x86" else stdenv.hostPlatform.qemuArch;
-  herculesBits = if stdenv.hostPlatform.is32bit then "32" else "64";
+}: let
+  herculesCpu =
+    if stdenv.hostPlatform.isx86
+    then "x86"
+    else stdenv.hostPlatform.qemuArch;
+  herculesBits =
+    if stdenv.hostPlatform.is32bit
+    then "32"
+    else "64";
 
-  herculesLibDir = if stdenv.hostPlatform.isx86 then "lib" else "lib/${herculesCpu}";
+  herculesLibDir =
+    if stdenv.hostPlatform.isx86
+    then "lib"
+    else "lib/${herculesCpu}";
 
-  mkExtPkg =
-    depName: attrFn:
+  mkExtPkg = depName: attrFn:
     (stdenv.mkDerivation {
       pname = "hercules-${depName}";
 
@@ -41,7 +48,7 @@ let
           --install "$out"
       '';
 
-      nativeBuildInputs = [ cmake ];
+      nativeBuildInputs = [cmake];
 
       enableParallelBuilding = true;
 
@@ -54,7 +61,7 @@ let
         ];
       };
     }).overrideAttrs
-      (default: attrFn default);
+    (default: attrFn default);
 
   crypto = mkExtPkg "crypto" (default: {
     version = "1.0.0";
@@ -96,7 +103,7 @@ let
     };
   });
 
-  extpkgs = runCommand "hercules-extpkgs" { } ''
+  extpkgs = runCommand "hercules-extpkgs" {} ''
     OUTINC="$out/include"
     OUTLIB="$out/${herculesLibDir}"
     mkdir -p "$OUTINC" "$OUTLIB"
@@ -106,58 +113,58 @@ let
     done
   '';
 in
-stdenv.mkDerivation rec {
-  pname = "hercules";
-  version = "4.8";
+  stdenv.mkDerivation rec {
+    pname = "hercules";
+    version = "4.8";
 
-  src = fetchFromGitHub {
-    owner = "SDL-Hercules-390";
-    repo = "hyperion";
-    rev = "Release_${version}";
-    hash = "sha256-3Go5m4/K8d4Vu7Yi8ULQpX83d44fu9XzmG/gClWeUKo=";
-  };
+    src = fetchFromGitHub {
+      owner = "SDL-Hercules-390";
+      repo = "hyperion";
+      rev = "Release_${version}";
+      hash = "sha256-3Go5m4/K8d4Vu7Yi8ULQpX83d44fu9XzmG/gClWeUKo=";
+    };
 
-  postPatch = ''
-    patchShebangs _dynamic_version
-  '';
-
-  nativeBuildInputs = [ libtool ];
-  buildInputs =
-    [
-      (lib.getOutput "lib" libtool)
-      zlib
-      bzip2
-      extpkgs
-    ]
-    ++ lib.optionals enableRexx [
-      regina
-    ];
-
-  configureFlags =
-    [
-      "--enable-extpkgs=${extpkgs}"
-      "--without-included-ltdl"
-      "--enable-ipv6"
-      "--enable-cckd-bzip2"
-      "--enable-het-bzip2"
-    ]
-    ++ lib.optionals enableRexx [
-      "--enable-regina-rexx"
-    ];
-
-  meta = with lib; {
-    homepage = "https://sdl-hercules-390.github.io/html/";
-    description = "IBM mainframe emulator";
-    longDescription = ''
-      Hercules is an open source software implementation of the mainframe
-      System/370 and ESA/390 architectures, in addition to the latest 64-bit
-      z/Architecture. Hercules runs under Linux, Windows, Solaris, FreeBSD, and
-      Mac OS X.
+    postPatch = ''
+      patchShebangs _dynamic_version
     '';
-    license = licenses.qpl;
-    maintainers = with maintainers; [
-      anna328p
-      vifino
-    ];
-  };
-}
+
+    nativeBuildInputs = [libtool];
+    buildInputs =
+      [
+        (lib.getOutput "lib" libtool)
+        zlib
+        bzip2
+        extpkgs
+      ]
+      ++ lib.optionals enableRexx [
+        regina
+      ];
+
+    configureFlags =
+      [
+        "--enable-extpkgs=${extpkgs}"
+        "--without-included-ltdl"
+        "--enable-ipv6"
+        "--enable-cckd-bzip2"
+        "--enable-het-bzip2"
+      ]
+      ++ lib.optionals enableRexx [
+        "--enable-regina-rexx"
+      ];
+
+    meta = with lib; {
+      homepage = "https://sdl-hercules-390.github.io/html/";
+      description = "IBM mainframe emulator";
+      longDescription = ''
+        Hercules is an open source software implementation of the mainframe
+        System/370 and ESA/390 architectures, in addition to the latest 64-bit
+        z/Architecture. Hercules runs under Linux, Windows, Solaris, FreeBSD, and
+        Mac OS X.
+      '';
+      license = licenses.qpl;
+      maintainers = with maintainers; [
+        anna328p
+        vifino
+      ];
+    };
+  }

@@ -5,7 +5,6 @@
   perl,
   taktuk,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.2.2";
   pname = "kanif";
@@ -40,8 +39,7 @@ stdenv.mkDerivation rec {
       for efficiency and scalability.'';
     homepage = "http://taktuk.gforge.inria.fr/kanif";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.bzizou ];
+    maintainers = [lib.maintainers.bzizou];
     platforms = lib.platforms.linux;
   };
-
 }

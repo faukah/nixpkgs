@@ -15,7 +15,6 @@
   kwayland,
   unstableGitUpdater,
 }:
-
 mkDerivation {
   pname = "material-kwin-decoration";
   version = "7-unstable-2023-01-15";
@@ -60,6 +59,6 @@ mkDerivation {
     description = "Material-ish window decoration theme for KWin";
     homepage = "https://github.com/Zren/material-decoration";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

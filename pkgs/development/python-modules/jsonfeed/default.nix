@@ -6,7 +6,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "jsonfeed";
   version = "0.0.1";
@@ -25,19 +24,19 @@ buildPythonPackage rec {
       --replace-fail "install_requires=install_requires," "install_requires=[],"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   # Module has no tests, only a placeholder
   doCheck = false;
 
-  pythonImportsCheck = [ "jsonfeed" ];
+  pythonImportsCheck = ["jsonfeed"];
 
   meta = with lib; {
     description = "Module to process json feed";
     homepage = "https://pypi.org/project/jsonfeed/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -7,7 +7,6 @@
   findlib,
   ocaml_pcre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-inifiles";
   version = "1.2";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     ocaml
     findlib
   ];
-  propagatedBuildInputs = [ ocaml_pcre ];
+  propagatedBuildInputs = [ocaml_pcre];
 
   strictDeps = true;
 

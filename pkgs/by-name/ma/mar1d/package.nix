@@ -11,7 +11,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "MAR1D";
   version = "unstable-2023-02-02";
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://mar1d.com";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ taeer ];
+    maintainers = with lib.maintainers; [taeer];
     platforms = lib.platforms.unix;
   };
 })

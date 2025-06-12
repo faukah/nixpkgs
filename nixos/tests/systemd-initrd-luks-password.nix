@@ -1,41 +1,42 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "systemd-initrd-luks-password";
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      # Use systemd-boot
-      virtualisation = {
-        emptyDiskImages = [
-          512
-          512
-        ];
-        useBootLoader = true;
-        # Booting off the encrypted disk requires an available init script
-        mountHostNixStore = true;
-        useEFIBoot = true;
-      };
-      boot.loader.systemd-boot.enable = true;
-
-      environment.systemPackages = with pkgs; [ cryptsetup ];
-      boot.initrd.systemd = {
-        enable = true;
-        emergencyAccess = true;
-      };
-
-      specialisation.boot-luks.configuration = {
-        boot.initrd.luks.devices = lib.mkVMOverride {
-          # We have two disks and only type one password - key reuse is in place
-          cryptroot.device = "/dev/vdb";
-          cryptroot2.device = "/dev/vdc";
-        };
-        virtualisation.rootDevice = "/dev/mapper/cryptroot";
-        virtualisation.fileSystems."/".autoFormat = true;
-        # test mounting device unlocked in initrd after switching root
-        virtualisation.fileSystems."/cryptroot2".device = "/dev/mapper/cryptroot2";
-      };
+  nodes.machine = {pkgs, ...}: {
+    # Use systemd-boot
+    virtualisation = {
+      emptyDiskImages = [
+        512
+        512
+      ];
+      useBootLoader = true;
+      # Booting off the encrypted disk requires an available init script
+      mountHostNixStore = true;
+      useEFIBoot = true;
     };
+    boot.loader.systemd-boot.enable = true;
+
+    environment.systemPackages = with pkgs; [cryptsetup];
+    boot.initrd.systemd = {
+      enable = true;
+      emergencyAccess = true;
+    };
+
+    specialisation.boot-luks.configuration = {
+      boot.initrd.luks.devices = lib.mkVMOverride {
+        # We have two disks and only type one password - key reuse is in place
+        cryptroot.device = "/dev/vdb";
+        cryptroot2.device = "/dev/vdc";
+      };
+      virtualisation.rootDevice = "/dev/mapper/cryptroot";
+      virtualisation.fileSystems."/".autoFormat = true;
+      # test mounting device unlocked in initrd after switching root
+      virtualisation.fileSystems."/cryptroot2".device = "/dev/mapper/cryptroot2";
+    };
+  };
 
   testScript = ''
     # Create encrypted volume

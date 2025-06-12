@@ -20,7 +20,6 @@
   libsecret,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pika-backup";
   version = "0.7.4";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -77,8 +76,8 @@ stdenv.mkDerivation rec {
     homepage = "https://apps.gnome.org/app/org.gnome.World.PikaBackup";
     changelog = "https://gitlab.gnome.org/World/pika-backup/-/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
-    teams = [ lib.teams.gnome-circle ];
+    maintainers = with lib.maintainers; [dotlambda];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.linux;
   };
 }

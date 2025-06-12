@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "fake-gcs-server";
   version = "1.52.2";
@@ -24,7 +23,7 @@ buildGoModule rec {
   doCheck = false;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -32,6 +31,6 @@ buildGoModule rec {
     homepage = "https://github.com/fsouza/fake-gcs-server";
     license = lib.licenses.bsd2;
     mainProgram = "fake-gcs-server";
-    maintainers = with lib.maintainers; [ jpetrucciani ];
+    maintainers = with lib.maintainers; [jpetrucciani];
   };
 }

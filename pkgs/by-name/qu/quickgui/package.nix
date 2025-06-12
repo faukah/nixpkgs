@@ -28,7 +28,7 @@ flutter.buildFlutterApplication rec {
     ]
   }";
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
 
   postFixup = ''
     for n in 16 32 48 64 128 256 512; do
@@ -61,7 +61,7 @@ flutter.buildFlutterApplication rec {
       flexiondotorg
       heyimnova
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "quickgui";
   };
 }

@@ -14,7 +14,6 @@
   tesseract,
   iana-etc,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "SpamAssassin";
   version = "4.0.1";
@@ -34,7 +33,7 @@ perlPackages.buildPerlPackage rec {
     ./sa_compile-use-perl5lib.patch
   ];
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
   buildInputs =
     (with perlPackages; [
       HTMLParser
@@ -72,7 +71,7 @@ perlPackages.buildPerlPackage rec {
     "ENABLE_SSL=yes"
   ];
 
-  makeMakerFlags = [ "SYSCONFDIR=/etc LOCALSTATEDIR=/var/lib/spamassassin" ];
+  makeMakerFlags = ["SYSCONFDIR=/etc LOCALSTATEDIR=/var/lib/spamassassin"];
 
   checkInputs =
     (with perlPackages; [
@@ -90,7 +89,7 @@ perlPackages.buildPerlPackage rec {
   preCheck = ''
     substituteInPlace t/spamc_x_e.t \
       --replace "/bin/echo" "${coreutils}/bin/echo"
-    export C_INCLUDE_PATH='${lib.makeSearchPathOutput "include" "include" [ libxcrypt ]}'
+    export C_INCLUDE_PATH='${lib.makeSearchPathOutput "include" "include" [libxcrypt]}'
     export HARNESS_OPTIONS="j''${NIX_BUILD_CORES}"
 
     export HOME=$NIX_BUILD_TOP/home
@@ -121,14 +120,14 @@ perlPackages.buildPerlPackage rec {
       makeWrapper "${perlPackages.perl}/bin/perl" "$n" \
         --add-flags "-T $perlFlags $orig" \
         --prefix PATH : ${
-          lib.makeBinPath [
-            gnupg
-            re2c
-            gcc
-            gnumake
-          ]
-        } \
-        --prefix C_INCLUDE_PATH : ${lib.makeSearchPathOutput "include" "include" [ libxcrypt ]}
+      lib.makeBinPath [
+        gnupg
+        re2c
+        gcc
+        gnumake
+      ]
+    } \
+        --prefix C_INCLUDE_PATH : ${lib.makeSearchPathOutput "include" "include" [libxcrypt]}
     done
   '';
 

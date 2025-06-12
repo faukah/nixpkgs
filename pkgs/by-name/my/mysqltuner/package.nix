@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
       --replace-fail '/usr/share' "$out/share"
   '';
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
   dontBuild = true;
 
   installPhase = ''

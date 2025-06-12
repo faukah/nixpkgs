@@ -8,7 +8,6 @@
   setuptools-scm,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-hcl2";
   version = "7.2.1";
@@ -28,17 +27,17 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ lark ];
+  dependencies = [lark];
 
-  pythonImportsCheck = [ "hcl2" ];
+  pythonImportsCheck = ["hcl2"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "A parser for HCL2 written in Python using Lark";
     homepage = "https://github.com/amplify-education/python-hcl2";
     changelog = "https://github.com/amplify-education/python-hcl2/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ shivaraj-bh ];
+    maintainers = with maintainers; [shivaraj-bh];
   };
 }

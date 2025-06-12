@@ -3,7 +3,6 @@
 #   In this case some Micromega tactics will search the user's path for the csdp program and will fail if it is not found.
 # - The exact version can be specified through the `version` argument to
 #   the derivation; it defaults to the latest stable version.
-
 {
   lib,
   stdenv,
@@ -17,9 +16,8 @@
   csdp ? null,
   version,
   rocq-version ? null,
-}@args:
-let
-  lib = import ../../../../build-support/rocq/extra-lib.nix { inherit (args) lib; };
+} @ args: let
+  lib = import ../../../../build-support/rocq/extra-lib.nix {inherit (args) lib;};
 
   release = {
     "9.0.0".sha256 = "sha256-GRwYSvrJGiPD+I82gLOgotb+8Ra5xHZUJGcNwxWqZkU=";
@@ -27,36 +25,43 @@ let
   releaseRev = v: "V${v}";
   fetched =
     import ../../../../build-support/coq/meta-fetch/default.nix
-      {
-        inherit
-          lib
-          stdenv
-          fetchzip
-          fetchurl
-          ;
-      }
-      {
-        inherit release releaseRev;
-        location = {
-          owner = "coq";
-          repo = "coq";
-        };
-      }
-      args.version;
+    {
+      inherit
+        lib
+        stdenv
+        fetchzip
+        fetchurl
+        ;
+    }
+    {
+      inherit release releaseRev;
+      location = {
+        owner = "coq";
+        repo = "coq";
+      };
+    }
+    args.version;
   version = fetched.version;
   rocq-version =
-    args.rocq-version or (if version != "dev" then lib.versions.majorMinor version else "dev");
+    args.rocq-version or (
+      if version != "dev"
+      then lib.versions.majorMinor version
+      else "dev"
+    );
   csdpPatch = lib.optionalString (csdp != null) ''
     substituteInPlace plugins/micromega/sos.ml --replace-warn "; csdp" "; ${csdp}/bin/csdp"
     substituteInPlace plugins/micromega/coq_micromega.ml --replace-warn "System.is_in_system_path \"csdp\"" "true"
   '';
-  ocamlPackages = if customOCamlPackages != null then customOCamlPackages else ocamlPackages_4_14;
+  ocamlPackages =
+    if customOCamlPackages != null
+    then customOCamlPackages
+    else ocamlPackages_4_14;
   ocamlNativeBuildInputs = [
     ocamlPackages.ocaml
     ocamlPackages.findlib
     ocamlPackages.dune_3
   ];
-  ocamlPropagatedBuildInputs = [ ocamlPackages.zarith ];
+  ocamlPropagatedBuildInputs = [ocamlPackages.zarith];
   self = stdenv.mkDerivation {
     pname = "rocq";
     inherit (fetched) version src;
@@ -77,8 +82,8 @@ let
         (mapc (lambda (arg)
           (when (file-directory-p (concat arg "/lib/coq/${rocq-version}/user-contrib"))
             (setenv "ROCQPATH" (concat (getenv "ROCQPATH") ":" arg "/lib/coq/${rocq-version}/user-contrib")))) '(${
-              lib.concatStringsSep " " (map (pkg: "\"${pkg}\"") pkgs)
-            }))
+          lib.concatStringsSep " " (map (pkg: "\"${pkg}\"") pkgs)
+        }))
         ; TODO Abstract this pattern from here and nixBufferBuilders.withPackages!
         (defvar nixpkgs--rocq-buffer-count 0)
         (when (eq nixpkgs--rocq-buffer-count 0)
@@ -113,8 +118,8 @@ let
       '';
     };
 
-    nativeBuildInputs = [ pkg-config ] ++ ocamlNativeBuildInputs;
-    buildInputs = [ ncurses ];
+    nativeBuildInputs = [pkg-config] ++ ocamlNativeBuildInputs;
+    buildInputs = [ncurses];
 
     propagatedBuildInputs = ocamlPropagatedBuildInputs;
 
@@ -182,4 +187,4 @@ let
     };
   };
 in
-self
+  self

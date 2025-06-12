@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "zsh-autocomplete";
   version = "25.03.19";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/marlonrichert/zsh-autocomplete/";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.leona ];
+    maintainers = [maintainers.leona];
   };
 }

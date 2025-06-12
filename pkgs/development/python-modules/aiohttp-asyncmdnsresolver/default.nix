@@ -11,7 +11,6 @@
   setuptools,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "aiohttp-asyncmdnsresolver";
   version = "0.1.1";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-gtB5vnlOVeAFACnhR5DIS5p3caZkOXrollXFINl/7hQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiodns
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiohttp_asyncmdnsresolver" ];
+  pythonImportsCheck = ["aiohttp_asyncmdnsresolver"];
 
   meta = {
     description = "Module to resolve mDNS with aiohttp";
     homepage = "https://github.com/aio-libs/aiohttp-asyncmdnsresolver";
     changelog = "https://github.com/aio-libs/aiohttp-asyncmdnsresolver/blob/${src.rev}/CHANGES.rst";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

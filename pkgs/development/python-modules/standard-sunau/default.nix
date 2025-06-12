@@ -28,14 +28,14 @@ buildPythonPackage rec {
     audioop-lts
   ];
 
-  pythonImportsCheck = [ "sunau" ];
+  pythonImportsCheck = ["sunau"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Standard library sunau redistribution";
     homepage = "https://github.com/youknowone/python-deadlib/tree/main/sunau";
     license = lib.licenses.psfl;
-    maintainers = with lib.maintainers; [ GuillaumeDesforges ];
+    maintainers = with lib.maintainers; [GuillaumeDesforges];
   };
 }

@@ -23,7 +23,6 @@
   libjack2,
   libgbm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "eudic";
   version = "13.5.2";
@@ -84,10 +83,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Authoritative English Dictionary Software Essential Tools for English Learners";
     homepage = "https://www.eudic.net/v4/en/app/eudic";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ onedragon ];
+    maintainers = with lib.maintainers; [onedragon];
     mainProgram = "eudic";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

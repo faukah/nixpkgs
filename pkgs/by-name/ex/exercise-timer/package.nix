@@ -17,7 +17,6 @@
   rustc,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "exercise-timer";
   version = "1.8.4";
@@ -57,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://apps.gnome.org/Hiit/";
     changelog = "https://github.com/mfep/exercise-timer/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     mainProgram = "hiit";
     platforms = lib.platforms.linux;
   };

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "apkid";
   version = "3.0.0";
@@ -22,25 +21,25 @@ python3.pkgs.buildPythonApplication rec {
       --replace "yara-python-dex>=1.0.1" "yara-python"
   '';
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
-  dependencies = with python3.pkgs; [ yara-python ];
+  dependencies = with python3.pkgs; [yara-python];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
   preBuild = ''
     # Prepare the YARA rules
     ${python3.interpreter} prep-release.py
   '';
 
-  pythonImportsCheck = [ "apkid" ];
+  pythonImportsCheck = ["apkid"];
 
   meta = with lib; {
     description = "Android Application Identifier";
     homepage = "https://github.com/rednaga/APKiD";
     changelog = "https://github.com/rednaga/APKiD/releases/tag/${src.tag}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "apkid";
   };
 }

@@ -5,7 +5,6 @@
   pythonOlder,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "pycritty";
   version = "0.4.0";
@@ -23,18 +22,18 @@ buildPythonPackage rec {
       --replace "'install': PostInstallHook," ""
   '';
 
-  propagatedBuildInputs = [ pyyaml ];
+  propagatedBuildInputs = [pyyaml];
 
   # The package does not include any tests to run
   doCheck = false;
 
-  pythonImportsCheck = [ "pycritty" ];
+  pythonImportsCheck = ["pycritty"];
 
   meta = with lib; {
     description = "CLI tool for changing your alacritty configuration on the fly";
     mainProgram = "pycritty";
     homepage = "https://github.com/antoniosarosi/pycritty";
     license = licenses.mit;
-    maintainers = with maintainers; [ jperras ];
+    maintainers = with maintainers; [jperras];
   };
 }

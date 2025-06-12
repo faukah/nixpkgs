@@ -5,7 +5,6 @@
   cmake,
   extra-cmake-modules,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-wayland-protocols";
   version = "1.6.0-deepin.1.2";
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-wayland-protocols";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

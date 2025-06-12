@@ -6,7 +6,6 @@
   pkg-config,
   pcre2,
 }:
-
 buildOctavePackage rec {
   pname = "strings";
   version = "1.3.1";
@@ -38,7 +37,7 @@ buildOctavePackage rec {
     homepage = "https://gnu-octave.github.io/packages/strings/";
     license = lib.licenses.gpl3Plus;
     # Claims to have a freebsd license, but I found none.
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Additional functions for manipulation and analysis of strings";
     # Some pcre symbols claimed to be missing
     broken = stdenv.hostPlatform.isDarwin;

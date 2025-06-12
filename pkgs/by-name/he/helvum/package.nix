@@ -15,7 +15,6 @@
   stdenv,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "helvum";
   version = "0.5.1";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "GTK patchbay for pipewire";
     homepage = "https://gitlab.freedesktop.org/pipewire/helvum";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fufexan ];
+    maintainers = with maintainers; [fufexan];
     platforms = platforms.linux;
     mainProgram = "helvum";
   };

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "doom-bcc";
   version = "unstable-2018-01-04";
@@ -16,9 +15,9 @@ stdenv.mkDerivation {
   };
 
   enableParallelBuilding = true;
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
-  patches = [ ./bcc-warning-fix.patch ];
+  patches = [./bcc-warning-fix.patch];
 
   installPhase = ''
     mkdir -p $out/{bin,lib,share/doc}
@@ -32,6 +31,6 @@ stdenv.mkDerivation {
     mainProgram = "bcc";
     homepage = "https://github.com/wormt/bcc";
     license = licenses.mit;
-    maintainers = with maintainers; [ ertes ];
+    maintainers = with maintainers; [ertes];
   };
 }

@@ -13,7 +13,6 @@
   zlib,
   withLua ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nmap";
   version = "7.97";
@@ -31,7 +30,11 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [
-    (if withLua then "--with-liblua=${lua5_4}" else "--without-liblua")
+    (
+      if withLua
+      then "--with-liblua=${lua5_4}"
+      else "--without-liblua"
+    )
     "--without-ndiff"
     "--without-zenmap"
   ];
@@ -50,7 +53,7 @@ stdenv.mkDerivation rec {
     "CC=${stdenv.cc.targetPrefix}gcc"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     pcre2
     liblinear

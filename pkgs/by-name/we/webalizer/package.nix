@@ -8,7 +8,6 @@
   geoip,
   db,
 }:
-
 stdenv.mkDerivation rec {
   pname = "webalizer";
   version = "2.23.08";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
   #   ld: dns_resolv.o:(.bss+0x20): multiple definition of `system_info'; webalizer.o:(.bss+0x76e0): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  installFlags = [ "MANDIR=\${out}/share/man/man1" ];
+  installFlags = ["MANDIR=\${out}/share/man/man1"];
 
   preConfigure = ''
     substituteInPlace ./configure \

@@ -40,6 +40,6 @@ buildDubPackage rec {
     homepage = "https://github.com/jacob-carlborg/dstep";
     license = licenses.boost;
     mainProgram = "dstep";
-    maintainers = with maintainers; [ imrying ];
+    maintainers = with maintainers; [imrying];
   };
 }

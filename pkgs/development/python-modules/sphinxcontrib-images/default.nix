@@ -7,7 +7,6 @@
   requests,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-images";
   version = "0.9.4";
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Sphinx extension for thumbnails";
     homepage = "https://pypi.org/project/sphinxcontrib-images/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ booxter ];
+    maintainers = with lib.maintainers; [booxter];
   };
 }

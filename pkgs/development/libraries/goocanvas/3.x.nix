@@ -13,7 +13,6 @@
   glib,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "goocanvas";
   version = "3.0.0";
@@ -32,10 +31,10 @@ stdenv.mkDerivation (finalAttrs: {
   patches = [
     # This broke due to the introduction of anubis
     /*
-      (fetchpatch {
-        url = "https://gitlab.gnome.org/Archive/goocanvas/-/commit/d025d0eeae1c5266063bdc1476dbdff121bcfa57.patch";
-        hash = "sha256-9uqqC1uKZF9TDz5dfDTKSRCmjEiuvqkLnZ9w6U+q2TI=";
-      })
+    (fetchpatch {
+      url = "https://gitlab.gnome.org/Archive/goocanvas/-/commit/d025d0eeae1c5266063bdc1476dbdff121bcfa57.patch";
+      hash = "sha256-9uqqC1uKZF9TDz5dfDTKSRCmjEiuvqkLnZ9w6U+q2TI=";
+    })
     */
     ./gcc14-fix.patch
   ];

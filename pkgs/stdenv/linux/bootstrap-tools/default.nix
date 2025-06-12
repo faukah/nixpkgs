@@ -5,9 +5,7 @@
   system,
   bootstrapFiles,
   isFromBootstrapFiles ? false,
-}:
-
-let
+}: let
   maybeDenoteProvenance = lib.optionalAttrs isFromBootstrapFiles {
     passthru = {
       inherit isFromBootstrapFiles;
@@ -25,11 +23,10 @@ let
     extraAttrs = maybeContentAddressed;
   };
   result =
-    if libc == "glibc" then
-      import ./glibc.nix args
-    else if libc == "musl" then
-      import ./musl.nix args
-    else
-      throw "unsupported libc";
+    if libc == "glibc"
+    then import ./glibc.nix args
+    else if libc == "musl"
+    then import ./musl.nix args
+    else throw "unsupported libc";
 in
-result // maybeDenoteProvenance
+  result // maybeDenoteProvenance

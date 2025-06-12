@@ -5,7 +5,6 @@
   lib,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "reflink";
   version = "0.2.2";
@@ -16,11 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-iCN17nMZJ1rl9qahKHQGNl2sHpZDuRrRDlGH0/hCU70=";
   };
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -30,12 +29,12 @@ buildPythonPackage rec {
   # FIXME: These do not work, and I have been unable to figure out why.
   doCheck = false;
 
-  pythonImportsCheck = [ "reflink" ];
+  pythonImportsCheck = ["reflink"];
 
   meta = with lib; {
     description = "Python reflink wraps around platform specific reflink implementations";
     homepage = "https://gitlab.com/rubdos/pyreflink";
     license = licenses.mit;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

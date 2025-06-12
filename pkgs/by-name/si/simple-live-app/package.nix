@@ -7,7 +7,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 flutter332.buildFlutterApplication rec {
   pname = "simple-live-app";
   version = "1.8.6";
@@ -30,7 +29,7 @@ flutter332.buildFlutterApplication rec {
     copyDesktopItems
   ];
 
-  buildInputs = [ mpv ];
+  buildInputs = [mpv];
 
   desktopItems = [
     (makeDesktopItem {
@@ -39,7 +38,7 @@ flutter332.buildFlutterApplication rec {
       icon = "simple-live-app";
       genericName = "Simple-Live";
       desktopName = "Simple-Live";
-      keywords = [ "Simple Live" ];
+      keywords = ["Simple Live"];
     })
   ];
 
@@ -57,8 +56,8 @@ flutter332.buildFlutterApplication rec {
     description = "Simply Watch Live";
     homepage = "https://github.com/xiaoyaocz/dart_simple_live";
     mainProgram = "simple_live_app";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

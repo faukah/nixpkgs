@@ -15,7 +15,6 @@
   maps ? pkgs.crossfire-maps,
   arch ? pkgs.crossfire-arch,
 }:
-
 stdenv.mkDerivation {
   pname = "crossfire-server";
   version = "2025-04";
@@ -36,7 +35,7 @@ stdenv.mkDerivation {
     pkg-config
     python3
   ];
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preConfigure = ''
     ln -s ${arch} lib/arch
@@ -44,7 +43,7 @@ stdenv.mkDerivation {
     sh autogen.sh
   '';
 
-  configureFlags = [ "--with-python=${python3}" ];
+  configureFlags = ["--with-python=${python3}"];
 
   postInstall = ''
     ln -s ${maps} "$out/share/crossfire/maps"
@@ -55,6 +54,6 @@ stdenv.mkDerivation {
     homepage = "http://crossfire.real-time.com/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ToxicFrog ];
+    maintainers = with maintainers; [ToxicFrog];
   };
 }

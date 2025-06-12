@@ -3,26 +3,24 @@
   pkgs,
   config,
   ...
-}:
-
-let
+}: let
   inherit (lib) types;
 
   cfg = config.services.atticd;
 
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
 
   checkedConfigFile =
     pkgs.runCommand "checked-attic-server.toml"
-      {
-        configFile = format.generate "server.toml" cfg.settings;
-      }
-      ''
-        export ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64="$(${lib.getExe pkgs.openssl} genrsa -traditional 4096 | ${pkgs.coreutils}/bin/base64 -w0)"
-        export ATTIC_SERVER_DATABASE_URL="sqlite://:memory:"
-        ${lib.getExe cfg.package} --mode check-config -f $configFile
-        cat <$configFile >$out
-      '';
+    {
+      configFile = format.generate "server.toml" cfg.settings;
+    }
+    ''
+      export ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64="$(${lib.getExe pkgs.openssl} genrsa -traditional 4096 | ${pkgs.coreutils}/bin/base64 -w0)"
+      export ATTIC_SERVER_DATABASE_URL="sqlite://:memory:"
+      ${lib.getExe cfg.package} --mode check-config -f $configFile
+      cat <$configFile >$out
+    '';
 
   atticadmShim = pkgs.writeShellScript "atticadm" ''
     if [ -n "$ATTICADM_PWD" ]; then
@@ -53,24 +51,22 @@ let
       ${atticadmShim} "$@"
   '';
 
-  hasLocalPostgresDB =
-    let
-      url = cfg.settings.database.url or "";
-      localStrings = [
-        "localhost"
-        "127.0.0.1"
-        "/run/postgresql"
-      ];
-      hasLocalStrings = lib.any (lib.flip lib.hasInfix url) localStrings;
-    in
+  hasLocalPostgresDB = let
+    url = cfg.settings.database.url or "";
+    localStrings = [
+      "localhost"
+      "127.0.0.1"
+      "/run/postgresql"
+    ];
+    hasLocalStrings = lib.any (lib.flip lib.hasInfix url) localStrings;
+  in
     config.services.postgresql.enable && lib.hasPrefix "postgresql://" url && hasLocalStrings;
-in
-{
+in {
   options = {
     services.atticd = {
       enable = lib.mkEnableOption "the atticd, the Nix Binary Cache server";
 
-      package = lib.mkPackageOption pkgs "attic-server" { };
+      package = lib.mkPackageOption pkgs "attic-server" {};
 
       environmentFile = lib.mkOption {
         description = ''
@@ -106,7 +102,7 @@ in
           See <https://github.com/zhaofengli/attic/blob/main/server/src/config-template.toml>
         '';
         type = format.type;
-        default = { };
+        default = {};
       };
 
       mode = lib.mkOption {
@@ -168,10 +164,10 @@ in
     };
 
     systemd.services.atticd = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ] ++ lib.optionals hasLocalPostgresDB [ "postgresql.service" ];
-      requires = lib.optionals hasLocalPostgresDB [ "postgresql.service" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"] ++ lib.optionals hasLocalPostgresDB ["postgresql.service"];
+      requires = lib.optionals hasLocalPostgresDB ["postgresql.service"];
+      wants = ["network-online.target"];
 
       serviceConfig = {
         ExecStart = "${lib.getExe cfg.package} -f ${checkedConfigFile} --mode ${cfg.mode}";
@@ -183,7 +179,7 @@ in
         Restart = "on-failure";
         RestartSec = 10;
 
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DeviceAllow = "";
         DevicePolicy = "closed";
         LockPersonality = true;
@@ -202,12 +198,11 @@ in
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         ProtectSystem = "strict";
-        ReadWritePaths =
-          let
-            path = cfg.settings.storage.path;
-            isDefaultStateDirectory = path == "/var/lib/atticd" || lib.hasPrefix "/var/lib/atticd/" path;
-          in
-          lib.optionals (cfg.settings.storage.type or "" == "local" && !isDefaultStateDirectory) [ path ];
+        ReadWritePaths = let
+          path = cfg.settings.storage.path;
+          isDefaultStateDirectory = path == "/var/lib/atticd" || lib.hasPrefix "/var/lib/atticd/" path;
+        in
+          lib.optionals (cfg.settings.storage.type or "" == "local" && !isDefaultStateDirectory) [path];
         RemoveIPC = true;
         RestrictAddressFamilies = [
           "AF_INET"

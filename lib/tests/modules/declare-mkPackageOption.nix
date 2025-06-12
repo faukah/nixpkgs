@@ -1,30 +1,28 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   pkgs.hello = {
     type = "derivation";
     pname = "hello";
   };
-in
-{
+in {
   options = {
-    package = lib.mkPackageOption pkgs "hello" { };
+    package = lib.mkPackageOption pkgs "hello" {};
 
     namedPackage = lib.mkPackageOption pkgs "Hello" {
-      default = [ "hello" ];
+      default = ["hello"];
     };
 
     namedPackageSingletonDefault = lib.mkPackageOption pkgs "Hello" {
       default = "hello";
     };
 
-    pathPackage = lib.mkPackageOption pkgs [ "hello" ] { };
+    pathPackage = lib.mkPackageOption pkgs ["hello"] {};
 
     packageWithExample = lib.mkPackageOption pkgs "hello" {
       example = "pkgs.hello.override { stdenv = pkgs.clangStdenv; }";
     };
 
     packageWithPathExample = lib.mkPackageOption pkgs "hello" {
-      example = [ "hello" ];
+      example = ["hello"];
     };
 
     packageWithExtraDescription = lib.mkPackageOption pkgs "hello" {
@@ -48,21 +46,21 @@ in
       pkgsText = "myPkgs";
     };
 
-    packageFromOtherSet =
-      let
-        myPkgs = {
-          hello = pkgs.hello // {
+    packageFromOtherSet = let
+      myPkgs = {
+        hello =
+          pkgs.hello
+          // {
             pname = "hello-other";
           };
-        };
-      in
-      lib.mkPackageOption myPkgs "hello" { };
+      };
+    in
+      lib.mkPackageOption myPkgs "hello" {};
 
-    packageInvalidIdentifier =
-      let
-        myPkgs."123"."with\"quote" = { inherit (pkgs) hello; };
-      in
-      lib.mkPackageOption myPkgs [ "123" "with\"quote" "hello" ] { };
+    packageInvalidIdentifier = let
+      myPkgs."123"."with\"quote" = {inherit (pkgs) hello;};
+    in
+      lib.mkPackageOption myPkgs ["123" "with\"quote" "hello"] {};
 
     packageInvalidIdentifierExample = lib.mkPackageOption pkgs "hello" {
       example = [

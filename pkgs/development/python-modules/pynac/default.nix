@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchurl,
 }:
-
 buildPythonPackage {
   pname = "pynac";
   version = "0.2";

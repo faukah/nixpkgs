@@ -6,7 +6,6 @@
 # GUI--it produces the "HandbrakeCLI" CLI version only. In the future it would
 # be nice to add the native GUI (and/or the GTK GUI) as an option too, but that
 # requires invoking the Xcode build system, which is non-trivial for now.
-
 {
   stdenv,
   lib,
@@ -82,9 +81,7 @@
   # FDK
   useFdk ? false,
   fdk_aac,
-}:
-
-let
+}: let
   version = "1.9.2";
 
   src = fetchFromGitHub {
@@ -106,8 +103,10 @@ let
       version = ffmpeg-version;
       hash = "sha256-erTkv156VskhYEJWjpWFvHjmcr2hr6qgUi28Ho8NFYk=";
     }).overrideAttrs
-      (old: {
-        patches = (old.patches or [ ]) ++ [
+    (old: {
+      patches =
+        (old.patches or [])
+        ++ [
           "${src}/contrib/ffmpeg/A01-mov-read-name-track-tag-written-by-movenc.patch"
           "${src}/contrib/ffmpeg/A02-movenc-write-3gpp-track-titl-tag.patch"
           "${src}/contrib/ffmpeg/A03-mov-read-3gpp-udta-tags.patch"
@@ -134,7 +133,7 @@ let
           "${src}/contrib/ffmpeg/A28-enable-av1_mf-encoder.patch"
           "${src}/contrib/ffmpeg/A29-Revert-lavc-Check-codec_whitelist-early-in-avcodec_o.patch"
         ];
-      });
+    });
 
   x265-hb = x265.overrideAttrs (old: {
     version = "4.1";
@@ -173,7 +172,8 @@ let
     DATE=1970-01-01 00:00:01 +0000
   '';
 
-  inherit (lib)
+  inherit
+    (lib)
     optional
     optionals
     optionalString
@@ -302,7 +302,7 @@ let
       ++ optional stdenv.hostPlatform.isx86 "--harden";
 
     # NOTE: 2018-12-27: Check NixOS HandBrake test if changing
-    NIX_LDFLAGS = [ "-lx265" ];
+    NIX_LDFLAGS = ["-lx265"];
 
     # meson/ninja are used only for the subprojects, not the toplevel
     dontUseMesonConfigure = true;
@@ -310,21 +310,20 @@ let
     dontUseNinjaBuild = true;
     dontUseNinjaInstall = true;
 
-    makeFlags = [ "--directory=build" ];
+    makeFlags = ["--directory=build"];
 
     passthru = {
       # for convenience
       inherit ffmpeg-hb x265-hb;
 
-      tests.basic-conversion =
-        let
-          # Big Buck Bunny example, licensed under CC Attribution 3.0.
-          testMkv = fetchurl {
-            url = "https://github.com/Matroska-Org/matroska-test-files/blob/cf0792be144ac470c4b8052cfe19bb691993e3a2/test_files/test1.mkv?raw=true";
-            hash = "sha256-CZajCf8glZELnTDVJTsETWNxVCl9330L2n863t9a3cE=";
-          };
-        in
-        runCommand "${pname}-${version}-basic-conversion" { nativeBuildInputs = [ self ]; } ''
+      tests.basic-conversion = let
+        # Big Buck Bunny example, licensed under CC Attribution 3.0.
+        testMkv = fetchurl {
+          url = "https://github.com/Matroska-Org/matroska-test-files/blob/cf0792be144ac470c4b8052cfe19bb691993e3a2/test_files/test1.mkv?raw=true";
+          hash = "sha256-CZajCf8glZELnTDVJTsETWNxVCl9330L2n863t9a3cE=";
+        };
+      in
+        runCommand "${pname}-${version}-basic-conversion" {nativeBuildInputs = [self];} ''
           mkdir -p $out
           cd $out
           HandBrakeCLI -i ${testMkv} -o test.mp4 -e x264 -q 20 -B 160
@@ -361,4 +360,4 @@ let
     };
   };
 in
-self
+  self

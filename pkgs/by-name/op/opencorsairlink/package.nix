@@ -6,15 +6,14 @@
   libusb1,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "OpenCorsairLink";
   version = "unstable-2019-12-23";
 
-  buildInputs = [ libusb1 ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [libusb1];
+  nativeBuildInputs = [pkg-config];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   src = fetchFromGitHub {
     owner = "audiohacked";
@@ -41,7 +40,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/audiohacked/OpenCorsairLink";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "OpenCorsairLink.elf";
   };
 }

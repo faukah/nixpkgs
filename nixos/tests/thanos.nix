@@ -20,7 +20,7 @@ let
       secret_key = s3.secretKey;
       insecure = true;
       signature_version2 = false;
-      put_user_metadata = { };
+      put_user_metadata = {};
       http_config = {
         idle_conn_timeout = "0s";
         insecure_skip_verify = false;
@@ -30,19 +30,16 @@ let
       };
     };
   };
-
 in
-import ./make-test-python.nix {
-  name = "prometheus";
+  import ./make-test-python.nix {
+    name = "prometheus";
 
-  nodes = {
-    prometheus =
-      { pkgs, ... }:
-      {
+    nodes = {
+      prometheus = {pkgs, ...}: {
         virtualisation.diskSize = 2 * 1024;
         virtualisation.memorySize = 2048;
-        environment.systemPackages = [ pkgs.jq ];
-        networking.firewall.allowedTCPPorts = [ grpcPort ];
+        environment.systemPackages = [pkgs.jq];
+        networking.firewall.allowedTCPPorts = [grpcPort];
         services.prometheus = {
           enable = true;
           enableReload = true;
@@ -51,7 +48,7 @@ import ./make-test-python.nix {
               job_name = "prometheus";
               static_configs = [
                 {
-                  targets = [ "127.0.0.1:${toString queryPort}" ];
+                  targets = ["127.0.0.1:${toString queryPort}"];
                   labels = {
                     instance = "localhost";
                   };
@@ -63,7 +60,7 @@ import ./make-test-python.nix {
               scrape_interval = "1s";
               static_configs = [
                 {
-                  targets = [ "127.0.0.1:${toString pushgwPort}" ];
+                  targets = ["127.0.0.1:${toString pushgwPort}"];
                 }
               ];
             }
@@ -132,7 +129,7 @@ import ./make-test-python.nix {
         specialisation = {
           "prometheus-config-change" = {
             configuration = {
-              environment.systemPackages = [ pkgs.yq ];
+              environment.systemPackages = [pkgs.yq];
 
               # This configuration just adds a new prometheus job
               # to scrape the node_exporter metrics of the s3 machine.
@@ -142,7 +139,7 @@ import ./make-test-python.nix {
                     job_name = "s3-node_exporter";
                     static_configs = [
                       {
-                        targets = [ "s3:9100" ];
+                        targets = ["s3:9100"];
                       }
                     ];
                   }
@@ -153,10 +150,8 @@ import ./make-test-python.nix {
         };
       };
 
-    query =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = [ pkgs.jq ];
+      query = {pkgs, ...}: {
+        environment.systemPackages = [pkgs.jq];
         services.thanos.query = {
           enable = true;
           http-address = "0.0.0.0:${toString queryPort}";
@@ -171,9 +166,7 @@ import ./make-test-python.nix {
         };
       };
 
-    store =
-      { pkgs, ... }:
-      {
+      store = {pkgs, ...}: {
         virtualisation.diskSize = 2 * 1024;
         virtualisation.memorySize = 2048;
         environment.systemPackages = with pkgs; [
@@ -202,32 +195,28 @@ import ./make-test-python.nix {
         };
       };
 
-    s3 =
-      { pkgs, ... }:
-      {
+      s3 = {pkgs, ...}: {
         # Minio requires at least 1GiB of free disk space to run.
         virtualisation = {
           diskSize = 2 * 1024;
         };
-        networking.firewall.allowedTCPPorts = [ minioPort ];
+        networking.firewall.allowedTCPPorts = [minioPort];
 
         services.minio = {
           enable = true;
           inherit (s3) accessKey secretKey;
         };
 
-        environment.systemPackages = [ pkgs.minio-client ];
+        environment.systemPackages = [pkgs.minio-client];
 
         services.prometheus.exporters.node = {
           enable = true;
           openFirewall = true;
         };
       };
-  };
+    };
 
-  testScript =
-    { nodes, ... }:
-    ''
+    testScript = {nodes, ...}: ''
       # Before starting the other machines we first make sure that our S3 service is online
       # and has a bucket added for thanos:
       s3.start()
@@ -304,4 +293,4 @@ import ./make-test-python.nix {
           + "grep 'required by thanos'"
       )
     '';
-}
+  }

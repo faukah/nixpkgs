@@ -7,7 +7,6 @@
   readline,
   texinfo,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cgdb";
   version = "0.8.0";
@@ -42,6 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.gpl2Plus;
 
     platforms = with platforms; linux ++ cygwin;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

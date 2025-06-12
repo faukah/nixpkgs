@@ -36,28 +36,26 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  pkgconfigItems =
-    let
-      libtcc-pcitem = {
-        name = "libtcc";
-        inherit (finalAttrs) version;
-        cflags = [ "-I${libtcc-pcitem.variables.includedir}" ];
-        libs = [
-          "-L${libtcc-pcitem.variables.libdir}"
-          "-Wl,--rpath ${libtcc-pcitem.variables.libdir}"
-          "-ltcc"
-        ];
-        variables = {
-          prefix = "${placeholder "out"}";
-          includedir = "${placeholder "dev"}/include";
-          libdir = "${placeholder "lib"}/lib";
-        };
-        description = "Tiny C compiler backend";
+  pkgconfigItems = let
+    libtcc-pcitem = {
+      name = "libtcc";
+      inherit (finalAttrs) version;
+      cflags = ["-I${libtcc-pcitem.variables.includedir}"];
+      libs = [
+        "-L${libtcc-pcitem.variables.libdir}"
+        "-Wl,--rpath ${libtcc-pcitem.variables.libdir}"
+        "-ltcc"
+      ];
+      variables = {
+        prefix = "${placeholder "out"}";
+        includedir = "${placeholder "dev"}/include";
+        libdir = "${placeholder "lib"}/lib";
       };
-    in
-    [
-      (makePkgconfigItem libtcc-pcitem)
-    ];
+      description = "Tiny C compiler backend";
+    };
+  in [
+    (makePkgconfigItem libtcc-pcitem)
+  ];
 
   configureFlags =
     [
@@ -90,29 +88,26 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs texi2pod.pl
   '';
 
-  preConfigure =
-    let
-      # To avoid "malformed 32-bit x.y.z" error on mac when using clang
-      versionIsClean = version: builtins.match "^[0-9]\\.+[0-9]+\\.[0-9]+" version != null;
-    in
-    ''
-      ${
-        if stdenv.hostPlatform.isDarwin && !versionIsClean finalAttrs.version then
-          "echo 'not overwriting VERSION since it would upset ld'"
-        else
-          "echo ${finalAttrs.version} > VERSION"
-      }
-      configureFlagsArray+=("--elfinterp=$(< $NIX_CC/nix-support/dynamic-linker)")
-    '';
+  preConfigure = let
+    # To avoid "malformed 32-bit x.y.z" error on mac when using clang
+    versionIsClean = version: builtins.match "^[0-9]\\.+[0-9]+\\.[0-9]+" version != null;
+  in ''
+    ${
+      if stdenv.hostPlatform.isDarwin && !versionIsClean finalAttrs.version
+      then "echo 'not overwriting VERSION since it would upset ld'"
+      else "echo ${finalAttrs.version} > VERSION"
+    }
+    configureFlagsArray+=("--elfinterp=$(< $NIX_CC/nix-support/dynamic-linker)")
+  '';
 
   installCheckTarget = "test";
 
   # https://www.mail-archive.com/tinycc-devel@nongnu.org/msg10142.html
   preInstallCheck =
     lib.optionalString (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64)
-      ''
-        rm tests/tests2/{108,114}*
-      '';
+    ''
+      rm tests/tests2/{108,114}*
+    '';
 
   meta = {
     homepage = "https://repo.or.cz/tinycc.git";
@@ -138,7 +133,7 @@ stdenv.mkDerivation (finalAttrs: {
 
       With libtcc, you can use TCC as a backend for dynamic code generation.
     '';
-    license = with lib.licenses; [ lgpl21Only ];
+    license = with lib.licenses; [lgpl21Only];
     mainProgram = "tcc";
     maintainers = with lib.maintainers; [
       joachifm
@@ -150,3 +145,4 @@ stdenv.mkDerivation (finalAttrs: {
   };
 })
 # TODO: self-compilation
+

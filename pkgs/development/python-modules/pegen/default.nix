@@ -8,7 +8,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pegen";
   version = "0.3.0";
@@ -28,9 +27,9 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pegen" ];
+  pythonImportsCheck = ["pegen"];
 
   disabledTests =
     [
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/we-like-parsers/pegen";
     changelog = "https://github.com/we-like-parsers/pegen/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

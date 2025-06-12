@@ -7,7 +7,6 @@
   openssl,
   zstd,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rtz";
   version = "0.7.1";
@@ -32,14 +31,14 @@ rustPlatform.buildRustPackage rec {
     zstd
   ];
 
-  buildFeatures = [ "web" ];
+  buildFeatures = ["web"];
 
   meta = with lib; {
     description = "Tool to easily work with timezone lookups via a binary, a library, or a server";
     homepage = "https://github.com/twitchax/rtz";
     changelog = "https://github.com/twitchax/rtz/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "rtz";
   };
 }

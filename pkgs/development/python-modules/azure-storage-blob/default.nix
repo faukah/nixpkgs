@@ -9,7 +9,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-storage-blob";
   version = "12.25.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-TylN3JvEeQmsZriTS9JrUNIAAnixCtgswQl2T9xuDjs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-core

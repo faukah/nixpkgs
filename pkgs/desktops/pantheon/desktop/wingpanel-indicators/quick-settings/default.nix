@@ -21,7 +21,6 @@
   wayland,
   wingpanel,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wingpanel-quick-settings";
   version = "1.1.0";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -74,6 +73,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/elementary/quick-settings";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.pantheon ];
+    teams = [lib.teams.pantheon];
   };
 })

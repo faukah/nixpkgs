@@ -5,11 +5,8 @@
   cmake,
   doxygen,
   zlib,
-}:
-
-let
-  generic =
-    version: sha256:
+}: let
+  generic = version: sha256:
     stdenv.mkDerivation rec {
       pname = "physfs";
       inherit version;
@@ -30,7 +27,7 @@ let
         doxygen
       ];
 
-      buildInputs = [ zlib ];
+      buildInputs = [zlib];
 
       doInstallCheck = true;
 
@@ -47,9 +44,7 @@ let
         platforms = platforms.all;
       };
     };
-
-in
-{
+in {
   physfs_2 = generic "2.1.1" "sha256-hmS/bfszit3kD6B2BjnuV50XKueq2GcRaqyAKLkvfLc=";
   physfs = generic "3.2.0" "sha256-FhFIshX7G3uHEzvHGlDIrXa7Ux6ThQNzVssaENs+JMw=";
 }

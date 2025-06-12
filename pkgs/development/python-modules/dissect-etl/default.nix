@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-etl";
   version = "3.11";
@@ -36,9 +35,9 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dissect.etl" ];
+  pythonImportsCheck = ["dissect.etl"];
 
   disabledTests = [
     # Invalid header magic
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/fox-it/dissect.etl";
     changelog = "https://github.com/fox-it/dissect.etl/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -5,7 +5,6 @@
   ncurses,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openvi";
   version = "7.6.31";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Portable OpenBSD vi for UNIX systems";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     mainProgram = "ovi";
   };
 }

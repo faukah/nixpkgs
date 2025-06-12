@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     description = "Formatter for TLA+ specs";
     homepage = "https://github.com/domodwyer/tlafmt";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ciflire ];
+    maintainers = with lib.maintainers; [ciflire];
     mainProgram = "tlafmt";
   };
 }

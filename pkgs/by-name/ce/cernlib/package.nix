@@ -12,7 +12,6 @@
   xorg,
   libxcrypt,
 }:
-
 stdenv.mkDerivation rec {
   version = "2024.06.12.0";
   pname = "cernlib";
@@ -44,9 +43,8 @@ stdenv.mkDerivation rec {
     export NIX_CFLAGS_COMPILE="$(echo $NIX_CFLAGS_COMPILE | sed 's|-iframework [^ ]*||g')"
   '';
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs =
-    with xorg;
+  nativeBuildInputs = [cmake];
+  buildInputs = with xorg;
     [
       freetype
       gfortran
@@ -71,7 +69,7 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "x86_64-darwin"
     ];
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
     license = lib.licenses.gpl2;
   };
 }

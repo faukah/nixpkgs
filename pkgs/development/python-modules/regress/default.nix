@@ -6,7 +6,6 @@
   rustPlatform,
   libiconv,
 }:
-
 buildPythonPackage rec {
   pname = "regress";
   version = "2025.3.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     maturinBuildHook
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit pname version src;
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "Python bindings to the Rust regress crate, exposing ECMA regular expressions";
     homepage = "https://github.com/Julian/regress";
     license = licenses.mit;
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
   };
 }

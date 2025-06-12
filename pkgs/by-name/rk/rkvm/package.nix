@@ -8,7 +8,6 @@
   makeWrapper,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rkvm";
   version = "0.6.1";
@@ -28,14 +27,14 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
     makeWrapper
   ];
-  buildInputs = [ libevdev ];
+  buildInputs = [libevdev];
 
   postInstall = ''
     install -Dm444 -t "$out/lib/systemd/system" systemd/rkvm-*.service
     install -Dm444 example/server.toml "$out/etc/rkvm/server.example.toml"
     install -Dm444 example/client.toml "$out/etc/rkvm/client.example.toml"
 
-    wrapProgram $out/bin/rkvm-certificate-gen --prefix PATH : ${lib.makeBinPath [ openssl ]}
+    wrapProgram $out/bin/rkvm-certificate-gen --prefix PATH : ${lib.makeBinPath [openssl]}
   '';
 
   passthru.tests = {
@@ -48,6 +47,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/htrefil/rkvm/releases/tag/${version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

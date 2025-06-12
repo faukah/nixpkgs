@@ -1,5 +1,8 @@
-{ lib, config, ... }:
 {
+  lib,
+  config,
+  ...
+}: {
   imports = [
     (lib.doRename {
       from = [
@@ -17,9 +20,9 @@
     })
   ];
   options = {
-    warnings = lib.mkOption { type = lib.types.listOf lib.types.str; };
-    c.d.e = lib.mkOption { };
-    result = lib.mkOption { };
+    warnings = lib.mkOption {type = lib.types.listOf lib.types.str;};
+    c.d.e = lib.mkOption {};
+    result = lib.mkOption {};
   };
   config = {
     a.b = 1234;

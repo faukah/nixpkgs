@@ -8,7 +8,6 @@
   pybind11,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "pybind11-abseil";
   version = "202402.0";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     abseil-cpp
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     description = "Pybind11 bindings for the Abseil C++ Common Libraries";
     homepage = "https://github.com/pybind/pybind11_abseil";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
   };
 }

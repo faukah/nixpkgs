@@ -7,7 +7,6 @@
   poetry-core,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "llama-index-embeddings-gemini";
   version = "0.3.2";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-Ske1mqNVBXYirf3BGFAkZqeFywXntMLHNuR/+pjDupU=";
   };
 
-  pythonRelaxDeps = [ "google-generativeai" ];
+  pythonRelaxDeps = ["google-generativeai"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     google-generativeai
@@ -33,12 +32,12 @@ buildPythonPackage rec {
   # Tests are only available in the mono repo
   doCheck = false;
 
-  pythonImportsCheck = [ "llama_index.embeddings.gemini" ];
+  pythonImportsCheck = ["llama_index.embeddings.gemini"];
 
   meta = with lib; {
     description = "LlamaIndex Llms Integration for Gemini";
     homepage = "https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/embeddings/llama-index-embeddings-gemini";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

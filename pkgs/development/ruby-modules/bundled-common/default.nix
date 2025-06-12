@@ -9,9 +9,7 @@
   buildEnv,
   makeBinaryWrapper,
   bundler,
-}@defs:
-
-{
+} @ defs: {
   name ? null,
   pname ? null,
   version ? null,
@@ -24,23 +22,21 @@
   copyGemFiles ? false, # Copy gem files instead of symlinking
   gemConfig ? defaultGemConfig,
   postBuild ? null,
-  document ? [ ],
-  meta ? { },
+  document ? [],
+  meta ? {},
   groups ? null,
   ignoreCollisions ? false,
-  nativeBuildInputs ? [ ],
-  buildInputs ? [ ],
-  extraConfigPaths ? [ ],
-  passthru ? { },
+  nativeBuildInputs ? [],
+  buildInputs ? [],
+  extraConfigPaths ? [],
+  passthru ? {},
   ...
-}@args:
+} @ args:
+assert name == null -> pname != null; let
+  functions = import ./functions.nix {inherit lib gemConfig;};
 
-assert name == null -> pname != null;
-
-let
-  functions = import ./functions.nix { inherit lib gemConfig; };
-
-  inherit (functions)
+  inherit
+    (functions)
     applyGemConfigs
     bundlerFiles
     composeGemAttrs
@@ -52,26 +48,28 @@ let
   gemFiles = bundlerFiles args;
 
   importedGemset =
-    if builtins.typeOf gemFiles.gemset != "set" then import gemFiles.gemset else gemFiles.gemset;
+    if builtins.typeOf gemFiles.gemset != "set"
+    then import gemFiles.gemset
+    else gemFiles.gemset;
 
-  filteredGemset = filterGemset { inherit ruby groups; } importedGemset;
+  filteredGemset = filterGemset {inherit ruby groups;} importedGemset;
 
   configuredGemset = lib.flip lib.mapAttrs filteredGemset (
     name: attrs:
-    applyGemConfigs (
-      attrs
-      // {
-        inherit ruby document;
-        gemName = name;
-      }
-    )
+      applyGemConfigs (
+        attrs
+        // {
+          inherit ruby document;
+          gemName = name;
+        }
+      )
   );
 
   hasBundler = builtins.hasAttr "bundler" filteredGemset;
 
   bundler =
-    if hasBundler then
-      gems.bundler
+    if hasBundler
+    then gems.bundler
     else
       defs.bundler.override (attrs: {
         inherit ruby;
@@ -80,41 +78,40 @@ let
   gems = lib.flip lib.mapAttrs configuredGemset (name: attrs: buildGem name attrs);
 
   version' =
-    if version != null then
-      version
-    else if pname != null then
-      gems.${pname}.suffix
-    else
-      null;
+    if version != null
+    then version
+    else if pname != null
+    then gems.${pname}.suffix
+    else null;
 
-  name' = if name != null then name else "${pname}-${version'}";
+  name' =
+    if name != null
+    then name
+    else "${pname}-${version'}";
 
-  pname' = if pname != null then pname else name;
+  pname' =
+    if pname != null
+    then pname
+    else name;
 
-  copyIfBundledByPath =
-    {
-      bundledByPath ? false,
-      ...
-    }:
-    (lib.optionalString bundledByPath (
-      assert gemFiles.gemdir != null;
-      "cp -a ${gemFiles.gemdir}/* $out/"
+  copyIfBundledByPath = {bundledByPath ? false, ...}: (
+    lib.optionalString bundledByPath (
+      assert gemFiles.gemdir != null; "cp -a ${gemFiles.gemdir}/* $out/"
     ) # */
-    );
+  );
 
-  maybeCopyAll =
-    pkgname:
+  maybeCopyAll = pkgname:
     lib.optionalString (pkgname != null) (
       let
         mainGem = gems.${pkgname} or (throw "bundlerEnv: gem ${pkgname} not found");
       in
-      copyIfBundledByPath mainGem
+        copyIfBundledByPath mainGem
     );
 
   # We have to normalize the Gemfile.lock, otherwise bundler tries to be
   # helpful by doing so at run time, causing executables to immediately bail
   # out. Yes, I'm serious.
-  confFiles = runCommand "gemfile-and-lockfile" { } ''
+  confFiles = runCommand "gemfile-and-lockfile" {} ''
     mkdir -p $out
     ${maybeCopyAll mainGemName}
     cp ${gemFiles.gemfile} $out/Gemfile || ls -l $out/Gemfile
@@ -123,17 +120,14 @@ let
     ${lib.concatMapStringsSep "\n" (path: "cp -r ${path} $out/") extraConfigPaths}
   '';
 
-  buildGem =
-    name: attrs:
-    (
-      let
-        gemAttrs = composeGemAttrs ruby gems name attrs;
-      in
-      if gemAttrs.type == "path" then
-        pathDerivation (gemAttrs.source // gemAttrs)
-      else
-        buildRubyGem gemAttrs
-    );
+  buildGem = name: attrs: (
+    let
+      gemAttrs = composeGemAttrs ruby gems name attrs;
+    in
+      if gemAttrs.type == "path"
+      then pathDerivation (gemAttrs.source // gemAttrs)
+      else buildRubyGem gemAttrs
+  );
 
   envPaths = lib.attrValues gems ++ lib.optional (!hasBundler) bundler;
 
@@ -149,7 +143,7 @@ let
     version = version';
 
     paths = envPaths;
-    pathsToLink = [ "/lib" ];
+    pathsToLink = ["/lib"];
 
     postBuild =
       genStubsScript (
@@ -162,9 +156,11 @@ let
       )
       + lib.optionalString (postBuild != null) postBuild;
 
-    meta = {
-      platforms = ruby.meta.platforms;
-    } // meta;
+    meta =
+      {
+        platforms = ruby.meta.platforms;
+      }
+      // meta;
 
     passthru = (
       lib.optionalAttrs (pname != null) {
@@ -182,7 +178,7 @@ let
         wrappedRuby = stdenv.mkDerivation {
           name = "wrapped-ruby-${pname'}";
 
-          nativeBuildInputs = [ makeBinaryWrapper ];
+          nativeBuildInputs = [makeBinaryWrapper];
 
           dontUnpack = true;
 
@@ -208,16 +204,15 @@ let
           inherit (ruby) meta;
         };
 
-        env =
-          let
-            irbrc = builtins.toFile "irbrc" ''
-              if !(ENV["OLD_IRBRC"].nil? || ENV["OLD_IRBRC"].empty?)
-                require ENV["OLD_IRBRC"]
-              end
-              require 'rubygems'
-              require 'bundler/setup'
-            '';
-          in
+        env = let
+          irbrc = builtins.toFile "irbrc" ''
+            if !(ENV["OLD_IRBRC"].nil? || ENV["OLD_IRBRC"].empty?)
+              require ENV["OLD_IRBRC"]
+            end
+            require 'rubygems'
+            require 'bundler/setup'
+          '';
+        in
           stdenv.mkDerivation {
             name = "${pname'}-interactive-environment";
             nativeBuildInputs = [
@@ -241,7 +236,8 @@ let
   };
 
   basicEnv =
-    if copyGemFiles then
+    if copyGemFiles
+    then
       runCommand name' basicEnvArgs ''
         mkdir -p $out
         for i in $paths; do
@@ -249,7 +245,6 @@ let
         done
         eval "$postBuild"
       ''
-    else
-      buildEnv basicEnvArgs;
+    else buildEnv basicEnvArgs;
 in
-basicEnv
+  basicEnv

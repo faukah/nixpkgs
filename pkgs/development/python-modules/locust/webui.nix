@@ -7,7 +7,6 @@
   version,
   src,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "locust-ui";
   inherit version src;

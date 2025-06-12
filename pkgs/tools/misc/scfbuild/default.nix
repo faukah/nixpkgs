@@ -8,7 +8,6 @@
   fontforge,
   setuptools,
 }:
-
 buildPythonApplication {
   pname = "scfbuild";
   version = "2.0.0";
@@ -43,7 +42,7 @@ buildPythonApplication {
     description = "SVGinOT color font builder";
     homepage = "https://github.com/13rac1/scfbuild";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     mainProgram = "scfbuild";
   };
 }

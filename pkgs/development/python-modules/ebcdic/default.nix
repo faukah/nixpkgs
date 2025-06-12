@@ -6,7 +6,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ebcdic";
   version = "1.1.1";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/${pname}";
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # https://github.com/roskakori/CodecMapper/issues/18
@@ -35,12 +34,12 @@ buildPythonPackage rec {
     "test_has_ignored_codec_names"
   ];
 
-  pythonImportsCheck = [ "ebcdic" ];
+  pythonImportsCheck = ["ebcdic"];
 
   meta = with lib; {
     description = "Additional EBCDIC codecs";
     homepage = "https://github.com/roskakori/CodecMapper/tree/master/ebcdic";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go-dork";
   version = "1.0.3";
@@ -22,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/dwisiswant0/go-dork";
     changelog = "https://github.com/dwisiswant0/go-dork/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "go-dork";
   };
 }

@@ -1,6 +1,6 @@
 /*
-  The reusable code, and package attributes, between OpenRA engine packages (engine.nix)
-   and out-of-tree mod packages (mod.nix).
+The reusable code, and package attributes, between OpenRA engine packages (engine.nix)
+ and out-of-tree mod packages (mod.nix).
 */
 {
   lib,
@@ -20,10 +20,9 @@
   # It is not necessary to run the game, but it is nicer to be given an error dialog in the case of failure,
   # rather than having to look to the logs why it is not starting.
   zenity,
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     licenses
     maintainers
     makeBinPath
@@ -45,12 +44,12 @@ let
     openal
     SDL2
   ];
-  mkdirp = makeSetupHook {
-    name = "openra-mkdirp-hook";
-  } ./mkdirp.sh;
-
-in
-{
+  mkdirp =
+    makeSetupHook {
+      name = "openra-mkdirp-hook";
+    }
+    ./mkdirp.sh;
+in {
   patchEngine = dir: version: ''
     sed -i \
       -e 's/^VERSION.*/VERSION = ${version}/g' \
@@ -74,7 +73,7 @@ in
   '';
 
   packageAttrs = {
-    buildInputs = [ libGL ];
+    buildInputs = [libGL];
 
     # TODO: Test if this is correct.
     nativeBuildInputs = [
@@ -88,7 +87,7 @@ in
       python3
     ];
 
-    makeFlags = [ "prefix=$(out)" ];
+    makeFlags = ["prefix=$(out)"];
 
     doCheck = true;
 

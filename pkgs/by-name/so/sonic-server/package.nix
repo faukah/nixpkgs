@@ -8,7 +8,6 @@
   sonic-server,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sonic-server";
   version = "1.4.9";
@@ -52,7 +51,7 @@ rustPlatform.buildRustPackage rec {
         package = sonic-server;
       };
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

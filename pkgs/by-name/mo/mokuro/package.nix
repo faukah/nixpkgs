@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "mokuro";
   version = "0.2.2";
@@ -17,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     fetchSubmodules = true;
   };
 
-  build-system = with python3Packages; [ setuptools-scm ];
+  build-system = with python3Packages; [setuptools-scm];
 
   dependencies = with python3Packages; [
     fire
@@ -48,6 +47,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/kha-white/mokuro";
     license = lib.licenses.gpl3Only;
     mainProgram = "mokuro";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

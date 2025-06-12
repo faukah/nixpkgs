@@ -8,7 +8,6 @@
   requests,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "python-picnic-api2";
   version = "1.3.1";
@@ -21,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-xa3Ir3OcePFwXemHSR78HhebtCVPObo9oM0h9K1DIQk=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     requests
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "python_picnic_api2" ];
+  pythonImportsCheck = ["python_picnic_api2"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # tests access the actual API
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Fork of the Unofficial Python wrapper for the Picnic API";
     homepage = "https://github.com/codesalatdev/python-picnic-api";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

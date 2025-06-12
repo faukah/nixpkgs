@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkRemovedOptionModule
     mkOption
     mkPackageOption
@@ -18,10 +17,9 @@ let
   cfg = config.programs.gnupg;
 
   agentSettingsFormat = pkgs.formats.keyValue {
-    mkKeyValue = lib.generators.mkKeyValueDefault { } " ";
+    mkKeyValue = lib.generators.mkKeyValueDefault {} " ";
   };
-in
-{
+in {
   imports = [
     (mkRemovedOptionModule [
       "programs"
@@ -32,7 +30,7 @@ in
   ];
 
   options.programs.gnupg = {
-    package = mkPackageOption pkgs "gnupg" { };
+    package = mkPackageOption pkgs "gnupg" {};
 
     agent.enable = mkOption {
       type = types.bool;
@@ -84,7 +82,7 @@ in
 
     agent.settings = mkOption {
       type = agentSettingsFormat.type;
-      default = { };
+      default = {};
       example = {
         default-cache-ttl = 600;
       };
@@ -116,7 +114,7 @@ in
       unitConfig = {
         Description = "GnuPG cryptographic agent and passphrase cache";
         Documentation = "man:gpg-agent(1)";
-        Requires = [ "sockets.target" ];
+        Requires = ["sockets.target"];
       };
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/gpg-agent --supervised";
@@ -135,7 +133,7 @@ in
         SocketMode = "0600";
         DirectoryMode = "0700";
       };
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
     };
 
     systemd.user.sockets.gpg-agent-ssh = mkIf cfg.agent.enableSSHSupport {
@@ -150,7 +148,7 @@ in
         SocketMode = "0600";
         DirectoryMode = "0700";
       };
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
     };
 
     systemd.user.sockets.gpg-agent-extra = mkIf cfg.agent.enableExtraSocket {
@@ -165,7 +163,7 @@ in
         SocketMode = "0600";
         DirectoryMode = "0700";
       };
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
     };
 
     systemd.user.sockets.gpg-agent-browser = mkIf cfg.agent.enableBrowserSocket {
@@ -180,7 +178,7 @@ in
         SocketMode = "0600";
         DirectoryMode = "0700";
       };
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
     };
 
     systemd.user.services.dirmngr = mkIf cfg.dirmngr.enable {
@@ -205,14 +203,14 @@ in
         SocketMode = "0600";
         DirectoryMode = "0700";
       };
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
     };
 
-    services.dbus.packages = mkIf (lib.elem "gnome3" (cfg.agent.pinentryPackage.flavors or [ ])) [
+    services.dbus.packages = mkIf (lib.elem "gnome3" (cfg.agent.pinentryPackage.flavors or [])) [
       pkgs.gcr
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.interactiveShellInit = ''
       # Bind gpg-agent to this TTY if gpg commands are used.

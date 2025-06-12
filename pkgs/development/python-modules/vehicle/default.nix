@@ -14,7 +14,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "vehicle";
   version = "2.2.2";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
       --replace "0.0.0" "${version}" \
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -52,13 +51,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "vehicle" ];
+  pythonImportsCheck = ["vehicle"];
 
   meta = with lib; {
     description = "Python client providing RDW vehicle information";
     homepage = "https://github.com/frenck/python-vehicle";
     changelog = "https://github.com/frenck/python-vehicle/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

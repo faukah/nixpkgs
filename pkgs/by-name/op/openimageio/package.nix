@@ -14,7 +14,6 @@
   unzip,
   fmt,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openimageio";
   version = "3.0.7.0";
@@ -71,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://openimageio.org";
     description = "Library and tools for reading and writing images";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ yzx9 ];
+    maintainers = with lib.maintainers; [yzx9];
     platforms = lib.platforms.unix;
   };
 })

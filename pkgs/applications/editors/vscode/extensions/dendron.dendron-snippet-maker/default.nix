@@ -1,5 +1,7 @@
-{ lib, vscode-utils }:
-
+{
+  lib,
+  vscode-utils,
+}:
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "dendron-snippet-maker";
@@ -12,6 +14,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=dendron.dendron-snippet-maker";
     homepage = "https://github.com/dendronhq/easy-snippet-maker";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ivyfanchiang ];
+    maintainers = [lib.maintainers.ivyfanchiang];
   };
 }

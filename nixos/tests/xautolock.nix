@@ -1,6 +1,6 @@
 {
   name = "xautolock";
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 
   nodes.machine = {
     imports = [

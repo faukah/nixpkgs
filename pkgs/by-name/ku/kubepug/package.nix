@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubepug";
   version = "1.7.1";
@@ -27,6 +26,6 @@ buildGoModule rec {
     description = "Checks a Kubernetes cluster for objects using deprecated API versions";
     homepage = "https://github.com/kubepug/kubepug";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mausch ];
+    maintainers = with maintainers; [mausch];
   };
 }

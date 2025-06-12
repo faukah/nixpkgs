@@ -34,7 +34,7 @@ buildPgrxExtension (finalAttrs: {
   doCheck = false;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -44,6 +44,6 @@ buildPgrxExtension (finalAttrs: {
     homepage = "https://github.com/pksunkara/pgx_ulid";
     changelog = "https://github.com/pksunkara/pgx_ulid/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ myypo ];
+    maintainers = with lib.maintainers; [myypo];
   };
 })

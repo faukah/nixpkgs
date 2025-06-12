@@ -11,7 +11,6 @@
   augeas,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ocaml-augeas";
   version = "0.6";

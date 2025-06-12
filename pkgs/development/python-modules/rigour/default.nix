@@ -16,7 +16,6 @@
   typing-extensions,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rigour";
   version = "0.8.2";
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "rigour"
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     description = "Data cleaning and validation functions for names, languages, identifiers, etc";
     homepage = "https://opensanctions.github.io/rigour";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

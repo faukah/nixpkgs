@@ -1,20 +1,21 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "btrbk-no-timer";
-  meta.maintainers = with lib.maintainers; [ oxalica ];
+  meta.maintainers = with lib.maintainers; [oxalica];
 
-  nodes.machine =
-    { ... }:
-    {
-      environment.systemPackages = with pkgs; [ btrfs-progs ];
-      services.btrbk.instances.local = {
-        onCalendar = null;
-        settings.volume."/mnt" = {
-          snapshot_dir = "btrbk/local";
-          subvolume = "to_backup";
-        };
+  nodes.machine = {...}: {
+    environment.systemPackages = with pkgs; [btrfs-progs];
+    services.btrbk.instances.local = {
+      onCalendar = null;
+      settings.volume."/mnt" = {
+        snapshot_dir = "btrbk/local";
+        subvolume = "to_backup";
       };
     };
+  };
 
   testScript = ''
     start_all()

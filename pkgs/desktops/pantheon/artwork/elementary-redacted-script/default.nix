@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-redacted-script";
   version = "5.1.0";
@@ -24,14 +23,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Font for concealing text";
     homepage = "https://github.com/elementary/fonts";
     license = licenses.ofl;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
   };
 }

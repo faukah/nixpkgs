@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "spruce";
   version = "1.31.1";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "spruce";
     homepage = "https://github.com/geofffranks/spruce";
     license = licenses.mit;
-    maintainers = with maintainers; [ risson ];
+    maintainers = with maintainers; [risson];
   };
 }

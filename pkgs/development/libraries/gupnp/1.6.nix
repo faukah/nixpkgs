@@ -14,7 +14,6 @@
   libxml2,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gupnp";
   version = "1.6.8";

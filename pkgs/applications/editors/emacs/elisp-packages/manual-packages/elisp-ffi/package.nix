@@ -5,7 +5,6 @@
   melpaBuild,
   pkg-config,
 }:
-
 melpaBuild {
   pname = "elisp-ffi";
   ename = "ffi";
@@ -20,9 +19,9 @@ melpaBuild {
 
   files = ''(:defaults "ffi-glue")'';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libffi ];
+  buildInputs = [libffi];
 
   preBuild = ''
     make CXX=$CXX
@@ -38,6 +37,6 @@ melpaBuild {
       values on to Emacs.
     '';
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

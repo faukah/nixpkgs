@@ -4,7 +4,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildDotnetModule (finalAttrs: {
   pname = "rockstarlang";
   version = "2.0.30";
@@ -37,8 +36,8 @@ buildDotnetModule (finalAttrs: {
     description = "Esoteric programming language whose syntax is inspired by the lyrics to 80s hard rock and heavy metal songs";
     homepage = "https://codewithrockstar.com";
     license = lib.licenses.agpl3Only;
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
-    maintainers = [ lib.maintainers.pinage404 ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
+    maintainers = [lib.maintainers.pinage404];
     mainProgram = "rockstar";
   };
 })

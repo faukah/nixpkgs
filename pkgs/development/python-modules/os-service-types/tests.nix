@@ -7,7 +7,6 @@
   stestr,
   testscenarios,
 }:
-
 buildPythonPackage {
   pname = "os-service-types-tests";
   inherit (os-service-types) version src;

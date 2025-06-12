@@ -1,5 +1,7 @@
-{ buildDunePackage, posix-base }:
-
+{
+  buildDunePackage,
+  posix-base,
+}:
 buildDunePackage {
   pname = "posix-socket";
 
@@ -7,12 +9,13 @@ buildDunePackage {
 
   minimalOCamlVersion = "4.12";
 
-  propagatedBuildInputs = [ posix-base ];
+  propagatedBuildInputs = [posix-base];
 
   doCheck = true;
 
-  meta = posix-base.meta // {
-    description = "Bindings for posix sockets";
-  };
-
+  meta =
+    posix-base.meta
+    // {
+      description = "Bindings for posix sockets";
+    };
 }

@@ -14,7 +14,6 @@
   nix-update-script,
   ninjaRelease ? "latest",
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ninja";
   version =
@@ -22,7 +21,9 @@ stdenv.mkDerivation (finalAttrs: {
       "1.11" = "1.11.1";
       latest = "1.12.1";
     }
-    .${ninjaRelease};
+    .${
+      ninjaRelease
+    };
 
   src = fetchFromGitHub {
     owner = "ninja-build";
@@ -34,10 +35,12 @@ stdenv.mkDerivation (finalAttrs: {
         "1.11" = "sha256-LvV/Fi2ARXBkfyA1paCRmLUwCh/rTyz+tGMg2/qEepI=";
         latest = "sha256-RT5u+TDvWxG5EVQEYj931EZyrHUSAqK73OKDAascAwA=";
       }
-      .${ninjaRelease} or (throw "Unsupported Ninja release: ${ninjaRelease}");
+      .${
+        ninjaRelease
+      } or (throw "Unsupported Ninja release: ${ninjaRelease}");
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   nativeBuildInputs =
     [
@@ -102,7 +105,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   setupHook = ./setup-hook.sh;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Small build system with a focus on speed";

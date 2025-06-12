@@ -8,7 +8,6 @@
   pytestCheckHook,
   sybil,
 }:
-
 buildPythonPackage rec {
   pname = "flufl-i18n";
   version = "4.1.1";
@@ -27,24 +26,24 @@ buildPythonPackage rec {
       --replace "--cov=flufl --cov-report=term --cov-report=xml" ""
   '';
 
-  nativeBuildInputs = [ pdm-pep517 ];
+  nativeBuildInputs = [pdm-pep517];
 
-  propagatedBuildInputs = [ atpublic ];
+  propagatedBuildInputs = [atpublic];
 
-  pythonImportsCheck = [ "flufl.i18n" ];
+  pythonImportsCheck = ["flufl.i18n"];
 
   nativeCheckInputs = [
     pytestCheckHook
     sybil
   ];
 
-  pythonNamespaces = [ "flufl" ];
+  pythonNamespaces = ["flufl"];
 
   meta = with lib; {
     description = "High level API for internationalizing Python libraries and applications";
     homepage = "https://gitlab.com/warsaw/flufl.i18n";
     changelog = "https://gitlab.com/warsaw/flufl.i18n/-/raw/${version}/docs/NEWS.rst";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

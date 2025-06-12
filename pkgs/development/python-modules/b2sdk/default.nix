@@ -18,7 +18,6 @@
   tqdm,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "b2sdk";
   version = "2.8.1";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-KUz/OaFZwJPVNCZ1j73SrpWknQmrvwfr5MLVYxOojZc=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies =
     [
@@ -42,15 +41,17 @@ buildPythonPackage rec {
       logfury
       requests
     ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-    ++ lib.optionals (pythonOlder "3.12") [ typing-extensions ];
+    ++ lib.optionals (pythonOlder "3.8") [importlib-metadata]
+    ++ lib.optionals (pythonOlder "3.12") [typing-extensions];
 
-  nativeCheckInputs = [
-    pytest-lazy-fixtures
-    pytest-mock
-    pytestCheckHook
-    tqdm
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ glibcLocales ];
+  nativeCheckInputs =
+    [
+      pytest-lazy-fixtures
+      pytest-mock
+      pytestCheckHook
+      tqdm
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [glibcLocales];
 
   disabledTestPaths = [
     # requires aws s3 auth
@@ -70,13 +71,13 @@ buildPythonPackage rec {
     "test_sync_folder"
   ];
 
-  pythonImportsCheck = [ "b2sdk" ];
+  pythonImportsCheck = ["b2sdk"];
 
   meta = with lib; {
     description = "Client library and utilities for access to B2 Cloud Storage (backblaze)";
     homepage = "https://github.com/Backblaze/b2-sdk-python";
     changelog = "https://github.com/Backblaze/b2-sdk-python/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ pmw ];
+    maintainers = with maintainers; [pmw];
   };
 }

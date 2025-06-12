@@ -19,7 +19,6 @@
   pytlv,
   cmd2,
 }:
-
 buildPythonPackage {
   pname = "pysim";
   version = "unstable-2023-08-13";
@@ -36,7 +35,7 @@ buildPythonPackage {
     substituteInPlace setup.py --replace 'smpp.pdu @ git+https://github.com/hologram-io/smpp.pdu' 'smpp.pdu'
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     bidict
@@ -55,14 +54,14 @@ buildPythonPackage {
     termcolor
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pySim" ];
+  pythonImportsCheck = ["pySim"];
 
   meta = with lib; {
     description = "Python tool to program SIMs / USIMs / ISIMs";
     homepage = "https://github.com/osmocom/pysim";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

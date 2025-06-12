@@ -16,7 +16,6 @@
   unittest-cpp,
   xa,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libsidplayfp";
   version = "2.14.0";
@@ -29,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-q1cUv4gpzL3wfssP7pWtDfDzFO47+kzpGy4GYLzEM50=";
   };
 
-  outputs = [ "out" ] ++ lib.optionals docSupport [ "doc" ];
+  outputs = ["out"] ++ lib.optionals docSupport ["doc"];
 
   postPatch = ''
     patchShebangs .
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     libgcrypt
   ];
 
-  checkInputs = [ unittest-cpp ];
+  checkInputs = [unittest-cpp];
 
   enableParallelBuilding = true;
 
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Make Doxygen happy with the setup, reduce log noise
   env.FONTCONFIG_FILE = lib.optionalString docSupport (makeFontsConf {
-    fontDirectories = [ ];
+    fontDirectories = [];
   });
 
   preBuild = ''
@@ -75,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     export XDG_CACHE_HOME=$TMPDIR
   '';
 
-  buildFlags = [ "all" ] ++ lib.optionals docSupport [ "doc" ];
+  buildFlags = ["all"] ++ lib.optionals docSupport ["doc"];
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
@@ -86,7 +85,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -99,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/libsidplayfp/libsidplayfp";
     changelog = "https://github.com/libsidplayfp/libsidplayfp/releases/tag/v${finalAttrs.version}";
-    license = with lib.licenses; [ gpl2Plus ];
+    license = with lib.licenses; [gpl2Plus];
     maintainers = with lib.maintainers; [
       ramkromberg
       OPNA2608

@@ -7,7 +7,6 @@
   libsodium,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "libnacl";
   version = "2.1.0";
@@ -20,33 +19,31 @@ buildPythonPackage rec {
     hash = "sha256-phECLGDcBfDi/r2y0eGtqgIX/hvirtBqO8UUvEJ66zo=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  buildInputs = [ libsodium ];
+  buildInputs = [libsodium];
 
-  postPatch =
-    let
-      soext = stdenv.hostPlatform.extensions.sharedLibrary;
-    in
-    ''
-      substituteInPlace "./libnacl/__init__.py" \
-        --replace \
-          "l_path = ctypes.util.find_library('sodium')" \
-          "l_path = None" \
-        --replace \
-          "ctypes.cdll.LoadLibrary('libsodium${soext}')" \
-          "ctypes.cdll.LoadLibrary('${libsodium}/lib/libsodium${soext}')"
-    '';
+  postPatch = let
+    soext = stdenv.hostPlatform.extensions.sharedLibrary;
+  in ''
+    substituteInPlace "./libnacl/__init__.py" \
+      --replace \
+        "l_path = ctypes.util.find_library('sodium')" \
+        "l_path = None" \
+      --replace \
+        "ctypes.cdll.LoadLibrary('libsodium${soext}')" \
+        "ctypes.cdll.LoadLibrary('${libsodium}/lib/libsodium${soext}')"
+  '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "libnacl" ];
+  pythonImportsCheck = ["libnacl"];
 
   meta = with lib; {
     description = "Python bindings for libsodium based on ctypes";
     homepage = "https://libnacl.readthedocs.io/";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ xvapx ];
+    maintainers = with maintainers; [xvapx];
   };
 }

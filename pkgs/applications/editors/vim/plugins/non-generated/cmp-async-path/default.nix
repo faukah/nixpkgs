@@ -17,10 +17,10 @@ vimUtils.buildVimPlugin {
     hash = "sha256-J1Iw7yNfvWq7Jul25Eyx4qk9lSiLpZt4TRvTYi1DXtk=";
   };
 
-  checkInputs = [ vimPlugins.nvim-cmp ];
+  checkInputs = [vimPlugins.nvim-cmp];
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = {

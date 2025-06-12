@@ -7,7 +7,6 @@
   pkg-config,
   fftwFloat,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libspecbleach";
   version = "0.1.6";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "C library for audio noise reduction";
     homepage = "https://github.com/lucianodato/libspecbleach";
     license = licenses.lgpl2;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.unix;
   };
 }

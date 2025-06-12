@@ -9,7 +9,6 @@
   makeWrapper,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fop";
   version = "2.8";

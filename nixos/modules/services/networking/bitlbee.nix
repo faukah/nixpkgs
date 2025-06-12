@@ -3,14 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.bitlbee;
   bitlbeeUid = config.ids.uids.bitlbee;
 
   bitlbeePkg = pkgs.bitlbee.override {
-    enableLibPurple = cfg.libpurple_plugins != [ ];
+    enableLibPurple = cfg.libpurple_plugins != [];
     enablePam = cfg.authBackend == "pam";
   };
 
@@ -31,20 +29,16 @@ let
     ${cfg.extraDefaults}
   '';
 
-  purple_plugin_path = lib.concatMapStringsSep ":" (
-    plugin: "${plugin}/lib/pidgin/:${plugin}/lib/purple-2/"
-  ) cfg.libpurple_plugins;
-
-in
-
-{
-
+  purple_plugin_path =
+    lib.concatMapStringsSep ":" (
+      plugin: "${plugin}/lib/pidgin/:${plugin}/lib/purple-2/"
+    )
+    cfg.libpurple_plugins;
+in {
   ###### interface
 
   options = {
-
     services.bitlbee = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -113,7 +107,7 @@ in
 
       plugins = lib.mkOption {
         type = lib.types.listOf lib.types.package;
-        default = [ ];
+        default = [];
         example = lib.literalExpression "[ pkgs.bitlbee-facebook ]";
         description = ''
           The list of bitlbee plugins to install.
@@ -122,7 +116,7 @@ in
 
       libpurple_plugins = lib.mkOption {
         type = lib.types.listOf lib.types.package;
-        default = [ ];
+        default = [];
         example = lib.literalExpression "[ pkgs.purple-matrix ]";
         description = ''
           The list of libpurple plugins to install.
@@ -162,9 +156,7 @@ in
           Will be inserted in the Default section of the config file.
         '';
       };
-
     };
-
   };
 
   ###### implementation
@@ -174,23 +166,21 @@ in
       systemd.services.bitlbee = {
         environment.PURPLE_PLUGIN_PATH = purple_plugin_path;
         description = "BitlBee IRC to other chat networks gateway";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = {
           DynamicUser = true;
           StateDirectory = "bitlbee";
-          ReadWritePaths = [ cfg.configDir ];
+          ReadWritePaths = [cfg.configDir];
           ExecStart = "${bitlbeePkg}/sbin/bitlbee -F -n -c ${bitlbeeConfig}";
         };
       };
 
-      environment.systemPackages = [ bitlbeePkg ];
-
+      environment.systemPackages = [bitlbeePkg];
     })
     (lib.mkIf (config.services.bitlbee.authBackend == "pam") {
-      security.pam.services.bitlbee = { };
+      security.pam.services.bitlbee = {};
     })
   ];
-
 }

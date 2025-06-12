@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "html-text";
   version = "0.6.2";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-e9gkibQv8mn1Jbt77UmpauOeTqhJQhY9R5Sge/iYi+U=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     lxml
     lxml-html-clean
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "html_text" ];
+  pythonImportsCheck = ["html_text"];
 
   meta = with lib; {
     description = "Extract text from HTML";
     homepage = "https://github.com/zytedata/html-text";
     changelog = "https://github.com/zytedata/html-text/blob/${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

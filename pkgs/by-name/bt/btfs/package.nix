@@ -10,7 +10,6 @@
   libtorrent-rasterbar,
   curl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "btfs";
   version = "3.1";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Bittorrent filesystem based on FUSE";
     homepage = "https://github.com/johang/btfs";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
     platforms = platforms.unix;
   };
 }

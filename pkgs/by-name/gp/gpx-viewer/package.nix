@@ -13,7 +13,6 @@
   gdl,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gpx-viewer";
   version = "0.5.0";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://blog.sarine.nl/tag/gpxviewer/";
@@ -57,6 +56,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/DaveDavenport/gpx-viewer/blob/${src.rev}/NEWS";
     platforms = with platforms; linux;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -26,7 +26,6 @@
   wrapGAppsHook3,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "plank";
   version = "0.11.89";
@@ -86,7 +85,7 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/plank";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ davidak ];
-    teams = [ teams.pantheon ];
+    maintainers = with maintainers; [davidak];
+    teams = [teams.pantheon];
   };
 }

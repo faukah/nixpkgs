@@ -7,7 +7,6 @@
   iptables,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "wg-access-server";
   version = "0.12.1";
@@ -29,9 +28,9 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  checkFlags = [ "-skip=TestDNSProxy_ServeDNS" ];
+  checkFlags = ["-skip=TestDNSProxy_ServeDNS"];
 
   ui = buildNpmPackage {
     inherit version src;
@@ -58,18 +57,18 @@ buildGoModule rec {
   postInstall = ''
     mkdir -p $out/
     wrapProgram  $out/bin/wg-access-server \
-      --prefix PATH : ${lib.makeBinPath [ iptables ]}
+      --prefix PATH : ${lib.makeBinPath [iptables]}
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) wg-access-server; };
+    tests = {inherit (nixosTests) wg-access-server;};
   };
 
   meta = with lib; {
     description = "All-in-one WireGuard VPN solution with a web ui for connecting devices";
     homepage = "https://github.com/freifunkMUC/wg-access-server";
     license = licenses.mit;
-    maintainers = with maintainers; [ xanderio ];
+    maintainers = with maintainers; [xanderio];
     mainProgram = "wg-access-server";
   };
 }

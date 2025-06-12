@@ -17,7 +17,6 @@
   sphinx,
   sphinxcontrib-jquery,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-hoverxref";
   version = "1.3.0";
@@ -53,7 +52,7 @@ buildPythonPackage rec {
     sphinxcontrib-jquery
   ];
 
-  pythonImportsCheck = [ "hoverxref" ];
+  pythonImportsCheck = ["hoverxref"];
 
   meta = with lib; {
     description = "Sphinx extension for creating tooltips on the cross references of the documentation";
@@ -67,6 +66,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/readthedocs/sphinx-hoverxref";
     license = licenses.mit;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

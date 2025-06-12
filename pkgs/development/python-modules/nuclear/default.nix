@@ -10,7 +10,6 @@
   backoff,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "nuclear";
   version = "2.3.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-UeU803SYMBLSWXjuxtWP2R2dBumRom+qsj2ljTiYFm0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
   dependencies = [
     colorama
     pyyaml
@@ -39,12 +38,12 @@ buildPythonPackage rec {
     # Disabled because test tries to install bash in a non-NixOS way
     "tests/autocomplete/test_bash_install.py"
   ];
-  pythonImportsCheck = [ "nuclear" ];
+  pythonImportsCheck = ["nuclear"];
 
   meta = with lib; {
     homepage = "https://igrek51.github.io/nuclear/";
     description = "Binding glue for CLI Python applications";
     license = licenses.mit;
-    maintainers = with maintainers; [ parras ];
+    maintainers = with maintainers; [parras];
   };
 }

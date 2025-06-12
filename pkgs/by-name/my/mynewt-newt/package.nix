@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "mynewt-newt";
   version = "1.10.0";
@@ -12,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "apache";
     repo = "mynewt-newt";
-    rev = "mynewt_${builtins.replaceStrings [ "." ] [ "_" ] version}_tag";
+    rev = "mynewt_${builtins.replaceStrings ["."] ["_"] version}_tag";
     sha256 = "sha256-HWZDs4kYWveEqzPRNGNbghc1Yg6hy/Pq3eU5jW8WdHc=";
   };
 
@@ -29,6 +28,6 @@ buildGoModule rec {
       was developed as a part of the Apache Mynewt Operating System.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ pjones ];
+    maintainers = with maintainers; [pjones];
   };
 }

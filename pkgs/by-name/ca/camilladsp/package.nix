@@ -34,15 +34,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
     rustPlatform.bindgenHook
   ];
 
-  buildInputs = [
-    libpulseaudio
-    openssl
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ alsa-lib ];
+  buildInputs =
+    [
+      libpulseaudio
+      openssl
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [alsa-lib];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--generate-lockfile" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--generate-lockfile"];};
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -51,7 +53,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     changelog = "https://github.com/HEnquist/camilladsp/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ paepcke ];
+    maintainers = with lib.maintainers; [paepcke];
     mainProgram = "camilladsp";
   };
 })

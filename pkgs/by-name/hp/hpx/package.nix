@@ -10,7 +10,6 @@
   pkg-config,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hpx";
   version = "1.10.0";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-yrKG0n5BhrUNXjFWZRpb38/GYQlvMr0PSqUbhmZlgm0=";
   };
 
-  propagatedBuildInputs = [ hwloc ];
+  propagatedBuildInputs = [hwloc];
   buildInputs = [
     asio
     boost
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "C++ standard library for concurrency and parallelism";
     homepage = "https://github.com/STEllAR-GROUP/hpx";
     license = lib.licenses.boost;
-    platforms = [ "x86_64-linux" ]; # lib.platforms.linux;
-    maintainers = with lib.maintainers; [ bobakker ];
+    platforms = ["x86_64-linux"]; # lib.platforms.linux;
+    maintainers = with lib.maintainers; [bobakker];
   };
 }

@@ -9,7 +9,6 @@
   graphviz,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ncbi-vdb";
   version = "3.2.1";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ncbi/ncbi-vdb";
     description = "Libraries for the INSDC Sequence Read Archives";
     license = lib.licenses.ncbiPd;
-    maintainers = with lib.maintainers; [ t4ccer ];
+    maintainers = with lib.maintainers; [t4ccer];
     platforms = lib.platforms.unix;
   };
 })

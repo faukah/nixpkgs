@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "mixbox";
   version = "1.0.5";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-qK3cKOf0s345M1pVFro5NFhDj4lch12UegOY1ZUEOBQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     lxml
@@ -32,11 +31,11 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mixbox" ];
+  pythonImportsCheck = ["mixbox"];
 
-  pytestFlagsArray = [ "test/*.py" ];
+  pytestFlagsArray = ["test/*.py"];
 
   disabledTests = [
     # Tests are out-dated
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/CybOXProject/mixbox";
     changelog = "https://github.com/CybOXProject/mixbox/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "grpc-google-iam-v1";
   version = "0.14.2";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/packages/grpc-google-iam-v1";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     grpcio
     googleapis-common-protos
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "google.iam"
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/google-cloud-python/tree/main/packages/grpc-google-iam-v1";
     changelog = "https://github.com/googleapis/google-cloud-python/blob/${src.tag}/packages/grpc-google-iam-v1/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

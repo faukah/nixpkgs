@@ -12,7 +12,6 @@
   unidecode,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-material";
   version = "0.0.36";
@@ -48,13 +47,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "sphinx_material" ];
+  pythonImportsCheck = ["sphinx_material"];
 
   meta = with lib; {
     description = "Material-based, responsive theme inspired by mkdocs-material";
     homepage = "https://bashtage.github.io/sphinx-material";
     changelog = "https://github.com/bashtage/sphinx-material/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ FlorianFranzen ];
+    maintainers = with maintainers; [FlorianFranzen];
   };
 }

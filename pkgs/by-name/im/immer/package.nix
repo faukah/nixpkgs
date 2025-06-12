@@ -6,7 +6,6 @@
   cmake,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "immer";
   version = "0.8.1";
@@ -31,14 +30,14 @@ stdenv.mkDerivation rec {
   dontBuild = true;
   dontUseCmakeBuildDir = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Postmodern immutable and persistent data structures for C++ — value semantics at scale";
     homepage = "https://sinusoid.es/immer";
     changelog = "https://github.com/arximboldi/immer/releases/tag/v${version}";
     license = lib.licenses.boost;
-    maintainers = with lib.maintainers; [ sifmelcara ];
+    maintainers = with lib.maintainers; [sifmelcara];
     platforms = lib.platforms.all;
   };
 }

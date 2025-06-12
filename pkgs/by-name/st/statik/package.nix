@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "statik";
   version = "0.1.7";
@@ -32,6 +31,6 @@ buildGoModule rec {
     description = "Embed files into a Go executable";
     mainProgram = "statik";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Madouura ];
+    maintainers = with maintainers; [Madouura];
   };
 }

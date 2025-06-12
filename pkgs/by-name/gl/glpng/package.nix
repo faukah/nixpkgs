@@ -8,7 +8,6 @@
   pkg-config,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "glpng";
   version = "1.47";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://repo.or.cz/glpng.git/blob_plain/HEAD:/glpng.htm";
     description = "PNG loader library for OpenGL";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

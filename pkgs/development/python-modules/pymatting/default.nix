@@ -13,7 +13,6 @@
   cupy,
   pyopencl,
 }:
-
 buildPythonPackage rec {
   pname = "pymatting";
   version = "1.1.13";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-AzdhRZgcT+gfLPZYKJLQUW7uLyXoRy6SP2raHWd9XUY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -40,9 +39,9 @@ buildPythonPackage rec {
       pyopencl
     ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pymatting" ];
+  pythonImportsCheck = ["pymatting"];
 
   disabledTests = [
     # no access to input data set
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pymatting/pymatting";
     changelog = "https://github.com/pymatting/pymatting/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -11,7 +11,6 @@
   yq,
   gitUpdater,
 }:
-
 flutter329.buildFlutterApplication rec {
   pname = "musicpod";
   version = "2.12.0";
@@ -30,25 +29,23 @@ flutter329.buildFlutterApplication rec {
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
 
-  gitHashes =
-    let
-      media_kit-hash = "sha256-uSVSLh4E/iUJaxA1JxKRYmDFyMpuoTWTyEwsbJuPldU=";
-    in
-    {
-      audio_service_mpris = "sha256-QRZ4a3w4MZP8/A4yXzP4P9FPwEVNXlntmBwE8I+s2Kk=";
-      media_kit = media_kit-hash;
-      media_kit_libs_video = media_kit-hash;
-      media_kit_video = media_kit-hash;
-      phoenix_theme = "sha256-HGMRQ5wdhoqYNkrjLTfz6mE/dh45IRyuQ79/E4oo+9w=";
-      yaru = "sha256-7frcJOVfeigQZf0t+7DXf92C2eNiG25RdkPk7+i0NUs=";
-    };
+  gitHashes = let
+    media_kit-hash = "sha256-uSVSLh4E/iUJaxA1JxKRYmDFyMpuoTWTyEwsbJuPldU=";
+  in {
+    audio_service_mpris = "sha256-QRZ4a3w4MZP8/A4yXzP4P9FPwEVNXlntmBwE8I+s2Kk=";
+    media_kit = media_kit-hash;
+    media_kit_libs_video = media_kit-hash;
+    media_kit_video = media_kit-hash;
+    phoenix_theme = "sha256-HGMRQ5wdhoqYNkrjLTfz6mE/dh45IRyuQ79/E4oo+9w=";
+    yaru = "sha256-7frcJOVfeigQZf0t+7DXf92C2eNiG25RdkPk7+i0NUs=";
+  };
 
   buildInputs = [
     mpv-unwrapped
     libass
   ];
 
-  runtimeDependencies = [ pulseaudio ];
+  runtimeDependencies = [pulseaudio];
 
   postInstall = ''
     install -Dm644 snap/gui/musicpod.desktop -t $out/share/applications
@@ -58,15 +55,15 @@ flutter329.buildFlutterApplication rec {
   passthru = {
     pubspecSource =
       runCommand "pubspec.lock.json"
-        {
-          nativeBuildInputs = [ yq ];
-          inherit (musicpod) src;
-        }
-        ''
-          cat $src/pubspec.lock | yq > $out
-        '';
+      {
+        nativeBuildInputs = [yq];
+        inherit (musicpod) src;
+      }
+      ''
+        cat $src/pubspec.lock | yq > $out
+      '';
     updateScript = _experimental-update-script-combinators.sequence [
-      (gitUpdater { rev-prefix = "v"; })
+      (gitUpdater {rev-prefix = "v";})
       (_experimental-update-script-combinators.copyAttrOutputToFile "musicpod.pubspecSource" ./pubspec.lock.json)
     ];
   };
@@ -76,7 +73,7 @@ flutter329.buildFlutterApplication rec {
     homepage = "https://github.com/ubuntu-flutter-community/musicpod";
     license = lib.licenses.gpl3Only;
     mainProgram = "musicpod";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 }

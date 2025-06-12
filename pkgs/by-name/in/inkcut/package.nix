@@ -6,7 +6,6 @@
   qt5,
   cups,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "inkcut";
   version = "2.1.6";
@@ -23,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace ", 'lpr', " ", '${cups}/bin/lpr', "
   '';
 
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
 
   propagatedBuildInputs = with python3.pkgs; [
     enamlx
@@ -74,6 +73,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Control 2D plotters, cutters, engravers, and CNC machines";
     mainProgram = "inkcut";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ raboof ];
+    maintainers = with maintainers; [raboof];
   };
 }

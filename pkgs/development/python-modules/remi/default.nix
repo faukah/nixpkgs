@@ -10,7 +10,6 @@
   python-snap7,
   opencv4,
 }:
-
 buildPythonPackage rec {
   pname = "remi";
   version = "2022.7.27";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
         "self.assertEqual("
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -69,7 +68,7 @@ buildPythonPackage rec {
   meta = {
     description = "Pythonic, lightweight and websocket-based webui library";
     homepage = "https://github.com/rawpython/remi";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ pbsds ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [pbsds];
   };
 }

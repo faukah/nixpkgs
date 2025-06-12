@@ -2,7 +2,6 @@
 # SPDX-FileCopyrightText: Lily Foster <lily@lily.flowers>
 # Portions of this code are adapted from nixos-cosmic
 # https://github.com/lilyinstarlight/nixos-cosmic
-
 {
   lib,
   stdenv,
@@ -15,10 +14,8 @@
   xorg,
   wayland,
   vulkan-loader,
-
   includeSettings ? true,
 }:
-
 makeSetupHook {
   name = "libcosmic-app-hook";
 
@@ -28,8 +25,7 @@ makeSetupHook {
   ];
 
   # ensure deps for linking below are available
-  depsTargetTargetPropagated =
-    assert (lib.assertMsg (!targetPackages ? raw) "libcosmicAppHook must be in nativeBuildInputs");
+  depsTargetTargetPropagated = assert (lib.assertMsg (!targetPackages ? raw) "libcosmicAppHook must be in nativeBuildInputs");
     [
       libGL
       libxkbcommon
@@ -76,6 +72,7 @@ makeSetupHook {
 
   meta = {
     description = "Setup hook for configuring and wrapping applications based on libcosmic";
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
   };
-} ./libcosmic-app-hook.sh
+}
+./libcosmic-app-hook.sh

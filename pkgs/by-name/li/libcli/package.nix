@@ -5,7 +5,6 @@
   fetchDebianPatch,
   libxcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcli";
   version = "1.10.7";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "Emulate a Cisco-style telnet command-line interface";
     homepage = "https://dparrish.com/pages/libcli";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     platforms = lib.platforms.linux;
   };
 }

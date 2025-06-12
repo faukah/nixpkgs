@@ -9,7 +9,6 @@
   sqlite,
   zlib,
 }:
-
 stdenv.mkDerivation {
   name = "libdjinterop";
 
@@ -43,7 +42,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/xsco/libdjinterop";
     description = "C++ library for access to DJ record libraries";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ benley ];
+    maintainers = with maintainers; [benley];
     platforms = platforms.unix;
   };
 }

@@ -51,6 +51,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/SagerNet/sing-geosite";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ linsui ];
+    maintainers = with lib.maintainers; [linsui];
   };
 })

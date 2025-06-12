@@ -5,7 +5,6 @@
   numpy,
   scipy,
 }:
-
 buildPythonPackage {
   pname = "apkit";
   version = "unstable-2022-08-23";
@@ -23,7 +22,7 @@ buildPythonPackage {
     scipy
   ];
 
-  pythonImportsCheck = [ "apkit" ];
+  pythonImportsCheck = ["apkit"];
 
   # This package has no tests
   doCheck = false;
@@ -32,6 +31,6 @@ buildPythonPackage {
     description = "Audio processing toolkit";
     homepage = "https://github.com/hwp/apkit";
     license = licenses.mit;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

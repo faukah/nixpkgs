@@ -6,7 +6,6 @@
   openssh,
   gnutar,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rset";
   version = "3.2";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-b797R79aMopiPApTJ4Q3SP2MRjqCcNNO9BIxtuiNZks=";
   };
 
-  patches = [ ./paths.patch ];
+  patches = [./paths.patch];
 
   postPatch = ''
     substituteInPlace rset.c \
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
   '';
 
   dontAddPrefix = true;
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = {
     homepage = "https://scriptedconfiguration.org/";
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/eradman/rset/raw/${version}/NEWS";
     license = lib.licenses.isc;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -4,7 +4,6 @@
   buildDunePackage,
   result,
 }:
-
 buildDunePackage rec {
   pname = "linenoise";
   version = "1.5.1";
@@ -18,12 +17,12 @@ buildDunePackage rec {
     sha256 = "sha256-yWBWMbk1anXaF4hIakTOcRZFCYmxI0xG3bHFFOAyEDA=";
   };
 
-  propagatedBuildInputs = [ result ];
+  propagatedBuildInputs = [result];
 
   meta = {
     description = "OCaml bindings to linenoise";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     inherit (src.meta) homepage;
   };
 }

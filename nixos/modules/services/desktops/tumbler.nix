@@ -4,39 +4,28 @@
   pkgs,
   lib,
   ...
-}:
-let
-
+}: let
   cfg = config.services.tumbler;
-
-in
-
-{
-
+in {
   imports = [
-    (lib.mkRemovedOptionModule [ "services" "tumbler" "package" ] "")
+    (lib.mkRemovedOptionModule ["services" "tumbler" "package"] "")
   ];
 
   meta = with lib; {
-    maintainers = with lib.maintainers; [ ] ++ lib.teams.pantheon.members;
+    maintainers = with lib.maintainers; [] ++ lib.teams.pantheon.members;
   };
 
   ###### interface
 
   options = {
-
     services.tumbler = {
-
       enable = lib.mkEnableOption "Tumbler, A D-Bus thumbnailer service";
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     environment.systemPackages = with pkgs.xfce; [
       tumbler
     ];
@@ -44,7 +33,5 @@ in
     services.dbus.packages = with pkgs.xfce; [
       tumbler
     ];
-
   };
-
 }

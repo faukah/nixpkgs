@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 php82.buildComposerProject2 (finalAttrs: {
   pname = "robo";
   version = "5.1.0";
@@ -30,6 +29,6 @@ php82.buildComposerProject2 (finalAttrs: {
     homepage = "https://github.com/consolidation/robo";
     license = lib.licenses.mit;
     mainProgram = "robo";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 })

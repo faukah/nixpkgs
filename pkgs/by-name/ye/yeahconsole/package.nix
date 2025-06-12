@@ -5,7 +5,6 @@
   libX11,
   libXrandr,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "yeahconsole";
   version = "0.1.3";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Turns an xterm into a gamelike console";
     homepage = "https://github.com/jceb/yeahconsole";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ jceb ];
+    maintainers = with lib.maintainers; [jceb];
     platforms = lib.platforms.all;
     broken = stdenv.hostPlatform.isDarwin;
   };

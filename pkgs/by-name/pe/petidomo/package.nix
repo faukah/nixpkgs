@@ -7,7 +7,6 @@
   sendmailPath ? "/run/wrappers/bin/sendmail",
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "petidomo";
   version = "4.3";
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     bison
   ];
 
-  configureFlags = [ "--with-mta=${sendmailPath}" ];
+  configureFlags = ["--with-mta=${sendmailPath}"];
 
   # test.c:43:11: error: implicit declaration of function 'gets'; did you mean 'fgets'?
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = true;
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   meta = {
     homepage = "https://petidomo.sourceforge.net/";
@@ -40,6 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Plus;
 
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.peti ];
+    maintainers = [lib.maintainers.peti];
   };
 })

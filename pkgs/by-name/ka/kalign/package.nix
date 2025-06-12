@@ -8,7 +8,6 @@
   enableAvx ? stdenv.hostPlatform.avxSupport,
   enableAvx2 ? stdenv.hostPlatform.avx2Support,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kalign";
   version = "3.4.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/TimoLassmann/kalign";
     changelog = "https://github.com/TimoLassmann/kalign/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     platforms = lib.platforms.unix;
   };
 })

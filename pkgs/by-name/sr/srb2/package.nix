@@ -17,7 +17,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "srb2";
   version = "2.2.15";
@@ -88,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
       comment = finalAttrs.meta.description;
       desktopName = name;
       genericName = name;
-      categories = [ "Game" ];
+      categories = ["Game"];
       startupWMClass = ".srb2-wrapped";
     })
   ];

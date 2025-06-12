@@ -1,21 +1,18 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
-  {
+  {pkgs, ...}: {
     name = "ccache";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ ehmry ];
+      maintainers = [ehmry];
     };
 
-    nodes.machine =
-      { ... }:
-      {
-        imports = [ ../modules/profiles/minimal.nix ];
-        environment.systemPackages = [ pkgs.hello ];
-        programs.ccache = {
-          enable = true;
-          packageNames = [ "hello" ];
-        };
+    nodes.machine = {...}: {
+      imports = [../modules/profiles/minimal.nix];
+      environment.systemPackages = [pkgs.hello];
+      programs.ccache = {
+        enable = true;
+        packageNames = ["hello"];
       };
+    };
 
     testScript = ''
       start_all()

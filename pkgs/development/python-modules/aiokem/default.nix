@@ -11,7 +11,6 @@
   setuptools,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "aiokem";
   version = "1.1.4";
@@ -26,14 +25,14 @@ buildPythonPackage rec {
     hash = "sha256-4LbpTov81LMr4V8jMgttlUCyHWJoR6tExOvt8X4Telc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
     pyjwt
   ];
 
-  pythonImportsCheck = [ "aiokem" ];
+  pythonImportsCheck = ["aiokem"];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "Async API for Kohler Energy Management";
     homepage = "https://github.com/kohlerlibs/aiokem";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

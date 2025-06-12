@@ -11,7 +11,6 @@
   glib,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "st-snazzy";
   version = "0.8.5-unstable-2024-09-06";
@@ -23,7 +22,7 @@ stdenv.mkDerivation {
     hash = "sha256-wohkmDsm26kqFGQKuY6NuBQsifT7nZNgrLqLFsU+Vog=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     fontconfig
     harfbuzz
@@ -34,14 +33,14 @@ stdenv.mkDerivation {
     glib
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
   env.TERMINFO = "${placeholder "out"}/share/terminfo";
 
   meta = {
     homepage = "https://github.com/siduck/st";
     description = "snazzy terminal (suckless + beautiful)";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pouya ];
+    maintainers = with lib.maintainers; [pouya];
     platforms = lib.platforms.linux;
   };
 }

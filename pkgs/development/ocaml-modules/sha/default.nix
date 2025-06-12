@@ -6,7 +6,6 @@
   stdlib-shims,
   ounit2,
 }:
-
 buildDunePackage rec {
   pname = "sha";
   version = "1.15.4";
@@ -29,6 +28,6 @@ buildDunePackage rec {
     description = "Binding for SHA interface code in OCaml";
     homepage = "https://github.com/djs55/ocaml-sha/";
     license = licenses.isc;
-    maintainers = with maintainers; [ arthurteisseire ];
+    maintainers = with maintainers; [arthurteisseire];
   };
 }

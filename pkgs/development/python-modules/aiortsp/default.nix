@@ -2,19 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   dpkt,
-
   # tests
   mock,
   pytestCheckHook,
   pytest-asyncio,
 }:
-
 buildPythonPackage rec {
   pname = "aiortsp";
   version = "1.4.0";
@@ -27,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-/ydsu+53WOocdWk3AW0/cXBEx1qAlhIC0LUDy459pbQ=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ dpkt ];
+  propagatedBuildInputs = [dpkt];
 
   nativeCheckInputs = [
     mock
@@ -42,13 +38,13 @@ buildPythonPackage rec {
     "tests/test_connection.py"
   ];
 
-  pythonImportsCheck = [ "aiortsp" ];
+  pythonImportsCheck = ["aiortsp"];
 
   meta = with lib; {
     description = "Asyncio-based RTSP library";
     homepage = "https://github.com/marss/aiortsp";
     changelog = "https://github.com/marss/aiortsp/blob/${src.rev}/CHANGELOG.rst";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

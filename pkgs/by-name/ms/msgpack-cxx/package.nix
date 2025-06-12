@@ -6,7 +6,6 @@
   boost,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "msgpack-cxx";
   version = "7.0.0";
@@ -28,10 +27,12 @@ stdenv.mkDerivation (finalAttrs: {
     boost
   ];
 
-  cmakeFlags = [
-    "-DMSGPACK_BUILD_DOCS=OFF" # docs are not installed even if built
-    "-DMSGPACK_CXX20=ON"
-  ] ++ lib.optional finalAttrs.finalPackage.doCheck "-DMSGPACK_BUILD_TESTS=ON";
+  cmakeFlags =
+    [
+      "-DMSGPACK_BUILD_DOCS=OFF" # docs are not installed even if built
+      "-DMSGPACK_CXX20=ON"
+    ]
+    ++ lib.optional finalAttrs.finalPackage.doCheck "-DMSGPACK_BUILD_TESTS=ON";
 
   checkInputs = [
     zlib
@@ -44,6 +45,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/msgpack/msgpack-c";
     changelog = "https://github.com/msgpack/msgpack-c/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = licenses.boost;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 })

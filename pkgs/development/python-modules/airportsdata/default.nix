@@ -5,7 +5,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "airportsdata";
   version = "20250523";
@@ -18,15 +17,15 @@ buildPythonPackage rec {
     hash = "sha256-eODrcu/M1jvaLezxxuwKjh066DEnZKhbqlZJZgfI894=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "airportsdata" ];
+  pythonImportsCheck = ["airportsdata"];
 
   meta = {
     description = "Extensive database of location and timezone data for nearly every operational airport";
     homepage = "https://github.com/mborsetti/airportsdata/";
     changelog = "https://github.com/mborsetti/airportsdata/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ danieldk ];
+    maintainers = with lib.maintainers; [danieldk];
   };
 }

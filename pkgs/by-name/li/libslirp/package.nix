@@ -7,7 +7,6 @@
   pkg-config,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libslirp";
   version = "4.9.0";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   postPatch = ''
     echo ${version} > .tarball-version
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "General purpose TCP-IP emulator";
     homepage = "https://gitlab.freedesktop.org/slirp/libslirp";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.unix;
   };
 }

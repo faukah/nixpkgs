@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Simple tool to retrieve the X screensaver state";
     license = licenses.mit;
-    maintainers = with maintainers; [ onemoresuza ];
+    maintainers = with maintainers; [onemoresuza];
     platforms = platforms.linux;
     mainProgram = "xssstate";
   };

@@ -6,7 +6,6 @@
   stdlib,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "autosubst";
 
@@ -17,8 +16,7 @@ mkCoqDerivation {
   release."1.9".sha256 = "sha256-XiLZjMc+1iwRGOstfLm/WQRF6FTdX6oJr5urn3wmLlA=";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = range "8.14" "9.0";
@@ -32,7 +30,8 @@ mkCoqDerivation {
         case = range "8.10" "8.13";
         out = "1.7";
       }
-    ] null;
+    ]
+    null;
 
   propagatedBuildInputs = [
     mathcomp-boot

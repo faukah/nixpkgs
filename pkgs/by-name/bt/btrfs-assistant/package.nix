@@ -14,7 +14,6 @@
   enableSnapper ? true,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "btrfs-assistant";
   version = "2.1.1";
@@ -33,15 +32,17 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.wrapQtAppsHook
   ];
 
-  buildInputs = [
-    btrfs-progs
-    coreutils
-    qt6.qtbase
-    qt6.qtsvg
-    qt6.qttools
-    qt6.qtwayland
-    util-linux
-  ] ++ lib.optionals enableSnapper [ snapper ];
+  buildInputs =
+    [
+      btrfs-progs
+      coreutils
+      qt6.qtbase
+      qt6.qtsvg
+      qt6.qttools
+      qt6.qtwayland
+      util-linux
+    ]
+    ++ lib.optionals enableSnapper [snapper];
 
   prePatch =
     ''
@@ -72,14 +73,14 @@ stdenv.mkDerivation (finalAttrs: {
         --replace-fail '/usr/bin/snapper' "${lib.getExe snapper}"
     '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "GUI management tool to make managing a Btrfs filesystem easier";
     homepage = "https://gitlab.com/btrfs-assistant/btrfs-assistant";
     license = lib.licenses.gpl3Only;
     mainProgram = "btrfs-assistant-bin";
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
     platforms = lib.platforms.linux;
   };
 })

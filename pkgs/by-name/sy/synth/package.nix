@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "synth";
   version = "0.6.9";
@@ -30,6 +29,6 @@ rustPlatform.buildRustPackage rec {
     description = "Tool for generating realistic data using a declarative data model";
     homepage = "https://github.com/getsynth/synth";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

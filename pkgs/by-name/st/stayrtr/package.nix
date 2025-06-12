@@ -5,7 +5,6 @@
   stayrtr,
   testers,
 }:
-
 buildGoModule rec {
   pname = "stayrtr";
   version = "0.6.2";
@@ -34,6 +33,6 @@ buildGoModule rec {
     homepage = "https://github.com/bgp/stayrtr/";
     license = lib.licenses.bsd3;
     mainProgram = "stayrtr";
-    maintainers = with lib.maintainers; [ _0x4A6F ];
+    maintainers = with lib.maintainers; [_0x4A6F];
   };
 }

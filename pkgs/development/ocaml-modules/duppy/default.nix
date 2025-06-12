@@ -4,7 +4,6 @@
   fetchFromGitHub,
   re,
 }:
-
 buildDunePackage rec {
   pname = "duppy";
   version = "0.9.5";
@@ -18,12 +17,12 @@ buildDunePackage rec {
     sha256 = "sha256-hWR7utYMxMjz8Cw0j6cgoHlUj4Jc7Q4vJHD5kGHN4Rc=";
   };
 
-  propagatedBuildInputs = [ re ];
+  propagatedBuildInputs = [re];
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-duppy";
     description = "Library providing monadic threads";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

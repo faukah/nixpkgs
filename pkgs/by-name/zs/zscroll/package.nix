@@ -4,7 +4,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "zscroll";
   version = "2.0.1";
@@ -21,7 +20,7 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  propagatedBuildInputs = [ python3 ];
+  propagatedBuildInputs = [python3];
 
   meta = with lib; {
     description = "Text scroller for use with panels and shells";

@@ -5,7 +5,6 @@
   pkg-config,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "md-tui";
   version = "0.8.7";
@@ -20,10 +19,10 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-h0ikwdGmyBsCJvILJTlDd9x0DXYwblfBcK2wuWHmjYA=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

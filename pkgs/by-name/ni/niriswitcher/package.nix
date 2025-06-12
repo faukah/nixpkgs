@@ -8,7 +8,6 @@
   libadwaita,
   nix-update-script,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "niriswitcher";
   version = "0.6.1";
@@ -21,7 +20,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-njEd9s432qlBeQSXRL5gDSIEgzF0qwceND09aGTRo0U=";
   };
 
-  build-system = [ python3Packages.hatchling ];
+  build-system = [python3Packages.hatchling];
 
   nativeBuildInputs = [
     wrapGAppsHook4
@@ -33,24 +32,24 @@ python3Packages.buildPythonPackage rec {
     libadwaita
   ];
 
-  dependencies = [ python3Packages.pygobject3 ];
+  dependencies = [python3Packages.pygobject3];
 
   dontWrapGApps = true;
 
   preFixup = ''
     makeWrapperArgs+=(
       ''${gappsWrapperArgs[@]}
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ gtk4-layer-shell ]}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [gtk4-layer-shell]}
     )
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Application switcher for niri";
     homepage = "https://github.com/isaksamsten/niriswitcher";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bokicoder ];
+    maintainers = with lib.maintainers; [bokicoder];
     mainProgram = "niriswitcher";
     platforms = lib.platforms.linux;
   };

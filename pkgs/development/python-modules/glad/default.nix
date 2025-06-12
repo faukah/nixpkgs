@@ -3,7 +3,6 @@
   fetchPypi,
   lib,
 }:
-
 buildPythonPackage rec {
   pname = "glad";
   version = "0.1.36";
@@ -19,6 +18,6 @@ buildPythonPackage rec {
     mainProgram = "glad";
     homepage = "https://github.com/Dav1dde/glad";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

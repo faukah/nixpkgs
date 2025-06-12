@@ -5,7 +5,6 @@
   matplotlib,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-plt";
   version = "1.1.1";
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     homepage = "https://www.nengo.ai/pytest-plt/";
     changelog = "https://github.com/nengo/pytest-plt/blob/master/CHANGES.rst";
     license = licenses.mit;
-    maintainers = [ maintainers.doronbehar ];
+    maintainers = [maintainers.doronbehar];
   };
 }

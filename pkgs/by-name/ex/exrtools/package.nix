@@ -7,7 +7,6 @@
   libpng12,
   libjpeg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "exrtools";
   version = "0.4";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0jpkskqs1yjiighab4s91jy0c0qxcscwadfn94xy2mm2bx2qwp4z";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openexr
     libpng12
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "http://scanline.ca/exrtools";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = [ maintainers.juliendehos ];
+    maintainers = [maintainers.juliendehos];
   };
 }

@@ -3,15 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   top = config.services.kubernetes;
   cfg = top.flannel;
 
   # we want flannel to use kubernetes itself as configuration backend, not direct etcd
   storageBackend = "kubernetes";
-in
-{
+in {
   ###### interface
   options.services.kubernetes.flannel = {
     enable = lib.mkEnableOption "flannel networking";
@@ -26,7 +24,6 @@ in
   ###### implementation
   config = lib.mkIf cfg.enable {
     services.flannel = {
-
       enable = lib.mkDefault true;
       network = lib.mkDefault top.clusterCidr;
       inherit storageBackend;
@@ -69,56 +66,54 @@ in
     # give flannel some kubernetes rbac permissions if applicable
     services.kubernetes.addonManager.bootstrapAddons =
       lib.mkIf ((storageBackend == "kubernetes") && (lib.elem "RBAC" top.apiserver.authorizationMode))
-        {
-
-          flannel-cr = {
-            apiVersion = "rbac.authorization.k8s.io/v1";
-            kind = "ClusterRole";
-            metadata = {
-              name = "flannel";
-            };
-            rules = [
-              {
-                apiGroups = [ "" ];
-                resources = [ "pods" ];
-                verbs = [ "get" ];
-              }
-              {
-                apiGroups = [ "" ];
-                resources = [ "nodes" ];
-                verbs = [
-                  "list"
-                  "watch"
-                ];
-              }
-              {
-                apiGroups = [ "" ];
-                resources = [ "nodes/status" ];
-                verbs = [ "patch" ];
-              }
-            ];
+      {
+        flannel-cr = {
+          apiVersion = "rbac.authorization.k8s.io/v1";
+          kind = "ClusterRole";
+          metadata = {
+            name = "flannel";
           };
-
-          flannel-crb = {
-            apiVersion = "rbac.authorization.k8s.io/v1";
-            kind = "ClusterRoleBinding";
-            metadata = {
-              name = "flannel";
-            };
-            roleRef = {
-              apiGroup = "rbac.authorization.k8s.io";
-              kind = "ClusterRole";
-              name = "flannel";
-            };
-            subjects = [
-              {
-                kind = "User";
-                name = "flannel-client";
-              }
-            ];
-          };
-
+          rules = [
+            {
+              apiGroups = [""];
+              resources = ["pods"];
+              verbs = ["get"];
+            }
+            {
+              apiGroups = [""];
+              resources = ["nodes"];
+              verbs = [
+                "list"
+                "watch"
+              ];
+            }
+            {
+              apiGroups = [""];
+              resources = ["nodes/status"];
+              verbs = ["patch"];
+            }
+          ];
         };
+
+        flannel-crb = {
+          apiVersion = "rbac.authorization.k8s.io/v1";
+          kind = "ClusterRoleBinding";
+          metadata = {
+            name = "flannel";
+          };
+          roleRef = {
+            apiGroup = "rbac.authorization.k8s.io";
+            kind = "ClusterRole";
+            name = "flannel";
+          };
+          subjects = [
+            {
+              kind = "User";
+              name = "flannel-client";
+            }
+          ];
+        };
+      };
   };
 
   meta.buildDocsInSandbox = false;

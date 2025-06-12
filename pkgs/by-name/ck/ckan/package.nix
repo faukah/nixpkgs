@@ -11,7 +11,6 @@
   makeDesktopItem,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ckan";
   version = "1.36.0";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ mono ];
+  buildInputs = [mono];
 
   libraries = lib.makeLibraryPath [
     gtk2
@@ -76,7 +75,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Mod manager for Kerbal Space Program";

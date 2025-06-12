@@ -9,7 +9,6 @@
   tqdm,
   click,
 }:
-
 buildPythonPackage rec {
   pname = "bubop";
   version = "0.1.12";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     --replace-fail 'PyYAML = "~5.3.1"' 'PyYAML = "^6.0"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     loguru
@@ -39,13 +38,13 @@ buildPythonPackage rec {
     click
   ];
 
-  pythonImportsCheck = [ "bubop" ];
+  pythonImportsCheck = ["bubop"];
 
   meta = with lib; {
     description = "Bergercookie's Useful Bits Of Python; helper libraries for Bergercookie's programs";
     homepage = "https://github.com/bergercookie/bubop";
     changelog = "https://github.com/bergercookie/bubop/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

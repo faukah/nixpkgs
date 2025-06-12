@@ -1,23 +1,22 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
   {
+    lib,
+    pkgs,
+    ...
+  }: {
     name = "cadvisor";
-    meta.maintainers = with lib.maintainers; [ offline ];
+    meta.maintainers = with lib.maintainers; [offline];
 
     nodes = {
-      machine =
-        { ... }:
-        {
-          services.cadvisor.enable = true;
-        };
+      machine = {...}: {
+        services.cadvisor.enable = true;
+      };
 
-      influxdb =
-        { lib, ... }:
-        {
-          services.cadvisor.enable = true;
-          services.cadvisor.storageDriver = "influxdb";
-          services.influxdb.enable = true;
-        };
+      influxdb = {lib, ...}: {
+        services.cadvisor.enable = true;
+        services.cadvisor.storageDriver = "influxdb";
+        services.influxdb.enable = true;
+      };
     };
 
     testScript = ''

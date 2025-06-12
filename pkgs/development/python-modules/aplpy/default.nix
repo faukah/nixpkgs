@@ -16,7 +16,6 @@
   setuptools-scm,
   shapely,
 }:
-
 buildPythonPackage rec {
   pname = "aplpy";
   version = "2.2.0";
@@ -54,12 +53,12 @@ buildPythonPackage rec {
     OPENMP_EXPECTED=0
   '';
 
-  pythonImportsCheck = [ "aplpy" ];
+  pythonImportsCheck = ["aplpy"];
 
   meta = with lib; {
     description = "Astronomical Plotting Library in Python";
     homepage = "http://aplpy.github.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ smaret ];
+    maintainers = with maintainers; [smaret];
   };
 }

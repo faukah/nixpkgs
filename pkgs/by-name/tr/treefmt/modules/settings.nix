@@ -4,19 +4,17 @@
   config,
   modulesPath,
   ...
-}:
-let
-  settingsFormat = pkgs.formats.toml { };
-in
-{
+}: let
+  settingsFormat = pkgs.formats.toml {};
+in {
   options.settings = lib.mkOption {
     type = lib.types.submoduleWith {
-      specialArgs = { inherit modulesPath; };
+      specialArgs = {inherit modulesPath;};
       modules = [
-        { freeformType = settingsFormat.type; }
+        {freeformType = settingsFormat.type;}
       ];
     };
-    default = { };
+    default = {};
     description = ''
       Settings used to build a treefmt config file.
     '';

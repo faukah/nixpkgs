@@ -7,7 +7,6 @@
   testers,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "doppler";
   version = "3.75.0";
@@ -26,7 +25,7 @@ buildGoModule rec {
     "-X github.com/DopplerHQ/cli/pkg/version.ProgramVersion=v${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall =
     ''
@@ -51,6 +50,6 @@ buildGoModule rec {
     mainProgram = "doppler";
     homepage = "https://doppler.com";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
   };
 }

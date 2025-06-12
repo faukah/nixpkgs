@@ -3,16 +3,13 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.rsyncd;
-  settingsFormat = pkgs.formats.iniWithGlobalSection { };
+  settingsFormat = pkgs.formats.iniWithGlobalSection {};
   configFile = settingsFormat.generate "rsyncd.conf" cfg.settings;
-in
-{
+in {
   options = {
     services.rsyncd = {
-
       enable = lib.mkEnableOption "the rsync daemon";
 
       port = lib.mkOption {
@@ -23,7 +20,7 @@ in
 
       settings = lib.mkOption {
         inherit (settingsFormat) type;
-        default = { };
+        default = {};
         example = {
           globalSection = {
             uid = "nobody";
@@ -59,90 +56,88 @@ in
         type = lib.types.bool;
         description = "If enabled Rsync will be socket-activated rather than run persistently.";
       };
-
     };
   };
 
   imports = (
     map
-      (
-        option:
+    (
+      option:
         lib.mkRemovedOptionModule [
           "services"
           "rsyncd"
           option
         ] "This option was removed in favor of `services.rsyncd.settings`."
-      )
-      [
-        "address"
-        "extraConfig"
-        "motd"
-        "user"
-        "group"
-      ]
+    )
+    [
+      "address"
+      "extraConfig"
+      "motd"
+      "user"
+      "group"
+    ]
   );
 
   config = lib.mkIf cfg.enable {
-
     services.rsyncd.settings.globalSection.port = toString cfg.port;
 
-    systemd =
-      let
-        serviceConfigSecurity = {
-          ProtectSystem = "full";
-          PrivateDevices = "on";
-          NoNewPrivileges = "on";
-        };
-      in
-      {
-        services.rsync = {
-          enable = !cfg.socketActivated;
-          aliases = [ "rsyncd.service" ];
+    systemd = let
+      serviceConfigSecurity = {
+        ProtectSystem = "full";
+        PrivateDevices = "on";
+        NoNewPrivileges = "on";
+      };
+    in {
+      services.rsync = {
+        enable = !cfg.socketActivated;
+        aliases = ["rsyncd.service"];
 
-          description = "fast remote file copy program daemon";
-          after = [ "network.target" ];
-          documentation = [
-            "man:rsync(1)"
-            "man:rsyncd.conf(5)"
-          ];
+        description = "fast remote file copy program daemon";
+        after = ["network.target"];
+        documentation = [
+          "man:rsync(1)"
+          "man:rsyncd.conf(5)"
+        ];
 
-          serviceConfig = serviceConfigSecurity // {
+        serviceConfig =
+          serviceConfigSecurity
+          // {
             ExecStart = "${pkgs.rsync}/bin/rsync --daemon --no-detach --config=${configFile}";
             RestartSec = 1;
           };
 
-          wantedBy = [ "multi-user.target" ];
-        };
+        wantedBy = ["multi-user.target"];
+      };
 
-        services."rsync@" = {
-          description = "fast remote file copy program daemon";
-          after = [ "network.target" ];
+      services."rsync@" = {
+        description = "fast remote file copy program daemon";
+        after = ["network.target"];
 
-          serviceConfig = serviceConfigSecurity // {
+        serviceConfig =
+          serviceConfigSecurity
+          // {
             ExecStart = "${pkgs.rsync}/bin/rsync --daemon --config=${configFile}";
             StandardInput = "socket";
             StandardOutput = "inherit";
             StandardError = "journal";
           };
-        };
-
-        sockets.rsync = {
-          enable = cfg.socketActivated;
-
-          description = "socket for fast remote file copy program daemon";
-          conflicts = [ "rsync.service" ];
-
-          listenStreams = [ (toString cfg.port) ];
-          socketConfig.Accept = true;
-
-          wantedBy = [ "sockets.target" ];
-        };
       };
 
+      sockets.rsync = {
+        enable = cfg.socketActivated;
+
+        description = "socket for fast remote file copy program daemon";
+        conflicts = ["rsync.service"];
+
+        listenStreams = [(toString cfg.port)];
+        socketConfig.Accept = true;
+
+        wantedBy = ["sockets.target"];
+      };
+    };
   };
 
-  meta.maintainers = with lib.maintainers; [ ehmry ];
+  meta.maintainers = with lib.maintainers; [ehmry];
 
   # TODO: socket activated rsyncd
-
 }

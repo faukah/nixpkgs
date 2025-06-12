@@ -7,7 +7,6 @@
   guileSupport ? false,
   guile,
 }:
-
 stdenv.mkDerivation rec {
   pname = "remake";
   remakeVersion = "4.3";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     pkg-config
   ];
-  buildInputs = [ readline ] ++ lib.optionals guileSupport [ guile ];
+  buildInputs = [readline] ++ lib.optionals guileSupport [guile];
 
   # make check fails, see https://github.com/rocky/remake/issues/117
 

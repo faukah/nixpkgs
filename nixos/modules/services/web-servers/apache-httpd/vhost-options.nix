@@ -3,18 +3,16 @@
   lib,
   name,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     literalExpression
     mkOption
     nameValuePair
     types
     ;
-in
-{
+in {
   options = {
-
     hostName = mkOption {
       type = types.str;
       default = name;
@@ -23,7 +21,7 @@ in
 
     serverAliases = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "www.example.org"
         "www.example.org:8080"
@@ -35,9 +33,8 @@ in
     };
 
     listen = mkOption {
-      type =
-        with types;
-        listOf (submodule ({
+      type = with types;
+        listOf (submodule {
           options = {
             port = mkOption {
               type = types.port;
@@ -54,8 +51,8 @@ in
               description = "Whether to enable SSL (https) support.";
             };
           };
-        }));
-      default = [ ];
+        });
+      default = [];
       example = [
         {
           ip = "195.154.1.1";
@@ -90,8 +87,8 @@ in
         Compared to `listen` this only sets the addresses
         and the ports are chosen automatically.
       '';
-      default = [ "*" ];
-      example = [ "127.0.0.1" ];
+      default = ["*"];
+      example = ["127.0.0.1"];
     };
 
     enableSSL = mkOption {
@@ -207,7 +204,7 @@ in
 
     servedDirs = mkOption {
       type = types.listOf types.attrs;
-      default = [ ];
+      default = [];
       example = [
         {
           urlPath = "/nix";
@@ -221,7 +218,7 @@ in
 
     servedFiles = mkOption {
       type = types.listOf types.attrs;
-      default = [ ];
+      default = [];
       example = [
         {
           urlPath = "/foo/bar.png";
@@ -293,7 +290,7 @@ in
 
     locations = mkOption {
       type = with types; attrsOf (submodule (import ./location-options.nix));
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           "/" = {
@@ -308,14 +305,11 @@ in
         Declarative location config. See <https://httpd.apache.org/docs/2.4/mod/core.html#location> for details.
       '';
     };
-
   };
 
   config = {
-
     locations = builtins.listToAttrs (
-      map (elem: nameValuePair elem.urlPath { alias = elem.file; }) config.servedFiles
+      map (elem: nameValuePair elem.urlPath {alias = elem.file;}) config.servedFiles
     );
-
   };
 }

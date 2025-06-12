@@ -8,7 +8,6 @@
   tclPackages,
   installShellFiles,
 }:
-
 stdenv.mkDerivation {
   pname = "xfs_undelete";
   version = "unstable-2023-04-12";
@@ -35,7 +34,7 @@ stdenv.mkDerivation {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ tcl-8_6 ])
+    (lib.makeBinPath [tcl-8_6])
   ];
 
   installPhase = ''
@@ -54,6 +53,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/ianka/xfs_undelete";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.deepfire ];
+    maintainers = [maintainers.deepfire];
   };
 }

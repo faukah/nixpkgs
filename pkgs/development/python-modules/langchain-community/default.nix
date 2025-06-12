@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   nix-update-script,
-
   # build-system
   pdm-backend,
-
   # dependencies
   aiohttp,
   dataclasses-json,
@@ -20,7 +18,6 @@
   requests,
   sqlalchemy,
   tenacity,
-
   # tests
   blockbuster,
   duckdb,
@@ -37,7 +34,6 @@
   syrupy,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-community";
   version = "0.3.24";
@@ -52,7 +48,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/community";
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   pythonRelaxDeps = [
     # Each component release requests the exact latest langchain and -core.
@@ -83,7 +79,7 @@ buildPythonPackage rec {
     tenacity
   ];
 
-  pythonImportsCheck = [ "langchain_community" ];
+  pythonImportsCheck = ["langchain_community"];
 
   nativeCheckInputs = [
     blockbuster

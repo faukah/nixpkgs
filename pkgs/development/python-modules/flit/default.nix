@@ -2,27 +2,22 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   flit-core,
-
   # dependencies
   docutils,
   pip,
   requests,
   tomli-w,
-
   # tests
   pytestCheckHook,
   testpath,
   responses,
 }:
-
 # Flit is actually an application to build universal wheels.
 # It requires Python 3 and should eventually be moved outside of
 # python-packages.nix. When it will be used to build wheels,
 # care should be taken that there is no mingling of PYTHONPATH.
-
 buildPythonPackage rec {
   pname = "flit";
   version = "3.12.0";
@@ -35,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-oWV+KK22+iK99iCOCKCV1OCLq2Ef1bcYRKXT5GHwiL8=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     docutils

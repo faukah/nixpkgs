@@ -5,7 +5,6 @@
   bluez,
   ncurses,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "spooftooph";
   version = "0.5.2";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     ncurses
   ];
 
-  makeFlags = [ "BIN=$(out)/bin" ];
+  makeFlags = ["BIN=$(out)/bin"];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -32,6 +31,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "spooftooph";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
   };
 })

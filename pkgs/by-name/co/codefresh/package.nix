@@ -8,7 +8,6 @@
   nodejs,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "codefresh";
   version = "0.88.5";
@@ -42,6 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/codefresh-io/cli";
     license = lib.licenses.mit;
     mainProgram = "codefresh";
-    maintainers = [ lib.maintainers.takac ];
+    maintainers = [lib.maintainers.takac];
   };
 })

@@ -3,7 +3,6 @@
   httpun,
   gluten-eio,
 }:
-
 buildDunePackage {
   pname = "httpun-eio";
 
@@ -14,7 +13,9 @@ buildDunePackage {
     httpun
   ];
 
-  meta = httpun.meta // {
-    description = "EIO support for httpun";
-  };
+  meta =
+    httpun.meta
+    // {
+      description = "EIO support for httpun";
+    };
 }

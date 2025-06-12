@@ -9,7 +9,6 @@
   textlint,
   textlint-rule-write-good,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "textlint-rule-write-good";
   version = "2.0.0-unstable-2024-05-02";
@@ -73,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/textlint-rule/textlint-rule-write-good";
     changelog = "https://github.com/textlint-rule/textlint-rule-write-good/releases/tag/${finalAttrs.src.rev}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     platforms = textlint.meta.platforms;
   };
 })

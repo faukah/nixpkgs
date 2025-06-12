@@ -3,9 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-
-{
+}: {
   options.programs.k3b = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -24,7 +22,6 @@
   };
 
   config = lib.mkIf config.programs.k3b.enable {
-
     environment.systemPackages = with pkgs; [
       kdePackages.k3b
       dvdplusrwtools
@@ -48,6 +45,5 @@
         source = "${pkgs.cdrtools}/bin/cdrecord";
       };
     };
-
   };
 }

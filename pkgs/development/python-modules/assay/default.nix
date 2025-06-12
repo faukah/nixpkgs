@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pythonAtLeast,
 }:
-
 buildPythonPackage {
   pname = "assay";
   version = "0-unstable-2024-05-09";
@@ -17,12 +16,12 @@ buildPythonPackage {
     hash = "sha256-zYpLtcXZ16EJWKSCqxFkSz/G9PwIZEQGBrYiJKuqnc4=";
   };
 
-  pythonImportsCheck = [ "assay" ];
+  pythonImportsCheck = ["assay"];
 
   meta = with lib; {
     homepage = "https://github.com/brandon-rhodes/assay";
     description = "Attempt to write a Python testing framework I can actually stand";
     license = licenses.mit;
-    maintainers = with maintainers; [ zane ];
+    maintainers = with maintainers; [zane];
   };
 }

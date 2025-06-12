@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-apimanagement";
   version = "5.0.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-Crf+F+cP4xVM2ED/R9GdekYQIXAD6qfCGs81EableZk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/apimanagement/azure-mgmt-apimanagement";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-mgmt-apimanagement_${version}/sdk/apimanagement/azure-mgmt-apimanagement/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

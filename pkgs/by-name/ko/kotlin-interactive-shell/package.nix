@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 maven.buildMavenPackage rec {
   pname = "kotlin-interactive-shell";
   version = "0.5.2";
@@ -20,7 +19,7 @@ maven.buildMavenPackage rec {
   mvnHash = "sha256-UHtvBVw35QBwgCD+nSduR0924ANAOfwrr/a4qPEYsrM=";
   mvnParameters = "compile";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   doCheck = false;
 
@@ -46,7 +45,7 @@ maven.buildMavenPackage rec {
     '';
     homepage = "https://github.com/Kotlin/kotlin-interactive-shell";
     license = licenses.asl20;
-    maintainers = [ maintainers.starsep ];
+    maintainers = [maintainers.starsep];
     platforms = jre.meta.platforms;
     mainProgram = "ki";
   };

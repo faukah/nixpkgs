@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ruplacer";
   version = "0.10.0";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "ruplacer";
     homepage = "https://github.com/TankerHQ/ruplacer";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ Br1ght0ne ];
+    maintainers = with lib.maintainers; [Br1ght0ne];
   };
 }

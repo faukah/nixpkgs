@@ -10,7 +10,6 @@
   # Runtime dependencies
   freewrl,
 }:
-
 buildOctavePackage rec {
   pname = "vrml";
   version = "1.0.14";
@@ -37,7 +36,7 @@ buildOctavePackage rec {
       gpl3Plus
       fdl12Plus
     ];
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "3D graphics using VRML";
     # Marked this way until KarlJoad gets freewrl as a runtime dependency.
     broken = true;

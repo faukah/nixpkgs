@@ -3,15 +3,12 @@
   buildGoModule,
   fetchFromGitHub,
   installShellFiles,
-}:
-
-let
-  generic =
-    {
-      pname,
-      packageToBuild,
-      description,
-    }:
+}: let
+  generic = {
+    pname,
+    packageToBuild,
+    description,
+  }:
     buildGoModule rec {
       inherit pname;
       version = "1.3.10";
@@ -35,9 +32,9 @@ let
 
       vendorHash = "sha256-2ddpzKzVlmOgxsBtLB28fKZ2o4QvtrNZC+1wOny3Amk=";
 
-      nativeBuildInputs = [ installShellFiles ];
+      nativeBuildInputs = [installShellFiles];
 
-      subPackages = [ packageToBuild ];
+      subPackages = [packageToBuild];
 
       ldflags = [
         "-s"
@@ -71,8 +68,7 @@ let
         ];
       };
     };
-in
-{
+in {
   rekor-cli = generic {
     pname = "rekor-cli";
     packageToBuild = "cmd/rekor-cli";

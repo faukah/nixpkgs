@@ -6,7 +6,6 @@
   kernelModuleMakeFlags,
   bc,
 }:
-
 stdenv.mkDerivation {
   pname = "rtl8821cu";
   version = "${kernel.version}-unstable-2024-09-27";
@@ -18,9 +17,9 @@ stdenv.mkDerivation {
     hash = "sha256-8hGAfZyDCGl0RnPnYjc7iMEulZvoIGe2ghfIfoiz7ZI=";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
-  nativeBuildInputs = [ bc ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs = [bc] ++ kernel.moduleBuildDependencies;
   makeFlags = kernelModuleMakeFlags;
 
   prePatch = ''
@@ -41,6 +40,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/morrownr/8821cu";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.contrun ];
+    maintainers = [maintainers.contrun];
   };
 }

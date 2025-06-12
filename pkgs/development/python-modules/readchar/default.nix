@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # tests
   pytest-cov-stub,
   pytestCheckHook,
   pexpect,
 }:
-
 buildPythonPackage rec {
   pname = "readchar";
   version = "4.2.1";
@@ -34,9 +31,9 @@ buildPythonPackage rec {
       --replace 'sys.platform.startswith("linux")' 'sys.platform.startswith(("darwin", "linux"))'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "readchar" ];
+  pythonImportsCheck = ["readchar"];
 
   nativeCheckInputs = [
     pytest-cov-stub
@@ -49,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/magmax/python-readchar";
     changelog = "https://github.com/magmax/python-readchar/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
   };
 }

@@ -5,7 +5,6 @@
   dune-configurator,
   czmq,
 }:
-
 buildDunePackage rec {
   pname = "zmq";
   version = "5.3.0";
@@ -23,7 +22,7 @@ buildDunePackage rec {
   meta = {
     description = "ZeroMQ bindings for OCaml";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ akavel ];
+    maintainers = with lib.maintainers; [akavel];
     homepage = "https://engineering.issuu.com/ocaml-zmq/";
   };
 }

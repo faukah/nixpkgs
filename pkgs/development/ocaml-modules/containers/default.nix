@@ -12,7 +12,6 @@
   uutf,
   yojson,
 }:
-
 buildDunePackage rec {
   version = "3.16";
   pname = "containers";
@@ -26,7 +25,7 @@ buildDunePackage rec {
     hash = "sha256-WaHAZRLjaEJUba/I2r3Yof/iUqA3PFUuVbzm88izG1k=";
   };
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     either
     seq

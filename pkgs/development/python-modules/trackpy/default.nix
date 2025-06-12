@@ -13,7 +13,6 @@
   pyyaml,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "trackpy";
   version = "0.6.4";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = lib.optionalString stdenv.hostPlatform.isDarwin ''
     # specifically needed for darwin
@@ -47,14 +46,14 @@ buildPythonPackage rec {
     echo "backend: ps" > $HOME/.matplotlib/matplotlibrc
   '';
 
-  pythonImportsCheck = [ "trackpy" ];
+  pythonImportsCheck = ["trackpy"];
 
   meta = with lib; {
     description = "Particle-tracking toolkit";
     homepage = "https://github.com/soft-matter/trackpy";
     changelog = "https://github.com/soft-matter/trackpy/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    maintainers = [];
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
   };
 }

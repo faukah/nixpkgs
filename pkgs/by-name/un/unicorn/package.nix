@@ -6,7 +6,6 @@
   fetchFromGitHub,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unicorn";
   version = "2.1.3";

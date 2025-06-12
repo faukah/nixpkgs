@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "caladea";
   version = "20130214";
@@ -36,7 +35,7 @@ stdenvNoCC.mkDerivation rec {
     '';
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
 
     # Reduce the priority of this package. The intent is that if you
     # also install the `vista-fonts` package, then you probably will

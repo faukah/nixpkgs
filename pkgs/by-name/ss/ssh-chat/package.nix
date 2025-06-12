@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ssh-chat";
   version = "1.10.1";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "ssh-chat";
     homepage = "https://github.com/shazow/ssh-chat";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

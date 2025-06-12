@@ -4,7 +4,6 @@
   fetchFromGitLab,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libzakalwe";
   version = "1.0.0-unstable-2024-02-26";
@@ -40,19 +39,19 @@ stdenv.mkDerivation (finalAttrs: {
   # Darwin: Assertion failed at thread_util_test_0:52: tr != NULL
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform && (!stdenv.hostPlatform.isDarwin);
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   preInstall = ''
     mkdir -p $out/lib
   '';
 
-  passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
+  passthru.updateScript = unstableGitUpdater {tagPrefix = "v";};
 
   meta = {
     description = "Library for functions shared across zakalwe projects";
     homepage = "https://gitlab.com/hors/libzakalwe";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     platforms = lib.platforms.unix;
   };
 })

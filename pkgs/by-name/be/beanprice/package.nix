@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "beanprice";
   version = "2.0.0";
@@ -16,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-+bqYnTzZByJlCPUhThM2B9UjgdWzjF21Yiw3fQAZ6k4=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     beancount
@@ -31,7 +30,7 @@ python3Packages.buildPythonApplication rec {
     regex
   ];
 
-  pythonImportsCheck = [ "beanprice" ];
+  pythonImportsCheck = ["beanprice"];
 
   meta = {
     broken = lib.versionOlder python3Packages.beancount.version "3";
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
       and render them for plain text accounting price syntax (and Beancount).
     '';
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ alapshin ];
+    maintainers = with lib.maintainers; [alapshin];
     mainProgram = "bean-price";
   };
 }

@@ -11,7 +11,6 @@
   libpulseaudio,
   libvorbis,
 }:
-
 stdenv.mkDerivation {
   pname = "libopenglrecorder";
   version = "unstable-2020-08-13";
@@ -43,7 +42,7 @@ stdenv.mkDerivation {
     description = "Library allowing Optional async readback OpenGL frame buffer with optional audio recording";
     homepage = "https://github.com/Benau/libopenglrecorder";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = with platforms; windows ++ linux;
   };
 }

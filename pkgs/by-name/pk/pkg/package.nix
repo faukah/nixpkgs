@@ -13,7 +13,6 @@
   openssl,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pkg";
   version = "2.1.4";
@@ -33,14 +32,16 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     tcl
   ];
-  buildInputs = [
-    bzip2
-    elfutils
-    libarchive
-    openssl
-    xz
-    zlib
-  ] ++ lib.optional stdenv.hostPlatform.isLinux libbsd;
+  buildInputs =
+    [
+      bzip2
+      elfutils
+      libarchive
+      openssl
+      xz
+      zlib
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux libbsd;
 
   enableParallelBuilding = true;
 
@@ -51,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://github.com/freebsd/pkg";
     description = "Package management tool for FreeBSD";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     platforms = with platforms; darwin ++ freebsd ++ linux ++ netbsd ++ openbsd;
     license = licenses.bsd2;
     mainProgram = "pkg";

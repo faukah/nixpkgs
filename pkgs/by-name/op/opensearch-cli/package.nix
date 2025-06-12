@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "opensearch-cli";
   version = "1.2.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-r3Bnud8pd0Z9XmGkj9yxRW4U/Ry4U8gvVF4pAdN14lQ=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     export HOME="$(mktemp -d)"
@@ -32,8 +31,8 @@ buildGoModule rec {
     homepage = "https://github.com/opensearch-project/opensearch-cli";
     license = lib.licenses.asl20;
     mainProgram = "opensearch-cli";
-    maintainers = with lib.maintainers; [ shyim ];
+    maintainers = with lib.maintainers; [shyim];
     platforms = lib.platforms.unix;
-    sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    sourceProvenance = with lib.sourceTypes; [fromSource];
   };
 }

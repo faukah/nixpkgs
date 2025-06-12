@@ -4,11 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.pgbouncer;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     mkPackageOption
     types
@@ -17,11 +16,10 @@ let
     escapeShellArg
     concatStringsSep
     ;
-in
-{
+in {
   port = 9127;
   extraOpts = {
-    package = mkPackageOption pkgs "prometheus-pgbouncer-exporter" { };
+    package = mkPackageOption pkgs "prometheus-pgbouncer-exporter" {};
 
     telemetryPath = mkOption {
       type = types.str;
@@ -129,16 +127,15 @@ in
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = ''
         Extra commandline options when launching Prometheus.
       '';
     };
-
   };
 
   serviceOpts = {
-    after = [ "pgbouncer.service" ];
+    after = ["pgbouncer.service"];
     script = concatStringsSep " " (
       [
         "exec -- ${escapeShellArg (getExe cfg.package)}"
@@ -179,7 +176,7 @@ in
   };
 
   imports = [
-    (lib.mkRemovedOptionModule [ "connectionStringFile" ] ''
+    (lib.mkRemovedOptionModule ["connectionStringFile"] ''
       As replacement, the option `services.prometheus.exporters.pgbouncer.connectionEnvFile`
       has been added. In contrast to `connectionStringFile` it must be an environment file
       with the connection string being set to `PGBOUNCER_EXPORTER_CONNECTION_STRING`.
@@ -188,9 +185,9 @@ in
       into the cmdline of the exporter making the connection string effectively
       world-readable.
     '')
-    ({
+    {
       options.warnings = options.warnings;
       options.assertions = options.assertions;
-    })
+    }
   ];
 }

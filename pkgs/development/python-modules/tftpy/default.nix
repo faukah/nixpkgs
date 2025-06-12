@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tftpy";
   version = "0.8.5";
@@ -15,15 +14,15 @@ buildPythonPackage rec {
     hash = "sha256-3TjjdEUw0MMPoccV1/pFQxm8jTmbtAwFg5zHcfBdDmw=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "tftpy" ];
+  pythonImportsCheck = ["tftpy"];
 
   meta = {
     description = "Pure Python TFTP library";
     homepage = "https://github.com/msoulier/tftpy";
     changelog = "https://github.com/msoulier/tftpy/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ otavio ];
+    maintainers = with lib.maintainers; [otavio];
   };
 }

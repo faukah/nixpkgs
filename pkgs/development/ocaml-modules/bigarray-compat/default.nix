@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchFromGitHub,
 }:
-
 buildDunePackage rec {
   pname = "bigarray-compat";
   version = "1.1.0";
@@ -23,6 +22,6 @@ buildDunePackage rec {
     description = "Compatibility library to use Stdlib.Bigarray when possible";
     inherit (src.meta) homepage;
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

@@ -14,7 +14,6 @@
   libXinerama,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "clanlib";
   version = "4.2.0";
@@ -42,13 +41,13 @@ stdenv.mkDerivation (finalAttrs: {
     libXinerama
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/sphair/ClanLib";
     description = "Cross platform toolkit library with a primary focus on game creation";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nixinator ];
+    maintainers = with lib.maintainers; [nixinator];
     platforms = with lib.platforms; lib.intersectLists linux (x86 ++ arm ++ aarch64 ++ riscv);
   };
 })

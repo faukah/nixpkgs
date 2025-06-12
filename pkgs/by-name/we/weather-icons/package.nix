@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "weather-icons";
   version = "2.0.12";
@@ -31,6 +30,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://erikflowers.github.io/weather-icons/";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pnelson ];
+    maintainers = with maintainers; [pnelson];
   };
 }

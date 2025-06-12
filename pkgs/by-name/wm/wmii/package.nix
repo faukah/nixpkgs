@@ -15,7 +15,6 @@
   unzip,
   which,
 }:
-
 stdenv.mkDerivation {
   pname = "wmii";
   version = "0-unstable-2023-09-30";
@@ -71,7 +70,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://github.com/0intro/wmii";
     description = "Small, scriptable window manager, with a 9P filesystem interface and an acme-like layout";
-    maintainers = with lib.maintainers; [ kovirobi ];
+    maintainers = with lib.maintainers; [kovirobi];
     license = lib.licenses.mit;
     platforms = with lib.platforms; linux;
   };

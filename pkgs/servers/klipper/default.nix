@@ -3,12 +3,11 @@
   lib,
   fetchFromGitHub,
   python3,
-  extraPythonPackages ? ps: [ ],
+  extraPythonPackages ? ps: [],
   unstableGitUpdater,
   makeWrapper,
   writeShellScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "klipper";
   version = "0.13.0-unstable-2025-05-22";
@@ -24,24 +23,24 @@ stdenv.mkDerivation rec {
 
   # NB: This is needed for the postBuild step
   nativeBuildInputs = [
-    (python3.withPackages (p: with p; [ cffi ]))
+    (python3.withPackages (p: with p; [cffi]))
     makeWrapper
   ];
 
   buildInputs = [
     (python3.withPackages (
       p:
-      with p;
-      [
-        python-can
-        cffi
-        pyserial
-        greenlet
-        jinja2
-        markupsafe
-        numpy
-      ]
-      ++ extraPythonPackages p
+        with p;
+          [
+            python-can
+            cffi
+            pyserial
+            greenlet
+            jinja2
+            markupsafe
+            numpy
+          ]
+          ++ extraPythonPackages p
     ))
   ];
 
@@ -64,10 +63,11 @@ stdenv.mkDerivation rec {
 
   pythonInterpreter =
     (python3.withPackages (
-      p: with p; [
-        numpy
-        matplotlib
-      ]
+      p:
+        with p; [
+          numpy
+          matplotlib
+        ]
     )).interpreter;
 
   pythonScriptWrapper = writeShellScript pname ''

@@ -19,7 +19,6 @@
   # Boolean flags
   enableSdltest ? (!stdenv.hostPlatform.isDarwin),
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "SDL2_mixer";
   version = "2.8.1";
@@ -74,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/libsdl-org/SDL_mixer";
     description = "SDL multi-channel audio mixer library";
     license = lib.licenses.zlib;
-    teams = [ lib.teams.sdl ];
+    teams = [lib.teams.sdl];
     platforms = lib.platforms.unix;
   };
 })

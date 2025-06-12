@@ -12,11 +12,9 @@
   cstruct-unix,
   cstruct-sexp,
 }:
-
-if lib.versionOlder (cstruct.version or "1") "3" then
-  cstruct
+if lib.versionOlder (cstruct.version or "1") "3"
+then cstruct
 else
-
   buildDunePackage {
     pname = "ppx_cstruct";
     inherit (cstruct) version src meta;
@@ -30,7 +28,7 @@ else
     ];
 
     doCheck = !lib.versionAtLeast ocaml.version "5.1";
-    nativeCheckInputs = [ cppo ];
+    nativeCheckInputs = [cppo];
     checkInputs = [
       ounit
       ppx_sexp_conv

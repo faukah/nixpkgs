@@ -7,7 +7,6 @@
   setuptools,
   django,
 }:
-
 buildPythonPackage rec {
   pname = "django-cte";
   version = "1.3.3";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-OCENg94xHBeeE4A2838Cu3q2am2im2X4SkFSjc6DuhE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Require Database connection
@@ -52,13 +51,13 @@ buildPythonPackage rec {
     "test_union_with_select_related_and_order"
   ];
 
-  pythonImportsCheck = [ "django_cte" ];
+  pythonImportsCheck = ["django_cte"];
 
   meta = {
     description = "Common Table Expressions (CTE) for Django";
     homepage = "https://github.com/dimagi/django-cte";
     changelog = "https://github.com/dimagi/django-cte/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
   };
 }

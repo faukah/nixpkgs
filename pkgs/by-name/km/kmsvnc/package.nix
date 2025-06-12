@@ -9,7 +9,6 @@
   libxkbcommon,
   libva,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kmsvnc";
   version = "0.0.6";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "VNC server for DRM/KMS capable GNU/Linux devices";
     homepage = "https://github.com/isjerryxiao/kmsvnc";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     mainProgram = "kmsvnc";
     platforms = platforms.linux;
   };

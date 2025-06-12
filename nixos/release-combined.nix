@@ -1,7 +1,6 @@
 # This jobset defines the main NixOS channels (such as nixos-unstable
 # and nixos-14.04). The channel is updated every time the ‘tested’ job
 # succeeds, and all other jobs have finished (they may fail).
-
 {
   nixpkgs ? {
     outPath = (import ../lib).cleanSource ./..;
@@ -13,28 +12,20 @@
     "aarch64-linux"
     "x86_64-linux"
   ],
-  limitedSupportedSystems ? [ ],
-}:
-
-let
-
+  limitedSupportedSystems ? [],
+}: let
   nixpkgsSrc = nixpkgs; # urgh
 
-  pkgs = import ./.. { };
+  pkgs = import ./.. {};
 
-  removeMaintainers =
-    set:
-    if builtins.isAttrs set then
-      if (set.type or "") == "derivation" then
-        set // { meta = builtins.removeAttrs (set.meta or { }) [ "maintainers" ]; }
-      else
-        pkgs.lib.mapAttrs (n: v: removeMaintainers v) set
-    else
-      set;
-
-in
-rec {
-
+  removeMaintainers = set:
+    if builtins.isAttrs set
+    then
+      if (set.type or "") == "derivation"
+      then set // {meta = builtins.removeAttrs (set.meta or {}) ["maintainers"];}
+      else pkgs.lib.mapAttrs (n: v: removeMaintainers v) set
+    else set;
+in rec {
   nixos = removeMaintainers (
     import ./release.nix {
       inherit stableBranch;
@@ -48,43 +39,41 @@ rec {
       inherit supportedSystems;
       nixpkgs = nixpkgsSrc;
     }
-  )) [ "unstable" ];
+  )) ["unstable"];
 
-  tested =
-    let
-      onFullSupported = x: map (system: "${x}.${system}") supportedSystems;
-      onAllSupported = x: map (system: "${x}.${system}") (supportedSystems ++ limitedSupportedSystems);
-      onSystems =
-        systems: x:
-        map (system: "${x}.${system}") (
-          pkgs.lib.intersectLists systems (supportedSystems ++ limitedSupportedSystems)
-        );
-    in
+  tested = let
+    onFullSupported = x: map (system: "${x}.${system}") supportedSystems;
+    onAllSupported = x: map (system: "${x}.${system}") (supportedSystems ++ limitedSupportedSystems);
+    onSystems = systems: x:
+      map (system: "${x}.${system}") (
+        pkgs.lib.intersectLists systems (supportedSystems ++ limitedSupportedSystems)
+      );
+  in
     pkgs.releaseTools.aggregate {
       name = "nixos-${nixos.channel.version}";
       meta = {
         description = "Release-critical builds for the NixOS channel";
-        maintainers = with pkgs.lib.maintainers; [ ];
+        maintainers = with pkgs.lib.maintainers; [];
       };
       constituents = pkgs.lib.concatLists [
-        [ "nixos.channel" ]
+        ["nixos.channel"]
         (onFullSupported "nixos.dummy")
         (onAllSupported "nixos.iso_minimal")
-        (onSystems [ "x86_64-linux" "aarch64-linux" ] "nixos.amazonImage")
+        (onSystems ["x86_64-linux" "aarch64-linux"] "nixos.amazonImage")
         (onFullSupported "nixos.iso_graphical")
         (onFullSupported "nixos.manual")
-        (onSystems [ "aarch64-linux" ] "nixos.sd_image")
+        (onSystems ["aarch64-linux"] "nixos.sd_image")
         (onFullSupported "nixos.tests.acme.http01-builtin")
         (onFullSupported "nixos.tests.acme.dns01")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.boot.biosCdrom")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.boot.biosUsb")
+        (onSystems ["x86_64-linux"] "nixos.tests.boot.biosCdrom")
+        (onSystems ["x86_64-linux"] "nixos.tests.boot.biosUsb")
         (onFullSupported "nixos.tests.boot-stage1")
         (onFullSupported "nixos.tests.boot.uefiCdrom")
         (onFullSupported "nixos.tests.boot.uefiUsb")
         (onFullSupported "nixos.tests.chromium")
         (onFullSupported "nixos.tests.containers-imperative")
         (onFullSupported "nixos.tests.containers-ip")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.docker")
+        (onSystems ["x86_64-linux"] "nixos.tests.docker")
         (onFullSupported "nixos.tests.env")
 
         # Way too many manual retries required on Hydra.
@@ -101,25 +90,25 @@ rec {
         (onFullSupported "nixos.tests.gitlab")
         (onFullSupported "nixos.tests.gnome")
         (onFullSupported "nixos.tests.gnome-xorg")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.hibernate")
+        (onSystems ["x86_64-linux"] "nixos.tests.hibernate")
         (onFullSupported "nixos.tests.i3wm")
-        (onSystems [ "aarch64-linux" ] "nixos.tests.installer.simpleUefiSystemdBoot")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.btrfsSimple")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.btrfsSubvolDefault")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.btrfsSubvolEscape")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.btrfsSubvols")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.luksroot")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.lvm")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.separateBootZfs")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.separateBootFat")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.separateBoot")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.simpleLabels")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.simpleProvided")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.simpleUefiSystemdBoot")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.simple")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.swraid")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.zfsroot")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.nixos-rebuild-specialisations")
+        (onSystems ["aarch64-linux"] "nixos.tests.installer.simpleUefiSystemdBoot")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.btrfsSimple")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.btrfsSubvolDefault")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.btrfsSubvolEscape")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.btrfsSubvols")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.luksroot")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.lvm")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.separateBootZfs")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.separateBootFat")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.separateBoot")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.simpleLabels")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.simpleProvided")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.simpleUefiSystemdBoot")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.simple")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.swraid")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.zfsroot")
+        (onSystems ["x86_64-linux"] "nixos.tests.nixos-rebuild-specialisations")
         (onFullSupported "nixos.tests.nix-misc.default")
         (onFullSupported "nixos.tests.ipv6")
         (onFullSupported "nixos.tests.keymap.azerty")
@@ -164,7 +153,7 @@ rec {
         (onFullSupported "nixos.tests.networking.networkd.vlan")
         (onFullSupported "nixos.tests.systemd-networkd-ipv6-prefix-delegation")
         (onFullSupported "nixos.tests.nfs4.simple")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.oci-containers.podman")
+        (onSystems ["x86_64-linux"] "nixos.tests.oci-containers.podman")
         (onFullSupported "nixos.tests.openssh")
         (onFullSupported "nixos.tests.initrd-network-ssh")
         (onFullSupported "nixos.tests.pantheon")
@@ -172,7 +161,7 @@ rec {
         (onFullSupported "nixos.tests.php.httpd")
         (onFullSupported "nixos.tests.php.pcre")
         (onFullSupported "nixos.tests.plasma5")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.podman")
+        (onSystems ["x86_64-linux"] "nixos.tests.podman")
         (onFullSupported "nixos.tests.predictable-interface-names.predictableNetworkd")
         (onFullSupported "nixos.tests.predictable-interface-names.predictable")
         (onFullSupported "nixos.tests.predictable-interface-names.unpredictableNetworkd")
@@ -189,7 +178,7 @@ rec {
         (onFullSupported "nixos.tests.xfce")
         (onFullSupported "nixpkgs.emacs")
         (onFullSupported "nixpkgs.jdk")
-        (onSystems [ "x86_64-linux" ] "nixpkgs.mesa_i686") # i686 sanity check + useful
+        (onSystems ["x86_64-linux"] "nixpkgs.mesa_i686") # i686 sanity check + useful
         [
           "nixpkgs.tarball"
           "nixpkgs.release-checks"

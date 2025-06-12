@@ -8,7 +8,6 @@
   requests,
   pym3u8downloader, # For package tests
 }:
-
 buildPythonPackage rec {
   pname = "pym3u8downloader";
   version = "0.1.8";
@@ -21,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-VfNzHysvEVUNx8OK28v2l3QYTMn0ydE/LH+DBXpLfE8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyloggermanager
     requests
   ];
 
-  pythonImportsCheck = [ "pym3u8downloader" ];
+  pythonImportsCheck = ["pym3u8downloader"];
 
   doCheck = false;
 
@@ -52,7 +51,7 @@ buildPythonPackage rec {
 
         doCheck = true;
 
-        nativeCheckInputs = [ pytestCheckHook ];
+        nativeCheckInputs = [pytestCheckHook];
 
         preCheck =
           previousPythonAttrs.preCheck or ""
@@ -83,6 +82,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/coldsofttech/pym3u8downloader";
     changelog = "https://github.com/coldsofttech/pym3u8downloader/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ShamrockLee ];
+    maintainers = with lib.maintainers; [ShamrockLee];
   };
 }

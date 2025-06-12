@@ -2,7 +2,6 @@
   lib,
   python3Packages,
   fetchFromGitHub,
-
   # dependencies
   systemd,
   hidapi,
@@ -28,7 +27,7 @@ python3Packages.buildPythonApplication rec {
 
   # Handheld-daemon runs some selinux-related utils which are not in nixpkgs.
   # NixOS doesn't support selinux so we can safely remove them
-  patches = [ ./0001-remove-selinux-fixes.patch ];
+  patches = [./0001-remove-selinux-fixes.patch];
 
   # This package relies on several programs expected to be on the user's PATH.
   # We take a more reproducible approach by patching the absolute path to each of these required

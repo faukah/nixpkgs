@@ -18,7 +18,6 @@
   stevedore,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "e3-core";
   version = "22.6.0";
@@ -33,9 +32,9 @@ buildPythonPackage rec {
     hash = "sha256-6rClGDo8KhBbOg/Rw0nVISVtOAACf5cwSafNInlBGCw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   dependencies =
     [
@@ -56,7 +55,7 @@ buildPythonPackage rec {
       distro
     ];
 
-  pythonImportsCheck = [ "e3" ];
+  pythonImportsCheck = ["e3"];
 
   # e3-core is tested with tox; it's hard to test without internet.
   doCheck = false;
@@ -66,7 +65,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/AdaCore/e3-core/";
     description = "Core framework for developing portable automated build systems";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ atalii ];
+    maintainers = with maintainers; [atalii];
     mainProgram = "e3";
     # See the comment regarding distro and psutil. Other platforms are supported
     # upstream, but not by this package.

@@ -9,7 +9,6 @@
   libxcrypt-legacy,
   unzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cups-idprt-sp900";
   version = "1.4.0";
@@ -32,24 +31,22 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     unzip
   ];
 
-  installPhase =
-    let
-      arch =
-        {
-          x86_64-linux = "x64";
-          x86-linux = "x86";
-        }
+  installPhase = let
+    arch =
+      {
+        x86_64-linux = "x64";
+        x86-linux = "x86";
+      }
         ."${stdenvNoCC.hostPlatform.system}"
           or (throw "cups-idprt-sp900: No prebuilt filters for system: ${stdenvNoCC.hostPlatform.system}");
-    in
-    ''
-      runHook preInstall
-      mkdir -p $out/share/cups/model $out/lib/cups/filter
-      cp -r filter/${arch}/. $out/lib/cups/filter
-      cp -r ppd/. $out/share/cups/model
-      chmod +x $out/lib/cups/filter/*
-      runHook postInstall
-    '';
+  in ''
+    runHook preInstall
+    mkdir -p $out/share/cups/model $out/lib/cups/filter
+    cp -r filter/${arch}/. $out/lib/cups/filter
+    cp -r ppd/. $out/share/cups/model
+    chmod +x $out/lib/cups/filter/*
+    runHook postInstall
+  '';
 
   meta = {
     description = "CUPS driver for the iDPRT SP900";
@@ -58,7 +55,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       "x86-linux"
     ];
     license = lib.licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with lib.maintainers; [pandapip1];
   };
 })

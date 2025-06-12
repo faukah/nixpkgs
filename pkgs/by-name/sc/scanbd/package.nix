@@ -9,7 +9,6 @@
   sane-backends,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scanbd";
   version = "1.5.1";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     url = "mirror://sourceforge/scanbd/${pname}-${version}.tgz";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     dbus
     libconfuse

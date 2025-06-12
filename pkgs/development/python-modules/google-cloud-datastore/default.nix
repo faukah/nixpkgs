@@ -14,7 +14,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-datastore";
   version = "2.21.0";
@@ -28,17 +27,19 @@ buildPythonPackage rec {
     hash = "sha256-7uRU3UpV9bMn+fNEko/xoJpvd8I9Xj2QitMaE8wvQHM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    google-api-core
-    google-cloud-core
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      google-api-core
+      google-cloud-core
+      proto-plus
+      protobuf
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   optional-dependencies = {
-    libcst = [ libcst ];
+    libcst = [libcst];
   };
 
   nativeCheckInputs = [
@@ -74,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/python-datastore";
     changelog = "https://github.com/googleapis/python-datastore/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

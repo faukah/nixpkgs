@@ -17,7 +17,6 @@
   wrapGAppsHook3,
   zenity,
 }:
-
 stdenv.mkDerivation rec {
   pname = "metacity";
   version = "3.56.0";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/metacity";
     changelog = "https://gitlab.gnome.org/GNOME/metacity/-/blob/${version}/NEWS?ref_type=tags";
     license = lib.licenses.gpl2;
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     platforms = lib.platforms.linux;
   };
 }

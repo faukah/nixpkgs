@@ -6,7 +6,6 @@
   cython,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rectangle-packer";
   version = "2.0.4";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "rpack" ];
+  pythonImportsCheck = ["rpack"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     rm -r rpack
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Pack a set of rectangles into a bounding box with minimum area";
     homepage = "https://github.com/Penlect/rectangle-packer";
     license = licenses.mit;
-    maintainers = with maintainers; [ fbeffa ];
+    maintainers = with maintainers; [fbeffa];
   };
 }

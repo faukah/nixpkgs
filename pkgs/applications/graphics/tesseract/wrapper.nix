@@ -5,24 +5,21 @@
   languages,
   runCommand,
   imagemagick,
-
   # A list of languages like [ "eng" "spa" … ] or `null` for all available languages
   enableLanguages ? null,
-
   # A list of files or a directory containing files
   tessdata ? (
-    if enableLanguages == null then languages.all else map (lang: languages.${lang}) enableLanguages
+    if enableLanguages == null
+    then languages.all
+    else map (lang: languages.${lang}) enableLanguages
   ),
-
   # This argument is obsolete
   enableLanguagesHash ? null,
-}:
-
-let
+}: let
   tesseractWithData = tesseractBase.overrideAttrs (_: {
     inherit tesseractBase tessdata;
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     buildPhase = ''
       makeWrapper {$tesseractBase,$out}/bin/tesseract --set-default TESSDATA_PREFIX $out/share/tessdata
@@ -52,42 +49,45 @@ let
          exit 1
       fi
     '';
-
   });
 
-  passthru = { inherit tesseractBase languages tessdata; };
+  passthru = {inherit tesseractBase languages tessdata;};
 
   # Only run test when all languages are available
   test = lib.optionalAttrs (enableLanguages == null) {
     tests.default =
       runCommand "tesseract-test-ocr"
-        {
-          buildInputs = [
-            tesseractWithData
-            imagemagick
-          ];
-        }
-        ''
-          text="hello nix"
+      {
+        buildInputs = [
+          tesseractWithData
+          imagemagick
+        ];
+      }
+      ''
+        text="hello nix"
 
-          convert -size 400x40 xc:white -font 'DejaVu-Sans' -pointsize 20 \
-            -fill black -annotate +5+20 "$text" /tmp/test-img.png 2>/dev/null
-          ocrResult=$(tesseract /tmp/test-img.png - | tr -d "\f")
+        convert -size 400x40 xc:white -font 'DejaVu-Sans' -pointsize 20 \
+          -fill black -annotate +5+20 "$text" /tmp/test-img.png 2>/dev/null
+        ocrResult=$(tesseract /tmp/test-img.png - | tr -d "\f")
 
-          if [[ $ocrResult != $text ]]; then
-            echo "OCR test failed"
-            echo "expected: '$text'"
-            echo "actual: '$ocrResult'"
-            exit 1
-          fi
-          touch $out
-        '';
+        if [[ $ocrResult != $text ]]; then
+          echo "OCR test failed"
+          echo "expected: '$text'"
+          echo "actual: '$ocrResult'"
+          exit 1
+        fi
+        touch $out
+      '';
   };
 
   tesseract =
-    (if enableLanguages == [ ] then tesseractBase else tesseractWithData) // passthru // test;
+    (
+      if enableLanguages == []
+      then tesseractBase
+      else tesseractWithData
+    )
+    // passthru // test;
 in
-if enableLanguagesHash == null then
-  tesseract
-else
-  lib.warn "Argument `enableLanguagesHash` is obsolete and can be removed." tesseract
+  if enableLanguagesHash == null
+  then tesseract
+  else lib.warn "Argument `enableLanguagesHash` is obsolete and can be removed." tesseract

@@ -5,7 +5,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "yapesdl";
   version = "0.80.1";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2
   ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}c++" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}c++"];
 
   outputs = [
     "out"
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/calmopyrin/yapesdl/releases/tag/${finalAttrs.src.rev}";
     license = lib.licenses.gpl2Plus;
     mainProgram = "yapesdl";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

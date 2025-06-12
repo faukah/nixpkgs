@@ -20,7 +20,6 @@
   libsodium,
   libopus,
 }:
-
 stdenv.mkDerivation rec {
   pname = "utox";
 
@@ -58,18 +57,22 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DENABLE_AUTOUPDATE=OFF"
-    "-DENABLE_TESTS=${if doCheck then "ON" else "OFF"}"
+    "-DENABLE_TESTS=${
+      if doCheck
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
-  nativeCheckInputs = [ check ];
+  nativeCheckInputs = [check];
 
   meta = with lib; {
     description = "Lightweight Tox client";
     mainProgram = "utox";
     homepage = "https://github.com/uTox/uTox";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

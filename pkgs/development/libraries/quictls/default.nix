@@ -12,7 +12,6 @@
   stdenv,
   withCryptodev ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "quictls";
   version = "3.3.0-quic1";
@@ -32,10 +31,9 @@ stdenv.mkDerivation rec {
     ../openssl/3.0/openssl-disable-kernel-detection.patch
 
     (
-      if stdenv.hostPlatform.isDarwin then
-        ../openssl/3.4/use-etc-ssl-certs-darwin.patch
-      else
-        ../openssl/3.4/use-etc-ssl-certs.patch
+      if stdenv.hostPlatform.isDarwin
+      then ../openssl/3.4/use-etc-ssl-certs-darwin.patch
+      else ../openssl/3.4/use-etc-ssl-certs.patch
     )
   ];
 
@@ -77,7 +75,7 @@ stdenv.mkDerivation rec {
     !stdenv.hostPlatform.isDarwin && !(stdenv.hostPlatform.useLLVM or false) && stdenv.cc.isGNU;
 
   # TODO(@Ericson2314): Improve with mass rebuild
-  configurePlatforms = [ ];
+  configurePlatforms = [];
   configureScript =
     {
       armv5tel-linux = "./Configure linux-armv4 -march=armv5te";
@@ -89,34 +87,34 @@ stdenv.mkDerivation rec {
       x86_64-solaris = "./Configure solaris64-x86_64-gcc";
       riscv64-linux = "./Configure linux64-riscv64";
       mips64el-linux =
-        if stdenv.hostPlatform.isMips64n64 then
-          "./Configure linux64-mips64"
-        else if stdenv.hostPlatform.isMips64n32 then
-          "./Configure linux-mips64"
-        else
-          throw "unsupported ABI for ${stdenv.hostPlatform.system}";
+        if stdenv.hostPlatform.isMips64n64
+        then "./Configure linux64-mips64"
+        else if stdenv.hostPlatform.isMips64n32
+        then "./Configure linux-mips64"
+        else throw "unsupported ABI for ${stdenv.hostPlatform.system}";
     }
-    .${stdenv.hostPlatform.system} or (
-      if stdenv.hostPlatform == stdenv.buildPlatform then
-        "./config"
-      else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_64 then
-        "./Configure BSD-x86_64"
-      else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_32 then
-        "./Configure BSD-x86" + lib.optionalString stdenv.hostPlatform.isElf "-elf"
-      else if stdenv.hostPlatform.isBSD then
-        "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
-      else if stdenv.hostPlatform.isMinGW then
-        "./Configure mingw${
-          lib.optionalString (stdenv.hostPlatform.parsed.cpu.bits != 32) (
-            toString stdenv.hostPlatform.parsed.cpu.bits
-          )
-        }"
-      else if stdenv.hostPlatform.isLinux then
-        "./Configure linux-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
-      else if stdenv.hostPlatform.isiOS then
-        "./Configure ios${toString stdenv.hostPlatform.parsed.cpu.bits}-cross"
-      else
-        throw "Not sure what configuration to use for ${stdenv.hostPlatform.config}"
+    .${
+      stdenv.hostPlatform.system
+    } or (
+      if stdenv.hostPlatform == stdenv.buildPlatform
+      then "./config"
+      else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_64
+      then "./Configure BSD-x86_64"
+      else if stdenv.hostPlatform.isBSD && stdenv.hostPlatform.isx86_32
+      then "./Configure BSD-x86" + lib.optionalString stdenv.hostPlatform.isElf "-elf"
+      else if stdenv.hostPlatform.isBSD
+      then "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
+      else if stdenv.hostPlatform.isMinGW
+      then "./Configure mingw${
+        lib.optionalString (stdenv.hostPlatform.parsed.cpu.bits != 32) (
+          toString stdenv.hostPlatform.parsed.cpu.bits
+        )
+      }"
+      else if stdenv.hostPlatform.isLinux
+      then "./Configure linux-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
+      else if stdenv.hostPlatform.isiOS
+      then "./Configure ios${toString stdenv.hostPlatform.parsed.cpu.bits}-cross"
+      else throw "Not sure what configuration to use for ${stdenv.hostPlatform.config}"
     );
 
   # OpenSSL doesn't like the `--enable-static` / `--disable-shared` flags.
@@ -159,19 +157,18 @@ stdenv.mkDerivation rec {
 
   postInstall =
     (
-      if static then
-        ''
-          # OPENSSLDIR has a reference to self
-          ${removeReferencesTo}/bin/remove-references-to -t $out $out/lib/*.a
-        ''
-      else
-        ''
-          # If we're building dynamic libraries, then don't install static
-          # libraries.
-          if [ -n "$(echo $out/lib/*.so $out/lib/*.dylib $out/lib/*.dll)" ]; then
-              rm "$out/lib/"*.a
-          fi
-        ''
+      if static
+      then ''
+        # OPENSSLDIR has a reference to self
+        ${removeReferencesTo}/bin/remove-references-to -t $out $out/lib/*.a
+      ''
+      else ''
+        # If we're building dynamic libraries, then don't install static
+        # libraries.
+        if [ -n "$(echo $out/lib/*.so $out/lib/*.dylib $out/lib/*.dll)" ]; then
+            rm "$out/lib/"*.a
+        fi
+      ''
     )
     + ''
       mkdir -p $bin
@@ -204,7 +201,7 @@ stdenv.mkDerivation rec {
     description = "TLS/SSL and crypto library with QUIC APIs";
     homepage = "https://quictls.github.io";
     license = lib.licenses.openssl;
-    maintainers = with lib.maintainers; [ izorkin ];
+    maintainers = with lib.maintainers; [izorkin];
     platforms = lib.platforms.all;
   };
 }

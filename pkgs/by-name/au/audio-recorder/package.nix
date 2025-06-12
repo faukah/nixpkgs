@@ -14,7 +14,6 @@
   pulseaudioSupport ? true,
   libpulseaudio,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "audio-recorder";
   version = "3.3.4";
@@ -67,6 +66,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://launchpad.net/~audio-recorder";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.msteen ];
+    maintainers = [lib.maintainers.msteen];
   };
 })

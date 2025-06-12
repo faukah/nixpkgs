@@ -3,7 +3,6 @@
   stdenv,
   mysql_jdbc,
 }:
-
 stdenv.mkDerivation {
   pname = "jboss-mysql-jdbc";
   inherit (mysql_jdbc) version;
@@ -20,12 +19,13 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    inherit (mysql_jdbc.meta)
+    inherit
+      (mysql_jdbc.meta)
       description
       license
       platforms
       homepage
       ;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

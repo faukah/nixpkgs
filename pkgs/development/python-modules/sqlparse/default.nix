@@ -6,14 +6,12 @@
   installShellFiles,
   pytestCheckHook,
   pythonOlder,
-
   # for passthru.tests
   django,
   django_4,
   django-silk,
   pgadmin4,
 }:
-
 buildPythonPackage rec {
   pname = "sqlparse";
   version = "0.5.3";
@@ -26,11 +24,11 @@ buildPythonPackage rec {
     hash = "sha256-CfZ3h/VqCxbs294b/H9dnDNxymg8/qqOb/YLSAfsknI=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postInstall = ''
     installManPage docs/sqlformat.1

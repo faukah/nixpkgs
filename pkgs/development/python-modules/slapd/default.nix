@@ -7,7 +7,6 @@
   openldap,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "slapd";
   version = "0.1.5";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-AiJvhgJ62vCj75m6l5kuIEb7k2qCh/QJybS0uqw2vBY=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     # Needed by tests to setup a mockup ldap server
@@ -35,14 +34,13 @@ buildPythonPackage rec {
     export SCHEMA="${openldap}/etc/schema"
   '';
 
-  pythonImportsCheck = [ "slapd" ];
+  pythonImportsCheck = ["slapd"];
 
   meta = with lib; {
     description = "Controls a slapd process in a pythonic way";
     homepage = "https://github.com/python-ldap/python-slapd";
     changelog = "https://github.com/python-ldap/python-slapd/blob/${src.rev}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
   };
-
 }

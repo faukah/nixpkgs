@@ -67,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
       mpi
       bzip2
       c-blosc2
-      (hdf5-mpi.override { inherit mpi; })
+      (hdf5-mpi.override {inherit mpi;})
       libfabric
       libpng
       libsodium
@@ -89,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
 
   propagatedBuildInputs = lib.optionals pythonSupport [
-    (python3Packages.mpi4py.override { inherit mpi; })
+    (python3Packages.mpi4py.override {inherit mpi;})
     python3Packages.numpy
   ];
 
@@ -123,7 +123,7 @@ stdenv.mkDerivation (finalAttrs: {
     "../testing/adios2/python/Test*.py"
   ];
 
-  pythonImportsCheck = [ "adios2" ];
+  pythonImportsCheck = ["adios2"];
 
   nativeInstallCheckInputs = lib.optionals pythonSupport [
     python3Packages.pythonImportsCheckHook
@@ -135,6 +135,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Adaptable Input/Output System version 2";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 })

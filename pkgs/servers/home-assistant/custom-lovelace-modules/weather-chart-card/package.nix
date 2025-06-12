@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchNpmDeps,
 }:
-
 buildNpmPackage rec {
   pname = "weather-chart-card";
   version = "2.4.11";
@@ -35,7 +34,7 @@ buildNpmPackage rec {
     description = "Custom weather card with charts";
     homepage = "https://github.com/mlamberts78/weather-chart-card";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
     platforms = lib.platforms.all;
   };
 }

@@ -6,7 +6,6 @@
   obs-studio,
   qtbase,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "obs-freeze-filter";
   version = "0.3.4";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     obs-studio
     qtbase
@@ -39,6 +38,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/exeldro/obs-freeze-filter";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pschmitt ];
+    maintainers = with maintainers; [pschmitt];
   };
 })

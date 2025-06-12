@@ -11,9 +11,8 @@
   libxml2,
   libllvm,
   version,
-  devExtraCmakeFlags ? [ ],
+  devExtraCmakeFlags ? [],
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mlir";
   inherit version;
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     && (!stdenv.hostPlatform.isMusl);
 
   # Blank llvm dir just so relative path works
-  src = runCommand "${finalAttrs.pname}-src-${version}" { inherit (monorepoSrc) passthru; } (
+  src = runCommand "${finalAttrs.pname}-src-${version}" {inherit (monorepoSrc) passthru;} (
     ''
       mkdir -p "$out"
     ''
@@ -87,16 +86,18 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  requiredSystemFeatures = [ "big-parallel" ];
-  meta = llvm_meta // {
-    homepage = "https://mlir.llvm.org/";
-    description = "Multi-Level IR Compiler Framework";
-    longDescription = ''
-      The MLIR project is a novel approach to building reusable and extensible
-      compiler infrastructure. MLIR aims to address software fragmentation,
-      improve compilation for heterogeneous hardware, significantly reduce
-      the cost of building domain specific compilers, and aid in connecting
-      existing compilers together.
-    '';
-  };
+  requiredSystemFeatures = ["big-parallel"];
+  meta =
+    llvm_meta
+    // {
+      homepage = "https://mlir.llvm.org/";
+      description = "Multi-Level IR Compiler Framework";
+      longDescription = ''
+        The MLIR project is a novel approach to building reusable and extensible
+        compiler infrastructure. MLIR aims to address software fragmentation,
+        improve compilation for heterogeneous hardware, significantly reduce
+        the cost of building domain specific compilers, and aid in connecting
+        existing compilers together.
+      '';
+    };
 })

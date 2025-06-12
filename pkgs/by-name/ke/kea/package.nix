@@ -2,12 +2,10 @@
   stdenv,
   lib,
   fetchurl,
-
   # build time
   autoreconfHook,
   pkg-config,
   python3Packages,
-
   # runtime
   withMysql ? stdenv.buildPlatform.system == stdenv.hostPlatform.system,
   withPostgres ? stdenv.buildPlatform.system == stdenv.hostPlatform.system,
@@ -17,11 +15,9 @@
   openssl,
   libpq,
   python3,
-
   # tests
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kea";
   version = "2.6.2"; # only even minor versions are stable

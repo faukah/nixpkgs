@@ -9,7 +9,6 @@
   youtube-dl,
   zenity,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kodi-cli";
   version = "1.1.1";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "0f9wdq2fg8hlpk3qbjfkb3imprxkvdrhxfkcvr3dwfma0j2yfwam";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     description = "Kodi/XBMC bash script to send Kodi commands using JSON RPC. It also allows sending YouTube videos to Kodi";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = [ maintainers.pstn ];
+    maintainers = [maintainers.pstn];
   };
 }

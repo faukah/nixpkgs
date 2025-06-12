@@ -17,7 +17,6 @@
   djangorestframework,
   starlette,
 }:
-
 buildPythonPackage rec {
   pname = "swh-auth";
   version = "0.10.0";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     swh-core
   ];
 
-  pythonImportsCheck = [ "swh.auth" ];
+  pythonImportsCheck = ["swh.auth"];
 
   nativeCheckInputs = [
     aiocache
@@ -61,6 +60,6 @@ buildPythonPackage rec {
     description = "Set of utility libraries related to user authentication in applications and services based on the use of Keycloak and OpenID Connect";
     homepage = "https://gitlab.softwareheritage.org/swh/devel/swh-auth";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

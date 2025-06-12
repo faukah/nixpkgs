@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zodbpickle";
   version = "4.2";
@@ -24,11 +23,11 @@ buildPythonPackage rec {
       --replace-fail "setuptools <= 75.6.0" "setuptools"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "zodbpickle" ];
+  pythonImportsCheck = ["zodbpickle"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     mv src/zodbpickle/tests ./.
@@ -51,6 +50,6 @@ buildPythonPackage rec {
       psfl
       zpl21
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

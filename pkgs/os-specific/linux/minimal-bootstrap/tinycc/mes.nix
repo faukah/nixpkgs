@@ -3,16 +3,14 @@
 # SPDX-FileCopyrightText: 2021-22 fosslinux <fosslinux@aussies.space>
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
-
 {
   lib,
   fetchurl,
   callPackage,
   kaem,
   tinycc-bootstrappable,
-}:
-let
-  inherit (callPackage ./common.nix { }) buildTinyccMes;
+}: let
+  inherit (callPackage ./common.nix {}) buildTinyccMes;
 
   version = "unstable-2023-04-20";
   rev = "86f3d8e33105435946383aee52487b5ddf918140";
@@ -22,7 +20,7 @@ let
     sha256 = "11idrvbwfgj1d03crv994mpbbbyg63j1k64lw1gjy7mkiifw2xap";
   };
   src =
-    (kaem.runCommand "tinycc-${version}-source" { } ''
+    (kaem.runCommand "tinycc-${version}-source" {} ''
       ungz --file ${tarball} --output tinycc.tar
       mkdir -p ''${out}
       cd ''${out}
@@ -39,11 +37,11 @@ let
     description = "Small, fast, and embeddable C compiler and interpreter";
     homepage = "https://repo.or.cz/w/tinycc.git";
     license = licenses.lgpl21Only;
-    teams = [ teams.minimal-bootstrap ];
-    platforms = [ "i686-linux" ];
+    teams = [teams.minimal-bootstrap];
+    platforms = ["i686-linux"];
   };
 
-  tccdefs = kaem.runCommand "tccdefs-${version}" { } ''
+  tccdefs = kaem.runCommand "tccdefs-${version}" {} ''
     mkdir ''${out}
     ${tinycc-bootstrappable.compiler}/bin/tcc \
       -B ${tinycc-bootstrappable.libs}/lib \
@@ -75,25 +73,25 @@ let
     ];
   };
 in
-buildTinyccMes {
-  pname = "tinycc-mes";
-  inherit src version meta;
-  prev = tinycc-mes-boot;
-  buildOptions = [
-    "-std=c99"
-    "-D HAVE_BITFIELD=1"
-    "-D HAVE_FLOAT=1"
-    "-D HAVE_LONG_LONG=1"
-    "-D HAVE_SETJMP=1"
-    "-D CONFIG_TCC_PREDEFS=1"
-    "-I ${tccdefs}"
-    "-D CONFIG_TCC_SEMLOCK=0"
-  ];
-  libtccBuildOptions = [
-    "-D HAVE_FLOAT=1"
-    "-D HAVE_LONG_LONG=1"
-    "-D CONFIG_TCC_PREDEFS=1"
-    "-I ${tccdefs}"
-    "-D CONFIG_TCC_SEMLOCK=0"
-  ];
-}
+  buildTinyccMes {
+    pname = "tinycc-mes";
+    inherit src version meta;
+    prev = tinycc-mes-boot;
+    buildOptions = [
+      "-std=c99"
+      "-D HAVE_BITFIELD=1"
+      "-D HAVE_FLOAT=1"
+      "-D HAVE_LONG_LONG=1"
+      "-D HAVE_SETJMP=1"
+      "-D CONFIG_TCC_PREDEFS=1"
+      "-I ${tccdefs}"
+      "-D CONFIG_TCC_SEMLOCK=0"
+    ];
+    libtccBuildOptions = [
+      "-D HAVE_FLOAT=1"
+      "-D HAVE_LONG_LONG=1"
+      "-D CONFIG_TCC_PREDEFS=1"
+      "-I ${tccdefs}"
+      "-D CONFIG_TCC_SEMLOCK=0"
+    ];
+  }

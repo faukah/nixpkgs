@@ -5,7 +5,6 @@
   testers,
   typioca,
 }:
-
 buildGoModule rec {
   pname = "typioca";
   version = "3.1.0";
@@ -36,7 +35,7 @@ buildGoModule rec {
     homepage = "https://github.com/bloznelis/typioca";
     changelog = "https://github.com/bloznelis/typioca/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "typioca";
   };
 }

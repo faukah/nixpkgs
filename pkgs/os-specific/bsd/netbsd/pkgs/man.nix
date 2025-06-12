@@ -1,5 +1,7 @@
-{ mkDerivation, defaultMakeFlags }:
-
+{
+  mkDerivation,
+  defaultMakeFlags,
+}:
 mkDerivation {
   path = "share/man";
   noCC = true;
@@ -8,8 +10,10 @@ mkDerivation {
   postPatch = ''
     substituteInPlace $COMPONENT_PATH/man0/Makefile --replace "ps2pdf" "echo noop "
   '';
-  makeFlags = defaultMakeFlags ++ [
-    "FILESDIR=$(out)/share"
-    "MKRUMP=no" # would require to have additional path sys/rump/share/man
-  ];
+  makeFlags =
+    defaultMakeFlags
+    ++ [
+      "FILESDIR=$(out)/share"
+      "MKRUMP=no" # would require to have additional path sys/rump/share/man
+    ];
 }

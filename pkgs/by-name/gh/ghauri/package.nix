@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "ghauri";
   version = "1.3.8";
@@ -39,7 +38,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/r0oth3x49/ghauri";
     changelog = "https://github.com/r0oth3x49/ghauri/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "ghauri";
   };
 }

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "aixlog";
   version = "1.5.0";
@@ -32,6 +31,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/badaix/aixlog";
     changelog = "https://github.com/badaix/aixlog/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

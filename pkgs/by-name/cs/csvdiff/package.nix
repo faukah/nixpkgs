@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "csvdiff";
   version = "1.4.0";
@@ -22,6 +21,6 @@ buildGoModule rec {
     description = "Fast diff tool for comparing csv files";
     mainProgram = "csvdiff";
     license = licenses.mit;
-    maintainers = with maintainers; [ turion ];
+    maintainers = with maintainers; [turion];
   };
 }

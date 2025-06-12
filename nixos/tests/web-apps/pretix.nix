@@ -2,11 +2,9 @@
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   name = "pretix";
-  meta.maintainers = with lib.maintainers; [ hexa ];
+  meta.maintainers = with lib.maintainers; [hexa];
 
   nodes = {
     pretix = {

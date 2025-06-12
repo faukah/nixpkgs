@@ -10,7 +10,6 @@
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fnv-hash-fast";
   version = "1.5.0";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ fnvhash ];
+  dependencies = [fnvhash];
 
-  pythonImportsCheck = [ "fnv_hash_fast" ];
+  pythonImportsCheck = ["fnv_hash_fast"];
 
   nativeCheckInputs = [
     pytest-codspeed
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/bdraco/fnv-hash-fast";
     changelog = "https://github.com/bdraco/fnv-hash-fast/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

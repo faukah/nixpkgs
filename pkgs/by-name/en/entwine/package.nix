@@ -8,7 +8,6 @@
   curl,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "entwine";
   version = "3.1.1";
@@ -30,14 +29,14 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Point cloud organization for massive datasets";
     homepage = "https://entwine.io/";
     license = licenses.lgpl2Only;
-    maintainers = with maintainers; [ matthewcroughan ];
-    teams = [ teams.geospatial ];
+    maintainers = with maintainers; [matthewcroughan];
+    teams = [teams.geospatial];
     platforms = platforms.linux;
     mainProgram = "entwine";
   };

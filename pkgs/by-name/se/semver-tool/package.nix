@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "semver-tool";
   version = "3.4.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "semver bash implementation";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = [ maintainers.qyliss ];
+    maintainers = [maintainers.qyliss];
     mainProgram = "semver";
   };
 }

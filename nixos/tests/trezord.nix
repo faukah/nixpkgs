@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "trezord";
   meta = with pkgs.lib; {
     maintainers = with maintainers; [
@@ -8,12 +7,10 @@
     ];
   };
   nodes = {
-    machine =
-      { ... }:
-      {
-        services.trezord.enable = true;
-        services.trezord.emulator.enable = true;
-      };
+    machine = {...}: {
+      services.trezord.enable = true;
+      services.trezord.emulator.enable = true;
+    };
   };
 
   testScript = ''

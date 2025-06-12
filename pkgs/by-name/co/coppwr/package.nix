@@ -10,7 +10,6 @@
   libGL,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "coppwr";
   version = "1.6.2";
@@ -60,19 +59,19 @@ rustPlatform.buildRustPackage rec {
   postFixup = ''
     patchelf $out/bin/coppwr \
       --add-rpath ${
-        lib.makeLibraryPath [
-          libGL
-          libxkbcommon
-          wayland
-        ]
-      }
+      lib.makeLibraryPath [
+        libGL
+        libxkbcommon
+        wayland
+      ]
+    }
   '';
 
   meta = {
     description = "Low level control GUI for the PipeWire multimedia server";
     homepage = "https://github.com/dimtpap/coppwr";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ ravenz46 ];
+    maintainers = with lib.maintainers; [ravenz46];
     mainProgram = "coppwr";
     platforms = lib.platforms.linux;
   };

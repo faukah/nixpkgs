@@ -4,7 +4,6 @@
   fetchurl,
   elfutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dwz";
   version = "0.14";
@@ -14,16 +13,16 @@ stdenv.mkDerivation rec {
     sha256 = "07qdvzfk4mvbqj5z3aff7vc195dxqn1mi27w2dzs1w2zhymnw01k";
   };
 
-  nativeBuildInputs = [ elfutils ];
+  nativeBuildInputs = [elfutils];
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   meta = with lib; {
     homepage = "https://sourceware.org/dwz/";
     description = "DWARF optimization and duplicate removal tool";
     mainProgram = "dwz";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ jbcrail ];
+    maintainers = with maintainers; [jbcrail];
     platforms = platforms.linux;
   };
 }

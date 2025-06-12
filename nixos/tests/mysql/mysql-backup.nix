@@ -1,46 +1,41 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../../.. {inherit system config;},
   lib ? pkgs.lib,
-}:
-
-let
-  inherit (import ./common.nix { inherit pkgs lib; }) mkTestName mariadbPackages;
+}: let
+  inherit (import ./common.nix {inherit pkgs lib;}) mkTestName mariadbPackages;
 
   makeTest = import ./../make-test-python.nix;
 
-  makeBackupTest =
-    {
-      package,
-      name ? mkTestName package,
-    }:
+  makeBackupTest = {
+    package,
+    name ? mkTestName package,
+  }:
     makeTest {
       name = "${name}-backup";
 
       nodes = {
-        master =
-          { pkgs, ... }:
-          {
-            services.mysql = {
-              inherit package;
-              enable = true;
-              initialDatabases = [
-                {
-                  name = "testdb";
-                  schema = ./testdb.sql;
-                }
-              ];
-            };
-
-            services.mysqlBackup = {
-              enable = true;
-              databases = [
-                "doesnotexist"
-                "testdb"
-              ];
-            };
+        master = {pkgs, ...}: {
+          services.mysql = {
+            inherit package;
+            enable = true;
+            initialDatabases = [
+              {
+                name = "testdb";
+                schema = ./testdb.sql;
+              }
+            ];
           };
+
+          services.mysqlBackup = {
+            enable = true;
+            databases = [
+              "doesnotexist"
+              "testdb"
+            ];
+          };
+        };
       };
 
       testScript = ''
@@ -77,4 +72,4 @@ let
       '';
     };
 in
-lib.mapAttrs (_: package: makeBackupTest { inherit package; }) mariadbPackages
+  lib.mapAttrs (_: package: makeBackupTest {inherit package;}) mariadbPackages

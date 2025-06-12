@@ -8,7 +8,7 @@
 mkKdeDerivation {
   pname = "plasma-mobile";
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     qtsensors
     qtwayland
@@ -19,5 +19,5 @@ mkKdeDerivation {
         "$out/libexec/plasma-dbus-run-session-if-needed" \
         "${plasma-workspace}/libexec/plasma-dbus-run-session-if-needed"
   '';
-  passthru.providedSessions = [ "plasma-mobile" ];
+  passthru.providedSessions = ["plasma-mobile"];
 }

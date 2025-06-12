@@ -7,7 +7,6 @@
   setuptools,
   pythonOlder,
   dnspython,
-
   # for passthru.tests
   celery, # check-input only
   flask-pymongo,
@@ -16,7 +15,6 @@
   motor,
   pymongo-inmemory,
 }:
-
 buildPythonPackage rec {
   pname = "pymongo";
   version = "4.11.3";
@@ -36,12 +34,12 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ dnspython ];
+  dependencies = [dnspython];
 
   # Tests call a running mongodb instance
   doCheck = false;
 
-  pythonImportsCheck = [ "pymongo" ];
+  pythonImportsCheck = ["pymongo"];
 
   passthru.tests = {
     inherit
@@ -58,6 +56,6 @@ buildPythonPackage rec {
     description = "Python driver for MongoDB";
     homepage = "https://github.com/mongodb/mongo-python-driver";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

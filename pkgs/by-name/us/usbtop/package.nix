@@ -6,7 +6,6 @@
   libpcap,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "usbtop";
   version = "1.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0qbad0aq6j4jrh90l6a0akk71wdzhyzmy6q8wl138axyj2bp9kss";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libpcap
     boost
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/aguinet/usbtop";
     description = "Top utility that shows an estimated instantaneous bandwidth on USB buses and devices";
     mainProgram = "usbtop";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.bsd3;
     platforms = platforms.linux;
   };

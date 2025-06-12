@@ -26,69 +26,69 @@
   # Unfree tools
   unfreeEnableUnrar ? false,
   unrar,
-}:
-
-let
-  extraTools = [
-    p7zip
-    lrzip
-    unar
-  ] ++ lib.optional unfreeEnableUnrar unrar;
+}: let
+  extraTools =
+    [
+      p7zip
+      lrzip
+      unar
+    ]
+    ++ lib.optional unfreeEnableUnrar unrar;
 in
+  mkDerivation {
+    pname = "ark";
 
-mkDerivation {
-  pname = "ark";
+    outputs = [
+      "out"
+      "dev"
+    ];
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+    nativeBuildInputs = [
+      extra-cmake-modules
+      kdoctools
+    ];
 
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-  ];
-
-  buildInputs = [
-    libarchive
-    libzip
-  ] ++ extraTools;
-
-  propagatedBuildInputs = [
-    breeze-icons
-    karchive
-    kconfig
-    kcrash
-    kdbusaddons
-    khtml
-    ki18n
-    kiconthemes
-    kio
-    kitemmodels
-    kparts
-    kpty
-    kservice
-    kwidgetsaddons
-  ];
-
-  qtWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    (lib.makeBinPath extraTools)
-  ];
-
-  meta = with lib; {
-    homepage = "https://apps.kde.org/ark/";
-    description = "Graphical file compression/decompression utility";
-    mainProgram = "ark";
-    license =
-      with licenses;
+    buildInputs =
       [
-        gpl2
-        lgpl3
+        libarchive
+        libzip
       ]
-      ++ optional unfreeEnableUnrar unfree;
-    maintainers = [ maintainers.ttuegel ];
-  };
-}
+      ++ extraTools;
+
+    propagatedBuildInputs = [
+      breeze-icons
+      karchive
+      kconfig
+      kcrash
+      kdbusaddons
+      khtml
+      ki18n
+      kiconthemes
+      kio
+      kitemmodels
+      kparts
+      kpty
+      kservice
+      kwidgetsaddons
+    ];
+
+    qtWrapperArgs = [
+      "--prefix"
+      "PATH"
+      ":"
+      (lib.makeBinPath extraTools)
+    ];
+
+    meta = with lib; {
+      homepage = "https://apps.kde.org/ark/";
+      description = "Graphical file compression/decompression utility";
+      mainProgram = "ark";
+      license = with licenses;
+        [
+          gpl2
+          lgpl3
+        ]
+        ++ optional unfreeEnableUnrar unfree;
+      maintainers = [maintainers.ttuegel];
+    };
+  }

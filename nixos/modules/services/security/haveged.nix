@@ -3,20 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.haveged;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.haveged = {
-
       enable = lib.mkEnableOption ''
         haveged entropy daemon, which refills /dev/random when low.
         NOTE: does nothing on kernels newer than 5.6
@@ -31,13 +24,10 @@ in
           haveged should refill the entropy pool.
         '';
       };
-
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     # https://github.com/jirka-h/haveged/blob/a4b69d65a8dfc5a9f52ff8505c7f58dcf8b9234f/contrib/Fedora/haveged.service
     systemd.services.haveged = {
       description = "Entropy Daemon based on the HAVEGE algorithm";
@@ -46,8 +36,8 @@ in
         DefaultDependencies = false;
         ConditionKernelVersion = "<5.6";
       };
-      wantedBy = [ "sysinit.target" ];
-      after = [ "systemd-tmpfiles-setup-dev.service" ];
+      wantedBy = ["sysinit.target"];
+      after = ["systemd-tmpfiles-setup-dev.service"];
       before = [
         "sysinit.target"
         "shutdown.target"
@@ -83,8 +73,6 @@ in
         ];
         SystemCallErrorNumber = "EPERM";
       };
-
     };
   };
-
 }

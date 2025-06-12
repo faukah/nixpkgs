@@ -1,23 +1,20 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
-  {
+  {pkgs, ...}: {
     name = "stratis";
 
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ nickcao ];
+      maintainers = [nickcao];
     };
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        services.stratis.enable = true;
-        virtualisation.emptyDiskImages = [
-          2048
-          1024
-          1024
-          1024
-        ];
-      };
+    nodes.machine = {pkgs, ...}: {
+      services.stratis.enable = true;
+      virtualisation.emptyDiskImages = [
+        2048
+        1024
+        1024
+        1024
+      ];
+    };
 
     testScript = ''
       machine.wait_for_unit("stratisd")

@@ -3,40 +3,37 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.security.sudo;
 
-  toUserString = user: if (lib.isInt user) then "#${toString user}" else "${user}";
-  toGroupString = group: if (lib.isInt group) then "%#${toString group}" else "%${group}";
+  toUserString = user:
+    if (lib.isInt user)
+    then "#${toString user}"
+    else "${user}";
+  toGroupString = group:
+    if (lib.isInt group)
+    then "%#${toString group}"
+    else "%${group}";
 
-  toCommandOptionsString =
-    options: "${lib.concatStringsSep ":" options}${lib.optionalString (lib.length options != 0) ":"} ";
+  toCommandOptionsString = options: "${lib.concatStringsSep ":" options}${lib.optionalString (lib.length options != 0) ":"} ";
 
-  toCommandsString =
-    commands:
+  toCommandsString = commands:
     lib.concatStringsSep ", " (
       map (
         command:
-        if (lib.isString command) then
-          command
-        else
-          "${toCommandOptionsString command.options}${command.command}"
-      ) commands
+          if (lib.isString command)
+          then command
+          else "${toCommandOptionsString command.options}${command.command}"
+      )
+      commands
     );
-
-in
-
-{
-
+in {
   ###### interface
 
   options.security.sudo = {
-
     defaultOptions = lib.mkOption {
       type = with lib.types; listOf str;
-      default = [ "SETENV" ];
+      default = ["SETENV"];
       description = ''
         Options used for the default rules, granting `root` and the
         `wheel` group permission to run any command as any user.
@@ -52,7 +49,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "sudo" { };
+    package = lib.mkPackageOption pkgs "sudo" {};
 
     wheelNeedsPassword = lib.mkOption {
       type = lib.types.bool;
@@ -91,7 +88,7 @@ in
         yield the expected behavior. You can use mkBefore/mkAfter to ensure
         this is the case when configuration options are merged.
       '';
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''
         [
           # Allow execution of any command by all users in group sudo,
@@ -111,8 +108,7 @@ in
                   { command = '''/home/baz/cmd2.sh ""'''; options = [ "SETENV" ]; } ]; }
         ]
       '';
-      type =
-        with lib.types;
+      type = with lib.types;
         listOf (submodule {
           options = {
             users = lib.mkOption {
@@ -120,7 +116,7 @@ in
               description = ''
                 The usernames / UIDs this rule should apply for.
               '';
-              default = [ ];
+              default = [];
             };
 
             groups = lib.mkOption {
@@ -128,7 +124,7 @@ in
               description = ''
                 The groups / GIDs this rule should apply for.
               '';
-              default = [ ];
+              default = [];
             };
 
             host = lib.mkOption {
@@ -155,11 +151,9 @@ in
               description = ''
                 The commands for which the rule should apply.
               '';
-              type =
-                with types;
+              type = with types;
                 listOf (
                   either str (submodule {
-
                     options = {
                       command = lib.mkOption {
                         type = with types; str;
@@ -171,8 +165,7 @@ in
                       };
 
                       options = lib.mkOption {
-                        type =
-                          with types;
+                        type = with types;
                           listOf (enum [
                             "NOPASSWD"
                             "PASSWD"
@@ -194,10 +187,9 @@ in
                         description = ''
                           Options for running the command. Refer to the [sudo manual](https://www.sudo.ws/docs/man/1.9.15/sudoers.man/#Tag_Spec).
                         '';
-                        default = [ ];
+                        default = [];
                       };
                     };
-
                   })
                 );
             };
@@ -226,38 +218,35 @@ in
       }
     ];
 
-    security.sudo.extraRules =
-      let
-        defaultRule =
-          {
-            users ? [ ],
-            groups ? [ ],
-            opts ? [ ],
-          }:
-          [
+    security.sudo.extraRules = let
+      defaultRule = {
+        users ? [],
+        groups ? [],
+        opts ? [],
+      }: [
+        {
+          inherit users groups;
+          commands = [
             {
-              inherit users groups;
-              commands = [
-                {
-                  command = "ALL";
-                  options = opts ++ cfg.defaultOptions;
-                }
-              ];
+              command = "ALL";
+              options = opts ++ cfg.defaultOptions;
             }
           ];
-      in
+        }
+      ];
+    in
       lib.mkMerge [
         # This is ordered before users' `mkBefore` rules,
         # so as not to introduce unexpected changes.
         (lib.mkOrder 400 (defaultRule {
-          users = [ "root" ];
+          users = ["root"];
         }))
 
         # This is ordered to show before (most) other rules, but
         # late-enough for a user to `mkBefore` it.
         (lib.mkOrder 600 (defaultRule {
-          groups = [ "wheel" ];
-          opts = (lib.optional (!cfg.wheelNeedsPassword) "NOPASSWD");
+          groups = ["wheel"];
+          opts = lib.optional (!cfg.wheelNeedsPassword) "NOPASSWD";
         }))
       ];
 
@@ -271,11 +260,13 @@ in
           (lib.filter (rule: lib.length rule.commands != 0))
           (map (rule: [
             (map (
-              user: "${toUserString user}     ${rule.host}=(${rule.runAs})    ${toCommandsString rule.commands}"
-            ) rule.users)
+                user: "${toUserString user}     ${rule.host}=(${rule.runAs})    ${toCommandsString rule.commands}"
+              )
+              rule.users)
             (map (
-              group: "${toGroupString group}  ${rule.host}=(${rule.runAs})    ${toCommandsString rule.commands}"
-            ) rule.groups)
+                group: "${toGroupString group}  ${rule.host}=(${rule.runAs})    ${toCommandsString rule.commands}"
+              )
+              rule.groups)
           ]))
           lib.flatten
           (lib.concatStringsSep "\n")
@@ -288,35 +279,39 @@ in
       ]
     );
 
-    security.wrappers =
-      let
-        owner = "root";
-        group = if cfg.execWheelOnly then "wheel" else "root";
-        setuid = true;
-        permissions = if cfg.execWheelOnly then "u+rx,g+x" else "u+rx,g+x,o+x";
-      in
-      {
-        sudo = {
-          source = "${cfg.package.out}/bin/sudo";
-          inherit
-            owner
-            group
-            setuid
-            permissions
-            ;
-        };
-        sudoedit = {
-          source = "${cfg.package.out}/bin/sudoedit";
-          inherit
-            owner
-            group
-            setuid
-            permissions
-            ;
-        };
+    security.wrappers = let
+      owner = "root";
+      group =
+        if cfg.execWheelOnly
+        then "wheel"
+        else "root";
+      setuid = true;
+      permissions =
+        if cfg.execWheelOnly
+        then "u+rx,g+x"
+        else "u+rx,g+x,o+x";
+    in {
+      sudo = {
+        source = "${cfg.package.out}/bin/sudo";
+        inherit
+          owner
+          group
+          setuid
+          permissions
+          ;
       };
+      sudoedit = {
+        source = "${cfg.package.out}/bin/sudoedit";
+        inherit
+          owner
+          group
+          setuid
+          permissions
+          ;
+      };
+    };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     security.pam.services.sudo = {
       sshAgentAuth = true;
@@ -326,16 +321,14 @@ in
     environment.etc.sudoers = {
       source =
         pkgs.runCommand "sudoers"
-          {
-            src = pkgs.writeText "sudoers-in" cfg.configFile;
-            preferLocalBuild = true;
-          }
-          # Make sure that the sudoers file is syntactically valid.
-          # (currently disabled - NIXOS-66)
-          "${pkgs.buildPackages.sudo}/sbin/visudo -f $src -c && cp $src $out";
+        {
+          src = pkgs.writeText "sudoers-in" cfg.configFile;
+          preferLocalBuild = true;
+        }
+        # Make sure that the sudoers file is syntactically valid.
+        # (currently disabled - NIXOS-66)
+        "${pkgs.buildPackages.sudo}/sbin/visudo -f $src -c && cp $src $out";
       mode = "0440";
     };
-
   };
-
 }

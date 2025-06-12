@@ -5,9 +5,7 @@
   autoPatchelfHook,
   buildGoModule,
   libayatana-appindicator,
-}:
-
-let
+}: let
   version = "1.7.0";
 
   src = fetchFromGitHub {
@@ -20,8 +18,8 @@ let
   metaCommon = {
     description = "Modern download manager that supports all platforms";
     homepage = "https://github.com/GopeedLab/gopeed";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 
@@ -44,46 +42,48 @@ let
     meta = metaCommon;
   };
 in
-flutter324.buildFlutterApplication {
-  inherit version src;
-  pname = "gopeed";
+  flutter324.buildFlutterApplication {
+    inherit version src;
+    pname = "gopeed";
 
-  sourceRoot = "${src.name}/ui/flutter";
+    sourceRoot = "${src.name}/ui/flutter";
 
-  pubspecLock = lib.importJSON ./pubspec.lock.json;
+    pubspecLock = lib.importJSON ./pubspec.lock.json;
 
-  gitHashes = {
-    install_plugin = "sha256-3FM08D2pbtWmitf8R4pAylVqum7IfbWh6pOIEhJdySk=";
-    permission_handler_windows = "sha256-MRTmuH0MfhGaMEb9bRotimAPRlFyl3ovtJUJ2WK7+DA=";
-  };
+    gitHashes = {
+      install_plugin = "sha256-3FM08D2pbtWmitf8R4pAylVqum7IfbWh6pOIEhJdySk=";
+      permission_handler_windows = "sha256-MRTmuH0MfhGaMEb9bRotimAPRlFyl3ovtJUJ2WK7+DA=";
+    };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
 
-  buildInputs = [ libayatana-appindicator ];
+    buildInputs = [libayatana-appindicator];
 
-  preBuild = ''
-    mkdir -p linux/bundle/lib
-    cp ${libgopeed}/lib/libgopeed.so linux/bundle/lib/libgopeed.so
-    cp ${libgopeed}/bin/host assets/exec/host
-  '';
+    preBuild = ''
+      mkdir -p linux/bundle/lib
+      cp ${libgopeed}/lib/libgopeed.so linux/bundle/lib/libgopeed.so
+      cp ${libgopeed}/bin/host assets/exec/host
+    '';
 
-  postInstall = ''
-    install -Dm644 linux/assets/com.gopeed.Gopeed.desktop $out/share/applications/gopeed.desktop
-    install -Dm644 assets/icon/icon_512.png $out/share/icons/hicolor/512x512/apps/com.gopeed.Gopeed.png
-    install -Dm644 assets/icon/icon_1024.png $out/share/icons/hicolor/1024x1024/apps/com.gopeed.Gopeed.png
-  '';
+    postInstall = ''
+      install -Dm644 linux/assets/com.gopeed.Gopeed.desktop $out/share/applications/gopeed.desktop
+      install -Dm644 assets/icon/icon_512.png $out/share/icons/hicolor/512x512/apps/com.gopeed.Gopeed.png
+      install -Dm644 assets/icon/icon_1024.png $out/share/icons/hicolor/1024x1024/apps/com.gopeed.Gopeed.png
+    '';
 
-  preFixup = ''
-    patchelf --add-needed libgopeed.so \
-      --add-rpath $out/app/gopeed/lib $out/app/gopeed/gopeed
-  '';
+    preFixup = ''
+      patchelf --add-needed libgopeed.so \
+        --add-rpath $out/app/gopeed/lib $out/app/gopeed/gopeed
+    '';
 
-  passthru = {
-    inherit libgopeed;
-    updateScript = ./update.sh;
-  };
+    passthru = {
+      inherit libgopeed;
+      updateScript = ./update.sh;
+    };
 
-  meta = metaCommon // {
-    mainProgram = "gopeed";
-  };
-}
+    meta =
+      metaCommon
+      // {
+        mainProgram = "gopeed";
+      };
+  }

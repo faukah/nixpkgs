@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cerca";
   version = "0-unstable-2025-05-21";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Lean forum software";
     homepage = "https://github.com/cblgh/cerca";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ dansbandit ];
+    maintainers = with lib.maintainers; [dansbandit];
     mainProgram = "cerca";
   };
 }

@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   requests,
   pycryptodomex,
@@ -15,14 +13,12 @@
   mako,
   cryptography,
   defusedxml,
-
   # tests
   pytestCheckHook,
   freezegun,
   responses,
   testfixtures,
 }:
-
 buildPythonPackage rec {
   pname = "oic";
   version = "1.7.0";
@@ -56,13 +52,13 @@ buildPythonPackage rec {
     testfixtures
   ];
 
-  pythonImportsCheck = [ "oic" ];
+  pythonImportsCheck = ["oic"];
 
   meta = {
     description = "OpenID Connect implementation in Python";
     homepage = "https://github.com/CZ-NIC/pyoidc";
     changelog = "https://github.com/CZ-NIC/pyoidc/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

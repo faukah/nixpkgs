@@ -5,7 +5,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "birdwatcher";
   version = "2.2.5";
@@ -26,7 +25,7 @@ buildGoModule rec {
       inherit (nixosTests) birdwatcher;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -34,7 +33,7 @@ buildGoModule rec {
     description = "Small HTTP server meant to provide an API defined by Barry O'Donovan's birds-eye to the BIRD internet routing daemon";
     changelog = "https://github.com/alice-lg/birdwatcher/blob/master/CHANGELOG";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ stv0g ];
+    maintainers = with lib.maintainers; [stv0g];
     mainProgram = "birdwatcher";
   };
 }

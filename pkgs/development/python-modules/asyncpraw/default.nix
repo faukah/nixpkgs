@@ -16,7 +16,6 @@
   update-checker,
   vcrpy,
 }:
-
 buildPythonPackage rec {
   pname = "asyncpraw";
   version = "7.8.1";
@@ -31,12 +30,12 @@ buildPythonPackage rec {
     hash = "sha256-glWAQoUjMFbjU3C4+MGuRGSGJS9mun15+6udMPCf9nU=";
   };
 
-  pythonRelaxDeps = [ "aiosqlite" ];
+  pythonRelaxDeps = ["aiosqlite"];
 
   # 'aiosqlite' is also checked when building the wheel
-  pypaBuildFlags = [ "--skip-dependency-check" ];
+  pypaBuildFlags = ["--skip-dependency-check"];
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     aiofiles
@@ -65,13 +64,13 @@ buildPythonPackage rec {
     "tests/integration/models/reddit/test_wikipage.py"
   ];
 
-  pythonImportsCheck = [ "asyncpraw" ];
+  pythonImportsCheck = ["asyncpraw"];
 
   meta = {
     description = "Asynchronous Python Reddit API Wrapper";
     homepage = "https://asyncpraw.readthedocs.io/";
     changelog = "https://github.com/praw-dev/asyncpraw/blob/v${version}/CHANGES.rst";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.amadejkastelic ];
+    maintainers = [lib.maintainers.amadejkastelic];
   };
 }

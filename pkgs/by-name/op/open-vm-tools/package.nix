@@ -38,9 +38,9 @@
   util-linux,
   xmlsec,
   withX ? true,
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     licenses
     maintainers
     makeBinPath
@@ -48,105 +48,106 @@ let
     optionals
     ;
 in
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "open-vm-tools";
+    version = "12.5.2";
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "open-vm-tools";
-  version = "12.5.2";
+    src = fetchFromGitHub {
+      owner = "vmware";
+      repo = "open-vm-tools";
+      tag = "stable-${finalAttrs.version}";
+      hash = "sha256-gKtPyLsmTrbA3aG/Jiod/oAl5aMpVm3enuCe+b7jsY4=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "vmware";
-    repo = "open-vm-tools";
-    tag = "stable-${finalAttrs.version}";
-    hash = "sha256-gKtPyLsmTrbA3aG/Jiod/oAl5aMpVm3enuCe+b7jsY4=";
-  };
+    sourceRoot = "${finalAttrs.src.name}/open-vm-tools";
 
-  sourceRoot = "${finalAttrs.src.name}/open-vm-tools";
-
-  outputs = [
-    "out"
-    "dev"
-  ];
-
-  nativeBuildInputs = [
-    autoreconfHook
-    makeWrapper
-    pkg-config
-  ];
-
-  buildInputs =
-    [
-      fuse3
-      glib
-      icu
-      libdnet
-      libdrm
-      libmspack
-      libtirpc
-      libxcrypt
-      libxml2
-      openssl
-      pam
-      procps
-      rpcsvc-proto
-      udev
-      xercesc
-      xmlsec
-    ]
-    ++ optionals withX [
-      gdk-pixbuf-xlib
-      gtk3
-      gtkmm3
-      libX11
-      libXext
-      libXinerama
-      libXi
-      libXrender
-      libXrandr
-      libXtst
+    outputs = [
+      "out"
+      "dev"
     ];
 
-  postPatch = ''
-    sed -i Makefile.am \
-      -e 's,etc/vmware-tools,''${prefix}/etc/vmware-tools,'
-    sed -i scripts/Makefile.am \
-      -e 's,^confdir = ,confdir = ''${prefix},' \
-      -e 's,usr/bin,''${prefix}/usr/bin,'
-    sed -i services/vmtoolsd/Makefile.am \
-      -e 's,etc/vmware-tools,''${prefix}/etc/vmware-tools,' \
-      -e 's,$(PAM_PREFIX),''${prefix}/$(PAM_PREFIX),'
-    sed -i vgauth/service/Makefile.am \
-      -e 's,/etc/vmware-tools/vgauth/schemas,''${prefix}/etc/vmware-tools/vgauth/schemas,' \
-      -e 's,$(DESTDIR)/etc/vmware-tools/vgauth.conf,''${prefix}/etc/vmware-tools/vgauth.conf,'
+    nativeBuildInputs = [
+      autoreconfHook
+      makeWrapper
+      pkg-config
+    ];
 
-    # don't abort on any warning
-    sed -i 's,CFLAGS="$CFLAGS -Werror",,' configure.ac
+    buildInputs =
+      [
+        fuse3
+        glib
+        icu
+        libdnet
+        libdrm
+        libmspack
+        libtirpc
+        libxcrypt
+        libxml2
+        openssl
+        pam
+        procps
+        rpcsvc-proto
+        udev
+        xercesc
+        xmlsec
+      ]
+      ++ optionals withX [
+        gdk-pixbuf-xlib
+        gtk3
+        gtkmm3
+        libX11
+        libXext
+        libXinerama
+        libXi
+        libXrender
+        libXrandr
+        libXtst
+      ];
 
-    # Make reboot work, shutdown is not in /sbin on NixOS
-    sed -i 's,/sbin/shutdown,shutdown,' lib/system/systemLinux.c
+    postPatch = ''
+      sed -i Makefile.am \
+        -e 's,etc/vmware-tools,''${prefix}/etc/vmware-tools,'
+      sed -i scripts/Makefile.am \
+        -e 's,^confdir = ,confdir = ''${prefix},' \
+        -e 's,usr/bin,''${prefix}/usr/bin,'
+      sed -i services/vmtoolsd/Makefile.am \
+        -e 's,etc/vmware-tools,''${prefix}/etc/vmware-tools,' \
+        -e 's,$(PAM_PREFIX),''${prefix}/$(PAM_PREFIX),'
+      sed -i vgauth/service/Makefile.am \
+        -e 's,/etc/vmware-tools/vgauth/schemas,''${prefix}/etc/vmware-tools/vgauth/schemas,' \
+        -e 's,$(DESTDIR)/etc/vmware-tools/vgauth.conf,''${prefix}/etc/vmware-tools/vgauth.conf,'
 
-    # Fix paths to fuse3 (we do not use fuse2 so that is not modified)
-    sed -i 's,/bin/fusermount3,${fuse3}/bin/fusermount3,' vmhgfs-fuse/config.c
+      # don't abort on any warning
+      sed -i 's,CFLAGS="$CFLAGS -Werror",,' configure.ac
 
-    substituteInPlace services/plugins/vix/foundryToolsDaemon.c \
-     --replace-fail "/usr/bin/vmhgfs-fuse" "${placeholder "out"}/bin/vmhgfs-fuse" \
-     --replace-fail "/bin/mount" "${util-linux}/bin/mount"
-  '';
+      # Make reboot work, shutdown is not in /sbin on NixOS
+      sed -i 's,/sbin/shutdown,shutdown,' lib/system/systemLinux.c
 
-  configureFlags = [
-    "--without-kernel-modules"
-    "--with-udev-rules-dir=${placeholder "out"}/lib/udev/rules.d"
-    "--with-fuse=fuse3"
-  ] ++ optional (!withX) "--without-x";
+      # Fix paths to fuse3 (we do not use fuse2 so that is not modified)
+      sed -i 's,/bin/fusermount3,${fuse3}/bin/fusermount3,' vmhgfs-fuse/config.c
 
-  enableParallelBuilding = true;
+      substituteInPlace services/plugins/vix/foundryToolsDaemon.c \
+       --replace-fail "/usr/bin/vmhgfs-fuse" "${placeholder "out"}/bin/vmhgfs-fuse" \
+       --replace-fail "/bin/mount" "${util-linux}/bin/mount"
+    '';
 
-  preConfigure = ''
-    mkdir -p ${placeholder "out"}/lib/udev/rules.d
-  '';
+    configureFlags =
+      [
+        "--without-kernel-modules"
+        "--with-udev-rules-dir=${placeholder "out"}/lib/udev/rules.d"
+        "--with-fuse=fuse3"
+      ]
+      ++ optional (!withX) "--without-x";
 
-  postInstall = ''
-    wrapProgram "$out/etc/vmware-tools/scripts/vmware/network" \
-      --prefix PATH ':' "${
+    enableParallelBuilding = true;
+
+    preConfigure = ''
+      mkdir -p ${placeholder "out"}/lib/udev/rules.d
+    '';
+
+    postInstall = ''
+      wrapProgram "$out/etc/vmware-tools/scripts/vmware/network" \
+        --prefix PATH ':' "${
         makeBinPath [
           iproute2
           dbus
@@ -154,29 +155,29 @@ stdenv.mkDerivation (finalAttrs: {
           which
         ]
       }"
-    substituteInPlace "$out/lib/udev/rules.d/99-vmware-scsi-udev.rules" --replace-fail "/bin/sh" "${bash}/bin/sh"
-  '';
-
-  meta = {
-    homepage = "https://github.com/vmware/open-vm-tools";
-    changelog = "https://github.com/vmware/open-vm-tools/releases/tag/stable-${finalAttrs.version}";
-    description = "Set of tools for VMWare guests to improve host-guest interaction";
-    longDescription = ''
-      A set of services and modules that enable several features in VMware products for
-      better management of, and seamless user interactions with, guests.
+      substituteInPlace "$out/lib/udev/rules.d/99-vmware-scsi-udev.rules" --replace-fail "/bin/sh" "${bash}/bin/sh"
     '';
-    license = with licenses; [
-      gpl2
-      lgpl21Only
-    ];
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-      "aarch64-linux"
-    ];
-    maintainers = with maintainers; [
-      joamaki
-      kjeremy
-    ];
-  };
-})
+
+    meta = {
+      homepage = "https://github.com/vmware/open-vm-tools";
+      changelog = "https://github.com/vmware/open-vm-tools/releases/tag/stable-${finalAttrs.version}";
+      description = "Set of tools for VMWare guests to improve host-guest interaction";
+      longDescription = ''
+        A set of services and modules that enable several features in VMware products for
+        better management of, and seamless user interactions with, guests.
+      '';
+      license = with licenses; [
+        gpl2
+        lgpl21Only
+      ];
+      platforms = [
+        "x86_64-linux"
+        "i686-linux"
+        "aarch64-linux"
+      ];
+      maintainers = with maintainers; [
+        joamaki
+        kjeremy
+      ];
+    };
+  })

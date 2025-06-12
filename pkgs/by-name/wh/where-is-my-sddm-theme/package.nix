@@ -5,32 +5,28 @@
   fetchFromGitHub,
   qt6,
   libsForQt5,
-  variants ? [ "qt6" ],
+  variants ? ["qt6"],
   /*
-    An example of how you can override the background on the NixOS logo
+  An example of how you can override the background on the NixOS logo
 
-      environment.systemPackages = [
-        (pkgs.where-is-my-sddm-theme.override {
-          themeConfig.General = {
-            background = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-            backgroundMode = "none";
-          };
-        })
-      ];
+    environment.systemPackages = [
+      (pkgs.where-is-my-sddm-theme.override {
+        themeConfig.General = {
+          background = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+          backgroundMode = "none";
+        };
+      })
+    ];
   */
   themeConfig ? null,
-}:
-
-let
-  user-cfg = (formats.ini { }).generate "theme.conf.user" themeConfig;
+}: let
+  user-cfg = (formats.ini {}).generate "theme.conf.user" themeConfig;
   validVariants = [
     "qt5"
     "qt6"
   ];
 in
-
-lib.checkListOfEnum "where-is-my-sddm-theme: variant" validVariants variants
-
+  lib.checkListOfEnum "where-is-my-sddm-theme: variant" validVariants variants
   stdenvNoCC.mkDerivation
   (finalAttrs: {
     pname = "where-is-my-sddm-theme";
@@ -44,8 +40,8 @@ lib.checkListOfEnum "where-is-my-sddm-theme: variant" validVariants variants
     };
 
     propagatedUserEnvPkgs =
-      [ ]
-      ++ lib.optionals (lib.elem "qt5" variants) [ libsForQt5.qtgraphicaleffects ]
+      []
+      ++ lib.optionals (lib.elem "qt5" variants) [libsForQt5.qtgraphicaleffects]
       ++ lib.optionals (lib.elem "qt6" variants) [
         qt6.qt5compat
         qt6.qtsvg
@@ -77,6 +73,6 @@ lib.checkListOfEnum "where-is-my-sddm-theme: variant" validVariants variants
       homepage = "https://github.com/stepanzubkov/where-is-my-sddm-theme";
       license = lib.licenses.mit;
       platforms = lib.platforms.linux;
-      maintainers = with lib.maintainers; [ name-snrl ];
+      maintainers = with lib.maintainers; [name-snrl];
     };
   })

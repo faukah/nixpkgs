@@ -4,24 +4,22 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.process;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     literalExpression
     concatStringsSep
     ;
   configFile = pkgs.writeText "process-exporter.yaml" (builtins.toJSON cfg.settings);
-in
-{
+in {
   port = 9256;
   extraOpts = {
     settings.process_names = mkOption {
       type = types.listOf types.anything;
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [
           # Remove nix store path from process name

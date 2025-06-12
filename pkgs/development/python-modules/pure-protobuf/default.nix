@@ -11,7 +11,6 @@
   pytest-cov-stub,
   pydantic,
 }:
-
 buildPythonPackage rec {
   pname = "pure-protobuf";
   version = "3.1.4";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  dependencies = [ typing-extensions ];
+  dependencies = [typing-extensions];
 
   nativeCheckInputs = [
     pydantic
@@ -42,15 +41,15 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pytestFlagsArray = [ "--benchmark-disable" ];
+  pytestFlagsArray = ["--benchmark-disable"];
 
-  pythonImportsCheck = [ "pure_protobuf" ];
+  pythonImportsCheck = ["pure_protobuf"];
 
   meta = with lib; {
     description = "Python implementation of Protocol Buffers with dataclass-based schemas";
     homepage = "https://github.com/eigenein/protobuf";
     changelog = "https://github.com/eigenein/protobuf/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ chuangzhu ];
+    maintainers = with maintainers; [chuangzhu];
   };
 }

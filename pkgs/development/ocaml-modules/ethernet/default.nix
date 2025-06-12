@@ -8,7 +8,6 @@
   macaddr,
   mirage-net,
 }:
-
 buildDunePackage rec {
   pname = "ethernet";
   version = "3.2.0";
@@ -32,6 +31,6 @@ buildDunePackage rec {
     description = "OCaml Ethernet (IEEE 802.3) layer, used in MirageOS";
     homepage = "https://github.com/mirage/ethernet";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

@@ -29,7 +29,6 @@
   getconf,
   replaceVars,
 }:
-
 buildDunePackage rec {
   pname = "carton";
   version = "0.7.0";
@@ -91,6 +90,6 @@ buildDunePackage rec {
     description = "Implementation of PACKv2 file in OCaml";
     license = licenses.mit;
     homepage = "https://github.com/mirage/ocaml-git";
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

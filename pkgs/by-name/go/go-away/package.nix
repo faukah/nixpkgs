@@ -2,16 +2,13 @@
   lib,
   buildGoModule,
   fetchFromGitea,
-
   # asset compression
   brotli,
   zopfli,
-
   # wasm compilation
   clang,
   tinygo,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "go-away";
   version = "0.7.0";
@@ -66,6 +63,6 @@ buildGoModule (finalAttrs: {
     '';
     homepage = "https://git.gammaspectra.live/git/go-away";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 })

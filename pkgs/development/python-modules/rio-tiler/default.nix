@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pytestCheckHook,
   pythonOlder,
-
   attrs,
   boto3,
   cachetools,
@@ -19,7 +18,6 @@
   rasterio,
   rioxarray,
 }:
-
 buildPythonPackage rec {
   pname = "rio-tiler";
   version = "7.3.0";
@@ -33,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-8Ly1QKKFzct0CPAN/54/kzNUE2FPiwvM+EqmX1utboU=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   propagatedBuildInputs = [
     attrs
@@ -54,13 +52,13 @@ buildPythonPackage rec {
     rioxarray
   ];
 
-  pythonImportsCheck = [ "rio_tiler" ];
+  pythonImportsCheck = ["rio_tiler"];
 
   meta = with lib; {
     description = "User friendly Rasterio plugin to read raster datasets";
     homepage = "https://cogeotiff.github.io/rio-tiler/";
     license = licenses.bsd3;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
     # Tests broken with gdal 3.10
     # https://github.com/cogeotiff/rio-tiler/issues/769
     broken = true;

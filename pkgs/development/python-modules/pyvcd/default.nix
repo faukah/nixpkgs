@@ -7,7 +7,6 @@
   six,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   version = "0.4.1";
   format = "setuptools";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-3GJ16Vp5SbgjYIarLm0Dr+3nNEEkPsUQnJ6okHfz1pY=";
   };
 
-  buildInputs = [ setuptools-scm ];
+  buildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Python package for writing Value Change Dump (VCD) files";

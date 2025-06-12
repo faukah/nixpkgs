@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildHomeAssistantComponent,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "nielsfaber";
   domain = "alarmo";
@@ -24,7 +23,7 @@ buildHomeAssistantComponent rec {
     changelog = "https://github.com/nielsfaber/alarmo/releases/tag/v${version}";
     description = "Alarm System for Home Assistant";
     homepage = "https://github.com/nielsfaber/alarmo";
-    maintainers = with maintainers; [ mindstorms6 ];
+    maintainers = with maintainers; [mindstorms6];
     license = licenses.asl20;
   };
 }

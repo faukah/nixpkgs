@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nix-btm";
   version = "0.2.0";
@@ -21,6 +20,6 @@ rustPlatform.buildRustPackage rec {
     description = "Rust tool to monitor Nix processes";
     homepage = "https://github.com/DieracDelta/nix-btm";
     license = licenses.mit;
-    maintainers = with maintainers; [ DieracDelta ];
+    maintainers = with maintainers; [DieracDelta];
   };
 }

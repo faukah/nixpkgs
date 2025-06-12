@@ -8,7 +8,6 @@
   setuptools,
   alure2,
 }:
-
 buildPythonPackage rec {
   pname = "palace";
   version = "0.2.5";
@@ -37,16 +36,16 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  propagatedBuildInputs = [ alure2 ];
+  propagatedBuildInputs = [alure2];
 
   doCheck = false; # FIXME: tests need an audio device
 
-  pythonImportsCheck = [ "palace" ];
+  pythonImportsCheck = ["palace"];
 
   meta = with lib; {
     description = "Pythonic Audio Library and Codecs Environment";
     homepage = "https://mcsinyx.gitlab.io/palace";
     license = licenses.lgpl3Plus;
-    maintainers = [ maintainers.McSinyx ];
+    maintainers = [maintainers.McSinyx];
   };
 }

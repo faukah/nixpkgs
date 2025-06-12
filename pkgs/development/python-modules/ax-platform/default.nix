@@ -3,11 +3,9 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   botorch,
   ipywidgets,
@@ -19,14 +17,12 @@
   scikit-learn,
   scipy,
   sympy,
-
   # tests
   pyfakefs,
   pytestCheckHook,
   sqlalchemy,
   tabulate,
 }:
-
 buildPythonPackage rec {
   pname = "ax-platform";
   version = "1.0.0";
@@ -107,13 +103,13 @@ buildPythonPackage rec {
       "test_gen_with_expanded_parameter_space"
     ];
 
-  pythonImportsCheck = [ "ax" ];
+  pythonImportsCheck = ["ax"];
 
   meta = {
     description = "Platform for understanding, managing, deploying, and automating adaptive experiments";
     homepage = "https://ax.dev/";
     changelog = "https://github.com/facebook/Ax/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

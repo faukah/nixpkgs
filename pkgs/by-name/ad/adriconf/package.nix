@@ -15,7 +15,6 @@
   libgbm,
   pciutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "adriconf";
   version = "2.7.2";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
   ];
 
   # tries to download googletest
-  cmakeFlags = [ "-DENABLE_UNIT_TESTS=off" ];
+  cmakeFlags = ["-DENABLE_UNIT_TESTS=off"];
 
   postInstall = ''
     install -Dm444 ../flatpak/org.freedesktop.adriconf.metainfo.xml \
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.freedesktop.org/mesa/adriconf/-/releases/v${version}";
     description = "GUI tool used to configure open source graphics drivers";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ muscaln ];
+    maintainers = with lib.maintainers; [muscaln];
     platforms = lib.platforms.linux;
     mainProgram = "adriconf";
   };

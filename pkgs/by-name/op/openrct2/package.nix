@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchurl,
   unzip,
-
   SDL2,
   cmake,
   curl,
@@ -30,9 +29,7 @@
   pkg-config,
   speexdsp,
   zlib,
-}:
-
-let
+}: let
   openrct2-version = "0.4.22";
 
   # Those versions MUST match the pinned versions within the CMakeLists.txt
@@ -59,95 +56,95 @@ let
     hash = "sha256-FA33FOgG/tQRzEl2Pn8WsPzypIelcAHR5Q/Oj5FIqfM=";
   };
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "openrct2";
-  version = openrct2-version;
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "openrct2";
+    version = openrct2-version;
 
-  src = fetchFromGitHub {
-    owner = "OpenRCT2";
-    repo = "OpenRCT2";
-    rev = "v${openrct2-version}";
-    hash = "sha256-dFELAfJIgizM0nRc4SMrFGIqFQo/ImTtR89GVkb4/TQ=";
-  };
+    src = fetchFromGitHub {
+      owner = "OpenRCT2";
+      repo = "OpenRCT2";
+      rev = "v${openrct2-version}";
+      hash = "sha256-dFELAfJIgizM0nRc4SMrFGIqFQo/ImTtR89GVkb4/TQ=";
+    };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    unzip
-  ];
-
-  buildInputs = [
-    SDL2
-    curl
-    discord-rpc
-    duktape
-    expat
-    flac
-    fontconfig
-    freetype
-    gbenchmark
-    icu
-    innoextract
-    jansson
-    libGLU
-    libiconv
-    libogg
-    libpng
-    libpthreadstubs
-    libvorbis
-    libzip
-    nlohmann_json
-    openssl
-    speexdsp
-    zlib
-  ];
-
-  cmakeFlags = [
-    "-DDOWNLOAD_OBJECTS=OFF"
-    "-DDOWNLOAD_OPENMSX=OFF"
-    "-DDOWNLOAD_OPENSFX=OFF"
-    "-DDOWNLOAD_TITLE_SEQUENCES=OFF"
-  ];
-
-  postUnpack = ''
-    mkdir -p $sourceRoot/data/{object,sequence}
-    unzip -o ${objects} -d $sourceRoot/data/object
-    unzip -o ${openmsx} -d $sourceRoot/data
-    unzip -o ${opensfx} -d $sourceRoot/data
-    unzip -o ${title-sequences} -d $sourceRoot/data/sequence
-  '';
-
-  # Fix blank changelog & contributors screen. See https://github.com/OpenRCT2/OpenRCT2/issues/16988
-  postPatch = ''
-    substituteInPlace src/openrct2/platform/Platform.Linux.cpp \
-      --replace-fail "/usr/share/doc/openrct2" "$out/share/doc/openrct2"
-  '';
-
-  preConfigure =
-    # Verify that the correct version of each third party repository is used.
-    (
-      let
-        versionCheck = cmakeKey: version: ''
-          grep -q '^set(${cmakeKey}_VERSION "${version}")$' CMakeLists.txt \
-            || (echo "${cmakeKey} differs from expected version!"; exit 1)
-        '';
-      in
-      (versionCheck "OBJECTS" objects-version)
-      + (versionCheck "OPENMSX" openmsx-version)
-      + (versionCheck "OPENSFX" opensfx-version)
-      + (versionCheck "TITLE_SEQUENCE" title-sequences-version)
-    );
-
-  meta = {
-    description = "Open source re-implementation of RollerCoaster Tycoon 2 (original game required)";
-    homepage = "https://openrct2.io/";
-    downloadPage = "https://github.com/OpenRCT2/OpenRCT2/releases";
-    license = lib.licenses.gpl3Only;
-    platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [
-      oxzi
-      keenanweaver
-      kylerisse
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+      unzip
     ];
-  };
-})
+
+    buildInputs = [
+      SDL2
+      curl
+      discord-rpc
+      duktape
+      expat
+      flac
+      fontconfig
+      freetype
+      gbenchmark
+      icu
+      innoextract
+      jansson
+      libGLU
+      libiconv
+      libogg
+      libpng
+      libpthreadstubs
+      libvorbis
+      libzip
+      nlohmann_json
+      openssl
+      speexdsp
+      zlib
+    ];
+
+    cmakeFlags = [
+      "-DDOWNLOAD_OBJECTS=OFF"
+      "-DDOWNLOAD_OPENMSX=OFF"
+      "-DDOWNLOAD_OPENSFX=OFF"
+      "-DDOWNLOAD_TITLE_SEQUENCES=OFF"
+    ];
+
+    postUnpack = ''
+      mkdir -p $sourceRoot/data/{object,sequence}
+      unzip -o ${objects} -d $sourceRoot/data/object
+      unzip -o ${openmsx} -d $sourceRoot/data
+      unzip -o ${opensfx} -d $sourceRoot/data
+      unzip -o ${title-sequences} -d $sourceRoot/data/sequence
+    '';
+
+    # Fix blank changelog & contributors screen. See https://github.com/OpenRCT2/OpenRCT2/issues/16988
+    postPatch = ''
+      substituteInPlace src/openrct2/platform/Platform.Linux.cpp \
+        --replace-fail "/usr/share/doc/openrct2" "$out/share/doc/openrct2"
+    '';
+
+    preConfigure =
+      # Verify that the correct version of each third party repository is used.
+      (
+        let
+          versionCheck = cmakeKey: version: ''
+            grep -q '^set(${cmakeKey}_VERSION "${version}")$' CMakeLists.txt \
+              || (echo "${cmakeKey} differs from expected version!"; exit 1)
+          '';
+        in
+          (versionCheck "OBJECTS" objects-version)
+          + (versionCheck "OPENMSX" openmsx-version)
+          + (versionCheck "OPENSFX" opensfx-version)
+          + (versionCheck "TITLE_SEQUENCE" title-sequences-version)
+      );
+
+    meta = {
+      description = "Open source re-implementation of RollerCoaster Tycoon 2 (original game required)";
+      homepage = "https://openrct2.io/";
+      downloadPage = "https://github.com/OpenRCT2/OpenRCT2/releases";
+      license = lib.licenses.gpl3Only;
+      platforms = lib.platforms.linux;
+      maintainers = with lib.maintainers; [
+        oxzi
+        keenanweaver
+        kylerisse
+      ];
+    };
+  })

@@ -4,7 +4,6 @@
   oslotest,
   stestr,
 }:
-
 buildPythonPackage {
   pname = "oslotest-tests";
   inherit (oslotest) version src;

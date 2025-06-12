@@ -1,15 +1,11 @@
 # This module defines global configuration for the Bash shell, in
 # particular /etc/bashrc and /etc/profile.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfge = config.environment;
 
   cfg = config.programs.bash;
@@ -19,35 +15,30 @@ let
       lib.filterAttrs (k: v: v != null) cfg.shellAliases
     )
   );
-
-in
-
-{
+in {
   imports = [
-    (lib.mkRemovedOptionModule [ "programs" "bash" "enable" ] "")
+    (lib.mkRemovedOptionModule ["programs" "bash" "enable"] "")
   ];
 
   options = {
-
     programs.bash = {
-
       /*
-        enable = lib.mkOption {
-          default = true;
-          description = ''
-            Whenever to configure Bash as an interactive shell.
-            Note that this tries to make Bash the default
-            {option}`users.defaultUserShell`,
-            which in turn means that you might need to explicitly
-            set this variable if you have another shell configured
-            with NixOS.
-          '';
-          type = lib.types.bool;
-        };
+      enable = lib.mkOption {
+        default = true;
+        description = ''
+          Whenever to configure Bash as an interactive shell.
+          Note that this tries to make Bash the default
+          {option}`users.defaultUserShell`,
+          which in turn means that you might need to explicitly
+          set this variable if you have another shell configured
+          with NixOS.
+        '';
+        type = lib.types.bool;
+      };
       */
 
       shellAliases = lib.mkOption {
-        default = { };
+        default = {};
         description = ''
           Set of aliases for bash shell, which overrides {option}`environment.shellAliases`.
           See {option}`environment.shellAliases` for an option format description.
@@ -126,14 +117,12 @@ in
         type = lib.types.lines;
       };
     };
-
   };
 
-  config = # lib.mkIf cfg.enable
+  config =
+    # lib.mkIf cfg.enable
     {
-
       programs.bash = {
-
         shellAliases = builtins.mapAttrs (name: lib.mkDefault) cfge.shellAliases;
 
         shellInit = ''
@@ -159,7 +148,6 @@ in
 
           ${cfge.interactiveShellInit}
         '';
-
       };
 
       environment.etc.profile.text = ''
@@ -243,7 +231,5 @@ in
         "${pkgs.bashInteractive}/bin/bash"
         "${pkgs.bashInteractive}/bin/sh"
       ];
-
     };
-
 }

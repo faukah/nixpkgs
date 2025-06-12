@@ -9,7 +9,6 @@
   libusb1,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "facedancer";
   version = "3.1.0";

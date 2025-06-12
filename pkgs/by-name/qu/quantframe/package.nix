@@ -15,7 +15,6 @@
   gtk3,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "quantframe";
   version = "1.4.3";
@@ -67,7 +66,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoRoot = "src-tauri";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Warframe Market listings and transactions manager";
@@ -75,6 +74,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://quantframe.app/";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ nyukuru ];
+    maintainers = with lib.maintainers; [nyukuru];
   };
 })

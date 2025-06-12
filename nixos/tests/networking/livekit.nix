@@ -2,10 +2,9 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   name = "livekit";
-  meta.maintainers = [ lib.maintainers.quadradical ];
+  meta.maintainers = [lib.maintainers.quadradical];
 
   nodes.machine = {
     services.livekit = {

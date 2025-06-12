@@ -5,7 +5,6 @@
   fetchpatch,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bpp-core";
   version = "2.4.1";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   postFixup = ''
     substituteInPlace $out/lib/cmake/bpp-core/bpp-core-targets.cmake  \
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/BioPP/bpp-core";
     changelog = "https://github.com/BioPP/bpp-core/blob/master/ChangeLog";
     description = "C++ bioinformatics libraries and tools";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     license = licenses.cecill20;
   };
 }

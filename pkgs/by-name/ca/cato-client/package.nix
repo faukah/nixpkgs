@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.catonetworks.com/platform/cato-client/";
     mainProgram = "cato-sdp";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ yarekt ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [yarekt];
+    platforms = ["x86_64-linux"];
   };
 }

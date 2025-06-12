@@ -9,7 +9,6 @@
   which,
   makeDesktopItem,
 }:
-
 tcl.mkTclDerivation rec {
   pname = "scid-vs-pc";
   version = "4.26";
@@ -64,7 +63,7 @@ tcl.mkTclDerivation rec {
     description = "Chess database with play and training functionality";
     homepage = "https://scidvspc.sourceforge.net/";
     license = lib.licenses.gpl2Only;
-    maintainers = [ maintainers.paraseba ];
+    maintainers = [maintainers.paraseba];
     platforms = lib.platforms.linux;
   };
 }

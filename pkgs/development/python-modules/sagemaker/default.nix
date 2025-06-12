@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   attrs,
   boto3,
@@ -32,12 +30,10 @@
   tqdm,
   urllib3,
   uvicorn,
-
   # optional-dependencies
   scipy,
   accelerate,
 }:
-
 buildPythonPackage rec {
   pname = "sagemaker";
   version = "2.243.0";
@@ -105,8 +101,8 @@ buildPythonPackage rec {
       docker
       pyyaml
     ];
-    scipy = [ scipy ];
-    huggingface = [ accelerate ];
+    scipy = [scipy];
+    huggingface = [accelerate];
     # feature-processor = [ pyspark sagemaker-feature-store-pyspark ]; # not available in nixpkgs
   };
 
@@ -115,6 +111,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aws/sagemaker-python-sdk/";
     changelog = "https://github.com/aws/sagemaker-python-sdk/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nequissimus ];
+    maintainers = with lib.maintainers; [nequissimus];
   };
 }

@@ -8,7 +8,6 @@
   merlin,
   result,
 }:
-
 buildDunePackage rec {
   pname = "dot-merlin-reader";
 
@@ -17,16 +16,15 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.06";
 
   buildInputs =
-    [ findlib ]
+    [findlib]
     ++ (
-      if lib.versionAtLeast version "4.7-414" then
-        [ merlin-lib ]
-      else
-        [
-          yojson
-          csexp
-          result
-        ]
+      if lib.versionAtLeast version "4.7-414"
+      then [merlin-lib]
+      else [
+        yojson
+        csexp
+        result
+      ]
     );
 
   meta = with lib; {
@@ -34,6 +32,6 @@ buildDunePackage rec {
     mainProgram = "dot-merlin-reader";
     homepage = "https://github.com/ocaml/merlin";
     license = licenses.mit;
-    maintainers = [ maintainers.hongchangwu ];
+    maintainers = [maintainers.hongchangwu];
   };
 }

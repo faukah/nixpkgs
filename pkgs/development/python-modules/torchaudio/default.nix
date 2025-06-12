@@ -4,28 +4,22 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-
   # nativeBuildInputs
   cmake,
   pkg-config,
   ninja,
-
   # buildInputs
   ffmpeg_6-full,
   pybind11,
   sox,
   torch,
   llvmPackages,
-
   cudaSupport ? torch.cudaSupport,
   cudaPackages,
   rocmSupport ? torch.rocmSupport,
   rocmPackages,
-
-  gpuTargets ? [ ],
-}:
-
-let
+  gpuTargets ? [],
+}: let
   # TODO: Reuse one defined in torch?
   # Some of those dependencies are probably not required,
   # but it breaks when the store path is different between torch and torchaudio
@@ -66,105 +60,106 @@ let
   };
   # Only used for ROCm
   gpuTargetString = lib.strings.concatStringsSep ";" (
-    if gpuTargets != [ ] then
+    if gpuTargets != []
+    then
       # If gpuTargets is specified, it always takes priority.
       gpuTargets
-    else if rocmSupport then
-      rocmPackages.clr.gpuTargets
-    else
-      throw "No GPU targets specified"
+    else if rocmSupport
+    then rocmPackages.clr.gpuTargets
+    else throw "No GPU targets specified"
   );
 in
-buildPythonPackage rec {
-  pname = "torchaudio";
-  version = "2.7.1";
-  pyproject = true;
+  buildPythonPackage rec {
+    pname = "torchaudio";
+    version = "2.7.1";
+    pyproject = true;
 
-  stdenv = torch.stdenv;
+    stdenv = torch.stdenv;
 
-  src = fetchFromGitHub {
-    owner = "pytorch";
-    repo = "audio";
-    tag = "v${version}";
-    hash = "sha256-T1V+/Oho6Dblh3ah5PljpxKcndy2e1dAlVxC3ay4AM0=";
-  };
+    src = fetchFromGitHub {
+      owner = "pytorch";
+      repo = "audio";
+      tag = "v${version}";
+      hash = "sha256-T1V+/Oho6Dblh3ah5PljpxKcndy2e1dAlVxC3ay4AM0=";
+    };
 
-  patches = [
-    ./0001-setup.py-propagate-cmakeFlags.patch
-  ];
-
-  postPatch = lib.optionalString rocmSupport ''
-    # There is no .info/version-dev, only .info/version
-    substituteInPlace cmake/LoadHIP.cmake \
-      --replace-fail "/.info/version-dev" "/.info/version"
-  '';
-
-  env = {
-    TORCH_CUDA_ARCH_LIST = "${lib.concatStringsSep ";" torch.cudaCapabilities}";
-  };
-
-  # https://github.com/pytorch/audio/blob/v2.1.0/docs/source/build.linux.rst#optional-build-torchaudio-with-a-custom-built-ffmpeg
-  FFMPEG_ROOT = symlinkJoin {
-    name = "ffmpeg";
-    paths = [
-      ffmpeg_6-full.bin
-      ffmpeg_6-full.dev
-      ffmpeg_6-full.lib
+    patches = [
+      ./0001-setup.py-propagate-cmakeFlags.patch
     ];
-  };
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-      ninja
-    ]
-    ++ lib.optionals cudaSupport [ cudaPackages.cuda_nvcc ]
-    ++ lib.optionals rocmSupport (
-      with rocmPackages;
+    postPatch = lib.optionalString rocmSupport ''
+      # There is no .info/version-dev, only .info/version
+      substituteInPlace cmake/LoadHIP.cmake \
+        --replace-fail "/.info/version-dev" "/.info/version"
+    '';
+
+    env = {
+      TORCH_CUDA_ARCH_LIST = "${lib.concatStringsSep ";" torch.cudaCapabilities}";
+    };
+
+    # https://github.com/pytorch/audio/blob/v2.1.0/docs/source/build.linux.rst#optional-build-torchaudio-with-a-custom-built-ffmpeg
+    FFMPEG_ROOT = symlinkJoin {
+      name = "ffmpeg";
+      paths = [
+        ffmpeg_6-full.bin
+        ffmpeg_6-full.dev
+        ffmpeg_6-full.lib
+      ];
+    };
+
+    nativeBuildInputs =
       [
-        clr
-        rocblas
-        hipblas
+        cmake
+        pkg-config
+        ninja
       ]
-    );
+      ++ lib.optionals cudaSupport [cudaPackages.cuda_nvcc]
+      ++ lib.optionals rocmSupport (
+        with rocmPackages; [
+          clr
+          rocblas
+          hipblas
+        ]
+      );
 
-  buildInputs = [
-    ffmpeg_6-full
-    pybind11
-    sox
-    torch.cxxdev
-  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+    buildInputs =
+      [
+        ffmpeg_6-full
+        pybind11
+        sox
+        torch.cxxdev
+      ]
+      ++ lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
-  dependencies = [ torch ];
+    dependencies = [torch];
 
-  BUILD_SOX = 0;
-  BUILD_KALDI = 0;
-  BUILD_RNNT = 0;
-  BUILD_CTC_DECODER = 0;
+    BUILD_SOX = 0;
+    BUILD_KALDI = 0;
+    BUILD_RNNT = 0;
+    BUILD_CTC_DECODER = 0;
 
-  preConfigure = lib.optionalString rocmSupport ''
-    export ROCM_PATH=${rocmtoolkit_joined}
-    export PYTORCH_ROCM_ARCH="${gpuTargetString}"
-  '';
+    preConfigure = lib.optionalString rocmSupport ''
+      export ROCM_PATH=${rocmtoolkit_joined}
+      export PYTORCH_ROCM_ARCH="${gpuTargetString}"
+    '';
 
-  dontUseCmakeConfigure = true;
+    dontUseCmakeConfigure = true;
 
-  doCheck = false; # requires sox backend
+    doCheck = false; # requires sox backend
 
-  pythonImportsCheck = [ "torchaudio" ];
+    pythonImportsCheck = ["torchaudio"];
 
-  meta = {
-    description = "PyTorch audio library";
-    homepage = "https://pytorch.org/";
-    changelog = "https://github.com/pytorch/audio/releases/tag/v${version}";
-    license = lib.licenses.bsd2;
-    platforms =
-      lib.platforms.linux
-      ++ lib.optionals (!cudaSupport && !rocmSupport) lib.platforms.darwin;
-    maintainers = with lib.maintainers; [
-      GaetanLepage
-      junjihashimoto
-    ];
-  };
-}
+    meta = {
+      description = "PyTorch audio library";
+      homepage = "https://pytorch.org/";
+      changelog = "https://github.com/pytorch/audio/releases/tag/v${version}";
+      license = lib.licenses.bsd2;
+      platforms =
+        lib.platforms.linux
+        ++ lib.optionals (!cudaSupport && !rocmSupport) lib.platforms.darwin;
+      maintainers = with lib.maintainers; [
+        GaetanLepage
+        junjihashimoto
+      ];
+    };
+  }

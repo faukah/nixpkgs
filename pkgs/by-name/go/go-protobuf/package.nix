@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go-protobuf";
   version = "1.5.4";
@@ -20,7 +19,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/golang/protobuf";
     description = " Go bindings for protocol buffer";
-    maintainers = with maintainers; [ lewo ];
+    maintainers = with maintainers; [lewo];
     license = licenses.bsd3;
   };
 }

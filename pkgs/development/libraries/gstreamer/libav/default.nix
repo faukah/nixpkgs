@@ -16,7 +16,6 @@
   directoryListingUpdater,
   apple-sdk_gstreamer,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gst-libav";
   version = "1.26.0";
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = directoryListingUpdater { };
+    updateScript = directoryListingUpdater {};
   };
 
   meta = with lib; {
@@ -71,6 +70,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gstreamer.freedesktop.org";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

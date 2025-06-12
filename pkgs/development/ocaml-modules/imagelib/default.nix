@@ -6,7 +6,6 @@
   stdlib-shims,
   alcotest,
 }:
-
 buildDunePackage rec {
   minimalOCamlVersion = "4.08";
   version = "20221222";
@@ -25,13 +24,13 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   meta = {
     description = "Image formats such as PNG and PPM in OCaml";
     homepage = "https://github.com/rlepigre/ocaml-imagelib";
     license = lib.licenses.lgpl3;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     mainProgram = "imagetool";
   };
 }

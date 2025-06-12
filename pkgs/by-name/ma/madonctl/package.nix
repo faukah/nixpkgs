@@ -6,7 +6,6 @@
   testers,
   madonctl,
 }:
-
 buildGoModule rec {
   pname = "madonctl";
   version = "2.3.2";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -42,7 +41,7 @@ buildGoModule rec {
     description = "CLI for the Mastodon social network API";
     homepage = "https://github.com/McKael/madonctl";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "madonctl";
   };
 }

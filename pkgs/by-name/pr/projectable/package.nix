@@ -7,7 +7,6 @@
   openssl,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "projectable";
   version = "1.3.2";
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/dzfrias/projectable";
     changelog = "https://github.com/dzfrias/projectable/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "prj";
   };
 }

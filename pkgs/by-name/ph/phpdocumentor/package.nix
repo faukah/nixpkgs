@@ -5,7 +5,6 @@
   makeBinaryWrapper,
   versionCheckHook,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "phpdocumentor";
   version = "3.7.1";
@@ -19,7 +18,7 @@ php.buildComposerProject2 (finalAttrs: {
 
   vendorHash = "sha256-oPhe4yfOdsguXS3dF62mTr0+J1pfphsVJkMKR++c8go=";
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   postInstall = ''
     wrapProgram "$out/bin/phpdoc" \
@@ -40,6 +39,6 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://phpdoc.org";
     license = lib.licenses.mit;
     mainProgram = "phpdoc";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 })

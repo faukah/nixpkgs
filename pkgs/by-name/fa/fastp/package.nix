@@ -6,7 +6,6 @@
   libdeflate,
   isa-l,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fastp";
   version = "0.26.0";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     mainProgram = "fastp";
     license = licenses.mit;
     homepage = "https://github.com/OpenGene/fastp";
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = platforms.x86_64;
   };
 }

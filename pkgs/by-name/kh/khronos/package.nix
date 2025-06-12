@@ -15,7 +15,6 @@
   libgee,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "khronos";
   version = "4.0.1";
@@ -45,14 +44,14 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Track each task's time in a simple inobtrusive way";
     homepage = "https://github.com/lainsce/khronos";
-    maintainers = with maintainers; [ xiorcale ];
-    teams = [ teams.pantheon ];
+    maintainers = with maintainers; [xiorcale];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
     mainProgram = "io.github.lainsce.Khronos";

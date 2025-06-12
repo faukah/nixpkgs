@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "fpdf";
   version = "1.7.2";
@@ -21,6 +20,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/reingart/pyfpdf";
     description = "Simple PDF generation for Python";
     license = lib.licenses.lgpl3;
-    maintainers = with lib.maintainers; [ oxzi ];
+    maintainers = with lib.maintainers; [oxzi];
   };
 }

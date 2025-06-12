@@ -5,7 +5,6 @@
   zlib,
   mpi,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "5.0.6";
   pname = "migrate";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Estimates population size, migration, population splitting parameters using genetic/genomic data";
     homepage = "https://peterbeerli.com/migrate-html5/index.html";
     license = licenses.mit;
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
     platforms = platforms.unix;
     mainProgram = "migrate-n";
   };

@@ -6,7 +6,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildNpmPackage (finalAttrs: {
   pname = "openapi-down-convert";
   version = "0.14.1";
@@ -32,14 +31,14 @@ buildNpmPackage (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Convert an OpenAPI 3.1.x document to OpenAPI 3.0.x format";
     homepage = "https://github.com/apiture/openapi-down-convert";
     changelog = "https://github.com/apiture/openapi-down-convert/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ fliegendewurst ];
+    maintainers = with lib.maintainers; [fliegendewurst];
     mainProgram = "openapi-down-convert";
   };
 })

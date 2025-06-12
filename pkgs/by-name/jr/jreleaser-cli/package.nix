@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-rJYFoPPz1tR7LgcVfiRPFJHf1tMLhlxNQXsmutHZs3Q=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
 
@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://jreleaser.org/";
     description = "Release projects quickly and easily";
-    sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
+    sourceProvenance = [lib.sourceTypes.binaryBytecode];
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.i-al-istannen ];
+    maintainers = [lib.maintainers.i-al-istannen];
     mainProgram = "jreleaser-cli";
   };
 }

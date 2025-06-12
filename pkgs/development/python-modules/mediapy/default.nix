@@ -9,7 +9,6 @@
   numpy,
   pillow,
 }:
-
 buildPythonPackage rec {
   pname = "mediapy";
   version = "1.2.4";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-BSlHpnbr00kTWaaUOxRFWf3EFPdBsDoFx4+ntikeaxI=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     ipython
@@ -31,13 +30,13 @@ buildPythonPackage rec {
     pillow
   ];
 
-  pythonImportsCheck = [ "mediapy" ];
+  pythonImportsCheck = ["mediapy"];
 
   meta = with lib; {
     description = "Read/write/show images and videos in an IPython notebook";
     homepage = "https://github.com/google/mediapy";
     changelog = "https://github.com/google/mediapy/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mcwitt ];
+    maintainers = with maintainers; [mcwitt];
   };
 }

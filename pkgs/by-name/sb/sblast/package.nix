@@ -7,8 +7,7 @@
   nix-update-script,
   pulseaudio,
   testers,
-}:
-let
+}: let
   self = buildGoModule rec {
     pname = "sblast";
     version = "0.7.2";
@@ -29,18 +28,18 @@ let
     postInstall = ''
       wrapProgram $out/bin/sblast \
           --suffix PATH : ${
-            lib.makeBinPath [
-              ffmpeg
-              pulseaudio
-            ]
-          }
+        lib.makeBinPath [
+          ffmpeg
+          pulseaudio
+        ]
+      }
     '';
 
     # build only the toplevel package, and not `makerel`
     subPackages = ".";
 
     passthru = {
-      updateScript = nix-update-script { };
+      updateScript = nix-update-script {};
       tests.version = testers.testVersion {
         package = self;
         version = "v${version}";
@@ -52,9 +51,9 @@ let
       homepage = "https://github.com/ugjka/sblast";
       license = lib.licenses.mit;
       mainProgram = "sblast";
-      maintainers = with lib.maintainers; [ colinsane ];
+      maintainers = with lib.maintainers; [colinsane];
       platforms = lib.platforms.linux;
     };
   };
 in
-self
+  self

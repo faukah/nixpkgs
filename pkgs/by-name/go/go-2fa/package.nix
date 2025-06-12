@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "2fa";
   version = "1.2.0";
@@ -28,6 +27,6 @@ buildGoModule rec {
     description = "Two-factor authentication on the command line";
     mainProgram = "2fa";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ rvolosatovs ];
+    maintainers = with maintainers; [rvolosatovs];
   };
 }

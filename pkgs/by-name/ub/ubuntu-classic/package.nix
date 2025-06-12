@@ -4,7 +4,6 @@
   fetchgit,
   gitUpdater,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ubuntu-classic";
   version = "0.83-6ubuntu2";
@@ -23,7 +22,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "import/"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "import/";};
 
   meta = with lib; {
     description = "Ubuntu Classic font";
@@ -35,6 +34,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     changelog = "https://git.launchpad.net/ubuntu/+source/fonts-ubuntu-classic/tree/FONTLOG.txt?h=${finalAttrs.src.rev}";
     license = licenses.ufl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ bobby285271 ];
+    maintainers = with maintainers; [bobby285271];
   };
 })

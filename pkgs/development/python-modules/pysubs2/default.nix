@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pysubs2";
   version = "1.8.0";
@@ -18,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-fKSb7MfBHGft8Tp6excjfkVXKnHRER11X0QxbR1zD4I=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pysubs2" ];
+  pythonImportsCheck = ["pysubs2"];
 
   meta = with lib; {
     homepage = "https://github.com/tkarabela/pysubs2";
     description = "Python library for editing subtitle files";
     mainProgram = "pysubs2";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

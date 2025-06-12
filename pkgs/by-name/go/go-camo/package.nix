@@ -5,7 +5,6 @@
   installShellFiles,
   scdoc,
 }:
-
 buildGo124Module rec {
   pname = "go-camo";
   version = "2.6.3";
@@ -49,6 +48,6 @@ buildGo124Module rec {
     changelog = "https://github.com/cactus/go-camo/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = "go-camo";
-    maintainers = with lib.maintainers; [ viraptor ];
+    maintainers = with lib.maintainers; [viraptor];
   };
 }

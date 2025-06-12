@@ -8,7 +8,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyfwup";
   version = "0.5.2";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     libusb1
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonImportsCheck = [
     "fwup"
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "Python FirmWare UPgrader";
     homepage = "https://github.com/greatscottgadgets/pyfwup";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.msanft ];
+    maintainers = [lib.maintainers.msanft];
   };
 }

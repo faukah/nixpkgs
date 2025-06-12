@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jdom";
   version = "2.0.6.1";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     description = "Java-based solution for accessing, manipulating, and outputting XML data from Java code";
     homepage = "http://www.jdom.org";
     platforms = platforms.unix;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.bsdOriginal;
   };
 }

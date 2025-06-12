@@ -7,7 +7,6 @@
   fuse3,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fuse-overlayfs";
   version = "1.15";
@@ -24,19 +23,19 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ fuse3 ];
+  buildInputs = [fuse3];
 
   enableParallelBuilding = true;
   strictDeps = true;
 
-  passthru.tests = { inherit (nixosTests) podman; };
+  passthru.tests = {inherit (nixosTests) podman;};
 
   meta = with lib; {
     description = "FUSE implementation for overlayfs";
     longDescription = "An implementation of overlay+shiftfs in FUSE for rootless containers.";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ma9e ];
-    teams = [ teams.podman ];
+    maintainers = with maintainers; [ma9e];
+    teams = [teams.podman];
     platforms = platforms.linux;
     inherit (src.meta) homepage;
     mainProgram = "fuse-overlayfs";

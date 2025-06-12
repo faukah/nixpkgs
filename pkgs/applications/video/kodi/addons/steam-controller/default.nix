@@ -16,11 +16,11 @@ buildKodiBinaryAddon rec {
     sha256 = "sha256-Q+eJfbD4NpAPANm9Mx9/pD29L5tdS4gxhQqNufufYdw=";
   };
 
-  extraBuildInputs = [ libusb1 ];
+  extraBuildInputs = [libusb1];
 
   meta = with lib; {
     description = "Binary addon for steam controller";
     platforms = platforms.all;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

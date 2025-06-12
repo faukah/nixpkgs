@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cudaPackages,
 }:
-
 stdenv.mkDerivation {
   pname = "nvidia-optical-flow-sdk";
   version = "2.0";

@@ -12,7 +12,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aioskybell";
   version = "23.12.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       --replace 'version="master",' 'version="${version}",'
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiohttp
@@ -54,12 +53,12 @@ buildPythonPackage rec {
     "test_async_change_setting"
   ];
 
-  pythonImportsCheck = [ "aioskybell" ];
+  pythonImportsCheck = ["aioskybell"];
 
   meta = with lib; {
     description = "API client for Skybell doorbells";
     homepage = "https://github.com/tkdrob/aioskybell";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

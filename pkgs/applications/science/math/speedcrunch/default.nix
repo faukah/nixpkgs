@@ -7,7 +7,6 @@
   qtbase,
   qttools,
 }:
-
 mkDerivation rec {
   pname = "speedcrunch";
   version = "unstable-2021-10-09";
@@ -24,7 +23,7 @@ mkDerivation rec {
     qttools
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   preConfigure = ''
     cd src

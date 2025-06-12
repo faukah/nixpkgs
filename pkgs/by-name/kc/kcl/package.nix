@@ -8,7 +8,6 @@
   nix-update-script,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "kcl";
   version = "0.11.2";
@@ -22,7 +21,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-zToyM20ykPAd+EHwSUsX+4BvBPT8iXk5suGK2ZYBjvc=";
 
-  subPackages = [ "cmd/kcl" ];
+  subPackages = ["cmd/kcl"];
 
   ldflags = [
     "-w -s"
@@ -60,7 +59,7 @@ buildGoModule rec {
 
   doCheck = true;
 
-  updateScript = nix-update-script { };
+  updateScript = nix-update-script {};
 
   meta = {
     description = "Command line interface for KCL programming language";

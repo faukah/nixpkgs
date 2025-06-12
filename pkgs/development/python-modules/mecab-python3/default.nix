@@ -7,7 +7,6 @@
   setuptools-scm,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "mecab-python3";
   version = "1.0.10";
@@ -27,11 +26,11 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ mecab ];
+  buildInputs = [mecab];
 
   doCheck = false;
 
-  pythonImportsCheck = [ "MeCab" ];
+  pythonImportsCheck = ["MeCab"];
 
   meta = with lib; {
     description = "Python wrapper for mecab: Morphological Analysis engine";

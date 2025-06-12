@@ -14,9 +14,8 @@
   buildExtendedTests ? false,
   buildBenchmarks ? false,
   buildSamples ? false,
-  gpuTargets ? [ ],
+  gpuTargets ? [],
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocwmma";
   version = "6.3.3";
@@ -67,15 +66,23 @@ stdenv.mkDerivation (finalAttrs: {
       "-DOpenMP_C_INCLUDE_DIR=${openmp.dev}/include"
       "-DOpenMP_CXX_INCLUDE_DIR=${openmp.dev}/include"
       "-DOpenMP_omp_LIBRARY=${openmp}/lib"
-      "-DROCWMMA_BUILD_TESTS=${if buildTests || buildBenchmarks then "ON" else "OFF"}"
-      "-DROCWMMA_BUILD_SAMPLES=${if buildSamples then "ON" else "OFF"}"
+      "-DROCWMMA_BUILD_TESTS=${
+        if buildTests || buildBenchmarks
+        then "ON"
+        else "OFF"
+      }"
+      "-DROCWMMA_BUILD_SAMPLES=${
+        if buildSamples
+        then "ON"
+        else "OFF"
+      }"
       # Manually define CMAKE_INSTALL_<DIR>
       # See: https://github.com/NixOS/nixpkgs/pull/197838
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
     ]
-    ++ lib.optionals (gpuTargets != [ ]) [
+    ++ lib.optionals (gpuTargets != []) [
       "-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
     ]
     ++ lib.optionals buildExtendedTests [
@@ -114,8 +121,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Mixed precision matrix multiplication and accumulation";
     homepage = "https://github.com/ROCm/rocWMMA";
-    license = with licenses; [ mit ];
-    teams = [ teams.rocm ];
+    license = with licenses; [mit];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

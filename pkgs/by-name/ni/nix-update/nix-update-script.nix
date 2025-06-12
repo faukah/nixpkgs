@@ -1,11 +1,8 @@
 {
   lib,
   nix-update,
-}:
-
-{
+}: {
   attrPath ? null,
-  extraArgs ? [ ],
+  extraArgs ? [],
 }:
-
-[ "${lib.getExe nix-update}" ] ++ extraArgs ++ lib.optionals (attrPath != null) [ attrPath ]
+["${lib.getExe nix-update}"] ++ extraArgs ++ lib.optionals (attrPath != null) [attrPath]

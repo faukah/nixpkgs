@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchFromGitHub,
 }:
-
 buildPythonPackage rec {
   pname = "py-expression-eval";
   version = "0.3.14";
@@ -21,6 +20,6 @@ buildPythonPackage rec {
     description = "Python Mathematical Expression Evaluator";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = with maintainers; [ cynerd ];
+    maintainers = with maintainers; [cynerd];
   };
 }

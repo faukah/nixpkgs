@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   passphrase = "secret";
 
   debugPackages = with pkgs; [
@@ -9,74 +12,70 @@ let
     micro
     nano
   ];
-in
-{
+in {
   name = "systemd-initrd-luks-unl0kr";
   meta = {
-    maintainers = [ ];
+    maintainers = [];
   };
 
   # TODO: Fix OCR: #302965
   # enableOCR = true;
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      virtualisation = {
-        emptyDiskImages = [
-          512
-          512
-        ];
-        useBootLoader = true;
-        mountHostNixStore = true;
-        useEFIBoot = true;
-        qemu.options = [
-          "-vga virtio"
-        ];
-      };
-      boot.loader.systemd-boot.enable = true;
-
-      boot.kernelParams = [
-        "rd.systemd.debug_shell"
+  nodes.machine = {pkgs, ...}: {
+    virtualisation = {
+      emptyDiskImages = [
+        512
+        512
       ];
+      useBootLoader = true;
+      mountHostNixStore = true;
+      useEFIBoot = true;
+      qemu.options = [
+        "-vga virtio"
+      ];
+    };
+    boot.loader.systemd-boot.enable = true;
 
-      environment.systemPackages =
-        with pkgs;
-        [
-          cryptsetup
-        ]
-        ++ debugPackages;
-      boot.initrd = {
-        systemd = {
-          enable = true;
-          emergencyAccess = true;
+    boot.kernelParams = [
+      "rd.systemd.debug_shell"
+    ];
 
-          storePaths = debugPackages;
-        };
-        unl0kr = {
-          enable = true;
+    environment.systemPackages = with pkgs;
+      [
+        cryptsetup
+      ]
+      ++ debugPackages;
+    boot.initrd = {
+      systemd = {
+        enable = true;
+        emergencyAccess = true;
 
-          settings = {
-            general.backend = "drm";
-            # TODO: Fix OCR. See above.
-            # theme.default = "adwaita-dark"; # Improves contrast quite a bit, helpful for OCR.
-          };
-        };
+        storePaths = debugPackages;
       };
+      unl0kr = {
+        enable = true;
 
-      specialisation.boot-luks.configuration = {
-        testing.initrdBackdoor = true;
-        boot.initrd.luks.devices = lib.mkVMOverride {
-          # We have two disks and only type one password - key reuse is in place
-          cryptroot.device = "/dev/vdb";
-          cryptroot2.device = "/dev/vdc";
+        settings = {
+          general.backend = "drm";
+          # TODO: Fix OCR. See above.
+          # theme.default = "adwaita-dark"; # Improves contrast quite a bit, helpful for OCR.
         };
-        virtualisation.rootDevice = "/dev/mapper/cryptroot";
-        virtualisation.fileSystems."/".autoFormat = true;
-        # test mounting device unlocked in initrd after switching root
-        virtualisation.fileSystems."/cryptroot2".device = "/dev/mapper/cryptroot2";
       };
     };
+
+    specialisation.boot-luks.configuration = {
+      testing.initrdBackdoor = true;
+      boot.initrd.luks.devices = lib.mkVMOverride {
+        # We have two disks and only type one password - key reuse is in place
+        cryptroot.device = "/dev/vdb";
+        cryptroot2.device = "/dev/vdc";
+      };
+      virtualisation.rootDevice = "/dev/mapper/cryptroot";
+      virtualisation.fileSystems."/".autoFormat = true;
+      # test mounting device unlocked in initrd after switching root
+      virtualisation.fileSystems."/cryptroot2".device = "/dev/mapper/cryptroot2";
+    };
+  };
 
   testScript = ''
     # Create encrypted volume

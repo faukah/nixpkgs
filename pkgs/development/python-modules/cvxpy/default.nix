@@ -3,26 +3,21 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   numpy,
   pybind11,
   setuptools,
-
   # dependencies
   clarabel,
   cvxopt,
   osqp,
   scipy,
   scs,
-
   # tests
   hypothesis,
   pytestCheckHook,
-
   useOpenmp ? (!stdenv.hostPlatform.isDarwin),
 }:
-
 buildPythonPackage rec {
   pname = "cvxpy";
   version = "1.6.6";
@@ -67,7 +62,7 @@ buildPythonPackage rec {
     export LDFLAGS="-lgomp"
   '';
 
-  pytestFlagsArray = [ "cvxpy" ];
+  pytestFlagsArray = ["cvxpy"];
 
   disabledTests = [
     # Disable the slowest benchmarking tests, cuts test time in half
@@ -83,7 +78,7 @@ buildPythonPackage rec {
     "test_oprelcone_2"
   ];
 
-  pythonImportsCheck = [ "cvxpy" ];
+  pythonImportsCheck = ["cvxpy"];
 
   meta = {
     description = "Domain-specific language for modeling convex optimization problems in Python";
@@ -91,6 +86,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/cvxpy/cvxpy//releases";
     changelog = "https://github.com/cvxpy/cvxpy/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ drewrisinger ];
+    maintainers = with lib.maintainers; [drewrisinger];
   };
 }

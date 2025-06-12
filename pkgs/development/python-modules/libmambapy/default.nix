@@ -20,7 +20,6 @@
   bzip2,
   wheel,
 }:
-
 buildPythonPackage {
   pname = "libmambapy";
   pyproject = true;
@@ -39,7 +38,7 @@ buildPythonPackage {
   };
 
   buildInputs = [
-    (libmamba.override { python3 = python; })
+    (libmamba.override {python3 = python;})
     curl
     zstd
     bzip2
@@ -91,6 +90,6 @@ buildPythonPackage {
     description = "Python library for the fast Cross-Platform Package Manager";
     homepage = "https://github.com/mamba-org/mamba";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.ericthemagician ];
+    maintainers = [lib.maintainers.ericthemagician];
   };
 }

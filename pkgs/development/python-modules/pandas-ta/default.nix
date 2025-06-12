@@ -11,7 +11,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "pandas-ta";
   version = "0.3.14";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
       --replace-fail "import NaN" "import nan"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -45,15 +44,15 @@ buildPythonPackage rec {
   # PyTestCheckHook failing because of missing test dependency. Packages has been tested manually.
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  pythonImportsCheck = [ "pandas_ta" ];
+  pythonImportsCheck = ["pandas_ta"];
 
   meta = {
     description = "Technical Analysis Indicators";
     homepage = "https://github.com/twopirllc/pandas-ta";
     changelog = "https://github.com/twopirllc/pandas-ta/blob/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ derdennisop ];
+    maintainers = with lib.maintainers; [derdennisop];
   };
 }

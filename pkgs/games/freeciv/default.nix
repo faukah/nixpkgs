@@ -31,7 +31,6 @@
   enableSqlite ? true,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "freeciv";
   version = "3.1.5";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "freeciv";
     repo = "freeciv";
-    rev = "R${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "R${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-+kAV9Jz0aQpzeVUFp3so+rYbWOn52NuxRwE8kP5hzM8=";
   };
 
@@ -58,8 +57,8 @@ stdenv.mkDerivation rec {
       autoreconfHook
       pkg-config
     ]
-    ++ lib.optionals qtClient [ qt5.wrapQtAppsHook ]
-    ++ lib.optionals gtkClient [ wrapGAppsHook3 ];
+    ++ lib.optionals qtClient [qt5.wrapQtAppsHook]
+    ++ lib.optionals gtkClient [wrapGAppsHook3];
 
   buildInputs =
     [
@@ -81,8 +80,8 @@ stdenv.mkDerivation rec {
       freetype
       fluidsynth
     ]
-    ++ lib.optionals gtkClient [ gtk3 ]
-    ++ lib.optionals qtClient [ qt5.qtbase ]
+    ++ lib.optionals gtkClient [gtk3]
+    ++ lib.optionals qtClient [qt5.qtbase]
     ++ lib.optional server readline
     ++ lib.optional enableSqlite sqlite;
 
@@ -95,7 +94,7 @@ stdenv.mkDerivation rec {
     export CPPFLAGS="$(echo $SDL2_PATH | sed 's#/nix/store/#-I/nix/store/#g')"
   '';
   configureFlags =
-    [ "--enable-shared" ]
+    ["--enable-shared"]
     ++ lib.optionals sdl2Client [
       "--enable-client=sdl2"
       "--enable-sdl-mixer=sdl2"
@@ -105,7 +104,7 @@ stdenv.mkDerivation rec {
       "--with-qtver=qt5"
       "--with-qt5-includes=${qt5.qtbase.dev}/include"
     ]
-    ++ lib.optionals gtkClient [ "--enable-client=gtk3.22" ]
+    ++ lib.optionals gtkClient ["--enable-client=gtk3.22"]
     ++ lib.optional enableSqlite "--enable-fcdb=sqlite3"
     ++ lib.optional (!gtkClient) "--enable-fcmp=cli"
     ++ lib.optional (!server) "--disable-server";
@@ -130,7 +129,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.freeciv.org"; # http only
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ pierron ];
+    maintainers = with lib.maintainers; [pierron];
     platforms = lib.platforms.unix;
     hydraPlatforms = lib.platforms.linux; # sdl-config times out on darwin
     broken = qtClient && stdenv.hostPlatform.isDarwin; # Missing Qt5 development files

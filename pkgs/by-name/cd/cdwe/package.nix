@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cdwe";
   version = "0.3.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Configurable cd wrapper that lets you define your environment per directory";
     homepage = "https://github.com/synoet/cdwe";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "cdwe";
   };
 }

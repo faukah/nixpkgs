@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "edwin";
   version = "0.54";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/MuseScoreFonts/Edwin";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
   };
 }

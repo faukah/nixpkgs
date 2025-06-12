@@ -9,7 +9,6 @@
   opentelemetry-util-http,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-instrumentation) version src;
   pname = "opentelemetry-instrumentation-wsgi";
@@ -19,7 +18,7 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-instrumentation.src.name}/instrumentation/opentelemetry-instrumentation-wsgi";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     opentelemetry-instrumentation
@@ -33,10 +32,12 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "opentelemetry.instrumentation.wsgi" ];
+  pythonImportsCheck = ["opentelemetry.instrumentation.wsgi"];
 
-  meta = opentelemetry-instrumentation.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/instrumentation/opentelemetry-instrumentation-wsgi";
-    description = "WSGI Middleware for OpenTelemetry";
-  };
+  meta =
+    opentelemetry-instrumentation.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/instrumentation/opentelemetry-instrumentation-wsgi";
+      description = "WSGI Middleware for OpenTelemetry";
+    };
 }

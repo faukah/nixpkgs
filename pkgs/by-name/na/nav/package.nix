@@ -5,7 +5,6 @@
   autoPatchelfHook,
   libxcrypt-legacy,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nav";
   version = "1.3.1";
@@ -17,12 +16,14 @@ stdenv.mkDerivation rec {
         x86_64-linux = "sha256-T/gmQVetPoW+veVmQBHnv56UetiMUXUoJU7f2t9yMVE=";
         aarch64-linux = "sha256-ueEeaiUGx+ZbTywNrCMEIZl1zNxhfmZQuN/GkYpiC1Q=";
       }
-      .${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}");
+      .${
+        stdenv.hostPlatform.system
+      } or (throw "unsupported system ${stdenv.hostPlatform.system}");
   };
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
   buildInputs = [
     stdenv.cc.cc.lib
     libxcrypt-legacy
@@ -53,7 +54,7 @@ stdenv.mkDerivation rec {
       Jojo4GH
     ];
     platforms = lib.platforms.linux;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     mainProgram = "nav";
   };
 }

@@ -6,43 +6,41 @@
   go,
   cacert,
 }:
-
-lib.fetchers.withNormalizedHash { } (
+lib.fetchers.withNormalizedHash {} (
   {
     name,
     src,
     outputHash,
     outputHashAlgo,
   }:
+    stdenvNoCC.mkDerivation {
+      name = "${name}-gxdeps";
+      inherit src;
 
-  stdenvNoCC.mkDerivation {
-    name = "${name}-gxdeps";
-    inherit src;
+      nativeBuildInputs = [
+        cacert
+        go
+        gx
+        gx-go
+      ];
 
-    nativeBuildInputs = [
-      cacert
-      go
-      gx
-      gx-go
-    ];
+      inherit outputHash outputHashAlgo;
+      outputHashMode = "recursive";
 
-    inherit outputHash outputHashAlgo;
-    outputHashMode = "recursive";
+      dontConfigure = true;
+      doCheck = false;
+      doInstallCheck = false;
 
-    dontConfigure = true;
-    doCheck = false;
-    doInstallCheck = false;
+      buildPhase = ''
+        export GOPATH=$(pwd)/vendor
+        mkdir -p vendor
+        gx install
+      '';
 
-    buildPhase = ''
-      export GOPATH=$(pwd)/vendor
-      mkdir -p vendor
-      gx install
-    '';
+      installPhase = ''
+        mv vendor $out
+      '';
 
-    installPhase = ''
-      mv vendor $out
-    '';
-
-    preferLocalBuild = true;
-  }
+      preferLocalBuild = true;
+    }
 )

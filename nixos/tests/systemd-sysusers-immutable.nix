@@ -1,16 +1,11 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   rootPassword = "$y$j9T$p6OI0WN7.rSfZBOijjRdR.$xUOA2MTcB48ac.9Oc5fz8cxwLv1mMqabnn333iOzSA6";
   sysuserPassword = "$y$j9T$3aiOV/8CADAK22OK2QT3/0$67OKd50Z4qTaZ8c/eRWHLIM.o3ujtC1.n9ysmJfv639";
   newSysuserPassword = "mellow";
-in
-
-{
-
+in {
   name = "activation-sysusers-immutable";
 
-  meta.maintainers = with lib.maintainers; [ nikstur ];
+  meta.maintainers = with lib.maintainers; [nikstur];
 
   nodes.machine = {
     systemd.sysusers.enable = true;

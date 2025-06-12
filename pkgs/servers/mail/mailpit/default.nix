@@ -11,12 +11,11 @@
   testers,
   mailpit,
   nixosTests,
-}:
-
-let
+}: let
   source = import ./source.nix;
 
-  inherit (source)
+  inherit
+    (source)
     version
     vendorHash
     ;
@@ -55,44 +54,42 @@ let
       mv server/ui/dist $out
     '';
   };
-
 in
+  buildGoModule {
+    pname = "mailpit";
+    inherit src version vendorHash;
 
-buildGoModule {
-  pname = "mailpit";
-  inherit src version vendorHash;
+    env.CGO_ENABLED = 0;
 
-  env.CGO_ENABLED = 0;
+    ldflags = [
+      "-s"
+      "-w"
+      "-X github.com/axllent/mailpit/config.Version=${version}"
+    ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/axllent/mailpit/config.Version=${version}"
-  ];
+    preBuild = ''
+      cp -r ${ui} server/ui/dist
+    '';
 
-  preBuild = ''
-    cp -r ${ui} server/ui/dist
-  '';
-
-  passthru.tests = {
-    inherit (nixosTests) mailpit;
-    version = testers.testVersion {
-      package = mailpit;
-      command = "mailpit version";
+    passthru.tests = {
+      inherit (nixosTests) mailpit;
+      version = testers.testVersion {
+        package = mailpit;
+        command = "mailpit version";
+      };
     };
-  };
 
-  passthru.updateScript = {
-    supportedFeatures = [ "commit" ];
-    command = ./update.sh;
-  };
+    passthru.updateScript = {
+      supportedFeatures = ["commit"];
+      command = ./update.sh;
+    };
 
-  meta = with lib; {
-    description = "Email and SMTP testing tool with API for developers";
-    homepage = "https://github.com/axllent/mailpit";
-    changelog = "https://github.com/axllent/mailpit/releases/tag/v${version}";
-    maintainers = with maintainers; [ stephank ];
-    license = licenses.mit;
-    mainProgram = "mailpit";
-  };
-}
+    meta = with lib; {
+      description = "Email and SMTP testing tool with API for developers";
+      homepage = "https://github.com/axllent/mailpit";
+      changelog = "https://github.com/axllent/mailpit/releases/tag/v${version}";
+      maintainers = with maintainers; [stephank];
+      license = licenses.mit;
+      mainProgram = "mailpit";
+    };
+  }

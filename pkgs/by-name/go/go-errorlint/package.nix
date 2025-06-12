@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go-errorlint";
   version = "1.5.1";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/polyfloyd/go-errorlint";
     changelog = "https://github.com/polyfloyd/go-errorlint/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ meain ];
+    maintainers = with maintainers; [meain];
     mainProgram = "go-errorlint";
   };
 }

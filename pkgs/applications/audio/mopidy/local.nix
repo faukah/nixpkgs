@@ -4,7 +4,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "Mopidy-Local";
   version = "3.3.0";
@@ -28,6 +27,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/mopidy/mopidy-local";
     description = "Mopidy extension for playing music from your local music archive";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ruuda ];
+    maintainers = with maintainers; [ruuda];
   };
 }

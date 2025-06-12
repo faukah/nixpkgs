@@ -3,12 +3,11 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "goconst";
   version = "1.8.2";
 
-  excludedPackages = [ "tests" ];
+  excludedPackages = ["tests"];
 
   src = fetchFromGitHub {
     owner = "jgautheron";
@@ -29,7 +28,7 @@ buildGoModule rec {
     mainProgram = "goconst";
     homepage = "https://github.com/jgautheron/goconst";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

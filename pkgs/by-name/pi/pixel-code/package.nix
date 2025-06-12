@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "pixel-code";
   version = "2.2";
@@ -26,6 +25,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/qwerasd205/PixelCode";
     description = "Pixel font designed to actually be good for programming";
     license = licenses.ofl;
-    maintainers = with maintainers; [ mattpolzin ];
+    maintainers = with maintainers; [mattpolzin];
   };
 }

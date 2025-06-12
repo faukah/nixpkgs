@@ -4,12 +4,10 @@
   pkgs,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.logrotate;
 
-  generateLine =
-    n: v:
+  generateLine = n: v:
     if
       builtins.elem n [
         "files"
@@ -18,10 +16,9 @@ let
         "global"
       ]
       || v == null
-    then
-      null
-    else if builtins.elem n [ "frequency" ] then
-      "${v}\n"
+    then null
+    else if builtins.elem n ["frequency"]
+    then "${v}\n"
     else if
       builtins.elem n [
         "firstaction"
@@ -30,37 +27,32 @@ let
         "postrotate"
         "preremove"
       ]
-    then
-      "${n}\n    ${v}\n  endscript\n"
-    else if lib.isInt v then
-      "${n} ${toString v}\n"
-    else if v == true then
-      "${n}\n"
-    else if v == false then
-      "no${n}\n"
-    else
-      "${n} ${v}\n";
-  generateSection =
-    indent: settings:
+    then "${n}\n    ${v}\n  endscript\n"
+    else if lib.isInt v
+    then "${n} ${toString v}\n"
+    else if v == true
+    then "${n}\n"
+    else if v == false
+    then "no${n}\n"
+    else "${n} ${v}\n";
+  generateSection = indent: settings:
     lib.concatStringsSep (lib.fixedWidthString indent " " "") (
       lib.filter (x: x != null) (lib.mapAttrsToList generateLine settings)
     );
 
   # generateSection includes a final newline hence weird closing brace
-  mkConf =
-    settings:
-    if settings.global or false then
-      generateSection 0 settings
-    else
-      ''
-        ${lib.concatMapStringsSep "\n" (files: ''"${files}"'') (lib.toList settings.files)} {
-          ${generateSection 2 settings}}
-      '';
+  mkConf = settings:
+    if settings.global or false
+    then generateSection 0 settings
+    else ''
+      ${lib.concatMapStringsSep "\n" (files: ''"${files}"'') (lib.toList settings.files)} {
+        ${generateSection 2 settings}}
+    '';
 
   settings = lib.sortProperties (
     lib.attrValues (
       lib.filterAttrs (_: settings: settings.enable) (
-        lib.foldAttrs lib.recursiveUpdate { } [
+        lib.foldAttrs lib.recursiveUpdate {} [
           {
             header = {
               enable = true;
@@ -123,8 +115,7 @@ let
   mailOption = lib.optionalString (lib.foldr (n: a: a || (n.mail or false) != false) false (
     lib.attrValues cfg.settings
   )) "--mail=${pkgs.mailutils}/bin/mail";
-in
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -145,15 +136,17 @@ in
 
   options = {
     services.logrotate = {
-      enable = lib.mkEnableOption "the logrotate systemd service" // {
-        default = lib.foldr (n: a: a || n.enable) false (lib.attrValues cfg.settings);
-        defaultText = lib.literalExpression "cfg.settings != {}";
-      };
+      enable =
+        lib.mkEnableOption "the logrotate systemd service"
+        // {
+          default = lib.foldr (n: a: a || n.enable) false (lib.attrValues cfg.settings);
+          defaultText = lib.literalExpression "cfg.settings != {}";
+        };
 
       allowNetworking = lib.mkEnableOption "network access for logrotate";
 
       settings = lib.mkOption {
-        default = { };
+        default = {};
         description = ''
           logrotate freeform settings: each attribute here will define its own section,
           ordered by {option}`services.logrotate.settings.<name>.priority`,
@@ -192,10 +185,8 @@ in
         '';
         type = lib.types.attrsOf (
           lib.types.submodule (
-            { name, ... }:
-            {
-              freeformType =
-                with lib.types;
+            {name, ...}: {
+              freeformType = with lib.types;
                 attrsOf (
                   nullOr (oneOf [
                     int
@@ -205,9 +196,11 @@ in
                 );
 
               options = {
-                enable = lib.mkEnableOption "setting individual kill switch" // {
-                  default = true;
-                };
+                enable =
+                  lib.mkEnableOption "setting individual kill switch"
+                  // {
+                    default = true;
+                  };
 
                 global = lib.mkOption {
                   type = lib.types.bool;
@@ -249,7 +242,6 @@ in
                   '';
                 };
               };
-
             }
           )
         );
@@ -299,7 +291,7 @@ in
 
       extraArgs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = "Additional command line arguments to pass on logrotate invocation";
       };
     };
@@ -362,12 +354,12 @@ in
         }
         // lib.optionalAttrs (!cfg.allowNetworking) {
           PrivateNetwork = true; # e.g. mail delivery
-          RestrictAddressFamilies = [ "AF_UNIX" ];
+          RestrictAddressFamilies = ["AF_UNIX"];
         };
     };
     systemd.services.logrotate-checkconf = {
       description = "Logrotate configuration check";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;

@@ -20,15 +20,15 @@ buildPythonPackage rec {
     hash = "sha256-EYf1PbFIFyCb2fYrnn/T8dnXz3dHmDOLI8Wbnef8V8M=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ netbox ];
+  nativeCheckInputs = [netbox];
 
   preFixup = ''
     export PYTHONPATH=${netbox}/opt/netbox/netbox:$PYTHONPATH
   '';
 
-  pythonImportsCheck = [ "netbox_attachments" ];
+  pythonImportsCheck = ["netbox_attachments"];
 
   meta = {
     description = "Plugin to manage attachments for any model";
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/Kani999/netbox-attachments/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ felbinger ];
+    maintainers = with lib.maintainers; [felbinger];
   };
 }

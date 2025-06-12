@@ -5,7 +5,6 @@
   qtquick3d,
   qtquicktimeline,
 }:
-
 qtModule {
   pname = "qtgraphs";
   propagatedBuildInputs = [

@@ -11,7 +11,6 @@
   soupsieve,
   wcmatch,
 }:
-
 buildPythonPackage rec {
   pname = "pyspelling";
   version = "2.10";
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Spell checker";
     homepage = "https://pypi.org/project/pyspelling";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

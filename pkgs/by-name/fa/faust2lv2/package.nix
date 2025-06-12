@@ -5,9 +5,7 @@
   lv2,
   qt5,
 }:
-
 faust.wrapWithBuildEnv {
-
   baseName = "faust2lv2";
 
   buildInputs = [

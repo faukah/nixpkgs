@@ -5,7 +5,6 @@
   cmake,
   llvmPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "muparser";
   version = "2.3.5";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Extensible high performance math expression parser library written in C++";
     homepage = "https://beltoforion.de/en/muparser/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     platforms = lib.platforms.unix;
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "hmr_enabler";
   # composer doesn't support our unstable version format
@@ -32,7 +31,6 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://github.com/nextcloud/hmr_enabler";
     changelog = "https://github.com/nextcloud/hmr_enabler/blob/master/CHANGELOG.md";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
   };
-
 })

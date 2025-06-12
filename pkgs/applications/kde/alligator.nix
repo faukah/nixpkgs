@@ -1,10 +1,8 @@
 {
   lib,
   mkDerivation,
-
   cmake,
   extra-cmake-modules,
-
   kconfig,
   kcoreaddons,
   ki18n,
@@ -13,7 +11,6 @@
   qtquickcontrols2,
   syndication,
 }:
-
 mkDerivation {
   pname = "alligator";
 
@@ -42,6 +39,6 @@ mkDerivation {
       gpl2Only
       gpl3Only
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

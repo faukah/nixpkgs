@@ -11,7 +11,6 @@
   kmime,
   kxmlgui,
 }:
-
 mkDerivation {
   pname = "akonadi-notes";
   meta = {

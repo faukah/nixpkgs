@@ -12,7 +12,6 @@
   slixmpp,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "gehomesdk";
   version = "2025.5.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-YMw0W9EWz3KY1+aZMdtE4TRvFd9yqTHkfw0X3+ZDCfQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -41,14 +40,14 @@ buildPythonPackage rec {
   # https://github.com/simbaja/gehome/issues/32
   doCheck = false;
 
-  pythonImportsCheck = [ "gehomesdk" ];
+  pythonImportsCheck = ["gehomesdk"];
 
   meta = with lib; {
     description = "Python SDK for GE smart appliances";
     homepage = "https://github.com/simbaja/gehome";
     changelog = "https://github.com/simbaja/gehome/blob/master/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "gehome-appliance-data";
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "hebcal";
   version = "5.9.2";
@@ -28,7 +27,7 @@ buildGoModule (finalAttrs: {
     description = "Perpetual Jewish Calendar";
     longDescription = "Hebcal is a program which prints out the days in the Jewish calendar for a given Gregorian year. Hebcal is fairly flexible in terms of which events in the Jewish calendar it displays.";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.hhm ];
+    maintainers = [lib.maintainers.hhm];
     platforms = lib.platforms.all;
     mainProgram = "hebcal";
   };

@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     attrValues
     literalExpression
     mkEnableOption
@@ -17,14 +16,10 @@ let
     ;
   cfg = config.services.metricbeat;
 
-  settingsFormat = pkgs.formats.yaml { };
-
-in
-{
+  settingsFormat = pkgs.formats.yaml {};
+in {
   options = {
-
     services.metricbeat = {
-
       enable = mkEnableOption "metricbeat";
 
       package = mkPackageOption pkgs "metricbeat" {
@@ -44,11 +39,10 @@ in
 
           See <https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-modules.html>.
         '';
-        default = { };
+        default = {};
         type = types.attrsOf (
           types.submodule (
-            { name, ... }:
-            {
+            {name, ...}: {
               freeformType = settingsFormat.type;
               options = {
                 module = mkOption {
@@ -79,12 +73,12 @@ in
             ];
             enabled = true;
             period = "10s";
-            processes = [ ".*" ];
+            processes = [".*"];
             cpu.metrics = [
               "percentages"
               "normalized_percentages"
             ];
-            core.metrics = [ "percentages" ];
+            core.metrics = ["percentages"];
           };
         };
       };
@@ -93,7 +87,6 @@ in
         type = types.submodule {
           freeformType = settingsFormat.type;
           options = {
-
             name = mkOption {
               type = types.str;
               default = "";
@@ -105,7 +98,7 @@ in
 
             tags = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
               description = ''
                 Tags to place on the shipped metrics.
                 See <https://www.elastic.co/guide/en/beats/metricbeat/current/configuration-general-options.html#_tags_2>.
@@ -114,7 +107,7 @@ in
 
             metricbeat.modules = mkOption {
               type = types.listOf settingsFormat.type;
-              default = [ ];
+              default = [];
               internal = true;
               description = ''
                 The metric collecting modules. Use [](#opt-services.metricbeat.modules) instead.
@@ -124,21 +117,19 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         description = ''
           Configuration for metricbeat. See <https://www.elastic.co/guide/en/beats/metricbeat/current/configuring-howto-metricbeat.html> for supported values.
         '';
       };
-
     };
   };
 
   config = mkIf cfg.enable {
-
     assertions = [
       {
         # empty modules would cause a failure at runtime
-        assertion = cfg.settings.metricbeat.modules != [ ];
+        assertion = cfg.settings.metricbeat.modules != [];
         message = "services.metricbeat: You must configure one or more modules.";
       }
     ];
@@ -147,7 +138,7 @@ in
 
     systemd.services.metricbeat = {
       description = "metricbeat metrics shipper";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = ''
           ${cfg.package}/bin/metricbeat \

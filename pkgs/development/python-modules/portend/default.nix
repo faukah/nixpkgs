@@ -7,7 +7,6 @@
   setuptools-scm,
   tempora,
 }:
-
 buildPythonPackage rec {
   pname = "portend";
   version = "3.2.0";
@@ -20,13 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-UlCjUsGclZ12fKyHi4Kdk+XcdiWlFDOZoqANxmKP+3I=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ tempora ];
+  propagatedBuildInputs = [tempora];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "portend" ];
+  pythonImportsCheck = ["portend"];
 
   # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;

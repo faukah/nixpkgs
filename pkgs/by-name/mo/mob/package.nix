@@ -7,7 +7,6 @@
   makeWrapper,
   espeak-ng,
 }:
-
 buildGoModule rec {
   pname = "mob";
   version = "5.4.0";
@@ -42,6 +41,6 @@ buildGoModule rec {
     mainProgram = "mob";
     homepage = "https://github.com/remotemobprogramming/mob";
     license = licenses.mit;
-    maintainers = with maintainers; [ ericdallo ];
+    maintainers = with maintainers; [ericdallo];
   };
 }

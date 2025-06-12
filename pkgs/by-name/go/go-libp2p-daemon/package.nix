@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go-libp2p-daemon";
   version = "0.9.1";
@@ -23,6 +22,6 @@ buildGoModule rec {
     description = "Libp2p-backed daemon wrapping the functionalities of go-libp2p for use in other languages";
     homepage = "https://github.com/libp2p/go-libp2p-daemon";
     license = licenses.mit;
-    maintainers = with maintainers; [ fare ];
+    maintainers = with maintainers; [fare];
   };
 }

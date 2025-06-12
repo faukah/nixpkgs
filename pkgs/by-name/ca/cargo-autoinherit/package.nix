@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-autoinherit";
   version = "0.1.6";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
       mit
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     mainProgram = "cargo-autoinherit";
   };
 }

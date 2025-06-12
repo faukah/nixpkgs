@@ -8,7 +8,6 @@
   cairosvg,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "calysto";
   version = "1.0.6";
@@ -32,12 +31,12 @@ buildPythonPackage rec {
   # there are no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "calysto" ];
+  pythonImportsCheck = ["calysto"];
 
   meta = with lib; {
     description = "Tools for Jupyter and Python";
     homepage = "https://github.com/Calysto/calysto";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
   };
 }

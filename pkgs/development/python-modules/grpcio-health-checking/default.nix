@@ -5,7 +5,6 @@
   grpcio,
   protobuf,
 }:
-
 # This package should be updated together with the main grpc package and other
 # related python grpc packages.
 # nixpkgs-update: no auto update
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     protobuf
   ];
 
-  pythonRelaxDeps = [ "grpcio" ];
+  pythonRelaxDeps = ["grpcio"];
 
-  pythonImportsCheck = [ "grpc_health" ];
+  pythonImportsCheck = ["grpc_health"];
 
   # no tests
   doCheck = false;
@@ -35,7 +34,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Standard Health Checking Service for gRPC";
     homepage = "https://pypi.org/project/grpcio-health-checking/";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ happysalada ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [happysalada];
   };
 }

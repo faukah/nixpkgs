@@ -1,42 +1,40 @@
 /*
-  This module enables a simple firewall.
+This module enables a simple firewall.
 
-  The firewall can be customised in arbitrary ways by setting
-  ‘networking.firewall.extraCommands’.  For modularity, the firewall
-  uses several chains:
+The firewall can be customised in arbitrary ways by setting
+‘networking.firewall.extraCommands’.  For modularity, the firewall
+uses several chains:
 
-  - ‘nixos-fw’ is the main chain for input packet processing.
+- ‘nixos-fw’ is the main chain for input packet processing.
 
-  - ‘nixos-fw-accept’ is called for accepted packets.  If you want
-  additional logging, or want to reject certain packets anyway, you
-  can insert rules at the start of this chain.
+- ‘nixos-fw-accept’ is called for accepted packets.  If you want
+additional logging, or want to reject certain packets anyway, you
+can insert rules at the start of this chain.
 
-  - ‘nixos-fw-log-refuse’ and ‘nixos-fw-refuse’ are called for
-  refused packets.  (The former jumps to the latter after logging
-  the packet.)  If you want additional logging, or want to accept
-  certain packets anyway, you can insert rules at the start of
-  this chain.
+- ‘nixos-fw-log-refuse’ and ‘nixos-fw-refuse’ are called for
+refused packets.  (The former jumps to the latter after logging
+the packet.)  If you want additional logging, or want to accept
+certain packets anyway, you can insert rules at the start of
+this chain.
 
-  - ‘nixos-fw-rpfilter’ is used as the main chain in the mangle table,
-  called from the built-in ‘PREROUTING’ chain.  If the kernel
-  supports it and `cfg.checkReversePath` is set this chain will
-  perform a reverse path filter test.
+- ‘nixos-fw-rpfilter’ is used as the main chain in the mangle table,
+called from the built-in ‘PREROUTING’ chain.  If the kernel
+supports it and `cfg.checkReversePath` is set this chain will
+perform a reverse path filter test.
 
-  - ‘nixos-drop’ is used while reloading the firewall in order to drop
-  all traffic.  Since reloading isn't implemented in an atomic way
-  this'll prevent any traffic from leaking through while reloading
-  the firewall.  However, if the reloading fails, the ‘firewall-stop’
-  script will be called which in return will effectively disable the
-  complete firewall (in the default configuration).
+- ‘nixos-drop’ is used while reloading the firewall in order to drop
+all traffic.  Since reloading isn't implemented in an atomic way
+this'll prevent any traffic from leaking through while reloading
+the firewall.  However, if the reloading fails, the ‘firewall-stop’
+script will be called which in return will effectively disable the
+complete firewall (in the default configuration).
 */
 {
   config,
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.networking.firewall;
 
   inherit (config.boot.kernelPackages) kernel;
@@ -45,17 +43,14 @@ let
     ((kernel.config.isEnabled or (x: false)) "IP_NF_MATCH_RPFILTER")
     || (kernel.features.netfilterRPFilter or false);
 
-  helpers = import ./helpers.nix { inherit config lib; };
+  helpers = import ./helpers.nix {inherit config lib;};
 
-  writeShScript =
-    name: text:
-    let
-      dir = pkgs.writeScriptBin name ''
-        #! ${pkgs.runtimeShell} -e
-        ${text}
-      '';
-    in
-    "${dir}/bin/${name}";
+  writeShScript = name: text: let
+    dir = pkgs.writeScriptBin name ''
+      #! ${pkgs.runtimeShell} -e
+      ${text}
+    '';
+  in "${dir}/bin/${name}";
 
   startScript = writeShScript "firewall-start" ''
     ${helpers}
@@ -79,18 +74,17 @@ let
     ip46tables -N nixos-fw-refuse
 
     ${
-      if cfg.rejectPackets then
-        ''
-          # Send a reset for existing TCP connections that we've
-          # somehow forgotten about.  Send ICMP "port unreachable"
-          # for everything else.
-          ip46tables -A nixos-fw-refuse -p tcp ! --syn -j REJECT --reject-with tcp-reset
-          ip46tables -A nixos-fw-refuse -j REJECT
-        ''
-      else
-        ''
-          ip46tables -A nixos-fw-refuse -j DROP
-        ''
+      if cfg.rejectPackets
+      then ''
+        # Send a reset for existing TCP connections that we've
+        # somehow forgotten about.  Send ICMP "port unreachable"
+        # for everything else.
+        ip46tables -A nixos-fw-refuse -p tcp ! --syn -j REJECT --reject-with tcp-reset
+        ip46tables -A nixos-fw-refuse -j REJECT
+      ''
+      else ''
+        ip46tables -A nixos-fw-refuse -j DROP
+      ''
     }
 
 
@@ -157,60 +151,64 @@ let
     ${lib.concatStrings (
       lib.mapAttrsToList (
         iface: cfg:
-        lib.concatMapStrings (port: ''
-          ip46tables -A nixos-fw -p tcp --dport ${toString port} -j nixos-fw-accept ${
-            lib.optionalString (iface != "default") "-i ${iface}"
-          }
-        '') cfg.allowedTCPPorts
-      ) cfg.allInterfaces
+          lib.concatMapStrings (port: ''
+            ip46tables -A nixos-fw -p tcp --dport ${toString port} -j nixos-fw-accept ${
+              lib.optionalString (iface != "default") "-i ${iface}"
+            }
+          '')
+          cfg.allowedTCPPorts
+      )
+      cfg.allInterfaces
     )}
 
     # Accept connections to the allowed TCP port ranges.
     ${lib.concatStrings (
       lib.mapAttrsToList (
         iface: cfg:
-        lib.concatMapStrings (
-          rangeAttr:
-          let
-            range = toString rangeAttr.from + ":" + toString rangeAttr.to;
-          in
-          ''
-            ip46tables -A nixos-fw -p tcp --dport ${range} -j nixos-fw-accept ${
-              lib.optionalString (iface != "default") "-i ${iface}"
-            }
-          ''
-        ) cfg.allowedTCPPortRanges
-      ) cfg.allInterfaces
+          lib.concatMapStrings (
+            rangeAttr: let
+              range = toString rangeAttr.from + ":" + toString rangeAttr.to;
+            in ''
+              ip46tables -A nixos-fw -p tcp --dport ${range} -j nixos-fw-accept ${
+                lib.optionalString (iface != "default") "-i ${iface}"
+              }
+            ''
+          )
+          cfg.allowedTCPPortRanges
+      )
+      cfg.allInterfaces
     )}
 
     # Accept packets on the allowed UDP ports.
     ${lib.concatStrings (
       lib.mapAttrsToList (
         iface: cfg:
-        lib.concatMapStrings (port: ''
-          ip46tables -A nixos-fw -p udp --dport ${toString port} -j nixos-fw-accept ${
-            lib.optionalString (iface != "default") "-i ${iface}"
-          }
-        '') cfg.allowedUDPPorts
-      ) cfg.allInterfaces
+          lib.concatMapStrings (port: ''
+            ip46tables -A nixos-fw -p udp --dport ${toString port} -j nixos-fw-accept ${
+              lib.optionalString (iface != "default") "-i ${iface}"
+            }
+          '')
+          cfg.allowedUDPPorts
+      )
+      cfg.allInterfaces
     )}
 
     # Accept packets on the allowed UDP port ranges.
     ${lib.concatStrings (
       lib.mapAttrsToList (
         iface: cfg:
-        lib.concatMapStrings (
-          rangeAttr:
-          let
-            range = toString rangeAttr.from + ":" + toString rangeAttr.to;
-          in
-          ''
-            ip46tables -A nixos-fw -p udp --dport ${range} -j nixos-fw-accept ${
-              lib.optionalString (iface != "default") "-i ${iface}"
-            }
-          ''
-        ) cfg.allowedUDPPortRanges
-      ) cfg.allInterfaces
+          lib.concatMapStrings (
+            rangeAttr: let
+              range = toString rangeAttr.from + ":" + toString rangeAttr.to;
+            in ''
+              ip46tables -A nixos-fw -p udp --dport ${range} -j nixos-fw-accept ${
+                lib.optionalString (iface != "default") "-i ${iface}"
+              }
+            ''
+          )
+          cfg.allowedUDPPortRanges
+      )
+      cfg.allInterfaces
     )}
 
     # Optionally respond to ICMPv4 pings.
@@ -281,13 +279,8 @@ let
       exit 1
     fi
   '';
-
-in
-
-{
-
+in {
   options = {
-
     networking.firewall = {
       extraCommands = lib.mkOption {
         type = lib.types.lines;
@@ -317,13 +310,11 @@ in
         '';
       };
     };
-
   };
 
   # FIXME: Maybe if `enable' is false, the firewall should still be
   # built but not started by default?
   config = lib.mkIf (cfg.enable && config.networking.nftables.enable == false) {
-
     assertions = [
       # This is approximately "checkReversePath -> kernelHasRPFilter",
       # but the checkReversePath option can include non-boolean
@@ -338,16 +329,16 @@ in
 
     systemd.services.firewall = {
       description = "Firewall";
-      wantedBy = [ "sysinit.target" ];
-      wants = [ "network-pre.target" ];
-      after = [ "systemd-modules-load.service" ];
+      wantedBy = ["sysinit.target"];
+      wants = ["network-pre.target"];
+      after = ["systemd-modules-load.service"];
       before = [
         "network-pre.target"
         "shutdown.target"
       ];
-      conflicts = [ "shutdown.target" ];
+      conflicts = ["shutdown.target"];
 
-      path = [ cfg.package ] ++ cfg.extraPackages;
+      path = [cfg.package] ++ cfg.extraPackages;
 
       # FIXME: this module may also try to load kernel modules, but
       # containers don't have CAP_SYS_MODULE.  So the host system had
@@ -365,7 +356,5 @@ in
         ExecStop = "@${stopScript} firewall-stop";
       };
     };
-
   };
-
 }

@@ -7,7 +7,6 @@
   kssd,
   runCommand,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kssd";
   version = "2.21";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   installPhase = ''
     runHook preInstall
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.tests = {
-    simple = runCommand "${finalAttrs.pname}-test" { } ''
+    simple = runCommand "${finalAttrs.pname}-test" {} ''
       mkdir $out
       ${lib.getExe kssd} dist -L ${kssd.src}/shuf_file/L3K10.shuf -r ${kssd.src}/test_fna/seqs1 -o $out/reference
       ${lib.getExe kssd} dist -L ${kssd.src}/shuf_file/L3K10.shuf -o $out/query ${kssd.src}/test_fna/seqs2
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "K-mer substring space decomposition";
     license = licenses.asl20;
     homepage = "https://github.com/yhg926/public_kssd";
-    maintainers = with maintainers; [ unode ];
+    maintainers = with maintainers; [unode];
     platforms = platforms.linux;
     mainProgram = "kssd";
   };

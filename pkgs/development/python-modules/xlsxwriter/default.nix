@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "xlsxwriter";
   version = "3.2.2";
@@ -21,18 +20,18 @@ buildPythonPackage rec {
     hash = "sha256-bacoOZckZVADMa81raUV9z3V1xj2Eid7B+gLb+MCccg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "xlsxwriter" ];
+  pythonImportsCheck = ["xlsxwriter"];
 
   meta = with lib; {
     description = "Module for creating Excel XLSX files";
     homepage = "https://xlsxwriter.readthedocs.io/";
     changelog = "https://xlsxwriter.readthedocs.io/changes.html";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
     mainProgram = "vba_extract.py";
   };
 }

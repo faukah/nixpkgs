@@ -5,7 +5,6 @@
   autoreconfHook,
   gtk_engines,
 }:
-
 stdenv.mkDerivation {
   version = "2016-08-16";
   pname = "paper-gtk-theme";
@@ -17,9 +16,9 @@ stdenv.mkDerivation {
     sha256 = "0dqllzjk9ggnbh8vvy2c81p3wq6cj73r30hk7gqhrn8i91w8p896";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ gtk_engines ];
+  buildInputs = [gtk_engines];
 
   postPatch = ''
     substituteInPlace Makefile.am --replace '$(DESTDIR)'/usr $out

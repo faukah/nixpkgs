@@ -4,7 +4,6 @@
   fetchFromGitHub,
   wirelesstools,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mdk3-master";
   version = "6-unstable-2015-05-24";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Jxyv7aoL8l9M7JheazJ+/YqfkDcSNx3ARNhx3G5Y+cM=";
   };
 
-  runtimeDependencies = [ wirelesstools ];
+  runtimeDependencies = [wirelesstools];
 
   # fix
   env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/charlesxsh/mdk3-master";
     changelog = "https://github.com/charlesxsh/mdk3-master/blob/${finalAttrs.src.rev}/CHANGELOG";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ pinpox ];
+    maintainers = with lib.maintainers; [pinpox];
     mainProgram = "mdk3";
     platforms = lib.platforms.all;
   };

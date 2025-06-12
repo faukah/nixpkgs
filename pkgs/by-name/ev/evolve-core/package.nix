@@ -5,7 +5,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 flutter327.buildFlutterApplication rec {
   pname = "evolve-core";
   version = "1.7";
@@ -26,7 +25,7 @@ flutter327.buildFlutterApplication rec {
       icon = "evolvecore";
       desktopName = "evolvecore";
       genericName = "A modern GTK theme manager";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
       comment = "A modern GTK Theme Manager for GNOME with GTK 4.0 support and some cool features";
       terminal = false;
       type = "Application";
@@ -48,9 +47,8 @@ flutter327.buildFlutterApplication rec {
     homepage = "https://github.com/arcnations-united/evolve-core";
     changelog = "https://github.com/arcnations-united/evolve-core/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "evolvecore";
     platforms = lib.platforms.linux;
   };
-
 }

@@ -5,7 +5,6 @@
   pytestCheckHook,
   pygame,
 }:
-
 buildPythonPackage rec {
   pname = "pyrect";
   version = "0.2.0";
@@ -22,12 +21,12 @@ buildPythonPackage rec {
     pygame
   ];
 
-  pythonImportsCheck = [ "pyrect" ];
+  pythonImportsCheck = ["pyrect"];
 
   meta = with lib; {
     description = "Simple module with a Rect class for Pygame-like rectangular areas";
     homepage = "https://github.com/asweigart/pyrect";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lucasew ];
+    maintainers = with maintainers; [lucasew];
   };
 }

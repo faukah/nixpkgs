@@ -11,9 +11,8 @@
   gbenchmark,
   buildTests ? false,
   buildBenchmarks ? false,
-  gpuTargets ? [ ],
+  gpuTargets ? [],
 }:
-
 # CUB can also be used as a backend instead of rocPRIM.
 stdenv.mkDerivation (finalAttrs: {
   pname = "hipcub";
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
     ]
-    ++ lib.optionals (gpuTargets != [ ]) [
+    ++ lib.optionals (gpuTargets != []) [
       "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
     ]
     ++ lib.optionals buildTests [
@@ -95,8 +94,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Thin wrapper library on top of rocPRIM or CUB";
     homepage = "https://github.com/ROCm/hipCUB";
-    license = with licenses; [ bsd3 ];
-    teams = [ teams.rocm ];
+    license = with licenses; [bsd3];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

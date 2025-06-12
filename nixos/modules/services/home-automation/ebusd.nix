@@ -3,17 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.ebusd;
-in
-{
-  meta.maintainers = with lib.maintainers; [ nathan-gs ];
+in {
+  meta.maintainers = with lib.maintainers; [nathan-gs];
 
   options.services.ebusd = {
     enable = lib.mkEnableOption "ebusd, a daemon for communication with eBUS heating systems";
 
-    package = lib.mkPackageOption pkgs "ebusd" { };
+    package = lib.mkPackageOption pkgs "ebusd" {};
 
     device = lib.mkOption {
       type = lib.types.str;
@@ -65,40 +63,40 @@ in
       '';
     };
 
-    logs =
-      let
-        # "all" must come first so it can be overridden by more specific areas
-        areas = [
-          "all"
-          "main"
-          "network"
-          "bus"
-          "device"
-          "update"
-          "other"
-        ];
-        levels = [
-          "none"
-          "error"
-          "notice"
-          "info"
-          "debug"
-        ];
-      in
+    logs = let
+      # "all" must come first so it can be overridden by more specific areas
+      areas = [
+        "all"
+        "main"
+        "network"
+        "bus"
+        "device"
+        "update"
+        "other"
+      ];
+      levels = [
+        "none"
+        "error"
+        "notice"
+        "info"
+        "debug"
+      ];
+    in
       lib.listToAttrs (
         map (
           area:
-          lib.nameValuePair area (
-            lib.mkOption {
-              type = lib.types.enum levels;
-              default = "notice";
-              example = "debug";
-              description = ''
-                Only write log for matching `AREA`s (${lib.concatStringsSep "|" areas}) below or equal to `LEVEL` (${lib.concatStringsSep "|" levels})
-              '';
-            }
-          )
-        ) areas
+            lib.nameValuePair area (
+              lib.mkOption {
+                type = lib.types.enum levels;
+                default = "notice";
+                example = "debug";
+                description = ''
+                  Only write log for matching `AREA`s (${lib.concatStringsSep "|" areas}) below or equal to `LEVEL` (${lib.concatStringsSep "|" levels})
+                '';
+              }
+            )
+        )
+        areas
       );
 
     mqtt = {
@@ -147,58 +145,56 @@ in
 
     extraArguments = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         Extra arguments to the ebus daemon
       '';
     };
   };
 
-  config =
-    let
-      usesDev = lib.any (prefix: lib.hasPrefix prefix cfg.device) [
-        "/"
-        "ens:/"
-        "enh:/"
-      ];
-    in
+  config = let
+    usesDev = lib.any (prefix: lib.hasPrefix prefix cfg.device) [
+      "/"
+      "ens:/"
+      "enh:/"
+    ];
+  in
     lib.mkIf cfg.enable {
       systemd.services.ebusd = {
         description = "EBUSd Service";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         serviceConfig = {
-          ExecStart =
-            let
-              args = lib.cli.toGNUCommandLineShell { optionValueSeparator = "="; } (
-                lib.foldr (a: b: a // b) { } [
-                  {
-                    inherit (cfg)
-                      device
-                      port
-                      configpath
-                      scanconfig
-                      readonly
-                      ;
-                    foreground = true;
-                    updatecheck = "off";
-                    log = lib.mapAttrsToList (name: value: "${name}:${value}") cfg.logs;
-                    mqttretain = cfg.mqtt.retain;
-                  }
-                  (lib.optionalAttrs cfg.mqtt.enable {
-                    mqtthost = cfg.mqtt.host;
-                    mqttport = cfg.mqtt.port;
-                    mqttuser = cfg.mqtt.user;
-                    mqttpass = cfg.mqtt.password;
-                  })
-                  (lib.optionalAttrs cfg.mqtt.home-assistant {
-                    mqttint = "${cfg.package}/etc/ebusd/mqtt-hassio.cfg";
-                    mqttjson = true;
-                  })
-                ]
-              );
-            in
-            "${cfg.package}/bin/ebusd ${args} ${lib.escapeShellArgs cfg.extraArguments}";
+          ExecStart = let
+            args = lib.cli.toGNUCommandLineShell {optionValueSeparator = "=";} (
+              lib.foldr (a: b: a // b) {} [
+                {
+                  inherit
+                    (cfg)
+                    device
+                    port
+                    configpath
+                    scanconfig
+                    readonly
+                    ;
+                  foreground = true;
+                  updatecheck = "off";
+                  log = lib.mapAttrsToList (name: value: "${name}:${value}") cfg.logs;
+                  mqttretain = cfg.mqtt.retain;
+                }
+                (lib.optionalAttrs cfg.mqtt.enable {
+                  mqtthost = cfg.mqtt.host;
+                  mqttport = cfg.mqtt.port;
+                  mqttuser = cfg.mqtt.user;
+                  mqttpass = cfg.mqtt.password;
+                })
+                (lib.optionalAttrs cfg.mqtt.home-assistant {
+                  mqttint = "${cfg.package}/etc/ebusd/mqtt-hassio.cfg";
+                  mqttjson = true;
+                })
+              ]
+            );
+          in "${cfg.package}/bin/ebusd ${args} ${lib.escapeShellArgs cfg.extraArguments}";
 
           DynamicUser = true;
           Restart = "on-failure";
@@ -233,7 +229,7 @@ in
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
-          SupplementaryGroups = [ "dialout" ];
+          SupplementaryGroups = ["dialout"];
           SystemCallArchitectures = "native";
           SystemCallFilter = [
             "@system-service @pkey"

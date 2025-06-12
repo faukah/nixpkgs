@@ -14,7 +14,6 @@
   xfconf,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-volumed-pulse";
   version = "0.3.0";
@@ -45,15 +44,15 @@ stdenv.mkDerivation (finalAttrs: {
     xfconf
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "xfce4-volumed-pulse-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "xfce4-volumed-pulse-";};
 
   meta = {
     description = "Volume keys control daemon for Xfce using pulseaudio";
     homepage = "https://gitlab.xfce.org/apps/xfce4-volumed-pulse";
     mainProgram = "xfce4-volumed-pulse";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ abbradar ];
-    teams = [ lib.teams.xfce ];
+    maintainers = with lib.maintainers; [abbradar];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

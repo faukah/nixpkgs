@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "idrac_exporter";
   version = "unstable-2023-06-29";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-iNV4VrdQONq7LXwAc6AaUROHy8TmmloUAL8EmuPtF/o=";
 
-  patches = [ ./idrac-exporter/config-from-environment.patch ];
+  patches = [./idrac-exporter/config-from-environment.patch];
 
   ldflags = [
     "-s"
@@ -27,13 +26,13 @@ buildGoModule rec {
 
   doCheck = true;
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) idrac; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) idrac;};
 
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "Simple iDRAC exporter for Prometheus";
     mainProgram = "idrac_exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ codec ];
+    maintainers = with maintainers; [codec];
   };
 }

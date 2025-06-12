@@ -20,9 +20,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-sZuvhJWgBlptfgsKglWvL6oxK5W3y2x0Gwf+r2pNRi8=";
 
-  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ libxcb ];
+  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [libxcb];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd wormhole-rs \

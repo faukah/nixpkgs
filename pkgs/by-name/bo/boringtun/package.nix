@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "boringtun";
   version = "0.6.0";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Userspace WireGuard® implementation in Rust";
     homepage = "https://github.com/cloudflare/boringtun";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ xrelkd ];
+    maintainers = with lib.maintainers; [xrelkd];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "boringtun-cli";
   };

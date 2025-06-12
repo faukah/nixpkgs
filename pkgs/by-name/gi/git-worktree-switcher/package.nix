@@ -7,7 +7,6 @@
   git,
   jq,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "git-worktree-switcher";
   version = "0.2.4";

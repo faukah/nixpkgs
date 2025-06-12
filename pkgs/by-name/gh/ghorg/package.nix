@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "ghorg";
   version = "1.11.1";
@@ -19,7 +18,7 @@ buildGoModule rec {
   doCheck = false;
   vendorHash = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -27,7 +26,7 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = ''
     installShellCompletion --cmd ghorg \
       --bash <($out/bin/ghorg completion bash) \
@@ -48,7 +47,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/gabrie30/ghorg";
     license = licenses.asl20;
-    maintainers = with maintainers; [ vidbina ];
+    maintainers = with maintainers; [vidbina];
     mainProgram = "ghorg";
   };
 }

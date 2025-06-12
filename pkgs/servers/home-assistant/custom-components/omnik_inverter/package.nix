@@ -4,7 +4,6 @@
   buildHomeAssistantComponent,
   omnikinverter,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "robbinjanssen";
   domain = "omnik_inverter";
@@ -27,7 +26,7 @@ buildHomeAssistantComponent rec {
     changelog = "https://github.com/robbinjanssen/home-assistant-omnik-inverter/releases/tag/v${version}";
     description = "Omnik Inverter integration will scrape data from an Omnik inverter connected to your local network";
     homepage = "https://github.com/robbinjanssen/home-assistant-omnik-inverter";
-    maintainers = with maintainers; [ _9R ];
+    maintainers = with maintainers; [_9R];
     license = licenses.mit;
   };
 }

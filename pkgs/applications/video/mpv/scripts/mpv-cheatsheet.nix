@@ -15,9 +15,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     rev = "v${finalAttrs.version}";
     hash = "sha256-MWK0CYto3zgn3fivmL43tvgZn6XrjPxKLp0lgTFdplM=";
   };
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
-  nativeBuildInputs = [ nodePackages.browserify ];
+  nativeBuildInputs = [nodePackages.browserify];
 
   buildPhase = ''
     runHook preBuild
@@ -41,6 +41,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "mpv script for looking up keyboard shortcuts";
     homepage = "https://github.com/ento/mpv-cheatsheet";
     license = licenses.mit;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 })

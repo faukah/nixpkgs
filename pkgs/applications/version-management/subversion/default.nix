@@ -28,19 +28,15 @@
   sasl ? null,
   serf ? null,
 }:
-
 assert bdbSupport -> aprutil.bdbSupport;
 assert httpServer -> apacheHttpd != null;
 assert pythonBindings -> swig != null && python3 != null && py3c != null;
-assert javahlBindings -> jdk != null && perl != null;
-
-let
-  common =
-    {
-      version,
-      sha256,
-      extraPatches ? [ ],
-    }:
+assert javahlBindings -> jdk != null && perl != null; let
+  common = {
+    version,
+    sha256,
+    extraPatches ? [],
+  }:
     stdenv.mkDerivation (
       rec {
         inherit version;
@@ -82,7 +78,7 @@ let
           ++ lib.optional perlBindings perl
           ++ lib.optional saslSupport sasl;
 
-        patches = [ ./apr-1.patch ] ++ extraPatches;
+        patches = [./apr-1.patch] ++ extraPatches;
 
         # remove vendored swig-3 files as these will shadow the swig provided
         # ones and result in compile errors
@@ -93,7 +89,7 @@ let
         # We are hitting the following issue even with APR 1.6.x
         # -> https://issues.apache.org/jira/browse/SVN-4813
         # "-P" CPPFLAG is needed to build Python bindings and subversionClient
-        CPPFLAGS = [ "-P" ];
+        CPPFLAGS = ["-P"];
 
         preConfigure = ''
           ./autogen.sh
@@ -155,7 +151,7 @@ let
         # make: *** [build-outputs.mk:1316: install-serf-lib] Error 1
         enableParallelInstalling = false;
 
-        nativeCheckInputs = [ python3 ];
+        nativeCheckInputs = [python3];
         doCheck = false; # fails 10 out of ~2300 tests
 
         meta = with lib; {
@@ -163,10 +159,9 @@ let
           license = licenses.asl20;
           homepage = "https://subversion.apache.org/";
           mainProgram = "svn";
-          maintainers = with maintainers; [ lovek323 ];
+          maintainers = with maintainers; [lovek323];
           platforms = platforms.linux ++ platforms.darwin;
         };
-
       }
       // lib.optionalAttrs stdenv.hostPlatform.isDarwin {
         CXX = "clang++";
@@ -175,9 +170,7 @@ let
         CXXCPP = "clang++ -E";
       }
     );
-
-in
-{
+in {
   subversion = common {
     version = "1.14.5";
     sha256 = "sha256-54op53Zri3s1RJfQj3GlVkGrxTZ1zhh1WEeBquNWRKE=";

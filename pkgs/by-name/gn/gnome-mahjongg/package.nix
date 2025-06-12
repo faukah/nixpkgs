@@ -17,7 +17,6 @@
   vala,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-mahjongg";
   version = "48.1";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.gnome.org/GNOME/gnome-mahjongg/-/blob/${finalAttrs.version}/NEWS?ref_type=tags";
     description = "Disassemble a pile of tiles by removing matching pairs";
     mainProgram = "gnome-mahjongg";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
   };

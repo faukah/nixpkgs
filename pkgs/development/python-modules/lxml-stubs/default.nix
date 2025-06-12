@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "lxml-stubs";
   version = "0.5.1";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-OwaPnCr0vylhdAvMMUfGV6DjZEh7Q71pgMOt66urg5I=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ lxml ];
+  propagatedBuildInputs = [lxml];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Type stubs for the lxml package";
     homepage = "https://github.com/lxml/lxml-stubs";
     license = licenses.asl20;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

@@ -4,7 +4,6 @@
   fetchPypi,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "ply";
   version = "3.11";

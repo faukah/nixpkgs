@@ -7,7 +7,6 @@
   udev,
   openssl,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "cargo-v5";
   version = "0.8.2";
@@ -22,9 +21,9 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-nOcwHy+aji1LgR/VBZDRFDgM+b2ScpVE+H3W5HKEM5o=";
 
-  buildFeatures = [ "full" ];
+  buildFeatures = ["full"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     dbus
     udev
@@ -36,6 +35,6 @@ rustPlatform.buildRustPackage {
     mainProgram = "cargo-v5";
     homepage = "https://github.com/vexide/cargo-v5";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ max-niederman ];
+    maintainers = with lib.maintainers; [max-niederman];
   };
 }

@@ -14,7 +14,6 @@
   shellcheck,
   yamllint,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scap-security-guide";
   version = "0.1.76";
@@ -31,8 +30,7 @@ stdenv.mkDerivation rec {
       --replace-fail "XCCDF_GUIDE_XSL = None" "XCCDF_GUIDE_XSL = \"${openscap}/share/openscap/xsl/xccdf-guide.xsl\""
   '';
 
-  nativeBuildInputs =
-    with python3Packages;
+  nativeBuildInputs = with python3Packages;
     [
       setuptools
       sphinx
@@ -45,8 +43,7 @@ stdenv.mkDerivation rec {
       cmake
     ];
 
-  buildInputs =
-    with python3Packages;
+  buildInputs = with python3Packages;
     [
       ansible
       jinja2
@@ -79,7 +76,7 @@ stdenv.mkDerivation rec {
     description = "Security automation content in SCAP, Bash, Ansible, and other formats";
     homepage = "https://github.com/ComplianceAsCode/content";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
     platforms = lib.platforms.all;
   };
 }

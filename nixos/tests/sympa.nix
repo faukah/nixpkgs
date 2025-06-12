@@ -1,28 +1,28 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "sympa";
-  meta.maintainers = with lib.maintainers; [ ];
+  meta.maintainers = with lib.maintainers; [];
 
-  nodes.machine =
-    { ... }:
-    {
-
-      services.sympa = {
-        enable = true;
-        domains = {
-          "lists.example.org" = {
-            webHost = "localhost";
-          };
-        };
-        listMasters = [ "bob@example.org" ];
-        web.enable = true;
-        web.https = false;
-        database = {
-          type = "PostgreSQL";
-          createLocally = true;
+  nodes.machine = {...}: {
+    services.sympa = {
+      enable = true;
+      domains = {
+        "lists.example.org" = {
+          webHost = "localhost";
         };
       };
+      listMasters = ["bob@example.org"];
+      web.enable = true;
+      web.https = false;
+      database = {
+        type = "PostgreSQL";
+        createLocally = true;
+      };
     };
+  };
 
   testScript = ''
     start_all()

@@ -9,7 +9,6 @@
   perl,
   tk,
 }:
-
 stdenv.mkDerivation {
   pname = "ifm";
   version = "2015-11-08";
@@ -43,6 +42,6 @@ stdenv.mkDerivation {
     description = "Interactive fiction mapper";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

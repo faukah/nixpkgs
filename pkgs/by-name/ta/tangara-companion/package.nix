@@ -2,10 +2,8 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-
   copyDesktopItems,
   makeDesktopItem,
-
   gdk-pixbuf,
   glib,
   graphene,
@@ -15,7 +13,6 @@
   pkg-config,
   udev,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tangara-companion";
   version = "0.4.3";
@@ -73,7 +70,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "tangara-companion";
     homepage = "https://github.com/haileys/tangara-companion";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ benpye ];
+    maintainers = with lib.maintainers; [benpye];
     platforms = lib.platforms.linux;
   };
 }

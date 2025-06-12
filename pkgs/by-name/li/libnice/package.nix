@@ -16,16 +16,17 @@
   gnutls,
   graphviz,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libnice";
   version = "0.1.22";
 
-  outputs = [
-    "bin"
-    "out"
-    "dev"
-  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
+  outputs =
+    [
+      "bin"
+      "out"
+      "dev"
+    ]
+    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) ["devdoc"];
 
   src = fetchurl {
     url = "https://libnice.freedesktop.org/releases/libnice-${finalAttrs.version}.tar.gz";
@@ -64,8 +65,16 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   mesonFlags = [
-    "-Dgtk_doc=${if (stdenv.buildPlatform == stdenv.hostPlatform) then "enabled" else "disabled"}"
-    "-Dintrospection=${if (stdenv.buildPlatform == stdenv.hostPlatform) then "enabled" else "disabled"}"
+    "-Dgtk_doc=${
+      if (stdenv.buildPlatform == stdenv.hostPlatform)
+      then "enabled"
+      else "disabled"
+    }"
+    "-Dintrospection=${
+      if (stdenv.buildPlatform == stdenv.hostPlatform)
+      then "enabled"
+      else "disabled"
+    }"
     "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
   ];
 

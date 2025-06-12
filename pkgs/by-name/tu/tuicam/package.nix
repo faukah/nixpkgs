@@ -38,14 +38,14 @@ rustPlatform.buildRustPackage rec {
   # Test require Camera Hardware
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Terminal-based camera with switchable modes";
     homepage = "https://github.com/hlsxx/tuicam";
     changelog = "https://github.com/hlsxx/tuicam/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ FKouhai ];
+    maintainers = with lib.maintainers; [FKouhai];
     platforms = lib.platforms.linux;
     mainProgram = "tuicam";
   };

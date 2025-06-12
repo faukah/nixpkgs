@@ -9,7 +9,6 @@
   pyinstaller,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jpype1";
   version = "1.5.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-Q5/umU7JHiro+7YuC6nVG9ocpQ/Yc4LGa5+7SGGARTo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     ant
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     ant -f native/build.xml jar
   '';
 
-  dependencies = [ packaging ];
+  dependencies = [packaging];
 
   nativeCheckInputs = [
     pyinstaller

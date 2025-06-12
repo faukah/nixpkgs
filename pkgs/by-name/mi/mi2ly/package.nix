@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mi2ly";
   version = "0.12";
@@ -15,9 +14,9 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-fgnu89-inline" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-fgnu89-inline"];
 
   buildPhase = "./cc";
   installPhase = ''
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "MIDI to Lilypond converter";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     homepage = "https://www.nongnu.org/mi2ly/";
     mainProgram = "mi2ly";

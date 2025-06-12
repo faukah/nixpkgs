@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "psw";
   version = "0.2.1";
@@ -25,6 +24,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ wulfsta ];
+    maintainers = with maintainers; [wulfsta];
   };
 }

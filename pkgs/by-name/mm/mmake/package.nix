@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mmake";
   version = "1.4.0";
@@ -35,7 +34,7 @@ buildGoModule rec {
       pass-through to standard make.
     '';
     license = licenses.mit;
-    maintainers = [ maintainers.gabesoft ];
+    maintainers = [maintainers.gabesoft];
     mainProgram = "mmake";
   };
 }

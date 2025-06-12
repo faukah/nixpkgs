@@ -11,7 +11,6 @@
   coreutils,
   enablePython ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "proot";
   version = "5.4.0";
@@ -30,24 +29,28 @@ stdenv.mkDerivation rec {
     sed -i /CROSS_COMPILE/d src/GNUmakefile
   '';
 
-  buildInputs = [
-    ncurses
-    talloc
-  ] ++ lib.optional enablePython python3;
-  nativeBuildInputs = [
-    pkg-config
-    docutils
-  ] ++ lib.optional enablePython swig;
+  buildInputs =
+    [
+      ncurses
+      talloc
+    ]
+    ++ lib.optional enablePython python3;
+  nativeBuildInputs =
+    [
+      pkg-config
+      docutils
+    ]
+    ++ lib.optional enablePython swig;
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "-C src" ];
+  makeFlags = ["-C src"];
 
   postBuild = ''
     make -C doc proot/man.1
   '';
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   postInstall = ''
     install -Dm644 doc/proot/man.1 $out/share/man/man1/proot.1

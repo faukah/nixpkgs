@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clipper2";
   version = "1.5.2";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/AngusJohnson/Clipper2";
     license = lib.licenses.boost;
-    maintainers = [ lib.maintainers.cadkin ];
+    maintainers = [lib.maintainers.cadkin];
     platforms = lib.platforms.all;
   };
 }

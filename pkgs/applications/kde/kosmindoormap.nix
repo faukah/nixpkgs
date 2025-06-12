@@ -8,7 +8,6 @@
   kopeninghours,
   kpublictransport,
 }:
-
 mkDerivation {
   pname = "kosmindoormap";
   outputs = [

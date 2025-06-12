@@ -9,7 +9,6 @@
   dbus_java,
   versionCheckHook,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "signal-cli";
   version = "0.13.16";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     dbus
     dbus_java
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase =
     ''
@@ -35,20 +34,19 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       install -Dm755 bin/signal-cli -t $out/bin
     ''
     + (
-      if stdenvNoCC.hostPlatform.isLinux then
-        ''
-          makeWrapper ${openjdk21_headless}/bin/java $out/bin/signal-cli \
-            --set JAVA_HOME "${openjdk21_headless}" \
-            --add-flags "-classpath '$out/lib/*:${libmatthew_java}/lib/jni'" \
-            --add-flags "-Djava.library.path=${libmatthew_java}/lib/jni:${dbus_java}/share/java/dbus:$out/lib" \
-            --add-flags "org.asamk.signal.Main"
-        ''
-      else
-        ''
-          wrapProgram $out/bin/signal-cli \
-            --prefix PATH : ${lib.makeBinPath [ openjdk21_headless ]} \
-            --set JAVA_HOME ${openjdk21_headless}
-        ''
+      if stdenvNoCC.hostPlatform.isLinux
+      then ''
+        makeWrapper ${openjdk21_headless}/bin/java $out/bin/signal-cli \
+          --set JAVA_HOME "${openjdk21_headless}" \
+          --add-flags "-classpath '$out/lib/*:${libmatthew_java}/lib/jni'" \
+          --add-flags "-Djava.library.path=${libmatthew_java}/lib/jni:${dbus_java}/share/java/dbus:$out/lib" \
+          --add-flags "org.asamk.signal.Main"
+      ''
+      else ''
+        wrapProgram $out/bin/signal-cli \
+          --prefix PATH : ${lib.makeBinPath [openjdk21_headless]} \
+          --set JAVA_HOME ${openjdk21_headless}
+      ''
     )
     + ''
       runHook postInstall
@@ -63,7 +61,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   # /nix/store/in41dz8byyyz4c0w132l7mqi43liv4yr-stdenv-darwin/setup: line 1310:  2231 Abort trap: 6           signal-cli --version
   doInstallCheck = stdenvNoCC.hostPlatform.isLinux;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -71,9 +69,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Command-line and dbus interface for communicating with the Signal messaging service";
     mainProgram = "signal-cli";
     changelog = "https://github.com/AsamK/signal-cli/blob/v${finalAttrs.version}/CHANGELOG.md";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ ivan ];
+    maintainers = with lib.maintainers; [ivan];
     platforms = lib.platforms.all;
   };
 })

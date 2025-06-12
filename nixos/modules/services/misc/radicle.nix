@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.radicle;
 
-  json = pkgs.formats.json { };
+  json = pkgs.formats.json {};
 
   env = rec {
     # rad fails if it cannot stat $HOME/.gitconfig
@@ -28,9 +27,11 @@ let
   '';
 
   commonServiceConfig = serviceName: {
-    environment = env // {
-      RUST_LOG = lib.mkDefault "info";
-    };
+    environment =
+      env
+      // {
+        RUST_LOG = lib.mkDefault "info";
+      };
     path = [
       pkgs.gitMinimal
     ];
@@ -44,21 +45,20 @@ let
     requires = [
       "network-online.target"
     ];
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
     serviceConfig = lib.mkMerge [
       {
         BindReadOnlyPaths = [
           "${cfg.configFile}:${env.RAD_HOME}/config.json"
           "${
-            if lib.types.path.check cfg.publicKey then
-              cfg.publicKey
-            else
-              pkgs.writeText "radicle.pub" cfg.publicKey
+            if lib.types.path.check cfg.publicKey
+            then cfg.publicKey
+            else pkgs.writeText "radicle.pub" cfg.publicKey
           }:${env.RAD_HOME}/keys/radicle.pub"
           "${config.security.pki.caBundle}:/etc/ssl/certs/ca-certificates.crt"
         ];
         KillMode = "process";
-        StateDirectory = [ "radicle" ];
+        StateDirectory = ["radicle"];
         User = config.users.users.radicle.name;
         Group = config.users.groups.radicle.name;
         WorkingDirectory = env.HOME;
@@ -94,7 +94,7 @@ let
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         RuntimeDirectoryMode = "700";
-        SocketBindDeny = [ "any" ];
+        SocketBindDeny = ["any"];
         StateDirectoryMode = "0750";
         SystemCallFilter = [
           "@system-service"
@@ -125,12 +125,11 @@ let
       ];
     };
   };
-in
-{
+in {
   options = {
     services.radicle = {
       enable = lib.mkEnableOption "Radicle Seed Node";
-      package = lib.mkPackageOption pkgs "radicle-node" { };
+      package = lib.mkPackageOption pkgs "radicle-node" {};
       privateKeyFile = lib.mkOption {
         # Note that a key encrypted by systemd-creds is not a path but a str.
         type = with lib.types; either path str;
@@ -165,7 +164,7 @@ in
         openFirewall = lib.mkEnableOption "opening the firewall for `radicle-node`";
         extraArgs = lib.mkOption {
           type = with lib.types; listOf str;
-          default = [ ];
+          default = [];
           description = "Extra arguments for `radicle-node`";
         };
       };
@@ -201,7 +200,7 @@ in
         description = ''
           See https://app.radicle.xyz/nodes/seed.radicle.garden/rad:z3gqcJUoA1n9HaHKufZs5FCSGazv5/tree/radicle/src/node/config.rs#L275
         '';
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             web.pinned.repositories = [
@@ -216,7 +215,7 @@ in
       };
       httpd = {
         enable = lib.mkEnableOption "Radicle HTTP gateway to radicle-node";
-        package = lib.mkPackageOption pkgs "radicle-httpd" { };
+        package = lib.mkPackageOption pkgs "radicle-httpd" {};
         listenAddress = lib.mkOption {
           type = lib.types.str;
           default = "127.0.0.1";
@@ -231,7 +230,7 @@ in
           # Type of a single virtual host, or null.
           type = lib.types.nullOr (
             lib.types.submodule (
-              lib.recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) {
+              lib.recursiveUpdate (import ../web-servers/nginx/vhost-options.nix {inherit config lib;}) {
                 options.serverName = {
                   default = "radicle-${config.networking.hostName}.${config.networking.domain}";
                   defaultText = "radicle-\${config.networking.hostName}.\${config.networking.domain}";
@@ -260,7 +259,7 @@ in
         };
         extraArgs = lib.mkOption {
           type = with lib.types; listOf str;
-          default = [ ];
+          default = [];
           description = "Extra arguments for `radicle-httpd`";
         };
       };
@@ -274,12 +273,12 @@ in
           (commonServiceConfig "radicle-node")
           {
             description = "Radicle Node";
-            documentation = [ "man:radicle-node(1)" ];
+            documentation = ["man:radicle-node(1)"];
             serviceConfig = {
               ExecStart = "${lib.getExe' cfg.package "radicle-node"} --force --listen ${cfg.node.listenAddress}:${toString cfg.node.listenPort} ${lib.escapeShellArgs cfg.node.extraArgs}";
               Restart = lib.mkDefault "on-failure";
               RestartSec = "30";
-              SocketBindAllow = [ "tcp:${toString cfg.node.listenPort}" ];
+              SocketBindAllow = ["tcp:${toString cfg.node.listenPort}"];
               SystemCallFilter = lib.mkAfter [
                 # Needed by git upload-pack which calls alarm() and setitimer() when providing a rad clone
                 "@timer"
@@ -291,25 +290,23 @@ in
           }
           # Give only access to the private key to radicle-node.
           {
-            serviceConfig =
-              let
-                keyCred = builtins.split ":" "${cfg.privateKeyFile}";
-              in
-              if lib.length keyCred > 1 then
-                {
-                  LoadCredentialEncrypted = [ cfg.privateKeyFile ];
-                  # Note that neither %d nor ${CREDENTIALS_DIRECTORY} works in BindReadOnlyPaths=
-                  BindReadOnlyPaths = [
-                    "/run/credentials/radicle-node.service/${lib.head keyCred}:${env.RAD_HOME}/keys/radicle"
-                  ];
-                }
-              else
-                {
-                  LoadCredential = [ "radicle:${cfg.privateKeyFile}" ];
-                  BindReadOnlyPaths = [
-                    "/run/credentials/radicle-node.service/radicle:${env.RAD_HOME}/keys/radicle"
-                  ];
-                };
+            serviceConfig = let
+              keyCred = builtins.split ":" "${cfg.privateKeyFile}";
+            in
+              if lib.length keyCred > 1
+              then {
+                LoadCredentialEncrypted = [cfg.privateKeyFile];
+                # Note that neither %d nor ${CREDENTIALS_DIRECTORY} works in BindReadOnlyPaths=
+                BindReadOnlyPaths = [
+                  "/run/credentials/radicle-node.service/${lib.head keyCred}:${env.RAD_HOME}/keys/radicle"
+                ];
+              }
+              else {
+                LoadCredential = ["radicle:${cfg.privateKeyFile}"];
+                BindReadOnlyPaths = [
+                  "/run/credentials/radicle-node.service/radicle:${env.RAD_HOME}/keys/radicle"
+                ];
+              };
           }
         ];
 
@@ -318,7 +315,7 @@ in
         ];
 
         networking.firewall = lib.mkIf cfg.node.openFirewall {
-          allowedTCPPorts = [ cfg.node.listenPort ];
+          allowedTCPPorts = [cfg.node.listenPort];
         };
 
         users = {
@@ -340,12 +337,12 @@ in
               (commonServiceConfig "radicle-httpd")
               {
                 description = "Radicle HTTP gateway to radicle-node";
-                documentation = [ "man:radicle-httpd(1)" ];
+                documentation = ["man:radicle-httpd(1)"];
                 serviceConfig = {
                   ExecStart = "${lib.getExe' cfg.httpd.package "radicle-httpd"} --listen ${cfg.httpd.listenAddress}:${toString cfg.httpd.listenPort} ${lib.escapeShellArgs cfg.httpd.extraArgs}";
                   Restart = lib.mkDefault "on-failure";
                   RestartSec = "10";
-                  SocketBindAllow = [ "tcp:${toString cfg.httpd.listenPort}" ];
+                  SocketBindAllow = ["tcp:${toString cfg.httpd.listenPort}"];
                   SystemCallFilter = lib.mkAfter [
                     # Needed by git upload-pack which calls alarm() and setitimer() when providing a git clone
                     "@timer"

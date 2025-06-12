@@ -15,7 +15,6 @@
   pimcommon,
   qttools,
 }:
-
 mkDerivation {
   pname = "calendarsupport";
   meta = {

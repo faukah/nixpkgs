@@ -5,7 +5,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "primepy";
   version = "1.3";
@@ -22,12 +21,12 @@ buildPythonPackage rec {
     wheel
   ];
 
-  pythonImportsCheck = [ "primePy" ];
+  pythonImportsCheck = ["primePy"];
 
   meta = with lib; {
     description = "This module contains several useful functions to work with prime numbers. from primePy import primes";
     homepage = "https://pypi.org/project/primePy/";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

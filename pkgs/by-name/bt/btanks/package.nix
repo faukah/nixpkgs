@@ -17,7 +17,6 @@
   zip,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "btanks";
   version = "0.9.8083";
@@ -83,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Fast 2d tank arcade game with multiplayer and split-screen modes";
     license = lib.licenses.gpl2Plus;
     mainProgram = "btanks";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (SDL.meta) platforms;
   };
 })

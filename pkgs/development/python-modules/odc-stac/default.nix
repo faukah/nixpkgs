@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   affine,
   dask,
@@ -17,17 +15,14 @@
   rasterio,
   toolz,
   xarray,
-
   # optional-dependencies
   botocore,
-
   # tests
   geopandas,
   distributed,
   pystac-client,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "odc-stac";
   version = "0.4.0rc2";
@@ -58,17 +53,19 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    botocore = [ botocore ];
+    botocore = [botocore];
   };
 
-  nativeCheckInputs = [
-    geopandas
-    distributed
-    pystac-client
-    pytestCheckHook
-  ] ++ optional-dependencies.botocore;
+  nativeCheckInputs =
+    [
+      geopandas
+      distributed
+      pystac-client
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.botocore;
 
-  pytestFlagsArray = [ "-m 'not network'" ];
+  pytestFlagsArray = ["-m 'not network'"];
 
   disabledTests = [
     # pystac href error (possible related to network)
@@ -89,6 +86,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/opendatacube/odc-stac/";
     changelog = "https://github.com/opendatacube/odc-stac/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ daspk04 ];
+    maintainers = with lib.maintainers; [daspk04];
   };
 }

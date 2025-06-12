@@ -11,7 +11,6 @@
   qt6Packages,
   rtaudio,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wfview";
   version = "2.11";
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.LANG = "C.UTF-8";
 
-  qmakeFlags = [ "wfview.pro" ];
+  qmakeFlags = ["wfview.pro"];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -pv $out/Applications
@@ -69,6 +68,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
     mainProgram = "wfview";
-    maintainers = with lib.maintainers; [ Cryolitia ];
+    maintainers = with lib.maintainers; [Cryolitia];
   };
 })

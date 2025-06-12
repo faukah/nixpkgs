@@ -12,7 +12,6 @@
   setuptools,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "aws-encryption-sdk";
   version = "4.0.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-cyDcTPjY1am0yIo0O+k4NdoYdW4FMI01NlVL4MooiaU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     attrs
@@ -51,13 +50,13 @@ buildPythonPackage rec {
     "test_happy_version"
   ];
 
-  pythonImportsCheck = [ "aws_encryption_sdk" ];
+  pythonImportsCheck = ["aws_encryption_sdk"];
 
   meta = with lib; {
     description = "Python implementation of the AWS Encryption SDK";
     homepage = "https://aws-encryption-sdk-python.readthedocs.io/";
     changelog = "https://github.com/aws/aws-encryption-sdk-python/blob/v${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ anthonyroussel ];
+    maintainers = with maintainers; [anthonyroussel];
   };
 }

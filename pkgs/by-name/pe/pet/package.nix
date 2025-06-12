@@ -6,7 +6,6 @@
   installShellFiles,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule rec {
   pname = "pet";
   version = "1.0.1";
@@ -28,7 +27,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   nativeBuildInputs = [
     installShellFiles
@@ -47,7 +46,7 @@ buildGoModule rec {
     mainProgram = "pet";
     homepage = "https://github.com/knqyf263/pet";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

@@ -10,7 +10,6 @@
   stdenv,
   wayland,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vokoscreen-ng";
   version = "4.4.0";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-5rESTLIvjc/Jztc7LAPl74fxgDsam9SfBa6B5yTXb8E=";
   };
 
-  qmakeFlags = [ "src/vokoscreenNG.pro" ];
+  qmakeFlags = ["src/vokoscreenNG.pro"];
 
   nativeBuildInputs = [
     qt6.qttools

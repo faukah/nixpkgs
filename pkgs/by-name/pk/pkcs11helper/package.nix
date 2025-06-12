@@ -6,7 +6,6 @@
   openssl,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pkcs11-helper";
   version = "1.30.0";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   enableParallelBuilding = true;
 

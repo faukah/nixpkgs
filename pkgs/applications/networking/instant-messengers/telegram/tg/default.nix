@@ -8,7 +8,6 @@
   libnotify,
   python-telegram,
 }:
-
 buildPythonApplication rec {
   pname = "tg";
   version = "0.19.0";
@@ -35,7 +34,7 @@ buildPythonApplication rec {
     sed -i 's|^NOTIFY_CMD = .*|NOTIFY_CMD = "${libnotify}/bin/notify-send {title} {message} -i {icon_path}"|' tg/config.py
   '';
 
-  propagatedBuildInputs = [ python-telegram ];
+  propagatedBuildInputs = [python-telegram];
 
   doCheck = false; # No tests
 
@@ -44,6 +43,6 @@ buildPythonApplication rec {
     mainProgram = "tg";
     homepage = "https://github.com/paul-nameless/tg";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

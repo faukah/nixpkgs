@@ -4,7 +4,6 @@
   lib,
   nix-update-script,
 }:
-
 buildGo123Module (finalAttrs: {
   pname = "avalanchego";
   version = "1.13.0";
@@ -21,7 +20,7 @@ buildGo123Module (finalAttrs: {
 
   vendorHash = "sha256-iyx9k8mPPOwpHo9lEdNPf0sQHxbKbNTVLUZrPYY8dWM=";
 
-  subPackages = [ "main" ];
+  subPackages = ["main"];
 
   ldflags = [
     "-s"
@@ -33,7 +32,7 @@ buildGo123Module (finalAttrs: {
     mv $out/bin/{main,avalanchego}
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Go implementation of an Avalanche node";

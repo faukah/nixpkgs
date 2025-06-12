@@ -2,24 +2,19 @@
 # firmware is included, and all devices from which one may boot are
 # enabled in the initrd.  Its primary use is in the NixOS installation
 # CDs.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   platform = pkgs.stdenv.hostPlatform;
-in
-{
-
+in {
   options = {
     hardware.enableAllHardware = lib.mkEnableOption "Enable support for most hardware";
   };
 
   config = lib.mkIf config.hardware.enableAllHardware {
-
     # The initrd has to contain any module that might be necessary for
     # supporting the most important parts of HW like drives.
     boot.initrd.availableKernelModules =

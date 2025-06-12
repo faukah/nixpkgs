@@ -3,13 +3,11 @@
   buildPythonPackage,
   fetchFromGitHub,
   setuptools,
-
   # propagates
   django,
   jwcrypto,
   requests,
   oauthlib,
-
   # tests
   djangorestframework,
   pytest-cov-stub,
@@ -17,7 +15,6 @@
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-oauth-toolkit";
   version = "3.0.1";
@@ -30,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-Ya0KlX+vtLXN2Fgk0Gv7KemJCUTwkaH+4GQA1ByUlBY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -64,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jazzband/django-oauth-toolkit";
     changelog = "https://github.com/jazzband/django-oauth-toolkit/django-filer/blob/${version}/CHANGELOG.md";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ mmai ];
+    maintainers = with lib.maintainers; [mmai];
   };
 }

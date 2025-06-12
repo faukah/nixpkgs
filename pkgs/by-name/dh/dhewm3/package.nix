@@ -16,7 +16,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dhewm3";
   version = "1.5.4";
@@ -59,18 +58,18 @@ stdenv.mkDerivation rec {
       name = "dhewm3";
       exec = "dhewm3";
       desktopName = "Doom 3";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://github.com/dhewm/dhewm3";
     description = "Doom 3 port to SDL";
     mainProgram = "dhewm3";
     license = lib.licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with platforms; linux;
   };
 }

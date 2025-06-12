@@ -5,7 +5,6 @@
   cmake,
   gtest,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kassert";
   version = "0.2.2";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-5UndFUhKtHPFPLfYP0EI/r+eoAptcQBheznALfxh27s=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     # doc generation require git clone doxygen-awesome-css
@@ -28,15 +27,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   meta = {
     description = "Karlsruhe assertion library for C++";
     homepage = "https://kamping-site.github.io/kassert/";
     downloadPage = "https://github.com/kamping-site/kassert";
     changelog = "https://github.com/kamping-site/kasser/releases/tag/v${finalAttrs.version}";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 })

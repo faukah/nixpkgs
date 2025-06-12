@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation {
     homepage = "https://www2.scrabbleforbundet.no/";
     downloadPage = "https://www2.scrabbleforbundet.no/?p=4881#more-4881";
     license = licenses.unfree;
-    maintainers = with maintainers; [ h7x4 ];
+    maintainers = with maintainers; [h7x4];
     platforms = platforms.all;
   };
 }

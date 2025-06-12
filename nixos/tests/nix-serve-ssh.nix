@@ -1,6 +1,10 @@
-{ pkgs, lib, ... }:
-let
-  inherit (import ./ssh-keys.nix pkgs)
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit
+    (import ./ssh-keys.nix pkgs)
     snakeOilPrivateKey
     snakeOilPublicKey
     ;
@@ -8,14 +12,13 @@ let
     UserKnownHostsFile=/dev/null
     StrictHostKeyChecking=no
   '';
-in
-{
+in {
   name = "nix-ssh-serve";
-  meta.maintainers = [ lib.maintainers.shlevy ];
+  meta.maintainers = [lib.maintainers.shlevy];
   nodes = {
     server.nix.sshServe = {
       enable = true;
-      keys = [ snakeOilPublicKey ];
+      keys = [snakeOilPublicKey];
       protocol = "ssh-ng";
     };
     server.nix.package = pkgs.nix;

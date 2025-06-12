@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "auto-entities";
   version = "1.16.1";
@@ -30,6 +29,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/thomasloven/lovelace-auto-entities";
     changelog = "https://github.com/thomasloven/lovelace-auto-entities/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
   };
 }

@@ -4,23 +4,14 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.atd;
 
   inherit (pkgs) at;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.atd.enable = mkOption {
       type = types.bool;
       default = false;
@@ -39,37 +30,35 @@ in
         setuid/setgid `atd`.
       '';
     };
-
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
-
     # Not wrapping "batch" because it's a shell script (kernel drops perms
     # anyway) and it's patched to invoke the "at" setuid wrapper.
     security.wrappers = builtins.listToAttrs (
       map
-        (program: {
-          name = "${program}";
-          value = {
-            source = "${at}/bin/${program}";
-            owner = "atd";
-            group = "atd";
-            setuid = true;
-            setgid = true;
-          };
-        })
-        [
-          "at"
-          "atq"
-          "atrm"
-        ]
+      (program: {
+        name = "${program}";
+        value = {
+          source = "${at}/bin/${program}";
+          owner = "atd";
+          group = "atd";
+          setuid = true;
+          setgid = true;
+        };
+      })
+      [
+        "at"
+        "atq"
+        "atrm"
+      ]
     );
 
-    environment.systemPackages = [ at ];
+    environment.systemPackages = [at];
 
-    security.pam.services.atd = { };
+    security.pam.services.atd = {};
 
     users.users.atd = {
       uid = config.ids.uids.atd;
@@ -82,10 +71,10 @@ in
 
     systemd.services.atd = {
       description = "Job Execution Daemon (atd)";
-      documentation = [ "man:atd(8)" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["man:atd(8)"];
+      wantedBy = ["multi-user.target"];
 
-      path = [ at ];
+      path = [at];
 
       preStart = ''
         # Snippets taken and adapted from the original `install' rule of
@@ -98,7 +87,11 @@ in
         etcdir=/etc/at
 
         install -dm755 -o atd -g atd "$etcdir"
-        spool_and_job_dir_perms=${if cfg.allowEveryone then "1777" else "1770"}
+        spool_and_job_dir_perms=${
+          if cfg.allowEveryone
+          then "1777"
+          else "1770"
+        }
         install -dm"$spool_and_job_dir_perms" -o atd -g atd "$spooldir" "$jobdir"
         if [ ! -f "$etcdir"/at.deny ]; then
             touch "$etcdir"/at.deny

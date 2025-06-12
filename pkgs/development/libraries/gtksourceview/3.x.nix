@@ -19,15 +19,13 @@
   shared-mime-info,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtksourceview";
   version = "3.24.11";
 
-  src =
-    let
-      inherit (finalAttrs) pname version;
-    in
+  src = let
+    inherit (finalAttrs) pname version;
+  in
     fetchurl {
       url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
       sha256 = "1zbpj283b5ycz767hqz5kdq02wzsga65pp4fykvhg8xj6x50f6v9";
@@ -71,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace gtksourceview/gtksourceview-utils.c --replace "@NIX_SHARE_PATH@" "$out/share"
   '';
 
-  patches = [ ./3.x-nix_share_path.patch ];
+  patches = [./3.x-nix_share_path.patch];
 
   env = lib.optionalAttrs stdenv.cc.isGNU {
     NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
@@ -92,9 +90,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gtksourceview";
-    pkgConfigModules = [ "gtksourceview-3.0" ];
+    pkgConfigModules = ["gtksourceview-3.0"];
     platforms = with platforms; linux ++ darwin;
     license = licenses.lgpl21;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 })

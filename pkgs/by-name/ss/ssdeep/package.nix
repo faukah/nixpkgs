@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ssdeep";
   version = "2.14.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1yx6yjkggshw5yl89m4kvyzarjdg2l3hs0bbjbrfzwp1lkfd8i0c";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # remove forbidden references to $TMPDIR
   preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.ssdeep.sf.net";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

@@ -8,7 +8,6 @@
   joblib,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "sacremoses";
   version = "0.0.35";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     joblib
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   # ignore tests which call to remote host
   checkPhase = ''
     pytest -k 'not truecase'
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     mainProgram = "sacremoses";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pashashocky ];
+    maintainers = with maintainers; [pashashocky];
   };
 }

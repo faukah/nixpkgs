@@ -3,14 +3,12 @@
   buildPythonPackage,
   fetchFromGitHub,
   rustPlatform,
-
   # tests
   hypothesis,
   numpy,
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "cramjam";
   version = "2.10.0";
@@ -56,13 +54,13 @@ buildPythonPackage rec {
     "benchmarks/test_bench.py"
   ];
 
-  pythonImportsCheck = [ "cramjam" ];
+  pythonImportsCheck = ["cramjam"];
 
   meta = {
     description = "Thin Python bindings to de/compression algorithms in Rust";
     homepage = "https://github.com/milesgranger/pyrus-cramjam";
     changelog = "https://github.com/milesgranger/cramjam/releases/tag/v${version}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ veprbl ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

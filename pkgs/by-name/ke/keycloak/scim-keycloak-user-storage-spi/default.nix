@@ -3,7 +3,6 @@
   fetchFromGitHub,
   maven,
 }:
-
 maven.buildMavenPackage {
   pname = "scim-keycloak-user-storage-spi";
   version = "unstable-2024-02-14";
@@ -28,6 +27,6 @@ maven.buildMavenPackage {
       fromSource
     ];
     license = licenses.mit;
-    maintainers = with maintainers; [ s1341 ];
+    maintainers = with maintainers; [s1341];
   };
 }

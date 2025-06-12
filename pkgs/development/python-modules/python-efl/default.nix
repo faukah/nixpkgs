@@ -3,23 +3,15 @@
   fetchurl,
   buildPythonPackage,
   pythonAtLeast,
-
   pkg-config,
-
   enlightenment,
-
   packaging,
   setuptools,
-
   dbus-python,
-
   pytestCheckHook,
-
   directoryListingUpdater,
 }:
-
 # Should be bumped along with EFL!
-
 buildPythonPackage rec {
   pname = "python-efl";
   version = "1.26.1";
@@ -33,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-3Ns5fhIHihnpDYDnxvPP00WIZL/o1UWLzgNott4GKNc=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ enlightenment.efl ];
+  buildInputs = [enlightenment.efl];
 
   build-system = [
     packaging
@@ -66,7 +58,7 @@ buildPythonPackage rec {
       --replace-fail ".assert_(" ".assertTrue("
   '';
 
-  pytestFlagsArray = [ "tests/" ];
+  pytestFlagsArray = ["tests/"];
 
   disabledTestPaths = [
     "tests/dbus/test_01_basics.py" # needs dbus daemon
@@ -75,7 +67,7 @@ buildPythonPackage rec {
     "tests/elementary/test_02_image_icon.py" # RuntimeWarning: Setting standard icon failed
   ];
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "Python bindings for Enlightenment Foundation Libraries";
@@ -89,6 +81,6 @@ buildPythonPackage rec {
       matejc
       ftrvxmtrx
     ];
-    teams = [ teams.enlightenment ];
+    teams = [teams.enlightenment];
   };
 }

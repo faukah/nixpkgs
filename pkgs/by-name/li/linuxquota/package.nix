@@ -8,7 +8,6 @@
   binlore,
   linuxquota,
 }:
-
 stdenv.mkDerivation rec {
   version = "4.10";
   pname = "quota";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     e2fsprogs
     openldap
@@ -40,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/linuxquota/";
     license = licenses.gpl2Plus; # With some files being BSD as an exception
     platforms = platforms.linux;
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
   };
 }

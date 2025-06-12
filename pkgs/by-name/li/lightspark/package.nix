@@ -20,7 +20,6 @@
   llvm,
   glibmm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lightspark";
   version = "0.9.0";
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "Open source Flash Player implementation";
     homepage = "https://lightspark.github.io/";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ jchw ];
+    maintainers = with maintainers; [jchw];
     platforms = platforms.linux;
     mainProgram = "lightspark";
   };

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "amazon-ecs-agent";
   version = "1.92.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   modRoot = "./agent";
 
-  excludedPackages = [ "./version/gen" ];
+  excludedPackages = ["./version/gen"];
 
   ldflags = [
     "-s"
@@ -32,7 +31,7 @@ buildGoModule rec {
     changelog = "https://github.com/aws/amazon-ecs-agent/raw/v${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "agent";
   };
 }

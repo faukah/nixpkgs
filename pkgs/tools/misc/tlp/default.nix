@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace-fail ' ?= /usr/' ' ?= /'
   '';
 
-  buildInputs = [ perl ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [perl];
+  nativeBuildInputs = [makeWrapper];
 
   # XXX: While [1] states that DESTDIR should not be used, and that the correct
   # variable to set is, in fact, PREFIX, tlp thinks otherwise. The Makefile for
@@ -79,57 +79,55 @@ stdenv.mkDerivation rec {
     perlcritic
     shellcheck
   ];
-  checkTarget = [ "checkall" ];
+  checkTarget = ["checkall"];
 
   # TODO: Consider using resholve here
-  postInstall =
-    let
-      paths = lib.makeBinPath (
-        [
-          coreutils
-          ethtool
-          gawk
-          gnugrep
-          gnused
-          hdparm
-          iw
-          kmod
-          pciutils
-          perl
-          smartmontools
-          systemd
-          util-linux
-        ]
-        ++ lib.optional enableRDW networkmanager
-        ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform x86_energy_perf_policy) x86_energy_perf_policy
-      );
-    in
-    ''
-      fixup_perl=(
-        $out/share/tlp/tlp-pcilist
-        $out/share/tlp/tlp-readconfs
-        $out/share/tlp/tlp-usblist
-      )
-      for f in "''${fixup_perl[@]}"; do
-        wrapProgram "$f" --prefix PATH : "${paths}"
-      done
+  postInstall = let
+    paths = lib.makeBinPath (
+      [
+        coreutils
+        ethtool
+        gawk
+        gnugrep
+        gnused
+        hdparm
+        iw
+        kmod
+        pciutils
+        perl
+        smartmontools
+        systemd
+        util-linux
+      ]
+      ++ lib.optional enableRDW networkmanager
+      ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform x86_energy_perf_policy) x86_energy_perf_policy
+    );
+  in ''
+    fixup_perl=(
+      $out/share/tlp/tlp-pcilist
+      $out/share/tlp/tlp-readconfs
+      $out/share/tlp/tlp-usblist
+    )
+    for f in "''${fixup_perl[@]}"; do
+      wrapProgram "$f" --prefix PATH : "${paths}"
+    done
 
-      fixup_bash=(
-        $out/bin/*
-        $out/etc/NetworkManager/dispatcher.d/*
-        $out/lib/udev/tlp-*
-        $out/sbin/*
-        $out/share/tlp/bat.d/*
-        $out/share/tlp/func.d/*
-        $out/share/tlp/tlp-func-base
-      )
-      for f in "''${fixup_bash[@]}"; do
-        sed -i '2iexport PATH=${paths}:$PATH' "$f"
-      done
+    fixup_bash=(
+      $out/bin/*
+      $out/etc/NetworkManager/dispatcher.d/*
+      $out/lib/udev/tlp-*
+      $out/sbin/*
+      $out/share/tlp/bat.d/*
+      $out/share/tlp/func.d/*
+      $out/share/tlp/tlp-func-base
+    )
+    for f in "''${fixup_bash[@]}"; do
+      sed -i '2iexport PATH=${paths}:$PATH' "$f"
+    done
 
-      rm -rf $out/var
-      rm -rf $out/share/metainfo
-    '';
+    rm -rf $out/var
+    rm -rf $out/share/metainfo
+  '';
 
   meta = with lib; {
     description = "Advanced Power Management for Linux";

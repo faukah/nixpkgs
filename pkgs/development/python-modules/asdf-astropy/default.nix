@@ -16,7 +16,6 @@
   setuptools-scm,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "asdf-astropy";
   version = "0.7.1";
@@ -52,7 +51,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pythonImportsCheck = [ "asdf_astropy" ];
+  pythonImportsCheck = ["asdf_astropy"];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -63,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/astropy/asdf-astropy";
     changelog = "https://github.com/astropy/asdf-astropy/blob/${src.tag}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

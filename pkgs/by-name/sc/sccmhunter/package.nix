@@ -44,6 +44,6 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/garrettfoster13/sccmhunter/blob/${src.rev}/changelog.md";
     license = lib.licenses.mit;
     mainProgram = "sccmhunter.py";
-    maintainers = with lib.maintainers; [ purpole ];
+    maintainers = with lib.maintainers; [purpole];
   };
 }

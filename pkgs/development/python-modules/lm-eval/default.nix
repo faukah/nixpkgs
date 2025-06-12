@@ -43,7 +43,6 @@
   word2number,
   zstandard,
 }:
-
 buildPythonPackage rec {
   pname = "lm-eval";
   version = "0.4.8";
@@ -90,13 +89,13 @@ buildPythonPackage rec {
       tqdm
       tiktoken
     ];
-    hf_transfer = [ hf-transfer ];
+    hf_transfer = [hf-transfer];
     ifeval = [
       langdetect
       immutabledict
       nltk
     ];
-    neuronx = [ optimum ] ++ optimum.optional-dependencies.neuronx;
+    neuronx = [optimum] ++ optimum.optional-dependencies.neuronx;
     mamba = [
       mamba-ssm
       causal-conv1d
@@ -105,9 +104,9 @@ buildPythonPackage rec {
       sympy
       antlr4-python3-runtime
     ];
-    optimum = [ optimum ] ++ optimum.optional-dependencies.openvino;
-    sentencepiece = [ sentencepiece ];
-    vllm = [ vllm ];
+    optimum = [optimum] ++ optimum.optional-dependencies.openvino;
+    sentencepiece = [sentencepiece];
+    vllm = [vllm];
     wandb = [
       wandb
       pandas
@@ -118,11 +117,13 @@ buildPythonPackage rec {
     # zeno, gptqmodel, japanese_leaderboard; all = [...];
   };
 
-  pythonImportsCheck = [ "lm_eval" ];
+  pythonImportsCheck = ["lm_eval"];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ optional-dependencies.api;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.api;
 
   preCheck = ''
     export HOME=$TMP
@@ -150,7 +151,7 @@ buildPythonPackage rec {
     changelog = "https://github.com/EleutherAI/lm-evaluation-harness/releases/tag/${src.tag}";
     description = "A framework for few-shot evaluation of language models";
     homepage = "https://github.com/EleutherAI/lm-evaluation-harness";
-    license = [ lib.licenses.mit ];
-    maintainers = [ lib.maintainers.booxter ];
+    license = [lib.licenses.mit];
+    maintainers = [lib.maintainers.booxter];
   };
 }

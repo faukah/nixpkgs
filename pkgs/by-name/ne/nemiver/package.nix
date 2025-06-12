@@ -21,7 +21,6 @@
   gtksourceviewmm,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nemiver";
   version = "0.9.6";
@@ -86,6 +85,6 @@ stdenv.mkDerivation rec {
     mainProgram = "nemiver";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.juliendehos ];
+    maintainers = [maintainers.juliendehos];
   };
 }

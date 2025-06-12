@@ -4,7 +4,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "git-my";
   version = "1.1.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-GzBNtsCrs2M0UBc1FVE+4yUNLpjDGUfekc/LIvgvUUo=";
   };
 
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   dontBuild = true;
 
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "List remote branches if they're merged and/or available locally";
     homepage = "https://github.com/davidosomething/git-my";
     license = lib.licenses.free;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
     mainProgram = "git-my";
   };

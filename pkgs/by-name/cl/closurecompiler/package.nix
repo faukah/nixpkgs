@@ -5,7 +5,6 @@
   jre,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "closure-compiler";
   version = "20250407";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   installPhase = ''
     mkdir -p $out/share/java $out/bin
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "Tool for making JavaScript download and run faster";
     mainProgram = "closure-compiler";
     homepage = "https://developers.google.com/closure/compiler/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
     platforms = platforms.all;
   };

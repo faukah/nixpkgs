@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     generators
     mapAttrs
     mkDefault
@@ -20,11 +18,11 @@ let
 
   cfg = config.services.grav;
 
-  yamlFormat = pkgs.formats.yaml { };
+  yamlFormat = pkgs.formats.yaml {};
 
   poolName = "grav";
 
-  servedRoot = pkgs.runCommand "grav-served-root" { } ''
+  servedRoot = pkgs.runCommand "grav-served-root" {} ''
     cp --reflink=auto --no-preserve=mode -r ${cfg.package} $out
 
     for p in assets images user system/config; do
@@ -34,13 +32,11 @@ let
   '';
 
   systemSettingsYaml = yamlFormat.generate "grav-settings.yaml" cfg.systemSettings;
-
-in
-{
+in {
   options.services.grav = {
     enable = mkEnableOption "grav";
 
-    package = mkPackageOption pkgs "grav" { };
+    package = mkPackageOption pkgs "grav" {};
 
     root = mkOption {
       type = types.path;
@@ -69,7 +65,7 @@ in
       '';
     };
 
-    phpPackage = mkPackageOption pkgs "php" { };
+    phpPackage = mkPackageOption pkgs "php" {};
 
     maxUploadSize = mkOption {
       type = types.str;
@@ -100,8 +96,10 @@ in
         group = "grav";
 
         phpPackage = cfg.phpPackage.buildEnv {
-          extensions =
-            { all, enabled }:
+          extensions = {
+            all,
+            enabled,
+          }:
             enabled
             ++ (with all; [
               apcu
@@ -109,7 +107,7 @@ in
               yaml
             ]);
 
-          extraConfig = generators.toKeyValue { mkKeyValue = generators.mkKeyValueDefault { } " = "; } {
+          extraConfig = generators.toKeyValue {mkKeyValue = generators.mkKeyValueDefault {} " = ";} {
             output_buffering = "0";
             short_open_tag = "Off";
             expose_php = "Off";
@@ -186,13 +184,12 @@ in
             };
 
             # deny running scripts inside core system folders
-            "~* /(system|vendor)/.*\\.(txt|xml|md|html|htm|shtml|shtm|json|yaml|yml|php|php2|php3|php4|php5|phar|phtml|pl|py|cgi|twig|sh|bat)$" =
-              {
-                priority = 300;
-                extraConfig = ''
-                  return 403;
-                '';
-              };
+            "~* /(system|vendor)/.*\\.(txt|xml|md|html|htm|shtml|shtm|json|yaml|yml|php|php2|php3|php4|php5|phar|phtml|pl|py|cgi|twig|sh|bat)$" = {
+              priority = 300;
+              extraConfig = ''
+                return 403;
+              '';
+            };
 
             # deny running scripts inside user folder
             "~* /user/.*\\.(txt|md|json|yaml|yml|php|php2|php3|php4|php5|phar|phtml|pl|py|cgi|twig|sh|bat)$" = {
@@ -203,13 +200,12 @@ in
             };
 
             # deny access to specific files in the root folder
-            "~ /(LICENSE\\.txt|composer\\.lock|composer\\.json|nginx\\.conf|web\\.config|htaccess\\.txt|\\.htaccess)" =
-              {
-                priority = 300;
-                extraConfig = ''
-                  return 403;
-                '';
-              };
+            "~ /(LICENSE\\.txt|composer\\.lock|composer\\.json|nginx\\.conf|web\\.config|htaccess\\.txt|\\.htaccess)" = {
+              priority = 300;
+              extraConfig = ''
+                return 403;
+              '';
+            };
 
             # deny all files and folder beginning with a dot (hidden files & folders)
             "~ (^|/)\\." = {
@@ -250,10 +246,9 @@ in
       };
     };
 
-    systemd.tmpfiles.rules =
-      let
-        datadir = "/var/lib/grav";
-      in
+    systemd.tmpfiles.rules = let
+      datadir = "/var/lib/grav";
+    in
       map (dir: "d '${dir}' 0750 grav grav - -") [
         "/var/cache/grav"
         "${datadir}/assets"
@@ -265,7 +260,7 @@ in
         "${datadir}/user/data"
         "/var/log/grav"
       ]
-      ++ [ "L+ ${datadir}/user/config/system.yaml - - - - ${systemSettingsYaml}" ];
+      ++ ["L+ ${datadir}/user/config/system.yaml - - - - ${systemSettingsYaml}"];
 
     systemd.services = {
       "phpfpm-${poolName}" = mkIf (cfg.pool == "${poolName}") {
@@ -315,7 +310,7 @@ in
     };
 
     users.groups.grav = {
-      members = [ config.services.nginx.user ];
+      members = [config.services.nginx.user];
     };
   };
 }

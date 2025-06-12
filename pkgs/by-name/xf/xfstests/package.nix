@@ -31,7 +31,6 @@
   xfsprogs,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xfstests";
   version = "2023.05.14";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
   enableParallelBuilding = true;
 
   patchPhase = ''
@@ -159,7 +158,7 @@ stdenv.mkDerivation rec {
     description = "Torture test suite for filesystems";
     homepage = "https://git.kernel.org/pub/scm/fs/xfs/xfstests-dev.git/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
     platforms = platforms.linux;
     mainProgram = "xfstests-check";
   };

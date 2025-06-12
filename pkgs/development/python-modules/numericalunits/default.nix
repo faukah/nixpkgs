@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "numericalunits";
   version = "1.26";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     homepage = "http://pypi.python.org/pypi/numericalunits";
     description = "Package that lets you define quantities with unit";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

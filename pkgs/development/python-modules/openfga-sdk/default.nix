@@ -14,7 +14,6 @@
   setuptools,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "openfga-sdk";
   version = "0.9.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-+4Np406HAB6uHZhDUUSn9aDbuC4/G172+TZ560rYjlk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -37,13 +36,15 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  pythonImportsCheck = [ "openfga_sdk" ];
+  pythonImportsCheck = ["openfga_sdk"];
 
-  nativeCheckInputs = [
-    mock
-    pytest-cov-stub
-    pytestCheckHook
-  ] ++ lib.optionals (pythonAtLeast "3.13") [ pytest-asyncio ];
+  nativeCheckInputs =
+    [
+      mock
+      pytest-cov-stub
+      pytestCheckHook
+    ]
+    ++ lib.optionals (pythonAtLeast "3.13") [pytest-asyncio];
 
   disabledTests = lib.optionals (pythonAtLeast "3.13") [
     # These fail due to a race condition in the test mocks
@@ -56,6 +57,6 @@ buildPythonPackage rec {
     description = "Fine-Grained Authorization solution for Python";
     homepage = "https://github.com/openfga/python-sdk";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nicklewis ];
+    maintainers = with lib.maintainers; [nicklewis];
   };
 }

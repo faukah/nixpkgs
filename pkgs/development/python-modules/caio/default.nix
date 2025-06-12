@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "caio";
   version = "0.9.22";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-O86SLZ+8bzPYtvLnmY5gLPYLWvNaktQwIEQckJR15LI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     aiomisc
@@ -33,16 +32,16 @@ buildPythonPackage rec {
   ];
 
   env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals stdenv.cc.isClang [ "-Wno-error=implicit-function-declaration" ]
+    lib.optionals stdenv.cc.isClang ["-Wno-error=implicit-function-declaration"]
   );
 
-  pythonImportsCheck = [ "caio" ];
+  pythonImportsCheck = ["caio"];
 
   meta = with lib; {
     description = "File operations with asyncio support";
     homepage = "https://github.com/mosquito/caio";
     changelog = "https://github.com/mosquito/caio/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

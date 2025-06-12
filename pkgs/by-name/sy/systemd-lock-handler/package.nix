@@ -5,7 +5,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "systemd-lock-handler";
   version = "2.4.2";
@@ -20,7 +19,7 @@ buildGoModule rec {
   vendorHash = "sha256-dWzojV3tDA5lLdpAQNC9NaADGyvV7dNOS3x8mfgNNtA=";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = nixosTests.systemd-lock-handler;
   };
 
@@ -46,7 +45,7 @@ buildGoModule rec {
     homepage = "https://git.sr.ht/~whynothugo/systemd-lock-handler";
     description = "Translates systemd-system lock/sleep signals into systemd-user target activations";
     license = licenses.isc;
-    maintainers = with maintainers; [ liff ];
+    maintainers = with maintainers; [liff];
     platforms = platforms.linux;
   };
 }

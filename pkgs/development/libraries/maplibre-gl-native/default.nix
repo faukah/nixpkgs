@@ -13,7 +13,6 @@
   rapidjson,
   stdenv,
 }:
-
 mkDerivation rec {
   pname = "maplibre-gl-native";
   version = "2.0.1";
@@ -74,7 +73,7 @@ mkDerivation rec {
     description = "Open-source alternative to Mapbox GL Native";
     homepage = "https://maplibre.org/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = platforms.linux;
   };
 }

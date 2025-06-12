@@ -36,9 +36,8 @@
   # AVX/SSE options. See passthru.defaultAvxOptions for the available options.
   # note that opempi fails to build with AVX disabled, meaning that everything
   # up to AVX is enabled by default.
-  avxOptions ? { },
+  avxOptions ? {},
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openmpi";
   version = "5.0.6";
@@ -70,7 +69,11 @@ stdenv.mkDerivation (finalAttrs: {
           substituteInPlace configure \
             --replace-fail \
               ompi_cv_op_avx_check_${option}=yes \
-              ompi_cv_op_avx_check_${option}=${if val then "yes" else "no"}
+              ompi_cv_op_avx_check_${option}=${
+            if val
+            then "yes"
+            else "no"
+          }
         ''
       ))
       (lib.concatStringsSep "\n")
@@ -105,10 +108,10 @@ stdenv.mkDerivation (finalAttrs: {
       ucx
       ucc
     ]
-    ++ lib.optionals cudaSupport [ cudaPackages.cuda_cudart ]
-    ++ lib.optionals (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD) [ rdma-core ]
+    ++ lib.optionals cudaSupport [cudaPackages.cuda_cudart]
+    ++ lib.optionals (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD) [rdma-core]
     # needed for internal pmix
-    ++ lib.optionals (!stdenv.hostPlatform.isLinux) [ python3 ]
+    ++ lib.optionals (!stdenv.hostPlatform.isLinux) [python3]
     ++ lib.optionals fabricSupport [
       libpsm2
       libfabric
@@ -120,135 +123,141 @@ stdenv.mkDerivation (finalAttrs: {
       removeReferencesTo
       makeWrapper
     ]
-    ++ lib.optionals cudaSupport [ cudaPackages.cuda_nvcc ]
-    ++ lib.optionals fortranSupport [ gfortran ];
+    ++ lib.optionals cudaSupport [cudaPackages.cuda_nvcc]
+    ++ lib.optionals fortranSupport [gfortran];
 
-  configureFlags = [
-    (lib.enableFeature cudaSupport "mca-dso")
-    (lib.enableFeature fortranSupport "mpi-fortran")
-    (lib.withFeatureAs stdenv.hostPlatform.isLinux "libnl" (lib.getDev libnl))
-    "--with-pmix=${lib.getDev pmix}"
-    "--with-pmix-libdir=${lib.getLib pmix}/lib"
-    # Puts a "default OMPI_PRTERUN" value to mpirun / mpiexec executables
-    (lib.withFeatureAs true "prrte" (lib.getBin prrte))
-    (lib.withFeature enableSGE "sge")
-    (lib.enableFeature enablePrefix "mpirun-prefix-by-default")
-    # TODO: add UCX support, which is recommended to use with cuda for the most robust OpenMPI build
-    # https://github.com/openucx/ucx
-    # https://www.open-mpi.org/faq/?category=buildcuda
-    (lib.withFeatureAs cudaSupport "cuda" (lib.getDev cudaPackages.cuda_cudart))
-    (lib.enableFeature cudaSupport "dlopen")
-    (lib.withFeatureAs fabricSupport "psm2" (lib.getDev libpsm2))
-    (lib.withFeatureAs fabricSupport "ofi" (lib.getDev libfabric))
-    # The flag --without-ofi-libdir is not supported from some reason, so we
-    # don't use lib.withFeatureAs
-  ] ++ lib.optionals fabricSupport [ "--with-ofi-libdir=${lib.getLib libfabric}/lib" ];
+  configureFlags =
+    [
+      (lib.enableFeature cudaSupport "mca-dso")
+      (lib.enableFeature fortranSupport "mpi-fortran")
+      (lib.withFeatureAs stdenv.hostPlatform.isLinux "libnl" (lib.getDev libnl))
+      "--with-pmix=${lib.getDev pmix}"
+      "--with-pmix-libdir=${lib.getLib pmix}/lib"
+      # Puts a "default OMPI_PRTERUN" value to mpirun / mpiexec executables
+      (lib.withFeatureAs true "prrte" (lib.getBin prrte))
+      (lib.withFeature enableSGE "sge")
+      (lib.enableFeature enablePrefix "mpirun-prefix-by-default")
+      # TODO: add UCX support, which is recommended to use with cuda for the most robust OpenMPI build
+      # https://github.com/openucx/ucx
+      # https://www.open-mpi.org/faq/?category=buildcuda
+      (lib.withFeatureAs cudaSupport "cuda" (lib.getDev cudaPackages.cuda_cudart))
+      (lib.enableFeature cudaSupport "dlopen")
+      (lib.withFeatureAs fabricSupport "psm2" (lib.getDev libpsm2))
+      (lib.withFeatureAs fabricSupport "ofi" (lib.getDev libfabric))
+      # The flag --without-ofi-libdir is not supported from some reason, so we
+      # don't use lib.withFeatureAs
+    ]
+    ++ lib.optionals fabricSupport ["--with-ofi-libdir=${lib.getLib libfabric}/lib"];
 
   enableParallelBuilding = true;
 
-  postInstall =
-    let
-      # The file names we need to iterate are a combination of ${p}${s}, and there
-      # are 7x3 such options. We use lib.mapCartesianProduct to iterate them all.
-      fileNamesToIterate = {
-        p =
-          [
-            "mpi"
-          ]
-          ++ lib.optionals stdenv.hostPlatform.isLinux [
-            "shmem"
-            "osh"
-          ];
-        s =
-          [
-            "c++"
-            "cxx"
-            "cc"
-          ]
-          ++ lib.optionals fortranSupport [
-            "f77"
-            "f90"
-            "fort"
-          ]
-          ++ lib.optionals stdenv.hostPlatform.isLinux [ "CC" ];
-      };
-      wrapperDataSubstitutions =
-        {
-          # The attr key is the filename prefix. The list's 1st value is the
-          # compiler=_ line that should be replaced by a compiler=#2 string, where
-          # #2 is the 2nd value in the list.
-          "cc" = [
-            # "$CC" is expanded by the executing shell in the substituteInPlace
-            # commands to the name of the compiler ("clang" for Darwin and
-            # "gcc" for Linux)
-            "$CC"
-            "${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}$CC"
-          ];
-          "c++" = [
-            # Same as with $CC
-            "$CXX"
-            "${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}$CXX"
-          ];
-        }
-        // lib.optionalAttrs fortranSupport {
-          "fort" = [
-            "gfortran"
-            "${targetPackages.gfortran or gfortran}/bin/${
-              targetPackages.gfortran.targetPrefix or gfortran.targetPrefix
-            }gfortran"
-          ];
-        };
-      # The -wrapper-data.txt files that are not symlinks, need to be iterated as
-      # well, here they start withw ${part1}${part2}, and we use
-      # lib.mapCartesianProduct as well.
-      wrapperDataFileNames = {
-        part1 = [
+  postInstall = let
+    # The file names we need to iterate are a combination of ${p}${s}, and there
+    # are 7x3 such options. We use lib.mapCartesianProduct to iterate them all.
+    fileNamesToIterate = {
+      p =
+        [
           "mpi"
-        ] ++ lib.optionals stdenv.hostPlatform.isLinux [ "shmem" ];
-        part2 = builtins.attrNames wrapperDataSubstitutions;
+        ]
+        ++ lib.optionals stdenv.hostPlatform.isLinux [
+          "shmem"
+          "osh"
+        ];
+      s =
+        [
+          "c++"
+          "cxx"
+          "cc"
+        ]
+        ++ lib.optionals fortranSupport [
+          "f77"
+          "f90"
+          "fort"
+        ]
+        ++ lib.optionals stdenv.hostPlatform.isLinux ["CC"];
+    };
+    wrapperDataSubstitutions =
+      {
+        # The attr key is the filename prefix. The list's 1st value is the
+        # compiler=_ line that should be replaced by a compiler=#2 string, where
+        # #2 is the 2nd value in the list.
+        "cc" = [
+          # "$CC" is expanded by the executing shell in the substituteInPlace
+          # commands to the name of the compiler ("clang" for Darwin and
+          # "gcc" for Linux)
+          "$CC"
+          "${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}$CC"
+        ];
+        "c++" = [
+          # Same as with $CC
+          "$CXX"
+          "${targetPackages.stdenv.cc}/bin/${targetPackages.stdenv.cc.targetPrefix}$CXX"
+        ];
+      }
+      // lib.optionalAttrs fortranSupport {
+        "fort" = [
+          "gfortran"
+          "${targetPackages.gfortran or gfortran}/bin/${
+            targetPackages.gfortran.targetPrefix or gfortran.targetPrefix
+          }gfortran"
+        ];
       };
-    in
-    ''
-      find $out/lib/ -name "*.la" -exec rm -f \{} \;
+    # The -wrapper-data.txt files that are not symlinks, need to be iterated as
+    # well, here they start withw ${part1}${part2}, and we use
+    # lib.mapCartesianProduct as well.
+    wrapperDataFileNames = {
+      part1 =
+        [
+          "mpi"
+        ]
+        ++ lib.optionals stdenv.hostPlatform.isLinux ["shmem"];
+      part2 = builtins.attrNames wrapperDataSubstitutions;
+    };
+  in ''
+    find $out/lib/ -name "*.la" -exec rm -f \{} \;
 
-      # The main wrapper that all the rest of the commonly used binaries are
-      # symlinked to
-      moveToOutput "bin/opal_wrapper" "''${!outputDev}"
-      # All of the following files are symlinks to opal_wrapper
-      ${lib.pipe fileNamesToIterate [
-        (lib.mapCartesianProduct (
-          { p, s }:
-          ''
-            echo "handling ${p}${s}"
-            moveToOutput "bin/${p}${s}" "''${!outputDev}"
-            moveToOutput "share/openmpi/${p}${s}-wrapper-data.txt" "''${!outputDev}"
-          ''
-        ))
-        (lib.concatStringsSep "\n")
-      ]}
-      # default compilers should be indentical to the
-      # compilers at build time
-      ${lib.pipe wrapperDataFileNames [
-        (lib.mapCartesianProduct (
-          { part1, part2 }:
-          ''
-            substituteInPlace "''${!outputDev}/share/openmpi/${part1}${part2}-wrapper-data.txt" \
-              --replace-fail \
-                compiler=${lib.elemAt wrapperDataSubstitutions.${part2} 0} \
-                compiler=${lib.elemAt wrapperDataSubstitutions.${part2} 1}
-          ''
-        ))
-        (lib.concatStringsSep "\n")
-      ]}
-      # A symlink to $\{lib.getDev pmix}/bin/pmixcc upstreeam puts here as well
-      # from some reason.
-      moveToOutput "bin/pcc" "''${!outputDev}"
+    # The main wrapper that all the rest of the commonly used binaries are
+    # symlinked to
+    moveToOutput "bin/opal_wrapper" "''${!outputDev}"
+    # All of the following files are symlinks to opal_wrapper
+    ${lib.pipe fileNamesToIterate [
+      (lib.mapCartesianProduct (
+        {
+          p,
+          s,
+        }: ''
+          echo "handling ${p}${s}"
+          moveToOutput "bin/${p}${s}" "''${!outputDev}"
+          moveToOutput "share/openmpi/${p}${s}-wrapper-data.txt" "''${!outputDev}"
+        ''
+      ))
+      (lib.concatStringsSep "\n")
+    ]}
+    # default compilers should be indentical to the
+    # compilers at build time
+    ${lib.pipe wrapperDataFileNames [
+      (lib.mapCartesianProduct (
+        {
+          part1,
+          part2,
+        }: ''
+          substituteInPlace "''${!outputDev}/share/openmpi/${part1}${part2}-wrapper-data.txt" \
+            --replace-fail \
+              compiler=${lib.elemAt wrapperDataSubstitutions.${part2} 0} \
+              compiler=${lib.elemAt wrapperDataSubstitutions.${part2} 1}
+        ''
+      ))
+      (lib.concatStringsSep "\n")
+    ]}
+    # A symlink to $\{lib.getDev pmix}/bin/pmixcc upstreeam puts here as well
+    # from some reason.
+    moveToOutput "bin/pcc" "''${!outputDev}"
 
-      # Handle informative binaries about the compilation
-      for i in {prte,ompi,oshmem}_info; do
-        moveToOutput "bin/$i" "''${!outputDev}"
-      done
-    '';
+    # Handle informative binaries about the compilation
+    for i in {prte,ompi,oshmem}_info; do
+      moveToOutput "bin/$i" "''${!outputDev}"
+    done
+  '';
 
   postFixup = ''
     remove-references-to -t "''${!outputMan}" $(readlink -f $out/lib/libopen-pal${stdenv.hostPlatform.extensions.library})

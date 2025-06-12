@@ -4,7 +4,6 @@
   fetchurl,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "crunch";
   version = "3.6";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "0mgy6ghjvzr26yrhj1bn73qzw6v9qsniskc5wqq1kk0hfhy6r3va";
   };
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   preBuild = ''
     substituteInPlace Makefile \
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     mainProgram = "crunch";
     homepage = "https://sourceforge.net/projects/crunch-wordlist/";
     platforms = platforms.unix;
-    license = with licenses; [ gpl2Only ];
-    maintainers = with maintainers; [ lnl7 ];
+    license = with licenses; [gpl2Only];
+    maintainers = with maintainers; [lnl7];
   };
 }

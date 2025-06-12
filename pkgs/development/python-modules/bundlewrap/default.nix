@@ -15,7 +15,6 @@
   librouteros,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "bundlewrap";
   version = "4.22.0";
@@ -30,22 +29,24 @@ buildPythonPackage rec {
     hash = "sha256-F3Ipoep9ZmAqkh8mFLXpaEcYb4dpV9Dt/VgMa9X24Hw=";
   };
 
-  build-system = [ setuptools ];
-  dependencies = [
-    setuptools
-    cryptography
-    jinja2
-    mako
-    passlib
-    pyyaml
-    requests
-    tomlkit
-    librouteros
-  ] ++ lib.optionals (pythonOlder "3.11") [ rtoml ];
+  build-system = [setuptools];
+  dependencies =
+    [
+      setuptools
+      cryptography
+      jinja2
+      mako
+      passlib
+      pyyaml
+      requests
+      tomlkit
+      librouteros
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [rtoml];
 
-  pythonImportsCheck = [ "bundlewrap" ];
+  pythonImportsCheck = ["bundlewrap"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray = [
     # only unit tests as integration tests need a OpenSSH client/server setup
@@ -56,7 +57,7 @@ buildPythonPackage rec {
     homepage = "https://bundlewrap.org/";
     description = "Easy, Concise and Decentralized Config management with Python";
     mainProgram = "bw";
-    license = [ licenses.gpl3 ];
-    maintainers = with maintainers; [ wamserma ];
+    license = [licenses.gpl3];
+    maintainers = with maintainers; [wamserma];
   };
 }

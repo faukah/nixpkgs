@@ -11,7 +11,6 @@
   ninja,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "laszip-python";
   version = "0.2.3";
@@ -48,18 +47,18 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = [ laszip ];
+  buildInputs = [laszip];
 
   # There are no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "laszip" ];
+  pythonImportsCheck = ["laszip"];
 
   meta = with lib; {
     description = "Unofficial bindings between Python and LASzip made using pybind11";
     homepage = "https://github.com/tmontaigu/laszip-python";
     changelog = "https://github.com/tmontaigu/laszip-python/blob/${src.rev}/Changelog.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

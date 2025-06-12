@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "zeyple";
   version = "unstable-2021-04-10";
@@ -17,7 +16,7 @@ python3Packages.buildPythonApplication {
     sha256 = "0r2d1drg2zvwmn3zg0qb32i9mh03r5di9q1yszx23r32rsax9mxh";
   };
 
-  propagatedBuildInputs = [ python3Packages.gpgme ];
+  propagatedBuildInputs = [python3Packages.gpgme];
   installPhase = ''
     install -Dm755 $src/zeyple/zeyple.py $out/bin/zeyple
   '';
@@ -25,7 +24,7 @@ python3Packages.buildPythonApplication {
   meta = with lib; {
     description = "Utility program to automatically encrypt outgoing emails with GPG";
     homepage = "https://infertux.com/labs/zeyple/";
-    maintainers = with maintainers; [ ettom ];
+    maintainers = with maintainers; [ettom];
     license = licenses.agpl3Plus;
     mainProgram = "zeyple";
   };

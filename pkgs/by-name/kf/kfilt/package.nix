@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kfilt";
   version = "0.0.8";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-c77CzpE9cPyobt87uO0QlkKD+xC/tM7wOy4orM62tnI=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -31,6 +30,6 @@ buildGoModule rec {
     mainProgram = "kfilt";
     homepage = "https://github.com/ryane/kfilt";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.ryane ];
+    maintainers = [lib.maintainers.ryane];
   };
 }

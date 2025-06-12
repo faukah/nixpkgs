@@ -3,7 +3,6 @@
   stdenv,
   fetchgit,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ustr";
   version = "1.0.4";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   # Fixes bogus warnings that failed libsemanage
-  patches = [ ./va_args.patch ];
+  patches = [./va_args.patch];
 
   # Work around gcc5 switch to gnu11
   env.NIX_CFLAGS_COMPILE = "-std=gnu89";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Micro String API for C language";
     mainProgram = "ustr-import";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.linux;
   };
 })

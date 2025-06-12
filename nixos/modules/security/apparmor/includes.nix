@@ -3,27 +3,24 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (builtins) attrNames hasAttr isAttrs;
   inherit (lib) getLib;
   inherit (config.environment) etc;
   # Utility to generate an AppArmor rule
   # only when the given path exists in config.environment.etc
-  etcRule =
-    arg:
-    let
-      go =
-        {
-          path ? null,
-          mode ? "r",
-          trail ? "",
-        }:
-        lib.optionalString (hasAttr path etc) "${mode} ${config.environment.etc.${path}.source}${trail},";
-    in
-    if isAttrs arg then go arg else go { path = arg; };
-in
-{
+  etcRule = arg: let
+    go = {
+      path ? null,
+      mode ? "r",
+      trail ? "",
+    }:
+      lib.optionalString (hasAttr path etc) "${mode} ${config.environment.etc.${path}.source}${trail},";
+  in
+    if isAttrs arg
+    then go arg
+    else go {path = arg;};
+in {
   # FIXME: most of the etcRule calls below have been
   # written systematically by converting from apparmor-profiles's profiles
   # without testing nor deep understanding of their uses,

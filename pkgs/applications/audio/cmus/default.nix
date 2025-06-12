@@ -6,7 +6,6 @@
   ncurses,
   pkg-config,
   libiconv,
-
   alsaSupport ? stdenv.hostPlatform.isLinux,
   alsa-lib ? null,
   # simple fallback for everyone else
@@ -24,13 +23,11 @@
   sndio ? null,
   mprisSupport ? stdenv.hostPlatform.isLinux,
   systemd ? null,
-
   # TODO: add these
   #, artsSupport
   #, roarSupport
   #, sunSupport
   #, waveoutSupport
-
   cddbSupport ? true,
   libcddb ? null,
   cdioSupport ? true,
@@ -60,36 +57,27 @@
   wavpack ? null,
   opusSupport ? true,
   opusfile ? null,
-
   aacSupport ? false,
   faad2 ? null, # already handled by ffmpeg
   mp4Support ? false,
   mp4v2 ? null, # ffmpeg does support mp4 better
-
-# not in nixpkgs
-#, vtxSupport ? true, libayemu ? null
+  # not in nixpkgs
+  #, vtxSupport ? true, libayemu ? null
 }:
-
 assert samplerateSupport -> jackSupport;
-
 # vorbis and tremor are mutually exclusive
 assert vorbisSupport -> !tremorSupport;
-assert tremorSupport -> !vorbisSupport;
-
-let
-
-  mkFlag =
-    b: f: dep:
-    if b then
-      {
-        flags = [ f ];
-        deps = [ dep ];
-      }
-    else
-      {
-        flags = [ ];
-        deps = [ ];
-      };
+assert tremorSupport -> !vorbisSupport; let
+  mkFlag = b: f: dep:
+    if b
+    then {
+      flags = [f];
+      deps = [dep];
+    }
+    else {
+      flags = [];
+      deps = [];
+    };
 
   opts = [
     # Audio output
@@ -132,40 +120,41 @@ let
     #(mkFlag vtxSupport    "CONFIG_VTX=y"     libayemu)
   ];
 in
+  stdenv.mkDerivation rec {
+    pname = "cmus";
+    version = "2.12.0";
 
-stdenv.mkDerivation rec {
-  pname = "cmus";
-  version = "2.12.0";
+    src = fetchFromGitHub {
+      owner = "cmus";
+      repo = "cmus";
+      rev = "v${version}";
+      hash = "sha256-8hgibGtkiwzenMI9YImIApRmw2EzTwE6RhglALpUkp4=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "cmus";
-    repo = "cmus";
-    rev = "v${version}";
-    hash = "sha256-8hgibGtkiwzenMI9YImIApRmw2EzTwE6RhglALpUkp4=";
-  };
+    nativeBuildInputs = [pkg-config];
+    buildInputs =
+      [ncurses]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        libiconv
+      ]
+      ++ lib.flatten (lib.concatMap (a: a.deps) opts);
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ ncurses ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      libiconv
-    ]
-    ++ lib.flatten (lib.concatMap (a: a.deps) opts);
+    prefixKey = "prefix=";
 
-  prefixKey = "prefix=";
+    configureFlags =
+      [
+        "CONFIG_WAV=y"
+        "HOSTCC=${stdenv.cc.targetPrefix}cc"
+      ]
+      ++ lib.concatMap (a: a.flags) opts;
 
-  configureFlags = [
-    "CONFIG_WAV=y"
-    "HOSTCC=${stdenv.cc.targetPrefix}cc"
-  ] ++ lib.concatMap (a: a.flags) opts;
+    makeFlags = ["LD=$(CC)"];
 
-  makeFlags = [ "LD=$(CC)" ];
-
-  meta = with lib; {
-    description = "Small, fast and powerful console music player for Linux and *BSD";
-    homepage = "https://cmus.github.io/";
-    license = licenses.gpl2;
-    maintainers = [ maintainers.oxij ];
-    platforms = platforms.linux ++ platforms.darwin;
-  };
-}
+    meta = with lib; {
+      description = "Small, fast and powerful console music player for Linux and *BSD";
+      homepage = "https://cmus.github.io/";
+      license = licenses.gpl2;
+      maintainers = [maintainers.oxij];
+      platforms = platforms.linux ++ platforms.darwin;
+    };
+  }

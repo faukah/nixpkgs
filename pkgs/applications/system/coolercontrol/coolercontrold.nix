@@ -4,14 +4,11 @@
   libdrm,
   coolercontrol,
   runtimeShell,
-}:
-
-{
+}: {
   version,
   src,
   meta,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "coolercontrold";
   inherit version src;
@@ -20,7 +17,7 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ZyYyQcaYd3VZ7FL0Hki33JO3LscPfBT5gl+nw2cXvUs=";
 
-  buildInputs = [ libdrm ];
+  buildInputs = [libdrm];
 
   postPatch = ''
     # copy the frontend static resources to a directory for embedding
@@ -44,8 +41,10 @@ rustPlatform.buildRustPackage {
     version = "v${version}";
   };
 
-  meta = meta // {
-    description = "${meta.description} (Main Daemon)";
-    mainProgram = "coolercontrold";
-  };
+  meta =
+    meta
+    // {
+      description = "${meta.description} (Main Daemon)";
+      mainProgram = "coolercontrold";
+    };
 }

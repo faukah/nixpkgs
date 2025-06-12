@@ -2,26 +2,20 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build
   hatchling,
   pytest,
-
   # runtime
   jupyter-core,
-
   # optionals
   jupyter-client,
   ipykernel,
   jupyter-server,
   nbformat,
-
   # tests
   pytest-timeout,
   pytestCheckHook,
-}:
-
-let
+}: let
   self = buildPythonPackage rec {
     pname = "pytest-jupyter";
     version = "0.10.1";
@@ -34,11 +28,11 @@ let
       hash = "sha256-RTpXBbVCRj0oyZ1TXXDv3M7sAI4kA6f3ouzTr0rXjwY=";
     };
 
-    nativeBuildInputs = [ hatchling ];
+    nativeBuildInputs = [hatchling];
 
-    buildInputs = [ pytest ];
+    buildInputs = [pytest];
 
-    propagatedBuildInputs = [ jupyter-core ];
+    propagatedBuildInputs = [jupyter-core];
 
     optional-dependencies = {
       client = [
@@ -56,10 +50,12 @@ let
 
     doCheck = false; # infinite recursion with jupyter-server
 
-    nativeCheckInputs = [
-      pytest-timeout
-      pytestCheckHook
-    ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+    nativeCheckInputs =
+      [
+        pytest-timeout
+        pytestCheckHook
+      ]
+      ++ lib.flatten (builtins.attrValues optional-dependencies);
 
     passthru.tests = {
       check = self.overridePythonAttrs (_: {
@@ -72,8 +68,8 @@ let
       description = "pytest plugin for testing Jupyter core libraries and extensions";
       homepage = "https://github.com/jupyter-server/pytest-jupyter";
       license = licenses.bsd3;
-      maintainers = [ ];
+      maintainers = [];
     };
   };
 in
-self
+  self

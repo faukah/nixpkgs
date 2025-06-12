@@ -8,7 +8,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "xyzservices";
   version = "2025.1.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     "request"
   ];
 
-  pythonImportsCheck = [ "xyzservices.providers" ];
+  pythonImportsCheck = ["xyzservices.providers"];
 
   nativeCheckInputs = [
     mercantile
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Source of XYZ tiles providers";
     homepage = "https://github.com/geopandas/xyzservices";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

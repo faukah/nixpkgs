@@ -8,7 +8,6 @@
   flex,
   openssl,
 }:
-
 stdenv.mkDerivation {
   pname = "bip";
   version = "0.9.3";

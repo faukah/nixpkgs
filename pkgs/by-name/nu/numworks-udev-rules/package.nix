@@ -1,5 +1,7 @@
-{ lib, stdenv }:
-
+{
+  lib,
+  stdenv,
+}:
 stdenv.mkDerivation rec {
   pname = "numworks-udev-rules";
   version = "unstable-2020-08-31";
@@ -15,7 +17,7 @@ stdenv.mkDerivation rec {
     description = "Udev rules for Numworks calculators";
     homepage = "https://numworks.com";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

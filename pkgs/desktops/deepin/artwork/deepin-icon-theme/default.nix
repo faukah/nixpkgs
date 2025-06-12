@@ -6,7 +6,6 @@
   xcursorgen,
   papirus-icon-theme,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "deepin-icon-theme";
   version = "2024.07.31";
@@ -18,14 +17,14 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-Vt2rYZthGelXVUp8/L57ZlDsVEjjZhCv+kSGeU6nC2s=";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   nativeBuildInputs = [
     gtk3
     xcursorgen
   ];
 
-  propagatedBuildInputs = [ papirus-icon-theme ];
+  propagatedBuildInputs = [papirus-icon-theme];
 
   dontDropIconThemeCache = true;
 
@@ -42,6 +41,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-icon-theme";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

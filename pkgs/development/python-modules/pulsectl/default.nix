@@ -9,7 +9,6 @@
   pulseaudio,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pulsectl";
   version = "24.12.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonImportsCheck = [ "pulsectl" ];
+  pythonImportsCheck = ["pulsectl"];
 
   nativeCheckInputs = [
     unittestCheckHook
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Python high-level interface and ctypes-based bindings for PulseAudio (libpulse)";
     homepage = "https://github.com/mk-fg/python-pulse-control";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

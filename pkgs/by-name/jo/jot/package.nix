@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "jot";
   version = "0.1.2";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Rapid note management for the terminal";
     homepage = "https://github.com/shashwatah/jot";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     mainProgram = "jt";
   };
 }

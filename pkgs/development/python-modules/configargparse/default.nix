@@ -8,7 +8,6 @@
   pythonAtLeast,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "configargparse";
   version = "1.7";
@@ -29,26 +28,28 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    yaml = [ pyyaml ];
+    yaml = [pyyaml];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      mock
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTests = lib.optionals (pythonAtLeast "3.13") [
     # regex mismatch
     "testMutuallyExclusiveArgs"
   ];
 
-  pythonImportsCheck = [ "configargparse" ];
+  pythonImportsCheck = ["configargparse"];
 
   meta = with lib; {
     description = "Drop-in replacement for argparse";
     homepage = "https://github.com/bw2/ConfigArgParse";
     changelog = "https://github.com/bw2/ConfigArgParse/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

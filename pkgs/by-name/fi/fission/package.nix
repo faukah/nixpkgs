@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "fission";
   version = "1.21.0";
@@ -23,7 +22,7 @@ buildGoModule rec {
     "-X info.Version=${version}"
   ];
 
-  subPackages = [ "cmd/fission-cli" ];
+  subPackages = ["cmd/fission-cli"];
 
   postInstall = ''
     ln -s $out/bin/fission-cli $out/bin/fission
@@ -33,6 +32,6 @@ buildGoModule rec {
     description = "Cli used by end user to interact Fission";
     homepage = "https://fission.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ neverbehave ];
+    maintainers = with maintainers; [neverbehave];
   };
 }

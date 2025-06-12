@@ -3,18 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.ntfy-sh;
 
-  settingsFormat = pkgs.formats.yaml { };
-in
-
-{
+  settingsFormat = pkgs.formats.yaml {};
+in {
   options.services.ntfy-sh = {
     enable = lib.mkEnableOption "[ntfy-sh](https://ntfy.sh), a push notification service";
 
-    package = lib.mkPackageOption pkgs "ntfy-sh" { };
+    package = lib.mkPackageOption pkgs "ntfy-sh" {};
 
     user = lib.mkOption {
       default = "ntfy-sh";
@@ -49,7 +46,7 @@ in
         };
       };
 
-      default = { };
+      default = {};
 
       example = lib.literalExpression ''
         {
@@ -63,15 +60,14 @@ in
     };
   };
 
-  config =
-    let
-      configuration = settingsFormat.generate "server.yml" cfg.settings;
-    in
+  config = let
+    configuration = settingsFormat.generate "server.yml" cfg.settings;
+  in
     lib.mkIf cfg.enable {
       # to configure access control via the cli
       environment = {
         etc."ntfy/server.yml".source = configuration;
-        systemPackages = [ cfg.package ];
+        systemPackages = [cfg.package];
       };
 
       services.ntfy-sh.settings = {
@@ -84,8 +80,8 @@ in
       systemd.services.ntfy-sh = {
         description = "Push notifications server";
 
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
 
         serviceConfig = {
           ExecStart = "${cfg.package}/bin/ntfy serve -c ${configuration}";
@@ -113,7 +109,7 @@ in
       };
 
       users.groups = lib.optionalAttrs (cfg.group == "ntfy-sh") {
-        ntfy-sh = { };
+        ntfy-sh = {};
       };
 
       users.users = lib.optionalAttrs (cfg.user == "ntfy-sh") {

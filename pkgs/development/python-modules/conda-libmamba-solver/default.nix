@@ -31,12 +31,12 @@ buildPythonPackage rec {
   # this package depends on conda for the import to run successfully, but conda depends on this package to execute.
   # pythonImportsCheck = [ "conda_libmamba_solver" ];
 
-  pythonRemoveDeps = [ "conda" ];
+  pythonRemoveDeps = ["conda"];
 
   meta = {
     description = "Libmamba based solver for conda";
     homepage = "https://github.com/conda/conda-libmamba-solver";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.ericthemagician ];
+    maintainers = [lib.maintainers.ericthemagician];
   };
 }

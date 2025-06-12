@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildNpmPackage {
   pname = "get-google-fonts";
   version = "1.2.2-unstable-2020-06-30";
@@ -34,6 +33,6 @@ buildNpmPackage {
     mainProgram = "get-google-fonts";
     homepage = "https://github.com/MrMaxie/get-google-fonts";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

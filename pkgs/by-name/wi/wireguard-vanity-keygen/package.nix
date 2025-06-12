@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "wireguard-vanity-keygen";
   version = "0.1.1";
@@ -24,15 +23,13 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    changelog =
-      let
-        versionWithoutDots = concatStrings (splitString "." version);
-      in
-      "https://github.com/axllent/wireguard-vanity-keygen/blob/develop/CHANGELOG.md#${versionWithoutDots}";
+    changelog = let
+      versionWithoutDots = concatStrings (splitString "." version);
+    in "https://github.com/axllent/wireguard-vanity-keygen/blob/develop/CHANGELOG.md#${versionWithoutDots}";
     description = "WireGuard vanity key generator";
     homepage = "https://github.com/axllent/wireguard-vanity-keygen";
     license = licenses.mit;
-    maintainers = with maintainers; [ arikgrahl ];
+    maintainers = with maintainers; [arikgrahl];
     mainProgram = "wireguard-vanity-keygen";
   };
 }

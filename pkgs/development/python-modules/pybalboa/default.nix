@@ -7,7 +7,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pybalboa";
   version = "1.1.3";
@@ -31,13 +30,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pybalboa" ];
+  pythonImportsCheck = ["pybalboa"];
 
   meta = with lib; {
     description = "Module to communicate with a Balboa spa wifi adapter";
     homepage = "https://github.com/garbled1/pybalboa";
     changelog = "https://github.com/garbled1/pybalboa/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

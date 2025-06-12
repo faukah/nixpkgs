@@ -8,17 +8,16 @@
   useChromium ? false,
   useFfmpeg ? false,
 }:
-
 runCommand "mcat"
-  {
-    pname = "mcat";
-    inherit (mcat-unwrapped) version meta;
+{
+  pname = "mcat";
+  inherit (mcat-unwrapped) version meta;
 
-    nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
+}
+''
+  mkdir -p $out/bin
+  makeWrapper ${lib.getExe mcat-unwrapped} $out/bin/mcat --prefix PATH : ${
+    lib.makeBinPath ((lib.optional useChromium chromium) ++ (lib.optional useFfmpeg ffmpeg-headless))
   }
-  ''
-    mkdir -p $out/bin
-    makeWrapper ${lib.getExe mcat-unwrapped} $out/bin/mcat --prefix PATH : ${
-      lib.makeBinPath ((lib.optional useChromium chromium) ++ (lib.optional useFfmpeg ffmpeg-headless))
-    }
-  ''
+''

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tivars";
   version = "0.9.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "tivars" ];
+  pythonImportsCheck = ["tivars"];
 
   # no upstream tests exist
   doCheck = false;
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     homepage = "https://ti-toolkit.github.io/tivars_lib_py/";
     changelog = "https://github.com/TI-Toolkit/tivars_lib_py/releases/tag/v${version}/CHANGELOG.md";
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
   };
 }

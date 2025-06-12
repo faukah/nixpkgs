@@ -23,12 +23,12 @@ maven.buildMavenPackage rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/p2-inc/keycloak-magic-link";
     description = "Magic Link Authentication for Keycloak";
     license = lib.licenses.elastic20;
-    maintainers = with lib.maintainers; [ lykos153 ];
+    maintainers = with lib.maintainers; [lykos153];
   };
 }

@@ -10,12 +10,11 @@
   ki18n,
   kwidgetsaddons,
 }:
-
 mkDerivation {
   pname = "libkmahjongg";
   meta = {
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = [ ];
+    license = with lib.licenses; [gpl2];
+    maintainers = [];
   };
   nativeBuildInputs = [
     extra-cmake-modules

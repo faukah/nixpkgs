@@ -4,7 +4,6 @@
   perlPackages,
   fetchFromGitLab,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "debsigs";
   version = "0.2.2";
@@ -29,6 +28,6 @@ perlPackages.buildPerlPackage rec {
     homepage = "https://gitlab.com/debsigs/debsigs";
     changelog = "https://gitlab.com/debsigs/debsigs/-/tags/release/${version}";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ usertam ];
+    maintainers = with lib.maintainers; [usertam];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoPatchelfHook,
 }:
-
 flutter329.buildFlutterApplication rec {
   pname = "proxypin";
   version = "1.1.9";
@@ -28,7 +27,7 @@ flutter329.buildFlutterApplication rec {
       --replace-fail "/opt/proxypin/data/flutter_assets/assets/icon.png" "$out/app/proxypin/data/flutter_assets/assets/icon.png"
   '';
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   postInstall = ''
     substituteInPlace linux/proxy-pin.desktop \
@@ -46,6 +45,6 @@ flutter329.buildFlutterApplication rec {
     mainProgram = "ProxyPin";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 }

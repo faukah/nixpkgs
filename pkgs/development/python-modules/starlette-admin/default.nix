@@ -29,7 +29,6 @@
   sqlmodel,
   starlette,
 }:
-
 buildPythonPackage rec {
   pname = "starlette-admin";
   version = "0.15.0";
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     hash = "sha256-R9ZRrJaBp1joT3DtymvS+Ac0MzEUFYFovgxMW0njsT0=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     jinja2
@@ -51,7 +50,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    i18n = [ babel ];
+    i18n = [babel];
   };
 
   nativeCheckInputs = [
@@ -124,6 +123,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jowilf/starlette-admin";
     changelog = "https://github.com/jowilf/starlette-admin/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

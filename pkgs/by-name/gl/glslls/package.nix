@@ -6,7 +6,6 @@
   ninja,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "glslls";
   version = "0.5.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "glslls";
     homepage = "https://github.com/svenstaro/glsl-language-server";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ declan ];
+    maintainers = with lib.maintainers; [declan];
     platforms = lib.platforms.linux;
   };
 })

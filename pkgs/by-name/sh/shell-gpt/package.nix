@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "shell-gpt";
   version = "1.4.5";
@@ -25,7 +24,7 @@ python3.pkgs.buildPythonApplication rec {
     "jinja2"
   ];
 
-  build-system = with python3.pkgs; [ hatchling ];
+  build-system = with python3.pkgs; [hatchling];
 
   propagatedBuildInputs = with python3.pkgs; [
     jinja2
@@ -51,7 +50,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/TheR1D/shell_gpt";
     changelog = "https://github.com/TheR1D/shell_gpt/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ SohamG ];
+    maintainers = with lib.maintainers; [SohamG];
     mainProgram = "sgpt";
   };
 }

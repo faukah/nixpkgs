@@ -9,7 +9,6 @@
   pycryptodome,
   pypdf,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "mampfes";
   domain = "waste_collection_schedule";
@@ -35,7 +34,7 @@ buildHomeAssistantComponent rec {
     changelog = "https://github.com/mampfes/hacs_waste_collection_schedule/releases/tag/${version}";
     description = "Home Assistant integration framework for (garbage collection) schedules";
     homepage = "https://github.com/mampfes/hacs_waste_collection_schedule";
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
     license = licenses.mit;
   };
 }

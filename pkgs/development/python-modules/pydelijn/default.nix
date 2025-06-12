@@ -7,7 +7,6 @@
   pythonOlder,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "pydelijn";
   version = "1.1.0";
@@ -38,12 +37,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pydelijn" ];
+  pythonImportsCheck = ["pydelijn"];
 
   meta = with lib; {
     description = "Python package to retrieve realtime data of passages at stops of De Lijn";
     homepage = "https://github.com/bollewolle/pydelijn";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

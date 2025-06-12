@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "frser-sqlite-datasource";
   version = "3.5.0";
@@ -7,7 +9,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "This is a Grafana backend plugin to allow using an SQLite database as a data source. The SQLite database needs to be accessible to the filesystem of the device where Grafana itself is running.";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nagisa ];
+    maintainers = with maintainers; [nagisa];
     platforms = platforms.unix;
   };
 }

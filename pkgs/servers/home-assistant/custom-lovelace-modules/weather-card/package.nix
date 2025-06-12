@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "weather-card";
   version = "2.0.0b0";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     description = "Weather Card with animated icons for Home Assistant Lovelace";
     homepage = "https://github.com/bramkragten/weather-card";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ matthiasbeyer ];
+    maintainers = with lib.maintainers; [matthiasbeyer];
     platforms = lib.platforms.all;
   };
 }

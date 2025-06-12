@@ -2,26 +2,21 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
-
   # build-system
   cysignals,
   cython,
   pkgconfig,
   setuptools,
-
   gmp,
   pari,
   mpfr,
   fplll,
   numpy,
-
   # Reverse dependency
   sage,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fpylll";
   version = "0.6.3";
@@ -48,9 +43,9 @@ buildPythonPackage rec {
     fplll
   ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     # Since upstream introduced --doctest-modules in
@@ -68,7 +63,7 @@ buildPythonPackage rec {
     description = "Python interface for fplll";
     changelog = "https://github.com/fplll/fpylll/releases/tag/${src.tag}";
     homepage = "https://github.com/fplll/fpylll";
-    teams = [ teams.sage ];
+    teams = [teams.sage];
     license = licenses.gpl2Plus;
   };
 }

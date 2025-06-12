@@ -7,7 +7,6 @@
   pytestCheckHook,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "hightime";
   version = "0.2.2";
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     "test_datetime_arg_wrong_value"
   ];
 
-  pythonImportsCheck = [ "hightime" ];
+  pythonImportsCheck = ["hightime"];
 
   meta = {
     changelog = "https://github.com/ni/hightime/releases/tag/v${version}";
     description = "Hightime Python API";
     homepage = "https://github.com/ni/hightime";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fsagbuya ];
+    maintainers = with lib.maintainers; [fsagbuya];
   };
 }

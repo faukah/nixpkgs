@@ -5,7 +5,6 @@
   cmake,
   enableShared ? !stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gflags";
   version = "2.2.2";
@@ -17,13 +16,17 @@ stdenv.mkDerivation rec {
     sha256 = "147i3md3nxkjlrccqg4mq1kyzc7yrhvqv5902iibc7znkvzdvlp0";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # This isn't used by the build and breaks the CMake build on case-insensitive filesystems (e.g., on Darwin)
   preConfigure = "rm BUILD";
 
   cmakeFlags = [
-    "-DGFLAGS_BUILD_SHARED_LIBS=${if enableShared then "ON" else "OFF"}"
+    "-DGFLAGS_BUILD_SHARED_LIBS=${
+      if enableShared
+      then "ON"
+      else "OFF"
+    }"
     "-DGFLAGS_BUILD_STATIC_LIBS=ON"
   ];
 
@@ -39,7 +42,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gflags.github.io/gflags/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.linquize ];
+    maintainers = [maintainers.linquize];
     platforms = platforms.all;
   };
 }

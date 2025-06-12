@@ -28,7 +28,6 @@
   DarwinTools,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mysql";
   version = "8.0.42";
@@ -38,12 +37,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-XrIsIMILdlxYlMkBBIW9B9iptuv7YovP0wYHAXFVJv4=";
   };
 
-  nativeBuildInputs = [
-    bison
-    cmake
-    pkg-config
-    protobuf
-  ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ rpcsvc-proto ];
+  nativeBuildInputs =
+    [
+      bison
+      cmake
+      pkg-config
+      protobuf
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [rpcsvc-proto];
 
   patches = [
     ./no-force-outline-atomics.patch # Do not force compilers to turn on -moutline-atomics switch
@@ -66,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs =
     [
       boost
-      (curl.override { inherit openssl; })
+      (curl.override {inherit openssl;})
       icu
       libedit
       libevent
@@ -132,7 +133,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.mysql.com/";
     description = "World's most popular open source database";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.unix;
   };
 })

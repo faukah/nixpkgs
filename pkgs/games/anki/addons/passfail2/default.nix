@@ -21,7 +21,7 @@ anki-utils.buildAnkiAddon (finalAttrs: {
 
     runHook postBuild
   '';
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
   meta = {
     description = ''
       Replaces the default Anki review buttons with only two options:
@@ -29,6 +29,6 @@ anki-utils.buildAnkiAddon (finalAttrs: {
     '';
     homepage = "https://github.com/lambdadog/passfail2";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ junestepp ];
+    maintainers = with lib.maintainers; [junestepp];
   };
 })

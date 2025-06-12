@@ -4,7 +4,6 @@
   fetchurl,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libunarr";
   version = "1.1.1";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/selmf/unarr";
     description = "Lightweight decompression library with support for rar, tar and zip archives";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 }

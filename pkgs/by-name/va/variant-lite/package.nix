@@ -6,7 +6,6 @@
   ninja,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "variant-lite";
   version = "2.0.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
@@ -38,6 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/martinmoene/variant-lite";
     changelog = "https://github.com/martinmoene/variant-lite/blob/v${finalAttrs.version}/CHANGES.txt";
     license = lib.licenses.boost;
-    maintainers = with lib.maintainers; [ titaniumtown ];
+    maintainers = with lib.maintainers; [titaniumtown];
   };
 })

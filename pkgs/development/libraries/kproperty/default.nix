@@ -10,7 +10,6 @@
   kguiaddons,
   qttools,
 }:
-
 mkDerivation rec {
   pname = "kproperty";
   version = "3.2.0";
@@ -20,7 +19,7 @@ mkDerivation rec {
     sha256 = "1yldfsdamk4dag8dyryjn5n9j2pzi42s79kkafymfnbifhnhrbv7";
   };
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
   buildInputs = [
     kconfig
@@ -30,12 +29,12 @@ mkDerivation rec {
     qttools
   ];
 
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
 
   meta = with lib; {
     description = "Property editing framework with editor widget similar to what is known from Qt Designer";
     license = licenses.lgpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zraexy ];
+    maintainers = with maintainers; [zraexy];
   };
 }

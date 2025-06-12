@@ -22,7 +22,6 @@
   libwebp,
   pango,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "windowmaker";
   version = "0.96.0";
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    dockapps = callPackage ./dockapps { };
+    dockapps = callPackage ./dockapps {};
   };
 
   meta = {
@@ -82,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://www.windowmaker.org/news/";
     license = lib.licenses.gpl2Plus;
     mainProgram = "wmaker";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

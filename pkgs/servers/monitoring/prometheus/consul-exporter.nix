@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "consul_exporter";
   version = "0.13.0";
@@ -28,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/prometheus/consul_exporter";
     changelog = "https://github.com/prometheus/consul_exporter/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hectorj ];
+    maintainers = with maintainers; [hectorj];
   };
 }

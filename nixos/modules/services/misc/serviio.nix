@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.serviio;
 
   serviioStart = pkgs.writeScript "serviio.sh" ''
@@ -23,14 +21,10 @@ let
     # Execute the JVM in the foreground
     exec ${pkgs.jre}/bin/java -Xmx512M -Xms20M -XX:+UseG1GC -XX:GCTimeRatio=1 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 $JAVA_OPTS -classpath "$SERVIIO_CLASS_PATH" org.serviio.MediaServer "$@"
   '';
-
-in
-{
-
+in {
   ###### interface
   options = {
     services.serviio = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -46,7 +40,6 @@ in
           The directory where serviio stores its state, data, etc.
         '';
       };
-
     };
   };
 
@@ -55,9 +48,9 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.serviio = {
       description = "Serviio Media Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.serviio ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.serviio];
       serviceConfig = {
         User = "serviio";
         Group = "serviio";
@@ -74,7 +67,7 @@ in
       isSystemUser = true;
     };
 
-    users.groups.serviio = { };
+    users.groups.serviio = {};
 
     networking.firewall = {
       allowedTCPPorts = [

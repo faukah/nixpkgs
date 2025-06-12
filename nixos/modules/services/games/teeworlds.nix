@@ -3,16 +3,19 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.teeworlds;
   register = cfg.register;
 
-  bool = b: if b != null && b then "1" else "0";
+  bool = b:
+    if b != null && b
+    then "1"
+    else "0";
   optionalSetting = s: setting: lib.optionalString (s != null) "${setting} ${s}";
-  lookup =
-    attrs: key: default:
-    if attrs ? key then attrs."${key}" else default;
+  lookup = attrs: key: default:
+    if attrs ? key
+    then attrs."${key}"
+    else default;
 
   inactivePenaltyOptions = {
     "spectator" = "1";
@@ -92,14 +95,12 @@ let
 
     ${lib.concatStringsSep "\n" cfg.extraOptions}
   '';
-
-in
-{
+in {
   options = {
     services.teeworlds = {
       enable = lib.mkEnableOption "Teeworlds Server";
 
-      package = lib.mkPackageOption pkgs "teeworlds-server" { };
+      package = lib.mkPackageOption pkgs "teeworlds-server" {};
 
       openPorts = lib.mkOption {
         type = lib.types.bool;
@@ -158,7 +159,7 @@ in
 
       extraOptions = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           Extra configuration lines for the {file}`teeworlds.cfg`. See [Teeworlds Documentation](https://www.teeworlds.com/?page=docs&wiki=server_settings).
         '';
@@ -416,25 +417,24 @@ in
           `teeworlds` is running.
         '';
       };
-
     };
   };
 
   config = lib.mkIf cfg.enable {
     networking.firewall = lib.mkIf cfg.openPorts {
-      allowedUDPPorts = [ cfg.port ];
+      allowedUDPPorts = [cfg.port];
     };
 
     systemd.services.teeworlds = {
       description = "Teeworlds Server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         DynamicUser = true;
         RuntimeDirectory = "teeworlds";
         RuntimeDirectoryMode = "0700";
-        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [cfg.environmentFile];
         ExecStartPre = ''
           ${pkgs.envsubst}/bin/envsubst \
             -i ${teeworldsConf} \

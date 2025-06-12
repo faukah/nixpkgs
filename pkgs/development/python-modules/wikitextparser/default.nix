@@ -8,7 +8,6 @@
   regex,
   wcwidth,
 }:
-
 buildPythonPackage rec {
   pname = "wikitextparser";
   version = "0.56.2";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-g0Hvxw8evmCebM2joGT7XMnakVjDG74VJmZhlvUiQMU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     flit-core
@@ -29,15 +28,15 @@ buildPythonPackage rec {
     regex
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "wikitextparser" ];
+  pythonImportsCheck = ["wikitextparser"];
 
   meta = {
     homepage = "https://github.com/5j9/wikitextparser";
     description = "Simple parsing tool for MediaWiki's wikitext markup";
     changelog = "https://github.com/5j9/wikitextparser/blob/v${version}/CHANGELOG.rst";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ rapiteanu ];
+    maintainers = with lib.maintainers; [rapiteanu];
   };
 }

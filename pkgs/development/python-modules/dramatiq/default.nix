@@ -14,7 +14,6 @@
   watchdog,
   watchdog-gevent,
 }:
-
 buildPythonPackage rec {
   pname = "dramatiq";
   version = "1.17.1";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     hash = "sha256-NeUGhG+H6r+JGd2qnJxRUbQ61G7n+3tsuDugTin3iJ4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ prometheus-client ];
+  dependencies = [prometheus-client];
 
   optional-dependencies = {
     all = [
@@ -42,10 +41,10 @@ buildPythonPackage rec {
       watchdog
       watchdog-gevent
     ];
-    gevent = [ gevent ];
-    memcached = [ pylibmc ];
-    rabbitmq = [ pika ];
-    redis = [ redis ];
+    gevent = [gevent];
+    memcached = [pylibmc];
+    rabbitmq = [pika];
+    redis = [redis];
     watch = [
       watchdog
       watchdog-gevent
@@ -96,12 +95,12 @@ buildPythonPackage rec {
       "test_retry_exceptions_can_specify_a_delay"
     ];
 
-  pythonImportsCheck = [ "dramatiq" ];
+  pythonImportsCheck = ["dramatiq"];
 
   meta = with lib; {
     description = "Background Processing for Python 3";
     homepage = "https://github.com/Bogdanp/dramatiq";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ traxys ];
+    maintainers = with maintainers; [traxys];
   };
 }

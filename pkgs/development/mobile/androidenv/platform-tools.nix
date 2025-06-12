@@ -8,10 +8,9 @@
   pkgs,
   meta,
 }:
-
 deployAndroidPackage {
   inherit package os arch;
-  nativeBuildInputs = lib.optionals (os == "linux") [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals (os == "linux") [autoPatchelfHook];
   buildInputs = lib.optionals (os == "linux") [
     pkgs.glibc
     (lib.getLib pkgs.stdenv.cc.cc)

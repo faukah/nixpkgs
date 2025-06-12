@@ -4,7 +4,6 @@
   fetchFromGitHub,
   qt6,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "meteo-qt";
   version = "4.2";
@@ -42,16 +41,16 @@ python3Packages.buildPythonApplication rec {
     mv $out/${python3Packages.python.sitePackages}/usr/share $out/share
   '';
 
-  pythonImportsCheck = [ "meteo_qt" ];
+  pythonImportsCheck = ["meteo_qt"];
 
-  makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${qtWrapperArgs[@]}"];
 
   meta = {
     description = "System tray application for weather status information";
     homepage = "https://github.com/dglent/meteo-qt";
     changelog = "https://github.com/dglent/meteo-qt/blob/${src.rev}/CHANGELOG";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ linuxissuper ];
+    maintainers = with lib.maintainers; [linuxissuper];
     mainProgram = "meteo-qt";
     platforms = lib.platforms.linux;
   };

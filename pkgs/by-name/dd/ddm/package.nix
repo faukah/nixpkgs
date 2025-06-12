@@ -8,12 +8,10 @@
   makeDesktopItem,
   makeWrapper,
   unzip,
-
-  campaigns ? [ ],
-  cubes ? [ ],
-  constructed ? [ ],
+  campaigns ? [],
+  cubes ? [],
+  constructed ? [],
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ddm";
   version = "4.1.0";
@@ -57,13 +55,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ''
     + lib.concatMapStringsSep "\n" (campaignZip: ''
       unzip "${campaignZip}" -d $out/share/ddm/campaigns/
-    '') campaigns
+    '')
+    campaigns
     + lib.concatMapStringsSep "\n" (cubeFile: ''
       cp "${cubeFile}" $out/share/ddm/cubes/
-    '') cubes
+    '')
+    cubes
     + lib.concatMapStringsSep "\n" (constructedFile: ''
       cp "${constructedFile}" $out/share/ddm/constructed/
-    '') constructed
+    '')
+    constructed
     + ''
 
       runHook postInstall
@@ -86,7 +87,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     changelog = "https://mikaygo.itch.io/ddm/devlog";
     license = lib.licenses.unfree;
     mainProgram = "ddm";
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     platforms = lib.platforms.linux;
   };
 })

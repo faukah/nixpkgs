@@ -5,7 +5,6 @@
   unittestCheckHook,
   defusedxml,
 }:
-
 buildPythonPackage rec {
   pname = "untangle";
   version = "1.2.1";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-cJkN8vT5hW5hRuLxr/6udwMO4GVH1pJhAc6qmPO2EEI=";
   };
 
-  propagatedBuildInputs = [ defusedxml ];
+  propagatedBuildInputs = [defusedxml];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Convert XML documents into Python objects";
     homepage = "https://github.com/stchris/untangle";
     license = licenses.mit;
-    maintainers = [ maintainers.arnoldfarkas ];
+    maintainers = [maintainers.arnoldfarkas];
   };
 }

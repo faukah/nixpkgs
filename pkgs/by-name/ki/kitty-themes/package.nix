@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "kitty-themes";
   version = "0-unstable-2024-08-14";
@@ -36,7 +35,7 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/kovidgoyal/kitty-themes";
     description = "Themes for the kitty terminal emulator";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.all;
   };
 }

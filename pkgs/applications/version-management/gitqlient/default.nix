@@ -6,7 +6,6 @@
   qtwebengine,
   gitUpdater,
 }:
-
 mkDerivation rec {
   pname = "gitqlient";
   version = "1.6.3";
@@ -40,7 +39,7 @@ mkDerivation rec {
     description = "Multi-platform Git client written with Qt";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
     mainProgram = "gitqlient";
   };
 }

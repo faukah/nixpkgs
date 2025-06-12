@@ -12,7 +12,6 @@
   typing-extensions,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "axis";
   version = "64";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
       --replace-fail "wheel==0.45.1" "wheel"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     async-timeout
@@ -48,14 +47,14 @@ buildPythonPackage rec {
   # Tests requires a server on localhost
   doCheck = false;
 
-  pythonImportsCheck = [ "axis" ];
+  pythonImportsCheck = ["axis"];
 
   meta = with lib; {
     description = "Python library for communicating with devices from Axis Communications";
     homepage = "https://github.com/Kane610/axis";
     changelog = "https://github.com/Kane610/axis/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "axis";
   };
 }

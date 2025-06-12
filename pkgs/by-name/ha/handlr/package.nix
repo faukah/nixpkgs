@@ -7,7 +7,6 @@
   libiconv,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "handlr";
   version = "unstable-2021-08-29";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage {
     installShellFiles
     shared-mime-info
   ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   preCheck = ''
     export HOME=$TEMPDIR
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage {
     description = "Alternative to xdg-open to manage default applications with ease";
     homepage = "https://github.com/chmln/handlr";
     license = licenses.mit;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
     mainProgram = "handlr";
   };
 }

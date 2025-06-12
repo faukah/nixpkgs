@@ -2,18 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   numpy,
-
   # tests
   absl-py,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ml-dtypes";
   version = "0.5.2";
@@ -35,9 +31,9 @@ buildPythonPackage rec {
       --replace-fail "setuptools~=75.7.0" "setuptools"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   nativeCheckInputs = [
     absl-py
@@ -50,7 +46,7 @@ buildPythonPackage rec {
     rm -rf ./ml_dtypes
   '';
 
-  pythonImportsCheck = [ "ml_dtypes" ];
+  pythonImportsCheck = ["ml_dtypes"];
 
   meta = {
     description = "Stand-alone implementation of several NumPy dtype extensions used in machine learning libraries";

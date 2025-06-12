@@ -4,7 +4,6 @@
   fetchFromBitbucket,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wolfstoneextract";
   version = "1.2";
@@ -24,11 +23,11 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Utility to extract Wolfstone data from Wolfenstein II";
     mainProgram = "wolfstoneextract";
     homepage = "https://bitbucket.org/ecwolf/wolfstoneextract/src/master/";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     license = with licenses; [
       gpl3Only
       bsd3
     ];
-    maintainers = with maintainers; [ keenanweaver ];
+    maintainers = with maintainers; [keenanweaver];
   };
 })

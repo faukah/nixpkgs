@@ -6,7 +6,6 @@
   pkg-config,
   snappy,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "snzip";
   version = "1.0.5";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Compression/decompression tool based on snappy";
     homepage = "https://github.com/kubo/snzip";
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     license = licenses.bsd2;
     platforms = platforms.linux;
   };

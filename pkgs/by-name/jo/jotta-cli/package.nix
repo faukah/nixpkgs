@@ -5,7 +5,6 @@
   nixosTests,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jotta-cli";
   version = "0.17.132497";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase =
     ''
@@ -33,15 +32,15 @@ stdenv.mkDerivation rec {
         --zsh <($out/bin/jotta-cli completion zsh)
     '';
 
-  passthru.tests = { inherit (nixosTests) jotta-cli; };
+  passthru.tests = {inherit (nixosTests) jotta-cli;};
 
   meta = {
     description = "Jottacloud CLI";
     homepage = "https://www.jottacloud.com/";
     downloadPage = "https://repo.jotta.us/archives/linux/";
-    maintainers = with lib.maintainers; [ evenbrenden ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [evenbrenden];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

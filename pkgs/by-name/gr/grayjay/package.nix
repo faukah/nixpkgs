@@ -33,8 +33,7 @@
   krb5,
   wrapGAppsHook3,
   _experimental-update-script-combinators,
-}:
-let
+}: let
   version = "7";
   src = fetchFromGitLab {
     domain = "gitlab.futo.org";
@@ -61,136 +60,136 @@ let
     '';
   };
 in
-buildDotnetModule (finalAttrs: {
-  pname = "grayjay";
+  buildDotnetModule (finalAttrs: {
+    pname = "grayjay";
 
-  inherit version src frontend;
+    inherit version src frontend;
 
-  buildInputs = [
-    openssl
-    libgcc
-    xorg.libX11
-    gtk3
-    glib
-    alsa-lib
-    mesa
-    nspr
-    nss
-    icu
-    krb5
-  ];
+    buildInputs = [
+      openssl
+      libgcc
+      xorg.libX11
+      gtk3
+      glib
+      alsa-lib
+      mesa
+      nspr
+      nss
+      icu
+      krb5
+    ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    wrapGAppsHook3
-    copyDesktopItems
-  ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      wrapGAppsHook3
+      copyDesktopItems
+    ];
 
-  dontWrapGApps = true;
+    dontWrapGApps = true;
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "Grayjay";
-      exec = "Grayjay";
-      icon = "grayjay";
-      comment = "Cross platform media application for streaming and downloading media";
-      desktopName = "Grayjay Desktop";
-      categories = [ "Network" ];
-    })
-  ];
+    desktopItems = [
+      (makeDesktopItem {
+        name = "Grayjay";
+        exec = "Grayjay";
+        icon = "grayjay";
+        comment = "Cross platform media application for streaming and downloading media";
+        desktopName = "Grayjay Desktop";
+        categories = ["Network"];
+      })
+    ];
 
-  projectFile = [
-    "Grayjay.ClientServer/Grayjay.ClientServer.csproj"
-    "Grayjay.Engine/Grayjay.Engine/Grayjay.Engine.csproj"
-    "Grayjay.Desktop.CEF/Grayjay.Desktop.CEF.csproj"
-    "FUTO.MDNS/FUTO.MDNS/FUTO.MDNS.csproj"
-    "JustCef/DotCef.csproj"
-  ];
+    projectFile = [
+      "Grayjay.ClientServer/Grayjay.ClientServer.csproj"
+      "Grayjay.Engine/Grayjay.Engine/Grayjay.Engine.csproj"
+      "Grayjay.Desktop.CEF/Grayjay.Desktop.CEF.csproj"
+      "FUTO.MDNS/FUTO.MDNS/FUTO.MDNS.csproj"
+      "JustCef/DotCef.csproj"
+    ];
 
-  testProjectFile = [
-    "Grayjay.Desktop.Tests/Grayjay.Desktop.Tests.csproj"
-    "Grayjay.Engine/Grayjay.Engine.Tests/Grayjay.Engine.Tests.csproj"
-  ];
+    testProjectFile = [
+      "Grayjay.Desktop.Tests/Grayjay.Desktop.Tests.csproj"
+      "Grayjay.Engine/Grayjay.Engine.Tests/Grayjay.Engine.Tests.csproj"
+    ];
 
-  nugetDeps = ./deps.json;
+    nugetDeps = ./deps.json;
 
-  dotnet-sdk = dotnetCorePackages.sdk_9_0;
-  dotnet-runtime = dotnetCorePackages.aspnetcore_9_0;
+    dotnet-sdk = dotnetCorePackages.sdk_9_0;
+    dotnet-runtime = dotnetCorePackages.aspnetcore_9_0;
 
-  executables = [ "Grayjay" ];
+    executables = ["Grayjay"];
 
-  preBuild = ''
-    rm -r Grayjay.ClientServer/wwwroot/web
-    cp -r ${frontend} Grayjay.ClientServer/wwwroot/web
-  '';
-
-  postInstall = ''
-    chmod +x $out/lib/grayjay/cef/dotcefnative
-    chmod +x $out/lib/grayjay/ffmpeg
-    rm $out/lib/grayjay/Portable
-    ln -s /tmp/grayjay-launch $out/lib/grayjay/launch
-    ln -s /tmp/grayjay-cef-launch $out/lib/grayjay/cef/launch
-    mkdir -p $out/share/icons/hicolor/scalable/apps
-    ln -s $out/lib/grayjay/grayjay.png $out/share/icons/hicolor/scalable/apps/grayjay.png
-  '';
-
-  makeWrapperArgs = [
-    "--chdir"
-    "${placeholder "out"}/lib/grayjay"
-  ];
-
-  preFixup = ''
-    makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
-  '';
-
-  runtimeDeps = [
-    libz
-
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
-    xorg.libxcb
-
-    dbus
-    atk
-    cups
-    libdrm
-    expat
-    libxkbcommon
-    pango
-    cairo
-    udev
-    libGL
-    libsecret
-  ];
-
-  passthru.updateScript = _experimental-update-script-combinators.sequence [
-    (nix-update-script {
-      extraArgs = [
-        "--subpackage"
-        "frontend"
-        "--url"
-        "https://github.com/futo-org/Grayjay.Desktop"
-      ];
-    })
-    (finalAttrs.passthru.fetch-deps)
-  ];
-
-  meta = {
-    description = "Cross-platform application to stream and download content from various sources";
-    longDescription = ''
-      Grayjay is a cross-platform application that enables users to
-      stream and download multimedia content from various online sources,
-      most prominently YouTube.
-      It also offers an extensible plugin API to create and import new
-      integrations.
+    preBuild = ''
+      rm -r Grayjay.ClientServer/wwwroot/web
+      cp -r ${frontend} Grayjay.ClientServer/wwwroot/web
     '';
-    homepage = "https://grayjay.app/desktop/";
-    license = lib.licenses.sfl;
-    maintainers = with lib.maintainers; [ samfundev ];
-    platforms = [ "x86_64-linux" ];
-    mainProgram = "Grayjay";
-  };
-})
+
+    postInstall = ''
+      chmod +x $out/lib/grayjay/cef/dotcefnative
+      chmod +x $out/lib/grayjay/ffmpeg
+      rm $out/lib/grayjay/Portable
+      ln -s /tmp/grayjay-launch $out/lib/grayjay/launch
+      ln -s /tmp/grayjay-cef-launch $out/lib/grayjay/cef/launch
+      mkdir -p $out/share/icons/hicolor/scalable/apps
+      ln -s $out/lib/grayjay/grayjay.png $out/share/icons/hicolor/scalable/apps/grayjay.png
+    '';
+
+    makeWrapperArgs = [
+      "--chdir"
+      "${placeholder "out"}/lib/grayjay"
+    ];
+
+    preFixup = ''
+      makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
+    '';
+
+    runtimeDeps = [
+      libz
+
+      xorg.libXcomposite
+      xorg.libXdamage
+      xorg.libXext
+      xorg.libXfixes
+      xorg.libXrandr
+      xorg.libxcb
+
+      dbus
+      atk
+      cups
+      libdrm
+      expat
+      libxkbcommon
+      pango
+      cairo
+      udev
+      libGL
+      libsecret
+    ];
+
+    passthru.updateScript = _experimental-update-script-combinators.sequence [
+      (nix-update-script {
+        extraArgs = [
+          "--subpackage"
+          "frontend"
+          "--url"
+          "https://github.com/futo-org/Grayjay.Desktop"
+        ];
+      })
+      (finalAttrs.passthru.fetch-deps)
+    ];
+
+    meta = {
+      description = "Cross-platform application to stream and download content from various sources";
+      longDescription = ''
+        Grayjay is a cross-platform application that enables users to
+        stream and download multimedia content from various online sources,
+        most prominently YouTube.
+        It also offers an extensible plugin API to create and import new
+        integrations.
+      '';
+      homepage = "https://grayjay.app/desktop/";
+      license = lib.licenses.sfl;
+      maintainers = with lib.maintainers; [samfundev];
+      platforms = ["x86_64-linux"];
+      mainProgram = "Grayjay";
+    };
+  })

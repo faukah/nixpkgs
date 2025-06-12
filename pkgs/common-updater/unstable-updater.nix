@@ -6,13 +6,11 @@
   nix,
   common-updater-scripts,
 }:
-
 # This is an updater for unstable packages that should always use the latest
 # commit.
 # To use this updater, add the following to your package set:
 # passthru.updateScript = unstableGitUpdater { };
 # relevant attributes can be passed as below:
-
 {
   url ? null, # The git url, if empty it will be set to src.gitRepoUrl
   branch ? null,
@@ -22,12 +20,9 @@
   tagConverter ? null, # A command to convert more complex tag formats. It receives the git tag via stdin and should convert it into x.y.z format to stdout
   shallowClone ? true,
 }:
-
 assert lib.asserts.assertMsg (
   tagPrefix == null || tagConverter == null
-) "Can only use either tagPrefix or tagConverter!";
-
-let
+) "Can only use either tagPrefix or tagConverter!"; let
   updateScript = writeShellApplication {
     name = "unstable-update-script";
     runtimeInputs = [
@@ -160,25 +155,24 @@ let
           --rev="$commit_sha"
     '';
   };
-
 in
-[
-  (lib.getExe updateScript)
-  "--url=${builtins.toString url}"
-  "--tag-format=${tagFormat}"
-]
-++ lib.optionals (branch != null) [
-  "--branch=${branch}"
-]
-++ lib.optionals (tagPrefix != null) [
-  "--tag-prefix=${tagPrefix}"
-]
-++ lib.optionals (tagConverter != null) [
-  "--tag-converter=${tagConverter}"
-]
-++ lib.optionals hardcodeZeroVersion [
-  "--hardcode-zero-version"
-]
-++ lib.optionals shallowClone [
-  "--shallow-clone"
-]
+  [
+    (lib.getExe updateScript)
+    "--url=${builtins.toString url}"
+    "--tag-format=${tagFormat}"
+  ]
+  ++ lib.optionals (branch != null) [
+    "--branch=${branch}"
+  ]
+  ++ lib.optionals (tagPrefix != null) [
+    "--tag-prefix=${tagPrefix}"
+  ]
+  ++ lib.optionals (tagConverter != null) [
+    "--tag-converter=${tagConverter}"
+  ]
+  ++ lib.optionals hardcodeZeroVersion [
+    "--hardcode-zero-version"
+  ]
+  ++ lib.optionals shallowClone [
+    "--shallow-clone"
+  ]

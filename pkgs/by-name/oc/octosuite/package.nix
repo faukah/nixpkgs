@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "octosuite";
   version = "3.1.1";
@@ -46,6 +45,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/bellingcat/octosuite";
     changelog = "https://github.com/bellingcat/octosuite/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

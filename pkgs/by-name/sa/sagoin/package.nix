@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sagoin";
   version = "0.2.4";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-JM7m/VdaXpUlPOi+N7gue6mlQuxvRFU6++SaSq45Ntg=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage artifacts/sagoin.1
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/figsoda/sagoin";
     changelog = "https://github.com/figsoda/sagoin/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "sagoin";
   };
 }

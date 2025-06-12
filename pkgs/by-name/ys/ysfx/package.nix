@@ -13,7 +13,6 @@
   libXrandr,
   libglvnd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ysfx";
   version = "0-unstable-2022-07-31";
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
     description = "Hosting library for JSFX";
     homepage = "https://github.com/jpcima/ysfx";
     license = licenses.asl20;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
 }

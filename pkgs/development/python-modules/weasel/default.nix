@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   cloudpathlib,
   confection,
@@ -16,11 +14,9 @@
   srsly,
   typer,
   wasabi,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "weasel";
   version = "0.4.1";
@@ -39,7 +35,7 @@ buildPythonPackage rec {
     "typer"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cloudpathlib
@@ -53,7 +49,7 @@ buildPythonPackage rec {
     wasabi
   ];
 
-  pythonImportsCheck = [ "weasel" ];
+  pythonImportsCheck = ["weasel"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -71,7 +67,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/explosion/weasel/";
     changelog = "https://github.com/explosion/weasel/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "weasel";
   };
 }

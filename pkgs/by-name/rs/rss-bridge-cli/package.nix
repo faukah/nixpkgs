@@ -3,29 +3,26 @@
   writeShellScriptBin,
   rss-bridge,
   php,
-}:
-
-let
+}: let
   phpWithExts = (
     php.withExtensions (
-      { all, ... }:
-      with all;
-      [
-        curl
-        filter
-        iconv
-        mbstring
-        openssl
-        simplexml
-        sqlite3
-      ]
+      {all, ...}:
+        with all; [
+          curl
+          filter
+          iconv
+          mbstring
+          openssl
+          simplexml
+          sqlite3
+        ]
     )
   );
   phpBin = "${phpWithExts}/bin/php";
 in
-(writeShellScriptBin "rss-bridge-cli" ''
-  ${phpBin} ${rss-bridge}/index.php "$@"
-'').overrideAttrs
+  (writeShellScriptBin "rss-bridge-cli" ''
+    ${phpBin} ${rss-bridge}/index.php "$@"
+  '').overrideAttrs
   (oldAttrs: {
     version = rss-bridge.version;
 
@@ -33,7 +30,7 @@ in
       description = "Command-line interface for RSS-Bridge";
       homepage = "https://github.com/RSS-Bridge/rss-bridge";
       license = licenses.unlicense;
-      maintainers = with maintainers; [ ymeister ];
+      maintainers = with maintainers; [ymeister];
       mainProgram = "rss-bridge-cli";
     };
   })

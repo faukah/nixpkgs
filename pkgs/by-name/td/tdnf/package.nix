@@ -13,7 +13,6 @@
   rpm,
   sqlite,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tdnf";
   version = "3.5.9";
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   # error: format not a string literal and no format arguments [-Werror=format-security]
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -82,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
       gpl2
       lgpl21
     ];
-    maintainers = [ lib.maintainers.malt3 ];
+    maintainers = [lib.maintainers.malt3];
     mainProgram = "tdnf";
     # rpm only supports linux
     platforms = lib.platforms.linux;

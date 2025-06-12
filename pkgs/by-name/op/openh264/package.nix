@@ -10,7 +10,6 @@
   stdenv,
   windows,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openh264";
   version = "2.6.0";
@@ -57,8 +56,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.openh264.org";
     description = "Codec library which supports H.264 encoding and decoding";
     changelog = "https://github.com/cisco/openh264/releases/tag/${finalAttrs.src.rev}";
-    license = with lib.licenses; [ bsd2 ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [bsd2];
+    maintainers = with lib.maintainers; [];
     # See meson.build
     platforms =
       lib.platforms.windows
@@ -68,6 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
         ++ lib.platforms.aarch64
         ++ lib.platforms.loongarch64
         ++ lib.platforms.riscv64
-      ) lib.platforms.unix;
+      )
+      lib.platforms.unix;
   };
 })

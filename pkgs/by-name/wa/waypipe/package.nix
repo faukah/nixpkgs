@@ -39,7 +39,7 @@ llvmPackages.stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -70,7 +70,7 @@ llvmPackages.stdenv.mkDerivation (finalAttrs: {
     vulkan-loader
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Network proxy for Wayland clients (applications)";
@@ -83,7 +83,7 @@ llvmPackages.stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.freedesktop.org/mstoeckl/waypipe/-/releases#v${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ mic92 ];
+    maintainers = with lib.maintainers; [mic92];
     mainProgram = "waypipe";
   };
 })

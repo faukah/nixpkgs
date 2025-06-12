@@ -6,7 +6,6 @@
   makeWrapper,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mfcj470dw-cupswrapper";
   version = "3.0.0-1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "b88f9b592723a00c024129560367f40a560ca3cba06fd99512ab368dd6855853";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     bash # shebang
   ];
@@ -65,6 +64,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     downloadPage = "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj470dw_us_eu_as&os=128";
-    maintainers = [ lib.maintainers.yochai ];
+    maintainers = [lib.maintainers.yochai];
   };
 }

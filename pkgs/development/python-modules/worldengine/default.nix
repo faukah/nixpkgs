@@ -13,7 +13,6 @@
   isPy27,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "worldengine";
   version = "0.19.0";
@@ -63,15 +62,15 @@ buildPythonPackage rec {
   '';
 
   doCheck = !isPy27; # google namespace clash
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTests = [ "TestSerialization" ];
+  disabledTests = ["TestSerialization"];
 
   meta = with lib; {
     broken = true;
     homepage = "https://github.com/mindwerks/worldengine";
     description = "World generator using simulation of plates, rain shadow, erosion, etc";
     license = licenses.mit;
-    maintainers = with maintainers; [ rardiol ];
+    maintainers = with maintainers; [rardiol];
   };
 }

@@ -4,7 +4,6 @@
   buildHomeAssistantComponent,
   ulid-transform,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "basnijholt";
   domain = "adaptive_lighting";
@@ -25,7 +24,7 @@ buildHomeAssistantComponent rec {
     changelog = "https://github.com/basnijholt/adaptive-lighting/releases/tag/${version}";
     description = "Home Assistant Adaptive Lighting Plugin - Sun Synchronized Lighting";
     homepage = "https://github.com/basnijholt/adaptive-lighting";
-    maintainers = with maintainers; [ mindstorms6 ];
+    maintainers = with maintainers; [mindstorms6];
     license = licenses.asl20;
   };
 }

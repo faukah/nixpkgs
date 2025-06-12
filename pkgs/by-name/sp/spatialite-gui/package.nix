@@ -24,7 +24,6 @@
   xz,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spatialite-gui";
   version = "2.1.0-beta1";
@@ -34,10 +33,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-ukjZbfGM68P/I/aXlyB64VgszmL0WWtpuuMAyjwj2zM=";
   };
 
-  nativeBuildInputs = [
-    libpq.pg_config
-    pkg-config
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs =
+    [
+      libpq.pg_config
+      pkg-config
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
   buildInputs = [
     curl
@@ -72,7 +73,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gaia-gis.it/fossil/spatialite_gui";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    teams = [ teams.geospatial ];
+    teams = [teams.geospatial];
     mainProgram = "spatialite_gui";
   };
 }

@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchurl,
-
   # nativeBuildInputs
   zstd,
   pkg-config,
@@ -11,7 +10,6 @@
   rustc,
   rustPlatform,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "decasify";
   version = "0.10.1";
@@ -24,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
     dontConfigure = true;
-    nativeBuildInputs = [ zstd ];
+    nativeBuildInputs = [zstd];
     hash = "sha256-rbFacCK/HU2D7QbVfMgKr9VevfutBJJtbXbKodTmkrc=";
   };
 

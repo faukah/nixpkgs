@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     literalExpression
     mkEnableOption
     mkIf
@@ -14,7 +13,8 @@ let
     mkPackageOption
     ;
 
-  inherit (lib.types)
+  inherit
+    (lib.types)
     attrsOf
     package
     port
@@ -22,14 +22,12 @@ let
     ;
 
   cfg = config.services.crabfit;
-in
-
-{
+in {
   options.services.crabfit = {
     enable = mkEnableOption "Crab Fit, a meeting scheduler based on peoples' availability";
 
     frontend = {
-      package = mkPackageOption pkgs "crabfit-frontend" { };
+      package = mkPackageOption pkgs "crabfit-frontend" {};
 
       finalDrv = mkOption {
         readOnly = true;
@@ -53,7 +51,7 @@ in
 
       environment = mkOption {
         type = attrsOf str;
-        default = { };
+        default = {};
         description = ''
           Environment variables for the crabfit frontend.
         '';
@@ -76,11 +74,11 @@ in
     };
 
     api = {
-      package = mkPackageOption pkgs "crabfit-api" { };
+      package = mkPackageOption pkgs "crabfit-api" {};
 
       environment = mkOption {
         type = attrsOf str;
-        default = { };
+        default = {};
         description = ''
           Environment variables for the crabfit API.
         '';
@@ -108,8 +106,8 @@ in
       crabfit-api = {
         description = "The API for Crab Fit.";
 
-        wantedBy = [ "multi-user.target" ];
-        after = [ "postgresql.service" ];
+        wantedBy = ["multi-user.target"];
+        after = ["postgresql.service"];
 
         serviceConfig = {
           # TODO: harden
@@ -117,17 +115,19 @@ in
           User = "crabfit";
         };
 
-        environment = {
-          API_LISTEN = "127.0.0.1:${builtins.toString cfg.api.port}";
-          DATABASE_URL = "postgres:///crabfit?host=/run/postgresql";
-          FRONTEND_URL = "https://${cfg.frontend.host}";
-        } // cfg.api.environment;
+        environment =
+          {
+            API_LISTEN = "127.0.0.1:${builtins.toString cfg.api.port}";
+            DATABASE_URL = "postgres:///crabfit?host=/run/postgresql";
+            FRONTEND_URL = "https://${cfg.frontend.host}";
+          }
+          // cfg.api.environment;
       };
 
       crabfit-frontend = {
         description = "The frontend for Crab Fit.";
 
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = {
           # TODO: harden
@@ -137,15 +137,17 @@ in
           WorkingDirectory = cfg.frontend.finalDrv;
         };
 
-        environment = {
-          NEXT_PUBLIC_API_URL = "https://${cfg.api.host}";
-          PORT = builtins.toString cfg.frontend.port;
-        } // cfg.frontend.environment;
+        environment =
+          {
+            NEXT_PUBLIC_API_URL = "https://${cfg.api.host}";
+            PORT = builtins.toString cfg.frontend.port;
+          }
+          // cfg.frontend.environment;
       };
     };
 
     users = {
-      groups.crabfit = { };
+      groups.crabfit = {};
 
       users.crabfit = {
         group = "crabfit";
@@ -157,7 +159,7 @@ in
       postgresql = {
         enable = true;
 
-        ensureDatabases = [ "crabfit" ];
+        ensureDatabases = ["crabfit"];
 
         ensureUsers = [
           {

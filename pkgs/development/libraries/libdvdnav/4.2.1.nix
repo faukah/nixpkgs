@@ -5,7 +5,6 @@
   pkg-config,
   libdvdread,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdvdnav";
   version = "4.2.1";
@@ -15,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "7fca272ecc3241b6de41bbbf7ac9a303ba25cb9e0c82aa23901d3104887f2372";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libdvdread ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libdvdread];
 
   # The upstream supports two configuration workflow:
   # one is to generate ./configure via `autoconf`,
@@ -48,9 +47,9 @@ stdenv.mkDerivation rec {
     description = "Library that implements DVD navigation features such as DVD menus";
     mainProgram = "dvdnav-config";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.wmertens ];
+    maintainers = [lib.maintainers.wmertens];
     platforms = lib.platforms.linux;
   };
 
-  passthru = { inherit libdvdread; };
+  passthru = {inherit libdvdread;};
 }

@@ -12,7 +12,6 @@
   withPython ? false,
   python3Packages,
 }:
-
 stdenv.mkDerivation {
   pname = "kmsxx";
   version = "2021-07-26";
@@ -26,11 +25,13 @@ stdenv.mkDerivation {
   };
 
   # Didn't detect pybind11 without cmake
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ] ++ lib.optionals withPython [ cmake ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+    ]
+    ++ lib.optionals withPython [cmake];
   buildInputs =
     [
       libdrm
@@ -38,8 +39,7 @@ stdenv.mkDerivation {
       libevdev
     ]
     ++ lib.optionals withPython (
-      with python3Packages;
-      [
+      with python3Packages; [
         python
         pybind11
       ]
@@ -53,7 +53,7 @@ stdenv.mkDerivation {
     description = "C++11 library, utilities and python bindings for Linux kernel mode setting";
     homepage = "https://github.com/tomba/kmsxx";
     license = licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

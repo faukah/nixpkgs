@@ -9,7 +9,6 @@
   elfutils,
   libdwarf,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ctypes.sh";
   version = "1.2";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     mainProgram = "ctypes.sh";
     homepage = "https://github.com/taviso/ctypes.sh";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

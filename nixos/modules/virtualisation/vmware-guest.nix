@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe'
     literalExpression
     maintainers
@@ -19,14 +19,13 @@ let
     ;
   cfg = config.virtualisation.vmware.guest;
   xf86inputvmmouse = pkgs.xorg.xf86inputvmmouse;
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule [ "services" "vmwareGuest" ] [ "virtualisation" "vmware" "guest" ])
+    (mkRenamedOptionModule ["services" "vmwareGuest"] ["virtualisation" "vmware" "guest"])
   ];
 
   meta = {
-    maintainers = [ maintainers.kjeremy ];
+    maintainers = [maintainers.kjeremy];
   };
 
   options.virtualisation.vmware.guest = {
@@ -40,7 +39,10 @@ in
 
     package = mkOption {
       type = types.package;
-      default = if cfg.headless then pkgs.open-vm-tools-headless else pkgs.open-vm-tools;
+      default =
+        if cfg.headless
+        then pkgs.open-vm-tools-headless
+        else pkgs.open-vm-tools;
       defaultText = literalExpression "if config.virtualisation.vmware.headless then pkgs.open-vm-tools-headless else pkgs.open-vm-tools;";
       example = literalExpression "pkgs.open-vm-tools";
       description = "Package providing open-vm-tools.";
@@ -55,15 +57,15 @@ in
       }
     ];
 
-    boot.initrd.availableKernelModules = [ "mptspi" ];
-    boot.initrd.kernelModules = optionals pkgs.stdenv.hostPlatform.isx86 [ "vmw_pvscsi" ];
+    boot.initrd.availableKernelModules = ["mptspi"];
+    boot.initrd.kernelModules = optionals pkgs.stdenv.hostPlatform.isx86 ["vmw_pvscsi"];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.vmware = {
       description = "VMWare Guest Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "display-manager.service" ];
+      wantedBy = ["multi-user.target"];
+      after = ["display-manager.service"];
       unitConfig.ConditionVirtualization = "vmware";
       serviceConfig.ExecStart = getExe' cfg.package "vmtoolsd";
     };
@@ -80,7 +82,7 @@ in
         where = "/run/vmblock-fuse";
         type = "fuse";
         options = "subtype=vmware-vmblock,default_permissions,allow_other";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
       }
     ];
 
@@ -94,7 +96,7 @@ in
     environment.etc.vmware-tools.source = "${cfg.package}/etc/vmware-tools/*";
 
     services.xserver = mkIf (!cfg.headless) {
-      modules = optionals pkgs.stdenv.hostPlatform.isx86 [ xf86inputvmmouse ];
+      modules = optionals pkgs.stdenv.hostPlatform.isx86 [xf86inputvmmouse];
 
       config = optionalString (pkgs.stdenv.hostPlatform.isx86) ''
         Section "InputClass"
@@ -110,6 +112,6 @@ in
       '';
     };
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
   };
 }

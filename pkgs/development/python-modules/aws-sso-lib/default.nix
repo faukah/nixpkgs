@@ -6,7 +6,6 @@
   aws-error-utils,
   boto3,
 }:
-
 buildPythonPackage rec {
   pname = "aws-sso-lib";
   version = "1.14.0";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Library to make AWS SSO easier";
     homepage = "https://pypi.org/project/aws-sso-lib/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ cterence ];
+    maintainers = with lib.maintainers; [cterence];
   };
 }

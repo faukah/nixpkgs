@@ -6,7 +6,6 @@
   fetchpatch,
   lksctp-tools,
 }:
-
 stdenv.mkDerivation rec {
   pname = "iperf";
   version = "3.19";
@@ -16,8 +15,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-BAFh2hVV7HQRqdgRkQSYMO83cX1CmpTubPCEJhjg4pw=";
   };
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.hostPlatform.isLinux [ lksctp-tools ];
-  configureFlags = [ "--with-openssl=${openssl.dev}" ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.hostPlatform.isLinux [lksctp-tools];
+  configureFlags = ["--with-openssl=${openssl.dev}"];
 
   outputs = [
     "out"
@@ -43,6 +42,6 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     license = lib.licenses.bsd3;
     mainProgram = "iperf3";
-    maintainers = with lib.maintainers; [ fpletz ];
+    maintainers = with lib.maintainers; [fpletz];
   };
 }

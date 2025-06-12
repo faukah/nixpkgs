@@ -50,7 +50,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/komac";
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
@@ -68,7 +68,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       command = "komac --version";
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

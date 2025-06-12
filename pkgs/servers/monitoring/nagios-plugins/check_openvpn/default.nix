@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "check-openvpn";
   version = "0.0.1";
@@ -22,6 +21,6 @@ python3Packages.buildPythonApplication rec {
     description = "Nagios/icinga/sensu check plugin for OpenVPN";
     license = lib.licenses.mit;
     mainProgram = "check_openvpn";
-    maintainers = with lib.maintainers; [ peterhoeg ];
+    maintainers = with lib.maintainers; [peterhoeg];
   };
 }

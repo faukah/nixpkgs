@@ -5,7 +5,6 @@
   fetchCrate,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "preserves-tools";
   version = "4.996.1";
@@ -18,7 +17,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-m07/fNuF78+PtG/trXZq9gllmKTt0w5BSMsq2UTKBbY=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd preserves-tool \
       --bash <($out/bin/preserves-tool completions bash) \
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     description = "Command-line utilities for working with Preserves documents";
     homepage = "https://preserves.dev/doc/preserves-tool.html";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     mainProgram = "preserves-tool";
   };
 }

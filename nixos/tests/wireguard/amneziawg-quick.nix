@@ -5,15 +5,14 @@ import ../make-test-python.nix (
     kernelPackages ? null,
     nftables ? false,
     ...
-  }:
-  let
+  }: let
     wg-snakeoil-keys = import ./snakeoil-keys.nix;
-    peer = import ./make-peer.nix { inherit lib; };
+    peer = import ./make-peer.nix {inherit lib;};
     commonConfig = {
       boot.kernelPackages = lib.mkIf (kernelPackages != null) kernelPackages;
       networking.nftables.enable = nftables;
       # Make sure iptables doesn't work with nftables enabled
-      boot.blacklistedKernelModules = lib.mkIf nftables [ "nft_compat" ];
+      boot.blacklistedKernelModules = lib.mkIf nftables ["nft_compat"];
     };
     extraOptions = {
       Jc = 5;
@@ -22,8 +21,7 @@ import ../make-test-python.nix (
       S1 = 60;
       S2 = 90;
     };
-  in
-  {
+  in {
     name = "amneziawg-quick";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -39,7 +37,7 @@ import ../make-test-python.nix (
         extraConfig = lib.mkMerge [
           commonConfig
           {
-            networking.firewall.allowedUDPPorts = [ 23542 ];
+            networking.firewall.allowedUDPPorts = [23542];
             networking.wg-quick.interfaces.wg0 = {
               type = "amneziawg";
 

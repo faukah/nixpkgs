@@ -6,7 +6,6 @@
   pcre,
   gnutls,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tintin";
   version = "2.02.42";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "Free MUD client for macOS, Linux and Windows";
     homepage = "https://tintin.mudhalla.net/index.php";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ abathur ];
+    maintainers = with maintainers; [abathur];
     mainProgram = "tt++";
     platforms = platforms.unix;
   };

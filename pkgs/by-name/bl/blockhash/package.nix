@@ -7,7 +7,6 @@
   imagemagick,
   wafHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "blockhash";
   version = "0.3.3";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     pkg-config
     wafHook
   ];
-  buildInputs = [ imagemagick ];
+  buildInputs = [imagemagick];
 
   strictDeps = true;
 
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
       Fan Gu and Xiamu Niu.
     '';
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     mainProgram = "blockhash";
   };

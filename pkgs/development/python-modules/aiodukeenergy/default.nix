@@ -10,7 +10,6 @@
   pytestCheckHook,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aiodukeenergy";
   version = "0.3.0";
@@ -23,14 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-BYDC2j2s6gg8/owTDdijqmReUSqDYWqHXf8BUzYn+sI=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
     yarl
   ];
 
-  pythonImportsCheck = [ "aiodukeenergy" ];
+  pythonImportsCheck = ["aiodukeenergy"];
 
   nativeCheckInputs = [
     aioresponses
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Asyncio Duke Energy";
     homepage = "https://github.com/hunterjm/aiodukeenergy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

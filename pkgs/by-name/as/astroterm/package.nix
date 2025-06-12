@@ -11,7 +11,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "astroterm";
   version = "1.0.7";
@@ -50,13 +49,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Celestial viewer for the terminal, written in C";
     homepage = "https://github.com/da-luce/astroterm/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.da-luce ];
+    maintainers = [lib.maintainers.da-luce];
     mainProgram = "astroterm";
     platforms = lib.platforms.unix;
   };

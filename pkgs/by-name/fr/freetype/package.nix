@@ -13,12 +13,10 @@
   libpng,
   gnumake,
   glib,
-
   # FreeType supports LCD filtering (colloquially referred to as sub-pixel rendering).
   # LCD filtering is also known as ClearType and covered by several Microsoft patents.
   # This option allows it to be disabled. See http://www.freetype.org/patents.html.
   useEncumberedCode ? true,
-
   # for passthru.tests
   cairo,
   fontforge,
@@ -36,15 +34,13 @@
   testers,
   __flattenIncludeHackHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "freetype";
   version = "2.13.3";
 
-  src =
-    let
-      inherit (finalAttrs) pname version;
-    in
+  src = let
+    inherit (finalAttrs) pname version;
+  in
     fetchurl {
       url = "mirror://savannah/${pname}/${pname}-${version}.tar.xz";
       sha256 = "sha256-BVA1BmbUJ8dNrrhdWse7NTrLpfdpVjlZlTEanG8GMok=";
@@ -68,9 +64,11 @@ stdenv.mkDerivation (finalAttrs: {
     # FreeType requires GNU Make, which is not part of stdenv on FreeBSD.
     ++ lib.optional (!stdenv.hostPlatform.isLinux) gnumake;
 
-  patches = [
-    ./enable-table-validation.patch
-  ] ++ lib.optional useEncumberedCode ./enable-subpixel-rendering.patch;
+  patches =
+    [
+      ./enable-table-validation.patch
+    ]
+    ++ lib.optional useEncumberedCode ./enable-subpixel-rendering.patch;
 
   outputs = [
     "out"
@@ -138,11 +136,11 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://www.freetype.org/";
     changelog = "https://gitlab.freedesktop.org/freetype/freetype/-/raw/VER-${
-      builtins.replaceStrings [ "." ] [ "-" ] finalAttrs.version
+      builtins.replaceStrings ["."] ["-"] finalAttrs.version
     }/docs/CHANGES";
     license = licenses.gpl2Plus; # or the FreeType License (BSD + advertising clause)
     platforms = platforms.all;
-    pkgConfigModules = [ "freetype2" ];
-    maintainers = with maintainers; [ ttuegel ];
+    pkgConfigModules = ["freetype2"];
+    maintainers = with maintainers; [ttuegel];
   };
 })

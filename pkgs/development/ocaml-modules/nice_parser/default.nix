@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdio,
 }:
-
 buildDunePackage rec {
   pname = "nice_parser";
   version = "1.0.0";
@@ -25,6 +24,6 @@ buildDunePackage rec {
     inherit (src.meta) homepage;
     description = "Nice parsers without the boilerplate";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.tiferrei ];
+    maintainers = [lib.maintainers.tiferrei];
   };
 }

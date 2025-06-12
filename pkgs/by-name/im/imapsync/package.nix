@@ -6,7 +6,6 @@
   perlPackages,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "imapsync";
   version = "2.290";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     wrapProgram $out/bin/imapsync --set PERL5LIB $PERL5LIB
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = with perlPackages; [
     Appcpanminus

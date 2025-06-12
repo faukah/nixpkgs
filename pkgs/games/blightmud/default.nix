@@ -31,32 +31,31 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ openssl ]
-    ++ lib.optionals (withTTS && stdenv.hostPlatform.isLinux) [ speechd-minimal ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ alsa-lib ];
+    [openssl]
+    ++ lib.optionals (withTTS && stdenv.hostPlatform.isLinux) [speechd-minimal]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [alsa-lib];
 
-  checkFlags =
-    let
-      # Most of Blightmud's unit tests pass without trouble in the isolated
-      # Nixpkgs build env. The following tests need to be skipped.
-      skipList = [
-        "test_connect"
-        "test_gmcp_negotiation"
-        "test_ttype_negotiation"
-        "test_reconnect"
-        "test_is_connected"
-        "test_mud"
-        "test_server"
-        "test_lua_script"
-        "timer_test"
-        "validate_assertion_fail"
-        "regex_smoke_test"
-        "test_tls_init_verify_err"
-        "test_tls_init_no_verify"
-        "test_tls_init_verify"
-      ];
-      skipFlag = test: "--skip " + test;
-    in
+  checkFlags = let
+    # Most of Blightmud's unit tests pass without trouble in the isolated
+    # Nixpkgs build env. The following tests need to be skipped.
+    skipList = [
+      "test_connect"
+      "test_gmcp_negotiation"
+      "test_ttype_negotiation"
+      "test_reconnect"
+      "test_is_connected"
+      "test_mud"
+      "test_server"
+      "test_lua_script"
+      "timer_test"
+      "validate_assertion_fail"
+      "regex_smoke_test"
+      "test_tls_init_verify_err"
+      "test_tls_init_no_verify"
+      "test_tls_init_verify"
+    ];
+    skipFlag = test: "--skip " + test;
+  in
     builtins.concatStringsSep " " (builtins.map skipFlag skipList);
 
   meta = with lib; {
@@ -73,7 +72,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/Blightmud/Blightmud";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ cpu ];
+    maintainers = with maintainers; [cpu];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

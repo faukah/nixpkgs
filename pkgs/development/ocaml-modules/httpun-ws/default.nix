@@ -10,7 +10,6 @@
   httpun,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "httpun-ws";
   version = "0.2.0";
@@ -30,12 +29,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   meta = {
     description = "Websocket implementation for httpun";
     license = lib.licenses.bsd3;
     homepage = "https://github.com/anmonteiro/httpun-ws";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

@@ -8,8 +8,7 @@
   zsh,
   makeBinaryWrapper,
   stdenv,
-}:
-let
+}: let
   inherit (idris2Packages) idris2Api buildIdris;
   toml = buildIdris {
     ipkgName = "toml";
@@ -20,7 +19,7 @@ let
       rev = "b4f5a4bd874fa32f20d02311a62a1910dc48123f";
       hash = "sha256-+bqfCE6m0aJ+S65urT+zQLuZUtUkC1qcuSsefML/fAE=";
     };
-    idrisLibraries = [ ];
+    idrisLibraries = [];
   };
   filepath = buildIdris {
     ipkgName = "filepath";
@@ -31,7 +30,7 @@ let
       rev = "eac02d51b631633f32330c788bcebeb24221fa09";
       hash = "sha256-noylxQvT2h50H0xmAiwe/cI6vz5gkbOhSD7mXuhJGfU=";
     };
-    idrisLibraries = [ ];
+    idrisLibraries = [];
   };
   packPkg = buildIdris {
     ipkgName = "pack";
@@ -48,26 +47,28 @@ let
       filepath
     ];
 
-    nativeBuildInputs = [ makeBinaryWrapper ];
+    nativeBuildInputs = [makeBinaryWrapper];
 
-    buildInputs = [
-      gmp
-      clang
-      chez
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ zsh ];
+    buildInputs =
+      [
+        gmp
+        clang
+        chez
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [zsh];
 
     postInstall = ''
       wrapProgram $out/bin/pack \
-        --suffix C_INCLUDE_PATH : ${lib.makeIncludePath [ gmp ]} \
+        --suffix C_INCLUDE_PATH : ${lib.makeIncludePath [gmp]} \
         --suffix PATH : ${
-          lib.makeBinPath (
-            [
-              clang
-              chez
-            ]
-            ++ lib.optionals stdenv.hostPlatform.isDarwin [ zsh ]
-          )
-        }
+        lib.makeBinPath (
+          [
+            clang
+            chez
+          ]
+          ++ lib.optionals stdenv.hostPlatform.isDarwin [zsh]
+        )
+      }
     '';
 
     meta = {
@@ -75,9 +76,9 @@ let
       mainProgram = "pack";
       homepage = "https://github.com/stefan-hoeck/idris2-pack";
       license = lib.licenses.bsd3;
-      maintainers = with lib.maintainers; [ mattpolzin ];
+      maintainers = with lib.maintainers; [mattpolzin];
       inherit (idris2Packages.idris2.meta) platforms;
     };
   };
 in
-packPkg.executable
+  packPkg.executable

@@ -3,10 +3,10 @@
   resto,
   uri,
 }:
-
 buildDunePackage {
   pname = "resto-acl";
-  inherit (resto)
+  inherit
+    (resto)
     src
     version
     meta

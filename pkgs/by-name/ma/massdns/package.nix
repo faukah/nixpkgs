@@ -19,16 +19,19 @@ stdenv.mkDerivation rec {
     "PREFIX=$(out)"
     "PROJECT_FLAGS=-DMASSDNS_REVISION='\"v${version}\"'"
   ];
-  buildFlags = if stdenv.hostPlatform.isLinux then "all" else "nolinux";
+  buildFlags =
+    if stdenv.hostPlatform.isLinux
+    then "all"
+    else "nolinux";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Resolve large amounts of domain names";
     homepage = "https://github.com/blechschmidt/massdns";
     changelog = "https://github.com/blechschmidt/massdns/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ geoffreyfrogeye ];
+    maintainers = with lib.maintainers; [geoffreyfrogeye];
     mainProgram = "massdns";
     platforms = lib.platforms.all;
     # error: use of undeclared identifier 'MSG_NOSIGNAL'

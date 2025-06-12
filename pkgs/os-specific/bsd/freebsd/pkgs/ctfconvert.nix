@@ -6,7 +6,6 @@
   zlib,
   libspl,
 }:
-
 mkDerivation {
   path = "cddl/usr.bin/ctfconvert";
   extraPaths = [
@@ -25,11 +24,13 @@ mkDerivation {
     "MK_TESTS=no"
   ];
 
-  buildInputs = compatIfNeeded ++ [
-    libdwarf
-    zlib
-    libspl
-  ];
+  buildInputs =
+    compatIfNeeded
+    ++ [
+      libdwarf
+      zlib
+      libspl
+    ];
 
   meta.license = lib.licenses.cddl;
 }

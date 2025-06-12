@@ -4,10 +4,11 @@
   writeScript,
   cairo,
   fribidi,
+}: {
+  version,
+  src,
+  ...
 }:
-
-{ version, src, ... }:
-
 stdenv.mkDerivation rec {
   pname = "handy-window";
   inherit version src;

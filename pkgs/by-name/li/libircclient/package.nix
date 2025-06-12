@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.10";
   pname = "libircclient";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  configureFlags = [ "--enable-shared" ];
+  configureFlags = ["--enable-shared"];
 
   postPatch = ''
     substituteInPlace src/Makefile.in \
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "Small but extremely powerful library which implements the client IRC protocol";
     homepage = "http://www.ulduzsoft.com/libircclient/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
     platforms = platforms.linux;
   };
 }

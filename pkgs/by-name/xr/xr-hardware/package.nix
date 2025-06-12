@@ -22,13 +22,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installTargets = "install_package";
   installFlags = "DESTDIR=${placeholder "out"}";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Hardware description for XR devices";
     homepage = "https://gitlab.freedesktop.org/monado/utilities/xr-hardware";
     license = licenses.boost;
-    maintainers = with maintainers; [ Scrumplex ];
+    maintainers = with maintainers; [Scrumplex];
     platforms = platforms.linux;
   };
 })

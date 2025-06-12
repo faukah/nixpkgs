@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "fira-code-symbols";
   version = "20160811";
@@ -29,7 +28,7 @@ stdenvNoCC.mkDerivation {
       See https://github.com/tonsky/FiraCode/issues/211.
     '';
     license = licenses.ofl;
-    maintainers = [ ];
+    maintainers = [];
     homepage = "https://github.com/tonsky/FiraCode/issues/211#issuecomment-239058632";
   };
 }

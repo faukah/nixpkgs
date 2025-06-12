@@ -8,7 +8,6 @@
   pyasn1,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ldap3";
   version = "2.9.1";
@@ -35,15 +34,15 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ dos2unix ];
+  nativeBuildInputs = [dos2unix];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pyasn1 ];
+  dependencies = [pyasn1];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pytestFlagsArray = [ "test/" ];
+  pytestFlagsArray = ["test/"];
 
   preCheck = ''
     export SERVER=NONE
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/cannatag/ldap3";
     description = "Strictly RFC 4510 conforming LDAP V3 pure Python client library";
     license = licenses.lgpl3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

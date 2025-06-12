@@ -6,7 +6,6 @@
   replaceVars,
   pkgs,
 }:
-
 buildPythonPackage rec {
   pname = "streamdeck";
   version = "0.9.6";
@@ -24,13 +23,13 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonImportsCheck = [ "StreamDeck" ];
+  pythonImportsCheck = ["StreamDeck"];
   doCheck = false;
 
   meta = with lib; {
     description = "Python library to control the Elgato Stream Deck";
     homepage = "https://github.com/abcminiuser/python-elgato-streamdeck";
     license = licenses.mit;
-    maintainers = with maintainers; [ majiir ];
+    maintainers = with maintainers; [majiir];
   };
 }

@@ -5,7 +5,6 @@
   nixosTests,
   testers,
 }:
-
 buildNimPackage (finalAttrs: {
   pname = "nimdow";
 
@@ -41,14 +40,13 @@ buildNimPackage (finalAttrs: {
     };
   };
 
-  meta =
-    with lib;
+  meta = with lib;
     finalAttrs.src.meta
     // {
       description = "Nim based tiling window manager";
       platforms = platforms.linux;
-      license = [ licenses.gpl2 ];
-      maintainers = [ maintainers.marcusramberg ];
+      license = [licenses.gpl2];
+      maintainers = [maintainers.marcusramberg];
       mainProgram = "nimdow";
     };
 })

@@ -2,12 +2,10 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   autoreconfHook,
   pkg-config,
   flex,
   bison,
-
   openssl,
   groff,
   libxml2,
@@ -18,7 +16,6 @@
   boost,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "torque";
   version = "6.1.3h2";

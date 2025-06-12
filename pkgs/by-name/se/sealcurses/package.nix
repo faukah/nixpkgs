@@ -7,7 +7,6 @@
   ncurses,
   the-foundation,
 }:
-
 stdenv.mkDerivation {
   pname = "sealcurses";
   version = "0-unstable-2024-12-02"; # No release yet
@@ -30,13 +29,13 @@ stdenv.mkDerivation {
     the-foundation
   ];
 
-  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
+  cmakeFlags = ["-DCMAKE_INSTALL_LIBDIR=lib"];
 
   meta = {
     description = "SDL Emulation and Adaptation Layer for Curses (ncursesw)";
     homepage = "https://git.skyjake.fi/skyjake/sealcurses";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 }

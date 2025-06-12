@@ -21,7 +21,6 @@
   libuuid,
   libva,
 }:
-
 stdenv.mkDerivation rec {
   pname = "moonlight-embedded";
   version = "2.7.0";
@@ -67,7 +66,7 @@ stdenv.mkDerivation rec {
     description = "Open source implementation of NVIDIA's GameStream";
     homepage = "https://github.com/moonlight-stream/moonlight-embedded";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "moonlight";
     platforms = platforms.linux;
   };

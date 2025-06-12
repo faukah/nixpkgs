@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ingress2gateway";
   version = "0.4.0";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Convert Ingress resources to Gateway API resources";
     homepage = "https://github.com/kubernetes-sigs/ingress2gateway";
     license = licenses.asl20;
-    maintainers = with maintainers; [ arikgrahl ];
+    maintainers = with maintainers; [arikgrahl];
     mainProgram = "ingress2gateway";
   };
 }

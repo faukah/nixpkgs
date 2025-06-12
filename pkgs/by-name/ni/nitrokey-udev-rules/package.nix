@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "nitrokey-udev-rules";
   version = "1.1.0";
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-LKpd6O9suAc2+FFgpuyTClEgL/JiZiokH3DV8P3C7Aw=";
   };
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   buildPhase = ''
     runHook preBuild
@@ -33,7 +32,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "udev rules for Nitrokey devices";
     homepage = "https://github.com/Nitrokey/nitrokey-udev-rules";
-    license = [ licenses.cc0 ];
+    license = [licenses.cc0];
     maintainers = with maintainers; [
       frogamic
       robinkrahl

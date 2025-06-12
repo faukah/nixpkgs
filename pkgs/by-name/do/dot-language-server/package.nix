@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "dot-language-server";
   version = "1.2.1";
@@ -24,6 +23,6 @@ buildNpmPackage rec {
     mainProgram = "dot-language-server";
     homepage = "https://github.com/nikeee/dot-language-server";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

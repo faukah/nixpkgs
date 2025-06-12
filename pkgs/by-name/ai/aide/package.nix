@@ -13,7 +13,6 @@
   pkg-config,
   libgcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aide";
   version = "0.19";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     libgcrypt
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   configureFlags = [
     "--with-posix-acl"
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "File and directory integrity checker";
     mainProgram = "aide";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
     platforms = lib.platforms.linux;
   };
 }

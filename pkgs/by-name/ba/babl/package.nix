@@ -10,7 +10,6 @@
   lcms2,
   vala,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "babl";
   version = "0.1.114";
@@ -64,10 +63,10 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "babl";
     homepage = "https://gegl.org/babl/";
     changelog = "https://gitlab.gnome.org/GNOME/babl/-/blob/BABL_${
-      replaceStrings [ "." ] [ "_" ] finalAttrs.version
+      replaceStrings ["."] ["_"] finalAttrs.version
     }/NEWS";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 })

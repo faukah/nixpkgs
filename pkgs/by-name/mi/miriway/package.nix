@@ -12,7 +12,6 @@
   libxkbcommon,
   swaybg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "miriway";
   version = "25.02.1";
@@ -54,8 +53,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
-    providedSessions = [ "miriway" ];
+    updateScript = gitUpdater {rev-prefix = "v";};
+    providedSessions = ["miriway"];
     tests = {
       inherit (nixosTests) miriway;
     };
@@ -88,6 +87,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
     mainProgram = "miriway";
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
   };
 })

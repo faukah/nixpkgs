@@ -10,7 +10,6 @@
   gnugrep,
   common-updater-scripts,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "3.5.1";
   pname = "grandperspective";
@@ -18,14 +17,14 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchurl {
     inherit (finalAttrs) version;
     url = "mirror://sourceforge/grandperspectiv/GrandPerspective-${
-      lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version
+      lib.replaceStrings ["."] ["_"] finalAttrs.version
     }.dmg";
     hash = "sha256-ZD6XUtsbwxHe3MYdCH9I/pYBCGgilPhhbYQChr0wCj4=";
   };
 
   sourceRoot = "GrandPerspective.app";
-  buildInputs = [ undmg ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [undmg];
+  nativeBuildInputs = [makeWrapper];
   # Create a trampoline script in $out/bin/ because a symlink doesn’t work for
   # this app.
   installPhase = ''
@@ -60,12 +59,11 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "grandperspective";
     homepage = "https://grandperspectiv.sourceforge.net";
     license = lib.licenses.gpl2Only;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     maintainers = with lib.maintainers; [
       eliandoran
       DimitarNestorov
     ];
     platforms = lib.platforms.darwin;
   };
-
 })

@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.emacs;
 
   editorScript = pkgs.writeShellScriptBin "emacseditor" ''
@@ -15,10 +13,7 @@ let
       exec ${cfg.package}/bin/emacsclient --alternate-editor ${cfg.package}/bin/emacs "$@"
     fi
   '';
-
-in
-{
-
+in {
   options.services.emacs = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -44,7 +39,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "emacs" { };
+    package = lib.mkPackageOption pkgs "emacs" {};
 
     defaultEditor = lib.mkOption {
       type = lib.types.bool;
@@ -83,7 +78,10 @@ in
         };
       }
       // lib.optionalAttrs cfg.enable {
-        wantedBy = if cfg.startWithGraphical then [ "graphical-session.target" ] else [ "default.target" ];
+        wantedBy =
+          if cfg.startWithGraphical
+          then ["graphical-session.target"]
+          else ["default.target"];
       };
 
     environment.systemPackages = [

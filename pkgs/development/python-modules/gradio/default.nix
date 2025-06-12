@@ -5,17 +5,14 @@
   fetchFromGitHub,
   writeShellScriptBin,
   gradio,
-
   # build-system
   hatchling,
   hatch-requirements-txt,
   hatch-fancy-pypi-readme,
-
   # web assets
   zip,
   nodejs,
   pnpm_9,
-
   # dependencies
   setuptools,
   aiofiles,
@@ -46,11 +43,9 @@
   uvicorn,
   typer,
   tomlkit,
-
   # oauth
   authlib,
   itsdangerous,
-
   # tests
   pytestCheckHook,
   hypothesis,
@@ -70,7 +65,6 @@
   vega-datasets,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "gradio";
   version = "5.29.1";
@@ -333,7 +327,7 @@ buildPythonPackage rec {
     env --ignore-environment $out/bin/gradio environment >/dev/null
   '';
 
-  pythonImportsCheck = [ "gradio" ];
+  pythonImportsCheck = ["gradio"];
 
   # Cyclic dependencies are fun!
   # This is gradio without gradio-client and gradio-pdf
@@ -342,28 +336,28 @@ buildPythonPackage rec {
       gradio-client = null;
       gradio-pdf = null;
     })).overridePythonAttrs
-      (old: {
-        pname = old.pname + "-sans-reverse-dependencies";
-        pythonRemoveDeps = (old.pythonRemoveDeps or [ ]) ++ [ "gradio-client" ];
-        doInstallCheck = false;
-        doCheck = false;
-        preCheck = "";
-        postInstall = ''
-          shopt -s globstar
-          for f in $out/**/*.py; do
-            cp $f "$f"i
-          done
-          shopt -u globstar
-        '';
-        pythonImportsCheck = null;
-        dontCheckRuntimeDeps = true;
-      });
+    (old: {
+      pname = old.pname + "-sans-reverse-dependencies";
+      pythonRemoveDeps = (old.pythonRemoveDeps or []) ++ ["gradio-client"];
+      doInstallCheck = false;
+      doCheck = false;
+      preCheck = "";
+      postInstall = ''
+        shopt -s globstar
+        for f in $out/**/*.py; do
+          cp $f "$f"i
+        done
+        shopt -u globstar
+      '';
+      pythonImportsCheck = null;
+      dontCheckRuntimeDeps = true;
+    });
 
   meta = {
     homepage = "https://www.gradio.app/";
     changelog = "https://github.com/gradio-app/gradio/releases/tag/gradio@${version}";
     description = "Python library for easily interacting with trained machine learning models";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
   };
 }

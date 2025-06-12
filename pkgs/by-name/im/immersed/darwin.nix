@@ -6,7 +6,6 @@
   meta,
   undmg,
 }:
-
 stdenv.mkDerivation {
   inherit
     pname
@@ -15,7 +14,7 @@ stdenv.mkDerivation {
     meta
     ;
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = ".";
 

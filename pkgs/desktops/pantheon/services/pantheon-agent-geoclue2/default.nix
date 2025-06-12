@@ -15,7 +15,6 @@
   granite,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pantheon-agent-geoclue2";
   version = "1.0.6";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -57,6 +56,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/pantheon-agent-geoclue2";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

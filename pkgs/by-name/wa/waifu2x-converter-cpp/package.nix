@@ -11,7 +11,6 @@
   cudaSupport ? config.cudaSupport,
   cudatoolkit ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "waifu2x-converter-cpp";
   version = "5.3.4";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "Improved fork of Waifu2X C++ using OpenCL and OpenCV";
     homepage = "https://github.com/DeadSix27/waifu2x-converter-cpp";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.xzfc ];
+    maintainers = [lib.maintainers.xzfc];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "waifu2x-converter-cpp";
   };

@@ -4,7 +4,6 @@
   fetchzip,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "randtype";
   version = "1.13";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "055xs02qwpgbkn2l57bwghbsrsysg1zhm2asp0byvjpz4sc4w1rd";
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   installPhase = ''
     runHook preInstall
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "semi-random text typer";
     mainProgram = "randtype";
     homepage = "https://benkibbey.wordpress.com/randtype/";
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
     license = licenses.gpl2Only;
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/randtype.x86_64-darwin

@@ -69,6 +69,6 @@ stdenv.mkDerivation rec {
       shadows_withal
       MarchCraft
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

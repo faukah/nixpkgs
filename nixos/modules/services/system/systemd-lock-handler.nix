@@ -3,26 +3,24 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.systemd-lock-handler;
   inherit (lib) mkIf mkEnableOption mkPackageOption;
-in
-{
+in {
   options.services.systemd-lock-handler = {
     enable = mkEnableOption "systemd-lock-handler";
-    package = mkPackageOption pkgs "systemd-lock-handler" { };
+    package = mkPackageOption pkgs "systemd-lock-handler" {};
   };
 
   config = mkIf cfg.enable {
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
     # https://github.com/NixOS/nixpkgs/issues/81138
-    systemd.user.services.systemd-lock-handler.wantedBy = [ "default.target" ];
+    systemd.user.services.systemd-lock-handler.wantedBy = ["default.target"];
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ liff ];
+    maintainers = with lib.maintainers; [liff];
     doc = ./systemd-lock-handler.md;
   };
 }

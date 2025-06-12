@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyflic";
   version = "2.0.4";
@@ -21,12 +20,12 @@ buildPythonPackage rec {
   # Project thas no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyflic" ];
+  pythonImportsCheck = ["pyflic"];
 
   meta = with lib; {
     description = "Python module to interact with Flic buttons";
     homepage = "https://github.com/soldag/pyflic";
-    license = with licenses; [ cc0 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [cc0];
+    maintainers = with maintainers; [fab];
   };
 }

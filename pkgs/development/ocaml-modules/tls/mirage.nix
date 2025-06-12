@@ -10,7 +10,6 @@
   mirage-ptime,
   ptime,
 }:
-
 buildDunePackage {
   pname = "tls-mirage";
   inherit (tls) src version;
@@ -27,7 +26,9 @@ buildDunePackage {
     tls
   ];
 
-  meta = tls.meta // {
-    description = "Transport Layer Security purely in OCaml, MirageOS layer";
-  };
+  meta =
+    tls.meta
+    // {
+      description = "Transport Layer Security purely in OCaml, MirageOS layer";
+    };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   wmctrl,
 }:
-
 stdenv.mkDerivation {
   pname = "urxvt-perl";
   version = "unstable-2015-01-16";
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
     description = "Perl extensions for the rxvt-unicode terminal emulator";
     homepage = "https://github.com/effigies/urxvt-perl";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with platforms; unix;
   };
 }

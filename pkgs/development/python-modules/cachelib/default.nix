@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "cachelib";
   version = "0.13.0";
@@ -31,12 +30,12 @@ buildPythonPackage rec {
     "tests/test_mongodb_cache.py"
   ];
 
-  pythonImportsCheck = [ "cachelib" ];
+  pythonImportsCheck = ["cachelib"];
 
   meta = with lib; {
     homepage = "https://github.com/pallets/cachelib";
     description = "Collection of cache libraries in the same API interface";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

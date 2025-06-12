@@ -8,7 +8,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mod_timestamp";
   version = "0.2.3";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-X49gJ1wQtwQT3GOZkluxdMIY2ZRpM9Y7DZln6Ag9DvM=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     apr
@@ -45,6 +44,6 @@ stdenv.mkDerivation rec {
     changelog = "https://source.redwax.eu/projects/RS/repos/mod_timestamp/browse/ChangeLog";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dirkx ];
+    maintainers = with maintainers; [dirkx];
   };
 }

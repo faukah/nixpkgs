@@ -9,20 +9,18 @@
   runCommandCC,
   coreutils,
   bubblewrap,
-}:
-
-{
+}: {
   pname ? throw "You must provide either `name` or `pname`",
   version ? throw "You must provide either `name` or `version`",
   name ? "${pname}-${version}",
   runScript ? "bash",
-  nativeBuildInputs ? [ ],
+  nativeBuildInputs ? [],
   extraInstallCommands ? "",
   executableName ? args.pname or name,
-  meta ? { },
-  passthru ? { },
+  meta ? {},
+  passthru ? {},
   extraPreBwrapCmds ? "",
-  extraBwrapArgs ? [ ],
+  extraBwrapArgs ? [],
   unshareUser ? false,
   unshareIpc ? false,
   unsharePid ? false,
@@ -33,17 +31,16 @@
   chdirToPwd ? true,
   dieWithParent ? true,
   ...
-}@args:
-
+} @ args:
 # NOTE:
 # `pname` and `version` will throw if they were not provided.
 # Use `name` instead of directly evaluating `pname` or `version`.
 #
 # If you need `pname` or `version` specifically, use `args` instead:
 # e.g. `args.pname or ...`.
-
 let
-  inherit (lib)
+  inherit
+    (lib)
     concatLines
     concatStringsSep
     escapeShellArgs
@@ -59,16 +56,18 @@ let
   inherit (pkgsHostTarget) pkgsi686Linux;
 
   # we don't know which have been supplied, and want to avoid defaulting missing attrs to null. Passed into runCommandLocal
-  nameAttrs = lib.filterAttrs (
-    key: value:
-    builtins.elem key [
-      "name"
-      "pname"
-      "version"
-    ]
-  ) args;
+  nameAttrs =
+    lib.filterAttrs (
+      key: value:
+        builtins.elem key [
+          "name"
+          "pname"
+          "version"
+        ]
+    )
+    args;
 
-  buildFHSEnv = callPackage ./buildFHSEnv.nix { };
+  buildFHSEnv = callPackage ./buildFHSEnv.nix {};
 
   fhsenv = buildFHSEnv (
     removeAttrs args [
@@ -89,53 +88,52 @@ let
     ]
   );
 
-  etcBindEntries =
-    let
-      files = [
-        # NixOS Compatibility
-        "static"
-        "nix" # mainly for nixVersions.git users, but also for access to nix/netrc
-        # Shells
-        "shells"
-        "bashrc"
-        "zshenv"
-        "zshrc"
-        "zinputrc"
-        "zprofile"
-        # Users, Groups, NSS
-        "passwd"
-        "group"
-        "shadow"
-        "hosts"
-        "resolv.conf"
-        "nsswitch.conf"
-        # User profiles
-        "profiles"
-        # Sudo & Su
-        "login.defs"
-        "sudoers"
-        "sudoers.d"
-        # Time
-        "localtime"
-        "zoneinfo"
-        # Other Core Stuff
-        "machine-id"
-        "os-release"
-        # PAM
-        "pam.d"
-        # Fonts
-        "fonts"
-        # ALSA
-        "alsa"
-        "asound.conf"
-        # SSL
-        "ssl/certs"
-        "ca-certificates"
-        "pki"
-        # Custom dconf profiles
-        "dconf"
-      ];
-    in
+  etcBindEntries = let
+    files = [
+      # NixOS Compatibility
+      "static"
+      "nix" # mainly for nixVersions.git users, but also for access to nix/netrc
+      # Shells
+      "shells"
+      "bashrc"
+      "zshenv"
+      "zshrc"
+      "zinputrc"
+      "zprofile"
+      # Users, Groups, NSS
+      "passwd"
+      "group"
+      "shadow"
+      "hosts"
+      "resolv.conf"
+      "nsswitch.conf"
+      # User profiles
+      "profiles"
+      # Sudo & Su
+      "login.defs"
+      "sudoers"
+      "sudoers.d"
+      # Time
+      "localtime"
+      "zoneinfo"
+      # Other Core Stuff
+      "machine-id"
+      "os-release"
+      # PAM
+      "pam.d"
+      # Fonts
+      "fonts"
+      # ALSA
+      "alsa"
+      "asound.conf"
+      # SSL
+      "ssl/certs"
+      "ca-certificates"
+      "pki"
+      # Custom dconf profiles
+      "dconf"
+    ];
+  in
     map (path: "/etc/${path}") files;
 
   # Here's the problem case:
@@ -156,25 +154,21 @@ let
   # have to recompile this every time.
   containerInit =
     runCommandCC "container-init"
-      {
-        buildInputs = [ stdenv.cc.libc.static or null ];
-      }
-      ''
-        $CXX -static -s -o $out ${./container-init.cc}
-      '';
+    {
+      buildInputs = [stdenv.cc.libc.static or null];
+    }
+    ''
+      $CXX -static -s -o $out ${./container-init.cc}
+    '';
 
-  realInit =
-    run:
+  realInit = run:
     writeShellScript "${name}-init" ''
       source /etc/profile
       exec ${run} "$@"
     '';
 
   indentLines = str: concatLines (map (s: "  " + s) (filter (s: s != "") (splitString "\n" str)));
-  bwrapCmd =
-    {
-      initArgs ? "",
-    }:
+  bwrapCmd = {initArgs ? ""}:
     ''
       ignored=(/nix /dev /proc /etc ${optionalString privateTmp "/tmp"})
       ro_mounts=()
@@ -327,17 +321,19 @@ let
     initArgs = ''"$@"'';
   });
 in
-runCommandLocal name
+  runCommandLocal name
   (
     nameAttrs
     // {
       inherit nativeBuildInputs;
 
-      passthru = passthru // {
-        env =
-          runCommandLocal "${name}-shell-env"
+      passthru =
+        passthru
+        // {
+          env =
+            runCommandLocal "${name}-shell-env"
             {
-              shellHook = bwrapCmd { };
+              shellHook = bwrapCmd {};
             }
             ''
               echo >&2 ""
@@ -345,12 +341,14 @@ runCommandLocal name
               echo >&2 ""
               exit 1
             '';
-        inherit args fhsenv;
-      };
+          inherit args fhsenv;
+        };
 
-      meta = {
-        mainProgram = executableName;
-      } // meta;
+      meta =
+        {
+          mainProgram = executableName;
+        }
+        // meta;
     }
   )
   ''

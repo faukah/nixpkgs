@@ -8,7 +8,6 @@
   dotnetCorePackages,
   nixosTests,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "kavita";
   version = "0.8.5.11";
@@ -48,7 +47,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         --subst-var-by webroot "${finalAttrs.frontend}/lib/node_modules/kavita-webui/dist/browser"
     '';
 
-    executables = [ "API" ];
+    executables = ["API"];
 
     projectFile = "API/API.csproj";
     nugetDeps = ./nuget-deps.json;
@@ -63,8 +62,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     sourceRoot = "${finalAttrs.src.name}/UI/Web";
 
     npmBuildScript = "prod";
-    npmFlags = [ "--legacy-peer-deps" ];
-    npmRebuildFlags = [ "--ignore-scripts" ]; # Prevent playwright from trying to install browsers
+    npmFlags = ["--legacy-peer-deps"];
+    npmRebuildFlags = ["--ignore-scripts"]; # Prevent playwright from trying to install browsers
     npmDepsHash = "sha256-9SfiH567+q3Id6/7pqWeX0y934V2YFQ4EWIJ+66smgI=";
   };
 

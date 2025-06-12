@@ -9,7 +9,6 @@
   seaborn,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pycm";
   version = "4.3";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-JX75UEaONL+2n6xePE2hbIEMmnt0RknWNWgpbMwNyhw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     matplotlib
@@ -47,13 +46,13 @@ buildPythonPackage rec {
       --replace-fail '=get_requires()' '=[]'
   '';
 
-  pythonImportsCheck = [ "pycm" ];
+  pythonImportsCheck = ["pycm"];
 
   meta = {
     description = "Multiclass confusion matrix library";
     homepage = "https://pycm.io";
     changelog = "https://github.com/sepandhaghighi/pycm/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

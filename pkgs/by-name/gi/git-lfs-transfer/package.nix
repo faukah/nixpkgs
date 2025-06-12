@@ -21,6 +21,6 @@ buildGoModule {
     mainProgram = "git-lfs-transfer";
     homepage = "https://github.com/charmbracelet/git-lfs-transfer";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ chn ];
+    maintainers = with lib.maintainers; [chn];
   };
 }

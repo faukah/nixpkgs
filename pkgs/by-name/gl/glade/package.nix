@@ -24,7 +24,6 @@
   libxslt,
   gsettings-desktop-schemas,
 }:
-
 stdenv.mkDerivation rec {
   pname = "glade";
   version = "3.40.0";
@@ -82,7 +81,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/glade";
     description = "User interface designer for GTK applications";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.lgpl2;
     platforms = platforms.unix;
   };

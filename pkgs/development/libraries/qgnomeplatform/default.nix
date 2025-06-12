@@ -15,7 +15,6 @@
   gsettings-desktop-schemas,
   useQt6 ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qgnomeplatform";
   version = "0.8.4";
@@ -70,14 +69,14 @@ stdenv.mkDerivation rec {
     ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "QPlatformTheme for a better Qt application inclusion in GNOME";
     homepage = "https://github.com/FedoraQt/QGnomePlatform";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

@@ -5,7 +5,6 @@
   buildGraalvmNativeImage,
   graalvmPackages,
 }:
-
 buildGraalvmNativeImage (finalAttrs: {
   pname = "cq";
   version = "2024.06.24-12.10";
@@ -37,7 +36,7 @@ buildGraalvmNativeImage (finalAttrs: {
     homepage = "https://github.com/markus-wa/cq";
     changelog = "https://github.com/markus-wa/cq/releases/releases/tag/${finalAttrs.version}";
     license = lib.licenses.epl20;
-    maintainers = with lib.maintainers; [ farcaller ];
+    maintainers = with lib.maintainers; [farcaller];
     platforms = lib.platforms.unix;
     mainProgram = "cq";
   };

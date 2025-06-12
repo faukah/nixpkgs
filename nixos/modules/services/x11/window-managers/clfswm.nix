@@ -4,18 +4,13 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.clfswm;
-in
-
-{
+in {
   options = {
     services.xserver.windowManager.clfswm = {
       enable = mkEnableOption "clfswm";
-      package = mkPackageOption pkgs [ "sbclPackages" "clfswm" ] { };
+      package = mkPackageOption pkgs ["sbclPackages" "clfswm"] {};
     };
   };
 
@@ -27,6 +22,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

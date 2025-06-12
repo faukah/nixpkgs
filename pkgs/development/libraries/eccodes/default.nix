@@ -15,7 +15,6 @@
   enablePosixThreads ? false,
   enableOpenMPThreads ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eccodes";
   version = "2.41.0";
@@ -59,14 +58,26 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-    "-DENABLE_PYTHON=${if enablePython then "ON" else "OFF"}"
+    "-DENABLE_PYTHON=${
+      if enablePython
+      then "ON"
+      else "OFF"
+    }"
     "-DENABLE_PNG=ON"
-    "-DENABLE_ECCODES_THREADS=${if enablePosixThreads then "ON" else "OFF"}"
-    "-DENABLE_ECCODES_OMP_THREADS=${if enableOpenMPThreads then "ON" else "OFF"}"
+    "-DENABLE_ECCODES_THREADS=${
+      if enablePosixThreads
+      then "ON"
+      else "OFF"
+    }"
+    "-DENABLE_ECCODES_OMP_THREADS=${
+      if enableOpenMPThreads
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ ctestCheckHook ];
+  nativeCheckInputs = [ctestCheckHook];
   checkFlags = [
     "-R"
     # Only do tests that don't require downloading 120MB of testdata
@@ -76,7 +87,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://confluence.ecmwf.int/display/ECC/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
     description = "ECMWF library for reading and writing GRIB, BUFR and GTS abbreviated header";
   };

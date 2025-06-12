@@ -21,7 +21,6 @@
   wrapQtAppsHook,
   z3,
 }:
-
 stdenv.mkDerivation rec {
   version = "4.4.1";
   pname = "hal-hardware-analyzer";

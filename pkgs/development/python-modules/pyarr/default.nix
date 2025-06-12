@@ -10,7 +10,6 @@
   types-requests,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "pyarr";
   version = "5.2.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
       --replace "poetry.masonry.api" "poetry.core.masonry.api"
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     overrides
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "pyarr" ];
+  pythonImportsCheck = ["pyarr"];
 
   disabledTests = [
     # Tests require a running sonarr instance
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/totaldebug/pyarr";
     changelog = "https://github.com/totaldebug/pyarr/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

@@ -7,7 +7,6 @@
   alsa-lib,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vessel";
   version = "12082012";
@@ -20,14 +19,14 @@ stdenv.mkDerivation rec {
   '';
 
   src =
-    if (stdenv.hostPlatform.isi686) then
+    if (stdenv.hostPlatform.isi686)
+    then
       requireFile {
         message = goBuyItNow;
         name = "vessel-${version}-bin";
         sha256 = "1vpwcrjiln2mx43h7ib3jnccyr3chk7a5x2bw9kb4lw8ycygvg96";
       }
-    else
-      throw "unsupported platform ${stdenv.hostPlatform.system} only i686-linux supported for now.";
+    else throw "unsupported platform ${stdenv.hostPlatform.system} only i686-linux supported for now.";
 
   phases = "installPhase";
   ld_preload = ./isatty.c;
@@ -98,7 +97,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.strangeloopgames.com";
     license = licenses.unfree;
-    maintainers = with maintainers; [ jcumming ];
+    maintainers = with maintainers; [jcumming];
   };
-
 }

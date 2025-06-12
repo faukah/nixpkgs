@@ -4,25 +4,18 @@
   lib,
   pkgs,
   ...
-}:
-{
-
+}: {
   ###### interface
 
   options = {
-
     services.malcontent = {
-
       enable = lib.mkEnableOption "Malcontent, parental control support for applications";
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf config.services.malcontent.enable {
-
     environment.systemPackages = with pkgs; [
       malcontent
       malcontent-ui
@@ -34,7 +27,5 @@
     ];
 
     services.accounts-daemon.enable = true;
-
   };
-
 }

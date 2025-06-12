@@ -6,7 +6,6 @@
   faraday,
   alcotest,
 }:
-
 buildDunePackage {
   pname = "httpun";
 
@@ -20,9 +19,11 @@ buildDunePackage {
   ];
 
   doCheck = true;
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
-  meta = httpun-types.meta // {
-    description = "A high-performance, memory-efficient, and scalable HTTP library for OCaml";
-  };
+  meta =
+    httpun-types.meta
+    // {
+      description = "A high-performance, memory-efficient, and scalable HTTP library for OCaml";
+    };
 }

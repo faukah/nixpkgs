@@ -10,7 +10,6 @@
   libtool,
   libusb-compat-0_1,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openct";
   version = "0.6.20";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/OpenSC/openct/";
     description = "Drivers for several smart card readers";
     license = lib.licenses.lgpl21;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
     broken = stdenv.hostPlatform.isDarwin;
   };

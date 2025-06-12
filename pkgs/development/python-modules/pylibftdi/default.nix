@@ -7,7 +7,6 @@
   pythonOlder,
   poetry-core,
 }:
-
 buildPythonPackage rec {
   pname = "pylibftdi";
   version = "0.23.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-v1tMa6c9eab234ScNFsAunY9AjIBvtm6Udh2pDl7Ftg=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     libftdi1
@@ -33,13 +32,13 @@ buildPythonPackage rec {
       --replace-fail 'self._load_library("libftdi")' 'cdll.LoadLibrary("${libftdi1.out}/lib/libftdi1.so")'
   '';
 
-  pythonImportsCheck = [ "pylibftdi" ];
+  pythonImportsCheck = ["pylibftdi"];
 
   meta = with lib; {
     description = "Wrapper to Intra2net's libftdi driver for FTDI's USB devices";
     homepage = "https://pylibftdi.readthedocs.io/";
     changelog = "https://github.com/codedstructure/pylibftdi/blob/${version}/CHANGES.txt";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthuszagh ];
+    maintainers = with maintainers; [matthuszagh];
   };
 }

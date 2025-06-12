@@ -5,7 +5,6 @@
   zlib,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "odt2txt";
   version = "0.5";
@@ -28,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dstosberg/odt2txt";
     platforms = lib.platforms.all;
     license = lib.licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

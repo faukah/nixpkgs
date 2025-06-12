@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fitfile";
   version = "1.0.1";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "fitfile" ];
+  pythonImportsCheck = ["fitfile"];
 
   meta = {
     description = "Python Fit file parser";
     license = lib.licenses.gpl2Only;
     homepage = "https://github.com/tcgoetz/fit";
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
   };
 }

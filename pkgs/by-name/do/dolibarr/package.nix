@@ -5,7 +5,6 @@
   nixosTests,
   stateDir ? "/var/lib/dolibarr",
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dolibarr";
   version = "21.0.1";
@@ -45,6 +44,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/Dolibarr/dolibarr/releases/tag/${finalAttrs.version}";
     homepage = "https://dolibarr.org/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 })

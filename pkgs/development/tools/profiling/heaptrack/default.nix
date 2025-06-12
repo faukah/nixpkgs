@@ -21,7 +21,6 @@
   kcoreaddons,
   kdiagram,
 }:
-
 mkDerivation rec {
   pname = "heaptrack";
   version = "1.5.0";
@@ -76,7 +75,7 @@ mkDerivation rec {
     homepage = "https://github.com/KDE/heaptrack";
     license = licenses.lgpl21Plus;
     mainProgram = "heaptrack_gui";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

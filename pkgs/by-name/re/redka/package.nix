@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "redka";
   version = "0.5.3";
@@ -22,7 +21,7 @@ buildGoModule rec {
     "cmd/cli"
   ];
 
-  ldflags = [ "-X main.version=v${version}" ];
+  ldflags = ["-X main.version=v${version}"];
 
   postInstall = ''
     mv $out/bin/{cli,redka-cli}
@@ -32,7 +31,7 @@ buildGoModule rec {
     description = "Redis re-implemented with SQLite";
     homepage = "https://github.com/nalgeon/redka";
     changelog = "https://github.com/nalgeon/redka/releases/tag/${src.rev}";
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     license = lib.licenses.bsd3;
   };
 }

@@ -24,7 +24,6 @@
   which,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xemu";
   version = "0.7.135";
@@ -76,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--disable-werror"
   ];
 
-  buildFlags = [ "qemu-system-i386" ];
+  buildFlags = ["qemu-system-i386"];
 
   separateDebugInfo = true;
 
@@ -97,24 +96,23 @@ stdenv.mkDerivation (finalAttrs: {
       configureFlagsArray+=("--extra-cflags=-DXBOX=1 -Wno-error=redundant-decls")
     ''
     +
-      # When the data below can't be obtained through git, the build process tries
-      # to run `XEMU_COMMIT=$(cat XEMU_COMMIT)` (and similar)
-      ''
-        echo '${finalAttrs.version}' > XEMU_VERSION
-      '';
+    # When the data below can't be obtained through git, the build process tries
+    # to run `XEMU_COMMIT=$(cat XEMU_COMMIT)` (and similar)
+    ''
+      echo '${finalAttrs.version}' > XEMU_VERSION
+    '';
 
   preBuild = ''
     cd build
     substituteInPlace ./build.ninja --replace /usr/bin/env $(which env)
   '';
 
-  installPhase =
-    let
-      installIcon = resolution: ''
-        install -Dm644 -T ../ui/icons/xemu_${resolution}.png \
-          $out/share/icons/hicolor/${resolution}/apps/xemu.png
-      '';
-    in
+  installPhase = let
+    installIcon = resolution: ''
+      install -Dm644 -T ../ui/icons/xemu_${resolution}.png \
+        $out/share/icons/hicolor/${resolution}/apps/xemu.png
+    '';
+  in
     ''
       runHook preInstall
 
@@ -147,8 +145,9 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/xemu-project/xemu/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl2Plus;
     mainProgram = "xemu";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })
 # TODO: investigate failure when using __structuredAttrs
+

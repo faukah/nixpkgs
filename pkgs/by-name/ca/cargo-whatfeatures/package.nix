@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-whatfeatures";
   version = "0.9.13";
@@ -20,9 +19,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-p95aYXsZM9xwP/OHEFwq4vRiXoO1n1M0X3TNbleH+Zw=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "Simple cargo plugin to get a list of features for a specific crate";

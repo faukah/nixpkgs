@@ -3,7 +3,6 @@
   python3,
   qtbase,
 }:
-
 mkDerivation {
   pname = "kapidox";
   nativeBuildInputs = [
@@ -33,5 +32,5 @@ mkDerivation {
     runHook postInstall
   '';
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 }

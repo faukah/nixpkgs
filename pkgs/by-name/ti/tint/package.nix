@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "tint";
   version = "0.1.6";
@@ -33,7 +32,7 @@ buildGoModule rec {
     description = "Command-line tool to recolor images using theme palettes";
     homepage = "https://github.com/ashish0kumar/tint";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ashish0kumar ];
+    maintainers = with lib.maintainers; [ashish0kumar];
     mainProgram = "tint";
     platforms = lib.platforms.unix;
   };

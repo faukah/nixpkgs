@@ -17,7 +17,6 @@
   vala,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation {
   pname = "taxi";
   version = "2.0.2-unstable-2024-12-26";
@@ -49,13 +48,13 @@ stdenv.mkDerivation {
     libsoup_3
     pantheon.granite7
   ];
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/ellie-commons/taxi";
     description = "FTP Client that drives you anywhere";
     license = licenses.lgpl3Plus;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     mainProgram = "io.github.ellie_commons.taxi";
   };

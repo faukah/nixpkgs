@@ -14,7 +14,6 @@
   wrapt,
   attrs,
 }:
-
 buildPythonPackage rec {
   pname = "psygnal";
   version = "0.13.0";
@@ -53,13 +52,13 @@ buildPythonPackage rec {
     "ignore::pydantic.warnings.PydanticDeprecatedSince211"
   ];
 
-  pythonImportsCheck = [ "psygnal" ];
+  pythonImportsCheck = ["psygnal"];
 
   meta = with lib; {
     description = "Implementation of Qt Signals";
     homepage = "https://github.com/pyapp-kit/psygnal";
     changelog = "https://github.com/pyapp-kit/psygnal/blob/${src.tag}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SomeoneSerge ];
+    maintainers = with maintainers; [SomeoneSerge];
   };
 }

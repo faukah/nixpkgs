@@ -1,18 +1,17 @@
 /*
-  This file defines some basic smoke tests for cross compilation.
-  Individual jobs can be tested by running:
+This file defines some basic smoke tests for cross compilation.
+Individual jobs can be tested by running:
 
-  $ nix-build pkgs/top-level/release-cross.nix -A <jobname>.<package> --arg supportedSystems '[builtins.currentSystem]'
+$ nix-build pkgs/top-level/release-cross.nix -A <jobname>.<package> --arg supportedSystems '[builtins.currentSystem]'
 
-  e.g.
+e.g.
 
-  $ nix-build pkgs/top-level/release-cross.nix -A crossMingw32.nix --arg supportedSystems '[builtins.currentSystem]'
+$ nix-build pkgs/top-level/release-cross.nix -A crossMingw32.nix --arg supportedSystems '[builtins.currentSystem]'
 
-  To build all of the bootstrapFiles bundles on every enabled platform, use:
+To build all of the bootstrapFiles bundles on every enabled platform, use:
 
-  $ nix-build --expr 'with import ./pkgs/top-level/release-cross.nix {supportedSystems = [builtins.currentSystem];}; builtins.mapAttrs (k: v: v.build) bootstrapTools'
+$ nix-build --expr 'with import ./pkgs/top-level/release-cross.nix {supportedSystems = [builtins.currentSystem];}; builtins.mapAttrs (k: v: v.build) bootstrapTools'
 */
-
 {
   # The platforms *from* which we cross compile.
   supportedSystems ? [
@@ -30,14 +29,13 @@
     };
     __allowFileset = false;
   },
-}:
-
-let
+}: let
   release-lib = import ./release-lib.nix {
     inherit supportedSystems scrubJobs nixpkgsArgs;
   };
 
-  inherit (release-lib)
+  inherit
+    (release-lib)
     all
     assertTrue
     darwin
@@ -49,7 +47,8 @@ let
     unix
     ;
 
-  inherit (release-lib.lib)
+  inherit
+    (release-lib.lib)
     mapAttrs
     addMetaAttrs
     elem
@@ -62,7 +61,8 @@ let
     systems
     ;
 
-  inherit (release-lib.lib.attrsets)
+  inherit
+    (release-lib.lib.attrsets)
     removeAttrs
     ;
 
@@ -122,15 +122,17 @@ let
     buildPackages.binutils = darwin;
   };
 
-  rpiCommon = linuxCommon // {
-    vim = nativePlatforms;
-    unzip = nativePlatforms;
-    ddrescue = nativePlatforms;
-    lynx = nativePlatforms;
-    patchelf = nativePlatforms;
-    buildPackages.binutils = nativePlatforms;
-    mpg123 = nativePlatforms;
-  };
+  rpiCommon =
+    linuxCommon
+    // {
+      vim = nativePlatforms;
+      unzip = nativePlatforms;
+      ddrescue = nativePlatforms;
+      lynx = nativePlatforms;
+      patchelf = nativePlatforms;
+      buildPackages.binutils = nativePlatforms;
+      mpg123 = nativePlatforms;
+    };
 
   # Enabled-but-unsupported platforms for which nix is known to build.
   # We provide Hydra-built `nixStatic` for these platforms.  This
@@ -141,41 +143,33 @@ let
   nixCrossStatic = {
     nixStatic = linux; # no need for buildPlatform=*-darwin
   };
-
-in
-
-{
+in {
   # These derivations from a cross package set's `buildPackages` should be
   # identical to their vanilla equivalents --- none of these package should
   # observe the target platform which is the only difference between those
   # package sets.
-  ensureUnaffected =
-    let
-      # Absurd values are fine here, as we are not building anything. In fact,
-      # there probably a good idea to try to be "more parametric" --- i.e. avoid
-      # any special casing.
-      crossSystem = {
-        config = "mips64el-apple-windows-gnu";
-        libc = "glibc";
-      };
+  ensureUnaffected = let
+    # Absurd values are fine here, as we are not building anything. In fact,
+    # there probably a good idea to try to be "more parametric" --- i.e. avoid
+    # any special casing.
+    crossSystem = {
+      config = "mips64el-apple-windows-gnu";
+      libc = "glibc";
+    };
 
-      # Converting to a string (drv path) before checking equality is probably a
-      # good idea lest there be some irrelevant pass-through debug attrs that
-      # cause false negatives.
-      testEqualOne =
-        path: system:
-        let
-          f =
-            path: crossSystem: system:
-            toString (getAttrFromPath path (pkgsForCross crossSystem system));
-        in
-        assertTrue (f path null system == f ([ "buildPackages" ] ++ path) crossSystem system);
-
-      testEqual = path: systems: forMatchingSystems systems (testEqualOne path);
-
-      mapTestEqual = mapAttrsRecursive testEqual;
-
+    # Converting to a string (drv path) before checking equality is probably a
+    # good idea lest there be some irrelevant pass-through debug attrs that
+    # cause false negatives.
+    testEqualOne = path: system: let
+      f = path: crossSystem: system:
+        toString (getAttrFromPath path (pkgsForCross crossSystem system));
     in
+      assertTrue (f path null system == f (["buildPackages"] ++ path) crossSystem system);
+
+    testEqual = path: systems: forMatchingSystems systems (testEqualOne path);
+
+    mapTestEqual = mapAttrsRecursive testEqual;
+  in
     mapTestEqual {
       boehmgc = nativePlatforms;
       libffi = nativePlatforms;
@@ -284,42 +278,43 @@ in
   x86_64-redox = mapTestOnCross systems.examples.x86_64-unknown-redox embedded;
 
   # Cross-built bootstrap tools for every supported platform
-  bootstrapTools =
-    let
-      linuxTools = import ../stdenv/linux/make-bootstrap-tools-cross.nix { system = "x86_64-linux"; };
-      freebsdTools = import ../stdenv/freebsd/make-bootstrap-tools-cross.nix { system = "x86_64-linux"; };
-      linuxMeta = {
-        maintainers = [ maintainers.dezgeg ];
-      };
-      freebsdMeta = {
-        maintainers = [ maintainers.rhelmot ];
-      };
-      mkBootstrapToolsJob =
-        meta: drv:
-        assert elem drv.system supportedSystems;
+  bootstrapTools = let
+    linuxTools = import ../stdenv/linux/make-bootstrap-tools-cross.nix {system = "x86_64-linux";};
+    freebsdTools = import ../stdenv/freebsd/make-bootstrap-tools-cross.nix {system = "x86_64-linux";};
+    linuxMeta = {
+      maintainers = [maintainers.dezgeg];
+    };
+    freebsdMeta = {
+      maintainers = [maintainers.rhelmot];
+    };
+    mkBootstrapToolsJob = meta: drv:
+      assert elem drv.system supportedSystems;
         hydraJob' (addMetaAttrs meta drv);
-      linux =
-        mapAttrsRecursiveCond (as: !isDerivation as) (name: mkBootstrapToolsJob linuxMeta)
-          # The `bootstrapTools.${platform}.bootstrapTools` derivation
-          # *unpacks* the bootstrap-files using their own `busybox` binary,
-          # so it will fail unless buildPlatform.canExecute hostPlatform.
-          # Unfortunately `bootstrapTools` also clobbers its own `system`
-          # attribute, so there is no way to detect this -- we must add it
-          # as a special case.  We filter the "test" attribute (only from
-          # *cross*-built bootstrapTools) for the same reason.
-          (
-            mapAttrs (
-              _: v:
-              removeAttrs v [
-                "bootstrapTools"
-                "test"
-              ]
-            ) linuxTools
-          );
-      freebsd = mapAttrsRecursiveCond (as: !isDerivation as) (
+    linux =
+      mapAttrsRecursiveCond (as: !isDerivation as) (name: mkBootstrapToolsJob linuxMeta)
+      # The `bootstrapTools.${platform}.bootstrapTools` derivation
+      # *unpacks* the bootstrap-files using their own `busybox` binary,
+      # so it will fail unless buildPlatform.canExecute hostPlatform.
+      # Unfortunately `bootstrapTools` also clobbers its own `system`
+      # attribute, so there is no way to detect this -- we must add it
+      # as a special case.  We filter the "test" attribute (only from
+      # *cross*-built bootstrapTools) for the same reason.
+      (
+        mapAttrs (
+          _: v:
+            removeAttrs v [
+              "bootstrapTools"
+              "test"
+            ]
+        )
+        linuxTools
+      );
+    freebsd =
+      mapAttrsRecursiveCond (as: !isDerivation as) (
         name: mkBootstrapToolsJob freebsdMeta
-      ) freebsdTools;
-    in
+      )
+      freebsdTools;
+  in
     linux // freebsd;
 
   # Cross-built nixStatic for platforms for enabled-but-unsupported platforms

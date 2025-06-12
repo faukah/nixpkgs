@@ -15,7 +15,8 @@
   pythonSupport ?
     enableShared
     && (
-      stdenv.hostPlatform == stdenv.buildPlatform
+      stdenv.hostPlatform
+      == stdenv.buildPlatform
       || stdenv.hostPlatform.isCygwin
       || stdenv.hostPlatform.isLinux
       || stdenv.hostPlatform.isWasi
@@ -30,7 +31,6 @@
   testers,
   enableHttp ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libxml2";
   version = "2.13.8";
@@ -147,7 +147,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "XML parsing library for C";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jtojnar ];
-    pkgConfigModules = [ "libxml-2.0" ];
+    maintainers = with maintainers; [jtojnar];
+    pkgConfigModules = ["libxml-2.0"];
   };
 })

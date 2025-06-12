@@ -6,15 +6,12 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   luks = config.boot.initrd.luks;
   clevis = config.boot.initrd.clevis;
   systemd = config.boot.initrd.systemd;
   kernelPackages = config.boot.kernelPackages;
-  defaultPrio = (mkOptionDefault { }).priority;
+  defaultPrio = (mkOptionDefault {}).priority;
 
   commonFunctions = ''
     die() {
@@ -150,10 +147,8 @@ let
     umount /crypt-ramfs 2>/dev/null
   '';
 
-  openCommand =
-    name: dev:
-    assert name == dev.name;
-    let
+  openCommand = name: dev:
+    assert name == dev.name; let
       csopen =
         "cryptsetup luksOpen ${dev.device} ${dev.name}"
         + optionalString dev.allowDiscards " --allow-discards"
@@ -165,8 +160,7 @@ let
       fido2luksCredentials =
         dev.fido2.credentials
         ++ optional (dev.fido2.credential != null) dev.fido2.credential;
-    in
-    ''
+    in ''
       # Wait for luksRoot (and optionally keyFile and/or header) to appear, e.g.
       # if on a USB drive.
       wait_target "device" ${dev.device} || die "${dev.device} is unavailable"
@@ -177,20 +171,19 @@ let
 
       try_empty_passphrase() {
           ${
-            if dev.tryEmptyPassphrase then
-              ''
-                echo "Trying empty passphrase!"
-                echo "" | ${csopen}
-                cs_status=$?
-                if [ $cs_status -eq 0 ]; then
-                    return 0
-                else
-                    return 1
-                fi
-              ''
-            else
-              "return 1"
-          }
+        if dev.tryEmptyPassphrase
+        then ''
+          echo "Trying empty passphrase!"
+          echo "" | ${csopen}
+          cs_status=$?
+          if [ $cs_status -eq 0 ]; then
+              return 0
+          else
+              return 1
+          fi
+        ''
+        else "return 1"
+      }
       }
 
 
@@ -217,16 +210,15 @@ let
                       IFS= read -t 1 -r passphrase
                       if [ -n "$passphrase" ]; then
                          ${
-                           if luks.reusePassphrases then
-                             ''
-                               # remember it for the next device
-                               echo -n "$passphrase" > /crypt-ramfs/passphrase
-                             ''
-                           else
-                             ''
-                               # Don't save it to ramfs. We are very paranoid
-                             ''
-                         }
+        if luks.reusePassphrases
+        then ''
+          # remember it for the next device
+          echo -n "$passphrase" > /crypt-ramfs/passphrase
+        ''
+        else ''
+          # Don't save it to ramfs. We are very paranoid
+        ''
+      }
                          echo
                          break
                       fi
@@ -237,15 +229,14 @@ let
               if [ $? == 0 ]; then
                   echo " - success"
                   ${
-                    if luks.reusePassphrases then
-                      ''
-                        # we don't rm here because we might reuse it for the next device
-                      ''
-                    else
-                      ''
-                        rm -f /crypt-ramfs/passphrase
-                      ''
-                  }
+        if luks.reusePassphrases
+        then ''
+          # we don't rm here because we might reuse it for the next device
+        ''
+        else ''
+          rm -f /crypt-ramfs/passphrase
+        ''
+      }
                   break
               else
                   echo " - failure"
@@ -258,37 +249,44 @@ let
       # LUKS
       open_normally() {
           ${
-            if (dev.keyFile != null) then
-              ''
-                if wait_target "key file" ${dev.keyFile}; then
-                    ${csopen} --key-file=${dev.keyFile} \
-                      ${optionalString (dev.keyFileSize != null) "--keyfile-size=${toString dev.keyFileSize}"} \
-                      ${optionalString (dev.keyFileOffset != null) "--keyfile-offset=${toString dev.keyFileOffset}"}
-                    cs_status=$?
-                    if [ $cs_status -ne 0 ]; then
-                      echo "Key File ${dev.keyFile} failed!"
-                      if ! try_empty_passphrase; then
-                        ${if dev.fallbackToPassword then "echo" else "die"} "${dev.keyFile} is unavailable"
-                        echo " - failing back to interactive password prompt"
-                        do_open_passphrase
-                      fi
-                    fi
-                else
-                    # If the key file never shows up we should also try the empty passphrase
-                    if ! try_empty_passphrase; then
-                       ${if dev.fallbackToPassword then "echo" else "die"} "${dev.keyFile} is unavailable"
-                       echo " - failing back to interactive password prompt"
-                       do_open_passphrase
-                    fi
-                fi
-              ''
-            else
-              ''
+        if (dev.keyFile != null)
+        then ''
+          if wait_target "key file" ${dev.keyFile}; then
+              ${csopen} --key-file=${dev.keyFile} \
+                ${optionalString (dev.keyFileSize != null) "--keyfile-size=${toString dev.keyFileSize}"} \
+                ${optionalString (dev.keyFileOffset != null) "--keyfile-offset=${toString dev.keyFileOffset}"}
+              cs_status=$?
+              if [ $cs_status -ne 0 ]; then
+                echo "Key File ${dev.keyFile} failed!"
                 if ! try_empty_passphrase; then
-                   do_open_passphrase
+                  ${
+            if dev.fallbackToPassword
+            then "echo"
+            else "die"
+          } "${dev.keyFile} is unavailable"
+                  echo " - failing back to interactive password prompt"
+                  do_open_passphrase
                 fi
-              ''
-          }
+              fi
+          else
+              # If the key file never shows up we should also try the empty passphrase
+              if ! try_empty_passphrase; then
+                 ${
+            if dev.fallbackToPassword
+            then "echo"
+            else "die"
+          } "${dev.keyFile} is unavailable"
+                 echo " - failing back to interactive password prompt"
+                 do_open_passphrase
+              fi
+          fi
+        ''
+        else ''
+          if ! try_empty_passphrase; then
+             do_open_passphrase
+          fi
+        ''
+      }
       }
 
       ${optionalString (luks.yubikeySupport && (dev.yubikey != null)) ''
@@ -327,34 +325,33 @@ let
 
             for try in $(seq 3); do
                 ${optionalString dev.yubikey.twoFactor ''
-                  echo -n "Enter two-factor passphrase: "
-                  k_user=
-                  while true; do
-                      if [ -e /crypt-ramfs/passphrase ]; then
-                          echo "reused"
-                          k_user=$(cat /crypt-ramfs/passphrase)
-                          break
-                      else
-                          # Try reading it from /dev/console with a timeout
-                          IFS= read -t 1 -r k_user
-                          if [ -n "$k_user" ]; then
-                             ${
-                               if luks.reusePassphrases then
-                                 ''
-                                   # Remember it for the next device
-                                   echo -n "$k_user" > /crypt-ramfs/passphrase
-                                 ''
-                               else
-                                 ''
-                                   # Don't save it to ramfs. We are very paranoid
-                                 ''
-                             }
-                             echo
-                             break
-                          fi
-                      fi
-                  done
-                ''}
+          echo -n "Enter two-factor passphrase: "
+          k_user=
+          while true; do
+              if [ -e /crypt-ramfs/passphrase ]; then
+                  echo "reused"
+                  k_user=$(cat /crypt-ramfs/passphrase)
+                  break
+              else
+                  # Try reading it from /dev/console with a timeout
+                  IFS= read -t 1 -r k_user
+                  if [ -n "$k_user" ]; then
+                     ${
+            if luks.reusePassphrases
+            then ''
+              # Remember it for the next device
+              echo -n "$k_user" > /crypt-ramfs/passphrase
+            ''
+            else ''
+              # Don't save it to ramfs. We are very paranoid
+            ''
+          }
+                     echo
+                     break
+                  fi
+              fi
+          done
+        ''}
 
                 if [ ! -z "$k_user" ]; then
                     k_luks="$(echo -n $k_user | pbkdf2-sha512 ${toString dev.yubikey.keyLength} $iterations $response | rbtohex)"
@@ -367,15 +364,14 @@ let
                 if [ $? == 0 ]; then
                     opened=true
                     ${
-                      if luks.reusePassphrases then
-                        ''
-                          # We don't rm here because we might reuse it for the next device
-                        ''
-                      else
-                        ''
-                          rm -f /crypt-ramfs/passphrase
-                        ''
-                    }
+          if luks.reusePassphrases
+          then ''
+            # We don't rm here because we might reuse it for the next device
+          ''
+          else ''
+            rm -f /crypt-ramfs/passphrase
+          ''
+        }
                     break
                 else
                     opened=false
@@ -395,8 +391,8 @@ let
 
             new_iterations="$iterations"
             ${optionalString (dev.yubikey.iterationStep > 0) ''
-              new_iterations="$(($new_iterations + ${toString dev.yubikey.iterationStep}))"
-            ''}
+          new_iterations="$(($new_iterations + ${toString dev.yubikey.iterationStep}))"
+        ''}
 
             new_challenge="$(echo -n $new_salt | openssl-wrap dgst -binary -sha512 | rbtohex)"
 
@@ -462,16 +458,15 @@ let
                         IFS= read -t 1 -r pin
                         if [ -n "$pin" ]; then
                            ${
-                             if luks.reusePassphrases then
-                               ''
-                                 # remember it for the next device
-                                 echo -n "$pin" > /crypt-ramfs/passphrase
-                               ''
-                             else
-                               ''
-                                 # Don't save it to ramfs. We are very paranoid
-                               ''
-                           }
+          if luks.reusePassphrases
+          then ''
+            # remember it for the next device
+            echo -n "$pin" > /crypt-ramfs/passphrase
+          ''
+          else ''
+            # Don't save it to ramfs. We are very paranoid
+          ''
+        }
                            echo
                            break
                         fi
@@ -482,15 +477,14 @@ let
                 if [ $? == 0 ]; then
                     echo " - success"
                     ${
-                      if luks.reusePassphrases then
-                        ''
-                          # we don't rm here because we might reuse it for the next device
-                        ''
-                      else
-                        ''
-                          rm -f /crypt-ramfs/passphrase
-                        ''
-                    }
+          if luks.reusePassphrases
+          then ''
+            # we don't rm here because we might reuse it for the next device
+          ''
+          else ''
+            rm -f /crypt-ramfs/passphrase
+          ''
+        }
                     break
                 else
                     echo " - failure"
@@ -512,26 +506,25 @@ let
         }
       ''}
 
-      ${optionalString (luks.fido2Support && fido2luksCredentials != [ ]) ''
+      ${optionalString (luks.fido2Support && fido2luksCredentials != []) ''
 
         open_with_hardware() {
           local passsphrase
 
             ${
-              if dev.fido2.passwordLess then
-                ''
-                  export passphrase=""
-                ''
-              else
-                ''
-                  read -rsp "FIDO2 salt for ${dev.device}: " passphrase
-                  echo
-                ''
-            }
+          if dev.fido2.passwordLess
+          then ''
+            export passphrase=""
+          ''
+          else ''
+            read -rsp "FIDO2 salt for ${dev.device}: " passphrase
+            echo
+          ''
+        }
             ${optionalString (lib.versionOlder kernelPackages.kernel.version "5.4") ''
-              echo "On systems with Linux Kernel < 5.4, it might take a while to initialize the CRNG, you might want to use linuxPackages_latest."
-              echo "Please move your mouse to create needed randomness."
-            ''}
+          echo "On systems with Linux Kernel < 5.4, it might take a while to initialize the CRNG, you might want to use linuxPackages_latest."
+          echo "Please move your mouse to create needed randomness."
+        ''}
               echo "Waiting for your FIDO2 device..."
               fido2luks open${optionalString dev.allowDiscards " --allow-discards"} ${dev.device} ${dev.name} "${builtins.concatStringsSep "," fido2luksCredentials}" --await-dev ${toString dev.fido2.gracePeriod} --salt string:$passphrase
             if [ $? -ne 0 ]; then
@@ -548,15 +541,13 @@ let
         if
           (luks.yubikeySupport && (dev.yubikey != null))
           || (luks.gpgSupport && (dev.gpgCard != null))
-          || (luks.fido2Support && fido2luksCredentials != [ ])
-        then
-          ''
-            open_with_hardware
-          ''
-        else
-          ''
-            open_normally
-          ''
+          || (luks.fido2Support && fido2luksCredentials != [])
+        then ''
+          open_with_hardware
+        ''
+        else ''
+          open_normally
+        ''
       }
 
       # commands to run right after we mounted our device
@@ -591,8 +582,7 @@ let
   stage1Crypttab = pkgs.writeText "initrd-crypttab" (
     lib.concatLines (
       lib.mapAttrsToList (
-        n: v:
-        let
+        n: v: let
           opts =
             v.crypttabExtraOpts
             ++ optional v.allowDiscards "discard"
@@ -605,20 +595,21 @@ let
             ++ optional (v.keyFileSize != null) "keyfile-size=${toString v.keyFileSize}"
             ++ optional (v.keyFileTimeout != null) "keyfile-timeout=${builtins.toString v.keyFileTimeout}s"
             ++ optional (v.tryEmptyPassphrase) "try-empty-password=true";
-        in
-        "${n} ${v.device} ${if v.keyFile == null then "-" else v.keyFile} ${lib.concatStringsSep "," opts}"
-      ) luks.devices
+        in "${n} ${v.device} ${
+          if v.keyFile == null
+          then "-"
+          else v.keyFile
+        } ${lib.concatStringsSep "," opts}"
+      )
+      luks.devices
     )
   );
-
-in
-{
+in {
   imports = [
-    (mkRemovedOptionModule [ "boot" "initrd" "luks" "enable" ] "")
+    (mkRemovedOptionModule ["boot" "initrd" "luks" "enable"] "")
   ];
 
   options = {
-
     boot.initrd.luks.mitigateDMAAttacks = mkOption {
       type = types.bool;
       default = true;
@@ -682,7 +673,7 @@ in
     };
 
     boot.initrd.luks.devices = mkOption {
-      default = { };
+      default = {};
       example = {
         luksroot.device = "/dev/disk/by-uuid/430e9eff-d852-4f68-aa3b-2fa3599ebe08";
       };
@@ -693,14 +684,15 @@ in
         {file}`/dev/mapper/«name»`.
       '';
 
-      type =
-        with types;
+      type = with types;
         attrsOf (
           submodule (
-            { config, name, ... }:
             {
+              config,
+              name,
+              ...
+            }: {
               options = {
-
                 name = mkOption {
                   visible = false;
                   default = name;
@@ -828,8 +820,7 @@ in
                     If null (the default), GPG-Smartcard will be disabled for this device.
                   '';
 
-                  type =
-                    with types;
+                  type = with types;
                     nullOr (submodule {
                       options = {
                         gracePeriod = mkOption {
@@ -860,7 +851,7 @@ in
                   };
 
                   credentials = mkOption {
-                    default = [ ];
+                    default = [];
                     example = [
                       "f1d00200d8dc783f7fb1e10ace8da27f8312d72692abfca2f7e4960a73f48e82e1f7571f6ebfcee9fb434f9886ccc8fcc52a6614d8d2"
                     ];
@@ -896,8 +887,7 @@ in
                     If null (the default), YubiKey-PBA will be disabled for this device.
                   '';
 
-                  type =
-                    with types;
+                  type = with types;
                     nullOr (submodule {
                       options = {
                         twoFactor = mkOption {
@@ -937,9 +927,9 @@ in
                         };
 
                         /*
-                          TODO: Add to the documentation of the current module:
+                        TODO: Add to the documentation of the current module:
 
-                          Options related to the storing the salt.
+                        Options related to the storing the salt.
                         */
                         storage = {
                           device = mkOption {
@@ -996,8 +986,8 @@ in
 
                 crypttabExtraOpts = mkOption {
                   type = with types; listOf singleLineStr;
-                  default = [ ];
-                  example = [ "_netdev" ];
+                  default = [];
+                  example = ["_netdev"];
                   visible = false;
                   description = ''
                     Only used with systemd stage 1.
@@ -1049,11 +1039,9 @@ in
         Enables support for authenticating with FIDO2 devices.
       '';
     };
-
   };
 
-  config = mkIf (luks.devices != { } || luks.forceLuksSupportInInitrd) {
-
+  config = mkIf (luks.devices != {} || luks.forceLuksSupportInInitrd) {
     assertions = [
       {
         assertion = !(luks.gpgSupport && luks.yubikeySupport);
@@ -1146,14 +1134,13 @@ in
       ++ (optional (builtins.elem "xts" luks.cryptoModules) "ecb");
 
     # copy the cryptsetup binary and it's dependencies
-    boot.initrd.extraUtilsCommands =
-      let
-        pbkdf2-sha512 = pkgs.runCommandCC "pbkdf2-sha512" { buildInputs = [ pkgs.openssl ]; } ''
-          mkdir -p "$out/bin"
-          cc -O3 -lcrypto ${./pbkdf2-sha512.c} -o "$out/bin/pbkdf2-sha512"
-          strip -s "$out/bin/pbkdf2-sha512"
-        '';
-      in
+    boot.initrd.extraUtilsCommands = let
+      pbkdf2-sha512 = pkgs.runCommandCC "pbkdf2-sha512" {buildInputs = [pkgs.openssl];} ''
+        mkdir -p "$out/bin"
+        cc -O3 -lcrypto ${./pbkdf2-sha512.c} -o "$out/bin/pbkdf2-sha512"
+        strip -s "$out/bin/pbkdf2-sha512"
+      '';
+    in
       mkIf (!config.boot.initrd.systemd.enable) ''
         copy_bin_and_libs ${pkgs.cryptsetup}/bin/cryptsetup
         copy_bin_and_libs ${askPass}/bin/cryptsetup-askpass
@@ -1189,11 +1176,11 @@ in
 
           ${concatMapStringsSep "\n" (
             x:
-            optionalString (x.gpgCard != null) ''
-              mkdir -p $out/secrets/gpg-keys/${x.device}
-              cp -a ${x.gpgCard.encryptedPass} $out/secrets/gpg-keys/${x.device}/cryptkey.gpg
-              cp -a ${x.gpgCard.publicKey} $out/secrets/gpg-keys/${x.device}/pubkey.asc
-            ''
+              optionalString (x.gpgCard != null) ''
+                mkdir -p $out/secrets/gpg-keys/${x.device}
+                cp -a ${x.gpgCard.encryptedPass} $out/secrets/gpg-keys/${x.device}/cryptkey.gpg
+                cp -a ${x.gpgCard.publicKey} $out/secrets/gpg-keys/${x.device}/pubkey.asc
+              ''
           ) (attrValues luks.devices)}
         ''}
       '';
@@ -1233,7 +1220,6 @@ in
         ++ lib.optionals config.boot.initrd.systemd.tpm2.enable [
           "${config.boot.initrd.systemd.package}/lib/cryptsetup/libcryptsetup-token-systemd-tpm2.so"
         ];
-
     };
     # We do this because we need the udev rules from the package
     services.lvm.enable = true;
@@ -1247,45 +1233,45 @@ in
       commonFunctions + preCommands + concatStrings (mapAttrsToList openCommand postLVM) + postCommands
     );
 
-    boot.initrd.systemd.services =
-      let
-        devicesWithClevis = filterAttrs (device: _: (hasAttr device clevis.devices)) luks.devices;
-      in
-      mkIf (clevis.enable && systemd.enable) (
-        (mapAttrs' (
+    boot.initrd.systemd.services = let
+      devicesWithClevis = filterAttrs (device: _: (hasAttr device clevis.devices)) luks.devices;
+    in
+      mkIf (clevis.enable && systemd.enable) (mapAttrs' (
           name: _:
-          nameValuePair "cryptsetup-clevis-${name}" {
-            wantedBy = [ "systemd-cryptsetup@${utils.escapeSystemdPath name}.service" ];
-            before = [
-              "systemd-cryptsetup@${utils.escapeSystemdPath name}.service"
-              "initrd-switch-root.target"
-              "shutdown.target"
-            ];
-            wants = optional clevis.useTang "network-online.target";
-            after = [
-              "systemd-modules-load.service"
-              "tpm2.target"
-            ] ++ optional clevis.useTang "network-online.target";
-            script = ''
-              mkdir -p /clevis-${name}
-              mount -t ramfs none /clevis-${name}
-              umask 277
-              clevis decrypt < /etc/clevis/${name}.jwe > /clevis-${name}/decrypted
-            '';
-            conflicts = [
-              "initrd-switch-root.target"
-              "shutdown.target"
-            ];
-            unitConfig.DefaultDependencies = "no";
-            serviceConfig = {
-              Type = "oneshot";
-              RemainAfterExit = true;
-              ExecStop = "${config.boot.initrd.systemd.package.util-linux}/bin/umount /clevis-${name}";
-            };
-          }
-        ) devicesWithClevis)
-      );
+            nameValuePair "cryptsetup-clevis-${name}" {
+              wantedBy = ["systemd-cryptsetup@${utils.escapeSystemdPath name}.service"];
+              before = [
+                "systemd-cryptsetup@${utils.escapeSystemdPath name}.service"
+                "initrd-switch-root.target"
+                "shutdown.target"
+              ];
+              wants = optional clevis.useTang "network-online.target";
+              after =
+                [
+                  "systemd-modules-load.service"
+                  "tpm2.target"
+                ]
+                ++ optional clevis.useTang "network-online.target";
+              script = ''
+                mkdir -p /clevis-${name}
+                mount -t ramfs none /clevis-${name}
+                umask 277
+                clevis decrypt < /etc/clevis/${name}.jwe > /clevis-${name}/decrypted
+              '';
+              conflicts = [
+                "initrd-switch-root.target"
+                "shutdown.target"
+              ];
+              unitConfig.DefaultDependencies = "no";
+              serviceConfig = {
+                Type = "oneshot";
+                RemainAfterExit = true;
+                ExecStop = "${config.boot.initrd.systemd.package.util-linux}/bin/umount /clevis-${name}";
+              };
+            }
+        )
+        devicesWithClevis);
 
-    environment.systemPackages = [ pkgs.cryptsetup ];
+    environment.systemPackages = [pkgs.cryptsetup];
   };
 }

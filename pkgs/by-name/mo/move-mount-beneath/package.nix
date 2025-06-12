@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation {
   pname = "move-mount-beneath";
   version = "unstable-2023-11-26";
@@ -36,6 +35,6 @@ stdenv.mkDerivation {
     mainProgram = "move-mount";
     homepage = "https://github.com/brauner/move-mount-beneath";
     license = lib.licenses.mit0;
-    maintainers = with lib.maintainers; [ nikstur ];
+    maintainers = with lib.maintainers; [nikstur];
   };
 }

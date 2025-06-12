@@ -6,7 +6,6 @@
   taglib,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "taglib-extras";
   version = "1.0.1";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ taglib ];
+  buildInputs = [taglib];
   nativeBuildInputs = [
     cmake
     zlib

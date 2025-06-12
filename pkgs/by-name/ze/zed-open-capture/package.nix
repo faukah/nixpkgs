@@ -9,7 +9,6 @@
   fetchFromGitHub,
   withExamples ? false,
 }:
-
 stdenv.mkDerivation {
   pname = "zed-open-capture";
   version = "0.5.0-unstable-2023-24-19";
@@ -42,6 +41,6 @@ stdenv.mkDerivation {
     description = "Platform-agnostic camera and sensor capture API for the ZED 2, ZED 2i, and ZED Mini stereo cameras";
     homepage = "https://github.com/stereolabs/zed-open-capture";
     license = licenses.mit;
-    maintainers = with maintainers; [ marius851000 ];
+    maintainers = with maintainers; [marius851000];
   };
 }

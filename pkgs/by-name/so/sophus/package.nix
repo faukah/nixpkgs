@@ -6,7 +6,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sophus";
   version = "1.24.6";

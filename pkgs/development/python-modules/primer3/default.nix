@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "primer3";
   version = "2.1.0";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-Kp4JH57gEdj7SzY+7XGBzGloWuTSwUQRBK9QbgXQfUE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ cython ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ gcc ];
+  nativeBuildInputs = [cython] ++ lib.optionals stdenv.hostPlatform.isDarwin [gcc];
 
   nativeCheckInputs = [
     click
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     python setup.py build_ext --inplace
   '';
 
-  pythonImportsCheck = [ "primer3" ];
+  pythonImportsCheck = ["primer3"];
 
   meta = with lib; {
     description = "Oligo analysis and primer design";
     homepage = "https://github.com/libnano/primer3-py";
     changelog = "https://github.com/libnano/primer3-py/blob/${src.tag}/CHANGES";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

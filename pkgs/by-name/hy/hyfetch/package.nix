@@ -52,7 +52,7 @@ python3Packages.buildPythonApplication rec {
 
   postFixup = ''
     wrapProgram $out/bin/neowofetch \
-      --prefix PATH : ${lib.makeBinPath [ pciutils ]}
+      --prefix PATH : ${lib.makeBinPath [pciutils]}
   '';
 
   meta = {

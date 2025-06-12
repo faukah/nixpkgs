@@ -9,7 +9,6 @@
   humanity-icon-theme,
   ubuntu-themes,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "mint-x-icons";
   version = "1.7.2";
@@ -53,6 +52,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Mint/metal theme based on mintified versions of Clearlooks Revamp, Elementary and Faenza";
     license = licenses.gpl3Plus; # from debian/copyright
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

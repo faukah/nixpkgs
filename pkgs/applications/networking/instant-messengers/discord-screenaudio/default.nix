@@ -12,7 +12,6 @@
   kdePackages,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "discord-screenaudio";
   version = "1.10.1";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     echo "${version}" > version.txt
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Custom discord client that supports streaming with audio on Linux";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     downloadPage = "https://github.com/maltejur/discord-screenaudio/releases";
     changelog = "https://github.com/maltejur/discord-screenaudio/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ huantian ];
+    maintainers = with lib.maintainers; [huantian];
     platforms = lib.platforms.linux;
   };
 }

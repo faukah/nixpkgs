@@ -4,17 +4,14 @@
   flax,
   tomlq,
   python,
-
   # build-system
   nanobind,
   ninja,
   scikit-build-core,
-
   # nativeBuildInputs
   cmake,
   pkg-config,
 }:
-
 buildPythonPackage rec {
   pname = "flaxlib";
   version = "0.0.1";
@@ -50,7 +47,7 @@ buildPythonPackage rec {
 
   env.CMAKE_PREFIX_PATH = "${nanobind}/${python.sitePackages}/nanobind";
 
-  pythonImportsCheck = [ "flaxlib" ];
+  pythonImportsCheck = ["flaxlib"];
 
   # This package does not have tests (yet ?)
   doCheck = false;
@@ -63,6 +60,6 @@ buildPythonPackage rec {
     description = "Rust library used internally by flax";
     homepage = "https://github.com/google/flax/tree/main/flaxlib";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

@@ -1,26 +1,20 @@
 # Module for rdnssd, a daemon that configures DNS servers in
 # /etc/resolv/conf from IPv6 RDNSS advertisements.
-
 {
   config,
   lib,
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   mergeHook = pkgs.writeScript "rdnssd-merge-hook" ''
     #! ${pkgs.runtimeShell} -e
     ${pkgs.openresolv}/bin/resolvconf -u
   '';
-in
-{
-
+in {
   ###### interface
 
   options = {
-
     services.rdnssd.enable = mkOption {
       type = types.bool;
       default = false;
@@ -32,13 +26,11 @@ in
         advertisements sent by IPv6 routers.
       '';
     };
-
   };
 
   ###### implementation
 
   config = mkIf config.services.rdnssd.enable {
-
     assertions = [
       {
         assertion = config.networking.resolvconf.enable;
@@ -48,8 +40,8 @@ in
 
     systemd.services.rdnssd = {
       description = "RDNSS daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         # Create the proper run directory
@@ -80,8 +72,6 @@ in
       isSystemUser = true;
       group = "rdnssd";
     };
-    users.groups.rdnssd = { };
-
+    users.groups.rdnssd = {};
   };
-
 }

@@ -5,7 +5,6 @@
   fetchpatch,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "aprslib";
   version = "0.7.2";
@@ -27,14 +26,14 @@ buildPythonPackage rec {
 
   doCheck = false; # mox3 is disabled on python311
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "aprslib" ];
+  pythonImportsCheck = ["aprslib"];
 
   meta = with lib; {
     description = "Module for accessing APRS-IS and parsing APRS packets";
     homepage = "https://github.com/rossengeorgiev/aprs-python";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

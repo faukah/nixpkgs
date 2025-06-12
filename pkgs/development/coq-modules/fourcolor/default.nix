@@ -5,7 +5,6 @@
   mathcomp,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "fourcolor";
   owner = "math-comp";
@@ -21,48 +20,47 @@ mkCoqDerivation {
   release."1.4.1".sha256 = "sha256-0UASpo9CdpvidRv33BDWrevo+NSOhxLQFPCJAWPXf+s=";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch
-      [ coq.version mathcomp.version ]
-      [
-        {
-          cases = [
-            (isGe "8.16")
-            (isGe "2.0")
-          ];
-          out = "1.4.1";
-        }
-        {
-          cases = [
-            (isGe "8.16")
-            "2.0.0"
-          ];
-          out = "1.3.0";
-        }
-        {
-          cases = [
-            (isGe "8.11")
-            (range "1.12" "1.19")
-          ];
-          out = "1.2.5";
-        }
-        {
-          cases = [
-            (isGe "8.11")
-            (range "1.11" "1.14")
-          ];
-          out = "1.2.4";
-        }
-        {
-          cases = [
-            (isLe "8.13")
-            (lib.pred.inter (isGe "1.11.0") (isLt "1.13"))
-          ];
-          out = "1.2.3";
-        }
-      ]
-      null;
+    [coq.version mathcomp.version]
+    [
+      {
+        cases = [
+          (isGe "8.16")
+          (isGe "2.0")
+        ];
+        out = "1.4.1";
+      }
+      {
+        cases = [
+          (isGe "8.16")
+          "2.0.0"
+        ];
+        out = "1.3.0";
+      }
+      {
+        cases = [
+          (isGe "8.11")
+          (range "1.12" "1.19")
+        ];
+        out = "1.2.5";
+      }
+      {
+        cases = [
+          (isGe "8.11")
+          (range "1.11" "1.14")
+        ];
+        out = "1.2.4";
+      }
+      {
+        cases = [
+          (isLe "8.13")
+          (lib.pred.inter (isGe "1.11.0") (isLt "1.13"))
+        ];
+        out = "1.2.3";
+      }
+    ]
+    null;
 
   propagatedBuildInputs = [
     mathcomp.boot
@@ -72,7 +70,7 @@ mkCoqDerivation {
 
   meta = with lib; {
     description = "Formal proof of the Four Color Theorem";
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.cecill-b;
     platforms = platforms.unix;
   };

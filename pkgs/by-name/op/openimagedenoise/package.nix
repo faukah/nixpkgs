@@ -11,7 +11,6 @@
   tbb,
   xcodebuild,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openimagedenoise";
   version = "2.3.3";
@@ -37,11 +36,10 @@ stdenv.mkDerivation (finalAttrs: {
       ispc
     ]
     ++ lib.optional cudaSupport cudaPackages.cuda_nvcc
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcodebuild ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [xcodebuild];
 
   buildInputs =
-    [ tbb ]
-
+    [tbb]
     ++ lib.optionals cudaSupport [
       cudaPackages.cuda_cudart
       cudaPackages.cuda_cccl
@@ -57,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.openimagedenoise.org";
     description = "High-Performance Denoising Library for Ray Tracing";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.leshainc ];
+    maintainers = [lib.maintainers.leshainc];
     platforms = lib.platforms.unix;
     changelog = "https://github.com/RenderKit/oidn/blob/v${finalAttrs.version}/CHANGELOG.md";
   };

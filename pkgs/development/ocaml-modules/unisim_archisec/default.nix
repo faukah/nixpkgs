@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchurl,
 }:
-
 buildDunePackage {
   pname = "unisim_archisec";
   version = "0.0.10";
@@ -20,6 +19,6 @@ buildDunePackage {
     downloadPage = "https://github.com/binsec/unisim_archisec";
     description = "UNISIM-VP DBA decoder";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.david-hamelin ];
+    maintainers = [lib.maintainers.david-hamelin];
   };
 }

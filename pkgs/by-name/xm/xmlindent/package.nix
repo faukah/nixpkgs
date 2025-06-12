@@ -4,7 +4,6 @@
   fetchurl,
   flex,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xmlindent";
   version = "0.2.17";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "0k15rxh51a5r4bvfm6c4syxls8al96cx60a9mn6pn24nns3nh3rs";
   };
 
-  buildInputs = [ flex ];
+  buildInputs = [flex];
 
   preConfigure = ''
     substituteInPlace Makefile --replace "PREFIX=/usr/local" "PREFIX=$out"
@@ -26,6 +25,6 @@ stdenv.mkDerivation rec {
     homepage = "https://xmlindent.sourceforge.net/";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

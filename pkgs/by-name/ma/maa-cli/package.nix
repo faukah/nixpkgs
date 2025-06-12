@@ -11,7 +11,6 @@
   android-tools,
   git,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "maa-cli";
   version = "0.5.5";
@@ -29,11 +28,11 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   # https://github.com/MaaAssistantArknights/maa-cli/pull/126
   buildNoDefaultFeatures = true;
-  buildFeatures = [ "git2" ];
+  buildFeatures = ["git2"];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-1KTPvL5JdxN1TPfS0H6Rxi4o8dzMAolHSti9xUKChL8=";
@@ -49,11 +48,11 @@ rustPlatform.buildRustPackage rec {
 
       makeWrapper $out/share/maa-assistant-arknights/maa $out/bin/maa \
         --prefix PATH : "${
-          lib.makeBinPath [
-            android-tools
-            git
-          ]
-        }"
+        lib.makeBinPath [
+          android-tools
+          git
+        ]
+      }"
 
     ''
     + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
@@ -72,7 +71,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/MaaAssistantArknights/maa-cli";
     license = licenses.agpl3Only;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ Cryolitia ];
+    maintainers = with maintainers; [Cryolitia];
     mainProgram = "maa";
   };
 }

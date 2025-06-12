@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "lupa";
   version = "2.4";
@@ -24,13 +23,13 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "lupa" ];
+  pythonImportsCheck = ["lupa"];
 
   meta = with lib; {
     description = "Lua in Python";
     homepage = "https://github.com/scoder/lupa";
     changelog = "https://github.com/scoder/lupa/blob/lupa-${version}/CHANGES.rst";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

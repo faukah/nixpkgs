@@ -3,15 +3,12 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatch-vcs,
   hatchling,
-
   # dependencies
   numpy,
   packaging,
-
   # tests
   awkward,
   dask-awkward,
@@ -21,7 +18,6 @@
   pytestCheckHook,
   sympy,
 }:
-
 buildPythonPackage rec {
   pname = "vector";
   version = "1.6.2";
@@ -54,7 +50,7 @@ buildPythonPackage rec {
     sympy
   ];
 
-  pythonImportsCheck = [ "vector" ];
+  pythonImportsCheck = ["vector"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -75,7 +71,7 @@ buildPythonPackage rec {
     description = "Library for 2D, 3D, and Lorentz vectors, especially arrays of vectors, to solve common physics problems in a NumPy-like way";
     homepage = "https://github.com/scikit-hep/vector";
     changelog = "https://github.com/scikit-hep/vector/releases/tag/${src.tag}";
-    license = with lib.licenses; [ bsd3 ];
-    maintainers = with lib.maintainers; [ veprbl ];
+    license = with lib.licenses; [bsd3];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

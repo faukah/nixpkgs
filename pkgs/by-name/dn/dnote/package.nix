@@ -12,7 +12,6 @@
   postgresql,
   defaultApiEndPoint ? "https://api.getdnote.com",
 }:
-
 buildGoModule rec {
   pname = "dnote";
   version = "0.15.1";
@@ -117,7 +116,7 @@ buildGoModule rec {
   doInstallCheck = !stdenv.hostPlatform.isDarwin;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -125,7 +124,7 @@ buildGoModule rec {
     homepage = "https://www.getdnote.com/";
     changelog = "https://github.com/dnote/dnote/blob/cli-v${version}/CHANGELOG.md";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     license = with lib.licenses; [
       gpl3Only
       agpl3Only

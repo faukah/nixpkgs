@@ -21,7 +21,6 @@
   requests,
   virtualenv,
 }:
-
 buildPythonPackage rec {
   pname = "scikit-build";
   version = "0.18.1";
@@ -55,12 +54,14 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  dependencies = [
-    distro
-    packaging
-    setuptools
-    wheel
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies =
+    [
+      distro
+      packaging
+      setuptools
+      wheel
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   nativeCheckInputs = [
     cmake
@@ -102,6 +103,6 @@ buildPythonPackage rec {
       mit
       bsd2
     ]; # BSD due to reuses of PyNE code
-    maintainers = with maintainers; [ FlorianFranzen ];
+    maintainers = with maintainers; [FlorianFranzen];
   };
 }

@@ -10,7 +10,6 @@
   libiconv,
   libxcrypt,
 }:
-
 stdenv.mkDerivation {
   pname = "libfilezilla";
   version = "0.49.0";
@@ -43,7 +42,7 @@ stdenv.mkDerivation {
     homepage = "https://lib.filezilla-project.org/";
     description = "Modern C++ library, offering some basic functionality to build high-performing, platform-independent programs";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = lib.platforms.unix;
   };
 }

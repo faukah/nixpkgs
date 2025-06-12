@@ -5,7 +5,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "traits";
   version = "7.0.2";
@@ -18,14 +17,14 @@ buildPythonPackage rec {
     hash = "sha256-pWNRWAnLORGXXeWlQgmFXwtv23ymkSpegd4mUp9wQow=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "traits" ];
+  pythonImportsCheck = ["traits"];
 
   meta = {
     description = "Explicitly typed attributes for Python";
     homepage = "https://pypi.python.org/pypi/traits";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitLab,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation {
   pname = "wlr-protocols";
   version = "unstable-2022-09-05";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ wayland-scanner ];
+  nativeBuildInputs = [wayland-scanner];
 
   patchPhase = ''
     substituteInPlace wlr-protocols.pc.in \
@@ -46,6 +45,6 @@ stdenv.mkDerivation {
     homepage = "https://gitlab.freedesktop.org/wlroots/wlr-protocols";
     license = licenses.mit; # See file headers
     platforms = platforms.linux;
-    maintainers = with maintainers; [ Scrumplex ];
+    maintainers = with maintainers; [Scrumplex];
   };
 }

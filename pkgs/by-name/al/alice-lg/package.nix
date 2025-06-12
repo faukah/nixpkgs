@@ -10,7 +10,6 @@
   nixosTests,
   fixup-yarn-lock,
 }:
-
 buildGoModule rec {
   pname = "alice-lg";
   version = "6.1.0";
@@ -78,12 +77,12 @@ buildGoModule rec {
     cp -R ${passthru.ui}/ ui/build/
   '';
 
-  subPackages = [ "cmd/alice-lg" ];
+  subPackages = ["cmd/alice-lg"];
   doCheck = false;
 
   passthru = {
     tests = nixosTests.alice-lg;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -91,7 +90,7 @@ buildGoModule rec {
     description = "Looking-glass for BGP sessions";
     changelog = "https://github.com/alice-lg/alice-lg/blob/main/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ stv0g ];
+    maintainers = with lib.maintainers; [stv0g];
     mainProgram = "alice-lg";
   };
 }

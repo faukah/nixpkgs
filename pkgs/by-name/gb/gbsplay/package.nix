@@ -6,7 +6,6 @@
   libpulseaudio,
   nas,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gbsplay";
   version = "0.0.99";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--without-contrib"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   buildInputs = [
     libpulseaudio
     nas
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Gameboy sound player";
     license = lib.licenses.gpl1Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     mainProgram = "gbsplay";
   };
 })

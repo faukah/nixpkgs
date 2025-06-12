@@ -12,7 +12,6 @@
   ninja,
   meson-python,
   pyproject-metadata,
-
   fontconfig,
   freetype,
   libjpeg,
@@ -24,10 +23,8 @@
   SDL2_mixer,
   SDL2_ttf,
   numpy,
-
   pygame-gui,
 }:
-
 buildPythonPackage rec {
   pname = "pygame-ce";
   version = "2.5.4";
@@ -51,13 +48,15 @@ buildPythonPackage rec {
           "${lib.getDev dep}/"
           "${lib.getDev dep}/include"
           "${lib.getDev dep}/include/SDL2"
-        ]) buildInputs
+        ])
+        buildInputs
       );
       buildinputs_lib = builtins.toJSON (
         builtins.concatMap (dep: [
           "${lib.getLib dep}/"
           "${lib.getLib dep}/lib"
-        ]) buildInputs
+        ])
+        buildInputs
       );
     })
     # https://github.com/libsdl-org/sdl2-compat/issues/476
@@ -105,7 +104,7 @@ buildPythonPackage rec {
     libpng
     portmidi
     SDL2
-    (SDL2_image.override { enableSTB = false; })
+    (SDL2_image.override {enableSTB = false;})
     SDL2_mixer
     SDL2_ttf
   ];
@@ -167,7 +166,7 @@ buildPythonPackage rec {
     homepage = "https://pyga.me/";
     changelog = "https://github.com/pygame-community/pygame-ce/releases/tag/${src.tag}";
     license = lib.licenses.lgpl21Plus;
-    maintainers = [ lib.maintainers.pbsds ];
+    maintainers = [lib.maintainers.pbsds];
     platforms = lib.platforms.unix;
   };
 }

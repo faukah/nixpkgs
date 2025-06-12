@@ -7,7 +7,6 @@
   autoreconfHook,
   unzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "funambol-client-cpp";
   version = "9.0.0";

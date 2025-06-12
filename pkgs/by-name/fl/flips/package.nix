@@ -4,13 +4,11 @@
   fetchFromGitHub,
   libdivsufsort,
   pkg-config,
-
   withGTK3 ? !stdenv.hostPlatform.isDarwin,
   gtk3,
   llvmPackages,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "flips";
   version = "198";
@@ -22,9 +20,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-zYGDcUbtzstk1sTKgX2Mna0rzH7z6Dic+OvjZLI1umI=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ] ++ lib.optional withGTK3 wrapGAppsHook3;
+  nativeBuildInputs =
+    [
+      pkg-config
+    ]
+    ++ lib.optional withGTK3 wrapGAppsHook3;
 
   buildInputs =
     [
@@ -33,11 +33,15 @@ stdenv.mkDerivation rec {
     ++ lib.optional withGTK3 gtk3
     ++ lib.optional (withGTK3 && stdenv.hostPlatform.isDarwin) llvmPackages.openmp;
 
-  patches = [ ./use-system-libdivsufsort.patch ];
+  patches = [./use-system-libdivsufsort.patch];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
-    "TARGET=${if withGTK3 then "gtk" else "cli"}"
+    "TARGET=${
+      if withGTK3
+      then "gtk"
+      else "cli"
+    }"
   ];
 
   installPhase = lib.optionalString (!withGTK3) ''
@@ -50,7 +54,7 @@ stdenv.mkDerivation rec {
     description = "Patcher for IPS and BPS files";
     homepage = "https://github.com/Alcaro/Flips";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
     mainProgram = "flips";
   };

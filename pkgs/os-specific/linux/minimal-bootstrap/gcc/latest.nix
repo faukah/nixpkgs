@@ -18,8 +18,7 @@
   gzip,
   bzip2,
   xz,
-}:
-let
+}: let
   pname = "gcc";
   version = "13.2.0";
 
@@ -52,7 +51,7 @@ let
     hash = "sha256-/PeN2WVsEOuM+fvV9ZoLawE4YgX+GTSzsoegoYmBRcA=";
   };
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -71,34 +70,33 @@ bash.runCommand "${pname}-${version}"
       xz
     ];
 
-    passthru.tests.hello-world =
-      result:
+    passthru.tests.hello-world = result:
       bash.runCommand "${pname}-simple-program-${version}"
-        {
-          nativeBuildInputs = [
-            binutils
-            musl
-            result
-          ];
+      {
+        nativeBuildInputs = [
+          binutils
+          musl
+          result
+        ];
+      }
+      ''
+        cat <<EOF >> test.c
+        #include <stdio.h>
+        int main() {
+          printf("Hello World!\n");
+          return 0;
         }
-        ''
-          cat <<EOF >> test.c
-          #include <stdio.h>
-          int main() {
-            printf("Hello World!\n");
-            return 0;
-          }
-          EOF
-          musl-gcc -o test test.c
-          ./test
-          mkdir $out
-        '';
+        EOF
+        musl-gcc -o test test.c
+        ./test
+        mkdir $out
+      '';
 
     meta = with lib; {
       description = "GNU Compiler Collection, version ${version}";
       homepage = "https://gcc.gnu.org";
       license = licenses.gpl3Plus;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       platforms = platforms.unix;
     };
   }

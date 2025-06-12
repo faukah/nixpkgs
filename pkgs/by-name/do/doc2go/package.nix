@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "doc2go";
   version = "0.8.1";
@@ -22,9 +21,9 @@ buildGoModule rec {
     "-X main._version=${version}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
   # integration is it's own module
-  excludedPackages = [ "integration" ];
+  excludedPackages = ["integration"];
 
   checkFlags = [
     # needs to fetch additional go modules
@@ -52,6 +51,6 @@ buildGoModule rec {
       # internal/godoc/synopsis*.go adapted from golang source
       bsd3
     ];
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
   };
 }

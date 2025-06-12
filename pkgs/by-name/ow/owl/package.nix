@@ -7,7 +7,6 @@
   libnl,
   libpcap,
 }:
-
 stdenv.mkDerivation {
   pname = "owl";
   version = "unstable-2022-01-30";
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libev
     libnl
@@ -31,8 +30,8 @@ stdenv.mkDerivation {
     description = "Open Apple Wireless Direct Link (AWDL) implementation written in C";
     homepage = "https://owlink.org/";
     license = licenses.gpl3Only;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
     mainProgram = "owl";
   };
 }

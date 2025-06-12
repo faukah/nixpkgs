@@ -7,7 +7,6 @@
   mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "polling";
   version = "0.3.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  pythonImportsCheck = [ "polling" ];
+  pythonImportsCheck = ["polling"];
 
   nativeCheckInputs = [
     mock
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Powerful polling utility in Python";
     homepage = "https://github.com/justiniso/polling";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

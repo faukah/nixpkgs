@@ -6,7 +6,6 @@
   pythonOlder,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "celery-types";
   version = "0.23.0";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-QC7QVVrqPNXh5iSPRjLk8Y7sjtskNRc/nm3AhEn6EB4=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ typing-extensions ];
+  propagatedBuildInputs = [typing-extensions];
 
   doCheck = false;
 
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     description = "PEP-484 stubs for Celery";
     homepage = "https://github.com/sbdchd/celery-types";
     license = licenses.mit;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

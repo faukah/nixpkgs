@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "coercer";
   version = "2.4.3";
@@ -16,16 +15,16 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-WeaKToKYIB+jjTNIQvAUQQNb25TsNWALYZwIZuBjkPE=";
   };
 
-  pythonRelaxDeps = [ "impacket" ];
+  pythonRelaxDeps = ["impacket"];
 
-  build-system = with python3.pkgs; [ poetry-core ];
+  build-system = with python3.pkgs; [poetry-core];
 
   dependencies = with python3.pkgs; [
     impacket
     xlsxwriter
   ];
 
-  pythonImportsCheck = [ "coercer" ];
+  pythonImportsCheck = ["coercer"];
 
   # this file runs into issues on case-insensitive filesystems
   # ValueError: Both <...>/coercer and <...>/coercer.py exist
@@ -38,7 +37,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/p0dalirius/Coercer";
     changelog = "https://github.com/p0dalirius/Coercer/releases/tag/${version}";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "coercer";
   };
 }

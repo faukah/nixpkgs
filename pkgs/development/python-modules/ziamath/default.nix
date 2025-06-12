@@ -25,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-ShR9O170Q26l6XHSe2CO4bEuQm4JNOxiPZ2kbKDLNEU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ ziafont ];
+  dependencies = [ziafont];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -36,24 +36,23 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  preCheck =
-    let
-      # The test notebooks try to download font files, unless they already exist in the test directory,
-      # so we prepare them in advance.
-      checkFonts = lib.map fetchurl (import ./checkfonts.nix);
-      copyFontCmd = font: "cp ${font} test/${lib.last (lib.splitString "/" font.url)}\n";
-    in
+  preCheck = let
+    # The test notebooks try to download font files, unless they already exist in the test directory,
+    # so we prepare them in advance.
+    checkFonts = lib.map fetchurl (import ./checkfonts.nix);
+    copyFontCmd = font: "cp ${font} test/${lib.last (lib.splitString "/" font.url)}\n";
+  in
     lib.concatMapStrings copyFontCmd checkFonts;
 
-  pytestFlagsArray = [ "--nbval-lax" ];
+  pytestFlagsArray = ["--nbval-lax"];
 
-  pythonImportsCheck = [ "ziamath" ];
+  pythonImportsCheck = ["ziamath"];
 
   meta = {
     description = "Render MathML and LaTeX Math to SVG without Latex installation";
     homepage = "https://ziamath.readthedocs.io/en/latest/";
     changelog = "https://ziamath.readthedocs.io/en/latest/changes.html";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.sfrijters ];
+    maintainers = [lib.maintainers.sfrijters];
   };
 }

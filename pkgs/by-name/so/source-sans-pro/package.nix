@@ -3,12 +3,10 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 # Source Sans Pro got renamed to Source Sans 3 (see
 # https://github.com/adobe-fonts/source-sans/issues/192). This is the
 # last version named "Pro". It is useful for backward compatibility
 # with older documents/templates/etc.
-
 stdenvNoCC.mkDerivation rec {
   name = "source-sans-pro-${version}";
   version = "3.006";
@@ -33,6 +31,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Sans serif font family for user interface environments";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
   };
 }

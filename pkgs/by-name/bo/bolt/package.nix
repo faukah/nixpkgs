@@ -19,7 +19,6 @@
   systemd,
   polkit,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bolt";
   version = "0.9.8";
@@ -94,7 +93,7 @@ stdenv.mkDerivation rec {
     mainProgram = "boltctl";
     homepage = "https://gitlab.freedesktop.org/bolt/bolt";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ callahad ];
+    maintainers = with maintainers; [callahad];
     platforms = platforms.linux;
   };
 }

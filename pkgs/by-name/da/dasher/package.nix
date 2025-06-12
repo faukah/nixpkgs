@@ -18,7 +18,6 @@
   speechSupport ? true,
   speechd-minimal,
 }:
-
 stdenv.mkDerivation {
   pname = "dasher";
   version = "unstable-2021-04-25";
@@ -49,15 +48,17 @@ stdenv.mkDerivation {
     libxml2
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-    expat
-    itstool
-    # at-spi2 needs dbus to be recognized by pkg-config
-    at-spi2-core
-    dbus
-  ] ++ lib.optional speechSupport speechd-minimal;
+  buildInputs =
+    [
+      glib
+      gtk3
+      expat
+      itstool
+      # at-spi2 needs dbus to be recognized by pkg-config
+      at-spi2-core
+      dbus
+    ]
+    ++ lib.optional speechSupport speechd-minimal;
 
   enableParallelBuilding = true;
 
@@ -65,7 +66,7 @@ stdenv.mkDerivation {
     homepage = "https://www.inference.org.uk/dasher/";
     description = "Information-efficient text-entry interface, driven by natural continuous pointing gestures";
     license = lib.licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
     mainProgram = "dasher";
   };

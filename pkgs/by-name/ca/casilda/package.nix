@@ -16,7 +16,6 @@
   wlroots_0_18,
   libxkbcommon,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "casilda";
   version = "0.2.0";
@@ -73,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://gitlab.gnome.org/jpu/casilda";
     description = "Simple Wayland compositor widget for Gtk 4 which can be used to embed other processes windows in Gtk 4 application";
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.unix;
   };

@@ -1,17 +1,13 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "privatebin";
-  meta.maintainers = [ lib.maintainers.savyajha ];
+  meta.maintainers = [lib.maintainers.savyajha];
 
-  nodes.dataImporter =
-    { ... }:
-    {
-      services.privatebin = {
-        enable = true;
-        enableNginx = true;
-      };
+  nodes.dataImporter = {...}: {
+    services.privatebin = {
+      enable = true;
+      enableNginx = true;
     };
+  };
 
   testScript = ''
     dataImporter.wait_for_unit("phpfpm-privatebin.service")

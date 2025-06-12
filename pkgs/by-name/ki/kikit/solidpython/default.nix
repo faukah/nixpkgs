@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchFromGitHub,
   lib,
-
   poetry-core,
   prettytable,
   ply,
@@ -55,7 +54,7 @@ buildPythonPackage rec {
     description = "Python interface to the OpenSCAD declarative geometry language";
     homepage = "https://github.com/SolidCode/SolidPython";
     changelog = "https://github.com/SolidCode/SolidPython/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ jfly ];
+    maintainers = with lib.maintainers; [jfly];
     license = lib.licenses.lgpl21Plus;
   };
 }

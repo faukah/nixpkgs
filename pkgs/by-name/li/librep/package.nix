@@ -12,7 +12,6 @@
   texinfo,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "librep";
   version = "0.92.7";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
   enableParallelBuilding = true;
 
   # ensure libsystem/ctype functions don't get duplicated when using clang
-  configureFlags = lib.optionals stdenv.hostPlatform.isDarwin [ "CFLAGS=-std=gnu89" ];
+  configureFlags = lib.optionals stdenv.hostPlatform.isDarwin ["CFLAGS=-std=gnu89"];
 
   setupHook = ./setup-hook.sh;
 
@@ -70,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
       language but is also suitable for standalone scripts.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
     mainProgram = "rep";
   };

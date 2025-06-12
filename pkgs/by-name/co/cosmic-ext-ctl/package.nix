@@ -21,17 +21,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-OL1LqOAyIFFCGIp3ySdvEXJ1ECp9DgC/8mfAPo/E7k4=";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/cosmic-ctl";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "CLI for COSMIC Desktop configuration management";
     changelog = "https://github.com/cosmic-utils/cosmic-ctl/releases/tag/v${finalAttrs.version}";
     homepage = "https://github.com/cosmic-utils/cosmic-ctl";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ HeitorAugustoLN ];
+    maintainers = with lib.maintainers; [HeitorAugustoLN];
     mainProgram = "cosmic-ctl";
     inherit (cosmic-comp.meta) platforms;
   };

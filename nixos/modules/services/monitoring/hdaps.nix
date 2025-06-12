@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.hdapsd;
-  hdapsd = [ pkgs.hdapsd ];
-in
-{
+  hdapsd = [pkgs.hdapsd];
+in {
   options = {
     services.hdapsd.enable = lib.mkEnableOption ''
       Hard Drive Active Protection System Daemon,
@@ -17,7 +15,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    boot.kernelModules = [ "hdapsd" ];
+    boot.kernelModules = ["hdapsd"];
     services.udev.packages = hdapsd;
     systemd.packages = hdapsd;
   };

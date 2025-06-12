@@ -7,7 +7,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "yarg";
   version = "0.1.9-unstable-2022-02-06";
@@ -29,16 +28,16 @@ buildPythonPackage {
     })
   ];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Easy to use PyPI client";
     homepage = "https://yarg.readthedocs.io";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ psyanticy ];
+    maintainers = with lib.maintainers; [psyanticy];
   };
 }

@@ -2,36 +2,35 @@
   lib,
   buildNpmPackage,
   fetchFromGitHub,
-}:
-let
+}: let
   version = "3.1.10";
 in
-buildNpmPackage {
-  pname = "ejs";
-  inherit version;
+  buildNpmPackage {
+    pname = "ejs";
+    inherit version;
 
-  src = fetchFromGitHub {
-    owner = "mde";
-    repo = "ejs";
-    rev = "v${version}";
-    hash = "sha256-3Rq+7oiYJlIY7sGPasx728sz2zj0ndAvKpHGsQX4tlc=";
-  };
+    src = fetchFromGitHub {
+      owner = "mde";
+      repo = "ejs";
+      rev = "v${version}";
+      hash = "sha256-3Rq+7oiYJlIY7sGPasx728sz2zj0ndAvKpHGsQX4tlc=";
+    };
 
-  npmDepsHash = "sha256-829eWfJiMw9KRlhdmzD0ha//bgUQ5nPEzO+ayUPLxXY=";
+    npmDepsHash = "sha256-829eWfJiMw9KRlhdmzD0ha//bgUQ5nPEzO+ayUPLxXY=";
 
-  buildPhase = ''
-    runHook preBuild
+    buildPhase = ''
+      runHook preBuild
 
-    ./node_modules/.bin/jake build
+      ./node_modules/.bin/jake build
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
-  meta = {
-    description = "Embedded JavaScript templates";
-    homepage = "https://ejs.co";
-    license = lib.licenses.asl20;
-    mainProgram = "ejs";
-    maintainers = with lib.maintainers; [ momeemt ];
-  };
-}
+    meta = {
+      description = "Embedded JavaScript templates";
+      homepage = "https://ejs.co";
+      license = lib.licenses.asl20;
+      mainProgram = "ejs";
+      maintainers = with lib.maintainers; [momeemt];
+    };
+  }

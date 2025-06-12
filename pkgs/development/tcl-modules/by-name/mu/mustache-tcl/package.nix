@@ -4,7 +4,6 @@
   mkTclDerivation,
   tcllib,
 }:
-
 mkTclDerivation rec {
   pname = "mustache-tcl";
   version = "1.1.3.4";
@@ -31,6 +30,6 @@ mkTclDerivation rec {
     description = "Tcl implementation of the mustache templating language";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ nat-418 ];
+    maintainers = with maintainers; [nat-418];
   };
 }

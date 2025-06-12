@@ -10,7 +10,6 @@
   pytestCheckHook,
   typesentry,
 }:
-
 buildPythonPackage rec {
   pname = "datatable";
   # python 3.10+ support is not in the 1.0.0 release
@@ -55,7 +54,7 @@ buildPythonPackage rec {
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin "-isystem ${lib.getInclude stdenv.cc.libcxx}/include/c++/v1";
 
   # test suite is very cpu intensive, only run small subset to ensure package is working as expected
-  pytestFlagsArray = [ "tests/test-sets.py" ];
+  pytestFlagsArray = ["tests/test-sets.py"];
 
   disabledTests = [
     # skip tests which are irrelevant to our installation or use way too much memory
@@ -64,12 +63,12 @@ buildPythonPackage rec {
     "test_cast_huge_to_str"
     "test_create_large_string_column"
   ];
-  pythonImportsCheck = [ "datatable" ];
+  pythonImportsCheck = ["datatable"];
 
   meta = with lib; {
     description = "data.table for Python";
     homepage = "https://github.com/h2oai/datatable";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

@@ -6,7 +6,6 @@
   sbcl,
   texinfo,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stumpwm";
   version = "24.11";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://stumpwm.github.io/";
     license = lib.licenses.gpl2Plus;
     mainProgram = "stumpwm";
-    teams = [ lib.teams.lisp ];
+    teams = [lib.teams.lisp];
     platforms = lib.platforms.unix;
   };
 })

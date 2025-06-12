@@ -1,24 +1,25 @@
 {
   runTest,
   php,
-}:
-
-let
+}: let
   php' = php.buildEnv {
-    extensions = { enabled, all }: with all; enabled ++ [ apcu ];
+    extensions = {
+      enabled,
+      all,
+    }:
+      with all; enabled ++ [apcu];
   };
-in
-{
+in {
   fpm = runTest {
-    imports = [ ./fpm.nix ];
+    imports = [./fpm.nix];
     _module.args.php = php';
   };
   httpd = runTest {
-    imports = [ ./httpd.nix ];
+    imports = [./httpd.nix];
     _module.args.php = php';
   };
   pcre = runTest {
-    imports = [ ./pcre.nix ];
+    imports = [./pcre.nix];
     _module.args.php = php';
   };
 }

@@ -12,7 +12,6 @@
   traitlets,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "nbsphinx";
   version = "0.9.7";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     docutils
@@ -47,13 +46,13 @@ buildPythonPackage rec {
 
   JUPYTER_PATH = "${nbconvert}/share/jupyter";
 
-  pythonImportsCheck = [ "nbsphinx" ];
+  pythonImportsCheck = ["nbsphinx"];
 
   meta = with lib; {
     description = "Jupyter Notebook Tools for Sphinx";
     homepage = "https://nbsphinx.readthedocs.io/";
     changelog = "https://github.com/spatialaudio/nbsphinx/blob/${version}/NEWS.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

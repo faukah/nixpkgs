@@ -5,7 +5,6 @@
   perl,
   libxcb,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lemonbar";
   version = "1.5";

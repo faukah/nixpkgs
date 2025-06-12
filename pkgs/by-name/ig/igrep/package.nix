@@ -5,7 +5,6 @@
   testers,
   igrep,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "igrep";
   version = "1.3.0";
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/konradsz/igrep";
     changelog = "https://github.com/konradsz/igrep/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ _0x4A6F ];
+    maintainers = with lib.maintainers; [_0x4A6F];
     mainProgram = "ig";
   };
 }

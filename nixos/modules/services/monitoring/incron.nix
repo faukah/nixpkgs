@@ -3,18 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.incron;
-
-in
-
-{
+in {
   options = {
-
     services.incron = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -56,22 +49,19 @@ in
 
       extraPackages = lib.mkOption {
         type = lib.types.listOf lib.types.package;
-        default = [ ];
+        default = [];
         example = lib.literalExpression "[ pkgs.rsync ]";
         description = "Extra packages available to the system incrontab.";
       };
-
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     warnings = lib.optional (
       cfg.allow != null && cfg.deny != null
     ) "If `services.incron.allow` is set then `services.incron.deny` will be ignored.";
 
-    environment.systemPackages = [ pkgs.incron ];
+    environment.systemPackages = [pkgs.incron];
 
     security.wrappers.incrontab = {
       setuid = true;
@@ -94,12 +84,11 @@ in
 
     systemd.services.incron = {
       description = "File System Events Scheduler";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = cfg.extraPackages;
       serviceConfig.PIDFile = "/run/incrond.pid";
       serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/mkdir -m 710 -p /var/spool/incron";
       serviceConfig.ExecStart = "${pkgs.incron}/bin/incrond --foreground";
     };
   };
-
 }

@@ -5,7 +5,6 @@
   gnuplot,
   iso8601,
 }:
-
 buildDunePackage rec {
   pname = "gnuplot";
   version = "0.7";
@@ -29,7 +28,7 @@ buildDunePackage rec {
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "Ocaml bindings to Gnuplot";
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     license = licenses.lgpl21;
   };
 }

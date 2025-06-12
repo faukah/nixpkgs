@@ -3,15 +3,12 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.autobrr;
-  configFormat = pkgs.formats.toml { };
+  configFormat = pkgs.formats.toml {};
   configTemplate = configFormat.generate "autobrr.toml" cfg.settings;
   templaterCmd = ''${lib.getExe pkgs.dasel} put -f '${configTemplate}' -v "$(${config.systemd.package}/bin/systemd-creds cat sessionSecret)" -o %S/autobrr/config.toml "sessionSecret"'';
-in
-{
+in {
   options = {
     services.autobrr = {
       enable = lib.mkEnableOption "Autobrr";
@@ -28,7 +25,7 @@ in
       };
 
       settings = lib.mkOption {
-        type = lib.types.submodule { freeformType = configFormat.type; };
+        type = lib.types.submodule {freeformType = configFormat.type;};
         default = {
           host = "127.0.0.1";
           port = 7474;
@@ -45,7 +42,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "autobrr" { };
+      package = lib.mkPackageOption pkgs "autobrr" {};
     };
   };
 
@@ -67,8 +64,8 @@ in
         "syslog.target"
         "network-online.target"
       ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -81,6 +78,6 @@ in
       };
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.port ]; };
+    networking.firewall = lib.mkIf cfg.openFirewall {allowedTCPPorts = [cfg.settings.port];};
   };
 }

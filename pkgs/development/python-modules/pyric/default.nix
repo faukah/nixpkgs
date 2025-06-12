@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyric";
   version = "0.1.6.3";
@@ -26,12 +25,12 @@ buildPythonPackage rec {
   # Tests are outdated
   doCheck = false;
 
-  pythonImportsCheck = [ "pyric" ];
+  pythonImportsCheck = ["pyric"];
 
   meta = with lib; {
     description = "Python Radio Interface Controller";
     homepage = "https://github.com/wraith-wireless/PyRIC";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

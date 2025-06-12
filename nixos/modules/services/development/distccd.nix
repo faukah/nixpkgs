@@ -3,18 +3,16 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.distccd;
-in
-{
+in {
   options = {
     services.distccd = {
       enable = lib.mkEnableOption "distccd, a distributed C/C++ compiler";
 
       allowedClients = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ "127.0.0.1" ];
+        default = ["127.0.0.1"];
         example = [
           "127.0.0.1"
           "192.168.0.0/24"
@@ -80,7 +78,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "distcc" { };
+      package = lib.mkPackageOption pkgs "distcc" {};
 
       port = lib.mkOption {
         type = lib.types.port;
@@ -114,15 +112,15 @@ in
 
   config = lib.mkIf cfg.enable {
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ] ++ lib.optionals cfg.stats.enable [ cfg.stats.port ];
+      allowedTCPPorts = [cfg.port] ++ lib.optionals cfg.stats.enable [cfg.stats.port];
     };
 
     systemd.services.distccd = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       description = "Distributed C, C++ and Objective-C compiler";
-      documentation = [ "man:distccd(1)" ];
+      documentation = ["man:distccd(1)"];
 
       serviceConfig = {
         User = "distcc";

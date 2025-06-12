@@ -7,7 +7,6 @@
   openssl,
   curl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-cyclonedx";
   version = "0.5.7";
@@ -45,6 +44,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/CycloneDX/cyclonedx-rust-cargo";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nikstur ];
+    maintainers = with maintainers; [nikstur];
   };
 }

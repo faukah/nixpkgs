@@ -4,7 +4,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rcp";
   version = "0.17.0";
@@ -30,9 +29,9 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/wykurz/rcp/releases/tag/v${version}";
     description = "Tools to efficiently copy, remove and link large filesets";
     homepage = "https://github.com/wykurz/rcp";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     mainProgram = "rcp";
-    maintainers = with lib.maintainers; [ wykurz ];
+    maintainers = with lib.maintainers; [wykurz];
     # Building procfs on an for a unsupported platform. Currently only linux and android are supported
     # (Your current target_os is macos)
     broken = stdenv.hostPlatform.isDarwin;

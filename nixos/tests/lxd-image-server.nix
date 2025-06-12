@@ -1,6 +1,8 @@
-{ pkgs, lib, ... }:
-
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   lxd-image = import ../release.nix {
     configuration = {
       # Building documentation makes the test unnecessarily take a longer time:
@@ -10,9 +12,7 @@ let
 
   lxd-image-metadata = lxd-image.lxdContainerMeta.${pkgs.stdenv.hostPlatform.system};
   lxd-image-rootfs = lxd-image.lxdContainerImage.${pkgs.stdenv.hostPlatform.system};
-
-in
-{
+in {
   name = "lxd-image-server";
 
   meta = with pkgs.lib.maintainers; {
@@ -22,45 +22,43 @@ in
     ];
   };
 
-  nodes.machine =
-    { lib, ... }:
-    {
-      virtualisation = {
-        cores = 2;
+  nodes.machine = {lib, ...}: {
+    virtualisation = {
+      cores = 2;
 
-        memorySize = 2048;
-        diskSize = 4096;
+      memorySize = 2048;
+      diskSize = 4096;
 
-        lxc.lxcfs.enable = true;
-        lxd.enable = true;
-      };
+      lxc.lxcfs.enable = true;
+      lxd.enable = true;
+    };
 
-      security.pki.certificates = [
-        (builtins.readFile ./common/acme/server/ca.cert.pem)
-      ];
+    security.pki.certificates = [
+      (builtins.readFile ./common/acme/server/ca.cert.pem)
+    ];
 
-      services.nginx = {
+    services.nginx = {
+      enable = true;
+    };
+
+    services.lxd-image-server = {
+      enable = true;
+      nginx = {
         enable = true;
-      };
-
-      services.lxd-image-server = {
-        enable = true;
-        nginx = {
-          enable = true;
-          domain = "acme.test";
-        };
-      };
-
-      services.nginx.virtualHosts."acme.test" = {
-        enableACME = false;
-        sslCertificate = ./common/acme/server/acme.test.cert.pem;
-        sslCertificateKey = ./common/acme/server/acme.test.key.pem;
-      };
-
-      networking.hosts = {
-        "::1" = [ "acme.test" ];
+        domain = "acme.test";
       };
     };
+
+    services.nginx.virtualHosts."acme.test" = {
+      enableACME = false;
+      sslCertificate = ./common/acme/server/acme.test.cert.pem;
+      sslCertificateKey = ./common/acme/server/acme.test.key.pem;
+    };
+
+    networking.hosts = {
+      "::1" = ["acme.test"];
+    };
+  };
 
   testScript = ''
     machine.wait_for_unit("sockets.target")

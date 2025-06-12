@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "dhcpig";
   version = "1.6";
@@ -32,7 +31,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Tool to perform advanced DHCP exhaustion attack";
     homepage = "https://github.com/kamorin/DHCPig";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ tochiaha ];
+    maintainers = with maintainers; [tochiaha];
     mainProgram = "dhcpig";
   };
 }

@@ -7,7 +7,6 @@
   perl,
   patchelf,
 }:
-
 stdenv.mkDerivation rec {
   pname = "TPTP";
   version = "7.2.0";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0yq8452b6mym4yscy46pshg0z2my8xi74b5bp2qlxd5bjwcrg6rl";
   };
 
-  nativeBuildInputs = [ patchelf ];
+  nativeBuildInputs = [patchelf];
   buildInputs = [
     tcsh
     yap
@@ -56,9 +55,9 @@ stdenv.mkDerivation rec {
     # 6.3 GiB of data. Installation is unpacking and editing a few files.
     # No sense in letting Hydra build it.
     # Also, it is unclear what is covered by "verbatim" - we will edit configs
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
     platforms = platforms.all;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfreeRedistributable;
   };
 }

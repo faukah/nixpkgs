@@ -3,11 +3,11 @@
   stdenvNoCC,
   fetchurl,
   gitUpdater,
-}:
-
-let
-  common =
-    { version, hash }:
+}: let
+  common = {
+    version,
+    hash,
+  }:
     stdenvNoCC.mkDerivation rec {
       pname = "jetty";
 
@@ -37,7 +37,7 @@ let
         description = "Web server and javax.servlet container";
         homepage = "https://jetty.org/";
         platforms = platforms.all;
-        sourceProvenance = with sourceTypes; [ binaryBytecode ];
+        sourceProvenance = with sourceTypes; [binaryBytecode];
         license = with licenses; [
           asl20
           epl10
@@ -48,9 +48,7 @@ let
         ];
       };
     };
-
-in
-{
+in {
   jetty_11 = common {
     version = "11.0.25";
     hash = "sha256-KaceKN/iu0QCv9hVmoXYvN7TxK9DwhiCcbjEnqcKSzs=";

@@ -5,7 +5,6 @@
   kernel,
   kernelModuleMakeFlags,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vhba";
   version = "20250329";
@@ -15,10 +14,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-piog1yDd8M/lpTIo9FE9SY2JwurZ6a8LG2lZ/4EmB14=";
   };
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    "INSTALL_MOD_PATH=$(out)"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      "INSTALL_MOD_PATH=$(out)"
+    ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   meta = with lib; {
@@ -26,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://cdemu.sourceforge.io/about/vhba/";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ bendlas ];
+    maintainers = with lib.maintainers; [bendlas];
   };
 }

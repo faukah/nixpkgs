@@ -5,7 +5,6 @@
   latexminted,
   testers,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "latexminted";
   version = "0.6.0";
@@ -27,7 +26,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   passthru = {
-    tests.version = testers.testVersion { package = latexminted; };
+    tests.version = testers.testVersion {package = latexminted;};
   };
 
   meta = {
@@ -35,6 +34,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://pypi.org/project/latexminted";
     license = lib.licenses.lppl13c;
     mainProgram = "latexminted";
-    maintainers = with lib.maintainers; [ romildo ];
+    maintainers = with lib.maintainers; [romildo];
   };
 }

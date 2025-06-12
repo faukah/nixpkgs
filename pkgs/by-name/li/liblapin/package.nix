@@ -7,7 +7,6 @@
   libusb-compat-0_1,
   libudev-zero,
 }:
-
 stdenv.mkDerivation {
   pname = "liblapin";
   version = "0-unstable-2024-05-20";
@@ -57,6 +56,6 @@ stdenv.mkDerivation {
     homepage = "https://liblapin.org?lan=en";
     platforms = lib.platforms.unix;
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

@@ -16,7 +16,6 @@
   pkg-config,
   qtbase,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gmenuharness";
   version = "0.1.4";
@@ -81,14 +80,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = with lib; {
     description = "Library to test GMenuModel structures";
     homepage = "https://gitlab.com/ubports/development/core/gmenuharness";
     license = licenses.gpl3Only;
-    teams = [ teams.lomiri ];
+    teams = [teams.lomiri];
     platforms = platforms.unix;
     pkgConfigModules = [
       "libgmenuharness"

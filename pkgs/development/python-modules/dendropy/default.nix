@@ -9,46 +9,47 @@
   setuptools,
   paup-cli,
   paupIntegration ? false,
-}:
-
-let
-  paupPath = if paupIntegration then lib.getExe paup-cli else "NONE";
+}: let
+  paupPath =
+    if paupIntegration
+    then lib.getExe paup-cli
+    else "NONE";
 in
-buildPythonPackage rec {
-  pname = "dendropy";
-  version = "5.0.6";
+  buildPythonPackage rec {
+    pname = "dendropy";
+    version = "5.0.6";
 
-  pyproject = true;
-  build-system = [ setuptools ];
+    pyproject = true;
+    build-system = [setuptools];
 
-  src = fetchFromGitHub {
-    owner = "jeetsukumaran";
-    repo = "dendropy";
-    tag = "v${version}";
-    hash = "sha256-pZ6vVN9vGUpdLvvVZLYUj3yWgn+9qd7D0wq5NxM8UiY=";
-  };
+    src = fetchFromGitHub {
+      owner = "jeetsukumaran";
+      repo = "dendropy";
+      tag = "v${version}";
+      hash = "sha256-pZ6vVN9vGUpdLvvVZLYUj3yWgn+9qd7D0wq5NxM8UiY=";
+    };
 
-  postPatch = ''
-    substituteInPlace setup.py \
-      --replace '["pytest-runner"],' '[],'
+    postPatch = ''
+      substituteInPlace setup.py \
+        --replace '["pytest-runner"],' '[],'
 
-    substituteInPlace src/dendropy/interop/paup.py \
-      --replace 'PAUP_PATH = os.environ.get(metavar.DENDROPY_PAUP_PATH_ENVAR, "paup")' 'PAUP_PATH = os.environ.get(metavar.DENDROPY_PAUP_PATH_ENVAR, "${paupPath}")'
-  '';
+      substituteInPlace src/dendropy/interop/paup.py \
+        --replace 'PAUP_PATH = os.environ.get(metavar.DENDROPY_PAUP_PATH_ENVAR, "paup")' 'PAUP_PATH = os.environ.get(metavar.DENDROPY_PAUP_PATH_ENVAR, "${paupPath}")'
+    '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+    nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dendropy" ];
+    pythonImportsCheck = ["dendropy"];
 
-  passthru.updateScript = nix-update-script { };
+    passthru.updateScript = nix-update-script {};
 
-  meta = {
-    description = "Python library for phylogenetic computing";
-    homepage = "https://jeetsukumaran.github.io/DendroPy/";
-    license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [
-      unode
-      pandapip1
-    ];
-  };
-}
+    meta = {
+      description = "Python library for phylogenetic computing";
+      homepage = "https://jeetsukumaran.github.io/DendroPy/";
+      license = lib.licenses.bsd3;
+      maintainers = with lib.maintainers; [
+        unode
+        pandapip1
+      ];
+    };
+  }

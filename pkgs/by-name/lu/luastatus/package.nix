@@ -27,7 +27,6 @@
   xcbutil,
   xcbutilwm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "luastatus";
   version = "0.6.0";
@@ -83,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/shdown/luastatus";
     changelog = "https://github.com/shdown/luastatus/releases/tag/${finalAttrs.version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ kashw2 ];
+    maintainers = with maintainers; [kashw2];
     platforms = platforms.linux;
   };
 })

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tun2socks";
   version = "2.5.2-unstable-2024-02-28";
@@ -28,7 +27,7 @@ buildGoModule rec {
     homepage = "https://github.com/xjasonlyu/tun2socks";
     description = "tun2socks - powered by gVisor TCP/IP stack";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     mainProgram = "tun2socks";
   };
 }

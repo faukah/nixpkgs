@@ -5,7 +5,6 @@
   pkg-config,
   gtk2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtkimageview";
   version = "1.6.4";
@@ -15,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "1wj63af9j9p5i067lpwi9lxvwalamakrmklvl983kvi7s4w1ss2c";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk2 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [gtk2];
 
   preConfigure = ''
     sed '/DEPRECATED_FLAGS/d' -i configure
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.lgpl2Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 }

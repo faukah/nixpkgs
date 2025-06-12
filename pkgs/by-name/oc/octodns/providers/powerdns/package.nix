@@ -9,7 +9,6 @@
   requests-mock,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "octodns-powerdns";
   version = "1.0.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
 
   env.OCTODNS_RELEASE = 1;
 
-  pythonImportsCheck = [ "octodns_powerdns" ];
+  pythonImportsCheck = ["octodns_powerdns"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/octodns/octodns-powerdns/";
     changelog = "https://github.com/octodns/octodns-powerdns/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    teams = [ lib.teams.octodns ];
+    teams = [lib.teams.octodns];
   };
 }

@@ -3,22 +3,26 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.dockerRegistry;
 
-  blobCache = if cfg.enableRedisCache then "redis" else "inmemory";
+  blobCache =
+    if cfg.enableRedisCache
+    then "redis"
+    else "inmemory";
 
   registryConfig = {
     version = "0.1";
     log.fields.service = "registry";
-    storage = {
-      cache.blobdescriptor = blobCache;
-      delete.enabled = cfg.enableDelete;
-    } // (lib.optionalAttrs (cfg.storagePath != null) { filesystem.rootdirectory = cfg.storagePath; });
+    storage =
+      {
+        cache.blobdescriptor = blobCache;
+        delete.enabled = cfg.enableDelete;
+      }
+      // (lib.optionalAttrs (cfg.storagePath != null) {filesystem.rootdirectory = cfg.storagePath;});
     http = {
       addr = "${cfg.listenAddress}:${builtins.toString cfg.port}";
-      headers.X-Content-Type-Options = [ "nosniff" ];
+      headers.X-Content-Type-Options = ["nosniff"];
     };
     health.storagedriver = {
       enabled = true;
@@ -42,8 +46,7 @@ let
   };
 
   configFile = cfg.configFile;
-in
-{
+in {
   options.services.dockerRegistry = {
     enable = lib.mkEnableOption "Docker Registry";
 
@@ -107,7 +110,7 @@ in
           log.level = "debug";
         }
       '';
-      default = { };
+      default = {};
       type = lib.types.attrs;
     };
 
@@ -140,8 +143,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.docker-registry = {
       description = "Docker Container Registry";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       script = ''
         ${cfg.package}/bin/registry serve ${configFile}
       '';
@@ -178,10 +181,10 @@ in
         group = "docker-registry";
         isSystemUser = true;
       };
-    users.groups.docker-registry = { };
+    users.groups.docker-registry = {};
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
   };
 }

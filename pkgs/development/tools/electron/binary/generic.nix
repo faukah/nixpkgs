@@ -33,10 +33,7 @@
   libsecret,
   libpulseaudio,
   speechd-minimal,
-}:
-
-version: hashes:
-let
+}: version: hashes: let
   pname = "electron";
 
   meta = with lib; {
@@ -56,20 +53,18 @@ let
       "aarch64-linux"
       "aarch64-darwin"
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     # https://www.electronjs.org/docs/latest/tutorial/electron-timelines
     knownVulnerabilities = optional (versionOlder version "34.0.0") "Electron version ${version} is EOL";
   };
 
-  fetcher =
-    vers: tag: hash:
+  fetcher = vers: tag: hash:
     fetchurl {
       url = "https://github.com/electron/electron/releases/download/v${vers}/electron-v${vers}-${tag}.zip";
       sha256 = hash;
     };
 
-  headersFetcher =
-    vers: hash:
+  headersFetcher = vers: hash:
     fetchzip {
       name = "electron-${vers}-headers";
       url = "https://artifacts.electronjs.org/headers/dist/v${vers}/node-v${vers}-headers.tar.gz";
@@ -170,12 +165,12 @@ let
       # patch libANGLE
       patchelf \
         --set-rpath "${
-          lib.makeLibraryPath [
-            libGL
-            pciutils
-            vulkan-loader
-          ]
-        }" \
+        lib.makeLibraryPath [
+          libGL
+          pciutils
+          vulkan-loader
+        ]
+      }" \
         $out/libexec/electron/lib*GL*
 
       # replace bundled vulkan-loader
@@ -203,9 +198,14 @@ let
     passthru.dist = finalAttrs.finalPackage + "/Applications";
   };
 in
-stdenv.mkDerivation (
-  finalAttrs:
-  lib.recursiveUpdate (common stdenv.hostPlatform) (
-    (if stdenv.hostPlatform.isDarwin then darwin else linux) finalAttrs
+  stdenv.mkDerivation (
+    finalAttrs:
+      lib.recursiveUpdate (common stdenv.hostPlatform) (
+        (
+          if stdenv.hostPlatform.isDarwin
+          then darwin
+          else linux
+        )
+        finalAttrs
+      )
   )
-)

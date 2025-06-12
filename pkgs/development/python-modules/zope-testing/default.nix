@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zope-testing";
   version = "5.1";
@@ -24,23 +23,23 @@ buildPythonPackage rec {
       --replace-fail "setuptools <= 75.6.0" setuptools
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   doCheck = !isPyPy;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "src/zope/testing/tests.py" ];
+  pytestFlagsArray = ["src/zope/testing/tests.py"];
 
-  pythonImportsCheck = [ "zope.testing" ];
+  pythonImportsCheck = ["zope.testing"];
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = {
     description = "Zope testing helpers";
     homepage = "https://github.com/zopefoundation/zope.testing";
     changelog = "https://github.com/zopefoundation/zope.testing/blob/${version}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -31,10 +31,7 @@
       "5.3.0" = "5.4.1-503";
     }
     ."${ocaml.version}",
-}:
-
-let
-
+}: let
   hashes = {
     "4.7-412" = "sha256-0U3Ia7EblKULNy8AuXFVKACZvGN0arYJv7BWiBRgT0Y=";
     "4.7-413" = "sha256-aVmGWS4bJBLuwsxDKsng/n0A6qlyJ/pnDTcYab/5gyU=";
@@ -46,59 +43,63 @@ let
     "5.3-502" = "sha256-LOpG8SOX+m4x7wwNT14Rwc/ZFu5JQgaUAFyV67OqJLw=";
     "5.4.1-503" = "sha256-SbO0x3jBISX8dAXnN5CwsxLV15dJ3XPUg4tlYqJTMCI=";
   };
-
 in
+  buildDunePackage {
+    pname = "merlin";
+    inherit version;
 
-buildDunePackage {
-  pname = "merlin";
-  inherit version;
+    src = fetchurl {
+      url = "https://github.com/ocaml/merlin/releases/download/v${version}/merlin-${version}.tbz";
+      sha256 = hashes."${version}";
+    };
 
-  src = fetchurl {
-    url = "https://github.com/ocaml/merlin/releases/download/v${version}/merlin-${version}.tbz";
-    sha256 = hashes."${version}";
-  };
-
-  patches =
-    let
+    patches = let
       old-patch = lib.versionOlder version "4.17";
-    in
-    [
-      (replaceVars (if old-patch then ./fix-paths.patch else ./fix-paths2.patch) {
-        dot-merlin-reader = "${dot-merlin-reader}/bin/dot-merlin-reader";
-        dune = "${dune_3}/bin/dune";
-      })
+    in [
+      (replaceVars (
+          if old-patch
+          then ./fix-paths.patch
+          else ./fix-paths2.patch
+        ) {
+          dot-merlin-reader = "${dot-merlin-reader}/bin/dot-merlin-reader";
+          dune = "${dune_3}/bin/dune";
+        })
     ];
 
-  strictDeps = true;
+    strictDeps = true;
 
-  nativeBuildInputs = [
-    menhir
-    jq
-  ];
-  buildInputs = [
-    dot-merlin-reader
-    yojson
-    (if lib.versionAtLeast version "4.7-414" then merlin-lib else csexp)
-    menhirSdk
-    menhirLib
-  ];
-
-  doCheck = false;
-  checkPhase = ''
-    runHook preCheck
-    patchShebangs tests/merlin-wrapper
-    dune runtest # filtering with -p disables tests
-    runHook postCheck
-  '';
-
-  meta = with lib; {
-    description = "Editor-independent tool to ease the development of programs in OCaml";
-    homepage = "https://github.com/ocaml/merlin";
-    license = licenses.mit;
-    mainProgram = "ocamlmerlin";
-    maintainers = [
-      maintainers.vbgl
-      maintainers.sternenseemann
+    nativeBuildInputs = [
+      menhir
+      jq
     ];
-  };
-}
+    buildInputs = [
+      dot-merlin-reader
+      yojson
+      (
+        if lib.versionAtLeast version "4.7-414"
+        then merlin-lib
+        else csexp
+      )
+      menhirSdk
+      menhirLib
+    ];
+
+    doCheck = false;
+    checkPhase = ''
+      runHook preCheck
+      patchShebangs tests/merlin-wrapper
+      dune runtest # filtering with -p disables tests
+      runHook postCheck
+    '';
+
+    meta = with lib; {
+      description = "Editor-independent tool to ease the development of programs in OCaml";
+      homepage = "https://github.com/ocaml/merlin";
+      license = licenses.mit;
+      mainProgram = "ocamlmerlin";
+      maintainers = [
+        maintainers.vbgl
+        maintainers.sternenseemann
+      ];
+    };
+  }

@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "morfessor";
   version = "2.0.6";
@@ -18,12 +17,12 @@ buildPythonPackage rec {
 
   checkPhase = "python -m unittest -v morfessor/test/*";
 
-  pythonImportsCheck = [ "morfessor" ];
+  pythonImportsCheck = ["morfessor"];
 
   meta = with lib; {
     description = "Tool for unsupervised and semi-supervised morphological segmentation";
     homepage = "https://github.com/aalto-speech/morfessor";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ misuzu ];
+    maintainers = with maintainers; [misuzu];
   };
 }

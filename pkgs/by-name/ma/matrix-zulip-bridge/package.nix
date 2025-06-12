@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "MatrixZulipBridge";
   version = "0.4.1";
@@ -51,7 +50,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/GearKite/MatrixZulipBridge";
     changelog = "https://github.com/GearKite/MatrixZulipBridge/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ robertrichter ];
+    maintainers = with lib.maintainers; [robertrichter];
     mainProgram = "matrix-zulip-bridge";
   };
 }

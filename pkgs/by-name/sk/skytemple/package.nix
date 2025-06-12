@@ -8,7 +8,6 @@
   wrapGAppsHook3,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "skytemple";
   version = "1.8.4";
@@ -21,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-jdiZLDQEfYESgpe7F5X/odkgXnvjhvfFArrpt4bpPbo=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   buildInputs = [
     gtk3
@@ -37,8 +36,7 @@ python3Packages.buildPythonApplication rec {
     wrapGAppsHook3
   ];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       cairosvg
       natsort
@@ -72,6 +70,6 @@ python3Packages.buildPythonApplication rec {
     description = "ROM hacking tool for Pokémon Mystery Dungeon Explorers of Sky";
     mainProgram = "skytemple";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ marius851000 ];
+    maintainers = with maintainers; [marius851000];
   };
 }

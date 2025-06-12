@@ -23,22 +23,22 @@ buildPythonPackage rec {
     "pylint"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pylint-plugin-utils
   ];
 
-  pythonImportsCheck = [ "pylint_odoo" ];
+  pythonImportsCheck = ["pylint_odoo"];
 
   BUILD_README = true; # Enables more tests
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Odoo plugin for Pylint";
     homepage = "https://github.com/OCA/pylint-odoo";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ yajo ];
+    maintainers = with lib.maintainers; [yajo];
   };
 }

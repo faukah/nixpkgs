@@ -6,7 +6,6 @@
   makePkgconfigItem,
   version ? "2.1.3",
 }:
-
 stdenv.mkDerivation rec {
   pname = "cadical";
   inherit version;
@@ -20,7 +19,9 @@ stdenv.mkDerivation rec {
         "2.1.3" = "sha256-W3kO+6nVzkmJXyHJU+NZWP0oatK3gon4EWF1/03rgL4=";
         "2.0.0" = "sha256-qoeEM9SdpuFuBPeQlCzuhPLcJ+bMQkTUTGiT8QdU8rc=";
       }
-      .${version};
+      .${
+        version
+      };
   };
 
   outputs = [
@@ -30,13 +31,13 @@ stdenv.mkDerivation rec {
   ];
   doCheck = true;
 
-  nativeBuildInputs = [ copyPkgconfigItems ];
+  nativeBuildInputs = [copyPkgconfigItems];
 
   pkgconfigItems = [
     (makePkgconfigItem {
       name = "cadical";
       inherit version;
-      cflags = [ "-I\${includedir}" ];
+      cflags = ["-I\${includedir}"];
       libs = [
         "-L\${libdir}"
         "-lcadical"
@@ -94,7 +95,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Simplified Satisfiability Solver";
-    maintainers = with maintainers; [ shnarazk ];
+    maintainers = with maintainers; [shnarazk];
     platforms = platforms.unix;
     license = licenses.mit;
     homepage = "https://fmv.jku.at/cadical/";

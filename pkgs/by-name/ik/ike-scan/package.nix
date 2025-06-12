@@ -6,7 +6,6 @@
   openssl,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ike-scan";
   version = "1.9.5-unstable-2024-09-15";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-  configureFlags = [ "--with-openssl=${openssl.dev}" ];
+  configureFlags = ["--with-openssl=${openssl.dev}"];
 
   meta = with lib; {
     description = "Tool to discover, fingerprint and test IPsec VPN servers";
@@ -43,6 +42,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/royhills/ike-scan";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

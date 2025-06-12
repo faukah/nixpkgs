@@ -1,10 +1,11 @@
 {
   stdenv,
   zenity,
+}: {
+  version,
+  src,
+  ...
 }:
-
-{ version, src, ... }:
-
 stdenv.mkDerivation rec {
   pname = "file_picker";
   inherit version src;

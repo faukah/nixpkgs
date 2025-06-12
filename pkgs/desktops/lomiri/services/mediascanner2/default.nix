@@ -28,7 +28,6 @@
   udisks,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mediascanner2";
   version = "0.118";
@@ -83,9 +82,9 @@ stdenv.mkDerivation (finalAttrs: {
       gst-plugins-good
     ]);
 
-  checkInputs = [ gtest ];
+  checkInputs = [gtest];
 
-  cmakeFlags = [ (lib.cmakeBool "ENABLE_TESTS" finalAttrs.finalPackage.doCheck) ];
+  cmakeFlags = [(lib.cmakeBool "ENABLE_TESTS" finalAttrs.finalPackage.doCheck)];
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
@@ -108,19 +107,21 @@ stdenv.mkDerivation (finalAttrs: {
 
       pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
     };
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
     description = "Media scanner service & access library";
     homepage = "https://gitlab.com/ubports/development/core/mediascanner2";
     changelog = "https://gitlab.com/ubports/development/core/mediascanner2/-/blob/${
-      if (!builtins.isNull finalAttrs.src.tag) then finalAttrs.src.tag else finalAttrs.src.rev
+      if (!builtins.isNull finalAttrs.src.tag)
+      then finalAttrs.src.tag
+      else finalAttrs.src.rev
     }/ChangeLog";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     mainProgram = "mediascanner-service-2.0";
     platforms = lib.platforms.linux;
-    pkgConfigModules = [ "mediascanner-2.0" ];
+    pkgConfigModules = ["mediascanner-2.0"];
   };
 })

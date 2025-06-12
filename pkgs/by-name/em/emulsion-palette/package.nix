@@ -13,7 +13,6 @@
   gtk3,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "emulsion-palette";
   version = "3.3.9";
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/lainsce/emulsion";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
   };
 }

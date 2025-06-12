@@ -3,34 +3,29 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.simplesamlphp;
 
-  format = pkgs.formats.php { finalVariable = "config"; };
+  format = pkgs.formats.php {finalVariable = "config";};
 
-  generateConfig =
-    opts:
-    pkgs.runCommand "simplesamlphp-config" { } ''
+  generateConfig = opts:
+    pkgs.runCommand "simplesamlphp-config" {} ''
       mkdir $out
       cp ${format.generate "config.php" opts.settings} $out/config.php
       cp ${format.generate "authsources.php" opts.authSources} $out/authsources.php
     '';
-in
-{
+in {
   meta = {
-    maintainers = with lib.maintainers; [ nhnn ];
+    maintainers = with lib.maintainers; [nhnn];
   };
 
-  options.services.simplesamlphp =
-    with lib;
+  options.services.simplesamlphp = with lib;
     mkOption {
       type = types.attrsOf (
         types.submodule (
-          { config, ... }:
-          {
+          {config, ...}: {
             options = {
-              package = mkPackageOption pkgs "simplesamlphp" { };
+              package = mkPackageOption pkgs "simplesamlphp" {};
               configureNginx = mkOption {
                 type = types.bool;
                 default = true;
@@ -55,7 +50,7 @@ in
                     };
                   };
                 };
-                default = { };
+                default = {};
                 description = ''
                   Configuration options used by SimpleSAMLphp.
                   See [](https://simplesamlphp.org/docs/stable/simplesamlphp-install)
@@ -65,7 +60,7 @@ in
 
               authSources = mkOption {
                 type = format.type;
-                default = { };
+                default = {};
                 description = ''
                   Auth sources options used by SimpleSAMLphp.
                 '';
@@ -93,36 +88,40 @@ in
           }
         )
       );
-      default = { };
+      default = {};
       description = "Instances of SimpleSAMLphp. This module is designed to work with already existing PHP-FPM pool and NGINX virtualHost.";
     };
 
-  config = lib.mkIf (cfg != { }) {
-    services.phpfpm.pools = lib.mapAttrs' (
-      phpfpmName: opts:
-      lib.nameValuePair opts.phpfpmPool { phpEnv.SIMPLESAMLPHP_CONFIG_DIR = "${generateConfig opts}"; }
-    ) cfg;
-
-    services.nginx.virtualHosts = lib.mapAttrs' (
-      phpfpmName: opts:
-      lib.nameValuePair opts.localDomain (
-        lib.mkIf opts.configureNginx {
-          locations."^~ /saml/" = {
-            alias = "${opts.package}/share/php/simplesamlphp/www/";
-            extraConfig = ''
-                location ~ ^(?<prefix>/saml)(?<phpfile>.+?\.php)(?<pathinfo>/.*)?$ {
-                  include ${pkgs.nginx}/conf/fastcgi.conf;
-                  fastcgi_split_path_info  ^(.+\.php)(/.+)$;
-                  fastcgi_pass  unix:${config.services.phpfpm.pools.${phpfpmName}.socket};
-                  fastcgi_intercept_errors on;
-                  fastcgi_param SCRIPT_FILENAME $document_root$phpfile;
-                  fastcgi_param SCRIPT_NAME /saml$phpfile;
-                  fastcgi_param PATH_INFO $pathinfo if_not_empty;
-              }
-            '';
-          };
-        }
+  config = lib.mkIf (cfg != {}) {
+    services.phpfpm.pools =
+      lib.mapAttrs' (
+        phpfpmName: opts:
+          lib.nameValuePair opts.phpfpmPool {phpEnv.SIMPLESAMLPHP_CONFIG_DIR = "${generateConfig opts}";}
       )
-    ) cfg;
+      cfg;
+
+    services.nginx.virtualHosts =
+      lib.mapAttrs' (
+        phpfpmName: opts:
+          lib.nameValuePair opts.localDomain (
+            lib.mkIf opts.configureNginx {
+              locations."^~ /saml/" = {
+                alias = "${opts.package}/share/php/simplesamlphp/www/";
+                extraConfig = ''
+                    location ~ ^(?<prefix>/saml)(?<phpfile>.+?\.php)(?<pathinfo>/.*)?$ {
+                      include ${pkgs.nginx}/conf/fastcgi.conf;
+                      fastcgi_split_path_info  ^(.+\.php)(/.+)$;
+                      fastcgi_pass  unix:${config.services.phpfpm.pools.${phpfpmName}.socket};
+                      fastcgi_intercept_errors on;
+                      fastcgi_param SCRIPT_FILENAME $document_root$phpfile;
+                      fastcgi_param SCRIPT_NAME /saml$phpfile;
+                      fastcgi_param PATH_INFO $pathinfo if_not_empty;
+                  }
+                '';
+              };
+            }
+          )
+      )
+      cfg;
   };
 }

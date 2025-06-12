@@ -1,43 +1,42 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "endlessh-go";
-  meta.maintainers = with lib.maintainers; [ azahi ];
+  meta.maintainers = with lib.maintainers; [azahi];
 
   nodes = {
-    server =
-      { ... }:
-      {
-        services.endlessh-go = {
-          enable = true;
-          prometheus.enable = true;
-          openFirewall = true;
+    server = {...}: {
+      services.endlessh-go = {
+        enable = true;
+        prometheus.enable = true;
+        openFirewall = true;
+      };
+
+      specialisation = {
+        unprivileged.configuration = {
+          services.endlessh-go = {
+            port = 2222;
+            prometheus.port = 9229;
+          };
         };
 
-        specialisation = {
-          unprivileged.configuration = {
-            services.endlessh-go = {
-              port = 2222;
-              prometheus.port = 9229;
-            };
-          };
-
-          privileged.configuration = {
-            services.endlessh-go = {
-              port = 22;
-              prometheus.port = 92;
-            };
+        privileged.configuration = {
+          services.endlessh-go = {
+            port = 22;
+            prometheus.port = 92;
           };
         };
       };
+    };
 
-    client =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [
-          curl
-          netcat
-        ];
-      };
+    client = {pkgs, ...}: {
+      environment.systemPackages = with pkgs; [
+        curl
+        netcat
+      ];
+    };
   };
 
   testScript = ''

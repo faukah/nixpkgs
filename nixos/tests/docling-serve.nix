@@ -1,21 +1,17 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   mainPort = "5001";
-in
-{
+in {
   name = "docling-serve";
   meta = with lib.maintainers; {
-    maintainers = [ drupol ];
+    maintainers = [drupol];
   };
 
   nodes = {
-    machine =
-      { ... }:
-      {
-        services.docling-serve = {
-          enable = true;
-        };
+    machine = {...}: {
+      services.docling-serve = {
+        enable = true;
       };
+    };
   };
 
   testScript = ''

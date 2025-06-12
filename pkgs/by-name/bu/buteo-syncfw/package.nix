@@ -11,7 +11,6 @@
   pkg-config,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "buteo-syncfw";
   version = "0.11.10";
@@ -108,7 +107,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
     tests.pkg-config = testers.hasPkgConfigModules {
       package = finalAttrs.finalPackage;
       # Version is hardcoded to 1.0.0
@@ -121,7 +120,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/sailfishos/buteo-syncfw/releases/tag/${finalAttrs.version}";
     license = lib.licenses.lgpl21Only;
     mainProgram = "msyncd";
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
     pkgConfigModules = [
       "buteosyncfw5"

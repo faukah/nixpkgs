@@ -4,15 +4,10 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-  json = pkgs.formats.json { };
-in
-{
+with lib; let
+  json = pkgs.formats.json {};
+in {
   options = {
-
     services.v2ray = {
       enable = mkOption {
         type = types.bool;
@@ -24,7 +19,7 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs "v2ray" { };
+      package = mkPackageOption pkgs "v2ray" {};
 
       configFile = mkOption {
         type = types.nullOr types.str;
@@ -65,25 +60,22 @@ in
         '';
       };
     };
-
   };
 
-  config =
-    let
-      cfg = config.services.v2ray;
-      configFile =
-        if cfg.configFile != null then
-          cfg.configFile
-        else
-          pkgs.writeTextFile {
-            name = "v2ray.json";
-            text = builtins.toJSON cfg.config;
-            checkPhase = ''
-              ${cfg.package}/bin/v2ray test -c $out
-            '';
-          };
-
-    in
+  config = let
+    cfg = config.services.v2ray;
+    configFile =
+      if cfg.configFile != null
+      then cfg.configFile
+      else
+        pkgs.writeTextFile {
+          name = "v2ray.json";
+          text = builtins.toJSON cfg.config;
+          checkPhase = ''
+            ${cfg.package}/bin/v2ray test -c $out
+          '';
+        };
+  in
     mkIf cfg.enable {
       assertions = [
         {
@@ -94,13 +86,13 @@ in
 
       environment.etc."v2ray/config.json".source = configFile;
 
-      systemd.packages = [ cfg.package ];
+      systemd.packages = [cfg.package];
 
       systemd.services.v2ray = {
-        restartTriggers = [ config.environment.etc."v2ray/config.json".source ];
+        restartTriggers = [config.environment.etc."v2ray/config.json".source];
 
         # Workaround: https://github.com/NixOS/nixpkgs/issues/81138
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
       };
     };
 }

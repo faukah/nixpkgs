@@ -29,10 +29,10 @@ rustPlatform.buildRustPackage rec {
   postFixup = ''
     # the program looks for libwayland-client.so at runtime
     wrapProgram $out/bin/waycorner \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ wayland ]}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [wayland]}
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Hot corners for Wayland";
@@ -41,6 +41,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/AndreasBackx/waycorner";
     platforms = lib.platforms.linux;
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ NotAShelf ];
+    maintainers = with lib.maintainers; [NotAShelf];
   };
 }

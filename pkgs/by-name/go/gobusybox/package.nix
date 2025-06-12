@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "gobusybox";
   version = "0.2.0-unstable-2024-03-05";
@@ -29,14 +28,14 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-s4bQLXNFhyAk+UNI1xJXQABjBXtPFXiWvmdttV/6Bm8=";
 
-  ldflags = [ "-s" ];
+  ldflags = ["-s"];
 
   meta = {
     description = "Tools for compiling many Go commands into one binary to save space";
     longDescription = "Builds are supported for vendor-based Go and module-based Go";
     homepage = "https://github.com/u-root/gobusybox";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ katexochen ];
+    maintainers = with lib.maintainers; [katexochen];
     mainProgram = "makebb";
   };
 })

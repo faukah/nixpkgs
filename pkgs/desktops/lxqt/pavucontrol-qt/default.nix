@@ -13,7 +13,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pavucontrol-qt";
   version = "2.2.0";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     qtwayland
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://github.com/lxqt/pavucontrol-qt";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
     mainProgram = "pavucontrol-qt";
     license = lib.licenses.gpl2Plus;
     platforms = with lib.platforms; linux;
-    teams = [ lib.teams.lxqt ];
+    teams = [lib.teams.lxqt];
   };
 }

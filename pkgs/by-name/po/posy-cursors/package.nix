@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "posy-cursors";
   version = "1.6";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/simtrami/posy-improved-cursor-linux";
     platforms = platforms.unix;
     license = licenses.cc-by-nc-40;
-    maintainers = with maintainers; [ mkez ];
+    maintainers = with maintainers; [mkez];
   };
 }

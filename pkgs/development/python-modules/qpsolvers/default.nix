@@ -6,7 +6,6 @@
   flit-core,
   numpy,
   scipy,
-
   # optional dependencies
   clarabel,
   cvxopt,
@@ -33,9 +32,9 @@ buildPythonPackage rec {
     hash = "sha256-sGnr1my1/1xA+pVX1SLsj8WtNViJ/nKRwN6Kl0HsJV0=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  pythonImportsCheck = [ "qpsolvers" ];
+  pythonImportsCheck = ["qpsolvers"];
 
   dependencies = [
     numpy
@@ -44,22 +43,21 @@ buildPythonPackage rec {
 
   optional-dependencies = {
     # FIXME commented out solvers have not been packaged yet
-    clarabel = [ clarabel ];
-    cvxopt = [ cvxopt ];
-    daqp = [ daqp ];
-    ecos = [ ecos ];
-    gurobi = [ gurobipy ];
-    highs = [ highspy ];
-    jaxopt = [ jaxopt ];
+    clarabel = [clarabel];
+    cvxopt = [cvxopt];
+    daqp = [daqp];
+    ecos = [ecos];
+    gurobi = [gurobipy];
+    highs = [highspy];
+    jaxopt = [jaxopt];
     # mosek = [ cvxopt mosek ];
-    osqp = [ osqp ];
-    piqp = [ piqp ];
-    proxqp = [ proxsuite ];
+    osqp = [osqp];
+    piqp = [piqp];
+    proxqp = [proxsuite];
     # qpalm = [ qpalm ];
-    quadprog = [ quadprog ];
-    scs = [ scs ];
-    open_source_solvers =
-      with optional-dependencies;
+    quadprog = [quadprog];
+    scs = [scs];
+    open_source_solvers = with optional-dependencies;
       lib.flatten [
         clarabel
         cvxopt
@@ -75,13 +73,13 @@ buildPythonPackage rec {
       ];
   };
 
-  nativeCheckInputs = [ unittestCheckHook ] ++ optional-dependencies.open_source_solvers;
+  nativeCheckInputs = [unittestCheckHook] ++ optional-dependencies.open_source_solvers;
 
   meta = with lib; {
     changelog = "https://github.com/qpsolvers/qpsolvers/blob/${src.tag}/CHANGELOG.md";
     description = "Quadratic programming solvers in Python with a unified API";
     homepage = "https://github.com/qpsolvers/qpsolvers";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ renesat ];
+    maintainers = with maintainers; [renesat];
   };
 }

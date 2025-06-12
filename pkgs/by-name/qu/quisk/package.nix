@@ -6,7 +6,6 @@
   alsa-lib,
   pulseaudio,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "quisk";
   version = "4.2.42";

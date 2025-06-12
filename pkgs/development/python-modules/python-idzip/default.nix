@@ -3,14 +3,10 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-
   pythonOlder,
-
   setuptools,
-
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "python-idzip";
   version = "0.3.9";
@@ -35,9 +31,9 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # need third-party files
@@ -62,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/bauman/python-idzip";
     changelog = "https://github.com/bauman/python-idzip/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ vizid ];
+    maintainers = with maintainers; [vizid];
   };
 }

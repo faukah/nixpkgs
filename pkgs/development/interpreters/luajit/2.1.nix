@@ -4,7 +4,6 @@
   fetchFromGitHub,
   passthruFun,
 }:
-
 callPackage ./default.nix {
   # The patch version is the timestamp of the git commit,
   # obtain via `cat $(nix-build -A luajit_2_1.src)/.relver`

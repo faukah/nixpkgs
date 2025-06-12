@@ -9,7 +9,6 @@
   python-magic,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "relatorio";
   version = "0.11.1";
@@ -33,19 +32,19 @@ buildPythonPackage rec {
       # pycha
       pyyaml
     ];
-    fodt = [ python-magic ];
+    fodt = [python-magic];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.fodt;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.fodt;
 
-  pythonImportsCheck = [ "relatorio" ];
+  pythonImportsCheck = ["relatorio"];
 
   meta = {
     homepage = "https://relatorio.tryton.org/";
     changelog = "https://hg.tryton.org/relatorio/file/${version}/CHANGELOG";
     description = "Templating library able to output odt and pdf files";
     mainProgram = "relatorio-render";
-    maintainers = with lib.maintainers; [ johbo ];
+    maintainers = with lib.maintainers; [johbo];
     license = lib.licenses.gpl2Plus;
   };
 }

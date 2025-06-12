@@ -6,7 +6,6 @@
   lib,
   libsForQt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kgeotag";
   version = "1.7.0";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Stand-alone photo geotagging program";
     changelog = "https://invent.kde.org/graphics/kgeotag/-/blob/master/CHANGELOG.rst";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ cimm ];
+    maintainers = with maintainers; [cimm];
     mainProgram = "kgeotag";
   };
 }

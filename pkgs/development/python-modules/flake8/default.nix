@@ -9,7 +9,6 @@
   pyflakes,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flake8";
   version = "7.2.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-TrzGGbMY4+jvy1RvNi02HziCnknfOef+eUekppgK5ck=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     mccabe
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     pyflakes
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = lib.optionals isPyPy [
     # tests fail due to slightly different error position
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     description = "Modular source code checker: pep8, pyflakes and co";
     homepage = "https://github.com/PyCQA/flake8";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     mainProgram = "flake8";
   };
 }

@@ -3,12 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.earlyoom;
 
-  inherit (lib)
+  inherit
+    (lib)
     literalExpression
     mkDefault
     mkEnableOption
@@ -20,16 +19,15 @@ let
     optionals
     types
     ;
-in
-{
+in {
   meta = {
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 
   options.services.earlyoom = {
     enable = mkEnableOption "early out of memory killing";
 
-    package = mkPackageOption pkgs "earlyoom" { };
+    package = mkPackageOption pkgs "earlyoom" {};
 
     freeMemThreshold = mkOption {
       type = types.ints.between 1 100;
@@ -136,7 +134,7 @@ in
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "-g"
         "--prefer"
@@ -151,14 +149,14 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule [ "services" "earlyoom" "useKernelOOMKiller" ] ''
+    (mkRemovedOptionModule ["services" "earlyoom" "useKernelOOMKiller"] ''
       This option is deprecated and ignored by earlyoom since 1.2.
     '')
-    (mkRemovedOptionModule [ "services" "earlyoom" "notificationsCommand" ] ''
+    (mkRemovedOptionModule ["services" "earlyoom" "notificationsCommand"] ''
       This option was removed in earlyoom 1.6, but was reimplemented in 1.7
       and is available as the new option `services.earlyoom.killHook`.
     '')
-    (mkRemovedOptionModule [ "services" "earlyoom" "ignoreOOMScoreAdjust" ] ''
+    (mkRemovedOptionModule ["services" "earlyoom" "ignoreOOMScoreAdjust"] ''
       This option is deprecated and ignored by earlyoom since 1.7.
     '')
   ];
@@ -166,20 +164,20 @@ in
   config = mkIf cfg.enable {
     services.systembus-notify.enable = mkDefault cfg.enableNotifications;
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
     systemd.services.earlyoom = {
       overrideStrategy = "asDropin";
 
-      wantedBy = [ "multi-user.target" ];
-      path = optionals cfg.enableNotifications [ pkgs.dbus ];
+      wantedBy = ["multi-user.target"];
+      path = optionals cfg.enableNotifications [pkgs.dbus];
 
       # We setup `EARLYOOM_ARGS` via drop-ins, so disable the default import
       # from /etc/default/earlyoom.
       serviceConfig.EnvironmentFile = "";
 
       environment.EARLYOOM_ARGS =
-        lib.cli.toGNUCommandLineShell { } {
+        lib.cli.toGNUCommandLineShell {} {
           m =
             "${toString cfg.freeMemThreshold}"
             + optionalString (cfg.freeMemKillThreshold != null) ",${toString cfg.freeMemKillThreshold}";
@@ -189,7 +187,10 @@ in
           r = "${toString cfg.reportInterval}";
           d = cfg.enableDebugInfo;
           n = cfg.enableNotifications;
-          N = if cfg.killHook != null then cfg.killHook else null;
+          N =
+            if cfg.killHook != null
+            then cfg.killHook
+            else null;
         }
         + " "
         + lib.escapeShellArgs cfg.extraArgs;

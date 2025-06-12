@@ -10,7 +10,6 @@
   boost,
   lz4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libosmium";
   version = "2.22.0";
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-b4jdPh6lJ/ALPVblDt16Nabx9ZL8MW8/roI+NqTZshU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     protozero
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     lz4
   ];
 
-  cmakeFlags = [ (lib.cmakeBool "INSTALL_GDALCPP" true) ];
+  cmakeFlags = [(lib.cmakeBool "INSTALL_GDALCPP" true)];
 
   doCheck = true;
 
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
       "https://github.com/osmcode/libosmium/releases/tag/v${finalAttrs.version}"
       "https://github.com/osmcode/libosmium/blob/v${finalAttrs.version}/CHANGELOG.md"
     ];
-    maintainers = with lib.maintainers; [ das-g ];
-    teams = [ lib.teams.geospatial ];
+    maintainers = with lib.maintainers; [das-g];
+    teams = [lib.teams.geospatial];
   };
 })

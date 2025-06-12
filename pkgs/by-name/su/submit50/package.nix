@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "submit50";
   version = "3.2.0";
@@ -29,9 +28,9 @@ python3Packages.buildPythonApplication rec {
     termcolor
   ];
 
-  pythonImportsCheck = [ "submit50" ];
+  pythonImportsCheck = ["submit50"];
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   # no python tests
@@ -43,7 +42,7 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/cs50/submit50/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     mainProgram = "submit50";
   };
 }

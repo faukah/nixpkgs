@@ -8,7 +8,6 @@
   pytestCheckHook,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "gocardless-pro";
   version = "3.0.0";
@@ -21,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-Bqqr3j9UJrwqxDdTEQMbWfkznHufnv1gk1Wd0SSF78M=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   propagatedBuildInputs = [
     requests
     six
   ];
 
-  pythonImportsCheck = [ "gocardless_pro" ];
+  pythonImportsCheck = ["gocardless_pro"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/gocardless/gocardless-pro-python";
     changelog = "https://github.com/gocardless/gocardless-pro-python/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

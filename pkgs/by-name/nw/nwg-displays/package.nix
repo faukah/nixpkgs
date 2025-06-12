@@ -12,7 +12,6 @@
   hyprlandSupport ? true,
   wlr-randr,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "nwg-displays";
   version = "0.3.25";
@@ -66,7 +65,7 @@ python3Packages.buildPythonApplication rec {
     description = "Output management utility for Sway and Hyprland";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ qf0xb ];
+    maintainers = with lib.maintainers; [qf0xb];
     mainProgram = "nwg-displays";
   };
 }

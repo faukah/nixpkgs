@@ -3,21 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.autoenv;
-in
-{
+in {
   options = {
     programs.autoenv = {
       enable = lib.mkEnableOption "autoenv";
-      package = lib.mkPackageOption pkgs "autoenv" { };
+      package = lib.mkPackageOption pkgs "autoenv" {};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.autoenv ];
+    environment.systemPackages = [pkgs.autoenv];
 
     programs = {
       zsh.interactiveShellInit = ''

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "awsls";
   version = "0.11.0";
@@ -17,17 +16,15 @@ buildGoModule rec {
 
   vendorHash = "sha256-ZyMO+KCqoePF6MqHFt8X4tZR4nBhuSPgJDrX+emM6jc=";
 
-  ldflags =
-    let
-      t = "github.com/jckuester/awsls/internal";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${t}.version=${version}"
-      "-X ${t}.commit=${src.rev}"
-      "-X ${t}.date=unknown"
-    ];
+  ldflags = let
+    t = "github.com/jckuester/awsls/internal";
+  in [
+    "-s"
+    "-w"
+    "-X ${t}.version=${version}"
+    "-X ${t}.commit=${src.rev}"
+    "-X ${t}.date=unknown"
+  ];
 
   doCheck = false;
 
@@ -35,7 +32,7 @@ buildGoModule rec {
     description = "List command for AWS resources";
     homepage = "https://github.com/jckuester/awsls";
     license = licenses.mit;
-    maintainers = [ maintainers.markus1189 ];
+    maintainers = [maintainers.markus1189];
     mainProgram = "awsls";
   };
 }

@@ -5,7 +5,6 @@
   writableTmpDirAsHomeHook,
   gitMinimal,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "git-up";
   version = "2.3.0";
@@ -26,7 +25,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   # required in PATH for tool to work
-  propagatedBuildInputs = [ gitMinimal ];
+  propagatedBuildInputs = [gitMinimal];
 
   dependencies = with python3Packages; [
     colorama
@@ -54,7 +53,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/msiemens/PyGitUp";
     description = "Git pull replacement that rebases all local branches when pulling";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ peterhoeg ];
+    maintainers = with lib.maintainers; [peterhoeg];
     platforms = lib.platforms.all;
     mainProgram = "git-up";
   };

@@ -19,6 +19,6 @@ buildGhidraExtension rec {
     homepage = "https://github.com/mooncat-greenpy/Ghidra_GolangAnalyzerExtension";
     downloadPage = "https://github.com/mooncat-greenpy/Ghidra_GolangAnalyzerExtension/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ivyfanchiang ];
+    maintainers = [lib.maintainers.ivyfanchiang];
   };
 }

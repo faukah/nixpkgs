@@ -13,7 +13,6 @@
   e2fsprogs,
   runCommand,
 }:
-
 stdenv.mkDerivation rec {
   pname = "e2fsprogs";
   version = "1.47.2";
@@ -24,45 +23,52 @@ stdenv.mkDerivation rec {
   };
 
   # fuse2fs adds 14mb of dependencies
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-    "man"
-    "info"
-  ] ++ lib.optionals withFuse [ "fuse2fs" ];
+  outputs =
+    [
+      "bin"
+      "dev"
+      "out"
+      "man"
+      "info"
+    ]
+    ++ lib.optionals withFuse ["fuse2fs"];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     pkg-config
     texinfo
   ];
-  buildInputs = [
-    libuuid
-    gettext
-  ] ++ lib.optionals withFuse [ fuse3 ];
+  buildInputs =
+    [
+      libuuid
+      gettext
+    ]
+    ++ lib.optionals withFuse [fuse3];
 
   configureFlags =
-    if stdenv.hostPlatform.isLinux then
-      [
-        # It seems that the e2fsprogs is one of the few packages that cannot be
-        # build with shared and static libs.
-        (if shared then "--enable-elf-shlibs" else "--disable-elf-shlibs")
-        "--enable-symlink-install"
-        "--enable-relative-symlinks"
-        "--with-crond-dir=no"
-        # fsck, libblkid, libuuid and uuidd are in util-linux-ng (the "libuuid" dependency)
-        "--disable-fsck"
-        "--disable-libblkid"
-        "--disable-libuuid"
-        "--disable-uuidd"
-      ]
-    else
-      [
-        "--enable-libuuid --disable-e2initrd-helper"
-      ];
+    if stdenv.hostPlatform.isLinux
+    then [
+      # It seems that the e2fsprogs is one of the few packages that cannot be
+      # build with shared and static libs.
+      (
+        if shared
+        then "--enable-elf-shlibs"
+        else "--disable-elf-shlibs"
+      )
+      "--enable-symlink-install"
+      "--enable-relative-symlinks"
+      "--with-crond-dir=no"
+      # fsck, libblkid, libuuid and uuidd are in util-linux-ng (the "libuuid" dependency)
+      "--disable-fsck"
+      "--disable-libblkid"
+      "--disable-libuuid"
+      "--disable-uuidd"
+    ]
+    else [
+      "--enable-libuuid --disable-e2initrd-helper"
+    ];
 
-  nativeCheckInputs = [ buildPackages.perl ];
+  nativeCheckInputs = [buildPackages.perl];
   doCheck = true;
 
   postInstall =
@@ -80,7 +86,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   passthru.tests = {
-    simple-filesystem = runCommand "e2fsprogs-create-fs" { } ''
+    simple-filesystem = runCommand "e2fsprogs-create-fs" {} ''
       mkdir -p $out
       truncate -s10M $out/disc
       ${e2fsprogs}/bin/mkfs.ext4 $out/disc | tee $out/success
@@ -99,6 +105,6 @@ stdenv.mkDerivation rec {
       mit # lib/et, lib/ss
     ];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

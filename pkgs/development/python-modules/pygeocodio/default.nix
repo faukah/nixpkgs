@@ -8,7 +8,6 @@
   pytestCheckHook,
   httpretty,
 }:
-
 buildPythonPackage rec {
   pname = "pygeocodio";
   version = "1.4.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     httpretty
   ];
 
-  pythonImportsCheck = [ "geocodio" ];
+  pythonImportsCheck = ["geocodio"];
 
   disabledTests = lib.optionals stdenv.hostPlatform.isDarwin [
     "test_timeout"
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/bennylope/pygeocodio/tree/master";
     changelog = "https://github.com/bennylope/pygeocodio/blob/v${version}/HISTORY.rst";
     homepage = "https://www.geocod.io/docs/#introduction";
-    license = with lib.licenses; [ bsd3 ];
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    license = with lib.licenses; [bsd3];
+    maintainers = with lib.maintainers; [ethancedwards8];
   };
 }

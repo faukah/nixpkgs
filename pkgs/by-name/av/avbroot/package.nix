@@ -7,7 +7,6 @@
   bzip2,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "avbroot";
   version = "3.16.1";
@@ -27,14 +26,14 @@ rustPlatform.buildRustPackage rec {
     protobuf
   ];
 
-  buildInputs = [ bzip2 ];
+  buildInputs = [bzip2];
 
   meta = {
     description = "Sign (and root) Android A/B OTAs with custom keys while preserving Android Verified Boot";
     homepage = "https://github.com/chenxiaolong/avbroot";
     changelog = "https://github.com/chenxiaolong/avbroot/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ oluceps ];
+    maintainers = with lib.maintainers; [oluceps];
     mainProgram = "avbroot";
   };
 }

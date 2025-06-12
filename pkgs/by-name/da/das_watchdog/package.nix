@@ -7,7 +7,6 @@
   which,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "das_watchdog";
   version = "unstable-2015-09-12";
@@ -19,7 +18,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-eacUn/gYCEHtHdQf3lBPYvY3kfN3Bik7AolAPpbbwQs=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libgtop
     xmessage
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
       won't hang the machine.";
     '';
     license = licenses.free;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
   };
 }

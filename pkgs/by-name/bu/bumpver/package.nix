@@ -5,7 +5,6 @@
   git,
   mercurial,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "bumpver";
   version = "2021.1110";
@@ -46,7 +45,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Bump version numbers in project files";
     homepage = "https://pypi.org/project/bumpver/";
     license = licenses.mit;
-    maintainers = with maintainers; [ kfollesdal ];
+    maintainers = with maintainers; [kfollesdal];
     mainProgram = "bumpver";
   };
 }

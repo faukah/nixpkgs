@@ -13,7 +13,6 @@
   glib,
   fuse,
 }:
-
 stdenv.mkDerivation rec {
   pname = "megatools";
   version = "1.11.4";
@@ -34,10 +33,12 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    curl
-    glib
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ fuse ];
+  buildInputs =
+    [
+      curl
+      glib
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [fuse];
 
   enableParallelBuilding = true;
   strictDeps = true;

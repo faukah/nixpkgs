@@ -12,7 +12,6 @@
   host,
   netcat-openbsd,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "lbd";
   version = "0-unstable-2024-02-17";
@@ -34,16 +33,16 @@ stdenvNoCC.mkDerivation {
     cp lbd $out/share/lbd/
     makeWrapper ${lib.getExe bash} $out/bin/lbd \
       --prefix PATH : "${
-        lib.makeBinPath [
-          coreutils
-          diffutils
-          gawk
-          gnugrep
-          gnused
-          host
-          netcat-openbsd
-        ]
-      }" \
+      lib.makeBinPath [
+        coreutils
+        diffutils
+        gawk
+        gnugrep
+        gnused
+        host
+        netcat-openbsd
+      ]
+    }" \
       --add-flags "$out/share/lbd/lbd"
     runHook postInstall
   '';
@@ -52,7 +51,7 @@ stdenvNoCC.mkDerivation {
     description = "Detect if a domain uses DNS and/or HTTP Load-Balancing";
     mainProgram = "lbd";
     homepage = "https://github.com/D3vil0p3r/lbd";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
   };

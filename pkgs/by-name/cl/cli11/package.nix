@@ -7,7 +7,6 @@
   cmake,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cli11";
   version = "2.5.0";
@@ -19,8 +18,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-73dfpZDnKl0cADM4LTP3/eDFhwCdiHbEaGRF7ZyWsdQ=";
   };
 
-  buildInputs = [ catch2 ];
-  nativeBuildInputs = [ cmake ];
+  buildInputs = [catch2];
+  nativeBuildInputs = [cmake];
 
   nativeCheckInputs = [
     boost
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Command line parser for C++11";
     homepage = "https://github.com/CLIUtils/CLI11";
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.bsd3;
   };
 })

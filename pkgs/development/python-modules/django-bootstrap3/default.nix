@@ -2,18 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   django,
-
   # tests
   pytest-django,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-bootstrap3";
   version = "25.1";
@@ -26,11 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-gRDU2IDE6cOVBJzdOs8Ww9mItMy/2DPMYusC0TCTqkI=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
-  pythonImportsCheck = [ "bootstrap3" ];
+  pythonImportsCheck = ["bootstrap3"];
 
   nativeCheckInputs = [
     pytest-django
@@ -44,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zostera/django-bootstrap3";
     changelog = "https://github.com/zostera/django-bootstrap3/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

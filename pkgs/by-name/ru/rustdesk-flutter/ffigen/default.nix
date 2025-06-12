@@ -4,7 +4,6 @@
   lib,
   flutter,
 }:
-
 buildDartApplication rec {
   pname = "ffigen";
   version = "8.0.2"; # According to https://github.com/rustdesk/rustdesk/blob/master/build.py#L173. We should use 5.0.1. But It can't run on flutter324. So I found another old version.

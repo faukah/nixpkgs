@@ -5,7 +5,6 @@
   awscli,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "iceshelf";
   version = "unstable-2019-07-03";
@@ -36,6 +35,6 @@ python3.pkgs.buildPythonApplication {
     description = "Simple tool to allow storage of signed, encrypted, incremental backups using Amazon's Glacier storage";
     license = licenses.lgpl2;
     homepage = "https://github.com/mrworf/iceshelf";
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
   };
 }

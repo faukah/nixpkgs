@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "argagg";
   version = "0.4.7";
@@ -35,8 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
       pointers into the original command line argument C-strings.
     '';
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
-    badPlatforms = [ "aarch64-darwin" ];
+    badPlatforms = ["aarch64-darwin"];
   };
 })

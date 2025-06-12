@@ -8,7 +8,6 @@
   knack,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "dvc-azure";
   version = "3.1.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
   };
 
   # Prevent circular dependency
-  pythonRemoveDeps = [ "dvc" ];
+  pythonRemoveDeps = ["dvc"];
 
   nativeBuildInputs = [
     setuptools-scm
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://pypi.org/project/dvc-azure/${version}";
     changelog = "https://github.com/iterative/dvc-azure/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

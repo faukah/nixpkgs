@@ -20,9 +20,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-O/JyB47UP6rLeAG1rt1dXhaKfZ71QPg7qAeciHAvrAk=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   env =
     {
@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     };
 
   # https://github.com/leptos-rs/cargo-leptos#dependencies
-  buildFeatures = [ "no_downloads" ]; # cargo-leptos will try to install missing dependencies on its own otherwise
+  buildFeatures = ["no_downloads"]; # cargo-leptos will try to install missing dependencies on its own otherwise
   doCheck = false; # Check phase tries to query crates.io
 
   meta = {
@@ -42,7 +42,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "cargo-leptos";
     homepage = "https://github.com/leptos-rs/cargo-leptos";
     changelog = "https://github.com/leptos-rs/cargo-leptos/releases/tag/v${version}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ benwis ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [benwis];
   };
 }

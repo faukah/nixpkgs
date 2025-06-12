@@ -9,7 +9,6 @@
   writableTmpDirAsHomeHook,
   yarn,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "yaml-language-server";
   version = "1.18.0";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   # NodeJS is also needed here so that script interpreter get patched
-  buildInputs = [ nodejs ];
+  buildInputs = [nodejs];
 
   strictDeps = true;
 
@@ -77,6 +76,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/redhat-developer/yaml-language-server";
     license = lib.licenses.mit;
     mainProgram = "yaml-language-server";
-    maintainers = [ ];
+    maintainers = [];
   };
 })

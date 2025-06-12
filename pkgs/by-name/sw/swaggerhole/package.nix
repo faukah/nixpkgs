@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "swaggerhole";
   version = "1.1";
@@ -33,7 +32,7 @@ python3.pkgs.buildPythonApplication {
     description = "Tool to searching for secret on swaggerhub";
     mainProgram = "swaggerhole";
     homepage = "https://github.com/Liodeus/swaggerHole";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

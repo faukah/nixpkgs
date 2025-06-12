@@ -7,7 +7,6 @@
   wrapGAppsHook3,
   igv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "igv";
   version = "2.17.4";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     chmod +x $out/bin/igv
     chmod +x $out/bin/igvtools
   '';
-  nativeBuildInputs = [ wrapGAppsHook3 ];
+  nativeBuildInputs = [wrapGAppsHook3];
 
   passthru.tests.version = testers.testVersion {
     package = igv;
@@ -43,6 +42,6 @@ stdenv.mkDerivation rec {
     description = "Visualization tool for interactive exploration of genomic datasets";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.mimame ];
+    maintainers = [maintainers.mimame];
   };
 }

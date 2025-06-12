@@ -5,7 +5,6 @@
   cmake,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bkcrack";
   version = "1.7.1";
@@ -17,12 +16,16 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-88zAR1XE+C5UNmvY/ph1I1tL2nVGbywqh6zHRGbImXU=";
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
-    "-DBKCRACK_BUILD_TESTING=${if finalAttrs.finalPackage.doCheck then "ON" else "OFF"}"
+    "-DBKCRACK_BUILD_TESTING=${
+      if finalAttrs.finalPackage.doCheck
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   postInstall = ''
@@ -39,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/kimci86/bkcrack";
     license = licenses.zlib;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ erdnaxe ];
+    maintainers = with maintainers; [erdnaxe];
     mainProgram = "bkcrack";
   };
 })

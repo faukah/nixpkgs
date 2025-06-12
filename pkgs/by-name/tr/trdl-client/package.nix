@@ -19,7 +19,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-veSgWyk1ytHRNHuuZJBV+1rqGDsdEb01CImm+EexFCk=";
 
-  subPackages = [ "cmd/trdl" ];
+  subPackages = ["cmd/trdl"];
 
   ldflags = [
     "-s"
@@ -33,7 +33,7 @@ buildGoModule (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/trdl";
   versionCheckProgramArg = "version";
 
@@ -54,7 +54,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://trdl.dev";
     changelog = "https://github.com/werf/trdl/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.azahi ];
+    maintainers = [lib.maintainers.azahi];
     mainProgram = "trdl";
   };
 })

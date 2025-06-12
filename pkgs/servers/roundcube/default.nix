@@ -7,7 +7,6 @@
   roundcubePlugins,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "roundcube";
   version = "1.6.11";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ojDkMgZVVb+ie+o/z0rGcvI1nvKK2E9ZReo8z3AudGY=";
   };
 
-  patches = [ ./0001-Don-t-resolve-symlinks-when-trying-to-find-INSTALL_P.patch ];
+  patches = [./0001-Don-t-resolve-symlinks-when-trying-to-find-INSTALL_P.patch];
 
   dontBuild = true;
 
@@ -33,14 +32,13 @@ stdenv.mkDerivation rec {
     rm $out/composer.json-dist
   '';
 
-  passthru.withPlugins =
-    f:
+  passthru.withPlugins = f:
     buildEnv {
       name = "${roundcube.name}-with-plugins";
-      paths = (f roundcubePlugins) ++ [ roundcube ];
+      paths = (f roundcubePlugins) ++ [roundcube];
     };
 
-  passthru.tests = { inherit (nixosTests) roundcube; };
+  passthru.tests = {inherit (nixosTests) roundcube;};
 
   meta = {
     description = "Open Source Webmail Software";

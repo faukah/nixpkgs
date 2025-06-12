@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 buildGoModule rec {
   pname = "atproto-goat";
   version = "0-unstable-2025-02-01";
@@ -24,7 +23,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-pGc29fgJFq8LP7n/pY1cv6ExZl88PAeFqIbFEhB3xXs=";
 
-  subPackages = [ "cmd/goat" ];
+  subPackages = ["cmd/goat"];
 
   passthru.updateScript = unstableGitUpdater {
     hardcodeZeroVersion = true;
@@ -37,7 +36,7 @@ buildGoModule rec {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
     mainProgram = "goat";
   };
 }

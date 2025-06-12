@@ -8,7 +8,6 @@
   cryptography,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pgpy-dtc";
   version = "0.1.1";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-0zv2gtgp/iGDQescaDpng1gqbgjv7iXFvtwEt3YIPy4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyasn1
     cryptography
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pgpy_dtc" ];
+  pythonImportsCheck = ["pgpy_dtc"];
 
   meta = {
     homepage = "https://github.com/DigitalTrustCenter/PGPy_dtc";
     changelog = "https://github.com/DigitalTrustCenter/PGPy_dtc/releases/tag/${src.tag}";
     description = "Pretty Good Privacy for Python";
     license = lib.licenses.eupl12;
-    maintainers = with lib.maintainers; [ networkexception ];
+    maintainers = with lib.maintainers; [networkexception];
   };
 }

@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-tDwl+2EChzBDCFcZW71r4eSKyazlJSv7tRX6soPNSuY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -31,24 +31,23 @@ buildPythonPackage rec {
     nbval
   ];
 
-  preCheck =
-    let
-      # The test notebooks try to download font files, unless they already exist in the test directory,
-      # so we prepare them in advance.
-      checkFonts = lib.map fetchurl (import ./checkfonts.nix);
-      copyFontCmd = font: "cp ${font} test/${lib.last (lib.splitString "/" font.url)}\n";
-    in
+  preCheck = let
+    # The test notebooks try to download font files, unless they already exist in the test directory,
+    # so we prepare them in advance.
+    checkFonts = lib.map fetchurl (import ./checkfonts.nix);
+    copyFontCmd = font: "cp ${font} test/${lib.last (lib.splitString "/" font.url)}\n";
+  in
     lib.concatMapStrings copyFontCmd checkFonts;
 
-  pytestFlagsArray = [ "--nbval-lax" ];
+  pytestFlagsArray = ["--nbval-lax"];
 
-  pythonImportsCheck = [ "ziafont" ];
+  pythonImportsCheck = ["ziafont"];
 
   meta = {
     description = "Convert TTF/OTF font glyphs to SVG paths";
     homepage = "https://ziafont.readthedocs.io/en/latest/";
     changelog = "https://github.com/cdelker/ziafont/blob/main/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.sfrijters ];
+    maintainers = [lib.maintainers.sfrijters];
   };
 }

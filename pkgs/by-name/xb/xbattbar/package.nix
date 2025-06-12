@@ -5,7 +5,6 @@
   libX11,
   perl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xbattbar";
   version = "1.4.9";
@@ -18,13 +17,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ZrJAyDyvlUmNpxBC06yrzBJ7vhrZY4+GbfBDQoF+h4M=";
   };
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   # remove the APM checker binary, make the sys checker
   # script the default. Rationale: checking battery status by /proc/apm is
   # extremely oldschool and does not work on NixOS, while the sysfs script
   # does.
-  patches = [ ./sys-by-default.patch ];
+  patches = [./sys-by-default.patch];
   # - perl shebang patches for acpi/sys scripts
   # - unhardcode path to checker scripts
   # - add missing return type in main function
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://salsa.debian.org/debian/xbattbar";
     license = with lib; licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ q3k ];
+    maintainers = with lib.maintainers; [q3k];
     mainProgram = "xbattbar";
   };
 })

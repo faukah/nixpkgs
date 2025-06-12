@@ -5,7 +5,6 @@
   fetchpatch,
   pillow,
 }:
-
 buildPythonPackage rec {
   pname = "piexif";
   version = "1.1.3";
@@ -28,12 +27,12 @@ buildPythonPackage rec {
   ];
 
   # Pillow needed for unit tests
-  nativeCheckInputs = [ pillow ];
+  nativeCheckInputs = [pillow];
 
   meta = with lib; {
     description = "Simplify Exif manipulations with Python";
     homepage = "https://github.com/hMatoba/Piexif";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

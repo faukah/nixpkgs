@@ -6,7 +6,6 @@
   pam,
   qrencode,
 }:
-
 stdenv.mkDerivation rec {
   pname = "google-authenticator-libpam";
   version = "1.11";
@@ -18,8 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-cLMX5SdKvyQr3annc/Hhhz6XgY+BypRHASKRh6xTdmo=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ pam ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [pam];
 
   preConfigure = ''
     sed -i "s|libqrencode.so.4|${qrencode.out}/lib/libqrencode.so.4|" src/google-authenticator.c
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Two-step verification, with pam module";
     mainProgram = "google-authenticator";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aneeshusa ];
+    maintainers = with maintainers; [aneeshusa];
     platforms = platforms.linux;
   };
 }

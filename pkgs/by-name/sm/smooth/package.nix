@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
   pkg-config,
-
   bzip2,
   curl,
   fribidi,
@@ -16,7 +15,6 @@
   libxml2,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "smooth";
   version = "0.9.10";
@@ -56,7 +54,7 @@ stdenv.mkDerivation rec {
     mainProgram = "smooth-translator";
     license = licenses.artistic2;
     homepage = "http://www.smooth-project.org/";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

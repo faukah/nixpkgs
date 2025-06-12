@@ -10,7 +10,6 @@
   pkg-config,
   tzdata,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qtorganizer-mkcal";
   version = "0-unstable-2025-04-24";
@@ -54,35 +53,32 @@ stdenv.mkDerivation (finalAttrs: {
   # Flaky: https://github.com/dcaliste/qtorganizer-mkcal/issues/9
   doCheck = false;
 
-  preCheck =
-    let
-      listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
-    in
-    ''
-      export QT_QPA_PLATFORM=minimal
-      export QT_PLUGIN_PATH=${
-        listToQtVar libsForQt5.qtbase.qtPluginPrefix (
-          with libsForQt5;
-          [
-            qtbase
-            qtpim
-          ]
-        )
-      }
+  preCheck = let
+    listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
+  in ''
+    export QT_QPA_PLATFORM=minimal
+    export QT_PLUGIN_PATH=${
+      listToQtVar libsForQt5.qtbase.qtPluginPrefix (
+        with libsForQt5; [
+          qtbase
+          qtpim
+        ]
+      )
+    }
 
-      # Wants to load the just-built plugin, doesn't try to set up the build dir / environment for that
-      mkdir -p $TMP/fake-install/organizer
-      cp ./src/libqtorganizer_mkcal.so $TMP/fake-install/organizer
-      export QT_PLUGIN_PATH=$TMP/fake-install:$QT_PLUGIN_PATH
-    '';
+    # Wants to load the just-built plugin, doesn't try to set up the build dir / environment for that
+    mkdir -p $TMP/fake-install/organizer
+    cp ./src/libqtorganizer_mkcal.so $TMP/fake-install/organizer
+    export QT_PLUGIN_PATH=$TMP/fake-install:$QT_PLUGIN_PATH
+  '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "QtOrganizer plugin using sqlite via mKCal";
     homepage = "https://github.com/dcaliste/qtorganizer-mkcal";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
   };
 })

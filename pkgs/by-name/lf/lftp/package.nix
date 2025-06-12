@@ -12,7 +12,6 @@
   libunistring,
   gettext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lftp";
   version = "4.9.3";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lucZnXk1vjPPaxFh6VWyqrQKt37N8qGc6k/BGT9Fftw=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     "--without-expat"
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 
@@ -61,6 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "https://lftp.yar.ru/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

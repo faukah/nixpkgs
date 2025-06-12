@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tango";
   version = "1.1.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Local command-line Japanese dictionary tool using yomichan's dictionary files";
     homepage = "https://github.com/masakichi/tango";
     license = licenses.mit;
-    maintainers = with maintainers; [ donovanglover ];
+    maintainers = with maintainers; [donovanglover];
     mainProgram = "tango";
   };
 }

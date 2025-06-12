@@ -9,7 +9,6 @@
   copyDesktopItems,
   strip-nondeterminism,
 }:
-
 stdenv.mkDerivation {
   pname = "wireworld";
   version = "unstable-2023-05-09";
@@ -35,7 +34,7 @@ stdenv.mkDerivation {
       comment = "";
       desktopName = "Wireworld";
       genericName = "Wireworld";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -60,7 +59,6 @@ stdenv.mkDerivation {
       cc-by-sa-40
     ];
     downloadPage = "https://ldjam.com/events/ludum-dare/53/wireworld";
-    maintainers = [ ];
+    maintainers = [];
   };
-
 }

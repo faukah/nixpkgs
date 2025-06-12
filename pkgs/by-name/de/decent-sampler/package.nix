@@ -10,9 +10,7 @@
   freetype,
   nghttp2,
   libX11,
-}:
-
-let
+}: let
   pname = "decent-sampler";
   version = "1.12.14";
 
@@ -30,7 +28,7 @@ let
       hash = "sha256-n9WTR11chK9oCz84uYhymov1axTVRr4OLo6W0cRpdWc=";
     };
 
-    nativeBuildInputs = [ copyDesktopItems ];
+    nativeBuildInputs = [copyDesktopItems];
 
     desktopItems = [
       (makeDesktopItem {
@@ -58,44 +56,42 @@ let
       runHook postInstall
     '';
   };
-
 in
+  buildFHSEnv {
+    inherit (decent-sampler) pname version;
 
-buildFHSEnv {
-  inherit (decent-sampler) pname version;
-
-  targetPkgs = pkgs: [
-    alsa-lib
-    decent-sampler
-    freetype
-    nghttp2
-    libX11
-  ];
-
-  runScript = "decent-sampler";
-
-  extraInstallCommands = ''
-    cp -r ${decent-sampler}/lib $out/lib
-    cp -r ${decent-sampler}/share $out/share
-  '';
-
-  meta = with lib; {
-    description = "Audio sample player";
-    longDescription = ''
-      Decent Sampler is an audio sample player.
-      Allowing you to play sample libraries in the DecentSampler format
-      (files with extensions: dspreset and dslibrary).
-    '';
-    mainProgram = "decent-sampler";
-    homepage = "https://www.decentsamples.com/product/decent-sampler-plugin/";
-    # It claims to be free but we currently cannot find any license
-    # that it is released under.
-    license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [
-      adam248
-      chewblacka
+    targetPkgs = pkgs: [
+      alsa-lib
+      decent-sampler
+      freetype
+      nghttp2
+      libX11
     ];
-  };
-}
+
+    runScript = "decent-sampler";
+
+    extraInstallCommands = ''
+      cp -r ${decent-sampler}/lib $out/lib
+      cp -r ${decent-sampler}/share $out/share
+    '';
+
+    meta = with lib; {
+      description = "Audio sample player";
+      longDescription = ''
+        Decent Sampler is an audio sample player.
+        Allowing you to play sample libraries in the DecentSampler format
+        (files with extensions: dspreset and dslibrary).
+      '';
+      mainProgram = "decent-sampler";
+      homepage = "https://www.decentsamples.com/product/decent-sampler-plugin/";
+      # It claims to be free but we currently cannot find any license
+      # that it is released under.
+      license = licenses.unfree;
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      platforms = ["x86_64-linux"];
+      maintainers = with maintainers; [
+        adam248
+        chewblacka
+      ];
+    };
+  }

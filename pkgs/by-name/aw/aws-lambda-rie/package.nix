@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "aws-lambda-runtime-interface-emulator";
   version = "1.25";
@@ -25,6 +24,6 @@ buildGoModule rec {
     mainProgram = "aws-lambda-rie";
     homepage = "https://github.com/aws/aws-lambda-runtime-interface-emulator";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

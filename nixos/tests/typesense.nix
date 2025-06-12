@@ -1,23 +1,19 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   testPort = 8108;
-in
-{
+in {
   name = "typesense";
-  meta.maintainers = with pkgs.lib.maintainers; [ oddlama ];
+  meta.maintainers = with pkgs.lib.maintainers; [oddlama];
 
-  nodes.machine =
-    { ... }:
-    {
-      services.typesense = {
-        enable = true;
-        apiKeyFile = pkgs.writeText "typesense-api-key" "dummy";
-        settings.server = {
-          api-port = testPort;
-          api-address = "0.0.0.0";
-        };
+  nodes.machine = {...}: {
+    services.typesense = {
+      enable = true;
+      apiKeyFile = pkgs.writeText "typesense-api-key" "dummy";
+      settings.server = {
+        api-port = testPort;
+        api-address = "0.0.0.0";
       };
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("typesense.service")

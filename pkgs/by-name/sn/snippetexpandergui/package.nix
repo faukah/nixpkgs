@@ -11,7 +11,6 @@
   snippetexpanderd,
   snippetexpanderx,
 }:
-
 buildGoModule rec {
   inherit (snippetexpanderd) src version;
 
@@ -59,11 +58,11 @@ buildGoModule rec {
     gappsWrapperArgs+=(
       # Ensure snippetexpanderd and snippetexpanderx are available to start/stop.
       --prefix PATH : ${
-        lib.makeBinPath [
-          snippetexpanderd
-          snippetexpanderx
-        ]
-      }
+      lib.makeBinPath [
+        snippetexpanderd
+        snippetexpanderx
+      ]
+    }
     )
   '';
 
@@ -71,7 +70,7 @@ buildGoModule rec {
     description = "Your little expandable text snippet helper GUI";
     homepage = "https://snippetexpander.org";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
     mainProgram = "snippetexpandergui";
   };

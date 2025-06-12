@@ -11,7 +11,6 @@
   pytest-lazy-fixture,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pycaption";
   version = "2.2.16";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-w617mOxvL1alj7jauH4TVsYO0wxMHIFjevdhb4+542s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     beautifulsoup4
@@ -36,7 +35,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    transcript = [ nltk ];
+    transcript = [nltk];
   };
 
   nativeCheckInputs = [
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     description = "Closed caption converter";
     homepage = "https://github.com/pbs/pycaption";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -6,7 +6,6 @@
   testers,
   dnscontrol,
 }:
-
 buildGoModule rec {
   pname = "dnscontrol";
   version = "4.21.0";
@@ -20,9 +19,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-BTysXvuE+LOHkUhsV+p8+5VOFcMUidz2i7uo2fdzyXg=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -53,7 +52,7 @@ buildGoModule rec {
     homepage = "https://dnscontrol.org/";
     changelog = "https://github.com/StackExchange/dnscontrol/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ SuperSandro2000 ];
+    maintainers = with lib.maintainers; [SuperSandro2000];
     mainProgram = "dnscontrol";
   };
 }

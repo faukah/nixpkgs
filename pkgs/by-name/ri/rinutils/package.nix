@@ -5,7 +5,6 @@
   cmake,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rinutils";
   version = "0.10.3";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/shlomif/rinutils";
     changelog = "https://github.com/shlomif/rinutils/raw/${version}/NEWS.asciidoc";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 }

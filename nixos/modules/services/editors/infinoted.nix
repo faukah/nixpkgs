@@ -3,15 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.infinoted;
-in
-{
+in {
   options.services.infinoted = {
     enable = lib.mkEnableOption "infinoted";
 
-    package = lib.mkPackageOption pkgs "libinfinity" { };
+    package = lib.mkPackageOption pkgs "libinfinity" {};
 
     keyFile = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
@@ -124,14 +122,14 @@ in
       };
     };
     users.groups = lib.optionalAttrs (cfg.group == "infinoted") {
-      infinoted = { };
+      infinoted = {};
     };
 
     systemd.services.infinoted = {
       description = "Gobby Dedicated Server";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         Type = "simple";

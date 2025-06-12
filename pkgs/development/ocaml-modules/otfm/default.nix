@@ -7,49 +7,45 @@
   ocamlbuild,
   topkg,
   uutf,
-}:
-
-let
+}: let
   pname = "otfm";
   version = "0.4.0";
   webpage = "https://erratique.ch/software/${pname}";
 in
+  stdenv.mkDerivation {
+    pname = "ocaml${ocaml.version}-${pname}";
+    inherit version;
 
-stdenv.mkDerivation {
+    src = fetchurl {
+      url = "${webpage}/releases/${pname}-${version}.tbz";
+      hash = "sha256-02U23mYTy0ZJgSObDoyygPTGEMC4/Zge5bux4wshaEE=";
+    };
 
-  pname = "ocaml${ocaml.version}-${pname}";
-  inherit version;
+    nativeBuildInputs = [
+      ocaml
+      findlib
+      ocamlbuild
+      topkg
+    ];
+    buildInputs = [topkg];
 
-  src = fetchurl {
-    url = "${webpage}/releases/${pname}-${version}.tbz";
-    hash = "sha256-02U23mYTy0ZJgSObDoyygPTGEMC4/Zge5bux4wshaEE=";
-  };
+    propagatedBuildInputs = [uutf];
 
-  nativeBuildInputs = [
-    ocaml
-    findlib
-    ocamlbuild
-    topkg
-  ];
-  buildInputs = [ topkg ];
+    strictDeps = true;
 
-  propagatedBuildInputs = [ uutf ];
+    inherit (topkg) buildPhase installPhase;
 
-  strictDeps = true;
-
-  inherit (topkg) buildPhase installPhase;
-
-  meta = with lib; {
-    description = "OpenType font decoder for OCaml";
-    longDescription = ''
-      Otfm is an in-memory decoder for the OpenType font data format. It
-      provides low-level access to font tables and functions to decode some
-      of them.
-    '';
-    homepage = webpage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.jirkamarsik ];
-    mainProgram = "otftrip";
-    inherit (ocaml.meta) platforms;
-  };
-}
+    meta = with lib; {
+      description = "OpenType font decoder for OCaml";
+      longDescription = ''
+        Otfm is an in-memory decoder for the OpenType font data format. It
+        provides low-level access to font tables and functions to decode some
+        of them.
+      '';
+      homepage = webpage;
+      license = licenses.bsd3;
+      maintainers = [maintainers.jirkamarsik];
+      mainProgram = "otftrip";
+      inherit (ocaml.meta) platforms;
+    };
+  }

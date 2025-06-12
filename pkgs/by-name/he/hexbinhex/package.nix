@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hexbinhex";
   version = "1.1";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
       sed -i s/-m64//g Makefile
     '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   enableParallelBuilding = true;
 

@@ -6,7 +6,6 @@
   writeText,
   tcl,
 }:
-
 mkTclDerivation rec {
   pname = "incrtcl";
   version = "4.2.3";
@@ -45,6 +44,6 @@ mkTclDerivation rec {
     description = "Object Oriented Enhancements for Tcl/Tk";
     license = licenses.tcltk;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

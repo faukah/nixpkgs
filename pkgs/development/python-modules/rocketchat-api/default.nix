@@ -6,7 +6,6 @@
   packaging,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "rocketchat-api";
   version = "1.35.1";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-8HGu/vkth6ofZD05Pc+IlTZlT+12jWTTYINLQzAHExk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     packaging
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     description = "Python API wrapper for Rocket.Chat";
     homepage = "https://github.com/jadolg/rocketchat_API";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

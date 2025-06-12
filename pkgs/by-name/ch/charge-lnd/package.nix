@@ -4,7 +4,6 @@
   python3Packages,
   makeWrapper,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "charge-lnd";
   version = "0.3.0";

@@ -6,10 +6,8 @@
   autoreconfHook,
   fetchFromGitHub,
   nix-update-script,
-
   chromecastSupport ? config.chromecast or stdenv.hostPlatform.isLinux,
   pulseSupport ? config.pulseaudio or stdenv.hostPlatform.isLinux,
-
   avahi,
   curl,
   bison,
@@ -35,7 +33,6 @@
   sqlite,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "28.12";
   pname = "owntone";
@@ -77,14 +74,14 @@ stdenv.mkDerivation (finalAttrs: {
       sqlite
       zlib
     ]
-    ++ lib.optionals chromecastSupport [ gnutls ]
-    ++ lib.optionals pulseSupport [ libpulseaudio ];
+    ++ lib.optionals chromecastSupport [gnutls]
+    ++ lib.optionals pulseSupport [libpulseaudio];
 
   configureFlags =
-    lib.optionals chromecastSupport [ "--enable-chromecast" ]
-    ++ lib.optionals pulseSupport [ "--with-pulseaudio" ];
+    lib.optionals chromecastSupport ["--enable-chromecast"]
+    ++ lib.optionals pulseSupport ["--with-pulseaudio"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Media server to stream audio to AirPlay and Chromecast receivers";

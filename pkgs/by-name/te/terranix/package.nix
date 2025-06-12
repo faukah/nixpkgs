@@ -6,7 +6,6 @@
   nix,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "terranix";
   version = "2.8.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1Pu2j5xsBTuoyga08ZVf+rKp3FOMmJh/0fXen/idOrA=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/{bin,core,modules,lib}
@@ -26,11 +25,11 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/terranix-doc-json \
       --prefix PATH : ${
-        lib.makeBinPath [
-          jq
-          nix
-        ]
-      }
+      lib.makeBinPath [
+        jq
+        nix
+      ]
+    }
   '';
 
   meta = with lib; {
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://terranix.org";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ mrVanDalo ];
+    maintainers = with maintainers; [mrVanDalo];
   };
 }

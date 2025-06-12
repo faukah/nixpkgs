@@ -9,7 +9,6 @@
   gnuplot,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "termplotlib";
   version = "0.3.9";
@@ -21,16 +20,16 @@ buildPythonPackage rec {
     sha256 = "1qfrv2w7vb2bbjvd5lqfq57c23iqkry0pwmif1ha3asmz330rja1";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   format = "pyproject";
   nativeCheckInputs = [
     pytestCheckHook
     exdown
   ];
-  pythonImportsCheck = [ "termplotlib" ];
+  pythonImportsCheck = ["termplotlib"];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   patches = [
     (replaceVars ./gnuplot-subprocess.patch {
@@ -49,7 +48,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "matplotlib for your terminal";
     homepage = "https://github.com/nschloe/termplotlib";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ thoughtpolice ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

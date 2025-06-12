@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "ezra-sil";
   version = "2.51";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Typeface fashioned after the square letter forms of the typography of the Biblia Hebraica Stuttgartensia (BHS)";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.kmein ];
+    maintainers = [maintainers.kmein];
   };
 }

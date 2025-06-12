@@ -5,7 +5,6 @@
   openssl,
   boost,
 }:
-
 stdenv.mkDerivation {
   pname = "stuntman";
   version = "1.2.16";
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
     description = "STUNTMAN - an open source STUN server and client";
     homepage = "https://www.stunprotocol.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mattchrist ];
+    maintainers = with maintainers; [mattchrist];
     platforms = platforms.unix;
   };
 }

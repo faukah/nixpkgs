@@ -21,23 +21,23 @@ let
       qtsvg
       qttools
     ];
-    extraBuildInputs = [ qtdeclarative ];
-    extraPropagatedBuildInputs = [ qt5compat ];
+    extraBuildInputs = [qtdeclarative];
+    extraPropagatedBuildInputs = [qt5compat];
   };
 in
-stdenv.mkDerivation {
-  pname = "kirigami-wrapped";
-  inherit (unwrapped) version;
+  stdenv.mkDerivation {
+    pname = "kirigami-wrapped";
+    inherit (unwrapped) version;
 
-  propagatedBuildInputs = [
-    unwrapped
-    qqc2-desktop-style
-  ];
+    propagatedBuildInputs = [
+      unwrapped
+      qqc2-desktop-style
+    ];
 
-  dontUnpack = true;
-  dontWrapQtApps = true;
+    dontUnpack = true;
+    dontWrapQtApps = true;
 
-  passthru = {
-    inherit unwrapped;
-  };
-}
+    passthru = {
+      inherit unwrapped;
+    };
+  }

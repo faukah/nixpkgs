@@ -111,7 +111,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     makeWrapper $out/lib/BloodHound/BloodHound $out/bin/BloodHound \
       --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
-      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
+      --suffix PATH : ${lib.makeBinPath [xdg-utils]} \
       --append-flags "--in-process-gpu" # fix for sandbox issues
 
     runHook postInstall
@@ -120,12 +120,12 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Active Directory reconnaissance and attack path management tool";
     homepage = "https://github.com/BloodHoundAD/BloodHound";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     changelog = "https://github.com/BloodHoundAD/BloodHound/releases/tag/v${finalAttrs.version}";
     downloadPage = "https://github.com/BloodHoundAD/BloodHound/releases";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ akechishiro ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [akechishiro];
+    platforms = ["x86_64-linux"];
     mainProgram = "BloodHound";
   };
 })

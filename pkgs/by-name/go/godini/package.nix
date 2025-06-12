@@ -6,7 +6,6 @@
   nix-update-script,
   testers,
 }:
-
 buildGoModule rec {
   pname = "godini";
   version = "1.0.0";
@@ -34,7 +33,7 @@ buildGoModule rec {
       };
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -43,7 +42,7 @@ buildGoModule rec {
     homepage = "https://github.com/bilbilak/godini";
     license = lib.licenses.gpl3Only;
     mainProgram = "godini";
-    maintainers = with lib.maintainers; [ _4r7if3x ];
+    maintainers = with lib.maintainers; [_4r7if3x];
     platforms = with lib.platforms; unix ++ windows;
   };
 }

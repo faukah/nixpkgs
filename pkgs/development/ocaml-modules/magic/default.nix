@@ -7,7 +7,6 @@
   which,
   file,
 }:
-
 stdenv.mkDerivation rec {
   pname = "magic";
   version = "0.7.4";
@@ -21,17 +20,17 @@ stdenv.mkDerivation rec {
 
   createFindlibDestdir = true;
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
   buildInputs = [
     ocaml
     findlib
   ];
-  propagatedBuildInputs = [ file ];
+  propagatedBuildInputs = [file];
 
   meta = with lib; {
     homepage = "https://github.com/Chris00/ocaml-magic";
     description = "Bindings for libmagic";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

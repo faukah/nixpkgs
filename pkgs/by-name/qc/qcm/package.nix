@@ -9,7 +9,6 @@
   ffmpeg,
   cubeb,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qcm";
   version = "1.1.2";
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/hypengw/Qcm";
     license = lib.licenses.gpl2Plus;
     mainProgram = "Qcm";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 })

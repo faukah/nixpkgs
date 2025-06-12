@@ -4,8 +4,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   dataDir = "/var/lib/matrix-appservice-discord";
   registrationFile = "${dataDir}/discord-registration.yaml";
   cfg = config.services.matrix-appservice-discord;
@@ -14,14 +13,12 @@ let
   settingsFile = pkgs.writeText "matrix-appservice-discord-settings.json" (
     builtins.toJSON cfg.settings
   );
-
-in
-{
+in {
   options = {
     services.matrix-appservice-discord = {
       enable = lib.mkEnableOption "a bridge between Matrix and Discord";
 
-      package = lib.mkPackageOption pkgs "matrix-appservice-discord" { };
+      package = lib.mkPackageOption pkgs "matrix-appservice-discord" {};
 
       settings = lib.mkOption rec {
         # TODO: switch to lib.types.config.json as prescribed by RFC42 once it's implemented
@@ -115,9 +112,9 @@ in
     systemd.services.matrix-appservice-discord = {
       description = "A bridge between Matrix and Discord.";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ] ++ cfg.serviceDependencies;
-      after = [ "network-online.target" ] ++ cfg.serviceDependencies;
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"] ++ cfg.serviceDependencies;
+      after = ["network-online.target"] ++ cfg.serviceDependencies;
 
       preStart = ''
         if [ ! -f '${registrationFile}' ]; then
@@ -125,8 +122,8 @@ in
             --generate-registration \
             --url=${lib.escapeShellArg cfg.url} \
             ${
-              lib.optionalString (cfg.localpart != null) "--localpart=${lib.escapeShellArg cfg.localpart}"
-            } \
+          lib.optionalString (cfg.localpart != null) "--localpart=${lib.escapeShellArg cfg.localpart}"
+        } \
             --config='${settingsFile}' \
             --file='${registrationFile}'
         fi
@@ -159,5 +156,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ euxane ];
+  meta.maintainers = with lib.maintainers; [euxane];
 }

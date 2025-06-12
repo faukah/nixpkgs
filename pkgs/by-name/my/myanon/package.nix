@@ -6,7 +6,6 @@
   flex,
   bison,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "myanon";
   version = "0.7";

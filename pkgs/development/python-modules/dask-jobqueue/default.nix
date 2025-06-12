@@ -3,20 +3,16 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   dask,
   distributed,
-
   # checks
   cryptography,
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "dask-jobqueue";
   version = "0.9.0";
@@ -29,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-YujfhjOJzl4xsjjsyrQkEu/CBR04RwJ79c1iSTcMIgw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     dask
@@ -91,7 +87,7 @@ buildPythonPackage rec {
       "test_runner"
     ];
 
-  pythonImportsCheck = [ "dask_jobqueue" ];
+  pythonImportsCheck = ["dask_jobqueue"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -99,6 +95,6 @@ buildPythonPackage rec {
     description = "Deploy Dask on job schedulers like PBS, SLURM, and SGE";
     homepage = "https://github.com/dask/dask-jobqueue";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

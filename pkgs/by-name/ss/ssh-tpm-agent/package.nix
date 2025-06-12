@@ -6,7 +6,6 @@
   openssh,
   openssl,
 }:
-
 buildGoModule rec {
   pname = "ssh-tpm-agent";
   version = "0.8.0";
@@ -37,14 +36,14 @@ buildGoModule rec {
     substituteInPlace internal/keyring/threadkeyring_test.go --replace-fail ENOKEY ENOENT
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "SSH agent with support for TPM sealed keys for public key authentication";
     homepage = "https://github.com/Foxboron/ssh-tpm-agent";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sgo ];
+    maintainers = with maintainers; [sgo];
     mainProgram = "ssh-tpm-agent";
   };
 }

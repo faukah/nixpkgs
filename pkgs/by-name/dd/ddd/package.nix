@@ -10,7 +10,6 @@
   libXt,
   gdb,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ddd";
   version = "3.4.0";
@@ -25,9 +24,11 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail 'debuggerCommand:' 'debuggerCommand: ${gdb}/bin/gdb'
   '';
 
-  nativeBuildInputs = [
-    imagemagick
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ desktopToDarwinBundle ];
+  nativeBuildInputs =
+    [
+      imagemagick
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [desktopToDarwinBundle];
 
   buildInputs = [
     motif
@@ -38,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # ioctl is not found without this flag. fixed in next release
   # Upstream issue ref: https://savannah.gnu.org/bugs/index.php?64188
-  env = lib.optionalAttrs stdenv.hostPlatform.isDarwin { NIX_CFLAGS_COMPILE = "-DHAVE_SYS_IOCTL_H"; };
+  env = lib.optionalAttrs stdenv.hostPlatform.isDarwin {NIX_CFLAGS_COMPILE = "-DHAVE_SYS_IOCTL_H";};
 
   configureFlags = [
     "--enable-builtin-manual"
@@ -48,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
   # From MacPorts: make will build the executable "ddd" and the X resource
   # file "Ddd" in the same directory, as HFS+ is case-insensitive by default
   # this will loosely FAIL
-  makeFlags = [ "EXEEXT=exe" ];
+  makeFlags = ["EXEEXT=exe"];
   enableParallelBuilding = true;
 
   postInstall = ''
@@ -63,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.gnu.org/software/ddd";
     license = lib.licenses.gpl3Only;
     mainProgram = "ddd";
-    maintainers = with lib.maintainers; [ emilytrau ];
+    maintainers = with lib.maintainers; [emilytrau];
     platforms = lib.platforms.unix;
   };
 })

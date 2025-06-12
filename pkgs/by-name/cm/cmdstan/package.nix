@@ -9,7 +9,6 @@
   runCommandCC,
   cmdstan,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cmdstan";
   version = "2.36.0";
@@ -74,7 +73,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    test = runCommandCC "cmdstan-test" { } ''
+    test = runCommandCC "cmdstan-test" {} ''
       cp -R ${cmdstan}/opt/cmdstan cmdstan
       chmod -R +w cmdstan
       cd cmdstan
@@ -93,7 +92,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://mc-stan.org/interfaces/cmdstan.html";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 }

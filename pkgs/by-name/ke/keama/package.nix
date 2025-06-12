@@ -3,7 +3,6 @@
   lib,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "keama";
   version = "4.4.3-P1";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.isc.org/isc-projects/dhcp/-/wikis/kea-migration-assistant";
     license = licenses.mpl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ blitz ];
+    maintainers = with maintainers; [blitz];
     mainProgram = "keama";
   };
 }

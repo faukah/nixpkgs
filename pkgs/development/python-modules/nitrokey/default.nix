@@ -14,7 +14,6 @@
   crcmod,
   hidapi,
 }:
-
 buildPythonPackage rec {
   pname = "nitrokey";
   version = "0.3.1";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.9";
 
-  pythonRelaxDeps = [ "protobuf" ];
+  pythonRelaxDeps = ["protobuf"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     fido2
@@ -46,7 +45,7 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "nitrokey" ];
+  pythonImportsCheck = ["nitrokey"];
 
   meta = with lib; {
     description = "Python SDK for Nitrokey devices";
@@ -56,6 +55,6 @@ buildPythonPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ panicgh ];
+    maintainers = with maintainers; [panicgh];
   };
 }

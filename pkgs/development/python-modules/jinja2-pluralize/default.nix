@@ -6,7 +6,6 @@
   inflect,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jinja2-pluralize";
   version = "0.3.0";
@@ -23,14 +22,14 @@ buildPythonPackage rec {
     inflect
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jinja2_pluralize" ];
+  pythonImportsCheck = ["jinja2_pluralize"];
 
   meta = with lib; {
     description = "Jinja2 pluralize filters";
     homepage = "https://github.com/audreyr/jinja2_pluralize";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dzabraev ];
+    maintainers = with maintainers; [dzabraev];
   };
 }

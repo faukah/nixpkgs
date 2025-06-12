@@ -3,16 +3,13 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pybind11,
   setuptools,
   setuptools-scm,
-
   # nativeBuildInputs
   cmake,
   ninja,
-
   # dependencies
   cloudpickle,
   importlib-metadata,
@@ -20,12 +17,10 @@
   orjson,
   packaging,
   torch,
-
   # tests
   h5py,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "tensordict";
   version = "0.8.3";
@@ -59,7 +54,7 @@ buildPythonPackage rec {
     torch
   ];
 
-  pythonImportsCheck = [ "tensordict" ];
+  pythonImportsCheck = ["tensordict"];
 
   # We have to delete the source because otherwise it is used instead of the installed package.
   preCheck = ''
@@ -107,6 +102,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/pytorch/tensordict/releases/tag/${src.tag}";
     homepage = "https://github.com/pytorch/tensordict";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

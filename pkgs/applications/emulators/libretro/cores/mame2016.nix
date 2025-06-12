@@ -22,10 +22,10 @@ mkLibretroCore {
     ln -s ${lib.getInclude rapidjson} 3rdparty/rapidjson
   '';
 
-  patches = [ ./patches/mame2016-python311.patch ];
-  extraNativeBuildInputs = [ python3 ];
-  extraBuildInputs = [ alsa-lib ];
-  makeFlags = [ "PYTHON_EXECUTABLE=python3" ];
+  patches = [./patches/mame2016-python311.patch];
+  extraNativeBuildInputs = [python3];
+  extraBuildInputs = [alsa-lib];
+  makeFlags = ["PYTHON_EXECUTABLE=python3"];
 
   env = {
     # Build failures when this is set to a bigger number

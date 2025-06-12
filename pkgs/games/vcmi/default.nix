@@ -26,7 +26,6 @@
   testers,
   vcmi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vcmi";
   version = "1.6.8";
@@ -81,12 +80,12 @@ stdenv.mkDerivation rec {
   postFixup = ''
     wrapProgram $out/bin/vcmibuilder \
       --prefix PATH : "${
-        lib.makeBinPath [
-          innoextract
-          ffmpeg
-          unshield
-        ]
-      }"
+      lib.makeBinPath [
+        innoextract
+        ffmpeg
+        unshield
+      ]
+    }"
   '';
 
   passthru.tests.version = testers.testVersion {
@@ -105,7 +104,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
       cc-by-sa-40
     ];
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.linux;
     mainProgram = "vcmilauncher";
   };

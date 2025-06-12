@@ -8,7 +8,6 @@
   zlib,
   zstd,
 }:
-
 mkDerivation {
   pname = "karchive";
   nativeBuildInputs = [
@@ -21,7 +20,7 @@ mkDerivation {
     zlib
     zstd
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
   outputs = [
     "out"
     "dev"

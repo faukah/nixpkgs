@@ -4,7 +4,6 @@
   fetchurl,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libogg";
   version = "1.3.5";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://xiph.org/ogg/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     platforms = lib.platforms.all;
   };
 })

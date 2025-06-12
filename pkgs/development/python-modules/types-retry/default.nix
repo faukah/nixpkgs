@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "types-retry";
   version = "0.9.9.20250322";
@@ -18,12 +17,12 @@ buildPythonPackage rec {
   # Modules doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "retry-stubs" ];
+  pythonImportsCheck = ["retry-stubs"];
 
   meta = with lib; {
     description = "Typing stubs for retry";
     homepage = "https://github.com/python/typeshed";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

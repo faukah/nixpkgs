@@ -19,7 +19,6 @@
   x11Support ? stdenv.hostPlatform.isLinux,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bemenu";
   version = "0.6.23";
@@ -66,10 +65,10 @@ stdenv.mkDerivation (finalAttrs: {
       xorg.libxcb
     ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   buildFlags =
-    [ "clients" ]
+    ["clients"]
     ++ lib.optional ncursesSupport "curses"
     ++ lib.optional waylandSupport "wayland"
     ++ lib.optional x11Support "x11";
@@ -86,7 +85,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Cloudef/bemenu";
     description = "Dynamic menu library and client program inspired by dmenu";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ crertel ];
+    maintainers = with maintainers; [crertel];
     mainProgram = "bemenu";
     platforms = with platforms; linux ++ darwin;
   };

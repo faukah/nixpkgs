@@ -4,7 +4,6 @@
   fetchurl,
   appimageTools,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "deskreen";
   version = "2.0.4";

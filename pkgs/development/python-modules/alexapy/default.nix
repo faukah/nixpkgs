@@ -16,7 +16,6 @@
   simplejson,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "alexapy";
   version = "1.29.5";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-46dRjVm3d1/bMlJCO6Dy/+cOYsPNruUADshrdrObw5Q=";
   };
 
-  pythonRelaxDeps = [ "aiofiles" ];
+  pythonRelaxDeps = ["aiofiles"];
 
   build-system = [
     poetry-core
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [ "alexapy" ];
+  pythonImportsCheck = ["alexapy"];
 
   # Module has no tests (only a websocket test which seems unrelated to the module)
   doCheck = false;
@@ -61,6 +60,6 @@ buildPythonPackage rec {
     homepage = "https://gitlab.com/keatontaylor/alexapy";
     changelog = "https://gitlab.com/keatontaylor/alexapy/-/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

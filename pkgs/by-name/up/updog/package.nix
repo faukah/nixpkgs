@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "updog";
   version = "1.4";
@@ -29,7 +28,7 @@ python3Packages.buildPythonApplication rec {
     pyopenssl
   ];
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   # no python tests
@@ -40,6 +39,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/sc0tfree/updog";
     changelog = "https://github.com/sc0tfree/updog/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
   };
 }

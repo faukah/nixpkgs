@@ -8,7 +8,6 @@
   libXext,
   libICE,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lwm";
   version = "1.2.4";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1bcdr173f0gl61fyl43p3gr145angci7lvjqb8rl00y9f9amvh3y";
   };
 
-  nativeBuildInputs = [ imake ];
+  nativeBuildInputs = [imake];
 
   buildInputs = [
     libX11
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.jfc.org.uk/software/lwm.html";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "lwm";
   };

@@ -9,7 +9,6 @@
   ptime,
   uri,
 }:
-
 buildDunePackage rec {
   pname = "dream-pure";
   version = "1.0.0-alpha8";
@@ -19,7 +18,7 @@ buildDunePackage rec {
     hash = "sha256-I+2BKJDAP+XJl0pJYano5iEmvte8fX0UQLhGUslc8pY=";
   };
 
-  buildInputs = [ lwt_ppx ];
+  buildInputs = [lwt_ppx];
 
   propagatedBuildInputs = [
     base64
@@ -33,6 +32,6 @@ buildDunePackage rec {
     description = "Shared HTTP types for Dream (server) and Hyper (client)";
     homepage = "https://aantron.github.io/dream/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

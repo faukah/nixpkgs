@@ -5,7 +5,6 @@
   fetchzip,
   clickgen,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "bibata-cursors";
   version = "2.0.7";

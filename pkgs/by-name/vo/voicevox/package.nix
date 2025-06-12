@@ -13,7 +13,6 @@
   voicevox-engine,
   dart-sass,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "voicevox";
   version = "0.23.0";
@@ -40,7 +39,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   pnpmDeps = pnpm_9.fetchDeps {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       pname
       version
       src
@@ -116,8 +116,8 @@ stdenv.mkDerivation (finalAttrs: {
       exec = "voicevox";
       icon = "voicevox";
       desktopName = "VOICEVOX";
-      categories = [ "AudioVideo" ];
-      mimeTypes = [ "application/x-voicevox" ];
+      categories = ["AudioVideo"];
+      mimeTypes = ["application/x-voicevox"];
     })
   ];
 

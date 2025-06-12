@@ -10,7 +10,6 @@
   replaceVars,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "objgraph";
   version = "3.6.2";
@@ -34,10 +33,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    ipython = [ graphviz ];
+    ipython = [graphviz];
   };
 
-  pythonImportsCheck = [ "objgraph" ];
+  pythonImportsCheck = ["objgraph"];
 
   checkPhase = ''
     runHook preCheck
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://mg.pov.lt/objgraph/";
     changelog = "https://github.com/mgedmin/objgraph/blob/${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

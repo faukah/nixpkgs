@@ -6,7 +6,6 @@
   geometry, # >= 4.0.0
   gdal,
 }:
-
 buildOctavePackage rec {
   pname = "mapping";
   version = "1.4.3";
@@ -28,7 +27,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/mapping/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Simple mapping and GIS .shp .dxf and raster file functions";
   };
 }

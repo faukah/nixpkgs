@@ -7,7 +7,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 beamPackages.mixRelease rec {
   pname = "akkoma";
   version = "3.15.2";
@@ -20,8 +19,8 @@ beamPackages.mixRelease rec {
     hash = "sha256-GW86OyO/XPIrCS+cPKQ8LG8PdhhfA2rNH1FXFiuL6vM=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ file ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [file];
 
   mixFodDeps = beamPackages.fetchMixDeps {
     pname = "mix-deps-${pname}";
@@ -71,7 +70,7 @@ beamPackages.mixRelease rec {
     # the package
     elixirPackage = beamPackages.elixir;
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -79,7 +78,7 @@ beamPackages.mixRelease rec {
     homepage = "https://akkoma.social";
     changelog = "https://akkoma.dev/AkkomaGang/akkoma/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ mvs ];
+    maintainers = with lib.maintainers; [mvs];
     platforms = lib.platforms.unix;
   };
 }

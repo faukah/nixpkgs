@@ -4,7 +4,6 @@
   fetchurl,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gxemul";
   version = "0.7.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
       unmodified "guest" operating systems to run.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
     mainProgram = "gxemul";
   };

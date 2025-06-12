@@ -5,7 +5,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "backports-functools-lru-cache";
   version = "1.6.6";

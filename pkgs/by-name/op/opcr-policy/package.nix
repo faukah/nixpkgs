@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "opcr-policy";
   version = "0.3.0";
@@ -22,7 +21,7 @@ buildGoModule rec {
     "-X github.com/opcr-io/policy/pkg/version.ver=${version}"
   ];
 
-  subPackages = [ "cmd/policy" ];
+  subPackages = ["cmd/policy"];
   # disable go workspaces
   env.GOWORK = "off";
 

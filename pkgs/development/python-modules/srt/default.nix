@@ -5,7 +5,6 @@
   hypothesis,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "srt";
   version = "3.5.3";
@@ -21,12 +20,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "srt" ];
+  pythonImportsCheck = ["srt"];
 
   meta = with lib; {
     homepage = "https://github.com/cdown/srt";
     description = "Tiny but featureful Python library for parsing, modifying, and composing SRT files";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

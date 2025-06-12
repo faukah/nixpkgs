@@ -11,7 +11,6 @@
   gcc,
   graphviz,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-automodapi";
   version = "0.19.0";
@@ -25,11 +24,11 @@ buildPythonPackage rec {
     leaveDotGit = true;
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  nativeBuildInputs = [ git ];
+  nativeBuildInputs = [git];
 
-  dependencies = [ sphinx ];
+  dependencies = [sphinx];
 
   # https://github.com/astropy/sphinx-automodapi/issues/155
   testInventory = fetchurl {
@@ -50,13 +49,13 @@ buildPythonPackage rec {
     graphviz
   ];
 
-  pythonImportsCheck = [ "sphinx_automodapi" ];
+  pythonImportsCheck = ["sphinx_automodapi"];
 
   meta = with lib; {
     description = "Sphinx extension for generating API documentation";
     homepage = "https://github.com/astropy/sphinx-automodapi";
     changelog = "https://github.com/astropy/sphinx-automodapi/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

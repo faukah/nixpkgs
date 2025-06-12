@@ -9,7 +9,6 @@
   pkg-config,
   unzip,
 }:
-
 stdenv.mkDerivation {
   pname = "edit";
   version = "unstable-2021-04-05";
@@ -48,7 +47,7 @@ stdenv.mkDerivation {
     description = "Relaxing mix of Vi and ACME";
     homepage = "https://c9x.me/edit";
     license = lib.licenses.publicDomain;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
     mainProgram = "edit";
   };

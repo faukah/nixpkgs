@@ -6,7 +6,6 @@
   python3Packages,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "liberation-sans-narrow";
   version = "1.07.6";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
 
     license = licenses.gpl2;
     homepage = "https://github.com/liberationfonts";
-    maintainers = [ maintainers.leenaars ];
+    maintainers = [maintainers.leenaars];
   };
 }

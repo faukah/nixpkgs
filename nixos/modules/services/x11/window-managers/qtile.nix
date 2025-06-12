@@ -4,14 +4,9 @@
   lib,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.qtile;
-in
-
-{
+in {
   imports = [
     (mkRemovedOptionModule [
       "services"
@@ -25,7 +20,7 @@ in
   options.services.xserver.windowManager.qtile = {
     enable = mkEnableOption "qtile";
 
-    package = mkPackageOption pkgs "qtile-unwrapped" { };
+    package = mkPackageOption pkgs "qtile-unwrapped" {};
 
     configFile = mkOption {
       type = with types; nullOr path;
@@ -39,7 +34,7 @@ in
 
     extraPackages = mkOption {
       type = types.functionTo (types.listOf types.package);
-      default = _: [ ];
+      default = _: [];
       defaultText = literalExpression ''
         python3Packages: with python3Packages; [];
       '';
@@ -68,12 +63,12 @@ in
       xserver.windowManager.qtile.finalPackage = pkgs.python3.pkgs.qtile.override {
         extraPackages = cfg.extraPackages pkgs.python3.pkgs;
       };
-      displayManager.sessionPackages = [ cfg.finalPackage ];
+      displayManager.sessionPackages = [cfg.finalPackage];
     };
 
     environment = {
-      etc."xdg/qtile/config.py" = mkIf (cfg.configFile != null) { source = cfg.configFile; };
-      systemPackages = [ cfg.finalPackage ];
+      etc."xdg/qtile/config.py" = mkIf (cfg.configFile != null) {source = cfg.configFile;};
+      systemPackages = [cfg.finalPackage];
     };
   };
 }

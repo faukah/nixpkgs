@@ -8,7 +8,6 @@
   pkg-config,
   blueprint-compiler,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "chcase";
   version = "2.3.0";
@@ -33,6 +32,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Small library to convert case of a given string";
     license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 })

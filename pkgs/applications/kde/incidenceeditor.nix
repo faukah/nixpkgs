@@ -14,7 +14,6 @@
   pimcommon,
   qtbase,
 }:
-
 mkDerivation {
   pname = "incidenceeditor";
   meta = {

@@ -1,5 +1,4 @@
-src: version:
-{
+src: version: {
   lib,
   fetchYarnDeps,
   nodejs_20,
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     fixup-yarn-lock
     nodejs_20
-    (yarn.override { nodejs = nodejs_20; })
+    (yarn.override {nodejs = nodejs_20;})
   ];
 
   configurePhase = ''
@@ -57,6 +56,6 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Frontend for Mealie";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ litchipi ];
+    maintainers = with maintainers; [litchipi];
   };
 }

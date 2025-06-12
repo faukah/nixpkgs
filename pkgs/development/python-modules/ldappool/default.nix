@@ -12,7 +12,6 @@
   testresources,
   testtools,
 }:
-
 buildPythonPackage rec {
   pname = "ldappool";
   version = "3.0.0";
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     testtools
   ];
 
-  pythonImportsCheck = [ "ldappool" ];
+  pythonImportsCheck = ["ldappool"];
 
   meta = with lib; {
     description = "Simple connector pool for python-ldap";

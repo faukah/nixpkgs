@@ -16,7 +16,6 @@
   qttools,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nootka";
   version = "2.0.2";

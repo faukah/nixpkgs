@@ -13,7 +13,6 @@
   tenacity,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "etcd3";
   version = "0.12.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-YM72+fkCDYXl6DORJa/O0sqXqHDWQcFLv2ifQ9kEHBo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   env = {
     # make protobuf compatible with old versions
@@ -56,12 +55,12 @@ buildPythonPackage rec {
     pifpaf -e PYTHON run etcd --cluster
   '';
 
-  pythonImportsCheck = [ "etcd3" ];
+  pythonImportsCheck = ["etcd3"];
 
   meta = {
     description = "Python client for the etcd API v3";
     homepage = "https://github.com/kragniz/python-etcd3";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
   };
 }

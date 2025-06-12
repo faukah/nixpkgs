@@ -16,11 +16,9 @@
   traceroute,
   util-linux,
   whois,
-
   # If true, just install FireQOS without FireHOL
   onlyQOS ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "firehol";
   version = "3.1.8";
@@ -68,12 +66,14 @@ stdenv.mkDerivation rec {
   ];
 
   preConfigure = "./autogen.sh";
-  configureFlags = [
-    "--localstatedir=/var"
-    "--disable-doc"
-    "--disable-man"
-    "--disable-update-ipsets"
-  ] ++ lib.optionals onlyQOS [ "--disable-firehol" ];
+  configureFlags =
+    [
+      "--localstatedir=/var"
+      "--disable-doc"
+      "--disable-man"
+      "--disable-update-ipsets"
+    ]
+    ++ lib.optionals onlyQOS ["--disable-firehol"];
 
   meta = with lib; {
     description = "Firewall for humans";
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://firehol.org/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
     platforms = platforms.linux;
   };
 }

@@ -5,7 +5,6 @@
   testers,
   dotenvx,
 }:
-
 buildNpmPackage rec {
   pname = "dotenvx";
   version = "1.44.2";
@@ -34,7 +33,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/dotenvx/dotenvx";
     changelog = "https://github.com/dotenvx/dotenvx/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     mainProgram = "dotenvx";
   };
 }

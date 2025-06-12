@@ -11,7 +11,6 @@
   groff,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xephem";
   version = "4.2.0";
@@ -106,7 +105,7 @@ stdenv.mkDerivation rec {
     mainProgram = "xephem";
     homepage = "https://xephem.github.io/XEphem/Site/xephem.html";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ EstebanMacanek ];
+    maintainers = with lib.maintainers; [EstebanMacanek];
     platforms = lib.platforms.unix;
   };
 }

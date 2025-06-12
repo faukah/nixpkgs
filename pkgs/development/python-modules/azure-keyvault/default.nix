@@ -7,7 +7,6 @@
   azure-keyvault-keys,
   azure-keyvault-secrets,
 }:
-
 buildPythonPackage rec {
   pname = "azure-keyvault";
   version = "4.2.0";
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     description = "This is the Microsoft Azure Key Vault Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

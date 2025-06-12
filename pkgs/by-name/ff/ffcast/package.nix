@@ -13,7 +13,6 @@
   xrectsel,
   xwininfo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ffcast";
   version = "2.5.1";
@@ -31,29 +30,27 @@ stdenv.mkDerivation rec {
     perl # for pod2man
   ];
 
-  configureFlags = [ "--disable-xrectsel" ];
+  configureFlags = ["--disable-xrectsel"];
 
-  postInstall =
-    let
-      binPath = lib.makeBinPath [
-        ffmpeg-full
-        gawk
-        imagemagick
-        xdpyinfo
-        xprop
-        xrectsel
-        xwininfo
-      ];
-    in
-    ''
-      wrapProgram $out/bin/ffcast --prefix PATH : ${binPath}
-    '';
+  postInstall = let
+    binPath = lib.makeBinPath [
+      ffmpeg-full
+      gawk
+      imagemagick
+      xdpyinfo
+      xprop
+      xrectsel
+      xwininfo
+    ];
+  in ''
+    wrapProgram $out/bin/ffcast --prefix PATH : ${binPath}
+  '';
 
   meta = {
     description = "Run commands on rectangular screen regions";
     homepage = "https://github.com/ropery/FFcast";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.linux;
     mainProgram = "ffcast";
   };

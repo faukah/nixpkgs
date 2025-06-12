@@ -18,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-DERFKDGVUPcjYAxiTYWgWkPp+Myd/9CNytQWgRya570=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ six ];
+  dependencies = [six];
 
-  nativeCheckInputs = [ django ];
+  nativeCheckInputs = [django];
 
   meta = {
     description = "Convert data to their natural (human-readable) format";

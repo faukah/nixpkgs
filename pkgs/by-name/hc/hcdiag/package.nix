@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "hcdiag";
   version = "0.5.7";
@@ -26,7 +25,7 @@ buildGoModule rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -35,7 +34,7 @@ buildGoModule rec {
     changelog = "https://github.com/hashicorp/hcdiag/raw/v${version}/CHANGELOG.md";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     mainProgram = "hcdiag";
   };
 }

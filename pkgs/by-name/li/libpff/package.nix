@@ -5,7 +5,6 @@
   pkg-config,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libpff";
   version = "20211114";
@@ -31,6 +30,6 @@ stdenv.mkDerivation rec {
     downloadPage = "https://github.com/libyal/libpff/releases";
     changelog = "https://github.com/libyal/libpff/blob/${version}/ChangeLog";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ hacker1024 ];
+    maintainers = with lib.maintainers; [hacker1024];
   };
 }

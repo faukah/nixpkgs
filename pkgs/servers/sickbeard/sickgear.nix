@@ -5,53 +5,52 @@
   python3,
   makeWrapper,
   libarchive,
-}:
-
-let
+}: let
   pythonEnv = python3.withPackages (
-    ps: with ps; [
-      cheetah3
-      lxml
-    ]
+    ps:
+      with ps; [
+        cheetah3
+        lxml
+      ]
   );
 in
-stdenv.mkDerivation rec {
-  pname = "sickgear";
-  version = "3.33.2";
+  stdenv.mkDerivation rec {
+    pname = "sickgear";
+    version = "3.33.2";
 
-  src = fetchFromGitHub {
-    owner = "SickGear";
-    repo = "SickGear";
-    rev = "release_${version}";
-    hash = "sha256-8cynBaVbFDI1hNwP03crkOf8Av+NCWr0xJLsZJpHLGs=";
-  };
+    src = fetchFromGitHub {
+      owner = "SickGear";
+      repo = "SickGear";
+      rev = "release_${version}";
+      hash = "sha256-8cynBaVbFDI1hNwP03crkOf8Av+NCWr0xJLsZJpHLGs=";
+    };
 
-  patches = [
-    ./patches/override-python-version-check.patch
-  ];
+    patches = [
+      ./patches/override-python-version-check.patch
+    ];
 
-  dontBuild = true;
-  doCheck = false;
+    dontBuild = true;
+    doCheck = false;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    pythonEnv
-    libarchive
-  ];
+    nativeBuildInputs = [makeWrapper];
+    buildInputs = [
+      pythonEnv
+      libarchive
+    ];
 
-  installPhase = ''
-    mkdir -p $out/bin $out/opt/sickgear
-    cp -R {autoProcessTV,gui,lib,sickgear,sickgear.py} $out/opt/sickgear/
+    installPhase = ''
+      mkdir -p $out/bin $out/opt/sickgear
+      cp -R {autoProcessTV,gui,lib,sickgear,sickgear.py} $out/opt/sickgear/
 
-    makeWrapper $out/opt/sickgear/sickgear.py $out/bin/sickgear \
-      --suffix PATH : ${lib.makeBinPath [ libarchive ]}
-  '';
+      makeWrapper $out/opt/sickgear/sickgear.py $out/bin/sickgear \
+        --suffix PATH : ${lib.makeBinPath [libarchive]}
+    '';
 
-  meta = with lib; {
-    description = "Most reliable stable TV fork of the great Sick-Beard to fully automate TV enjoyment with innovation";
-    mainProgram = "sickgear";
-    license = licenses.gpl3;
-    homepage = "https://github.com/SickGear/SickGear";
-    maintainers = with lib.maintainers; [ rembo10 ];
-  };
-}
+    meta = with lib; {
+      description = "Most reliable stable TV fork of the great Sick-Beard to fully automate TV enjoyment with innovation";
+      mainProgram = "sickgear";
+      license = licenses.gpl3;
+      homepage = "https://github.com/SickGear/SickGear";
+      maintainers = with lib.maintainers; [rembo10];
+    };
+  }

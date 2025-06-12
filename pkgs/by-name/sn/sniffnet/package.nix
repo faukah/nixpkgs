@@ -14,7 +14,6 @@
   wayland,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sniffnet";
   version = "1.3.2";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-M7vIiGdH5+rdlqi603bfcXZavUAx2tU7+4sXb+QG+2g=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -68,13 +67,13 @@ rustPlatform.buildRustPackage rec {
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     patchelf $out/bin/sniffnet \
       --add-rpath ${
-        lib.makeLibraryPath [
-          vulkan-loader
-          xorg.libX11
-          libxkbcommon
-          wayland
-        ]
-      }
+      lib.makeLibraryPath [
+        vulkan-loader
+        xorg.libX11
+        libxkbcommon
+        wayland
+      ]
+    }
   '';
 
   meta = {
@@ -85,7 +84,7 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "sniffnet";
   };
 }

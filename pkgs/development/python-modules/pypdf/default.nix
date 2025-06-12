@@ -3,28 +3,22 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   flit-core,
-
   # docs
   sphinxHook,
   sphinx-rtd-theme,
   myst-parser,
-
   # propagates
   typing-extensions,
-
   # optionals
   cryptography,
   pillow,
-
   # tests
   fpdf2,
   pytestCheckHook,
   pytest-timeout,
 }:
-
 buildPythonPackage rec {
   pname = "pypdf";
   version = "5.5.0";
@@ -51,7 +45,7 @@ buildPythonPackage rec {
       --replace-fail "--disable-socket" ""
   '';
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   nativeBuildInputs = [
     sphinxHook
@@ -59,21 +53,23 @@ buildPythonPackage rec {
     myst-parser
   ];
 
-  dependencies = lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  dependencies = lib.optionals (pythonOlder "3.11") [typing-extensions];
 
   optional-dependencies = rec {
     full = crypto ++ image;
-    crypto = [ cryptography ];
-    image = [ pillow ];
+    crypto = [cryptography];
+    image = [pillow];
   };
 
-  pythonImportsCheck = [ "pypdf" ];
+  pythonImportsCheck = ["pypdf"];
 
-  nativeCheckInputs = [
-    (fpdf2.overridePythonAttrs { doCheck = false; }) # avoid reference loop
-    pytestCheckHook
-    pytest-timeout
-  ] ++ optional-dependencies.full;
+  nativeCheckInputs =
+    [
+      (fpdf2.overridePythonAttrs {doCheck = false;}) # avoid reference loop
+      pytestCheckHook
+      pytest-timeout
+    ]
+    ++ optional-dependencies.full;
 
   pytestFlagsArray = [
     # don't access the network
@@ -86,6 +82,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/py-pdf/pypdf";
     changelog = "https://github.com/py-pdf/pypdf/blob/${src.tag}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ javaes ];
+    maintainers = with maintainers; [javaes];
   };
 }

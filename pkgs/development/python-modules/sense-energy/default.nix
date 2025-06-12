@@ -13,7 +13,6 @@
   websocket-client,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "sense-energy";
   version = "0.13.8";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
       --replace-fail "{{VERSION_PLACEHOLDER}}" "${version}"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -49,13 +48,13 @@ buildPythonPackage rec {
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "sense_energy" ];
+  pythonImportsCheck = ["sense_energy"];
 
   meta = with lib; {
     description = "API for the Sense Energy Monitor";
     homepage = "https://github.com/scottbonline/sense";
     changelog = "https://github.com/scottbonline/sense/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

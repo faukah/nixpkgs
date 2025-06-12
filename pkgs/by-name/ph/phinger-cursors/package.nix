@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "phinger-cursors";
   version = "2.1";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/phisch/phinger-cursors";
     platforms = platforms.unix;
     license = licenses.cc-by-sa-40;
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
   };
 }

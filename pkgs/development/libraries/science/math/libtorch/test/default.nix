@@ -5,11 +5,9 @@
   libtorch-bin,
   linkFarm,
   symlinkJoin,
-
   cudaSupport,
-  cudaPackages ? { },
-}:
-let
+  cudaPackages ? {},
+}: let
   inherit (cudaPackages) cudatoolkit cudnn;
 
   cudatoolkit_joined = symlinkJoin {
@@ -28,37 +26,36 @@ let
       path = "${cudatoolkit}/lib/stubs/libcuda.so";
     }
   ];
-
 in
-stdenv.mkDerivation {
-  pname = "libtorch-test";
-  version = libtorch-bin.version;
+  stdenv.mkDerivation {
+    pname = "libtorch-test";
+    version = libtorch-bin.version;
 
-  src = lib.fileset.toSource {
-    root = ./.;
-    fileset = lib.fileset.unions [
-      ./CMakeLists.txt
-      ./test.cpp
-    ];
-  };
+    src = lib.fileset.toSource {
+      root = ./.;
+      fileset = lib.fileset.unions [
+        ./CMakeLists.txt
+        ./test.cpp
+      ];
+    };
 
-  nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
-  buildInputs = [ libtorch-bin ] ++ lib.optionals cudaSupport [ cudnn ];
+    buildInputs = [libtorch-bin] ++ lib.optionals cudaSupport [cudnn];
 
-  cmakeFlags = lib.optionals cudaSupport [ "-DCUDA_TOOLKIT_ROOT_DIR=${cudatoolkit_joined}" ];
+    cmakeFlags = lib.optionals cudaSupport ["-DCUDA_TOOLKIT_ROOT_DIR=${cudatoolkit_joined}"];
 
-  doCheck = true;
+    doCheck = true;
 
-  installPhase = ''
-    touch $out
-  '';
-
-  checkPhase =
-    lib.optionalString cudaSupport ''
-      LD_LIBRARY_PATH=${cudaStub}''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH \
-    ''
-    + ''
-      ./test
+    installPhase = ''
+      touch $out
     '';
-}
+
+    checkPhase =
+      lib.optionalString cudaSupport ''
+        LD_LIBRARY_PATH=${cudaStub}''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH \
+      ''
+      + ''
+        ./test
+      '';
+  }

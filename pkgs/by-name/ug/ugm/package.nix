@@ -5,7 +5,6 @@
   makeWrapper,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "ugm";
   version = "1.7.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Dgnh+4bUNyqD8/bj+iUITPB/SBtQPYrB5XC6/M6Zs6k=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # Fix unaligned table when running this program under a CJK environment
   postFixup = ''
@@ -27,7 +26,7 @@ buildGoModule rec {
         --set RUNEWIDTH_EASTASIAN 0
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Terminal based UNIX user and group browser";
@@ -36,6 +35,6 @@ buildGoModule rec {
     license = licenses.mit;
     mainProgram = "ugm";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ oosquare ];
+    maintainers = with maintainers; [oosquare];
   };
 }

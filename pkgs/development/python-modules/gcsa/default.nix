@@ -12,7 +12,6 @@
   python-dateutil,
   beautiful-date,
 }:
-
 buildPythonPackage rec {
   pname = "gcsa";
   version = "2.1.0";
@@ -39,12 +38,12 @@ buildPythonPackage rec {
     pytestCheckHook
     pyfakefs
   ];
-  pythonImportsCheck = [ "gcsa" ];
+  pythonImportsCheck = ["gcsa"];
 
   meta = with lib; {
     description = "Pythonic wrapper for the Google Calendar API";
     homepage = "https://github.com/kuzmoyev/google-calendar-simple-api";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

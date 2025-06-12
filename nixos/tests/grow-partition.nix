@@ -1,55 +1,52 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   rootFslabel = "external";
   rootFsDevice = "/dev/disk/by-label/${rootFslabel}";
 
-  externalModule =
-    partitionTableType:
-    {
-      config,
-      lib,
-      pkgs,
-      ...
-    }:
-    {
-      virtualisation.directBoot.enable = false;
-      virtualisation.mountHostNixStore = false;
-      virtualisation.useEFIBoot = partitionTableType == "efi";
+  externalModule = partitionTableType: {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: {
+    virtualisation.directBoot.enable = false;
+    virtualisation.mountHostNixStore = false;
+    virtualisation.useEFIBoot = partitionTableType == "efi";
 
-      # This stops the qemu-vm module from overriding the fileSystems option
-      # with virtualisation.fileSystems.
-      virtualisation.fileSystems = lib.mkForce { };
+    # This stops the qemu-vm module from overriding the fileSystems option
+    # with virtualisation.fileSystems.
+    virtualisation.fileSystems = lib.mkForce {};
 
-      boot.loader.grub.enable = true;
-      boot.loader.grub.efiSupport = partitionTableType == "efi";
-      boot.loader.grub.efiInstallAsRemovable = partitionTableType == "efi";
-      boot.loader.grub.device = if partitionTableType == "efi" then "nodev" else "/dev/vda";
+    boot.loader.grub.enable = true;
+    boot.loader.grub.efiSupport = partitionTableType == "efi";
+    boot.loader.grub.efiInstallAsRemovable = partitionTableType == "efi";
+    boot.loader.grub.device =
+      if partitionTableType == "efi"
+      then "nodev"
+      else "/dev/vda";
 
-      boot.growPartition = true;
+    boot.growPartition = true;
 
-      fileSystems = {
-        "/".device = rootFsDevice;
-      };
-
-      # Needed for installing bootloader
-      system.switch.enable = true;
-
-      system.build.diskImage = import ../lib/make-disk-image.nix {
-        inherit config lib pkgs;
-        label = rootFslabel;
-        inherit partitionTableType;
-        format = "raw";
-        bootSize = "128M";
-        additionalSpace = "0M";
-        copyChannel = false;
-      };
+    fileSystems = {
+      "/".device = rootFsDevice;
     };
-in
-{
+
+    # Needed for installing bootloader
+    system.switch.enable = true;
+
+    system.build.diskImage = import ../lib/make-disk-image.nix {
+      inherit config lib pkgs;
+      label = rootFslabel;
+      inherit partitionTableType;
+      format = "raw";
+      bootSize = "128M";
+      additionalSpace = "0M";
+      copyChannel = false;
+    };
+  };
+in {
   name = "grow-partition";
 
-  meta.maintainers = with lib.maintainers; [ arianvp ];
+  meta.maintainers = with lib.maintainers; [arianvp];
 
   nodes = {
     efi = externalModule "efi";
@@ -58,8 +55,7 @@ in
     hybrid = externalModule "hybrid";
   };
 
-  testScript =
-    { nodes, ... }:
+  testScript = {nodes, ...}:
     lib.concatLines (
       lib.mapAttrsToList (name: node: ''
         import os
@@ -90,6 +86,7 @@ in
         systemd_growpart_logs = ${name}.succeed("journalctl --boot --unit growpart.service")
         assert "NOCHANGE" in systemd_growpart_logs
 
-      '') nodes
+      '')
+      nodes
     );
 }

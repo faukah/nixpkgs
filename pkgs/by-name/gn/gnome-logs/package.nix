@@ -20,7 +20,6 @@
   systemd,
   gsettings-desktop-schemas,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-logs";
   version = "45.0";
@@ -54,19 +53,19 @@ stdenv.mkDerivation rec {
     gsettings-desktop-schemas
   ];
 
-  mesonFlags = [ "-Dman=true" ];
+  mesonFlags = ["-Dman=true"];
 
   doCheck = true;
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-logs"; };
+    updateScript = gnome.updateScript {packageName = "gnome-logs";};
   };
 
   meta = with lib; {
     homepage = "https://apps.gnome.org/Logs/";
     description = "Log viewer for the systemd journal";
     mainProgram = "gnome-logs";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

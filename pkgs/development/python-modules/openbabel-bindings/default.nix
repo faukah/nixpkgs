@@ -4,13 +4,12 @@
   python,
   buildPythonPackage,
 }:
-
 buildPythonPackage {
   inherit (openbabel) pname version;
 
   src = "${openbabel}/${python.sitePackages}";
 
-  buildInputs = [ openbabel ];
+  buildInputs = [openbabel];
 
   # these env variables are used by the bindings to find libraries
   # they need to be included explicitly in your nix-shell for
@@ -20,12 +19,12 @@ buildPythonPackage {
   LD_LIBRARY_PATH = "${openbabel}/lib";
 
   doCheck = false;
-  pythonImportsCheck = [ "openbabel" ];
+  pythonImportsCheck = ["openbabel"];
 
   meta = with lib; {
     homepage = "http://openbabel.org/wiki/Main_Page";
     description = "Python bindings for openbabel";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ danielbarter ];
+    maintainers = with maintainers; [danielbarter];
   };
 }

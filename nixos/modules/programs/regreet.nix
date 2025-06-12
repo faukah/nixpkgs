@@ -3,37 +3,37 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   cfg = config.programs.regreet;
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   user = config.services.greetd.settings.default_session.user;
-in
-{
+in {
   options.programs.regreet = {
-    enable = lib.mkEnableOption null // {
-      description = ''
-        Enable ReGreet, a clean and customizable greeter for greetd.
+    enable =
+      lib.mkEnableOption null
+      // {
+        description = ''
+          Enable ReGreet, a clean and customizable greeter for greetd.
 
-        To use ReGreet, {option}`services.greetd` has to be enabled and
-        {option}`services.greetd.settings.default_session` should contain the
-        appropriate configuration to launch
-        {option}`config.programs.regreet.package`. For examples, see the
-        [ReGreet Readme](https://github.com/rharish101/ReGreet#set-as-default-session).
+          To use ReGreet, {option}`services.greetd` has to be enabled and
+          {option}`services.greetd.settings.default_session` should contain the
+          appropriate configuration to launch
+          {option}`config.programs.regreet.package`. For examples, see the
+          [ReGreet Readme](https://github.com/rharish101/ReGreet#set-as-default-session).
 
-        A minimal configuration that launches ReGreet in {command}`cage` is
-        enabled by this module by default.
-      '';
-    };
+          A minimal configuration that launches ReGreet in {command}`cage` is
+          enabled by this module by default.
+        '';
+      };
 
     package = lib.mkPackageOption pkgs [
       "greetd"
       "regreet"
-    ] { };
+    ] {};
 
     settings = lib.mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
       description = ''
         ReGreet configuration file. Refer
         <https://github.com/rharish101/ReGreet/blob/main/regreet.sample.toml>
@@ -43,7 +43,7 @@ in
 
     cageArgs = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ "-s" ];
+      default = ["-s"];
       example = lib.literalExpression ''
         [ "-s" "-m" "last" ]
       '';
@@ -64,11 +64,13 @@ in
     };
 
     theme = {
-      package = lib.mkPackageOption pkgs "gnome-themes-extra" { } // {
-        description = ''
-          The package that provides the theme given in the name option.
-        '';
-      };
+      package =
+        lib.mkPackageOption pkgs "gnome-themes-extra" {}
+        // {
+          description = ''
+            The package that provides the theme given in the name option.
+          '';
+        };
 
       name = lib.mkOption {
         type = lib.types.str;
@@ -80,11 +82,13 @@ in
     };
 
     iconTheme = {
-      package = lib.mkPackageOption pkgs "adwaita-icon-theme" { } // {
-        description = ''
-          The package that provides the icon theme given in the name option.
-        '';
-      };
+      package =
+        lib.mkPackageOption pkgs "adwaita-icon-theme" {}
+        // {
+          description = ''
+            The package that provides the icon theme given in the name option.
+          '';
+        };
 
       name = lib.mkOption {
         type = lib.types.str;
@@ -96,11 +100,13 @@ in
     };
 
     font = {
-      package = lib.mkPackageOption pkgs "cantarell-fonts" { } // {
-        description = ''
-          The package that provides the font given in the name option.
-        '';
-      };
+      package =
+        lib.mkPackageOption pkgs "cantarell-fonts" {}
+        // {
+          description = ''
+            The package that provides the font given in the name option.
+          '';
+        };
 
       name = lib.mkOption {
         type = lib.types.str;
@@ -120,11 +126,13 @@ in
     };
 
     cursorTheme = {
-      package = lib.mkPackageOption pkgs "adwaita-icon-theme" { } // {
-        description = ''
-          The package that provides the cursor theme given in the name option.
-        '';
-      };
+      package =
+        lib.mkPackageOption pkgs "adwaita-icon-theme" {}
+        // {
+          description = ''
+            The package that provides the cursor theme given in the name option.
+          '';
+        };
 
       name = lib.mkOption {
         type = lib.types.str;
@@ -143,7 +151,7 @@ in
       cfg.cursorTheme.package
     ];
 
-    fonts.packages = [ cfg.font.package ];
+    fonts.packages = [cfg.font.package];
 
     programs.regreet.settings.GTK = {
       cursor_theme_name = cfg.cursorTheme.name;
@@ -159,29 +167,30 @@ in
 
     environment.etc = {
       "greetd/regreet.css" =
-        if lib.isPath cfg.extraCss then { source = cfg.extraCss; } else { text = cfg.extraCss; };
+        if lib.isPath cfg.extraCss
+        then {source = cfg.extraCss;}
+        else {text = cfg.extraCss;};
 
       "greetd/regreet.toml".source =
-        if lib.isPath cfg.settings then
-          cfg.settings
-        else
-          settingsFormat.generate "regreet.toml" cfg.settings;
+        if lib.isPath cfg.settings
+        then cfg.settings
+        else settingsFormat.generate "regreet.toml" cfg.settings;
     };
 
-    systemd.tmpfiles.settings."10-regreet" =
-      let
-        defaultConfig = {
-          inherit user;
-          group =
-            if config.users.users.${user}.group != "" then config.users.users.${user}.group else "greeter";
-          mode = "0755";
-        };
-        dataDir =
-          if lib.versionAtLeast (cfg.package.version) "0.2.0" then
-            { "/var/lib/regreet".d = defaultConfig; }
-          else
-            { "/var/cache/regreet".d = defaultConfig; };
-      in
+    systemd.tmpfiles.settings."10-regreet" = let
+      defaultConfig = {
+        inherit user;
+        group =
+          if config.users.users.${user}.group != ""
+          then config.users.users.${user}.group
+          else "greeter";
+        mode = "0755";
+      };
+      dataDir =
+        if lib.versionAtLeast (cfg.package.version) "0.2.0"
+        then {"/var/lib/regreet".d = defaultConfig;}
+        else {"/var/cache/regreet".d = defaultConfig;};
+    in
       {
         "/var/log/regreet".d = defaultConfig;
       }
@@ -189,7 +198,7 @@ in
 
     assertions = [
       {
-        assertion = (config.users.users.${user} or { }) != { };
+        assertion = (config.users.users.${user} or {}) != {};
         message = "regreet: user ${user} does not exist. Please create it before referencing it.";
       }
     ];

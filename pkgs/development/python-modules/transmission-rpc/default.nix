@@ -11,7 +11,6 @@
   typing-extensions,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "transmission-rpc";
   version = "7.0.11";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-t07TuLLHfbxvWh+7854OMigfGC8jHzvpd4QO3v0M15I=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [ "transmission_rpc" ];
+  pythonImportsCheck = ["transmission_rpc"];
 
   disabledTests = [
     # Tests require a running Transmission instance
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Trim21/transmission-rpc";
     changelog = "https://github.com/trim21/transmission-rpc/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ eyjhb ];
+    maintainers = with maintainers; [eyjhb];
   };
 }

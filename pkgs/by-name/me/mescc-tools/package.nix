@@ -5,7 +5,6 @@
   m2libc,
   which,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mescc-tools";
   version = "1.5.1";
@@ -26,15 +25,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
   checkTarget = "test";
-  nativeCheckInputs = [ which ];
+  nativeCheckInputs = [which];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Collection of tools written for use in bootstrapping";
     homepage = "https://savannah.nongnu.org/projects/mescc-tools";
     license = licenses.gpl3Only;
-    teams = [ teams.minimal-bootstrap ];
+    teams = [teams.minimal-bootstrap];
     inherit (m2libc.meta) platforms;
   };
 })

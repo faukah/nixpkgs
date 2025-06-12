@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "advanced-camera-card";
   version = "7.14.1";
@@ -30,6 +29,6 @@ stdenv.mkDerivation rec {
     description = "A comprehensive camera card for Home Assistant";
     homepage = "https://github.com/dermotduffy/advanced-camera-card";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

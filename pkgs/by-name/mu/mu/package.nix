@@ -15,7 +15,6 @@
   texinfo,
   xapian,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mu";
   version = "1.12.11";

@@ -17,7 +17,6 @@
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "nominal";
   version = "1.59.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-wWy7i9lWZzDCx3cPyViLp7r7hSSDQbqdSUABX7L0LSE=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     requests
@@ -46,7 +45,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    protos = [ nominal-api-protos ];
+    protos = [nominal-api-protos];
     # tdms = [ nptdms ]; nptdms is not in nixpkgs
   };
 
@@ -70,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/nominal-io/nominal-client";
     changelog = "https://github.com/nominal-io/nominal-client/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ alkasm ];
+    maintainers = with lib.maintainers; [alkasm];
   };
 }

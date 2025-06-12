@@ -5,7 +5,6 @@
   libretro,
   twenty-fortyeight,
 }:
-
 buildKodiBinaryAddon rec {
   pname = "libretro-2048";
   namespace = "game.libretro.2048";
@@ -22,7 +21,7 @@ buildKodiBinaryAddon rec {
     "-D2048_LIB=${twenty-fortyeight}/lib/retroarch/cores/2048_libretro.so"
   ];
 
-  extraBuildInputs = [ twenty-fortyeight ];
+  extraBuildInputs = [twenty-fortyeight];
   propagatedBuildInputs = [
     libretro
   ];
@@ -32,7 +31,7 @@ buildKodiBinaryAddon rec {
     description = "2048 GameClient for Kodi";
     platforms = platforms.all;
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ kazenyuk ];
-    teams = [ teams.kodi ];
+    maintainers = with maintainers; [kazenyuk];
+    teams = [teams.kodi];
   };
 }

@@ -45,7 +45,7 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/TrueMyst/BeatPrints/releases/tag/v${version}";
     mainProgram = "beatprints";
     license = lib.licenses.cc-by-nc-sa-40;
-    maintainers = with lib.maintainers; [ DataHearth ];
+    maintainers = with lib.maintainers; [DataHearth];
     platforms = lib.platforms.all;
   };
 }

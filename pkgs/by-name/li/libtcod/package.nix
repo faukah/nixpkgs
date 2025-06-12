@@ -10,9 +10,7 @@
   upx,
   zlib,
 }:
-
 stdenv.mkDerivation {
-
   pname = "libtcod";
   version = "1.5.1";
 
@@ -30,9 +28,9 @@ stdenv.mkDerivation {
     echo 'INSTALL(DIRECTORY include DESTINATION .)' >> CMakeLists.txt
   '';
 
-  cmakeFlags = [ "-DLIBTCOD_SAMPLES=OFF" ];
+  cmakeFlags = ["-DLIBTCOD_SAMPLES=OFF"];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     SDL
     libGLU
@@ -52,6 +50,6 @@ stdenv.mkDerivation {
     homepage = "http://roguecentral.org/doryen/libtcod/";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

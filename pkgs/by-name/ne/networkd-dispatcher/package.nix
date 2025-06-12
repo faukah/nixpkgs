@@ -9,7 +9,6 @@
   wrapGAppsNoGuiHook,
   iw,
 }:
-
 stdenv.mkDerivation rec {
   pname = "networkd-dispatcher";
   version = "2.2.4";
@@ -78,7 +77,7 @@ stdenv.mkDerivation rec {
   preFixup = ''
     makeWrapperArgs+=( \
       "''${gappsWrapperArgs[@]}" \
-      --prefix PATH : "${lib.makeBinPath [ iw ]}" \
+      --prefix PATH : "${lib.makeBinPath [iw]}" \
     )
   '';
   postFixup = ''
@@ -91,6 +90,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/craftyguy/networkd-dispatcher";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

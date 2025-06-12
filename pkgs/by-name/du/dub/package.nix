@@ -7,7 +7,6 @@
   libevent,
   rsync,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dub";
   version = "1.39.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     libevent
     rsync
   ];
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   buildPhase = ''
     runHook preBuild
@@ -158,7 +157,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://code.dlang.org/";
     license = licenses.mit;
     mainProgram = "dub";
-    maintainers = with maintainers; [ jtbx ];
+    maintainers = with maintainers; [jtbx];
     platforms = [
       "x86_64-linux"
       "i686-linux"

@@ -4,9 +4,7 @@
   version,
   versionPrefix,
   sha256Hash,
-}:
-
-{
+}: {
   android-tools,
   bash,
   buildFHSEnv,
@@ -48,9 +46,7 @@
   zlib,
   makeDesktopItem,
   tiling_wm ? false, # if we are using a tiling wm, need to set _JAVA_AWT_WM_NONREPARENTING in wrapper
-}:
-
-let
+}: let
   drvName = "${pname}-${version}";
   filename = "asfp-${versionPrefix}-${version}-linux.deb";
 
@@ -75,55 +71,54 @@ let
         ${lib.optionalString tiling_wm "--set _JAVA_AWT_WM_NONREPARENTING 1"} \
         --set FONTCONFIG_FILE ${fontsConf} \
         --prefix PATH : "${
-          lib.makeBinPath [
+        lib.makeBinPath [
+          # Checked in studio.sh
+          coreutils
+          findutils
+          gnugrep
+          which
+          gnused
 
-            # Checked in studio.sh
-            coreutils
-            findutils
-            gnugrep
-            which
-            gnused
+          # Used during setup wizard
+          gnutar
+          gzip
 
-            # Used during setup wizard
-            gnutar
-            gzip
+          # Runtime stuff
+          git
+          ps
+          usbutils
+          android-tools
 
-            # Runtime stuff
-            git
-            ps
-            usbutils
-            android-tools
-
-            # For Soong sync
-            openssl
-            python3
-            unzip
-            zip
-            e2fsprogs
-          ]
-        }" \
+          # For Soong sync
+          openssl
+          python3
+          unzip
+          zip
+          e2fsprogs
+        ]
+      }" \
         --prefix LD_LIBRARY_PATH : "${
-          lib.makeLibraryPath [
-            # Crash at startup without these
-            fontconfig
-            freetype
-            libXext
-            libXi
-            libXrender
-            libXtst
-            libX11
+        lib.makeLibraryPath [
+          # Crash at startup without these
+          fontconfig
+          freetype
+          libXext
+          libXi
+          libXrender
+          libXtst
+          libX11
 
-            # Support multiple monitors
-            libXrandr
+          # Support multiple monitors
+          libXrandr
 
-            # For GTKLookAndFeel
-            gtk2
-            glib
+          # For GTKLookAndFeel
+          gtk2
+          glib
 
-            # For Soong sync
-            e2fsprogs
-          ]
-        }"
+          # For Soong sync
+          e2fsprogs
+        ]
+      }"
     '';
   };
 
@@ -158,7 +153,7 @@ let
     '';
   };
 in
-runCommand drvName
+  runCommand drvName
   {
     startScript = ''
       #!${bash}/bin/bash
@@ -187,9 +182,9 @@ runCommand drvName
       # Also: For actual development the Android SDK is required and the Google
       # binaries are also distributed as proprietary software (unlike the
       # source-code itself).
-      platforms = [ "x86_64-linux" ];
-      maintainers = with maintainers; [ robbins ];
-      teams = [ teams.android ];
+      platforms = ["x86_64-linux"];
+      maintainers = with maintainers; [robbins];
+      teams = [teams.android];
       mainProgram = pname;
     };
   }

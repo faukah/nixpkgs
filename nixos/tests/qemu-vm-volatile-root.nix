@@ -1,11 +1,8 @@
 # Test that the root filesystem is a volatile tmpfs.
-
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "qemu-vm-volatile-root";
 
-  meta.maintainers = with lib.maintainers; [ nikstur ];
+  meta.maintainers = with lib.maintainers; [nikstur];
 
   nodes.machine = _: {
     virtualisation.diskImage = null;

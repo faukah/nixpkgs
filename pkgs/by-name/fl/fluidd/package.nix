@@ -5,7 +5,6 @@
   replaceVars,
   nixosTests,
 }:
-
 buildNpmPackage rec {
   pname = "fluidd";
   version = "1.34.2";
@@ -30,12 +29,12 @@ buildNpmPackage rec {
     cp -r dist $out/share/fluidd/htdocs
   '';
 
-  passthru.tests = { inherit (nixosTests) fluidd; };
+  passthru.tests = {inherit (nixosTests) fluidd;};
 
   meta = with lib; {
     description = "Klipper web interface";
     homepage = "https://docs.fluidd.xyz";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

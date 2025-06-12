@@ -18,7 +18,6 @@
   dbus,
   fcft,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fnott";
   version = "1.7.1";
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     fcft
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://codeberg.org/dnkl/fnott";

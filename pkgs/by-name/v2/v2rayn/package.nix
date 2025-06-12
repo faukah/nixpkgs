@@ -18,7 +18,6 @@
   xdg-utils,
   nix-update-script,
 }:
-
 buildDotnetModule rec {
   pname = "v2rayn";
   version = "7.12.5";
@@ -50,13 +49,13 @@ buildDotnetModule rec {
       --replace-fail 'Environment.GetEnvironmentVariable(Global.LocalAppData) == "1"' "false"
   '';
 
-  dotnetBuildFlags = [ "-p:PublishReadyToRun=false" ];
+  dotnetBuildFlags = ["-p:PublishReadyToRun=false"];
 
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
 
   dotnet-runtime = dotnetCorePackages.runtime_8_0;
 
-  executables = [ "v2rayN" ];
+  executables = ["v2rayN"];
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -103,14 +102,14 @@ buildDotnetModule rec {
     install -Dm644 v2rayN/v2rayN.Desktop/v2rayN.png $out/share/pixmaps/v2rayn.png
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "GUI client for Windows and Linux, support Xray core and sing-box-core and others";
     homepage = "https://github.com/2dust/v2rayN";
     mainProgram = "v2rayN";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

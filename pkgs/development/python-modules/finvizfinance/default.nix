@@ -12,7 +12,6 @@
   pytestCheckHook,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "finvizfinance";
   version = "1.1.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-HCxq8jCT3aHOXeYue7KP5sYzO6nJnB9Sy8gKGZpZHbc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytest-mock
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "finvizfinance" ];
+  pythonImportsCheck = ["finvizfinance"];
 
   disabledTests = [
     # Tests require network access
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/lit26/finvizfinance";
     changelog = "https://github.com/lit26/finvizfinance/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ icyrockcom ];
+    maintainers = with maintainers; [icyrockcom];
   };
 }

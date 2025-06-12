@@ -16,7 +16,6 @@
   qtmacextras,
   nanopb,
 }:
-
 mkDerivation rec {
   pname = "chiaki";
   version = "2.2.0";
@@ -59,7 +58,7 @@ mkDerivation rec {
     homepage = "https://git.sr.ht/~thestr4ng3r/chiaki";
     description = "Free and Open Source PlayStation Remote Play Client";
     license = licenses.agpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
     mainProgram = "chiaki";
   };

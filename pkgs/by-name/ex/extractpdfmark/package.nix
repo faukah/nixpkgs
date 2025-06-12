@@ -8,7 +8,6 @@
   stdenv,
   texlive,
 }:
-
 stdenv.mkDerivation rec {
   pname = "extractpdfmark";
   version = "1.1.1";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/trueroad/extractpdfmark";
     description = "Extract page mode and named destinations as PDFmark from PDF";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.samueltardieu ];
+    maintainers = [maintainers.samueltardieu];
     platforms = platforms.all;
     mainProgram = "extractpdfmark";
   };

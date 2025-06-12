@@ -9,7 +9,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "arti";
   version = "1.4.3";
@@ -26,9 +25,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-W/CRwnv0BgVQQIpEFRxeYDlS0Cud5CVH5QUJfw17a/I=";
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
 
-  buildInputs = [ sqlite ] ++ lib.optionals stdenv.hostPlatform.isLinux [ openssl ];
+  buildInputs = [sqlite] ++ lib.optionals stdenv.hostPlatform.isLinux [openssl];
 
   cargoBuildFlags = [
     "--package"
@@ -52,7 +51,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { extraArgs = [ "--version-regex=^arti-v(.*)$" ]; };
+    updateScript = nix-update-script {extraArgs = ["--version-regex=^arti-v(.*)$"];};
   };
 
   meta = {
@@ -64,6 +63,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ rapiteanu ];
+    maintainers = with lib.maintainers; [rapiteanu];
   };
 })

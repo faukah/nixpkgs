@@ -8,7 +8,6 @@
   tcl,
   tk,
 }:
-
 tcl.mkTclDerivation rec {
   pname = "eltclsh";
   version = "1.19";
@@ -43,7 +42,7 @@ tcl.mkTclDerivation rec {
     description = "Interactive shell for the TCL programming language based on editline";
     homepage = "https://homepages.laas.fr/mallet/soft/shell/eltclsh";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ iwanb ];
+    maintainers = with maintainers; [iwanb];
     platforms = platforms.all;
   };
 }

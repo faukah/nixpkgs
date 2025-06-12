@@ -5,10 +5,8 @@
   fetchFromGitHub,
   fetchpatch,
   tbb_2021_11,
-
   useTBB ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libblake3";
   version = "1.8.2";
@@ -37,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = finalAttrs.src.name + "/c";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   propagatedBuildInputs = lib.optionals useTBB [
     # 2022.0 crashes on macOS at the moment

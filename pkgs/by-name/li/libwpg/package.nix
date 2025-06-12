@@ -8,7 +8,6 @@
   librevenge,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libwpg";
   version = "0.3.4";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     librevenge
     boost
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     homepage = "https://libwpg.sourceforge.net";

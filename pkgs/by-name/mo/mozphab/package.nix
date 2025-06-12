@@ -2,13 +2,11 @@
   lib,
   fetchFromGitHub,
   python3,
-
   # tests
   git,
   mercurial,
   patch,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "mozphab";
   version = "1.9.0";
@@ -26,7 +24,7 @@ python3.pkgs.buildPythonApplication rec {
     setuptools-scm
   ];
 
-  pythonRelaxDeps = [ "glean-sdk" ];
+  pythonRelaxDeps = ["glean-sdk"];
 
   dependencies = with python3.pkgs; [
     colorama
@@ -86,7 +84,7 @@ python3.pkgs.buildPythonApplication rec {
     '';
     homepage = "https://moz-conduit.readthedocs.io/en/latest/phabricator-user.html";
     license = licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

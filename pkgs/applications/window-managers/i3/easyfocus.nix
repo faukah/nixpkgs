@@ -10,7 +10,6 @@
   i3ipc-glib,
   glib,
 }:
-
 stdenv.mkDerivation {
   pname = "i3easyfocus";
   version = "20190411";
@@ -22,7 +21,7 @@ stdenv.mkDerivation {
     sha256 = "1db23vzzmp0hnfss1fkd80za6d2pajx7hdwikw50pk95jq0w8wfm";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libxcb
     xcbutilkeysyms
@@ -42,7 +41,7 @@ stdenv.mkDerivation {
     description = "Focus and select windows in i3";
     mainProgram = "i3-easyfocus";
     homepage = "https://github.com/cornerman/i3-easyfocus";
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
     license = licenses.gpl3;
     platforms = platforms.linux;
   };

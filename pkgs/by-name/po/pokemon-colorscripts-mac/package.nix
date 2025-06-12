@@ -4,7 +4,6 @@
   coreutils,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "pokemon-colorscripts-mac";
   version = "stable-2021-08-10";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "06b86qy2fpzdd81n2mscc2njkrxx0dyzxpgnm1xk6ldn17c853lc";
   };
 
-  buildInputs = [ coreutils ];
+  buildInputs = [coreutils];
 
   preBuild = ''
     patchShebangs ./install.sh
@@ -47,7 +46,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/nuke-dash/pokemon-colorscripts-mac";
     license = licenses.mit;
-    maintainers = [ maintainers.wesleyjrz ];
+    maintainers = [maintainers.wesleyjrz];
     platforms = platforms.unix;
     mainProgram = "pokemon-colorscripts";
   };

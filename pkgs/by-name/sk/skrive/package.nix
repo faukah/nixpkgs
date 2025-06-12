@@ -4,7 +4,6 @@
   buildGoModule,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "skrive";
   version = "0.10.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-NLkrUaEpwvQhMcNcUbBiaPQKRocLT1RSwAIcMOrRdmg=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     mv skrive.1.man skrive.1
@@ -29,7 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/VanuPhantom/skrive";
     changelog = "https://github.com/VanuPhantom/skrive/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ freyacodes ];
+    maintainers = with lib.maintainers; [freyacodes];
     mainProgram = "skrive";
     platforms = lib.platforms.all;
   };

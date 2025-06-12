@@ -8,7 +8,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "avion";
   version = "0.10";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python API for controlling Avi-on Bluetooth dimmers";
     homepage = "https://github.com/mjg59/python-avion";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

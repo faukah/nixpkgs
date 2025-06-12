@@ -11,7 +11,6 @@
   libGL,
   SDL,
 }:
-
 stdenv.mkDerivation rec {
   pname = "soi";
   version = "0.1.2";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "03c3wnvhd42qh8mi68lybf8nv6wzlm1nx16d6pdcn2jzgx1j2lzd";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     lua
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Physics-based puzzle game";
     mainProgram = "soi";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     license = licenses.free;
     downloadPage = "https://sourceforge.net/projects/soi/files/";

@@ -7,7 +7,6 @@
   git,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gitflow";
   version = "1.12.3";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kHirHG/bfsU6tKyQ0khNSTyChhzHfzib+HyA3LOtBI8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   preBuild = ''
     makeFlagsArray+=(prefix="$out")
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
   };
 }

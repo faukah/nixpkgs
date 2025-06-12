@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "jf";
   version = "0.6.2";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-NU5D7VMQtlOFzr+LqODvDzVw56wFClcBxKo1h8zfgfY=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # skip auto manpage update
   buildNoDefaultFeatures = true;
@@ -33,6 +32,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "jf";
     homepage = "https://github.com/sayanarijit/jf";
     license = licenses.mit;
-    maintainers = [ maintainers.sayanarijit ];
+    maintainers = [maintainers.sayanarijit];
   };
 }

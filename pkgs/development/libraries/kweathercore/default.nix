@@ -7,7 +7,6 @@
   ki18n,
   qtlocation,
 }:
-
 mkDerivation rec {
   pname = "kweathercore";
   version = "0.7";
@@ -26,11 +25,11 @@ mkDerivation rec {
     qtlocation
   ];
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
   meta = with lib; {
-    license = [ licenses.cc0 ];
-    maintainers = [ ];
+    license = [licenses.cc0];
+    maintainers = [];
     description = ''
       Library to facilitate retrieval of weather information including forecasts and alerts
     '';

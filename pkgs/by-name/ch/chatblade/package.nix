@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "chatblade";
   version = "0.7.0";
@@ -16,7 +15,7 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false; # there are no tests
 
-  pythonImportsCheck = [ "chatblade" ];
+  pythonImportsCheck = ["chatblade"];
   propagatedBuildInputs = with python3Packages; [
     openai
     platformdirs
@@ -31,6 +30,6 @@ python3Packages.buildPythonApplication rec {
     description = "CLI Swiss Army Knife for ChatGPT";
     mainProgram = "chatblade";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ deejayem ];
+    maintainers = with maintainers; [deejayem];
   };
 }

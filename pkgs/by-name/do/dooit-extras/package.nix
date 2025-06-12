@@ -17,14 +17,15 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-h29lN32Qca8edF1aLhLxnV97MMEapX3Docc+CIEF6I4=";
   };
 
-  build-system = with python3.pkgs; [ poetry-core ];
-  buildInputs = [ dooit ];
+  build-system = with python3.pkgs; [poetry-core];
+  buildInputs = [dooit];
 
   # No tests available
   doCheck = false;
 
-  passthru.updateScript = nix-update-script {
-  };
+  passthru.updateScript =
+    nix-update-script {
+    };
 
   meta = with lib; {
     description = "Extra Utilities for Dooit";

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fast-float";
   version = "8.0.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-lKEzRYKdpjsqixC9WBoILccqB2ZkUtPUzT4Q4+j0oac=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     description = "Fast and exact implementation of the C++ from_chars functions for number types";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
       boost
       mit
     ];
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     platforms = lib.platforms.all;
   };
 })

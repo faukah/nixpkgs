@@ -10,7 +10,6 @@
   pkg-config,
   libxcrypt,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libiodata";
   version = "0.19.14";
@@ -74,14 +73,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.IODATA_VERSION = "${finalAttrs.version}";
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Library for reading and writing simple structured data";
     homepage = "https://github.com/sailfishos/libiodata";
     changelog = "https://github.com/sailfishos/libiodata/releases/tag/${finalAttrs.version}";
     license = lib.licenses.lgpl21Only;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
   };
 })

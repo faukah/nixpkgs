@@ -57,7 +57,6 @@
   zlib,
   directoryListingUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "efl";
   version = "1.28.1";
@@ -209,7 +208,7 @@ stdenv.mkDerivation rec {
     patchelf --add-needed ${libsndfile.out}/lib/libsndfile.so $out/lib/libecore_audio.so
   '';
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "Enlightenment foundation libraries";
@@ -224,6 +223,6 @@ stdenv.mkDerivation rec {
       matejc
       ftrvxmtrx
     ];
-    teams = [ teams.enlightenment ];
+    teams = [teams.enlightenment];
   };
 }

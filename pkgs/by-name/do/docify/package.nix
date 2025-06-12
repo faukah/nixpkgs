@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "docify";
   version = "1.1.0";
@@ -25,7 +24,7 @@ python3Packages.buildPythonApplication rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "docify" ];
+  pythonImportsCheck = ["docify"];
 
   # upstream has no tests
   doCheck = false;
@@ -36,6 +35,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/AThePeanut4/docify";
     license = lib.licenses.mit;
     mainProgram = "docify";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

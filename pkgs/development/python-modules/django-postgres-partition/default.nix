@@ -7,7 +7,6 @@
   psycopg,
   python-dateutil,
 }:
-
 buildPythonPackage rec {
   pname = "django-postgres-partition";
   version = "0.1.1";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-KUrgnfUXWyRerW4dqtVZO9bu5jHYnHcVOIg97w695RU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django_5_2
@@ -29,12 +28,12 @@ buildPythonPackage rec {
 
   doCheck = false; # pypi version doesn't ship with tests
 
-  pythonImportsCheck = [ "psql_partition" ];
+  pythonImportsCheck = ["psql_partition"];
 
   meta = {
     description = "Partition support for django, based on django-postgres-extra";
     homepage = "https://gitlab.com/burke-software/django-postgres-partition";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
   };
 }

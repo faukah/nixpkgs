@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "galerio";
   version = "1.2.0";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = " A simple generator for self-contained HTML flexbox galleries";
     homepage = "https://github.com/dbrgn/galerio";
-    maintainers = with maintainers; [ dbrgn ];
+    maintainers = with maintainers; [dbrgn];
     license = with licenses; [
       asl20
       mit

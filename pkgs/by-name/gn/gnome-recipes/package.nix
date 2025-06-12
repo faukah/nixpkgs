@@ -22,7 +22,6 @@
   libcanberra,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-recipes";
   version = "2.0.4";
@@ -75,14 +74,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Recipe management application for GNOME";
     mainProgram = "gnome-recipes";
     homepage = "https://gitlab.gnome.org/GNOME/recipes";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

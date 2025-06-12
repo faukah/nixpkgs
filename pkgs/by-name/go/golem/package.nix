@@ -3,15 +3,12 @@
   stdenv,
   fetchFromGitHub,
   rustPlatform,
-
   # nativeBuildInputs
   pkg-config,
   protobuf,
-
   # buildInputs
   fontconfig,
   openssl,
-
   redis,
   versionCheckHook,
   nix-update-script,
@@ -55,17 +52,17 @@ rustPlatform.buildRustPackage rec {
 
   # Tests are failing in the sandbox because of some redis integration tests
   doCheck = false;
-  checkInputs = [ redis ];
+  checkInputs = [redis];
 
   nativeInstallCheckInputs = [
     versionCheckHook
   ];
-  versionCheckProgram = [ "${placeholder "out"}/bin/golem-cli" ];
+  versionCheckProgram = ["${placeholder "out"}/bin/golem-cli"];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -73,7 +70,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/golemcloud/golem/releases/tag/${src.tag}";
     homepage = "https://www.golem.cloud/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ kmatasfp ];
+    maintainers = with lib.maintainers; [kmatasfp];
     mainProgram = "golem-cli";
   };
 }

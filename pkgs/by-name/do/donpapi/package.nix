@@ -4,7 +4,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "donpapi";
   version = "1.2.0";
@@ -23,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
     "pyasn1"
   ];
 
-  build-system = with python3.pkgs; [ poetry-core ];
+  build-system = with python3.pkgs; [poetry-core];
 
   dependencies = with python3.pkgs; [
     cryptography
@@ -37,14 +36,14 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "donpapi" ];
+  pythonImportsCheck = ["donpapi"];
 
   meta = with lib; {
     description = "Tool for dumping DPAPI credentials remotely";
     homepage = "https://github.com/login-securite/DonPAPI";
     changelog = "https://github.com/login-securite/DonPAPI/releases/tag/V${src.tag}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "donpapi";
     broken = stdenv.hostPlatform.isDarwin;
   };

@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenv.mkDerivation {
   pname = "android-backup-extractor";
   version = "0-unstable-2025-01-15-62310d4";
@@ -19,9 +18,9 @@ stdenv.mkDerivation {
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ jre ];
+  buildInputs = [jre];
 
   installPhase = ''
     runHook preInstall
@@ -34,8 +33,8 @@ stdenv.mkDerivation {
     description = "Utility to extract and repack Android backups created with adb backup";
     mainProgram = "abe";
     homepage = "https://github.com/nelenkov/android-backup-extractor";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

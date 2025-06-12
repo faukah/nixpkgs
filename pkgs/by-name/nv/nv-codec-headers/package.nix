@@ -4,10 +4,8 @@
   stdenvNoCC,
   # Configurable options
   majorVersion ? "9",
-}:
-
-let
-  sources = callPackage ./sources.nix { };
+}: let
+  sources = callPackage ./sources.nix {};
   pick =
     {
       "8" = sources.nv-codec-headers-8;
@@ -16,25 +14,27 @@ let
       "11" = sources.nv-codec-headers-11;
       "12" = sources.nv-codec-headers-12;
     }
-    .${majorVersion};
+    .${
+      majorVersion
+    };
 in
-stdenvNoCC.mkDerivation {
-  inherit (pick) pname version src;
+  stdenvNoCC.mkDerivation {
+    inherit (pick) pname version src;
 
-  makeFlags = [
-    "PREFIX=$(out)"
-  ];
+    makeFlags = [
+      "PREFIX=$(out)"
+    ];
 
-  passthru = {
-    inherit sources;
-  };
+    passthru = {
+      inherit sources;
+    };
 
-  meta = {
-    description = "FFmpeg version of headers for NVENC - major version ${pick.version}";
-    homepage = "https://ffmpeg.org/";
-    downloadPage = "https://git.videolan.org/?p=ffmpeg/nv-codec-headers.git";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ ];
-    platforms = lib.platforms.all;
-  };
-}
+    meta = {
+      description = "FFmpeg version of headers for NVENC - major version ${pick.version}";
+      homepage = "https://ffmpeg.org/";
+      downloadPage = "https://git.videolan.org/?p=ffmpeg/nv-codec-headers.git";
+      license = with lib.licenses; [mit];
+      maintainers = with lib.maintainers; [];
+      platforms = lib.platforms.all;
+    };
+  }

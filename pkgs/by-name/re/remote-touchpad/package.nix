@@ -7,7 +7,6 @@
   libXt,
   libXtst,
 }:
-
 buildGoModule rec {
   pname = "remote-touchpad";
   version = "1.5.0";
@@ -25,7 +24,7 @@ buildGoModule rec {
     libXt
     libXtst
   ];
-  tags = [ "portal,x11" ];
+  tags = ["portal,x11"];
 
   vendorHash = "sha256-4TJ9Nok1P3qze69KvrwFo5sMJ4nDYhDNuApsNlZLWCI=";
 
@@ -34,7 +33,7 @@ buildGoModule rec {
     mainProgram = "remote-touchpad";
     homepage = "https://github.com/unrud/remote-touchpad";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ schnusch ];
+    maintainers = with maintainers; [schnusch];
     platforms = platforms.linux;
   };
 }

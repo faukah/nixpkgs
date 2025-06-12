@@ -7,7 +7,6 @@
   pytestCheckHook,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "ssort";
   version = "0.14.0";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-TINktjuTdyRYkqIs3Jyv6vobSBqV1iPoHrG36sBHah8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pathspec ];
+  dependencies = [pathspec];
 
-  pythonImportsCheck = [ "ssort" ];
+  pythonImportsCheck = ["ssort"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     description = "Automatically sorting python statements within a module";
     homepage = "https://github.com/bwhmather/ssort";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
     mainProgram = "ssort";
   };
 }

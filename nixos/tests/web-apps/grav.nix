@@ -1,13 +1,10 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "grav";
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
-        services.grav.enable = true;
-      };
+    machine = {pkgs, ...}: {
+      services.grav.enable = true;
+    };
   };
 
   testScript = ''

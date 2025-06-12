@@ -7,7 +7,6 @@
   gitpython,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "font-v";
   version = "2.1.0";
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     mainProgram = "font-v";
     homepage = "https://github.com/source-foundry/font-v";
     license = licenses.mit;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

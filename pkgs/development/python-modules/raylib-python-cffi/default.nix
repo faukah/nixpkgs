@@ -14,7 +14,6 @@
   writers,
   raylib-python-cffi,
 }:
-
 buildPythonPackage rec {
   pname = "raylib-python-cffi";
   version = "5.5.0.2";
@@ -27,8 +26,8 @@ buildPythonPackage rec {
     hash = "sha256-Ls+9+iByGQJQJdJiW4WOmKPGbrWJDisXZ1ZYqvAj+3o=";
   };
 
-  build-system = [ setuptools ];
-  dependencies = [ cffi ];
+  build-system = [setuptools];
+  dependencies = [cffi];
 
   patches = [
     # This patch fixes to the builder script function to call pkg-config
@@ -47,7 +46,7 @@ buildPythonPackage rec {
   # tests require a graphic environment
   doCheck = false;
 
-  pythonImportsCheck = [ "pyray" ];
+  pythonImportsCheck = ["pyray"];
 
   buildInputs = [
     glfw
@@ -65,6 +64,6 @@ buildPythonPackage rec {
     description = "Python CFFI bindings for Raylib";
     homepage = "https://electronstudio.github.io/raylib-python-cffi";
     license = lib.licenses.epl20;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

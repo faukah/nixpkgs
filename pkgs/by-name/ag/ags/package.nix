@@ -16,8 +16,7 @@
   nodejs,
   stdenv,
   wrapGAppsHook3,
-
-  extraPackages ? [ ],
+  extraPackages ? [],
 }:
 buildGoModule rec {
   pname = "ags";
@@ -46,57 +45,57 @@ buildGoModule rec {
     installShellFiles
   ];
 
-  buildInputs = extraPackages ++ [
-    glib
-    astal.io
-    astal.astal3
-    astal.astal4
-    gobject-introspection # needed for type generation
-  ];
+  buildInputs =
+    extraPackages
+    ++ [
+      glib
+      astal.io
+      astal.astal3
+      astal.astal4
+      gobject-introspection # needed for type generation
+    ];
 
-  preFixup =
-    let
-      # git files are usually in `dev` output.
-      # `propagatedBuildInputs` are also available in the gjs runtime
-      # so we also want to generate types for these.
-      depsOf = pkg: [ (pkg.dev or pkg) ] ++ (map depsOf (pkg.propagatedBuildInputs or [ ]));
-      girDirs = symlinkJoin {
-        name = "gir-dirs";
-        paths = lib.flatten (map depsOf buildInputs);
-      };
-    in
-    ''
-      gappsWrapperArgs+=(
-        --prefix EXTRA_GIR_DIRS : "${girDirs}/share/gir-1.0"
-        --prefix PATH : "${
-          lib.makeBinPath (
-            [
-              gjs
-              nodejs
-              dart-sass
-              blueprint-compiler
-              astal.io
-            ]
-            ++ extraPackages
-          )
-        }"
+  preFixup = let
+    # git files are usually in `dev` output.
+    # `propagatedBuildInputs` are also available in the gjs runtime
+    # so we also want to generate types for these.
+    depsOf = pkg: [(pkg.dev or pkg)] ++ (map depsOf (pkg.propagatedBuildInputs or []));
+    girDirs = symlinkJoin {
+      name = "gir-dirs";
+      paths = lib.flatten (map depsOf buildInputs);
+    };
+  in ''
+    gappsWrapperArgs+=(
+      --prefix EXTRA_GIR_DIRS : "${girDirs}/share/gir-1.0"
+      --prefix PATH : "${
+      lib.makeBinPath (
+        [
+          gjs
+          nodejs
+          dart-sass
+          blueprint-compiler
+          astal.io
+        ]
+        ++ extraPackages
       )
-    '';
+    }"
+    )
+  '';
 
   postInstall =
     lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-      # bash
-      ''
-        installShellCompletion \
-          --cmd ags \
-          --bash <($out/bin/ags completion bash) \
-          --fish <($out/bin/ags completion fish) \
-          --zsh <($out/bin/ags completion zsh)
-      '';
+    # bash
+    ''
+      installShellCompletion \
+        --cmd ags \
+        --bash <($out/bin/ags completion bash) \
+        --fish <($out/bin/ags completion fish) \
+        --zsh <($out/bin/ags completion zsh)
+    '';
 
   passthru = {
-    bundle = callPackage ./bundle.nix { };
-    updateScript = nix-update-script { };
+    bundle = callPackage ./bundle.nix {};
+    updateScript = nix-update-script {};
   };
 
   meta = {

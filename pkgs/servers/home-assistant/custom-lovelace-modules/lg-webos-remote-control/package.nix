@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "lg-webos-remote-control";
   version = "2.0.3";
@@ -32,7 +31,7 @@ buildNpmPackage rec {
     description = "Remote Control for LG TV WebOS";
     homepage = "https://github.com/madmicio/LG-WebOS-Remote-Control";
     license = licenses.mit;
-    maintainers = with maintainers; [ k900 ];
+    maintainers = with maintainers; [k900];
     platforms = platforms.all;
   };
 }

@@ -6,7 +6,6 @@
   ncurses,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wavemon";
   version = "0.9.6";

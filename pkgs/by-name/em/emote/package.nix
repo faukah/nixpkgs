@@ -11,7 +11,6 @@
   xdotool,
   wl-clipboard,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "emote";
   version = "4.1.0";
@@ -62,11 +61,11 @@ python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
       --prefix PATH : ${
-        lib.makeBinPath [
-          xdotool
-          wl-clipboard
-        ]
-      }
+      lib.makeBinPath [
+        xdotool
+        wl-clipboard
+      ]
+    }
     )
   '';
 

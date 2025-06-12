@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch2,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "zet";
   version = "1.0.0";
@@ -41,6 +40,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -7,7 +7,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   pname = "libs3";
   version = "unstable-2019-04-10";
@@ -33,11 +32,11 @@ stdenv.mkDerivation {
       --replace-fail xml2-config "$PKG_CONFIG libxml-2.0"
   '';
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" ];
+  makeFlags = ["DESTDIR=${placeholder "out"}"];
 
   strictDeps = true;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     curl

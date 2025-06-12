@@ -1,6 +1,7 @@
-{ pkgs, lib }:
-
-rec {
+{
+  pkgs,
+  lib,
+}: rec {
   stable-params = {
     stable = true;
     defaultRuntimeOptions = "iL,fL,-L,tL";
@@ -18,17 +19,19 @@ rec {
       grep -i ' version=\|echo..#define ___STAMP_VERSION' include/makefile.in # XXX DEBUG -- REMOVE ME
     '';
     modules = true;
-    extraOptions = [ "CFLAGS=-foptimize-sibling-calls" ];
+    extraOptions = ["CFLAGS=-foptimize-sibling-calls"];
   };
 
-  unstable-params = stable-params // {
-    stable = false;
-    extraOptions = [ ]; # "CFLAGS=-foptimize-sibling-calls" not necessary in latest unstable
-  };
+  unstable-params =
+    stable-params
+    // {
+      stable = false;
+      extraOptions = []; # "CFLAGS=-foptimize-sibling-calls" not necessary in latest unstable
+    };
 
   export-gambopt = params: "export GAMBOPT=${params.buildRuntimeOptions} ;";
 
-  gambit-bootstrap = import ./bootstrap.nix (pkgs);
+  gambit-bootstrap = import ./bootstrap.nix pkgs;
 
   meta = with lib; {
     description = "Optimizing Scheme to C compiler";

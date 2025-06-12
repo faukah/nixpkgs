@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   #  build-system
   setuptools,
-
   # dependencies
   filelock,
   huggingface-hub,
@@ -15,7 +13,6 @@
   regex,
   requests,
   safetensors,
-
   # optional dependencies
   accelerate,
   datasets,
@@ -27,7 +24,6 @@
   protobuf,
   tensorboard,
   torch,
-
   # tests
   writeText,
   parameterized,
@@ -42,7 +38,6 @@
   pythonAtLeast,
   diffusers,
 }:
-
 buildPythonPackage rec {
   pname = "diffusers";
   version = "0.32.2";
@@ -55,7 +50,7 @@ buildPythonPackage rec {
     hash = "sha256-TwmII38EA0Vux+Jh39pTAA6r+FRNuKHQWOOqsEe2Z+E=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     filelock
@@ -88,52 +83,52 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "diffusers" ];
+  pythonImportsCheck = ["diffusers"];
 
   # it takes a few hours
   doCheck = false;
 
-  nativeCheckInputs = [
-    parameterized
-    pytest-timeout
-    pytest-xdist
-    pytestCheckHook
-    requests-mock
-    scipy
-    sentencepiece
-    torchsde
-    transformers
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      parameterized
+      pytest-timeout
+      pytest-xdist
+      pytestCheckHook
+      requests-mock
+      scipy
+      sentencepiece
+      torchsde
+      transformers
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  preCheck =
-    let
-      # This pytest hook mocks and catches attempts at accessing the network
-      # tests that try to access the network will raise, get caught, be marked as skipped and tagged as xfailed.
-      # cf. python3Packages.shap
-      conftestSkipNetworkErrors = writeText "conftest.py" ''
-        from _pytest.runner import pytest_runtest_makereport as orig_pytest_runtest_makereport
-        import urllib3
+  preCheck = let
+    # This pytest hook mocks and catches attempts at accessing the network
+    # tests that try to access the network will raise, get caught, be marked as skipped and tagged as xfailed.
+    # cf. python3Packages.shap
+    conftestSkipNetworkErrors = writeText "conftest.py" ''
+      from _pytest.runner import pytest_runtest_makereport as orig_pytest_runtest_makereport
+      import urllib3
 
-        class NetworkAccessDeniedError(RuntimeError): pass
-        def deny_network_access(*a, **kw):
-          raise NetworkAccessDeniedError
+      class NetworkAccessDeniedError(RuntimeError): pass
+      def deny_network_access(*a, **kw):
+        raise NetworkAccessDeniedError
 
-        urllib3.connection.HTTPSConnection._new_conn = deny_network_access
+      urllib3.connection.HTTPSConnection._new_conn = deny_network_access
 
-        def pytest_runtest_makereport(item, call):
-          tr = orig_pytest_runtest_makereport(item, call)
-          if call.excinfo is not None and call.excinfo.type is NetworkAccessDeniedError:
-              tr.outcome = 'skipped'
-              tr.wasxfail = "reason: Requires network access."
-          return tr
-      '';
-    in
-    ''
-      export HOME=$(mktemp -d)
-      cat ${conftestSkipNetworkErrors} >> tests/conftest.py
+      def pytest_runtest_makereport(item, call):
+        tr = orig_pytest_runtest_makereport(item, call)
+        if call.excinfo is not None and call.excinfo.type is NetworkAccessDeniedError:
+            tr.outcome = 'skipped'
+            tr.wasxfail = "reason: Requires network access."
+        return tr
     '';
+  in ''
+    export HOME=$(mktemp -d)
+    cat ${conftestSkipNetworkErrors} >> tests/conftest.py
+  '';
 
-  pytestFlagsArray = [ "tests/" ];
+  pytestFlagsArray = ["tests/"];
 
   disabledTests =
     [
@@ -158,7 +153,7 @@ buildPythonPackage rec {
       "test_from_save_pretrained_dynamo"
     ];
 
-  passthru.tests.pytest = diffusers.overridePythonAttrs { doCheck = true; };
+  passthru.tests.pytest = diffusers.overridePythonAttrs {doCheck = true;};
 
   meta = {
     description = "State-of-the-art diffusion models for image and audio generation in PyTorch";
@@ -166,6 +161,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/huggingface/diffusers";
     changelog = "https://github.com/huggingface/diffusers/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

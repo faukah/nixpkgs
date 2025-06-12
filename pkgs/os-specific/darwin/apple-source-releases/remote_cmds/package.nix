@@ -5,7 +5,6 @@
   ncurses,
   pkg-config,
 }:
-
 mkAppleDerivation {
   releaseName = "remote_cmds";
 
@@ -27,7 +26,7 @@ mkAppleDerivation {
     done
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libedit

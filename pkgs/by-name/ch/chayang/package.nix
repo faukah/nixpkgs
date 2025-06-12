@@ -9,7 +9,6 @@
   wayland-protocols,
   wayland,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "chayang";
   version = "0.1.0";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
       Gradually dim the screen on Wayland.
       Can be used to implement a grace period before locking the session.
     '';
-    maintainers = with maintainers; [ mxkrsv ];
+    maintainers = with maintainers; [mxkrsv];
     platforms = platforms.linux;
     mainProgram = "chayang";
   };

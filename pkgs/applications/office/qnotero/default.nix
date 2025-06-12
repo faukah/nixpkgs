@@ -5,7 +5,6 @@
   python3Packages,
   wrapQtAppsHook,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "qnotero";
 
@@ -57,6 +56,6 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin; # Build fails even after adding cx-freeze to `buildInputs`
-    maintainers = [ lib.maintainers.nico202 ];
+    maintainers = [lib.maintainers.nico202];
   };
 }

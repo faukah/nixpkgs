@@ -11,7 +11,6 @@
   which,
   gobject-introspection,
 }:
-
 stdenv.mkDerivation rec {
   pname = "i3ipc-glib";
   version = "1.0.1";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "C interface library to i3wm";
     homepage = "https://github.com/acrisci/i3ipc-glib";
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
     license = licenses.gpl3;
     platforms = platforms.linux;
   };

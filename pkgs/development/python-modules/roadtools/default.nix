@@ -8,7 +8,6 @@
   roadlib,
   roadtx,
 }:
-
 buildPythonPackage rec {
   pname = "roadtools";
   version = "0.0.2";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-RxRbcT9uhQBYRDqq1asYDIwqrji14zi7dwRuQLXJiyQ=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     roadrecon
@@ -29,12 +28,12 @@ buildPythonPackage rec {
     roadtx
   ];
 
-  pythonImportsCheck = [ "roadtools" ];
+  pythonImportsCheck = ["roadtools"];
 
   meta = with lib; {
     description = "Azure AD tooling framework";
     homepage = "https://github.com/dirkjanm/ROADtools";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

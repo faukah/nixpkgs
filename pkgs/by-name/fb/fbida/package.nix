@@ -24,7 +24,6 @@
   libgbm,
   lirc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fbida";
   version = "2.14";
@@ -85,7 +84,7 @@ stdenv.mkDerivation rec {
     description = "Image viewing and manipulation programs including fbi, fbgs, ida, exiftran and thumbnail.cgi";
     homepage = "https://www.kraxel.org/blog/linux/fbida/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.linux;
   };
 }

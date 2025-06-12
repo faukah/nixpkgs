@@ -29,12 +29,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-vlswHNkjyxM9sZT+mwiCMfNbdAbhYyx06w+ZLfaPaEQ=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-  ] ++ lib.optional stdenv.hostPlatform.isLinux copyDesktopItems;
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      python3
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux copyDesktopItems;
 
   buildInputs = [
     bzip2
@@ -49,7 +51,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  mesonFlags = [ "-Dworkaround_elusive_bzip2=false" ];
+  mesonFlags = ["-Dworkaround_elusive_bzip2=false"];
 
   installPhase = ''
     runHook preInstall
@@ -62,7 +64,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ "resources/powder.desktop" ];
+  desktopItems = ["resources/powder.desktop"];
 
   meta = with lib; {
     description = "Free 2D physics sandbox game";

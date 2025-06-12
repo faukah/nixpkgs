@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "theattyr";
   version = "0.1.10";
@@ -19,14 +18,14 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-44pHUqHBr0286Kc/yreb15mQXnFuyh12D2uCU2MrrTk=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Terminal theater for playing VT100 art and animations";
     homepage = "https://github.com/orhun/theattyr";
     changelog = "https://github.com/orhun/theattyr/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ a-kenji ];
+    maintainers = with lib.maintainers; [a-kenji];
     mainProgram = "theattyr";
   };
 }

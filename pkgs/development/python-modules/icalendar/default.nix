@@ -10,7 +10,6 @@
   hypothesis,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   version = "6.3.0";
   pname = "icalendar";
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     "test_docstring_of_python_file"
   ];
 
-  pytestFlagsArray = [ "src/icalendar" ];
+  pytestFlagsArray = ["src/icalendar"];
 
   meta = with lib; {
     changelog = "https://github.com/collective/icalendar/blob/${src.tag}/CHANGES.rst";
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     mainProgram = "icalendar";
     homepage = "https://github.com/collective/icalendar";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ olcai ];
+    maintainers = with maintainers; [olcai];
   };
 }

@@ -3,22 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.go-autoconfig;
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   configFile = format.generate "config.yml" cfg.settings;
-
-in
-{
+in {
   options = {
     services.go-autoconfig = {
-
       enable = lib.mkEnableOption "IMAP/SMTP autodiscover feature for mail clients";
 
       settings = lib.mkOption {
-        default = { };
+        default = {};
         description = ''
           Configuration for go-autoconfig. See
           <https://github.com/L11R/go-autoconfig/blob/master/config.yml>
@@ -42,17 +37,15 @@ in
           }
         '';
       };
-
     };
   };
 
   config = lib.mkIf cfg.enable {
-
     systemd = {
       services.go-autoconfig = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         description = "IMAP/SMTP autodiscover server";
-        after = [ "network.target" ];
+        after = ["network.target"];
         serviceConfig = {
           ExecStart = "${pkgs.go-autoconfig}/bin/go-autoconfig -config ${configFile}";
           Restart = "on-failure";
@@ -61,9 +54,7 @@ in
         };
       };
     };
-
   };
 
-  meta.maintainers = with lib.maintainers; [ onny ];
-
+  meta.maintainers = with lib.maintainers; [onny];
 }

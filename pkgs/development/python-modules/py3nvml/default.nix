@@ -4,7 +4,6 @@
   fetchPypi,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "py3nvml";
   version = "0.2.7";
@@ -15,9 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-Ce4dBFmKbmZOJEZfgEzjv+EZpv21Ni3xwWj4qpKfvXM=";
   };
 
-  propagatedBuildInputs = [ xmltodict ];
+  propagatedBuildInputs = [xmltodict];
 
-  pythonImportsCheck = [ "py3nvml" ];
+  pythonImportsCheck = ["py3nvml"];
 
   meta = with lib; {
     description = "Python 3 Bindings for the NVIDIA Management Library";
@@ -27,6 +26,6 @@ buildPythonPackage rec {
       bsd3
       bsd2
     ];
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

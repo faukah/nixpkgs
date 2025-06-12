@@ -7,7 +7,6 @@
   cargo-readme,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "humility";
   version = "0-unstable-2025-02-25";
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage {
     description = "Debugger for Hubris";
     mainProgram = "humility";
     homepage = "https://github.com/oxidecomputer/humility";
-    license = with licenses; [ mpl20 ];
-    maintainers = with maintainers; [ therishidesai ];
+    license = with licenses; [mpl20];
+    maintainers = with maintainers; [therishidesai];
   };
 }

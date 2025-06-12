@@ -5,7 +5,6 @@
   installShellFiles,
   libbsd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rs";
   version = "20200313";
@@ -15,14 +14,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-kZIV3J/oWiejC/Y9VkBs+1A/n8mCAyPEvTv+daajvD8=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   patches = [
     # add an implementation of reallocarray() from openbsd (not available on darwin)
     ./macos-reallocarray.patch
   ];
 
-  buildInputs = [ libbsd ];
+  buildInputs = [libbsd];
 
   buildPhase = ''
     runHook preBuild
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
       the rows and columns.
     '';
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

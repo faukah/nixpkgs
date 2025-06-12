@@ -4,7 +4,6 @@
   fetchurl,
   writeScript,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gccmakedep";
   version = "1.0.4";
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
       # 4. some files don't have any license info, but they are all trivial
     ];
     mainProgram = "gccmakedep";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

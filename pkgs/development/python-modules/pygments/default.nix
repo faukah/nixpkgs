@@ -2,17 +2,13 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   hatchling,
-
   # tests
   pytestCheckHook,
   wcag-contrast-ratio,
   pythonOlder,
-}:
-
-let
+}: let
   pygments = buildPythonPackage rec {
     pname = "pygments";
     version = "2.19.1";
@@ -25,7 +21,7 @@ let
       hash = "sha256-YcFtKoV23AZJ2fOeCJtfArzSf7oQ2PtNzCgXP3pFFR8=";
     };
 
-    nativeBuildInputs = [ hatchling ];
+    nativeBuildInputs = [hatchling];
 
     # circular dependencies if enabled by default
     doCheck = false;
@@ -40,7 +36,7 @@ let
       "tests/examplefiles/bash/ltmain.sh"
     ];
 
-    pythonImportsCheck = [ "pygments" ];
+    pythonImportsCheck = ["pygments"];
 
     passthru.tests = {
       check = pygments.overridePythonAttrs (_: {
@@ -54,8 +50,8 @@ let
       description = "Generic syntax highlighter";
       mainProgram = "pygmentize";
       license = lib.licenses.bsd2;
-      maintainers = with lib.maintainers; [ sigmanificient ];
+      maintainers = with lib.maintainers; [sigmanificient];
     };
   };
 in
-pygments
+  pygments

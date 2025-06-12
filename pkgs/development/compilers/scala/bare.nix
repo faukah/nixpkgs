@@ -6,7 +6,6 @@
   jre,
   ncurses,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "3.3.6";
   pname = "scala-bare";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     jre
     ncurses.dev
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out

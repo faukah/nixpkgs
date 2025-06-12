@@ -38,7 +38,6 @@
   xorg,
   zstd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "entangle";
   version = "3.0";
@@ -132,7 +131,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/entangle/entangle";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ ShamrockLee ];
+    maintainers = with lib.maintainers; [ShamrockLee];
     mainProgram = "entangle";
   };
 })

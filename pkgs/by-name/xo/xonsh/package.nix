@@ -3,16 +3,15 @@
   python3,
   runCommand,
   # configurable options
-  extraPackages ? (ps: [ ]),
-}:
-
-let
-  pythonEnv = python3.withPackages (ps: [ ps.xonsh ] ++ extraPackages ps);
+  extraPackages ? (ps: []),
+}: let
+  pythonEnv = python3.withPackages (ps: [ps.xonsh] ++ extraPackages ps);
   xonsh = python3.pkgs.xonsh;
 in
-runCommand "xonsh-${xonsh.version}"
+  runCommand "xonsh-${xonsh.version}"
   {
-    inherit (xonsh)
+    inherit
+      (xonsh)
       pname
       version
       meta

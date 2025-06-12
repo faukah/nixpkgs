@@ -14,7 +14,6 @@
   systemd,
   util-linux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "amazon-ec2-net-utils";
   version = "2.5.5";
@@ -54,19 +53,19 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/setup-policy-routes \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          # bin/setup-policy-roots.sh sources lib/lib.sh which needs these.
-          #
-          # lib/lib.sh isn't executable so we can't use it with wrapProgram.
-          curl
-          gnugrep
-          gnused
-          iproute2
-          systemd
-          util-linux
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        # bin/setup-policy-roots.sh sources lib/lib.sh which needs these.
+        #
+        # lib/lib.sh isn't executable so we can't use it with wrapProgram.
+        curl
+        gnugrep
+        gnused
+        iproute2
+        systemd
+        util-linux
+      ]
+    }
 
     for file in lib/*.sh; do
       install -D -m 644 -t $out/share/amazon-ec2-net-utils "$file"
@@ -107,7 +106,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -115,6 +114,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/amazonlinux/amazon-ec2-net-utils";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ sielicki ];
+    maintainers = with lib.maintainers; [sielicki];
   };
 }

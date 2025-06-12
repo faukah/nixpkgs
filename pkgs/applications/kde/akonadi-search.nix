@@ -15,7 +15,6 @@
   qtbase,
   xapian,
 }:
-
 mkDerivation {
   pname = "akonadi-search";
   meta = {

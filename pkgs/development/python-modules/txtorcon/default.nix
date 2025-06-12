@@ -14,7 +14,6 @@
   twisted,
   zope-interface,
 }:
-
 buildPythonPackage rec {
   pname = "txtorcon";
   version = "24.8.0";
@@ -27,14 +26,16 @@ buildPythonPackage rec {
     hash = "sha256-vv4ZE42cjFMHtu5tT+RG0MIB/9HMQErrJl7ZAwmXitA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    cryptography
-    twisted
-    automat
-    zope-interface
-  ] ++ twisted.optional-dependencies.tls;
+  dependencies =
+    [
+      cryptography
+      twisted
+      automat
+      zope-interface
+    ]
+    ++ twisted.optional-dependencies.tls;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -45,7 +46,7 @@ buildPythonPackage rec {
 
   doCheck = !(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64);
 
-  pythonImportsCheck = [ "txtorcon" ];
+  pythonImportsCheck = ["txtorcon"];
 
   meta = with lib; {
     description = "Twisted-based Tor controller client, with state-tracking and configuration abstractions";

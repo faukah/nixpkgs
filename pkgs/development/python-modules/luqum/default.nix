@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "luqum";
   version = "1.0.0";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
       --replace '--doctest-modules --doctest-glob="test_*.rst"' ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ ply ];
+  propagatedBuildInputs = [ply];
 
   nativeCheckInputs = [
     elastic-transport
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pythonImportsCheck = [ "luqum" ];
+  pythonImportsCheck = ["luqum"];
 
   disabledTestPaths = [
     # Tests require an Elasticsearch instance
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jurismarches/luqum";
     changelog = "https://github.com/jurismarches/luqum/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

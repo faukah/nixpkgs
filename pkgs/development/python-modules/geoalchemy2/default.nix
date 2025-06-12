@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "geoalchemy2";
   version = "0.17.1";
@@ -36,10 +35,12 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [
-    alembic
-    pytestCheckHook
-  ] ++ optional-dependencies.shapely;
+  nativeCheckInputs =
+    [
+      alembic
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.shapely;
 
   disabledTestPaths = [
     # tests require live databases
@@ -57,10 +58,10 @@ buildPythonPackage rec {
     "tests/test_pickle.py"
   ];
 
-  pythonImportsCheck = [ "geoalchemy2" ];
+  pythonImportsCheck = ["geoalchemy2"];
 
   optional-dependencies = {
-    shapely = [ shapely ];
+    shapely = [shapely];
   };
 
   meta = with lib; {
@@ -68,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://geoalchemy-2.readthedocs.io/";
     changelog = "https://github.com/geoalchemy/geoalchemy2/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

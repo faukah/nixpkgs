@@ -4,20 +4,16 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch2,
-
   # build-system
   setuptools,
-
   # dependencies
   numpy,
   torch,
   typing-extensions,
-
   # tests
   pytestCheckHook,
   scipy,
 }:
-
 buildPythonPackage {
   pname = "asteroid-filterbanks";
   version = "0.4.0-unstable-2024-12-02";
@@ -39,7 +35,7 @@ buildPythonPackage {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -47,7 +43,7 @@ buildPythonPackage {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "asteroid_filterbanks" ];
+  pythonImportsCheck = ["asteroid_filterbanks"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -81,6 +77,6 @@ buildPythonPackage {
     description = "PyTorch-based audio source separation toolkit for researchers";
     homepage = "https://github.com/asteroid-team/asteroid-filterbanks";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ matthewcroughan ];
+    maintainers = with lib.maintainers; [matthewcroughan];
   };
 }

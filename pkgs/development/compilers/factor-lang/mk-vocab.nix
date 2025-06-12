@@ -1,24 +1,17 @@
-{
-  stdenv,
-}@initAttrs:
-
-drvArgs:
-
+{stdenv} @ initAttrs: drvArgs:
 (stdenv.mkDerivation drvArgs).overrideAttrs (
-  finalAttrs:
-  {
+  finalAttrs: {
     name ? "${finalAttrs.pname}-${finalAttrs.version}",
     vocabName ? finalAttrs.pname or name,
     vocabRoot ? "extra",
     # Runtime libraries needed to run this vocab, handed to runtime wrapper
-    extraLibs ? [ ],
+    extraLibs ? [],
     # Extra vocabularies, handed to runtime wrapper
-    extraVocabs ? [ ],
+    extraVocabs ? [],
     # Extra binaries in PATH, handed to runtime wrapper
-    extraPaths ? [ ],
+    extraPaths ? [],
     ...
-  }@attrs:
-  {
+  } @ attrs: {
     inherit vocabName vocabRoot;
     installPhase =
       # Default installer
@@ -54,6 +47,6 @@ drvArgs:
       inherit extraLibs extraVocabs extraPaths;
     };
 
-    meta = attrs.meta or { };
+    meta = attrs.meta or {};
   }
 )

@@ -6,11 +6,9 @@
   python3Packages,
   perl,
   ffmpeg,
-}:
-
-let
-
-  inherit (python3Packages)
+}: let
+  inherit
+    (python3Packages)
     buildPythonApplication
     setuptools
     requests
@@ -23,67 +21,65 @@ let
     ;
 
   version = "4.113";
-
 in
+  buildPythonApplication {
+    pname = "svtplay-dl";
+    inherit version;
+    pyproject = true;
 
-buildPythonApplication {
-  pname = "svtplay-dl";
-  inherit version;
-  pyproject = true;
+    src = fetchFromGitHub {
+      owner = "spaam";
+      repo = "svtplay-dl";
+      rev = version;
+      hash = "sha256-Yiw76PDnOpK4HAnO9VqmvmqdT4PdxAgu1MwbZ15pEyM=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "spaam";
-    repo = "svtplay-dl";
-    rev = version;
-    hash = "sha256-Yiw76PDnOpK4HAnO9VqmvmqdT4PdxAgu1MwbZ15pEyM=";
-  };
+    build-system = [setuptools];
 
-  build-system = [ setuptools ];
+    dependencies = [
+      requests
+      pysocks
+      cryptography
+      pyyaml
+    ];
 
-  dependencies = [
-    requests
-    pysocks
-    cryptography
-    pyyaml
-  ];
+    nativeBuildInputs = [
+      # For `pod2man(1)`.
+      perl
+      installShellFiles
+    ];
 
-  nativeBuildInputs = [
-    # For `pod2man(1)`.
-    perl
-    installShellFiles
-  ];
+    nativeCheckInputs = [
+      pytestCheckHook
+      mock
+      requests-mock
+    ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-    requests-mock
-  ];
+    pytestFlagsArray = [
+      "--doctest-modules"
+      "lib"
+    ];
 
-  pytestFlagsArray = [
-    "--doctest-modules"
-    "lib"
-  ];
+    postBuild = ''
+      make svtplay-dl.1
+    '';
 
-  postBuild = ''
-    make svtplay-dl.1
-  '';
+    postInstall = ''
+      installManPage svtplay-dl.1
+      makeWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [ffmpeg]}")
+    '';
 
-  postInstall = ''
-    installManPage svtplay-dl.1
-    makeWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [ ffmpeg ]}")
-  '';
+    postInstallCheck = ''
+      $out/bin/svtplay-dl --help > /dev/null
+    '';
 
-  postInstallCheck = ''
-    $out/bin/svtplay-dl --help > /dev/null
-  '';
+    passthru.updateScript = nix-update-script {};
 
-  passthru.updateScript = nix-update-script { };
-
-  meta = {
-    homepage = "https://github.com/spaam/svtplay-dl";
-    description = "Command-line tool to download videos from svtplay.se and other sites";
-    license = lib.licenses.mit;
-    platforms = lib.platforms.unix;
-    mainProgram = "svtplay-dl";
-  };
-}
+    meta = {
+      homepage = "https://github.com/spaam/svtplay-dl";
+      description = "Command-line tool to download videos from svtplay.se and other sites";
+      license = lib.licenses.mit;
+      platforms = lib.platforms.unix;
+      mainProgram = "svtplay-dl";
+    };
+  }

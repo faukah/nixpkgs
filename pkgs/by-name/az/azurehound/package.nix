@@ -5,7 +5,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "azurehound";
   version = "2.5.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-z4ByWhvMFKDE5EUklbm1cuFFvY59n0RiQBB4E58E2xs=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   ldflags = [
     "-s"
@@ -36,7 +35,7 @@ buildGoModule rec {
     homepage = "https://github.com/SpecterOps/AzureHound";
     changelog = "https://github.com/SpecterOps/AzureHound/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "azurehound";
     broken = stdenv.hostPlatform.isDarwin;
   };

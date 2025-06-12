@@ -34,7 +34,6 @@
   werkzeug,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "moto";
   version = "5.1.1";
@@ -113,9 +112,9 @@ buildPythonPackage rec {
       flask
       flask-cors
     ];
-    acm = [ ];
-    acmpca = [ ];
-    amp = [ ];
+    acm = [];
+    acmpca = [];
+    amp = [];
     apigateway = [
       pyyaml
       joserfc
@@ -125,23 +124,23 @@ buildPythonPackage rec {
       pyyaml
       openapi-spec-validator
     ];
-    applicationautoscaling = [ ];
+    applicationautoscaling = [];
     appsync = [
       graphql-core
     ];
-    athena = [ ];
-    autoscaling = [ ];
+    athena = [];
+    autoscaling = [];
     awslambda = [
       docker
     ];
-    awslambda_simple = [ ];
-    backup = [ ];
+    awslambda_simple = [];
+    backup = [];
     batch = [
       docker
     ];
-    batch_simple = [ ];
-    budgets = [ ];
-    ce = [ ];
+    batch_simple = [];
+    budgets = [];
+    ce = [];
     cloudformation = [
       joserfc
       docker
@@ -154,24 +153,24 @@ buildPythonPackage rec {
       aws-xray-sdk
       setuptools
     ];
-    cloudfront = [ ];
-    cloudtrail = [ ];
-    cloudwatch = [ ];
-    codebuild = [ ];
-    codecommit = [ ];
-    codepipeline = [ ];
-    cognitoidentity = [ ];
+    cloudfront = [];
+    cloudtrail = [];
+    cloudwatch = [];
+    codebuild = [];
+    codecommit = [];
+    codepipeline = [];
+    cognitoidentity = [];
     cognitoidp = [
       joserfc
     ];
-    comprehend = [ ];
-    config = [ ];
-    databrew = [ ];
-    datapipeline = [ ];
-    datasync = [ ];
-    dax = [ ];
-    dms = [ ];
-    ds = [ ];
+    comprehend = [];
+    config = [];
+    databrew = [];
+    datapipeline = [];
+    datasync = [];
+    dax = [];
+    dms = [];
+    ds = [];
     dynamodb = [
       docker
       py-partiql-parser
@@ -180,66 +179,66 @@ buildPythonPackage rec {
       docker
       py-partiql-parser
     ];
-    ebs = [ ];
-    ec2 = [ ];
-    ec2instanceconnect = [ ];
-    ecr = [ ];
-    ecs = [ ];
-    efs = [ ];
-    eks = [ ];
-    elasticache = [ ];
-    elasticbeanstalk = [ ];
-    elastictranscoder = [ ];
-    elb = [ ];
-    elbv2 = [ ];
-    emr = [ ];
-    emrcontainers = [ ];
-    emrserverless = [ ];
-    es = [ ];
+    ebs = [];
+    ec2 = [];
+    ec2instanceconnect = [];
+    ecr = [];
+    ecs = [];
+    efs = [];
+    eks = [];
+    elasticache = [];
+    elasticbeanstalk = [];
+    elastictranscoder = [];
+    elb = [];
+    elbv2 = [];
+    emr = [];
+    emrcontainers = [];
+    emrserverless = [];
+    es = [];
     events = [
       jsonpath-ng
     ];
-    firehose = [ ];
-    forecast = [ ];
-    glacier = [ ];
+    firehose = [];
+    forecast = [];
+    glacier = [];
     glue = [
       pyparsing
     ];
-    greengrass = [ ];
-    guardduty = [ ];
-    iam = [ ];
-    inspector2 = [ ];
-    iot = [ ];
-    iotdata = [ ];
-    ivs = [ ];
-    kinesis = [ ];
-    kinesisvideo = [ ];
-    kinesisvideoarchivedmedia = [ ];
-    kms = [ ];
-    logs = [ ];
-    managedblockchain = [ ];
-    mediaconnect = [ ];
-    medialive = [ ];
-    mediapackage = [ ];
-    mediastore = [ ];
-    mediastoredata = [ ];
-    meteringmarketplace = [ ];
-    mq = [ ];
-    opsworks = [ ];
-    organizations = [ ];
-    panorama = [ ];
-    personalize = [ ];
-    pinpoint = [ ];
-    polly = [ ];
+    greengrass = [];
+    guardduty = [];
+    iam = [];
+    inspector2 = [];
+    iot = [];
+    iotdata = [];
+    ivs = [];
+    kinesis = [];
+    kinesisvideo = [];
+    kinesisvideoarchivedmedia = [];
+    kms = [];
+    logs = [];
+    managedblockchain = [];
+    mediaconnect = [];
+    medialive = [];
+    mediapackage = [];
+    mediastore = [];
+    mediastoredata = [];
+    meteringmarketplace = [];
+    mq = [];
+    opsworks = [];
+    organizations = [];
+    panorama = [];
+    personalize = [];
+    pinpoint = [];
+    polly = [];
     quicksight = [
       jsonschema
     ];
-    ram = [ ];
-    rds = [ ];
-    redshift = [ ];
-    redshiftdata = [ ];
-    rekognition = [ ];
-    resourcegroups = [ ];
+    ram = [];
+    rds = [];
+    redshift = [];
+    redshiftdata = [];
+    rekognition = [];
+    resourcegroups = [];
     resourcegroupstaggingapi = [
       joserfc
       docker
@@ -250,8 +249,8 @@ buildPythonPackage rec {
       pyparsing
       py-partiql-parser
     ];
-    route53 = [ ];
-    route53resolver = [ ];
+    route53 = [];
+    route53resolver = [];
     s3 = [
       pyyaml
       py-partiql-parser
@@ -261,32 +260,32 @@ buildPythonPackage rec {
       py-partiql-parser
       crc32c
     ];
-    s3control = [ ];
-    sagemaker = [ ];
-    sdb = [ ];
-    scheduler = [ ];
-    secretsmanager = [ ];
-    servicediscovery = [ ];
-    servicequotas = [ ];
-    ses = [ ];
-    signer = [ ];
-    sns = [ ];
-    sqs = [ ];
+    s3control = [];
+    sagemaker = [];
+    sdb = [];
+    scheduler = [];
+    secretsmanager = [];
+    servicediscovery = [];
+    servicequotas = [];
+    ses = [];
+    signer = [];
+    sns = [];
+    sqs = [];
     ssm = [
       pyyaml
     ];
-    ssoadmin = [ ];
+    ssoadmin = [];
     stepfunctions = [
       antlr4-python3-runtime
       jsonpath-ng
     ];
-    sts = [ ];
-    support = [ ];
-    swf = [ ];
-    textract = [ ];
-    timestreamwrite = [ ];
-    transcribe = [ ];
-    wafv2 = [ ];
+    sts = [];
+    support = [];
+    swf = [];
+    textract = [];
+    timestreamwrite = [];
+    transcribe = [];
+    wafv2 = [];
     xray = [
       aws-xray-sdk
       setuptools
@@ -295,12 +294,14 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [
-    freezegun
-    pytest-order
-    pytest-xdist
-    pytestCheckHook
-  ] ++ optional-dependencies.server;
+  nativeCheckInputs =
+    [
+      freezegun
+      pytest-order
+      pytest-xdist
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.server;
 
   # Some tests depend on AWS credentials environment variables to be set.
   env.AWS_ACCESS_KEY_ID = "ak";
@@ -387,6 +388,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/getmoto/moto";
     changelog = "https://github.com/getmoto/moto/blob/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
   };
 }

@@ -8,7 +8,6 @@
   krita,
   libsForQt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "krita-plugin-gmic";
   version = "3.2.4.1";
@@ -52,6 +51,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/amyspark/gmic";
     description = "GMic plugin for Krita";
     license = lib.licenses.cecill21;
-    maintainers = with maintainers; [ lelgenio ];
+    maintainers = with maintainers; [lelgenio];
   };
 })

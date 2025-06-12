@@ -19,7 +19,6 @@
   SDL2,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fooyin";
   version = "0.8.1";
@@ -83,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://github.com/fooyin/fooyin";
     mainProgram = "fooyin";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ peterhoeg ];
+    maintainers = with lib.maintainers; [peterhoeg];
     platforms = lib.platforms.linux;
   };
 })

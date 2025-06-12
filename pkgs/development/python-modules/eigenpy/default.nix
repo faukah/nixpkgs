@@ -2,25 +2,19 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   fontconfig,
-
   # nativeBuildInputs
   cmake,
   doxygen,
   graphviz,
   scipy,
-
   # buildInputs
   boost,
-
   # propagatedBuildInputs
   eigen,
   jrl-cmakemodules,
   numpy,
-
 }:
-
 buildPythonPackage rec {
   pname = "eigenpy";
   version = "3.11.0";
@@ -60,7 +54,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
   propagatedBuildInputs = [
     eigen
@@ -70,7 +64,7 @@ buildPythonPackage rec {
 
   preInstallCheck = "make test";
 
-  pythonImportsCheck = [ "eigenpy" ];
+  pythonImportsCheck = ["eigenpy"];
 
   meta = with lib; {
     description = "Bindings between Numpy and Eigen using Boost.Python";

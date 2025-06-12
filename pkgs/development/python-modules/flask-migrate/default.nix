@@ -10,7 +10,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "flask-migrate";
   version = "4.1.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-7xQu0Y6aM9WWuH2ImuaopbBS2jE9pVChekVp7SEMHCc=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     alembic
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     flask-sqlalchemy
   ];
 
-  pythonImportsCheck = [ "flask_migrate" ];
+  pythonImportsCheck = ["flask_migrate"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "SQLAlchemy database migrations for Flask applications using Alembic";
     homepage = "https://github.com/miguelgrinberg/Flask-Migrate";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

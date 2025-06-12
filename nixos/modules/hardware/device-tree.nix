@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.hardware.deviceTree;
 
   overlayType = lib.types.submodule {
@@ -67,12 +66,11 @@ let
     };
   };
 
-  filterDTBs =
-    src:
-    if cfg.filter == null then
-      src
+  filterDTBs = src:
+    if cfg.filter == null
+    then src
     else
-      pkgs.runCommand "dtbs-filtered" { } ''
+      pkgs.runCommand "dtbs-filtered" {} ''
         mkdir -p $out
         cd ${src}
         find . -type f -name '${cfg.filter}' -print0 \
@@ -83,34 +81,34 @@ let
 
   # Fill in `dtboFile` for each overlay if not set already.
   # Existence of one of these is guarded by assertion below
-  withDTBOs =
-    xs:
+  withDTBOs = xs:
     lib.flip map xs (
       o:
-      o
-      // {
-        dtboFile =
-          let
-            includePaths = [
-              "${lib.getDev cfg.kernelPackage}/lib/modules/${cfg.kernelPackage.modDirVersion}/source/scripts/dtc/include-prefixes"
-            ] ++ cfg.dtboBuildExtraIncludePaths;
+        o
+        // {
+          dtboFile = let
+            includePaths =
+              [
+                "${lib.getDev cfg.kernelPackage}/lib/modules/${cfg.kernelPackage.modDirVersion}/source/scripts/dtc/include-prefixes"
+              ]
+              ++ cfg.dtboBuildExtraIncludePaths;
             extraPreprocessorFlags = cfg.dtboBuildExtraPreprocessorFlags;
           in
-          if o.dtboFile == null then
-            let
-              dtsFile = if o.dtsFile == null then (pkgs.writeText "dts" o.dtsText) else o.dtsFile;
+            if o.dtboFile == null
+            then let
+              dtsFile =
+                if o.dtsFile == null
+                then (pkgs.writeText "dts" o.dtsText)
+                else o.dtsFile;
             in
-            pkgs.deviceTree.compileDTS {
-              name = "${o.name}-dtbo";
-              inherit includePaths extraPreprocessorFlags dtsFile;
-            }
-          else
-            o.dtboFile;
-      }
+              pkgs.deviceTree.compileDTS {
+                name = "${o.name}-dtbo";
+                inherit includePaths extraPreprocessorFlags dtsFile;
+              }
+            else o.dtboFile;
+        }
     );
-
-in
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "hardware"
@@ -141,7 +139,7 @@ in
       };
 
       dtboBuildExtraPreprocessorFlags = lib.mkOption {
-        default = [ ];
+        default = [];
         example = lib.literalExpression "[ \"-DMY_DTB_DEFINE\" ]";
         type = lib.types.listOf lib.types.str;
         description = ''
@@ -150,7 +148,7 @@ in
       };
 
       dtboBuildExtraIncludePaths = lib.mkOption {
-        default = [ ];
+        default = [];
         example = lib.literalExpression ''
           [
             ./my_custom_include_dir_1
@@ -194,7 +192,7 @@ in
       };
 
       overlays = lib.mkOption {
-        default = [ ];
+        default = [];
         example = lib.literalExpression ''
           [
             { name = "pps"; dtsFile = ./dts/pps.dts; }
@@ -209,7 +207,8 @@ in
             name = baseNameOf path;
             filter = null;
             dtboFile = path;
-          }) overlayType
+          })
+          overlayType
         );
         description = ''
           List of overlays to apply to base device-tree (.dtb) files.
@@ -228,11 +227,9 @@ in
   };
 
   config = lib.mkIf (cfg.enable) {
-
-    assertions =
-      let
-        invalidOverlay = o: (o.dtsFile == null) && (o.dtsText == null) && (o.dtboFile == null);
-      in
+    assertions = let
+      invalidOverlay = o: (o.dtsFile == null) && (o.dtsText == null) && (o.dtboFile == null);
+    in
       lib.singleton {
         assertion = lib.all (o: !invalidOverlay o) cfg.overlays;
         message = ''
@@ -243,9 +240,8 @@ in
       };
 
     hardware.deviceTree.package =
-      if (cfg.overlays != [ ]) then
-        pkgs.deviceTree.applyOverlays filteredDTBs (withDTBOs cfg.overlays)
-      else
-        filteredDTBs;
+      if (cfg.overlays != [])
+      then pkgs.deviceTree.applyOverlays filteredDTBs (withDTBOs cfg.overlays)
+      else filteredDTBs;
   };
 }

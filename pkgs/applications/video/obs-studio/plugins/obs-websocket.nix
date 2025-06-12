@@ -8,7 +8,6 @@
   qtbase,
   websocketpp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-websocket";
   version = "4.9.1-compat";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cHsJxoQjwbWLxiHgIa3Es0mu62vyLCAd1wULeZqZsJM=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     asio
     obs-studio
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Legacy websocket 4.9.1 protocol support for OBS Studio 28 or above";
     homepage = "https://github.com/obsproject/obs-websocket";
-    maintainers = with maintainers; [ flexiondotorg ];
+    maintainers = with maintainers; [flexiondotorg];
     license = licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "imgpkg";
   version = "0.46.1";
@@ -17,16 +16,16 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/imgpkg" ];
+  subPackages = ["cmd/imgpkg"];
 
   env.CGO_ENABLED = "0";
-  ldflags = [ "-X=carvel.dev/imgpkg/pkg/imgpkg/cmd.Version=${version}" ];
+  ldflags = ["-X=carvel.dev/imgpkg/pkg/imgpkg/cmd.Version=${version}"];
 
   meta = {
     description = "Store application configuration files in Docker/OCI registries";
     homepage = "https://carvel.dev/imgpkg";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ benchand ];
+    maintainers = with lib.maintainers; [benchand];
     mainProgram = "imgpkg";
   };
 }

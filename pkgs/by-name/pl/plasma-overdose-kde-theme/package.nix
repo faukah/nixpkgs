@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "plasma-overdose-kde-theme";
   version = "unstable-2022-05-30";
@@ -37,6 +36,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Notify-ctrl/Plasma-Overdose";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ takagiy ];
+    maintainers = with maintainers; [takagiy];
   };
 }

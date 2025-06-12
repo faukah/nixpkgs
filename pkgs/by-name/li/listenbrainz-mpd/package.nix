@@ -10,7 +10,6 @@
   installShellFiles,
   asciidoctor,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "listenbrainz-mpd";
   version = "2.3.8";
@@ -33,16 +32,15 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ sqlite ]
+    [sqlite]
     ++ (
-      if stdenv.hostPlatform.isDarwin then
-        [
-          libiconv
-        ]
-      else
-        [
-          openssl
-        ]
+      if stdenv.hostPlatform.isDarwin
+      then [
+        libiconv
+      ]
+      else [
+        openssl
+      ]
     );
 
   buildFeatures =
@@ -68,7 +66,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://codeberg.org/elomatreb/listenbrainz-mpd/src/tag/v${version}/CHANGELOG.md";
     description = "ListenBrainz submission client for MPD";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ DeeUnderscore ];
+    maintainers = with lib.maintainers; [DeeUnderscore];
     mainProgram = "listenbrainz-mpd";
   };
 }

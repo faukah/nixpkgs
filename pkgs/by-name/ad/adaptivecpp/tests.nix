@@ -15,7 +15,8 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "${adaptivecpp.pname}-tests";
-  inherit (adaptivecpp)
+  inherit
+    (adaptivecpp)
     version
     src
     ;
@@ -24,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
     tbb
   ];
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
   sourceRoot = "${adaptivecpp.src.name}/tests";
 

@@ -11,7 +11,6 @@
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "distrax";
   version = "0.1.5";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "distrax" ];
+  pythonImportsCheck = ["distrax"];
 
   disabledTests = [
     # Flaky: AssertionError: 1 not less than 0.7000000000000001
@@ -118,7 +117,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/deepmind/distrax";
     changelog = "https://github.com/google-deepmind/distrax/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
     badPlatforms = [
       # SystemError: nanobind::detail::nb_func_error_except(): exception could not be translated!
       lib.systems.inspect.patterns.isDarwin

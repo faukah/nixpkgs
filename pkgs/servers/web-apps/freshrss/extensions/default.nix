@@ -4,10 +4,8 @@
   fetchFromGitHub,
   fetchFromGitLab,
   callPackage,
-}:
-
-let
-  buildFreshRssExtension = (callPackage ./freshrss-utils.nix { }).buildFreshRssExtension;
+}: let
+  buildFreshRssExtension = (callPackage ./freshrss-utils.nix {}).buildFreshRssExtension;
 
   official_extensions_version = "unstable-2024-04-27";
   official_extensions_src = fetchFromGitHub {
@@ -17,8 +15,7 @@ let
     hash = "sha256-A+hOjbGNfhwTOAMeo08MUdqfWxxetzLz865oQQDsQlg=";
   };
 
-  baseExtensions =
-    _self:
+  baseExtensions = _self:
     lib.mapAttrs (_n: lib.recurseIntoAttrs) {
       auto-ttl = buildFreshRssExtension rec {
         FreshRssExtUniqueId = "AutoTTL";
@@ -34,7 +31,7 @@ let
           description = "FreshRSS extension for automatic feed refresh TTL based on the average frequency of entries.";
           homepage = "https://github.com/mgnsk/FreshRSS-AutoTTL";
           license = lib.licenses.agpl3Only;
-          maintainers = [ lib.maintainers.stunkymonkey ];
+          maintainers = [lib.maintainers.stunkymonkey];
         };
       };
 
@@ -52,7 +49,7 @@ let
           description = "FreshRSS Extension for the demo version.";
           homepage = "https://github.com/FreshRSS/xExtension-Demo";
           license = lib.licenses.agpl3Only;
-          maintainers = [ lib.maintainers.stunkymonkey ];
+          maintainers = [lib.maintainers.stunkymonkey];
         };
       };
 
@@ -71,7 +68,7 @@ let
           description = "FreshRSS extension adding a reading time estimation next to each article.";
           homepage = "https://framagit.org/Lapineige/FreshRSS_Extension-ReadingTime";
           license = lib.licenses.agpl3Only;
-          maintainers = [ lib.maintainers.stunkymonkey ];
+          maintainers = [lib.maintainers.stunkymonkey];
         };
       };
 
@@ -89,7 +86,7 @@ let
           description = "FreshRSS extension to process Reddit feeds.";
           homepage = "https://github.com/aledeg/xExtension-RedditImage";
           license = lib.licenses.agpl3Only;
-          maintainers = [ lib.maintainers.stunkymonkey ];
+          maintainers = [lib.maintainers.stunkymonkey];
         };
       };
 
@@ -103,7 +100,7 @@ let
           description = "FreshRSS extension instead of truncating the title is wrapped.";
           homepage = "https://github.com/FreshRSS/Extensions/tree/master/xExtension-TitleWrap";
           license = lib.licenses.agpl3Only;
-          maintainers = [ lib.maintainers.stunkymonkey ];
+          maintainers = [lib.maintainers.stunkymonkey];
         };
       };
 
@@ -117,7 +114,7 @@ let
           description = "FreshRSS extension allows you to directly watch YouTube/PeerTube videos from within subscribed channel feeds.";
           homepage = "https://github.com/FreshRSS/Extensions/tree/master/xExtension-YouTube";
           license = lib.licenses.agpl3Only;
-          maintainers = [ lib.maintainers.stunkymonkey ];
+          maintainers = [lib.maintainers.stunkymonkey];
         };
       };
     };
@@ -134,7 +131,7 @@ let
 
   toFix = lib.foldl' (lib.flip lib.extends) baseExtensions overlays;
 in
-(lib.fix toFix)
-// {
-  inherit buildFreshRssExtension;
-}
+  (lib.fix toFix)
+  // {
+    inherit buildFreshRssExtension;
+  }

@@ -27,16 +27,15 @@
   plasmoidSupport ? stdenv.hostPlatform.isLinux,
   systemdSupport ? stdenv.hostPlatform.isLinux,
   /*
-    It is possible to set via this option an absolute exec path that will be
-    written to the `~/.config/autostart/syncthingtray.desktop` file generated
-    during runtime. Alternatively, one can edit the desktop file themselves after
-    it is generated See:
-    https://github.com/NixOS/nixpkgs/issues/199596#issuecomment-1310136382
+  It is possible to set via this option an absolute exec path that will be
+  written to the `~/.config/autostart/syncthingtray.desktop` file generated
+  during runtime. Alternatively, one can edit the desktop file themselves after
+  it is generated See:
+  https://github.com/NixOS/nixpkgs/issues/199596#issuecomment-1310136382
   */
   autostartExecPath ? "syncthingtray",
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "1.7.8";
   pname = "syncthingtray";
@@ -57,23 +56,25 @@ stdenv.mkDerivation (finalAttrs: {
       boost
       qtforkawesome
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ iconv ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ qtwayland ]
-    ++ lib.optionals webviewSupport [ qtwebengine ]
-    ++ lib.optionals jsSupport [ qtdeclarative ]
-    ++ lib.optionals kioPluginSupport [ kio ]
-    ++ lib.optionals plasmoidSupport [ plasma-framework ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [iconv]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [qtwayland]
+    ++ lib.optionals webviewSupport [qtwebengine]
+    ++ lib.optionals jsSupport [qtdeclarative]
+    ++ lib.optionals kioPluginSupport [kio]
+    ++ lib.optionals plasmoidSupport [plasma-framework];
 
-  nativeBuildInputs = [
-    wrapQtAppsHook
-    cmake
-    qttools
-    # Although these are test dependencies, we add them anyway so that we test
-    # whether the test units compile. On Darwin we don't run the tests but we
-    # still build them.
-    cppunit
-    syncthing
-  ] ++ lib.optionals plasmoidSupport [ extra-cmake-modules ];
+  nativeBuildInputs =
+    [
+      wrapQtAppsHook
+      cmake
+      qttools
+      # Although these are test dependencies, we add them anyway so that we test
+      # whether the test units compile. On Darwin we don't run the tests but we
+      # still build them.
+      cppunit
+      syncthing
+    ]
+    ++ lib.optionals plasmoidSupport [extra-cmake-modules];
 
   # syncthing server seems to hang on darwin, causing tests to fail.
   doCheck = !stdenv.hostPlatform.isDarwin;
@@ -105,20 +106,20 @@ stdenv.mkDerivation (finalAttrs: {
       "-DQT_PLUGIN_DIR:STRING=${placeholder "out"}/${qtbase.qtPluginPrefix}"
       "-DBUILD_SHARED_LIBS=ON"
     ]
-    ++ lib.optionals (!plasmoidSupport) [ "-DNO_PLASMOID=ON" ]
-    ++ lib.optionals (!kioPluginSupport) [ "-DNO_FILE_ITEM_ACTION_PLUGIN=ON" ]
-    ++ lib.optionals systemdSupport [ "-DSYSTEMD_SUPPORT=ON" ]
-    ++ lib.optionals (!webviewSupport) [ "-DWEBVIEW_PROVIDER:STRING=none" ];
+    ++ lib.optionals (!plasmoidSupport) ["-DNO_PLASMOID=ON"]
+    ++ lib.optionals (!kioPluginSupport) ["-DNO_FILE_ITEM_ACTION_PLUGIN=ON"]
+    ++ lib.optionals systemdSupport ["-DSYSTEMD_SUPPORT=ON"]
+    ++ lib.optionals (!webviewSupport) ["-DWEBVIEW_PROVIDER:STRING=none"];
 
   qtWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ xdg-utils ]}"
+    "--prefix PATH : ${lib.makeBinPath [xdg-utils]}"
   ];
 
   meta = with lib; {
     homepage = "https://github.com/Martchus/syncthingtray";
     description = "Tray application and Dolphin/Plasma integration for Syncthing";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.linux ++ platforms.darwin;
     mainProgram = "syncthingtray";
   };

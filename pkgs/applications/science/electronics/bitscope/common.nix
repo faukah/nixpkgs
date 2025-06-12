@@ -11,36 +11,32 @@
   lib,
   stdenv,
   xorg,
-}:
-
-{
+}: {
   src,
   toolName,
   version,
   ...
-}@attrs:
-let
+} @ attrs: let
   wrapBinary = libPaths: binaryName: ''
     wrapProgram "$out/bin/${binaryName}" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libPaths}"
   '';
-  pkg = stdenv.mkDerivation (rec {
+  pkg = stdenv.mkDerivation rec {
     inherit (attrs) version src;
 
     name = "${toolName}-${version}";
 
-    meta =
-      with lib;
+    meta = with lib;
       {
         homepage = "http://bitscope.com/software/";
-        sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+        sourceProvenance = with sourceTypes; [binaryNativeCode];
         license = licenses.unfree;
-        platforms = [ "x86_64-linux" ];
+        platforms = ["x86_64-linux"];
         maintainers = with maintainers; [
           vidbina
         ];
       }
-      // (attrs.meta or { });
+      // (attrs.meta or {});
 
     nativeBuildInputs = [
       makeWrapper
@@ -71,13 +67,13 @@ let
         cp -a usr/* "$out/"
         ${(wrapBinary libs) attrs.toolName}
       '';
-  });
+  };
 in
-buildFHSEnv {
-  pname = attrs.toolName;
-  inherit (attrs) version;
-  runScript = "${pkg.outPath}/bin/${attrs.toolName}";
-}
-// {
-  inherit (pkg) meta name;
-}
+  buildFHSEnv {
+    pname = attrs.toolName;
+    inherit (attrs) version;
+    runScript = "${pkg.outPath}/bin/${attrs.toolName}";
+  }
+  // {
+    inherit (pkg) meta name;
+  }

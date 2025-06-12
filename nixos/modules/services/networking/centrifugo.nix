@@ -3,23 +3,21 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.centrifugo;
 
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
 
   configFile = settingsFormat.generate "centrifugo.json" cfg.settings;
-in
-{
+in {
   options.services.centrifugo = {
     enable = lib.mkEnableOption "Centrifugo messaging server";
 
-    package = lib.mkPackageOption pkgs "centrifugo" { };
+    package = lib.mkPackageOption pkgs "centrifugo" {};
 
     settings = lib.mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
       description = ''
         Declarative Centrifugo configuration. See the [Centrifugo
         documentation] for a list of options.
@@ -30,7 +28,7 @@ in
 
     credentials = lib.mkOption {
       type = lib.types.attrsOf lib.types.path;
-      default = { };
+      default = {};
       example = {
         CENTRIFUGO_UNI_GRPC_TLS_KEY = "/run/keys/centrifugo-uni-grpc-tls.key";
       };
@@ -42,7 +40,7 @@ in
 
     environmentFiles = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
+      default = [];
       description = ''
         Files to load environment variables from. Options set via environment
         variables take precedence over {option}`settings`.
@@ -56,8 +54,8 @@ in
 
     extraGroups = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
-      example = [ "redis-centrifugo" ];
+      default = [];
+      example = ["redis-centrifugo"];
       description = ''
         Additional groups for the systemd service.
       '';
@@ -75,8 +73,8 @@ in
 
     systemd.services.centrifugo = {
       description = "Centrifugo messaging server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         Type = "exec";
@@ -119,9 +117,9 @@ in
           "AF_INET6"
           "AF_UNIX"
         ];
-        DeviceAllow = [ "" ];
+        DeviceAllow = [""];
         DevicePolicy = "closed";
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         MemoryDenyWriteExecute = true;
         LockPersonality = true;
         SystemCallArchitectures = "native";

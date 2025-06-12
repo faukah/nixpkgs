@@ -11,7 +11,6 @@
   glib,
   pcre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-anything";
   version = "6.1.9";
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-anything";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

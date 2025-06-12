@@ -7,7 +7,6 @@
   installShellFiles,
   desktop-file-utils,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "autorandr";
   version = "1.15";
@@ -24,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     installShellFiles
     desktop-file-utils
   ];
-  propagatedBuildInputs = with python3.pkgs; [ packaging ];
+  propagatedBuildInputs = with python3.pkgs; [packaging];
 
   buildPhase = ''
     substituteInPlace autorandr.py \
@@ -32,7 +31,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace '["xrandr"]' '["${xrandr}/bin/xrandr"]'
   '';
 
-  patches = [ ./0001-don-t-use-sys.executable.patch ];
+  patches = [./0001-don-t-use-sys.executable.patch];
 
   outputs = [
     "out"
@@ -56,21 +55,20 @@ python3.pkgs.buildPythonApplication rec {
     make install TARGETS='manpage' PREFIX=$man
 
     ${
-      if systemd != null then
-        ''
-          make install TARGETS='systemd udev' PREFIX=$out DESTDIR=$out \
-            SYSTEMD_UNIT_DIR=/lib/systemd/system \
-            UDEV_RULES_DIR=/etc/udev/rules.d
-          substituteInPlace $out/etc/udev/rules.d/40-monitor-hotplug.rules \
-            --replace /bin/systemctl "/run/current-system/systemd/bin/systemctl"
-        ''
-      else
-        ''
-          make install TARGETS='pmutils' DESTDIR=$out \
-            PM_SLEEPHOOKS_DIR=/lib/pm-utils/sleep.d
-          make install TARGETS='udev' PREFIX=$out DESTDIR=$out \
-            UDEV_RULES_DIR=/etc/udev/rules.d
-        ''
+      if systemd != null
+      then ''
+        make install TARGETS='systemd udev' PREFIX=$out DESTDIR=$out \
+          SYSTEMD_UNIT_DIR=/lib/systemd/system \
+          UDEV_RULES_DIR=/etc/udev/rules.d
+        substituteInPlace $out/etc/udev/rules.d/40-monitor-hotplug.rules \
+          --replace /bin/systemctl "/run/current-system/systemd/bin/systemctl"
+      ''
+      else ''
+        make install TARGETS='pmutils' DESTDIR=$out \
+          PM_SLEEPHOOKS_DIR=/lib/pm-utils/sleep.d
+        make install TARGETS='udev' PREFIX=$out DESTDIR=$out \
+          UDEV_RULES_DIR=/etc/udev/rules.d
+      ''
     }
 
     runHook postInstall
@@ -80,7 +78,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/phillipberndt/autorandr/";
     description = "Automatically select a display configuration based on connected devices";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ coroa ];
+    maintainers = with maintainers; [coroa];
     platforms = platforms.unix;
     mainProgram = "autorandr";
   };

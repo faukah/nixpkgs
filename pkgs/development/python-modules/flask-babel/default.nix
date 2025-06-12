@@ -2,25 +2,20 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # docs
   furo,
   sphinxHook,
-
   # runtime
   babel,
   flask,
   jinja2,
   pytz,
-
   # tests
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flask-babel";
   version = "4.0.0";
@@ -51,7 +46,7 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pythonImportsCheck = [ "flask_babel" ];
+  pythonImportsCheck = ["flask_babel"];
 
   checkInputs = [
     pytest-mock
@@ -67,8 +62,8 @@ buildPythonPackage rec {
       installed automatically for you if you install this library.
     '';
     license = licenses.bsd2;
-    maintainers = with maintainers; [ matejc ];
-    teams = [ teams.sage ];
+    maintainers = with maintainers; [matejc];
+    teams = [teams.sage];
     homepage = "https://github.com/python-babel/flask-babel";
   };
 }

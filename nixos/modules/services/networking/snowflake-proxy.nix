@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.snowflake-proxy;
-in
-{
+in {
   options = {
     services.snowflake-proxy = {
       enable = mkEnableOption "snowflake-proxy, a system to defeat internet censorship";
@@ -43,7 +39,7 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.snowflake-proxy = {
-      wantedBy = [ "network-online.target" ];
+      wantedBy = ["network-online.target"];
       serviceConfig = {
         ExecStart =
           "${pkgs.snowflake}/bin/proxy "
@@ -90,5 +86,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ yayayayaka ];
+  meta.maintainers = with maintainers; [yayayayaka];
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "roboto-slab";
   version = "2.000";
@@ -40,6 +39,6 @@ stdenv.mkDerivation {
     '';
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

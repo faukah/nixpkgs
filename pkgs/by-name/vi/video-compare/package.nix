@@ -6,7 +6,6 @@
   SDL2_ttf,
   ffmpeg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "video-compare";
   version = "20250420";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://github.com/pixop/video-compare";
     description = "Split screen video comparison tool";
-    maintainers = with lib.maintainers; [ orivej ];
+    maintainers = with lib.maintainers; [orivej];
     license = lib.licenses.gpl2Only;
     mainProgram = "video-compare";
     platforms = lib.platforms.unix;

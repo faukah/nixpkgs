@@ -7,9 +7,7 @@
   cmake,
   readline,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "lolcode";
   version = "0.11.2";
 
@@ -25,7 +23,7 @@ stdenv.mkDerivation rec {
     cmake
     doxygen
   ];
-  buildInputs = [ readline ];
+  buildInputs = [readline];
 
   # Maybe it clashes with lci scientific logic software package...
   postInstall = "mv $out/bin/lci $out/bin/lolcode-lci";
@@ -38,9 +36,8 @@ stdenv.mkDerivation rec {
       whose keywords are LOLspeak.
     '';
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "lolcode-lci";
     platforms = lib.platforms.unix;
   };
-
 }

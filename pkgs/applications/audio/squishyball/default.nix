@@ -11,7 +11,6 @@
   opusfile,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "squishyball";
   version = "unstable-2020-11-23";
@@ -73,7 +72,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://gitlab.xiph.org/xiph/squishyball";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ michalrus ];
+    maintainers = with maintainers; [michalrus];
     platforms = platforms.linux;
     mainProgram = "squishyball";
   };

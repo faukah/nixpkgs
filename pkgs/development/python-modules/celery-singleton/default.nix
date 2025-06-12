@@ -10,7 +10,6 @@
   pytest-celery,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "celery-singleton";
   version = "0.3.1";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     celery
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   # Tests require a running Redis backend
   disabledTests = [
@@ -58,13 +57,13 @@ buildPythonPackage rec {
     "TestUniqueOn"
   ];
 
-  pythonImportsCheck = [ "celery_singleton" ];
+  pythonImportsCheck = ["celery_singleton"];
 
   meta = with lib; {
     description = "Seamlessly prevent duplicate executions of celery tasks";
     homepage = "https://github.com/steinitzu/celery-singleton";
     changelog = "https://github.com/steinitzu/celery-singleton/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

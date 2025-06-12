@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pebble";
   version = "5.1.1";
@@ -26,17 +25,17 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  pythonImportsCheck = [ "pebble" ];
+  pythonImportsCheck = ["pebble"];
 
   meta = {
     description = "API to manage threads and processes within an application";
     homepage = "https://github.com/noxdafox/pebble";
     changelog = "https://github.com/noxdafox/pebble/releases/tag/${src.tag}";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ orivej ];
+    maintainers = with lib.maintainers; [orivej];
   };
 }

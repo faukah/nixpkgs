@@ -14,7 +14,6 @@
   testers,
   udiskie,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "udiskie";
   version = "2.5.7";
@@ -107,6 +106,6 @@ python3Packages.buildPythonApplication rec {
       - password caching (requires python keyutils 0.3)
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

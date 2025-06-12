@@ -15,7 +15,7 @@ replaceVarsWith {
   src = ./nixos-container.pl;
 
   replacements = {
-    perl = perl.withPackages (p: [ p.FileSlurp ]);
+    perl = perl.withPackages (p: [p.FileSlurp]);
     su = "${shadow.su}/bin/su";
 
     inherit configurationDirectory stateDirectory util-linux;
@@ -23,7 +23,8 @@ replaceVarsWith {
 
   passthru = {
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         containers-imperative
         containers-ip
         containers-tmpfs
@@ -33,7 +34,7 @@ replaceVarsWith {
     };
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd nixos-container \

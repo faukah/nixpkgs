@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "d2codingfont";
   version = "1.3.2";
@@ -34,6 +33,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/naver/d2codingfont";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

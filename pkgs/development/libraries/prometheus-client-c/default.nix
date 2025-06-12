@@ -5,15 +5,13 @@
   fetchpatch,
   cmake,
   libmicrohttpd,
-}:
-let
-  build =
-    {
-      pname,
-      subdir,
-      buildInputs ? [ ],
-      description,
-    }:
+}: let
+  build = {
+    pname,
+    subdir,
+    buildInputs ? [],
+    description,
+  }:
     stdenv.mkDerivation rec {
       inherit pname;
       version = "0.1.1";
@@ -25,7 +23,7 @@ let
         sha256 = "0g69s24xwrv5974acshrhnp6i8rpby8c6bhz15m3d8kpgjw3cm8f";
       };
 
-      nativeBuildInputs = [ cmake ];
+      nativeBuildInputs = [cmake];
       inherit buildInputs;
 
       # These patches will be in 0.1.2
@@ -58,11 +56,10 @@ let
         inherit description;
         platforms = lib.platforms.unix;
         license = lib.licenses.asl20;
-        maintainers = [ lib.maintainers.cfsmp3 ];
+        maintainers = [lib.maintainers.cfsmp3];
       };
     };
-in
-rec {
+in rec {
   libprom = build {
     pname = "libprom";
     subdir = "prom";

@@ -5,7 +5,6 @@
   libxkbcommon,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "stardust-xr-sphereland";
   version = "0-unstable-2023-11-07";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = {

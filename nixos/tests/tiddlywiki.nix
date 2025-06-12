@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   name = "tiddlywiki";
   nodes = {
     default = {

@@ -6,7 +6,6 @@
   alcotest,
   hex,
 }:
-
 buildDunePackage {
   pname = "ppx_repr";
 
@@ -24,7 +23,9 @@ buildDunePackage {
     hex
   ];
 
-  meta = repr.meta // {
-    description = "PPX deriver for type representations";
-  };
+  meta =
+    repr.meta
+    // {
+      description = "PPX deriver for type representations";
+    };
 }

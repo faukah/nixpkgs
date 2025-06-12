@@ -8,7 +8,6 @@
   yarnInstallHook,
   nodejs,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "coc-toml";
   version = "1.2.5";
@@ -36,6 +35,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "toml extension for coc.nvim";
     homepage = "https://github.com/kkiyama117/coc-toml";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ soopyc ];
+    maintainers = with lib.maintainers; [soopyc];
   };
 })

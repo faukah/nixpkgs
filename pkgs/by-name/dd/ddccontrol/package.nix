@@ -10,7 +10,6 @@
   gtk2,
   ddccontrol-db,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ddccontrol";
   version = "1.0.3";
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ddccontrol/ddccontrol";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with lib.maintainers; [ pakhfn ];
+    maintainers = with lib.maintainers; [pakhfn];
   };
 }

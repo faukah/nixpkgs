@@ -4,7 +4,6 @@
   buildGoModule,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "galene";
   version = "0.96.3";
@@ -44,7 +43,7 @@ buildGoModule rec {
     changelog = "https://github.com/jech/galene/raw/galene-${version}/CHANGES";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.ngi ];
+    teams = [lib.teams.ngi];
     maintainers = with lib.maintainers; [
       rgrunbla
       erdnaxe

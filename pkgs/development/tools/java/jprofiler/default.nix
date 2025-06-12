@@ -7,9 +7,7 @@
   copyDesktopItems,
   _7zz,
   jdk,
-}:
-
-let
+}: let
   pname = "jprofiler";
   version = "14.0.5";
   nameApp = "JProfiler";
@@ -22,21 +20,22 @@ let
     '';
     homepage = "https://www.ej-technologies.com/products/jprofiler/overview.html";
     license = lib.licenses.unfree;
-    maintainers = [ ];
+    maintainers = [];
   };
 
   src =
-    if stdenv.hostPlatform.isLinux then
+    if stdenv.hostPlatform.isLinux
+    then
       fetchurl {
         url = "https://download.ej-technologies.com/jprofiler/jprofiler_linux_${
-          lib.replaceStrings [ "." ] [ "_" ] version
+          lib.replaceStrings ["."] ["_"] version
         }.tar.gz";
         hash = "sha256-S7e2WurDJ0ePzpMg0YK94Mn0eHfb8/jNmf0kYts2Y0M=";
       }
     else
       fetchurl {
         url = "https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_macos_${
-          lib.replaceStrings [ "." ] [ "_" ] version
+          lib.replaceStrings ["."] ["_"] version
         }.dmg";
         hash = "sha256-HPGh+dRfLuQprpgnu8oFboHUB1xvFqPblJcowqgZ5KA=";
       };
@@ -49,7 +48,7 @@ let
       comment = meta.description;
       desktopName = nameApp;
       genericName = "Java Profiler Tool";
-      categories = [ "Development" ];
+      categories = ["Development"];
     })
   ];
 
@@ -86,9 +85,11 @@ let
       runHook postInstall
     '';
 
-    meta = meta // {
-      platforms = lib.platforms.linux;
-    };
+    meta =
+      meta
+      // {
+        platforms = lib.platforms.linux;
+      };
   };
 
   darwin = stdenv.mkDerivation {
@@ -119,9 +120,13 @@ let
       runHook postInstall
     '';
 
-    meta = meta // {
-      platforms = lib.platforms.darwin;
-    };
+    meta =
+      meta
+      // {
+        platforms = lib.platforms.darwin;
+      };
   };
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

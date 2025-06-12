@@ -4,7 +4,6 @@
   python3Packages,
   awscli,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "git-remote-codecommit";
   version = "1.17";
@@ -24,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-8heI0Oyfhuvshedw+Eqmwd+e9cOHdDt4O588dplqv/k=";
   };
 
-  dependencies = with python3Packages; [ botocore ];
+  dependencies = with python3Packages; [botocore];
 
   nativeCheckInputs =
     [
@@ -39,7 +38,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Git remote prefix to simplify pushing to and pulling from CodeCommit";
-    maintainers = [ lib.maintainers.zaninime ];
+    maintainers = [lib.maintainers.zaninime];
     homepage = "https://github.com/awslabs/git-remote-codecommit";
     license = lib.licenses.asl20;
     mainProgram = "git-remote-codecommit";

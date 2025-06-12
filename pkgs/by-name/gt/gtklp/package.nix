@@ -11,7 +11,6 @@
   openssl,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtklp";
   version = "1.3.4";
@@ -68,9 +67,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://gtklp.sirtobi.com";
     description = "GTK-based graphical frontend for CUPS";
-    license = with lib.licenses; [ gpl2Only ];
+    license = with lib.licenses; [gpl2Only];
     mainProgram = "gtklp";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

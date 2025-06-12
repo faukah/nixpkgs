@@ -8,7 +8,6 @@
   pyopenssl,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyvmomi";
   version = "8.0.3.0.1";
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/vmware/pyvmomi";
     changelog = "https://github.com/vmware/pyvmomi/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

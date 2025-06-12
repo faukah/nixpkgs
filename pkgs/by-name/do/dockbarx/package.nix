@@ -9,7 +9,6 @@
   python3Packages,
   wrapGAppsHook3,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "dockbarx";
   version = "1.0-beta4";
@@ -61,6 +60,6 @@ python3Packages.buildPythonApplication rec {
     description = "Lightweight taskbar/panel replacement which works as a stand-alone dock";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

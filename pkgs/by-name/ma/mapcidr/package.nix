@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mapcidr";
   version = "1.1.34";
@@ -31,7 +30,7 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/mapcidr";
     changelog = "https://github.com/projectdiscovery/mapcidr/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hanemile ];
+    maintainers = with lib.maintainers; [hanemile];
     mainProgram = "mapcidr";
   };
 }

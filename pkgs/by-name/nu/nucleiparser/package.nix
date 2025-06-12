@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "nucleiparser";
   version = "0.2.1";
@@ -33,7 +32,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/sinkmanu/nucleiparser";
     changelog = "https://github.com/Sinkmanu/nucleiparser/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "nparser";
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gotrue";
   version = "1.0.1";
@@ -32,6 +31,6 @@ buildGoModule rec {
     mainProgram = "gotrue";
     changelog = "https://github.com/netlify/gotrue/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

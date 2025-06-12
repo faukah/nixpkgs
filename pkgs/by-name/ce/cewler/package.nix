@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gitUpdater,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "cewler";
   version = "1.3.1";
@@ -34,13 +33,13 @@ python3.pkgs.buildPythonApplication rec {
   # Tests require network access
   doCheck = false;
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "Custom Word List generator Redefined";
     mainProgram = "cewler";
     homepage = "https://github.com/roys/cewler";
     license = licenses.cc-by-nc-40;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

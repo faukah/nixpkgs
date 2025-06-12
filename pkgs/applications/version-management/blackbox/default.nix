@@ -11,7 +11,6 @@
   gnutar,
   procps,
 }:
-
 stdenv.mkDerivation rec {
   pname = "blackbox";
   version = "1.20220610";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-g0oNV7Nj7ZMmsVQFVTDwbKtF4a/Fb3WDB+NRx9IGSWA=";
   };
 
-  buildInputs = [ gnupg ];
+  buildInputs = [gnupg];
 
   # https://github.com/NixOS/nixpkgs/issues/134445
   doCheck = !stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64;
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Safely store secrets in a VCS repo";
     homepage = "https://github.com/StackExchange/blackbox";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.mit;
     platforms = platforms.all;
   };

@@ -11,7 +11,6 @@
   findlib,
   fpath,
 }:
-
 buildDunePackage rec {
   pname = "digestif";
   version = "1.3.0";
@@ -23,7 +22,7 @@ buildDunePackage rec {
     hash = "sha256-mmzcszJTnIf0cj/DvXNiayZ1p7EWH98P7TCRhs4Y9Cc=";
   };
 
-  propagatedBuildInputs = [ eqaf ];
+  propagatedBuildInputs = [eqaf];
 
   checkInputs = [
     alcotest
@@ -42,6 +41,6 @@ buildDunePackage rec {
     description = "Simple hash algorithms in OCaml";
     homepage = "https://github.com/mirage/digestif";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

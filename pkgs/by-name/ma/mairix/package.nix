@@ -7,7 +7,6 @@
   bison,
   flex,
 }:
-
 stdenv.mkDerivation {
   pname = "mairix";
   version = "0.24-unstable-2024-09-14";
@@ -33,7 +32,7 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl2Plus;
     description = "Program for indexing and searching email messages stored in maildir, MH or mbox";
     mainProgram = "mairix";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 }

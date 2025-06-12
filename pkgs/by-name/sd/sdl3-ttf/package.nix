@@ -13,7 +13,6 @@
   ninja,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sdl3-ttf";
   version = "3.2.2";
@@ -28,11 +27,13 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
   doCheck = true;
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    validatePkgConfig
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+      validatePkgConfig
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [fixDarwinDylibNames];
 
   buildInputs = [
     sdl3
@@ -67,8 +68,8 @@ stdenv.mkDerivation (finalAttrs: {
       charain
       Emin017
     ];
-    teams = [ lib.teams.sdl ];
-    pkgConfigModules = [ "sdl3-ttf" ];
+    teams = [lib.teams.sdl];
+    pkgConfigModules = ["sdl3-ttf"];
     platforms = lib.platforms.all;
   };
 })

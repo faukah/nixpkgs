@@ -9,7 +9,6 @@
   qtscxml,
   libGLU,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qxmledit";
   version = "0.9.17";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-UzN5U+aC/uKokSdeUG2zv8+mkaH4ndYZ0sfzkpQ3l1M=";
   };
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   buildInputs = [
     qtbase
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     libGLU
   ];
 
-  qmakeFlags = [ "CONFIG+=release" ];
+  qmakeFlags = ["CONFIG+=release"];
 
   preConfigure = ''
     export QXMLEDIT_INST_DATA_DIR="$out/share/data"

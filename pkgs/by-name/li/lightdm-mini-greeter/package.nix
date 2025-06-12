@@ -13,7 +13,6 @@
   wrapGAppsHook3,
   librsvg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lightdm-mini-greeter";
   version = "0.5.1";
@@ -38,8 +37,8 @@ stdenv.mkDerivation rec {
     librsvg
   ];
 
-  configureFlags = [ "--sysconfdir=/etc" ];
-  makeFlags = [ "configdir=${placeholder "out"}/etc" ];
+  configureFlags = ["--sysconfdir=/etc"];
+  makeFlags = ["configdir=${placeholder "out"}/etc"];
 
   postInstall = ''
     substituteInPlace "$out/share/xgreeters/lightdm-mini-greeter.desktop" \

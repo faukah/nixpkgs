@@ -8,7 +8,6 @@
   openjpeg,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "libicns";
   version = "0.8.1-unstable-2022-04-10";

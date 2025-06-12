@@ -3,7 +3,6 @@
   fetchzip,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cyberchef";
   version = "10.19.4";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     description = "Cyber Swiss Army Knife for encryption, encoding, compression and data analysis";
     homepage = "https://gchq.github.io/CyberChef";
     changelog = "https://github.com/gchq/CyberChef/blob/v${version}/CHANGELOG.md";
-    maintainers = with lib.maintainers; [ sebastianblunt ];
+    maintainers = with lib.maintainers; [sebastianblunt];
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
   };

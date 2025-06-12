@@ -3,7 +3,6 @@
   buildNimPackage,
   fetchFromGitea,
 }:
-
 buildNimPackage (
   final: prev: {
     pname = "eris";
@@ -32,12 +31,14 @@ buildNimPackage (
       install -D "eris-link.xml" -t "$bin/share/mime/packages"
       install -D "eris48.png" "$bin/share/icons/hicolor/48x48/apps/eris.png"
     '';
-    meta = final.src.meta // {
-      homepage = "https://codeberg.org/eris/nim-eris";
-      license = lib.licenses.unlicense;
-      maintainers = with lib.maintainers; [ ehmry ];
-      mainProgram = "eriscmd";
-      badPlatforms = lib.platforms.darwin;
-    };
+    meta =
+      final.src.meta
+      // {
+        homepage = "https://codeberg.org/eris/nim-eris";
+        license = lib.licenses.unlicense;
+        maintainers = with lib.maintainers; [ehmry];
+        mainProgram = "eriscmd";
+        badPlatforms = lib.platforms.darwin;
+      };
   }
 )

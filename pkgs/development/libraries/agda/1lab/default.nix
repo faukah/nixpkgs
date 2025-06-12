@@ -3,7 +3,6 @@
   mkDerivation,
   fetchFromGitHub,
 }:
-
 mkDerivation rec {
   pname = "1lab";
   version = "unstable-2024-08-05";
@@ -41,6 +40,6 @@ mkDerivation rec {
     homepage = src.meta.homepage;
     license = licenses.agpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ncfavier ];
+    maintainers = with maintainers; [ncfavier];
   };
 }

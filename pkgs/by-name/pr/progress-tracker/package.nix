@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/smolBlackCat/progress-tracker";
     license = lib.licenses.mit;
     mainProgram = "progress";
-    maintainers = with lib.maintainers; [ Guanran928 ];
+    maintainers = with lib.maintainers; [Guanran928];
     platforms = lib.platforms.linux;
   };
 })

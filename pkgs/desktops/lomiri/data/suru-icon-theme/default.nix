@@ -7,7 +7,6 @@
   hicolor-icon-theme,
   ubuntu-themes,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "suru-icon-theme";
   version = "2024.10.13";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hicolor-icon-theme # theme setup hook
   ];
 
-  propagatedBuildInputs = [ ubuntu-themes ];
+  propagatedBuildInputs = [ubuntu-themes];
 
   dontConfigure = true;
   dontBuild = true;
@@ -44,14 +43,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   dontDropIconThemeCache = true;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Suru Icon Theme for Lomiri Operating Environment";
     homepage = "https://gitlab.com/ubports/development/core/suru-icon-theme";
     changelog = "https://gitlab.com/ubports/development/core/suru-icon-theme/-/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.cc-by-sa-30;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.all;
   };
 })

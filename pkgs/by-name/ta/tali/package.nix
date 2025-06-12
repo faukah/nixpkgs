@@ -18,7 +18,6 @@
   python3,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tali";
   version = "40.9";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "tali"; };
+    updateScript = gnome.updateScript {packageName = "tali";};
   };
 
   meta = {
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.gnome.org/GNOME/tali/-/blob/${version}/NEWS?ref_type=tags";
     description = "Sort of poker with dice and less money";
     mainProgram = "tali";
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
   };

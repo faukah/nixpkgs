@@ -14,7 +14,6 @@
   gst_all_1,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gupnp-dlna";
   version = "0.12.0";

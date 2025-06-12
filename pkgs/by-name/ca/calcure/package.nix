@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "calcure";
   version = "3.2.1";
@@ -37,6 +36,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/anufrievroman/calcure";
     changelog = "https://github.com/anufrievroman/calcure/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

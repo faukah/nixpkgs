@@ -10,7 +10,6 @@
   pkg-config,
   libpng,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "aribb24";
   version = "1.0.4";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
   preConfigure = "autoreconf --install";
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
   };
 
@@ -45,8 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library for ARIB STD-B24, decoding JIS 8 bit characters and parsing MPEG-TS stream";
     homepage = "https://code.videolan.org/jeeb/aribb24/";
     license = licenses.lgpl3Plus;
-    pkgConfigModules = [ "aribb24" ];
+    pkgConfigModules = ["aribb24"];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ jopejoe1 ];
+    maintainers = with maintainers; [jopejoe1];
   };
 })

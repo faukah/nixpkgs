@@ -3,7 +3,6 @@
   buildGoModule,
   fetchgit,
 }:
-
 buildGoModule {
   pname = "mm";
   version = "2020.11.17";
@@ -21,6 +20,6 @@ buildGoModule {
     mainProgram = "mm";
     homepage = "https://git.lost.host/meutraa/mm";
     license = licenses.isc;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

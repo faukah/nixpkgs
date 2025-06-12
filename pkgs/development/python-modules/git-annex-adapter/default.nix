@@ -13,7 +13,6 @@
   replaceVars,
   util-linux,
 }:
-
 buildPythonPackage rec {
   pname = "git-annex-adapter";
   version = "0.2.2";
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     pygit2
@@ -60,7 +59,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "git_annex_adapter" ];
+  pythonImportsCheck = ["git_annex_adapter"];
 
   disabledTests = [
     # KeyError and AssertionError
@@ -75,6 +74,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/alpernebbi/git-annex-adapter";
     description = "Call git-annex commands from Python";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

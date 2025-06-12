@@ -6,7 +6,6 @@
   cstruct,
   mirage-clock,
 }:
-
 buildDunePackage {
   pname = "mirage-flow-combinators";
 
@@ -22,7 +21,9 @@ buildDunePackage {
     mirage-flow
   ];
 
-  meta = mirage-flow.meta // {
-    description = "Flow implementations and combinators for MirageOS specialized to lwt";
-  };
+  meta =
+    mirage-flow.meta
+    // {
+      description = "Flow implementations and combinators for MirageOS specialized to lwt";
+    };
 }

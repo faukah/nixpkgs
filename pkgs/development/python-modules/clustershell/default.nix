@@ -13,7 +13,6 @@
   hostname,
   bash,
 }:
-
 buildPythonPackage rec {
   pname = "clustershell";
   version = "1.9.3";
@@ -50,9 +49,9 @@ buildPythonPackage rec {
     done
   '';
 
-  propagatedBuildInputs = [ pyyaml ];
+  propagatedBuildInputs = [pyyaml];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   nativeCheckInputs = [
     bc
@@ -60,7 +59,7 @@ buildPythonPackage rec {
     unittestCheckHook
   ];
 
-  pythonImportsCheck = [ "ClusterShell" ];
+  pythonImportsCheck = ["ClusterShell"];
 
   unittestFlagsArray = [
     "tests"
@@ -92,6 +91,6 @@ buildPythonPackage rec {
     description = "Scalable Python framework for cluster administration";
     homepage = "https://cea-hpc.github.io/clustershell";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.alexvorobiev ];
+    maintainers = [maintainers.alexvorobiev];
   };
 }

@@ -55,7 +55,7 @@ stdenv.mkDerivation {
     description = "Scheme SRFI-145 implementations in portable R7RS scheme";
     homepage = "https://codeberg.org/rgherdt/srfi";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ knightpp ];
+    maintainers = with lib.maintainers; [knightpp];
     platforms = guile.meta.platforms;
   };
 }

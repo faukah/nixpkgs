@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pybind11,
   setuptools,
-
   # dependencies
   einops,
   numpy,
@@ -17,16 +15,13 @@
   torch,
   torch-geometric,
   torchvision,
-
   # optional-dependencies
   ipywidgets,
   jupyter,
-
   # tests
   plotly,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "compressai";
   version = "1.2.6";
@@ -97,6 +92,6 @@ buildPythonPackage rec {
     description = "PyTorch library and evaluation platform for end-to-end compression research";
     homepage = "https://github.com/InterDigitalInc/CompressAI";
     license = lib.licenses.bsd3Clear;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

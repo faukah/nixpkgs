@@ -10,7 +10,6 @@
   libwebp,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "imageworsener";
   version = "1.3.5";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     cp readme.txt technical.txt $out/share/doc/imageworsener
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     zlib
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   __structuredAttrs = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Raster image scaling and processing utility";
@@ -74,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://entropymine.com/imageworsener/";
     changelog = "${finalAttrs.src.meta.homepage}/blob/${finalAttrs.src.rev}/changelog.txt";
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
     license = lib.licenses.mit;
     maintainers = [
       lib.maintainers.emily

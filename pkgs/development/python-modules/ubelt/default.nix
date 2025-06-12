@@ -13,7 +13,6 @@
   requests,
   xdoctest,
 }:
-
 buildPythonPackage rec {
   pname = "ubelt";
   version = "1.3.6";
@@ -57,7 +56,7 @@ buildPythonPackage rec {
     "userhome"
   ];
 
-  pythonImportsCheck = [ "ubelt" ];
+  pythonImportsCheck = ["ubelt"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -66,6 +65,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Erotemic/ubelt";
     changelog = "https://github.com/Erotemic/ubelt/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

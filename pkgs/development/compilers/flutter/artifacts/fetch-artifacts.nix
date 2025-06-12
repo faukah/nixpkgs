@@ -9,14 +9,11 @@
   xorg,
   cacert,
   unzip,
-
   flutterPlatform,
   systemPlatform,
   flutter,
   hash,
-}:
-
-let
+}: let
   flutterPlatforms = [
     "android"
     "ios"
@@ -31,7 +28,7 @@ let
   flutter' = flutter.override {
     # Use a version of Flutter with just enough capabilities to download
     # artifacts.
-    supportedTargetFlutterPlatforms = [ ];
+    supportedTargetFlutterPlatforms = [];
 
     # Modify flutter-tool's system platform in order to get the desired platform's hashes.
     flutter = flutter.unwrapped.override {
@@ -41,7 +38,7 @@ let
     };
   };
 in
-runCommand "flutter-artifacts-${flutterPlatform}-${systemPlatform}"
+  runCommand "flutter-artifacts-${flutterPlatform}-${systemPlatform}"
   {
     nativeBuildInputs = [
       xorg.lndir
@@ -57,7 +54,9 @@ runCommand "flutter-artifacts-${flutterPlatform}-${systemPlatform}"
         "x86_64-darwin" = "macos";
         "aarch64-darwin" = "macos";
       }
-      .${systemPlatform};
+      .${
+        systemPlatform
+      };
 
     outputHash = hash;
     outputHashMode = "recursive";
@@ -90,8 +89,8 @@ runCommand "flutter-artifacts-${flutterPlatform}-${systemPlatform}"
         ) "--local-engine ${flutter.engine.outName}"
       } \
         -v '--${flutterPlatform}' ${
-          builtins.concatStringsSep " " (map (p: "'--no-${p}'") (lib.remove flutterPlatform flutterPlatforms))
-        }
+        builtins.concatStringsSep " " (map (p: "'--no-${p}'") (lib.remove flutterPlatform flutterPlatforms))
+      }
 
       rm -rf "$FLUTTER_ROOT/bin/cache/lockfile"
     ''

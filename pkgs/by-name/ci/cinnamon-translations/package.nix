@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gettext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cinnamon-translations";
   version = "6.4.2";
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
     description = "Translations files for the Cinnamon desktop";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

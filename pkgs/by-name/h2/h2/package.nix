@@ -6,7 +6,6 @@
   maven,
   nix-update-script,
 }:
-
 maven.buildMavenPackage rec {
   pname = "h2";
   version = "2.3.232";
@@ -26,7 +25,7 @@ maven.buildMavenPackage rec {
   mvnParameters = "-f h2/pom.xml";
   mvnHash = "sha256-ue1X0fswi3C9uqJ/cVCf/qd2XStMve1k1qA+IsREOGk=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   doCheck = false;
 

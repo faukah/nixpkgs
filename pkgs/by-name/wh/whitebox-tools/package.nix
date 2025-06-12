@@ -10,7 +10,6 @@
   openssl,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "whitebox_tools";
   version = "2.4.0";
@@ -39,13 +38,13 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://jblindsay.github.io/ghrg/WhiteboxTools/index.html";
     description = "Advanced geospatial data analysis platform";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mpickering ];
-    teams = [ lib.teams.geospatial ];
+    maintainers = with lib.maintainers; [mpickering];
+    teams = [lib.teams.geospatial];
   };
 }

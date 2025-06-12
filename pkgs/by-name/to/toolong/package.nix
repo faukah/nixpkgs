@@ -5,7 +5,6 @@
   testers,
   toolong,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "toolong";
   version = "1.4.0";
@@ -18,20 +17,20 @@ python3Packages.buildPythonApplication {
     hash = "sha256-HrmU7HxWKYrbV25Y5CHLw7/7tX8Y5mTsTL1aXGGTSIo=";
   };
 
-  build-system = [ python3Packages.poetry-core ];
+  build-system = [python3Packages.poetry-core];
   dependencies = with python3Packages; [
     click
     textual
     typing-extensions
   ];
 
-  pythonRelaxDeps = [ "textual" ];
+  pythonRelaxDeps = ["textual"];
 
-  pythonImportsCheck = [ "toolong" ];
+  pythonImportsCheck = ["toolong"];
   doCheck = false; # no tests
 
   # From https://github.com/Textualize/toolong/pull/63, also fixes https://github.com/NixOS/nixpkgs/issues/360671
-  patches = [ ./0001-log-view.patch ];
+  patches = [./0001-log-view.patch];
 
   passthru.tests.version = testers.testVersion {
     package = toolong;
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication {
     description = "Terminal application to view, tail, merge, and search log files (plus JSONL)";
     license = licenses.mit;
     homepage = "https://github.com/textualize/toolong";
-    maintainers = with maintainers; [ sigmanificient ];
+    maintainers = with maintainers; [sigmanificient];
     mainProgram = "tl";
   };
 }

@@ -11,7 +11,6 @@
   typepy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "SimpleSQLite";
   version = "1.5.4";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-PObyZmmECxp6keRymYFGi4Uf07yNHu6rUIqSrRx2bPE=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     dataproperty
@@ -35,13 +34,13 @@ buildPythonPackage rec {
     typepy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "simplesqlite" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["simplesqlite"];
 
   meta = with lib; {
     description = "Python library to simplify SQLite database operations";
     homepage = "https://github.com/thombashi/simplesqlite";
     license = licenses.mit;
-    maintainers = with maintainers; [ henrirosten ];
+    maintainers = with maintainers; [henrirosten];
   };
 }

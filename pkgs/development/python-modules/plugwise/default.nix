@@ -14,7 +14,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "plugwise";
   version = "1.7.4";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     sed -i -e "s/~=[0-9.]*//g" pyproject.toml
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "plugwise" ];
+  pythonImportsCheck = ["plugwise"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     description = "Python module for Plugwise Smiles, Stretch and USB stick";
     homepage = "https://github.com/plugwise/python-plugwise";
     changelog = "https://github.com/plugwise/python-plugwise/releases/tag/${src.tag}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

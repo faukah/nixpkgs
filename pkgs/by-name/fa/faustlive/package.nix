@@ -25,7 +25,6 @@
   qrencode,
   qt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "faustlive";
   version = "2.5.17";
@@ -95,6 +94,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://faust.grame.fr/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
   };
 }

@@ -2,13 +2,10 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # nativeCheckInputs
   hypothesis,
   unittestCheckHook,
-
 }:
-
 buildPythonPackage rec {
   pname = "rtp";
   version = "0.0.3";
@@ -30,12 +27,12 @@ buildPythonPackage rec {
     "-v"
   ];
 
-  pythonImportsCheck = [ "rtp" ];
+  pythonImportsCheck = ["rtp"];
 
   meta = with lib; {
     description = "Library for decoding/encoding rtp packets";
     homepage = "https://github.com/bbc/rd-apmm-python-lib-rtp";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fleaz ];
+    maintainers = with maintainers; [fleaz];
   };
 }

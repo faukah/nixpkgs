@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "robin-hood-hashing";
   version = "3.11.5"; # pin
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/martinus/robin-hood-hashing";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

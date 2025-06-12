@@ -1,11 +1,9 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   port = 61812;
-in
-{
+in {
   name = "misskey";
 
-  meta.maintainers = [ lib.maintainers.feathecutie ];
+  meta.maintainers = [lib.maintainers.feathecutie];
 
   nodes.machine = {
     services.misskey = {

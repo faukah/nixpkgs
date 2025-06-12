@@ -11,7 +11,6 @@
   setuptools,
   legacy-cgi,
 }:
-
 buildPythonPackage rec {
   pname = "ete3";
   version = "3.1.3";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
 
   doCheck = false; # Tests are (i) not 3.x compatible, (ii) broken under 2.7
 
-  pythonImportsCheck = [ "ete3" ];
+  pythonImportsCheck = ["ete3"];
 
   dependencies =
     [
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     mainProgram = "ete3";
     homepage = "http://etetoolkit.org/";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ delehef ];
+    maintainers = with lib.maintainers; [delehef];
   };
 }

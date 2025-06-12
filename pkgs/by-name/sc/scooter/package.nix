@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "scooter";
   version = "0.5.3";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/thomasschafer/scooter";
     changelog = "https://github.com/thomasschafer/scooter/commits/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ felixzieger ];
+    maintainers = with lib.maintainers; [felixzieger];
     mainProgram = "scooter";
   };
 }

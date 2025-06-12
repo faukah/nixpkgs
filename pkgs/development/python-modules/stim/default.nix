@@ -2,14 +2,11 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pybind11,
   setuptools,
-
   # dependencies
   numpy,
-
   # tests
   cirq-core,
   matplotlib,
@@ -19,7 +16,6 @@
   pytestCheckHook,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "stim";
   version = "1.15.0";
@@ -54,7 +50,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   nativeCheckInputs = [
     cirq-core
@@ -66,7 +62,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pythonImportsCheck = [ "stim" ];
+  pythonImportsCheck = ["stim"];
 
   enableParallelBuilding = true;
 
@@ -88,6 +84,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/quantumlib/stim";
     changelog = "https://github.com/quantumlib/Stim/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ chrispattison ];
+    maintainers = with lib.maintainers; [chrispattison];
   };
 }

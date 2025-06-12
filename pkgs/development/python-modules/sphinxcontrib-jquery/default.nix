@@ -8,7 +8,6 @@
   pytestCheckHook,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-jquery";
   version = "4.1";
@@ -35,9 +34,9 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  pythonImportsCheck = [ "sphinxcontrib.jquery" ];
+  pythonImportsCheck = ["sphinxcontrib.jquery"];
 
   dependencies = [
     sphinx
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     description = "Extension to include jQuery on newer Sphinx releases";
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sphinx-contrib/jquery";
     changelog = "https://github.com/sphinx-contrib/jquery/blob/v${version}/CHANGES.rst";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

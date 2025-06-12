@@ -13,7 +13,6 @@
   nifticlib,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "minc-tools";
   version = "2.3.06-unstable-2023-08-12";
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/BIC-MNI/minc-tools";
     description = "Command-line utilities for working with MINC files";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.free;
     broken = stdenv.hostPlatform.isDarwin;

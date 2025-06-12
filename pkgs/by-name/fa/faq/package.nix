@@ -5,7 +5,6 @@
   jq,
   oniguruma,
 }:
-
 buildGoModule rec {
   pname = "faq";
   # Latest git release (0.0.7) presents vendor issues - using latest commit instead.
@@ -45,6 +44,6 @@ buildGoModule rec {
     mainProgram = "faq";
     homepage = "https://github.com/jzelinskie/faq";
     license = licenses.asl20;
-    maintainers = with maintainers; [ quentin-m ];
+    maintainers = with maintainers; [quentin-m];
   };
 }

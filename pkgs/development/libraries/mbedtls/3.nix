@@ -1,5 +1,7 @@
-{ callPackage, fetchurl }:
-
+{
+  callPackage,
+  fetchurl,
+}:
 callPackage ./generic.nix {
   version = "3.6.3";
   hash = "sha256-FJuezgVTxzLRz0Jzk2XnSnpO5sTc8q6QgzkCwlqQ+EU=";

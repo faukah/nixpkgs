@@ -5,7 +5,6 @@
   git,
   git-filter-repo,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "git-relevant-history";
   version = "2022-09-15";
@@ -26,7 +25,7 @@ python3.pkgs.buildPythonApplication {
     homepage = "https://github.com/rainlabs-eu/git-relevant-history";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = [ maintainers.bendlas ];
+    maintainers = [maintainers.bendlas];
     mainProgram = "git-relevant-history";
   };
 }

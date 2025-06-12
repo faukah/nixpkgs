@@ -14,7 +14,6 @@
   pkg-config,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "schemes";
   version = "46.0";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     mainProgram = "schemes";
     homepage = "https://gitlab.gnome.org/chergert/schemes";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ _0xMRTT ];
+    maintainers = with maintainers; [_0xMRTT];
     platforms = platforms.linux;
   };
 }

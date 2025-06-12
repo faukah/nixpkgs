@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   aiofiles,
   aiohttp,
@@ -15,13 +13,11 @@
   jsonschema,
   pycryptodome,
   unpaddedbase64,
-
   # optional-dependencies
   atomicwrites,
   cachetools,
   peewee,
   python-olm,
-
   # tests
   aioresponses,
   faker,
@@ -31,17 +27,14 @@
   pytest-aiohttp,
   pytest-benchmark,
   pytestCheckHook,
-
   # passthru tests
   nixosTests,
   opsdroid,
   pantalaimon,
   weechatScripts,
   zulip,
-
   withOlm ? false,
 }:
-
 buildPythonPackage rec {
   pname = "matrix-nio";
   version = "0.25.2";
@@ -59,18 +52,20 @@ buildPythonPackage rec {
     ./allow-tests-without-olm.patch
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    aiofiles
-    aiohttp
-    aiohttp-socks
-    h11
-    h2
-    jsonschema
-    pycryptodome
-    unpaddedbase64
-  ] ++ lib.optionals withOlm optional-dependencies.e2e;
+  dependencies =
+    [
+      aiofiles
+      aiohttp
+      aiohttp-socks
+      h11
+      h2
+      jsonschema
+      pycryptodome
+      unpaddedbase64
+    ]
+    ++ lib.optionals withOlm optional-dependencies.e2e;
 
   optional-dependencies = {
     e2e = [
@@ -97,7 +92,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--benchmark-disable" ];
+  pytestFlagsArray = ["--benchmark-disable"];
 
   disabledTestPaths = lib.optionals (!withOlm) [
     "tests/encryption_test.py"
@@ -150,7 +145,8 @@ buildPythonPackage rec {
     ];
 
   passthru.tests = {
-    inherit (nixosTests)
+    inherit
+      (nixosTests)
       dendrite
       matrix-appservice-irc
       matrix-conduit

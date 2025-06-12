@@ -11,7 +11,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "setupmeta";
   version = "3.8.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     export PYGRADLE_PROJECT_VERSION=${version};
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     git
@@ -56,12 +55,12 @@ buildPythonPackage rec {
     "test_brand_new_project"
   ];
 
-  pythonImportsCheck = [ "setupmeta" ];
+  pythonImportsCheck = ["setupmeta"];
 
   meta = with lib; {
     description = "Python module to simplify setup.py files";
     homepage = "https://github.com/codrsquad/setupmeta";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

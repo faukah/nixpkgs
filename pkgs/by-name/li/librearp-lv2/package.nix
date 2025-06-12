@@ -18,7 +18,6 @@
   gcc-unwrapped,
   curl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "librearp-lv2";
   version = "2.4";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Pattern-based arpeggio generator plugin";
     homepage = "https://librearp.gitlab.io/";
     license = licenses.gpl3Plus;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ magnetophon ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [magnetophon];
   };
 })

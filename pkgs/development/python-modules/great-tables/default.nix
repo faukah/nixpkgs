@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   babel,
   commonmark,
@@ -17,7 +15,6 @@
   importlib-resources,
   numpy,
   typing-extensions,
-
   # tests
   ipykernel,
   ipython,
@@ -31,7 +28,6 @@
   shiny,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "great-tables";
   version = "0.17.0";
@@ -61,7 +57,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "great_tables" ];
+  pythonImportsCheck = ["great_tables"];
 
   nativeCheckInputs = [
     ipykernel
@@ -91,6 +87,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/posit-dev/great-tables";
     changelog = "https://github.com/posit-dev/great-tables/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

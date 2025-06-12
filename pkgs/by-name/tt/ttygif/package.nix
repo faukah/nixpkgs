@@ -6,7 +6,6 @@
   imagemagick,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ttygif";
   version = "1.6.0";
@@ -23,15 +22,15 @@ stdenv.mkDerivation rec {
     "PREFIX=${placeholder "out"}"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   postInstall = ''
     wrapProgram $out/bin/ttygif \
       --prefix PATH : ${
-        lib.makeBinPath [
-          imagemagick
-          xorg.xwd
-        ]
-      }
+      lib.makeBinPath [
+        imagemagick
+        xorg.xwd
+      ]
+    }
   '';
 
   meta = with lib; {
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Convert terminal recordings to animated gifs";
     platforms = platforms.unix;
     license = licenses.mit;
-    maintainers = with maintainers; [ moaxcp ];
+    maintainers = with maintainers; [moaxcp];
     mainProgram = "ttygif";
   };
 }

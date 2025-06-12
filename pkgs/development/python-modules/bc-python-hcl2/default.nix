@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "bc-python-hcl2";
   version = "0.4.2";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-rI/1n7m9Q36im4mn18UH/QoelXhFuumurGnyiSuNaB4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ lark ];
+  dependencies = [lark];
 
   # This fork of python-hcl2 doesn't ship tests
   doCheck = false;
 
-  pythonImportsCheck = [ "hcl2" ];
+  pythonImportsCheck = ["hcl2"];
 
   meta = with lib; {
     description = "Parser for HCL2 written in Python using Lark";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     # of another PyPi package (python-hcl2). But these two are different.
     homepage = "https://github.com/amplify-education/python-hcl2";
     license = licenses.mit;
-    maintainers = with maintainers; [ anhdle14 ];
+    maintainers = with maintainers; [anhdle14];
     mainProgram = "hcl2tojson";
   };
 }

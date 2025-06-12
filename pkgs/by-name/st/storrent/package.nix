@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "storrent";
   version = "unstable-2023-01-14";
@@ -28,6 +27,6 @@ buildGoModule {
     mainProgram = "storrent";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

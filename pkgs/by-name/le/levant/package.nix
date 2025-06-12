@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "levant";
   version = "0.3.3";
@@ -25,6 +24,6 @@ buildGoModule rec {
     mainProgram = "levant";
     homepage = "https://github.com/hashicorp/levant";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ max-niederman ];
+    maintainers = with maintainers; [max-niederman];
   };
 }

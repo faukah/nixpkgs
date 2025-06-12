@@ -4,7 +4,6 @@
   fetchFromGitHub,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ovh-ttyrec";
   version = "1.1.7.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-VTF9WLwAIWWn+W0sLQaoFBFro+pSXKwcTO6q6MW6JD8=";
   };
 
-  nativeBuildInputs = [ zstd ];
+  nativeBuildInputs = [zstd];
 
   installPhase = ''
     mkdir -p $out/{bin,man}

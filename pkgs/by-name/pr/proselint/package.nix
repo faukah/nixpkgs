@@ -4,7 +4,6 @@
   fetchFromGitHub,
   writableTmpDirAsHomeHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "proselint";
   version = "0.14.0";
@@ -17,16 +16,16 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-bI5gkckXUa640GOb5U5NW4i2op4fn0LKoPHFSIwbheM=";
   };
 
-  build-system = [ python3Packages.poetry-core ];
+  build-system = [python3Packages.poetry-core];
 
-  dependencies = [ python3Packages.click ];
+  dependencies = [python3Packages.click];
 
   nativeCheckInputs = [
     python3Packages.pytestCheckHook
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "proselint" ];
+  pythonImportsCheck = ["proselint"];
 
   meta = {
     description = "Linter for prose";
@@ -34,6 +33,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/amperser/proselint";
     changelog = "https://github.com/amperser/proselint/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.pbsds ];
+    maintainers = [lib.maintainers.pbsds];
   };
 }

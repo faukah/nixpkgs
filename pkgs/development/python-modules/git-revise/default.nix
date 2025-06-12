@@ -8,7 +8,6 @@
   fetchFromGitHub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "git-revise";
   version = "0.7.0-unstable-2025-01-28";
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/mystor/git-revise/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     mainProgram = "git-revise";
-    maintainers = with maintainers; [ _9999years ];
+    maintainers = with maintainers; [_9999years];
   };
 }

@@ -4,22 +4,18 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.zerotierone;
 
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   localConfFile = settingsFormat.generate "zt-local.conf" cfg.localConf;
   localConfFilePath = "/var/lib/zerotier-one/local.conf";
-in
-{
+in {
   options.services.zerotierone.enable = mkEnableOption "ZeroTierOne";
 
   options.services.zerotierone.joinNetworks = mkOption {
-    default = [ ];
-    example = [ "a8a2c3c10c1a68de" ];
+    default = [];
+    example = ["a8a2c3c10c1a68de"];
     type = types.listOf types.str;
     description = ''
       List of ZeroTier Network IDs to join on startup.
@@ -36,10 +32,10 @@ in
     '';
   };
 
-  options.services.zerotierone.package = mkPackageOption pkgs "zerotierone" { };
+  options.services.zerotierone.package = mkPackageOption pkgs "zerotierone" {};
 
   options.services.zerotierone.localConf = mkOption {
-    default = { };
+    default = {};
     description = ''
       Optional configuration to be written to the Zerotier JSON-based local.conf.
       If set, the configuration will be symlinked to `/var/lib/zerotier-one/local.conf` at build time.
@@ -55,11 +51,11 @@ in
     systemd.services.zerotierone = {
       description = "ZeroTierOne";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      wants = ["network-online.target"];
 
-      path = [ cfg.package ];
+      path = [cfg.package];
 
       preStart =
         ''
@@ -73,9 +69,10 @@ in
           fi
         ''
         + (concatMapStrings (netId: ''
-          touch "/var/lib/zerotier-one/networks.d/${netId}.conf"
-        '') cfg.joinNetworks)
-        + lib.optionalString (cfg.localConf != { }) ''
+            touch "/var/lib/zerotier-one/networks.d/${netId}.conf"
+          '')
+          cfg.joinNetworks)
+        + lib.optionalString (cfg.localConf != {}) ''
           # in case the user has applied manual changes to the local.conf, we backup the file
           if [ -f "${localConfFilePath}" ]; then
             mv ${localConfFilePath} ${localConfFilePath}.bak
@@ -92,12 +89,12 @@ in
     };
 
     # ZeroTier does not issue DHCP leases, but some strangers might...
-    networking.dhcpcd.denyInterfaces = [ "zt*" ];
+    networking.dhcpcd.denyInterfaces = ["zt*"];
 
     # ZeroTier receives UDP transmissions
-    networking.firewall.allowedUDPPorts = [ cfg.port ];
+    networking.firewall.allowedUDPPorts = [cfg.port];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # Prevent systemd from potentially changing the MAC address
     systemd.network.links."50-zerotier" = {

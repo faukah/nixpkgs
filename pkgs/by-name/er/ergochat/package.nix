@@ -4,7 +4,6 @@
   lib,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "ergo";
   version = "2.16.0";

@@ -9,7 +9,6 @@
   udev,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "interception-tools";
   version = "0.6.8";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/interception/linux/tools";
     changelog = "https://gitlab.com/interception/linux/tools/-/tags/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = [ lib.maintainers.vyp ];
+    maintainers = [lib.maintainers.vyp];
     platforms = lib.platforms.linux;
   };
 }

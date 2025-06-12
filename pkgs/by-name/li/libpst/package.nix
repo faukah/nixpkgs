@@ -11,7 +11,6 @@
   pkg-config,
   xmlto,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libpst";
   version = "0.6.76";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.five-ten-sg.com/libpst/";
     description = "Library to read PST (MS Outlook Personal Folders) files";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 })

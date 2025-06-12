@@ -5,7 +5,6 @@
   python3,
   pandoc,
 }:
-
 stdenv.mkDerivation {
   pname = "bgnet";
   # to be found in the Makefile
@@ -39,6 +38,6 @@ stdenv.mkDerivation {
     homepage = "https://beej.us/guide/bgnet/";
     license = lib.licenses.unfree;
 
-    maintainers = with lib.maintainers; [ Profpatsch ];
+    maintainers = with lib.maintainers; [Profpatsch];
   };
 }

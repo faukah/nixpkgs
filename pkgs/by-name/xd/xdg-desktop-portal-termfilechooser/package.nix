@@ -35,9 +35,9 @@ stdenv.mkDerivation (finalAttrs: {
     systemd
   ];
 
-  mesonFlags = [ "-Dsd-bus-provider=libsystemd" ];
+  mesonFlags = ["-Dsd-bus-provider=libsystemd"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "xdg-desktop-portal backend for choosing files with your favorite file chooser";

@@ -7,11 +7,10 @@
   cacert,
   git,
   caddy,
-}:
-
-let
+}: let
   inherit (builtins) hashString;
-  inherit (lib)
+  inherit
+    (lib)
     assertMsg
     concatMapStrings
     elemAt
@@ -24,106 +23,99 @@ let
     toShellVar
     ;
 in
+  # pkgs.caddy.withPlugins args
+  {
+    plugins,
+    hash ? fakeHash,
+  }: let
+    pluginsSorted = sort lessThan plugins;
+    pluginsList = concatMapStrings (plugin: "${plugin}-") pluginsSorted;
+    pluginsHash = hashString "md5" pluginsList;
+    pluginsWithoutVersion = filter (p: !hasInfix "@" p) pluginsSorted;
+  in
+    # eval barrier: user provided plugins must have tags
+    # the go module must either be tagged in upstream repo
+    # or user must provide commit sha or a pseudo-version number
+    # https://go.dev/doc/modules/version-numbers#pseudo-version-number
+    assert assertMsg (
+      length pluginsWithoutVersion == 0
+    ) "Plugins must have tags present (e.g. ${elemAt pluginsWithoutVersion 0}@x.y.z)!";
+      caddy.overrideAttrs (
+        finalAttrs: prevAttrs: {
+          vendorHash = null;
+          subPackages = ["."];
 
-# pkgs.caddy.withPlugins args
-{
-  plugins,
-  hash ? fakeHash,
-}:
+          src = stdenv.mkDerivation {
+            pname = "caddy-src-with-plugins-${pluginsHash}";
+            version = finalAttrs.version;
 
-let
-  pluginsSorted = sort lessThan plugins;
-  pluginsList = concatMapStrings (plugin: "${plugin}-") pluginsSorted;
-  pluginsHash = hashString "md5" pluginsList;
-  pluginsWithoutVersion = filter (p: !hasInfix "@" p) pluginsSorted;
-in
+            nativeBuildInputs = [
+              go
+              xcaddy
+              cacert
+              git
+            ];
+            dontUnpack = true;
+            buildPhase = let
+              withArgs = concatMapStrings (plugin: "--with ${plugin} ") pluginsSorted;
+            in ''
+              export GOCACHE=$TMPDIR/go-cache
+              export GOPATH="$TMPDIR/go"
+              XCADDY_SKIP_BUILD=1 TMPDIR="$PWD" xcaddy build v${finalAttrs.version} ${withArgs}
+              (cd buildenv* && go mod vendor)
+            '';
+            installPhase = ''
+              mv buildenv* $out
+            '';
 
-# eval barrier: user provided plugins must have tags
-# the go module must either be tagged in upstream repo
-# or user must provide commit sha or a pseudo-version number
-# https://go.dev/doc/modules/version-numbers#pseudo-version-number
-assert assertMsg (
-  length pluginsWithoutVersion == 0
-) "Plugins must have tags present (e.g. ${elemAt pluginsWithoutVersion 0}@x.y.z)!";
+            outputHashMode = "recursive";
+            outputHash = hash;
+            outputHashAlgo = "sha256";
+          };
 
-caddy.overrideAttrs (
-  finalAttrs: prevAttrs: {
-    vendorHash = null;
-    subPackages = [ "." ];
+          # xcaddy built output always uses pseudo-version number
+          # we enforce user provided plugins are present and have matching tags here
+          doInstallCheck = true;
+          installCheckPhase = ''
+            runHook preInstallCheck
 
-    src = stdenv.mkDerivation {
-      pname = "caddy-src-with-plugins-${pluginsHash}";
-      version = finalAttrs.version;
+            ${toShellVar "notfound" pluginsSorted}
 
-      nativeBuildInputs = [
-        go
-        xcaddy
-        cacert
-        git
-      ];
-      dontUnpack = true;
-      buildPhase =
-        let
-          withArgs = concatMapStrings (plugin: "--with ${plugin} ") pluginsSorted;
-        in
-        ''
-          export GOCACHE=$TMPDIR/go-cache
-          export GOPATH="$TMPDIR/go"
-          XCADDY_SKIP_BUILD=1 TMPDIR="$PWD" xcaddy build v${finalAttrs.version} ${withArgs}
-          (cd buildenv* && go mod vendor)
-        '';
-      installPhase = ''
-        mv buildenv* $out
-      '';
+            while read kind module version; do
+              [[ "$kind" = "dep" ]] || continue
+              module="''${module}@''${version}"
+              for i in "''${!notfound[@]}"; do
+                if [[ ''${notfound[i]} = ''${module} ]]; then
+                  unset 'notfound[i]'
+                fi
+              done
+            done < <($out/bin/caddy build-info)
 
-      outputHashMode = "recursive";
-      outputHash = hash;
-      outputHashAlgo = "sha256";
-    };
+            if (( ''${#notfound[@]} )); then
+              for plugin in "''${notfound[@]}"; do
+                base=''${plugin%@*}
+                specified=''${plugin#*@}
+                found=0
 
-    # xcaddy built output always uses pseudo-version number
-    # we enforce user provided plugins are present and have matching tags here
-    doInstallCheck = true;
-    installCheckPhase = ''
-      runHook preInstallCheck
+                while read kind module expected; do
+                  [[ "$kind" = "dep" && "$module" = "$base" ]] || continue
+                  echo "Plugin \"$base\" have incorrect tag:"
+                  echo "  specified: \"$base@$specified\""
+                  echo "  got: \"$base@$expected\""
+                  found=1
+                done < <($out/bin/caddy build-info)
 
-      ${toShellVar "notfound" pluginsSorted}
+                if (( found == 0 )); then
+                  echo "Plugin \"$base\" not found in build:"
+                  echo "  specified: \"$base@$specified\""
+                  echo "  plugin does not exist in the xcaddy build output, open an issue in nixpkgs or upstream"
+                fi
+              done
 
-      while read kind module version; do
-        [[ "$kind" = "dep" ]] || continue
-        module="''${module}@''${version}"
-        for i in "''${!notfound[@]}"; do
-          if [[ ''${notfound[i]} = ''${module} ]]; then
-            unset 'notfound[i]'
-          fi
-        done
-      done < <($out/bin/caddy build-info)
+              exit 1
+            fi
 
-      if (( ''${#notfound[@]} )); then
-        for plugin in "''${notfound[@]}"; do
-          base=''${plugin%@*}
-          specified=''${plugin#*@}
-          found=0
-
-          while read kind module expected; do
-            [[ "$kind" = "dep" && "$module" = "$base" ]] || continue
-            echo "Plugin \"$base\" have incorrect tag:"
-            echo "  specified: \"$base@$specified\""
-            echo "  got: \"$base@$expected\""
-            found=1
-          done < <($out/bin/caddy build-info)
-
-          if (( found == 0 )); then
-            echo "Plugin \"$base\" not found in build:"
-            echo "  specified: \"$base@$specified\""
-            echo "  plugin does not exist in the xcaddy build output, open an issue in nixpkgs or upstream"
-          fi
-        done
-
-        exit 1
-      fi
-
-      runHook postInstallCheck
-    '';
-  }
-)
+            runHook postInstallCheck
+          '';
+        }
+      )

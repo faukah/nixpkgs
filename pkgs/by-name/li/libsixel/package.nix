@@ -7,7 +7,6 @@
   gdk-pixbuf,
   gd,
   pkg-config,
-
   # Enable linking against image loading libraries as part of the
   # implementation of the sixel_helper_{load,write}_image_file() functions.
   # These helper functions are not needed for the main functionality of the
@@ -21,7 +20,6 @@
   # Default off, but configurable in case you really need it.
   withGd ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libsixel";
   version = "1.10.5";
@@ -63,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "SIXEL library for console graphics, and converter programs";
     homepage = "https://github.com/libsixel/libsixel";
-    maintainers = with lib.maintainers; [ hzeller ];
+    maintainers = with lib.maintainers; [hzeller];
     license = licenses.mit;
     platforms = platforms.unix;
   };

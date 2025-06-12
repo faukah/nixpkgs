@@ -17,7 +17,6 @@
   cudaPackages,
   addDriverRunpath,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openmm";
   version = "8.2.0";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableCuda addDriverRunpath;
 
   buildInputs =
-    [ fftwSinglePrec ]
+    [fftwSinglePrec]
     ++ lib.optionals enableOpencl [
       ocl-icd
       opencl-headers
@@ -61,8 +60,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableCuda cudaPackages.cudatoolkit;
 
   propagatedBuildInputs = lib.optionals enablePython (
-    with python3Packages;
-    [
+    with python3Packages; [
       setuptools
       python
       numpy
@@ -126,6 +124,6 @@ stdenv.mkDerivation rec {
       mit
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

@@ -5,7 +5,6 @@
   makeWrapper,
   maven,
 }:
-
 maven.buildMavenPackage rec {
   pname = "j-mc-2-obj";
   version = "126";
@@ -21,7 +20,7 @@ maven.buildMavenPackage rec {
 
   mvnParameters = "-Dmaven.gitcommitid.skip=true";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -38,7 +37,7 @@ maven.buildMavenPackage rec {
     description = "Java-based Minecraft-to-OBJ exporter";
     homepage = "https://github.com/jmc2obj/j-mc-2-obj";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ eymeric ];
+    maintainers = with lib.maintainers; [eymeric];
     mainProgram = "jMc2Obj";
   };
 }

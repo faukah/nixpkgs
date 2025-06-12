@@ -6,7 +6,6 @@
   stdenv,
   alsa-lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "glicol-cli";
   version = "0.2.0";
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/glicol/glicol-cli";
     changelog = "https://github.com/glicol/glicol-cli/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "glicol-cli";
   };
 }

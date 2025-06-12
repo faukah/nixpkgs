@@ -13,7 +13,6 @@
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemdMinimal,
   systemdMinimal,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.5.2";
   pname = "ppp";
@@ -92,6 +91,6 @@ stdenv.mkDerivation rec {
       lgpl2
     ];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ stv0g ];
+    maintainers = with lib.maintainers; [stv0g];
   };
 }

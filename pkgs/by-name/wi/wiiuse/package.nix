@@ -7,7 +7,6 @@
   bluez,
 }:
 stdenv.mkDerivation rec {
-
   pname = "WiiUse";
   version = "0.15.6";
 
@@ -35,22 +34,24 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ bluez ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [bluez];
 
-  propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ bluez ];
+  propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [bluez];
 
-  cmakeFlags = [
-    "-DBUILD_EXAMPLE_SDL=OFF"
-  ] ++ [ (lib.cmakeBool "BUILD_SHARED_LIBS" (!stdenv.hostPlatform.isStatic)) ];
+  cmakeFlags =
+    [
+      "-DBUILD_EXAMPLE_SDL=OFF"
+    ]
+    ++ [(lib.cmakeBool "BUILD_SHARED_LIBS" (!stdenv.hostPlatform.isStatic))];
 
   meta = with lib; {
     description = "Feature complete cross-platform Wii Remote access library";
     mainProgram = "wiiuseexample";
     license = licenses.gpl3Plus;
     homepage = "https://github.com/wiiuse/wiiuse";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = with platforms; unix;
   };
 }

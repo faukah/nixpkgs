@@ -8,7 +8,6 @@
   pythonOlder,
   pyusb,
 }:
-
 buildPythonPackage rec {
   pname = "nxt-python";
   version = "3.5.1";
@@ -23,23 +22,23 @@ buildPythonPackage rec {
     hash = "sha256-ffJ7VhXT5I7i5JYfnjFBaud0CxoVBFWx6kRdAz+Ry00=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ pyusb ];
+  dependencies = [pyusb];
 
   optional-dependencies = {
-    bluetooth = [ pybluez ];
+    bluetooth = [pybluez];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "nxt" ];
+  pythonImportsCheck = ["nxt"];
 
   meta = with lib; {
     description = "Python driver/interface for Lego Mindstorms NXT robot";
     homepage = "https://github.com/schodet/nxt-python";
     changelog = "https://github.com/schodet/nxt-python/releases/tag/${src.tag}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ibizaman ];
+    maintainers = with maintainers; [ibizaman];
   };
 }

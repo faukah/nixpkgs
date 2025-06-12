@@ -16,7 +16,6 @@
   pkg-config,
   xorgproto,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hackedbox";
   version = "0.8.5.1";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Bastard hacked offspring of Blackbox";
     homepage = "https://github.com/museoa/hackedbox/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     inherit (libX11.meta) platforms;
   };
 })

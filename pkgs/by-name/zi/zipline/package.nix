@@ -12,9 +12,7 @@
   versionCheckHook,
   nix-update-script,
   nixosTests,
-}:
-
-let
+}: let
   environment = {
     NEXT_TELEMETRY_DISABLED = "1";
     FFMPEG_PATH = lib.getExe ffmpeg;
@@ -26,93 +24,92 @@ let
     PRISMA_FMT_BINARY = lib.getExe' prisma-engines "prisma-fmt";
   };
 in
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "zipline";
+    version = "4.1.2";
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "zipline";
-  version = "4.1.2";
+    src = fetchFromGitHub {
+      owner = "diced";
+      repo = "zipline";
+      tag = "v${finalAttrs.version}";
+      hash = "sha256-xxe64tGxZ2Udr+p21CKTZCHJ19ZOsdgPLlil+v+j5j4=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "diced";
-    repo = "zipline";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-xxe64tGxZ2Udr+p21CKTZCHJ19ZOsdgPLlil+v+j5j4=";
-  };
+    pnpmDeps = pnpm_10.fetchDeps {
+      inherit (finalAttrs) pname version src;
+      hash = "sha256-O8RLaKff4Dj/JDeUOyf7GtcFcOu/aOuclyaZmVqVi5s=";
+    };
 
-  pnpmDeps = pnpm_10.fetchDeps {
-    inherit (finalAttrs) pname version src;
-    hash = "sha256-O8RLaKff4Dj/JDeUOyf7GtcFcOu/aOuclyaZmVqVi5s=";
-  };
+    buildInputs = [vips];
 
-  buildInputs = [ vips ];
+    nativeBuildInputs = [
+      pnpm_10.configHook
+      nodejs_24
+      makeWrapper
+    ];
 
-  nativeBuildInputs = [
-    pnpm_10.configHook
-    nodejs_24
-    makeWrapper
-  ];
+    env = environment;
 
-  env = environment;
+    buildPhase = ''
+      runHook preBuild
 
-  buildPhase = ''
-    runHook preBuild
+      pnpm build
 
-    pnpm build
+      runHook postBuild
+    '';
 
-    runHook postBuild
-  '';
+    installPhase = ''
+      runHook preInstall
 
-  installPhase = ''
-    runHook preInstall
+      mkdir -p $out/{bin,share/zipline}
 
-    mkdir -p $out/{bin,share/zipline}
+      cp -r build generated node_modules prisma .next mimes.json code.json package.json $out/share/zipline
 
-    cp -r build generated node_modules prisma .next mimes.json code.json package.json $out/share/zipline
+      mkBin() {
+        makeWrapper ${lib.getExe nodejs_24} "$out/bin/$1" \
+          --chdir "$out/share/zipline" \
+          --set NODE_ENV production \
+          --prefix PATH : ${lib.makeBinPath [openssl]} \
+          --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [openssl]} \
+          ${
+        lib.concatStringsSep " " (
+          lib.mapAttrsToList (name: value: "--set ${name} ${lib.escapeShellArg value}") environment
+        )
+      } \
+          --add-flags "--enable-source-maps build/$2"
+      }
 
-    mkBin() {
-      makeWrapper ${lib.getExe nodejs_24} "$out/bin/$1" \
-        --chdir "$out/share/zipline" \
-        --set NODE_ENV production \
-        --prefix PATH : ${lib.makeBinPath [ openssl ]} \
-        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ openssl ]} \
-        ${
-          lib.concatStringsSep " " (
-            lib.mapAttrsToList (name: value: "--set ${name} ${lib.escapeShellArg value}") environment
-          )
-        } \
-        --add-flags "--enable-source-maps build/$2"
-    }
+      mkBin zipline server
+      mkBin ziplinectl ctl
 
-    mkBin zipline server
-    mkBin ziplinectl ctl
+      runHook postInstall
+    '';
 
-    runHook postInstall
-  '';
+    preFixup = ''
+      find $out -name libvips-cpp.so.42 -print0 | while read -d $'\0' libvips; do
+        echo replacing libvips at $libvips
+        rm $libvips
+        ln -s ${lib.getLib vips}/lib/libvips-cpp.so.42 $libvips
+      done
+    '';
 
-  preFixup = ''
-    find $out -name libvips-cpp.so.42 -print0 | while read -d $'\0' libvips; do
-      echo replacing libvips at $libvips
-      rm $libvips
-      ln -s ${lib.getLib vips}/lib/libvips-cpp.so.42 $libvips
-    done
-  '';
+    nativeInstallCheckInputs = [versionCheckHook];
+    versionCheckProgram = "${placeholder "out"}/bin/ziplinectl";
+    versionCheckProgramArg = "--version";
+    doInstallCheck = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
-  versionCheckProgram = "${placeholder "out"}/bin/ziplinectl";
-  versionCheckProgramArg = "--version";
-  doInstallCheck = true;
+    passthru = {
+      inherit prisma-engines;
+      tests = {inherit (nixosTests) zipline;};
+      updateScript = nix-update-script {};
+    };
 
-  passthru = {
-    inherit prisma-engines;
-    tests = { inherit (nixosTests) zipline; };
-    updateScript = nix-update-script { };
-  };
-
-  meta = {
-    description = "ShareX/file upload server that is easy to use, packed with features, and with an easy setup";
-    changelog = "https://github.com/diced/zipline/releases/tag/v${finalAttrs.version}";
-    homepage = "https://zipline.diced.sh/";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ defelo ];
-    mainProgram = "zipline";
-  };
-})
+    meta = {
+      description = "ShareX/file upload server that is easy to use, packed with features, and with an easy setup";
+      changelog = "https://github.com/diced/zipline/releases/tag/v${finalAttrs.version}";
+      homepage = "https://zipline.diced.sh/";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [defelo];
+      mainProgram = "zipline";
+    };
+  })

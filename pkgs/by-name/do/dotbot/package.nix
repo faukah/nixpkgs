@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "dotbot";
   version = "1.21.0";
@@ -20,11 +19,11 @@ python3Packages.buildPythonApplication rec {
     patchShebangs bin/dotbot
   '';
 
-  build-system = with python3Packages; [ hatchling ];
+  build-system = with python3Packages; [hatchling];
 
-  dependencies = with python3Packages; [ pyyaml ];
+  dependencies = with python3Packages; [pyyaml];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [pytestCheckHook];
 
   meta = {
     description = "Tool that bootstraps your dotfiles";
@@ -39,6 +38,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/anishathalye/dotbot";
     changelog = "https://github.com/anishathalye/dotbot/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ludat ];
+    maintainers = with lib.maintainers; [ludat];
   };
 }

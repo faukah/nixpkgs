@@ -6,7 +6,6 @@
   typing-extensions,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "housekeeping";
   version = "1.1";
@@ -19,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-hRWZSRoXscjkUm0NUpkM6pKEdoirN6ZmpjWlNgoyCVY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ typing-extensions ];
+  dependencies = [typing-extensions];
 
-  pythonImportsCheck = [ "housekeeping" ];
+  pythonImportsCheck = ["housekeeping"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Reusable deprecation helpers for Python projects";
     homepage = "https://github.com/beanbaginc/housekeeping";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 }

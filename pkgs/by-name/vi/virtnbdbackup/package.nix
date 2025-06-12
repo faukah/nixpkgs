@@ -4,7 +4,6 @@
   python3Packages,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "virtnbdbackup";
   version = "2.29";
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/abbbi/virtnbdbackup";
     changelog = "https://github.com/abbbi/virtnbdbackup/releases/tag/${src.tag}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "virtnbdbackup";
   };
 }

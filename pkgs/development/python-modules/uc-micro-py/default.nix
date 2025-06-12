@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "uc-micro-py";
   version = "1.0.3";
@@ -21,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-Z7XHWeV5I/y19EKg4lzcl9pwRexWnSQ7d8CpQu5xdnI=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "uc_micro" ];
+  pythonImportsCheck = ["uc_micro"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Micro subset of unicode data files for linkify-it-py";
     homepage = "https://github.com/tsutsu3/uc.micro-py";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

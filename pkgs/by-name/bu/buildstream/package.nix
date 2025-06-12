@@ -2,19 +2,16 @@
   lib,
   python3Packages,
   fetchFromGitHub,
-
   # buildInputs
   buildbox,
   fuse3,
   lzip,
   patch,
-
   # tests
   addBinToPathHook,
   gitMinimal,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "buildstream";
   version = "2.4.1";
@@ -59,7 +56,7 @@ python3Packages.buildPythonApplication rec {
     patch
   ];
 
-  pythonImportsCheck = [ "buildstream" ];
+  pythonImportsCheck = ["buildstream"];
 
   nativeCheckInputs = [
     addBinToPathHook
@@ -111,6 +108,6 @@ python3Packages.buildPythonApplication rec {
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
     mainProgram = "bst";
-    maintainers = with lib.maintainers; [ shymega ];
+    maintainers = with lib.maintainers; [shymega];
   };
 }

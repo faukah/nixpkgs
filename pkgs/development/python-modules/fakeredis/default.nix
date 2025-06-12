@@ -15,7 +15,6 @@
   redisTestHook,
   sortedcontainers,
 }:
-
 buildPythonPackage rec {
   pname = "fakeredis";
   version = "2.26.2";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-jD0e04ltH1MjExfrPsR6LUn4X0/qoJZWzX9i2A58HHI=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     redis
@@ -38,11 +37,11 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    lua = [ lupa ];
-    json = [ jsonpath-ng ];
-    bf = [ pyprobables ];
-    cf = [ pyprobables ];
-    probabilistic = [ pyprobables ];
+    lua = [lupa];
+    json = [jsonpath-ng];
+    bf = [pyprobables];
+    cf = [pyprobables];
+    probabilistic = [pyprobables];
   };
 
   nativeCheckInputs = [
@@ -53,9 +52,9 @@ buildPythonPackage rec {
     redisTestHook
   ];
 
-  pythonImportsCheck = [ "fakeredis" ];
+  pythonImportsCheck = ["fakeredis"];
 
-  pytestFlagsArray = [ "-m 'not slow'" ];
+  pytestFlagsArray = ["-m 'not slow'"];
 
   preCheck = ''
     redisTestPort=6390
@@ -65,7 +64,7 @@ buildPythonPackage rec {
     description = "Fake implementation of Redis API";
     homepage = "https://github.com/dsoftwareinc/fakeredis-py";
     changelog = "https://github.com/cunla/fakeredis-py/releases/tag/v${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

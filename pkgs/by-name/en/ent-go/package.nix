@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "ent-go";
   version = "0.14.3";
@@ -18,14 +17,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-ec5tA9TsDKGnHVZWilLj7bdHrd46uQcNQ8YCK/s6UAY=";
 
-  subPackages = [ "cmd/ent" ];
+  subPackages = ["cmd/ent"];
 
   ldflags = [
     "-s"
     "-w"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd ent \
@@ -40,7 +39,7 @@ buildGoModule rec {
     changelog = "https://github.com/ent/ent/releases/tag/v${version}";
     downloadPage = "https://github.com/ent/ent";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "ent";
   };
 }

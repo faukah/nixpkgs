@@ -5,7 +5,6 @@
   jamo,
   nltk,
 }:
-
 buildPythonPackage rec {
   pname = "g2pkk";
   version = "0.1.2";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     nltk
   ];
 
-  pythonImportsCheck = [ "g2pkk" ];
+  pythonImportsCheck = ["g2pkk"];
 
   doCheck = false;
 
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     description = "Cross-platform g2p for Korean";
     homepage = "https://github.com/harmlessman/g2pkk";
     license = licenses.asl20;
-    teams = [ teams.tts ];
+    teams = [teams.tts];
   };
 }

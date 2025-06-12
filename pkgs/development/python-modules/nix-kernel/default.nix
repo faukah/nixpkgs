@@ -8,7 +8,6 @@
   notebook,
   nix,
 }:
-
 buildPythonPackage {
   pname = "nix-kernel";
   version = "unstable-2020-04-26";
@@ -32,7 +31,7 @@ buildPythonPackage {
       --replace-fail "cmdclass={'install': install_with_kernelspec}," ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pexpect
@@ -42,12 +41,12 @@ buildPythonPackage {
   # no tests in repo
   doCheck = false;
 
-  pythonImportsCheck = [ "nix-kernel" ];
+  pythonImportsCheck = ["nix-kernel"];
 
   meta = with lib; {
     description = "Simple jupyter kernel for nix-repl";
     homepage = "https://github.com/GTrunSec/nix-kernel";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

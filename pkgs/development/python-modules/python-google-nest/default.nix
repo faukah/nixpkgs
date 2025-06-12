@@ -5,7 +5,6 @@
   pythonOlder,
   requests-oauthlib,
 }:
-
 buildPythonPackage rec {
   pname = "python-google-nest";
   version = "5.2.1";
@@ -18,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-qL4Qk2NW41Sb9raF0vnEb04w3uyaWPauDnNY+DvnNgQ=";
   };
 
-  propagatedBuildInputs = [ requests-oauthlib ];
+  propagatedBuildInputs = [requests-oauthlib];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "nest" ];
+  pythonImportsCheck = ["nest"];
 
   meta = with lib; {
     description = "Python API and command line tool for talking to Nest thermostats";
     homepage = "https://github.com/axlan/python-nest/";
     license = licenses.cc-by-nc-sa-30;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

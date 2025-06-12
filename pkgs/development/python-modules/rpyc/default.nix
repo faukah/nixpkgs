@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "rpyc";
   version = "6.0.1";
@@ -23,11 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-ZYGOwg2IJtVVxHV2hC3inliTLP4BBFOnOz7VPhRpcgg=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ plumbum ];
+  dependencies = [plumbum];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export PYTHONPATH=$(pwd)/tests:$PYTHONPATH
@@ -57,7 +56,7 @@ buildPythonPackage rec {
     "tests/test_magic.py"
   ];
 
-  pythonImportsCheck = [ "rpyc" ];
+  pythonImportsCheck = ["rpyc"];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
@@ -65,7 +64,7 @@ buildPythonPackage rec {
     description = "Remote Python Call (RPyC), a transparent and symmetric RPC library";
     homepage = "https://rpyc.readthedocs.org";
     changelog = "https://github.com/tomerfiliba-org/rpyc/blob/${version}/CHANGELOG.rst";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

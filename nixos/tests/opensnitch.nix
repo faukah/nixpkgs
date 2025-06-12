@@ -1,23 +1,25 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   monitorMethods = [
     "ebpf"
     "proc"
     "ftrace"
     "audit"
   ];
-in
-{
+in {
   name = "opensnitch";
 
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ onny ];
+    maintainers = [onny];
   };
 
   nodes =
     {
       server = {
-        networking.firewall.allowedTCPPorts = [ 80 ];
+        networking.firewall.allowedTCPPorts = [80];
         services.caddy = {
           enable = true;
           virtualHosts."localhost".extraConfig = ''
@@ -29,40 +31,42 @@ in
     // (lib.listToAttrs (
       map (
         m:
-        lib.nameValuePair "client_blocked_${m}" {
-          services.opensnitch = {
-            enable = true;
-            settings.DefaultAction = "deny";
-            settings.ProcMonitorMethod = m;
-          };
-        }
-      ) monitorMethods
+          lib.nameValuePair "client_blocked_${m}" {
+            services.opensnitch = {
+              enable = true;
+              settings.DefaultAction = "deny";
+              settings.ProcMonitorMethod = m;
+            };
+          }
+      )
+      monitorMethods
     ))
     // (lib.listToAttrs (
       map (
         m:
-        lib.nameValuePair "client_allowed_${m}" {
-          services.opensnitch = {
-            enable = true;
-            settings.DefaultAction = "deny";
-            settings.ProcMonitorMethod = m;
-            rules = {
-              curl = {
-                name = "curl";
-                enabled = true;
-                action = "allow";
-                duration = "always";
-                operator = {
-                  type = "simple";
-                  sensitive = false;
-                  operand = "process.path";
-                  data = "${pkgs.curl}/bin/curl";
+          lib.nameValuePair "client_allowed_${m}" {
+            services.opensnitch = {
+              enable = true;
+              settings.DefaultAction = "deny";
+              settings.ProcMonitorMethod = m;
+              rules = {
+                curl = {
+                  name = "curl";
+                  enabled = true;
+                  action = "allow";
+                  duration = "always";
+                  operator = {
+                    type = "simple";
+                    sensitive = false;
+                    operand = "process.path";
+                    data = "${pkgs.curl}/bin/curl";
+                  };
                 };
               };
             };
-          };
-        }
-      ) monitorMethods
+          }
+      )
+      monitorMethods
     ));
 
   testScript =
@@ -78,6 +82,7 @@ in
 
         client_allowed_${m}.wait_for_unit("opensnitchd.service")
         client_allowed_${m}.succeed("curl http://server")
-      '') monitorMethods
+      '')
+      monitorMethods
     );
 }

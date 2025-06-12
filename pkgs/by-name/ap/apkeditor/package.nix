@@ -3,59 +3,55 @@
   stdenv,
   fetchFromGitHub,
   callPackage,
-
   jre,
   gradle,
   makeWrapper,
-}:
+}: let
+  REAndroidLibrary = args: let
+    inherit (args) pname version projectName;
+    outJar = "share/${projectName}/${projectName}.jar";
+    self = stdenv.mkDerivation (
+      {
+        __darwinAllowLocalNetworking = true;
 
-let
-  REAndroidLibrary =
-    args:
-    let
-      inherit (args) pname version projectName;
-      outJar = "share/${projectName}/${projectName}.jar";
-      self = stdenv.mkDerivation (
-        {
-          __darwinAllowLocalNetworking = true;
+        buildInputs = [jre];
+        nativeBuildInputs = [gradle];
 
-          buildInputs = [ jre ];
-          nativeBuildInputs = [ gradle ];
+        gradleFlags = ["-Dfile.encoding=utf-8"];
+        gradleBuildTask = "jar";
+        doCheck = true;
 
-          gradleFlags = [ "-Dfile.encoding=utf-8" ];
-          gradleBuildTask = "jar";
-          doCheck = true;
-
-          inherit outJar;
-          installPhase = ''
-            runHook preInstall
-            install -Dm644 build/libs/*.jar $out/${outJar}
-            runHook postInstall
-          '';
-        }
-        // args
-        // {
-          meta = {
+        inherit outJar;
+        installPhase = ''
+          runHook preInstall
+          install -Dm644 build/libs/*.jar $out/${outJar}
+          runHook postInstall
+        '';
+      }
+      // args
+      // {
+        meta =
+          {
             sourceProvenance = with lib.sourceTypes; [
               fromSource
               binaryBytecode # mitm cache
             ];
-          } // args.meta;
-        }
-      );
-    in
+          }
+          // args.meta;
+      }
+    );
+  in
     self;
 
-  arsclib = callPackage ./arsclib { inherit REAndroidLibrary; };
-  smali = callPackage ./smali { inherit REAndroidLibrary; };
-  jcommand = callPackage ./jcommand { inherit REAndroidLibrary; };
+  arsclib = callPackage ./arsclib {inherit REAndroidLibrary;};
+  smali = callPackage ./smali {inherit REAndroidLibrary;};
+  jcommand = callPackage ./jcommand {inherit REAndroidLibrary;};
 
-  apkeditor =
-    let
-      pname = "apkeditor";
-      version = "1.4.1";
-      projectName = "APKEditor";
-    in
+  apkeditor = let
+    pname = "apkeditor";
+    version = "1.4.1";
+    projectName = "APKEditor";
+  in
     REAndroidLibrary {
       inherit pname version projectName;
 
@@ -100,11 +96,11 @@ let
 
       meta = {
         description = "Powerful android apk resources editor";
-        maintainers = with lib.maintainers; [ ulysseszhan ];
+        maintainers = with lib.maintainers; [ulysseszhan];
         license = lib.licenses.asl20;
         platforms = lib.platforms.all;
         mainProgram = "APKEditor";
       };
     };
 in
-apkeditor
+  apkeditor

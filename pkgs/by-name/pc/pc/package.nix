@@ -5,7 +5,6 @@
   fetchFromSourcehut,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pc";
   version = "0.6";
@@ -17,8 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-hmFzFaBMb/hqKqc+2hYda1+iowWhs/pC+6LPPhhqzJo=";
   };
 
-  nativeBuildInputs = [ byacc ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  nativeBuildInputs = [byacc];
+  makeFlags = ["PREFIX=$(out)"];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.hostPlatform.isDarwin [
@@ -30,13 +29,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Programmer's calculator";
     homepage = "https://git.sr.ht/~ft/pc";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ moody ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [moody];
     platforms = lib.platforms.unix;
     mainProgram = "pc";
   };

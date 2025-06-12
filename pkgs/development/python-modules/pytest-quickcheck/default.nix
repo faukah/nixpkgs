@@ -6,7 +6,6 @@
   pytestCheckHook,
   pytest-flakes,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-quickcheck";
   version = "0.9.0";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-UFF8ldnaImXU6al4kGjf720mbwXE6Nut9VlvNVrMVoY=";
   };
 
-  propagatedBuildInputs = [ pytest ];
+  propagatedBuildInputs = [pytest];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     license = licenses.asl20;
     homepage = "https://pypi.python.org/pypi/pytest-quickcheck";
     description = "pytest plugin to generate random data inspired by QuickCheck";
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

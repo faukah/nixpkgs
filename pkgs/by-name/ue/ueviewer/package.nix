@@ -11,7 +11,6 @@
   SDL2,
   zlib,
 }:
-
 gccStdenv.mkDerivation (finalAttrs: {
   pname = "ueviewer";
   version = "0-unstable-2024-02-23";
@@ -97,7 +96,7 @@ gccStdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.gildor.org/en/projects/umodel";
     license = licenses.mit;
     mainProgram = "umodel";
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     # Hardcoded usage of SSE2
     platforms = platforms.x86;
   };

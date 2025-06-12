@@ -4,33 +4,30 @@
   lib,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.clight;
 
-  toConf =
-    v:
-    if builtins.isFloat v then
-      toString v
-    else if isInt v then
-      toString v
-    else if isBool v then
-      boolToString v
-    else if isString v then
-      ''"${escape [ ''"'' ] v}"''
-    else if isList v then
-      "[ " + concatMapStringsSep ", " toConf v + " ]"
-    else if isAttrs v then
-      "\n{\n" + convertAttrs v + "\n}"
-    else
-      abort "clight.toConf: unexpected type (v = ${v})";
+  toConf = v:
+    if builtins.isFloat v
+    then toString v
+    else if isInt v
+    then toString v
+    else if isBool v
+    then boolToString v
+    else if isString v
+    then ''"${escape [''"''] v}"''
+    else if isList v
+    then "[ " + concatMapStringsSep ", " toConf v + " ]"
+    else if isAttrs v
+    then "\n{\n" + convertAttrs v + "\n}"
+    else abort "clight.toConf: unexpected type (v = ${v})";
 
-  getSep = v: if isAttrs v then ":" else "=";
+  getSep = v:
+    if isAttrs v
+    then ":"
+    else "=";
 
-  convertAttrs =
-    attrs:
+  convertAttrs = attrs:
     concatStringsSep "\n" (
       mapAttrsToList (name: value: "${toString name} ${getSep value} ${toConf value};") attrs
     );
@@ -38,8 +35,7 @@ let
   clightConf = pkgs.writeText "clight.conf" (
     convertAttrs (filterAttrs (_: value: value != null) cfg.settings)
   );
-in
-{
+in {
   options.services.clight = {
     enable = mkEnableOption "clight";
 
@@ -62,26 +58,23 @@ in
       };
     };
 
-    settings =
-      let
-        validConfigTypes =
-          with types;
-          oneOf [
-            int
-            str
-            bool
-            float
-          ];
-        collectionTypes =
-          with types;
-          oneOf [
-            validConfigTypes
-            (listOf validConfigTypes)
-          ];
-      in
+    settings = let
+      validConfigTypes = with types;
+        oneOf [
+          int
+          str
+          bool
+          float
+        ];
+      collectionTypes = with types;
+        oneOf [
+          validConfigTypes
+          (listOf validConfigTypes)
+        ];
+    in
       mkOption {
         type = with types; attrsOf (nullOr (either collectionTypes (attrsOf collectionTypes)));
-        default = { };
+        default = {};
         example = {
           captures = 20;
           gamma_long_transition = true;
@@ -100,22 +93,20 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions =
-      let
-        inRange =
-          v: l: r:
-          v >= l && v <= r;
-      in
-      [
-        {
-          assertion =
-            config.location.provider == "manual"
-            -> inRange config.location.latitude (-90) 90 && inRange config.location.longitude (-180) 180;
-          message = "You must specify a valid latitude and longitude if manually providing location";
-        }
-      ];
+    assertions = let
+      inRange = v: l: r:
+        v >= l && v <= r;
+    in [
+      {
+        assertion =
+          config.location.provider
+          == "manual"
+          -> inRange config.location.latitude (-90) 90 && inRange config.location.longitude (-180) 180;
+        message = "You must specify a valid latitude and longitude if manually providing location";
+      }
+    ];
 
-    boot.kernelModules = [ "i2c_dev" ];
+    boot.kernelModules = ["i2c_dev"];
     environment.systemPackages = with pkgs; [
       clight
       clightd
@@ -128,8 +119,7 @@ in
 
     services.clight.settings =
       {
-        gamma.temp =
-          with cfg.temperature;
+        gamma.temp = with cfg.temperature;
           mkDefault [
             day
             night
@@ -146,8 +136,8 @@ in
     };
 
     systemd.services.clightd = {
-      requires = [ "polkit.service" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["polkit.service"];
+      wantedBy = ["multi-user.target"];
 
       description = "Bus service to manage various screen related properties (gamma, dpms, backlight)";
       serviceConfig = {
@@ -170,8 +160,8 @@ in
         "upower.service"
         "clightd.service"
       ];
-      partOf = [ "graphical-session.target" ];
-      wantedBy = [ "graphical-session.target" ];
+      partOf = ["graphical-session.target"];
+      wantedBy = ["graphical-session.target"];
 
       description = "C daemon to adjust screen brightness to match ambient brightness, as computed capturing frames from webcam";
       serviceConfig = {

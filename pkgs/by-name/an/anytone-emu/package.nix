@@ -5,7 +5,6 @@
   pkg-config,
   udev,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "anytone-emu";
   version = "unstable-2023-06-15";
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage {
     description = "Tiny emulator for AnyTone radios";
     homepage = "https://github.com/hmatuschek/anytone-emu";
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "anytone-emu";
   };

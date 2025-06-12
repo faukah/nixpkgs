@@ -11,7 +11,6 @@
   libadwaita,
   libchewing,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ibus-chewing";
   version = "2.1.4";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/chewing/ibus-chewing";
     changelog = "https://github.com/chewing/ibus-chewing/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ShamrockLee ];
+    maintainers = with lib.maintainers; [ShamrockLee];
     platforms = lib.platforms.linux;
   };
 })

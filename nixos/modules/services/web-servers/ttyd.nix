@@ -3,13 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.services.ttyd;
 
-  inherit (lib)
+  inherit
+    (lib)
     optionals
     types
     mkOption
@@ -37,14 +35,15 @@ let
       lib.mapAttrsToList (_k: _v: [
         "--client-option"
         "${_k}=${_v}"
-      ]) cfg.clientOptions
+      ])
+      cfg.clientOptions
     ))
     ++ [
       "--terminal-type"
       cfg.terminalType
     ]
-    ++ optionals cfg.checkOrigin [ "--check-origin" ]
-    ++ optionals cfg.writeable [ "--writable" ] # the typo is correct
+    ++ optionals cfg.checkOrigin ["--check-origin"]
+    ++ optionals cfg.writeable ["--writable"] # the typo is correct
     ++ [
       "--max-clients"
       (toString cfg.maxClients)
@@ -53,7 +52,7 @@ let
       "--index"
       cfg.indexFile
     ]
-    ++ optionals cfg.enableIPv6 [ "--ipv6" ]
+    ++ optionals cfg.enableIPv6 ["--ipv6"]
     ++ optionals cfg.enableSSL [
       "--ssl"
       "--ssl-cert"
@@ -69,16 +68,12 @@ let
       "--debug"
       (toString cfg.logLevel)
     ];
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
     services.ttyd = {
-      enable = lib.mkEnableOption ("ttyd daemon");
+      enable = lib.mkEnableOption "ttyd daemon";
 
       port = mkOption {
         type = types.port;
@@ -109,7 +104,10 @@ in
       passwordFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        apply = value: if value == null then null else toString value;
+        apply = value:
+          if value == null
+          then null
+          else toString value;
         description = ''
           File containing the password to use for basic http authentication.
           For insecurely putting the password in the globally readable store use
@@ -125,7 +123,7 @@ in
 
       entrypoint = mkOption {
         type = types.listOf types.str;
-        default = [ "${pkgs.shadow}/bin/login" ];
+        default = ["${pkgs.shadow}/bin/login"];
         defaultText = lib.literalExpression ''
           [ "''${pkgs.shadow}/bin/login" ]
         '';
@@ -152,7 +150,7 @@ in
 
       clientOptions = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             fontSize = "16";
@@ -210,7 +208,10 @@ in
       keyFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        apply = value: if value == null then null else toString value;
+        apply = value:
+          if value == null
+          then null
+          else toString value;
         description = ''
           SSL key file path.
           For insecurely putting the keyFile in the globally readable store use
@@ -235,7 +236,6 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     assertions = [
       {
         assertion = cfg.enableSSL -> cfg.certFile != null && cfg.keyFile != null;
@@ -258,7 +258,7 @@ in
     systemd.services.ttyd = {
       description = "ttyd Web Server Daemon";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = cfg.user;
@@ -268,18 +268,17 @@ in
       };
 
       script =
-        if cfg.passwordFile != null then
-          ''
-            PASSWORD=$(cat "$CREDENTIALS_DIRECTORY/TTYD_PASSWORD_FILE")
-            ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
-              --credential ${lib.escapeShellArg cfg.username}:"$PASSWORD" \
-              ${cfg.entrypoint}
-          ''
-        else
-          ''
-            ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
-              ${cfg.entrypoint}
-          '';
+        if cfg.passwordFile != null
+        then ''
+          PASSWORD=$(cat "$CREDENTIALS_DIRECTORY/TTYD_PASSWORD_FILE")
+          ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
+            --credential ${lib.escapeShellArg cfg.username}:"$PASSWORD" \
+            ${cfg.entrypoint}
+        ''
+        else ''
+          ${pkgs.ttyd}/bin/ttyd ${lib.escapeShellArgs args} \
+            ${cfg.entrypoint}
+        '';
     };
   };
 }

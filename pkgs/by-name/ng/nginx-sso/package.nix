@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "nginx-sso";
   version = "0.27.4";
@@ -31,7 +30,7 @@ buildGoModule rec {
     description = "SSO authentication provider for the auth_request nginx module";
     homepage = "https://github.com/Luzifer/nginx-sso";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
     mainProgram = "nginx-sso";
   };
 }

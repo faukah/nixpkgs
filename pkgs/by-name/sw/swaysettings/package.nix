@@ -31,7 +31,6 @@
   libgtop,
   gtk4-layer-shell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "swaysettings";
   version = "0.5.0";
@@ -90,6 +89,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ErikReider/SwaySettings";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.aacebedo ];
+    maintainers = [lib.maintainers.aacebedo];
   };
 }

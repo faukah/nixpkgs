@@ -6,7 +6,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "netifaces-plus";
   version = "0.12.4";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "tsukumijima";
     repo = "netifaces-plus";
-    tag = "release_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    tag = "release_${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-3CYAe0doWMagcUIN9+ikH9gEST9AqglSQDlZsKOMnC8=";
   };
 
@@ -26,12 +25,12 @@ buildPythonPackage rec {
     wheel
   ];
 
-  pythonImportsCheck = [ "netifaces" ];
+  pythonImportsCheck = ["netifaces"];
 
   meta = {
     description = "Portable network interface information";
     homepage = "https://github.com/tsukumijima/netifaces-plus";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
   };
 }

@@ -5,7 +5,6 @@
   fetchpatch,
   e2fsprogs,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ext3grep";
   version = "0.10.2";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-WG8+k50v/XgvbwBrgaPfLcR3xtoD8h7biGDFxPcZjz4=";
   };
 
-  nativeBuildInputs = [ e2fsprogs ];
+  nativeBuildInputs = [e2fsprogs];
 
   patches = [
     (fetchpatch {
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Tool to investigate an ext3 file system for deleted content and possibly recover it";
     mainProgram = "ext3grep";
     homepage = "https://code.google.com/archive/p/ext3grep/";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
   };

@@ -3,24 +3,21 @@
   lib,
   pkgs,
   ...
-}:
-
-{
-
-  imports = [ ./etc.nix ];
+}: {
+  imports = [./etc.nix];
 
   config = lib.mkMerge [
-
     {
-      system.activationScripts.etc = lib.stringAfter [
-        "users"
-        "groups"
-        "specialfs"
-      ] config.system.build.etcActivationCommands;
+      system.activationScripts.etc =
+        lib.stringAfter [
+          "users"
+          "groups"
+          "specialfs"
+        ]
+        config.system.build.etcActivationCommands;
     }
 
     (lib.mkIf config.system.etc.overlay.enable {
-
       assertions = [
         {
           assertion = config.boot.initrd.systemd.enable;
@@ -76,8 +73,8 @@
             after = [
               config.boot.initrd.systemd.services.initrd-find-etc.name
             ];
-            requiredBy = [ "initrd-fs.target" ];
-            before = [ "initrd-fs.target" ];
+            requiredBy = ["initrd-fs.target"];
+            before = ["initrd-fs.target"];
           }
           {
             where = "/sysroot/etc";
@@ -101,8 +98,8 @@
                 "ro"
               ]
             );
-            requiredBy = [ "initrd-fs.target" ];
-            before = [ "initrd-fs.target" ];
+            requiredBy = ["initrd-fs.target"];
+            before = ["initrd-fs.target"];
             requires =
               [
                 config.boot.initrd.systemd.services.initrd-find-etc.name
@@ -129,8 +126,8 @@
         services = lib.mkMerge [
           (lib.mkIf config.system.etc.overlay.mutable {
             rw-etc = {
-              requiredBy = [ "initrd-fs.target" ];
-              before = [ "initrd-fs.target" ];
+              requiredBy = ["initrd-fs.target"];
+              before = ["initrd-fs.target"];
               unitConfig = {
                 DefaultDependencies = false;
                 RequiresMountsFor = "/sysroot";
@@ -152,9 +149,9 @@
               after = [
                 config.boot.initrd.systemd.services.initrd-find-nixos-closure.name
               ];
-              before = [ "shutdown.target" ];
-              conflicts = [ "shutdown.target" ];
-              requiredBy = [ "initrd.target" ];
+              before = ["shutdown.target"];
+              conflicts = ["shutdown.target"];
+              requiredBy = ["initrd.target"];
               unitConfig = {
                 DefaultDependencies = false;
                 RequiresMountsFor = "/sysroot/nix/store";
@@ -164,7 +161,8 @@
                 RemainAfterExit = true;
               };
 
-              script = # bash
+              script =
+                # bash
                 ''
                   set -uo pipefail
 
@@ -180,8 +178,6 @@
           }
         ];
       };
-
     })
-
   ];
 }

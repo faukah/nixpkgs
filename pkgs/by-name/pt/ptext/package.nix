@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "ptext";
   version = "0-unstable-2024-08-19";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
   };
 
   enableParallelBuilding = true;
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   makeFlags = [
     "INSTALL_DIR=${placeholder "out"}/bin"
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
     description = "Nano like text editor built with pure C";
     homepage = "https://github.com/proh14/ptext";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.linux;
     mainProgram = "ptext";
   };

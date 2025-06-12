@@ -1,6 +1,4 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   movim = {
     domain = "movim.local";
     port = 8080;
@@ -15,75 +13,73 @@ let
       password = "juliet";
     };
   };
-in
-{
+in {
   name = "movim-prosody-nginx";
 
   meta = {
-    maintainers = with lib.maintainers; [ toastal ];
+    maintainers = with lib.maintainers; [toastal];
   };
 
   nodes = {
-    server =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = [
-          # For testing
-          pkgs.websocat
-        ];
+    server = {pkgs, ...}: {
+      environment.systemPackages = [
+        # For testing
+        pkgs.websocat
+      ];
 
-        services.movim = {
-          inherit (movim) domain port;
-          enable = true;
-          verbose = true;
-          podConfig = {
-            inherit (movim) description info;
-            xmppdomain = prosody.domain;
-          };
-          nginx = { };
+      services.movim = {
+        inherit (movim) domain port;
+        enable = true;
+        verbose = true;
+        podConfig = {
+          inherit (movim) description info;
+          xmppdomain = prosody.domain;
         };
+        nginx = {};
+      };
 
-        services.prosody = {
-          enable = true;
-          xmppComplianceSuite = false;
-          disco_items = [
-            {
-              url = "upload.${prosody.domain}";
-              description = "File Uploads";
-            }
-          ];
-          virtualHosts."${prosody.domain}" = {
-            inherit (prosody) domain;
-            enabled = true;
-            extraConfig = ''
-              Component "pubsub.${prosody.domain}" "pubsub"
-                  pubsub_max_items = 10000
-                  expose_publisher = true
-
-              Component "upload.${prosody.domain}" "http_file_share"
-                  http_external_url = "http://upload.${prosody.domain}"
-                  http_file_share_expires_after = 300 * 24 * 60 * 60
-                  http_file_share_size_limit = 1024 * 1024 * 1024
-                  http_file_share_daily_quota = 4 * 1024 * 1024 * 1024
-            '';
-          };
+      services.prosody = {
+        enable = true;
+        xmppComplianceSuite = false;
+        disco_items = [
+          {
+            url = "upload.${prosody.domain}";
+            description = "File Uploads";
+          }
+        ];
+        virtualHosts."${prosody.domain}" = {
+          inherit (prosody) domain;
+          enabled = true;
           extraConfig = ''
-            pep_max_items = 10000
+            Component "pubsub.${prosody.domain}" "pubsub"
+                pubsub_max_items = 10000
+                expose_publisher = true
 
-            http_paths = {
-                file_share = "/";
-            }
+            Component "upload.${prosody.domain}" "http_file_share"
+                http_external_url = "http://upload.${prosody.domain}"
+                http_file_share_expires_after = 300 * 24 * 60 * 60
+                http_file_share_size_limit = 1024 * 1024 * 1024
+                http_file_share_daily_quota = 4 * 1024 * 1024 * 1024
           '';
         };
+        extraConfig = ''
+          pep_max_items = 10000
 
-        networking.extraHosts = ''
-          127.0.0.1 ${movim.domain}
-          127.0.0.1 ${prosody.domain}
+          http_paths = {
+              file_share = "/";
+          }
         '';
       };
+
+      networking.extraHosts = ''
+        127.0.0.1 ${movim.domain}
+        127.0.0.1 ${prosody.domain}
+      '';
+    };
   };
 
-  testScript = # python
+  testScript =
+    # python
     ''
       server.wait_for_unit("phpfpm-movim.service")
       server.wait_for_unit("nginx.service")

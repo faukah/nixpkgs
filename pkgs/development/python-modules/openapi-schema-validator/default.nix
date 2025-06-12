@@ -3,19 +3,15 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   poetry-core,
-
   # propagates
   jsonschema,
   jsonschema-specifications,
   rfc3339-validator,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "openapi-schema-validator";
   version = "0.6.3";
@@ -34,7 +30,7 @@ buildPythonPackage rec {
     sed -i "/--cov/d" pyproject.toml
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     jsonschema
@@ -42,22 +38,22 @@ buildPythonPackage rec {
     rfc3339-validator
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # https://github.com/python-openapi/openapi-schema-validator/issues/153
     "test_array_prefixitems_invalid"
   ];
 
-  pytestFlagsArray = [ "-vvv" ];
+  pytestFlagsArray = ["-vvv"];
 
-  pythonImportsCheck = [ "openapi_schema_validator" ];
+  pythonImportsCheck = ["openapi_schema_validator"];
 
   meta = with lib; {
     changelog = "https://github.com/python-openapi/openapi-schema-validator/releases/tag/${src.tag}";
     description = "Validates OpenAPI schema against the OpenAPI Schema Specification v3.0";
     homepage = "https://github.com/python-openapi/openapi-schema-validator";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

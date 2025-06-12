@@ -4,7 +4,6 @@
   kdePackages,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "doomrunner";
   version = "1.9.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-N5kj2Z3QW29kOw2khET6Z4E9nFBBjNTgKw2xbCQrWKY=";
   };
 
-  buildInputs = [ kdePackages.qtbase ];
+  buildInputs = [kdePackages.qtbase];
 
   nativeBuildInputs = [
     kdePackages.qmake
@@ -42,6 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/Youda008/DoomRunner/blob/${finalAttrs.src.rev}/changelog.txt";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ keenanweaver ];
+    maintainers = with lib.maintainers; [keenanweaver];
   };
 })

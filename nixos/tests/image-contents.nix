@@ -2,16 +2,12 @@
 # including its user, group, and mode attributes.
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
-
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
-
-with import common/ec2.nix { inherit makeTest pkgs; };
-
-let
+with import common/ec2.nix {inherit makeTest pkgs;}; let
   config =
     (import ../lib/eval-config.nix {
       system = null;
@@ -46,23 +42,22 @@ let
       ];
     })
     + "/nixos.qcow2";
-
 in
-makeEc2Test {
-  name = "image-contents";
-  inherit image;
-  userData = null;
-  script = ''
-    machine.start()
-    # Test that if contents includes a file, it is copied to the target.
-    assert "content" in machine.succeed("cat /testFile")
-    fileDetails = machine.succeed("ls -l /testFile")
-    assert "1234" in fileDetails
-    assert "5678" in fileDetails
-    assert "rwxr-xr-x" in fileDetails
+  makeEc2Test {
+    name = "image-contents";
+    inherit image;
+    userData = null;
+    script = ''
+      machine.start()
+      # Test that if contents includes a file, it is copied to the target.
+      assert "content" in machine.succeed("cat /testFile")
+      fileDetails = machine.succeed("ls -l /testFile")
+      assert "1234" in fileDetails
+      assert "5678" in fileDetails
+      assert "rwxr-xr-x" in fileDetails
 
-    # Test that if contents includes a directory, it is copied to the target.
-    dirList = machine.succeed("ls /testDir")
-    assert "image-contents.nix" in dirList
-  '';
-}
+      # Test that if contents includes a directory, it is copied to the target.
+      dirList = machine.succeed("ls /testDir")
+      assert "image-contents.nix" in dirList
+    '';
+  }

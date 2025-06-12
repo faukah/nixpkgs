@@ -7,7 +7,6 @@
   pythonOlder,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "pyyardian";
   version = "1.2.0";
@@ -27,17 +26,17 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # Tests require network access
   doCheck = false;
 
-  pythonImportsCheck = [ "pyyardian" ];
+  pythonImportsCheck = ["pyyardian"];
 
   meta = with lib; {
     description = "Module for interacting with the Yardian irrigation controller";
     homepage = "https://github.com/h3l1o5/pyyardian";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

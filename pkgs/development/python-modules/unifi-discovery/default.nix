@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "unifi-discovery";
   version = "1.2.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
       --replace-fail "--cov=unifi_discovery --cov-report=term-missing:skip-covered" ""
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -43,16 +42,16 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" ];
+  pytestFlagsArray = ["--asyncio-mode=auto"];
 
-  pythonImportsCheck = [ "unifi_discovery" ];
+  pythonImportsCheck = ["unifi_discovery"];
 
   meta = with lib; {
     description = "Module to discover Unifi devices";
     homepage = "https://github.com/bdraco/unifi-discovery";
     changelog = "https://github.com/bdraco/unifi-discovery/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
     platforms = platforms.linux;
   };
 }

@@ -11,7 +11,6 @@
   pythonOlder,
   tzlocal,
 }:
-
 buildPythonPackage rec {
   pname = "gardena-bluetooth";
   version = "1.6.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-L726A0o9TIxFjHOxx0e42RIj4XMOdeZTJE2gWo6OhG4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     bleak
@@ -35,7 +34,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    cli = [ asyncclick ];
+    cli = [asyncclick];
   };
 
   nativeCheckInputs = [
@@ -43,13 +42,13 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [ "gardena_bluetooth" ];
+  pythonImportsCheck = ["gardena_bluetooth"];
 
   meta = with lib; {
     description = "Module for interacting with Gardena Bluetooth";
     homepage = "https://github.com/elupus/gardena-bluetooth";
     changelog = "https://github.com/elupus/gardena-bluetooth/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

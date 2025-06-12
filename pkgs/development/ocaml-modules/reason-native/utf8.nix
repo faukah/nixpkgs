@@ -4,7 +4,6 @@
   reason,
   src,
 }:
-
 buildDunePackage {
   inherit src;
 
@@ -19,6 +18,6 @@ buildDunePackage {
     description = "Utf8 logic with minimal dependencies";
     downloadPage = "https://github.com/reasonml/reason-native/tree/master/src/utf8";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

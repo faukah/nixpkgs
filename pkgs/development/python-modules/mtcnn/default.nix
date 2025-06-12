@@ -2,21 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   joblib,
   keras,
   lz4,
   pythonAtLeast,
   distutils,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mtcnn";
   version = "1.0.0";
@@ -29,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-gp+jfa1arD3PpJpuRFKIUznV0Lyjt3DPn/HHUviDXhk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -40,7 +36,7 @@ buildPythonPackage rec {
       distutils
     ];
 
-  pythonImportsCheck = [ "mtcnn" ];
+  pythonImportsCheck = ["mtcnn"];
 
   nativeCheckInputs = [
     keras
@@ -52,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ipazc/mtcnn";
     changelog = "https://github.com/ipazc/mtcnn/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ derdennisop ];
+    maintainers = with lib.maintainers; [derdennisop];
   };
 }

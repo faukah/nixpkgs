@@ -6,7 +6,6 @@
   lib,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "donkey";
   version = "1.2.0";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
   sourceRoot = "${finalAttrs.src.name}/src";
 
-  buildInputs = [ libmd ];
+  buildInputs = [libmd];
 
   preInstall = ''
     # don't change the owner, use global permissions:
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     export INSTALL_DATA="${coreutils}/bin/install -m 444"
   '';
 
-  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  passthru.tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
 
   meta = with lib; {
     description = "Alternative for S/KEY's 'key' command";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://devel.ringlet.net/security/donkey";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ raboof ];
+    maintainers = with maintainers; [raboof];
     platforms = platforms.all;
   };
 })

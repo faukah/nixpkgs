@@ -4,13 +4,12 @@
   options,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.wasabibackend;
   opt = options.services.wasabibackend;
 
-  inherit (lib)
+  inherit
+    (lib)
     literalExpression
     mkEnableOption
     mkIf
@@ -41,12 +40,8 @@ let
     };
 
   configFile = pkgs.writeText "wasabibackend.conf" (builtins.toJSON confOptions);
-
-in
-{
-
+in {
   options = {
-
     services.wasabibackend = {
       enable = mkEnableOption "Wasabi backend service";
 
@@ -134,16 +129,15 @@ in
   };
 
   config = mkIf cfg.enable {
-
     systemd.tmpfiles.rules = [
       "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"
     ];
 
     systemd.services.wasabibackend = {
       description = "wasabibackend server";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
       environment = {
         DOTNET_PRINT_TELEMETRY_MESSAGE = "false";
         DOTNET_CLI_TELEMETRY_OPTOUT = "true";
@@ -151,19 +145,18 @@ in
       preStart = ''
         mkdir -p ${cfg.dataDir}/.walletwasabi/backend
         ${
-          if cfg.customConfigFile != null then
-            ''
-              cp -v ${cfg.customConfigFile} ${cfg.dataDir}/.walletwasabi/backend/Config.json
-            ''
-          else
-            ''
-              cp -v ${configFile} ${cfg.dataDir}/.walletwasabi/backend/Config.json
-              ${optionalString (cfg.rpc.passwordFile != null) ''
-                CONFIGTMP=$(mktemp)
-                cat ${cfg.dataDir}/.walletwasabi/backend/Config.json | ${pkgs.jq}/bin/jq --arg rpconnection "${cfg.rpc.user}:$(cat "${cfg.rpc.passwordFile}")" '. + { BitcoinRpcConnectionString: $rpconnection }' > $CONFIGTMP
-                mv $CONFIGTMP ${cfg.dataDir}/.walletwasabi/backend/Config.json
-              ''}
-            ''
+          if cfg.customConfigFile != null
+          then ''
+            cp -v ${cfg.customConfigFile} ${cfg.dataDir}/.walletwasabi/backend/Config.json
+          ''
+          else ''
+            cp -v ${configFile} ${cfg.dataDir}/.walletwasabi/backend/Config.json
+            ${optionalString (cfg.rpc.passwordFile != null) ''
+              CONFIGTMP=$(mktemp)
+              cat ${cfg.dataDir}/.walletwasabi/backend/Config.json | ${pkgs.jq}/bin/jq --arg rpconnection "${cfg.rpc.user}:$(cat "${cfg.rpc.passwordFile}")" '. + { BitcoinRpcConnectionString: $rpconnection }' > $CONFIGTMP
+              mv $CONFIGTMP ${cfg.dataDir}/.walletwasabi/backend/Config.json
+            ''}
+          ''
         }
         chmod ug+w ${cfg.dataDir}/.walletwasabi/backend/Config.json
       '';
@@ -183,7 +176,6 @@ in
       isSystemUser = true;
     };
 
-    users.groups.${cfg.group} = { };
-
+    users.groups.${cfg.group} = {};
   };
 }

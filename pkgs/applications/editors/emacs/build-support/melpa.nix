@@ -1,15 +1,12 @@
 # builder for Emacs packages built for packages.el
 # using MELPA package-build.el
-
 {
   lib,
   stdenv,
   fetchFromGitHub,
   emacs,
   texinfo,
-}:
-
-let
+}: let
   genericBuild = import ./generic.nix {
     inherit
       lib
@@ -41,59 +38,51 @@ let
       cp -r * $out
     ";
   };
-
 in
-
-lib.extendMkDerivation {
-  constructDrv = genericBuild;
-  extendDrvArgs =
-    finalAttrs:
-
-    {
+  lib.extendMkDerivation {
+    constructDrv = genericBuild;
+    extendDrvArgs = finalAttrs: {
       /*
-        pname: Nix package name without special symbols and without version or
-        "emacs-" prefix.
+      pname: Nix package name without special symbols and without version or
+      "emacs-" prefix.
       */
       pname,
       /*
-        ename: Original Emacs package name, possibly containing special symbols.
-        Default: pname
+      ename: Original Emacs package name, possibly containing special symbols.
+      Default: pname
       */
       ename ? pname,
       /*
-        version: Either a stable version such as "1.2" or an unstable version.
-        An unstable version can use either Nix format (preferred) such as
-        "1.2-unstable-2024-06-01" or MELPA format such as "20240601.1230".
+      version: Either a stable version such as "1.2" or an unstable version.
+      An unstable version can use either Nix format (preferred) such as
+      "1.2-unstable-2024-06-01" or MELPA format such as "20240601.1230".
       */
       version,
       /*
-        commit: Optional package history commit.
-        Default: src.rev or "unknown"
-        This will be written into the generated package but it is not needed during
-        the build process.
+      commit: Optional package history commit.
+      Default: src.rev or "unknown"
+      This will be written into the generated package but it is not needed during
+      the build process.
       */
       commit ? (finalAttrs.src.rev or "unknown"),
       /*
-        files: Optional recipe property specifying the files used to build the package.
-        If null, do not set it in recipe, keeping the default upstream behaviour.
-        Default: null
+      files: Optional recipe property specifying the files used to build the package.
+      If null, do not set it in recipe, keeping the default upstream behaviour.
+      Default: null
       */
       files ? null,
       /*
-        recipe: Optional MELPA recipe.
-        Default: a minimally functional recipe
-        This can be a path of a recipe file, a string of the recipe content or an empty string.
-        The default value is used if it is an empty string.
+      recipe: Optional MELPA recipe.
+      Default: a minimally functional recipe
+      This can be a path of a recipe file, a string of the recipe content or an empty string.
+      The default value is used if it is an empty string.
       */
       recipe ? "",
       preUnpack ? "",
       postUnpack ? "",
-      meta ? { },
+      meta ? {},
       ...
-    }@args:
-
-    {
-
+    } @ args: {
       elpa2nix = args.elpa2nix or ./elpa2nix.el;
       melpa2nix = args.melpa2nix or ./melpa2nix.el;
 
@@ -111,13 +100,15 @@ lib.extendMkDerivation {
           let
             parsed =
               lib.flip builtins.match version
-                # match <version>-unstable-YYYY-MM-DD format
-                "^.*-unstable-([[:digit:]]{4})-([[:digit:]]{2})-([[:digit:]]{2})$";
+              # match <version>-unstable-YYYY-MM-DD format
+              "^.*-unstable-([[:digit:]]{4})-([[:digit:]]{2})-([[:digit:]]{2})$";
             unstableVersionInNixFormat = parsed != null; # heuristics
             date = builtins.concatStringsSep "" parsed;
             time = "0"; # unstable version in nix format lacks this info
           in
-          if unstableVersionInNixFormat then date + "." + time else finalAttrs.version
+            if unstableVersionInNixFormat
+            then date + "." + time
+            else finalAttrs.version
         );
 
       preUnpack =
@@ -189,15 +180,24 @@ lib.extendMkDerivation {
               -l "$elpa2nix" \
               -f elpa2nix-install-package \
               "$archive" "$out/share/emacs/site-lisp/elpa" \
-              ${if finalAttrs.turnCompilationWarningToError then "t" else "nil"} \
-              ${if finalAttrs.ignoreCompilationError then "t" else "nil"}
+              ${
+            if finalAttrs.turnCompilationWarningToError
+            then "t"
+            else "nil"
+          } \
+              ${
+            if finalAttrs.ignoreCompilationError
+            then "t"
+            else "nil"
+          }
 
           runHook postInstall
         '';
 
-      meta = {
-        homepage = args.src.meta.homepage or "https://melpa.org/#/${pname}";
-      } // meta;
+      meta =
+        {
+          homepage = args.src.meta.homepage or "https://melpa.org/#/${pname}";
+        }
+        // meta;
     };
-
-}
+  }

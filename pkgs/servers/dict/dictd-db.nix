@@ -3,17 +3,13 @@
   stdenv,
   fetchurl,
   callPackage,
-}:
-
-let
+}: let
   # Probably a bug in some FreeDict release files, but easier to trivially
   # work around than report. Not that it can cause any other problems..
-  makeDictdDBFreedict =
-    src: name: locale:
+  makeDictdDBFreedict = src: name: locale:
     makeDictdDB src name "{.,bin}" locale;
 
-  makeDictdDB =
-    src: _name: _subdir: _locale:
+  makeDictdDB = src: _name: _subdir: _locale:
     stdenv.mkDerivation {
       name = "dictd-db-${_name}";
       inherit src;
@@ -34,8 +30,7 @@ let
         platforms = lib.platforms.linux;
       };
     };
-in
-rec {
+in rec {
   deu2eng = makeDictdDBFreedict (fetchurl {
     url = "mirror://sourceforge/freedict/deu-eng.tar.gz";
     sha256 = "0dqrhv04g4f5s84nbgisgcfwk5x0rpincif0yfhfh4sc1bsvzsrb";
@@ -69,19 +64,15 @@ rec {
     sha256 = "095xwqfc43dnm0g74i83lg03542f064jy2xbn3qnjxiwysz9ksnz";
   }) "epo-eng" "epo-eng" "eo";
   jpn2eng = makeDictdDB (fetchurl {
-    url =
-      let
-        version = "0.1";
-      in
-      "mirror://sourceforge/freedict/jpn-eng/${version}/freedict-jpn-eng-${version}.dictd.tar.xz";
+    url = let
+      version = "0.1";
+    in "mirror://sourceforge/freedict/jpn-eng/${version}/freedict-jpn-eng-${version}.dictd.tar.xz";
     sha256 = "sha256-juJBoEq7EztLZzOomc7uoZhXVaQPKoUvIxxPLB0xByc=";
   }) "jpn-eng" "jpn-eng" "ja_JP";
   eng2jpn = makeDictdDB (fetchurl {
-    url =
-      let
-        version = "2022.04.06";
-      in
-      "https://download.freedict.org/dictionaries/eng-jpn/${version}/freedict-eng-jpn-${version}.dictd.tar.xz";
+    url = let
+      version = "2022.04.06";
+    in "https://download.freedict.org/dictionaries/eng-jpn/${version}/freedict-eng-jpn-${version}.dictd.tar.xz";
     sha256 = "sha256-kfRT2kgbV3XKarCr4mqDRT5A1jR8M8APky5M5MFYatE=";
   }) "eng-jpn" "eng-jpn" "en_UK";
   mueller_eng2rus_pkg = makeDictdDB (fetchurl {
@@ -118,6 +109,6 @@ rec {
     dbName = "mueller-names";
     locale = "en_UK";
   };
-  wordnet = callPackage ./dictd-wordnet.nix { };
-  wiktionary = callPackage ./wiktionary { };
+  wordnet = callPackage ./dictd-wordnet.nix {};
+  wiktionary = callPackage ./wiktionary {};
 }

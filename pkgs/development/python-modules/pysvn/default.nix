@@ -12,7 +12,6 @@
   pycxx,
   subversion,
 }:
-
 buildPythonPackage rec {
   pname = "pysvn";
   version = "1.9.23";
@@ -25,13 +24,15 @@ buildPythonPackage rec {
     hash = "sha256-ABru1nng1RaYfZwe0Z0NxE90rU/J2h/BhzUnvgrasCk=";
   };
 
-  patches = [ ./replace-python-first.patch ];
+  patches = [./replace-python-first.patch];
 
-  buildInputs = [
-    subversion
-    apr
-    aprutil
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ gcc ];
+  buildInputs =
+    [
+      subversion
+      apr
+      aprutil
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [gcc];
 
   preConfigure = ''
     cd Source
@@ -58,7 +59,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "pysvn" ];
+  pythonImportsCheck = ["pysvn"];
 
   installPhase = ''
     dest=$(toPythonPath $out)/pysvn
@@ -74,7 +75,7 @@ buildPythonPackage rec {
     description = "Python bindings for Subversion";
     homepage = "https://pysvn.sourceforge.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     # g++: command not found
     broken = stdenv.hostPlatform.isDarwin;
   };

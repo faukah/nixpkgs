@@ -11,7 +11,6 @@
   pytz,
   simplejson,
 }:
-
 buildPythonPackage rec {
   pname = "arrow";
   version = "1.3.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     sed -i "/addopts/d" tox.ini
   '';
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     python-dateutil
@@ -44,14 +43,14 @@ buildPythonPackage rec {
   ];
 
   # ParserError: Could not parse timezone expression "America/Nuuk"
-  disabledTests = [ "test_parse_tz_name_zzz" ];
+  disabledTests = ["test_parse_tz_name_zzz"];
 
-  pythonImportsCheck = [ "arrow" ];
+  pythonImportsCheck = ["arrow"];
 
   meta = with lib; {
     description = "Python library for date manipulation";
     homepage = "https://github.com/crsmithdev/arrow";
     license = licenses.asl20;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

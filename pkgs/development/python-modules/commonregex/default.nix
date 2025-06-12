@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "commonregex";
   version = "1.5.4";
@@ -15,12 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-JxUwZ4rYr1PA6MIzp2JZeWnoRtACnxIhWsF4eR894KU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   meta = with lib; {
     description = "A collection of common regular expressions bundled with an easy to use interface";
     homepage = "https://github.com/madisonmay/CommonRegex";
-    maintainers = with maintainers; [ k900 ];
+    maintainers = with maintainers; [k900];
     license = licenses.mit;
   };
 }

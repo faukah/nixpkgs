@@ -7,7 +7,6 @@
   popt,
   mandoc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "efivar";
   version = "39";
@@ -30,8 +29,8 @@ stdenv.mkDerivation rec {
     pkg-config
     mandoc
   ];
-  buildInputs = [ popt ];
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  buildInputs = [popt];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   makeFlags = [
     "prefix=$(out)"

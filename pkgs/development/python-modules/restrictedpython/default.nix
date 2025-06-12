@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "restrictedpython";
   version = "8.0";
@@ -26,22 +25,22 @@ buildPythonPackage rec {
       --replace-fail "setuptools <= 75.6.0" setuptools
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytest-mock
   ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.11") [ "test_compile__compile_restricted_exec__5" ];
+  disabledTests = lib.optionals (pythonAtLeast "3.11") ["test_compile__compile_restricted_exec__5"];
 
-  pythonImportsCheck = [ "RestrictedPython" ];
+  pythonImportsCheck = ["RestrictedPython"];
 
   meta = with lib; {
     description = "Restricted execution environment for Python to run untrusted code";
     homepage = "https://github.com/zopefoundation/RestrictedPython";
     changelog = "https://github.com/zopefoundation/RestrictedPython/blob/${version}/CHANGES.rst";
     license = licenses.zpl21;
-    maintainers = with maintainers; [ juaningan ];
+    maintainers = with maintainers; [juaningan];
   };
 }

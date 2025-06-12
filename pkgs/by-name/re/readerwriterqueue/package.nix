@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "readerwriterqueue";
   # Not using a stable version since this one produces
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Fast single-producer, single-consumer lock-free queue for C";
     homepage = "https://github.com/cameron314/readerwriterqueue";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
     platforms = lib.platforms.all;
   };
 })

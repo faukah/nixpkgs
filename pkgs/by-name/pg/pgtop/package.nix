@@ -5,7 +5,6 @@
   fetchFromGitHub,
   shortenPerlShebang,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "pgtop";
   version = "0.11";
@@ -17,7 +16,7 @@ perlPackages.buildPerlPackage rec {
     sha256 = "1awyl6ddfihm7dfr5y2z15r1si5cyipnlyyj3m1l19pk98s4x66l";
   };
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   buildInputs = with perlPackages; [
     DBI
@@ -37,7 +36,7 @@ perlPackages.buildPerlPackage rec {
     mainProgram = "pgtop";
     homepage = "https://github.com/cosimo/pgtop";
     changelog = "https://github.com/cosimo/pgtop/releases/tag/v${version}";
-    maintainers = [ lib.maintainers.hagl ];
-    license = [ lib.licenses.gpl2Only ];
+    maintainers = [lib.maintainers.hagl];
+    license = [lib.licenses.gpl2Only];
   };
 }

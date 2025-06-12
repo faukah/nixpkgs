@@ -5,9 +5,7 @@
   symlinkJoin,
   nixosTests,
   k3s,
-}:
-
-let
+}: let
   version = "3.5.21";
   etcdSrcHash = "sha256-0L/lA9/9SNKMz74R6UPF1I7gj03/e91EpNr4LxKoisw=";
   etcdServerVendorHash = "sha256-JMxkcDibRcXhU+T7BQMAz95O7xDKefu1YPZK0GU7osk=";
@@ -29,7 +27,7 @@ let
     description = "Distributed reliable key-value store for the most critical data of a distributed system";
     license = licenses.asl20;
     homepage = "https://etcd.io/";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.darwin ++ platforms.linux;
   };
 
@@ -55,7 +53,7 @@ let
     # git is unavailable. This is to avoid doing a full Git Checkout of etcd.
     # User facing version numbers are still available in the binary, just not
     # the sha it was built from.
-    ldflags = [ "-X go.etcd.io/etcd/api/v3/version.GitSHA=GitNotFound" ];
+    ldflags = ["-X go.etcd.io/etcd/api/v3/version.GitSHA=GitNotFound"];
   };
 
   etcdutl = buildGo123Module rec {
@@ -88,23 +86,23 @@ let
     modRoot = "./etcdctl";
   };
 in
-symlinkJoin {
-  name = "etcd-${version}";
+  symlinkJoin {
+    name = "etcd-${version}";
 
-  inherit meta version;
+    inherit meta version;
 
-  passthru = {
-    inherit etcdserver etcdutl etcdctl;
-    tests = {
-      inherit (nixosTests) etcd etcd-cluster;
-      k3s = k3s.passthru.tests.etcd;
+    passthru = {
+      inherit etcdserver etcdutl etcdctl;
+      tests = {
+        inherit (nixosTests) etcd etcd-cluster;
+        k3s = k3s.passthru.tests.etcd;
+      };
+      updateScript = ./update.sh;
     };
-    updateScript = ./update.sh;
-  };
 
-  paths = [
-    etcdserver
-    etcdutl
-    etcdctl
-  ];
-}
+    paths = [
+      etcdserver
+      etcdutl
+      etcdctl
+    ];
+  }

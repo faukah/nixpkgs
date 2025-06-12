@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tlsx";
   version = "1.1.9";
@@ -34,6 +33,6 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/tlsx";
     changelog = "https://github.com/projectdiscovery/tlsx/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

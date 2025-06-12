@@ -14,7 +14,6 @@
   libunistring,
   judy,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zmap";
   version = "4.3.4";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fHCVo8OwQUzpdDq7dMBxvK15Ojth5UmNoPTVuTGUP58=";
   };
 
-  cmakeFlags = [ "-DRESPECT_INSTALL_PREFIX_CONFIG=ON" ];
+  cmakeFlags = ["-DRESPECT_INSTALL_PREFIX_CONFIG=ON"];
 
   nativeBuildInputs = [
     cmake
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     homepage = "https://zmap.io/";
     license = licenses.asl20;
     description = "Fast single packet network scanner designed for Internet-wide network surveys";
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

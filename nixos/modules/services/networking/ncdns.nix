@@ -3,14 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfgs = config.services;
   cfg = cfgs.ncdns;
 
   dataDir = "/var/lib/ncdns";
 
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
 
   defaultFiles = {
     public = "${dataDir}/bit.key";
@@ -25,17 +24,11 @@ let
   );
 
   mkDefaultAttrs = lib.mapAttrs (_n: v: lib.mkDefault v);
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.ncdns = {
-
       enable = lib.mkEnableOption ''
         ncdns, a Go daemon to bridge Namecoin to DNS.
         To resolve .bit domains set `services.namecoind.enable = true;`
@@ -150,7 +143,7 @@ in
 
       settings = lib.mkOption {
         type = format.type;
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           { # enable webserver
             ncdns.httplistenaddr = ":8202";
@@ -169,7 +162,6 @@ in
           for the available options.
         '';
       };
-
     };
 
     services.pdns-recursor.resolveNamecoin = lib.mkOption {
@@ -179,26 +171,23 @@ in
         Resolve `.bit` top-level domains using ncdns and namecoin.
       '';
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     services.pdns-recursor = lib.mkIf cfgs.pdns-recursor.resolveNamecoin {
       forwardZonesRecurse.bit = "${cfg.address}:${toString cfg.port}";
       luaConfig =
-        if cfg.dnssec.enable then
-          ''readTrustAnchorsFromFile("${cfg.dnssec.keys.public}")''
-        else
-          ''addNTA("bit", "namecoin DNSSEC disabled")'';
+        if cfg.dnssec.enable
+        then ''readTrustAnchorsFromFile("${cfg.dnssec.keys.public}")''
+        else ''addNTA("bit", "namecoin DNSSEC disabled")'';
     };
 
     # Avoid pdns-recursor not finding the DNSSEC keys
     systemd.services.pdns-recursor = lib.mkIf cfgs.pdns-recursor.resolveNamecoin {
-      after = [ "ncdns.service" ];
-      wants = [ "ncdns.service" ];
+      after = ["ncdns.service"];
+      wants = ["ncdns.service"];
     };
 
     services.ncdns.settings = mkDefaultAttrs {
@@ -235,12 +224,12 @@ in
       group = "ncdns";
       description = "ncdns daemon user";
     };
-    users.groups.ncdns = { };
+    users.groups.ncdns = {};
 
     systemd.services.ncdns = {
       description = "ncdns daemon";
-      after = [ "namecoind.service" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["namecoind.service"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = "ncdns";
@@ -261,9 +250,7 @@ in
         fi
       '';
     };
-
   };
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

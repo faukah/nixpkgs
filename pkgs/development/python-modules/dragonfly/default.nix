@@ -22,7 +22,6 @@
   xdotool,
   xorg,
 }:
-
 buildPythonPackage rec {
   pname = "dragonfly";
   version = "0.35.0";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
       --replace-fail 'wmctrl = "wmctrl"'${" "}'wmctrl = "${wmctrl}/bin/wmctrl"'
   '';
 
-  pythonRemoveDeps = [ "lark-parser" ];
+  pythonRemoveDeps = ["lark-parser"];
 
   propagatedBuildInputs = [
     decorator
@@ -75,13 +74,13 @@ buildPythonPackage rec {
   # because of the missing dependencies for some of the engines.
   doCheck = false;
 
-  pythonImportsCheck = [ "dragonfly" ];
+  pythonImportsCheck = ["dragonfly"];
 
   meta = with lib; {
     description = "Speech recognition framework allowing powerful Python-based scripting";
     homepage = "https://github.com/dictation-toolbox/dragonfly";
     changelog = "https://github.com/dictation-toolbox/dragonfly/blob/${version}/CHANGELOG.rst";
     license = licenses.lgpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

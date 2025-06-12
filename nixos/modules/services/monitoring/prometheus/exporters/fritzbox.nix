@@ -4,13 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.fritzbox;
   inherit (lib) mkOption types concatStringsSep;
-in
-{
+in {
   port = 9133;
   extraOpts = {
     gatewayAddress = mkOption {

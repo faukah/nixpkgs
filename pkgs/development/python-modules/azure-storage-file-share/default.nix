@@ -9,7 +9,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-storage-file-share";
   version = "12.21.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-20K/a0OzwMJ8kVIgKVUnffwmpZ9/rSbAWEMaaumVgM4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-core
@@ -33,7 +32,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    aio = [ azure-core ] ++ azure-core.optional-dependencies.aio;
+    aio = [azure-core] ++ azure-core.optional-dependencies.aio;
   };
 
   # Tests require checkout from monorepo
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/storage/azure-storage-file-share";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-storage-file-share_${version}/sdk/storage/azure-storage-file-share/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

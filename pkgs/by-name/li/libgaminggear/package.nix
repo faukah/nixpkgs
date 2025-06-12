@@ -13,7 +13,6 @@
   xorg,
   harfbuzz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgaminggear";
   version = "0.15.1";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
   ];
 
   # https://sourceforge.net/p/libgaminggear/discussion/general/thread/b43a776b3a/
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${harfbuzz.dev}/include/harfbuzz" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${harfbuzz.dev}/include/harfbuzz"];
 
   postFixup = ''
     moveToOutput bin "$bin"

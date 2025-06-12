@@ -5,6 +5,6 @@
 }:
 mkDerivation {
   path = "sbin/route";
-  buildInputs = compatIfNeeded ++ [ libjail ];
+  buildInputs = compatIfNeeded ++ [libjail];
   MK_TESTS = "no";
 }

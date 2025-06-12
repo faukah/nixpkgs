@@ -8,7 +8,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "aranym";
   version = "1.1.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "aranym";
     repo = "aranym";
-    rev = "ARANYM_${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+    rev = "ARANYM_${lib.replaceStrings ["."] ["_"] finalAttrs.version}";
     hash = "sha256-dtcLIA1oC6sPOeGTRmXhMEbuLan9/JWTbQvO5lp3gKo=";
   };
 
@@ -52,9 +51,9 @@ stdenv.mkDerivation (finalAttrs: {
       and direct access to various host resources including sound, disk drives,
       optical storage devices (CD/DVD-ROMs), parallel port and more.
     '';
-    license = with lib.licenses; [ gpl2Plus ];
+    license = with lib.licenses; [gpl2Plus];
     mainProgram = "aranym";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

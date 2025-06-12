@@ -4,13 +4,12 @@ let
   system-enabled = "username-system-enabled";
   system-disabled = "username-system-disabled";
   passwd = "enableOptionPasswd";
-in
-{
+in {
   name = "user-enable-option";
 
   nodes.machine = {
     users = {
-      groups.test-group = { };
+      groups.test-group = {};
       users = {
         # User is enabled (default behaviour).
         ${normal-enabled} = {

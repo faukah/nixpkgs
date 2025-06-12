@@ -2,21 +2,19 @@
 # engines: Gecko (via Firefox), Chromium, QtWebEngine (via qutebrowser).
 # The test checks that certificates issued by a custom
 # trusted CA are accepted but those from an unknown CA are rejected.
-
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
-
-with import ../lib/testing-python.nix { inherit system pkgs; };
-
-let
+with import ../lib/testing-python.nix {inherit system pkgs;}; let
   inherit (pkgs) lib;
 
-  makeCert =
-    { caName, domain }:
-    pkgs.runCommand "example-cert" { buildInputs = [ pkgs.gnutls ]; } ''
+  makeCert = {
+    caName,
+    domain,
+  }:
+    pkgs.runCommand "example-cert" {buildInputs = [pkgs.gnutls];} ''
       mkdir $out
 
       # CA cert template
@@ -81,7 +79,7 @@ let
       "good.example.com"
       "bad.example.com"
     ];
-    security.pki.certificateFiles = [ "${example-good-cert}/ca.crt" ];
+    security.pki.certificateFiles = ["${example-good-cert}/ca.crt"];
 
     services.nginx.enable = true;
     services.nginx.virtualHosts."good.example.com" = {
@@ -106,8 +104,8 @@ let
 
   curlTest = makeTest {
     name = "custom-ca-curl";
-    meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-    nodes.machine = { ... }: webserverConfig;
+    meta.maintainers = with lib.maintainers; [rnhmjoj];
+    nodes.machine = {...}: webserverConfig;
     testScript = ''
       with subtest("Good certificate is trusted in curl"):
           machine.wait_for_unit("nginx")
@@ -119,34 +117,31 @@ let
     '';
   };
 
-  mkBrowserTest =
-    browser: testParams:
+  mkBrowserTest = browser: testParams:
     makeTest {
       name = "custom-ca-${browser}";
-      meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+      meta.maintainers = with lib.maintainers; [rnhmjoj];
 
       enableOCR = true;
 
-      nodes.machine =
-        { pkgs, ... }:
-        {
-          imports = [
-            ./common/user-account.nix
-            ./common/x11.nix
-            webserverConfig
-          ];
+      nodes.machine = {pkgs, ...}: {
+        imports = [
+          ./common/user-account.nix
+          ./common/x11.nix
+          webserverConfig
+        ];
 
-          # chromium-based browsers refuse to run as root
-          test-support.displayManager.auto.user = "alice";
+        # chromium-based browsers refuse to run as root
+        test-support.displayManager.auto.user = "alice";
 
-          # machine often runs out of memory with less
-          virtualisation.memorySize = 1024;
+        # machine often runs out of memory with less
+        virtualisation.memorySize = 1024;
 
-          environment.systemPackages = [
-            pkgs.xdotool
-            pkgs.${browser}
-          ];
-        };
+        environment.systemPackages = [
+          pkgs.xdotool
+          pkgs.${browser}
+        ];
+      };
 
       testScript = ''
         from typing import Tuple
@@ -193,21 +188,19 @@ let
             machine.screenshot("bad${browser}")
       '';
     };
-
 in
-
-{
-  curl = curlTest;
-}
-// pkgs.lib.mapAttrs mkBrowserTest {
-  firefox = {
-    error = "Security Risk";
-  };
-  chromium = {
-    error = "not private";
-  };
-  qutebrowser = {
-    args = "-T";
-    error = "Certificate error";
-  };
-}
+  {
+    curl = curlTest;
+  }
+  // pkgs.lib.mapAttrs mkBrowserTest {
+    firefox = {
+      error = "Security Risk";
+    };
+    chromium = {
+      error = "not private";
+    };
+    qutebrowser = {
+      args = "-T";
+      error = "Certificate error";
+    };
+  }

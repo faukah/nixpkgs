@@ -7,7 +7,6 @@
   testers,
   porsmo,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "porsmo";
   version = "0.3.0";
@@ -39,7 +38,7 @@ rustPlatform.buildRustPackage rec {
     description = "Pomodoro cli app in rust with timer and countdown";
     homepage = "https://github.com/ColorCookie-dev/porsmo";
     license = licenses.mit;
-    maintainers = with maintainers; [ MoritzBoehme ];
+    maintainers = with maintainers; [MoritzBoehme];
     mainProgram = "porsmo";
   };
 }

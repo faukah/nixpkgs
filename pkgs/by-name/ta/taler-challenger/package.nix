@@ -18,7 +18,6 @@
   taler-merchant,
   runtimeShell,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "taler-challenger";
   version = "1.0.0";
@@ -75,8 +74,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "OAuth 2.0-based authentication service that validates user can receive messages at a certain address";
     homepage = "https://git.taler.net/challenger.git";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ wegank ];
-    teams = with lib.teams; [ ngi ];
+    maintainers = with lib.maintainers; [wegank];
+    teams = with lib.teams; [ngi];
     platforms = lib.platforms.linux;
   };
 })

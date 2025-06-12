@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "grandalf";
   version = "0.7";
@@ -27,16 +26,16 @@ buildPythonPackage rec {
     future
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  patches = [ ./no-setup-requires-pytestrunner.patch ];
+  patches = [./no-setup-requires-pytestrunner.patch];
 
-  pythonImportsCheck = [ "grandalf" ];
+  pythonImportsCheck = ["grandalf"];
 
   meta = with lib; {
     description = "Module for experimentations with graphs and drawing algorithms";
     homepage = "https://github.com/bdcht/grandalf";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ cmcdragonkai ];
+    maintainers = with maintainers; [cmcdragonkai];
   };
 }

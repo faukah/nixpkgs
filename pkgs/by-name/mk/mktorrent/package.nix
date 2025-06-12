@@ -4,7 +4,6 @@
   fetchFromGitHub,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mktorrent";
   version = "1.1";
@@ -25,9 +24,9 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.hostPlatform.isi686 "USE_LARGE_FILES=1"
     ++ lib.optional stdenv.hostPlatform.isLinux "CFLAGS=-lgcc_s";
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "Command line utility to create BitTorrent metainfo files";

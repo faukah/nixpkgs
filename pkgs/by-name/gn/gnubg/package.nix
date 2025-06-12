@@ -10,7 +10,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnubg";
   version = "1.07.001";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "World class backgammon application";
     homepage = "https://www.gnu.org/software/gnubg/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.ehmry ];
+    maintainers = [maintainers.ehmry];
     platforms = platforms.linux;
   };
 }

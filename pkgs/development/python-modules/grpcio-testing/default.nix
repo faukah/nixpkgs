@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 # This package should be updated together with the main grpc package and other
 # related python grpc packages.
 # nixpkgs-update: no auto update
@@ -29,7 +28,7 @@ buildPythonPackage rec {
       --replace-fail '"grpcio>={version}".format(version=grpc_version.VERSION)' '"grpcio"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "protobuf"
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     protobuf
   ];
 
-  pythonImportsCheck = [ "grpc_testing" ];
+  pythonImportsCheck = ["grpc_testing"];
 
   # Module has no tests
   doCheck = false;
@@ -48,7 +47,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Testing utilities for gRPC Python";
     homepage = "https://grpc.io/";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

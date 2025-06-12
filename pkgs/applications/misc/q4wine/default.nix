@@ -14,7 +14,6 @@
   wine,
   which, # runtime deps.
 }:
-
 mkDerivation rec {
   pname = "q4wine";
   version = "1.3.13";
@@ -43,21 +42,21 @@ mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/q4wine \
       --prefix PATH : ${
-        lib.makeBinPath [
-          icoutils
-          wget
-          fuseiso
-          wine
-          which
-        ]
-      }
+      lib.makeBinPath [
+        icoutils
+        wget
+        fuseiso
+        wine
+        which
+      ]
+    }
   '';
 
   meta = with lib; {
     homepage = "https://q4wine.brezblock.org.ua/";
     description = "Qt GUI for Wine to manage prefixes and applications";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ rkitover ];
+    maintainers = with maintainers; [rkitover];
     platforms = platforms.unix;
   };
 }

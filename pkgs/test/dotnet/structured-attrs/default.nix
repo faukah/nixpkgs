@@ -4,8 +4,7 @@
   buildPackages, # buildDotnetModule
   testers,
   runCommand,
-}:
-let
+}: let
   # Note: without structured attributes, we can’t use derivation arguments that
   # contain spaces unambiguously because arguments are passed as space-separated
   # environment variables.
@@ -17,12 +16,11 @@ let
     name = "structured-attrs-test-application";
     src = ./src;
     nugetDeps = ./nuget-deps.json;
-    dotnetFlags = [ "--property:Copyright=${copyrightString}" ];
+    dotnetFlags = ["--property:Copyright=${copyrightString}"];
     env.TargetFramework = "net${lib.versions.majorMinor (lib.getVersion dotnet-sdk)}";
     __structuredAttrs = true;
   };
-in
-{
+in {
   no-structured-attrs = testers.testBuildFailure (
     app.overrideAttrs {
       __structuredAttrs = false;
@@ -32,7 +30,7 @@ in
   check-output = testers.testEqualContents {
     assertion = "buildDotnetModule sets AssemblyCopyrightAttribute with structured attributes";
     expected = builtins.toFile "expected-copyright.txt" copyrightString;
-    actual = runCommand "dotnet-structured-attrs-test" { } ''
+    actual = runCommand "dotnet-structured-attrs-test" {} ''
       ${app}/bin/Application >"$out"
     '';
   };

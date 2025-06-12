@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "league-script-number-one";
   version = "2011-05-25";
@@ -34,6 +33,6 @@ stdenvNoCC.mkDerivation {
     '';
     homepage = "https://www.theleagueofmoveabletype.com/league-script";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ minijackson ];
+    maintainers = with lib.maintainers; [minijackson];
   };
 }

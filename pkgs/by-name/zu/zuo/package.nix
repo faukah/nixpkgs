@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zuo";
   version = "1.9";
@@ -23,6 +22,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/racket/zuo";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

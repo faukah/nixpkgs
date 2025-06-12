@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "lips";
   version = "1.0.0-beta.20";
@@ -18,7 +17,7 @@ buildNpmPackage rec {
   };
 
   npmDepsHash = "sha256-7YeKTcBGsyiI6U0PeddAcs2x/O0LL/DT00KuSkqfy2A=";
-  npmInstallFlags = [ "--only=prod" ];
+  npmInstallFlags = ["--only=prod"];
   dontBuild = true; # dist folder is checked in
   dontNpmBuild = true;
 
@@ -28,7 +27,7 @@ buildNpmPackage rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -36,7 +35,7 @@ buildNpmPackage rec {
     homepage = "https://lips.js.org";
     changelog = "https://github.com/jcubic/lips/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ DimitarNestorov ];
+    maintainers = with lib.maintainers; [DimitarNestorov];
     platforms = lib.platforms.all;
     mainProgram = "lips";
   };

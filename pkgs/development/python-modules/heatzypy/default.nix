@@ -7,7 +7,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "heatzypy";
   version = "2.5.7";
@@ -27,18 +26,18 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "heatzypy" ];
+  pythonImportsCheck = ["heatzypy"];
 
   meta = with lib; {
     description = "Module to interact with Heatzy devices";
     homepage = "https://github.com/Cyr-ius/heatzypy";
     changelog = "https://github.com/cyr-ius/heatzypy/releases/tag/${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "elfdeps";
   version = "0.2.0";
@@ -22,9 +21,9 @@ python3Packages.buildPythonApplication rec {
     setuptools-scm
   ];
 
-  dependencies = [ python3Packages.pyelftools ];
+  dependencies = [python3Packages.pyelftools];
 
-  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+  nativeCheckInputs = [python3Packages.pytestCheckHook];
 
   pythonImportsCheck = [
     "elfdeps"
@@ -48,7 +47,7 @@ python3Packages.buildPythonApplication rec {
     description = "Python implementation of RPM elfdeps";
     homepage = "https://pypi.org/project/elfdeps/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ booxter ];
+    maintainers = with lib.maintainers; [booxter];
     mainProgram = "elfdeps";
   };
 }

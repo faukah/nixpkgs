@@ -14,7 +14,6 @@
   userpath,
   git,
 }:
-
 buildPythonPackage rec {
   pname = "pipx";
   version = "1.7.1";
@@ -34,12 +33,14 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  dependencies = [
-    argcomplete
-    packaging
-    platformdirs
-    userpath
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies =
+    [
+      argcomplete
+      packaging
+      platformdirs
+      userpath
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   nativeBuildInputs = [
     installShellFiles
@@ -109,6 +110,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pypa/pipx";
     changelog = "https://github.com/pypa/pipx/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ yshym ];
+    maintainers = with maintainers; [yshym];
   };
 }

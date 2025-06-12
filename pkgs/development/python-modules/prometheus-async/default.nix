@@ -12,7 +12,6 @@
   typing-extensions,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "prometheus-async";
   version = "25.1.0";
@@ -37,9 +36,9 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    aiohttp = [ aiohttp ];
-    consul = [ aiohttp ];
-    twisted = [ twisted ];
+    aiohttp = [aiohttp];
+    consul = [aiohttp];
+    twisted = [twisted];
   };
 
   nativeCheckInputs = [
@@ -47,13 +46,13 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [ "prometheus_async" ];
+  pythonImportsCheck = ["prometheus_async"];
 
   meta = with lib; {
     description = "Async helpers for prometheus_client";
     homepage = "https://github.com/hynek/prometheus-async";
     changelog = "https://github.com/hynek/prometheus-async/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

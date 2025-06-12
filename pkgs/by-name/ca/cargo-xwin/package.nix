@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-xwin";
   version = "0.18.5";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Cross compile Cargo project to Windows MSVC target with ease";
     mainProgram = "cargo-xwin";
     homepage = "https://github.com/rust-cross/cargo-xwin";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ shivaraj-bh ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [shivaraj-bh];
   };
 }

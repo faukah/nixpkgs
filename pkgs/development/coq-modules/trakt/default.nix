@@ -5,7 +5,6 @@
   coq-elpi,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "trakt";
   owner = "ecranceMERCE";
@@ -16,31 +15,30 @@ mkCoqDerivation {
   release."1.2+8.13".sha256 = "sha256-hozms4sPSMr4lFkJ20x+uW9Wqt067bifnPQxdGyKhQQ=";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch
-      [ coq.version ]
-      [
-        {
-          cases = [ (range "8.15" "8.17") ];
-          out = "1.2";
-        }
-        {
-          cases = [ (isEq "8.13") ];
-          out = "1.2+8.13";
-        }
-        {
-          cases = [ (range "8.13" "8.17") ];
-          out = "1.1";
-        }
-      ]
-      null;
+    [coq.version]
+    [
+      {
+        cases = [(range "8.15" "8.17")];
+        out = "1.2";
+      }
+      {
+        cases = [(isEq "8.13")];
+        out = "1.2+8.13";
+      }
+      {
+        cases = [(range "8.13" "8.17")];
+        out = "1.1";
+      }
+    ]
+    null;
 
-  propagatedBuildInputs = [ coq-elpi ];
+  propagatedBuildInputs = [coq-elpi];
 
   meta = with lib; {
     description = "Generic goal preprocessing tool for proof automation tactics in Coq";
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.lgpl3Plus;
     platforms = platforms.unix;
   };

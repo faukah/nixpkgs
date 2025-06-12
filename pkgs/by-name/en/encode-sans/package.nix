@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "encode-sans";
   version = "1.002";
@@ -34,7 +33,7 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://github.com/impallari/Encode-Sans";
     license = licenses.ofl;
-    maintainers = with maintainers; [ cmfwyp ];
+    maintainers = with maintainers; [cmfwyp];
     platforms = platforms.all;
   };
 }

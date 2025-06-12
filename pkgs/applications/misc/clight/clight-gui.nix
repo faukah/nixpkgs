@@ -7,7 +7,6 @@
   qtcharts,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clight-gui";
   version = "unstable-2023-02-21";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Qt GUI for clight";
     homepage = "https://github.com/nullobsi/clight-gui";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ nickhu ];
+    maintainers = with maintainers; [nickhu];
     mainProgram = "clight-gui";
     platforms = platforms.linux;
   };

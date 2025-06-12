@@ -2,9 +2,7 @@
 #
 # Precompiled wheels can be found at:
 # https://download.pytorch.org/whl/torch_stable.html
-
 # To add a new version, run "prefetch.sh 'new-version'" to paste the generated file as follows.
-
 version:
 builtins.getAttr version {
   "3.1.0" = {

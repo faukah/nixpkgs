@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "gobgp";
   version = "3.37.0";
@@ -27,13 +26,13 @@ buildGoModule rec {
     "-extldflags '-static'"
   ];
 
-  subPackages = [ "cmd/gobgp" ];
+  subPackages = ["cmd/gobgp"];
 
   meta = with lib; {
     description = "CLI tool for GoBGP";
     homepage = "https://osrg.github.io/gobgp/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ higebu ];
+    maintainers = with maintainers; [higebu];
     mainProgram = "gobgp";
   };
 }

@@ -1,3 +1,2 @@
-{ mkDerivation }:
-
-mkDerivation { path = "usr.bin/gencat"; }
+{mkDerivation}:
+mkDerivation {path = "usr.bin/gencat";}

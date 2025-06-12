@@ -4,7 +4,6 @@
   fetchzip,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "msr";
   version = "20060208";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Linux tool to display or modify x86 model-specific registers (MSRs)";
     mainProgram = "msr";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = [
       "i686-linux"
       "x86_64-linux"

@@ -11,7 +11,6 @@
   glib,
   common-licenses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bulky";
   version = "3.6";
@@ -32,12 +31,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     (python3.withPackages (
-      p: with p; [
-        pygobject3
-        magic
-        setproctitle
-        unidecode
-      ]
+      p:
+        with p; [
+          pygobject3
+          magic
+          setproctitle
+          unidecode
+        ]
     ))
     gsettings-desktop-schemas
     gtk3
@@ -70,6 +70,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxmint/bulky";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

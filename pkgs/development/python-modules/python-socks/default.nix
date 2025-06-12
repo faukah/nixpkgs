@@ -15,7 +15,6 @@
   trustme,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "python-socks";
   version = "2.7.1";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-7BfdyQDfRIPSC3Iv+cDcR0VFHX+l1OPRMElzHGL2x3M=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     trio
@@ -41,10 +40,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    asyncio = lib.optionals (pythonOlder "3.11") [ async-timeout ];
-    trio = [ trio ];
-    curio = [ curio ];
-    anyio = [ anyio ];
+    asyncio = lib.optionals (pythonOlder "3.11") [async-timeout];
+    trio = [trio];
+    curio = [curio];
+    anyio = [anyio];
   };
 
   doCheck = false; # requires tiny_proxy module
@@ -59,13 +58,13 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [ "python_socks" ];
+  pythonImportsCheck = ["python_socks"];
 
   meta = with lib; {
     changelog = "https://github.com/romis2012/python-socks/releases/tag/${src.tag}";
     description = "Core proxy client (SOCKS4, SOCKS5, HTTP) functionality for Python";
     homepage = "https://github.com/romis2012/python-socks";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -6,7 +6,6 @@
   aiohttp,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pysuezv2";
   version = "2.0.5";
@@ -21,20 +20,20 @@ buildPythonPackage rec {
     hash = "sha256-U5INSk3tcEgDJyRx17YaSDjPWgNwGeHIs2VB87E0l44=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pysuez" ];
+  pythonImportsCheck = ["pysuez"];
 
   meta = {
     description = "Module for dealing with water consumption data from Suez";
     homepage = "https://github.com/jb101010-2/pySuez";
     changelog = "https://github.com/jb101010-2/pySuez/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

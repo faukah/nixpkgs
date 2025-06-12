@@ -4,7 +4,6 @@
   fetchpatch,
   lib,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "dnd-tools";
   version = "unstable-2021-02-18";
@@ -29,6 +28,6 @@ python3.pkgs.buildPythonApplication {
     description = "Set of interactive command line tools for Dungeons and Dragons 5th Edition";
     mainProgram = "dnd-tools";
     license = licenses.agpl3Only;
-    maintainers = [ maintainers.urlordjames ];
+    maintainers = [maintainers.urlordjames];
   };
 }

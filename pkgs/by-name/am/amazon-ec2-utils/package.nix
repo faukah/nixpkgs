@@ -14,7 +14,6 @@
   stdenv,
   util-linux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "amazon-ec2-utils";
   version = "2.2.0";
@@ -47,28 +46,28 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/ec2-metadata \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          curl
-          util-linux
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        curl
+        util-linux
+      ]
+    }
 
     wrapProgram $out/bin/ec2nvme-nsid \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+      ]
+    }
 
     wrapProgram $out/bin/ec2udev-vbd \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          gnugrep
-          gnused
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        gnugrep
+        gnused
+      ]
+    }
 
     for file in *.rules; do
       install -D -m 644 -t $out/lib/udev/rules.d "$file"
@@ -96,7 +95,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

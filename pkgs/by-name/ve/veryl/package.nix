@@ -7,7 +7,6 @@
   dbus,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "veryl";
   version = "0.16.1";
@@ -78,7 +77,7 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
     mainProgram = "veryl";
   };
 }

@@ -3,14 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.static-web-server;
-  toml = pkgs.formats.toml { };
+  toml = pkgs.formats.toml {};
   configFilePath = toml.generate "config.toml" cfg.configuration;
-in
-{
+in {
   options = {
     services.static-web-server = {
       enable = lib.mkEnableOption ''Static Web Server'';
@@ -31,7 +28,7 @@ in
         '';
       };
       configuration = lib.mkOption {
-        default = { };
+        default = {};
         type = toml.type;
         example = {
           general = {
@@ -50,11 +47,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.static-web-server ];
-    systemd.packages = [ pkgs.static-web-server ];
+    environment.systemPackages = [pkgs.static-web-server];
+    systemd.packages = [pkgs.static-web-server];
     # Have to set wantedBy since systemd.packages ignores the "Install" section
     systemd.sockets.static-web-server = {
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       # Start with empty string to reset upstream option
       listenStreams = [
         ""
@@ -62,22 +59,25 @@ in
       ];
     };
     systemd.services.static-web-server = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         # Remove upstream sample environment file; use config.toml exclusively
-        EnvironmentFile = [ "" ];
+        EnvironmentFile = [""];
         ExecStart = [
           ""
           "${pkgs.static-web-server}/bin/static-web-server --fd 0 --config-file ${configFilePath} --root ${cfg.root}"
         ];
         # Supplementary groups doesn't work unless we create the group ourselves
-        SupplementaryGroups = [ "" ];
+        SupplementaryGroups = [""];
         # If the user is serving files from their home dir, override ProtectHome to allow that
-        ProtectHome = if lib.hasPrefix "/home" cfg.root then "tmpfs" else "true";
+        ProtectHome =
+          if lib.hasPrefix "/home" cfg.root
+          then "tmpfs"
+          else "true";
         BindReadOnlyPaths = cfg.root;
       };
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ mac-chaffee ];
+  meta.maintainers = with lib.maintainers; [mac-chaffee];
 }

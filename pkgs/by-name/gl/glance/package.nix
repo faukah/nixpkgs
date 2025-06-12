@@ -6,7 +6,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "glance";
   version = "0.8.3";
@@ -18,7 +17,7 @@ buildGoModule (finalAttrs: {
     hash = "sha256-o2Yom40HbNKe3DMMxz0Mf2gG8zresgU52Odpj2H7ZPU=";
   };
 
-  patches = [ ./update_purego.patch ];
+  patches = [./update_purego.patch];
 
   vendorHash = "sha256-esPtCg63A40mX9hADOhEa+NjNk+9MI/0qZG3uE91qxg=";
 
@@ -28,12 +27,12 @@ buildGoModule (finalAttrs: {
     "-X github.com/glanceapp/glance/internal/glance.buildVersion=v${finalAttrs.version}"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       service = nixosTests.glance;
     };

@@ -10,7 +10,6 @@
   stevedore,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "dogpile-cache";
   version = "1.4.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-sAqeL0Cc+b9Iwuej4+aNrF+nWROsvxpi+CfIEtNfPQk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     decorator
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     description = "Caching front-end based on the Dogpile lock";
     homepage = "https://github.com/sqlalchemy/dogpile.cache";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

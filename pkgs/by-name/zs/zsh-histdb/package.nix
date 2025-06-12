@@ -6,7 +6,6 @@
   zsh,
   sqlite,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "zsh-histdb";
   version = "0-unstable-2024-04-18";

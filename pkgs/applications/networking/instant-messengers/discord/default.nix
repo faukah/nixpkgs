@@ -4,23 +4,21 @@
   fetchurl,
   lib,
   stdenv,
-}:
-let
+}: let
   versions =
-    if stdenv.hostPlatform.isLinux then
-      {
-        stable = "0.0.95";
-        ptb = "0.0.146";
-        canary = "0.0.687";
-        development = "0.0.75";
-      }
-    else
-      {
-        stable = "0.0.347";
-        ptb = "0.0.174";
-        canary = "0.0.793";
-        development = "0.0.88";
-      };
+    if stdenv.hostPlatform.isLinux
+    then {
+      stable = "0.0.95";
+      ptb = "0.0.146";
+      canary = "0.0.687";
+      development = "0.0.75";
+    }
+    else {
+      stable = "0.0.347";
+      ptb = "0.0.174";
+      canary = "0.0.793";
+      development = "0.0.88";
+    };
   version = versions.${branch};
   srcs = rec {
     x86_64-linux = {
@@ -83,46 +81,60 @@ let
       "x86_64-darwin"
       "aarch64-darwin"
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
-  package = if stdenv.hostPlatform.isLinux then ./linux.nix else ./darwin.nix;
+  package =
+    if stdenv.hostPlatform.isLinux
+    then ./linux.nix
+    else ./darwin.nix;
 
   packages = (
     builtins.mapAttrs
-      (
-        _: value:
+    (
+      _: value:
         callPackage package (
           value
           // {
             inherit src version branch;
-            meta = meta // {
-              mainProgram = value.binaryName;
-            };
+            meta =
+              meta
+              // {
+                mainProgram = value.binaryName;
+              };
           }
         )
-      )
-      {
-        stable = {
-          pname = "discord";
-          binaryName = "Discord";
-          desktopName = "Discord";
-        };
-        ptb = rec {
-          pname = "discord-ptb";
-          binaryName = if stdenv.hostPlatform.isLinux then "DiscordPTB" else desktopName;
-          desktopName = "Discord PTB";
-        };
-        canary = rec {
-          pname = "discord-canary";
-          binaryName = if stdenv.hostPlatform.isLinux then "DiscordCanary" else desktopName;
-          desktopName = "Discord Canary";
-        };
-        development = rec {
-          pname = "discord-development";
-          binaryName = if stdenv.hostPlatform.isLinux then "DiscordDevelopment" else desktopName;
-          desktopName = "Discord Development";
-        };
-      }
+    )
+    {
+      stable = {
+        pname = "discord";
+        binaryName = "Discord";
+        desktopName = "Discord";
+      };
+      ptb = rec {
+        pname = "discord-ptb";
+        binaryName =
+          if stdenv.hostPlatform.isLinux
+          then "DiscordPTB"
+          else desktopName;
+        desktopName = "Discord PTB";
+      };
+      canary = rec {
+        pname = "discord-canary";
+        binaryName =
+          if stdenv.hostPlatform.isLinux
+          then "DiscordCanary"
+          else desktopName;
+        desktopName = "Discord Canary";
+      };
+      development = rec {
+        pname = "discord-development";
+        binaryName =
+          if stdenv.hostPlatform.isLinux
+          then "DiscordDevelopment"
+          else desktopName;
+        desktopName = "Discord Development";
+      };
+    }
   );
 in
-packages.${branch}
+  packages.${branch}

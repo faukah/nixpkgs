@@ -6,7 +6,6 @@
   setuptools,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "opsdroid-get-image-size";
   version = "0.2.2";
@@ -25,21 +24,21 @@ buildPythonPackage rec {
     rm versioneer.py
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ versioneer ];
+  nativeBuildInputs = [versioneer];
 
   # Test data not included on PyPI
   doCheck = false;
 
-  pythonImportsCheck = [ "get_image_size" ];
+  pythonImportsCheck = ["get_image_size"];
 
   meta = with lib; {
     description = "Get image width and height given a file path using minimal dependencies";
     homepage = "https://github.com/opsdroid/image_size";
     changelog = "https://github.com/opsdroid/image_size/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
     mainProgram = "get-image-size";
   };
 }

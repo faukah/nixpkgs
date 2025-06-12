@@ -8,7 +8,6 @@
   wrapGAppsHook4,
   nix-update-script,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "satellite";
   version = "0.9.1";
@@ -28,7 +27,7 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook4
   ];
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   buildInputs = [
     libadwaita
@@ -44,7 +43,7 @@ python3.pkgs.buildPythonApplication rec {
   strictDeps = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -57,6 +56,6 @@ python3.pkgs.buildPythonApplication rec {
     license = lib.licenses.gpl3Only;
     mainProgram = "satellite";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ Luflosi ];
+    maintainers = with lib.maintainers; [Luflosi];
   };
 }

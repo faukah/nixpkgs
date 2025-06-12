@@ -6,7 +6,6 @@
   subversion,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "wp4nix";
   version = "1.0.0";
@@ -28,11 +27,11 @@ buildGoModule rec {
   postInstall = ''
     wrapProgram $out/bin/wp4nix \
       --prefix PATH : ${
-        lib.makeBinPath [
-          nix
-          subversion
-        ]
-      }
+      lib.makeBinPath [
+        nix
+        subversion
+      ]
+    }
   '';
 
   meta = with lib; {
@@ -40,7 +39,7 @@ buildGoModule rec {
     mainProgram = "wp4nix";
     homepage = "https://git.helsinki.tools/helsinki-systems/wp4nix";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     platforms = platforms.unix;
   };
 }

@@ -23,7 +23,7 @@ buildPythonPackage {
     hash = "sha256-XYfKAscm55lY4YjIGTQ6RMFnCPWemfszpheGQ9qjMiM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     beancount
@@ -32,7 +32,7 @@ buildPythonPackage {
     tatsu-lts
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "beanquery"
@@ -46,7 +46,7 @@ buildPythonPackage {
       including Beancount.
     '';
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ alapshin ];
+    maintainers = with maintainers; [alapshin];
     mainProgram = "bean-query";
   };
 }

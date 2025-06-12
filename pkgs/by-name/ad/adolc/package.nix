@@ -4,7 +4,6 @@
   fetchFromGitHub,
   llvmPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "adolc";
   version = "2.7.2";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Automatic Differentiation of C/C++";
     homepage = "https://github.com/coin-or/ADOL-C";
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
     license = licenses.gpl2Plus;
   };
 })

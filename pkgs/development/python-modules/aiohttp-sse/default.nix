@@ -9,7 +9,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aiohttp-sse";
   version = "2.2.0";
@@ -22,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-iCjWuECUQukCtlQPjztEwawqSzd3LvvWRGXnhZem22w=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
   ];
 
-  pythonImportsCheck = [ "aiohttp_sse" ];
+  pythonImportsCheck = ["aiohttp_sse"];
 
   nativeCheckInputs = [
     pytest-aiohttp
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Server-sent events support for aiohttp";
     homepage = "https://github.com/aio-libs/aiohttp-sse";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

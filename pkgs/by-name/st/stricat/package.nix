@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stricat";
   version = "20140609100300";
@@ -13,7 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "1axg8r4g5n5kdqj5013pgck80nni3z172xkg506vz4zx1zcmrm4r";
   };
 
-  buildFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  buildFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.stribob.com/stricat/";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
     mainProgram = "stricat";
   };
 }

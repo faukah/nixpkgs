@@ -5,7 +5,6 @@
   testers,
   vals,
 }:
-
 buildGoModule rec {
   pname = "vals";
   version = "0.41.2";
@@ -41,6 +40,6 @@ buildGoModule rec {
     license = lib.licenses.asl20;
     homepage = "https://github.com/helmfile/vals";
     changelog = "https://github.com/helmfile/vals/releases/v${version}";
-    maintainers = with lib.maintainers; [ stehessel ];
+    maintainers = with lib.maintainers; [stehessel];
   };
 }

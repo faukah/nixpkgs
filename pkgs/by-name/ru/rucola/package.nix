@@ -6,7 +6,6 @@
   oniguruma,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rucola";
   version = "0.5.0";
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Linus-Mussmaecher/rucola";
     changelog = "https://github.com/Linus-Mussmaecher/rucola/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ donovanglover ];
+    maintainers = with lib.maintainers; [donovanglover];
     mainProgram = "rucola";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };

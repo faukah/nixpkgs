@@ -17,7 +17,6 @@
   llvmPackages,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "curv";
   version = "0.5-unstable-2025-01-20";
@@ -61,7 +60,7 @@ stdenv.mkDerivation {
 
   # force char to be unsigned on aarch64
   # https://codeberg.org/doug-moen/curv/issues/227
-  NIX_CFLAGS_COMPILE = [ "-fsigned-char" ];
+  NIX_CFLAGS_COMPILE = ["-fsigned-char"];
 
   # GPU tests do not work in sandbox, instead we do this for sanity
   doInstallCheck = true;
@@ -71,7 +70,7 @@ stdenv.mkDerivation {
     runHook postInstallCheck
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "2D and 3D geometric modelling programming language for creating art with maths";
@@ -79,7 +78,7 @@ stdenv.mkDerivation {
     license = licenses.asl20;
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
     mainProgram = "curv";
   };
 }

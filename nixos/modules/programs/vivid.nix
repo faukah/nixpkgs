@@ -3,12 +3,9 @@
   config,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.vivid;
-in
-{
+in {
   options = {
     programs.vivid = {
       enable = lib.mkOption {
@@ -17,7 +14,7 @@ in
         type = lib.types.bool;
       };
 
-      package = lib.mkPackageOption pkgs "vivid" { example = "vivid"; };
+      package = lib.mkPackageOption pkgs "vivid" {example = "vivid";};
 
       theme = lib.mkOption {
         default = "gruvbox-dark-soft";
@@ -29,23 +26,21 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    programs =
-      let
-        interactiveShellInit = lib.mkAfter ''
-          export LS_COLORS="$(${lib.getExe cfg.package} generate ${cfg.theme})"
-        '';
-        enableLsColors = lib.mkOverride 999 false;
-      in
-      {
-        bash = {
-          inherit interactiveShellInit enableLsColors;
-        };
-        zsh = {
-          inherit interactiveShellInit enableLsColors;
-        };
+    programs = let
+      interactiveShellInit = lib.mkAfter ''
+        export LS_COLORS="$(${lib.getExe cfg.package} generate ${cfg.theme})"
+      '';
+      enableLsColors = lib.mkOverride 999 false;
+    in {
+      bash = {
+        inherit interactiveShellInit enableLsColors;
       };
+      zsh = {
+        inherit interactiveShellInit enableLsColors;
+      };
+    };
 
     assertions = [
       {
@@ -59,5 +54,5 @@ in
     ];
   };
 
-  meta.maintainers = with lib.maintainers; [ gdifolco ];
+  meta.maintainers = with lib.maintainers; [gdifolco];
 }

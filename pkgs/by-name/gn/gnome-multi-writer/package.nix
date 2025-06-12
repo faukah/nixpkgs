@@ -18,7 +18,6 @@
   polkit,
   udisks,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-multi-writer";
   version = "3.35.90";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     mainProgram = "gnome-multi-writer";
     homepage = "https://gitlab.gnome.org/GNOME/gnome-multi-writer";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 }

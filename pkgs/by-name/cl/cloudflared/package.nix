@@ -6,7 +6,6 @@
   callPackage,
   gitUpdater,
 }:
-
 buildGoModule rec {
   pname = "cloudflared";
   version = "2025.5.0";
@@ -73,8 +72,8 @@ buildGoModule rec {
   doCheck = !stdenv.hostPlatform.isDarwin;
 
   passthru = {
-    tests.simple = callPackage ./tests.nix { inherit version; };
-    updateScript = gitUpdater { };
+    tests.simple = callPackage ./tests.nix {inherit version;};
+    updateScript = gitUpdater {};
   };
 
   meta = {

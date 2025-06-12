@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ytcast";
   version = "1.4.0";
@@ -16,13 +15,13 @@ buildGoModule rec {
   };
 
   vendorHash = null;
-  ldflags = [ "-X main.progVersion=${version}" ];
+  ldflags = ["-X main.progVersion=${version}"];
 
   meta = with lib; {
     description = "Tool to cast YouTube videos from the command-line";
     homepage = "https://github.com/MarcoLucidi01/ytcast";
     license = licenses.mit;
-    maintainers = with maintainers; [ waelwindows ];
+    maintainers = with maintainers; [waelwindows];
     mainProgram = "ytcast";
   };
 }

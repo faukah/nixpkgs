@@ -2,16 +2,12 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   pbr,
-
   requests,
   poetry-core,
-
   pytestCheckHook,
   waitress,
 }:
-
 buildPythonPackage rec {
   pname = "requests-unixsocket2";
   version = "0.4.2";
@@ -23,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-kpxY7MWYHz0SdmHOueyMduDwjTHFLkSrFGKsDc1VtfU=";
   };
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   propagatedBuildInputs = [
     requests
@@ -35,12 +31,12 @@ buildPythonPackage rec {
     waitress
   ];
 
-  pythonImportsCheck = [ "requests_unixsocket" ];
+  pythonImportsCheck = ["requests_unixsocket"];
 
   meta = with lib; {
     description = "Use requests to talk HTTP via a UNIX domain socket";
     homepage = "https://gitlab.com/thelabnyc/requests-unixsocket2";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ mikut ];
+    maintainers = with maintainers; [mikut];
   };
 }

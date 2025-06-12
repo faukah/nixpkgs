@@ -4,7 +4,6 @@
   lib,
   grpc,
 }:
-
 buildPecl {
   pname = "grpc";
   inherit (grpc) version src;
@@ -16,8 +15,8 @@ buildPecl {
     ./skip-darwin-test.patch # https://github.com/grpc/grpc/pull/35403
   ];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ grpc ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [grpc];
 
   doCheck = true;
 
@@ -25,6 +24,6 @@ buildPecl {
     description = "High performance, open source, general RPC framework that puts mobile and HTTP/2 first";
     homepage = "https://github.com/grpc/grpc/tree/master/src/php/ext/grpc";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 }

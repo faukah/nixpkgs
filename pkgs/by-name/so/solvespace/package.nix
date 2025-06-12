@@ -29,7 +29,6 @@
   xorg,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "solvespace";
   version = "3.1";
@@ -90,12 +89,12 @@ stdenv.mkDerivation rec {
     EOF
   '';
 
-  cmakeFlags = [ "-DENABLE_OPENMP=ON" ];
+  cmakeFlags = ["-DENABLE_OPENMP=ON"];
 
   meta = {
     description = "Parametric 3d CAD program";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.edef ];
+    maintainers = [lib.maintainers.edef];
     platforms = lib.platforms.linux;
     homepage = "https://solvespace.com";
     changelog = "https://github.com/solvespace/solvespace/raw/v${version}/CHANGELOG.md";

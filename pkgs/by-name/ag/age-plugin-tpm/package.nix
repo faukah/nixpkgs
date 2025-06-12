@@ -8,7 +8,6 @@
   openssl,
   age,
 }:
-
 buildGoModule rec {
   pname = "age-plugin-tpm";
   version = "0.3.0";
@@ -39,7 +38,7 @@ buildGoModule rec {
   ];
 
   passthru.tests = {
-    encrypt = callPackage ./tests/encrypt.nix { };
+    encrypt = callPackage ./tests/encrypt.nix {};
     decrypt = nixosTests.age-plugin-tpm-decrypt;
   };
 

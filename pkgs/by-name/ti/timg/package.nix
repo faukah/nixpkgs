@@ -17,7 +17,6 @@
   qoi,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "timg";
   version = "1.6.2";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://timg.sh/";
     license = lib.licenses.gpl2Only;
     mainProgram = "timg";
-    maintainers = with lib.maintainers; [ hzeller ];
+    maintainers = with lib.maintainers; [hzeller];
     platforms = lib.platforms.unix;
   };
 })

@@ -6,7 +6,6 @@
   libdeflate,
   isa-l,
 }:
-
 stdenv.mkDerivation rec {
   pname = "seqtk";
   version = "1.4";
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = "https://github.com/lh3/seqtk";
     platforms = platforms.all;
-    maintainers = with maintainers; [ bwlang ];
+    maintainers = with maintainers; [bwlang];
   };
 }

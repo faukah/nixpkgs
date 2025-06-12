@@ -6,7 +6,6 @@
   coreutils,
   nixosTests,
 }:
-
 stdenv.mkDerivation {
   pname = "cups-pdf-to-pdf";
   version = "unstable-2021-12-22";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
     hash = "sha256-pa4PFf8OAFSra0hSazmKUfbMYL/cVWvYA1lBf7c7jmY=";
   };
 
-  buildInputs = [ cups ];
+  buildInputs = [cups];
 
   postPatch = ''
     substituteInPlace cups-pdf.c \
@@ -49,7 +48,7 @@ stdenv.mkDerivation {
     description = "CUPS backend that turns print jobs into searchable PDF files";
     homepage = "https://github.com/alexivkin/CUPS-PDF-to-PDF";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.yarny ];
+    maintainers = [lib.maintainers.yarny];
     longDescription = ''
       cups-pdf is a CUPS backend that generates a PDF file for each print job and puts this file
       into a folder on the local machine such that the print job's owner can access the file.

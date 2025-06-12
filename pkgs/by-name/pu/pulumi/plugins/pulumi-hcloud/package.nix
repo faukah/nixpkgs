@@ -20,6 +20,6 @@ mkPulumiPackage rec {
     mainProgram = "pulumi-resource-hcloud";
     homepage = "https://github.com/pulumi/pulumi-hcloud";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tie ];
+    maintainers = with maintainers; [tie];
   };
 }

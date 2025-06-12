@@ -5,7 +5,6 @@
   setuptools-scm,
   cmake,
 }:
-
 buildPythonPackage rec {
   pname = "kuzu";
   version = "0.10.0";
@@ -24,12 +23,12 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  pythonImportsCheck = [ "kuzu" ];
+  pythonImportsCheck = ["kuzu"];
 
   meta = {
     description = "Python bindings for Kuzu, an embeddable property graph database management system";
     homepage = "https://kuzudb.com/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sdht0 ];
+    maintainers = with lib.maintainers; [sdht0];
   };
 }

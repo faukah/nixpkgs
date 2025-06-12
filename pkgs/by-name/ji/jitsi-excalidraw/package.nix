@@ -6,7 +6,6 @@
   python3,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "jitsi-excalidraw-backend";
   version = "21";
@@ -20,7 +19,7 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-BJqjaqTeg5i+ECGMuiBYVToK2i2XCOVP9yeDFz6nP4k=";
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   installPhase = ''
     mkdir -p $out/share
@@ -33,13 +32,13 @@ buildNpmPackage rec {
       --chdir $out/share
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Excalidraw collaboration backend for Jitsi";
     homepage = "https://github.com/jitsi/excalidraw-backend";
     license = licenses.mit;
-    maintainers = with maintainers; [ camillemndn ];
+    maintainers = with maintainers; [camillemndn];
     mainProgram = "jitsi-excalidraw-backend";
   };
 }

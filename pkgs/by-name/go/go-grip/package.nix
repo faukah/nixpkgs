@@ -17,13 +17,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-aU6vo/uqJzctD7Q8HPFzHXVVJwMmlzQXhAA6LSkRAow=";
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "Preview Markdown files locally before committing them";
     homepage = "https://github.com/chrishrb/go-grip";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ heisfer ];
+    maintainers = with lib.maintainers; [heisfer];
     mainProgram = "go-grip";
   };
 }

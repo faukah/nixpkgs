@@ -10,7 +10,6 @@
   pythonOlder,
   sensor-state-data,
 }:
-
 buildPythonPackage rec {
   pname = "atc-ble";
   version = "0.1.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-rwOFKxUlbbNIDJRdCmZpHstXwxcTnvlExgcVDdGbIVY=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     bluetooth-sensor-state-data
@@ -38,13 +37,13 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pythonImportsCheck = [ "atc_ble" ];
+  pythonImportsCheck = ["atc_ble"];
 
   meta = with lib; {
     description = "Library for ATC devices with custom firmware";
     homepage = "https://github.com/Bluetooth-Devices/atc-ble";
     changelog = "https://github.com/Bluetooth-Devices/atc-ble/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

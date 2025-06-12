@@ -29,9 +29,9 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   enableParallelBuilding = true;
-  buildFlags = [ "modules" ];
-  installFlags = [ "INSTALL_MOD_PATH=${placeholder "out"}" ];
-  installTargets = [ "modules_install" ];
+  buildFlags = ["modules"];
+  installFlags = ["INSTALL_MOD_PATH=${placeholder "out"}"];
+  installTargets = ["modules_install"];
 
   meta = with lib; {
     description = "Linux kernel driver for Xbox One and Xbox Series X|S accessories";

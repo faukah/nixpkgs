@@ -1,11 +1,10 @@
-{ stdenv }:
-
+{stdenv}:
 stdenv.mkDerivation {
   name = "stdenv-test-succeedOnFailure";
 
   succeedOnFailure = true;
 
-  passAsFile = [ "buildCommand" ];
+  passAsFile = ["buildCommand"];
   buildCommand = ''
     mkdir $out
     echo foo > $out/foo

@@ -7,7 +7,6 @@
   rdbg,
   yaml,
 }:
-
 buildDunePackage rec {
   pname = "lustre-v6";
   version = "6.107.4";

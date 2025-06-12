@@ -6,7 +6,6 @@
   setuptools,
   packaging,
 }:
-
 buildPythonPackage rec {
   pname = "asterisk-mbox";
   version = "0.5.0";
@@ -27,19 +26,19 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ packaging ];
+  propagatedBuildInputs = [packaging];
 
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "asterisk_mbox" ];
+  pythonImportsCheck = ["asterisk_mbox"];
 
   meta = with lib; {
     description = "Client side of a client/server to interact with Asterisk voicemail mailboxes";
     homepage = "https://github.com/PhracturedBlue/asterisk_mbox";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

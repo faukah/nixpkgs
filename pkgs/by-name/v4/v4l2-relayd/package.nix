@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     mainProgram = "v4l2-relayd";
     homepage = "https://git.launchpad.net/v4l2-relayd";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ betaboon ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [betaboon];
+    platforms = ["x86_64-linux"];
   };
 }

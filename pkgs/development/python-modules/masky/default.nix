@@ -9,7 +9,6 @@
   pyasn1,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "masky";
   version = "0.2.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "masky" ];
+  pythonImportsCheck = ["masky"];
 
   meta = with lib; {
     description = "Library to remotely dump domain credentials";
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Z4kSec/Masky";
     changelog = "https://github.com/Z4kSec/Masky/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ elasticdog ];
+    maintainers = with maintainers; [elasticdog];
   };
 }

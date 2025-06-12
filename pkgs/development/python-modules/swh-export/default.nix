@@ -21,7 +21,6 @@
   tzdata,
   pkgs,
 }:
-
 buildPythonPackage rec {
   pname = "swh-export";
   version = "1.8.0";
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     export TZDIR=${tzdata}/${python.sitePackages}/tzdata/zoneinfo
   '';
 
-  pythonImportsCheck = [ "swh.export" ];
+  pythonImportsCheck = ["swh.export"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -85,6 +84,6 @@ buildPythonPackage rec {
     description = "Software Heritage dataset tools";
     homepage = "https://gitlab.softwareheritage.org/swh/devel/swh-export";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

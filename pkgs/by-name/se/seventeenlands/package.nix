@@ -15,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "seventeenlands" ];
+  pythonImportsCheck = ["seventeenlands"];
 
   propagatedBuildInputs = with python3.pkgs; [
     python-dateutil
@@ -27,7 +27,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Client for passing relevant events from MTG Arena logs to the 17Lands REST endpoint, also known as mtga-log-client";
     homepage = "https://www.17lands.com/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
     mainProgram = "seventeenlands";
   };
 }

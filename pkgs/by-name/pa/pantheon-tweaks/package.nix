@@ -15,7 +15,6 @@
   pango,
   pantheon,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pantheon-tweaks";
   version = "2.3.0";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/pantheon-tweaks/pantheon-tweaks";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "pantheon-tweaks";
   };
 }

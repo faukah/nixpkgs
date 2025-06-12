@@ -10,7 +10,6 @@
   shapely,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "matplotlib-venn";
   version = "1.1.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-bysHoD6btaYt4vMvllIWc54XUXb51lTdGeevLCLsNuM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     matplotlib
@@ -36,14 +35,14 @@ buildPythonPackage rec {
     "matplotlib_venn.layout.venn3.cost_based.LayoutAlgorithm"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Functions for plotting area-proportional two- and three-way Venn diagrams in matplotlib";
     homepage = "https://github.com/konstantint/matplotlib-venn";
     changelog = "https://github.com/konstantint/matplotlib-venn/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     broken = stdenv.hostPlatform.isDarwin; # https://github.com/konstantint/matplotlib-venn/issues/87
   };
 }

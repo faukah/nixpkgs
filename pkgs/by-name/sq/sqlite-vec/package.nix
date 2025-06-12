@@ -5,7 +5,6 @@
   sqlite,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sqlite-vec";
   version = "0.1.6";
@@ -17,9 +16,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-CgeSoRoQRMb/V+RzU5NQuIk/3OonYjAfolWD2hqNuXU=";
   };
 
-  nativeBuildInputs = [ gettext ];
+  nativeBuildInputs = [gettext];
 
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
   makeFlags = [
     "loadable"
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/asg017/sqlite-vec";
     changelog = "https://github.com/asg017/sqlite-vec/releases/tag/${finalAttrs.src.rev}";
     license = licenses.mit;
-    maintainers = [ maintainers.anmonteiro ];
+    maintainers = [maintainers.anmonteiro];
     platforms = platforms.unix;
   };
 })

@@ -3,14 +3,11 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   gymnasium,
   numpy,
-
   # optional-dependencies
   pygame,
   pymunk,
@@ -26,11 +23,9 @@
   pytest-cov-stub,
   pytest-markdown-docs,
   pytest-xdist,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pettingzoo";
   version = "1.25.0";
@@ -68,8 +63,8 @@ buildPythonPackage rec {
       rlcard
       shimmy
     ];
-    mpe = [ pygame ];
-    other = [ pillow ];
+    mpe = [pygame];
+    other = [pillow];
     sisl = [
       pybox2d
       pygame
@@ -87,7 +82,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "pettingzoo" ];
+  pythonImportsCheck = ["pettingzoo"];
 
   nativeCheckInputs = [
     chess
@@ -121,6 +116,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Farama-Foundation/PettingZoo";
     changelog = "https://github.com/Farama-Foundation/PettingZoo/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

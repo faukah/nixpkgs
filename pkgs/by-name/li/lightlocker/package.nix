@@ -18,7 +18,6 @@
   pantheon,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "light-locker";
   version = "1.9.0";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -87,8 +86,8 @@ stdenv.mkDerivation rec {
       ConsoleKit/UPower or logind/systemd.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ obadz ];
-    teams = [ teams.pantheon ];
+    maintainers = with maintainers; [obadz];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
   };
 }

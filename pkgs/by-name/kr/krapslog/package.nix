@@ -5,7 +5,6 @@
   fetchFromGitHub,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "krapslog";
   version = "0.6.1";
@@ -25,8 +24,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Visualize a log file with sparklines";
     homepage = "https://github.com/acj/krapslog-rs";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ yanganto ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [yanganto];
     mainProgram = "krapslog";
   };
 }

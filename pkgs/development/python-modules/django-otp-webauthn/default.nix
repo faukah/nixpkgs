@@ -8,7 +8,6 @@
   djangorestframework,
   webauthn,
 }:
-
 buildPythonPackage rec {
   pname = "django-otp-webauthn";
   version = "0.6.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-Exyao6i63S7czGAcZMULrNcnxjRNw21ufNFaxj9kkFs=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     django
@@ -31,14 +30,13 @@ buildPythonPackage rec {
 
   # Tests are on the roadmap, but not yet implemented
 
-  pythonImportsCheck = [ "django_otp_webauthn" ];
+  pythonImportsCheck = ["django_otp_webauthn"];
 
   meta = with lib; {
     description = "Passkey support for Django";
     homepage = "https://github.com/Stormbase/django-otp-webauthn";
     changelog = "https://github.com/Stormbase/django-otp-webauthn/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
   };
-
 }

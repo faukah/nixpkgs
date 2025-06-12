@@ -5,7 +5,6 @@
   zlib,
   bzip2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tokyocabinet";
   version = "1.4.48";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.lgpl2Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

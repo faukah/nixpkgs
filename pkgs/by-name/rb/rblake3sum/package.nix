@@ -20,8 +20,8 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     description = "Recursive blake3 digest (hash) of a file-system path";
     homepage = "https://github.com/rustshop/rblake3sum";
-    license = [ licenses.mit ];
-    maintainers = with maintainers; [ dpc ];
+    license = [licenses.mit];
+    maintainers = with maintainers; [dpc];
     mainProgram = "rblake3sum";
   };
 }

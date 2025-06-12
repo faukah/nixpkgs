@@ -25,7 +25,6 @@
   dosfstools,
   xhost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gparted";
   version = "1.7.0";
@@ -74,19 +73,19 @@ stdenv.mkDerivation rec {
   preFixup = ''
     gappsWrapperArgs+=(
        --prefix PATH : "${
-         lib.makeBinPath [
-           gpart
-           hdparm
-           util-linux
-           procps
-           coreutils
-           gnused
-           gnugrep
-           mtools
-           dosfstools
-           xhost
-         ]
-       }"
+      lib.makeBinPath [
+        gpart
+        hdparm
+        util-linux
+        procps
+        coreutils
+        gnused
+        gnugrep
+        mtools
+        dosfstools
+        xhost
+      ]
+    }"
     )
   '';
 

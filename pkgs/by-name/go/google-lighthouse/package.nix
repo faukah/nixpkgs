@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   yarnBuildScript = "build-report";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     yarnConfigHook
     yarnBuildHook
@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
     homepage = "https://developer.chrome.com/docs/lighthouse/overview";
     license = lib.licenses.asl20;
     mainProgram = "lighthouse";
-    maintainers = with lib.maintainers; [ theCapypara ];
+    maintainers = with lib.maintainers; [theCapypara];
   };
 }

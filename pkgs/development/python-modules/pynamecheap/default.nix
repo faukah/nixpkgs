@@ -4,12 +4,11 @@
   fetchFromGitHub,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "pynamecheap";
   version = "0.0.3";
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # Tests require access to api.sandbox.namecheap.com
   doCheck = false;

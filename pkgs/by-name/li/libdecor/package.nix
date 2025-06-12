@@ -13,7 +13,6 @@
   pango,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdecor";
   version = "0.2.2";
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
     description = "Client-side decorations library for Wayland clients";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

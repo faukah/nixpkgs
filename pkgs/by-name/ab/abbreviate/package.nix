@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "abbreviate";
   version = "1.6.0";
@@ -40,6 +39,6 @@ buildGoModule rec {
     homepage = "https://github.com/dnnrly/abbreviate";
     changelog = "https://github.com/dnnrly/abbreviate/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -11,7 +11,6 @@
   requests-mock,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "pyecotrend-ista";
   version = "3.3.2";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     sed -i "/addopts =/d" pyproject.toml
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     dataclasses-json
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "pyecotrend_ista" ];
+  pythonImportsCheck = ["pyecotrend_ista"];
 
   meta = {
     changelog = "https://github.com/Ludy87/pyecotrend-ista/releases/tag/${version}";
     description = "Unofficial python library for the pyecotrend-ista API";
     homepage = "https://github.com/Ludy87/pyecotrend-ista";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ oynqr ];
+    maintainers = with lib.maintainers; [oynqr];
   };
 }

@@ -6,7 +6,6 @@
   rsync,
   unison,
 }:
-
 stdenv.mkDerivation {
   pname = "usync";
   version = "0.0.3";
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/ebzzry/usync";
     description = "Simple site-to-site synchronization tool";
     license = licenses.mit;
-    maintainers = [ maintainers.ebzzry ];
+    maintainers = [maintainers.ebzzry];
     platforms = platforms.unix;
     mainProgram = "usync";
   };

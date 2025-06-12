@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "byacc";
   version = "20241231";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     changelog = "https://invisible-island.net/byacc/CHANGES.html";
     license = lib.licenses.publicDomain;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

@@ -17,7 +17,6 @@
   shlib,
   voluptuous,
 }:
-
 buildPythonPackage rec {
   pname = "emborg";
   version = "1.41";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-ViELR5pbGZc1vMxluHWBARuP6N031u+75WmJEYdckJo=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     appdirs
@@ -59,13 +58,13 @@ buildPythonPackage rec {
     patchShebangs .
   '';
 
-  pythonImportsCheck = [ "emborg" ];
+  pythonImportsCheck = ["emborg"];
 
   meta = with lib; {
     description = "Interactive command line interface to Borg Backup";
     homepage = "https://github.com/KenKundert/emborg";
     changelog = "https://github.com/KenKundert/emborg/releases/tag/v${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

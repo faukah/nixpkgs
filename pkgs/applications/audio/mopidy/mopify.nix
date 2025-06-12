@@ -4,7 +4,6 @@
   fetchPypi,
   mopidy,
 }:
-
 pythonPackages.buildPythonApplication rec {
   pname = "Mopidy-Mopify";
   version = "1.7.3";
@@ -26,6 +25,6 @@ pythonPackages.buildPythonApplication rec {
     homepage = "https://github.com/dirkgroenen/mopidy-mopify";
     description = "Mopidy webclient based on the Spotify webbased interface";
     license = licenses.gpl3;
-    maintainers = [ maintainers.Gonzih ];
+    maintainers = [maintainers.Gonzih];
   };
 }

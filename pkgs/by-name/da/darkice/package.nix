@@ -13,7 +13,6 @@
   libvorbis,
   libsamplerate,
 }:
-
 stdenv.mkDerivation rec {
   pname = "darkice";
   version = "1.5";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GLTEVzp8z+CcEJTrV5gVniqYkhBupi11OTP28qdGBY4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libopus
     libvorbis
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     "--with-lame-prefix=${lame.lib}"
   ];
 
-  patches = [ ./fix-undeclared-memmove.patch ];
+  patches = [./fix-undeclared-memmove.patch];
 
   enableParallelBuilding = true;
 
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "http://darkice.org/";
     description = "Live audio streamer";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ ikervagyok ];
+    maintainers = with lib.maintainers; [ikervagyok];
   };
 }

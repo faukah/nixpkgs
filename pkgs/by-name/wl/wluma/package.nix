@@ -13,7 +13,6 @@
   dbus,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wluma";
   version = "4.9.0";
@@ -53,10 +52,10 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/wluma \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ wayland ]}"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [wayland]}"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Automatic brightness adjustment based on screen contents and ALS";

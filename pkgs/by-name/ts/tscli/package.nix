@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "tscli";
   version = "0.0.7";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-+4PFwEib/8o+1mk5SOkIZkK7W1elIFToU1DI9P8s1Y8=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-X=github.com/jaxxstorm/tscli/pkg/version.Version=${version}"
@@ -38,6 +37,6 @@ buildGoModule rec {
     changelog = "https://github.com/jaxxstorm/tscli/releases/tag/${src.tag}/CHANGELOG.md";
     mainProgram = "tscli";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

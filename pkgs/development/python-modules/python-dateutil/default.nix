@@ -5,7 +5,6 @@
   setuptools-scm,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "python-dateutil";
   version = "2.9.0.post0";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
       --replace-fail "setuptools_scm<8.0" "setuptools_scm"
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   # cyclic dependency: tests need freezegun, which depends on python-dateutil
   doCheck = false;
@@ -46,6 +45,6 @@ buildPythonPackage rec {
       asl20
       bsd3
     ];
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

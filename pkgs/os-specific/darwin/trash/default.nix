@@ -4,7 +4,6 @@
   fetchFromGitHub,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.9.2";
   pname = "trash";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  patches = [ ./trash.diff ];
+  patches = [./trash.diff];
 
   buildPhase = "make all docs";
 

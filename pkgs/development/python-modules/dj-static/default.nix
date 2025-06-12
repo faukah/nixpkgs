@@ -5,7 +5,6 @@
   django,
   static3,
 }:
-
 buildPythonPackage rec {
   pname = "dj-static";
   version = "0.0.6";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-B6TydlezbDkmfFgJjdFniZIYo/JjzPvFj43co+HYCdc=";
   };
 
-  buildInputs = [ django ];
+  buildInputs = [django];
 
-  propagatedBuildInputs = [ static3 ];
+  propagatedBuildInputs = [static3];
 
-  pythonImportsCheck = [ "dj_static" ];
+  pythonImportsCheck = ["dj_static"];
 
   doCheck = false;
 
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     description = "Serve production static files with Django";
     homepage = "https://github.com/heroku-python/dj-static";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

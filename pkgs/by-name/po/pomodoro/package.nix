@@ -4,7 +4,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "pomodoro";
   version = "unstable-2021-06-18";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage {
     description = "Simple CLI pomodoro timer using desktop notifications written in Rust";
     homepage = "https://github.com/SanderJSA/Pomodoro";
     license = licenses.mit;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
     # error: redefinition of module 'ObjectiveC'
     broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "pomodoro";

@@ -5,7 +5,6 @@
   evdev-proto,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mtdev";
   version = "1.1.7";

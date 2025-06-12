@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "vault-medusa";
   version = "0.7.3";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "medusa";
     homepage = "https://github.com/jonasvinther/medusa";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

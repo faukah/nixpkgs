@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchFromGitHub,
 }:
-
 buildDunePackage rec {
   pname = "dtools";
   version = "0.4.6";
@@ -21,6 +20,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-dtools";
     description = "Library providing various helper functions to make daemons";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

@@ -6,7 +6,6 @@
   jemalloc,
   nodejs,
 }:
-
 buildGoModule rec {
   pname = "dgraph";
   version = "24.1.3";
@@ -30,7 +29,7 @@ buildGoModule rec {
     "oss"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # todo those dependencies are required in the makefile, but verify how they are used
   # actually
@@ -39,7 +38,7 @@ buildGoModule rec {
     nodejs
   ];
 
-  subPackages = [ "dgraph" ];
+  subPackages = ["dgraph"];
 
   postInstall = ''
     for shell in bash zsh; do
@@ -51,7 +50,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://dgraph.io/";
     description = "Fast, Distributed Graph DB";
-    maintainers = with maintainers; [ sigma ];
+    maintainers = with maintainers; [sigma];
     # Apache 2.0 because we use only build "oss"
     license = licenses.asl20;
     mainProgram = "dgraph";

@@ -21,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "moxide";
     homepage = "https://github.com/dlurak/moxide";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dlurak ];
+    maintainers = with lib.maintainers; [dlurak];
   };
 }

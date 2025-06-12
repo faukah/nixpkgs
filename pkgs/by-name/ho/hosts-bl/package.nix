@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "hosts-bl";
   version = "0-unstable-2024-11-17";
@@ -25,7 +24,7 @@ buildGoModule {
     homepage = "https://github.com/ScriptTiger/Hosts-BL";
     description = "Simple tool to handle hosts file black lists";
     mainProgram = "Hosts-BL";
-    maintainers = [ lib.maintainers.puffnfresh ];
+    maintainers = [lib.maintainers.puffnfresh];
     platforms = lib.platforms.unix;
     license = lib.licenses.mit;
   };

@@ -3,25 +3,23 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.telegraf;
 
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   configFile = settingsFormat.generate "config.toml" cfg.extraConfig;
-in
-{
+in {
   ###### interface
   options = {
     services.telegraf = {
       enable = lib.mkEnableOption "telegraf server";
 
-      package = lib.mkPackageOption pkgs "telegraf" { };
+      package = lib.mkPackageOption pkgs "telegraf" {};
 
       environmentFiles = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
-        example = [ "/run/keys/telegraf.env" ];
+        default = [];
+        example = ["/run/keys/telegraf.env"];
         description = ''
           File to load as environment file. Environment variables from this file
           will be interpolated into the config file using envsubst with this
@@ -31,12 +29,12 @@ in
       };
 
       extraConfig = lib.mkOption {
-        default = { };
+        default = {};
         description = "Extra configuration options for telegraf";
         type = settingsFormat.type;
         example = {
           outputs.influxdb = {
-            urls = [ "http://localhost:8086" ];
+            urls = ["http://localhost:8086"];
             database = "telegraf";
           };
           inputs.statsd = {
@@ -51,43 +49,40 @@ in
   ###### implementation
   config = lib.mkIf config.services.telegraf.enable {
     services.telegraf.extraConfig = {
-      inputs = { };
-      outputs = { };
+      inputs = {};
+      outputs = {};
     };
-    systemd.services.telegraf =
-      let
-        finalConfigFile =
-          if config.services.telegraf.environmentFiles == [ ] then
-            configFile
-          else
-            "/var/run/telegraf/config.toml";
-      in
-      {
-        description = "Telegraf Agent";
-        wantedBy = [ "multi-user.target" ];
-        wants = [ "network-online.target" ];
-        after = [ "network-online.target" ];
-        path =
-          lib.optional (config.services.telegraf.extraConfig.inputs ? procstat) pkgs.procps
-          ++ lib.optional (config.services.telegraf.extraConfig.inputs ? ping) pkgs.iputils;
-        serviceConfig = {
-          EnvironmentFile = config.services.telegraf.environmentFiles;
-          ExecStartPre = lib.optional (config.services.telegraf.environmentFiles != [ ]) (
-            pkgs.writeShellScript "pre-start" ''
-              umask 077
-              ${pkgs.envsubst}/bin/envsubst -i "${configFile}" > /var/run/telegraf/config.toml
-            ''
-          );
-          ExecStart = "${cfg.package}/bin/telegraf -config ${finalConfigFile}";
-          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-          RuntimeDirectory = "telegraf";
-          User = "telegraf";
-          Group = "telegraf";
-          Restart = "on-failure";
-          # for ping probes
-          AmbientCapabilities = [ "CAP_NET_RAW" ];
-        };
+    systemd.services.telegraf = let
+      finalConfigFile =
+        if config.services.telegraf.environmentFiles == []
+        then configFile
+        else "/var/run/telegraf/config.toml";
+    in {
+      description = "Telegraf Agent";
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      path =
+        lib.optional (config.services.telegraf.extraConfig.inputs ? procstat) pkgs.procps
+        ++ lib.optional (config.services.telegraf.extraConfig.inputs ? ping) pkgs.iputils;
+      serviceConfig = {
+        EnvironmentFile = config.services.telegraf.environmentFiles;
+        ExecStartPre = lib.optional (config.services.telegraf.environmentFiles != []) (
+          pkgs.writeShellScript "pre-start" ''
+            umask 077
+            ${pkgs.envsubst}/bin/envsubst -i "${configFile}" > /var/run/telegraf/config.toml
+          ''
+        );
+        ExecStart = "${cfg.package}/bin/telegraf -config ${finalConfigFile}";
+        ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+        RuntimeDirectory = "telegraf";
+        User = "telegraf";
+        Group = "telegraf";
+        Restart = "on-failure";
+        # for ping probes
+        AmbientCapabilities = ["CAP_NET_RAW"];
       };
+    };
 
     users.users.telegraf = {
       uid = config.ids.uids.telegraf;
@@ -95,6 +90,6 @@ in
       description = "telegraf daemon user";
     };
 
-    users.groups.telegraf = { };
+    users.groups.telegraf = {};
   };
 }

@@ -10,9 +10,7 @@
   makeDesktopItem,
   copyDesktopItems,
   writeDarwinBundle,
-}:
-
-let
+}: let
   pname = "armitage";
   version = "unstable-2022-12-05";
 
@@ -50,94 +48,93 @@ let
 
   # "Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0."
   gradle = gradle_8;
-
 in
-stdenv.mkDerivation (finalAttrs: {
-  inherit
-    pname
-    version
-    src
-    patches
-    ;
+  stdenv.mkDerivation (finalAttrs: {
+    inherit
+      pname
+      version
+      src
+      patches
+      ;
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "armitage";
-      desktopName = "Armitage";
-      exec = "armitage";
-      icon = "armitage";
-      comment = finalAttrs.meta.description;
-      categories = [
-        "Network"
-        "Security"
-      ];
-      startupNotify = false;
-    })
-  ];
-
-  nativeBuildInputs =
-    [
-      jdk11
-      gradle
-      makeWrapper
-      copyDesktopItems
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      writeDarwinBundle
+    desktopItems = [
+      (makeDesktopItem {
+        name = "armitage";
+        desktopName = "Armitage";
+        exec = "armitage";
+        icon = "armitage";
+        comment = finalAttrs.meta.description;
+        categories = [
+          "Network"
+          "Security"
+        ];
+        startupNotify = false;
+      })
     ];
 
-  mitmCache = gradle.fetchDeps {
-    inherit pname;
-    data = ./deps.json;
-  };
+    nativeBuildInputs =
+      [
+        jdk11
+        gradle
+        makeWrapper
+        copyDesktopItems
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        writeDarwinBundle
+      ];
 
-  __darwinAllowLocalNetworking = true;
+    mitmCache = gradle.fetchDeps {
+      inherit pname;
+      data = ./deps.json;
+    };
 
-  installPhase = ''
-    runHook preInstall
+    __darwinAllowLocalNetworking = true;
 
-    JAR="$out/share/armitage/armitage.jar"
-    install -Dm444 build/armitage.jar $JAR
+    installPhase = ''
+      runHook preInstall
 
-    install -Dm755 dist/unix/armitage $out/bin/armitage
-    substituteInPlace $out/bin/armitage \
-      --replace-fail "armitage.jar" "$JAR"
-    wrapProgram $out/bin/armitage \
-      --prefix PATH : "${
+      JAR="$out/share/armitage/armitage.jar"
+      install -Dm444 build/armitage.jar $JAR
+
+      install -Dm755 dist/unix/armitage $out/bin/armitage
+      substituteInPlace $out/bin/armitage \
+        --replace-fail "armitage.jar" "$JAR"
+      wrapProgram $out/bin/armitage \
+        --prefix PATH : "${
         lib.makeBinPath [
           jdk11
           metasploit
         ]
       }"
 
-    install -Dm755 dist/unix/teamserver $out/bin/teamserver
-    substituteInPlace $out/bin/teamserver \
-      --replace-fail "armitage.jar" "$JAR"
-    wrapProgram $out/bin/teamserver \
-      --prefix PATH : "${
+      install -Dm755 dist/unix/teamserver $out/bin/teamserver
+      substituteInPlace $out/bin/teamserver \
+        --replace-fail "armitage.jar" "$JAR"
+      wrapProgram $out/bin/teamserver \
+        --prefix PATH : "${
         lib.makeBinPath [
           jdk11
           metasploit
         ]
       }"
 
-    install -Dm444 dist/unix/armitage-logo.png $out/share/pixmaps/armitage.png
-    ${lib.optionalString stdenv.hostPlatform.isDarwin ''
-      mkdir -p "$out/Applications/Armitage.app/Contents/MacOS"
-      mkdir -p "$out/Applications/Armitage.app/Contents/Resources"
-      cp dist/mac/Armitage.app/Contents/Resources/macIcon.icns $out/Applications/Armitage.app/Contents/Resources
-      write-darwin-bundle $out Armitage armitage macIcon
-    ''}
+      install -Dm444 dist/unix/armitage-logo.png $out/share/pixmaps/armitage.png
+      ${lib.optionalString stdenv.hostPlatform.isDarwin ''
+        mkdir -p "$out/Applications/Armitage.app/Contents/MacOS"
+        mkdir -p "$out/Applications/Armitage.app/Contents/Resources"
+        cp dist/mac/Armitage.app/Contents/Resources/macIcon.icns $out/Applications/Armitage.app/Contents/Resources
+        write-darwin-bundle $out Armitage armitage macIcon
+      ''}
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    description = "Graphical cyber attack management tool for Metasploit";
-    homepage = "https://github.com/r00t0v3rr1d3/armitage";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [ emilytrau ];
-    platforms = platforms.unix;
-    mainProgram = "armitage";
-  };
-})
+    meta = with lib; {
+      description = "Graphical cyber attack management tool for Metasploit";
+      homepage = "https://github.com/r00t0v3rr1d3/armitage";
+      license = licenses.bsd3;
+      maintainers = with maintainers; [emilytrau];
+      platforms = platforms.unix;
+      mainProgram = "armitage";
+    };
+  })

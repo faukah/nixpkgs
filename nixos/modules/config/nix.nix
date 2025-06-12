@@ -1,21 +1,20 @@
 /*
-  Manages /etc/nix/nix.conf.
+Manages /etc/nix/nix.conf.
 
-  See also
-   - ./nix-channel.nix
-   - ./nix-flakes.nix
-   - ./nix-remote-build.nix
-   - nixos/modules/services/system/nix-daemon.nix
+See also
+ - ./nix-channel.nix
+ - ./nix-flakes.nix
+ - ./nix-remote-build.nix
+ - nixos/modules/services/system/nix-daemon.nix
 */
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     concatStringsSep
     boolToString
     escape
@@ -59,9 +58,9 @@ let
     ]
     ++ optionals (pkgs.stdenv.hostPlatform ? gcc.arch) (
       # a builder can run code for `gcc.arch` and inferior architectures
-      [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ]
+      ["gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}"]
       ++ map (x: "gccarch-${x}") (
-        systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ]
+        systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or []
       )
     );
 
@@ -80,58 +79,50 @@ let
     systemFeatures = "system-features";
   };
 
-  semanticConfType =
-    with types;
-    let
-      confAtom =
-        nullOr (oneOf [
-          bool
-          int
-          float
-          str
-          path
-          package
-        ])
-        // {
-          description = "Nix config atom (null, bool, int, float, str, path or package)";
-        };
-    in
+  semanticConfType = with types; let
+    confAtom =
+      nullOr (oneOf [
+        bool
+        int
+        float
+        str
+        path
+        package
+      ])
+      // {
+        description = "Nix config atom (null, bool, int, float, str, path or package)";
+      };
+  in
     attrsOf (either confAtom (listOf confAtom));
 
-  nixConf =
-    assert isNixAtLeast "2.2";
-    let
+  nixConf = assert isNixAtLeast "2.2"; let
+    mkValueString = v:
+      if v == null
+      then ""
+      else if isInt v
+      then toString v
+      else if isBool v
+      then boolToString v
+      else if isFloat v
+      then floatToString v
+      else if isList v
+      then toString v
+      else if isDerivation v
+      then toString v
+      else if builtins.isPath v
+      then toString v
+      else if isString v
+      then v
+      else if strings.isConvertibleWithToString v
+      then toString v
+      else abort "The nix conf value: ${toPretty {} v} can not be encoded";
 
-      mkValueString =
-        v:
-        if v == null then
-          ""
-        else if isInt v then
-          toString v
-        else if isBool v then
-          boolToString v
-        else if isFloat v then
-          floatToString v
-        else if isList v then
-          toString v
-        else if isDerivation v then
-          toString v
-        else if builtins.isPath v then
-          toString v
-        else if isString v then
-          v
-        else if strings.isConvertibleWithToString v then
-          toString v
-        else
-          abort "The nix conf value: ${toPretty { } v} can not be encoded";
+    mkKeyValue = k: v: "${escape ["="] k} = ${mkValueString v}";
 
-      mkKeyValue = k: v: "${escape [ "=" ] k} = ${mkValueString v}";
+    mkKeyValuePairs = attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValue attrs);
 
-      mkKeyValuePairs = attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValue attrs);
-
-      isExtra = key: hasPrefix "extra-" key;
-
-    in
+    isExtra = key: hasPrefix "extra-" key;
+  in
     pkgs.writeTextFile {
       name = "nix.conf";
       # workaround for https://github.com/NixOS/nix/issues/9487
@@ -145,31 +136,34 @@ let
         ${cfg.extraOptions}
       '';
       checkPhase = lib.optionalString cfg.checkConfig (
-        if pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform then
-          ''
-            echo "Ignoring validation for cross-compilation"
-          ''
-        else
-          let
-            showCommand = if isNixAtLeast "2.20pre" then "config show" else "show-config";
-          in
-          ''
-            echo "Validating generated nix.conf"
-            ln -s $out ./nix.conf
-            set -e
-            set +o pipefail
-            NIX_CONF_DIR=$PWD \
-              ${cfg.package}/bin/nix ${showCommand} ${optionalString (isNixAtLeast "2.3pre") "--no-net"} \
-                ${optionalString (isNixAtLeast "2.4pre") "--option experimental-features nix-command"} \
-              |& sed -e 's/^warning:/error:/' \
-              | (! grep '${if cfg.checkAllErrors then "^error:" else "^error: unknown setting"}')
-            set -o pipefail
-          ''
+        if pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform
+        then ''
+          echo "Ignoring validation for cross-compilation"
+        ''
+        else let
+          showCommand =
+            if isNixAtLeast "2.20pre"
+            then "config show"
+            else "show-config";
+        in ''
+          echo "Validating generated nix.conf"
+          ln -s $out ./nix.conf
+          set -e
+          set +o pipefail
+          NIX_CONF_DIR=$PWD \
+            ${cfg.package}/bin/nix ${showCommand} ${optionalString (isNixAtLeast "2.3pre") "--no-net"} \
+              ${optionalString (isNixAtLeast "2.4pre") "--option experimental-features nix-command"} \
+            |& sed -e 's/^warning:/error:/' \
+            | (! grep '${
+            if cfg.checkAllErrors
+            then "^error:"
+            else "^error: unknown setting"
+          }')
+          set -o pipefail
+        ''
       );
     };
-
-in
-{
+in {
   imports =
     [
       (mkRenamedOptionModuleWith {
@@ -197,19 +191,20 @@ in
     ]
     ++ mapAttrsToList (
       oldConf: newConf:
-      mkRenamedOptionModuleWith {
-        sinceRelease = 2205;
-        from = [
-          "nix"
-          oldConf
-        ];
-        to = [
-          "nix"
-          "settings"
-          newConf
-        ];
-      }
-    ) legacyConfMappings;
+        mkRenamedOptionModuleWith {
+          sinceRelease = 2205;
+          from = [
+            "nix"
+            oldConf
+          ];
+          to = [
+            "nix"
+            "settings"
+            newConf
+          ];
+        }
+    )
+    legacyConfMappings;
 
   options = {
     nix = {
@@ -245,7 +240,7 @@ in
 
           options = {
             max-jobs = mkOption {
-              type = types.either types.int (types.enum [ "auto" ]);
+              type = types.either types.int (types.enum ["auto"]);
               default = "auto";
               example = 64;
               description = ''
@@ -284,7 +279,7 @@ in
             };
 
             sandbox = mkOption {
-              type = types.either types.bool (types.enum [ "relaxed" ]);
+              type = types.either types.bool (types.enum ["relaxed"]);
               default = true;
               description = ''
                 If set, Nix will perform builds in a sandboxed environment that it
@@ -307,7 +302,7 @@ in
 
             extra-sandbox-paths = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
               example = [
                 "/dev"
                 "/proc"
@@ -330,8 +325,8 @@ in
 
             trusted-substituters = mkOption {
               type = types.listOf types.str;
-              default = [ ];
-              example = [ "https://hydra.nixos.org/" ];
+              default = [];
+              example = ["https://hydra.nixos.org/"];
               description = ''
                 List of binary cache URLs that non-root users can use (in
                 addition to those specified using
@@ -354,7 +349,7 @@ in
 
             trusted-public-keys = mkOption {
               type = types.listOf types.str;
-              example = [ "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs=" ];
+              example = ["hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="];
               description = ''
                 List of public keys used to sign binary caches. If
                 {option}`nix.settings.trusted-public-keys` is enabled,
@@ -398,7 +393,7 @@ in
 
             allowed-users = mkOption {
               type = types.listOf types.str;
-              default = [ "*" ];
+              default = ["*"];
               example = [
                 "@wheel"
                 "@builders"
@@ -417,7 +412,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             use-sandbox = true;
@@ -446,9 +441,9 @@ in
   config = mkIf cfg.enable {
     environment.etc."nix/nix.conf".source = nixConf;
     nix.settings = {
-      trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
-      trusted-users = [ "root" ];
-      substituters = mkAfter [ "https://cache.nixos.org/" ];
+      trusted-public-keys = ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
+      trusted-users = ["root"];
+      substituters = mkAfter ["https://cache.nixos.org/"];
       system-features = defaultSystemFeatures;
     };
   };

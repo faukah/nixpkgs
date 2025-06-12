@@ -10,7 +10,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation rec {
   pname = "soundmodem";
   version = "0.20";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  patches = [ ./matFix.patch ];
+  patches = [./matFix.patch];
 
   doCheck = true;
 
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
       exec = "soundmodemconfig";
       desktopName = "SoundModemConfig";
       comment = "Audio based modem for ham radio supporting ax.25";
-      categories = [ "Audio" ];
+      categories = ["Audio"];
     })
   ];
 
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     homepage = "http://soundmodem.vk4msl.id.au/";
     downloadPage = "https://archive.org/download/${pname}-${version}/${pname}-${version}.tar.gz";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ymarkus ];
+    maintainers = with maintainers; [ymarkus];
     platforms = platforms.all;
   };
 }

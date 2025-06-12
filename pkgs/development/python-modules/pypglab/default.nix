@@ -6,7 +6,6 @@
   paho-mqtt,
   voluptuous,
 }:
-
 buildPythonPackage rec {
   pname = "pypglab";
   version = "0.0.5";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-nnLGFVV+aWkaE7RnAzLHji/tKxIiA9qJS/BUTv3KNeo=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     voluptuous
     paho-mqtt
   ];
 
-  pythonImportsCheck = [ "pypglab" ];
+  pythonImportsCheck = ["pypglab"];
 
   # tests require physical hardware
   doCheck = false;
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Asynchronous Python library to communicate with PG LAB Electronics devices over MQTT";
     homepage = "https://github.com/pglab-electronics/pypglab";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

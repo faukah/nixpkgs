@@ -3,12 +3,11 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "youplot";
   gemdir = ./.;
 
-  exes = [ "uplot" ];
+  exes = ["uplot"];
 
   passthru.updateScript = bundlerUpdateScript "youplot";
 
@@ -17,7 +16,7 @@ bundlerApp {
     homepage = "https://github.com/red-data-tools/YouPlot";
     mainProgram = "uplot";
     license = licenses.mit;
-    maintainers = with maintainers; [ purcell ];
+    maintainers = with maintainers; [purcell];
     platforms = platforms.unix;
   };
 }

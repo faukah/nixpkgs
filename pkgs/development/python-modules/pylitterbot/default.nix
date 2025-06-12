@@ -14,7 +14,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pylitterbot";
   version = "2024.0.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-9ipFayi9y/eND2q3Sz8J9B0OogkMDg73Q2+Pm3ujQ1w=";
   };
 
-  pythonRelaxDeps = [ "deepdiff" ];
+  pythonRelaxDeps = ["deepdiff"];
 
   build-system = [
     poetry-core
@@ -50,13 +49,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pylitterbot" ];
+  pythonImportsCheck = ["pylitterbot"];
 
   meta = with lib; {
     description = "Modulefor controlling a Litter-Robot";
     homepage = "https://github.com/natekspencer/pylitterbot";
     changelog = "https://github.com/natekspencer/pylitterbot/releases/tag/${src.tag}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -21,7 +21,6 @@
   sqlite,
   validatePkgConfig,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "biometryd";
   version = "0.3.1";
@@ -100,7 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = with lib; {
@@ -113,7 +112,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/ubports/development/core/biometryd";
     changelog = "https://gitlab.com/ubports/development/core/biometryd/-/${finalAttrs.version}/ChangeLog";
     license = licenses.lgpl3Only;
-    teams = [ teams.lomiri ];
+    teams = [teams.lomiri];
     mainProgram = "biometryd";
     platforms = platforms.linux;
     pkgConfigModules = [

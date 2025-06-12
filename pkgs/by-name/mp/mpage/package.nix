@@ -3,7 +3,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mpage";
   version = "2.5.8";

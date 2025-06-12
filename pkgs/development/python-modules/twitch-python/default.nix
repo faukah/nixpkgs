@@ -9,7 +9,6 @@
   responses,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   pname = "twitch-python";
   version = "0.0.20";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace-fail "'pipenv'," ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -38,12 +37,12 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "twitch" ];
+  pythonImportsCheck = ["twitch"];
 
   meta = with lib; {
     description = "Twitch module for Python";
     homepage = "https://github.com/PetterKraabol/Twitch-Python";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -6,7 +6,6 @@
   pkg-config,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tcpdump";
   version = "4.99.5";
@@ -20,11 +19,11 @@ stdenv.mkDerivation rec {
     patchShebangs tests
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   configureFlags = lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "ac_cv_linux_vers=2";
 
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "Network sniffer";
     homepage = "https://www.tcpdump.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
     platforms = platforms.unix;
     mainProgram = "tcpdump";
   };

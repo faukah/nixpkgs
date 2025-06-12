@@ -6,7 +6,6 @@
   asciidoctor,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "qrtool";
   version = "0.11.8";
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage rec {
     '';
 
   meta = with lib; {
-    maintainers = with maintainers; [ philiptaron ];
+    maintainers = with maintainers; [philiptaron];
     description = "Utility for encoding and decoding QR code images";
     license = licenses.asl20;
     homepage = "https://sorairolake.github.io/qrtool/book/index.html";

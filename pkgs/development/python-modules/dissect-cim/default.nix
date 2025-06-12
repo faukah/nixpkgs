@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-cim";
   version = "3.10";
@@ -34,15 +33,15 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dissect.cim" ];
+  pythonImportsCheck = ["dissect.cim"];
 
   meta = with lib; {
     description = "Dissect module implementing a parser for the Windows Common Information Model (CIM) database";
     homepage = "https://github.com/fox-it/dissect.cim";
     changelog = "https://github.com/fox-it/dissect.cim/releases/tag/${version}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

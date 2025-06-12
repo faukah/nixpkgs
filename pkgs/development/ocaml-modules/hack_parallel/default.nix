@@ -19,7 +19,7 @@ buildDunePackage rec {
     sha256 = "0qjlkw35r4q2cm0n2x0i73zvx1xgrp6axaia2nm8zxpm49mid629";
   };
 
-  patches = [ ./hack_parallel.patch ];
+  patches = [./hack_parallel.patch];
 
   postPatch = ''
     substituteInPlace src/third-party/hack_core/hack_caml.ml --replace 'include Pervasives' ""
@@ -38,7 +38,7 @@ buildDunePackage rec {
     substituteInPlace src/utils/sys_utils.ml --replace String.create Bytes.create
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   propagatedBuildInputs = [
     core

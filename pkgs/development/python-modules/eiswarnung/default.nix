@@ -12,7 +12,6 @@
   pytz,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "eiswarnung";
   version = "2.0.0";
@@ -34,9 +33,9 @@ buildPythonPackage rec {
       --replace-fail '"0.0.0"' '"${version}"'
   '';
 
-  pythonRelaxDeps = [ "pytz" ];
+  pythonRelaxDeps = ["pytz"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -51,13 +50,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "eiswarnung" ];
+  pythonImportsCheck = ["eiswarnung"];
 
   meta = with lib; {
     description = "Module for getting Eiswarning API forecasts";
     homepage = "https://github.com/klaasnicolaas/python-eiswarnung";
     changelog = "https://github.com/klaasnicolaas/python-eiswarnung/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

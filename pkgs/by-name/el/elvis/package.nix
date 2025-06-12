@@ -6,7 +6,6 @@
   ncurses,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "elvis";
   version = "2.2_0";
@@ -32,9 +31,9 @@ stdenv.mkDerivation (finalAttrs: {
     "man"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   configureFlags = [
     "--ioctl=termios"
@@ -78,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Vi clone for Unix and other operating systems";
     license = lib.licenses.free;
     mainProgram = "elvis";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

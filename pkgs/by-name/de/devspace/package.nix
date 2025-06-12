@@ -5,7 +5,6 @@
   testers,
   devspace,
 }:
-
 buildGoModule rec {
   pname = "devspace";
   version = "6.3.15";
@@ -38,6 +37,6 @@ buildGoModule rec {
     homepage = "https://devspace.sh/";
     changelog = "https://github.com/devspace-sh/devspace/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ darkonion0 ];
+    maintainers = with lib.maintainers; [darkonion0];
   };
 }

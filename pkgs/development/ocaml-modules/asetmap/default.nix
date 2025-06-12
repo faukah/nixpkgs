@@ -6,7 +6,6 @@
   ocamlbuild,
   ocaml,
 }:
-
 buildDunePackage rec {
   pname = "asetmap";
   version = "0.8.1";
@@ -23,9 +22,9 @@ buildDunePackage rec {
     ocamlbuild
     ocaml
   ];
-  buildInputs = [ topkg ];
+  buildInputs = [topkg];
 
   inherit (topkg) buildPhase installPhase;
 
-  meta = { inherit (ocaml.meta) platforms; };
+  meta = {inherit (ocaml.meta) platforms;};
 }

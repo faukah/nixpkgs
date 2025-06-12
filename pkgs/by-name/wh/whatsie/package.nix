@@ -8,7 +8,6 @@
   libxcb,
   qt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "whatsie";
   version = "4.16.3";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Feature rich WhatsApp Client for Desktop Linux";
     license = lib.licenses.mit;
     mainProgram = "whatsie";
-    maintainers = with lib.maintainers; [ ajgon ];
+    maintainers = with lib.maintainers; [ajgon];
     platforms = lib.platforms.linux;
   };
 })

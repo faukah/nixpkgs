@@ -12,7 +12,6 @@
   pythonOlder,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "weatherflow4py";
   version = "1.3.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-X5zMxX8PthiqaEIM0/fElGIjeeCey0ossVDKevy1Mnw=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "weatherflow4py" ];
+  pythonImportsCheck = ["weatherflow4py"];
 
   disabledTests = [
     # KeyError
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jeeftor/weatherflow4py";
     changelog = "https://github.com/jeeftor/weatherflow4py/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

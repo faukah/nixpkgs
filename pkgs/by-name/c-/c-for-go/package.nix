@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "c-for-go";
   version = "1.3.0";
@@ -25,7 +24,7 @@ buildGoModule rec {
     changelog = "https://github.com/xlab/c-for-go/releases/";
     description = "Automatic C-Go Bindings Generator for the Go Programming Language";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.msanft ];
+    maintainers = [lib.maintainers.msanft];
     mainProgram = "c-for-go";
   };
 }

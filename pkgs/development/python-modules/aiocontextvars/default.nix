@@ -7,7 +7,6 @@
   pytest-asyncio,
   isPy27,
 }:
-
 buildPythonPackage rec {
   pname = "aiocontextvars";
   version = "0.2.2";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
       --replace-fail "'pytest-runner'," ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Asyncio support for PEP-567 contextvars backport";
     homepage = "https://github.com/fantix/aiocontextvars";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

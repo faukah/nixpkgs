@@ -9,7 +9,6 @@
   nix,
   sd,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "galene-ldap";
   version = "0.2";

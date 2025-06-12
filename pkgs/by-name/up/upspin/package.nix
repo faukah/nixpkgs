@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule {
   pname = "upspin";
   version = "unstable-2023-02-05";
@@ -24,7 +23,7 @@ buildGoModule {
     description = "Global name space for storing data akin to a filesystem";
     homepage = "https://upspin.io";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ orthros ];
+    maintainers = with maintainers; [orthros];
     platforms = platforms.linux;
   };
 }

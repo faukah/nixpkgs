@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "django-ratelimit";
   version = "4.1.0";
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jsocol/django-ratelimit";
     changelog = "https://github.com/jsocol/django-ratelimit/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ derdennisop ];
+    maintainers = with maintainers; [derdennisop];
   };
 }

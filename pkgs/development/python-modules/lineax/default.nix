@@ -2,22 +2,18 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   equinox,
   jax,
   jaxtyping,
   typing-extensions,
-
   # tests
   beartype,
   pytest,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "lineax";
   version = "0.0.8";
@@ -30,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-VMTDCExgxfCcd/3UZAglfAxAFaSjzFJJuvSWJAx2tJs=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     equinox
@@ -39,7 +35,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "lineax" ];
+  pythonImportsCheck = ["lineax"];
 
   nativeCheckInputs = [
     beartype
@@ -61,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/patrick-kidger/lineax";
     changelog = "https://github.com/patrick-kidger/lineax/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

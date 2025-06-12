@@ -5,7 +5,6 @@
   protobuf_26,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "amazon-q-cli";
   version = "1.10.1";
@@ -64,7 +63,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/amazon-q";
   versionCheckProgramArg = "--version";
 
@@ -76,7 +75,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       asl20
     ];
     mainProgram = "amazon-q";
-    maintainers = [ lib.maintainers.jamesward ];
+    maintainers = [lib.maintainers.jamesward];
     platforms = lib.platforms.linux;
   };
 })

@@ -17,7 +17,6 @@
   websockets,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "slack-sdk";
   version = "3.35.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-yjYpALyHSTLQSuwd6xth7nqfi3m1C9tqnWrrVRmI220=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiodns
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     websockets
   ];
 
-  pythonImportsCheck = [ "slack_sdk" ];
+  pythonImportsCheck = ["slack_sdk"];
 
   nativeCheckInputs = [
     flake8
@@ -72,6 +71,6 @@ buildPythonPackage rec {
     homepage = "https://slack.dev/python-slack-sdk/";
     changelog = "https://github.com/slackapi/python-slack-sdk/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

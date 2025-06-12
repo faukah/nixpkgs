@@ -7,7 +7,6 @@
   libffi,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "polyml";
   version = "5.7.1";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     gmp
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags = [
     "--enable-shared"
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.polyml.org/";
     license = licenses.lgpl21;
     platforms = with platforms; (linux ++ darwin);
-    maintainers = with maintainers; [ maggesi ];
+    maintainers = with maintainers; [maggesi];
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;
   };

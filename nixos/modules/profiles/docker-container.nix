@@ -1,15 +1,15 @@
-{ config, pkgs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   inherit (pkgs) writeScript;
 
   pkgs2storeContents = map (x: {
     object = x;
     symlink = "none";
   });
-in
-
-{
+in {
   # Docker image config.
   imports = [
     ../installer/cd-dvd/channel.nix
@@ -34,13 +34,12 @@ in
     ];
 
     # Some container managers like lxc need these
-    extraCommands =
-      let
-        script = writeScript "extra-commands.sh" ''
-          rm etc
-          mkdir -p proc sys dev etc
-        '';
-      in
+    extraCommands = let
+      script = writeScript "extra-commands.sh" ''
+        rm etc
+        mkdir -p proc sys dev etc
+      '';
+    in
       script;
   };
 

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "gdrive";
   version = "2.1.1";
@@ -36,7 +35,7 @@ buildGoModule rec {
     homepage = "https://github.com/prasmussen/gdrive";
     description = "Command line utility for interacting with Google Drive";
     license = licenses.mit;
-    maintainers = [ maintainers.rzetterberg ];
+    maintainers = [maintainers.rzetterberg];
     mainProgram = "gdrive";
   };
 }

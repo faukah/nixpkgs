@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "sourcemapper";
   version = "0-unstable-2024-03-22";

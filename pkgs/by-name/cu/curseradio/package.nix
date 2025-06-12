@@ -5,7 +5,6 @@
   python3Packages,
   mpv,
 }:
-
 python3Packages.buildPythonApplication {
   version = "0.2";
   pname = "curseradio";
@@ -37,6 +36,6 @@ python3Packages.buildPythonApplication {
     mainProgram = "curseradio";
     homepage = "https://github.com/chronitis/curseradio";
     license = licenses.mit;
-    maintainers = [ maintainers.eyjhb ];
+    maintainers = [maintainers.eyjhb];
   };
 }

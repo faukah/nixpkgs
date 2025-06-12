@@ -9,7 +9,6 @@
   python3,
   sassc,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "elementary-gtk-theme";
   version = "8.2.1";
@@ -35,7 +34,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -43,6 +42,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/elementary/stylesheet";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       -exec sed -i {} -e 's/const _\?LV2UI_Descriptor/const LV2UI_Descriptor/' \;
   '';
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   fixupPhase = ''
     cp -r $out/var/empty/local/lib $out
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     description = "LV2 EQ plugins and more, with 64 bit processing";
     longDescription = ''
       Up to 10-Bands parametric equalizer with mono and stereo versions.
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://eq10q.sourceforge.net/";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
     platforms = lib.platforms.linux;
   };
 }

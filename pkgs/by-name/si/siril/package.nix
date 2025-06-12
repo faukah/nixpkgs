@@ -31,7 +31,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "siril";
   version = "1.2.6";
@@ -95,7 +94,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -103,7 +102,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Astrophotographic image processing tool";
     license = lib.licenses.gpl3Plus;
     changelog = "https://gitlab.com/free-astro/siril/-/blob/HEAD/ChangeLog";
-    maintainers = with lib.maintainers; [ hjones2199 ];
+    maintainers = with lib.maintainers; [hjones2199];
     platforms = lib.platforms.linux;
   };
 })

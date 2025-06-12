@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation {
   pname = "libipfix";
   version = "110209";
@@ -25,6 +24,6 @@ stdenv.mkDerivation {
     mainProgram = "ipfix_collector";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lewo ];
+    maintainers = with maintainers; [lewo];
   };
 }

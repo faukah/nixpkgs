@@ -15,7 +15,6 @@
   stdenv,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lorem";
   version = "1.5";
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -60,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://apps.gnome.org/Lorem/";
     license = lib.licenses.gpl3Plus;
     mainProgram = "lorem";
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.linux;
   };
 })

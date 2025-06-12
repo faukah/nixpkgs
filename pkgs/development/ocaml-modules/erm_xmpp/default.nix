@@ -13,7 +13,6 @@
   base64,
   digestif,
 }:
-
 stdenv.mkDerivation {
   version = "0.3+20241009";
   pname = "ocaml${ocaml.version}-erm_xmpp";
@@ -31,7 +30,7 @@ stdenv.mkDerivation {
     ocamlbuild
     camlp4
   ];
-  buildInputs = [ camlp4 ];
+  buildInputs = [camlp4];
   propagatedBuildInputs = [
     cstruct
     erm_xml
@@ -65,7 +64,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/hannesm/xmpp";
     description = "OCaml based XMPP implementation (fork)";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ sternenseemann ];
+    maintainers = with lib.maintainers; [sternenseemann];
     inherit (ocaml.meta) platforms;
   };
 }

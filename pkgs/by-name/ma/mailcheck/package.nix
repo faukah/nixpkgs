@@ -3,12 +3,11 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mailcheck";
   version = "1.91.2";
 
-  patches = [ ./mailcheck-Makefile.patch ];
+  patches = [./mailcheck-Makefile.patch];
 
   src = fetchurl {
     url = "mirror://sourceforge/mailcheck/mailcheck_${version}.tar.gz";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     mainProgram = "mailcheck";
     homepage = "https://mailcheck.sourceforge.net/";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ kovirobi ];
+    maintainers = with lib.maintainers; [kovirobi];
     platforms = lib.platforms.linux;
     longDescription = ''
       A simple command line tool to check for new mail in local mbox and

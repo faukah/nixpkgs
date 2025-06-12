@@ -3,28 +3,22 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # nativeBuildInputs
   cmake,
-
   # build-system
   pybind11,
   nanobind,
   ninja,
   scikit-build-core,
   setuptools-scm,
-
   # buildInputs
   boost,
-
   # dependencies
   numpy,
-
   # tests
   pytestCheckHook,
   pytest-benchmark,
 }:
-
 buildPythonPackage rec {
   pname = "boost-histogram";
   version = "1.5.1";
@@ -37,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-7E4y3P3RzVmIHb5mEoEYWZSwWnmL3LbGqYjGbnszM98=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   dontUseCmakeConfigure = true;
 
@@ -49,9 +43,9 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -69,6 +63,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/scikit-hep/boost-histogram";
     changelog = "https://github.com/scikit-hep/boost-histogram/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

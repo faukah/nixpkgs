@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "cooper-hewitt";
   version = "unstable-2014-06-09";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation {
     description = "Contemporary sans serif, with characters composed of modified-geometric curves and arches";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

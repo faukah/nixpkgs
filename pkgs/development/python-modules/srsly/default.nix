@@ -13,7 +13,6 @@
   setuptools,
   tornado,
 }:
-
 buildPythonPackage rec {
   pname = "srsly";
   version = "2.5.1";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ catalogue ];
+  dependencies = [catalogue];
 
   nativeCheckInputs = [
     mock
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     tornado
   ];
 
-  pythonImportsCheck = [ "srsly" ];
+  pythonImportsCheck = ["srsly"];
 
   meta = with lib; {
     changelog = "https://github.com/explosion/srsly/releases/tag/v${version}";

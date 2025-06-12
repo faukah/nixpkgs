@@ -11,8 +11,7 @@
   gawk,
   gnutar,
   xz,
-}:
-let
+}: let
   pname = "diffutils";
   # last version that can be built by tinycc-musl 0.9.27
   version = "3.8";
@@ -22,7 +21,7 @@ let
     hash = "sha256-pr3X0bMSZtEcT03mwbdI1GB6sCMa9RiPwlM9CuJDj+w=";
   };
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -36,9 +35,8 @@ bash.runCommand "${pname}-${version}"
       xz
     ];
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/diff --version
         mkdir $out
       '';
@@ -47,7 +45,7 @@ bash.runCommand "${pname}-${version}"
       description = "Commands for showing the differences between files (diff, cmp, etc.)";
       homepage = "https://www.gnu.org/software/diffutils/diffutils.html";
       license = licenses.gpl3Only;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       platforms = platforms.unix;
     };
   }

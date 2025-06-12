@@ -6,7 +6,6 @@
   pkg-config,
   fuse,
 }:
-
 stdenv.mkDerivation rec {
   pname = "romdirfs";
   version = "1.2";
@@ -22,14 +21,14 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [ fuse ];
+  buildInputs = [fuse];
 
   meta = with lib; {
     description = "FUSE for access Playstation 2 IOP IOPRP images and BIOS dumps";
     homepage = "https://github.com/mlafeldt/romdirfs";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "romdirfs";
   };
 }

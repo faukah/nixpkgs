@@ -4,7 +4,6 @@
   fetchurl,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ditaa";
   version = "0.11.0";
@@ -32,10 +31,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Convert ascii art diagrams into proper bitmap graphics";
     homepage = "https://github.com/stathissideris/ditaa";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.lgpl3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     mainProgram = "ditaa";
   };
 }

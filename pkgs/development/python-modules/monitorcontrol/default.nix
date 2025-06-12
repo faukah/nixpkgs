@@ -7,7 +7,6 @@
   pyudev,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "monitorcontrol";
   version = "4.1.1";
@@ -22,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-4A7Cj2PWANZOmMSB9rH++TAf6SgyQd0OFULKa4JRu0s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pyudev ];
+  dependencies = [pyudev];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ pname ];
+  pythonImportsCheck = [pname];
 
   meta = {
     description = "Python monitor controls using DDC-CI";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/newAM/monitorcontrol/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ newam ];
+    maintainers = with lib.maintainers; [newam];
   };
 }

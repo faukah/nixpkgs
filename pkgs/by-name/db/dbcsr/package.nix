@@ -13,7 +13,6 @@
   libxsmm,
   mpi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dbcsr";
   version = "2.8.0";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     libxsmm
   ];
 
-  propagatedBuildInputs = [ mpi ];
+  propagatedBuildInputs = [mpi];
 
   cmakeFlags = [
     "-DUSE_OPENMP=ON"
@@ -75,6 +74,6 @@ stdenv.mkDerivation rec {
     description = "Distributed Block Compressed Sparse Row matrix library";
     license = licenses.gpl2Only;
     homepage = "https://github.com/cp2k/dbcsr";
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

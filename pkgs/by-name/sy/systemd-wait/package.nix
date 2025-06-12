@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "systemd-wait";
   version = "0.1+2018-10-05";
@@ -25,7 +24,7 @@ python3Packages.buildPythonApplication {
     license = lib.licenses.gpl3;
     description = "Wait for a systemd unit to enter a specific state";
     mainProgram = "systemd-wait";
-    maintainers = [ lib.maintainers.benley ];
+    maintainers = [lib.maintainers.benley];
     platforms = lib.platforms.linux;
   };
 }

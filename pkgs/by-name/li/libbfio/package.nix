@@ -6,7 +6,6 @@
   libtool,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libbfio";
   version = "20221025";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-SwKQlmifyUo49yvo8RV+0nfvScPY5u+UrwjRZK2+qAg=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gettext
     libtool
@@ -29,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
       gpl3Plus
       lgpl3Plus
     ];
-    maintainers = with lib.maintainers; [ d3vil0p3r ];
+    maintainers = with lib.maintainers; [d3vil0p3r];
     platforms = with lib.platforms; unix ++ windows;
   };
 })

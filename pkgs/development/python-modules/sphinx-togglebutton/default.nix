@@ -7,7 +7,6 @@
   docutils,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-togglebutton";
   version = "0.3.2";
@@ -28,12 +27,12 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  pythonImportsCheck = [ "sphinx_togglebutton" ];
+  pythonImportsCheck = ["sphinx_togglebutton"];
 
   meta = with lib; {
     description = "Toggle page content and collapse admonitions in Sphinx";
     homepage = "https://github.com/executablebooks/sphinx-togglebutton";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   moreutils,
   nixpkgs-fmt,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "nixpkgs-fmt";

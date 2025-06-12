@@ -6,7 +6,6 @@
   unstableGitUpdater,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "shaperglot-cli";
   version = "0-unstable-2025-05-30";
@@ -47,7 +46,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       })
       (nix-update-script {
         # Updating `cargoHash`
-        extraArgs = [ "--version=skip" ];
+        extraArgs = ["--version=skip"];
       })
     ];
   };

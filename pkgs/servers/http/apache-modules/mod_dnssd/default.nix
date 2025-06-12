@@ -8,7 +8,6 @@
   apr,
   avahi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mod_dnssd";
   version = "0.6";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     "--with-apxs=${lib.getDev apacheHttpd}/bin"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     apacheHttpd
     avahi
@@ -57,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "Provide Zeroconf support via DNS-SD using Avahi";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -3,16 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.opengamepadui;
   gamescopeCfg = config.programs.gamescope;
 
-  opengamepadui-gamescope =
-    let
-      exports = lib.mapAttrsToList (n: v: "export ${n}=${v}") cfg.gamescopeSession.env;
-    in
+  opengamepadui-gamescope = let
+    exports = lib.mapAttrsToList (n: v: "export ${n}=${v}") cfg.gamescopeSession.env;
+  in
     # Based on gamescope-session-plus from ChimeraOS
     pkgs.writeShellScriptBin "opengamepadui-gamescope" ''
       ${builtins.concatStringsSep "\n" exports}
@@ -105,29 +102,28 @@ let
       Exec=${opengamepadui-gamescope}/bin/opengamepadui-gamescope
       Type=Application
     '').overrideAttrs
-      (_: {
-        passthru.providedSessions = [ "opengamepadui" ];
-      });
-in
-{
+    (_: {
+      passthru.providedSessions = ["opengamepadui"];
+    });
+in {
   options.programs.opengamepadui = {
     enable = lib.mkEnableOption "opengamepadui";
 
     args = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         Arguments to be passed to OpenGamepadUI
       '';
     };
 
     package = lib.mkPackageOption pkgs "OpenGamepadUI" {
-      default = [ "opengamepadui" ];
+      default = ["opengamepadui"];
     };
 
     extraPackages = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''
         with pkgs; [
           gamescope
@@ -152,7 +148,7 @@ in
 
     gamescopeSession = lib.mkOption {
       description = "Run a GameScope driven OpenGamepadUI session from your display-manager";
-      default = { };
+      default = {};
       type = lib.types.submodule {
         options = {
           enable = lib.mkEnableOption "GameScope Session";
@@ -178,7 +174,7 @@ in
 
           env = lib.mkOption {
             type = lib.types.attrsOf lib.types.str;
-            default = { };
+            default = {};
             description = ''
               Environmental variables to be passed to GameScope for the session.
             '';
@@ -260,12 +256,14 @@ in
     services.inputplumber.enable = lib.mkDefault cfg.inputplumber.enable;
     services.powerstation.enable = lib.mkDefault cfg.powerstation.enable;
 
-    environment.pathsToLink = [ "/share" ];
+    environment.pathsToLink = ["/share"];
 
-    environment.systemPackages = [
-      cfg.package
-    ] ++ lib.optional cfg.gamescopeSession.enable opengamepadui-gamescope;
+    environment.systemPackages =
+      [
+        cfg.package
+      ]
+      ++ lib.optional cfg.gamescopeSession.enable opengamepadui-gamescope;
   };
 
-  meta.maintainers = with lib.maintainers; [ shadowapex ];
+  meta.maintainers = with lib.maintainers; [shadowapex];
 }

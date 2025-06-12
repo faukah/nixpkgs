@@ -8,8 +8,7 @@
   makeWrapper,
   nixosTests,
   writeText,
-}:
-let
+}: let
   version = "4.6.0";
 
   src = fetchFromGitHub {
@@ -28,7 +27,7 @@ let
 
     npmDepsHash = "sha256-bQShz6dmE9IZ9to5Z2DScncc/WVJnX1tRCm8XQJNmiU=";
 
-    nativeBuildInputs = [ biome ];
+    nativeBuildInputs = [biome];
 
     installPhase = ''
       runHook preInstall
@@ -47,60 +46,60 @@ let
     git.commit.id.abbrev = none
   '';
 in
-maven.buildMavenPackage {
-  inherit version src;
+  maven.buildMavenPackage {
+    inherit version src;
 
-  pname = "commafeed";
+    pname = "commafeed";
 
-  mvnHash = "sha256-7nm8Cz05Qa44TMC0ioklvKAXQnE9J2wUDZFXLQt2A1w=";
+    mvnHash = "sha256-7nm8Cz05Qa44TMC0ioklvKAXQnE9J2wUDZFXLQt2A1w=";
 
-  mvnParameters = lib.escapeShellArgs [
-    "-Dskip.installnodenpm"
-    "-Dskip.npm"
-    "-Dspotless.check.skip"
-    "-Dmaven.gitcommitid.skip"
-  ];
+    mvnParameters = lib.escapeShellArgs [
+      "-Dskip.installnodenpm"
+      "-Dskip.npm"
+      "-Dspotless.check.skip"
+      "-Dmaven.gitcommitid.skip"
+    ];
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  configurePhase = ''
-    runHook preConfigure
+    configurePhase = ''
+      runHook preConfigure
 
-    ln -sf "${frontend}" commafeed-client/dist
+      ln -sf "${frontend}" commafeed-client/dist
 
-    cp ${gitProperties} commafeed-server/src/main/resources/git.properties
+      cp ${gitProperties} commafeed-server/src/main/resources/git.properties
 
-    runHook postConfigure
-  '';
+      runHook postConfigure
+    '';
 
-  doCheck = false;
+    doCheck = false;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/bin $out/share
-    install -Dm644 commafeed-server/target/commafeed.jar $out/share/commafeed.jar
-    install -Dm644 commafeed-server/config.yml.example $out/share/config.yml
+      mkdir -p $out/bin $out/share
+      install -Dm644 commafeed-server/target/commafeed.jar $out/share/commafeed.jar
+      install -Dm644 commafeed-server/config.yml.example $out/share/config.yml
 
-    makeWrapper ${jre}/bin/java $out/bin/commafeed \
-      --add-flags "-jar $out/share/commafeed.jar"
+      makeWrapper ${jre}/bin/java $out/bin/commafeed \
+        --add-flags "-jar $out/share/commafeed.jar"
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  postInstall = ''
-    substituteInPlace $out/share/config.yml \
-      --replace-fail 'url: jdbc:h2:/commafeed/data/db;DEFRAG_ALWAYS=TRUE' \
-        'url: jdbc:h2:./database/db;DEFRAG_ALWAYS=TRUE'
-  '';
+    postInstall = ''
+      substituteInPlace $out/share/config.yml \
+        --replace-fail 'url: jdbc:h2:/commafeed/data/db;DEFRAG_ALWAYS=TRUE' \
+          'url: jdbc:h2:./database/db;DEFRAG_ALWAYS=TRUE'
+    '';
 
-  passthru.tests = nixosTests.commafeed;
+    passthru.tests = nixosTests.commafeed;
 
-  meta = {
-    description = "Google Reader inspired self-hosted RSS reader";
-    homepage = "https://github.com/Athou/commafeed";
-    license = lib.licenses.asl20;
-    mainProgram = "commafeed";
-    maintainers = [ lib.maintainers.raroh73 ];
-  };
-}
+    meta = {
+      description = "Google Reader inspired self-hosted RSS reader";
+      homepage = "https://github.com/Athou/commafeed";
+      license = lib.licenses.asl20;
+      mainProgram = "commafeed";
+      maintainers = [lib.maintainers.raroh73];
+    };
+  }

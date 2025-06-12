@@ -11,7 +11,6 @@
   pkg-config,
   wrapGAppsHook4,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lan-mouse";
   version = "0.10.0";
@@ -61,7 +60,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/feschber/lan-mouse/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
     mainProgram = "lan-mouse";
-    maintainers = with lib.maintainers; [ pedrohlc ];
+    maintainers = with lib.maintainers; [pedrohlc];
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };
 }

@@ -3,13 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.digitalbitbox;
-in
-
-{
+in {
   options.programs.digitalbitbox = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -27,7 +23,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     hardware.digitalbitbox = {
       enable = true;
       package = cfg.package;
@@ -36,6 +32,6 @@ in
 
   meta = {
     doc = ./default.md;
-    maintainers = with lib.maintainers; [ vidbina ];
+    maintainers = with lib.maintainers; [vidbina];
   };
 }

@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.acpid;
 
   canonicalHandlers = {
@@ -24,7 +23,7 @@ let
     };
   };
 
-  acpiConfDir = pkgs.runCommand "acpi-events" { preferLocalBuild = true; } ''
+  acpiConfDir = pkgs.runCommand "acpi-events" {preferLocalBuild = true;} ''
     mkdir -p $out
     ${
       # Generate a configuration file for each event. (You can't have
@@ -36,20 +35,14 @@ let
           echo "action=${pkgs.writeShellScriptBin "${name}.sh" handler.action}/bin/${name}.sh '%e'" >> $fn
         '';
       in
-      lib.concatStringsSep "\n" (lib.mapAttrsToList f (canonicalHandlers // cfg.handlers))
+        lib.concatStringsSep "\n" (lib.mapAttrsToList f (canonicalHandlers // cfg.handlers))
     }
   '';
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.acpid = {
-
       enable = lib.mkEnableOption "the ACPI daemon";
 
       logEvents = lib.mkOption {
@@ -83,7 +76,7 @@ in
           Handler can be a single command.
           :::
         '';
-        default = { };
+        default = {};
         example = {
           ac-power = {
             event = "ac_adapter/*";
@@ -122,20 +115,17 @@ in
         default = "";
         description = "Shell commands to execute on an ac_adapter.* event.";
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.acpid = {
       description = "ACPI Daemon";
-      documentation = [ "man:acpid(8)" ];
+      documentation = ["man:acpid(8)"];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = lib.escapeShellArgs (
@@ -151,11 +141,8 @@ in
       };
       unitConfig = {
         ConditionVirtualization = "!systemd-nspawn";
-        ConditionPathExists = [ "/proc/acpi" ];
+        ConditionPathExists = ["/proc/acpi"];
       };
-
     };
-
   };
-
 }

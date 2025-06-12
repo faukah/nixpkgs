@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   click,
   prettytable,
@@ -15,7 +13,6 @@
   requests,
   rich,
   urllib3,
-
   # tests
   mock,
   pytestCheckHook,
@@ -24,7 +21,6 @@
   tkinter,
   zeep,
 }:
-
 buildPythonPackage rec {
   pname = "softlayer";
   version = "6.2.6";
@@ -82,13 +78,13 @@ buildPythonPackage rec {
     "tests/transports/soap_tests.py.unstable"
   ];
 
-  pythonImportsCheck = [ "SoftLayer" ];
+  pythonImportsCheck = ["SoftLayer"];
 
   meta = {
     description = "Python libraries that assist in calling the SoftLayer API";
     homepage = "https://github.com/softlayer/softlayer-python";
     changelog = "https://github.com/softlayer/softlayer-python/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
   };
 }

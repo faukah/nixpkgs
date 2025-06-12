@@ -5,7 +5,6 @@
   cmake,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "uncrustify";
   version = "0.81.0";
@@ -28,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://uncrustify.sourceforge.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

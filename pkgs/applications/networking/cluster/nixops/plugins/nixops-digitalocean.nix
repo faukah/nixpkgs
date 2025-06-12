@@ -8,7 +8,6 @@
   python-digitalocean,
   pythonOlder,
 }:
-
 buildPythonPackage {
   pname = "nixops-digitalocean";
   version = "0.1.0-unstable-2022-08-14";
@@ -41,14 +40,14 @@ buildPythonPackage {
     python-digitalocean
   ];
 
-  pythonImportsCheck = [ "nixops_digitalocean" ];
+  pythonImportsCheck = ["nixops_digitalocean"];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "NixOps Digitalocean plugin";
     homepage = "https://github.com/nix-community/nixops-digitalocean";
     license = licenses.lgpl3Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

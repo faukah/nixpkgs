@@ -4,16 +4,12 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.py-air-control;
   inherit (lib) mkOption types;
 
   workingDir = "/var/lib/${cfg.stateDir}";
-
-in
-{
+in {
   port = 9896;
   extraOpts = {
     deviceHostname = mkOption {
@@ -52,7 +48,7 @@ in
           --listen-port ${toString cfg.port} \
           --listen-address ${cfg.listenAddress}
       '';
-      Environment = [ "HOME=${workingDir}" ];
+      Environment = ["HOME=${workingDir}"];
     };
   };
 }

@@ -9,7 +9,6 @@
   python,
   pkgs,
 }:
-
 buildPythonPackage rec {
   pname = "pyorc";
   version = "0.10.0";
@@ -68,6 +67,6 @@ buildPythonPackage rec {
     description = "Python module for Apache ORC file format";
     homepage = "https://github.com/noirello/pyorc";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

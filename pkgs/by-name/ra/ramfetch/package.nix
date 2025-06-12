@@ -3,7 +3,6 @@
   stdenv,
   fetchgit,
 }:
-
 stdenv.mkDerivation rec {
   name = "ramfetch";
   version = "1.1.0a";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     homepage = "https://codeberg.org/jahway603/ramfetch";
     platforms = lib.platforms.linux;
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.markbeep ];
+    maintainers = [lib.maintainers.markbeep];
     mainProgram = "ramfetch";
   };
 }

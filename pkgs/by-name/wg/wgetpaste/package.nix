@@ -5,7 +5,6 @@
   wget,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wgetpaste";
   version = "2.34";

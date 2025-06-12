@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "git-credential-oauth";
   version = "0.15.1";
@@ -16,7 +15,7 @@ buildGoModule rec {
     hash = "sha256-9AoIyQ05Y/usG0Tlehn7U8zjBxC1BYNjNVRtgWgzLbo=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -35,7 +34,7 @@ buildGoModule rec {
     homepage = "https://github.com/hickford/git-credential-oauth";
     changelog = "https://github.com/hickford/git-credential-oauth/releases/tag/${src.rev}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ shyim ];
+    maintainers = with lib.maintainers; [shyim];
     mainProgram = "git-credential-oauth";
   };
 }

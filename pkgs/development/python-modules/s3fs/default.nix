@@ -2,22 +2,18 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   aiobotocore,
   aiohttp,
   fsspec,
-
   # tests
   flask,
   flask-cors,
   moto,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "s3fs";
   version = "2025.2.0";
@@ -34,7 +30,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonRelaxDeps = [ "fsspec" ];
+  pythonRelaxDeps = ["fsspec"];
 
   dependencies = [
     aiobotocore
@@ -47,7 +43,7 @@ buildPythonPackage rec {
     boto3 = aiobotocore.optional-dependencies.boto3;
   };
 
-  pythonImportsCheck = [ "s3fs" ];
+  pythonImportsCheck = ["s3fs"];
 
   nativeCheckInputs = [
     flask
@@ -68,6 +64,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/fsspec/s3fs";
     changelog = "https://github.com/fsspec/s3fs/blob/${version}/docs/source/changelog.rst";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ teh ];
+    maintainers = with lib.maintainers; [teh];
   };
 }

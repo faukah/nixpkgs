@@ -5,7 +5,6 @@
   libX11,
   libXt,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.13.42";
   pname = "wily";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     libXt
   ];
 
-  patches = [ ./fix-gcc14-build.patch ];
+  patches = [./fix-gcc14-build.patch];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "Emulation of ACME";
     homepage = "http://wily.sourceforge.net";
     license = licenses.artistic1;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     mainProgram = "wily";
   };

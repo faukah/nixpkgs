@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmpcdec";
   version = "1.2.6";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   # needed for cross builds
-  configureFlags = [ "ac_cv_func_memcmp_working=yes" ];
+  configureFlags = ["ac_cv_func_memcmp_working=yes"];
 
   meta = {
     description = "Musepack SV7 decoder library";

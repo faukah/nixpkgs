@@ -5,7 +5,6 @@
   testers,
   osv-scanner,
 }:
-
 buildGoModule rec {
   pname = "osv-scanner";
   version = "2.0.2";

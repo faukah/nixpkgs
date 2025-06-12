@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "convbin";
   version = "5.1";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "-flto" ""
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   checkPhase = ''
     pushd test
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/mateoconlechuga/convbin";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
     mainProgram = "convbin";
   };

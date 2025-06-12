@@ -7,7 +7,6 @@
   wl-clipboard,
   xclip,
 }:
-
 buildLua rec {
   pname = "mpvacious";
   version = "0.40";
@@ -18,7 +17,7 @@ buildLua rec {
     rev = "v${version}";
     sha256 = "sha256-PxLbv9aGVQV4Gea2H/GcWv/yuaRSqBRqbzRXu612kLE=";
   };
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   postPatch = ''
     substituteInPlace utils/forvo.lua \
@@ -41,6 +40,6 @@ buildLua rec {
     description = "Adds mpv keybindings to create Anki cards from movies and TV shows";
     homepage = "https://github.com/Ajatt-Tools/mpvacious";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kmicklas ];
+    maintainers = with maintainers; [kmicklas];
   };
 }

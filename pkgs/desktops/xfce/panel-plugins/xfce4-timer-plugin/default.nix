@@ -13,7 +13,6 @@
   gtk3,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-timer-plugin";
   version = "1.8.0";
@@ -50,6 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Simple countdown and alarm plugin for the Xfce panel";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
   };
 })

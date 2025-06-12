@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pidgin,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pidgin-msn-pecan";
   version = "0.1.4";
@@ -26,5 +25,5 @@ stdenv.mkDerivation rec {
     "PURPLE_DATADIR=${placeholder "out"}/share/data"
   ];
 
-  buildInputs = [ pidgin ];
+  buildInputs = [pidgin];
 }

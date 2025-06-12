@@ -4,36 +4,34 @@
   config,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.thelounge;
   dataDir = "/var/lib/thelounge";
   configJsData =
-    "module.exports = " + builtins.toJSON ({ inherit (cfg) public port; } // cfg.extraConfig);
+    "module.exports = " + builtins.toJSON ({inherit (cfg) public port;} // cfg.extraConfig);
   pluginManifest = {
     dependencies = builtins.listToAttrs (
       builtins.map (pkg: {
         name = getName pkg;
         value = getVersion pkg;
-      }) cfg.plugins
+      })
+      cfg.plugins
     );
   };
   plugins =
     pkgs.runCommand "thelounge-plugins"
-      {
-        preferLocalBuild = true;
-      }
-      ''
-        mkdir -p $out/node_modules
-        echo ${escapeShellArg (builtins.toJSON pluginManifest)} >> $out/package.json
-        ${concatMapStringsSep "\n" (pkg: ''
+    {
+      preferLocalBuild = true;
+    }
+    ''
+      mkdir -p $out/node_modules
+      echo ${escapeShellArg (builtins.toJSON pluginManifest)} >> $out/package.json
+      ${concatMapStringsSep "\n" (pkg: ''
           ln -s ${pkg}/lib/node_modules/${getName pkg} $out/node_modules/${getName pkg}
-        '') cfg.plugins}
-      '';
-in
-{
+        '')
+        cfg.plugins}
+    '';
+in {
   imports = [
     (mkRemovedOptionModule [
       "services"
@@ -45,7 +43,7 @@ in
   options.services.thelounge = {
     enable = mkEnableOption "The Lounge web IRC client";
 
-    package = mkPackageOption pkgs "thelounge" { };
+    package = mkPackageOption pkgs "thelounge" {};
 
     public = mkOption {
       type = types.bool;
@@ -66,7 +64,7 @@ in
     };
 
     extraConfig = mkOption {
-      default = { };
+      default = {};
       type = types.attrs;
       example = literalExpression ''
         {
@@ -90,7 +88,7 @@ in
     };
 
     plugins = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.package;
       example = literalExpression "[ pkgs.theLoungePlugins.themes.solarized ]";
       description = ''
@@ -107,13 +105,13 @@ in
       isSystemUser = true;
     };
 
-    users.groups.thelounge = { };
+    users.groups.thelounge = {};
 
     systemd.services.thelounge = {
       description = "The Lounge web IRC client";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       preStart = "ln -sf ${pkgs.writeText "config.js" configJsData} ${dataDir}/config.js";
-      environment.THELOUNGE_PACKAGES = mkIf (cfg.plugins != [ ]) "${plugins}";
+      environment.THELOUNGE_PACKAGES = mkIf (cfg.plugins != []) "${plugins}";
       serviceConfig = {
         User = "thelounge";
         StateDirectory = baseNameOf dataDir;
@@ -121,10 +119,10 @@ in
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ winter ];
+    maintainers = with lib.maintainers; [winter];
   };
 }

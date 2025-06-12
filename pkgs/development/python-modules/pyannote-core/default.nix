@@ -11,7 +11,6 @@
   typing-extensions,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "pyannote-core";
   version = "5.0.0";
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyannote.core" ];
+  pythonImportsCheck = ["pyannote.core"];
 
   meta = with lib; {
     description = "Advanced data structures for handling temporal segments with attached labels";
     homepage = "https://github.com/pyannote/pyannote-core";
     changelog = "https://github.com/pyannote/pyannote-core/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

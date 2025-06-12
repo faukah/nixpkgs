@@ -6,7 +6,6 @@
   fltk,
   libjpeg,
 }:
-
 stdenv.mkDerivation rec {
   version = "5.1";
   pname = "seaview";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://doua.prabi.fr/software/seaview";
     license = licenses.gpl3;
-    maintainers = [ maintainers.iimog ];
+    maintainers = [maintainers.iimog];
     platforms = platforms.linux;
   };
 }

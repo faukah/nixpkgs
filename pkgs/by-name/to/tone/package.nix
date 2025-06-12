@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildDotnetModule rec {
   pname = "tone";
   version = "0.2.5";
@@ -25,7 +24,7 @@ buildDotnetModule rec {
   '';
 
   projectFile = "tone/tone.csproj";
-  executables = [ "tone" ];
+  executables = ["tone"];
   nugetDeps = ./deps.json;
 
   dotnetInstallFlags = [
@@ -34,12 +33,12 @@ buildDotnetModule rec {
 
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.sdk_8_0;
-  runtimeDeps = [ ffmpeg-full ];
+  runtimeDeps = [ffmpeg-full];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/sandreas/tone";

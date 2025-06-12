@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bootimage";
   version = "0.10.3";
@@ -25,6 +24,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ dbeckwith ];
+    maintainers = with maintainers; [dbeckwith];
   };
 }

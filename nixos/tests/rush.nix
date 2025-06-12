@@ -1,71 +1,65 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   inherit (import ./ssh-keys.nix pkgs) snakeOilEd25519PrivateKey snakeOilEd25519PublicKey;
   username = "nix-remote-builder";
-in
-{
+in {
   name = "rush";
-  meta = { inherit (pkgs.rush.meta) maintainers platforms; };
+  meta = {inherit (pkgs.rush.meta) maintainers platforms;};
 
   nodes = {
-    client =
-      { ... }:
-      {
-        nix.settings.extra-experimental-features = [ "nix-command" ];
-      };
+    client = {...}: {
+      nix.settings.extra-experimental-features = ["nix-command"];
+    };
 
-    server =
-      { config, ... }:
-      {
-        nix.settings.trusted-users = [ "${username}" ];
+    server = {config, ...}: {
+      nix.settings.trusted-users = ["${username}"];
 
-        programs.rush = {
-          enable = true;
-          global = "debug 1";
+      programs.rush = {
+        enable = true;
+        global = "debug 1";
 
-          rules = {
-            daemon = ''
-              match $# == 2
-              match $0 == "nix-daemon"
-              match $1 == "--stdio"
-              match $user == "${username}"
-              chdir "${config.nix.package}/bin"
-            '';
+        rules = {
+          daemon = ''
+            match $# == 2
+            match $0 == "nix-daemon"
+            match $1 == "--stdio"
+            match $user == "${username}"
+            chdir "${config.nix.package}/bin"
+          '';
 
-            whoami = ''
-              match $# == 1
-              match $0 == "whoami"
-              match $user == "${username}"
-              chdir "${dirOf config.environment.usrbinenv}"
-            '';
-          };
-        };
-
-        services.openssh = {
-          enable = true;
-
-          extraConfig = ''
-            Match User ${username}
-              AllowAgentForwarding no
-              AllowTcpForwarding no
-              PermitTTY no
-              PermitTunnel no
-              X11Forwarding no
-            Match All
+          whoami = ''
+            match $# == 1
+            match $0 == "whoami"
+            match $user == "${username}"
+            chdir "${dirOf config.environment.usrbinenv}"
           '';
         };
+      };
 
-        users = {
-          groups."${username}" = { };
+      services.openssh = {
+        enable = true;
 
-          users."${username}" = {
-            inherit (config.programs.rush) shell;
-            group = "${username}";
-            isSystemUser = true;
-            openssh.authorizedKeys.keys = [ snakeOilEd25519PublicKey ];
-          };
+        extraConfig = ''
+          Match User ${username}
+            AllowAgentForwarding no
+            AllowTcpForwarding no
+            PermitTTY no
+            PermitTunnel no
+            X11Forwarding no
+          Match All
+        '';
+      };
+
+      users = {
+        groups."${username}" = {};
+
+        users."${username}" = {
+          inherit (config.programs.rush) shell;
+          group = "${username}";
+          isSystemUser = true;
+          openssh.authorizedKeys.keys = [snakeOilEd25519PublicKey];
         };
       };
+    };
   };
 
   testScript = ''

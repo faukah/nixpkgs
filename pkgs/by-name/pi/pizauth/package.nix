@@ -5,7 +5,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pizauth";
   version = "1.0.7";
@@ -20,14 +19,14 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-WyQIk74AKfsv0noafCGMRS6o+Lq6CeP99AFSdYq+QHg=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd pizauth \
       --bash share/bash/completion.bash
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Command-line OAuth2 authentication daemon";
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "pizauth";
   };
 }

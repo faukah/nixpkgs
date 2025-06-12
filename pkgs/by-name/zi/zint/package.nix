@@ -49,10 +49,10 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  cmakeFlags = [ (lib.cmakeBool "ZINT_QT6" true) ];
+  cmakeFlags = [(lib.cmakeBool "ZINT_QT6" true)];
 
   doInstallCheck = true;
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
 
   postInstall = ''
     install -Dm644 -t $out/share/applications $src/zint-qt.desktop
@@ -71,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.zint.org.uk";
     changelog = "https://github.com/zint/zint/blob/${finalAttrs.src.rev}/ChangeLog";
     license = licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.azahi ];
+    maintainers = [lib.maintainers.azahi];
     platforms = platforms.all;
     mainProgram = "zint";
   };

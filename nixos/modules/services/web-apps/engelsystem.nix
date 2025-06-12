@@ -4,10 +4,9 @@
   pkgs,
   utils,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkDefault
     mkEnableOption
     mkIf
@@ -18,19 +17,19 @@ let
     ;
 
   cfg = config.services.engelsystem;
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule
-      [ "services" "engelsystem" "config" ]
-      [ "services" "engelsystem" "settings" ]
+    (
+      mkRenamedOptionModule
+      ["services" "engelsystem" "config"]
+      ["services" "engelsystem" "settings"]
     )
   ];
 
   options.services.engelsystem = {
     enable = mkEnableOption "engelsystem, an online tool for coordinating volunteers and shifts on large events";
 
-    package = mkPackageOption pkgs "engelsystem" { };
+    package = mkPackageOption pkgs "engelsystem" {};
 
     domain = mkOption {
       type = types.str;
@@ -106,7 +105,7 @@ in
           };
         }
       ];
-      ensureDatabases = [ "engelsystem" ];
+      ensureDatabases = ["engelsystem"];
     };
 
     environment.etc."engelsystem/config.php".source = pkgs.writeText "config.php" ''
@@ -155,28 +154,26 @@ in
     };
 
     systemd.services."engelsystem-init" = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "oneshot";
       };
-      script =
-        let
-          genConfigScript = pkgs.writeScript "engelsystem-gen-config.sh" (
-            utils.genJqSecretsReplacementSnippet cfg.settings "config.json"
-          );
-        in
-        ''
-          umask 077
-          mkdir -p /var/lib/engelsystem/storage/app
-          mkdir -p /var/lib/engelsystem/storage/cache/views
-          cd /var/lib/engelsystem
-          ${genConfigScript}
-          chmod 400 config.json
-          chown -R engelsystem .
-        '';
+      script = let
+        genConfigScript = pkgs.writeScript "engelsystem-gen-config.sh" (
+          utils.genJqSecretsReplacementSnippet cfg.settings "config.json"
+        );
+      in ''
+        umask 077
+        mkdir -p /var/lib/engelsystem/storage/app
+        mkdir -p /var/lib/engelsystem/storage/cache/views
+        cd /var/lib/engelsystem
+        ${genConfigScript}
+        chmod 400 config.json
+        chown -R engelsystem .
+      '';
     };
     systemd.services."engelsystem-migrate" = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "oneshot";
         User = "engelsystem";
@@ -200,7 +197,7 @@ in
         "mysql.service"
       ];
     };
-    systemd.services."phpfpm-engelsystem".after = [ "engelsystem-migrate.service" ];
+    systemd.services."phpfpm-engelsystem".after = ["engelsystem-migrate.service"];
 
     users.users.engelsystem = {
       isSystemUser = true;
@@ -208,6 +205,6 @@ in
       home = "/var/lib/engelsystem/storage";
       group = "engelsystem";
     };
-    users.groups.engelsystem = { };
+    users.groups.engelsystem = {};
   };
 }

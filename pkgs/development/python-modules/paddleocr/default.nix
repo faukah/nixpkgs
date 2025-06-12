@@ -29,7 +29,6 @@
   paddlex,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "paddleocr";
   version = "3.0.1";
@@ -114,7 +113,7 @@ buildPythonPackage rec {
       tools that help users train better models and apply them into practice.
     '';
     changelog = "https://github.com/PaddlePaddle/PaddleOCR/releases/tag/${src.tag}";
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

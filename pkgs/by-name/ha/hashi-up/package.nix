@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "hashi-up";
   version = "0.16.0";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "hashi-up";
     homepage = "https://github.com/jsiebens/hashi-up";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
   };
 }

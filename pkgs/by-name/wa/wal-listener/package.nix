@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gitUpdater,
 }:
-
 buildGoModule rec {
   pname = "wal-listener";
   version = "2.6.1";
@@ -18,12 +17,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-VUuEVH3IUuvThIt/HJx8OE8oqbjnSeqDIQxP0sl0FJw=";
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "PostgreSQL WAL listener";
     homepage = "https://github.com/ihippik/wal-listener";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bbigras ];
+    maintainers = with lib.maintainers; [bbigras];
   };
 }

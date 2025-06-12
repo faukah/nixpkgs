@@ -13,7 +13,6 @@
   pytest-xdist,
   mpmath,
 }:
-
 buildPythonPackage rec {
   pname = "demesdraw";
   version = "0.4.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-n7dz+kYf2yyr66TBx452W6z4qT6bT81u0J4aMAYuGCc=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     demes
@@ -49,13 +48,13 @@ buildPythonPackage rec {
     mpmath
   ];
 
-  pythonImportsCheck = [ "demesdraw" ];
+  pythonImportsCheck = ["demesdraw"];
 
   meta = with lib; {
     description = "Drawing functions for Demes demographic models";
     mainProgram = "demesdraw";
     homepage = "https://github.com/grahamgower/demesdraw";
     license = licenses.isc;
-    maintainers = with maintainers; [ alxsimon ];
+    maintainers = with maintainers; [alxsimon];
   };
 }

@@ -7,7 +7,6 @@
   wrapQtAppsHook,
   qtbase,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rclone-browser";
   version = "1.8.0";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   meta = with lib; {
     inherit (src.meta) homepage;
@@ -40,6 +39,6 @@ stdenv.mkDerivation rec {
     mainProgram = "rclone-browser";
     license = licenses.unlicense;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

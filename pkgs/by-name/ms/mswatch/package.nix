@@ -8,7 +8,6 @@
   flex,
   glib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mswatch";
   # Stable release won't compile successfully
@@ -34,6 +33,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://mswatch.sourceforge.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 })

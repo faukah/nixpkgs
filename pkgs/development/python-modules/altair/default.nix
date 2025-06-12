@@ -19,7 +19,6 @@
   typing-extensions,
   vega-datasets,
 }:
-
 buildPythonPackage rec {
   pname = "altair";
   version = "5.5.0";
@@ -34,17 +33,19 @@ buildPythonPackage rec {
     hash = "sha256-lrKC4FYRQEax5E0lQNhO9FLk5UOJ0TnYzqZjndlRpGI=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [
-    jinja2
-    jsonschema
-    narwhals
-    numpy
-    packaging
-    pandas
-    toolz
-  ] ++ lib.optional (pythonOlder "3.14") typing-extensions;
+  dependencies =
+    [
+      jinja2
+      jsonschema
+      narwhals
+      numpy
+      packaging
+      pandas
+      toolz
+    ]
+    ++ lib.optional (pythonOlder "3.14") typing-extensions;
 
   nativeCheckInputs = [
     ipython
@@ -55,7 +56,7 @@ buildPythonPackage rec {
     vega-datasets
   ];
 
-  pythonImportsCheck = [ "altair" ];
+  pythonImportsCheck = ["altair"];
 
   disabledTests = [
     # ValueError: Saving charts in 'svg' format requires the vl-convert-python or altair_saver package: see http://github.com/altair-viz/altair_saver/

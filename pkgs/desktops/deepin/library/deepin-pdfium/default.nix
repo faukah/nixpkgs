@@ -11,7 +11,6 @@
   lcms2,
   openjpeg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-pdfium";
   version = "1.0.2";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-pdfium";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "goat-cli";
   version = "1.4.0";
@@ -35,8 +34,7 @@ buildGoModule rec {
     description = "Integration testing tool for HTTP APIs using a simple script language";
     homepage = "https://studio-b12.github.io/goat/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ kashw2 ];
+    maintainers = with lib.maintainers; [kashw2];
     mainProgram = "goat";
   };
-
 }

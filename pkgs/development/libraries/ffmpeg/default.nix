@@ -2,17 +2,14 @@
   callPackage,
   darwin,
   cudaPackages,
-}:
-
-let
-  mkFFmpeg =
-    initArgs: ffmpegVariant:
+}: let
+  mkFFmpeg = initArgs: ffmpegVariant:
     callPackage ./generic.nix (
       {
         inherit (darwin) xcode;
         inherit (cudaPackages) cuda_cudart cuda_nvcc libnpp;
       }
-      // (initArgs // { inherit ffmpegVariant; })
+      // (initArgs // {inherit ffmpegVariant;})
     );
 
   v4 = {
@@ -29,9 +26,7 @@ let
     version = "7.1.1";
     hash = "sha256-GyS8imOqfOUPxXrzCiQtzCQIIH6bvWmQAB0fKUcRsW4=";
   };
-in
-
-rec {
+in rec {
   # We keep FFmpeg 4 around for now mainly for a couple of binary
   # packages (Spotify and REAPER). Please don’t add new source packages
   # that depend on this version.

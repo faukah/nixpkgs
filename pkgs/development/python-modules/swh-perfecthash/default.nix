@@ -9,7 +9,6 @@
   pytest-mock,
   pkgs, # only for cmph
 }:
-
 buildPythonPackage rec {
   pname = "swh-perfecthash";
   version = "1.3.2";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     rm -rf swh/perfecthash/*.py
   '';
 
-  pythonImportsCheck = [ "swh.perfecthash" ];
+  pythonImportsCheck = ["swh.perfecthash"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     description = "Perfect hash table for software heritage object storage";
     homepage = "https://gitlab.softwareheritage.org/swh/devel/swh-perfecthash";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

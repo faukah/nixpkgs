@@ -1,9 +1,12 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   orga = "example";
   domain = "${orga}.localdomain";
 
-  tls-cert = pkgs.runCommand "selfSignedCert" { buildInputs = [ pkgs.openssl ]; } ''
+  tls-cert = pkgs.runCommand "selfSignedCert" {buildInputs = [pkgs.openssl];} ''
     openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
       -subj '/CN=machine.${domain}'
     install -D -t $out key.pem cert.pem
@@ -13,169 +16,165 @@ let
     "repo1"
     "repo2"
   ];
-in
-{
+in {
   name = "public-inbox";
 
-  meta.maintainers = with pkgs.lib.maintainers; [ julm ];
+  meta.maintainers = with pkgs.lib.maintainers; [julm];
 
-  nodes.machine =
-    {
-      config,
-      pkgs,
-      nodes,
-      ...
-    }:
-    let
-      inherit (config.services) public-inbox;
-    in
-    {
-      virtualisation.diskSize = 1 * 1024;
-      virtualisation.memorySize = 1 * 1024;
-      networking.domain = domain;
+  nodes.machine = {
+    config,
+    pkgs,
+    nodes,
+    ...
+  }: let
+    inherit (config.services) public-inbox;
+  in {
+    virtualisation.diskSize = 1 * 1024;
+    virtualisation.memorySize = 1 * 1024;
+    networking.domain = domain;
 
-      security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
-      # If using security.acme:
-      #security.acme.certs."${domain}".postRun = ''
-      #  systemctl try-restart public-inbox-nntpd public-inbox-imapd
-      #'';
+    security.pki.certificateFiles = ["${tls-cert}/cert.pem"];
+    # If using security.acme:
+    #security.acme.certs."${domain}".postRun = ''
+    #  systemctl try-restart public-inbox-nntpd public-inbox-imapd
+    #'';
 
-      services.public-inbox = {
+    services.public-inbox = {
+      enable = true;
+      postfix.enable = true;
+      openFirewall = true;
+      settings.publicinbox = {
+        css = ["href=https://machine.${domain}/style/light.css"];
+        nntpserver = ["nntps://machine.${domain}"];
+        wwwlisting = "match=domain";
+      };
+      mda = {
         enable = true;
-        postfix.enable = true;
-        openFirewall = true;
-        settings.publicinbox = {
-          css = [ "href=https://machine.${domain}/style/light.css" ];
-          nntpserver = [ "nntps://machine.${domain}" ];
-          wwwlisting = "match=domain";
-        };
-        mda = {
-          enable = true;
-          args = [ "--no-precheck" ]; # Allow Bcc:
-        };
-        http = {
-          enable = true;
-          port = "/run/public-inbox-http.sock";
-          #port = 8080;
-          args = [ "-W0" ];
-          mounts = [
-            "https://machine.${domain}/inbox"
+        args = ["--no-precheck"]; # Allow Bcc:
+      };
+      http = {
+        enable = true;
+        port = "/run/public-inbox-http.sock";
+        #port = 8080;
+        args = ["-W0"];
+        mounts = [
+          "https://machine.${domain}/inbox"
+        ];
+      };
+      nntp = {
+        enable = true;
+        #port = 563;
+        args = ["-W0"];
+        cert = "${tls-cert}/cert.pem";
+        key = "${tls-cert}/key.pem";
+      };
+      imap = {
+        enable = true;
+        #port = 993;
+        args = ["-W0"];
+        cert = "${tls-cert}/cert.pem";
+        key = "${tls-cert}/key.pem";
+      };
+      inboxes =
+        lib.recursiveUpdate
+        (lib.genAttrs gitRepositories (repo: {
+          address = [
+            # Routed to the "public-inbox:" transport in services.postfix.transport
+            "${repo}@${domain}"
           ];
+          description = ''
+            ${repo}@${domain} :
+            discussions about ${repo}.
+          '';
+          url = "https://machine.${domain}/inbox/${repo}";
+          newsgroup = "inbox.comp.${orga}.${repo}";
+          coderepo = [repo];
+        }))
+        {
+          repo2 = {
+            hide = [
+              "imap" # FIXME: doesn't work for IMAP as of public-inbox 1.6.1
+              "manifest"
+              "www"
+            ];
+          };
         };
-        nntp = {
-          enable = true;
-          #port = 563;
-          args = [ "-W0" ];
-          cert = "${tls-cert}/cert.pem";
-          key = "${tls-cert}/key.pem";
-        };
-        imap = {
-          enable = true;
-          #port = 993;
-          args = [ "-W0" ];
-          cert = "${tls-cert}/cert.pem";
-          key = "${tls-cert}/key.pem";
-        };
-        inboxes =
-          lib.recursiveUpdate
-            (lib.genAttrs gitRepositories (repo: {
-              address = [
-                # Routed to the "public-inbox:" transport in services.postfix.transport
-                "${repo}@${domain}"
-              ];
-              description = ''
-                ${repo}@${domain} :
-                discussions about ${repo}.
-              '';
-              url = "https://machine.${domain}/inbox/${repo}";
-              newsgroup = "inbox.comp.${orga}.${repo}";
-              coderepo = [ repo ];
-            }))
-            {
-              repo2 = {
-                hide = [
-                  "imap" # FIXME: doesn't work for IMAP as of public-inbox 1.6.1
-                  "manifest"
-                  "www"
-                ];
-              };
-            };
-        settings.coderepo = lib.listToAttrs (
-          map (
-            repositoryName:
+      settings.coderepo = lib.listToAttrs (
+        map (
+          repositoryName:
             lib.nameValuePair repositoryName {
               dir = "/var/lib/public-inbox/repositories/${repositoryName}.git";
               cgitUrl = "https://git.${domain}/${repositoryName}.git";
             }
-          ) gitRepositories
-        );
-      };
-
-      # Use nginx as a reverse proxy for public-inbox-httpd
-      services.nginx = {
-        enable = true;
-        recommendedGzipSettings = true;
-        recommendedOptimisation = true;
-        recommendedTlsSettings = true;
-        recommendedProxySettings = true;
-        virtualHosts."machine.${domain}" = {
-          forceSSL = true;
-          sslCertificate = "${tls-cert}/cert.pem";
-          sslCertificateKey = "${tls-cert}/key.pem";
-          locations."/".return = "302 /inbox";
-          locations."= /inbox".return = "302 /inbox/";
-          locations."/inbox".proxyPass = "http://unix:${public-inbox.http.port}:/inbox";
-          # If using TCP instead of a Unix socket:
-          #locations."/inbox".proxyPass = "http://127.0.0.1:${toString public-inbox.http.port}/inbox";
-          # Referred to by settings.publicinbox.css
-          # See http://public-inbox.org/meta/_/text/color/
-          locations."= /style/light.css".alias = pkgs.writeText "light.css" ''
-            * { background:#fff; color:#000 }
-
-            a { color:#00f; text-decoration:none }
-            a:visited { color:#808 }
-
-            *.q { color:#008 }
-
-            *.add { color:#060 }
-            *.del {color:#900 }
-            *.head { color:#000 }
-            *.hunk { color:#960 }
-
-            .hl.num { color:#f30 } /* number */
-            .hl.esc { color:#f0f } /* escape character */
-            .hl.str { color:#f30 } /* string */
-            .hl.ppc { color:#c3c } /* preprocessor */
-            .hl.pps { color:#f30 } /* preprocessor string */
-            .hl.slc { color:#099 } /* single-line comment */
-            .hl.com { color:#099 } /* multi-line comment */
-            /* .hl.opt { color:#ccc } */ /* operator */
-            /* .hl.ipl { color:#ccc } */ /* interpolation */
-
-            /* keyword groups kw[a-z] */
-            .hl.kwa { color:#f90 }
-            .hl.kwb { color:#060 }
-            .hl.kwc { color:#f90 }
-            /* .hl.kwd { color:#ccc } */
-          '';
-        };
-      };
-
-      services.postfix = {
-        enable = true;
-        setSendmail = true;
-        #sslCert = "${tls-cert}/cert.pem";
-        #sslKey = "${tls-cert}/key.pem";
-        recipientDelimiter = "+";
-      };
-
-      environment.systemPackages = [
-        pkgs.gitMinimal
-        pkgs.mailutils
-        pkgs.openssl
-      ];
-
+        )
+        gitRepositories
+      );
     };
+
+    # Use nginx as a reverse proxy for public-inbox-httpd
+    services.nginx = {
+      enable = true;
+      recommendedGzipSettings = true;
+      recommendedOptimisation = true;
+      recommendedTlsSettings = true;
+      recommendedProxySettings = true;
+      virtualHosts."machine.${domain}" = {
+        forceSSL = true;
+        sslCertificate = "${tls-cert}/cert.pem";
+        sslCertificateKey = "${tls-cert}/key.pem";
+        locations."/".return = "302 /inbox";
+        locations."= /inbox".return = "302 /inbox/";
+        locations."/inbox".proxyPass = "http://unix:${public-inbox.http.port}:/inbox";
+        # If using TCP instead of a Unix socket:
+        #locations."/inbox".proxyPass = "http://127.0.0.1:${toString public-inbox.http.port}/inbox";
+        # Referred to by settings.publicinbox.css
+        # See http://public-inbox.org/meta/_/text/color/
+        locations."= /style/light.css".alias = pkgs.writeText "light.css" ''
+          * { background:#fff; color:#000 }
+
+          a { color:#00f; text-decoration:none }
+          a:visited { color:#808 }
+
+          *.q { color:#008 }
+
+          *.add { color:#060 }
+          *.del {color:#900 }
+          *.head { color:#000 }
+          *.hunk { color:#960 }
+
+          .hl.num { color:#f30 } /* number */
+          .hl.esc { color:#f0f } /* escape character */
+          .hl.str { color:#f30 } /* string */
+          .hl.ppc { color:#c3c } /* preprocessor */
+          .hl.pps { color:#f30 } /* preprocessor string */
+          .hl.slc { color:#099 } /* single-line comment */
+          .hl.com { color:#099 } /* multi-line comment */
+          /* .hl.opt { color:#ccc } */ /* operator */
+          /* .hl.ipl { color:#ccc } */ /* interpolation */
+
+          /* keyword groups kw[a-z] */
+          .hl.kwa { color:#f90 }
+          .hl.kwb { color:#060 }
+          .hl.kwc { color:#f90 }
+          /* .hl.kwd { color:#ccc } */
+        '';
+      };
+    };
+
+    services.postfix = {
+      enable = true;
+      setSendmail = true;
+      #sslCert = "${tls-cert}/cert.pem";
+      #sslKey = "${tls-cert}/key.pem";
+      recipientDelimiter = "+";
+    };
+
+    environment.systemPackages = [
+      pkgs.gitMinimal
+      pkgs.mailutils
+      pkgs.openssl
+    ];
+  };
 
   testScript = ''
     start_all()
@@ -192,7 +191,8 @@ in
     machine.succeed(
       ${lib.concatMapStrings (repositoryName: ''
         "sudo -u public-inbox git init --bare -b main /var/lib/public-inbox/repositories/${repositoryName}.git",
-      '') gitRepositories}
+      '')
+      gitRepositories}
     )
 
     # List inboxes through public-inbox-httpd

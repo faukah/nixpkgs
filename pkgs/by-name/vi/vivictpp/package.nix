@@ -16,9 +16,7 @@
   ffmpeg,
   cacert,
   zlib,
-}:
-
-let
+}: let
   version = "1.1.0";
   withSubprojects = stdenv.mkDerivation {
     name = "sources-with-subprojects";
@@ -48,42 +46,42 @@ let
     outputHash = "sha256-/6nuTKjQEXfJlHkTkeX/A4PeGb8SOk6Q801gjx1SB6M=";
   };
 in
-stdenv.mkDerivation {
-  pname = "vivictpp";
-  inherit version;
+  stdenv.mkDerivation {
+    pname = "vivictpp";
+    inherit version;
 
-  src = withSubprojects;
+    src = withSubprojects;
 
-  nativeBuildInputs = [
-    meson
-    cmake
-    ninja
-    pkg-config
+    nativeBuildInputs = [
+      meson
+      cmake
+      ninja
+      pkg-config
 
-    python3
-    git
-  ];
+      python3
+      git
+    ];
 
-  buildInputs = [
-    SDL2
-    libX11
-    SDL2_ttf
-    freetype
-    harfbuzz
-    ffmpeg
-    zlib
-  ];
+    buildInputs = [
+      SDL2
+      libX11
+      SDL2_ttf
+      freetype
+      harfbuzz
+      ffmpeg
+      zlib
+    ];
 
-  preConfigure = ''
-    patchShebangs .
-  '';
+    preConfigure = ''
+      patchShebangs .
+    '';
 
-  meta = with lib; {
-    description = "Easy to use tool for subjective comparison of the visual quality of different encodings of the same video source";
-    homepage = "https://github.com/vivictorg/vivictpp";
-    license = licenses.gpl2Plus;
-    platforms = platforms.unix;
-    maintainers = with maintainers; [ tilpner ];
-    mainProgram = "vivictpp";
-  };
-}
+    meta = with lib; {
+      description = "Easy to use tool for subjective comparison of the visual quality of different encodings of the same video source";
+      homepage = "https://github.com/vivictorg/vivictpp";
+      license = licenses.gpl2Plus;
+      platforms = platforms.unix;
+      maintainers = with maintainers; [tilpner];
+      mainProgram = "vivictpp";
+    };
+  }

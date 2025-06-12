@@ -4,7 +4,6 @@
   fetchFromGitHub,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "gops";
   version = "0.3.28";
@@ -18,13 +17,13 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-ptC2G7cXcAjthJcAXvuBqI2ZpPuSMBqzO+gJiyaAUP0=";
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeCheckInputs = [writableTmpDirAsHomeHook];
 
   meta = with lib; {
     description = "Tool to list and diagnose Go processes currently running on your system";
     mainProgram = "gops";
     homepage = "https://github.com/google/gops";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ pborzenkov ];
+    maintainers = with maintainers; [pborzenkov];
   };
 })

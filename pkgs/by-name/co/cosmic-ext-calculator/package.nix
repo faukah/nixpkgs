@@ -42,7 +42,7 @@ rustPlatform.buildRustPackage rec {
     "target/${stdenv.hostPlatform.rust.cargoShortTarget}/release/cosmic-ext-calculator"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/cosmic-utils/calculator/releases/tag/${version}";
@@ -50,8 +50,8 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/cosmic-utils/calculator";
     license = lib.licenses.gpl3Only;
     mainProgram = "cosmic-ext-calculator";
-    maintainers = with lib.maintainers; [ HeitorAugustoLN ];
+    maintainers = with lib.maintainers; [HeitorAugustoLN];
     platforms = lib.platforms.linux;
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
   };
 }

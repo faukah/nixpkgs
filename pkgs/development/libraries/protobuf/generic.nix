@@ -15,17 +15,14 @@
   hash,
   replaceVars,
   versionCheckHook,
-
   # downstream dependencies
   python3,
   grpc,
   enableShared ? !stdenv.hostPlatform.isStatic,
-
   testers,
   protobuf,
   ...
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "protobuf";
   inherit version;
@@ -53,10 +50,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   # hook to provide the path to protoc executable, used at build time
   build_protobuf =
-    if (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) then
-      buildPackages."protobuf_${lib.versions.major version}"
-    else
-      (placeholder "out");
+    if (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    then buildPackages."protobuf_${lib.versions.major version}"
+    else (placeholder "out");
   setupHook = ./setup-hook.sh;
 
   nativeBuildInputs = [
@@ -74,7 +70,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  cmakeDir = if lib.versionOlder version "22" then "../cmake" else null;
+  cmakeDir =
+    if lib.versionOlder version "22"
+    then "../cmake"
+    else null;
   cmakeFlags =
     [
       "-Dprotobuf_USE_EXTERNAL_GTEST=ON"
@@ -97,7 +96,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeInstallCheckInputs = [
     versionCheckHook
   ];
-  versionCheckProgram = [ "${placeholder "out"}/bin/protoc" ];
+  versionCheckProgram = ["${placeholder "out"}/bin/protoc"];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
@@ -105,7 +104,7 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       pythonProtobuf = python3.pkgs.protobuf;
       inherit grpc;
-      version = testers.testVersion { package = protobuf; };
+      version = testers.testVersion {package = protobuf;};
     };
 
     inherit abseil-cpp;
@@ -121,7 +120,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
     homepage = "https://protobuf.dev/";
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "protoc";
   };
 })

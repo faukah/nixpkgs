@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "svlint";
   version = "0.9.3";
@@ -27,6 +26,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/dalance/svlint";
     changelog = "https://github.com/dalance/svlint/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ trepetti ];
+    maintainers = with lib.maintainers; [trepetti];
   };
 }

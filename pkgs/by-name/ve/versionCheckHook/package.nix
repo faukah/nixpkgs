@@ -2,7 +2,6 @@
   lib,
   makeSetupHook,
 }:
-
 makeSetupHook {
   name = "version-check-hook";
   substitutions = {
@@ -10,6 +9,7 @@ makeSetupHook {
   };
   meta = {
     description = "Lookup for $version in the output of --help and --version";
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
-} ./hook.sh
+}
+./hook.sh

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libnotify,
 }:
-
 stdenv.mkDerivation rec {
   pname = "weechat-notify-send";
   version = "0.10";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7uw0IdRSxhPrLqdgECKB9eOrtFj+2HTILBhakKiRuNQ=";
   };
 
-  passthru.scripts = [ "notify_send.py" ];
+  passthru.scripts = ["notify_send.py"];
 
   dontBuild = true;
   doCheck = false;
@@ -31,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "WeeChat script that sends highlight and message notifications through notify-send";
     homepage = "https://github.com/s3rvac/weechat-notify-send";
     license = licenses.mit;
-    maintainers = with maintainers; [ tobim ];
+    maintainers = with maintainers; [tobim];
   };
 }

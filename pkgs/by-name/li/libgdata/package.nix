@@ -20,7 +20,6 @@
   uhttpmock,
   libsoup_2_4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgdata";
   version = "0.18.1";
@@ -85,8 +84,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "GData API library";
     homepage = "https://gitlab.gnome.org/GNOME/libgdata";
-    maintainers = with maintainers; [ raskin ];
-    teams = [ teams.gnome ];
+    maintainers = with maintainers; [raskin];
+    teams = [teams.gnome];
     platforms = platforms.linux;
     license = licenses.lgpl21Plus;
   };

@@ -16,7 +16,6 @@
   taler-merchant,
   runtimeShell,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "taler-sync";
   version = "1.0.0";
@@ -57,8 +56,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Backup and synchronization service";
     homepage = "https://git.taler.net/sync.git";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ wegank ];
-    teams = with lib.teams; [ ngi ];
+    maintainers = with lib.maintainers; [wegank];
+    teams = with lib.teams; [ngi];
     platforms = lib.platforms.linux;
   };
 })

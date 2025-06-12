@@ -9,7 +9,6 @@
   pyqt6,
   pyside6,
 }:
-
 buildPythonPackage rec {
   pname = "pglive";
   version = "0.8.3";
@@ -36,18 +35,18 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    pyqt5 = [ pyqt5 ];
-    pyqt6 = [ pyqt6 ];
-    pyside6 = [ pyside6 ];
+    pyqt5 = [pyqt5];
+    pyqt6 = [pyqt6];
+    pyside6 = [pyside6];
   };
 
-  pythonImportsCheck = [ "pglive" ];
+  pythonImportsCheck = ["pglive"];
 
   meta = {
     changelog = "https://github.com/domarm-comat/pglive/releases/tag/${src.tag}";
     description = "Live plot for PyqtGraph";
     homepage = "https://github.com/domarm-comat/pglive";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fsagbuya ];
+    maintainers = with lib.maintainers; [fsagbuya];
   };
 }

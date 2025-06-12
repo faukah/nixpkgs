@@ -6,7 +6,6 @@
   testers,
   kyverno,
 }:
-
 buildGoModule rec {
   pname = "kyverno";
   version = "1.14.1";
@@ -28,9 +27,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-Lf4xluQ+fHk6qHeMtsia4FOWZEd6iX9IazZmbRpgKA0=";
 
-  subPackages = [ "cmd/cli/kubectl-kyverno" ];
+  subPackages = ["cmd/cli/kubectl-kyverno"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = ''
     # we have no integration between krew and kubectl
     # so better rename binary to kyverno and use as a standalone
@@ -53,6 +52,6 @@ buildGoModule rec {
     homepage = "https://kyverno.io/";
     changelog = "https://github.com/kyverno/kyverno/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bryanasdev000 ];
+    maintainers = with lib.maintainers; [bryanasdev000];
   };
 }

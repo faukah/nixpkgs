@@ -2,26 +2,21 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # dependencies
   numpy,
   lightning-utilities,
   packaging,
-
   # buildInputs
   torch,
-
   # tests
   pytestCheckHook,
   pytest-doctestplus,
   pytest-xdist,
   pytorch-lightning,
   scikit-image,
-
   # passthru
   torchmetrics,
 }:
-
 buildPythonPackage rec {
   pname = "torchmetrics";
   version = "1.7.2";
@@ -41,7 +36,7 @@ buildPythonPackage rec {
   ];
 
   # Let the user bring their own instance
-  buildInputs = [ torch ];
+  buildInputs = [torch];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -80,13 +75,13 @@ buildPythonPackage rec {
     "src/torchmetrics"
   ];
 
-  pythonImportsCheck = [ "torchmetrics" ];
+  pythonImportsCheck = ["torchmetrics"];
 
   meta = {
     description = "Machine learning metrics for distributed, scalable PyTorch applications (used in pytorch-lightning)";
     homepage = "https://lightning.ai/docs/torchmetrics/";
     changelog = "https://github.com/Lightning-AI/torchmetrics/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ SomeoneSerge ];
+    maintainers = with lib.maintainers; [SomeoneSerge];
   };
 }

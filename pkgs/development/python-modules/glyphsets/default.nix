@@ -16,7 +16,6 @@
   unicodedata2,
   youseedee,
 }:
-
 buildPythonPackage rec {
   pname = "glyphsets";
   version = "1.1.0";
@@ -53,7 +52,7 @@ buildPythonPackage rec {
     youseedee
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export PATH="$out/bin:$PATH"
@@ -71,7 +70,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/googlefonts/glyphsets";
     changelog = "https://github.com/googlefonts/glyphsets/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
     mainProgram = "glyphsets";
   };
 }

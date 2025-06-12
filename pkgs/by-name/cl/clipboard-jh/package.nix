@@ -13,7 +13,6 @@
   alsa-lib,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clipboard-jh";
   version = "0.10.0";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       libffi
       wayland-protocols
@@ -56,13 +55,13 @@ stdenv.mkDerivation rec {
     patchelf $out/bin/cb --add-rpath $out/lib
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Cut, copy, and paste anything, anywhere, all from the terminal";
     homepage = "https://github.com/Slackadays/clipboard";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     platforms = platforms.all;
     mainProgram = "cb";
   };

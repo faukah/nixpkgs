@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "gentools";
   version = "1.2.2";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-+6KTFxOpwvGOCqy6JU87gOZmDa6MvjR10qES5wIfrjI=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "gentools" ];
+  pythonImportsCheck = ["gentools"];
 
   meta = with lib; {
     description = "Tools for generators, generator functions, and generator-based coroutines";
     homepage = "https://gentools.readthedocs.io/";
     changelog = "https://github.com/ariebovenberg/gentools/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -12,7 +12,6 @@
   makeWrapper,
   sg3_utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tgt";
   version = "1.0.95";
@@ -63,13 +62,13 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     substituteInPlace $out/sbin/tgt-admin \
-      --replace "#!/usr/bin/perl" "#! ${perl.withPackages (p: [ p.ConfigGeneral ])}/bin/perl"
+      --replace "#!/usr/bin/perl" "#! ${perl.withPackages (p: [p.ConfigGeneral])}/bin/perl"
     wrapProgram $out/sbin/tgt-admin --prefix PATH : \
       ${lib.makeBinPath [
-        lsof
-        sg3_utils
-        (placeholder "out")
-      ]}
+      lsof
+      sg3_utils
+      (placeholder "out")
+    ]}
 
     install -D scripts/tgtd.service $out/etc/systemd/system/tgtd.service
     substituteInPlace $out/etc/systemd/system/tgtd.service \
@@ -86,6 +85,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fujita/tgt";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ johnazoidberg ];
+    maintainers = with maintainers; [johnazoidberg];
   };
 }

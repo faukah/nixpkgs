@@ -9,7 +9,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "libsoundtouch";
   version = "0.8.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
       --replace-fail "'enum-compat>=0.0.2'," ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     zeroconf
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # mock data order mismatch
@@ -45,12 +44,12 @@ buildPythonPackage rec {
     "test_snapshot_restore"
   ];
 
-  pythonImportsCheck = [ "libsoundtouch" ];
+  pythonImportsCheck = ["libsoundtouch"];
 
   meta = with lib; {
     description = "Bose Soundtouch Python library";
     homepage = "https://github.com/CharlesBlonde/libsoundtouch";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

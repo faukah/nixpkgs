@@ -5,7 +5,6 @@
   lazydocker,
   testers,
 }:
-
 buildGoModule rec {
   pname = "lazydocker";
   version = "0.24.1";

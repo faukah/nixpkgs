@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   sourceRoot = "${src.name}/cli";
   useFetchCargoVendor = true;
   cargoHash = "sha256-ZhrjxHqwWwcVkCVkJJnVm2CZLfRlrI2383ejgI+B2KQ=";
-  cargoPatches = [ ./cargo_lock.patch ];
+  cargoPatches = [./cargo_lock.patch];
 
   buildInputs = [
     kclvm

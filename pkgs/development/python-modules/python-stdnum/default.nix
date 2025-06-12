@@ -7,7 +7,6 @@
   setuptools,
   zeep,
 }:
-
 buildPythonPackage rec {
   pname = "python-stdnum";
   version = "1.20";
@@ -25,21 +24,21 @@ buildPythonPackage rec {
       --replace-fail " --cov=stdnum --cov-report=term-missing:skip-covered --cov-report=html" ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   optional-dependencies = {
-    SOAP = [ zeep ];
+    SOAP = [zeep];
   };
 
-  pythonImportsCheck = [ "stdnum" ];
+  pythonImportsCheck = ["stdnum"];
 
   meta = with lib; {
     description = "Python module to handle standardized numbers and codes";
     homepage = "https://arthurdejong.org/python-stdnum/";
     changelog = "https://github.com/arthurdejong/python-stdnum/blob/${version}/ChangeLog";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ johbo ];
+    maintainers = with maintainers; [johbo];
   };
 }

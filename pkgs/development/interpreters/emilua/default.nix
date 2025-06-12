@@ -26,7 +26,6 @@
   enableIoUring ? false,
   emilua, # this package
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "emilua";
   version = "0.11.6";
@@ -101,10 +100,10 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     inherit boost;
     sitePackages = "lib/emilua-${(lib.concatStringsSep "." (lib.take 2 (lib.splitVersion finalAttrs.version)))}";
-    tests.with-io-uring = emilua.override { enableIoUring = true; };
+    tests.with-io-uring = emilua.override {enableIoUring = true;};
   };
 
   meta = {

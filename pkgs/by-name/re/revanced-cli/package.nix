@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "revanced-cli";
   version = "5.0.1";
@@ -15,8 +14,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-tq+DSWAPVupR2W1Jqk0vKI4ox5zWSTSbpwyLcs4EXa8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   dontUnpack = true;
 
@@ -36,8 +35,8 @@ stdenv.mkDerivation rec {
     description = "Command line application as an alternative to the ReVanced Manager";
     homepage = "https://github.com/revanced/revanced-cli";
     license = licenses.gpl3Only;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    maintainers = with maintainers; [ jopejoe1 ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
+    maintainers = with maintainers; [jopejoe1];
     mainProgram = "revanced-cli";
   };
 }

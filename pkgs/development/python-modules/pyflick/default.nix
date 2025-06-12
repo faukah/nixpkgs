@@ -8,7 +8,6 @@
   setuptools-scm,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyflick";
   version = "1.1.3";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-JROtklRimr6I1/6+yYaDL6rNGSj7O15nI/C9ZSj6eFo=";
   };
 
-  pythonRelaxDeps = [ "aiohttp" ];
+  pythonRelaxDeps = ["aiohttp"];
 
   build-system = [
     setuptools
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ZephireNZ/PyFlick";
     changelog = "https://github.com/ZephireNZ/PyFlick/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -10,7 +10,6 @@
   libosmo-sigtran,
   osmo-mgw,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osmo-bsc";
   version = "1.13.0";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "GSM Base Station Controller";
     homepage = "https://projects.osmocom.org/projects/osmobsc";
     license = lib.licenses.agpl3Plus;
-    maintainers = [ lib.maintainers.markuskowa ];
+    maintainers = [lib.maintainers.markuskowa];
     platforms = lib.platforms.linux;
     mainProgram = "osmo-bsc";
   };

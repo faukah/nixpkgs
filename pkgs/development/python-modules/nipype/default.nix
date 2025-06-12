@@ -38,7 +38,6 @@
   # see https://github.com/nipy/nipype/issues/2888:
   useNeurdflib ? false,
 }:
-
 buildPythonPackage rec {
   pname = "nipype";
   version = "1.10.0";
@@ -55,7 +54,7 @@ buildPythonPackage rec {
       --replace "/usr/bin/env bash" "${bash}/bin/bash"
   '';
 
-  pythonRelaxDeps = [ "traits" ];
+  pythonRelaxDeps = ["traits"];
 
   propagatedBuildInputs = [
     click
@@ -95,13 +94,13 @@ buildPythonPackage rec {
   checkPhase = ''
     pytest nipype/tests -k 'not display and not test_no_et_multiproc'
   '';
-  pythonImportsCheck = [ "nipype" ];
+  pythonImportsCheck = ["nipype"];
 
   meta = with lib; {
     homepage = "https://nipy.org/nipype/";
     description = "Neuroimaging in Python: Pipelines and Interfaces";
     mainProgram = "nipypecli";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ashgillman ];
+    maintainers = with maintainers; [ashgillman];
   };
 }

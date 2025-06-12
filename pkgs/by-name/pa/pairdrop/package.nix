@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nodejs,
 }:
-
 buildNpmPackage rec {
   pname = "pairdrop";
   version = "1.11.2";

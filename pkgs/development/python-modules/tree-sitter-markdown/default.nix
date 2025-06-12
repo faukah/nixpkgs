@@ -6,7 +6,6 @@
   tree-sitter,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "tree-sitter-markdown";
   version = "0.4.1";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "tree_sitter_markdown" ];
+  pythonImportsCheck = ["tree_sitter_markdown"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tree-sitter-grammars/tree-sitter-markdown";
     changelog = "https://github.com/tree-sitter-grammars/tree-sitter-markdown/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

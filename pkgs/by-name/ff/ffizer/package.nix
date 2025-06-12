@@ -7,12 +7,11 @@
   openssl,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ffizer";
   version = "2.13.3";
 
-  buildFeatures = [ "cli" ];
+  buildFeatures = ["cli"];
 
   src = fetchFromGitHub {
     owner = "ffizer";
@@ -46,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ffizer/ffizer";
     changelog = "https://github.com/ffizer/ffizer/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.cc0;
-    maintainers = with lib.maintainers; [ XBagon ];
+    maintainers = with lib.maintainers; [XBagon];
     mainProgram = "ffizer";
   };
 }

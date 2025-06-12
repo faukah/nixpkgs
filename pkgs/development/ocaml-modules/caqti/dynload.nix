@@ -3,7 +3,6 @@
   caqti,
   findlib,
 }:
-
 buildDunePackage {
   pname = "caqti-dynload";
   inherit (caqti) version src;
@@ -13,7 +12,9 @@ buildDunePackage {
     findlib
   ];
 
-  meta = caqti.meta // {
-    description = "Dynamic linking of Caqti drivers using findlib.dynload";
-  };
+  meta =
+    caqti.meta
+    // {
+      description = "Dynamic linking of Caqti drivers using findlib.dynload";
+    };
 }

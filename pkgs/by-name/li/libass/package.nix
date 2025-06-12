@@ -12,49 +12,47 @@
   largeTilesSupport ? false, # Use larger tiles in the rasterizer
   libiconv,
 }:
-
 assert fontconfigSupport -> fontconfig != null;
+  stdenv.mkDerivation rec {
+    pname = "libass";
+    version = "0.17.3";
 
-stdenv.mkDerivation rec {
-  pname = "libass";
-  version = "0.17.3";
+    src = fetchurl {
+      url = "https://github.com/libass/libass/releases/download/${version}/${pname}-${version}.tar.xz";
+      hash = "sha256-6uQl2lDwAVwh97OpxyYqkQ8CGK9GniLikxRi/tPFCVk=";
+    };
 
-  src = fetchurl {
-    url = "https://github.com/libass/libass/releases/download/${version}/${pname}-${version}.tar.xz";
-    hash = "sha256-6uQl2lDwAVwh97OpxyYqkQ8CGK9GniLikxRi/tPFCVk=";
-  };
-
-  outputs = [
-    "out"
-    "dev"
-  ];
-
-  configureFlags = [
-    (lib.enableFeature fontconfigSupport "fontconfig")
-    (lib.enableFeature largeTilesSupport "large-tiles")
-  ];
-
-  nativeBuildInputs = [
-    pkg-config
-    yasm
-  ];
-
-  buildInputs =
-    [
-      freetype
-      fribidi
-      harfbuzz
-    ]
-    ++ lib.optional fontconfigSupport fontconfig
-    ++ lib.optional stdenv.hostPlatform.isDarwin [
-      libiconv
+    outputs = [
+      "out"
+      "dev"
     ];
 
-  meta = with lib; {
-    description = "Portable ASS/SSA subtitle renderer";
-    homepage = "https://github.com/libass/libass";
-    license = licenses.isc;
-    platforms = platforms.unix;
-    maintainers = with maintainers; [ codyopel ];
-  };
-}
+    configureFlags = [
+      (lib.enableFeature fontconfigSupport "fontconfig")
+      (lib.enableFeature largeTilesSupport "large-tiles")
+    ];
+
+    nativeBuildInputs = [
+      pkg-config
+      yasm
+    ];
+
+    buildInputs =
+      [
+        freetype
+        fribidi
+        harfbuzz
+      ]
+      ++ lib.optional fontconfigSupport fontconfig
+      ++ lib.optional stdenv.hostPlatform.isDarwin [
+        libiconv
+      ];
+
+    meta = with lib; {
+      description = "Portable ASS/SSA subtitle renderer";
+      homepage = "https://github.com/libass/libass";
+      license = licenses.isc;
+      platforms = platforms.unix;
+      maintainers = with maintainers; [codyopel];
+    };
+  }

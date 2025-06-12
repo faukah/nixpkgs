@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lemmy-help";
   version = "0.11.0";
@@ -15,7 +14,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-HcIvHuuzQj4HsRJyn1A9nXiGDGAcz1nqTsC7sROt7OI=";
   };
 
-  buildFeatures = [ "cli" ];
+  buildFeatures = ["cli"];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-ZuLbdsZadEkY5M4LoHBn6gnKYklVbXpRa60EocYUH+A=";
@@ -27,8 +26,8 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/numToStr/lemmy-help";
     changelog = "https://github.com/numToStr/lemmy-help/releases/tag/v${version}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ figsoda ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "lemmy-help";
   };
 }

@@ -16,7 +16,6 @@
   scipy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "scikit-survival";
   version = "0.24.1";
@@ -45,9 +44,9 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pythonImportsCheck = [ "sksurv" ];
+  pythonImportsCheck = ["sksurv"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     ln -s ${lib.getInclude eigen}/include/eigen3/Eigen \
@@ -75,14 +74,14 @@ buildPythonPackage rec {
       "test_tree"
     ]
     ++ lib.optional (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
-      # floating point mismatch on aarch64
-      # 27079905.88052468 to far from 27079905.880496684
-      "test_coxnet";
+    # floating point mismatch on aarch64
+    # 27079905.88052468 to far from 27079905.880496684
+    "test_coxnet";
 
   meta = with lib; {
     description = "Survival analysis built on top of scikit-learn";
     homepage = "https://github.com/sebp/scikit-survival";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ GuillaumeDesforges ];
+    maintainers = with maintainers; [GuillaumeDesforges];
   };
 }

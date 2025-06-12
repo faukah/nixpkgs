@@ -11,7 +11,6 @@
   enablePython ? false,
   python3Packages,
 }:
-
 stdenv.mkDerivation {
   pname = "syndication-domination";
   # author extraction feature needed by gnome-feeds
@@ -51,7 +50,7 @@ stdenv.mkDerivation {
     homepage = "https://gitlab.com/gabmus/syndication-domination";
     license = lib.licenses.agpl3Only;
     mainProgram = "SyndicationDomination";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.all;
   };
 }

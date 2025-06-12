@@ -25,7 +25,6 @@
   unpaper,
   installShellFiles,
 }:
-
 buildPythonPackage rec {
   pname = "ocrmypdf";
   version = "16.10.2";
@@ -60,7 +59,7 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   dependencies = [
     deprecation
@@ -81,7 +80,7 @@ buildPythonPackage rec {
     reportlab
   ];
 
-  pythonImportsCheck = [ "ocrmypdf" ];
+  pythonImportsCheck = ["ocrmypdf"];
 
   postInstall = ''
     installShellCompletion --cmd ocrmypdf \

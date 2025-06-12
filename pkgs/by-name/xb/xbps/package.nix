@@ -8,7 +8,6 @@
   openssl,
   libarchive,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xbps";
   version = "0.59.2";
@@ -64,6 +63,6 @@ stdenv.mkDerivation rec {
     description = "X Binary Package System";
     platforms = platforms.linux; # known to not work on Darwin, at least
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

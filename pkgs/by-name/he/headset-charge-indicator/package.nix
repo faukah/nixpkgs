@@ -9,7 +9,6 @@
   gobject-introspection,
   libayatana-appindicator,
 }:
-
 stdenv.mkDerivation rec {
   # The last versioned release is 1.0.0.0 from 2020, since then there were updates but no versioned release.
   # This is not marked unstable because upstream encourages installation from source.
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    (python3.withPackages (ps: with ps; [ pygobject3 ]))
+    (python3.withPackages (ps: with ps; [pygobject3]))
     headsetcontrol
     gtk3
     libayatana-appindicator
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
     description = "App-indicator for GNOME desktops for controlling some features of various wireless headsets";
     longDescription = "A simple app-indicator for GNOME desktops to display the battery charge of some wireless headsets which also allows to control some functions like LEDs, sidetone and others.";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zebreus ];
+    maintainers = with maintainers; [zebreus];
     license = licenses.bsd2;
     mainProgram = "headset-charge-indicator.py";
   };

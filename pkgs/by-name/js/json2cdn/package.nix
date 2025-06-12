@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
       binaryBytecode
     ];
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ uku3lig ];
+    maintainers = with lib.maintainers; [uku3lig];
     inherit (jre_headless.meta) platforms;
     mainProgram = "json2cdn";
   };

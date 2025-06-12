@@ -5,7 +5,6 @@
   autoAddDriverRunpath,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nvidia_oc";
   version = "0.1.21";
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Dreaming-Codes/nvidia_oc";
     changelog = "https://github.com/Dreaming-Codes/nvidia_oc/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "nvidia_oc";
   };
 }

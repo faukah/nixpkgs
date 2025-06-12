@@ -14,7 +14,6 @@
   dmraid, # dmraid
   lvm2, # lvs
 }:
-
 stdenv.mkDerivation rec {
   version = "1.83";
   pname = "os-prober";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cTufM82YE1L7d3kIOtncICInBPEw4o4NzQXB4uDrMKI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   installPhase = ''
     # executables
     install -Dt $out/bin os-prober linux-boot-prober
@@ -62,17 +61,17 @@ stdenv.mkDerivation rec {
     for file in $out/bin/*; do
       wrapProgram $file \
         --suffix PATH : ${
-          lib.makeBinPath [
-            grub2
-            systemd
-            coreutils
-            cryptsetup
-            libuuid
-            ntfs3g
-            lvm2
-            dmraid
-          ]
-        } \
+      lib.makeBinPath [
+        grub2
+        systemd
+        coreutils
+        cryptsetup
+        libuuid
+        ntfs3g
+        lvm2
+        dmraid
+      ]
+    } \
         --run "[ -d /var/lib/os-prober ] || mkdir /var/lib/os-prober"
     done;
   '';
@@ -85,7 +84,7 @@ stdenv.mkDerivation rec {
     homepage = "http://packages.debian.org/source/sid/os-prober";
     license = licenses.gpl2Plus;
     mainProgram = "os-prober";
-    maintainers = with maintainers; [ symphorien ];
+    maintainers = with maintainers; [symphorien];
     platforms = platforms.linux;
   };
 }

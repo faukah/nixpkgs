@@ -6,7 +6,6 @@
   pkg-config,
   wrapGAppsHook3,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "muso";
   version = "unstable-2021-09-02";
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage {
     description = "Automatic music sorter (based on ID3 tags)";
     mainProgram = "muso";
     homepage = "https://github.com/quebin31/muso";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ crertel ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [crertel];
   };
 }

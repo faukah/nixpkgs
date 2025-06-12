@@ -3,16 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib.attrsets) optionalAttrs;
   inherit (lib.generators) toINIWithGlobalSection;
   inherit (lib.lists) optional;
   inherit (lib.modules) mkIf mkRemovedOptionModule;
   inherit (lib.options) literalExpression mkEnableOption mkOption;
   inherit (lib.strings) escape;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     attrsOf
     bool
     int
@@ -29,28 +28,25 @@ let
     "\\"
   ];
 
-  formatValue =
-    value:
-    if true == value then
-      "1"
-    else if false == value then
-      "0"
-    else if builtins.isString value then
-      "\"${escapeString value}\""
-    else
-      toString value;
+  formatValue = value:
+    if true == value
+    then "1"
+    else if false == value
+    then "0"
+    else if builtins.isString value
+    then "\"${escapeString value}\""
+    else toString value;
 
   configFile = pkgs.writeText "davfs2.conf" (
     toINIWithGlobalSection {
       mkSectionName = escapeString;
       mkKeyValue = k: v: "${k} ${formatValue v}";
-    } cfg.settings
+    }
+    cfg.settings
   );
-in
-{
-
+in {
   imports = [
-    (mkRemovedOptionModule [ "services" "davfs2" "extraConfig" ] ''
+    (mkRemovedOptionModule ["services" "davfs2" "extraConfig"] ''
       The option extraConfig got removed, please migrate to
       services.davfs2.settings instead.
     '')
@@ -80,17 +76,16 @@ in
 
     settings = mkOption {
       type = submodule {
-        freeformType =
-          let
-            valueTypes = [
-              bool
-              int
-              str
-            ];
-          in
-          attrsOf (attrsOf (oneOf (valueTypes ++ [ (attrsOf (oneOf valueTypes)) ])));
+        freeformType = let
+          valueTypes = [
+            bool
+            int
+            str
+          ];
+        in
+          attrsOf (attrsOf (oneOf (valueTypes ++ [(attrsOf (oneOf valueTypes))])));
       };
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           globalSection = {
@@ -115,8 +110,7 @@ in
   };
 
   config = mkIf cfg.enable {
-
-    environment.systemPackages = [ pkgs.davfs2 ];
+    environment.systemPackages = [pkgs.davfs2];
     environment.etc."davfs2/davfs2.conf".source = configFile;
 
     services.davfs2.settings = {
@@ -156,7 +150,5 @@ in
       setuid = true;
       permissions = "u+rx,g+x";
     };
-
   };
-
 }

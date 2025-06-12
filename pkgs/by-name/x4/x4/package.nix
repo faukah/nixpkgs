@@ -6,7 +6,6 @@
   openssl,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "x4";
   version = "0.1.0";
@@ -39,7 +38,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/pwnwriter/x4";
     changelog = "https://github.com/pwnwriter/x4/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pwnwriter ];
+    maintainers = with lib.maintainers; [pwnwriter];
     mainProgram = "x4";
   };
 }

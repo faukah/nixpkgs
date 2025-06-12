@@ -12,7 +12,6 @@
   hypothesis,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "pdoc";
   version = "15.0.4";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-l0aaQbjxAMcTZZwDN6g8A7bjSsl6yP2FoAnwTYkKYH8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     jinja2
@@ -52,9 +51,9 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "pdoc" ];
+  pythonImportsCheck = ["pdoc"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     changelog = "https://github.com/mitmproxy/pdoc/blob/${src.rev}/CHANGELOG.md";
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     description = "API Documentation for Python Projects";
     mainProgram = "pdoc";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

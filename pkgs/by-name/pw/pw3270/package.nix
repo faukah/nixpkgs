@@ -15,7 +15,6 @@
   desktop-file-utils,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pw3270";
   version = "5.4";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
     description = "3270 Emulator for gtk";
     homepage = "https://softwarepublico.gov.br/social/pw3270/";
     license = licenses.lgpl3Plus;
-    maintainers = [ maintainers.vifino ];
+    maintainers = [maintainers.vifino];
     mainProgram = "pw3270";
   };
 }

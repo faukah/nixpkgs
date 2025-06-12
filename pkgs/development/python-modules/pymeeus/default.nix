@@ -5,7 +5,6 @@
   setuptools,
   pytest7CheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pymeeus";
   version = "0.5.12";
@@ -17,14 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-VI9xhr2LlsvAac9kmo6ON33OSax0SGcJhJ/mOpnK1oQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytest7CheckHook ];
+  nativeCheckInputs = [pytest7CheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/architest/pymeeus";
     description = "Library of astronomical algorithms";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

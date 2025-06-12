@@ -4,7 +4,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tt-rss-theme-feedly";
   version = "4.1.0";
@@ -25,14 +24,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) tt-rss; };
+    tests = {inherit (nixosTests) tt-rss;};
   };
 
   meta = with lib; {
     description = "Feedly theme for Tiny Tiny RSS";
     license = licenses.mit;
     homepage = "https://github.com/levito/tt-rss-feedly-theme";
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
     platforms = platforms.all;
   };
 }

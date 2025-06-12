@@ -10,7 +10,6 @@
   wrapGAppsHook3,
   gitUpdater,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "xdgmenumaker";
   version = "2.4";
@@ -53,7 +52,7 @@ python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Command line tool that generates XDG menus for several window managers";
@@ -62,6 +61,6 @@ python3Packages.buildPythonApplication rec {
     license = licenses.gpl3Plus;
     # NOTE: exclude darwin from platforms because Travis reports hash mismatch
     platforms = with platforms; filter (x: !(elem x darwin)) unix;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

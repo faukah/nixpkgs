@@ -7,15 +7,14 @@
   checkOutput,
   static,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   name = "cpptrace-findpackage-integration-test";
 
   inherit src;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
-    (cpptrace.override { inherit static; })
+    (cpptrace.override {inherit static;})
   ];
 
   installPhase = ''
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   installCheckPhase = lib.strings.concatLines (
-    [ "$out/bin/main" ]
+    ["$out/bin/main"]
     # Check that the backtrace contains the path to the executable.
     ++ lib.optionals checkOutput [
       ''

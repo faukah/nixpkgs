@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cpu,
 }:
-
 buildDunePackage rec {
   pname = "parany";
   version = "14.0.1";
@@ -18,12 +17,12 @@ buildDunePackage rec {
     hash = "sha256-QR3Rq30iKhft+9tVCgJLOq9bwJe7bcay/kMTXjjCLjE=";
   };
 
-  propagatedBuildInputs = [ cpu ];
+  propagatedBuildInputs = [cpu];
 
   meta = with lib; {
     homepage = "https://github.com/UnixJunkie/parany";
     description = "Generalized map/reduce for multicore computing";
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     license = licenses.lgpl2;
   };
 }

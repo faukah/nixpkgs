@@ -20,7 +20,6 @@
   # Building with docs are still failing in unstable-2023-09-28
   withDocs ? false,
 }:
-
 stdenv.mkDerivation {
   pname = "dia";
   version = "unstable-2023-09-28";
@@ -44,7 +43,7 @@ stdenv.mkDerivation {
     [
       graphene
       gtk3
-      (libxml2.override { zlibSupport = true; })
+      (libxml2.override {zlibSupport = true;})
       python3
       poppler
     ]
@@ -73,7 +72,7 @@ stdenv.mkDerivation {
     description = "Gnome Diagram drawing software";
     mainProgram = "dia";
     homepage = "http://live.gnome.org/Dia";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     license = licenses.gpl2;
     platforms = platforms.unix;
   };

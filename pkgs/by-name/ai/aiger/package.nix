@@ -4,7 +4,6 @@
   fetchurl,
   picosat,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aiger";
   version = "1.9.9";
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "And-Inverter Graph (AIG) utilities";
     homepage = "https://fmv.jku.at/aiger/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [thoughtpolice];
     platforms = lib.platforms.unix;
   };
 }

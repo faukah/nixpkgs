@@ -28,7 +28,6 @@
   testers,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "swayimg";
   version = "4.2";
@@ -84,7 +83,7 @@ stdenv.mkDerivation (finalAttrs: {
       package = finalAttrs.finalPackage;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

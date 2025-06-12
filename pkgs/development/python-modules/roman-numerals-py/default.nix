@@ -6,7 +6,6 @@
   pytestCheckHook,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "roman-numerals-py";
   version = "3.1.0";
@@ -26,11 +25,11 @@ buildPythonPackage rec {
     cd python
   '';
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "roman_numerals" ];
+  pythonImportsCheck = ["roman_numerals"];
 
   meta = {
     description = "Manipulate roman numerals";

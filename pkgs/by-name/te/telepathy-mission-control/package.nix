@@ -11,7 +11,6 @@
   autoreconfHook,
   gtk-doc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "telepathy-mission-control";
   version = "5.16.6";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "Account manager and channel dispatcher for the Telepathy framework";
     homepage = "https://telepathy.freedesktop.org/components/telepathy-mission-control/";
     license = licenses.lgpl21Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

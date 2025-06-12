@@ -12,28 +12,28 @@ lib.makeOverridable (
     expectedMap ? null,
     script,
   }:
-  assert lib.assertMsg (
-    expectedArray != null || expectedMap != null
-  ) "testEqualArrayOrMap: at least one of 'expectedArray' or 'expectedMap' must be provided";
-  stdenvNoCC.mkDerivation {
-    __structuredAttrs = true;
-    strictDeps = true;
+    assert lib.assertMsg (
+      expectedArray != null || expectedMap != null
+    ) "testEqualArrayOrMap: at least one of 'expectedArray' or 'expectedMap' must be provided";
+      stdenvNoCC.mkDerivation {
+        __structuredAttrs = true;
+        strictDeps = true;
 
-    inherit name;
+        inherit name;
 
-    nativeBuildInputs = [
-      arrayUtilities.isDeclaredArray
-      ./assert-equal-array.sh
-      arrayUtilities.isDeclaredMap
-      arrayUtilities.getSortedMapKeys
-      ./assert-equal-map.sh
-    ];
+        nativeBuildInputs = [
+          arrayUtilities.isDeclaredArray
+          ./assert-equal-array.sh
+          arrayUtilities.isDeclaredMap
+          arrayUtilities.getSortedMapKeys
+          ./assert-equal-map.sh
+        ];
 
-    inherit valuesArray valuesMap;
-    inherit expectedArray expectedMap;
+        inherit valuesArray valuesMap;
+        inherit expectedArray expectedMap;
 
-    inherit script;
+        inherit script;
 
-    buildCommandPath = ./build-command.sh;
-  }
+        buildCommandPath = ./build-command.sh;
+      }
 )

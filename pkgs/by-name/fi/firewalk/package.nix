@@ -6,7 +6,6 @@
   libpcap,
   libdnet,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "firewalk";
   version = "5.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "firewalk";
     homepage = "http://packetfactory.openwall.net/projects/firewalk/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ tochiaha ];
+    maintainers = with maintainers; [tochiaha];
     platforms = platforms.linux;
   };
 })

@@ -12,12 +12,10 @@
   makeMinimal,
   version,
 }:
-
 mkDerivation (
   let
-    commonDeps = [ zlib ];
-  in
-  {
+    commonDeps = [zlib];
+  in {
     path = "tools/compat";
 
     outputs = [
@@ -39,7 +37,7 @@ mkDerivation (
       "host"
     ];
     configureFlags =
-      [ "--cache-file=config.cache" ]
+      ["--cache-file=config.cache"]
       ++ lib.optionals stdenv.hostPlatform.isMusl [
         # We include this header in our musl package only for legacy
         # compatibility, and compat works fine without it (and having it
@@ -48,11 +46,13 @@ mkDerivation (
         "ac_cv_header_sys_cdefs_h=no"
       ];
 
-    nativeBuildInputs = commonDeps ++ [
-      bsdSetupHook
-      netbsdSetupHook
-      makeMinimal
-    ];
+    nativeBuildInputs =
+      commonDeps
+      ++ [
+        bsdSetupHook
+        netbsdSetupHook
+        makeMinimal
+      ];
 
     buildInputs = commonDeps;
 

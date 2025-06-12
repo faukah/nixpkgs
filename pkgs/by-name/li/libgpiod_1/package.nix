@@ -11,7 +11,6 @@
   python3,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgpiod";
   version = "1.6.4";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ kmod ]
+    [kmod]
     ++ lib.optionals enablePython [
       python3
       ncurses
@@ -39,11 +38,17 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  configureFlags = [
-    "--enable-tools=${if enable-tools then "yes" else "no"}"
-    "--enable-bindings-cxx"
-    "--prefix=${placeholder "out"}"
-  ] ++ lib.optional enablePython "--enable-bindings-python";
+  configureFlags =
+    [
+      "--enable-tools=${
+        if enable-tools
+        then "yes"
+        else "no"
+      }"
+      "--enable-bindings-cxx"
+      "--prefix=${placeholder "out"}"
+    ]
+    ++ lib.optional enablePython "--enable-bindings-python";
 
   meta = with lib; {
     description = "C library and tools for interacting with the linux GPIO character device";
@@ -54,7 +59,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/about/";
     license = licenses.lgpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

@@ -13,7 +13,6 @@
   matplotlib,
   cython,
 }:
-
 buildPythonPackage rec {
   pname = "gpy";
   version = "1.13.2";
@@ -33,8 +32,8 @@ buildPythonPackage rec {
     "scipy"
   ];
 
-  nativeBuildInputs = [ setuptools ];
-  buildInputs = [ cython ];
+  nativeBuildInputs = [setuptools];
+  buildInputs = [cython];
   propagatedBuildInputs = [
     numpy
     scipy
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     paramz
     matplotlib
   ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Rebuild cython-generated .c files to ensure compatibility
   preBuild = ''
@@ -56,13 +55,13 @@ buildPythonPackage rec {
     "TestGradientMultiOutputGPModel"
   ];
 
-  pythonImportsCheck = [ "GPy" ];
+  pythonImportsCheck = ["GPy"];
 
   meta = with lib; {
     description = "Gaussian process framework in Python";
     homepage = "https://sheffieldml.github.io/GPy";
     changelog = "https://github.com/SheffieldML/GPy/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

@@ -1,34 +1,24 @@
 # Configuration for the xfs_quota command
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.programs.xfs_quota;
 
-  limitOptions =
-    opts:
+  limitOptions = opts:
     builtins.concatStringsSep " " [
       (lib.optionalString (opts.sizeSoftLimit != null) "bsoft=${opts.sizeSoftLimit}")
       (lib.optionalString (opts.sizeHardLimit != null) "bhard=${opts.sizeHardLimit}")
     ];
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     programs.xfs_quota = {
       projects = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf (
           lib.types.submodule {
             options = {
@@ -76,13 +66,11 @@ in
         };
       };
     };
-
   };
 
   ###### implementation
 
-  config = lib.mkIf (cfg.projects != { }) {
-
+  config = lib.mkIf (cfg.projects != {}) {
     environment.etc.projects.source = pkgs.writeText "etc-project" (
       builtins.concatStringsSep "\n" (
         lib.mapAttrsToList (name: opts: "${builtins.toString opts.id}:${opts.path}") cfg.projects
@@ -95,27 +83,27 @@ in
       )
     );
 
-    systemd.services = lib.mapAttrs' (
-      name: opts:
-      lib.nameValuePair "xfs_quota-${name}" {
-        description = "Setup xfs_quota for project ${name}";
-        script = ''
-          ${pkgs.xfsprogs.bin}/bin/xfs_quota -x -c 'project -s ${name}' ${opts.fileSystem}
-          ${pkgs.xfsprogs.bin}/bin/xfs_quota -x -c 'limit -p ${limitOptions opts} ${name}' ${opts.fileSystem}
-        '';
+    systemd.services =
+      lib.mapAttrs' (
+        name: opts:
+          lib.nameValuePair "xfs_quota-${name}" {
+            description = "Setup xfs_quota for project ${name}";
+            script = ''
+              ${pkgs.xfsprogs.bin}/bin/xfs_quota -x -c 'project -s ${name}' ${opts.fileSystem}
+              ${pkgs.xfsprogs.bin}/bin/xfs_quota -x -c 'limit -p ${limitOptions opts} ${name}' ${opts.fileSystem}
+            '';
 
-        wantedBy = [ "multi-user.target" ];
-        after = [ ((builtins.replaceStrings [ "/" ] [ "-" ] opts.fileSystem) + ".mount") ];
+            wantedBy = ["multi-user.target"];
+            after = [((builtins.replaceStrings ["/"] ["-"] opts.fileSystem) + ".mount")];
 
-        restartTriggers = [ config.environment.etc.projects.source ];
+            restartTriggers = [config.environment.etc.projects.source];
 
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-        };
-      }
-    ) cfg.projects;
-
+            serviceConfig = {
+              Type = "oneshot";
+              RemainAfterExit = true;
+            };
+          }
+      )
+      cfg.projects;
   };
-
 }

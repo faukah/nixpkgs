@@ -8,12 +8,12 @@
   dns-tsig,
   domain-name,
 }:
-
 buildDunePackage {
   pname = "letsencrypt-dns";
   minimalOCamlVersion = "4.08";
 
-  inherit (letsencrypt)
+  inherit
+    (letsencrypt)
     version
     src
     ;
@@ -28,7 +28,9 @@ buildDunePackage {
     fmt
   ];
 
-  meta = letsencrypt.meta // {
-    description = "DNS solver for the ACME implementation in OCaml";
-  };
+  meta =
+    letsencrypt.meta
+    // {
+      description = "DNS solver for the ACME implementation in OCaml";
+    };
 }

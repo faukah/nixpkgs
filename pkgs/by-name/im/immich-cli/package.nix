@@ -10,7 +10,7 @@ buildNpmPackage {
   src = "${immich.src}/cli";
   inherit (immich.sources.components.cli) version npmDepsHash;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   inherit (immich.web) preBuild;
 
@@ -29,7 +29,7 @@ buildNpmPackage {
     description = "Self-hosted photo and video backup solution (command line interface)";
     homepage = "https://immich.app/docs/features/command-line-interface";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ jvanbruegge ];
+    maintainers = with lib.maintainers; [jvanbruegge];
     inherit (nodejs.meta) platforms;
     mainProgram = "immich";
   };

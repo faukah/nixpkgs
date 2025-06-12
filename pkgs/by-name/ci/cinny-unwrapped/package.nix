@@ -10,7 +10,6 @@
   pango,
   stdenv,
 }:
-
 buildNpmPackage rec {
   pname = "cinny-unwrapped";
   version = "4.8.1";
@@ -29,11 +28,13 @@ buildNpmPackage rec {
     pkg-config
   ];
 
-  buildInputs = [
-    pixman
-    cairo
-    pango
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ giflib ];
+  buildInputs =
+    [
+      pixman
+      cairo
+      pango
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [giflib];
 
   installPhase = ''
     runHook preInstall
@@ -46,7 +47,7 @@ buildNpmPackage rec {
   meta = {
     description = "Yet another Matrix client for the web";
     homepage = "https://cinny.in/";
-    maintainers = with lib.maintainers; [ abbe ];
+    maintainers = with lib.maintainers; [abbe];
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.all;
   };

@@ -5,7 +5,6 @@
   perl,
   jq,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zsv";
   version = "0.4.4-alpha";
@@ -17,9 +16,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-XZE7jMQaPP2B1OIlkHucNrtiJy8wMEVY9gcc5X4FyNI=";
   };
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
-  buildInputs = [ jq ];
+  buildInputs = [jq];
 
   configureFlags = [
     "--jq-prefix=${lib.getLib jq}"
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/liquidaty/zsv";
     changelog = "https://github.com/liquidaty/zsv/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 })

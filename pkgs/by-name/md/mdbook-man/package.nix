@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "mdbook-man";
   version = "unstable-2022-11-05";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage {
     mainProgram = "mdbook-man";
     homepage = "https://github.com/vv9k/mdbook-man";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

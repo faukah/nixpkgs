@@ -1,6 +1,6 @@
-{ mkDerivation }:
+{mkDerivation}:
 mkDerivation {
   path = "lib/libxo";
-  extraPaths = [ "contrib/libxo" ];
+  extraPaths = ["contrib/libxo"];
   MK_TESTS = "no";
 }

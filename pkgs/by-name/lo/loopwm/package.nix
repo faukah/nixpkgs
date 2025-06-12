@@ -5,7 +5,6 @@
   unzip,
   makeWrapper,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "loopwm";
   version = "1.2.0";
@@ -43,9 +42,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "macOS Window management made elegant";
     homepage = "https://github.com/MrKai77/Loop";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ matteopacini ];
+    maintainers = with lib.maintainers; [matteopacini];
     mainProgram = "loopwm";
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

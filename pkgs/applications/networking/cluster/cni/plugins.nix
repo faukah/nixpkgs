@@ -4,7 +4,6 @@
   buildGoModule,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "cni-plugins";
   version = "1.7.1";
@@ -45,7 +44,7 @@ buildGoModule rec {
     "plugins/meta/vrf"
   ];
 
-  passthru.tests = { inherit (nixosTests) cri-o; };
+  passthru.tests = {inherit (nixosTests) cri-o;};
 
   meta = with lib; {
     changelog = "https://github.com/containernetworking/plugins/releases/tag/${src.rev}";
@@ -53,6 +52,6 @@ buildGoModule rec {
     homepage = "https://www.cni.dev/plugins/";
     license = licenses.asl20;
     platforms = platforms.linux;
-    teams = [ teams.podman ];
+    teams = [teams.podman];
   };
 }

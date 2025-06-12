@@ -9,7 +9,6 @@
   ncurses,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xst";
   version = "0.10.0";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "Simple terminal fork that can load config from Xresources";
     mainProgram = "xst";
     license = licenses.mit;
-    maintainers = [ maintainers.vyp ];
+    maintainers = [maintainers.vyp];
     platforms = platforms.linux;
   };
 }

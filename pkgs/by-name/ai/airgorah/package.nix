@@ -12,7 +12,6 @@
   makeDesktopItem,
   wrapGAppsHook4,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "airgorah";
   version = "0.7.3";
@@ -69,7 +68,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/martin-olivier/airgorah/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = "airgorah";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     platforms = lib.platforms.linux;
   };
 }

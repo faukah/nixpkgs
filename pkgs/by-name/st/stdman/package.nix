@@ -4,7 +4,6 @@
   curl,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stdman";
   version = "2024.07.05";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     patchShebangs ./do_install
   ";
 
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   meta = with lib; {
     description = "Formatted C++17 stdlib man pages (cppreference)";
@@ -33,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jeaye/stdman";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.twey ];
+    maintainers = [maintainers.twey];
   };
 }

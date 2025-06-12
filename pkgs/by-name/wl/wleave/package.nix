@@ -68,7 +68,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/AMNatty/wleave";
     license = licenses.mit;
     mainProgram = "wleave";
-    maintainers = with maintainers; [ ludovicopiero ];
+    maintainers = with maintainers; [ludovicopiero];
     platforms = platforms.linux;
   };
 }

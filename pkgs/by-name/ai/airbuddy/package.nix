@@ -4,7 +4,6 @@
   fetchurl,
   _7zz,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "airbuddy";
   version = "2.7.3";
@@ -21,7 +20,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontFixup = true;
 
   # AirBuddy.dmg is APFS formatted, unpack with 7zz
-  nativeBuildInputs = [ _7zz ];
+  nativeBuildInputs = [_7zz];
 
   sourceRoot = "AirBuddy.app";
 
@@ -42,9 +41,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
     homepage = "https://v2.airbuddy.app";
     changelog = "https://support.airbuddy.app/articles/airbuddy-2-changelog";
-    license = with licenses; [ unfree ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ stepbrobd ];
+    license = with licenses; [unfree];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [stepbrobd];
     platforms = [
       "aarch64-darwin"
       "x86_64-darwin"

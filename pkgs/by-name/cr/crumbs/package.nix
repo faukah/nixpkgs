@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "crumbs";
   version = "0.0.3";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fasseg/crumbs";
     license = licenses.wtfpl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ thesola10 ];
+    maintainers = with maintainers; [thesola10];
     mainProgram = "crumbs";
   };
 }

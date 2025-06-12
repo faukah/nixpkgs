@@ -8,7 +8,6 @@
   yarn,
   nodejs,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pxder";
   version = "2.12.8";
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Tsuk1ko/pxder";
     license = lib.licenses.gpl3Plus;
     mainProgram = "pxder";
-    maintainers = with lib.maintainers; [ vanilla ];
+    maintainers = with lib.maintainers; [vanilla];
     platforms = lib.platforms.all;
   };
 }

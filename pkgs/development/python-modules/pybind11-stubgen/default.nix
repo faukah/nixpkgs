@@ -4,13 +4,12 @@
   lib,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pybind11-stubgen";
   version = "2.5.4";
   pyproject = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   src = fetchFromGitHub {
     owner = "sizmailov";
@@ -25,13 +24,13 @@ buildPythonPackage rec {
   # Therefore, I disabled the check phase.
   doCheck = false;
 
-  pythonImportsCheck = [ "pybind11_stubgen" ];
+  pythonImportsCheck = ["pybind11_stubgen"];
 
   meta = {
     changelog = "https://github.com/sizmailov/pybind11-stubgen/releases/tag/${src.tag}";
     description = "Generates stubs for python modules";
     homepage = "https://github.com/sizmailov/pybind11-stubgen";
     license = lib.licenses.bsd3Lbnl;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 }

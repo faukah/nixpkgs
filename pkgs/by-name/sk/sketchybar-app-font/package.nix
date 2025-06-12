@@ -6,7 +6,6 @@
   nodejs,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sketchybar-app-font";
   version = "2.0.35";
@@ -47,7 +46,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Ligature-based symbol font and a mapping function for sketchybar";
@@ -56,7 +55,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/kvndrsslr/sketchybar-app-font";
     license = lib.licenses.cc0;
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
     platforms = lib.platforms.all;
   };
 })

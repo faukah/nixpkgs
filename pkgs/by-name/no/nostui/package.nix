@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nostui";
   version = "0.1.0";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/akiomik/nostui";
     description = "TUI client for Nostr";
     license = licenses.mit;
-    maintainers = with maintainers; [ heywoodlh ];
+    maintainers = with maintainers; [heywoodlh];
     platforms = platforms.unix;
     mainProgram = "nostui";
   };

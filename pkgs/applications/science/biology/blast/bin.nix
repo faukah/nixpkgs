@@ -12,8 +12,7 @@
   libxml2,
   coreutils,
   sqlite,
-}:
-let
+}: let
   pname = "blast-bin";
   version = "2.16.0";
 
@@ -37,46 +36,46 @@ let
   };
   src = srcs.${stdenv.hostPlatform.system};
 in
-stdenv.mkDerivation {
-  inherit pname version src;
+  stdenv.mkDerivation {
+    inherit pname version src;
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+    nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
 
-  buildInputs =
-    [
-      python3
-      perl
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      zlib
-      bzip2
-      glib
-      libxml2
-      sqlite
-    ];
+    buildInputs =
+      [
+        python3
+        perl
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
+        zlib
+        bzip2
+        glib
+        libxml2
+        sqlite
+      ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -Dm755 bin/* -t $out/bin
+      install -Dm755 bin/* -t $out/bin
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  preFixup = ''
-    substituteInPlace $out/bin/get_species_taxids.sh \
-      --replace /bin/rm ${coreutils}/bin/rm
-  '';
+    preFixup = ''
+      substituteInPlace $out/bin/get_species_taxids.sh \
+        --replace /bin/rm ${coreutils}/bin/rm
+    '';
 
-  meta = with lib; {
-    inherit (blast.meta) description homepage license;
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ natsukium ];
-  };
-}
+    meta = with lib; {
+      inherit (blast.meta) description homepage license;
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      maintainers = with maintainers; [natsukium];
+    };
+  }

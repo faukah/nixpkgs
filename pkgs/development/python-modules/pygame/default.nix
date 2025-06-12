@@ -6,15 +6,12 @@
   replaceVars,
   fontconfig,
   python,
-
   # build-system
   cython,
   setuptools,
-
   # nativeBuildInputs
   SDL2,
   pkg-config,
-
   # buildInputs
   freetype,
   libjpeg,
@@ -25,7 +22,6 @@
   SDL2_mixer,
   SDL2_ttf,
 }:
-
 buildPythonPackage rec {
   pname = "pygame";
   version = "2.6.1";
@@ -50,13 +46,15 @@ buildPythonPackage rec {
           "${lib.getDev dep}/"
           "${lib.getDev dep}/include"
           "${lib.getDev dep}/include/SDL2"
-        ]) buildInputs
+        ])
+        buildInputs
       );
       buildinputs_lib = builtins.toJSON (
         builtins.concatMap (dep: [
           "${lib.getLib dep}/"
           "${lib.getLib dep}/lib"
-        ]) buildInputs
+        ])
+        buildInputs
       );
     })
 
@@ -95,7 +93,7 @@ buildPythonPackage rec {
     libX11
     portmidi
     SDL2
-    (SDL2_image.override { enableSTB = false; })
+    (SDL2_image.override {enableSTB = false;})
     SDL2_mixer
     SDL2_ttf
   ];
@@ -123,14 +121,14 @@ buildPythonPackage rec {
 
     runHook postCheck
   '';
-  pythonImportsCheck = [ "pygame" ];
+  pythonImportsCheck = ["pygame"];
 
   meta = {
     description = "Python library for games";
     homepage = "https://www.pygame.org/";
     changelog = "https://github.com/pygame/pygame/releases/tag/${src.tag}";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ emilytrau ];
+    maintainers = with lib.maintainers; [emilytrau];
     platforms = lib.platforms.unix;
   };
 }

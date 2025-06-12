@@ -10,7 +10,6 @@
   isStatic ? stdenv.hostPlatform.isStatic,
   go,
   withGo ? lib.meta.availableOn stdenv.buildPlatform go && stdenv.hostPlatform.go.GOARCH != null,
-
   # passthru.tests
   bind,
   chrony,
@@ -23,115 +22,119 @@
   tor,
   uwsgi,
 }:
-
 assert usePam -> pam != null;
+  stdenv.mkDerivation rec {
+    pname = "libcap";
+    version = "2.75";
 
-stdenv.mkDerivation rec {
-  pname = "libcap";
-  version = "2.75";
+    src = fetchurl {
+      url = "mirror://kernel/linux/libs/security/linux-privs/libcap2/${pname}-${version}.tar.xz";
+      hash = "sha256-3k5+BkybpFHVI03Ubol9fHHJap6/mgxEW8BPR0LYNjI=";
+    };
 
-  src = fetchurl {
-    url = "mirror://kernel/linux/libs/security/linux-privs/libcap2/${pname}-${version}.tar.xz";
-    hash = "sha256-3k5+BkybpFHVI03Ubol9fHHJap6/mgxEW8BPR0LYNjI=";
-  };
+    outputs =
+      [
+        "out"
+        "dev"
+        "lib"
+        "man"
+        "doc"
+      ]
+      ++ lib.optional usePam "pam";
 
-  outputs = [
-    "out"
-    "dev"
-    "lib"
-    "man"
-    "doc"
-  ] ++ lib.optional usePam "pam";
-
-  depsBuildBuild = [
-    buildPackages.stdenv.cc
-  ];
-
-  nativeBuildInputs = lib.optionals withGo [
-    go
-  ];
-
-  buildInputs = lib.optional usePam pam;
-
-  makeFlags =
-    [
-      "lib=lib"
-      "PAM_CAP=${if usePam then "yes" else "no"}"
-      "BUILD_CC=$(CC_FOR_BUILD)"
-      "CC:=$(CC)"
-      "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-    ]
-    ++ lib.optionals withGo [
-      "GOLANG=yes"
-      ''GOCACHE=''${TMPDIR}/go-cache''
-      "GOFLAGS=-trimpath"
-      "GOARCH=${pkgsBuildHost.go.GOARCH}"
-      "GOOS=${pkgsBuildHost.go.GOOS}"
-    ]
-    ++ lib.optionals isStatic [
-      "SHARED=no"
-      "LIBCSTATIC=yes"
+    depsBuildBuild = [
+      buildPackages.stdenv.cc
     ];
 
-  postPatch =
-    ''
-      patchShebangs ./progs/mkcapshdoc.sh
+    nativeBuildInputs = lib.optionals withGo [
+      go
+    ];
 
-      # use full path to bash
-      substituteInPlace progs/capsh.c --replace "/bin/bash" "${runtimeShell}"
+    buildInputs = lib.optional usePam pam;
 
-      # set prefixes
-      substituteInPlace Make.Rules \
-        --replace 'prefix=/usr' "prefix=$lib" \
-        --replace 'exec_prefix=' "exec_prefix=$out" \
-        --replace 'lib_prefix=$(exec_prefix)' "lib_prefix=$lib" \
-        --replace 'inc_prefix=$(prefix)' "inc_prefix=$dev" \
-        --replace 'man_prefix=$(prefix)' "man_prefix=$doc"
-    ''
-    + lib.optionalString withGo ''
-      # disable cross compilation for artifacts which are run as part of the build
-      substituteInPlace go/Makefile \
-        --replace-fail '$(GO) run' 'GOOS= GOARCH= $(GO) run'
-    '';
+    makeFlags =
+      [
+        "lib=lib"
+        "PAM_CAP=${
+          if usePam
+          then "yes"
+          else "no"
+        }"
+        "BUILD_CC=$(CC_FOR_BUILD)"
+        "CC:=$(CC)"
+        "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+      ]
+      ++ lib.optionals withGo [
+        "GOLANG=yes"
+        ''GOCACHE=''${TMPDIR}/go-cache''
+        "GOFLAGS=-trimpath"
+        "GOARCH=${pkgsBuildHost.go.GOARCH}"
+        "GOOS=${pkgsBuildHost.go.GOOS}"
+      ]
+      ++ lib.optionals isStatic [
+        "SHARED=no"
+        "LIBCSTATIC=yes"
+      ];
 
-  installFlags = [ "RAISE_SETFCAP=no" ];
+    postPatch =
+      ''
+        patchShebangs ./progs/mkcapshdoc.sh
 
-  postInstall =
-    ''
-      ${lib.optionalString (!isStatic) ''rm "$lib"/lib/*.a''}
-      mkdir -p "$doc/share/doc/${pname}-${version}"
-      cp License "$doc/share/doc/${pname}-${version}/"
-    ''
-    + lib.optionalString usePam ''
-      mkdir -p "$pam/lib/security"
-      mv "$lib"/lib/security "$pam/lib"
-    '';
+        # use full path to bash
+        substituteInPlace progs/capsh.c --replace "/bin/bash" "${runtimeShell}"
 
-  strictDeps = true;
+        # set prefixes
+        substituteInPlace Make.Rules \
+          --replace 'prefix=/usr' "prefix=$lib" \
+          --replace 'exec_prefix=' "exec_prefix=$out" \
+          --replace 'lib_prefix=$(exec_prefix)' "lib_prefix=$lib" \
+          --replace 'inc_prefix=$(prefix)' "inc_prefix=$dev" \
+          --replace 'man_prefix=$(prefix)' "man_prefix=$doc"
+      ''
+      + lib.optionalString withGo ''
+        # disable cross compilation for artifacts which are run as part of the build
+        substituteInPlace go/Makefile \
+          --replace-fail '$(GO) run' 'GOOS= GOARCH= $(GO) run'
+      '';
 
-  disallowedReferences = lib.optionals withGo [
-    pkgsBuildHost.go
-  ];
+    installFlags = ["RAISE_SETFCAP=no"];
 
-  passthru.tests = {
-    inherit
-      bind
-      chrony
-      htop
-      libgcrypt
-      libvirt
-      ntp
-      qemu
-      squid
-      tor
-      uwsgi
-      ;
-  };
+    postInstall =
+      ''
+        ${lib.optionalString (!isStatic) ''rm "$lib"/lib/*.a''}
+        mkdir -p "$doc/share/doc/${pname}-${version}"
+        cp License "$doc/share/doc/${pname}-${version}/"
+      ''
+      + lib.optionalString usePam ''
+        mkdir -p "$pam/lib/security"
+        mv "$lib"/lib/security "$pam/lib"
+      '';
 
-  meta = {
-    description = "Library for working with POSIX capabilities";
-    homepage = "https://sites.google.com/site/fullycapable";
-    platforms = lib.platforms.linux;
-    license = lib.licenses.bsd3;
-  };
-}
+    strictDeps = true;
+
+    disallowedReferences = lib.optionals withGo [
+      pkgsBuildHost.go
+    ];
+
+    passthru.tests = {
+      inherit
+        bind
+        chrony
+        htop
+        libgcrypt
+        libvirt
+        ntp
+        qemu
+        squid
+        tor
+        uwsgi
+        ;
+    };
+
+    meta = {
+      description = "Library for working with POSIX capabilities";
+      homepage = "https://sites.google.com/site/fullycapable";
+      platforms = lib.platforms.linux;
+      license = lib.licenses.bsd3;
+    };
+  }

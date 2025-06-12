@@ -5,7 +5,6 @@
   unzip,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gocd-server";
   version = "23.1.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     ];
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   passthru.tests = {
     inherit (nixosTests) gocd-server;

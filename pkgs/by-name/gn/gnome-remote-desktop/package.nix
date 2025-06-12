@@ -31,7 +31,6 @@
   gnome,
   polkit,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-remote-desktop";
   version = "48.1";
@@ -86,7 +85,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-remote-desktop"; };
+    updateScript = gnome.updateScript {packageName = "gnome-remote-desktop";};
   };
 
   meta = {
@@ -94,7 +93,7 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.gnome.org/GNOME/gnome-remote-desktop/-/blob/${version}/NEWS?ref_type=tags";
     description = "GNOME Remote Desktop server";
     mainProgram = "grdctl";
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };

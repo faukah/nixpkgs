@@ -5,7 +5,6 @@
   python3,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "enjarify";
   version = "1.0.3";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Tool for translating Dalvik bytecode to equivalent Java bytecode";
     homepage = "https://github.com/google/enjarify/";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "enjarify";
   };
 }

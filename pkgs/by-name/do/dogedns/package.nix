@@ -8,7 +8,6 @@
   openssl,
   pandoc,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dogedns";
   version = "0.2.8";
@@ -40,11 +39,13 @@ rustPlatform.buildRustPackage rec {
     "--skip=options::test::two_classes"
   ];
 
-  nativeBuildInputs = [
-    installShellFiles
-    pandoc
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ openssl ];
+  nativeBuildInputs =
+    [
+      installShellFiles
+      pandoc
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [openssl];
 
   postInstall = ''
     installShellCompletion completions/doge.{bash,fish,zsh}
@@ -56,6 +57,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Dj-Codeman/doge";
     license = lib.licenses.eupl12;
     mainProgram = "doge";
-    maintainers = with lib.maintainers; [ aktaboot ];
+    maintainers = with lib.maintainers; [aktaboot];
   };
 }

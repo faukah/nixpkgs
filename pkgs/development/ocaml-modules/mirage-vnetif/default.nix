@@ -10,7 +10,6 @@
   duration,
   logs,
 }:
-
 buildDunePackage rec {
   pname = "mirage-vnetif";
   version = "0.6.2";
@@ -36,6 +35,6 @@ buildDunePackage rec {
     description = "Virtual network interface and software switch for Mirage";
     homepage = "https://github.com/mirage/${pname}";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

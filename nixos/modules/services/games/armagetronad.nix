@@ -3,16 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
     mkMerge
     literalExpression
     ;
-  inherit (lib)
+  inherit
+    (lib)
     mapAttrsToList
     filterAttrs
     unique
@@ -20,23 +21,21 @@ let
     types
     ;
 
-  mkValueStringArmagetron =
-    with lib;
+  mkValueStringArmagetron = with lib;
     v:
-    if isInt v then
-      toString v
-    else if isFloat v then
-      toString v
-    else if isString v then
-      v
-    else if true == v then
-      "1"
-    else if false == v then
-      "0"
-    else if null == v then
-      ""
-    else
-      throw "unsupported type: ${builtins.typeOf v}: ${(lib.generators.toPretty { } v)}";
+      if isInt v
+      then toString v
+      else if isFloat v
+      then toString v
+      else if isString v
+      then v
+      else if true == v
+      then "1"
+      else if false == v
+      then "0"
+      else if null == v
+      then ""
+      else throw "unsupported type: ${builtins.typeOf v}: ${(lib.generators.toPretty {} v)}";
 
   settingsFormat = pkgs.formats.keyValue {
     mkKeyValue = lib.generators.mkKeyValueDefault {
@@ -50,13 +49,12 @@ let
   nameToId = serverName: "armagetronad-${serverName}";
   getStateDirectory = serverName: "armagetronad/${serverName}";
   getServerRoot = serverName: "/var/lib/${getStateDirectory serverName}";
-in
-{
+in {
   options = {
     services.armagetronad = {
       servers = mkOption {
         description = "Armagetron server definitions.";
-        default = { };
+        default = {};
         type = types.attrsOf (
           types.submodule {
             options = {
@@ -102,7 +100,7 @@ in
 
               settings = mkOption {
                 type = settingsFormat.type;
-                default = { };
+                default = {};
                 description = ''
                   Armagetron Advanced server rules configuration. Refer to:
                   <https://wiki.armagetronad.org/index.php?title=Console_Commands>
@@ -120,7 +118,7 @@ in
 
               roundSettings = mkOption {
                 type = settingsFormat.type;
-                default = { };
+                default = {};
                 description = ''
                   Armagetron Advanced server per-round configuration. Refer to:
                   <https://wiki.armagetronad.org/index.php?title=Console_Commands>
@@ -146,11 +144,10 @@ in
     };
   };
 
-  config = mkIf (enabledServers != { }) {
+  config = mkIf (enabledServers != {}) {
     systemd.tmpfiles.settings = mkMerge (
       mapAttrsToList (
-        serverName: serverCfg:
-        let
+        serverName: serverCfg: let
           serverId = nameToId serverName;
           serverRoot = getServerRoot serverName;
           serverInfo = (
@@ -159,7 +156,7 @@ in
               SERVER_PORT = serverCfg.port;
               SERVER_NAME = serverCfg.name;
             }
-            // (lib.optionalAttrs (serverCfg.dns != null) { SERVER_DNS = serverCfg.dns; })
+            // (lib.optionalAttrs (serverCfg.dns != null) {SERVER_DNS = serverCfg.dns;})
           );
           customSettings = serverCfg.settings;
           everytimeSettings = serverCfg.roundSettings;
@@ -167,8 +164,7 @@ in
           serverInfoCfg = settingsFormat.generate "server_info.${serverName}.cfg" serverInfo;
           customSettingsCfg = settingsFormat.generate "settings_custom.${serverName}.cfg" customSettings;
           everytimeSettingsCfg = settingsFormat.generate "everytime.${serverName}.cfg" everytimeSettings;
-        in
-        {
+        in {
           "10-armagetronad-${serverId}" = {
             "${serverRoot}/data" = {
               d = {
@@ -222,57 +218,55 @@ in
             };
           };
         }
-      ) enabledServers
+      )
+      enabledServers
     );
 
     systemd.services = mkMerge (
       mapAttrsToList (
-        serverName: serverCfg:
-        let
+        serverName: serverCfg: let
           serverId = nameToId serverName;
-        in
-        {
+        in {
           "armagetronad-${serverName}" = {
             description = "Armagetron Advanced Dedicated Server for ${serverName}";
-            wants = [ "basic.target" ];
+            wants = ["basic.target"];
             after = [
               "basic.target"
               "network.target"
               "multi-user.target"
             ];
-            wantedBy = [ "multi-user.target" ];
-            serviceConfig =
-              let
-                serverRoot = getServerRoot serverName;
-              in
-              {
-                Type = "simple";
-                StateDirectory = getStateDirectory serverName;
-                ExecStart = "${lib.getExe serverCfg.package} --daemon --input ${serverRoot}/input --userdatadir ${serverRoot}/data --userconfigdir ${serverRoot}/settings --vardir ${serverRoot}/var --autoresourcedir ${serverRoot}/resource";
-                Restart = "on-failure";
-                CapabilityBoundingSet = "";
-                LockPersonality = true;
-                NoNewPrivileges = true;
-                PrivateDevices = true;
-                PrivateTmp = true;
-                PrivateUsers = true;
-                ProtectClock = true;
-                ProtectControlGroups = true;
-                ProtectHome = true;
-                ProtectHostname = true;
-                ProtectKernelLogs = true;
-                ProtectKernelModules = true;
-                ProtectKernelTunables = true;
-                ProtectProc = "invisible";
-                ProtectSystem = "strict";
-                RestrictNamespaces = true;
-                RestrictSUIDSGID = true;
-                User = serverId;
-                Group = serverId;
-              };
+            wantedBy = ["multi-user.target"];
+            serviceConfig = let
+              serverRoot = getServerRoot serverName;
+            in {
+              Type = "simple";
+              StateDirectory = getStateDirectory serverName;
+              ExecStart = "${lib.getExe serverCfg.package} --daemon --input ${serverRoot}/input --userdatadir ${serverRoot}/data --userconfigdir ${serverRoot}/settings --vardir ${serverRoot}/var --autoresourcedir ${serverRoot}/resource";
+              Restart = "on-failure";
+              CapabilityBoundingSet = "";
+              LockPersonality = true;
+              NoNewPrivileges = true;
+              PrivateDevices = true;
+              PrivateTmp = true;
+              PrivateUsers = true;
+              ProtectClock = true;
+              ProtectControlGroups = true;
+              ProtectHome = true;
+              ProtectHostname = true;
+              ProtectKernelLogs = true;
+              ProtectKernelModules = true;
+              ProtectKernelTunables = true;
+              ProtectProc = "invisible";
+              ProtectSystem = "strict";
+              RestrictNamespaces = true;
+              RestrictSUIDSGID = true;
+              User = serverId;
+              Group = serverId;
+            };
           };
         }
-      ) enabledServers
+      )
+      enabledServers
     );
 
     networking.firewall.allowedUDPPorts = unique (
@@ -288,13 +282,15 @@ in
           description = "Armagetron Advanced dedicated user for server ${serverName}";
           isSystemUser = true;
         };
-      }) enabledServers
+      })
+      enabledServers
     );
 
     users.groups = mkMerge (
       mapAttrsToList (serverName: serverCfg: {
-        ${nameToId serverName} = { };
-      }) enabledServers
+        ${nameToId serverName} = {};
+      })
+      enabledServers
     );
   };
 }

@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   hatchling,
-
   # dependencies
   click,
   docutils,
@@ -26,11 +24,9 @@
   typing-extensions,
   uvicorn,
   websockets,
-
   # tests
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "marimo";
   version = "0.13.6";
@@ -42,34 +38,36 @@ buildPythonPackage rec {
     hash = "sha256-Qsz0SJvWOJ/MH9eIMyBODCBCGC7vp2lzPsq+32tRKU8=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   pythonRelaxDeps = [
     "pycrdt"
     "websockets"
   ];
 
-  dependencies = [
-    click
-    docutils
-    itsdangerous
-    jedi
-    markdown
-    narwhals
-    packaging
-    psutil
-    pycrdt
-    pygments
-    pymdown-extensions
-    pyyaml
-    ruff
-    starlette
-    tomlkit
-    uvicorn
-    websockets
-  ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  dependencies =
+    [
+      click
+      docutils
+      itsdangerous
+      jedi
+      markdown
+      narwhals
+      packaging
+      psutil
+      pycrdt
+      pygments
+      pymdown-extensions
+      pyyaml
+      ruff
+      starlette
+      tomlkit
+      uvicorn
+      websockets
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [typing-extensions];
 
-  pythonImportsCheck = [ "marimo" ];
+  pythonImportsCheck = ["marimo"];
 
   # The pypi archive does not contain tests so we do not use `pytestCheckHook`
   nativeCheckInputs = [

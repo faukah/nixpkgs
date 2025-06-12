@@ -5,7 +5,6 @@
   cmake,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "flatbuffers";
   version = "25.2.10";
@@ -23,7 +22,11 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-    "-DFLATBUFFERS_BUILD_TESTS=${if doCheck then "ON" else "OFF"}"
+    "-DFLATBUFFERS_BUILD_TESTS=${
+      if doCheck
+      then "ON"
+      else "OFF"
+    }"
     "-DFLATBUFFERS_OSX_BUILD_UNIVERSAL=OFF"
   ];
 
@@ -40,7 +43,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://google.github.io/flatbuffers/";
     license = licenses.asl20;
-    maintainers = [ maintainers.teh ];
+    maintainers = [maintainers.teh];
     mainProgram = "flatc";
     platforms = platforms.unix;
   };

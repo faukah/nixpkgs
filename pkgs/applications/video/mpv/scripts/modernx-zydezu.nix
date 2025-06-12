@@ -25,11 +25,11 @@ buildLua (finalAttrs: {
     "--set"
     "FONTCONFIG_FILE"
     (toString (makeFontsConf {
-      fontDirectories = [ "${finalAttrs.finalPackage}/share/fonts" ];
+      fontDirectories = ["${finalAttrs.finalPackage}/share/fonts"];
     }))
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Modern OSC UI replacement for MPV that retains the functionality of the default OSC";

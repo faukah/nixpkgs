@@ -5,7 +5,6 @@
   setuptools,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "nlpcloud";
   version = "1.1.47";
@@ -16,20 +15,20 @@ buildPythonPackage rec {
     hash = "sha256-zj6hurPEzNlbrD6trq+zQHBNg4lJMGw+XHV51rBa9Mk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "nlpcloud" ];
+  pythonImportsCheck = ["nlpcloud"];
 
   meta = with lib; {
     description = "Python client for the NLP Cloud API";
     homepage = "https://nlpcloud.com/";
     changelog = "https://github.com/nlpcloud/nlpcloud-python/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

@@ -12,7 +12,6 @@
   openssl,
   cmocka,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "globalplatform";
   version = "2.4.0-unstable-2025-03-23";
@@ -76,6 +75,6 @@ stdenv.mkDerivation (finalAttrs: {
     # https://github.com/kaoh/globalplatform/issues/81
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ stargate01 ];
+    maintainers = with lib.maintainers; [stargate01];
   };
 })

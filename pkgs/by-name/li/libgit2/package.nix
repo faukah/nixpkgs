@@ -20,7 +20,6 @@
   withGssapi ? false,
   krb5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgit2";
   version = "1.9.1";
@@ -45,7 +44,11 @@ stdenv.mkDerivation (finalAttrs: {
       "-DUSE_HTTP_PARSER=llhttp"
       "-DUSE_SSH=ON"
       (lib.cmakeBool "USE_GSSAPI" withGssapi)
-      "-DBUILD_SHARED_LIBS=${if staticBuild then "OFF" else "ON"}"
+      "-DBUILD_SHARED_LIBS=${
+        if staticBuild
+        then "OFF"
+        else "ON"
+      }"
     ]
     ++ lib.optionals stdenv.hostPlatform.isWindows [
       "-DDLLTOOL=${stdenv.cc.bintools.targetPrefix}dlltool"
@@ -63,13 +66,15 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [
-    zlib
-    libssh2
-    openssl
-    pcre2
-    llhttp
-  ] ++ lib.optional withGssapi krb5;
+  buildInputs =
+    [
+      zlib
+      libssh2
+      openssl
+      pcre2
+      llhttp
+    ]
+    ++ lib.optional withGssapi krb5;
 
   propagatedBuildInputs = lib.optional (!stdenv.hostPlatform.isLinux) libiconv;
 
@@ -90,7 +95,7 @@ stdenv.mkDerivation (finalAttrs: {
     )
   '';
 
-  passthru.tests = lib.mapAttrs (_: v: v.override { libgit2 = finalAttrs.finalPackage; }) {
+  passthru.tests = lib.mapAttrs (_: v: v.override {libgit2 = finalAttrs.finalPackage;}) {
     inherit libgit2-glib;
     inherit (python3Packages) pygit2;
     inherit gitstatus;
@@ -102,6 +107,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://libgit2.org/";
     license = licenses.gpl2Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 })

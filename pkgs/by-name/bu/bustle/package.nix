@@ -16,7 +16,6 @@
   gtk4,
   libadwaita,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bustle";
   version = "0.11.0";
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [
       jtojnar
     ];
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     mainProgram = "bustle";
     platforms = lib.platforms.unix;
   };

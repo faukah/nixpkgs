@@ -6,7 +6,6 @@
   obs-studio,
   qtbase,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "obs-color-monitor";
   version = "0.9.3";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-TwsEIOgQjj1wza7i8nne63oBM3FB6GmMjCq8/PuiWHs=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     obs-studio
     qtbase
@@ -38,6 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/norihiro/obs-color-monitor";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ hlad ];
+    maintainers = with lib.maintainers; [hlad];
   };
 })

@@ -1,11 +1,7 @@
-{ runCommand }:
-
-sitePackages:
-
-let
+{runCommand}: sitePackages: let
   hook = ./setup-hook.sh;
 in
-runCommand "python-setup-hook.sh"
+  runCommand "python-setup-hook.sh"
   {
     strictDeps = true;
     env = {

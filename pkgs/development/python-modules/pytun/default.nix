@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchFromGitHub,
 }:
-
 buildPythonPackage rec {
   pname = "pytun";
   version = "2.4.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/montag451/pytun";
     description = "Linux TUN/TAP wrapper for Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ montag451 ];
+    maintainers = with maintainers; [montag451];
     platforms = platforms.linux;
   };
 }

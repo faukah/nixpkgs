@@ -9,7 +9,6 @@
   perl,
   quilt,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cdrkit";
   version = "1.1.11-3.5";
@@ -26,11 +25,13 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
     quilt
   ];
-  buildInputs = [
-    zlib
-    bzip2
-    perl
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ libcap ];
+  buildInputs =
+    [
+      zlib
+      bzip2
+      perl
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [libcap];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.hostPlatform.isMusl [
@@ -74,9 +75,9 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s $out/bin/wodim $out/bin/cdrecord
   '';
 
-  cmakeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "-DBITFIELDS_HTOL=0" ];
+  cmakeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) ["-DBITFIELDS_HTOL=0"];
 
-  makeFlags = [ "PREFIX=\$(out)" ];
+  makeFlags = ["PREFIX=\$(out)"];
 
   meta = {
     description = "Portable command-line CD/DVD recorder software, mostly compatible with cdrtools";

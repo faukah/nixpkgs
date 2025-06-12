@@ -6,7 +6,6 @@
   poetry-core,
   nixops,
 }:
-
 buildPythonPackage {
   pname = "nixops-hercules-ci";
   version = "0-unstable-2021-10-06";
@@ -27,14 +26,14 @@ buildPythonPackage {
     nixops
   ];
 
-  pythonImportsCheck = [ "nixops_hercules_ci" ];
+  pythonImportsCheck = ["nixops_hercules_ci"];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Use Hercules CI as a NixOps backend";
     homepage = "https://github.com/hercules-ci/nixops-hercules-ci";
     license = licenses.asl20;
-    maintainers = with maintainers; [ roberth ];
+    maintainers = with maintainers; [roberth];
   };
 }

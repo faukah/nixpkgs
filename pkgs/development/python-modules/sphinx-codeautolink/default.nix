@@ -14,7 +14,6 @@
   # check dependencies
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-codeautolink";
   version = "0.17.4";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-1a76t4k2hVXwrG6X4w5yFYCMyR12Nlqodd2D0GoH/vM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     sphinxHook
@@ -48,15 +47,15 @@ buildPythonPackage rec {
     beautifulsoup4
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
-  pythonImportsCheck = [ "sphinx_codeautolink" ];
+  pythonImportsCheck = ["sphinx_codeautolink"];
 
   meta = with lib; {
     description = "Sphinx extension that makes code examples clickable";
     homepage = "https://github.com/felix-hilden/sphinx-codeautolink";
     changelog = "https://github.com/felix-hilden/sphinx-codeautolink/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

@@ -6,7 +6,6 @@
   mwdblib,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "karton-mwdb-reporter";
   version = "1.3.0";
@@ -29,14 +28,14 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "karton.mwdb_reporter" ];
+  pythonImportsCheck = ["karton.mwdb_reporter"];
 
   meta = with lib; {
     description = "Karton service that uploads analyzed artifacts and metadata to MWDB Core";
     mainProgram = "karton-mwdb-reporter";
     homepage = "https://github.com/CERT-Polska/karton-mwdb-reporter";
     changelog = "https://github.com/CERT-Polska/karton-mwdb-reporter/releases/tag/v${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

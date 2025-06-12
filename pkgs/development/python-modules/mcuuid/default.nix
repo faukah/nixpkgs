@@ -4,7 +4,6 @@
   fetchFromGitHub,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "mcuuid";
   version = "1.1.0";
@@ -17,17 +16,17 @@ buildPythonPackage rec {
     hash = "sha256-YwM7CdZVXpUXKXUzFL3AtoDhekLDIvZ/q8taLsHihNk=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # upstream code does not provide tests
   doCheck = false;
 
-  pythonImportsCheck = [ "mcuuid" ];
+  pythonImportsCheck = ["mcuuid"];
 
   meta = with lib; {
     description = "Getting Minecraft player information from Mojang API";
     homepage = "https://github.com/clerie/mcuuid";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ clerie ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [clerie];
   };
 }

@@ -1,6 +1,8 @@
-{ lib, pkgs, ... }:
-
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   accessKey = "BKIKJAA5BMMU2RHO6IBB";
   secretKey = "V7f1CwQqAcwo80UEIJEjc5gVQUSSx5ohQ9GSrr12";
 
@@ -8,12 +10,10 @@ let
     MINIO_ROOT_USER=${accessKey}
     MINIO_ROOT_PASSWORD=${secretKey}
   '';
-  environmentFile = pkgs.runCommand "atticd-env" { } ''
+  environmentFile = pkgs.runCommand "atticd-env" {} ''
     echo ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64="$(${lib.getExe pkgs.openssl} genrsa -traditional 4096 | ${pkgs.coreutils}/bin/base64 -w0)" > $out
   '';
-in
-
-{
+in {
   name = "atticd";
 
   nodes = {
@@ -61,7 +61,8 @@ in
     };
   };
 
-  testScript = # python
+  testScript =
+    # python
     ''
       start_all()
 

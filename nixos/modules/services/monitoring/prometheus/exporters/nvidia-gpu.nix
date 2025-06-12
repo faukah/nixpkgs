@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.nvidia-gpu;
-  inherit (lib)
+  inherit
+    (lib)
     types
     concatStringsSep
     ;
-in
-{
+in {
   port = 9835;
   serviceOpts = {
     serviceConfig = {
@@ -24,6 +22,6 @@ in
       '';
       PrivateDevices = false;
     };
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
   };
 }

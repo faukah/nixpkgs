@@ -5,7 +5,6 @@
   pkg-config,
   xz,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rwedid";
   version = "0.3.2";
@@ -44,6 +43,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://codeberg.org/ral/rwedid";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

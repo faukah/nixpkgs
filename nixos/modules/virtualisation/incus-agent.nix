@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.virtualisation.incus.agent;
-in
-{
+in {
   meta = {
     maintainers = lib.teams.lxc.members;
   };
@@ -18,12 +15,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.udev.packages = [ config.virtualisation.incus.package.agent_loader ];
-    systemd.packages = [ config.virtualisation.incus.package.agent_loader ];
+    services.udev.packages = [config.virtualisation.incus.package.agent_loader];
+    systemd.packages = [config.virtualisation.incus.package.agent_loader];
 
     systemd.services.incus-agent = {
       enable = true;
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       path = [
         pkgs.kmod

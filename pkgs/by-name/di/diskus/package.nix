@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "diskus";
   version = "0.8.0";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = [ maintainers.fuerbringer ];
+    maintainers = [maintainers.fuerbringer];
     platforms = platforms.unix;
     longDescription = ''
       diskus is a very simple program that computes the total size of the

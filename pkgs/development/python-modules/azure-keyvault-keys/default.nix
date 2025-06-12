@@ -10,7 +10,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-keyvault-keys";
   version = "4.10.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-URIGrpCuwXJqTW/1qS11S9DA8eh1GJE2jTD7cLYpVfE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonNamespaces = [ "azure.keyvault" ];
+  pythonNamespaces = ["azure.keyvault"];
 
   # Tests require relative paths to utilities in the mono-repo
   doCheck = false;
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/keyvault/azure-keyvault-keys";
     changelog = "https://github.com/Azure/azure-sdk-for-python/tree/azure-keyvault-keys_${version}/sdk/keyvault/azure-keyvault-keys";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -7,7 +7,6 @@
   qt6,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "maskromtool";
   version = "2024-08-18";

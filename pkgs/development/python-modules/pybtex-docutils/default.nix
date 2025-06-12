@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pybtex-docutils";
   version = "1.0.3";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     pybtex
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pybtex_docutils" ];
+  pythonImportsCheck = ["pybtex_docutils"];
 
   meta = with lib; {
     description = "Docutils backend for pybtex";

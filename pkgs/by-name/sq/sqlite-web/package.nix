@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "sqlite-web";
   version = "0.6.4";
@@ -27,6 +26,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "sqlite_web";
     homepage = "https://github.com/coleifer/sqlite-web";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

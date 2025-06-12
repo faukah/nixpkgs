@@ -6,15 +6,13 @@
   cxxSupport ? true,
   compat185 ? true,
   dbmSupport ? false,
-
   # Options from inherited versions
   version,
   sha256,
-  extraPatches ? [ ],
+  extraPatches ? [],
   license ? lib.licenses.sleepycat,
-  drvArgs ? { },
+  drvArgs ? {},
 }:
-
 stdenv.mkDerivation (
   rec {
     pname = "db";
@@ -27,7 +25,7 @@ stdenv.mkDerivation (
 
     # The provided configure script features `main` returning implicit `int`, which causes
     # configure checks to work incorrectly with clang 16.
-    nativeBuildInputs = [ autoreconfHook ];
+    nativeBuildInputs = [autoreconfHook];
 
     patches = extraPatches;
 
@@ -77,8 +75,16 @@ stdenv.mkDerivation (
 
     configureFlags =
       [
-        (if cxxSupport then "--enable-cxx" else "--disable-cxx")
-        (if compat185 then "--enable-compat185" else "--disable-compat185")
+        (
+          if cxxSupport
+          then "--enable-cxx"
+          else "--disable-cxx"
+        )
+        (
+          if compat185
+          then "--enable-compat185"
+          else "--disable-compat185"
+        )
       ]
       ++ lib.optional dbmSupport "--enable-dbm"
       ++ lib.optional stdenv.hostPlatform.isFreeBSD "--with-pic";

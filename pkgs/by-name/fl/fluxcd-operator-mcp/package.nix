@@ -26,11 +26,11 @@ buildGoModule (finalAttrs: {
     "-X main.VERSION=${finalAttrs.version}"
   ];
 
-  subPackages = [ "cmd/mcp" ];
+  subPackages = ["cmd/mcp"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/flux-operator-mcp";
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
@@ -48,7 +48,7 @@ buildGoModule (finalAttrs: {
       done
     '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Kubernetes controller for managing the lifecycle of Flux CD";

@@ -7,7 +7,6 @@
   nix-update-script,
   withQuic ? false, # with QUIC protocol support
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "easytier";
   version = "2.3.1";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false; # tests failed due to heavy rely on network
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/EasyTier/EasyTier";
@@ -46,6 +45,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "easytier-core";
     license = lib.licenses.asl20;
     platforms = with lib.platforms; unix ++ windows;
-    maintainers = with lib.maintainers; [ ltrump ];
+    maintainers = with lib.maintainers; [ltrump];
   };
 }

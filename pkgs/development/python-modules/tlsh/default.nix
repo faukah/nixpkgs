@@ -5,7 +5,6 @@
   cmake,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tlsh";
   version = "4.12.0";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-Ht4LkcNmxPEvzFHXeS/XhPt/xo+0sE4RBcLCn9N/zwE=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # no test data
   doCheck = false;
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     cd ../py_ext
   '';
 
-  pythonImportsCheck = [ "tlsh" ];
+  pythonImportsCheck = ["tlsh"];
 
   meta = with lib; {
     description = "Trend Micro Locality Sensitive Hash";

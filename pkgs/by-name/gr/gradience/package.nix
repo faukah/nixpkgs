@@ -20,7 +20,6 @@
   libsoup_3,
   gobject-introspection,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "gradience";
   version = "0.4.1";
@@ -78,6 +77,6 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/GradienceTeam/Gradience";
     description = "Customize libadwaita and GTK3 apps (with adw-gtk3)";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
   };
 }

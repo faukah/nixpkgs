@@ -3,18 +3,14 @@
   stdenv,
   unzip,
   fetchurl,
-}:
-
-let
-
+}: let
   hashes = lib.importJSON ./hashes.json;
 
-  maple-font =
-    {
-      pname,
-      hash,
-      desc,
-    }:
+  maple-font = {
+    pname,
+    hash,
+    desc,
+  }:
     stdenv.mkDerivation rec {
       inherit pname;
       version = "7.2";
@@ -26,7 +22,7 @@ let
       # Work around the "unpacker appears to have produced no directories"
       # case that happens when the archive doesn't have a subdirectory.
       sourceRoot = ".";
-      nativeBuildInputs = [ unzip ];
+      nativeBuildInputs = [unzip];
       installPhase = ''
         find . -name '*.ttf'    -exec install -Dt $out/share/fonts/truetype {} \;
         find . -name '*.otf'    -exec install -Dt $out/share/fonts/opentype {} \;
@@ -40,7 +36,7 @@ let
         '';
         license = licenses.ofl;
         platforms = platforms.all;
-        maintainers = with maintainers; [ oluceps ];
+        maintainers = with maintainers; [oluceps];
       };
     };
 
@@ -119,30 +115,30 @@ let
   combinedFonts =
     lib.concatMapAttrs (
       ligName: ligVariant:
-      lib.concatMapAttrs (
-        typeName: typeVariant:
-        let
-          pname = "MapleMono${ligVariant.suffix}-${typeVariant.suffix}";
-        in
-        {
-          "${ligVariant.suffix}-${typeVariant.suffix}" = maple-font {
-            inherit pname;
-            desc = "${ligVariant.desc} ${typeVariant.desc}";
-            hash = hashes.${pname};
-          };
-        }
-      ) typeVariants
-    ) ligatureVariants
+        lib.concatMapAttrs (
+          typeName: typeVariant: let
+            pname = "MapleMono${ligVariant.suffix}-${typeVariant.suffix}";
+          in {
+            "${ligVariant.suffix}-${typeVariant.suffix}" = maple-font {
+              inherit pname;
+              desc = "${ligVariant.desc} ${typeVariant.desc}";
+              hash = hashes.${pname};
+            };
+          }
+        )
+        typeVariants
+    )
+    ligatureVariants
     // lib.mapAttrs (
-      _: value:
-      let
+      _: value: let
         pname = "MapleMono-${value.suffix}";
       in
-      maple-font {
-        inherit pname;
-        inherit (value) desc;
-        hash = hashes.${pname};
-      }
-    ) typeVariants;
+        maple-font {
+          inherit pname;
+          inherit (value) desc;
+          hash = hashes.${pname};
+        }
+    )
+    typeVariants;
 in
-combinedFonts
+  combinedFonts

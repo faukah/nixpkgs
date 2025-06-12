@@ -32,7 +32,7 @@ buildDunePackage {
     description = "Merlin support for MLX OCaml dialect";
     homepage = "https://github.com/ocaml-mlx/mlx";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.Denommus ];
+    maintainers = [lib.maintainers.Denommus];
     mainProgram = "ocamlmerlin-mlx";
   };
 }

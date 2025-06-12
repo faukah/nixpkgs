@@ -13,7 +13,6 @@
   cgal,
   boost,
 }:
-
 mkDerivation {
   pname = "appcsxcad";
   version = "unstable-2023-01-06";
@@ -50,7 +49,7 @@ mkDerivation {
     mainProgram = "AppCSXCAD";
     homepage = "https://github.com/thliebig/AppCSXCAD";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ matthuszagh ];
+    maintainers = with maintainers; [matthuszagh];
     platforms = platforms.linux;
   };
 }

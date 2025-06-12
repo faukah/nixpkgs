@@ -8,7 +8,6 @@
   bison,
   pcre2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "swig";
   version = "4.3.0";
@@ -28,9 +27,9 @@ stdenv.mkDerivation (finalAttrs: {
     bison
     pcre2
   ];
-  buildInputs = [ pcre2 ];
+  buildInputs = [pcre2];
 
-  configureFlags = [ "--without-tcl" ];
+  configureFlags = ["--without-tcl"];
 
   # Disable ccache documentation as it needs yodl
   postPatch = ''
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://swig.org/";
     # Different types of licenses available: https://www.swig.org/Release/LICENSE .
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ orivej ];
+    maintainers = with lib.maintainers; [orivej];
     mainProgram = "swig";
     platforms = with lib.platforms; linux ++ darwin;
   };

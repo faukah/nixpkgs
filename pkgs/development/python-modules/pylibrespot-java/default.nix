@@ -5,7 +5,6 @@
   aiohttp,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pylibrespot-java";
   version = "0.1.1";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-aPmyYsO8yBrlPEQXOGNjZvuO8QZr13SOH09gqjW4WPA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   pythonImportsCheck = [
     "pylibrespot_java"

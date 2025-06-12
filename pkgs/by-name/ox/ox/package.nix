@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ox";
   version = "0.7.7";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
   versionCheckProgramArg = "--version";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

@@ -9,7 +9,6 @@
   librevenge,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libepubgen";
   version = "0.1.1";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "EPUB generator for librevenge";
     homepage = "https://sourceforge.net/projects/libepubgen/";
     license = licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

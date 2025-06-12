@@ -5,7 +5,6 @@
   installShellFiles,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "trashy";
   version = "2.0.0";
@@ -18,7 +17,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-tlz8WeFOxNPJxCqwqH98S/JkU7MZSDj/OaPvNkf6iwg=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd trash \
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with lib.maintainers; [ oberblastmeister ];
+    maintainers = with lib.maintainers; [oberblastmeister];
     mainProgram = "trash";
     # darwin is unsupported due to https://github.com/Byron/trash-rs/issues/8
     platforms = lib.platforms.linux;

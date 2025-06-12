@@ -10,7 +10,6 @@
   gtk3,
   gtksourceview4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xpad";
   version = "5.8.0";
@@ -39,6 +38,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://launchpad.net/xpad";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ michalrus ];
+    maintainers = with lib.maintainers; [michalrus];
   };
 })

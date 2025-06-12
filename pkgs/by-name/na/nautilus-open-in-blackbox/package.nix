@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   # The original source code tries to execute `/usr/bin/blackbox` which is not valid in NixOS
   # This patch replaces the call with `blackbox`
-  patches = [ ./paths.patch ];
+  patches = [./paths.patch];
 
   buildInputs = [
     nautilus-python
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Extension for nautilus, which adds an context-entry for opening in blackbox";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ blankparticle ];
+    maintainers = with maintainers; [blankparticle];
     homepage = "https://github.com/ppvan/nautilus-open-in-blackbox";
     platforms = platforms.linux;
   };

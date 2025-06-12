@@ -4,40 +4,40 @@
   fetchurl,
   fetchpatch,
   # Configurable options
-  buildProduct ? # can be "client" or "daemon"
-    if buildClient != null then
-      lib.warn ''
-        buildClient is deprecated;
-        use buildProduct instead
-      '' (if buildClient then "client" else "daemon")
-    else
-      "client",
+  buildProduct ?
+  # can be "client" or "daemon"
+  if buildClient != null
+  then
+    lib.warn ''
+      buildClient is deprecated;
+      use buildProduct instead
+    '' (
+      if buildClient
+      then "client"
+      else "daemon"
+    )
+  else "client",
   # Deprecated options
   # Remove them before next version of either Nixpkgs or bsd-finger itself
   buildClient ? null,
 }:
-
 assert lib.elem buildProduct [
   "client"
   "daemon"
 ];
-stdenv.mkDerivation (finalAttrs: {
-  pname = "bsd-finger" + lib.optionalString (buildProduct == "daemon") "d";
-  version = "0.17";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "bsd-finger" + lib.optionalString (buildProduct == "daemon") "d";
+    version = "0.17";
 
-  src = fetchurl {
-    url = "http://ftp.de.debian.org/debian/pool/main/b/bsd-finger/bsd-finger_${finalAttrs.version}.orig.tar.bz2";
-    hash = "sha256-KLNNYF0j6mh9eeD8SMA1q+gPiNnBVH56pGeW0QgcA2M=";
-  };
+    src = fetchurl {
+      url = "http://ftp.de.debian.org/debian/pool/main/b/bsd-finger/bsd-finger_${finalAttrs.version}.orig.tar.bz2";
+      hash = "sha256-KLNNYF0j6mh9eeD8SMA1q+gPiNnBVH56pGeW0QgcA2M=";
+    };
 
-  patches =
-    let
+    patches = let
       debianRevision = "17";
-      generateUrl =
-        patchName:
-        "https://sources.debian.org/data/main/b/bsd-finger/${finalAttrs.version}-${debianRevision}/debian/patches/${patchName}.patch";
-    in
-    [
+      generateUrl = patchName: "https://sources.debian.org/data/main/b/bsd-finger/${finalAttrs.version}-${debianRevision}/debian/patches/${patchName}.patch";
+    in [
       # Patches original finger sources to make the programs more robust and
       # compatible
       (fetchpatch {
@@ -148,62 +148,68 @@ stdenv.mkDerivation (finalAttrs: {
       })
     ];
 
-  env.NIX_CFLAGS_COMPILE = "-D_GNU_SOURCE";
+    env.NIX_CFLAGS_COMPILE = "-D_GNU_SOURCE";
 
-  preBuild =
-    let
+    preBuild = let
       subdir =
         {
           "client" = "finger";
           "daemon" = "fingerd";
         }
-        .${buildProduct};
-    in
-    ''
+        .${
+          buildProduct
+        };
+    in ''
       cd ${subdir}
     '';
 
-  preInstall =
-    let
+    preInstall = let
       bindir =
         {
           "client" = "bin";
           "daemon" = "sbin";
         }
-        .${buildProduct};
+        .${
+          buildProduct
+        };
 
       mandir =
         {
           "client" = "man1";
           "daemon" = "man8";
         }
-        .${buildProduct};
-    in
-    ''
+        .${
+          buildProduct
+        };
+    in ''
       mkdir -p $out/${bindir} $out/man/${mandir}
     '';
 
-  postInstall = lib.optionalString (buildProduct == "daemon") ''
-    pushd $out/sbin
-    ln -s in.fingerd fingerd
-    popd
-  '';
+    postInstall = lib.optionalString (buildProduct == "daemon") ''
+      pushd $out/sbin
+      ln -s in.fingerd fingerd
+      popd
+    '';
 
-  meta = {
-    description =
-      {
-        "client" = "User information lookup program";
-        "daemon" = "Remote user information server";
-      }
-      .${buildProduct};
-    license = lib.licenses.bsdOriginal;
-    mainProgram =
-      {
-        "client" = "finger";
-        "daemon" = "fingerd";
-      }
-      .${buildProduct};
-    maintainers = with lib.maintainers; [ ];
-    platforms = lib.platforms.linux;
-  };
-})
+    meta = {
+      description =
+        {
+          "client" = "User information lookup program";
+          "daemon" = "Remote user information server";
+        }
+      .${
+          buildProduct
+        };
+      license = lib.licenses.bsdOriginal;
+      mainProgram =
+        {
+          "client" = "finger";
+          "daemon" = "fingerd";
+        }
+      .${
+          buildProduct
+        };
+      maintainers = with lib.maintainers; [];
+      platforms = lib.platforms.linux;
+    };
+  })

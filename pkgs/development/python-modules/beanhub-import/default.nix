@@ -13,7 +13,6 @@
   pytz,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "beanhub-import";
   version = "1.2.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-oExJ8BWJmJkJMGGIYp+Xtf0rzUcQKD8YKo51E+KbRN0=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   pythonRelaxDeps = [
     # pytz>=2023.1,<2025, but we have 2025.1
@@ -45,15 +44,15 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "beanhub_import" ];
+  pythonImportsCheck = ["beanhub_import"];
 
   meta = {
     description = "Declarative idempotent rule-based Beancount transaction import engine in Python";
     homepage = "https://github.com/LaunchPlatform/beanhub-import/";
     changelog = "https://github.com/LaunchPlatform/beanhub-import/releases/tag/${src.tag}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ fangpen ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [fangpen];
   };
 }

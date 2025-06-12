@@ -7,7 +7,6 @@
   wakatime-cli,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule rec {
   pname = "wakatime-cli";
   version = "1.115.3";
@@ -31,22 +30,20 @@ buildGoModule rec {
   # and goroutine 33 [IO wait, 10 minutes] on darwin
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeCheckInputs = [writableTmpDirAsHomeHook];
 
-  checkFlags =
-    let
-      skippedTests = [
-        # Tests requiring network
-        "TestFileExperts"
-        "TestSendHeartbeats"
-        "TestSendHeartbeats_ExtraHeartbeats"
-        "TestSendHeartbeats_IsUnsavedEntity"
-        "TestSendHeartbeats_NonExistingExtraHeartbeatsEntity"
-        "TestSendHeartbeats_ExtraHeartbeatsIsUnsavedEntity"
-        "TestFileExperts_Err(Auth|Api|BadRequest)"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    skippedTests = [
+      # Tests requiring network
+      "TestFileExperts"
+      "TestSendHeartbeats"
+      "TestSendHeartbeats_ExtraHeartbeats"
+      "TestSendHeartbeats_IsUnsavedEntity"
+      "TestSendHeartbeats_NonExistingExtraHeartbeatsEntity"
+      "TestSendHeartbeats_ExtraHeartbeatsIsUnsavedEntity"
+      "TestFileExperts_Err(Auth|Api|BadRequest)"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   passthru.tests.version = testers.testVersion {
     package = wakatime-cli;
@@ -57,7 +54,7 @@ buildGoModule rec {
     homepage = "https://wakatime.com/";
     description = "WakaTime command line interface";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     mainProgram = "wakatime-cli";
   };
 }

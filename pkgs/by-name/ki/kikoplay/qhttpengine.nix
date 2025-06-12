@@ -20,10 +20,10 @@ stdenv.mkDerivation {
     qt5.wrapQtAppsHook
   ];
 
-  buildInputs = [ qt5.qtbase ];
+  buildInputs = [qt5.qtbase];
 
   meta = {
-    maintainers = with lib.maintainers; [ xddxdd ];
+    maintainers = with lib.maintainers; [xddxdd];
     description = "HTTP server for Qt applications";
     homepage = "https://github.com/nitroshare/qhttpengine";
     license = lib.licenses.mit;

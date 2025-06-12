@@ -5,7 +5,6 @@
   fetchpatch,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gecode";
   version = "3.7.3";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
       --replace "register " ""
   '';
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   preConfigure = "patchShebangs configure";
 
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gecode.org";
     description = "Toolkit for developing constraint-based systems";
     platforms = platforms.all;
-    maintainers = [ maintainers.manveru ];
+    maintainers = [maintainers.manveru];
   };
 }

@@ -12,7 +12,6 @@
   pytest-recording,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "llm-openrouter";
   version = "0.4.1";
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "llm_openrouter" ];
+  pythonImportsCheck = ["llm_openrouter"];
 
   passthru.tests = llm.mkPluginTest llm-openrouter;
 
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-openrouter";
     changelog = "https://github.com/simonw/llm-openrouter/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

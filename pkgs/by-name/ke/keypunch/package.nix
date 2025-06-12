@@ -16,7 +16,6 @@
   wrapGAppsHook4,
   libadwaita,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "keypunch";
   version = "6.3";
@@ -52,10 +51,10 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ libadwaita ];
+  buildInputs = [libadwaita];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
       tomasajt
       getchoo
     ];
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.linux;
   };
 })

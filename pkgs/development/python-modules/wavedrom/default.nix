@@ -12,7 +12,6 @@
   svgwrite,
   xmldiff,
 }:
-
 buildPythonPackage rec {
   pname = "wavedrom";
   version = "2.0.3.post3";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-MntNXcpZPIElfCAv6lFvepCHR/sRUnw1nwNPW3r39Hs=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     attrdict
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     "test_upstream"
   ];
 
-  pythonImportsCheck = [ "wavedrom" ];
+  pythonImportsCheck = ["wavedrom"];
 
   meta = with lib; {
     description = "WaveDrom compatible Python command line";
     mainProgram = "wavedrompy";
     homepage = "https://github.com/wallento/wavedrompy";
     license = licenses.mit;
-    maintainers = with maintainers; [ airwoodix ];
+    maintainers = with maintainers; [airwoodix];
   };
 }

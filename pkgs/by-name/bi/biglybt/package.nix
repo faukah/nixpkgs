@@ -6,7 +6,6 @@
   wrapGAppsHook3,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "biglybt";
   version = "3.8.0.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-7wj+UoU9RWUMQ4ircSoROsaZWuPg9+uxgYGQdZ841y0=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook3 ];
+  nativeBuildInputs = [wrapGAppsHook3];
 
   configurePhase = ''
     runHook preConfigure
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     ln -s $out/share/biglybt/biglybt.svg $out/share/icons/hicolor/scalable/apps/
 
     wrapProgram $out/share/biglybt/biglybt \
-      --prefix PATH : ${lib.makeBinPath [ jre ]}
+      --prefix PATH : ${lib.makeBinPath [jre]}
 
     ln -s $out/share/biglybt/biglybt $out/bin/
     runHook postInstall
@@ -59,8 +58,8 @@ stdenv.mkDerivation rec {
     homepage = "https://www.biglybt.com/";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     mainProgram = "biglybt";
-    maintainers = with lib.maintainers; [ raspher ];
+    maintainers = with lib.maintainers; [raspher];
   };
 }

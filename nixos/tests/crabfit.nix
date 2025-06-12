@@ -1,21 +1,21 @@
-{ lib, pkgs, ... }:
-
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "crabfit";
 
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
-        services.crabfit = {
-          enable = true;
+    machine = {pkgs, ...}: {
+      services.crabfit = {
+        enable = true;
 
-          frontend.host = "http://127.0.0.1:3001";
-          api.host = "127.0.0.1:3000";
-        };
+        frontend.host = "http://127.0.0.1:3001";
+        api.host = "127.0.0.1:3000";
       };
+    };
   };
 
   # TODO: Add a reverse proxy and a dns entry for testing

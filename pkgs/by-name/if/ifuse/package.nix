@@ -8,7 +8,6 @@
   usbmuxd,
   libimobiledevice,
 }:
-
 stdenv.mkDerivation {
   pname = "ifuse";
   version = "1.1.4+date=2022-04-04";
@@ -42,7 +41,7 @@ stdenv.mkDerivation {
     '';
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "ifuse";
   };
 }

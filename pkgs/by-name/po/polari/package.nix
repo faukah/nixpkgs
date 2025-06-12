@@ -27,7 +27,6 @@
   gspell,
   gsettings-desktop-schemas,
 }:
-
 stdenv.mkDerivation rec {
   pname = "polari";
   version = "46.0";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     ./make-thumbnailer-wrappable.patch
   ];
 
-  propagatedUserEnvPkgs = [ telepathy-idle ];
+  propagatedUserEnvPkgs = [telepathy-idle];
 
   nativeBuildInputs = [
     meson
@@ -79,7 +78,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "polari"; };
+    updateScript = gnome.updateScript {packageName = "polari";};
   };
 
   meta = with lib; {

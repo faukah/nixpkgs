@@ -12,7 +12,6 @@
   abrmdSupport ? true,
   tpm2-abrmd ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tpm2-tools";
   version = "5.7";
@@ -34,19 +33,17 @@ stdenv.mkDerivation rec {
     libuuid
   ];
 
-  preFixup =
-    let
-      ldLibraryPath = lib.makeLibraryPath (
-        [
-          tpm2-tss
-        ]
-        ++ (lib.optional abrmdSupport tpm2-abrmd)
-      );
-    in
-    ''
-      wrapProgram $out/bin/tpm2 --suffix LD_LIBRARY_PATH : "${ldLibraryPath}"
-      wrapProgram $out/bin/tss2 --suffix LD_LIBRARY_PATH : "${ldLibraryPath}"
-    '';
+  preFixup = let
+    ldLibraryPath = lib.makeLibraryPath (
+      [
+        tpm2-tss
+      ]
+      ++ (lib.optional abrmdSupport tpm2-abrmd)
+    );
+  in ''
+    wrapProgram $out/bin/tpm2 --suffix LD_LIBRARY_PATH : "${ldLibraryPath}"
+    wrapProgram $out/bin/tss2 --suffix LD_LIBRARY_PATH : "${ldLibraryPath}"
+  '';
 
   # Unit tests disabled, as they rely on a dbus session
   #configureFlags = [ "--enable-unit" ];
@@ -57,6 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/tpm2-software/tpm2-tools";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

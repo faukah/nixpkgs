@@ -8,7 +8,6 @@
   typing-extensions,
   zstd-c,
 }:
-
 buildPythonPackage rec {
   pname = "pyzstd";
   version = "0.17.0";

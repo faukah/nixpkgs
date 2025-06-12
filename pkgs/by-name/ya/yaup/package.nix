@@ -9,7 +9,6 @@
   gtk3,
   miniupnpc,
 }:
-
 stdenv.mkDerivation {
   pname = "yaup";
   version = "unstable-2019-10-16";
@@ -50,7 +49,7 @@ stdenv.mkDerivation {
       Mostly used for IPv4.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     # ld: unknown option: --export-dynamic
     broken = stdenv.hostPlatform.isDarwin;

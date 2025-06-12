@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ode";
   version = "0.16.6";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl3Only
       zlib
     ];
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 })

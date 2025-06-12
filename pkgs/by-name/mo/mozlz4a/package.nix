@@ -5,7 +5,6 @@
   python3,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mozlz4a";
   version = "2022-03-19";

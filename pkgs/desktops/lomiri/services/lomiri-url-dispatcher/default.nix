@@ -27,7 +27,6 @@
   systemd,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-url-dispatcher";
   version = "0.1.4";
@@ -74,13 +73,13 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     (python3.withPackages (
       ps:
-      with ps;
-      [
-        setuptools
-      ]
-      ++ lib.optionals finalAttrs.finalPackage.doCheck [
-        python-dbusmock
-      ]
+        with ps;
+          [
+            setuptools
+          ]
+          ++ lib.optionals finalAttrs.finalPackage.doCheck [
+            python-dbusmock
+          ]
     ))
     wrapQtAppsHook
   ];
@@ -128,14 +127,14 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail '/bin/sh' '${runtimeShell}'
 
     wrapProgram $out/bin/lomiri-url-dispatcher-dump \
-      --prefix PATH : ${lib.makeBinPath [ sqlite ]}
+      --prefix PATH : ${lib.makeBinPath [sqlite]}
 
     mkdir -p $out/share/icons/hicolor/scalable/apps
     ln -s $out/share/lomiri-url-dispatcher/gui/lomiri-url-dispatcher-gui.svg $out/share/icons/hicolor/scalable/apps/
 
     # Calls qmlscene from PATH, needs Qt plugins & QML components
     qtWrapperArgs+=(
-      --prefix PATH : ${lib.makeBinPath [ qtdeclarative.dev ]}
+      --prefix PATH : ${lib.makeBinPath [qtdeclarative.dev]}
     )
     wrapQtApp $out/bin/lomiri-url-dispatcher-gui
   '';
@@ -146,7 +145,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -158,13 +157,15 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://gitlab.com/ubports/development/core/lomiri-url-dispatcher";
     changelog = "https://gitlab.com/ubports/development/core/lomiri-url-dispatcher/-/blob/${
-      if (!builtins.isNull finalAttrs.src.tag) then finalAttrs.src.tag else finalAttrs.src.rev
+      if (!builtins.isNull finalAttrs.src.tag)
+      then finalAttrs.src.tag
+      else finalAttrs.src.rev
     }/ChangeLog";
     license = with lib.licenses; [
       lgpl3Only
       gpl3Only
     ];
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
     pkgConfigModules = [
       "lomiri-url-dispatcher"

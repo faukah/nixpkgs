@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dezoomify-rs";
   version = "2.13.0";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     description = "Zoomable image downloader for Google Arts & Culture, Zoomify, IIIF, and others";
     homepage = "https://github.com/lovasoa/dezoomify-rs/";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fsagbuya ];
+    maintainers = with lib.maintainers; [fsagbuya];
     mainProgram = "dezoomify-rs";
   };
 }

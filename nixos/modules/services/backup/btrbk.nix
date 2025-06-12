@@ -3,9 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     concatLists
     concatMap
     concatMapStringsSep
@@ -33,79 +33,79 @@ let
   # 2. Sections that may contain (1).
   # 3. Sections that may contain (1) or (2).
   # 4. Etc.
-  prioOf =
-    { name, value }:
-    if !isAttrs value then
-      0 # Leaf options.
+  prioOf = {
+    name,
+    value,
+  }:
+    if !isAttrs value
+    then 0 # Leaf options.
     else
       {
         target = 1; # Contains: options.
         subvolume = 2; # Contains: options, target.
         volume = 3; # Contains: options, target, subvolume.
       }
-      .${name} or (throw "Unknow section '${name}'");
+      .${
+        name
+      } or (throw "Unknow section '${name}'");
 
   genConfig' = set: concatStringsSep "\n" (genConfig set);
-  genConfig =
-    set:
-    let
-      pairs = mapAttrsToList (name: value: { inherit name value; }) set;
-      sortedPairs = sortOn prioOf pairs;
-    in
+  genConfig = set: let
+    pairs = mapAttrsToList (name: value: {inherit name value;}) set;
+    sortedPairs = sortOn prioOf pairs;
+  in
     concatMap genPair sortedPairs;
-  genSection =
-    sec: secName: value:
-    [ "${sec} ${secName}" ] ++ map (x: " " + x) (genConfig value);
-  genPair =
-    { name, value }:
-    if !isAttrs value then
-      [ "${name} ${value}" ]
-    else
-      concatLists (mapAttrsToList (genSection name) value);
+  genSection = sec: secName: value:
+    ["${sec} ${secName}"] ++ map (x: " " + x) (genConfig value);
+  genPair = {
+    name,
+    value,
+  }:
+    if !isAttrs value
+    then ["${name} ${value}"]
+    else concatLists (mapAttrsToList (genSection name) value);
 
   sudoRule = {
-    users = [ "btrbk" ];
+    users = ["btrbk"];
     commands = [
       {
         command = "${pkgs.btrfs-progs}/bin/btrfs";
-        options = [ "NOPASSWD" ];
+        options = ["NOPASSWD"];
       }
       {
         command = "${pkgs.coreutils}/bin/mkdir";
-        options = [ "NOPASSWD" ];
+        options = ["NOPASSWD"];
       }
       {
         command = "${pkgs.coreutils}/bin/readlink";
-        options = [ "NOPASSWD" ];
+        options = ["NOPASSWD"];
       }
       # for ssh, they are not the same than the one hard coded in ${pkgs.btrbk}
       {
         command = "/run/current-system/sw/bin/btrfs";
-        options = [ "NOPASSWD" ];
+        options = ["NOPASSWD"];
       }
       {
         command = "/run/current-system/sw/bin/mkdir";
-        options = [ "NOPASSWD" ];
+        options = ["NOPASSWD"];
       }
       {
         command = "/run/current-system/sw/bin/readlink";
-        options = [ "NOPASSWD" ];
+        options = ["NOPASSWD"];
       }
     ];
   };
 
   sudo_doas =
-    if config.security.sudo.enable || config.security.sudo-rs.enable then
-      "sudo"
-    else if config.security.doas.enable then
-      "doas"
-    else
-      throw "The btrbk nixos module needs either sudo or doas enabled in the configuration";
+    if config.security.sudo.enable || config.security.sudo-rs.enable
+    then "sudo"
+    else if config.security.doas.enable
+    then "doas"
+    else throw "The btrbk nixos module needs either sudo or doas enabled in the configuration";
 
-  addDefaults = settings: { backend = "btrfs-progs-${sudo_doas}"; } // settings;
+  addDefaults = settings: {backend = "btrfs-progs-${sudo_doas}";} // settings;
 
-  mkConfigFile =
-    name: settings:
+  mkConfigFile = name: settings:
     pkgs.writeTextFile {
       name = "btrbk-${name}.conf";
       text = genConfig' (addDefaults settings);
@@ -136,11 +136,10 @@ let
   };
 
   cfg = config.services.btrbk;
-  sshEnabled = cfg.sshAccess != [ ];
-  serviceEnabled = cfg.instances != { };
-in
-{
-  meta.maintainers = with lib.maintainers; [ oxalica ];
+  sshEnabled = cfg.sshAccess != [];
+  serviceEnabled = cfg.instances != {};
+in {
+  meta.maintainers = with lib.maintainers; [oxalica];
 
   options = {
     services.btrbk = {
@@ -154,7 +153,7 @@ in
           `services.btrbk.instances.<name>.settings` option.
         '';
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.xz ]";
       };
       niceness = mkOption {
@@ -173,8 +172,7 @@ in
       };
       instances = mkOption {
         description = "Set of btrbk instances. The instance named `btrbk` is the default one.";
-        type =
-          with types;
+        type = with types;
           attrsOf (submodule {
             options = {
               onCalendar = mkOption {
@@ -198,12 +196,11 @@ in
               };
               settings = mkOption {
                 type = types.submodule {
-                  freeformType =
-                    let
-                      t = types.attrsOf (
-                        types.either types.str (t // { description = "instances of this type recursively"; })
-                      );
-                    in
+                  freeformType = let
+                    t = types.attrsOf (
+                      types.either types.str (t // {description = "instances of this type recursively";})
+                    );
+                  in
                     t;
                   options = {
                     stream_compress = mkOption {
@@ -227,7 +224,7 @@ in
                     };
                   };
                 };
-                default = { };
+                default = {};
                 example = {
                   snapshot_preserve_min = "2d";
                   snapshot_preserve = "14d";
@@ -235,7 +232,7 @@ in
                     "/mnt/btr_pool" = {
                       target = "/mnt/btr_backup/mylaptop";
                       subvolume = {
-                        "rootfs" = { };
+                        "rootfs" = {};
                         "home" = {
                           snapshot_create = "always";
                         };
@@ -247,12 +244,11 @@ in
               };
             };
           });
-        default = { };
+        default = {};
       };
       sshAccess = mkOption {
         description = "SSH keys that should be able to make or push snapshots on this system remotely with btrbk";
-        type =
-          with types;
+        type = with types;
           listOf (submodule {
             options = {
               key = mkOption {
@@ -278,41 +274,37 @@ in
               };
             };
           });
-        default = [ ];
+        default = [];
       };
     };
-
   };
   config = mkIf (sshEnabled || serviceEnabled) {
+    environment.systemPackages = [pkgs.btrbk] ++ cfg.extraPackages;
 
-    environment.systemPackages = [ pkgs.btrbk ] ++ cfg.extraPackages;
-
-    security.sudo.extraRules = mkIf (sudo_doas == "sudo") [ sudoRule ];
-    security.sudo-rs.extraRules = mkIf (sudo_doas == "sudo") [ sudoRule ];
+    security.sudo.extraRules = mkIf (sudo_doas == "sudo") [sudoRule];
+    security.sudo-rs.extraRules = mkIf (sudo_doas == "sudo") [sudoRule];
 
     security.doas = mkIf (sudo_doas == "doas") {
-      extraRules =
-        let
-          doasCmdNoPass = cmd: {
-            users = [ "btrbk" ];
-            cmd = cmd;
-            noPass = true;
-          };
-        in
-        [
-          (doasCmdNoPass "${pkgs.btrfs-progs}/bin/btrfs")
-          (doasCmdNoPass "${pkgs.coreutils}/bin/mkdir")
-          (doasCmdNoPass "${pkgs.coreutils}/bin/readlink")
-          # for ssh, they are not the same than the one hard coded in ${pkgs.btrbk}
-          (doasCmdNoPass "/run/current-system/sw/bin/btrfs")
-          (doasCmdNoPass "/run/current-system/sw/bin/mkdir")
-          (doasCmdNoPass "/run/current-system/sw/bin/readlink")
+      extraRules = let
+        doasCmdNoPass = cmd: {
+          users = ["btrbk"];
+          cmd = cmd;
+          noPass = true;
+        };
+      in [
+        (doasCmdNoPass "${pkgs.btrfs-progs}/bin/btrfs")
+        (doasCmdNoPass "${pkgs.coreutils}/bin/mkdir")
+        (doasCmdNoPass "${pkgs.coreutils}/bin/readlink")
+        # for ssh, they are not the same than the one hard coded in ${pkgs.btrbk}
+        (doasCmdNoPass "/run/current-system/sw/bin/btrfs")
+        (doasCmdNoPass "/run/current-system/sw/bin/mkdir")
+        (doasCmdNoPass "/run/current-system/sw/bin/readlink")
 
-          # doas matches command, not binary
-          (doasCmdNoPass "btrfs")
-          (doasCmdNoPass "mkdir")
-          (doasCmdNoPass "readlink")
-        ];
+        # doas matches command, not binary
+        (doasCmdNoPass "btrfs")
+        (doasCmdNoPass "mkdir")
+        (doasCmdNoPass "readlink")
+      ];
     };
     users.users.btrbk = {
       isSystemUser = true;
@@ -321,64 +313,72 @@ in
       createHome = true;
       shell = "${pkgs.bash}/bin/bash";
       group = "btrbk";
-      openssh.authorizedKeys.keys = map (
-        v:
-        let
-          options = concatMapStringsSep " " (x: "--" + x) v.roles;
-          ioniceClass =
-            {
-              "idle" = 3;
-              "best-effort" = 2;
-              "realtime" = 1;
-            }
-            .${cfg.ioSchedulingClass};
-          sudo_doas_flag = "--${sudo_doas}";
-        in
-        ''command="${pkgs.util-linux}/bin/ionice -t -c ${toString ioniceClass} ${
-          optionalString (cfg.niceness >= 1) "${pkgs.coreutils}/bin/nice -n ${toString cfg.niceness}"
-        } ${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh ${sudo_doas_flag} ${options}" ${v.key}''
-      ) cfg.sshAccess;
+      openssh.authorizedKeys.keys =
+        map (
+          v: let
+            options = concatMapStringsSep " " (x: "--" + x) v.roles;
+            ioniceClass =
+              {
+                "idle" = 3;
+                "best-effort" = 2;
+                "realtime" = 1;
+              }
+            .${
+                cfg.ioSchedulingClass
+              };
+            sudo_doas_flag = "--${sudo_doas}";
+          in ''command="${pkgs.util-linux}/bin/ionice -t -c ${toString ioniceClass} ${
+              optionalString (cfg.niceness >= 1) "${pkgs.coreutils}/bin/nice -n ${toString cfg.niceness}"
+            } ${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh ${sudo_doas_flag} ${options}" ${v.key}''
+        )
+        cfg.sshAccess;
     };
-    users.groups.btrbk = { };
+    users.groups.btrbk = {};
     systemd.tmpfiles.rules = [
       "d /var/lib/btrbk 0750 btrbk btrbk"
       "d /var/lib/btrbk/.ssh 0700 btrbk btrbk"
       "f /var/lib/btrbk/.ssh/config 0700 btrbk btrbk - StrictHostKeyChecking=accept-new"
     ];
-    environment.etc = mapAttrs' (name: instance: {
-      name = "btrbk/${name}.conf";
-      value.source = mkConfigFile name instance.settings;
-    }) cfg.instances;
-    systemd.services = mapAttrs' (name: instance: {
-      name = "btrbk-${name}";
-      value = {
-        description = "Takes BTRFS snapshots and maintains retention policies.";
-        unitConfig.Documentation = "man:btrbk(1)";
-        path =
-          [ "/run/wrappers" ]
-          ++ cfg.extraPackages
-          ++ optional (instance.settings.stream_compress != "no") (
-            getAttr instance.settings.stream_compress streamCompressMap
-          );
-        serviceConfig = {
-          User = "btrbk";
-          Group = "btrbk";
-          Type = "oneshot";
-          ExecStart = "${pkgs.btrbk}/bin/btrbk -c /etc/btrbk/${name}.conf ${
-            if instance.snapshotOnly then "snapshot" else "run"
-          }";
-          Nice = cfg.niceness;
-          IOSchedulingClass = cfg.ioSchedulingClass;
-          StateDirectory = "btrbk";
+    environment.etc =
+      mapAttrs' (name: instance: {
+        name = "btrbk/${name}.conf";
+        value.source = mkConfigFile name instance.settings;
+      })
+      cfg.instances;
+    systemd.services =
+      mapAttrs' (name: instance: {
+        name = "btrbk-${name}";
+        value = {
+          description = "Takes BTRFS snapshots and maintains retention policies.";
+          unitConfig.Documentation = "man:btrbk(1)";
+          path =
+            ["/run/wrappers"]
+            ++ cfg.extraPackages
+            ++ optional (instance.settings.stream_compress != "no") (
+              getAttr instance.settings.stream_compress streamCompressMap
+            );
+          serviceConfig = {
+            User = "btrbk";
+            Group = "btrbk";
+            Type = "oneshot";
+            ExecStart = "${pkgs.btrbk}/bin/btrbk -c /etc/btrbk/${name}.conf ${
+              if instance.snapshotOnly
+              then "snapshot"
+              else "run"
+            }";
+            Nice = cfg.niceness;
+            IOSchedulingClass = cfg.ioSchedulingClass;
+            StateDirectory = "btrbk";
+          };
         };
-      };
-    }) cfg.instances;
+      })
+      cfg.instances;
 
     systemd.timers = mapAttrs' (name: instance: {
       name = "btrbk-${name}";
       value = {
         description = "Timer to take BTRFS snapshots and maintain retention policies.";
-        wantedBy = [ "timers.target" ];
+        wantedBy = ["timers.target"];
         timerConfig = {
           OnCalendar = instance.onCalendar;
           AccuracySec = "10min";
@@ -387,5 +387,4 @@ in
       };
     }) (filterAttrs (name: instance: instance.onCalendar != null) cfg.instances);
   };
-
 }

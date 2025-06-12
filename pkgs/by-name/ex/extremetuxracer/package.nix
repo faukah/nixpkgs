@@ -21,7 +21,6 @@
   gettext,
   intltool,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "0.8.4";
   pname = "extremetuxracer";
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     gettext
   ];
 
-  configureFlags = [ "--with-tcl=${tcl}/lib" ];
+  configureFlags = ["--with-tcl=${tcl}/lib"];
 
   preConfigure = ''
     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE"
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl2Plus;
     homepage = "https://sourceforge.net/projects/extremetuxracer/";
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "etr";
     platforms = with lib.platforms; linux;
   };

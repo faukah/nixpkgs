@@ -5,7 +5,6 @@
   fetchpatch,
   libpcap,
 }:
-
 buildGoModule rec {
   pname = "goreplay";
   version = "1.3.3";
@@ -32,7 +31,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   doCheck = false;
 
@@ -40,7 +39,7 @@ buildGoModule rec {
     homepage = "https://github.com/buger/goreplay";
     license = lib.licenses.lgpl3Only;
     description = "Open-source tool for capturing and replaying live HTTP traffic";
-    maintainers = with lib.maintainers; [ lovek323 ];
+    maintainers = with lib.maintainers; [lovek323];
     mainProgram = "goreplay";
   };
 }

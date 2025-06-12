@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pysigma-pipeline-crowdstrike";
   version = "2.0.1";
@@ -22,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-WYgT0tRXdSR4qJA7UHotPn9qfnpaIJaqASBXVDG1kOU=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ pysigma ];
+  dependencies = [pysigma];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "sigma.pipelines.crowdstrike" ];
+  pythonImportsCheck = ["sigma.pipelines.crowdstrike"];
 
   disabledTests = [
     # Windows binary not mocked
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     description = "Library to support CrowdStrike pipeline for pySigma";
     homepage = "https://github.com/SigmaHQ/pySigma-pipeline-crowdstrike";
     changelog = "https://github.com/SigmaHQ/pySigma-pipeline-crowdstrike/releases/tag/v${version}";
-    license = with licenses; [ lgpl21Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl21Only];
+    maintainers = with maintainers; [fab];
   };
 }

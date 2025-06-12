@@ -3,13 +3,10 @@
   lib,
   options,
   ...
-}:
-{
-
+}: {
   ###### interface
 
   options = {
-
     systemd.enableEmergencyMode = lib.mkOption {
       default = true;
       type = lib.types.bool;
@@ -24,18 +21,14 @@
         For initrd emergency access, use ${options.boot.initrd.systemd.emergencyAccess} instead.
       '';
     };
-
   };
 
   ###### implementation
 
   config = {
-
     systemd.additionalUpstreamSystemUnits = lib.optionals config.systemd.enableEmergencyMode [
       "emergency.target"
       "emergency.service"
     ];
-
   };
-
 }

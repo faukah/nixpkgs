@@ -8,9 +8,7 @@
   hostname,
   mailutils,
   systemdLibs,
-}:
-
-let
+}: let
   dbrev = "5714";
   drivedbBranch = "RELEASE_7_5_DRIVEDB";
   driverdb = fetchurl {
@@ -23,43 +21,42 @@ let
       gnused
       hostname
     ]
-    ++ lib.optionals enableMail [ mailutils ]
+    ++ lib.optionals enableMail [mailutils]
   );
-
 in
-stdenv.mkDerivation rec {
-  pname = "smartmontools";
-  version = "7.5";
+  stdenv.mkDerivation rec {
+    pname = "smartmontools";
+    version = "7.5";
 
-  src = fetchurl {
-    url = "mirror://sourceforge/smartmontools/${pname}-${version}.tar.gz";
-    hash = "sha256-aQuDyjMTeNqeoNnWEAjEsi3eOROHubutfyk4fyWV924=";
-  };
+    src = fetchurl {
+      url = "mirror://sourceforge/smartmontools/${pname}-${version}.tar.gz";
+      hash = "sha256-aQuDyjMTeNqeoNnWEAjEsi3eOROHubutfyk4fyWV924=";
+    };
 
-  patches = [
-    # fixes darwin build
-    ./smartmontools.patch
-  ];
-  postPatch = ''
-    cp -v ${driverdb} drivedb.h
-  '';
+    patches = [
+      # fixes darwin build
+      ./smartmontools.patch
+    ];
+    postPatch = ''
+      cp -v ${driverdb} drivedb.h
+    '';
 
-  configureFlags = [
-    "--with-scriptpath=${scriptPath}"
-    # does not work on NixOS
-    "--without-update-smart-drivedb"
-  ];
+    configureFlags = [
+      "--with-scriptpath=${scriptPath}"
+      # does not work on NixOS
+      "--without-update-smart-drivedb"
+    ];
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = lib.optionals (lib.meta.availableOn stdenv.hostPlatform systemdLibs) [ systemdLibs ];
-  enableParallelBuilding = true;
+    nativeBuildInputs = [autoreconfHook];
+    buildInputs = lib.optionals (lib.meta.availableOn stdenv.hostPlatform systemdLibs) [systemdLibs];
+    enableParallelBuilding = true;
 
-  meta = with lib; {
-    description = "Tools for monitoring the health of hard drives";
-    homepage = "https://www.smartmontools.org/";
-    license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ Frostman ];
-    platforms = with platforms; linux ++ darwin;
-    mainProgram = "smartctl";
-  };
-}
+    meta = with lib; {
+      description = "Tools for monitoring the health of hard drives";
+      homepage = "https://www.smartmontools.org/";
+      license = licenses.gpl2Plus;
+      maintainers = with maintainers; [Frostman];
+      platforms = with platforms; linux ++ darwin;
+      mainProgram = "smartctl";
+    };
+  }

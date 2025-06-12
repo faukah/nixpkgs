@@ -14,7 +14,6 @@
   bison,
   flex,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bpftools";
 
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
 
   separateDebugInfo = true;
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     python3
     bison
@@ -30,16 +29,15 @@ stdenv.mkDerivation rec {
   ];
   buildInputs =
     (
-      if (lib.versionAtLeast version "5.20") then
-        [
-          libopcodes
-          libbfd
-        ]
-      else
-        [
-          libopcodes_2_38
-          libbfd_2_38
-        ]
+      if (lib.versionAtLeast version "5.20")
+      then [
+        libopcodes
+        libbfd
+      ]
+      else [
+        libopcodes_2_38
+        libbfd_2_38
+      ]
     )
     ++ [
       elfutils
@@ -64,7 +62,7 @@ stdenv.mkDerivation rec {
   ];
 
   # needed for cross to riscv64
-  makeFlags = [ "ARCH=${stdenv.hostPlatform.linuxArch}" ];
+  makeFlags = ["ARCH=${stdenv.hostPlatform.linuxArch}"];
 
   installPhase = ''
     make -C bpftool install
@@ -80,6 +78,6 @@ stdenv.mkDerivation rec {
       licenses.bsd2
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

@@ -15,7 +15,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gfxreconstruct";
   version = "1.0.4";
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/gfxrecon-capture-vulkan \
       --prefix VK_ADD_LAYER_PATH : "$out/share/vulkan/explicit_layer.d"
     wrapProgram $out/bin/gfxrecon-replay \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [vulkan-loader]}
   '';
 
   meta = {
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/LunarG/gfxreconstruct/";
     changelog = "https://github.com/LunarG/gfxreconstruct/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ Flakebi ];
+    maintainers = with lib.maintainers; [Flakebi];
     platforms = lib.platforms.linux;
   };
 }

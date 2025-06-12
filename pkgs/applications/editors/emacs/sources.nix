@@ -2,52 +2,53 @@
   lib,
   fetchFromBitbucket,
   fetchFromSavannah,
-}:
+}: let
+  mkArgs = {
+    pname,
+    version,
+    variant,
+    patches ? _: [],
+    rev,
+    hash,
+    meta ? {},
+  }: {
+    inherit
+      pname
+      version
+      variant
+      patches
+      ;
 
-let
-  mkArgs =
-    {
-      pname,
-      version,
-      variant,
-      patches ? _: [ ],
-      rev,
-      hash,
-      meta ? { },
-    }:
-    {
-      inherit
-        pname
-        version
+    src =
+      {
+        "mainline" = (
+          fetchFromSavannah {
+            repo = "emacs";
+            inherit rev hash;
+          }
+        );
+        "macport" = (
+          fetchFromBitbucket {
+            owner = "mituharu";
+            repo = "emacs-mac";
+            inherit rev hash;
+          }
+        );
+      }
+        .${
         variant
-        patches
-        ;
+      };
 
-      src =
-        {
-          "mainline" = (
-            fetchFromSavannah {
-              repo = "emacs";
-              inherit rev hash;
-            }
-          );
-          "macport" = (
-            fetchFromBitbucket {
-              owner = "mituharu";
-              repo = "emacs-mac";
-              inherit rev hash;
-            }
-          );
-        }
-        .${variant};
-
-      meta = {
+    meta =
+      {
         homepage =
           {
             "mainline" = "https://www.gnu.org/software/emacs/";
             "macport" = "https://bitbucket.org/mituharu/emacs-mac/";
           }
-          .${variant};
+          .${
+            variant
+          };
         description =
           "Extensible, customizable GNU text editor"
           + lib.optionalString (variant == "macport") " - macport variant";
@@ -77,7 +78,9 @@ let
             "mainline" = "https://www.gnu.org/savannah-checkouts/gnu/emacs/news/NEWS.${version}";
             "macport" = "https://bitbucket.org/mituharu/emacs-mac/raw/${rev}/NEWS-mac";
           }
-          .${variant};
+          .${
+            variant
+          };
         license = lib.licenses.gpl3Plus;
         maintainers =
           {
@@ -89,20 +92,24 @@ let
               matthewbauer
               panchoh
             ];
-            "macport" = with lib.maintainers; [ ];
+            "macport" = with lib.maintainers; [];
           }
-          .${variant};
+          .${
+            variant
+          };
         platforms =
           {
             "mainline" = lib.platforms.all;
             "macport" = lib.platforms.darwin;
           }
-          .${variant};
+          .${
+            variant
+          };
         mainProgram = "emacs";
-      } // meta;
-    };
-in
-{
+      }
+      // meta;
+  };
+in {
   emacs30 = import ./make-emacs.nix (mkArgs {
     pname = "emacs";
     version = "30.1";
@@ -142,6 +149,6 @@ in
       })
     ];
 
-    meta.knownVulnerabilities = [ ];
+    meta.knownVulnerabilities = [];
   });
 }

@@ -6,7 +6,6 @@
   versionCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "conftest";
   version = "0.59.0";

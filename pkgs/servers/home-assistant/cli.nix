@@ -5,7 +5,6 @@
   python3,
   installShellFiles,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "homeassistant-cli";
   version = "0.9.6";
@@ -44,14 +43,14 @@ python3.pkgs.buildPythonApplication rec {
       --zsh <(_HASS_CLI_COMPLETE=zsh_source $out/bin/hass-cli)
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   nativeCheckInputs = with python3.pkgs; [
     pytestCheckHook
     requests-mock
   ];
 
-  pythonImportsCheck = [ "homeassistant_cli" ];
+  pythonImportsCheck = ["homeassistant_cli"];
 
   meta = {
     description = "Command-line tool for Home Assistant";
@@ -59,6 +58,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/home-assistant-ecosystem/home-assistant-cli";
     changelog = "https://github.com/home-assistant-ecosystem/home-assistant-cli/releases/tag/${version}";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.home-assistant ];
+    teams = [lib.teams.home-assistant];
   };
 }

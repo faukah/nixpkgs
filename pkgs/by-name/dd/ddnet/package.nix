@@ -29,7 +29,6 @@
   gtest,
   buildClient ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ddnet";
   version = "19.2";
@@ -94,7 +93,11 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DAUTOUPDATE=OFF"
-    "-DCLIENT=${if buildClient then "ON" else "OFF"}"
+    "-DCLIENT=${
+      if buildClient
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   # Tests loop forever on Darwin for some reason

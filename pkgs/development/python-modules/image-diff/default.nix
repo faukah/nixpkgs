@@ -7,7 +7,6 @@
   click-default-group,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "image-diff";
   version = "0.2.2";
@@ -26,15 +25,15 @@ buildPythonPackage rec {
     click-default-group
   ];
 
-  pythonImportsCheck = [ "image_diff" ];
+  pythonImportsCheck = ["image_diff"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "CLI tool for comparing images";
     mainProgram = "image-diff";
     homepage = "https://github.com/simonw/image-diff";
     license = licenses.asl20;
-    maintainers = with maintainers; [ evils ];
+    maintainers = with maintainers; [evils];
   };
 }

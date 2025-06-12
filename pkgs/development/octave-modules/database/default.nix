@@ -5,7 +5,6 @@
   struct,
   libpq,
 }:
-
 buildOctavePackage rec {
   pname = "database";
   version = "2.4.4";
@@ -34,7 +33,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/database/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Interface to SQL databases, currently only postgresql using libpq";
   };
 }

@@ -10,7 +10,6 @@
   poetry-core,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "incomfort-client";
   version = "0.6.9";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-hZoEQhlCJ1qXbet5elNOLudPEN15MDtDcwbGhm/auTc=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   nativeCheckInputs = [
     aioresponses
@@ -35,13 +34,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "incomfortclient" ];
+  pythonImportsCheck = ["incomfortclient"];
 
   meta = with lib; {
     description = "Python module to poll Intergas boilers via a Lan2RF gateway";
     homepage = "https://github.com/zxdavb/incomfort-client";
     changelog = "https://github.com/jbouwh/incomfort-client/releases/tag/${src.tag}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

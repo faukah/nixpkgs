@@ -7,13 +7,12 @@
   postInstall ? "true",
   findXMLCatalogs,
 }:
-
 stdenv.mkDerivation {
   inherit version src postInstall;
   pname = "docbook-xml";
 
-  nativeBuildInputs = [ unzip ];
-  propagatedNativeBuildInputs = [ findXMLCatalogs ];
+  nativeBuildInputs = [unzip];
+  propagatedNativeBuildInputs = [findXMLCatalogs];
 
   unpackPhase = ''
     mkdir -p $out/xml/dtd/docbook

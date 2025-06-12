@@ -5,7 +5,6 @@
   menhirLib,
   menhirSdk,
 }:
-
 buildDunePackage {
   pname = "menhir";
 
@@ -24,8 +23,10 @@ buildDunePackage {
     })
   ];
 
-  meta = menhirSdk.meta // {
-    description = "LR(1) parser generator for OCaml";
-    mainProgram = "menhir";
-  };
+  meta =
+    menhirSdk.meta
+    // {
+      description = "LR(1) parser generator for OCaml";
+      mainProgram = "menhir";
+    };
 }

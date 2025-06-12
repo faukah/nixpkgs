@@ -8,7 +8,6 @@
   six,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "jaraco-itertools";
   version = "6.4.1";
@@ -20,16 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-MU/OVi67RepIIqmLvXsi5f6sfVEY28Gk8ess0Ea/+kc=";
   };
 
-  pythonNamespaces = [ "jaraco" ];
+  pythonNamespaces = ["jaraco"];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     inflect
     more-itertools
     six
   ];
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   # tests no longer available through pypi
   doCheck = false;
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     pytest
   '';
 
-  pythonImportsCheck = [ "jaraco.itertools" ];
+  pythonImportsCheck = ["jaraco.itertools"];
 
   meta = with lib; {
     description = "Tools for working with iterables";

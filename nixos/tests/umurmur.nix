@@ -1,47 +1,40 @@
-{ pkgs, ... }:
-
-let
-  client =
-    { pkgs, ... }:
-    {
-      imports = [ ./common/x11.nix ];
-      environment.systemPackages = [ pkgs.mumble ];
-    };
+{pkgs, ...}: let
+  client = {pkgs, ...}: {
+    imports = [./common/x11.nix];
+    environment.systemPackages = [pkgs.mumble];
+  };
   port = 56457;
-in
-{
+in {
   name = "mumble";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ _3JlOy-PYCCKUi ];
+    maintainers = [_3JlOy-PYCCKUi];
   };
 
   nodes = {
-    server =
-      { ... }:
-      {
-        services.umurmur = {
-          enable = true;
-          openFirewall = true;
-          settings = {
-            password = "testpassword";
-            channels = [
-              {
-                name = "root";
-                parent = "";
-                description = "Root channel. No entry.";
-                noenter = true;
-              }
-              {
-                name = "lobby";
-                parent = "root";
-                description = "Lobby channel";
-              }
-            ];
-            default_channel = "lobby";
-            bindport = port;
-          };
+    server = {...}: {
+      services.umurmur = {
+        enable = true;
+        openFirewall = true;
+        settings = {
+          password = "testpassword";
+          channels = [
+            {
+              name = "root";
+              parent = "";
+              description = "Root channel. No entry.";
+              noenter = true;
+            }
+            {
+              name = "lobby";
+              parent = "root";
+              description = "Lobby channel";
+            }
+          ];
+          default_channel = "lobby";
+          bindport = port;
         };
       };
+    };
 
     client1 = client;
     client2 = client;

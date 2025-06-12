@@ -4,22 +4,16 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.nexus;
-
-in
-{
+in {
   options = {
     services.nexus = {
       enable = mkEnableOption "Sonatype Nexus3 OSS service";
 
-      package = lib.mkPackageOption pkgs "nexus" { };
+      package = lib.mkPackageOption pkgs "nexus" {};
 
-      jdkPackage = lib.mkPackageOption pkgs "openjdk8" { };
+      jdkPackage = lib.mkPackageOption pkgs "openjdk8" {};
 
       user = mkOption {
         type = types.str;
@@ -110,14 +104,14 @@ in
       createHome = true;
     };
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
 
     systemd.services.nexus = {
       description = "Sonatype Nexus3";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      path = [ cfg.home ];
+      path = [cfg.home];
 
       environment = {
         NEXUS_USER = cfg.user;
@@ -153,5 +147,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ ironpinguin ];
+  meta.maintainers = with lib.maintainers; [ironpinguin];
 }

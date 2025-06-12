@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "gobatmon";
   version = "0.4.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Simple battery level monitor for Linux written in Go";
     homepage = "https://github.com/ulinja/gobatmon";
     license = lib.licenses.wtfpl;
-    maintainers = with lib.maintainers; [ ulinja ];
+    maintainers = with lib.maintainers; [ulinja];
     mainProgram = "gobatmon";
     downloadPage = "https://github.com/ulinja/gobatmon/releases/latest";
     changelog = "https://github.com/ulinja/gobatmon/blob/v${version}/CHANGELOG.md";

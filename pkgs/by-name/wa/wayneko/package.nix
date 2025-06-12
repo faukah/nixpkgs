@@ -7,7 +7,6 @@
   wayland,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation {
   pname = "wayneko";
   version = "0-unstable-2024-03-29";
@@ -34,13 +33,13 @@ stdenv.mkDerivation {
     wayland
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = {
     description = "Neko on Wayland";
     homepage = "https://sr.ht/~leon_plickat/wayneko";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     mainProgram = "wayneko";
     platforms = lib.platforms.linux;
   };

@@ -3,13 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.hardware.hackrf;
-
-in
-{
+in {
   options.hardware.hackrf = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -23,7 +19,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.udev.packages = [ pkgs.hackrf ];
-    users.groups.plugdev = { };
+    services.udev.packages = [pkgs.hackrf];
+    users.groups.plugdev = {};
   };
 }

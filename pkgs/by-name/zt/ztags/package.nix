@@ -4,37 +4,35 @@
   fetchFromGitHub,
   scdoc,
   zig_0_13,
-}:
-
-let
+}: let
   zig = zig_0_13;
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "ztags";
-  version = "1.0.1";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "ztags";
+    version = "1.0.1";
 
-  src = fetchFromGitHub {
-    owner = "gpanders";
-    repo = "ztags";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-XDwHuQ+UwScolxyxCHJUmxxG+OgKvZmNGQEZlfywV2s=";
-  };
+    src = fetchFromGitHub {
+      owner = "gpanders";
+      repo = "ztags";
+      rev = "v${finalAttrs.version}";
+      hash = "sha256-XDwHuQ+UwScolxyxCHJUmxxG+OgKvZmNGQEZlfywV2s=";
+    };
 
-  nativeBuildInputs = [
-    scdoc
-    zig.hook
-  ];
+    nativeBuildInputs = [
+      scdoc
+      zig.hook
+    ];
 
-  postInstall = ''
-    zig build docs --prefix $out
-  '';
+    postInstall = ''
+      zig build docs --prefix $out
+    '';
 
-  meta = {
-    description = "Generate tags files for Zig projects";
-    homepage = "https://github.com/gpanders/ztags";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
-    mainProgram = "ztags";
-    inherit (zig.meta) platforms;
-  };
-})
+    meta = {
+      description = "Generate tags files for Zig projects";
+      homepage = "https://github.com/gpanders/ztags";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [figsoda];
+      mainProgram = "ztags";
+      inherit (zig.meta) platforms;
+    };
+  })

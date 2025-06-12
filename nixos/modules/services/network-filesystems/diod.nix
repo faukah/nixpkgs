@@ -3,11 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.diod;
 
-  diodBool = b: if b then "1" else "0";
+  diodBool = b:
+    if b
+    then "1"
+    else "0";
 
   diodConfig = pkgs.writeText "diod.conf" ''
     allsquash = ${diodBool cfg.allsquash}
@@ -23,8 +25,7 @@ let
     userdb = ${diodBool cfg.userdb}
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   options = {
     services.diod = {
       enable = lib.mkOption {
@@ -35,7 +36,7 @@ in
 
       listen = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ "0.0.0.0:564" ];
+        default = ["0.0.0.0:564"];
         description = ''
           [ "IP:PORT" [,"IP:PORT",...] ]
           List the interfaces and ports that diod should listen on.
@@ -44,7 +45,7 @@ in
 
       exports = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           List the file systems that clients will be allowed to mount. All paths should
           be fully qualified. The exports table can include two types of element:
@@ -71,7 +72,7 @@ in
 
       exportopts = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           Establish a default set of export options. These are overridden, not appended
           to, by opts attributes in an "exports" entry.
@@ -148,12 +149,12 @@ in
   };
 
   config = lib.mkIf config.services.diod.enable {
-    environment.systemPackages = [ pkgs.diod ];
+    environment.systemPackages = [pkgs.diod];
 
     systemd.services.diod = {
       description = "diod 9P file server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = "${pkgs.diod}/sbin/diod -f -c ${diodConfig}";
       };

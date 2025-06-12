@@ -1,6 +1,5 @@
 # this test creates a simple GNU image with docker tools and sees if it executes
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "docker-tools-overlay";
   meta = with pkgs.lib.maintainers; {
     maintainers = [
@@ -10,12 +9,10 @@
   };
 
   nodes = {
-    docker =
-      { ... }:
-      {
-        virtualisation.docker.enable = true;
-        virtualisation.docker.storageDriver = "overlay2";
-      };
+    docker = {...}: {
+      virtualisation.docker.enable = true;
+      virtualisation.docker.storageDriver = "overlay2";
+    };
   };
 
   testScript = ''

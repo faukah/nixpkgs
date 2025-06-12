@@ -6,7 +6,6 @@
   isPy3k,
   python,
 }:
-
 buildPythonPackage rec {
   version = "0.99.2dev-384-2b73caca";
   format = "setuptools";
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "Generic application framework, providing the foundation for other modules";
     homepage = "https://github.com/freevo/kaa-base";
     license = licenses.lgpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

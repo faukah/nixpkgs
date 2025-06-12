@@ -18,7 +18,6 @@
   wrapGAppsHook3,
   yelp-xsl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yelp";
   version = "42.2";
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://apps.gnome.org/Yelp/";
     description = "Help viewer in Gnome";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

@@ -3,7 +3,6 @@
   stdenv,
   fetchMavenArtifact,
 }:
-
 stdenv.mkDerivation rec {
   pname = "postgresql-jdbc";
   version = "42.6.1";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/pgjdbc/pgjdbc/releases/tag/REL${version}";
     description = "JDBC driver for PostgreSQL allowing Java programs to connect to a PostgreSQL database";
     license = lib.licenses.bsd2;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     platforms = lib.platforms.unix;
   };
 }

@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aioasuswrt";
   version = "1.4.0";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-RQxIgAU9KsTbcTKc/Zl+aP77lbDSeiYzR48MtIVwacc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ asyncssh ];
+  dependencies = [asyncssh];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aioasuswrt" ];
+  pythonImportsCheck = ["aioasuswrt"];
 
   meta = with lib; {
     description = "Python module for Asuswrt";
     homepage = "https://github.com/kennedyshead/aioasuswrt";
     changelog = "https://github.com/kennedyshead/aioasuswrt/releases/tag/V${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

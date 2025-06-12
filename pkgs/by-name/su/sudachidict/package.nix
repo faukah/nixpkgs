@@ -3,9 +3,7 @@
   stdenvNoCC,
   fetchzip,
   dict-type ? "core",
-}:
-
-let
+}: let
   pname = "sudachidict";
   version = "20241021";
 
@@ -24,9 +22,7 @@ let
     };
   };
 in
-
-lib.checkListOfEnum "${pname}: dict-type" [ "core" "full" "small" ] [ dict-type ]
-
+  lib.checkListOfEnum "${pname}: dict-type" ["core" "full" "small"] [dict-type]
   stdenvNoCC.mkDerivation
   {
     inherit pname version;
@@ -54,9 +50,9 @@ lib.checkListOfEnum "${pname}: dict-type" [ "core" "full" "small" ] [ dict-type 
       homepage = "https://github.com/WorksApplications/SudachiDict";
       changelog = "https://github.com/WorksApplications/SudachiDict/releases/tag/v${version}";
       license = lib.licenses.asl20;
-      maintainers = with lib.maintainers; [ natsukium ];
+      maintainers = with lib.maintainers; [natsukium];
       platforms = lib.platforms.all;
       # it is a waste of space and time to build this package in hydra since it is just data
-      hydraPlatforms = [ ];
+      hydraPlatforms = [];
     };
   }

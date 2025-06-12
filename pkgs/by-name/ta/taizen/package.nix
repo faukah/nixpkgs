@@ -7,7 +7,6 @@
   ncurses,
   openssl,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "taizen";
   version = "unstable-2023-06-05";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-kK9na2Pk3Hl4TYYVVUfeBv6DDDkrD7mIv7eVHXkS5QY=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     ncurses
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage {
     description = "curses based mediawiki browser";
     homepage = "https://github.com/nerdypepper/taizen";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "taizen";
   };
 }

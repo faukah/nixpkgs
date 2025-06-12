@@ -6,7 +6,6 @@
   zlib,
   withFuse ? true,
 }:
-
 stdenv.mkDerivation {
   pname = "sqlar";
   version = "2018-01-07";
@@ -21,12 +20,14 @@ stdenv.mkDerivation {
       --replace 'gcc' '${stdenv.cc.targetPrefix}cc'
   '';
 
-  buildInputs = [ zlib ] ++ lib.optional withFuse fuse;
+  buildInputs = [zlib] ++ lib.optional withFuse fuse;
 
-  buildFlags = [
-    "CFLAGS=-Wno-error"
-    "sqlar"
-  ] ++ lib.optional withFuse "sqlarfs";
+  buildFlags =
+    [
+      "CFLAGS=-Wno-error"
+      "sqlar"
+    ]
+    ++ lib.optional withFuse "sqlarfs";
 
   installPhase =
     ''
@@ -41,6 +42,6 @@ stdenv.mkDerivation {
     description = "SQLite Archive utilities";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

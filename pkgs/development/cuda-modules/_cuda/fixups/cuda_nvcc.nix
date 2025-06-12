@@ -3,16 +3,17 @@
   backendStdenv,
   cudaOlder,
   setupCudaHook,
-}:
-prevAttrs: {
+}: prevAttrs: {
   # Merge "bin" and "dev" into "out" to avoid circular references
-  outputs = builtins.filter (
-    x:
-    !(builtins.elem x [
-      "dev"
-      "bin"
-    ])
-  ) prevAttrs.outputs or [ ];
+  outputs =
+    builtins.filter (
+      x:
+        !(builtins.elem x [
+          "dev"
+          "bin"
+        ])
+    )
+    prevAttrs.outputs or [];
 
   # Patch the nvcc.profile.
   # Syntax:
@@ -55,7 +56,7 @@ prevAttrs: {
     '';
 
   # Entries here will be in nativeBuildInputs when cuda_nvcc is in nativeBuildInputs.
-  propagatedBuildInputs = prevAttrs.propagatedBuildInputs or [ ] ++ [ setupCudaHook ];
+  propagatedBuildInputs = prevAttrs.propagatedBuildInputs or [] ++ [setupCudaHook];
 
   postInstall =
     prevAttrs.postInstall or ""
@@ -66,7 +67,9 @@ prevAttrs: {
   # The nvcc and cicc binaries contain hard-coded references to /usr
   allowFHSReferences = true;
 
-  meta = prevAttrs.meta or { } // {
-    mainProgram = "nvcc";
-  };
+  meta =
+    prevAttrs.meta or {}
+    // {
+      mainProgram = "nvcc";
+    };
 }

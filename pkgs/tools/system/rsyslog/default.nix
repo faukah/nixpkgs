@@ -59,7 +59,6 @@
   hiredis,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rsyslog";
   version = "8.2504.0";
@@ -99,7 +98,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withNet libnet
     ++ lib.optional withHadoop hadoop
     ++ lib.optional withRdkafka rdkafka
-    ++ lib.optionals withMongo [ mongoc ]
+    ++ lib.optionals withMongo [mongoc]
     ++ lib.optional withCzmq czmq
     ++ lib.optional withRabbitmq rabbitmq-c
     ++ lib.optional withHiredis hiredis
@@ -192,6 +191,6 @@ stdenv.mkDerivation rec {
     changelog = "https://raw.githubusercontent.com/rsyslog/rsyslog/v${version}/ChangeLog";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

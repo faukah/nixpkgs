@@ -26,16 +26,17 @@
   gobject-introspection,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pango";
   version = "1.56.3";
 
-  outputs = [
-    "bin"
-    "out"
-    "dev"
-  ] ++ lib.optional withIntrospection "devdoc";
+  outputs =
+    [
+      "bin"
+      "out"
+      "dev"
+    ]
+    ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/pango/${lib.versions.majorMinor finalAttrs.version}/pango-${finalAttrs.version}.tar.xz";
@@ -85,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Fontconfig error: Cannot load default config file
   FONTCONFIG_FILE = makeFontsConf {
-    fontDirectories = [ freefont_ttf ];
+    fontDirectories = [freefont_ttf];
   };
 
   # Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)
@@ -130,8 +131,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.pango.org/";
     license = licenses.lgpl2Plus;
 
-    maintainers = with maintainers; [ raskin ];
-    teams = [ teams.gnome ];
+    maintainers = with maintainers; [raskin];
+    teams = [teams.gnome];
     platforms = platforms.unix;
 
     pkgConfigModules = [

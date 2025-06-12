@@ -5,7 +5,6 @@
   poetry-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "t61codec";
   version = "2.0.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  pythonImportsCheck = [ "t61codec" ];
+  pythonImportsCheck = ["t61codec"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/exhuma/t61codec";
     changelog = "https://github.com/exhuma/t61codec/blob/v${version}/CHANGES.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

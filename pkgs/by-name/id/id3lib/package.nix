@@ -5,7 +5,6 @@
   libiconv,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "id3lib";
   version = "3.8.3";

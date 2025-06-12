@@ -8,7 +8,6 @@
   topkg,
   astring,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-ocb-stubblr";
   version = "0.1.0";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "0hpds1lkq4j8wgslv7hnirgfrjmqi36h5rarpw9mwf24gfp5ays2";
   };
 
-  patches = [ ./pkg-config.patch ];
+  patches = [./pkg-config.patch];
 
   nativeBuildInputs = [
     ocaml
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     ocamlbuild
   ];
 
-  propagatedBuildInputs = [ astring ];
+  propagatedBuildInputs = [astring];
 
   strictDeps = true;
 
@@ -43,6 +42,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/pqwy/ocb-stubblr";
     license = lib.licenses.isc;
     inherit (ocaml.meta) platforms;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

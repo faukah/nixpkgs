@@ -9,7 +9,6 @@
   pytestCheckHook,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "signalslot";
   version = "0.2.0";
@@ -42,12 +41,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "signalslot" ];
+  pythonImportsCheck = ["signalslot"];
 
   meta = with lib; {
     description = "Simple Signal/Slot implementation";
     homepage = "https://github.com/numergy/signalslot";
     license = licenses.mit;
-    maintainers = with maintainers; [ myaats ];
+    maintainers = with maintainers; [myaats];
   };
 }

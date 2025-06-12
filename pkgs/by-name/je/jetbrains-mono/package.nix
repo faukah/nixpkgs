@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "jetbrains-mono";
   version = "2.304";
@@ -32,7 +31,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://jetbrains.com/mono/";
     changelog = "https://github.com/JetBrains/JetBrainsMono/blob/v${version}/Changelog.md";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ vinnymeller ];
+    maintainers = with lib.maintainers; [vinnymeller];
     platforms = lib.platforms.all;
   };
 }

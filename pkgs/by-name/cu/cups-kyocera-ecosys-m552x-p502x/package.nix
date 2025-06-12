@@ -5,7 +5,6 @@
   # can either be "EU" or "Global"; it's unclear what the difference is
   region ? "Global",
 }:
-
 stdenv.mkDerivation {
   pname = "cups-kyocera-ecosys-m552x-p502x";
   version = "8.1602";
@@ -24,7 +23,7 @@ stdenv.mkDerivation {
     description = "PPD files for Kyocera ECOSYS M5521cdn/M5521cdw/M5526cdn/M5526cdw/P5021cdn/P5021cdw/P5026cdn/P5026cdw";
     homepage = "https://www.kyoceradocumentsolutions.com";
     license = licenses.unfree;
-    maintainers = [ maintainers.mbrgm ];
+    maintainers = [maintainers.mbrgm];
     platforms = platforms.linux;
   };
 }

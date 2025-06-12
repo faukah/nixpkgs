@@ -1,34 +1,39 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "morph-browser-standalone";
   meta.maintainers = lib.teams.lomiri.members;
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      imports = [
-        ./common/x11.nix
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [
+      ./common/x11.nix
+    ];
+
+    services.xserver.enable = true;
+
+    environment = {
+      systemPackages = with pkgs.lomiri; [
+        suru-icon-theme
+        morph-browser
       ];
-
-      services.xserver.enable = true;
-
-      environment = {
-        systemPackages = with pkgs.lomiri; [
-          suru-icon-theme
-          morph-browser
-        ];
-        variables = {
-          UITK_ICON_THEME = "suru";
-        };
+      variables = {
+        UITK_ICON_THEME = "suru";
       };
-
-      i18n.supportedLocales = [ "all" ];
-
-      fonts.packages = with pkgs; [
-        # Intended font & helps with OCR
-        ubuntu-classic
-      ];
     };
+
+    i18n.supportedLocales = ["all"];
+
+    fonts.packages = with pkgs; [
+      # Intended font & helps with OCR
+      ubuntu-classic
+    ];
+  };
 
   enableOCR = true;
 

@@ -2,19 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   boto3,
   mlflow,
-
   # tests
   pytestCheckHook,
   scikit-learn,
 }:
-
 buildPythonPackage rec {
   pname = "sagemaker-mlflow";
   version = "0.1.0";
@@ -69,6 +65,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aws/sagemaker-mlflow";
     changelog = "https://github.com/aws/sagemaker-mlflow/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

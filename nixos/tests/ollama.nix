@@ -1,25 +1,19 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   mainPort = 11434;
   altPort = 11435;
-in
-{
+in {
   name = "ollama";
-  meta.maintainers = with lib.maintainers; [ abysssol ];
+  meta.maintainers = with lib.maintainers; [abysssol];
 
   nodes = {
-    cpu =
-      { ... }:
-      {
-        services.ollama.enable = true;
-      };
+    cpu = {...}: {
+      services.ollama.enable = true;
+    };
 
-    altAddress =
-      { ... }:
-      {
-        services.ollama.enable = true;
-        services.ollama.port = altPort;
-      };
+    altAddress = {...}: {
+      services.ollama.enable = true;
+      services.ollama.port = altPort;
+    };
   };
 
   testScript = ''

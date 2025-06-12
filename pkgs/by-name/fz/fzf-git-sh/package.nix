@@ -16,7 +16,6 @@
   zsh,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fzf-git-sh";
   version = "0-unstable-2025-05-08";
@@ -56,13 +55,13 @@ stdenv.mkDerivation rec {
     install -D fzf-git.sh $out/share/${pname}/fzf-git.sh
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/junegunn/fzf-git.sh";
     description = "Bash and zsh key bindings for Git objects, powered by fzf";
     license = licenses.mit;
-    maintainers = with maintainers; [ deejayem ];
+    maintainers = with maintainers; [deejayem];
     platforms = platforms.all;
   };
 }

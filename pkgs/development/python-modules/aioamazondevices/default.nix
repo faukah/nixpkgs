@@ -13,7 +13,6 @@
   pytestCheckHook,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aioamazondevices";
   version = "3.0.6";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-+o3LOp0gSjG1/x5IFA0FK5LQUFG9T6JgDLb104vJcM0=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [ "aioamazondevices" ];
+  pythonImportsCheck = ["aioamazondevices"];
 
   nativeCheckInputs = [
     pytest-cov-stub
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     description = "Python library to control Amazon devices";
     homepage = "https://github.com/chemelli74/aioamazondevices";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

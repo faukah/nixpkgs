@@ -33,13 +33,12 @@ stdenv.mkDerivation (finalAttrs: {
       installShellFiles
     ]
     ++ (
-      if debug then
-        [
-          elfutils
-          libunwind
-        ]
-      else
-        [ ]
+      if debug
+      then [
+        elfutils
+        libunwind
+      ]
+      else []
     );
 
   cmakeFlags = [
@@ -53,9 +52,15 @@ stdenv.mkDerivation (finalAttrs: {
     yaml-cpp
   ];
 
-  cmakeBuildType = if debug then "Debug" else "Release";
+  cmakeBuildType =
+    if debug
+    then "Debug"
+    else "Release";
 
-  clang = if enableLibcxx then llvmPackages.libcxxClang else llvmPackages.clang;
+  clang =
+    if enableLibcxx
+    then llvmPackages.libcxxClang
+    else llvmPackages.clang;
 
   postInstall = ''
     cp $out/bin/clang-uml $out/bin/clang-uml-unwrapped
@@ -74,7 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
   dontFixup = debug;
   dontStrip = debug;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgramArg = "--version";
 
@@ -86,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
       The configuration file or files for clang-uml define the types and contents of each generated diagram.
       The diagrams can be generated in PlantUML, MermaidJS and JSON formats.
     '';
-    maintainers = with lib.maintainers; [ eymeric ];
+    maintainers = with lib.maintainers; [eymeric];
     homepage = "https://clang-uml.github.io/";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;

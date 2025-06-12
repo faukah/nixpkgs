@@ -13,7 +13,6 @@
   zlib,
   tbb,
 }:
-
 stdenv.mkDerivation {
   pname = "mirtk";
   version = "unstable-2022-07-22";
@@ -50,7 +49,7 @@ stdenv.mkDerivation {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-changes-meaning";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost186
     eigen
@@ -67,7 +66,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/BioMedIA/MIRTK";
     description = "Medical image registration library and tools";
     mainProgram = "mirtk";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.linux;
     license = licenses.asl20;
   };

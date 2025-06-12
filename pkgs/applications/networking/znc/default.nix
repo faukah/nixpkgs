@@ -20,7 +20,6 @@
   withIPv6 ? true,
   withDebug ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "znc";
   version = "1.9.1";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optional withPerl perl
     ++ lib.optional withPython python3
     ++ lib.optional withTcl tcl
@@ -61,8 +60,8 @@ stdenv.mkDerivation (finalAttrs: {
       (lib.withFeatureAs withTcl "tcl" "${tcl}/lib")
       (lib.enableFeature withCyrus "cyrus")
     ]
-    ++ lib.optionals (!withIPv6) [ "--disable-ipv6" ]
-    ++ lib.optionals withDebug [ "--enable-debug" ];
+    ++ lib.optionals (!withIPv6) ["--disable-ipv6"]
+    ++ lib.optionals withDebug ["--enable-debug"];
 
   enableParallelBuilding = true;
 

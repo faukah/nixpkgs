@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "chopchop";
   version = "1.0.0";
@@ -20,7 +19,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "CLI to search for sensitive services/files/folders";
     homepage = "https://github.com/michelin/ChopChop";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

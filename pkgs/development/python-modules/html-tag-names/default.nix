@@ -4,7 +4,6 @@
   fetchFromGitHub,
   poetry-core,
 }:
-
 buildPythonPackage rec {
   pname = "html-tag-names";
   version = "0.1.2";
@@ -17,17 +16,17 @@ buildPythonPackage rec {
     hash = "sha256-2YywP4/0yocejuJwanC5g9BR7mcy5C+zMhCjNZ9FRH4=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "HtmlTagNames" ];
+  pythonImportsCheck = ["HtmlTagNames"];
 
   meta = with lib; {
     description = "List of known HTML tags";
     homepage = "https://github.com/Riverside-Healthcare/html-tag-names";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ traxys ];
+    maintainers = with maintainers; [traxys];
   };
 }

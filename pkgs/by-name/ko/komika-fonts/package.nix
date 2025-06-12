@@ -14,15 +14,12 @@
     "komikaze"
     "komikazoom"
   ],
-}:
-
-let
-  fetchFont =
-    {
-      url,
-      hash,
-      curlOptsList ? [ ],
-    }:
+}: let
+  fetchFont = {
+    url,
+    hash,
+    curlOptsList ? [],
+  }:
     fetchzip {
       inherit url hash curlOptsList;
       name = lib.nameFromURL url ".";
@@ -77,44 +74,40 @@ let
       url = "https://www.1001fonts.com/download/komikazoom.zip";
       hash = "sha256-/o2QPPPiQBkNU0XRxJyI0+5CKFEv4FKU3A5ku1zyVX4=";
     };
-
   };
   knownFonts = lib.attrNames fontMap;
   selectedFonts =
-    if (variants == [ ]) then
-      lib.warn "No variants selected, installing all instead" knownFonts
-    else
-      let
-        unknown = lib.subtractLists knownFonts variants;
-      in
-      if (unknown != [ ]) then
-        throw "Unknown variant(s): ${lib.concatStringsSep " " unknown}"
-      else
-        variants;
-
+    if (variants == [])
+    then lib.warn "No variants selected, installing all instead" knownFonts
+    else let
+      unknown = lib.subtractLists knownFonts variants;
+    in
+      if (unknown != [])
+      then throw "Unknown variant(s): ${lib.concatStringsSep " " unknown}"
+      else variants;
 in
-stdenvNoCC.mkDerivation {
-  pname = "komika-fonts";
-  version = "0-unstable-2024-08-12";
-  sourceRoot = ".";
+  stdenvNoCC.mkDerivation {
+    pname = "komika-fonts";
+    version = "0-unstable-2024-08-12";
+    sourceRoot = ".";
 
-  srcs = map (variant: fetchFont fontMap.${variant}) selectedFonts;
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/share/fonts/ttf
-    mv **/*.ttf $out/share/fonts/ttf
-    runHook postInstall
-  '';
-
-  meta = {
-    homepage = "https://moorstation.org/typoasis/designers/lab/index.htm";
-    # description from archive here: http://web.archive.org/web/20030422173903fw_/http://www.hardcovermedia.com/lab/Pages/Fontpages/komikahands.html
-    description = "First ever comic lettering super family";
-    longDescription = ''
-      50 fonts, covering everything the comic artist needs when it comes to lettering. 10 text faces, 10 display faces, 10 tiling faces, 10 hand variations, 9 poster faces, and 20 balloons in a font.
+    srcs = map (variant: fetchFont fontMap.${variant}) selectedFonts;
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/share/fonts/ttf
+      mv **/*.ttf $out/share/fonts/ttf
+      runHook postInstall
     '';
-    license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ pancaek ];
-    platforms = lib.platforms.all;
-  };
-}
+
+    meta = {
+      homepage = "https://moorstation.org/typoasis/designers/lab/index.htm";
+      # description from archive here: http://web.archive.org/web/20030422173903fw_/http://www.hardcovermedia.com/lab/Pages/Fontpages/komikahands.html
+      description = "First ever comic lettering super family";
+      longDescription = ''
+        50 fonts, covering everything the comic artist needs when it comes to lettering. 10 text faces, 10 display faces, 10 tiling faces, 10 hand variations, 9 poster faces, and 20 balloons in a font.
+      '';
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [pancaek];
+      platforms = lib.platforms.all;
+    };
+  }

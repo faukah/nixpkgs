@@ -21,7 +21,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-39rA3jMGYhsh1nrGzI1vfHZzZDy4O6ooYWB8af654mM=";
 
-  subPackages = [ "cmd/jj" ];
+  subPackages = ["cmd/jj"];
 
   env.CGO_ENABLED = "0";
 
@@ -32,12 +32,12 @@ buildGoModule (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = with testers; {
-      version = testVersion { package = jj; };
+      version = testVersion {package = jj;};
       examples = testEqualContents {
         assertion = "examples from projects README.md work";
-        actual = runCommand "actual" { nativeBuildInputs = [ jj ]; } ''
+        actual = runCommand "actual" {nativeBuildInputs = [jj];} ''
           {
             echo '{"name":{"first":"Tom","last":"Smith"}}' | jj name.last
             echo '{"name":{"first":"Tom","last":"Smith"}}' | jj name
@@ -69,6 +69,6 @@ buildGoModule (finalAttrs: {
     changelog = "https://github.com/tidwall/jj/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     mainProgram = "jj";
-    maintainers = with lib.maintainers; [ katexochen ];
+    maintainers = with lib.maintainers; [katexochen];
   };
 })

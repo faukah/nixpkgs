@@ -1,10 +1,8 @@
 {
   lib,
-
   beamPackages,
   fetchFromGitHub,
 }:
-
 beamPackages.mixRelease rec {
   pname = "next-ls";
   version = "0.23.2";
@@ -40,7 +38,7 @@ beamPackages.mixRelease rec {
     description = "Language server for Elixir that just works";
     license = lib.licenses.mit;
     mainProgram = "nextls";
-    maintainers = [ lib.maintainers.adamcstephens ];
+    maintainers = [lib.maintainers.adamcstephens];
     platforms = beamPackages.erlang.meta.platforms;
   };
 }

@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchurl,
 }:
-
 buildDunePackage rec {
   minimumOCamlVersion = "4.02.3";
 
@@ -24,6 +23,6 @@ buildDunePackage rec {
     description = "Backport new syntax to older OCaml versions";
     mainProgram = "ocaml-syntax-shims";
     license = licenses.mit;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

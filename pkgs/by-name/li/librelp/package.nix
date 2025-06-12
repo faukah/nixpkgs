@@ -8,7 +8,6 @@
   pkg-config,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "librelp";
   version = "1.11.0";

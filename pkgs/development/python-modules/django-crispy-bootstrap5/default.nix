@@ -8,7 +8,6 @@
   pytest-django,
   django-crispy-forms,
 }:
-
 buildPythonPackage rec {
   pname = "django-crispy-bootstrap5";
   version = "2025.6";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-/WQ6GgwhIdFI/515WU2X0EPR0i9nplR7QDa/fBINJLU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -33,13 +32,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "crispy_bootstrap5" ];
+  pythonImportsCheck = ["crispy_bootstrap5"];
 
   meta = with lib; {
     description = "Bootstrap 5 template pack for django-crispy-forms";
     homepage = "https://github.com/django-crispy-forms/crispy-bootstrap5";
     changelog = "https://github.com/django-crispy-forms/crispy-bootstrap5/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

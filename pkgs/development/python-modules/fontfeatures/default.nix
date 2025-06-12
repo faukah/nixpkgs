@@ -10,7 +10,6 @@
   pytestCheckHook,
   youseedee,
 }:
-
 buildPythonPackage rec {
   pname = "fontfeatures";
   version = "1.8.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     youseedee
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   disabledTestPaths = [
     # These tests require babelfont but we have to leave it out and skip them
     # to break the cyclic dependency with babelfont.
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Python library for compiling OpenType font features";
     homepage = "https://github.com/simoncozens/fontFeatures";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

@@ -12,7 +12,6 @@
   tqdm,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "pyzx";
   version = "0.9.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-MhsbJIDeSIeF0LaHhI6nNxPD3ZjBWh5yvLGuwBH41a4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     ipywidgets
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     "lark"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   disabledTestPaths = [
     # too expensive, and print results instead of reporting failures:
     "tests/long_scalar_test.py"
@@ -64,6 +63,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zxcalc/pyzx";
     changelog = "https://github.com/zxcalc/pyzx/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

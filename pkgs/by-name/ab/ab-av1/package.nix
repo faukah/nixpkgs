@@ -5,7 +5,6 @@
   installShellFiles,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ab-av1";
   version = "0.10.1";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-oLmE+xkatgIDIu6mUJ49O9s6ULp0bvpWdBP8rEGb5yc=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd ab-av1 \
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/alexheretic/ab-av1";
     changelog = "https://github.com/alexheretic/ab-av1/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "ab-av1";
   };
 }

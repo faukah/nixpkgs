@@ -9,7 +9,6 @@
   wheel,
   xxhash,
 }:
-
 buildPythonPackage rec {
   pname = "pybloom-live";
   version = "4.0.0";
@@ -33,14 +32,14 @@ buildPythonPackage rec {
     xxhash
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pybloom_live" ];
+  pythonImportsCheck = ["pybloom_live"];
 
   meta = with lib; {
     description = "Probabilistic data structure";
     homepage = "https://github.com/joseph-fox/python-bloomfilter";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

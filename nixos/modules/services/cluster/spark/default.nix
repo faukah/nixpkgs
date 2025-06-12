@@ -3,11 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.spark;
-in
-{
+in {
   options = {
     services.spark = {
       master = {
@@ -31,7 +29,7 @@ in
         extraEnvironment = lib.mkOption {
           type = lib.types.attrsOf lib.types.str;
           description = "Extra environment variables to pass to spark master. See spark-standalone documentation.";
-          default = { };
+          default = {};
           example = {
             SPARK_MASTER_WEBUI_PORT = 8181;
             SPARK_MASTER_OPTS = "-Dspark.deploy.defaultCores=5";
@@ -63,7 +61,7 @@ in
         extraEnvironment = lib.mkOption {
           type = lib.types.attrsOf lib.types.str;
           description = "Extra environment variables to pass to spark worker.";
-          default = { };
+          default = {};
           example = {
             SPARK_WORKER_CORES = 5;
             SPARK_WORKER_MEMORY = "2g";
@@ -97,7 +95,7 @@ in
     };
   };
   config = lib.mkIf (cfg.worker.enable || cfg.master.enable) {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     systemd = {
       services = {
         spark-master = lib.mkIf cfg.master.enable {
@@ -107,14 +105,16 @@ in
             nettools
           ];
           description = "spark master service.";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
           restartIfChanged = cfg.master.restartIfChanged;
-          environment = cfg.master.extraEnvironment // {
-            SPARK_MASTER_HOST = cfg.master.bind;
-            SPARK_CONF_DIR = cfg.confDir;
-            SPARK_LOG_DIR = cfg.logDir;
-          };
+          environment =
+            cfg.master.extraEnvironment
+            // {
+              SPARK_MASTER_HOST = cfg.master.bind;
+              SPARK_CONF_DIR = cfg.confDir;
+              SPARK_LOG_DIR = cfg.logDir;
+            };
           serviceConfig = {
             Type = "forking";
             User = "spark";
@@ -135,15 +135,17 @@ in
             rsync
           ];
           description = "spark master service.";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
           restartIfChanged = cfg.worker.restartIfChanged;
-          environment = cfg.worker.extraEnvironment // {
-            SPARK_MASTER = cfg.worker.master;
-            SPARK_CONF_DIR = cfg.confDir;
-            SPARK_LOG_DIR = cfg.logDir;
-            SPARK_WORKER_DIR = cfg.worker.workDir;
-          };
+          environment =
+            cfg.worker.extraEnvironment
+            // {
+              SPARK_MASTER = cfg.worker.master;
+              SPARK_CONF_DIR = cfg.confDir;
+              SPARK_LOG_DIR = cfg.logDir;
+              SPARK_WORKER_DIR = cfg.worker.workDir;
+            };
           serviceConfig = {
             Type = "forking";
             User = "spark";
@@ -167,7 +169,7 @@ in
         group = "spark";
         isSystemUser = true;
       };
-      groups.spark = { };
+      groups.spark = {};
     };
   };
 }

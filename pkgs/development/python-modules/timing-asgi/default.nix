@@ -5,7 +5,6 @@
   poetry-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "timing-asgi";
   version = "0.3.1";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
       --replace-fail "poetry>=" "poetry-core>="
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  pythonImportsCheck = [ "timing_asgi" ];
+  pythonImportsCheck = ["timing_asgi"];
 
   # Tests rely on asynctest which is not supported by python 3.11
   doCheck = false;
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     description = "ASGI middleware to emit timing metrics with something like statsd";
     homepage = "https://pypi.org/project/timing-asgi";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

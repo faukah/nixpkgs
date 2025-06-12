@@ -6,7 +6,6 @@
   sphinx,
   sphinxHook,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxemoji";
   version = "0.2.0";
@@ -35,12 +34,12 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "sphinxemoji" ];
+  pythonImportsCheck = ["sphinxemoji"];
 
   meta = with lib; {
     description = "Extension to use emoji codes in your Sphinx documentation";
     homepage = "https://github.com/sphinx-contrib/emojicodes";
     license = licenses.mit;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

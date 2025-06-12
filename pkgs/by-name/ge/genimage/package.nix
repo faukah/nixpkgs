@@ -7,7 +7,6 @@
   libconfuse,
   gettext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "genimage";
   version = "18";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Generate filesystem images from directory trees";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     mainProgram = "genimage";
   };
 }

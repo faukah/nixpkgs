@@ -23,13 +23,13 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Single-header, public domain, short vector math library for C++";
     homepage = "https://github.com/sgorsten/linalg";
     license = lib.licenses.publicDomain;
-    maintainers = [ lib.maintainers.eymeric ];
+    maintainers = [lib.maintainers.eymeric];
     platforms = lib.platforms.all;
   };
 })

@@ -4,12 +4,10 @@
   options,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.gocd-agent;
   opt = options.services.gocd-agent;
-in
-{
+in {
   options = {
     services.gocd-agent = {
       enable = lib.mkEnableOption "gocd-agent";
@@ -33,7 +31,7 @@ in
 
       extraGroups = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         example = [
           "wheel"
           "docker"
@@ -128,7 +126,7 @@ in
       };
 
       extraOptions = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.str;
         example = [
           "-X debug"
@@ -147,7 +145,7 @@ in
       };
 
       environment = lib.mkOption {
-        default = { };
+        default = {};
         type = with lib.types; attrsOf str;
         description = ''
           Additional environment variables to be passed to the Go.CD agent process.
@@ -178,15 +176,16 @@ in
 
     systemd.services.gocd-agent = {
       description = "GoCD Agent";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
-      environment =
-        let
-          selectedSessionVars = lib.filterAttrs (
-            n: v: builtins.elem n [ "NIX_PATH" ]
-          ) config.environment.sessionVariables;
-        in
+      environment = let
+        selectedSessionVars =
+          lib.filterAttrs (
+            n: v: builtins.elem n ["NIX_PATH"]
+          )
+          config.environment.sessionVariables;
+      in
         selectedSessionVars
         // {
           NIX_REMOTE = "daemon";

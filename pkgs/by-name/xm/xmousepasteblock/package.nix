@@ -6,7 +6,6 @@
   fetchFromGitHub,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xmousepasteblock";
   version = "1.4";
@@ -26,12 +25,12 @@ stdenv.mkDerivation rec {
     libXi
     libev
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   meta = with lib; {
     description = "Middle mouse button primary X selection/clipboard paste disabler";
     homepage = "https://github.com/milaq/XMousePasteBlock";
     license = lib.licenses.gpl2Only;
-    maintainers = [ maintainers.petercommand ];
+    maintainers = [maintainers.petercommand];
     mainProgram = "xmousepasteblock";
   };
 }

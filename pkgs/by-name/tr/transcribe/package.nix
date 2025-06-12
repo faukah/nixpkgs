@@ -20,19 +20,18 @@
   pango,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "transcribe";
   version = "9.41.2";
 
   src =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
+    if stdenv.hostPlatform.system == "x86_64-linux"
+    then
       fetchzip {
         url = "https://www.seventhstring.com/xscribe/downlo/xscsetup-${version}.tar.gz";
         sha256 = "sha256-VWfjtNbwK9ZiWgs161ubRy+IjSXXk3FEfMkmA6Jhz8A=";
       }
-    else
-      throw "Platform not supported";
+    else throw "Platform not supported";
 
   nativeBuildInputs = [
     which
@@ -49,8 +48,7 @@ stdenv.mkDerivation rec {
 
   dontPatchELF = true;
 
-  libPath =
-    with gst_all_1;
+  libPath = with gst_all_1;
     lib.makeLibraryPath [
       stdenv.cc.cc
       glib
@@ -110,9 +108,9 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.seventhstring.com/xscribe/";
     changelog = "https://www.seventhstring.com/xscribe/history.html";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ iwanb ];
+    maintainers = with maintainers; [iwanb];
     platforms = platforms.linux;
     mainProgram = "transcribe";
   };

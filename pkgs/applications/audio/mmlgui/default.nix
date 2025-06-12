@@ -11,7 +11,6 @@
   libXdmcp,
   cppunit,
 }:
-
 stdenv.mkDerivation {
   pname = "mmlgui";
   version = "210420-preview-unstable-2024-04-15";
@@ -91,7 +90,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/superctr/mmlgui";
     description = "MML (Music Macro Language) editor and compiler GUI, powered by the ctrmml framework";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
     mainProgram = "mmlgui";
   };

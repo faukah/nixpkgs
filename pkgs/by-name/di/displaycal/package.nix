@@ -8,7 +8,6 @@
   xorg,
   argyllcms,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "displaycal";
   version = "3.9.16";
@@ -52,18 +51,18 @@ python3.pkgs.buildPythonApplication rec {
     ]);
 
   # Workaround for eoyilmaz/displaycal-py3#261
-  setupPyGlobalFlags = [ "appdata" ];
+  setupPyGlobalFlags = ["appdata"];
 
   doCheck = false; # Tests try to access an X11 session and dbus in weird locations.
 
-  pythonImportsCheck = [ "DisplayCAL" ];
+  pythonImportsCheck = ["DisplayCAL"];
 
   dontWrapGApps = true;
 
   preFixup = ''
     makeWrapperArgs+=(
       ''${gappsWrapperArgs[@]}
-      --prefix PATH : ${lib.makeBinPath [ argyllcms ]}
+      --prefix PATH : ${lib.makeBinPath [argyllcms]}
       --prefix PYTHONPATH : $PYTHONPATH
     )
   '';
@@ -73,6 +72,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/eoyilmaz/displaycal-py3";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ toastal ];
+    maintainers = with maintainers; [toastal];
   };
 }

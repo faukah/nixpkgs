@@ -1,7 +1,10 @@
-{ lib, nodes, ... }:
-
-let
-  inherit (lib)
+{
+  lib,
+  nodes,
+  ...
+}: let
+  inherit
+    (lib)
     attrNames
     concatMap
     concatMapStrings
@@ -22,30 +25,28 @@ let
 
   nodeNumbers = listToAttrs (zipListsWith nameValuePair (attrNames nodes) (range 1 254));
 
-  networkModule =
-    {
-      config,
-      nodes,
-      pkgs,
-      ...
-    }:
-    let
-      qemu-common = import ../qemu-common.nix { inherit lib pkgs; };
+  networkModule = {
+    config,
+    nodes,
+    pkgs,
+    ...
+  }: let
+    qemu-common = import ../qemu-common.nix {inherit lib pkgs;};
 
-      # Convert legacy VLANs to named interfaces and merge with explicit interfaces.
-      vlansNumbered = forEach (zipLists config.virtualisation.vlans (range 1 255)) (v: {
-        name = "eth${toString v.snd}";
-        vlan = v.fst;
-        assignIP = true;
-      });
-      explicitInterfaces = lib.mapAttrsToList (n: v: v // { name = n; }) config.virtualisation.interfaces;
-      interfaces = vlansNumbered ++ explicitInterfaces;
-      interfacesNumbered = zipLists interfaces (range 1 255);
+    # Convert legacy VLANs to named interfaces and merge with explicit interfaces.
+    vlansNumbered = forEach (zipLists config.virtualisation.vlans (range 1 255)) (v: {
+      name = "eth${toString v.snd}";
+      vlan = v.fst;
+      assignIP = true;
+    });
+    explicitInterfaces = lib.mapAttrsToList (n: v: v // {name = n;}) config.virtualisation.interfaces;
+    interfaces = vlansNumbered ++ explicitInterfaces;
+    interfacesNumbered = zipLists interfaces (range 1 255);
 
-      # Automatically assign IP addresses to requested interfaces.
-      assignIPs = lib.filter (i: i.assignIP) interfaces;
-      ipInterfaces = forEach assignIPs (
-        i:
+    # Automatically assign IP addresses to requested interfaces.
+    assignIPs = lib.filter (i: i.assignIP) interfaces;
+    ipInterfaces = forEach assignIPs (
+      i:
         nameValuePair i.name {
           ipv4.addresses = [
             {
@@ -60,72 +61,79 @@ let
             }
           ];
         }
-      );
+    );
 
-      qemuOptions = lib.flatten (
-        forEach interfacesNumbered (
-          { fst, snd }: qemu-common.qemuNICFlags snd fst.vlan config.virtualisation.test.nodeNumber
-        )
-      );
-      udevRules = forEach interfacesNumbered (
-        { fst, snd }:
-        # MAC Addresses for QEMU network devices are lowercase, and udev string comparison is case-sensitive.
-        ''SUBSYSTEM=="net",ACTION=="add",ATTR{address}=="${toLower (qemu-common.qemuNicMac fst.vlan config.virtualisation.test.nodeNumber)}",NAME="${fst.name}"''
-      );
+    qemuOptions = lib.flatten (
+      forEach interfacesNumbered (
+        {
+          fst,
+          snd,
+        }:
+          qemu-common.qemuNICFlags snd fst.vlan config.virtualisation.test.nodeNumber
+      )
+    );
+    udevRules = forEach interfacesNumbered (
+      {
+        fst,
+        snd,
+      }:
+      # MAC Addresses for QEMU network devices are lowercase, and udev string comparison is case-sensitive.
+      ''SUBSYSTEM=="net",ACTION=="add",ATTR{address}=="${toLower (qemu-common.qemuNicMac fst.vlan config.virtualisation.test.nodeNumber)}",NAME="${fst.name}"''
+    );
 
-      networkConfig = {
-        networking.hostName = mkDefault config.virtualisation.test.nodeName;
+    networkConfig = {
+      networking.hostName = mkDefault config.virtualisation.test.nodeName;
 
-        networking.interfaces = listToAttrs ipInterfaces;
+      networking.interfaces = listToAttrs ipInterfaces;
 
-        networking.primaryIPAddress =
-          optionalString (ipInterfaces != [ ])
-            (head (head ipInterfaces).value.ipv4.addresses).address;
+      networking.primaryIPAddress =
+        optionalString (ipInterfaces != [])
+        (head (head ipInterfaces).value.ipv4.addresses).address;
 
-        networking.primaryIPv6Address =
-          optionalString (ipInterfaces != [ ])
-            (head (head ipInterfaces).value.ipv6.addresses).address;
+      networking.primaryIPv6Address =
+        optionalString (ipInterfaces != [])
+        (head (head ipInterfaces).value.ipv6.addresses).address;
 
-        # Put the IP addresses of all VMs in this machine's
-        # /etc/hosts file.  If a machine has multiple
-        # interfaces, use the IP address corresponding to
-        # the first interface (i.e. the first network in its
-        # virtualisation.vlans option).
-        networking.extraHosts = flip concatMapStrings (attrNames nodes) (
-          m':
-          let
-            config = nodes.${m'};
-            hostnames =
-              optionalString (
-                config.networking.domain != null
-              ) "${config.networking.hostName}.${config.networking.domain} "
-              + "${config.networking.hostName}\n";
-          in
+      # Put the IP addresses of all VMs in this machine's
+      # /etc/hosts file.  If a machine has multiple
+      # interfaces, use the IP address corresponding to
+      # the first interface (i.e. the first network in its
+      # virtualisation.vlans option).
+      networking.extraHosts = flip concatMapStrings (attrNames nodes) (
+        m': let
+          config = nodes.${m'};
+          hostnames =
+            optionalString (
+              config.networking.domain != null
+            ) "${config.networking.hostName}.${config.networking.domain} "
+            + "${config.networking.hostName}\n";
+        in
           optionalString (
             config.networking.primaryIPAddress != ""
           ) "${config.networking.primaryIPAddress} ${hostnames}"
-          + optionalString (config.networking.primaryIPv6Address != "") (
-            "${config.networking.primaryIPv6Address} ${hostnames}"
-          )
-        );
+          + optionalString (config.networking.primaryIPv6Address != "") "${config.networking.primaryIPv6Address} ${hostnames}"
+      );
 
-        virtualisation.qemu.options = qemuOptions;
-        boot.initrd.services.udev.rules = concatMapStrings (x: x + "\n") udevRules;
-      };
-
-    in
-    {
-      key = "network-interfaces";
-      config = networkConfig // {
+      virtualisation.qemu.options = qemuOptions;
+      boot.initrd.services.udev.rules = concatMapStrings (x: x + "\n") udevRules;
+    };
+  in {
+    key = "network-interfaces";
+    config =
+      networkConfig
+      // {
         # Expose the networkConfig items for tests like nixops
         # that need to recreate the network config.
         system.build.networkConfig = networkConfig;
       };
-    };
+  };
 
   nodeNumberModule = (
-    regular@{ config, name, ... }:
-    {
+    regular @ {
+      config,
+      name,
+      ...
+    }: {
       options = {
         virtualisation.test.nodeName = mkOption {
           internal = true;
@@ -168,9 +176,7 @@ let
       };
     }
   );
-
-in
-{
+in {
   config = {
     extraBaseModules = {
       imports = [

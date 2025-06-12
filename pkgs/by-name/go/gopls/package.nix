@@ -8,7 +8,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildGoLatestModule (finalAttrs: {
   pname = "gopls";
   version = "0.18.1";
@@ -24,7 +23,7 @@ buildGoLatestModule (finalAttrs: {
   vendorHash = "sha256-/tca93Df90/8K1dqhOfUsWSuFoNfg9wdWy3csOtFs6Y=";
 
   # https://github.com/golang/tools/blob/9ed98faa/gopls/main.go#L27-L30
-  ldflags = [ "-X main.version=v${finalAttrs.version}" ];
+  ldflags = ["-X main.version=v${finalAttrs.version}"];
 
   doCheck = false;
 
@@ -36,10 +35,10 @@ buildGoLatestModule (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "version";
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex=gopls/(.*)" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version-regex=gopls/(.*)"];};
 
   meta = {
     changelog = "https://github.com/golang/tools/releases/tag/gopls/v${finalAttrs.version}";

@@ -11,9 +11,9 @@
   libspatialindex,
   rtree,
 }:
-
 buildPythonPackage rec {
-  inherit (pkgs.libsupermesh)
+  inherit
+    (pkgs.libsupermesh)
     pname
     version
     src

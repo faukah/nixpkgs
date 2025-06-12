@@ -8,7 +8,6 @@
   libiconv,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libisofs";
   version = "1.5.6.pl01";

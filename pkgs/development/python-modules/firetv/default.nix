@@ -36,6 +36,6 @@ buildPythonPackage rec {
     mainProgram = "firetv-server";
     homepage = "https://github.com/happyleavesaoc/python-firetv/";
     license = licenses.mit;
-    maintainers = [ maintainers.makefu ];
+    maintainers = [maintainers.makefu];
   };
 }

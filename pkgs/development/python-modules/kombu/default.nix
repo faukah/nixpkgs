@@ -27,7 +27,6 @@
   urllib3,
   vine,
 }:
-
 buildPythonPackage rec {
   pname = "kombu";
   version = "5.5.3";
@@ -40,32 +39,34 @@ buildPythonPackage rec {
     hash = "sha256-AhoOEfz82bAmDvH7ZAiMDpK+uXbrWcHfyn3dStRWLqI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  propagatedBuildInputs = [
-    amqp
-    tzdata
-    vine
-  ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs =
+    [
+      amqp
+      tzdata
+      vine
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [typing-extensions];
 
   optional-dependencies = {
-    msgpack = [ msgpack ];
-    yaml = [ pyyaml ];
-    redis = [ redis ];
-    mongodb = [ pymongo ];
+    msgpack = [msgpack];
+    yaml = [pyyaml];
+    redis = [redis];
+    mongodb = [pymongo];
     sqs = [
       boto3
       urllib3
       pycurl
     ];
-    zookeeper = [ kazoo ];
-    sqlalchemy = [ sqlalchemy ];
+    zookeeper = [kazoo];
+    sqlalchemy = [sqlalchemy];
     azurestoragequeues = [
       azure-identity
       azure-storage-queue
     ];
-    azureservicebus = [ azure-servicebus ];
-    confluentkafka = [ confluent-kafka ];
+    azureservicebus = [azure-servicebus];
+    confluentkafka = [confluent-kafka];
     gcpubsub = [
       google-cloud-pubsub
       google-cloud-monitoring
@@ -76,12 +77,14 @@ buildPythonPackage rec {
     #];
   };
 
-  nativeCheckInputs = [
-    hypothesis
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      hypothesis
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "kombu" ];
+  pythonImportsCheck = ["kombu"];
 
   disabledTests = [
     # Disable pyro4 test
@@ -95,6 +98,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/celery/kombu";
     changelog = "https://github.com/celery/kombu/blob/v${version}/Changelog.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

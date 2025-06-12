@@ -8,7 +8,9 @@ mkDerivation {
 
   postPatch = ''
     sed -E -i -e "s|/usr/bin/login|${
-      if (wrappedLogin != null) then wrappedLogin else "${login}/bin/login"
+      if (wrappedLogin != null)
+      then wrappedLogin
+      else "${login}/bin/login"
     }|g" $BSDSRCDIR/libexec/getty/*.h
   '';
 

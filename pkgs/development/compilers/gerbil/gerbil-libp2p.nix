@@ -1,13 +1,15 @@
-{ lib, fetchFromGitHub, ... }:
-
 {
+  lib,
+  fetchFromGitHub,
+  ...
+}: {
   pname = "gerbil-libp2p";
   version = "unstable-2022-02-03";
   git-version = "15b3246";
   softwareName = "Gerbil-libp2p";
   gerbil-package = "vyzo";
 
-  buildInputs = [ ]; # Note: at *runtime*, this depends on go-libp2p-daemon running
+  buildInputs = []; # Note: at *runtime*, this depends on go-libp2p-daemon running
 
   pre-src = {
     fun = fetchFromGitHub;
@@ -22,6 +24,6 @@
     homepage = "https://github.com/vyzo/gerbil-libp2p";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fare ];
+    maintainers = with maintainers; [fare];
   };
 }

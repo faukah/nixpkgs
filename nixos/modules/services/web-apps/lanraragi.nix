@@ -3,18 +3,15 @@
   lib,
   config,
   ...
-}:
-
-let
+}: let
   cfg = config.services.lanraragi;
-in
-{
-  meta.maintainers = with lib.maintainers; [ tomasajt ];
+in {
+  meta.maintainers = with lib.maintainers; [tomasajt];
 
   options.services = {
     lanraragi = {
       enable = lib.mkEnableOption "LANraragi";
-      package = lib.mkPackageOption pkgs "lanraragi" { };
+      package = lib.mkPackageOption pkgs "lanraragi" {};
 
       port = lib.mkOption {
         type = lib.types.port;
@@ -62,8 +59,8 @@ in
         "network.target"
         "redis-lanraragi.service"
       ];
-      requires = [ "redis-lanraragi.service" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["redis-lanraragi.service"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = lib.getExe cfg.package;
         DynamicUser = true;
@@ -85,8 +82,8 @@ in
           {
             redis_address => "127.0.0.1:${toString cfg.redis.port}",
             redis_password => "${
-              lib.optionalString (cfg.redis.passwordFile != null) ''$(head -n1 ${cfg.redis.passwordFile})''
-            }",
+            lib.optionalString (cfg.redis.passwordFile != null) ''$(head -n1 ${cfg.redis.passwordFile})''
+          }",
             redis_database => "0",
             redis_database_minion => "1",
             redis_database_config => "2",

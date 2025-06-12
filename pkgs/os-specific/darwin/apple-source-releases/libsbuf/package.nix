@@ -6,7 +6,6 @@
   ninja,
   stdenv,
 }:
-
 # Apple ships libsbuf with macOS 14 but does not provide any source releases.
 # Fortunately, it’s a single file library that can be made to build on Darwin using the source from FreeBSD.
 bootstrapStdenv.mkDerivation (finalAttrs: {

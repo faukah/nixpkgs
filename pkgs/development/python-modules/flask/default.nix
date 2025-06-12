@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   flit-core,
-
   # dependencies
   blinker,
   click,
@@ -14,22 +12,18 @@
   itsdangerous,
   jinja2,
   werkzeug,
-
   # optional-dependencies
   asgiref,
   python-dotenv,
-
   # tests
   greenlet,
   pytestCheckHook,
-
   # reverse dependencies
   flask-limiter,
   flask-restful,
   flask-restx,
   moto,
 }:
-
 buildPythonPackage rec {
   pname = "flask";
   version = "3.1.0";
@@ -40,22 +34,24 @@ buildPythonPackage rec {
     hash = "sha256-X4c8UYTIl8jZ0bBd8ePQGxSRDOaWB6EXvTJ3CYpYNqw=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [
-    click
-    blinker
-    itsdangerous
-    jinja2
-    werkzeug
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  dependencies =
+    [
+      click
+      blinker
+      itsdangerous
+      jinja2
+      werkzeug
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   optional-dependencies = {
-    async = [ asgiref ];
-    dotenv = [ python-dotenv ];
+    async = [asgiref];
+    dotenv = [python-dotenv];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs = [pytestCheckHook] ++ lib.flatten (lib.attrValues optional-dependencies);
 
   passthru.tests = {
     inherit
@@ -68,7 +64,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog = "https://flask.palletsprojects.com/en/${versions.majorMinor version}.x/changes/#version-${
-      replaceStrings [ "." ] [ "-" ] version
+      replaceStrings ["."] ["-"] version
     }";
     homepage = "https://flask.palletsprojects.com/";
     description = "Python micro framework for building web applications";
@@ -81,6 +77,6 @@ buildPythonPackage rec {
       Python web application frameworks.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

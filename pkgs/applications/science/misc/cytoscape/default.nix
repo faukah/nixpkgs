@@ -7,7 +7,6 @@
   replaceVars,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cytoscape";
   version = "3.10.3";
@@ -25,8 +24,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   installPhase = ''
     mkdir -pv $out/{share,bin}
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "General platform for complex network analysis and visualization";
     mainProgram = "cytoscape";
     license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.mimame ];
+    maintainers = [lib.maintainers.mimame];
     platforms = lib.platforms.unix;
   };
 }

@@ -4,9 +4,7 @@
   options,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = cfgTaler.exchange;
   cfgTaler = config.services.taler;
 
@@ -27,11 +25,9 @@ let
   ];
 
   configFile = config.environment.etc."taler/taler.conf".source;
-in
-
-{
+in {
   imports = [
-    (import ./common.nix { inherit talerComponent servicesDB servicesNoDB; })
+    (import ./common.nix {inherit talerComponent servicesDB servicesNoDB;})
   ];
 
   options.services.taler.exchange = {
@@ -61,7 +57,7 @@ in
               '';
             };
             DB = lib.mkOption {
-              type = lib.types.enum [ "postgres" ];
+              type = lib.types.enum ["postgres"];
               default = "postgres";
               description = "Plugin to use for the database.";
             };
@@ -85,7 +81,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
     };
     denominationConfig = lib.mkOption {
       type = lib.types.lines;
@@ -137,8 +133,8 @@ in
     ];
 
     systemd.services.taler-exchange-wirewatch = {
-      requires = [ "taler-exchange-httpd.service" ];
-      after = [ "taler-exchange-httpd.service" ];
+      requires = ["taler-exchange-httpd.service"];
+      after = ["taler-exchange-httpd.service"];
     };
 
     systemd.services."taler-${talerComponent}-dbinit".script = ''

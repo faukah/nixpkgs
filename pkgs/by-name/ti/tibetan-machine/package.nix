@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "tibetan-machine";
   version = "1.901b";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Tibetan Machine - an OpenType Tibetan, Dzongkha and Ladakhi font";
     license = licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ serge ];
+    maintainers = with lib.maintainers; [serge];
     platforms = platforms.all;
   };
 }

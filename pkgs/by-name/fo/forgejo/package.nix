@@ -1,1 +1,1 @@
-{ forgejo-lts }: forgejo-lts
+{forgejo-lts}: forgejo-lts

@@ -21,13 +21,13 @@ buildPythonPackage rec {
     rpyc
   ];
 
-  pythonImportsCheck = [ "streamcontroller_plugin_tools" ];
+  pythonImportsCheck = ["streamcontroller_plugin_tools"];
 
   meta = with lib; {
     description = "StreamController plugin tools";
     homepage = "https://github.com/StreamController/streamcontroller-plugin-tools";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ sifmelcara ];
+    maintainers = with maintainers; [sifmelcara];
     platforms = platforms.linux;
   };
 }

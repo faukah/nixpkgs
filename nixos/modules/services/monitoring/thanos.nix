@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     collect
     concatLists
     concatStringsSep
@@ -32,10 +31,12 @@ let
 
   cfg = config.services.thanos;
 
-  nullOpt =
-    type: description:
+  nullOpt = type: description:
     mkOption {
-      type = if type.check null then type else types.nullOr type;
+      type =
+        if type.check null
+        then type
+        else types.nullOr type;
       default = null;
       description = description;
     };
@@ -45,8 +46,7 @@ let
   listToArgs = opt: vs: map (v: ''--${opt}="${v}"'') vs;
   attrsToArgs = opt: kvs: mapAttrsToList (k: v: ''--${opt}=${k}=\"${v}\"'') kvs;
 
-  mkParamDef =
-    type: default: description:
+  mkParamDef = type: default: description:
     mkParam type (
       description
       + ''
@@ -74,7 +74,7 @@ let
     toArgs = _opt: listToArgs opt;
     option = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = description;
     };
   };
@@ -83,7 +83,7 @@ let
     toArgs = _opt: attrsToArgs opt;
     option = mkOption {
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
       description = description;
     };
   };
@@ -97,35 +97,31 @@ let
     };
   };
 
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
 
-  thanos =
-    cmd:
+  thanos = cmd:
     "${cfg.package}/bin/thanos ${cmd}"
     + (
       let
         args = cfg.${cmd}.arguments;
       in
-      optionalString (length args != 0) (" \\\n  " + concatStringsSep " \\\n  " args)
+        optionalString (length args != 0) (" \\\n  " + concatStringsSep " \\\n  " args)
     );
 
-  argumentsOf =
-    cmd:
+  argumentsOf = cmd:
     concatLists (
       collect isList (
         flip mapParamsRecursive params.${cmd} (
-          path: param:
-          let
+          path: param: let
             opt = concatStringsSep "." path;
             v = getAttrFromPath path cfg.${cmd};
           in
-          param.toArgs opt v
+            param.toArgs opt v
         )
       )
     );
 
-  mkArgumentsOption =
-    cmd:
+  mkArgumentsOption = cmd:
     mkOption {
       type = types.listOf types.str;
       default = argumentsOf cmd;
@@ -143,31 +139,28 @@ let
       '';
     };
 
-  mapParamsRecursive =
-    let
-      noParam = attr: !(attr ? toArgs && attr ? option);
-    in
+  mapParamsRecursive = let
+    noParam = attr: !(attr ? toArgs && attr ? option);
+  in
     mapAttrsRecursiveCond noParam;
 
   paramsToOptions = mapParamsRecursive (_path: param: param.option);
 
   params = {
-
     log = {
-
       log.level =
         mkParamDef
-          (types.enum [
-            "debug"
-            "info"
-            "warn"
-            "error"
-            "fatal"
-          ])
+        (types.enum [
+          "debug"
           "info"
-          ''
-            Log filtering level.
-          '';
+          "warn"
+          "error"
+          "fatal"
+        ])
+        "info"
+        ''
+          Log filtering level.
+        '';
 
       log.format = mkParam types.str ''
         Log format to use.
@@ -180,10 +173,9 @@ let
         option = mkOption {
           type = with types; nullOr str;
           default =
-            if cfg.tracing.config == null then
-              null
-            else
-              toString (format.generate "tracing.yaml" cfg.tracing.config);
+            if cfg.tracing.config == null
+            then null
+            else toString (format.generate "tracing.yaml" cfg.tracing.config);
           defaultText = literalExpression ''
             if config.services.thanos.<cmd>.tracing.config == null then null
             else toString (format.generate "tracing.yaml" config.services.thanos.<cmd>.tracing.config);
@@ -197,7 +189,7 @@ let
       };
 
       tracing.config = {
-        toArgs = _opt: _attrs: [ ];
+        toArgs = _opt: _attrs: [];
         option = nullOpt format.type ''
           Tracing configuration.
 
@@ -212,12 +204,10 @@ let
       };
     };
 
-    common =
-      cfg:
+    common = cfg:
       params.log
       // params.tracing cfg
       // {
-
         http-address = mkParamDef types.str "0.0.0.0:10902" ''
           Listen `host:port` for HTTP endpoints.
         '';
@@ -245,16 +235,14 @@ let
       };
 
     objstore = cfg: {
-
       objstore.config-file = {
         toArgs = _opt: path: optionToArgs "objstore.config-file" path;
         option = mkOption {
           type = with types; nullOr str;
           default =
-            if cfg.objstore.config == null then
-              null
-            else
-              toString (format.generate "objstore.yaml" cfg.objstore.config);
+            if cfg.objstore.config == null
+            then null
+            else toString (format.generate "objstore.yaml" cfg.objstore.config);
           defaultText = literalExpression ''
             if config.services.thanos.<cmd>.objstore.config == null then null
             else toString (format.generate "objstore.yaml" config.services.thanos.<cmd>.objstore.config);
@@ -268,7 +256,7 @@ let
       };
 
       objstore.config = {
-        toArgs = _opt: _attrs: [ ];
+        toArgs = _opt: _attrs: [];
         option = nullOpt format.type ''
           Object store configuration.
 
@@ -287,7 +275,6 @@ let
       params.common cfg.sidecar
       // params.objstore cfg.sidecar
       // {
-
         prometheus.url = mkParamDef types.str "http://localhost:9090" ''
           URL at which to reach Prometheus's API.
 
@@ -317,14 +304,12 @@ let
         reloader.rule-dirs = mkListParam "reloader.rule-dir" ''
           Rule directories for the reloader to refresh.
         '';
-
       };
 
     store =
       params.common cfg.store
       // params.objstore cfg.store
       // {
-
         stateDir = mkStateDirParam "data-dir" "thanos-store" ''
           Data directory relative to `/var/lib`
           in which to cache remote blocks.
@@ -379,144 +364,146 @@ let
         '';
       };
 
-    query = params.common cfg.query // {
+    query =
+      params.common cfg.query
+      // {
+        grpc-client-tls-secure = mkFlagParam ''
+          Use TLS when talking to the gRPC server
+        '';
 
-      grpc-client-tls-secure = mkFlagParam ''
-        Use TLS when talking to the gRPC server
-      '';
+        grpc-client-tls-cert = mkParam types.str ''
+          TLS Certificates to use to identify this client to the server
+        '';
 
-      grpc-client-tls-cert = mkParam types.str ''
-        TLS Certificates to use to identify this client to the server
-      '';
+        grpc-client-tls-key = mkParam types.str ''
+          TLS Key for the client's certificate
+        '';
 
-      grpc-client-tls-key = mkParam types.str ''
-        TLS Key for the client's certificate
-      '';
+        grpc-client-tls-ca = mkParam types.str ''
+          TLS CA Certificates to use to verify gRPC servers
+        '';
 
-      grpc-client-tls-ca = mkParam types.str ''
-        TLS CA Certificates to use to verify gRPC servers
-      '';
+        grpc-client-server-name = mkParam types.str ''
+          Server name to verify the hostname on the returned gRPC certificates.
+          See <https://tools.ietf.org/html/rfc4366#section-3.1>
+        '';
 
-      grpc-client-server-name = mkParam types.str ''
-        Server name to verify the hostname on the returned gRPC certificates.
-        See <https://tools.ietf.org/html/rfc4366#section-3.1>
-      '';
+        grpc-compression = mkParam types.str ''
+          Compression algorithm to use for gRPC requests to other clients.
+        '';
 
-      grpc-compression = mkParam types.str ''
-        Compression algorithm to use for gRPC requests to other clients.
-      '';
+        web.route-prefix = mkParam types.str ''
+          Prefix for API and UI endpoints.
 
-      web.route-prefix = mkParam types.str ''
-        Prefix for API and UI endpoints.
+          This allows thanos UI to be served on a sub-path. This option is
+          analogous to {option}`web.route-prefix` of Promethus.
+        '';
 
-        This allows thanos UI to be served on a sub-path. This option is
-        analogous to {option}`web.route-prefix` of Promethus.
-      '';
+        web.external-prefix = mkParam types.str ''
+          Static prefix for all HTML links and redirect URLs in the UI query web
+          interface.
 
-      web.external-prefix = mkParam types.str ''
-        Static prefix for all HTML links and redirect URLs in the UI query web
-        interface.
+          Actual endpoints are still served on / or the
+          {option}`web.route-prefix`. This allows thanos UI to be served
+          behind a reverse proxy that strips a URL sub-path.
+        '';
 
-        Actual endpoints are still served on / or the
-        {option}`web.route-prefix`. This allows thanos UI to be served
-        behind a reverse proxy that strips a URL sub-path.
-      '';
+        web.prefix-header = mkParam types.str ''
+          Name of HTTP request header used for dynamic prefixing of UI links and
+          redirects.
 
-      web.prefix-header = mkParam types.str ''
-        Name of HTTP request header used for dynamic prefixing of UI links and
-        redirects.
+          This option is ignored if the option
+          `web.external-prefix` is set.
 
-        This option is ignored if the option
-        `web.external-prefix` is set.
+          Security risk: enable this option only if a reverse proxy in front of
+          thanos is resetting the header.
 
-        Security risk: enable this option only if a reverse proxy in front of
-        thanos is resetting the header.
+          The setting `web.prefix-header="X-Forwarded-Prefix"`
+          can be useful, for example, if Thanos UI is served via Traefik reverse
+          proxy with `PathPrefixStrip` option enabled, which
+          sends the stripped prefix value in `X-Forwarded-Prefix`
+          header. This allows thanos UI to be served on a sub-path.
+        '';
 
-        The setting `web.prefix-header="X-Forwarded-Prefix"`
-        can be useful, for example, if Thanos UI is served via Traefik reverse
-        proxy with `PathPrefixStrip` option enabled, which
-        sends the stripped prefix value in `X-Forwarded-Prefix`
-        header. This allows thanos UI to be served on a sub-path.
-      '';
+        query.timeout = mkParamDef types.str "2m" ''
+          Maximum time to process query by query node.
+        '';
 
-      query.timeout = mkParamDef types.str "2m" ''
-        Maximum time to process query by query node.
-      '';
+        query.max-concurrent = mkParamDef types.int 20 ''
+          Maximum number of queries processed concurrently by query node.
+        '';
 
-      query.max-concurrent = mkParamDef types.int 20 ''
-        Maximum number of queries processed concurrently by query node.
-      '';
+        query.replica-labels = mkListParam "query.replica-label" ''
+          Labels to treat as a replica indicator along which data is
+          deduplicated.
 
-      query.replica-labels = mkListParam "query.replica-label" ''
-        Labels to treat as a replica indicator along which data is
-        deduplicated.
+          Still you will be able to query without deduplication using
+          'dedup=false' parameter. Data includes time series, recording
+          rules, and alerting rules.
+        '';
 
-        Still you will be able to query without deduplication using
-        'dedup=false' parameter. Data includes time series, recording
-        rules, and alerting rules.
-      '';
+        selector-labels = mkAttrsParam "selector-label" ''
+          Query selector labels that will be exposed in info endpoint.
+        '';
 
-      selector-labels = mkAttrsParam "selector-label" ''
-        Query selector labels that will be exposed in info endpoint.
-      '';
+        endpoints = mkListParam "endpoint" ''
+          Addresses of statically configured Thanos API servers (repeatable).
 
-      endpoints = mkListParam "endpoint" ''
-        Addresses of statically configured Thanos API servers (repeatable).
+          The scheme may be prefixed with 'dns+' or 'dnssrv+' to detect
+          Thanos API servers through respective DNS lookups.
+        '';
 
-        The scheme may be prefixed with 'dns+' or 'dnssrv+' to detect
-        Thanos API servers through respective DNS lookups.
-      '';
+        store.sd-files = mkListParam "store.sd-files" ''
+          Path to files that contain addresses of store API servers. The path
+          can be a glob pattern.
+        '';
 
-      store.sd-files = mkListParam "store.sd-files" ''
-        Path to files that contain addresses of store API servers. The path
-        can be a glob pattern.
-      '';
+        store.sd-interval = mkParamDef types.str "5m" ''
+          Refresh interval to re-read file SD files. It is used as a resync fallback.
+        '';
 
-      store.sd-interval = mkParamDef types.str "5m" ''
-        Refresh interval to re-read file SD files. It is used as a resync fallback.
-      '';
+        store.sd-dns-interval = mkParamDef types.str "30s" ''
+          Interval between DNS resolutions.
+        '';
 
-      store.sd-dns-interval = mkParamDef types.str "30s" ''
-        Interval between DNS resolutions.
-      '';
+        store.unhealthy-timeout = mkParamDef types.str "5m" ''
+          Timeout before an unhealthy store is cleaned from the store UI page.
+        '';
 
-      store.unhealthy-timeout = mkParamDef types.str "5m" ''
-        Timeout before an unhealthy store is cleaned from the store UI page.
-      '';
+        query.auto-downsampling = mkFlagParam ''
+          Enable automatic adjustment (step / 5) to what source of data should
+          be used in store gateways if no
+          `max_source_resolution` param is specified.
+        '';
 
-      query.auto-downsampling = mkFlagParam ''
-        Enable automatic adjustment (step / 5) to what source of data should
-        be used in store gateways if no
-        `max_source_resolution` param is specified.
-      '';
+        query.partial-response = mkFlagParam ''
+          Enable partial response for queries if no
+          `partial_response` param is specified.
+        '';
 
-      query.partial-response = mkFlagParam ''
-        Enable partial response for queries if no
-        `partial_response` param is specified.
-      '';
+        query.default-evaluation-interval = mkParamDef types.str "1m" ''
+          Set default evaluation interval for sub queries.
+        '';
 
-      query.default-evaluation-interval = mkParamDef types.str "1m" ''
-        Set default evaluation interval for sub queries.
-      '';
+        store.response-timeout = mkParamDef types.str "0ms" ''
+          If a Store doesn't send any data in this specified duration then a
+          Store will be ignored and partial data will be returned if it's
+          enabled. `0` disables timeout.
+        '';
+      };
 
-      store.response-timeout = mkParamDef types.str "0ms" ''
-        If a Store doesn't send any data in this specified duration then a
-        Store will be ignored and partial data will be returned if it's
-        enabled. `0` disables timeout.
-      '';
-    };
-
-    query-frontend = params.common cfg.query-frontend // {
-      query-frontend.downstream-url = mkParamDef types.str "http://localhost:9090" ''
-        URL of downstream Prometheus Query compatible API.
-      '';
-    };
+    query-frontend =
+      params.common cfg.query-frontend
+      // {
+        query-frontend.downstream-url = mkParamDef types.str "http://localhost:9090" ''
+          URL of downstream Prometheus Query compatible API.
+        '';
+      };
 
     rule =
       params.common cfg.rule
       // params.objstore cfg.rule
       // {
-
         labels = mkAttrsParam "label" ''
           Labels to be applied to all generated metrics.
 
@@ -632,7 +619,6 @@ let
       // params.tracing cfg.compact
       // params.objstore cfg.compact
       // {
-
         http-address = mkParamDef types.str "0.0.0.0:10902" ''
           Listen `host:port` for HTTP endpoints.
         '';
@@ -696,19 +682,16 @@ let
       // params.tracing cfg.downsample
       // params.objstore cfg.downsample
       // {
-
         stateDir = mkStateDirParam "data-dir" "thanos-downsample" ''
           Data directory relative to `/var/lib`
           in which to cache blocks and process downsamplings.
         '';
-
       };
 
     receive =
       params.common cfg.receive
       // params.objstore cfg.receive
       // {
-
         receive.grpc-compression = mkParam types.str ''
           Compression algorithm to use for gRPC requests to other receivers.
         '';
@@ -734,7 +717,6 @@ let
           `0d` - disables this retention
         '';
       };
-
   };
 
   assertRelativeStateDir = cmd: {
@@ -747,68 +729,75 @@ let
       }
     ];
   };
-
-in
-{
-
+in {
   options.services.thanos = {
+    package = mkPackageOption pkgs "thanos" {};
 
-    package = mkPackageOption pkgs "thanos" { };
+    sidecar =
+      paramsToOptions params.sidecar
+      // {
+        enable = mkEnableOption "the Thanos sidecar for Prometheus server";
+        arguments = mkArgumentsOption "sidecar";
+      };
 
-    sidecar = paramsToOptions params.sidecar // {
-      enable = mkEnableOption "the Thanos sidecar for Prometheus server";
-      arguments = mkArgumentsOption "sidecar";
-    };
+    store =
+      paramsToOptions params.store
+      // {
+        enable = mkEnableOption "the Thanos store node giving access to blocks in a bucket provider";
+        arguments = mkArgumentsOption "store";
+      };
 
-    store = paramsToOptions params.store // {
-      enable = mkEnableOption "the Thanos store node giving access to blocks in a bucket provider";
-      arguments = mkArgumentsOption "store";
-    };
+    query =
+      paramsToOptions params.query
+      // {
+        enable = mkEnableOption (
+          "the Thanos query node exposing PromQL enabled Query API "
+          + "with data retrieved from multiple store nodes"
+        );
+        arguments = mkArgumentsOption "query";
+      };
 
-    query = paramsToOptions params.query // {
-      enable = mkEnableOption (
-        "the Thanos query node exposing PromQL enabled Query API "
-        + "with data retrieved from multiple store nodes"
-      );
-      arguments = mkArgumentsOption "query";
-    };
+    query-frontend =
+      paramsToOptions params.query-frontend
+      // {
+        enable = mkEnableOption "the Thanos query frontend implements a service deployed in front of queriers to
+          improve query parallelization and caching.";
+        arguments = mkArgumentsOption "query-frontend";
+      };
 
-    query-frontend = paramsToOptions params.query-frontend // {
-      enable = mkEnableOption (
-        "the Thanos query frontend implements a service deployed in front of queriers to
-          improve query parallelization and caching."
-      );
-      arguments = mkArgumentsOption "query-frontend";
-    };
+    rule =
+      paramsToOptions params.rule
+      // {
+        enable = mkEnableOption (
+          "the Thanos ruler service which evaluates Prometheus rules against"
+          + " given Query nodes, exposing Store API and storing old blocks in bucket"
+        );
+        arguments = mkArgumentsOption "rule";
+      };
 
-    rule = paramsToOptions params.rule // {
-      enable = mkEnableOption (
-        "the Thanos ruler service which evaluates Prometheus rules against"
-        + " given Query nodes, exposing Store API and storing old blocks in bucket"
-      );
-      arguments = mkArgumentsOption "rule";
-    };
+    compact =
+      paramsToOptions params.compact
+      // {
+        enable = mkEnableOption "the Thanos compactor which continuously compacts blocks in an object store bucket";
+        arguments = mkArgumentsOption "compact";
+      };
 
-    compact = paramsToOptions params.compact // {
-      enable = mkEnableOption "the Thanos compactor which continuously compacts blocks in an object store bucket";
-      arguments = mkArgumentsOption "compact";
-    };
+    downsample =
+      paramsToOptions params.downsample
+      // {
+        enable = mkEnableOption "the Thanos downsampler which continuously downsamples blocks in an object store bucket";
+        arguments = mkArgumentsOption "downsample";
+      };
 
-    downsample = paramsToOptions params.downsample // {
-      enable = mkEnableOption "the Thanos downsampler which continuously downsamples blocks in an object store bucket";
-      arguments = mkArgumentsOption "downsample";
-    };
-
-    receive = paramsToOptions params.receive // {
-      enable = mkEnableOption (
-        "the Thanos receiver which accept Prometheus remote write API requests and write to local tsdb"
-      );
-      arguments = mkArgumentsOption "receive";
-    };
+    receive =
+      paramsToOptions params.receive
+      // {
+        enable = mkEnableOption "the Thanos receiver which accept Prometheus remote write API requests and write to local tsdb";
+        arguments = mkArgumentsOption "receive";
+      };
   };
 
   config = mkMerge [
-
     (mkIf cfg.sidecar.enable {
       assertions = [
         {
@@ -818,8 +807,9 @@ in
         {
           assertion =
             !(
-              config.services.prometheus.globalConfig.external_labels == null
-              || config.services.prometheus.globalConfig.external_labels == { }
+              config.services.prometheus.globalConfig.external_labels
+              == null
+              || config.services.prometheus.globalConfig.external_labels == {}
             );
           message =
             "services.thanos.sidecar requires uniquely identifying external labels "
@@ -828,7 +818,7 @@ in
         }
       ];
       systemd.services.thanos-sidecar = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         after = [
           "network.target"
           "prometheus.service"
@@ -846,8 +836,8 @@ in
       (assertRelativeStateDir "store")
       {
         systemd.services.thanos-store = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
           serviceConfig = {
             DynamicUser = true;
             StateDirectory = cfg.store.stateDir;
@@ -861,8 +851,8 @@ in
 
     (mkIf cfg.query.enable {
       systemd.services.thanos-query = {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         serviceConfig = {
           DynamicUser = true;
           Restart = "always";
@@ -874,8 +864,8 @@ in
 
     (mkIf cfg.query-frontend.enable {
       systemd.services.thanos-query-frontend = {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         serviceConfig = {
           DynamicUser = true;
           Restart = "always";
@@ -889,8 +879,8 @@ in
       (assertRelativeStateDir "rule")
       {
         systemd.services.thanos-rule = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
           serviceConfig = {
             DynamicUser = true;
             StateDirectory = cfg.rule.stateDir;
@@ -905,23 +895,28 @@ in
     (mkIf cfg.compact.enable (mkMerge [
       (assertRelativeStateDir "compact")
       {
-        systemd.services.thanos-compact =
-          let
-            wait = cfg.compact.startAt == null;
-          in
+        systemd.services.thanos-compact = let
+          wait = cfg.compact.startAt == null;
+        in
           {
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
+            wantedBy = ["multi-user.target"];
+            after = ["network.target"];
             serviceConfig = {
-              Type = if wait then "simple" else "oneshot";
-              Restart = if wait then "always" else "no";
+              Type =
+                if wait
+                then "simple"
+                else "oneshot";
+              Restart =
+                if wait
+                then "always"
+                else "no";
               DynamicUser = true;
               StateDirectory = cfg.compact.stateDir;
               ExecStart = thanos "compact";
               ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
             };
           }
-          // optionalAttrs (!wait) { inherit (cfg.compact) startAt; };
+          // optionalAttrs (!wait) {inherit (cfg.compact) startAt;};
       }
     ]))
 
@@ -929,8 +924,8 @@ in
       (assertRelativeStateDir "downsample")
       {
         systemd.services.thanos-downsample = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
           serviceConfig = {
             DynamicUser = true;
             StateDirectory = cfg.downsample.stateDir;
@@ -946,8 +941,8 @@ in
       (assertRelativeStateDir "receive")
       {
         systemd.services.thanos-receive = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
           serviceConfig = {
             DynamicUser = true;
             StateDirectory = cfg.receive.stateDir;
@@ -958,6 +953,5 @@ in
         };
       }
     ]))
-
   ];
 }

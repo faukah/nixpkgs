@@ -2,17 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   absl-py,
   jax,
   matplotlib,
   numpy,
   scipy,
-
   # tests
   cvxpy,
   optax,
@@ -20,7 +17,6 @@
   pytestCheckHook,
   scikit-learn,
 }:
-
 buildPythonPackage rec {
   pname = "jaxopt";
   version = "0.8.5";
@@ -33,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-vPXrs8J81O+27w9P/fEFr7w4xClKb8T0IASD+iNhztQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     absl-py
@@ -85,6 +81,6 @@ buildPythonPackage rec {
     description = "Hardware accelerated, batchable and differentiable optimizers in JAX";
     changelog = "https://github.com/google/jaxopt/releases/tag/jaxopt-v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

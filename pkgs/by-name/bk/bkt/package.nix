@@ -4,7 +4,6 @@
   lib,
 }:
 rustPlatform.buildRustPackage rec {
-
   pname = "bkt";
   version = "0.8.0";
 
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Subprocess caching utility";
     homepage = "https://github.com/dimo414/bkt";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.mangoiv ];
+    maintainers = [lib.maintainers.mangoiv];
     mainProgram = "bkt";
   };
 }

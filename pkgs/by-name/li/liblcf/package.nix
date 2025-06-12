@@ -9,7 +9,6 @@
   icu74,
   inih,
 }:
-
 stdenv.mkDerivation rec {
   pname = "liblcf";
   # When updating this package, you should probably also update
@@ -41,13 +40,13 @@ stdenv.mkDerivation rec {
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Library to handle RPG Maker 2000/2003 and EasyRPG projects";
     homepage = "https://github.com/EasyRPG/liblcf";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

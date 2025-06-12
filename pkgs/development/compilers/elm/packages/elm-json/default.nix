@@ -6,7 +6,6 @@
   curl,
   openssl,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "elm-json";
   version = "0.2.13";
@@ -18,9 +17,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-pSt4ugP8r7s0ABT3Y9ZbWAG/ShsARtame2lTxXiCuws=";
   };
 
-  cargoPatches = [ ./use-system-ssl.patch ];
+  cargoPatches = [./use-system-ssl.patch];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     curl
@@ -38,6 +37,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "elm-json";
     homepage = "https://github.com/zwilias/elm-json";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.turbomack ];
+    maintainers = [lib.maintainers.turbomack];
   };
 })

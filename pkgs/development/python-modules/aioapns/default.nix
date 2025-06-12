@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aioapns";
   version = "4.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-NxX6q/P6bAJA52N/RCfYjQiv3M6w3PuVbG0JtvSUJ/g=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     h2
@@ -32,13 +31,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aioapns" ];
+  pythonImportsCheck = ["aioapns"];
 
   meta = with lib; {
     description = "Efficient APNs Client Library";
     homepage = "https://github.com/Fatal1ty/aioapns";
     changelog = "https://github.com/Fatal1ty/aioapns/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

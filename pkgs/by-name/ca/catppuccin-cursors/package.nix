@@ -9,8 +9,7 @@
   python3,
   python3Packages,
   zip,
-}:
-let
+}: let
   dimensions = {
     palette = [
       "frappe"
@@ -37,74 +36,78 @@ let
       "Yellow"
     ];
   };
-  variantName = { palette, color }: palette + color;
+  variantName = {
+    palette,
+    color,
+  }:
+    palette + color;
   variants = lib.mapCartesianProduct variantName dimensions;
   version = "2.0.0";
 in
-stdenvNoCC.mkDerivation {
-  pname = "catppuccin-cursors";
-  inherit version;
+  stdenvNoCC.mkDerivation {
+    pname = "catppuccin-cursors";
+    inherit version;
 
-  src = fetchFromGitHub {
-    owner = "catppuccin";
-    repo = "cursors";
-    rev = "v${version}";
-    hash = "sha256-qis6p+/m7+DdRDYzLq9yB2eZGpfZe5z5xRsa/1HoIG4=";
-  };
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "cursors";
+      rev = "v${version}";
+      hash = "sha256-qis6p+/m7+DdRDYzLq9yB2eZGpfZe5z5xRsa/1HoIG4=";
+    };
 
-  nativeBuildInputs = [
-    just
-    inkscape
-    xcursorgen
-    catppuccin-whiskers
-    python3
-    python3Packages.pyside6
-    zip
-  ];
+    nativeBuildInputs = [
+      just
+      inkscape
+      xcursorgen
+      catppuccin-whiskers
+      python3
+      python3Packages.pyside6
+      zip
+    ];
 
-  outputs = variants ++ [ "out" ]; # dummy "out" output to prevent breakage
+    outputs = variants ++ ["out"]; # dummy "out" output to prevent breakage
 
-  outputsToInstall = [ ];
+    outputsToInstall = [];
 
-  buildPhase = ''
-    runHook preBuild
+    buildPhase = ''
+      runHook preBuild
 
-    patchShebangs .
+      patchShebangs .
 
-    just all
+      just all
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    for output in $(getAllOutputNames); do
-      if [ "$output" != "out" ]; then
-        local outputDir="''${!output}"
-        local iconsDir="$outputDir"/share/icons
+      for output in $(getAllOutputNames); do
+        if [ "$output" != "out" ]; then
+          local outputDir="''${!output}"
+          local iconsDir="$outputDir"/share/icons
 
-        mkdir -p "$iconsDir"
+          mkdir -p "$iconsDir"
 
-        # Convert to kebab case with the first letter of each word capitalized
-        local variant=$(sed 's/\([A-Z]\)/-\1/g' <<< "$output")
-        local variant=''${variant,,}
+          # Convert to kebab case with the first letter of each word capitalized
+          local variant=$(sed 's/\([A-Z]\)/-\1/g' <<< "$output")
+          local variant=''${variant,,}
 
-        mv "dist/catppuccin-$variant-cursors" "$iconsDir"
-      fi
-    done
+          mv "dist/catppuccin-$variant-cursors" "$iconsDir"
+        fi
+      done
 
-    # Needed to prevent breakage
-    mkdir -p "$out"
+      # Needed to prevent breakage
+      mkdir -p "$out"
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = {
-    description = "Catppuccin cursor theme based on Volantes";
-    homepage = "https://github.com/catppuccin/cursors";
-    license = lib.licenses.gpl2;
-    platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ dixslyf ];
-  };
-}
+    meta = {
+      description = "Catppuccin cursor theme based on Volantes";
+      homepage = "https://github.com/catppuccin/cursors";
+      license = lib.licenses.gpl2;
+      platforms = lib.platforms.linux;
+      maintainers = with lib.maintainers; [dixslyf];
+    };
+  }

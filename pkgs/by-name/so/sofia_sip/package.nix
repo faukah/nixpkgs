@@ -8,7 +8,6 @@
   pkg-config,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sofia-sip";
   version = "1.13.17";

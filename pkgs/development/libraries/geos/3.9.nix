@@ -5,7 +5,6 @@
   cmake,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "geos";
   version = "3.9.5";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-xsmu36iGT7RLp4kRQIRCOCv9BpDPLUCRrjgFyGN4kDY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   enableParallelBuilding = true;
 
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "geos-config";
     homepage = "https://trac.osgeo.org/geos";
     license = licenses.lgpl21Only;
-    pkgConfigModules = [ "geos" ];
+    pkgConfigModules = ["geos"];
     maintainers = with lib.maintainers; [
       willcohen
     ];

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "colort";
   version = "unstable-2017-03-12";
@@ -15,14 +14,14 @@ stdenv.mkDerivation {
     sha256 = "10n8rbr2h6hz86hcx73f86pjbbfiaw2rvxsk0yfajnma7bpxgdxw";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Program for 'tinting' color values";
     homepage = "https://github.com/neeasade/colort";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.neeasade ];
+    maintainers = [maintainers.neeasade];
     mainProgram = "colort";
   };
 }

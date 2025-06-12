@@ -3,20 +3,16 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   pbr,
   setuptools,
-
   # dependencies
   inflection,
   tinycss2,
-
   # checks
   pytestCheckHook,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "qstylizer";
   version = "0.2.3";
@@ -48,12 +44,12 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  pythonImportsCheck = [ "qstylizer" ];
+  pythonImportsCheck = ["qstylizer"];
 
   meta = {
     description = "Qt stylesheet generation utility for PyQt/PySide";
     homepage = "https://github.com/blambright/qstylizer";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drewrisinger ];
+    maintainers = with lib.maintainers; [drewrisinger];
   };
 }

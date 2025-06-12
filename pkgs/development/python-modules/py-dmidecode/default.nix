@@ -6,7 +6,6 @@
   poetry-core,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "py-dmidecode";
   version = "0.1.3";
@@ -20,21 +19,21 @@ buildPythonPackage rec {
     hash = "sha256-pS1fRWuWLnXuNEGYXU/j1njC8THWQOHbnVOF9+c13Cw=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ dmidecode ];
+  propagatedBuildInputs = [dmidecode];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "dmidecode" ];
+  pythonImportsCheck = ["dmidecode"];
 
   meta = with lib; {
     description = "Python library that parses the output of dmidecode";
     homepage = "https://github.com/zaibon/py-dmidecode/";
     changelog = "https://github.com/zaibon/py-dmidecode/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

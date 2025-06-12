@@ -1,10 +1,8 @@
 {
   lib,
   mkDerivation,
-
   cmake,
   extra-cmake-modules,
-
   callaudiod,
   kcontacts,
   kcoreaddons,
@@ -30,7 +28,6 @@
   wayland,
   wayland-protocols,
 }:
-
 mkDerivation {
   pname = "plasma-dialer";
 
@@ -83,6 +80,6 @@ mkDerivation {
     mainProgram = "plasmaphonedialer";
     homepage = "https://invent.kde.org/plasma-mobile/plasma-dialer";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

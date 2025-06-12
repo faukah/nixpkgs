@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kona";
   version = "20211225";
@@ -15,13 +14,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-m3a9conyKN0qHSSAG8zAb3kx8ir+7dqgxm1XGjCQcfk=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   preInstall = ''mkdir -p "$out/bin"'';
 
   meta = with lib; {
     description = "Interpreter of K, APL-like programming language";
     homepage = "https://github.com/kevinlawler/kona/";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     mainProgram = "k";
     platforms = platforms.all;
     license = licenses.isc;

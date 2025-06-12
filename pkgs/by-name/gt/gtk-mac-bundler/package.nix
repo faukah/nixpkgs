@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtk-mac-bundler";
   version = "0.7.4";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Helper script that creates application bundles form GTK executables for macOS";
-    maintainers = [ maintainers.matthewbauer ];
+    maintainers = [maintainers.matthewbauer];
     platforms = platforms.darwin;
     homepage = "https://gitlab.gnome.org/GNOME/gtk-mac-bundler";
     license = licenses.gpl2;

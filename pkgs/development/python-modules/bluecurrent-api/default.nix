@@ -10,7 +10,6 @@
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "bluecurrent-api";
   version = "1.2.4";
@@ -25,14 +24,14 @@ buildPythonPackage rec {
     hash = "sha256-NirWs06CkiSE3HPomQwBmX+XFhBxsM6ffE72mvlfxoY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pytz
     websockets
   ];
 
-  pythonImportsCheck = [ "bluecurrent_api" ];
+  pythonImportsCheck = ["bluecurrent_api"];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Wrapper for the Blue Current websocket api";
     homepage = "https://github.com/bluecurrent/HomeAssistantAPI";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

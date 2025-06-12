@@ -17,7 +17,6 @@
   python3,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "exiv2";
   version = "0.28.5";
@@ -99,10 +98,10 @@ stdenv.mkDerivation rec {
     remove-references-to -t ${stdenv.cc.cc} $lib/lib/*.so.*.*.* $out/bin/exiv2
   '';
 
-  disallowedReferences = [ stdenv.cc.cc ];
+  disallowedReferences = [stdenv.cc.cc];
 
   # causes redefinition of _FORTIFY_SOURCE
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   meta = with lib; {
     homepage = "https://exiv2.org";
@@ -110,6 +109,6 @@ stdenv.mkDerivation rec {
     mainProgram = "exiv2";
     platforms = platforms.all;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

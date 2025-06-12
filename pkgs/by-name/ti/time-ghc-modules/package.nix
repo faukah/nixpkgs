@@ -9,7 +9,6 @@
   findutils,
   gnused,
 }:
-
 stdenv.mkDerivation rec {
   pname = "time-ghc-modules";
   version = "2.0.0";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/PhJAhP3KCWFyeSk8e5JV0cpBueH/eVDwQTMZSnnZCo=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildPhase = ''
     runHook preBuild
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
     mainProgram = "time-ghc-modules";
     homepage = "https://github.com/codedownio/time-ghc-modules";
     license = licenses.mit;
-    maintainers = [ maintainers.thomasjm ];
+    maintainers = [maintainers.thomasjm];
     platforms = platforms.all;
   };
 }

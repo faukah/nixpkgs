@@ -8,7 +8,6 @@
   libiconv,
   libintl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "recode";
   version = "3.7.14";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     libiconv
   ];
 
-  buildInputs = [ libintl ];
+  buildInputs = [libintl];
 
   enableParallelBuilding = true;
 
@@ -47,6 +46,6 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl3Plus
       gpl3Plus
     ];
-    maintainers = with lib.maintainers; [ jcumming ];
+    maintainers = with lib.maintainers; [jcumming];
   };
 })

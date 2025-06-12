@@ -4,7 +4,6 @@
   lib,
   uutf,
 }:
-
 buildDunePackage rec {
   pname = "terml";
   version = "0.0.1";
@@ -16,7 +15,7 @@ buildDunePackage rec {
     hash = "sha256-2ifMfUaYYsCFOACgXgJ5IuoSEicHyIqumLpun2ZqcDc=";
   };
 
-  propagatedBuildInputs = [ uutf ];
+  propagatedBuildInputs = [uutf];
 
   minimalOCamlVersion = "4.13";
 
@@ -25,6 +24,6 @@ buildDunePackage rec {
     description = "Terminal manipulation library in pure Ocaml";
     homepage = "https://github.com/wllfaria/terml";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.PhilVoel ];
+    maintainers = [lib.maintainers.PhilVoel];
   };
 }

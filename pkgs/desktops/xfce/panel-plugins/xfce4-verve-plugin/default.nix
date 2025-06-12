@@ -14,7 +14,6 @@
   xfce4-panel,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-verve-plugin";
   version = "2.1.0";
@@ -45,13 +44,13 @@ stdenv.mkDerivation (finalAttrs: {
     xfce4-panel
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "xfce4-verve-plugin-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "xfce4-verve-plugin-";};
 
   meta = {
     description = "Command-line plugin";
     homepage = "https://gitlab.xfce.org/panel-plugins/xfce4-verve-plugin";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

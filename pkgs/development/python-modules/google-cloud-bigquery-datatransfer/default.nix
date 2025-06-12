@@ -13,7 +13,6 @@
   pytz,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-bigquery-datatransfer";
   version = "3.19.1";
@@ -27,15 +26,17 @@ buildPythonPackage rec {
     hash = "sha256-L7em/I7t7htI5zdGwSKDs35b2t/pvIXl1lUSMM6BdRo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    google-api-core
-    libcst
-    proto-plus
-    protobuf
-    pytz
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      google-api-core
+      libcst
+      proto-plus
+      protobuf
+      pytz
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   nativeCheckInputs = [
     mock
@@ -58,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-bigquery-datatransfer";
     changelog = "https://github.com/googleapis/google-cloud-python/blob/google-cloud-bigquery-datatransfer-v${version}/packages/google-cloud-bigquery-datatransfer/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

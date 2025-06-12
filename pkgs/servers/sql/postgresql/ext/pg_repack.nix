@@ -7,7 +7,6 @@
   postgresqlTestExtension,
   testers,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pg_repack";
   version = "1.5.2";
@@ -45,7 +44,7 @@ postgresqlBuildExtension (finalAttrs: {
     '';
     homepage = "https://github.com/reorg/pg_repack";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ danbst ];
+    maintainers = with lib.maintainers; [danbst];
     inherit (postgresql.meta) platforms;
     mainProgram = "pg_repack";
   };

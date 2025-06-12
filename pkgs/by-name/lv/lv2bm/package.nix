@@ -11,7 +11,6 @@
   sord,
   sratom,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lv2bm";
   version = "1.1";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "0vlppxfb9zbmffazs1kiyb79py66s8x9hihj36m2vz86zsq7ybl0";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     libsndfile
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/portalmod/lv2bm";
     description = "Benchmark tool for LV2 plugins";
     license = licenses.gpl3;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
     mainProgram = "lv2bm";
   };

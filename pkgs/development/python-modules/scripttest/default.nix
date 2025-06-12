@@ -4,7 +4,6 @@
   fetchPypi,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "scripttest";
   version = "2.0.post1";
@@ -15,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "sha256-pgZ/H+rfSy7T5ZSwsy5BWJZA5/o5dHZapj1QhSDAv9w=";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   # Tests are not included. See https://github.com/pypa/scripttest/issues/11
   doCheck = false;
@@ -23,7 +22,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for testing interactive command-line applications";
     homepage = "https://pypi.org/project/scripttest/";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mit;
   };
 }

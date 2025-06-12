@@ -4,7 +4,6 @@
   fetchFromGitHub,
   protobuf,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "comet-gog";
   version = "0.3.0";
@@ -33,6 +32,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/imLinguin/comet";
     license = lib.licenses.gpl3Plus;
     mainProgram = "comet";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

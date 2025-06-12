@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "stackblur-go";
   version = "1.1.0";
@@ -30,7 +29,7 @@ buildGoModule rec {
     description = "Fast, almost Gaussian Blur implementation in Go";
     homepage = "https://github.com/esimov/stackblur-go";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sodiboo ];
+    maintainers = with lib.maintainers; [sodiboo];
     mainProgram = "stackblur";
   };
 }

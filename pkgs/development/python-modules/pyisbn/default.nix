@@ -8,7 +8,6 @@
   pytestCheckHook,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "pyisbn";
   version = "1.3.1";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-cPVjgXlps/8IUGieULx/917puGXD+A+DWWSxMGxO1Rk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     hypothesis
@@ -29,12 +28,12 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pythonImportsCheck = [ "pyisbn" ];
+  pythonImportsCheck = ["pyisbn"];
 
   meta = with lib; {
     description = "Python module for working with 10- and 13-digit ISBNs";
     homepage = "https://github.com/JNRowe/pyisbn";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ eigengrau ];
+    maintainers = with maintainers; [eigengrau];
   };
 }

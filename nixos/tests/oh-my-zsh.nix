@@ -1,16 +1,12 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "oh-my-zsh";
 
-  nodes.machine =
-    { pkgs, ... }:
-
-    {
-      programs.zsh = {
-        enable = true;
-        ohMyZsh.enable = true;
-      };
+  nodes.machine = {pkgs, ...}: {
+    programs.zsh = {
+      enable = true;
+      ohMyZsh.enable = true;
     };
+  };
 
   testScript = ''
     start_all()

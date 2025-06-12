@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       package = fancontrol-gui;
       command = "env QT_QPA_PLATFORM=minimal ${lib.getExe fancontrol-gui} --version";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/Maldela/fancontrol-gui/releases/tag/v${version}";
     license = lib.licenses.gpl2Plus;
     mainProgram = "fancontrol_gui";
-    maintainers = with lib.maintainers; [ dashietm ];
+    maintainers = with lib.maintainers; [dashietm];
     platforms = lib.platforms.linux;
   };
 }

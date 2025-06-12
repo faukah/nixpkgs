@@ -7,7 +7,6 @@
   rlottie,
   giflib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lottieconverter";
   version = "0.2";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-oCFQsOQbWzmzClaTOeuEtGo7uXoKYtaJuSLLgqAQP1M=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libpng
     rlottie

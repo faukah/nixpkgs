@@ -14,7 +14,6 @@
   pytestCheckHook,
   pytest-xdist,
 }:
-
 buildPythonPackage rec {
   pname = "trie";
   version = "3.0.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-kG/5ijckiEOfB5y1c3Yqudqnb1MDbPD25YZZM+H13Lw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     eth-hash
@@ -37,11 +36,13 @@ buildPythonPackage rec {
     sortedcontainers
   ];
 
-  nativeCheckInputs = [
-    hypothesis
-    pytestCheckHook
-    pytest-xdist
-  ] ++ eth-hash.optional-dependencies.pycryptodome;
+  nativeCheckInputs =
+    [
+      hypothesis
+      pytestCheckHook
+      pytest-xdist
+    ]
+    ++ eth-hash.optional-dependencies.pycryptodome;
 
   disabledTests = [
     # some core tests require fixture submodule and execution spec
@@ -49,15 +50,15 @@ buildPythonPackage rec {
     "test_bin_trie_update_value"
     "test_branch_updates"
   ];
-  disabledTestPaths = [ "tests/core/test_iter.py" ];
+  disabledTestPaths = ["tests/core/test_iter.py"];
 
-  pythonImportsCheck = [ "trie" ];
+  pythonImportsCheck = ["trie"];
 
   meta = {
     description = "Python library which implements the Ethereum Trie structure";
     homepage = "https://github.com/ethereum/py-trie";
     changelog = "https://github.com/ethereum/py-trie/blob/v${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hellwolf ];
+    maintainers = with lib.maintainers; [hellwolf];
   };
 }

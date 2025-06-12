@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "mini-graph-card";
   version = "0.13.0";
@@ -32,7 +31,7 @@ buildNpmPackage rec {
     changelog = "https://github.com/kalkih/mini-graph-card/releases/tag/v${version}";
     description = "Minimalistic graph card for Home Assistant Lovelace UI";
     homepage = "https://github.com/kalkih/mini-graph-card";
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
     license = licenses.mit;
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "harper";
   version = "0.41.0";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-KgcsLzFrN+ZDgV6cZmkUv4tUt5ko4+giHq19NjfuF74=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Grammar Checker for Developers";

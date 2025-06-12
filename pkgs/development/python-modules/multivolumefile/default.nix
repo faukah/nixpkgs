@@ -8,7 +8,6 @@
   pytest-timeout,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "multivolumefile";
   version = "0.2.3";

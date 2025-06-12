@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     description = "Self-hostable website containing handy tools for developers, with great UX";
     homepage = "https://it-tools.tech/";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ akotro ];
+    maintainers = with lib.maintainers; [akotro];
   };
 }

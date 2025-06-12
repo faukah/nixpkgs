@@ -5,7 +5,6 @@
   autoreconfHook,
   help2man,
 }:
-
 stdenv.mkDerivation {
   pname = "libiff";
   version = "0-unstable-2024-03-02";
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
       (IFF).
     '';
     homepage = "https://github.com/svanderburg/libiff";
-    maintainers = with maintainers; [ _414owen ];
+    maintainers = with maintainers; [_414owen];
     platforms = platforms.all;
     license = licenses.mit;
   };

@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage (finalAttrs: {
   pname = "runmd";
   version = "1.4.1";
@@ -24,7 +23,7 @@ buildNpmPackage (finalAttrs: {
     homepage = "https://github.com/broofa/runmd";
     changelog = "https://github.com/broofa/runmd/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     mainProgram = "runmd";
     platforms = lib.platforms.all;
   };

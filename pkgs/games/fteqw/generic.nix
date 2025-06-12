@@ -8,12 +8,11 @@
   releaseFile ? pname,
   buildFlags,
   buildInputs,
-  nativeBuildInputs ? [ ],
+  nativeBuildInputs ? [],
   postFixup ? "",
   description,
   ...
 }:
-
 stdenv.mkDerivation {
   inherit
     pname
@@ -63,7 +62,7 @@ stdenv.mkDerivation {
       limits, vulkan and OpenGL renderers, a dedicated
       server, and fteqcc, for easier QuakeC development
     '';
-    maintainers = with maintainers; [ necrophcodr ];
+    maintainers = with maintainers; [necrophcodr];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

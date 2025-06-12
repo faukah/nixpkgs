@@ -1,6 +1,5 @@
 import ./make-test-python.nix (
-  { ... }:
-  {
+  {...}: {
     name = "trilium-server";
     nodes = {
       default = {

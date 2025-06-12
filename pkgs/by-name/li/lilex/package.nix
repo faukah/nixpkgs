@@ -13,7 +13,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-G8zm35aSiXrnGgYePSwLMBzwSnd9mfCinHZSG1qBH0w=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   unpackPhase = ''
     runHook preUnpack
@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Open source programming font";
     homepage = "https://github.com/mishamyrt/Lilex";
     license = licenses.ofl;
-    maintainers = with maintainers; [ redyf ];
+    maintainers = with maintainers; [redyf];
     platforms = platforms.all;
   };
 }

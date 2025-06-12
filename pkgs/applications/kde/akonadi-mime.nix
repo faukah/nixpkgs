@@ -11,7 +11,6 @@
   kitemmodels,
   kmime,
 }:
-
 mkDerivation {
   pname = "akonadi-mime";
   meta = {

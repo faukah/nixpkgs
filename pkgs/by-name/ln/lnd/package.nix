@@ -20,7 +20,6 @@
     "routerrpc"
   ],
 }:
-
 buildGoModule rec {
   pname = "lnd";
   version = "0.19.1-beta";

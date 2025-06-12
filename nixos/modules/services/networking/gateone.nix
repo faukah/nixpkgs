@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.gateone;
-in
-{
+in {
   options = {
     services.gateone = {
       enable = lib.mkEnableOption "GateOne server";
@@ -66,8 +64,8 @@ in
         WorkingDirectory = cfg.settingsDir;
       };
 
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["network.target"];
     };
   };
 }

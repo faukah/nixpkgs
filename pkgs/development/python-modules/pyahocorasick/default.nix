@@ -5,7 +5,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyahocorasick";
   version = "2.1.0";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-SCIgu0uEjiSUiIP0WesJG+y+3ZqFBfI5PdgUzviOVrs=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ahocorasick" ];
+  pythonImportsCheck = ["ahocorasick"];
 
   meta = with lib; {
     description = "Python module implementing Aho-Corasick algorithm";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/WojciechMula/pyahocorasick";
     changelog = "https://github.com/WojciechMula/pyahocorasick/blob/${version}/CHANGELOG.rst";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

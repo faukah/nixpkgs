@@ -2,7 +2,6 @@
 # script that performs the first stage of booting the system: it loads
 # the modules necessary to mount the root file system, then calls the
 # init in the root file system to start the second boot stage.
-
 {
   config,
   options,
@@ -11,11 +10,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   udev = config.systemd.package;
 
   kernel-name = config.boot.kernelPackages.kernel.name or "kernel";
@@ -95,226 +90,227 @@ let
   # work.
   extraUtils =
     pkgs.runCommand "extra-utils"
-      {
-        nativeBuildInputs = with pkgs.buildPackages; [
-          nukeReferences
-          bintools
-        ];
-        allowedReferences = [ "out" ]; # prevent accidents like glibc being included in the initrd
+    {
+      nativeBuildInputs = with pkgs.buildPackages; [
+        nukeReferences
+        bintools
+      ];
+      allowedReferences = ["out"]; # prevent accidents like glibc being included in the initrd
+    }
+    ''
+      set +o pipefail
+
+      mkdir -p $out/bin $out/lib
+      ln -s $out/bin $out/sbin
+
+      copy_bin_and_libs () {
+        [ -f "$out/bin/$(basename $1)" ] && rm "$out/bin/$(basename $1)"
+        cp -pdv $1 $out/bin
       }
-      ''
-        set +o pipefail
 
-        mkdir -p $out/bin $out/lib
-        ln -s $out/bin $out/sbin
+      # Copy BusyBox.
+      for BIN in ${pkgs.busybox}/{s,}bin/*; do
+        copy_bin_and_libs $BIN
+      done
 
-        copy_bin_and_libs () {
-          [ -f "$out/bin/$(basename $1)" ] && rm "$out/bin/$(basename $1)"
-          cp -pdv $1 $out/bin
-        }
-
-        # Copy BusyBox.
-        for BIN in ${pkgs.busybox}/{s,}bin/*; do
-          copy_bin_and_libs $BIN
-        done
-
-        ${optionalString zfsRequiresMountHelper ''
-          # Filesystems using the "zfsutil" option are mounted regardless of the
-          # mount.zfs(8) helper, but it is required to ensure that ZFS properties
-          # are used as mount options.
-          #
-          # BusyBox does not use the ZFS helper in the first place.
-          # util-linux searches /sbin/ as last path for helpers (stage-1-init.sh
-          # must symlink it to the store PATH).
-          # Without helper program, both `mount`s silently fails back to internal
-          # code, using default options and effectively ignore security relevant
-          # ZFS properties such as `setuid=off` and `exec=off` (unless manually
-          # duplicated in `fileSystems.*.options`, defeating "zfsutil"'s purpose).
-          copy_bin_and_libs ${lib.getOutput "mount" pkgs.util-linux}/bin/mount
-          copy_bin_and_libs ${config.boot.zfs.package}/bin/mount.zfs
-        ''}
-
-        # Copy some util-linux stuff.
-        copy_bin_and_libs ${pkgs.util-linux}/sbin/blkid
-
-        # Copy dmsetup and lvm.
-        copy_bin_and_libs ${getBin pkgs.lvm2}/bin/dmsetup
-        copy_bin_and_libs ${getBin pkgs.lvm2}/bin/lvm
-
-        # Copy udev.
-        copy_bin_and_libs ${udev}/bin/udevadm
-        cp ${lib.getLib udev.kmod}/lib/libkmod.so* $out/lib
-        copy_bin_and_libs ${udev}/lib/systemd/systemd-sysctl
-        for BIN in ${udev}/lib/udev/*_id; do
-          copy_bin_and_libs $BIN
-        done
-        # systemd-udevd is only a symlink to udevadm these days
-        ln -sf udevadm $out/bin/systemd-udevd
-
-        # Copy modprobe.
-        copy_bin_and_libs ${pkgs.kmod}/bin/kmod
-        ln -sf kmod $out/bin/modprobe
-
-        # Copy multipath.
-        ${optionalString config.services.multipath.enable ''
-          copy_bin_and_libs ${config.services.multipath.package}/bin/multipath
-          copy_bin_and_libs ${config.services.multipath.package}/bin/multipathd
-          # Copy lib/multipath manually.
-          cp -rpv ${config.services.multipath.package}/lib/multipath $out/lib
-        ''}
-
-        # Copy secrets if needed.
+      ${optionalString zfsRequiresMountHelper ''
+        # Filesystems using the "zfsutil" option are mounted regardless of the
+        # mount.zfs(8) helper, but it is required to ensure that ZFS properties
+        # are used as mount options.
         #
-        # TODO: move out to a separate script; see #85000.
-        ${optionalString (!config.boot.loader.supportsInitrdSecrets) (
-          concatStringsSep "\n" (
-            mapAttrsToList (
-              dest: source:
-              let
-                source' = if source == null then dest else source;
-              in
-              ''
-                mkdir -p $(dirname "$out/secrets/${dest}")
-                # Some programs (e.g. ssh) doesn't like secrets to be
-                # symlinks, so we use `cp -L` here to match the
-                # behaviour when secrets are natively supported.
-                cp -Lr ${source'} "$out/secrets/${dest}"
-              ''
-            ) config.boot.initrd.secrets
+        # BusyBox does not use the ZFS helper in the first place.
+        # util-linux searches /sbin/ as last path for helpers (stage-1-init.sh
+        # must symlink it to the store PATH).
+        # Without helper program, both `mount`s silently fails back to internal
+        # code, using default options and effectively ignore security relevant
+        # ZFS properties such as `setuid=off` and `exec=off` (unless manually
+        # duplicated in `fileSystems.*.options`, defeating "zfsutil"'s purpose).
+        copy_bin_and_libs ${lib.getOutput "mount" pkgs.util-linux}/bin/mount
+        copy_bin_and_libs ${config.boot.zfs.package}/bin/mount.zfs
+      ''}
+
+      # Copy some util-linux stuff.
+      copy_bin_and_libs ${pkgs.util-linux}/sbin/blkid
+
+      # Copy dmsetup and lvm.
+      copy_bin_and_libs ${getBin pkgs.lvm2}/bin/dmsetup
+      copy_bin_and_libs ${getBin pkgs.lvm2}/bin/lvm
+
+      # Copy udev.
+      copy_bin_and_libs ${udev}/bin/udevadm
+      cp ${lib.getLib udev.kmod}/lib/libkmod.so* $out/lib
+      copy_bin_and_libs ${udev}/lib/systemd/systemd-sysctl
+      for BIN in ${udev}/lib/udev/*_id; do
+        copy_bin_and_libs $BIN
+      done
+      # systemd-udevd is only a symlink to udevadm these days
+      ln -sf udevadm $out/bin/systemd-udevd
+
+      # Copy modprobe.
+      copy_bin_and_libs ${pkgs.kmod}/bin/kmod
+      ln -sf kmod $out/bin/modprobe
+
+      # Copy multipath.
+      ${optionalString config.services.multipath.enable ''
+        copy_bin_and_libs ${config.services.multipath.package}/bin/multipath
+        copy_bin_and_libs ${config.services.multipath.package}/bin/multipathd
+        # Copy lib/multipath manually.
+        cp -rpv ${config.services.multipath.package}/lib/multipath $out/lib
+      ''}
+
+      # Copy secrets if needed.
+      #
+      # TODO: move out to a separate script; see #85000.
+      ${optionalString (!config.boot.loader.supportsInitrdSecrets) (
+        concatStringsSep "\n" (
+          mapAttrsToList (
+            dest: source: let
+              source' =
+                if source == null
+                then dest
+                else source;
+            in ''
+              mkdir -p $(dirname "$out/secrets/${dest}")
+              # Some programs (e.g. ssh) doesn't like secrets to be
+              # symlinks, so we use `cp -L` here to match the
+              # behaviour when secrets are natively supported.
+              cp -Lr ${source'} "$out/secrets/${dest}"
+            ''
           )
-        )}
+          config.boot.initrd.secrets
+        )
+      )}
 
-        ${config.boot.initrd.extraUtilsCommands}
+      ${config.boot.initrd.extraUtilsCommands}
 
-        # Copy ld manually since it isn't detected correctly
-        cp -pv ${pkgs.stdenv.cc.libc.out}/lib/ld*.so.? $out/lib
+      # Copy ld manually since it isn't detected correctly
+      cp -pv ${pkgs.stdenv.cc.libc.out}/lib/ld*.so.? $out/lib
 
-        # Copy all of the needed libraries in a consistent order so
-        # duplicates are resolved the same way.
-        find $out/bin $out/lib -type f | sort | while read BIN; do
-          echo "Copying libs for executable $BIN"
-          for LIB in $(${findLibs}/bin/find-libs $BIN); do
-            TGT="$out/lib/$(basename $LIB)"
-            if [ ! -f "$TGT" ]; then
-              SRC="$(readlink -e $LIB)"
-              cp -pdv "$SRC" "$TGT"
-            fi
-          done
+      # Copy all of the needed libraries in a consistent order so
+      # duplicates are resolved the same way.
+      find $out/bin $out/lib -type f | sort | while read BIN; do
+        echo "Copying libs for executable $BIN"
+        for LIB in $(${findLibs}/bin/find-libs $BIN); do
+          TGT="$out/lib/$(basename $LIB)"
+          if [ ! -f "$TGT" ]; then
+            SRC="$(readlink -e $LIB)"
+            cp -pdv "$SRC" "$TGT"
+          fi
         done
+      done
 
-        # Strip binaries further than normal.
-        chmod -R u+w $out
-        stripDirs "$STRIP" "$RANLIB" "lib bin" "-s"
+      # Strip binaries further than normal.
+      chmod -R u+w $out
+      stripDirs "$STRIP" "$RANLIB" "lib bin" "-s"
 
-        # Run patchelf to make the programs refer to the copied libraries.
-        find $out/bin $out/lib -type f | while read i; do
-          nuke-refs -e $out $i
-        done
+      # Run patchelf to make the programs refer to the copied libraries.
+      find $out/bin $out/lib -type f | while read i; do
+        nuke-refs -e $out $i
+      done
 
-        find $out/bin -type f | while read i; do
-          echo "patching $i..."
-          patchelf --set-interpreter $out/lib/ld*.so.? --set-rpath $out/lib $i || true
-        done
+      find $out/bin -type f | while read i; do
+        echo "patching $i..."
+        patchelf --set-interpreter $out/lib/ld*.so.? --set-rpath $out/lib $i || true
+      done
 
-        find $out/lib -type f \! -name 'ld*.so.?' | while read i; do
-          echo "patching $i..."
-          patchelf --set-rpath $out/lib $i
-        done
+      find $out/lib -type f \! -name 'ld*.so.?' | while read i; do
+        echo "patching $i..."
+        patchelf --set-rpath $out/lib $i
+      done
 
-        if [ -z "${toString (pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform)}" ]; then
-        # Make sure that the patchelf'ed binaries still work.
-        echo "testing patched programs..."
-        $out/bin/ash -c 'echo hello world' | grep "hello world"
-        ${
-          if zfsRequiresMountHelper then
-            ''
-              $out/bin/mount -V 1>&1 | grep -q "mount from util-linux"
-              $out/bin/mount.zfs -h 2>&1 | grep -q "Usage: mount.zfs"
-            ''
-          else
-            ''
-              $out/bin/mount --help 2>&1 | grep -q "BusyBox"
-            ''
-        }
-        $out/bin/blkid -V 2>&1 | grep -q 'libblkid'
-        $out/bin/udevadm --version
-        $out/bin/dmsetup --version 2>&1 | tee -a log | grep -q "version:"
-        LVM_SYSTEM_DIR=$out $out/bin/lvm version 2>&1 | tee -a log | grep -q "LVM"
-        ${optionalString config.services.multipath.enable ''
-          ($out/bin/multipath || true) 2>&1 | grep -q 'need to be root'
-          ($out/bin/multipathd || true) 2>&1 | grep -q 'need to be root'
-        ''}
+      if [ -z "${toString (pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform)}" ]; then
+      # Make sure that the patchelf'ed binaries still work.
+      echo "testing patched programs..."
+      $out/bin/ash -c 'echo hello world' | grep "hello world"
+      ${
+        if zfsRequiresMountHelper
+        then ''
+          $out/bin/mount -V 1>&1 | grep -q "mount from util-linux"
+          $out/bin/mount.zfs -h 2>&1 | grep -q "Usage: mount.zfs"
+        ''
+        else ''
+          $out/bin/mount --help 2>&1 | grep -q "BusyBox"
+        ''
+      }
+      $out/bin/blkid -V 2>&1 | grep -q 'libblkid'
+      $out/bin/udevadm --version
+      $out/bin/dmsetup --version 2>&1 | tee -a log | grep -q "version:"
+      LVM_SYSTEM_DIR=$out $out/bin/lvm version 2>&1 | tee -a log | grep -q "LVM"
+      ${optionalString config.services.multipath.enable ''
+        ($out/bin/multipath || true) 2>&1 | grep -q 'need to be root'
+        ($out/bin/multipathd || true) 2>&1 | grep -q 'need to be root'
+      ''}
 
-        ${config.boot.initrd.extraUtilsCommandsTest}
-        fi
-      ''; # */
+      ${config.boot.initrd.extraUtilsCommandsTest}
+      fi
+    ''; # */
 
   # Networkd link files are used early by udev to set up interfaces early.
   # This must be done in stage 1 to avoid race conditions between udev and
   # network daemons.
   linkUnits =
     pkgs.runCommand "link-units"
-      {
-        allowedReferences = [ extraUtils ];
-        preferLocalBuild = true;
-      }
-      (
-        ''
-          mkdir -p $out
-          cp -v ${udev}/lib/systemd/network/*.link $out/
-        ''
-        + (
-          let
-            links = filterAttrs (n: v: hasSuffix ".link" n) config.systemd.network.units;
-            files = mapAttrsToList (n: v: "${v.unit}/${n}") links;
-          in
+    {
+      allowedReferences = [extraUtils];
+      preferLocalBuild = true;
+    }
+    (
+      ''
+        mkdir -p $out
+        cp -v ${udev}/lib/systemd/network/*.link $out/
+      ''
+      + (
+        let
+          links = filterAttrs (n: v: hasSuffix ".link" n) config.systemd.network.units;
+          files = mapAttrsToList (n: v: "${v.unit}/${n}") links;
+        in
           concatMapStringsSep "\n" (file: "cp -v ${file} $out/") files
-        )
-      );
+      )
+    );
 
   udevRules =
     pkgs.runCommand "udev-rules"
-      {
-        allowedReferences = [ extraUtils ];
-        preferLocalBuild = true;
-      }
-      ''
-        mkdir -p $out
+    {
+      allowedReferences = [extraUtils];
+      preferLocalBuild = true;
+    }
+    ''
+      mkdir -p $out
 
-        cp -v ${udev}/lib/udev/rules.d/60-cdrom_id.rules $out/
-        cp -v ${udev}/lib/udev/rules.d/60-persistent-storage.rules $out/
-        cp -v ${udev}/lib/udev/rules.d/75-net-description.rules $out/
-        cp -v ${udev}/lib/udev/rules.d/80-drivers.rules $out/
-        cp -v ${udev}/lib/udev/rules.d/80-net-setup-link.rules $out/
-        cp -v ${pkgs.lvm2}/lib/udev/rules.d/*.rules $out/
-        ${config.boot.initrd.extraUdevRulesCommands}
+      cp -v ${udev}/lib/udev/rules.d/60-cdrom_id.rules $out/
+      cp -v ${udev}/lib/udev/rules.d/60-persistent-storage.rules $out/
+      cp -v ${udev}/lib/udev/rules.d/75-net-description.rules $out/
+      cp -v ${udev}/lib/udev/rules.d/80-drivers.rules $out/
+      cp -v ${udev}/lib/udev/rules.d/80-net-setup-link.rules $out/
+      cp -v ${pkgs.lvm2}/lib/udev/rules.d/*.rules $out/
+      ${config.boot.initrd.extraUdevRulesCommands}
 
-        for i in $out/*.rules; do
-            substituteInPlace $i \
-              --replace ata_id ${extraUtils}/bin/ata_id \
-              --replace scsi_id ${extraUtils}/bin/scsi_id \
-              --replace cdrom_id ${extraUtils}/bin/cdrom_id \
-              --replace ${pkgs.coreutils}/bin/basename ${extraUtils}/bin/basename \
-              --replace ${pkgs.util-linux}/bin/blkid ${extraUtils}/bin/blkid \
-              --replace ${getBin pkgs.lvm2}/bin ${extraUtils}/bin \
-              --replace ${pkgs.mdadm}/sbin ${extraUtils}/sbin \
-              --replace ${pkgs.bash}/bin/sh ${extraUtils}/bin/sh \
-              --replace ${udev} ${extraUtils}
-        done
+      for i in $out/*.rules; do
+          substituteInPlace $i \
+            --replace ata_id ${extraUtils}/bin/ata_id \
+            --replace scsi_id ${extraUtils}/bin/scsi_id \
+            --replace cdrom_id ${extraUtils}/bin/cdrom_id \
+            --replace ${pkgs.coreutils}/bin/basename ${extraUtils}/bin/basename \
+            --replace ${pkgs.util-linux}/bin/blkid ${extraUtils}/bin/blkid \
+            --replace ${getBin pkgs.lvm2}/bin ${extraUtils}/bin \
+            --replace ${pkgs.mdadm}/sbin ${extraUtils}/sbin \
+            --replace ${pkgs.bash}/bin/sh ${extraUtils}/bin/sh \
+            --replace ${udev} ${extraUtils}
+      done
 
-        # Work around a bug in QEMU, which doesn't implement the "READ
-        # DISC INFORMATION" SCSI command:
-        #   https://bugzilla.redhat.com/show_bug.cgi?id=609049
-        # As a result, `cdrom_id' doesn't print
-        # ID_CDROM_MEDIA_TRACK_COUNT_DATA, which in turn prevents the
-        # /dev/disk/by-label symlinks from being created.  We need these
-        # in the NixOS installation CD, so use ID_CDROM_MEDIA in the
-        # corresponding udev rules for now.  This was the behaviour in
-        # udev <= 154.  See also
-        #   https://www.spinics.net/lists/hotplug/msg03935.html
-        substituteInPlace $out/60-persistent-storage.rules \
-          --replace ID_CDROM_MEDIA_TRACK_COUNT_DATA ID_CDROM_MEDIA
-      ''; # */
+      # Work around a bug in QEMU, which doesn't implement the "READ
+      # DISC INFORMATION" SCSI command:
+      #   https://bugzilla.redhat.com/show_bug.cgi?id=609049
+      # As a result, `cdrom_id' doesn't print
+      # ID_CDROM_MEDIA_TRACK_COUNT_DATA, which in turn prevents the
+      # /dev/disk/by-label symlinks from being created.  We need these
+      # in the NixOS installation CD, so use ID_CDROM_MEDIA in the
+      # corresponding udev rules for now.  This was the behaviour in
+      # udev <= 154.  See also
+      #   https://www.spinics.net/lists/hotplug/msg03935.html
+      substituteInPlace $out/60-persistent-storage.rules \
+        --replace ID_CDROM_MEDIA_TRACK_COUNT_DATA ID_CDROM_MEDIA
+    ''; # */
 
   # The init script of boot stage 1 (loading kernel modules for
   # mounting the root FS).
@@ -341,7 +337,8 @@ let
 
       inherit (config.system.build) earlyMountScript;
 
-      inherit (config.boot.initrd)
+      inherit
+        (config.boot.initrd)
         checkJournalingFS
         verbose
         preLVMCommands
@@ -353,38 +350,44 @@ let
         kernelModules
         ;
 
-      resumeDevices = map (sd: if sd ? device then sd.device else "/dev/disk/by-label/${sd.label}") (
+      resumeDevices = map (sd:
+        if sd ? device
+        then sd.device
+        else "/dev/disk/by-label/${sd.label}") (
         filter (
           sd:
-          hasPrefix "/dev/" sd.device
-          && !sd.randomEncryption.enable
-          # Don't include zram devices
-          && !(hasPrefix "/dev/zram" sd.device)
-        ) config.swapDevices
+            hasPrefix "/dev/" sd.device
+            && !sd.randomEncryption.enable
+            # Don't include zram devices
+            && !(hasPrefix "/dev/zram" sd.device)
+        )
+        config.swapDevices
       );
 
-      fsInfo =
-        let
-          f = fs: [
-            fs.mountPoint
-            (if fs.device != null then fs.device else "/dev/disk/by-label/${fs.label}")
-            fs.fsType
-            (builtins.concatStringsSep "," fs.options)
-          ];
-        in
+      fsInfo = let
+        f = fs: [
+          fs.mountPoint
+          (
+            if fs.device != null
+            then fs.device
+            else "/dev/disk/by-label/${fs.label}"
+          )
+          fs.fsType
+          (builtins.concatStringsSep "," fs.options)
+        ];
+      in
         pkgs.writeText "initrd-fsinfo" (concatStringsSep "\n" (concatMap f fileSystems));
 
       setHostId = optionalString (config.networking.hostId != null) ''
         hi="${config.networking.hostId}"
         ${
-          if pkgs.stdenv.hostPlatform.isBigEndian then
-            ''
-              echo -ne "\x''${hi:0:2}\x''${hi:2:2}\x''${hi:4:2}\x''${hi:6:2}" > /etc/hostid
-            ''
-          else
-            ''
-              echo -ne "\x''${hi:6:2}\x''${hi:4:2}\x''${hi:2:2}\x''${hi:0:2}" > /etc/hostid
-            ''
+          if pkgs.stdenv.hostPlatform.isBigEndian
+          then ''
+            echo -ne "\x''${hi:0:2}\x''${hi:2:2}\x''${hi:4:2}\x''${hi:6:2}" > /etc/hostid
+          ''
+          else ''
+            echo -ne "\x''${hi:6:2}\x''${hi:4:2}\x''${hi:2:2}\x''${hi:0:2}" > /etc/hostid
+          ''
         }
       '';
     };
@@ -423,30 +426,30 @@ let
         {
           object =
             pkgs.runCommand "multipath.conf"
-              {
-                src = config.environment.etc."multipath.conf".text;
-                preferLocalBuild = true;
-              }
-              ''
-                target=$out
-                printf "$src" > $out
-                substituteInPlace $out \
-                  --replace ${config.services.multipath.package}/lib ${extraUtils}/lib
-              '';
+            {
+              src = config.environment.etc."multipath.conf".text;
+              preferLocalBuild = true;
+            }
+            ''
+              target=$out
+              printf "$src" > $out
+              substituteInPlace $out \
+                --replace ${config.services.multipath.package}/lib ${extraUtils}/lib
+            '';
           symlink = "/etc/multipath.conf";
         }
       ]
       ++ (lib.mapAttrsToList (symlink: options: {
-        inherit symlink;
-        object = options.source;
-      }) config.boot.initrd.extraFiles);
+          inherit symlink;
+          object = options.source;
+        })
+        config.boot.initrd.extraFiles);
   };
 
   # Script to add secret files to the initrd at bootloader update time
-  initialRamdiskSecretAppender =
-    let
-      compressorExe = initialRamdisk.compressorExecutableFunction pkgs;
-    in
+  initialRamdiskSecretAppender = let
+    compressorExe = initialRamdisk.compressorExecutableFunction pkgs;
+  in
     pkgs.writeScriptBin "append-initrd-secrets" ''
       #!${pkgs.bash}/bin/bash -e
       function usage {
@@ -464,7 +467,7 @@ let
         exit 0
       fi
 
-      ${lib.optionalString (config.boot.initrd.secrets == { }) "exit 0"}
+      ${lib.optionalString (config.boot.initrd.secrets == {}) "exit 0"}
 
       export PATH=${pkgs.coreutils}/bin:${pkgs.cpio}/bin:${pkgs.gzip}/bin:${pkgs.findutils}/bin
 
@@ -479,27 +482,25 @@ let
 
       ${lib.concatStringsSep "\n" (
         mapAttrsToList (
-          dest: source:
-          let
-            source' = if source == null then dest else toString source;
-          in
-          ''
+          dest: source: let
+            source' =
+              if source == null
+              then dest
+              else toString source;
+          in ''
             mkdir -p $(dirname "$tmp/.initrd-secrets/${dest}")
             cp -a ${source'} "$tmp/.initrd-secrets/${dest}"
           ''
-        ) config.boot.initrd.secrets
+        )
+        config.boot.initrd.secrets
       )}
 
       # mindepth 1 so that we don't change the mode of /
       (cd "$tmp" && find . -mindepth 1 | xargs touch -amt 197001010000 && find . -mindepth 1 -print0 | sort -z | cpio --quiet -o -H newc -R +0:+0 --reproducible --null) | \
         ${compressorExe} ${lib.escapeShellArgs initialRamdisk.compressorArgs} >> "$1"
     '';
-
-in
-
-{
+in {
   options = {
-
     boot.resumeDevice = mkOption {
       type = types.str;
       default = "";
@@ -525,7 +526,7 @@ in
     };
 
     boot.initrd.extraFiles = mkOption {
-      default = { };
+      default = {};
       type = types.attrsOf (
         types.submodule {
           options = {
@@ -542,7 +543,7 @@ in
     };
 
     boot.initrd.prepend = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = ''
         Other initrd files to prepend to the final initrd we are building.
@@ -550,7 +551,7 @@ in
     };
 
     boot.initrd.extraFirmwarePaths = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = ''
         Other firmware files (relative to `"''${config.hardware.firmware}/lib/firmware"`) to include in the final initrd we are building.
@@ -653,7 +654,9 @@ in
 
     boot.initrd.compressor = mkOption {
       default = (
-        if lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.9" then "zstd" else "gzip"
+        if lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.9"
+        then "zstd"
+        else "gzip"
       );
       defaultText = literalMD "`zstd` if the kernel supports it (5.9+), `gzip` if not";
       type = types.either types.str (types.functionTo types.str);
@@ -676,7 +679,7 @@ in
     };
 
     boot.initrd.secrets = mkOption {
-      default = { };
+      default = {};
       type = types.attrsOf (types.nullOr types.path);
       description = ''
         Secrets to append to the initrd. The attribute name is the
@@ -697,7 +700,7 @@ in
     };
 
     boot.initrd.supportedFilesystems = mkOption {
-      default = { };
+      default = {};
       inherit (options.boot.supportedFilesystems) example type description;
     };
 
@@ -727,8 +730,7 @@ in
     };
 
     fileSystems = mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (submodule {
           options.neededForBoot = mkOption {
             default = false;
@@ -742,7 +744,6 @@ in
           };
         });
     };
-
   };
 
   config = mkIf config.boot.initrd.enable {
@@ -752,10 +753,9 @@ in
         message = "The ‘fileSystems’ option does not specify your root file system.";
       }
       {
-        assertion =
-          let
-            inherit (config.boot) resumeDevice;
-          in
+        assertion = let
+          inherit (config.boot) resumeDevice;
+        in
           resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/";
         message =
           "boot.resumeDevice has to be an absolute path." + " Old \"x:y\" style is no longer supported.";
@@ -783,10 +783,10 @@ in
     ];
 
     system.build = mkMerge [
-      { inherit bootStage1 initialRamdiskSecretAppender extraUtils; }
+      {inherit bootStage1 initialRamdiskSecretAppender extraUtils;}
 
       # generated in nixos/modules/system/boot/systemd/initrd.nix
-      (mkIf (!config.boot.initrd.systemd.enable) { inherit initialRamdisk; })
+      (mkIf (!config.boot.initrd.systemd.enable) {inherit initialRamdisk;})
     ];
 
     system.requiredKernelConfig = with config.lib.kernelConfig; [
@@ -798,6 +798,6 @@ in
   };
 
   imports = [
-    (mkRenamedOptionModule [ "boot" "initrd" "mdadmConf" ] [ "boot" "swraid" "mdadmConf" ])
+    (mkRenamedOptionModule ["boot" "initrd" "mdadmConf"] ["boot" "swraid" "mdadmConf"])
   ];
 }

@@ -3,25 +3,21 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.dublin-traceroute;
-
-in
-{
+in {
   meta.maintainers = pkgs.dublin-traceroute.meta.maintainers;
 
   options = {
     programs.dublin-traceroute = {
       enable = lib.mkEnableOption "dublin-traceroute (including setcap wrapper)";
 
-      package = lib.mkPackageOption pkgs "dublin-traceroute" { };
+      package = lib.mkPackageOption pkgs "dublin-traceroute" {};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     security.wrappers.dublin-traceroute = {
       owner = "root";

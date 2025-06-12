@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "ia-writer-duospace";
   version = "unstable-2018-07-21";
@@ -29,6 +28,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://ia.net/topics/in-search-of-the-perfect-writing-font";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

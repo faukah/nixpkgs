@@ -6,7 +6,6 @@
   fonttools,
   black,
 }:
-
 buildPythonPackage rec {
   pname = "paintcompiler";
   version = "0.3.4";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-dmVBQUUyFc71zq8fXBQ4ii/llrGdtUCOponCzSeut6g=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     fonttools
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simoncozens/paintcompiler";
     license = lib.licenses.asl20;
     mainProgram = "paintcompiler";
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
   };
 }

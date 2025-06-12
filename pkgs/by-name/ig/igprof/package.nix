@@ -7,7 +7,6 @@
   pcre,
   gdb,
 }:
-
 stdenv.mkDerivation rec {
   version = "5.9.18";
   pname = "igprof";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     gdb
     pcre
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   CXXFLAGS = [
     "-fPIC"
     "-O2"
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     description = "Ignominous Profiler";
 
     longDescription = ''
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
 
     homepage = "https://igprof.org/";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ktf ];
+    maintainers = with lib.maintainers; [ktf];
   };
 }

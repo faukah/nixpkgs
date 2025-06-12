@@ -3,16 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   dmcfg = config.services.displayManager;
   ldmcfg = config.services.xserver.displayManager.lightdm;
   cfg = ldmcfg.greeters.lomiri;
-
-in
-{
+in {
   meta.maintainers = lib.teams.lomiri.members;
 
   options = {

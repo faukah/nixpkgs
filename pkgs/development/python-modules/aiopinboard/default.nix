@@ -13,7 +13,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aiopinboard";
   version = "2024.01.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-/N9r17e0ZvPmcqW/XtRyAENKCGRzWqeOSKPpWHHYomg=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiopinboard" ];
+  pythonImportsCheck = ["aiopinboard"];
 
   meta = with lib; {
     description = "Library to interact with the Pinboard API";
     homepage = "https://github.com/bachya/aiopinboard";
     changelog = "https://github.com/bachya/aiopinboard/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

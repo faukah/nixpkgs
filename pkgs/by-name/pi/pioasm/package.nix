@@ -5,7 +5,6 @@
   cmake,
   ninja,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pioasm";
   version = "2.1.1";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Assemble PIO programs for Raspberry Pi Pico";
     homepage = "https://github.com/raspberrypi/pico-sdk";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.unix;
     mainProgram = "pioasm";
   };

@@ -4,8 +4,7 @@
   pkgs,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.logind;
 
   logindHandlerType = lib.types.enum [
@@ -21,8 +20,7 @@ let
     "sleep"
     "lock"
   ];
-in
-{
+in {
   options.services.logind = {
     extraConfig = lib.mkOption {
       default = "";
@@ -191,7 +189,11 @@ in
     environment.etc = {
       "systemd/logind.conf".text = ''
         [Login]
-        KillUserProcesses=${if cfg.killUserProcesses then "yes" else "no"}
+        KillUserProcesses=${
+          if cfg.killUserProcesses
+          then "yes"
+          else "no"
+        }
         HandlePowerKey=${cfg.powerKey}
         HandlePowerKeyLongPress=${cfg.powerKeyLongPress}
         HandleRebootKey=${cfg.rebootKey}

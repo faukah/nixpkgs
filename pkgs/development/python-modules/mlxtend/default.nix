@@ -12,7 +12,6 @@
   matplotlib,
   joblib,
 }:
-
 buildPythonPackage rec {
   pname = "mlxtend";
   version = "0.23.4";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-xoAHYRmqN5SrEWlc18ntTZ6WAznBlVZdf+x5Yev3ysE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     scipy
@@ -43,9 +42,9 @@ buildPythonPackage rec {
     ./0001-StackingCVClassifier-fit-ensure-compatibility-with-s.patch
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "-sv" ];
+  pytestFlagsArray = ["-sv"];
 
   disabledTests = [
     # Type changed in numpy2 test should be updated
@@ -69,7 +68,7 @@ buildPythonPackage rec {
     description = "Library of Python tools and extensions for data science";
     homepage = "https://github.com/rasbt/mlxtend";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ evax ];
+    maintainers = with lib.maintainers; [evax];
     platforms = lib.platforms.unix;
   };
 }

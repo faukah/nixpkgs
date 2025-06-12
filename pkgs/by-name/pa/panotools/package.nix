@@ -8,7 +8,6 @@
   libtiff,
   perl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libpano13";
   version = "2.9.22";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Free software suite for authoring and displaying virtual reality panoramas";
     homepage = "https://panotools.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.wegank ];
+    maintainers = [lib.maintainers.wegank];
     platforms = lib.platforms.unix;
   };
 })

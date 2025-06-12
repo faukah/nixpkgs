@@ -4,7 +4,6 @@
   skawarePackages,
   pkgs,
 }:
-
 skawarePackages.buildPackage {
   pname = "skalibs";
   version = "2.14.4.0";
@@ -30,17 +29,15 @@ skawarePackages.buildPackage {
       # Empty the default path, which would be "/usr/bin:bin".
       # It would be set when PATH is empty. This hurts hermeticity.
       "--with-default-path="
-
     ]
     ++ lib.optionals (stdenv.buildPlatform.config != stdenv.hostPlatform.config) [
       # There's a fallback path for BSDs.
       "--with-sysdep-procselfexe=${
-        if stdenv.hostPlatform.isLinux then
-          "/proc/self/exe"
-        else if stdenv.hostPlatform.isSunOS then
-          "/proc/self/path/a.out"
-        else
-          "none"
+        if stdenv.hostPlatform.isLinux
+        then "/proc/self/exe"
+        else if stdenv.hostPlatform.isSunOS
+        then "/proc/self/path/a.out"
+        else "none"
       }"
       # ./configure: sysdep posixspawnearlyreturn cannot be autodetected
       # when cross-compiling. Please manually provide a value with the
@@ -65,5 +62,4 @@ skawarePackages.buildPackage {
     # and might break if skalibs gets an breaking update.
     fdtools = pkgs.fdtools;
   };
-
 }

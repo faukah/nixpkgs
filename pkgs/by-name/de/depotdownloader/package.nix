@@ -4,7 +4,6 @@
   fetchFromGitHub,
   dotnetCorePackages,
 }:
-
 buildDotnetModule rec {
   pname = "depotdownloader";
   version = "3.4.0";
@@ -27,7 +26,7 @@ buildDotnetModule rec {
     description = "Steam depot downloader utilizing the SteamKit2 library";
     changelog = "https://github.com/SteamRE/DepotDownloader/releases/tag/DepotDownloader_${version}";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.babbaj ];
+    maintainers = [lib.maintainers.babbaj];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

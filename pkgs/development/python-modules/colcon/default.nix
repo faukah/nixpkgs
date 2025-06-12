@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-R/TVHPT305PwaVSisP0TtbgjCFBwCZkXOAgkYhCKpyY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     empy
@@ -51,7 +51,7 @@ buildPythonPackage rec {
     "test/test_spell_check.py"
   ];
 
-  pythonImportsCheck = [ "colcon_core" ];
+  pythonImportsCheck = ["colcon_core"];
 
   pythonRemoveDeps = [
     # We use pytest-cov-stub instead (and it is not a runtime dependency anyways)
@@ -62,7 +62,7 @@ buildPythonPackage rec {
     description = "Command line tool to build sets of software packages";
     homepage = "https://github.com/colcon/colcon-core";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ guelakais ];
+    maintainers = with lib.maintainers; [guelakais];
     mainProgram = "colcon";
   };
 }

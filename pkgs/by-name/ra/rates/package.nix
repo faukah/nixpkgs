@@ -4,7 +4,6 @@
   rustPlatform,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rates";
   version = "0.7.0";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-qfuCA1kAEbYIYI274lNrEKZNhltQP71CwtsjBr0REJs=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doInstallCheck = true;
 
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "rates";
   };
 }

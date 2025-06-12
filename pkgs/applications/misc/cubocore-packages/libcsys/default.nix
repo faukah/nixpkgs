@@ -7,7 +7,6 @@
   cmake,
   ninja,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libcsys";
   version = "5.0.0";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library for managing drive and getting system resource information in real time";
     homepage = "https://gitlab.com/cubocore/libcsys";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dan4ik605743 ];
+    maintainers = with lib.maintainers; [dan4ik605743];
     platforms = lib.platforms.linux;
   };
 })

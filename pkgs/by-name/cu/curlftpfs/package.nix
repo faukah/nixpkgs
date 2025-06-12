@@ -9,7 +9,6 @@
   glib,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "curlftpfs";
   version = "0.9.2";

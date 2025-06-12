@@ -4,7 +4,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "dnstake";
   version = "0.1.1";
@@ -23,7 +22,7 @@ buildGoModule rec {
     homepage = "https://github.com/pwnesia/dnstake";
     changelog = "https://github.com/pwnesia/dnstake/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "dnstake";
     broken = stdenv.hostPlatform.isDarwin;
   };

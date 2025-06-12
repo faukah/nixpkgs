@@ -13,7 +13,6 @@
   talloc,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cifs-utils";
   version = "7.3";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags =
-    [ "ROOTSBINDIR=$(out)/sbin" ]
+    ["ROOTSBINDIR=$(out)/sbin"]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # AC_FUNC_MALLOC is broken on cross builds.
       "ac_cv_func_malloc_0_nonnull=yes"

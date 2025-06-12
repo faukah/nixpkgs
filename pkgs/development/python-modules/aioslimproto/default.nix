@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aioslimproto";
   version = "3.1.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
       --replace-fail 'version = "0.0.0"' 'version = "${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -39,13 +38,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aioslimproto" ];
+  pythonImportsCheck = ["aioslimproto"];
 
   meta = with lib; {
     description = "Module to control Squeezebox players";
     homepage = "https://github.com/home-assistant-libs/aioslimproto";
     changelog = "https://github.com/home-assistant-libs/aioslimproto/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

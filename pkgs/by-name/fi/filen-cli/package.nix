@@ -11,7 +11,6 @@
   perl,
   pkg-config,
 }:
-
 buildNpmPackage (finalAttrs: {
   pname = "filen-cli";
   version = "0.0.34";
@@ -41,7 +40,7 @@ buildNpmPackage (finalAttrs: {
     ];
 
   # for keytar
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ libsecret ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [libsecret];
 
   postPatch = ''
     # The version string is substituted during publishing:
@@ -63,7 +62,7 @@ buildNpmPackage (finalAttrs: {
     runHook postInstall
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/filen";
   versionCheckProgramArg = "--version";
 
@@ -71,7 +70,7 @@ buildNpmPackage (finalAttrs: {
   doInstallCheck = !stdenv.hostPlatform.isDarwin;
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version-regex=^v([0-9.]+)$" ];
+    extraArgs = ["--version-regex=^v([0-9.]+)$"];
   };
 
   meta = {
@@ -79,7 +78,7 @@ buildNpmPackage (finalAttrs: {
     homepage = "https://github.com/FilenCloudDienste/filen-cli";
     changelog = "https://github.com/FilenCloudDienste/filen-cli/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ eilvelia ];
+    maintainers = with lib.maintainers; [eilvelia];
     mainProgram = "filen";
   };
 })

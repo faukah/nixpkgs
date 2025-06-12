@@ -8,7 +8,6 @@
   makeWrapper,
   viceroy,
 }:
-
 buildGoModule rec {
   pname = "fastly";
   version = "11.3.0";
@@ -51,20 +50,18 @@ buildGoModule rec {
     "-X github.com/fastly/cli/pkg/revision.GoHostOS=${go.GOHOSTOS}"
     "-X github.com/fastly/cli/pkg/revision.GoHostArch=${go.GOHOSTARCH}"
   ];
-  preBuild =
-    let
-      cliConfigToml = fetchurl {
-        url = "https://web.archive.org/web/20240910172801/https://developer.fastly.com/api/internal/cli-config";
-        hash = "sha256-r4ahroyU4hyTN88UK02FvXU8OTQ6OoNInt9WrzZk7Bk=";
-      };
-    in
-    ''
-      cp ${cliConfigToml} ./pkg/config/config.toml
-      ldflags+=" -X github.com/fastly/cli/pkg/revision.GitCommit=$(cat COMMIT)"
-    '';
+  preBuild = let
+    cliConfigToml = fetchurl {
+      url = "https://web.archive.org/web/20240910172801/https://developer.fastly.com/api/internal/cli-config";
+      hash = "sha256-r4ahroyU4hyTN88UK02FvXU8OTQ6OoNInt9WrzZk7Bk=";
+    };
+  in ''
+    cp ${cliConfigToml} ./pkg/config/config.toml
+    ldflags+=" -X github.com/fastly/cli/pkg/revision.GitCommit=$(cat COMMIT)"
+  '';
 
   preFixup = ''
-    wrapProgram $out/bin/fastly --prefix PATH : ${lib.makeBinPath [ viceroy ]} \
+    wrapProgram $out/bin/fastly --prefix PATH : ${lib.makeBinPath [viceroy]} \
       --set FASTLY_VICEROY_USE_PATH 1
   '';
 

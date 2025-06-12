@@ -7,7 +7,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ptyprocess";
   version = "0.7.0";
@@ -32,17 +31,17 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ptyprocess" ];
+  pythonImportsCheck = ["ptyprocess"];
 
   meta = {
     description = "Run a subprocess in a pseudo terminal";
     homepage = "https://github.com/pexpect/ptyprocess";
     changelog = "https://github.com/pexpect/ptyprocess/releases/tag/${version}";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
   };
 }

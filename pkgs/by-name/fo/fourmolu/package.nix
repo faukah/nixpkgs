@@ -1,11 +1,10 @@
 {
   haskellPackages,
   haskell,
-}:
-
-let
-  inherit (haskell.lib.compose)
+}: let
+  inherit
+    (haskell.lib.compose)
     justStaticExecutables
     ;
 in
-justStaticExecutables haskellPackages.fourmolu
+  justStaticExecutables haskellPackages.fourmolu

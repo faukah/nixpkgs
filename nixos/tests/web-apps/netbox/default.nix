@@ -9,27 +9,24 @@ let
   testPassword = "verySecure";
   testGroup = "netbox-users";
 in
-import ../../make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    netbox,
-    ...
-  }:
-  {
-    name = "netbox";
+  import ../../make-test-python.nix (
+    {
+      lib,
+      pkgs,
+      netbox,
+      ...
+    }: {
+      name = "netbox";
 
-    meta = with lib.maintainers; {
-      maintainers = [
-        minijackson
-      ];
-    };
+      meta = with lib.maintainers; {
+        maintainers = [
+          minijackson
+        ];
+      };
 
-    skipTypeCheck = true;
+      skipTypeCheck = true;
 
-    nodes.machine =
-      { config, ... }:
-      {
+      nodes.machine = {config, ...}: {
         virtualisation.memorySize = 2048;
         services.netbox = {
           enable = true;
@@ -142,13 +139,12 @@ import ../../make-test-python.nix (
           };
         };
 
-        users.users.nginx.extraGroups = [ "netbox" ];
+        users.users.nginx.extraGroups = ["netbox"];
 
-        networking.firewall.allowedTCPPorts = [ 80 ];
+        networking.firewall.allowedTCPPorts = [80];
       };
 
-    testScript =
-      let
+      testScript = let
         changePassword = pkgs.writeText "change-password.py" ''
           from users.models import User
           u = User.objects.get(username='netbox')
@@ -156,9 +152,9 @@ import ../../make-test-python.nix (
           u.save()
         '';
       in
-      builtins.replaceStrings
-        [ "$\{changePassword}" "$\{testUser}" "$\{testPassword}" "$\{testGroup}" ]
-        [ "${changePassword}" "${testUser}" "${testPassword}" "${testGroup}" ]
+        builtins.replaceStrings
+        ["$\{changePassword}" "$\{testUser}" "$\{testPassword}" "$\{testGroup}"]
+        ["${changePassword}" "${testUser}" "${testPassword}" "${testGroup}"]
         (lib.readFile "${./testScript.py}");
-  }
-)
+    }
+  )

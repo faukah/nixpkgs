@@ -4,7 +4,6 @@
   fetchFromGitHub,
   chez,
 }:
-
 stdenv.mkDerivation rec {
   pname = "chez-srfi";
   version = "1.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yBhRNfoEt1LOn3/zd/yOWwfErN/qG/tQZnDRqEf8j/0=";
   };
 
-  buildInputs = [ chez ];
+  buildInputs = [chez];
 
   makeFlags = [
     "CHEZ=${lib.getExe chez}"
@@ -28,8 +27,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "This package provides a collection of SRFI libraries for Chez Scheme";
     homepage = "https://github.com/fedeinthemix/chez-srfi/";
-    maintainers = [ maintainers.jitwit ];
+    maintainers = [maintainers.jitwit];
     license = licenses.x11;
   };
-
 }

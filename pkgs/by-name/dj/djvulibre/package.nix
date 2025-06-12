@@ -8,7 +8,6 @@
   libiconv,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "djvulibre";
   version = "3.5.28";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "Big set of CLI tools to make/modify/optimize/show/export DJVU files";
     homepage = "https://djvu.sourceforge.net";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ Anton-Latukha ];
+    maintainers = with maintainers; [Anton-Latukha];
     platforms = platforms.all;
   };
 }

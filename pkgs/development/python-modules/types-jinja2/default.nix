@@ -5,7 +5,6 @@
   setuptools,
   types-markupsafe,
 }:
-
 buildPythonPackage rec {
   pname = "types-jinja2";
   version = "2.11.9";
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     homepage = "https://pypi.org/project/types-Jinja2/";
     changelog = "https://github.com/typeshed-internal/stub_uploader/blob/main/data/changelogs/MarkupSafe.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
   };
 }

@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.graylog;
 
   confFile = pkgs.writeText "graylog.conf" ''
@@ -26,16 +25,11 @@ let
     name = "graylog-plugins";
     paths = cfg.plugins;
   };
-
-in
-
-{
+in {
   ###### interface
 
   options = {
-
     services.graylog = {
-
       enable = lib.mkEnableOption "Graylog, a log management solution";
 
       package = lib.mkPackageOption pkgs "graylog" {
@@ -119,31 +113,27 @@ in
 
       plugins = lib.mkOption {
         description = "Extra graylog plugins";
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.package;
       };
-
     };
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     # Note: when changing the default, make it conditional on
     # ‘system.stateVersion’ to maintain compatibility with existing
     # systems!
-    services.graylog.package =
-      let
-        mkThrow = ver: throw "graylog-${ver} was removed, please upgrade your graylog version.";
-        base =
-          if lib.versionAtLeast config.system.stateVersion "25.05" then
-            pkgs.graylog-6_0
-          else if lib.versionAtLeast config.system.stateVersion "23.05" then
-            mkThrow "5_1"
-          else
-            mkThrow "3_3";
-      in
+    services.graylog.package = let
+      mkThrow = ver: throw "graylog-${ver} was removed, please upgrade your graylog version.";
+      base =
+        if lib.versionAtLeast config.system.stateVersion "25.05"
+        then pkgs.graylog-6_0
+        else if lib.versionAtLeast config.system.stateVersion "23.05"
+        then mkThrow "5_1"
+        else mkThrow "3_3";
+    in
       lib.mkDefault base;
 
     users.users = lib.mkIf (cfg.user == "graylog") {
@@ -153,7 +143,7 @@ in
         description = "Graylog server daemon user";
       };
     };
-    users.groups = lib.mkIf (cfg.user == "graylog") { graylog = { }; };
+    users.groups = lib.mkIf (cfg.user == "graylog") {graylog = {};};
 
     systemd.tmpfiles.rules = [
       "d '${cfg.messageJournalDir}' - ${cfg.user} - - -"
@@ -161,7 +151,7 @@ in
 
     systemd.services.graylog = {
       description = "Graylog Server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment = {
         GRAYLOG_CONF = "${confFile}";
       };

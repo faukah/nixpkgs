@@ -8,7 +8,6 @@
   setuptools-scm,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "stringparser";
   version = "0.7";
@@ -28,17 +27,17 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [ typing-extensions ];
+  propagatedBuildInputs = [typing-extensions];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "stringparser" ];
+  pythonImportsCheck = ["stringparser"];
 
   meta = with lib; {
     description = "Easy to use pattern matching and information extraction";
     homepage = "https://github.com/hgrecco/stringparser";
     changelog = "https://github.com/hgrecco/stringparser/blob/${version}/CHANGES";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ evilmav ];
+    maintainers = with maintainers; [evilmav];
   };
 }

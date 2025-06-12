@@ -18,7 +18,6 @@
   help2man,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-firmware";
   version = "47.0";
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Tool for installing firmware on devices";
     mainProgram = "gnome-firmware";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 })

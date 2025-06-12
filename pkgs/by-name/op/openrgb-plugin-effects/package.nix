@@ -8,7 +8,6 @@
   openal,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openrgb-plugin-effects";
   version = "0.9";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/OpenRGBDevelopers/OpenRGBEffectsPlugin";
     description = "Effects plugin for OpenRGB";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.linux;
   };
 })

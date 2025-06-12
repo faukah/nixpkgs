@@ -7,7 +7,6 @@
   qmake,
   qtmultimedia,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qzxing";
   version = "3.3.0";
@@ -44,14 +43,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Qt/QML wrapper library for the ZXing library";
     homepage = "https://github.com/ftylitak/qzxing";
     license = licenses.asl20;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.unix;
     pkgConfigModules = [
       "QZXing"

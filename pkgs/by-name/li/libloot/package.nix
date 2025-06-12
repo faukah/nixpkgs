@@ -2,17 +2,13 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   rustPlatform,
   rust-cbindgen,
-
   cmake,
   pkg-config,
-
   withDocs ? true,
   doxygen,
   python3Packages,
-
   boost,
   fmt_11,
   gtest,
@@ -21,16 +17,17 @@
   tbb_2021_11,
   yaml-cpp,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libloot";
   version = "0.25.5";
   # Note: don't forget to also update the package versions in the passthru section
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals withDocs [ "doc" ];
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optionals withDocs ["doc"];
 
   src = fetchFromGitHub {
     owner = "loot";
@@ -69,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     fmt_11
     gtest
     icu
-    (spdlog.override { fmt = fmt_11; })
+    (spdlog.override {fmt = fmt_11;})
     tbb_2021_11
 
     finalAttrs.passthru.yaml-cpp # has merge-key support
@@ -95,16 +92,14 @@ stdenv.mkDerivation (finalAttrs: {
     sphinx-build -b html ../docs docs/html
   '';
 
-  env.GTEST_FILTER =
-    let
-      disabledTests = [
-        # Some locale related tests fail because they need the LOCALE_ARCHIVE env var to be set to "${glibcLocales}/lib/locale/locale-archive"
-        # Due to storage size concerns of `glibcLocales`, we skip this
-        "CompareFilenames.shouldBeCaseInsensitiveAndLocaleInvariant"
-        "NormalizeFilename.shouldCaseFoldStringsAndBeLocaleInvariant"
-      ];
-    in
-    "-${builtins.concatStringsSep ":" disabledTests}";
+  env.GTEST_FILTER = let
+    disabledTests = [
+      # Some locale related tests fail because they need the LOCALE_ARCHIVE env var to be set to "${glibcLocales}/lib/locale/locale-archive"
+      # Due to storage size concerns of `glibcLocales`, we skip this
+      "CompareFilenames.shouldBeCaseInsensitiveAndLocaleInvariant"
+      "NormalizeFilename.shouldCaseFoldStringsAndBeLocaleInvariant"
+    ];
+  in "-${builtins.concatStringsSep ":" disabledTests}";
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
@@ -116,8 +111,7 @@ stdenv.mkDerivation (finalAttrs: {
       hash = "sha256-3Aa98EwqpuGA3YlsRF8luWzXVEFO/rs6JXisXdLyIK4=";
     };
 
-    buildRustFFIPackage =
-      args:
+    buildRustFFIPackage = args:
       rustPlatform.buildRustPackage (
         args
         // {
@@ -125,7 +119,7 @@ stdenv.mkDerivation (finalAttrs: {
             cp -r --no-preserve=all ${finalAttrs.passthru.testing-plugins} testing-plugins
           '';
 
-          nativeBuildInputs = [ rust-cbindgen ];
+          nativeBuildInputs = [rust-cbindgen];
 
           buildAndTestSubdir = "ffi";
 
@@ -204,7 +198,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "C++ library for accessing LOOT's metadata and sorting functionality";
     homepage = "https://github.com/loot/libloot";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.linux;
   };
 })

@@ -5,7 +5,6 @@
   poetry-core,
   pydantic,
 }:
-
 buildPythonPackage rec {
   pname = "openapi-pydantic";
   version = "0.5.1";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "Pydantic OpenAPI schema implementation";
     homepage = "https://github.com/mike-oakley/openapi-pydantic";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ taha-yassine ];
+    maintainers = with lib.maintainers; [taha-yassine];
   };
 }

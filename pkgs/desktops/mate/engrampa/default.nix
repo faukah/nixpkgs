@@ -17,7 +17,6 @@
   withMagic ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
   file,
 }:
-
 stdenv.mkDerivation rec {
   pname = "engrampa";
   version = "1.28.2";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Archive Manager for MATE";
@@ -69,6 +68,6 @@ stdenv.mkDerivation rec {
       fdl11Plus
     ];
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

@@ -3,27 +3,23 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.rshim;
 
   rshimCommand =
-    [ "${cfg.package}/bin/rshim" ]
-    ++ lib.optionals (cfg.backend != null) [ "--backend ${cfg.backend}" ]
-    ++ lib.optionals (cfg.device != null) [ "--device ${cfg.device}" ]
-    ++ lib.optionals (cfg.index != null) [ "--index ${builtins.toString cfg.index}" ]
-    ++ [ "--log-level ${builtins.toString cfg.log-level}" ];
-in
-{
+    ["${cfg.package}/bin/rshim"]
+    ++ lib.optionals (cfg.backend != null) ["--backend ${cfg.backend}"]
+    ++ lib.optionals (cfg.device != null) ["--device ${cfg.device}"]
+    ++ lib.optionals (cfg.index != null) ["--index ${builtins.toString cfg.index}"]
+    ++ ["--log-level ${builtins.toString cfg.log-level}"];
+in {
   options.services.rshim = {
     enable = lib.mkEnableOption "user-space rshim driver for the BlueField SoC";
 
-    package = lib.mkPackageOption pkgs "rshim-user-space" { };
+    package = lib.mkPackageOption pkgs "rshim-user-space" {};
 
     backend = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         nullOr (enum [
           "usb"
           "pcie"
@@ -69,8 +65,7 @@ in
     };
 
     config = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (oneOf [
           int
           str
@@ -81,7 +76,7 @@ in
         between rshim devices and rshim names. It can also be used to ignore
         some rshim devices.
       '';
-      default = { };
+      default = {};
       example = {
         DISPLAY_LEVEL = 0;
         rshim0 = "usb-2-1.7";
@@ -91,14 +86,16 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.etc = lib.mkIf (cfg.config != { }) {
-      "rshim.conf".text = lib.generators.toKeyValue {
-        mkKeyValue = lib.generators.mkKeyValueDefault { } " ";
-      } cfg.config;
+    environment.etc = lib.mkIf (cfg.config != {}) {
+      "rshim.conf".text =
+        lib.generators.toKeyValue {
+          mkKeyValue = lib.generators.mkKeyValueDefault {} " ";
+        }
+        cfg.config;
     };
 
     systemd.services.rshim = {
-      after = [ "network.target" ];
+      after = ["network.target"];
       serviceConfig = {
         Restart = "always";
         Type = "forking";
@@ -107,9 +104,9 @@ in
         ];
         KillMode = "control-group";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ nikstur ];
+  meta.maintainers = with lib.maintainers; [nikstur];
 }

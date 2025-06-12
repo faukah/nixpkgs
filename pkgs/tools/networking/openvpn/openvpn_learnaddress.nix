@@ -7,7 +7,6 @@
   gawk,
   util-linux,
 }:
-
 stdenv.mkDerivation {
   pname = "openvpn-learnaddress";
   version = "unstable-2013-10-21";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
     sha256 = "16pcyvyhwsx34i0cjkkx906lmrwdd9gvznvqdwlad4ha8l8f8z42";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     coreutils
     gawk
@@ -30,18 +29,18 @@ stdenv.mkDerivation {
 
     wrapProgram $out/libexec/openvpn/openvpn-learnaddress \
         --prefix PATH : ${
-          lib.makeBinPath [
-            coreutils
-            gawk
-            util-linux
-          ]
-        }
+      lib.makeBinPath [
+        coreutils
+        gawk
+        util-linux
+      ]
+    }
   '';
 
   meta = {
     description = "Openvpn learn-address script to manage a hosts-like file";
     homepage = "https://gist.github.com/offlinehacker/4058733/";
-    maintainers = [ lib.maintainers.offline ];
+    maintainers = [lib.maintainers.offline];
     platforms = lib.platforms.unix;
   };
 }

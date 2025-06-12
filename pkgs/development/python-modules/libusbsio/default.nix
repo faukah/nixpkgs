@@ -4,7 +4,6 @@
   fetchPypi,
   libusbsio,
 }:
-
 buildPythonPackage rec {
   pname = "libusbsio";
   format = "setuptools";
@@ -25,11 +24,11 @@ buildPythonPackage rec {
         --replace "dllpath = LIBUSBSIO._lookup_dll_path(dfltdir, dllname)" 'dllpath = "${libusbsio}/lib/" + dllname'
   '';
 
-  buildInputs = [ libusbsio ];
+  buildInputs = [libusbsio];
 
   doCheck = false; # they require a device to be connected over USB
 
-  pythonImportsCheck = [ "libusbsio" ];
+  pythonImportsCheck = ["libusbsio"];
 
   meta = with lib; {
     description = "LIBUSBSIO Host Library for USB Enabled MCUs";

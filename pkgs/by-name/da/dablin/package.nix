@@ -10,7 +10,6 @@
   faad2,
   pcre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dablin";
   version = "1.16.0";
@@ -43,6 +42,6 @@ stdenv.mkDerivation rec {
       lgpl21Only
     ];
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.markuskowa ];
+    maintainers = [lib.maintainers.markuskowa];
   };
 }

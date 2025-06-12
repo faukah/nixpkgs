@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   bashInteractive,
   dbus,
   docbook2x,
@@ -16,11 +15,9 @@
   openssl,
   pkg-config,
   systemd,
-
   fetchpatch,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lxc";
   version = "6.0.4";
@@ -123,6 +120,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.lxc ];
+    teams = [lib.teams.lxc];
   };
 })

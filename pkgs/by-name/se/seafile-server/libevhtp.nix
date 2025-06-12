@@ -5,7 +5,6 @@
   cmake,
   libevent,
 }:
-
 stdenv.mkDerivation {
   pname = "libevhtp";
   version = "unstable-2021-04-28";
@@ -17,9 +16,9 @@ stdenv.mkDerivation {
     sha256 = "1rf0jcy2lf8jbzpkhfgv289hc8zdy5zs6sn36k4vlqvilginxiid";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ libevent ];
+  buildInputs = [libevent];
 
   cmakeFlags = [
     "-DEVHTP_DISABLE_SSL=ON"

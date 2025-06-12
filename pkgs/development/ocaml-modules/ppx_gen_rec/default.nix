@@ -4,7 +4,6 @@
   buildDunePackage,
   ppxlib,
 }:
-
 buildDunePackage rec {
   pname = "ppx_gen_rec";
   version = "2.0.0";
@@ -17,12 +16,12 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.07";
   duneVersion = "3";
 
-  buildInputs = [ ppxlib ];
+  buildInputs = [ppxlib];
 
   meta = with lib; {
     homepage = "https://github.com/flowtype/ocaml-ppx_gen_rec";
     description = "Ppx rewriter that transforms a recursive module expression into a struct";
     license = licenses.mit;
-    maintainers = with maintainers; [ frontsideair ];
+    maintainers = with maintainers; [frontsideair];
   };
 }

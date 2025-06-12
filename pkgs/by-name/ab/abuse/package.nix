@@ -10,7 +10,6 @@
   SDL2_mixer,
   freepats,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "abuse";
   version = "0.9.1";
@@ -76,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
     # of its sfx and music only gave Debian permission to redistribute the
     # files. Our friends from Debian thought about it some more:
     # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=648272
-    maintainers = with lib.maintainers; [ iblech ];
+    maintainers = with lib.maintainers; [iblech];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

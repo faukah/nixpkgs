@@ -16,7 +16,6 @@
   qca-qt5,
   shared-mime-info,
 }:
-
 mkDerivation rec {
   pname = "okteta";
   version = "0.26.21";
@@ -31,7 +30,7 @@ mkDerivation rec {
     extra-cmake-modules
     kdoctools
   ];
-  buildInputs = [ shared-mime-info ];
+  buildInputs = [shared-mime-info];
 
   propagatedBuildInputs = [
     kconfig

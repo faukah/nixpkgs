@@ -8,13 +8,12 @@
   stdenv,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "swt";
   version = "4.34";
   fullVersion = "${finalAttrs.version}-202411201800";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   passthru.srcMetadataByPlatform = {
     x86_64-linux.platform = "gtk-linux-x86_64";
@@ -27,27 +26,26 @@ stdenv.mkDerivation (finalAttrs: {
   # Alas, the Eclipse Project apparently doesn't produce source-only
   # releases of SWT.  So we just grab a binary release and extract
   # "src.zip" from that.
-  src =
-    let
-      inherit (finalAttrs.passthru) srcMetadata;
-    in
+  src = let
+    inherit (finalAttrs.passthru) srcMetadata;
+  in
     assert srcMetadata != null;
-    fetchzip {
-      url = "https://archive.eclipse.org/eclipse/downloads/drops4/R-${finalAttrs.fullVersion}/swt-${finalAttrs.version}-${srcMetadata.platform}.zip";
-      inherit (srcMetadata) hash;
-      stripRoot = false;
-      postFetch = ''
-        mkdir "$unpackDir"
-        cd "$unpackDir"
+      fetchzip {
+        url = "https://archive.eclipse.org/eclipse/downloads/drops4/R-${finalAttrs.fullVersion}/swt-${finalAttrs.version}-${srcMetadata.platform}.zip";
+        inherit (srcMetadata) hash;
+        stripRoot = false;
+        postFetch = ''
+          mkdir "$unpackDir"
+          cd "$unpackDir"
 
-        renamed="$TMPDIR/src.zip"
-        mv -- "$out/src.zip" "$renamed"
-        unpackFile "$renamed"
-        rm -r -- "$out"
+          renamed="$TMPDIR/src.zip"
+          mv -- "$out/src.zip" "$renamed"
+          unpackFile "$renamed"
+          rm -r -- "$out"
 
-        mv -- "$unpackDir" "$out"
-      '';
-    };
+          mv -- "$unpackDir" "$out"
+        '';
+      };
 
   nativeBuildInputs = [
     jdk
@@ -105,7 +103,7 @@ stdenv.mkDerivation (finalAttrs: {
       mpl11
       mpl20
     ];
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.attrNames finalAttrs.passthru.srcMetadataByPlatform;
   };
 })

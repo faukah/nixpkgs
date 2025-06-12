@@ -15,7 +15,6 @@
   adwaita-icon-theme,
   gdk-pixbuf,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cog";
   version = "0.8.1";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Igalia/cog";
     mainProgram = "cog";
     license = licenses.mit;
-    maintainers = [ maintainers.matthewbauer ];
+    maintainers = [maintainers.matthewbauer];
     platforms = platforms.linux;
   };
 }

@@ -21,7 +21,6 @@
   xlsxwriter,
   xlwt,
 }:
-
 buildPythonPackage rec {
   pname = "pytablewriter";
   version = "1.2.1";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     hash = "sha256-YuuSMKTSG3oybvA6TDWNnGg4EiDAw2tRlM0S9mBQlkc=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     dataproperty
@@ -60,33 +59,35 @@ buildPythonPackage rec {
       xlsxwriter
       xlwt
     ];
-    es = [ elasticsearch ];
-    es8 = [ elasticsearch ];
+    es = [elasticsearch];
+    es8 = [elasticsearch];
     excel = [
       xlwt
       xlsxwriter
     ];
-    html = [ dominate ];
-    logging = [ loguru ];
+    html = [dominate];
+    logging = [loguru];
     # from = [
     #   pytablereader
     # ];
-    pandas = [ pandas ];
+    pandas = [pandas];
     # sqlite = [
     #   simplesqlite
     # ];
     # theme = [
     #   pytablewriter-altrow-theme
     # ];
-    toml = [ toml ];
-    yaml = [ pyyaml ];
+    toml = [toml];
+    yaml = [pyyaml];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "pathvalidate" ];
+  pythonImportsCheck = ["pathvalidate"];
 
   disabledTests = [
     # Circular dependency
@@ -108,6 +109,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/thombashi/pytablewriter";
     changelog = "https://github.com/thombashi/pytablewriter/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ genericnerdyusername ];
+    maintainers = with lib.maintainers; [genericnerdyusername];
   };
 }

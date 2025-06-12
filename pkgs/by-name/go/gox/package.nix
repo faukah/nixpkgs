@@ -5,7 +5,6 @@
   makeWrapper,
   go,
 }:
-
 buildGoModule rec {
   pname = "gox";
   version = "1.0.1";
@@ -22,10 +21,10 @@ buildGoModule rec {
   # This is required for wrapProgram.
   allowGoReference = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postFixup = ''
-    wrapProgram $out/bin/gox --prefix PATH : ${lib.makeBinPath [ go ]}
+    wrapProgram $out/bin/gox --prefix PATH : ${lib.makeBinPath [go]}
   '';
 
   meta = with lib; {
@@ -33,6 +32,6 @@ buildGoModule rec {
     description = "Dead simple, no frills Go cross compile tool";
     mainProgram = "gox";
     license = licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

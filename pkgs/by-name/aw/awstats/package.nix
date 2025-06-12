@@ -4,7 +4,6 @@
   perlPackages,
   jdk,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "awstats";
   version = "7.9";
@@ -25,9 +24,9 @@ perlPackages.buildPerlPackage rec {
     "doc"
   ]; # bin just links the user-run executable
 
-  propagatedBuildOutputs = [ ]; # otherwise out propagates bin -> cycle
+  propagatedBuildOutputs = []; # otherwise out propagates bin -> cycle
 
-  buildInputs = with perlPackages; [ ]; # plugins will need some
+  buildInputs = with perlPackages; []; # plugins will need some
 
   preConfigure = ''
     touch Makefile.PL

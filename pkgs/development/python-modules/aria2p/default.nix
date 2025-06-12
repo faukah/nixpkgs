@@ -20,7 +20,6 @@
   responses,
   uvicorn,
 }:
-
 buildPythonPackage rec {
   pname = "aria2p";
   version = "0.12.1";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-JEXTCDfFjxI1hooiEQq0KIGGoS2F7fyzOM0GMl+Jr7w=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     loguru
@@ -56,15 +55,17 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  nativeCheckInputs = [
-    aria2
-    fastapi
-    pytest-xdist
-    pytestCheckHook
-    responses
-    psutil
-    uvicorn
-  ] ++ optional-dependencies.tui;
+  nativeCheckInputs =
+    [
+      aria2
+      fastapi
+      pytest-xdist
+      pytestCheckHook
+      responses
+      psutil
+      uvicorn
+    ]
+    ++ optional-dependencies.tui;
 
   disabledTests = [
     # require a running display server
@@ -77,7 +78,7 @@ buildPythonPackage rec {
     "test_resume_method"
   ];
 
-  pythonImportsCheck = [ "aria2p" ];
+  pythonImportsCheck = ["aria2p"];
 
   meta = with lib; {
     homepage = "https://github.com/pawamoy/aria2p";
@@ -85,6 +86,6 @@ buildPythonPackage rec {
     description = "Command-line tool and library to interact with an aria2c daemon process with JSON-RPC";
     mainProgram = "aria2p";
     license = licenses.isc;
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
   };
 }

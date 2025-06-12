@@ -28,7 +28,6 @@
   yelp-tools,
   zip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xiphos";
   version = "4.2.1";
@@ -107,7 +106,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.xiphos.org/";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

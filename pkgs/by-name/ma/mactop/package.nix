@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "mactop";
   version = "0.2.3";
@@ -24,7 +23,7 @@ buildGoModule rec {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -32,8 +31,8 @@ buildGoModule rec {
     homepage = "https://github.com/context-labs/mactop";
     changelog = "https://github.com/context-labs/mactop/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     mainProgram = "mactop";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
   };
 }

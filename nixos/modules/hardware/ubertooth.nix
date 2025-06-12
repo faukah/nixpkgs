@@ -3,15 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.hardware.ubertooth;
 
   ubertoothPkg = pkgs.ubertooth.override {
     udevGroup = cfg.group;
   };
-in
-{
+in {
   options.hardware.ubertooth = {
     enable = lib.mkEnableOption "Ubertooth software and its udev rules";
 
@@ -24,9 +22,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ ubertoothPkg ];
+    environment.systemPackages = [ubertoothPkg];
 
-    services.udev.packages = [ ubertoothPkg ];
-    users.groups.${cfg.group} = { };
+    services.udev.packages = [ubertoothPkg];
+    users.groups.${cfg.group} = {};
   };
 }

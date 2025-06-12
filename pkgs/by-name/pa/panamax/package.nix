@@ -7,7 +7,6 @@
   openssl,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "panamax";
   version = "1.0.14";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-QjzmB9nKL2TfDNi7lOVaFSEfKiDSuYWnrmqeesrhuyQ=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libgit2
@@ -36,6 +35,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

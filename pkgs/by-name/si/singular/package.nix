@@ -27,7 +27,6 @@
   texliveSmall,
   enableDocs ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "singular";
   version = "4.4.1";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
 
     # if a release is tagged (which sometimes does not happen), it will
     # be in the format below.
-    rev = "Release-${lib.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "Release-${lib.replaceStrings ["."] ["-"] version}";
     hash = "sha256-vrRIirWQLbbe1l07AqqHK/StWo0egKuivdKT5R8Rx58=";
 
     # the repository's .gitattributes file contains the lines "/Tst/
@@ -103,8 +102,8 @@ stdenv.mkDerivation rec {
       texinfo
       texliveSmall
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ getconf ];
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [getconf];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   preAutoreconf = ''
     find . -type f -readable -writable -exec sed \
@@ -182,7 +181,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "CAS for polynomial computations";
-    teams = [ teams.sage ];
+    teams = [teams.sage];
     # 32 bit x86 fails with some link error: `undefined reference to `__divmoddi4@GCC_7.0.0'`
     # https://www.singular.uni-kl.de:8002/trac/ticket/837
     platforms = subtractLists platforms.i686 platforms.unix;

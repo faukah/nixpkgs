@@ -11,7 +11,6 @@
   pythonOlder,
   scrapy,
 }:
-
 buildPythonPackage {
   pname = "scrapy-fake-useragent";
   version = "1.4.4";
@@ -32,7 +31,7 @@ buildPythonPackage {
       --replace-fail " --fulltrace" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     fake-useragent
@@ -46,7 +45,7 @@ buildPythonPackage {
     scrapy
   ];
 
-  pythonImportsCheck = [ "scrapy_fake_useragent" ];
+  pythonImportsCheck = ["scrapy_fake_useragent"];
 
   disabledTests = [
     # AttributeError: 'RetryUserAgentMiddleware' object has no attribute 'EXCEPTIONS_TO_RETRY'
@@ -58,6 +57,6 @@ buildPythonPackage {
     homepage = "https://github.com/alecxe/scrapy-fake-useragent";
     changelog = "https://github.com/alecxe/scrapy-fake-useragent/blob/master/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

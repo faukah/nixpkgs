@@ -5,7 +5,6 @@
   gitUpdater,
   python3,
 }:
-
 buildLua rec {
   pname = "mpv-thumbnail-script";
   version = "0.5.4";
@@ -16,14 +15,14 @@ buildLua rec {
     rev = version;
     sha256 = "sha256-nflavx25skLj9kitneL6Uz3zI2DyMMhQC595npofzbQ=";
   };
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
   postPatch = "patchShebangs concat_files.py";
   dontBuild = false;
 
   scriptPath = "mpv_thumbnail_script_client_osc.lua";
-  extraScripts = [ "mpv_thumbnail_script_server.lua" ];
+  extraScripts = ["mpv_thumbnail_script_server.lua"];
   passthru.scriptName = "mpv_thumbnail_script_{client_osc,server}.lua";
 
   meta = {
@@ -32,6 +31,6 @@ buildLua rec {
     changelog = "https://github.com/marzzzello/mpv_thumbnail_script/releases/tag/${version}";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

@@ -9,7 +9,6 @@
   ortp,
   bctoolbox,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libosmoabis";
   version = "2.0.0";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-TxK+r+GhqPjvFYA3AX3JXjRwhEyjoLcPTR1lpkgSlUo=";
   };
 
-  configureFlags = [ "enable_dahdi=false" ];
+  configureFlags = ["enable_dahdi=false"];
 
   postPatch = ''
     echo "${version}" > .tarball-version

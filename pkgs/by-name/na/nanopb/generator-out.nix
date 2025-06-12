@@ -6,9 +6,7 @@
   protobuf,
   src,
   version,
-}:
-
-let
+}: let
   pyproject_toml = writeTextFile {
     name = "pyproject.toml";
     text = ''
@@ -36,30 +34,30 @@ let
     '';
   };
 in
-stdenv.mkDerivation {
-  pname = "nanopb-generator-out";
-  inherit src version;
+  stdenv.mkDerivation {
+    pname = "nanopb-generator-out";
+    inherit src version;
 
-  nativeBuildInputs = [
-    cmake
-    protobuf
-  ];
+    nativeBuildInputs = [
+      cmake
+      protobuf
+    ];
 
-  # don't let `find_program` find the bundled `protoc` script, so it will use the system `protoc` instead
-  preConfigure = ''
-    rm generator/protoc
-  '';
+    # don't let `find_program` find the bundled `protoc` script, so it will use the system `protoc` instead
+    preConfigure = ''
+      rm generator/protoc
+    '';
 
-  cmakeFlags = [
-    "-Dnanopb_BUILD_RUNTIME=OFF"
-    "-Dnanopb_BUILD_GENERATOR=ON"
-    "-Dnanopb_PYTHON_INSTDIR_OVERRIDE=${placeholder "out"}/${python3.sitePackages}"
-  ];
+    cmakeFlags = [
+      "-Dnanopb_BUILD_RUNTIME=OFF"
+      "-Dnanopb_BUILD_GENERATOR=ON"
+      "-Dnanopb_PYTHON_INSTDIR_OVERRIDE=${placeholder "out"}/${python3.sitePackages}"
+    ];
 
-  postInstall = ''
-    rm -rf $out/include
-    rm -rf $out/lib/cmake
-    ln -s $out/${python3.sitePackages} $out/src
-    ln -s ${pyproject_toml} $out/pyproject.toml
-  '';
-}
+    postInstall = ''
+      rm -rf $out/include
+      rm -rf $out/lib/cmake
+      ln -s $out/${python3.sitePackages} $out/src
+      ln -s ${pyproject_toml} $out/pyproject.toml
+    '';
+  }

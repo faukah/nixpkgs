@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aiooncue";
   version = "0.3.9";
@@ -26,20 +25,20 @@ buildPythonPackage rec {
       --replace '"setuptools>=75.8.0"' ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   # Tests are out-dated
   doCheck = false;
 
-  pythonImportsCheck = [ "aiooncue" ];
+  pythonImportsCheck = ["aiooncue"];
 
   meta = with lib; {
     description = "Module to interact with the Kohler Oncue API";
     homepage = "https://github.com/bdraco/aiooncue";
     changelog = "https://github.com/bdraco/aiooncue/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

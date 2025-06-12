@@ -12,7 +12,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aiowatttime";
   version = "2024.06.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-c5L+Nx+CoWEc6Bs61GOHPBelExe5I7EOlMQ+QV6nktI=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -45,14 +44,14 @@ buildPythonPackage rec {
   ];
 
   # Ignore the examples directory as the files are prefixed with test_
-  disabledTestPaths = [ "examples/" ];
+  disabledTestPaths = ["examples/"];
 
-  pythonImportsCheck = [ "aiowatttime" ];
+  pythonImportsCheck = ["aiowatttime"];
 
   meta = with lib; {
     description = "Python library for interacting with WattTime";
     homepage = "https://github.com/bachya/aiowatttime";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

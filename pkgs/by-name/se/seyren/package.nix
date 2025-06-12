@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "seyren";
   version = "1.5.0";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   installPhase = ''
     mkdir -p "$out"/bin
@@ -29,9 +28,9 @@ stdenv.mkDerivation rec {
     description = "Alerting dashboard for Graphite";
     mainProgram = "seyren";
     homepage = "https://github.com/scobal/seyren";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
-    maintainers = [ maintainers.offline ];
+    maintainers = [maintainers.offline];
     platforms = platforms.all;
   };
 }

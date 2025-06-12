@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # Native build inputs
   docbook-xsl-nons,
   gobject-introspection,
@@ -11,13 +10,11 @@
   ninja,
   pkg-config,
   buildPackages,
-
   # Build inputs
   expat,
   glib,
   libxml2,
   python3,
-
   # Optional dependencies
   cfitsio,
   cgif,
@@ -44,22 +41,22 @@
   withIntrospection ?
     lib.meta.availableOn stdenv.hostPlatform gobject-introspection
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
-
   # passthru
   testers,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vips";
   version = "8.16.1";
 
-  outputs = [
-    "bin"
-    "out"
-    "man"
-    "dev"
-  ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isFreeBSD) [ "devdoc" ];
+  outputs =
+    [
+      "bin"
+      "out"
+      "man"
+      "dev"
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isFreeBSD) ["devdoc"];
 
   src = fetchFromGitHub {
     owner = "libvips";
@@ -89,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
     glib
     libxml2
     expat
-    (python3.withPackages (p: [ p.pycairo ]))
+    (python3.withPackages (p: [p.pycairo]))
 
     # Optional dependencies
     cfitsio

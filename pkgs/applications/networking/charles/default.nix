@@ -7,42 +7,37 @@
   openjdk17-bootstrap,
   jdk11,
   jdk8,
-}:
-
-let
-  generic =
-    {
-      version,
-      hash,
-      platform ? "",
-      jdk,
-      ...
-    }@attrs:
-    let
-      desktopItem = makeDesktopItem {
-        categories = [
-          "Network"
-          "Development"
-          "WebDevelopment"
-          "Java"
-        ];
-        desktopName = "Charles";
-        exec = "charles %F";
-        genericName = "Web Debugging Proxy";
-        icon = "charles-proxy";
-        mimeTypes = [
-          "application/x-charles-savedsession"
-          "application/x-charles-savedsession+xml"
-          "application/x-charles-savedsession+json"
-          "application/har+json"
-          "application/vnd.tcpdump.pcap"
-          "application/x-charles-trace"
-        ];
-        name = "Charles";
-        startupNotify = true;
-      };
-
-    in
+}: let
+  generic = {
+    version,
+    hash,
+    platform ? "",
+    jdk,
+    ...
+  } @ attrs: let
+    desktopItem = makeDesktopItem {
+      categories = [
+        "Network"
+        "Development"
+        "WebDevelopment"
+        "Java"
+      ];
+      desktopName = "Charles";
+      exec = "charles %F";
+      genericName = "Web Debugging Proxy";
+      icon = "charles-proxy";
+      mimeTypes = [
+        "application/x-charles-savedsession"
+        "application/x-charles-savedsession+xml"
+        "application/x-charles-savedsession+json"
+        "application/har+json"
+        "application/vnd.tcpdump.pcap"
+        "application/x-charles-trace"
+      ];
+      name = "Charles";
+      startupNotify = true;
+    };
+  in
     stdenv.mkDerivation {
       pname = "charles";
       inherit version;
@@ -56,7 +51,7 @@ let
         inherit hash;
       };
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       installPhase = ''
         runHook preInstall
@@ -84,14 +79,12 @@ let
           kalbasit
           kashw2
         ];
-        sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+        sourceProvenance = with lib.sourceTypes; [binaryBytecode];
         license = lib.licenses.unfree;
         platforms = lib.platforms.unix;
       };
     };
-
-in
-{
+in {
   charles5 = (
     generic {
       version = "5.0";

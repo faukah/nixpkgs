@@ -23,7 +23,6 @@
   pkg-config,
   wrapGAppsHook3,
   xxd,
-
   # Netsurf-specific dependencies
   buildsystem,
   libcss,
@@ -40,11 +39,9 @@
   libutf8proc,
   libwapcaplet,
   nsgenbind,
-
   # Configuration
   uilib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netsurf";
   version = "3.11";
@@ -54,13 +51,15 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-wopiau/uQo0FOxP4i1xECSIkWXZSLRLq8TfP0y0gHLI=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    perlPackages.HTMLParser
-    perlPackages.perl
-    pkg-config
-    xxd
-  ] ++ lib.optional (uilib == "gtk2" || uilib == "gtk3") wrapGAppsHook3;
+  nativeBuildInputs =
+    [
+      makeWrapper
+      perlPackages.HTMLParser
+      perlPackages.perl
+      pkg-config
+      xxd
+    ]
+    ++ lib.optional (uilib == "gtk2" || uilib == "gtk3") wrapGAppsHook3;
 
   buildInputs =
     [

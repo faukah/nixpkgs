@@ -8,7 +8,6 @@
   installShellFiles,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "zoxide";
   version = "0.9.8";
@@ -20,9 +19,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-8hXoC3vyR08hN8MMojnAO7yIskg4FsEm28GtFfh5liI=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   postPatch = lib.optionalString withFzf ''
     substituteInPlace src/util.rs \
@@ -44,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     description = "Fast cd command that learns your habits";
     homepage = "https://github.com/ajeetdsouza/zoxide";
     changelog = "https://github.com/ajeetdsouza/zoxide/blob/v${version}/CHANGELOG.md";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     maintainers = with lib.maintainers; [
       ysndr
       cole-h

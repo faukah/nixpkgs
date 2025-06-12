@@ -11,7 +11,6 @@
   pkg-config,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jpilot";
   version = "2.0.2";
@@ -19,11 +18,11 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "juddmon";
     repo = "jpilot";
-    rev = "v${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "v${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-ja/P6kq53C7drEPWemGMV5fB4BktHrbrxL39jLEGhRI=";
   };
 
-  patches = [ ./darwin-build.patch ]; # https://github.com/juddmon/jpilot/pull/59
+  patches = [./darwin-build.patch]; # https://github.com/juddmon/jpilot/pull/59
 
   nativeBuildInputs = [
     autoreconfHook
@@ -42,13 +41,13 @@ stdenv.mkDerivation rec {
     NOCONFIGURE=1 ./autogen.sh
   '';
 
-  configureFlags = [ "--with-pilot-prefix=${pilot-link}" ];
+  configureFlags = ["--with-pilot-prefix=${pilot-link}"];
 
   meta = {
     description = "Desktop organizer software for the Palm Pilot";
     homepage = "https://www.jpilot.org/";
     license = lib.licenses.gpl2;
     mainProgram = "jpilot";
-    maintainers = with lib.maintainers; [ PapayaJackal ];
+    maintainers = with lib.maintainers; [PapayaJackal];
   };
 }

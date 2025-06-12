@@ -18,7 +18,7 @@ buildLua rec {
       "webui-page"
     ];
   };
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   postInstall = ''
     rm -f $out/share/mpv/scripts/webui/setup.cfg

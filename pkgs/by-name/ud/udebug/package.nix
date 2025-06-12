@@ -9,7 +9,6 @@
   ucode,
   json_c,
 }:
-
 stdenv.mkDerivation {
   pname = "udebug";
   version = "unstable-2023-12-06";
@@ -38,6 +37,6 @@ stdenv.mkDerivation {
     homepage = "https://git.openwrt.org/?p=project/udebug.git;a=summary";
     license = licenses.free;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
   };
 }

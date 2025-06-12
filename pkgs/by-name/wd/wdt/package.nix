@@ -10,7 +10,6 @@
   double-conversion,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "wdt";
   version = "1.27.1612021-unstable-2024-12-06";
@@ -22,7 +21,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-mvfJUiOI7Cre90hIaBJcmfTbTV5M+Hf+p6VKNYEc5WU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     folly
     gflags
@@ -51,7 +50,7 @@ stdenv.mkDerivation {
     description = "Warp speed Data Transfer";
     homepage = "https://github.com/facebook/wdt";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nickcao ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [nickcao];
+    platforms = ["x86_64-linux"];
   };
 }

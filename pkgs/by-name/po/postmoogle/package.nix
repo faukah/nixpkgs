@@ -26,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/etkecc/postmoogle";
     changelog = "https://github.com/etkecc/postmoogle/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ amuckstot30 ];
+    maintainers = with lib.maintainers; [amuckstot30];
     mainProgram = "postmoogle";
   };
 }

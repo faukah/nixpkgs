@@ -16,7 +16,6 @@
   tox,
   virtualenv,
 }:
-
 buildPythonPackage rec {
   pname = "pyscaffoldext-cookiecutter";
   version = "0.1";
@@ -52,12 +51,12 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "pyscaffoldext.cookiecutter" ];
+  pythonImportsCheck = ["pyscaffoldext.cookiecutter"];
 
   meta = with lib; {
     description = "Integration of Cookiecutter project templates into PyScaffold (see: https://github.com/cookiecutter/cookiecutter";
     homepage = "https://pypi.org/project/pyscaffoldext-cookiecutter/";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

@@ -6,7 +6,6 @@
   ocamlPackages,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "heptagon";
   version = "1.05.00";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Compiler for the Heptagon/BZR synchronous programming language";
     homepage = "https://gitlab.inria.fr/synchrone/heptagon";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     mainProgram = "heptc";
     platforms = platforms.unix;
   };

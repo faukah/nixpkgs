@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "python-status";
   version = "1.0.1";
@@ -17,12 +16,12 @@ buildPythonPackage rec {
   # Project doesn't ship tests yet
   doCheck = false;
 
-  pythonImportsCheck = [ "status" ];
+  pythonImportsCheck = ["status"];
 
   meta = with lib; {
     description = "HTTP Status for Humans";
     homepage = "https://github.com/avinassh/status/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

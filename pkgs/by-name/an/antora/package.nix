@@ -5,7 +5,6 @@
   lib,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "antora";
   version = "3.1.9";
@@ -31,8 +30,8 @@ buildNpmPackage rec {
   '';
 
   passthru = {
-    tests.run = callPackage ./test { };
-    updateScript = nix-update-script { };
+    tests.run = callPackage ./test {};
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

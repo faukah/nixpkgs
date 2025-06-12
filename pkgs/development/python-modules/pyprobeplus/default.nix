@@ -5,7 +5,6 @@
   lib,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyprobeplus";
   version = "1.0.1";
@@ -18,13 +17,13 @@ buildPythonPackage rec {
     hash = "sha256-ixrkwnvqjHwqnKG3Xo4qJP/FcP7fuAOPKpar13e8U1w=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     bleak
   ];
 
-  pythonImportsCheck = [ "pyprobeplus" ];
+  pythonImportsCheck = ["pyprobeplus"];
 
   # upstream has no tests
   doCheck = false;
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "Generic library to interact with a Probe Plus BLE device";
     homepage = "https://github.com/pantherale0/pyprobeplus";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

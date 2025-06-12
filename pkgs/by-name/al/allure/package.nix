@@ -5,7 +5,6 @@
   fetchurl,
   jre,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "allure";
   version = "2.34.0";
@@ -18,8 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   installPhase = ''
     runHook preInstall
@@ -44,6 +43,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.asl20;
     mainProgram = "allure";
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 })

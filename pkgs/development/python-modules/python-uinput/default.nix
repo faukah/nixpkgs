@@ -4,7 +4,6 @@
   fetchPypi,
   udev,
 }:
-
 buildPythonPackage rec {
   pname = "python-uinput";
   version = "1.0.1";
@@ -15,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-hTaXNEtk31U31K4yum+88FFdUakBCRD11QGZWQOLbro=";
   };
 
-  buildInputs = [ udev ];
+  buildInputs = [udev];
 
   NIX_CFLAGS_LINK = "-ludev";
 
@@ -25,6 +24,6 @@ buildPythonPackage rec {
     description = "Pythonic API to Linux uinput kernel module";
     homepage = "https://tjjr.fi/sw/python-uinput/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

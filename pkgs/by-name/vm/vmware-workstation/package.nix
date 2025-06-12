@@ -32,7 +32,6 @@
   fetchFromGitHub,
   unzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vmware-workstation";
   version = "17.6.3";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
   vmware-unpack-env = buildFHSEnv {
     pname = "vmware-unpack-env";
     inherit (finalAttrs) version;
-    targetPkgs = pkgs: [ zlib ];
+    targetPkgs = pkgs: [zlib];
   };
 
   unpackPhase = ''
@@ -73,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   readline70_compat63 = symlinkJoin {
     name = "readline70_compat63";
-    paths = [ readline70 ];
+    paths = [readline70];
     postBuild = ''
       ln -s $out/lib/libreadline.so $out/lib/libreadline.so.6
     '';
@@ -91,7 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
       sqlite
       finalAttrs.readline70_compat63
     ]
-    ++ lib.optionals enableMacOSGuests [ unzip ];
+    ++ lib.optionals enableMacOSGuests [unzip];
 
   buildInputs = [
     libxslt
@@ -373,9 +372,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Industry standard desktop hypervisor for x86-64 architecture";
     homepage = "https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "vmware";
     maintainers = with lib.maintainers; [
       cawilliamson

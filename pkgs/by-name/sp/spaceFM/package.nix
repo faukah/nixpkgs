@@ -18,7 +18,6 @@
   lsof,
   udisks2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spacefm";
   version = "1.0.6";
@@ -71,17 +70,19 @@ stdenv.mkDerivation rec {
     pkg-config
     intltool
   ];
-  buildInputs = [
-    gtk3
-    udev
-    desktop-file-utils
-    shared-mime-info
-    wrapGAppsHook3
-    ffmpegthumbnailer
-    jmtpfs
-    lsof
-    udisks2
-  ] ++ (lib.optionals ifuseSupport [ ifuse ]);
+  buildInputs =
+    [
+      gtk3
+      udev
+      desktop-file-utils
+      shared-mime-info
+      wrapGAppsHook3
+      ffmpegthumbnailer
+      jmtpfs
+      lsof
+      udisks2
+    ]
+    ++ (lib.optionals ifuseSupport [ifuse]);
   # Introduced because ifuse doesn't build due to CVEs in libplist
   # Revert when libplist builds again…
 

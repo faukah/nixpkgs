@@ -4,7 +4,6 @@
   openjdk,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "html5validator";
   version = "0.4.2";
@@ -40,6 +39,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/svenkreiss/html5validator";
     changelog = "https://github.com/svenkreiss/html5validator/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ phunehehe ];
+    maintainers = with lib.maintainers; [phunehehe];
   };
 }

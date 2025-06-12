@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "sn-pro";
   version = "1.5.0";
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation rec {
     description = "SN Pro Font Family";
     homepage = "https://github.com/supernotes/sn-pro";
     license = licenses.ofl;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
   };
 }

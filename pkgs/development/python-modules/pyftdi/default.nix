@@ -7,7 +7,6 @@
   pyusb,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyftdi";
   version = "0.56.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-/MwgBqwN7xmZepdJzyRhZflbCUpGdWEbEGGKkBnKTFI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyserial
@@ -32,7 +31,7 @@ buildPythonPackage rec {
   # Tests require access to the serial port
   doCheck = false;
 
-  pythonImportsCheck = [ "pyftdi" ];
+  pythonImportsCheck = ["pyftdi"];
 
   meta = with lib; {
     description = "User-space driver for modern FTDI devices";
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/eblot/pyftdi";
     changelog = "https://github.com/eblot/pyftdi/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

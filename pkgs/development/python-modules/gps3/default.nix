@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchFromGitHub,
 }:
-
 buildPythonPackage {
   pname = "gps3";
   version = "unstable-2017-11-01";
@@ -18,12 +17,12 @@ buildPythonPackage {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "gps3" ];
+  pythonImportsCheck = ["gps3"];
 
   meta = with lib; {
     description = "Python client for GPSD";
     homepage = "https://github.com/wadda/gps3";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

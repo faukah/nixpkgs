@@ -16,7 +16,6 @@
   gnome,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gcab";
   version = "1.6";
@@ -84,7 +83,7 @@ stdenv.mkDerivation rec {
     mainProgram = "gcab";
     homepage = "https://gitlab.gnome.org/GNOME/gcab";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 }

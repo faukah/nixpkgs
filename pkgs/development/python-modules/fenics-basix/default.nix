@@ -17,7 +17,6 @@
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fenics-basix";
   version = "0.9.0";
@@ -76,6 +75,6 @@ buildPythonPackage rec {
     description = "Finite element definition and tabulation runtime library";
     changelog = "https://github.com/fenics/basix/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 }

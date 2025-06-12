@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace '/usr/local/share' $out/share
   '';
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
   buildInputs = [
     perlPackages.perl
     pango
@@ -44,26 +44,25 @@ stdenv.mkDerivation (finalAttrs: {
   postInstall = ''
     wrapProgram $out/bin/gprename \
       --set PERL5LIB ${
-        perlPackages.makeFullPerlPath (
-          with perlPackages;
-          [
-            Pango
-            Glib
-            Gtk3
-            LocaleGettext
-            libintl-perl
-          ]
-        )
-      } \
-      --prefix GI_TYPELIB_PATH : ${
-        lib.makeSearchPath "/lib/girepository-1.0" [
-          gtk3
-          pango.out
-          harfbuzz
-          gdk-pixbuf
-          at-spi2-atk
+      perlPackages.makeFullPerlPath (
+        with perlPackages; [
+          Pango
+          Glib
+          Gtk3
+          LocaleGettext
+          libintl-perl
         ]
-      }
+      )
+    } \
+      --prefix GI_TYPELIB_PATH : ${
+      lib.makeSearchPath "/lib/girepository-1.0" [
+        gtk3
+        pango.out
+        harfbuzz
+        gdk-pixbuf
+        at-spi2-atk
+      ]
+    }
   '';
 
   meta = {
@@ -71,6 +70,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gprename.sourceforge.net/index.php";
     license = lib.licenses.gpl3Plus;
     mainProgram = "gprename";
-    maintainers = with lib.maintainers; [ quantenzitrone ];
+    maintainers = with lib.maintainers; [quantenzitrone];
   };
 })

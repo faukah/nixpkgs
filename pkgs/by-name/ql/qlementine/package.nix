@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-icImLN04Ux+pqWaBTNruCkZC+735vzMz8tzssyCncjI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     qt6.qtbase
@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontWrapQtApps = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Modern QStyle for desktop Qt6 applications";
@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://oclero.github.io/qlementine/";
     changelog = "https://github.com/oclero/qlementine/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ normalcea ];
+    maintainers = with lib.maintainers; [normalcea];
     platforms = lib.platforms.unix;
   };
 })

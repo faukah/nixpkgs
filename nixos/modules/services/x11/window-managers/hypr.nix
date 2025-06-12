@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.hypr;
-in
-{
+in {
   ###### interface
   options = {
     services.xserver.windowManager.hypr.enable = mkEnableOption "hypr";
@@ -25,6 +21,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.hypr ];
+    environment.systemPackages = [pkgs.hypr];
   };
 }

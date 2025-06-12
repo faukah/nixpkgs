@@ -6,7 +6,6 @@
   numpy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fenics-ufl";
   version = "2025.1.0";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     "ufl.utils"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     homepage = "https://fenicsproject.org";
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Unified Form Language";
     changelog = "https://github.com/fenics/ufl/releases/tag/${src.tag}";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 }

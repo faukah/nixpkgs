@@ -7,7 +7,6 @@
   python3,
   wrapGAppsHook3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "onioncircuits";
   version = "0.8.1";
@@ -43,6 +42,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "GTK application to display Tor circuits and streams";
     mainProgram = "onioncircuits";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ wattmto ];
+    maintainers = with maintainers; [wattmto];
   };
 }

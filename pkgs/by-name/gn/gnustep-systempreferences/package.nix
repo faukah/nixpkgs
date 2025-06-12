@@ -5,7 +5,6 @@
   gnustep-back,
   wrapGNUstepAppsHook,
 }:
-
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "system-preferences";
   version = "1.2.0";
@@ -15,9 +14,9 @@ clangStdenv.mkDerivation (finalAttrs: {
     sha256 = "1fg7c3ihfgvl6n21rd17fs9ivx3l8ps874m80vz86n1callgs339";
   };
 
-  nativeBuildInputs = [ wrapGNUstepAppsHook ];
+  nativeBuildInputs = [wrapGNUstepAppsHook];
 
-  buildInputs = [ gnustep-back ];
+  buildInputs = [gnustep-back];
 
   meta = {
     description = "Settings manager for the GNUstep environment and its applications";

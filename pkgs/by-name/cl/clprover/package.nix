@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (self: {
   pname = "CLProver++";
   version = "1.0.3";
@@ -17,15 +16,16 @@ stdenv.mkDerivation (self: {
 
   postPatch = ''
     sed -i 's/\(TARGET_OS *:= *\)[^ ]+/\1${
-      if stdenv.targetPlatform.isWindows then "WINDOWS" else "LINUX"
+      if stdenv.targetPlatform.isWindows
+      then "WINDOWS"
+      else "LINUX"
     }/g' Makefile
     sed -i 's/-m64/${
-      if stdenv.targetPlatform.isAarch then
-        "-march=${stdenv.targetPlatform.gcc.arch}"
-      else if stdenv.targetPlatform.is32bit then
-        "-m32"
-      else
-        "-m64"
+      if stdenv.targetPlatform.isAarch
+      then "-march=${stdenv.targetPlatform.gcc.arch}"
+      else if stdenv.targetPlatform.is32bit
+      then "-m32"
+      else "-m64"
     }/g' Makefile
   '';
 
@@ -52,9 +52,12 @@ stdenv.mkDerivation (self: {
   meta = {
     description = "Ordered resolution based theorem prover for Coalition Logic";
     homepage = "https://cgi.csc.liv.ac.uk/~ullrich/CLProver++/";
-    maintainers = with lib.maintainers; [ mgttlinger ];
+    maintainers = with lib.maintainers; [mgttlinger];
     platforms = with lib.platforms; linux ++ windows;
     license = lib.licenses.gpl3;
-    mainProgram = if stdenv.targetPlatform.isWindows then "CLProver++.exe" else "CLProver++";
+    mainProgram =
+      if stdenv.targetPlatform.isWindows
+      then "CLProver++.exe"
+      else "CLProver++";
   };
 })

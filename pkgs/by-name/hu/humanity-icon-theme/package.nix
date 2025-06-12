@@ -6,7 +6,6 @@
   adwaita-icon-theme,
   hicolor-icon-theme,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "humanity-icon-theme";
   version = "0.6.16";
@@ -49,6 +48,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://launchpad.net/humanity/";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

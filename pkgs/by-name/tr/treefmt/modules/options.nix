@@ -1,5 +1,8 @@
-{ lib, config, ... }:
 {
+  lib,
+  config,
+  ...
+}: {
   options = {
     name = lib.mkOption {
       type = lib.types.str;
@@ -12,7 +15,7 @@
 
     runtimeInputs = lib.mkOption {
       type = with lib.types; listOf package;
-      default = [ ];
+      default = [];
       description = ''
         Packages to include on treefmt's PATH.
       '';
@@ -21,7 +24,10 @@
     configFile = lib.mkOption {
       type = lib.types.path;
       # Ensure file is copied to the store
-      apply = file: if lib.isDerivation file then file else "${file}";
+      apply = file:
+        if lib.isDerivation file
+        then file
+        else "${file}";
       defaultText = lib.literalMD "generated from [](#opt-treefmt-settings)";
       description = ''
         The treefmt config file.

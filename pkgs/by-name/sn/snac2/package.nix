@@ -7,7 +7,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "snac2";
   version = "2.77";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     openssl
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.hostPlatform.isDarwin [
@@ -34,12 +33,12 @@ stdenv.mkDerivation (finalAttrs: {
     ]
   );
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/snac";
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://codeberg.org/grunfink/snac2";
     license = lib.licenses.mit;
     mainProgram = "snac";
-    maintainers = with lib.maintainers; [ misuzu ];
+    maintainers = with lib.maintainers; [misuzu];
     platforms = lib.platforms.unix;
   };
 })

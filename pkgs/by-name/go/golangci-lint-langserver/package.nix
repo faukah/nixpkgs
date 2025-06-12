@@ -5,7 +5,6 @@
   writableTmpDirAsHomeHook,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "golangci-lint-langserver";
   version = "0.0.11";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-kbGTORTTxfftdU8ffsfh53nT7wZldOnBZ/1WWzN89Uc=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   nativeCheckInputs = [
     golangci-lint
@@ -30,7 +29,7 @@ buildGoModule rec {
     description = "Language server for golangci-lint";
     homepage = "https://github.com/nametake/golangci-lint-langserver";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kirillrdy ];
+    maintainers = with lib.maintainers; [kirillrdy];
     mainProgram = "golangci-lint-langserver";
   };
 }

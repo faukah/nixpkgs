@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-Do8i/Z1nn8wsj0xzCQdSaaXoDf9N34SiMb/GIe4YOs4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     colcon
@@ -54,6 +54,6 @@ buildPythonPackage rec {
     description = "An extension for colcon-core to support Rust packages built with Cargo";
     homepage = "https://github.com/colcon/colcon-cargo";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ guelakais ];
+    maintainers = with lib.maintainers; [guelakais];
   };
 }

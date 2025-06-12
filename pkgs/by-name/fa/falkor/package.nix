@@ -7,7 +7,6 @@
   makeWrapper,
   commandLineArgs ? "",
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "falkor";
   version = "0.1.0";
@@ -43,11 +42,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = {
     description = "Electron-based gaming hub";
     homepage = "https://github.com/Team-Falkor/falkor";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ icedborn ];
-    platforms = [ "x86_64-linux" ];
-    hydraPlatforms = [ ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [icedborn];
+    platforms = ["x86_64-linux"];
+    hydraPlatforms = [];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     mainProgram = "falkor";
   };
 })

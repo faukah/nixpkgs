@@ -7,7 +7,6 @@
   testers,
   d2,
 }:
-
 buildGo123Module rec {
   pname = "d2";
   version = "0.7.0";
@@ -21,7 +20,7 @@ buildGo123Module rec {
 
   vendorHash = "sha256-STiIS0BRHypNujKNtNb77IXBDdeHVl/uGjVFubJrDc8=";
 
-  excludedPackages = [ "./e2etests" ];
+  excludedPackages = ["./e2etests"];
 
   ldflags = [
     "-s"
@@ -29,13 +28,13 @@ buildGo123Module rec {
     "-X oss.terrastruct.com/d2/lib/version.Version=v${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage ci/release/template/man/d2.1
   '';
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   preCheck = ''
     # See https://github.com/terrastruct/d2/blob/master/docs/CONTRIBUTING.md#running-tests.

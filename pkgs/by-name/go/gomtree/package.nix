@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gomtree";
   version = "0.5.4";
@@ -18,9 +17,9 @@ buildGoModule rec {
   vendorHash = null;
 
   # test fails with nix due to ro file system
-  checkFlags = [ "-skip=^TestXattr$" ];
+  checkFlags = ["-skip=^TestXattr$"];
 
-  subPackages = [ "cmd/gomtree" ];
+  subPackages = ["cmd/gomtree"];
 
   ldflags = [
     "-s"
@@ -32,7 +31,7 @@ buildGoModule rec {
     changelog = "https://github.com/vbatts/go-mtree/releases/tag/v${version}";
     homepage = "https://github.com/vbatts/go-mtree";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ phanirithvij ];
+    maintainers = with lib.maintainers; [phanirithvij];
     mainProgram = "gomtree";
   };
 }

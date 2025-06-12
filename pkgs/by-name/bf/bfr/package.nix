@@ -4,7 +4,6 @@
   fetchurl,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bfr";
   version = "1.6";
@@ -24,12 +23,12 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   meta = with lib; {
     description = "General-purpose command-line pipe buffer";
     license = lib.licenses.gpl2Only;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.linux;
   };
 }

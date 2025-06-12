@@ -4,7 +4,6 @@
   versionCheckHook,
   stalwart-mail,
 }:
-
 rustPlatform.buildRustPackage {
   inherit (stalwart-mail) src version cargoDeps;
   pname = "stalwart-cli";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   # Prerelease reports incorrect version

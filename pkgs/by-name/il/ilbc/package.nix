@@ -5,7 +5,6 @@
   gawk,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   name = "ilbc-rfc3951";
 
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0zf4mvi3jzx6zjrfl2rbhl2m68pzbzpf1vbdmn7dqbfpcb67jpdy";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   unpackPhase = ''
     mkdir -v ${name}

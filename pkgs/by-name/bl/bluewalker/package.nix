@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitLab,
 }:
-
 buildGoModule rec {
   pname = "bluewalker";
   version = "0.3.1";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://gitlab.com/jtaimisto/bluewalker";
     changelog = "https://gitlab.com/jtaimisto/bluewalker/-/tags/v${version}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ cimm ];
+    maintainers = with lib.maintainers; [cimm];
     platforms = lib.platforms.linux;
   };
 }

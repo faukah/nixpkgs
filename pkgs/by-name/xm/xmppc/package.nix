@@ -9,7 +9,6 @@
   glib,
   gpgme,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xmppc";
   version = "0.1.2";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://codeberg.org/Anoxinon_e.V./xmppc";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.jugendhacker ];
+    maintainers = [maintainers.jugendhacker];
   };
 }

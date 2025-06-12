@@ -9,7 +9,6 @@
   libxml2,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   version = "5.1.0";
   pname = "libmusicbrainz";

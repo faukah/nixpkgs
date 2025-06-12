@@ -6,7 +6,6 @@
   testers,
   shell2http,
 }:
-
 buildGoModule rec {
   pname = "shell2http";
   version = "1.17.0";
@@ -48,6 +47,6 @@ buildGoModule rec {
     homepage = "https://github.com/msoap/shell2http";
     changelog = "https://github.com/msoap/shell2http/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

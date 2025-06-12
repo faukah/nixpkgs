@@ -18,9 +18,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-ynyYpX41LJxGhf5kF2AULj+VKROjsvTjVPBnqG+JGSg=";
 
-  excludedPackages = [ "scripts" ];
+  excludedPackages = ["scripts"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     $out/bin/terraform-docs completion bash >terraform-docs.bash
@@ -34,6 +34,6 @@ buildGoModule rec {
     mainProgram = "terraform-docs";
     homepage = "https://github.com/terraform-docs/terraform-docs/";
     license = licenses.mit;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
   };
 }

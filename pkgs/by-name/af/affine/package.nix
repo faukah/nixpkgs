@@ -23,50 +23,54 @@
   nix-update-script,
   buildType ? "stable",
   commandLineArgs ? "",
-}:
-let
+}: let
   hostPlatform = stdenvNoCC.hostPlatform;
   nodePlatform = hostPlatform.parsed.kernel.name; # nodejs's `process.platform`
-  nodeArch = # nodejs's `process.arch`
+  nodeArch =
+    # nodejs's `process.arch`
     {
       "x86_64" = "x64";
       "aarch64" = "arm64";
     }
-    .${hostPlatform.parsed.cpu.name}
+    .${
+      hostPlatform.parsed.cpu.name
+    }
       or (throw "affine(${buildType}): unsupported CPU family ${hostPlatform.parsed.cpu.name}");
   electron = electron_35;
   nodejs = nodejs_22;
-  yarn-berry = yarn-berry_4.override { inherit nodejs; };
-  productName = if buildType != "stable" then "AFFiNE-${buildType}" else "AFFiNE";
+  yarn-berry = yarn-berry_4.override {inherit nodejs;};
+  productName =
+    if buildType != "stable"
+    then "AFFiNE-${buildType}"
+    else "AFFiNE";
   binName = lib.toLower productName;
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = binName;
+  stdenv.mkDerivation (finalAttrs: {
+    pname = binName;
 
-  version = "0.22.3";
-  src = fetchFromGitHub {
-    owner = "toeverything";
-    repo = "AFFiNE";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-LTNJsW7ETIca3uADuoa0ROOOMQT8+LN8+B8VVUyDZSY=";
-  };
+    version = "0.22.3";
+    src = fetchFromGitHub {
+      owner = "toeverything";
+      repo = "AFFiNE";
+      tag = "v${finalAttrs.version}";
+      hash = "sha256-LTNJsW7ETIca3uADuoa0ROOOMQT8+LN8+B8VVUyDZSY=";
+    };
 
-  cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit (finalAttrs) pname version src;
-    hash = "sha256-kAhT2yXFbUuV34ukdUmLQbO00LSaYk7gpsp0nmO138o=";
-  };
-  yarnOfflineCache = stdenvNoCC.mkDerivation {
-    name = "yarn-offline-cache";
-    inherit (finalAttrs) src;
-    nativeBuildInputs = [
-      yarn-berry
-      cacert
-      writableTmpDirAsHomeHook
-    ];
-    # force yarn install run in CI mode
-    env.CI = "1";
-    buildPhase =
-      let
+    cargoDeps = rustPlatform.fetchCargoVendor {
+      inherit (finalAttrs) pname version src;
+      hash = "sha256-kAhT2yXFbUuV34ukdUmLQbO00LSaYk7gpsp0nmO138o=";
+    };
+    yarnOfflineCache = stdenvNoCC.mkDerivation {
+      name = "yarn-offline-cache";
+      inherit (finalAttrs) src;
+      nativeBuildInputs = [
+        yarn-berry
+        cacert
+        writableTmpDirAsHomeHook
+      ];
+      # force yarn install run in CI mode
+      env.CI = "1";
+      buildPhase = let
         supportedArchitectures = builtins.toJSON {
           os = [
             "darwin"
@@ -82,8 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
             "musl"
           ];
         };
-      in
-      ''
+      in ''
         runHook preBuild
 
         mkdir -p $out
@@ -96,96 +99,96 @@ stdenv.mkDerivation (finalAttrs: {
 
         runHook postBuild
       '';
-    dontInstall = true;
-    outputHashMode = "recursive";
-    outputHash = "sha256-fwvv3OXDorcyikixEoOMnu3dv24ClGBS6h3oWAk0uas=";
-  };
+      dontInstall = true;
+      outputHashMode = "recursive";
+      outputHash = "sha256-fwvv3OXDorcyikixEoOMnu3dv24ClGBS6h3oWAk0uas=";
+    };
 
-  buildInputs = lib.optionals hostPlatform.isDarwin [
-    apple-sdk_15
-  ];
-
-  nativeBuildInputs =
-    [
-      nodejs
-      yarn-berry
-      cargo
-      rustc
-      findutils
-      zip
-      jq
-      rsync
-      writableTmpDirAsHomeHook
-    ]
-    ++ lib.optionals hostPlatform.isLinux [
-      copyDesktopItems
-      makeWrapper
-    ]
-    ++ lib.optionals hostPlatform.isDarwin [
-      # bindgenHook is needed to build `coreaudio-sys` on darwin
-      rustPlatform.bindgenHook
+    buildInputs = lib.optionals hostPlatform.isDarwin [
+      apple-sdk_15
     ];
 
-  env = {
-    # force yarn install run in CI mode
-    CI = "1";
-    # `LIBCLANG_PATH` is needed to build `coreaudio-sys` on darwin
-    LIBCLANG_PATH = lib.optionalString hostPlatform.isDarwin "${lib.getLib llvmPackages.libclang}/lib";
-  };
+    nativeBuildInputs =
+      [
+        nodejs
+        yarn-berry
+        cargo
+        rustc
+        findutils
+        zip
+        jq
+        rsync
+        writableTmpDirAsHomeHook
+      ]
+      ++ lib.optionals hostPlatform.isLinux [
+        copyDesktopItems
+        makeWrapper
+      ]
+      ++ lib.optionals hostPlatform.isDarwin [
+        # bindgenHook is needed to build `coreaudio-sys` on darwin
+        rustPlatform.bindgenHook
+      ];
 
-  # Remove code under The AFFiNE Enterprise Edition (EE) license.
-  # Keep file package.json for `yarn install --immutable` lockfile check.
-  postPatch = ''
-    BACKEND_SERVER_PACKAGE_JSON="$(jq 'del(.scripts.postinstall)' packages/backend/server/package.json)"
-    rm -rf packages/backend/server/{.*,*}
-    echo "$BACKEND_SERVER_PACKAGE_JSON" > packages/backend/server/package.json
-  '';
+    env = {
+      # force yarn install run in CI mode
+      CI = "1";
+      # `LIBCLANG_PATH` is needed to build `coreaudio-sys` on darwin
+      LIBCLANG_PATH = lib.optionalString hostPlatform.isDarwin "${lib.getLib llvmPackages.libclang}/lib";
+    };
 
-  configurePhase = ''
-    runHook preConfigurePhase
+    # Remove code under The AFFiNE Enterprise Edition (EE) license.
+    # Keep file package.json for `yarn install --immutable` lockfile check.
+    postPatch = ''
+      BACKEND_SERVER_PACKAGE_JSON="$(jq 'del(.scripts.postinstall)' packages/backend/server/package.json)"
+      rm -rf packages/backend/server/{.*,*}
+      echo "$BACKEND_SERVER_PACKAGE_JSON" > packages/backend/server/package.json
+    '';
 
-    # cargo config
-    mkdir -p .cargo
-    cat $cargoDeps/.cargo/config.toml >> .cargo/config.toml
-    ln -s $cargoDeps @vendor@
+    configurePhase = ''
+      runHook preConfigurePhase
 
-    # yarn config
-    yarn config set enableTelemetry false
-    yarn config set enableGlobalCache false
-    yarn config set cacheFolder $yarnOfflineCache
+      # cargo config
+      mkdir -p .cargo
+      cat $cargoDeps/.cargo/config.toml >> .cargo/config.toml
+      ln -s $cargoDeps @vendor@
 
-    # electron config
-    ELECTRON_VERSION_IN_LOCKFILE=$(yarn why electron --json | tail --lines 1 | jq --raw-output '.children | to_entries | first | .key ' | cut -d : -f 2)
-    rsync --archive --chmod=u+w "${electron.dist}/" $HOME/.electron-prebuilt-zip-tmp
-    export ELECTRON_FORGE_ELECTRON_ZIP_DIR=$PWD/.electron_zip_dir
-    mkdir -p $ELECTRON_FORGE_ELECTRON_ZIP_DIR
-    (cd $HOME/.electron-prebuilt-zip-tmp && zip --recurse-paths - .) > $ELECTRON_FORGE_ELECTRON_ZIP_DIR/electron-v$ELECTRON_VERSION_IN_LOCKFILE-${nodePlatform}-${nodeArch}.zip
-    export ELECTRON_SKIP_BINARY_DOWNLOAD=1
+      # yarn config
+      yarn config set enableTelemetry false
+      yarn config set enableGlobalCache false
+      yarn config set cacheFolder $yarnOfflineCache
 
-    runHook postConfigurePhase
-  '';
+      # electron config
+      ELECTRON_VERSION_IN_LOCKFILE=$(yarn why electron --json | tail --lines 1 | jq --raw-output '.children | to_entries | first | .key ' | cut -d : -f 2)
+      rsync --archive --chmod=u+w "${electron.dist}/" $HOME/.electron-prebuilt-zip-tmp
+      export ELECTRON_FORGE_ELECTRON_ZIP_DIR=$PWD/.electron_zip_dir
+      mkdir -p $ELECTRON_FORGE_ELECTRON_ZIP_DIR
+      (cd $HOME/.electron-prebuilt-zip-tmp && zip --recurse-paths - .) > $ELECTRON_FORGE_ELECTRON_ZIP_DIR/electron-v$ELECTRON_VERSION_IN_LOCKFILE-${nodePlatform}-${nodeArch}.zip
+      export ELECTRON_SKIP_BINARY_DOWNLOAD=1
 
-  buildPhase = ''
-    runHook preBuild
+      runHook postConfigurePhase
+    '';
 
-    # first build
-    yarn install
-    CARGO_NET_OFFLINE=true yarn affine @affine/native build
-    GITHUB_SHA=ffffffffffffffffffffffffffffffffffffffff BUILD_TYPE=${buildType} SKIP_NX_CACHE=1 yarn affine @affine/electron generate-assets
+    buildPhase = ''
+      runHook preBuild
 
-    # second build
-    yarn config set nmMode classic
-    yarn config set nmHoistingLimits workspaces
-    find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +
-    yarn install
-    BUILD_TYPE=${buildType} SKIP_WEB_BUILD=1 SKIP_BUNDLE=1 HOIST_NODE_MODULES=1 yarn affine @affine/electron make
+      # first build
+      yarn install
+      CARGO_NET_OFFLINE=true yarn affine @affine/native build
+      GITHUB_SHA=ffffffffffffffffffffffffffffffffffffffff BUILD_TYPE=${buildType} SKIP_NX_CACHE=1 yarn affine @affine/electron generate-assets
 
-    runHook postBuild
-  '';
+      # second build
+      yarn config set nmMode classic
+      yarn config set nmHoistingLimits workspaces
+      find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +
+      yarn install
+      BUILD_TYPE=${buildType} SKIP_WEB_BUILD=1 SKIP_BUNDLE=1 HOIST_NODE_MODULES=1 yarn affine @affine/electron make
 
-  installPhase =
-    if hostPlatform.isDarwin then
-      ''
+      runHook postBuild
+    '';
+
+    installPhase =
+      if hostPlatform.isDarwin
+      then ''
         runHook preInstall
 
         mkdir -p $out/Applications
@@ -193,8 +196,7 @@ stdenv.mkDerivation (finalAttrs: {
 
         runHook postInstall
       ''
-    else
-      ''
+      else ''
         runHook preInstall
 
         mkdir --parents $out/lib/${binName}/
@@ -210,43 +212,43 @@ stdenv.mkDerivation (finalAttrs: {
         runHook postInstall
       '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = binName;
-      desktopName = productName;
-      comment = "AFFiNE Desktop App";
-      exec = "${binName} %U";
-      terminal = false;
-      icon = binName;
-      startupWMClass = binName;
-      categories = [ "Utility" ];
-      mimeTypes = [ "x-scheme-handler/${binName}" ];
-    })
-  ];
-
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version-regex=^v(\\d+\\.\\d+\\.\\d+)$"
+    desktopItems = [
+      (makeDesktopItem {
+        name = binName;
+        desktopName = productName;
+        comment = "AFFiNE Desktop App";
+        exec = "${binName} %U";
+        terminal = false;
+        icon = binName;
+        startupWMClass = binName;
+        categories = ["Utility"];
+        mimeTypes = ["x-scheme-handler/${binName}"];
+      })
     ];
-  };
 
-  meta = {
-    description = "Workspace with fully merged docs, whiteboards and databases";
-    longDescription = ''
-      AFFiNE is an open-source, all-in-one workspace and an operating
-      system for all the building blocks that assemble your knowledge
-      base and much more -- wiki, knowledge management, presentation
-      and digital assets
-    '';
-    homepage = "https://affine.pro/";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ xiaoxiangmoe ];
-    platforms = [
-      "aarch64-darwin"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "x86_64-linux"
-    ];
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
-  };
-})
+    passthru.updateScript = nix-update-script {
+      extraArgs = [
+        "--version-regex=^v(\\d+\\.\\d+\\.\\d+)$"
+      ];
+    };
+
+    meta = {
+      description = "Workspace with fully merged docs, whiteboards and databases";
+      longDescription = ''
+        AFFiNE is an open-source, all-in-one workspace and an operating
+        system for all the building blocks that assemble your knowledge
+        base and much more -- wiki, knowledge management, presentation
+        and digital assets
+      '';
+      homepage = "https://affine.pro/";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [xiaoxiangmoe];
+      platforms = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "x86_64-linux"
+      ];
+      sourceProvenance = [lib.sourceTypes.fromSource];
+    };
+  })

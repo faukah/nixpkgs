@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-cross";
   version = "0.2.5";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with lib.maintainers; [ otavio ];
+    maintainers = with lib.maintainers; [otavio];
     mainProgram = "cross";
   };
 }

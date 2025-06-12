@@ -5,7 +5,6 @@
   makeWrapper,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openresolv";
   version = "3.13.2";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rpfzAIzuiO+QTFhN+tHND+OQOyX/GUPvLLX3CSSwqA4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   configurePhase = ''
     cat > config.mk <<EOF
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     EOF
   '';
 
-  installFlags = [ "SYSCONFDIR=$(out)/etc" ];
+  installFlags = ["SYSCONFDIR=$(out)/etc"];
 
   postInstall = ''
     wrapProgram "$out/sbin/resolvconf" --set PATH "${coreutils}/bin"
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     mainProgram = "resolvconf";
     homepage = "https://roy.marples.name/projects/openresolv";
     license = lib.licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

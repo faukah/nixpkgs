@@ -34,7 +34,7 @@ buildNpmPackage rec {
   patches = [
     (replaceVars ./ffmpeg-filepicker.patch {
       inherit ffmpeg;
-      filepicker = lib.getExe (callPackage ./filepicker.nix { });
+      filepicker = lib.getExe (callPackage ./filepicker.nix {});
     })
   ];
 
@@ -77,7 +77,7 @@ buildNpmPackage rec {
     homepage = "https://www.downloadhelper.net/";
     license = licenses.gpl2;
     platforms = lib.platforms.linux;
-    maintainers = with maintainers; [ hannesgith ];
+    maintainers = with maintainers; [hannesgith];
     mainProgram = "vdhcoapp";
   };
 }

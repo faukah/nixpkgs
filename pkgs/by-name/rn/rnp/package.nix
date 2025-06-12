@@ -14,7 +14,6 @@
   sexpp,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rnp";
   version = "0.17.1";
@@ -74,6 +73,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "High performance C++ OpenPGP library, fully compliant to RFC 4880";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ribose-jeffreylau ];
+    maintainers = with maintainers; [ribose-jeffreylau];
   };
 })

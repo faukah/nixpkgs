@@ -10,7 +10,6 @@
   cmake,
   gettext,
 }:
-
 mkDerivation {
   pname = "kvirc";
   version = "2022-06-29";
@@ -39,7 +38,7 @@ mkDerivation {
     description = "Advanced IRC Client";
     homepage = "https://www.kvirc.net/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.suhr ];
+    maintainers = [maintainers.suhr];
     platforms = platforms.linux;
   };
 }

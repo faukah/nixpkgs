@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-AbT0r6T2+ag70zEMjN3/2AMK1DfVkLfLAbG9puchD58=";
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
   nativeBuildInputs = [
     pkg-config
     versionCheckHook
@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Track where Nixpkgs pull requests have reached";

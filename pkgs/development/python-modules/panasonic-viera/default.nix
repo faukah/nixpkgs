@@ -7,7 +7,6 @@
   pycryptodome,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "panasonic-viera";
   version = "0.4.2";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-gcFAFwEdCqiC1yHIA2B/gzmwvRwMC9fDxkgCbzIOpjM=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  pythonRelaxDeps = [ "xmltodict" ];
+  pythonRelaxDeps = ["xmltodict"];
 
   dependencies = [
     aiohttp
@@ -32,12 +31,12 @@ buildPythonPackage rec {
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "panasonic_viera" ];
+  pythonImportsCheck = ["panasonic_viera"];
 
   meta = {
     description = "Library to control Panasonic Viera TVs";
     homepage = "https://github.com/florianholzapfel/panasonic-viera";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

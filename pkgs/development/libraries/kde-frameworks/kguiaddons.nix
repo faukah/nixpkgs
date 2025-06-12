@@ -7,7 +7,6 @@
   wayland,
   plasma-wayland-protocols,
 }:
-
 mkDerivation {
   pname = "kguiaddons";
 
@@ -20,7 +19,7 @@ mkDerivation {
     wayland
     plasma-wayland-protocols
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
 
   outputs = [
     "out"

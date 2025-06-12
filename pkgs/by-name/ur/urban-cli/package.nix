@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "urban-cli";
   version = "0.2.4";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Blazingly fast command line interface for Urban Dictionary";
     homepage = "https://github.com/tfkhdyt/urban-cli";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ tfkhdyt ];
+    maintainers = with lib.maintainers; [tfkhdyt];
     mainProgram = "urban-cli";
   };
 }

@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     desktopName = "a-keys-path";
     comment = "A game where you build your way with your keys";
     genericName = "A Key's Path";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 
   buildPhase = ''
@@ -115,7 +115,7 @@ stdenv.mkDerivation (finalAttrs: {
       cc-by-sa-40
       cc0
     ];
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ phanirithvij ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [phanirithvij];
   };
 })

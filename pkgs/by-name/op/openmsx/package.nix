@@ -19,7 +19,6 @@
   tcl,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openmsx";
   version = "20_0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "openMSX";
     repo = "openMSX";
-    rev = "RELEASE_${builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+    rev = "RELEASE_${builtins.replaceStrings ["."] ["_"] finalAttrs.version}";
     hash = "sha256-iY+oZ7fHZnnEGunM4kOxOGH2Biqj2PfdLhbT8J4mYrA=";
     fetchSubmodules = true;
   };
@@ -76,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
       boost
       gpl2Plus
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
     mainProgram = "openmsx";
   };

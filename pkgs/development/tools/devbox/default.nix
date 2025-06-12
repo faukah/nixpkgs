@@ -22,14 +22,14 @@ buildGoModule rec {
     "-X go.jetify.com/devbox/internal/build.Version=${version}"
   ];
 
-  subPackages = [ "cmd/devbox" ];
+  subPackages = ["cmd/devbox"];
 
   # integration tests want file system access
   doCheck = false;
 
   vendorHash = "sha256-zqkuq8MlUCELjo4Z/uJhs65XUYyH755/ohgz1Ao4UAQ=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd devbox \

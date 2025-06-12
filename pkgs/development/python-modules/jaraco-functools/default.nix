@@ -10,7 +10,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "jaraco-functools";
   version = "4.1.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ more-itertools ];
+  dependencies = [more-itertools];
 
   nativeCheckInputs = [
     jaraco-classes
@@ -37,17 +36,20 @@ buildPythonPackage rec {
   ];
 
   # test is flaky on darwin
-  disabledTests = if stdenv.hostPlatform.isDarwin then [ "test_function_throttled" ] else null;
+  disabledTests =
+    if stdenv.hostPlatform.isDarwin
+    then ["test_function_throttled"]
+    else null;
 
-  pythonNamespaces = [ "jaraco" ];
+  pythonNamespaces = ["jaraco"];
 
-  pythonImportsCheck = [ "jaraco.functools" ];
+  pythonImportsCheck = ["jaraco.functools"];
 
   meta = with lib; {
     description = "Additional functools in the spirit of stdlib's functools";
     homepage = "https://github.com/jaraco/jaraco.functools";
     changelog = "https://github.com/jaraco/jaraco.functools/blob/v${version}/NEWS.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

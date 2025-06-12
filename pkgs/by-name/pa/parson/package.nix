@@ -5,7 +5,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation {
   pname = "parson";
   version = "1.5.3";
@@ -27,6 +26,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/kgabis/parson";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

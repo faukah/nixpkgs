@@ -19,7 +19,6 @@ beamPackages.mixRelease rec {
     repo = "pinchflat";
     rev = "v${version}";
     hash = "sha256-5hHueaA0QGTDr4wViZMBpBFhPnl8uAaxy72LMHgZdWU=";
-
   };
 
   mixNixDeps = import ./mix.nix {
@@ -44,7 +43,7 @@ beamPackages.mixRelease rec {
     tailwindcss
     yarn
   ];
-  buildInputs = [ nodejs ];
+  buildInputs = [nodejs];
 
   postBuild = ''
     export HOME=$PWD
@@ -76,7 +75,7 @@ beamPackages.mixRelease rec {
     description = "Your next YouTube media manager";
     homepage = "https://github.com/kieraneglin/pinchflat";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ charludo ];
+    maintainers = with lib.maintainers; [charludo];
     platforms = lib.platforms.unix;
     mainProgram = "pinchflat";
   };

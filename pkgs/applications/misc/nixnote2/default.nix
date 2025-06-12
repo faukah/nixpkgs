@@ -10,7 +10,6 @@
   hunspell,
   html-tidy,
 }:
-
 mkDerivation rec {
   pname = "nixnote2";
   version = "2.0.2";
@@ -30,7 +29,7 @@ mkDerivation rec {
     hunspell
   ];
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   postPatch = ''
     # Fix location of poppler-qt5.h
@@ -53,7 +52,7 @@ mkDerivation rec {
     description = "Unofficial client of Evernote";
     homepage = "http://www.nixnote.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ htr ];
+    maintainers = with maintainers; [htr];
     platforms = platforms.linux;
   };
 }

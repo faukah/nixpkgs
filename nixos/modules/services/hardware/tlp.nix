@@ -3,20 +3,21 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.tlp;
   enableRDW = config.networking.networkmanager.enable;
   # TODO: Use this for having proper parameters in the future
-  mkTlpConfig =
-    tlpConfig:
+  mkTlpConfig = tlpConfig:
     lib.generators.toKeyValue {
       mkKeyValue = lib.generators.mkKeyValueDefault {
-        mkValueString = val: if lib.isList val then "\"" + (toString val) + "\"" else toString val;
+        mkValueString = val:
+          if lib.isList val
+          then "\"" + (toString val) + "\""
+          else toString val;
       } "=";
-    } tlpConfig;
-in
-{
+    }
+    tlpConfig;
+in {
   ###### interface
   options = {
     services.tlp = {
@@ -27,8 +28,7 @@ in
       };
 
       settings = lib.mkOption {
-        type =
-          with lib.types;
+        type = with lib.types;
           attrsOf (oneOf [
             bool
             int
@@ -36,7 +36,7 @@ in
             str
             (listOf str)
           ]);
-        default = { };
+        default = {};
         example = {
           SATA_LINKPWR_ON_BAT = "med_power_with_dipm";
           USB_BLACKLIST_PHONE = 1;
@@ -57,7 +57,7 @@ in
 
       package = lib.mkOption {
         type = lib.types.package;
-        default = pkgs.tlp.override { inherit enableRDW; };
+        default = pkgs.tlp.override {inherit enableRDW;};
         defaultText = "pkgs.tlp.override { enableRDW = config.networking.networkmanager.enable; }";
         description = "The tlp package to use.";
       };
@@ -87,33 +87,30 @@ in
         "tlp.conf".text = (mkTlpConfig cfg.settings) + cfg.extraConfig;
       }
       // lib.optionalAttrs enableRDW {
-        "NetworkManager/dispatcher.d/99tlp-rdw-nm".source =
-          "${cfg.package}/lib/NetworkManager/dispatcher.d/99tlp-rdw-nm";
+        "NetworkManager/dispatcher.d/99tlp-rdw-nm".source = "${cfg.package}/lib/NetworkManager/dispatcher.d/99tlp-rdw-nm";
       };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    services.tlp.settings =
-      let
-        cfg = config.powerManagement;
-        maybeDefault = val: lib.mkIf (val != null) (lib.mkDefault val);
-      in
-      {
-        CPU_SCALING_GOVERNOR_ON_AC = maybeDefault cfg.cpuFreqGovernor;
-        CPU_SCALING_GOVERNOR_ON_BAT = maybeDefault cfg.cpuFreqGovernor;
-        CPU_SCALING_MIN_FREQ_ON_AC = maybeDefault cfg.cpufreq.min;
-        CPU_SCALING_MAX_FREQ_ON_AC = maybeDefault cfg.cpufreq.max;
-        CPU_SCALING_MIN_FREQ_ON_BAT = maybeDefault cfg.cpufreq.min;
-        CPU_SCALING_MAX_FREQ_ON_BAT = maybeDefault cfg.cpufreq.max;
-      };
+    services.tlp.settings = let
+      cfg = config.powerManagement;
+      maybeDefault = val: lib.mkIf (val != null) (lib.mkDefault val);
+    in {
+      CPU_SCALING_GOVERNOR_ON_AC = maybeDefault cfg.cpuFreqGovernor;
+      CPU_SCALING_GOVERNOR_ON_BAT = maybeDefault cfg.cpuFreqGovernor;
+      CPU_SCALING_MIN_FREQ_ON_AC = maybeDefault cfg.cpufreq.min;
+      CPU_SCALING_MAX_FREQ_ON_AC = maybeDefault cfg.cpufreq.max;
+      CPU_SCALING_MIN_FREQ_ON_BAT = maybeDefault cfg.cpufreq.min;
+      CPU_SCALING_MAX_FREQ_ON_BAT = maybeDefault cfg.cpufreq.max;
+    };
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
     systemd = {
       # use native tlp instead because it can also differentiate between AC/BAT
       services.cpufreq.enable = false;
 
-      packages = [ cfg.package ];
+      packages = [cfg.package];
       # XXX: These must always be disabled/masked according to [1].
       #
       # [1]: https://github.com/linrunner/TLP/blob/a9ada09e0821f275ce5f93dc80a4d81a7ff62ae4/tlp-stat.in#L319
@@ -124,19 +121,19 @@ in
         # XXX: The service should reload whenever the configuration changes,
         # otherwise newly set power options remain inactive until reboot (or
         # manual unit restart.)
-        restartTriggers = [ config.environment.etc."tlp.conf".source ];
+        restartTriggers = [config.environment.etc."tlp.conf".source];
         # XXX: When using systemd.packages (which we do above) the [Install]
         # section of systemd units does not work (citation needed) so we manually
         # enforce it here.
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
       };
 
       services.tlp-sleep = {
         # XXX: When using systemd.packages (which we do above) the [Install]
         # section of systemd units does not work (citation needed) so we manually
         # enforce it here.
-        before = [ "sleep.target" ];
-        wantedBy = [ "sleep.target" ];
+        before = ["sleep.target"];
+        wantedBy = ["sleep.target"];
         # XXX: `tlp suspend` requires /var/lib/tlp to exist in order to save
         # some stuff in there. There is no way, that I know of, to do this in
         # the package itself, so we do it here instead making sure the unit

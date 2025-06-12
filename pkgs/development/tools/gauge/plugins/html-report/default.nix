@@ -13,8 +13,8 @@ makeGaugePlugin {
     description = "HTML report generation plugin for Gauge";
     homepage = "https://github.com/getgauge/html-report/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ marie ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    maintainers = with lib.maintainers; [marie];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     platforms = [
       "aarch64-darwin"
       "x86_64-darwin"

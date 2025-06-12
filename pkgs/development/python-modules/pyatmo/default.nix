@@ -14,7 +14,6 @@
   setuptools-scm,
   time-machine,
 }:
-
 buildPythonPackage rec {
   pname = "pyatmo";
   version = "9.0.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     "requests"
   ];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     aiohttp
@@ -52,13 +51,13 @@ buildPythonPackage rec {
     time-machine
   ];
 
-  pythonImportsCheck = [ "pyatmo" ];
+  pythonImportsCheck = ["pyatmo"];
 
   meta = with lib; {
     description = "Simple API to access Netatmo weather station data";
     homepage = "https://github.com/jabesq/pyatmo";
     changelog = "https://github.com/jabesq/pyatmo/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

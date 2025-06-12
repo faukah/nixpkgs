@@ -5,7 +5,6 @@
   fetchPypi,
   re2,
 }:
-
 buildPythonPackage rec {
   pname = "fb-re2";
   version = "1.0.7";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     })
   ];
 
-  buildInputs = [ re2 ];
+  buildInputs = [re2];
 
   # no tests in PyPI tarball
   doCheck = false;
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Python wrapper for Google's RE2";
     homepage = "https://github.com/facebook/pyre2";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ivan ];
+    maintainers = with lib.maintainers; [ivan];
   };
 }

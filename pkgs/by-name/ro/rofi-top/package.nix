@@ -11,7 +11,6 @@
   rofi-unwrapped,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation {
   pname = "rofi-top";
   version = "unstable-2017-10-16";
@@ -46,7 +45,7 @@ stdenv.mkDerivation {
     description = "Plugin for rofi that emulates top behaviour";
     homepage = "https://github.com/davatorium/rofi-top";
     license = licenses.mit;
-    maintainers = with maintainers; [ aacebedo ];
+    maintainers = with maintainers; [aacebedo];
     platforms = platforms.linux;
   };
 }

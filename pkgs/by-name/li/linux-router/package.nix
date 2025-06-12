@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
   makeWrapper,
-
   # --- Runtime Dependencies ---
   bash,
   procps,
@@ -21,7 +20,6 @@
   # Use NetworkManager by default because it is very likely already present
   useNetworkManager ? true,
   networkmanager,
-
   # --- WiFi Hotspot Dependencies ---
   useWifiDependencies ? true,
   hostapd,
@@ -38,7 +36,6 @@
   useQrencode ? true,
   qrencode,
 }:
-
 stdenv.mkDerivation rec {
   pname = "linux-router";
   version = "0.7.6";
@@ -56,36 +53,34 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  installPhase =
-    let
-      binPath = lib.makeBinPath (
-        [
-          procps
-          iproute2
-          getopt
-          bash
-          dnsmasq
-          iptables
-          coreutils
-          which
-          flock
-          gnugrep
-          gnused
-          gawk
-        ]
-        ++ lib.optional useNetworkManager networkmanager
-        ++ lib.optional useWifiDependencies hostapd
-        ++ lib.optional useWifiDependencies iw
-        ++ lib.optional (useWifiDependencies && useWirelessTools) wirelesstools
-        ++ lib.optional (useWifiDependencies && useHaveged) haveged
-        ++ lib.optional (useWifiDependencies && useQrencode) qrencode
-      );
-    in
-    ''
-      mkdir -p $out/bin/ $out/.bin-wrapped
-      mv lnxrouter $out/.bin-wrapped/lnxrouter
-      makeWrapper $out/.bin-wrapped/lnxrouter $out/bin/lnxrouter --prefix PATH : ${binPath}
-    '';
+  installPhase = let
+    binPath = lib.makeBinPath (
+      [
+        procps
+        iproute2
+        getopt
+        bash
+        dnsmasq
+        iptables
+        coreutils
+        which
+        flock
+        gnugrep
+        gnused
+        gawk
+      ]
+      ++ lib.optional useNetworkManager networkmanager
+      ++ lib.optional useWifiDependencies hostapd
+      ++ lib.optional useWifiDependencies iw
+      ++ lib.optional (useWifiDependencies && useWirelessTools) wirelesstools
+      ++ lib.optional (useWifiDependencies && useHaveged) haveged
+      ++ lib.optional (useWifiDependencies && useQrencode) qrencode
+    );
+  in ''
+    mkdir -p $out/bin/ $out/.bin-wrapped
+    mv lnxrouter $out/.bin-wrapped/lnxrouter
+    makeWrapper $out/.bin-wrapped/lnxrouter $out/bin/lnxrouter --prefix PATH : ${binPath}
+  '';
 
   meta = {
     homepage = "https://github.com/garywill/linux-router";
@@ -108,7 +103,7 @@ stdenv.mkDerivation rec {
     '';
     changelog = "https://github.com/garywill/linux-router/releases/tag/${version}";
     license = lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ x3ro ];
+    maintainers = with lib.maintainers; [x3ro];
     platforms = lib.platforms.linux;
     mainProgram = "lnxrouter";
   };

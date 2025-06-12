@@ -7,7 +7,6 @@
   tenv,
   testers,
 }:
-
 buildGoModule rec {
   pname = "tenv";
   version = "4.6.2";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-5aWf5O25cudtIny159t3Mllp2wV0C+JxWe7RDkYOxVM=";
 
-  excludedPackages = [ "tools" ];
+  excludedPackages = ["tools"];
 
   # Tests disabled for requiring network access to release.hashicorp.com
   doCheck = false;
@@ -32,7 +31,7 @@ buildGoModule rec {
     "-X main.version=v${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd tenv \

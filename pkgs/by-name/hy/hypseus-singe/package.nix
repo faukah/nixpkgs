@@ -2,11 +2,9 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   cmake,
   makeWrapper,
   pkg-config,
-
   bash,
   SDL2,
   SDL2_image,
@@ -17,7 +15,6 @@
   libzip,
   libX11,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hypseus-singe";
   version = "2.11.5";
@@ -29,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-K/U/cx1y8mbC81qYNHz+AqT/hsc108NCHo0MoDhQqvs=";
   };
 
-  patches = [ ./use-shared-mpeg2.patch ];
+  patches = [./use-shared-mpeg2.patch];
 
   strictDeps = true;
 
@@ -84,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/DirtBagXon/hypseus-singe";
     license = lib.licenses.gpl3Only;
     mainProgram = "hypseus";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.all;
   };
 })

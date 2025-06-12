@@ -7,16 +7,15 @@
   overcommit,
   testers,
 }:
-
 bundlerApp {
   pname = "overcommit";
   gemdir = ./.;
-  exes = [ "overcommit" ];
+  exes = ["overcommit"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
-    wrapProgram $out/bin/overcommit --prefix PATH : ${lib.makeBinPath [ git ]}
+    wrapProgram $out/bin/overcommit --prefix PATH : ${lib.makeBinPath [git]}
   '';
 
   passthru = {

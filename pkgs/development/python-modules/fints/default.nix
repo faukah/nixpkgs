@@ -11,7 +11,6 @@
   pytestCheckHook,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   version = "4.2.3";
   pname = "fints";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-QR5/mAll6vuP+hJo/oguynLLsGawhTQNaU6TCgww9yM=";
   };
 
-  pythonRemoveDeps = [ "enum-tools" ];
+  pythonRemoveDeps = ["enum-tools"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     bleach
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     sepaxml
   ];
 
-  pythonImportsCheck = [ "fints" ];
+  pythonImportsCheck = ["fints"];
 
   nativeCheckInputs = [
     pytestCheckHook

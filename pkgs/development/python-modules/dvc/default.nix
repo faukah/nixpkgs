@@ -62,7 +62,6 @@
   enableAzure ? false,
   enableSSH ? false,
 }:
-
 buildPythonPackage rec {
   pname = "dvc";
   version = "3.59.2";
@@ -89,7 +88,7 @@ buildPythonPackage rec {
       --subst-var-by dvc "$out/bin/dcv"
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies =
     [
@@ -142,17 +141,17 @@ buildPythonPackage rec {
     ++ lib.optionals enableSSH optional-dependencies.ssh;
 
   optional-dependencies = {
-    azure = [ dvc-azure ];
-    gdrive = [ dvc-gdrive ];
-    gs = [ dvc-gs ];
-    hdfs = [ dvc-hdfs ];
-    oss = [ dvc-oss ];
-    s3 = [ dvc-s3 ];
-    ssh = [ dvc-ssh ];
-    ssh_gssapi = [ dvc-ssh ] ++ dvc-ssh.optional-dependencies.gssapi;
-    webdav = [ dvc-webdav ];
-    webhdfs = [ dvc-webhdfs ];
-    webhdfs_kerberos = [ dvc-webhdfs ] ++ dvc-webhdfs.optional-dependencies.kerberos;
+    azure = [dvc-azure];
+    gdrive = [dvc-gdrive];
+    gs = [dvc-gs];
+    hdfs = [dvc-hdfs];
+    oss = [dvc-oss];
+    s3 = [dvc-s3];
+    ssh = [dvc-ssh];
+    ssh_gssapi = [dvc-ssh] ++ dvc-ssh.optional-dependencies.gssapi;
+    webdav = [dvc-webdav];
+    webhdfs = [dvc-webhdfs];
+    webhdfs_kerberos = [dvc-webhdfs] ++ dvc-webhdfs.optional-dependencies.kerberos;
   };
 
   # Tests require access to real cloud services

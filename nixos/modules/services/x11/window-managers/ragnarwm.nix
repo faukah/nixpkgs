@@ -4,28 +4,24 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.ragnarwm;
-in
-{
+in {
   ###### interface
 
   options = {
     services.xserver.windowManager.ragnarwm = {
       enable = mkEnableOption "ragnarwm";
-      package = mkPackageOption pkgs "ragnarwm" { };
+      package = mkPackageOption pkgs "ragnarwm" {};
     };
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
-    services.displayManager.sessionPackages = [ cfg.package ];
-    environment.systemPackages = [ cfg.package ];
+    services.displayManager.sessionPackages = [cfg.package];
+    environment.systemPackages = [cfg.package];
   };
 
-  meta.maintainers = with lib.maintainers; [ sigmanificient ];
+  meta.maintainers = with lib.maintainers; [sigmanificient];
 }

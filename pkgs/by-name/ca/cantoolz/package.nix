@@ -4,7 +4,6 @@
   fetchpatch,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "cantoolz";
   version = "3.7.0";
@@ -65,7 +64,7 @@ python3.pkgs.buildPythonApplication rec {
       implemented with a new module.
     '';
     homepage = "https://github.com/CANToolz/CANToolz";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

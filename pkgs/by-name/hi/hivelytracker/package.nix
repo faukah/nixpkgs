@@ -9,7 +9,6 @@
   gtk3,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hivelytracker";
   version = "1.9";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "pete-gordon";
     repo = "hivelytracker";
-    rev = "V${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+    rev = "V${lib.replaceStrings ["."] ["_"] finalAttrs.version}";
     sha256 = "148p320sd8phcpmj4m85ns5zly2dawbp8kgx9ryjfdk24pa88xg6";
   };
 
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.bsd3;
     platforms = platforms.all;
     mainProgram = "hivelytracker";
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     broken = stdenv.hostPlatform.isDarwin; # TODO: try to use xcbuild
   };
 })

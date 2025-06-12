@@ -1,15 +1,12 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "sdl3";
   meta.maintainers = pkgs.sdl3.meta.maintainers;
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [ ./common/x11.nix ];
+  nodes.machine = {pkgs, ...}: {
+    imports = [./common/x11.nix];
 
-      environment.systemPackages = [ pkgs.sdl3.passthru.debug-text-example ];
-    };
+    environment.systemPackages = [pkgs.sdl3.passthru.debug-text-example];
+  };
 
   enableOCR = true;
 

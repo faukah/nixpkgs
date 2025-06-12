@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "roon-tui";
   version = "0.3.2";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Roon Remote for the terminal";
     homepage = "https://github.com/TheAppgineer/roon-tui";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ MichaelCDormann ];
+    maintainers = with lib.maintainers; [MichaelCDormann];
     mainProgram = "roon-tui";
   };
 }

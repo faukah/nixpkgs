@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dumptorrent";
   version = "1.2";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     description = "Dump .torrent file information";
     homepage = "https://sourceforge.net/projects/dumptorrent/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.zohl ];
+    maintainers = [maintainers.zohl];
     platforms = platforms.all;
     mainProgram = "dumptorrent";
   };

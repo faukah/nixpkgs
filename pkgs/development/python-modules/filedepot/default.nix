@@ -16,7 +16,6 @@
   setuptools,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "filedepot";
   version = "0.11.0";
@@ -31,12 +30,14 @@ buildPythonPackage rec {
     hash = "sha256-693H/u+Wg2G9sdoUkC6DQo9WkmIlKnh8NKv3ufK/eyQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    anyascii
-    google-cloud-storage
-  ] ++ lib.optionals (pythonAtLeast "3.13") [ legacy-cgi ];
+  dependencies =
+    [
+      anyascii
+      google-cloud-storage
+    ]
+    ++ lib.optionals (pythonAtLeast "3.13") [legacy-cgi];
 
   nativeCheckInputs = [
     flaky
@@ -58,15 +59,15 @@ buildPythonPackage rec {
     "tests/test_wsgi_middleware.py"
   ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.13") [ "test_notexisting" ];
+  disabledTests = lib.optionals (pythonAtLeast "3.13") ["test_notexisting"];
 
-  pythonImportsCheck = [ "depot" ];
+  pythonImportsCheck = ["depot"];
 
   meta = with lib; {
     description = "Toolkit for storing files and attachments in web applications";
     homepage = "https://github.com/amol-/depot";
     changelog = "https://github.com/amol-/depot/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

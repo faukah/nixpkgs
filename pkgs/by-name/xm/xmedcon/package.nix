@@ -9,7 +9,6 @@
   zlib,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xmedcon";
   version = "0.25.2";

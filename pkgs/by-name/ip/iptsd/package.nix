@@ -14,7 +14,6 @@
   spdlog,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "iptsd";
   version = "3";

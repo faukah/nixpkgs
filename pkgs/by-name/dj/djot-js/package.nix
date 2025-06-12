@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildNpmPackage rec {
   pname = "djot-js";
   version = "0.3.1";
@@ -31,7 +30,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/jgm/djot.js";
     changelog = "https://github.com/jgm/djot.js/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "djot";
   };
 }

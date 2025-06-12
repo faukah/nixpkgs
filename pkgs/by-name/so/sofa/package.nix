@@ -1,14 +1,11 @@
 {
   lib,
   stdenv,
-
   fetchFromGitHub,
   fetchpatch,
-
   # propagatedNativeBuildInputs
   cmake,
   qt6Packages,
-
   # propagatedBuildInputs
   boost,
   cxxopts,
@@ -20,7 +17,6 @@
   tinyxml-2,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sofa";
   version = "24.12.00";
@@ -78,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/sofa-framework/sofa/";
     changelog = "https://github.com/sofa-framework/sofa/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     mainProgram = "runSofa";
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };

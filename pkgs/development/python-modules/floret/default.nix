@@ -9,7 +9,6 @@
   numpy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "floret";
   version = "0.10.5";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-7vkw6H0ZQoHEwNusY6QWh/vPbSCdP1ZaaqABHsZH6hQ=";
   };
 
-  patches = [ ./cstdint.patch ];
+  patches = [./cstdint.patch];
 
   nativeBuildInputs = [
     pybind11
@@ -37,14 +36,14 @@ buildPythonPackage rec {
     pybind11
   ];
 
-  pythonImportsCheck = [ "floret" ];
+  pythonImportsCheck = ["floret"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "FastText + Bloom embeddings for compact, full-coverage vectors with spaCy";
     homepage = "https://github.com/explosion/floret";
     license = licenses.mit;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

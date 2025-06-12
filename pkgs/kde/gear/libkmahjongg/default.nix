@@ -11,5 +11,5 @@ mkKdeDerivation {
     _7zz
     svgcleaner
   ];
-  extraBuildInputs = [ qtsvg ];
+  extraBuildInputs = [qtsvg];
 }

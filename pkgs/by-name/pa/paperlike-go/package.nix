@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "paperlike-go";
   version = "unstable-2021-03-26";
@@ -17,13 +16,13 @@ buildGoModule {
 
   vendorHash = "sha256-OfTeJd3VS/WoUpyPY7XfQZWLrvS+vqPPgeL2Hd0HtgI=";
 
-  subPackages = [ "cmd/paperlike-cli" ];
+  subPackages = ["cmd/paperlike-cli"];
 
   meta = {
     description = "Linux Go library and CLI utility to control a Dasung Paperlike display via I2C DDC";
     homepage = "https://github.com/leoluk/paperlike-go";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
     mainProgram = "paperlike-cli";
   };

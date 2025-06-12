@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation {
   pname = "ydp-grand";
   version = "unstable-2016-08-04";
@@ -22,6 +21,6 @@ stdenv.mkDerivation {
     homepage = "https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html";
     license = licenses.cc-by-30;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

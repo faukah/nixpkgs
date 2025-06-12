@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "lap";
   version = "0.5.12";
@@ -22,18 +21,18 @@ buildPythonPackage rec {
     hash = "sha256-VwtBTqeubAS9SdDsjNrB3FY0c3dVeE1E43+fZourRP0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   dependencies = [
     numpy
     python-utils
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "lap" ];
+  pythonImportsCheck = ["lap"];
   # See https://github.com/NixOS/nixpkgs/issues/255262
   preCheck = ''
     cd "$out"

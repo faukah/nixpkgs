@@ -8,7 +8,6 @@
   gdb,
   writeScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "valgrind";
   version = "3.24.0";
@@ -113,13 +112,12 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl2Plus;
 
-    maintainers = [ lib.maintainers.eelco ];
-    platforms =
-      with lib.platforms;
+    maintainers = [lib.maintainers.eelco];
+    platforms = with lib.platforms;
       lib.intersectLists (x86 ++ power ++ s390x ++ armv7 ++ aarch64 ++ mips) (
         darwin ++ freebsd ++ illumos ++ linux
       );
-    badPlatforms = [ lib.systems.inspect.platformPatterns.isStatic ];
+    badPlatforms = [lib.systems.inspect.platformPatterns.isStatic];
     # See: <https://hydra.nixos.org/build/128521440/nixlog/2>
     #
     # Darwin‐specific derivation logic has been removed, check the

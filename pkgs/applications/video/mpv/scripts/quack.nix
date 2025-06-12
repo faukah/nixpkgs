@@ -4,7 +4,6 @@
   unstableGitUpdater,
   buildLua,
 }:
-
 buildLua {
   pname = "mpv-quack";
 
@@ -15,7 +14,7 @@ buildLua {
     rev = "1c87f36f9726d462dd112188c04be54d85692cf3";
     hash = "sha256-dEnJbS8RJoAxpKINdoMHN4l7vpEdf7+C5JVWpK0VXMw=";
   };
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Reduce audio volume after seeking";
@@ -28,6 +27,6 @@ buildLua {
     '';
     homepage = "https://github.com/CounterPillow/mpv-quack";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ nicoo ];
+    maintainers = with lib.maintainers; [nicoo];
   };
 }

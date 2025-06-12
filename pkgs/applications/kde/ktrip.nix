@@ -1,10 +1,8 @@
 {
   lib,
   mkDerivation,
-
   cmake,
   extra-cmake-modules,
-
   kconfig,
   kcontacts,
   kcoreaddons,
@@ -16,7 +14,6 @@
   qqc2-desktop-style,
   qtquickcontrols2,
 }:
-
 mkDerivation {
   pname = "ktrip";
 
@@ -44,6 +41,6 @@ mkDerivation {
     homepage = "https://apps.kde.org/ktrip/";
     # GPL-2.0-or-later
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   jre,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "quantomatic";
   version = "0.7";
@@ -15,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "04dd5p73a7plb4l4x2balam8j7mxs8df06rjkalxycrr1id52q4r";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   dontUnpack = true;
 
@@ -32,8 +31,8 @@ stdenv.mkDerivation rec {
     mainProgram = "quantomatic";
     license = licenses.gpl3;
     homepage = "https://quantomatic.github.io/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    maintainers = with maintainers; [ nickhu ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
+    maintainers = with maintainers; [nickhu];
     platforms = platforms.all;
   };
 }

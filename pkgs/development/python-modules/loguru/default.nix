@@ -12,7 +12,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "loguru";
   version = "0.7.3";
@@ -28,17 +27,19 @@ buildPythonPackage rec {
     hash = "sha256-tccEzzs9TtFAZM9s43cskF9llc81Ng28LqedjLiE1m4=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-xdist # massive speedup, not tested by upstream
-    colorama
-    freezegun
-    pytest-mypy-plugins
-  ] ++ lib.optional (pythonOlder "3.10") exceptiongroup;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-xdist # massive speedup, not tested by upstream
+      colorama
+      freezegun
+      pytest-mypy-plugins
+    ]
+    ++ lib.optional (pythonOlder "3.10") exceptiongroup;
 
-  disabledTestPaths = lib.optionals stdenv.hostPlatform.isDarwin [ "tests/test_multiprocessing.py" ];
+  disabledTestPaths = lib.optionals stdenv.hostPlatform.isDarwin ["tests/test_multiprocessing.py"];
 
   disabledTests =
     [
@@ -55,7 +56,7 @@ buildPythonPackage rec {
       "test_await_complete_inheritance"
     ];
 
-  pythonImportsCheck = [ "loguru" ];
+  pythonImportsCheck = ["loguru"];
 
   meta = {
     description = "Python logging made (stupidly) simple";

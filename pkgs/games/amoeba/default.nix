@@ -13,7 +13,6 @@
   pkg-config,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "amoeba";
   version = "1.1";
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "Fast-paced, polished OpenGL demonstration by Excess";
     homepage = "https://packages.qa.debian.org/a/amoeba.html";
     license = licenses.gpl2Only; # Engine is GPLv2, data files in amoeba-data nonfree
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
     platforms = platforms.linux;
   };
 }

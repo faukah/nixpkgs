@@ -4,38 +4,36 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.neo4j;
   opt = options.services.neo4j;
   certDirOpt = options.services.neo4j.directories.certificates;
-  isDefaultPathOption =
-    opt: lib.isOption opt && opt.type == lib.types.path && opt.highestPrio >= 1500;
+  isDefaultPathOption = opt: lib.isOption opt && opt.type == lib.types.path && opt.highestPrio >= 1500;
 
-  sslPolicies = lib.mapAttrsToList (name: conf: ''
-    dbms.ssl.policy.${name}.allow_key_generation=${lib.boolToString conf.allowKeyGeneration}
-    dbms.ssl.policy.${name}.base_directory=${conf.baseDirectory}
-    ${lib.optionalString (conf.ciphers != null) ''
-      dbms.ssl.policy.${name}.ciphers=${lib.concatStringsSep "," conf.ciphers}
-    ''}
-    dbms.ssl.policy.${name}.client_auth=${conf.clientAuth}
-    ${
-      if lib.length (lib.splitString "/" conf.privateKey) > 1 then
-        "dbms.ssl.policy.${name}.private_key=${conf.privateKey}"
-      else
-        "dbms.ssl.policy.${name}.private_key=${conf.baseDirectory}/${conf.privateKey}"
-    }
-    ${
-      if lib.length (lib.splitString "/" conf.privateKey) > 1 then
-        "dbms.ssl.policy.${name}.public_certificate=${conf.publicCertificate}"
-      else
-        "dbms.ssl.policy.${name}.public_certificate=${conf.baseDirectory}/${conf.publicCertificate}"
-    }
-    dbms.ssl.policy.${name}.revoked_dir=${conf.revokedDir}
-    dbms.ssl.policy.${name}.tls_versions=${lib.concatStringsSep "," conf.tlsVersions}
-    dbms.ssl.policy.${name}.trust_all=${lib.boolToString conf.trustAll}
-    dbms.ssl.policy.${name}.trusted_dir=${conf.trustedDir}
-  '') cfg.ssl.policies;
+  sslPolicies =
+    lib.mapAttrsToList (name: conf: ''
+      dbms.ssl.policy.${name}.allow_key_generation=${lib.boolToString conf.allowKeyGeneration}
+      dbms.ssl.policy.${name}.base_directory=${conf.baseDirectory}
+      ${lib.optionalString (conf.ciphers != null) ''
+        dbms.ssl.policy.${name}.ciphers=${lib.concatStringsSep "," conf.ciphers}
+      ''}
+      dbms.ssl.policy.${name}.client_auth=${conf.clientAuth}
+      ${
+        if lib.length (lib.splitString "/" conf.privateKey) > 1
+        then "dbms.ssl.policy.${name}.private_key=${conf.privateKey}"
+        else "dbms.ssl.policy.${name}.private_key=${conf.baseDirectory}/${conf.privateKey}"
+      }
+      ${
+        if lib.length (lib.splitString "/" conf.privateKey) > 1
+        then "dbms.ssl.policy.${name}.public_certificate=${conf.publicCertificate}"
+        else "dbms.ssl.policy.${name}.public_certificate=${conf.baseDirectory}/${conf.publicCertificate}"
+      }
+      dbms.ssl.policy.${name}.revoked_dir=${conf.revokedDir}
+      dbms.ssl.policy.${name}.tls_versions=${lib.concatStringsSep "," conf.tlsVersions}
+      dbms.ssl.policy.${name}.trust_all=${lib.boolToString conf.trustAll}
+      dbms.ssl.policy.${name}.trusted_dir=${conf.trustedDir}
+    '')
+    cfg.ssl.policies;
 
   serverConfig = pkgs.writeText "neo4j.conf" ''
     # General
@@ -99,32 +97,37 @@ let
     # Extra Configuration
     ${cfg.extraServerConfig}
   '';
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "neo4j" "host" ]
-      [ "services" "neo4j" "defaultListenAddress" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "neo4j" "host"]
+      ["services" "neo4j" "defaultListenAddress"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "neo4j" "listenAddress" ]
-      [ "services" "neo4j" "defaultListenAddress" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "neo4j" "listenAddress"]
+      ["services" "neo4j" "defaultListenAddress"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "neo4j" "enableBolt" ]
-      [ "services" "neo4j" "bolt" "enable" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "neo4j" "enableBolt"]
+      ["services" "neo4j" "bolt" "enable"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "neo4j" "enableHttps" ]
-      [ "services" "neo4j" "https" "enable" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "neo4j" "enableHttps"]
+      ["services" "neo4j" "https" "enable"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "neo4j" "certDir" ]
-      [ "services" "neo4j" "directories" "certificates" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "neo4j" "certDir"]
+      ["services" "neo4j" "directories" "certificates"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "neo4j" "dataDir" ]
-      [ "services" "neo4j" "directories" "home" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "neo4j" "dataDir"]
+      ["services" "neo4j" "directories" "home"]
     )
     (lib.mkRemovedOptionModule [
       "services"
@@ -205,7 +208,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "neo4j" { };
+    package = lib.mkPackageOption pkgs "neo4j" {};
 
     readOnly = lib.mkOption {
       type = lib.types.bool;
@@ -455,8 +458,7 @@ in
     };
 
     ssl.policies = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (
           submodule (
             {
@@ -464,8 +466,7 @@ in
               config,
               options,
               ...
-            }:
-            {
+            }: {
               options = {
                 allowKeyGeneration = lib.mkOption {
                   type = lib.types.bool;
@@ -567,7 +568,7 @@ in
 
                 tlsVersions = lib.mkOption {
                   type = lib.types.listOf lib.types.str;
-                  default = [ "TLSv1.2" ];
+                  default = ["TLSv1.2"];
                   description = ''
                     Restrict the TLS protocol versions of this policy to those
                     defined here.
@@ -624,7 +625,7 @@ in
             }
           )
         );
-      default = { };
+      default = {};
       description = ''
         Defines the SSL policies for use with Neo4j connectors. Each attribute
         of this set defines a policy, with the attribute name defining the name
@@ -638,21 +639,20 @@ in
 
   ###### implementation
 
-  config =
-    let
-      # Assertion helpers
-      policyNameList = lib.attrNames cfg.ssl.policies;
-      validPolicyNameList = [ "legacy" ] ++ policyNameList;
-      validPolicyNameString = lib.concatStringsSep ", " validPolicyNameList;
+  config = let
+    # Assertion helpers
+    policyNameList = lib.attrNames cfg.ssl.policies;
+    validPolicyNameList = ["legacy"] ++ policyNameList;
+    validPolicyNameString = lib.concatStringsSep ", " validPolicyNameList;
 
-      # Capture various directories left at their default so they can be created.
-      defaultDirectoriesToCreate = map (opt: opt.value) (
-        lib.filter isDefaultPathOption (lib.attrValues options.services.neo4j.directories)
-      );
-      policyDirectoriesToCreate = lib.concatMap (pol: pol.directoriesToCreate) (
-        lib.attrValues cfg.ssl.policies
-      );
-    in
+    # Capture various directories left at their default so they can be created.
+    defaultDirectoriesToCreate = map (opt: opt.value) (
+      lib.filter isDefaultPathOption (lib.attrValues options.services.neo4j.directories)
+    );
+    policyDirectoriesToCreate = lib.concatMap (pol: pol.directoriesToCreate) (
+      lib.attrValues cfg.ssl.policies
+    );
+  in
     lib.mkIf cfg.enable {
       assertions = [
         {
@@ -671,8 +671,8 @@ in
 
       systemd.services.neo4j = {
         description = "Neo4j Daemon";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         environment = {
           NEO4J_HOME = "${cfg.directories.home}";
           NEO4J_CONF = "${cfg.directories.home}/conf";
@@ -702,7 +702,7 @@ in
         '';
       };
 
-      environment.systemPackages = [ cfg.package ];
+      environment.systemPackages = [cfg.package];
 
       users.users.neo4j = {
         isSystemUser = true;
@@ -710,10 +710,10 @@ in
         description = "Neo4j daemon user";
         home = cfg.directories.home;
       };
-      users.groups.neo4j = { };
+      users.groups.neo4j = {};
     };
 
   meta = {
-    maintainers = with lib.maintainers; [ patternspandemic ];
+    maintainers = with lib.maintainers; [patternspandemic];
   };
 }

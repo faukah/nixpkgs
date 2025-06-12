@@ -10,7 +10,6 @@
   dataclasses-json,
   oauth2-client,
 }:
-
 buildPythonPackage rec {
   pname = "home-connect-async";
   version = "0.8.2";
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Async SDK for BSH Home Connect API";
     homepage = "https://pypi.org/project/home-connect-async";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kranzes ];
+    maintainers = with lib.maintainers; [kranzes];
   };
 }

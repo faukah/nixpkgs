@@ -1,39 +1,39 @@
-{ pkgs, lib, ... }:
-
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   geoserver = pkgs.geoserver;
-  geoserverWithImporterExtension = pkgs.geoserver.withExtensions (ps: with ps; [ importer ]);
+  geoserverWithImporterExtension = pkgs.geoserver.withExtensions (ps: with ps; [importer]);
 
   # Blacklisted extensions:
   # - wps-jdbc needs a running (Postrgres) db server.
-  blacklist = [ "wps-jdbc" ];
+  blacklist = ["wps-jdbc"];
 
-  blacklistedToNull = n: v: if !builtins.elem n blacklist then v else null;
-  getNonBlackistedExtensionsAsList =
-    ps: builtins.filter (x: x != null) (lib.attrsets.mapAttrsToList blacklistedToNull ps);
+  blacklistedToNull = n: v:
+    if !builtins.elem n blacklist
+    then v
+    else null;
+  getNonBlackistedExtensionsAsList = ps: builtins.filter (x: x != null) (lib.attrsets.mapAttrsToList blacklistedToNull ps);
   geoserverWithAllExtensions = pkgs.geoserver.withExtensions (
     ps: getNonBlackistedExtensionsAsList ps
   );
-in
-{
-
+in {
   name = "geoserver";
   meta = {
-    maintainers = with lib; [ teams.geospatial.members ];
+    maintainers = with lib; [teams.geospatial.members];
   };
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
-        virtualisation.diskSize = 2 * 1024;
+    machine = {pkgs, ...}: {
+      virtualisation.diskSize = 2 * 1024;
 
-        environment.systemPackages = [
-          geoserver
-          geoserverWithImporterExtension
-          geoserverWithAllExtensions
-        ];
-      };
+      environment.systemPackages = [
+        geoserver
+        geoserverWithImporterExtension
+        geoserverWithAllExtensions
+      ];
+    };
   };
 
   testScript = ''

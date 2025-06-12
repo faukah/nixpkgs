@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "extrude";
   version = "0.0.12";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Tool to analyse binaries for missing security features";
     mainProgram = "extrude";
     homepage = "https://github.com/liamg/extrude";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

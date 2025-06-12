@@ -14,7 +14,6 @@
   e2fsprogs,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "quick-sasl";
   version = "0.13.2";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     e2fsprogs
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Gentle wrapper around any SASL implementation";
@@ -52,8 +51,8 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.com/arpa2/Quick-SASL/-/blob/v${finalAttrs.version}/CHANGES";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.linux;
-    teams = with lib.teams; [ ngi ];
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    teams = with lib.teams; [ngi];
+    maintainers = with lib.maintainers; [ethancedwards8];
     mainProgram = "qsasl-server";
   };
 })

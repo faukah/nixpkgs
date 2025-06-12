@@ -4,7 +4,6 @@
   fetchFromGitHub,
   kernel,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ch9344";
   version = "0-unstable-2024-11-15";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
   ];
 
   sourceRoot = "${src.name}/driver";
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   preBuild = ''
@@ -47,6 +46,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ MakiseKurisu ];
+    maintainers = with maintainers; [MakiseKurisu];
   };
 }

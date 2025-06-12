@@ -9,7 +9,6 @@
   gnome-icon-theme,
   hicolor-icon-theme,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "arc-icon-theme";
   version = "20161122";
@@ -43,6 +42,6 @@ stdenvNoCC.mkDerivation rec {
     license = licenses.gpl3;
     # moka-icon-theme dependency is restricted to linux
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

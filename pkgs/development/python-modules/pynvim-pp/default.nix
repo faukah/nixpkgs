@@ -5,7 +5,6 @@
   pynvim,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "pynvim-pp";
   version = "0-unstable-2025-02-08";
@@ -18,16 +17,16 @@ buildPythonPackage {
     hash = "sha256-ggZqlaCP9WNECO+eRwi968EvQb8zuHCic6+9Zngsd24=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pynvim ];
+  dependencies = [pynvim];
 
-  pythonImportsCheck = [ "pynvim_pp" ];
+  pythonImportsCheck = ["pynvim_pp"];
 
   meta = {
     homepage = "https://github.com/ms-jpq/pynvim_pp";
     description = "Dependency to chadtree and coq_nvim plugins";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

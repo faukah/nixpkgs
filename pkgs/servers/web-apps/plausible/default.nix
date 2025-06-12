@@ -13,9 +13,7 @@
   tailwindcss_3,
   esbuild,
   ...
-}:
-
-let
+}: let
   pname = "plausible";
   version = "2.1.5";
   mixEnv = "ce";
@@ -94,93 +92,92 @@ let
 
   patchedMixFodDeps =
     runCommand mixFodDeps.name
-      {
-        inherit (mixFodDeps) hash;
-      }
-      ''
-        mkdir $out
-        cp -r --no-preserve=mode ${mixFodDeps}/. $out
+    {
+      inherit (mixFodDeps) hash;
+    }
+    ''
+      mkdir $out
+      cp -r --no-preserve=mode ${mixFodDeps}/. $out
 
-        mkdir -p $out/mjml/priv/native
-        for lib in ${mjmlNif}/lib/*
-        do
-          # normalies suffix to .so, otherswise build would fail on darwin
-          file=''${lib##*/}
-          base=''${file%.*}
-          ln -s "$lib" $out/mjml/priv/native/$base.so
-        done
-      '';
-
+      mkdir -p $out/mjml/priv/native
+      for lib in ${mjmlNif}/lib/*
+      do
+        # normalies suffix to .so, otherswise build would fail on darwin
+        file=''${lib##*/}
+        base=''${file%.*}
+        ln -s "$lib" $out/mjml/priv/native/$base.so
+      done
+    '';
 in
-beamPackages.mixRelease rec {
-  inherit
-    pname
-    version
-    src
-    mixEnv
-    ;
-
-  nativeBuildInputs = [
-    nodejs
-    brotli
-  ];
-
-  mixFodDeps = patchedMixFodDeps;
-
-  passthru = {
-    tests = {
-      inherit (nixosTests) plausible;
-    };
-    updateScript = nix-update-script {
-      extraArgs = [
-        "-s"
-        "tracker"
-        "-s"
-        "assets"
-        "-s"
-        "mjmlNif"
-      ];
-    };
+  beamPackages.mixRelease rec {
     inherit
-      assets
-      tracker
-      mjmlNif
+      pname
+      version
+      src
+      mixEnv
       ;
-  };
 
-  env = {
-    APP_VERSION = version;
-    RUSTLER_PRECOMPILED_FORCE_BUILD_ALL = "true";
-    RUSTLER_PRECOMPILED_GLOBAL_CACHE_PATH = "unused-but-required";
-  };
+    nativeBuildInputs = [
+      nodejs
+      brotli
+    ];
 
-  preBuild = ''
-    rm -r assets tracker
-    cp --no-preserve=mode -r ${assets} assets
-    cp -r ${tracker} tracker
+    mixFodDeps = patchedMixFodDeps;
 
-    cat >> config/config.exs <<EOF
-    config :tailwind, path: "${lib.getExe tailwindcss_3}"
-    config :esbuild, path: "${lib.getExe esbuild}"
-    EOF
-  '';
+    passthru = {
+      tests = {
+        inherit (nixosTests) plausible;
+      };
+      updateScript = nix-update-script {
+        extraArgs = [
+          "-s"
+          "tracker"
+          "-s"
+          "assets"
+          "-s"
+          "mjmlNif"
+        ];
+      };
+      inherit
+        assets
+        tracker
+        mjmlNif
+        ;
+    };
 
-  postBuild = ''
-    npm run deploy --prefix ./tracker
+    env = {
+      APP_VERSION = version;
+      RUSTLER_PRECOMPILED_FORCE_BUILD_ALL = "true";
+      RUSTLER_PRECOMPILED_GLOBAL_CACHE_PATH = "unused-but-required";
+    };
 
-    # for external task you need a workaround for the no deps check flag
-    # https://github.com/phoenixframework/phoenix/issues/2690
-    mix do deps.loadpaths --no-deps-check, assets.deploy
-    mix do deps.loadpaths --no-deps-check, phx.digest priv/static
-  '';
+    preBuild = ''
+      rm -r assets tracker
+      cp --no-preserve=mode -r ${assets} assets
+      cp -r ${tracker} tracker
 
-  meta = with lib; {
-    license = licenses.agpl3Plus;
-    homepage = "https://plausible.io/";
-    changelog = "https://github.com/plausible/analytics/blob/${src.rev}/CHANGELOG.md";
-    description = " Simple, open-source, lightweight (< 1 KB) and privacy-friendly web analytics alternative to Google Analytics";
-    mainProgram = "plausible";
-    teams = [ teams.cyberus ];
-    platforms = platforms.unix;
-  };
-}
+      cat >> config/config.exs <<EOF
+      config :tailwind, path: "${lib.getExe tailwindcss_3}"
+      config :esbuild, path: "${lib.getExe esbuild}"
+      EOF
+    '';
+
+    postBuild = ''
+      npm run deploy --prefix ./tracker
+
+      # for external task you need a workaround for the no deps check flag
+      # https://github.com/phoenixframework/phoenix/issues/2690
+      mix do deps.loadpaths --no-deps-check, assets.deploy
+      mix do deps.loadpaths --no-deps-check, phx.digest priv/static
+    '';
+
+    meta = with lib; {
+      license = licenses.agpl3Plus;
+      homepage = "https://plausible.io/";
+      changelog = "https://github.com/plausible/analytics/blob/${src.rev}/CHANGELOG.md";
+      description = " Simple, open-source, lightweight (< 1 KB) and privacy-friendly web analytics alternative to Google Analytics";
+      mainProgram = "plausible";
+      teams = [teams.cyberus];
+      platforms = platforms.unix;
+    };
+  }

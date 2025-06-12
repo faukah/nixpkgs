@@ -6,7 +6,6 @@
   hatchling,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "termcolor";
   version = "3.0.0";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  pythonImportsCheck = [ "termcolor" ];
+  pythonImportsCheck = ["termcolor"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     changelog = "https://github.com/termcolor/termcolor/releases/tag/${version}";

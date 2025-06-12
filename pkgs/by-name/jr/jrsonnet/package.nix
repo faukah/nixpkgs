@@ -5,7 +5,6 @@
   installShellFiles,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "jrsonnet";
   version = "0.4.2";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-DA31NatwQyf3RPpaI38DdAujpRyZfJvoHgr2CZSjH3s=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # skip flaky tests
   checkFlags = [

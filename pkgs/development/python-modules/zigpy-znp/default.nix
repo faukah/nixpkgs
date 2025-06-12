@@ -16,7 +16,6 @@
   voluptuous,
   zigpy,
 }:
-
 buildPythonPackage rec {
   pname = "zigpy-znp";
   version = "0.14.0";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
       --replace-fail 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     async-timeout
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--reruns=3" ];
+  pytestFlagsArray = ["--reruns=3"];
 
   disabledTests = [
     # failing since zigpy 0.60.0
@@ -72,14 +71,14 @@ buildPythonPackage rec {
     "test_zigpy_request_failure"
   ];
 
-  pythonImportsCheck = [ "zigpy_znp" ];
+  pythonImportsCheck = ["zigpy_znp"];
 
   meta = with lib; {
     description = "Library for zigpy which communicates with TI ZNP radios";
     homepage = "https://github.com/zigpy/zigpy-znp";
     changelog = "https://github.com/zigpy/zigpy-znp/releases/tag/v${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mvnetbiz ];
+    maintainers = with maintainers; [mvnetbiz];
     platforms = platforms.linux;
   };
 }

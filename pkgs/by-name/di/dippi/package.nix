@@ -13,7 +13,6 @@
   appstream-glib,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dippi";
   version = "4.1.0";
@@ -47,6 +46,6 @@ stdenv.mkDerivation rec {
     mainProgram = "com.github.cassidyjames.dippi";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ zendo ];
+    maintainers = with lib.maintainers; [zendo];
   };
 }

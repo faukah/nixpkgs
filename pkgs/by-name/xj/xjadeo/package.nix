@@ -14,7 +14,6 @@
   portmidi,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xjadeo";
   version = "0.8.14";
@@ -60,6 +59,6 @@ stdenv.mkDerivation rec {
     homepage = "https://xjadeo.sourceforge.net";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mitchmindtree ];
+    maintainers = with maintainers; [mitchmindtree];
   };
 }

@@ -22,16 +22,12 @@
   rustPlatform,
   stdenv,
   webkitgtk_4_1,
-}:
-
-let
-  esbuild_21-5 =
-    let
-      version = "0.21.5";
-    in
+}: let
+  esbuild_21-5 = let
+    version = "0.21.5";
+  in
     esbuild.override {
-      buildGoModule =
-        args:
+      buildGoModule = args:
         buildGoModule (
           args
           // {
@@ -46,81 +42,80 @@ let
           }
         );
     };
-
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "surrealist";
-  version = "3.2.4";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "surrealist";
+    version = "3.2.4";
 
-  src = fetchFromGitHub {
-    owner = "surrealdb";
-    repo = "surrealist";
-    rev = "surrealist-v${finalAttrs.version}";
-    hash = "sha256-FWNGC0QoEUu1h3e3sfgWmbvqcNNvfWXU7PEjTXxu9Qo=";
-  };
+    src = fetchFromGitHub {
+      owner = "surrealdb";
+      repo = "surrealist";
+      rev = "surrealist-v${finalAttrs.version}";
+      hash = "sha256-FWNGC0QoEUu1h3e3sfgWmbvqcNNvfWXU7PEjTXxu9Qo=";
+    };
 
-  cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit (finalAttrs) src cargoRoot;
-    hash = "sha256-Su9ZOPIskV5poeS8pgtri+sZANBpdgnuCsQqE4WKFdA=";
-  };
+    cargoDeps = rustPlatform.fetchCargoVendor {
+      inherit (finalAttrs) src cargoRoot;
+      hash = "sha256-Su9ZOPIskV5poeS8pgtri+sZANBpdgnuCsQqE4WKFdA=";
+    };
 
-  pnpmDeps = pnpm_9.fetchDeps {
-    inherit (finalAttrs) pname version src;
-    hash = "sha256-oreeV9g16/F7JGLApi0Uq+vTqNhIg7Lg1Z4k00RUOYI=";
-  };
+    pnpmDeps = pnpm_9.fetchDeps {
+      inherit (finalAttrs) pname version src;
+      hash = "sha256-oreeV9g16/F7JGLApi0Uq+vTqNhIg7Lg1Z4k00RUOYI=";
+    };
 
-  nativeBuildInputs = [
-    cargo
-    cargo-tauri.hook
-    gobject-introspection
-    jq
-    makeBinaryWrapper
-    moreutils
-    nodejs
-    pkg-config
-    pnpm_9.configHook
-    rustc
-    rustPlatform.cargoSetupHook
-  ];
+    nativeBuildInputs = [
+      cargo
+      cargo-tauri.hook
+      gobject-introspection
+      jq
+      makeBinaryWrapper
+      moreutils
+      nodejs
+      pkg-config
+      pnpm_9.configHook
+      rustc
+      rustPlatform.cargoSetupHook
+    ];
 
-  buildInputs = [
-    cairo
-    gdk-pixbuf
-    libsoup_3
-    openssl
-    pango
-    webkitgtk_4_1
-  ];
+    buildInputs = [
+      cairo
+      gdk-pixbuf
+      libsoup_3
+      openssl
+      pango
+      webkitgtk_4_1
+    ];
 
-  env = {
-    ESBUILD_BINARY_PATH = lib.getExe esbuild_21-5;
-    OPENSSL_NO_VENDOR = 1;
-  };
+    env = {
+      ESBUILD_BINARY_PATH = lib.getExe esbuild_21-5;
+      OPENSSL_NO_VENDOR = 1;
+    };
 
-  cargoRoot = "src-tauri";
-  buildAndTestSubdir = finalAttrs.cargoRoot;
+    cargoRoot = "src-tauri";
+    buildAndTestSubdir = finalAttrs.cargoRoot;
 
-  # Deactivate the upstream update mechanism
-  postPatch = ''
-    jq '
-      .bundle.createUpdaterArtifacts = false |
-      .plugins.updater = {"active": false, "pubkey": "", "endpoints": []}
-    ' \
-    src-tauri/tauri.conf.json | sponge src-tauri/tauri.conf.json
-  '';
+    # Deactivate the upstream update mechanism
+    postPatch = ''
+      jq '
+        .bundle.createUpdaterArtifacts = false |
+        .plugins.updater = {"active": false, "pubkey": "", "endpoints": []}
+      ' \
+      src-tauri/tauri.conf.json | sponge src-tauri/tauri.conf.json
+    '';
 
-  postFixup = ''
-    wrapProgram "$out/bin/surrealist" \
-      --set GIO_EXTRA_MODULES ${glib-networking}/lib/gio/modules \
-      --set WEBKIT_DISABLE_COMPOSITING_MODE 1
-  '';
+    postFixup = ''
+      wrapProgram "$out/bin/surrealist" \
+        --set GIO_EXTRA_MODULES ${glib-networking}/lib/gio/modules \
+        --set WEBKIT_DISABLE_COMPOSITING_MODE 1
+    '';
 
-  meta = with lib; {
-    description = "Surrealist is the ultimate way to visually manage your SurrealDB database";
-    homepage = "https://surrealdb.com/surrealist";
-    license = licenses.mit;
-    mainProgram = "surrealist";
-    maintainers = with maintainers; [ frankp ];
-    platforms = platforms.linux;
-  };
-})
+    meta = with lib; {
+      description = "Surrealist is the ultimate way to visually manage your SurrealDB database";
+      homepage = "https://surrealdb.com/surrealist";
+      license = licenses.mit;
+      mainProgram = "surrealist";
+      maintainers = with maintainers; [frankp];
+      platforms = platforms.linux;
+    };
+  })

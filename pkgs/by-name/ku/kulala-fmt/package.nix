@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kulala-fmt";
   version = "1.4.0";
@@ -29,7 +28,7 @@ buildGoModule rec {
     description = "Opinionated .http and .rest files linter and formatter";
     homepage = "https://github.com/mistweaverco/kulala-fmt";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ CnTeng ];
+    maintainers = with lib.maintainers; [CnTeng];
     mainProgram = "kulala-fmt";
     platforms = lib.platforms.all;
   };

@@ -4,7 +4,6 @@
   fetchzip,
   bluez,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bluesnarfer";
   version = "0.1";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = finalAttrs.src.name + "/bluesnarfer";
 
-  buildInputs = [ bluez ];
+  buildInputs = [bluez];
 
   strictDeps = true;
 
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Bluetooth bluesnarfing utility";
     homepage = "https://www.alighieri.org/project.html";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     platforms = lib.platforms.linux;
   };
 })

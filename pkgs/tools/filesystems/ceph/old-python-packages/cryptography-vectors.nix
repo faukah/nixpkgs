@@ -5,7 +5,6 @@
   lib,
   cryptography,
 }:
-
 buildPythonPackage rec {
   pname = "cryptography-vectors";
   # The test vectors must have the same version as the cryptography package
@@ -21,7 +20,7 @@ buildPythonPackage rec {
   # No tests included
   doCheck = false;
 
-  pythonImportsCheck = [ "cryptography_vectors" ];
+  pythonImportsCheck = ["cryptography_vectors"];
 
   meta = with lib; {
     description = "Test vectors for the cryptography package";
@@ -31,6 +30,6 @@ buildPythonPackage rec {
       asl20
       bsd3
     ];
-    maintainers = with maintainers; [ nh2 ];
+    maintainers = with maintainers; [nh2];
   };
 }

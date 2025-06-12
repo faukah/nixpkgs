@@ -3,25 +3,24 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.gtklock;
   configFormat = pkgs.formats.ini {
     listToValue = builtins.concatStringsSep ";";
   };
 
-  inherit (lib)
+  inherit
+    (lib)
     types
     mkOption
     mkEnableOption
     mkPackageOption
     ;
-in
-{
+in {
   options.programs.gtklock = {
     enable = mkEnableOption "gtklock, a GTK-based lockscreen for Wayland";
 
-    package = mkPackageOption pkgs "gtklock" { };
+    package = mkPackageOption pkgs "gtklock" {};
 
     config = mkOption {
       type = configFormat.type;
@@ -49,7 +48,7 @@ in
 
     modules = mkOption {
       type = with types; listOf package;
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''
         with pkgs; [
           gtklock-playerctl-module
@@ -64,15 +63,15 @@ in
     programs.gtklock.config.main = {
       style = lib.mkIf (cfg.style != null) "${pkgs.writeText "style.css" cfg.style}";
 
-      modules = lib.mkIf (cfg.modules != [ ]) (
+      modules = lib.mkIf (cfg.modules != []) (
         map (pkg: "${pkg}/lib/gtklock/${lib.removePrefix "gtklock-" pkg.pname}.so") cfg.modules
       );
     };
 
     environment.etc."xdg/gtklock/config.ini".source = configFormat.generate "config.ini" cfg.config;
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    security.pam.services.gtklock = { };
+    security.pam.services.gtklock = {};
   };
 }

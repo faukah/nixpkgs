@@ -19,9 +19,7 @@
   pymsgbox,
   pynacl,
 }:
-
 # When changing this package, please test packages {keepkey,ledger,onlykey,trezor}-agent
-
 buildPythonPackage rec {
   pname = "libagent";
   version = "0.15.0";
@@ -41,10 +39,10 @@ buildPythonPackage rec {
       --replace "'gpg-connect-agent'" "'${gnupg}/bin/gpg-connect-agent'"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # https://github.com/romanz/trezor-agent/pull/481
-  pythonRemoveDeps = [ "backports.shutil-which" ];
+  pythonRemoveDeps = ["backports.shutil-which"];
 
   dependencies = [
     backports-shutil-which
@@ -61,7 +59,7 @@ buildPythonPackage rec {
     cryptography
   ];
 
-  pythonImportsCheck = [ "libagent" ];
+  pythonImportsCheck = ["libagent"];
 
   nativeCheckInputs = [
     mock
@@ -77,6 +75,6 @@ buildPythonPackage rec {
     description = "Using hardware wallets as SSH/GPG agent";
     homepage = "https://github.com/romanz/trezor-agent";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ np ];
+    maintainers = with maintainers; [np];
   };
 }

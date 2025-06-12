@@ -1,5 +1,7 @@
-{ lib, vscode-utils }:
-
+{
+  lib,
+  vscode-utils,
+}:
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "winteriscoming";
@@ -12,6 +14,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=johnpapa.winteriscoming";
     homepage = "https://github.com/johnpapa/vscode-winteriscoming";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.therobot2105 ];
+    maintainers = [lib.maintainers.therobot2105];
   };
 }

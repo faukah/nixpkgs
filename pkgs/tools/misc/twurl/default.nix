@@ -3,11 +3,10 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "twurl";
   gemdir = ./.;
-  exes = [ "twurl" ];
+  exes = ["twurl"];
 
   passthru.updateScript = bundlerUpdateScript "twurl";
 
@@ -15,7 +14,7 @@ bundlerApp {
     description = "OAuth-enabled curl for the Twitter API";
     homepage = "https://github.com/twitter/twurl";
     license = "MIT";
-    maintainers = with maintainers; [ brecht ];
+    maintainers = with maintainers; [brecht];
     platforms = platforms.unix;
     mainProgram = "twurl";
   };

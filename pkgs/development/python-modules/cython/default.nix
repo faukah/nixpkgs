@@ -13,7 +13,6 @@
   setuptools,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "cython";
   version = "3.0.12";
@@ -47,40 +46,38 @@ buildPythonPackage rec {
 
   strictDeps = true;
 
-  checkPhase =
-    let
-      excludedTests =
-        [ "reimport_from_subinterpreter" ]
-        # cython's testsuite is not working very well with libc++
-        # We are however optimistic about things outside of testsuite still working
-        ++ lib.optionals (stdenv.cc.isClang or false) [
-          "cpdef_extern_func"
-          "libcpp_algo"
-        ]
-        # Some tests in the test suite aren't working on aarch64.
-        # Disable them for now until upstream finds a workaround.
-        # Upstream issue: https://github.com/cython/cython/issues/2308
-        ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "numpy_memoryview" ]
-        ++ lib.optionals stdenv.hostPlatform.isi686 [
-          "future_division"
-          "overflow_check_longlong"
-        ];
-      commandline = builtins.concatStringsSep " " (
-        [
-          "-j$NIX_BUILD_CORES"
-          "--no-code-style"
-        ]
-        ++ lib.optionals (builtins.length excludedTests != 0) [
-          ''--exclude="(${builtins.concatStringsSep "|" excludedTests})"''
-        ]
-      );
-    in
-    ''
-      runHook preCheck
-      export HOME="$NIX_BUILD_TOP"
-      ${python.interpreter} runtests.py ${commandline}
-      runHook postCheck
-    '';
+  checkPhase = let
+    excludedTests =
+      ["reimport_from_subinterpreter"]
+      # cython's testsuite is not working very well with libc++
+      # We are however optimistic about things outside of testsuite still working
+      ++ lib.optionals (stdenv.cc.isClang or false) [
+        "cpdef_extern_func"
+        "libcpp_algo"
+      ]
+      # Some tests in the test suite aren't working on aarch64.
+      # Disable them for now until upstream finds a workaround.
+      # Upstream issue: https://github.com/cython/cython/issues/2308
+      ++ lib.optionals stdenv.hostPlatform.isAarch64 ["numpy_memoryview"]
+      ++ lib.optionals stdenv.hostPlatform.isi686 [
+        "future_division"
+        "overflow_check_longlong"
+      ];
+    commandline = builtins.concatStringsSep " " (
+      [
+        "-j$NIX_BUILD_CORES"
+        "--no-code-style"
+      ]
+      ++ lib.optionals (builtins.length excludedTests != 0) [
+        ''--exclude="(${builtins.concatStringsSep "|" excludedTests})"''
+      ]
+    );
+  in ''
+    runHook preCheck
+    export HOME="$NIX_BUILD_TOP"
+    ${python.interpreter} runtests.py ${commandline}
+    runHook postCheck
+  '';
 
   passthru.tests = {
     inherit pygame-ce sage;
@@ -121,7 +118,8 @@ buildPythonPackage rec {
     changelog = "https://github.com/cython/cython/blob/${version}/CHANGES.rst";
     license = lib.licenses.asl20;
     mainProgram = "cython";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }
 # TODO: investigate recursive loop when doCheck is true
+

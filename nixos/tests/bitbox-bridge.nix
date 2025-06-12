@@ -1,9 +1,6 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   testPort = 8179;
-in
-{
+in {
   name = "bitbox-bridge";
   meta.maintainers = with lib.maintainers; [
     izelnakri

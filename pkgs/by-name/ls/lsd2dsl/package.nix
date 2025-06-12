@@ -14,7 +14,6 @@
   gtest,
   qt6,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lsd2dsl";
   version = "0.6.0";
@@ -30,10 +29,12 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt --replace "-Werror" ""
   '';
 
-  nativeBuildInputs = [
-    cmake
-    qt6.wrapQtAppsHook
-  ] ++ lib.optional stdenv.hostPlatform.isLinux copyDesktopItems;
+  nativeBuildInputs =
+    [
+      cmake
+      qt6.wrapQtAppsHook
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux copyDesktopItems;
 
   buildInputs = [
     boost
@@ -73,7 +74,7 @@ stdenv.mkDerivation rec {
       A decompiler for ABBYY Lingvo’s proprietary dictionaries.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
   };
 }

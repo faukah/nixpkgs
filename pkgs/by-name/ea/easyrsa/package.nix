@@ -6,7 +6,6 @@
   makeWrapper,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "easyrsa";
   version = "3.2.2";
@@ -18,8 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-gNuVijMAHVKEHU0Z6INKUZt68qSg5ssxSaXOH/+MU1I=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  nativeInstallCheckInputs = [ openssl.bin ];
+  nativeBuildInputs = [makeWrapper];
+  nativeInstallCheckInputs = [openssl.bin];
 
   installPhase = ''
     mkdir -p $out/share/easy-rsa

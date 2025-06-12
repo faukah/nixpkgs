@@ -8,7 +8,6 @@
   testers,
   resticprofile,
 }:
-
 buildGoModule rec {
   pname = "resticprofile";
   version = "0.30.1";
@@ -41,7 +40,7 @@ buildGoModule rec {
     "-X main.builtBy=nixpkgs"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   preCheck = ''
     rm batt/battery_test.go # tries to get battery data
@@ -85,7 +84,7 @@ buildGoModule rec {
       lgpl3 # bash shell completion
     ];
     mainProgram = "resticprofile";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

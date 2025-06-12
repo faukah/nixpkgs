@@ -9,7 +9,6 @@
   wrapGAppsHook4,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "sysmenu";
   version = "unstable-2024-06-13";
@@ -43,14 +42,14 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Simple program launcher using GTK4";
     homepage = "https://github.com/System64fumo/sysmenu";
     license = lib.licenses.wtfpl;
     mainProgram = "sysmenu";
-    maintainers = with lib.maintainers; [ matteopacini ];
+    maintainers = with lib.maintainers; [matteopacini];
     platforms = lib.platforms.linux;
   };
 }

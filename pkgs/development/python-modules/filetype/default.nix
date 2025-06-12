@@ -5,7 +5,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "filetype";
   version = "1.2.0";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-ZrVs1kdL9B2MVGYDR9N6/MP30ZcGSN42XBAu93VIqts=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "filetype" ];
+  pythonImportsCheck = ["filetype"];
 
   disabledTests = [
     # https://github.com/h2non/filetype.py/issues/119
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     mainProgram = "filetype";
     homepage = "https://github.com/h2non/filetype.py";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -6,7 +6,6 @@
   cmake,
   hidapi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "headsetcontrol";
   version = "3.0.0";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Sapd/HeadsetControl";
     license = licenses.gpl3Plus;
     mainProgram = "headsetcontrol";
-    maintainers = with maintainers; [ leixb ];
+    maintainers = with maintainers; [leixb];
     platforms = platforms.all;
   };
 }

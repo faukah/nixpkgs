@@ -7,7 +7,6 @@
   qtmultimedia,
   qtwayland,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libremines";
   version = "2.0.1";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
       qtwayland
     ];
 
-  cmakeFlags = [ "-DUSE_QT6=TRUE" ];
+  cmakeFlags = ["-DUSE_QT6=TRUE"];
 
   meta = with lib; {
     description = "Qt based Minesweeper game";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://bollos00.github.io/LibreMines";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.unix;
   };
 }

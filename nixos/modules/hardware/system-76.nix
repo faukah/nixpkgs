@@ -4,10 +4,9 @@
   options,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     literalExpression
     mkOption
     mkEnableOption
@@ -21,10 +20,12 @@ let
   opt = options.hardware.system76;
 
   kpkgs = config.boot.kernelPackages;
-  modules = [
-    "system76"
-    "system76-io"
-  ] ++ (optional (versionOlder kpkgs.kernel.version "5.5") "system76-acpi");
+  modules =
+    [
+      "system76"
+      "system76-io"
+    ]
+    ++ (optional (versionOlder kpkgs.kernel.version "5.5") "system76-acpi");
   modulePackages = map (m: kpkgs.${m}) modules;
   moduleConfig = mkIf cfg.kernel-modules.enable {
     boot.extraModulePackages = modulePackages;
@@ -37,9 +38,9 @@ let
   firmware-pkg = pkgs.system76-firmware;
   firmwareConfig = mkIf cfg.firmware-daemon.enable {
     # Make system76-firmware-cli usable by root from the command line.
-    environment.systemPackages = [ firmware-pkg ];
+    environment.systemPackages = [firmware-pkg];
 
-    services.dbus.packages = [ firmware-pkg ];
+    services.dbus.packages = [firmware-pkg];
 
     systemd.services.system76-firmware-daemon = {
       description = "The System76 Firmware Daemon";
@@ -50,16 +51,16 @@ let
         Restart = "on-failure";
       };
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 
   power-pkg = pkgs.system76-power;
   powerConfig = mkIf cfg.power-daemon.enable {
     # Make system76-power usable by root from the command line.
-    environment.systemPackages = [ power-pkg ];
+    environment.systemPackages = [power-pkg];
 
-    services.dbus.packages = [ power-pkg ];
+    services.dbus.packages = [power-pkg];
 
     systemd.services.system76-power = {
       description = "System76 Power Daemon";
@@ -69,11 +70,10 @@ let
         Type = "dbus";
         BusName = "com.system76.PowerDaemon";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
-in
-{
+in {
   options = {
     hardware.system76 = {
       enableAll = mkEnableOption "all recommended configuration for system76 systems";

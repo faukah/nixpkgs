@@ -26,12 +26,11 @@
   orc,
   pkgsBuildBuild,
 }:
-
 qtModule {
   pname = "qtmultimedia";
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    [ ffmpeg ]
+    [ffmpeg]
     ++ lib.optionals (!stdenv.hostPlatform.isMinGW) [
       libunwind
       orc
@@ -44,7 +43,7 @@ qtModule {
       libXrandr
       libva
     ]
-    ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform elfutils) [ elfutils ];
+    ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform elfutils) [elfutils];
   propagatedBuildInputs =
     [
       qtbase
@@ -52,7 +51,7 @@ qtModule {
       qtsvg
       qtshadertools
     ]
-    ++ lib.optionals (!stdenv.hostPlatform.isMinGW) [ qtquick3d ]
+    ++ lib.optionals (!stdenv.hostPlatform.isMinGW) [qtquick3d]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       gstreamer
       gst-plugins-bad

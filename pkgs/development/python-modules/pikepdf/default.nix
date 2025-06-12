@@ -22,7 +22,6 @@
   setuptools,
   replaceVars,
 }:
-
 buildPythonPackage rec {
   pname = "pikepdf";
   version = "9.5.2";
@@ -53,7 +52,7 @@ buildPythonPackage rec {
       --replace-fail "shims_enabled = not cflags_defined" "shims_enabled = False"
   '';
 
-  buildInputs = [ qpdf ];
+  buildInputs = [qpdf];
 
   build-system = [
     pybind11
@@ -78,13 +77,13 @@ buildPythonPackage rec {
     pillow
   ];
 
-  pythonImportsCheck = [ "pikepdf" ];
+  pythonImportsCheck = ["pikepdf"];
 
   meta = with lib; {
     homepage = "https://github.com/pikepdf/pikepdf";
     description = "Read and write PDFs with Python, powered by qpdf";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     changelog = "https://github.com/pikepdf/pikepdf/blob/${src.tag}/docs/releasenotes/version${lib.versions.major version}.rst";
   };
 }

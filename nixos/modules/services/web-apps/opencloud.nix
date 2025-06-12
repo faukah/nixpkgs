@@ -3,25 +3,22 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) types;
   cfg = config.services.opencloud;
 
   defaultUser = "opencloud";
   defaultGroup = defaultUser;
 
-  settingsFormat = pkgs.formats.yaml { };
-in
-{
+  settingsFormat = pkgs.formats.yaml {};
+in {
   options = {
     services.opencloud = {
       enable = lib.mkEnableOption "OpenCloud";
 
-      package = lib.mkPackageOption pkgs "opencloud" { };
-      webPackage = lib.mkPackageOption pkgs [ "opencloud" "web" ] { };
-      idpWebPackage = lib.mkPackageOption pkgs [ "opencloud" "idp-web" ] { };
+      package = lib.mkPackageOption pkgs "opencloud" {};
+      webPackage = lib.mkPackageOption pkgs ["opencloud" "web"] {};
+      idpWebPackage = lib.mkPackageOption pkgs ["opencloud" "idp-web"] {};
 
       user = lib.mkOption {
         type = types.str;
@@ -71,7 +68,7 @@ in
 
       settings = lib.mkOption {
         type = lib.types.attrsOf settingsFormat.type;
-        default = { };
+        default = {};
         description = ''
           Additional YAML configuration for OpenCloud services.
 
@@ -138,90 +135,96 @@ in
       description = "OpenCloud daemon user";
     };
 
-    users.groups = lib.mkIf (cfg.group == defaultGroup) { ${defaultGroup} = { }; };
+    users.groups = lib.mkIf (cfg.group == defaultGroup) {${defaultGroup} = {};};
 
     systemd = {
-      services =
-        let
-          environment = {
+      services = let
+        environment =
+          {
             PROXY_HTTP_ADDR = "${cfg.address}:${toString cfg.port}";
             OC_URL = cfg.url;
             OC_BASE_DATA_PATH = cfg.stateDir;
             WEB_ASSET_CORE_PATH = "${cfg.webPackage}";
             IDP_ASSET_PATH = "${cfg.idpWebPackage}/assets";
             OC_CONFIG_DIR = "/etc/opencloud";
-          } // cfg.environment;
-          commonServiceConfig = {
-            EnvironmentFile = lib.optional (cfg.environmentFile != null) cfg.environmentFile;
-            MemoryDenyWriteExecute = true;
-            NoNewPrivileges = true;
-            PrivateTmp = true;
-            PrivateDevices = true;
-            ProtectSystem = "strict";
-            ProtectHome = true;
-            ProtectControlGroups = true;
-            ProtectKernelModules = true;
-            ProtectKernelTunables = true;
-            ProtectKernelLogs = true;
-            RestrictAddressFamilies = [
-              "AF_UNIX"
-              "AF_INET"
-              "AF_INET6"
-            ];
-            RestrictNamespaces = true;
-            RestrictRealtime = true;
-            RestrictSUIDSGID = true;
-            LockPersonality = true;
-            SystemCallArchitectures = "native";
-          };
-        in
-        {
-          opencloud-init-config = lib.mkIf (cfg.settings.opencloud or { } == { }) {
-            description = "Provision initial OpenCloud config";
-            before = [ "opencloud.service" ];
-            wantedBy = [ "multi-user.target" ];
+          }
+          // cfg.environment;
+        commonServiceConfig = {
+          EnvironmentFile = lib.optional (cfg.environmentFile != null) cfg.environmentFile;
+          MemoryDenyWriteExecute = true;
+          NoNewPrivileges = true;
+          PrivateTmp = true;
+          PrivateDevices = true;
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          ProtectControlGroups = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          ProtectKernelLogs = true;
+          RestrictAddressFamilies = [
+            "AF_UNIX"
+            "AF_INET"
+            "AF_INET6"
+          ];
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          LockPersonality = true;
+          SystemCallArchitectures = "native";
+        };
+      in {
+        opencloud-init-config = lib.mkIf (cfg.settings.opencloud or {} == {}) {
+          description = "Provision initial OpenCloud config";
+          before = ["opencloud.service"];
+          wantedBy = ["multi-user.target"];
 
-            inherit environment;
+          inherit environment;
 
-            serviceConfig = {
+          serviceConfig =
+            {
               Type = "oneshot";
-              ReadWritePaths = [ "/etc/opencloud" ];
-            } // commonServiceConfig;
+              ReadWritePaths = ["/etc/opencloud"];
+            }
+            // commonServiceConfig;
 
-            path = [ cfg.package ];
-            script = ''
-              set -x
-              config="''${OC_CONFIG_DIR}/opencloud.yaml"
-              if [ ! -e "$config" ]; then
-                echo "Provisioning initial OpenCloud config..."
-                opencloud init --insecure "''${OC_INSECURE:false}" --config-path "''${OC_CONFIG_DIR}"
-                chown ${cfg.user}:${cfg.group} "$config"
-              fi
-            '';
-          };
+          path = [cfg.package];
+          script = ''
+            set -x
+            config="''${OC_CONFIG_DIR}/opencloud.yaml"
+            if [ ! -e "$config" ]; then
+              echo "Provisioning initial OpenCloud config..."
+              opencloud init --insecure "''${OC_INSECURE:false}" --config-path "''${OC_CONFIG_DIR}"
+              chown ${cfg.user}:${cfg.group} "$config"
+            fi
+          '';
+        };
 
-          opencloud = {
-            description = "OpenCloud - a secure and private way to store, access, and share your files";
-            after = [ "network.target" ];
-            wantedBy = [ "multi-user.target" ];
+        opencloud = {
+          description = "OpenCloud - a secure and private way to store, access, and share your files";
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
 
-            inherit environment;
+          inherit environment;
 
-            serviceConfig = {
+          serviceConfig =
+            {
               Type = "simple";
               ExecStart = "${lib.getExe cfg.package} server";
               WorkingDirectory = cfg.stateDir;
               User = cfg.user;
               Group = cfg.group;
               Restart = "always";
-              ReadWritePaths = [ cfg.stateDir ];
-            } // commonServiceConfig;
+              ReadWritePaths = [cfg.stateDir];
+            }
+            // commonServiceConfig;
 
-            restartTriggers = lib.mapAttrsToList (
+          restartTriggers =
+            lib.mapAttrsToList (
               name: _: config.environment.etc."opencloud/${name}.yaml".source
-            ) cfg.settings;
-          };
+            )
+            cfg.settings;
         };
+      };
     };
 
     systemd.tmpfiles.settings."10-opencloud" = {
@@ -237,9 +240,10 @@ in
 
     environment.etc =
       (lib.mapAttrs' (name: value: {
-        name = "opencloud/${name}.yaml";
-        value.source = settingsFormat.generate "${name}.yaml" value;
-      }) cfg.settings)
+          name = "opencloud/${name}.yaml";
+          value.source = settingsFormat.generate "${name}.yaml" value;
+        })
+        cfg.settings)
       // {
         # ensure /etc/opencloud gets created, so we can provision the config
         "opencloud/.keep".text = "";

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "sqls";
   version = "0.2.28";
@@ -31,6 +30,6 @@ buildGoModule rec {
     description = "SQL language server written in Go";
     mainProgram = "sqls";
     license = licenses.mit;
-    maintainers = with maintainers; [ vinnymeller ];
+    maintainers = with maintainers; [vinnymeller];
   };
 }

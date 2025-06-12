@@ -6,7 +6,6 @@
   systemd,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   version = "1.06";
   pname = "ndjbdns";
@@ -22,7 +21,7 @@ stdenv.mkDerivation {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ ] ++ lib.optional stdenv.hostPlatform.isLinux systemd;
+  buildInputs = [] ++ lib.optional stdenv.hostPlatform.isLinux systemd;
 
   meta = with lib; {
     description = "Brand new release of the Djbdns";
@@ -31,8 +30,7 @@ stdenv.mkDerivation {
     '';
     homepage = "http://pjp.dgplug.org/ndjbdns/";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux ++ platforms.darwin;
   };
-
 }

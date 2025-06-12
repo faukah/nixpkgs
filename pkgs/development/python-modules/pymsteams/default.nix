@@ -7,7 +7,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pymsteams";
   version = "0.2.5";
@@ -27,18 +26,18 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   # Tests require network access
   doCheck = false;
 
-  pythonImportsCheck = [ "pymsteams" ];
+  pythonImportsCheck = ["pymsteams"];
 
   meta = with lib; {
     description = "Python module to interact with Microsoft Teams";
     homepage = "https://github.com/rveachkc/pymsteams";
     changelog = "https://github.com/rveachkc/pymsteams/releases/tag/${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

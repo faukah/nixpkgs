@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # dependencies
   appdirs,
   keras,
@@ -14,11 +13,9 @@
   tensorflow,
   tf-keras,
   tqdm,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mhcflurry";
   version = "2.1.5";
@@ -86,13 +83,13 @@ buildPythonPackage rec {
     "test/test_class1_pan.py"
   ];
 
-  pythonImportsCheck = [ "mhcflurry" ];
+  pythonImportsCheck = ["mhcflurry"];
 
   meta = {
     description = "Peptide-MHC I binding affinity prediction";
     homepage = "https://github.com/openvax/mhcflurry";
     changelog = "https://github.com/openvax/mhcflurry/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ samuela ];
+    maintainers = with lib.maintainers; [samuela];
   };
 }

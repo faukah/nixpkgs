@@ -17,7 +17,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-qMU3jjBL5+fd9vKX5BIqES5AM8D/54aBOmdHFiBtfEo=";
   };
 
-  build-system = [ python3Packages.poetry-core ];
+  build-system = [python3Packages.poetry-core];
 
   nativeBuildInputs = [
     installShellFiles
@@ -26,8 +26,8 @@ python3Packages.buildPythonPackage rec {
   postBuild = "make -C doc autotrash.1";
   postInstall = "installManPage doc/autotrash.1";
 
-  pythonImportsCheck = [ "autotrash" ];
-  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+  pythonImportsCheck = ["autotrash"];
+  nativeCheckInputs = [python3Packages.pytestCheckHook];
 
   meta = {
     description = "Tool to automatically purge old trashed files";

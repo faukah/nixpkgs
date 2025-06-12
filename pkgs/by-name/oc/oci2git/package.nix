@@ -7,7 +7,6 @@
   rustPlatform,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "oci2git";
   version = "0.1.4";
@@ -30,16 +29,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Introspecting Docker images as easy as using Git";
     homepage = "https://github.com/Virviil/oci2git";
     changelog = "https://github.com/Virviil/oci2git/releases/tag/v${finalAttrs.version}";
-    license = [ lib.licenses.mit ];
-    maintainers = [ lib.maintainers.kpbaks ];
+    license = [lib.licenses.mit];
+    maintainers = [lib.maintainers.kpbaks];
     mainProgram = "oci2git";
     platforms = lib.platforms.all;
   };

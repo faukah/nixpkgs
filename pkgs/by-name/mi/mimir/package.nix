@@ -46,17 +46,15 @@ buildGoModule rec {
     };
   };
 
-  ldflags =
-    let
-      t = "github.com/grafana/mimir/pkg/util/version";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${t}.Version=${version}"
-      "-X ${t}.Revision=unknown"
-      "-X ${t}.Branch=unknown"
-    ];
+  ldflags = let
+    t = "github.com/grafana/mimir/pkg/util/version";
+  in [
+    "-s"
+    "-w"
+    "-X ${t}.Version=${version}"
+    "-X ${t}.Revision=unknown"
+    "-X ${t}.Branch=unknown"
+  ];
 
   meta = with lib; {
     description = "Grafana Mimir provides horizontally scalable, highly available, multi-tenant, long-term storage for Prometheus. ";

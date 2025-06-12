@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "hcl2json";
   version = "0.6.7";
@@ -17,13 +16,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-qG7n8OLpCknjjTxi4ojsvz6D7JXIK5Ac9B/JS8vf9fg=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Convert hcl2 to json";
     homepage = "https://github.com/tmccombs/hcl2json";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "hcl2json";
   };
 }

@@ -1,6 +1,8 @@
-{ hostPkgs, lib, ... }:
-
-let
+{
+  hostPkgs,
+  lib,
+  ...
+}: let
   movim = {
     domain = "movim.local";
     port = 8080;
@@ -31,14 +33,13 @@ let
   #
   # In the future this may be the default setup
   # See: https://github.com/NixOS/nixpkgs/pull/312316
-  ejabberd_config_file =
-    let
-      settingsFormat = hostPkgs.formats.yaml { };
-    in
+  ejabberd_config_file = let
+    settingsFormat = hostPkgs.formats.yaml {};
+  in
     settingsFormat.generate "ejabberd.yml" {
       loglevel = "info";
       hide_sensitive_log_data = false;
-      hosts = [ ejabberd.domain ];
+      hosts = [ejabberd.domain];
       default_db = "mnesia";
       acme.auto = false;
       s2s_access = "s2s";
@@ -46,7 +47,7 @@ let
       new_sql_schema = true;
       acl = {
         admin = [
-          { user = ejabberd.admin.JID; }
+          {user = ejabberd.admin.JID;}
         ];
         local.user_regexp = "";
         loopback.ip = [
@@ -70,7 +71,7 @@ let
       };
       api_permissions = {
         "console commands" = {
-          from = [ "ejabberd_ctl" ];
+          from = ["ejabberd_ctl"];
           who = "all";
           what = "*";
         };
@@ -83,9 +84,9 @@ let
         fast = 100000;
       };
       modules = {
-        mod_caps = { };
-        mod_disco = { };
-        mod_mam = { };
+        mod_caps = {};
+        mod_disco = {};
+        mod_mam = {};
         mod_http_upload = {
           docroot = "${ejabberd.spoolDir}/uploads";
           dir_mode = "0755";
@@ -103,7 +104,7 @@ let
         #
         # See: https://github.com/movim/movim/wiki/Configure ejabberd#pubsub
         mod_pubsub = {
-          hosts = [ "pubsub.@HOST@" ];
+          hosts = ["pubsub.@HOST@"];
           access_createnode = "pubsub_createnode";
           ignore_pep_from_offline = false;
           last_item_cache = false;
@@ -148,7 +149,7 @@ let
             };
           };
         };
-        mod_stream_mgmt = { };
+        mod_stream_mgmt = {};
       };
       listen = [
         {
@@ -174,72 +175,70 @@ let
       ];
     };
   # END OF EJABBERD CONFIG ##################################################
-in
-{
+in {
   name = "movim-ejabberd-h2o";
 
   meta = {
-    maintainers = with lib.maintainers; [ toastal ];
+    maintainers = with lib.maintainers; [toastal];
   };
 
   nodes = {
-    server =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = [
-          # For testing
-          pkgs.websocat
-        ];
+    server = {pkgs, ...}: {
+      environment.systemPackages = [
+        # For testing
+        pkgs.websocat
+      ];
 
-        services.movim = {
-          inherit (movim) domain port;
-          enable = true;
-          verbose = true;
-          podConfig = {
-            inherit (movim) description info;
-            xmppdomain = ejabberd.domain;
-          };
-          database = {
-            type = "postgresql";
-            createLocally = true;
-          };
-          h2o = { };
+      services.movim = {
+        inherit (movim) domain port;
+        enable = true;
+        verbose = true;
+        podConfig = {
+          inherit (movim) description info;
+          xmppdomain = ejabberd.domain;
         };
-
-        services.ejabberd = {
-          inherit (ejabberd) spoolDir;
-          enable = true;
-          configFile = ejabberd_config_file;
-          imagemagick = false;
+        database = {
+          type = "postgresql";
+          createLocally = true;
         };
+        h2o = {};
+      };
 
-        services.h2o.settings = {
-          compress = "ON";
-        };
+      services.ejabberd = {
+        inherit (ejabberd) spoolDir;
+        enable = true;
+        configFile = ejabberd_config_file;
+        imagemagick = false;
+      };
 
-        systemd.services.ejabberd = {
-          serviceConfig = {
-            # Certain misconfigurations can cause RAM usage to swell before
-            # crashing; fail sooner with more-than-liberal memory limits
-            StartupMemoryMax = "1G";
-            MemoryMax = "512M";
-          };
-        };
+      services.h2o.settings = {
+        compress = "ON";
+      };
 
-        networking = {
-          firewall.allowedTCPPorts = with ejabberd.ports; [
-            c2s
-            s2s
-          ];
-          extraHosts = ''
-            127.0.0.1 ${movim.domain}
-            127.0.0.1 ${ejabberd.domain}
-          '';
+      systemd.services.ejabberd = {
+        serviceConfig = {
+          # Certain misconfigurations can cause RAM usage to swell before
+          # crashing; fail sooner with more-than-liberal memory limits
+          StartupMemoryMax = "1G";
+          MemoryMax = "512M";
         };
       };
+
+      networking = {
+        firewall.allowedTCPPorts = with ejabberd.ports; [
+          c2s
+          s2s
+        ];
+        extraHosts = ''
+          127.0.0.1 ${movim.domain}
+          127.0.0.1 ${ejabberd.domain}
+        '';
+      };
+    };
   };
 
-  testScript = # python
+  testScript =
+    # python
     ''
       ejabberdctl = "su ejabberd -s $(which ejabberdctl) "
 

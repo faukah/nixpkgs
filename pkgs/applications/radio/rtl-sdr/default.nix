@@ -6,22 +6,20 @@
   cmake,
   pkg-config,
   libusb1,
-}:
-let
-  generic =
-    {
-      version,
-      pname,
-      src,
-      meta,
-    }:
+}: let
+  generic = {
+    version,
+    pname,
+    src,
+    meta,
+  }:
     stdenv.mkDerivation {
       inherit version pname src;
       nativeBuildInputs = [
         pkg-config
         cmake
       ];
-      propagatedBuildInputs = [ libusb1 ];
+      propagatedBuildInputs = [libusb1];
 
       cmakeFlags = lib.optionals stdenv.hostPlatform.isLinux [
         "-DINSTALL_UDEV_RULES=ON"
@@ -50,8 +48,7 @@ let
         mainProgram = "rtl_sdr";
       };
     };
-in
-{
+in {
   rtl-sdr-osmocom = generic rec {
     pname = "rtl-sdr-osmocom";
     version = "2.0.1";
@@ -106,5 +103,4 @@ in
       homepage = "https://github.com/rtlsdrblog/rtl-sdr-blog";
     };
   };
-
 }

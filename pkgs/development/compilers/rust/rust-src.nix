@@ -4,8 +4,7 @@
   rustc,
   minimalContent ? true,
 }:
-
-runCommand "rust-src" { } ''
+runCommand "rust-src" {} ''
   tar -xzf ${rustc.src}
   mv rustc-${rustc.version}-src $out
   rm -rf $out/{${

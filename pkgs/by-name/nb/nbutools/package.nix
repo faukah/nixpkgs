@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "nbutools";
   version = "unstable-2023-06-06";
@@ -36,7 +35,7 @@ python3.pkgs.buildPythonApplication {
   meta = with lib; {
     description = "Tools for offensive security of NetBackup infrastructures";
     homepage = "https://github.com/airbus-seclab/nbutools";
-    license = with licenses; [ gpl2Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl2Only];
+    maintainers = with maintainers; [fab];
   };
 }

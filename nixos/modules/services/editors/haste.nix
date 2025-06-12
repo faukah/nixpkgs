@@ -3,14 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   pkg = pkgs.haste-server;
   cfg = config.services.haste-server;
 
-  format = pkgs.formats.json { };
-in
-{
+  format = pkgs.formats.json {};
+in {
   options.services.haste-server = {
     enable = lib.mkEnableOption "haste-server";
     openFirewall = lib.mkEnableOption "firewall passthrough for haste-server";
@@ -25,7 +23,7 @@ in
   };
 
   config = lib.mkIf (cfg.enable) {
-    networking.firewall.allowedTCPPorts = lib.mkIf (cfg.openFirewall) [ cfg.settings.port ];
+    networking.firewall.allowedTCPPorts = lib.mkIf (cfg.openFirewall) [cfg.settings.port];
 
     services.haste-server = {
       settings = {
@@ -70,9 +68,9 @@ in
     };
 
     systemd.services.haste-server = {
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "network.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["network.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = "haste-server";

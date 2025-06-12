@@ -3,12 +3,11 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   cfg = config.services.amazon-cloudwatch-agent;
 
-  tomlFormat = pkgs.formats.toml { };
-  jsonFormat = pkgs.formats.json { };
+  tomlFormat = pkgs.formats.toml {};
+  jsonFormat = pkgs.formats.json {};
 
   # See https://docs.aws.amazon.com/prescriptive-guidance/latest/implementing-logging-monitoring-cloudwatch/create-store-cloudwatch-configurations.html#store-cloudwatch-configuration-s3.
   #
@@ -16,12 +15,11 @@ let
   # but "config-translator" will log a benign error if the "-input-dir" option is omitted or is a non-existent directory.
   #
   # Create an empty directory to hide this benign error log. This prevents false-positives if users filter for "error" in the agent logs.
-  configurationDirectory = pkgs.runCommand "amazon-cloudwatch-agent.d" { } "mkdir $out";
-in
-{
+  configurationDirectory = pkgs.runCommand "amazon-cloudwatch-agent.d" {} "mkdir $out";
+in {
   options.services.amazon-cloudwatch-agent = {
     enable = lib.mkEnableOption "Amazon CloudWatch Agent";
-    package = lib.mkPackageOption pkgs "amazon-cloudwatch-agent" { };
+    package = lib.mkPackageOption pkgs "amazon-cloudwatch-agent" {};
     commonConfigurationFile = lib.mkOption {
       type = lib.types.path;
       default = tomlFormat.generate "common-config.toml" cfg.commonConfiguration;
@@ -42,7 +40,7 @@ in
     };
     commonConfiguration = lib.mkOption {
       type = tomlFormat.type;
-      default = { };
+      default = {};
       description = ''
         See {option}`commonConfigurationFile`.
 
@@ -84,7 +82,7 @@ in
     };
     configuration = lib.mkOption {
       type = jsonFormat.type;
-      default = { };
+      default = {};
       description = ''
         See {option}`configurationFile`.
 
@@ -102,7 +100,7 @@ in
           namespace = "MyCustomNamespace";
           metrics_collected = {
             cpu = {
-              resource = [ "*" ];
+              resource = ["*"];
               measurement = [
                 {
                   name = "cpu_usage_idle";
@@ -142,8 +140,8 @@ in
         };
         traces = {
           traces_collected = {
-            xray = { };
-            oltp = { };
+            xray = {};
+            oltp = {};
           };
         };
       };
@@ -172,8 +170,8 @@ in
     # See https://github.com/aws/amazon-cloudwatch-agent/blob/v1.300049.1/packaging/dependencies/amazon-cloudwatch-agent.service.
     systemd.services.amazon-cloudwatch-agent = {
       description = "Amazon CloudWatch Agent";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
         # "start-amazon-cloudwatch-agent" assumes the package is installed at "/opt/aws/amazon-cloudwatch-agent" so we can't use it.

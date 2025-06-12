@@ -4,7 +4,6 @@
   fetchurl,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnugo";
   version = "3.8";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     description = "GNU Go - A computer go player";

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "yatas";
   version = "1.5.1";
@@ -22,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/padok-team/YATAS";
     changelog = "https://github.com/padok-team/YATAS/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "yatas";
   };
 }

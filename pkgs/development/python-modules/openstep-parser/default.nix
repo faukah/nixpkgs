@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "openstep-parser";
   version = "2.0.1";
@@ -18,16 +17,16 @@ buildPythonPackage rec {
     hash = "sha256-gvfzBLLaal0Vad3C4m4wIKwJpmlhewsK4A5yeN8l6qU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "openstep_parser" ];
+  pythonImportsCheck = ["openstep_parser"];
 
   meta = {
     description = "OpenStep plist parser for Python";
     homepage = "https://github.com/kronenthaler/openstep-parser";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ ilaumjd ];
+    maintainers = with lib.maintainers; [ilaumjd];
   };
 }

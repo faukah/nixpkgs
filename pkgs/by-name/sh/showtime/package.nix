@@ -16,7 +16,6 @@
   python3Packages,
   wrapGAppsHook4,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "showtime";
   version = "48.1";
@@ -57,22 +56,22 @@ python3Packages.buildPythonApplication rec {
     libadwaita
   ];
 
-  dependencies = with python3Packages; [ pygobject3 ];
+  dependencies = with python3Packages; [pygobject3];
 
   dontWrapGApps = true;
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
-  pythonImportsCheck = [ "showtime" ];
+  pythonImportsCheck = ["showtime"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Watch without distraction";
     homepage = "https://apps.gnome.org/Showtime";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "showtime";
   };
 }

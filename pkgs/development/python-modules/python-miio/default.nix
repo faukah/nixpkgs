@@ -24,7 +24,6 @@
   tqdm,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "python-miio";
   version = "0.5.12";
@@ -37,9 +36,9 @@ buildPythonPackage rec {
     hash = "sha256-BJw1Gg3FO2R6WWKjkrpxDN4fTMTug5AIj0SNq1gEbBY=";
   };
 
-  pythonRelaxDeps = [ "defusedxml" ];
+  pythonRelaxDeps = ["defusedxml"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   patches = [
     (fetchpatch {
@@ -54,22 +53,24 @@ buildPythonPackage rec {
     })
   ];
 
-  dependencies = [
-    android-backup
-    appdirs
-    attrs
-    click
-    construct
-    croniter
-    cryptography
-    defusedxml
-    micloud
-    netifaces
-    pytz
-    pyyaml
-    tqdm
-    zeroconf
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  dependencies =
+    [
+      android-backup
+      appdirs
+      attrs
+      click
+      construct
+      croniter
+      cryptography
+      defusedxml
+      micloud
+      netifaces
+      pytz
+      pyyaml
+      tqdm
+      zeroconf
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -77,12 +78,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "miio" ];
+  pythonImportsCheck = ["miio"];
 
   meta = with lib; {
     description = "Python library for interfacing with Xiaomi smart appliances";
     homepage = "https://github.com/rytilahti/python-miio";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ flyfloh ];
+    maintainers = with maintainers; [flyfloh];
   };
 }

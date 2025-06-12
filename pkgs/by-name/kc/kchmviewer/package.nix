@@ -7,7 +7,6 @@
   chmlib,
   libzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kchmviewer";
   version = "8.0";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "gyunaev";
     repo = "kchmviewer";
-    tag = "RELEASE_${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+    tag = "RELEASE_${lib.replaceStrings ["."] ["_"] finalAttrs.version}";
     hash = "sha256-YNpiBf6AFBCRbAZRPODvqGbQQedJJJrZFQIQyzIeBlw=";
   };
 
@@ -57,25 +56,24 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postInstall =
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        mkdir -p $out/{Applications,bin}
-        mv bin/kchmviewer.app $out/Applications
-        ln -s $out/Applications/kchmviewer.app/Contents/MacOS/kchmviewer $out/bin/kchmviewer
-      ''
-    else
-      ''
-        install -Dm755 bin/kchmviewer -t $out/bin
-        install -Dm644 packages/kchmviewer.png -t $out/share/pixmaps
-        install -Dm644 packages/kchmviewer.desktop -t $out/share/applications
-      '';
+    if stdenv.hostPlatform.isDarwin
+    then ''
+      mkdir -p $out/{Applications,bin}
+      mv bin/kchmviewer.app $out/Applications
+      ln -s $out/Applications/kchmviewer.app/Contents/MacOS/kchmviewer $out/bin/kchmviewer
+    ''
+    else ''
+      install -Dm755 bin/kchmviewer -t $out/bin
+      install -Dm644 packages/kchmviewer.png -t $out/share/pixmaps
+      install -Dm644 packages/kchmviewer.desktop -t $out/share/applications
+    '';
 
   meta = {
     description = "CHM (Winhelp) files viewer";
     mainProgram = "kchmviewer";
     homepage = "http://www.ulduzsoft.com/linux/kchmviewer/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 })

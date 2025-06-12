@@ -8,7 +8,6 @@
   libxkbcommon,
   pango,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wlr-which-key";
   version = "1.1.0";
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     description = "Keymap manager for wlroots-based compositors";
     homepage = "https://github.com/MaxVerevkin/wlr-which-key";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ xlambein ];
+    maintainers = with maintainers; [xlambein];
     platforms = platforms.linux;
     mainProgram = "wlr-which-key";
   };

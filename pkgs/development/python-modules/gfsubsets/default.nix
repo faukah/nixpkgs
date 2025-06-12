@@ -8,7 +8,6 @@
   setuptools-scm,
   youseedee,
 }:
-
 buildPythonPackage rec {
   pname = "gfsubsets";
   version = "2024.9.25";
@@ -34,13 +33,13 @@ buildPythonPackage rec {
 
   # Package has no unit tests.
   doCheck = false;
-  pythonImportsCheck = [ "gfsubsets" ];
+  pythonImportsCheck = ["gfsubsets"];
 
   meta = with lib; {
     description = "Codepoint definitions for the Google Fonts subsetter";
     homepage = "https://github.com/googlefonts/nam-files";
     changelog = "https://github.com/googlefonts/nam-files/releases/tag/${gitTag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

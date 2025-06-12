@@ -6,7 +6,6 @@
   pythonOlder,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "imgsize";
   version = "3.0.3";
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     description = "Pure Python image size library";
     homepage = "https://github.com/ojii/imgsize";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ twey ];
+    maintainers = with lib.maintainers; [twey];
   };
 }

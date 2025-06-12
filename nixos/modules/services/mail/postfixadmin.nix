@@ -3,15 +3,16 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.postfixadmin;
   fpm = config.services.phpfpm.pools.postfixadmin;
   localDB = cfg.database.host == "localhost";
   pgsql = config.services.postgresql;
-  user = if localDB then cfg.database.username else "nginx";
-in
-{
+  user =
+    if localDB
+    then cfg.database.username
+    else "nginx";
+in {
   options.services.postfixadmin = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -96,10 +97,16 @@ in
       $CONF['setup_password'] = file_get_contents('${cfg.setupPasswordFile}');
 
       $CONF['database_type'] = 'pgsql';
-      $CONF['database_host'] = ${if localDB then "null" else "'${cfg.database.host}'"};
+      $CONF['database_host'] = ${
+        if localDB
+        then "null"
+        else "'${cfg.database.host}'"
+      };
       ${lib.optionalString localDB "$CONF['database_user'] = '${cfg.database.username}';"}
       $CONF['database_password'] = ${
-        if localDB then "'dummy'" else "file_get_contents('${cfg.database.passwordFile}')"
+        if localDB
+        then "'dummy'"
+        else "file_get_contents('${cfg.database.passwordFile}')"
       };
       $CONF['database_name'] = '${cfg.database.dbname}';
       $CONF['configured'] = true;
@@ -148,9 +155,9 @@ in
     # objects owners and extensions; for now we tack on what's needed
     # here.
     systemd.services.postfixadmin-postgres = lib.mkIf localDB {
-      after = [ "postgresql.service" ];
-      bindsTo = [ "postgresql.service" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["postgresql.service"];
+      bindsTo = ["postgresql.service"];
+      wantedBy = ["multi-user.target"];
       path = [
         pgsql.package
         pkgs.util-linux
@@ -189,7 +196,7 @@ in
       createHome = false;
     };
 
-    users.groups.${user} = lib.mkIf localDB { };
+    users.groups.${user} = lib.mkIf localDB {};
 
     services.phpfpm.pools.postfixadmin = {
       user = user;

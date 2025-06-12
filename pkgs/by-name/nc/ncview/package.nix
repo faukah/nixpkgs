@@ -8,7 +8,6 @@
   netcdf,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ncview";
   version = "2.1.9";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://meteora.ucsd.edu/~pierce/ncview_home_page.html";
     license = licenses.gpl3Plus;
     mainProgram = "ncview";
-    maintainers = with maintainers; [ jmettes ];
+    maintainers = with maintainers; [jmettes];
     platforms = platforms.all;
   };
 })

@@ -6,7 +6,6 @@
   installShellFiles,
   libbsd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pdisk";
   version = "0.10";
@@ -89,7 +88,7 @@ stdenv.mkDerivation (finalAttrs: {
       apple-psl10 # new files
     ];
     mainProgram = "pdisk";
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     platforms = lib.platforms.unix;
   };
 })

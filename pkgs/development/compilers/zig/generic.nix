@@ -13,12 +13,11 @@
   callPackage,
   version,
   hash,
-  patches ? [ ],
+  patches ? [],
   overrideCC,
   wrapCCWith,
   wrapBintoolsWith,
-}@args:
-
+} @ args:
 stdenv.mkDerivation (finalAttrs: {
   pname = "zig";
   inherit version;
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit hash;
   };
 
-  patches = args.patches or [ ];
+  patches = args.patches or [];
 
   nativeBuildInputs =
     [
@@ -85,14 +84,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Zig's build looks at /usr/bin/env to find dynamic linking info. This doesn't
   # work in Nix's sandbox. Use env from our coreutils instead.
-  postPatch =
-    let
-      zigSystemPath =
-        if lib.versionAtLeast finalAttrs.version "0.12" then
-          "lib/std/zig/system.zig"
-        else
-          "lib/std/zig/system/NativeTargetInfo.zig";
-    in
+  postPatch = let
+    zigSystemPath =
+      if lib.versionAtLeast finalAttrs.version "0.12"
+      then "lib/std/zig/system.zig"
+      else "lib/std/zig/system/NativeTargetInfo.zig";
+  in
     ''
       substituteInPlace ${zigSystemPath} \
         --replace-fail "/usr/bin/env" "${lib.getExe' coreutils "env"}"
@@ -110,28 +107,26 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
   postBuild =
-    if lib.versionAtLeast finalAttrs.version "0.14" then
-      ''
-        stage3/bin/zig build langref --zig-lib-dir $(pwd)/stage3/lib/zig
-      ''
-    else if lib.versionAtLeast finalAttrs.version "0.13" then
-      ''
-        stage3/bin/zig build langref
-      ''
-    else
-      ''
-        stage3/bin/zig run ../tools/docgen.zig -- ../doc/langref.html.in langref.html --zig $PWD/stage3/bin/zig
-      '';
+    if lib.versionAtLeast finalAttrs.version "0.14"
+    then ''
+      stage3/bin/zig build langref --zig-lib-dir $(pwd)/stage3/lib/zig
+    ''
+    else if lib.versionAtLeast finalAttrs.version "0.13"
+    then ''
+      stage3/bin/zig build langref
+    ''
+    else ''
+      stage3/bin/zig run ../tools/docgen.zig -- ../doc/langref.html.in langref.html --zig $PWD/stage3/bin/zig
+    '';
 
   postInstall =
-    if lib.versionAtLeast finalAttrs.version "0.13" then
-      ''
-        install -Dm444 ../zig-out/doc/langref.html -t $doc/share/doc/zig-${finalAttrs.version}/html
-      ''
-    else
-      ''
-        install -Dm444 langref.html -t $doc/share/doc/zig-${finalAttrs.version}/html
-      '';
+    if lib.versionAtLeast finalAttrs.version "0.13"
+    then ''
+      install -Dm444 ../zig-out/doc/langref.html -t $doc/share/doc/zig-${finalAttrs.version}/html
+    ''
+    else ''
+      install -Dm444 langref.html -t $doc/share/doc/zig-${finalAttrs.version}/html
+    '';
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -143,16 +138,16 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    hook = callPackage ./hook.nix { zig = finalAttrs.finalPackage; };
+    hook = callPackage ./hook.nix {zig = finalAttrs.finalPackage;};
 
-    bintools-unwrapped = callPackage ./bintools.nix { zig = finalAttrs.finalPackage; };
-    bintools = wrapBintoolsWith { bintools = finalAttrs.finalPackage.bintools-unwrapped; };
+    bintools-unwrapped = callPackage ./bintools.nix {zig = finalAttrs.finalPackage;};
+    bintools = wrapBintoolsWith {bintools = finalAttrs.finalPackage.bintools-unwrapped;};
 
-    cc-unwrapped = callPackage ./cc.nix { zig = finalAttrs.finalPackage; };
+    cc-unwrapped = callPackage ./cc.nix {zig = finalAttrs.finalPackage;};
     cc = wrapCCWith {
       cc = finalAttrs.finalPackage.cc-unwrapped;
       bintools = finalAttrs.finalPackage.bintools;
-      extraPackages = [ ];
+      extraPackages = [];
       nixSupport.cc-cflags =
         [
           "-target"
@@ -171,8 +166,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://ziglang.org/";
     changelog = "https://ziglang.org/download/${finalAttrs.version}/release-notes.html";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ andrewrk ];
-    teams = [ lib.teams.zig ];
+    maintainers = with lib.maintainers; [andrewrk];
+    teams = [lib.teams.zig];
     mainProgram = "zig";
     platforms = lib.platforms.unix;
   };

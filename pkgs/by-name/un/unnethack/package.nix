@@ -8,7 +8,6 @@
   flex,
   bison,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unnethack";
   version = "5.3.2";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "1rg0mqyplgn3dfh3wz09a600qxk7aidqw4d84kyiincljvhyb7ps";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   nativeBuildInputs = [
     util-linux
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     "--with-gamesdir=/tmp/unnethack"
   ];
 
-  makeFlags = [ "GAMEPERM=744" ];
+  makeFlags = ["GAMEPERM=744"];
   patches = [
     # fix regression with bison, merged in master
     (fetchpatch {
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
   # Fails at startup due to off-by-one:
   #   https://github.com/NixOS/nixpkgs/issues/292113#issuecomment-1969989058
   # TODO: drop it once 6.x branch releases.
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   # Fails the build occasionally due to missing build depends:
   #   ./../sys/unix/unixmain.c:9:10: fatal error: date.h: No such file or directory
@@ -87,6 +86,6 @@ stdenv.mkDerivation rec {
     homepage = "https://unnethack.wordpress.com/";
     license = "nethack";
     platforms = platforms.all;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

@@ -12,7 +12,6 @@
   installShellFiles,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "koji";
   version = "3.2.0";
@@ -35,9 +34,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     installShellFiles
   ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ udev ];
+  buildInputs =
+    [
+      openssl
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [udev];
 
   nativeCheckInputs = [
     gitMinimal
@@ -57,7 +58,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/${finalAttrs.meta.mainProgram}";
 
   meta = {

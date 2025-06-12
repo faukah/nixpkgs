@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   meta = {
     description = "Customizable TUI display/login manager written in Rust";

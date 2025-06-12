@@ -32,7 +32,6 @@
   qtwebengine,
   ktextaddons,
 }:
-
 mkDerivation {
   pname = "pimcommon";
   meta = {

@@ -5,9 +5,7 @@
   fetchFromGitHub,
   makeWrapper,
   wrapGAppsHook3,
-
   withOpenGL ? !stdenv.hostPlatform.isDarwin,
-
   bison,
   blas,
   cairo,
@@ -37,7 +35,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "grass";
   version = "8.4.1";
@@ -91,9 +88,9 @@ stdenv.mkDerivation (finalAttrs: {
       zlib
       zstd
     ]
-    ++ lib.optionals withOpenGL [ libGLU ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ]
-    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+    ++ lib.optionals withOpenGL [libGLU]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv]
+    ++ lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
   strictDeps = true;
 
@@ -135,8 +132,8 @@ stdenv.mkDerivation (finalAttrs: {
   makeFlags = lib.optional stdenv.hostPlatform.isDarwin "GDAL_DYNAMIC=";
 
   /*
-    Ensures that the python script run at build time are actually executable;
-    otherwise, patchShebangs ignores them.
+  Ensures that the python script run at build time are actually executable;
+  otherwise, patchShebangs ignores them.
   */
   postConfigure = ''
     for f in $(find . -name '*.py'); do
@@ -158,15 +155,15 @@ stdenv.mkDerivation (finalAttrs: {
   enableParallelBuilding = true;
 
   passthru.tests = {
-    grass = callPackage ./tests.nix { grass = finalAttrs.finalPackage; };
+    grass = callPackage ./tests.nix {grass = finalAttrs.finalPackage;};
   };
 
   meta = with lib; {
     description = "GIS software suite used for geospatial data management and analysis, image processing, graphics and maps production, spatial modeling, and visualization";
     homepage = "https://grass.osgeo.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ mpickering ];
-    teams = [ teams.geospatial ];
+    maintainers = with maintainers; [mpickering];
+    teams = [teams.geospatial];
     platforms = platforms.all;
     mainProgram = "grass";
   };

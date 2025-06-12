@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "filelock";
   version = "3.2.1";
@@ -22,6 +21,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/benediktschmitt/py-filelock";
     description = "Platform independent file lock for Python";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ henkkalkwater ];
+    maintainers = with maintainers; [henkkalkwater];
   };
 }

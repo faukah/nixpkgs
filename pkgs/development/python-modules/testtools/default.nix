@@ -3,15 +3,12 @@
   buildPythonPackage,
   fetchPypi,
   pythonAtLeast,
-
   # build-system
   hatchling,
   hatch-vcs,
-
   # dependencies
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "testtools";
   version = "2.7.2";
@@ -27,9 +24,9 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  pythonRemoveDeps = [ "fixtures" ];
+  pythonRemoveDeps = ["fixtures"];
 
-  propagatedBuildInputs = lib.optionals (pythonAtLeast "3.12") [ setuptools ];
+  propagatedBuildInputs = lib.optionals (pythonAtLeast "3.12") [setuptools];
 
   # testscenarios has a circular dependency on testtools
   doCheck = false;
@@ -38,6 +35,6 @@ buildPythonPackage rec {
     description = "Set of extensions to the Python standard library's unit testing framework";
     homepage = "https://github.com/testing-cabal/testtools";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

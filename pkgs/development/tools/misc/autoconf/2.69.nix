@@ -5,7 +5,6 @@
   m4,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "autoconf";
   version = "2.69";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     m4
     perl
   ];
-  buildInputs = [ m4 ];
+  buildInputs = [m4];
 
   # Work around a known issue in Cygwin.  See
   # http://thread.gmane.org/gmane.comp.sysutils.autoconf.bugs/6822 for

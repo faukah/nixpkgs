@@ -7,13 +7,11 @@
   git,
   nix,
   coreutils,
-}:
-{
+}: {
   platforms,
   pname,
   version,
 }:
-
 writeShellScript "${pname}-update-script" ''
   set -o errexit
   PATH=${

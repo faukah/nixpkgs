@@ -18,7 +18,6 @@
   uvicorn,
   accelerate,
 }:
-
 buildPythonPackage rec {
   pname = "llmx";
   version = "0.0.21a0";
@@ -52,22 +51,24 @@ buildPythonPackage rec {
       fastapi
       uvicorn
     ];
-    transformers = [
-      accelerate
-      transformers
-    ] ++ transformers.optional-dependencies.torch;
+    transformers =
+      [
+        accelerate
+        transformers
+      ]
+      ++ transformers.optional-dependencies.torch;
   };
 
   # Tests of llmx try to access openai, google, etc.
   doCheck = false;
 
-  pythonImportsCheck = [ "llmx" ];
+  pythonImportsCheck = ["llmx"];
 
   meta = with lib; {
     description = "Library for LLM Text Generation";
     homepage = "https://github.com/victordibia/llmx";
     mainProgram = "llmx";
     license = licenses.mit;
-    maintainers = with maintainers; [ moraxyc ];
+    maintainers = with maintainers; [moraxyc];
   };
 }

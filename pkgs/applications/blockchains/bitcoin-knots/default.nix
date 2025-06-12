@@ -22,9 +22,11 @@
   withGui,
   withWallet ? true,
 }:
-
 stdenv.mkDerivation rec {
-  pname = if withGui then "bitcoin-knots" else "bitcoind-knots";
+  pname =
+    if withGui
+    then "bitcoin-knots"
+    else "bitcoind-knots";
   version = "28.1.knots20250305";
 
   src = fetchurl {
@@ -37,12 +39,12 @@ stdenv.mkDerivation rec {
       autoreconfHook
       pkg-config
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ util-linux ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ hexdump ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [util-linux]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [hexdump]
     ++ lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [
       autoSignDarwinBinariesHook
     ]
-    ++ lib.optionals withGui [ wrapQtAppsHook ];
+    ++ lib.optionals withGui [wrapQtAppsHook];
 
   buildInputs =
     [
@@ -52,8 +54,8 @@ stdenv.mkDerivation rec {
       zeromq
       zlib
     ]
-    ++ lib.optionals withWallet [ sqlite ]
-    ++ lib.optionals (withWallet && !stdenv.hostPlatform.isDarwin) [ db48 ]
+    ++ lib.optionals withWallet [sqlite]
+    ++ lib.optionals (withWallet && !stdenv.hostPlatform.isDarwin) [db48]
     ++ lib.optionals withGui [
       qrencode
       qtbase
@@ -77,12 +79,12 @@ stdenv.mkDerivation rec {
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
     ];
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   doCheck = true;
 
   checkFlags =
-    [ "LC_ALL=en_US.UTF-8" ]
+    ["LC_ALL=en_US.UTF-8"]
     # QT_PLUGIN_PATH needs to be set when executing QT, which is needed when testing Bitcoin's GUI.
     # See also https://github.com/NixOS/nixpkgs/issues/24256
     ++ lib.optional withGui "QT_PLUGIN_PATH=${qtbase}/${qtbase.qtPluginPrefix}";

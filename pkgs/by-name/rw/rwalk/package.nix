@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rwalk";
   version = "0.9.0";
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -50,7 +49,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/cestef/rwalk";
     changelog = "https://github.com/cestef/rwalk/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pwnwriter ];
+    maintainers = with lib.maintainers; [pwnwriter];
     mainProgram = "rwalk";
   };
 }

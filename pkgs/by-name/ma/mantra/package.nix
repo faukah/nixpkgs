@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mantra";
   version = "2.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/MrEmpy/Mantra";
     changelog = "https://github.com/MrEmpy/Mantra/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "mantra";
   };
 }

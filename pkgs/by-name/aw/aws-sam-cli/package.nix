@@ -8,7 +8,6 @@
   nix-update-script,
   enableTelemetry ? false,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "aws-sam-cli";
   version = "1.135.0";
@@ -21,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-ccYpEznuU6d7gDyrDiuUmvdCJutXI7SAH2PH9Vdq8Fs=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   pythonRelaxDeps = [
     "aws-lambda-builders"
@@ -40,8 +39,7 @@ python3.pkgs.buildPythonApplication rec {
     "watchdog"
   ];
 
-  dependencies =
-    with python3.pkgs;
+  dependencies = with python3.pkgs;
     [
       aws-lambda-builders
       aws-sam-translator
@@ -85,8 +83,12 @@ python3.pkgs.buildPythonApplication rec {
   postFixup = ''
     # Disable telemetry: https://github.com/aws/aws-sam-cli/issues/1272
     wrapProgram $out/bin/sam \
-      --set SAM_CLI_TELEMETRY ${if enableTelemetry then "1" else "0"} \
-      --prefix PATH : $out/bin:${lib.makeBinPath [ git ]}
+      --set SAM_CLI_TELEMETRY ${
+      if enableTelemetry
+      then "1"
+      else "0"
+    } \
+      --prefix PATH : $out/bin:${lib.makeBinPath [git]}
   '';
 
   nativeCheckInputs = with python3.pkgs; [
@@ -102,7 +104,7 @@ python3.pkgs.buildPythonApplication rec {
 
   preCheck = ''
     export HOME=$(mktemp -d)
-    export PATH="$PATH:$out/bin:${lib.makeBinPath [ git ]}"
+    export PATH="$PATH:$out/bin:${lib.makeBinPath [git]}"
   '';
 
   pytestFlagsArray = [
@@ -134,7 +136,7 @@ python3.pkgs.buildPythonApplication rec {
     "test_import_should_succeed_for_a_defined_hidden_package_540_pkg_resources_py2_warn"
   ];
 
-  pythonImportsCheck = [ "samcli" ];
+  pythonImportsCheck = ["samcli"];
 
   passthru = {
     tests.version = testers.testVersion {

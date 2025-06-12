@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-JDMYt3NmmAZsXzYuxcK2Q07PQpfDyOfKqKv+avTKxxs=";
   };
 
-  pythonImportsCheck = [ "pytweening" ];
+  pythonImportsCheck = ["pytweening"];
   checkPhase = ''
     python -m unittest tests.basicTests
   '';
@@ -22,6 +22,6 @@ buildPythonPackage rec {
     description = "Set of tweening / easing functions implemented in Python";
     homepage = "https://github.com/asweigart/pytweening";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lucasew ];
+    maintainers = with maintainers; [lucasew];
   };
 }

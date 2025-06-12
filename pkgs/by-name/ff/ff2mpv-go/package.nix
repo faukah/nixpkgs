@@ -27,14 +27,14 @@ buildGoModule rec {
   '';
 
   postFixup = ''
-    wrapProgram $out/bin/ff2mpv-go --suffix PATH ":" ${lib.makeBinPath [ mpv ]}
+    wrapProgram $out/bin/ff2mpv-go --suffix PATH ":" ${lib.makeBinPath [mpv]}
   '';
 
   meta = with lib; {
     description = "Native messaging host for ff2mpv written in Go";
     homepage = "https://git.clsr.net/util/ff2mpv-go/";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
     mainProgram = "ff2mpv-go";
   };
 }

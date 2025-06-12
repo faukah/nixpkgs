@@ -6,7 +6,6 @@
   pkg-config,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aml";
   version = "0.3.0";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
     broken = stdenv.hostPlatform.isDarwin;
   };
 }

@@ -1,11 +1,9 @@
 # This file was generated and will be overwritten by ./generate.sh
-
 {
   stdenv,
   lib,
   fetchurl,
 }:
-
 stdenv.mkDerivation {
   pname = "python310-docs-pdf-letter";
   version = "3.10.7";
@@ -19,6 +17,6 @@ stdenv.mkDerivation {
     cp -R ./ $out/share/doc/python310/pdf-letter
   '';
   meta = {
-    maintainers = [ ];
+    maintainers = [];
   };
 }

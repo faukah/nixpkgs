@@ -7,7 +7,6 @@
   libiberty,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "prelink";
   version = "20151030-unstable-2024-07-02";
@@ -41,13 +40,13 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "ELF prelinking utility to speed up dynamic linking";
     homepage = "https://wiki.yoctoproject.org/wiki/Cross-Prelink";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

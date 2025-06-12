@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "borealis-cursors";
   version = "2.0";
@@ -29,6 +28,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://www.gnome-look.org/s/Gnome/p/1717914";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with lib.maintainers; [ argrat ];
+    maintainers = with lib.maintainers; [argrat];
   };
 })

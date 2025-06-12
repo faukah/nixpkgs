@@ -6,9 +6,7 @@
   pname,
   version,
   meta,
-}:
-
-let
+}: let
   appName = "MongoDB Compass.app";
 
   dist =
@@ -23,41 +21,42 @@ let
         sha256 = "sha256-TnoXaiSNYiblgJS5nygTHOe9HBgVCTfffX37wrwtxZ8=";
       };
     }
-    .${stdenvNoCC.hostPlatform.system}
+    .${
+      stdenvNoCC.hostPlatform.system
+    }
       or (throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
-
 in
-stdenvNoCC.mkDerivation {
-  inherit pname version meta;
+  stdenvNoCC.mkDerivation {
+    inherit pname version meta;
 
-  src = fetchurl {
-    url = "https://downloads.mongodb.com/compass/mongodb-compass-${version}-darwin-${dist.arch}.zip";
-    inherit (dist) sha256;
-    name = "${pname}-${version}.zip";
-  };
+    src = fetchurl {
+      url = "https://downloads.mongodb.com/compass/mongodb-compass-${version}-darwin-${dist.arch}.zip";
+      inherit (dist) sha256;
+      name = "${pname}-${version}.zip";
+    };
 
-  nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
-  # The archive will be automatically unzipped; tell Nix where the source root is.
-  dontFixup = true;
-  sourceRoot = appName;
+    # The archive will be automatically unzipped; tell Nix where the source root is.
+    dontFixup = true;
+    sourceRoot = appName;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    # Create directories for the application bundle and the launcher script.
-    mkdir -p "$out/Applications/${appName}" "$out/bin"
+      # Create directories for the application bundle and the launcher script.
+      mkdir -p "$out/Applications/${appName}" "$out/bin"
 
-    # Copy the unzipped app bundle into the Applications folder.
-    cp -R . "$out/Applications/${appName}"
+      # Copy the unzipped app bundle into the Applications folder.
+      cp -R . "$out/Applications/${appName}"
 
-    # Create a launcher script that opens the app.
-    cat > "$out/bin/${pname}" << EOF
-    #!${runtimeShell}
-    open -na "$out/Applications/${appName}" --args "\$@"
-    EOF
-    chmod +x "$out/bin/${pname}"
+      # Create a launcher script that opens the app.
+      cat > "$out/bin/${pname}" << EOF
+      #!${runtimeShell}
+      open -na "$out/Applications/${appName}" --args "\$@"
+      EOF
+      chmod +x "$out/bin/${pname}"
 
-    runHook postInstall
-  '';
-}
+      runHook postInstall
+    '';
+  }

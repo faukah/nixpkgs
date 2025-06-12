@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "elkm1-lib";
   version = "2.2.11";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-wi115LppK628EBw3AFeQHNnLv51dcfaZZi5R6S9+WJE=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     async-timeout
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "elkm1_lib" ];
+  pythonImportsCheck = ["elkm1_lib"];
 
   meta = with lib; {
     description = "Python module for interacting with ElkM1 alarm/automation panel";
     homepage = "https://github.com/gwww/elkm1";
     changelog = "https://github.com/gwww/elkm1/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

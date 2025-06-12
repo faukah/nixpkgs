@@ -4,60 +4,60 @@ import ./make-test-python.nix (
     lib,
     withNg ? false,
     ...
-  }:
-  {
+  }: {
     name = "nixos-rebuild-install-bootloader";
 
     nodes = {
-      machine =
-        { lib, pkgs, ... }:
-        {
-          imports = [
-            ../modules/profiles/installation-device.nix
-            ../modules/profiles/base.nix
-          ];
+      machine = {
+        lib,
+        pkgs,
+        ...
+      }: {
+        imports = [
+          ../modules/profiles/installation-device.nix
+          ../modules/profiles/base.nix
+        ];
 
-          nix.settings = {
-            substituters = lib.mkForce [ ];
-            hashed-mirrors = null;
-            connect-timeout = 1;
-          };
-
-          system.includeBuildDependencies = true;
-          system.rebuild.enableNg = withNg;
-
-          virtualisation = {
-            cores = 2;
-            memorySize = 2048;
-          };
-
-          virtualisation.useBootLoader = true;
+        nix.settings = {
+          substituters = lib.mkForce [];
+          hashed-mirrors = null;
+          connect-timeout = 1;
         };
+
+        system.includeBuildDependencies = true;
+        system.rebuild.enableNg = withNg;
+
+        virtualisation = {
+          cores = 2;
+          memorySize = 2048;
+        };
+
+        virtualisation.useBootLoader = true;
+      };
     };
 
-    testScript =
-      let
-        configFile =
-          pkgs.writeText "configuration.nix" # nix
-            ''
-              { lib, pkgs, ... }: {
-                imports = [
-                  ./hardware-configuration.nix
-                  <nixpkgs/nixos/modules/testing/test-instrumentation.nix>
-                ];
+    testScript = let
+      configFile =
+        pkgs.writeText "configuration.nix" # nix
+        
+        ''
+          { lib, pkgs, ... }: {
+            imports = [
+              ./hardware-configuration.nix
+              <nixpkgs/nixos/modules/testing/test-instrumentation.nix>
+            ];
 
-                boot.loader.grub = {
-                  enable = true;
-                  device = "/dev/vda";
-                  forceInstall = true;
-                };
+            boot.loader.grub = {
+              enable = true;
+              device = "/dev/vda";
+              forceInstall = true;
+            };
 
-                system.rebuild.enableNg = ${lib.boolToString withNg};
-                documentation.enable = false;
-              }
-            '';
-
-      in
+            system.rebuild.enableNg = ${lib.boolToString withNg};
+            documentation.enable = false;
+          }
+        '';
+    in
       # python
       ''
         machine.start()

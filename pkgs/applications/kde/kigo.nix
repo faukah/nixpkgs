@@ -8,14 +8,13 @@
   libkdegames,
   knewstuff,
 }:
-
 mkDerivation {
   pname = "kigo";
   meta = with lib; {
     homepage = "https://kde.org/applications/en/games/org.kde.kigo";
     description = "Open-source implementation of the popular Go game";
     mainProgram = "kigo";
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

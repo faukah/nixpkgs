@@ -9,7 +9,6 @@
   nodejs,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "nezha-theme-nazhua";
   version = "0.6.6";
@@ -51,13 +50,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Nezha monitoring theme called Nazhua";
     changelog = "https://github.com/hi2shark/nazhua/releases/tag/v${finalAttrs.version}";
     homepage = "https://github.com/hi2shark/nazhua";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
   };
 })

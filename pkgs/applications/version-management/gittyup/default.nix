@@ -15,7 +15,6 @@
   qttools,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gittyup";
   version = "1.4.0";
@@ -34,22 +33,20 @@ stdenv.mkDerivation rec {
     ./0001-Fix-incorrect-order-of-argument-to-calloc-345.patch
   ];
 
-  cmakeFlags =
-    let
-      inherit (lib) cmakeBool;
-    in
-    [
-      (cmakeBool "BUILD_SHARED_LIBS" false)
-      (cmakeBool "USE_SYSTEM_CMARK" true)
-      (cmakeBool "USE_SYSTEM_GIT" true)
-      (cmakeBool "USE_SYSTEM_HUNSPELL" true)
-      # upstream uses its own fork of libgit2 as of 1.2.2, however this may change in the future
-      # (cmakeBool "USE_SYSTEM_LIBGIT2" true)
-      (cmakeBool "USE_SYSTEM_LIBSSH2" true)
-      (cmakeBool "USE_SYSTEM_LUA" true)
-      (cmakeBool "USE_SYSTEM_OPENSSL" true)
-      (cmakeBool "ENABLE_UPDATE_OVER_GUI" false)
-    ];
+  cmakeFlags = let
+    inherit (lib) cmakeBool;
+  in [
+    (cmakeBool "BUILD_SHARED_LIBS" false)
+    (cmakeBool "USE_SYSTEM_CMARK" true)
+    (cmakeBool "USE_SYSTEM_GIT" true)
+    (cmakeBool "USE_SYSTEM_HUNSPELL" true)
+    # upstream uses its own fork of libgit2 as of 1.2.2, however this may change in the future
+    # (cmakeBool "USE_SYSTEM_LIBGIT2" true)
+    (cmakeBool "USE_SYSTEM_LIBSSH2" true)
+    (cmakeBool "USE_SYSTEM_LUA" true)
+    (cmakeBool "USE_SYSTEM_OPENSSL" true)
+    (cmakeBool "ENABLE_UPDATE_OVER_GUI" false)
+  ];
 
   nativeBuildInputs = [
     cmake
@@ -78,7 +75,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Graphical Git client designed to help you understand and manage your source code history";
     homepage = "https://murmele.github.io/Gittyup";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
     maintainers = with maintainers; [
       fliegendewurst
       phijor

@@ -5,7 +5,6 @@
   ncurses,
   conf ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "noice";
   version = "0.8";
@@ -25,9 +24,9 @@ stdenv.mkDerivation rec {
   configFile = lib.optionalString (conf != null) (builtins.toFile "config.def.h" conf);
   preBuild = lib.optionalString (conf != null) "cp ${configFile} config.def.h";
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  buildFlags = [ "LDLIBS=-lncurses" ];
+  buildFlags = ["LDLIBS=-lncurses"];
 
   installFlags = [
     "DESTDIR=$(out)"
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://git.2f30.org/noice/";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ iogamaster ];
+    maintainers = with maintainers; [iogamaster];
     mainProgram = "noice";
   };
 }

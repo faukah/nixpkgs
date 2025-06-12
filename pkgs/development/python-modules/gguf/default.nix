@@ -29,12 +29,12 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "gguf" ];
+  pythonImportsCheck = ["gguf"];
 
   meta = with lib; {
     description = "Module for writing binary files in the GGUF format";
     homepage = "https://ggml.ai/";
     license = licenses.mit;
-    maintainers = with maintainers; [ mitchmindtree ];
+    maintainers = with maintainers; [mitchmindtree];
   };
 }

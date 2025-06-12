@@ -17,7 +17,6 @@
   gitUpdater,
   udevSupport ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "btrfs-progs";
   version = "6.14";
@@ -33,10 +32,11 @@ stdenv.mkDerivation rec {
     ]
     ++ [
       (buildPackages.python3.withPackages (
-        ps: with ps; [
-          sphinx
-          sphinx-rtd-theme
-        ]
+        ps:
+          with ps; [
+            sphinx
+            sphinx-rtd-theme
+          ]
       ))
     ];
 
@@ -71,12 +71,12 @@ stdenv.mkDerivation rec {
       "--disable-libudev"
     ];
 
-  makeFlags = [ "udevruledir=$(out)/lib/udev/rules.d" ];
+  makeFlags = ["udevruledir=$(out)/lib/udev/rules.d"];
 
   enableParallelBuilding = true;
 
   passthru.tests = {
-    simple-filesystem = runCommand "btrfs-progs-create-fs" { } ''
+    simple-filesystem = runCommand "btrfs-progs-create-fs" {} ''
       mkdir -p $out
       truncate -s110M $out/disc
       ${btrfs-progs}/bin/mkfs.btrfs $out/disc | tee $out/success
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/kdave/btrfs-progs/raw/v${version}/CHANGES";
     license = lib.licenses.gpl2Only;
     mainProgram = "btrfs";
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = lib.platforms.linux;
   };
 }

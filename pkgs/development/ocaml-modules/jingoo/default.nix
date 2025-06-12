@@ -11,7 +11,6 @@
   uucp,
   ounit2,
 }:
-
 buildDunePackage rec {
   pname = "jingoo";
   version = "1.4.4";
@@ -25,7 +24,7 @@ buildDunePackage rec {
     sha256 = "sha256-qIw69OE7wYyZYKnIc9QrmF8MzY5Fg5pBFyIpexmaYxA=";
   };
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
   propagatedBuildInputs = [
     ppxlib
     ppx_deriving
@@ -33,7 +32,7 @@ buildDunePackage rec {
     uutf
     uucp
   ];
-  checkInputs = [ ounit2 ];
+  checkInputs = [ounit2];
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 
   meta = with lib; {
@@ -41,6 +40,6 @@ buildDunePackage rec {
     description = "OCaml template engine almost compatible with jinja2";
     mainProgram = "jingoo";
     license = licenses.mit;
-    maintainers = [ maintainers.ericbmerritt ];
+    maintainers = [maintainers.ericbmerritt];
   };
 }

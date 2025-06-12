@@ -20,16 +20,17 @@
   fixDarwinDylibNames,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "json-glib";
   version = "1.10.6";
 
-  outputs = [
-    "out"
-    "dev"
-    "installedTests"
-  ] ++ lib.optional withIntrospection "devdoc";
+  outputs =
+    [
+      "out"
+      "dev"
+      "installedTests"
+    ]
+    ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
@@ -106,7 +107,7 @@ stdenv.mkDerivation rec {
     description = "Library providing (de)serialization support for the JavaScript Object Notation (JSON) format";
     homepage = "https://gitlab.gnome.org/GNOME/json-glib";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = with platforms; unix;
   };
 }

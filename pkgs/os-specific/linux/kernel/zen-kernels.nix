@@ -5,9 +5,7 @@
   buildLinux,
   variant,
   ...
-}@args:
-
-let
+} @ args: let
   # Default priority is 100 for common kernel options (see common-config.nix
   # file), we need something lower to override them, but we still want users to
   # override options if they need using lib.mkForce (that has 50 priority)
@@ -29,18 +27,21 @@ let
       isLqx = true;
     };
   };
-  zenKernelsFor =
-    {
-      version,
-      suffix,
-      sha256,
-      isLqx,
-    }:
+  zenKernelsFor = {
+    version,
+    suffix,
+    sha256,
+    isLqx,
+  }:
     buildLinux (
       args
       // {
         inherit version;
-        pname = "linux-${if isLqx then "lqx" else "zen"}";
+        pname = "linux-${
+          if isLqx
+          then "lqx"
+          else "zen"
+        }";
         modDirVersion = lib.versions.pad 3 "${version}-${suffix}";
         isZen = true;
 
@@ -58,8 +59,7 @@ let
         # The list below is not exhaustive, so the kernels probably doesn't match
         # the upstream, but should bring most of the improvements that will be
         # expected by users
-        structuredExtraConfig =
-          with lib.kernel;
+        structuredExtraConfig = with lib.kernel;
           {
             # Zen Interactive tuning
             ZEN_INTERACTIVE = yes;
@@ -104,9 +104,8 @@ let
             # Preemptive Full Tickless Kernel at 1000Hz
             HZ = freeform "1000";
             HZ_1000 = yes;
-
           }
-          // lib.optionalAttrs (isLqx) {
+          // lib.optionalAttrs isLqx {
             # https://github.com/damentz/liquorix-package/commit/07b176edc002f2a7825ae181613e1f79a3650fd2
             CMDLINE_BOOL = yes;
             CMDLINE = freeform "audit=0 intel_pstate=disable amd_pstate=disable ";
@@ -147,7 +146,11 @@ let
 
         passthru.updateScript = [
           ./update-zen.py
-          (if isLqx then "lqx" else "zen")
+          (
+            if isLqx
+            then "lqx"
+            else "zen"
+          )
         ];
 
         extraMeta = {
@@ -157,15 +160,14 @@ let
             jerrysm64
             axertheaxe
           ];
-          teams = [ ];
+          teams = [];
           description =
             "Built using the best configuration and kernel sources for desktop, multimedia, and gaming workloads."
             + lib.optionalString isLqx " (Same as linux_zen, but less aggressive release schedule and additional extra config)";
           broken = stdenv.hostPlatform.isAarch64;
         };
-
       }
-      // (args.argsOverride or { })
+      // (args.argsOverride or {})
     );
 in
-zenKernelsFor variants.${variant}
+  zenKernelsFor variants.${variant}

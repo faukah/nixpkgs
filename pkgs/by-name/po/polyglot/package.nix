@@ -36,7 +36,9 @@ maven.buildMavenPackage rec {
       aarch64-linux = "sha256-Tlz2I6xE8g3GqKz9N7VXRO0ObE1XOv6IfTrKZmVlscY=";
       x86_64-linux = "sha256-nQScNCkA+eaeL3tcLCec1qIoYO6ct28FLxGp/Cm4nn4=";
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${
+      stdenv.hostPlatform.system
+    } or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   mvnParameters = "-DskipTests";
 
@@ -58,11 +60,11 @@ maven.buildMavenPackage rec {
       --add-flags "-Djpackage.app-version=${version}" \
       --add-flags "-jar $out/share/PolyGlotLinA/PolyGlotLinA-${version}-jar-with-dependencies.jar" \
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [
-          libGL
-          libXxf86vm
-        ]
-      }"
+      lib.makeLibraryPath [
+        libGL
+        libXxf86vm
+      ]
+    }"
 
     runHook postInstall
   '';
@@ -72,7 +74,7 @@ maven.buildMavenPackage rec {
     homepage = "https://draquet.github.io/PolyGlot/readme.html";
     changelog = "https://github.com/DraqueT/PolyGlot/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ noodlez1232 ];
+    maintainers = with lib.maintainers; [noodlez1232];
     platforms = lib.platforms.linux;
     mainProgram = "PolyGlot";
   };

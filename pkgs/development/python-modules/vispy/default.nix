@@ -18,7 +18,6 @@
   setuptools-scm,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "vispy";
   version = "0.15.2";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  buildInputs = [ libGL ];
+  buildInputs = [libGL];
 
   propagatedBuildInputs = [
     freetype-py
@@ -76,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://vispy.org/index.html";
     changelog = "https://github.com/vispy/vispy/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ goertzenator ];
+    maintainers = with maintainers; [goertzenator];
   };
 }

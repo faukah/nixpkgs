@@ -12,11 +12,9 @@
   mold,
   rustc,
   nix-update-script,
-
   # On non-darwin, `mold` is the default linker, but it's broken on Darwin.
   withMold ? with stdenv.hostPlatform; isUnix && !isDarwin,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "evcxr";
   version = "0.20.0";
@@ -65,30 +63,28 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --replace-fail "let mut owned_mut =" "let mut owned_mut: String ="
   '';
 
-  postInstall =
-    let
-      wrap = exe: ''
-        wrapProgram $out/bin/${exe} \
-          --prefix PATH : ${
-            lib.makeBinPath (
-              [
-                cargo
-                gcc
-                rustc
-              ]
-              ++ lib.optional withMold mold
-            )
-          } \
-          --set-default RUST_SRC_PATH "$RUST_SRC_PATH"
-      '';
-    in
-    ''
-      ${wrap "evcxr"}
-      ${wrap "evcxr_jupyter"}
-      rm $out/bin/testing_runtime
+  postInstall = let
+    wrap = exe: ''
+      wrapProgram $out/bin/${exe} \
+        --prefix PATH : ${
+        lib.makeBinPath (
+          [
+            cargo
+            gcc
+            rustc
+          ]
+          ++ lib.optional withMold mold
+        )
+      } \
+        --set-default RUST_SRC_PATH "$RUST_SRC_PATH"
     '';
+  in ''
+    ${wrap "evcxr"}
+    ${wrap "evcxr_jupyter"}
+    rm $out/bin/testing_runtime
+  '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Evaluation context for Rust";

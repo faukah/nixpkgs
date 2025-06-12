@@ -5,7 +5,6 @@
   setuptools,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "lexilang";
   version = "1.0.6";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-+AtdmkYKJgQwFOK0B2jkrNfSWGaydv6tCVjNnb2DJng=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "lexilang" ];
+  pythonImportsCheck = ["lexilang"];
 
   checkPhase = ''
     runHook preCheck
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Simple, fast dictionary-based language detector for short texts";
     homepage = "https://github.com/LibreTranslate/LexiLang";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ izorkin ];
+    maintainers = with lib.maintainers; [izorkin];
   };
 }

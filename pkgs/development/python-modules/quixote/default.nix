@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "quixote";
   version = "3.7";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-F4u50xz6sNwBIzgEglVnwKTKxguE6f1m9Y2DAUEJsGQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "quixote" ];
+  pythonImportsCheck = ["quixote"];
 
   disabledTestPaths = [
     # Test has additional requirements
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "Small and flexible Python Web application framework";
     homepage = "https://pypi.org/project/Quixote/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

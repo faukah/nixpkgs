@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "irccat";
   version = "0.4.12";
@@ -22,7 +21,7 @@ buildGoModule rec {
     changelog = "https://github.com/irccloud/irccat/releases/tag/v${version}0.4.11";
     description = "Send events to IRC channels from scripts and other applications";
     mainProgram = "irccat";
-    maintainers = with lib.maintainers; [ qyliss ];
+    maintainers = with lib.maintainers; [qyliss];
     license = lib.licenses.gpl3Only;
   };
 }

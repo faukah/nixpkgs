@@ -8,7 +8,6 @@
   stdenv,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "pyheos";
   version = "1.0.5";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-waOeUAvQtx8klFVGnMHi6/OI2s6fxgVjB8aBlaKtklQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -41,13 +40,13 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "pyheos" ];
+  pythonImportsCheck = ["pyheos"];
 
   meta = {
     changelog = "https://github.com/andrewsayre/pyheos/releases/tag/${src.tag}";
     description = "Async python library for controlling HEOS devices through the HEOS CLI Protocol";
     homepage = "https://github.com/andrewsayre/pyheos";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.homed;
-in
-{
+in {
   options.services.homed.enable = lib.mkEnableOption ''
     systemd home area/user account manager
   '';
@@ -36,12 +33,12 @@ in
       systemd-homed = {
         # These packages are required to manage encrypted volumes
         path = config.system.fsPackages;
-        aliases = [ "dbus-org.freedesktop.home1.service" ];
-        wantedBy = [ "multi-user.target" ];
+        aliases = ["dbus-org.freedesktop.home1.service"];
+        wantedBy = ["multi-user.target"];
       };
 
       systemd-homed-activate = {
-        wantedBy = [ "systemd-homed.service" ];
+        wantedBy = ["systemd-homed.service"];
       };
     };
   };

@@ -7,7 +7,6 @@
   flit-core,
   sphinx-notfound-page,
 }:
-
 buildPythonPackage rec {
   pname = "pallets-sphinx-themes";
   version = "2.3.0";
@@ -30,12 +29,12 @@ buildPythonPackage rec {
     sphinx-notfound-page
   ];
 
-  pythonImportsCheck = [ "pallets_sphinx_themes" ];
+  pythonImportsCheck = ["pallets_sphinx_themes"];
 
   meta = {
     homepage = "https://github.com/pallets/pallets-sphinx-themes";
     description = "Sphinx theme for Pallets projects";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ kaction ];
+    maintainers = with lib.maintainers; [kaction];
   };
 }

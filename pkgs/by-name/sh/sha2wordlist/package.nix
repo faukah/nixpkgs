@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libbsd,
 }:
-
 stdenv.mkDerivation {
   pname = "sha2wordlist";
   version = "unstable-2023-02-20";
@@ -33,8 +32,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Display SHA-256 as PGP words";
     homepage = "https://github.com/kirei/sha2wordlist";
-    maintainers = with maintainers; [ baloo ];
-    license = [ licenses.bsd2 ];
+    maintainers = with maintainers; [baloo];
+    license = [licenses.bsd2];
     platforms = platforms.all;
     mainProgram = "sha2wordlist";
   };

@@ -5,7 +5,6 @@
   python3,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fatrace";
   version = "0.18.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
       --replace "'which'" "'${which}/bin/which'"
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Report system-wide file access events";

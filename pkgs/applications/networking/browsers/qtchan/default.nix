@@ -5,7 +5,6 @@
   qmake,
   qtbase,
 }:
-
 mkDerivation rec {
   pname = "qtchan";
   version = "1.0.1";
@@ -17,9 +16,9 @@ mkDerivation rec {
     sha256 = "1x11m1kwqindzc0dkpfifcglsb362impaxs85kgzx50p898sz9ll";
   };
 
-  nativeBuildInputs = [ qmake ];
-  buildInputs = [ qtbase ];
-  qmakeFlags = [ "CONFIG-=app_bundle" ];
+  nativeBuildInputs = [qmake];
+  buildInputs = [qtbase];
+  qmakeFlags = ["CONFIG-=app_bundle"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -31,7 +30,7 @@ mkDerivation rec {
     mainProgram = "qtchan";
     homepage = "https://github.com/siavash119/qtchan";
     license = licenses.mit;
-    maintainers = with maintainers; [ Madouura ];
+    maintainers = with maintainers; [Madouura];
     platforms = platforms.unix;
   };
 }

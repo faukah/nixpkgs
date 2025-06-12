@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "ansible-language-server";
   version = "1.2.1";
@@ -31,8 +30,8 @@ buildNpmPackage rec {
     sed -i '/"prepack"/d' package.json
   '';
 
-  npmPackFlags = [ "--ignore-scripts" ];
-  passthru.updateScript = nix-update-script { };
+  npmPackFlags = ["--ignore-scripts"];
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/ansible/ansible-language-server/releases/tag/v${version}";
@@ -40,6 +39,6 @@ buildNpmPackage rec {
     mainProgram = "ansible-language-server";
     homepage = "https://github.com/ansible/ansible-language-server";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

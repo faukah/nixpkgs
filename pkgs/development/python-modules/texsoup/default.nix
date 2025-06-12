@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "texsoup";
   version = "0.3.1";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-XKYJycYivtrszU46B3Bd4JLrvckBpQu9gKDMdr6MyZU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "TexSoup" ];
+  pythonImportsCheck = ["TexSoup"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     substituteInPlace pytest.ini \
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "Fault-tolerant Python3 package for searching, navigating, and modifying LaTeX documents";
     homepage = "https://github.com/alvinwan/TexSoup";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

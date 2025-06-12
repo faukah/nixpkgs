@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "spoof";
   version = "2.0.4";
@@ -21,7 +20,7 @@ buildNpmPackage rec {
     cp ${./package-lock.json} package-lock.json
   '';
 
-  npmFlags = [ "--ignore-scripts" ];
+  npmFlags = ["--ignore-scripts"];
 
   dontNpmBuild = true;
 
@@ -30,6 +29,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/feross/spoof";
     license = lib.licenses.mit;
     mainProgram = "spoof";
-    maintainers = with lib.maintainers; [ modderme123 ];
+    maintainers = with lib.maintainers; [modderme123];
   };
 }

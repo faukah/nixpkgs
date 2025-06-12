@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "automatic-timezoned";
   version = "2.0.79";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/maxbrunet/automatic-timezoned";
     changelog = "https://github.com/maxbrunet/automatic-timezoned/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ maxbrunet ];
+    maintainers = with lib.maintainers; [maxbrunet];
     platforms = lib.platforms.linux;
     mainProgram = "automatic-timezoned";
   };

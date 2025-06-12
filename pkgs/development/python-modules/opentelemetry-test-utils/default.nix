@@ -7,7 +7,6 @@
   opentelemetry-instrumentation,
   opentelemetry-sdk,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-api) src;
   pname = "opentelemetry-test-utils";
@@ -20,7 +19,7 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-api.src.name}/tests/opentelemetry-test-utils";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     asgiref
@@ -28,10 +27,12 @@ buildPythonPackage {
     opentelemetry-sdk
   ];
 
-  pythonImportsCheck = [ "opentelemetry.test" ];
+  pythonImportsCheck = ["opentelemetry.test"];
 
-  meta = opentelemetry-api.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python/tree/main/tests/opentelemetry-test-utils";
-    description = "Test utilities for OpenTelemetry unit tests";
-  };
+  meta =
+    opentelemetry-api.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python/tree/main/tests/opentelemetry-test-utils";
+      description = "Test utilities for OpenTelemetry unit tests";
+    };
 }

@@ -6,7 +6,6 @@
   numpy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "recursivenodes";
   version = "0.3.0";
@@ -19,15 +18,15 @@ buildPythonPackage rec {
     hash = "sha256-RThTrYxM4dvTclUZrnne1q1ij9k6aJEeYKTZaxqzs5g=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
   ];
 
-  pythonImportsCheck = [ "recursivenodes" ];
+  pythonImportsCheck = ["recursivenodes"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     homepage = "https://tisaac.gitlab.io/recursivenodes/";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Recursive, parameter-free, explicitly defined interpolation nodes for simplices";
     changelog = "https://gitlab.com/tisaac/recursivenodes/-/releases/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 }

@@ -3,20 +3,18 @@
   config,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.local-ai;
   inherit (lib) mkOption types;
-in
-{
+in {
   options.services.local-ai = {
     enable = lib.mkEnableOption "Enable service";
 
-    package = lib.mkPackageOption pkgs "local-ai" { };
+    package = lib.mkPackageOption pkgs "local-ai" {};
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
     };
 
     port = mkOption {
@@ -53,7 +51,7 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.services.local-ai = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment.LLAMACPP_PARALLEL = toString cfg.parallelRequests;
       serviceConfig = {
         DynamicUser = true;

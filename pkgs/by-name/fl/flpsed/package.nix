@@ -5,7 +5,6 @@
   fltk13,
   ghostscript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "flpsed";
   version = "0.7.3";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0vngqxanykicabhfdznisv82k5ypkxwg0s93ms9ribvhpm8vf2xp";
   };
 
-  buildInputs = [ fltk13 ];
+  buildInputs = [fltk13];
 
   postPatch = ''
     # replace the execvp call to ghostscript
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://flpsed.org/flpsed.html";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "flpsed";
   };
 }

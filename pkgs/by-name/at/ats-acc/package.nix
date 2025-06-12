@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ats2,
 }:
-
 stdenv.mkDerivation {
   pname = "ats-acc";
   version = "unstable-2018-10-21";
@@ -21,12 +20,12 @@ stdenv.mkDerivation {
       --replace "mv acc \''$(PATSHOME)/bin/" "install -Dm755 acc ${placeholder "out"}/bin/"
   '';
 
-  nativeBuildInputs = [ ats2 ];
+  nativeBuildInputs = [ats2];
 
   meta = with lib; {
     description = "Pretty-print error messages of the ATS Compiler";
     homepage = "https://github.com/sparverius/ats-acc";
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
     license = licenses.unfree; # Upstream has no license
   };
 }

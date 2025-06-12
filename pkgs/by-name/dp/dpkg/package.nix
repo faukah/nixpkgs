@@ -16,7 +16,6 @@
   diffutils,
   glibc ? !stdenv.hostPlatform.isDarwin,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dpkg";
   version = "1.22.19";
@@ -27,13 +26,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-lSuq5VqBj5yKusZaT50sOf82/wd2FeS4g2ILaZT0HPM=";
   };
 
-  configureFlags = [
-    "--disable-dselect"
-    "--disable-start-stop-daemon"
-    "--with-admindir=/var/lib/dpkg"
-    "PERL_LIBDIR=$(out)/${perl.libPrefix}"
-    "TAR=${gnutar}/bin/tar"
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin "--disable-linker-optimisations";
+  configureFlags =
+    [
+      "--disable-dselect"
+      "--disable-start-stop-daemon"
+      "--with-admindir=/var/lib/dpkg"
+      "PERL_LIBDIR=$(out)/${perl.libPrefix}"
+      "TAR=${gnutar}/bin/tar"
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin "--disable-linker-optimisations";
 
   enableParallelBuilding = true;
 
@@ -113,6 +114,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
-    maintainers = with maintainers; [ siriobalmelli ];
+    maintainers = with maintainers; [siriobalmelli];
   };
 }

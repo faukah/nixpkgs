@@ -5,7 +5,6 @@
   nixosTests,
   callPackage,
 }:
-
 buildGoModule rec {
   pname = "kubo";
   version = "0.34.1"; # When updating, also check if the repo version changed and adjust repoVersion below
@@ -29,11 +28,11 @@ buildGoModule rec {
 
   sourceRoot = ".";
 
-  subPackages = [ "cmd/ipfs" ];
+  subPackages = ["cmd/ipfs"];
 
   passthru.tests = {
     inherit (nixosTests) kubo;
-    repoVersion = callPackage ./test-repoVersion.nix { };
+    repoVersion = callPackage ./test-repoVersion.nix {};
   };
 
   vendorHash = null;

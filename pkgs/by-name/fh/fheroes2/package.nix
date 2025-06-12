@@ -12,10 +12,8 @@
   SDL2_ttf,
   zlib,
   libiconv,
-
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fheroes2";
   version = "1.1.8";
@@ -27,18 +25,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-Z6pepW2hHaDNkkMVxuekoNNibsuicyGLmA8Y9isy8Mo=";
   };
 
-  nativeBuildInputs = [ imagemagick ];
+  nativeBuildInputs = [imagemagick];
 
-  buildInputs = [
-    gettext
-    glibcLocalesUtf8
-    libpng
-    SDL2
-    SDL2_image
-    SDL2_mixer
-    SDL2_ttf
-    zlib
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs =
+    [
+      gettext
+      glibcLocalesUtf8
+      libpng
+      SDL2
+      SDL2_image
+      SDL2_mixer
+      SDL2_ttf
+      zlib
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   makeFlags = [
     "FHEROES2_STRICT_COMPILATION=1"
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
       On linux, the data can be placed in ~/.local/share/fheroes2 folder.
     '';
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "integresql";
   version = "1.1.0";
@@ -35,7 +34,7 @@ buildGoModule rec {
     homepage = "https://github.com/allaboutapps/integresql";
     changelog = "https://github.com/allaboutapps/integresql/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "integresql";
   };
 }

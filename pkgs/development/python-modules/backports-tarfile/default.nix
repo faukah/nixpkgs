@@ -7,9 +7,7 @@
   wheel,
   jaraco-test,
   pytestCheckHook,
-}:
-
-let
+}: let
   self = buildPythonPackage rec {
     pname = "backports-tarfile";
     version = "1.2.0";
@@ -52,16 +50,16 @@ let
       "test_modes"
     ];
 
-    pythonImportsCheck = [ "backports.tarfile" ];
+    pythonImportsCheck = ["backports.tarfile"];
 
-    passthru.tests.pytest = self.overridePythonAttrs { doCheck = true; };
+    passthru.tests.pytest = self.overridePythonAttrs {doCheck = true;};
 
     meta = with lib; {
       description = "Backport of CPython tarfile module";
       homepage = "https://github.com/jaraco/backports.tarfile";
       license = licenses.mit;
-      maintainers = [ ];
+      maintainers = [];
     };
   };
 in
-self
+  self

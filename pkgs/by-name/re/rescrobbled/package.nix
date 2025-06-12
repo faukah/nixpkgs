@@ -7,9 +7,7 @@
   openssl,
   dbus,
 }:
-
 rustPlatform.buildRustPackage rec {
-
   pname = "rescrobbled";
   version = "0.7.2";
 
@@ -23,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-zZqDbXIXuNX914EmeSv3hZFnpjYzYdYZk7av3W60YuM=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
@@ -46,6 +44,6 @@ rustPlatform.buildRustPackage rec {
     license = licenses.gpl3Plus;
     mainProgram = "rescrobbled";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ negatethis ];
+    maintainers = with maintainers; [negatethis];
   };
 }

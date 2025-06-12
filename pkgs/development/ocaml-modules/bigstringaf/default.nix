@@ -6,7 +6,6 @@
   pkg-config,
   dune-configurator,
 }:
-
 buildDunePackage rec {
   pname = "bigstringaf";
   version = "0.10.0";
@@ -20,10 +19,10 @@ buildDunePackage rec {
     hash = "sha256-p1hdB3ArOd2UX7S6YvXCFbYjEiXdMDmBaC/lFQgua7Q=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dune-configurator];
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
   doCheck = true;
 
   meta = {
@@ -41,7 +40,7 @@ buildDunePackage rec {
     '';
     changelog = "https://github.com/inhabitedtype/bigstringaf/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     inherit (src.meta) homepage;
   };
 }

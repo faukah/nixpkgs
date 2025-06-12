@@ -8,7 +8,6 @@
   progress,
   matplotlib,
 }:
-
 buildPythonPackage rec {
   version = "1.7.4";
   format = "setuptools";
@@ -29,12 +28,12 @@ buildPythonPackage rec {
 
   # tests not packaged with pypi
   doCheck = false;
-  pythonImportsCheck = [ "vidstab" ];
+  pythonImportsCheck = ["vidstab"];
 
   meta = with lib; {
     homepage = "https://github.com/AdamSpannbauer/python_video_stab";
     description = "Video Stabilization using OpenCV";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

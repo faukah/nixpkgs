@@ -9,7 +9,6 @@
   libxcrypt-legacy,
   unzip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "cups-idprt-tspl";
   version = "1.4.7";
@@ -31,25 +30,23 @@ stdenvNoCC.mkDerivation {
     unzip
   ];
 
-  installPhase =
-    let
-      arch =
-        {
-          x86_64-linux = "x64";
-          x86-linux = "x86";
-        }
+  installPhase = let
+    arch =
+      {
+        x86_64-linux = "x64";
+        x86-linux = "x86";
+      }
         ."${stdenvNoCC.hostPlatform.system}"
           or (throw "cups-idprt-tspl: No prebuilt filters for system: ${stdenvNoCC.hostPlatform.system}");
-    in
-    ''
-      runHook preInstall
-      mkdir -p $out/share/cups/model $out/lib/cups/filter
-      cp -r filter/${arch}/. $out/lib/cups/filter
-      cp -r ppd/. $out/share/cups/model
-      rm $out/share/cups/model/*.ppd~
-      chmod +x $out/lib/cups/filter/*
-      runHook postInstall
-    '';
+  in ''
+    runHook preInstall
+    mkdir -p $out/share/cups/model $out/lib/cups/filter
+    cp -r filter/${arch}/. $out/lib/cups/filter
+    cp -r ppd/. $out/share/cups/model
+    rm $out/share/cups/model/*.ppd~
+    chmod +x $out/lib/cups/filter/*
+    runHook postInstall
+  '';
 
   meta = {
     description = "CUPS drivers for TSPL-based iDPRT thermal label printers (SP210, SP310, SP320, SP320E, SP410, SP410BT, SP420, SP450, SP460BT)";
@@ -58,7 +55,7 @@ stdenvNoCC.mkDerivation {
       "x86-linux"
     ];
     license = lib.licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with lib.maintainers; [pandapip1];
   };
 }

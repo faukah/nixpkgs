@@ -11,8 +11,7 @@
   wrapGAppsHook3,
   yarnConfigHook,
 }:
-
-rustPlatform.buildRustPackage (rec {
+rustPlatform.buildRustPackage rec {
   pname = "headphones-toolbox";
   version = "0.0.7";
   tag = "test-tauri-v2-2";
@@ -42,9 +41,9 @@ rustPlatform.buildRustPackage (rec {
     yarnConfigHook
   ];
 
-  buildInputs = [ webkitgtk_4_1 ];
+  buildInputs = [webkitgtk_4_1];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "UI for configuring Ploopy Headphones";
@@ -58,4 +57,4 @@ rustPlatform.buildRustPackage (rec {
     ];
     platforms = lib.platforms.linux;
   };
-})
+}

@@ -1,8 +1,5 @@
 # Common configuration for Xen DomU NixOS virtual machines.
-
-{ ... }:
-
-{
+{...}: {
   boot.loader.grub.device = "nodev";
 
   boot.initrd.kernelModules = [

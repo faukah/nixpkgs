@@ -7,7 +7,6 @@
   python3Packages,
   libevdev,
 }:
-
 stdenv.mkDerivation rec {
   pname = "evemu";
   version = "2.7.0";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
       lgpl3Only
       gpl3Only
     ];
-    maintainers = [ maintainers.amorsillo ];
+    maintainers = [maintainers.amorsillo];
     platforms = platforms.linux;
   };
 }

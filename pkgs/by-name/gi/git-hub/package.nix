@@ -5,7 +5,6 @@
   gitMinimal,
   docutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "git-hub";
   version = "2.1.3";

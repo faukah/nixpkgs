@@ -20,7 +20,6 @@
   pkg-config,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "transmission-remote-gtk";
   version = "1.6.0";
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/transmission-remote-gtk/transmission-remote-gtk";
     changelog = "https://github.com/transmission-remote-gtk/transmission-remote-gtk/releases/tag/${version}";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     platforms = lib.platforms.linux;
   };
 }

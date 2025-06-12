@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "codesearch";
   version = "1.2.0";
@@ -25,7 +24,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Fast, indexed regexp search over large file trees";
     homepage = "https://github.com/google/codesearch";
-    license = [ licenses.bsd3 ];
-    maintainers = with maintainers; [ bennofs ];
+    license = [licenses.bsd3];
+    maintainers = with maintainers; [bennofs];
   };
 }

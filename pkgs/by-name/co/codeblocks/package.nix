@@ -13,7 +13,6 @@
   boost,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   name = "${pname}-${lib.optionalString contribPlugins "full-"}${version}";
   pname = "codeblocks";
@@ -43,14 +42,14 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  patches = [ ./writable-projects.patch ];
+  patches = [./writable-projects.patch];
 
   preConfigure = "substituteInPlace ./configure --replace-fail /bin/file ${file}/bin/file";
 
   postConfigure = lib.optionalString stdenv.hostPlatform.isLinux "substituteInPlace libtool --replace ldconfig ${stdenv.cc.libc.bin}/bin/ldconfig";
 
   configureFlags =
-    [ "--enable-pch=no" ]
+    ["--enable-pch=no"]
     ++ lib.optionals contribPlugins [
       (
         "--with-contrib-plugins=all,-FileManager"
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    maintainers = [ lib.maintainers.linquize ];
+    maintainers = [lib.maintainers.linquize];
     platforms = lib.platforms.all;
     description = "Open source, cross platform, free C, C++ and Fortran IDE";
     longDescription = ''

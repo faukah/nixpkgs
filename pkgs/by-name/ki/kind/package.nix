@@ -7,7 +7,6 @@
   nix-update-script,
   kind,
 }:
-
 buildGoModule rec {
   pname = "kind";
   version = "0.29.0";
@@ -26,9 +25,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-QFDQkl1QuIc0fUK0raVxmPT7AF6fsKlQ4F0dzOM9fcw=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   env.CGO_ENABLED = 0;
 
@@ -48,7 +47,7 @@ buildGoModule rec {
     tests.version = testers.testVersion {
       package = kind;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

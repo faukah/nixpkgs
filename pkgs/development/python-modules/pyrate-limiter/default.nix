@@ -14,7 +14,6 @@
   redis,
   redisTestHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyrate-limiter";
   version = "3.7.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     sed -i "/create_postgres_bucket,/d" tests/conftest.py
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   optional-dependencies = {
     all = [
@@ -43,20 +42,22 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-asyncio
-    pytest-xdist
-    redisTestHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-asyncio
+      pytest-xdist
+      redisTestHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "pyrate_limiter" ];
+  pythonImportsCheck = ["pyrate_limiter"];
 
   meta = with lib; {
     description = "Python Rate-Limiter using Leaky-Bucket Algorimth Family";
     homepage = "https://github.com/vutran1710/PyrateLimiter";
     changelog = "https://github.com/vutran1710/PyrateLimiter/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
   };
 }

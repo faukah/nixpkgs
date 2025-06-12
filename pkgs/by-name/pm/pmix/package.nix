@@ -18,7 +18,6 @@
   pandoc,
   gitMinimal,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pmix";
   version = "5.0.7";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  outputs = [ "out" ] ++ lib.optionals stdenv.hostPlatform.isLinux [ "dev" ];
+  outputs = ["out"] ++ lib.optionals stdenv.hostPlatform.isLinux ["dev"];
 
   postPatch = ''
     patchShebangs ./autogen.pl

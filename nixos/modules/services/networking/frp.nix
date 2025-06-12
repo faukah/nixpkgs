@@ -3,20 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.frp;
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   configFile = settingsFormat.generate "frp.toml" cfg.settings;
-  isClient = (cfg.role == "client");
-  isServer = (cfg.role == "server");
-in
-{
+  isClient = cfg.role == "client";
+  isServer = cfg.role == "server";
+in {
   options = {
     services.frp = {
       enable = lib.mkEnableOption "frp";
 
-      package = lib.mkPackageOption pkgs "frp" { };
+      package = lib.mkPackageOption pkgs "frp" {};
 
       role = lib.mkOption {
         type = lib.types.enum [
@@ -33,7 +31,7 @@ in
 
       settings = lib.mkOption {
         type = settingsFormat.type;
-        default = { };
+        default = {};
         description = ''
           Frp configuration, for configuration options
           see the example of [client](https://github.com/fatedier/frp/blob/dev/conf/frpc_full_example.toml)
@@ -47,17 +45,22 @@ in
     };
   };
 
-  config =
-    let
-      serviceCapability = lib.optionals isServer [ "CAP_NET_BIND_SERVICE" ];
-      executableFile = if isClient then "frpc" else "frps";
-    in
+  config = let
+    serviceCapability = lib.optionals isServer ["CAP_NET_BIND_SERVICE"];
+    executableFile =
+      if isClient
+      then "frpc"
+      else "frps";
+  in
     lib.mkIf cfg.enable {
       systemd.services = {
         frp = {
-          wants = lib.optionals isClient [ "network-online.target" ];
-          after = if isClient then [ "network-online.target" ] else [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          wants = lib.optionals isClient ["network-online.target"];
+          after =
+            if isClient
+            then ["network-online.target"]
+            else ["network.target"];
+          wantedBy = ["multi-user.target"];
           description = "A fast reverse proxy frp ${cfg.role}";
           serviceConfig = {
             Type = "simple";
@@ -77,21 +80,23 @@ in
             ProtectKernelModules = true;
             ProtectKernelLogs = true;
             ProtectControlGroups = true;
-            RestrictAddressFamilies = [
-              "AF_INET"
-              "AF_INET6"
-            ] ++ lib.optionals isClient [ "AF_UNIX" ];
+            RestrictAddressFamilies =
+              [
+                "AF_INET"
+                "AF_INET6"
+              ]
+              ++ lib.optionals isClient ["AF_UNIX"];
             LockPersonality = true;
             MemoryDenyWriteExecute = true;
             RestrictRealtime = true;
             RestrictSUIDSGID = true;
             PrivateMounts = true;
             SystemCallArchitectures = "native";
-            SystemCallFilter = [ "@system-service" ];
+            SystemCallFilter = ["@system-service"];
           };
         };
       };
     };
 
-  meta.maintainers = with lib.maintainers; [ zaldnoay ];
+  meta.maintainers = with lib.maintainers; [zaldnoay];
 }

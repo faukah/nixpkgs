@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "bubble-card";
   version = "3.0.0-beta.9";
@@ -36,6 +35,6 @@ buildNpmPackage rec {
     description = "Bubble Card is a minimalist card collection for Home Assistant with a nice pop-up touch.";
     homepage = "https://github.com/Clooos/Bubble-Card";
     license = licenses.mit;
-    maintainers = with maintainers; [ pta2002 ];
+    maintainers = with maintainers; [pta2002];
   };
 }

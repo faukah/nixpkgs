@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "chameleon";
   version = "4.6.0";
@@ -20,13 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-zCEM5yl8Y11FbexD7veS9bFJgm30L6fsTde59m2t1ec=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  dependencies = lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "chameleon" ];
+  pythonImportsCheck = ["chameleon"];
 
   meta = with lib; {
     changelog = "https://github.com/malthe/chameleon/blob/${src.tag}/CHANGES.rst";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/malthe/chameleon";
     homepage = "https://chameleon.readthedocs.io";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

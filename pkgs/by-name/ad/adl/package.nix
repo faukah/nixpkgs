@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-Kg/iGyEdWJyoPn5lVqRCJX2eqdP1xwZqNU2RvTrhZko=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # https://github.com/RaitaroH/adl#requirements
   buildInputs = [
@@ -50,7 +50,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Popcorn anime scraper/downloader + trackma wrapper";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ weathercold ];
+    maintainers = with maintainers; [weathercold];
     mainProgram = "adl";
   };
 }

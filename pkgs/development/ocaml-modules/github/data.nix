@@ -5,7 +5,6 @@
   atdgen,
   atdgen-runtime,
 }:
-
 buildDunePackage {
   pname = "github-data";
   inherit (github) version src;
@@ -23,7 +22,9 @@ buildDunePackage {
     atdgen-runtime
   ];
 
-  meta = github.meta // {
-    description = "GitHub APIv3 data library";
-  };
+  meta =
+    github.meta
+    // {
+      description = "GitHub APIv3 data library";
+    };
 }

@@ -30,7 +30,7 @@ buildGoModule rec {
     "cmd/cli"
   ];
   proxyVendor = true;
-  nativeBuildInputs = lib.optionals enableGUI [ pkg-config ];
+  nativeBuildInputs = lib.optionals enableGUI [pkg-config];
   buildInputs = lib.optionals enableGUI [
     glfw
     xorg.libXft
@@ -56,7 +56,7 @@ buildGoModule rec {
     description = "Simple DPI bypass tool written in go";
     license = licenses.mit;
     mainProgram = "bepass";
-    maintainers = with maintainers; [ oluceps ];
+    maintainers = with maintainers; [oluceps];
     broken = enableGUI;
   };
 }

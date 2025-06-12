@@ -9,7 +9,6 @@
   python3,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ripes";
   # Pulling unstable version as latest stable does not build against gcc-13.
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
       runHook postInstall
     '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Graphical processor simulator and assembly editor for the RISC-V ISA";
@@ -68,6 +67,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     platforms = platforms.unix;
     mainProgram = "Ripes";
-    maintainers = with maintainers; [ rewine ];
+    maintainers = with maintainers; [rewine];
   };
 }

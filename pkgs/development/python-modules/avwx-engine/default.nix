@@ -17,7 +17,6 @@
   time-machine,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "avwx-engine";
   version = "1.9.4";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-x8qb9nAAl7F+w0lHHQtLYwMZYdZ9WhAxJ63jdjlyfhQ=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     geopy
@@ -48,22 +47,24 @@ buildPythonPackage rec {
       scipy
       shapely
     ];
-    fuzz = [ rapidfuzz ];
+    fuzz = [rapidfuzz];
     scipy = [
       numpy
       scipy
     ];
-    shape = [ shapely ];
+    shape = [shapely];
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-cov-stub
-    pytestCheckHook
-    time-machine
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytest-cov-stub
+      pytestCheckHook
+      time-machine
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "avwx" ];
+  pythonImportsCheck = ["avwx"];
 
   disabledTests = [
     # Tests require network access
@@ -77,6 +78,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/avwx-rest/avwx-engine";
     changelog = "https://github.com/avwx-rest/avwx-engine/blob/${version}/changelog.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

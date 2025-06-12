@@ -24,7 +24,7 @@ buildGoModule rec {
     "-X main.version=v${version}"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doInstallCheck = true;
   versionCheckProgramArg = "version";
@@ -32,13 +32,13 @@ buildGoModule rec {
     "-skip=TestMQTTBackend" # Depends on external MQTT broker
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Gateway Bridge abstracts Packet Forwarder protocols into Protobuf or JSON over MQTT";
     homepage = "https://www.chirpstack.io/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.stv0g ];
+    maintainers = [lib.maintainers.stv0g];
     mainProgram = "chirpstack-gateway-bridge";
   };
 }

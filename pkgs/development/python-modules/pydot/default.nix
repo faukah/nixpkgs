@@ -11,7 +11,6 @@
   pythonOlder,
   pyparsing,
 }:
-
 buildPythonPackage rec {
   pname = "pydot";
   version = "3.0.4";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ pyparsing ];
+  dependencies = [pyparsing];
 
   nativeCheckInputs = [
     chardet
@@ -42,15 +41,15 @@ buildPythonPackage rec {
     })
   ];
 
-  pytestFlagsArray = [ "test/test_pydot.py" ];
+  pytestFlagsArray = ["test/test_pydot.py"];
 
-  pythonImportsCheck = [ "pydot" ];
+  pythonImportsCheck = ["pydot"];
 
   meta = {
     description = "Allows to create both directed and non directed graphs from Python";
     homepage = "https://github.com/erocarrera/pydot";
     changelog = "https://github.com/pydot/pydot/blob/v${version}/ChangeLog";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

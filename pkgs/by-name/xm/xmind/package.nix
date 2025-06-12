@@ -22,7 +22,6 @@
   systemd,
   libGL,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xmind";
   version = "25.04.03523-202505300040";
@@ -83,19 +82,19 @@ stdenv.mkDerivation (finalAttrs: {
   preFixup = ''
     patchelf --add-needed libGL.so.1 \
       --add-rpath ${
-        lib.makeLibraryPath [
-          libGL
-        ]
-      } $out/opt/xmind/xmind
+      lib.makeLibraryPath [
+        libGL
+      ]
+    } $out/opt/xmind/xmind
   '';
 
   meta = {
     description = "All-in-one thinking tool featuring mind mapping, AI generation, and real-time collaboration";
     homepage = "https://xmind.app";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     mainProgram = "xmind";
     license = lib.licenses.unfree;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ michalrus ];
+    maintainers = with lib.maintainers; [michalrus];
   };
 })

@@ -8,9 +8,9 @@ buildPythonPackage {
   inherit (bencodetools) pname version src;
   format = "pyproject";
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   dontConfigure = true;
 
@@ -20,7 +20,8 @@ buildPythonPackage {
   ];
 
   meta = {
-    inherit (bencodetools.meta)
+    inherit
+      (bencodetools.meta)
       description
       homepage
       license

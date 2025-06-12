@@ -6,7 +6,6 @@
   pkg-config,
   libopenmpt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libopenmpt-modplug";
   version = "0.8.9.0-openmpt1";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Libmodplug emulation layer based on libopenmpt";
     homepage = "https://lib.openmpt.org/libopenmpt/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.unix;
   };
 }

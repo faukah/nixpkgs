@@ -6,7 +6,6 @@
   setuptools,
   medvol,
 }:
-
 buildPythonPackage rec {
   pname = "napari-nifti";
   version = "0.0.17";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-JDyJMg6rsGkfEHBwqKc2L6oRO5Y1MJJlEjUuuqp7URQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ medvol ];
+  dependencies = [medvol];
 
-  pythonImportsCheck = [ "napari_nifti" ];
+  pythonImportsCheck = ["napari_nifti"];
 
   doCheck = false; # no tests
 
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/MIC-DKFZ/napari-nifti";
     changelog = "https://github.com/MIC-DKFZ/napari-nifti/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

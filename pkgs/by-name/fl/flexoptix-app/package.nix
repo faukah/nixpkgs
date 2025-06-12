@@ -3,8 +3,7 @@
   appimageTools,
   fetchurl,
   asar,
-}:
-let
+}: let
   pname = "flexoptix-app";
   version = "5.21.2-latest";
 
@@ -19,7 +18,7 @@ let
     hash = "sha256-faowRYdrk88WUpOpaEfedzybBgxVRZhvAaYP9HAuzAE=";
   };
 
-  appimageContents = (appimageTools.extract { inherit pname version src; }).overrideAttrs (oA: {
+  appimageContents = (appimageTools.extract {inherit pname version src;}).overrideAttrs (oA: {
     buildCommand = ''
       ${oA.buildCommand}
 
@@ -29,32 +28,31 @@ let
       ${asar}/bin/asar pack app $out/resources/app.asar
     '';
   });
-
 in
-appimageTools.wrapAppImage {
-  inherit pname version;
-  src = appimageContents;
+  appimageTools.wrapAppImage {
+    inherit pname version;
+    src = appimageContents;
 
-  extraPkgs = pkgs: [ pkgs.hidapi ];
+    extraPkgs = pkgs: [pkgs.hidapi];
 
-  extraInstallCommands = ''
-    # Add desktop convencience stuff
-    install -Dm444 ${appimageContents}/flexoptix-app.desktop -t $out/share/applications
-    install -Dm444 ${appimageContents}/flexoptix-app.png -t $out/share/pixmaps
-    substituteInPlace $out/share/applications/flexoptix-app.desktop \
-      --replace 'Exec=AppRun' "Exec=$out/bin/${pname} --"
+    extraInstallCommands = ''
+      # Add desktop convencience stuff
+      install -Dm444 ${appimageContents}/flexoptix-app.desktop -t $out/share/applications
+      install -Dm444 ${appimageContents}/flexoptix-app.png -t $out/share/pixmaps
+      substituteInPlace $out/share/applications/flexoptix-app.desktop \
+        --replace 'Exec=AppRun' "Exec=$out/bin/${pname} --"
 
-    # Add udev rules
-    mkdir -p $out/lib/udev/rules.d
-    ln -s ${udevRules} $out/lib/udev/rules.d/99-tprogrammer.rules
-  '';
+      # Add udev rules
+      mkdir -p $out/lib/udev/rules.d
+      ln -s ${udevRules} $out/lib/udev/rules.d/99-tprogrammer.rules
+    '';
 
-  meta = {
-    description = "Configure FLEXOPTIX Universal Transceivers in seconds";
-    homepage = "https://www.flexoptix.net";
-    changelog = "https://www.flexoptix.net/en/flexoptix-app/?os=linux#flexapp__modal__changelog";
-    license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ das_j ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = {
+      description = "Configure FLEXOPTIX Universal Transceivers in seconds";
+      homepage = "https://www.flexoptix.net";
+      changelog = "https://www.flexoptix.net/en/flexoptix-app/?os=linux#flexapp__modal__changelog";
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [das_j];
+      platforms = ["x86_64-linux"];
+    };
+  }

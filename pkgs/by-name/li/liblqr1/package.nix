@@ -5,7 +5,6 @@
   pkg-config,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "liblqr-1";
   version = "0.4.2";
@@ -22,8 +21,8 @@ stdenv.mkDerivation rec {
     sha256 = "10mrl5k3l2hxjhz4w93n50xwywp6y890rw2vsjcgai8627x5f1df";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs = [ glib ];
+  nativeBuildInputs = [pkg-config];
+  propagatedBuildInputs = [glib];
 
   meta = with lib; {
     homepage = "http://liblqr.wikidot.com";

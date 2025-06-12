@@ -9,7 +9,6 @@
   SDL2,
   SDL2_image,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sdlpop";
   version = "1.23";
@@ -84,7 +83,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/NagyD/SDLPoP";
     changelog = "https://github.com/NagyD/SDLPoP/blob/v${version}/doc/ChangeLog.txt";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ iblech ];
+    maintainers = with lib.maintainers; [iblech];
     platforms = lib.platforms.unix;
     mainProgram = "prince";
   };

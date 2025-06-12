@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyjvcprojector";
   version = "1.1.2";
@@ -20,13 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-ow9pCigbQpxLibIq1hsRifXuzJfbWnqpWmnkM5lC3I4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiodns
   ];
 
-  pythonImportsCheck = [ "jvcprojector" ];
+  pythonImportsCheck = ["jvcprojector"];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Python library for controlling a JVC Projector over a network connection";
     homepage = "https://github.com/SteveEasley/pyjvcprojector";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

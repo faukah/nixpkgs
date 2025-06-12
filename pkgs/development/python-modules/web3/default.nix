@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   aiohttp,
   eth-abi,
@@ -21,10 +19,8 @@
   requests,
   types-requests,
   websockets,
-
   # optional-dependencies
   ipfshttpclient,
-
   # tests
   eth-tester,
   flaky,
@@ -36,7 +32,6 @@
   pytestCheckHook,
   pyunormalize,
 }:
-
 buildPythonPackage rec {
   pname = "web3";
   version = "7.8.0";
@@ -49,7 +44,7 @@ buildPythonPackage rec {
     hash = "sha256-Rk12QZK47oF0ri1+kCquW4vaqPPPO5UPYOhq4StR1+U=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "websockets"
@@ -78,7 +73,7 @@ buildPythonPackage rec {
 
   # Note: to reflect the extra_requires in main/setup.py.
   optional-dependencies = {
-    ipfs = [ ipfshttpclient ];
+    ipfs = [ipfshttpclient];
   };
 
   nativeCheckInputs = [
@@ -116,13 +111,13 @@ buildPythonPackage rec {
     "tests/beacon"
   ];
 
-  pythonImportsCheck = [ "web3" ];
+  pythonImportsCheck = ["web3"];
 
   meta = {
     description = "Python interface for interacting with the Ethereum blockchain and ecosystem";
     homepage = "https://web3py.readthedocs.io/";
     changelog = "https://web3py.readthedocs.io/en/stable/release_notes.html";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hellwolf ];
+    maintainers = with lib.maintainers; [hellwolf];
   };
 }

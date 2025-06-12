@@ -3,16 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.security.chromiumSuidSandbox;
   sandbox = pkgs.chromium.sandbox;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "programs" "unity3d" "enable" ]
-      [ "security" "chromiumSuidSandbox" "enable" ]
+    (
+      lib.mkRenamedOptionModule
+      ["programs" "unity3d" "enable"]
+      ["security" "chromiumSuidSandbox" "enable"]
     )
   ];
 
@@ -32,7 +31,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ sandbox ];
+    environment.systemPackages = [sandbox];
     security.wrappers.${sandbox.passthru.sandboxExecutableName} = {
       setuid = true;
       owner = "root";

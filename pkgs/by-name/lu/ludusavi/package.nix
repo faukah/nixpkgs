@@ -29,7 +29,6 @@
   gtk3,
   glib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ludusavi";
   version = "0.29.1";
@@ -87,35 +86,33 @@ rustPlatform.buildRustPackage rec {
         --zsh <($out/bin/ludusavi complete zsh)
     '';
 
-  postFixup =
-    let
-      libPath = lib.makeLibraryPath [
-        libGL
-        bzip2
-        fontconfig
-        freetype
-        libX11
-        libXcursor
-        libXrandr
-        libXi
-        libxkbcommon
-        vulkan-loader
-        wayland
-        gtk3
-        dbus-glib
-        glib
-      ];
-    in
-    ''
-      patchelf --set-rpath "${libPath}" "$out/bin/ludusavi"
-      wrapProgram $out/bin/ludusavi --prefix PATH : ${
-        lib.makeBinPath [
-          zenity
-          libsForQt5.kdialog
-        ]
-      } \
-        "''${gappsWrapperArgs[@]}"
-    '';
+  postFixup = let
+    libPath = lib.makeLibraryPath [
+      libGL
+      bzip2
+      fontconfig
+      freetype
+      libX11
+      libXcursor
+      libXrandr
+      libXi
+      libxkbcommon
+      vulkan-loader
+      wayland
+      gtk3
+      dbus-glib
+      glib
+    ];
+  in ''
+    patchelf --set-rpath "${libPath}" "$out/bin/ludusavi"
+    wrapProgram $out/bin/ludusavi --prefix PATH : ${
+      lib.makeBinPath [
+        zenity
+        libsForQt5.kdialog
+      ]
+    } \
+      "''${gappsWrapperArgs[@]}"
+  '';
 
   meta = {
     description = "Backup tool for PC game saves";

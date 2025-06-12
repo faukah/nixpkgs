@@ -14,7 +14,6 @@
   stestr,
   stevedore,
 }:
-
 buildPythonPackage rec {
   pname = "osc-lib";
   version = "3.2.0";
@@ -54,12 +53,12 @@ buildPythonPackage rec {
     stestr run
   '';
 
-  pythonImportsCheck = [ "osc_lib" ];
+  pythonImportsCheck = ["osc_lib"];
 
   meta = with lib; {
     description = "OpenStackClient Library";
     homepage = "https://github.com/openstack/osc-lib";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

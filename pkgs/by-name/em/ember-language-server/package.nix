@@ -8,7 +8,6 @@
   yarnInstallHook,
   yarnBuildHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ember-language-server";
   version = "2.30.5";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ember-tooling/ember-language-server";
     changelog = "https://github.com/ember-tooling/ember-language-server/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ThaoTranLePhuong ];
+    maintainers = with lib.maintainers; [ThaoTranLePhuong];
     mainProgram = "ember-language-server";
   };
 })

@@ -16,7 +16,6 @@
   kwindowsystem,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xwaylandvideobridge";
   version = "0.4.0";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     kwindowsystem
   ];
 
-  cmakeFlags = [ "-DQT_MAJOR_VERSION=${lib.versions.major qtbase.version}" ];
+  cmakeFlags = ["-DQT_MAJOR_VERSION=${lib.versions.major qtbase.version}"];
 
   meta = {
     description = "Utility to allow streaming Wayland windows to X applications";
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
       cc0
       gpl2Plus
     ];
-    maintainers = with lib.maintainers; [ stepbrobd ];
+    maintainers = with lib.maintainers; [stepbrobd];
     platforms = lib.platforms.linux;
     mainProgram = "xwaylandvideobridge";
   };

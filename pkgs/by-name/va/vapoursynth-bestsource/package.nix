@@ -10,7 +10,6 @@
   ffmpeg,
   xxHash,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vapoursynth-bestsource";
   version = "6";
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
       wtfpl
       gpl2Plus
     ];
-    maintainers = with lib.maintainers; [ snaki ];
+    maintainers = with lib.maintainers; [snaki];
     platforms = lib.platforms.all;
   };
 })

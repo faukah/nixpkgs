@@ -9,7 +9,6 @@
   gmime,
   nss,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pidgin-sipe";
   version = "1.25.0";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     ./0001-fix-libxml-error-signature.patch
   ];
 
-  nativeBuildInputs = [ intltool ];
+  nativeBuildInputs = [intltool];
   buildInputs = [
     pidgin
     gmime

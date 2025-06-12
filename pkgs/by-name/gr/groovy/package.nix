@@ -10,9 +10,7 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 # at runtime, need jdk
-
 stdenv.mkDerivation rec {
   pname = "groovy";
   version = "4.0.26";
@@ -38,7 +36,7 @@ stdenv.mkDerivation rec {
       comment = meta.description;
       terminal = false;
       startupNotify = false;
-      categories = [ "Development" ];
+      categories = ["Development"];
     })
   ];
 
@@ -78,7 +76,7 @@ stdenv.mkDerivation rec {
     description = "Agile dynamic language for the Java Platform";
     homepage = "http://groovy-lang.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = with platforms; unix;
   };
 }

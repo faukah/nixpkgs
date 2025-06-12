@@ -7,7 +7,6 @@
   fetchpatch,
   unstableGitUpdater,
 }:
-
 mkDerivation rec {
   pname = "evtest-qt";
   version = "0.2.0-unstable-2023-09-13";
@@ -30,17 +29,17 @@ mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Simple input device tester for linux with Qt GUI";
     mainProgram = "evtest-qt";
     homepage = "https://github.com/Grumbel/evtest-qt";
-    maintainers = with maintainers; [ alexarice ];
+    maintainers = with maintainers; [alexarice];
     platforms = platforms.linux;
     license = licenses.gpl3;
   };

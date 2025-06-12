@@ -5,7 +5,6 @@
   setuptools,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   version = "0.2.6";
   pname = "python-lzf";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-n5E75kRqe0dDbyFicoyLBAVi/SuoUU7qJka3viipQk8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   meta = with lib; {
     description = "liblzf python bindings";

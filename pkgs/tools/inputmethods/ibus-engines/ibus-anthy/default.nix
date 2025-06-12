@@ -12,7 +12,6 @@
   gtk3,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ibus-anthy";
   version = "1.5.17";
@@ -54,6 +53,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fujiwarat/ibus-anthy";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

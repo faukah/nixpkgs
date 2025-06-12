@@ -6,7 +6,6 @@
   openssl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "imgpatchtools";
   version = "0.3";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/erfanoabdi/imgpatchtools";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

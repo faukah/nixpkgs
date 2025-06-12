@@ -7,7 +7,6 @@
   installShellFiles,
   git,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ratslap";
   version = "0.4.1";
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/krayon/ratslap";
     changelog = "https://github.com/krayon/ratslap/releases/tag/${finalAttrs.version}";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ zebreus ];
+    maintainers = with maintainers; [zebreus];
     platforms = platforms.linux;
   };
 })

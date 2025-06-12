@@ -7,7 +7,6 @@
   openssl,
   mysql80,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmysqlconnectorcpp";
   version = "9.3.0";

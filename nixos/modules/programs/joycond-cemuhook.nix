@@ -3,8 +3,7 @@
   pkgs,
   config,
   ...
-}:
-{
+}: {
   options.programs.joycond-cemuhook = {
     enable = lib.mkEnableOption "joycond-cemuhook, a program to enable support for cemuhook's UDP protocol for joycond devices";
   };
@@ -16,6 +15,6 @@
         message = "joycond must be enabled through `services.joycond.enable`";
       }
     ];
-    environment.systemPackages = [ pkgs.joycond-cemuhook ];
+    environment.systemPackages = [pkgs.joycond-cemuhook];
   };
 }

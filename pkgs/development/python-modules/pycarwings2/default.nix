@@ -9,7 +9,6 @@
   requests,
   pycryptodome,
 }:
-
 buildPythonPackage rec {
   pname = "pycarwings2";
   version = "2.14";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     pycryptodome
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -45,13 +44,13 @@ buildPythonPackage rec {
     "test_bad_password"
   ];
 
-  pythonImportsCheck = [ "pycarwings2" ];
+  pythonImportsCheck = ["pycarwings2"];
 
   meta = with lib; {
     description = "Python library for interacting with the NissanConnect EV";
     homepage = "https://github.com/filcole/pycarwings2";
     changelog = "https://github.com/filcole/pycarwings2/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -7,7 +7,6 @@
   pygithub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "ghrepo-stats";
   version = "0.5.5";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "ghrepo_stats" ];
+  pythonImportsCheck = ["ghrepo_stats"];
 
   meta = with lib; {
     description = "Python module and CLI tool for GitHub repo statistics";
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mrbean-bremen/ghrepo-stats";
     changelog = "https://github.com/mrbean-bremen/ghrepo-stats/blob/v${version}/CHANGES.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

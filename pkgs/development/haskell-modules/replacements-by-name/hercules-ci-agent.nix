@@ -203,8 +203,8 @@ mkDerivation {
     websockets
     wuss
   ];
-  executableSystemDepends = [ boost ];
-  executablePkgconfigDepends = [ nix ];
+  executableSystemDepends = [boost];
+  executablePkgconfigDepends = [nix];
   testHaskellDepends = [
     aeson
     async
@@ -248,7 +248,7 @@ mkDerivation {
     uuid
     vector
   ];
-  testToolDepends = [ hspec-discover ];
+  testToolDepends = [hspec-discover];
   homepage = "https://docs.hercules-ci.com";
   description = "Runs Continuous Integration tasks on your machines";
   license = lib.licenses.asl20;

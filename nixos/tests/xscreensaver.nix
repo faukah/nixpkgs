@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "pass-secret-service";
   meta.maintainers = with lib.maintainers; [
     vancluever
@@ -8,52 +7,58 @@
   node.pkgsReadOnly = false;
 
   nodes = {
-    ok =
-      { nodes, pkgs, ... }:
-      {
-        imports = [
-          ./common/x11.nix
-          ./common/user-account.nix
-        ];
-        test-support.displayManager.auto.user = "alice";
-        services.xscreensaver.enable = true;
-      };
+    ok = {
+      nodes,
+      pkgs,
+      ...
+    }: {
+      imports = [
+        ./common/x11.nix
+        ./common/user-account.nix
+      ];
+      test-support.displayManager.auto.user = "alice";
+      services.xscreensaver.enable = true;
+    };
 
-    empty_wrapperPrefix =
-      { nodes, pkgs, ... }:
-      {
-        imports = [
-          ./common/x11.nix
-          ./common/user-account.nix
-        ];
-        test-support.displayManager.auto.user = "alice";
-        services.xscreensaver.enable = true;
-        nixpkgs.overlays = [
-          (self: super: {
-            xscreensaver = super.xscreensaver.override {
-              wrapperPrefix = "";
-            };
-          })
-        ];
-      };
+    empty_wrapperPrefix = {
+      nodes,
+      pkgs,
+      ...
+    }: {
+      imports = [
+        ./common/x11.nix
+        ./common/user-account.nix
+      ];
+      test-support.displayManager.auto.user = "alice";
+      services.xscreensaver.enable = true;
+      nixpkgs.overlays = [
+        (self: super: {
+          xscreensaver = super.xscreensaver.override {
+            wrapperPrefix = "";
+          };
+        })
+      ];
+    };
 
-    bad_wrapperPrefix =
-      { nodes, pkgs, ... }:
-      {
-        imports = [
-          ./common/x11.nix
-          ./common/user-account.nix
-        ];
-        test-support.displayManager.auto.user = "alice";
-        services.xscreensaver.enable = true;
-        nixpkgs.overlays = [
-          (self: super: {
-            xscreensaver = super.xscreensaver.override {
-              wrapperPrefix = "/a/bad/path";
-            };
-          })
-        ];
-      };
+    bad_wrapperPrefix = {
+      nodes,
+      pkgs,
+      ...
+    }: {
+      imports = [
+        ./common/x11.nix
+        ./common/user-account.nix
+      ];
+      test-support.displayManager.auto.user = "alice";
+      services.xscreensaver.enable = true;
+      nixpkgs.overlays = [
+        (self: super: {
+          xscreensaver = super.xscreensaver.override {
+            wrapperPrefix = "/a/bad/path";
+          };
+        })
+      ];
+    };
   };
 
   testScript = ''

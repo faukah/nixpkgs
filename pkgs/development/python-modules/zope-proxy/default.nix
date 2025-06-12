@@ -5,7 +5,6 @@
   setuptools,
   zope-interface,
 }:
-
 buildPythonPackage rec {
   pname = "zope-proxy";
   version = "6.1";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
       --replace-fail "setuptools<74" "setuptools"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ zope-interface ];
+  dependencies = [zope-interface];
 
   # circular deps
   doCheck = false;
 
-  pythonImportsCheck = [ "zope.proxy" ];
+  pythonImportsCheck = ["zope.proxy"];
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = {
     homepage = "https://github.com/zopefoundation/zope.proxy";
     description = "Generic Transparent Proxies";
     changelog = "https://github.com/zopefoundation/zope.proxy/blob/${version}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

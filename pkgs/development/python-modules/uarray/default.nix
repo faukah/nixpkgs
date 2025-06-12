@@ -15,7 +15,6 @@
   pytestCheckHook,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "uarray";
   version = "0.9.2";
@@ -60,14 +59,14 @@ buildPythonPackage rec {
     "uarray"
   ];
 
-  pythonImportsCheck = [ "uarray" ];
+  pythonImportsCheck = ["uarray"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Universal array library";
     homepage = "https://github.com/Quansight-Labs/uarray";
     license = licenses.bsd0;
-    maintainers = [ lib.maintainers.pbsds ];
+    maintainers = [lib.maintainers.pbsds];
   };
 }

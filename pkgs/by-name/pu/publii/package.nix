@@ -25,7 +25,6 @@
   xdg-utils,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "publii";
   version = "0.46.5";
@@ -87,8 +86,8 @@ stdenv.mkDerivation rec {
   preFixup = ''
     makeWrapper $out/opt/Publii/Publii $out/bin/Publii \
       "''${gappsWrapperArgs[@]}" \
-      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ udev ]}
+      --suffix PATH : ${lib.makeBinPath [xdg-utils]} \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [udev]}
   '';
 
   meta = {
@@ -106,6 +105,6 @@ stdenv.mkDerivation rec {
       urandom
       sebtm
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -22,7 +22,6 @@
   uuid,
   vector,
 }:
-
 mkDerivation rec {
   pname = "mkjson";
   version = "0.4.0";
@@ -114,6 +113,6 @@ mkDerivation rec {
   description = "Commandline tool to generate static or random JSON records";
   homepage = "https://github.com/mfussenegger/mkjson";
   license = lib.licenses.mit;
-  maintainers = with lib.maintainers; [ athas ];
+  maintainers = with lib.maintainers; [athas];
   mainProgram = "mkjson";
 }

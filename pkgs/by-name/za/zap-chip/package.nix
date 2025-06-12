@@ -7,7 +7,6 @@
   makeWrapper,
   withGui ? false,
 }:
-
 buildNpmPackage rec {
   pname = "zap-chip";
   version = "2025.02.26";
@@ -35,19 +34,17 @@ buildNpmPackage rec {
     ./dont-download-copyfiles-to-copy-files.patch
   ];
 
-  postPatch =
-    let
-      versionJson = {
-        hash = version;
-        timestamp = 1;
-        date = version;
-        zapVersion = version;
-      };
-    in
-    ''
-      cp ${writers.writeJSON "zapversion.json" versionJson} .version.json
-      cat .version.json
-    '';
+  postPatch = let
+    versionJson = {
+      hash = version;
+      timestamp = 1;
+      date = version;
+      zapVersion = version;
+    };
+  in ''
+    cp ${writers.writeJSON "zapversion.json" versionJson} .version.json
+    cat .version.json
+  '';
 
   postBuild = lib.optionalString withGui ''
     npm exec electron-builder -- \
@@ -56,7 +53,7 @@ buildNpmPackage rec {
       -c.electronVersion=${electron.version}
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall =
     ''
@@ -85,7 +82,7 @@ buildNpmPackage rec {
     description = "Generic generation engine and user interface for applications and libraries based on Zigbee Cluster Library (ZCL)";
     changelog = "https://github.com/project-chip/zap/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ symphorien ];
+    maintainers = with lib.maintainers; [symphorien];
     mainProgram = "zap" + lib.optionalString (!withGui) "-cli";
   };
 }

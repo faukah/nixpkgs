@@ -5,7 +5,6 @@
   libfaketime,
   xorg,
 }:
-
 stdenv.mkDerivation {
   pname = "siji";
   version = "2016-05-13";
@@ -52,6 +51,6 @@ stdenv.mkDerivation {
     description = "Iconic bitmap font based on Stlarch with additional glyphs";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = [ maintainers.asymmetric ];
+    maintainers = [maintainers.asymmetric];
   };
 }

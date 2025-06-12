@@ -3,12 +3,10 @@
   buildGoModule,
   fetchFromGitHub,
   installShellFiles,
-
   # testing
   testers,
   witness,
 }:
-
 buildGoModule rec {
   pname = "witness";
   version = "0.9.2";
@@ -21,10 +19,10 @@ buildGoModule rec {
   };
   vendorHash = "sha256-oH/aWt8Hl/BIN+IYLcuVYWDpQZaYABAOGxXyLssjQg0=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # We only want the witness binary, not the helper utilities for generating docs.
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"

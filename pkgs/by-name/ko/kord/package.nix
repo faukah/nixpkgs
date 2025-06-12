@@ -7,7 +7,6 @@
   pkg-config,
   alsa-lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kord";
   version = "0.6.1";
@@ -32,20 +31,20 @@ rustPlatform.buildRustPackage rec {
       name = "fix-rust-features.patch";
       url = "https://github.com/twitchax/kord/commit/fa9bb979b17d77f54812a915657c3121f76c5d82.patch";
       hash = "sha256-XQu9P7372J2dHWzvpvbPtALS0Bh8EC+J1EyG3qlak2M=";
-      excludes = [ "Cargo.*" ];
+      excludes = ["Cargo.*"];
     })
   ];
 
   nativeBuildInputs =
-    lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ rustPlatform.bindgenHook ];
+    lib.optionals stdenv.hostPlatform.isLinux [pkg-config]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [rustPlatform.bindgenHook];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ alsa-lib ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [alsa-lib];
 
   meta = with lib; {
     description = "Music theory binary and library for Rust";
     homepage = "https://github.com/twitchax/kord";
-    maintainers = with maintainers; [ kidsan ];
-    license = with licenses; [ mit ];
+    maintainers = with maintainers; [kidsan];
+    license = with licenses; [mit];
   };
 }

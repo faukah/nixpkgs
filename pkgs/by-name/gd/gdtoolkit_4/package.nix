@@ -4,9 +4,7 @@
   fetchFromGitHub,
   addBinToPathHook,
   writableTmpDirAsHomeHook,
-}:
-
-let
+}: let
   python = python3.override {
     self = python;
     packageOverrides = self: super: {
@@ -20,61 +18,60 @@ let
           hash = "sha256-Dc7wbMBY8CSeP4JE3hBk5m1lwzmCnNTkVoLdIukRw1Q=";
           fetchSubmodules = true;
         };
-        patches = [ ];
+        patches = [];
       });
     };
   };
 in
-python.pkgs.buildPythonApplication rec {
-  pname = "gdtoolkit";
-  version = "4.3.3";
+  python.pkgs.buildPythonApplication rec {
+    pname = "gdtoolkit";
+    version = "4.3.3";
 
-  src = fetchFromGitHub {
-    owner = "Scony";
-    repo = "godot-gdscript-toolkit";
-    tag = version;
-    hash = "sha256-GS1bCDOKtdJkzgP3+CSWEUeHQ9lUcAHDT09QmPOOeVc=";
-  };
+    src = fetchFromGitHub {
+      owner = "Scony";
+      repo = "godot-gdscript-toolkit";
+      tag = version;
+      hash = "sha256-GS1bCDOKtdJkzgP3+CSWEUeHQ9lUcAHDT09QmPOOeVc=";
+    };
 
-  disabled = python.pythonOlder "3.7";
+    disabled = python.pythonOlder "3.7";
 
-  propagatedBuildInputs = with python.pkgs; [
-    docopt
-    lark
-    pyyaml
-    setuptools
-  ];
-
-  doCheck = true;
-
-  nativeCheckInputs =
-    with python.pkgs;
-    [
-      pytestCheckHook
-      hypothesis
-    ]
-    ++ [
-      addBinToPathHook
-      writableTmpDirAsHomeHook
+    propagatedBuildInputs = with python.pkgs; [
+      docopt
+      lark
+      pyyaml
+      setuptools
     ];
 
-  # The tests are not working on NixOS
-  disabledTestPaths = [
-    "tests/generated/test_expression_parsing.py"
-    "tests/gdradon/test_executable.py"
-  ];
+    doCheck = true;
 
-  pythonImportsCheck = [
-    "gdtoolkit"
-    "gdtoolkit.formatter"
-    "gdtoolkit.linter"
-    "gdtoolkit.parser"
-  ];
+    nativeCheckInputs = with python.pkgs;
+      [
+        pytestCheckHook
+        hypothesis
+      ]
+      ++ [
+        addBinToPathHook
+        writableTmpDirAsHomeHook
+      ];
 
-  meta = with lib; {
-    description = "Independent set of tools for working with Godot's GDScript - parser, linter and formatter";
-    homepage = "https://github.com/Scony/godot-gdscript-toolkit";
-    license = licenses.mit;
-    maintainers = with maintainers; [ squarepear ];
-  };
-}
+    # The tests are not working on NixOS
+    disabledTestPaths = [
+      "tests/generated/test_expression_parsing.py"
+      "tests/gdradon/test_executable.py"
+    ];
+
+    pythonImportsCheck = [
+      "gdtoolkit"
+      "gdtoolkit.formatter"
+      "gdtoolkit.linter"
+      "gdtoolkit.parser"
+    ];
+
+    meta = with lib; {
+      description = "Independent set of tools for working with Godot's GDScript - parser, linter and formatter";
+      homepage = "https://github.com/Scony/godot-gdscript-toolkit";
+      license = licenses.mit;
+      maintainers = with maintainers; [squarepear];
+    };
+  }

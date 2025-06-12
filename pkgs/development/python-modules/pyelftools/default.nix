@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyelftools";
   version = "0.32";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-58Twjf7ECOPynQ5KPCTDQWdD3nb7ADJZISozWGRGoXM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   doCheck = stdenv.hostPlatform.system == "x86_64-linux" && stdenv.hostPlatform.isGnu;
 
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     ${python.interpreter} test/run_readelf_tests.py --parallel
   '';
 
-  pythonImportsCheck = [ "elftools" ];
+  pythonImportsCheck = ["elftools"];
 
   meta = {
     description = "Python library for analyzing ELF files and DWARF debugging information";

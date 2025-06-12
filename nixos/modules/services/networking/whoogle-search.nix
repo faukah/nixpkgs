@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.whoogle-search;
-in
-{
+in {
   options = {
     services.whoogle-search = {
       enable = lib.mkEnableOption "Whoogle, a metasearch engine";
@@ -27,7 +24,7 @@ in
 
       extraEnv = lib.mkOption {
         type = with lib.types; attrsOf str;
-        default = { };
+        default = {};
         description = ''
           Extra environment variables to pass to Whoogle, see
           https://github.com/benbusby/whoogle-search?tab=readme-ov-file#environment-variables
@@ -37,15 +34,16 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.whoogle-search = {
       description = "Whoogle Search";
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.whoogle-search ];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.whoogle-search];
 
-      environment = {
-        CONFIG_VOLUME = "/var/lib/whoogle-search";
-      } // cfg.extraEnv;
+      environment =
+        {
+          CONFIG_VOLUME = "/var/lib/whoogle-search";
+        }
+        // cfg.extraEnv;
 
       serviceConfig = {
         Type = "simple";
@@ -66,5 +64,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ malte-v ];
+  meta.maintainers = with lib.maintainers; [malte-v];
 }

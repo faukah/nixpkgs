@@ -4,9 +4,7 @@
 # required (see types.parsedPlatform in lib/systems/parse.nix).  This
 # file takes an already-valid platform and further elaborates it with
 # optional fields; currently these are: linux-kernel, gcc, and rustc.
-
-{ lib }:
-rec {
+{lib}: rec {
   pc = {
     linux-kernel = {
       name = "pc";
@@ -62,7 +60,7 @@ rec {
         UBIFS_FS_ZLIB y
         UBIFS_FS_DEBUG n
       '';
-      makeFlags = [ "LOADADDR=0x8000" ];
+      makeFlags = ["LOADADDR=0x8000"];
       target = "uImage";
       # TODO reenable once manual-config's config actually builds a .dtb and this is checked to be working
       #DTB = true;
@@ -176,7 +174,7 @@ rec {
         KGDB_SERIAL_CONSOLE y
         KGDB_KDB y
       '';
-      makeFlags = [ "LOADADDR=0x0200000" ];
+      makeFlags = ["LOADADDR=0x0200000"];
       target = "uImage";
       DTB = true; # Beyond 3.10
     };
@@ -265,7 +263,7 @@ rec {
         UBIFS_FS_ZLIB y
         UBIFS_FS_DEBUG n
       '';
-      makeFlags = [ "LOADADDR=0x10800000" ];
+      makeFlags = ["LOADADDR=0x10800000"];
       target = "uImage";
       DTB = true;
     };
@@ -596,43 +594,36 @@ rec {
   # This function takes a minimally-valid "platform" and returns an
   # attrset containing zero or more additional attrs which should be
   # included in the platform in order to further elaborate it.
-  select =
-    platform:
-    # x86
-    if platform.isx86 then
-      pc
-
+  select = platform:
+  # x86
+    if platform.isx86
+    then pc
     # ARM
-    else if platform.isAarch32 then
-      let
-        version = platform.parsed.cpu.version or null;
-      in
-      if version == null then
-        pc
-      else if lib.versionOlder version "6" then
-        sheevaplug
-      else if lib.versionOlder version "7" then
-        raspberrypi
-      else
-        armv7l-hf-multiplatform
-
-    else if platform.isAarch64 then
-      if platform.isDarwin then apple-m1 else aarch64-multiplatform
-
-    else if platform.isLoongArch64 then
-      loongarch64-multiplatform
-
-    else if platform.isRiscV then
-      riscv-multiplatform
-
-    else if platform.parsed.cpu == lib.systems.parse.cpuTypes.mipsel then
-      (import ./examples.nix { inherit lib; }).mipsel-linux-gnu
-
-    else if platform.parsed.cpu == lib.systems.parse.cpuTypes.powerpc64le then
-      powernv
-
-    else if platform.isLoongArch64 then
-      loongarch64-multiplatform
-    else
-      { };
+    else if platform.isAarch32
+    then let
+      version = platform.parsed.cpu.version or null;
+    in
+      if version == null
+      then pc
+      else if lib.versionOlder version "6"
+      then sheevaplug
+      else if lib.versionOlder version "7"
+      then raspberrypi
+      else armv7l-hf-multiplatform
+    else if platform.isAarch64
+    then
+      if platform.isDarwin
+      then apple-m1
+      else aarch64-multiplatform
+    else if platform.isLoongArch64
+    then loongarch64-multiplatform
+    else if platform.isRiscV
+    then riscv-multiplatform
+    else if platform.parsed.cpu == lib.systems.parse.cpuTypes.mipsel
+    then (import ./examples.nix {inherit lib;}).mipsel-linux-gnu
+    else if platform.parsed.cpu == lib.systems.parse.cpuTypes.powerpc64le
+    then powernv
+    else if platform.isLoongArch64
+    then loongarch64-multiplatform
+    else {};
 }

@@ -9,7 +9,6 @@
   vala,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-print-shim";
   version = "0.1.3";
@@ -28,10 +27,10 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/print";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.print";
   };
 }

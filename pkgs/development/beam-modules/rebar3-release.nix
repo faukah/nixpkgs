@@ -4,32 +4,27 @@
   rebar3WithPlugins,
   openssl,
   lib,
-}:
-
-{
+}: {
   pname,
   version,
   src,
-  beamDeps ? [ ],
-  buildPlugins ? [ ],
+  beamDeps ? [],
+  buildPlugins ? [],
   checkouts ? null,
   releaseType,
-  buildInputs ? [ ],
+  buildInputs ? [],
   setupHook ? null,
   profile ? "default",
   installPhase ? null,
   buildPhase ? null,
   configurePhase ? null,
-  meta ? { },
+  meta ? {},
   ...
-}@attrs:
-
-let
-  shell =
-    drv:
+} @ attrs: let
+  shell = drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.pname}";
-      buildInputs = [ drv ];
+      buildInputs = [drv];
     };
 
   customPhases = lib.filterAttrs (_: v: v != null) {
@@ -50,78 +45,90 @@ let
     plugins = buildPlugins;
   };
 
-  pkg =
-    assert beamDeps != [ ] -> checkouts == null;
+  pkg = assert beamDeps != [] -> checkouts == null;
     self:
-    stdenv.mkDerivation (
-      attrs
-      // {
+      stdenv.mkDerivation (
+        attrs
+        // {
+          name = "${pname}-${version}";
+          inherit version pname;
 
-        name = "${pname}-${version}";
-        inherit version pname;
+          buildInputs =
+            buildInputs
+            ++ [
+              erlang
+              rebar3
+              openssl
+            ]
+            ++ beamDeps;
 
-        buildInputs =
-          buildInputs
-          ++ [
-            erlang
-            rebar3
-            openssl
-          ]
-          ++ beamDeps;
+          # ensure we strip any native binaries (eg. NIFs, ports)
+          stripDebugList = lib.optional (releaseType == "release") "rel";
 
-        # ensure we strip any native binaries (eg. NIFs, ports)
-        stripDebugList = lib.optional (releaseType == "release") "rel";
+          inherit src;
 
-        inherit src;
+          REBAR_IGNORE_DEPS = beamDeps != [];
 
-        REBAR_IGNORE_DEPS = beamDeps != [ ];
+          configurePhase = ''
+            runHook preConfigure
+            ${lib.optionalString (checkouts != null) "cp --no-preserve=all -R ${checkouts}/_checkouts ."}
+            runHook postConfigure
+          '';
 
-        configurePhase = ''
-          runHook preConfigure
-          ${lib.optionalString (checkouts != null) "cp --no-preserve=all -R ${checkouts}/_checkouts ."}
-          runHook postConfigure
-        '';
+          buildPhase = ''
+            runHook preBuild
+            HOME=. DEBUG=1 rebar3 as ${profile} ${
+              if releaseType == "escript"
+              then "escriptize"
+              else "release"
+            }
+            runHook postBuild
+          '';
 
-        buildPhase = ''
-          runHook preBuild
-          HOME=. DEBUG=1 rebar3 as ${profile} ${if releaseType == "escript" then "escriptize" else "release"}
-          runHook postBuild
-        '';
+          installPhase = ''
+            runHook preInstall
+            dir=${
+              if releaseType == "escript"
+              then "bin"
+              else "rel"
+            }
+            mkdir -p "$out/$dir" "$out/bin"
+            cp -R --preserve=mode "_build/${profile}/$dir" "$out"
+            ${lib.optionalString (
+              releaseType == "release"
+            ) "find $out/rel/*/bin -type f -executable -exec ln -s -t $out/bin {} \\;"}
+            runHook postInstall
+          '';
 
-        installPhase = ''
-          runHook preInstall
-          dir=${if releaseType == "escript" then "bin" else "rel"}
-          mkdir -p "$out/$dir" "$out/bin"
-          cp -R --preserve=mode "_build/${profile}/$dir" "$out"
-          ${lib.optionalString (
-            releaseType == "release"
-          ) "find $out/rel/*/bin -type f -executable -exec ln -s -t $out/bin {} \\;"}
-          runHook postInstall
-        '';
-
-        # Release will generate a binary which will cause a read null byte failure, see #261354
-        postInstall = lib.optionalString (releaseType == "escript") ''
-          for dir in $out/rel/*/erts-*; do
-            echo "ERTS found in $dir - removing references to erlang to reduce closure size"
-            for f in $dir/bin/{erl,start}; do
-              substituteInPlace "$f" --replace "${erlang}/lib/erlang" "''${dir/\/erts-*/}"
+          # Release will generate a binary which will cause a read null byte failure, see #261354
+          postInstall = lib.optionalString (releaseType == "escript") ''
+            for dir in $out/rel/*/erts-*; do
+              echo "ERTS found in $dir - removing references to erlang to reduce closure size"
+              for f in $dir/bin/{erl,start}; do
+                substituteInPlace "$f" --replace "${erlang}/lib/erlang" "''${dir/\/erts-*/}"
+              done
             done
-          done
-        '';
+          '';
 
-        meta = {
-          inherit (erlang.meta) platforms;
-        } // meta;
+          meta =
+            {
+              inherit (erlang.meta) platforms;
+            }
+            // meta;
 
-        passthru = (
-          {
-            packageName = pname;
-            env = shell self;
-          }
-          // (if attrs ? passthru then attrs.passthru else { })
-        );
-      }
-      // customPhases
-    );
+          passthru = (
+            {
+              packageName = pname;
+              env = shell self;
+            }
+            // (
+              if attrs ? passthru
+              then attrs.passthru
+              else {}
+            )
+          );
+        }
+        // customPhases
+      );
 in
-lib.fix pkg
+  lib.fix pkg

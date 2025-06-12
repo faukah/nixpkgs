@@ -7,7 +7,6 @@
   requests,
   requests-oauthlib,
 }:
-
 buildPythonPackage rec {
   pname = "pynello";
   version = "2.0.3";
@@ -31,13 +30,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pynello" ];
+  pythonImportsCheck = ["pynello"];
 
   meta = with lib; {
     description = "Python library for nello.io intercoms";
     mainProgram = "nello";
     homepage = "https://github.com/pschmitt/pynello";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

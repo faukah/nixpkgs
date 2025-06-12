@@ -4,7 +4,6 @@
   lib,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "lcn-frontend";
   version = "0.2.5";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
       --replace-fail "wheel~=0.40.0" wheel
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "lcn_frontend" ];
+  pythonImportsCheck = ["lcn_frontend"];
 
   # upstream has no tests
   doCheck = false;
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "LCN panel for Home Assistant";
     homepage = "https://github.com/alengwenus/lcn-frontend";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

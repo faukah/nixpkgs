@@ -12,7 +12,6 @@
   cairo,
   pango,
 }:
-
 stdenv.mkDerivation rec {
   pname = "plplot";
   version = "5.15.0";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     description = "Cross-platform scientific graphics plotting library";
     mainProgram = "pltek";
     homepage = "https://plplot.org";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.lgpl2;
   };

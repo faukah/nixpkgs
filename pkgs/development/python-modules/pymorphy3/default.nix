@@ -9,7 +9,6 @@
   pymorphy3-dicts-ru,
   pymorphy3-dicts-uk,
 }:
-
 buildPythonPackage rec {
   pname = "pymorphy3";
   version = "2.0.3";
@@ -29,17 +28,17 @@ buildPythonPackage rec {
     pymorphy3-dicts-uk
   ];
 
-  optional-dependencies.CLI = [ click ];
+  optional-dependencies.CLI = [click];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.CLI;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.CLI;
 
-  pythonImportsCheck = [ "pymorphy3" ];
+  pythonImportsCheck = ["pymorphy3"];
 
   meta = with lib; {
     description = "Morphological analyzer/inflection engine for Russian and Ukrainian";
     mainProgram = "pymorphy";
     homepage = "https://github.com/no-plagiarism/pymorphy3";
     license = licenses.mit;
-    maintainers = with maintainers; [ jboy ];
+    maintainers = with maintainers; [jboy];
   };
 }

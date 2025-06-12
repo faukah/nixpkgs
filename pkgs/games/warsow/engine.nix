@@ -17,7 +17,6 @@
   openal,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "warsow-engine";
   version = "2.1.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     libogg
@@ -64,7 +63,7 @@ stdenv.mkDerivation {
   #     `c_pointcontents'; CMakeFiles/wswtv_server.dir/__/null/ascript_null.c.o:(.bss+0x8): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  cmakeFlags = [ "-DQFUSION_GAME=Warsow" ];
+  cmakeFlags = ["-DQFUSION_GAME=Warsow"];
 
   preConfigure = ''
     cd source/source

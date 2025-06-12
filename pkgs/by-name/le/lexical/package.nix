@@ -6,7 +6,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 beamPackages.mixRelease rec {
   pname = "lexical";
   version = "0.7.3";
@@ -50,7 +49,7 @@ beamPackages.mixRelease rec {
   __darwinAllowLocalNetworking = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -58,7 +57,7 @@ beamPackages.mixRelease rec {
     homepage = "https://github.com/lexical-lsp/lexical";
     changelog = "https://github.com/lexical-lsp/lexical/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "lexical";
     platforms = beamPackages.erlang.meta.platforms;
   };

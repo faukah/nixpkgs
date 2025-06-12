@@ -4,11 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.nginx;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     mkMerge
@@ -17,8 +16,7 @@ let
     mkIf
     concatStringsSep
     ;
-in
-{
+in {
   port = 9113;
   extraOpts = {
     scrapeUri = mkOption {
@@ -45,7 +43,7 @@ in
     };
     constLabels = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "label1=value1"
         "label2=value2"
@@ -73,19 +71,19 @@ in
     ]
     ++ [
       (mkIf config.services.nginx.enable {
-        after = [ "nginx.service" ];
-        requires = [ "nginx.service" ];
+        after = ["nginx.service"];
+        requires = ["nginx.service"];
       })
     ]
   );
   imports = [
-    (mkRenamedOptionModule [ "telemetryEndpoint" ] [ "telemetryPath" ])
-    (mkRemovedOptionModule [ "insecure" ] ''
+    (mkRenamedOptionModule ["telemetryEndpoint"] ["telemetryPath"])
+    (mkRemovedOptionModule ["insecure"] ''
       This option was replaced by 'prometheus.exporters.nginx.sslVerify'.
     '')
-    ({
+    {
       options.warnings = options.warnings;
       options.assertions = options.assertions;
-    })
+    }
   ];
 }

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-mutants";
   version = "25.1.0";
@@ -27,6 +26,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/sourcefrog/cargo-mutants";
     changelog = "https://github.com/sourcefrog/cargo-mutants/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

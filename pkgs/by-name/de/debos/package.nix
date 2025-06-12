@@ -10,7 +10,6 @@
   unzip,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "debos";
   version = "1.1.5";
@@ -37,14 +36,14 @@ buildGoModule (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Tool to create Debian OS images";
     homepage = "https://github.com/go-debos/debos";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     mainProgram = "debos";
   };
 })

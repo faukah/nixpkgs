@@ -8,7 +8,6 @@
   pythonOlder,
   vine,
 }:
-
 buildPythonPackage rec {
   pname = "amqp";
   version = "5.3.1";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-zdwAxyVElSICO62Un3D/97SPCxredNFwpvEKsERzlDI=";
   };
 
-  propagatedBuildInputs = [ vine ];
+  propagatedBuildInputs = [vine];
 
   __darwinAllowLocalNetworking = true;
 
@@ -40,13 +39,13 @@ buildPythonPackage rec {
       "test_connection.py"
     ];
 
-  pythonImportsCheck = [ "amqp" ];
+  pythonImportsCheck = ["amqp"];
 
   meta = with lib; {
     description = "Python client for the Advanced Message Queuing Procotol (AMQP). This is a fork of amqplib which is maintained by the Celery project";
     homepage = "https://github.com/celery/py-amqp";
     changelog = "https://github.com/celery/py-amqp/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

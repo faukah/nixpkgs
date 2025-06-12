@@ -10,7 +10,6 @@
   jellyfin-web,
   sqlite,
 }:
-
 buildDotnetModule rec {
   pname = "jellyfin";
   version = "10.10.7"; # ensure that jellyfin-web has matching version
@@ -22,10 +21,10 @@ buildDotnetModule rec {
     hash = "sha256-GWpzX8DvCafHb5V9it0ZPTXKm+NbLS7Oepe/CcMiFuI=";
   };
 
-  propagatedBuildInputs = [ sqlite ];
+  propagatedBuildInputs = [sqlite];
 
   projectFile = "Jellyfin.Server/Jellyfin.Server.csproj";
-  executables = [ "jellyfin" ];
+  executables = ["jellyfin"];
   nugetDeps = ./nuget-deps.json;
   runtimeDeps = [
     jellyfin-ffmpeg
@@ -34,7 +33,7 @@ buildDotnetModule rec {
   ];
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
-  dotnetBuildFlags = [ "--no-self-contained" ];
+  dotnetBuildFlags = ["--no-self-contained"];
 
   makeWrapperArgs = [
     "--add-flags"

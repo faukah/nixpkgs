@@ -10,7 +10,6 @@
   setuptools-scm,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "nitransforms";
   version = "24.1.1";
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     mainProgram = "nb-transform";
     changelog = "https://github.com/nipy/nitransforms/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

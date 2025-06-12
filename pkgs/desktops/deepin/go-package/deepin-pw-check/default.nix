@@ -12,7 +12,6 @@
   cracklib,
   linux-pam,
 }:
-
 buildGoModule rec {
   pname = "deepin-pw-check";
   version = "6.0.2";
@@ -24,7 +23,7 @@ buildGoModule rec {
     hash = "sha256-kBrkcB0IWGUV4ZrkFzwdPglRgDcnVvYDFhTXS20pKOk=";
   };
 
-  patches = [ "${src}/rpm/0001-Mangle-Suit-Cracklib2.9.6.patch" ];
+  patches = ["${src}/rpm/0001-Mangle-Suit-Cracklib2.9.6.patch"];
 
   vendorHash = "sha256-L0vUEkUN70Hrx5roIvTfaZBHbbq7mf3WpQJeFAMU5HY=";
 
@@ -69,6 +68,6 @@ buildGoModule rec {
     homepage = "https://github.com/linuxdeepin/deepin-pw-check";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

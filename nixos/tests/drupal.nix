@@ -1,16 +1,12 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "drupal";
 
   nodes = {
-    machine_default =
-      { pkgs, ... }:
-      {
-        services.drupal = {
-          enable = true;
-        };
+    machine_default = {pkgs, ...}: {
+      services.drupal = {
+        enable = true;
       };
+    };
   };
 
   testScript = ''

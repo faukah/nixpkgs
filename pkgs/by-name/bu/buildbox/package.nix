@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postFixup = ''
-    wrapProgram $out/bin/buildbox-run --prefix PATH : ${lib.makeBinPath [ bubblewrap ]}
+    wrapProgram $out/bin/buildbox-run --prefix PATH : ${lib.makeBinPath [bubblewrap]}
   '';
 
   meta = {
@@ -61,6 +61,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/BuildGrid/buildbox/";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ shymega ];
+    maintainers = with lib.maintainers; [shymega];
   };
 })

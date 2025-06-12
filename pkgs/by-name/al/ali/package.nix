@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "ali";
   version = "0.7.5";
@@ -24,7 +23,7 @@ buildGoModule rec {
     changelog = "https://github.com/nakabonne/ali/releases/tag/v${version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ farcaller ];
+    maintainers = with lib.maintainers; [farcaller];
     mainProgram = "ali";
     # Broken on darwin for Go toolchain > 1.22, with error:
     # 'link: golang.org/x/net/internal/socket: invalid reference to syscall.recvmsg'

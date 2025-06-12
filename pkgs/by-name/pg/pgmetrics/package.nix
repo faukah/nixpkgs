@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pgmetrics";
   version = "1.17.1";
@@ -29,7 +28,7 @@ buildGoModule rec {
     homepage = "https://pgmetrics.io/";
     description = "Collect and display information and stats from a running PostgreSQL server";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "pgmetrics";
   };
 }

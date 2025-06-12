@@ -8,7 +8,6 @@
   pandoc,
   plantuml,
 }:
-
 buildPythonPackage rec {
   pname = "pytm";
   version = "1.3.1";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     plantuml
   ];
 
-  pythonImportsCheck = [ "pytm" ];
+  pythonImportsCheck = ["pytm"];
 
   meta = with lib; {
     description = "Pythonic framework for threat modeling";
@@ -38,6 +37,6 @@ buildPythonPackage rec {
       capec
       mit
     ];
-    maintainers = with maintainers; [ wamserma ];
+    maintainers = with maintainers; [wamserma];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tygo";
   version = "0.2.18";
@@ -29,7 +28,7 @@ buildGoModule rec {
     description = "Generate Typescript types from Golang source code";
     homepage = "https://github.com/gzuidhof/tygo";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ alexymantha ];
+    maintainers = with lib.maintainers; [alexymantha];
     mainProgram = "tygo";
   };
 }

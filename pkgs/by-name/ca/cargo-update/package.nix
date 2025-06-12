@@ -13,7 +13,6 @@
   openssl,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-update";
   version = "16.2.1";

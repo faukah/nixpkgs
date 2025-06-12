@@ -23,6 +23,6 @@ buildGoModule rec {
     description = "Git blame for file trees";
     homepage = "https://github.com/sinclairtarget/git-who";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mcparland ];
+    maintainers = with lib.maintainers; [mcparland];
   };
 }

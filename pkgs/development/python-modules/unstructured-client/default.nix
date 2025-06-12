@@ -18,7 +18,6 @@
   requests-toolbelt,
   typing-inspection,
 }:
-
 buildPythonPackage rec {
   pname = "unstructured-client";
   version = "0.36.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     ${python.interpreter} scripts/prepare_readme.py
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   pythonRelaxDeps = [
     "pydantic"
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     typing-inspection
   ];
 
-  pythonImportsCheck = [ "unstructured_client" ];
+  pythonImportsCheck = ["unstructured_client"];
 
   nativeCheckInputs = [
     deepdiff
@@ -74,6 +73,6 @@ buildPythonPackage rec {
     description = "Python Client SDK for Unstructured API";
     homepage = "https://github.com/Unstructured-IO/unstructured-python-client";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -29,7 +29,7 @@ buildPythonPackage rec {
     sha256 = "sha256-pUVWd4zpmTygndPIy76uVk7+sLCmwQqulLaUI7B0fQc=";
   };
 
-  propagatedBuildInputs = [ simplejson ];
+  propagatedBuildInputs = [simplejson];
 
   nativeBuildInputs = [
     autoconf271
@@ -40,7 +40,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ gcc ];
+  buildInputs = [gcc];
 
   dontUseCmakeConfigure = true;
 
@@ -59,7 +59,7 @@ buildPythonPackage rec {
     description = "AWS Lambda Runtime Interface Client for Python";
     homepage = "https://github.com/aws/aws-lambda-python-runtime-interface-client";
     license = licenses.asl20;
-    maintainers = with maintainers; [ austinbutler ];
+    maintainers = with maintainers; [austinbutler];
     platforms = platforms.linux;
   };
 }

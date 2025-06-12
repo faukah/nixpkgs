@@ -20,7 +20,6 @@
   fetchpatch,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-session-manager";
   version = "1.28.0";
@@ -67,9 +66,9 @@ stdenv.mkDerivation rec {
       --replace-fail "Exec=mate-session" "Exec=$out/bin/mate-session"
   '';
 
-  passthru.providedSessions = [ "mate" ];
+  passthru.providedSessions = ["mate"];
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "MATE Desktop session manager";
@@ -79,6 +78,6 @@ stdenv.mkDerivation rec {
       lgpl2Plus
     ];
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

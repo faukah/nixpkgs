@@ -13,7 +13,6 @@
   json_c,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fastd";
   version = "23";

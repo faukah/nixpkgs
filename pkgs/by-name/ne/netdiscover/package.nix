@@ -6,7 +6,6 @@
   libnet,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "netdiscover";
   version = "0.20";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-I3t9GsgKFo/eJrqYzj8T2Epfi3SURicwRYPBK25uHEw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     libpcap
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/netdiscover-scanner/netdiscover";
     changelog = "https://github.com/netdiscover-scanner/netdiscover/releases/tag/${src.tag}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ vdot0x23 ];
+    maintainers = with maintainers; [vdot0x23];
     platforms = platforms.unix;
     mainProgram = "netdiscover";
   };

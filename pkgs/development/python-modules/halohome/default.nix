@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "halohome";
   version = "0.7.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-JOQ2q5lbdVTerXPt6QHBiTG9PzN9LiuLcN+XnOoyYjA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -34,13 +33,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "halohome" ];
+  pythonImportsCheck = ["halohome"];
 
   meta = with lib; {
     description = "Python library to control Eaton HALO Home Smart Lights";
     homepage = "https://github.com/nayaverdier/halohome";
     changelog = "https://github.com/nayaverdier/halohome/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

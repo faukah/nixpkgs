@@ -8,7 +8,6 @@
   sphinx,
   blockdiag,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-blockdiag";
   version = "3.0.0";
@@ -31,19 +30,19 @@ buildPythonPackage rec {
   # Seems to look for files in the wrong dir
   doCheck = false;
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"
     "tests"
   ];
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     description = "Sphinx blockdiag extension";
     homepage = "https://github.com/blockdiag/sphinxcontrib-blockdiag";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.bsd2;
   };
 }

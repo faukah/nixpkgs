@@ -6,7 +6,6 @@
   cmake,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nanobench";
   version = "4.3.11";
@@ -38,9 +37,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple, fast, accurate single-header microbenchmarking functionality for C++11/14/17/20";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/martinus/nanobench/releases/tag/v${version}";
     platforms = lib.platforms.all;
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mtpham99 ];
+    maintainers = with lib.maintainers; [mtpham99];
   };
 }

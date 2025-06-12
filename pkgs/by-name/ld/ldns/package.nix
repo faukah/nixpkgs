@@ -8,7 +8,6 @@
   dns-root-data,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ldns";
   version = "1.8.4";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   configureFlags =
     [
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
       "ac_cv_func_realloc_0_nonnull=yes"
     ];
 
-  nativeCheckInputs = [ which ];
+  nativeCheckInputs = [which];
   doCheck = false; # fails. missing some files
 
   postInstall = ''
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "Library with the aim of simplifying DNS programming in C";
     homepage = "https://www.nlnetlabs.nl/projects/ldns/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
     mainProgram = "drill";
     platforms = platforms.unix;
   };

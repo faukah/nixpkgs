@@ -5,11 +5,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   # Abbreviations.
   cfg = config.services.xserver;
   xorg = pkgs.xorg;
@@ -18,18 +14,18 @@ let
   knownVideoDrivers = {
     # Alias so people can keep using "virtualbox" instead of "vboxvideo".
     virtualbox = {
-      modules = [ xorg.xf86videovboxvideo ];
+      modules = [xorg.xf86videovboxvideo];
       driverName = "vboxvideo";
     };
 
     # Alias so that "radeon" uses the xf86-video-ati driver.
     radeon = {
-      modules = [ xorg.xf86videoati ];
+      modules = [xorg.xf86videoati];
       driverName = "ati";
     };
 
     # modesetting does not have a xf86videomodesetting package as it is included in xorgserver
-    modesetting = { };
+    modesetting = {};
   };
 
   fontsForXServer =
@@ -80,83 +76,79 @@ let
   };
 
   # Just enumerate all heads without discarding XRandR output information.
-  xrandrHeads =
-    let
-      mkHead = num: config: {
-        name = "multihead${toString num}";
-        inherit config;
-      };
-    in
+  xrandrHeads = let
+    mkHead = num: config: {
+      name = "multihead${toString num}";
+      inherit config;
+    };
+  in
     imap1 mkHead cfg.xrandrHeads;
 
-  xrandrDeviceSection =
-    let
-      monitors = forEach xrandrHeads (h: ''
-        Option "monitor-${h.config.output}" "${h.name}"
-      '');
-    in
+  xrandrDeviceSection = let
+    monitors = forEach xrandrHeads (h: ''
+      Option "monitor-${h.config.output}" "${h.name}"
+    '');
+  in
     concatStrings monitors;
 
   # Here we chain every monitor from the left to right, so we have:
   # m4 right of m3 right of m2 right of m1   .----.----.----.----.
   # Which will end up in reverse ----------> | m1 | m2 | m3 | m4 |
   #                                          `----^----^----^----'
-  xrandrMonitorSections =
-    let
-      mkMonitor =
-        previous: current:
-        singleton {
-          inherit (current) name;
-          value = ''
-            Section "Monitor"
-              Identifier "${current.name}"
-              ${optionalString (current.config.primary) ''
-                Option "Primary" "true"
-              ''}
-              ${optionalString (previous != [ ]) ''
-                Option "RightOf" "${(head previous).name}"
-              ''}
-              ${current.config.monitorConfig}
-            EndSection
-          '';
-        }
-        ++ previous;
-      monitors = reverseList (foldl mkMonitor [ ] xrandrHeads);
-    in
+  xrandrMonitorSections = let
+    mkMonitor = previous: current:
+      singleton {
+        inherit (current) name;
+        value = ''
+          Section "Monitor"
+            Identifier "${current.name}"
+            ${optionalString (current.config.primary) ''
+            Option "Primary" "true"
+          ''}
+            ${optionalString (previous != []) ''
+            Option "RightOf" "${(head previous).name}"
+          ''}
+            ${current.config.monitorConfig}
+          EndSection
+        '';
+      }
+      ++ previous;
+    monitors = reverseList (foldl mkMonitor [] xrandrHeads);
+  in
     concatMapStrings (getAttr "value") monitors;
 
   configFile =
     pkgs.runCommand "xserver.conf"
-      {
-        fontpath = optionalString (cfg.fontPath != null) ''FontPath "${cfg.fontPath}"'';
-        inherit (cfg) config;
-        preferLocalBuild = true;
-      }
-      ''
-        echo 'Section "Files"' >> $out
-        echo "$fontpath" >> $out
+    {
+      fontpath = optionalString (cfg.fontPath != null) ''FontPath "${cfg.fontPath}"'';
+      inherit (cfg) config;
+      preferLocalBuild = true;
+    }
+    ''
+      echo 'Section "Files"' >> $out
+      echo "$fontpath" >> $out
 
-        for i in ${toString fontsForXServer}; do
-          if test "''${i:0:''${#NIX_STORE}}" == "$NIX_STORE"; then
-            for j in $(find $i -name fonts.dir); do
-              echo "  FontPath \"$(dirname $j)\"" >> $out
-            done
-          fi
-        done
+      for i in ${toString fontsForXServer}; do
+        if test "''${i:0:''${#NIX_STORE}}" == "$NIX_STORE"; then
+          for j in $(find $i -name fonts.dir); do
+            echo "  FontPath \"$(dirname $j)\"" >> $out
+          done
+        fi
+      done
 
-        ${concatMapStrings (m: ''
+      ${concatMapStrings (m: ''
           echo "  ModulePath \"${m}/lib/xorg/modules\"" >> "$out"
-        '') cfg.modules}
+        '')
+        cfg.modules}
 
-        echo '${cfg.filesSection}' >> $out
-        echo 'EndSection' >> $out
-        echo >> $out
+      echo '${cfg.filesSection}' >> $out
+      echo 'EndSection' >> $out
+      echo >> $out
 
-        echo "$config" >> $out
-      ''; # */
+      echo "$config" >> $out
+    ''; # */
 
-  prefixStringLines =
-    prefix: str: concatMapStringsSep "\n" (line: prefix + line) (splitString "\n" str);
+  prefixStringLines = prefix: str: concatMapStringsSep "\n" (line: prefix + line) (splitString "\n" str);
 
   indent = prefixStringLines "  ";
 
@@ -166,25 +158,20 @@ let
   # the default `cursor.pcf` bitmap font. This is 17px wide, so it's very
   # small and almost invisible on 4K displays.
   fontcursormisc_hidpi = pkgs.xorg.fontxfree86type1.overrideAttrs (
-    old:
-    let
+    old: let
       # The scaling constant is 230/96: the scalable `left_ptr` glyph at
       # about 23 points is rendered as 17px, on a 96dpi display.
       # Note: the XLFD font size is in decipoints.
       size = 2.39583 * cfg.dpi;
       sizeString = builtins.head (builtins.split "\\." (toString size));
-    in
-    {
+    in {
       postInstall = ''
         alias='cursor -xfree86-cursor-medium-r-normal--0-${sizeString}-0-0-p-0-adobe-fontspecific'
         echo "$alias" > $out/lib/X11/fonts/Type1/fonts.alias
       '';
     }
   );
-in
-
-{
-
+in {
   imports = [
     ./display-managers/default.nix
     ./window-managers/default.nix
@@ -204,7 +191,8 @@ in
       "xserver"
       "useXFS"
     ] "Use services.xserver.fontPath instead of useXFS")
-    (mkRemovedOptionModule [ "services" "xserver" "useGlamor" ]
+    (
+      mkRemovedOptionModule ["services" "xserver" "useGlamor"]
       "Option services.xserver.useGlamor was removed because it is unnecessary. Drivers that uses Glamor will use it automatically."
     )
     (lib.mkRenamedOptionModuleWith {
@@ -282,9 +270,7 @@ in
   ###### interface
 
   options = {
-
     services.xserver = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -302,7 +288,7 @@ in
       };
 
       excludePackages = mkOption {
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.xterm ]";
         type = types.listOf types.package;
         description = "Which X11 packages to exclude from the default environment";
@@ -343,7 +329,7 @@ in
 
       inputClassSections = mkOption {
         type = types.listOf types.lines;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [ '''
               Identifier      "Trackpoint Wheel Emulation"
@@ -359,14 +345,14 @@ in
 
       modules = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.xf86_input_wacom ]";
         description = "Packages to be added to the module search path of the X server.";
       };
 
       resolutions = mkOption {
         type = types.listOf types.attrs;
-        default = [ ];
+        default = [];
         example = [
           {
             x = 1600;
@@ -398,14 +384,15 @@ in
         relatedPackages = concatLists (
           mapAttrsToList (
             n: v:
-            optional (hasPrefix "xf86video" n) {
-              path = [
-                "xorg"
-                n
-              ];
-              title = removePrefix "xf86video" n;
-            }
-          ) pkgs.xorg
+              optional (hasPrefix "xf86video" n) {
+                path = [
+                  "xorg"
+                  n
+                ];
+                title = removePrefix "xf86video" n;
+              }
+          )
+          pkgs.xorg
         );
         description = ''
           The names of the video drivers the configuration
@@ -558,7 +545,7 @@ in
       };
 
       xrandrHeads = mkOption {
-        default = [ ];
+        default = [];
         example = [
           "HDMI-0"
           {
@@ -570,29 +557,30 @@ in
             monitorConfig = "Option \"Rotate\" \"left\"";
           }
         ];
-        type =
-          with types;
+        type = with types;
           listOf (
             coercedTo str
-              (output: {
-                inherit output;
-              })
-              (submodule {
-                options = xrandrOptions;
-              })
+            (output: {
+              inherit output;
+            })
+            (submodule {
+              options = xrandrOptions;
+            })
           );
         # Set primary to true for the first head if no other has been set
         # primary already.
-        apply =
-          heads:
-          let
-            hasPrimary = any (x: x.primary) heads;
-            firstPrimary = head heads // {
+        apply = heads: let
+          hasPrimary = any (x: x.primary) heads;
+          firstPrimary =
+            head heads
+            // {
               primary = true;
             };
-            newHeads = singleton firstPrimary ++ tail heads;
-          in
-          if heads != [ ] && !hasPrimary then newHeads else heads;
+          newHeads = singleton firstPrimary ++ tail heads;
+        in
+          if heads != [] && !hasPrimary
+          then newHeads
+          else heads;
         description = ''
           Multiple monitor configuration, just specify a list of XRandR
           outputs. The individual elements should be either simple strings or
@@ -748,7 +736,6 @@ in
         '';
       };
     };
-
   };
 
   ###### implementation
@@ -756,49 +743,50 @@ in
   config = mkIf cfg.enable {
     services.displayManager.enable = true;
 
-    services.xserver.displayManager.lightdm.enable =
-      let
-        dmConf = cfg.displayManager;
-        default =
-          !(
-            config.services.displayManager.gdm.enable
-            || config.services.displayManager.sddm.enable
-            || dmConf.xpra.enable
-            || dmConf.sx.enable
-            || dmConf.startx.enable
-            || config.services.greetd.enable
-            || config.services.displayManager.ly.enable
-          );
-      in
-      mkIf (default) (mkDefault true);
+    services.xserver.displayManager.lightdm.enable = let
+      dmConf = cfg.displayManager;
+      default =
+        !(
+          config.services.displayManager.gdm.enable
+          || config.services.displayManager.sddm.enable
+          || dmConf.xpra.enable
+          || dmConf.sx.enable
+          || dmConf.startx.enable
+          || config.services.greetd.enable
+          || config.services.displayManager.ly.enable
+        );
+    in
+      mkIf default (mkDefault true);
 
-    services.xserver.videoDrivers = mkIf (cfg.videoDriver != null) [ cfg.videoDriver ];
+    services.xserver.videoDrivers = mkIf (cfg.videoDriver != null) [cfg.videoDriver];
 
     # FIXME: somehow check for unknown driver names.
     services.xserver.drivers = flip concatMap cfg.videoDrivers (
-      name:
-      let
-        driver = attrByPath [ name ] (
-          if xorg ? ${"xf86video" + name} then { modules = [ xorg.${"xf86video" + name} ]; } else null
-        ) knownVideoDrivers;
+      name: let
+        driver =
+          attrByPath [name] (
+            if xorg ? ${"xf86video" + name}
+            then {modules = [xorg.${"xf86video" + name}];}
+            else null
+          )
+          knownVideoDrivers;
       in
-      optional (driver != null) (
-        {
-          inherit name;
-          modules = [ ];
-          driverName = name;
-          display = true;
-        }
-        // driver
-      )
+        optional (driver != null) (
+          {
+            inherit name;
+            modules = [];
+            driverName = name;
+            display = true;
+          }
+          // driver
+        )
     );
 
     assertions = [
       (
         let
           primaryHeads = filter (x: x.primary) cfg.xrandrHeads;
-        in
-        {
+        in {
           assertion = length primaryHeads < 2;
           message =
             "Only one head is allowed to be primary in "
@@ -823,8 +811,7 @@ in
       // (
         let
           cfgPath = "X11/xorg.conf.d/10-evdev.conf";
-        in
-        {
+        in {
           ${cfgPath}.source = xorg.xf86inputevdev.out + "/share/" + cfgPath;
         }
       );
@@ -844,10 +831,11 @@ in
         xorg.xauth
         pkgs.xterm
         xorg.xf86inputevdev.out # get evdev.4 man page
-      ] config.services.xserver.excludePackages
+      ]
+      config.services.xserver.excludePackages
       ++ optional (elem "virtualbox" cfg.videoDrivers) xorg.xrefresh;
 
-    environment.pathsToLink = [ "/share/X11" ];
+    environment.pathsToLink = ["/share/X11"];
 
     systemd.services.display-manager = {
       description = "Display Manager";
@@ -895,37 +883,44 @@ in
       ++ optional (cfg.autoRepeatInterval != null) "-arinterval ${toString cfg.autoRepeatInterval}"
       ++ optional cfg.terminateOnReset "-terminate";
 
-    services.xserver.modules = concatLists (catAttrs "modules" cfg.drivers) ++ [
-      xorg.xorgserver.out
-      xorg.xf86inputevdev.out
-    ];
+    services.xserver.modules =
+      concatLists (catAttrs "modules" cfg.drivers)
+      ++ [
+        xorg.xorgserver.out
+        xorg.xf86inputevdev.out
+      ];
 
     system.checks = singleton (
       pkgs.runCommand "xkb-validated"
-        {
-          inherit (cfg.xkb)
-            dir
-            model
-            layout
-            variant
-            options
-            ;
-          nativeBuildInputs = with pkgs.buildPackages; [ xkbvalidate ];
-          preferLocalBuild = true;
-        }
-        ''
-          ${optionalString (
-            config.environment.sessionVariables ? XKB_CONFIG_ROOT
-          ) "export XKB_CONFIG_ROOT=${config.environment.sessionVariables.XKB_CONFIG_ROOT}"}
-          XKB_CONFIG_ROOT="$dir" xkbvalidate "$model" "$layout" "$variant" "$options"
-          touch "$out"
-        ''
+      {
+        inherit
+          (cfg.xkb)
+          dir
+          model
+          layout
+          variant
+          options
+          ;
+        nativeBuildInputs = with pkgs.buildPackages; [xkbvalidate];
+        preferLocalBuild = true;
+      }
+      ''
+        ${optionalString (
+          config.environment.sessionVariables ? XKB_CONFIG_ROOT
+        ) "export XKB_CONFIG_ROOT=${config.environment.sessionVariables.XKB_CONFIG_ROOT}"}
+        XKB_CONFIG_ROOT="$dir" xkbvalidate "$model" "$layout" "$variant" "$options"
+        touch "$out"
+      ''
     );
 
     services.xserver.config = ''
       Section "ServerFlags"
         Option "AllowMouseOpenFail" "on"
-        Option "DontZap" "${if cfg.enableCtrlAltBackspace then "off" else "on"}"
+        Option "DontZap" "${
+        if cfg.enableCtrlAltBackspace
+        then "off"
+        else "on"
+      }"
       ${indent cfg.serverFlagsSection}
       EndSection
 
@@ -952,8 +947,8 @@ in
         # Reference the Screen sections for each driver.  This will
         # cause the X server to try each in turn.
         ${flip concatMapStrings (filter (d: d.display) cfg.drivers) (d: ''
-          Screen "Screen-${d.name}[0]"
-        '')}
+        Screen "Screen-${d.name}[0]"
+      '')}
       EndSection
 
       # For each supported driver, add a "Device" and "Screen"
@@ -974,43 +969,46 @@ in
             Identifier "Screen-${driver.name}[0]"
             Device "Device-${driver.name}[0]"
             ${optionalString (cfg.monitorSection != "") ''
-              Monitor "Monitor[0]"
-            ''}
+            Monitor "Monitor[0]"
+          ''}
 
           ${indent cfg.screenSection}
           ${indent (driver.screenSection or "")}
 
             ${optionalString (cfg.defaultDepth != 0) ''
-              DefaultDepth ${toString cfg.defaultDepth}
-            ''}
+            DefaultDepth ${toString cfg.defaultDepth}
+          ''}
 
-            ${optionalString
-              (
-                driver.name != "virtualbox"
-                && (cfg.resolutions != [ ] || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null)
-              )
-              (
-                let
-                  f = depth: ''
-                    SubSection "Display"
-                      Depth ${toString depth}
-                      ${optionalString (cfg.resolutions != [ ])
-                        "Modes ${concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'') cfg.resolutions}"
-                      }
-                    ${indent cfg.extraDisplaySettings}
-                      ${optionalString (
-                        cfg.virtualScreen != null
-                      ) "Virtual ${toString cfg.virtualScreen.x} ${toString cfg.virtualScreen.y}"}
-                    EndSubSection
-                  '';
-                in
+            ${
+            optionalString
+            (
+              driver.name
+              != "virtualbox"
+              && (cfg.resolutions != [] || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null)
+            )
+            (
+              let
+                f = depth: ''
+                  SubSection "Display"
+                    Depth ${toString depth}
+                    ${
+                    optionalString (cfg.resolutions != [])
+                    "Modes ${concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'') cfg.resolutions}"
+                  }
+                  ${indent cfg.extraDisplaySettings}
+                    ${optionalString (
+                    cfg.virtualScreen != null
+                  ) "Virtual ${toString cfg.virtualScreen.x} ${toString cfg.virtualScreen.y}"}
+                  EndSubSection
+                '';
+              in
                 concatMapStrings f [
                   8
                   16
                   24
                 ]
-              )
-            }
+            )
+          }
 
           EndSection
         ''}
@@ -1022,10 +1020,13 @@ in
     '';
 
     fonts.packages = [
-      (if cfg.upscaleDefaultCursor then fontcursormisc_hidpi else pkgs.xorg.fontcursormisc)
+      (
+        if cfg.upscaleDefaultCursor
+        then fontcursormisc_hidpi
+        else pkgs.xorg.fontcursormisc
+      )
       pkgs.xorg.fontmiscmisc
     ];
-
   };
 
   # uses relatedPackages

@@ -8,7 +8,6 @@
   requests-mock,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "losant-rest";
   version = "1.22.1";
@@ -23,23 +22,23 @@ buildPythonPackage rec {
     hash = "sha256-7H7jmNsz5UTcM0i1KiVwQb2UMlLRQ/3W2rhM79+Q4Es=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   nativeCheckInputs = [
     pytestCheckHook
     requests-mock
   ];
 
-  pytestFlagsArray = [ "tests/platformrest_tests.py" ];
+  pytestFlagsArray = ["tests/platformrest_tests.py"];
 
-  pythonImportsCheck = [ "platformrest" ];
+  pythonImportsCheck = ["platformrest"];
 
   meta = with lib; {
     description = "Python module for consuming the Losant IoT Platform API";
     homepage = "https://github.com/Losant/losant-rest-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

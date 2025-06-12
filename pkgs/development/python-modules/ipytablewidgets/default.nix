@@ -13,7 +13,6 @@
   setuptools,
   traitlets,
 }:
-
 buildPythonPackage rec {
   pname = "ipytablewidgets";
   version = "0.3.2";
@@ -49,14 +48,14 @@ buildPythonPackage rec {
     traitlets
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ipytablewidgets" ];
+  pythonImportsCheck = ["ipytablewidgets"];
 
   meta = with lib; {
     description = "Traitlets and widgets to efficiently data tables (e.g. Pandas DataFrame) using the jupyter notebook";
     homepage = "https://github.com/progressivis/ipytablewidgets";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

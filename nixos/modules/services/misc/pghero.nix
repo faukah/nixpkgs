@@ -4,16 +4,14 @@
   lib,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.pghero;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   settingsFile = settingsFormat.generate "pghero.yaml" cfg.settings;
-in
-{
+in {
   options.services.pghero = {
     enable = lib.mkEnableOption "PgHero service";
-    package = lib.mkPackageOption pkgs "pghero" { };
+    package = lib.mkPackageOption pkgs "pghero" {};
 
     listenAddress = lib.mkOption {
       type = lib.types.str;
@@ -27,7 +25,7 @@ in
 
     extraArgs = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         Additional command-line arguments for the systemd service.
 
@@ -39,7 +37,7 @@ in
 
     settings = lib.mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
       example = {
         databases = {
           primary = {
@@ -57,7 +55,7 @@ in
 
     environment = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = { };
+      default = {};
       description = ''
         Environment variables to set for the service. Secrets should be
         specified using {option}`environmentFile`.
@@ -66,7 +64,7 @@ in
 
     environmentFiles = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
+      default = [];
       description = ''
         File to load environment variables from. Loaded variables override
         values set in {option}`environment`.
@@ -75,8 +73,8 @@ in
 
     extraGroups = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
-      example = [ "tlskeys" ];
+      default = [];
+      example = ["tlskeys"];
       description = ''
         Additional groups for the systemd service.
       '';
@@ -86,23 +84,25 @@ in
   config = lib.mkIf cfg.enable {
     systemd.sockets.pghero = {
       unitConfig.Description = "PgHero HTTP socket";
-      wantedBy = [ "sockets.target" ];
-      listenStreams = [ cfg.listenAddress ];
+      wantedBy = ["sockets.target"];
+      listenStreams = [cfg.listenAddress];
     };
 
     systemd.services.pghero = {
       description = "PgHero performance dashboard for PostgreSQL";
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "pghero.socket" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["pghero.socket"];
       after = [
         "pghero.socket"
         "network.target"
       ];
 
-      environment = {
-        RAILS_ENV = "production";
-        PGHERO_CONFIG_PATH = settingsFile;
-      } // cfg.environment;
+      environment =
+        {
+          RAILS_ENV = "production";
+          PGHERO_CONFIG_PATH = settingsFile;
+        }
+        // cfg.environment;
 
       serviceConfig = {
         Type = "notify";
@@ -144,14 +144,14 @@ in
           "AF_INET6"
           "AF_UNIX"
         ];
-        DeviceAllow = [ "" ];
+        DeviceAllow = [""];
         DevicePolicy = "closed";
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         MemoryDenyWriteExecute = true;
         LockPersonality = true;
         SystemCallArchitectures = "native";
         SystemCallErrorNumber = "EPERM";
-        SystemCallFilter = [ "@system-service" ];
+        SystemCallFilter = ["@system-service"];
       };
     };
   };

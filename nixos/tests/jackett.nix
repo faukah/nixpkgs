@@ -1,18 +1,13 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   jackettPort = 9117;
-in
-{
+in {
   name = "jackett";
-  meta.maintainers = with lib.maintainers; [ etu ];
+  meta.maintainers = with lib.maintainers; [etu];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.jackett.enable = true;
-      services.jackett.port = jackettPort;
-    };
+  nodes.machine = {pkgs, ...}: {
+    services.jackett.enable = true;
+    services.jackett.port = jackettPort;
+  };
 
   testScript = ''
     machine.start()

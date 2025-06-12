@@ -5,7 +5,6 @@
   pkg-config,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "refinery-cli";
   version = "0.8.14";
@@ -18,12 +17,12 @@ rustPlatform.buildRustPackage rec {
 
   # The `time` crate doesn't build on Rust 1.80+
   # https://github.com/NixOS/nixpkgs/issues/332957
-  cargoPatches = [ ./time-crate.patch ];
+  cargoPatches = [./time-crate.patch];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-gcPVbKcPkV0H+BpErTokvLKFxpSXhxNoptxOeuhH1FU=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
@@ -35,6 +34,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/rust-db/refinery";
     changelog = "https://github.com/rust-db/refinery/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lucperkins ];
+    maintainers = with lib.maintainers; [lucperkins];
   };
 }

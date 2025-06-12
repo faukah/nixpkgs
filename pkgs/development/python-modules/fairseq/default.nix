@@ -4,11 +4,9 @@
   pythonOlder,
   fetchFromGitHub,
   fetchpatch,
-
   # Native build inputs
   cython,
   which,
-
   # Propagated build inputs
   cffi,
   hydra-core,
@@ -22,13 +20,11 @@
   torchaudio,
   scikit-learn,
   packaging,
-
   # Check inputs
   expecttest,
   hypothesis,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fairseq";
   version = "0.12.3";
@@ -82,14 +78,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "fairseq" ];
+  pythonImportsCheck = ["fairseq"];
 
   preCheck = ''
     export HOME=$TMPDIR
     cd tests
   '';
 
-  pytestFlagsArray = [ "--import-mode append" ];
+  pytestFlagsArray = ["--import-mode append"];
 
   disabledTests = [
     # this test requires xformers
@@ -118,8 +114,8 @@ buildPythonPackage rec {
     homepage = "https://github.com/pytorch/fairseq";
     license = licenses.mit;
     platforms = platforms.linux;
-    hydraPlatforms = [ ];
-    maintainers = with maintainers; [ happysalada ];
+    hydraPlatforms = [];
+    maintainers = with maintainers; [happysalada];
     broken = true; # requires numpy1 which is incompatible with sacrebleu depending on numpy2
   };
 }

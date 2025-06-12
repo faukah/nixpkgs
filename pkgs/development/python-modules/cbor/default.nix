@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "cbor";
   version = "1.0.0";
@@ -22,6 +21,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/brianolson/cbor_py";
     description = "Concise Binary Object Representation (CBOR) library";
     license = licenses.asl20;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

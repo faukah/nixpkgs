@@ -7,7 +7,6 @@
   python3,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "x16-rom";
   version = "48";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontConfigure = true;
 
-  makeFlags = [ "PRERELEASE_VERSION=${finalAttrs.version}" ];
+  makeFlags = ["PRERELEASE_VERSION=${finalAttrs.version}"];
 
   installPhase = ''
     runHook preInstall
@@ -48,14 +47,14 @@ stdenv.mkDerivation (finalAttrs: {
     # upstream project recommends emulator and rom to be synchronized; passing
     # through the version is useful to ensure this
     inherit (finalAttrs) version;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     homepage = "https://github.com/X16Community/x16-rom";
     description = "ROM file for CommanderX16 8-bit computer";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ pluiedev ];
+    maintainers = with lib.maintainers; [pluiedev];
     inherit (cc65.meta) platforms;
     broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;
   };

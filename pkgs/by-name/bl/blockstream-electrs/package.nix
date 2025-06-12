@@ -7,7 +7,6 @@
   rustPlatform,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "blockstream-electrs";
   version = "0.4.1-unstable-2024-11-25";
@@ -80,7 +79,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/Blockstream/electrs";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ phlip9 ];
+    maintainers = with lib.maintainers; [phlip9];
     mainProgram = "electrs";
   };
 }

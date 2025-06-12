@@ -4,7 +4,6 @@
   theme,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtk-theme-framework";
   version = "0.2.3";
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/jaxwilko/gtk-theme-framework";
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

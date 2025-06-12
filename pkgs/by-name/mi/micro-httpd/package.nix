@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation {
   pname = "micro-httpd";
   version = "20140814";
@@ -24,7 +23,7 @@ stdenv.mkDerivation {
     description = "Really small HTTP server";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "micro_httpd";
   };
 }

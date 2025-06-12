@@ -3,9 +3,7 @@
   stdenv,
   fetchzip,
   buildFHSEnv,
-}:
-
-let
+}: let
   version = "23.1.14";
   pname = "cockroachdb";
 
@@ -27,33 +25,32 @@ let
   };
   src =
     srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-
 in
-buildFHSEnv {
-  inherit pname version;
+  buildFHSEnv {
+    inherit pname version;
 
-  runScript = "${src}/cockroach";
+    runScript = "${src}/cockroach";
 
-  extraInstallCommands = ''
-    cp -P $out/bin/cockroachdb $out/bin/cockroach
-  '';
+    extraInstallCommands = ''
+      cp -P $out/bin/cockroachdb $out/bin/cockroach
+    '';
 
-  meta = with lib; {
-    homepage = "https://www.cockroachlabs.com";
-    description = "Scalable, survivable, strongly-consistent SQL database";
-    license = with licenses; [
-      bsl11
-      mit
-      cockroachdb-community-license
-    ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms = [
-      "aarch64-linux"
-      "x86_64-linux"
-    ];
-    maintainers = with maintainers; [
-      rushmorem
-      thoughtpolice
-    ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://www.cockroachlabs.com";
+      description = "Scalable, survivable, strongly-consistent SQL database";
+      license = with licenses; [
+        bsl11
+        mit
+        cockroachdb-community-license
+      ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      platforms = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
+      maintainers = with maintainers; [
+        rushmorem
+        thoughtpolice
+      ];
+    };
+  }

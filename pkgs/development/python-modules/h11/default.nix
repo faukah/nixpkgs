@@ -8,7 +8,6 @@
   httpx,
   wsproto,
 }:
-
 buildPythonPackage rec {
   pname = "h11";
   version = "0.16.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-TjW5Vs9FeS5MqliF5p+6AL28b/r7+gIDAOVJsgjuX/E=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "Pure-Python, bring-your-own-I/O implementation of HTTP/1.1";
     homepage = "https://github.com/python-hyper/h11";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

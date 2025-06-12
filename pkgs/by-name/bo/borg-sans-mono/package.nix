@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "borg-sans-mono";
   version = "0.2.0";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/marnen/borg-sans-mono";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   vapoursynth,
 }:
-
 stdenv.mkDerivation {
   pname = "vapoursynth-znedi3";
   version = "unstable-2023-07-09";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     hash = "sha256-QC+hMMfp6XwW4PqsN6sip1Y7ttiYn/xuxq/pUg/trog=";
   };
 
-  buildInputs = [ vapoursynth ];
+  buildInputs = [vapoursynth];
 
   postPatch = ''
     rm -rf vsxx/vapoursynth
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
   '';
 
   makeFlags =
-    [ "CPPFLAGS=-DNNEDI3_WEIGHTS_PATH='\"$(out)/share/nnedi3/nnedi3_weights.bin\"'" ]
+    ["CPPFLAGS=-DNNEDI3_WEIGHTS_PATH='\"$(out)/share/nnedi3/nnedi3_weights.bin\"'"]
     ++ lib.optionals stdenv.hostPlatform.isx86 [
       "X86=1"
       "X86_AVX512=1"
@@ -49,6 +48,6 @@ stdenv.mkDerivation {
       wtfpl
       lgpl21
     ];
-    maintainers = with lib.maintainers; [ snaki ];
+    maintainers = with lib.maintainers; [snaki];
   };
 }

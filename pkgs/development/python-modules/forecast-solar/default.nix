@@ -14,7 +14,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "forecast-solar";
   version = "4.2.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-ZBkuhONvn1/QpD+ml3HJinMIdg1HFpVj5KZAlUt/qR4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   env.PACKAGE_VERSION = version;
 
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [ "forecast_solar" ];
+  pythonImportsCheck = ["forecast_solar"];
 
   nativeCheckInputs = [
     aresponses
@@ -68,6 +67,6 @@ buildPythonPackage rec {
     description = "Asynchronous Python client for getting forecast solar information";
     homepage = "https://github.com/home-assistant-libs/forecast_solar";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

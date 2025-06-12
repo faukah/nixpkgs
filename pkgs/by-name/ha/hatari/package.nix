@@ -6,7 +6,6 @@
   zlib,
   SDL2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hatari";
   version = "2.5.0";
@@ -20,9 +19,9 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   # For pthread_cancel
-  cmakeFlags = [ "-DCMAKE_EXE_LINKER_FLAGS=-lgcc_s" ];
+  cmakeFlags = ["-DCMAKE_EXE_LINKER_FLAGS=-lgcc_s"];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     zlib
@@ -34,6 +33,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Atari ST/STE/TT/Falcon emulator";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

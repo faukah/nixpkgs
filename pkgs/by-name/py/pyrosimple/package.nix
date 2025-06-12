@@ -8,7 +8,6 @@
   testers,
   withInotify ? stdenv.hostPlatform.isLinux,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "pyrosimple";
   version = "2.14.2";
@@ -30,8 +29,7 @@ python3.pkgs.buildPythonApplication rec {
     poetry-core
   ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       bencode-py
       apscheduler
@@ -56,7 +54,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = testers.testVersion {
       package = pyrosimple;
       command = "pyroadmin --version";

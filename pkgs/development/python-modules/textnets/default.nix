@@ -3,12 +3,10 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython_0,
   pdm-backend,
   setuptools,
-
   # dependencies
   igraph,
   leidenalg,
@@ -21,12 +19,10 @@
   toolz,
   tqdm,
   wasabi,
-
   # tests
   en_core_web_sm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "textnets";
   version = "0.10.3";
@@ -69,7 +65,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "textnets" ];
+  pythonImportsCheck = ["textnets"];
 
   # Enable the package to find the cythonized .so files during testing. See #255262
   # Set MPLBACKEND=agg for headless matplotlib on darwin. See #350784
@@ -83,6 +79,6 @@ buildPythonPackage rec {
     homepage = "https://textnets.readthedocs.io";
     changelog = "https://github.com/jboynyc/textnets/blob/v${version}/HISTORY.rst";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ jboy ];
+    maintainers = with lib.maintainers; [jboy];
   };
 }

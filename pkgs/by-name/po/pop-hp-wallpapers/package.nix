@@ -5,7 +5,6 @@
   imagemagick,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "pop-hp-wallpapers";
   version = "0-unstable-2022-04-01";
@@ -19,17 +18,17 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-NGSvPC9GadqqqgGH9uDNAYuSwfagosmCAE6QmDtmdMw=";
   };
 
-  nativeBuildInputs = [ imagemagick ];
+  nativeBuildInputs = [imagemagick];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = {
     description = "Wallpapers for High-Performance System76 products";
     homepage = "https://pop.system76.com/";
-    license = with lib.licenses; [ cc-by-sa-40 ];
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    license = with lib.licenses; [cc-by-sa-40];
+    maintainers = with lib.maintainers; [pandapip1];
     platforms = lib.platforms.all;
   };
 }

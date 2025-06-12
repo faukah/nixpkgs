@@ -20,7 +20,6 @@
   requests-oauthlib,
   tzlocal,
 }:
-
 buildPythonPackage rec {
   pname = "mezzanine";
   version = "6.0.0";
@@ -39,21 +38,23 @@ buildPythonPackage rec {
     pep8
   ];
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    bleach
-    chardet
-    django
-    django-contrib-comments
-    filebrowser-safe
-    future
-    grappelli-safe
-    pillow
-    pytz
-    requests
-    requests-oauthlib
-    tzlocal
-  ] ++ bleach.optional-dependencies.css;
+  propagatedBuildInputs =
+    [
+      beautifulsoup4
+      bleach
+      chardet
+      django
+      django-contrib-comments
+      filebrowser-safe
+      future
+      grappelli-safe
+      pillow
+      pytz
+      requests
+      requests-oauthlib
+      tzlocal
+    ]
+    ++ bleach.optional-dependencies.css;
 
   # Tests Fail Due to Syntax Warning, Fixed for v3.1.11+
   doCheck = false;
@@ -86,7 +87,7 @@ buildPythonPackage rec {
     homepage = "http://mezzanine.jupo.org/";
     downloadPage = "https://github.com/stephenmcd/mezzanine/releases";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ prikhi ];
+    maintainers = with maintainers; [prikhi];
     platforms = platforms.unix;
   };
 }

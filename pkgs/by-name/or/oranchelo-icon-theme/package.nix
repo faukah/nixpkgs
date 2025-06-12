@@ -6,7 +6,6 @@
   plasma5Packages,
   hicolor-icon-theme,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "oranchelo-icon-theme";
   version = "0.9.0";
@@ -49,6 +48,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/OrancheloTeam/oranchelo-icon-theme";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ _414owen ];
+    maintainers = with maintainers; [_414owen];
   };
 }

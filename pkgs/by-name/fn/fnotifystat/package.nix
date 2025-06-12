@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fnotifystat";
   version = "0.03.00";
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ColinIanKing/fnotifystat";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ womfoo ];
+    maintainers = with maintainers; [womfoo];
   };
 }

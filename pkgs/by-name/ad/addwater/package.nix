@@ -12,7 +12,6 @@
   appstream,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "addwater";
   version = "1.2.6";
@@ -46,13 +45,13 @@ python3Packages.buildPythonApplication rec {
     requests
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Installer for the fantastic GNOME for Firefox theme";
     homepage = "https://github.com/largestgithubuseronearth/addwater";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ thtrf ];
+    maintainers = with lib.maintainers; [thtrf];
     mainProgram = "addwater";
     platforms = lib.platforms.linux;
   };

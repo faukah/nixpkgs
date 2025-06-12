@@ -34,7 +34,7 @@ buildGoModule rec {
       You just need to describe them in your everyday language, it will take care or the rest.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ georgesalkhouri ];
+    maintainers = with maintainers; [georgesalkhouri];
     mainProgram = "yai";
   };
 }

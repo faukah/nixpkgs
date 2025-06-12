@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "amrwb";
   version = "11.0.0.0";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1p6m9nd08mv525w14py9qzs9zwsa5i3vxf5bgcmcvc408jqmkbsw";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   configureFlags = [
     "--cache-file=config.cache"

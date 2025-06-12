@@ -1,66 +1,54 @@
-{ pkgs, ... }:
+{pkgs, ...}: let
+  master = {pkgs, ...}: {
+    # data base is stored in memory
+    # server crashes with default memory size
+    virtualisation.memorySize = 1024;
 
-let
-  master =
-    { pkgs, ... }:
-    {
-      # data base is stored in memory
-      # server crashes with default memory size
-      virtualisation.memorySize = 1024;
+    services.moosefs.master = {
+      enable = true;
+      openFirewall = true;
+      autoInit = true;
+      exports = [
+        "* / rw,alldirs,admin,maproot=0:0"
+        "* . rw"
+      ];
+    };
+  };
 
-      services.moosefs.master = {
-        enable = true;
+  chunkserver = {pkgs, ...}: {
+    virtualisation.emptyDiskImages = [4096];
+    boot.initrd.postDeviceCommands = ''
+      ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L data /dev/vdb
+    '';
+
+    fileSystems = pkgs.lib.mkVMOverride {
+      "/data" = {
+        device = "/dev/disk/by-label/data";
+        fsType = "ext4";
+      };
+    };
+
+    services.moosefs = {
+      masterHost = "master";
+      chunkserver = {
         openFirewall = true;
-        autoInit = true;
-        exports = [
-          "* / rw,alldirs,admin,maproot=0:0"
-          "* . rw"
-        ];
+        enable = true;
+        hdds = ["~/data"];
       };
     };
+  };
 
-  chunkserver =
-    { pkgs, ... }:
-    {
-      virtualisation.emptyDiskImages = [ 4096 ];
-      boot.initrd.postDeviceCommands = ''
-        ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L data /dev/vdb
-      '';
-
-      fileSystems = pkgs.lib.mkVMOverride {
-        "/data" = {
-          device = "/dev/disk/by-label/data";
-          fsType = "ext4";
-        };
-      };
-
-      services.moosefs = {
-        masterHost = "master";
-        chunkserver = {
-          openFirewall = true;
-          enable = true;
-          hdds = [ "~/data" ];
-        };
-      };
+  metalogger = {pkgs, ...}: {
+    services.moosefs = {
+      masterHost = "master";
+      metalogger.enable = true;
     };
+  };
 
-  metalogger =
-    { pkgs, ... }:
-    {
-      services.moosefs = {
-        masterHost = "master";
-        metalogger.enable = true;
-      };
-    };
-
-  client =
-    { pkgs, ... }:
-    {
-      services.moosefs.client.enable = true;
-    };
-
-in
-{
+  client = {pkgs, ...}: {
+    services.moosefs.client.enable = true;
+  };
+in {
   name = "moosefs";
 
   nodes = {

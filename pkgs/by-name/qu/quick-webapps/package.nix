@@ -3,16 +3,13 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
-
   just,
   pkg-config,
   makeBinaryWrapper,
   libcosmicAppHook,
-
   libxkbcommon,
   openssl,
   wayland,
-
   nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -54,14 +51,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "target/${stdenv.hostPlatform.rust.cargoShortTarget}/release/quick-webapps"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Web App Manager for the COSMIC desktop";
     homepage = "https://github.com/cosmic-utils/web-apps";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ pluiedev ];
+    maintainers = with lib.maintainers; [pluiedev];
     mainProgram = "quick-webapps";
   };
 })

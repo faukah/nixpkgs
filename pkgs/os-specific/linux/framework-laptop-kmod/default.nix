@@ -6,7 +6,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "framework-laptop-kmod";
   version = "0-unstable-2024-09-15";
@@ -20,9 +19,11 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    ];
 
   installPhase = ''
     runHook preInstall
@@ -30,13 +31,13 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Kernel module that exposes the Framework Laptop (13, 16)'s battery charge limit and LEDs to userspace";
     homepage = "https://github.com/DHowett/framework-laptop-kmod";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ gaykitty ];
+    maintainers = with maintainers; [gaykitty];
     platforms = platforms.linux;
     broken = lib.versionOlder kernel.version "6.1";
   };

@@ -3,17 +3,14 @@
   stdenv,
   version,
   hash,
-  patches ? [ ],
+  patches ? [],
   fetchFromGitHub,
-
   cmake,
   ninja,
   perl, # Project uses Perl for scripting and testing
   python3,
-
   enableThreading ? true, # Threading can be disabled to increase security https://tls.mbed.org/kb/development/thread-safety-and-multi-threading
 }:
-
 stdenv.mkDerivation rec {
   pname = "mbedtls";
   inherit version;
@@ -47,7 +44,11 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags = [
-    "-DUSE_SHARED_MBEDTLS_LIBRARY=${if stdenv.hostPlatform.isStatic then "off" else "on"}"
+    "-DUSE_SHARED_MBEDTLS_LIBRARY=${
+      if stdenv.hostPlatform.isStatic
+      then "off"
+      else "on"
+    }"
 
     # Avoid a dependency on jsonschema and jinja2 by not generating source code
     # using python. In releases, these generated files are already present in
@@ -71,6 +72,6 @@ stdenv.mkDerivation rec {
       licenses.gpl2Plus
     ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ raphaelr ];
+    maintainers = with maintainers; [raphaelr];
   };
 }

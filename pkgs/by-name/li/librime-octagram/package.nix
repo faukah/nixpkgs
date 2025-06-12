@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "librime-octagram";
   version = "0-unstable-2024-11-18";
@@ -25,12 +24,12 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = {
     description = "RIME essay grammar plugin";
     homepage = "https://github.com/lotem/librime-octagram";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ azuwis ];
+    maintainers = with lib.maintainers; [azuwis];
   };
 }

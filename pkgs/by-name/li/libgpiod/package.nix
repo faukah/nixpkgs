@@ -8,7 +8,6 @@
   pkg-config,
   enable-tools ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgpiod";
   version = "2.2.1";
@@ -26,7 +25,11 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-    "--enable-tools=${if enable-tools then "yes" else "no"}"
+    "--enable-tools=${
+      if enable-tools
+      then "yes"
+      else "no"
+    }"
     "--enable-bindings-cxx"
   ];
 
@@ -43,14 +46,13 @@ stdenv.mkDerivation rec {
       data structures behind a straightforward API.
     '';
     homepage = "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/about/";
-    license =
-      with licenses;
+    license = with licenses;
       [
         lgpl21Plus # libgpiod
         lgpl3Plus # C++ bindings
       ]
       ++ lib.optional enable-tools gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

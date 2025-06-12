@@ -12,7 +12,6 @@
   unixtools,
   anthy,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hime";
   version = "0.9.11";
@@ -55,6 +54,6 @@ stdenv.mkDerivation rec {
     description = "Useful input method engine for Asia region";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ yanganto ];
+    maintainers = with maintainers; [yanganto];
   };
 }

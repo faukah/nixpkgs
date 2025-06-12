@@ -4,7 +4,6 @@
   rustPlatform,
   fetchFromGitHub,
   pkg-config,
-
   bzip2,
   libGL,
   libX11,
@@ -16,7 +15,6 @@
   wayland,
   zstd,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "gopher64";
   version = "1.0.16";
@@ -94,6 +92,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/gopher64/gopher64";
     license = lib.licenses.gpl3Only;
     mainProgram = "gopher64";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 })

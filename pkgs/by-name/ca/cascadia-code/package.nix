@@ -4,7 +4,6 @@
   fetchzip,
   useVariableFont ? false,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cascadia-code";
   version = "2407.24";
@@ -19,15 +18,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook preInstall
 
     ${
-      if useVariableFont then
-        ''
-          install -Dm644 ttf/*.ttf -t $out/share/fonts/truetype
-        ''
-      else
-        ''
-          install -Dm644 otf/static/*.otf -t $out/share/fonts/opentype
-          install -Dm644 ttf/static/*.ttf -t $out/share/fonts/truetype
-        ''
+      if useVariableFont
+      then ''
+        install -Dm644 ttf/*.ttf -t $out/share/fonts/truetype
+      ''
+      else ''
+        install -Dm644 otf/static/*.otf -t $out/share/fonts/opentype
+        install -Dm644 ttf/static/*.ttf -t $out/share/fonts/truetype
+      ''
     }
 
     runHook postInstall
@@ -38,7 +36,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/microsoft/cascadia-code";
     changelog = "https://github.com/microsoft/cascadia-code/raw/v${finalAttrs.version}/FONTLOG.txt";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ ryanccn ];
+    maintainers = with lib.maintainers; [ryanccn];
     platforms = lib.platforms.all;
   };
 })

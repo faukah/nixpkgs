@@ -4,7 +4,6 @@
   fetchFromGitHub,
   freetype,
 }:
-
 stdenv.mkDerivation rec {
   pname = "otf2bdf";
   version = "3.1";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-HK9ZrnwKhhYcBvSl+3RwFD7m/WSaPkGKX6utXnk5k+A=";
   };
 
-  buildInputs = [ freetype ];
+  buildInputs = [freetype];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/man/man1
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "OpenType to BDF font converter";
     license = licenses.mit0;
     platforms = platforms.all;
-    maintainers = with maintainers; [ hzeller ];
+    maintainers = with maintainers; [hzeller];
     mainProgram = "otf2bdf";
   };
 }

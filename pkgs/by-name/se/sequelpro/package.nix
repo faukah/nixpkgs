@@ -4,7 +4,6 @@
   fetchurl,
   undmg,
 }:
-
 stdenv.mkDerivation {
   pname = "sequel-pro";
   version = "1.1.2";
@@ -14,7 +13,7 @@ stdenv.mkDerivation {
     sha256 = "1il7yc3f0yzxkra27bslnmka5ycxzx0q4m3xz2j9r7iyq5izsd3v";
   };
 
-  buildInputs = [ undmg ];
+  buildInputs = [undmg];
   installPhase = ''
     mkdir -p "$out/Applications/Sequel Pro.app"
     cp -R . "$out/Applications/Sequel Pro.app"

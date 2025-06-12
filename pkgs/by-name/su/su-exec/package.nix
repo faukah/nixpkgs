@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "su-exec";
   version = "0.2";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     mainProgram = "su-exec";
     homepage = "https://github.com/ncopa/su-exec";
     license = licenses.mit;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
     platforms = platforms.linux;
   };
 }

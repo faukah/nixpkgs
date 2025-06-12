@@ -13,7 +13,6 @@
   setuptools,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "htmldate";
   version = "1.9.3";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-9uFf/sx0AZdlvizU65H87hbtwDKf8Ykm67bKM9Oq//s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     charset-normalizer
@@ -44,18 +43,18 @@ buildPythonPackage rec {
         faust-cchardet
         urllib3
       ]
-      ++ lib.optionals (pythonOlder "3.11") [ backports-datetime-fromisoformat ]
+      ++ lib.optionals (pythonOlder "3.11") [backports-datetime-fromisoformat]
       ++ urllib3.optional-dependencies.brotli;
     all =
       [
         faust-cchardet
         urllib3
       ]
-      ++ lib.optionals (pythonOlder "3.11") [ backports-datetime-fromisoformat ]
+      ++ lib.optionals (pythonOlder "3.11") [backports-datetime-fromisoformat]
       ++ urllib3.optional-dependencies.brotli;
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Tests that require an internet connection
@@ -65,14 +64,14 @@ buildPythonPackage rec {
     "test_readme_examples"
   ];
 
-  pythonImportsCheck = [ "htmldate" ];
+  pythonImportsCheck = ["htmldate"];
 
   meta = with lib; {
     description = "Module for the extraction of original and updated publication dates from URLs and web pages";
     homepage = "https://htmldate.readthedocs.io";
     changelog = "https://github.com/adbar/htmldate/blob/${src.tag}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jokatzke ];
+    maintainers = with maintainers; [jokatzke];
     mainProgram = "htmldate";
   };
 }

@@ -5,7 +5,6 @@
   cmake,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "libraspberrypi";
   version = "unstable-2022-06-16";
@@ -24,7 +23,11 @@ stdenv.mkDerivation {
   cmakeFlags = [
     # -DARM64=ON disables all targets that only build on 32-bit ARM; this allows
     # the package to build on aarch64 and other architectures
-    "-DARM64=${if stdenv.hostPlatform.isAarch32 then "OFF" else "ON"}"
+    "-DARM64=${
+      if stdenv.hostPlatform.isAarch32
+      then "OFF"
+      else "ON"
+    }"
     "-DVMCS_INSTALL_PREFIX=${placeholder "out"}"
   ];
 

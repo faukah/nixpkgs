@@ -3,14 +3,11 @@
   stdenv,
   fetchFromGitHub,
   buildPythonPackage,
-
   # build-system
   hatchling,
-
   # dependencies
   click,
   redis,
-
   # tests
   addBinToPathHook,
   psutil,
@@ -19,7 +16,6 @@
   sentry-sdk,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rq";
   version = "2.3.3";
@@ -32,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-NUs544J/pC2QNyR2aIlac2P06so7JmB2P6FB/gmR7wI=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     click
@@ -57,13 +53,13 @@ buildPythonPackage rec {
     "test_suspend_worker_execution"
   ];
 
-  pythonImportsCheck = [ "rq" ];
+  pythonImportsCheck = ["rq"];
 
   meta = {
     description = "Library for creating background jobs and processing them";
     homepage = "https://github.com/nvie/rq/";
     changelog = "https://github.com/rq/rq/releases/tag/${src.tag}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ mrmebelman ];
+    maintainers = with lib.maintainers; [mrmebelman];
   };
 }

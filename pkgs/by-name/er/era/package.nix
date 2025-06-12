@@ -5,7 +5,6 @@
   deno,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "era";
   version = "0.1.3";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-OOPVLY9kg4TmKSrpHgsOmAmeDPbX5df0bX51lA6DvcY=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/kyoheiu/era";
     changelog = "https://github.com/kyoheiu/era/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     mainProgram = "era";
     inherit (deno.meta) platforms;
   };

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "smbscan";
   version = "unstable-2022-05-26";
@@ -36,8 +35,8 @@ python3.pkgs.buildPythonApplication {
   meta = with lib; {
     description = "Tool to enumerate file shares";
     homepage = "https://github.com/jeffhacks/smbscan";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
     mainProgram = "smbscan";
   };
 }

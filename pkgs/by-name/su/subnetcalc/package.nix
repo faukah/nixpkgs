@@ -6,7 +6,6 @@
   ninja,
   gettext,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "subnetcalc";
   version = "2.6.4";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
       type, scope, interface ID, etc.).
     '';
     mainProgram = "subnetcalc";
-    maintainers = with lib.maintainers; [ atila ];
+    maintainers = with lib.maintainers; [atila];
     platforms = lib.platforms.unix;
   };
 })

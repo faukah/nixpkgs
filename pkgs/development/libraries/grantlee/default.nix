@@ -6,7 +6,6 @@
   cmake,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "grantlee";
   version = "5.3.1";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     cmake
     wrapQtAppsHook
   ];
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   meta = {
     description = "Libraries for text templating with Qt";

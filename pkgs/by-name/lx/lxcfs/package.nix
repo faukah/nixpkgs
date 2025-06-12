@@ -14,7 +14,6 @@
   util-linux,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxcfs";
   version = "6.0.4";
@@ -42,10 +41,10 @@ stdenv.mkDerivation rec {
     help2man
     makeWrapper
     ninja
-    (python3.pythonOnBuildForHost.withPackages (p: [ p.jinja2 ]))
+    (python3.pythonOnBuildForHost.withPackages (p: [p.jinja2]))
     pkg-config
   ];
-  buildInputs = [ fuse3 ];
+  buildInputs = [fuse3];
 
   preConfigure = ''
     patchShebangs tools/
@@ -78,7 +77,7 @@ stdenv.mkDerivation rec {
       incus-lts = nixosTests.incus-lts.container;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -88,6 +87,6 @@ stdenv.mkDerivation rec {
     changelog = "https://linuxcontainers.org/lxcfs/news/";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.lxc ];
+    teams = [lib.teams.lxc];
   };
 }

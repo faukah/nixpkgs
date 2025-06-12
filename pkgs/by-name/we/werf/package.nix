@@ -22,7 +22,7 @@ buildGoModule (finalAttrs: {
   proxyVendor = true;
   vendorHash = "sha256-u/sG/UZt76Sr3Ckiv8Nn2JnMrVsAIlSWWTvs+Yfn6eU=";
 
-  subPackages = [ "cmd/werf" ];
+  subPackages = ["cmd/werf"];
 
   nativeBuildInputs = [
     installShellFiles
@@ -30,10 +30,13 @@ buildGoModule (finalAttrs: {
   ];
 
   buildInputs =
-    lib.optionals stdenv.hostPlatform.isLinux [ btrfs-progs ]
-    ++ lib.optionals stdenv.hostPlatform.isGnu [ stdenv.cc.libc.static ];
+    lib.optionals stdenv.hostPlatform.isLinux [btrfs-progs]
+    ++ lib.optionals stdenv.hostPlatform.isGnu [stdenv.cc.libc.static];
 
-  env.CGO_ENABLED = if stdenv.hostPlatform.isLinux then 1 else 0;
+  env.CGO_ENABLED =
+    if stdenv.hostPlatform.isLinux
+    then 1
+    else 0;
 
   ldflags =
     [
@@ -63,7 +66,7 @@ buildGoModule (finalAttrs: {
       "static_build"
     ];
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeCheckInputs = [writableTmpDirAsHomeHook];
 
   preCheck =
     ''
@@ -105,7 +108,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://werf.io";
     changelog = "https://github.com/werf/werf/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.azahi ];
+    maintainers = [lib.maintainers.azahi];
     mainProgram = "werf";
   };
 })

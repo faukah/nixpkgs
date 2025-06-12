@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cointop";
   version = "1.6.10";
@@ -32,7 +31,7 @@ buildGoModule rec {
       The interface is inspired by htop and shortcut keys are inspired by vim.
     '';
     homepage = "https://cointop.sh";
-    maintainers = with maintainers; [ sarcasticadmin ];
+    maintainers = with maintainers; [sarcasticadmin];
     license = licenses.asl20;
     mainProgram = "cointop";
   };

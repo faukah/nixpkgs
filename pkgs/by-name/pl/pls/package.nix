@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pls";
   version = "0.0.1-beta.9";
@@ -24,6 +23,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "http://pls.cli.rs";
     license = lib.licenses.gpl3Plus;
     mainProgram = "pls";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

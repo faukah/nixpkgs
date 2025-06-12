@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildNpmPackage rec {
   pname = "node-pre-gyp";
   version = "2.0.1";
@@ -30,6 +29,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/mapbox/node-pre-gyp";
     license = lib.licenses.bsd3;
     mainProgram = "node-pre-gyp";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

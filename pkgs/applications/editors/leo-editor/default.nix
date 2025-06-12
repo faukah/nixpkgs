@@ -7,7 +7,6 @@
   wrapQtAppsHook,
   makeDesktopItem,
 }:
-
 mkDerivation rec {
   pname = "leo-editor";
   version = "6.8.4";

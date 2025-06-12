@@ -15,7 +15,6 @@
   python3Packages,
   wrapGAppsHook4,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "imaginer";
   version = "0.1.3";
@@ -64,6 +63,6 @@ python3Packages.buildPythonApplication rec {
     description = "Imaginer with AI";
     mainProgram = "imaginer";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ _0xMRTT ];
+    maintainers = with maintainers; [_0xMRTT];
   };
 }

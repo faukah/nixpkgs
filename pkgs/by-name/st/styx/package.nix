@@ -12,7 +12,6 @@
   perlPackages,
   python3Packages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "styx";
   version = "0.7.5";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   server = "${caddy}/bin/caddy";
   linkcheck = "${linkchecker}/bin/linkchecker";
 
-  nativeBuildInputs = [ asciidoctor ];
+  nativeBuildInputs = [asciidoctor];
 
   outputs = [
     "out"
@@ -77,7 +76,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Nix based static site generator";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     homepage = "https://styx-static.github.io/styx-site/";
     downloadPage = "https://github.com/styx-static/styx/";
     platforms = platforms.all;

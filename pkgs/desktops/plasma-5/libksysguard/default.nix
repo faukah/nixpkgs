@@ -21,13 +21,12 @@
   qtsensors,
   lm_sensors,
 }:
-
 mkDerivation {
   pname = "libksysguard";
   patches = [
     ./0001-qdiriterator-follow-symlinks.patch
   ];
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kauth
     kconfig

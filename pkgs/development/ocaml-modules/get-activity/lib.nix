@@ -12,7 +12,6 @@
   yojson,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "get-activity-lib";
   version = "2.0.1";
@@ -26,7 +25,7 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.08";
 
-  buildInputs = [ ppx_yojson_conv ];
+  buildInputs = [ppx_yojson_conv];
 
   propagatedBuildInputs = [
     astring
@@ -49,6 +48,6 @@ buildDunePackage rec {
     description = "Collect activity and format as markdown for a journal (lib)";
     license = lib.licenses.mit;
     changelog = "https://github.com/tarides/get-activity/releases/tag/${version}";
-    maintainers = with lib.maintainers; [ zazedd ];
+    maintainers = with lib.maintainers; [zazedd];
   };
 }

@@ -14,7 +14,6 @@
   libX11,
   glib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "embree";
   version = "4.4.0";
@@ -47,15 +46,17 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     cmake
   ];
-  buildInputs = [
-    tbb
-    glfw
-    openimageio
-    libjpeg
-    libpng
-    libX11
-    libpthreadstubs
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ glib ];
+  buildInputs =
+    [
+      tbb
+      glfw
+      openimageio
+      libjpeg
+      libpng
+      libX11
+      libpthreadstubs
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [glib];
 
   meta = {
     description = "High performance ray tracing kernels from Intel";

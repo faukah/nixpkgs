@@ -14,7 +14,6 @@
   xorgcffiles,
   xorgproto,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nas";
   version = "1.9.5";
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://radscan.com/nas.html";
     description = "Network transparent, client/server audio transport system";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 })

@@ -9,7 +9,6 @@
   pytestCheckHook,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "measurement";
   version = "4.0a8";
@@ -35,15 +34,15 @@ buildPythonPackage rec {
       --replace "--cov=measurement" ""
   '';
 
-  propagatedBuildInputs = [ sympy ];
+  propagatedBuildInputs = [sympy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Use and manipulate unit-aware measurement objects in Python";
     homepage = "https://github.com/coddingtonbear/python-measurement";
     changelog = "https://github.com/coddingtonbear/python-measurement/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bhipple ];
+    maintainers = with lib.maintainers; [bhipple];
   };
 }

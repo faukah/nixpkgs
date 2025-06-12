@@ -13,7 +13,6 @@
   pyyaml,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-regressions";
   version = "2.7.0";
@@ -28,9 +27,9 @@ buildPythonPackage rec {
     hash = "sha256-w9uwJJtikbjUtjpJJ3dEZ1zU0KbdyLaDuJWJr45WpCg=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   dependencies = [
     pytest-datadir
@@ -52,11 +51,13 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    matplotlib
-    pandas
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      matplotlib
+      pandas
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   pytestFlagsArray = [
     "-W"
@@ -79,6 +80,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/ESSS/pytest-regressions";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

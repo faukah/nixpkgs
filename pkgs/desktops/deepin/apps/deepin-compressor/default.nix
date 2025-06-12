@@ -14,7 +14,6 @@
   libuuid,
   libarchive,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-compressor";
   version = "6.0.1";
@@ -66,6 +65,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-compressor";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

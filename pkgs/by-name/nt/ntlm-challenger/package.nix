@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "ntlm-challenger";
   version = "0-unstable-2022-11-10";
@@ -34,6 +33,6 @@ python3.pkgs.buildPythonApplication {
     mainProgram = "ntlm_challenger";
     homepage = "https://github.com/nopfor/ntlm_challenger";
     license = licenses.mit;
-    maintainers = [ maintainers.crem ];
+    maintainers = [maintainers.crem];
   };
 }

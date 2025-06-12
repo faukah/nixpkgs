@@ -7,7 +7,6 @@
   openssl,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tui-journal";
   version = "0.15.0";
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/AmmarAbouZor/tui-journal";
     changelog = "https://github.com/AmmarAbouZor/tui-journal/blob/${src.rev}/CHANGELOG.ron";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "tjournal";
   };
 }

@@ -14,7 +14,6 @@
   lwt,
   tcpip,
 }:
-
 buildDunePackage {
   pname = "dns-certify";
 
@@ -38,7 +37,9 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = dns.meta // {
-    description = "MirageOS let's encrypt certificate retrieval";
-  };
+  meta =
+    dns.meta
+    // {
+      description = "MirageOS let's encrypt certificate retrieval";
+    };
 }

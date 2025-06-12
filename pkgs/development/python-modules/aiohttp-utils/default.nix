@@ -10,7 +10,6 @@
   pytestCheckHook,
   webtest-aiohttp,
 }:
-
 buildPythonPackage rec {
   pname = "aiohttp-utils";
   version = "3.2.1";
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sloria/aiohttp-utils";
     changelog = "https://github.com/sloria/aiohttp-utils/blob/${src.rev}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

@@ -5,7 +5,6 @@
   autoreconfHook,
   nasm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xpar";
   version = "0.5";
@@ -17,9 +16,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-DMUDWQqYSQjGxYOpcfwNaaM21avcZ1w3IqEhuOaabrw=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-  ] ++ lib.optionals stdenv.hostPlatform.isx86_64 [ nasm ];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isx86_64 [nasm];
 
   configureFlags =
     [
@@ -34,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/kspalaiologos/xpar";
     changelog = "https://github.com/kspalaiologos/xpar/blob/${finalAttrs.version}/NEWS";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ mrbenjadmin ];
+    maintainers = with lib.maintainers; [mrbenjadmin];
     platforms = lib.platforms.all;
     mainProgram = "xpar";
   };

@@ -5,7 +5,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "symmetrica";
   version = "3.1.0";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Collection of routines for representation theory and combinatorics";
     license = lib.licenses.isc;
-    teams = [ lib.teams.sage ];
+    teams = [lib.teams.sage];
     platforms = lib.platforms.unix;
     homepage = "https://gitlab.com/sagemath/symmetrica";
   };

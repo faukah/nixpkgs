@@ -1,5 +1,4 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   execOptions = [
     "Boot"
     "ProcessTwo"
@@ -78,37 +77,39 @@ let
 
   unitName = "options-test";
   configFile = "/etc/systemd/nspawn/${unitName}.nspawn";
-
-in
-{
+in {
   name = "systemd-nspawn-configfile";
 
   nodes = {
-    node =
-      { pkgs, ... }:
-      {
-        systemd.nspawn."${unitName}" = {
-          enable = true;
+    node = {pkgs, ...}: {
+      systemd.nspawn."${unitName}" = {
+        enable = true;
 
-          execConfig = optionsToConfig execOptions // {
+        execConfig =
+          optionsToConfig execOptions
+          // {
             Boot = true;
             ProcessTwo = true;
             NotifyReady = true;
           };
 
-          filesConfig = optionsToConfig filesOptions // {
+        filesConfig =
+          optionsToConfig filesOptions
+          // {
             ReadOnly = true;
             Volatile = "state";
             PrivateUsersChown = true;
             PrivateUsersOwnership = "auto";
           };
 
-          networkConfig = optionsToConfig networkOptions // {
+        networkConfig =
+          optionsToConfig networkOptions
+          // {
             Private = true;
             VirtualEthernet = true;
           };
-        };
       };
+    };
   };
 
   testScript = ''

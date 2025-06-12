@@ -23,7 +23,6 @@
   cppzmq,
   uhd,
 }:
-
 gnuradio.pkgs.mkDerivation {
   pname = "qradiolink";
   # https://github.com/qradiolink/qradiolink/tree/gr_3.10
@@ -94,7 +93,7 @@ gnuradio.pkgs.mkDerivation {
     mainProgram = "qradiolink";
     homepage = "http://qradiolink.org/";
     license = licenses.agpl3Plus;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     platforms = platforms.linux;
   };
 }

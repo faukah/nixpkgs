@@ -7,7 +7,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "atuin";
   version = "18.6.1";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "daemon"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd atuin \
@@ -46,7 +45,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     tests = {
       inherit (nixosTests) atuin;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   checkFlags = [

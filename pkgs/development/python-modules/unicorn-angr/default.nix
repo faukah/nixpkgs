@@ -6,7 +6,6 @@
   setuptools,
   unicorn-angr,
 }:
-
 buildPythonPackage rec {
   pname = "unicorn-angr";
   version = lib.getVersion unicorn-angr;
@@ -48,12 +47,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "unicorn" ];
+  pythonImportsCheck = ["unicorn"];
 
   meta = with lib; {
     description = "Python bindings for Unicorn CPU emulator engine";
     homepage = "https://www.unicorn-engine.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

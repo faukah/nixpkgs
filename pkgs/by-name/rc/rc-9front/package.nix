@@ -11,7 +11,6 @@
   runCommand,
   nawk,
 }:
-
 stdenv.mkDerivation {
   pname = "rc-9front";
   version = "0-unstable-2025-04-12";
@@ -39,7 +38,7 @@ stdenv.mkDerivation {
   postPatch = ''
     substituteInPlace ./rcmain.unix --replace-fail 'path=(. /bin /usr/bin /usr/local/bin)' 'path=`:{${coreutils}/bin/env echo -n $PATH}'
   '';
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   installPhase = ''
     runHook preInstall
@@ -54,16 +53,16 @@ stdenv.mkDerivation {
 
   passthru = {
     shellPath = "/bin/rc";
-    updateScript = unstableGitUpdater { shallowClone = false; };
+    updateScript = unstableGitUpdater {shallowClone = false;};
     tests = {
-      simple = runCommand "rc-test" { } ''
+      simple = runCommand "rc-test" {} ''
         ${lib.getExe rc-9front} -c 'nl=`{echo} && \
           res=`$nl{for(i in `{seq 1 10}) echo $i} && \
           echo -n $res' >$out
         [ "$(wc -l $out | ${lib.getExe nawk} '{ print $1 }' )" = 10 ]
         [ "$(${lib.getExe nawk} '{ a=a+$1 } END{ print a }' < $out)" = "$((10+9+8+7+6+5+4+3+2+1))" ]
       '';
-      path = runCommand "rc-path" { } ''
+      path = runCommand "rc-path" {} ''
         PATH='${coreutils}/bin:/a:/b:/c' ${lib.getExe rc-9front} -c 'echo $path(2-)' >$out
         [ '/a /b /c' = "$(cat $out)" ]
       '';
@@ -75,7 +74,7 @@ stdenv.mkDerivation {
     longDescription = "unix port of 9front rc";
     homepage = "http://shithub.us/cinap_lenrek/rc/HEAD/info.html";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ moody ];
+    maintainers = with lib.maintainers; [moody];
     mainProgram = "rc";
     platforms = lib.platforms.all;
   };

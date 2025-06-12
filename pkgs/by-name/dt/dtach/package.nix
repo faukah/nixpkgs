@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dtach";
   version = "0.9";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
 
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "dtach";
   };
 }

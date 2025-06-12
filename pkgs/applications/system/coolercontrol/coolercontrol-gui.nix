@@ -2,14 +2,11 @@
   cmake,
   stdenv,
   qt6,
-}:
-
-{
+}: {
   version,
   src,
   meta,
 }:
-
 stdenv.mkDerivation {
   pname = "coolercontrol";
   inherit version src;
@@ -32,8 +29,10 @@ stdenv.mkDerivation {
     install -Dm644 "${src}/packaging/metadata/org.coolercontrol.CoolerControl.svg" -t "$out/share/icons/hicolor/scalable/apps/"
   '';
 
-  meta = meta // {
-    description = "${meta.description} (GUI)";
-    mainProgram = "coolercontrol";
-  };
+  meta =
+    meta
+    // {
+      description = "${meta.description} (GUI)";
+      mainProgram = "coolercontrol";
+    };
 }

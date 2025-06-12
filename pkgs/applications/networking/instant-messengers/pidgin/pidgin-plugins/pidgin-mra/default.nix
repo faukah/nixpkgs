@@ -5,7 +5,6 @@
   pkg-config,
   pidgin,
 }:
-
 stdenv.mkDerivation {
   pname = "pidgin-mra";
   version = "unstable-2014-07-08";
@@ -17,8 +16,8 @@ stdenv.mkDerivation {
     sha256 = "sha256-fKdEOaijW2LfsH8RHlVGbMpL7Zhu+x2vW4fPEN4puKk=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ pidgin ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [pidgin];
 
   postPatch = ''
     sed -i 's|-I/usr/include/libpurple|$(shell pkg-config --cflags purple)|' Makefile

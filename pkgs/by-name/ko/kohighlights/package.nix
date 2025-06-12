@@ -9,7 +9,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "kohighlights";
   version = "2.3.1.0";
@@ -53,7 +52,7 @@ python3Packages.buildPythonApplication rec {
       desktopName = "KoHighlights";
       exec = meta.mainProgram;
       comment = meta.description;
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -77,7 +76,7 @@ python3Packages.buildPythonApplication rec {
     description = "Utility for viewing and/or exporting KOReader's highlights";
     homepage = "https://github.com/noembryo/KoHighlights";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dtomvan ];
+    maintainers = with lib.maintainers; [dtomvan];
     mainProgram = "KoHighlights";
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildNpmPackage {
   pname = "matlab-language-server";
   version = "1.1.6";
@@ -34,7 +33,7 @@ buildNpmPackage {
     description = "Language Server for MATLAB® code";
     homepage = "https://github.com/mathworks/MATLAB-language-server";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
     mainProgram = "matlab-language-server";
   };
 }

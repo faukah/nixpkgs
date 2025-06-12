@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "proj-datumgrid";
   version = "world-1.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "Repository for proj datum grids";
     homepage = "https://proj4.org";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "nad2bin";
     platforms = platforms.linux ++ platforms.darwin;
   };

@@ -7,7 +7,6 @@
   packaging,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pywikibot";
   version = "10.0.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
   # Tests attempt to install a tool using pip, which fails due to the sandbox
   doCheck = false;
 
-  pythonImportsCheck = [ "pywikibot" ];
+  pythonImportsCheck = ["pywikibot"];
 
   meta = {
     description = "Python MediaWiki bot framework";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://www.mediawiki.org/wiki/Manual:Pywikibot";
     changelog = "https://doc.wikimedia.org/pywikibot/master/changelog.html";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tomodachi94 ];
+    maintainers = with lib.maintainers; [tomodachi94];
   };
 }

@@ -11,7 +11,6 @@
   pyusb,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "onlykey-solo-python";
   version = "0.0.32";
@@ -47,13 +46,13 @@ buildPythonPackage rec {
 
   # no tests
   doCheck = false;
-  pythonImportsCheck = [ "solo" ];
+  pythonImportsCheck = ["solo"];
 
   meta = with lib; {
     homepage = "https://github.com/trustcrypto/onlykey-solo-python";
     description = "Python library for OnlyKey with Solo FIDO2";
     mainProgram = "solo";
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     license = licenses.asl20;
   };
 }

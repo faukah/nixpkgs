@@ -4,7 +4,6 @@
   fetchFromGitHub,
   mkdocs,
 }:
-
 buildPythonPackage {
   pname = "mkdocs-exclude";
   version = "1.0.2";
@@ -19,7 +18,7 @@ buildPythonPackage {
     sha256 = "1phhl79xf4xq8w2sb2w5zm4bahcr33gsbxkz7dl1dws4qhcbxrfd";
   };
 
-  propagatedBuildInputs = [ mkdocs ];
+  propagatedBuildInputs = [mkdocs];
 
   # Attempt to import "mkdocs_exclude" module in stand-alone mode fails:
   #
@@ -33,6 +32,6 @@ buildPythonPackage {
     description = "Mkdocs plugin to exclude files from input using globs or regexes";
     homepage = "https://github.com/apenwarr/mkdocs-exclude";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

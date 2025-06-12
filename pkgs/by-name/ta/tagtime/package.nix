@@ -6,7 +6,6 @@
   xterm,
   coreutils,
 }:
-
 stdenv.mkDerivation {
   pname = "tagtime";
   version = "2018-09-02";
@@ -81,7 +80,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://messymatters.com/tagtime/";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.Profpatsch ];
+    maintainers = [lib.maintainers.Profpatsch];
     mainProgram = "tagtimed";
   };
 }

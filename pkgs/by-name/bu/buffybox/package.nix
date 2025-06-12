@@ -13,7 +13,6 @@
   stdenv,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "buffybox";
   version = "3.3.0";
@@ -62,13 +61,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Suite of graphical applications for the terminal";
     homepage = "https://gitlab.postmarketos.org/postmarketOS/buffybox";
     license = licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ colinsane ];
+    maintainers = with lib.maintainers; [colinsane];
     platforms = platforms.linux;
   };
 })

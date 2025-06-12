@@ -4,7 +4,6 @@
   fetchFromGitHub,
   yt-dlp,
 }:
-
 buildLua {
   pname = "youtube-chat";
   version = "unstable-2024-06-08";
@@ -28,7 +27,7 @@ buildLua {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ yt-dlp ])
+    (lib.makeBinPath [yt-dlp])
   ];
 
   meta = {
@@ -36,6 +35,6 @@ buildLua {
     homepage = "https://github.com/BanchouBoo/mpv-youtube-chat";
     license = lib.licenses.mit;
     platforms = yt-dlp.meta.platforms;
-    maintainers = with lib.maintainers; [ fliegendewurst ];
+    maintainers = with lib.maintainers; [fliegendewurst];
   };
 }

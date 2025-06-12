@@ -2,22 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # unpropagated
   pytest,
-
   # propagated
   inflection,
   factory-boy,
   typing-extensions,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-factoryboy";
   version = "2.6.1";
@@ -30,9 +25,9 @@ buildPythonPackage rec {
     sha256 = "sha256-GYqYwtbmMWVqImVPPBbZNRJJGcbksUPsIbi6QuPRMco=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     factory-boy
@@ -40,16 +35,16 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "pytest_factoryboy" ];
+  pythonImportsCheck = ["pytest_factoryboy"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "--ignore=docs" ];
+  pytestFlagsArray = ["--ignore=docs"];
 
   meta = with lib; {
     description = "Integration of factory_boy into the pytest runner";
     homepage = "https://pytest-factoryboy.readthedocs.io/en/latest/";
-    maintainers = with maintainers; [ winpat ];
+    maintainers = with maintainers; [winpat];
     license = licenses.mit;
   };
 }

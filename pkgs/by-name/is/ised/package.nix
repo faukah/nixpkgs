@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ised";
   version = "2.7.1";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Numeric sequence editor";
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = with lib.platforms; linux;
     license = lib.licenses.gpl3Plus;
     mainProgram = "ised";

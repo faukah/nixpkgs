@@ -5,7 +5,6 @@
   testers,
   bombardier,
 }:
-
 buildGoModule rec {
   pname = "bombardier";
   version = "2.0.2";
@@ -42,7 +41,7 @@ buildGoModule rec {
     homepage = "https://github.com/codesenberg/bombardier";
     changelog = "https://github.com/codesenberg/bombardier/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "bombardier";
   };
 }

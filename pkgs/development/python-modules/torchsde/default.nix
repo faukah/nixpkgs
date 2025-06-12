@@ -2,21 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   boltons,
   numpy,
   scipy,
   torch,
   trampoline,
-
   # tests
   pytest7CheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "torchsde";
   version = "0.2.6";
@@ -35,7 +31,7 @@ buildPythonPackage rec {
       --replace "scipy==1.5.*" "scipy"
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     boltons
@@ -45,9 +41,9 @@ buildPythonPackage rec {
     trampoline
   ];
 
-  pythonImportsCheck = [ "torchsde" ];
+  pythonImportsCheck = ["torchsde"];
 
-  nativeCheckInputs = [ pytest7CheckHook ];
+  nativeCheckInputs = [pytest7CheckHook];
 
   disabledTests = [
     # RuntimeError: a view of a leaf Variable that requires grad is being used in an in-place operation.
@@ -59,6 +55,6 @@ buildPythonPackage rec {
     description = "Differentiable SDE solvers with GPU support and efficient sensitivity analysis";
     homepage = "https://github.com/google-research/torchsde";
     license = licenses.asl20;
-    teams = [ teams.tts ];
+    teams = [teams.tts];
   };
 }

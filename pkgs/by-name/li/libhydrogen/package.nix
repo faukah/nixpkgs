@@ -5,7 +5,6 @@
   testers,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libhydrogen";
   version = "0-unstable-2025-04-06";
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   enableParallelBuilding = true;
 
   makeFlags = [
@@ -58,8 +57,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Lightweight, secure, easy-to-use crypto library suitable for constrained environments";
     homepage = "https://github.com/jedisct1/libhydrogen";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.tanya1866 ];
-    pkgConfigModules = [ "libhydrogen" ];
+    maintainers = [lib.maintainers.tanya1866];
+    pkgConfigModules = ["libhydrogen"];
     platforms = lib.platforms.all;
   };
 })

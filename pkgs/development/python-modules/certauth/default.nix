@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage {
   pname = "certauth";
   version = "1.3.0";
@@ -25,7 +24,7 @@ buildPythonPackage {
     hash = "sha256-Rso5N0jb9k7bdorjPIUMNiZZPnzwbkxFNiTpsJ9pco0=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     pyopenssl
@@ -37,7 +36,7 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "certauth" ];
+  pythonImportsCheck = ["certauth"];
 
   disabledTests = [
     # https://github.com/ikreymer/certauth/issues/23
@@ -56,6 +55,6 @@ buildPythonPackage {
     mainProgram = "certauth";
     homepage = "https://github.com/ikreymer/certauth";
     license = licenses.mit;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

@@ -7,7 +7,6 @@
   pytest,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-env";
   version = "1.1.5";
@@ -24,14 +23,14 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Pytest plugin used to set environment variables";
     homepage = "https://github.com/MobileDynasty/pytest-env";
     license = licenses.mit;
-    maintainers = with maintainers; [ erikarvstedt ];
+    maintainers = with maintainers; [erikarvstedt];
   };
 }

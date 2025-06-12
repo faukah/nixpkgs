@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-coinmarketcap";
   version = "0.6";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-FQIfDV7O3z5S2HGKi2k8NPsvkAS66rsueggoSAGvbVU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Python package to wrap the CoinMarketCap API";
     homepage = "https://github.com/rsz44/python-coinmarketcap";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dolphindalt ];
+    maintainers = with lib.maintainers; [dolphindalt];
   };
 }

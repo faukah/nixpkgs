@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 llvmPackages.stdenv.mkDerivation (finalAttrs: {
   pname = "wavm";
   version = "2022-05-14";
@@ -26,7 +25,7 @@ llvmPackages.stdenv.mkDerivation (finalAttrs: {
     mainProgram = "wavm";
     homepage = "https://wavm.github.io";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ereslibre ];
+    maintainers = with maintainers; [ereslibre];
     platforms = platforms.unix;
   };
 })

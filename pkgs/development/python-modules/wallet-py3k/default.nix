@@ -7,7 +7,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "wallet-py3k";
   version = "0.0.4";
@@ -24,18 +23,18 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ six ];
+  dependencies = [six];
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "wallet" ];
+  pythonImportsCheck = ["wallet"];
 
   meta = with lib; {
     description = "Passbook file generator";
     homepage = "https://pypi.org/project/wallet-py3k";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

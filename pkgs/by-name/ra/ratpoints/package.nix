@@ -23,14 +23,14 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
   buildFlags = lib.optionals stdenv.hostPlatform.isDarwin [
     "CCFLAGS2=-lgmp -lc -lm"
     "CCFLAGS=-UUSE_SSE"
   ];
-  installFlags = [ "INSTALL_DIR=$(out)" ];
+  installFlags = ["INSTALL_DIR=$(out)"];
 
   preInstall = ''mkdir -p "$out"/{bin,share,lib,include}'';
 
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Program to find rational points on hyperelliptic curves";
     mainProgram = "ratpoints";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.unix;
     homepage = "http://www.mathe2.uni-bayreuth.de/stoll/programs/";
   };

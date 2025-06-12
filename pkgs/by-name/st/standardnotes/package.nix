@@ -11,44 +11,36 @@
   glib,
   desktop-file-utils,
   callPackage,
-}:
-
-let
-
+}: let
   srcjson = builtins.fromJSON (builtins.readFile ./src.json);
 
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
-
 in
+  stdenv.mkDerivation {
+    pname = "standardnotes";
 
-stdenv.mkDerivation {
+    src = fetchurl (srcjson.deb.${stdenv.hostPlatform.system} or throwSystem);
 
-  pname = "standardnotes";
+    inherit (srcjson) version;
 
-  src = fetchurl (srcjson.deb.${stdenv.hostPlatform.system} or throwSystem);
+    dontConfigure = true;
 
-  inherit (srcjson) version;
+    dontBuild = true;
 
-  dontConfigure = true;
+    nativeBuildInputs = [
+      makeWrapper
+      dpkg
+      desktop-file-utils
+      asar
+    ];
 
-  dontBuild = true;
-
-  nativeBuildInputs = [
-    makeWrapper
-    dpkg
-    desktop-file-utils
-    asar
-  ];
-
-  installPhase =
-    let
+    installPhase = let
       libPath = lib.makeLibraryPath [
         libsecret
         glib
         (lib.getLib stdenv.cc.cc)
       ];
-    in
-    ''
+    in ''
       runHook preInstall
 
       mkdir -p $out/bin $out/share/standardnotes
@@ -76,23 +68,23 @@ stdenv.mkDerivation {
       runHook postInstall
     '';
 
-  passthru.updateScript = callPackage ./update.nix { };
+    passthru.updateScript = callPackage ./update.nix {};
 
-  meta = with lib; {
-    description = "Simple and private notes app";
-    longDescription = ''
-      Standard Notes is a private notes app that features unmatched simplicity,
-      end-to-end encryption, powerful extensions, and open-source applications.
-    '';
-    homepage = "https://standardnotes.org";
-    license = licenses.agpl3Only;
-    maintainers = with maintainers; [
-      mgregoire
-      chuangzhu
-      squalus
-    ];
-    sourceProvenance = [ sourceTypes.binaryNativeCode ];
-    platforms = builtins.attrNames srcjson.deb;
-    mainProgram = "standardnotes";
-  };
-}
+    meta = with lib; {
+      description = "Simple and private notes app";
+      longDescription = ''
+        Standard Notes is a private notes app that features unmatched simplicity,
+        end-to-end encryption, powerful extensions, and open-source applications.
+      '';
+      homepage = "https://standardnotes.org";
+      license = licenses.agpl3Only;
+      maintainers = with maintainers; [
+        mgregoire
+        chuangzhu
+        squalus
+      ];
+      sourceProvenance = [sourceTypes.binaryNativeCode];
+      platforms = builtins.attrNames srcjson.deb;
+      mainProgram = "standardnotes";
+    };
+  }

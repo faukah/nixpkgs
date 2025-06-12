@@ -5,7 +5,6 @@
   nim,
   makeWrapper,
 }:
-
 buildNimPackage (finalAttrs: {
   pname = "balls";
   version = "5.4.0";
@@ -17,7 +16,7 @@ buildNimPackage (finalAttrs: {
     hash = "sha256-CMYkMkekVI0C1WUds+KBbRfjMte42kBAB2ddtQp8d+k=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   lockFile = ./lock.json;
 
@@ -33,24 +32,28 @@ buildNimPackage (finalAttrs: {
     echo 'path:"$projectDir/.."' > tests/nim.cfg
   '';
 
-  postFixup =
-    let
-      lockAttrs = builtins.fromJSON (builtins.readFile finalAttrs.lockFile);
-      pathFlagOfFod = { path, srcDir, ... }: ''"--path:${path}/${srcDir}"'';
-      pathFlags = map pathFlagOfFod lockAttrs.depends;
-    in
-    ''
-      wrapProgram $out/bin/balls \
-        --suffix PATH : ${lib.makeBinPath [ nim ]} \
-        --append-flags '--path:"${finalAttrs.src}" ${toString pathFlags}'
-    '';
+  postFixup = let
+    lockAttrs = builtins.fromJSON (builtins.readFile finalAttrs.lockFile);
+    pathFlagOfFod = {
+      path,
+      srcDir,
+      ...
+    }: ''"--path:${path}/${srcDir}"'';
+    pathFlags = map pathFlagOfFod lockAttrs.depends;
+  in ''
+    wrapProgram $out/bin/balls \
+      --suffix PATH : ${lib.makeBinPath [nim]} \
+      --append-flags '--path:"${finalAttrs.src}" ${toString pathFlags}'
+  '';
 
-  meta = finalAttrs.src.meta // {
-    description = "Testing framework with balls";
-    homepage = "https://github.com/disruptek/balls";
-    mainProgram = "balls";
-    license = lib.licenses.mit;
-    platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ehmry ];
-  };
+  meta =
+    finalAttrs.src.meta
+    // {
+      description = "Testing framework with balls";
+      homepage = "https://github.com/disruptek/balls";
+      mainProgram = "balls";
+      license = lib.licenses.mit;
+      platforms = lib.platforms.linux;
+      maintainers = with lib.maintainers; [ehmry];
+    };
 })

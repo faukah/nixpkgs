@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nsh";
   version = "0.4.2";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
       lib.licenses.cc0 # or
       lib.licenses.mit
     ];
-    maintainers = with lib.maintainers; [ cafkafk ];
+    maintainers = with lib.maintainers; [cafkafk];
   };
 
   passthru = {

@@ -9,7 +9,6 @@
   openssl,
   undmg,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "raycast";
   version = "1.100.0";
@@ -27,14 +26,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         hash = "sha256-LdGVNWgQ8bxgqHSvnVizbWeXnHe7JSk47Kn5jGsrNbs=";
       };
     }
-    .${stdenvNoCC.system} or (throw "raycast: ${stdenvNoCC.system} is unsupported.");
+    .${
+      stdenvNoCC.system
+    } or (throw "raycast: ${stdenvNoCC.system} is unsupported.");
 
   dontPatch = true;
   dontConfigure = true;
   dontBuild = true;
   dontFixup = true;
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = "Raycast.app";
 
@@ -87,6 +88,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       "aarch64-darwin"
       "x86_64-darwin"
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

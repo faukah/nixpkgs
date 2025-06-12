@@ -12,7 +12,6 @@
   tomli,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "podman";
   version = "5.4.0.1";
@@ -27,15 +26,17 @@ buildPythonPackage rec {
     hash = "sha256-6K6wBLCJCIAHbJQuY7JPnkmuq8OwrxCaSAHWeFDwH10=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    requests
-    urllib3
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies =
+    [
+      requests
+      urllib3
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   optional-dependencies = {
-    progress_bar = [ rich ];
+    progress_bar = [rich];
   };
 
   nativeCheckInputs = [
@@ -48,7 +49,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "podman" ];
+  pythonImportsCheck = ["podman"];
 
   disabledTests = [
     # Integration tests require a running container setup
@@ -69,6 +70,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/containers/podman-py";
     changelog = "https://github.com/containers/podman-py/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

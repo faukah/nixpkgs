@@ -2,12 +2,10 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # Native build inputs
   cmake,
   pkg-config,
   makeWrapper,
-
   # Dependencies
   alsa-lib,
   freetype,
@@ -31,7 +29,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "juce";
   version = "8.0.8";
@@ -80,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
       libXtst
     ];
 
-  propagatedBuildInputs = [ fontconfig ];
+  propagatedBuildInputs = [fontconfig];
 
   nativeInstallCheckInputs = [
     versionCheckHook
@@ -90,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -101,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = with lib.licenses; [
       agpl3Only # Or alternatively the JUCE license, but that would not be included in nixpkgs then
     ];
-    maintainers = with lib.maintainers; [ kashw2 ];
+    maintainers = with lib.maintainers; [kashw2];
     platforms = lib.platforms.all;
     mainProgram = "juceaide";
   };

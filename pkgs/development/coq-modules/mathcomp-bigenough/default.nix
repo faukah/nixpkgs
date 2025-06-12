@@ -5,9 +5,7 @@
   lib,
   version ? null,
 }:
-
 mkCoqDerivation {
-
   namePrefix = [
     "coq"
     "mathcomp"
@@ -21,8 +19,7 @@ mkCoqDerivation {
     "1.0.2".sha256 = "sha256-fJ/5xr91VtvpIoaFwb3PlnKl6UHG6GEeBRVGZrVLMU0=";
   };
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.version [
       {
         case = range "8.10" "9.0";
@@ -32,9 +29,10 @@ mkCoqDerivation {
         case = range "8.5" "8.14";
         out = "1.0.0";
       }
-    ] null;
+    ]
+    null;
 
-  propagatedBuildInputs = [ mathcomp-boot ];
+  propagatedBuildInputs = [mathcomp-boot];
 
   meta = {
     description = "Small library to do epsilon - N reasonning";

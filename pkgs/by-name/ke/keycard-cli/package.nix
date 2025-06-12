@@ -6,7 +6,6 @@
   pkg-config,
   pcsclite,
 }:
-
 buildGoModule rec {
   pname = "keycard-cli";
   version = "0.7.0";
@@ -20,8 +19,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-3XzWOiZF2WNs2pdumYN9bphvBKY+rrjuT+wWhB2pwT0=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ pcsclite ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [pcsclite];
 
   ldflags = [
     "-s"
@@ -34,7 +33,7 @@ buildGoModule rec {
     mainProgram = "keycard-cli";
     homepage = "https://keycard.status.im";
     license = licenses.mpl20;
-    maintainers = [ maintainers.zimbatm ];
+    maintainers = [maintainers.zimbatm];
     broken = stdenv.hostPlatform.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/keycard-cli.x86_64-darwin
   };
 }

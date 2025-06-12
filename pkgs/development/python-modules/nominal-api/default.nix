@@ -6,7 +6,6 @@
   requests,
   conjure-python-client,
 }:
-
 buildPythonPackage rec {
   pname = "nominal-api";
   version = "0.708.0";
@@ -18,19 +17,19 @@ buildPythonPackage rec {
     hash = "sha256-gaMQ4bLhdBkDTUoHP5Cb0vS5emNcYga5eTvV2TEWQiU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
     conjure-python-client
   ];
 
-  pythonImportsCheck = [ "nominal_api" ];
+  pythonImportsCheck = ["nominal_api"];
 
   meta = {
     description = "Generated conjure client for the Nominal API";
     homepage = "https://pypi.org/project/nominal-api/";
-    maintainers = with lib.maintainers; [ alkasm ];
+    maintainers = with lib.maintainers; [alkasm];
     license = lib.licenses.unfree;
   };
 }

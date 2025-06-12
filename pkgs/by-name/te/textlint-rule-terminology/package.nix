@@ -5,7 +5,6 @@
   textlint,
   textlint-rule-terminology,
 }:
-
 buildNpmPackage rec {
   pname = "textlint-rule-terminology";
   version = "5.0.0";
@@ -31,6 +30,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/sapegin/textlint-rule-terminology";
     changelog = "https://github.com/sapegin/textlint-rule-terminology/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyphen";
   version = "0.17.2";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-9gZHqcmzDsbFmRAJevgrxd0tNldrkY5EFI2LB+87SqM=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyphen" ];
+  pythonImportsCheck = ["pyphen"];
 
   meta = with lib; {
     description = "Module to hyphenate text";

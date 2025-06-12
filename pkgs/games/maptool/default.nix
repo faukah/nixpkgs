@@ -10,8 +10,7 @@
   openjfx,
   stdenvNoCC,
   wrapGAppsHook3,
-}:
-let
+}: let
   pname = "maptool";
   version = "1.17.0";
   repoBase = "https://github.com/RPTools/maptool";
@@ -29,8 +28,8 @@ let
       binaryNativeCode
     ];
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ rhendric ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [rhendric];
+    platforms = ["x86_64-linux"];
   };
 
   javafxModules = [
@@ -50,8 +49,9 @@ let
       "${openjfx}/modules_src/javafx.${mod}/module-info.java"
       "${openjfx}/modules/javafx.${mod}"
       "${openjfx}/modules_libs/javafx.${mod}"
-    ]) javafxModules
-    ++ [ "$out/${appClasspath}/*" ];
+    ])
+    javafxModules
+    ++ ["$out/${appClasspath}/*"];
 
   jvmArgs = [
     "-cp"
@@ -81,59 +81,59 @@ let
   binName = pname;
   rdnsName = "net.rptools.maptool";
 in
-stdenvNoCC.mkDerivation {
-  inherit
-    pname
-    version
-    src
-    meta
-    ;
+  stdenvNoCC.mkDerivation {
+    inherit
+      pname
+      version
+      src
+      meta
+      ;
 
-  dontUnpack = true;
-  dontConfigure = true;
-  dontBuild = true;
-  dontWrapGApps = true;
+    dontUnpack = true;
+    dontConfigure = true;
+    dontBuild = true;
+    dontWrapGApps = true;
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    libarchive
-    wrapGAppsHook3
-  ];
+    nativeBuildInputs = [
+      copyDesktopItems
+      libarchive
+      wrapGAppsHook3
+    ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = rdnsName;
-      desktopName = "MapTool";
-      icon = rdnsName;
-      exec = binName;
-      comment = meta.description;
-      categories = [ "Game" ];
-    })
-  ];
+    desktopItems = [
+      (makeDesktopItem {
+        name = rdnsName;
+        desktopName = "MapTool";
+        icon = rdnsName;
+        exec = binName;
+        comment = meta.description;
+        categories = ["Game"];
+      })
+    ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    dest=$out/${appClasspath}
-    install -dm755 "$dest"
-    bsdtar -xf "$src" -C "$dest" --strip-components 4 opt/maptool/lib/app/{'*.jar',readme}
+      dest=$out/${appClasspath}
+      install -dm755 "$dest"
+      bsdtar -xf "$src" -C "$dest" --strip-components 4 opt/maptool/lib/app/{'*.jar',readme}
 
-    dest=$out/share/icons/hicolor/256x256/apps
-    install -dm755 "$dest"
-    bsdtar -xOf "$src" opt/maptool/lib/MapTool.png > "$dest"/${rdnsName}.png
+      dest=$out/share/icons/hicolor/256x256/apps
+      install -dm755 "$dest"
+      bsdtar -xOf "$src" opt/maptool/lib/MapTool.png > "$dest"/${rdnsName}.png
 
-    dest=$out/bin
-    install -dm755 "$dest"
-    makeWrapper ${jre}/bin/java "$dest"/${binName} \
-      "''${gappsWrapperArgs[@]}" \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ ffmpeg ]} \
-      --add-flags "${lib.concatStringsSep " " jvmArgs} net.rptools.maptool.client.LaunchInstructions"
+      dest=$out/bin
+      install -dm755 "$dest"
+      makeWrapper ${jre}/bin/java "$dest"/${binName} \
+        "''${gappsWrapperArgs[@]}" \
+        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ffmpeg]} \
+        --add-flags "${lib.concatStringsSep " " jvmArgs} net.rptools.maptool.client.LaunchInstructions"
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru.updateScript = gitUpdater {
-    url = "${repoBase}.git";
-    ignoredVersions = "-";
-  };
-}
+    passthru.updateScript = gitUpdater {
+      url = "${repoBase}.git";
+      ignoredVersions = "-";
+    };
+  }

@@ -1,36 +1,37 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "immich-public-proxy";
 
-  nodes.machine =
-    { pkgs, ... }@args:
-    {
-      environment.systemPackages = [
-        pkgs.imagemagick
-        pkgs.immich-cli
-      ];
-      services.immich = {
-        enable = true;
-        port = 2283;
-        # disable a lot of features that aren't needed for this test
-        machine-learning.enable = false;
-        settings = {
-          backup.database.enabled = false;
-          machineLearning.enabled = false;
-          map.enabled = false;
-          reverseGeocoding.enabled = false;
-          metadata.faces.import = false;
-          newVersionCheck.enabled = false;
-          notifications.smtp.enabled = false;
-        };
-      };
-      services.immich-public-proxy = {
-        enable = true;
-        immichUrl = "http://localhost:2283";
-        port = 8002;
-        settings.ipp.responseHeaders."X-NixOS" = "Rules";
+  nodes.machine = {pkgs, ...} @ args: {
+    environment.systemPackages = [
+      pkgs.imagemagick
+      pkgs.immich-cli
+    ];
+    services.immich = {
+      enable = true;
+      port = 2283;
+      # disable a lot of features that aren't needed for this test
+      machine-learning.enable = false;
+      settings = {
+        backup.database.enabled = false;
+        machineLearning.enabled = false;
+        map.enabled = false;
+        reverseGeocoding.enabled = false;
+        metadata.faces.import = false;
+        newVersionCheck.enabled = false;
+        notifications.smtp.enabled = false;
       };
     };
+    services.immich-public-proxy = {
+      enable = true;
+      immichUrl = "http://localhost:2283";
+      port = 8002;
+      settings.ipp.responseHeaders."X-NixOS" = "Rules";
+    };
+  };
 
   testScript = ''
     import json

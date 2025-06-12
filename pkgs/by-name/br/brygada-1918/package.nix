@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "brygada-1918";
   version = "3.006";
@@ -33,6 +32,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://brygada1918.eu/";
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ oidro ];
+    maintainers = with lib.maintainers; [oidro];
   };
 }

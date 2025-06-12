@@ -5,7 +5,6 @@
   gzip,
   unstableGitUpdater,
 }:
-
 melpaBuild {
   pname = "edraw";
   version = "1.2.0-unstable-2025-02-21";
@@ -17,19 +16,19 @@ melpaBuild {
     hash = "sha256-IU+DMw8q1Si3CJ4FhJVkaRsjkh1Oc3psmbzdUgh0YMI=";
   };
 
-  propagatedUserEnvPkgs = [ gzip ];
+  propagatedUserEnvPkgs = [gzip];
 
   files = ''(:defaults "msg")'';
 
   # https://debbugs.gnu.org/cgi/bugreport.cgi?bug=76573
   ignoreCompilationError = true;
 
-  passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
+  passthru.updateScript = unstableGitUpdater {tagPrefix = "v";};
 
   meta = {
     homepage = "https://github.com/misohena/el-easydraw";
     description = "Embedded drawing tool for Emacs";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ brahyerr ];
+    maintainers = with lib.maintainers; [brahyerr];
   };
 }

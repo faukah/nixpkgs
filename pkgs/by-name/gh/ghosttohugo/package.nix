@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ghosttohugo";
   version = "0.5.3";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Convert Ghost export to Hugo posts";
     homepage = "https://github.com/jbarone/ghostToHugo";
     license = licenses.mit;
-    maintainers = with maintainers; [ clerie ];
+    maintainers = with maintainers; [clerie];
     mainProgram = "ghostToHugo";
   };
 }

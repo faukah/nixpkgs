@@ -2,13 +2,10 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # nativeBuildInputs
   pyqtwebengine,
-
   # build-system
   setuptools,
-
   # dependencies
   aiohttp,
   asyncssh,
@@ -55,7 +52,6 @@
   watchdog,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "spyder";
   version = "6.1.0a2";
@@ -66,63 +62,65 @@ buildPythonPackage rec {
     hash = "sha256-KbGfG9T3XkYXntIQx325mYb0Bh8c0idb+25awFlWD9s=";
   };
 
-  patches = [ ./dont-clear-pythonpath.patch ];
+  patches = [./dont-clear-pythonpath.patch];
 
-  nativeBuildInputs = [ pyqtwebengine.wrapQtAppsHook ];
+  nativeBuildInputs = [pyqtwebengine.wrapQtAppsHook];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "ipython"
   ];
 
-  dependencies = [
-    aiohttp
-    asyncssh
-    atomicwrites
-    bcrypt
-    chardet
-    cloudpickle
-    cookiecutter
-    diff-match-patch
-    fzf
-    intervaltree
-    ipython-pygments-lexers
-    jedi
-    jellyfish
-    keyring
-    matplotlib
-    nbconvert
-    numpy
-    numpydoc
-    packaging
-    pickleshare
-    psutil
-    pygithub
-    pygments
-    pylint-venv
-    pyls-spyder
-    pyopengl
-    pyqtwebengine
-    python-lsp-black
-    python-lsp-server
-    pyuca
-    pyzmq
-    qdarkstyle
-    qstylizer
-    qtawesome
-    qtconsole
-    qtpy
-    rope
-    rtree
-    scipy
-    spyder-kernels
-    superqt
-    textdistance
-    three-merge
-    watchdog
-    yarl
-  ] ++ python-lsp-server.optional-dependencies.all;
+  dependencies =
+    [
+      aiohttp
+      asyncssh
+      atomicwrites
+      bcrypt
+      chardet
+      cloudpickle
+      cookiecutter
+      diff-match-patch
+      fzf
+      intervaltree
+      ipython-pygments-lexers
+      jedi
+      jellyfish
+      keyring
+      matplotlib
+      nbconvert
+      numpy
+      numpydoc
+      packaging
+      pickleshare
+      psutil
+      pygithub
+      pygments
+      pylint-venv
+      pyls-spyder
+      pyopengl
+      pyqtwebengine
+      python-lsp-black
+      python-lsp-server
+      pyuca
+      pyzmq
+      qdarkstyle
+      qstylizer
+      qtawesome
+      qtconsole
+      qtpy
+      rope
+      rtree
+      scipy
+      spyder-kernels
+      superqt
+      textdistance
+      three-merge
+      watchdog
+      yarl
+    ]
+    ++ python-lsp-server.optional-dependencies.all;
 
   # There is no test for spyder
   doCheck = false;
@@ -151,7 +149,7 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/spyder-ide/spyder/releases";
     changelog = "https://github.com/spyder-ide/spyder/blob/v${version}/changelogs/Spyder-6.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

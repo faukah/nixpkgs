@@ -3,16 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   enable = config.programs.bash.enableLsColors;
-in
-{
+in {
   options = {
-    programs.bash.enableLsColors = lib.mkEnableOption "extra colors in directory listings" // {
-      default = true;
-    };
+    programs.bash.enableLsColors =
+      lib.mkEnableOption "extra colors in directory listings"
+      // {
+        default = true;
+      };
     programs.bash.lsColorsFile = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
       default = null;

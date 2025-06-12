@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "sshportal";
   version = "1.19.5";
@@ -28,7 +27,7 @@ buildGoModule rec {
     description = "Simple, fun and transparent SSH (and telnet) bastion server";
     homepage = "https://manfred.life/sshportal";
     license = licenses.asl20;
-    maintainers = with maintainers; [ zaninime ];
+    maintainers = with maintainers; [zaninime];
     mainProgram = "sshportal";
   };
 }

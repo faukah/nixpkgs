@@ -5,7 +5,6 @@
   libdvdread,
   libdvdcss,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vobcopy";
   version = "1.2.0";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     homepage = "http://vobcopy.org/projects/c/c.shtml";
     license = lib.licenses.gpl2Plus;
 
-    maintainers = [ lib.maintainers.bluescreen303 ];
+    maintainers = [lib.maintainers.bluescreen303];
     platforms = lib.platforms.all;
     mainProgram = "vobcopy";
   };

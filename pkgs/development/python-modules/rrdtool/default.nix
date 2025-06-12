@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rrdtool";
   version = "0.1.16";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     "-Wno-error=incompatible-pointer-types"
   ];
 
-  pythonImportsCheck = [ "rrdtool" ];
+  pythonImportsCheck = ["rrdtool"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Python bindings for rrdtool";
     homepage = "https://github.com/commx/python-rrdtool";
     license = lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

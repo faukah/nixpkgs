@@ -5,7 +5,6 @@
   makeWrapper,
   perl,
 }:
-
 stdenv.mkDerivation {
   pname = "hb-honeypot";
   version = "0-unstable-2024-02-13";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     hash = "sha256-vnq7u/sqDLD+PsZ9DlxfjNuTkO8lhZujjAgmTcWf/3I=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
     description = "Script that listens on TCP port 443 and responds with completely bogus SSL heartbeat responses";
     mainProgram = "hb-honeypot";
     homepage = "https://github.com/D3vil0p3r/hb-honeypot";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
     license = licenses.gpl3Plus;
   };

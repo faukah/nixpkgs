@@ -6,7 +6,6 @@
   pkg-config,
   callPackage,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "teensy-cmake-macros";
   version = "unstable-2023-04-15";
@@ -34,6 +33,6 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = platforms.all;
     homepage = "https://github.com/newdigate/teensy-cmake-macros";
     license = licenses.mit;
-    maintainers = [ maintainers.michaeldonovan ];
+    maintainers = [maintainers.michaeldonovan];
   };
 })

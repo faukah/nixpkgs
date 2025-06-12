@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "chardet";
   version = "5.2.0";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-Gztv9HmoxBS8P6LAhSmVaVxKAm3NbQYzst0JLKOcHPc=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     hypothesis
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     "test_detect_all_and_detect_one_should_agree"
   ];
 
-  pythonImportsCheck = [ "chardet" ];
+  pythonImportsCheck = ["chardet"];
 
   meta = with lib; {
     changelog = "https://github.com/chardet/chardet/releases/tag/${version}";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     mainProgram = "chardetect";
     homepage = "https://github.com/chardet/chardet";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -12,7 +12,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "einops";
   version = "0.8.0";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   nativeCheckInputs = [
     jupyter
@@ -53,7 +52,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  pythonImportsCheck = [ "einops" ];
+  pythonImportsCheck = ["einops"];
 
   disabledTests = [
     # Tests are failing as mxnet is not pulled-in
@@ -63,7 +62,7 @@ buildPythonPackage rec {
     "test_backends_installed"
   ];
 
-  disabledTestPaths = [ "tests/test_layers.py" ];
+  disabledTestPaths = ["tests/test_layers.py"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -71,6 +70,6 @@ buildPythonPackage rec {
     description = "Flexible and powerful tensor operations for readable and reliable code";
     homepage = "https://github.com/arogozhnikov/einops";
     license = licenses.mit;
-    maintainers = with maintainers; [ yl3dy ];
+    maintainers = with maintainers; [yl3dy];
   };
 }

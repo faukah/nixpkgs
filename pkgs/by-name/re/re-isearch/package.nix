@@ -7,7 +7,6 @@
   libnsl,
   writableTmpDirAsHomeHook,
 }:
-
 stdenv.mkDerivation (finalAttr: {
   pname = "re-Isearch";
   version = "2.20220925.4.0a-unstable-2025-03-16";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttr: {
   };
 
   # Upstream issue: https://github.com/re-Isearch/re-Isearch/issues/11
-  patches = [ ./0001-fix-JsonHitTable-undefined-reference.patch ];
+  patches = [./0001-fix-JsonHitTable-undefined-reference.patch];
 
   postPatch = ''
     # Fix gcc-13 build due to missing <cstdint> include.
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttr: {
       --replace-fail "-m64" ""
   '';
 
-  nativeBuildInputs = [ writableTmpDirAsHomeHook ];
+  nativeBuildInputs = [writableTmpDirAsHomeHook];
 
   buildinputs = [
     db
@@ -76,7 +75,7 @@ stdenv.mkDerivation (finalAttr: {
     homepage = "https://nlnet.nl/project/Re-iSearch/";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.astro ];
-    teams = [ lib.teams.ngi ];
+    maintainers = [lib.maintainers.astro];
+    teams = [lib.teams.ngi];
   };
 })

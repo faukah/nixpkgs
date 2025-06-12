@@ -1,22 +1,23 @@
 import ../make-test-python.nix (
-  { lib, pkgs, ... }:
   {
+    lib,
+    pkgs,
+    ...
+  }: {
     name = "freshrss-nginx-sqlite";
     meta.maintainers = with lib.maintainers; [
       etu
       stunkymonkey
     ];
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        services.freshrss = {
-          enable = true;
-          baseUrl = "http://localhost";
-          passwordFile = pkgs.writeText "password" "secret";
-          dataDir = "/srv/freshrss";
-        };
+    nodes.machine = {pkgs, ...}: {
+      services.freshrss = {
+        enable = true;
+        baseUrl = "http://localhost";
+        passwordFile = pkgs.writeText "password" "secret";
+        dataDir = "/srv/freshrss";
       };
+    };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

@@ -9,7 +9,6 @@
   gperf,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "flasm";
   version = "1.64";
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
     })
   ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   nativeBuildInputs = [
     unzip
@@ -39,7 +38,7 @@ stdenv.mkDerivation {
     gperf
   ];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   installPhase = ''
     install -Dm755 flasm -t $out/bin
@@ -50,7 +49,7 @@ stdenv.mkDerivation {
     mainProgram = "flasm";
     homepage = "https://flasm.sourceforge.net/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.all;
   };
 }

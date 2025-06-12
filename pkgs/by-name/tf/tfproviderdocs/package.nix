@@ -40,7 +40,7 @@ buildGoModule rec {
       This helps developers maintain consistent and up-to-date documentation.
     '';
     homepage = "https://github.com/bflad/tfproviderdocs";
-    maintainers = with maintainers; [ tembleking ];
+    maintainers = with maintainers; [tembleking];
     mainProgram = "tfproviderdocs";
   };
 }

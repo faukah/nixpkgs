@@ -13,7 +13,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "aerc";
   version = "0.20.1";
@@ -52,14 +51,16 @@ buildGoModule (finalAttrs: {
     rm contrib/linters.go
   '';
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
-  pythonPath = [ python3Packages.vobject ];
+  pythonPath = [python3Packages.vobject];
 
-  buildInputs = [
-    python3Packages.python
-    gawk
-  ] ++ lib.optional withNotmuch notmuch;
+  buildInputs =
+    [
+      python3Packages.python
+      gawk
+    ]
+    ++ lib.optional withNotmuch notmuch;
 
   installPhase = ''
     runHook preInstall
@@ -71,29 +72,29 @@ buildGoModule (finalAttrs: {
 
   postFixup = ''
     wrapProgram $out/bin/aerc \
-      --prefix PATH : ${lib.makeBinPath [ ncurses ]}
+      --prefix PATH : ${lib.makeBinPath [ncurses]}
     wrapProgram $out/libexec/aerc/filters/html \
       --prefix PATH : ${
-        lib.makeBinPath [
-          w3m
-          dante
-        ]
-      }
+      lib.makeBinPath [
+        w3m
+        dante
+      ]
+    }
     wrapProgram $out/libexec/aerc/filters/html-unsafe \
       --prefix PATH : ${
-        lib.makeBinPath [
-          w3m
-          dante
-        ]
-      }
+      lib.makeBinPath [
+        w3m
+        dante
+      ]
+    }
     patchShebangs $out/libexec/aerc/filters
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Email client for your terminal";

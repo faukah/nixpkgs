@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "pcimem";
   version = "unstable-2018-08-29";
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
     "doc"
   ];
 
-  makeFlags = [ "CFLAGS=-Wno-maybe-uninitialized" ];
+  makeFlags = ["CFLAGS=-Wno-maybe-uninitialized"];
 
   installPhase = ''
     install -D pcimem "$out/bin/pcimem"
@@ -33,6 +32,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/billfarrow/pcimem";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mafo ];
+    maintainers = with maintainers; [mafo];
   };
 }

@@ -5,7 +5,6 @@
   fetchFromGitHub,
   cacert,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gogdl";
   version = "1.1.2";
@@ -25,14 +24,14 @@ python3Packages.buildPythonApplication rec {
     requests
   ];
 
-  pythonImportsCheck = [ "gogdl" ];
+  pythonImportsCheck = ["gogdl"];
 
   meta = with lib; {
     description = "GOG Downloading module for Heroic Games Launcher";
     mainProgram = "gogdl";
     homepage = "https://github.com/Heroic-Games-Launcher/heroic-gogdl";
-    license = with licenses; [ gpl3 ];
-    maintainers = with maintainers; [ aidalgol ];
+    license = with licenses; [gpl3];
+    maintainers = with maintainers; [aidalgol];
   };
 
   # Upstream no longer create git tags when bumping the version, so we have to

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bonk";
   version = "0.4.0";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/elliot40404/bonk";
     license = lib.licenses.mit;
     mainProgram = "bonk";
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
   };
 }

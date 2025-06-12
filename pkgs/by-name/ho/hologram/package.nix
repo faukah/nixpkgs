@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "hologram";
   version = "1.3";
@@ -31,7 +30,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/AdRoll/hologram/";
     description = "Easy, painless AWS credentials on developer laptops";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.asl20;
   };
 }

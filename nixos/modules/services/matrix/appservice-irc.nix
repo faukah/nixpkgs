@@ -3,37 +3,35 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.matrix-appservice-irc;
 
   pkg = pkgs.matrix-appservice-irc;
   bin = "${pkg}/bin/matrix-appservice-irc";
 
-  jsonType = (pkgs.formats.json { }).type;
+  jsonType = (pkgs.formats.json {}).type;
 
   configFile =
     pkgs.runCommand "matrix-appservice-irc.yml"
-      {
-        # Because this program will be run at build time, we need `nativeBuildInputs`
-        nativeBuildInputs = [
-          (pkgs.python3.withPackages (ps: [ ps.jsonschema ]))
-          pkgs.remarshal
-        ];
-        preferLocalBuild = true;
+    {
+      # Because this program will be run at build time, we need `nativeBuildInputs`
+      nativeBuildInputs = [
+        (pkgs.python3.withPackages (ps: [ps.jsonschema]))
+        pkgs.remarshal
+      ];
+      preferLocalBuild = true;
 
-        config = builtins.toJSON cfg.settings;
-        passAsFile = [ "config" ];
-      }
-      ''
-        # The schema is given as yaml, we need to convert it to json
-        remarshal --if yaml --of json -i ${pkg}/config.schema.yml -o config.schema.json
-        python -m jsonschema config.schema.json -i $configPath
-        cp "$configPath" "$out"
-      '';
+      config = builtins.toJSON cfg.settings;
+      passAsFile = ["config"];
+    }
+    ''
+      # The schema is given as yaml, we need to convert it to json
+      remarshal --if yaml --of json -i ${pkg}/config.schema.yml -o config.schema.json
+      python -m jsonschema config.schema.json -i $configPath
+      cp "$configPath" "$out"
+    '';
   registrationFile = "/var/lib/matrix-appservice-irc/registration.yml";
-in
-{
+in {
   options.services.matrix-appservice-irc = with lib.types; {
     enable = lib.mkEnableOption "the Matrix/IRC bridge";
 
@@ -77,14 +75,14 @@ in
         <https://github.com/matrix-org/matrix-appservice-irc/blob/${pkgs.matrix-appservice-irc.version}/config.sample.yaml>
         for supported values
       '';
-      default = { };
+      default = {};
       type = submodule {
         freeformType = jsonType;
 
         options = {
           homeserver = lib.mkOption {
             description = "Homeserver configuration";
-            default = { };
+            default = {};
             type = submodule {
               freeformType = jsonType;
 
@@ -106,7 +104,7 @@ in
           };
 
           database = lib.mkOption {
-            default = { };
+            default = {};
             description = "Configuration for the database";
             type = submodule {
               freeformType = jsonType;
@@ -130,7 +128,7 @@ in
           };
 
           ircService = lib.mkOption {
-            default = { };
+            default = {};
             description = "IRC bridge configuration";
             type = submodule {
               freeformType = jsonType;
@@ -146,7 +144,7 @@ in
                 };
 
                 servers = lib.mkOption {
-                  type = submodule { freeformType = jsonType; };
+                  type = submodule {freeformType = jsonType;};
                   description = "IRC servers to connect to";
                 };
 
@@ -194,11 +192,11 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.matrix-appservice-irc = {
       description = "Matrix-IRC bridge";
-      before = [ "matrix-synapse.service" ]; # So the registration can be used by Synapse
+      before = ["matrix-synapse.service"]; # So the registration can be used by Synapse
       after = lib.optionals (cfg.settings.database.engine == "postgres") [
         "postgresql.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         umask 077
@@ -253,7 +251,7 @@ in
         User = "matrix-appservice-irc";
         Group = "matrix-appservice-irc";
 
-        CapabilityBoundingSet = [ "CAP_CHOWN" ] ++ lib.optional (cfg.needBindingCap) "CAP_NET_BIND_SERVICE";
+        CapabilityBoundingSet = ["CAP_CHOWN"] ++ lib.optional (cfg.needBindingCap) "CAP_NET_BIND_SERVICE";
         AmbientCapabilities = CapabilityBoundingSet;
         NoNewPrivileges = true;
 
@@ -271,7 +269,7 @@ in
       };
     };
 
-    users.groups.matrix-appservice-irc = { };
+    users.groups.matrix-appservice-irc = {};
     users.users.matrix-appservice-irc = {
       description = "Service user for the Matrix-IRC bridge";
       group = "matrix-appservice-irc";

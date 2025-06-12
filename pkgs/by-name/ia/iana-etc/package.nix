@@ -4,7 +4,6 @@
   stdenvNoCC,
   writeText,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "iana-etc";
   version = "20250108";

@@ -8,7 +8,6 @@
   nix-update-script,
   enableLegacySg ? false,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ast-grep";
   version = "0.38.5";
@@ -28,11 +27,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Idd/vrnj6XJYahmmHgGWPoMCmH7hkJFeWhV8YEo41rM=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  cargoBuildFlags = [
-    "--package ast-grep --bin ast-grep"
-  ] ++ lib.optionals enableLegacySg [ "--package ast-grep --bin sg" ];
+  cargoBuildFlags =
+    [
+      "--package ast-grep --bin ast-grep"
+    ]
+    ++ lib.optionals enableLegacySg ["--package ast-grep --bin sg"];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd ast-grep \
@@ -53,7 +54,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "ast-grep";

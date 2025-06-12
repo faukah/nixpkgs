@@ -6,7 +6,6 @@
   poetry-core,
   importlib-metadata,
 }:
-
 buildPythonPackage rec {
   pname = "babelfish";
   version = "0.6.1";
@@ -17,19 +16,19 @@ buildPythonPackage rec {
     hash = "sha256-3stnpGYIiNSEgKtpmDCYNxdBWNDxqmO+uxwuEaq5eqs=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  dependencies = lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   # no tests executed
   doCheck = false;
 
-  pythonImportsCheck = [ "babelfish" ];
+  pythonImportsCheck = ["babelfish"];
 
   meta = with lib; {
     homepage = "https://github.com/Diaoul/babelfish";
     description = "Module to work with countries and languages";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

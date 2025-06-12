@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [ check ];
+  buildInputs = [check];
 
   doCheck = false;
 
@@ -51,6 +51,6 @@ stdenv.mkDerivation rec {
     mainProgram = "cork-hash";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

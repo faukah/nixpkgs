@@ -13,7 +13,6 @@
   libdbusmenu-gtk2,
   libappindicator-gtk2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "indicator-application-gtk2";
   version = "12.10.0.1";
@@ -68,6 +67,6 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/indicators-gtk2";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.msteen ];
+    maintainers = [maintainers.msteen];
   };
 }

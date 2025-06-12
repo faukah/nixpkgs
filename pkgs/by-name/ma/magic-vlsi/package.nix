@@ -12,7 +12,6 @@
   tcsh,
   tk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "magic-vlsi";
   version = "8.3.526";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-u6Z/Nfrlzn6JFDbPLPrpaZoR/nUGtE1H1roM6khme1Q=";
   };
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
   buildInputs = [
     cairo
     libX11
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     description = "VLSI layout tool written in Tcl";
     homepage = "http://opencircuitdesign.com/magic/";
     license = licenses.mit;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

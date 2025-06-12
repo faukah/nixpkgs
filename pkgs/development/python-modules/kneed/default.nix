@@ -9,7 +9,6 @@
   pytestCheckHook,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "kneed";
   version = "0.8.5";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     sha256 = "sha256-oakP6NkdvTzMZcoXS6cKNsRo//K+CoPLlhvbQLGij00=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     numpy
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Knee point detection in Python";
     homepage = "https://github.com/arvkevi/kneed";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ tm-drtina ];
+    maintainers = with maintainers; [tm-drtina];
   };
 }

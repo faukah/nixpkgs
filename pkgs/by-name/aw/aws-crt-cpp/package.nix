@@ -16,7 +16,6 @@
   s2n-tls,
   nix,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aws-crt-cpp";
   # nixpkgs-update: no auto update
@@ -81,6 +80,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/awslabs/aws-crt-cpp";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

@@ -10,7 +10,6 @@
   gsettings-desktop-schemas,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vimb";
   version = "3.7.0";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     applicationName = "Vimb";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = {
     description = "Vim-like browser";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://fanglingsu.github.io/vimb/";
     license = lib.licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 }

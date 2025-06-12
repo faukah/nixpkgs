@@ -10,7 +10,6 @@
   writableTmpDirAsHomeHook,
   gitMinimal,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tetragon";
   version = "1.4.0";
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   # For BPF compilation
-  hardeningDisable = [ "zerocallusedregs" ];
+  hardeningDisable = ["zerocallusedregs"];
 
   postPatch = ''
     substituteInPlace bpf/Makefile.defs --replace-fail '/bin/bash' '${lib.getExe bash}'
@@ -77,8 +76,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/cilium/tetragon";
     license = lib.licenses.asl20;
     mainProgram = "tetragon";
-    maintainers = with lib.maintainers; [ gangaram ];
+    maintainers = with lib.maintainers; [gangaram];
     platforms = lib.platforms.linux;
-    sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    sourceProvenance = with lib.sourceTypes; [fromSource];
   };
 })

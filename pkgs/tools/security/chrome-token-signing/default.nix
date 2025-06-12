@@ -7,7 +7,6 @@
   pkg-config,
   opensc,
 }:
-
 mkDerivation rec {
   pname = "chrome-token-signing";
   version = "1.1.5";
@@ -19,7 +18,7 @@ mkDerivation rec {
     sha256 = "sha256-wKy/RVR7jx5AkMJgHXsuV+jlzyfH5nDRggcIUgh2ML4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     qmake
     pcsclite
@@ -45,7 +44,7 @@ mkDerivation rec {
     mainProgram = "chrome-token-signing";
     homepage = "https://github.com/open-eid/chrome-token-signing/wiki";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.mmahut ];
+    maintainers = [maintainers.mmahut];
     platforms = platforms.linux;
   };
 }

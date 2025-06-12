@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "infracost";
   version = "0.10.38";
@@ -23,9 +22,9 @@ buildGoModule rec {
     "-X github.com/infracost/infracost/internal/version.Version=v${version}"
   ];
 
-  subPackages = [ "cmd/infracost" ];
+  subPackages = ["cmd/infracost"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   preCheck = ''
     # Feed in all tests for testing

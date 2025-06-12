@@ -5,7 +5,6 @@
   fetchFromGitHub,
   lz4,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "zfs_replicate";
   version = "4.0.0";
@@ -55,6 +54,6 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/alunduil/zfs-replicate/blob/v${version}/CHANGELOG.md";
     mainProgram = "zfs-replicate";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ alunduil ];
+    maintainers = with lib.maintainers; [alunduil];
   };
 }

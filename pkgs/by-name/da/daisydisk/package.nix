@@ -8,7 +8,6 @@
   common-updater-scripts,
   writeShellApplication,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "daisydisk";
   version = "4.31";
@@ -52,9 +51,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Find out what’s taking up your disk space and recover it in the most efficient and easy way";
     homepage = "https://daisydiskapp.com/";
     changelog = "https://daisydiskapp.com/releases";
-    license = [ lib.licenses.unfree ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-    maintainers = with lib.maintainers; [ DimitarNestorov ];
+    license = [lib.licenses.unfree];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+    maintainers = with lib.maintainers; [DimitarNestorov];
     platforms = lib.platforms.darwin;
   };
 })

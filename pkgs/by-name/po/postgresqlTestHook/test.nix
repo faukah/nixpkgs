@@ -3,14 +3,13 @@
   postgresqlTestHook,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   name = "postgresql-test-hook-test";
-  buildInputs = [ postgresqlTestHook ];
-  nativeCheckInputs = [ postgresql ];
+  buildInputs = [postgresqlTestHook];
+  nativeCheckInputs = [postgresql];
   dontUnpack = true;
   doCheck = true;
-  passAsFile = [ "sql" ];
+  passAsFile = ["sql"];
   sql = ''
     CREATE TABLE hello (
       message text

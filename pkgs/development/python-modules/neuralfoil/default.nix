@@ -7,7 +7,6 @@
   aerosandbox,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "neuralfoil";
   version = "0.2.3";
@@ -20,20 +19,20 @@ buildPythonPackage {
     hash = "sha256-kbPHPJh8xcIdPYIiaxwYqpfcnYzzDD6F0tG3flR0j3M=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
   dependencies = [
     numpy
     aerosandbox
   ];
 
-  pythonImportsCheck = [ "neuralfoil" ];
+  pythonImportsCheck = ["neuralfoil"];
 
-  nativeBuildInputs = [ pytestCheckHook ];
+  nativeBuildInputs = [pytestCheckHook];
 
   meta = {
     description = "Airfoil aerodynamics analysis tool using physics-informed machine learning, in pure Python/NumPy";
     homepage = "https://github.com/peterdsharpe/NeuralFoil";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

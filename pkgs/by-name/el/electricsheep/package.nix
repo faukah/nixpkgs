@@ -19,7 +19,6 @@
   libGL,
   glee,
 }:
-
 stdenv.mkDerivation {
   pname = "electricsheep";
   version = "3.0.2-unstable-2024-02-13";
@@ -78,7 +77,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Electric Sheep, a distributed screen saver for evolving artificial organisms";
     homepage = "https://electricsheep.org/";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     license = licenses.gpl2Only;
   };

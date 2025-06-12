@@ -12,7 +12,6 @@
   gobject-introspection,
   vala,
 }:
-
 stdenv.mkDerivation rec {
   version = "3.2.15";
   pname = "gmime";
@@ -40,13 +39,13 @@ stdenv.mkDerivation rec {
     libunistring
     vala # for share/vala/Makefile.vapigen
   ];
-  propagatedBuildInputs = [ glib ];
+  propagatedBuildInputs = [glib];
   configureFlags =
     [
       "--enable-introspection=yes"
       "--enable-vala=yes"
     ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "ac_cv_have_iconv_detect_h=yes" ];
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) ["ac_cv_have_iconv_detect_h=yes"];
 
   postPatch =
     ''
@@ -66,11 +65,13 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
       cp ${
-        if stdenv.hostPlatform.isMusl then ./musl-iconv-detect.h else ./iconv-detect.h
+        if stdenv.hostPlatform.isMusl
+        then ./musl-iconv-detect.h
+        else ./iconv-detect.h
       } ./iconv-detect.h
     '';
 
-  nativeCheckInputs = [ gnupg ];
+  nativeCheckInputs = [gnupg];
 
   doCheck = true;
 
@@ -80,7 +81,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jstedfast/gmime/";
     description = "C/C++ library for creating, editing and parsing MIME messages and structures";
     license = lib.licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

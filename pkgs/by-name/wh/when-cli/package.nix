@@ -20,6 +20,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/mitsuhiko/when";
     mainProgram = "when";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ loicreynier ];
+    maintainers = with lib.maintainers; [loicreynier];
   };
 }

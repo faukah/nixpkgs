@@ -13,7 +13,6 @@
   libcdio,
   libcdio-paranoia,
 }:
-
 buildPythonPackage {
   pname = "audiotools";
   version = "3.1.1-unstable-2020-07-29";
@@ -58,6 +57,6 @@ buildPythonPackage {
     description = "Utilities and Python modules for handling audio";
     homepage = "https://audiotools.sourceforge.net/";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

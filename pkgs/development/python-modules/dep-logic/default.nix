@@ -7,7 +7,6 @@
   packaging,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "dep-logic";
   version = "0.5.1";
@@ -22,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-W/y5iM9dHnle7y3VzqvW7DSGy8ALvjqt5CN/2z5oEi8=";
   };
 
-  nativeBuildInputs = [ pdm-backend ];
+  nativeBuildInputs = [pdm-backend];
 
-  propagatedBuildInputs = [ packaging ];
+  propagatedBuildInputs = [packaging];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dep_logic" ];
+  pythonImportsCheck = ["dep_logic"];
 
   meta = {
     changelog = "https://github.com/pdm-project/dep-logic/releases/tag/${src.tag}";

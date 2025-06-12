@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mdns";
   version = "1.4.3";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mjansson/mdns";
     changelog = "https://github.com/mjansson/mdns/blob/${src.rev}/CHANGELOG";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
     platforms = platforms.all;
   };
 }

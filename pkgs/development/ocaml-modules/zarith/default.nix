@@ -6,13 +6,14 @@
   findlib,
   pkg-config,
   gmp,
-  version ? if lib.versionAtLeast ocaml.version "4.08" then "1.14" else "1.13",
+  version ?
+    if lib.versionAtLeast ocaml.version "4.08"
+    then "1.14"
+    else "1.13",
 }:
-
-if lib.versionOlder ocaml.version "4.04" then
-  throw "zarith is not available for OCaml ${ocaml.version}"
+if lib.versionOlder ocaml.version "4.04"
+then throw "zarith is not available for OCaml ${ocaml.version}"
 else
-
   stdenv.mkDerivation (finalAttrs: {
     pname = "ocaml${ocaml.version}-zarith";
     inherit version;
@@ -33,13 +34,13 @@ else
       ocaml
       findlib
     ];
-    propagatedBuildInputs = [ gmp ];
+    propagatedBuildInputs = [gmp];
     strictDeps = true;
 
     dontAddPrefix = true;
     dontAddStaticConfigureFlags = true;
-    configurePlatforms = [ ];
-    configureFlags = [ "-installdir ${placeholder "out"}/lib/ocaml/${ocaml.version}/site-lib" ];
+    configurePlatforms = [];
+    configureFlags = ["-installdir ${placeholder "out"}/lib/ocaml/${ocaml.version}/site-lib"];
 
     preInstall = "mkdir -p $out/lib/ocaml/${ocaml.version}/site-lib/stublibs";
 

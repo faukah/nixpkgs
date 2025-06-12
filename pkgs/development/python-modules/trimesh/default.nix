@@ -10,7 +10,6 @@
   lxml,
   trimesh,
 }:
-
 buildPythonPackage rec {
   pname = "trimesh";
   version = "4.6.10";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-tlIsRZLmnRCqVHcLQOh6Jmne3rZGS95QudnvJHMu1qs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   optional-dependencies = with python.pkgs; {
     easy =
@@ -64,7 +63,7 @@ buildPythonPackage rec {
     "test_load"
   ];
 
-  pytestFlagsArray = [ "tests/test_minimal.py" ];
+  pytestFlagsArray = ["tests/test_minimal.py"];
 
   pythonImportsCheck = [
     "trimesh"

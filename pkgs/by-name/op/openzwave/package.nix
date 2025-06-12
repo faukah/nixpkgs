@@ -10,7 +10,6 @@
   which,
   systemd,
 }:
-
 stdenv.mkDerivation {
   pname = "openzwave";
   version = "1.6-unstable-2022-11-17";
@@ -36,9 +35,9 @@ stdenv.mkDerivation {
     which
   ];
 
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   enableParallelBuilding = true;
 
@@ -60,7 +59,7 @@ stdenv.mkDerivation {
     description = "C++ library to control Z-Wave Networks via a USB Z-Wave Controller";
     homepage = "http://www.openzwave.net/";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

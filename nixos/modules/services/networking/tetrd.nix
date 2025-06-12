@@ -3,23 +3,21 @@
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   options.services.tetrd.enable = lib.mkEnableOption "tetrd";
 
   config = lib.mkIf config.services.tetrd.enable {
     environment = {
-      systemPackages = [ pkgs.tetrd ];
+      systemPackages = [pkgs.tetrd];
       etc."resolv.conf".source = "/etc/tetrd/resolv.conf";
     };
 
     systemd = {
-      tmpfiles.rules = [ "f /etc/tetrd/resolv.conf - - -" ];
+      tmpfiles.rules = ["f /etc/tetrd/resolv.conf - - -"];
 
       services.tetrd = {
         description = pkgs.tetrd.meta.description;
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = {
           ExecStart = "${pkgs.tetrd}/opt/Tetrd/bin/tetrd";

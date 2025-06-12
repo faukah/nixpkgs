@@ -14,7 +14,6 @@
   texinfo,
   xorgproto,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "3.19";
   pname = "xnee";
@@ -103,7 +102,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://www.gnu.org/software/xnee/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     platforms = lib.platforms.unix;
   };
 })

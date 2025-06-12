@@ -7,7 +7,6 @@
   pytest-cov-stub,
   pytest-mock,
 }:
-
 buildPythonApplication rec {
   pname = "git-archive-all";
   version = "1.23.1";
@@ -45,7 +44,7 @@ buildPythonApplication rec {
     pytest-mock
   ];
 
-  disabledTests = [ "pycodestyle" ];
+  disabledTests = ["pycodestyle"];
 
   preCheck = ''
     export HOME="$(mktemp -d)"
@@ -59,7 +58,7 @@ buildPythonApplication rec {
     '';
     homepage = "https://github.com/Kentzo/git-archive-all";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     mainProgram = "git-archive-all";
   };
 }

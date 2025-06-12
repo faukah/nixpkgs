@@ -9,7 +9,6 @@
   pytestCheckHook,
   pytest-benchmark,
 }:
-
 buildPythonPackage rec {
   pname = "fastdiff";
   version = "0.3.0";
@@ -38,15 +37,15 @@ buildPythonPackage rec {
     pytest-benchmark
   ];
 
-  pytestFlagsArray = [ "--benchmark-skip" ];
+  pytestFlagsArray = ["--benchmark-skip"];
 
-  pythonImportsCheck = [ "fastdiff" ];
+  pythonImportsCheck = ["fastdiff"];
 
   meta = with lib; {
     description = "Fast native implementation of diff algorithm with a pure Python fallback";
     homepage = "https://github.com/syrusakbary/fastdiff";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     # resulting compiled object panics at import
     broken = stdenv.hostPlatform.is32bit;
   };

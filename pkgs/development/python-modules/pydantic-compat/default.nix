@@ -9,7 +9,6 @@
   pydantic,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pydantic-compat";
   version = "0.1.2";
@@ -37,9 +36,9 @@ buildPythonPackage rec {
     pydantic
   ];
 
-  pythonImportsCheck = [ "pydantic_compat" ];
+  pythonImportsCheck = ["pydantic_compat"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray = [
     "-W"
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pyapp-kit/pydantic-compat";
     changelog = "https://github.com/pyapp-kit/pydantic-compat/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

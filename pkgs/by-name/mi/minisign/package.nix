@@ -6,7 +6,6 @@
   pkg-config,
   libsodium,
 }:
-
 stdenv.mkDerivation rec {
   pname = "minisign";
   version = "0.12";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [ libsodium ];
+  buildInputs = [libsodium];
 
   meta = with lib; {
     description = "Simple tool for signing files and verifying signatures";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://jedisct1.github.io/minisign/";
     license = licenses.isc;
-    maintainers = with maintainers; [ joachifm ];
+    maintainers = with maintainers; [joachifm];
     platforms = platforms.unix;
     mainProgram = "minisign";
   };

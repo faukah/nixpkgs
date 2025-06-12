@@ -11,7 +11,6 @@
   nixosTests,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "magic-wormhole-mailbox-server";
   version = "0.5.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-oAegNnIpMgRldoHb9QIEXW1YF8V/mq4vIibm6hoAjKE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     ++ autobahn.optional-dependencies.twisted
     ++ twisted.optional-dependencies.tls;
 
-  pythonImportsCheck = [ "wormhole_mailbox_server" ];
+  pythonImportsCheck = ["wormhole_mailbox_server"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/magic-wormhole/magic-wormhole-mailbox-server";
     changelog = "https://github.com/magic-wormhole/magic-wormhole-mailbox-server/blob/${version}/NEWS.md";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.mjoerg ];
+    maintainers = [lib.maintainers.mjoerg];
   };
 }

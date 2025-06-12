@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 buildNpmPackage rec {
   pname = "balanceofsatoshis";
   version = "19.4.10";
@@ -18,11 +17,11 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-dsWYUCPbiF/L3RcdcaWVn6TnU1/XMy9l7eQgHrBYW4o=";
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   dontNpmBuild = true;
 
-  npmFlags = [ "--ignore-scripts" ];
+  npmFlags = ["--ignore-scripts"];
 
   meta = {
     changelog = "https://github.com/alexbosworth/balanceofsatoshis/blob/${src.rev}/CHANGELOG.md";
@@ -30,6 +29,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/alexbosworth/balanceofsatoshis";
     license = lib.licenses.mit;
     mainProgram = "bos";
-    maintainers = with lib.maintainers; [ mariaa144 ];
+    maintainers = with lib.maintainers; [mariaa144];
   };
 }

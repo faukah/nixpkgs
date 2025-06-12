@@ -4,13 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.graphite;
-  format = pkgs.formats.yaml { };
-in
-{
+  format = pkgs.formats.yaml {};
+in {
   port = 9108;
   extraOpts = {
     graphitePort = lib.mkOption {
@@ -23,9 +20,9 @@ in
     mappingSettings = lib.mkOption {
       type = lib.types.submodule {
         freeformType = format.type;
-        options = { };
+        options = {};
       };
-      default = { };
+      default = {};
       description = ''
         Mapping configuration for the exporter, see
         <https://github.com/prometheus/graphite_exporter#yaml-config> for

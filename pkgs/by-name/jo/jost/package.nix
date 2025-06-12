@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "jost";
   version = "3.5";
@@ -25,6 +24,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/indestructible-type/Jost";
     description = "Sans serif font by Indestructible Type";
     license = licenses.ofl;
-    maintainers = [ maintainers.ar1a ];
+    maintainers = [maintainers.ar1a];
   };
 }

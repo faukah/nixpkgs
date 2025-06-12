@@ -31,7 +31,6 @@
   python3,
   upower,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cinnamon-control-center";
   version = "6.4.1";
@@ -90,6 +89,6 @@ stdenv.mkDerivation rec {
     mainProgram = "cinnamon-control-center";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "git-ignore";
   version = "1.4.0";
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/sondr3/git-ignore";
     changelog = "https://github.com/sondr3/git-ignore/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "git-ignore";
   };
 }

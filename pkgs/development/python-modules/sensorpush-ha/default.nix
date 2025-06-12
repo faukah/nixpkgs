@@ -6,7 +6,6 @@
   sensorpush-api,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "sensorpush-ha";
   version = "1.3.2";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-Gs6WprGscr9fiu78S0OY6624LA87Of7OWkNNnaWIxJk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pydantic
     sensorpush-api
   ];
 
-  pythonImportsCheck = [ "sensorpush_ha" ];
+  pythonImportsCheck = ["sensorpush_ha"];
 
   # upstream has no tests
   doCheck = false;
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "SensorPush Cloud Home Assistant Library";
     homepage = "https://github.com/sstallion/sensorpush-ha";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

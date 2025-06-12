@@ -9,7 +9,6 @@
   zlib,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "memtier-benchmark";
   version = "2.1.4";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/redislabs/memtier_benchmark";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [thoughtpolice];
     mainProgram = "memtier_benchmark";
   };
 }

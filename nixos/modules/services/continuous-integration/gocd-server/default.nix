@@ -5,14 +5,10 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.gocd-server;
   opt = options.services.gocd-server;
-in
-{
+in {
   options = {
     services.gocd-server = {
       enable = mkEnableOption "gocd-server";
@@ -34,7 +30,7 @@ in
       };
 
       extraGroups = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         example = [
           "wheel"
@@ -149,7 +145,7 @@ in
       };
 
       extraOptions = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         example = [
           "-X debug"
@@ -168,7 +164,7 @@ in
       };
 
       environment = mkOption {
-        default = { };
+        default = {};
         type = with types; attrsOf str;
         description = ''
           Additional environment variables to be passed to the gocd-server process.
@@ -199,15 +195,16 @@ in
 
     systemd.services.gocd-server = {
       description = "GoCD Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
-      environment =
-        let
-          selectedSessionVars = lib.filterAttrs (
-            n: v: builtins.elem n [ "NIX_PATH" ]
-          ) config.environment.sessionVariables;
-        in
+      environment = let
+        selectedSessionVars =
+          lib.filterAttrs (
+            n: v: builtins.elem n ["NIX_PATH"]
+          )
+          config.environment.sessionVariables;
+      in
         selectedSessionVars
         // {
           NIX_REMOTE = "daemon";

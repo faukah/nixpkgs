@@ -14,7 +14,6 @@
   usePulseAudio ? config.pulseaudio or stdenv.hostPlatform.isLinux,
   libpulseaudio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libopenmpt";
   version = "0.7.13";
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://lib.openmpt.org/libopenmpt/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.unix;
   };
 }

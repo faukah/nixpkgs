@@ -23,7 +23,6 @@
   fetchpatch,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "herbstluftwm";
   version = "0.9.5";
@@ -78,7 +77,6 @@ stdenv.mkDerivation rec {
       url = "https://github.com/herbstluftwm/herbstluftwm/commit/1a6e8ee24eac671569f54bfec22ab47ff285a52c.patch";
       hash = "sha256-srulWJQ9zTR4Kdxo40AdHND4nexDe2PDSR69yWsOpVA=";
     })
-
   ];
 
   postPatch = ''
@@ -98,11 +96,12 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [
     (python3.withPackages (
-      ps: with ps; [
-        ewmh
-        pytest
-        xlib
-      ]
+      ps:
+        with ps; [
+          ewmh
+          pytest
+          xlib
+        ]
     ))
     xdotool
     xorgserver
@@ -116,7 +115,7 @@ stdenv.mkDerivation rec {
     export PYTHONPATH="$PYTHONPATH:../python"
   '';
 
-  pytestFlagsArray = [ "../tests" ];
+  pytestFlagsArray = ["../tests"];
   disabledTests = [
     "test_autostart" # $PATH problems
     "test_wmexec_to_other" # timeouts in sandbox
@@ -132,6 +131,6 @@ stdenv.mkDerivation rec {
     homepage = "https://herbstluftwm.org/";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ thibautmarty ];
+    maintainers = with maintainers; [thibautmarty];
   };
 }

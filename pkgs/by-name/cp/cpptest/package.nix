@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cpptest";
   version = "2.0.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://cpptest.sourceforge.net/";
     description = "Simple C++ unit testing framework";
-    maintainers = with maintainers; [ bosu ];
+    maintainers = with maintainers; [bosu];
     license = lib.licenses.lgpl3;
     platforms = platforms.all;
   };

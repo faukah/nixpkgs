@@ -5,7 +5,6 @@
   makeBinaryWrapper,
   medusa,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "brutespray";
   version = "2.3.1";
@@ -19,11 +18,11 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-TBLjCXb1W5FHBrzxBI0/3NMuM9eCizLiz489jyZsEso=";
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/brutespray \
-      --prefix PATH : ${lib.makeBinPath [ medusa ]}
+      --prefix PATH : ${lib.makeBinPath [medusa]}
     mkdir -p $out/share/brutespray
     cp -r wordlist $out/share/brutespray/wordlist
   '';
@@ -37,6 +36,6 @@ buildGoModule (finalAttrs: {
       directly from Nmap output.
     '';
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

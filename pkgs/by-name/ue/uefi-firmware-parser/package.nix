@@ -4,7 +4,6 @@
   nix-update-script,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "uefi-firmware-parser";
   version = "1.12";
@@ -22,18 +21,18 @@ python3.pkgs.buildPythonApplication rec {
     python3.pkgs.wheel
   ];
 
-  dependencies = [ python3.pkgs.future ];
+  dependencies = [python3.pkgs.future];
 
-  pythonImportsCheck = [ "uefi_firmware" ];
+  pythonImportsCheck = ["uefi_firmware"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tool for parsing, extracting, and recreating UEFI firmware volumes";
     homepage = "https://github.com/theopolis/uefi-firmware-parser";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ KSJ2000 ];
+    maintainers = with lib.maintainers; [KSJ2000];
     mainProgram = "uefi-firmware-parser";
   };
 }

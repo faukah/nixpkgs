@@ -7,7 +7,6 @@
   stdenvNoCC,
   testers,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "wiremock";
   version = "3.13.0";
@@ -19,7 +18,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p "$out"/{share/wiremock,bin}
@@ -50,7 +49,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ];
     mainProgram = "wiremock";
     platforms = jre.meta.platforms;
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.asl20;
   };
 })

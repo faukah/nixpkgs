@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   llm,
-
   # dependencies
   click,
   ollama,
   pydantic,
-
   # tests
   pytestCheckHook,
   pytest-asyncio,
@@ -19,7 +16,6 @@
   writableTmpDirAsHomeHook,
   llm-ollama,
 }:
-
 buildPythonPackage rec {
   pname = "llm-ollama";
   version = "0.11.0";
@@ -32,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-iwrDqrPt/zwXypBwD7zDAcen4fQq6PXl7Xj5VUL2KWA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     click
@@ -59,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/taketwo/llm-ollama";
     changelog = "https://github.com/taketwo/llm-ollama/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ erethon ];
+    maintainers = with lib.maintainers; [erethon];
   };
 }

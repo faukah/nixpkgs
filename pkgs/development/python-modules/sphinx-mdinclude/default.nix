@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   flit-core,
-
   # dependencies
   docutils,
   mistune,
   pygments,
   sphinx,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-mdinclude";
   version = "0.6.2";
@@ -27,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-RHRi6Cy4vmFASiIEIn+SB2nrkj0vV2COMyXzu4goa0w=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     docutils
@@ -36,7 +32,7 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/omnilib/sphinx-mdinclude";

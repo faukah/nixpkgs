@@ -4,12 +4,11 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tapview";
   version = "1.1";
 
-  nativeBuildInputs = [ asciidoctor ];
+  nativeBuildInputs = [asciidoctor];
 
   src = fetchFromGitLab {
     owner = "esr";
@@ -19,9 +18,9 @@ stdenv.mkDerivation rec {
   };
 
   # Remove unnecessary `echo` checks: `/bin/echo` fails, and `echo -n` works as expected.
-  patches = [ ./dont_check_echo.patch ];
+  patches = [./dont_check_echo.patch];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   meta = with lib; {
     description = "Minimalist pure consumer for TAP (Test Anything Protocol)";
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/esr/tapview";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pamplemousse ];
+    maintainers = with maintainers; [pamplemousse];
   };
 }

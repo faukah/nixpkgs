@@ -7,7 +7,6 @@
   tcl,
   tk,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dirdiff";
   version = "2.1";
@@ -17,14 +16,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-yzc2VNV4gCeAQ1XjVd8GlYYsO/wfaj/GAUcisxVqklI=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
   buildInputs = [
     tcl
     tk
   ];
 
   # Some light path patching.
-  patches = [ ./dirdiff-2.1-vars.patch ];
+  patches = [./dirdiff-2.1-vars.patch];
   postPatch = ''
     for file in dirdiff Makefile; do
       substituteInPlace "$file" \
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
       desktopName = "Dirdiff";
       genericName = "Directory Diff Viewer";
       comment = "Diff and merge directory trees";
-      categories = [ "Development" ];
+      categories = ["Development"];
     })
   ];
 

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "efmt";
   version = "0.19.1";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ haruki7049 ];
+    maintainers = with lib.maintainers; [haruki7049];
     mainProgram = "efmt";
   };
 }

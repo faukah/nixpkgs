@@ -9,7 +9,6 @@
   readline,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "foma";
   version = "0.10.0alpha-unstable-03-13-2024";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "Multi-purpose finite-state toolkit designed for applications ranging from natural language processing to research in automata theory";
     homepage = "https://github.com/mhulden/foma";
     license = licenses.asl20;
-    maintainers = [ maintainers.tckmn ];
+    maintainers = [maintainers.tckmn];
     platforms = platforms.all;
   };
 }

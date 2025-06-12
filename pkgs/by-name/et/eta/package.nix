@@ -3,7 +3,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "eta";
   version = "1.0.1";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/aioobe/eta";
     license = lib.licenses.gpl3Only;
     mainProgram = "eta";
-    maintainers = with lib.maintainers; [ heisfer ];
+    maintainers = with lib.maintainers; [heisfer];
     platforms = lib.platforms.linux;
   };
 })

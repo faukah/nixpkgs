@@ -8,7 +8,6 @@
   kcoreaddons,
   kdecoration,
 }:
-
 mkDerivation rec {
   pname = "kde2-decoration";
   version = "1.1";
@@ -41,6 +40,6 @@ mkDerivation rec {
     homepage = "https://github.com/repos-holder/kdecoration2-kde2";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

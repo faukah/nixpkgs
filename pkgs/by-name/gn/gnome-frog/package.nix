@@ -21,7 +21,6 @@
   zbar,
   gst_all_1,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gnome-frog";
   version = "1.6.0";
@@ -35,7 +34,7 @@ python3Packages.buildPythonApplication rec {
 
   format = "other";
 
-  patches = [ ./update-compatible-with-non-flatpak-env.patch ];
+  patches = [./update-compatible-with-non-flatpak-env.patch];
   postPatch = ''
     chmod +x ./build-aux/meson/postinstall.py
     patchShebangs ./build-aux/meson/postinstall.py
@@ -93,7 +92,7 @@ python3Packages.buildPythonApplication rec {
     description = "Intuitive text extraction tool (OCR) for GNOME desktop";
     license = licenses.mit;
     mainProgram = "frog";
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
     platforms = platforms.linux;
   };
 }

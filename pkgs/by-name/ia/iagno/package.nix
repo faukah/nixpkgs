@@ -19,7 +19,6 @@
   vala,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "iagno";
   version = "3.38.1";
@@ -64,14 +63,14 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "iagno"; };
+    updateScript = gnome.updateScript {packageName = "iagno";};
   };
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/iagno";
     description = "Computer version of the game Reversi, more popularly called Othello";
     mainProgram = "iagno";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

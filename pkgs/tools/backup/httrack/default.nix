@@ -6,7 +6,6 @@
   openssl,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   version = "3.49.2";
   pname = "httrack";

@@ -6,7 +6,6 @@
   pillow,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ttkbootstrap";
   version = "1.12.1";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
   meta = {
     description = "Supercharged theme extension for tkinter inspired by Bootstrap";
     homepage = "https://github.com/israel-dryer/ttkbootstrap";
-    maintainers = with lib.maintainers; [ e1mo ];
+    maintainers = with lib.maintainers; [e1mo];
     license = lib.licenses.mit;
   };
 }

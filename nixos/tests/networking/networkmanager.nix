@@ -1,25 +1,21 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
-
-with import ../../lib/testing-python.nix { inherit system pkgs; };
-
-let
+with import ../../lib/testing-python.nix {inherit system pkgs;}; let
   lib = pkgs.lib;
   # this is intended as a client test since you shouldn't use NetworkManager for a router or server
   # so using systemd-networkd for the router vm is fine in these tests.
-  router = import ./router.nix { networkd = true; };
-  qemu-common = import ../../lib/qemu-common.nix { inherit (pkgs) lib pkgs; };
-  clientConfig =
-    extraConfig:
+  router = import ./router.nix {networkd = true;};
+  qemu-common = import ../../lib/qemu-common.nix {inherit (pkgs) lib pkgs;};
+  clientConfig = extraConfig:
     lib.recursiveUpdate {
       networking.useDHCP = false;
 
       # Make sure that only NetworkManager configures the interface
       networking.interfaces = lib.mkForce {
-        eth1 = { };
+        eth1 = {};
       };
       networking.networkmanager = {
         enable = true;
@@ -34,7 +30,8 @@ let
           };
         };
       };
-    } extraConfig;
+    }
+    extraConfig;
   testCases = {
     startup = {
       name = "startup";
@@ -159,15 +156,14 @@ let
     };
     envsubst = {
       name = "envsubst";
-      nodes.client =
-        let
-          # you should never write secrets in to your nixos configuration, please use tools like sops-nix or agenix
-          secretFile = pkgs.writeText "my-secret.env" ''
-            MY_SECRET_IP=fd00:1234:5678:1::23/64
-          '';
-        in
+      nodes.client = let
+        # you should never write secrets in to your nixos configuration, please use tools like sops-nix or agenix
+        secretFile = pkgs.writeText "my-secret.env" ''
+          MY_SECRET_IP=fd00:1234:5678:1::23/64
+        '';
+      in
         clientConfig {
-          networking.networkmanager.ensureProfiles.environmentFiles = [ secretFile ];
+          networking.networkmanager.ensureProfiles.environmentFiles = [secretFile];
           networking.networkmanager.ensureProfiles.profiles.default = {
             ipv6.method = "manual";
             ipv6.addresses = "$MY_SECRET_IP";
@@ -182,16 +178,16 @@ let
     };
   };
 in
-lib.mapAttrs (lib.const (
-  attrs:
-  makeTest (
-    attrs
-    // {
-      name = "${attrs.name}-Networking-NetworkManager";
-      meta = {
-        maintainers = [ ];
-      };
-
-    }
-  )
-)) testCases
+  lib.mapAttrs (lib.const (
+    attrs:
+      makeTest (
+        attrs
+        // {
+          name = "${attrs.name}-Networking-NetworkManager";
+          meta = {
+            maintainers = [];
+          };
+        }
+      )
+  ))
+  testCases

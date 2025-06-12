@@ -18,7 +18,6 @@
   swig,
   zeromq,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libopenshot";
   version = "0.4.0";
@@ -86,8 +85,8 @@ stdenv.mkDerivation (finalAttrs: {
       delivering high quality video editing, animation, and playback solutions
       to the world. API currently supports C++, Python, and Ruby.
     '';
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

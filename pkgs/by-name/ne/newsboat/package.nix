@@ -16,7 +16,6 @@
   makeWrapper,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "newsboat";
   version = "2.39";
@@ -91,7 +90,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   installPhase = ''

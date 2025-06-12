@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "pachyderm";
   version = "2.12.2";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-+4vegNCaDWaGwhEyk5msCuydC5IvQuGEatc1U1CZRjc=";
 
-  subPackages = [ "src/server/cmd/pachctl" ];
+  subPackages = ["src/server/cmd/pachctl"];
 
   ldflags = [
     "-s"
@@ -29,7 +28,7 @@ buildGoModule rec {
     description = "Containerized Data Analytics";
     homepage = "https://www.pachyderm.com/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     mainProgram = "pachctl";
   };
 }

@@ -6,7 +6,6 @@
   pkg-config,
   gtk2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hdhomerun-config-gui";
   version = "20250506";
@@ -16,14 +15,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bmAdPR5r2mKCncQSSHZ6GYtAk3scHpatnmXGy+a/654=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     libhdhomerun
   ];
 
-  configureFlags = [ "CPPFLAGS=-I${libhdhomerun}/include/hdhomerun" ];
-  makeFlags = [ "SUBDIRS=src" ];
+  configureFlags = ["CPPFLAGS=-I${libhdhomerun}/include/hdhomerun"];
+  makeFlags = ["SUBDIRS=src"];
 
   installPhase = ''
     runHook preInstall
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.silicondust.com/support/linux";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.louisdk1 ];
+    maintainers = [maintainers.louisdk1];
     mainProgram = "hdhomerun_config_gui";
   };
 }

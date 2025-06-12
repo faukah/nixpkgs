@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "agebox";
   version = "0.8.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     changelog = "https://github.com/slok/agebox/releases/tag/v${version}";
     description = "Age based repository file encryption gitops tool";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ lesuisse ];
+    maintainers = with lib.maintainers; [lesuisse];
     mainProgram = "agebox";
   };
 }

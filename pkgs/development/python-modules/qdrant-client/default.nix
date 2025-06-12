@@ -15,7 +15,6 @@
   pythonOlder,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "qdrant-client";
   version = "1.14.2";
@@ -30,23 +29,25 @@ buildPythonPackage rec {
     hash = "sha256-JohJbKIZfPG3qqjF8T1EmeS1sZALCglEIcsWiNSn/QE=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   pythonRelaxDeps = [
     "portalocker"
   ];
 
-  dependencies = [
-    grpcio
-    grpcio-tools
-    httpx
-    numpy
-    portalocker
-    pydantic
-    urllib3
-  ] ++ httpx.optional-dependencies.http2;
+  dependencies =
+    [
+      grpcio
+      grpcio-tools
+      httpx
+      numpy
+      portalocker
+      pydantic
+      urllib3
+    ]
+    ++ httpx.optional-dependencies.http2;
 
-  pythonImportsCheck = [ "qdrant_client" ];
+  pythonImportsCheck = ["qdrant_client"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -57,7 +58,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   optional-dependencies = {
-    fastembed = [ fastembed ];
+    fastembed = [fastembed];
   };
 
   meta = with lib; {
@@ -65,6 +66,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/qdrant/qdrant-client";
     changelog = "https://github.com/qdrant/qdrant-client/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

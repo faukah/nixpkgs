@@ -10,7 +10,6 @@
   qt6,
   curl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-backgroundremoval";
   version = "1.1.13";
@@ -56,8 +55,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "OBS plugin to replace the background in portrait images and video";
     homepage = "https://github.com/royshil/obs-backgroundremoval";
-    maintainers = with maintainers; [ zahrun ];
+    maintainers = with maintainers; [zahrun];
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

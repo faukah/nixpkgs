@@ -15,7 +15,6 @@
   tox,
   virtualenv,
 }:
-
 buildPythonPackage rec {
   pname = "pyscaffoldext-travis";
   version = "0.3";
@@ -50,12 +49,12 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "pyscaffoldext.travis" ];
+  pythonImportsCheck = ["pyscaffoldext.travis"];
 
   meta = with lib; {
     description = "Travis CI configurations for PyScaffold";
     homepage = "https://pypi.org/project/pyscaffoldext-travis/";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

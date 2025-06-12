@@ -12,7 +12,6 @@
   astring,
   alcotest,
 }:
-
 buildDunePackage rec {
   version = "0.5.2";
   pname = "checkseum";
@@ -24,7 +23,7 @@ buildDunePackage rec {
     hash = "sha256-nl5P1EBctKi03wCHdUMlGDPgimSZ70LMuNulgt8Nr8g=";
   };
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     optint
   ];
@@ -44,7 +43,7 @@ buildDunePackage rec {
     description = "ADLER-32 and CRC32C Cyclic Redundancy Check";
     homepage = "https://github.com/mirage/checkseum";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     mainProgram = "checkseum.checkseum";
   };
 }

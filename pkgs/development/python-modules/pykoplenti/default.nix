@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pykoplenti";
   version = "1.4.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-vsqbjNj5x7X0VGbTq+CdZ9rPXVDypBkgaCI6MImloLo=";
   };
 
-  pythonRelaxDeps = [ "pydantic" ];
+  pythonRelaxDeps = ["pydantic"];
 
   nativeBuildInputs = [
     setuptools
@@ -47,14 +46,14 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pykoplenti" ];
+  pythonImportsCheck = ["pykoplenti"];
 
   meta = with lib; {
     description = "Python REST client API for Kostal Plenticore Inverters";
     mainProgram = "pykoplenti";
     homepage = "https://github.com/stegm/pykoplenti/";
     changelog = "https://github.com/stegm/pykoplenti/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

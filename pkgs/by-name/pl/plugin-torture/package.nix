@@ -11,7 +11,6 @@
   sord,
   sratom,
 }:
-
 stdenv.mkDerivation {
   pname = "plugin-torture";
   version = "2016-07-25";
@@ -23,7 +22,7 @@ stdenv.mkDerivation {
     sha256 = "1xyhvhm85d9z0kw716cjllrrzksn4s4bw34layg8hf4m5m31sp2p";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     boost
     ladspaH
@@ -41,11 +40,11 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     homepage = "https://github.com/cth103/plugin-torture";
     description = "Tool to test LADSPA and LV2 plugins";
     license = licenses.gpl2;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
   };
 }

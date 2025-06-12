@@ -9,7 +9,6 @@
   setuptools,
   standard-telnetlib,
 }:
-
 buildPythonPackage rec {
   pname = "nad-receiver";
   version = "0.3.0";
@@ -24,19 +23,19 @@ buildPythonPackage rec {
     hash = "sha256-jRMk/yMA48ei+g/33+mMYwfwixaKTMYcU/z/VOoJbvY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pyserial ] ++ lib.optionals (pythonAtLeast "3.13") [ standard-telnetlib ];
+  dependencies = [pyserial] ++ lib.optionals (pythonAtLeast "3.13") [standard-telnetlib];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "nad_receiver" ];
+  pythonImportsCheck = ["nad_receiver"];
 
   meta = with lib; {
     description = "Python interface for NAD receivers";
     homepage = "https://github.com/joopert/nad_receiver";
     changelog = "https://github.com/joopert/nad_receiver/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

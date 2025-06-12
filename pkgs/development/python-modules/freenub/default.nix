@@ -13,7 +13,6 @@
   requests,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "freenub";
   version = "0.1.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     sed -i "/--cov/d" pyproject.toml
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pubnub" ];
+  pythonImportsCheck = ["pubnub"];
 
   meta = with lib; {
     description = "Fork of pubnub";
     homepage = "https://github.com/bdraco/freenub";
     changelog = "https://github.com/bdraco/freenub/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

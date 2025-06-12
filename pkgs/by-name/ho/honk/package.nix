@@ -6,7 +6,6 @@
   installShellFiles,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "honk";
   version = "1.4.2";
@@ -25,7 +24,7 @@ buildGoModule rec {
     installShellFiles
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   # This susbtitution is not mandatory. It is only existing to have something
   # working out of the box. This value can be overridden by the user, by
@@ -61,6 +60,6 @@ buildGoModule rec {
     homepage = "https://humungus.tedunangst.com/r/honk";
     license = lib.licenses.isc;
     mainProgram = "honk";
-    maintainers = with lib.maintainers; [ huyngo ];
+    maintainers = with lib.maintainers; [huyngo];
   };
 }

@@ -8,7 +8,6 @@
   zlib,
   sparsehash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "afsctool";
   version = "1.7.3";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Utility that allows end-users to leverage HFS+/APFS compression";
     license = licenses.unfree;
-    maintainers = [ maintainers.viraptor ];
+    maintainers = [maintainers.viraptor];
     platforms = platforms.darwin;
     homepage = "https://github.com/RJVB/afsctool";
   };

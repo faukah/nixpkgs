@@ -10,7 +10,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cups-browsed";
   version = "2.1.1";

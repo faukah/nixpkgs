@@ -4,7 +4,6 @@
   fetchurl,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jbigkit";
   version = "2.1";

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pyusb,
 }:
-
 buildPythonPackage {
   pname = "blinkstick";
   version = "unstable-2023-05-04";
@@ -17,11 +16,11 @@ buildPythonPackage {
     hash = "sha256-9bc7TD/Ilc952ywLauFd0+3Lh64lQlYuDC1KG9eWDgs=";
   };
 
-  propagatedBuildInputs = [ pyusb ];
+  propagatedBuildInputs = [pyusb];
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "blinkstick" ];
+  pythonImportsCheck = ["blinkstick"];
 
   meta = {
     description = "Python package to control BlinkStick USB devices";

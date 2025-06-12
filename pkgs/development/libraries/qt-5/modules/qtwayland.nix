@@ -7,14 +7,13 @@
   pkg-config,
   lib,
 }:
-
 qtModule {
   pname = "qtwayland";
   propagatedBuildInputs = [
     qtbase
     qtquickcontrols
   ];
-  buildInputs = [ wayland ];
+  buildInputs = [wayland];
   nativeBuildInputs = [
     pkg-config
     wayland-scanner

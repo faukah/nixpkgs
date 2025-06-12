@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "livekit-cli";
   version = "1.5.1";
@@ -17,13 +16,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-ywHTIuiZaoY3p7hTsnImcCpuwMXHQZcnRsWerIlOU4o=";
 
-  subPackages = [ "cmd/livekit-cli" ];
+  subPackages = ["cmd/livekit-cli"];
 
   meta = with lib; {
     description = "Command line interface to LiveKit";
     homepage = "https://livekit.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mgdelacroix ];
+    maintainers = with maintainers; [mgdelacroix];
     mainProgram = "livekit-cli";
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubectl-tree";
   version = "0.4.3";
@@ -23,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/ahmetb/kubectl-tree";
     changelog = "https://github.com/ahmetb/kubectl-tree/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.ivankovnatsky ];
+    maintainers = [lib.maintainers.ivankovnatsky];
   };
 }

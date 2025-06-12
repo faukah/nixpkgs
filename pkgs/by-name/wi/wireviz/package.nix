@@ -3,7 +3,6 @@
   python3,
   fetchPypi,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "wireviz";
   version = "0.4.1";
@@ -36,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Easily document cables and wiring harnesses";
     homepage = "https://pypi.org/project/wireviz/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ pinpox ];
+    maintainers = with maintainers; [pinpox];
     mainProgram = "wireviz";
   };
 }

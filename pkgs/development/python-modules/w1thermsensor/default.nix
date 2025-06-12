@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "w1thermsensor";
   version = "2.3.0";
@@ -28,12 +27,12 @@ buildPythonPackage rec {
     sed -i 's/3\.5\.\*/3.5/' setup.py
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ click ];
+  propagatedBuildInputs = [click];
 
   optional-dependencies = {
-    async = [ aiofiles ];
+    async = [aiofiles];
   };
 
   # Don't try to load the kernel module in tests.
@@ -45,10 +44,10 @@ buildPythonPackage rec {
       pytest-asyncio
       pytestCheckHook
     ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli]
     ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "w1thermsensor" ];
+  pythonImportsCheck = ["w1thermsensor"];
 
   meta = with lib; {
     description = "Python interface to 1-Wire temperature sensors";
@@ -61,7 +60,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/timofurrer/w1thermsensor";
     changelog = "https://github.com/timofurrer/w1thermsensor/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ quentin ];
+    maintainers = with maintainers; [quentin];
     platforms = platforms.all;
   };
 }

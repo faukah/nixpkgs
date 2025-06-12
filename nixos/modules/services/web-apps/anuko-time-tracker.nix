@@ -3,19 +3,14 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.anuko-time-tracker;
-  configFile =
-    let
-      smtpPassword =
-        if cfg.settings.email.smtpPasswordFile == null then
-          "''"
-        else
-          "trim(file_get_contents('${cfg.settings.email.smtpPasswordFile}'))";
-
-    in
+  configFile = let
+    smtpPassword =
+      if cfg.settings.email.smtpPasswordFile == null
+      then "''"
+      else "trim(file_get_contents('${cfg.settings.email.smtpPasswordFile}'))";
+  in
     pkgs.writeText "config.php" ''
       <?php
       // Set include path for PEAR and its modules, which we include in the distribution.
@@ -62,12 +57,11 @@ let
       rm -f $out/dbinstall.php
     '';
   };
-in
-{
+in {
   options.services.anuko-time-tracker = {
     enable = lib.mkEnableOption "Anuko Time Tracker";
 
-    package = lib.mkPackageOption pkgs "anuko-time-tracker" { };
+    package = lib.mkPackageOption pkgs "anuko-time-tracker" {};
 
     database = {
       createLocally = lib.mkOption {
@@ -125,7 +119,9 @@ in
     hostname = lib.mkOption {
       type = lib.types.str;
       default =
-        if config.networking.domain != null then config.networking.fqdn else config.networking.hostName;
+        if config.networking.domain != null
+        then config.networking.fqdn
+        else config.networking.hostName;
       defaultText = lib.literalExpression "config.networking.fqdn";
       example = "anuko.example.com";
       description = ''
@@ -135,9 +131,9 @@ in
 
     nginx = lib.mkOption {
       type = lib.types.submodule (
-        lib.recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) { }
+        lib.recursiveUpdate (import ../web-servers/nginx/vhost-options.nix {inherit config lib;}) {}
       );
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           serverAliases = [
@@ -297,7 +293,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     assertions = [
       {
         assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
@@ -319,10 +314,12 @@ in
       pools.anuko-time-tracker = {
         inherit (cfg) user;
         group = config.services.nginx.group;
-        settings = {
-          "listen.owner" = config.services.nginx.user;
-          "listen.group" = config.services.nginx.group;
-        } // cfg.poolConfig;
+        settings =
+          {
+            "listen.owner" = config.services.nginx.user;
+            "listen.group" = config.services.nginx.group;
+          }
+          // cfg.poolConfig;
       };
     };
 
@@ -351,7 +348,7 @@ in
     services.mysql = lib.mkIf cfg.database.createLocally {
       enable = lib.mkDefault true;
       package = lib.mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -370,20 +367,18 @@ in
             Type = "oneshot";
             RemainAfterExit = true;
           };
-          wantedBy = [ "phpfpm-anuko-time-tracker.service" ];
-          after = [ "mysql.service" ];
-          script =
-            let
-              mysql = "${config.services.mysql.package}/bin/mysql";
-            in
-            ''
-              if [ ! -f ${cfg.dataDir}/.dbexists ]; then
-                # Load database schema provided with package
-                ${mysql} ${cfg.database.name} < ${cfg.package}/mysql.sql
+          wantedBy = ["phpfpm-anuko-time-tracker.service"];
+          after = ["mysql.service"];
+          script = let
+            mysql = "${config.services.mysql.package}/bin/mysql";
+          in ''
+            if [ ! -f ${cfg.dataDir}/.dbexists ]; then
+              # Load database schema provided with package
+              ${mysql} ${cfg.database.name} < ${cfg.package}/mysql.sql
 
-                touch ${cfg.dataDir}/.dbexists
-              fi
-            '';
+              touch ${cfg.dataDir}/.dbexists
+            fi
+          '';
         };
       };
       tmpfiles.rules = [
@@ -398,5 +393,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ michaelshmitty ];
+  meta.maintainers = with lib.maintainers; [michaelshmitty];
 }

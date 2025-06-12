@@ -11,9 +11,8 @@
   gnutar,
   gzip,
   bootGawk,
-}:
-let
-  inherit (import ./common.nix { inherit lib; }) meta;
+}: let
+  inherit (import ./common.nix {inherit lib;}) meta;
   pname = "gawk";
   version = "5.2.2";
 
@@ -22,7 +21,7 @@ let
     hash = "sha256-lFrvfM/xAfILIqEIArwAXplKsrjqPnJMwaGXxi9B9lA=";
   };
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version meta;
 
@@ -36,9 +35,8 @@ bash.runCommand "${pname}-${version}"
       bootGawk
     ];
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/awk --version
         mkdir $out
       '';

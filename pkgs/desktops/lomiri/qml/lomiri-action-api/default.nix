@@ -14,7 +14,6 @@
   qttools,
   validatePkgConfig,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-action-api";
   version = "1.2.0";
@@ -82,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -90,8 +89,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/ubports/development/core/lomiri-action-api";
     changelog = "https://gitlab.com/ubports/development/core/lomiri-action-api/-/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.lgpl3Only;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
-    pkgConfigModules = [ "lomiri-action-qt-1" ];
+    pkgConfigModules = ["lomiri-action-qt-1"];
   };
 })

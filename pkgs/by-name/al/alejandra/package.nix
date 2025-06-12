@@ -5,7 +5,6 @@
   testers,
   alejandra,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "alejandra";
   version = "4.0.0";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-IX4xp8llB7USpS/SSQ9L8+17hQk5nkXFP8NgFKVLqKU=";
 
   passthru.tests = {
-    version = testers.testVersion { package = alejandra; };
+    version = testers.testVersion {package = alejandra;};
   };
 
   meta = {

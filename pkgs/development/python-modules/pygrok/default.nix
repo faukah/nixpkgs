@@ -5,7 +5,6 @@
   regex,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "pygrok";
   version = "1.0.0";
@@ -18,15 +17,15 @@ buildPythonPackage rec {
     sha256 = "07487rcmv74srnchh60jp0vg46g086qmpkaj8gxqhp9rj47r1s4m";
   };
 
-  propagatedBuildInputs = [ regex ];
+  propagatedBuildInputs = [regex];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   checkPhase = ''
     pytest
   '';
 
   meta = with lib; {
-    maintainers = with maintainers; [ winpat ];
+    maintainers = with maintainers; [winpat];
     description = "Python implementation of jordansissel's grok regular expression library";
     homepage = "https://github.com/garyelephant/pygrok";
     license = licenses.mit;

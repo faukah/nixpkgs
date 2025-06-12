@@ -11,7 +11,6 @@
   wrapGAppsHook3,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "labwc-tweaks-gtk";
   version = "0-unstable-2025-04-01";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace theme.c --replace /usr/share /run/current-system/sw/share
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://github.com/labwc/labwc-tweaks-gtk";
@@ -50,6 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "labwc-tweaks-gtk";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ romildo ];
+    maintainers = with lib.maintainers; [romildo];
   };
 })

@@ -6,7 +6,6 @@
   rustPlatform,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "elf2nucleus";
   version = "0.1.0";
@@ -21,9 +20,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Xw+heCEwQePyU2gElpG8PTIUZA7y+Onx+2AX2NZzDGs=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ micronucleus ];
+  buildInputs = [micronucleus];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd elf2nucleus \
@@ -37,6 +36,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "elf2nucleus";
     homepage = "https://github.com/kpcyrd/elf2nucleus";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.marble ];
+    maintainers = [maintainers.marble];
   };
 }

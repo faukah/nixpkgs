@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "netaddr";
   version = "1.3.0";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-XDw9mJW1Ubdjd5un23oDSH3B+OOzha+BmvNBrp725Io=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "netaddr" ];
+  pythonImportsCheck = ["netaddr"];
 
   meta = with lib; {
     description = "Network address manipulation library for Python";
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/netaddr/netaddr/releases";
     changelog = "https://github.com/netaddr/netaddr/blob/${version}/CHANGELOG";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

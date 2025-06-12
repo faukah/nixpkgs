@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.deluge;
   inherit (lib) mkOption types concatStringsSep;
-in
-{
+in {
   port = 9354;
 
   extraOpts = {

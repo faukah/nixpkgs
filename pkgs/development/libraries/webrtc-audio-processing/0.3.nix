@@ -6,7 +6,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "webrtc-audio-processing";
   version = "0.3.1";

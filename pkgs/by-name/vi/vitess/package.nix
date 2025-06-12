@@ -4,7 +4,6 @@
   fetchFromGitHub,
   sqlite,
 }:
-
 buildGoModule rec {
   pname = "vitess";
   version = "22.0.0";
@@ -18,9 +17,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-0rgosDZn/DZcEK8f1JE2ICiOQX1GU2H93EEAlvesNE8=";
 
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
-  subPackages = [ "go/cmd/..." ];
+  subPackages = ["go/cmd/..."];
 
   # integration tests require access to syslog and root
   doCheck = false;
@@ -30,6 +29,6 @@ buildGoModule rec {
     changelog = "https://github.com/vitessio/vitess/releases/tag/v${version}";
     description = "Database clustering system for horizontal scaling of MySQL";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ urandom ];
+    maintainers = with lib.maintainers; [urandom];
   };
 }

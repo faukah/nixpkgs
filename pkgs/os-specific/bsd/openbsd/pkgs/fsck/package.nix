@@ -1,6 +1,6 @@
-{ mkDerivation }:
+{mkDerivation}:
 mkDerivation {
   path = "sbin/fsck";
 
-  patches = [ ./fsck-path.patch ];
+  patches = [./fsck-path.patch];
 }

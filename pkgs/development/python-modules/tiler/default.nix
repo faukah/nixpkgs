@@ -10,7 +10,6 @@
   tqdm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "tiler";
   version = "0.5.7";
@@ -41,14 +40,14 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "tiler" ];
+  pythonImportsCheck = ["tiler"];
 
   meta = with lib; {
     description = "N-dimensional NumPy array tiling and merging with overlapping, padding and tapering";
     homepage = "https://the-lay.github.io/tiler/";
     license = licenses.mit;
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
   };
 }

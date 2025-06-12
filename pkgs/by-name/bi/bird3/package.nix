@@ -9,7 +9,6 @@
   libssh,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bird";
   version = "3.1.2";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "BIRD Internet Routing Daemon";
     homepage = "https://bird.nic.cz/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ herbetom ];
+    maintainers = with lib.maintainers; [herbetom];
     platforms = lib.platforms.linux;
   };
 }

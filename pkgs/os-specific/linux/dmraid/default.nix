@@ -5,7 +5,6 @@
   fetchpatch,
   lvm2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dmraid";
   version = "1.0.0.rc16";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = "cd */";
 
-  buildInputs = [ lvm2 ];
+  buildInputs = [lvm2];
 
   # Hand-written Makefile does not have full dependencies to survive
   # parallel build:
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
       its volumes. May be needed for rescuing an older system or nuking
       the metadata when reformatting.
     '';
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
   };

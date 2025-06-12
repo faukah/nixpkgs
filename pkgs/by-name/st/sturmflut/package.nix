@@ -6,7 +6,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "sturmflut";
   version = "0-unstable-2023-04-25";
@@ -18,9 +17,9 @@ stdenv.mkDerivation {
     hash = "sha256-amNkCDdfG1AqfQ5RCT4941uOtjQRSFt/opzE8yIaftc=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ imagemagick ];
+  buildInputs = [imagemagick];
 
   installPhase = ''
     runHook preInstall
@@ -28,13 +27,13 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Fast (80+ Gbit/s) pixelflut client with full IPv6 and animation support";
     homepage = "https://github.com/TobleMiner/sturmflut";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ zebreus ];
+    maintainers = with lib.maintainers; [zebreus];
     platforms = lib.platforms.linux;
     mainProgram = "sturmflut";
   };

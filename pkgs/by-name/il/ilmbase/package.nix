@@ -6,7 +6,6 @@
   # explicitly depending on openexr_2 because ilmbase doesn't exist for v3
   openexr_2,
 }:
-
 stdenv.mkDerivation {
   pname = "ilmbase";
   version = lib.getVersion openexr_2;
@@ -20,8 +19,8 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  nativeBuildInputs = [cmake];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   # fails 1 out of 1 tests with
   # "lt-ImathTest: testBoxAlgo.cpp:892: void {anonymous}::boxMatrixTransform(): Assertion `b21 == b2' failed"

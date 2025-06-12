@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyisemail";
   version = "2.0.1";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-bJCaVUhvEAoQ8zMsbcb1Et728XHt+shEPhhBzPzY/vo=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  propagatedBuildInputs = [ dnspython ];
+  propagatedBuildInputs = [dnspython];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyisemail" ];
+  pythonImportsCheck = ["pyisemail"];
 
   meta = with lib; {
     description = "Module for email validation";
     homepage = "https://github.com/michaelherold/pyIsEmail";
     changelog = "https://github.com/michaelherold/pyIsEmail/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -7,7 +7,6 @@
   uutf,
   mdx,
 }:
-
 buildDunePackage {
   pname = "printbox-text";
   inherit (printbox) src version;
@@ -19,9 +18,11 @@ buildDunePackage {
   ];
 
   doCheck = printbox.doCheck && lib.versionOlder ocaml.version "5.0";
-  nativeCheckInputs = [ mdx.bin ];
+  nativeCheckInputs = [mdx.bin];
 
-  meta = printbox.meta // {
-    description = "Text renderer for printbox, using unicode edges";
-  };
+  meta =
+    printbox.meta
+    // {
+      description = "Text renderer for printbox, using unicode edges";
+    };
 }

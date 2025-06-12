@@ -7,7 +7,6 @@
   six,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pystardict";
   version = "0.8";
@@ -20,21 +19,21 @@ buildPythonPackage rec {
     hash = "sha256-YrZpIhyxfA3G7rP0SJ+EvzGwAXlne80AYilkj6cIDnA=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeBuildInputs = [
     setuptools
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pystardict" ];
+  pythonImportsCheck = ["pystardict"];
 
   meta = with lib; {
     description = "Library for manipulating StarDict dictionaries from within Python";
     homepage = "https://github.com/lig/pystardict";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ thornycrackers ];
+    maintainers = with maintainers; [thornycrackers];
   };
 }

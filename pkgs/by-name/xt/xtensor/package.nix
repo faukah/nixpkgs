@@ -10,7 +10,6 @@
   xtl,
   xsimd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xtensor";
   version = "0.25.0";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   # See https://github.com/xtensor-stack/xtensor/pull/2821
-  patches = lib.optionals stdenv.cc.isClang [ ./0001-Fix-clang-build-errors-on-darwin.patch ];
+  patches = lib.optionals stdenv.cc.isClang [./0001-Fix-clang-build-errors-on-darwin.patch];
 
   nativeBuildInputs = [
     cmake
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Multi-dimensional arrays with broadcasting and lazy computing";
     homepage = "https://github.com/xtensor-stack/xtensor";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
     platforms = platforms.all;
   };
 })

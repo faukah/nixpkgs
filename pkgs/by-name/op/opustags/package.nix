@@ -11,7 +11,6 @@
   perl,
   perlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opustags";
   version = "1.10.1";
@@ -23,12 +22,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0lo+4VMYXGwXUuRxU1xZRxzlUQ4o4n/CDHXDM27FK44=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
-  buildInputs = [ libogg ];
+  buildInputs = [libogg];
 
   doCheck = true;
 
@@ -54,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "Ogg Opus tags editor";
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin;
-    maintainers = with maintainers; [ kmein ];
+    maintainers = with maintainers; [kmein];
     license = licenses.bsd3;
     mainProgram = "opustags";
   };

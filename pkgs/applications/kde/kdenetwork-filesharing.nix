@@ -11,7 +11,6 @@
   samba,
   qcoro,
 }:
-
 mkDerivation {
   pname = "kdenetwork-filesharing";
   meta = {
@@ -19,7 +18,7 @@ mkDerivation {
       lib.licenses.gpl2
       lib.licenses.lgpl21
     ];
-    maintainers = [ lib.maintainers.ttuegel ];
+    maintainers = [lib.maintainers.ttuegel];
   };
   nativeBuildInputs = [
     extra-cmake-modules

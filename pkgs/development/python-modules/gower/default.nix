@@ -7,9 +7,7 @@
   scipy,
   pandas,
 }:
-
 buildPythonPackage {
-
   pname = "gower";
   version = "0.1.2";
   pyproject = true;
@@ -25,14 +23,14 @@ buildPythonPackage {
     ./fix-pyproject_toml.patch
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     scipy
     pandas
   ];
 
-  pythonImportsCheck = [ "gower" ];
+  pythonImportsCheck = ["gower"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -42,6 +40,6 @@ buildPythonPackage {
     description = "Gower's distance calculation in Python";
     homepage = "https://github.com/wwwjk366/gower";
     license = licenses.mit;
-    maintainers = with maintainers; [ b-rodrigues ];
+    maintainers = with maintainers; [b-rodrigues];
   };
 }

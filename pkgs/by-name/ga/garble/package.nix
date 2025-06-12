@@ -8,7 +8,6 @@
   replaceVars,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "garble";
   version = "0.14.1";
@@ -60,7 +59,7 @@ buildGoModule rec {
   versionCheckProgramArg = "version";
   doInstallCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Obfuscate Go code by wrapping the Go toolchain";

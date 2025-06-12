@@ -5,7 +5,6 @@
   earley,
   timed,
 }:
-
 buildDunePackage rec {
   pname = "bindlib";
   version = "6.0.0";
@@ -30,6 +29,6 @@ buildDunePackage rec {
     description = "Efficient binder representation in Ocaml";
     license = licenses.gpl3;
     changelog = "https://github.com/rlepigre/ocaml-bindlib/raw/${version}/CHANGELOG.md";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

@@ -10,7 +10,6 @@
   iso8601,
   stringext,
 }:
-
 buildDunePackage rec {
   pname = "gitlab";
   version = "0.1.8";
@@ -28,9 +27,9 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.08";
 
-  buildInputs = [ stringext ];
+  buildInputs = [stringext];
 
-  nativeBuildInputs = [ atdgen ];
+  nativeBuildInputs = [atdgen];
 
   propagatedBuildInputs = [
     uri
@@ -47,6 +46,6 @@ buildDunePackage rec {
     description = "Native OCaml bindings to Gitlab REST API v4";
     license = licenses.bsd3;
     changelog = "https://github.com/tmcgilchrist/ocaml-gitlab/releases/tag/${version}";
-    maintainers = with maintainers; [ zazedd ];
+    maintainers = with maintainers; [zazedd];
   };
 }

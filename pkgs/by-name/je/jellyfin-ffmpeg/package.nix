@@ -2,28 +2,27 @@
   ffmpeg_7-full,
   fetchFromGitHub,
   lib,
-}:
-
-let
+}: let
   version = "7.1.1-3";
 in
-
-(ffmpeg_7-full.override {
-  inherit version; # Important! This sets the ABI.
-  source = fetchFromGitHub {
-    owner = "jellyfin";
-    repo = "jellyfin-ffmpeg";
-    rev = "v${version}";
-    hash = "sha256-pJLIhXDPDRhEqzmc1bXViSTSnRifFhMlixkEbGA0GRE=";
-  };
-}).overrideAttrs
+  (ffmpeg_7-full.override {
+    inherit version; # Important! This sets the ABI.
+    source = fetchFromGitHub {
+      owner = "jellyfin";
+      repo = "jellyfin-ffmpeg";
+      rev = "v${version}";
+      hash = "sha256-pJLIhXDPDRhEqzmc1bXViSTSnRifFhMlixkEbGA0GRE=";
+    };
+  }).overrideAttrs
   (old: {
     pname = "jellyfin-ffmpeg";
 
-    configureFlags = old.configureFlags ++ [
-      "--extra-version=Jellyfin"
-      "--disable-ptx-compression" # https://github.com/jellyfin/jellyfin/issues/7944#issuecomment-1156880067
-    ];
+    configureFlags =
+      old.configureFlags
+      ++ [
+        "--extra-version=Jellyfin"
+        "--disable-ptx-compression" # https://github.com/jellyfin/jellyfin/issues/7944#issuecomment-1156880067
+      ];
 
     postPatch = ''
       for file in $(cat debian/patches/series); do
@@ -38,7 +37,7 @@ in
       changelog = "https://github.com/jellyfin/jellyfin-ffmpeg/releases/tag/v${version}";
       description = "${old.meta.description} (Jellyfin fork)";
       homepage = "https://github.com/jellyfin/jellyfin-ffmpeg";
-      maintainers = with lib.maintainers; [ justinas ];
-      pkgConfigModules = [ "libavutil" ];
+      maintainers = with lib.maintainers; [justinas];
+      pkgConfigModules = ["libavutil"];
     };
   })

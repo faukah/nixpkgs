@@ -4,9 +4,7 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.smartctl;
 
   inherit (lib) mkOption types literalExpression;
@@ -19,15 +17,13 @@ let
     ++ map (device: "--smartctl.device=${device}") cfg.devices
     ++ cfg.extraFlags
   );
-
-in
-{
+in {
   port = 9633;
 
   extraOpts = {
     devices = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [ "/dev/sda", "/dev/nvme0n1" ];
       '';

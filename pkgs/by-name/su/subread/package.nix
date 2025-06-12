@@ -4,7 +4,6 @@
   fetchurl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "subread";
   version = "2.1.1";
@@ -20,10 +19,14 @@ stdenv.mkDerivation rec {
 
   configurePhase = ''
     cd src
-    cp Makefile.${if stdenv.hostPlatform.isLinux then "Linux" else "MacOS"} Makefile
+    cp Makefile.${
+      if stdenv.hostPlatform.isLinux
+      then "Linux"
+      else "MacOS"
+    } Makefile
   '';
 
-  makeFlags = [ "CC_EXEC=cc" ];
+  makeFlags = ["CC_EXEC=cc"];
 
   installPhase = ''
     mkdir $out
@@ -34,12 +37,11 @@ stdenv.mkDerivation rec {
     broken = stdenv.hostPlatform.isDarwin;
     description = "High-performance read alignment, quantification and mutation discovery";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = [
       "x86_64-darwin"
       "x86_64-linux"
     ];
     homepage = "https://subread.sourceforge.net/";
   };
-
 }

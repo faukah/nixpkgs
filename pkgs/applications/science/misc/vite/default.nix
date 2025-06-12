@@ -12,7 +12,6 @@
   glew,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vite";
   version = "unstable-2022-05-17";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
 
     homepage = "http://vite.gforge.inria.fr/";
     license = lib.licenses.cecill20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 }

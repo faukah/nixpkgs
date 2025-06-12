@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     description = "Command line tool to process CSV files directly from the shell";
     homepage = "https://github.com/medialab/xan";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ NotAShelf ];
+    maintainers = with lib.maintainers; [NotAShelf];
     mainProgram = "xan";
   };
 }

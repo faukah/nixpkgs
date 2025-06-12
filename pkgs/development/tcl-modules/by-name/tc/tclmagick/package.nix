@@ -5,7 +5,6 @@
   graphicsmagick,
   tk,
 }:
-
 mkTclDerivation rec {
   pname = "tclmagick";
   version = "1.3.43";
@@ -33,6 +32,6 @@ mkTclDerivation rec {
     description = "Tcl and Tk Interfaces to GraphicsMagick and ImageMagick";
     homepage = "http://www.graphicsmagick.org/TclMagick/doc/";
     license = lib.licenses.tcltk;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
   };
 }

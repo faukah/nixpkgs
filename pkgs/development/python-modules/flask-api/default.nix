@@ -4,18 +4,14 @@
   pythonOlder,
   fetchFromGitHub,
   fetchpatch,
-
   # build-system
   setuptools,
-
   # dependencies
   flask,
-
   # tests
   markdown,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flask-api";
   version = "3.1";
@@ -38,9 +34,9 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ flask ];
+  propagatedBuildInputs = [flask];
 
   nativeCheckInputs = [
     markdown
@@ -52,6 +48,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/flask-api/flask-api/releases/tag/v${version}";
     description = "Browsable web APIs for Flask";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

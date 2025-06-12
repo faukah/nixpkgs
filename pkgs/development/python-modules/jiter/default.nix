@@ -8,7 +8,6 @@
   pytestCheckHook,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "jiter";
   version = "0.8.2";
@@ -25,30 +24,30 @@ buildPythonPackage rec {
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
+  cargoDeps = rustPlatform.importCargoLock {lockFile = ./Cargo.lock;};
 
   buildAndTestSubdir = "crates/jiter-python";
 
-  nativeBuildInputs = [ rustPlatform.cargoSetupHook ];
+  nativeBuildInputs = [rustPlatform.cargoSetupHook];
 
-  build-system = [ rustPlatform.maturinBuildHook ];
+  build-system = [rustPlatform.maturinBuildHook];
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
-  pythonImportsCheck = [ "jiter" ];
+  pythonImportsCheck = ["jiter"];
 
   nativeCheckInputs = [
     dirty-equals
     pytestCheckHook
   ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--generate-lockfile" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--generate-lockfile"];};
 
   meta = {
     description = "Fast iterable JSON parser";
     homepage = "https://github.com/pydantic/jiter/";
     changelog = "https://github.com/pydantic/jiter/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

@@ -5,7 +5,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildDotnetModule (finalAttrs: {
   pname = "hedgemodmanager";
   version = "8.0.0-beta4";
@@ -48,6 +47,6 @@ buildDotnetModule (finalAttrs: {
     changelog = "https://github.com/hedge-dev/HedgeModManager/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })

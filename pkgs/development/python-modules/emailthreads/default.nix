@@ -5,7 +5,6 @@
   isPy3k,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "emailthreads";
   version = "0.1.3";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-7BhYS1DQCW9QpG31asPCq5qPyJy+WW2onZpvEHhwQCs=";
   };
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   PKGVER = version;
 
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/emersion/python-emailthreads";
     description = "Python library to parse and format email threads";
     license = licenses.mit;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

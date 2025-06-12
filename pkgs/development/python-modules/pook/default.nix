@@ -12,7 +12,6 @@
   pythonOlder,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "pook";
   version = "2.1.3";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-DDHaKsye28gxyorILulrLRBy/B9zV673jeVZ85uPZAo=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     furl
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pook" ];
+  pythonImportsCheck = ["pook"];
 
   disabledTests = [
     # furl compat issue
@@ -63,7 +62,7 @@ buildPythonPackage rec {
     description = "HTTP traffic mocking and testing";
     homepage = "https://github.com/h2non/pook";
     changelog = "https://github.com/h2non/pook/blob/v${version}/History.rst";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "scudcloud";
   version = "1.65";
@@ -26,6 +25,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/raelgc/scudcloud";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ volhovm ];
+    maintainers = with maintainers; [volhovm];
   };
 }

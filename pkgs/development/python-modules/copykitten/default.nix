@@ -5,7 +5,6 @@
   lib,
   pillow,
 }:
-
 buildPythonPackage rec {
   pname = "copykitten";
   version = "1.2.3";
@@ -38,14 +37,14 @@ buildPythonPackage rec {
   # displays being null and the clipboard never being initialized.
   doCheck = false;
 
-  pythonImportsCheck = [ "copykitten" ];
+  pythonImportsCheck = ["copykitten"];
 
   meta = {
     description = "Robust, dependency-free way to use the system clipboard in Python";
     homepage = "https://github.com/Klavionik/copykitten";
     changelog = "https://github.com/Klavionik/copykitten/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.samasaur ];
+    maintainers = [lib.maintainers.samasaur];
     platforms = lib.platforms.all;
   };
 }

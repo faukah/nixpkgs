@@ -7,7 +7,6 @@
   zopfli,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zopfli";
   version = "0.2.3";
@@ -22,17 +21,17 @@ buildPythonPackage rec {
 
   format = "pyproject";
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  buildInputs = [ zopfli ];
+  buildInputs = [zopfli];
   USE_SYSTEM_ZOPFLI = "True";
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "cPython bindings for zopfli";
     homepage = "https://github.com/obp/py-zopfli";
     license = licenses.asl20;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

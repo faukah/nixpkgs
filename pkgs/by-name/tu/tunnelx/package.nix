@@ -7,7 +7,6 @@
   survex,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tunnelx";
   version = "2023-09-29";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Program for drawing cave surveys in 2D";
     homepage = "https://github.com/CaveSurveying/tunnelx/";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ goatchurchprime ];
+    maintainers = with lib.maintainers; [goatchurchprime];
     platforms = lib.platforms.linux;
     mainProgram = "tunnelx";
   };

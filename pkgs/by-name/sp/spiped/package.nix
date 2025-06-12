@@ -6,7 +6,6 @@
   coreutils,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spiped";
   version = "1.6.4";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Qk+003adkSsE3kPSHMMnSM39MSHE8dJtVJmSpUZ44Go=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   postPatch = ''
     substituteInPlace libcperciva/cpusupport/Build/cpusupport.sh \
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.tarsnap.com/spiped.html";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

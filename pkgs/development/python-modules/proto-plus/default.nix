@@ -8,7 +8,6 @@
   pytestCheckHook,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "proto-plus";
   version = "1.26.1";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-7FonHHXpgJC0vg9Y26bqz0g1NmLWwaZWyFZ0kv7PjY8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ protobuf ];
+  dependencies = [protobuf];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -37,12 +36,12 @@ buildPythonPackage rec {
     "ignore::DeprecationWarning"
   ];
 
-  pythonImportsCheck = [ "proto" ];
+  pythonImportsCheck = ["proto"];
 
   meta = with lib; {
     description = "Beautiful, idiomatic protocol buffers in Python";
     homepage = "https://github.com/googleapis/proto-plus-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ruuda ];
+    maintainers = with maintainers; [ruuda];
   };
 }

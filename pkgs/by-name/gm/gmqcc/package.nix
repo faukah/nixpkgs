@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "gmqcc";
   version = "0-unstable-2023-05-05";
@@ -38,7 +37,7 @@ stdenv.mkDerivation {
       We welcome you. You won't find a better Quake C compiler.
     '';
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ necrophcodr ];
+    maintainers = with lib.maintainers; [necrophcodr];
     platforms = platforms.linux;
   };
 }

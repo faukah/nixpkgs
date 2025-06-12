@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aiolifx-themes";
   version = "0.6.11";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-H5fjmGfvC/d1qTzEHtmGDPlZ0aY1UaTYPOqUAxDmb3I=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ aiolifx ];
+  dependencies = [aiolifx];
 
   nativeCheckInputs = [
     async-timeout
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pythonImportsCheck = [ "aiolifx_themes" ];
+  pythonImportsCheck = ["aiolifx_themes"];
 
   meta = with lib; {
     description = "Color themes for LIFX lights running on aiolifx";
     homepage = "https://github.com/Djelibeybi/aiolifx-themes";
     changelog = "https://github.com/Djelibeybi/aiolifx-themes/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
   };
 }

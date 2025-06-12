@@ -9,7 +9,6 @@
   pytest-timeout,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyppmd";
   version = "1.1.1";

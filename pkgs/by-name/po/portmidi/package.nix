@@ -6,7 +6,6 @@
   cmake,
   alsa-lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "portmidi";
   version = "2.0.4";
@@ -29,13 +28,11 @@ stdenv.mkDerivation rec {
     ./missing-header.diff
   ];
 
-  postInstall =
-    let
-      ext = stdenv.hostPlatform.extensions.sharedLibrary;
-    in
-    ''
-      ln -s libportmidi${ext} "$out/lib/libporttime${ext}"
-    '';
+  postInstall = let
+    ext = stdenv.hostPlatform.extensions.sharedLibrary;
+  in ''
+    ln -s libportmidi${ext} "$out/lib/libporttime${ext}"
+  '';
 
   nativeBuildInputs = [
     unzip
@@ -45,13 +42,13 @@ stdenv.mkDerivation rec {
     alsa-lib
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://github.com/PortMidi/portmidi";
     description = "Platform independent library for MIDI I/O";
     license = licenses.mit;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.unix;
   };
 }

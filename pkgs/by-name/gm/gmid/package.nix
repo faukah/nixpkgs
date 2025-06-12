@@ -6,7 +6,6 @@
   libressl,
   libevent,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gmid";
   version = "2.1.1";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-JyiGkVF9aRJXgWAwZEnGgaD+IiH3UzamfTAcWyN0now=";
   };
 
-  nativeBuildInputs = [ bison ];
+  nativeBuildInputs = [bison];
 
   buildInputs = [
     libressl
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gmid.omarpolo.com/";
     changelog = "https://gmid.omarpolo.com/changelog.html";
     license = licenses.isc;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.linux;
   };
 }

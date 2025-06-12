@@ -4,8 +4,7 @@
   # redistSystem :: String
   # String is `"unsupported"` if the given architecture is unsupported.
   redistSystem,
-}:
-{
+}: {
   featureRelease = {
     inherit (package) cudnnVersion minCudaVersion maxCudaVersion;
     ${redistSystem}.outputs = {

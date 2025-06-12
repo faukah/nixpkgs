@@ -5,7 +5,6 @@
   mecab-nodic,
   buildPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mecab-ipadic";
   version = "2.7.0-20070801";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ti9SfYgcUEV2uu2cbvZWFVRlixdc5q4AlqYDB+SeNSM=";
   };
 
-  buildInputs = [ mecab-nodic ];
+  buildInputs = [mecab-nodic];
 
   configureFlags =
     [

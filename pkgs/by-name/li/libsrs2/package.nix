@@ -3,7 +3,6 @@
   lib,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libsrs2";
   version = "1.0.18";

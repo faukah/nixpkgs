@@ -4,6 +4,6 @@
 }:
 buildAstalModule {
   name = "auth";
-  buildInputs = [ pam ];
+  buildInputs = [pam];
   meta.description = "Astal module for authentication using pam";
 }

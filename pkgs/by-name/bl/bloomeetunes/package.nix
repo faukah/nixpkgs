@@ -7,7 +7,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 flutter324.buildFlutterApplication rec {
   pname = "bloomeetunes";
   version = "2.11.6";
@@ -58,8 +57,8 @@ flutter324.buildFlutterApplication rec {
     description = "Cross-platform music app designed to bring you ad-free tunes from various sources";
     homepage = "https://github.com/HemantKArya/BloomeeTunes";
     mainProgram = "bloomee";
-    license = with lib.licenses; [ gpl2Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl2Plus];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

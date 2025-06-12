@@ -3,17 +3,14 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   langchain-core,
   langgraph-checkpoint,
   langgraph-prebuilt,
   langgraph-sdk,
   xxhash,
-
   # tests
   aiosqlite,
   dataclasses-json,
@@ -32,7 +29,6 @@
   syrupy,
   postgresql,
   postgresqlTestHook,
-
   # passthru
   nix-update-script,
 }:
@@ -55,7 +51,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/langgraph";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     langchain-core
@@ -65,7 +61,7 @@ buildPythonPackage rec {
     xxhash
   ];
 
-  pythonImportsCheck = [ "langgraph" ];
+  pythonImportsCheck = ["langgraph"];
 
   # postgresql doesn't play nicely with the darwin sandbox:
   # FATAL:  could not create shared memory segment: Operation not permitted
@@ -140,6 +136,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/langchain-ai/langgraph";
     changelog = "https://github.com/langchain-ai/langgraph/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sarahec ];
+    maintainers = with lib.maintainers; [sarahec];
   };
 }

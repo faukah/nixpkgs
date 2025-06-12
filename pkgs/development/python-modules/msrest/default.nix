@@ -17,7 +17,6 @@
   setuptools,
   trio,
 }:
-
 buildPythonPackage {
   pname = "msrest";
   version = "0.7.1";
@@ -33,7 +32,7 @@ buildPythonPackage {
     hash = "sha256-1EXXXflhDeU+erdI+NsWxSX76ooDTl3+MyQwRzm2xV0=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     azure-core
@@ -71,7 +70,7 @@ buildPythonPackage {
       "test_eventgrid_domain_auth"
     ];
 
-  pythonImportsCheck = [ "msrest" ];
+  pythonImportsCheck = ["msrest"];
 
   meta = with lib; {
     description = "Runtime library for AutoRest generated Python clients";

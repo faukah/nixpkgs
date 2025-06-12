@@ -4,13 +4,9 @@
   lib,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.chatgpt-retrieval-plugin;
-in
-{
+in {
   options.services.chatgpt-retrieval-plugin = {
     enable = mkEnableOption "chatgpt-retrieval-plugin service";
 
@@ -68,7 +64,6 @@ in
   };
 
   config = mkIf cfg.enable {
-
     assertions = [
       {
         assertion = cfg.bearerTokenPath != "";
@@ -82,8 +77,8 @@ in
 
     systemd.services.chatgpt-retrieval-plugin = {
       description = "ChatGPT Retrieval Plugin";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         DynamicUser = true;

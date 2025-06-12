@@ -5,7 +5,6 @@
   python3,
   testers,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "nb-cli";
   version = "1.4.2";
@@ -58,7 +57,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   passthru.tests = {
-    version = testers.testVersion { package = nb-cli; };
+    version = testers.testVersion {package = nb-cli;};
   };
 
   meta = {
@@ -66,7 +65,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://cli.nonebot.dev";
     changelog = "https://github.com/nonebot/nb-cli/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "nb";
   };
 }

@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     description = "Aircraft Communications Addressing and Reporting System (ACARS) message decoder";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.mafo ];
+    maintainers = [maintainers.mafo];
   };
 }

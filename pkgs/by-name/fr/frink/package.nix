@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ jdk ];
+  nativeBuildInputs = [jdk];
 
   buildInputs = [
     jdk
@@ -56,8 +56,8 @@ stdenv.mkDerivation rec {
     description = "Practical calculating tool and programming language";
     homepage = "https://frinklang.org/";
     license = licenses.unfree;
-    sourceProvenance = [ sourceTypes.binaryBytecode ];
-    maintainers = [ maintainers.stefanfehrenbach ];
+    sourceProvenance = [sourceTypes.binaryBytecode];
+    maintainers = [maintainers.stefanfehrenbach];
   };
 
   passthru.tests = {

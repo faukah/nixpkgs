@@ -5,7 +5,6 @@
   lib,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "louvain-community";
   version = "0-unstable-2024-01-30";
@@ -17,15 +16,15 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-mp2gneTtm/PaCqz4JNOZgdKmFoV5ZRVwNYjHc4s2KuY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Louvain Community Detection Library";
     homepage = "https://github.com/meelgroup/louvain-community";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ t4ccer ];
+    maintainers = with maintainers; [t4ccer];
     platforms = platforms.unix;
   };
 })

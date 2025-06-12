@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "cliqr";
   version = "0.1.29";
@@ -23,7 +22,7 @@ buildGoModule (finalAttrs: {
     "-w"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/paepckehh/cliqr/releases/tag/v${finalAttrs.version}";
@@ -31,6 +30,6 @@ buildGoModule (finalAttrs: {
     description = "Transfer, share data & secrets via console qr codes";
     license = lib.licenses.bsd3;
     mainProgram = "cliqr";
-    maintainers = with lib.maintainers; [ paepcke ];
+    maintainers = with lib.maintainers; [paepcke];
   };
 })

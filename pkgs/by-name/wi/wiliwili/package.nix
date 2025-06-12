@@ -15,7 +15,6 @@
   egl-wayland,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wiliwili";
   version = "1.5.1";
@@ -71,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
     # https://github.com/xfangfang/wiliwili/discussions/355
     license = lib.licenses.gpl3Only;
     mainProgram = "wiliwili";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = with lib.platforms; unix ++ windows;
     # Testing on darwin was blocked due to broken swift
     # buildInputs should still need some tweaking, but can't be sure

@@ -5,7 +5,6 @@
   fetchFromGitHub,
   gnupg,
 }:
-
 buildGoModule rec {
   pname = "keybase";
   version = "6.5.1";
@@ -32,7 +31,7 @@ buildGoModule rec {
       gpg2 = "${gnupg}/bin/gpg2";
     })
   ];
-  tags = [ "production" ];
+  tags = ["production"];
   ldflags = [
     "-s"
     "-w"

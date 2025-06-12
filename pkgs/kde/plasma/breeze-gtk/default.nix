@@ -8,7 +8,7 @@ mkKdeDerivation {
   pname = "breeze-gtk";
 
   # FIXME(later): upstream
-  patches = [ ./0001-fix-add-executable-bit.patch ];
+  patches = [./0001-fix-add-executable-bit.patch];
 
   extraNativeBuildInputs = [
     sass

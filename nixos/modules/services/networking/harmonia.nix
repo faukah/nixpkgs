@@ -3,18 +3,18 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.harmonia;
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
 
   signKeyPaths = cfg.signKeyPaths ++ lib.optional (cfg.signKeyPath != null) cfg.signKeyPath;
-  credentials = lib.imap0 (i: signKeyPath: {
-    id = "sign-key-${builtins.toString i}";
-    path = signKeyPath;
-  }) signKeyPaths;
-in
-{
+  credentials =
+    lib.imap0 (i: signKeyPath: {
+      id = "sign-key-${builtins.toString i}";
+      path = signKeyPath;
+    })
+    signKeyPaths;
+in {
   options = {
     services.harmonia = {
       enable = lib.mkEnableOption "Harmonia: Nix binary cache written in Rust";
@@ -27,15 +27,15 @@ in
 
       signKeyPaths = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = "Paths to the signing keys to use for signing the cache";
       };
 
-      package = lib.mkPackageOption pkgs "harmonia" { };
+      package = lib.mkPackageOption pkgs "harmonia" {};
 
       settings = lib.mkOption {
         inherit (format) type;
-        default = { };
+        default = {};
         description = ''
           Settings to merge with the default configuration.
           For the list of the default configuration, see <https://github.com/nix-community/harmonia/tree/master#configuration>.
@@ -48,25 +48,27 @@ in
     warnings = lib.optional (
       cfg.signKeyPath != null
     ) "`services.harmonia.signKeyPath` is deprecated, use `services.harmonia.signKeyPaths` instead";
-    nix.settings.extra-allowed-users = [ "harmonia" ];
+    nix.settings.extra-allowed-users = ["harmonia"];
     users.users.harmonia = {
       isSystemUser = true;
       group = "harmonia";
     };
-    users.groups.harmonia = { };
+    users.groups.harmonia = {};
 
     systemd.services.harmonia = {
       description = "harmonia binary cache service";
 
-      requires = [ "nix-daemon.socket" ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["nix-daemon.socket"];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         CONFIG_FILE = format.generate "harmonia.toml" cfg.settings;
-        SIGN_KEY_PATHS = lib.strings.concatMapStringsSep " " (
-          credential: "%d/${credential.id}"
-        ) credentials;
+        SIGN_KEY_PATHS =
+          lib.strings.concatMapStringsSep " " (
+            credential: "%d/${credential.id}"
+          )
+          credentials;
         # Note: it's important to set this for nix-store, because it wants to use
         # $HOME in order to use a temporary cache dir. bizarre failures will occur
         # otherwise
@@ -79,7 +81,7 @@ in
         Group = "harmonia";
         Restart = "on-failure";
         PrivateUsers = true;
-        DeviceAllow = [ "" ];
+        DeviceAllow = [""];
         UMask = "0066";
         RuntimeDirectory = "harmonia";
         LoadCredential = builtins.map (credential: "${credential.id}:${credential.path}") credentials;

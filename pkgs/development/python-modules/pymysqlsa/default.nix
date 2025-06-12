@@ -5,7 +5,6 @@
   pymysql,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "pymysql-sa";
   version = "1.0";

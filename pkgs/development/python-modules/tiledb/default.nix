@@ -13,7 +13,6 @@
   psutil,
   pandas,
 }:
-
 buildPythonPackage rec {
   pname = "tiledb";
   version = "0.33.2";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ tiledb ];
+  buildInputs = [tiledb];
 
   propagatedBuildInputs = [
     numpy
@@ -71,7 +70,7 @@ buildPythonPackage rec {
     ${python.interpreter} -m unittest tiledb.tests.all.suite_test
     popd
   '';
-  pythonImportsCheck = [ "tiledb" ];
+  pythonImportsCheck = ["tiledb"];
 
   meta = with lib; {
     description = "Python interface to the TileDB storage manager";

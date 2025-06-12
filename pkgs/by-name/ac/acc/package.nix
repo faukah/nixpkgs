@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     ./disable-static.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   installPhase = ''
     runHook preInstall
@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "ACS script compiler for use with ZDoom and Hexen";
     homepage = "https://zdoom.org/wiki/ACC";
     license = licenses.activision;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.all;
     mainProgram = "acc";
   };

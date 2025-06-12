@@ -11,7 +11,6 @@
   pytestCheckHook,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "cffconvert";
   version = "2.0.0-unstable-2024-02-12";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-/2qhWVNylrqPSf1KmuZQahzq+YH860cohVSfJsDm1BE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     click
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     "tests/cli/test_rawify_url.py"
   ];
 
-  pythonImportsCheck = [ "cffconvert" ];
+  pythonImportsCheck = ["cffconvert"];
 
   meta = {
     changelog = "https://github.com/citation-file-format/cffconvert/blob/${src.rev}/CHANGELOG.md";
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/citation-file-format/cffconvert";
     license = lib.licenses.asl20;
     mainProgram = "cffconvert";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

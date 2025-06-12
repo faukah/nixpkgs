@@ -9,7 +9,6 @@
   libjxl,
   pkgsCross,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openexr";
   version = "3.2.4";
@@ -67,7 +66,7 @@ stdenv.mkDerivation rec {
     description = "High dynamic-range (HDR) image file format";
     homepage = "https://www.openexr.com";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ paperdigits ];
+    maintainers = with maintainers; [paperdigits];
     platforms = platforms.all;
   };
 }

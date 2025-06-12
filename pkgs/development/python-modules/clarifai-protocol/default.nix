@@ -7,10 +7,8 @@
   pypaInstallHook,
   wheelUnpackHook,
   grpcio,
-}:
-
-let
-  pythonVersionNoDot = builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;
+}: let
+  pythonVersionNoDot = builtins.replaceStrings ["."] [""] python.pythonVersion;
   systemToPlatform = {
     "aarch64-linux" = "manylinux_2_17_aarch64.manylinux2014_aarch64";
     "x86_64-linux" = "manylinux_2_17_x86_64.manylinux2014_x86_64";
@@ -36,45 +34,44 @@ let
     "313-darwin" = "sha256-ds2kj87miODVUE8Lrjuzz8L+2HxaQ7jTxGQF0/Odrpg=";
   };
 in
-buildPythonPackage rec {
-  pname = "clarifai-protocol";
-  version = "0.0.14";
-  pyproject = false;
+  buildPythonPackage rec {
+    pname = "clarifai-protocol";
+    version = "0.0.14";
+    pyproject = false;
 
-  src = fetchPypi {
-    pname = "clarifai_protocol";
-    inherit version;
-    format = "wheel";
-    python = "cp${pythonVersionNoDot}";
-    abi = "cp${pythonVersionNoDot}";
-    dist = "cp${pythonVersionNoDot}";
-    platform = systemToPlatform.${stdenv.hostPlatform.system} or (throw "unsupported system");
-    hash =
-      if stdenv.hostPlatform.isDarwin then
-        hashes."${pythonVersionNoDot}-darwin"
-      else
-        hashes."${pythonVersionNoDot}-${stdenv.hostPlatform.system}"
+    src = fetchPypi {
+      pname = "clarifai_protocol";
+      inherit version;
+      format = "wheel";
+      python = "cp${pythonVersionNoDot}";
+      abi = "cp${pythonVersionNoDot}";
+      dist = "cp${pythonVersionNoDot}";
+      platform = systemToPlatform.${stdenv.hostPlatform.system} or (throw "unsupported system");
+      hash =
+        if stdenv.hostPlatform.isDarwin
+        then hashes."${pythonVersionNoDot}-darwin"
+        else hashes."${pythonVersionNoDot}-${stdenv.hostPlatform.system}"
           or (throw "unsupported system/python version combination");
-  };
+    };
 
-  nativeBuildInputs = [
-    pypaInstallHook
-    wheelUnpackHook
-  ];
+    nativeBuildInputs = [
+      pypaInstallHook
+      wheelUnpackHook
+    ];
 
-  dependencies = [ grpcio ];
+    dependencies = [grpcio];
 
-  # require clarifai and it causes a circular import
-  dontUsePythonImportsCheck = true;
+    # require clarifai and it causes a circular import
+    dontUsePythonImportsCheck = true;
 
-  # no tests
-  doCheck = false;
+    # no tests
+    doCheck = false;
 
-  meta = {
-    description = "Clarifai Python Runner Protocol";
-    homepage = "https://pypi.org/project/clarifai-protocol";
-    license = lib.licenses.asl20;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-    maintainers = with lib.maintainers; [ natsukium ];
-  };
-}
+    meta = {
+      description = "Clarifai Python Runner Protocol";
+      homepage = "https://pypi.org/project/clarifai-protocol";
+      license = lib.licenses.asl20;
+      sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+      maintainers = with lib.maintainers; [natsukium];
+    };
+  }

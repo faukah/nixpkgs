@@ -4,7 +4,6 @@
   fetchFromGitea,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "colstr";
   version = "1.0.0";
@@ -33,13 +32,13 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Deterministically output each input argument in a color assigned to it";
     homepage = "https://git.sleeping.town/wonder/colstr";
-    license = with licenses; [ cc0 ];
-    maintainers = with maintainers; [ annaaurora ];
+    license = with licenses; [cc0];
+    maintainers = with maintainers; [annaaurora];
     mainProgram = "colstr";
     platforms = platforms.all;
   };

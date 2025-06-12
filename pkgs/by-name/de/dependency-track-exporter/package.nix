@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "dependency-track-exporter";
   version = "0.1.2";
@@ -29,7 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/jetstack/dependency-track-exporter";
     changelog = "https://github.com/jetstack/dependency-track-exporter/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "dependency-track-exporter";
   };
 }

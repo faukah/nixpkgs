@@ -26,7 +26,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation rec {
   pname = "TrenchBroom";
   version = "2025.2";
@@ -41,51 +40,51 @@ stdenv.mkDerivation rec {
 
   # Manually simulate a vcpkg installation so that it can link the libraries
   # properly.
-  postUnpack =
-    let
-      vcpkg_target = "x64-linux";
+  postUnpack = let
+    vcpkg_target = "x64-linux";
 
-      vcpkg_pkgs = [
-        "assimp"
-        "catch2"
-        "fmt"
-        "freeimage"
-        "freetype"
-        "glew"
-        "miniz"
-        "tinyxml2"
-      ];
+    vcpkg_pkgs = [
+      "assimp"
+      "catch2"
+      "fmt"
+      "freeimage"
+      "freetype"
+      "glew"
+      "miniz"
+      "tinyxml2"
+    ];
 
-      updates_vcpkg_file = writeText "update_vcpkg_trenchbroom" (
-        lib.concatMapStringsSep "\n" (name: ''
-          Package : ${name}
-          Architecture : ${vcpkg_target}
-          Version : 1.0
-          Status : is installed
-        '') vcpkg_pkgs
-      );
-    in
-    ''
-      export VCPKG_ROOT="$TMP/vcpkg"
+    updates_vcpkg_file = writeText "update_vcpkg_trenchbroom" (
+      lib.concatMapStringsSep "\n" (name: ''
+        Package : ${name}
+        Architecture : ${vcpkg_target}
+        Version : 1.0
+        Status : is installed
+      '')
+      vcpkg_pkgs
+    );
+  in ''
+    export VCPKG_ROOT="$TMP/vcpkg"
 
-      mkdir -p $VCPKG_ROOT/.vcpkg-root
-      mkdir -p $VCPKG_ROOT/installed/${vcpkg_target}/lib
-      mkdir -p $VCPKG_ROOT/installed/vcpkg/updates
-      ln -s ${updates_vcpkg_file} $VCPKG_ROOT/installed/vcpkg/status
-      mkdir -p $VCPKG_ROOT/installed/vcpkg/info
-      ${lib.concatMapStrings (name: ''
+    mkdir -p $VCPKG_ROOT/.vcpkg-root
+    mkdir -p $VCPKG_ROOT/installed/${vcpkg_target}/lib
+    mkdir -p $VCPKG_ROOT/installed/vcpkg/updates
+    ln -s ${updates_vcpkg_file} $VCPKG_ROOT/installed/vcpkg/status
+    mkdir -p $VCPKG_ROOT/installed/vcpkg/info
+    ${lib.concatMapStrings (name: ''
         touch $VCPKG_ROOT/installed/vcpkg/info/${name}_1.0_${vcpkg_target}.list
-      '') vcpkg_pkgs}
+      '')
+      vcpkg_pkgs}
 
-      ln -s ${assimp.lib}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
-      ln -s ${catch2}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
-      ln -s ${fmt}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
-      ln -s ${freeimage}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
-      ln -s ${freetype}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
-      ln -s ${glew.out}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
-      ln -s ${miniz}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
-      ln -s ${tinyxml-2}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
-    '';
+    ln -s ${assimp.lib}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
+    ln -s ${catch2}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
+    ln -s ${fmt}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
+    ln -s ${freeimage}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
+    ln -s ${freetype}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
+    ln -s ${glew.out}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
+    ln -s ${miniz}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
+    ln -s ${tinyxml-2}/lib/lib* $VCPKG_ROOT/installed/${vcpkg_target}/lib/
+  '';
 
   postPatch = ''
     substituteInPlace common/src/Version.h.in \
@@ -139,7 +138,7 @@ stdenv.mkDerivation rec {
     "-DCMAKE_PREFIX_PATH=cmake/packages"
   ];
 
-  ninjaFlags = [ "TrenchBroom" ];
+  ninjaFlags = ["TrenchBroom"];
 
   postInstall = ''
     pushd ../app/resources/linux/icons
@@ -159,7 +158,7 @@ stdenv.mkDerivation rec {
       desktopName = "TrenchBroom level editor";
       icon = "trenchbroom";
       comment = meta.description;
-      categories = [ "Development" ];
+      categories = ["Development"];
       exec = "trenchbroom";
     })
   ];
@@ -169,7 +168,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/TrenchBroom/TrenchBroom/releases/tag/v${version}";
     description = "Level editor for Quake-engine based games";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ astro ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [astro];
+    platforms = ["x86_64-linux"];
   };
 }

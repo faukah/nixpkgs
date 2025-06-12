@@ -9,7 +9,6 @@
   pytestCheckHook,
   starlette,
 }:
-
 buildPythonPackage rec {
   pname = "a2wsgi";
   version = "1.10.8";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-/AC6sfx5L4mozhtJGyrRcXsUXYyu+3XQqFhpRu3JfLI=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     starlette
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     description = "Convert WSGI app to ASGI app or ASGI app to WSGI app";
     homepage = "https://github.com/abersheeran/a2wsgi";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ SuperSandro2000 ];
+    maintainers = with lib.maintainers; [SuperSandro2000];
   };
 }

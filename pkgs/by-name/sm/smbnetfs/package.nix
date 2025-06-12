@@ -10,7 +10,6 @@
   attr,
   libsecret,
 }:
-
 stdenv.mkDerivation rec {
   pname = "smbnetfs";
   version = "0.6.3";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "FUSE FS for mounting Samba shares";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     license = licenses.gpl2Only;
     downloadPage = "https://sourceforge.net/projects/smbnetfs/files/smbnetfs";

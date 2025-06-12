@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "todo";
   version = "2.5";
@@ -20,14 +19,14 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-mRLTQYkKXxhcwI2Ra/HCkxejDl3nnraJw+VCqRgCUig=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
   meta = with lib; {
     description = "Simple todo cli program written in rust";
     homepage = "https://github.com/sioodmy/todo";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ sioodmy ];
+    maintainers = with maintainers; [sioodmy];
     mainProgram = "todo";
   };
 }

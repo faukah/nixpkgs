@@ -22,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
 
   doCheck = false; # disabled because it requires a ccnet environment
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   propagatedBuildInputs = with python3.pkgs; [
     django
@@ -52,7 +52,7 @@ python3.pkgs.buildPythonApplication rec {
     markdown
     bleach
 
-    (python3.pkgs.toPythonModule (seafile-server.override { inherit python3; }))
+    (python3.pkgs.toPythonModule (seafile-server.override {inherit python3;}))
   ];
 
   postPatch = ''

@@ -9,7 +9,6 @@
   gnome-icon-theme,
   hicolor-icon-theme,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "faba-mono-icons";
   version = "2016-04-30";
@@ -47,6 +46,6 @@ stdenvNoCC.mkDerivation {
     license = licenses.gpl3;
     # moka-icon-theme dependency is restricted to linux
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

@@ -7,7 +7,6 @@
   intel-compute-runtime,
   intel-media-driver,
 }:
-
 stdenv.mkDerivation rec {
   pname = "intel-gmmlib";
   version = "22.7.2";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-TVravPYbOaZBtS5BepRc316m4uIPm5M1YbDWMV5lW0Y=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   passthru.tests = {
     inherit intel-compute-runtime intel-media-driver;
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

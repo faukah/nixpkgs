@@ -13,7 +13,6 @@
   libXft,
   fig2dev,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xfig";
   version = "3.2.9a";
@@ -69,7 +68,8 @@ stdenv.mkDerivation rec {
       Note that you need to have the <literal>netpbm</literal> tools
       in your path to export bitmaps.
     '';
-    inherit (fig2dev.meta)
+    inherit
+      (fig2dev.meta)
       license
       homepage
       platforms

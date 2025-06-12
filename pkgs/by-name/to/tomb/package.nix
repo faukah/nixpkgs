@@ -19,7 +19,6 @@
   util-linux,
   zsh,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "tomb";
   version = "2.11";
@@ -31,7 +30,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-H9etbodTKxROJAITbViQQ6tkEr9rKNITTHfsGGQbyR0=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     pinentry
@@ -50,26 +49,26 @@ stdenvNoCC.mkDerivation rec {
 
     wrapProgram $out/bin/tomb \
       --prefix PATH : $out/bin:${
-        lib.makeBinPath [
-          coreutils
-          cryptsetup
-          e2fsprogs
-          file
-          gawk
-          getent
-          gettext
-          gnugrep
-          gnupg
-          libargon2
-          lsof
-          pinentry
-          util-linux
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        cryptsetup
+        e2fsprogs
+        file
+        gawk
+        getent
+        gettext
+        gnugrep
+        gnupg
+        libargon2
+        lsof
+        pinentry
+        util-linux
+      ]
+    }
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

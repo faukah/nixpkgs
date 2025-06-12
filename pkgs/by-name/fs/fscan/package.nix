@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "fscan";
   version = "2.0.1";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Intranet comprehensive scanning tool";
     homepage = "https://github.com/shadow1ng/fscan";
     license = licenses.mit;
-    maintainers = with maintainers; [ Misaka13514 ];
+    maintainers = with maintainers; [Misaka13514];
     mainProgram = "fscan";
   };
 }

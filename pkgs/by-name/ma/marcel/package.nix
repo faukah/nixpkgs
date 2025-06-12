@@ -4,7 +4,6 @@
   python3Packages,
   bash,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "marcel";
   version = "0.30.4";
@@ -43,7 +42,7 @@ python3Packages.buildPythonApplication rec {
     description = "Modern shell";
     homepage = "https://github.com/geophile/marcel";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ kud ];
+    maintainers = with maintainers; [kud];
     mainProgram = "marcel";
   };
 }

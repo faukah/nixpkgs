@@ -20,9 +20,8 @@
   noStaticAssert ? false,
 }:
 stdenvNoCC.mkDerivation (
-  self:
-  let
-    generator-out = buildPackages.callPackage ./generator-out.nix { inherit (self) src version; };
+  self: let
+    generator-out = buildPackages.callPackage ./generator-out.nix {inherit (self) src version;};
     python-module = buildPackages.callPackage ./python-module.nix {
       inherit (self) version;
       inherit (self.passthru) generator-out;
@@ -58,8 +57,7 @@ stdenvNoCC.mkDerivation (
         noStaticAssert
         ;
     };
-  in
-  {
+  in {
     pname = "nanopb";
     version = "0.4.9.1";
 
@@ -73,9 +71,9 @@ stdenvNoCC.mkDerivation (
     dontPatch = true;
     dontUnpack = true;
 
-    propagatedNativeBuildInputs = [ generator ];
+    propagatedNativeBuildInputs = [generator];
 
-    propagatedBuildInputs = [ runtime ];
+    propagatedBuildInputs = [runtime];
 
     postInstall = ''
       mkdir $out
@@ -94,10 +92,10 @@ stdenvNoCC.mkDerivation (
         generator
         ;
       tests = {
-        simple-proto2 = callPackage ./test-simple-proto2 { };
-        simple-proto3 = callPackage ./test-simple-proto3 { };
-        message-with-annotations = callPackage ./test-message-with-annotations { };
-        message-with-options = callPackage ./test-message-with-options { };
+        simple-proto2 = callPackage ./test-simple-proto2 {};
+        simple-proto3 = callPackage ./test-simple-proto3 {};
+        message-with-annotations = callPackage ./test-message-with-annotations {};
+        message-with-options = callPackage ./test-message-with-options {};
       };
     };
 

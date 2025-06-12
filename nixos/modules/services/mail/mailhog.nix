@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.mailhog;
 
   args = lib.concatStringsSep " " (
@@ -21,8 +20,7 @@ let
   mhsendmail = pkgs.writeShellScriptBin "mailhog-sendmail" ''
     exec ${lib.getExe pkgs.mailhog} sendmail $@
   '';
-in
-{
+in {
   ###### interface
 
   imports = [
@@ -34,13 +32,14 @@ in
   ];
 
   options = {
-
     services.mailhog = {
       enable = lib.mkEnableOption "MailHog, web and API based SMTP testing";
 
-      setSendmail = lib.mkEnableOption "set the system sendmail to mailhogs's" // {
-        default = true;
-      };
+      setSendmail =
+        lib.mkEnableOption "set the system sendmail to mailhogs's"
+        // {
+          default = true;
+        };
 
       storage = lib.mkOption {
         type = lib.types.enum [
@@ -71,7 +70,7 @@ in
 
       extraArgs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = "List of additional arguments to pass to the MailHog process.";
       };
     };
@@ -80,11 +79,10 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.mailhog = {
       description = "MailHog - Web and API based SMTP testing";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "exec";
         ExecStart = "${lib.getExe pkgs.mailhog} ${args}";
@@ -103,5 +101,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ RTUnreal ];
+  meta.maintainers = with lib.maintainers; [RTUnreal];
 }

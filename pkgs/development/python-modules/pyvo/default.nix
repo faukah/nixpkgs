@@ -12,7 +12,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pyvo";
   version = "1.7";
@@ -47,12 +46,12 @@ buildPythonPackage rec {
     "pyvo/dal/tests/test_datalink.py"
   ];
 
-  pythonImportsCheck = [ "pyvo" ];
+  pythonImportsCheck = ["pyvo"];
 
   meta = with lib; {
     description = "Astropy affiliated package for accessing Virtual Observatory data and services";
     homepage = "https://github.com/astropy/pyvo";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ smaret ];
+    maintainers = with maintainers; [smaret];
   };
 }

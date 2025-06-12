@@ -11,7 +11,6 @@
   typing-extensions,
   nixosTests,
 }:
-
 buildPythonApplication rec {
   pname = "nixops";
   version = "1.7-unstable-2024-02-28";
@@ -53,7 +52,7 @@ buildPythonApplication rec {
     sphinx-build -b html -d $doc_cache doc/ $out/share/nixops/doc
   '';
 
-  pythonImportsCheck = [ "nixops" ];
+  pythonImportsCheck = ["nixops"];
 
   passthru = {
     tests.nixos = nixosTests.nixops.unstable;

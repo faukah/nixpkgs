@@ -10,7 +10,6 @@
   systemdLibs,
   imagemagick,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "detect-it-easy";
   version = "3.10";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-yHgxYig5myY2nExweUk2muKbJTKN3SiwOLgQcMIY/BQ=";
   };
 
-  patches = [ ./0001-remove-hard-coded-paths-in-xoptions.patch ];
+  patches = [./0001-remove-hard-coded-paths-in-xoptions.patch];
 
   buildInputs = [
     libsForQt5.qtbase
@@ -60,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "die";
     homepage = "https://github.com/horsicq/Detect-It-Easy";
     changelog = "https://github.com/horsicq/Detect-It-Easy/blob/master/changelog.txt";
-    maintainers = with lib.maintainers; [ ivyfanchiang ];
+    maintainers = with lib.maintainers; [ivyfanchiang];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

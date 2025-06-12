@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hvm";
   version = "2.0.22";
@@ -26,6 +25,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "hvm";
     homepage = "https://github.com/higherorderco/hvm";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

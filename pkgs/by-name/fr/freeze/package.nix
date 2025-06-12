@@ -4,7 +4,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "freeze";
   version = "1.3";
@@ -32,6 +31,6 @@ buildGoModule rec {
     mainProgram = "freeze";
     homepage = "https://github.com/optiv/Freeze";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

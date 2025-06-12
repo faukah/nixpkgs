@@ -6,7 +6,6 @@
   openssl,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "i2pd-tools";
   version = "2.56.0";
@@ -44,7 +43,7 @@ stdenv.mkDerivation {
     description = "Toolsuite to work with keys and eepsites";
     homepage = "https://github.com/PurpleI2P/i2pd-tools";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ MulliganSecurity ];
+    maintainers = with lib.maintainers; [MulliganSecurity];
     mainProgram = "i2pd-tools";
   };
 }

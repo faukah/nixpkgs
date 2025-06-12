@@ -9,7 +9,6 @@
   texinfo,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jffi";
   version = "1.3.13";
@@ -29,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     stripJavaArchivesHook
   ];
 
-  buildInputs = [ libffi ];
+  buildInputs = [libffi];
 
   # The pkg-config script in the build.xml doesn't work propery
   # set the lib path manually to work around this.
@@ -70,6 +69,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/jnr/jffi";
     platforms = platforms.unix;
     license = licenses.asl20;
-    maintainers = with maintainers; [ bachp ];
+    maintainers = with maintainers; [bachp];
   };
 })

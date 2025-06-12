@@ -6,7 +6,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "userborn";
   version = "0.4.0";
@@ -23,16 +22,17 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-oLw/I8PEv75tz+KxbIJrwl8Wr0I/RzDh1SDZ6mRQpL8=";
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook ];
+  nativeBuildInputs = [rustPlatform.bindgenHook];
 
-  buildInputs = [ libxcrypt ];
+  buildInputs = [libxcrypt];
 
-  stripAllList = [ "bin" ];
+  stripAllList = ["bin"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         userborn
         userborn-mutable-users
         userborn-mutable-etc
@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/nikstur/userborn/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ nikstur ];
+    maintainers = with lib.maintainers; [nikstur];
     mainProgram = "userborn";
   };
 }

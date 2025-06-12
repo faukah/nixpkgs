@@ -12,7 +12,6 @@
   wrapGAppsHook3,
   yt-dlp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hypnotix";
   version = "4.9";
@@ -80,7 +79,7 @@ stdenv.mkDerivation rec {
 
     # yt-dlp is needed for mpv to play YouTube channels.
     wrapProgram $out/bin/hypnotix \
-      --prefix PATH : "${lib.makeBinPath [ yt-dlp ]}" \
+      --prefix PATH : "${lib.makeBinPath [yt-dlp]}" \
       --prefix PYTHONPATH : "$program_PYTHONPATH" \
       ''${gappsWrapperArgs[@]}
   '';

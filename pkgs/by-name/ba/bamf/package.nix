@@ -21,7 +21,6 @@
   wrapGAppsHook3,
   withDocs ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bamf";
   version = "0.5.6";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [
-    (python3.pythonOnBuildForHost.withPackages (ps: with ps; [ lxml ])) # Tests
+    (python3.pythonOnBuildForHost.withPackages (ps: with ps; [lxml])) # Tests
     autoreconfHook
     dbus
     docbook_xsl
@@ -108,7 +107,7 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/bamf";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ davidak ];
-    teams = [ teams.pantheon ];
+    maintainers = with maintainers; [davidak];
+    teams = [teams.pantheon];
   };
 }

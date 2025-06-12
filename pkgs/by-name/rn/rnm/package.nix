@@ -6,7 +6,6 @@
   jpcre2,
   pcre2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rnm";
   version = "4.0.9";

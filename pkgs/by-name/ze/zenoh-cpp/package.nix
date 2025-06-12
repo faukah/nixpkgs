@@ -5,7 +5,6 @@
   cmake,
   zenoh-c,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zenoh-cpp";
   version = "1.4.0"; # nixpkgs-update: no auto update
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
       asl20
       epl20
     ];
-    maintainers = with lib.maintainers; [ markuskowa ];
+    maintainers = with lib.maintainers; [markuskowa];
   };
 }

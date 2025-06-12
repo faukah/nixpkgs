@@ -4,7 +4,6 @@
   lwt,
   duration,
 }:
-
 buildDunePackage {
   pname = "mirage-time-unix";
 
@@ -17,7 +16,9 @@ buildDunePackage {
     duration
   ];
 
-  meta = mirage-time.meta // {
-    description = "Time operations for MirageOS on Unix";
-  };
+  meta =
+    mirage-time.meta
+    // {
+      description = "Time operations for MirageOS on Unix";
+    };
 }

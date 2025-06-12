@@ -4,7 +4,6 @@
   fetchurl,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "uchardet";
   version = "0.0.8";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6Xpgz8AKHBR6Z0sJe7FCKr2fp4otnOPz/cwueKNKxfA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = !stdenv.hostPlatform.isi686; # tests fail on i686
 
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     mainProgram = "uchardet";
     homepage = "https://www.freedesktop.org/wiki/Software/uchardet/";
     license = licenses.mpl11;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with platforms; unix;
   };
 }

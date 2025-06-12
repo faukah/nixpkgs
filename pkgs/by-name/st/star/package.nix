@@ -4,7 +4,6 @@
   fetchFromGitHub,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "star";
   version = "2.7.10b";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "/bin/rm" "rm"
   '';
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   buildFlags = [
     "STAR"
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Spliced Transcripts Alignment to a Reference";
     homepage = "https://github.com/alexdobin/STAR";
     license = licenses.gpl3Plus;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.arcadio ];
+    platforms = ["x86_64-linux"];
+    maintainers = [maintainers.arcadio];
   };
 }

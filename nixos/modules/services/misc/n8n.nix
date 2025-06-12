@@ -3,13 +3,11 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.n8n;
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
   configFile = format.generate "n8n.json" cfg.settings;
-in
-{
+in {
   options.services.n8n = {
     enable = lib.mkEnableOption "n8n server";
 
@@ -21,7 +19,7 @@ in
 
     settings = lib.mkOption {
       type = format.type;
-      default = { };
+      default = {};
       description = ''
         Configuration for n8n, see <https://docs.n8n.io/hosting/environment-variables/configuration-methods/>
         for supported values.
@@ -36,7 +34,6 @@ in
         This cannot be set through configuration and must reside in an environment variable.
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -47,8 +44,8 @@ in
 
     systemd.services.n8n = {
       description = "N8N service";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment = {
         # This folder must be writeable as the application is storing
         # its data in it, so the StateDirectory is a good choice
@@ -88,7 +85,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings.port ];
+      allowedTCPPorts = [cfg.settings.port];
     };
   };
 }

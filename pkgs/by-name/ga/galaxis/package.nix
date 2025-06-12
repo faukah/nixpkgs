@@ -5,7 +5,6 @@
   ncurses,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "galaxis";
   version = "1.11";
@@ -67,9 +66,9 @@ stdenv.mkDerivation (finalAttrs: {
       game's simpler deductions.
     '';
     homepage = "http://catb.org/~esr/galaxis/";
-    license = with lib.licenses; [ gpl2Plus ];
+    license = with lib.licenses; [gpl2Plus];
     mainProgram = "galaxis";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

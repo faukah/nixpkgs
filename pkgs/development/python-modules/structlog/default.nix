@@ -15,7 +15,6 @@
   simplejson,
   twisted,
 }:
-
 buildPythonPackage rec {
   pname = "structlog";
   version = "25.4.0";
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     twisted
   ];
 
-  pythonImportsCheck = [ "structlog" ];
+  pythonImportsCheck = ["structlog"];
 
   meta = {
     description = "Painless structural logging";
     homepage = "https://github.com/hynek/structlog";
     changelog = "https://github.com/hynek/structlog/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

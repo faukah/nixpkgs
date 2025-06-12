@@ -5,7 +5,6 @@
   fetchpatch,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "procmail";
   version = "3.24";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     '';
 
   # default target is binaries + manpages; manpages don't cross compile without more work.
-  makeFlags = lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ "bins" ];
+  makeFlags = lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ["bins"];
   installTargets = lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
     "install.bin"
   ];
@@ -61,6 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/BuGlessRB/procmail/";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

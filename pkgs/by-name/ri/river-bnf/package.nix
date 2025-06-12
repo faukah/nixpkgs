@@ -6,7 +6,6 @@
   wayland-scanner,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "river-bnf";
   version = "0-unstable-2023-10-10";
@@ -30,13 +29,13 @@ stdenv.mkDerivation {
     substituteInPlace Makefile --replace '/usr/local' $out
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Switch back'n'forth between river tags";
     homepage = "https://git.sr.ht/~leon_plickat/river-bnf";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ adamcstephens ];
+    maintainers = with lib.maintainers; [adamcstephens];
     mainProgram = "river-bnf";
     platforms = lib.platforms.linux;
   };

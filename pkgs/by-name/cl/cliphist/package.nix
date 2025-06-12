@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "cliphist";
   version = "0.6.1";
@@ -23,7 +22,7 @@ buildGoModule rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -31,7 +30,7 @@ buildGoModule rec {
     homepage = "https://github.com/sentriz/cliphist";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     mainProgram = "cliphist";
   };
 }

@@ -2,9 +2,7 @@
   nixosLib,
   pkgsModule,
   runCommand,
-}:
-
-let
+}: let
   sys = nixosLib.evalModules rec {
     modules = [
       pkgsModule
@@ -12,10 +10,13 @@ let
       ../version.nix
 
       (
-        { lib, someArg, ... }:
         {
+          lib,
+          someArg,
+          ...
+        }: {
           # Make sure imports from specialArgs are respected
-          imports = [ someArg.myModule ];
+          imports = [someArg.myModule];
 
           # TODO test this
           meta.doc = ./test-dummy.chapter.xml;
@@ -28,25 +29,22 @@ let
             ../documentation.nix
             ../version.nix
           ];
-          extraModules = [ ];
+          extraModules = [];
           inherit modules;
         };
         documentation.nixos.includeAllModules = true;
       }
     ];
-    specialArgs.someArg.myModule =
-      { lib, ... }:
-      {
-        options.foobar = lib.mkOption {
-          type = lib.types.str;
-          description = "The foobar option was added via specialArgs";
-          default = "qux";
-        };
+    specialArgs.someArg.myModule = {lib, ...}: {
+      options.foobar = lib.mkOption {
+        type = lib.types.str;
+        description = "The foobar option was added via specialArgs";
+        default = "qux";
       };
+    };
   };
-
 in
-runCommand "documentation-check"
+  runCommand "documentation-check"
   {
     inherit (sys.config.system.build.manual) optionsJSON;
   }

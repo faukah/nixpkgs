@@ -3,10 +3,10 @@
   resto,
   lwt,
 }:
-
 buildDunePackage {
   pname = "resto-directory";
-  inherit (resto)
+  inherit
+    (resto)
     src
     version
     meta

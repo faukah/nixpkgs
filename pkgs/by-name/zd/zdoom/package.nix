@@ -15,7 +15,6 @@
   libsndfile,
   mpg123,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zdoom";
   majorVersion = "2.8";
@@ -77,6 +76,6 @@ stdenv.mkDerivation rec {
     # Doom source license, MAME license
     license = licenses.unfreeRedistributable;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lassulus ];
+    maintainers = with maintainers; [lassulus];
   };
 }

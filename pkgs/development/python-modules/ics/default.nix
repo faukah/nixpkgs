@@ -10,7 +10,6 @@
   setuptools,
   tatsu,
 }:
-
 buildPythonPackage rec {
   pname = "ics";
   version = "0.7.2";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
       --replace-fail "--pep8" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     attrs
@@ -52,7 +51,7 @@ buildPythonPackage rec {
     "test_timezone_not_dropped"
   ];
 
-  pythonImportsCheck = [ "ics" ];
+  pythonImportsCheck = ["ics"];
 
   meta = with lib; {
     description = "Pythonic and easy iCalendar library (RFC 5545)";
@@ -63,6 +62,6 @@ buildPythonPackage rec {
     homepage = "http://icspy.readthedocs.org/";
     changelog = "https://github.com/ics-py/ics-py/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

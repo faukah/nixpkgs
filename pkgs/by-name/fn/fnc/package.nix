@@ -6,7 +6,6 @@
   ncurses,
   libiconv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fnc";
   version = "0.18";
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.cc.isGNU [
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://fnc.bsdbox.org";
     license = licenses.isc;
     platforms = platforms.all;
-    maintainers = with maintainers; [ abbe ];
+    maintainers = with maintainers; [abbe];
     mainProgram = "fnc";
   };
 })

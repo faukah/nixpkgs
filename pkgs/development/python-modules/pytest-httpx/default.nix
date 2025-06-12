@@ -10,7 +10,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-httpx";
   version = "0.35.0";
@@ -30,24 +29,24 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  propagatedBuildInputs = [ httpx ];
+  propagatedBuildInputs = [httpx];
 
-  pythonRelaxDeps = [ "httpx" ];
+  pythonRelaxDeps = ["httpx"];
 
   nativeCheckInputs = [
     pytest-asyncio
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pytest_httpx" ];
+  pythonImportsCheck = ["pytest_httpx"];
 
   meta = with lib; {
     description = "Send responses to httpx";
     homepage = "https://github.com/Colin-b/pytest_httpx";
     changelog = "https://github.com/Colin-b/pytest_httpx/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

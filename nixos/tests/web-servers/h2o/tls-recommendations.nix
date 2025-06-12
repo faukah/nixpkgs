@@ -1,74 +1,75 @@
-{ hostPkgs, lib, ... }:
-
-let
+{
+  hostPkgs,
+  lib,
+  ...
+}: let
   domain = "acme.test";
   port = 8443;
 
-  hello_txt =
-    name:
+  hello_txt = name:
     hostPkgs.writeTextFile {
       name = "/hello_${name}.txt";
       text = "Hello, ${name}!";
     };
 
-  mkH2OServer =
-    recommendations:
-    { pkgs, lib, ... }:
-    {
-      services.h2o = {
-        enable = true;
-        package = pkgs.h2o.override (
-          lib.optionalAttrs
-            (builtins.elem recommendations [
-              "intermediate"
-              "old"
-            ])
-            {
-              openssl = pkgs.openssl_legacy;
-            }
-        );
-        defaultTLSRecommendations = "modern"; # prove overridden
-        hosts = {
-          "${domain}" = {
-            tls = {
-              inherit port recommendations;
-              policy = "force";
-              identity = [
-                {
-                  key-file = ../../common/acme/server/acme.test.key.pem;
-                  certificate-file = ../../common/acme/server/acme.test.cert.pem;
-                }
-              ];
-              extraSettings = {
-                # when using common ACME certs, disable talking to CA
-                ocsp-update-interval = 0;
-              };
-            };
-            settings = {
-              paths."/"."file.file" = "${hello_txt recommendations}";
+  mkH2OServer = recommendations: {
+    pkgs,
+    lib,
+    ...
+  }: {
+    services.h2o = {
+      enable = true;
+      package = pkgs.h2o.override (
+        lib.optionalAttrs
+        (builtins.elem recommendations [
+          "intermediate"
+          "old"
+        ])
+        {
+          openssl = pkgs.openssl_legacy;
+        }
+      );
+      defaultTLSRecommendations = "modern"; # prove overridden
+      hosts = {
+        "${domain}" = {
+          tls = {
+            inherit port recommendations;
+            policy = "force";
+            identity = [
+              {
+                key-file = ../../common/acme/server/acme.test.key.pem;
+                certificate-file = ../../common/acme/server/acme.test.cert.pem;
+              }
+            ];
+            extraSettings = {
+              # when using common ACME certs, disable talking to CA
+              ocsp-update-interval = 0;
             };
           };
-        };
-        settings = {
-          ssl-offload = "kernel";
+          settings = {
+            paths."/"."file.file" = "${hello_txt recommendations}";
+          };
         };
       };
-
-      security.pki.certificates = [
-        (builtins.readFile ../../common/acme/server/ca.cert.pem)
-      ];
-
-      networking = {
-        firewall.allowedTCPPorts = [ port ];
-        extraHosts = "127.0.0.1 ${domain}";
+      settings = {
+        ssl-offload = "kernel";
       };
     };
-in
-{
+
+    security.pki.certificates = [
+      (builtins.readFile ../../common/acme/server/ca.cert.pem)
+    ];
+
+    networking = {
+      firewall.allowedTCPPorts = [port];
+      extraHosts = "127.0.0.1 ${domain}";
+    };
+  };
+in {
   name = "h2o-tls-recommendations";
 
   meta = {
-    maintainers = with lib.maintainers; [ toastal ];
+    maintainers = with lib.maintainers; [toastal];
   };
 
   nodes = {
@@ -77,10 +78,9 @@ in
     server_old = mkH2OServer "old";
   };
 
-  testScript =
-    let
-      portStr = builtins.toString port;
-    in
+  testScript = let
+    portStr = builtins.toString port;
+  in
     # python
     ''
       curl_basic = "curl -v --tlsv1.3 --http2 'https://${domain}:${portStr}/'"

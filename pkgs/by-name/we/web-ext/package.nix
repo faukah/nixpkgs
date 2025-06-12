@@ -5,7 +5,6 @@
   runCommand,
   web-ext,
 }:
-
 buildNpmPackage rec {
   pname = "web-ext";
   version = "8.7.1";
@@ -19,9 +18,9 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-J7uDivhLjdMVQyuejcrCL7m7EsAs/DeeKD7r1Cv81qQ=";
 
-  npmBuildFlags = [ "--production" ];
+  npmBuildFlags = ["--production"];
 
-  passthru.tests.help = runCommand "${pname}-tests" { } ''
+  passthru.tests.help = runCommand "${pname}-tests" {} ''
     ${web-ext}/bin/web-ext --help
     touch $out
   '';
@@ -31,6 +30,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/mozilla/web-ext";
     license = lib.licenses.mpl20;
     mainProgram = "web-ext";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

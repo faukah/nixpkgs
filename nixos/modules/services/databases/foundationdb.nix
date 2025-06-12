@@ -3,22 +3,22 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.foundationdb;
   pkg = cfg.package;
 
   # used for initial cluster configuration
-  initialIpAddr = if (cfg.publicAddress != "auto") then cfg.publicAddress else "127.0.0.1";
+  initialIpAddr =
+    if (cfg.publicAddress != "auto")
+    then cfg.publicAddress
+    else "127.0.0.1";
 
-  fdbServers =
-    n:
+  fdbServers = n:
     lib.concatStringsSep "\n" (
       map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]") (lib.range 0 (n - 1))
     );
 
-  backupAgents =
-    n: lib.concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (lib.range 1 n));
+  backupAgents = n: lib.concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (lib.range 1 n));
 
   configFile = pkgs.writeText "foundationdb.conf" ''
     [general]
@@ -67,10 +67,8 @@ let
     command = ${pkg}/libexec/backup_agent
     ${backupAgents cfg.backupProcesses}
   '';
-in
-{
+in {
   options.services.foundationdb = {
-
     enable = lib.mkEnableOption "FoundationDB Server";
 
     package = lib.mkOption {
@@ -230,7 +228,7 @@ in
       '';
 
       type = lib.types.nullOr (
-        lib.types.submodule ({
+        lib.types.submodule {
           options = {
             certificate = lib.mkOption {
               type = lib.types.str;
@@ -258,7 +256,7 @@ in
               '';
             };
           };
-        })
+        }
       );
     };
 
@@ -274,7 +272,7 @@ in
         FoundationDB locality settings.
       '';
 
-      type = lib.types.submodule ({
+      type = lib.types.submodule {
         options = {
           machineId = lib.mkOption {
             default = null;
@@ -316,11 +314,11 @@ in
             '';
           };
         };
-      });
+      };
     };
 
     extraReadWritePaths = lib.mkOption {
-      default = [ ];
+      default = [];
       type = lib.types.listOf lib.types.path;
       description = ''
         An extra set of filesystem paths that FoundationDB can read to
@@ -364,7 +362,7 @@ in
       }
     ];
 
-    environment.systemPackages = [ pkg ];
+    environment.systemPackages = [pkg];
 
     users.users = lib.optionalAttrs (cfg.user == "foundationdb") {
       foundationdb = {
@@ -395,42 +393,42 @@ in
     systemd.services.foundationdb = {
       description = "FoundationDB Service";
 
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       unitConfig = {
         RequiresMountsFor = "${cfg.dataDir} ${cfg.logDir}";
       };
 
-      serviceConfig =
-        let
-          rwpaths = [
+      serviceConfig = let
+        rwpaths =
+          [
             cfg.dataDir
             cfg.logDir
             cfg.pidfile
             "/etc/foundationdb"
-          ] ++ cfg.extraReadWritePaths;
-        in
-        {
-          Type = "simple";
-          Restart = "always";
-          RestartSec = 5;
-          User = cfg.user;
-          Group = cfg.group;
-          PIDFile = "${cfg.pidfile}";
+          ]
+          ++ cfg.extraReadWritePaths;
+      in {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = 5;
+        User = cfg.user;
+        Group = cfg.group;
+        PIDFile = "${cfg.pidfile}";
 
-          PermissionsStartOnly = true; # setup needs root perms
-          TimeoutSec = 120; # give reasonable time to shut down
+        PermissionsStartOnly = true; # setup needs root perms
+        TimeoutSec = 120; # give reasonable time to shut down
 
-          # Security options
-          NoNewPrivileges = true;
-          ProtectHome = true;
-          ProtectSystem = "strict";
-          ProtectKernelTunables = true;
-          ProtectControlGroups = true;
-          PrivateTmp = true;
-          PrivateDevices = true;
-          ReadWritePaths = lib.concatStringsSep " " (map (x: "-" + x) rwpaths);
-        };
+        # Security options
+        NoNewPrivileges = true;
+        ProtectHome = true;
+        ProtectSystem = "strict";
+        ProtectKernelTunables = true;
+        ProtectControlGroups = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        ReadWritePaths = lib.concatStringsSep " " (map (x: "-" + x) rwpaths);
+      };
 
       path = [
         pkg
@@ -460,5 +458,5 @@ in
   };
 
   meta.doc = ./foundationdb.md;
-  meta.maintainers = with lib.maintainers; [ thoughtpolice ];
+  meta.maintainers = with lib.maintainers; [thoughtpolice];
 }

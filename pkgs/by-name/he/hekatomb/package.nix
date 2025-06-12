@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "hekatomb";
   version = "1.5.14-unstable-2024-02-14";
@@ -43,7 +42,7 @@ python3.pkgs.buildPythonApplication {
     description = "Tool to connect to LDAP directory to retrieve informations";
     homepage = "https://github.com/ProcessusT/HEKATOMB";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "hekatomb";
   };
 }

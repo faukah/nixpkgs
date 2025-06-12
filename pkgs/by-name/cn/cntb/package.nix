@@ -20,7 +20,7 @@ buildGoModule rec {
     '';
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorHash = "sha256-D0B1a2qbTGpAK1PkB+wqsReft14/SoKY3/I6k+pB2D0=";
 
@@ -35,6 +35,6 @@ buildGoModule rec {
     mainProgram = "cntb";
     homepage = "https://github.com/contabo/cntb";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ aciceri ];
+    maintainers = with maintainers; [aciceri];
   };
 }

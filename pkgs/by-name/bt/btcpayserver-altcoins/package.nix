@@ -1,5 +1,4 @@
-{ btcpayserver }:
-
+{btcpayserver}:
 btcpayserver.override {
   altcoinSupport = true;
 }

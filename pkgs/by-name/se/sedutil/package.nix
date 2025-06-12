@@ -6,7 +6,6 @@
   systemdLibs,
   libnvme,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sedutil";
   version = "1.49.13";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     systemdLibs

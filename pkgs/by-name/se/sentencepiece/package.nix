@@ -4,10 +4,8 @@
   stdenv,
   cmake,
   gperftools,
-
   withGPerfTools ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sentencepiece";
   version = "0.2.0";
@@ -19,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tMt6UBDqpdjAhxAJlVOFFlE3RC36/t8K0gBAzbesnsg=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = lib.optionals withGPerfTools [ gperftools ];
+  buildInputs = lib.optionals withGPerfTools [gperftools];
 
   outputs = [
     "bin"
@@ -41,6 +39,6 @@ stdenv.mkDerivation rec {
     description = "Unsupervised text tokenizer for Neural Network-based text generation";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pashashocky ];
+    maintainers = with maintainers; [pashashocky];
   };
 }

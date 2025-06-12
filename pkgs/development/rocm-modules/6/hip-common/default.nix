@@ -4,7 +4,6 @@
   fetchFromGitHub,
   rocmUpdateScript,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hip-common";
   version = "6.3.3";
@@ -37,9 +36,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "C++ Heterogeneous-Compute Interface for Portability";
     homepage = "https://github.com/ROCm/HIP";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ lovesegfault ];
-    teams = [ teams.rocm ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [lovesegfault];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

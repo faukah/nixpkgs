@@ -4,7 +4,6 @@
   fetchFromGitHub,
   curl,
 }:
-
 stdenv.mkDerivation {
   pname = "metar";
   version = "unstable-2017-02-17";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "1fgrlnpasqf1ihh9y6zy6mzzybqx0lxvh7gmv03rjdb55dr42dxj";
   };
 
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   meta = with lib; {
     homepage = "https://github.com/keesL/metar";
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
       Cumulunimbus is not yet decoded.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ zalakain ];
+    maintainers = with maintainers; [zalakain];
     mainProgram = "metar";
   };
 }

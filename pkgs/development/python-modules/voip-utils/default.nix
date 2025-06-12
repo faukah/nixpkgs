@@ -6,7 +6,6 @@
   opuslib,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "voip-utils";
   version = "0.3.2";
@@ -24,21 +23,21 @@ buildPythonPackage rec {
       --replace-fail "~=" ">="
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "opuslib" ];
+  pythonRelaxDeps = ["opuslib"];
 
-  dependencies = [ opuslib ];
+  dependencies = [opuslib];
 
-  pythonImportsCheck = [ "voip_utils" ];
+  pythonImportsCheck = ["voip_utils"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     changelog = "https://github.com/home-assistant-libs/voip-utils/blob/${src.rev}/CHANGELOG.md";
     description = "Voice over IP Utilities";
     homepage = "https://github.com/home-assistant-libs/voip-utils";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

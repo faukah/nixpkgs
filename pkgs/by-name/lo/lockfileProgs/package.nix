@@ -4,7 +4,6 @@
   fetchurl,
   liblockfile,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lockfile-progs";
   version = "0.1.19";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LFcEsByPR0+CkheA5Fkqknsr9qbXYWNUpsXXzVZkhX4=";
   };
 
-  buildInputs = [ liblockfile ];
+  buildInputs = [liblockfile];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isGNU (toString [
     # Needed with GCC 12
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "http://packages.debian.org/sid/lockfile-progs";
     license = lib.licenses.gpl2Only;
 
-    maintainers = [ lib.maintainers.bluescreen303 ];
+    maintainers = [lib.maintainers.bluescreen303];
     platforms = lib.platforms.all;
   };
 }

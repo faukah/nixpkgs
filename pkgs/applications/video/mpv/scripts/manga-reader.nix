@@ -4,7 +4,6 @@
   unstableGitUpdater,
   buildLua,
 }:
-
 buildLua {
   pname = "manga-reader";
 
@@ -15,7 +14,7 @@ buildLua {
     rev = "01312a1bf84ff2de48483760b7c9d638ebe08e20";
     hash = "sha256-j2uLB2pZiCKvMJBebXoXom9J5jJYMCA2Gz0QUI2yCQQ=";
   };
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Manga reading script for mpv";
@@ -24,6 +23,6 @@ buildLua {
     '';
     homepage = "https://github.com/Dudemanguy/mpv-manga-reader";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ idlip ];
+    maintainers = with lib.maintainers; [idlip];
   };
 }

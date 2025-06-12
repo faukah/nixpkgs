@@ -3,7 +3,6 @@
   fetchPypi,
   lib,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "silx";
   version = "2.2.2";
@@ -34,9 +33,8 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/silx-kit/silx/blob/main/CHANGELOG.rst";
     description = "Software to support data assessment, reduction and analysis at synchrotron radiation facilities";
     homepage = "https://github.com/silx-kit/silx";
-    license = [ lib.licenses.mit ];
-    maintainers = [ lib.maintainers.pmiddend ];
+    license = [lib.licenses.mit];
+    maintainers = [lib.maintainers.pmiddend];
     mainProgram = "silx";
   };
-
 }

@@ -13,7 +13,6 @@
   pytestCheckHook,
   respx,
 }:
-
 buildPythonPackage rec {
   pname = "xbox-webapi";
   version = "2.1.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-9A3gdSlRjBCx5fBW+jkaSWsFuGieXQKvbEbZzGzLf94=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     appdirs
@@ -45,13 +44,13 @@ buildPythonPackage rec {
   ];
 
   # https://github.com/OpenXbox/xbox-webapi-python/issues/114
-  disabledTests = [ "test_import" ];
+  disabledTests = ["test_import"];
 
   meta = with lib; {
     changelog = "https://github.com/OpenXbox/xbox-webapi-python/blob/${src.rev}/CHANGELOG.md";
     description = "Library to authenticate with Windows Live/Xbox Live and use their API";
     homepage = "https://github.com/OpenXbox/xbox-webapi-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

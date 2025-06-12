@@ -11,7 +11,6 @@
   gtk3,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-bluetooth-daemon";
   version = "1.0.1";
@@ -37,14 +36,14 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Send and receive files via bluetooth";
     homepage = "https://github.com/elementary/bluetooth-daemon";
     license = lib.licenses.gpl3Plus;
-    teams = [ lib.teams.pantheon ];
+    teams = [lib.teams.pantheon];
     platforms = lib.platforms.linux;
     mainProgram = "io.elementary.bluetooth";
   };

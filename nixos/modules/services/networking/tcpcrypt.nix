@@ -4,21 +4,12 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.networking.tcpcrypt;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     networking.tcpcrypt.enable = mkOption {
       type = types.bool;
       default = false;
@@ -34,7 +25,6 @@ in
   };
 
   config = mkIf cfg.enable {
-
     users.users.tcpcryptd = {
       uid = config.ids.uids.tcpcryptd;
       description = "tcpcrypt daemon user";
@@ -43,8 +33,8 @@ in
     systemd.services.tcpcrypt = {
       description = "tcpcrypt";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       path = [
         pkgs.iptables
@@ -85,5 +75,4 @@ in
       '';
     };
   };
-
 }

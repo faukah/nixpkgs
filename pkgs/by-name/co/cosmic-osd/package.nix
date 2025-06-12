@@ -9,7 +9,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-osd";
   version = "1.0.0-alpha.7";
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-kfExKggQo3MoTXw1JbKWjLu5kwYF0n7DzSQcG6e1+QQ=";
 
-  nativeBuildInputs = [ libcosmicAppHook ];
+  nativeBuildInputs = [libcosmicAppHook];
 
   buildInputs = [
     pulseaudio
@@ -41,7 +40,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru = {
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         cosmic
         cosmic-autologin
         cosmic-noxwayland
@@ -63,7 +63,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "OSD for the COSMIC Desktop Environment";
     mainProgram = "cosmic-osd";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
     platforms = lib.platforms.linux;
   };
 })

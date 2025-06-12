@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.image;
-in
-{
+in {
   imports = [
     ./disk-size-option.nix
     ../image/file-options.nix
@@ -32,7 +30,7 @@ in
   config = {
     boot.loader.grub = lib.mkIf (!cfg.efiSupport) {
       enable = lib.mkOptionDefault true;
-      devices = lib.mkDefault [ "/dev/vda" ];
+      devices = lib.mkDefault ["/dev/vda"];
     };
     boot.loader.systemd-boot.enable = lib.mkDefault cfg.efiSupport;
     boot.growPartition = lib.mkDefault true;
@@ -49,13 +47,16 @@ in
       };
     };
 
-    system.nixos.tags = [ cfg.format ] ++ lib.optionals cfg.efiSupport [ "efi" ];
+    system.nixos.tags = [cfg.format] ++ lib.optionals cfg.efiSupport ["efi"];
     image.extension = cfg.format;
     system.build.image = import ../../lib/make-disk-image.nix {
       inherit lib config pkgs;
       inherit (config.virtualisation) diskSize;
       inherit (cfg) baseName format;
-      partitionTableType = if cfg.efiSupport then "efi" else "legacy";
+      partitionTableType =
+        if cfg.efiSupport
+        then "efi"
+        else "legacy";
     };
   };
 }

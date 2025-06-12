@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "gemfileparser";
   version = "0.8.0";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-g5WS5J6j/Zhc7AA+9Y+OdwCaae12RKDArMlM9t2bjW4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "gemfileparser" ];
+  pythonImportsCheck = ["gemfileparser"];
 
   meta = with lib; {
     description = "Library to parse Ruby Gemfile, .gemspec and Cocoapod .podspec file using Python";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       gpl3Plus
       mit
     ];
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "parsegemfile";
   };
 }

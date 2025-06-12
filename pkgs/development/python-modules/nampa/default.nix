@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "nampa";
   version = "1.0";
@@ -27,20 +26,20 @@ buildPythonPackage rec {
       --replace "0.1.1" "${version}"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ future ];
+  dependencies = [future];
 
   # Not used for binaryninja as plugin
   doCheck = false;
 
-  pythonImportsCheck = [ "nampa" ];
+  pythonImportsCheck = ["nampa"];
 
   meta = with lib; {
     description = "Python implementation of the FLIRT technology";
     homepage = "https://github.com/thebabush/nampa";
     changelog = "https://github.com/thebabush/nampa/releases/tag/${version}";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

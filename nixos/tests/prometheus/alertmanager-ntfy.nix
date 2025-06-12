@@ -1,16 +1,12 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   ports = {
     alertmanager-ntfy = 8000;
     ntfy-sh = 8001;
     alertmanager = 8002;
   };
-in
-
-{
+in {
   name = "alertmanager-ntfy";
-  meta.maintainers = with lib.maintainers; [ defelo ];
+  meta.maintainers = with lib.maintainers; [defelo];
 
   nodes.machine = {
     services.prometheus.alertmanager = {
@@ -21,7 +17,7 @@ in
       configuration = {
         route = {
           receiver = "test";
-          group_by = [ "..." ];
+          group_by = ["..."];
           group_wait = "0s";
           group_interval = "1s";
           repeat_interval = "2h";
@@ -30,7 +26,7 @@ in
         receivers = [
           {
             name = "test";
-            webhook_configs = [ { url = "http://127.0.0.1:${toString ports.alertmanager-ntfy}/hook"; } ];
+            webhook_configs = [{url = "http://127.0.0.1:${toString ports.alertmanager-ntfy}/hook";}];
           }
         ];
       };
@@ -62,11 +58,13 @@ in
       lib.mkForce "0.0.0.0:${toString ports.alertmanager-ntfy}";
     services.ntfy-sh.settings.listen-http = lib.mkForce "0.0.0.0:${toString ports.ntfy-sh}";
     networking.firewall.enable = false;
-    virtualisation.forwardPorts = lib.mapAttrsToList (_: port: {
-      from = "host";
-      host = { inherit port; };
-      guest = { inherit port; };
-    }) ports;
+    virtualisation.forwardPorts =
+      lib.mapAttrsToList (_: port: {
+        from = "host";
+        host = {inherit port;};
+        guest = {inherit port;};
+      })
+      ports;
   };
 
   testScript = ''

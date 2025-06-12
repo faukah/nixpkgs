@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "nbmerge";
   version = "0.0.4";
@@ -16,26 +15,26 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-Uqs/SO/AculHCFYcbjW08kLQX5GSU/eAwkN2iy/vhLM=";
   };
 
-  patches = [ ./pytest-compatibility.patch ];
+  patches = [./pytest-compatibility.patch];
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
-  dependencies = [ python3Packages.nbformat ];
+  dependencies = [python3Packages.nbformat];
 
-  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+  nativeCheckInputs = [python3Packages.pytestCheckHook];
 
   postCheck = ''
     patchShebangs .
     PATH=$PATH:$out/bin ./cli_tests.sh
   '';
 
-  pythonImportsCheck = [ "nbmerge" ];
+  pythonImportsCheck = ["nbmerge"];
 
   meta = {
     description = "Tool to merge/concatenate Jupyter (IPython) notebooks";
     inherit (src.meta) homepage;
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "nbmerge";
   };
 }

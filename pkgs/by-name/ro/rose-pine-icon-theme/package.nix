@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gtk3,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "rose-pine-icon-theme";
   version = "unstable-2022-09-01";

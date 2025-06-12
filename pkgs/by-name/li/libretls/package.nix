@@ -7,7 +7,6 @@
   openssl,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libretls";
   version = "3.8.1";
@@ -29,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--install"
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   strictDeps = true;
 
@@ -38,6 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://git.causal.agency/libretls/about/";
     changelog = "https://git.causal.agency/libretls/tag/?h=${finalAttrs.version}";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ mtrsk ];
+    maintainers = with lib.maintainers; [mtrsk];
   };
 })

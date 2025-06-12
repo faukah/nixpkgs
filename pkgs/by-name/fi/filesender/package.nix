@@ -38,6 +38,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Web application for sending large files to other users";
     homepage = "https://filesender.org/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ nhnn ];
+    maintainers = with lib.maintainers; [nhnn];
   };
 })

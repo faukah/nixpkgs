@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "16v8aj914ac1ipf14a867ljib3gy7fhzd9ypxnsg9l0zi8mm3ml5";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12
@@ -27,6 +27,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/x-logLT/gsmlib";
     license = licenses.lgpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.misuzu ];
+    maintainers = [maintainers.misuzu];
   };
 }

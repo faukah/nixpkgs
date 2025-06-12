@@ -5,7 +5,6 @@
   gtk3,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pngoptimizer";
   version = "2.7";
@@ -17,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "1hbgf91vzx46grslfdx86smdvm6gs6lq9hpa3bax9xfbsknxi0i7";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   makeFlags = [
     "CONFIG=release"
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
       lgpl21Only
       zlib
     ];
-    maintainers = with maintainers; [ smitop ];
+    maintainers = with maintainers; [smitop];
     platforms = with platforms; linux;
   };
 }

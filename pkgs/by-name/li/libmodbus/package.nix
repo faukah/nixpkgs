@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmodbus";
   version = "3.1.11";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-d/diR9yeV0WY0C6wqxYZfOjEKFeWTvN73MxcWtXPOJc=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags = [
     # when cross-compiling we assume that the host system will return a valid
@@ -33,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "https://libmodbus.org/";
     license = licenses.lgpl21Plus;
     platforms = with platforms; unix ++ windows;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

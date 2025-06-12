@@ -1,7 +1,6 @@
 {
   callPackage,
   fetchurl,
-
   # This is a bit unusual, but makes version and hash easily
   # overridable. This is useful when the upstream archive was replaced
   # and nixpkgs is not in sync yet.
@@ -10,10 +9,8 @@
     edition = "2024";
     hash = "sha256-F1Srm3/4UPifYls21MhjbpxSyLaT0gEVzEMQF0gIzi0=";
   },
-
   ...
-}@args:
-
+} @ args:
 callPackage ./generic.nix (
   args
   // rec {

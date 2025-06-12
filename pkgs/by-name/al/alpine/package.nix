@@ -12,7 +12,6 @@
   libxcrypt,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "alpine";
   version = "2.26";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-cJyUBatQBjD6RG+jesJ0JRhWghPRBACc/HQl+2aCTd0=";
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   buildInputs = [
     ncurses
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     libxcrypt
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   configureFlags = [
     "--with-ssl-include-dir=${openssl.dev}/include/openssl"
@@ -45,9 +44,9 @@ stdenv.mkDerivation rec {
 
   # Fixes https://github.com/NixOS/nixpkgs/issues/372699
   # See also https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1074804
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-incompatible-pointer-types" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-incompatible-pointer-types"];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "Console mail reader";

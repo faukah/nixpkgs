@@ -6,7 +6,6 @@
   ocamlPackages,
   remind,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wyrd";
   version = "1.7.1";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram "$out/bin/wyrd" \
-      --prefix PATH : "${lib.makeBinPath [ remind ]}"
+      --prefix PATH : "${lib.makeBinPath [remind]}"
   '';
 
   meta = with lib; {
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/wyrd-calendar/wyrd";
     downloadPage = "https://gitlab.com/wyrd-calendar/wyrd";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.prikhi ];
+    maintainers = [maintainers.prikhi];
     platforms = platforms.unix;
     mainProgram = "wyrd";
   };

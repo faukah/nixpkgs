@@ -10,7 +10,6 @@
   sound-theme-freedesktop,
   xprop,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "undistract-me";
   version = "unstable-2020-08-09";
@@ -77,6 +76,6 @@ stdenvNoCC.mkDerivation {
     description = "Notifies you when long-running terminal commands complete";
     homepage = "https://github.com/jml/undistract-me";
     license = licenses.mit;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
   };
 }

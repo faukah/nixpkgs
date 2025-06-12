@@ -6,7 +6,6 @@
   poetry-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sh";
   version = "2.2.2";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-5B+Bsxv2X1BHEMg8uv56ex//6EKEcLmte7ozcKzul/c=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   # A test needs the HOME directory to be different from $TMPDIR.
   preCheck = ''
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     description = "Python subprocess interface";
     homepage = "https://pypi.python.org/pypi/sh/";
     license = licenses.mit;
-    maintainers = with maintainers; [ siriobalmelli ];
+    maintainers = with maintainers; [siriobalmelli];
   };
 }

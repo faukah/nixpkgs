@@ -6,7 +6,6 @@
   stdenv,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "canokey-usbip";
   version = "0-unstable-2024-03-11";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "CanoKey USB/IP Virt Card";
     homepage = "https://github.com/canokeys/canokey-usbip";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.jmbaur ];
+    maintainers = [lib.maintainers.jmbaur];
     mainProgram = "canokey-usbip";
     platforms = lib.platforms.all;
   };

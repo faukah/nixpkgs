@@ -7,7 +7,6 @@
   ninja,
   mesonEmulatorHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "test-drive";
   version = "0.5.0";
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
       mit
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

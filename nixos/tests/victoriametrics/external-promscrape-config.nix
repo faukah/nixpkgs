@@ -3,8 +3,7 @@ import ../make-test-python.nix (
     lib,
     pkgs,
     ...
-  }:
-  let
+  }: let
     nodeExporterPort = 9100;
     promscrapeConfig = {
       global = {
@@ -23,10 +22,9 @@ import ../make-test-python.nix (
         }
       ];
     };
-    settingsFormat = pkgs.formats.yaml { };
+    settingsFormat = pkgs.formats.yaml {};
     promscrapeConfigYaml = settingsFormat.generate "prometheusConfig.yaml" promscrapeConfig;
-  in
-  {
+  in {
     name = "victoriametrics-external-promscrape-config";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -35,31 +33,27 @@ import ../make-test-python.nix (
     };
 
     nodes = {
-      victoriametrics =
-        {
-          config,
-          pkgs,
-          ...
-        }:
-        {
-          environment.systemPackages = [ pkgs.jq ];
-          networking.firewall.allowedTCPPorts = [ 8428 ];
-          services.victoriametrics = {
-            enable = true;
-            extraOptions = [
-              "-promscrape.config=${toString promscrapeConfigYaml}"
-            ];
-          };
+      victoriametrics = {
+        config,
+        pkgs,
+        ...
+      }: {
+        environment.systemPackages = [pkgs.jq];
+        networking.firewall.allowedTCPPorts = [8428];
+        services.victoriametrics = {
+          enable = true;
+          extraOptions = [
+            "-promscrape.config=${toString promscrapeConfigYaml}"
+          ];
         };
+      };
 
-      node =
-        { ... }:
-        {
-          services.prometheus.exporters.node = {
-            enable = true;
-            openFirewall = true;
-          };
+      node = {...}: {
+        services.prometheus.exporters.node = {
+          enable = true;
+          openFirewall = true;
         };
+      };
     };
 
     testScript = ''

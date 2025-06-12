@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "flexget";
   version = "3.16.3";
@@ -163,6 +162,6 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/Flexget/Flexget/releases/tag/${src.tag}";
     description = "Multipurpose automation tool for all of your media";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
   };
 }

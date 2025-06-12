@@ -21,9 +21,7 @@
   types-python-dateutil,
   types-pytz,
   types-deprecated,
-
 }:
-
 buildPythonPackage rec {
   pname = "swh-model";
   version = "7.1.0";
@@ -55,7 +53,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "swh.model" ];
+  pythonImportsCheck = ["swh.model"];
 
   nativeCheckInputs = [
     aiohttp
@@ -79,6 +77,6 @@ buildPythonPackage rec {
     description = "Implementation of the Data model of the Software Heritage project, used to archive source code artifacts";
     homepage = "https://gitlab.softwareheritage.org/swh/devel/swh-model";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

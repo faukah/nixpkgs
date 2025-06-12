@@ -19,7 +19,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "behave";
   version = "1.2.7.dev5";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -53,7 +52,7 @@ buildPythonPackage rec {
 
   doCheck = pythonOlder "3.12";
 
-  pythonImportsCheck = [ "behave" ];
+  pythonImportsCheck = ["behave"];
 
   dependencies = [
     colorama

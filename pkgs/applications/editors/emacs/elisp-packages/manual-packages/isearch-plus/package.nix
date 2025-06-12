@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 melpaBuild {
   pname = "isearch-plus";
   ename = "isearch+";
@@ -17,12 +16,12 @@ melpaBuild {
     hash = "sha256-jbzar5Sj7WtHOjoSe+inU6+8q7LyvYJS2DqTfzD70AQ=";
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://www.emacswiki.org/emacs/IsearchPlus";
     description = "Extensions to isearch";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ leungbk ];
+    maintainers = with lib.maintainers; [leungbk];
   };
 }

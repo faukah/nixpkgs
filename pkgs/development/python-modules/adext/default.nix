@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "adext";
   version = "0.4.7";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-cZMA8/t24xk5b1At2LQWeDWuRfPcXBCXpl2T70YxZeA=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [ alarmdecoder ];
+  dependencies = [alarmdecoder];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "adext" ];
+  pythonImportsCheck = ["adext"];
 
   meta = with lib; {
     description = "Python extension for AlarmDecoder";
     homepage = "https://github.com/ajschmidt8/adext";
     changelog = "https://github.com/ajschmidt8/adext/releases/tag/${src.tag}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

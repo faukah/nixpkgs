@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "strictdoc";
   version = "0.0.58";
@@ -64,14 +63,14 @@ python3.pkgs.buildPythonApplication rec {
     "textx"
   ];
 
-  pythonImportsCheck = [ "strictdoc" ];
+  pythonImportsCheck = ["strictdoc"];
 
   meta = with lib; {
     description = "Software for technical documentation and requirements management";
     homepage = "https://github.com/strictdoc-project/strictdoc";
     changelog = "https://github.com/strictdoc-project/strictdoc/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ yuu ];
+    maintainers = with maintainers; [yuu];
     mainProgram = "strictdoc";
   };
 }

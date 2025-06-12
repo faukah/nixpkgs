@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libb64";
   version = "2.0.0.1";

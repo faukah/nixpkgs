@@ -1,19 +1,20 @@
-{ ocamlPackages }:
-
+{ocamlPackages}:
 with ocamlPackages;
-buildDunePackage {
-  pname = "msat-bin";
+  buildDunePackage {
+    pname = "msat-bin";
 
-  inherit (msat) version src;
+    inherit (msat) version src;
 
-  buildInputs = [
-    camlzip
-    containers
-    msat
-  ];
+    buildInputs = [
+      camlzip
+      containers
+      msat
+    ];
 
-  meta = msat.meta // {
-    description = "SAT solver binary based on the msat library";
-    mainProgram = "msat";
-  };
-}
+    meta =
+      msat.meta
+      // {
+        description = "SAT solver binary based on the msat library";
+        mainProgram = "msat";
+      };
+  }

@@ -5,7 +5,6 @@
   attrs,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "pyqwikswitch";
   version = "0.94";
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "QwikSwitch USB Modem API binding for Python";
     homepage = "https://github.com/kellerza/pyqwikswitch";
     license = licenses.mit;
-    teams = [ teams.home-assistant ];
+    teams = [teams.home-assistant];
   };
 }

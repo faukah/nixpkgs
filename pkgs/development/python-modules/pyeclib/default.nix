@@ -9,7 +9,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "pyeclib";
   version = "1.6.4";
@@ -33,17 +32,17 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  preBuild =
-    let
-      ldLibraryPathEnvName =
-        if stdenv.hostPlatform.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
-    in
-    ''
-      # required for the custom _find_library function in setup.py
-      export ${ldLibraryPathEnvName}="${lib.makeLibraryPath [ liberasurecode ]}"
-    '';
+  preBuild = let
+    ldLibraryPathEnvName =
+      if stdenv.hostPlatform.isDarwin
+      then "DYLD_LIBRARY_PATH"
+      else "LD_LIBRARY_PATH";
+  in ''
+    # required for the custom _find_library function in setup.py
+    export ${ldLibraryPathEnvName}="${lib.makeLibraryPath [liberasurecode]}"
+  '';
 
-  dependencies = [ liberasurecode ];
+  dependencies = [liberasurecode];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -55,12 +54,12 @@ buildPythonPackage rec {
     "test_get_metadata_memory_usage"
   ];
 
-  pythonImportsCheck = [ "pyeclib" ];
+  pythonImportsCheck = ["pyeclib"];
 
   meta = with lib; {
     description = "This library provides a simple Python interface for implementing erasure codes";
     homepage = "https://github.com/openstack/pyeclib";
     license = licenses.bsd2;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

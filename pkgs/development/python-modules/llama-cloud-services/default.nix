@@ -14,7 +14,6 @@
   pytestCheckHook,
   python-dotenv,
 }:
-
 buildPythonPackage rec {
   pname = "llama-cloud-services";
   version = "0.6.28";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-2ANsXUOTTWhIS6/BPvlOox4KJcQI0lngPMAf3Hous7s=";
   };
 
-  pythonRelaxDeps = [ "llama-cloud" ];
+  pythonRelaxDeps = ["llama-cloud"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     click
@@ -44,13 +43,13 @@ buildPythonPackage rec {
   # Missing dependency autoevals
   doCheck = false;
 
-  pythonImportsCheck = [ "llama_cloud_services" ];
+  pythonImportsCheck = ["llama_cloud_services"];
 
   meta = {
     description = "Knowledge Agents and Management in the Cloud";
     homepage = "https://github.com/run-llama/llama_cloud_services";
     changelog = "https://github.com/run-llama/llama_cloud_services/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

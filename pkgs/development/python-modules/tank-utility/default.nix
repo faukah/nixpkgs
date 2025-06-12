@@ -10,7 +10,6 @@
   setuptools,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "tank-utility";
   version = "1.5.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-h9y3X+FSzSFt+bd/chz+x0nocHaKZ8DvreMxAYMs8/E=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     requests
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "tank_utility" ];
+  pythonImportsCheck = ["tank_utility"];
 
   meta = with lib; {
     description = "Library for the Tank Utility API";
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/krismolendyke/tank-utility";
     changelog = "https://github.com/krismolendyke/tank-utility/blob/${version}/HISTORY.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

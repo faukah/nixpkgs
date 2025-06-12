@@ -38,7 +38,6 @@
   perl,
   pkg-config,
 }:
-
 gccStdenv.mkDerivation (finalAttrs: {
   pname = "icewm";
   version = "3.7.5";
@@ -124,7 +123,7 @@ gccStdenv.mkDerivation (finalAttrs: {
       a simple session manager and a system tray.
     '';
     license = lib.licenses.lgpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

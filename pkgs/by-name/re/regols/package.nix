@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "regols";
   version = "0.2.4";
@@ -23,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/kitagry/regols";
     changelog = "https://github.com/kitagry/regols/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ alias-dev ];
+    maintainers = with maintainers; [alias-dev];
   };
 }

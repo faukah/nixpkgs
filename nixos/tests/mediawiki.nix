@@ -1,10 +1,8 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-}:
-
-let
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
+}: let
   shared = {
     services.mediawiki.enable = true;
     services.mediawiki.httpd.virtualHost.hostName = "localhost";
@@ -21,10 +19,9 @@ let
 
   testLib = import ../lib/testing-python.nix {
     inherit system pkgs;
-    extraConfigurations = [ shared ];
+    extraConfigurations = [shared];
   };
-in
-{
+in {
   mysql = testLib.makeTest {
     name = "mediawiki-mysql";
     nodes.machine = {
@@ -60,21 +57,19 @@ in
     nodes.machine = {
       services.mediawiki.webserver = "none";
     };
-    testScript =
-      { nodes, ... }:
-      ''
-        start_all()
-        machine.wait_for_unit("phpfpm-mediawiki.service")
-        env = (
-          "SCRIPT_NAME=/index.php",
-          "SCRIPT_FILENAME=${nodes.machine.services.mediawiki.finalPackage}/share/mediawiki/index.php",
-          "REMOTE_ADDR=127.0.0.1",
-          'QUERY_STRING=title=Main_Page',
-          "REQUEST_METHOD=GET",
-        );
-        page = machine.succeed(f"{' '.join(env)} ${pkgs.fcgi}/bin/cgi-fcgi -bind -connect ${nodes.machine.services.phpfpm.pools.mediawiki.socket}")
-        assert "MediaWiki has been installed" in page, f"no 'MediaWiki has been installed' in:\n{page}"
-      '';
+    testScript = {nodes, ...}: ''
+      start_all()
+      machine.wait_for_unit("phpfpm-mediawiki.service")
+      env = (
+        "SCRIPT_NAME=/index.php",
+        "SCRIPT_FILENAME=${nodes.machine.services.mediawiki.finalPackage}/share/mediawiki/index.php",
+        "REMOTE_ADDR=127.0.0.1",
+        'QUERY_STRING=title=Main_Page',
+        "REQUEST_METHOD=GET",
+      );
+      page = machine.succeed(f"{' '.join(env)} ${pkgs.fcgi}/bin/cgi-fcgi -bind -connect ${nodes.machine.services.phpfpm.pools.mediawiki.socket}")
+      assert "MediaWiki has been installed" in page, f"no 'MediaWiki has been installed' in:\n{page}"
+    '';
   };
 
   nginx = testLib.makeTest {

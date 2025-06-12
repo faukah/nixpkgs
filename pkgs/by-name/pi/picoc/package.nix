@@ -4,7 +4,6 @@
   fetchFromGitLab,
   readline,
 }:
-
 stdenv.mkDerivation {
   pname = "picoc";
   version = "2.1-unstable-2018-06-05";
@@ -16,9 +15,9 @@ stdenv.mkDerivation {
     hash = "sha256-yWPRbJLT09E7pqqs9E2k48ECoRR2nhcgTgK5pumkrxo=";
   };
 
-  buildInputs = [ readline ];
+  buildInputs = [readline];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.hostPlatform.isDarwin [

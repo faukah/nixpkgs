@@ -8,7 +8,6 @@
   usage,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "usage";
   version = "2.0.5";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
       --replace-fail '/usr/bin/env -S usage' "$(pwd)/target/${stdenv.targetPlatform.rust.rustcTargetSpec}/release/usage"
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd usage \
@@ -38,8 +37,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion { package = usage; };
+    updateScript = nix-update-script {};
+    tests.version = testers.testVersion {package = usage;};
   };
 
   meta = {
@@ -47,7 +46,7 @@ rustPlatform.buildRustPackage rec {
     description = "Specification for CLIs";
     changelog = "https://github.com/jdx/usage/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ konradmalik ];
+    maintainers = with lib.maintainers; [konradmalik];
     mainProgram = "usage";
   };
 }

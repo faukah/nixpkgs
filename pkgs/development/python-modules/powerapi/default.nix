@@ -15,7 +15,6 @@
   setproctitle,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "powerapi";
   version = "2.10.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-rn1qe0RwYuUR23CgzOOeiwe1wuFihnhQ9a6ALgSP/cQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyzmq
@@ -38,27 +37,29 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    influxdb = [ influxdb-client ];
-    kubernetes = [ kubernetes ];
-    mongodb = [ pymongo ];
+    influxdb = [influxdb-client];
+    kubernetes = [kubernetes];
+    mongodb = [pymongo];
     # opentsdb = [ opentsdb-py ];
-    prometheus = [ prometheus-client ];
+    prometheus = [prometheus-client];
   };
 
-  nativeCheckInputs = [
-    mock
-    pytest-cov-stub
-    pytestCheckHook
-    pytest-timeout
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      mock
+      pytest-cov-stub
+      pytestCheckHook
+      pytest-timeout
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "powerapi" ];
+  pythonImportsCheck = ["powerapi"];
 
   meta = {
     description = "Python framework for building software-defined power meters";
     homepage = "https://github.com/powerapi-ng/powerapi";
     changelog = "https://github.com/powerapi-ng/powerapi/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

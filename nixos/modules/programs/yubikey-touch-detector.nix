@@ -3,15 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib) types;
   cfg = config.programs.yubikey-touch-detector;
-in
-{
+in {
   options = {
     programs.yubikey-touch-detector = {
-
       enable = lib.mkEnableOption "yubikey-touch-detector";
 
       libnotify = lib.mkOption {
@@ -38,15 +35,14 @@ in
           Enables verbose logging
         '';
       };
-
     };
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.packages = [ pkgs.yubikey-touch-detector ];
+    systemd.packages = [pkgs.yubikey-touch-detector];
 
     systemd.user.services.yubikey-touch-detector = {
-      path = [ pkgs.gnupg ];
+      path = [pkgs.gnupg];
 
       environment = {
         YUBIKEY_TOUCH_DETECTOR_LIBNOTIFY = builtins.toString cfg.libnotify;
@@ -54,11 +50,11 @@ in
         YUBIKEY_TOUCH_DETECTOR_VERBOSE = builtins.toString cfg.verbose;
       };
 
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
     };
     systemd.user.sockets.yubikey-touch-detector = {
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
     };
   };
 }

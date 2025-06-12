@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "mcphost";
   version = "0.8.0";
@@ -21,7 +20,7 @@ buildGoModule (finalAttrs: {
     description = "CLI host application that enables Large Language Models (LLMs) to interact with external tools through the Model Context Protocol (MCP)";
     homepage = "https://github.com/mark3labs/mcphost";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     mainProgram = "mcphost";
   };
 })

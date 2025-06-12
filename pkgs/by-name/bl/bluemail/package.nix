@@ -19,7 +19,6 @@
   gcc-unwrapped,
   udev,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bluemail";
   version = "1.140.93";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
         "x-scheme-handler/mailto"
         "x-scheme-handler/bluemail-notif"
       ];
-      categories = [ "Office" ];
+      categories = ["Office"];
     })
   ];
 
@@ -106,7 +105,7 @@ stdenv.mkDerivation rec {
         udev
       ]
     }"
-    "--prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}"
+    "--prefix PATH : ${lib.makeBinPath [stdenv.cc]}"
   ];
 
   preFixup = ''
@@ -119,10 +118,10 @@ stdenv.mkDerivation rec {
     description = "Cross platform email and calendar app, with AI features and a modern design";
     homepage = "https://bluemail.me";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     # Vendored copy of Electron.
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [];
     mainProgram = "bluemail";
   };
 }

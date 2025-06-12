@@ -4,7 +4,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "flood-for-transmission";
   version = "2024-11-16T12-26-17";
@@ -33,7 +32,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/johman10/flood-for-transmission";
     downloadPage = "https://github.com/johman10/flood-for-transmission/releases";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ al3xtjames ];
+    maintainers = with maintainers; [al3xtjames];
     platforms = platforms.all;
   };
 }

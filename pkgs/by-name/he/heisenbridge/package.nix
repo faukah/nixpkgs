@@ -4,7 +4,6 @@
   nix-update-script,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "heisenbridge";
   version = "1.15.3";
@@ -31,13 +30,13 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Bouncer-style Matrix-IRC bridge";
     homepage = "https://github.com/hifi/heisenbridge";
     license = licenses.mit;
-    maintainers = [ maintainers.sumnerevans ];
+    maintainers = [maintainers.sumnerevans];
     mainProgram = "heisenbridge";
   };
 }

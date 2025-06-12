@@ -6,7 +6,6 @@
   curl,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-public-api";
   version = "0.47.1";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-HhYGc0S/i6KWZsv4E1NTkZb+jdUkcKDP/c0hdVTHJXE=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     curl
@@ -35,6 +34,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Enselic/cargo-public-api";
     changelog = "https://github.com/Enselic/cargo-public-api/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ matthiasbeyer ];
+    maintainers = with lib.maintainers; [matthiasbeyer];
   };
 }

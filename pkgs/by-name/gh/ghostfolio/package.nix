@@ -8,7 +8,6 @@
   prisma,
   prisma-engines,
 }:
-
 buildNpmPackage rec {
   pname = "ghostfolio";
   version = "2.165.0";
@@ -63,17 +62,17 @@ buildNpmPackage rec {
     mkdir "$out/bin"
     makeWrapper ${lib.getExe nodejs} "$out/bin/ghostfolio" \
       --add-flags "$out/lib/node_modules/ghostfolio/api/main" "''${user_args[@]}" \
-      --prefix PATH : ${lib.makeBinPath [ openssl ]} \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ openssl ]} \
+      --prefix PATH : ${lib.makeBinPath [openssl]} \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [openssl]} \
       ${lib.concatStringsSep " " (
-        lib.mapAttrsToList (name: value: "--set ${name} ${lib.escapeShellArg value}") {
-          PRISMA_SCHEMA_ENGINE_BINARY = lib.getExe' prisma-engines "schema-engine";
-          PRISMA_QUERY_ENGINE_BINARY = lib.getExe' prisma-engines "query-engine";
-          PRISMA_QUERY_ENGINE_LIBRARY = "${prisma-engines}/lib/libquery_engine.node";
-          PRISMA_INTROSPECTION_ENGINE_BINARY = lib.getExe' prisma-engines "introspection-engine";
-          PRISMA_FMT_BINARY = lib.getExe' prisma-engines "prisma-fmt";
-        }
-      )}
+      lib.mapAttrsToList (name: value: "--set ${name} ${lib.escapeShellArg value}") {
+        PRISMA_SCHEMA_ENGINE_BINARY = lib.getExe' prisma-engines "schema-engine";
+        PRISMA_QUERY_ENGINE_BINARY = lib.getExe' prisma-engines "query-engine";
+        PRISMA_QUERY_ENGINE_LIBRARY = "${prisma-engines}/lib/libquery_engine.node";
+        PRISMA_INTROSPECTION_ENGINE_BINARY = lib.getExe' prisma-engines "introspection-engine";
+        PRISMA_FMT_BINARY = lib.getExe' prisma-engines "prisma-fmt";
+      }
+    )}
 
     runHook postInstall
   '';
@@ -83,7 +82,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/ghostfolio/ghostfolio";
     changelog = "https://github.com/ghostfolio/ghostfolio/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "ghostfolio";
   };
 }

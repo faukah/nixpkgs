@@ -8,7 +8,6 @@
   jq,
   common-updater-scripts,
 }:
-
 # The raw package that fetches and extracts the Plex RPM. Override the source
 # and version of this derivation if you want to use a Plex Pass version of the
 # server, and the FHS userenv and corresponding NixOS module should
@@ -19,7 +18,8 @@ stdenv.mkDerivation rec {
 
   # Fetch the source
   src =
-    if stdenv.hostPlatform.system == "aarch64-linux" then
+    if stdenv.hostPlatform.system == "aarch64-linux"
+    then
       fetchurl {
         url = "https://downloads.plex.tv/plex-media-server-new/${version}/debian/plexmediaserver_${version}_arm64.deb";
         sha256 = "1gnrb3kc9l7rvbs1yb1640f4csvwdp0kpabhgbq7ql55yk1rcfg8";
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     "basedb"
   ];
 
-  nativeBuildInputs = [ dpkg ];
+  nativeBuildInputs = [dpkg];
 
   installPhase = ''
     runHook preInstall
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://plex.tv/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = [
       "x86_64-linux"

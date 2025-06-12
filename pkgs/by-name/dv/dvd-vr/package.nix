@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dvd-vr";
   version = "0.9.7";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://www.pixelbeat.org/programs/dvd-vr/";
     description = "Utility to identify and optionally copy recordings from a DVD-VR format disc";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     mainProgram = "dvd-vr";
   };
 })

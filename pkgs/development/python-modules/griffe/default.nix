@@ -9,7 +9,6 @@
   pdm-backend,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "griffe";
   version = "1.7.3";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-H5bkS8NK96M2W+kH1KijmzVL5Y04KY9xc5Vw5l1lfws=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
-  dependencies = [ colorama ];
+  dependencies = [colorama];
 
   nativeCheckInputs = [
     git
@@ -33,10 +32,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    async = [ aiofiles ];
+    async = [aiofiles];
   };
 
-  pythonImportsCheck = [ "griffe" ];
+  pythonImportsCheck = ["griffe"];
 
   disabledTestPaths = [
     # Circular dependencies
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/mkdocstrings/griffe";
     changelog = "https://github.com/mkdocstrings/griffe/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "griffe";
   };
 }

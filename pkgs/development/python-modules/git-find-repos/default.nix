@@ -16,13 +16,13 @@ buildPythonPackage rec {
     sha256 = "sha256-4TuZlt6XH4//DBHPuIMl/i3Tp6Uft62dGCTAuZ2rseE=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   meta = {
     description = "Simple CLI tool for finding git repositories";
     homepage = "https://github.com/acroz/git-find-repos";
     license = lib.licenses.mit;
     mainProgram = "git-find-repos";
-    maintainers = [ lib.maintainers.yajo ];
+    maintainers = [lib.maintainers.yajo];
   };
 }

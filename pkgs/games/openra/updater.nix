@@ -7,9 +7,7 @@
   nix,
   nix-prefetch-github,
   common-updater-scripts,
-}:
-engine:
-
+}: engine:
 lib.getExe (writeShellApplication {
   name = "openra-updater";
   runtimeInputs = [

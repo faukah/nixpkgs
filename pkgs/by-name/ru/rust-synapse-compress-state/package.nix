@@ -7,7 +7,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rust-synapse-compress-state";
   version = "0.1.4";
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;

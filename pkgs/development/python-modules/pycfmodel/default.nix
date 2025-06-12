@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pycfmodel";
   version = "1.1.0";
@@ -23,11 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-mFO3T5FmVLAXPmLJsueCDdCLoFfBwQwryxfEtkLz1rM=";
   };
 
-  pythonRelaxDeps = [ "pydantic" ];
+  pythonRelaxDeps = ["pydantic"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pydantic ];
+  dependencies = [pydantic];
 
   nativeCheckInputs = [
     httpx
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     "test_raise_error_if_invalid_fields_in_resource"
   ];
 
-  pythonImportsCheck = [ "pycfmodel" ];
+  pythonImportsCheck = ["pycfmodel"];
 
   meta = with lib; {
     description = "Model for Cloud Formation scripts";
     homepage = "https://github.com/Skyscanner/pycfmodel";
     changelog = "https://github.com/Skyscanner/pycfmodel/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

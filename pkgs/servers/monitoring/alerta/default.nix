@@ -3,7 +3,6 @@
   python3,
   fetchPypi,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "alerta-server";
   version = "9.0.1";
@@ -46,6 +45,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Alerta Monitoring System server";
     mainProgram = "alertad";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

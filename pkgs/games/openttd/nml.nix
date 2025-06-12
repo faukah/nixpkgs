@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "openttd-nml";
   version = "0.7.6";
@@ -25,6 +24,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Compiler for OpenTTD NML files";
     mainProgram = "nmlc";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ToxicFrog ];
+    maintainers = with maintainers; [ToxicFrog];
   };
 }

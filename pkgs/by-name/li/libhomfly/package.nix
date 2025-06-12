@@ -5,7 +5,6 @@
   autoreconfHook,
   boehmgc,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.02r6";
   pname = "libhomfly";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/miguelmarco/libhomfly/";
     description = "Library to compute the homfly polynomial of knots and links";
     license = licenses.unlicense;
-    teams = [ teams.sage ];
+    teams = [teams.sage];
     platforms = platforms.all;
   };
 }

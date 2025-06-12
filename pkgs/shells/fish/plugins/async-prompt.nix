@@ -3,7 +3,6 @@
   buildFishPlugin,
   fetchFromGitHub,
 }:
-
 buildFishPlugin rec {
   pname = "async-prompt";
   version = "1.2.0";
@@ -19,6 +18,6 @@ buildFishPlugin rec {
     description = "Make your prompt asynchronous to improve the reactivity";
     homepage = "https://github.com/acomagu/fish-async-prompt";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

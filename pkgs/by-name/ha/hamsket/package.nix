@@ -3,9 +3,7 @@
   appimageTools,
   fetchurl,
   makeDesktopItem,
-}:
-
-let
+}: let
   pname = "hamsket";
   version = "0.6.5";
 
@@ -20,30 +18,29 @@ let
       name = pname;
       exec = pname;
       icon = pname;
-      categories = [ "Network" ];
+      categories = ["Network"];
     }
   );
 
   appimageContents = appimageTools.extract {
     inherit pname version src;
   };
-
 in
-appimageTools.wrapType2 {
-  inherit pname version src;
+  appimageTools.wrapType2 {
+    inherit pname version src;
 
-  extraInstallCommands = ''
-    mkdir -p $out/share/applications $out/share/icons/hicolor/256x256/apps
-    install -Dm644 ${appimageContents}/usr/share/icons/hicolor/256x256/apps/hamsket*.png $out/share/icons/hicolor/256x256/apps/${pname}.png
-    install -Dm644 ${desktopItem}/share/applications/* $out/share/applications
-  '';
+    extraInstallCommands = ''
+      mkdir -p $out/share/applications $out/share/icons/hicolor/256x256/apps
+      install -Dm644 ${appimageContents}/usr/share/icons/hicolor/256x256/apps/hamsket*.png $out/share/icons/hicolor/256x256/apps/${pname}.png
+      install -Dm644 ${desktopItem}/share/applications/* $out/share/applications
+    '';
 
-  meta = {
-    description = "Free and open source messaging and emailing app that combines common web applications into one";
-    homepage = "https://github.com/TheGoddessInari/hamsket";
-    license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ nova-madeline ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-  };
-}
+    meta = {
+      description = "Free and open source messaging and emailing app that combines common web applications into one";
+      homepage = "https://github.com/TheGoddessInari/hamsket";
+      license = lib.licenses.gpl3Only;
+      maintainers = with lib.maintainers; [nova-madeline];
+      platforms = ["x86_64-linux"];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    };
+  }

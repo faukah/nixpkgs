@@ -11,10 +11,10 @@ symlinkJoin {
   preferLocalBuild = true;
   allowSubstitutes = false;
 
-  buildInputs = [ R ] ++ recommendedPackages ++ packages;
-  paths = [ R ];
+  buildInputs = [R] ++ recommendedPackages ++ packages;
+  paths = [R];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     cd ${R}/bin
@@ -27,12 +27,14 @@ symlinkJoin {
   '';
 
   # Make the list of recommended R packages accessible to other packages such as rpy2
-  passthru = { inherit recommendedPackages; };
+  passthru = {inherit recommendedPackages;};
 
-  meta = R.meta // {
-    # To prevent builds on hydra
-    hydraPlatforms = [ ];
-    # prefer wrapper over the package
-    priority = (R.meta.priority or lib.meta.defaultPriority) - 1;
-  };
+  meta =
+    R.meta
+    // {
+      # To prevent builds on hydra
+      hydraPlatforms = [];
+      # prefer wrapper over the package
+      priority = (R.meta.priority or lib.meta.defaultPriority) - 1;
+    };
 }

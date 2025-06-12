@@ -7,7 +7,6 @@
   perl,
   libitl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "itools";
   version = "1.1";
@@ -45,6 +44,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.arabeyes.org/ITL";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ amyipdev ];
+    maintainers = with lib.maintainers; [amyipdev];
   };
 })

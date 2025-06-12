@@ -3,32 +3,30 @@
   config,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.cockpit;
-  inherit (lib)
+  inherit
+    (lib)
     types
     mkEnableOption
     mkOption
     mkIf
     mkPackageOption
     ;
-  settingsFormat = pkgs.formats.ini { };
-in
-{
+  settingsFormat = pkgs.formats.ini {};
+in {
   options = {
     services.cockpit = {
       enable = mkEnableOption "Cockpit";
 
       package = mkPackageOption pkgs "Cockpit" {
-        default = [ "cockpit" ];
+        default = ["cockpit"];
       };
 
       allowed-origins = lib.mkOption {
         type = types.listOf types.str;
 
-        default = [ ];
+        default = [];
 
         description = ''
           List of allowed origins.
@@ -40,7 +38,7 @@ in
       settings = lib.mkOption {
         type = settingsFormat.type;
 
-        default = { };
+        default = {};
 
         description = ''
           Settings for cockpit that will be saved in /etc/cockpit/cockpit.conf.
@@ -63,12 +61,11 @@ in
     };
   };
   config = mkIf cfg.enable {
-
     # expose cockpit-bridge system-wide
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # allow cockpit to find its plugins
-    environment.pathsToLink = [ "/share/cockpit" ];
+    environment.pathsToLink = ["/share/cockpit"];
 
     # generate cockpit settings
     environment.etc."cockpit/cockpit.conf".source = settingsFormat.generate "cockpit.conf" cfg.settings;
@@ -77,10 +74,10 @@ in
       startSession = true;
     };
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
 
-    systemd.packages = [ cfg.package ];
-    systemd.sockets.cockpit.wantedBy = [ "multi-user.target" ];
+    systemd.packages = [cfg.package];
+    systemd.sockets.cockpit.wantedBy = ["multi-user.target"];
     systemd.sockets.cockpit.listenStreams = [
       "" # workaround so it doesn't listen on both ports caused by the runtime merging
       (toString cfg.port)

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "yex-lang";
   version = "0.pre+date=2022-05-10";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/nonamescm/yex-lang";
     description = "Functional scripting language written in rust";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "yex";
     platforms = platforms.unix;
   };

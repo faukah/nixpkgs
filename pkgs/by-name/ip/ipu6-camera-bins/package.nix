@@ -6,7 +6,6 @@
   expat,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ipu6-camera-bins";
   version = "unstable-2024-09-27";
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     sourceProvenance = with sourceTypes; [
       binaryFirmware
     ];
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
   };
 })

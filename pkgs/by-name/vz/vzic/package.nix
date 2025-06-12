@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
       --replace-fail 'pkg-config' "$PKG_CONFIG"
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     glib
@@ -52,8 +52,8 @@ stdenv.mkDerivation rec {
     description = "Program to convert the IANA timezone database files into VTIMEZONE files compatible with the iCalendar specification";
     changelog = "https://github.com/libical/vzic/blob/${src.rev}/ChangeLog";
     mainProgram = "vzic";
-    license = with lib.licenses; [ gpl2Plus ];
-    maintainers = with lib.maintainers; [ moraxyc ];
+    license = with lib.licenses; [gpl2Plus];
+    maintainers = with lib.maintainers; [moraxyc];
     broken = !stdenv.hostPlatform.emulatorAvailable buildPackages;
     platforms = lib.platforms.unix;
   };

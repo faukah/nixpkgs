@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "glances-api";
   version = "0.9.0";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-VLsNMFFt+kMxNw/81OMX4Fg/xCbQloCURmV0OxvClq8=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ httpx ];
+  dependencies = [httpx];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "glances_api" ];
+  pythonImportsCheck = ["glances_api"];
 
   meta = with lib; {
     description = "Python API for interacting with Glances";
     homepage = "https://github.com/home-assistant-ecosystem/python-glances-api";
     changelog = "https://github.com/home-assistant-ecosystem/python-glances-api/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

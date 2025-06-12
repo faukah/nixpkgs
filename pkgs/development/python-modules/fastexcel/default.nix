@@ -3,23 +3,18 @@
   buildPythonPackage,
   fetchFromGitHub,
   rustPlatform,
-
   # nativeBuildInputs
   cargo,
   rustc,
-
   # dependencies
   pyarrow,
-
   # optional-dependencies
   pandas,
   polars,
-
   # tests
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fastexcel";
   version = "0.14.0";
@@ -73,6 +68,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ToucanToco/fastexcel/";
     changelog = "https://github.com/ToucanToco/fastexcel/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

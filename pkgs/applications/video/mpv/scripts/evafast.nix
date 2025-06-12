@@ -4,7 +4,6 @@
   lib,
   unstableGitUpdater,
 }:
-
 buildLua {
   pname = "evafast";
   version = "0-unstable-2024-02-09";
@@ -17,12 +16,12 @@ buildLua {
   };
 
   # Drop the `branch` parameter once upstream merges `rewrite` back into `master`
-  passthru.updateScript = unstableGitUpdater { branch = "rewrite"; };
+  passthru.updateScript = unstableGitUpdater {branch = "rewrite";};
 
   meta = with lib; {
     description = "Seeking and hybrid fastforwarding like VHS";
     homepage = "https://github.com/po5/evafast";
     license = licenses.unfree; # no license; see https://github.com/po5/evafast/issues/15
-    maintainers = with lib.maintainers; [ purrpurrn ];
+    maintainers = with lib.maintainers; [purrpurrn];
   };
 }

@@ -1,13 +1,11 @@
 # Test powerdns-admin
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
-
-with import ../lib/testing-python.nix { inherit system pkgs; };
-with pkgs.lib;
-let
+with import ../lib/testing-python.nix {inherit system pkgs;};
+with pkgs.lib; let
   defaultConfig = ''
     import cachelib
 
@@ -18,8 +16,7 @@ let
     SESSION_CACHELIB = cachelib.simple.SimpleCache()
   '';
 
-  makeAppTest =
-    name: configs:
+  makeAppTest = name: configs:
     makeTest {
       name = "powerdns-admin-${name}";
       meta = with pkgs.lib.maintainers; {
@@ -29,8 +26,11 @@ let
         ];
       };
 
-      nodes.server =
-        { pkgs, config, ... }:
+      nodes.server = {
+        pkgs,
+        config,
+        ...
+      }:
         mkMerge (
           [
             {
@@ -66,14 +66,14 @@ let
           '';
         };
         systemd.services.powerdns-admin = {
-          after = [ "mysql.service" ];
+          after = ["mysql.service"];
           serviceConfig.BindPaths = "/run/mysqld";
         };
 
         services.mysql = {
           enable = true;
           package = pkgs.mariadb;
-          ensureDatabases = [ "powerdnsadmin" ];
+          ensureDatabases = ["powerdnsadmin"];
           ensureUsers = [
             {
               name = "powerdnsadmin";
@@ -92,13 +92,13 @@ let
           '';
         };
         systemd.services.powerdns-admin = {
-          after = [ "postgresql.service" ];
+          after = ["postgresql.service"];
           serviceConfig.BindPaths = "/run/postgresql";
         };
 
         services.postgresql = {
           enable = true;
-          ensureDatabases = [ "powerdnsadmin" ];
+          ensureDatabases = ["powerdnsadmin"];
           ensureUsers = [
             {
               name = "powerdnsadmin";
@@ -153,18 +153,17 @@ let
     };
   };
 in
-with matrix;
-{
-  postgresql = makeAppTest "postgresql" [
-    backend.postgresql
-    listen.tcp
-  ];
-  mysql = makeAppTest "mysql" [
-    backend.mysql
-    listen.tcp
-  ];
-  unix-listener = makeAppTest "unix-listener" [
-    backend.postgresql
-    listen.unix
-  ];
-}
+  with matrix; {
+    postgresql = makeAppTest "postgresql" [
+      backend.postgresql
+      listen.tcp
+    ];
+    mysql = makeAppTest "mysql" [
+      backend.mysql
+      listen.tcp
+    ];
+    unix-listener = makeAppTest "unix-listener" [
+      backend.postgresql
+      listen.unix
+    ];
+  }

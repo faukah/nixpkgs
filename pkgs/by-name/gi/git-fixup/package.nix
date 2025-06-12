@@ -9,7 +9,6 @@
   gnugrep,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "git-fixup";
   version = "1.6.1";
@@ -21,7 +20,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-Mue2xgYxJSEu0VoDmB7rnoSuzyT038xzETUO1fwptrs=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -39,22 +38,22 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   postInstall = ''
     wrapProgram $out/bin/git-fixup \
       --prefix PATH : "${
-        lib.makeBinPath [
-          git
-          coreutils
-          gnused
-          gnugrep
-        ]
-      }"
+      lib.makeBinPath [
+        git
+        coreutils
+        gnused
+        gnugrep
+      ]
+    }"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Fighting the copy-paste element of your rebase workflow";
     homepage = "https://github.com/keis/git-fixup";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ michaeladler ];
+    maintainers = with lib.maintainers; [michaeladler];
     platforms = lib.platforms.all;
     mainProgram = "git-fixup";
   };

@@ -25,18 +25,18 @@ rustPlatform.buildRustPackage rec {
   ];
   cargoTestFlags = cargoBuildFlags;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Interactive SQL shell for Limbo";
     homepage = "https://github.com/tursodatabase/limbo";
     changelog = "https://github.com/tursodatabase/limbo/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nartsiss ];
+    maintainers = with lib.maintainers; [nartsiss];
     mainProgram = "limbo";
   };
 }

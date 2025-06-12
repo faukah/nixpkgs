@@ -40,7 +40,6 @@
   libhdhomerun,
   withWebKit ? false,
 }:
-
 mkDerivation rec {
   pname = "mythtv";
   version = "35.0";
@@ -59,36 +58,38 @@ mkDerivation rec {
 
   setSourceRoot = "sourceRoot=$(echo */mythtv)";
 
-  buildInputs = [
-    freetype
-    qtbase
-    qtscript
-    lame
-    zlib
-    libGLU
-    libGL
-    perl
-    libsamplerate
-    libbluray
-    lzo
-    alsa-lib
-    libpulseaudio
-    fftwSinglePrec
-    libX11
-    libXv
-    libXrandr
-    libXvMC
-    libXmu
-    libXinerama
-    libXxf86vm
-    libXmu
-    libuuid
-    taglib
-    exiv2
-    soundtouch
-    libzip
-    libhdhomerun
-  ] ++ lib.optional withWebKit qtwebkit;
+  buildInputs =
+    [
+      freetype
+      qtbase
+      qtscript
+      lame
+      zlib
+      libGLU
+      libGL
+      perl
+      libsamplerate
+      libbluray
+      lzo
+      alsa-lib
+      libpulseaudio
+      fftwSinglePrec
+      libX11
+      libXv
+      libXrandr
+      libXvMC
+      libXmu
+      libXinerama
+      libXxf86vm
+      libXmu
+      libuuid
+      taglib
+      exiv2
+      soundtouch
+      libzip
+      libhdhomerun
+    ]
+    ++ lib.optional withWebKit qtwebkit;
   nativeBuildInputs = [
     pkg-config
     which
@@ -99,7 +100,7 @@ mkDerivation rec {
     file
   ];
 
-  configureFlags = [ "--dvb-path=${linuxHeaders}/include" ];
+  configureFlags = ["--dvb-path=${linuxHeaders}/include"];
 
   enableParallelBuilding = true;
 
@@ -108,6 +109,6 @@ mkDerivation rec {
     description = "Open Source DVR";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

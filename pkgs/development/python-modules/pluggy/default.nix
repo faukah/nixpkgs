@@ -6,7 +6,6 @@
   pythonOlder,
   callPackage,
 }:
-
 buildPythonPackage rec {
   pname = "pluggy";
   version = "1.5.0";
@@ -22,12 +21,12 @@ buildPythonPackage rec {
     hash = "sha256-f0DxyZZk6RoYtOEXLACcsOn2B+Hot4U4g5Ogr/hKmOE=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   # To prevent infinite recursion with pytest
   doCheck = false;
   passthru.tests = {
-    pytest = callPackage ./tests.nix { };
+    pytest = callPackage ./tests.nix {};
   };
 
   meta = {
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Plugin and hook calling mechanisms for Python";
     homepage = "https://github.com/pytest-dev/pluggy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

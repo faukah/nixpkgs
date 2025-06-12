@@ -15,7 +15,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-automl";
   version = "2.16.3";
@@ -29,18 +28,20 @@ buildPythonPackage rec {
     hash = "sha256-b10WLvYAjZPKBGUal4b63rRJfUqKJL9n3ztVOVFK3y8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    google-api-core
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      google-api-core
+      proto-plus
+      protobuf
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   optional-dependencies = {
-    libcst = [ libcst ];
-    pandas = [ pandas ];
-    storage = [ google-cloud-storage ];
+    libcst = [libcst];
+    pandas = [pandas];
+    storage = [google-cloud-storage];
   };
 
   nativeCheckInputs = [
@@ -75,6 +76,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-automl";
     changelog = "https://github.com/googleapis/google-cloud-python/tree/google-cloud-automl-v${version}/packages/google-cloud-automl";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

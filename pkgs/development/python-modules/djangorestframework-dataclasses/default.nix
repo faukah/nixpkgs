@@ -5,7 +5,6 @@
   djangorestframework,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "djangorestframework-dataclasses";
   version = "1.4.0";
@@ -18,13 +17,13 @@ buildPythonPackage rec {
     hash = "sha256-nUkR5xTyeBv7ziJ6Mej9TKvMOa5/k+ELBqt4BVam/wk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   postPatch = ''
     patchShebangs manage.py
   '';
 
-  dependencies = [ djangorestframework ];
+  dependencies = [djangorestframework];
 
   checkPhase = ''
     runHook preCheck
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "rest_framework_dataclasses" ];
+  pythonImportsCheck = ["rest_framework_dataclasses"];
 
   meta = {
     changelog = "https://github.com/oxan/djangorestframework-dataclasses/blob/${src.tag}/CHANGELOG.rst";
     description = "Dataclasses serializer for Django REST framework";
     homepage = "https://github.com/oxan/djangorestframework-dataclasses";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

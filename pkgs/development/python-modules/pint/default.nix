@@ -3,17 +3,14 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   flexcache,
   flexparser,
   platformdirs,
   typing-extensions,
-
   # tests
   pytestCheckHook,
   pytest-subtests,
@@ -22,7 +19,6 @@
   matplotlib,
   uncertainties,
 }:
-
 buildPythonPackage rec {
   pname = "pint";
   version = "0.24.4";
@@ -62,7 +58,7 @@ buildPythonPackage rec {
     matplotlib
   ];
 
-  pytestFlagsArray = [ "--benchmark-disable" ];
+  pytestFlagsArray = ["--benchmark-disable"];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -74,6 +70,6 @@ buildPythonPackage rec {
     mainProgram = "pint-convert";
     license = lib.licenses.bsd3;
     homepage = "https://github.com/hgrecco/pint/";
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

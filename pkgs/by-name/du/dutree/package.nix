@@ -3,7 +3,6 @@
   lib,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dutree";
   version = "0.2.18";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     description = "Tool to analyze file system usage written in Rust";
     homepage = "https://github.com/nachoparker/dutree";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "dutree";
   };
 }

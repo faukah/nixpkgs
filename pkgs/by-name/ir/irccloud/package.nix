@@ -2,9 +2,7 @@
   appimageTools,
   fetchurl,
   lib,
-}:
-
-let
+}: let
   pname = "irccloud";
   version = "0.16.0";
 
@@ -16,27 +14,26 @@ let
   appimageContents = appimageTools.extractType2 {
     inherit pname version src;
   };
-
 in
-appimageTools.wrapType2 {
-  inherit pname version src;
+  appimageTools.wrapType2 {
+    inherit pname version src;
 
-  extraPkgs = pkgs: [ pkgs.at-spi2-core ];
+    extraPkgs = pkgs: [pkgs.at-spi2-core];
 
-  extraInstallCommands = ''
-    install -m 444 -D ${appimageContents}/irccloud.desktop $out/share/applications/irccloud.desktop
-    install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/512x512/apps/irccloud.png \
-      $out/share/icons/hicolor/512x512/apps/irccloud.png
-    substituteInPlace $out/share/applications/irccloud.desktop \
-      --replace 'Exec=AppRun' 'Exec=${pname}'
-  '';
+    extraInstallCommands = ''
+      install -m 444 -D ${appimageContents}/irccloud.desktop $out/share/applications/irccloud.desktop
+      install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/512x512/apps/irccloud.png \
+        $out/share/icons/hicolor/512x512/apps/irccloud.png
+      substituteInPlace $out/share/applications/irccloud.desktop \
+        --replace 'Exec=AppRun' 'Exec=${pname}'
+    '';
 
-  meta = with lib; {
-    description = "Desktop client for IRCCloud";
-    mainProgram = "irccloud";
-    homepage = "https://www.irccloud.com";
-    license = licenses.asl20;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ lightbulbjim ];
-  };
-}
+    meta = with lib; {
+      description = "Desktop client for IRCCloud";
+      mainProgram = "irccloud";
+      homepage = "https://www.irccloud.com";
+      license = licenses.asl20;
+      platforms = ["x86_64-linux"];
+      maintainers = with maintainers; [lightbulbjim];
+    };
+  }

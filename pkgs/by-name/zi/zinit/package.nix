@@ -5,7 +5,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zinit";
   version = "3.14.0";
@@ -24,7 +23,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     runHook preInstall
@@ -54,7 +53,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   #TODO: output doc through zshelldoc
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

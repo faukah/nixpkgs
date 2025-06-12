@@ -6,47 +6,44 @@
   util-linux,
   mountPath ? "/media/",
 }:
-
-assert mountPath != "";
-
-let
+assert mountPath != ""; let
   version = "0.5";
 in
-stdenv.mkDerivation rec {
-  pname = "ldm";
-  inherit version;
+  stdenv.mkDerivation rec {
+    pname = "ldm";
+    inherit version;
 
-  # There is a stable release, but we'll use the lvm branch, which
-  # contains important fixes for LVM setups.
-  src = fetchgit {
-    url = "https://github.com/LemonBoy/ldm";
-    tag = "v${version}";
-    sha256 = "0lxfypnbamfx6p9ar5k9wra20gvwn665l4pp2j4vsx4yi5q7rw2n";
-  };
+    # There is a stable release, but we'll use the lvm branch, which
+    # contains important fixes for LVM setups.
+    src = fetchgit {
+      url = "https://github.com/LemonBoy/ldm";
+      tag = "v${version}";
+      sha256 = "0lxfypnbamfx6p9ar5k9wra20gvwn665l4pp2j4vsx4yi5q7rw2n";
+    };
 
-  buildInputs = [
-    udev
-    util-linux
-  ];
+    buildInputs = [
+      udev
+      util-linux
+    ];
 
-  postPatch = ''
-    substituteInPlace ldm.c \
-      --replace "/mnt/" "${mountPath}"
-    sed '16i#include <sys/stat.h>' -i ldm.c
-  '';
+    postPatch = ''
+      substituteInPlace ldm.c \
+        --replace "/mnt/" "${mountPath}"
+      sed '16i#include <sys/stat.h>' -i ldm.c
+    '';
 
-  buildFlags = [ "ldm" ];
+    buildFlags = ["ldm"];
 
-  installPhase = ''
-    mkdir -p $out/bin
-    cp -v ldm $out/bin
-  '';
+    installPhase = ''
+      mkdir -p $out/bin
+      cp -v ldm $out/bin
+    '';
 
-  meta = {
-    description = "Lightweight device mounter, with libudev as only dependency";
-    homepage = "https://github.com/LemonBoy/ldm";
-    mainProgram = "ldm";
-    license = lib.licenses.mit;
-    platforms = lib.platforms.linux;
-  };
-}
+    meta = {
+      description = "Lightweight device mounter, with libudev as only dependency";
+      homepage = "https://github.com/LemonBoy/ldm";
+      mainProgram = "ldm";
+      license = lib.licenses.mit;
+      platforms = lib.platforms.linux;
+    };
+  }

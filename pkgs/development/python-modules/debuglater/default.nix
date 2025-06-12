@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "debuglater";
   version = "1.4.4";
@@ -24,25 +23,27 @@ buildPythonPackage rec {
     hash = "sha256-o9IAk3EN8ghEft7Y7Xx+sEjWMNgoyiZ0eiBqnCyXkm8=";
   };
 
-  propagatedBuildInputs = [ colorama ];
+  propagatedBuildInputs = [colorama];
 
   optional-dependencies = {
-    all = [ dill ];
+    all = [dill];
   };
 
-  nativeCheckInputs = [
-    numpy
-    pandas
-    pytestCheckHook
-  ] ++ optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      numpy
+      pandas
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.all;
 
-  pythonImportsCheck = [ "debuglater" ];
+  pythonImportsCheck = ["debuglater"];
 
   meta = with lib; {
     description = "Module for post-mortem debugging of Python programs";
     homepage = "https://github.com/ploomber/debuglater";
     changelog = "https://github.com/ploomber/debuglater/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

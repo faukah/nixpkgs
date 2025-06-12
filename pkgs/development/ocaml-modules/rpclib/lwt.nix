@@ -6,7 +6,6 @@
   ppx_deriving_rpc,
   yojson,
 }:
-
 buildDunePackage {
   pname = "rpclib-lwt";
   inherit (rpclib) version src;
@@ -24,7 +23,9 @@ buildDunePackage {
   ];
   doCheck = true;
 
-  meta = rpclib.meta // {
-    description = "Library to deal with RPCs in OCaml - Lwt interface";
-  };
+  meta =
+    rpclib.meta
+    // {
+      description = "Library to deal with RPCs in OCaml - Lwt interface";
+    };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gwt-java";
   version = "2.4.0";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1gvyg00vx7fdqgfl2w7nhql78clg3abs6fxxy7m03pprdm5qmm17";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     mkdir -p $out

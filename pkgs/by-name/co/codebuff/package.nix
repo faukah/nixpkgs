@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchzip,
 }:
-
 buildNpmPackage rec {
   pname = "codebuff";
   version = "1.0.119";
@@ -28,7 +27,7 @@ buildNpmPackage rec {
     homepage = "https://www.codebuff.com/";
     downloadPage = "https://www.npmjs.com/package/codebuff";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.malo ];
+    maintainers = [lib.maintainers.malo];
     mainProgram = "codebuff";
   };
 }

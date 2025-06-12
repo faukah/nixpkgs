@@ -5,69 +5,63 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   requiredPackages =
     map (pkg: lib.setPrio ((pkg.meta.priority or lib.meta.defaultPriority) + 3) pkg)
-      [
-        pkgs.acl
-        pkgs.attr
-        pkgs.bashInteractive # bash with ncurses support
-        pkgs.bzip2
-        pkgs.coreutils-full
-        pkgs.cpio
-        pkgs.curl
-        pkgs.diffutils
-        pkgs.findutils
-        pkgs.gawk
-        pkgs.stdenv.cc.libc
-        pkgs.getent
-        pkgs.getconf
-        pkgs.gnugrep
-        pkgs.gnupatch
-        pkgs.gnused
-        pkgs.gnutar
-        pkgs.gzip
-        pkgs.xz
-        pkgs.less
-        pkgs.libcap
-        pkgs.ncurses
-        pkgs.netcat
-        config.programs.ssh.package
-        pkgs.mkpasswd
-        pkgs.procps
-        pkgs.su
-        pkgs.time
-        pkgs.util-linux
-        pkgs.which
-        pkgs.zstd
-      ];
+    [
+      pkgs.acl
+      pkgs.attr
+      pkgs.bashInteractive # bash with ncurses support
+      pkgs.bzip2
+      pkgs.coreutils-full
+      pkgs.cpio
+      pkgs.curl
+      pkgs.diffutils
+      pkgs.findutils
+      pkgs.gawk
+      pkgs.stdenv.cc.libc
+      pkgs.getent
+      pkgs.getconf
+      pkgs.gnugrep
+      pkgs.gnupatch
+      pkgs.gnused
+      pkgs.gnutar
+      pkgs.gzip
+      pkgs.xz
+      pkgs.less
+      pkgs.libcap
+      pkgs.ncurses
+      pkgs.netcat
+      config.programs.ssh.package
+      pkgs.mkpasswd
+      pkgs.procps
+      pkgs.su
+      pkgs.time
+      pkgs.util-linux
+      pkgs.which
+      pkgs.zstd
+    ];
 
   defaultPackageNames = [
     "perl"
     "rsync"
     "strace"
   ];
-  defaultPackages = map (
-    n:
-    let
-      pkg = pkgs.${n};
-    in
-    lib.setPrio ((pkg.meta.priority or lib.meta.defaultPriority) + 3) pkg
-  ) defaultPackageNames;
+  defaultPackages =
+    map (
+      n: let
+        pkg = pkgs.${n};
+      in
+        lib.setPrio ((pkg.meta.priority or lib.meta.defaultPriority) + 3) pkg
+    )
+    defaultPackageNames;
   defaultPackagesText = "[ ${lib.concatMapStringsSep " " (n: "pkgs.${n}") defaultPackageNames} ]";
-
-in
-
-{
+in {
   options = {
-
     environment = {
-
       systemPackages = lib.mkOption {
         type = lib.types.listOf lib.types.package;
-        default = [ ];
+        default = [];
         example = lib.literalExpression "[ pkgs.firefox pkgs.thunderbird ]";
         description = ''
           The set of packages that appear in
@@ -89,7 +83,7 @@ in
 
               ${defaultPackagesText}
         '';
-        example = [ ];
+        example = [];
         description = ''
           Set of default packages that aren't strictly necessary
           for a running system, entries can be removed for a more
@@ -107,14 +101,14 @@ in
         type = lib.types.listOf lib.types.str;
         # Note: We need `/lib' to be among `pathsToLink' for NSS modules
         # to work.
-        default = [ ];
-        example = [ "/" ];
+        default = [];
+        example = ["/"];
         description = "List of directories to be symlinked in {file}`/run/current-system/sw`.";
       };
 
       extraOutputsToInstall = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         example = [
           "dev"
           "info"
@@ -133,24 +127,19 @@ in
         default = "";
         description = "Shell fragments to be run after the system environment has been created. This should only be used for things that need to modify the internals of the environment, e.g. generating MIME caches. The environment being built can be accessed at $out.";
       };
-
     };
 
     system = {
-
       path = lib.mkOption {
         internal = true;
         description = ''
           The packages you want in the boot environment.
         '';
       };
-
     };
-
   };
 
   config = {
-
     environment.systemPackages = requiredPackages ++ config.environment.defaultPackages;
 
     environment.pathsToLink = [
@@ -190,6 +179,5 @@ in
         ${config.environment.extraSetup}
       '';
     };
-
   };
 }

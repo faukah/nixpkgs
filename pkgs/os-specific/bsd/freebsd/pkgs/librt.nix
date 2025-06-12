@@ -6,7 +6,6 @@
   libthr,
   csu,
 }:
-
 mkDerivation {
   path = "lib/librt";
   extraPaths = [

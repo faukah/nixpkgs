@@ -14,7 +14,6 @@
   ossSupport ? false,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmatemixer";
   version = "1.28.0";
@@ -45,13 +44,13 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Mixer library for MATE";
     homepage = "https://github.com/mate-desktop/libmatemixer";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

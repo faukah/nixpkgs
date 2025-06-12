@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
@@ -24,14 +23,12 @@ let
     #!${pkgs.runtimeShell}
     ${pgbin}/psql "miniflux" -c "CREATE EXTENSION IF NOT EXISTS hstore"
   '';
-in
-
-{
+in {
   options = {
     services.miniflux = {
       enable = mkEnableOption "miniflux";
 
-      package = mkPackageOption pkgs "miniflux" { };
+      package = mkPackageOption pkgs "miniflux" {};
 
       createDatabaseLocally = mkOption {
         type = types.bool;
@@ -44,8 +41,7 @@ in
       };
 
       config = mkOption {
-        type =
-          with types;
+        type = with types;
           attrsOf (oneOf [
             str
             int
@@ -102,12 +98,12 @@ in
           ensureDBOwnership = true;
         }
       ];
-      ensureDatabases = [ "miniflux" ];
+      ensureDatabases = ["miniflux"];
     };
 
     systemd.services.miniflux-dbsetup = lib.mkIf cfg.createDatabaseLocally {
       description = "Miniflux database setup";
-      requires = [ "postgresql.service" ];
+      requires = ["postgresql.service"];
       after = [
         "network.target"
         "postgresql.service"
@@ -121,10 +117,10 @@ in
 
     systemd.services.miniflux = {
       description = "Miniflux service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       requires = lib.optional cfg.createDatabaseLocally "miniflux-dbsetup.service";
       after =
-        [ "network.target" ]
+        ["network.target"]
         ++ lib.optionals cfg.createDatabaseLocally [
           "postgresql.service"
           "miniflux-dbsetup.service"
@@ -144,8 +140,8 @@ in
         RestartSec = 5;
 
         # Hardening
-        CapabilityBoundingSet = [ "" ];
-        DeviceAllow = [ "" ];
+        CapabilityBoundingSet = [""];
+        DeviceAllow = [""];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         PrivateDevices = true;
@@ -177,7 +173,7 @@ in
 
       environment = lib.mapAttrs (_: toString) cfg.config;
     };
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     security.apparmor.policies."bin.miniflux".profile = ''
       include <tunables/global>
@@ -185,7 +181,7 @@ in
         include <abstractions/base>
         include <abstractions/nameservice>
         include <abstractions/ssl_certs>
-        include "${pkgs.apparmorRulesFromClosure { name = "miniflux"; } cfg.package}"
+        include "${pkgs.apparmorRulesFromClosure {name = "miniflux";} cfg.package}"
         r ${cfg.package}/bin/miniflux,
         r @{sys}/kernel/mm/transparent_hugepage/hpage_pmd_size,
         rw /run/miniflux/**,

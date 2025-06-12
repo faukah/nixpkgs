@@ -37,8 +37,8 @@ buildPythonPackage rec {
     hash = "sha256-UFsAKROnzaaAyUDHHARZIO8zZP3knUYoBdGSf9ZGjXo=";
   };
 
-  nativeBuildInputs = [ cython ];
-  setupPyBuildFlags = [ "--inplace" ];
+  nativeBuildInputs = [cython];
+  setupPyBuildFlags = ["--inplace"];
   enableParallelBuilding = true;
 
   propagatedBuildInputs = [
@@ -71,17 +71,17 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    sqlalchemy = [ sqlalchemy ];
-    numpy = [ numpy ];
-    pandas = [ pandas ];
-    arrow = [ pyarrow ];
-    orjson = [ orjson ];
+    sqlalchemy = [sqlalchemy];
+    numpy = [numpy];
+    pandas = [pandas];
+    arrow = [pyarrow];
+    orjson = [orjson];
   };
 
   meta = with lib; {
     description = "ClickHouse Database Core Driver for Python, Pandas, and Superset";
     homepage = "https://github.com/ClickHouse/clickhouse-connect";
     license = licenses.asl20;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

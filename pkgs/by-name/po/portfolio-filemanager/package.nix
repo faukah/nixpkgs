@@ -15,7 +15,6 @@
   wrapGAppsHook4,
   nix-update-script,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "portfolio";
   version = "1.0.2";
@@ -69,7 +68,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

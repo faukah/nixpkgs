@@ -10,7 +10,6 @@
   libicns,
   imagemagick,
 }:
-
 stdenv.mkDerivation rec {
   pname = "augustus";
   version = "4.0.0";
@@ -22,10 +21,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UWJmxirRJJqvL4ZSjBvFepeKVvL77+WMp4YdZuFNEkg=";
   };
 
-  patches = [ ./darwin-fixes.patch ];
+  patches = [./darwin-fixes.patch];
 
   nativeBuildInputs =
-    [ cmake ]
+    [cmake]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       darwin.sigtool
       libicns

@@ -3,7 +3,6 @@
   buildPythonApplication,
   fetchPypi,
   pythonOlder,
-
   certifi,
   charset-normalizer,
   enochecker-core,
@@ -19,7 +18,6 @@
   typish,
   urllib3,
 }:
-
 buildPythonApplication rec {
   pname = "enochecker-test";
   version = "0.9.0";
@@ -64,6 +62,6 @@ buildPythonApplication rec {
     homepage = "https://github.com/enowars/enochecker_test";
     changelog = "https://github.com/enowars/enochecker_test/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fwc ];
+    maintainers = with maintainers; [fwc];
   };
 }

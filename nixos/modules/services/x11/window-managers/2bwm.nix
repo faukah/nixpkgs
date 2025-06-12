@@ -4,17 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.xserver.windowManager."2bwm";
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
@@ -24,7 +16,6 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-
     services.xserver.windowManager.session = singleton {
       name = "2bwm";
       start = ''
@@ -33,8 +24,6 @@ in
       '';
     };
 
-    environment.systemPackages = [ pkgs._2bwm ];
-
+    environment.systemPackages = [pkgs._2bwm];
   };
-
 }

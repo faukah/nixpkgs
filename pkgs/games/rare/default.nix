@@ -13,7 +13,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonApplication rec {
   pname = "rare";
   version = "1.10.11";
@@ -58,7 +57,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "GUI for Legendary, an Epic Games Launcher open source alternative";
     homepage = "https://github.com/RareDevs/Rare";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl3Only;
     platforms = platforms.linux;
     mainProgram = "rare";

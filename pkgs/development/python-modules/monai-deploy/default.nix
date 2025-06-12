@@ -12,7 +12,6 @@
   typeguard,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "monai-deploy";
   version = "0.5.1";
@@ -70,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://monai.io/deploy.html";
     changelog = "https://github.com/Project-MONAI/monai-deploy-app-sdk/blob/main/docs/source/release_notes/v${version}.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

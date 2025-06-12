@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "imgcrypt";
   version = "1.1.10";
@@ -35,6 +34,6 @@ buildGoModule rec {
     homepage = "https://github.com/containerd/imgcrypt";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mikroskeem ];
+    maintainers = with maintainers; [mikroskeem];
   };
 }

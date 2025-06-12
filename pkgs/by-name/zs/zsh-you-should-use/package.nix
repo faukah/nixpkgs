@@ -5,7 +5,6 @@
   fetchFromGitHub,
   gitUpdater,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zsh-you-should-use";
   version = "1.9.0";
@@ -29,12 +28,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     install -D you-should-use.plugin.zsh $out/share/zsh/plugins/you-should-use/you-should-use.plugin.zsh
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://github.com/MichaelAquilina/zsh-you-should-use";
     license = lib.licenses.gpl3;
     description = "ZSH plugin that reminds you to use existing aliases for commands you just typed";
-    maintainers = with lib.maintainers; [ tomodachi94 ];
+    maintainers = with lib.maintainers; [tomodachi94];
   };
 })

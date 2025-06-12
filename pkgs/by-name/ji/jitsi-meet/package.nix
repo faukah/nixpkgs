@@ -5,7 +5,6 @@
   nixosTests,
   olm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jitsi-meet";
   version = "1.0.8043";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/jitsi/jitsi-meet";
     license = licenses.asl20;
-    teams = [ teams.jitsi ];
+    teams = [teams.jitsi];
     platforms = platforms.all;
     inherit (olm.meta) knownVulnerabilities;
   };

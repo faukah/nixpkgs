@@ -15,7 +15,6 @@
   nix-update-script,
   gopass,
 }:
-
 buildGoModule rec {
   pname = "gopass";
   version = "1.15.16";
@@ -39,7 +38,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-mfUt1H7eApxb05SXWS1Fa/kU6ppnZs3IXvO4Bt5aXLo=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -81,7 +80,7 @@ buildGoModule rec {
       package = gopass;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

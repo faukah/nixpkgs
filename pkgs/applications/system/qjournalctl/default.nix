@@ -8,7 +8,6 @@
   libssh,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qjournalctl";
   version = "0.6.4";
@@ -41,6 +40,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/pentix/qjournalctl";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

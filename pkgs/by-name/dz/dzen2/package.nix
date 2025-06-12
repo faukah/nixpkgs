@@ -8,12 +8,11 @@
   libXinerama,
   libXpm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dzen2";
   version = "0.9.5";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libX11
     libXft

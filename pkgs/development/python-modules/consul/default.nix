@@ -6,7 +6,6 @@
   six,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "python-consul";
   version = "1.1.0";
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     description = "Python client for Consul (https://www.consul.io/)";
     homepage = "https://github.com/cablehead/python-consul";
     license = licenses.mit;
-    maintainers = with maintainers; [ desiderius ];
+    maintainers = with maintainers; [desiderius];
   };
 }

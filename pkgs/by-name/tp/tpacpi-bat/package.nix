@@ -6,7 +6,6 @@
   kmod,
   coreutils,
 }:
-
 # Requires the acpi_call kernel module in order to run.
 stdenv.mkDerivation rec {
   pname = "tpacpi-bat";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9XnvVNdgB5VeI3juZfc8N5weEyULXuqu1IDChZfQqFk=";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    maintainers = [ lib.maintainers.orbekk ];
+    maintainers = [lib.maintainers.orbekk];
     platforms = lib.platforms.linux;
     description = "Tool to set battery charging thresholds on Lenovo Thinkpad";
     mainProgram = "tpacpi-bat";

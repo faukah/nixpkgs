@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule {
   pname = "perkeep";
   # no release or tag since 2020

@@ -7,7 +7,6 @@
   gtest,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "microsoft-gsl";
   version = "4.0.0";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [ gtest ];
+  buildInputs = [gtest];
 
   # negate the `-Werror` flag as Microsoft doesn't build with clang
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error";

@@ -6,18 +6,16 @@
   metacoq,
   version ? null,
 }:
-
 with lib;
-mkCoqDerivation {
-  pname = "RustExtraction";
-  repo = "coq-rust-extraction";
-  owner = "AU-COBRA";
-  domain = "github.com";
+  mkCoqDerivation {
+    pname = "RustExtraction";
+    repo = "coq-rust-extraction";
+    owner = "AU-COBRA";
+    domain = "github.com";
 
-  inherit version;
-  defaultVersion =
-    with versions;
-    switch
+    inherit version;
+    defaultVersion = with versions;
+      switch
       [
         coq.coq-version
         metacoq.version
@@ -40,26 +38,26 @@ mkCoqDerivation {
       ]
       null;
 
-  release."0.1.0".sha256 = "+Of/DP2Vjsa7ASKswjlvqqhcmDhC9WrozridedNZQkY=";
-  release."0.1.1".sha256 = "CPZ5J9knJ1aYoQ7RQN8YFSpxqJXjgQaxIA4F8G6X4tM=";
+    release."0.1.0".sha256 = "+Of/DP2Vjsa7ASKswjlvqqhcmDhC9WrozridedNZQkY=";
+    release."0.1.1".sha256 = "CPZ5J9knJ1aYoQ7RQN8YFSpxqJXjgQaxIA4F8G6X4tM=";
 
-  releaseRev = v: "v${v}";
+    releaseRev = v: "v${v}";
 
-  propagatedBuildInputs = [
-    coq.ocamlPackages.findlib
-    metacoq
-  ];
+    propagatedBuildInputs = [
+      coq.ocamlPackages.findlib
+      metacoq
+    ];
 
-  postPatch = ''
-    patchShebangs ./process_extraction.sh
-    patchShebangs ./tests/process-extraction-examples.sh
-  '';
+    postPatch = ''
+      patchShebangs ./process_extraction.sh
+      patchShebangs ./tests/process-extraction-examples.sh
+    '';
 
-  mlPlugin = true;
+    mlPlugin = true;
 
-  meta = {
-    description = "A framework for extracting Coq programs to Rust";
-    maintainers = with maintainers; [ _4ever2 ];
-    license = licenses.mit;
-  };
-}
+    meta = {
+      description = "A framework for extracting Coq programs to Rust";
+      maintainers = with maintainers; [_4ever2];
+      license = licenses.mit;
+    };
+  }

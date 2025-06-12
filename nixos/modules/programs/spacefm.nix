@@ -1,23 +1,16 @@
 # Global configuration for spacefm.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.spacefm;
-
-in
-{
+in {
   ###### interface
 
   options = {
-
     programs.spacefm = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -44,14 +37,13 @@ in
           Refer to the [relevant entry](https://ignorantguru.github.io/spacefm/spacefm-manual-en.html#programfiles-etc) in the SpaceFM manual.
         '';
       };
-
     };
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.spaceFM ];
+    environment.systemPackages = [pkgs.spaceFM];
 
     environment.etc."spacefm/spacefm.conf".text = lib.concatStrings (
       lib.mapAttrsToList (n: v: "${n}=${builtins.toString v}\n") cfg.settings

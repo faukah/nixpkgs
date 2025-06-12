@@ -4,7 +4,6 @@
   buildDunePackage,
   lwt_log,
 }:
-
 buildDunePackage rec {
   version = "1.2";
   pname = "resource-pooling";
@@ -18,7 +17,7 @@ buildDunePackage rec {
     sha256 = "sha256-GNYPxjMTo7y40y7aQdseuFyeVF/hSCZKXfEaH/WIO9w=";
   };
 
-  propagatedBuildInputs = [ lwt_log ];
+  propagatedBuildInputs = [lwt_log];
 
   doCheck = true;
 
@@ -26,6 +25,6 @@ buildDunePackage rec {
     inherit (src.meta) homepage;
     description = "Library for pooling resources like connections, threads, or similar";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

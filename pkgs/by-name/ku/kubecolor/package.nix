@@ -6,7 +6,6 @@
   kubectl,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "kubecolor";
   version = "0.5.1";
@@ -30,7 +29,7 @@ buildGoModule rec {
     "."
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     # kubecolor re-uses the completions of kubectl for its own executable

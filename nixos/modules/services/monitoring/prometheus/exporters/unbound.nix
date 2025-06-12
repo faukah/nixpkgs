@@ -4,11 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.unbound;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     mkRemovedOptionModule
@@ -17,8 +16,7 @@ let
     mkMerge
     mkIf
     ;
-in
-{
+in {
   imports = [
     (mkRemovedOptionModule [
       "controlInterface"
@@ -26,10 +24,10 @@ in
     (mkRemovedOptionModule [
       "fetchType"
     ] "This option was removed, use the `unbound.host` option instead.")
-    ({
+    {
       options.warnings = options.warnings;
       options.assertions = options.assertions;
-    })
+    }
   ];
 
   port = 9167;
@@ -110,8 +108,8 @@ in
     ]
     ++ [
       (mkIf config.services.unbound.enable {
-        after = [ "unbound.service" ];
-        requires = [ "unbound.service" ];
+        after = ["unbound.service"];
+        requires = ["unbound.service"];
       })
     ]
   );

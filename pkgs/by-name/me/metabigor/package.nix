@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "metabigor";
   version = "2.0.0";
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/j3ssie/metabigor";
     changelog = "https://github.com/j3ssie/metabigor/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "metabigor";
   };
 }

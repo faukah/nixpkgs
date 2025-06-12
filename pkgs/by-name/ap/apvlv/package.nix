@@ -23,7 +23,6 @@
   webkitgtk_4_1,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "apvlv";
 

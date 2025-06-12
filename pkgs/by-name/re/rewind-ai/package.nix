@@ -8,7 +8,6 @@
   xmlstarlet,
   common-updater-scripts,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "rewind-ai";
   # Example version with explanation
@@ -19,12 +18,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   version = "1.5310-15310.1-5f6bcc5-20240930";
 
   src = fetchzip {
-    url =
-      let
-        buildNumber = lib.elemAt (lib.splitString "-" finalAttrs.version) 1;
-        commitHash = lib.elemAt (lib.splitString "-" finalAttrs.version) 2;
-      in
-      "https://updates.rewind.ai/builds/main/b${buildNumber}-main-${commitHash}.zip";
+    url = let
+      buildNumber = lib.elemAt (lib.splitString "-" finalAttrs.version) 1;
+      commitHash = lib.elemAt (lib.splitString "-" finalAttrs.version) 2;
+    in "https://updates.rewind.ai/builds/main/b${buildNumber}-main-${commitHash}.zip";
     hash = "sha256-uNqblEOezCj1JanDl6MZZO3GLX5jgWh19VeMcmwZvZg=";
   };
 
@@ -75,8 +72,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Rewind is a personalized AI powered by everything you've seen, said, or heard";
     homepage = "https://www.rewind.ai/";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ donteatoreo ];
-    platforms = [ "aarch64-darwin" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [donteatoreo];
+    platforms = ["aarch64-darwin"];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

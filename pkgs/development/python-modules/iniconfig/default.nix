@@ -5,7 +5,6 @@
   fetchPypi,
   hatchling,
 }:
-
 buildPythonPackage rec {
   pname = "iniconfig";
   version = "2.1.0";
@@ -16,7 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-OrvS4ws2cz/uePnH9zCPLQBQ6I8Ah/0lwmRfY8dz4cc=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   patches = [
     # Cannot use hatch-vcs, due to an infinite recursion
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonImportsCheck = [ "iniconfig" ];
+  pythonImportsCheck = ["iniconfig"];
 
   # Requires pytest, which in turn requires this package - causes infinite
   # recursion. See also: https://github.com/NixOS/nixpkgs/issues/63168
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "brain-dead simple parsing of ini files";
     homepage = "https://github.com/pytest-dev/iniconfig";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

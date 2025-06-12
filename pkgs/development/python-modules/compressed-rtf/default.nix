@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "compressed-rtf";
   version = "1.0.7";
@@ -22,18 +21,18 @@ buildPythonPackage {
     hash = "sha256-ivvND+cOCAmRyO8yL0+WhFY/2OkrJ+E/o4xWWd7ivHA=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "compressed_rtf" ];
+  pythonImportsCheck = ["compressed_rtf"];
 
-  pytestFlagsArray = [ "tests/tests.py" ];
+  pytestFlagsArray = ["tests/tests.py"];
 
   meta = with lib; {
     description = "Compressed Rich Text Format (RTF) compression and decompression";
     homepage = "https://github.com/delimitry/compressed_rtf";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

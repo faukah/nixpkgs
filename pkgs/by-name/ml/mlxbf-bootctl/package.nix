@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mlxbf-bootctl";
   version = "1.1-6";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/Mellanox/mlxbf-bootctl/releases/tag/${pname}-${version}";
     # This package is supposed to only run on a BlueField. Thus aarch64-linux
     # is the only relevant platform.
-    platforms = [ "aarch64-linux" ];
-    maintainers = with lib.maintainers; [ nikstur ];
+    platforms = ["aarch64-linux"];
+    maintainers = with lib.maintainers; [nikstur];
   };
 }

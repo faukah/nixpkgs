@@ -9,7 +9,6 @@
   catch2_3,
   enableManpages ? buildPackages.pandoc.compiler.bootstrapAvailable,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nuspell";
   version = "5.1.6";
@@ -30,9 +29,9 @@ stdenv.mkDerivation rec {
       buildPackages.pandoc
     ];
 
-  buildInputs = [ catch2_3 ];
+  buildInputs = [catch2_3];
 
-  propagatedBuildInputs = [ icu ];
+  propagatedBuildInputs = [icu];
 
   cmakeFlags =
     [
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     mainProgram = "nuspell";
     homepage = "https://nuspell.github.io/";
     platforms = platforms.all;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     license = licenses.lgpl3Plus;
     changelog = "https://github.com/nuspell/nuspell/blob/v${version}/CHANGELOG.md";
   };

@@ -7,7 +7,6 @@
   pytestCheckHook,
   fetchpatch,
 }:
-
 buildPythonPackage rec {
   pname = "http-parser";
   version = "0.9.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     make -B
   '';
 
-  pythonImportsCheck = [ "http_parser" ];
+  pythonImportsCheck = ["http_parser"];
 
   # The imp module is deprecated since version 3.4, and was removed in 3.12
   # https://docs.python.org/3.11/library/imp.html
@@ -42,12 +41,12 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "HTTP request/response parser for python in C";
     homepage = "https://github.com/benoitc/http-parser";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

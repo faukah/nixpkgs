@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     guile-gnutls
     guile-websocket
   ];
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
 
   # tests hang on darwin, and fail randomly on aarch64-linux on ofborg
   doCheck = !stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch64;
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "Spritely Goblins for Guile";
     homepage = "https://spritely.institute/goblins/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ offsetcyan ];
+    maintainers = with maintainers; [offsetcyan];
     platforms = guile.meta.platforms;
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.27.1";
   pname = "commons-compress";
@@ -22,8 +21,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://commons.apache.org/proper/commons-compress";
     description = "Allows manipulation of ar, cpio, Unix dump, tar, zip, gzip, XZ, Pack200, bzip2, 7z, arj, lzma, snappy, DEFLATE and Z files";
-    maintainers = [ ];
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    maintainers = [];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.asl20;
     platforms = with lib.platforms; unix;
   };

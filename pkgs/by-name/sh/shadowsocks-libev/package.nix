@@ -14,7 +14,6 @@
   docbook_xsl,
   libxslt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "shadowsocks-libev";
   version = "3.3.5";
@@ -83,7 +82,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/shadowsocks/shadowsocks-libev";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

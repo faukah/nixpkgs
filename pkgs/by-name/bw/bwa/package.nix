@@ -4,7 +4,6 @@
   fetchFromGitHub,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bwa";
   version = "0.7.19";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-o3+7kf+49mnRn5PjtdOiAaI9VK1cyT9p5QUSQ/W4GxI=";
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   # Avoid hardcoding gcc to allow environments with a different
   # C compiler to build
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     mainProgram = "bwa";
     license = licenses.gpl3Plus;
     homepage = "https://bio-bwa.sourceforge.net/";
-    maintainers = with maintainers; [ luispedro ];
+    maintainers = with maintainers; [luispedro];
     platforms = platforms.unix;
   };
 }

@@ -40,7 +40,6 @@
   gnumake,
   openldap,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "percona-server";
   version = "8.0.42-33";
@@ -50,16 +49,18 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-UDdmBz1RVjX/kRivvk69GPdtjLjWTglKxteiLxXKQGc=";
   };
 
-  nativeBuildInputs = [
-    bison
-    cmake
-    pkg-config
-    makeWrapper
-    # required for scripts/CMakeLists.txt
-    coreutils
-    gnugrep
-    procps
-  ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ rpcsvc-proto ];
+  nativeBuildInputs =
+    [
+      bison
+      cmake
+      pkg-config
+      makeWrapper
+      # required for scripts/CMakeLists.txt
+      coreutils
+      gnugrep
+      procps
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [rpcsvc-proto];
 
   patches = [
     # adapted from mysql80's llvm 19 fixes
@@ -89,7 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs =
     [
       boost
-      (curl.override { inherit openssl; })
+      (curl.override {inherit openssl;})
       icu
       libedit
       libevent
@@ -209,7 +210,7 @@ stdenv.mkDerivation (finalAttrs: {
       Long-term support release.
     '';
     license = licenses.gpl2Only;
-    teams = [ teams.flyingcircus ];
+    teams = [teams.flyingcircus];
     platforms = platforms.unix;
   };
 })

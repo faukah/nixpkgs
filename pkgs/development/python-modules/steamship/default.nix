@@ -13,7 +13,6 @@
   semver,
   tiktoken,
 }:
-
 buildPythonPackage rec {
   pname = "steamship";
   version = "2.17.34";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-U9SA2Dvepl9BjrvhH+8bVBNjby8IWu5UE+/oor7YWzI=";
   };
 
-  pythonRelaxDeps = [ "requests" ];
+  pythonRelaxDeps = ["requests"];
 
   nativeBuildInputs = [
     setuptools-scm
@@ -45,14 +44,14 @@ buildPythonPackage rec {
   # almost all tests require "steamship api key"
   doCheck = false;
 
-  pythonImportsCheck = [ "steamship" ];
+  pythonImportsCheck = ["steamship"];
 
   meta = with lib; {
     description = "Fastest way to add language AI to your product";
     homepage = "https://www.steamship.com/";
     changelog = "https://github.com/steamship-core/python-client/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
     # https://github.com/steamship-core/python-client/issues/503
     broken = versionAtLeast pydantic.version "2";
   };

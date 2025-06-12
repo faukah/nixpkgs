@@ -4,7 +4,6 @@
   fetchPypi,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "htmlmin";
   version = "0.1.12";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     mainProgram = "htmlmin";
     homepage = "https://pypi.python.org/pypi/htmlmin";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     broken = pythonAtLeast "3.13"; # requires removed cgi module
   };
 }

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "hyperscrypt";
   version = "1.1";
@@ -41,7 +40,7 @@ stdenvNoCC.mkDerivation rec {
       layouts.
     '';
     license = licenses.ofl;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.all;
   };
 }

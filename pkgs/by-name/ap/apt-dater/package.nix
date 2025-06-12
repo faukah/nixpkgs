@@ -13,7 +13,6 @@
   libxslt,
   screen,
 }:
-
 stdenv.mkDerivation {
   pname = "apt-dater";
   version = "1.0.4-unstable-2024-10-04";
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
     screen
   ];
 
-  configureFlags = [ "--disable-history" ];
+  configureFlags = ["--disable-history"];
 
   prePatch = ''
     substituteInPlace etc/Makefile.am \
@@ -76,6 +75,6 @@ stdenv.mkDerivation {
     '';
     license = lib.licenses.gpl2Plus;
     mainProgram = "apt-dater";
-    maintainers = with lib.maintainers; [ c0bw3b ];
+    maintainers = with lib.maintainers; [c0bw3b];
   };
 }

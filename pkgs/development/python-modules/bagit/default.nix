@@ -8,7 +8,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "bagit";
   version = "1.9b2";
@@ -33,14 +32,14 @@ buildPythonPackage rec {
     mock
     pytestCheckHook
   ];
-  pytestFlagsArray = [ "test.py" ];
-  pythonImportsCheck = [ "bagit" ];
+  pytestFlagsArray = ["test.py"];
+  pythonImportsCheck = ["bagit"];
 
   meta = with lib; {
     description = "Python library and command line utility for working with BagIt style packages";
     mainProgram = "bagit.py";
     homepage = "https://libraryofcongress.github.io/bagit-python/";
-    license = with licenses; [ publicDomain ];
-    maintainers = with maintainers; [ veprbl ];
+    license = with licenses; [publicDomain];
+    maintainers = with maintainers; [veprbl];
   };
 }

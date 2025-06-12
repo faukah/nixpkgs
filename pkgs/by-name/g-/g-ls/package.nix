@@ -5,7 +5,6 @@
   nix-update-script,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "g-ls";
   version = "0.30.0";
@@ -19,14 +18,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-E/4iB1apLCOEtijCZymObz0Zjlf0+dQC37ALSbl1tr0=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
     "-w"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion \
@@ -35,7 +34,7 @@ buildGoModule rec {
       --fish completions/fish/g.fish
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Powerful ls alternative written in Go";
@@ -43,6 +42,6 @@ buildGoModule rec {
     changelog = "https://github.com/Equationzhao/g/releases/tag/${src.tag}";
     license = lib.licenses.mit;
     mainProgram = "g";
-    maintainers = with lib.maintainers; [ Ruixi-rebirth ];
+    maintainers = with lib.maintainers; [Ruixi-rebirth];
   };
 }

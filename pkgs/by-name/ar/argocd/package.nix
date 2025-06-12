@@ -6,7 +6,6 @@
   nix-update-script,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "argocd";
   version = "2.14.11";
@@ -23,23 +22,21 @@ buildGoModule rec {
 
   # Set target as ./cmd per cli-local
   # https://github.com/argoproj/argo-cd/blob/master/Makefile#L227
-  subPackages = [ "cmd" ];
+  subPackages = ["cmd"];
 
-  ldflags =
-    let
-      packageUrl = "github.com/argoproj/argo-cd/v2/common";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${packageUrl}.version=${version}"
-      "-X ${packageUrl}.buildDate=unknown"
-      "-X ${packageUrl}.gitCommit=${src.rev}"
-      "-X ${packageUrl}.gitTag=${src.rev}"
-      "-X ${packageUrl}.gitTreeState=clean"
-    ];
+  ldflags = let
+    packageUrl = "github.com/argoproj/argo-cd/v2/common";
+  in [
+    "-s"
+    "-w"
+    "-X ${packageUrl}.version=${version}"
+    "-X ${packageUrl}.buildDate=unknown"
+    "-X ${packageUrl}.gitCommit=${src.rev}"
+    "-X ${packageUrl}.gitTag=${src.rev}"
+    "-X ${packageUrl}.gitTreeState=clean"
+  ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # set ldflag for kubectlVersion since it is needed for argo
   # Per https://github.com/search?q=repo%3Aargoproj%2Fargo-cd+%22KUBECTL_VERSION%3D%22+path%3AMakefile&type=code
@@ -67,7 +64,7 @@ buildGoModule rec {
       --zsh <($out/bin/argocd completion zsh)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Declarative continuous deployment for Kubernetes";

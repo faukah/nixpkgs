@@ -13,7 +13,6 @@
   libXScrnSaver,
   hunspell,
 }:
-
 mkDerivation rec {
   pname = "psi";
   version = "1.5";
@@ -46,7 +45,7 @@ mkDerivation rec {
     homepage = "https://psi-im.org";
     description = "XMPP (Jabber) client";
     mainProgram = "psi";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

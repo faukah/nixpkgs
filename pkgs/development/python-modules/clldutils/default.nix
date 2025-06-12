@@ -18,7 +18,6 @@
   setuptools,
   tabulate,
 }:
-
 buildPythonPackage rec {
   pname = "clldutils";
   version = "3.21.0";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
       --replace-fail "--cov" ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     attrs
@@ -63,6 +62,6 @@ buildPythonPackage rec {
     description = "Utilities for clld apps without the overhead of requiring pyramid, rdflib et al";
     homepage = "https://github.com/clld/clldutils";
     license = licenses.asl20;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

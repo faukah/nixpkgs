@@ -5,7 +5,6 @@
   cmake,
   libsForQt5,
 }:
-
 stdenv.mkDerivation {
   pname = "qscreenshot";
   version = "unstable-2021-10-18";
@@ -33,6 +32,6 @@ stdenv.mkDerivation {
     homepage = "https://sourceforge.net/projects/qscreenshot/";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

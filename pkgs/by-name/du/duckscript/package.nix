@@ -7,7 +7,6 @@
   pkg-config,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "duckscript_cli";
   version = "0.11.1";
@@ -17,10 +16,10 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-afxzZkmmYnprUBquH681VHMDs3Co9C71chNoKbu6lEY=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     description = "Simple, extendable and embeddable scripting language";
     homepage = "https://github.com/sagiegurari/duckscript";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
     mainProgram = "duck";
   };
 }

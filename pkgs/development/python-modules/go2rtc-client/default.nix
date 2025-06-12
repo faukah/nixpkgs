@@ -15,7 +15,6 @@
   syrupy,
   webrtc-models,
 }:
-
 buildPythonPackage rec {
   pname = "go2rtc-client";
   version = "0.1.2";
@@ -35,9 +34,9 @@ buildPythonPackage rec {
       --replace-fail 'version = "0.0.0"' 'version = "${version}"'
   '';
 
-  pythonRelaxDeps = [ "orjson" ];
+  pythonRelaxDeps = ["orjson"];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     aiohttp
@@ -55,13 +54,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "go2rtc_client" ];
+  pythonImportsCheck = ["go2rtc_client"];
 
   meta = {
     description = "Module for interacting with go2rtc";
     homepage = "https://github.com/home-assistant-libs/python-go2rtc-client";
     changelog = "https://github.com/home-assistant-libs/python-go2rtc-client/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

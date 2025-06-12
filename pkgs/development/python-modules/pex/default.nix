@@ -4,8 +4,7 @@
   fetchPypi,
   fetchurl,
   setuptools,
-}:
-let
+}: let
   # 4 binaries which require vendoring, as otherwise
   # the build system behind pex will attempt to fetch
   # them during at build time
@@ -34,36 +33,36 @@ let
     };
   };
 in
-buildPythonPackage rec {
-  pname = "pex";
-  version = "2.38.1";
-  pyproject = true;
+  buildPythonPackage rec {
+    pname = "pex";
+    version = "2.38.1";
+    pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-ejd9JWmDutYpwR+KPiS90Y3XKyyOwRAMpCEN013VMdI=";
-  };
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-ejd9JWmDutYpwR+KPiS90Y3XKyyOwRAMpCEN013VMdI=";
+    };
 
-  preBuild = ''
-    mkdir -p pex/windows/stubs
-    cp ${uv-trampoline.aarch64-gui} pex/windows/stubs/uv-trampoline-aarch64-gui.exe
-    cp ${uv-trampoline.aarch64-console} pex/windows/stubs/uv-trampoline-aarch64-console.exe
-    cp ${uv-trampoline.x86_64-gui} pex/windows/stubs/uv-trampoline-x86_64-gui.exe
-    cp ${uv-trampoline.x86_64-console} pex/windows/stubs/uv-trampoline-x86_64-console.exe
-  '';
+    preBuild = ''
+      mkdir -p pex/windows/stubs
+      cp ${uv-trampoline.aarch64-gui} pex/windows/stubs/uv-trampoline-aarch64-gui.exe
+      cp ${uv-trampoline.aarch64-console} pex/windows/stubs/uv-trampoline-aarch64-console.exe
+      cp ${uv-trampoline.x86_64-gui} pex/windows/stubs/uv-trampoline-x86_64-gui.exe
+      cp ${uv-trampoline.x86_64-console} pex/windows/stubs/uv-trampoline-x86_64-console.exe
+    '';
 
-  build-system = [ setuptools ];
+    build-system = [setuptools];
 
-  # A few more dependencies I don't want to handle right now...
-  doCheck = false;
+    # A few more dependencies I don't want to handle right now...
+    doCheck = false;
 
-  pythonImportsCheck = [ "pex" ];
+    pythonImportsCheck = ["pex"];
 
-  meta = with lib; {
-    description = "Python library and tool for generating .pex (Python EXecutable) files";
-    homepage = "https://github.com/pantsbuild/pex";
-    changelog = "https://github.com/pantsbuild/pex/releases/tag/v${version}";
-    license = licenses.asl20;
-    maintainers = [ ];
-  };
-}
+    meta = with lib; {
+      description = "Python library and tool for generating .pex (Python EXecutable) files";
+      homepage = "https://github.com/pantsbuild/pex";
+      changelog = "https://github.com/pantsbuild/pex/releases/tag/v${version}";
+      license = licenses.asl20;
+      maintainers = [];
+    };
+  }

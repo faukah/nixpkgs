@@ -4,7 +4,6 @@
   fetchurl,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fakeroute";
   version = "0.3";

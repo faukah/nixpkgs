@@ -9,7 +9,6 @@
   rio,
   uri,
 }:
-
 buildDunePackage rec {
   pname = "gluon";
   version = "0.0.9";
@@ -42,6 +41,6 @@ buildDunePackage rec {
     homepage = "https://github.com/riot-ml/gluon";
     changelog = "https://github.com/riot-ml/gluon/blob/${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

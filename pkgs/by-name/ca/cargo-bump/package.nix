@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-bump";
   version = "1.1.1";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     description = "Increments the version number of the current project";
     mainProgram = "cargo-bump";
     homepage = "https://github.com/wraithan/cargo-bump";
-    license = with licenses; [ isc ];
-    maintainers = with maintainers; [ cafkafk ];
+    license = with licenses; [isc];
+    maintainers = with maintainers; [cafkafk];
   };
 }

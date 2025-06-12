@@ -5,7 +5,6 @@
   libcMinimal,
   librt,
 }:
-
 mkDerivation {
   path = "lib/libpthread";
 

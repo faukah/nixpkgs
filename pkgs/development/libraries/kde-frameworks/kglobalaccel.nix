@@ -12,10 +12,9 @@
   qtx11extras,
   libXdmcp,
 }:
-
 mkDerivation {
   pname = "kglobalaccel";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kconfig
     kcoreaddons
@@ -31,5 +30,5 @@ mkDerivation {
     "out"
     "dev"
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
 }

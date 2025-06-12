@@ -13,7 +13,6 @@
   pulseaudio,
   libdbusmenu-gtk3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wf-shell";
   version = "0.9.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     libdbusmenu-gtk3
   ];
 
-  mesonFlags = [ "--sysconfdir /etc" ];
+  mesonFlags = ["--sysconfdir /etc"];
 
   meta = {
     homepage = "https://github.com/WayfireWM/wf-shell";

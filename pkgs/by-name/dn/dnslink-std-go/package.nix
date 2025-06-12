@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "dnslink";
   version = "0.6.0";
@@ -21,6 +20,6 @@ buildGoModule rec {
     homepage = "https://dnslink.org/";
     license = lib.licenses.mit;
     mainProgram = "dnslink";
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
   };
 }

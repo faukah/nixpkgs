@@ -10,7 +10,6 @@
   pythonOlder,
   service-identity,
 }:
-
 buildPythonPackage rec {
   pname = "trustme";
   version = "1.1.0";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
   # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "trustme" ];
+  pythonImportsCheck = ["trustme"];
 
   meta = with lib; {
     description = "High quality TLS certs while you wait, for the discerning tester";
@@ -47,6 +46,6 @@ buildPythonPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ jfly ];
+    maintainers = with maintainers; [jfly];
   };
 }

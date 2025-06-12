@@ -9,7 +9,6 @@
   nix-update-script,
   folder-color ? "plasma", # Supported colors: black blue caramel citron firebrick gold green grey highland jade lavender lime olive orange pistachio plasma pumpkin purple red rust sapphire tomato violet white yellow
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "gruvbox-plus-icons";
   version = "6.2.0";
@@ -21,9 +20,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-MCof2CFQfh/ChFNlsxw9BmrFf1A804HzWoHJdNsrW74=";
   };
 
-  patches = [ ./folder-color.patch ];
+  patches = [./folder-color.patch];
 
-  nativeBuildInputs = [ gtk3 ];
+  nativeBuildInputs = [gtk3];
 
   propagatedBuildInputs = [
     plasma5Packages.breeze-icons
@@ -47,7 +46,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontBuild = true;
   dontConfigure = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Icon pack for Linux desktops based on the Gruvbox color scheme";

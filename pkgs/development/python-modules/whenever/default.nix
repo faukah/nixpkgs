@@ -17,7 +17,6 @@
   time-machine,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "whenever";
   version = "0.8.0";
@@ -66,19 +65,19 @@ buildPythonPackage rec {
     "benchmarks/python/test_zoned_datetime.py"
   ];
 
-  pythonImportsCheck = [ "whenever" ];
+  pythonImportsCheck = ["whenever"];
 
   # a bunch of failures, including an assumption of what the timezone on the host is
   # TODO: try enabling on bump
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Strict, predictable, and typed datetimes";
     homepage = "https://github.com/ariebovenberg/whenever";
     changelog = "https://github.com/ariebovenberg/whenever/blob/${src.rev}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

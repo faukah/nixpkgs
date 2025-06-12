@@ -21,7 +21,6 @@
   setuptools,
   tornado,
 }:
-
 buildPythonPackage rec {
   pname = "python-telegram-bot";
   version = "22.1";
@@ -41,33 +40,35 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  dependencies = [ httpx ];
+  dependencies = [httpx];
 
   optional-dependencies = rec {
     all = ext ++ http2 ++ passport ++ socks;
-    callback-data = [ cachetools ];
+    callback-data = [cachetools];
     ext = callback-data ++ job-queue ++ rate-limiter ++ webhooks;
     http2 = httpx.optional-dependencies.http2;
     job-queue = [
       apscheduler
       pytz
     ];
-    passport = [ cryptography ] ++ lib.optionals (pythonAtLeast "3.13") [ cffi ];
-    rate-limiter = [ aiolimiter ];
+    passport = [cryptography] ++ lib.optionals (pythonAtLeast "3.13") [cffi];
+    rate-limiter = [aiolimiter];
     socks = httpx.optional-dependencies.socks;
-    webhooks = [ tornado ];
+    webhooks = [tornado];
   };
 
-  nativeCheckInputs = [
-    beautifulsoup4
-    flaky
-    pytest-asyncio
-    pytest-timeout
-    pytest-xdist
-    pytestCheckHook
-  ] ++ optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      beautifulsoup4
+      flaky
+      pytest-asyncio
+      pytest-timeout
+      pytest-xdist
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.all;
 
-  pythonImportsCheck = [ "telegram" ];
+  pythonImportsCheck = ["telegram"];
 
   disabledTests = [
     # Tests require network access

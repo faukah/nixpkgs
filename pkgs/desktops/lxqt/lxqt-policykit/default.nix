@@ -17,7 +17,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxqt-policykit";
   version = "2.2.0";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     qtwayland
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lxqt-policykit";
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
     mainProgram = "lxqt-policykit-agent";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   kernel,
 }:
-
 stdenv.mkDerivation rec {
   name = "facetimehd-${version}-${kernel.version}";
   version = "0.6.13";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     export INSTALL_MOD_PATH="$out"
   '';
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 

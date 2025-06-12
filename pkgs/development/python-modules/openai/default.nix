@@ -4,11 +4,9 @@
   fetchFromGitHub,
   pythonAtLeast,
   pythonOlder,
-
   # build-system
   hatchling,
   hatch-fancy-pypi-readme,
-
   # dependencies
   anyio,
   distro,
@@ -18,18 +16,14 @@
   sniffio,
   tqdm,
   typing-extensions,
-
   # optional-dependencies (datalib)
   numpy,
   pandas,
   pandas-stubs,
-
   # optional-dependencies (realtime)
   websockets,
-
   # optional-dependencies (voice-helpers)
   sounddevice,
-
   # check deps
   pytestCheckHook,
   dirty-equals,
@@ -38,12 +32,10 @@
   pytest-asyncio,
   pytest-mock,
   respx,
-
   # optional-dependencies toggle
   withRealtime ? true,
   withVoiceHelpers ? true,
 }:
-
 buildPythonPackage rec {
   pname = "openai";
   version = "1.86.0";
@@ -94,7 +86,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "openai" ];
+  pythonImportsCheck = ["openai"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -134,7 +126,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/openai/openai-python";
     changelog = "https://github.com/openai/openai-python/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ malo ];
+    maintainers = with maintainers; [malo];
     mainProgram = "openai";
   };
 }

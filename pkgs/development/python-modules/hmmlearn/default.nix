@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "hmmlearn";
   version = "0.3.3";
@@ -34,9 +33,9 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "hmmlearn" ];
+  pythonImportsCheck = ["hmmlearn"];
 
   pytestFlagsArray = [
     "--pyargs"
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "Hidden Markov Models in Python with scikit-learn like API";
     homepage = "https://github.com/hmmlearn/hmmlearn";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

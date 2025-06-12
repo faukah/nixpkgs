@@ -14,7 +14,6 @@
   sphinxHook,
   stestr,
 }:
-
 buildPythonPackage rec {
   pname = "osc-placement";
   version = "4.6.0";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   dependencies = [
     keystoneauth1
@@ -62,12 +61,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "osc_placement" ];
+  pythonImportsCheck = ["osc_placement"];
 
   meta = {
     homepage = "https://opendev.org/openstack/osc-placement";
     description = "OpenStackClient plugin for the Placement service";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.openstack ];
+    teams = [lib.teams.openstack];
   };
 }

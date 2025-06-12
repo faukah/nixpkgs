@@ -10,7 +10,6 @@
   zlib,
   withRootSupport ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yoda";
   version = "2.1.0";
@@ -30,14 +29,14 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ python3 ]
+    [python3]
     ++ (with python3.pkgs; [
       numpy
       matplotlib
     ])
-    ++ lib.optionals withRootSupport [ root ];
+    ++ lib.optionals withRootSupport [root];
 
-  propagatedBuildInputs = [ zlib ];
+  propagatedBuildInputs = [zlib];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin "-DWITH_OSX";
 
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doInstallCheck = true;
 
@@ -72,6 +71,6 @@ stdenv.mkDerivation rec {
     homepage = "https://yoda.hepforge.org";
     changelog = "https://gitlab.com/hepcedar/yoda/-/blob/yoda-${version}/ChangeLog";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

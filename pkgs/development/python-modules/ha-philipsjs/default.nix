@@ -11,7 +11,6 @@
   respx,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ha-philipsjs";
   version = "3.3.3";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-CQfT+jCICHjnldM7sjJN47dTD4WVkxfXmW5g80mnoTU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cryptography
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     respx
   ];
 
-  pythonImportsCheck = [ "haphilipsjs" ];
+  pythonImportsCheck = ["haphilipsjs"];
 
   meta = with lib; {
     description = "Library to interact with Philips TVs with jointSPACE API";
     homepage = "https://github.com/danielperna84/ha-philipsjs";
     changelog = "https://github.com/danielperna84/ha-philipsjs/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

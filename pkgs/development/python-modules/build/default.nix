@@ -18,7 +18,6 @@
   virtualenv,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "build";
   version = "1.2.2.post1";
@@ -38,12 +37,14 @@ buildPythonPackage rec {
     sed -i '/importlib-metadata >= 4.6/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [
-    packaging
-    pyproject-hooks
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs =
+    [
+      packaging
+      pyproject-hooks
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   # We need to disable tests because this package is part of the bootstrap chain
   # and its test dependencies cannot be built yet when this is being built.
@@ -98,7 +99,7 @@ buildPythonPackage rec {
     };
   };
 
-  pythonImportsCheck = [ "build" ];
+  pythonImportsCheck = ["build"];
 
   meta = with lib; {
     mainProgram = "pyproject-build";
@@ -110,7 +111,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/pypa/build";
     changelog = "https://github.com/pypa/build/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = [ maintainers.fab ];
-    teams = [ teams.python ];
+    maintainers = [maintainers.fab];
+    teams = [teams.python];
   };
 }

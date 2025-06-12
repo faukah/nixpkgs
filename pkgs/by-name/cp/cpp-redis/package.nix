@@ -5,7 +5,6 @@
   cmake,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cpp-redis";
   version = "4.3.1";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/cpp-redis/cpp_redis";
     changelog = "https://github.com/cpp-redis/cpp_redis/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ poelzi ];
+    maintainers = with maintainers; [poelzi];
     platforms = platforms.all;
   };
 }

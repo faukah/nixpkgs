@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ttchat";
   version = "0.1.10";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Connect to a Twitch channel's chat from your terminal";
     homepage = "https://github.com/atye/ttchat";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "ttchat";
   };
 }

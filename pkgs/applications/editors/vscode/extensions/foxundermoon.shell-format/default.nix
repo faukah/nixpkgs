@@ -5,7 +5,6 @@
   shfmt,
   vscode-utils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "shell-format";
@@ -28,6 +27,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=foxundermoon.shell-format";
     homepage = "https://github.com/foxundermoon/vs-shell-format";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.dbirks ];
+    maintainers = [lib.maintainers.dbirks];
   };
 }

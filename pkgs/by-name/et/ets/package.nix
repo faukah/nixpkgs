@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "ets";
   version = "0.3.1";
@@ -24,7 +23,7 @@ buildGoModule rec {
     "-X main.version=v${version}-nixpkgs"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   preBuild = ''
     rm -rf fixtures
@@ -40,7 +39,7 @@ buildGoModule rec {
     description = "Command output timestamper";
     homepage = "https://github.com/gdubicki/ets/";
     license = licenses.mit;
-    maintainers = with maintainers; [ cameronfyfe ];
+    maintainers = with maintainers; [cameronfyfe];
     mainProgram = "ets";
   };
 }

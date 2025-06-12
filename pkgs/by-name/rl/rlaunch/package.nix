@@ -4,7 +4,6 @@
   rustPlatform,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rlaunch";
   version = "1.3.14";
@@ -23,8 +22,7 @@ rustPlatform.buildRustPackage rec {
   postFixup = ''
     patchelf --set-rpath ${
       lib.makeLibraryPath (
-        with xorg;
-        [
+        with xorg; [
           libX11
           libXft
           libXinerama
@@ -38,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/PonasKovas/rlaunch";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
     mainProgram = "rlaunch";
   };
 }

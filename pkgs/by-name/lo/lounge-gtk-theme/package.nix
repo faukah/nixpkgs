@@ -11,7 +11,6 @@
   librsvg,
   gtk-engine-murrine,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lounge-gtk-theme";
   version = "1.24";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     librsvg
   ];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   mesonFlags = [
     "-D gnome_version=${lib.versions.majorMinor gnome-shell.version}"
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/monday15/lounge-gtk-theme";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

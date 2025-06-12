@@ -10,7 +10,6 @@
   gsettings-desktop-schemas,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "emuflight-configurator";
   version = "0.4.3";
@@ -61,9 +60,9 @@ stdenv.mkDerivation rec {
       The application allows you to configure the Emuflight software running on any supported Emuflight target.
     '';
     homepage = "https://github.com/emuflight/EmuConfigurator";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ beezow ];
+    maintainers = with maintainers; [beezow];
     platforms = platforms.linux;
   };
 }

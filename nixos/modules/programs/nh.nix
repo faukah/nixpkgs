@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.nh;
-in
-{
+in {
   meta.maintainers = with lib.maintainers; [
     NotAShelf
     viperML
@@ -16,7 +14,7 @@ in
   options.programs.nh = {
     enable = lib.mkEnableOption "nh, yet another Nix CLI helper";
 
-    package = lib.mkPackageOption pkgs "nh" { };
+    package = lib.mkPackageOption pkgs "nh" {};
 
     flake = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
@@ -66,12 +64,11 @@ in
 
   config = {
     warnings =
-      if (!(cfg.clean.enable -> !config.nix.gc.automatic)) then
-        [
-          "programs.nh.clean.enable and nix.gc.automatic are both enabled. Please use one or the other to avoid conflict."
-        ]
-      else
-        [ ];
+      if (!(cfg.clean.enable -> !config.nix.gc.automatic))
+      then [
+        "programs.nh.clean.enable and nix.gc.automatic are both enabled. Please use one or the other to avoid conflict."
+      ]
+      else [];
 
     assertions = [
       # Not strictly required but probably a good assertion to have
@@ -87,7 +84,7 @@ in
     ];
 
     environment = lib.mkIf cfg.enable {
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
       variables = lib.mkIf (cfg.flake != null) {
         NH_FLAKE = cfg.flake;
       };
@@ -98,7 +95,7 @@ in
         description = "Nh clean";
         script = "exec ${lib.getExe cfg.package} clean all ${cfg.clean.extraArgs}";
         startAt = cfg.clean.dates;
-        path = [ config.nix.package ];
+        path = [config.nix.package];
         serviceConfig.Type = "oneshot";
       };
 

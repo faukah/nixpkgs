@@ -35,23 +35,21 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  doCheck =
-    with stdenv.buildPlatform;
-    # SIMD tests are only executed on platforms that support all
-    # required processor features (e.g. SSE3, SSSE3 and SSE4.1 on x86_64):
-    # https://github.com/bytecodealliance/wasmtime/blob/v9.0.0/cranelift/codegen/src/isa/x64/mod.rs#L220
+  doCheck = with stdenv.buildPlatform;
+  # SIMD tests are only executed on platforms that support all
+  # required processor features (e.g. SSE3, SSSE3 and SSE4.1 on x86_64):
+  # https://github.com/bytecodealliance/wasmtime/blob/v9.0.0/cranelift/codegen/src/isa/x64/mod.rs#L220
     (isx86_64 -> sse3Support && ssse3Support && sse4_1Support)
     &&
-      # The dependency `wasi-preview1-component-adapter` fails to build because of:
-      # error: linker `rust-lld` not found
-      !isAarch64;
+    # The dependency `wasi-preview1-component-adapter` fails to build because of:
+    # error: linker `rust-lld` not found
+    !isAarch64;
 
-  postInstall =
-    let
-      inherit (stdenv.targetPlatform.rust) cargoShortTarget;
-    in
+  postInstall = let
+    inherit (stdenv.targetPlatform.rust) cargoShortTarget;
+  in
     ''
       # move libs from out to dev
       install -d -m 0755 $dev/lib
@@ -81,7 +79,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

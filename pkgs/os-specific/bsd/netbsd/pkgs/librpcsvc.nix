@@ -11,7 +11,6 @@
   rpcgen,
   statHook,
 }:
-
 mkDerivation {
   path = "lib/librpcsvc";
 
@@ -33,7 +32,7 @@ mkDerivation {
     statHook
   ];
 
-  makeFlags = defaultMakeFlags ++ [ "INCSDIR=$(dev)/include/rpcsvc" ];
+  makeFlags = defaultMakeFlags ++ ["INCSDIR=$(dev)/include/rpcsvc"];
 
   meta.platforms = lib.platforms.netbsd;
 }

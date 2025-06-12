@@ -2,25 +2,20 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   hatchling,
   hatch-vcs,
-
   # dependencies
   importlib-resources,
   iso3166,
   pycountry,
   rstr,
-
   # optional-dependencies
   pydantic,
-
   # tests
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "schwifty";
   version = "2025.1.0";
@@ -38,27 +33,31 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  dependencies = [
-    iso3166
-    pycountry
-    rstr
-  ] ++ lib.optionals (pythonOlder "3.12") [ importlib-resources ];
+  dependencies =
+    [
+      iso3166
+      pycountry
+      rstr
+    ]
+    ++ lib.optionals (pythonOlder "3.12") [importlib-resources];
 
   optional-dependencies = {
-    pydantic = [ pydantic ];
+    pydantic = [pydantic];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "schwifty" ];
+  pythonImportsCheck = ["schwifty"];
 
   meta = with lib; {
     changelog = "https://github.com/mdomke/schwifty/blob/${version}/CHANGELOG.rst";
     description = "Validate/generate IBANs and BICs";
     homepage = "https://github.com/mdomke/schwifty";
     license = licenses.mit;
-    maintainers = with maintainers; [ milibopp ];
+    maintainers = with maintainers; [milibopp];
   };
 }

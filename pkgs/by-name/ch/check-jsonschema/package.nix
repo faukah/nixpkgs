@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "check-jsonschema";
   version = "0.33.0";
@@ -16,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-dygE9vFQpoDtTBtN4zoWY1JXUxBSgiX3GDzdk72BmgI=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     ruamel-yaml
@@ -33,7 +32,7 @@ python3Packages.buildPythonApplication rec {
     identify
   ];
 
-  disabledTests = [ "test_schemaloader_yaml_data" ];
+  disabledTests = ["test_schemaloader_yaml_data"];
 
   pythonImportsCheck = [
     "check_jsonschema"
@@ -46,6 +45,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/python-jsonschema/check-jsonschema";
     changelog = "https://github.com/python-jsonschema/check-jsonschema/blob/${version}/CHANGELOG.rst";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ sudosubin ];
+    maintainers = with lib.maintainers; [sudosubin];
   };
 }

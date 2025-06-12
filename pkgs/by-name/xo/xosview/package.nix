@@ -5,7 +5,6 @@
   libX11,
   libXpm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xosview";
   version = "1.24";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Classic system monitoring tool";
     license = lib.licenses.gpl2Plus;
     mainProgram = "xosview";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = with lib.platforms; linux;
   };
 })

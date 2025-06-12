@@ -16,7 +16,6 @@
   libadwaita,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gnome-secrets";
   version = "10.4";
@@ -67,7 +66,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -75,8 +74,8 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://gitlab.gnome.org/World/secrets";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mvnetbiz ];
-    teams = [ teams.gnome-circle ];
+    maintainers = with maintainers; [mvnetbiz];
+    teams = [teams.gnome-circle];
     mainProgram = "secrets";
   };
 }

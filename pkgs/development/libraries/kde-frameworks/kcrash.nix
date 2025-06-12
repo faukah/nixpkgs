@@ -6,16 +6,15 @@
   qtbase,
   qtx11extras,
 }:
-
 mkDerivation {
   pname = "kcrash";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kcoreaddons
     kwindowsystem
     qtx11extras
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
   outputs = [
     "out"
     "dev"

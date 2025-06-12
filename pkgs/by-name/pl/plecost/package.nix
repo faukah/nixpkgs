@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "plecost";
   version = "1.1.4";
@@ -41,6 +40,6 @@ python3Packages.buildPythonApplication {
     mainProgram = "plecost";
     homepage = "https://github.com/iniqua/plecost";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

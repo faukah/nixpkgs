@@ -4,7 +4,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage {
   pname = "haste-server";
   version = "unstable-2023-03-06";
@@ -36,6 +35,6 @@ buildNpmPackage {
     homepage = "https://github.com/toptal/haste-server";
     license = licenses.mit;
     mainProgram = "haste-server";
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
   };
 }

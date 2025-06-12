@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "bios";
   meta.maintainers = with lib.maintainers; [
     lzcunt
@@ -10,15 +9,13 @@
     "i686-linux"
     "x86_64-linux"
   ];
-  nodes.machine =
-    { ... }:
-    {
-      virtualisation.useBootLoader = true;
-      virtualisation.useBIOSBoot = true;
-      boot.loader.limine.enable = true;
-      boot.loader.limine.efiSupport = false;
-      boot.loader.timeout = 0;
-    };
+  nodes.machine = {...}: {
+    virtualisation.useBootLoader = true;
+    virtualisation.useBIOSBoot = true;
+    boot.loader.limine.enable = true;
+    boot.loader.limine.efiSupport = false;
+    boot.loader.timeout = 0;
+  };
 
   testScript = ''
     machine.start()

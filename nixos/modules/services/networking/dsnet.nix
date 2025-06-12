@@ -3,22 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.dsnet;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   patchFile = settingsFormat.generate "dsnet-patch.json" cfg.settings;
-in
-{
+in {
   options.services.dsnet = {
     enable = lib.mkEnableOption "dsnet, a centralised Wireguard VPN manager";
 
-    package = lib.mkPackageOption pkgs "dsnet" { };
+    package = lib.mkPackageOption pkgs "dsnet" {};
 
     settings = lib.mkOption {
       type = lib.types.submodule {
-
         freeformType = settingsFormat.type;
 
         options = {
@@ -119,7 +115,7 @@ in
         };
       };
 
-      default = { };
+      default = {};
       description = ''
         The settings to use for dsnet. This will be converted to a JSON
         object that will be passed to dsnet as a patch, using the patch
@@ -146,19 +142,19 @@ in
         IP = "10.3.148.1";
         IP6 = "";
         DNS = "8.8.8.8";
-        Networks = [ "0.0.0.0/0" ];
+        Networks = ["0.0.0.0/0"];
       };
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.dsnet = {
       description = "dsnet VPN Management";
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         test ! -f /etc/dsnetconfig.json && ${lib.getExe cfg.package} init
         ${lib.getExe cfg.package} patch < ${patchFile}

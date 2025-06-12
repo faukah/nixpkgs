@@ -4,7 +4,6 @@
   compatIfNeeded,
   zlib,
 }:
-
 mkDerivation {
   path = "lib/libdwarf";
   extraPaths = [
@@ -14,7 +13,7 @@ mkDerivation {
     "sys/sys/elf64.h"
     "sys/sys/elf_common.h"
   ];
-  extraNativeBuildInputs = [ m4 ];
-  buildInputs = compatIfNeeded ++ [ zlib ];
+  extraNativeBuildInputs = [m4];
+  buildInputs = compatIfNeeded ++ [zlib];
   MK_TESTS = "no";
 }

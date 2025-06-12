@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "gelasio";
   version = "unstable-2022-06-09";
@@ -36,6 +35,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/SorkinType/Gelasio";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ colemickens ];
+    maintainers = with maintainers; [colemickens];
   };
 }

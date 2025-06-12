@@ -26,7 +26,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "geoclue";
   version = "2.7.2";
@@ -112,7 +111,7 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       inherit (nixosTests) geoclue2;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

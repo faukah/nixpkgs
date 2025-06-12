@@ -13,7 +13,6 @@
   python3,
   xvfb-run,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dbus-test-runner";
   version = "unstable-2019-10-02";
@@ -52,9 +51,10 @@ stdenv.mkDerivation (finalAttrs: {
     bash
     dbus
     (python3.withPackages (
-      ps: with ps; [
-        python-dbusmock
-      ]
+      ps:
+        with ps; [
+          python-dbusmock
+        ]
     ))
     xvfb-run
   ];
@@ -75,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://launchpad.net/dbus-test-runner";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    teams = [ teams.lomiri ];
+    teams = [teams.lomiri];
     pkgConfigModules = [
       "dbustest-1"
     ];

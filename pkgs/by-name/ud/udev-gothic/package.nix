@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "udev-gothic";
   version = "2.1.0";
@@ -23,7 +22,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Programming font that combines BIZ UD Gothic and JetBrains Mono";
     homepage = "https://github.com/yuru7/udev-gothic";
     license = licenses.ofl;
-    maintainers = with maintainers; [ haruki7049 ];
+    maintainers = with maintainers; [haruki7049];
     platforms = platforms.all;
   };
 }

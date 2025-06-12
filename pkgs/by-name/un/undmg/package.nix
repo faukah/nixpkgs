@@ -8,7 +8,6 @@
   xz,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "undmg";
   version = "1.1.0-unstable-2024-08-02";
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
     hash = "sha256-eLxI3enf8EAgQePXvWxw8kOMr7KP2Q1Rsxy++v16zQI=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     zlib
@@ -31,7 +30,7 @@ stdenv.mkDerivation {
 
   setupHook = ./setup-hook.sh;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Extract a DMG file";

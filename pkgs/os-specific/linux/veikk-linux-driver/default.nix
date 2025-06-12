@@ -5,7 +5,6 @@
   kernel,
   kernelModuleMakeFlags,
 }:
-
 stdenv.mkDerivation rec {
   pname = "veikk-linux-driver";
   version = "2.0";
@@ -19,11 +18,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  buildInputs = [ kernel ];
+  buildInputs = [kernel];
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "BUILD_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "BUILD_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    ];
 
   installPhase = ''
     mkdir -p $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/veikk
@@ -35,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jlam55555/veikk-linux-driver/";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ nicbk ];
+    maintainers = with maintainers; [nicbk];
     broken = kernel.kernelOlder "4.19";
   };
 }

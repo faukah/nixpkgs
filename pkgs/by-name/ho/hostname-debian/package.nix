@@ -3,7 +3,6 @@
   lib,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hostname-debian";
   version = "3.23";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://tracker.debian.org/pkg/hostname";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ posch ];
+    maintainers = with maintainers; [posch];
     platforms = platforms.gnu;
   };
 }

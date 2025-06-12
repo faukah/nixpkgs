@@ -12,7 +12,6 @@
   linuxHeaders,
   gnutls,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nbd";
   version = "3.25";
@@ -65,6 +64,6 @@ stdenv.mkDerivation rec {
     description = "Map arbitrary files as block devices over the network";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

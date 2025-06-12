@@ -7,7 +7,6 @@
   rapidjson,
   buildExamples ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "discord-rpc";
   version = "3.4.0";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "Official library to interface with the Discord client";
     homepage = "https://github.com/discordapp/discord-rpc";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

@@ -4,7 +4,6 @@
   fetchPypi,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "multipledispatch";
   version = "1.0.0";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
   # No tests in archive
   doCheck = false;
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   meta = {
     homepage = "https://github.com/mrocklin/multipledispatch/";

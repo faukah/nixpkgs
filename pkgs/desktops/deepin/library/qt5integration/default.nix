@@ -11,7 +11,6 @@
   xorg,
   gtest,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qt5integration";
   version = "5.6.32";
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/qt5integration";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

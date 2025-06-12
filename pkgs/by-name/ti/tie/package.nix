@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tie";
   version = "2.4";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     description = "Allow multiple web change files";
     mainProgram = "tie";
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.abstyles;
   };
 }

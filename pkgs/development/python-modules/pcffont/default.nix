@@ -8,7 +8,6 @@
   hatchling,
   bdffont,
 }:
-
 buildPythonPackage rec {
   pname = "pcffont";
   version = "0.0.20";
@@ -22,15 +21,15 @@ buildPythonPackage rec {
     hash = "sha256-dkf0irrrlSoj8TH+C/kmkVPJORWGl0EbgvckfPBes7I=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ bdffont ];
+  dependencies = [bdffont];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pcffont" ];
+  pythonImportsCheck = ["pcffont"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/TakWolf/pcffont";

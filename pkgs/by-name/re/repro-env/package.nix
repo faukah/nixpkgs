@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "repro-env";
   version = "0.4.3";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-0ljIt84CqcdC01YXU6J7RlvkN/nlU6Thige8TricFus=";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     mainProgram = "repro-env";
   };
 })

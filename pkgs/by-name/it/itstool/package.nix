@@ -7,7 +7,6 @@
   autoreconfHook,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "itstool";
   version = "2.0.7";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     wrapPythonPrograms
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
   meta = {
@@ -59,6 +58,6 @@ stdenv.mkDerivation rec {
     mainProgram = "itstool";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -9,7 +9,6 @@
   gcc,
   callPackage,
 }:
-
 stdenv.mkDerivation rec {
   pname = "phoronix-test-suite";
   version = "10.8.4";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HyCS1TbAoxk+/FPkpQ887mXA7xp40x5UBPHGY//3t/Q=";
   };
 
-  buildInputs = [ php ];
+  buildInputs = [php];
   nativeBuildInputs = [
     which
     makeWrapper
@@ -42,13 +41,13 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    simple-execution = callPackage ./tests.nix { };
+    simple-execution = callPackage ./tests.nix {};
   };
 
   meta = with lib; {
     description = "Open-Source, Automated Benchmarking";
     homepage = "https://www.phoronix-test-suite.com/";
-    maintainers = with maintainers; [ davidak ];
+    maintainers = with maintainers; [davidak];
     license = licenses.gpl3;
     platforms = with platforms; unix;
     mainProgram = "phoronix-test-suite";

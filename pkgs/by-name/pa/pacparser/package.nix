@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pacparser";
   version = "1.4.5";
@@ -34,14 +33,14 @@ stdenv.mkDerivation (finalAttrs: {
     cd src
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     description = "Library to parse proxy auto-config (PAC) files";
     homepage = "https://pacparser.manugarg.com/";
     license = lib.licenses.lgpl3;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ abbradar ];
+    maintainers = with lib.maintainers; [abbradar];
     mainProgram = "pactester";
   };
 })

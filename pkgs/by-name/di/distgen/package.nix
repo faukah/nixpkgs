@@ -3,7 +3,6 @@
   python3,
   fetchPypi,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "distgen";
   version = "2.1";
@@ -44,6 +43,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "dg";
     license = lib.licenses.gpl2Plus;
     homepage = "https://distgen.readthedocs.io";
-    maintainers = with lib.maintainers; [ bachp ];
+    maintainers = with lib.maintainers; [bachp];
   };
 }

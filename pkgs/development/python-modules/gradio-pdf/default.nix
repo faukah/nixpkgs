@@ -8,7 +8,6 @@
   gradio,
   gradio-client,
 }:
-
 buildPythonPackage {
   pname = "gradio-pdf";
   version = "0.0.22";
@@ -29,12 +28,12 @@ buildPythonPackage {
     hatchling
   ];
 
-  dependencies = [ gradio-client ];
+  dependencies = [gradio-client];
 
-  buildInputs = [ gradio.sans-reverse-dependencies ];
-  disallowedReferences = [ gradio.sans-reverse-dependencies ];
+  buildInputs = [gradio.sans-reverse-dependencies];
+  disallowedReferences = [gradio.sans-reverse-dependencies];
 
-  pythonImportsCheck = [ "gradio_pdf" ];
+  pythonImportsCheck = ["gradio_pdf"];
 
   # tested in `gradio`
   doCheck = false;
@@ -43,6 +42,6 @@ buildPythonPackage {
     description = "Python library for easily interacting with trained machine learning models";
     homepage = "https://pypi.org/project/gradio-pdf/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
   };
 }

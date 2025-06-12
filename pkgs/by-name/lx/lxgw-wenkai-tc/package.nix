@@ -3,7 +3,6 @@
   fetchurl,
   lib,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "lxgw-wenkai-tc";
   version = "1.511";
@@ -26,6 +25,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Traditional Chinese Edition of LXGW WenKai";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ lebensterben ];
+    maintainers = with maintainers; [lebensterben];
   };
 }

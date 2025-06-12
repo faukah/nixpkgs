@@ -9,7 +9,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-sql";
   version = "3.11";
@@ -34,9 +33,9 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dissect.sql" ];
+  pythonImportsCheck = ["dissect.sql"];
 
   disabledTests = [
     # Invalid header magic
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/fox-it/dissect.sql";
     changelog = "https://github.com/fox-it/dissect.sql/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

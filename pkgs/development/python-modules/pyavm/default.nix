@@ -2,18 +2,15 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # tests
   astropy,
   numpy,
   pillow,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyavm";
   version = "0.9.6";
@@ -37,12 +34,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyavm" ];
+  pythonImportsCheck = ["pyavm"];
 
   meta = with lib; {
     description = "Simple pure-python AVM meta-data handling";
     homepage = "https://astrofrog.github.io/pyavm/";
     license = licenses.mit;
-    maintainers = with maintainers; [ smaret ];
+    maintainers = with maintainers; [smaret];
   };
 }

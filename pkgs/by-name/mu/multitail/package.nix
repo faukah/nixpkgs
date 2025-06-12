@@ -6,7 +6,6 @@
   pkg-config,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   version = "7.1.5";
   pname = "multitail";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   installPhase = ''
     runHook preInstall
@@ -33,12 +32,12 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     homepage = "https://github.com/folkertvanheusden/multitail";
     description = "tail on Steroids";
-    maintainers = with lib.maintainers; [ matthiasbeyer ];
+    maintainers = with lib.maintainers; [matthiasbeyer];
     platforms = lib.platforms.unix;
     license = lib.licenses.asl20;
     mainProgram = "multitail";

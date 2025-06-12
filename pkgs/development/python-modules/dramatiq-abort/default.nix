@@ -9,7 +9,6 @@
   redis,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "dramatiq-abort";
   version = "1.2.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-i5vL9yjQQambG8m6RDByr7/j8+PhDdLsai3pDrH1A4Q=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     dramatiq
@@ -30,8 +29,8 @@ buildPythonPackage rec {
 
   optional-dependencies = {
     all = lib.flatten (lib.attrValues (lib.filterAttrs (n: v: n != "all") optional-dependencies));
-    gevent = [ gevent ];
-    redis = [ redis ];
+    gevent = [gevent];
+    redis = [redis];
   };
 
   nativeCheckInputs = [
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytest-cov
   ];
 
-  pythonImportsCheck = [ "dramatiq_abort" ];
+  pythonImportsCheck = ["dramatiq_abort"];
 
   meta = {
     changelog = "https://github.com/Flared/dramatiq-abort/releases/tag/v${version}";
     description = "Dramatiq extension to abort message";
     homepage = "https://github.com/Flared/dramatiq-abort";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ tebriel ];
+    maintainers = with lib.maintainers; [tebriel];
   };
 }

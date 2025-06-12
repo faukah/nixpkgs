@@ -4,9 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.services.freshrss;
   webserver = config.services.${cfg.webserver};
 
@@ -18,11 +16,10 @@ let
     {
       DATA_PATH = cfg.dataDir;
     }
-    // lib.optionalAttrs (cfg.extensions != [ ]) {
+    // lib.optionalAttrs (cfg.extensions != []) {
       THIRDPARTY_EXTENSIONS_PATH = "${extension-env}/share/freshrss/";
     };
-in
-{
+in {
   meta.maintainers = with maintainers; [
     etu
     stunkymonkey
@@ -32,11 +29,11 @@ in
   options.services.freshrss = {
     enable = mkEnableOption "FreshRSS RSS aggregator and reader with php-fpm backend";
 
-    package = mkPackageOption pkgs "freshrss" { };
+    package = mkPackageOption pkgs "freshrss" {};
 
     extensions = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       defaultText = literalExpression "[]";
       example = literalExpression ''
         with freshrss-extensions; [
@@ -196,44 +193,43 @@ in
     };
   };
 
-  config =
-    let
-      defaultServiceConfig = {
-        ReadWritePaths = "${cfg.dataDir}";
-        DeviceAllow = "";
-        LockPersonality = true;
-        NoNewPrivileges = true;
-        PrivateDevices = true;
-        PrivateTmp = true;
-        PrivateUsers = true;
-        ProcSubset = "pid";
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectProc = "invisible";
-        ProtectSystem = "strict";
-        RemoveIPC = true;
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@resources"
-          "~@privileged"
-        ];
-        UMask = "0007";
-        Type = "oneshot";
-        User = cfg.user;
-        Group = config.users.users.${cfg.user}.group;
-        StateDirectory = "freshrss";
-        WorkingDirectory = cfg.package;
-      };
-    in
+  config = let
+    defaultServiceConfig = {
+      ReadWritePaths = "${cfg.dataDir}";
+      DeviceAllow = "";
+      LockPersonality = true;
+      NoNewPrivileges = true;
+      PrivateDevices = true;
+      PrivateTmp = true;
+      PrivateUsers = true;
+      ProcSubset = "pid";
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHome = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      ProtectProc = "invisible";
+      ProtectSystem = "strict";
+      RemoveIPC = true;
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      SystemCallArchitectures = "native";
+      SystemCallFilter = [
+        "@system-service"
+        "~@resources"
+        "~@privileged"
+      ];
+      UMask = "0007";
+      Type = "oneshot";
+      User = cfg.user;
+      Group = config.users.users.${cfg.user}.group;
+      StateDirectory = "freshrss";
+      WorkingDirectory = cfg.package;
+    };
+  in
     mkIf cfg.enable {
       assertions = mkIf (cfg.authType == "form") [
         {
@@ -310,85 +306,105 @@ in
         group = "${cfg.user}";
         home = cfg.dataDir;
       };
-      users.groups."${cfg.user}" = { };
+      users.groups."${cfg.user}" = {};
 
       systemd.tmpfiles.settings."10-freshrss".${cfg.dataDir}.d = {
         inherit (cfg) user;
         group = config.users.users.${cfg.user}.group;
       };
 
-      systemd.services.freshrss-config =
-        let
-          settingsFlags = concatStringsSep " \\\n    " (
-            mapAttrsToList (k: v: "${k} ${toString v}") {
-              "--default-user" = ''"${cfg.defaultUser}"'';
-              "--auth-type" = ''"${cfg.authType}"'';
-              "--base-url" = ''"${cfg.baseUrl}"'';
-              "--language" = ''"${cfg.language}"'';
-              "--db-type" = ''"${cfg.database.type}"'';
-              # The following attributes are optional depending on the type of
-              # database.  Those that evaluate to null on the left hand side
-              # will be omitted.
-              ${if cfg.database.name != null then "--db-base" else null} = ''"${cfg.database.name}"'';
-              ${if cfg.database.passFile != null then "--db-password" else null} =
-                ''"$(cat ${cfg.database.passFile})"'';
-              ${if cfg.database.user != null then "--db-user" else null} = ''"${cfg.database.user}"'';
-              ${if cfg.database.tableprefix != null then "--db-prefix" else null} =
-                ''"${cfg.database.tableprefix}"'';
-              # hostname:port e.g. "localhost:5432"
-              ${if cfg.database.host != null && cfg.database.port != null then "--db-host" else null} =
-                ''"${cfg.database.host}:${toString cfg.database.port}"'';
-              # socket path e.g. "/run/postgresql"
-              ${if cfg.database.host != null && cfg.database.port == null then "--db-host" else null} =
-                ''"${cfg.database.host}"'';
-            }
-          );
-        in
-        {
-          description = "Set up the state directory for FreshRSS before use";
-          wantedBy = [ "multi-user.target" ];
-          serviceConfig = defaultServiceConfig // {
+      systemd.services.freshrss-config = let
+        settingsFlags = concatStringsSep " \\\n    " (
+          mapAttrsToList (k: v: "${k} ${toString v}") {
+            "--default-user" = ''"${cfg.defaultUser}"'';
+            "--auth-type" = ''"${cfg.authType}"'';
+            "--base-url" = ''"${cfg.baseUrl}"'';
+            "--language" = ''"${cfg.language}"'';
+            "--db-type" = ''"${cfg.database.type}"'';
+            # The following attributes are optional depending on the type of
+            # database.  Those that evaluate to null on the left hand side
+            # will be omitted.
+            ${
+              if cfg.database.name != null
+              then "--db-base"
+              else null
+            } = ''"${cfg.database.name}"'';
+            ${
+              if cfg.database.passFile != null
+              then "--db-password"
+              else null
+            } = ''"$(cat ${cfg.database.passFile})"'';
+            ${
+              if cfg.database.user != null
+              then "--db-user"
+              else null
+            } = ''"${cfg.database.user}"'';
+            ${
+              if cfg.database.tableprefix != null
+              then "--db-prefix"
+              else null
+            } = ''"${cfg.database.tableprefix}"'';
+            # hostname:port e.g. "localhost:5432"
+            ${
+              if cfg.database.host != null && cfg.database.port != null
+              then "--db-host"
+              else null
+            } = ''"${cfg.database.host}:${toString cfg.database.port}"'';
+            # socket path e.g. "/run/postgresql"
+            ${
+              if cfg.database.host != null && cfg.database.port == null
+              then "--db-host"
+              else null
+            } = ''"${cfg.database.host}"'';
+          }
+        );
+      in {
+        description = "Set up the state directory for FreshRSS before use";
+        wantedBy = ["multi-user.target"];
+        serviceConfig =
+          defaultServiceConfig
+          // {
             RemainAfterExit = true;
           };
-          restartIfChanged = true;
-          environment = env-vars;
+        restartIfChanged = true;
+        environment = env-vars;
 
-          script =
-            let
-              userScriptArgs = ''--user ${cfg.defaultUser} ${
-                optionalString (cfg.authType == "form") ''--password "$(cat ${cfg.passwordFile})"''
-              }'';
-              updateUserScript = optionalString (cfg.authType == "form" || cfg.authType == "none") ''
-                ./cli/update-user.php ${userScriptArgs}
-              '';
-              createUserScript = optionalString (cfg.authType == "form" || cfg.authType == "none") ''
-                ./cli/create-user.php ${userScriptArgs}
-              '';
-            in
-            ''
-              # do installation or reconfigure
-              if test -f ${cfg.dataDir}/config.php; then
-                # reconfigure with settings
-                ./cli/reconfigure.php ${settingsFlags}
-                ${updateUserScript}
-              else
-                # check correct folders in data folder
-                ./cli/prepare.php
-                # install with settings
-                ./cli/do-install.php ${settingsFlags}
-                ${createUserScript}
-              fi
-            '';
-        };
+        script = let
+          userScriptArgs = ''--user ${cfg.defaultUser} ${
+              optionalString (cfg.authType == "form") ''--password "$(cat ${cfg.passwordFile})"''
+            }'';
+          updateUserScript = optionalString (cfg.authType == "form" || cfg.authType == "none") ''
+            ./cli/update-user.php ${userScriptArgs}
+          '';
+          createUserScript = optionalString (cfg.authType == "form" || cfg.authType == "none") ''
+            ./cli/create-user.php ${userScriptArgs}
+          '';
+        in ''
+          # do installation or reconfigure
+          if test -f ${cfg.dataDir}/config.php; then
+            # reconfigure with settings
+            ./cli/reconfigure.php ${settingsFlags}
+            ${updateUserScript}
+          else
+            # check correct folders in data folder
+            ./cli/prepare.php
+            # install with settings
+            ./cli/do-install.php ${settingsFlags}
+            ${createUserScript}
+          fi
+        '';
+      };
 
       systemd.services.freshrss-updater = {
         description = "FreshRSS feed updater";
-        after = [ "freshrss-config.service" ];
+        after = ["freshrss-config.service"];
         startAt = "*:0/5";
         environment = env-vars;
-        serviceConfig = defaultServiceConfig // {
-          ExecStart = "${cfg.package}/app/actualize_script.php";
-        };
+        serviceConfig =
+          defaultServiceConfig
+          // {
+            ExecStart = "${cfg.package}/app/actualize_script.php";
+          };
       };
     };
 }

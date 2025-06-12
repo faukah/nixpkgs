@@ -18,7 +18,6 @@
   trezor-udev-rules,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "trezor";
   version = "0.13.10";
@@ -29,30 +28,32 @@ buildPythonPackage rec {
     hash = "sha256-egtq5GKN0MMaXOtRJYkY2bvdOthROIg3IlgmsijuUE8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    click
-    construct
-    construct-classes
-    cryptography
-    ecdsa
-    libusb1
-    mnemonic
-    requests
-    shamir-mnemonic
-    slip10
-    typing-extensions
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ trezor-udev-rules ];
+  dependencies =
+    [
+      click
+      construct
+      construct-classes
+      cryptography
+      ecdsa
+      libusb1
+      mnemonic
+      requests
+      shamir-mnemonic
+      slip10
+      typing-extensions
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [trezor-udev-rules];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     "tests/test_stellar.py" # requires stellar-sdk
     "tests/test_firmware.py" # requires network downloads
   ];
 
-  pythonImportsCheck = [ "trezorlib" ];
+  pythonImportsCheck = ["trezorlib"];
 
   postCheck = ''
     $out/bin/trezorctl --version

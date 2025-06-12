@@ -2,24 +2,19 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
-
   # dependencies
   hidapi,
   pyusb,
-
   # tests
   click,
   pytestCheckHook,
   spsdk,
   writableTmpDirAsHomeHook,
-
   # passthru
   spsdk-mcu-link,
 }:
-
 buildPythonPackage rec {
   pname = "spsdk-mcu-link";
   version = "0.6.4";
@@ -75,6 +70,6 @@ buildPythonPackage rec {
     description = "Debugger probe plugin for SPSDK supporting LPC-Link/MCU-Link from NXP";
     homepage = "https://pypi.org/project/spsdk-mcu-link";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

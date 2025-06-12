@@ -10,7 +10,6 @@
   youtube,
   infotagger,
 }:
-
 buildKodiAddon rec {
   pname = "iagl";
   namespace = "plugin.program.iagl";
@@ -37,6 +36,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/zach-morris/plugin.program.iagl";
     description = "Launch Games from the Internet using Kodi";
     license = licenses.gpl3Plus;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

@@ -3,14 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.gokapi;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   userSettingsFile = settingsFormat.generate "generated-config.json" cfg.settings;
-in
-{
+in {
   options.services.gokapi = {
     enable = lib.mkEnableOption "Lightweight selfhosted Firefox Send alternative without public upload";
 
@@ -23,7 +20,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "gokapi" { };
+    package = lib.mkPackageOption pkgs "gokapi" {};
 
     environment = lib.mkOption {
       type = lib.types.submodule {
@@ -51,7 +48,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = ''
         Environment variables to be set for the gokapi service. Can use systemd specifiers.
         For full list see <https://gokapi.readthedocs.io/en/latest/advanced.html#environment-variables>.
@@ -60,9 +57,9 @@ in
     settings = lib.mkOption {
       type = lib.types.submodule {
         freeformType = settingsFormat.type;
-        options = { };
+        options = {};
       };
-      default = { };
+      default = {};
       description = ''
         Configuration settings for the generated config json file.
         See <https://gokapi.readthedocs.io/en/latest/advanced.html#config-json> for more information
@@ -77,55 +74,57 @@ in
         See <https://gokapi.readthedocs.io/en/latest/advanced.html#config-json> for more information
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.gokapi = {
-      wantedBy = [ "default.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["default.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
       environment = lib.mapAttrs (_: value: toString value) cfg.environment;
       unitConfig = {
         Description = "gokapi service";
       };
       serviceConfig = {
-        ExecStartPre =
-          let
-            updateScript = lib.getExe (
-              pkgs.writeShellApplication {
-                name = "merge-config";
-                runtimeInputs = with pkgs; [ jq ];
-                text = ''
-                  echo "Running merge-config"
-                  mutableSettings="$1"
-                  statefulSettingsFile="$2"
-                  settingsFile="$3"
-                  if [[ "$mutableSettings" == true ]]; then
-                    if [[ -f "$statefulSettingsFile" ]]; then
-                      echo "Updating stateful config file"
-                      merged="$(jq -s '.[0] * .[1]' "$statefulSettingsFile" ${userSettingsFile})"
-                      echo "$merged" > "$statefulSettingsFile"
-                    fi
-                  else
-                    echo "Overwriting stateful config file"
-                    mkdir -p "$(dirname "$statefulSettingsFile")"
-                    cat ${userSettingsFile} > "$statefulSettingsFile"
-                  fi
-                  if [ "$settingsFile" != "null" ]; then
-                    echo "Merging settings file into current stateful settings file"
-                    merged="$(jq -s '.[0] * .[1]' "$statefulSettingsFile" "$settingsFile")"
+        ExecStartPre = let
+          updateScript = lib.getExe (
+            pkgs.writeShellApplication {
+              name = "merge-config";
+              runtimeInputs = with pkgs; [jq];
+              text = ''
+                echo "Running merge-config"
+                mutableSettings="$1"
+                statefulSettingsFile="$2"
+                settingsFile="$3"
+                if [[ "$mutableSettings" == true ]]; then
+                  if [[ -f "$statefulSettingsFile" ]]; then
+                    echo "Updating stateful config file"
+                    merged="$(jq -s '.[0] * .[1]' "$statefulSettingsFile" ${userSettingsFile})"
                     echo "$merged" > "$statefulSettingsFile"
                   fi
-                '';
-              }
-            );
-          in
+                else
+                  echo "Overwriting stateful config file"
+                  mkdir -p "$(dirname "$statefulSettingsFile")"
+                  cat ${userSettingsFile} > "$statefulSettingsFile"
+                fi
+                if [ "$settingsFile" != "null" ]; then
+                  echo "Merging settings file into current stateful settings file"
+                  merged="$(jq -s '.[0] * .[1]' "$statefulSettingsFile" "$settingsFile")"
+                  echo "$merged" > "$statefulSettingsFile"
+                fi
+              '';
+            }
+          );
+        in
           lib.strings.concatStringsSep " " [
             updateScript
             (lib.boolToString cfg.mutableSettings)
             "${cfg.environment.GOKAPI_CONFIG_DIR}/${cfg.environment.GOKAPI_CONFIG_FILE}"
-            (if (cfg.settingsFile == null) then "null" else cfg.settingsFile)
+            (
+              if (cfg.settingsFile == null)
+              then "null"
+              else cfg.settingsFile
+            )
           ];
         ExecStart = lib.getExe cfg.package;
         RestartSec = 30;

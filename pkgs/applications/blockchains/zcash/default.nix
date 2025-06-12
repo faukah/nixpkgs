@@ -24,7 +24,6 @@
   zcash,
   zeromq,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zcash";
   version = "5.4.2";
@@ -94,12 +93,12 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/zcash-fetch-params \
         --set PATH ${
-          lib.makeBinPath [
-            coreutils
-            curl
-            util-linux
-          ]
-        }
+      lib.makeBinPath [
+        coreutils
+        curl
+        util-linux
+      ]
+    }
   '';
 
   meta = with lib; {

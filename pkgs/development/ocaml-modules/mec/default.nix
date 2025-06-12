@@ -11,7 +11,6 @@
   alcotest,
   bisect_ppx,
 }:
-
 buildDunePackage rec {
   pname = "mec";
   version = "0.1.0";
@@ -46,6 +45,6 @@ buildDunePackage rec {
     description = "Mec - Mini Elliptic Curve library";
     homepage = "https://gitlab.com/nomadic-labs/cryptography/ocaml-ec";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

@@ -15,10 +15,9 @@
     "virtiofs"
     "crc32c_generic"
   ],
-}:
-
-let
-  inherit (pkgs)
+}: let
+  inherit
+    (pkgs)
     bash
     bashInteractive
     busybox
@@ -35,9 +34,8 @@ let
     writeText
     runCommand
     ;
-in
-rec {
-  qemu-common = import ../../../nixos/lib/qemu-common.nix { inherit lib pkgs; };
+in rec {
+  qemu-common = import ../../../nixos/lib/qemu-common.nix {inherit lib pkgs;};
 
   qemu = buildPackages.qemu_kvm;
 
@@ -50,47 +48,47 @@ rec {
 
   initrdUtils =
     runCommand "initrd-utils"
-      {
-        nativeBuildInputs = [ buildPackages.nukeReferences ];
-        allowedReferences = [
-          "out"
-          modulesClosure
-        ]; # prevent accidents like glibc being included in the initrd
-      }
-      ''
-        mkdir -p $out/bin
-        mkdir -p $out/lib
+    {
+      nativeBuildInputs = [buildPackages.nukeReferences];
+      allowedReferences = [
+        "out"
+        modulesClosure
+      ]; # prevent accidents like glibc being included in the initrd
+    }
+    ''
+      mkdir -p $out/bin
+      mkdir -p $out/lib
 
-        # Copy what we need from Glibc.
-        cp -p \
-          ${pkgs.stdenv.cc.libc}/lib/ld-*.so.? \
-          ${pkgs.stdenv.cc.libc}/lib/libc.so.* \
-          ${pkgs.stdenv.cc.libc}/lib/libm.so.* \
-          ${pkgs.stdenv.cc.libc}/lib/libresolv.so.* \
-          ${pkgs.stdenv.cc.libc}/lib/libpthread.so.* \
-          ${pkgs.zstd.out}/lib/libzstd.so.* \
-          ${pkgs.xz.out}/lib/liblzma.so.* \
-          $out/lib
+      # Copy what we need from Glibc.
+      cp -p \
+        ${pkgs.stdenv.cc.libc}/lib/ld-*.so.? \
+        ${pkgs.stdenv.cc.libc}/lib/libc.so.* \
+        ${pkgs.stdenv.cc.libc}/lib/libm.so.* \
+        ${pkgs.stdenv.cc.libc}/lib/libresolv.so.* \
+        ${pkgs.stdenv.cc.libc}/lib/libpthread.so.* \
+        ${pkgs.zstd.out}/lib/libzstd.so.* \
+        ${pkgs.xz.out}/lib/liblzma.so.* \
+        $out/lib
 
-        # Copy BusyBox.
-        cp -pd ${pkgs.busybox}/bin/* $out/bin
-        cp -pd ${pkgs.kmod}/bin/* $out/bin
+      # Copy BusyBox.
+      cp -pd ${pkgs.busybox}/bin/* $out/bin
+      cp -pd ${pkgs.kmod}/bin/* $out/bin
 
-        # Run patchelf to make the programs refer to the copied libraries.
-        for i in $out/bin/* $out/lib/*; do if ! test -L $i; then nuke-refs $i; fi; done
+      # Run patchelf to make the programs refer to the copied libraries.
+      for i in $out/bin/* $out/lib/*; do if ! test -L $i; then nuke-refs $i; fi; done
 
-        for i in $out/bin/*; do
-            if [ -f "$i" -a ! -L "$i" ]; then
-                echo "patching $i..."
-                patchelf --set-interpreter $out/lib/ld-*.so.? --set-rpath $out/lib $i || true
-            fi
-        done
+      for i in $out/bin/*; do
+          if [ -f "$i" -a ! -L "$i" ]; then
+              echo "patching $i..."
+              patchelf --set-interpreter $out/lib/ld-*.so.? --set-rpath $out/lib $i || true
+          fi
+      done
 
-        find $out/lib -type f \! -name 'ld*.so.?' | while read i; do
-          echo "patching $i..."
-          patchelf --set-rpath $out/lib $i
-        done
-      ''; # */
+      find $out/lib -type f \! -name 'ld*.so.?' | while read i; do
+        echo "patching $i..."
+        patchelf --set-rpath $out/lib $i
+      done
+    ''; # */
 
   stage1Init = writeScript "vm-run-stage1" ''
     #! ${initrdUtils}/bin/ash -e
@@ -243,7 +241,11 @@ rec {
   '';
 
   qemuCommandLinux = ''
-    ${if (customQemu != null) then customQemu else (qemu-common.qemuBinary qemu)} \
+    ${
+      if (customQemu != null)
+      then customQemu
+      else (qemu-common.qemuBinary qemu)
+    } \
       -nographic -no-reboot \
       -device virtio-rng-pci \
       -chardev socket,id=store,path=virtio-store.sock \
@@ -257,8 +259,7 @@ rec {
       $QEMU_OPTS
   '';
 
-  vmRunCommand =
-    qemuCommand:
+  vmRunCommand = qemuCommand:
     writeText "vm-run" ''
       ${coreutils}/bin/mkdir xchg
       export > xchg/saved-env
@@ -315,23 +316,21 @@ rec {
     '';
 
   # A bash script fragment that produces a disk image at `destination`.
-  createEmptyImage =
-    {
-      # Disk image size in MiB
-      size,
-      # Name that will be written to ${destination}/nix-support/full-name
-      fullName,
-      # Where to write the image files, defaulting to $out
-      destination ? "$out",
-    }:
-    ''
-      mkdir -p ${destination}
-      diskImage=${destination}/disk-image.qcow2
-      ${qemu}/bin/qemu-img create -f qcow2 $diskImage "${toString size}M"
+  createEmptyImage = {
+    # Disk image size in MiB
+    size,
+    # Name that will be written to ${destination}/nix-support/full-name
+    fullName,
+    # Where to write the image files, defaulting to $out
+    destination ? "$out",
+  }: ''
+    mkdir -p ${destination}
+    diskImage=${destination}/disk-image.qcow2
+    ${qemu}/bin/qemu-img create -f qcow2 $diskImage "${toString size}M"
 
-      mkdir ${destination}/nix-support
-      echo "${fullName}" > ${destination}/nix-support/full-name
-    '';
+    mkdir ${destination}/nix-support
+    echo "${fullName}" > ${destination}/nix-support/full-name
+  '';
 
   defaultCreateRootFS = ''
     mkdir /mnt
@@ -347,30 +346,29 @@ rec {
   '';
 
   /*
-    Run a derivation in a Linux virtual machine (using Qemu/KVM).  By
-    default, there is no disk image; the root filesystem is a tmpfs,
-    and the nix store is shared with the host (via the 9P protocol).
-    Thus, any pure Nix derivation should run unmodified, e.g. the
-    call
+  Run a derivation in a Linux virtual machine (using Qemu/KVM).  By
+  default, there is no disk image; the root filesystem is a tmpfs,
+  and the nix store is shared with the host (via the 9P protocol).
+  Thus, any pure Nix derivation should run unmodified, e.g. the
+  call
 
-      runInLinuxVM patchelf
+    runInLinuxVM patchelf
 
-    will build the derivation `patchelf' inside a VM.  The attribute
-    `preVM' can optionally contain a shell command to be evaluated
-    *before* the VM is started (i.e., on the host).  The attribute
-    `memSize' specifies the memory size of the VM in megabytes,
-    defaulting to 512.  The attribute `diskImage' can optionally
-    specify a file system image to be attached to /dev/sda.  (Note
-    that currently we expect the image to contain a filesystem, not a
-    full disk image with a partition table etc.)
+  will build the derivation `patchelf' inside a VM.  The attribute
+  `preVM' can optionally contain a shell command to be evaluated
+  *before* the VM is started (i.e., on the host).  The attribute
+  `memSize' specifies the memory size of the VM in megabytes,
+  defaulting to 512.  The attribute `diskImage' can optionally
+  specify a file system image to be attached to /dev/sda.  (Note
+  that currently we expect the image to contain a filesystem, not a
+  full disk image with a partition table etc.)
 
-    If the build fails and Nix is run with the `-K' option, a script
-    `run-vm' will be left behind in the temporary build directory
-    that allows you to boot into the VM and debug it interactively.
+  If the build fails and Nix is run with the `-K' option, a script
+  `run-vm' will be left behind in the temporary build directory
+  that allows you to boot into the VM and debug it interactively.
   */
 
-  runInLinuxVM =
-    drv:
+  runInLinuxVM = drv:
     lib.overrideDerivation drv (
       {
         memSize ? 512,
@@ -378,9 +376,8 @@ rec {
         args,
         builder,
         ...
-      }:
-      {
-        requiredSystemFeatures = [ "kvm" ];
+      }: {
+        requiredSystemFeatures = ["kvm"];
         builder = "${bash}/bin/sh";
         args = [
           "-e"
@@ -389,19 +386,18 @@ rec {
         origArgs = args;
         origBuilder = builder;
         QEMU_OPTS = "${QEMU_OPTS} -m ${toString memSize} -object memory-backend-memfd,id=mem,size=${toString memSize}M,share=on -machine memory-backend=mem";
-        passAsFile = [ ]; # HACK fix - see https://github.com/NixOS/nixpkgs/issues/16742
+        passAsFile = []; # HACK fix - see https://github.com/NixOS/nixpkgs/issues/16742
       }
     );
 
-  extractFs =
-    {
-      file,
-      fs ? null,
-    }:
+  extractFs = {
+    file,
+    fs ? null,
+  }:
     runInLinuxVM (
       stdenv.mkDerivation {
         name = "extract-file";
-        buildInputs = [ util-linux ];
+        buildInputs = [util-linux];
         buildCommand = ''
           ln -s ${kernel}/lib /lib
           ${kmod}/bin/modprobe loop
@@ -422,11 +418,10 @@ rec {
       }
     );
 
-  extractMTDfs =
-    {
-      file,
-      fs ? null,
-    }:
+  extractMTDfs = {
+    file,
+    fs ? null,
+  }:
     runInLinuxVM (
       stdenv.mkDerivation {
         name = "extract-file-mtd";
@@ -455,21 +450,20 @@ rec {
     );
 
   /*
-    Like runInLinuxVM, but run the build not using the stdenv from
-    the Nix store, but using the tools provided by /bin, /usr/bin
-    etc. from the specified filesystem image, which typically is a
-    filesystem containing a non-NixOS Linux distribution.
+  Like runInLinuxVM, but run the build not using the stdenv from
+  the Nix store, but using the tools provided by /bin, /usr/bin
+  etc. from the specified filesystem image, which typically is a
+  filesystem containing a non-NixOS Linux distribution.
   */
 
-  runInLinuxImage =
-    drv:
+  runInLinuxImage = drv:
     runInLinuxVM (
       lib.overrideDerivation drv (attrs: {
         mountDisk = attrs.mountDisk or true;
 
         /*
-          Mount `image' as the root FS, but use a temporary copy-on-write
-          image since we don't want to (and can't) write to `image'.
+        Mount `image' as the root FS, but use a temporary copy-on-write
+        image since we don't want to (and can't) write to `image'.
         */
         preVM = ''
           diskImage=$(pwd)/disk-image.qcow2
@@ -479,9 +473,9 @@ rec {
         '';
 
         /*
-          Inside the VM, run the stdenv setup script normally, but at the
-          very end set $PATH and $SHELL to the `native' paths for the
-          distribution inside the VM.
+        Inside the VM, run the stdenv setup script normally, but at the
+        very end set $PATH and $SHELL to the `native' paths for the
+        distribution inside the VM.
         */
         postHook = ''
           PATH=/usr/bin:/bin:/usr/sbin:/sbin
@@ -497,25 +491,23 @@ rec {
     );
 
   /*
-    Create a filesystem image of the specified size and fill it with
-    a set of RPM packages.
+  Create a filesystem image of the specified size and fill it with
+  a set of RPM packages.
   */
 
-  fillDiskWithRPMs =
-    {
-      size ? 4096,
-      rpms,
-      name,
-      fullName,
-      preInstall ? "",
-      postInstall ? "",
-      runScripts ? true,
-      createRootFS ? defaultCreateRootFS,
-      QEMU_OPTS ? "",
-      memSize ? 512,
-      unifiedSystemDir ? false,
-    }:
-
+  fillDiskWithRPMs = {
+    size ? 4096,
+    rpms,
+    name,
+    fullName,
+    preInstall ? "",
+    postInstall ? "",
+    runScripts ? true,
+    createRootFS ? defaultCreateRootFS,
+    QEMU_OPTS ? "",
+    memSize ? 512,
+    unifiedSystemDir ? false,
+  }:
     runInLinuxVM (
       stdenv.mkDerivation {
         inherit
@@ -526,7 +518,7 @@ rec {
           QEMU_OPTS
           memSize
           ;
-        preVM = createEmptyImage { inherit size fullName; };
+        preVM = createEmptyImage {inherit size fullName;};
 
         buildCommand = ''
           ${createRootFS}
@@ -580,17 +572,16 @@ rec {
           ${util-linux}/bin/umount /mnt
         '';
 
-        passthru = { inherit fullName; };
+        passthru = {inherit fullName;};
       }
     );
 
   /*
-    Generate a script that can be used to run an interactive session
-    in the given image.
+  Generate a script that can be used to run an interactive session
+  in the given image.
   */
 
-  makeImageTestScript =
-    image:
+  makeImageTestScript = image:
     writeScript "image-test" ''
       #! ${bash}/bin/sh
       if test -z "$1"; then
@@ -612,13 +603,12 @@ rec {
     '';
 
   /*
-    Build RPM packages from the tarball `src' in the Linux
-    distribution installed in the filesystem `diskImage'.  The
-    tarball must contain an RPM specfile.
+  Build RPM packages from the tarball `src' in the Linux
+  distribution installed in the filesystem `diskImage'.  The
+  tarball must contain an RPM specfile.
   */
 
-  buildRPM =
-    attrs:
+  buildRPM = attrs:
     runInLinuxImage (
       stdenv.mkDerivation (
         {
@@ -685,25 +675,23 @@ rec {
     );
 
   /*
-    Create a filesystem image of the specified size and fill it with
-    a set of Debian packages.  `debs' must be a list of list of
-    .deb files, namely, the Debian packages grouped together into
-    strongly connected components.  See deb/deb-closure.nix.
+  Create a filesystem image of the specified size and fill it with
+  a set of Debian packages.  `debs' must be a list of list of
+  .deb files, namely, the Debian packages grouped together into
+  strongly connected components.  See deb/deb-closure.nix.
   */
 
-  fillDiskWithDebs =
-    {
-      size ? 4096,
-      debs,
-      name,
-      fullName,
-      postInstall ? null,
-      createRootFS ? defaultCreateRootFS,
-      QEMU_OPTS ? "",
-      memSize ? 512,
-      ...
-    }@args:
-
+  fillDiskWithDebs = {
+    size ? 4096,
+    debs,
+    name,
+    fullName,
+    postInstall ? null,
+    createRootFS ? defaultCreateRootFS,
+    QEMU_OPTS ? "",
+    memSize ? 512,
+    ...
+  } @ args:
     runInLinuxVM (
       stdenv.mkDerivation (
         {
@@ -714,9 +702,9 @@ rec {
             memSize
             ;
 
-          debs = (lib.intersperse "|" debs);
+          debs = lib.intersperse "|" debs;
 
-          preVM = createEmptyImage { inherit size fullName; };
+          preVM = createEmptyImage {inherit size fullName;};
 
           buildCommand = ''
             ${createRootFS}
@@ -795,28 +783,27 @@ rec {
             ${util-linux}/bin/umount /mnt
           '';
 
-          passthru = { inherit fullName; };
+          passthru = {inherit fullName;};
         }
         // args
       )
     );
 
   /*
-    Generate a Nix expression containing fetchurl calls for the
-    closure of a set of top-level RPM packages from the
-    `primary.xml.gz' file of a Fedora or openSUSE distribution.
+  Generate a Nix expression containing fetchurl calls for the
+  closure of a set of top-level RPM packages from the
+  `primary.xml.gz' file of a Fedora or openSUSE distribution.
   */
 
-  rpmClosureGenerator =
-    {
-      name,
-      packagesLists,
-      urlPrefixes,
-      packages,
-      archs ? [ ],
-    }:
+  rpmClosureGenerator = {
+    name,
+    packagesLists,
+    urlPrefixes,
+    packages,
+    archs ? [],
+  }:
     assert (builtins.length packagesLists) == (builtins.length urlPrefixes);
-    runCommand "${name}.nix"
+      runCommand "${name}.nix"
       {
         nativeBuildInputs = [
           buildPackages.perl
@@ -826,47 +813,46 @@ rec {
       }
       ''
         ${lib.concatImapStrings (i: pl: ''
-          gunzip < ${pl} > ./packages_${toString i}.xml
-        '') packagesLists}
+            gunzip < ${pl} > ./packages_${toString i}.xml
+          '')
+          packagesLists}
         perl -w ${rpm/rpm-closure.pl} \
           ${
-            lib.concatImapStrings (i: pl: "./packages_${toString i}.xml ${pl.snd} ") (
-              lib.zipLists packagesLists urlPrefixes
-            )
-          } \
+          lib.concatImapStrings (i: pl: "./packages_${toString i}.xml ${pl.snd} ") (
+            lib.zipLists packagesLists urlPrefixes
+          )
+        } \
           ${toString packages} > $out
       '';
 
   /*
-    Helper function that combines rpmClosureGenerator and
-    fillDiskWithRPMs to generate a disk image from a set of package
-    names.
+  Helper function that combines rpmClosureGenerator and
+  fillDiskWithRPMs to generate a disk image from a set of package
+  names.
   */
 
-  makeImageFromRPMDist =
-    {
-      name,
-      fullName,
-      size ? 4096,
-      urlPrefix ? "",
-      urlPrefixes ? [ urlPrefix ],
-      packagesList ? "",
-      packagesLists ? [ packagesList ],
-      packages,
-      extraPackages ? [ ],
-      preInstall ? "",
-      postInstall ? "",
-      archs ? [
-        "noarch"
-        "i386"
-      ],
-      runScripts ? true,
-      createRootFS ? defaultCreateRootFS,
-      QEMU_OPTS ? "",
-      memSize ? 512,
-      unifiedSystemDir ? false,
-    }:
-
+  makeImageFromRPMDist = {
+    name,
+    fullName,
+    size ? 4096,
+    urlPrefix ? "",
+    urlPrefixes ? [urlPrefix],
+    packagesList ? "",
+    packagesLists ? [packagesList],
+    packages,
+    extraPackages ? [],
+    preInstall ? "",
+    postInstall ? "",
+    archs ? [
+      "noarch"
+      "i386"
+    ],
+    runScripts ? true,
+    createRootFS ? defaultCreateRootFS,
+    QEMU_OPTS ? "",
+    memSize ? 512,
+    unifiedSystemDir ? false,
+  }:
     fillDiskWithRPMs {
       inherit
         name
@@ -888,81 +874,76 @@ rec {
           archs
           ;
         packages = packages ++ extraPackages;
-      }) { inherit fetchurl; };
+      }) {inherit fetchurl;};
     };
 
   /*
-    Like `rpmClosureGenerator', but now for Debian/Ubuntu releases
-    (i.e. generate a closure from a Packages.bz2 file).
+  Like `rpmClosureGenerator', but now for Debian/Ubuntu releases
+  (i.e. generate a closure from a Packages.bz2 file).
   */
 
-  debClosureGenerator =
-    {
-      name,
-      packagesLists,
-      urlPrefix,
-      packages,
-    }:
-
+  debClosureGenerator = {
+    name,
+    packagesLists,
+    urlPrefix,
+    packages,
+  }:
     runCommand "${name}.nix"
-      {
-        nativeBuildInputs = [
-          buildPackages.perl
-          buildPackages.dpkg
-          buildPackages.nixfmt-rfc-style
-        ];
-      }
-      ''
-        for i in ${toString packagesLists}; do
-          echo "adding $i..."
-          case $i in
-            *.xz | *.lzma)
-              xz -d < $i >> ./Packages
-              ;;
-            *.bz2)
-              bunzip2 < $i >> ./Packages
-              ;;
-            *.gz)
-              gzip -dc < $i >> ./Packages
-              ;;
-          esac
-        done
+    {
+      nativeBuildInputs = [
+        buildPackages.perl
+        buildPackages.dpkg
+        buildPackages.nixfmt-rfc-style
+      ];
+    }
+    ''
+      for i in ${toString packagesLists}; do
+        echo "adding $i..."
+        case $i in
+          *.xz | *.lzma)
+            xz -d < $i >> ./Packages
+            ;;
+          *.bz2)
+            bunzip2 < $i >> ./Packages
+            ;;
+          *.gz)
+            gzip -dc < $i >> ./Packages
+            ;;
+        esac
+      done
 
-        perl -w ${deb/deb-closure.pl} \
-          ./Packages ${urlPrefix} ${toString packages} > $out
-        nixfmt $out
-      '';
+      perl -w ${deb/deb-closure.pl} \
+        ./Packages ${urlPrefix} ${toString packages} > $out
+      nixfmt $out
+    '';
 
   /*
-    Helper function that combines debClosureGenerator and
-    fillDiskWithDebs to generate a disk image from a set of package
-    names.
+  Helper function that combines debClosureGenerator and
+  fillDiskWithDebs to generate a disk image from a set of package
+  names.
   */
 
-  makeImageFromDebDist =
-    {
-      name,
-      fullName,
-      size ? 4096,
-      urlPrefix,
-      packagesList ? "",
-      packagesLists ? [ packagesList ],
-      packages,
-      extraPackages ? [ ],
-      postInstall ? "",
-      extraDebs ? [ ],
-      createRootFS ? defaultCreateRootFS,
-      QEMU_OPTS ? "",
-      memSize ? 512,
-      ...
-    }@args:
-
-    let
-      expr = debClosureGenerator {
-        inherit name packagesLists urlPrefix;
-        packages = packages ++ extraPackages;
-      };
-    in
+  makeImageFromDebDist = {
+    name,
+    fullName,
+    size ? 4096,
+    urlPrefix,
+    packagesList ? "",
+    packagesLists ? [packagesList],
+    packages,
+    extraPackages ? [],
+    postInstall ? "",
+    extraDebs ? [],
+    createRootFS ? defaultCreateRootFS,
+    QEMU_OPTS ? "",
+    memSize ? 512,
+    ...
+  } @ args: let
+    expr = debClosureGenerator {
+      inherit name packagesLists urlPrefix;
+      packages = packages ++ extraPackages;
+    };
+  in
     (fillDiskWithDebs (
       {
         inherit
@@ -974,7 +955,7 @@ rec {
           QEMU_OPTS
           memSize
           ;
-        debs = import expr { inherit fetchurl; } ++ extraDebs;
+        debs = import expr {inherit fetchurl;} ++ extraDebs;
       }
       // args
     ))
@@ -984,7 +965,7 @@ rec {
 
   # The set of supported RPM-based distributions.
 
-  rpmDistros = { };
+  rpmDistros = {};
 
   # The set of supported Dpkg-based distributions.
 
@@ -1003,10 +984,12 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages = commonDebPackages ++ [
-        "diffutils"
-        "libc-bin"
-      ];
+      packages =
+        commonDebPackages
+        ++ [
+          "diffutils"
+          "libc-bin"
+        ];
     };
 
     ubuntu2204x86_64 = {
@@ -1023,10 +1006,12 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages = commonDebPackages ++ [
-        "diffutils"
-        "libc-bin"
-      ];
+      packages =
+        commonDebPackages
+        ++ [
+          "diffutils"
+          "libc-bin"
+        ];
     };
 
     ubuntu2404x86_64 = {
@@ -1043,10 +1028,12 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages = commonDebPackages ++ [
-        "diffutils"
-        "libc-bin"
-      ];
+      packages =
+        commonDebPackages
+        ++ [
+          "diffutils"
+          "libc-bin"
+        ];
     };
 
     debian11i386 = {
@@ -1216,45 +1203,50 @@ rec {
     "passwd"
   ];
 
-  commonDebianPackages = commonDebPackages ++ [
-    "sysvinit"
-    "diff"
-  ];
+  commonDebianPackages =
+    commonDebPackages
+    ++ [
+      "sysvinit"
+      "diff"
+    ];
 
   /*
-    A set of functions that build the Linux distributions specified
-    in `rpmDistros' and `debDistros'.  For instance,
-    `diskImageFuns.ubuntu1004x86_64 { }' builds an Ubuntu 10.04 disk
-    image containing the default packages specified above.  Overrides
-    of the default image parameters can be given.  In particular,
-    `extraPackages' specifies the names of additional packages from
-    the distribution that should be included in the image; `packages'
-    allows the entire set of packages to be overridden; and `size'
-    sets the size of the disk in megabytes.  E.g.,
-    `diskImageFuns.ubuntu1004x86_64 { extraPackages = ["firefox"];
-    size = 8192; }' builds an 8 GiB image containing Firefox in
-    addition to the default packages.
+  A set of functions that build the Linux distributions specified
+  in `rpmDistros' and `debDistros'.  For instance,
+  `diskImageFuns.ubuntu1004x86_64 { }' builds an Ubuntu 10.04 disk
+  image containing the default packages specified above.  Overrides
+  of the default image parameters can be given.  In particular,
+  `extraPackages' specifies the names of additional packages from
+  the distribution that should be included in the image; `packages'
+  allows the entire set of packages to be overridden; and `size'
+  sets the size of the disk in megabytes.  E.g.,
+  `diskImageFuns.ubuntu1004x86_64 { extraPackages = ["firefox"];
+  size = 8192; }' builds an 8 GiB image containing Firefox in
+  addition to the default packages.
   */
   diskImageFuns =
     (lib.mapAttrs (
-      name: as: as2:
-      makeImageFromRPMDist (as // as2)
-    ) rpmDistros)
+        name: as: as2:
+          makeImageFromRPMDist (as // as2)
+      )
+      rpmDistros)
     // (lib.mapAttrs (
-      name: as: as2:
-      makeImageFromDebDist (as // as2)
-    ) debDistros);
+        name: as: as2:
+          makeImageFromDebDist (as // as2)
+      )
+      debDistros);
 
   # Shorthand for `diskImageFuns.<attr> { extraPackages = ... }'.
-  diskImageExtraFuns = lib.mapAttrs (
-    name: f: extraPackages:
-    f { inherit extraPackages; }
-  ) diskImageFuns;
+  diskImageExtraFuns =
+    lib.mapAttrs (
+      name: f: extraPackages:
+        f {inherit extraPackages;}
+    )
+    diskImageFuns;
 
   /*
-    Default disk images generated from the `rpmDistros' and
-    `debDistros' sets.
+  Default disk images generated from the `rpmDistros' and
+  `debDistros' sets.
   */
-  diskImages = lib.mapAttrs (name: f: f { }) diskImageFuns;
-
+  diskImages = lib.mapAttrs (name: f: f {}) diskImageFuns;
 }

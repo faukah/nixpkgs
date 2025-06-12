@@ -14,7 +14,6 @@
   shared-mime-info,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgedit-gtksourceview";
   version = "299.5.0";
@@ -62,13 +61,13 @@ stdenv.mkDerivation (finalAttrs: {
     shared-mime-info
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Source code editing widget for GTK";
     homepage = "https://gitlab.gnome.org/World/gedit/libgedit-gtksourceview";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ bobby285271 ];
+    maintainers = with maintainers; [bobby285271];
     platforms = platforms.linux;
   };
 })

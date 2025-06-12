@@ -22,7 +22,6 @@
   wrapGAppsHook3,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "abiword";
   version = "3.0.6";

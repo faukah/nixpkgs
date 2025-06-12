@@ -11,7 +11,6 @@
   libpng,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nxengine-evo";
   version = "2.6.4";
@@ -78,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
   passthru = {
-    assets = callPackage ./assets.nix { };
+    assets = callPackage ./assets.nix {};
   };
 
   meta = {
@@ -89,7 +88,7 @@ stdenv.mkDerivation (finalAttrs: {
       gpl3Plus
     ];
     mainProgram = "nx";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

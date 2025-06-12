@@ -31,13 +31,18 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags =
-    (lib.attrsets.mapAttrsToList
-      (name: value: "-DCASS_BUILD_${name}:BOOL=${if value then "ON" else "OFF"}")
+    (
+      lib.attrsets.mapAttrsToList
+      (name: value: "-DCASS_BUILD_${name}:BOOL=${
+        if value
+        then "ON"
+        else "OFF"
+      }")
       {
         EXAMPLES = examples;
       }
     )
-    ++ [ "-DLIBUV_INCLUDE_DIR=${lib.getDev libuv}/include" ];
+    ++ ["-DLIBUV_INCLUDE_DIR=${lib.getDev libuv}/include"];
 
   meta = with lib; {
     description = "DataStax CPP cassandra driver";
@@ -46,9 +51,9 @@ stdenv.mkDerivation rec {
       library for Apache Cassandra 2.1+ using exclusively Cassandra’s
       binary protocol and Cassandra Query Language v3.
     '';
-    license = with licenses; [ asl20 ];
+    license = with licenses; [asl20];
     platforms = platforms.x86_64;
     homepage = "https://docs.datastax.com/en/developer/cpp-driver/";
-    maintainers = [ maintainers.npatsakula ];
+    maintainers = [maintainers.npatsakula];
   };
 }

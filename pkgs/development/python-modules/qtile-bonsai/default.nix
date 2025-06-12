@@ -13,7 +13,6 @@
   pytestCheckHook,
   qtile,
 }:
-
 buildPythonPackage rec {
   pname = "qtile-bonsai";
   version = "0.5.0";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [
     pyside6
     pyvirtualdisplay
-    (cairocffi.override { withXcffib = true; })
+    (cairocffi.override {withXcffib = true;})
     cffi
     xcffib
     qtile
@@ -55,7 +54,7 @@ buildPythonPackage rec {
     "tests/integration/test_widget.py"
   ];
 
-  pythonImportsCheck = [ "qtile_bonsai" ];
+  pythonImportsCheck = ["qtile_bonsai"];
 
   meta = {
     changelog = "https://github.com/aravinda0/qtile-bonsai/releases/tag/${version}";

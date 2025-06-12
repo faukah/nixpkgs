@@ -4,13 +4,11 @@
   fetchurl,
   perl,
   texinfo,
-
   # for passthru.tests
   gnutls,
   samba,
   qemu,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libtasn1";
   version = "4.20.0";
@@ -34,7 +32,9 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
   preCheck =
-    if stdenv.hostPlatform.isDarwin then "export DYLD_LIBRARY_PATH=`pwd`/lib/.libs" else null;
+    if stdenv.hostPlatform.isDarwin
+    then "export DYLD_LIBRARY_PATH=`pwd`/lib/.libs"
+    else null;
 
   passthru.tests = {
     inherit gnutls samba qemu;

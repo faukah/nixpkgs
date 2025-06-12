@@ -3,64 +3,58 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.bird-lg;
 
-  stringOrConcat = sep: v: if builtins.isString v then v else lib.concatStringsSep sep v;
+  stringOrConcat = sep: v:
+    if builtins.isString v
+    then v
+    else lib.concatStringsSep sep v;
 
-  frontend_args =
-    let
-      fe = cfg.frontend;
-    in
-    {
-      "--servers" = lib.concatStringsSep "," fe.servers;
-      "--domain" = fe.domain;
-      "--listen" = fe.listenAddress;
-      "--proxy-port" = fe.proxyPort;
-      "--whois" = fe.whois;
-      "--dns-interface" = fe.dnsInterface;
-      "--bgpmap-info" = lib.concatStringsSep "," cfg.frontend.bgpMapInfo;
-      "--title-brand" = fe.titleBrand;
-      "--navbar-brand" = fe.navbar.brand;
-      "--navbar-brand-url" = fe.navbar.brandURL;
-      "--navbar-all-servers" = fe.navbar.allServers;
-      "--navbar-all-url" = fe.navbar.allServersURL;
-      "--net-specific-mode" = fe.netSpecificMode;
-      "--protocol-filter" = lib.concatStringsSep "," cfg.frontend.protocolFilter;
-    };
+  frontend_args = let
+    fe = cfg.frontend;
+  in {
+    "--servers" = lib.concatStringsSep "," fe.servers;
+    "--domain" = fe.domain;
+    "--listen" = fe.listenAddress;
+    "--proxy-port" = fe.proxyPort;
+    "--whois" = fe.whois;
+    "--dns-interface" = fe.dnsInterface;
+    "--bgpmap-info" = lib.concatStringsSep "," cfg.frontend.bgpMapInfo;
+    "--title-brand" = fe.titleBrand;
+    "--navbar-brand" = fe.navbar.brand;
+    "--navbar-brand-url" = fe.navbar.brandURL;
+    "--navbar-all-servers" = fe.navbar.allServers;
+    "--navbar-all-url" = fe.navbar.allServersURL;
+    "--net-specific-mode" = fe.netSpecificMode;
+    "--protocol-filter" = lib.concatStringsSep "," cfg.frontend.protocolFilter;
+  };
 
-  proxy_args =
-    let
-      px = cfg.proxy;
-    in
-    {
-      "--allowed" = lib.concatStringsSep "," px.allowedIPs;
-      "--bird" = px.birdSocket;
-      "--listen" = px.listenAddress;
-      "--traceroute_bin" = px.traceroute.binary;
-      "--traceroute_flags" = lib.concatStringsSep " " px.traceroute.flags;
-      "--traceroute_raw" = px.traceroute.rawOutput;
-    };
+  proxy_args = let
+    px = cfg.proxy;
+  in {
+    "--allowed" = lib.concatStringsSep "," px.allowedIPs;
+    "--bird" = px.birdSocket;
+    "--listen" = px.listenAddress;
+    "--traceroute_bin" = px.traceroute.binary;
+    "--traceroute_flags" = lib.concatStringsSep " " px.traceroute.flags;
+    "--traceroute_raw" = px.traceroute.rawOutput;
+  };
 
-  mkArgValue =
-    value:
-    if lib.isString value then
-      lib.escapeShellArg value
-    else if lib.isBool value then
-      lib.boolToString value
-    else
-      toString value;
+  mkArgValue = value:
+    if lib.isString value
+    then lib.escapeShellArg value
+    else if lib.isBool value
+    then lib.boolToString value
+    else toString value;
 
-  filterNull = lib.filterAttrs (_: v: v != "" && v != null && v != [ ]);
+  filterNull = lib.filterAttrs (_: v: v != "" && v != null && v != []);
 
-  argsAttrToList =
-    args: lib.mapAttrsToList (name: value: "${name} " + mkArgValue value) (filterNull args);
-in
-{
+  argsAttrToList = args: lib.mapAttrsToList (name: value: "${name} " + mkArgValue value) (filterNull args);
+in {
   options = {
     services.bird-lg = {
-      package = lib.mkPackageOption pkgs "bird-lg" { };
+      package = lib.mkPackageOption pkgs "bird-lg" {};
 
       user = lib.mkOption {
         type = lib.types.str;
@@ -142,8 +136,8 @@ in
 
         protocolFilter = lib.mkOption {
           type = lib.types.listOf lib.types.str;
-          default = [ ];
-          example = [ "ospf" ];
+          default = [];
+          example = ["ospf"];
           description = "Information displayed in bgpmap.";
         };
 
@@ -188,7 +182,7 @@ in
 
         extraArgs = lib.mkOption {
           type = with lib.types; listOf str;
-          default = [ ];
+          default = [];
           description = ''
             Extra parameters documented [here](https://github.com/xddxdd/bird-lg-go#frontend).
 
@@ -210,7 +204,7 @@ in
 
         allowedIPs = lib.mkOption {
           type = lib.types.listOf lib.types.str;
-          default = [ ];
+          default = [];
           example = [
             "192.168.25.52"
             "192.168.25.53"
@@ -235,7 +229,7 @@ in
 
           flags = lib.mkOption {
             type = with lib.types; listOf str;
-            default = [ ];
+            default = [];
             description = "Flags for traceroute process";
           };
 
@@ -248,7 +242,7 @@ in
 
         extraArgs = lib.mkOption {
           type = with lib.types; listOf str;
-          default = [ ];
+          default = [];
           description = ''
             Extra parameters documented [here](https://github.com/xddxdd/bird-lg-go#proxy).
           '';
@@ -263,8 +257,8 @@ in
     systemd.services = {
       bird-lg-frontend = lib.mkIf cfg.frontend.enable {
         enable = true;
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         description = "Bird Looking Glass Frontend Webserver";
         serviceConfig = {
           Type = "simple";
@@ -284,8 +278,8 @@ in
 
       bird-lg-proxy = lib.mkIf cfg.proxy.enable {
         enable = true;
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         description = "Bird Looking Glass Proxy";
         serviceConfig = {
           Type = "simple";
@@ -304,10 +298,10 @@ in
       };
     };
     users = lib.mkIf (cfg.frontend.enable || cfg.proxy.enable) {
-      groups."bird-lg" = lib.mkIf (cfg.group == "bird-lg") { };
+      groups."bird-lg" = lib.mkIf (cfg.group == "bird-lg") {};
       users."bird-lg" = lib.mkIf (cfg.user == "bird-lg") {
         description = "Bird Looking Glass user";
-        extraGroups = lib.optionals (config.services.bird.enable) [ "bird" ];
+        extraGroups = lib.optionals (config.services.bird.enable) ["bird"];
         group = cfg.group;
         isSystemUser = true;
       };

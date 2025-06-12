@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "plaid-python";
   version = "31.0.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-cQAmKq3xqDih57MnUB8dSSHHVofj/4xFiY5gQ+EER9M=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     nulltype
@@ -33,13 +32,13 @@ buildPythonPackage rec {
   # Tests require a Client IP
   doCheck = false;
 
-  pythonImportsCheck = [ "plaid" ];
+  pythonImportsCheck = ["plaid"];
 
   meta = with lib; {
     description = "Python client library for the Plaid API and Link";
     homepage = "https://github.com/plaid/plaid-python";
     changelog = "https://github.com/plaid/plaid-python/blob/master/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
   };
 }

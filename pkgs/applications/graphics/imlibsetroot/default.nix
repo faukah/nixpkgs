@@ -6,7 +6,6 @@
   libXinerama,
   imlib2,
 }:
-
 stdenv.mkDerivation {
   pname = "imlibsetroot";
   version = "1.2";
@@ -42,7 +41,7 @@ stdenv.mkDerivation {
     homepage = "http://robotmonkeys.net/2010/03/30/imlibsetroot/";
     license = licenses.mitAdvertising;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dwarfmaster ];
+    maintainers = with maintainers; [dwarfmaster];
     mainProgram = "imlibsetroot";
   };
 }

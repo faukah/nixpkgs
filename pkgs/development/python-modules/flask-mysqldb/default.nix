@@ -8,7 +8,6 @@
   mysqlclient,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flask-mysqldb";
   version = "2.0.0";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-RHAB9WGRzojH6eAOG61QguwF+4LssO9EcFjbWxoOtF4=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     flask
     mysqlclient
   ];
 
-  pythonImportsCheck = [ "flask_mysqldb" ];
+  pythonImportsCheck = ["flask_mysqldb"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "MySQL connection support for Flask";
     homepage = "https://github.com/alexferl/flask-mysqldb";
     changelog = "https://github.com/alexferl/flask-mysqldb/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ netali ];
+    maintainers = with maintainers; [netali];
   };
 }

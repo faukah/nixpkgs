@@ -3,7 +3,6 @@
   buildKodiAddon,
   fetchFromGitHub,
 }:
-
 buildKodiAddon rec {
   pname = "robotocjksc";
   namespace = "resource.font.robotocjksc";
@@ -20,6 +19,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/jurialmunkey/resource.font.robotocjksc";
     description = "Roboto CJKSC fonts";
     license = licenses.asl20;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

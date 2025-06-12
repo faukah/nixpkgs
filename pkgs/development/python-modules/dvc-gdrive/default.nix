@@ -8,7 +8,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "dvc-gdrive";
   version = "3.0.1";
@@ -36,13 +35,13 @@ buildPythonPackage rec {
   # Circular dependency with dvc
   doCheck = false;
 
-  pythonImportsCheck = [ "dvc_gdrive" ];
+  pythonImportsCheck = ["dvc_gdrive"];
 
   meta = with lib; {
     description = "Google Drive plugin for DVC";
     homepage = "https://github.com/iterative/dvc-gdrive";
     changelog = "https://github.com/iterative/dvc-gdrive/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

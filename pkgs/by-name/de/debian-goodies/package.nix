@@ -8,7 +8,6 @@
   perl,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "debian-goodies";
   version = "0.88.2";
@@ -66,6 +65,6 @@ stdenv.mkDerivation rec {
     homepage = "https://salsa.debian.org/debian/debian-goodies";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

@@ -5,7 +5,6 @@
   installShellFiles,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "kubecm";
   version = "0.33.0";
@@ -24,7 +23,7 @@ buildGoModule rec {
     "-X github.com/sunny0826/kubecm/version.Version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd kubecm \

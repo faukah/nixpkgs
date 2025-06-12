@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "the-way";
   version = "0.20.3";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-GBr0z2iJuk86xkgZd2sAz+ISTRfESDt99g6ssxXhzhI=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
   useNextest = true;
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "the-way";
     homepage = "https://github.com/out-of-cheese-error/the-way";
     changelog = "https://github.com/out-of-cheese-error/the-way/blob/v${version}/CHANGELOG.md";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [
       figsoda

@@ -9,7 +9,6 @@
   setuptools-scm,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "http-message-signatures";
   version = "0.5.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-Jsivw4lNA/2oqsOGGx8D4gUPftzuys877A9RXyapnSQ=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     cryptography
@@ -36,14 +35,14 @@ buildPythonPackage rec {
     requests
   ];
 
-  pytestFlagsArray = [ "test/test.py" ];
+  pytestFlagsArray = ["test/test.py"];
 
-  pythonImportsCheck = [ "http_message_signatures" ];
+  pythonImportsCheck = ["http_message_signatures"];
 
   meta = with lib; {
     description = "Requests authentication module for HTTP Signature";
     homepage = "https://github.com/pyauth/http-message-signatures";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

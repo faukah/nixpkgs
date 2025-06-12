@@ -5,13 +5,12 @@
   unittestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "kneaddata";
   version = "0.12.1";
   pyproject = true;
 
-  dependencies = [ setuptools ];
+  dependencies = [setuptools];
 
   src = fetchFromGitHub {
     owner = "biobakery";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-biZ6lS0a81CBAAhTOb1Ol38/YagLqXA3AbMr2nBmSEw=";
   };
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  unittestFlagsArray = [ "kneaddata/tests/ '*.py'" ];
+  unittestFlagsArray = ["kneaddata/tests/ '*.py'"];
 
-  pythonImportsCheck = [ "kneaddata" ];
+  pythonImportsCheck = ["kneaddata"];
 
   meta = {
     description = "Quality control tool for metagenomic and metatranscriptomic sequencing data";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     changelog = "https://github.com/biobakery/kneaddata/releases";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    maintainers = with lib.maintainers; [pandapip1];
     mainProgram = "kneaddata";
   };
 }

@@ -7,7 +7,6 @@
   freebsd,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zfstools";
   version = "0.3.6";
@@ -19,8 +18,8 @@ stdenv.mkDerivation rec {
     owner = "bdrewery";
   };
 
-  buildInputs = [ ruby ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [ruby];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -31,7 +30,11 @@ stdenv.mkDerivation rec {
     for f in $out/bin/*; do
       wrapProgram $f \
         --set RUBYLIB $out/lib \
-        --prefix PATH : ${if stdenv.hostPlatform.isFreeBSD then freebsd.zfs else zfs}/bin
+        --prefix PATH : ${
+      if stdenv.hostPlatform.isFreeBSD
+      then freebsd.zfs
+      else zfs
+    }/bin
     done
   '';
 

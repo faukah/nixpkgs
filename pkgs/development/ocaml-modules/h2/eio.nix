@@ -4,7 +4,6 @@
   eio,
   gluten-eio,
 }:
-
 buildDunePackage {
   pname = "h2-eio";
 
@@ -16,7 +15,9 @@ buildDunePackage {
     h2
   ];
 
-  meta = h2.meta // {
-    description = "EIO support for h2";
-  };
+  meta =
+    h2.meta
+    // {
+      description = "EIO support for h2";
+    };
 }

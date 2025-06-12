@@ -4,16 +4,14 @@
   fetchFromGitHub,
   leveldb,
   ...
-}:
-
-{
+}: {
   pname = "gerbil-leveldb";
   version = "unstable-2023-09-23";
   git-version = "c62e47f";
   gerbil-package = "clan";
-  gerbilInputs = [ ];
-  nativeBuildInputs = [ pkgs.pkg-config ];
-  buildInputs = [ leveldb ];
+  gerbilInputs = [];
+  nativeBuildInputs = [pkgs.pkg-config];
+  buildInputs = [leveldb];
   version-path = "";
   softwareName = "Gerbil-LevelDB";
 
@@ -30,7 +28,7 @@
     homepage = "https://github.com/mighty-gerbils/gerbil-leveldb";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fare ];
+    maintainers = with maintainers; [fare];
   };
 
   # "-L${leveldb}/lib"

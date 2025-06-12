@@ -7,7 +7,6 @@
   tmux,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hostmux";
   version = "1.4.1";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Small wrapper script for tmux to easily connect to a series of hosts via ssh and open a split pane for each of the hosts";
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/hukl/hostmux/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     mainProgram = "hostmux";
-    maintainers = with lib.maintainers; [ fernsehmuell ];
+    maintainers = with lib.maintainers; [fernsehmuell];
     platforms = lib.platforms.unix;
   };
 })

@@ -8,7 +8,6 @@
   xmltodict,
   aiohttp,
 }:
-
 buildPythonPackage {
   pname = "py-ccm15";
   version = "0.0.9";
@@ -24,7 +23,7 @@ buildPythonPackage {
     hash = "sha256-I2/AdG07PAvuC8rQKOIAUk7u3pJpANMaFpvEsejWeBU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     httpx
@@ -32,14 +31,14 @@ buildPythonPackage {
     aiohttp
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ccm15" ];
+  pythonImportsCheck = ["ccm15"];
 
   meta = {
     description = "Python Library to access a Midea CCM15 data converter";
     homepage = "https://github.com/ocalvo/py-ccm15";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

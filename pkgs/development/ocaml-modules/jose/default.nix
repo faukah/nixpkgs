@@ -10,7 +10,6 @@
   yojson,
   zarith,
 }:
-
 buildDunePackage rec {
   pname = "jose";
   version = "0.10.0";

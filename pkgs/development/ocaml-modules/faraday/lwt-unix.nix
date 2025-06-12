@@ -4,7 +4,6 @@
   faraday-lwt,
   lwt,
 }:
-
 buildDunePackage {
   pname = "faraday-lwt-unix";
   inherit (faraday) version src;
@@ -15,7 +14,9 @@ buildDunePackage {
     faraday-lwt
   ];
 
-  meta = faraday.meta // {
-    description = "Lwt + Unix support for Faraday";
-  };
+  meta =
+    faraday.meta
+    // {
+      description = "Lwt + Unix support for Faraday";
+    };
 }

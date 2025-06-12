@@ -8,7 +8,6 @@
   testers,
   scli,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "scli";
   version = "0.7.5";
@@ -62,6 +61,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "scli";
     homepage = "https://github.com/isamert/scli";
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

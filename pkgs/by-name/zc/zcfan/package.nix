@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 # Testing this requires a Thinkpad or the presence of /proc/acpi/ibm/fan
 stdenv.mkDerivation (finalAttrs: {
   pname = "zcfan";

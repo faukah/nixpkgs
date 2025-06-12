@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "thokr";
   version = "0.4.1";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Typing tui with visualized results and historical logging";
     homepage = "https://github.com/thatvegandev/thokr";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "thokr";
   };
 }

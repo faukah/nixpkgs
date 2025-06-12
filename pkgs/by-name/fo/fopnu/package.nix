@@ -2,14 +2,11 @@
   lib,
   stdenvNoCC,
   fetchurl,
-
   autoPatchelfHook,
   wrapGAppsHook3,
-
   dbus-glib,
   gtk3,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "fopnu";
   version = "1.67";
@@ -46,9 +43,9 @@ stdenvNoCC.mkDerivation rec {
     description = "P2P file sharing system";
     homepage = "https://fopnu.com";
     license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     mainProgram = "fopnu";
-    maintainers = with maintainers; [ paveloom ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [paveloom];
+    platforms = ["x86_64-linux"];
   };
 }

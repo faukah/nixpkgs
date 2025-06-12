@@ -11,7 +11,6 @@
   boost,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.3.0";
   pname = "slic3r";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook3
   ];
   buildInputs =
-    [ boost ]
+    [boost]
     ++ (with perlPackages; [
       perl
       EncodeLocale
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
     comment = "G-code generator for 3D printers";
     desktopName = "Slic3r";
     genericName = "3D printer tool";
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 
   prePatch = ''
@@ -131,6 +130,6 @@ stdenv.mkDerivation rec {
     homepage = "https://slic3r.org/";
     license = licenses.agpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

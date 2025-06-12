@@ -5,7 +5,6 @@
   autoreconfHook,
   payload ? null,
 }:
-
 stdenv.mkDerivation {
   pname = "riscv-pk";
   version = "1.0.0-unstable-2024-10-09";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-02qcj0TAs7g4CSorWWbUzouS6mNthUOSdeocibw5g2A=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   preConfigure = ''
     mkdir build
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
 
   configureFlags = lib.optional (payload != null) "--with-payload=${payload}";
 
-  hardeningDisable = [ "all" ];
+  hardeningDisable = ["all"];
 
   # pk by default installs things in $out/$target_prefix/{bin,include,lib},
   # we want to remove the target prefix directory hierarchy
@@ -43,6 +42,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/riscv/riscv-pk";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.riscv;
-    maintainers = [ lib.maintainers.shlevy ];
+    maintainers = [lib.maintainers.shlevy];
   };
 }

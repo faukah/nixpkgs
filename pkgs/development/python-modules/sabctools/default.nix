@@ -15,9 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-ZEC813/JpGPEFL+nXKFAXFfUrrhECCIqONe27LwS00g=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "sabctools" ];
+  pythonImportsCheck = ["sabctools"];
 
   passthru.tests = {
     inherit sabnzbd;
@@ -27,6 +27,6 @@ buildPythonPackage rec {
     description = "C implementations of functions for use within SABnzbd";
     homepage = "https://github.com/sabnzbd/sabctools";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ adamcstephens ];
+    maintainers = with maintainers; [adamcstephens];
   };
 }

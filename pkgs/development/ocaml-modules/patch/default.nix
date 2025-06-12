@@ -6,7 +6,6 @@
   alcotest,
   crowbar,
 }:
-
 buildDunePackage rec {
   pname = "patch";
   version = "2.0.0";
@@ -25,7 +24,7 @@ buildDunePackage rec {
     crowbar
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Patch library purely in OCaml";
@@ -33,7 +32,7 @@ buildDunePackage rec {
       This is a library which parses unified diff and git diff output, and can apply a patch in memory.
     '';
     homepage = "https://github.com/hannesm/patch";
-    maintainers = with lib.maintainers; [ r17x ];
+    maintainers = with lib.maintainers; [r17x];
     license = lib.licenses.isc;
   };
 }

@@ -8,23 +8,20 @@
   which,
   flex,
   bison,
-  withPerl ?
-    stdenv.hostPlatform == stdenv.buildPlatform && lib.meta.availableOn stdenv.hostPlatform perl,
+  withPerl ? stdenv.hostPlatform == stdenv.buildPlatform && lib.meta.availableOn stdenv.hostPlatform perl,
   perl,
   withPython ?
-    # static can't load python libraries
-    !stdenv.hostPlatform.isStatic
-    && lib.meta.availableOn stdenv.hostPlatform python3Packages.python
-    # m4 python include script fails if cpu bit depth is different across machines
-    && stdenv.hostPlatform.parsed.cpu.bits == stdenv.buildPlatform.parsed.cpu.bits,
+  # static can't load python libraries
+  !stdenv.hostPlatform.isStatic
+  && lib.meta.availableOn stdenv.hostPlatform python3Packages.python
+  # m4 python include script fails if cpu bit depth is different across machines
+  && stdenv.hostPlatform.parsed.cpu.bits == stdenv.buildPlatform.parsed.cpu.bits,
   python3Packages,
   swig,
   ncurses,
   libxcrypt,
-
   # test
   dejagnu,
-
   # passthru
   nix-update-script,
   nixosTests,
@@ -71,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs =
-    [ libxcrypt ] ++ (lib.optional withPerl perl) ++ (lib.optional withPython python3Packages.python);
+    [libxcrypt] ++ (lib.optional withPerl perl) ++ (lib.optional withPython python3Packages.python);
 
   # required to build apparmor-parser
   dontDisableStatic = true;
@@ -84,16 +81,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = withPerl && withPython;
 
-  checkInputs = [ dejagnu ];
+  checkInputs = [dejagnu];
 
   pythonImportsCheck = [
     "LibAppArmor"
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.nixos = nixosTests.apparmor;
-    apparmorRulesFromClosure = callPackage ./apparmorRulesFromClosure.nix { };
+    apparmorRulesFromClosure = callPackage ./apparmorRulesFromClosure.nix {};
   };
 
   meta = {

@@ -15,7 +15,6 @@
   pyramid,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "deform";
   version = "2.0.15";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-HpEpN2UMHbuDAHndnAOZUHYqIwIjpWd0D78bI/EJA2c=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     chameleon
@@ -53,6 +52,6 @@ buildPythonPackage rec {
       lib.licenses.bsd3
       lib.licenses.cc-by-30
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

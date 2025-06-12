@@ -7,7 +7,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdbusmenu-lxqt";
   version = "0.3.0";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     qtbase
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/lxqt/libdbusmenu-lxqt";
     license = licenses.lgpl21Plus;
     platforms = with platforms; unix;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

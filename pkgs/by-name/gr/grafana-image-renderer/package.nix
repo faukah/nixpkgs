@@ -6,12 +6,10 @@
   nodejs,
   runtimeShell,
 }:
-
 # Notes for the upgrade:
 # * Download the tarball of the new version to use.
 # * Replace new `package.json` here.
 # * Update `version`+`hash` and rebuild.
-
 mkYarnPackage rec {
   pname = "grafana-image-renderer";
   version = "3.12.6";
@@ -69,7 +67,7 @@ mkYarnPackage rec {
     description = "Grafana backend plugin that handles rendering of panels & dashboards to PNGs using headless browser (Chromium/Chrome)";
     mainProgram = "grafana-image-renderer";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
     platforms = platforms.all;
   };
 }

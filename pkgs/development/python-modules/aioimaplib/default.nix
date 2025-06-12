@@ -11,7 +11,6 @@
   pytestCheckHook,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "aioimaplib";
   version = "2.0.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-njzSpKPis033eLoRKXL538ljyMOB43chslio1wodrKU=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   nativeCheckInputs = [
     imaplib2
@@ -47,13 +46,13 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "aioimaplib" ];
+  pythonImportsCheck = ["aioimaplib"];
 
   meta = {
     description = "Python asyncio IMAP4rev1 client library";
     homepage = "https://github.com/iroco-co/aioimaplib";
     changelog = "https://github.com/iroco-co/aioimaplib/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.dotlambda ];
+    maintainers = [lib.maintainers.dotlambda];
   };
 }

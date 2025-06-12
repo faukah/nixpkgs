@@ -15,7 +15,6 @@
   opencl-clhpp,
   ocl-icd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "virtualgl-lib";
   version = "3.0.2";
@@ -37,9 +36,9 @@ stdenv.mkDerivation rec {
     "-DTJPEG_LIBRARY=${libjpeg_turbo.out}/lib/libturbojpeg.so"
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     libjpeg_turbo
@@ -67,6 +66,6 @@ stdenv.mkDerivation rec {
     description = "X11 GL rendering in a remote computer with full 3D hw acceleration";
     license = licenses.wxWindows;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

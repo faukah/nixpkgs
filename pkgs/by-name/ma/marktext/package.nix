@@ -20,7 +20,6 @@
   xcbuild,
   libtool,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "marktext";
   version = "0.17.1-unstable-2024-06-10";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
       fixup-yarn-lock
       makeShellWrapper
       yarnBuildHook
-      (python3.withPackages (ps: with ps; [ packaging ]))
+      (python3.withPackages (ps: with ps; [packaging]))
       pkg-config
       nodejs
       nodePackages.node-gyp-build

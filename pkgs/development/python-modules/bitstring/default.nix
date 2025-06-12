@@ -8,7 +8,6 @@
   pytest-benchmark,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "bitstring";
   version = "4.3.1";
@@ -23,11 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-ZABAd42h+BqcpKTFV5PxcBN3F8FKV6Qw3rhP13eX57k=";
   };
 
-  pythonRelaxDeps = [ "bitarray" ];
+  pythonRelaxDeps = ["bitarray"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ bitarray ];
+  dependencies = [bitarray];
 
   nativeCheckInputs = [
     pytest-benchmark
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     "tests/test_mxfp.py"
   ];
 
-  pythonImportsCheck = [ "bitstring" ];
+  pythonImportsCheck = ["bitstring"];
 
   meta = with lib; {
     description = "Module for binary data manipulation";
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/scott-griffiths/bitstring/releases/tag/${src.tag}";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

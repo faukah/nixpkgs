@@ -17,14 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Cz3IE5UrfoWjMxQ/+iR1bLsYxf5DVN+7aJqLBcPjduA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   nativeCheckInputs = [
     check
     subunit
   ];
 
-  cmakeFlags = [ "-DBUILD_ORCANIA_TESTING=on" ];
+  cmakeFlags = ["-DBUILD_ORCANIA_TESTING=on"];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.cc.isClang [
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     mainProgram = "base64url";
     homepage = "https://github.com/babelouest/orcania";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ johnazoidberg ];
+    maintainers = with maintainers; [johnazoidberg];
   };
 }

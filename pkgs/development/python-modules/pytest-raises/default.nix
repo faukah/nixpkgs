@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-raises";
   version = "0.11";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-wmtWPWwe1sFbWSYxs5ZXDUZM1qvjRGMudWdjQeskaz0=";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_raises" ];
+  pythonImportsCheck = ["pytest_raises"];
 
   disabledTests = [
     # Failed: nomatch: '*::test_pytest_mark_raises_unexpected_exception FAILED*'
@@ -38,7 +37,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Implementation of pytest.raises as a pytest.mark fixture";
     homepage = "https://github.com/Lemmons/pytest-raises";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -18,7 +18,6 @@
   voluptuous,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "simplisafe-python";
   version = "2024.01.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-ewbR2FI0t2F8HF0ZL5omsclB9OPAjHygGLPtSkVlvgM=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -67,7 +66,7 @@ buildPythonPackage rec {
     "examples/"
   ];
 
-  pythonImportsCheck = [ "simplipy" ];
+  pythonImportsCheck = ["simplipy"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -75,7 +74,7 @@ buildPythonPackage rec {
     changelog = "https://github.com/bachya/simplisafe-python/releases/tag/${version}";
     description = "Python library the SimpliSafe API";
     homepage = "https://simplisafe-python.readthedocs.io/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

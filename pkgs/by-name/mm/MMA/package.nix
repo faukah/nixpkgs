@@ -7,7 +7,6 @@
   alsa-utils,
   timidity,
 }:
-
 stdenv.mkDerivation rec {
   version = "21.09";
   pname = "mma";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5YzdaZ499AGiKAPUsgBCj3AQ9s0WlfgAbHhOQSOLLO8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     python3
     alsa-utils
@@ -75,7 +74,7 @@ stdenv.mkDerivation rec {
     description = "Creates MIDI tracks for a soloist to perform over from a user supplied file containing chords";
     homepage = "https://www.mellowood.ca/mma/index.html";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
     platforms = lib.platforms.linux;
   };
 }

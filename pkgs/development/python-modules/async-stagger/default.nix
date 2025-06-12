@@ -8,7 +8,6 @@
   pytest-asyncio,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "async-stagger";
   version = "0.4.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-qLeTP5FWHho/CbXth3OQNW15Y8uibOh35KqskoIUTHQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -36,12 +35,12 @@ buildPythonPackage rec {
     "test_create_connected_sock_normal"
   ];
 
-  pythonImportsCheck = [ "async_stagger" ];
+  pythonImportsCheck = ["async_stagger"];
 
   meta = with lib; {
     description = "Happy Eyeballs connection algorithm and underlying scheduling logic in asyncio";
     homepage = "https://github.com/twisteroidambassador/async_stagger";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

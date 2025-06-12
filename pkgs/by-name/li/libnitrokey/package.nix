@@ -7,7 +7,6 @@
   hidapi,
   libusb1,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libnitrokey";
   version = "3.8";
@@ -33,9 +32,9 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_UDEVRULESDIR=etc/udev/rules.d"
   ];
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
-  propagatedBuildInputs = [ hidapi ];
+  propagatedBuildInputs = [hidapi];
 
   meta = with lib; {
     description = "Communicate with Nitrokey devices in a clean and easy manner";

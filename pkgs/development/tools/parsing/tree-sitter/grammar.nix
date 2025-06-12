@@ -4,9 +4,7 @@
   tree-sitter,
   lib,
 }:
-
 # Build a parser grammar and put the resulting shared object in `$out/parser`
-
 {
   # language name
   language,
@@ -15,8 +13,7 @@
   location ? null,
   generate ? false,
   ...
-}@args:
-
+} @ args:
 stdenv.mkDerivation (
   {
     pname = "${language}-grammar";
@@ -37,7 +34,7 @@ stdenv.mkDerivation (
       "-O2"
     ];
 
-    stripDebugList = [ "parser" ];
+    stripDebugList = ["parser"];
 
     configurePhase =
       lib.optionalString (location != null) ''

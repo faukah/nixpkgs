@@ -11,7 +11,6 @@
   pkg-config,
   wrapGAppsHook3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "powersupply";
   version = "0.9.0";
@@ -58,6 +57,6 @@ python3.pkgs.buildPythonApplication rec {
     license = licenses.mit;
     mainProgram = "powersupply";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

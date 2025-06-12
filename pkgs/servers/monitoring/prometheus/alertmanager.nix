@@ -6,7 +6,6 @@
   installShellFiles,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "alertmanager";
   version = "0.28.1";
@@ -26,20 +25,18 @@ buildGoModule rec {
     "cmd/amtool"
   ];
 
-  ldflags =
-    let
-      t = "github.com/prometheus/common/version";
-    in
-    [
-      "-X ${t}.Version=${version}"
-      "-X ${t}.Revision=${src.rev}"
-      "-X ${t}.Branch=unknown"
-      "-X ${t}.BuildUser=nix@nixpkgs"
-      "-X ${t}.BuildDate=unknown"
-      "-X ${t}.GoVersion=${lib.getVersion go}"
-    ];
+  ldflags = let
+    t = "github.com/prometheus/common/version";
+  in [
+    "-X ${t}.Version=${version}"
+    "-X ${t}.Revision=${src.rev}"
+    "-X ${t}.Branch=unknown"
+    "-X ${t}.BuildUser=nix@nixpkgs"
+    "-X ${t}.BuildDate=unknown"
+    "-X ${t}.GoVersion=${lib.getVersion go}"
+  ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     $out/bin/amtool --completion-script-bash > amtool.bash
@@ -48,7 +45,7 @@ buildGoModule rec {
     installShellCompletion amtool.zsh
   '';
 
-  passthru.tests = { inherit (nixosTests.prometheus) alertmanager; };
+  passthru.tests = {inherit (nixosTests.prometheus) alertmanager;};
 
   meta = with lib; {
     description = "Alert dispatcher for the Prometheus monitoring system";

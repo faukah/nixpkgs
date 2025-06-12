@@ -2,12 +2,10 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   cmake,
   pkg-config,
   libsForQt5,
   wrapGAppsHook4,
-
   gtk3,
   json-glib,
   lerc,
@@ -30,7 +28,6 @@
   makeWrapper,
   dmidecode,
 }:
-
 stdenv.mkDerivation (finalAtrs: {
   pname = "hardinfo2";
   version = "2.2.10";
@@ -77,7 +74,7 @@ stdenv.mkDerivation (finalAtrs: {
     libXtst
   ];
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   cmakeFlags = [
     (lib.cmakeFeature "CMAKE_INSTALL_DATAROOTDIR" "${placeholder "out"}/share")
@@ -97,7 +94,7 @@ stdenv.mkDerivation (finalAtrs: {
       gpl3Plus
       lgpl2Plus
     ];
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.linux;
     mainProgram = "hardinfo2";
   };

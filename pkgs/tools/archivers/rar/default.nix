@@ -4,11 +4,9 @@
   fetchurl,
   autoPatchelfHook,
   installShellFiles,
-}:
-
-let
+}: let
   version = "7.01";
-  downloadVersion = lib.replaceStrings [ "." ] [ "" ] version;
+  downloadVersion = lib.replaceStrings ["."] [""] version;
   # Use `./update.sh` to generate the entries below
   srcs = {
     i686-linux = {
@@ -34,46 +32,48 @@ let
     hash = "sha256-93cSr9oAsi+xHUtMsUvICyHJe66vAImS2tLie7nt8Uw=";
   };
 in
-stdenv.mkDerivation {
-  pname = "rar";
-  inherit version;
+  stdenv.mkDerivation {
+    pname = "rar";
+    inherit version;
 
-  src = fetchurl (
-    srcs.${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}")
-  );
+    src = fetchurl (
+      srcs.${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}")
+    );
 
-  dontBuild = true;
+    dontBuild = true;
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ (lib.getLib stdenv.cc.cc) ];
+    buildInputs = lib.optionals stdenv.hostPlatform.isLinux [(lib.getLib stdenv.cc.cc)];
 
-  nativeBuildInputs = [
-    installShellFiles
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+    nativeBuildInputs =
+      [
+        installShellFiles
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -Dm755 {rar,unrar} -t "$out/bin"
-    install -Dm755 default.sfx -t "$out/lib"
-    install -Dm644 {acknow.txt,license.txt} -t "$out/share/doc/rar"
-    install -Dm644 rarfiles.lst -t "$out/etc"
+      install -Dm755 {rar,unrar} -t "$out/bin"
+      install -Dm755 default.sfx -t "$out/lib"
+      install -Dm644 {acknow.txt,license.txt} -t "$out/share/doc/rar"
+      install -Dm644 rarfiles.lst -t "$out/etc"
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  postInstall = ''
-    installManPage ${manSrc}
-  '';
+    postInstall = ''
+      installManPage ${manSrc}
+    '';
 
-  passthru.updateScript = ./update.sh;
+    passthru.updateScript = ./update.sh;
 
-  meta = with lib; {
-    description = "Utility for RAR archives";
-    homepage = "https://www.rarlab.com/";
-    license = licenses.unfree;
-    mainProgram = "rar";
-    maintainers = with maintainers; [ thiagokokada ];
-    platforms = lib.attrNames srcs;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-  };
-}
+    meta = with lib; {
+      description = "Utility for RAR archives";
+      homepage = "https://www.rarlab.com/";
+      license = licenses.unfree;
+      mainProgram = "rar";
+      maintainers = with maintainers; [thiagokokada];
+      platforms = lib.attrNames srcs;
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+    };
+  }

@@ -16,7 +16,6 @@
   setuptools,
   stestr,
 }:
-
 buildPythonPackage rec {
   pname = "oslo-concurrency";
   version = "7.1.0";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
       --replace-fail "/usr/bin/env" "${coreutils}/bin/env"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     fasteners
@@ -70,13 +69,13 @@ buildPythonPackage rec {
     ")
   '';
 
-  pythonImportsCheck = [ "oslo_concurrency" ];
+  pythonImportsCheck = ["oslo_concurrency"];
 
   meta = with lib; {
     description = "Oslo Concurrency library";
     mainProgram = "lockutils-wrapper";
     homepage = "https://github.com/openstack/oslo.concurrency";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

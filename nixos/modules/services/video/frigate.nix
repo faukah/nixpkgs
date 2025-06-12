@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     any
     attrValues
     converge
@@ -26,12 +25,11 @@ let
 
   cfg = config.services.frigate;
 
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
 
-  filteredConfig = converge (filterAttrsRecursive (_: v: !elem v [ null ])) cfg.settings;
+  filteredConfig = converge (filterAttrsRecursive (_: v: !elem v [null])) cfg.settings;
 
-  cameraFormat =
-    with types;
+  cameraFormat = with types;
     submodule {
       freeformType = format.type;
       options = {
@@ -114,19 +112,17 @@ let
   '';
 
   # Discover configured detectors for acceleration support
-  detectors = attrValues cfg.settings.detectors or { };
+  detectors = attrValues cfg.settings.detectors or {};
   withCoralUSB = any (d: d.type == "edgetpu" && hasPrefix "usb" d.device or "") detectors;
   withCoralPCI = any (d: d.type == "edgetpu" && hasPrefix "pci" d.device or "") detectors;
   withCoral = withCoralPCI || withCoralUSB;
-in
-
-{
+in {
   meta.buildDocsInSandbox = false;
 
   options.services.frigate = with types; {
     enable = mkEnableOption "Frigate NVR";
 
-    package = mkPackageOption pkgs "frigate" { };
+    package = mkPackageOption pkgs "frigate" {};
 
     hostname = mkOption {
       type = str;
@@ -203,7 +199,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = ''
         Frigate configuration as a nix attribute set.
 
@@ -228,16 +224,16 @@ in
       mapHashBucketSize = mkDefault 128;
       upstreams = {
         frigate-api.servers = {
-          "127.0.0.1:5001" = { };
+          "127.0.0.1:5001" = {};
         };
         frigate-mqtt-ws.servers = {
-          "127.0.0.1:5002" = { };
+          "127.0.0.1:5002" = {};
         };
         frigate-jsmpeg.servers = {
-          "127.0.0.1:8082" = { };
+          "127.0.0.1:8082" = {};
         };
         frigate-go2rtc.servers = {
-          "127.0.0.1:1984" = { };
+          "127.0.0.1:1984" = {};
         };
       };
       proxyCachePath."frigate" = {
@@ -603,7 +599,7 @@ in
       isSystemUser = true;
       group = "frigate";
     };
-    users.groups.frigate = { };
+    users.groups.frigate = {};
 
     systemd.services.frigate = {
       after = [
@@ -623,10 +619,9 @@ in
           LIBVA_DRIVER_NAME = cfg.vaapiDriver;
         }
         // optionalAttrs withCoral {
-          LD_LIBRARY_PATH = makeLibraryPath (with pkgs; [ libedgetpu ]);
+          LD_LIBRARY_PATH = makeLibraryPath (with pkgs; [libedgetpu]);
         };
-      path =
-        with pkgs;
+      path = with pkgs;
         [
           # unfree:
           # config.boot.kernelPackages.nvidiaPackages.latest.bin
@@ -655,12 +650,12 @@ in
 
         User = "frigate";
         Group = "frigate";
-        SupplementaryGroups = [ "render" ] ++ optionals withCoral [ "coral" ];
+        SupplementaryGroups = ["render"] ++ optionals withCoral ["coral"];
 
         AmbientCapabilities = optionals (elem cfg.vaapiDriver [
           "i965"
           "iHD"
-        ]) [ "CAP_PERFMON" ]; # for intel_gpu_top
+        ]) ["CAP_PERFMON"]; # for intel_gpu_top
 
         UMask = "0027";
 

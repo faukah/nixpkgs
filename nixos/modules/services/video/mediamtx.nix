@@ -3,20 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.mediamtx;
-  format = pkgs.formats.yaml { };
-in
-{
-  meta.maintainers = with lib.maintainers; [ fpletz ];
+  format = pkgs.formats.yaml {};
+in {
+  meta.maintainers = with lib.maintainers; [fpletz];
 
   options = {
     services.mediamtx = {
       enable = lib.mkEnableOption "MediaMTX";
 
-      package = lib.mkPackageOption pkgs "mediamtx" { };
+      package = lib.mkPackageOption pkgs "mediamtx" {};
 
       settings = lib.mkOption {
         description = ''
@@ -24,7 +21,7 @@ in
           <https://github.com/bluenviron/mediamtx/blob/main/mediamtx.yml>.
         '';
         type = format.type;
-        default = { };
+        default = {};
         example = {
           paths = {
             cam = {
@@ -38,7 +35,7 @@ in
       env = lib.mkOption {
         type = with lib.types; attrsOf anything;
         description = "Extra environment variables for MediaMTX";
-        default = { };
+        default = {};
         example = {
           MTX_CONFKEY = "mykey";
         };
@@ -55,8 +52,8 @@ in
     environment.etc."mediamtx.yaml".source = format.generate "mediamtx.yaml" cfg.settings;
 
     systemd.services.mediamtx = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       environment = cfg.env;
 

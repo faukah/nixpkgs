@@ -14,7 +14,6 @@
   postgresqlTestHook,
   psycopg2,
 }:
-
 buildPythonPackage {
   pname = "flask-dramatiq";
   version = "0.6.0";
@@ -41,20 +40,22 @@ buildPythonPackage {
       -e 's:--cov-report=term-missing::'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ dramatiq ];
+  propagatedBuildInputs = [dramatiq];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    flask
-    requests
-    flask-migrate
-    periodiq
-    postgresql
-    postgresqlTestHook
-    psycopg2
-  ] ++ dramatiq.optional-dependencies.rabbitmq;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      flask
+      requests
+      flask-migrate
+      periodiq
+      postgresql
+      postgresqlTestHook
+      psycopg2
+    ]
+    ++ dramatiq.optional-dependencies.rabbitmq;
 
   postgresqlTestSetupPost = ''
     substituteInPlace config.py \
@@ -69,7 +70,7 @@ buildPythonPackage {
     "tests/unit"
   ];
 
-  pythonImportsCheck = [ "flask_dramatiq" ];
+  pythonImportsCheck = ["flask_dramatiq"];
 
   # Does HTTP requests to localhost
   disabledTests = [
@@ -81,6 +82,6 @@ buildPythonPackage {
     description = "Adds Dramatiq support to your Flask application";
     homepage = "https://gitlab.com/bersace/flask-dramatiq";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ traxys ];
+    maintainers = with maintainers; [traxys];
   };
 }

@@ -88,7 +88,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://pgloader.io/";
     description = "Loads data into PostgreSQL and allows you to implement Continuous Migration from your current database to PostgreSQL";
     mainProgram = "pgloader";
-    maintainers = with maintainers; [ mguentner ];
+    maintainers = with maintainers; [mguentner];
     license = licenses.postgresql;
     platforms = platforms.all;
   };

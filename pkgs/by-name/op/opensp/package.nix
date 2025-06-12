@@ -11,7 +11,6 @@
   libtool,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opensp";
   version = "1.5.2";
@@ -75,6 +74,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = "https://openjade.sourceforge.net/";
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

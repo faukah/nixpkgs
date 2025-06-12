@@ -5,7 +5,6 @@
   fmt,
   ocaml_lwt,
 }:
-
 buildDunePackage rec {
   pname = "mirage-device";
   version = "2.0.0";
@@ -26,6 +25,6 @@ buildDunePackage rec {
     description = "Abstract devices for MirageOS";
     homepage = "https://github.com/mirage/mirage-device";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

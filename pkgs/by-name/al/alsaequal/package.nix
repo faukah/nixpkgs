@@ -6,7 +6,6 @@
   caps,
   ladspaH,
 }:
-
 stdenv.mkDerivation rec {
   pname = "alsaequal";
   version = "0.7.1";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     ladspaH
   ];
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   # Borrowed from Arch Linux's AUR
   patches = [
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "Real-time adjustable equalizer plugin for ALSA";
     homepage = "https://github.com/bassdr/alsaequal";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ymeister ];
+    maintainers = with maintainers; [ymeister];
   };
 }

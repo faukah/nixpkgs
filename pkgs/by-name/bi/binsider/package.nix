@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ samueltardieu ];
+    maintainers = with maintainers; [samueltardieu];
     mainProgram = "binsider";
   };
 }

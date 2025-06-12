@@ -1,52 +1,56 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "shadps4-openorbis-example";
   meta = {
     inherit (pkgs.shadps4.meta) maintainers;
   };
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      imports = [ ./common/x11.nix ];
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [./common/x11.nix];
 
-      environment = {
-        # Samples from the OpenOrbis PS4 homebrew toolchain, gpl3Only
-        etc."openorbis-sample-packages".source =
-          let
-            sample-packages = pkgs.fetchurl {
-              url = "https://github.com/OpenOrbis/OpenOrbis-PS4-Toolchain/releases/download/v0.5.2/sample-packages.zip";
-              hash = "sha256-aWocIVpyMivA1vsUe9w97J3eMFANyXxyVLBxHGXIcEA=";
-            };
-          in
-          pkgs.runCommand "OpenOrbis-PNG-Sample"
-            {
-              nativeBuildInputs = with pkgs; [
-                unzip
-                liborbispkg-pkgtool
-              ];
-              meta.license = lib.licenses.gpl3Only;
-            }
-            ''
-              unzip ${sample-packages} samples/IV0000-BREW00086_00-IPNGDRAWEX000000.pkg
-              mkdir -p $out/OpenOrbis-PNG-Sample
-              pkgtool pkg_extract samples/IV0000-BREW00086_00-IPNGDRAWEX000000.pkg $out/OpenOrbis-PNG-Sample
-            '';
-
-        systemPackages = with pkgs; [
-          imagemagick # looking for colour on screen
-          shadps4
-          xdotool # move mouse
-        ];
-
-        variables = {
-          # Emulated CPU doesn't support invariant TSC
-          TRACY_NO_INVARIANT_CHECK = "1";
+    environment = {
+      # Samples from the OpenOrbis PS4 homebrew toolchain, gpl3Only
+      etc."openorbis-sample-packages".source = let
+        sample-packages = pkgs.fetchurl {
+          url = "https://github.com/OpenOrbis/OpenOrbis-PS4-Toolchain/releases/download/v0.5.2/sample-packages.zip";
+          hash = "sha256-aWocIVpyMivA1vsUe9w97J3eMFANyXxyVLBxHGXIcEA=";
         };
-      };
+      in
+        pkgs.runCommand "OpenOrbis-PNG-Sample"
+        {
+          nativeBuildInputs = with pkgs; [
+            unzip
+            liborbispkg-pkgtool
+          ];
+          meta.license = lib.licenses.gpl3Only;
+        }
+        ''
+          unzip ${sample-packages} samples/IV0000-BREW00086_00-IPNGDRAWEX000000.pkg
+          mkdir -p $out/OpenOrbis-PNG-Sample
+          pkgtool pkg_extract samples/IV0000-BREW00086_00-IPNGDRAWEX000000.pkg $out/OpenOrbis-PNG-Sample
+        '';
 
-      virtualisation.memorySize = 2048;
+      systemPackages = with pkgs; [
+        imagemagick # looking for colour on screen
+        shadps4
+        xdotool # move mouse
+      ];
+
+      variables = {
+        # Emulated CPU doesn't support invariant TSC
+        TRACY_NO_INVARIANT_CHECK = "1";
+      };
     };
+
+    virtualisation.memorySize = 2048;
+  };
 
   enableOCR = true;
 

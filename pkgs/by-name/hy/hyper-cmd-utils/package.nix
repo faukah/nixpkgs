@@ -4,7 +4,6 @@
   fetchurl,
   fetchFromGitHub,
 }:
-
 buildNpmPackage {
   pname = "hyper-cmd-utils";
   version = "1.0.0";
@@ -34,7 +33,7 @@ buildNpmPackage {
     description = "HyperCmd Utils";
     homepage = "https://github.com/holepunchto/hyper-cmd-utils";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ davhau ];
+    maintainers = with lib.maintainers; [davhau];
     mainProgram = "hyper-cmd-utils";
     platforms = lib.platforms.all;
   };

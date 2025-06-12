@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mustache-spec";
   version = "1.0.2";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
 
     homepage = "http://mustache.github.io/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ Profpatsch ];
+    maintainers = with lib.maintainers; [Profpatsch];
     platforms = lib.platforms.all;
   };
 }

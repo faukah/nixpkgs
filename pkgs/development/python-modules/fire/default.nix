@@ -11,7 +11,6 @@
   termcolor,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "fire";
   version = "0.7.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-cYlkMnZOa0J6dOiWsWZplk/MajVRiCYe8tK3641fD0w=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     six
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "fire" ];
+  pythonImportsCheck = ["fire"];
 
   meta = with lib; {
     description = "Library for automatically generating command line interfaces";
@@ -65,6 +64,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/google/python-fire";
     changelog = "https://github.com/google/python-fire/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

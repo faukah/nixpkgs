@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "cloudflare-exporter";
   version = "0.0.16";
@@ -22,7 +21,7 @@ buildGoModule rec {
     mainProgram = "cloudflare-exporter";
     homepage = "https://github.com/lablabs/cloudflare-exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bbigras ];
+    maintainers = with maintainers; [bbigras];
     platforms = platforms.linux;
   };
 }

@@ -8,7 +8,6 @@
   flex,
   readline,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cdecl";
   version = "18.4.2";
@@ -29,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     bison
     flex
   ];
-  buildInputs = [ readline ];
+  buildInputs = [readline];
 
   env = {
     NIX_CFLAGS_COMPILE = toString (
@@ -70,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/paul-j-lucas/cdecl";
     changelog = "https://github.com/paul-j-lucas/cdecl/blob/cdecl-${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.unix;
     mainProgram = "cdecl";
   };

@@ -8,7 +8,6 @@
   glib,
   gettext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libIDL";
   version = "0.8.14";

@@ -8,7 +8,6 @@
   enableDbusUi ? true,
   wrapGAppsHook3,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pantalaimon";
   version = "0.10.6";
@@ -34,8 +33,7 @@ python3Packages.buildPythonApplication rec {
     "matrix-nio"
   ];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       aiohttp
       attrs
@@ -44,7 +42,7 @@ python3Packages.buildPythonApplication rec {
       janus
       keyring
       logbook
-      (matrix-nio.override { withOlm = true; })
+      (matrix-nio.override {withOlm = true;})
       peewee
       platformdirs
       prompt-toolkit
@@ -58,8 +56,7 @@ python3Packages.buildPythonApplication rec {
     pydbus
   ];
 
-  nativeCheckInputs =
-    with python3Packages;
+  nativeCheckInputs = with python3Packages;
     [
       aioresponses
       faker
@@ -92,6 +89,6 @@ python3Packages.buildPythonApplication rec {
     description = "End-to-end encryption aware Matrix reverse proxy daemon";
     homepage = "https://github.com/matrix-org/pantalaimon";
     license = licenses.asl20;
-    maintainers = with maintainers; [ valodim ];
+    maintainers = with maintainers; [valodim];
   };
 }

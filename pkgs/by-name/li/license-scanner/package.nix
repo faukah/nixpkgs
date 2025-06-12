@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "license-scanner";
   version = "0.12.0";
@@ -22,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/CycloneDX/license-scanner";
     changelog = "https://github.com/CycloneDX/license-scanner/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "license-scanner";
   };
 }

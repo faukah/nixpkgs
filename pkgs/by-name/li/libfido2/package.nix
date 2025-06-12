@@ -12,7 +12,6 @@
   withPcsclite ? true,
   pcsclite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libfido2";
   version = "1.15.0";
@@ -33,11 +32,11 @@ stdenv.mkDerivation rec {
       libcbor
       zlib
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ hidapi ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ udev ]
-    ++ lib.optionals (stdenv.hostPlatform.isLinux && withPcsclite) [ pcsclite ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [hidapi]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [udev]
+    ++ lib.optionals (stdenv.hostPlatform.isLinux && withPcsclite) [pcsclite];
 
-  propagatedBuildInputs = [ openssl ];
+  propagatedBuildInputs = [openssl];
 
   outputs = [
     "out"
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     ];
 
   # causes possible redefinition of _FORTIFY_SOURCE?
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   meta = with lib; {
     description = ''
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/Yubico/libfido2";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     platforms = platforms.unix;
   };
 }

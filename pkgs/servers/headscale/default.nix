@@ -22,7 +22,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-dR8xmUIDMIy08lhm7r95GNNMAbXv4qSH3v9HR40HlNk=";
 
-  subPackages = [ "cmd/headscale" ];
+  subPackages = ["cmd/headscale"];
 
   ldflags = [
     "-s"
@@ -30,14 +30,14 @@ buildGoModule rec {
     "-X github.com/juanfont/headscale/cmd/headscale/cli.Version=v${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   nativeCheckInputs = [
     libredirect.hook
     postgresql
   ];
 
-  checkFlags = [ "-short" ];
+  checkFlags = ["-short"];
 
   preCheck = lib.optionalString stdenv.hostPlatform.isDarwin ''
     export NIX_REDIRECTS=/etc/protocols=${iana-etc}/etc/protocols:/etc/services=${iana-etc}/etc/services
@@ -50,7 +50,7 @@ buildGoModule rec {
       --zsh <($out/bin/headscale completion zsh)
   '';
 
-  passthru.tests = { inherit (nixosTests) headscale; };
+  passthru.tests = {inherit (nixosTests) headscale;};
 
   meta = with lib; {
     homepage = "https://github.com/juanfont/headscale";

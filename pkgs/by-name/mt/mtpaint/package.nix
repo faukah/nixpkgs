@@ -13,7 +13,6 @@
   openjpeg,
   gifsicle,
 }:
-
 stdenv.mkDerivation {
   pname = "mtPaint";
   version = "3.50.01";
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
     sha256 = "04wqxz8i655gz5rnz90cksy8v6m2jhcn1j8rzhqpp5xhawlmq24y";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     freetype
     giflib
@@ -58,7 +57,7 @@ stdenv.mkDerivation {
     homepage = "https://mtpaint.sourceforge.net/";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.vklquevs ];
+    maintainers = [lib.maintainers.vklquevs];
     mainProgram = "mtpaint";
   };
 }

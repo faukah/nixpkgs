@@ -20,7 +20,6 @@
   docling-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "docling-parse";
   version = "4.0.1";
@@ -88,6 +87,6 @@ buildPythonPackage rec {
     description = "Simple package to extract text with coordinates from programmatic PDFs";
     homepage = "https://github.com/DS4SD/docling-parse";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

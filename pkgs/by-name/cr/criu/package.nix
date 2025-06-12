@@ -26,7 +26,6 @@
   gnutar,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "criu";
   version = "4.1";
@@ -82,22 +81,21 @@ stdenv.mkDerivation rec {
     ln -sf ${protobuf}/include/google/protobuf/descriptor.proto ./images/google/protobuf/descriptor.proto
   '';
 
-  makeFlags =
-    let
-      # criu's Makefile infrastructure expects to be passed a target architecture
-      # which neither matches the config-tuple's first part, nor the
-      # targetPlatform.linuxArch attribute. Thus we take the latter and map it
-      # onto the expected string:
-      linuxArchMapping = {
-        "x86_64" = "x86";
-        "arm" = "arm";
-        "arm64" = "aarch64";
-        "powerpc" = "ppc64";
-        "s390" = "s390";
-        "mips" = "mips";
-        "loongarch" = "loongarch64";
-      };
-    in
+  makeFlags = let
+    # criu's Makefile infrastructure expects to be passed a target architecture
+    # which neither matches the config-tuple's first part, nor the
+    # targetPlatform.linuxArch attribute. Thus we take the latter and map it
+    # onto the expected string:
+    linuxArchMapping = {
+      "x86_64" = "x86";
+      "arm" = "arm";
+      "arm64" = "aarch64";
+      "powerpc" = "ppc64";
+      "s390" = "s390";
+      "mips" = "mips";
+      "loongarch" = "loongarch64";
+    };
+  in
     [
       "PREFIX=$(out)"
       "ASCIIDOC=${buildPackages.asciidoc}/bin/asciidoc"
@@ -131,11 +129,11 @@ stdenv.mkDerivation rec {
       --set-default CR_IPTABLES ${iptables}/bin/iptables \
       --set-default CR_IP_TOOL ${iproute2}/bin/ip \
       --prefix PATH : ${
-        lib.makeBinPath [
-          gnutar
-          gzip
-        ]
-      }
+      lib.makeBinPath [
+        gnutar
+        gzip
+      ]
+    }
     wrapPythonPrograms
   '';
 
@@ -149,6 +147,6 @@ stdenv.mkDerivation rec {
       "armv7l-linux"
       "loongarch64-linux"
     ];
-    maintainers = [ maintainers.thoughtpolice ];
+    maintainers = [maintainers.thoughtpolice];
   };
 }

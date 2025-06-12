@@ -11,7 +11,6 @@
   alcotest-lwt,
   mirage-crypto-rng,
 }:
-
 buildDunePackage rec {
   pname = "http-mirage-client";
   version = "0.0.10";
@@ -42,7 +41,6 @@ buildDunePackage rec {
     description = "HTTP client for MirageOS";
     homepage = "https://github.com/roburio/http-mirage-client";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

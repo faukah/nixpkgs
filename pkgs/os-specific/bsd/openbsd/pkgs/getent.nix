@@ -1,1 +1,1 @@
-{ mkDerivation }: mkDerivation { path = "usr.bin/getent"; }
+{mkDerivation}: mkDerivation {path = "usr.bin/getent";}

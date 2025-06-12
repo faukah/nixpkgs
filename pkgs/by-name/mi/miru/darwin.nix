@@ -3,7 +3,6 @@
   fetchurl,
   unzip,
   makeWrapper,
-
   pname,
   version,
   meta,

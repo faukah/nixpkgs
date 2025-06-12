@@ -8,7 +8,6 @@
   gtkmm3,
   libpulseaudio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gmetronome";
   version = "0.4.2";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.gnome.org/dqpb/gmetronome/-/blob/${src.rev}/NEWS";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     mainProgram = "gmetronome";
     broken = stdenv.hostPlatform.isDarwin;
   };

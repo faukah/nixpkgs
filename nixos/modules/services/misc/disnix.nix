@@ -4,21 +4,13 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.disnix;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.disnix = {
-
       enable = lib.mkEnableOption "Disnix";
 
       enableMultiUser = lib.mkOption {
@@ -29,17 +21,16 @@ in
 
       useWebServiceInterface = lib.mkEnableOption "the DisnixWebService interface running on Apache Tomcat";
 
-      package = lib.mkPackageOption pkgs "disnix" { };
+      package = lib.mkPackageOption pkgs "disnix" {};
 
       enableProfilePath = lib.mkEnableOption "exposing the Disnix profiles in the system's PATH";
 
       profiles = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ "default" ];
+        default = ["default"];
         description = "Names of the Disnix profiles to expose in the system's PATH";
       };
     };
-
   };
 
   ###### implementation
@@ -47,19 +38,21 @@ in
   config = lib.mkIf cfg.enable {
     services.dysnomia.enable = true;
 
-    environment.systemPackages = [
-      pkgs.disnix
-    ] ++ lib.optional cfg.useWebServiceInterface pkgs.DisnixWebService;
+    environment.systemPackages =
+      [
+        pkgs.disnix
+      ]
+      ++ lib.optional cfg.useWebServiceInterface pkgs.DisnixWebService;
     environment.variables.PATH = lib.optionals cfg.enableProfilePath (
       map (profileName: "/nix/var/nix/profiles/disnix/${profileName}/bin") cfg.profiles
     );
     environment.variables.DISNIX_REMOTE_CLIENT = lib.optionalString (cfg.enableMultiUser) "disnix-client";
 
     services.dbus.enable = true;
-    services.dbus.packages = [ pkgs.disnix ];
+    services.dbus.packages = [pkgs.disnix];
 
     services.tomcat.enable = cfg.useWebServiceInterface;
-    services.tomcat.extraGroups = [ "disnix" ];
+    services.tomcat.extraGroups = ["disnix"];
     services.tomcat.javaOpts = "${lib.optionalString cfg.useWebServiceInterface "-Djava.library.path=${pkgs.libmatthew_java}/lib/jni"} ";
     services.tomcat.sharedLibs =
       lib.optional cfg.useWebServiceInterface "${pkgs.DisnixWebService}/share/java/DisnixConnection.jar"
@@ -71,10 +64,10 @@ in
     systemd.services = {
       disnix = lib.mkIf cfg.enableMultiUser {
         description = "Disnix server";
-        wants = [ "dysnomia.target" ];
-        wantedBy = [ "multi-user.target" ];
+        wants = ["dysnomia.target"];
+        wantedBy = ["multi-user.target"];
         after =
-          [ "dbus.service" ]
+          ["dbus.service"]
           ++ lib.optional config.services.httpd.enable "httpd.service"
           ++ lib.optional config.services.mysql.enable "mysql.service"
           ++ lib.optional config.services.postgresql.enable "postgresql.service"
@@ -105,7 +98,6 @@ in
 
         serviceConfig.ExecStart = "${cfg.package}/bin/disnix-service";
       };
-
     };
   };
 }

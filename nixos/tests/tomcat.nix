@@ -1,17 +1,18 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "tomcat";
-  meta.maintainers = [ lib.maintainers.anthonyroussel ];
+  meta.maintainers = [lib.maintainers.anthonyroussel];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.tomcat = {
-        enable = true;
-        port = 8001;
-        axis2.enable = true;
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.tomcat = {
+      enable = true;
+      port = 8001;
+      axis2.enable = true;
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("tomcat.service")

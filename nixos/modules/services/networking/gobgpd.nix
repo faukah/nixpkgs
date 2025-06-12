@@ -3,19 +3,17 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.gobgpd;
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
   confFile = format.generate "gobgpd.conf" cfg.settings;
-in
-{
+in {
   options.services.gobgpd = {
     enable = lib.mkEnableOption "GoBGP Routing Daemon";
 
     settings = lib.mkOption {
       type = format.type;
-      default = { };
+      default = {};
       description = ''
         GoBGP configuration. Refer to
         <https://github.com/osrg/gobgp#documentation>
@@ -49,10 +47,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.gobgpd ];
+    environment.systemPackages = [pkgs.gobgpd];
     systemd.services.gobgpd = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       description = "GoBGP Routing Daemon";
       serviceConfig = {
         Type = "notify";

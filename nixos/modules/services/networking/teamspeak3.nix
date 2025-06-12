@@ -4,22 +4,15 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   ts3 = pkgs.teamspeak_server;
   cfg = config.services.teamspeak3;
   user = "teamspeak";
   group = "teamspeak";
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.teamspeak3 = {
       enable = mkOption {
         type = types.bool;
@@ -123,9 +116,7 @@ in
         default = false;
         description = "Open ports in the firewall for the TeamSpeak3 serverquery (administration) system. Requires openFirewall.";
       };
-
     };
-
   };
 
   ###### implementation
@@ -149,7 +140,7 @@ in
 
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts =
-        [ cfg.fileTransferPort ]
+        [cfg.fileTransferPort]
         ++ (map (port: mkIf cfg.openFirewallServerQuery port) [
           cfg.queryPort
           cfg.querySshPort
@@ -166,8 +157,8 @@ in
 
     systemd.services.teamspeak3-server = {
       description = "Teamspeak3 voice communication server daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = ''
@@ -194,5 +185,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ arobyn ];
+  meta.maintainers = with lib.maintainers; [arobyn];
 }

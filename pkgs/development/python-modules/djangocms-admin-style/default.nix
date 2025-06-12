@@ -10,7 +10,6 @@
   django-cms,
   djangocms-admin-style,
 }:
-
 buildPythonPackage rec {
   pname = "djangocms-admin-style";
   version = "3.3.1";
@@ -25,16 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-cDbmC7IJTT3NuVXBnbUVqC7dUfusMdntDGu2tSvxIdQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytest-django
   ];
 
-  checkInputs = [ django-cms ];
+  checkInputs = [django-cms];
 
   preCheck = ''
     export DJANGO_SETTINGS_MODULE="tests.settings"
@@ -61,13 +60,13 @@ buildPythonPackage rec {
     });
   };
 
-  pythonImportsCheck = [ "djangocms_admin_style" ];
+  pythonImportsCheck = ["djangocms_admin_style"];
 
   meta = {
     description = "Django Theme tailored to the needs of django CMS";
     homepage = "https://django-cms.org";
     changelog = "https://github.com/django-cms/djangocms-admin-style/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.onny ];
+    maintainers = [lib.maintainers.onny];
   };
 }

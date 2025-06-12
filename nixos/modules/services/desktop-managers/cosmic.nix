@@ -2,21 +2,17 @@
 # SPDX-FileCopyrightText: Lily Foster <lily@lily.flowers>
 # Portions of this code are adapted from nixos-cosmic
 # https://github.com/lilyinstarlight/nixos-cosmic
-
 {
   config,
   lib,
   pkgs,
   utils,
   ...
-}:
-
-let
+}: let
   cfg = config.services.desktopManager.cosmic;
   excludedCorePkgs = lib.lists.intersectLists corePkgs config.environment.cosmic.excludePackages;
   # **ONLY ADD PACKAGES WITHOUT WHICH COSMIC CRASHES, NOTHING ELSE**
-  corePkgs =
-    with pkgs;
+  corePkgs = with pkgs;
     [
       cosmic-applets
       cosmic-applibrary
@@ -40,27 +36,30 @@ let
       # `corePkgs` list.
       xwayland
     ];
-in
-{
+in {
   meta.maintainers = lib.teams.cosmic.members;
 
   options = {
     services.desktopManager.cosmic = {
       enable = lib.mkEnableOption "Enable the COSMIC desktop environment";
 
-      showExcludedPkgsWarning = lib.mkEnableOption "Disable the warning for excluding core packages." // {
-        default = true;
-      };
+      showExcludedPkgsWarning =
+        lib.mkEnableOption "Disable the warning for excluding core packages."
+        // {
+          default = true;
+        };
 
-      xwayland.enable = lib.mkEnableOption "Xwayland support for the COSMIC compositor" // {
-        default = true;
-      };
+      xwayland.enable =
+        lib.mkEnableOption "Xwayland support for the COSMIC compositor"
+        // {
+          default = true;
+        };
     };
 
     environment.cosmic.excludePackages = lib.mkOption {
       description = "List of packages to exclude from the COSMIC environment.";
       type = lib.types.listOf lib.types.package;
-      default = [ ];
+      default = [];
       example = lib.literalExpression "[ pkgs.cosmic-player ]";
     };
   };
@@ -71,38 +70,40 @@ in
       "/share/backgrounds"
       "/share/cosmic"
     ];
-    environment.systemPackages = utils.removePackagesByName (
-      corePkgs
-      ++ (
-        with pkgs;
-        [
-          adwaita-icon-theme
-          alsa-utils
-          cosmic-edit
-          cosmic-icons
-          cosmic-player
-          cosmic-randr
-          cosmic-screenshot
-          cosmic-term
-          cosmic-wallpapers
-          hicolor-icon-theme
-          playerctl
-          pop-icon-theme
-          pop-launcher
-          xdg-user-dirs
-        ]
-        ++ lib.optionals config.services.flatpak.enable [
-          # User may have Flatpaks enabled but might not want the `cosmic-store` package.
-          cosmic-store
-        ]
+    environment.systemPackages =
+      utils.removePackagesByName (
+        corePkgs
+        ++ (
+          with pkgs;
+            [
+              adwaita-icon-theme
+              alsa-utils
+              cosmic-edit
+              cosmic-icons
+              cosmic-player
+              cosmic-randr
+              cosmic-screenshot
+              cosmic-term
+              cosmic-wallpapers
+              hicolor-icon-theme
+              playerctl
+              pop-icon-theme
+              pop-launcher
+              xdg-user-dirs
+            ]
+            ++ lib.optionals config.services.flatpak.enable [
+              # User may have Flatpaks enabled but might not want the `cosmic-store` package.
+              cosmic-store
+            ]
+        )
       )
-    ) config.environment.cosmic.excludePackages;
+      config.environment.cosmic.excludePackages;
 
     # Distro-wide defaults for graphical sessions
     services.graphical-desktop.enable = true;
 
     xdg = {
-      icons.fallbackCursorThemes = lib.mkDefault [ "Cosmic" ];
+      icons.fallbackCursorThemes = lib.mkDefault ["Cosmic"];
 
       portal = {
         enable = true;
@@ -110,17 +111,17 @@ in
           xdg-desktop-portal-cosmic
           xdg-desktop-portal-gtk
         ];
-        configPackages = lib.mkDefault [ pkgs.xdg-desktop-portal-cosmic ];
+        configPackages = lib.mkDefault [pkgs.xdg-desktop-portal-cosmic];
       };
     };
 
     systemd = {
-      packages = [ pkgs.cosmic-session ];
+      packages = [pkgs.cosmic-session];
       user.targets = {
         # TODO: remove when upstream has XDG autostart support
         cosmic-session = {
-          wants = [ "xdg-desktop-autostart.target" ];
-          before = [ "xdg-desktop-autostart.target" ];
+          wants = ["xdg-desktop-autostart.target"];
+          before = ["xdg-desktop-autostart.target"];
         };
       };
     };
@@ -135,17 +136,17 @@ in
     environment.sessionVariables.X11_BASE_RULES_XML = "${config.services.xserver.xkb.dir}/rules/base.xml";
     environment.sessionVariables.X11_EXTRA_RULES_XML = "${config.services.xserver.xkb.dir}/rules/base.extras.xml";
     programs.dconf.enable = true;
-    programs.dconf.packages = [ pkgs.cosmic-session ];
+    programs.dconf.packages = [pkgs.cosmic-session];
     security.polkit.enable = true;
     security.rtkit.enable = true;
     services.accounts-daemon.enable = true;
-    services.displayManager.sessionPackages = [ pkgs.cosmic-session ];
+    services.displayManager.sessionPackages = [pkgs.cosmic-session];
     services.geoclue2.enable = true;
     services.geoclue2.enableDemoAgent = false;
     services.libinput.enable = true;
     services.upower.enable = true;
     # Required for screen locker
-    security.pam.services.cosmic-greeter = { };
+    security.pam.services.cosmic-greeter = {};
 
     # Good to have defaults
     hardware.bluetooth.enable = lib.mkDefault true;
@@ -154,11 +155,9 @@ in
     services.avahi.enable = lib.mkDefault true;
     services.gnome.gnome-keyring.enable = lib.mkDefault true;
     services.gvfs.enable = lib.mkDefault true;
-    services.power-profiles-daemon.enable = lib.mkDefault (
-      !config.hardware.system76.power-daemon.enable
-    );
+    services.power-profiles-daemon.enable = lib.mkDefault (!config.hardware.system76.power-daemon.enable);
 
-    warnings = lib.optionals (cfg.showExcludedPkgsWarning && excludedCorePkgs != [ ]) [
+    warnings = lib.optionals (cfg.showExcludedPkgsWarning && excludedCorePkgs != []) [
       ''
         The `environment.cosmic.excludePackages` option was used to exclude some
         packages from the environment which also includes some packages that the

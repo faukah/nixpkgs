@@ -5,7 +5,6 @@
   testers,
   git-sizer,
 }:
-
 buildGoModule rec {
   pname = "git-sizer";
   version = "1.5.0";
@@ -35,7 +34,7 @@ buildGoModule rec {
     description = "Compute various size metrics for a Git repository";
     homepage = "https://github.com/github/git-sizer";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     mainProgram = "git-sizer";
   };
 }

@@ -6,7 +6,6 @@
   qtbase,
   qtdeclarative,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kquickimageeditor";
   version = "0.3.0";
@@ -19,12 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+BByt07HMb4u6j9bVZqkUPvyRaElKvJ2MjKlPakL87E=";
   };
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     qtbase
     qtdeclarative
   ];
-  cmakeFlags = [ "-DQT_MAJOR_VERSION=${lib.versions.major qtbase.version}" ];
+  cmakeFlags = ["-DQT_MAJOR_VERSION=${lib.versions.major qtbase.version}"];
   dontWrapQtApps = true;
 
   meta = with lib; {

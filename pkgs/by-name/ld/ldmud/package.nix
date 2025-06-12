@@ -25,7 +25,6 @@
   pythonSupport ? false,
   python310,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ldmud";
   version = "3.6.7";
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional sqliteSupport sqlite
     ++ lib.optional tlsSupport openssl
     ++ lib.optional pythonSupport python310
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   # To support systems without autoconf LD puts its configure.ac in a non-default
   # location and uses a helper script. We skip that script and symlink the .ac
@@ -118,6 +117,6 @@ stdenv.mkDerivation rec {
     # See https://github.com/ldmud/ldmud/blob/master/COPYRIGHT
     license = lib.licenses.unfreeRedistributable;
     platforms = with lib.platforms; linux ++ darwin;
-    maintainers = with lib.maintainers; [ cpu ];
+    maintainers = with lib.maintainers; [cpu];
   };
 }

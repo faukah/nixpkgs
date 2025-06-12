@@ -5,7 +5,6 @@
   python,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "regex";
   version = "2024.11.6";
@@ -22,12 +21,12 @@ buildPythonPackage rec {
     ${python.interpreter} -m unittest
   '';
 
-  pythonImportsCheck = [ "regex" ];
+  pythonImportsCheck = ["regex"];
 
   meta = with lib; {
     description = "Alternative regular expression module, to replace re";
     homepage = "https://bitbucket.org/mrabarnett/mrab-regex";
     license = licenses.psfl;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

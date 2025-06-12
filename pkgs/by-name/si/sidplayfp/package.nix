@@ -14,7 +14,6 @@
   perl,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sidplayfp";
   version = "2.14.1";
@@ -55,14 +54,14 @@ stdenv.mkDerivation (finalAttrs: {
   enableParallelBuilding = true;
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
     description = "SID player using libsidplayfp";
     homepage = "https://github.com/libsidplayfp/sidplayfp";
     changelog = "https://github.com/libsidplayfp/sidplayfp/releases/tag/v${finalAttrs.version}";
-    license = with lib.licenses; [ gpl2Plus ];
+    license = with lib.licenses; [gpl2Plus];
     mainProgram = "sidplayfp";
     maintainers = with lib.maintainers; [
       dezgeg

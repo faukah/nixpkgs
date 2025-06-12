@@ -18,9 +18,9 @@ buildGoModule rec {
     hash = "sha256-wumM5LyEQCL38Lmipz+BCB0dycH0Bj7lvUYwsctUg54=";
   };
 
-  tags = (lib.optional (!withTensorflow) "noguesser");
+  tags = lib.optional (!withTensorflow) "noguesser";
 
-  buildInputs = [ sqlite ] ++ (lib.optional withTensorflow libtensorflow);
+  buildInputs = [sqlite] ++ (lib.optional withTensorflow libtensorflow);
 
   meta = {
     description = "passwordless, anonymous SSH-powered pastebin with a human-friendly TUI and web UI";

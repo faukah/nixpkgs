@@ -9,7 +9,6 @@
   autoreconfHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hhexen";
   version = "1.6.4";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
   enableParallelBuilding = true;
 
-  configureFlags = [ "--with-audio=sdlmixer" ];
+  configureFlags = ["--with-audio=sdlmixer"];
 
   installPhase = ''
     runHook preInstall

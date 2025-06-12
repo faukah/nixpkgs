@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cyclonedds";
   version = "0.10.5";
@@ -20,12 +19,12 @@ stdenv.mkDerivation rec {
     ./0001-Use-full-path-in-pkgconfig.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Eclipse Cyclone DDS project";
     homepage = "https://cyclonedds.io/";
-    license = with licenses; [ epl20 ];
-    maintainers = with maintainers; [ bachp ];
+    license = with licenses; [epl20];
+    maintainers = with maintainers; [bachp];
   };
 }

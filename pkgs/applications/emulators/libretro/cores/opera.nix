@@ -16,7 +16,7 @@ mkLibretroCore {
   };
 
   makefile = "Makefile";
-  makeFlags = [ "CC_PREFIX=${stdenv.cc.targetPrefix}" ];
+  makeFlags = ["CC_PREFIX=${stdenv.cc.targetPrefix}"];
 
   meta = {
     description = "Opera is a port of 4DO/libfreedo to libretro";

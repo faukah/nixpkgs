@@ -1,9 +1,4 @@
-{
-  fetchFromGitHub,
-  ...
-}:
-
-rec {
+{fetchFromGitHub, ...}: rec {
   version = "0.10.5";
   rSrc = fetchFromGitHub {
     owner = "abathur";

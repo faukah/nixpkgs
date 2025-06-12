@@ -3,9 +3,9 @@
   buildGoModule,
   minikube,
 }:
-
 buildGoModule rec {
-  inherit (minikube)
+  inherit
+    (minikube)
     version
     src
     nativeBuildInputs

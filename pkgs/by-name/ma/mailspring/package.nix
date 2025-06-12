@@ -2,8 +2,7 @@
   lib,
   stdenv,
   callPackage,
-}:
-let
+}: let
   pname = "mailspring";
   version = "1.15.1";
 
@@ -17,15 +16,17 @@ let
       Mailspring's sync engine runs locally, but its source is not open.
     '';
     mainProgram = "mailspring";
-    maintainers = with lib.maintainers; [ toschmidt ];
+    maintainers = with lib.maintainers; [toschmidt];
     platforms = [
       "x86_64-linux"
       "aarch64-darwin"
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 
-  linux = callPackage ./linux.nix { inherit pname version meta; };
-  darwin = callPackage ./darwin.nix { inherit pname version meta; };
+  linux = callPackage ./linux.nix {inherit pname version meta;};
+  darwin = callPackage ./darwin.nix {inherit pname version meta;};
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

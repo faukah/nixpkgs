@@ -4,7 +4,6 @@
   fetchFromGitHub,
   enableUnfree ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "p7zip";
   version = "17.06";
@@ -18,7 +17,11 @@ stdenv.mkDerivation (finalAttrs: {
         free = "sha256-NHlacZFal4xMYyFMshibeAw86cS1RXXyXweXKFHQAT8=";
         unfree = "sha256-kSJHgnuUxO9DJwSOE1hffp9PfU39V+VE87I3CpeRGiY=";
       }
-      .${if enableUnfree then "unfree" else "free"};
+      .${
+        if enableUnfree
+        then "unfree"
+        else "free"
+      };
     # remove the unRAR related code from the src drv
     # > the license requires that you agree to these use restrictions,
     # > or you must remove the software (source and binary) from your hard disks
@@ -78,18 +81,17 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://github.com/p7zip-project/p7zip";
     description = "New p7zip fork with additional codecs and improvements (forked from https://sourceforge.net/projects/p7zip/)";
-    license =
-      with licenses;
-      # p7zip code is largely lgpl2Plus
-      # CPP/7zip/Compress/LzfseDecoder.cpp is bsd3
+    license = with licenses;
+    # p7zip code is largely lgpl2Plus
+    # CPP/7zip/Compress/LzfseDecoder.cpp is bsd3
       [
         lgpl2Plus # and
         bsd3
       ]
       ++
-        # and CPP/7zip/Compress/Rar* are unfree with the unRAR license restriction
-        # the unRAR compression code is disabled by default
-        lib.optionals enableUnfree [ unfree ];
+      # and CPP/7zip/Compress/Rar* are unfree with the unRAR license restriction
+      # the unRAR compression code is disabled by default
+      lib.optionals enableUnfree [unfree];
     maintainers = with maintainers; [
       raskin
       jk

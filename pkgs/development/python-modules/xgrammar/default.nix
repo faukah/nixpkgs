@@ -3,13 +3,11 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cmake,
   ninja,
   pybind11,
   scikit-build-core,
-
   # dependencies
   pydantic,
   sentencepiece,
@@ -17,12 +15,10 @@
   torch,
   transformers,
   triton,
-
   # tests
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "xgrammar";
   version = "0.1.14";
@@ -79,7 +75,7 @@ buildPythonPackage rec {
     "test_json_schema_converter"
   ];
 
-  pythonImportsCheck = [ "xgrammar" ];
+  pythonImportsCheck = ["xgrammar"];
 
   meta = {
     description = "Efficient, Flexible and Portable Structured Generation";

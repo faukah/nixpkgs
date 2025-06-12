@@ -8,7 +8,6 @@
   pytestCheckHook,
   freezegun,
 }:
-
 buildPythonPackage rec {
   pname = "taxi";
   version = "6.3.1";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-QB88RpgzrQy7DGeRdMHC2SV5Esp/r5LZtlaY5C8vJxw=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     appdirs
@@ -33,13 +32,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "taxi" ];
+  pythonImportsCheck = ["taxi"];
 
   meta = with lib; {
     homepage = "https://github.com/sephii/taxi/";
     description = "Timesheeting made easy";
     mainProgram = "taxi";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ jocelynthode ];
+    maintainers = with maintainers; [jocelynthode];
   };
 }

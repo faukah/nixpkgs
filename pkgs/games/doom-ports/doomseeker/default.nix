@@ -12,7 +12,6 @@
   bzip2,
   xxd,
 }:
-
 stdenv.mkDerivation {
   pname = "doomseeker";
   version = "2023-08-09";
@@ -58,6 +57,6 @@ stdenv.mkDerivation {
     mainProgram = "doomseeker";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

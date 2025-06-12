@@ -7,7 +7,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "pyacaia-async";
   version = "0.1.2";
@@ -26,12 +25,12 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ bleak ];
+  propagatedBuildInputs = [bleak];
 
   # Module has no tests in PyPI releases
   doCheck = false;
 
-  pythonImportsCheck = [ "pyacaia_async" ];
+  pythonImportsCheck = ["pyacaia_async"];
 
   meta = with lib; {
     description = "Module to interact with Acaia scales";
@@ -40,6 +39,6 @@ buildPythonPackage rec {
       gpl3Only
       mit
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -4,25 +4,24 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   blCfg = config.boot.loader;
   dtCfg = config.hardware.deviceTree;
   cfg = blCfg.generic-extlinux-compatible;
 
-  timeoutStr = if blCfg.timeout == null then "-1" else toString blCfg.timeout;
+  timeoutStr =
+    if blCfg.timeout == null
+    then "-1"
+    else toString blCfg.timeout;
 
   # The builder used to write during system activation
-  builder = import ./extlinux-conf-builder.nix { inherit lib pkgs; };
+  builder = import ./extlinux-conf-builder.nix {inherit lib pkgs;};
   # The builder exposed in populateCmd, which runs on the build architecture
   populateBuilder = import ./extlinux-conf-builder.nix {
     inherit lib;
     pkgs = pkgs.buildPackages;
   };
-in
-{
+in {
   options = {
     boot.loader.generic-extlinux-compatible = {
       enable = mkOption {
@@ -63,17 +62,16 @@ in
       };
 
       mirroredBoots = mkOption {
-        default = [ { path = "/boot"; } ];
+        default = [{path = "/boot";}];
         example = [
-          { path = "/boot1"; }
-          { path = "/boot2"; }
+          {path = "/boot1";}
+          {path = "/boot2";}
         ];
         description = ''
           Mirror the boot configuration to multiple paths.
         '';
 
-        type =
-          with types;
+        type = with types;
           listOf (submodule {
             options = {
               path = mkOption {
@@ -98,26 +96,24 @@ in
           Useful to have for sdImage.populateRootCommands
         '';
       };
-
     };
   };
 
-  config =
-    let
-      builderArgs =
-        "-g ${toString cfg.configurationLimit} -t ${timeoutStr}"
-        + lib.optionalString (dtCfg.name != null) " -n ${dtCfg.name}"
-        + lib.optionalString (!cfg.useGenerationDeviceTree) " -r";
-      installBootLoader = pkgs.writeScript "install-extlinux-conf.sh" (
-        ''
-          #!${pkgs.runtimeShell}
-          set -e
-        ''
-        + flip concatMapStrings cfg.mirroredBoots (args: ''
-          ${builder} ${builderArgs} -d '${args.path}' -c "$@"
-        '')
-      );
-    in
+  config = let
+    builderArgs =
+      "-g ${toString cfg.configurationLimit} -t ${timeoutStr}"
+      + lib.optionalString (dtCfg.name != null) " -n ${dtCfg.name}"
+      + lib.optionalString (!cfg.useGenerationDeviceTree) " -r";
+    installBootLoader = pkgs.writeScript "install-extlinux-conf.sh" (
+      ''
+        #!${pkgs.runtimeShell}
+        set -e
+      ''
+      + flip concatMapStrings cfg.mirroredBoots (args: ''
+        ${builder} ${builderArgs} -d '${args.path}' -c "$@"
+      '')
+    );
+  in
     mkIf cfg.enable {
       system.build.installBootLoader = installBootLoader;
       system.boot.loader.id = "generic-extlinux-compatible";
@@ -126,7 +122,7 @@ in
 
       assertions = [
         {
-          assertion = cfg.mirroredBoots != [ ];
+          assertion = cfg.mirroredBoots != [];
           message = ''
             You must not remove all elements from option 'boot.loader.generic-extlinux-compatible.mirroredBoots',
             otherwise the system will not be bootable.

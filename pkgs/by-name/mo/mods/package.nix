@@ -7,7 +7,6 @@
   testers,
   mods,
 }:
-
 buildGoModule rec {
   pname = "mods";
   version = "1.7.0";
@@ -32,7 +31,7 @@ buildGoModule rec {
   ];
 
   # These tests require internet access.
-  checkFlags = [ "-skip=^TestLoad/http_url$|^TestLoad/https_url$" ];
+  checkFlags = ["-skip=^TestLoad/http_url$|^TestLoad/https_url$"];
 
   passthru = {
     updateScript = gitUpdater {

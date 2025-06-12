@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
@@ -36,6 +36,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/amiremohamadi/DuckX";
     changelog = "https://github.com/amiremohamadi/DuckX/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ titaniumtown ];
+    maintainers = with lib.maintainers; [titaniumtown];
   };
 })

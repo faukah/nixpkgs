@@ -5,7 +5,6 @@
   fetchFromGitHub,
   flit-core,
 }:
-
 buildPythonPackage {
   pname = "pylibjpeg-data";
   version = "unstable-2024-03-28";
@@ -20,7 +19,7 @@ buildPythonPackage {
     hash = "sha256-TzhiZ4LCFZX75h3YRrEFO5kRVc5VwTOJd+1VFW3LsaQ=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   doCheck = false; # no tests
 
@@ -34,6 +33,6 @@ buildPythonPackage {
     description = "JPEG and DICOM data used for testing pylibjpeg";
     homepage = "https://github.com/pydicom/pylibjpeg-data";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.bcdarwin ];
+    maintainers = [lib.maintainers.bcdarwin];
   };
 }

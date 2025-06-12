@@ -14,7 +14,6 @@
   mysqlclient,
   zc-lockfile,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-services";
   version = "2.2.1";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     toml
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     requests
@@ -57,7 +56,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pytest_services" ];
+  pythonImportsCheck = ["pytest_services"];
 
   disabledTests = [
     # Tests require binaries and additional parts
@@ -74,6 +73,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pytest-dev/pytest-services";
     changelog = "https://github.com/pytest-dev/pytest-services/blob/${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

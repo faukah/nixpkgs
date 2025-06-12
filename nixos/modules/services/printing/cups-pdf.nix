@@ -3,16 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   # cups calls its backends as user `lp` (which is good!),
   # but cups-pdf wants to be called as `root`, so it can change ownership of files.
   # We add a suid wrapper and a wrapper script to trick cups into calling the suid wrapper.
   # Note that a symlink to the suid wrapper alone wouldn't suffice, cups would complain
   # > File "/nix/store/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-cups-progs/lib/cups/backend/cups-pdf" has insecure permissions (0104554/uid=0/gid=20)
-
   # wrapper script that redirects calls to the suid wrapper
   cups-pdf-wrapper = pkgs.writeTextFile {
     name = "${pkgs.cups-pdf-to-pdf.name}-wrapper.sh";
@@ -40,8 +36,7 @@ let
   };
 
   instanceSettings = name: {
-    freeformType =
-      with lib.types;
+    freeformType = with lib.types;
       nullOr (oneOf [
         int
         str
@@ -93,50 +88,54 @@ let
     };
   };
 
-  instanceConfig =
-    { name, config, ... }:
-    {
-      options = {
-        enable = (lib.mkEnableOption "this cups-pdf instance") // {
+  instanceConfig = {
+    name,
+    config,
+    ...
+  }: {
+    options = {
+      enable =
+        (lib.mkEnableOption "this cups-pdf instance")
+        // {
           default = true;
         };
-        installPrinter =
-          (lib.mkEnableOption ''
-            a CUPS printer queue for this instance.
-            The queue will be named after the instance and will use the {file}`CUPS-PDF_opt.ppd` ppd file.
-            If this is disabled, you need to add the queue yourself to use the instance
-          '')
-          // {
-            default = true;
-          };
-        confFileText = lib.mkOption {
-          type = lib.types.lines;
-          description = ''
-            This will contain the contents of {file}`cups-pdf.conf` for this instance, derived from {option}`settings`.
-            You can use this option to append text to the file.
-          '';
+      installPrinter =
+        (lib.mkEnableOption ''
+          a CUPS printer queue for this instance.
+          The queue will be named after the instance and will use the {file}`CUPS-PDF_opt.ppd` ppd file.
+          If this is disabled, you need to add the queue yourself to use the instance
+        '')
+        // {
+          default = true;
         };
-        settings = lib.mkOption {
-          type = lib.types.submodule (instanceSettings name);
-          default = { };
-          example = {
-            Out = "\${HOME}/cups-pdf";
-            UserUMask = "0033";
-          };
-          description = ''
-            Settings for a cups-pdf instance, see the descriptions in the template config file in the cups-pdf package.
-            The key value pairs declared here will be translated into proper key value pairs for {file}`cups-pdf.conf`.
-            Setting a value to `null` disables the option and removes it from the file.
-          '';
-        };
+      confFileText = lib.mkOption {
+        type = lib.types.lines;
+        description = ''
+          This will contain the contents of {file}`cups-pdf.conf` for this instance, derived from {option}`settings`.
+          You can use this option to append text to the file.
+        '';
       };
-      config.confFileText = lib.pipe config.settings [
-        (lib.filterAttrs (key: value: value != null))
-        (lib.mapAttrs (key: builtins.toString))
-        (lib.mapAttrsToList (key: value: "${key} ${value}\n"))
-        lib.concatStrings
-      ];
+      settings = lib.mkOption {
+        type = lib.types.submodule (instanceSettings name);
+        default = {};
+        example = {
+          Out = "\${HOME}/cups-pdf";
+          UserUMask = "0033";
+        };
+        description = ''
+          Settings for a cups-pdf instance, see the descriptions in the template config file in the cups-pdf package.
+          The key value pairs declared here will be translated into proper key value pairs for {file}`cups-pdf.conf`.
+          Setting a value to `null` disables the option and removes it from the file.
+        '';
+      };
     };
+    config.confFileText = lib.pipe config.settings [
+      (lib.filterAttrs (key: value: value != null))
+      (lib.mapAttrs (key: builtins.toString))
+      (lib.mapAttrsToList (key: value: "${key} ${value}\n"))
+      lib.concatStrings
+    ];
+  };
 
   cupsPdfCfg = config.services.printing.cups-pdf;
 
@@ -145,8 +144,7 @@ let
     (lib.mapAttrs (name: lib.getAttr "confFileText"))
     (lib.mapAttrs (name: pkgs.writeText "cups-pdf-${name}.conf"))
     (lib.mapAttrsToList (
-      name: confFile:
-      "ln --symbolic --no-target-directory ${confFile} /var/lib/cups/cups-pdf-${name}.conf\n"
+      name: confFile: "ln --symbolic --no-target-directory ${confFile} /var/lib/cups/cups-pdf-${name}.conf\n"
     ))
     lib.concatStrings
   ];
@@ -155,8 +153,7 @@ let
     (lib.filterAttrs (name: lib.getAttr "enable"))
     (lib.filterAttrs (name: lib.getAttr "installPrinter"))
     (lib.mapAttrsToList (
-      name: instance:
-      (lib.mapAttrs (key: lib.mkDefault) {
+      name: instance: (lib.mapAttrs (key: lib.mkDefault) {
         inherit name;
         model = "CUPS-PDF_opt.ppd";
         deviceUri = "cups-pdf:/${name}";
@@ -165,11 +162,7 @@ let
       })
     ))
   ];
-
-in
-
-{
-
+in {
   options.services.printing.cups-pdf = {
     enable = lib.mkEnableOption ''
       the cups-pdf virtual pdf printer backend.
@@ -178,7 +171,7 @@ in
     '';
     instances = lib.mkOption {
       type = lib.types.attrsOf (lib.types.submodule instanceConfig);
-      default.pdf = { };
+      default.pdf = {};
       example.pdf.settings = {
         Out = "\${HOME}/cups-pdf";
         UserUMask = "0033";
@@ -192,7 +185,7 @@ in
 
   config = lib.mkIf cupsPdfCfg.enable {
     services.printing.enable = true;
-    services.printing.drivers = [ cups-pdf-wrapped ];
+    services.printing.drivers = [cups-pdf-wrapped];
     hardware.printers.ensurePrinters = printerSettings;
     # the cups module will install the default config file,
     # but we don't need it and it would confuse cups-pdf
@@ -209,6 +202,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.yarny ];
-
+  meta.maintainers = [lib.maintainers.yarny];
 }

@@ -3,7 +3,6 @@
   buildFishPlugin,
   fetchFromGitHub,
 }:
-
 buildFishPlugin {
   pname = "hydro";
   version = "0-unstable-2024-11-02";
@@ -19,6 +18,6 @@ buildFishPlugin {
     description = "Ultra-pure, lag-free prompt with async Git status";
     homepage = "https://github.com/jorgebucaran/hydro";
     license = licenses.mit;
-    maintainers = with maintainers; [ pyrox0 ];
+    maintainers = with maintainers; [pyrox0];
   };
 }

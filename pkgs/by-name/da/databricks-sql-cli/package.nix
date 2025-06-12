@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "databricks-sql-cli";
   version = "0.3.3";
@@ -48,6 +47,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/databricks/databricks-sql-cli";
     changelog = "https://github.com/databricks/databricks-sql-cli/releases/tag/v${version}";
     license = lib.licenses.databricks;
-    maintainers = with lib.maintainers; [ kfollesdal ];
+    maintainers = with lib.maintainers; [kfollesdal];
   };
 }

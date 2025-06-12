@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "heliocron";
   version = "1.0.0";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ TheColorman ];
+    maintainers = with lib.maintainers; [TheColorman];
     mainProgram = "heliocron";
     platforms = lib.platforms.linux;
   };

@@ -3,26 +3,19 @@
   lib,
   makeWrapper,
   writeText,
-}:
+}: helm: let
+  wrapper = {
+    plugins ? [],
+    extraMakeWrapperArgs ? "",
+  }: let
+    initialMakeWrapperArgs = [
+    ];
 
-helm:
-
-let
-  wrapper =
-    {
-      plugins ? [ ],
-      extraMakeWrapperArgs ? "",
-    }:
-    let
-
-      initialMakeWrapperArgs = [
-      ];
-
-      pluginsDir = symlinkJoin {
-        name = "helm-plugins";
-        paths = plugins;
-      };
-    in
+    pluginsDir = symlinkJoin {
+      name = "helm-plugins";
+      paths = plugins;
+    };
+  in
     symlinkJoin {
       name = "helm-${lib.getVersion helm}";
 
@@ -39,18 +32,20 @@ let
 
       preferLocalBuild = true;
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
       passthru = {
         inherit pluginsDir;
         unwrapped = helm;
       };
 
-      meta = helm.meta // {
-        # To prevent builds on hydra
-        hydraPlatforms = [ ];
-        # prefer wrapper over the package
-        priority = (helm.meta.priority or lib.meta.defaultPriority) - 1;
-      };
+      meta =
+        helm.meta
+        // {
+          # To prevent builds on hydra
+          hydraPlatforms = [];
+          # prefer wrapper over the package
+          priority = (helm.meta.priority or lib.meta.defaultPriority) - 1;
+        };
     };
 in
-lib.makeOverridable wrapper
+  lib.makeOverridable wrapper

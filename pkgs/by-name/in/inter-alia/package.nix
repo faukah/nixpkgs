@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "inter-alia";
   version = "0-unstable-2024-01-12";
@@ -49,6 +48,6 @@ stdenvNoCC.mkDerivation {
     '';
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ toastal ];
+    maintainers = with lib.maintainers; [toastal];
   };
 }

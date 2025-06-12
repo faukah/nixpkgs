@@ -11,7 +11,6 @@
   pkg-config,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zsnes2";
   version = "2.0.12";
@@ -60,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/xyproto/zsnes";
     description = "Maintained fork of zsnes";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.intersectLists lib.platforms.linux lib.platforms.x86;
   };
 })

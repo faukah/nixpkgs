@@ -4,16 +4,13 @@
   lib,
   pythonAtLeast,
   pythonOlder,
-
   # runtime
   six,
-
   # tests
   freezegun,
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "lomond";
   version = "0.3.3";
@@ -31,7 +28,7 @@ buildPythonPackage rec {
       --replace "'pytest-runner'" ""
   '';
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     freezegun
@@ -59,6 +56,6 @@ buildPythonPackage rec {
     description = "Websocket Client Library";
     homepage = "https://github.com/wildfoundry/dataplicity-lomond";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
   };
 }

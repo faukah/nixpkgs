@@ -5,7 +5,6 @@
   cmake,
   catch2_3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jarowinkler-cpp";
   version = "1.0.2";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/maxbachmann/jarowinkler-cpp";
     changelog = "https://github.com/maxbachmann/jarowinkler-cpp/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     platforms = lib.platforms.unix;
   };
 }

@@ -5,7 +5,6 @@
   pythonOlder,
   poetry-core,
 }:
-
 buildPythonPackage rec {
   pname = "ttp-templates";
   version = "0.3.7";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-Pntm/wUv/K0ci8U/+nBUVszuX8KT95gyp+i2N6NshKo=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   postPatch = ''
     # Drop circular dependency on ttp
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dmulyalin/ttp_templates";
     changelog = "https://github.com/dmulyalin/ttp_templates/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

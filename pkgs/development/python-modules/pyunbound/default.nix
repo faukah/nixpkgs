@@ -11,7 +11,6 @@
   python,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "pyunbound";
   inherit (unbound) version src;
@@ -86,7 +85,7 @@ buildPythonPackage rec {
     description = "Python library for Unbound, the validating, recursive, and caching DNS resolver";
     license = licenses.bsd3;
     homepage = "https://www.unbound.net";
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.unix;
   };
 }

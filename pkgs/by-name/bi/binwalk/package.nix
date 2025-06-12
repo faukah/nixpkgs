@@ -36,7 +36,6 @@
   p7zip,
   makeBinaryWrapper,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "binwalk";
   version = "3.1.0";
@@ -95,7 +94,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       "--skip=extractors::common::Chroot::make_executable"
     ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgramArg = "-V";
 
@@ -121,7 +120,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
           unyaffs
           zstd
         ]
-        ++ lib.optionals enableUnfree [ unrar ]
+        ++ lib.optionals enableUnfree [unrar]
       )
     }
   '';

@@ -4,7 +4,6 @@
   fetchurl,
   librsb,
 }:
-
 buildOctavePackage rec {
   pname = "sparsersb";
   version = "1.0.9";
@@ -21,7 +20,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/sparsersb/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Interface to the librsb package implementing the RSB sparse matrix format for fast shared-memory sparse matrix computations";
     # Broken since octave>8.x
     broken = true;

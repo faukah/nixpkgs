@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ropper";
   version = "1.13.10";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-yuHJ+EpglumEAXEu0iJKIXK1ouW1yptNahM9Wmk7AW4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     capstone
     filebytes
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ropper" ];
+  pythonImportsCheck = ["ropper"];
 
   meta = with lib; {
     description = "Show information about files in different file formats";
     mainProgram = "ropper";
     homepage = "https://scoding.de/ropper/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bennofs ];
+    maintainers = with maintainers; [bennofs];
   };
 }

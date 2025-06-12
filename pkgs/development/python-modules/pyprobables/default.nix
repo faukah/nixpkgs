@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyprobables";
   version = "0.6.1";
@@ -21,17 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-yJUYGfy+d+Xfk1DUDvBeWk0EcNPuW4DcUHx3G3jzEdc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "probables" ];
+  pythonImportsCheck = ["probables"];
 
   meta = with lib; {
     description = "Probabilistic data structures";
     homepage = "https://github.com/barrust/pyprobables";
     changelog = "https://github.com/barrust/pyprobables/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

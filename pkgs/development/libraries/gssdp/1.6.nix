@@ -16,7 +16,6 @@
   gnome,
   gssdp-tools,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gssdp";
   version = "1.6.3";
@@ -36,15 +35,17 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gobject-introspection
-    vala
-    gi-docgen
-    python3
-  ] ++ lib.optionals enableManpages [ buildPackages.pandoc ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      gobject-introspection
+      vala
+      gi-docgen
+      python3
+    ]
+    ++ lib.optionals enableManpages [buildPackages.pandoc];
 
   buildInputs = [
     libsoup_3
@@ -87,7 +88,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "GObject-based API for handling resource discovery and announcement over SSDP";
     homepage = "http://www.gupnp.org/";
     license = licenses.lgpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.all;
   };
 })

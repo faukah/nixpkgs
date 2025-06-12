@@ -1,13 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
-
-with import ../lib/testing-python.nix { inherit system pkgs; };
-with pkgs.lib;
-
-let
+with import ../lib/testing-python.nix {inherit system pkgs;};
+with pkgs.lib; let
   baseline = {
     virtualisation.useBootLoader = true;
   };
@@ -21,7 +18,7 @@ let
     virtualisation.useEFIBoot = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.grub.efiSupport = true;
-    environment.systemPackages = [ pkgs.efibootmgr ];
+    environment.systemPackages = [pkgs.efibootmgr];
   };
   standard = {
     boot.bootspec.enable = true;
@@ -32,11 +29,10 @@ let
       uefi
     ];
   };
-in
-{
+in {
   basic = makeTest {
     name = "systemd-boot-with-bootspec";
-    meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
+    meta.maintainers = with pkgs.lib.maintainers; [raitobezarius];
 
     nodes.machine = standard;
 
@@ -50,7 +46,7 @@ in
 
   grub = makeTest {
     name = "grub-with-bootspec";
-    meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
+    meta.maintainers = with pkgs.lib.maintainers; [raitobezarius];
 
     nodes.machine = {
       boot.bootspec.enable = true;
@@ -72,7 +68,7 @@ in
 
   legacy-boot = makeTest {
     name = "legacy-boot-with-bootspec";
-    meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
+    meta.maintainers = with pkgs.lib.maintainers; [raitobezarius];
 
     nodes.machine = {
       boot.bootspec.enable = true;
@@ -94,11 +90,11 @@ in
   # Check that initrd create corresponding entries in bootspec.
   initrd = makeTest {
     name = "bootspec-with-initrd";
-    meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
+    meta.maintainers = with pkgs.lib.maintainers; [raitobezarius];
 
     nodes.machine = {
-      imports = [ standard ];
-      environment.systemPackages = [ pkgs.jq ];
+      imports = [standard];
+      environment.systemPackages = [pkgs.jq];
       # It's probably the case, but we want to make it explicit here.
       boot.initrd.enable = true;
     };
@@ -121,11 +117,11 @@ in
   # Check that initrd secrets create corresponding entries in bootspec.
   initrd-secrets = makeTest {
     name = "bootspec-with-initrd-secrets";
-    meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
+    meta.maintainers = with pkgs.lib.maintainers; [raitobezarius];
 
     nodes.machine = {
-      imports = [ standard ];
-      environment.systemPackages = [ pkgs.jq ];
+      imports = [standard];
+      environment.systemPackages = [pkgs.jq];
       # It's probably the case, but we want to make it explicit here.
       boot.initrd.enable = true;
       boot.initrd.secrets."/some/example" = pkgs.writeText "example-secret" "test";
@@ -148,12 +144,12 @@ in
   # Check that specialisations create corresponding entries in bootspec.
   specialisation = makeTest {
     name = "bootspec-with-specialisation";
-    meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
+    meta.maintainers = with pkgs.lib.maintainers; [raitobezarius];
 
     nodes.machine = {
-      imports = [ standard ];
-      environment.systemPackages = [ pkgs.jq ];
-      specialisation.something.configuration = { };
+      imports = [standard];
+      environment.systemPackages = [pkgs.jq];
+      specialisation.something.configuration = {};
     };
 
     testScript = ''
@@ -175,19 +171,17 @@ in
   # Check that extensions are propagated.
   extensions = makeTest {
     name = "bootspec-with-extensions";
-    meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
+    meta.maintainers = with pkgs.lib.maintainers; [raitobezarius];
 
-    nodes.machine =
-      { config, ... }:
-      {
-        imports = [ standard ];
-        environment.systemPackages = [ pkgs.jq ];
-        boot.bootspec.extensions = {
-          "org.nix-tests.product" = {
-            osRelease = config.environment.etc."os-release".source;
-          };
+    nodes.machine = {config, ...}: {
+      imports = [standard];
+      environment.systemPackages = [pkgs.jq];
+      boot.bootspec.extensions = {
+        "org.nix-tests.product" = {
+          osRelease = config.environment.etc."os-release".source;
         };
       };
+    };
 
     testScript = ''
       machine.start()
@@ -199,5 +193,4 @@ in
       assert current_os_release == bootspec_os_release, "Filename referenced by extension has unexpected contents"
     '';
   };
-
 }

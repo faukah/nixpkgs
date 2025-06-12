@@ -4,7 +4,6 @@
   fetchPypi,
   jupyter-packaging,
 }:
-
 buildPythonPackage rec {
   pname = "jupyterlab-widgets";
   version = "3.0.13";
@@ -22,17 +21,17 @@ buildPythonPackage rec {
       --replace '"jupyterlab~=4.0"' ""
   '';
 
-  nativeBuildInputs = [ jupyter-packaging ];
+  nativeBuildInputs = [jupyter-packaging];
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "jupyterlab_widgets" ];
+  pythonImportsCheck = ["jupyterlab_widgets"];
 
   meta = with lib; {
     description = "Jupyter Widgets JupyterLab Extension";
     homepage = "https://github.com/jupyter-widgets/ipywidgets";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -3,11 +3,10 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ktop";
   version = "0.3.7";
-  excludedPackages = [ ".ci" ];
+  excludedPackages = [".ci"];
 
   src = fetchFromGitHub {
     owner = "vladimirvivien";
@@ -37,6 +36,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/vladimirvivien/ktop/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ qjoly ];
+    maintainers = with maintainers; [qjoly];
   };
 }

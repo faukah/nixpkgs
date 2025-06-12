@@ -14,102 +14,108 @@
 }:
 assert petsc.mpiSupport;
 assert pythonSupport -> petsc.pythonSupport;
-stdenv.mkDerivation (finalAttrs: {
-  pname = "slepc";
-  version = "3.23.1";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "slepc";
+    version = "3.23.1";
 
-  src = fetchFromGitLab {
-    owner = "slepc";
-    repo = "slepc";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-K38/QH4AG8/SksrRLc+jIs1WO8FKFFTNkuHFbBER/tg=";
-  };
+    src = fetchFromGitLab {
+      owner = "slepc";
+      repo = "slepc";
+      tag = "v${finalAttrs.version}";
+      hash = "sha256-K38/QH4AG8/SksrRLc+jIs1WO8FKFFTNkuHFbBER/tg=";
+    };
 
-  postPatch = ''
-    # Fix slepc4py install prefix
-    substituteInPlace config/packages/slepc4py.py \
-      --replace-fail "slepc.prefixdir,'lib'" \
-      "slepc.prefixdir,'${python3.sitePackages}'"
+    postPatch = ''
+      # Fix slepc4py install prefix
+      substituteInPlace config/packages/slepc4py.py \
+        --replace-fail "slepc.prefixdir,'lib'" \
+        "slepc.prefixdir,'${python3.sitePackages}'"
 
-    patchShebangs lib/slepc/bin
-  '';
+      patchShebangs lib/slepc/bin
+    '';
 
-  # Usually this project is being built as part of a `petsc` build or as part of
-  # other projects, e.g when `petsc` is `./configure`d with
-  # `--download-slepc=1`. This instructs the slepc to be built as a standalone
-  # project.
-  preConfigure = ''
-    export SLEPC_DIR=$PWD
-  '';
+    # Usually this project is being built as part of a `petsc` build or as part of
+    # other projects, e.g when `petsc` is `./configure`d with
+    # `--download-slepc=1`. This instructs the slepc to be built as a standalone
+    # project.
+    preConfigure = ''
+      export SLEPC_DIR=$PWD
+    '';
 
-  nativeBuildInputs =
-    [
-      python3
-    ]
-    ++ lib.optionals pythonSupport [
-      python3Packages.setuptools
-      python3Packages.cython
+    nativeBuildInputs =
+      [
+        python3
+      ]
+      ++ lib.optionals pythonSupport [
+        python3Packages.setuptools
+        python3Packages.cython
+      ];
+
+    configureFlags =
+      lib.optionals withArpack [
+        "--with-arpack=1"
+      ]
+      ++ lib.optionals pythonSupport [
+        "--with-slepc4py=1"
+      ];
+
+    buildInputs =
+      [
+        mpi
+      ]
+      ++ lib.optionals withArpack [
+        arpack-mpi
+      ];
+
+    propagatedBuildInputs = [
+      petsc
     ];
 
-  configureFlags =
-    lib.optionals withArpack [
-      "--with-arpack=1"
-    ]
-    ++ lib.optionals pythonSupport [
-      "--with-slepc4py=1"
+    enableParallelBuilding = true;
+
+    installTargets = [
+      (
+        if withExamples
+        then "install"
+        else "install-lib"
+      )
     ];
 
-  buildInputs =
-    [
-      mpi
-    ]
-    ++ lib.optionals withArpack [
-      arpack-mpi
+    __darwinAllowLocalNetworking = true;
+
+    nativeInstallCheckInputs =
+      [
+        mpiCheckPhaseHook
+      ]
+      ++ lib.optionals pythonSupport [
+        python3Packages.pythonImportsCheckHook
+        python3Packages.unittestCheckHook
+      ];
+
+    doInstallCheck = true;
+
+    installCheckTarget = ["check_install"];
+
+    unittestFlagsArray = [
+      "-s"
+      "src/binding/slepc4py/test"
+      "-v"
     ];
 
-  propagatedBuildInputs = [
-    petsc
-  ];
+    pythonImportsCheck = ["slepc4py"];
 
-  enableParallelBuilding = true;
+    shellHook = ./setup-hook.sh;
 
-  installTargets = [ (if withExamples then "install" else "install-lib") ];
-
-  __darwinAllowLocalNetworking = true;
-
-  nativeInstallCheckInputs =
-    [
-      mpiCheckPhaseHook
-    ]
-    ++ lib.optionals pythonSupport [
-      python3Packages.pythonImportsCheckHook
-      python3Packages.unittestCheckHook
-    ];
-
-  doInstallCheck = true;
-
-  installCheckTarget = [ "check_install" ];
-
-  unittestFlagsArray = [
-    "-s"
-    "src/binding/slepc4py/test"
-    "-v"
-  ];
-
-  pythonImportsCheck = [ "slepc4py" ];
-
-  shellHook = ./setup-hook.sh;
-
-  meta = {
-    description = "Scalable Library for Eigenvalue Problem Computations";
-    homepage = "https://slepc.upv.es";
-    changelog = "https://gitlab.com/slepc/slepc/blob/${finalAttrs.src.tag}/CHANGELOG.md";
-    license = with lib.licenses; [
-      bsd2
-    ];
-    platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ qbisi ];
-    # Possible error running Fortran src/eps/tests/test7f with 1 MPI process
-    broken = stdenv.hostPlatform.isDarwin && withArpack;
-  };
-})
+    meta = {
+      description = "Scalable Library for Eigenvalue Problem Computations";
+      homepage = "https://slepc.upv.es";
+      changelog = "https://gitlab.com/slepc/slepc/blob/${finalAttrs.src.tag}/CHANGELOG.md";
+      license = with lib.licenses; [
+        bsd2
+      ];
+      platforms = lib.platforms.unix;
+      maintainers = with lib.maintainers; [qbisi];
+      # Possible error running Fortran src/eps/tests/test7f with 1 MPI process
+      broken = stdenv.hostPlatform.isDarwin && withArpack;
+    };
+  })

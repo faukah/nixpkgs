@@ -11,7 +11,6 @@
   srtp,
   usrsctp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdatachannel";
   version = "0.22.6";
@@ -59,8 +58,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "C/C++ WebRTC network library featuring Data Channels, Media Transport, and WebSockets";
     homepage = "https://libdatachannel.org/";
-    license = with licenses; [ mpl20 ];
-    maintainers = with maintainers; [ erdnaxe ];
+    license = with licenses; [mpl20];
+    maintainers = with maintainers; [erdnaxe];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

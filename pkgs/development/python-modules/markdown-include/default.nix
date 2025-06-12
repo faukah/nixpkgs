@@ -5,7 +5,6 @@
   markdown,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "markdown-include";
   version = "0.8.1";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-1MEk0U00a5cpVhqnDZkwBIk4NYgsRXTVsI/ANNQ/OH0=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ markdown ];
+  propagatedBuildInputs = [markdown];
 
-  pythonImportsCheck = [ "markdown_include" ];
+  pythonImportsCheck = ["markdown_include"];
 
   doCheck = false; # no tests
 
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "Extension to Python-Markdown which provides an include function";
     homepage = "https://github.com/cmacmackin/markdown-include";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

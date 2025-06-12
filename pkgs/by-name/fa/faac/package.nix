@@ -7,14 +7,13 @@
   mp4v2,
   drmSupport ? false, # Digital Radio Mondiale
 }:
-
 stdenv.mkDerivation rec {
   pname = "faac";
   version = "1.30";
 
   src = fetchurl {
     url = "mirror://sourceforge/faac/${pname}-${
-      builtins.replaceStrings [ "." ] [ "_" ] version
+      builtins.replaceStrings ["."] ["_"] version
     }.tar.gz";
     sha256 = "1lmj0dib3mjp84jhxc5ddvydkzzhb0gfrdh3ikcidjlcb378ghxd";
   };
@@ -23,9 +22,9 @@ stdenv.mkDerivation rec {
     lib.optional mp4v2Support "--with-external-mp4v2"
     ++ lib.optional drmSupport "--enable-drm";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = lib.optional mp4v2Support mp4v2;
 
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Open source MPEG-4 and MPEG-2 AAC encoder";
     homepage = "https://github.com/knik0/faac";
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
     platforms = platforms.all;
   };
 }

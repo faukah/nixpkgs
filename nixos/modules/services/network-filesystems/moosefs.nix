@@ -3,54 +3,53 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.moosefs;
 
-  mfsUser = if cfg.runAsUser then "moosefs" else "root";
+  mfsUser =
+    if cfg.runAsUser
+    then "moosefs"
+    else "root";
 
-  settingsFormat =
-    let
-      listSep = " ";
-      allowedTypes = with lib.types; [
-        bool
-        int
-        float
-        str
-      ];
-      valueToString =
-        val:
-        if lib.isList val then
-          lib.concatStringsSep listSep (map (x: valueToString x) val)
-        else if lib.isBool val then
-          (if val then "1" else "0")
-        else
-          toString val;
-
+  settingsFormat = let
+    listSep = " ";
+    allowedTypes = with lib.types; [
+      bool
+      int
+      float
+      str
+    ];
+    valueToString = val:
+      if lib.isList val
+      then lib.concatStringsSep listSep (map (x: valueToString x) val)
+      else if lib.isBool val
+      then
+        (
+          if val
+          then "1"
+          else "0"
+        )
+      else toString val;
+  in {
+    type = with lib.types; let
+      valueType =
+        oneOf (
+          [
+            (listOf valueType)
+          ]
+          ++ allowedTypes
+        )
+        // {
+          description = "Flat key-value file";
+        };
     in
-    {
-      type =
-        with lib.types;
-        let
-          valueType =
-            oneOf (
-              [
-                (listOf valueType)
-              ]
-              ++ allowedTypes
-            )
-            // {
-              description = "Flat key-value file";
-            };
-        in
-        attrsOf valueType;
+      attrsOf valueType;
 
-      generate =
-        name: value:
-        pkgs.writeText name (
-          lib.concatStringsSep "\n" (lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value)
-        );
-    };
+    generate = name: value:
+      pkgs.writeText name (
+        lib.concatStringsSep "\n" (lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value)
+      );
+  };
 
   # Manual initialization tool
   initTool = pkgs.writeShellScriptBin "mfsmaster-init" ''
@@ -68,24 +67,24 @@ let
   chunkserverCfg = settingsFormat.generate "mfschunkserver.cfg" cfg.chunkserver.settings;
 
   systemdService = name: extraConfig: configFile: {
-    wantedBy = [ "multi-user.target" ];
-    wants = [ "network-online.target" ];
+    wantedBy = ["multi-user.target"];
+    wants = ["network-online.target"];
     after = [
       "network.target"
       "network-online.target"
     ];
 
-    serviceConfig = {
-      Type = "forking";
-      ExecStart = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} start";
-      ExecStop = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} stop";
-      ExecReload = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} reload";
-      PIDFile = "${cfg."${name}".settings.DATA_PATH}/.mfs${name}.lock";
-    } // extraConfig;
+    serviceConfig =
+      {
+        Type = "forking";
+        ExecStart = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} start";
+        ExecStop = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} stop";
+        ExecReload = "${pkgs.moosefs}/bin/mfs${name} -c ${configFile} reload";
+        PIDFile = "${cfg."${name}".settings.DATA_PATH}/.mfs${name}.lock";
+      }
+      // extraConfig;
   };
-
-in
-{
+in {
   ###### interface
   options = {
     services.moosefs = {
@@ -230,7 +229,7 @@ in
               };
             };
           };
-          default = { };
+          default = {};
           description = "CGI server configuration options.";
         };
       };
@@ -240,137 +239,142 @@ in
   ###### implementation
   config =
     lib.mkIf
-      (
-        cfg.client.enable
-        || cfg.master.enable
-        || cfg.metalogger.enable
-        || cfg.chunkserver.enable
-        || cfg.cgiserver.enable
-      )
-      {
-        warnings = [ (lib.mkIf (!cfg.runAsUser) "Running MooseFS services as root is not recommended.") ];
+    (
+      cfg.client.enable
+      || cfg.master.enable
+      || cfg.metalogger.enable
+      || cfg.chunkserver.enable
+      || cfg.cgiserver.enable
+    )
+    {
+      warnings = [(lib.mkIf (!cfg.runAsUser) "Running MooseFS services as root is not recommended.")];
 
-        services.moosefs = {
-          master.settings = lib.mkIf cfg.master.enable (
-            lib.mkMerge [
-              {
-                WORKING_USER = mfsUser;
-                EXPORTS_FILENAME = toString (
-                  pkgs.writeText "mfsexports.cfg" (lib.concatStringsSep "\n" cfg.master.exports)
-                );
-              }
-              (lib.mkIf cfg.cgiserver.enable {
-                MFSCGISERV = toString cfg.cgiserver.settings.PORT;
-              })
-            ]
-          );
+      services.moosefs = {
+        master.settings = lib.mkIf cfg.master.enable (
+          lib.mkMerge [
+            {
+              WORKING_USER = mfsUser;
+              EXPORTS_FILENAME = toString (
+                pkgs.writeText "mfsexports.cfg" (lib.concatStringsSep "\n" cfg.master.exports)
+              );
+            }
+            (lib.mkIf cfg.cgiserver.enable {
+              MFSCGISERV = toString cfg.cgiserver.settings.PORT;
+            })
+          ]
+        );
 
-          metalogger.settings = lib.mkIf cfg.metalogger.enable {
-            WORKING_USER = mfsUser;
-            MASTER_HOST = cfg.masterHost;
-          };
-
-          chunkserver.settings = lib.mkIf cfg.chunkserver.enable {
-            WORKING_USER = mfsUser;
-            MASTER_HOST = cfg.masterHost;
-            HDD_CONF_FILENAME = toString (
-              pkgs.writeText "mfshdd.cfg" (lib.concatStringsSep "\n" cfg.chunkserver.hdds)
-            );
-          };
+        metalogger.settings = lib.mkIf cfg.metalogger.enable {
+          WORKING_USER = mfsUser;
+          MASTER_HOST = cfg.masterHost;
         };
 
-        users =
-          lib.mkIf
-            (
-              cfg.runAsUser
-              && (cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable || cfg.cgiserver.enable)
-            )
-            {
-              users.moosefs = {
-                isSystemUser = true;
-                description = "MooseFS daemon user";
-                group = "moosefs";
-              };
-              groups.moosefs = { };
-            };
-
-        environment.systemPackages =
-          (lib.optional cfg.client.enable pkgs.moosefs) ++ (lib.optional cfg.master.enable initTool);
-
-        networking.firewall.allowedTCPPorts = lib.mkMerge [
-          (lib.optionals cfg.master.openFirewall [
-            9419
-            9420
-            9421
-          ])
-          (lib.optional cfg.chunkserver.openFirewall 9422)
-          (lib.optional (cfg.cgiserver.enable && cfg.cgiserver.openFirewall) cfg.cgiserver.settings.PORT)
-        ];
-
-        systemd.tmpfiles.rules =
-          [
-            # Master directories
-            (lib.optionalString cfg.master.enable "d ${cfg.master.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser} -")
-
-            # Metalogger directories
-            (lib.optionalString cfg.metalogger.enable "d ${cfg.metalogger.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser} -")
-
-            # Chunkserver directories
-            (lib.optionalString cfg.chunkserver.enable "d ${cfg.chunkserver.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser} -")
-          ]
-          ++ lib.optionals (cfg.chunkserver.enable && cfg.chunkserver.hdds != null) (
-            map (dir: "d ${dir} 0755 ${mfsUser} ${mfsUser} -") cfg.chunkserver.hdds
+        chunkserver.settings = lib.mkIf cfg.chunkserver.enable {
+          WORKING_USER = mfsUser;
+          MASTER_HOST = cfg.masterHost;
+          HDD_CONF_FILENAME = toString (
+            pkgs.writeText "mfshdd.cfg" (lib.concatStringsSep "\n" cfg.chunkserver.hdds)
           );
+        };
+      };
 
-        systemd.services = lib.mkMerge [
-          (lib.mkIf cfg.master.enable {
-            mfs-master = (
-              lib.mkMerge [
-                (systemdService "master" {
+      users =
+        lib.mkIf
+        (
+          cfg.runAsUser
+          && (cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable || cfg.cgiserver.enable)
+        )
+        {
+          users.moosefs = {
+            isSystemUser = true;
+            description = "MooseFS daemon user";
+            group = "moosefs";
+          };
+          groups.moosefs = {};
+        };
+
+      environment.systemPackages =
+        (lib.optional cfg.client.enable pkgs.moosefs) ++ (lib.optional cfg.master.enable initTool);
+
+      networking.firewall.allowedTCPPorts = lib.mkMerge [
+        (lib.optionals cfg.master.openFirewall [
+          9419
+          9420
+          9421
+        ])
+        (lib.optional cfg.chunkserver.openFirewall 9422)
+        (lib.optional (cfg.cgiserver.enable && cfg.cgiserver.openFirewall) cfg.cgiserver.settings.PORT)
+      ];
+
+      systemd.tmpfiles.rules =
+        [
+          # Master directories
+          (lib.optionalString cfg.master.enable "d ${cfg.master.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser} -")
+
+          # Metalogger directories
+          (lib.optionalString cfg.metalogger.enable "d ${cfg.metalogger.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser} -")
+
+          # Chunkserver directories
+          (lib.optionalString cfg.chunkserver.enable "d ${cfg.chunkserver.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser} -")
+        ]
+        ++ lib.optionals (cfg.chunkserver.enable && cfg.chunkserver.hdds != null) (
+          map (dir: "d ${dir} 0755 ${mfsUser} ${mfsUser} -") cfg.chunkserver.hdds
+        );
+
+      systemd.services = lib.mkMerge [
+        (lib.mkIf cfg.master.enable {
+          mfs-master = (
+            lib.mkMerge [
+              (systemdService "master" {
                   TimeoutStartSec = 1800;
                   TimeoutStopSec = 1800;
                   Restart = "on-failure";
                   User = mfsUser;
-                } masterCfg)
-                {
-                  preStart = lib.mkIf cfg.master.autoInit "${initTool}/bin/mfsmaster-init";
                 }
-              ]
-            );
-          })
+                masterCfg)
+              {
+                preStart = lib.mkIf cfg.master.autoInit "${initTool}/bin/mfsmaster-init";
+              }
+            ]
+          );
+        })
 
-          (lib.mkIf cfg.metalogger.enable {
-            mfs-metalogger = systemdService "metalogger" {
+        (lib.mkIf cfg.metalogger.enable {
+          mfs-metalogger =
+            systemdService "metalogger" {
               Restart = "on-abnormal";
               User = mfsUser;
-            } metaloggerCfg;
-          })
+            }
+            metaloggerCfg;
+        })
 
-          (lib.mkIf cfg.chunkserver.enable {
-            mfs-chunkserver = systemdService "chunkserver" {
+        (lib.mkIf cfg.chunkserver.enable {
+          mfs-chunkserver =
+            systemdService "chunkserver" {
               Restart = "on-abnormal";
               User = mfsUser;
-            } chunkserverCfg;
-          })
+            }
+            chunkserverCfg;
+        })
 
-          (lib.mkIf cfg.cgiserver.enable {
-            mfs-cgiserv = {
-              description = "MooseFS CGI Server";
-              wantedBy = [ "multi-user.target" ];
-              after = [ "mfs-master.service" ];
+        (lib.mkIf cfg.cgiserver.enable {
+          mfs-cgiserv = {
+            description = "MooseFS CGI Server";
+            wantedBy = ["multi-user.target"];
+            after = ["mfs-master.service"];
 
-              serviceConfig = {
-                Type = "simple";
-                ExecStart = "${pkgs.moosefs}/bin/mfscgiserv -D /var/lib/mfs -f start";
-                ExecStop = "${pkgs.moosefs}/bin/mfscgiserv -D /var/lib/mfs stop";
-                Restart = "on-failure";
-                RestartSec = "30s";
-                User = mfsUser;
-                Group = mfsUser;
-                WorkingDirectory = "/var/lib/mfs";
-              };
+            serviceConfig = {
+              Type = "simple";
+              ExecStart = "${pkgs.moosefs}/bin/mfscgiserv -D /var/lib/mfs -f start";
+              ExecStop = "${pkgs.moosefs}/bin/mfscgiserv -D /var/lib/mfs stop";
+              Restart = "on-failure";
+              RestartSec = "30s";
+              User = mfsUser;
+              Group = mfsUser;
+              WorkingDirectory = "/var/lib/mfs";
             };
-          })
-        ];
-      };
+          };
+        })
+      ];
+    };
 }

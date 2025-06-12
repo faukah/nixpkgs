@@ -20,7 +20,6 @@
   liburing,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "h2o";
   version = "2.3.0.20250519";
@@ -63,7 +62,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags = [
-    "-DWITH_MRUBY=${if withMruby then "ON" else "OFF"}"
+    "-DWITH_MRUBY=${
+      if withMruby
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   postInstall = ''
@@ -76,7 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) h2o; };
+    tests = {inherit (nixosTests) h2o;};
   };
 
   meta = with lib; {

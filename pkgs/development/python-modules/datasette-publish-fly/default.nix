@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "datasette-publish-fly";
   version = "1.3.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-diaxr+fNNgkJvLGkLo+lK0ThTsXYDePFsvTetMbDRMk=";
   };
 
-  propagatedBuildInputs = [ datasette ];
+  propagatedBuildInputs = [datasette];
 
   nativeCheckInputs = [
     cogapp
@@ -31,13 +30,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "datasette_publish_fly" ];
+  pythonImportsCheck = ["datasette_publish_fly"];
 
   meta = with lib; {
     description = "Datasette plugin for publishing data using Fly";
     homepage = "https://datasette.io/plugins/datasette-publish-fly";
     changelog = "https://github.com/simonw/datasette-publish-fly/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

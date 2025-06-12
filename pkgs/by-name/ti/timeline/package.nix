@@ -7,7 +7,6 @@
   copyDesktopItems,
   wrapGAppsHook3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "timeline";
   version = "2.6.0";
@@ -101,6 +100,6 @@ python3.pkgs.buildPythonApplication rec {
       cc-by-sa-30
     ];
     platforms = with platforms; unix;
-    maintainers = with maintainers; [ davidak ];
+    maintainers = with maintainers; [davidak];
   };
 }

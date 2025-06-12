@@ -1,51 +1,48 @@
 # Test whether `houndd` indexes nixpkgs
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "hound";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ grahamc ];
+    maintainers = [grahamc];
   };
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.hound = {
-        enable = true;
-        settings = {
-          "max-concurrent-indexers" = 1;
-          "dbpath" = "/var/lib/hound/data";
-          "repos" = {
-            "nix" = {
-              "url" = "file:///var/lib/hound/my-git";
-            };
+  nodes.machine = {pkgs, ...}: {
+    services.hound = {
+      enable = true;
+      settings = {
+        "max-concurrent-indexers" = 1;
+        "dbpath" = "/var/lib/hound/data";
+        "repos" = {
+          "nix" = {
+            "url" = "file:///var/lib/hound/my-git";
           };
         };
       };
-
-      systemd.services.houndseed = {
-        description = "seed hound with a git repo";
-        requiredBy = [ "hound.service" ];
-        before = [ "hound.service" ];
-
-        serviceConfig = {
-          User = "hound";
-          Group = "hound";
-          WorkingDirectory = "/var/lib/hound";
-        };
-        path = [ pkgs.git ];
-        script = ''
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
-          git init my-git --bare
-          git init my-git-clone
-          cd my-git-clone
-          echo 'hi nix!' > hello
-          git add hello
-          git commit -m "hello there :)"
-          git remote add origin /var/lib/hound/my-git
-          git push origin master
-        '';
-      };
     };
+
+    systemd.services.houndseed = {
+      description = "seed hound with a git repo";
+      requiredBy = ["hound.service"];
+      before = ["hound.service"];
+
+      serviceConfig = {
+        User = "hound";
+        Group = "hound";
+        WorkingDirectory = "/var/lib/hound";
+      };
+      path = [pkgs.git];
+      script = ''
+        git config --global user.email "you@example.com"
+        git config --global user.name "Your Name"
+        git init my-git --bare
+        git init my-git-clone
+        cd my-git-clone
+        echo 'hi nix!' > hello
+        git add hello
+        git commit -m "hello there :)"
+        git remote add origin /var/lib/hound/my-git
+        git push origin master
+      '';
+    };
+  };
 
   testScript = ''
     start_all()

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "zilla-slab";
   version = "1.002";
@@ -37,7 +36,7 @@ stdenvNoCC.mkDerivation rec {
       approachability in all weights.
     '';
     license = licenses.ofl;
-    maintainers = with maintainers; [ caugner ];
+    maintainers = with maintainers; [caugner];
     platforms = platforms.all;
   };
 }

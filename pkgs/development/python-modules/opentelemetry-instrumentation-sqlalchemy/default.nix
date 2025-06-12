@@ -1,10 +1,8 @@
 {
   buildPythonPackage,
   pythonOlder,
-
   # build-system
   hatchling,
-
   # dependencies
   opentelemetry-api,
   opentelemetry-instrumentation,
@@ -12,12 +10,10 @@
   packaging,
   sqlalchemy,
   wrapt,
-
   # tests
   opentelemetry-test-utils,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-instrumentation) version src;
   pname = "opentelemetry-instrumentation-sqlalchemy";
@@ -27,7 +23,7 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-instrumentation.src.name}/instrumentation/opentelemetry-instrumentation-sqlalchemy";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     opentelemetry-api
@@ -43,10 +39,12 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "opentelemetry.instrumentation.sqlalchemy" ];
+  pythonImportsCheck = ["opentelemetry.instrumentation.sqlalchemy"];
 
-  meta = opentelemetry-instrumentation.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/tree/main/instrumentation/opentelemetry-instrumentation-sqlalchemy";
-    description = "SQLAlchemy instrumentation for OpenTelemetry";
-  };
+  meta =
+    opentelemetry-instrumentation.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/tree/main/instrumentation/opentelemetry-instrumentation-sqlalchemy";
+      description = "SQLAlchemy instrumentation for OpenTelemetry";
+    };
 }

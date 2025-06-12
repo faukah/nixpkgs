@@ -11,7 +11,6 @@
   pkg-config,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation {
   pname = "dvgrab";
   version = "2016-05-16";

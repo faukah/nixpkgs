@@ -10,7 +10,6 @@
   gawk,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "blast";
   version = "2.14.1";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     "--with-dll" # build dynamic libraries (static are default)
   ];
 
-  makeFlags = [ "all_projects=app/" ];
+  makeFlags = ["all_projects=app/"];
 
   preConfigure = ''
     export NCBICXX_RECONF_POLICY=warn
@@ -86,7 +85,7 @@ stdenv.mkDerivation rec {
         --replace /bin/date ${coreutils}/bin/date
   '';
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     cpio
     perl
@@ -104,13 +103,13 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postInstall = ''
     substituteInPlace $out/bin/get_species_taxids.sh \
         --replace /bin/rm ${lib.getExe' coreutils "rm"}
   '';
-  patches = [ ./no_slash_bin.patch ];
+  patches = [./no_slash_bin.patch];
 
   enableParallelBuilding = true;
 
@@ -125,6 +124,6 @@ stdenv.mkDerivation rec {
     # Version 2.10.0 fails on Darwin
     # See https://github.com/NixOS/nixpkgs/pull/61430
     platforms = platforms.linux;
-    maintainers = with maintainers; [ luispedro ];
+    maintainers = with maintainers; [luispedro];
   };
 }

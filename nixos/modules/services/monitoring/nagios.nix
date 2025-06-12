@@ -4,8 +4,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.nagios;
 
   nagiosState = "/var/lib/nagios";
@@ -19,40 +18,44 @@ let
     preferLocalBuild = true;
   } "mkdir -p $out; ln -s $nagiosObjectDefs $out/";
 
-  nagiosCfgFile =
-    let
-      default = {
-        log_file = "${nagiosLogDir}/current";
-        log_archive_path = "${nagiosLogDir}/archive";
-        status_file = "${nagiosState}/status.dat";
-        object_cache_file = "${nagiosState}/objects.cache";
-        temp_file = "${nagiosState}/nagios.tmp";
-        lock_file = "/run/nagios.lock";
-        state_retention_file = "${nagiosState}/retention.dat";
-        query_socket = "${nagiosState}/nagios.qh";
-        check_result_path = "${nagiosState}";
-        command_file = "${nagiosState}/nagios.cmd";
-        cfg_dir = "${nagiosObjectDefsDir}";
-        nagios_user = "nagios";
-        nagios_group = "nagios";
-        illegal_macro_output_chars = "`~$&|'\"<>";
-        retain_state_information = "1";
-      };
-      lines = lib.mapAttrsToList (key: value: "${key}=${value}") (default // cfg.extraConfig);
-      content = lib.concatStringsSep "\n" lines;
-      file = pkgs.writeText "nagios.cfg" content;
-      validated = pkgs.runCommand "nagios-checked.cfg" { preferLocalBuild = true; } ''
-        cp ${file} nagios.cfg
-        # nagios checks the existence of /var/lib/nagios, but
-        # it does not exist in the build sandbox, so we fake it
-        mkdir lib
-        lib=$(readlink -f lib)
-        sed -i s@=${nagiosState}@=$lib@ nagios.cfg
-        ${pkgs.nagios}/bin/nagios -v nagios.cfg && cp ${file} $out
-      '';
-      defaultCfgFile = if cfg.validateConfig then validated else file;
-    in
-    if cfg.mainConfigFile == null then defaultCfgFile else cfg.mainConfigFile;
+  nagiosCfgFile = let
+    default = {
+      log_file = "${nagiosLogDir}/current";
+      log_archive_path = "${nagiosLogDir}/archive";
+      status_file = "${nagiosState}/status.dat";
+      object_cache_file = "${nagiosState}/objects.cache";
+      temp_file = "${nagiosState}/nagios.tmp";
+      lock_file = "/run/nagios.lock";
+      state_retention_file = "${nagiosState}/retention.dat";
+      query_socket = "${nagiosState}/nagios.qh";
+      check_result_path = "${nagiosState}";
+      command_file = "${nagiosState}/nagios.cmd";
+      cfg_dir = "${nagiosObjectDefsDir}";
+      nagios_user = "nagios";
+      nagios_group = "nagios";
+      illegal_macro_output_chars = "`~$&|'\"<>";
+      retain_state_information = "1";
+    };
+    lines = lib.mapAttrsToList (key: value: "${key}=${value}") (default // cfg.extraConfig);
+    content = lib.concatStringsSep "\n" lines;
+    file = pkgs.writeText "nagios.cfg" content;
+    validated = pkgs.runCommand "nagios-checked.cfg" {preferLocalBuild = true;} ''
+      cp ${file} nagios.cfg
+      # nagios checks the existence of /var/lib/nagios, but
+      # it does not exist in the build sandbox, so we fake it
+      mkdir lib
+      lib=$(readlink -f lib)
+      sed -i s@=${nagiosState}@=$lib@ nagios.cfg
+      ${pkgs.nagios}/bin/nagios -v nagios.cfg && cp ${file} $out
+    '';
+    defaultCfgFile =
+      if cfg.validateConfig
+      then validated
+      else file;
+  in
+    if cfg.mainConfigFile == null
+    then defaultCfgFile
+    else cfg.mainConfigFile;
 
   # Plain configuration for the Nagios web-interface with no
   # authentication.
@@ -78,9 +81,7 @@ let
       Require all granted
     </Directory>
   '';
-
-in
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -89,7 +90,7 @@ in
     ] "The urlPath option has been removed as it is hard coded to /nagios in the nagios package.")
   ];
 
-  meta.maintainers = with lib.maintainers; [ symphorien ];
+  meta.maintainers = with lib.maintainers; [symphorien];
 
   options = {
     services.nagios = {
@@ -133,7 +134,7 @@ in
           debug_level = "-1";
           debug_file = "/var/log/nagios/debug.log";
         };
-        default = { };
+        default = {};
         description = "Configuration to add to /etc/nagios.cfg";
       };
 
@@ -189,19 +190,19 @@ in
       group = "nagios";
     };
 
-    users.groups.nagios = { };
+    users.groups.nagios = {};
 
     # This isn't needed, it's just so that the user can type "nagiostats
     # -c /etc/nagios.cfg".
     environment.etc."nagios.cfg".source = nagiosCfgFile;
 
-    environment.systemPackages = [ pkgs.nagios ];
+    environment.systemPackages = [pkgs.nagios];
     systemd.services.nagios = {
       description = "Nagios monitoring daemon";
-      path = [ pkgs.nagios ] ++ cfg.plugins;
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      restartTriggers = [ nagiosCfgFile ];
+      path = [pkgs.nagios] ++ cfg.plugins;
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      restartTriggers = [nagiosCfgFile];
 
       serviceConfig = {
         User = "nagios";
@@ -217,7 +218,7 @@ in
     services.httpd.virtualHosts = lib.optionalAttrs cfg.enableWebInterface {
       ${cfg.virtualHost.hostName} = lib.mkMerge [
         cfg.virtualHost
-        { extraConfig = extraHttpdConfig; }
+        {extraConfig = extraHttpdConfig;}
       ];
     };
   };

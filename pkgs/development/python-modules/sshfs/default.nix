@@ -13,7 +13,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "sshfs";
   version = "2025.2.0";
@@ -37,12 +36,12 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    bcrypt = [ asyncssh ] ++ asyncssh.optional-dependencies.bcrypt;
-    fido2 = [ asyncssh ] ++ asyncssh.optional-dependencies.fido2;
-    gssapi = [ asyncssh ] ++ asyncssh.optional-dependencies.gssapi;
-    libnacl = [ asyncssh ] ++ asyncssh.optional-dependencies.libnacl;
-    pkcs11 = [ asyncssh ] ++ asyncssh.optional-dependencies.pkcs11;
-    pyopenssl = [ asyncssh ] ++ asyncssh.optional-dependencies.pyOpenSSL;
+    bcrypt = [asyncssh] ++ asyncssh.optional-dependencies.bcrypt;
+    fido2 = [asyncssh] ++ asyncssh.optional-dependencies.fido2;
+    gssapi = [asyncssh] ++ asyncssh.optional-dependencies.gssapi;
+    libnacl = [asyncssh] ++ asyncssh.optional-dependencies.libnacl;
+    pkcs11 = [asyncssh] ++ asyncssh.optional-dependencies.pkcs11;
+    pyopenssl = [asyncssh] ++ asyncssh.optional-dependencies.pyOpenSSL;
   };
 
   __darwinAllowLocalNetworking = true;
@@ -64,13 +63,13 @@ buildPythonPackage rec {
       "test_checksum"
     ];
 
-  pythonImportsCheck = [ "sshfs" ];
+  pythonImportsCheck = ["sshfs"];
 
   meta = with lib; {
     description = "SSH/SFTP implementation for fsspec";
     homepage = "https://github.com/fsspec/sshfs/";
     changelog = "https://github.com/fsspec/sshfs/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

@@ -3,37 +3,30 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.programs.htop;
 
-  fmt =
-    value:
-    if builtins.isList value then
-      builtins.concatStringsSep " " (builtins.map fmt value)
-    else if builtins.isString value then
-      value
-    else if builtins.isBool value then
-      if value then "1" else "0"
-    else if builtins.isInt value then
-      builtins.toString value
-    else
-      throw "Unrecognized type ${builtins.typeOf value} in htop settings";
-
-in
-
-{
-
+  fmt = value:
+    if builtins.isList value
+    then builtins.concatStringsSep " " (builtins.map fmt value)
+    else if builtins.isString value
+    then value
+    else if builtins.isBool value
+    then
+      if value
+      then "1"
+      else "0"
+    else if builtins.isInt value
+    then builtins.toString value
+    else throw "Unrecognized type ${builtins.typeOf value} in htop settings";
+in {
   options.programs.htop = {
-    package = lib.mkPackageOption pkgs "htop" { };
+    package = lib.mkPackageOption pkgs "htop" {};
 
     enable = lib.mkEnableOption "htop process monitor";
 
     settings = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (oneOf [
           str
           int
@@ -44,7 +37,7 @@ in
             bool
           ]))
         ]);
-      default = { };
+      default = {};
       example = {
         hide_kernel_threads = true;
         hide_userland_threads = true;
@@ -72,5 +65,4 @@ in
         lib.mapAttrsToList (key: value: "${key}=${fmt value}") cfg.settings
       );
   };
-
 }

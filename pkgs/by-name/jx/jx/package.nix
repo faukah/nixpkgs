@@ -6,7 +6,6 @@
   nix-update-script,
   go,
 }:
-
 buildGoModule rec {
   pname = "jx";
   version = "3.11.81";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-8I4yTzLAL7E0ozHcBZDNsJLHkTh+SjT0SjDSECGRYIc=";
 
-  subPackages = [ "cmd" ];
+  subPackages = ["cmd"];
 
   env.CGO_ENABLED = 0;
 
@@ -37,7 +36,7 @@ buildGoModule rec {
     mv $out/bin/cmd $out/bin/jx
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     broken = stdenv.hostPlatform.isDarwin;
@@ -51,7 +50,7 @@ buildGoModule rec {
       from Tekton.
     '';
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ kalbasit ];
+    maintainers = with lib.maintainers; [kalbasit];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

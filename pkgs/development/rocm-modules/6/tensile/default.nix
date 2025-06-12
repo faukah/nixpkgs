@@ -18,9 +18,11 @@
   rich,
   isTensileLite ? false,
 }:
-
 buildPythonPackage rec {
-  pname = if isTensileLite then "tensilelite" else "tensile";
+  pname =
+    if isTensileLite
+    then "tensilelite"
+    else "tensile";
   # Using a specific commit which has code object compression support from after the 6.3 release
   # Without compression packages are too large for hydra
   version = "6.3-unstable-2024-12-10";
@@ -56,7 +58,7 @@ buildPythonPackage rec {
       patchShebangs Tensile
     '';
 
-  buildInputs = [ setuptools ];
+  buildInputs = [setuptools];
 
   propagatedBuildInputs =
     [
@@ -96,7 +98,7 @@ buildPythonPackage rec {
 
   env.ROCM_PATH = "${clr}";
 
-  pythonImportsCheck = [ "Tensile" ];
+  pythonImportsCheck = ["Tensile"];
 
   passthru.updateScript = rocmUpdateScript {
     name = pname;
@@ -106,8 +108,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "GEMMs and tensor contractions";
     homepage = "https://github.com/ROCm/Tensile";
-    license = with licenses; [ mit ];
-    teams = [ teams.rocm ];
+    license = with licenses; [mit];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 }

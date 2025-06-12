@@ -6,18 +6,14 @@
   bc,
   check,
   curl,
-
   withEncryption ? true,
   libgcrypt,
   libgpg-error,
-
   withUuid ? true,
   libuuid,
-
   withBashBuiltins ? true,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "recutils";
   version = "1.9";
@@ -82,7 +78,7 @@ stdenv.mkDerivation rec {
       records, each record containing an arbitrary number of named fields.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
   };
 }

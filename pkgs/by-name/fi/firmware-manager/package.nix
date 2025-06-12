@@ -11,7 +11,6 @@
   gtk3,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "firmware-manager";
   version = "0.1.5";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     udev
   ];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   meta = {
     description = "Graphical frontend for firmware management";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
       cc0
     ];
     mainProgram = "com.system76.FirmwareManager";
-    maintainers = [ lib.maintainers.shlevy ];
+    maintainers = [lib.maintainers.shlevy];
     platforms = lib.platforms.linux;
   };
 }

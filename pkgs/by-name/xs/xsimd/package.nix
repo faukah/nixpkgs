@@ -6,7 +6,6 @@
   cmake,
   doctest,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xsimd";
   version = "13.0.0";
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     changelog = "https://github.com/xtensor-stack/xsimd/blob/${finalAttrs.version}/Changelog.rst#${
-      builtins.replaceStrings [ "." ] [ "" ] finalAttrs.version
+      builtins.replaceStrings ["."] [""] finalAttrs.version
     }";
     description = "C++ wrappers for SIMD intrinsics";
     homepage = "https://github.com/xtensor-stack/xsimd";

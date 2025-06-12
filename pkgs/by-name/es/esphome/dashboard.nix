@@ -3,14 +3,11 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchNpmDeps,
-
   # build-system
   setuptools,
   nodejs,
   npmHooks,
-
 }:
-
 buildPythonPackage rec {
   pname = "esphome-dashboard";
   version = "20250514.0";
@@ -28,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-Uiz26kPxoz32t/GRppiYiVBVwWcQqUzPr0kScVUZak8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     nodejs
@@ -54,7 +51,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "ESPHome dashboard";
     homepage = "https://esphome.io/";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ hexa ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [hexa];
   };
 }

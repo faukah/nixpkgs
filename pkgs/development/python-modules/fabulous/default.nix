@@ -7,7 +7,6 @@
   setuptools,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "fabulous";
   version = "0.4.0";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pillow ];
+  dependencies = [pillow];
 
   checkPhase = ''
     for i in tests/*.py; do
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Make the output of terminal applications look fabulous";
     homepage = "https://jart.github.io/fabulous";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.symphorien ];
+    maintainers = [lib.maintainers.symphorien];
   };
 }

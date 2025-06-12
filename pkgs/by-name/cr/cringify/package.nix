@@ -6,7 +6,6 @@
   testers,
   cringify,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cringify";
   version = "0.2.0";
@@ -26,18 +25,18 @@ rustPlatform.buildRustPackage rec {
     substituteInPlace src/main.rs --replace '0.0.1' ${version}
   '';
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   # No tests are present in the repository
   doCheck = false;
 
-  passthru.tests.version = testers.testVersion { package = cringify; };
+  passthru.tests.version = testers.testVersion {package = cringify;};
 
   meta = {
     description = "Annoy your friends with the cringified text";
     homepage = "https://github.com/sansyrox/cringify";
     license = lib.licenses.mit;
     mainProgram = "cringify";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mcfly-fzf";
   version = "0.1.3";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/bnprks/mcfly-fzf";
     description = "Integrate Mcfly with fzf to combine a solid command history database with a widely-loved fuzzy search UI";
     license = licenses.mit;
-    maintainers = [ maintainers.simonhammes ];
+    maintainers = [maintainers.simonhammes];
     mainProgram = "mcfly-fzf";
   };
 }

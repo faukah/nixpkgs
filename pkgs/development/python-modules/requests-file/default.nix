@@ -8,7 +8,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "requests-file";
   version = "2.1.0";
@@ -28,17 +27,17 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "requests_file" ];
+  pythonImportsCheck = ["requests_file"];
 
   meta = with lib; {
     description = "Transport adapter for fetching file:// URLs with the requests python library";
     homepage = "https://github.com/dashea/requests-file";
     changelog = "https://github.com/dashea/requests-file/blob/${version}/CHANGES.rst";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

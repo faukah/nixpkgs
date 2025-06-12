@@ -8,7 +8,6 @@
   fetchNpmDeps,
   dotnetCorePackages,
 }:
-
 buildDotnetModule (finalAttrs: {
   pname = "smtp4dev";
   version = "3.8.6";
@@ -20,7 +19,7 @@ buildDotnetModule (finalAttrs: {
     hash = "sha256-k4nerh4cVVcFQF7a4Wvcfhefa3SstEOASk+0soN0n9k=";
   };
 
-  patches = [ ./smtp4dev-npm-packages.patch ];
+  patches = [./smtp4dev-npm-packages.patch];
 
   nativeBuildInputs = [
     nodejs
@@ -41,7 +40,7 @@ buildDotnetModule (finalAttrs: {
   dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
   projectFile = "Rnwood.Smtp4dev/Rnwood.Smtp4dev.csproj";
   nugetDeps = ./deps.json;
-  executables = [ "Rnwood.Smtp4dev" ];
+  executables = ["Rnwood.Smtp4dev"];
 
   postFixup = ''
     mv $out/bin/Rnwood.Smtp4dev $out/bin/smtp4dev

@@ -3,11 +3,11 @@
   libdeltachat,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "deltachat-rpc-server";
 
-  inherit (libdeltachat)
+  inherit
+    (libdeltachat)
     version
     src
     cargoDeps
@@ -29,8 +29,10 @@ rustPlatform.buildRustPackage {
 
   doCheck = false;
 
-  meta = libdeltachat.meta // {
-    description = "Delta Chat RPC server exposing JSON-RPC core API over standard I/O";
-    mainProgram = "deltachat-rpc-server";
-  };
+  meta =
+    libdeltachat.meta
+    // {
+      description = "Delta Chat RPC server exposing JSON-RPC core API over standard I/O";
+      mainProgram = "deltachat-rpc-server";
+    };
 }

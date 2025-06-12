@@ -13,7 +13,6 @@
   wayland,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "jumpy";
   version = "0.8.0";
@@ -71,7 +70,7 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     patchelf $out/bin/.jumpy-wrapped \
-      --add-rpath ${lib.makeLibraryPath [ vulkan-loader ]}
+      --add-rpath ${lib.makeLibraryPath [vulkan-loader]}
   '';
 
   meta = {
@@ -83,6 +82,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

@@ -9,7 +9,6 @@
   vsce,
   nix-update-script,
 }:
-
 buildNpmPackage (finalAttrs: {
   pname = "vsce";
   version = "3.5.0";
@@ -32,10 +31,10 @@ buildNpmPackage (finalAttrs: {
     python3
   ];
 
-  buildInputs = [ libsecret ];
+  buildInputs = [libsecret];
 
   makeCacheWritable = true;
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = ["--legacy-peer-deps"];
 
   passthru = {
     tests.version = testers.testVersion {
@@ -52,7 +51,7 @@ buildNpmPackage (finalAttrs: {
   meta = {
     homepage = "https://github.com/microsoft/vscode-vsce";
     description = "Visual Studio Code Extension Manager";
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     license = lib.licenses.mit;
     mainProgram = "vsce";
   };

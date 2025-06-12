@@ -8,7 +8,6 @@
   mkdocs,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocs-markmap";
   version = "2.5.2";
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "MkDocs plugin and extension to create mindmaps from markdown using markmap";
     homepage = "https://github.com/markmap/mkdocs_markmap";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

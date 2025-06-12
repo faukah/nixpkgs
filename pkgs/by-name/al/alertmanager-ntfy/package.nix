@@ -5,7 +5,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 buildGoModule {
   pname = "alertmanager-ntfy";
   version = "0-unstable-2025-05-31";
@@ -29,15 +28,15 @@ buildGoModule {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests.prometheus) alertmanager-ntfy; };
-    updateScript = nix-update-script { extraArgs = [ "--version=branch=master" ]; };
+    tests = {inherit (nixosTests.prometheus) alertmanager-ntfy;};
+    updateScript = nix-update-script {extraArgs = ["--version=branch=master"];};
   };
 
   meta = {
     description = "Forwards Prometheus Alertmanager notifications to ntfy.sh";
     homepage = "https://github.com/alexbakker/alertmanager-ntfy";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
     mainProgram = "alertmanager-ntfy";
   };
 }

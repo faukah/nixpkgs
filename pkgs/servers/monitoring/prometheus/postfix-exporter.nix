@@ -7,7 +7,6 @@
   systemd,
   withSystemdSupport ? true,
 }:
-
 buildGoModule rec {
   pname = "postfix_exporter";
   version = "0.10.0";
@@ -26,8 +25,8 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = lib.optionals withSystemdSupport [ makeWrapper ];
-  buildInputs = lib.optionals withSystemdSupport [ systemd ];
+  nativeBuildInputs = lib.optionals withSystemdSupport [makeWrapper];
+  buildInputs = lib.optionals withSystemdSupport [systemd];
   tags = lib.optionals (!withSystemdSupport) "nosystemd";
 
   postInstall = lib.optionals withSystemdSupport ''
@@ -35,7 +34,7 @@ buildGoModule rec {
       --prefix LD_LIBRARY_PATH : "${lib.getLib systemd}/lib"
   '';
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) postfix; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) postfix;};
 
   meta = with lib; {
     inherit (src.meta) homepage;

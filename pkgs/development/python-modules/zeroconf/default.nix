@@ -14,7 +14,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "zeroconf";
   version = "0.147.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ ifaddr ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
+  dependencies = [ifaddr] ++ lib.optionals (pythonOlder "3.11") [async-timeout];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -66,6 +65,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/python-zeroconf/python-zeroconf";
     changelog = "https://github.com/python-zeroconf/python-zeroconf/blob/${src.tag}/CHANGELOG.md";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "firefox-sync-client";
   version = "1.9.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Commandline-utility to list/view/edit/delete entries in a firefox-sync account.";
     homepage = "https://github.com/Mikescher/firefox-sync-client";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ambroisie ];
+    maintainers = with lib.maintainers; [ambroisie];
     mainProgram = "ffsclient";
   };
 }

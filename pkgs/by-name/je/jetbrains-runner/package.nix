@@ -40,14 +40,14 @@ stdenv.mkDerivation rec {
     "-DQT_MAJOR_VERSION=6"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Krunner Plugin which allows you to open your recent JetBrains projects";
     homepage = "https://github.com/alex1701c/JetBrainsRunner";
-    sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    sourceProvenance = with lib.sourceTypes; [fromSource];
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ js6pak ];
+    maintainers = with lib.maintainers; [js6pak];
     inherit (kdePackages.krunner.meta) platforms;
   };
 }

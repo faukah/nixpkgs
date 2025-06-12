@@ -11,7 +11,6 @@
   alcotest,
   eio_main,
 }:
-
 buildDunePackage rec {
   pname = "wayland";
   version = "2.1";
@@ -45,7 +44,7 @@ buildDunePackage rec {
     description = "Pure OCaml Wayland protocol library";
     homepage = "https://github.com/talex5/ocaml-wayland";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
     mainProgram = "wayland-scanner-ocaml";
   };
 }

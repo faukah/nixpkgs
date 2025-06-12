@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "unimatrix";
   version = "unstable-2023-04-25";
@@ -31,7 +30,7 @@ python3Packages.buildPythonApplication {
     description = ''Python script to simulate the display from "The Matrix" in terminal'';
     homepage = "https://github.com/will8211/unimatrix";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ anomalocaris ];
+    maintainers = with maintainers; [anomalocaris];
     mainProgram = "unimatrix";
   };
 }

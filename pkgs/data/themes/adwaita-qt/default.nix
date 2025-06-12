@@ -11,7 +11,6 @@
   xorg,
   useQt6 ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "adwaita-qt";
   version = "1.4.2";
@@ -61,14 +60,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Style to bend Qt applications to look like they belong into GNOME Shell";
     homepage = "https://github.com/FedoraQt/adwaita-qt";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

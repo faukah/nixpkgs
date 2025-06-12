@@ -1,16 +1,13 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "tuptime";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ evils ];
+    maintainers = [evils];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [ ../modules/profiles/minimal.nix ];
-      services.tuptime.enable = true;
-    };
+  nodes.machine = {pkgs, ...}: {
+    imports = [../modules/profiles/minimal.nix];
+    services.tuptime.enable = true;
+  };
 
   testScript = ''
     # see if it starts

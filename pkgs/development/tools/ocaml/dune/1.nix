@@ -6,11 +6,9 @@
   findlib,
   ncurses,
 }:
-
-if lib.versionOlder ocaml.version "4.02" || lib.versionAtLeast ocaml.version "4.12" then
-  throw "dune 1 is not available for OCaml ${ocaml.version}"
+if lib.versionOlder ocaml.version "4.02" || lib.versionAtLeast ocaml.version "4.12"
+then throw "dune 1 is not available for OCaml ${ocaml.version}"
 else
-
   stdenv.mkDerivation rec {
     pname = "dune";
     version = "1.11.4";
@@ -23,10 +21,10 @@ else
       ocaml
       findlib
     ];
-    buildInputs = [ ncurses ];
+    buildInputs = [ncurses];
     strictDeps = true;
 
-    buildFlags = [ "release" ];
+    buildFlags = ["release"];
     makeFlags = [
       "PREFIX=${placeholder "out"}"
       "LIBDIR=$(OCAMLFIND_DESTDIR)"
@@ -34,12 +32,12 @@ else
 
     dontAddPrefix = true;
     dontAddStaticConfigureFlags = true;
-    configurePlatforms = [ ];
+    configurePlatforms = [];
 
     meta = with lib; {
       homepage = "https://dune.build/";
       description = "Composable build system";
-      maintainers = [ maintainers.vbgl ];
+      maintainers = [maintainers.vbgl];
       license = licenses.mit;
       inherit (ocaml.meta) platforms;
     };

@@ -42,7 +42,7 @@ stdenvNoCC.mkDerivation rec {
   meta = {
     homepage = "https://github.com/owncloud/ocis";
     description = "ownCloud Infinite Scale Stack";
-    maintainers = with lib.maintainers; [ xinyangli ];
+    maintainers = with lib.maintainers; [xinyangli];
     license = lib.licenses.agpl3Only;
   };
 }

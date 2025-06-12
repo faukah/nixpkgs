@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   boltons,
   gensim,
@@ -21,7 +19,6 @@
   stanza,
   torch,
   tqdm,
-
   # tests
   pytestCheckHook,
   writableTmpDirAsHomeHook,
@@ -46,7 +43,7 @@ buildPythonPackage rec {
       --replace-fail 'boltons = "^21.0.0"' 'boltons = "^24.0.0"'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   pythonRelaxDeps = [
     "spacy"
@@ -82,6 +79,6 @@ buildPythonPackage rec {
     homepage = "https://cltk.org";
     changelog = "https://github.com/cltk/cltk/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kmein ];
+    maintainers = with lib.maintainers; [kmein];
   };
 }

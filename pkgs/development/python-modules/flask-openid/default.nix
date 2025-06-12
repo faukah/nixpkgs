@@ -6,7 +6,6 @@
   flask,
   python3-openid,
 }:
-
 buildPythonPackage rec {
   pname = "flask-openid";
   version = "1.3.1";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-J2KLwKN+ZTCUiCMZPgaNeQNa2Ulth7dAQEQ+xITHZXo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     flask
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "OpenID support for Flask";
     homepage = "https://pythonhosted.org/Flask-OpenID/";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

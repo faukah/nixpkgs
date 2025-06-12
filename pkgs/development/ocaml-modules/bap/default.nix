@@ -40,11 +40,9 @@
   writeText,
   z3,
 }:
-
-if lib.versionOlder ocaml.version "4.08" then
-  throw "BAP is not available for OCaml ${ocaml.version}"
+if lib.versionOlder ocaml.version "4.08"
+then throw "BAP is not available for OCaml ${ocaml.version}"
 else
-
   stdenv.mkDerivation rec {
     pname = "ocaml${ocaml.version}-bap";
     version = "2.5.0";
@@ -144,7 +142,7 @@ else
       description = "Platform for binary analysis. It is written in OCaml, but can be used from other languages";
       homepage = "https://github.com/BinaryAnalysisPlatform/bap/";
       license = licenses.mit;
-      maintainers = [ maintainers.maurer ];
+      maintainers = [maintainers.maurer];
       mainProgram = "bap";
     };
   }

@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
-
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkDefault
     mkEnableOption
     mkIf
@@ -16,12 +15,8 @@ let
     ;
 
   cfg = config.hardware.ipu6;
-
-in
-{
-
+in {
   options.hardware.ipu6 = {
-
     enable = mkEnableOption "support for Intel IPU6/MIPI cameras";
 
     platform = mkOption {
@@ -37,14 +32,12 @@ in
         and `ipu6epmtl` for Meteor Lake.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
-
     # Module is upstream as of 6.10,
     # but still needs various out-of-tree i2c and the `intel-ipu6-psys` kernel driver
-    boot.extraModulePackages = with config.boot.kernelPackages; [ ipu6-drivers ];
+    boot.extraModulePackages = with config.boot.kernelPackages; [ipu6-drivers];
 
     hardware.firmware = with pkgs; [
       ipu6-camera-bins
@@ -60,9 +53,8 @@ in
 
       cardLabel = mkDefault "Intel MIPI Camera";
 
-      extraPackages =
-        with pkgs.gst_all_1;
-        [ ]
+      extraPackages = with pkgs.gst_all_1;
+        []
         ++ optional (cfg.platform == "ipu6") icamerasrc-ipu6
         ++ optional (cfg.platform == "ipu6ep") icamerasrc-ipu6ep
         ++ optional (cfg.platform == "ipu6epmtl") icamerasrc-ipu6epmtl;

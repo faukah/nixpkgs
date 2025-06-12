@@ -1,13 +1,10 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "nzbhydra2";
-  meta.maintainers = with lib.maintainers; [ matteopacini ];
+  meta.maintainers = with lib.maintainers; [matteopacini];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.nzbhydra2.enable = true;
-    };
+  nodes.machine = {pkgs, ...}: {
+    services.nzbhydra2.enable = true;
+  };
 
   testScript = ''
     machine.start()

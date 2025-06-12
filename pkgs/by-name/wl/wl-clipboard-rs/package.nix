@@ -7,7 +7,6 @@
   wayland,
   withNativeLibs ? false,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wl-clipboard-rs";
   version = "0.9.1";

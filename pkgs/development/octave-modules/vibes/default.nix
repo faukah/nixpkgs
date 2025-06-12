@@ -4,7 +4,6 @@
   fetchurl,
   vibes,
 }:
-
 buildOctavePackage rec {
   pname = "vibes";
   version = "0.2.0";
@@ -24,7 +23,7 @@ buildOctavePackage rec {
       gpl3Plus
       mit
     ];
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Easily display results (boxes, pavings) from interval methods";
     longDescription = ''
       The VIBes API allows one to easily display results (boxes, pavings) from

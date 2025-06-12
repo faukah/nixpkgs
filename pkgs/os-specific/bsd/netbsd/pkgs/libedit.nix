@@ -5,7 +5,6 @@
   compatIfNeeded,
   defaultMakeFlags,
 }:
-
 mkDerivation {
   path = "lib/libedit";
   buildInputs = [
@@ -14,7 +13,7 @@ mkDerivation {
   ];
   propagatedBuildInputs = compatIfNeeded;
   SHLIBINSTALLDIR = "$(out)/lib";
-  makeFlags = defaultMakeFlags ++ [ "LIBDO.terminfo=${libterminfo}/lib" ];
+  makeFlags = defaultMakeFlags ++ ["LIBDO.terminfo=${libterminfo}/lib"];
   postPatch = ''
     sed -i '1i #undef bool_t' $COMPONENT_PATH/el.h
     substituteInPlace $COMPONENT_PATH/config.h \

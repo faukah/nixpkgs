@@ -6,16 +6,15 @@
   qtbase,
   qttools,
 }:
-
 mkDerivation {
   pname = "kcompletion";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kconfig
     kwidgetsaddons
     qttools
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
   outputs = [
     "out"
     "dev"

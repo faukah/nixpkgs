@@ -10,7 +10,6 @@
   makeWrapper,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jj-fzf";
   version = "0.25.0";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-StF0TKXTgtglFDbNTAU1c7Vw+6m70Mz2RvFon3difsk=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontConfigure = true;
   dontBuild = true;
@@ -34,15 +33,15 @@ stdenv.mkDerivation rec {
       --replace-fail "/usr/bin/env bash" "${lib.getExe bashInteractive}"
     wrapProgram $out/bin/jj-fzf \
       --prefix PATH : ${
-        lib.makeBinPath [
-          bashInteractive
-          coreutils
-          fzf
-          gawk
-          gnused
-          jujutsu
-        ]
-      }
+      lib.makeBinPath [
+        bashInteractive
+        coreutils
+        fzf
+        gawk
+        gnused
+        jujutsu
+      ]
+    }
     runHook postInstall
   '';
 
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Text UI for Jujutsu based on fzf";
     homepage = "https://github.com/tim-janik/jj-fzf";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ bbigras ];
+    maintainers = with maintainers; [bbigras];
     platforms = platforms.all;
   };
 }

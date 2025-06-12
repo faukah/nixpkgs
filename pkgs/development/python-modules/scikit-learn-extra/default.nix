@@ -9,7 +9,6 @@
   matplotlib,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "scikit-learn-extra";
   version = "0.3.0";
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     rm -r sklearn_extra
   '';
 
-  pytestFlagsArray = [ "--pyargs sklearn_extra" ];
+  pytestFlagsArray = ["--pyargs sklearn_extra"];
   disabledTestPaths = [
     "benchmarks"
     "examples"
@@ -65,6 +64,6 @@ buildPythonPackage rec {
     description = "Set of tools for scikit-learn";
     homepage = "https://github.com/scikit-learn-contrib/scikit-learn-extra";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ yl3dy ];
+    maintainers = with lib.maintainers; [yl3dy];
   };
 }

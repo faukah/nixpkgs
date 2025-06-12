@@ -13,7 +13,6 @@
   gobject-introspection,
   mpv-shim-default-shaders,
 }:
-
 buildPythonApplication rec {
   pname = "plex-mpv-shim";
   version = "1.11.0";
@@ -63,7 +62,7 @@ buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://github.com/iwalton3/plex-mpv-shim";
     description = "Allows casting of videos to MPV via the Plex mobile and web app";
-    maintainers = with maintainers; [ devusb ];
+    maintainers = with maintainers; [devusb];
     license = licenses.mit;
     platforms = platforms.linux;
     mainProgram = "plex-mpv-shim";

@@ -25,7 +25,6 @@
   typing-extensions,
   watchdog,
 }:
-
 buildPythonPackage rec {
   pname = "streamlit";
   version = "1.45.1";
@@ -42,31 +41,33 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [
-    altair
-    blinker
-    cachetools
-    click
-    numpy
-    packaging
-    pandas
-    pillow
-    protobuf
-    pyarrow
-    requests
-    rich
-    tenacity
-    toml
-    typing-extensions
-    gitpython
-    pydeck
-    tornado
-  ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ watchdog ];
+  dependencies =
+    [
+      altair
+      blinker
+      cachetools
+      click
+      numpy
+      packaging
+      pandas
+      pillow
+      protobuf
+      pyarrow
+      requests
+      rich
+      tenacity
+      toml
+      typing-extensions
+      gitpython
+      pydeck
+      tornado
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [watchdog];
 
   # pypi package does not include the tests, but cannot be built with fetchFromGitHub
   doCheck = false;
 
-  pythonImportsCheck = [ "streamlit" ];
+  pythonImportsCheck = ["streamlit"];
 
   postInstall = ''
     rm $out/bin/streamlit.cmd # remove windows helper

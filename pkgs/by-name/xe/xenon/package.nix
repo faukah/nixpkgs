@@ -2,35 +2,32 @@
   lib,
   fetchPypi,
   python3,
-}:
-
-let
+}: let
   pname = "xenon";
   version = "0.9.3";
 in
-python3.pkgs.buildPythonApplication {
-
-  inherit pname version;
-  format = "setuptools";
-
-  src = fetchPypi {
+  python3.pkgs.buildPythonApplication {
     inherit pname version;
-    hash = "sha256-SnU42LoIql15BV+z4LI5PAvW19FqSrD83vAu8fEKQ/o=";
-  };
+    format = "setuptools";
 
-  doCheck = false;
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-SnU42LoIql15BV+z4LI5PAvW19FqSrD83vAu8fEKQ/o=";
+    };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    requests
-    radon
-    pyaml
-  ];
+    doCheck = false;
 
-  meta = with lib; {
-    description = "Monitoring tool based on radon";
-    homepage = "https://github.com/rubik/xenon";
-    license = licenses.mit;
-    maintainers = with maintainers; [ jfvillablanca ];
-    mainProgram = "xenon";
-  };
-}
+    propagatedBuildInputs = with python3.pkgs; [
+      requests
+      radon
+      pyaml
+    ];
+
+    meta = with lib; {
+      description = "Monitoring tool based on radon";
+      homepage = "https://github.com/rubik/xenon";
+      license = licenses.mit;
+      maintainers = with maintainers; [jfvillablanca];
+      mainProgram = "xenon";
+    };
+  }

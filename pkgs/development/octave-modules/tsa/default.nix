@@ -4,7 +4,6 @@
   fetchurl,
   nan, # > 3.0.0
 }:
-
 buildOctavePackage rec {
   pname = "tsa";
   version = "4.6.3";
@@ -21,7 +20,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/tsa/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Stochastic concepts and maximum entropy methods for time series analysis";
   };
 }

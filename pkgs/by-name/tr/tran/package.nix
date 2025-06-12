@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tran";
   version = "0.1.43";
@@ -23,13 +22,13 @@ buildGoModule rec {
     "-X main.version=v${version}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Securely transfer and send anything between computers with TUI";
     homepage = "https://github.com/abdfnx/tran";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     mainProgram = "tran";
   };
 }

@@ -10,7 +10,6 @@
   setuptools,
   swig,
 }:
-
 buildPythonPackage rec {
   pname = "m2crypto";
   version = "0.45.0";
@@ -29,11 +28,11 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ swig ];
+  nativeBuildInputs = [swig];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   env =
     {
@@ -51,13 +50,13 @@ buildPythonPackage rec {
     openssl
   ];
 
-  pythonImportsCheck = [ "M2Crypto" ];
+  pythonImportsCheck = ["M2Crypto"];
 
   meta = with lib; {
     description = "Python crypto and SSL toolkit";
     homepage = "https://gitlab.com/m2crypto/m2crypto";
     changelog = "https://gitlab.com/m2crypto/m2crypto/-/blob/${version}/CHANGES";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

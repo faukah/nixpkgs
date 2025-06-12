@@ -14,7 +14,6 @@
   mock,
   virtualenv,
 }:
-
 buildPythonPackage rec {
   pname = "executor";
   version = "23.2";
@@ -64,6 +63,6 @@ buildPythonPackage rec {
     mainProgram = "executor";
     homepage = "https://github.com/xolox/python-executor";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ eyjhb ];
+    maintainers = with lib.maintainers; [eyjhb];
   };
 }

@@ -10,7 +10,6 @@
   boost,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "opencamlib";
   version = "2023.01.11";
@@ -27,9 +26,11 @@ buildPythonPackage rec {
     scikit-build-core
   ];
 
-  buildInputs = [
-    boost
-  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  buildInputs =
+    [
+      boost
+    ]
+    ++ lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
   nativeBuildInputs = [
     cmake
@@ -44,7 +45,7 @@ buildPythonPackage rec {
   dontUseCmakeConfigure = true;
   env.CMAKE_ARGS = "-DVERSION_STRING=${version} -DBoost_USE_STATIC_LIBS=OFF";
 
-  pythonImportsCheck = [ "opencamlib" ];
+  pythonImportsCheck = ["opencamlib"];
 
   checkPhase = ''
     runHook preCheck
@@ -62,6 +63,6 @@ buildPythonPackage rec {
     description = "Open source computer aided manufacturing algorithms library";
     # from src/deb/debian_copyright.txt
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ tomjnixon ];
+    maintainers = with lib.maintainers; [tomjnixon];
   };
 }

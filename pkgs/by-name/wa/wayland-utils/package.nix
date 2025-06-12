@@ -10,7 +10,6 @@
   wayland,
   wayland-protocols,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wayland-utils";
   version = "1.2.0";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     pkg-config
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.freedesktop.org/wayland/wayland-utils";
     license = licenses.mit; # Expat version
     platforms = platforms.linux;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
     mainProgram = "wayland-info";
   };
 }

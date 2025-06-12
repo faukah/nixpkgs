@@ -5,7 +5,6 @@
   fetchpatch,
   openssl,
 }:
-
 stdenv.mkDerivation {
   pname = "decoder";
   version = "unstable-2021-11-20";
@@ -31,7 +30,7 @@ stdenv.mkDerivation {
     openssl
   ];
 
-  makeFlags = [ "OPENSSL=y" ];
+  makeFlags = ["OPENSSL=y"];
 
   installPhase = ''
     runHook preInstall
@@ -47,6 +46,6 @@ stdenv.mkDerivation {
     mainProgram = "decoder";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.programs.proxychains;
 
   configFile = ''
@@ -51,16 +49,11 @@ let
       };
     };
   };
-
-in
-{
-
+in {
   ###### interface
 
   options = {
-
     programs.proxychains = {
-
       enable = lib.mkEnableOption "proxychains configuration";
 
       package = lib.mkPackageOption pkgs "proxychains" {
@@ -153,17 +146,14 @@ in
           }
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
-  meta.maintainers = with lib.maintainers; [ sorki ];
+  meta.maintainers = with lib.maintainers; [sorki];
 
   config = lib.mkIf cfg.enable {
-
     assertions = lib.singleton {
       assertion = cfg.chain.type != "random" && cfg.chain.length == null;
       message = ''
@@ -182,7 +172,6 @@ in
     };
 
     environment.etc."proxychains.conf".text = configFile;
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
-
 }

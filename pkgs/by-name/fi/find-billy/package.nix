@@ -9,7 +9,6 @@
   imagemagick,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "find-billy";
   version = "1.1.0";
@@ -67,7 +66,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "2 dimensional Pixel Art Jump & Run";
@@ -77,6 +76,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    maintainers = [ maintainers.annaaurora ];
+    maintainers = [maintainers.annaaurora];
   };
 }

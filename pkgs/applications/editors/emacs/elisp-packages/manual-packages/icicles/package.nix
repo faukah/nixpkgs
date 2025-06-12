@@ -3,7 +3,6 @@
   fetchFromGitHub,
   melpaBuild,
 }:
-
 melpaBuild {
   pname = "icicles";
   version = "0-unstable-2024-10-29";
@@ -19,6 +18,6 @@ melpaBuild {
     homepage = "https://emacswiki.org/emacs/Icicles";
     description = "Emacs library that enhances minibuffer completion";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

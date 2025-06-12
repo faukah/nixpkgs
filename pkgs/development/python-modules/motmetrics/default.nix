@@ -2,21 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   numpy,
   pandas,
   scipy,
   xmltodict,
-
   # tests
   pytestCheckHook,
   pytest-benchmark,
 }:
-
 buildPythonPackage {
   pname = "motmetrics";
   version = "1.4.0-unstable-2025-01-14";
@@ -30,7 +26,7 @@ buildPythonPackage {
     hash = "sha256-DJ82nioW3jdIVo1B623BE8bBhVa1oMzYIkhhit4Z4dg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -44,15 +40,15 @@ buildPythonPackage {
     pytest-benchmark
   ];
 
-  pytestFlagsArray = [ "--benchmark-disable" ];
+  pytestFlagsArray = ["--benchmark-disable"];
 
-  pythonImportsCheck = [ "motmetrics" ];
+  pythonImportsCheck = ["motmetrics"];
 
   meta = with lib; {
     description = "Benchmark multiple object trackers (MOT) in Python";
     homepage = "https://github.com/cheind/py-motmetrics";
     changelog = "https://github.com/cheind/py-motmetrics/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

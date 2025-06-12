@@ -4,9 +4,7 @@
   fetchPypi,
   fetchFromGitHub,
   withE2BE ? true,
-}:
-
-let
+}: let
   python = python3.override {
     self = python;
     packageOverrides = self: super: {
@@ -22,32 +20,30 @@ let
     };
   };
 in
-python.pkgs.buildPythonPackage rec {
-  pname = "mautrix-telegram";
-  version = "0.15.2";
-  disabled = python.pythonOlder "3.8";
+  python.pkgs.buildPythonPackage rec {
+    pname = "mautrix-telegram";
+    version = "0.15.2";
+    disabled = python.pythonOlder "3.8";
 
-  src = fetchFromGitHub {
-    owner = "mautrix";
-    repo = "telegram";
-    tag = "v${version}";
-    hash = "sha256-uR0vhp7ONyjwMKbgM1iObpFRoQzyQzJLbw4i9P58jTs=";
-  };
+    src = fetchFromGitHub {
+      owner = "mautrix";
+      repo = "telegram";
+      tag = "v${version}";
+      hash = "sha256-uR0vhp7ONyjwMKbgM1iObpFRoQzyQzJLbw4i9P58jTs=";
+    };
 
-  format = "setuptools";
+    format = "setuptools";
 
-  patches = [ ./0001-Re-add-entrypoint.patch ];
+    patches = [./0001-Re-add-entrypoint.patch];
 
-  propagatedBuildInputs =
-    with python.pkgs;
-    (
+    propagatedBuildInputs = with python.pkgs; (
       [
         ruamel-yaml
         python-magic
         commonmark
         aiohttp
         yarl
-        (mautrix.override { withOlm = withE2BE; })
+        (mautrix.override {withOlm = withE2BE;})
         tulir-telethon
         asyncpg
         mako
@@ -76,19 +72,19 @@ python.pkgs.buildPythonPackage rec {
       ]
     );
 
-  # has no tests
-  doCheck = false;
+    # has no tests
+    doCheck = false;
 
-  meta = with lib; {
-    homepage = "https://github.com/mautrix/telegram";
-    description = "Matrix-Telegram hybrid puppeting/relaybot bridge";
-    license = licenses.agpl3Plus;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [
-      nyanloutre
-      ma27
-      nickcao
-    ];
-    mainProgram = "mautrix-telegram";
-  };
-}
+    meta = with lib; {
+      homepage = "https://github.com/mautrix/telegram";
+      description = "Matrix-Telegram hybrid puppeting/relaybot bridge";
+      license = licenses.agpl3Plus;
+      platforms = platforms.linux;
+      maintainers = with maintainers; [
+        nyanloutre
+        ma27
+        nickcao
+      ];
+      mainProgram = "mautrix-telegram";
+    };
+  }

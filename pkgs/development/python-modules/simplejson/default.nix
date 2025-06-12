@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "simplejson";
   version = "3.20.1";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-wE/jqBMXVtmbc/78X4lgfvuj074CrzfLJL1CM6LCfas=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  pythonImportsCheck = [ "simplejson" ];
+  pythonImportsCheck = ["simplejson"];
 
   meta = with lib; {
     description = "Extensible JSON encoder/decoder for Python";
@@ -41,6 +40,6 @@ buildPythonPackage rec {
       mit
       afl21
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

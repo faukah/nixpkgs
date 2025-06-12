@@ -10,7 +10,6 @@
   pythonOlder,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "yte";
   version = "1.7.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-W9t2BlBp947Rwnq+IKbL5aJqauZmYQOzuBIstw6hHQY=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     dpath
@@ -38,9 +37,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "yte" ];
+  pythonImportsCheck = ["yte"];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
   preCheck = ''
     # The CLI test need yte on the PATH
@@ -52,7 +51,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/koesterlab/yte";
     changelog = "https://github.com/yte-template-engine/yte/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "yte";
   };
 }

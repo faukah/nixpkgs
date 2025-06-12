@@ -15,7 +15,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pubnub";
   version = "10.4.0";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
     hash = "sha256-yAQK56X6DKuaijAvUgQtAmpR4V5FioZogAqzZ/yhbHE=";
   };
 
-  pythonRelaxDeps = [ "httpx" ];
+  pythonRelaxDeps = ["httpx"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -62,7 +61,7 @@ buildPythonPackage rec {
     "test_handshaking"
   ];
 
-  pythonImportsCheck = [ "pubnub" ];
+  pythonImportsCheck = ["pubnub"];
 
   meta = with lib; {
     description = "Python-based APIs for PubNub";
@@ -71,6 +70,6 @@ buildPythonPackage rec {
     # PubNub Software Development Kit License Agreement
     # https://github.com/pubnub/python/blob/master/LICENSE
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

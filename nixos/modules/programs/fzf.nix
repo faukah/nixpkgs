@@ -3,12 +3,9 @@
   config,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.fzf;
-in
-{
+in {
   options = {
     programs.fzf = {
       fuzzyCompletion = lib.mkEnableOption "fuzzy completion with fzf";
@@ -17,7 +14,7 @@ in
   };
 
   config = lib.mkIf (cfg.keybindings || cfg.fuzzyCompletion) {
-    environment.systemPackages = [ pkgs.fzf ];
+    environment.systemPackages = [pkgs.fzf];
 
     programs = {
       # load after programs.bash.completion.enable
@@ -40,7 +37,7 @@ in
           ''
         );
 
-        ohMyZsh.plugins = lib.mkIf config.programs.zsh.ohMyZsh.enable [ "fzf" ];
+        ohMyZsh.plugins = lib.mkIf config.programs.zsh.ohMyZsh.enable ["fzf"];
       };
 
       fish.interactiveShellInit = lib.optionalString cfg.keybindings ''
@@ -49,5 +46,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ laalsaas ];
+  meta.maintainers = with lib.maintainers; [laalsaas];
 }

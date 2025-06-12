@@ -4,7 +4,6 @@
   fetchFromGitHub,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "harsh";
   version = "0.10.21";
@@ -18,23 +17,21 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-fggoN0PcPnfig3TA6662TPFNh/6cZVdmyr7atewoGYQ=";
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeCheckInputs = [writableTmpDirAsHomeHook];
 
-  checkFlags =
-    let
-      skippedTests = [
-        "TestNewHabitIntegration" # panic: unexpected call to os.Exit(0) during test
-        "TestBuildGraph" # Expected graph length 10, got 24
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    skippedTests = [
+      "TestNewHabitIntegration" # panic: unexpected call to os.Exit(0) during test
+      "TestBuildGraph" # Expected graph length 10, got 24
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   meta = {
     description = "CLI habit tracking for geeks";
     homepage = "https://github.com/wakatara/harsh";
     changelog = "https://github.com/wakatara/harsh/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "harsh";
   };
 })

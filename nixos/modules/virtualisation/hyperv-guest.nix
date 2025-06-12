@@ -4,14 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.virtualisation.hypervGuest;
-
-in
-{
+in {
   imports = [
     (mkRemovedOptionModule [
       "virtualisation"
@@ -36,14 +31,14 @@ in
         "hv_vmbus"
       ];
 
-      initrd.availableKernelModules = [ "hyperv_keyboard" ];
+      initrd.availableKernelModules = ["hyperv_keyboard"];
 
       kernelParams = [
         "elevator=noop"
       ];
     };
 
-    environment.systemPackages = [ config.boot.kernelPackages.hyperv-daemons.bin ];
+    environment.systemPackages = [config.boot.kernelPackages.hyperv-daemons.bin];
 
     # enable hotadding cpu/memory
     services.udev.packages = lib.singleton (
@@ -61,10 +56,10 @@ in
     );
 
     systemd = {
-      packages = [ config.boot.kernelPackages.hyperv-daemons.lib ];
+      packages = [config.boot.kernelPackages.hyperv-daemons.lib];
 
       targets.hyperv-daemons = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
       };
     };
   };

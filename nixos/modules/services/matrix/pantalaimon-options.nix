@@ -3,8 +3,7 @@
   lib,
   name,
   ...
-}:
-{
+}: {
   options = {
     dataPath = lib.mkOption {
       type = lib.types.path;
@@ -67,7 +66,7 @@
 
     extraSettings = lib.mkOption {
       type = lib.types.attrs;
-      default = { };
+      default = {};
       description = ''
         Extra configuration options. See
         [pantalaimon(5)](https://github.com/matrix-org/pantalaimon/blob/master/docs/man/pantalaimon.5.md)

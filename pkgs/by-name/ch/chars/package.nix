@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "chars";
   version = "0.7.0";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-Df+twOjzfq+Vxzuv+APiy94XmhBajgk+6+1BRFf+xm0=";
 
   passthru = {
-    updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+    updateScript = nix-update-script {extraArgs = ["--version=branch"];};
   };
 
   meta = with lib; {
@@ -28,6 +27,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "chars";
     homepage = "https://github.com/antifuchs/chars";
     license = licenses.mit;
-    maintainers = with maintainers; [ bbigras ];
+    maintainers = with maintainers; [bbigras];
   };
 }

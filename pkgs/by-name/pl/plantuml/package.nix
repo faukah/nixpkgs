@@ -8,7 +8,6 @@
   makeBinaryWrapper,
   testers,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "plantuml";
   version = "1.2025.2";
@@ -63,6 +62,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       anthonyroussel
     ];
     platforms = lib.platforms.unix;
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
   };
 })

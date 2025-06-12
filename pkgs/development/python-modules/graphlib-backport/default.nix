@@ -5,7 +5,6 @@
   setuptools,
   poetry-core,
 }:
-
 buildPythonPackage rec {
   pname = "graphlib-backport";
   version = "1.1.0";
@@ -30,12 +29,12 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  pythonImportsCheck = [ "graphlib" ];
+  pythonImportsCheck = ["graphlib"];
 
   meta = with lib; {
     description = "Backport of the Python 3.9 graphlib module for Python 3.6+";
     homepage = "https://github.com/mariushelf/graphlib_backport";
     license = licenses.psfl;
-    maintainers = with maintainers; [ t4ccer ];
+    maintainers = with maintainers; [t4ccer];
   };
 }

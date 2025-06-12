@@ -5,7 +5,6 @@
   fetchFromGitHub,
   gopass,
 }:
-
 buildGoModule rec {
   pname = "gopass-hibp";
   version = "1.15.16";
@@ -19,9 +18,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-5+DdlNqPNbStG7c6eX4t+4ICi3ZfCNQblkyw3eFZZL4=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   ldflags = [
     "-s"
@@ -32,7 +31,7 @@ buildGoModule rec {
 
   postFixup = ''
     wrapProgram $out/bin/gopass-hibp \
-      --prefix PATH : "${lib.makeBinPath [ gopass ]}"
+      --prefix PATH : "${lib.makeBinPath [gopass]}"
   '';
 
   meta = with lib; {
@@ -40,7 +39,7 @@ buildGoModule rec {
     homepage = "https://github.com/gopasspw/gopass-hibp";
     changelog = "https://github.com/gopasspw/gopass-hibp/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     mainProgram = "gopass-hibp";
   };
 }

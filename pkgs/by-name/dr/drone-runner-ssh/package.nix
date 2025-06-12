@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule {
   pname = "drone-runner-ssh";
   version = "unstable-2022-12-22";
@@ -21,7 +20,7 @@ buildGoModule {
     description = "Experimental Drone runner that executes a pipeline on a remote machine";
     homepage = "https://github.com/drone-runners/drone-runner-ssh";
     license = licenses.unfreeRedistributable;
-    teams = [ teams.c3d2 ];
+    teams = [teams.c3d2];
     mainProgram = "drone-runner-ssh";
   };
 }

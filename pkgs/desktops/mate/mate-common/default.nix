@@ -4,7 +4,6 @@
   fetchurl,
   mateUpdateScript,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "mate-common";
   version = "1.28.0";
@@ -16,13 +15,13 @@ stdenvNoCC.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Common files for development of MATE packages";
     homepage = "https://mate-desktop.org";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

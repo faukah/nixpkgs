@@ -9,7 +9,6 @@
   testers,
   speedtest-rs,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "speedtest-rs";
   version = "0.2.0";
@@ -21,9 +20,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-1FAFYiWDD/KG/7/UTv/EW6Nj2GnU0GZFFq6ouMc0URA=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-T8OG6jmUILeRmvPLjGDFlJyBm87Xdgy4bw4n7V0BQMk=";
@@ -35,8 +34,8 @@ rustPlatform.buildRustPackage rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion { package = speedtest-rs; };
+    updateScript = nix-update-script {};
+    tests.version = testers.testVersion {package = speedtest-rs;};
   };
 
   meta = {
@@ -47,7 +46,7 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "speedtest-rs";
   };
 }

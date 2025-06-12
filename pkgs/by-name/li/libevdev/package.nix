@@ -5,7 +5,6 @@
   pkg-config,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libevdev";
   version = "1.13.4";
@@ -25,6 +24,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.freedesktop.org/software/libevdev/doc/latest/index.html";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.amorsillo ];
+    maintainers = [maintainers.amorsillo];
   };
 }

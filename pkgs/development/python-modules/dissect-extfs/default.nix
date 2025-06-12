@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-extfs";
   version = "3.13";
@@ -34,9 +33,9 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dissect.extfs" ];
+  pythonImportsCheck = ["dissect.extfs"];
 
   # Archive files seems to be corrupt
   doCheck = false;
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/fox-it/dissect.extfs";
     changelog = "https://github.com/fox-it/dissect.extfs/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

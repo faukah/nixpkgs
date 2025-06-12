@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # propagates
   django,
   scim2-filter-parser,
-
   # tests
   mock,
   pytest-django,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-scim2";
   version = "0.19.0";
@@ -35,14 +31,14 @@ buildPythonPackage rec {
       --replace-fail "poetry.masonry.api" "poetry.core.masonry.api"
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     django
     scim2-filter-parser
   ];
 
-  pythonImportsCheck = [ "django_scim" ];
+  pythonImportsCheck = ["django_scim"];
 
   nativeCheckInputs = [
     mock
@@ -55,6 +51,6 @@ buildPythonPackage rec {
     description = "SCIM 2.0 Service Provider Implementation (for Django)";
     homepage = "https://github.com/15five/django-scim2";
     license = licenses.mit;
-    maintainers = with maintainers; [ s1341 ];
+    maintainers = with maintainers; [s1341];
   };
 }

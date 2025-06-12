@@ -14,7 +14,6 @@
   redis,
   django-redis,
 }:
-
 buildPythonPackage rec {
   pname = "python-redis-lock";
   version = "4.0.0";
@@ -43,19 +42,21 @@ buildPythonPackage rec {
     ./test_signal_expiration_increase_sleep.patch
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ redis ];
+  dependencies = [redis];
 
-  optional-dependencies.django = [ django-redis ];
+  optional-dependencies.django = [django-redis];
 
-  nativeCheckInputs = [
-    eventlet
-    gevent
-    pytestCheckHook
-    process-tests
-    pkgs.valkey
-  ] ++ optional-dependencies.django;
+  nativeCheckInputs =
+    [
+      eventlet
+      gevent
+      pytestCheckHook
+      process-tests
+      pkgs.valkey
+    ]
+    ++ optional-dependencies.django;
 
   # For Django tests
   preCheck = "export DJANGO_SETTINGS_MODULE=test_project.settings";
@@ -66,13 +67,13 @@ buildPythonPackage rec {
     "test_reset_all_signalizes"
   ];
 
-  pythonImportsCheck = [ "redis_lock" ];
+  pythonImportsCheck = ["redis_lock"];
 
   meta = with lib; {
     changelog = "https://github.com/ionelmc/python-redis-lock/blob/v${version}/CHANGELOG.rst";
     description = "Lock context manager implemented via redis SETNX/BLPOP";
     homepage = "https://github.com/ionelmc/python-redis-lock";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
   };
 }

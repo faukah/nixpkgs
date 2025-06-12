@@ -3,13 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  json = pkgs.formats.json { };
+}: let
+  json = pkgs.formats.json {};
   cfg = config.programs.openvpn3;
 
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
@@ -19,19 +18,18 @@ let
     lists
     ;
   inherit (lib.types) bool submodule ints;
-in
-{
+in {
   options.programs.openvpn3 = {
     enable = mkEnableOption "the openvpn3 client";
-    package = mkPackageOption pkgs "openvpn3" { };
+    package = mkPackageOption pkgs "openvpn3" {};
     netcfg = mkOption {
       description = "Network configuration";
-      default = { };
+      default = {};
       type = submodule {
         options = {
           settings = mkOption {
             description = "Options stored in {file}`/etc/openvpn3/netcfg.json` configuration file";
-            default = { };
+            default = {};
             type = submodule {
               freeformType = json.type;
               options = {
@@ -50,12 +48,12 @@ in
     };
     log-service = mkOption {
       description = "Log service configuration";
-      default = { };
+      default = {};
       type = submodule {
         options = {
           settings = mkOption {
             description = "Options stored in {file}`/etc/openvpn3/log-service.json` configuration file";
-            default = { };
+            default = {};
             type = submodule {
               freeformType = json.type;
               options = {
@@ -73,9 +71,11 @@ in
                 };
                 log_level = mkOption {
                   description = "How verbose should the logging be";
-                  type = (ints.between 0 7) // {
-                    merge = _loc: defs: lists.foldl max 0 (options.getValues defs);
-                  };
+                  type =
+                    (ints.between 0 7)
+                    // {
+                      merge = _loc: defs: lists.foldl max 0 (options.getValues defs);
+                    };
                   default = 3;
                   example = 6;
                 };
@@ -94,7 +94,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.dbus.packages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
 
     users.users.openvpn = {
       isSystemUser = true;
@@ -107,7 +107,7 @@ in
     };
 
     environment = {
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
       etc = {
         "openvpn3/netcfg.json".source = json.generate "netcfg.json" cfg.netcfg.settings;
         "openvpn3/log-service.json".source = json.generate "log-service.json" cfg.log-service.settings;
@@ -115,7 +115,7 @@ in
     };
 
     systemd = {
-      packages = [ cfg.package ];
+      packages = [cfg.package];
       tmpfiles.rules = [
         "d /etc/openvpn3/configs 0750 openvpn openvpn - -"
       ];

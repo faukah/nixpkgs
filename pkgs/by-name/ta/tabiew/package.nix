@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Yic8maNIjo4Kg6nZ29dtN2PougtOa2WCMMMUiIt9iEs=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   outputs = [
     "out"
@@ -42,7 +42,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/shshemi/tabiew/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = "tw";
-    maintainers = with lib.maintainers; [ anas ];
+    maintainers = with lib.maintainers; [anas];
     platforms = with lib.platforms; unix ++ windows;
   };
 }

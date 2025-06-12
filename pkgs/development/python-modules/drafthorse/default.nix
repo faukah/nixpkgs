@@ -7,7 +7,6 @@
   pypdf,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "drafthorse";
   version = "2025.1.1";
@@ -20,21 +19,21 @@ buildPythonPackage rec {
     hash = "sha256-zKFKZIF50qAYzLhyCWMfrgaf9YRpk1MU81DAWaycXFI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     lxml
     pypdf
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "drafthorse" ];
+  pythonImportsCheck = ["drafthorse"];
 
   meta = with lib; {
     description = "Pure-python ZUGFeRD implementation";
     homepage = "https://github.com/pretix/python-drafthorse";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

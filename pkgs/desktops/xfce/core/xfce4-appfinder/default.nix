@@ -8,7 +8,6 @@
   libxfce4ui,
   xfconf,
 }:
-
 mkXfceDerivation {
   category = "xfce";
   pname = "xfce4-appfinder";
@@ -16,7 +15,7 @@ mkXfceDerivation {
 
   sha256 = "sha256-HovQnkfv5BOsRPowgMkMEWQmESkivVK0Xb7I15ZaOMc=";
 
-  nativeBuildInputs = [ exo ];
+  nativeBuildInputs = [exo];
   buildInputs = [
     garcon
     gtk3
@@ -27,6 +26,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Appfinder for the Xfce4 Desktop Environment";
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

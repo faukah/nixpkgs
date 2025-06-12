@@ -4,7 +4,6 @@
   fetchurl,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.4.41";
   pname = "libzen";
@@ -13,8 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6yN9fT3Kbca6BocZQgon3gk0p4PMrrKGdWKzWvOQHi0=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  configureFlags = [ "--enable-shared" ];
+  nativeBuildInputs = [autoreconfHook];
+  configureFlags = ["--enable-shared"];
 
   sourceRoot = "ZenLib/Project/GNU/Library";
 
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://mediaarea.net/";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.devhell ];
+    maintainers = [maintainers.devhell];
   };
 }

@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kubetui";
   version = "1.8.1";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/sarub0b0/kubetui";
     changelog = "https://github.com/sarub0b0/kubetui/releases/tag/v${version}";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     license = lib.licenses.mit;
     description = "Intuitive TUI tool for real-time monitoring and exploration of Kubernetes resources";
     mainProgram = "kubetui";

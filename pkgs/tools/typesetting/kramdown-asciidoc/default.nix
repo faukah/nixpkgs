@@ -5,9 +5,7 @@
   # Optional dependencies, can be null
   epubcheck,
   bundlerUpdateScript,
-}:
-
-let
+}: let
   app = bundlerApp {
     pname = "kramdown-asciidoc";
     gemdir = ./.;
@@ -31,10 +29,10 @@ let
       description = "Kramdown extension for converting Markdown documents to AsciiDoc";
       homepage = "https://asciidoctor.org/";
       license = licenses.mit;
-      maintainers = [ ];
+      maintainers = [];
       platforms = platforms.unix;
       mainProgram = "kramdoc";
     };
   };
 in
-app
+  app

@@ -9,7 +9,6 @@
   pytestCheckHook,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "habitipy";
   version = "0.3.3";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-AEeTCrxLXkokRRnNUfW4y23Qdh8ek1F88GmCPLGb84A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     plumbum
@@ -47,13 +46,13 @@ buildPythonPackage rec {
     "test_data"
   ];
 
-  pythonImportsCheck = [ "habitipy" ];
+  pythonImportsCheck = ["habitipy"];
 
   meta = with lib; {
     description = "Tools and library for Habitica restful API";
     mainProgram = "habitipy";
     homepage = "https://github.com/ASMfreaK/habitipy";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

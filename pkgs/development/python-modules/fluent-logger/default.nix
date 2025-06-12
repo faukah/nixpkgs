@@ -2,17 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   msgpack,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fluent-logger";
   version = "0.11.1";
@@ -25,11 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-i6S5S2ZUwC5gQPdVjefUXrKj43iLIqxd8tdXbMBJNnA=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ msgpack ];
+  dependencies = [msgpack];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "fluent"

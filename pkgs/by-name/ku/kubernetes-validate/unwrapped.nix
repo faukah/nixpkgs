@@ -41,14 +41,14 @@ buildPythonPackage rec {
   ];
   versionCheckProgramArg = "--version";
 
-  pythonImportsCheck = [ "kubernetes_validate" ];
+  pythonImportsCheck = ["kubernetes_validate"];
 
   meta = {
     description = "Module to validate Kubernetes resource definitions against the declared Kubernetes schemas";
     homepage = "https://github.com/willthames/kubernetes-validate";
     changelog = "https://github.com/willthames/kubernetes-validate/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ lykos153 ];
+    maintainers = with lib.maintainers; [lykos153];
     mainProgram = "kubernetes-validate";
   };
 }

@@ -13,7 +13,6 @@
   glib,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgedit-gfls";
   version = "0.3.0";
@@ -55,12 +54,12 @@ stdenv.mkDerivation (finalAttrs: {
     glib
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://gitlab.gnome.org/World/gedit/libgedit-gfls";
     description = "Module dedicated to file loading and saving";
-    maintainers = with lib.maintainers; [ bobby285271 ];
+    maintainers = with lib.maintainers; [bobby285271];
     license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.linux;
   };

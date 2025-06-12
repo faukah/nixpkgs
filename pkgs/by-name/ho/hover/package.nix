@@ -14,9 +14,7 @@
   gcc,
   go,
   flutter,
-}:
-
-let
+}: let
   pname = "hover";
   version = "0.47.0";
 
@@ -41,10 +39,10 @@ let
       homepage = "https://github.com/go-flutter-desktop/hover";
       license = licenses.bsd3;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ ericdallo ];
+      maintainers = with maintainers; [ericdallo];
     };
 
-    subPackages = [ "." ];
+    subPackages = ["."];
 
     vendorHash = "sha256-GDoX5d2aDfaAx9JsKuS4r8137t3swT6rgcCghmaThSM=";
 
@@ -85,23 +83,21 @@ let
       addDriverRunpath $out/bin/hover
     '';
   };
-
 in
-buildFHSEnv {
-  inherit pname version;
-  targetPkgs =
-    pkgs:
-    [
-      binutils
-      dejavu_fonts
-      flutter
-      gcc
-      go
-      hover
-      pkg-config
-      roboto
-    ]
-    ++ libs;
+  buildFHSEnv {
+    inherit pname version;
+    targetPkgs = pkgs:
+      [
+        binutils
+        dejavu_fonts
+        flutter
+        gcc
+        go
+        hover
+        pkg-config
+        roboto
+      ]
+      ++ libs;
 
-  runScript = "hover";
-}
+    runScript = "hover";
+  }

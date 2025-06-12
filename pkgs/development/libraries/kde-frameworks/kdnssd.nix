@@ -5,15 +5,14 @@
   qtbase,
   qttools,
 }:
-
 mkDerivation {
   pname = "kdnssd";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     avahi
     qttools
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
   outputs = [
     "out"
     "dev"

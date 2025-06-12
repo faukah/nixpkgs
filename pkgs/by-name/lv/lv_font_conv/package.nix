@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "lv_font_conv";
   version = "1.5.3";
@@ -22,13 +21,13 @@ buildNpmPackage rec {
     patchShebangs support/build_web.js
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Converts TTF/WOFF fonts to compact bitmap format";
     mainProgram = "lv_font_conv";
     homepage = " https://lvgl.io/tools/fontconverter";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

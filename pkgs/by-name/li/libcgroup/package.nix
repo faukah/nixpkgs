@@ -10,7 +10,6 @@
   musl-fts,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcgroup";
   version = "3.2.0";
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/libcgroup/libcgroup";
     license = lib.licenses.lgpl2;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

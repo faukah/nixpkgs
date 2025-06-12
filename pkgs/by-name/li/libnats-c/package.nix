@@ -8,7 +8,6 @@
   libsodium,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libnats";
   version = "3.10.1";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hPudV1d+6QkHJzs7Mk47v8LVBfR3UTES/UyhdtMkNJA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libsodium
     openssl
@@ -45,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nats-io/nats.c";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

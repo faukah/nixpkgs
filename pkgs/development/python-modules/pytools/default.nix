@@ -10,7 +10,6 @@
   typing-extensions,
   siphash24,
 }:
-
 buildPythonPackage rec {
   pname = "pytools";
   version = "2025.1.6";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-k44d+Zl7pax3EDSkmw5jgBvZOiuS5qOPQyQVGaH7Mis=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     platformdirs
@@ -32,7 +31,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    numpy = [ numpy ];
+    numpy = [numpy];
   };
 
   nativeCheckInputs = [
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/inducer/pytools/";
     changelog = "https://github.com/inducer/pytools/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ artuuge ];
+    maintainers = with lib.maintainers; [artuuge];
   };
 }

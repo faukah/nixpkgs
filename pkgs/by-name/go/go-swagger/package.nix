@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go-swagger";
   version = "0.31.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/swagger" ];
+  subPackages = ["cmd/swagger"];
 
   ldflags = [
     "-s"
@@ -33,7 +32,7 @@ buildGoModule rec {
     homepage = "https://github.com/go-swagger/go-swagger";
     changelog = "https://github.com/go-swagger/go-swagger/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ kalbasit ];
+    maintainers = with lib.maintainers; [kalbasit];
     mainProgram = "swagger";
   };
 }

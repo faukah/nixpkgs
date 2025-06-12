@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-wizard";
   version = "0.2.2";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/kobzol/cargo-wizard";
     changelog = "https://github.com/kobzol/cargo-wizard/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
     mainProgram = "cargo-wizard";
   };
 }

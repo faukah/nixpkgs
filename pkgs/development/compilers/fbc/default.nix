@@ -12,7 +12,6 @@
   libXrandr,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fbc";
   version = "1.10.1";
@@ -76,11 +75,10 @@ stdenv.mkDerivation rec {
     make rtlib -j$buildJobs \
       "FBC=$PWD/bin/fbc${stdenv.buildPlatform.extensions.executable} -i $PWD/inc" \
       ${
-        if (stdenv.buildPlatform == stdenv.hostPlatform) then
-          "BUILD_PREFIX=${buildPackages.stdenv.cc.targetPrefix} LD=${buildPackages.stdenv.cc.targetPrefix}ld"
-        else
-          "TARGET=${stdenv.hostPlatform.config}"
-      }
+      if (stdenv.buildPlatform == stdenv.hostPlatform)
+      then "BUILD_PREFIX=${buildPackages.stdenv.cc.targetPrefix} LD=${buildPackages.stdenv.cc.targetPrefix}ld"
+      else "TARGET=${stdenv.hostPlatform.config}"
+    }
 
     echo Install patched build compiler and host rtlib to local directory
     make install-compiler prefix=$PWD/patched-fbc
@@ -139,7 +137,7 @@ stdenv.mkDerivation rec {
       and many others.
     '';
     license = licenses.gpl2Plus; # runtime & graphics libraries are LGPLv2+ w/ static linking exception
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = with platforms; windows ++ linux;
   };
 }

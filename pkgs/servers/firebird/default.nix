@@ -10,9 +10,7 @@
   libtomcrypt,
   icu73,
   superServer ? false,
-}:
-
-let
+}: let
   base = {
     pname = "firebird";
 
@@ -32,18 +30,20 @@ let
       ];
     };
 
-    nativeBuildInputs = [ autoreconfHook271 ];
+    nativeBuildInputs = [autoreconfHook271];
 
     buildInputs = [
       libedit
       icu73
     ];
 
-    LD_LIBRARY_PATH = lib.makeLibraryPath [ icu73 ];
+    LD_LIBRARY_PATH = lib.makeLibraryPath [icu73];
 
-    configureFlags = [
-      "--with-system-editline"
-    ] ++ (lib.optional superServer "--enable-superserver");
+    configureFlags =
+      [
+        "--with-system-editline"
+      ]
+      ++ (lib.optional superServer "--enable-superserver");
 
     installPhase = ''
       runHook preInstall
@@ -51,10 +51,8 @@ let
       cp -r gen/Release/firebird/* $out
       runHook postInstall
     '';
-
   };
-in
-rec {
+in rec {
   firebird_3 = stdenv.mkDerivation (
     base
     // rec {
@@ -67,14 +65,18 @@ rec {
         hash = "sha256-po8tMrOahfwayVXa7Eadr9+ZEmZizHlCmxi094cOJSY=";
       };
 
-      buildInputs = base.buildInputs ++ [
-        zlib
-        libtommath
-      ];
+      buildInputs =
+        base.buildInputs
+        ++ [
+          zlib
+          libtommath
+        ];
 
-      meta = base.meta // {
-        platforms = [ "x86_64-linux" ];
-      };
+      meta =
+        base.meta
+        // {
+          platforms = ["x86_64-linux"];
+        };
     }
   );
 
@@ -90,12 +92,14 @@ rec {
         hash = "sha256-OxkPpmnYTl65ns+hKHJd5IAPUiMj0g3HUpyRpwDNut8=";
       };
 
-      nativeBuildInputs = base.nativeBuildInputs ++ [ unzip ];
-      buildInputs = base.buildInputs ++ [
-        zlib
-        libtommath
-        libtomcrypt
-      ];
+      nativeBuildInputs = base.nativeBuildInputs ++ [unzip];
+      buildInputs =
+        base.buildInputs
+        ++ [
+          zlib
+          libtommath
+          libtomcrypt
+        ];
     }
   );
 

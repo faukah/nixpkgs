@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "drone-runner-exec";
   version = "unstable-2020-04-19";
@@ -22,7 +21,7 @@ buildGoModule {
     homepage = "https://github.com/drone-runners/drone-runner-exec";
     # https://polyformproject.org/licenses/small-business/1.0.0/
     license = licenses.unfree;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
     mainProgram = "drone-runner-exec";
   };
 }

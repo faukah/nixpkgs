@@ -6,7 +6,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyrtlsdr";
   version = "0.3.0";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-+z5YO6BzuGHo4LxeYvZvBzZekUf102SR3krWLyPkU2I=";
   };
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
   postPatch = ''
     sed "s|driver_files =.*|driver_files = ['${rtl-sdr}/lib/librtlsdr.so']|" -i rtlsdr/librtlsdr.py
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/pyrtlsdr/pyrtlsdr/releases/tag/v${version}";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

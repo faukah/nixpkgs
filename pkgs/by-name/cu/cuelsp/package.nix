@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cuelsp";
   version = "0.3.4";
@@ -28,6 +27,6 @@ buildGoModule rec {
     mainProgram = "cuelsp";
     homepage = "https://github.com/dagger/cuelsp";
     license = licenses.asl20;
-    maintainers = with maintainers; [ sagikazarmark ];
+    maintainers = with maintainers; [sagikazarmark];
   };
 }

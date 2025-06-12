@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-redhatopenshift";
   version = "2.0.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-nTBKy7p8n0JWEmn3ByEKranHteoJkPJyLfYFmaCOOq4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     isodate
@@ -35,12 +34,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.mgmt.redhatopenshift" ];
+  pythonImportsCheck = ["azure.mgmt.redhatopenshift"];
 
   meta = with lib; {
     description = "Microsoft Azure Red Hat Openshift Management Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

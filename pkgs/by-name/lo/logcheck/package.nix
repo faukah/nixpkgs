@@ -5,7 +5,6 @@
   lockfileProgs,
   perlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "logcheck";
   version = "1.4.5";
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://salsa.debian.org/debian/logcheck";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.bluescreen303 ];
+    maintainers = [maintainers.bluescreen303];
   };
 }

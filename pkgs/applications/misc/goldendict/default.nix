@@ -31,7 +31,6 @@
   withZim ? true,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "goldendict";
   version = "1.5.0";

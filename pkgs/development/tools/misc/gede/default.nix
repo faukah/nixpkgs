@@ -10,7 +10,6 @@
   ctags,
   gdb,
 }:
-
 mkDerivation rec {
   pname = "gede";
   version = "2.22.1";
@@ -41,11 +40,11 @@ mkDerivation rec {
     wrapProgram $out/bin/gede \
       --prefix QT_PLUGIN_PATH : ${qtbase}/${qtbase.qtPluginPrefix} \
       --prefix PATH : ${
-        lib.makeBinPath [
-          ctags
-          gdb
-        ]
-      }
+      lib.makeBinPath [
+        ctags
+        gdb
+      ]
+    }
   '';
 
   meta = with lib; {
@@ -54,6 +53,6 @@ mkDerivation rec {
     homepage = "http://gede.dexar.se";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ juliendehos ];
+    maintainers = with maintainers; [juliendehos];
   };
 }

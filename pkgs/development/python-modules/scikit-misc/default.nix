@@ -11,7 +11,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "scikit-misc";
   version = "0.5.1";
@@ -50,23 +49,23 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # can not run tests from source directory
   preCheck = ''
     cd "$(mktemp -d)"
   '';
 
-  pytestFlagsArray = [ "--pyargs skmisc" ];
+  pytestFlagsArray = ["--pyargs skmisc"];
 
-  pythonImportsCheck = [ "skmisc" ];
+  pythonImportsCheck = ["skmisc"];
 
   meta = with lib; {
     description = "Miscellaneous tools for scientific computing";
     homepage = "https://github.com/has2k1/scikit-misc";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

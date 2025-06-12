@@ -23,7 +23,6 @@
   withRPiDispmanx ? false,
   libraspberrypi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hyperion.ng";
   version = "2.0.16";
@@ -59,24 +58,28 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.hostPlatform.isLinux libcec
     ++ lib.optional withRPiDispmanx libraspberrypi;
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin perl; # for macos bundle
+  nativeBuildInputs =
+    [
+      cmake
+      wrapQtAppsHook
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin perl; # for macos bundle
 
   patchPhase = ''
     patchShebangs test/testrunner.sh
     patchShebangs src/hyperiond/CMakeLists.txt
   '';
 
-  cmakeFlags = [
-    "-DENABLE_DEPLOY_DEPENDENCIES=OFF"
-    "-DUSE_SYSTEM_FLATBUFFERS_LIBS=ON"
-    "-DUSE_SYSTEM_PROTO_LIBS=ON"
-    "-DUSE_SYSTEM_MBEDTLS_LIBS=ON"
-    # "-DUSE_SYSTEM_QMDNS_LIBS=ON"  # qmdnsengine not in nixpkgs yet
-    "-DENABLE_TESTS=ON"
-  ] ++ lib.optional (withRPiDispmanx == false) "-DENABLE_DISPMANX=OFF";
+  cmakeFlags =
+    [
+      "-DENABLE_DEPLOY_DEPENDENCIES=OFF"
+      "-DUSE_SYSTEM_FLATBUFFERS_LIBS=ON"
+      "-DUSE_SYSTEM_PROTO_LIBS=ON"
+      "-DUSE_SYSTEM_MBEDTLS_LIBS=ON"
+      # "-DUSE_SYSTEM_QMDNS_LIBS=ON"  # qmdnsengine not in nixpkgs yet
+      "-DENABLE_TESTS=ON"
+    ]
+    ++ lib.optional (withRPiDispmanx == false) "-DENABLE_DISPMANX=OFF";
 
   doCheck = true;
   checkPhase = ''

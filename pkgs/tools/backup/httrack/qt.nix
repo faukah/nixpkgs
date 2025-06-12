@@ -10,7 +10,6 @@
   qtbase,
   qtmultimedia,
 }:
-
 mkDerivation rec {
   pname = "httraqt";
   version = "1.4.9";
@@ -52,7 +51,7 @@ mkDerivation rec {
     mainProgram = "httraqt";
     homepage = "http://www.httrack.com";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = with platforms; unix;
   };
 }

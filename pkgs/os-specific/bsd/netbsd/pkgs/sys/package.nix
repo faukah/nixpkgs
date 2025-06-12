@@ -13,8 +13,7 @@
   config,
   genassym,
   defaultMakeFlags,
-}:
-let
+}: let
   base = import ./base.nix {
     inherit
       lib
@@ -34,12 +33,12 @@ let
       ;
   };
 in
-mkDerivation (
-  base
-  // {
-    pname = "sys";
-    installPhase = null;
-    noCC = false;
-    dontBuild = false;
-  }
-)
+  mkDerivation (
+    base
+    // {
+      pname = "sys";
+      installPhase = null;
+      noCC = false;
+      dontBuild = false;
+    }
+  )

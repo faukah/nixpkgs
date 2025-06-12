@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "aperture";
   version = "0.3-beta";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-rrDLdE7c6ykhdqOfRpuxyRO4xqYp3LZvovAppzy1wVw=";
 
-  subPackages = [ "cmd/aperture" ];
+  subPackages = ["cmd/aperture"];
 
   meta = {
     description = "L402 (Lightning HTTP 402) Reverse Proxy";

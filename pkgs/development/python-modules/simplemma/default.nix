@@ -9,7 +9,6 @@
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "simplemma";
   version = "1.1.2";
@@ -38,12 +37,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "simplemma" ];
+  pythonImportsCheck = ["simplemma"];
 
   meta = {
     description = "Simple multilingual lemmatizer for Python, especially useful for speed and efficiency";
     homepage = "https://github.com/adbar/simplemma";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

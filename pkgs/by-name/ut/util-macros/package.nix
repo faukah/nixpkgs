@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   # not needed for releases, we propagate the needed tools
   propagatedNativeBuildInputs = [
@@ -48,8 +48,8 @@ stdenv.mkDerivation (finalAttrs: {
       hpndSellVariant
       mit
     ];
-    maintainers = [ ];
-    pkgConfigModules = [ "xorg-macros" ];
+    maintainers = [];
+    pkgConfigModules = ["xorg-macros"];
     platforms = lib.platforms.unix;
   };
 })

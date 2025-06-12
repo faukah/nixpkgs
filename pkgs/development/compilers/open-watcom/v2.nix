@@ -4,13 +4,11 @@
   fetchFromGitHub,
   unstableGitUpdater,
   dosbox,
-
   # Docs cause an immense increase in build time, up to 2 additional hours
   withDocs ? false,
   ghostscript,
   withGUI ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "${passthru.prettyName}-unwrapped";
   # nixpkgs-update: no auto update
@@ -56,10 +54,22 @@ stdenv.mkDerivation rec {
     runHook preConfigure
 
     export OWROOT=$(realpath $PWD)
-    export OWTOOLS=${if stdenv.cc.isClang then "CLANG" else "GCC"}
-    export OWDOCBUILD=${if withDocs then "1" else "0"}
+    export OWTOOLS=${
+      if stdenv.cc.isClang
+      then "CLANG"
+      else "GCC"
+    }
+    export OWDOCBUILD=${
+      if withDocs
+      then "1"
+      else "0"
+    }
     export OWGHOSTSCRIPTPATH=${lib.optionalString withDocs "${ghostscript}/bin"}
-    export OWGUINOBUILD=${if withGUI then "0" else "1"}
+    export OWGUINOBUILD=${
+      if withGUI
+      then "0"
+      else "1"
+    }
     export OWNOBUILD=
     export OWDISTRBUILD=0
     export OWDOSBOX=${dosbox}/bin/dosbox
@@ -133,11 +143,13 @@ stdenv.mkDerivation rec {
     homepage = "https://open-watcom.github.io";
     license = licenses.watcom;
     platforms = with platforms; windows ++ unix;
-    badPlatforms = platforms.riscv ++ [
-      "powerpc64-linux"
-      "powerpc64le-linux"
-      "mips64el-linux"
-    ];
-    maintainers = with maintainers; [ OPNA2608 ];
+    badPlatforms =
+      platforms.riscv
+      ++ [
+        "powerpc64-linux"
+        "powerpc64le-linux"
+        "mips64el-linux"
+      ];
+    maintainers = with maintainers; [OPNA2608];
   };
 }

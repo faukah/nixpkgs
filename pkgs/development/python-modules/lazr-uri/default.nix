@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "lazr-uri";
   version = "1.0.7";
@@ -17,21 +16,21 @@ buildPythonPackage rec {
     hash = "sha256-7Qz28zPkUBFHUq+xzgwpnDasSxCQY+tQNUxPh/glo+4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ setuptools ];
+  dependencies = [setuptools];
 
-  pythonImportsCheck = [ "lazr.uri" ];
+  pythonImportsCheck = ["lazr.uri"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonNamespaces = [ "lazr" ];
+  pythonNamespaces = ["lazr"];
 
   meta = {
     description = "Self-contained, easily reusable library for parsing, manipulating";
     homepage = "https://launchpad.net/lazr.uri";
     changelog = "https://git.launchpad.net/lazr.uri/tree/NEWS.rst?h=${version}";
     license = lib.licenses.lgpl3Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

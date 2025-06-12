@@ -32,7 +32,6 @@
   wrapGAppsHook3,
   wayland-scanner,
 }:
-
 mkDerivation {
   pname = "spectacle";
 
@@ -87,6 +86,6 @@ mkDerivation {
     homepage = "https://apps.kde.org/spectacle/";
     description = "Screenshot capture utility";
     mainProgram = "spectacle";
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
   };
 }

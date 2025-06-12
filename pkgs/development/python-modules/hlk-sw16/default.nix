@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchFromGitHub,
 }:
-
 buildPythonPackage rec {
   pname = "hlk-sw16";
   version = "0.0.9";
@@ -19,12 +18,12 @@ buildPythonPackage rec {
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "hlk_sw16" ];
+  pythonImportsCheck = ["hlk_sw16"];
 
   meta = with lib; {
     description = "Python client for HLK-SW16";
     homepage = "https://github.com/jameshilliard/hlk-sw16";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -17,7 +17,6 @@
   stdenv,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "warehouse";
   version = "2.0.2";
@@ -46,19 +45,20 @@ stdenv.mkDerivation (finalAttrs: {
     gtk4
     libadwaita
     (python3.withPackages (
-      ps: with ps; [
-        pygobject3
-      ]
+      ps:
+        with ps; [
+          pygobject3
+        ]
     ))
   ];
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --suffix PATH : "${lib.makeBinPath [ flatpak-xdg-utils ]}"
+      --suffix PATH : "${lib.makeBinPath [flatpak-xdg-utils]}"
     )
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/flattool/warehouse/releases/tag/${finalAttrs.version}";
@@ -66,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/flattool/warehouse";
     license = lib.licenses.gpl3Plus;
     mainProgram = "warehouse";
-    maintainers = with lib.maintainers; [ michaelgrahamevans ];
+    maintainers = with lib.maintainers; [michaelgrahamevans];
     platforms = lib.platforms.linux;
   };
 })

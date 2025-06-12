@@ -6,7 +6,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "tcolorpy";
   version = "0.1.7";
@@ -24,14 +23,14 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonImportsCheck = [ "tcolorpy" ];
+  pythonImportsCheck = ["tcolorpy"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/thombashi/tcolorpy";
     description = "Library to apply true color for terminal text";
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     license = licenses.mit;
   };
 }

@@ -10,7 +10,6 @@
   starlette,
   fetchpatch,
 }:
-
 buildPythonPackage rec {
   pname = "baize";
   version = "0.22.2";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "baize" ];
+  pythonImportsCheck = ["baize"];
 
   nativeCheckInputs = [
     httpx

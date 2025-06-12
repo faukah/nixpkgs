@@ -6,7 +6,6 @@
   SDL_mixer,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "cuyo";
   version = "2.1.0";
@@ -29,5 +28,4 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };
-
 }

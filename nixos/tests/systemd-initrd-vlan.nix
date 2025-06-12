@@ -1,7 +1,6 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "systemd-initrd-vlan";
-  meta.maintainers = [ lib.maintainers.majiir ];
+  meta.maintainers = [lib.maintainers.majiir];
 
   # Tests VLAN interface configuration in systemd-initrd.
   #
@@ -11,41 +10,41 @@
   # The 'server' node waits forever in initrd (stage 1) with networking
   # enabled. The 'client' node pings it to test network connectivity.
 
-  nodes =
-    let
-      network = id: {
-        networking = {
-          vlans."eth1.10" = {
-            id = 10;
-            interface = "eth1";
-          };
-          interfaces."eth1.10" = {
-            ipv4.addresses = [
-              {
-                address = "192.168.10.${id}";
-                prefixLength = 24;
-              }
-            ];
-          };
+  nodes = let
+    network = id: {
+      networking = {
+        vlans."eth1.10" = {
+          id = 10;
+          interface = "eth1";
+        };
+        interfaces."eth1.10" = {
+          ipv4.addresses = [
+            {
+              address = "192.168.10.${id}";
+              prefixLength = 24;
+            }
+          ];
         };
       };
-    in
-    {
-      # Node that will use initrd networking.
-      server = network "1" // {
+    };
+  in {
+    # Node that will use initrd networking.
+    server =
+      network "1"
+      // {
         boot.initrd.systemd.enable = true;
         boot.initrd.network.enable = true;
         boot.initrd.systemd.services.boot-blocker = {
-          before = [ "initrd.target" ];
-          wantedBy = [ "initrd.target" ];
+          before = ["initrd.target"];
+          wantedBy = ["initrd.target"];
           script = "sleep infinity";
           serviceConfig.Type = "oneshot";
         };
       };
 
-      # Node that will ping the server.
-      client = network "2";
-    };
+    # Node that will ping the server.
+    client = network "2";
+  };
 
   testScript = ''
     start_all()

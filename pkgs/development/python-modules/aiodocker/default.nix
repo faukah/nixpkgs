@@ -6,7 +6,6 @@
   hatch-vcs,
   aiohttp,
 }:
-
 buildPythonPackage rec {
   pname = "aiodocker";
   version = "0.24.0";
@@ -31,13 +30,13 @@ buildPythonPackage rec {
   # tests require docker daemon
   doCheck = false;
 
-  pythonImportsCheck = [ "aiodocker" ];
+  pythonImportsCheck = ["aiodocker"];
 
   meta = with lib; {
     changelog = "https://github.com/aio-libs/aiodocker/releases/tag/${src.tag}";
     description = "Docker API client for asyncio";
     homepage = "https://github.com/aio-libs/aiodocker";
     license = licenses.asl20;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

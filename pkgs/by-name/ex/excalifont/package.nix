@@ -4,7 +4,6 @@
   fetchFromGitHub,
   woff2,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "excalifont";
   version = "0.18.0";
@@ -43,7 +42,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://plus.excalidraw.com/excalifont";
     description = "Excalifont is based on the original handwritten Virgil font carefully curated to improve legibility while preserving its hand-drawn nature";
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     license = lib.licenses.ofl;
   };
 })

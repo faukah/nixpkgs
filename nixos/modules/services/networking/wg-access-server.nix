@@ -3,9 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
@@ -14,15 +14,13 @@ let
 
   cfg = config.services.wg-access-server;
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configFile = settingsFormat.generate "config.yaml" cfg.settings;
-in
-{
-
+in {
   options.services.wg-access-server = {
     enable = mkEnableOption "wg-access-server";
 
-    package = mkPackageOption pkgs "wg-access-server" { };
+    package = mkPackageOption pkgs "wg-access-server" {};
 
     settings = mkOption {
       type = lib.types.submodule {
@@ -70,34 +68,34 @@ in
   config = lib.mkIf cfg.enable {
     assertions =
       map
-        (attrPath: {
-          assertion = !lib.hasAttrByPath attrPath config.services.wg-access-server.settings;
-          message = ''
-            {option}`services.wg-access-server.settings.${lib.concatStringsSep "." attrPath}` must definded
-            in {option}`services.wg-access-server.secretsFile`.
-          '';
-        })
+      (attrPath: {
+        assertion = !lib.hasAttrByPath attrPath config.services.wg-access-server.settings;
+        message = ''
+          {option}`services.wg-access-server.settings.${lib.concatStringsSep "." attrPath}` must definded
+          in {option}`services.wg-access-server.secretsFile`.
+        '';
+      })
+      [
+        ["adminPassword"]
         [
-          [ "adminPassword" ]
-          [
-            "wireguard"
-            "privateKey"
-          ]
-          [
-            "auth"
-            "sessionStore"
-          ]
-          [
-            "auth"
-            "oidc"
-            "clientSecret"
-          ]
-          [
-            "auth"
-            "gitlab"
-            "clientSecret"
-          ]
-        ];
+          "wireguard"
+          "privateKey"
+        ]
+        [
+          "auth"
+          "sessionStore"
+        ]
+        [
+          "auth"
+          "oidc"
+          "clientSecret"
+        ]
+        [
+          "auth"
+          "gitlab"
+          "clientSecret"
+        ]
+      ];
 
     boot.kernel.sysctl = {
       "net.ipv4.conf.all.forwarding" = "1";
@@ -106,9 +104,9 @@ in
 
     systemd.services.wg-access-server = {
       description = "WG access server";
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["network-online.target"];
+      after = ["network-online.target"];
       script = ''
         # merge secrets into main config
         yq eval-all "select(fileIndex == 0) * select(fileIndex == 1)" ${configFile} $CREDENTIALS_DIRECTORY/SECRETS_FILE \
@@ -123,25 +121,25 @@ in
         yq-go
       ];
 
-      serviceConfig =
-        let
-          capabilities = [
+      serviceConfig = let
+        capabilities =
+          [
             "CAP_NET_ADMIN"
-          ] ++ lib.optional cfg.settings.dns.enabled "CAP_NET_BIND_SERVICE";
-        in
-        {
-          WorkingDirectory = "/var/lib/wg-access-server";
-          StateDirectory = "wg-access-server";
+          ]
+          ++ lib.optional cfg.settings.dns.enabled "CAP_NET_BIND_SERVICE";
+      in {
+        WorkingDirectory = "/var/lib/wg-access-server";
+        StateDirectory = "wg-access-server";
 
-          LoadCredential = [
-            "SECRETS_FILE:${cfg.secretsFile}"
-          ];
+        LoadCredential = [
+          "SECRETS_FILE:${cfg.secretsFile}"
+        ];
 
-          # Hardening
-          DynamicUser = true;
-          AmbientCapabilities = capabilities;
-          CapabilityBoundingSet = capabilities;
-        };
+        # Hardening
+        DynamicUser = true;
+        AmbientCapabilities = capabilities;
+        CapabilityBoundingSet = capabilities;
+      };
     };
   };
 }

@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "nsc";
   version = "2.11.0";
@@ -26,7 +25,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Ms+chBbQCo3TGWPgIy4OSXNpxO5jpm1zxEe9upiPmnY=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd nsc \
@@ -56,8 +55,8 @@ buildGoModule rec {
   meta = {
     description = "Tool for creating NATS account and user access configurations";
     homepage = "https://github.com/nats-io/nsc";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ cbrewster ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [cbrewster];
     mainProgram = "nsc";
   };
 }

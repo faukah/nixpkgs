@@ -5,7 +5,6 @@
   pip,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "zc-buildout";
   version = "3.3";
@@ -18,15 +17,15 @@ buildPythonPackage rec {
     hash = "sha256-o/iMCc8Jf+jNCHu3OnbCxD+oukoH/b7SUsdm6traO7k=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pip ];
+  dependencies = [pip];
 
   doCheck = false; # Missing package & BLOCKED on "zc.recipe.egg"
 
-  pythonImportsCheck = [ "zc.buildout" ];
+  pythonImportsCheck = ["zc.buildout"];
 
-  pythonNamespaces = [ "zc" ];
+  pythonNamespaces = ["zc"];
 
   meta = {
     description = "Software build and configuration system";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/buildout/buildout";
     homepage = "https://www.buildout.org";
     license = lib.licenses.zpl21;
-    maintainers = with lib.maintainers; [ gotcha ];
+    maintainers = with lib.maintainers; [gotcha];
   };
 }

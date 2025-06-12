@@ -5,7 +5,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation {
   pname = "safestringlib";
   # Latest release is 1.2.0 and has compilation issues
@@ -22,7 +21,7 @@ stdenv.mkDerivation {
     "out"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_UNITTESTS" true)
@@ -73,6 +72,6 @@ stdenv.mkDerivation {
     description = "Safer replacements for C library functions that prevent serious security vulnerabilities";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ apraga ];
+    maintainers = with lib.maintainers; [apraga];
   };
 }

@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   defaultSettings = {
     db = "/var/lib/strfry";
 
@@ -79,14 +78,13 @@ let
   };
 
   cfg = config.services.strfry;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   configFile = settingsFormat.generate "config.json" cfg.settings;
-in
-{
+in {
   options.services.strfry = {
     enable = lib.mkEnableOption "strfry";
 
-    package = lib.mkPackageOption pkgs "strfry" { };
+    package = lib.mkPackageOption pkgs "strfry" {};
 
     settings = lib.mkOption {
       type = settingsFormat.type;
@@ -101,7 +99,6 @@ in
         };
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -111,12 +108,12 @@ in
       isSystemUser = true;
     };
 
-    users.groups.strfry = { };
+    users.groups.strfry = {};
 
     systemd.services.strfry = {
       description = "strfry";
-      wants = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${lib.getExe cfg.package} --config=${configFile} relay";
@@ -126,7 +123,7 @@ in
 
         StateDirectory = "strfry";
         WorkingDirectory = cfg.settings.db;
-        ReadWritePaths = [ cfg.settings.db ];
+        ReadWritePaths = [cfg.settings.db];
 
         LimitNOFILE = cfg.settings.relay.nofiles;
 

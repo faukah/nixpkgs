@@ -13,7 +13,6 @@
   gitUpdater,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qterminal";
   version = "2.2.1";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     qtwayland
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   passthru.tests.test = nixosTests.terminal-emulators.qterminal;
 
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     mainProgram = "qterminal";
     license = licenses.gpl2Plus;
     platforms = with platforms; unix;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

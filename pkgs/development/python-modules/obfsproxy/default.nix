@@ -7,7 +7,6 @@
   pycrypto,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "obfsproxy";
   version = "0.2.13";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Pluggable transport proxy";
     homepage = "https://www.torproject.org/projects/obfsproxy";
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

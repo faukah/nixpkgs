@@ -8,7 +8,6 @@
   responses,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "googlemaps";
   version = "4.10.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-8oGZEMKUGaDHKq4qIZy10cbLNMmVclJnQE/dx877pNQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -39,13 +38,13 @@ buildPythonPackage rec {
     "test_transit_without_time"
   ];
 
-  pythonImportsCheck = [ "googlemaps" ];
+  pythonImportsCheck = ["googlemaps"];
 
   meta = {
     description = "Python client library for Google Maps API Web Services";
     homepage = "https://github.com/googlemaps/google-maps-services-python";
     changelog = "https://github.com/googlemaps/google-maps-services-python/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ Scriptkiddi ];
+    maintainers = with lib.maintainers; [Scriptkiddi];
   };
 }

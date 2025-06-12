@@ -8,7 +8,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fastremap";
   version = "1.15.1";
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/seung-lab/fastremap";
     changelog = "https://github.com/seung-lab/fastremap/releases/tag/${version}";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

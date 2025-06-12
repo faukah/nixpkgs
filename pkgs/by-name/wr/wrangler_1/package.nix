@@ -8,7 +8,6 @@
   curl,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wrangler";
   version = "1.21.0";
@@ -23,10 +22,10 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-MJFXcmRzvzDJ8cd0WdcNiHr3Wxgp/hKO1xKRfmbxRLA=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       curl
       libiconv
@@ -45,6 +44,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
   };
 }

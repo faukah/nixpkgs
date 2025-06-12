@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/tekumara/typos-lsp";
     changelog = "https://github.com/tekumara/typos-lsp/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ tarantoj ];
+    maintainers = with maintainers; [tarantoj];
     mainProgram = "typos-lsp";
   };
 }

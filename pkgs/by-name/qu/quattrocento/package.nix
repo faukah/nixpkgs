@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "quattrocento";
   version = "1.1";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Classic, elegant, sober and strong serif typeface";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
   };
 }

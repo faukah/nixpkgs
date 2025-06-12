@@ -22,7 +22,6 @@
   cctools,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scummvm";
   version = "2.9.1";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-+MM47piuXuIBmAQd0g/cAg5t02qSQ0sw/DwFrMUSIAA=";
   };
 
-  nativeBuildInputs = [ nasm ];
+  nativeBuildInputs = [nasm];
 
   buildInputs =
     lib.optionals stdenv.hostPlatform.isLinux [
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configurePlatforms = [ "host" ];
+  configurePlatforms = ["host"];
   configureFlags = [
     "--enable-release"
   ];
@@ -77,10 +76,10 @@ stdenv.mkDerivation rec {
         --replace-fail ${stdenv.hostPlatform.config}-ranlib ${cctools}/bin/ranlib
     '';
 
-  NIX_CFLAGS_COMPILE = [ "-fpermissive" ];
+  NIX_CFLAGS_COMPILE = ["-fpermissive"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -88,7 +87,7 @@ stdenv.mkDerivation rec {
     mainProgram = "scummvm";
     homepage = "https://www.scummvm.org/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.peterhoeg ];
+    maintainers = [maintainers.peterhoeg];
     platforms = platforms.unix;
   };
 }

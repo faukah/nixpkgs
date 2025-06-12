@@ -9,7 +9,6 @@
   libgbm,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aether-lv2";
   version = "1.2.1";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     lv2
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://dougal-s.github.io/Aether/";
     description = "Algorithmic reverb LV2 based on Cloudseed";
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
     license = licenses.mit;
   };

@@ -6,7 +6,6 @@
   pytest,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-asyncio";
   version = "0.26.0"; # N.B.: when updating, tests bleak and aioesphomeapi tests
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     "testout"
   ];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   postInstall = ''
     mkdir $testout
@@ -34,15 +33,15 @@ buildPythonPackage rec {
   '';
 
   doCheck = false;
-  passthru.tests.pytest = callPackage ./tests.nix { };
+  passthru.tests.pytest = callPackage ./tests.nix {};
 
-  pythonImportsCheck = [ "pytest_asyncio" ];
+  pythonImportsCheck = ["pytest_asyncio"];
 
   meta = with lib; {
     description = "Library for testing asyncio code with pytest";
     homepage = "https://github.com/pytest-dev/pytest-asyncio";
     changelog = "https://github.com/pytest-dev/pytest-asyncio/blob/${src.tag}/docs/reference/changelog.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

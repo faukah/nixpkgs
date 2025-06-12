@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   click,
   geocoder,
@@ -18,12 +16,10 @@
   pyyaml,
   requests,
   tqdm,
-
   # checks
   matplotlib,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sparsezoo";
   version = "1.8.1";
@@ -36,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-c4F95eVvj673eFO/rbmv4LY3pGmqo+arbsYqElznwdA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "numpy"
@@ -57,7 +53,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "sparsezoo" ];
+  pythonImportsCheck = ["sparsezoo"];
 
   nativeCheckInputs = [
     matplotlib
@@ -116,6 +112,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/neuralmagic/sparsezoo";
     changelog = "https://github.com/neuralmagic/sparsezoo/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

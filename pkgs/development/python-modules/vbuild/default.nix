@@ -8,7 +8,6 @@
   pythonAtLeast,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "vbuild";
   version = "0.8.2";
@@ -31,13 +30,13 @@ buildPythonPackage rec {
       --replace-fail 'build-backend = "poetry.masonry.api"' 'build-backend = "poetry.core.masonry.api"'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ pscript ];
+  dependencies = [pscript];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "vbuild" ];
+  pythonImportsCheck = ["vbuild"];
 
   disabledTests =
     [
@@ -61,6 +60,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/manatlan/vbuild";
     changelog = "https://github.com/manatlan/vbuild/blob/${src.rev}/changelog.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

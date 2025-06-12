@@ -5,7 +5,6 @@
   zarith,
   ff-sig,
 }:
-
 buildDunePackage rec {
   pname = "polynomial";
   version = "0.4.0";
@@ -29,6 +28,6 @@ buildDunePackage rec {
     description = "Polynomials over finite field";
     license = lib.licenses.mit;
     homepage = "https://gitlab.com/nomadic-labs/ocaml-polynomial";
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

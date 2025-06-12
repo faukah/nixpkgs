@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.hadoop;
-  hadoopConf = "${import ./conf.nix { inherit cfg pkgs lib; }}/";
+  hadoopConf = "${import ./conf.nix {inherit cfg pkgs lib;}}/";
   restartIfChanged = lib.mkOption {
     type = lib.types.bool;
     description = ''
@@ -19,7 +18,7 @@ let
   };
   extraFlags = lib.mkOption {
     type = with lib.types; listOf str;
-    default = [ ];
+    default = [];
     description = "Extra command line flags to pass to the service";
     example = [
       "-Dcom.sun.management.jmxremote"
@@ -28,11 +27,10 @@ let
   };
   extraEnv = lib.mkOption {
     type = with lib.types; attrsOf str;
-    default = { };
+    default = {};
     description = "Extra environment variables";
   };
-in
-{
+in {
   options.services.hadoop.yarn = {
     resourcemanager = {
       enable = lib.mkEnableOption "Hadoop YARN ResourceManager";
@@ -84,7 +82,7 @@ in
       localDir = lib.mkOption {
         description = "List of directories to store localized files in.";
         type = with lib.types; nullOr (listOf path);
-        example = [ "/var/lib/hadoop/yarn/nm" ];
+        example = ["/var/lib/hadoop/yarn/nm"];
         default = null;
       };
 
@@ -118,7 +116,7 @@ in
     (lib.mkIf cfg.yarn.resourcemanager.enable {
       systemd.services.yarn-resourcemanager = {
         description = "Hadoop YARN ResourceManager";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         inherit (cfg.yarn.resourcemanager) restartIfChanged;
         environment = cfg.yarn.resourcemanager.extraEnv;
 
@@ -154,7 +152,7 @@ in
 
       systemd.services.yarn-nodemanager = {
         description = "Hadoop YARN NodeManager";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         inherit (cfg.yarn.nodemanager) restartIfChanged;
         environment = cfg.yarn.nodemanager.extraEnv;
 
@@ -186,31 +184,28 @@ in
 
       services.hadoop.gatewayRole.enable = true;
 
-      services.hadoop.yarnSiteInternal =
-        with cfg.yarn.nodemanager;
+      services.hadoop.yarnSiteInternal = with cfg.yarn.nodemanager;
         lib.mkMerge [
-          ({
+          {
             "yarn.nodemanager.local-dirs" = lib.mkIf (localDir != null) (concatStringsSep "," localDir);
             "yarn.scheduler.maximum-allocation-vcores" = resource.maximumAllocationVCores;
             "yarn.scheduler.maximum-allocation-mb" = resource.maximumAllocationMB;
             "yarn.nodemanager.resource.cpu-vcores" = resource.cpuVCores;
             "yarn.nodemanager.resource.memory-mb" = resource.memoryMB;
-          })
+          }
           (lib.mkIf useCGroups (
             lib.warnIf (lib.versionOlder cfg.package.version "3.5.0")
-              ''
-                hadoop < 3.5.0 does not support cgroup v2
-                setting `services.hadoop.yarn.nodemanager.useCGroups = false` is recommended
-                see: https://issues.apache.org/jira/browse/YARN-11669
-              ''
-              {
-                "yarn.nodemanager.linux-container-executor.cgroups.hierarchy" = "/hadoop-yarn";
-                "yarn.nodemanager.linux-container-executor.resources-handler.class" =
-                  "org.apache.hadoop.yarn.server.nodemanager.util.CgroupsLCEResourcesHandler";
-                "yarn.nodemanager.linux-container-executor.cgroups.mount" = "true";
-                "yarn.nodemanager.linux-container-executor.cgroups.mount-path" =
-                  "/run/wrappers/yarn-nodemanager/cgroup";
-              }
+            ''
+              hadoop < 3.5.0 does not support cgroup v2
+              setting `services.hadoop.yarn.nodemanager.useCGroups = false` is recommended
+              see: https://issues.apache.org/jira/browse/YARN-11669
+            ''
+            {
+              "yarn.nodemanager.linux-container-executor.cgroups.hierarchy" = "/hadoop-yarn";
+              "yarn.nodemanager.linux-container-executor.resources-handler.class" = "org.apache.hadoop.yarn.server.nodemanager.util.CgroupsLCEResourcesHandler";
+              "yarn.nodemanager.linux-container-executor.cgroups.mount" = "true";
+              "yarn.nodemanager.linux-container-executor.cgroups.mount-path" = "/run/wrappers/yarn-nodemanager/cgroup";
+            }
           ))
         ];
 
@@ -221,6 +216,5 @@ in
         })
       ];
     })
-
   ];
 }

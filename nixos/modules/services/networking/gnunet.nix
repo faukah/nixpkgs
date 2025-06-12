@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.gnunet;
 
   stateDir = "/var/lib/gnunet";
@@ -34,17 +32,11 @@ let
 
     ${extraOptions}
   '';
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.gnunet = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -126,13 +118,11 @@ in
         '';
       };
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf config.services.gnunet.enable {
-
     users.users.gnunet = {
       group = "gnunet";
       description = "GNUnet User";
@@ -143,16 +133,16 @@ in
 
     # The user tools that talk to `gnunetd' should come from the same source,
     # so install them globally.
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc."gnunet.conf".text = configFile;
 
     systemd.services.gnunet = {
       description = "GNUnet";
-      documentation = [ "info:gnunet" ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ config.environment.etc."gnunet.conf".source ];
+      documentation = ["info:gnunet"];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [config.environment.etc."gnunet.conf".source];
       path = [
         cfg.package
         pkgs.miniupnpc
@@ -164,7 +154,5 @@ in
       serviceConfig.RuntimeDirectory = "gnunet";
       serviceConfig.StateDirectory = "gnunet";
     };
-
   };
-
 }

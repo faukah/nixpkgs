@@ -11,7 +11,6 @@
   calendarsupport,
   eventviews,
 }:
-
 mkDerivation {
   pname = "mauikit-calendar";
 
@@ -34,6 +33,6 @@ mkDerivation {
     homepage = "https://invent.kde.org/maui/mauikit-calendar";
     description = "Calendar support components for Maui applications";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

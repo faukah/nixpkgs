@@ -6,18 +6,18 @@
 # Note that Firefox must be on the same machine as the server for WebCrypto APIs to be available (or HTTPS must be configured)
 #
 # The same tests should work without modification on the official bitwarden server, if we ever package that.
-
 let
-  makeVaultwardenTest =
-    name:
-    {
-      backend ? name,
-      withClient ? true,
-      testScript ? null,
-    }:
+  makeVaultwardenTest = name: {
+    backend ? name,
+    withClient ? true,
+    testScript ? null,
+  }:
     import ./make-test-python.nix (
-      { lib, pkgs, ... }:
-      let
+      {
+        lib,
+        pkgs,
+        ...
+      }: let
         dbPassword = "please_dont_hack";
         userEmail = "meow@example.com";
         userPassword = "also_super_secret_ZJWpBKZi668QGt"; # Must be complex to avoid interstitial warning on the signup page
@@ -25,73 +25,72 @@ let
 
         testRunner =
           pkgs.writers.writePython3Bin "test-runner"
-            {
-              libraries = [ pkgs.python3Packages.selenium ];
-              flakeIgnore = [ "E501" ];
-            }
-            ''
+          {
+            libraries = [pkgs.python3Packages.selenium];
+            flakeIgnore = ["E501"];
+          }
+          ''
 
-              from selenium.webdriver.common.by import By
-              from selenium.webdriver import Firefox
-              from selenium.webdriver.firefox.options import Options
-              from selenium.webdriver.support.ui import WebDriverWait
-              from selenium.webdriver.support import expected_conditions as EC
-              from selenium.common.exceptions import ElementClickInterceptedException
-
-
-              def click_when_unobstructed(mark):
-                  while True:
-                      try:
-                          wait.until(EC.element_to_be_clickable(mark)).click()
-                          break
-                      except ElementClickInterceptedException:
-                          continue
+            from selenium.webdriver.common.by import By
+            from selenium.webdriver import Firefox
+            from selenium.webdriver.firefox.options import Options
+            from selenium.webdriver.support.ui import WebDriverWait
+            from selenium.webdriver.support import expected_conditions as EC
+            from selenium.common.exceptions import ElementClickInterceptedException
 
 
-              options = Options()
-              options.add_argument('--headless')
-              driver = Firefox(options=options)
+            def click_when_unobstructed(mark):
+                while True:
+                    try:
+                        wait.until(EC.element_to_be_clickable(mark)).click()
+                        break
+                    except ElementClickInterceptedException:
+                        continue
 
-              driver.implicitly_wait(20)
-              driver.get('http://localhost:8080/#/signup')
 
-              wait = WebDriverWait(driver, 10)
+            options = Options()
+            options.add_argument('--headless')
+            driver = Firefox(options=options)
 
-              wait.until(EC.title_contains("Vaultwarden Web"))
+            driver.implicitly_wait(20)
+            driver.get('http://localhost:8080/#/signup')
 
-              driver.find_element(By.CSS_SELECTOR, 'input#register-start_form_input_email').send_keys(
-                  '${userEmail}'
-              )
-              driver.find_element(By.CSS_SELECTOR, 'input#register-start_form_input_name').send_keys(
-                  'A Cat'
-              )
-              driver.find_element(By.XPATH, "//button[contains(., 'Continue')]").click()
-              driver.find_element(By.CSS_SELECTOR, 'input#input-password-form_new-password').send_keys(
-                  '${userPassword}'
-              )
-              driver.find_element(By.CSS_SELECTOR, 'input#input-password-form_confirm-new-password').send_keys(
-                  '${userPassword}'
-              )
-              if driver.find_element(By.XPATH, '//input[@formcontrolname="checkForBreaches"]').is_selected():
-                  driver.find_element(By.XPATH, '//input[@formcontrolname="checkForBreaches"]').click()
+            wait = WebDriverWait(driver, 10)
 
-              driver.find_element(By.XPATH, "//button[contains(., 'Create account')]").click()
+            wait.until(EC.title_contains("Vaultwarden Web"))
 
-              wait.until_not(EC.title_contains("Set a strong password"))
+            driver.find_element(By.CSS_SELECTOR, 'input#register-start_form_input_email').send_keys(
+                '${userEmail}'
+            )
+            driver.find_element(By.CSS_SELECTOR, 'input#register-start_form_input_name').send_keys(
+                'A Cat'
+            )
+            driver.find_element(By.XPATH, "//button[contains(., 'Continue')]").click()
+            driver.find_element(By.CSS_SELECTOR, 'input#input-password-form_new-password').send_keys(
+                '${userPassword}'
+            )
+            driver.find_element(By.CSS_SELECTOR, 'input#input-password-form_confirm-new-password').send_keys(
+                '${userPassword}'
+            )
+            if driver.find_element(By.XPATH, '//input[@formcontrolname="checkForBreaches"]').is_selected():
+                driver.find_element(By.XPATH, '//input[@formcontrolname="checkForBreaches"]').click()
 
-              click_when_unobstructed((By.XPATH, "//button[contains(., 'New item')]"))
+            driver.find_element(By.XPATH, "//button[contains(., 'Create account')]").click()
 
-              driver.find_element(By.XPATH, '//input[@formcontrolname="name"]').send_keys(
-                  'secrets'
-              )
-              driver.find_element(By.XPATH, '//input[@formcontrolname="password"]').send_keys(
-                  '${storedPassword}'
-              )
+            wait.until_not(EC.title_contains("Set a strong password"))
 
-              driver.find_element(By.XPATH, "//button[contains(., 'Save')]").click()
-            '';
-      in
-      {
+            click_when_unobstructed((By.XPATH, "//button[contains(., 'New item')]"))
+
+            driver.find_element(By.XPATH, '//input[@formcontrolname="name"]').send_keys(
+                'secrets'
+            )
+            driver.find_element(By.XPATH, '//input[@formcontrolname="password"]').send_keys(
+                '${storedPassword}'
+            )
+
+            driver.find_element(By.XPATH, "//button[contains(., 'Save')]").click()
+          '';
+      in {
         inherit name;
 
         meta = {
@@ -103,8 +102,7 @@ let
 
         nodes =
           {
-            server =
-              { pkgs, ... }:
+            server = {pkgs, ...}:
               lib.mkMerge [
                 {
                   mysql = {
@@ -121,13 +119,13 @@ let
 
                     services.vaultwarden.config.databaseUrl = "mysql://bitwardenuser:${dbPassword}@localhost/bitwarden";
 
-                    systemd.services.vaultwarden.after = [ "mysql.service" ];
+                    systemd.services.vaultwarden.after = ["mysql.service"];
                   };
 
                   postgresql = {
                     services.postgresql = {
                       enable = true;
-                      ensureDatabases = [ "vaultwarden" ];
+                      ensureDatabases = ["vaultwarden"];
                       ensureUsers = [
                         {
                           name = "vaultwarden";
@@ -138,16 +136,18 @@ let
 
                     services.vaultwarden.config.databaseUrl = "postgresql:///vaultwarden?host=/run/postgresql";
 
-                    systemd.services.vaultwarden.after = [ "postgresql.service" ];
+                    systemd.services.vaultwarden.after = ["postgresql.service"];
                   };
 
                   sqlite = {
                     services.vaultwarden.backupDir = "/srv/backups/vaultwarden";
 
-                    environment.systemPackages = [ pkgs.sqlite ];
+                    environment.systemPackages = [pkgs.sqlite];
                   };
                 }
-                .${backend}
+                .${
+                  backend
+                }
 
                 {
                   services.vaultwarden = {
@@ -159,7 +159,7 @@ let
                     };
                   };
 
-                  networking.firewall.allowedTCPPorts = [ 8080 ];
+                  networking.firewall.allowedTCPPorts = [8080];
 
                   environment.systemPackages = [
                     pkgs.firefox-unwrapped
@@ -170,80 +170,77 @@ let
               ];
           }
           // lib.optionalAttrs withClient {
-            client =
-              { pkgs, ... }:
-              {
-                environment.systemPackages = [ pkgs.bitwarden-cli ];
-              };
+            client = {pkgs, ...}: {
+              environment.systemPackages = [pkgs.bitwarden-cli];
+            };
           };
 
         testScript =
-          if testScript != null then
-            testScript
-          else
-            ''
-              import json
+          if testScript != null
+          then testScript
+          else ''
+            import json
 
-              start_all()
-              server.wait_for_unit("vaultwarden.service")
-              server.wait_for_open_port(8080)
+            start_all()
+            server.wait_for_unit("vaultwarden.service")
+            server.wait_for_open_port(8080)
 
-              with subtest("configure the cli"):
-                  client.succeed("bw --nointeraction config server http://server:8080")
+            with subtest("configure the cli"):
+                client.succeed("bw --nointeraction config server http://server:8080")
 
-              with subtest("can't login to nonexistent account"):
-                  client.fail(
-                      "bw --nointeraction --raw login ${userEmail} ${userPassword}"
-                  )
+            with subtest("can't login to nonexistent account"):
+                client.fail(
+                    "bw --nointeraction --raw login ${userEmail} ${userPassword}"
+                )
 
-              with subtest("use the web interface to sign up, log in, and save a password"):
-                  server.succeed("PYTHONUNBUFFERED=1 systemd-cat -t test-runner test-runner")
+            with subtest("use the web interface to sign up, log in, and save a password"):
+                server.succeed("PYTHONUNBUFFERED=1 systemd-cat -t test-runner test-runner")
 
-              with subtest("log in with the cli"):
-                  key = client.succeed(
-                      "bw --nointeraction --raw login ${userEmail} ${userPassword}"
-                  ).strip()
+            with subtest("log in with the cli"):
+                key = client.succeed(
+                    "bw --nointeraction --raw login ${userEmail} ${userPassword}"
+                ).strip()
 
-              with subtest("sync with the cli"):
-                  client.succeed(f"bw --nointeraction --raw --session {key} sync -f")
+            with subtest("sync with the cli"):
+                client.succeed(f"bw --nointeraction --raw --session {key} sync -f")
 
-              with subtest("get the password with the cli"):
-                  output = json.loads(client.succeed(f"bw --nointeraction --raw --session {key} list items"))
+            with subtest("get the password with the cli"):
+                output = json.loads(client.succeed(f"bw --nointeraction --raw --session {key} list items"))
 
-                  assert output[0]['login']['password'] == "${storedPassword}"
+                assert output[0]['login']['password'] == "${storedPassword}"
 
-              with subtest("Check systemd unit hardening"):
-                  server.log(server.succeed("systemd-analyze security vaultwarden.service | grep -v ✓"))
-            '';
+            with subtest("Check systemd unit hardening"):
+                server.log(server.succeed("systemd-analyze security vaultwarden.service | grep -v ✓"))
+          '';
       }
     );
 in
-builtins.mapAttrs (k: v: makeVaultwardenTest k v) {
-  mysql = { };
-  postgresql = { };
-  sqlite = { };
-  sqlite-backup = {
-    backend = "sqlite";
-    withClient = false;
+  builtins.mapAttrs (k: v: makeVaultwardenTest k v) {
+    mysql = {};
+    postgresql = {};
+    sqlite = {};
+    sqlite-backup = {
+      backend = "sqlite";
+      withClient = false;
 
-    testScript = ''
-      start_all()
-      server.wait_for_unit("vaultwarden.service")
-      server.wait_for_open_port(8080)
+      testScript = ''
+        start_all()
+        server.wait_for_unit("vaultwarden.service")
+        server.wait_for_open_port(8080)
 
-      with subtest("Set up vaultwarden"):
-          server.succeed("PYTHONUNBUFFERED=1 test-runner | systemd-cat -t test-runner")
+        with subtest("Set up vaultwarden"):
+            server.succeed("PYTHONUNBUFFERED=1 test-runner | systemd-cat -t test-runner")
 
-      with subtest("Run the backup script"):
-          server.start_job("backup-vaultwarden.service")
+        with subtest("Run the backup script"):
+            server.start_job("backup-vaultwarden.service")
 
-      with subtest("Check that backup exists"):
-          server.succeed('[ -d "/srv/backups/vaultwarden" ]')
-          server.succeed('[ -f "/srv/backups/vaultwarden/db.sqlite3" ]')
-          server.succeed('[ -d "/srv/backups/vaultwarden/attachments" ]')
-          server.succeed('[ -f "/srv/backups/vaultwarden/rsa_key.pem" ]')
-          # Ensure only the db backed up with the backup command exists and not the other db files.
-          server.succeed('[ ! -f "/srv/backups/vaultwarden/db.sqlite3-shm" ]')
-    '';
-  };
-}
+        with subtest("Check that backup exists"):
+            server.succeed('[ -d "/srv/backups/vaultwarden" ]')
+            server.succeed('[ -f "/srv/backups/vaultwarden/db.sqlite3" ]')
+            server.succeed('[ -d "/srv/backups/vaultwarden/attachments" ]')
+            server.succeed('[ -f "/srv/backups/vaultwarden/rsa_key.pem" ]')
+            # Ensure only the db backed up with the backup command exists and not the other db files.
+            server.succeed('[ ! -f "/srv/backups/vaultwarden/db.sqlite3-shm" ]')
+      '';
+    };
+  }

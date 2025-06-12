@@ -3,25 +3,21 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   arviz,
   formulae,
   graphviz,
   pandas,
   pymc,
-
   # tests
   blackjax,
   numpyro,
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "bambi";
   version = "0.15.0";
@@ -118,13 +114,13 @@ buildPythonPackage rec {
     "tests/test_interpret_messages.py"
   ];
 
-  pythonImportsCheck = [ "bambi" ];
+  pythonImportsCheck = ["bambi"];
 
   meta = {
     description = "High-level Bayesian model-building interface";
     homepage = "https://bambinos.github.io/bambi";
     changelog = "https://github.com/bambinos/bambi/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

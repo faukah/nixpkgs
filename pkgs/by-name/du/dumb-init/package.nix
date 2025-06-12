@@ -4,7 +4,6 @@
   fetchFromGitHub,
   glibc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dumb-init";
   version = "1.2.5";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Minimal init system for Linux containers";
     homepage = "https://github.com/Yelp/dumb-init";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     mainProgram = "dumb-init";
   };

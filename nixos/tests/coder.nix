@@ -1,16 +1,13 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "coder";
   meta.maintainers = pkgs.coder.meta.maintainers;
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.coder = {
-        enable = true;
-        accessUrl = "http://localhost:3000";
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.coder = {
+      enable = true;
+      accessUrl = "http://localhost:3000";
     };
+  };
 
   testScript = ''
     machine.start()

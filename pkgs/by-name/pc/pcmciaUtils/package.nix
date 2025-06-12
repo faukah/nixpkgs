@@ -8,10 +8,10 @@
   sysfsutils,
   kmod,
   udev,
-  firmware ? config.pcmciaUtils.firmware or [ ], # Special pcmcia cards.
+  firmware ? config.pcmciaUtils.firmware or [], # Special pcmcia cards.
   configOpts ? config.pcmciaUtils.config or null, # Special hardware (map memory & port & irq)
-}: # used to generate postInstall script.
-
+}:
+# used to generate postInstall script.
 # FIXME: should add an option to choose between hotplug and udev.
 stdenv.mkDerivation rec {
   pname = "pcmciautils";
@@ -42,21 +42,23 @@ stdenv.mkDerivation rec {
         s,/etc/pcmcia,$out&,;
       " src/{startup.c,pcmcia-check-broken-cis.c} # fix-color */
     ''
-    + (lib.optionalString (firmware == [ ]) ''sed -i "s,STARTUP = true,STARTUP = false," Makefile'')
+    + (lib.optionalString (firmware == []) ''sed -i "s,STARTUP = true,STARTUP = false," Makefile'')
     + (lib.optionalString (configOpts != null) "ln -sf ${configOpts} ./config/config.opts");
 
-  makeFlags = [ "LEX=flex" ];
+  makeFlags = ["LEX=flex"];
   installFlags = [
     "INSTALL=install"
     "DESTDIR=${placeholder "out"}"
   ];
-  postInstall = lib.concatMapStrings (path: ''
-    for f in : $(find ${path} -type f); do
-      test "$f" == ":" && continue;
-      mkdir -p $(dirname $out/lib/firmware/$\{f#${path}});
-      ln -s $f $out/lib/firmware/$\{f#${path}};
-    done;
-  '') firmware;
+  postInstall =
+    lib.concatMapStrings (path: ''
+      for f in : $(find ${path} -type f); do
+        test "$f" == ":" && continue;
+        mkdir -p $(dirname $out/lib/firmware/$\{f#${path}});
+        ln -s $f $out/lib/firmware/$\{f#${path}};
+      done;
+    '')
+    firmware;
 
   meta = {
     homepage = "https://www.kernel.org/pub/linux/utils/kernel/pcmcia/";

@@ -8,7 +8,6 @@
   ki18n,
   qtbase,
 }:
-
 mkDerivation {
   pname = "kpackage";
   nativeBuildInputs = [

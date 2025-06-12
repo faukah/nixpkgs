@@ -9,7 +9,6 @@
   cxxopts,
   kdePackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tremotesf";
   version = "2.8.2";
@@ -44,6 +43,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "tremotesf";
     license = lib.licenses.gpl3Plus;
     homepage = "https://github.com/equeim/tremotesf2";
-    maintainers = with lib.maintainers; [ sochotnicky ];
+    maintainers = with lib.maintainers; [sochotnicky];
   };
 })

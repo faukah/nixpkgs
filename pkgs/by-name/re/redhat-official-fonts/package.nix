@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "redhat-official";
   version = "4.0.3";
@@ -31,6 +30,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Red Hat's Open Source Fonts - Red Hat Display and Red Hat Text";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

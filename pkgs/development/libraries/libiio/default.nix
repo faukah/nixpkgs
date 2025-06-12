@@ -15,16 +15,17 @@
   lib,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libiio";
   version = "0.24";
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-  ] ++ lib.optional pythonSupport "python";
+  outputs =
+    [
+      "out"
+      "lib"
+      "dev"
+    ]
+    ++ lib.optional pythonSupport "python";
 
   src = fetchFromGitHub {
     owner = "analogdevicesinc";
@@ -35,7 +36,7 @@ stdenv.mkDerivation rec {
 
   # Revert after https://github.com/NixOS/nixpkgs/issues/125008 is
   # fixed properly
-  patches = [ ./cmake-fix-libxml2-find-package.patch ];
+  patches = [./cmake-fix-libxml2-find-package.patch];
 
   nativeBuildInputs =
     [
@@ -95,6 +96,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/analogdevicesinc/libiio";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

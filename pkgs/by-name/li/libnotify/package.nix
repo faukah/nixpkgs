@@ -16,7 +16,6 @@
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
   gobject-introspection,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libnotify";
   version = "0.8.6";
@@ -37,7 +36,11 @@ stdenv.mkDerivation rec {
     "-Dtests=false"
     "-Ddocbook_docs=disabled"
     "-Dgtk_doc=false"
-    "-Dintrospection=${if withIntrospection then "enabled" else "disabled"}"
+    "-Dintrospection=${
+      if withIntrospection
+      then "enabled"
+      else "disabled"
+    }"
   ];
 
   strictDeps = true;
@@ -71,7 +74,7 @@ stdenv.mkDerivation rec {
     description = "Library that sends desktop notifications to a notification daemon";
     homepage = "https://gitlab.gnome.org/GNOME/libnotify";
     license = licenses.lgpl21;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     mainProgram = "notify-send";
     platforms = platforms.unix;
   };

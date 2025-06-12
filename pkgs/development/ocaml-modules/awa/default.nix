@@ -17,7 +17,6 @@
   base64,
   zarith,
 }:
-
 buildDunePackage rec {
   pname = "awa";
   version = "0.5.1";
@@ -55,6 +54,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/awa-ssh";
     changelog = "https://github.com/mirage/awa-ssh/raw/v${version}/CHANGES.md";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

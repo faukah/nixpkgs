@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-pY0udEkceDTp0xh4jaYCcvovga64FLQFWkupCgpBdA8=";
   };
 
-  build-system = [ hatch-requirements-txt ];
+  build-system = [hatch-requirements-txt];
 
   dependencies = [
     deprecation
@@ -28,6 +28,6 @@ buildPythonPackage rec {
     description = "A wrapper around ‘deprecation’ providing support for deprecated aliases.";
     homepage = "https://github.com/domdfcoding/deprecation-alias";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tyberius-prime ];
+    maintainers = with lib.maintainers; [tyberius-prime];
   };
 }

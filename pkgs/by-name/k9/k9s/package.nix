@@ -9,7 +9,6 @@
   k9s,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule rec {
   pname = "k9s";
   version = "0.50.6";
@@ -29,7 +28,7 @@ buildGoModule rec {
     "-X github.com/derailed/k9s/cmd.date=1970-01-01T00:00:00Z"
   ];
 
-  tags = [ "netcgo" ];
+  tags = ["netcgo"];
 
   proxyVendor = true;
 
@@ -46,10 +45,10 @@ buildGoModule rec {
       command = "HOME=$(mktemp -d) k9s version -s";
       inherit version;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = ''
     # k9s requires a writeable log directory
     # Otherwise an error message is printed
@@ -62,7 +61,7 @@ buildGoModule rec {
       --zsh <($out/bin/k9s completion zsh)
   '';
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeCheckInputs = [writableTmpDirAsHomeHook];
 
   meta = {
     description = "Kubernetes CLI To Manage Your Clusters In Style";

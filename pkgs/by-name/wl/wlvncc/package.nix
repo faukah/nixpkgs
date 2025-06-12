@@ -24,7 +24,6 @@
   zlib,
   nix-update-script,
 }:
-
 stdenv.mkDerivation {
   pname = "wlvncc";
   version = "0-unstable-2025-04-21";
@@ -62,13 +61,13 @@ stdenv.mkDerivation {
     zlib
   ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = {
     description = "Wayland Native VNC Client";
     homepage = "https://github.com/any1/wlvncc";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ teutat3s ];
+    maintainers = with lib.maintainers; [teutat3s];
     platforms = lib.platforms.linux;
     mainProgram = "wlvncc";
   };

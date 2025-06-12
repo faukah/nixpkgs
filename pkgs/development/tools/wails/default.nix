@@ -12,7 +12,6 @@
   gtk3,
   webkitgtk_4_0,
 }:
-
 buildGoModule rec {
   pname = "wails";
   version = "2.10.1";
@@ -30,7 +29,7 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  subPackages = [ "cmd/wails" ];
+  subPackages = ["cmd/wails"];
 
   # These packages are needed to build wails
   # and will also need to be used when building a wails app.
@@ -65,30 +64,30 @@ buildGoModule rec {
   postFixup = ''
     wrapProgram $out/bin/wails \
       --prefix PATH : ${
-        lib.makeBinPath [
-          pkg-config
-          go
-          stdenv.cc
-          nodejs
-        ]
-      } \
+      lib.makeBinPath [
+        pkg-config
+        go
+        stdenv.cc
+        nodejs
+      ]
+    } \
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath (
-          lib.optionals stdenv.hostPlatform.isLinux [
-            gtk3
-            webkitgtk_4_0
-          ]
-        )
-      }" \
+      lib.makeLibraryPath (
+        lib.optionals stdenv.hostPlatform.isLinux [
+          gtk3
+          webkitgtk_4_0
+        ]
+      )
+    }" \
       --set PKG_CONFIG_PATH "$PKG_CONFIG_PATH" \
-      --set CGO_LDFLAGS "-L${lib.makeLibraryPath [ zlib ]}"
+      --set CGO_LDFLAGS "-L${lib.makeLibraryPath [zlib]}"
   '';
 
   meta = {
     description = "Build applications using Go + HTML + CSS + JS";
     homepage = "https://wails.io";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "wails";
     platforms = lib.platforms.unix;
   };

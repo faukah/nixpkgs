@@ -12,7 +12,6 @@
   cairo,
   scdoc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wlclock";
   version = "1.0.1";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "Digital analog clock for Wayland desktops";
     homepage = "https://git.sr.ht/~leon_plickat/wlclock";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ nomisiv ];
+    maintainers = with maintainers; [nomisiv];
     platforms = with platforms; linux;
     mainProgram = "wlclock";
   };

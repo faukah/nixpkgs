@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.virtualisation.lxd.agent;
 
   # the lxd agent is provided by the lxd daemon through a virtiofs or 9p mount
@@ -49,8 +47,7 @@ let
     # Fix up permissions.
     chown -R root:root "$PREFIX"
   '';
-in
-{
+in {
   options = {
     virtualisation.lxd.agent.enable = lib.mkEnableOption "LXD agent";
   };
@@ -59,15 +56,15 @@ in
     # https://github.com/lxc/distrobuilder/blob/f77300bf7d7d5707b08eaf8a434d647d1ba81b5d/generators/lxd-agent.go#L108-L125
     systemd.services.lxd-agent = {
       enable = true;
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       before =
-        [ "shutdown.target" ]
+        ["shutdown.target"]
         ++ lib.optionals config.services.cloud-init.enable [
           "cloud-init.target"
           "cloud-init.service"
           "cloud-init-local.service"
         ];
-      conflicts = [ "shutdown.target" ];
+      conflicts = ["shutdown.target"];
       path = [
         pkgs.kmod
         pkgs.util-linux
@@ -102,7 +99,7 @@ in
 
     systemd.paths.lxd-agent = {
       enable = true;
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       pathConfig.PathExists = "/dev/virtio-ports/org.linuxcontainers.lxd";
     };
   };

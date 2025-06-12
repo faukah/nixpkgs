@@ -5,7 +5,6 @@
   setuptools,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "torchsummary";
   version = "1.5.1";
@@ -16,19 +15,19 @@ buildPythonPackage rec {
     hash = "sha256-mBv2ieIuDPf5XHRgAvIKJK0mqmudhhE0oUvGzpIjBZA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ torch ];
+  dependencies = [torch];
 
   # no tests in pypi tarball
   doCheck = false;
 
-  pythonImportsCheck = [ "torchsummary" ];
+  pythonImportsCheck = ["torchsummary"];
 
   meta = {
     description = "Model summary in PyTorch similar to `model.summary()` in Keras";
     homepage = "https://github.com/sksq96/pytorch-summary";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

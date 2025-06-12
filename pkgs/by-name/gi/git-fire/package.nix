@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "git-fire";
   version = "unstable-2017-08-27";
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/qw3rtman/git-fire";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ swflint ];
+    maintainers = with maintainers; [swflint];
     mainProgram = "git-fire";
   };
 }

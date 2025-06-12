@@ -3,16 +3,13 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-
   python,
   unittestCheckHook,
   setuptools,
-
   fire,
   python-crfsuite,
   tqdm,
 }:
-
 buildPythonPackage {
   pname = "ssg";
   version = "0.0.8";
@@ -33,7 +30,7 @@ buildPythonPackage {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     fire
@@ -41,9 +38,9 @@ buildPythonPackage {
     tqdm
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "ssg" ];
+  pythonImportsCheck = ["ssg"];
 
   postInstall = "rm -rf $out/${python.sitePackages}/scripts";
 
@@ -51,7 +48,7 @@ buildPythonPackage {
     description = "TCRF syllable segmenter for Thai";
     homepage = "https://github.com/ponrawee/ssg";
     license = licenses.asl20;
-    maintainers = with maintainers; [ vizid ];
+    maintainers = with maintainers; [vizid];
     mainProgram = "ssg-cli";
   };
 }

@@ -4,35 +4,25 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.colord;
-
-in
-{
-
+in {
   options = {
-
     services.colord = {
       enable = mkEnableOption "colord, the color management daemon";
     };
-
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = [pkgs.colord];
 
-    environment.systemPackages = [ pkgs.colord ];
+    services.dbus.packages = [pkgs.colord];
 
-    services.dbus.packages = [ pkgs.colord ];
+    services.udev.packages = [pkgs.colord];
 
-    services.udev.packages = [ pkgs.colord ];
+    systemd.packages = [pkgs.colord];
 
-    systemd.packages = [ pkgs.colord ];
-
-    systemd.tmpfiles.packages = [ pkgs.colord ];
+    systemd.tmpfiles.packages = [pkgs.colord];
 
     users.users.colord = {
       isSystemUser = true;
@@ -40,8 +30,6 @@ in
       group = "colord";
     };
 
-    users.groups.colord = { };
-
+    users.groups.colord = {};
   };
-
 }

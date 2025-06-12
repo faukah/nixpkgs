@@ -4,8 +4,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.fusionInventory;
 
   configFile = pkgs.writeText "fusion_inventory.conf" ''
@@ -15,16 +14,11 @@ let
 
     ${cfg.extraConfig}
   '';
-
-in
-{
-
+in {
   ###### interface
 
   options = {
-
     services.fusionInventory = {
-
       enable = lib.mkEnableOption "Fusion Inventory Agent";
 
       servers = lib.mkOption {
@@ -47,7 +41,6 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     users.users.fusion-inventory = {
       description = "FusionInventory user";
       isSystemUser = true;
@@ -55,7 +48,7 @@ in
 
     systemd.services.fusion-inventory = {
       description = "Fusion Inventory Agent";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.fusionInventory}/bin/fusioninventory-agent --conf-file=${configFile} --daemon --no-fork";

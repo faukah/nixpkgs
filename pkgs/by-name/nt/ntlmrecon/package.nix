@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "ntlmrecon";
   version = "0.4";
@@ -35,7 +34,7 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "ntlmrecon";
     homepage = "https://github.com/pwnfoo/NTLMRecon";
     changelog = "https://github.com/pwnfoo/NTLMRecon/releases/tag/v-${version}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [fab];
   };
 }

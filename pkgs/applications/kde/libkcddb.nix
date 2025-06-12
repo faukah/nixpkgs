@@ -11,7 +11,6 @@
   kcmutils,
   libmusicbrainz5,
 }:
-
 mkDerivation {
   pname = "libkcddb";
   meta = with lib; {
@@ -20,7 +19,7 @@ mkDerivation {
       lgpl21
       bsd3
     ];
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
   nativeBuildInputs = [
     extra-cmake-modules

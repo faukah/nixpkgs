@@ -6,7 +6,6 @@
   pytest,
   tornado,
 }:
-
 buildPythonPackage {
   pname = "pytest-tornasync";
   version = "0.6.0.post2";
@@ -22,9 +21,9 @@ buildPythonPackage {
     sha256 = "04cg1cfrr55dbi8nljkpcsc103i5c6p0nr46vjr0bnxgkxx03x36";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  propagatedBuildInputs = [ tornado ];
+  propagatedBuildInputs = [tornado];
 
   __darwinAllowLocalNetworking = true;
 
@@ -41,6 +40,6 @@ buildPythonPackage {
     description = "py.test plugin for testing Python 3.5+ Tornado code";
     homepage = "https://github.com/eukaryote/pytest-tornasync";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

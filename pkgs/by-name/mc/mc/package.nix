@@ -20,11 +20,9 @@
   darwin,
   x11Support ? true,
   libX11,
-
   # updater only
   writeScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mc";
   version = "4.8.33";
@@ -56,7 +54,7 @@ stdenv.mkDerivation rec {
       slang
       zip
     ]
-    ++ lib.optionals x11Support [ libX11 ]
+    ++ lib.optionals x11Support [libX11]
     ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
       e2fsprogs
       gpm
@@ -103,7 +101,7 @@ stdenv.mkDerivation rec {
     downloadPage = "https://ftp.osuosl.org/pub/midnightcommander/";
     homepage = "https://midnight-commander.org";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ sander ];
+    maintainers = with maintainers; [sander];
     platforms = platforms.linux ++ platforms.darwin;
     mainProgram = "mc";
   };

@@ -12,7 +12,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "cffsubr";
   version = "0.3.0";
@@ -41,11 +40,11 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  dependencies = [ fonttools ];
+  dependencies = [fonttools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cffsubr" ];
+  pythonImportsCheck = ["cffsubr"];
 
   meta = with lib; {
     changelog = "https://github.com/adobe-type-tools/cffsubr/releases/tag/v${version}";
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     mainProgram = "cffsubr";
     homepage = "https://github.com/adobe-type-tools/cffsubr";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

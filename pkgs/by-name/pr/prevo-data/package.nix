@@ -4,7 +4,6 @@
   fetchFromGitHub,
   prevo-tools,
 }:
-
 stdenv.mkDerivation {
   pname = "prevo-data";
   version = "2020-03-08";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     hash = "sha256-308IDx/9LXauvtyjiC9GlHWOj9VMnYy21ouVNuL9sNE=";
   };
 
-  nativeBuildInputs = [ prevo-tools ];
+  nativeBuildInputs = [prevo-tools];
 
   dontUnpack = true;
 

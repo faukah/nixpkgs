@@ -6,7 +6,6 @@
   goatcounter,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "goatcounter";
   version = "2.5.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-YAb3uBWQc6hWzF1Z5cAg8RzJQSJV+6dkppfczKS832s=";
-  subPackages = [ "cmd/goatcounter" ];
+  subPackages = ["cmd/goatcounter"];
   modRoot = ".";
 
   # Derived from the upstream build scripts:
@@ -53,7 +52,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/arp242/goatcounter";
     license = lib.licenses.eupl12;
-    maintainers = with lib.maintainers; [ tylerjl ];
+    maintainers = with lib.maintainers; [tylerjl];
     mainProgram = "goatcounter";
   };
 }

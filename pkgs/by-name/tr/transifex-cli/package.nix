@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "transifex-cli";
   version = "1.6.17";
@@ -34,7 +33,7 @@ buildGoModule rec {
     description = "Transifex command-line client";
     homepage = "https://github.com/transifex/cli";
     license = licenses.asl20;
-    maintainers = with maintainers; [ thornycrackers ];
+    maintainers = with maintainers; [thornycrackers];
     mainProgram = "tx";
   };
 }

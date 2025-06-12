@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.iay;
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
@@ -15,11 +14,10 @@ let
     optionalString
     types
     ;
-in
-{
+in {
   options.programs.iay = {
     enable = mkEnableOption "iay, a minimalistic shell prompt";
-    package = mkPackageOption pkgs "iay" { };
+    package = mkPackageOption pkgs "iay" {};
 
     minimalPrompt = mkOption {
       type = types.bool;

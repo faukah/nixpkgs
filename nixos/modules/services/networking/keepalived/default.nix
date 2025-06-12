@@ -4,11 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.keepalived;
 
   keepalivedConf = pkgs.writeText "keepalived.conf" ''
@@ -23,8 +19,7 @@ let
     ${cfg.extraConfig}
   '';
 
-  snmpGlobalDefs =
-    with cfg.snmp;
+  snmpGlobalDefs = with cfg.snmp;
     optionalString enable (
       optionalString (socket != null) "snmp_socket ${socket}\n"
       + optionalString enableKeepalived "enable_snmp_keepalived\n"
@@ -48,7 +43,8 @@ let
 
         ${s.extraConfig}
       }
-    '') vrrpScripts
+    '')
+    vrrpScripts
   );
 
   vrrpInstancesStr = concatStringsSep "\n" (
@@ -61,40 +57,40 @@ let
         ${optionalString i.noPreempt "nopreempt"}
 
         ${optionalString i.useVmac (
-          "use_vmac" + optionalString (i.vmacInterface != null) " ${i.vmacInterface}"
-        )}
+        "use_vmac" + optionalString (i.vmacInterface != null) " ${i.vmacInterface}"
+      )}
         ${optionalString i.vmacXmitBase "vmac_xmit_base"}
 
         ${optionalString (i.unicastSrcIp != null) "unicast_src_ip ${i.unicastSrcIp}"}
         ${optionalString (builtins.length i.unicastPeers > 0) ''
-          unicast_peer {
-            ${concatStringsSep "\n" i.unicastPeers}
-          }
-        ''}
+        unicast_peer {
+          ${concatStringsSep "\n" i.unicastPeers}
+        }
+      ''}
 
         virtual_ipaddress {
           ${concatMapStringsSep "\n" virtualIpLine i.virtualIps}
         }
 
         ${optionalString (builtins.length i.trackScripts > 0) ''
-          track_script {
-            ${concatStringsSep "\n" i.trackScripts}
-          }
-        ''}
+        track_script {
+          ${concatStringsSep "\n" i.trackScripts}
+        }
+      ''}
 
         ${optionalString (builtins.length i.trackInterfaces > 0) ''
-          track_interface {
-            ${concatStringsSep "\n" i.trackInterfaces}
-          }
-        ''}
+        track_interface {
+          ${concatStringsSep "\n" i.trackInterfaces}
+        }
+      ''}
 
         ${i.extraConfig}
       }
-    '') vrrpInstances
+    '')
+    vrrpInstances
   );
 
-  virtualIpLine =
-    ip:
+  virtualIpLine = ip:
     ip.addr
     + optionalString (notNullOrEmpty ip.brd) " brd ${ip.brd}"
     + optionalString (notNullOrEmpty ip.dev) " dev ${ip.dev}"
@@ -103,24 +99,27 @@ let
 
   notNullOrEmpty = s: !(s == null || s == "");
 
-  vrrpScripts = mapAttrsToList (
-    name: config:
-    {
-      inherit name;
-    }
-    // config
-  ) cfg.vrrpScripts;
+  vrrpScripts =
+    mapAttrsToList (
+      name: config:
+        {
+          inherit name;
+        }
+        // config
+    )
+    cfg.vrrpScripts;
 
-  vrrpInstances = mapAttrsToList (
-    iName: iConfig:
-    {
-      name = iName;
-    }
-    // iConfig
-  ) cfg.vrrpInstances;
+  vrrpInstances =
+    mapAttrsToList (
+      iName: iConfig:
+        {
+          name = iName;
+        }
+        // iConfig
+    )
+    cfg.vrrpInstances;
 
-  vrrpInstanceAssertions =
-    i:
+  vrrpInstanceAssertions = i:
     [
       {
         assertion = i.interface != "";
@@ -159,14 +158,11 @@ let
   };
 
   pidFile = "/run/keepalived.pid";
-
-in
-{
-  meta.maintainers = [ lib.maintainers.raitobezarius ];
+in {
+  meta.maintainers = [lib.maintainers.raitobezarius];
 
   options = {
     services.keepalived = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -175,7 +171,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "keepalived" { };
+      package = lib.mkPackageOption pkgs "keepalived" {};
 
       openFirewall = mkOption {
         type = types.bool;
@@ -194,7 +190,6 @@ in
       };
 
       snmp = {
-
         enable = mkOption {
           type = types.bool;
           default = false;
@@ -261,7 +256,6 @@ in
             Enable SNMP traps.
           '';
         };
-
       };
 
       vrrpScripts = mkOption {
@@ -272,7 +266,7 @@ in
             }
           )
         );
-        default = { };
+        default = {};
         description = "Declarative vrrp script config";
       };
 
@@ -284,7 +278,7 @@ in
             }
           )
         );
-        default = { };
+        default = {};
         description = "Declarative vhost config";
       };
 
@@ -317,12 +311,10 @@ in
           This is useful to avoid putting secrets into the nix store.
         '';
       };
-
     };
   };
 
   config = mkIf cfg.enable {
-
     assertions = flatten (map vrrpInstanceAssertions vrrpInstances);
 
     networking.firewall = lib.mkIf cfg.openFirewall {
@@ -344,47 +336,47 @@ in
         "network.target"
         "network-online.target"
       ];
-      requires = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       timerConfig = {
         OnActiveSec = "5s";
         Unit = "keepalived.service";
       };
     };
 
-    systemd.services.keepalived =
-      let
-        finalConfigFile =
-          if cfg.secretFile == null then keepalivedConf else "/run/keepalived/keepalived.conf";
-      in
-      {
-        description = "Keepalive Daemon (LVS and VRRP)";
-        after = [
-          "network.target"
-          "network-online.target"
-        ];
-        wants = [ "network-online.target" ];
-        serviceConfig = {
-          Type = "forking";
-          PIDFile = pidFile;
-          KillMode = "process";
-          RuntimeDirectory = "keepalived";
-          EnvironmentFile = lib.optional (cfg.secretFile != null) cfg.secretFile;
-          ExecStartPre = lib.optional (cfg.secretFile != null) (
-            pkgs.writeShellScript "keepalived-pre-start" ''
-              umask 077
-              ${pkgs.envsubst}/bin/envsubst -i "${keepalivedConf}" > ${finalConfigFile}
-            ''
-          );
-          ExecStart =
-            "${lib.getExe cfg.package}"
-            + " -f ${finalConfigFile}"
-            + " -p ${pidFile}"
-            + optionalString cfg.snmp.enable " --snmp";
-          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-          Restart = "always";
-          RestartSec = "1s";
-        };
+    systemd.services.keepalived = let
+      finalConfigFile =
+        if cfg.secretFile == null
+        then keepalivedConf
+        else "/run/keepalived/keepalived.conf";
+    in {
+      description = "Keepalive Daemon (LVS and VRRP)";
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
+      wants = ["network-online.target"];
+      serviceConfig = {
+        Type = "forking";
+        PIDFile = pidFile;
+        KillMode = "process";
+        RuntimeDirectory = "keepalived";
+        EnvironmentFile = lib.optional (cfg.secretFile != null) cfg.secretFile;
+        ExecStartPre = lib.optional (cfg.secretFile != null) (
+          pkgs.writeShellScript "keepalived-pre-start" ''
+            umask 077
+            ${pkgs.envsubst}/bin/envsubst -i "${keepalivedConf}" > ${finalConfigFile}
+          ''
+        );
+        ExecStart =
+          "${lib.getExe cfg.package}"
+          + " -f ${finalConfigFile}"
+          + " -p ${pidFile}"
+          + optionalString cfg.snmp.enable " --snmp";
+        ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+        Restart = "always";
+        RestartSec = "1s";
       };
+    };
   };
 }

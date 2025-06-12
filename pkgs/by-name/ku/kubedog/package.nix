@@ -5,7 +5,6 @@
   testers,
   kubedog,
 }:
-
 buildGoModule rec {
   pname = "kubedog";
   version = "0.13.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-kCS7nMFskBw6LTV5EgPSufxo78OyfW9Zdqe5rZytgKE=";
 
-  subPackages = [ "cmd/kubedog" ];
+  subPackages = ["cmd/kubedog"];
 
   ldflags = [
     "-s"
@@ -45,6 +44,6 @@ buildGoModule rec {
     homepage = "https://github.com/werf/kubedog";
     changelog = "https://github.com/werf/kubedog/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
   };
 }

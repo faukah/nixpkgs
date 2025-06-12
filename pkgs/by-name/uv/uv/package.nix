@@ -3,19 +3,15 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
-
   # buildInputs
   rust-jemalloc-sys,
-
   # nativeBuildInputs
   installShellFiles,
-
   buildPackages,
   versionCheckHook,
   python3Packages,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "uv";
   version = "0.7.12";
@@ -34,7 +30,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     rust-jemalloc-sys
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   cargoBuildFlags = [
     "--package"
@@ -47,8 +43,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
+    in ''
       installShellCompletion --cmd uv \
         --bash <(${emulator} $out/bin/uv generate-shell-completion bash) \
         --fish <(${emulator} $out/bin/uv generate-shell-completion fish) \
@@ -56,13 +51,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ''
   );
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   passthru = {
     tests.uv-python = python3Packages.uv;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

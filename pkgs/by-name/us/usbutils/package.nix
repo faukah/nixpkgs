@@ -11,7 +11,6 @@
   hwdata,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "usbutils";
   version = "018";

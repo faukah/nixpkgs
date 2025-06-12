@@ -24,7 +24,6 @@
   libxslt,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gpsbabel";
   version = "1.8.0";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "gpsbabel";
     repo = "gpsbabel";
-    rev = "gpsbabel_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "gpsbabel_${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-0w8LsO+HwqZF8SQmwd8bCKma9PCM0hAzXhzWR4DgAHs=";
   };
 
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
         --replace /usr/share/doc $doc/share/doc
     '';
 
-  outputs = [ "out" ] ++ lib.optional withDoc "doc";
+  outputs = ["out"] ++ lib.optional withDoc "doc";
 
   nativeBuildInputs =
     [
@@ -123,20 +122,19 @@ stdenv.mkDerivation rec {
       install -Dm755 gpsbabel -t $out/bin
     ''
     + lib.optionalString withGUI (
-      if stdenv.hostPlatform.isDarwin then
-        ''
-          mkdir -p $out/Applications
-          mv gui/GPSBabelFE.app $out/Applications
-          install -Dm644 gui/*.qm gui/coretool/*.qm -t $out/Applications/GPSBabelFE.app/Contents/Resources/translations
-          ln -s $out/bin/gpsbabel $out/Applications/GPSBabelFE.app/Contents/MacOS
-        ''
-      else
-        ''
-          install -Dm755 gui/objects/gpsbabelfe -t $out/bin
-          install -Dm644 gui/gpsbabel.desktop -t $out/share/application
-          install -Dm644 gui/images/appicon.png $out/share/icons/hicolor/512x512/apps/gpsbabel.png
-          install -Dm644 gui/*.qm gui/coretool/*.qm -t $out/share/gpsbabel/translations
-        ''
+      if stdenv.hostPlatform.isDarwin
+      then ''
+        mkdir -p $out/Applications
+        mv gui/GPSBabelFE.app $out/Applications
+        install -Dm644 gui/*.qm gui/coretool/*.qm -t $out/Applications/GPSBabelFE.app/Contents/Resources/translations
+        ln -s $out/bin/gpsbabel $out/Applications/GPSBabelFE.app/Contents/MacOS
+      ''
+      else ''
+        install -Dm755 gui/objects/gpsbabelfe -t $out/bin
+        install -Dm644 gui/gpsbabel.desktop -t $out/share/application
+        install -Dm644 gui/images/appicon.png $out/share/icons/hicolor/512x512/apps/gpsbabel.png
+        install -Dm644 gui/*.qm gui/coretool/*.qm -t $out/share/gpsbabel/translations
+      ''
     )
     + lib.optionalString withDoc ''
       install -Dm655 gpsbabel.{html,pdf} -t $doc/share/doc/gpsbabel
@@ -144,14 +142,13 @@ stdenv.mkDerivation rec {
     '';
 
   postFixup = lib.optionalString withGUI (
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        wrapQtApp "$out/Applications/GPSBabelFE.app/Contents/MacOS/GPSBabelFE"
-      ''
-    else
-      ''
-        wrapQtApp "$out/bin/gpsbabelfe"
-      ''
+    if stdenv.hostPlatform.isDarwin
+    then ''
+      wrapQtApp "$out/Applications/GPSBabelFE.app/Contents/MacOS/GPSBabelFE"
+    ''
+    else ''
+      wrapQtApp "$out/bin/gpsbabelfe"
+    ''
   );
 
   meta = with lib; {
@@ -177,7 +174,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gpsbabel.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     mainProgram = "gpsbabel";
   };
 }

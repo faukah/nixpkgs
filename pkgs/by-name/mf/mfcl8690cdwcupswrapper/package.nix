@@ -10,7 +10,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mfcl8690cdwcupswrapper";
   version = "1.4.0-0";
@@ -40,12 +39,12 @@ stdenv.mkDerivation rec {
 
     wrapProgram $dir/cupswrapper/brother_lpdwrapper_mfcl8690cdw \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          gnugrep
-          gnused
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        gnugrep
+        gnused
+      ]
+    }
 
     mkdir -p $out/lib/cups/filter
     mkdir -p $out/share/cups/model
@@ -59,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.brother.com/";
     license = lib.licenses.unfree;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

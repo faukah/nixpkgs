@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "bomber-go";
   version = "0.4.7";
@@ -32,6 +31,6 @@ buildGoModule rec {
     changelog = "https://github.com/devops-kung-fu/bomber/releases/tag/v${version}";
     license = lib.licenses.mpl20;
     mainProgram = "bomber";
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

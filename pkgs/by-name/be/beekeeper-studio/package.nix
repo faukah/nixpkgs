@@ -28,19 +28,17 @@
   libGL,
   krb5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "beekeeper-studio";
   version = "5.2.12";
 
-  src =
-    let
-      selectSystem = attrs: attrs.${stdenv.hostPlatform.system};
-      arch = selectSystem {
-        x86_64-linux = "amd64";
-        aarch64-linux = "arm64";
-      };
-    in
+  src = let
+    selectSystem = attrs: attrs.${stdenv.hostPlatform.system};
+    arch = selectSystem {
+      x86_64-linux = "amd64";
+      aarch64-linux = "arm64";
+    };
+  in
     fetchurl {
       url = "https://github.com/beekeeper-studio/beekeeper-studio/releases/download/v${finalAttrs.version}/beekeeper-studio_${finalAttrs.version}_${arch}.deb";
       hash = selectSystem {
@@ -86,7 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
     krb5
   ];
 
-  runtimeDependencies = map lib.getLib [ systemd ];
+  runtimeDependencies = map lib.getLib [systemd];
 
   installPhase = ''
     runHook preInstall
@@ -106,10 +104,10 @@ stdenv.mkDerivation (finalAttrs: {
     patchelf --add-needed libGL.so.1 \
       --add-needed libEGL.so.1 \
       --add-rpath ${
-        lib.makeLibraryPath [
-          libGL
-        ]
-      } $out/opt/beekeeper-studio/beekeeper-studio-bin
+      lib.makeLibraryPath [
+        libGL
+      ]
+    } $out/opt/beekeeper-studio/beekeeper-studio-bin
   '';
 
   passthru.updateScript = ./update.sh;
@@ -119,7 +117,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.beekeeperstudio.io";
     changelog = "https://github.com/beekeeper-studio/beekeeper-studio/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     mainProgram = "beekeeper-studio";
     maintainers = with lib.maintainers; [
       milogert
@@ -129,6 +127,6 @@ stdenv.mkDerivation (finalAttrs: {
       "aarch64-linux"
       "x86_64-linux"
     ];
-    knownVulnerabilities = [ "Electron version 31 is EOL" ];
+    knownVulnerabilities = ["Electron version 31 is EOL"];
   };
 })

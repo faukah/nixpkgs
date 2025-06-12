@@ -9,7 +9,6 @@
   wayland-scanner,
   wayland,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sandbar";
   version = "0.1";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     wayland-scanner
@@ -33,13 +32,13 @@ stdenv.mkDerivation (finalAttrs: {
     fcft
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/kolunmi/sandbar";
     description = "DWM-like bar for the river wayland compositor";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fccapria ];
+    maintainers = with maintainers; [fccapria];
     platforms = platforms.all;
     badPlatforms = platforms.darwin;
     mainProgram = "sandbar";

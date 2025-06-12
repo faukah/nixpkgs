@@ -17,7 +17,6 @@
   xz,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "salmon";
   version = "1.10.3";
@@ -43,22 +42,24 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = "patchShebangs .";
 
-  buildInputs = [
-    (boost.override {
-      enableShared = false;
-      enabledStatic = true;
-    })
-    bzip2
-    cereal_1_3_2
-    curl
-    icu
-    jemalloc
-    libgff
-    libstaden-read
-    tbb_2021_11
-    xz
-    zlib
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs =
+    [
+      (boost.override {
+        enableShared = false;
+        enabledStatic = true;
+      })
+      bzip2
+      cereal_1_3_2
+      curl
+      icu
+      jemalloc
+      libgff
+      libstaden-read
+      tbb_2021_11
+      xz
+      zlib
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   nativeBuildInputs = [
     cmake
@@ -85,6 +86,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/COMBINE-lab/salmon/releases/tag/" + "v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.kupac ];
+    maintainers = [lib.maintainers.kupac];
   };
 })

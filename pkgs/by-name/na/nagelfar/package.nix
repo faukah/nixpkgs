@@ -5,7 +5,6 @@
   tclPackages,
   tk,
 }:
-
 tcl.mkTclDerivation rec {
   pname = "nagelfar";
   version = "1.3.5";
@@ -41,6 +40,6 @@ tcl.mkTclDerivation rec {
     mainProgram = "nagelfar";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.nat-418 ];
+    maintainers = [lib.maintainers.nat-418];
   };
 }

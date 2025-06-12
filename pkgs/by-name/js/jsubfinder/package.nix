@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "jsubfinder";
   version = "unstable-2022-05-31";
@@ -22,6 +21,6 @@ buildGoModule {
     mainProgram = "jsubfinder";
     homepage = "https://github.com/ThreatUnkown/jsubfinder";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

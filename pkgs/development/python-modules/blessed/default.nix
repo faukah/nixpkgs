@@ -8,7 +8,6 @@
   mock,
   glibcLocales,
 }:
-
 buildPythonPackage rec {
   pname = "blessed";
   version = "1.20.0";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/jquast/blessed";
     description = "Thin, practical wrapper around terminal capabilities in Python";
-    maintainers = with maintainers; [ eqyiel ];
+    maintainers = with maintainers; [eqyiel];
     license = licenses.mit;
   };
 }

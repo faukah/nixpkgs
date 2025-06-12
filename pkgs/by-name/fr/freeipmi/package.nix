@@ -7,7 +7,6 @@
   readline,
   libgpg-error,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.6.15";
   pname = "freeipmi";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1pKcNUY59c51tbGJfos2brY2JcI+XEWQp66gNP4rjK8=";
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   buildInputs = [
     libgcrypt
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl3Plus;
 
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = lib.platforms.gnu ++ lib.platforms.linux; # arbitrary choice
   };
 }

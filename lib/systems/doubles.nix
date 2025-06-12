@@ -1,5 +1,4 @@
-{ lib }:
-let
+{lib}: let
   inherit (lib) lists;
   inherit (lib.systems) parse;
   inherit (lib.systems.inspect) predicates;
@@ -113,12 +112,10 @@ let
   allParsed = map parse.mkSystemFromString all;
 
   filterDoubles = f: map parse.doubleFromSystem (lists.filter f allParsed);
-
-in
-{
+in {
   inherit all;
 
-  none = [ ];
+  none = [];
 
   arm = filterDoubles predicates.isAarch32;
   armv7 = filterDoubles predicates.isArmv7;

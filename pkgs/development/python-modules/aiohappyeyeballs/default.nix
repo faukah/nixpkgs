@@ -3,22 +3,18 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   poetry-core,
-
   # optional-dependencies
   furo,
   myst-parser,
   sphinx,
   sphinxHook,
-
   # tests
   pytest-asyncio,
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "aiohappyeyeballs";
   version = "2.6.1";
@@ -38,7 +34,7 @@ buildPythonPackage rec {
     "doc"
   ];
 
-  build-system = [ poetry-core ] ++ optional-dependencies.docs;
+  build-system = [poetry-core] ++ optional-dependencies.docs;
 
   optional-dependencies = {
     docs = [
@@ -55,7 +51,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiohappyeyeballs" ];
+  pythonImportsCheck = ["aiohappyeyeballs"];
 
   meta = with lib; {
     description = "Happy Eyeballs for pre-resolved hosts";

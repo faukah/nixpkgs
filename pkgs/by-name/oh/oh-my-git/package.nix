@@ -25,7 +25,6 @@
   zlib,
   udev, # for libudev
 }:
-
 stdenv.mkDerivation rec {
   pname = "oh-my-git";
   version = "0.6.5";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
       desktopName = "oh-my-git";
       comment = "An interactive Git learning game!";
       genericName = "An interactive Git learning game!";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -129,8 +128,8 @@ stdenv.mkDerivation rec {
     homepage = "https://ohmygit.org/";
     description = "Interactive Git learning game";
     mainProgram = "oh-my-git";
-    license = with licenses; [ blueOak100 ];
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ jojosch ];
+    license = with licenses; [blueOak100];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [jojosch];
   };
 }

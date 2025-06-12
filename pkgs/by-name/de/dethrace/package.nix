@@ -6,7 +6,6 @@
   SDL2,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dethrace";
   version = "0.8.0";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ SDL2 ];
+  buildInputs = [SDL2];
   nativeBuildInputs = [
     cmake
     perl
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Reverse engineering the 1997 game Carmageddon";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
     mainProgram = "dethrace";
   };
 }

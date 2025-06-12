@@ -4,7 +4,6 @@
   buildPythonPackage,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "freertos-gdb";
   version = "1.0.4";

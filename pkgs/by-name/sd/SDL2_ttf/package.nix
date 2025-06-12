@@ -11,7 +11,6 @@
   # Boolean flags
   enableSdltest ? (!stdenv.hostPlatform.isDarwin),
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "SDL2_ttf";
   version = "2.24.0";
@@ -54,8 +53,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/libsdl-org/SDL_ttf";
     description = "Support for TrueType (.ttf) font files with Simple Directmedia Layer";
     license = lib.licenses.zlib;
-    teams = [ lib.teams.sdl ];
+    teams = [lib.teams.sdl];
     inherit (SDL2.meta) platforms;
-    pkgConfigModules = [ "SDL2_ttf" ];
+    pkgConfigModules = ["SDL2_ttf"];
   };
 })

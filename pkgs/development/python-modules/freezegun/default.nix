@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "freezegun";
   version = "1.5.1";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-sp3t/NptXo4IPOcbK1QnU61Iz+xEA3s/x5cC4pgKiek=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ python-dateutil ];
+  dependencies = [python-dateutil];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = lib.optionals (pythonAtLeast "3.13") [
     # https://github.com/spulec/freezegun/issues/547
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     "test_method_decorator_works_on_unittest_kwarg_hello"
   ];
 
-  pythonImportsCheck = [ "freezegun" ];
+  pythonImportsCheck = ["freezegun"];
 
   meta = with lib; {
     description = "Library that allows your Python tests to travel through time";
     homepage = "https://github.com/spulec/freezegun";
     changelog = "https://github.com/spulec/freezegun/blob/${version}/CHANGELOG";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

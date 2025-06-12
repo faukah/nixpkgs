@@ -14,7 +14,6 @@
   json_c,
   xdg-utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mpris-scrobbler";
   version = "0.5.6";
@@ -73,14 +72,14 @@ stdenv.mkDerivation rec {
   );
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Minimalistic scrobbler for ListenBrainz, libre.fm, & last.fm";
     homepage = "https://github.com/mariusor/mpris-scrobbler";
     license = licenses.mit;
-    maintainers = with maintainers; [ emantor ];
+    maintainers = with maintainers; [emantor];
     platforms = platforms.unix;
     mainProgram = "mpris-scrobbler";
   };

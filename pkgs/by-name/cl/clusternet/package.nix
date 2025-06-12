@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGo123Module,
 }:
-
 buildGo123Module rec {
   pname = "clusternet";
   version = "0.17.3";
@@ -26,6 +25,6 @@ buildGo123Module rec {
     description = "CNCF Sandbox Project for managing your Kubernetes clusters";
     homepage = "https://github.com/clusternet/clusternet";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
   };
 }

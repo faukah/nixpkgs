@@ -1,21 +1,18 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "zwave-js-ui";
-  meta.maintainers = with lib.maintainers; [ cdombroski ];
+  meta.maintainers = with lib.maintainers; [cdombroski];
 
   nodes = {
-    machine =
-      { ... }:
-      {
-        services.zwave-js-ui = {
-          enable = true;
-          serialPort = "/dev/null";
-          settings = {
-            HOST = "::";
-            PORT = "9999";
-          };
+    machine = {...}: {
+      services.zwave-js-ui = {
+        enable = true;
+        serialPort = "/dev/null";
+        settings = {
+          HOST = "::";
+          PORT = "9999";
         };
       };
+    };
   };
 
   testScript = ''

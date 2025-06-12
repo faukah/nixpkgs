@@ -6,7 +6,6 @@
   pytest-homeassistant-custom-component,
   pytestCheckHook,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "robinostlund";
   domain = "volkswagencarnet";
@@ -19,7 +18,7 @@ buildHomeAssistantComponent rec {
     hash = "sha256-3wykS2TYjr9hoQSPc1F3m5aDiLW1tzvQfjfjnr4N2Y0=";
   };
 
-  dependencies = [ volkswagencarnet ];
+  dependencies = [volkswagencarnet];
 
   nativeCheckInputs = [
     pytest-homeassistant-custom-component
@@ -33,6 +32,6 @@ buildHomeAssistantComponent rec {
     description = "Volkswagen Connect component for Home Assistant";
     homepage = "https://github.com/robinostlund/homeassistant-volkswagencarnet";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

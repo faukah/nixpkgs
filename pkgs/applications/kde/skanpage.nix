@@ -9,11 +9,10 @@
   kpurpose,
   kquickimageedit,
 }:
-
 mkDerivation {
   pname = "skanpage";
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
   buildInputs = [
     kirigami2

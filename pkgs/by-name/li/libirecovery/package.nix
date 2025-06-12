@@ -8,7 +8,6 @@
   readline,
   libimobiledevice-glue,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libirecovery";
   version = "1.2.1";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/libimobiledevice/libirecovery";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ nh2 ];
+    maintainers = with maintainers; [nh2];
     mainProgram = "irecovery";
     platforms = platforms.unix;
   };

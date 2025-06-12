@@ -3,10 +3,8 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   aiohttp,
   attrs,
@@ -19,7 +17,6 @@
   nurl,
   platformdirs,
   typer,
-
   # tests
   pytestCheckHook,
   aioresponses,
@@ -48,7 +45,7 @@ buildPythonPackage rec {
       --replace-fail '"nix-prefetch-git"' '"${lib.getExe' nix-prefetch-git "nix-prefetch-git"}"'
   '';
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     aiohttp
@@ -76,6 +73,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/PerchunPak/nixpkgs-updaters-library";
     changelog = "https://github.com/PerchunPak/nixpkgs-updaters-library/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ perchun ];
+    maintainers = with lib.maintainers; [perchun];
   };
 }

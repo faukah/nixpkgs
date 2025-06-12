@@ -2,21 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   pythonOlder,
-
   pytestCheckHook,
-
   setuptools,
-
   # for testing
   numpy,
   importlib-resources,
-
   # requirements
   editdistpy,
 }:
-
 buildPythonPackage rec {
   pname = "symspellpy";
   version = "6.9.0";
@@ -31,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-isxANYSiwN8pQ7/XfMtO7cyoGdTyrXYOZ6C5rDJsJIs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ editdistpy ];
+  dependencies = [editdistpy];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -51,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mammothb/symspellpy";
     changelog = "https://github.com/mammothb/symspellpy/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ vizid ];
+    maintainers = with lib.maintainers; [vizid];
   };
 }

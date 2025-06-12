@@ -10,7 +10,6 @@
   kpeople,
   kcontacts,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kpeoplevcard";
   version = "0.1";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Pulseaudio bindings for Qt";
     homepage = "https://github.com/KDE/kpeoplevcard";
-    license = with licenses; [ lgpl2 ];
-    maintainers = with maintainers; [ doronbehar ];
+    license = with licenses; [lgpl2];
+    maintainers = with maintainers; [doronbehar];
   };
 })

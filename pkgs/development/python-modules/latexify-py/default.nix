@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "latexify-py";
   version = "0.4.4";
@@ -22,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-tyBIOIVRSNrhO1NOD7Zqmiksrvrm42DUY4w1IocVRl4=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ dill ];
+  dependencies = [dill];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "latexify" ];
+  pythonImportsCheck = ["latexify"];
 
   preCheck = ''
     cd src
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/google/latexify_py";
     changelog = "https://github.com/google/latexify_py/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "narrowlink";
   version = "0.2.6";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
       agpl3Only
       mpl20
     ]; # the gateway component is AGPLv3, the rest is MPLv2
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
     mainProgram = "narrowlink";
   };
 }

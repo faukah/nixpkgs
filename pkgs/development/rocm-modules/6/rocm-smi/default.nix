@@ -6,7 +6,6 @@
   cmake,
   wrapPython,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-smi";
   version = "6.3.3";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-j9pkyUt+p6IkhawIhiTymqDBydxXZunxmdyCyRN0RxE=";
   };
 
-  patches = [ ./cmake.patch ];
+  patches = [./cmake.patch];
 
   nativeBuildInputs = [
     cmake
@@ -48,9 +47,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "System management interface for AMD GPUs supported by ROCm";
     homepage = "https://github.com/ROCm/rocm_smi_lib";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ lovesegfault ];
-    teams = [ teams.rocm ];
-    platforms = [ "x86_64-linux" ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [lovesegfault];
+    teams = [teams.rocm];
+    platforms = ["x86_64-linux"];
   };
 })

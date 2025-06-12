@@ -5,7 +5,6 @@
   gawk,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rsbep";
   version = "0.2.0";
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     description = "Create resilient backups with Reed-Solomon error correction and byte-spreading";
     homepage = "https://www.thanassis.space/rsbep.html";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.erikarvstedt ];
+    maintainers = [maintainers.erikarvstedt];
   };
 }

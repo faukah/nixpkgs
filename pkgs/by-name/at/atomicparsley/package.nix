@@ -5,7 +5,6 @@
   cmake,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "atomicparsley";
   version = "20240608.083822.1ed9031";
@@ -17,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VhrOMpGNMkNNYjcfCqlHI8gdApWr1ThtcxDwQ6gyV/g=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   installPhase = ''
     runHook preInstall
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/wez/atomicparsley";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pjones ];
+    maintainers = with maintainers; [pjones];
     mainProgram = "AtomicParsley";
   };
 }

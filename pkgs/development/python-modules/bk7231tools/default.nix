@@ -7,7 +7,6 @@
   py-datastruct,
   pyserial,
 }:
-
 buildPythonPackage rec {
   pname = "bk7231tools";
   version = "2.0.2";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     "pyserial"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     pycryptodome
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     pyserial
   ];
 
-  pythonImportsCheck = [ "bk7231tools" ];
+  pythonImportsCheck = ["bk7231tools"];
 
   meta = {
     description = "Tools to interact with and analyze artifacts for BK7231 MCUs";
     homepage = "https://github.com/tuya-cloudcutter/bk7231tools";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mevatron ];
+    maintainers = with lib.maintainers; [mevatron];
     mainProgram = "bk7231tools";
   };
 }

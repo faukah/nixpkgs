@@ -11,7 +11,6 @@
   pkg-config,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation {
   pname = "ams";
   version = "unstable-2019-04-27";
@@ -47,6 +46,6 @@ stdenv.mkDerivation {
     homepage = "https://alsamodular.sourceforge.net";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sjfloat ];
+    maintainers = with maintainers; [sjfloat];
   };
 }

@@ -7,7 +7,6 @@
   cmake,
   sip4,
 }:
-
 buildPythonPackage rec {
   pname = "libsavitar";
   version = "4.12.0";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     sed -i 's#''${Python3_SITEARCH}#${placeholder "out"}/${python.sitePackages}#' cmake/SIPMacros.cmake
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  propagatedBuildInputs = [ sip4 ];
+  propagatedBuildInputs = [sip4];
 
   disabled = pythonOlder "3.4.0";
 

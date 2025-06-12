@@ -8,7 +8,6 @@
   numpy,
   pyqt5,
 }:
-
 buildPythonPackage rec {
   pname = "lightparam";
   version = "0.4.6";
@@ -29,12 +28,12 @@ buildPythonPackage rec {
     pyqt5
   ];
 
-  pythonImportsCheck = [ "lightparam" ];
+  pythonImportsCheck = ["lightparam"];
 
   meta = {
     homepage = "https://github.com/portugueslab/lightparam";
     description = "Another attempt at parameters in Python";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tbenst ];
+    maintainers = with lib.maintainers; [tbenst];
   };
 }

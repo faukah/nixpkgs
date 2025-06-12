@@ -5,7 +5,6 @@
   fetchFromGitHub,
   git,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rapidyaml";
   version = "0.9.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     description = "Library to parse and emit YAML, and do it fast";
     homepage = "https://github.com/biojppm/rapidyaml";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dummyhttp";
   version = "1.1.1";
@@ -21,8 +20,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Super simple HTTP server that replies a fixed body with a fixed response code";
     homepage = "https://github.com/svenstaro/dummyhttp";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ GuillaumeDesforges ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [GuillaumeDesforges];
     mainProgram = "dummyhttp";
   };
 }

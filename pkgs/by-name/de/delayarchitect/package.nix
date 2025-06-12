@@ -14,7 +14,6 @@
   pkg-config,
   gcc-unwrapped,
 }:
-
 stdenv.mkDerivation {
   pname = "delayarchitect";
   version = "unstable-2022-01-16";
@@ -58,7 +57,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://github.com/jpcima/DelayArchitect";
     description = "Visual, musical editor for delay effects";
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.all;
     license = licenses.gpl3Plus;
   };

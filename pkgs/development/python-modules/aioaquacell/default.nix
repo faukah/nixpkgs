@@ -11,7 +11,6 @@
   requests-aws4auth,
   pycognito,
 }:
-
 buildPythonPackage rec {
   pname = "aioaquacell";
   version = "0.2.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-n2kPD1t5d/nf43rB0q1hNNYdHeaBiadsFWTmu1bYN1A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     pycognito
   ];
 
-  pythonImportsCheck = [ "aioaquacell" ];
+  pythonImportsCheck = ["aioaquacell"];
 
   doCheck = false;
 
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Asynchronous library to retrieve details of your Aquacell water softener device.";
     homepage = "https://github.com/Jordi1990/aioaquacell";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

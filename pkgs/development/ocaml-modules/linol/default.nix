@@ -8,7 +8,6 @@
   ppx_yojson_conv_lib,
   trace,
 }:
-
 buildDunePackage rec {
   pname = "linol";
   version = "0.6";
@@ -23,7 +22,7 @@ buildDunePackage rec {
   propagatedBuildInputs = [
     yojson
     logs
-    (lsp.override { version = "1.18.0"; })
+    (lsp.override {version = "1.18.0";})
     ppx_yojson_conv_lib
     trace
   ];
@@ -31,7 +30,7 @@ buildDunePackage rec {
   meta = with lib; {
     description = "LSP server library";
     license = licenses.mit;
-    maintainers = [ maintainers.ulrikstrid ];
+    maintainers = [maintainers.ulrikstrid];
     homepage = "https://github.com/c-cube/linol";
   };
 }

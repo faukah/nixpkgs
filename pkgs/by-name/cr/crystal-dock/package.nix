@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "crystal-dock";
     license = licenses.gpl3Only;
     homepage = "https://github.com/dangvd/crystal-dock";
-    maintainers = with maintainers; [ rafameou ];
+    maintainers = with maintainers; [rafameou];
     platforms = platforms.linux;
   };
 })

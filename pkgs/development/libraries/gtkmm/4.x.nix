@@ -16,7 +16,6 @@
   makeFontsConf,
   xvfb-run,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtkmm";
   version = "4.18.0";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
 
   # Tests require fontconfig.
   FONTCONFIG_FILE = makeFontsConf {
-    fontDirectories = [ ];
+    fontDirectories = [];
   };
 
   doCheck = true;
@@ -91,8 +90,8 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gtkmm.org/";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ raskin ];
-    teams = [ teams.gnome ];
+    maintainers = with maintainers; [raskin];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 }

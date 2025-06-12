@@ -1,31 +1,30 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "lanraragi";
-  meta.maintainers = with lib.maintainers; [ tomasajt ];
+  meta.maintainers = with lib.maintainers; [tomasajt];
 
   nodes = {
-    machine1 =
-      { pkgs, ... }:
-      {
-        services.lanraragi.enable = true;
-      };
-    machine2 =
-      { pkgs, ... }:
-      {
-        services.lanraragi = {
-          enable = true;
-          passwordFile = pkgs.writeText "lrr-test-pass" ''
-            Ultra-secure-p@ssword-"with-spec1al\chars
+    machine1 = {pkgs, ...}: {
+      services.lanraragi.enable = true;
+    };
+    machine2 = {pkgs, ...}: {
+      services.lanraragi = {
+        enable = true;
+        passwordFile = pkgs.writeText "lrr-test-pass" ''
+          Ultra-secure-p@ssword-"with-spec1al\chars
+        '';
+        port = 4000;
+        redis = {
+          port = 4001;
+          passwordFile = pkgs.writeText "redis-lrr-test-pass" ''
+            123-redis-PASS
           '';
-          port = 4000;
-          redis = {
-            port = 4001;
-            passwordFile = pkgs.writeText "redis-lrr-test-pass" ''
-              123-redis-PASS
-            '';
-          };
         };
       };
+    };
   };
 
   testScript = ''

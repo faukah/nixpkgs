@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   poetry-core,
-
   # dependencies
   aiofiles,
   aiohttp,
@@ -25,7 +23,6 @@
   rich,
   typer,
   yarl,
-
   # tests
   aiosqlite,
   asttokens,
@@ -37,7 +34,6 @@
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "uiprotect";
   version = "7.6.0";
@@ -52,7 +48,7 @@ buildPythonPackage rec {
     hash = "sha256-jFRBupuP0T/6e07qdJmzcz7P/IAYbY1+QxF6ErsFox0=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   pythonRelaxDeps = [
     "aiofiles"
@@ -91,7 +87,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--benchmark-disable" ];
+  pytestFlagsArray = ["--benchmark-disable"];
 
   disabledTests = [
     # https://127.0.0.1 vs https://127.0.0.1:0
@@ -104,13 +100,13 @@ buildPythonPackage rec {
     "tests/test_api_ws.py"
   ];
 
-  pythonImportsCheck = [ "uiprotect" ];
+  pythonImportsCheck = ["uiprotect"];
 
   meta = with lib; {
     description = "Python API for UniFi Protect (Unofficial)";
     homepage = "https://github.com/uilibs/uiprotect";
     changelog = "https://github.com/uilibs/uiprotect/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

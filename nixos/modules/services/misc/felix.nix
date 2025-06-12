@@ -4,26 +4,18 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.felix;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.felix = {
-
       enable = lib.mkEnableOption "the Apache Felix OSGi service";
 
       bundles = lib.mkOption {
         type = lib.types.listOf lib.types.package;
-        default = [ pkgs.felix_remoteshell ];
+        default = [pkgs.felix_remoteshell];
         defaultText = lib.literalExpression "[ pkgs.felix_remoteshell ]";
         description = "List of bundles that should be activated on startup";
       };
@@ -39,9 +31,7 @@ in
         default = "osgi";
         description = "Group account under which Apache Felix runs.";
       };
-
     };
-
   };
 
   ###### implementation
@@ -57,7 +47,7 @@ in
 
     systemd.services.felix = {
       description = "Felix server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         # Initialise felix instance on first startup

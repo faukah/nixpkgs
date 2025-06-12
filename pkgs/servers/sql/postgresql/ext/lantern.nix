@@ -7,7 +7,6 @@
   postgresqlBuildExtension,
   postgresqlTestExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "postgresql-lantern";
   version = "0.5.0";
@@ -55,7 +54,7 @@ postgresqlBuildExtension (finalAttrs: {
     homepage = "https://lantern.dev/";
     changelog = "https://github.com/lanterndata/lantern/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.agpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = postgresql.meta.platforms;
   };
 })

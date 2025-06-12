@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildNimPackage (finalAttrs: {
   pname = "mosdepth";
   version = "0.3.11";
@@ -20,9 +19,9 @@ buildNimPackage (finalAttrs: {
 
   lockFile = ./lock.json;
 
-  nativeBuildInputs = [ versionCheckHook ];
+  nativeBuildInputs = [versionCheckHook];
 
-  nimFlags = [ ''--passC:"-Wno-incompatible-pointer-types"'' ];
+  nimFlags = [''--passC:"-Wno-incompatible-pointer-types"''];
 
   doInstallCheck = true;
 

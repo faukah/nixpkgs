@@ -1,25 +1,19 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "glances";
 
   nodes = {
-    machine_default =
-      { pkgs, ... }:
-      {
-        services.glances = {
-          enable = true;
-        };
+    machine_default = {pkgs, ...}: {
+      services.glances = {
+        enable = true;
       };
+    };
 
-    machine_custom_port =
-      { pkgs, ... }:
-      {
-        services.glances = {
-          enable = true;
-          port = 5678;
-        };
+    machine_custom_port = {pkgs, ...}: {
+      services.glances = {
+        enable = true;
+        port = 5678;
       };
+    };
   };
 
   testScript = ''
@@ -32,5 +26,5 @@
     machine_custom_port.wait_for_open_port(5678)
   '';
 
-  meta.maintainers = [ lib.maintainers.claha ];
+  meta.maintainers = [lib.maintainers.claha];
 }

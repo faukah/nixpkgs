@@ -10,7 +10,6 @@
   click,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "salmon-mail";
   version = "3.3.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     unittestCheckHook
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     chardet
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     description = "Pythonic mail application server";
     mainProgram = "salmon";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

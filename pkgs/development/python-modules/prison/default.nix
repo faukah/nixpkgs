@@ -6,7 +6,6 @@
   six,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "prison";
   version = "0.1.3";
@@ -19,16 +18,16 @@ buildPythonPackage rec {
     hash = "sha256-qor40vUQeTdlO3vwug3GGNX5vkNaF0H7EWlRdsY4bvc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ six ];
+  dependencies = [six];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Rison encoder/decoder";
     homepage = "https://github.com/betodealmeida/python-rison";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

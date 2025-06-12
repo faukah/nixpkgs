@@ -8,7 +8,6 @@
   cryptography,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "py-vapid";
   version = "1.9.2";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-PIlzts+DhK0MmuZNYnDMxIDguSxwLY9eoswD5rUSR/k=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ cryptography ];
+  dependencies = [cryptography];
 
   nativeCheckInputs = [
     mock
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     mainProgram = "vapid";
     homepage = "https://github.com/mozilla-services/vapid";
     license = licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

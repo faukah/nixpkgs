@@ -9,7 +9,6 @@
   freetype,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "freetype-py";
   version = "2.5.1";
@@ -32,20 +31,20 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ freetype ];
+  dependencies = [freetype];
 
   preCheck = ''
     cd tests
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "freetype" ];
+  pythonImportsCheck = ["freetype"];
 
   meta = {
     homepage = "https://github.com/rougier/freetype-py";
     description = "FreeType (high-level Python API)";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ goertzenator ];
+    maintainers = with lib.maintainers; [goertzenator];
   };
 }

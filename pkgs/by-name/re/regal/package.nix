@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   name = "regal";
   version = "0.34.1";
@@ -30,6 +29,6 @@ buildGoModule rec {
     homepage = "https://github.com/StyraInc/regal";
     changelog = "https://github.com/StyraInc/regal/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rinx ];
+    maintainers = with maintainers; [rinx];
   };
 }

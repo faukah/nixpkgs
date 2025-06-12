@@ -9,7 +9,6 @@
   pyserial,
   dos2unix,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sumorobot-manager";
   version = "1.0.0";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "07snhwmqqp52vdgr66vx50zxx0nmpmns5cdjgh50hzlhji2z1fl9";
   };
 
-  buildInputs = [ python ];
+  buildInputs = [python];
   pythonPath = [
     pyqt5.dev
     pyserial
@@ -55,6 +54,6 @@ stdenv.mkDerivation rec {
     mainProgram = "sumorobot-manager";
     homepage = "https://www.robokoding.com/kits/sumorobot/sumomanager/";
     license = licenses.mit;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

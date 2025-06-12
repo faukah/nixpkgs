@@ -13,11 +13,10 @@
   fetchpatch,
   static ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "raptor2";
   version = "2.0.16";
-  underscoredVersion = lib.strings.replaceStrings [ "." ] [ "_" ] version;
+  underscoredVersion = lib.strings.replaceStrings ["."] ["_"] version;
 
   src = fetchFromGitHub {
     owner = "dajobe";
@@ -28,7 +27,11 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     # Build defaults to static libraries.
-    "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}"
+    "-DBUILD_SHARED_LIBS=${
+      if static
+      then "OFF"
+      else "ON"
+    }"
   ];
 
   patches = [
@@ -62,7 +65,7 @@ stdenv.mkDerivation rec {
       lgpl21
       asl20
     ];
-    maintainers = with lib.maintainers; [ marcweber ];
+    maintainers = with lib.maintainers; [marcweber];
     platforms = lib.platforms.unix;
   };
 }

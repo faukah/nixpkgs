@@ -3,11 +3,10 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "pry";
   gemdir = ./.;
-  exes = [ "pry" ];
+  exes = ["pry"];
 
   passthru.updateScript = bundlerUpdateScript "pry";
 
@@ -15,7 +14,7 @@ bundlerApp {
     description = "Ruby runtime developer console and IRB alternative";
     homepage = "https://pryrepl.org";
     license = licenses.mit;
-    maintainers = [ maintainers.tckmn ];
+    maintainers = [maintainers.tckmn];
     platforms = platforms.unix;
   };
 }

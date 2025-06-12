@@ -8,7 +8,6 @@
   libtirpc,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libnss_nis";
   version = "3.2";
@@ -31,14 +30,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-dt5wL+v98Heg6395BOwNssXLXmoOKFnRXGqlOknYYPs=";
   };
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   meta = {
     description = "NSS module for glibc, to provide NIS support for glibc";
     changelog = "https://github.com/thkukuk/libnss_nis/blob/master/NEWS";
     homepage = "https://github.com/thkukuk/libnss_nis";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ BarrOff ];
+    maintainers = with lib.maintainers; [BarrOff];
     platforms = lib.platforms.linux;
   };
 }

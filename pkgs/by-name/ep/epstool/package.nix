@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   version = "3.09";
   pname = "epstool";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     description = "Utility to create or extract preview images in EPS files, fix bounding boxes and convert to bitmaps";
     homepage = "http://pages.cs.wisc.edu/~ghost/gsview/epstool.htm";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.asppsa ];
+    maintainers = [maintainers.asppsa];
     platforms = platforms.all;
     mainProgram = "epstool";
   };

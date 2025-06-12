@@ -5,7 +5,6 @@
   kodi,
   inputstreamhelper,
 }:
-
 buildKodiAddon rec {
   pname = "sendtokodi";
   namespace = "plugin.video.sendtokodi";
@@ -37,14 +36,14 @@ buildKodiAddon rec {
   passthru = {
     # Instead of the vendored libraries, we propagate yt-dlp via the Python
     # path.
-    pythonPath = with kodi.pythonPackages; makePythonPath [ yt-dlp ];
+    pythonPath = with kodi.pythonPackages; makePythonPath [yt-dlp];
   };
 
   meta = with lib; {
     homepage = "https://github.com/firsttris/plugin.video.sendtokodi";
     description = "Plays various stream sites on Kodi using yt-dlp";
     license = licenses.mit;
-    maintainers = [ maintainers.pks ];
-    teams = [ teams.kodi ];
+    maintainers = [maintainers.pks];
+    teams = [teams.kodi];
   };
 }

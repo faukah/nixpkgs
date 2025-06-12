@@ -1,3 +1,2 @@
-{ _class, ... }:
-assert _class == "nixos";
-{ }
+{_class, ...}:
+assert _class == "nixos"; {}

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "durden";
   version = "0-unstable-2024-06-23";
@@ -37,8 +36,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       features in Arcan, and as a very competent entry to the advanced-user side
       of the desktop environment spectrum.
     '';
-    license = with lib.licenses; [ bsd3 ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [bsd3];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

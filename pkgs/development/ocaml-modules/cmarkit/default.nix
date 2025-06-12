@@ -8,11 +8,9 @@
   ocamlbuild,
   topkg,
 }:
-
-if lib.versionOlder ocaml.version "4.14.0" then
-  throw "cmarkit is not available for OCaml ${ocaml.version}"
+if lib.versionOlder ocaml.version "4.14.0"
+then throw "cmarkit is not available for OCaml ${ocaml.version}"
 else
-
   stdenv.mkDerivation rec {
     pname = "cmarkit";
     version = "0.3.0";
@@ -43,7 +41,7 @@ else
       homepage = "https://erratique.ch/software/cmarkit";
       changelog = "https://github.com/dbuenzli/cmarkit/blob/v${version}/CHANGES.md";
       license = licenses.isc;
-      maintainers = [ ];
+      maintainers = [];
       inherit (ocaml.meta) platforms;
     };
   }

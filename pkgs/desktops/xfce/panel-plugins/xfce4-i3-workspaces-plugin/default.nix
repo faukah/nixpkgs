@@ -11,7 +11,6 @@
   xfce4-panel,
   i3ipc-glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xfce4-i3-workspaces-plugin";
   version = "1.4.2";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Workspace switcher plugin for xfce4-panel which can be used for the i3 window manager";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ berbiche ];
-    teams = [ teams.xfce ];
+    maintainers = with maintainers; [berbiche];
+    teams = [teams.xfce];
   };
 }

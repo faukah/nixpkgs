@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "CLI keyboard layout switcher for GNOME Shell";
     mainProgram = "g3kb-switch";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ Freed-Wu ];
+    maintainers = with maintainers; [Freed-Wu];
     platforms = platforms.unix;
   };
 }

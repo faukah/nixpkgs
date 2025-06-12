@@ -7,7 +7,6 @@
   testers,
   kubelogin,
 }:
-
 buildGoModule rec {
   pname = "kubelogin";
   version = "0.2.8";
@@ -25,7 +24,7 @@ buildGoModule rec {
     "-X main.gitTag=v${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     $out/bin/kubelogin completion bash >kubelogin.bash
@@ -46,6 +45,6 @@ buildGoModule rec {
     mainProgram = "kubelogin";
     inherit (src.meta) homepage;
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

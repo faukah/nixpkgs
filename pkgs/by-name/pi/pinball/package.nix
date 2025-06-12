@@ -11,7 +11,6 @@
   SDL2_mixer,
   xorg,
 }:
-
 stdenv.mkDerivation {
   pname = "pinball";
   version = "0.3.20201218-unstable-2024-11-14";
@@ -52,7 +51,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/adoptware/pinball";
     description = "Emilia Pinball simulator";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     platforms = platforms.linux;
   };
 }

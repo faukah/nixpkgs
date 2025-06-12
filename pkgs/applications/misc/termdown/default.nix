@@ -7,7 +7,6 @@
   python-dateutil,
   setuptools,
 }:
-
 buildPythonApplication rec {
   pname = "termdown";
   version = "1.18.0";

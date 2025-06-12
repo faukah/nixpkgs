@@ -4,7 +4,6 @@
   python3,
   samba,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "enum4linux-ng";
   version = "1.3.4";
@@ -17,10 +16,10 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-MN3AUubro9CHkdPe/X1xcE11ye/D/A+Kf6zUOJTN4l0=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies =
-    [ samba ]
+    [samba]
     ++ (with python3.pkgs; [
       impacket
       ldap3
@@ -38,8 +37,8 @@ python3.pkgs.buildPythonApplication rec {
     '';
     homepage = "https://github.com/cddmp/enum4linux-ng";
     changelog = "https://github.com/cddmp/enum4linux-ng/releases/tag/v${version}";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "enum4linux-ng";
   };
 }

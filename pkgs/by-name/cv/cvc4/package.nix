@@ -15,7 +15,6 @@
   python3,
   antlr3_4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cvc4";
   version = "1.8";
@@ -31,24 +30,28 @@ stdenv.mkDerivation rec {
     pkg-config
     cmake
   ];
-  buildInputs = [
-    gmp
-    git
-    python3.pkgs.toml
-    readline
-    swig
-    libantlr3c
-    antlr3_4
-    boost
-    jdk
-    python3
-  ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ cln ];
-  configureFlags = [
-    "--enable-language-bindings=c,c++,java"
-    "--enable-gpl"
-    "--with-readline"
-    "--with-boost=${boost.dev}"
-  ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ "--with-cln" ];
+  buildInputs =
+    [
+      gmp
+      git
+      python3.pkgs.toml
+      readline
+      swig
+      libantlr3c
+      antlr3_4
+      boost
+      jdk
+      python3
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [cln];
+  configureFlags =
+    [
+      "--enable-language-bindings=c,c++,java"
+      "--enable-gpl"
+      "--with-readline"
+      "--with-boost=${boost.dev}"
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) ["--with-cln"];
 
   prePatch = ''
     patch -p1 -i ${./minisat-fenv.patch} -d src/prop/minisat

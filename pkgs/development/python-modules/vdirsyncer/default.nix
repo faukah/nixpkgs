@@ -24,7 +24,6 @@
   vdirsyncer,
   testers,
 }:
-
 buildPythonPackage rec {
   pname = "vdirsyncer";
   version = "0.19.3";
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  pythonRelaxDeps = [ "aiostream" ];
+  pythonRelaxDeps = ["aiostream"];
 
   propagatedBuildInputs = [
     atomicwrites
@@ -80,14 +79,14 @@ buildPythonPackage rec {
     "test_verbosity"
   ];
 
-  passthru.tests.version = testers.testVersion { package = vdirsyncer; };
+  passthru.tests.version = testers.testVersion {package = vdirsyncer;};
 
   meta = with lib; {
     description = "Synchronize calendars and contacts";
     homepage = "https://github.com/pimutils/vdirsyncer";
     changelog = "https://github.com/pimutils/vdirsyncer/blob/v${version}/CHANGELOG.rst";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "vdirsyncer";
   };
 }

@@ -7,7 +7,6 @@
   jansson,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bedops";
   version = "2.4.42";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     bzip2
     jansson
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   preConfigure = ''
     # We use nixpkgs versions of these libraries
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  makeFlags = [ "BINDIR=$(out)/bin" ];
+  makeFlags = ["BINDIR=$(out)/bin"];
 
   postFixup = ''
     for f in $out/bin/* ; do
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
     description = "Suite of tools for addressing questions arising in genomics studies";
     homepage = "https://github.com/bedops/bedops";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = platforms.x86_64;
   };
 }

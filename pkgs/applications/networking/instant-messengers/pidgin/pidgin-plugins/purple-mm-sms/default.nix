@@ -7,7 +7,6 @@
   modemmanager,
   fetchFromGitLab,
 }:
-
 stdenv.mkDerivation rec {
   pname = "purple-mm-sms";
   version = "0.1.7";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     "PLUGIN_DIR_PURPLE=$(out)/lib/purple-2"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glibmm
     pidgin
@@ -37,6 +36,6 @@ stdenv.mkDerivation rec {
     description = "Libpurple plugin for sending and receiving SMS via Modemmanager";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

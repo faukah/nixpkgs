@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "goose";
   version = "3.24.3";
@@ -47,7 +46,7 @@ buildGoModule rec {
     description = "Database migration tool which supports SQL migrations and Go functions";
     homepage = "https://pressly.github.io/goose/";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "goose";
   };
 }

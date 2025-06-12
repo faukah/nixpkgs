@@ -7,7 +7,6 @@
   pciutils,
   cmake,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "powerstation";
   version = "0.5.1";
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ShadowBlip/PowerStation";
     license = lib.licenses.gpl3Plus;
     changelog = "https://github.com/ShadowBlip/PowerStation/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ shadowapex ];
+    maintainers = with lib.maintainers; [shadowapex];
     mainProgram = "powerstation";
   };
 }

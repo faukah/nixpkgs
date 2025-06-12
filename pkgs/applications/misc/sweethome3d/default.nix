@@ -3,9 +3,7 @@
   fetchzip,
   stdenv,
   callPackage,
-}:
-
-let
+}: let
   pname = "sweethome3d";
   version = "7.5";
 
@@ -35,10 +33,10 @@ let
     ];
     mainProgram = "sweethome3d";
   };
-in
-{
+in {
   application =
-    if stdenv.hostPlatform.isDarwin then
+    if stdenv.hostPlatform.isDarwin
+    then
       callPackage ./darwin.nix {
         inherit
           pname

@@ -9,7 +9,6 @@
   truncnorm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "bayespy";
   version = "0.6.1";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
       --replace-fail readfp read_file
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -37,14 +36,14 @@ buildPythonPackage rec {
     truncnorm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "bayespy" ];
+  pythonImportsCheck = ["bayespy"];
 
   meta = with lib; {
     homepage = "http://www.bayespy.org";
     description = "Variational Bayesian inference tools for Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

@@ -10,7 +10,6 @@
   pythonOlder,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "py-nightscout";
   version = "1.3.3";
@@ -37,12 +36,12 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [ "py_nightscout" ];
+  pythonImportsCheck = ["py_nightscout"];
 
   meta = with lib; {
     description = "Python library that provides an interface to Nightscout";
     homepage = "https://github.com/marciogranzotto/py-nightscout";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -5,7 +5,6 @@
   replaceVars,
   yt-dlp,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "auto-editor";
   version = "26.2.0";
@@ -47,7 +46,7 @@ python3Packages.buildPythonApplication rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "auto_editor" ];
+  pythonImportsCheck = ["auto_editor"];
 
   meta = {
     changelog = "https://github.com/WyattBlue/auto-editor/releases/tag/${version}";
@@ -55,6 +54,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://auto-editor.com/";
     license = lib.licenses.unlicense;
     mainProgram = "auto-editor";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

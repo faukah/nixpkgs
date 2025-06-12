@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "scripthaus";
   version = "0.5.1";
@@ -40,7 +39,7 @@ buildGoModule rec {
     description = "Run bash, Python, and JS snippets from your Markdown files directly from the command-line";
     homepage = "https://github.com/scripthaus-dev/scripthaus";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ raspher ];
+    maintainers = with maintainers; [raspher];
     mainProgram = "scripthaus";
   };
 }

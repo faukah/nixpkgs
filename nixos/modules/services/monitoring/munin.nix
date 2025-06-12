@@ -79,7 +79,10 @@ let
   # Copy one Munin plugin into the Nix store with a specific name.
   # This is suitable for use with plugins going directly into /etc/munin/plugins,
   # i.e. munin.extraPlugins.
-  internOnePlugin = { name, path }: "cp -a '${path}' '${name}'";
+  internOnePlugin = {
+    name,
+    path,
+  }: "cp -a '${path}' '${name}'";
 
   # Copy an entire tree of Munin plugins into a single directory in the Nix
   # store, with no renaming. The output is suitable for use with
@@ -98,9 +101,8 @@ let
   # For now we make the simplifying assumption that no file will contain lines
   # which mix store paths and FHS paths, and thus run our substitution only on
   # lines which do not contain store paths.
-  internAndFixPlugins =
-    name: intern-fn: paths:
-    pkgs.runCommand name { } ''
+  internAndFixPlugins = name: intern-fn: paths:
+    pkgs.runCommand name {} ''
       mkdir -p "$out"
       cd "$out"
       ${lib.concatStringsSep "\n" (map intern-fn paths)}
@@ -117,28 +119,24 @@ let
     lib.attrsets.mapAttrsToList (k: v: {
       name = k;
       path = v;
-    }) nodeCfg.extraPlugins
+    })
+    nodeCfg.extraPlugins
   );
 
   extraAutoPluginDir =
     internAndFixPlugins "munin-extra-auto-plugins.d" internManyPlugins
-      nodeCfg.extraAutoPlugins;
+    nodeCfg.extraAutoPlugins;
 
-  customStaticDir = pkgs.runCommand "munin-custom-static-data" { } ''
+  customStaticDir = pkgs.runCommand "munin-custom-static-data" {} ''
     cp -a "${pkgs.munin}/etc/opt/munin/static" "$out"
     cd "$out"
     chmod -R u+w .
     echo "${cronCfg.extraCSS}" >> style.css
     echo "${cronCfg.extraCSS}" >> style-new.css
   '';
-in
-
-{
-
+in {
   options = {
-
     services.munin-node = {
-
       enable = lib.mkOption {
         default = false;
         type = lib.types.bool;
@@ -173,7 +171,7 @@ in
       };
 
       extraPlugins = lib.mkOption {
-        default = { };
+        default = {};
         type = with lib.types; attrsOf path;
         description = ''
           Additional Munin plugins to activate. Keys are the name of the plugin
@@ -203,7 +201,7 @@ in
       };
 
       extraAutoPlugins = lib.mkOption {
-        default = [ ];
+        default = [];
         type = with lib.types; listOf path;
         description = ''
           Additional Munin plugins to autoconfigure, using
@@ -236,7 +234,7 @@ in
         # TODO: figure out why Munin isn't writing the log file and fix it.
         # In the meantime this at least suppresses a useless graph full of
         # NaNs in the output.
-        default = [ "munin_stats" ];
+        default = ["munin_stats"];
         type = with lib.types; listOf str;
         description = ''
           Munin plugins to disable, even if
@@ -256,7 +254,6 @@ in
     };
 
     services.munin-cron = {
-
       enable = lib.mkOption {
         default = false;
         type = lib.types.bool;
@@ -317,15 +314,12 @@ in
           }
         '';
       };
-
     };
-
   };
 
   config = lib.mkMerge [
     (lib.mkIf (nodeCfg.enable || cronCfg.enable) {
-
-      environment.systemPackages = [ pkgs.munin ];
+      environment.systemPackages = [pkgs.munin];
 
       users.users.munin = {
         description = "Munin monitoring user";
@@ -337,14 +331,12 @@ in
       users.groups.munin = {
         gid = config.ids.gids.munin;
       };
-
     })
     (lib.mkIf nodeCfg.enable {
-
       systemd.services.munin-node = {
         description = "Munin Node";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         path = with pkgs; [
           munin
           smartmontools
@@ -366,12 +358,12 @@ in
           # Autoconfigure extra plugins
           ${pkgs.munin}/bin/munin-node-configure --suggest --shell --families contrib,auto,manual --config ${nodeConf} --libdir=${extraAutoPluginDir} --servicedir=/etc/munin/plugins --sconfdir=${pluginConfDir} 2>/dev/null | ${pkgs.bash}/bin/bash
 
-          ${lib.optionalString (nodeCfg.extraPlugins != { }) ''
+          ${lib.optionalString (nodeCfg.extraPlugins != {}) ''
             # Link in manually enabled plugins
             ln -f -s -t /etc/munin/plugins ${extraPluginDir}/*
           ''}
 
-          ${lib.optionalString (nodeCfg.disabledPlugins != [ ]) ''
+          ${lib.optionalString (nodeCfg.disabledPlugins != []) ''
             # Disable plugins
             cd /etc/munin/plugins
             rm -f ${toString nodeCfg.disabledPlugins}
@@ -388,17 +380,15 @@ in
         user = "munin";
         group = "munin";
       };
-
     })
     (lib.mkIf cronCfg.enable {
-
       # Munin is hardcoded to use DejaVu Mono and the graphs come out wrong if
       # it's not available.
-      fonts.packages = [ pkgs.dejavu_fonts ];
+      fonts.packages = [pkgs.dejavu_fonts];
 
       systemd.timers.munin-cron = {
         description = "batch Munin master programs";
-        wantedBy = [ "timers.target" ];
+        wantedBy = ["timers.target"];
         timerConfig.OnCalendar = "*:0/5";
       };
 
@@ -413,20 +403,18 @@ in
         };
       };
 
-      systemd.tmpfiles.settings."20-munin" =
-        let
-          defaultConfig = {
-            mode = "0755";
-            user = "munin";
-            group = "munin";
-          };
-        in
-        {
-          "/run/munin".d = defaultConfig;
-          "/var/log/munin".d = defaultConfig;
-          "/var/www/munin".d = defaultConfig;
-          "/var/lib/munin".d = defaultConfig;
+      systemd.tmpfiles.settings."20-munin" = let
+        defaultConfig = {
+          mode = "0755";
+          user = "munin";
+          group = "munin";
         };
+      in {
+        "/run/munin".d = defaultConfig;
+        "/var/log/munin".d = defaultConfig;
+        "/var/www/munin".d = defaultConfig;
+        "/var/lib/munin".d = defaultConfig;
+      };
     })
   ];
 }

@@ -3,12 +3,10 @@
   buildPythonPackage,
   fetchFromGitHub,
   rustPlatform,
-
   # build-system
   meson,
   setuptools,
   setuptools-rust,
-
   # buildInputs
   SDL2,
   alsa-lib,
@@ -16,14 +14,12 @@
   libpcap,
   soundtouch,
   zlib,
-
   # nativeBuildInputs
   cargo,
   ninja,
   openal,
   pkg-config,
   rustc,
-
   # dependencies
   range-typed-integers,
 }:
@@ -68,17 +64,17 @@ buildPythonPackage rec {
     rustc
   ];
 
-  dependencies = [ range-typed-integers ];
+  dependencies = [range-typed-integers];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doCheck = false; # there are no tests
-  pythonImportsCheck = [ "skytemple_ssb_emulator" ];
+  pythonImportsCheck = ["skytemple_ssb_emulator"];
 
   meta = {
     description = "SkyTemple Script Engine Debugger Emulator Backend";
     homepage = "https://github.com/SkyTemple/skytemple-ssb-emulator";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ marius851000 ];
+    maintainers = with lib.maintainers; [marius851000];
   };
 }

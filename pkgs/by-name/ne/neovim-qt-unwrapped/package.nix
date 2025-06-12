@@ -9,7 +9,6 @@
   neovim,
   python3Packages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "neovim-qt-unwrapped";
   version = "0.2.19";

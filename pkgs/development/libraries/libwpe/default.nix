@@ -9,7 +9,6 @@
   ninja,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libwpe";
   version = "1.16.2";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "General-purpose library for WPE WebKit";
     license = licenses.bsd2;
     homepage = "https://wpewebkit.org";
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     platforms = platforms.linux;
   };
 }

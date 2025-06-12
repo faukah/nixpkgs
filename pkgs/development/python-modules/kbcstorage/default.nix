@@ -15,7 +15,6 @@
   google-auth,
   google-cloud-storage,
 }:
-
 buildPythonPackage rec {
   pname = "sapi-python-client";
   version = "0.9.2";
@@ -73,6 +72,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/keboola/sapi-python-client";
     changelog = "https://github.com/keboola/sapi-python-client/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mrmebelman ];
+    maintainers = with lib.maintainers; [mrmebelman];
   };
 }

@@ -7,7 +7,6 @@
   stdenv,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "mosdns";
   version = "5.3.3";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-RpvWkIDhHSNbdkpBCcXYbbvbmGiG15qyB5aEJRmg9s4=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -47,7 +46,7 @@ buildGoModule rec {
     description = "Modular, pluggable DNS forwarder";
     homepage = "https://github.com/IrineSistiana/mosdns";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "mosdns";
   };
 }

@@ -15,7 +15,6 @@
   rich,
   trio,
 }:
-
 buildPythonPackage rec {
   pname = "cyclopts";
   version = "3.16.2";
@@ -43,18 +42,20 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    trio = [ trio ];
-    yaml = [ pyyaml ];
+    trio = [trio];
+    yaml = [pyyaml];
   };
 
-  nativeCheckInputs = [
-    pydantic
-    pytest-mock
-    pytestCheckHook
-    pyyaml
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pydantic
+      pytest-mock
+      pytestCheckHook
+      pyyaml
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "cyclopts" ];
+  pythonImportsCheck = ["cyclopts"];
 
   disabledTests = [
     # Assertion error
@@ -66,6 +67,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/BrianPugh/cyclopts";
     changelog = "https://github.com/BrianPugh/cyclopts/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

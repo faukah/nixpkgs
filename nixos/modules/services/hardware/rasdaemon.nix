@@ -3,18 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.hardware.rasdaemon;
-
-in
-{
+in {
   options.hardware.rasdaemon = {
-
     enable = lib.mkEnableOption "RAS logging daemon";
 
-    package = lib.mkPackageOption pkgs "rasdaemon" { };
+    package = lib.mkPackageOption pkgs "rasdaemon" {};
 
     record = lib.mkOption {
       type = lib.types.bool;
@@ -75,16 +70,15 @@ in
 
     extraModules = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = "extra kernel modules to load";
-      example = [ "i7core_edac" ];
+      example = ["i7core_edac"];
     };
 
     testing = lib.mkEnableOption "error injection infrastructure";
   };
 
   config = lib.mkIf cfg.enable {
-
     environment.etc = {
       "ras/mainboard" = {
         enable = cfg.mainboard != "";
@@ -101,10 +95,9 @@ in
       };
     };
     environment.systemPackages =
-      [ cfg.package ]
+      [cfg.package]
       ++ lib.optionals (cfg.testing) (
-        with pkgs.error-inject;
-        [
+        with pkgs.error-inject; [
           edac-inject
           mce-inject
           aer-inject
@@ -146,8 +139,8 @@ in
     systemd.services = {
       rasdaemon = {
         description = "the RAS logging daemon";
-        documentation = [ "man:rasdaemon(1)" ];
-        wantedBy = [ "multi-user.target" ];
+        documentation = ["man:rasdaemon(1)"];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = {
           StateDirectory = lib.optionalString (cfg.record) "rasdaemon";
@@ -165,8 +158,8 @@ in
       };
       ras-mc-ctl = lib.mkIf (cfg.labels != "") {
         description = "register DIMM labels on startup";
-        documentation = [ "man:ras-mc-ctl(8)" ];
-        wantedBy = [ "multi-user.target" ];
+        documentation = ["man:ras-mc-ctl(8)"];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           Type = "oneshot";
           ExecStart = "${cfg.package}/bin/ras-mc-ctl --register-labels";
@@ -176,6 +169,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.evils ];
-
+  meta.maintainers = [lib.maintainers.evils];
 }

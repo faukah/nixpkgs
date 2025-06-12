@@ -4,7 +4,6 @@
   fetchFromGitHub,
   git,
 }:
-
 buildGoModule rec {
   pname = "terramate";
   version = "0.13.2";
@@ -19,7 +18,7 @@ buildGoModule rec {
   vendorHash = "sha256-Ldl4TGmfMLk9DJgoVUYCpjX5TyAwZyCSrOKdb6uo4eM=";
 
   # required for version info
-  nativeBuildInputs = [ git ];
+  nativeBuildInputs = [git];
 
   ldflags = [
     "-extldflags"

@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "hyp-server";
   version = "1.2.0";
@@ -21,7 +20,7 @@ python3Packages.buildPythonPackage rec {
       gpl3Plus
       mit
     ];
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
     platforms = platforms.unix;
   };
 }

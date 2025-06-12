@@ -7,7 +7,6 @@
   stdenv,
   curl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-tarpaulin";
   version = "0.32.7";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       curl
     ];

@@ -5,7 +5,6 @@
   gobject-introspection,
   wrapGAppsNoGuiHook,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "open-fprintd";
   version = "0.6";
@@ -27,7 +26,7 @@ python3Packages.buildPythonPackage rec {
     pygobject3
   ];
 
-  checkInputs = with python3Packages; [ dbus-python ];
+  checkInputs = with python3Packages; [dbus-python];
 
   postInstall = ''
     install -D -m 644 debian/open-fprintd.service \
@@ -45,7 +44,7 @@ python3Packages.buildPythonPackage rec {
   '';
 
   dontWrapGApps = true;
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
   postFixup = ''
     wrapPythonProgramsIn "$out/lib/open-fprintd" "$out $pythonPath"

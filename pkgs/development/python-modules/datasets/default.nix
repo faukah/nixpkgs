@@ -65,7 +65,7 @@ buildPythonPackage rec {
   # Module import will attempt to create a cache directory
   postFixup = "export HF_MODULES_CACHE=$TMPDIR";
 
-  pythonImportsCheck = [ "datasets" ];
+  pythonImportsCheck = ["datasets"];
 
   meta = {
     description = "Open-access datasets and evaluation metrics for natural language processing";
@@ -73,6 +73,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/huggingface/datasets";
     changelog = "https://github.com/huggingface/datasets/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ osbm ];
+    maintainers = with lib.maintainers; [osbm];
   };
 }

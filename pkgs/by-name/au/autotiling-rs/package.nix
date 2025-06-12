@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "autotiling-rs";
   version = "0.1.3";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ammgws/autotiling-rs";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     mainProgram = "autotiling-rs";
   };
 }

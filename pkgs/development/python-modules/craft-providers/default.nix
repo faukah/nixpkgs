@@ -18,7 +18,6 @@
   logassert,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "craft-providers";
   version = "2.3.0";
@@ -54,9 +53,9 @@ buildPythonPackage rec {
       --replace-fail "setuptools==75.2.0" "setuptools"
   '';
 
-  pythonRelaxDeps = [ "requests" ];
+  pythonRelaxDeps = ["requests"];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     packaging
@@ -66,7 +65,7 @@ buildPythonPackage rec {
     requests-unixsocket
   ];
 
-  pythonImportsCheck = [ "craft_providers" ];
+  pythonImportsCheck = ["craft_providers"];
 
   nativeCheckInputs = [
     freezegun
@@ -79,7 +78,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
   disabledTestPaths = [
     # Relies upon "logassert" python package which isn't in nixpkgs
@@ -94,14 +93,14 @@ buildPythonPackage rec {
     "tests/unit/util/test_retry.py"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Interfaces for instantiating and controlling a variety of build environments";
     homepage = "https://github.com/canonical/craft-providers";
     changelog = "https://github.com/canonical/craft-providers/releases/tag/${src.tag}";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
     platforms = lib.platforms.linux;
   };
 }

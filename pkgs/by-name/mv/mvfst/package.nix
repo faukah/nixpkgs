@@ -1,24 +1,17 @@
 {
   lib,
   stdenv,
-
   fetchFromGitHub,
-
   cmake,
   ninja,
   removeReferencesTo,
-
   folly,
   gflags,
   glog,
-
   fizz,
-
   gtest,
-
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mvfst";
   version = "2025.04.21.00";
@@ -138,7 +131,7 @@ stdenv.mkDerivation (finalAttrs: {
     remove-references-to -t ${gtest.dev} $out/lib/*
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Implementation of the QUIC transport protocol";

@@ -5,7 +5,6 @@
   unstableGitUpdater,
   yt-dlp,
 }:
-
 buildLua {
   pname = "mpv-playlistmanager";
   version = "0-unstable-2025-03-16";
@@ -16,7 +15,7 @@ buildLua {
     rev = "a2755132c18c050269e5fea6093672f0a36ed7db";
     hash = "sha256-v+zQiRXPtFXSq3Em3sA37zltUGPhGCpONJ25F2Jxe4w=";
   };
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   postPatch = ''
     substituteInPlace playlistmanager.lua \
@@ -28,6 +27,6 @@ buildLua {
     description = "Mpv lua script to create and manage playlists";
     homepage = "https://github.com/jonniek/mpv-playlistmanager";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ lunik1 ];
+    maintainers = with maintainers; [lunik1];
   };
 }

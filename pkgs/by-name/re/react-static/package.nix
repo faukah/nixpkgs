@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchYarnDeps,
 }:
-
 mkYarnPackage rec {
   pname = "react-static";
   version = "7.6.2";
@@ -51,6 +50,6 @@ mkYarnPackage rec {
     homepage = "https://github.com/react-static/react-static";
     license = lib.licenses.mit;
     mainProgram = "react-static";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   buildPackages,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "apr";
   version = "1.7.6";
@@ -40,7 +39,11 @@ stdenv.mkDerivation rec {
       # These answers are valid on x86_64-linux and aarch64-linux.
       # TODO: provide all valid answers for BSD.
       "ac_cv_file__dev_zero=yes"
-      "ac_cv_func_setpgrp_void=${if stdenv.hostPlatform.isBSD then "no" else "yes"}"
+      "ac_cv_func_setpgrp_void=${
+        if stdenv.hostPlatform.isBSD
+        then "no"
+        else "yes"
+      }"
       "apr_cv_tcp_nodelay_with_cork=yes"
       "ac_cv_define_PTHREAD_PROCESS_SHARED=yes"
       "apr_cv_process_shared_works=yes"
@@ -68,7 +71,7 @@ stdenv.mkDerivation rec {
 
   # - Update libtool for macOS 11 support
   # - Regenerate for cross fix patch
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   doCheck = true;
 
@@ -80,6 +83,6 @@ stdenv.mkDerivation rec {
     mainProgram = "apr-1-config";
     platforms = platforms.all;
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

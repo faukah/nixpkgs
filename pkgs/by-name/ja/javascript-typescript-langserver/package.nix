@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "javascript-typescript-langserver";
   version = "2.11.3";
@@ -25,6 +24,6 @@ buildNpmPackage rec {
     description = "JavaScript and TypeScript code intelligence through the Language Server Protocol";
     homepage = "https://github.com/sourcegraph/javascript-typescript-langserver";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dywedir ];
+    maintainers = with lib.maintainers; [dywedir];
   };
 }

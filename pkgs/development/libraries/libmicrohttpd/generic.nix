@@ -9,9 +9,8 @@
   libintl,
   version,
   src,
-  meta ? { },
+  meta ? {},
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libmicrohttpd";
   inherit version src;
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     "devdoc"
     "info"
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libgcrypt
     curl
@@ -39,8 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
   # Disabled because the tests can time-out.
   doCheck = false;
 
-  meta =
-    with lib;
+  meta = with lib;
     {
       description = "Embeddable HTTP server library";
 
@@ -53,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
 
       homepage = "https://www.gnu.org/software/libmicrohttpd/";
 
-      maintainers = with maintainers; [ fpletz ];
+      maintainers = with maintainers; [fpletz];
       platforms = platforms.unix;
     }
     // meta;

@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "cloudflare-dyndns";
   version = "5.3";
@@ -39,7 +38,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "CloudFlare Dynamic DNS client";
     homepage = "https://github.com/kissgyorgy/cloudflare-dyndns";
     license = licenses.mit;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
     mainProgram = "cloudflare-dyndns";
   };
 }

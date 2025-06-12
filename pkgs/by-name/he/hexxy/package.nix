@@ -21,13 +21,13 @@ buildGoModule (finalAttrs: {
     "-w"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Modern and beautiful alternative to xxd and hexdump";
     homepage = "https://github.com/sweetbbak/hexxy";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.NotAShelf ];
+    maintainers = [lib.maintainers.NotAShelf];
     mainProgram = "hexxy";
   };
 })

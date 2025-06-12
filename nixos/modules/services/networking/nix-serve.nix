@@ -4,13 +4,9 @@
   lib,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.nix-serve;
-in
-{
+in {
   options = {
     services.nix-serve = {
       enable = mkEnableOption "nix-serve, the standalone Nix binary cache server";
@@ -31,7 +27,7 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs "nix-serve" { };
+      package = mkPackageOption pkgs "nix-serve" {};
 
       openFirewall = mkOption {
         type = types.bool;
@@ -66,13 +62,13 @@ in
 
   config = mkIf cfg.enable {
     nix.settings = lib.optionalAttrs (lib.versionAtLeast config.nix.package.version "2.4") {
-      extra-allowed-users = [ "nix-serve" ];
+      extra-allowed-users = ["nix-serve"];
     };
 
     systemd.services.nix-serve = {
       description = "nix-serve binary cache server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       path = [
         config.nix.package.out
@@ -100,7 +96,7 @@ in
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
   };
 }

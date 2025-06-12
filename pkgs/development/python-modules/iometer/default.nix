@@ -9,7 +9,6 @@
   pytestCheckHook,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "iometer";
   version = "0.1.0";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-+Ox9FlS2mswCt2jaJfKuvt21byjUrnCYp3vcv1D83Rs=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
     yarl
   ];
 
-  pythonImportsCheck = [ "iometer" ];
+  pythonImportsCheck = ["iometer"];
 
   nativeCheckInputs = [
     aioresponses
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     description = "Python client for interacting with IOmeter devices over HTTP";
     homepage = "https://github.com/iometer-gmbh/iometer.py";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

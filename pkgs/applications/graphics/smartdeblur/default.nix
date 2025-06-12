@@ -5,7 +5,6 @@
   fftw,
   libsForQt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "smartdeblur";
   version = "unstable-2018-10-29";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Tool for restoring blurry and defocused images";
     mainProgram = "SmartDeblur";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

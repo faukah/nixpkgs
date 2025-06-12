@@ -12,7 +12,6 @@
   setuptools,
   sphinx-rtd-theme,
 }:
-
 buildPythonPackage rec {
   pname = "py-tes";
   version = "1.1.2";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-hZF4koc/nZ8rBYKfhIQCLtn4DKiljJrSBgkKX8bMoQ0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     attrs
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "tes" ];
+  pythonImportsCheck = ["tes"];
 
   disabledTestPaths = [
     # Tests require running funnel
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ohsu-comp-bio/py-tes";
     changelog = "https://github.com/ohsu-comp-bio/py-tes/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

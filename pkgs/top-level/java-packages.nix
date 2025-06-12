@@ -1,48 +1,43 @@
-{ pkgs }:
-
+{pkgs}:
 with pkgs;
+  {
+    inherit (pkgs) openjfx17 openjfx21 openjfx23;
 
-{
-  inherit (pkgs) openjfx17 openjfx21 openjfx23;
-
-  compiler =
-    let
+    compiler = let
       # merge meta.platforms of both packages so that dependent packages and hydra build them
-      mergeMetaPlatforms =
-        jdk: other:
+      mergeMetaPlatforms = jdk: other:
         jdk
         // {
-          meta = jdk.meta // {
-            platforms = lib.unique (jdk.meta.platforms ++ other.meta.platforms);
-          };
+          meta =
+            jdk.meta
+            // {
+              platforms = lib.unique (jdk.meta.platforms ++ other.meta.platforms);
+            };
         };
 
-      mkLinuxDarwin =
-        linux: darwin:
-        if stdenv.hostPlatform.isLinux then
-          mergeMetaPlatforms linux darwin
-        else
-          mergeMetaPlatforms darwin linux;
+      mkLinuxDarwin = linux: darwin:
+        if stdenv.hostPlatform.isLinux
+        then mergeMetaPlatforms linux darwin
+        else mergeMetaPlatforms darwin linux;
 
-      mkOpenjdk =
-        featureVersion:
-        let
-          openjdkLinux =
-            (callPackage ../development/compilers/openjdk/generic.nix { inherit featureVersion; })
-            // {
-              headless = mergeMetaPlatforms openjdkLinuxHeadless openjdkDarwin;
-            };
-          openjdkLinuxHeadless = openjdkLinux.override { headless = true; };
-          openjdkDarwin = (callPackage (../development/compilers/zulu + "/${featureVersion}.nix") { }) // {
+      mkOpenjdk = featureVersion: let
+        openjdkLinux =
+          (callPackage ../development/compilers/openjdk/generic.nix {inherit featureVersion;})
+          // {
+            headless = mergeMetaPlatforms openjdkLinuxHeadless openjdkDarwin;
+          };
+        openjdkLinuxHeadless = openjdkLinux.override {headless = true;};
+        openjdkDarwin =
+          (callPackage (../development/compilers/zulu + "/${featureVersion}.nix") {})
+          // {
             headless = mergeMetaPlatforms openjdkDarwin openjdkLinuxHeadless;
           };
-        in
+      in
         mkLinuxDarwin openjdkLinux openjdkDarwin;
-    in
-    rec {
-      corretto11 = callPackage ../development/compilers/corretto/11.nix { };
-      corretto17 = callPackage ../development/compilers/corretto/17.nix { };
-      corretto21 = callPackage ../development/compilers/corretto/21.nix { };
+    in rec {
+      corretto11 = callPackage ../development/compilers/corretto/11.nix {};
+      corretto17 = callPackage ../development/compilers/corretto/17.nix {};
+      corretto21 = callPackage ../development/compilers/corretto/21.nix {};
 
       openjdk8 = mkOpenjdk "8";
       openjdk11 = mkOpenjdk "11";
@@ -65,7 +60,7 @@ with pkgs;
             inherit (pkgs) lib callPackage;
           };
         in
-        lib.mapAttrs (name: drv: mkLinuxDarwin drv temurinDarwin.${name}) temurinLinux
+          lib.mapAttrs (name: drv: mkLinuxDarwin drv temurinDarwin.${name}) temurinLinux
       );
 
       semeru-bin = recurseIntoAttrs (
@@ -77,11 +72,11 @@ with pkgs;
             inherit (pkgs) lib callPackage;
           };
         in
-        lib.mapAttrs (name: drv: mkLinuxDarwin drv semeruDarwin.${name}) semeruLinux
+          lib.mapAttrs (name: drv: mkLinuxDarwin drv semeruDarwin.${name}) semeruLinux
       );
     };
-}
-// lib.optionalAttrs config.allowAliases {
-  jogl_2_4_0 = throw "'jogl_2_4_0' is renamed to/replaced by 'jogl'";
-  mavenfod = throw "'mavenfod' is renamed to/replaced by 'maven.buildMavenPackage'";
-}
+  }
+  // lib.optionalAttrs config.allowAliases {
+    jogl_2_4_0 = throw "'jogl_2_4_0' is renamed to/replaced by 'jogl'";
+    mavenfod = throw "'mavenfod' is renamed to/replaced by 'maven.buildMavenPackage'";
+  }

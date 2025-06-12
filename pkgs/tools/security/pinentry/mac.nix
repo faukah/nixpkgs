@@ -10,7 +10,6 @@
   common-updater-scripts,
   writers,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pinentry-mac";
 

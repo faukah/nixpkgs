@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "trueseeing";
   version = "2.2.5";
@@ -50,7 +49,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/alterakey/trueseeing";
     changelog = "https://github.com/alterakey/trueseeing/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.fab ];
+    maintainers = [lib.maintainers.fab];
     mainProgram = "trueseeing";
   };
 }

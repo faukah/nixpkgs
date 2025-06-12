@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pytlv";
   version = "0.71";
@@ -15,14 +14,14 @@ buildPythonPackage rec {
     hash = "sha256-btxZ0oQzn1ZpwXihHlg6CduLh8nkerLV7SoFyXzJjVY=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "pytlv" ];
+  pythonImportsCheck = ["pytlv"];
 
   meta = with lib; {
     description = "TLV (tag length lavue) data parser, especially useful for EMV tags parsing";
     homepage = "https://github.com/timgabets/pytlv";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

@@ -6,7 +6,6 @@
   ncurses,
   pkg-config,
 }:
-
 mkAppleDerivation {
   releaseName = "misc_cmds";
 
@@ -26,7 +25,7 @@ mkAppleDerivation {
       --replace-fail '/usr/local/share/calendar, /usr/share/calendar' "$out/share/calendar"
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libedit

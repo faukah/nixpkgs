@@ -5,7 +5,6 @@
   makeWrapper,
   hvm,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "Bend";
   version = "0.2.37";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/bend \
-      --prefix PATH : ${lib.makeBinPath [ hvm ]}
+      --prefix PATH : ${lib.makeBinPath [hvm]}
   '';
 
   meta = {
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://higherorderco.com/";
     license = lib.licenses.asl20;
     mainProgram = "bend";
-    maintainers = with lib.maintainers; [ k3yss ];
+    maintainers = with lib.maintainers; [k3yss];
     platforms = lib.platforms.unix;
   };
 }

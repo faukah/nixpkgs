@@ -18,7 +18,6 @@
   sphinx,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "myst-docutils";
   version = "4.0.1";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-/Prauz4zuJY39EK2BmgBbH1uwjF4K38e5X5hPYwRBl0=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     docutils
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     sphinx-pytest
   ];
 
-  pythonImportsCheck = [ "myst_parser" ];
+  pythonImportsCheck = ["myst_parser"];
 
   disabledTests = [
     # Tests require linkify
@@ -74,6 +73,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/executablebooks/MyST-Parser";
     changelog = "https://github.com/executablebooks/MyST-Parser/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ dpausp ];
+    maintainers = with maintainers; [dpausp];
   };
 }

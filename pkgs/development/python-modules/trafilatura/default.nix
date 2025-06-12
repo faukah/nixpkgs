@@ -13,7 +13,6 @@
   setuptools,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "trafilatura";
   version = "2.0.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
                      'trafilatura_bin = "${placeholder "out"}/bin/trafilatura"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     certifi
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Disable tests that require an internet connection
@@ -63,14 +62,14 @@ buildPythonPackage rec {
     "test_whole"
   ];
 
-  pythonImportsCheck = [ "trafilatura" ];
+  pythonImportsCheck = ["trafilatura"];
 
   meta = {
     description = "Python package and command-line tool designed to gather text on the Web";
     homepage = "https://trafilatura.readthedocs.io";
     changelog = "https://github.com/adbar/trafilatura/blob/v${version}/HISTORY.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jokatzke ];
+    maintainers = with lib.maintainers; [jokatzke];
     mainProgram = "trafilatura";
   };
 }

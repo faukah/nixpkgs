@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "journalwatch";
   version = "1.1.0";
@@ -22,19 +21,19 @@ python3Packages.buildPythonApplication rec {
       --replace-fail "U Thu Jan  1 00:00:00 1970 prio foo [1337]" "U Thu Jan  1 00:00:00 1970 pprio foo [1337]"
   '';
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
-  dependencies = with python3Packages; [ systemd ];
+  dependencies = with python3Packages; [systemd];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [pytestCheckHook];
 
-  pythonImportsCheck = [ "journalwatch" ];
+  pythonImportsCheck = ["journalwatch"];
 
   meta = with lib; {
     description = "Tool to find error messages in the systemd journal";
     homepage = "https://github.com/The-Compiler/journalwatch";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ florianjacob ];
+    maintainers = with maintainers; [florianjacob];
     mainProgram = "journalwatch";
   };
 }

@@ -4,7 +4,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mx-takeover";
   version = "0.1.1";
@@ -28,7 +27,7 @@ buildGoModule rec {
     homepage = "https://github.com/musana/mx-takeover";
     changelog = "https://github.com/musana/mx-takeover/releases/tag/v${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "mx-takeover";
     broken = stdenv.hostPlatform.isDarwin;
   };

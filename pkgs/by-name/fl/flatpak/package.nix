@@ -77,7 +77,6 @@
   withSELinuxModule ? false,
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "flatpak";
   version = "1.16.1";
@@ -157,11 +156,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs =
     [
-      (python3.pythonOnBuildForHost.withPackages (p: [ p.pyparsing ]))
+      (python3.pythonOnBuildForHost.withPackages (p: [p.pyparsing]))
       bison
       glib
       meson
@@ -253,9 +252,9 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       cross-aarch64 = pkgsCross.aarch64-multiplatform.flatpak;
 
-      pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+      pkg-config = testers.hasPkgConfigModules {package = finalAttrs.finalPackage;};
 
-      validate-icon = runCommand "test-icon-validation" { } ''
+      validate-icon = runCommand "test-icon-validation" {} ''
         ${finalAttrs.finalPackage}/libexec/flatpak-validate-icon \
           --sandbox 512 512 \
           "${nixos-icons}/share/icons/hicolor/512x512/apps/nix-snowflake.png" > "$out"
@@ -263,10 +262,10 @@ stdenv.mkDerivation (finalAttrs: {
         grep format=png "$out"
       '';
 
-      version = testers.testVersion { package = finalAttrs.finalPackage; };
+      version = testers.testVersion {package = finalAttrs.finalPackage;};
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -274,9 +273,9 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://flatpak.org/";
     changelog = "https://github.com/flatpak/flatpak/releases/tag/${finalAttrs.version}";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "flatpak";
     platforms = lib.platforms.linux;
-    pkgConfigModules = [ "flatpak" ];
+    pkgConfigModules = ["flatpak"];
   };
 })

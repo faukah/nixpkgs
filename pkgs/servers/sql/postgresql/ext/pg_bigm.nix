@@ -4,7 +4,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pg_bigm";
   version = "1.2-20240606";
@@ -16,12 +15,12 @@ postgresqlBuildExtension (finalAttrs: {
     hash = "sha256-5Uy1DmGZR4WdtRUvNdZ5b9zBHJUb9idcEzW20rkreBs=";
   };
 
-  makeFlags = [ "USE_PGXS=1" ];
+  makeFlags = ["USE_PGXS=1"];
 
   meta = {
     description = "Text similarity measurement and index searching based on bigrams";
     homepage = "https://pgbigm.osdn.jp/";
-    maintainers = [ ];
+    maintainers = [];
     platforms = postgresql.meta.platforms;
     license = lib.licenses.postgresql;
   };

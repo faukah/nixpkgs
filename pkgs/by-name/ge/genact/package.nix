@@ -5,7 +5,6 @@
   installShellFiles,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "genact";
   version = "1.4.2";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Ttg9stfiIYCXk35+GWdGOzQrM/aYZPZK+e9y+zw1ZXQ=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     $out/bin/genact --print-manpage > genact.1
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/svenstaro/genact";
     changelog = "https://github.com/svenstaro/genact/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "genact";
   };
 }

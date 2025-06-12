@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "tdfgo";
   version = "unstable-2022-08-25";
@@ -23,7 +22,7 @@ buildGoModule {
     homepage = "https://github.com/digitallyserviced/tdfgo";
     license = licenses.cc0;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ crinklywrappr ];
+    maintainers = with maintainers; [crinklywrappr];
     mainProgram = "tdfgo";
   };
 }

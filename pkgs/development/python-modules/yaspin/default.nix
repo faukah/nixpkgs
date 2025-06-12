@@ -8,7 +8,6 @@
   pythonOlder,
   termcolor,
 }:
-
 buildPythonPackage rec {
   pname = "yaspin";
   version = "3.1.0";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-4IWaAPqzGri7V8X2gL607F5GlWfIFDlBBpDwSe4sz9I=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ termcolor ];
+  dependencies = [termcolor];
 
   pythonRelaxDeps = [
     "termcolor"
@@ -41,12 +40,12 @@ buildPythonPackage rec {
     export FORCE_COLOR=1
   '';
 
-  pythonImportsCheck = [ "yaspin" ];
+  pythonImportsCheck = ["yaspin"];
 
   meta = with lib; {
     description = "Yet Another Terminal Spinner";
     homepage = "https://github.com/pavdmyt/yaspin";
     license = licenses.mit;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

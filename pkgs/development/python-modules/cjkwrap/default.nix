@@ -4,7 +4,6 @@
   fetchFromGitLab,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cjkwrap";
   version = "2.2";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-0wTx3rnlUfQEE2/Z8Y7iwlsHk+CIy6ut+QIpC5yg4aM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "cjkwrap" ];
+  pythonImportsCheck = ["cjkwrap"];
 
   # no tests
   doCheck = false;
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     description = "Library for wrapping and filling CJK text";
     homepage = "https://f.gallai.re/cjkwrap";
     license = lib.licenses.lgpl3Plus;
-    maintainers = [ lib.maintainers.kaction ];
+    maintainers = [lib.maintainers.kaction];
   };
 }

@@ -14,7 +14,6 @@
   librsvg,
   hicolor-icon-theme,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lightdm-gtk-greeter";
   version = "2.0.9";
@@ -78,6 +77,6 @@ stdenv.mkDerivation rec {
     mainProgram = "lightdm-gtk-greeter";
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ bobby285271 ];
+    maintainers = with maintainers; [bobby285271];
   };
 }

@@ -4,7 +4,6 @@
   flutter327,
   gst_all_1,
 }:
-
 flutter327.buildFlutterApplication rec {
   pname = "pied";
   version = "0.3.0";
@@ -17,7 +16,7 @@ flutter327.buildFlutterApplication rec {
   };
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
-  patches = [ ./patches/add_piper_tts-path.patch ];
+  patches = [./patches/add_piper_tts-path.patch];
 
   strictDeps = true;
 
@@ -37,7 +36,7 @@ flutter327.buildFlutterApplication rec {
     homepage = "https://github.com/Elleo/pied";
     changelog = "https://github.com/Elleo/pied/releases/tag/${src.tag}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "pied";
     badPlatforms = [
       # Silently fails in dartConfigHook

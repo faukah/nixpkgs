@@ -9,7 +9,6 @@
   stdenv,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "opensearch";
   version = "2.19.2";
@@ -38,14 +37,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     wrapProgram $out/bin/opensearch \
       --prefix PATH : "${
-        lib.makeBinPath [
-          gnugrep
-          coreutils
-        ]
-      }" \
+      lib.makeBinPath [
+        gnugrep
+        coreutils
+      ]
+    }" \
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [ stdenv.cc.cc ]
-      }:$out/plugins/opensearch-knn/lib/" \
+      lib.makeLibraryPath [stdenv.cc.cc]
+    }:$out/plugins/opensearch-knn/lib/" \
       --set JAVA_HOME "${jre_headless}"
 
     wrapProgram $out/bin/opensearch-plugin --set JAVA_HOME "${jre_headless}"
@@ -61,7 +60,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Open Source, Distributed, RESTful Search Engine";
     homepage = "https://github.com/opensearch-project/OpenSearch";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ shyim ];
+    maintainers = with lib.maintainers; [shyim];
     platforms = lib.platforms.unix;
     sourceProvenance = with lib.sourceTypes; [
       binaryBytecode

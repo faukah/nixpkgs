@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "agenix-cli";
   version = "0.1.0";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-xpA9BTA7EK3Pw8EJOjIq1ulBAcX4yNhc4kqhxsoCbv0=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Companion tool to https://github.com/ryantm/agenix";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ misuzu ];
+    maintainers = with lib.maintainers; [misuzu];
     mainProgram = "agenix";
   };
 }

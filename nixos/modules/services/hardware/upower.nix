@@ -4,21 +4,13 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.upower;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.upower = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -28,7 +20,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "upower" { };
+      package = lib.mkPackageOption pkgs "upower" {};
 
       enableWattsUpPro = lib.mkOption {
         type = lib.types.bool;
@@ -211,9 +203,7 @@ in
           to `true`.
         '';
       };
-
     };
-
   };
 
   ###### implementation
@@ -221,15 +211,14 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          let
-            inherit (builtins) elem;
-            riskyActions = [
-              "Suspend"
-              "Ignore"
-            ];
-            riskyActionEnabled = elem cfg.criticalPowerAction riskyActions;
-          in
+        assertion = let
+          inherit (builtins) elem;
+          riskyActions = [
+            "Suspend"
+            "Ignore"
+          ];
+          riskyActionEnabled = elem cfg.criticalPowerAction riskyActions;
+        in
           riskyActionEnabled -> cfg.allowRiskyCriticalPowerAction;
         message = ''
           services.upower.allowRiskyCriticalPowerAction must be true if
@@ -239,15 +228,15 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    services.dbus.packages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
-    environment.etc."UPower/UPower.conf".text = lib.generators.toINI { } {
+    environment.etc."UPower/UPower.conf".text = lib.generators.toINI {} {
       UPower = {
         EnableWattsUpPro = cfg.enableWattsUpPro;
         NoPollBatteries = cfg.noPollBatteries;
@@ -264,5 +253,4 @@ in
       };
     };
   };
-
 }

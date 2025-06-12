@@ -5,7 +5,6 @@
   awscli,
   writableTmpDirAsHomeHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "aws-shell";
   version = "0.2.2";
@@ -47,7 +46,7 @@ python3Packages.buildPythonApplication rec {
     description = "Integrated shell for working with the AWS CLI";
     platforms = lib.platforms.unix;
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     mainProgram = "aws-shell";
   };
 }

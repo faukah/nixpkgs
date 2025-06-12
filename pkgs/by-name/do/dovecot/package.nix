@@ -43,17 +43,18 @@
   withLua ? false,
   lua5_3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dovecot";
   version = "2.3.21.1";
 
-  nativeBuildInputs = [
-    flex
-    bison
-    perl
-    pkg-config
-  ] ++ lib.optionals (stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isDarwin) [ rpcsvc-proto ];
+  nativeBuildInputs =
+    [
+      flex
+      bison
+      perl
+      pkg-config
+    ]
+    ++ lib.optionals (stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isDarwin) [rpcsvc-proto];
 
   buildInputs =
     [
@@ -113,7 +114,7 @@ stdenv.mkDerivation rec {
     '';
 
   # We need this for sysconfdir, see remark below.
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   postInstall = ''
     cp -r $out/$out/* $out
@@ -152,9 +153,21 @@ stdenv.mkDerivation rec {
       "--with-textcat"
     ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "i_cv_epoll_works=${if stdenv.hostPlatform.isLinux then "yes" else "no"}"
-      "i_cv_posix_fallocate_works=${if stdenv.hostPlatform.isDarwin then "no" else "yes"}"
-      "i_cv_inotify_works=${if stdenv.hostPlatform.isLinux then "yes" else "no"}"
+      "i_cv_epoll_works=${
+        if stdenv.hostPlatform.isLinux
+        then "yes"
+        else "no"
+      }"
+      "i_cv_posix_fallocate_works=${
+        if stdenv.hostPlatform.isDarwin
+        then "no"
+        else "yes"
+      }"
+      "i_cv_inotify_works=${
+        if stdenv.hostPlatform.isLinux
+        then "yes"
+        else "no"
+      }"
       "i_cv_signed_size_t=no"
       "i_cv_signed_time_t=yes"
       "i_cv_c99_vsnprintf=yes"
@@ -192,7 +205,7 @@ stdenv.mkDerivation rec {
       fpletz
       globin
     ];
-    teams = [ lib.teams.helsinki-systems ];
+    teams = [lib.teams.helsinki-systems];
     platforms = platforms.unix;
   };
   passthru.tests = {

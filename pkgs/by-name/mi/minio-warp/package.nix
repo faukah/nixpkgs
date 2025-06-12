@@ -6,7 +6,6 @@
   nix-update-script,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "minio-warp";
   version = "1.1.4";
@@ -44,17 +43,17 @@ buildGoModule rec {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "S3 benchmarking tool";
     homepage = "https://github.com/minio/warp";
     changelog = "https://github.com/minio/warp/releases/tag/v${version}";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ christoph-heiss ];
+    maintainers = with lib.maintainers; [christoph-heiss];
     mainProgram = "minio-warp";
   };
 }

@@ -5,7 +5,6 @@
   lwt,
   git,
 }:
-
 buildDunePackage {
   pname = "tar-unix";
   inherit (tar) version src doCheck;
@@ -20,7 +19,9 @@ buildDunePackage {
     git
   ];
 
-  meta = tar.meta // {
-    description = "Decode and encode tar format files from Unix";
-  };
+  meta =
+    tar.meta
+    // {
+      description = "Decode and encode tar format files from Unix";
+    };
 }

@@ -1,25 +1,18 @@
-{
-  lib,
-  ...
-}:
-let
+{lib, ...}: let
   port = 43110;
-in
-{
+in {
   name = "zeronet-conservancy";
   meta = with lib.maintainers; {
-    maintainers = [ fgaz ];
+    maintainers = [fgaz];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.zeronet = {
-        enable = true;
-        package = pkgs.zeronet-conservancy;
-        inherit port;
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.zeronet = {
+      enable = true;
+      package = pkgs.zeronet-conservancy;
+      inherit port;
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("zeronet.service")

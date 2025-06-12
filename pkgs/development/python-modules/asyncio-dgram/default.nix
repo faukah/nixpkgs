@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "asyncio-dgram";
   version = "2.2.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-9aO3xFmoR74uZSzxBPRVvz0QSW15TAdWEszLBX8AUR4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -39,13 +38,13 @@ buildPythonPackage rec {
     "test_from_socket_bad_socket"
   ];
 
-  pythonImportsCheck = [ "asyncio_dgram" ];
+  pythonImportsCheck = ["asyncio_dgram"];
 
   meta = with lib; {
     description = "Python support for higher level Datagram";
     homepage = "https://github.com/jsbronder/asyncio-dgram";
     changelog = "https://github.com/jsbronder/asyncio-dgram/blob/v${version}/ChangeLog";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

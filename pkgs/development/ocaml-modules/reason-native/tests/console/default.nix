@@ -5,7 +5,6 @@
   console,
   ppxlib,
 }:
-
 buildDunePackage {
   pname = "console_test";
   version = "1";

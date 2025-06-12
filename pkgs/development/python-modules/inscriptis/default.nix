@@ -10,7 +10,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "inscriptis";
   version = "2.6.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-+qLHdQ4i/PYSUCZLYV3BguXjacjs7aB3MP0rJegv+dI=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     lxml
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "inscriptis" ];
+  pythonImportsCheck = ["inscriptis"];
 
   meta = with lib; {
     description = "HTML to text converter";
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/weblyzard/inscriptis";
     changelog = "https://github.com/weblyzard/inscriptis/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

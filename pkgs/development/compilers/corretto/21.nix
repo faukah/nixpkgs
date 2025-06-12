@@ -8,9 +8,7 @@
   rsync,
   runCommand,
   testers,
-}:
-
-let
+}: let
   corretto = import ./mk-corretto.nix rec {
     inherit
       lib
@@ -30,4 +28,4 @@ let
     };
   };
 in
-corretto
+  corretto

@@ -6,7 +6,6 @@
   jdk23_headless,
   nixosTests,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "komga";
   version = "1.21.3";
@@ -38,6 +37,6 @@ stdenvNoCC.mkDerivation rec {
       govanify
     ];
     mainProgram = "komga";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
   };
 }

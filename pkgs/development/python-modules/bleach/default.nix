@@ -9,7 +9,6 @@
   packaging,
   webencodings,
 }:
-
 buildPythonPackage rec {
   pname = "bleach";
   version = "6.2.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-Ej6JQRi4pZn9gNPsGm1Mx85OWIKxMXp+G6abVulfmR8=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     html5lib
@@ -30,17 +29,17 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    css = [ tinycss2 ];
+    css = [tinycss2];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Disable network tests
     "protocols"
   ];
 
-  pythonImportsCheck = [ "bleach" ];
+  pythonImportsCheck = ["bleach"];
 
   meta = with lib; {
     description = "Easy, HTML5, whitelisting HTML sanitizer";
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/mozilla/bleach/releases";
     changelog = "https://github.com/mozilla/bleach/blob/v${version}/CHANGES";
     license = licenses.asl20;
-    maintainers = with maintainers; [ prikhi ];
+    maintainers = with maintainers; [prikhi];
   };
 }

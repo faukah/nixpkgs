@@ -21,7 +21,6 @@
   qtsvg,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-gallery-app";
   version = "3.1.1";
@@ -82,19 +81,17 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
-  preCheck =
-    let
-      listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
-    in
-    ''
-      export QT_PLUGIN_PATH=${
-        listToQtVar qtbase.qtPluginPrefix [
-          qtbase
-          qtsvg
-        ]
-      }
-      export XDG_RUNTIME_DIR=$TMP
-    '';
+  preCheck = let
+    listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
+  in ''
+    export QT_PLUGIN_PATH=${
+      listToQtVar qtbase.qtPluginPrefix [
+        qtbase
+        qtsvg
+      ]
+    }
+    export XDG_RUNTIME_DIR=$TMP
+  '';
 
   postInstall = ''
     # Link splash to splash dir
@@ -104,7 +101,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests = {
-      inherit (nixosTests.lomiri-gallery-app)
+      inherit
+        (nixosTests.lomiri-gallery-app)
         basic
         format-mp4
         format-gif
@@ -113,20 +111,22 @@ stdenv.mkDerivation (finalAttrs: {
         format-png
         ;
     };
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
     description = "Photo gallery application for Ubuntu Touch devices";
     homepage = "https://gitlab.com/ubports/development/apps/lomiri-gallery-app";
     changelog = "https://gitlab.com/ubports/development/apps/lomiri-gallery-app/-/blob/${
-      if (!builtins.isNull finalAttrs.src.tag) then finalAttrs.src.tag else finalAttrs.src.rev
+      if (!builtins.isNull finalAttrs.src.tag)
+      then finalAttrs.src.tag
+      else finalAttrs.src.rev
     }/ChangeLog";
     license = with lib.licenses; [
       gpl3Only
       cc-by-sa-30
     ];
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     mainProgram = "lomiri-gallery-app";
     platforms = lib.platforms.linux;
   };

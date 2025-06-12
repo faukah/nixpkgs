@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nsync";
   version = "1.29.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-RAwrS8Vz5fZwZRvF4OQfn8Ls11S8OIV2TmJpNrBE4MI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # Needed for case-insensitive filesystems like on macOS
   # because a file named BUILD exists already.

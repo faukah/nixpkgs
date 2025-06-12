@@ -1,54 +1,52 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "restart-by-activation-script";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ das_j ];
+    maintainers = [das_j];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [ ../modules/profiles/minimal.nix ];
+  nodes.machine = {pkgs, ...}: {
+    imports = [../modules/profiles/minimal.nix];
 
-      system.switch.enable = true;
+    system.switch.enable = true;
 
-      systemd.services.restart-me = {
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          ExecStart = "${pkgs.coreutils}/bin/true";
-        };
-      };
-
-      systemd.services.reload-me = {
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = rec {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          ExecStart = "${pkgs.coreutils}/bin/true";
-          ExecReload = ExecStart;
-        };
-      };
-
-      system.activationScripts.test = {
-        supportsDryActivation = true;
-        text = ''
-          if [ -e /test-the-activation-script ]; then
-            if [ "$NIXOS_ACTION" != dry-activate ]; then
-              touch /activation-was-run
-              echo restart-me.service > /run/nixos/activation-restart-list
-              echo reload-me.service > /run/nixos/activation-reload-list
-            else
-              echo restart-me.service > /run/nixos/dry-activation-restart-list
-              echo reload-me.service > /run/nixos/dry-activation-reload-list
-            fi
-          fi
-        '';
+    systemd.services.restart-me = {
+      wantedBy = ["multi-user.target"];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStart = "${pkgs.coreutils}/bin/true";
       };
     };
 
-  testScript = # python
+    systemd.services.reload-me = {
+      wantedBy = ["multi-user.target"];
+      serviceConfig = rec {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStart = "${pkgs.coreutils}/bin/true";
+        ExecReload = ExecStart;
+      };
+    };
+
+    system.activationScripts.test = {
+      supportsDryActivation = true;
+      text = ''
+        if [ -e /test-the-activation-script ]; then
+          if [ "$NIXOS_ACTION" != dry-activate ]; then
+            touch /activation-was-run
+            echo restart-me.service > /run/nixos/activation-restart-list
+            echo reload-me.service > /run/nixos/activation-reload-list
+          else
+            echo restart-me.service > /run/nixos/dry-activation-restart-list
+            echo reload-me.service > /run/nixos/dry-activation-reload-list
+          fi
+        fi
+      '';
+    };
+  };
+
+  testScript =
+    # python
     ''
       machine.wait_for_unit("multi-user.target")
 

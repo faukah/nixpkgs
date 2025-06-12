@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pylint-django";
   version = "2.6.1";
@@ -26,12 +25,12 @@ buildPythonPackage rec {
     hash = "sha256-9b0Sbo6E036UmUmP/CVPrS9cxxKtkMMZtqJsI53g4sU=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ pylint-plugin-utils ];
+  dependencies = [pylint-plugin-utils];
 
   optional-dependencies = {
-    with_django = [ django ];
+    with_django = [django];
   };
 
   nativeCheckInputs = [
@@ -50,13 +49,13 @@ buildPythonPackage rec {
     "func_noerror_form_fields"
   ];
 
-  pythonImportsCheck = [ "pylint_django" ];
+  pythonImportsCheck = ["pylint_django"];
 
   meta = with lib; {
     description = "Pylint plugin to analyze Django applications";
     homepage = "https://github.com/PyCQA/pylint-django";
     changelog = "https://github.com/pylint-dev/pylint-django/releases/tag/v${version}";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

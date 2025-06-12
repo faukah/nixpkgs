@@ -2,14 +2,11 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   hatchling,
-
   # native dependencies
   knot-dns,
 }:
-
 buildPythonPackage rec {
   pname = "libknot";
   version = "3.4.7";
@@ -26,14 +23,14 @@ buildPythonPackage rec {
       --replace "libknot.so%s" "${lib.getLib knot-dns}/lib/libknot.so%s"
   '';
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  pythonImportsCheck = [ "libknot" ];
+  pythonImportsCheck = ["libknot"];
 
   meta = with lib; {
     description = "Python bindings for libknot";
     homepage = "https://gitlab.nic.cz/knot/knot-dns/-/tree/master/python/libknot";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

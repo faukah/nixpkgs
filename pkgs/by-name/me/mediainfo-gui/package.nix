@@ -11,7 +11,6 @@
   imagemagick,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mediainfo-gui";
   version = "25.03";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://mediaarea.net";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ devhell ];
+    maintainers = with lib.maintainers; [devhell];
     mainProgram = "mediainfo-gui";
   };
 })

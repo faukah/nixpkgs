@@ -7,7 +7,6 @@
   why3,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "easycrypt";
   version = "2025.03";
@@ -19,8 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Z6JaqR0BocEhDuof929HOvzWu6C77CAqeuYYY2PXvrs=";
   };
 
-  nativeBuildInputs =
-    with ocamlPackages;
+  nativeBuildInputs = with ocamlPackages;
     [
       dune_3
       findlib
@@ -40,7 +38,7 @@ stdenv.mkDerivation rec {
     zarith
   ];
 
-  propagatedBuildInputs = [ why3.out ];
+  propagatedBuildInputs = [why3.out];
 
   strictDeps = true;
 
@@ -48,7 +46,7 @@ stdenv.mkDerivation rec {
     substituteInPlace dune-project --replace-fail '(name easycrypt)' '(name easycrypt)(version ${version})'
   '';
 
-  pythonPath = with python3.pkgs; [ pyyaml ];
+  pythonPath = with python3.pkgs; [pyyaml];
 
   installPhase = ''
     runHook preInstall
@@ -60,7 +58,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     platforms = lib.platforms.all;
     homepage = "https://easycrypt.info/";
     description = "Computer-Aided Cryptographic Proofs";

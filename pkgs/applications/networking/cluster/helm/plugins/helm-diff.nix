@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "helm-diff";
   version = "3.12.2";
@@ -39,6 +38,6 @@ buildGoModule rec {
     description = "Helm plugin that shows a diff";
     homepage = "https://github.com/databus23/helm-diff";
     license = licenses.asl20;
-    maintainers = with maintainers; [ yurrriq ];
+    maintainers = with maintainers; [yurrriq];
   };
 }

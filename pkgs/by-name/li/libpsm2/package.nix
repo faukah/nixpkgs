@@ -5,7 +5,6 @@
   numactl,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libpsm2";
   version = "12.0.1";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ numactl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [numactl];
 
   makeFlags = [
     # Disable blanket -Werror to avoid build failures
@@ -51,8 +50,8 @@ stdenv.mkDerivation rec {
       gpl2Only
       bsd3
     ];
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.bzizou ];
+    platforms = ["x86_64-linux"];
+    maintainers = [maintainers.bzizou];
     # uses __off64_t, srand48_r, lrand48_r, drand48_r
     broken = stdenv.hostPlatform.isMusl;
   };

@@ -8,7 +8,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libtins";
   version = "4.5";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://libtins.github.io/";
     changelog = "https://raw.githubusercontent.com/mfontanini/libtins/v${version}/CHANGES.md";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ fdns ];
+    maintainers = with lib.maintainers; [fdns];
     platforms = lib.platforms.unix;
   };
 }

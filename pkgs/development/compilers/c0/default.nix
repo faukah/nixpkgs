@@ -13,7 +13,6 @@
   readline,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "c0";
   version = "0-unstable-2023-09-05";
@@ -48,11 +47,13 @@ stdenv.mkDerivation rec {
     cd cc0/
   '';
 
-  nativeBuildInputs = [
-    getopt
-    mlton
-    pkg-config
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.sigtool ];
+  nativeBuildInputs =
+    [
+      getopt
+      mlton
+      pkg-config
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [darwin.sigtool];
 
   buildInputs = [
     boehmgc
@@ -64,7 +65,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     mkdir -p $out/share/emacs/site-lisp
@@ -79,7 +80,7 @@ stdenv.mkDerivation rec {
     description = "Small safe subset of the C programming language, augmented with contracts";
     homepage = "https://c0.cs.cmu.edu/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     # line 1: ../../bin/wrappergen: cannot execute: required file not found
     # make[2]: *** [../../lib.mk:83:

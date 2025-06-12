@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "photon";
   version = "1.3.0";
@@ -38,7 +37,7 @@ python3Packages.buildPythonApplication rec {
     description = "Lightning fast web crawler which extracts URLs, files, intel & endpoints from a target";
     homepage = "https://github.com/s0md3v/Photon";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "photon";
   };
 }

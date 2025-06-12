@@ -11,7 +11,6 @@
   pytz,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "nebula3-python";
   version = "3.8.3";
@@ -26,19 +25,21 @@ buildPythonPackage rec {
     hash = "sha256-p2dXpcOwVKbdfRKKTAc4LhaNuTjvPd8BBBI8aUivaZ4=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
-  dependencies = [
-    future
-    httplib2
-    httpx
-    pytz
-    six
-  ] ++ httpx.optional-dependencies.http2;
+  dependencies =
+    [
+      future
+      httplib2
+      httpx
+      pytz
+      six
+    ]
+    ++ httpx.optional-dependencies.http2;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "nebula3" ];
+  pythonImportsCheck = ["nebula3"];
 
   disabledTestPaths = [
     # Tests require a running thrift instance
@@ -59,6 +60,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/vesoft-inc/nebula-python";
     changelog = "https://github.com/vesoft-inc/nebula-python/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

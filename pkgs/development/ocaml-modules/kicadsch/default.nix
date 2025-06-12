@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchurl,
 }:
-
 buildDunePackage rec {
   pname = "kicadsch";
   version = "0.9.0";
@@ -19,6 +18,6 @@ buildDunePackage rec {
     description = "OCaml library for exporting Kicad Sch files to SVG pictures";
     homepage = "https://github.com/jnavila/plotkicadsch";
     license = licenses.isc;
-    maintainers = with maintainers; [ leungbk ];
+    maintainers = with maintainers; [leungbk];
   };
 }

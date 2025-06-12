@@ -5,7 +5,6 @@
   nodejs,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "jfrog-cli";
   version = "2.76.1";
@@ -30,9 +29,9 @@ buildGoModule rec {
   # Some of the tests require a writable $HOME
   preCheck = "export HOME=$TMPDIR";
 
-  nativeCheckInputs = [ nodejs ];
+  nativeCheckInputs = [nodejs];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/jfrog/jfrog-cli";

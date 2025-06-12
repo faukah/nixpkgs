@@ -5,7 +5,6 @@
   lib,
   weconnect,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "mitch-dc";
   domain = "volkswagen_we-connect_id";
@@ -31,6 +30,6 @@ buildHomeAssistantComponent rec {
     description = "Statistics from the Volkswagen ID API";
     homepage = "https://github.com/mitch-dc/volkswagen_we_connect_id";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

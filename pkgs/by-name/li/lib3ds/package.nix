@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lib3ds";
   version = "1.3.0";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1qr9arfdkjf7q11xhvxwzmhxqz3nhcjkyb8zzfjpz9jm54q0rc7m";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   meta = {
     description = "Library for managing 3D-Studio Release 3 and 4 \".3DS\" files";

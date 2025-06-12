@@ -4,7 +4,6 @@
   fetchPypi,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   pname = "hsaudiotag3k";
   version = "1.1.3.post1";

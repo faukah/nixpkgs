@@ -5,7 +5,6 @@
   cohttp-lwt-jsoo,
   js_of_ocaml-lwt,
 }:
-
 buildDunePackage {
   pname = "gitlab-jsoo";
   inherit (gitlab) version src;
@@ -21,7 +20,9 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = gitlab.meta // {
-    description = "Gitlab APIv4 JavaScript library";
-  };
+  meta =
+    gitlab.meta
+    // {
+      description = "Gitlab APIv4 JavaScript library";
+    };
 }

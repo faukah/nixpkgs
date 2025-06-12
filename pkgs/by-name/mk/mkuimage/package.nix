@@ -6,7 +6,6 @@
   bash,
   stdenv,
 }:
-
 buildGoModule {
   pname = "mkuimage";
   version = "0-unstable-2024-02-28";
@@ -27,7 +26,7 @@ buildGoModule {
 
   env.CGO_ENABLED = "0";
 
-  ldflags = [ "-s" ];
+  ldflags = ["-s"];
 
   # Tests are failing on darwin as they try to compile u-root binaries
   # that only work on linux.
@@ -51,7 +50,7 @@ buildGoModule {
     description = "Create small Go-based root file systems -- with support for CPIOs and (TBD) Docker images";
     homepage = "https://github.com/u-root/mkuimage";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ katexochen ];
+    maintainers = with lib.maintainers; [katexochen];
     mainProgram = "mkuimage";
   };
 }

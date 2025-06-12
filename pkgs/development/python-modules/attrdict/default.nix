@@ -6,7 +6,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "attrdict";
   version = "2.0.1";
@@ -30,20 +29,20 @@ buildPythonPackage rec {
       --replace-fail "from collections" "from collections.abc"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ six ];
+  dependencies = [six];
 
   # Tests are not shipped and source is not tagged
   doCheck = false;
 
-  pythonImportsCheck = [ "attrdict" ];
+  pythonImportsCheck = ["attrdict"];
 
   meta = with lib; {
     description = "Dict with attribute-style access";
     homepage = "https://github.com/bcj/AttrDict";
     changelog = "https://github.com/bcj/AttrDict/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

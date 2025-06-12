@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "simplehttp2server";
   version = "3.1.3";
@@ -31,7 +30,7 @@ buildGoModule rec {
     homepage = "https://github.com/GoogleChromeLabs/simplehttp2server";
     description = "HTTP/2 server for development purposes";
     license = licenses.asl20;
-    maintainers = with maintainers; [ yrashk ];
+    maintainers = with maintainers; [yrashk];
     mainProgram = "simplehttp2server";
   };
 }

@@ -18,9 +18,8 @@
   buildTests ? false,
   buildBenchmarks ? false,
   buildSamples ? false,
-  gpuTargets ? [ ], # gpuTargets = [ "gfx803" "gfx900:xnack-" "gfx906:xnack-" ... ]
+  gpuTargets ? [], # gpuTargets = [ "gfx803" "gfx900:xnack-" "gfx906:xnack-" ... ]
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocalution";
   version = "6.3.3";
@@ -78,14 +77,18 @@ stdenv.mkDerivation (finalAttrs: {
       "-DSUPPORT_HIP=ON"
       "-DSUPPORT_OMP=ON"
       "-DSUPPORT_MPI=ON"
-      "-DBUILD_CLIENTS_SAMPLES=${if buildSamples then "ON" else "OFF"}"
+      "-DBUILD_CLIENTS_SAMPLES=${
+        if buildSamples
+        then "ON"
+        else "OFF"
+      }"
       # Manually define CMAKE_INSTALL_<DIR>
       # See: https://github.com/NixOS/nixpkgs/pull/197838
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
     ]
-    ++ lib.optionals (gpuTargets != [ ]) [
+    ++ lib.optionals (gpuTargets != []) [
       "-DAMDGPU_TARGETS=${lib.strings.concatStringsSep ";" gpuTargets}"
       "-DGPU_TARGETS=${lib.strings.concatStringsSep ";" gpuTargets}"
     ]
@@ -112,7 +115,7 @@ stdenv.mkDerivation (finalAttrs: {
       rm $sample/bin/rocalution-bench || true
 
       patchelf --set-rpath \
-        $out/lib:${lib.makeLibraryPath (finalAttrs.buildInputs ++ [ clr ])} \
+        $out/lib:${lib.makeLibraryPath (finalAttrs.buildInputs ++ [clr])} \
         $sample/bin/*
     ''
     + lib.optionalString (buildTests || buildBenchmarks) ''
@@ -128,8 +131,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Iterative sparse solvers for ROCm";
     homepage = "https://github.com/ROCm/rocALUTION";
-    license = with licenses; [ mit ];
-    teams = [ teams.rocm ];
+    license = with licenses; [mit];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

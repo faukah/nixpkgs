@@ -16,7 +16,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obconf-qt";
   version = "0.16.5";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     qtwayland
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://github.com/lxqt/obconf-qt";
@@ -54,6 +53,6 @@ stdenv.mkDerivation rec {
     mainProgram = "obconf-qt";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    teams = [ lib.teams.lxqt ];
+    teams = [lib.teams.lxqt];
   };
 }

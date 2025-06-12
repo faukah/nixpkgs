@@ -6,7 +6,6 @@
   lxml,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "gpxpy";
   version = "1.6.2";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-s65k0u4LIwHX9RJMJIYMkNS4/Z0wstzqYVPAjydo2iI=";
   };
 
-  propagatedBuildInputs = [ lxml ];
+  propagatedBuildInputs = [lxml];
 
   checkPhase = ''
     ${python.interpreter} -m unittest test
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tkrajina/gpxpy";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

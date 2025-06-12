@@ -9,7 +9,6 @@
   bluez,
   SDL2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "X11basic";
   version = "1.27";
@@ -54,8 +53,7 @@ stdenv.mkDerivation rec {
     homepage = "https://x11-basic.sourceforge.net/";
     description = "Basic interpreter and compiler with graphics capabilities";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
     platforms = platforms.unix;
   };
-
 }

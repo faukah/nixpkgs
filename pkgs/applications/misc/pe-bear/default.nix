@@ -6,7 +6,6 @@
   qtbase,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pe-bear";
   version = "0.7.1";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
       licenses.bsd2
     ];
 
-    maintainers = with maintainers; [ blitz ];
+    maintainers = with maintainers; [blitz];
     platforms = platforms.linux;
   };
 }

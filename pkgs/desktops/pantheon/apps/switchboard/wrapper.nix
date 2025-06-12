@@ -10,55 +10,54 @@
   # Only useful to disable for development testing.
   useDefaultPlugs ? true,
   testName ? null,
-}:
-
-let
+}: let
   selectedPlugs =
-    if plugs == null then
-      switchboardPlugs
-    else
-      plugs ++ (lib.optionals useDefaultPlugs switchboardPlugs);
+    if plugs == null
+    then switchboardPlugs
+    else plugs ++ (lib.optionals useDefaultPlugs switchboardPlugs);
 
   testingName = lib.optionalString (testName != null) "${testName}-";
 in
-stdenv.mkDerivation {
-  pname = "${testingName}${switchboard.pname}-with-plugs";
-  inherit (switchboard) version;
+  stdenv.mkDerivation {
+    pname = "${testingName}${switchboard.pname}-with-plugs";
+    inherit (switchboard) version;
 
-  src = null;
+    src = null;
 
-  paths = [
-    switchboard
-  ] ++ selectedPlugs;
+    paths =
+      [
+        switchboard
+      ]
+      ++ selectedPlugs;
 
-  passAsFile = [ "paths" ];
+    passAsFile = ["paths"];
 
-  nativeBuildInputs = [
-    glib
-    wrapGAppsHook4
-  ];
+    nativeBuildInputs = [
+      glib
+      wrapGAppsHook4
+    ];
 
-  buildInputs = lib.forEach selectedPlugs (x: x.buildInputs) ++ selectedPlugs;
+    buildInputs = lib.forEach selectedPlugs (x: x.buildInputs) ++ selectedPlugs;
 
-  dontUnpack = true;
-  dontConfigure = true;
-  dontBuild = true;
+    dontUnpack = true;
+    dontConfigure = true;
+    dontBuild = true;
 
-  preferLocalBuild = true;
-  allowSubstitutes = false;
+    preferLocalBuild = true;
+    allowSubstitutes = false;
 
-  installPhase = ''
-    mkdir -p $out
-    for i in $(cat $pathsPath); do
-      ${xorg.lndir}/bin/lndir -silent $i $out
-    done
-  '';
+    installPhase = ''
+      mkdir -p $out
+      for i in $(cat $pathsPath); do
+        ${xorg.lndir}/bin/lndir -silent $i $out
+      done
+    '';
 
-  preFixup = ''
-    gappsWrapperArgs+=(
-      --set SWITCHBOARD_PLUGS_PATH "$out/lib/switchboard-3"
-    )
-  '';
+    preFixup = ''
+      gappsWrapperArgs+=(
+        --set SWITCHBOARD_PLUGS_PATH "$out/lib/switchboard-3"
+      )
+    '';
 
-  inherit (switchboard) meta;
-}
+    inherit (switchboard) meta;
+  }

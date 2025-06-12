@@ -10,7 +10,6 @@
   scim2-client,
   cacert,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-scim2-server";
   version = "0.1.5";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-5jsjVtxiSF3cu9useDEmwQ45PqJAZmfw7OUIZkCi6gQ=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     portpicker
@@ -32,18 +31,20 @@ buildPythonPackage rec {
     scim2-server
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    scim2-client
-  ] ++ scim2-client.optional-dependencies.httpx;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      scim2-client
+    ]
+    ++ scim2-client.optional-dependencies.httpx;
 
   env.SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-  pythonImportsCheck = [ "pytest_scim2_server" ];
+  pythonImportsCheck = ["pytest_scim2_server"];
 
   meta = {
     homepage = "https://pypi.org/project/pytest-scim2-server";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ erictapen ];
+    maintainers = with lib.maintainers; [erictapen];
   };
 }

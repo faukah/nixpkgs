@@ -6,10 +6,8 @@
   bison,
   linuxHeaders ? stdenv.cc.libc.linuxHeaders,
   buildPackages,
-
   # apparmor deps
   libapparmor,
-
   # testing
   perl,
   python3,
@@ -38,17 +36,19 @@ stdenv.mkDerivation (finalAttrs: {
     which
   ];
 
-  buildInputs = [ libapparmor ];
+  buildInputs = [libapparmor];
 
-  makeFlags = [
-    "LANGS="
-    "USE_SYSTEM=1"
-    "INCLUDEDIR=${libapparmor}/include"
-    "AR=${stdenv.cc.bintools.targetPrefix}ar"
-    "POD2MAN=${lib.getExe' buildPackages.perl "pod2man"}"
-    "POD2HTML=${lib.getExe' buildPackages.perl "pod2html"}"
-    "MANDIR=share/man"
-  ] ++ lib.optional finalAttrs.doCheck "PROVE=${lib.getExe' perl "prove"}";
+  makeFlags =
+    [
+      "LANGS="
+      "USE_SYSTEM=1"
+      "INCLUDEDIR=${libapparmor}/include"
+      "AR=${stdenv.cc.bintools.targetPrefix}ar"
+      "POD2MAN=${lib.getExe' buildPackages.perl "pod2man"}"
+      "POD2HTML=${lib.getExe' buildPackages.perl "pod2html"}"
+      "MANDIR=share/man"
+    ]
+    ++ lib.optional finalAttrs.doCheck "PROVE=${lib.getExe' perl "prove"}";
 
   installFlags = [
     "DESTDIR=$(out)"
@@ -68,8 +68,10 @@ stdenv.mkDerivation (finalAttrs: {
     python3
   ];
 
-  meta = libapparmor.meta // {
-    description = "Mandatory access control system - core library";
-    mainProgram = "apparmor_parser";
-  };
+  meta =
+    libapparmor.meta
+    // {
+      description = "Mandatory access control system - core library";
+      mainProgram = "apparmor_parser";
+    };
 })

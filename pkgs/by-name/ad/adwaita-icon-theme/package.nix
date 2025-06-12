@@ -11,7 +11,6 @@
   librsvg,
   hicolor-icon-theme,
 }:
-
 stdenv.mkDerivation rec {
   pname = "adwaita-icon-theme";
   version = "48.0";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/adwaita-icon-theme";
     changelog = "https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/blob/${version}/NEWS?ref_type=tags";
     platforms = with lib.platforms; linux ++ darwin;
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     license = lib.licenses.cc-by-sa-30;
   };
 }

@@ -9,7 +9,6 @@
   tappy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-tap";
   version = "3.5";
@@ -33,21 +32,21 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  propagatedBuildInputs = [ tappy ];
+  propagatedBuildInputs = [tappy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_tap" ];
+  pythonImportsCheck = ["pytest_tap"];
 
   meta = with lib; {
     description = "Test Anything Protocol (TAP) reporting plugin for pytest";
     homepage = "https://github.com/python-tap/pytest-tap";
     changelog = "https://github.com/python-tap/pytest-tap/blob/v${version}/docs/releases.rst";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ cynerd ];
+    maintainers = with maintainers; [cynerd];
   };
 }

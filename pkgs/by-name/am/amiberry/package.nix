@@ -16,7 +16,6 @@
   SDL2_ttf,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "amiberry";
   version = "5.7.4";
@@ -103,7 +102,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Optimized Amiga emulator for Linux/macOS";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ michaelshmitty ];
+    maintainers = with maintainers; [michaelshmitty];
     mainProgram = "amiberry";
   };
 })

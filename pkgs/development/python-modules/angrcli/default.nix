@@ -11,7 +11,6 @@
   setuptools,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "angrcli";
   version = "1.3.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
       --replace-fail "/bin/ls" "${coreutils}/bin/ls"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     angr
@@ -51,12 +50,12 @@ buildPythonPackage rec {
     "test_max_depth"
   ];
 
-  pythonImportsCheck = [ "angrcli" ];
+  pythonImportsCheck = ["angrcli"];
 
   meta = with lib; {
     description = "Python modules to allow easier interactive use of angr";
     homepage = "https://github.com/fmagin/angr-cli";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

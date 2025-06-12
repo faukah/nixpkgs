@@ -22,7 +22,6 @@
   zlib,
   zmusic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gzdoom";
   version = "4.14.2";
@@ -35,15 +34,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-kYw+r08v/Q/hphJuvjn38Dj5mZRijE6pWKoEZBlN5P4=";
   };
 
-  outputs = [ "out" ] ++ lib.optionals stdenv.hostPlatform.isLinux [ "doc" ];
+  outputs = ["out"] ++ lib.optionals stdenv.hostPlatform.isLinux ["doc"];
 
-  nativeBuildInputs = [
-    cmake
-    imagemagick
-    makeWrapper
-    ninja
-    pkg-config
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ copyDesktopItems ];
+  nativeBuildInputs =
+    [
+      cmake
+      imagemagick
+      makeWrapper
+      ninja
+      pkg-config
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [copyDesktopItems];
 
   buildInputs = [
     SDL2
@@ -74,10 +75,12 @@ stdenv.mkDerivation rec {
 
   # Apple dropped GL support
   # Shader's loading will throw an error while linking
-  cmakeFlags = [
-    "-DDYN_GTK=OFF"
-    "-DDYN_OPENAL=OFF"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "-DHAVE_GLES2=OFF" ];
+  cmakeFlags =
+    [
+      "-DDYN_GTK=OFF"
+      "-DDYN_OPENAL=OFF"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["-DHAVE_GLES2=OFF"];
 
   desktopItems = lib.optionals stdenv.hostPlatform.isLinux [
     (makeDesktopItem {
@@ -86,7 +89,7 @@ stdenv.mkDerivation rec {
       desktopName = "GZDoom";
       comment = meta.description;
       icon = "gzdoom";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -98,7 +101,7 @@ stdenv.mkDerivation rec {
   postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
     mv $out/bin/gzdoom $out/share/games/doom/gzdoom
     makeWrapper $out/share/games/doom/gzdoom $out/bin/gzdoom \
-      --set LD_LIBRARY_PATH ${lib.makeLibraryPath [ vulkan-loader ]}
+      --set LD_LIBRARY_PATH ${lib.makeLibraryPath [vulkan-loader]}
 
     for size in 16 24 32 48 64 128; do
       mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps

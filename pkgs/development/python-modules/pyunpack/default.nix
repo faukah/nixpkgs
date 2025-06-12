@@ -9,7 +9,6 @@
   patool,
   cabextract,
 }:
-
 buildPythonPackage rec {
   pname = "pyunpack";
   version = "0.3";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
        '"${lib.getBin patool}/bin/.patool-wrapped"'
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   dependencies = [
     easyprocess
@@ -41,9 +40,9 @@ buildPythonPackage rec {
     cabextract
   ];
 
-  pytestFlagsArray = [ "-x" ];
+  pytestFlagsArray = ["-x"];
 
-  pythonImportsCheck = [ "pyunpack" ];
+  pythonImportsCheck = ["pyunpack"];
 
   disabledTests = [
     # pinning test of `--help` sensitive to python version
@@ -66,6 +65,6 @@ buildPythonPackage rec {
     description = "Unpack archive files in python";
     homepage = "https://github.com/ponty/pyunpack";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

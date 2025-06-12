@@ -5,7 +5,6 @@
   autoreconfHook,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gsocket";
   version = "1.4.43";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-7ph7YaY8rbfzvEh1ABgl3Jg15d6WBP4pywFn/nXjPKY=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [openssl];
   dontDisableStatic = true;
 
   meta = with lib; {
@@ -26,6 +25,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gsocket.io";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.msm ];
+    maintainers = [maintainers.msm];
   };
 }

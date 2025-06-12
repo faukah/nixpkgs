@@ -8,7 +8,6 @@
   stdlib-shims,
   num,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.7.8";
   pname = "piqi-ocaml";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     stdlib-shims
   ];
 
-  checkInputs = [ num ];
+  checkInputs = [num];
 
   strictDeps = true;
 
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "Universal schema language and a collection of tools built around it. These are the ocaml bindings";
     homepage = "https://piqi.org";
     license = licenses.asl20;
-    maintainers = [ maintainers.maurer ];
+    maintainers = [maintainers.maurer];
     mainProgram = "piqic-ocaml";
   };
 }

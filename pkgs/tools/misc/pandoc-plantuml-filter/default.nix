@@ -6,7 +6,6 @@
   setuptools-scm,
   pandocfilters,
 }:
-
 buildPythonApplication rec {
   pname = "pandoc-plantuml-filter";
   version = "0.1.5";
@@ -22,13 +21,13 @@ buildPythonApplication rec {
     setuptools-scm
   ];
 
-  dependencies = [ pandocfilters ];
+  dependencies = [pandocfilters];
 
   meta = {
     homepage = "https://github.com/timofurrer/pandoc-plantuml-filter";
     description = "Pandoc filter which converts PlantUML code blocks to PlantUML images";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ cmcdragonkai ];
+    maintainers = with lib.maintainers; [cmcdragonkai];
     mainProgram = "pandoc-plantuml";
   };
 }

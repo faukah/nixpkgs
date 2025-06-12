@@ -2,12 +2,10 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-
   pkg-config,
   openssl,
   crate ? "cli",
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "genealogos-${crate}";
   version = "1.0.0";
@@ -32,8 +30,8 @@ rustPlatform.buildRustPackage rec {
     "genealogos-${crate}"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   # Since most tests were removed, just skip testing
   doCheck = false;
@@ -42,14 +40,16 @@ rustPlatform.buildRustPackage rec {
     description = "Nix sbom generator";
     homepage = "https://github.com/tweag/genealogos";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ erin ];
+    maintainers = with lib.maintainers; [erin];
     changelog = "https://github.com/tweag/genealogos/blob/${src.tag}/CHANGELOG.md";
     mainProgram =
       {
         api = "genealogos-api";
         cli = "genealogos";
       }
-      .${crate};
+      .${
+        crate
+      };
     platforms = lib.platforms.unix;
   };
 }

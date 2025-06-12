@@ -4,12 +4,11 @@
   coursier,
   buildGraalvmNativeImage,
 }:
-
 buildGraalvmNativeImage (finalAttrs: {
   pname = "scala-update";
   version = "0.2.2";
 
-  buildInputs = [ finalAttrs.finalPackage.passthru.deps ];
+  buildInputs = [finalAttrs.finalPackage.passthru.deps];
 
   src = "${finalAttrs.finalPackage.passthru.deps}/share/java/scala-update_2.13-${finalAttrs.version}.jar";
 
@@ -52,7 +51,7 @@ buildGraalvmNativeImage (finalAttrs: {
     description = "Update your Scala dependencies interactively";
     homepage = "https://github.com/kitlangton/scala-update";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.rtimush ];
+    maintainers = [lib.maintainers.rtimush];
     mainProgram = "scala-update";
   };
 })

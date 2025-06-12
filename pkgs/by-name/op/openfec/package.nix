@@ -5,7 +5,6 @@
   cmake,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openfec";
   version = "1.4.2.11";
@@ -29,10 +28,9 @@ stdenv.mkDerivation rec {
     (lib.cmakeBool "BUILD_STATIC_LIBS" stdenv.hostPlatform.isStatic)
   ];
 
-  installPhase =
-    let
-      so = stdenv.hostPlatform.extensions.library;
-    in
+  installPhase = let
+    so = stdenv.hostPlatform.extensions.library;
+  in
     ''
       # This is pretty horrible but sadly there is not installation procedure
       # provided.
@@ -58,7 +56,7 @@ stdenv.mkDerivation rec {
     description = "Application-level Forward Erasure Correction codes";
     homepage = "https://github.com/roc-streaming/openfec";
     license = licenses.cecill-c;
-    maintainers = with maintainers; [ bgamari ];
+    maintainers = with maintainers; [bgamari];
     platforms = platforms.unix;
   };
 }

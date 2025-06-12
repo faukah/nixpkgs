@@ -6,7 +6,6 @@
   pytestCheckHook,
   fetchpatch,
 }:
-
 buildPythonPackage rec {
   pname = "sigparse";
   version = "3.0.0";
@@ -27,15 +26,15 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ poetry-core ];
-  pythonImportsCheck = [ "sigparse" ];
+  build-system = [poetry-core];
+  pythonImportsCheck = ["sigparse"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Backports python 3.10 typing features into 3.7, 3.8, and 3.9";
     license = lib.licenses.mit;
     homepage = "https://github.com/Lunarmagpie/sigparse";
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

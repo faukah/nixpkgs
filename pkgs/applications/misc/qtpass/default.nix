@@ -13,7 +13,6 @@
   qmake,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qtpass";
   version = "1.4.0";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     mainProgram = "qtpass";
     homepage = "https://qtpass.org";
     license = licenses.gpl3;
-    maintainers = [ maintainers.hrdinka ];
+    maintainers = [maintainers.hrdinka];
     platforms = platforms.all;
   };
 }

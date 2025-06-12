@@ -4,11 +4,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.blueman;
-in
-{
+in {
   ###### interface
   options = {
     services.blueman = {
@@ -18,11 +16,10 @@ in
 
   ###### implementation
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [pkgs.blueman];
 
-    environment.systemPackages = [ pkgs.blueman ];
+    services.dbus.packages = [pkgs.blueman];
 
-    services.dbus.packages = [ pkgs.blueman ];
-
-    systemd.packages = [ pkgs.blueman ];
+    systemd.packages = [pkgs.blueman];
   };
 }

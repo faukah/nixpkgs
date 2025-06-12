@@ -15,7 +15,6 @@
   libpulseaudio,
   libgudev,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "kazam";
   version = "unstable-2021-06-22";
@@ -68,7 +67,7 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/niknah/kazam";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "kazam";
   };
 }

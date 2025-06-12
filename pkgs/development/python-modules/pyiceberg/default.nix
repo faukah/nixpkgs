@@ -3,12 +3,10 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython,
   poetry-core,
   setuptools,
-
   # dependencies
   cachetools,
   click,
@@ -23,7 +21,6 @@
   strictyaml,
   tenacity,
   zstandard,
-
   # optional-dependencies
   adlfs,
   # getdaft,
@@ -38,7 +35,6 @@
   python-snappy,
   psycopg2-binary,
   sqlalchemy,
-
   # tests
   azure-core,
   azure-storage-blob,
@@ -53,7 +49,6 @@
   requests-mock,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "iceberg-python";
   version = "0.9.1";
@@ -163,26 +158,28 @@ buildPythonPackage rec {
     "pyiceberg.avro.decoder_fast"
   ];
 
-  nativeCheckInputs = [
-    azure-core
-    azure-storage-blob
-    boto3
-    datafusion
-    fastavro
-    moto
-    mypy-boto3-glue
-    pandas
-    pyarrow
-    pyspark
-    pytest-lazy-fixture
-    pytest-mock
-    pytest-timeout
-    pytestCheckHook
-    requests-mock
-    s3fs
-    sqlalchemy
-    thrift
-  ] ++ moto.optional-dependencies.server;
+  nativeCheckInputs =
+    [
+      azure-core
+      azure-storage-blob
+      boto3
+      datafusion
+      fastavro
+      moto
+      mypy-boto3-glue
+      pandas
+      pyarrow
+      pyspark
+      pytest-lazy-fixture
+      pytest-mock
+      pytest-timeout
+      pytestCheckHook
+      requests-mock
+      s3fs
+      sqlalchemy
+      thrift
+    ]
+    ++ moto.optional-dependencies.server;
 
   pytestFlagsArray = [
     "-W"
@@ -261,6 +258,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/apache/iceberg-python";
     changelog = "https://github.com/apache/iceberg-python/releases/tag/pyiceberg-${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

@@ -8,12 +8,11 @@
   gnugrep,
   installShellFiles,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "tideways-cli";
   version = "1.2.10";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   src =
     finalAttrs.passthru.sources.${stdenvNoCC.hostPlatform.system}
@@ -81,10 +80,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Tideways Profiler CLI";
     homepage = "https://tideways.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     mainProgram = "tideways";
     license = licenses.unfree;
-    maintainers = with maintainers; [ shyim ];
+    maintainers = with maintainers; [shyim];
     platforms = lib.attrNames finalAttrs.passthru.sources;
   };
 })

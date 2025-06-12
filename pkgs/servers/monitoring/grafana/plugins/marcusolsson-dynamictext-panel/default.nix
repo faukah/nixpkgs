@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "marcusolsson-dynamictext-panel";
   version = "5.7.0";
@@ -7,7 +9,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "Dynamic, data-driven text panel for Grafana";
     license = licenses.asl20;
-    maintainers = with maintainers; [ herbetom ];
+    maintainers = with maintainers; [herbetom];
     platforms = platforms.unix;
   };
 }

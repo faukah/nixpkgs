@@ -9,7 +9,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-thumbcache";
   version = "1.10";
@@ -34,9 +33,9 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dissect.thumbcache" ];
+  pythonImportsCheck = ["dissect.thumbcache"];
 
   disabledTests = [
     # Don't run Windows related tests
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/fox-it/dissect.thumbcache";
     changelog = "https://github.com/fox-it/dissect.thumbcache/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

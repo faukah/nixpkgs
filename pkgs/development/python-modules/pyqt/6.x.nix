@@ -21,7 +21,6 @@
   withPrintSupport ? true,
   cups,
 }:
-
 buildPythonPackage rec {
   pname = "pyqt6";
   version = "6.9.0";
@@ -87,8 +86,7 @@ buildPythonPackage rec {
 
   dontWrapQtApps = true;
 
-  nativeBuildInputs =
-    with qt6Packages;
+  nativeBuildInputs = with qt6Packages;
     [
       pkg-config
       lndir
@@ -105,8 +103,7 @@ buildPythonPackage rec {
     ++ lib.optional withWebSockets qtwebsockets
     ++ lib.optional withLocation qtlocation;
 
-  buildInputs =
-    with qt6Packages;
+  buildInputs = with qt6Packages;
     [
       dbus
       qtbase
@@ -121,7 +118,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs =
     # ld: library not found for -lcups
-    lib.optionals (withPrintSupport && stdenv.hostPlatform.isDarwin) [ cups ];
+    lib.optionals (withPrintSupport && stdenv.hostPlatform.isDarwin) [cups];
 
   passthru = {
     inherit sip pyqt6-sip;
@@ -154,6 +151,6 @@ buildPythonPackage rec {
     homepage = "https://riverbankcomputing.com/";
     license = licenses.gpl3Only;
     inherit (mesa.meta) platforms;
-    maintainers = with maintainers; [ LunNova ];
+    maintainers = with maintainers; [LunNova];
   };
 }

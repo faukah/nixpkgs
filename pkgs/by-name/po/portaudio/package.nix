@@ -7,7 +7,6 @@
   pkg-config,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "portaudio";
   version = "190700_20210406";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
       libjack2
     ]
     # Enabling alsa causes linux-only sources to be built
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ alsa-lib ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [alsa-lib];
 
   configureFlags = [
     "--disable-mac-universal"
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.portaudio.com/";
     # Not exactly a bsd license, but alike
     license = licenses.mit;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
   };
 

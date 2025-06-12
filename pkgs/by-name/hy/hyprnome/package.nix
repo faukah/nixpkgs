@@ -5,7 +5,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hyprnome";
   version = "0.3.1";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
   # Let's just treat lints as warnings.
   env.RUSTFLAGS = "--cap-lints warn";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage target/man/hyprnome.1
@@ -35,14 +34,14 @@ rustPlatform.buildRustPackage rec {
       --zsh target/completions/_hyprnome
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "GNOME-like workspace switching in Hyprland";
     homepage = "https://github.com/donovanglover/hyprnome";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ donovanglover ];
+    maintainers = with maintainers; [donovanglover];
     mainProgram = "hyprnome";
   };
 }

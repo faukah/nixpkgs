@@ -11,7 +11,6 @@
   gitUpdater,
   version ? "2.2.0",
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxqt-build-tools";
   inherit version;
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     cp ${./LXQtConfigVars.cmake} $out/share/cmake/lxqt${lib.optionalString (lib.versionAtLeast version "2.0.0") "2"}-build-tools/modules/LXQtConfigVars.cmake
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lxqt-build-tools";
@@ -67,6 +66,6 @@ stdenv.mkDerivation rec {
     mainProgram = "lxqt-transupdate";
     license = licenses.lgpl21Plus;
     platforms = with platforms; unix;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

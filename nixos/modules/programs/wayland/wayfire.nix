@@ -3,17 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.wayfire;
-in
-{
-  meta.maintainers = with lib.maintainers; [ rewine ];
+in {
+  meta.maintainers = with lib.maintainers; [rewine];
 
   options.programs.wayfire = {
     enable = lib.mkEnableOption "Wayfire, a wayland compositor based on wlroots";
 
-    package = lib.mkPackageOption pkgs "wayfire" { };
+    package = lib.mkPackageOption pkgs "wayfire" {};
 
     plugins = lib.mkOption {
       type = lib.types.listOf lib.types.package;
@@ -33,24 +31,25 @@ in
         Additional plugins to use with the wayfire window manager.
       '';
     };
-    xwayland.enable = lib.mkEnableOption "XWayland" // {
-      default = true;
-    };
+    xwayland.enable =
+      lib.mkEnableOption "XWayland"
+      // {
+        default = true;
+      };
   };
 
-  config =
-    let
-      finalPackage = pkgs.wayfire-with-plugins.override {
-        wayfire = cfg.package;
-        plugins = cfg.plugins;
-      };
-    in
+  config = let
+    finalPackage = pkgs.wayfire-with-plugins.override {
+      wayfire = cfg.package;
+      plugins = cfg.plugins;
+    };
+  in
     lib.mkIf cfg.enable (
       lib.mkMerge [
         {
-          environment.systemPackages = [ finalPackage ];
+          environment.systemPackages = [finalPackage];
 
-          services.displayManager.sessionPackages = [ finalPackage ];
+          services.displayManager.sessionPackages = [finalPackage];
 
           xdg.portal = {
             enable = lib.mkDefault true;

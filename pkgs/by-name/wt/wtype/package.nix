@@ -2,16 +2,13 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   meson,
   ninja,
   pkg-config,
-
   libxkbcommon,
   wayland,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wtype";
   version = "0.4";
@@ -40,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/atx/wtype";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ justinlovinger ];
+    maintainers = with maintainers; [justinlovinger];
     mainProgram = "wtype";
   };
 }

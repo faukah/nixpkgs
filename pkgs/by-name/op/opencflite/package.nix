@@ -9,7 +9,6 @@
   tzdata,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opencflite";
   version = "635.21.8";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ijyj4SFYQ0wZAFM2ehNnR9+yu5yDTSVW3VBycBT9l+A=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     icu
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Cross platform port of the macOS CoreFoundation";
     homepage = "https://github.com/gerickson/opencflite";
     license = lib.licenses.apple-psl20;
-    maintainers = with lib.maintainers; [ wegank ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [wegank];
+    platforms = ["x86_64-linux"];
   };
 }

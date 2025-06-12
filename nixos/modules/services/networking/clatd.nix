@@ -3,34 +3,33 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.clatd;
 
-  settingsFormat = pkgs.formats.keyValue { };
+  settingsFormat = pkgs.formats.keyValue {};
 
   configFile = settingsFormat.generate "clatd.conf" cfg.settings;
-in
-{
+in {
   options = {
     services.clatd = {
       enable = lib.mkEnableOption "clatd";
 
-      package = lib.mkPackageOption pkgs "clatd" { };
+      package = lib.mkPackageOption pkgs "clatd" {};
 
-      enableNetworkManagerIntegration = lib.mkEnableOption "NetworkManager integration" // {
-        default = config.networking.networkmanager.enable;
-        defaultText = "config.networking.networkmanager.enable";
-      };
+      enableNetworkManagerIntegration =
+        lib.mkEnableOption "NetworkManager integration"
+        // {
+          default = config.networking.networkmanager.enable;
+          defaultText = "config.networking.networkmanager.enable";
+        };
 
       settings = lib.mkOption {
         type = lib.types.submodule (
-          { name, ... }:
-          {
+          {name, ...}: {
             freeformType = settingsFormat.type;
           }
         );
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             plat-prefix = "64:ff9b::/96";
@@ -46,10 +45,10 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.clatd = {
       description = "464XLAT CLAT daemon";
-      documentation = [ "man:clatd(8)" ];
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+      documentation = ["man:clatd(8)"];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
       startLimitIntervalSec = 0;
 
       serviceConfig = {

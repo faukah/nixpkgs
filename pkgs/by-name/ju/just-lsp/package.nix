@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "just-lsp";
   version = "0.2.3";
@@ -19,14 +18,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-mc1kYXfEF+oZO/GEBtCnKwt17LhvGDQK8RcOSsXKFjc=";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Language server for just";
     homepage = "https://github.com/terror/just-lsp";
     license = lib.licenses.cc0;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "just-lsp";
   };
 })

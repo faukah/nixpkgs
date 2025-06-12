@@ -11,21 +11,20 @@
   odbcSupport ? true,
   unixODBC,
 }:
-
-assert odbcSupport -> unixODBC != null;
-
-let
+assert odbcSupport -> unixODBC != null; let
   inherit (lib) optional optionals optionalString;
 
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   # assemble list of components
-  components = [
-    "basic"
-    "sdk"
-    "sqlplus"
-    "tools"
-  ] ++ optional odbcSupport "odbc";
+  components =
+    [
+      "basic"
+      "sdk"
+      "sqlplus"
+      "tools"
+    ]
+    ++ optional odbcSupport "odbc";
 
   # determine the version number, there might be different ones per architecture
   version =
@@ -35,7 +34,9 @@ let
       x86_64-darwin = "19.8.0.0.0";
       aarch64-darwin = "23.3.0.23.09";
     }
-    .${stdenv.hostPlatform.system} or throwSystem;
+    .${
+      stdenv.hostPlatform.system
+    } or throwSystem;
 
   directory =
     {
@@ -44,7 +45,9 @@ let
       x86_64-darwin = "198000";
       aarch64-darwin = "233023";
     }
-    .${stdenv.hostPlatform.system} or throwSystem;
+    .${
+      stdenv.hostPlatform.system
+    } or throwSystem;
 
   # hashes per component and architecture
   hashes =
@@ -78,7 +81,9 @@ let
         odbc = "sha256-JzoSdH7mJB709cdXELxWzpgaNTjOZhYH/wLkdzKA2N0=";
       };
     }
-    .${stdenv.hostPlatform.system} or throwSystem;
+    .${
+      stdenv.hostPlatform.system
+    } or throwSystem;
 
   # rels per component and architecture, optional
   rels =
@@ -88,7 +93,10 @@ let
         tools = "1";
       };
     }
-    .${stdenv.hostPlatform.system} or { };
+    .${
+      stdenv.hostPlatform.system
+    } or {
+    };
 
   # convert platform to oracle architecture names
   arch =
@@ -98,7 +106,9 @@ let
       x86_64-darwin = "macos.x64";
       aarch64-darwin = "macos.arm64";
     }
-    .${stdenv.hostPlatform.system} or throwSystem;
+    .${
+      stdenv.hostPlatform.system
+    } or throwSystem;
 
   shortArch =
     {
@@ -107,103 +117,113 @@ let
       x86_64-darwin = "mac";
       aarch64-darwin = "mac";
     }
-    .${stdenv.hostPlatform.system} or throwSystem;
+    .${
+      stdenv.hostPlatform.system
+    } or throwSystem;
 
   suffix =
     {
       aarch64-darwin = ".dmg";
     }
-    .${stdenv.hostPlatform.system} or "dbru.zip";
+    .${
+      stdenv.hostPlatform.system
+    } or "dbru.zip";
 
   # calculate the filename of a single zip file
-  srcFilename =
-    component: arch: version: rel:
+  srcFilename = component: arch: version: rel:
     "instantclient-${component}-${arch}-${version}" + (optionalString (rel != "") "-${rel}") + suffix;
 
   # fetcher for the non clickthrough artifacts
-  fetcher =
-    srcFilename: hash:
+  fetcher = srcFilename: hash:
     fetchurl {
       url = "https://download.oracle.com/otn_software/${shortArch}/instantclient/${directory}/${srcFilename}";
       sha256 = hash;
     };
 
   # assemble srcs
-  srcs = map (
-    component:
-    (fetcher (srcFilename component arch version rels.${component} or "") hashes.${component} or "")
-  ) components;
+  srcs =
+    map (
+      component: (fetcher (srcFilename component arch version rels.${component} or "") hashes.${component} or "")
+    )
+    components;
 
   isDarwinAarch64 = stdenv.hostPlatform.system == "aarch64-darwin";
 
   pname = "oracle-instantclient";
   extLib = stdenv.hostPlatform.extensions.sharedLibrary;
 in
-stdenv.mkDerivation {
-  inherit pname version srcs;
+  stdenv.mkDerivation {
+    inherit pname version srcs;
 
-  buildInputs =
-    [
-      (lib.getLib stdenv.cc.cc)
-    ]
-    ++ optional stdenv.hostPlatform.isLinux libaio
-    ++ optional odbcSupport unixODBC;
+    buildInputs =
+      [
+        (lib.getLib stdenv.cc.cc)
+      ]
+      ++ optional stdenv.hostPlatform.isLinux libaio
+      ++ optional odbcSupport unixODBC;
 
-  nativeBuildInputs =
-    [
-      makeWrapper
-      (if isDarwinAarch64 then _7zz else unzip)
-    ]
-    ++ optional stdenv.hostPlatform.isLinux autoPatchelfHook
-    ++ optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+    nativeBuildInputs =
+      [
+        makeWrapper
+        (
+          if isDarwinAarch64
+          then _7zz
+          else unzip
+        )
+      ]
+      ++ optional stdenv.hostPlatform.isLinux autoPatchelfHook
+      ++ optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
-  outputs = [
-    "out"
-    "dev"
-    "lib"
-  ];
-
-  unpackCmd = if isDarwinAarch64 then "7zz x $curSrc -aoa -oinstantclient" else "unzip $curSrc";
-
-  installPhase = ''
-    mkdir -p "$out/"{bin,include,lib,"share/java","share/${pname}-${version}/demo/"} $lib/lib
-    install -Dm755 {adrci,genezi,uidrvci,sqlplus,exp,expdp,imp,impdp} $out/bin
-
-    # cp to preserve symlinks
-    cp -P *${extLib}* $lib/lib
-
-    install -Dm644 *.jar $out/share/java
-    install -Dm644 sdk/include/* $out/include
-    install -Dm644 sdk/demo/* $out/share/${pname}-${version}/demo
-
-    # provide alias
-    ln -sfn $out/bin/sqlplus $out/bin/sqlplus64
-  '';
-
-  postFixup = optionalString stdenv.hostPlatform.isDarwin ''
-    for exe in "$out/bin/"* ; do
-      if [ ! -L "$exe" ]; then
-        install_name_tool -add_rpath "$lib/lib" "$exe"
-      fi
-    done
-  '';
-
-  meta = with lib; {
-    description = "Oracle instant client libraries and sqlplus CLI";
-    longDescription = ''
-      Oracle instant client provides access to Oracle databases (OCI,
-      OCCI, Pro*C, ODBC or JDBC). This package includes the sqlplus
-      command line SQL client.
-    '';
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.unfree;
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
+    outputs = [
+      "out"
+      "dev"
+      "lib"
     ];
-    maintainers = with maintainers; [ dylanmtaylor ];
-    hydraPlatforms = [ ];
-  };
-}
+
+    unpackCmd =
+      if isDarwinAarch64
+      then "7zz x $curSrc -aoa -oinstantclient"
+      else "unzip $curSrc";
+
+    installPhase = ''
+      mkdir -p "$out/"{bin,include,lib,"share/java","share/${pname}-${version}/demo/"} $lib/lib
+      install -Dm755 {adrci,genezi,uidrvci,sqlplus,exp,expdp,imp,impdp} $out/bin
+
+      # cp to preserve symlinks
+      cp -P *${extLib}* $lib/lib
+
+      install -Dm644 *.jar $out/share/java
+      install -Dm644 sdk/include/* $out/include
+      install -Dm644 sdk/demo/* $out/share/${pname}-${version}/demo
+
+      # provide alias
+      ln -sfn $out/bin/sqlplus $out/bin/sqlplus64
+    '';
+
+    postFixup = optionalString stdenv.hostPlatform.isDarwin ''
+      for exe in "$out/bin/"* ; do
+        if [ ! -L "$exe" ]; then
+          install_name_tool -add_rpath "$lib/lib" "$exe"
+        fi
+      done
+    '';
+
+    meta = with lib; {
+      description = "Oracle instant client libraries and sqlplus CLI";
+      longDescription = ''
+        Oracle instant client provides access to Oracle databases (OCI,
+        OCCI, Pro*C, ODBC or JDBC). This package includes the sqlplus
+        command line SQL client.
+      '';
+      sourceProvenance = with sourceTypes; [binaryBytecode];
+      license = licenses.unfree;
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      maintainers = with maintainers; [dylanmtaylor];
+      hydraPlatforms = [];
+    };
+  }

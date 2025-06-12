@@ -9,7 +9,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ipbus-uhal";
   version = "2.8.16";
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     platforms = lib.platforms.linux;
     homepage = "https://ipbus.web.cern.ch/";
-    maintainers = [ lib.maintainers.bashsu ];
+    maintainers = [lib.maintainers.bashsu];
     mainProgram = "ipbus-uhal";
   };
 })

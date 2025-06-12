@@ -16,7 +16,6 @@
   gfortran,
   netcdfSupport ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hdf";
   version = "4.3.0";
@@ -28,10 +27,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Q2VKwkp/iroStrOnwHI8d/dtMWkMoJesBVBVChwNa30=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ] ++ lib.optional fortranSupport gfortran;
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+    ]
+    ++ lib.optional fortranSupport gfortran;
 
   buildInputs =
     [
@@ -97,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Data model, library, and file format for storing and managing data";
     homepage = "https://support.hdfgroup.org/products/hdf4/";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
     license = licenses.bsdOriginal;
   };

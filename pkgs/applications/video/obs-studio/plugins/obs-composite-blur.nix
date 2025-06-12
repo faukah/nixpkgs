@@ -5,7 +5,6 @@
   obs-studio,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "obs-composite-blur";
   version = "1.5.1";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/FiniteSingularity/obs-composite-blur";
     changelog = "https://github.com/FiniteSingularity/obs-composite-blur/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     platforms = lib.platforms.linux;
   };
 })

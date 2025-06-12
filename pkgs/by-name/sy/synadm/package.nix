@@ -4,7 +4,6 @@
   fetchFromGitea,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "synadm";
   version = "0.48";
@@ -18,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-6t4CXXt22/yR0gIxSsM/r+zJQeoKz5q/Ifg8PLNojLI=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   dependencies = with python3Packages; [
     click
@@ -36,7 +35,7 @@ python3Packages.buildPythonApplication rec {
     runHook postCheck
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Command line admin tool for Synapse";
@@ -50,6 +49,6 @@ python3Packages.buildPythonApplication rec {
     downloadPage = "https://codeberg.org/synadm/synadm";
     homepage = "https://synadm.readthedocs.io/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

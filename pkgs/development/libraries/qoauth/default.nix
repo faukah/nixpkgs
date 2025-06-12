@@ -6,7 +6,6 @@
   qmake,
   qca-qt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qoauth";
   version = "2.0.0";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     qtbase
     qca-qt5
   ];
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   env.NIX_CFLAGS_COMPILE = "-I${qca-qt5}/include/Qca-qt5/QtCrypto";
   NIX_LDFLAGS = "-lqca-qt5";

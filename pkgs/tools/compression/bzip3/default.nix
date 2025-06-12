@@ -6,7 +6,6 @@
   pkg-config,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bzip3";
   version = "1.5.2";
@@ -37,9 +36,11 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  configureFlags = [
-    "--disable-arch-native"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "--disable-link-time-optimization" ];
+  configureFlags =
+    [
+      "--disable-arch-native"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["--disable-link-time-optimization"];
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
@@ -48,8 +49,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/kspalaiologos/bzip3";
     changelog = "https://github.com/kspalaiologos/bzip3/blob/${finalAttrs.src.rev}/NEWS";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
-    pkgConfigModules = [ "bzip3" ];
+    maintainers = with lib.maintainers; [dotlambda];
+    pkgConfigModules = ["bzip3"];
     platforms = lib.platforms.unix;
   };
 })

@@ -9,9 +9,7 @@
   maude,
   graphviz,
   glibcLocales,
-}:
-
-let
+}: let
   inherit (haskellPackages) mkDerivation;
 
   version = "1.10.0";
@@ -30,7 +28,7 @@ let
     license = lib.licenses.gpl3;
     homepage = "https://tamarin-prover.github.io";
     description = "Security protocol verification in the symbolic model";
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
     hydraPlatforms = lib.platforms.linux; # maude is broken on darwin
   };
 
@@ -70,7 +68,7 @@ let
           attoparsec
           HUnit
         ])
-        ++ [ tamarin-prover-utils ];
+        ++ [tamarin-prover-utils];
     }
   );
 
@@ -105,7 +103,7 @@ let
         (with haskellPackages; [
           raw-strings-qq
         ])
-        ++ [ tamarin-prover-theory ];
+        ++ [tamarin-prover-theory];
     }
   );
 
@@ -139,76 +137,75 @@ let
       ];
     }
   );
-
 in
-mkDerivation (
-  common "tamarin-prover" src
-  // {
-    isLibrary = false;
-    isExecutable = true;
+  mkDerivation (
+    common "tamarin-prover" src
+    // {
+      isLibrary = false;
+      isExecutable = true;
 
-    # strip out unneeded deps manually
-    doHaddock = false;
-    enableSharedExecutables = false;
-    postFixup = "rm -rf $out/lib $out/nix-support $out/share/doc";
+      # strip out unneeded deps manually
+      doHaddock = false;
+      enableSharedExecutables = false;
+      postFixup = "rm -rf $out/lib $out/nix-support $out/share/doc";
 
-    # wrap the prover to be sure it can find maude, sapic, etc
-    executableToolDepends = [
-      makeWrapper
-      which
-      maude
-      graphviz
-    ];
-    postInstall =
-      ''
-        wrapProgram $out/bin/tamarin-prover \
-      ''
-      + lib.optionalString stdenv.hostPlatform.isLinux ''
-        --set LOCALE_ARCHIVE "${glibcLocales}/lib/locale/locale-archive" \
-      ''
-      + ''
-          --prefix PATH : ${
+      # wrap the prover to be sure it can find maude, sapic, etc
+      executableToolDepends = [
+        makeWrapper
+        which
+        maude
+        graphviz
+      ];
+      postInstall =
+        ''
+          wrapProgram $out/bin/tamarin-prover \
+        ''
+        + lib.optionalString stdenv.hostPlatform.isLinux ''
+          --set LOCALE_ARCHIVE "${glibcLocales}/lib/locale/locale-archive" \
+        ''
+        + ''
+            --prefix PATH : ${
             lib.makeBinPath [
               which
               maude
               graphviz
             ]
           }
-        # so that the package can be used as a vim plugin to install syntax coloration
-        install -Dt $out/share/vim-plugins/tamarin-prover/syntax/ etc/syntax/spthy.vim
-        install etc/filetype.vim -D $out/share/vim-plugins/tamarin-prover/ftdetect/tamarin.vim
-        mkdir -p $out/share/nvim
-        ln -s $out/share/vim-plugins/tamarin-prover $out/share/nvim/site
-        # Emacs SPTHY major mode
-        install -Dt $out/share/emacs/site-lisp etc/spthy-mode.el
-      '';
+          # so that the package can be used as a vim plugin to install syntax coloration
+          install -Dt $out/share/vim-plugins/tamarin-prover/syntax/ etc/syntax/spthy.vim
+          install etc/filetype.vim -D $out/share/vim-plugins/tamarin-prover/ftdetect/tamarin.vim
+          mkdir -p $out/share/nvim
+          ln -s $out/share/vim-plugins/tamarin-prover $out/share/nvim/site
+          # Emacs SPTHY major mode
+          install -Dt $out/share/emacs/site-lisp etc/spthy-mode.el
+        '';
 
-    checkPhase = "./dist/build/tamarin-prover/tamarin-prover test";
+      checkPhase = "./dist/build/tamarin-prover/tamarin-prover test";
 
-    executableHaskellDepends =
-      (with haskellPackages; [
-        binary-instances
-        binary-orphans
-        blaze-html
-        conduit
-        file-embed
-        gitrev
-        http-types
-        resourcet
-        shakespeare
-        threads
-        wai
-        warp
-        yesod-core
-        yesod-static
-      ])
-      ++ [
-        tamarin-prover-utils
-        tamarin-prover-sapic
-        tamarin-prover-accountability
-        tamarin-prover-export
-        tamarin-prover-term
-        tamarin-prover-theory
-      ];
-  }
-)
+      executableHaskellDepends =
+        (with haskellPackages; [
+          binary-instances
+          binary-orphans
+          blaze-html
+          conduit
+          file-embed
+          gitrev
+          http-types
+          resourcet
+          shakespeare
+          threads
+          wai
+          warp
+          yesod-core
+          yesod-static
+        ])
+        ++ [
+          tamarin-prover-utils
+          tamarin-prover-sapic
+          tamarin-prover-accountability
+          tamarin-prover-export
+          tamarin-prover-term
+          tamarin-prover-theory
+        ];
+    }
+  )

@@ -6,7 +6,6 @@
   wayland,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wayclip";
   version = "0.4.2";
@@ -25,21 +24,21 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ wayland-scanner ];
+  nativeBuildInputs = [wayland-scanner];
 
-  buildInputs = [ wayland ];
+  buildInputs = [wayland];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
     description = "Wayland clipboard utility";
     homepage = "https://sr.ht/~noocsharp/wayclip/";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "waycopy";
     inherit (wayland.meta) platforms;
   };

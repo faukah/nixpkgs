@@ -5,14 +5,13 @@
   yq,
   llm,
   plugin,
-}:
-let
+}: let
   venv = llm.pythonModule.withPackages (_: [
     llm
     plugin
   ]);
 in
-runCommand "${plugin.pname}-test"
+  runCommand "${plugin.pname}-test"
   {
     nativeBuildInputs = [
       venv

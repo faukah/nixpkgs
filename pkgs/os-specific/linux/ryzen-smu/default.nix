@@ -3,9 +3,7 @@
   stdenv,
   fetchFromGitHub,
   kernel,
-}:
-
-let
+}: let
   version = "0.1.5-unstable-2024-01-03";
 
   ## Upstream has not been merging PRs.
@@ -35,39 +33,38 @@ let
       runHook postInstall
     '';
   };
-
 in
-stdenv.mkDerivation {
-  pname = "ryzen-smu-${kernel.version}";
-  inherit version src;
+  stdenv.mkDerivation {
+    pname = "ryzen-smu-${kernel.version}";
+    inherit version src;
 
-  hardeningDisable = [ "pic" ];
+    hardeningDisable = ["pic"];
 
-  nativeBuildInputs = kernel.moduleBuildDependencies;
+    nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = [
-    "TARGET=${kernel.modDirVersion}"
-    "KERNEL_BUILD=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
-
-  installPhase = ''
-    runHook preInstall
-
-    install ryzen_smu.ko -Dm444 -t $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/ryzen_smu
-    install ${monitor-cpu}/bin/monitor_cpu -Dm755 -t $out/bin
-
-    runHook postInstall
-  '';
-
-  meta = with lib; {
-    description = "Linux kernel driver that exposes access to the SMU (System Management Unit) for certain AMD Ryzen Processors";
-    homepage = "https://gitlab.com/leogx9r/ryzen_smu";
-    license = licenses.gpl2Plus;
-    maintainers = with maintainers; [
-      Cryolitia
-      phdyellow
+    makeFlags = [
+      "TARGET=${kernel.modDirVersion}"
+      "KERNEL_BUILD=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     ];
-    platforms = [ "x86_64-linux" ];
-    mainProgram = "monitor_cpu";
-  };
-}
+
+    installPhase = ''
+      runHook preInstall
+
+      install ryzen_smu.ko -Dm444 -t $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/ryzen_smu
+      install ${monitor-cpu}/bin/monitor_cpu -Dm755 -t $out/bin
+
+      runHook postInstall
+    '';
+
+    meta = with lib; {
+      description = "Linux kernel driver that exposes access to the SMU (System Management Unit) for certain AMD Ryzen Processors";
+      homepage = "https://gitlab.com/leogx9r/ryzen_smu";
+      license = licenses.gpl2Plus;
+      maintainers = with maintainers; [
+        Cryolitia
+        phdyellow
+      ];
+      platforms = ["x86_64-linux"];
+      mainProgram = "monitor_cpu";
+    };
+  }

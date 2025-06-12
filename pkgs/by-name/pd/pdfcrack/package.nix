@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pdfcrack";
   version = "0.20";
@@ -21,8 +20,8 @@ stdenv.mkDerivation rec {
     homepage = "https://pdfcrack.sourceforge.net/";
     description = "Small command line driven tool for recovering passwords and content from PDF files";
     mainProgram = "pdfcrack";
-    license = with licenses; [ gpl2Plus ];
+    license = with licenses; [gpl2Plus];
     platforms = platforms.all;
-    maintainers = with maintainers; [ qoelet ];
+    maintainers = with maintainers; [qoelet];
   };
 }

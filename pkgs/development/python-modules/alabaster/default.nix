@@ -4,7 +4,6 @@
   fetchFromGitHub,
   flit-core,
 }:
-
 buildPythonPackage rec {
   pname = "alabaster";
   version = "1.0.0";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-aQEhFZUJs0TptfpjQVoIVI9V9a+xKjE2OfStSaJKHGI=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  pythonImportsCheck = [ "alabaster" ];
+  pythonImportsCheck = ["alabaster"];
 
   # No tests included
   doCheck = false;
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sphinx-doc/alabaster";
     description = "A light, configurable Sphinx theme";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.sphinx ];
+    teams = [lib.teams.sphinx];
   };
 }

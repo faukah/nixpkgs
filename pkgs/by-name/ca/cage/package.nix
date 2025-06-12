@@ -20,7 +20,6 @@
   xwayland ? null,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cage";
   version = "0.2.0";
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.hjdskes.nl/projects/cage/";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ primeos ];
+    maintainers = with lib.maintainers; [primeos];
     mainProgram = "cage";
   };
 })

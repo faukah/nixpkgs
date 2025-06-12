@@ -4,29 +4,29 @@
 # After that the test persuades the GUI
 # to show its main application window
 # and verifies some configuration information.
-
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "tsm-client";
 
   enableOCR = true;
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [ ./common/x11.nix ];
-      programs.tsmClient = {
-        enable = true;
-        package = pkgs.tsm-client-withGui;
-        defaultServername = "testserver";
-        servers.testserver = {
-          # 192.0.0.8 is a "dummy address" according to RFC 7600
-          tcpserveraddress = "192.0.0.8";
-          nodename = "SOME-NODE";
-          passworddir = "/tmp";
-        };
+  nodes.machine = {pkgs, ...}: {
+    imports = [./common/x11.nix];
+    programs.tsmClient = {
+      enable = true;
+      package = pkgs.tsm-client-withGui;
+      defaultServername = "testserver";
+      servers.testserver = {
+        # 192.0.0.8 is a "dummy address" according to RFC 7600
+        tcpserveraddress = "192.0.0.8";
+        nodename = "SOME-NODE";
+        passworddir = "/tmp";
       };
     };
+  };
 
   testScript = ''
     machine.succeed("which dsmj")  # fail early if this is missing
@@ -56,5 +56,5 @@
     machine.shutdown()
   '';
 
-  meta.maintainers = [ lib.maintainers.yarny ];
+  meta.maintainers = [lib.maintainers.yarny];
 }

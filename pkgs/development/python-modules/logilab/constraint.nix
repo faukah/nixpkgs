@@ -9,7 +9,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "logilab-constraint";
   version = "1.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     # avoid ModuleNotFoundError: No module named 'logilab.common' due to namespace
@@ -43,13 +42,13 @@ buildPythonPackage rec {
     "Abstract"
   ];
 
-  pythonImportsCheck = [ "logilab.constraint" ];
+  pythonImportsCheck = ["logilab.constraint"];
 
   meta = with lib; {
     description = "logilab-database provides some classes to make unified access to different";
     homepage = "https://forge.extranet.logilab.fr/open-source/logilab-constraint";
     changelog = "https://forge.extranet.logilab.fr/open-source/logilab-constraint/-/blob/${version}/CHANGELOG.md";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

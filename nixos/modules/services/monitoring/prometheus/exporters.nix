@@ -5,10 +5,9 @@
   options,
   utils,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     concatStrings
     foldl
     foldl'
@@ -46,7 +45,8 @@ let
   #  `serviceOpts.script` or `serviceOpts.serviceConfig.ExecStart`
 
   exporterOpts =
-    (genAttrs
+    (
+      genAttrs
       [
         "apcupsd"
         "artifactory"
@@ -134,30 +134,31 @@ let
       ]
       (
         name:
-        import (./. + "/exporters/${name}.nix") {
-          inherit
-            config
-            lib
-            pkgs
-            options
-            utils
-            ;
-        }
+          import (./. + "/exporters/${name}.nix") {
+            inherit
+              config
+              lib
+              pkgs
+              options
+              utils
+              ;
+          }
       )
     )
-    // (mapAttrs
+    // (
+      mapAttrs
       (
         name: params:
-        import (./. + "/exporters/${params.name}.nix") {
-          inherit
-            config
-            lib
-            pkgs
-            options
-            utils
-            ;
-          type = params.type;
-        }
+          import (./. + "/exporters/${params.name}.nix") {
+            inherit
+              config
+              lib
+              pkgs
+              options
+              utils
+              ;
+            type = params.type;
+          }
       )
       {
         exportarr-bazarr = {
@@ -188,8 +189,10 @@ let
     );
 
   mkExporterOpts = (
-    { name, port }:
     {
+      name,
+      port,
+    }: {
       enable = mkEnableOption "the prometheus ${name} exporter";
       port = mkOption {
         type = types.port;
@@ -207,7 +210,7 @@ let
       };
       extraFlags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = ''
           Extra commandline options to pass to the ${name} exporter.
         '';
@@ -259,65 +262,62 @@ let
     }
   );
 
-  mkSubModule =
-    {
-      name,
-      port,
-      extraOpts,
-      imports,
-    }:
-    {
-      ${name} = mkOption {
-        type = types.submodule [
-          {
-            inherit imports;
-            options = (
-              mkExporterOpts {
-                inherit name port;
-              }
-              // extraOpts
-            );
-          }
-          (
-            { config, ... }:
+  mkSubModule = {
+    name,
+    port,
+    extraOpts,
+    imports,
+  }: {
+    ${name} = mkOption {
+      type = types.submodule [
+        {
+          inherit imports;
+          options = (
+            mkExporterOpts {
+              inherit name port;
+            }
+            // extraOpts
+          );
+        }
+        (
+          {config, ...}:
             mkIf config.openFirewall {
               firewallFilter = mkDefault "-p tcp -m tcp --dport ${toString config.port}";
               firewallRules = mkDefault ''tcp dport ${toString config.port} accept comment "${name}-exporter"'';
             }
-          )
-        ];
-        internal = true;
-        default = { };
-      };
+        )
+      ];
+      internal = true;
+      default = {};
     };
+  };
 
   mkSubModules = (
-    foldl' (a: b: a // b) { } (
+    foldl' (a: b: a // b) {} (
       mapAttrsToList (
         name: opts:
-        mkSubModule {
-          inherit name;
-          inherit (opts) port;
-          extraOpts = opts.extraOpts or { };
-          imports = opts.imports or [ ];
-        }
-      ) exporterOpts
+          mkSubModule {
+            inherit name;
+            inherit (opts) port;
+            extraOpts = opts.extraOpts or {};
+            imports = opts.imports or [];
+          }
+      )
+      exporterOpts
     )
   );
 
-  mkExporterConf =
-    {
-      name,
-      conf,
-      serviceOpts,
-    }:
-    let
-      enableDynamicUser = serviceOpts.serviceConfig.DynamicUser or true;
-      nftables = config.networking.nftables.enable;
-    in
+  mkExporterConf = {
+    name,
+    conf,
+    serviceOpts,
+  }: let
+    enableDynamicUser = serviceOpts.serviceConfig.DynamicUser or true;
+    nftables = config.networking.nftables.enable;
+  in
     mkIf conf.enable {
-      warnings = conf.warnings or [ ];
-      assertions = conf.assertions or [ ];
+      warnings = conf.warnings or [];
+      assertions = conf.assertions or [];
       users.users."${name}-exporter" = (
         mkIf (conf.user == "${name}-exporter" && !enableDynamicUser) {
           description = "Prometheus ${name} exporter service user";
@@ -327,10 +327,10 @@ let
       );
       users.groups = mkMerge [
         (mkIf (conf.group == "${name}-exporter" && !enableDynamicUser) {
-          "${name}-exporter" = { };
+          "${name}-exporter" = {};
         })
         (mkIf (name == "smartctl") {
-          "smartctl-exporter-access" = { };
+          "smartctl-exporter-access" = {};
         })
       ];
       services.udev.extraRules = mkIf (name == "smartctl") ''
@@ -341,10 +341,10 @@ let
         "-m comment --comment ${name}-exporter -j nixos-fw-accept"
       ]);
       networking.firewall.extraInputRules = mkIf (conf.openFirewall && nftables) conf.firewallRules;
-      systemd.services."prometheus-${name}-exporter" = mkMerge ([
+      systemd.services."prometheus-${name}-exporter" = mkMerge [
         {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
           serviceConfig.Restart = mkDefault "always";
           serviceConfig.PrivateTmp = mkDefault true;
           serviceConfig.WorkingDirectory = mkDefault /tmp;
@@ -352,8 +352,8 @@ let
           serviceConfig.User = mkDefault conf.user;
           serviceConfig.Group = conf.group;
           # Hardening
-          serviceConfig.CapabilityBoundingSet = mkDefault [ "" ];
-          serviceConfig.DeviceAllow = [ "" ];
+          serviceConfig.CapabilityBoundingSet = mkDefault [""];
+          serviceConfig.DeviceAllow = [""];
           serviceConfig.LockPersonality = true;
           serviceConfig.MemoryDenyWriteExecute = true;
           serviceConfig.NoNewPrivileges = true;
@@ -378,28 +378,26 @@ let
           serviceConfig.UMask = "0077";
         }
         serviceOpts
-      ]);
+      ];
     };
-in
-{
-
+in {
   options.services.prometheus.exporters = mkOption {
     type = types.submodule {
-      options = (mkSubModules);
+      options = mkSubModules;
       imports = [
         ../../../misc/assertions.nix
-        (lib.mkRenamedOptionModule [ "unifi-poller" ] [ "unpoller" ])
-        (lib.mkRemovedOptionModule [ "minio" ] ''
+        (lib.mkRenamedOptionModule ["unifi-poller"] ["unpoller"])
+        (lib.mkRemovedOptionModule ["minio"] ''
           The Minio exporter has been removed, as it was broken and unmaintained.
           See the 24.11 release notes for more information.
         '')
-        (lib.mkRemovedOptionModule [ "tor" ] ''
+        (lib.mkRemovedOptionModule ["tor"] ''
           The Tor exporter has been removed, as it was broken and unmaintained.
         '')
       ];
     };
     description = "Prometheus exporter configuration";
-    default = { };
+    default = {};
     example = literalExpression ''
       {
         node = {
@@ -542,19 +540,22 @@ in
             '';
           }))
           ++ config.services.prometheus.exporters.assertions;
-        warnings = [
-          (mkIf
+        warnings =
+          [
             (
-              config.services.prometheus.exporters.idrac.enable
-              && config.services.prometheus.exporters.idrac.configurationPath != null
+              mkIf
+              (
+                config.services.prometheus.exporters.idrac.enable
+                && config.services.prometheus.exporters.idrac.configurationPath != null
+              )
+              ''
+                Configuration file in `services.prometheus.exporters.idrac.configurationPath` may override
+                `services.prometheus.exporters.idrac.listenAddress` and/or `services.prometheus.exporters.idrac.port`.
+                Consider using `services.prometheus.exporters.idrac.configuration` instead.
+              ''
             )
-            ''
-              Configuration file in `services.prometheus.exporters.idrac.configurationPath` may override
-              `services.prometheus.exporters.idrac.listenAddress` and/or `services.prometheus.exporters.idrac.port`.
-              Consider using `services.prometheus.exporters.idrac.configuration` instead.
-            ''
-          )
-        ] ++ config.services.prometheus.exporters.warnings;
+          ]
+          ++ config.services.prometheus.exporters.warnings;
       }
     ]
     ++ [
@@ -578,17 +579,18 @@ in
       })
     ]
     ++ (mapAttrsToList (
-      name: conf:
-      mkExporterConf {
-        inherit name;
-        inherit (conf) serviceOpts;
-        conf = cfg.${name};
-      }
-    ) exporterOpts)
+        name: conf:
+          mkExporterConf {
+            inherit name;
+            inherit (conf) serviceOpts;
+            conf = cfg.${name};
+          }
+      )
+      exporterOpts)
   );
 
   meta = {
     doc = ./exporters.md;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

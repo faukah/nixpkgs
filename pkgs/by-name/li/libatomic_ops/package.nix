@@ -6,7 +6,6 @@
   automake,
   libtool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libatomic_ops";
   version = "7.8.2";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Library for semi-portable access to hardware-provided atomic memory update operations";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = with lib.platforms; unix ++ windows;
   };
 }

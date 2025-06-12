@@ -18,7 +18,6 @@
   tensorflow,
   tqdm,
 }:
-
 buildPythonPackage {
   pname = "waymax";
   version = "0-unstable-2025-05-30";
@@ -31,7 +30,7 @@ buildPythonPackage {
     hash = "sha256-YV0KI0UrFXO3HvKjqJE+K+hJJuYI4GiIR4l1fZNnl/E=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     absl-py
@@ -53,7 +52,7 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "waymax" ];
+  pythonImportsCheck = ["waymax"];
 
   disabledTestPaths = [
     # Disable visualization tests that require a GUI
@@ -65,6 +64,6 @@ buildPythonPackage {
     description = "A JAX-based simulator for autonomous driving research";
     homepage = "https://github.com/waymo-research/waymax";
     changelog = "https://github.com/waymo-research/waymax/blob/main/CHANGELOG.md";
-    maintainers = with lib.maintainers; [ samuela ];
+    maintainers = with lib.maintainers; [samuela];
   };
 }

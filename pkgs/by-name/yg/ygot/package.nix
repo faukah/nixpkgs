@@ -7,7 +7,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "ygot";
   version = "0.32.0";
@@ -27,7 +26,7 @@ buildGoModule (finalAttrs: {
     "integration_tests/"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall =
     ''
@@ -38,8 +37,7 @@ buildGoModule (finalAttrs: {
     + lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
       let
         emulator = stdenv.hostPlatform.emulator buildPackages;
-      in
-      ''
+      in ''
         installShellCompletion --cmd gnmidiff \
           --bash <(${emulator} $out/bin/gnmidiff completion bash) \
           --zsh <(${emulator} $out/bin/gnmidiff completion zsh) \
@@ -47,14 +45,14 @@ buildGoModule (finalAttrs: {
       ''
     );
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Collection of Go utilities for interacting with YANG modules";
     homepage = "https://github.com/openconfig/ygot";
     changelog = "https://github.com/openconfig/ygot/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.haylin ];
+    maintainers = [lib.maintainers.haylin];
     mainProgram = "ygot_generator";
   };
 })

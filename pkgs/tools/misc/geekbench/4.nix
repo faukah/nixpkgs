@@ -8,7 +8,6 @@
   ocl-icd,
   vulkan-loader,
 }:
-
 stdenv.mkDerivation rec {
   pname = "geekbench";
   version = "4.4.4";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     autoPatchelfHook
     makeWrapper
   ];
-  buildInputs = [ stdenv.cc.cc ];
+  buildInputs = [stdenv.cc.cc];
 
   installPhase = ''
     runHook preInstall
@@ -36,12 +35,12 @@ stdenv.mkDerivation rec {
     for f in geekbench4 geekbench_x86_64 ; do
       wrapProgram $out/bin/$f \
         --prefix LD_LIBRARY_PATH : "${
-          lib.makeLibraryPath [
-            addDriverRunpath.driverLink
-            ocl-icd
-            vulkan-loader
-          ]
-        }"
+      lib.makeLibraryPath [
+        addDriverRunpath.driverLink
+        ocl-icd
+        vulkan-loader
+      ]
+    }"
     done
 
     runHook postInstall
@@ -50,10 +49,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Cross-platform benchmark";
     homepage = "https://geekbench.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = [ maintainers.michalrus ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.michalrus];
+    platforms = ["x86_64-linux"];
     mainProgram = "geekbench4";
   };
 }

@@ -41,7 +41,6 @@
   taglib,
   taglib_extras,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "amarok";
   version = "3.2.2";
@@ -106,6 +105,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://amarok.kde.org";
     description = "Powerful music player with an intuitive interface";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 })

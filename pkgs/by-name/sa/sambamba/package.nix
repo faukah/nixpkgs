@@ -8,7 +8,6 @@
   zlib,
   lz4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sambamba";
   version = "1.0.1";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "SAM/BAM processing tool";
     mainProgram = "sambamba";
     homepage = "https://lomereiter.github.io/sambamba/";
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     license = with licenses; gpl2;
     platforms = platforms.x86_64;
   };

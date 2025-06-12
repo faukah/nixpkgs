@@ -5,7 +5,6 @@
   installShellFiles,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "charasay";
   version = "3.3.0";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-i2CvwQXKKfYLdK0tKf/w4TepPyMo99v1I+kIr00PWcY=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postPatch = ''
     rm .cargo/config.toml
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     description = "Future of cowsay - Colorful characters saying something";
     homepage = "https://github.com/latipun7/charasay";
     license = licenses.mit;
-    maintainers = with maintainers; [ hmajid2301 ];
+    maintainers = with maintainers; [hmajid2301];
     mainProgram = "chara";
   };
 }

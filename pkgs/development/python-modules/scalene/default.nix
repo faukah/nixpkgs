@@ -16,9 +16,7 @@
   rich,
   setuptools-scm,
   setuptools,
-}:
-
-let
+}: let
   heap-layers-src = fetchFromGitHub {
     owner = "emeryberger";
     repo = "heap-layers";
@@ -35,89 +33,92 @@ let
     sha256 = "sha256-tgLJNJw/dJGQMwCmfkWNBvHB76xZVyyfVVplq7aSJnI=";
   };
 in
+  buildPythonPackage rec {
+    pname = "scalene";
+    version = "1.5.52";
+    pyproject = true;
+    disabled = pythonOlder "3.9";
 
-buildPythonPackage rec {
-  pname = "scalene";
-  version = "1.5.52";
-  pyproject = true;
-  disabled = pythonOlder "3.9";
+    src = fetchFromGitHub {
+      owner = "plasma-umass";
+      repo = "scalene";
+      tag = "v${version}";
+      hash = "sha256-8WE/tR0tGwdNSPtieS90QAOFlS66h/JxaV2LvpZjx2E=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "plasma-umass";
-    repo = "scalene";
-    tag = "v${version}";
-    hash = "sha256-8WE/tR0tGwdNSPtieS90QAOFlS66h/JxaV2LvpZjx2E=";
-  };
-
-  patches = [
-    ./01-manifest-no-git.patch
-  ];
-
-  prePatch = ''
-    cp -r ${heap-layers-src} vendor/Heap-Layers
-    mkdir vendor/printf
-    cp ${printf-src}/printf.c vendor/printf/printf.cpp
-    cp -r ${printf-src}/* vendor/printf
-    sed -i 's/^#define printf printf_/\/\/&/' vendor/printf/printf.h
-    sed -i 's/^#define vsnprintf vsnprintf_/\/\/&/' vendor/printf/printf.h
-  '';
-
-  nativeBuildInputs = [
-    cython
-    setuptools
-    setuptools-scm
-  ];
-
-  propagatedBuildInputs = [
-    cloudpickle
-    jinja2
-    numpy
-    psutil
-    pydantic
-    rich
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ nvidia-ml-py ];
-
-  pythonRemoveDeps = [
-    "nvidia-ml-py3"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "nvidia-ml-py" ];
-
-  __darwinAllowLocalNetworking = true;
-
-  nativeCheckInputs = [ pytestCheckHook ];
-
-  checkInputs = [
-    hypothesis
-    numpy
-  ];
-
-  disabledTests = [
-    # Flaky -- socket collision
-    "test_show_browser"
-  ];
-
-  # remove scalene directory to prevent pytest import confusion
-  preCheck = ''
-    rm -rf scalene
-  '';
-
-  pythonImportsCheck = [ "scalene" ];
-
-  meta = with lib; {
-    description = "High-resolution, low-overhead CPU, GPU, and memory profiler for Python with AI-powered optimization suggestions";
-    homepage = "https://github.com/plasma-umass/scalene";
-    changelog = "https://github.com/plasma-umass/scalene/releases/tag/v${version}";
-    mainProgram = "scalene";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ sarahec ];
-    badPlatforms = [
-      # The scalene doesn't seem to account for arm64 linux
-      "aarch64-linux"
-
-      # On darwin, builds 1) assume aarch64 and 2) mistakenly compile one part as
-      # x86 and the other as arm64 then tries to link them into a single binary
-      # which fails.
-      "x86_64-darwin"
-      "aarch64-darwin"
+    patches = [
+      ./01-manifest-no-git.patch
     ];
-  };
-}
+
+    prePatch = ''
+      cp -r ${heap-layers-src} vendor/Heap-Layers
+      mkdir vendor/printf
+      cp ${printf-src}/printf.c vendor/printf/printf.cpp
+      cp -r ${printf-src}/* vendor/printf
+      sed -i 's/^#define printf printf_/\/\/&/' vendor/printf/printf.h
+      sed -i 's/^#define vsnprintf vsnprintf_/\/\/&/' vendor/printf/printf.h
+    '';
+
+    nativeBuildInputs = [
+      cython
+      setuptools
+      setuptools-scm
+    ];
+
+    propagatedBuildInputs =
+      [
+        cloudpickle
+        jinja2
+        numpy
+        psutil
+        pydantic
+        rich
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [nvidia-ml-py];
+
+    pythonRemoveDeps =
+      [
+        "nvidia-ml-py3"
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin ["nvidia-ml-py"];
+
+    __darwinAllowLocalNetworking = true;
+
+    nativeCheckInputs = [pytestCheckHook];
+
+    checkInputs = [
+      hypothesis
+      numpy
+    ];
+
+    disabledTests = [
+      # Flaky -- socket collision
+      "test_show_browser"
+    ];
+
+    # remove scalene directory to prevent pytest import confusion
+    preCheck = ''
+      rm -rf scalene
+    '';
+
+    pythonImportsCheck = ["scalene"];
+
+    meta = with lib; {
+      description = "High-resolution, low-overhead CPU, GPU, and memory profiler for Python with AI-powered optimization suggestions";
+      homepage = "https://github.com/plasma-umass/scalene";
+      changelog = "https://github.com/plasma-umass/scalene/releases/tag/v${version}";
+      mainProgram = "scalene";
+      license = licenses.asl20;
+      maintainers = with maintainers; [sarahec];
+      badPlatforms = [
+        # The scalene doesn't seem to account for arm64 linux
+        "aarch64-linux"
+
+        # On darwin, builds 1) assume aarch64 and 2) mistakenly compile one part as
+        # x86 and the other as arm64 then tries to link them into a single binary
+        # which fails.
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+    };
+  }

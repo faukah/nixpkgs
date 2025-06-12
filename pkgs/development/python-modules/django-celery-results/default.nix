@@ -6,7 +6,6 @@
   django,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "django-celery-results";
   version = "2.6.0";
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/celery/django-celery-results";
     changelog = "https://github.com/celery/django-celery-results/blob/v{version}/Changelog";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

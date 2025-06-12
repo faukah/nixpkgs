@@ -1,7 +1,4 @@
-{ pkgs, ... }:
-
-let
-
+{pkgs, ...}: let
   crasher = pkgs.writeCBin "crasher" "int main;";
 
   commonConfig = {
@@ -12,18 +9,23 @@ let
       Restart = "no";
     };
   };
-
-in
-
-{
+in {
   name = "systemd-coredump";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ squalus ];
+    maintainers = [squalus];
   };
 
-  nodes.machine1 = { pkgs, lib, ... }: commonConfig;
-  nodes.machine2 =
-    { pkgs, lib, ... }:
+  nodes.machine1 = {
+    pkgs,
+    lib,
+    ...
+  }:
+    commonConfig;
+  nodes.machine2 = {
+    pkgs,
+    lib,
+    ...
+  }:
     lib.recursiveUpdate commonConfig {
       systemd.coredump.enable = false;
       systemd.package = pkgs.systemd.override {

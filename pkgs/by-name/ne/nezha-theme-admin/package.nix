@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "nezha-theme-admin";
   version = "1.12.0";
@@ -23,7 +22,7 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-y0MnD6ymU4YDpNkTrEKMROHwllSVRm1LQeG0v3IPa0Y=";
 
-  npmPackFlags = [ "--ignore-scripts" ];
+  npmPackFlags = ["--ignore-scripts"];
 
   npmBuildScript = "build-ignore-error";
 
@@ -36,13 +35,13 @@ buildNpmPackage rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--generate-lockfile" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--generate-lockfile"];};
 
   meta = {
     description = "Nezha monitoring admin frontend";
     homepage = "https://github.com/nezhahq/admin-frontend";
     changelog = "https://github.com/nezhahq/admin-frontend/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
   };
 }

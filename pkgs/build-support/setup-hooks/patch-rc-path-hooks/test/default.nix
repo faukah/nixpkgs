@@ -1,6 +1,4 @@
-{ callPackage }:
-
-{
+{callPackage}: {
   test-bash = callPackage (
     {
       lib,
@@ -12,7 +10,7 @@
       shellcheck,
       zsh,
     }:
-    runCommandLocal "patch-rc-path-bash-test"
+      runCommandLocal "patch-rc-path-bash-test"
       {
         nativeBuildInputs = [
           bash
@@ -130,7 +128,7 @@
         # Create a dummy output
         touch "$out"
       ''
-  ) { };
+  ) {};
 
   test-csh = callPackage (
     {
@@ -141,7 +139,7 @@
       patchRcPathCsh,
       tcsh,
     }:
-    runCommandLocal "patch-rc-path-csh-test"
+      runCommandLocal "patch-rc-path-csh-test"
       {
         nativeBuildInputs = [
           patchRcPathCsh
@@ -209,7 +207,7 @@
         # Create a dummy output
         touch "$out"
       ''
-  ) { };
+  ) {};
 
   test-fish = callPackage (
     {
@@ -219,7 +217,7 @@
       hello,
       patchRcPathFish,
     }:
-    runCommandLocal "patch-rc-path-fish-test"
+      runCommandLocal "patch-rc-path-fish-test"
       {
         nativeBuildInputs = [
           fish
@@ -289,7 +287,7 @@
         # Create a dummy output
         touch "$out"
       ''
-  ) { };
+  ) {};
 
   test-posix = callPackage (
     {
@@ -303,7 +301,7 @@
       patchRcPathPosix,
       shellcheck,
     }:
-    runCommandLocal "patch-rc-path-posix-test"
+      runCommandLocal "patch-rc-path-posix-test"
       {
         nativeBuildInputs = [
           bash
@@ -428,5 +426,5 @@
         # Create a dummy output
         touch "$out"
       ''
-  ) { };
+  ) {};
 }

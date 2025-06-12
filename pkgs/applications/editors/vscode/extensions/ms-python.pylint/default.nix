@@ -2,7 +2,6 @@
   lib,
   vscode-utils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     publisher = "ms-python";
@@ -16,6 +15,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=ms-python.pylint";
     homepage = "https://github.com/microsoft/vscode-pylint";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.amadejkastelic ];
+    maintainers = [lib.maintainers.amadejkastelic];
   };
 }

@@ -1,5 +1,7 @@
-{ lib, mkDerivation }:
-
+{
+  lib,
+  mkDerivation,
+}:
 mkDerivation {
   path = "lib/libm";
 
@@ -12,7 +14,7 @@ mkDerivation {
 
   SHLIBINSTALLDIR = "$(out)/lib";
 
-  extraPaths = [ "sys" ];
+  extraPaths = ["sys"];
 
   meta.platforms = lib.platforms.netbsd;
 }

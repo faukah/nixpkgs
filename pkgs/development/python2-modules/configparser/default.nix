@@ -5,7 +5,6 @@
   fetchPypi,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "configparser";
   version = "4.0.2";
@@ -18,10 +17,14 @@ buildPythonPackage rec {
   # No tests available
   doCheck = false;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   preConfigure = ''
-    export LC_ALL=${if stdenv.hostPlatform.isDarwin then "en_US" else "C"}.UTF-8
+    export LC_ALL=${
+      if stdenv.hostPlatform.isDarwin
+      then "en_US"
+      else "C"
+    }.UTF-8
   '';
 
   meta = with lib; {

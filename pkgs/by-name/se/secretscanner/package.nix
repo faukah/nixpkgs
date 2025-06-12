@@ -8,7 +8,6 @@
   protoc-gen-go-grpc,
   vectorscan,
 }:
-
 buildGoModule rec {
   pname = "secretscanner";
   version = "1.2.0";
@@ -56,7 +55,7 @@ buildGoModule rec {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [fab];
   };
 }

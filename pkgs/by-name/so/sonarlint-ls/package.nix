@@ -13,7 +13,6 @@
   gnused,
   versionCheckHook,
 }:
-
 maven.buildMavenPackage rec {
   pname = "sonarlint-ls";
   version = "3.23.0.76182";
@@ -54,17 +53,16 @@ maven.buildMavenPackage rec {
     runHook postInstall
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   preVersionCheck = "export version=${lib.versions.majorMinor version}";
   versionCheckProgramArg = "-V";
 
-  passthru.updateScript =
-    let
-      pkgFile = builtins.toString ./package.nix;
-    in
+  passthru.updateScript = let
+    pkgFile = builtins.toString ./package.nix;
+  in
     lib.getExe (writeShellApplication {
       name = "update-${pname}";
       runtimeInputs = [
@@ -103,6 +101,6 @@ maven.buildMavenPackage rec {
     mainProgram = "sonarlint-ls";
     homepage = "https://github.com/SonarSource/sonarlint-language-server";
     license = lib.licenses.lgpl3;
-    maintainers = with lib.maintainers; [ tricktron ];
+    maintainers = with lib.maintainers; [tricktron];
   };
 }

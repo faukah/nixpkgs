@@ -71,30 +71,28 @@
   orjson,
   pytest-asyncio,
   fastapi,
-}:
-
-let
+}: let
   version = "1.3.20";
-  aws = [ fs-s3fs ];
+  aws = [fs-s3fs];
   grpc = [
     grpcio
     grpcio-health-checking
     opentelemetry-instrumentation-grpc
     protobuf
   ];
-  io-image = [ pillow ];
+  io-image = [pillow];
   io-pandas = [
     pandas
     pyarrow
   ];
-  grpc-reflection = grpc ++ [ grpcio-reflection ];
-  grpc-channelz = grpc ++ [ grpcio-channelz ];
+  grpc-reflection = grpc ++ [grpcio-reflection];
+  grpc-channelz = grpc ++ [grpcio-channelz];
   monitor-otlp = [
     opentelemetry-exporter-otlp-proto-http
     opentelemetry-instrumentation-grpc
   ];
   # tracing-jaeger = [ opentelemetry-exporter-jaeger ];
-  tracing-otlp = [ opentelemetry-exporter-otlp ];
+  tracing-otlp = [opentelemetry-exporter-otlp];
   # tracing-zipkin = [ opentelemetry-exporter-zipkin ];
   io = io-image ++ io-pandas;
   tracing = tracing-otlp; # ++ tracing-zipkin ++ tracing-jaeger
@@ -113,7 +111,7 @@ let
       tracing
       ;
     triton =
-      [ tritonclient ]
+      [tritonclient]
       ++ lib.optionals stdenv.hostPlatform.isLinux (
         tritonclient.optional-dependencies.http ++ tritonclient.optional-dependencies.grpc
       );
@@ -126,117 +124,121 @@ let
     hash = "sha256-zc/JvnEEoV21EbBHhLBWvilidXHx1pxYsBYISFg16Us=";
   };
 in
-buildPythonPackage {
-  pname = "bentoml";
-  inherit version src;
-  pyproject = true;
+  buildPythonPackage {
+    pname = "bentoml";
+    inherit version src;
+    pyproject = true;
 
-  pythonRelaxDeps = [
-    "cattrs"
-    "nvidia-ml-py"
-    "opentelemetry-api"
-    "opentelemetry-instrumentation-aiohttp-client"
-    "opentelemetry-instrumentation-asgi"
-    "opentelemetry-instrumentation"
-    "opentelemetry-sdk"
-    "opentelemetry-semantic-conventions"
-    "opentelemetry-util-http"
-  ];
-
-  build-system = [
-    hatchling
-    hatch-vcs
-  ];
-
-  dependencies = [
-    aiohttp
-    aiosqlite
-    attrs
-    cattrs
-    circus
-    click
-    click-option-group
-    cloudpickle
-    deepmerge
-    fs
-    httpx
-    httpx-ws
-    inflection
-    inquirerpy
-    jinja2
-    numpy
-    nvidia-ml-py
-    opentelemetry-api
-    opentelemetry-instrumentation
-    opentelemetry-instrumentation-aiohttp-client
-    opentelemetry-instrumentation-asgi
-    opentelemetry-sdk
-    opentelemetry-semantic-conventions
-    opentelemetry-util-http
-    packaging
-    pathspec
-    pip-requirements-parser
-    prometheus-client
-    psutil
-    pydantic
-    python-dateutil
-    python-json-logger
-    python-multipart
-    pyyaml
-    rich
-    schema
-    simple-di
-    starlette
-    tomli-w
-    uv
-    uvicorn
-    watchfiles
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
-
-  inherit optional-dependencies;
-
-  pythonImportsCheck = [ "bentoml" ];
-
-  preCheck = ''
-    # required for CI testing
-    # https://github.com/bentoml/BentoML/pull/4056/commits/66302b502a3f4df4e8e6643d2afefefca974073e
-    export GITHUB_ACTIONS=1
-  '';
-
-  disabledTestPaths = [
-    "tests/e2e"
-    "tests/integration"
-  ];
-
-  disabledTests = [
-    # flaky test
-    "test_store"
-  ];
-
-  nativeCheckInputs = [
-    fastapi
-    google-api-python-client
-    lxml
-    orjson
-    pandas
-    pillow
-    pytest-asyncio
-    pytest-xdist
-    pytestCheckHook
-    scikit-learn
-  ] ++ optional-dependencies.grpc;
-
-  meta = with lib; {
-    description = "Build Production-Grade AI Applications";
-    homepage = "https://github.com/bentoml/BentoML";
-    changelog = "https://github.com/bentoml/BentoML/releases/tag/${src.tag}";
-    license = licenses.asl20;
-    maintainers = with maintainers; [
-      happysalada
-      natsukium
+    pythonRelaxDeps = [
+      "cattrs"
+      "nvidia-ml-py"
+      "opentelemetry-api"
+      "opentelemetry-instrumentation-aiohttp-client"
+      "opentelemetry-instrumentation-asgi"
+      "opentelemetry-instrumentation"
+      "opentelemetry-sdk"
+      "opentelemetry-semantic-conventions"
+      "opentelemetry-util-http"
     ];
-    # AttributeError: 'dict' object has no attribute 'schemas'
-    # https://github.com/bentoml/BentoML/issues/4290
-    broken = versionAtLeast cattrs.version "23.2";
-  };
-}
+
+    build-system = [
+      hatchling
+      hatch-vcs
+    ];
+
+    dependencies =
+      [
+        aiohttp
+        aiosqlite
+        attrs
+        cattrs
+        circus
+        click
+        click-option-group
+        cloudpickle
+        deepmerge
+        fs
+        httpx
+        httpx-ws
+        inflection
+        inquirerpy
+        jinja2
+        numpy
+        nvidia-ml-py
+        opentelemetry-api
+        opentelemetry-instrumentation
+        opentelemetry-instrumentation-aiohttp-client
+        opentelemetry-instrumentation-asgi
+        opentelemetry-sdk
+        opentelemetry-semantic-conventions
+        opentelemetry-util-http
+        packaging
+        pathspec
+        pip-requirements-parser
+        prometheus-client
+        psutil
+        pydantic
+        python-dateutil
+        python-json-logger
+        python-multipart
+        pyyaml
+        rich
+        schema
+        simple-di
+        starlette
+        tomli-w
+        uv
+        uvicorn
+        watchfiles
+      ]
+      ++ lib.optionals (pythonOlder "3.11") [tomli];
+
+    inherit optional-dependencies;
+
+    pythonImportsCheck = ["bentoml"];
+
+    preCheck = ''
+      # required for CI testing
+      # https://github.com/bentoml/BentoML/pull/4056/commits/66302b502a3f4df4e8e6643d2afefefca974073e
+      export GITHUB_ACTIONS=1
+    '';
+
+    disabledTestPaths = [
+      "tests/e2e"
+      "tests/integration"
+    ];
+
+    disabledTests = [
+      # flaky test
+      "test_store"
+    ];
+
+    nativeCheckInputs =
+      [
+        fastapi
+        google-api-python-client
+        lxml
+        orjson
+        pandas
+        pillow
+        pytest-asyncio
+        pytest-xdist
+        pytestCheckHook
+        scikit-learn
+      ]
+      ++ optional-dependencies.grpc;
+
+    meta = with lib; {
+      description = "Build Production-Grade AI Applications";
+      homepage = "https://github.com/bentoml/BentoML";
+      changelog = "https://github.com/bentoml/BentoML/releases/tag/${src.tag}";
+      license = licenses.asl20;
+      maintainers = with maintainers; [
+        happysalada
+        natsukium
+      ];
+      # AttributeError: 'dict' object has no attribute 'schemas'
+      # https://github.com/bentoml/BentoML/issues/4290
+      broken = versionAtLeast cattrs.version "23.2";
+    };
+  }

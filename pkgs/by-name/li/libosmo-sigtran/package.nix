@@ -8,7 +8,6 @@
   libosmocore,
   libosmo-netif,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libosmo-sigtran";
   version = "2.1.0";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-/MUFTo5Uo60CZV0ZTDVLVgEXrNw9kX5gafq7rJb82Do=";
   };
 
-  configureFlags = [ "--with-systemdsystemunitdir=$out" ];
+  configureFlags = ["--with-systemdsystemunitdir=$out"];
 
   postPatch = ''
     echo "${version}" > .tarball-version

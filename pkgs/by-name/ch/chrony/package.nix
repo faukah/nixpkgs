@@ -11,7 +11,6 @@
   pps-tools,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "chrony";
   version = "4.7";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -40,11 +39,13 @@ stdenv.mkDerivation rec {
       pps-tools
     ];
 
-  configureFlags = [
-    "--enable-ntp-signd"
-    "--sbindir=$(out)/bin"
-    "--chronyrundir=/run/chrony"
-  ] ++ lib.optional stdenv.hostPlatform.isLinux "--enable-scfilter";
+  configureFlags =
+    [
+      "--enable-ntp-signd"
+      "--sbindir=$(out)/bin"
+      "--chronyrundir=/run/chrony"
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux "--enable-scfilter";
 
   patches = [
     # Cleanup the installation script
@@ -62,7 +63,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   doCheck = true;
 
-  hardeningEnable = lib.optionals (!stdenv.hostPlatform.isDarwin) [ "pie" ];
+  hardeningEnable = lib.optionals (!stdenv.hostPlatform.isDarwin) ["pie"];
 
   passthru.tests = {
     inherit (nixosTests) chrony chrony-ptp;
@@ -72,8 +73,7 @@ stdenv.mkDerivation rec {
     description = "Sets your computer's clock from time servers on the Net";
     homepage = "https://chrony-project.org/";
     license = lib.licenses.gpl2Only;
-    platforms =
-      with lib.platforms;
+    platforms = with lib.platforms;
       builtins.concatLists [
         linux
         freebsd

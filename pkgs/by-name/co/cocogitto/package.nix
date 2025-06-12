@@ -6,7 +6,6 @@
   stdenv,
   libgit2,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cocogitto";
   version = "6.3.0";
@@ -25,9 +24,9 @@ rustPlatform.buildRustPackage rec {
   # and might be failing to create the test repository it works in.
   doCheck = false;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ libgit2 ];
+  buildInputs = [libgit2];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd cog \
@@ -41,6 +40,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "cog";
     homepage = "https://github.com/oknozor/cocogitto";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

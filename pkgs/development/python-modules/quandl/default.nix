@@ -19,7 +19,6 @@
   requests,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "quandl";
   version = "3.7.0";
@@ -33,17 +32,19 @@ buildPythonPackage rec {
     hash = "sha256-bguC+8eGFhCzV3xTlyd8QiDgZe7g/tTkbNa2AhZVtkw=";
   };
 
-  patches = [ ./pandas2-datetime-removal.patch ];
+  patches = [./pandas2-datetime-removal.patch];
 
-  propagatedBuildInputs = [
-    pandas
-    numpy
-    requests
-    inflection
-    python-dateutil
-    six
-    more-itertools
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs =
+    [
+      pandas
+      numpy
+      requests
+      inflection
+      python-dateutil
+      six
+      more-itertools
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     factory-boy
@@ -55,13 +56,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "quandl" ];
+  pythonImportsCheck = ["quandl"];
 
   meta = with lib; {
     description = "Quandl Python client library";
     homepage = "https://github.com/quandl/quandl-python";
     changelog = "https://github.com/quandl/quandl-python/blob/master/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ ilya-kolpakov ];
+    maintainers = with maintainers; [ilya-kolpakov];
   };
 }

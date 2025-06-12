@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "wqy-microhei";
   version = "0.2.0";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation rec {
     description = "(mainly) Chinese Unicode font";
     homepage = "http://wenq.org";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.pkmx ];
+    maintainers = [lib.maintainers.pkmx];
     platforms = lib.platforms.all;
   };
 }

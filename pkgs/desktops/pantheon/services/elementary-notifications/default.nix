@@ -15,7 +15,6 @@
   libcanberra-gtk3,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-notifications";
   version = "8.1.0";
@@ -46,14 +45,14 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "GTK notification server for Pantheon";
     homepage = "https://github.com/elementary/notifications";
     license = licenses.gpl3Plus;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     mainProgram = "io.elementary.notifications";
   };

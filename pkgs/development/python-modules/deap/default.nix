@@ -6,7 +6,6 @@
   numpy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "deap";
   version = "1.4.2";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     matplotlib
     numpy
   ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Novel evolutionary computation framework for rapid prototyping and testing of ideas";

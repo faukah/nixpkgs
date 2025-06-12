@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "package-project-cmake";
   version = "1.13.0";
@@ -40,7 +39,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       packaging process into a single, easy-to-use command.
     '';
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 })

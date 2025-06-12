@@ -9,7 +9,6 @@
   libuuid,
   libxslt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vmfs-tools";
   version = "0.2.5.20160116";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "FUSE-based VMFS (vmware) file system tools";
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     inherit (src.meta) homepage;

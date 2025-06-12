@@ -1,12 +1,14 @@
-{ lib, pkgs, ... }:
-let
-  confPath = "/etc/waagent.conf";
-in
 {
+  lib,
+  pkgs,
+  ...
+}: let
+  confPath = "/etc/waagent.conf";
+in {
   name = "waagent";
 
   meta = {
-    maintainers = with lib.maintainers; [ codgician ];
+    maintainers = with lib.maintainers; [codgician];
   };
 
   nodes.machine = {
@@ -35,7 +37,7 @@ in
         };
         CGroups = {
           EnforceLimits = false;
-          Excluded = [ ];
+          Excluded = [];
         };
       };
     };

@@ -19,7 +19,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "flask-limiter";
   version = "3.12";
@@ -48,7 +47,7 @@ buildPythonPackage rec {
       --replace-fail "import flask_restful" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     flask
@@ -99,13 +98,13 @@ buildPythonPackage rec {
     "tests/test_storage.py"
   ];
 
-  pythonImportsCheck = [ "flask_limiter" ];
+  pythonImportsCheck = ["flask_limiter"];
 
   meta = with lib; {
     description = "Rate limiting for flask applications";
     homepage = "https://flask-limiter.readthedocs.org/";
     changelog = "https://github.com/alisaifee/flask-limiter/blob/${src.tag}/HISTORY.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

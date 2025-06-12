@@ -9,7 +9,6 @@
   jq,
   intltool,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-shell-extension-EasyScreenCast";
   version = "1.11.1";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     intltool
   ];
 
-  makeFlags = [ "INSTALLBASE=$(out)/share/gnome-shell/extensions" ];
+  makeFlags = ["INSTALLBASE=$(out)/share/gnome-shell/extensions"];
 
   passthru.extensionUuid = "EasyScreenCast@iacopodeenosee.gmail.com";
 
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Simplifies the use of the video recording function integrated in gnome shell";
     homepage = "https://github.com/EasyScreenCast/EasyScreenCast";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

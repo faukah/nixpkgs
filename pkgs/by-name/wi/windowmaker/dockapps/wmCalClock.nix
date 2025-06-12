@@ -6,7 +6,6 @@
   libXext,
   libXpm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wmCalClock";
 
@@ -33,13 +32,13 @@ stdenv.mkDerivation (finalAttrs: {
     install -d ${placeholder "out"}/man/man1
   '';
 
-  installFlags = [ "DESTDIR=${placeholder "out"}" ];
+  installFlags = ["DESTDIR=${placeholder "out"}"];
 
   meta = {
     description = "Calendar clock with antialiased text";
     homepage = "https://www.dockapps.net/wmcalclock";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 })

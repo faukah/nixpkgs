@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # tests
   djangorestframework,
   html5lib,
@@ -14,7 +12,6 @@
   pytestCheckHook,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "django-i18nfield";
   version = "1.10.2";
@@ -27,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-27PR2jLDXxRSgbJvRxDSBK4sTiqGAhP+XYg/fCg9AzM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   env.DJANGO_SETTINGS_MODULE = "tests.settings";
 
@@ -44,6 +41,6 @@ buildPythonPackage rec {
     description = "Store internationalized strings in Django models";
     homepage = "https://github.com/raphaelm/django-i18nfield";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

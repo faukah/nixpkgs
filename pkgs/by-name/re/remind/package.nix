@@ -8,12 +8,10 @@
   tcl,
   tkremind ? null,
   withGui ?
-    if tkremind != null then
-      lib.warn "tkremind is deprecated and should be removed; use withGui instead." tkremind
-    else
-      true,
+    if tkremind != null
+    then lib.warn "tkremind is deprecated and should be removed; use withGui instead." tkremind
+    else true,
 }:
-
 tcl.mkTclDerivation rec {
   pname = "remind";
   version = "05.04.00";

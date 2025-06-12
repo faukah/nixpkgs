@@ -1,48 +1,53 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "sunshine";
   meta = {
     # test is flaky on aarch64
     broken = pkgs.stdenv.hostPlatform.isAarch64;
-    maintainers = [ lib.maintainers.devusb ];
+    maintainers = [lib.maintainers.devusb];
     timeout = 600;
   };
 
-  nodes.sunshine =
-    { config, pkgs, ... }:
-    {
-      imports = [
-        ./common/x11.nix
-      ];
+  nodes.sunshine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [
+      ./common/x11.nix
+    ];
 
-      services.sunshine = {
-        enable = true;
-        openFirewall = true;
-        settings = {
-          capture = "x11";
-          encoder = "software";
-          output_name = 0;
-        };
+    services.sunshine = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        capture = "x11";
+        encoder = "software";
+        output_name = 0;
       };
-
-      environment.systemPackages = with pkgs; [
-        gxmessage
-      ];
-
     };
 
-  nodes.moonlight =
-    { config, pkgs, ... }:
-    {
-      imports = [
-        ./common/x11.nix
-      ];
+    environment.systemPackages = with pkgs; [
+      gxmessage
+    ];
+  };
 
-      environment.systemPackages = with pkgs; [
-        moonlight-qt
-      ];
+  nodes.moonlight = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [
+      ./common/x11.nix
+    ];
 
-    };
+    environment.systemPackages = with pkgs; [
+      moonlight-qt
+    ];
+  };
 
   enableOCR = true;
 

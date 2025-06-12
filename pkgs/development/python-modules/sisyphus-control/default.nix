@@ -10,7 +10,6 @@
   python-socketio-v4,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "sisyphus-control";
   version = "3.1.4";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -46,13 +45,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "sisyphus_control" ];
+  pythonImportsCheck = ["sisyphus_control"];
 
   meta = with lib; {
     description = "Control your Sisyphus Kinetic Art Table";
     homepage = "https://github.com/jkeljo/sisyphus-control";
     changelog = "https://github.com/jkeljo/sisyphus-control/blob/${src.rev}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

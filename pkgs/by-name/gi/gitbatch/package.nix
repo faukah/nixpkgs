@@ -4,7 +4,6 @@
   fetchFromGitHub,
   git,
 }:
-
 buildGoModule rec {
   pname = "gitbatch";
   version = "0.6.1";
@@ -40,7 +39,7 @@ buildGoModule rec {
     description = "Running git UI commands";
     homepage = "https://github.com/isacikgoz/gitbatch";
     license = licenses.mit;
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
     platforms = with platforms; linux;
     mainProgram = "gitbatch";
   };

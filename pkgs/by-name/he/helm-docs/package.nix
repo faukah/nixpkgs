@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "helm-docs";
   version = "1.14.2";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-9VSjxnc804A+PTMy0ZoNWNkHAjh3/kMK0XoEfI/LgEY=";
 
-  subPackages = [ "cmd/helm-docs" ];
+  subPackages = ["cmd/helm-docs"];
   ldflags = [
     "-w"
     "-s"
@@ -29,6 +28,6 @@ buildGoModule rec {
     description = "Tool for automatically generating markdown documentation for Helm charts";
     mainProgram = "helm-docs";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ sagikazarmark ];
+    maintainers = with maintainers; [sagikazarmark];
   };
 }

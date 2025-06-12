@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "textparser";
   version = "0.24.0";
@@ -19,16 +18,16 @@ buildPythonPackage rec {
     hash = "sha256-VvcI51qp0AKtt22CO6bvFm1+zsHj5MpMHKED+BdWgzU=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "textparser" ];
+  pythonImportsCheck = ["textparser"];
 
   meta = with lib; {
     homepage = "https://github.com/eerimoq/textparser";
     description = "Text parser";
     license = licenses.mit;
-    maintainers = with maintainers; [ gray-heron ];
+    maintainers = with maintainers; [gray-heron];
   };
 }

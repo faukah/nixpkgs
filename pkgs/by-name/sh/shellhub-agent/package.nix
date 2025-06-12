@@ -9,7 +9,6 @@
   testers,
   shellhub-agent,
 }:
-
 buildGoModule rec {
   pname = "shellhub-agent";
   version = "0.18.3";
@@ -32,7 +31,7 @@ buildGoModule rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
 
     tests.version = testers.testVersion {
       package = shellhub-agent;
@@ -41,11 +40,11 @@ buildGoModule rec {
     };
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ libxcrypt ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [libxcrypt];
 
   postInstall = ''
-    wrapProgram $out/bin/agent --prefix PATH : ${lib.makeBinPath [ openssh ]}
+    wrapProgram $out/bin/agent --prefix PATH : ${lib.makeBinPath [openssh]}
   '';
 
   meta = with lib; {
@@ -58,7 +57,7 @@ buildGoModule rec {
     '';
     homepage = "https://shellhub.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ otavio ];
+    maintainers = with maintainers; [otavio];
     platforms = platforms.linux;
     mainProgram = "agent";
   };

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "takao";
   version = "00303.01";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Japanese TrueType Gothic, P Gothic, Mincho, P Mincho fonts";
     homepage = "https://launchpad.net/takao-fonts";
     license = licenses.ipa;
-    maintainers = with lib.maintainers; [ serge ];
+    maintainers = with lib.maintainers; [serge];
     platforms = platforms.all;
   };
 }

@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "alan2";
   version = "2.8.7";
@@ -43,6 +42,6 @@ stdenv.mkDerivation {
     description = "Alan interactive fiction language (legacy version)";
     license = lib.licenses.artistic2;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ neilmayhew ];
+    maintainers = with lib.maintainers; [neilmayhew];
   };
 }

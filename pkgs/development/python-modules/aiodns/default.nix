@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aiodns";
   version = "3.2.0";
@@ -21,20 +20,20 @@ buildPythonPackage rec {
     hash = "sha256-aXae9/x0HVp4KqydCf5/+p5PlSKUQ5cE3iVeD08rtf0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pycares ];
+  dependencies = [pycares];
 
   # Could not contact DNS servers
   doCheck = false;
 
-  pythonImportsCheck = [ "aiodns" ];
+  pythonImportsCheck = ["aiodns"];
 
   meta = with lib; {
     description = "Simple DNS resolver for asyncio";
     homepage = "https://github.com/saghul/aiodns";
     changelog = "https://github.com/saghul/aiodns/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

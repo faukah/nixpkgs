@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "tinymembench";
   version = "0.4.9-unstable-2017-02-15";
@@ -27,6 +26,6 @@ stdenv.mkDerivation {
     license = licenses.mit;
     platforms = platforms.linux;
     mainProgram = "tinymembench";
-    maintainers = with maintainers; [ lorenz ];
+    maintainers = with maintainers; [lorenz];
   };
 }

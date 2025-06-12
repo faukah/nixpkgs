@@ -14,9 +14,7 @@
   stdenv,
   xar,
   xorg,
-}:
-
-let
+}: let
   darwinAttrs = rec {
     version = "0.12.6-2";
     src = fetchurl {
@@ -72,57 +70,61 @@ let
     '';
   };
 
-  linuxAttrs.aarch64-linux = rec {
-    version = "0.12.6.1-3";
-    src = fetchurl {
-      url = "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox_${version}.bookworm_arm64.deb";
-      hash = "sha256-tmBhV7J8E+BE0Ku+ZwMB+I3k4Xgq/KT5wGpYF/PgOpw=";
-    };
-  } // _linuxAttrs;
+  linuxAttrs.aarch64-linux =
+    rec {
+      version = "0.12.6.1-3";
+      src = fetchurl {
+        url = "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox_${version}.bookworm_arm64.deb";
+        hash = "sha256-tmBhV7J8E+BE0Ku+ZwMB+I3k4Xgq/KT5wGpYF/PgOpw=";
+      };
+    }
+    // _linuxAttrs;
 
-  linuxAttrs.x86_64-linux = rec {
-    version = "0.12.6.1-3";
-    src = fetchurl {
-      url = "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox_${version}.bookworm_amd64.deb";
-      hash = "sha256-mLoNFXtQ028jvQ3t9MCqKMewxQ/NzcVKpba7uoGjlB0=";
-    };
-  } // _linuxAttrs;
+  linuxAttrs.x86_64-linux =
+    rec {
+      version = "0.12.6.1-3";
+      src = fetchurl {
+        url = "https://github.com/wkhtmltopdf/packaging/releases/download/${version}/wkhtmltox_${version}.bookworm_amd64.deb";
+        hash = "sha256-mLoNFXtQ028jvQ3t9MCqKMewxQ/NzcVKpba7uoGjlB0=";
+      };
+    }
+    // _linuxAttrs;
 in
-stdenv.mkDerivation (
-  {
-    name = "wkhtmltopdf";
+  stdenv.mkDerivation (
+    {
+      name = "wkhtmltopdf";
 
-    dontStrip = true;
+      dontStrip = true;
 
-    doInstallCheck = true;
+      doInstallCheck = true;
 
-    installCheckPhase = ''
-      $out/bin/wkhtmltopdf --version
-    '';
-
-    meta = with lib; {
-      homepage = "https://wkhtmltopdf.org/";
-      description = "Tools for rendering web pages to PDF or images (binary package)";
-      longDescription = ''
-        wkhtmltopdf and wkhtmltoimage are open source (LGPL) command line tools
-        to render HTML into PDF and various image formats using the QT Webkit
-        rendering engine. These run entirely "headless" and do not require a
-        display or display service.
-
-        There is also a C library, if you're into that kind of thing.
+      installCheckPhase = ''
+        $out/bin/wkhtmltopdf --version
       '';
-      license = licenses.gpl3Plus;
-      maintainers = with maintainers; [
-        nbr
-        kalbasit
-      ];
-      platforms = [
-        "x86_64-darwin"
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-    };
-  }
-  // lib.optionalAttrs (stdenv.hostPlatform.isDarwin) darwinAttrs
-  // lib.optionalAttrs (stdenv.hostPlatform.isLinux) linuxAttrs.${stdenv.system}
-)
+
+      meta = with lib; {
+        homepage = "https://wkhtmltopdf.org/";
+        description = "Tools for rendering web pages to PDF or images (binary package)";
+        longDescription = ''
+          wkhtmltopdf and wkhtmltoimage are open source (LGPL) command line tools
+          to render HTML into PDF and various image formats using the QT Webkit
+          rendering engine. These run entirely "headless" and do not require a
+          display or display service.
+
+          There is also a C library, if you're into that kind of thing.
+        '';
+        license = licenses.gpl3Plus;
+        maintainers = with maintainers; [
+          nbr
+          kalbasit
+        ];
+        platforms = [
+          "x86_64-darwin"
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
+      };
+    }
+    // lib.optionalAttrs (stdenv.hostPlatform.isDarwin) darwinAttrs
+    // lib.optionalAttrs (stdenv.hostPlatform.isLinux) linuxAttrs.${stdenv.system}
+  )

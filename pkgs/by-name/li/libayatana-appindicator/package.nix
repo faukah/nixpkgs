@@ -11,7 +11,6 @@
   vala,
   gobject-introspection,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libayatana-appindicator";
   version = "0.5.92";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   propagatedBuildInputs = [
     libayatana-indicator
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
       lib.licenses.lgpl3Plus
       lib.licenses.lgpl21Plus
     ];
-    maintainers = [ lib.maintainers.nickhu ];
+    maintainers = [lib.maintainers.nickhu];
     platforms = lib.platforms.linux;
   };
 }

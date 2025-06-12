@@ -3,14 +3,14 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   cfg = config.services.wakapi;
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   settingsFile = settingsFormat.generate "wakapi-settings" cfg.settings;
 
-  inherit (lib)
+  inherit
+    (lib)
     getExe
     mkOption
     mkEnableOption
@@ -21,11 +21,10 @@ let
     mkMerge
     singleton
     ;
-in
-{
+in {
   options.services.wakapi = {
     enable = mkEnableOption "Wakapi";
-    package = mkPackageOption pkgs "wakapi" { };
+    package = mkPackageOption pkgs "wakapi" {};
     stateDir = mkOption {
       type = types.path;
       default = "/var/lib/wakapi";
@@ -37,7 +36,7 @@ in
 
     settings = mkOption {
       inherit (settingsFormat) type;
-      default = { };
+      default = {};
       description = ''
         Settings for Wakapi.
 
@@ -133,13 +132,17 @@ in
   config = mkIf cfg.enable {
     systemd.services.wakapi = {
       description = "Wakapi (self-hosted WakaTime-compatible backend)";
-      wants = [
-        "network-online.target"
-      ] ++ optional (cfg.database.dialect == "postgres") "postgresql.service";
-      after = [
-        "network-online.target"
-      ] ++ optional (cfg.database.dialect == "postgres") "postgresql.service";
-      wantedBy = [ "multi-user.target" ];
+      wants =
+        [
+          "network-online.target"
+        ]
+        ++ optional (cfg.database.dialect == "postgres") "postgresql.service";
+      after =
+        [
+          "network-online.target"
+        ]
+        ++ optional (cfg.database.dialect == "postgres") "postgresql.service";
+      wantedBy = ["multi-user.target"];
 
       script = ''
         exec ${getExe cfg.package} -config ${settingsFile}
@@ -227,7 +230,7 @@ in
         createHome = false;
         isSystemUser = true;
       };
-      groups.wakapi = { };
+      groups.wakapi = {};
     };
 
     services.postgresql = mkIf (cfg.database.createLocally && cfg.database.dialect == "postgres") {

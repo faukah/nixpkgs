@@ -9,7 +9,6 @@
   pygobject3,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "goocalendar";
   version = "0.8.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     gobject-introspection
   ];
 
-  propagatedBuildInputs = [ pygobject3 ];
+  propagatedBuildInputs = [pygobject3];
 
   buildInputs = [
     gtk3
@@ -38,13 +37,13 @@ buildPythonPackage rec {
   # No upstream tests available
   doCheck = false;
 
-  pythonImportsCheck = [ "goocalendar" ];
+  pythonImportsCheck = ["goocalendar"];
 
   meta = with lib; {
     description = "Calendar widget for GTK using PyGoocanvas";
     homepage = "https://goocalendar.tryton.org/";
     changelog = "https://foss.heptapod.net/tryton/goocalendar/-/blob/${version}/CHANGELOG";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ udono ];
+    maintainers = with maintainers; [udono];
   };
 }

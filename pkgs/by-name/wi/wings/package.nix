@@ -12,7 +12,6 @@
   libigl,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wings";
   version = "2.4.1";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-3ulWbAOtYujaymN50u7buvnBdtYMEAe8Ji3arvPUH/s=";
   };
 
-  nativeBuildInputs = [ git ];
+  nativeBuildInputs = [git];
   buildInputs = [
     erlang
     cl
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     cl
   ];
 
-  preBuildPhases = [ "setupDepsPhase" ];
+  preBuildPhases = ["setupDepsPhase"];
   setupDepsPhase = ''
     mkdir -p _deps/eigen _deps/libigl
     ln -s ${eigen}/include/eigen3/* _deps/eigen/
@@ -102,14 +101,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     homepage = "https://www.wings3d.com/";
     description = "Subdivision modeler inspired by Nendo and Mirai from Izware";
     license = lib.licenses.tcltk;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
     mainProgram = "wings";
   };

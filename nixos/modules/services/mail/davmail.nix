@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.davmail;
 
-  configType =
-    with lib.types;
+  configType = with lib.types;
     oneOf [
       (attrsOf configType)
       str
@@ -20,28 +17,25 @@ let
       description = "davmail config type (str, int, bool or attribute set thereof)";
     };
 
-  toStr = val: if lib.isBool val then lib.boolToString val else toString val;
+  toStr = val:
+    if lib.isBool val
+    then lib.boolToString val
+    else toString val;
 
-  linesForAttrs =
-    attrs:
+  linesForAttrs = attrs:
     lib.concatMap (
-      name:
-      let
+      name: let
         value = attrs.${name};
       in
-      if lib.isAttrs value then
-        map (line: name + "." + line) (linesForAttrs value)
-      else
-        [ "${name}=${toStr value}" ]
+        if lib.isAttrs value
+        then map (line: name + "." + line) (linesForAttrs value)
+        else ["${name}=${toStr value}"]
     ) (lib.attrNames attrs);
 
   configFile = pkgs.writeText "davmail.properties" (
     lib.concatStringsSep "\n" (linesForAttrs cfg.config)
   );
-
-in
-
-{
+in {
   options.services.davmail = {
     enable = lib.mkEnableOption "davmail, an MS Exchange gateway";
 
@@ -53,7 +47,7 @@ in
 
     config = lib.mkOption {
       type = configType;
-      default = { };
+      default = {};
       description = ''
         Davmail configuration. Refer to
         <http://davmail.sourceforge.net/serversetup.html>
@@ -75,7 +69,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     services.davmail.config = {
       davmail = lib.mapAttrs (name: lib.mkDefault) {
         server = true;
@@ -100,8 +93,8 @@ in
 
     systemd.services.davmail = {
       description = "DavMail POP/IMAP/SMTP Exchange Gateway";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -110,8 +103,8 @@ in
         DynamicUser = "yes";
         LogsDirectory = "davmail";
 
-        CapabilityBoundingSet = [ "" ];
-        DeviceAllow = [ "" ];
+        CapabilityBoundingSet = [""];
+        DeviceAllow = [""];
         LockPersonality = true;
         NoNewPrivileges = true;
         PrivateDevices = true;
@@ -138,10 +131,9 @@ in
         SystemCallFilter = "@system-service";
         SystemCallErrorNumber = "EPERM";
         UMask = "0077";
-
       };
     };
 
-    environment.systemPackages = [ pkgs.davmail ];
+    environment.systemPackages = [pkgs.davmail];
   };
 }

@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.i18n.inputMethod;
 
   allowedTypes = lib.types.enum [
@@ -18,42 +17,42 @@ let
 
   gtk2_cache =
     pkgs.runCommand "gtk2-immodule.cache"
-      {
-        preferLocalBuild = true;
-        allowSubstitutes = false;
-        buildInputs = [
-          pkgs.gtk2
-          cfg.package
-        ];
-      }
-      ''
-        mkdir -p $out/etc/gtk-2.0/
-        GTK_PATH=${cfg.package}/lib/gtk-2.0/ gtk-query-immodules-2.0 > $out/etc/gtk-2.0/immodules.cache
-      '';
+    {
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+      buildInputs = [
+        pkgs.gtk2
+        cfg.package
+      ];
+    }
+    ''
+      mkdir -p $out/etc/gtk-2.0/
+      GTK_PATH=${cfg.package}/lib/gtk-2.0/ gtk-query-immodules-2.0 > $out/etc/gtk-2.0/immodules.cache
+    '';
 
   gtk3_cache =
     pkgs.runCommand "gtk3-immodule.cache"
-      {
-        preferLocalBuild = true;
-        allowSubstitutes = false;
-        buildInputs = [
-          pkgs.gtk3
-          cfg.package
-        ];
-      }
-      ''
-        mkdir -p $out/etc/gtk-3.0/
-        GTK_PATH=${cfg.package}/lib/gtk-3.0/ gtk-query-immodules-3.0 > $out/etc/gtk-3.0/immodules.cache
-      '';
-
-in
-{
+    {
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+      buildInputs = [
+        pkgs.gtk3
+        cfg.package
+      ];
+    }
+    ''
+      mkdir -p $out/etc/gtk-3.0/
+      GTK_PATH=${cfg.package}/lib/gtk-3.0/ gtk-query-immodules-3.0 > $out/etc/gtk-3.0/immodules.cache
+    '';
+in {
   options.i18n = {
     inputMethod = {
-      enable = lib.mkEnableOption "an additional input method type" // {
-        default = cfg.enabled != null;
-        defaultText = lib.literalMD "`true` if the deprecated option `enabled` is set, false otherwise";
-      };
+      enable =
+        lib.mkEnableOption "an additional input method type"
+        // {
+          default = cfg.enabled != null;
+          defaultText = lib.literalMD "`true` if the deprecated option `enabled` is set, false otherwise";
+        };
 
       enabled = lib.mkOption {
         type = lib.types.nullOr allowedTypes;
@@ -94,16 +93,18 @@ in
 
       enableGtk2 = lib.mkEnableOption "Gtk2 support";
 
-      enableGtk3 = lib.mkEnableOption "Gtk3 support" // {
-        default = true;
-      };
+      enableGtk3 =
+        lib.mkEnableOption "Gtk3 support"
+        // {
+          default = true;
+        };
     };
   };
 
   config = lib.mkIf cfg.enable {
     warnings =
       lib.optional (cfg.enabled != null)
-        "i18n.inputMethod.enabled will be removed in a future release. Please use .type, and .enable = true instead";
+      "i18n.inputMethod.enabled will be removed in a future release. Please use .type, and .enable = true instead";
     environment.systemPackages =
       [
         cfg.package
@@ -113,8 +114,7 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     doc = ./default.md;
   };
-
 }

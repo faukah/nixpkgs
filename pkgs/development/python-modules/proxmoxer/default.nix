@@ -10,7 +10,6 @@
   responses,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "proxmoxer";
   version = "2.2.0-unstable-2025-02-18";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-h5Sla7/4XiZSGwKstyiqs/T2Qgi13jI9YMVPqDcF3sA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     paramiko
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     "test_repr_openssh"
   ];
 
-  pythonImportsCheck = [ "proxmoxer" ];
+  pythonImportsCheck = ["proxmoxer"];
 
   meta = with lib; {
     description = "Python wrapper for Proxmox API v2";
     homepage = "https://github.com/proxmoxer/proxmoxer";
     changelog = "https://github.com/proxmoxer/proxmoxer/releases/tag/${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

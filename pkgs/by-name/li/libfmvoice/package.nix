@@ -5,7 +5,6 @@
   unstableGitUpdater,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libfmvoice";
   version = "0-unstable-2025-02-13";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   buildFlags = [
     "AR=${stdenv.cc.targetPrefix}ar"
@@ -50,14 +49,14 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = {
     description = "C library for loading, saving and converting FM sound chip voice files in various formats";
     homepage = "https://github.com/vampirefrog/libfmvoice";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     platforms = lib.platforms.all;
   };
 })

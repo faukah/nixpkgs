@@ -10,7 +10,6 @@
   setuptools,
   tomlkit,
 }:
-
 buildPythonPackage rec {
   pname = "neo4j";
   version = "5.28.1";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
       --replace-fail '#readme = "README.rst"' 'version = "${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pytz
@@ -42,24 +41,24 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    numpy = [ numpy ];
+    numpy = [numpy];
     pandas = [
       numpy
       pandas
     ];
-    pyarrow = [ pyarrow ];
+    pyarrow = [pyarrow];
   };
 
   # Missing dependencies
   doCheck = false;
 
-  pythonImportsCheck = [ "neo4j" ];
+  pythonImportsCheck = ["neo4j"];
 
   meta = with lib; {
     description = "Neo4j Bolt Driver for Python";
     homepage = "https://github.com/neo4j/neo4j-python-driver";
     changelog = "https://github.com/neo4j/neo4j-python-driver/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

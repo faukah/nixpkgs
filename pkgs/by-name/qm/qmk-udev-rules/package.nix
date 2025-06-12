@@ -3,10 +3,8 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 ## Usage
 # In NixOS, set hardware.keyboard.qmk.enable = true;
-
 stdenv.mkDerivation rec {
   pname = "qmk-udev-rules";
   version = "0.27.13";
@@ -33,6 +31,6 @@ stdenv.mkDerivation rec {
     description = "Official QMK udev rules list";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ ekleog ];
+    maintainers = with lib.maintainers; [ekleog];
   };
 }

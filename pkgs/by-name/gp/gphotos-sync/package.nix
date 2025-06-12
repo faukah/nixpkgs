@@ -58,6 +58,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "gphotos-sync";
     homepage = "https://github.com/gilesknap/gphotos-sync";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dnr ];
+    maintainers = with maintainers; [dnr];
   };
 }

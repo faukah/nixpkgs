@@ -7,7 +7,6 @@
   hatchling,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "dasbus";
   version = "unstable-11-10-2022";
@@ -20,9 +19,9 @@ buildPythonPackage {
     hash = "sha256-TmhhDrfpP+nUErAd7dUb+RtGBRtWwn3bYOoIqa0VRoc=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ pygobject3 ];
+  dependencies = [pygobject3];
 
   nativeCheckInputs = [
     dbus
@@ -40,6 +39,6 @@ buildPythonPackage {
     homepage = "https://github.com/rhinstaller/dasbus";
     description = "DBus library in Python3";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
   };
 }

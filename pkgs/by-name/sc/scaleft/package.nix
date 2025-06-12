@@ -7,7 +7,6 @@
   testers,
   scaleft,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scaleft";
   version = "1.80.1";
@@ -51,10 +50,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "ScaleFT provides Zero Trust software which you can use to secure your internal servers and services";
     homepage = "https://www.scaleft.com";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ jloyet ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [jloyet];
+    platforms = ["x86_64-linux"];
     mainProgram = "sft";
   };
 }

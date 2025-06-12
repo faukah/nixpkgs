@@ -4,7 +4,6 @@
   fetchPypi,
   flit-core,
 }:
-
 buildPythonPackage rec {
   pname = "py3dns";
   version = "4.0.2";
@@ -15,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-mGUugOzsFDxg948OazQWMcqadWDt2N3fyGTAKQJhijk=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   doCheck = false;
 

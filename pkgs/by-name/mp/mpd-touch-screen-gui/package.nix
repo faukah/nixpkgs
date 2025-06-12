@@ -14,7 +14,6 @@
   libconfig,
   dejavu_fonts,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mpd-touch-screen-gui";
   version = "unstable-2022-12-30";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/muesli4/mpd-touch-screen-gui";
     # See: https://github.com/muesli4/mpd-touch-screen-gui/tree/master/LICENSES
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.all;
   };
 })

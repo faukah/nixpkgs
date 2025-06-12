@@ -31,7 +31,6 @@
   dbus,
   pipewire,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cheese";
   version = "44.1";
@@ -114,7 +113,7 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.gnome.org/GNOME/cheese/-/blob/${version}/NEWS?ref_type=tags";
     description = "Take photos and videos with your webcam, with fun graphical effects";
     mainProgram = "cheese";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };

@@ -9,7 +9,6 @@
   poetry-core,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "librouteros";
   version = "3.4.1";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-vN12LYqFOU7flD6bTFtGw5VhPJ238pZ0MStM3ljwDU4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ toml ];
+  dependencies = [toml];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     "test_generator_ditch"
   ];
 
-  pythonImportsCheck = [ "librouteros" ];
+  pythonImportsCheck = ["librouteros"];
 
   meta = with lib; {
     description = "Python implementation of the MikroTik RouterOS API";
     homepage = "https://librouteros.readthedocs.io/";
     changelog = "https://github.com/luqasz/librouteros/blob/${version}/CHANGELOG.rst";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

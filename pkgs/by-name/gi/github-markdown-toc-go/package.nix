@@ -20,7 +20,7 @@ buildGoModule rec {
     homepage = "https://github.com/ekalinin/github-markdown-toc.go";
     description = "Easy TOC creation for GitHub README.md (in go)";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dannixon ];
+    maintainers = with lib.maintainers; [dannixon];
     mainProgram = "gh-md-toc";
   };
 }

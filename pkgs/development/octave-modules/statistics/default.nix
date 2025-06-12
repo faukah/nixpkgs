@@ -4,7 +4,6 @@
   fetchFromGitHub,
   io,
 }:
-
 buildOctavePackage rec {
   pname = "statistics";
   version = "1.7.0";
@@ -26,7 +25,7 @@ buildOctavePackage rec {
       gpl3Plus
       publicDomain
     ];
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Statistics package for GNU Octave";
   };
 }

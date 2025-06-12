@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ajsonrpc";
   version = "1.2.0";
@@ -19,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-eRusGPC/De4QkZRkTxUc+Lf/UpxLjWI5rEgQSjJRoZ8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ajsonrpc" ];
+  pythonImportsCheck = ["ajsonrpc"];
 
   meta = with lib; {
     description = "Async JSON-RPC 2.0 protocol and asyncio server";
     homepage = "https://github.com/pavlov99/ajsonrpc";
     changelog = "https://github.com/pavlov99/ajsonrpc/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
     mainProgram = "async-json-rpc-server";
   };
 }

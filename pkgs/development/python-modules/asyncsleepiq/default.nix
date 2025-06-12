@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "asyncsleepiq";
   version = "1.5.3";
@@ -19,20 +18,20 @@ buildPythonPackage rec {
     hash = "sha256-TDHFKLifNmmAVvD5DjSopEXFbR+KPMIdSA+rLAKrfpI=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "asyncsleepiq" ];
+  pythonImportsCheck = ["asyncsleepiq"];
 
   meta = with lib; {
     description = "Async interface to SleepIQ API";
     homepage = "https://github.com/kbickar/asyncsleepiq";
     changelog = "https://github.com/kbickar/asyncsleepiq/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

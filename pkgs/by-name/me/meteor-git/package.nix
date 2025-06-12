@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "meteor-git";
   version = "0.27.0";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "meteor";
     homepage = "https://github.com/stefanlogue/meteor";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nebunebu ];
+    maintainers = with lib.maintainers; [nebunebu];
   };
 }

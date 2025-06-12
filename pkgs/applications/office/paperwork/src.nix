@@ -3,8 +3,7 @@
   srcOnly,
   fetchpatch,
   stdenv,
-}:
-rec {
+}: rec {
   version = "2.2.5";
   src = srcOnly {
     pname = "paperwork-patched-src";
@@ -22,10 +21,10 @@ rec {
       # remove on next release
       (
         assert version == "2.2.5";
-        fetchpatch {
-          url = "https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/commit/b8e2633ace0f3d9d57e68c27db8f594b8a5ddd7e.patch";
-          hash = "sha256-VUT86kF0ZHLGK457ZrrIBMeiZqg/rPRpbkBA/ua9rU8=";
-        }
+          fetchpatch {
+            url = "https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/commit/b8e2633ace0f3d9d57e68c27db8f594b8a5ddd7e.patch";
+            hash = "sha256-VUT86kF0ZHLGK457ZrrIBMeiZqg/rPRpbkBA/ua9rU8=";
+          }
       )
     ];
   };
@@ -39,5 +38,4 @@ rec {
     rev = "2.1";
     sha256 = "0m79fgc1ycsj0q0alqgr0axn16klz1sfs2km1h83zn3kysqcs6xr";
   };
-
 }

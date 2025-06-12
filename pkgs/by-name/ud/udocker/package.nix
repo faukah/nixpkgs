@@ -6,7 +6,6 @@
   testers,
   udocker,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "udocker";
   version = "1.3.17";
@@ -49,7 +48,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   passthru = {
-    tests.version = testers.testVersion { package = udocker; };
+    tests.version = testers.testVersion {package = udocker;};
   };
 
   meta = {
@@ -57,7 +56,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://indigo-dc.gitbooks.io/udocker";
     changelog = "https://github.com/indigo-dc/udocker/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bzizou ];
+    maintainers = with lib.maintainers; [bzizou];
     platforms = lib.platforms.linux;
     mainProgram = "udocker";
   };

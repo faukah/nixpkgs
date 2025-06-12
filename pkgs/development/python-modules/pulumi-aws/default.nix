@@ -8,7 +8,6 @@
   semver,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pulumi-aws";
   # Version is independent of pulumi's.
@@ -26,7 +25,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/sdk/python";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     parver
@@ -37,13 +36,13 @@ buildPythonPackage rec {
   # Checks require cloud resources
   doCheck = false;
 
-  pythonImportsCheck = [ "pulumi_aws" ];
+  pythonImportsCheck = ["pulumi_aws"];
 
   meta = with lib; {
     description = "Pulumi python amazon web services provider";
     homepage = "https://github.com/pulumi/pulumi-aws";
     changelog = "https://github.com/pulumi/pulumi-aws/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

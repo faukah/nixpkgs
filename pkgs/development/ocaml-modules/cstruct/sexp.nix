@@ -6,11 +6,9 @@
   cstruct,
   sexplib,
 }:
-
-if lib.versionOlder (cstruct.version or "1") "3" then
-  cstruct
+if lib.versionOlder (cstruct.version or "1") "3"
+then cstruct
 else
-
   buildDunePackage {
     pname = "cstruct-sexp";
     inherit (cstruct) version src meta;
@@ -19,7 +17,7 @@ else
     duneVersion = "3";
 
     doCheck = true;
-    checkInputs = [ alcotest ];
+    checkInputs = [alcotest];
 
     propagatedBuildInputs = [
       cstruct

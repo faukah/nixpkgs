@@ -1,7 +1,7 @@
 /*
-  TeX Live user docs
-  - source: ../../../../../doc/languages-frameworks/texlive.xml
-  - current html: https://nixos.org/nixpkgs/manual/#sec-language-texlive
+TeX Live user docs
+- source: ../../../../../doc/languages-frameworks/texlive.xml
+- current html: https://nixos.org/nixpkgs/manual/#sec-language-texlive
 */
 {
   lib,
@@ -43,11 +43,9 @@
   makeFontsConf,
   useFixedHashes ? true,
   recurseIntoAttrs,
-}:
-let
+}: let
   stdenv = gcc12Stdenv;
-in
-let
+in let
   # various binaries (compiled)
   bin = callPackage ./bin.nix {
     ghostscript = ghostscript_headless;
@@ -64,37 +62,36 @@ let
   tlpdbVersion = tlpdb."00texlive.config";
 
   # the set of TeX Live packages, collections, and schemes; using upstream naming
-  overriddenTlpdb =
-    let
-      overrides = import ./tlpdb-overrides.nix {
-        inherit
-          stdenv
-          lib
-          fetchpatch
-          bin
-          tlpdb
-          tlpdbxz
-          tl
-          installShellFiles
-          coreutils
-          findutils
-          gawk
-          getopt
-          ghostscript_headless
-          gnugrep
-          gnumake
-          gnupg
-          gnused
-          gzip
-          html-tidy
-          ncurses
-          perl
-          python3
-          ruby
-          zip
-          ;
-      };
-    in
+  overriddenTlpdb = let
+    overrides = import ./tlpdb-overrides.nix {
+      inherit
+        stdenv
+        lib
+        fetchpatch
+        bin
+        tlpdb
+        tlpdbxz
+        tl
+        installShellFiles
+        coreutils
+        findutils
+        gawk
+        getopt
+        ghostscript_headless
+        gnugrep
+        gnumake
+        gnupg
+        gnused
+        gzip
+        html-tidy
+        ncurses
+        perl
+        python3
+        ruby
+        zip
+        ;
+    };
+  in
     overrides tlpdb;
 
   version = {
@@ -114,44 +111,47 @@ let
   # should be switching to the tlnet-final versions
   # (https://tug.org/historic/).
   mirrors =
-    if version.final then
-      [
-        # tlnet-final snapshot; used when texlive.tlpdb is frozen
-        # the TeX Live yearly freeze typically happens in mid-March
-        "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${toString version.texliveYear}/tlnet-final"
-        "ftp://tug.org/texlive/historic/${toString version.texliveYear}/tlnet-final"
-      ]
-    else
-      [
-        # CTAN mirrors
-        "https://mirror.ctan.org/systems/texlive/tlnet"
-        # daily snapshots hosted by one of the texlive release managers;
-        # used for packages that in the meanwhile have been updated or removed from CTAN
-        # and for packages that have not reached yet the historic mirrors
-        # please note that this server is not meant for large scale deployment
-        # https://tug.org/pipermail/tex-live/2019-November/044456.html
-        # https://texlive.info/ MUST appear last (see tlpdbxz)
-        "https://texlive.info/tlnet-archive/${version.year}/${version.month}/${version.day}/tlnet"
-      ];
+    if version.final
+    then [
+      # tlnet-final snapshot; used when texlive.tlpdb is frozen
+      # the TeX Live yearly freeze typically happens in mid-March
+      "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${toString version.texliveYear}/tlnet-final"
+      "ftp://tug.org/texlive/historic/${toString version.texliveYear}/tlnet-final"
+    ]
+    else [
+      # CTAN mirrors
+      "https://mirror.ctan.org/systems/texlive/tlnet"
+      # daily snapshots hosted by one of the texlive release managers;
+      # used for packages that in the meanwhile have been updated or removed from CTAN
+      # and for packages that have not reached yet the historic mirrors
+      # please note that this server is not meant for large scale deployment
+      # https://tug.org/pipermail/tex-live/2019-November/044456.html
+      # https://texlive.info/ MUST appear last (see tlpdbxz)
+      "https://texlive.info/tlnet-archive/${version.year}/${version.month}/${version.day}/tlnet"
+    ];
 
   tlpdbxz = fetchurl {
     urls =
       map (up: "${up}/tlpkg/texlive.tlpdb.xz")
-        # use last mirror for daily snapshots as texlive.tlpdb.xz changes every day
-        # TODO make this less hacky
-        (if version.final then mirrors else [ (lib.last mirrors) ]);
+      # use last mirror for daily snapshots as texlive.tlpdb.xz changes every day
+      # TODO make this less hacky
+      (
+        if version.final
+        then mirrors
+        else [(lib.last mirrors)]
+      );
     hash = "sha256-YLn4+Ik9WR0iDS9Pjdo/aGyqFl7+eKoMzI3sgNSHmao=";
   };
 
   tlpdbNix =
     runCommand "tlpdb.nix"
-      {
-        inherit tlpdbxz;
-        tl2nix = ./tl2nix.sed;
-      }
-      ''
-        xzcat "$tlpdbxz" | sed -rn -f "$tl2nix" | uniq > "$out"
-      '';
+    {
+      inherit tlpdbxz;
+      tl2nix = ./tl2nix.sed;
+    }
+    ''
+      xzcat "$tlpdbxz" | sed -rn -f "$tl2nix" | uniq > "$out"
+    '';
 
   # map: name -> fixed-output hash
   fixedHashes = lib.optionalAttrs useFixedHashes (import ./fixed-hashes.nix);
@@ -173,23 +173,24 @@ let
     texliveBinaries = bin;
   };
 
-  tl = lib.mapAttrs (
-    pname:
-    {
-      revision,
-      extraRevision ? "",
-      ...
-    }@args:
-    buildTeXLivePackage (
-      args
-      # NOTE: the fixed naming scheme must match generate-fixed-hashes.nix
-      // {
-        inherit mirrors pname;
-        fixedHashes = fixedHashes."${pname}-${toString revision}${extraRevision}" or { };
-      }
-      // lib.optionalAttrs (args ? deps) { deps = map (n: tl.${n}) (args.deps or [ ]); }
+  tl =
+    lib.mapAttrs (
+      pname: {
+        revision,
+        extraRevision ? "",
+        ...
+      } @ args:
+        buildTeXLivePackage (
+          args
+          # NOTE: the fixed naming scheme must match generate-fixed-hashes.nix
+          // {
+            inherit mirrors pname;
+            fixedHashes = fixedHashes."${pname}-${toString revision}${extraRevision}" or {};
+          }
+          // lib.optionalAttrs (args ? deps) {deps = map (n: tl.${n}) (args.deps or []);}
+        )
     )
-  ) overriddenTlpdb;
+    overriddenTlpdb;
 
   # function for creating a working environment
   buildTeXEnv = import ./build-tex-env.nix {
@@ -217,21 +218,20 @@ let
   ### texlive.combine compatibility layer:
   # convert TeX packages to { pkgs = [ ... ]; } lists
   # respecting specified outputs
-  toTLPkgList =
-    drv:
-    if drv.outputSpecified or false then
-      let
-        tlType = drv.tlType or tlOutToType.${drv.tlOutputName or drv.outputName} or null;
-      in
-      lib.optional (tlType != null) (drv // { inherit tlType; })
+  toTLPkgList = drv:
+    if drv.outputSpecified or false
+    then let
+      tlType = drv.tlType or tlOutToType.${drv.tlOutputName or drv.outputName} or null;
+    in
+      lib.optional (tlType != null) (drv // {inherit tlType;})
     else
-      [ (drv.tex // { tlType = "run"; }) ]
+      [(drv.tex // {tlType = "run";})]
       ++ lib.optional (drv ? texdoc) (
-        drv.texdoc // { tlType = "doc"; } // lib.optionalAttrs (drv ? man) { hasManpages = true; }
+        drv.texdoc // {tlType = "doc";} // lib.optionalAttrs (drv ? man) {hasManpages = true;}
       )
-      ++ lib.optional (drv ? texsource) (drv.texsource // { tlType = "source"; })
-      ++ lib.optional (drv ? tlpkg) (drv.tlpkg // { tlType = "tlpkg"; })
-      ++ lib.optional (drv ? out) (drv.out // { tlType = "bin"; });
+      ++ lib.optional (drv ? texsource) (drv.texsource // {tlType = "source";})
+      ++ lib.optional (drv ? tlpkg) (drv.tlpkg // {tlType = "tlpkg";})
+      ++ lib.optional (drv ? out) (drv.out // {tlType = "bin";});
   tlOutToType = {
     out = "bin";
     tex = "run";
@@ -251,22 +251,22 @@ let
   };
   toSpecifiedNV = p: rec {
     name = value.tlOutputName;
-    value = builtins.removeAttrs p [ "pkgs" ] // {
-      outputSpecified = true;
-      tlOutputName = tlTypeToOut.${p.tlType};
-    };
+    value =
+      builtins.removeAttrs p ["pkgs"]
+      // {
+        outputSpecified = true;
+        tlOutputName = tlTypeToOut.${p.tlType};
+      };
   };
-  toTLPkgSet =
-    pname: drvs:
-    let
-      set = lib.listToAttrs (builtins.map toSpecifiedNV drvs);
-      mainDrv = set.out or set.tex or set.tlpkg or set.texdoc or set.texsource;
-    in
-    builtins.removeAttrs mainDrv [ "outputSpecified" ];
-  toTLPkgSets = { pkgs, ... }: lib.mapAttrsToList toTLPkgSet (lib.groupBy (p: p.pname) pkgs);
+  toTLPkgSet = pname: drvs: let
+    set = lib.listToAttrs (builtins.map toSpecifiedNV drvs);
+    mainDrv = set.out or set.tex or set.tlpkg or set.texdoc or set.texsource;
+  in
+    builtins.removeAttrs mainDrv ["outputSpecified"];
+  toTLPkgSets = {pkgs, ...}: lib.mapAttrsToList toTLPkgSet (lib.groupBy (p: p.pname) pkgs);
 
   # export TeX packages as { pkgs = [ ... ]; } in the top attribute set
-  allPkgLists = lib.mapAttrs (n: drv: { pkgs = toTLPkgList drv; }) tl;
+  allPkgLists = lib.mapAttrs (n: drv: {pkgs = toTLPkgList drv;}) tl;
 
   # function for creating a working environment from a set of TL packages
   # now a legacy wrapper around buildTeXEnv
@@ -535,94 +535,92 @@ let
   meta = {
     description = "TeX Live environment";
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
     license = licenses.scheme-infraonly;
   };
 
   combined = recurseIntoAttrs (
     lib.genAttrs
-      [
-        "scheme-basic"
-        "scheme-bookpub"
-        "scheme-context"
-        "scheme-full"
-        "scheme-gust"
-        "scheme-infraonly"
-        "scheme-medium"
-        "scheme-minimal"
-        "scheme-small"
-        "scheme-tetex"
-      ]
-      (
-        pname:
+    [
+      "scheme-basic"
+      "scheme-bookpub"
+      "scheme-context"
+      "scheme-full"
+      "scheme-gust"
+      "scheme-infraonly"
+      "scheme-medium"
+      "scheme-minimal"
+      "scheme-small"
+      "scheme-tetex"
+    ]
+    (
+      pname:
         (buildTeXEnv {
           __extraName = "combined" + lib.removePrefix "scheme" pname;
           __extraVersion =
-            if version.final then "-final" else ".${version.year}${version.month}${version.day}";
-          requiredTeXPackages = ps: [ ps.${pname} ];
+            if version.final
+            then "-final"
+            else ".${version.year}${version.month}${version.day}";
+          requiredTeXPackages = ps: [ps.${pname}];
           # to maintain full backward compatibility, enable texlive.combine behavior
           __combine = true;
         }).overrideAttrs
-          {
-            meta = meta // {
+        {
+          meta =
+            meta
+            // {
               description = "TeX Live environment for ${pname}";
               license = licenses.${pname};
             };
-          }
-      )
+        }
+    )
   );
 
   schemes = lib.listToAttrs (
     map
-      (s: {
-        name = "texlive" + s;
-        value = lib.addMetaAttrs { license = licenses.${"scheme-" + (lib.toLower s)}; } (buildTeXEnv {
-          requiredTeXPackages = ps: [ ps.${"scheme-" + (lib.toLower s)} ];
-        });
-      })
-      [
-        "Basic"
-        "BookPub"
-        "ConTeXt"
-        "Full"
-        "GUST"
-        "InfraOnly"
-        "Medium"
-        "Minimal"
-        "Small"
-        "TeTeX"
-      ]
+    (s: {
+      name = "texlive" + s;
+      value = lib.addMetaAttrs {license = licenses.${"scheme-" + (lib.toLower s)};} (buildTeXEnv {
+        requiredTeXPackages = ps: [ps.${"scheme-" + (lib.toLower s)}];
+      });
+    })
+    [
+      "Basic"
+      "BookPub"
+      "ConTeXt"
+      "Full"
+      "GUST"
+      "InfraOnly"
+      "Medium"
+      "Minimal"
+      "Small"
+      "TeTeX"
+    ]
   );
-
 in
-allPkgLists
-// {
-  pkgs = tl;
+  allPkgLists
+  // {
+    pkgs = tl;
 
-  tlpdb = {
-    # nested in an attribute set to prevent them from appearing in search
-    nix = tlpdbNix;
-    xz = tlpdbxz;
-  };
-
-  bin =
-    assert assertions;
-    bin
-    // {
-      # for backward compatibility
-      latexindent = tl.latexindent;
+    tlpdb = {
+      # nested in an attribute set to prevent them from appearing in search
+      nix = tlpdbNix;
+      xz = tlpdbxz;
     };
 
-  combine =
-    assert assertions;
-    combine;
+    bin = assert assertions;
+      bin
+      // {
+        # for backward compatibility
+        latexindent = tl.latexindent;
+      };
 
-  combined =
-    assert assertions;
-    combined;
+    combine = assert assertions; combine;
 
-  inherit schemes;
+    combined = assert assertions; combined;
 
-  # convenience alias
-  withPackages = (buildTeXEnv { }).withPackages;
-}
+    inherit schemes;
+
+    # convenience alias
+    withPackages = (buildTeXEnv {}).withPackages;
+  }

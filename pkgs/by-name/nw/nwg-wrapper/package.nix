@@ -8,7 +8,6 @@
   wrapGAppsHook3,
   wlr-randr,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "nwg-wrapper";
   version = "0.1.3";
@@ -41,17 +40,17 @@ python3Packages.buildPythonPackage rec {
   preFixup = ''
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
-      --prefix PATH : "${lib.makeBinPath [ wlr-randr ]}"
+      --prefix PATH : "${lib.makeBinPath [wlr-randr]}"
     )
   '';
 
-  pythonImportsCheck = [ "nwg_wrapper" ];
+  pythonImportsCheck = ["nwg_wrapper"];
 
   meta = with lib; {
     description = "Wrapper to display a script output or a text file content on the desktop in sway or other wlroots-based compositors";
     mainProgram = "nwg-wrapper";
     homepage = "https://github.com/nwg-piotr/nwg-wrapper/";
     license = licenses.mit;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

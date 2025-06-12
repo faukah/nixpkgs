@@ -8,7 +8,6 @@
   alsa-lib,
   qttools,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lpd8editor";
   version = "0.0.16";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Linux editor for the Akai LPD8";
     homepage = "https://github.com/charlesfleche/lpd8editor";
     license = licenses.mit;
-    maintainers = with maintainers; [ pinpox ];
+    maintainers = with maintainers; [pinpox];
     mainProgram = "lpd8editor";
     platforms = platforms.all;
   };

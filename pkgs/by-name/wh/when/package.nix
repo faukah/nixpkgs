@@ -5,7 +5,6 @@
   installShellFiles,
   fetchFromBitbucket,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "when";
   version = "1.1.45";
@@ -17,9 +16,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-+ggYjY6/aTUrdvREn0TTQ4Pu/VR4QTjflDaicRXuOMs=";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postBuild = ''
     pod2man $src/when when.1
@@ -39,7 +38,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://www.lightandmatter.com/when/when.html";
     license = licenses.gpl2Only;
     mainProgram = "when";
-    maintainers = with maintainers; [ vonixxx ];
+    maintainers = with maintainers; [vonixxx];
     platforms = platforms.all;
   };
 })

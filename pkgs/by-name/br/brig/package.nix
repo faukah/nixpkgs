@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "brig";
   version = "0.4.1";
@@ -18,9 +17,9 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags =
     [
@@ -56,7 +55,7 @@ buildGoModule rec {
     homepage = "https://brig.readthedocs.io";
     changelog = "https://github.com/sahib/brig/releases/tag/${src.rev}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     mainProgram = "brig";
   };
 }

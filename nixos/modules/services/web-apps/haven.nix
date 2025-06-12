@@ -3,30 +3,30 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   # Load default values from package. See https://github.com/bitvora/haven/blob/master/.env.example
   defaultSettings = builtins.fromTOML (builtins.readFile "${cfg.package}/share/haven/.env.example");
 
   import_relays_file = "${pkgs.writeText "import_relays.json" (builtins.toJSON cfg.importRelays)}";
   blastr_relays_file = "${pkgs.writeText "blastr_relays.json" (builtins.toJSON cfg.blastrRelays)}";
 
-  mergedSettings = cfg.settings // {
-    IMPORT_SEED_RELAYS_FILE = import_relays_file;
-    BLASTR_RELAYS_FILE = blastr_relays_file;
-  };
+  mergedSettings =
+    cfg.settings
+    // {
+      IMPORT_SEED_RELAYS_FILE = import_relays_file;
+      BLASTR_RELAYS_FILE = blastr_relays_file;
+    };
 
   cfg = config.services.haven;
-in
-{
+in {
   options.services.haven = {
     enable = lib.mkEnableOption "haven";
 
-    package = lib.mkPackageOption pkgs "haven" { };
+    package = lib.mkPackageOption pkgs "haven" {};
 
     blastrRelays = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = "List of relay configurations for blastr";
       example = lib.literalExpression ''
         [
@@ -37,7 +37,7 @@ in
 
     importRelays = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = "List of relay configurations for importing historical events";
       example = lib.literalExpression ''
         [
@@ -79,15 +79,23 @@ in
       isSystemUser = true;
     };
 
-    users.groups.haven = { };
+    users.groups.haven = {};
 
     systemd.services.haven = {
       description = "haven";
-      wants = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      environment = lib.attrsets.mapAttrs (
-        name: value: if builtins.isBool value then if value then "true" else "false" else toString value
-      ) mergedSettings;
+      wants = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      environment =
+        lib.attrsets.mapAttrs (
+          name: value:
+            if builtins.isBool value
+            then
+              if value
+              then "true"
+              else "false"
+            else toString value
+        )
+        mergedSettings;
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/haven";

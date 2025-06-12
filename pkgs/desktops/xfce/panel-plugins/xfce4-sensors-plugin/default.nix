@@ -20,7 +20,6 @@
   nvidiaSupport ? lib.meta.availableOn stdenv.hostPlatform libXNVCtrl,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-sensors-plugin";
   version = "1.5.0";
@@ -40,17 +39,19 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook3
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-    libX11
-    libXext
-    libxfce4ui
-    libxfce4util
-    xfce4-panel
-    libnotify
-    lm_sensors
-  ] ++ lib.optionals nvidiaSupport [ libXNVCtrl ];
+  buildInputs =
+    [
+      glib
+      gtk3
+      libX11
+      libXext
+      libxfce4ui
+      libxfce4util
+      xfce4-panel
+      libnotify
+      lm_sensors
+    ]
+    ++ lib.optionals nvidiaSupport [libXNVCtrl];
 
   mesonFlags = [
     (lib.mesonEnable "xnvctrl" nvidiaSupport)
@@ -67,6 +68,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "xfce4-sensors";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
   };
 })

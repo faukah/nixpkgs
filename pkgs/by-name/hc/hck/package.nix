@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hck";
   version = "0.11.4";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-NKyBC/kD2tq61su7tUsSPQ2Rr4YBYUsotL55aCoFNGw=";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     description = "Close to drop in replacement for cut that can use a regex delimiter instead of a fixed string";

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pngpaste";
   version = "0.2.3";
@@ -34,6 +33,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/jcsalterego/pngpaste/raw/${finalAttrs.version}/CHANGELOG.md";
     platforms = lib.platforms.darwin;
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ samw ];
+    maintainers = with lib.maintainers; [samw];
   };
 })

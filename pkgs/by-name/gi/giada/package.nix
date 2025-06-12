@@ -22,7 +22,6 @@
   libopus,
   nlohmann_json,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "giada";
   version = "1.0.0";
@@ -77,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "giada";
     homepage = "https://giadamusic.com/";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ kashw2 ];
+    maintainers = with lib.maintainers; [kashw2];
     platforms = lib.platforms.all;
   };
 })

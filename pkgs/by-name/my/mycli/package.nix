@@ -4,7 +4,6 @@
   python3Packages,
   writableTmpDirAsHomeHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "mycli";
   version = "1.31.2";
@@ -27,8 +26,7 @@ python3Packages.buildPythonApplication rec {
     setuptools-scm
   ];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       cli-helpers
       click
@@ -46,7 +44,7 @@ python3Packages.buildPythonApplication rec {
     ]
     ++ cli-helpers.optional-dependencies.styles;
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ] ++ (with python3Packages; [ pytestCheckHook ]);
+  nativeCheckInputs = [writableTmpDirAsHomeHook] ++ (with python3Packages; [pytestCheckHook]);
 
   disabledTestPaths = [
     "mycli/packages/paramiko_stub/__init__.py"
@@ -61,6 +59,6 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "http://mycli.net";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ jojosch ];
+    maintainers = with lib.maintainers; [jojosch];
   };
 }

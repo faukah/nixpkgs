@@ -16,7 +16,6 @@
   selenium,
   tenacity,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-selenium";
   version = "4.1.0";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  buildInput = [ pytest ];
+  buildInput = [pytest];
 
   dependencies = [
     pytest-base-url
@@ -53,7 +52,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pytest_selenium" ];
+  pythonImportsCheck = ["pytest_selenium"];
 
   disabledTests = [
     # Tests require additional setup and/or network features
@@ -76,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pytest-dev/pytest-selenium";
     changelog = "https://github.com/pytest-dev/pytest-selenium/releases/tag/${version}";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

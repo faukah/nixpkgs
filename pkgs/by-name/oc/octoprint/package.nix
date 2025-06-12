@@ -9,13 +9,11 @@
   nix-update-script,
   nixosTests,
   # To include additional plugins, pass them here as an overlay.
-  packageOverrides ? self: super: { },
-}:
-let
-
+  packageOverrides ? self: super: {},
+}: let
   py = python3.override {
     self = py;
-    packageOverrides = lib.foldr lib.composeExtensions (self: super: { }) ([
+    packageOverrides = lib.foldr lib.composeExtensions (self: super: {}) [
       # Built-in dependency
       (self: super: {
         octoprint-filecheck = self.buildPythonPackage rec {
@@ -82,8 +80,7 @@ let
             hash = "sha256-D6lIEa7ee44DWavMLaXIo7RsKwaMneYqOBQk626pI20=";
           };
 
-          propagatedBuildInputs =
-            with self;
+          propagatedBuildInputs = with self;
             [
               argon2-cffi
               blinker
@@ -134,8 +131,8 @@ let
               class-doc
               pydantic
             ]
-            ++ lib.optionals stdenv.hostPlatform.isDarwin [ py.pkgs.appdirs ]
-            ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ octoprint-pisupport ];
+            ++ lib.optionals stdenv.hostPlatform.isDarwin [py.pkgs.appdirs]
+            ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [octoprint-pisupport];
 
           nativeCheckInputs = with self; [
             ddt
@@ -155,51 +152,51 @@ let
             })
           ];
 
-          postPatch =
-            let
-              ignoreVersionConstraints = [
-                "cachelib"
-                "colorlog"
-                "emoji"
-                "immutabledict"
-                "PyYAML"
-                "sarge"
-                "sentry-sdk"
-                "watchdog"
-                "wrapt"
-                "zeroconf"
-                "Flask-Login"
-                "werkzeug"
-                "flask"
-                "Flask-Limiter"
-                "blinker"
-              ];
-            in
-            ''
-              sed -r -i \
-                ${lib.concatStringsSep "\n" (
-                  map (e: ''-e 's@${e}[<>=]+.*@${e}",@g' \'') ignoreVersionConstraints
-                )}
-                setup.py
-            '';
+          postPatch = let
+            ignoreVersionConstraints = [
+              "cachelib"
+              "colorlog"
+              "emoji"
+              "immutabledict"
+              "PyYAML"
+              "sarge"
+              "sentry-sdk"
+              "watchdog"
+              "wrapt"
+              "zeroconf"
+              "Flask-Login"
+              "werkzeug"
+              "flask"
+              "Flask-Limiter"
+              "blinker"
+            ];
+          in ''
+            sed -r -i \
+              ${lib.concatStringsSep "\n" (
+              map (e: ''-e 's@${e}[<>=]+.*@${e}",@g' \'') ignoreVersionConstraints
+            )}
+              setup.py
+          '';
 
           preCheck = ''
             export HOME=$(mktemp -d)
             rm pytest.ini
           '';
 
-          disabledTests = [
-            "test_check_setup" # Why should it be able to call pip?
-          ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "test_set_external_modification" ];
+          disabledTests =
+            [
+              "test_check_setup" # Why should it be able to call pip?
+            ]
+            ++ lib.optionals stdenv.hostPlatform.isDarwin ["test_set_external_modification"];
           disabledTestPaths = [
             "tests/test_octoprint_setuptools.py" # fails due to distutils and python3.12
           ];
 
           passthru = {
             inherit (self) python;
-            updateScript = nix-update-script { };
+            updateScript = nix-update-script {};
             tests = {
-              plugins = (callPackage ./plugins.nix { }) super self;
+              plugins = (callPackage ./plugins.nix {}) super self;
               inherit (nixosTests) octoprint;
             };
           };
@@ -217,10 +214,10 @@ let
           };
         };
       })
-      (callPackage ./plugins.nix { })
+      (callPackage ./plugins.nix {})
       packageOverrides
-    ]);
+    ];
   };
 in
-with py.pkgs;
-toPythonApplication octoprint
+  with py.pkgs;
+    toPythonApplication octoprint

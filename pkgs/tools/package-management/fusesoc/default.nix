@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-M36bXBgY8hR33AVDlHoH8PZJG2Bi0KOEI07IMns7R4w=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     edalize
@@ -33,7 +33,7 @@ buildPythonPackage rec {
     ipyxact
   ];
 
-  pythonImportsCheck = [ "fusesoc" ];
+  pythonImportsCheck = ["fusesoc"];
 
   makeWrapperArgs = [
     "--suffix PATH : ${
@@ -48,7 +48,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/olofk/fusesoc";
     description = "Package manager and build tools for HDL code";
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     license = licenses.bsd3;
     mainProgram = "fusesoc";
   };

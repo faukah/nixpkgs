@@ -4,7 +4,6 @@
   skalibs,
   execline,
 }:
-
 skawarePackages.buildPackage {
   pname = "s6";
   version = "2.13.2.0";
@@ -15,7 +14,7 @@ skawarePackages.buildPackage {
     version = "2.13.1.0.1";
     sha256 = "sha256-SChxod/W/KxxSic4ttXigwgRWMWLl9Z66i2t7H1nn/s=";
     description = "Port of the documentation for the s6 supervision suite to mdoc";
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
   };
 
   description = "skarnet.org's small & secure supervision software suite";
@@ -55,5 +54,4 @@ skawarePackages.buildPackage {
     mv doc $doc/share/doc/s6/html
     mv examples $doc/share/doc/s6/examples
   '';
-
 }

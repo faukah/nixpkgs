@@ -4,7 +4,6 @@
   fetchurl,
   libiconv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "idnkit";
   version = "2.3";
@@ -14,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-JtBxF2UAQqtGk/DgCWAnXVihvnc+bRPFA7o4RxDz6X4=";
   };
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
   # Ignore errors since gcc-14.
   #   localconverter.c:602:21/607:26/633:26: error: passing argument 2 of 'iconv' from incompatible pointer type

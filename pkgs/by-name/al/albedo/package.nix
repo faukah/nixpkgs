@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "albedo";
   version = "0.2.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/coreruleset/albedo";
     changelog = "https://github.com/coreruleset/albedo/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "albedo";
   };
 }

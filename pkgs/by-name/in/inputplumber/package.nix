@@ -7,7 +7,6 @@
   libiio,
   libevdev,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "inputplumber";
   version = "0.58.5";
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ShadowBlip/InputPlumber";
     license = lib.licenses.gpl3Plus;
     changelog = "https://github.com/ShadowBlip/InputPlumber/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ shadowapex ];
+    maintainers = with lib.maintainers; [shadowapex];
     mainProgram = "inputplumber";
   };
 }

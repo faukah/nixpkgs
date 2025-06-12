@@ -4,9 +4,7 @@
   jasp-src,
   jasp-version,
 }:
-
-with rPackages;
-let
+with rPackages; let
   jaspColumnEncoder-src = fetchFromGitHub {
     owner = "jasp-stats";
     repo = "jaspColumnEncoder";
@@ -45,7 +43,7 @@ let
     env.INCLUDE_DIR = "../inst/include/jaspColumnEncoder";
 
     # necessary for R 4.4.0
-    hardeningDisable = [ "format" ];
+    hardeningDisable = ["format"];
 
     postPatch = ''
       mkdir -p inst/include
@@ -157,8 +155,7 @@ let
     ];
   };
 
-  buildJaspModule =
-    name: deps:
+  buildJaspModule = name: deps:
     buildRPackage {
       name = "${name}-${jasp-version}";
       version = jasp-version;
@@ -172,8 +169,7 @@ let
         rm -f .Rprofile
       '';
     };
-in
-{
+in {
   engine = {
     inherit jaspBase jaspGraphs;
   };

@@ -13,7 +13,6 @@
   uri,
   alcotest,
 }:
-
 buildDunePackage {
   pname = "functoria";
   inherit (functoria-runtime) version src;
@@ -43,6 +42,6 @@ buildDunePackage {
     description = "DSL to organize functor applications";
     homepage = "https://github.com/mirage/functoria";
     license = licenses.isc;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

@@ -25,7 +25,6 @@
   libgbm,
   nix-update-script,
 }:
-
 gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "hyprlock";
   version = "0.8.2";
@@ -72,7 +71,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     ln -s $out/share/hypr/hyprlock.conf $out/etc/xdg/hypr/hyprlock.conf
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Hyprland's GPU-accelerated screen locking utility";
@@ -81,7 +80,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [
       iynaix
     ];
-    teams = [ lib.teams.hyprland ];
+    teams = [lib.teams.hyprland];
     mainProgram = "hyprlock";
     platforms = lib.platforms.linux;
   };

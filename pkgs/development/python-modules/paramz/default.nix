@@ -10,7 +10,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "paramz";
   version = "0.9.6";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-SWmx70G5mm3eUmH2UIEmg5C7u9VDHiFw5aYCIr8UjPs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     decorator
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     substituteInPlace paramz/tests/parameterized_tests.py \
@@ -61,13 +60,13 @@ buildPythonPackage rec {
     "test_regular_expression_misc"
   ];
 
-  pythonImportsCheck = [ "paramz" ];
+  pythonImportsCheck = ["paramz"];
 
   meta = with lib; {
     description = "Parameterization framework for parameterized model creation and handling";
     homepage = "https://github.com/sods/paramz";
     changelog = "https://github.com/sods/paramz/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

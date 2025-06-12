@@ -4,7 +4,6 @@
   fetchFromGitHub,
   kernel,
 }:
-
 stdenv.mkDerivation rec {
   name = "it87-${version}-${kernel.version}";
   version = "unstable-2024-06-09";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-aMMK3QoeXr6mPbo4SDXE8UuWc/oJ3lpgyK7wyEDKaEM=";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -40,6 +39,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    teams = [ teams.lumiguide ];
+    teams = [teams.lumiguide];
   };
 }

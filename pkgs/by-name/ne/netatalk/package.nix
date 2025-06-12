@@ -25,7 +25,6 @@
   iniparser,
   pandoc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netatalk";
   version = "4.2.4";
@@ -82,6 +81,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://netatalk.io/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ jcumming ];
+    maintainers = with lib.maintainers; [jcumming];
   };
 })

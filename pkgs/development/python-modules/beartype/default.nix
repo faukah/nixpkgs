@@ -7,7 +7,6 @@
   pythonAtLeast,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "beartype";
   version = "0.19.0";
@@ -20,14 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-uUwqgK7K8x61J7A6S/DGLJljSKABxsbOCsFBDtsameU=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   nativeCheckInputs = [
     pytestCheckHook
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "beartype" ];
+  pythonImportsCheck = ["beartype"];
 
   disabledTests =
     [
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/beartype/beartype";
     changelog = "https://github.com/beartype/beartype/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

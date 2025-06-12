@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fcgi";
   version = "2.4.6";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-rVurW9zcUT4IFVmrq/kuGuMbv6geQZC+WyAtqtN778Q=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   postInstall = "ln -s . $out/include/fastcgi";
 
@@ -26,6 +25,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = "FastCGI, see LICENSE.TERMS";
     mainProgram = "cgi-fcgi";
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ jtbx ];
+    maintainers = with lib.maintainers; [jtbx];
   };
 })

@@ -6,7 +6,6 @@
   libnotify,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pynotifier";
   version = "0.5.0";
@@ -26,16 +25,16 @@ buildPythonPackage rec {
         '"${lib.getExe' libnotify "notify-send"}"'
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pynotifier" ];
+  pythonImportsCheck = ["pynotifier"];
 
   meta = with lib; {
     description = "Module for sending notifications";
     homepage = "https://github.com/YuriyLisovskiy/pynotifier";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

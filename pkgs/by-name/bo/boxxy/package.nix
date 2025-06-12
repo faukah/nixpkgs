@@ -6,7 +6,6 @@
   oniguruma,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "boxxy";
   version = "0.8.5";

@@ -6,7 +6,6 @@
   python3,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rustscan";
   version = "2.4.1";
@@ -45,7 +44,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/RustScan/RustScan";
     changelog = "https://github.com/RustScan/RustScan/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "rustscan";
   };
 }

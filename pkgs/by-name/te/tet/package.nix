@@ -3,8 +3,7 @@
   lib,
   stdenv,
 }:
-
-stdenv.mkDerivation ({
+stdenv.mkDerivation {
   version = "3.8";
   pname = "tet";
 
@@ -26,6 +25,6 @@ stdenv.mkDerivation ({
     homepage = "https://tetworks.opengroup.org/Products/tet.htm";
     license = lib.licenses.artistic1;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
-})
+}

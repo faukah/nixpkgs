@@ -15,7 +15,6 @@
   glib,
   dbus-glib,
 }:
-
 mkXfceDerivation {
   category = "apps";
   pname = "xfdashboard";
@@ -42,6 +41,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Gnome shell like dashboard";
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

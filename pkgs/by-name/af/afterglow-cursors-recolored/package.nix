@@ -2,14 +2,12 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  themeVariants ? [ ],
-  catppuccinColorVariants ? [ ],
-  draculaColorVariants ? [ ],
-  gruvboxColorVariants ? [ ],
-  originalColorVariants ? [ ],
-}:
-
-let
+  themeVariants ? [],
+  catppuccinColorVariants ? [],
+  draculaColorVariants ? [],
+  gruvboxColorVariants ? [],
+  originalColorVariants ? [],
+}: let
   pname = "afterglow-cursors-recolored";
 
   availableThemeVariants = [
@@ -67,8 +65,7 @@ let
     ];
   };
 in
-
-lib.checkListOfEnum "${pname}: theme variants" availableThemeVariants themeVariants
+  lib.checkListOfEnum "${pname}: theme variants" availableThemeVariants themeVariants
   lib.checkListOfEnum
   "${pname}: catppuccin color variants"
   availableColorVariants.Catppuccin
@@ -85,7 +82,6 @@ lib.checkListOfEnum "${pname}: theme variants" availableThemeVariants themeVaria
   "${pname}: original color variants"
   availableColorVariants.Original
   originalColorVariants
-
   stdenvNoCC.mkDerivation
   {
     inherit pname;
@@ -98,45 +94,48 @@ lib.checkListOfEnum "${pname}: theme variants" availableThemeVariants themeVaria
       hash = "sha256-GR+d+jrbeIGpqal5krx83PxuQto2PQTO3unQ+jaJf6s=";
     };
 
-    installPhase =
-      let
-        dist = {
-          Catppuccin = "cat";
-          Dracula = "dracula";
-          Gruvbox = "gruvbox";
-        };
-        withAlternate = xs: xs': if xs != [ ] then xs else xs';
-        themeVariants' = withAlternate themeVariants availableThemeVariants;
-        colorVariants = {
-          Catppuccin = withAlternate catppuccinColorVariants availableColorVariants.Catppuccin;
-          Dracula = withAlternate draculaColorVariants availableColorVariants.Dracula;
-          Gruvbox = withAlternate gruvboxColorVariants availableColorVariants.Gruvbox;
-          Original = withAlternate originalColorVariants availableColorVariants.Original;
-        };
-      in
-      ''
-        runHook preInstall
+    installPhase = let
+      dist = {
+        Catppuccin = "cat";
+        Dracula = "dracula";
+        Gruvbox = "gruvbox";
+      };
+      withAlternate = xs: xs':
+        if xs != []
+        then xs
+        else xs';
+      themeVariants' = withAlternate themeVariants availableThemeVariants;
+      colorVariants = {
+        Catppuccin = withAlternate catppuccinColorVariants availableColorVariants.Catppuccin;
+        Dracula = withAlternate draculaColorVariants availableColorVariants.Dracula;
+        Gruvbox = withAlternate gruvboxColorVariants availableColorVariants.Gruvbox;
+        Original = withAlternate originalColorVariants availableColorVariants.Original;
+      };
+    in ''
+      runHook preInstall
 
-        mkdir -p $out/share/icons
+      mkdir -p $out/share/icons
 
-        ${lib.concatMapStringsSep "\n" (
+      ${lib.concatMapStringsSep "\n" (
           theme:
-          lib.concatMapStringsSep "\n" (color: ''
-            ln -s \
-              "$src/colors/${theme}/${color}/dist-${
+            lib.concatMapStringsSep "\n" (color: ''
+              ln -s \
+                "$src/colors/${theme}/${color}/dist-${
                 lib.optionalString (theme != "Original") (dist.${theme} + "-")
               }${lib.toLower color}" \
-              "$out/share/icons/Afterglow-Recolored-${theme}-${color}"
-          '') colorVariants.${theme}
-        ) themeVariants'}
+                "$out/share/icons/Afterglow-Recolored-${theme}-${color}"
+            '')
+            colorVariants.${theme}
+        )
+        themeVariants'}
 
-        runHook postInstall
-      '';
+      runHook postInstall
+    '';
 
     meta = with lib; {
       description = "Recoloring of the Afterglow Cursors x-cursor theme";
       homepage = "https://github.com/TeddyBearKilla/Afterglow-Cursors-Recolored";
-      maintainers = with maintainers; [ d3vil0p3r ];
+      maintainers = with maintainers; [d3vil0p3r];
       platforms = platforms.all;
       license = licenses.gpl3Plus;
     };

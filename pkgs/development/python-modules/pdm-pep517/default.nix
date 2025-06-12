@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pdm-pep517";
   version = "1.1.4";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pdm-project/pdm-pep517";
     description = "Yet another PEP 517 backend";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

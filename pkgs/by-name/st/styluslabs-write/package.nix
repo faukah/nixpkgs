@@ -9,7 +9,6 @@
   roboto,
   imagemagick,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "styluslabs-write";
   version = "2024-10-12";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
   makeFlags = [
     "DEBUG=0"
     "USE_SYSTEM_SDL=1"

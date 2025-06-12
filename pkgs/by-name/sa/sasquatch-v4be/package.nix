@@ -1,3 +1,2 @@
-{ sasquatch }:
-
-sasquatch.override { bigEndian = true; }
+{sasquatch}:
+sasquatch.override {bigEndian = true;}

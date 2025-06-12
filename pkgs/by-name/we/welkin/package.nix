@@ -5,7 +5,6 @@
   jre,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "welkin";
   version = "1.1";
@@ -18,8 +17,8 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/tags/${version}";
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   installPhase = ''
     mkdir -p $out/{bin,share}
@@ -36,8 +35,8 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [
       raskin
     ];
-    hydraPlatforms = [ ];
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    hydraPlatforms = [];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.bsd3;
     platforms = with lib.platforms; unix;
   };

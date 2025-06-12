@@ -41,7 +41,6 @@
   typer,
   graphlib-backport,
 }:
-
 buildPythonPackage rec {
   pname = "strawberry-graphql";
   version = "0.263.1";
@@ -61,7 +60,7 @@ buildPythonPackage rec {
       --replace-fail "--emoji" "" \
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     graphql-core
@@ -108,13 +107,13 @@ buildPythonPackage rec {
       opentelemetry-api
       opentelemetry-sdk
     ];
-    pydantic = [ pydantic ];
-    sanic = [ sanic ];
+    pydantic = [pydantic];
+    sanic = [sanic];
     fastapi = [
       fastapi
       python-multipart
     ];
-    chalice = [ chalice ];
+    chalice = [chalice];
     cli = [
       pygments
       rich
@@ -124,23 +123,25 @@ buildPythonPackage rec {
     ];
     # starlite = [ starlite ];
     # litestar = [ litestar ];
-    pyinstrument = [ pyinstrument ];
+    pyinstrument = [pyinstrument];
   };
 
-  nativeCheckInputs = [
-    daphne
-    email-validator
-    freezegun
-    inline-snapshot
-    pytest-asyncio
-    pytest-emoji
-    pytest-mock
-    pytest-snapshot
-    pytestCheckHook
-    sanic-testing
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      daphne
+      email-validator
+      freezegun
+      inline-snapshot
+      pytest-asyncio
+      pytest-emoji
+      pytest-mock
+      pytest-snapshot
+      pytestCheckHook
+      sanic-testing
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "strawberry" ];
+  pythonImportsCheck = ["strawberry"];
 
   disabledTestPaths = [
     "tests/benchmarks/"
@@ -165,7 +166,7 @@ buildPythonPackage rec {
     homepage = "https://strawberry.rocks";
     changelog = "https://github.com/strawberry-graphql/strawberry/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
     mainProgram = "strawberry";
   };
 }

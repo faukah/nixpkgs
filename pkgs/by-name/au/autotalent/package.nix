@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "autotalent";
   version = "0.2";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     homepage = "http://tombaran.info/autotalent.html";
     description = "Real-time pitch correction LADSPA plugin (no MIDI control)";
     license = licenses.gpl2;
-    maintainers = [ maintainers.michalrus ];
+    maintainers = [maintainers.michalrus];
     platforms = platforms.linux;
   };
 }

@@ -15,7 +15,6 @@
   python3,
   desktopToDarwinBundle,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dsview";
 
@@ -36,21 +35,25 @@ stdenv.mkDerivation (finalAttrs: {
   # /build/source/libsigrok4DSL/strutil.c:343:19: error: implicit declaration of function 'strcasecmp'; did you mean 'g_strcasecmp'? []
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapQtAppsHook
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      wrapQtAppsHook
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
-  buildInputs = [
-    boost
-    fftw
-    qtbase
-    qtsvg
-    libusb1
-    libzip
-    python3
-  ] ++ lib.optional stdenv.hostPlatform.isLinux qtwayland;
+  buildInputs =
+    [
+      boost
+      fftw
+      qtbase
+      qtsvg
+      libusb1
+      libzip
+      python3
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux qtwayland;
 
   meta = {
     description = "GUI program for supporting various instruments from DreamSourceLab, including logic analyzer, oscilloscope, etc";

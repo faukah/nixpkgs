@@ -3,12 +3,11 @@
   config,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.acme-dns;
-  format = pkgs.formats.toml { };
-  inherit (lib)
+  format = pkgs.formats.toml {};
+  inherit
+    (lib)
     literalExpression
     mkEnableOption
     mkOption
@@ -16,12 +15,11 @@ let
     types
     ;
   domain = "acme-dns.example.com";
-in
-{
+in {
   options.services.acme-dns = {
     enable = mkEnableOption "acme-dns";
 
-    package = mkPackageOption pkgs "acme-dns" { };
+    package = mkPackageOption pkgs "acme-dns" {};
 
     settings = mkOption {
       description = ''
@@ -29,7 +27,7 @@ in
         Refer to <https://github.com/joohoi/acme-dns/blob/master/README.md#configuration> for supported values.
       '';
 
-      default = { };
+      default = {};
 
       type = types.submodule {
         freeformType = format.type;
@@ -162,9 +160,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
     systemd.services.acme-dns = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = [
           ""

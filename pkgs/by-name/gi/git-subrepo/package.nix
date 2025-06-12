@@ -7,7 +7,6 @@
   which,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "git-subrepo";
   version = "0.4.9";
@@ -51,6 +50,6 @@ stdenv.mkDerivation rec {
     mainProgram = "git-subrepo";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ryantrinkle ];
+    maintainers = with maintainers; [ryantrinkle];
   };
 }

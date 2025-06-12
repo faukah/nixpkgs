@@ -10,7 +10,6 @@
   systemd,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "seatd";
   version = "0.9.1";
@@ -40,10 +39,14 @@ stdenv.mkDerivation (finalAttrs: {
     scdoc
   ];
 
-  buildInputs = lib.optionals systemdSupport [ systemd ];
+  buildInputs = lib.optionals systemdSupport [systemd];
 
   mesonFlags = [
-    "-Dlibseat-logind=${if systemdSupport then "systemd" else "disabled"}"
+    "-Dlibseat-logind=${
+      if systemdSupport
+      then "systemd"
+      else "disabled"
+    }"
     "-Dlibseat-builtin=enabled"
     "-Dserver=enabled"
   ];
@@ -55,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://git.sr.ht/~kennylevinsen/seatd/refs/${finalAttrs.version}";
     homepage = "https://sr.ht/~kennylevinsen/seatd/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ emantor ];
+    maintainers = with lib.maintainers; [emantor];
     platforms = with lib.platforms; freebsd ++ linux ++ netbsd;
     mainProgram = "seatd";
   };

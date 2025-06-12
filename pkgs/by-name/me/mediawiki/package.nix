@@ -5,7 +5,6 @@
   imagemagick,
   nixosTests,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "mediawiki";
   version = "1.43.1";
@@ -44,6 +43,6 @@ stdenvNoCC.mkDerivation rec {
     license = licenses.gpl2Plus;
     homepage = "https://www.mediawiki.org/";
     platforms = platforms.all;
-    teams = [ teams.c3d2 ];
+    teams = [teams.c3d2];
   };
 }

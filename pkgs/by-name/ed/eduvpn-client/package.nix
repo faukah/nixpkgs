@@ -10,7 +10,6 @@
   python3Packages,
   wrapGAppsHook3,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "eduvpn-client";
   version = "4.5.0";

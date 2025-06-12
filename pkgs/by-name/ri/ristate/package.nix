@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitLab,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "ristate";
   version = "unstable-2021-09-10";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage {
     description = "River-status client written in Rust";
     homepage = "https://gitlab.com/snakedye/ristate";
     license = licenses.mit;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
     mainProgram = "ristate";
   };
 }

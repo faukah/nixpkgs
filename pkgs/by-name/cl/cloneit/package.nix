@@ -21,16 +21,16 @@ rustPlatform.buildRustPackage {
   cargoHash = "sha256-ZcowTGIl6RiP6qpP5LqgePCgII+qgEcebe5pq4ubv6o=";
 
   strictDeps = true;
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "CLI tool to download specific GitHub directories or files";
     homepage = "https://github.com/alok8bb/cloneit";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ NotAShelf ];
+    maintainers = with lib.maintainers; [NotAShelf];
     platforms = lib.platforms.linux;
   };
 }

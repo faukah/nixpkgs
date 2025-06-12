@@ -8,7 +8,6 @@
   # whether to install odt2pdf/odt2doc/... symlinks to unoconv
   installSymlinks ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unoconv";
   version = "0.9.0";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "http://dag.wieers.com/home-made/unoconv/";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     mainProgram = "unoconv";
   };
 }

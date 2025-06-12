@@ -11,7 +11,6 @@
   pkg-config,
   xorgproto,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libfakekey";
   version = "0.3";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "X virtual keyboard library";
     homepage = "https://www.yoctoproject.org/tools-resources/projects/matchbox";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

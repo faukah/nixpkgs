@@ -6,7 +6,6 @@
   flex,
   pam,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gradm";
   version = "3.1-202111052217";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     flex
   ];
 
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   enableParallelBuilding = true;
 

@@ -7,7 +7,6 @@
   libagent,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "keepkey-agent";
   version = "0.9.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
   ];
 
   doCheck = false;
-  pythonImportsCheck = [ "keepkey_agent" ];
+  pythonImportsCheck = ["keepkey_agent"];
 
   meta = with lib; {
     description = "Using KeepKey as hardware-based SSH/PGP agent";

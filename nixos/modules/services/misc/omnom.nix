@@ -3,18 +3,16 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.omnom;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
 
   configFile = settingsFormat.generate "omnom-config.yml" cfg.settings;
-in
-{
+in {
   options = {
     services.omnom = {
       enable = lib.mkEnableOption "Omnom, a webpage bookmarking and snapshotting service";
-      package = lib.mkPackageOption pkgs "omnom" { };
+      package = lib.mkPackageOption pkgs "omnom" {};
 
       dataDir = lib.mkOption {
         type = lib.types.path;
@@ -78,7 +76,7 @@ in
                 '';
               };
               type = lib.mkOption {
-                type = lib.types.enum [ "sqlite" ];
+                type = lib.types.enum ["sqlite"];
                 default = "sqlite";
                 description = "Database type.";
               };
@@ -144,7 +142,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
       };
     };
   };
@@ -198,7 +196,7 @@ in
         "network.target"
         "systemd-tmpfiles-setup.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     # TODO: The program needs to run from the dataDir for it the work, which
@@ -213,39 +211,37 @@ in
           isSystemUser = true;
         };
       };
-      groups = lib.mkIf (cfg.group == "omnom") { omnom = { }; };
+      groups = lib.mkIf (cfg.group == "omnom") {omnom = {};};
     };
 
-    systemd.tmpfiles.settings."10-omnom" =
-      let
-        settings = {
-          inherit (cfg) user group;
-        };
-      in
-      {
-        "${cfg.dataDir}"."d" = settings;
-        "${cfg.dataDir}/templates"."L+" = settings // {
+    systemd.tmpfiles.settings."10-omnom" = let
+      settings = {
+        inherit (cfg) user group;
+      };
+    in {
+      "${cfg.dataDir}"."d" = settings;
+      "${cfg.dataDir}/templates"."L+" =
+        settings
+        // {
           argument = "${cfg.package}/share/templates";
         };
-        "${cfg.settings.storage.root}"."d" = settings;
-      };
-
-    networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      "${cfg.settings.storage.root}"."d" = settings;
     };
 
-    environment.systemPackages =
-      let
-        omnom-wrapped = pkgs.writeScriptBin "omnom" ''
-          #! ${pkgs.runtimeShell}
-          cd ${cfg.dataDir}
-          sudo=exec
-          if [[ "$USER" != ${cfg.user} ]]; then
-            sudo='exec /run/wrappers/bin/sudo -u ${cfg.user}'
-          fi
-          $sudo ${lib.getExe cfg.package} "$@"
-        '';
-      in
-      [ omnom-wrapped ];
+    networking.firewall = lib.mkIf cfg.openFirewall {
+      allowedTCPPorts = [cfg.port];
+    };
+
+    environment.systemPackages = let
+      omnom-wrapped = pkgs.writeScriptBin "omnom" ''
+        #! ${pkgs.runtimeShell}
+        cd ${cfg.dataDir}
+        sudo=exec
+        if [[ "$USER" != ${cfg.user} ]]; then
+          sudo='exec /run/wrappers/bin/sudo -u ${cfg.user}'
+        fi
+        $sudo ${lib.getExe cfg.package} "$@"
+      '';
+    in [omnom-wrapped];
   };
 }

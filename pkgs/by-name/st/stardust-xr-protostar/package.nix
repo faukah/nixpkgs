@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "stardust-xr-protostar";
   version = "0-unstable-2024-12-29";
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = {

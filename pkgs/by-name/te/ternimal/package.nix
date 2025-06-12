@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     hash = "sha256-uIxuwRvStvlC/YiolOvWZd45Qg3b86jsZQ000zZMo3M=";
   };
 
-  nativeBuildInputs = [ rustc ];
+  nativeBuildInputs = [rustc];
 
   buildPhase = ''
     runHook preBuild
@@ -38,7 +38,7 @@ stdenv.mkDerivation {
     description = "Simulate a lifeform in the terminal";
     homepage = "https://github.com/p-e-w/ternimal";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ anomalocaris ];
+    maintainers = with lib.maintainers; [anomalocaris];
     platforms = with lib.platforms; linux ++ darwin;
     mainProgram = "ternimal";
   };

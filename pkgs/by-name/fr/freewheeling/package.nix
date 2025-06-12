@@ -19,7 +19,6 @@
   libX11,
   nettle,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "freewheeling";
   version = "0.6.6";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-xEZBE/7nUvK2hruqP6QQzlsIDmuniPZg7JEJkCEvzvU=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     freetype
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     homepage = "https://freewheeling.sourceforge.net";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.sepi ];
+    maintainers = [lib.maintainers.sepi];
     platforms = lib.platforms.linux;
     mainProgram = "fweelin";
   };

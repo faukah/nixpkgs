@@ -4,7 +4,6 @@
   buildGoModule,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "go-graft";
   version = "0.2.19";
@@ -26,7 +25,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-fnM4ycqDyruCdCA1Cr4Ki48xeQiTG4l5dLVuAafEm14=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd gg \

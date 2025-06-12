@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pypck";
   version = "0.8.5";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     echo "${version}" > VERSION
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -36,19 +35,19 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" ];
+  pytestFlagsArray = ["--asyncio-mode=auto"];
 
-  disabledTests = lib.optionals stdenv.hostPlatform.isDarwin [ "test_connection_lost" ];
+  disabledTests = lib.optionals stdenv.hostPlatform.isDarwin ["test_connection_lost"];
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "pypck" ];
+  pythonImportsCheck = ["pypck"];
 
   meta = with lib; {
     description = "LCN-PCK library written in Python";
     homepage = "https://github.com/alengwenus/pypck";
     changelog = "https://github.com/alengwenus/pypck/releases/tag/${version}";
     license = licenses.epl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

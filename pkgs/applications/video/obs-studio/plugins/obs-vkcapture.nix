@@ -18,7 +18,6 @@
   libGL,
   obs-vkcapture32,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "obs-vkcapture";
   version = "1.5.2";

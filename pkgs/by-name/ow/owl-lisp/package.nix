@@ -4,7 +4,6 @@
   fetchFromGitLab,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "owl-lisp";
   version = "0.2.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-GfvOkYLo8fgAvGuUa59hDy+sWJSwyntwqMO8TAK/lUo=";
   };
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "Functional Scheme for world domination";
     homepage = "https://gitlab.com/owl-lisp/owl";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
   };
 }

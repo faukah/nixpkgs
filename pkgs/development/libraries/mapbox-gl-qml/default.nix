@@ -7,7 +7,6 @@
   qtpositioning,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mapbox-gl-qml";
   version = "3.0.0";

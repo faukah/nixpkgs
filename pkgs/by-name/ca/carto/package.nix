@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "carto";
   version = "1.2.0";
@@ -30,6 +29,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/mapbox/carto";
     license = lib.licenses.asl20;
     mainProgram = "carto";
-    maintainers = with lib.maintainers; [ Luflosi ];
+    maintainers = with lib.maintainers; [Luflosi];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitea,
 }:
-
 buildGoModule rec {
   pname = "itd";
   version = "1.1.0";

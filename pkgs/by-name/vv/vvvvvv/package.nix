@@ -13,7 +13,6 @@
   tinyxml-2,
   makeAndPlay ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vvvvvv";
   version = "2.4.2";
@@ -48,9 +47,11 @@ stdenv.mkDerivation rec {
 
   cmakeDir = "../desktop_version";
 
-  cmakeFlags = [
-    "-DBUNDLE_DEPENDENCIES=OFF"
-  ] ++ lib.optional makeAndPlay "-DMAKEANDPLAY=ON";
+  cmakeFlags =
+    [
+      "-DBUNDLE_DEPENDENCIES=OFF"
+    ]
+    ++ lib.optional makeAndPlay "-DMAKEANDPLAY=ON";
 
   desktopItems = [
     (makeDesktopItem {
@@ -61,7 +62,7 @@ stdenv.mkDerivation rec {
       exec = "vvvvvv";
       icon = "VVVVVV";
       terminal = false;
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -96,7 +97,7 @@ stdenv.mkDerivation rec {
     homepage = "https://thelettervsixtim.es";
     changelog = "https://github.com/TerryCavanagh/VVVVVV/releases/tag/${src.rev}";
     license = licenses.unfree;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

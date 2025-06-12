@@ -8,7 +8,6 @@
   SDL2_mixer,
   buildOpenGLES ? false,
 }:
-
 stdenv.mkDerivation {
   pname = "rigel-engine";
   version = "0-unstable-2024-05-26";
@@ -31,15 +30,17 @@ stdenv.mkDerivation {
     SDL2_mixer
   ];
 
-  cmakeFlags = [
-    "-Wno-dev"
-  ] ++ lib.optional buildOpenGLES "-DUSE_GL_ES=ON";
+  cmakeFlags =
+    [
+      "-Wno-dev"
+    ]
+    ++ lib.optional buildOpenGLES "-DUSE_GL_ES=ON";
 
   meta = {
     description = "Modern re-implementation of the classic DOS game Duke Nukem II";
     homepage = "https://github.com/lethal-guitar/RigelEngine";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ keenanweaver ];
+    maintainers = with lib.maintainers; [keenanweaver];
     mainProgram = "RigelEngine";
     platforms = lib.platforms.all;
   };

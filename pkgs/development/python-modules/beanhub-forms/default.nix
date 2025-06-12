@@ -11,7 +11,6 @@
   pyyaml,
   wtforms,
 }:
-
 buildPythonPackage rec {
   pname = "beanhub-forms";
   version = "0.1.3";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-313c+ENmTe1LyfEiMXNB9AUoGx3Yv/1D0T3HnAbd+Zw=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     jinja2
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "beanhub_forms" ];
+  pythonImportsCheck = ["beanhub_forms"];
 
   meta = {
     description = "Library for generating and processing BeanHub's custom forms";
     homepage = "https://github.com/LaunchPlatform/beanhub-forms/";
     changelog = "https://github.com/LaunchPlatform/beanhub-forms/releases/tag/${version}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ fangpen ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [fangpen];
   };
 }

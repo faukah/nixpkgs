@@ -2,17 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   aiohttp,
   music-assistant-models,
   orjson,
-
 }:
-
 buildPythonPackage rec {
   pname = "music-assistant-client";
   version = "1.2.0";
@@ -30,7 +26,7 @@ buildPythonPackage rec {
       --replace-fail "0.0.0" "${version}"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -49,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/music-assistant/client";
     changelog = "https://github.com/music-assistant/client/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

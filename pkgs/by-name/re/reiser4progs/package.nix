@@ -4,7 +4,6 @@
   fetchurl,
   libaal,
 }:
-
 stdenv.mkDerivation rec {
   pname = "reiser4progs";
   version = "2.0.5";
@@ -14,9 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DBR2C5h6ue4aqHmDG50jCLXe13DSWAYwfibrzTM+7Sw=";
   };
 
-  buildInputs = [ libaal ];
+  buildInputs = [libaal];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preConfigure = ''
     substituteInPlace configure --replace " -static" ""

@@ -8,7 +8,6 @@
   gnused,
   less,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "colorless";
   version = "109";
@@ -48,7 +47,7 @@ stdenvNoCC.mkDerivation rec {
       pipes the output to less(1).
     '';
     license = licenses.bsd2;
-    maintainers = with maintainers; [ suominen ];
+    maintainers = with maintainers; [suominen];
     platforms = platforms.unix;
     mainProgram = "colorless";
   };

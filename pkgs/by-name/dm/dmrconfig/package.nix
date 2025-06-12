@@ -6,7 +6,6 @@
   libusb1,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dmrconfig";
   version = "1.1";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/sergev/dmrconfig";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "dmrconfig";
   };

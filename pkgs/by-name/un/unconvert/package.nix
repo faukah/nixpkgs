@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule {
   pname = "unconvert";
   version = "0-unstable-2025-02-16";
@@ -23,13 +22,13 @@ buildGoModule {
     "-w"
   ];
 
-  passthru.updateScript = nix-update-script { extraArgs = lib.singleton "--version=branch"; };
+  passthru.updateScript = nix-update-script {extraArgs = lib.singleton "--version=branch";};
 
   meta = with lib; {
     description = "Remove unnecessary type conversions from Go source";
     mainProgram = "unconvert";
     homepage = "https://github.com/mdempsky/unconvert";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

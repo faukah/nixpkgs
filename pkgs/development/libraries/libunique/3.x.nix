@@ -13,9 +13,7 @@
   libxslt,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
-
   majorVer = "3.0";
   minorVer = "2";
   version = "${majorVer}.${minorVer}";
@@ -46,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/Archive/unique";
     description = "Library for writing single instance applications";
     license = lib.licenses.lgpl21;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 }

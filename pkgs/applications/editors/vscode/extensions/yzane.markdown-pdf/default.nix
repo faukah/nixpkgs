@@ -5,7 +5,6 @@
   moreutils,
   ungoogled-chromium,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "markdown-pdf";
@@ -26,6 +25,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     changelog = "https://github.com/yzane/vscode-markdown-pdf/blob/master/CHANGELOG.md";
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    maintainers = with lib.maintainers; [pandapip1];
   };
 }

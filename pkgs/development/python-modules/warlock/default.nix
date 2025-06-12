@@ -8,7 +8,6 @@
   jsonschema,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "warlock";
   version = "2.0.1";
@@ -27,26 +26,26 @@ buildPythonPackage rec {
     sed -i '/--cov/d' pytest.ini
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     jsonpatch
     jsonschema
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # https://github.com/bcwaldon/warlock/issues/64
     "test_recursive_models"
   ];
 
-  pythonImportsCheck = [ "warlock" ];
+  pythonImportsCheck = ["warlock"];
 
   meta = with lib; {
     description = "Python object model built on JSON schema and JSON patch";
     homepage = "https://github.com/bcwaldon/warlock";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

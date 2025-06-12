@@ -13,7 +13,6 @@
   tqdm,
   trx-python,
 }:
-
 buildPythonPackage rec {
   pname = "dipy";
   version = "1.9.0";
@@ -79,6 +78,6 @@ buildPythonPackage rec {
     description = "Diffusion imaging toolkit for Python";
     changelog = "https://github.com/dipy/dipy/blob/${version}/Changelog";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

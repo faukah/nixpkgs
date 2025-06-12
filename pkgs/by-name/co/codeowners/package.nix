@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "codeowners";
   version = "1.2.1";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "codeowners";
     homepage = "https://github.com/hmarr/codeowners";
     license = licenses.mit;
-    maintainers = with maintainers; [ yorickvp ];
+    maintainers = with maintainers; [yorickvp];
   };
 }

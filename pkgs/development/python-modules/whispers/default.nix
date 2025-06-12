@@ -20,7 +20,6 @@
   soupsieve,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "whispers";
   version = "2.4.0";
@@ -42,7 +41,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     beautifulsoup4
@@ -79,14 +78,14 @@ buildPythonPackage rec {
     export PATH=$out/bin:$PATH
   '';
 
-  pythonImportsCheck = [ "whispers" ];
+  pythonImportsCheck = ["whispers"];
 
   meta = with lib; {
     description = "Tool to identify hardcoded secrets in static structured text";
     homepage = "https://github.com/adeptex/whispers";
     changelog = "https://github.com/adeptex/whispers/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "whispers";
   };
 }

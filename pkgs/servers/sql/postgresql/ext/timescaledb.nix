@@ -7,10 +7,8 @@
   postgresql,
   postgresqlBuildExtension,
   postgresqlTestExtension,
-
   enableUnfree ? true,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "timescaledb${lib.optionalString (!enableUnfree) "-apache"}";
   version = "2.20.3";
@@ -22,7 +20,7 @@ postgresqlBuildExtension (finalAttrs: {
     hash = "sha256-Ma6h2ISMjBz14y5Pbx4T4QOMrrvUy5wkPyKawm9rpx0=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     openssl
     libkrb5
@@ -51,7 +49,7 @@ postgresqlBuildExtension (finalAttrs: {
 
   passthru.tests.extension = postgresqlTestExtension {
     inherit (finalAttrs) finalPackage;
-    withPackages = [ "timescaledb_toolkit" ];
+    withPackages = ["timescaledb_toolkit"];
     postgresqlExtraSettings = ''
       shared_preload_libraries='timescaledb,timescaledb_toolkit'
     '';
@@ -98,9 +96,12 @@ postgresqlBuildExtension (finalAttrs: {
     description = "Scales PostgreSQL for time-series data via automatic partitioning across time and space";
     homepage = "https://www.timescale.com/";
     changelog = "https://github.com/timescale/timescaledb/blob/${finalAttrs.version}/CHANGELOG.md";
-    maintainers = with lib.maintainers; [ kirillrdy ];
+    maintainers = with lib.maintainers; [kirillrdy];
     platforms = postgresql.meta.platforms;
-    license = with lib.licenses; if enableUnfree then tsl else asl20;
+    license = with lib.licenses;
+      if enableUnfree
+      then tsl
+      else asl20;
     broken = lib.versionOlder postgresql.version "15";
   };
 })

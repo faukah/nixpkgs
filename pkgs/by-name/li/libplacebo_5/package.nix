@@ -15,7 +15,6 @@
   libunwind,
   libdovi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libplacebo";
   version = "5.264.1";
@@ -74,7 +73,7 @@ stdenv.mkDerivation rec {
     homepage = "https://code.videolan.org/videolan/libplacebo";
     changelog = "https://code.videolan.org/videolan/libplacebo/-/tags/v${version}";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ primeos ];
+    maintainers = with lib.maintainers; [primeos];
     platforms = lib.platforms.all;
   };
 }

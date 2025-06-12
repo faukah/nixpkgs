@@ -6,7 +6,6 @@
   nix-update-script,
   testers,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "scotty";
   version = "0.6.0";
@@ -40,7 +39,7 @@ buildGoModule (finalAttrs: {
       package = finalAttrs.finalPackage;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -48,7 +47,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://git.sr.ht/~phw/scotty";
     changelog = "https://git.sr.ht/~phw/scotty/refs/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "scotty";
   };
 })

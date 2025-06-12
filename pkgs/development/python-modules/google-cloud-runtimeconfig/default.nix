@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-runtimeconfig";
   version = "0.34.0";
@@ -32,20 +31,20 @@ buildPythonPackage rec {
   ];
 
   # Client tests require credentials
-  disabledTests = [ "client_options" ];
+  disabledTests = ["client_options"];
 
   # prevent google directory from shadowing google imports
   preCheck = ''
     rm -r google
   '';
 
-  pythonImportsCheck = [ "google.cloud.runtimeconfig" ];
+  pythonImportsCheck = ["google.cloud.runtimeconfig"];
 
   meta = with lib; {
     description = "Google Cloud RuntimeConfig API client library";
     homepage = "https://github.com/googleapis/python-runtimeconfig";
     changelog = "https://github.com/googleapis/python-runtimeconfig/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

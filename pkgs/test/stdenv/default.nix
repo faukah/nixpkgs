@@ -1,14 +1,11 @@
 # To run these tests:
 # nix-build -A tests.stdenv
-
 {
   stdenv,
   pkgs,
   lib,
   testers,
-}:
-
-let
+}: let
   # early enough not to rebuild gcc but late enough to have patchelf
   earlyPkgs = stdenv.__bootPackages.stdenv.__bootPackages;
   earlierPkgs =
@@ -27,16 +24,13 @@ let
 
   runCommand = earlierPkgs.runCommand;
 
-  ccWrapperSubstitutionsTest =
-    {
-      name,
-      stdenv',
-      extraAttrs ? { },
-    }:
-
+  ccWrapperSubstitutionsTest = {
+    name,
+    stdenv',
+    extraAttrs ? {},
+  }:
     stdenv'.cc.overrideAttrs (
-      previousAttrs:
-      (
+      previousAttrs: (
         {
           inherit name;
 
@@ -60,12 +54,11 @@ let
       )
     );
 
-  testEnvAttrset =
-    {
-      name,
-      stdenv',
-      extraAttrs ? { },
-    }:
+  testEnvAttrset = {
+    name,
+    stdenv',
+    extraAttrs ? {},
+  }:
     stdenv'.mkDerivation (
       {
         inherit name;
@@ -73,7 +66,7 @@ let
           string = "testing-string";
         };
 
-        passAsFile = [ "buildCommand" ];
+        passAsFile = ["buildCommand"];
         buildCommand = ''
           declare -p string
           echo "env.string = $string"
@@ -85,12 +78,11 @@ let
       // extraAttrs
     );
 
-  testPrependAndAppendToVar =
-    {
-      name,
-      stdenv',
-      extraAttrs ? { },
-    }:
+  testPrependAndAppendToVar = {
+    name,
+    stdenv',
+    extraAttrs ? {},
+  }:
     stdenv'.mkDerivation (
       {
         inherit name;
@@ -98,7 +90,7 @@ let
           string = "testing-string";
         };
 
-        passAsFile = [ "buildCommand" ] ++ lib.optionals (extraAttrs ? extraTest) [ "extraTest" ];
+        passAsFile = ["buildCommand"] ++ lib.optionals (extraAttrs ? extraTest) ["extraTest"];
         buildCommand = ''
           declare -p string
           appendToVar string hello
@@ -131,12 +123,11 @@ let
       // extraAttrs
     );
 
-  testConcatTo =
-    {
-      name,
-      stdenv',
-      extraAttrs ? { },
-    }:
+  testConcatTo = {
+    name,
+    stdenv',
+    extraAttrs ? {},
+  }:
     stdenv'.mkDerivation (
       {
         inherit name;
@@ -147,7 +138,7 @@ let
           "d"
         ];
 
-        passAsFile = [ "buildCommand" ] ++ lib.optionals (extraAttrs ? extraTest) [ "extraTest" ];
+        passAsFile = ["buildCommand"] ++ lib.optionals (extraAttrs ? extraTest) ["extraTest"];
         buildCommand = ''
           declare -A associativeArray=(["X"]="Y")
           [[ $(concatTo nowhere associativeArray 2>&1) =~ "trying to use" ]] || (echo "concatTo did not throw concatenating associativeArray" && false)
@@ -185,15 +176,17 @@ let
       // extraAttrs
     );
 
-  testConcatStringsSep =
-    { name, stdenv' }:
+  testConcatStringsSep = {
+    name,
+    stdenv',
+  }:
     stdenv'.mkDerivation {
       inherit name;
 
       # NOTE: Testing with "&" as separator is intentional, because unquoted
       # "&" has a special meaning in the "${var//pattern/replacement}" syntax.
       # Cf. https://github.com/NixOS/nixpkgs/pull/318614#discussion_r1706191919
-      passAsFile = [ "buildCommand" ];
+      passAsFile = ["buildCommand"];
       buildCommand = ''
         declare -A associativeArray=(["X"]="Y")
         [[ $(concatStringsSep ";" associativeArray 2>&1) =~ "trying to use" ]] || (echo "concatStringsSep did not throw concatenating associativeArray" && false)
@@ -217,9 +210,7 @@ let
         touch $out
       '';
     };
-in
-
-{
+in {
   # tests for hooks in `stdenv.defaultNativeBuildInputs`
   hooks = lib.recurseIntoAttrs (
     import ./hooks.nix {
@@ -231,27 +222,27 @@ in
 
   outputs-no-out =
     runCommand "outputs-no-out-assert"
-      {
-        result = earlierPkgs.testers.testBuildFailure (
-          bootStdenv.mkDerivation {
-            NIX_DEBUG = 1;
-            name = "outputs-no-out";
-            outputs = [ "foo" ];
-            buildPhase = ":";
-            installPhase = ''
-              touch $foo
-            '';
-          }
-        );
+    {
+      result = earlierPkgs.testers.testBuildFailure (
+        bootStdenv.mkDerivation {
+          NIX_DEBUG = 1;
+          name = "outputs-no-out";
+          outputs = ["foo"];
+          buildPhase = ":";
+          installPhase = ''
+            touch $foo
+          '';
+        }
+      );
 
-        # Assumption: the first output* variable to be configured is
-        #   _overrideFirst outputDev "dev" "out"
-        expectedMsg = "error: _assignFirst: could not find a non-empty variable whose name to assign to outputDev.\n       The following variables were all unset or empty:\n           dev out";
-      }
-      ''
-        grep -F "$expectedMsg" $result/testBuildFailure.log >/dev/null
-        touch $out
-      '';
+      # Assumption: the first output* variable to be configured is
+      #   _overrideFirst outputDev "dev" "out"
+      expectedMsg = "error: _assignFirst: could not find a non-empty variable whose name to assign to outputDev.\n       The following variables were all unset or empty:\n           dev out";
+    }
+    ''
+      grep -F "$expectedMsg" $result/testBuildFailure.log >/dev/null
+      touch $out
+    '';
 
   test-env-attrset = testEnvAttrset {
     name = "test-env-attrset";
@@ -269,7 +260,7 @@ in
       '';
     };
 
-    passAsFile = [ "buildCommand" ];
+    passAsFile = ["buildCommand"];
     buildCommand = ''
       declare -p env
       [[ $env == "${env}" ]]
@@ -279,102 +270,98 @@ in
 
   # Check that mkDerivation rejects MD5 hashes
   rejectedHashes = lib.recurseIntoAttrs {
-    md5 =
-      let
-        drv = runCommand "md5 outputHash rejected" {
-          outputHash = "md5-fPt7dxVVP7ffY3MxkQdwVw==";
-        } "true";
-      in
-      assert !(builtins.tryEval drv).success;
-      { };
+    md5 = let
+      drv = runCommand "md5 outputHash rejected" {
+        outputHash = "md5-fPt7dxVVP7ffY3MxkQdwVw==";
+      } "true";
+    in
+      assert !(builtins.tryEval drv).success; {};
   };
 
-  test-inputDerivation =
-    let
-      inherit
-        (stdenv.mkDerivation {
-          dep1 = derivation {
-            name = "dep1";
-            builder = "/bin/sh";
-            args = [
-              "-c"
-              ": > $out"
-            ];
-            system = builtins.currentSystem;
-          };
-          dep2 = derivation {
-            name = "dep2";
-            builder = "/bin/sh";
-            args = [
-              "-c"
-              ": > $out"
-            ];
-            system = builtins.currentSystem;
-          };
-          passAsFile = [ "dep2" ];
-        })
-        inputDerivation
-        ;
-    in
+  test-inputDerivation = let
+    inherit
+      (stdenv.mkDerivation {
+        dep1 = derivation {
+          name = "dep1";
+          builder = "/bin/sh";
+          args = [
+            "-c"
+            ": > $out"
+          ];
+          system = builtins.currentSystem;
+        };
+        dep2 = derivation {
+          name = "dep2";
+          builder = "/bin/sh";
+          args = [
+            "-c"
+            ": > $out"
+          ];
+          system = builtins.currentSystem;
+        };
+        passAsFile = ["dep2"];
+      })
+      inputDerivation
+      ;
+  in
     runCommand "test-inputDerivation"
-      {
-        exportReferencesGraph = [
-          "graph"
-          inputDerivation
-        ];
-      }
-      ''
-        grep ${inputDerivation.dep1} graph
-        grep ${inputDerivation.dep2} graph
-        touch $out
-      '';
+    {
+      exportReferencesGraph = [
+        "graph"
+        inputDerivation
+      ];
+    }
+    ''
+      grep ${inputDerivation.dep1} graph
+      grep ${inputDerivation.dep2} graph
+      touch $out
+    '';
 
-  test-inputDerivation-fixed-output =
-    let
-      inherit
-        (stdenv.mkDerivation {
-          dep1 = derivation {
-            name = "dep1";
-            builder = "/bin/sh";
-            args = [
-              "-c"
-              ": > $out"
-            ];
-            system = builtins.currentSystem;
-          };
-          dep2 = derivation {
-            name = "dep2";
-            builder = "/bin/sh";
-            args = [
-              "-c"
-              ": > $out"
-            ];
-            system = builtins.currentSystem;
-          };
-          name = "meow";
-          outputHash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
-          outputHashMode = "flat";
-          outputHashAlgo = "sha256";
-          buildCommand = ''
-            touch $out
-          '';
-          passAsFile = [ "dep2" ];
-        })
-        inputDerivation
-        ;
-    in
+  test-inputDerivation-fixed-output = let
+    inherit
+      (stdenv.mkDerivation {
+        dep1 = derivation {
+          name = "dep1";
+          builder = "/bin/sh";
+          args = [
+            "-c"
+            ": > $out"
+          ];
+          system = builtins.currentSystem;
+        };
+        dep2 = derivation {
+          name = "dep2";
+          builder = "/bin/sh";
+          args = [
+            "-c"
+            ": > $out"
+          ];
+          system = builtins.currentSystem;
+        };
+        name = "meow";
+        outputHash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+        outputHashMode = "flat";
+        outputHashAlgo = "sha256";
+        buildCommand = ''
+          touch $out
+        '';
+        passAsFile = ["dep2"];
+      })
+      inputDerivation
+      ;
+  in
     runCommand "test-inputDerivation"
-      {
-        exportReferencesGraph = [
-          "graph"
-          inputDerivation
-        ];
-      }
-      ''
-        grep ${inputDerivation.dep1} graph
-        grep ${inputDerivation.dep2} graph
-        touch $out
-      '';
+    {
+      exportReferencesGraph = [
+        "graph"
+        inputDerivation
+      ];
+    }
+    ''
+      grep ${inputDerivation.dep1} graph
+      grep ${inputDerivation.dep2} graph
+      touch $out
+    '';
 
   test-prepend-append-to-var = testPrependAndAppendToVar {
     name = "test-prepend-append-to-var";
@@ -405,7 +392,6 @@ in
   };
 
   structuredAttrsByDefault = lib.recurseIntoAttrs {
-
     hooks = lib.recurseIntoAttrs (
       import ./hooks.nix {
         stdenv = bootStdenvStructuredAttrsByDefault;
@@ -490,51 +476,50 @@ in
       stdenv' = bootStdenvStructuredAttrsByDefault;
     };
 
-    test-golden-example-structuredAttrs =
-      let
-        goldenSh = earlyPkgs.writeText "goldenSh" ''
-          declare -A EXAMPLE_ATTRS=(['foo']='bar' )
-          declare EXAMPLE_BOOL_FALSE=
-          declare EXAMPLE_BOOL_TRUE=1
-          declare EXAMPLE_INT=123
-          declare EXAMPLE_INT_NEG=-123
-          declare -a EXAMPLE_LIST=('foo' 'bar' )
-          declare EXAMPLE_STR='foo bar'
-        '';
-        goldenJson = earlyPkgs.writeText "goldenSh" ''
-          {
-            "EXAMPLE_ATTRS": {
-              "foo": "bar"
-            },
-            "EXAMPLE_BOOL_FALSE": false,
-            "EXAMPLE_BOOL_TRUE": true,
-            "EXAMPLE_INT": 123,
-            "EXAMPLE_INT_NEG": -123,
-            "EXAMPLE_LIST": [
+    test-golden-example-structuredAttrs = let
+      goldenSh = earlyPkgs.writeText "goldenSh" ''
+        declare -A EXAMPLE_ATTRS=(['foo']='bar' )
+        declare EXAMPLE_BOOL_FALSE=
+        declare EXAMPLE_BOOL_TRUE=1
+        declare EXAMPLE_INT=123
+        declare EXAMPLE_INT_NEG=-123
+        declare -a EXAMPLE_LIST=('foo' 'bar' )
+        declare EXAMPLE_STR='foo bar'
+      '';
+      goldenJson = earlyPkgs.writeText "goldenSh" ''
+        {
+          "EXAMPLE_ATTRS": {
+            "foo": "bar"
+          },
+          "EXAMPLE_BOOL_FALSE": false,
+          "EXAMPLE_BOOL_TRUE": true,
+          "EXAMPLE_INT": 123,
+          "EXAMPLE_INT_NEG": -123,
+          "EXAMPLE_LIST": [
+            "foo",
+            "bar"
+          ],
+          "EXAMPLE_NESTED_ATTRS": {
+            "foo": {
+              "bar": "baz"
+            }
+          },
+          "EXAMPLE_NESTED_LIST": [
+            [
               "foo",
               "bar"
             ],
-            "EXAMPLE_NESTED_ATTRS": {
-              "foo": {
-                "bar": "baz"
-              }
-            },
-            "EXAMPLE_NESTED_LIST": [
-              [
-                "foo",
-                "bar"
-              ],
-              [
-                "baz"
-              ]
-            ],
-            "EXAMPLE_STR": "foo bar"
-          }
-        '';
-      in
+            [
+              "baz"
+            ]
+          ],
+          "EXAMPLE_STR": "foo bar"
+        }
+      '';
+    in
       bootStdenvStructuredAttrsByDefault.mkDerivation {
         name = "test-golden-example-structuredAttrsByDefault";
-        nativeBuildInputs = [ earlyPkgs.jq ];
+        nativeBuildInputs = [earlyPkgs.jq];
 
         EXAMPLE_BOOL_TRUE = true;
         EXAMPLE_BOOL_FALSE = false;
@@ -550,7 +535,7 @@ in
             "foo"
             "bar"
           ]
-          [ "baz" ]
+          ["baz"]
         ];
         EXAMPLE_ATTRS = {
           foo = "bar";
@@ -570,6 +555,5 @@ in
           diff $out/json $goldenJson
         '';
       };
-
   };
 }

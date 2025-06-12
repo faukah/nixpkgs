@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdynd";
   version = "0.7.2";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     "-Wno-error=maybe-uninitialized"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   outputs = [
     "out"

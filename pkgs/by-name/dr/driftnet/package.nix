@@ -16,7 +16,6 @@
   openssl,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "driftnet";
   version = "1.5.0";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/deiv/driftnet";
     changelog = "https://github.com/deiv/driftnet/releases/tag/v${version}";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ offline ];
+    maintainers = with lib.maintainers; [offline];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "driftnet";
   };

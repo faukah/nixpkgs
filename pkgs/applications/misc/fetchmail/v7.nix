@@ -3,7 +3,6 @@
   stdenv,
   pkgs,
 }:
-
 stdenv.mkDerivation {
   pname = "fetchmail";
   version = "unstable-2022-05-26";
@@ -26,7 +25,7 @@ stdenv.mkDerivation {
     flex
   ];
 
-  configureFlags = [ "--with-ssl=${pkgs.openssl.dev}" ];
+  configureFlags = ["--with-ssl=${pkgs.openssl.dev}"];
 
   postInstall = ''
     cp -a contrib/. $out/share/fetchmail-contrib

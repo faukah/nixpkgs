@@ -6,7 +6,6 @@
   setuptools,
   urwid,
 }:
-
 buildPythonPackage rec {
   pname = "urwidtrees";
   version = "1.0.3";
@@ -26,20 +25,20 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ urwid ];
+  propagatedBuildInputs = [urwid];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "urwidtrees" ];
+  pythonImportsCheck = ["urwidtrees"];
 
   meta = with lib; {
     description = "Tree widgets for urwid";
     homepage = "https://github.com/pazz/urwidtrees";
     changelog = "https://github.com/pazz/urwidtrees/releases/tag/${version}";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

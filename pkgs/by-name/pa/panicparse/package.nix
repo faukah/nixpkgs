@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "panicparse";
   version = "2.4.0";
@@ -17,13 +16,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-/w/dtt55NVHoJ5AeHsqH/IRe3bJq1YvpasLh8Zn8Ckg=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Crash your app in style (Golang)";
     homepage = "https://github.com/maruel/panicparse";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "panicparse";
   };
 }

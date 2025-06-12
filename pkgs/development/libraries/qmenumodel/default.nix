@@ -15,7 +15,6 @@
   qtdeclarative,
   gobject-introspection,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qmenumodel";
   version = "0.9.2";
@@ -64,10 +63,11 @@ stdenv.mkDerivation (finalAttrs: {
     dbus-test-runner
     gobject-introspection
     (python3.withPackages (
-      ps: with ps; [
-        dbus-python
-        pygobject3
-      ]
+      ps:
+        with ps; [
+          dbus-python
+          pygobject3
+        ]
     ))
   ];
 
@@ -89,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = with lib; {
@@ -100,7 +100,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/AyatanaIndicators/qmenumodel";
     license = licenses.lgpl3Only;
-    teams = [ teams.lomiri ];
+    teams = [teams.lomiri];
     platforms = platforms.linux;
     pkgConfigModules = [
       "qmenumodel"

@@ -9,7 +9,6 @@
   libiconv,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "y-py";
   version = "0.6.2";
@@ -35,14 +34,14 @@ buildPythonPackage rec {
 
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
-  pythonImportsCheck = [ "y_py" ];
+  pythonImportsCheck = ["y_py"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Python bindings for Y-CRDT";
     homepage = "https://github.com/y-crdt/ypy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -3,9 +3,7 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "gofish";
   version = "1.2";
 
@@ -18,7 +16,7 @@ stdenv.mkDerivation rec {
     description = "Lightweight Gopher server";
     homepage = "https://gofish.sourceforge.net/";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

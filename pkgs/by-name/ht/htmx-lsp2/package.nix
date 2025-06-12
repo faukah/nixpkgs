@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Language server implementation for HTMX, a successor to htmx-lsp";
     homepage = "https://github.com/uros-5/htmx-lsp2";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ adamjhf ];
+    maintainers = with lib.maintainers; [adamjhf];
     mainProgram = "htmx-lsp2";
   };
 }

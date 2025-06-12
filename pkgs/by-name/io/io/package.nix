@@ -33,7 +33,6 @@
   libXdmcp,
   libmemcached,
 }:
-
 stdenv.mkDerivation {
   pname = "io";
   version = "2017.09.06";
@@ -119,6 +118,6 @@ stdenv.mkDerivation {
       raskin
       maggesi
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

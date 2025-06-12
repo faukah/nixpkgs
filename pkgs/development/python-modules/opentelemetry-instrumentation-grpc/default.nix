@@ -12,7 +12,6 @@
   pytestCheckHook,
   grpcio,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-instrumentation) version src;
   pname = "opentelemetry-instrumentation-grpc";
@@ -22,7 +21,7 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-instrumentation.src.name}/instrumentation/opentelemetry-instrumentation-grpc";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     opentelemetry-api
@@ -32,7 +31,7 @@ buildPythonPackage {
   ];
 
   optional-dependencies = {
-    instruments = [ grpcio ];
+    instruments = [grpcio];
   };
 
   env = {
@@ -54,12 +53,14 @@ buildPythonPackage {
     "TestOpenTelemetryServerInterceptorUnix"
   ];
 
-  pythonImportsCheck = [ "opentelemetry.instrumentation.grpc" ];
+  pythonImportsCheck = ["opentelemetry.instrumentation.grpc"];
 
   __darwinAllowLocalNetworking = true;
 
-  meta = opentelemetry-instrumentation.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/tree/main/instrumentation/opentelemetry-instrumentation-grpc";
-    description = "OpenTelemetry Instrumentation for grpc";
-  };
+  meta =
+    opentelemetry-instrumentation.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/tree/main/instrumentation/opentelemetry-instrumentation-grpc";
+      description = "OpenTelemetry Instrumentation for grpc";
+    };
 }

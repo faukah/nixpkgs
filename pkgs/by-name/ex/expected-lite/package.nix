@@ -5,7 +5,6 @@
   cmake,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "expected-lite";
   version = "0.8.0";
@@ -31,6 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/martinmoene/expected-lite";
     changelog = "https://github.com/martinmoene/expected-lite/blob/${src.rev}/CHANGES.txt";
     license = licenses.boost;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
   };
 }

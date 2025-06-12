@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "impl";
   version = "1.4.0";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "impl";
     homepage = "https://github.com/josharian/impl";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

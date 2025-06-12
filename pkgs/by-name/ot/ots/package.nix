@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ots";
   version = "0.3.1";
@@ -28,6 +27,6 @@ buildGoModule rec {
     homepage = "https://ots.sniptt.com";
     changelog = "https://github.com/sniptt-official/ots/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ elliot ];
+    maintainers = with lib.maintainers; [elliot];
   };
 }

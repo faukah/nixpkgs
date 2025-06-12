@@ -14,7 +14,6 @@
   trio,
   untangle,
 }:
-
 buildPythonPackage rec {
   pname = "pydevd";
   version = "3.3.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "fabioz";
     repo = "PyDev.Debugger";
-    rev = "pydev_debugger_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "pydev_debugger_${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-V5pM0xnMFnpR1oK0purHFCV3wu+4fOmd72kmy7pVeyk=";
   };
 
@@ -77,13 +76,13 @@ buildPythonPackage rec {
       "test_evaluate_exception_trace"
     ];
 
-  pythonImportsCheck = [ "pydevd" ];
+  pythonImportsCheck = ["pydevd"];
 
   meta = {
     description = "PyDev.Debugger (used in PyDev, PyCharm and VSCode Python)";
     homepage = "https://github.com/fabioz/PyDev.Debugger";
     license = lib.licenses.epl10;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
     mainProgram = "pydevd";
   };
 }

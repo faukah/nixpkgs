@@ -11,7 +11,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "xcolor";
   version = "0.5.1";
@@ -46,7 +45,7 @@ rustPlatform.buildRustPackage rec {
       desktopName = "XColor";
       comment = "Select colors visible anywhere on the screen to get their RGB representation";
       icon = "xcolor";
-      categories = [ "Graphics" ];
+      categories = ["Graphics"];
     })
   ];
 
@@ -62,7 +61,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Lightweight color picker for X11";
     homepage = "https://github.com/Soft/xcolor";
-    maintainers = with lib.maintainers; [ moni ];
+    maintainers = with lib.maintainers; [moni];
     license = licenses.mit;
     mainProgram = "xcolor";
   };

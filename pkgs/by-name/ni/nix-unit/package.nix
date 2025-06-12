@@ -13,7 +13,6 @@
   pkg-config,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nix-unit";
   version = "2.24.1";
@@ -34,14 +33,16 @@ stdenv.mkDerivation (finalAttrs: {
     boost
   ];
 
-  nativeBuildInputs = [
-    makeWrapper
-    meson
-    pkg-config
-    ninja
-    # nlohmann_json can be only discovered via cmake files
-    cmake
-  ] ++ lib.optional stdenv.cc.isClang [ clang-tools ];
+  nativeBuildInputs =
+    [
+      makeWrapper
+      meson
+      pkg-config
+      ninja
+      # nlohmann_json can be only discovered via cmake files
+      cmake
+    ]
+    ++ lib.optional stdenv.cc.isClang [clang-tools];
 
   postInstall = ''
     wrapProgram "$out/bin/nix-unit" --prefix PATH : ${difftastic}/bin

@@ -6,10 +6,10 @@
   eio_posix,
   eio_linux,
 }:
-
 buildDunePackage {
   pname = "eio_main";
-  inherit (eio)
+  inherit
+    (eio)
     meta
     src
     patches

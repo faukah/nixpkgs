@@ -3,11 +3,9 @@
   fetchFromGitHub,
   rustPlatform,
   versionCheckHook,
-
   pkg-config,
   libudev-zero,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rogcat";
   version = "0.5.0";
@@ -43,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/flxo/rogcat";
     changelog = "https://github.com/flxo/rogcat/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "rogcat";
     platforms = lib.platforms.linux;
   };

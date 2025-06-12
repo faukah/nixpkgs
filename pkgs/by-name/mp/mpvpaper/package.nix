@@ -14,7 +14,6 @@
   makeWrapper,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mpvpaper";
   version = "1.8";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/mpvpaper \
-      --prefix PATH : ${lib.makeBinPath [ mpv ]}
+      --prefix PATH : ${lib.makeBinPath [mpv]}
 
     installManPage ../mpvpaper.1
   '';
@@ -61,6 +60,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     platforms = platforms.linux;
     mainProgram = "mpvpaper";
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
   };
 }

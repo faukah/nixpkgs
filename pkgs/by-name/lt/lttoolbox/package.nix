@@ -13,7 +13,6 @@
   icu,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lttoolbox";
   version = "3.7.6";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     "CPPFLAGS=-I${utf8cpp}/include/utf8cpp"
   ];
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
   doCheck = true;
   checkPhase = ''
     python3 tests/run_tests.py
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Finite state compiler, processor and helper tools used by apertium";
     homepage = "https://github.com/apertium/lttoolbox";
-    maintainers = with lib.maintainers; [ onthestairs ];
+    maintainers = with lib.maintainers; [onthestairs];
     changelog = "https://github.com/apertium/lttoolbox/releases/tag/v${version}";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;

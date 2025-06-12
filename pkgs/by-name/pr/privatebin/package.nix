@@ -5,7 +5,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "privatebin";
   version = "1.7.6";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru = {
     tests = nixosTests.privatebin;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

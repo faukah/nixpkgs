@@ -3,11 +3,9 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   deprecation,
   poetry-core,
-
   # dependencies
   cloudevents,
   fastapi,
@@ -19,7 +17,6 @@
   orjson,
   pandas,
   uvicorn,
-
   # optional-dependencies
   azure-identity,
   azure-storage-blob,
@@ -30,7 +27,6 @@
   asgi-logger,
   ray,
   vllm,
-
   prometheus-client,
   protobuf,
   requests,
@@ -41,7 +37,6 @@
   six,
   tabulate,
   timing-asgi,
-
   # tests
   avro,
   grpcio-testing,
@@ -51,7 +46,6 @@
   pytestCheckHook,
   tomlkit,
 }:
-
 buildPythonPackage rec {
   pname = "kserve";
   version = "0.15.2";
@@ -104,33 +98,37 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    storage = [
-      azure-identity
-      azure-storage-blob
-      azure-storage-file-share
-      boto3
-      huggingface-hub
-      google-cloud-storage
-      requests
-    ] ++ huggingface-hub.optional-dependencies.hf_transfer;
-    logging = [ asgi-logger ];
-    ray = [ ray ];
+    storage =
+      [
+        azure-identity
+        azure-storage-blob
+        azure-storage-file-share
+        boto3
+        huggingface-hub
+        google-cloud-storage
+        requests
+      ]
+      ++ huggingface-hub.optional-dependencies.hf_transfer;
+    logging = [asgi-logger];
+    ray = [ray];
     llm = [
       vllm
     ];
   };
 
-  nativeCheckInputs = [
-    avro
-    grpcio-testing
-    pytest-asyncio
-    pytest-httpx
-    pytest-xdist
-    pytestCheckHook
-    tomlkit
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      avro
+      grpcio-testing
+      pytest-asyncio
+      pytest-httpx
+      pytest-xdist
+      pytestCheckHook
+      tomlkit
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "kserve" ];
+  pythonImportsCheck = ["kserve"];
 
   pytestFlagsArray =
     [
@@ -178,6 +176,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/kserve/kserve/tree/master/python/kserve";
     changelog = "https://github.com/kserve/kserve/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

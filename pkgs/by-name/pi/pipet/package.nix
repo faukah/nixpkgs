@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "pipet";
   version = "0.3.0";
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/bjesus/pipet";
     description = "Scraping and extracting data from online assets";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bjesus ];
+    maintainers = with lib.maintainers; [bjesus];
     mainProgram = "pipet";
   };
 }

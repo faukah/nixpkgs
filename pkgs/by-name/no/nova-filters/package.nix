@@ -6,7 +6,6 @@
   boost,
   ladspaH,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nova-filters";
   version = "0.2-2";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "LADSPA plugins based on filters of nova";
     homepage = "http://klingt.org/~tim/nova-filters/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.unix;
   };
 })

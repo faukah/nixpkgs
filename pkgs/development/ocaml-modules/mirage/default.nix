@@ -10,7 +10,6 @@
   logs,
   stdlib-shims,
 }:
-
 buildDunePackage rec {
   pname = "mirage";
   inherit (mirage-runtime) version src;
@@ -44,7 +43,9 @@ buildDunePackage rec {
     runHook postInstall
   '';
 
-  meta = mirage-runtime.meta // {
-    description = "MirageOS library operating system";
-  };
+  meta =
+    mirage-runtime.meta
+    // {
+      description = "MirageOS library operating system";
+    };
 }

@@ -5,7 +5,6 @@
   cmake,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmysofa";
   version = "1.3.3";
@@ -22,8 +21,8 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [zlib];
 
   cmakeFlags = [
     "-DBUILD_TESTS=OFF"
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/hoene/libmysofa";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

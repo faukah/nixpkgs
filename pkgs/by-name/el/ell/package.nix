@@ -8,7 +8,6 @@
   sysctl,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ell";
   version = "0.76";

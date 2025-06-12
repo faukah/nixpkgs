@@ -8,7 +8,6 @@
   pkg-config,
   readline,
 }:
-
 stdenv.mkDerivation rec {
   pname = "envchain";
   version = "1.1.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     sed -i -e "s|-ltermcap|-lncurses|" Makefile
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -36,14 +35,14 @@ stdenv.mkDerivation rec {
       ncurses
     ];
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   meta = with lib; {
     description = "Set environment variables with macOS keychain or D-Bus secret service";
     homepage = "https://github.com/sorah/envchain";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "envchain";
   };
 }

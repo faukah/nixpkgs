@@ -3,7 +3,6 @@
   fetchurl,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "boohu";
   version = "0.14.0";
@@ -32,6 +31,6 @@ buildGoModule rec {
     homepage = "https://download.tuxfamily.org/boohu/index.html";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

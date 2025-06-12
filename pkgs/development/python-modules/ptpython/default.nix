@@ -9,7 +9,6 @@
   pygments,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ptpython";
   version = "3.0.29";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-udYlGDrvk6Zz/DLL4cH8r1FBLnpPGVkFIc2syt8lGG4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     appdirs
@@ -34,13 +33,13 @@ buildPythonPackage rec {
   # no tests to run
   doCheck = false;
 
-  pythonImportsCheck = [ "ptpython" ];
+  pythonImportsCheck = ["ptpython"];
 
   meta = with lib; {
     description = "Advanced Python REPL";
     homepage = "https://github.com/prompt-toolkit/ptpython";
     changelog = "https://github.com/prompt-toolkit/ptpython/blob/${version}/CHANGELOG";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mlieberman85 ];
+    maintainers = with maintainers; [mlieberman85];
   };
 }

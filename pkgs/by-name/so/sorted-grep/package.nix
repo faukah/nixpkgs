@@ -3,7 +3,6 @@
   fetchurl,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sorted-grep";
   version = "1.0";
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
     '';
     platforms = platforms.unix;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ivan ];
+    maintainers = with maintainers; [ivan];
   };
 }

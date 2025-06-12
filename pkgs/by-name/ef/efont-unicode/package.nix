@@ -5,7 +5,6 @@
   libfaketime,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "efont-unicode";
   version = "0.4.2";
@@ -62,6 +61,6 @@ stdenv.mkDerivation rec {
     homepage = "http://openlab.ring.gr.jp/efont/unicode/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = [ maintainers.ncfavier ];
+    maintainers = [maintainers.ncfavier];
   };
 }

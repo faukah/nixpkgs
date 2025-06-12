@@ -4,7 +4,6 @@
   fetchFromGitHub,
   bashate,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "kolla";
   version = "19.4.0";
@@ -70,7 +69,7 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "kolla-build";
     homepage = "https://opendev.org/openstack/kolla";
     license = licenses.asl20;
-    maintainers = [ maintainers.astro ];
-    teams = [ teams.openstack ];
+    maintainers = [maintainers.astro];
+    teams = [teams.openstack];
   };
 }

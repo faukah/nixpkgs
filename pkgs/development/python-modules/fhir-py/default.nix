@@ -13,7 +13,6 @@
   pydantic,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "fhir-py";
   version = "2.0.15";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-XZC3cLjAy1VZfMsHy/QmwJXKiW/WxVous1LrbkGOeRs=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     aiohttp
@@ -45,16 +44,16 @@ buildPythonPackage rec {
   ];
 
   # sync/async test cases require docker-compose to set up services, so disable:
-  disabledTestPaths = [ "tests/test_lib_sync.py" ];
-  disabledTests = [ "TestLibAsyncCase" ];
+  disabledTestPaths = ["tests/test_lib_sync.py"];
+  disabledTests = ["TestLibAsyncCase"];
 
-  pythonImportsCheck = [ "fhirpy" ];
+  pythonImportsCheck = ["fhirpy"];
 
   meta = with lib; {
     description = "Async/sync API for FHIR resources";
     homepage = "https://github.com/beda-software/fhir-py";
     changelog = "https://github.com/beda-software/fhir-py/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

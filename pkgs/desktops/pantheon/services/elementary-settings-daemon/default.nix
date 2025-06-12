@@ -23,7 +23,6 @@
   systemd,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-settings-daemon";
   version = "8.3.0";
@@ -61,14 +60,14 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Settings daemon for Pantheon";
     homepage = "https://github.com/elementary/settings-daemon";
     license = licenses.gpl3Plus;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     mainProgram = "io.elementary.settings-daemon";
   };

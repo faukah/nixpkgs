@@ -9,7 +9,6 @@
   pkg-config,
   which,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ndpi";
   version = "4.10";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl3Plus
       bsd3
     ];
-    maintainers = with maintainers; [ takikawa ];
+    maintainers = with maintainers; [takikawa];
     mainProgram = "ndpiReader";
     platforms = with platforms; unix;
   };

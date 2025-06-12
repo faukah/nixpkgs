@@ -11,7 +11,6 @@
   setuptools-scm,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "textile";
   version = "4.0.3";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    imagesize = [ pillow ];
+    imagesize = [pillow];
   };
 
   nativeCheckInputs = [
@@ -45,14 +44,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "textile" ];
+  pythonImportsCheck = ["textile"];
 
   meta = with lib; {
     description = "MOdule for generating web text";
     homepage = "https://github.com/textile/python-textile";
     changelog = "https://github.com/textile/python-textile/blob/${version}/CHANGELOG.textile";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "pytextile";
   };
 }

@@ -11,7 +11,6 @@
   procps,
   sox,
 }:
-
 stdenv.mkDerivation rec {
   pname = "caudec";
   version = "1.7.5";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     patchShebangs ./install.sh
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     ./install.sh --prefix=$out/bin
@@ -35,16 +34,16 @@ stdenv.mkDerivation rec {
       for executable in $(cd $out/bin && ls); do
     wrapProgram $out/bin/$executable \
       --prefix PATH : "${
-        lib.makeBinPath [
-          bc
-          findutils
-          sox
-          procps
-          opusTools
-          lame
-          flac
-        ]
-      }"
+      lib.makeBinPath [
+        bc
+        findutils
+        sox
+        procps
+        opusTools
+        lame
+        flac
+      ]
+    }"
       done
   '';
 

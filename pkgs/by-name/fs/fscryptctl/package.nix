@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pandoc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fscryptctl";
   version = "1.2.0";
@@ -16,11 +15,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-5suEdSpX8alDkSnSnyiIjUmZq98eK0ZPVAtDKhOs65c=";
   };
 
-  nativeBuildInputs = [ pandoc ];
+  nativeBuildInputs = [pandoc];
 
   strictDeps = true;
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = {
     description = "Small C tool for Linux filesystem encryption";
@@ -43,6 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/google/fscryptctl/blob/master/NEWS.md";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ primeos ];
+    maintainers = with lib.maintainers; [primeos];
   };
 })

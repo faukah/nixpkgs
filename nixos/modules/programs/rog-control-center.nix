@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.rog-control-center;
-in
-{
+in {
   options = {
     programs.rog-control-center = {
       enable = lib.mkEnableOption "the rog-control-center application";

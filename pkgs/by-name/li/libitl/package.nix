@@ -4,12 +4,11 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libitl";
   version = "0.1.8-unstable-2024-05-26";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   src = fetchFromGitHub {
     owner = "arabeyes-org";
@@ -27,6 +26,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.arabeyes.org/ITL";
     license = licenses.lgpl21Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ amyipdev ];
+    maintainers = with maintainers; [amyipdev];
   };
 })

@@ -3,7 +3,6 @@
   melpaBuild,
   fetchzip,
 }:
-
 melpaBuild rec {
   pname = "ebuild-mode";
   version = "1.78";
@@ -17,6 +16,6 @@ melpaBuild rec {
     homepage = "https://gitweb.gentoo.org/proj/ebuild-mode.git/";
     description = "Major modes for Gentoo package files";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

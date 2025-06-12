@@ -5,20 +5,16 @@
   pkg-config,
   icu,
   clucene_core,
-
   autoreconfHook,
   bzip2,
   curl,
   xz,
 }:
-
 stdenv.mkDerivation (
-  finalAttrs:
-  let
+  finalAttrs: let
     # Used on Windows, where libpsl doesn't compile, yet
-    curlDep = curl.override { pslSupport = false; };
-  in
-  {
+    curlDep = curl.override {pslSupport = false;};
+  in {
     pname = "sword";
     version = "1.9.0";
 

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "hostess";
   version = "0.5.2";
@@ -15,7 +14,7 @@ buildGoModule rec {
     sha256 = "1izszf60nsa6pyxx3kd8qdrz3h47ylm17r9hzh9wk37f61pmm42j";
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorHash = null;
 
@@ -23,6 +22,6 @@ buildGoModule rec {
     description = "Idempotent command-line utility for managing your /etc/hosts* file";
     mainProgram = "hostess";
     license = licenses.mit;
-    maintainers = with maintainers; [ edlimerkaj ];
+    maintainers = with maintainers; [edlimerkaj];
   };
 }

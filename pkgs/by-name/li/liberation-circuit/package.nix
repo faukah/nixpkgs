@@ -7,7 +7,6 @@
   libGL,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation {
   pname = "liberation-circuit";
   version = "1.3-unstable-2022-01-02";
@@ -59,7 +58,7 @@ stdenv.mkDerivation {
       editor and compiler to write your own unit AI in a simplified version of C.
     '';
     homepage = "https://linleyh.itch.io/liberation-circuit";
-    maintainers = with lib.maintainers; [ emilytrau ];
+    maintainers = with lib.maintainers; [emilytrau];
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
   };

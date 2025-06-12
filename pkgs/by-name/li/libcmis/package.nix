@@ -11,7 +11,6 @@
   autoreconfHook,
   cppunit,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcmis";
   version = "0.6.2";

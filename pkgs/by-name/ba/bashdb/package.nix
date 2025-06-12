@@ -6,7 +6,6 @@
   makeWrapper,
   python3Packages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bashdb";
   version = "5.0-1.1.2";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
       sha256 = "19zfzcnxavndyn6kfxp775kjcd0gigsm4y3bnh6fz5ilhnnbbbgr";
     })
   ];
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   nativeBuildInputs = [
     makeWrapper

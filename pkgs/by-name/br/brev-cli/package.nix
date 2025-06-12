@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "brev-cli";
   version = "0.6.310";
@@ -18,7 +17,7 @@ buildGoModule rec {
   vendorHash = "sha256-7MXZVdpsPHfHk8hNZM2CT0FW8gTKt3oUap7CTVYMNfI=";
 
   env.CGO_ENABLED = 0;
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -36,6 +35,6 @@ buildGoModule rec {
     homepage = "https://github.com/brevdev/brev-cli";
     changelog = "https://github.com/brevdev/brev-cli/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
   };
 }

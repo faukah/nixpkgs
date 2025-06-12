@@ -8,7 +8,6 @@
   libiconv,
   vectorscan,
 }:
-
 buildPythonPackage rec {
   pname = "pyperscan";
   version = "0.3.0";
@@ -32,11 +31,11 @@ buildPythonPackage rec {
     maturinBuildHook
   ];
 
-  checkInputs = [ pytestCheckHook ];
+  checkInputs = [pytestCheckHook];
 
-  buildInputs = [ vectorscan ] ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
+  buildInputs = [vectorscan] ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
-  pythonImportsCheck = [ "pyperscan" ];
+  pythonImportsCheck = ["pyperscan"];
 
   meta = with lib; {
     description = "Hyperscan binding for Python, which supports vectorscan";

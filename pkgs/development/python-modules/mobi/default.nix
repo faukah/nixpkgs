@@ -8,7 +8,6 @@
   setuptools,
   standard-imghdr,
 }:
-
 buildPythonPackage rec {
   pname = "mobi";
   version = "0.3.3";
@@ -23,24 +22,24 @@ buildPythonPackage rec {
     hash = "sha256-g1L72MkJdrKQRsEdew+Qsn8LfCn8+cmj2pmY6s4nv2U=";
   };
 
-  pythonRelaxDeps = [ "loguru" ];
+  pythonRelaxDeps = ["loguru"];
 
-  dependencies = [ standard-imghdr ];
+  dependencies = [standard-imghdr];
 
   nativeBuildInputs = [
     poetry-core
     setuptools
   ];
 
-  propagatedBuildInputs = [ loguru ];
+  propagatedBuildInputs = [loguru];
 
-  pythonImportsCheck = [ "mobi" ];
+  pythonImportsCheck = ["mobi"];
 
   meta = with lib; {
     description = "Library for unpacking unencrypted mobi files";
     mainProgram = "mobiunpack";
     homepage = "https://github.com/iscc/mobi";
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

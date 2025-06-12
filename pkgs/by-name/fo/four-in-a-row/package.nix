@@ -17,7 +17,6 @@
   ninja,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "four-in-a-row";
   version = "3.38.1";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "four-in-a-row"; };
+    updateScript = gnome.updateScript {packageName = "four-in-a-row";};
   };
 
   meta = {
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.gnome.org/GNOME/four-in-a-row/-/blob/${version}/NEWS?ref_type=tags";
     description = "Make lines of the same color to win";
     mainProgram = "four-in-a-row";
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
   };

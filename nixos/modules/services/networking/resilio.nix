@@ -4,23 +4,22 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.resilio;
 
-  sharedFoldersRecord = map (entry: {
-    dir = entry.directory;
+  sharedFoldersRecord =
+    map (entry: {
+      dir = entry.directory;
 
-    use_relay_server = entry.useRelayServer;
-    use_tracker = entry.useTracker;
-    use_dht = entry.useDHT;
+      use_relay_server = entry.useRelayServer;
+      use_tracker = entry.useTracker;
+      use_dht = entry.useDHT;
 
-    search_lan = entry.searchLAN;
-    use_sync_trash = entry.useSyncTrash;
-    known_hosts = entry.knownHosts;
-  }) cfg.sharedFolders;
+      search_lan = entry.searchLAN;
+      use_sync_trash = entry.useSyncTrash;
+      known_hosts = entry.knownHosts;
+    })
+    cfg.sharedFolders;
 
   configFile = pkgs.writeText "config.json" (
     builtins.toJSON (
@@ -35,60 +34,60 @@ let
         upload_limit = cfg.uploadLimit;
         lan_encrypt_data = cfg.encryptLAN;
       }
-      // optionalAttrs (cfg.directoryRoot != "") { directory_root = cfg.directoryRoot; }
+      // optionalAttrs (cfg.directoryRoot != "") {directory_root = cfg.directoryRoot;}
       // optionalAttrs cfg.enableWebUI {
         webui =
           {
             listen = "${cfg.httpListenAddr}:${toString cfg.httpListenPort}";
           }
-          // (optionalAttrs (cfg.httpLogin != "") { login = cfg.httpLogin; })
-          // (optionalAttrs (cfg.httpPass != "") { password = cfg.httpPass; })
-          // (optionalAttrs (cfg.apiKey != "") { api_key = cfg.apiKey; });
+          // (optionalAttrs (cfg.httpLogin != "") {login = cfg.httpLogin;})
+          // (optionalAttrs (cfg.httpPass != "") {password = cfg.httpPass;})
+          // (optionalAttrs (cfg.apiKey != "") {api_key = cfg.apiKey;});
       }
-      // optionalAttrs (sharedFoldersRecord != [ ]) {
+      // optionalAttrs (sharedFoldersRecord != []) {
         shared_folders = sharedFoldersRecord;
       }
     )
   );
 
-  sharedFoldersSecretFiles = map (entry: {
-    dir = entry.directory;
-    secretFile =
-      if builtins.hasAttr "secret" entry then
-        toString (
-          pkgs.writeTextFile {
-            name = "secret-file";
-            text = entry.secret;
-          }
-        )
-      else
-        entry.secretFile;
-  }) cfg.sharedFolders;
+  sharedFoldersSecretFiles =
+    map (entry: {
+      dir = entry.directory;
+      secretFile =
+        if builtins.hasAttr "secret" entry
+        then
+          toString (
+            pkgs.writeTextFile {
+              name = "secret-file";
+              text = entry.secret;
+            }
+          )
+        else entry.secretFile;
+    })
+    cfg.sharedFolders;
 
   runConfigPath = "/run/rslsync/config.json";
 
   createConfig = pkgs.writeShellScriptBin "create-resilio-config" (
-    if cfg.sharedFolders != [ ] then
-      ''
-        ${pkgs.jq}/bin/jq \
-          '.shared_folders |= map(.secret = $ARGS.named[.dir])' \
-          ${
-            lib.concatMapStringsSep " \\\n  " (
-              entry: ''--arg '${entry.dir}' "$(cat '${entry.secretFile}')"''
-            ) sharedFoldersSecretFiles
-          } \
-          <${configFile} \
-          >${runConfigPath}
-      ''
-    else
-      ''
-        # no secrets, passing through config
-        cp ${configFile} ${runConfigPath};
-      ''
+    if cfg.sharedFolders != []
+    then ''
+      ${pkgs.jq}/bin/jq \
+        '.shared_folders |= map(.secret = $ARGS.named[.dir])' \
+        ${
+        lib.concatMapStringsSep " \\\n  " (
+          entry: ''--arg '${entry.dir}' "$(cat '${entry.secretFile}')"''
+        )
+        sharedFoldersSecretFiles
+      } \
+        <${configFile} \
+        >${runConfigPath}
+    ''
+    else ''
+      # no secrets, passing through config
+      cp ${configFile} ${runConfigPath};
+    ''
   );
-
-in
-{
+in {
   options = {
     services.resilio = {
       enable = mkOption {
@@ -101,7 +100,7 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs "resilio-sync" { };
+      package = mkPackageOption pkgs "resilio-sync" {};
 
       deviceName = mkOption {
         type = types.str;
@@ -232,7 +231,7 @@ in
       };
 
       sharedFolders = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf (types.attrsOf types.anything);
         example = [
           {
@@ -279,7 +278,7 @@ in
         message = "Device name cannot be empty.";
       }
       {
-        assertion = cfg.enableWebUI -> cfg.sharedFolders == [ ];
+        assertion = cfg.enableWebUI -> cfg.sharedFolders == [];
         message = "If using shared folders, the web UI cannot be enabled.";
       }
       {
@@ -300,8 +299,8 @@ in
 
     systemd.services.resilio = with pkgs; {
       description = "Resilio Sync Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         Restart = "on-abort";
         UMask = "0002";
@@ -315,5 +314,5 @@ in
     };
   };
 
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 }

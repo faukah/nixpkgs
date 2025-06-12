@@ -3,10 +3,9 @@
   pkgs,
   config,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     concatMap
     concatStringsSep
     getExe
@@ -18,7 +17,8 @@ let
     optional
     optionalAttrs
     ;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     bool
     path
     str
@@ -27,10 +27,9 @@ let
 
   cfg = config.services.pocket-id;
 
-  format = pkgs.formats.keyValue { };
+  format = pkgs.formats.keyValue {};
   settingsFile = format.generate "pocket-id-env-vars" cfg.settings;
-in
-{
+in {
   meta.maintainers = with maintainers; [
     gepbird
     ymstnt
@@ -39,7 +38,7 @@ in
   options.services.pocket-id = {
     enable = mkEnableOption "Pocket ID server";
 
-    package = mkPackageOption pkgs "pocket-id" { };
+    package = mkPackageOption pkgs "pocket-id" {};
 
     environmentFile = mkOption {
       type = path;
@@ -88,7 +87,7 @@ in
         };
       };
 
-      default = { };
+      default = {};
 
       description = ''
         Environment variables that will be passed to Pocket ID, see
@@ -121,26 +120,26 @@ in
   config = mkIf cfg.enable {
     warnings =
       optional (cfg.settings ? MAXMIND_LICENSE_KEY)
-        "config.services.pocket-id.settings.MAXMIND_LICENSE_KEY will be stored as plaintext in the Nix store. Use config.services.pocket-id.environmentFile instead."
+      "config.services.pocket-id.settings.MAXMIND_LICENSE_KEY will be stored as plaintext in the Nix store. Use config.services.pocket-id.environmentFile instead."
       ++ concatMap
-        (
-          # Added 2025-05-27
-          setting:
+      (
+        # Added 2025-05-27
+        setting:
           optional (cfg.settings ? "${setting}") ''
             config.services.pocket-id.settings.${setting} is deprecated.
             See https://pocket-id.org/docs/setup/migrate-to-v1/ for migration instructions.
           ''
-        )
-        [
-          "PUBLIC_APP_URL"
-          "PUBLIC_UI_CONFIG_DISABLED"
-          "CADDY_DISABLED"
-          "CADDY_PORT"
-          "BACKEND_PORT"
-          "POSTGRES_CONNECTION_STRING"
-          "SQLITE_DB_PATH"
-          "INTERNAL_BACKEND_URL"
-        ];
+      )
+      [
+        "PUBLIC_APP_URL"
+        "PUBLIC_UI_CONFIG_DISABLED"
+        "CADDY_DISABLED"
+        "CADDY_PORT"
+        "BACKEND_PORT"
+        "POSTGRES_CONNECTION_STRING"
+        "SQLITE_DB_PATH"
+        "INTERNAL_BACKEND_URL"
+      ];
 
     systemd.tmpfiles.rules = [
       "d ${cfg.dataDir} 0755 ${cfg.user} ${cfg.group}"
@@ -149,8 +148,8 @@ in
     systemd.services = {
       pocket-id = {
         description = "Pocket ID";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         restartTriggers = [
           cfg.package
           cfg.environmentFile
@@ -192,7 +191,7 @@ in
           ProtectKernelTunables = true;
           ProtectProc = "invisible";
           ProtectSystem = "strict";
-          ReadWritePaths = [ cfg.dataDir ];
+          ReadWritePaths = [cfg.dataDir];
           RemoveIPC = true;
           RestrictAddressFamilies = [
             "AF_INET"
@@ -231,7 +230,7 @@ in
     };
 
     users.groups = optionalAttrs (cfg.group == "pocket-id") {
-      pocket-id = { };
+      pocket-id = {};
     };
   };
 }

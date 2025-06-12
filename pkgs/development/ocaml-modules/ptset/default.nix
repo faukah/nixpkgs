@@ -4,7 +4,6 @@
   buildDunePackage,
   stdlib-shims,
 }:
-
 buildDunePackage rec {
   pname = "ptset";
   version = "1.0.1";
@@ -18,12 +17,12 @@ buildDunePackage rec {
 
   doCheck = true;
 
-  propagatedBuildInputs = [ stdlib-shims ];
+  propagatedBuildInputs = [stdlib-shims];
 
   meta = {
     description = "Integer set implementation using Patricia trees";
     homepage = "https://github.com/backtracking/ptset";
     license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

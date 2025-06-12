@@ -9,7 +9,6 @@
   procps,
   makeWrapper,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "giph";
   version = "1.1.1";
@@ -25,28 +24,28 @@ stdenvNoCC.mkDerivation rec {
 
   dontBuild = true;
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/giph \
       --prefix PATH : ${
-        lib.makeBinPath [
-          ffmpeg
-          xdotool
-          libnotify
-          slop
-          procps
-        ]
-      }
+      lib.makeBinPath [
+        ffmpeg
+        xdotool
+        libnotify
+        slop
+        procps
+      ]
+    }
   '';
 
   meta = with lib; {
     homepage = "https://github.com/phisch/giph";
     description = "Simple gif recorder";
     license = licenses.mit;
-    maintainers = [ maintainers.lom ];
+    maintainers = [maintainers.lom];
     platforms = platforms.linux;
     mainProgram = "giph";
   };

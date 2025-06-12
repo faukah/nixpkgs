@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   flit-core,
-
   # propagates
   aiofiles,
   blinker,
@@ -21,7 +19,6 @@
   python-dotenv,
   typing-extensions,
   werkzeug,
-
   # tests
   hypothesis,
   mock,
@@ -30,7 +27,6 @@
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "quart";
   version = "0.20.0";
@@ -43,7 +39,7 @@ buildPythonPackage rec {
     hash = "sha256-NApev3nRBS4QDMGq8++rSmK5YgeljkaVAsdezsTbZr4=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies =
     [
@@ -64,7 +60,7 @@ buildPythonPackage rec {
       typing-extensions
     ];
 
-  pythonImportsCheck = [ "quart" ];
+  pythonImportsCheck = ["quart"];
 
   nativeCheckInputs = [
     hypothesis
@@ -81,6 +77,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pallets/quart/";
     changelog = "https://github.com/pallets/quart/blob/${src.tag}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

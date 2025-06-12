@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "aerogramme";
   version = "0.3.0";
@@ -32,14 +31,14 @@ rustPlatform.buildRustPackage rec {
     RUSTC_BOOTSTRAP = true;
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   meta = {
     description = "Encrypted e-mail storage over Garage";
     homepage = "https://aerogramme.deuxfleurs.fr/";
     license = lib.licenses.eupl12;
-    maintainers = with lib.maintainers; [ supinie ];
+    maintainers = with lib.maintainers; [supinie];
     mainProgram = "aerogramme";
     platforms = lib.platforms.linux;
   };

@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkIf
     mkOption
     mkEnableOption
@@ -22,7 +21,7 @@ let
   finalPackage = cfg.package.override {
     # The calendarSettings need to be merged with the default_specification.yml
     # in the source. This way we use upstreams default values but keep everything overridable.
-    defaultSpecificationFile = pkgs.runCommand "custom-default_specification.yml" { } ''
+    defaultSpecificationFile = pkgs.runCommand "custom-default_specification.yml" {} ''
       ${pkgs.yq}/bin/yq -s '.[0] * .[1]' ${cfg.package}/${cfg.package.defaultSpecificationPath} ${nixosSpec} > $out
     '';
   };
@@ -36,15 +35,13 @@ let
     ];
   };
 
-  settingsFormat = pkgs.formats.keyValue { };
-  calendarSettingsFormat = pkgs.formats.json { };
-in
-{
+  settingsFormat = pkgs.formats.keyValue {};
+  calendarSettingsFormat = pkgs.formats.json {};
+in {
   options.services.open-web-calendar = {
-
     enable = mkEnableOption "OpenWebCalendar service";
 
-    package = mkPackageOption pkgs "open-web-calendar" { };
+    package = mkPackageOption pkgs "open-web-calendar" {};
 
     domain = mkOption {
       type = types.str;
@@ -69,7 +66,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = ''
         Configuration for the server. These are set as environment variables to the gunicorn/flask service.
 
@@ -80,9 +77,9 @@ in
     calendarSettings = mkOption {
       type = types.submodule {
         freeformType = calendarSettingsFormat.type;
-        options = { };
+        options = {};
       };
-      default = { };
+      default = {};
       description = ''
         Configure the default calendar.
 
@@ -91,11 +88,9 @@ in
         Individual calendar instances can be further configured outside this module, by specifying the `specification_url` parameter.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
-
     assertions = [
       {
         assertion = !cfg.settings ? "PORT";
@@ -106,8 +101,8 @@ in
     ];
 
     systemd.sockets.open-web-calendar = {
-      before = [ "nginx.service" ];
-      wantedBy = [ "sockets.target" ];
+      before = ["nginx.service"];
+      wantedBy = ["sockets.target"];
       socketConfig = {
         ListenStream = "/run/open-web-calendar/socket";
         SocketUser = "open-web-calendar";
@@ -118,7 +113,7 @@ in
 
     systemd.services.open-web-calendar = {
       description = "Open Web Calendar";
-      after = [ "network.target" ];
+      after = ["network.target"];
       environment.PYTHONPATH = "${pythonEnv}/${python.sitePackages}/";
       serviceConfig = {
         Type = "notify";
@@ -153,10 +148,8 @@ in
       };
     };
 
-    users.groups.open-web-calendar.members = [ config.services.nginx.user ];
-
+    users.groups.open-web-calendar.members = [config.services.nginx.user];
   };
 
-  meta.maintainers = with lib.maintainers; [ erictapen ];
-
+  meta.maintainers = with lib.maintainers; [erictapen];
 }

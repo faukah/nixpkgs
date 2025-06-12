@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "tempo";
   version = "2.7.2";
@@ -38,12 +37,12 @@ buildGoModule rec {
   # tests use docker
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "High volume, minimal dependency trace storage";
     license = licenses.asl20;
     homepage = "https://grafana.com/oss/tempo/";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

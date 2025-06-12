@@ -6,7 +6,6 @@
   aiohttp,
   async-timeout,
 }:
-
 buildPythonPackage rec {
   pname = "imeon-inverter-api";
   version = "0.3.14";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-zjG9rcKdV+o5M3yIRaxz93sP3u4Vfs8JhSSYzKdQi2I=";
   };
 
-  build-system = [ pdm-pep517 ];
+  build-system = [pdm-pep517];
 
   dependencies = [
     aiohttp
     async-timeout
   ];
 
-  pythonImportsCheck = [ "imeon_inverter_api" ];
+  pythonImportsCheck = ["imeon_inverter_api"];
 
   # upstream has no tests
   doCheck = false;
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Standalone API to collect data from the Imeon Energy Inverters that uses HTTP POST/GET";
     homepage = "https://github.com/Imeon-Inverters-for-Home-Assistant/inverter-api";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

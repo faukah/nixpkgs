@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "shabnam-fonts";
   version = "5.0.1";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Persian (Farsi) Font - فونت (قلم) فارسی شبنم";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -10,7 +10,6 @@
   fetchpatch,
   bash,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gnome-doc-utils";
   version = "0.20.10";
@@ -45,9 +44,9 @@ python3Packages.buildPythonApplication rec {
     libxslt
     bash
   ];
-  propagatedBuildInputs = [ python3Packages.libxml2 ];
+  propagatedBuildInputs = [python3Packages.libxml2];
 
-  configureFlags = [ "--disable-scrollkeeper" ];
+  configureFlags = ["--disable-scrollkeeper"];
 
   passthru = {
     updateScript = gnome.updateScript {

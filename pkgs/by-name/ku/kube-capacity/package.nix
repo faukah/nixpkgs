@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kube-capacity";
   version = "0.8.0";
@@ -23,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/robscott/kube-capacity";
     changelog = "https://github.com/robscott/kube-capacity/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.bryanasdev000 ];
+    maintainers = [lib.maintainers.bryanasdev000];
   };
 }

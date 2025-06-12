@@ -10,7 +10,6 @@
   pytz,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "oci";
   version = "2.151.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     "pyOpenSSL"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     certifi
@@ -42,7 +41,7 @@ buildPythonPackage rec {
   # Tests fail: https://github.com/oracle/oci-python-sdk/issues/164
   doCheck = false;
 
-  pythonImportsCheck = [ "oci" ];
+  pythonImportsCheck = ["oci"];
 
   meta = {
     description = "Oracle Cloud Infrastructure Python SDK";

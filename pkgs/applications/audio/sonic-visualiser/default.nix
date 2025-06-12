@@ -1,5 +1,4 @@
 # TODO add plugins having various licenses, see http://www.vamp-plugins.org/download.html
-
 {
   lib,
   stdenv,
@@ -34,7 +33,6 @@
   ninja,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sonic-visualiser";
   version = "4.5.1";
@@ -86,7 +84,7 @@ stdenv.mkDerivation rec {
     description = "View and analyse contents of music audio files";
     homepage = "https://www.sonicvisualiser.org/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.marcweber ];
+    maintainers = [maintainers.marcweber];
     platforms = platforms.linux;
   };
 }

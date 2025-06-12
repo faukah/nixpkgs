@@ -14,7 +14,6 @@
   libgnome-games-support,
   gdk-pixbuf,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "atomix";
   version = "44.0";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "atomix"; };
+    updateScript = gnome.updateScript {packageName = "atomix";};
   };
 
   meta = with lib; {
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/GNOME/atomix";
     changelog = "https://gitlab.gnome.org/GNOME/atomix/-/blob/${finalAttrs.version}/NEWS?ref_type=tags";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 })

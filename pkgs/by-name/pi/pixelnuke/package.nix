@@ -6,7 +6,6 @@
   glew,
   glfw,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pixelnuke";
   version = "unstable-2019-05-19";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://cccgoe.de/wiki/Pixelflut";
     license = licenses.unlicense;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mrVanDalo ];
+    maintainers = with maintainers; [mrVanDalo];
     mainProgram = "pixelnuke";
   };
 })

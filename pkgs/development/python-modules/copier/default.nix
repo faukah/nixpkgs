@@ -24,7 +24,6 @@
   pyyaml-include,
   questionary,
 }:
-
 buildPythonPackage rec {
   pname = "copier";
   version = "9.6.0";
@@ -69,14 +68,14 @@ buildPythonPackage rec {
     questionary
   ];
 
-  makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ git ]}" ];
+  makeWrapperArgs = ["--suffix PATH : ${lib.makeBinPath [git]}"];
 
   meta = {
     description = "Library and command-line utility for rendering projects templates";
     homepage = "https://copier.readthedocs.io";
     changelog = "https://github.com/copier-org/copier/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ greg ];
+    maintainers = with lib.maintainers; [greg];
     mainProgram = "copier";
   };
 }

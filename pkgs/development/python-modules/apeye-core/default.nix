@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-Xecu09AMybIP6lXlS3q49e+FAOszpTaLwWKlWF4jilU=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   nativeBuildInputs = [
     hatch-requirements-txt
@@ -33,6 +33,6 @@ buildPythonPackage rec {
     description = "Core (offline) functionality for the apeye library.";
     homepage = "https://github.com/domdfcoding/apyey-core";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tyberius-prime ];
+    maintainers = with lib.maintainers; [tyberius-prime];
   };
 }

@@ -7,7 +7,6 @@
   stdenv,
   libsForQt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fs-uae-launcher";
   version = "3.1.70";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   dontWrapQtApps = true;
 

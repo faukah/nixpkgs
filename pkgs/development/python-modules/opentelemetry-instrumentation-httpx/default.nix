@@ -9,7 +9,6 @@
   pytestCheckHook,
   respx,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-instrumentation) version src;
   pname = "opentelemetry-instrumentation-httpx";
@@ -17,7 +16,7 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-instrumentation.src.name}/instrumentation/opentelemetry-instrumentation-httpx";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     httpx
@@ -32,10 +31,12 @@ buildPythonPackage {
     respx
   ];
 
-  pythonImportsCheck = [ "opentelemetry.instrumentation.httpx" ];
+  pythonImportsCheck = ["opentelemetry.instrumentation.httpx"];
 
-  meta = opentelemetry-instrumentation.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/instrumentation/opentelemetry-instrumentation-httpx";
-    description = "Allows tracing HTTP requests made by the httpx library";
-  };
+  meta =
+    opentelemetry-instrumentation.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/instrumentation/opentelemetry-instrumentation-httpx";
+      description = "Allows tracing HTTP requests made by the httpx library";
+    };
 }

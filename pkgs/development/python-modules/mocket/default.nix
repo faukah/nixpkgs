@@ -3,20 +3,16 @@
   buildPythonPackage,
   stdenv,
   fetchPypi,
-
   # build-system
   hatchling,
-
   # dependencies
   decorator,
   h11,
   puremagic,
   urllib3,
-
   # optional-dependencies
   xxhash,
   pook,
-
   # tests
   aiohttp,
   asgiref,
@@ -31,9 +27,7 @@
   redisTestHook,
   requests,
   sure,
-
 }:
-
 buildPythonPackage rec {
   pname = "mocket";
   version = "3.13.4";
@@ -44,7 +38,7 @@ buildPythonPackage rec {
     hash = "sha256-KoZ2V0M4ezW58c65wc9vJHrYMZ2ywKUjCOietKYS94Q=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     decorator
@@ -54,25 +48,27 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    pook = [ pook ];
-    speedups = [ xxhash ];
+    pook = [pook];
+    speedups = [xxhash];
   };
 
-  nativeCheckInputs = [
-    aiohttp
-    asgiref
-    fastapi
-    gevent
-    httpx
-    psutil
-    pytest-asyncio
-    pytest-cov-stub
-    pytestCheckHook
-    redis
-    redisTestHook
-    requests
-    sure
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      aiohttp
+      asgiref
+      fastapi
+      gevent
+      httpx
+      psutil
+      pytest-asyncio
+      pytest-cov-stub
+      pytestCheckHook
+      redis
+      redisTestHook
+      requests
+      sure
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   # Skip http tests, they require network access
   env.SKIP_TRUE_HTTP = true;
@@ -94,13 +90,13 @@ buildPythonPackage rec {
       "test_httprettish_httpx_session"
     ];
 
-  pythonImportsCheck = [ "mocket" ];
+  pythonImportsCheck = ["mocket"];
 
   meta = with lib; {
     changelog = "https://github.com/mindflayer/python-mocket/releases/tag/${version}";
     description = "Socket mock framework for all kinds of sockets including web-clients";
     homepage = "https://github.com/mindflayer/python-mocket";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

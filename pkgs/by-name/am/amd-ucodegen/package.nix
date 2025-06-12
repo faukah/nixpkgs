@@ -6,7 +6,6 @@
   nix-update-script,
   callPackage,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "amd-ucodegen";
   version = "0-unstable-2017-06-07";
@@ -39,8 +38,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
-    tests.platomav = callPackage ./test-platomav.nix { amd-ucodegen = finalAttrs.finalPackage; };
+    updateScript = nix-update-script {extraArgs = ["--version=branch"];};
+    tests.platomav = callPackage ./test-platomav.nix {amd-ucodegen = finalAttrs.finalPackage;};
   };
 
   meta = {
@@ -55,6 +54,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
     mainProgram = "amd-ucodegen";
-    maintainers = with lib.maintainers; [ d-brasher ];
+    maintainers = with lib.maintainers; [d-brasher];
   };
 })

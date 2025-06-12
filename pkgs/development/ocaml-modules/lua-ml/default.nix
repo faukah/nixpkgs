@@ -7,11 +7,9 @@
   ocamlbuild,
   opaline,
 }:
-
-if lib.versionOlder ocaml.version "4.07" then
-  throw "lua-ml is not available for OCaml ${ocaml.version}"
+if lib.versionOlder ocaml.version "4.07"
+then throw "lua-ml is not available for OCaml ${ocaml.version}"
 else
-
   stdenv.mkDerivation rec {
     pname = "lua-ml";
     name = "ocaml${ocaml.version}-${pname}-${version}";
@@ -33,7 +31,7 @@ else
 
     strictDeps = true;
 
-    buildFlags = [ "lib" ];
+    buildFlags = ["lib"];
 
     installPhase = ''
       opaline -prefix $out -libdir $OCAMLFIND_DESTDIR
@@ -44,6 +42,6 @@ else
       inherit (src.meta) homepage;
       inherit (ocaml.meta) platforms;
       license = lib.licenses.bsd2;
-      maintainers = [ lib.maintainers.vbgl ];
+      maintainers = [lib.maintainers.vbgl];
     };
   }

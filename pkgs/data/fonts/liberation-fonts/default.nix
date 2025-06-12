@@ -4,23 +4,21 @@
   fetchFromGitHub,
   fontforge,
   python3,
-}:
-let
+}: let
   inherit (python3.pkgs) fonttools;
 
   commonNativeBuildInputs = [
     fontforge
     python3
   ];
-  common =
-    {
-      version,
-      repo,
-      sha256,
-      docsToInstall,
-      nativeBuildInputs,
-      postPatch ? null,
-    }:
+  common = {
+    version,
+    repo,
+    sha256,
+    docsToInstall,
+    nativeBuildInputs,
+    postPatch ? null,
+  }:
     stdenv.mkDerivation rec {
       pname = "liberation-fonts";
       inherit version;
@@ -58,11 +56,10 @@ let
 
         license = licenses.ofl;
         homepage = "https://github.com/liberationfonts";
-        maintainers = with maintainers; [ raskin ];
+        maintainers = with maintainers; [raskin];
       };
     };
-in
-{
+in {
   liberation_ttf_v1 = common {
     repo = "liberation-1.7-fonts";
     version = "1.07.5";
@@ -85,7 +82,7 @@ in
       "LICENSE"
       "README.md"
     ];
-    nativeBuildInputs = commonNativeBuildInputs ++ [ fonttools ];
+    nativeBuildInputs = commonNativeBuildInputs ++ [fonttools];
     postPatch = ''
       substituteInPlace scripts/setisFixedPitch-fonttools.py --replace \
         'font = ttLib.TTFont(fontfile)' \

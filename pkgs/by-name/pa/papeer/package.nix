@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "papeer";
   version = "0.8.4";
@@ -24,6 +23,6 @@ buildGoModule rec {
     mainProgram = "papeer";
     homepage = "https://papeer.tech/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
   };
 }

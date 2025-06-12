@@ -16,7 +16,6 @@
   docbook_xml_dtd_43,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gexiv2";
   version = "0.14.3";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
       gtk-doc
       docbook-xsl-nons
       docbook_xml_dtd_43
-      (python3.pythonOnBuildForHost.withPackages (ps: [ ps.pygobject3 ]))
+      (python3.pythonOnBuildForHost.withPackages (ps: [ps.pygobject3]))
     ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
@@ -63,18 +62,19 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  preCheck =
-    let
-      libSuffix = if stdenv.hostPlatform.isDarwin then "2.dylib" else "so.2";
-    in
-    ''
-      # Our gobject-introspection patches make the shared library paths absolute
-      # in the GIR files. When running unit tests, the library is not yet installed,
-      # though, so we need to replace the absolute path with a local one during build.
-      # We are using a symlink that will be overridden during installation.
-      mkdir -p $out/lib
-      ln -s $PWD/gexiv2/libgexiv2.${libSuffix} $out/lib/libgexiv2.${libSuffix}
-    '';
+  preCheck = let
+    libSuffix =
+      if stdenv.hostPlatform.isDarwin
+      then "2.dylib"
+      else "so.2";
+  in ''
+    # Our gobject-introspection patches make the shared library paths absolute
+    # in the GIR files. When running unit tests, the library is not yet installed,
+    # though, so we need to replace the absolute path with a local one during build.
+    # We are using a symlink that will be overridden during installation.
+    mkdir -p $out/lib
+    ln -s $PWD/gexiv2/libgexiv2.${libSuffix} $out/lib/libgexiv2.${libSuffix}
+  '';
 
   passthru = {
     updateScript = gnome.updateScript {
@@ -88,6 +88,6 @@ stdenv.mkDerivation rec {
     description = "GObject wrapper around the Exiv2 photo metadata library";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 }

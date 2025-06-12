@@ -3,7 +3,6 @@
   fetchPypi,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "jnitrace";
   version = "3.3.1";
@@ -23,7 +22,7 @@ python3Packages.buildPythonApplication rec {
   meta = {
     description = "Frida based tool that traces usage of the JNI API in Android apps";
     homepage = "https://github.com/chame1eon/jnitrace";
-    maintainers = [ lib.maintainers.axka ];
+    maintainers = [lib.maintainers.axka];
     license = lib.licenses.mit;
     mainProgram = "jnitrace";
   };

@@ -1,5 +1,7 @@
-{ buildNpmPackage, anubis }:
-
+{
+  buildNpmPackage,
+  anubis,
+}:
 buildNpmPackage {
   pname = "${anubis.pname}-xess";
   inherit (anubis) version src;
@@ -22,14 +24,16 @@ buildNpmPackage {
     runHook postInstall
   '';
 
-  meta = anubis.meta // {
-    description = "Xess files for Anubis";
-    longDescription = ''
-      This package is consumed by the main `anubis` package to render the final
-      styling for the bot check page.
+  meta =
+    anubis.meta
+    // {
+      description = "Xess files for Anubis";
+      longDescription = ''
+        This package is consumed by the main `anubis` package to render the final
+        styling for the bot check page.
 
-      **It is not supposed to be used as a standalone package**, and it exists to
-      ensure Anubis' styling is override-able by downstreams.
-    '';
-  };
+        **It is not supposed to be used as a standalone package**, and it exists to
+        ensure Anubis' styling is override-able by downstreams.
+      '';
+    };
 }

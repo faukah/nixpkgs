@@ -13,7 +13,6 @@
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "podgen";
   version = "1.1.0";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     tinytag
   ];
 
-  pythonImportsCheck = [ "podgen" ];
+  pythonImportsCheck = ["podgen"];
 
   nativeCheckInputs = [
     pytest-mock
@@ -61,6 +60,6 @@ buildPythonPackage rec {
       bsd2
       lgpl3
     ];
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
   };
 }

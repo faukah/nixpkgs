@@ -16,7 +16,6 @@
   gsettings-desktop-schemas,
   libcanberra-gtk3,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ayatana-webmail";
   version = "24.5.17";
@@ -78,7 +77,7 @@ python3Packages.buildPythonApplication rec {
   dontWrapGApps = true;
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
-    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ libcanberra-gtk3 ]})
+    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [libcanberra-gtk3]})
   '';
 
   meta = {
@@ -86,6 +85,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/AyatanaIndicators/ayatana-webmail";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

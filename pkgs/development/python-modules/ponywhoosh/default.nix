@@ -5,7 +5,6 @@
   pony,
   whoosh,
 }:
-
 buildPythonPackage rec {
   pname = "ponywhoosh";
   version = "1.7.8";
@@ -25,6 +24,6 @@ buildPythonPackage rec {
     homepage = "https://pythonhosted.org/ponywhoosh/";
     description = "Make your database over PonyORM searchable";
     license = licenses.mit;
-    maintainers = with maintainers; [ alexarice ];
+    maintainers = with maintainers; [alexarice];
   };
 }

@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "cache";
   version = "1.0.3";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-vfVNo2B9fnjyjgR7cGrcsi9srWcTs3s8fhmvNF8okN0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cache" ];
+  pythonImportsCheck = ["cache"];
 
   disabledTests = [
     # Tests are out-dated
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jneen/python-cache";
     changelog = "https://github.com/jneen/python-cache/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

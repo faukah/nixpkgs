@@ -15,7 +15,6 @@
   buildPackages,
   publicsuffix-list,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libpsl";
   version = "0.21.5";
@@ -95,9 +94,9 @@ stdenv.mkDerivation rec {
     homepage = "https://rockdaboot.github.io/libpsl/";
     changelog = "https://raw.githubusercontent.com/rockdaboot/libpsl/libpsl-${version}/NEWS";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.c0bw3b ];
+    maintainers = [lib.maintainers.c0bw3b];
     mainProgram = "psl";
     platforms = lib.platforms.unix ++ lib.platforms.windows;
-    pkgConfigModules = [ "libpsl" ];
+    pkgConfigModules = ["libpsl"];
   };
 }

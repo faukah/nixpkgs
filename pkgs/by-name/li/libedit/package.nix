@@ -5,7 +5,6 @@
   ncurses,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libedit";
   version = "20240808-3.1";
@@ -60,8 +59,8 @@ stdenv.mkDerivation (finalAttrs: {
       provides generic line editing, history, and tokenization functions,
       similar to those found in GNU Readline.
     '';
-    license = with lib.licenses; [ bsd3 ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [bsd3];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

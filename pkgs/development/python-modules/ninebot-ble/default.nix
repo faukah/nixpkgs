@@ -11,7 +11,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "ninebot-ble";
   version = "0.0.6";
@@ -42,13 +41,13 @@ buildPythonPackage rec {
   # Module has no test
   doCheck = false;
 
-  pythonImportsCheck = [ "ninebot_ble" ];
+  pythonImportsCheck = ["ninebot_ble"];
 
   meta = with lib; {
     description = "Ninebot scooter BLE client";
     mainProgram = "ninebot-ble";
     homepage = "https://github.com/ownbee/ninebot-ble";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

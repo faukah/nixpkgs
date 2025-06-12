@@ -13,7 +13,6 @@
   vala,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "budgie-desktop-view";
   version = "1.3";
@@ -40,10 +39,10 @@ stdenv.mkDerivation (finalAttrs: {
     gtk3
   ];
 
-  mesonFlags = [ (lib.mesonBool "werror" false) ];
+  mesonFlags = [(lib.mesonBool "werror" false)];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/BuddiesOfBudgie/budgie-desktop-view";
     changelog = "https://github.com/BuddiesOfBudgie/budgie-desktop-view/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.budgie ];
+    teams = [lib.teams.budgie];
     mainProgram = "org.buddiesofbudgie.budgie-desktop-view";
     platforms = lib.platforms.linux;
   };

@@ -42,6 +42,6 @@ buildPythonPackage rec {
     description = "New time-based UUID formats which are suited for use as a database key";
     homepage = "https://github.com/oittaa/uuid6-python";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
   };
 }

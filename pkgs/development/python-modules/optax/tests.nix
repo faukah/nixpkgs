@@ -8,7 +8,6 @@
   flax,
   optax,
 }:
-
 buildPythonPackage {
   pname = "optax-tests";
   inherit (optax) version;

@@ -9,7 +9,6 @@
   libidn2,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   version = "5.6.1";
   pname = "whois";
@@ -50,10 +49,10 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  makeFlags = [ "HAVE_ICONV=1" ];
-  buildFlags = [ "whois" ];
+  makeFlags = ["HAVE_ICONV=1"];
+  buildFlags = ["whois"];
 
-  installTargets = [ "install-whois" ];
+  installTargets = ["install-whois"];
 
   meta = with lib; {
     description = "Intelligent WHOIS client from Debian";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://packages.qa.debian.org/w/whois.html";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     platforms = platforms.unix;
     mainProgram = "whois";
   };

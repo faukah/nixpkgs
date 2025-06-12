@@ -13,7 +13,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "volvooncall";
   version = "0.10.4";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   optional-dependencies = {
     console = [
@@ -51,13 +50,15 @@ buildPythonPackage rec {
     ];
   };
 
-  checkInputs = [
-    mock
-    pytest-asyncio
-    pytestCheckHook
-  ] ++ optional-dependencies.mqtt;
+  checkInputs =
+    [
+      mock
+      pytest-asyncio
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.mqtt;
 
-  pythonImportsCheck = [ "volvooncall" ];
+  pythonImportsCheck = ["volvooncall"];
 
   meta = with lib; {
     description = "Retrieve information from the Volvo On Call web service";
@@ -65,6 +66,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/molobrakos/volvooncall/releases/tag/v${version}";
     license = licenses.unlicense;
     mainProgram = "voc";
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

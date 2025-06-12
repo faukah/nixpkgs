@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "world-serpant-search";
   version = "1.2.1";
@@ -34,7 +33,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Command-line tool for vulnerability detection";
     homepage = "https://github.com/Latrodect/wss-repo-vulnerability-search-manager";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "serpant";
   };
 }

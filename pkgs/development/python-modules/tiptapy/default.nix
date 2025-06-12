@@ -6,7 +6,6 @@
   jinja2,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "tiptapy";
   # github repository does not have version tags
@@ -25,18 +24,18 @@ buildPythonPackage {
     setuptools
   ];
 
-  dependencies = [ jinja2 ];
+  dependencies = [jinja2];
   nativeCheckInputs = [
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "tiptapy" ];
+  pythonImportsCheck = ["tiptapy"];
 
   meta = {
     description = "Library that generates HTML output from JSON export of tiptap editor";
     homepage = "https://github.com/stckme/tiptapy";
     changelog = "https://github.com/stckme/tiptapy/blob/master/CHANGELOG.rst";
     license = lib.licenses.mit;
-    teams = [ lib.teams.apm ];
+    teams = [lib.teams.apm];
   };
 }

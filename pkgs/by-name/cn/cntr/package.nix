@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cntr";
   version = "1.6.1";

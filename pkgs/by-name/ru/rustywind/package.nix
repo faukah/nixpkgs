@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rustywind";
   version = "0.24.0";
@@ -24,6 +23,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/avencera/rustywind";
     changelog = "https://github.com/avencera/rustywind/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -12,7 +12,6 @@
   liburing,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libdex";
   version = "0.10.0";
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Library supporting deferred execution for GNOME and GTK";
     homepage = "https://gitlab.gnome.org/GNOME/libdex";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux ++ platforms.darwin;
     license = licenses.lgpl21Plus;
   };

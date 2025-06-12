@@ -4,7 +4,6 @@
   fetchFromGitHub,
   llvmPackages,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "parinfer-rust";
   version = "0.4.3-unstable-2024-05-07";
@@ -39,6 +38,6 @@ rustPlatform.buildRustPackage {
     mainProgram = "parinfer-rust";
     homepage = "https://github.com/eraserhd/parinfer-rust";
     license = licenses.isc;
-    maintainers = with maintainers; [ eraserhd ];
+    maintainers = with maintainers; [eraserhd];
   };
 }

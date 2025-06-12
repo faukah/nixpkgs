@@ -21,22 +21,22 @@ buildPythonPackage rec {
     hash = "sha256-eDYgKbNeNCIdENo6DVmcABRwP5JUMCJW7NtbPOA5aqg=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs =
     [
       httpx
     ]
-    ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
+    ++ lib.optionals (pythonOlder "3.11") [typing-extensions]
     ++ httpx.optional-dependencies.http2;
 
-  pythonImportsCheck = [ "gotenberg_client" ];
+  pythonImportsCheck = ["gotenberg_client"];
 
   meta = with lib; {
     description = "Python client for interfacing with the Gotenberg API";
     homepage = "https://github.com/stumpylog/gotenberg-client";
     changelog = "https://github.com/stumpylog/gotenberg-client/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ leona ];
+    maintainers = with maintainers; [leona];
   };
 }

@@ -18,7 +18,6 @@
   bash,
   fmt,
 }:
-
 buildDunePackage rec {
   pname = "odoc";
   inherit (odoc-parser) version src;
@@ -61,7 +60,7 @@ buildDunePackage rec {
     description = "Documentation generator for OCaml";
     mainProgram = "odoc";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     homepage = "https://github.com/ocaml/odoc";
     changelog = "https://github.com/ocaml/odoc/blob/${version}/CHANGES.md";
   };

@@ -13,7 +13,6 @@
   binutils,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libtas";
   version = "1.4.5";
@@ -52,12 +51,12 @@ stdenv.mkDerivation (finalAttrs: {
   postFixup = ''
     wrapProgram $out/bin/libTAS \
       --suffix PATH : ${
-        lib.makeBinPath [
-          file
-          binutils
-          ffmpeg
-        ]
-      } \
+      lib.makeBinPath [
+        file
+        binutils
+        ffmpeg
+      ]
+    } \
       --set-default LIBTAS_SO_PATH $out/lib/libtas.so
   '';
 
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
       exec = "libTAS %U";
       icon = "libTAS";
       startupWMClass = "libTAS";
-      keywords = [ "libTAS" ];
+      keywords = ["libTAS"];
     })
   ];
 
@@ -77,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/clementgallet/libTAS/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     description = "GNU/Linux software to give TAS tools to games";
     license = lib.licenses.gpl3Only;
-    maintainers = with maintainers; [ skyrina ];
+    maintainers = with maintainers; [skyrina];
     mainProgram = "libTAS";
     platforms = [
       "i686-linux"

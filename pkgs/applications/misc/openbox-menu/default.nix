@@ -7,7 +7,6 @@
   gtk2,
   menu-cache,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openbox-menu";
   version = "0.8.0";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1hi4b6mq97y6ajq4hhsikbkk23aha7ikaahm92djw48mgj2f1w8l";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     gtk2
@@ -25,16 +24,16 @@ stdenv.mkDerivation rec {
   ];
 
   # Enables SVG support by uncommenting the Makefile
-  patches = [ ./000-enable-svg.patch ];
+  patches = [./000-enable-svg.patch];
 
   # The strip options are not recognized by Darwin.
   postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
     sed -i -e '/strip -s/d' Makefile
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
-  installFlags = [ "prefix=${placeholder "out"}" ];
+  installFlags = ["prefix=${placeholder "out"}"];
 
   meta = with lib; {
     homepage = "http://fabrice.thiroux.free.fr/openbox-menu_en.html";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
       the LXDE library menu-cache.
     '';
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
     platforms = platforms.unix;
     mainProgram = "openbox-menu";
   };

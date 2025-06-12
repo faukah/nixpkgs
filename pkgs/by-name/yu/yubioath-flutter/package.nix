@@ -16,7 +16,6 @@
   _experimental-update-script-combinators,
   gitUpdater,
 }:
-
 flutter332.buildFlutterApplication rec {
   pname = "yubioath-flutter";
   version = "7.2.2";
@@ -82,22 +81,22 @@ flutter332.buildFlutterApplication rec {
 
   # Needed for QR scanning to work
   extraWrapProgramArgs = ''
-    --prefix PATH : ${lib.makeBinPath [ gnome-screenshot ]}
+    --prefix PATH : ${lib.makeBinPath [gnome-screenshot]}
   '';
 
   passthru = {
-    helper = python3.pkgs.callPackage ./helper.nix { inherit src version meta; };
+    helper = python3.pkgs.callPackage ./helper.nix {inherit src version meta;};
     pubspecSource =
       runCommand "pubspec.lock.json"
-        {
-          nativeBuildInputs = [ yq ];
-          inherit (yubioath-flutter) src;
-        }
-        ''
-          cat $src/pubspec.lock | yq > $out
-        '';
+      {
+        nativeBuildInputs = [yq];
+        inherit (yubioath-flutter) src;
+      }
+      ''
+        cat $src/pubspec.lock | yq > $out
+      '';
     updateScript = _experimental-update-script-combinators.sequence [
-      (gitUpdater { })
+      (gitUpdater {})
       (_experimental-update-script-combinators.copyAttrOutputToFile "yubioath-flutter.pubspecSource" ./pubspec.lock.json)
     ];
   };
@@ -107,7 +106,7 @@ flutter332.buildFlutterApplication rec {
     mainProgram = "yubioath-flutter";
     homepage = "https://github.com/Yubico/yubioath-flutter";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ lukegb ];
+    maintainers = with lib.maintainers; [lukegb];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

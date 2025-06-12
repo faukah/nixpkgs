@@ -3,25 +3,19 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # preBuild
   wgpu-native,
-
   # dependencies
   cffi,
   rubicon-objc,
   sniffio,
-
   # optional dependency
   glfw,
-
   # docs
   sphinx-rtd-theme,
   sphinxHook,
-
   # tests
   anyio,
   imageio,
@@ -30,7 +24,6 @@
   pytest,
   ruff,
   trio,
-
   # passthru
   wgpu-py,
   testers,
@@ -63,7 +56,7 @@ buildPythonPackage rec {
       wgpu/resources/libwgpu_native-release${stdenv.hostPlatform.extensions.library}
   '';
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies =
     # Runtime dependencies
@@ -78,7 +71,7 @@ buildPythonPackage rec {
 
   optional-dependencies = {
     # jupyter = [ jupyter_rfb ] not in nixpkgs
-    glfw = [ glfw ];
+    glfw = [glfw];
     # imgui = ["imgui-bundle>=1.2.1"] not in nixpkgs
 
     docs = [
@@ -87,9 +80,9 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonRemoveDeps = [ "requests" ];
+  pythonRemoveDeps = ["requests"];
 
-  pythonImportsCheck = [ "wgpu" ];
+  pythonImportsCheck = ["wgpu"];
 
   nativeCheckInputs = [
     anyio
@@ -120,7 +113,7 @@ buildPythonPackage rec {
             WGPU_LIB_PATH=${wgpu-native}/lib/libwgpu_native${stdenv.hostPlatform.extensions.library} \
               pytest -v ${wgpu-py.src}/tests
           '';
-          nativeBuildInputs = [ wgpu-py ] ++ nativeCheckInputs;
+          nativeBuildInputs = [wgpu-py] ++ nativeCheckInputs;
         };
 
         examples = testers.runCommand {
@@ -129,7 +122,7 @@ buildPythonPackage rec {
             WGPU_LIB_PATH=${wgpu-native}/lib/libwgpu_native${stdenv.hostPlatform.extensions.library} \
               pytest -v ${wgpu-py.src}/examples
           '';
-          nativeBuildInputs = [ wgpu-py ] ++ nativeCheckInputs;
+          nativeBuildInputs = [wgpu-py] ++ nativeCheckInputs;
         };
 
         codegen = testers.runCommand {
@@ -138,7 +131,7 @@ buildPythonPackage rec {
             WGPU_LIB_PATH=${wgpu-native}/lib/libwgpu_native${stdenv.hostPlatform.extensions.library} \
               pytest -v ${wgpu-py.src}/codegen
           '';
-          nativeBuildInputs = [ wgpu-py ] ++ nativeCheckInputs;
+          nativeBuildInputs = [wgpu-py] ++ nativeCheckInputs;
         };
 
         tests_mem = testers.runCommand {
@@ -147,7 +140,7 @@ buildPythonPackage rec {
             WGPU_LIB_PATH=${wgpu-native}/lib/libwgpu_native${stdenv.hostPlatform.extensions.library} \
               pytest -v ${wgpu-py.src}/tests_mem
           '';
-          nativeBuildInputs = [ wgpu-py ] ++ nativeCheckInputs;
+          nativeBuildInputs = [wgpu-py] ++ nativeCheckInputs;
         };
       };
   };
@@ -159,6 +152,6 @@ buildPythonPackage rec {
 
     platforms = lib.platforms.all;
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.bengsparks ];
+    maintainers = [lib.maintainers.bengsparks];
   };
 }

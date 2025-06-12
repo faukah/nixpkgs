@@ -10,7 +10,6 @@
   versionCheckHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "picotool";
   version = "2.1.1";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
     pkg-config
   ];
-  cmakeFlags = [ "-DPICO_SDK_PATH=${pico-sdk}/lib/pico-sdk" ];
+  cmakeFlags = ["-DPICO_SDK_PATH=${pico-sdk}/lib/pico-sdk"];
 
   postInstall = ''
     install -Dm444 ../udev/99-picotool.rules -t $out/etc/udev/rules.d
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -60,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/raspberrypi/picotool/releases/tag/${finalAttrs.version}";
     mainProgram = "picotool";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ muscaln ];
+    maintainers = with lib.maintainers; [muscaln];
     platforms = lib.platforms.unix;
   };
 })

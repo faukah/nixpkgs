@@ -6,7 +6,6 @@
   polib,
   click,
 }:
-
 buildPythonPackage rec {
   pname = "lingua";
   version = "4.15.0";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
       --replace-fail SafeConfigParser ConfigParser
   '';
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     click
     polib
   ];
 
-  pythonImportsCheck = [ "lingua" ];
+  pythonImportsCheck = ["lingua"];
 
   meta = with lib; {
     description = "Translation toolset";
     homepage = "https://github.com/wichert/lingua";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ np ];
+    maintainers = with maintainers; [np];
   };
 }

@@ -16,7 +16,6 @@
   xfconf,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-systemload-plugin";
   version = "1.4.0";
@@ -56,6 +55,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "System load plugin for Xfce panel";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
   };
 })

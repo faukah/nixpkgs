@@ -3,14 +3,11 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   hatchling,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "expandvars";
   version = "1.0.0";
@@ -23,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-8EBwuCYCZBhfgRQs2F5d+c7vcinoNsWEQwLEzPoAww0=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  pythonImportsCheck = [ "expandvars" ];
+  pythonImportsCheck = ["expandvars"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Expand system variables Unix style";
     homepage = "https://github.com/sayanarijit/expandvars";
     license = licenses.mit;
-    maintainers = with maintainers; [ geluk ];
+    maintainers = with maintainers; [geluk];
   };
 }

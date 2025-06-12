@@ -11,7 +11,6 @@
   tbb_2021_11,
   blend2d,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pdf4qt";
   version = "1.5.1.0";
@@ -73,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/JakubMelka/PDF4QT/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     mainProgram = "Pdf4QtViewer";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 })

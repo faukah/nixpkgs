@@ -1,24 +1,20 @@
-{ ... }:
-
-{
+{...}: {
   name = "pam-u2f";
 
-  nodes.machine =
-    { ... }:
-    {
-      security.pam.u2f = {
-        enable = true;
-        control = "required";
-        settings = {
-          cue = true;
-          debug = true;
-          interactive = true;
-          origin = "nixos-test";
-          # Freeform option
-          userpresence = 1;
-        };
+  nodes.machine = {...}: {
+    security.pam.u2f = {
+      enable = true;
+      control = "required";
+      settings = {
+        cue = true;
+        debug = true;
+        interactive = true;
+        origin = "nixos-test";
+        # Freeform option
+        userpresence = 1;
       };
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("multi-user.target")

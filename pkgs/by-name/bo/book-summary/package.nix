@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "book-summary";
   version = "0.2.1";
@@ -21,6 +20,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "book-summary";
     homepage = "https://github.com/dvogt23/book-summary";
     license = licenses.mit;
-    teams = with teams; [ iog ];
+    teams = with teams; [iog];
   };
 }

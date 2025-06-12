@@ -4,7 +4,6 @@
   fetchFromGitHub,
   rustPlatform,
   anyio,
-
   # tests
   dirty-equals,
   pytest-mock,
@@ -12,7 +11,6 @@
   pytestCheckHook,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "watchfiles";
   version = "1.0.5";
@@ -62,14 +60,14 @@ buildPythonPackage rec {
     "test_awatch_interrupt_raise"
   ];
 
-  pythonImportsCheck = [ "watchfiles" ];
+  pythonImportsCheck = ["watchfiles"];
 
   meta = {
     description = "File watching and code reload";
     homepage = "https://watchfiles.helpmanual.io/";
     changelog = "https://github.com/samuelcolvin/watchfiles/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "watchfiles";
   };
 }

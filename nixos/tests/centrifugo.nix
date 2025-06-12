@@ -7,20 +7,17 @@ let
     "centrifugo3"
   ];
 in
-{ lib, ... }:
-{
-  name = "centrifugo";
-  meta.maintainers = [
-    lib.maintainers.tie
-    lib.maintainers.valodim
-  ];
+  {lib, ...}: {
+    name = "centrifugo";
+    meta.maintainers = [
+      lib.maintainers.tie
+      lib.maintainers.valodim
+    ];
 
-  nodes = lib.listToAttrs (
-    lib.imap0 (index: name: {
-      inherit name;
-      value =
-        { config, ... }:
-        {
+    nodes = lib.listToAttrs (
+      lib.imap0 (index: name: {
+        inherit name;
+        value = {config, ...}: {
           services.centrifugo = {
             enable = true;
             settings = {
@@ -32,10 +29,9 @@ in
               usage_stats.disabled = true;
 
               engine.type = "redis";
-              engine.redis.address =
-                let
-                  toRedisAddresses = map (name: "${name}:${toString redisPort}");
-                in
+              engine.redis.address = let
+                toRedisAddresses = map (name: "${name}:${toString redisPort}");
+              in
                 toRedisAddresses (lib.take index nodes)
                 ++ [
                   "unix://${config.services.redis.servers.centrifugo.unixSocket}"
@@ -54,36 +50,37 @@ in
             settings.protected-mode = false;
           };
         };
-    }) nodes
-  );
+      })
+      nodes
+    );
 
-  testScript = ''
-    import json
+    testScript = ''
+      import json
 
-    redisPort = ${toString redisPort}
-    centrifugoPort = ${toString centrifugoPort}
+      redisPort = ${toString redisPort}
+      centrifugoPort = ${toString centrifugoPort}
 
-    start_all()
+      start_all()
 
-    for machine in machines:
-      machine.wait_for_unit("redis-centrifugo.service")
-      machine.wait_for_open_port(redisPort)
+      for machine in machines:
+        machine.wait_for_unit("redis-centrifugo.service")
+        machine.wait_for_open_port(redisPort)
 
-    for machine in machines:
-      machine.wait_for_unit("centrifugo.service")
-      machine.wait_for_open_port(centrifugoPort)
+      for machine in machines:
+        machine.wait_for_unit("centrifugo.service")
+        machine.wait_for_open_port(centrifugoPort)
 
-    # See https://centrifugal.dev/docs/server/server_api#info
-    def list_nodes(machine):
-      curl = "curl --fail-with-body --silent"
-      body = "{}"
-      resp = json.loads(machine.succeed(f"{curl} -d '{body}' http://localhost:{centrifugoPort}/api/info"))
-      return resp["result"]["nodes"]
-    machineNames = {m.name for m in machines}
-    for machine in machines:
-      nodes = list_nodes(machine)
-      assert len(nodes) == len(machines)
-      nodeNames = {n['name'] for n in nodes}
-      assert machineNames == nodeNames
-  '';
-}
+      # See https://centrifugal.dev/docs/server/server_api#info
+      def list_nodes(machine):
+        curl = "curl --fail-with-body --silent"
+        body = "{}"
+        resp = json.loads(machine.succeed(f"{curl} -d '{body}' http://localhost:{centrifugoPort}/api/info"))
+        return resp["result"]["nodes"]
+      machineNames = {m.name for m in machines}
+      for machine in machines:
+        nodes = list_nodes(machine)
+        assert len(nodes) == len(machines)
+        nodeNames = {n['name'] for n in nodes}
+        assert machineNames == nodeNames
+    '';
+  }

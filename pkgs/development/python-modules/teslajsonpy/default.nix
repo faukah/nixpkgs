@@ -15,7 +15,6 @@
   tenacity,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "teslajsonpy";
   version = "3.13.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-k7YkZ0hAhBwjnelePLh92OB6MX6gtTyRWF3OiJ1o7yk=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     authcaptureproxy
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "teslajsonpy" ];
+  pythonImportsCheck = ["teslajsonpy"];
 
   meta = with lib; {
     description = "Python library to work with Tesla API";
     homepage = "https://github.com/zabuldon/teslajsonpy";
     changelog = "https://github.com/zabuldon/teslajsonpy/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

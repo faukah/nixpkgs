@@ -3,15 +3,12 @@
   buildPythonPackage,
   fetchFromGitHub,
   nix-update-script,
-
   # build-system
   poetry-core,
-
   # dependencies
   azure-identity,
   langchain-core,
   langchain-openai,
-
   # tests
   freezegun,
   lark,
@@ -25,7 +22,6 @@
   syrupy,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-azure-dynamic-sessions";
   version = "0.2.0";
@@ -40,7 +36,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/partners/azure-dynamic-sessions";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   pythonRelaxDeps = [
     # Each component release requests the exact latest core.
@@ -68,9 +64,9 @@ buildPythonPackage rec {
     toml
   ];
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlagsArray = ["tests/unit_tests"];
 
-  pythonImportsCheck = [ "langchain_azure_dynamic_sessions" ];
+  pythonImportsCheck = ["langchain_azure_dynamic_sessions"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

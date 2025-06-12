@@ -5,7 +5,6 @@
   makeWrapper,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "cli-tips";
   version = "0-unstable-2025-02-03";
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-ZJQGa7gaR76zsdZOVoIf87h2wraFFOuonJEDy6J8ygQ=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -37,7 +36,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = {
@@ -45,7 +44,7 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/cli-stuff/cli-tips";
     license = lib.licenses.unlicense;
     platforms = with lib.platforms; linux ++ darwin ++ windows;
-    maintainers = with lib.maintainers; [ perchun ];
+    maintainers = with lib.maintainers; [perchun];
     mainProgram = "cli-tips";
   };
 }

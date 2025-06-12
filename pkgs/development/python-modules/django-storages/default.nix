@@ -18,7 +18,6 @@
   rsa,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "django-storages";
   version = "1.14.5";
@@ -43,30 +42,32 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
   optional-dependencies = {
-    azure = [ azure-storage-blob ];
-    boto3 = [ boto3 ];
-    dropbox = [ dropbox ];
-    google = [ google-cloud-storage ];
-    libcloud = [ libcloud ];
-    s3 = [ boto3 ];
-    sftp = [ paramiko ];
+    azure = [azure-storage-blob];
+    boto3 = [boto3];
+    dropbox = [dropbox];
+    google = [google-cloud-storage];
+    libcloud = [libcloud];
+    s3 = [boto3];
+    sftp = [paramiko];
   };
 
-  nativeCheckInputs = [
-    cryptography
-    moto
-    pytestCheckHook
-    rsa
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      cryptography
+      moto
+      pytestCheckHook
+      rsa
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  checkInputs = [ pynacl ];
+  checkInputs = [pynacl];
 
-  pythonImportsCheck = [ "storages" ];
+  pythonImportsCheck = ["storages"];
 
   env.DJANGO_SETTINGS_MODULE = "tests.settings";
 
@@ -76,6 +77,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/jschneier/django-storages/";
     homepage = "https://django-storages.readthedocs.io";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ mmai ];
+    maintainers = with lib.maintainers; [mmai];
   };
 }

@@ -5,7 +5,6 @@
   makeWrapper,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "meme-bingo-web";
   version = "1.2.0";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-5GpNVcnwWjxYgIXGoFkuf5CFD46kxxQwb3t0/i/2nFM=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     mkdir -p $out/share/meme-bingo-web
@@ -32,13 +31,13 @@ rustPlatform.buildRustPackage rec {
       --set MEME_BINGO_STATIC $out/share/meme-bingo-web/static
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Play meme bingo using this neat web app";
     mainProgram = "meme-bingo-web";
     homepage = "https://codeberg.org/annaaurora/meme-bingo-web";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
   };
 }

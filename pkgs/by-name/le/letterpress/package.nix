@@ -70,7 +70,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -82,8 +82,8 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://apps.gnome.org/Letterpress/";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.dawidd6 ];
-    teams = [ teams.gnome-circle ];
+    maintainers = [maintainers.dawidd6];
+    teams = [teams.gnome-circle];
     platforms = platforms.linux;
     mainProgram = "letterpress";
   };

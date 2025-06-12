@@ -9,7 +9,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "galculator";
   version = "2.1.4";
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl2Plus;
     mainProgram = "galculator";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (gtk3.meta) platforms;
   };
 })

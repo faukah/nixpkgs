@@ -2,21 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   numpy,
   pandas,
   packaging,
-
   astropy,
   pytestCheckHook,
   pytest-doctestplus,
 }:
-
 buildPythonPackage rec {
   pname = "drms";
   version = "0.9.0";
@@ -51,15 +47,15 @@ buildPythonPackage rec {
     "test_jsocinfoconstants" # Need network
   ];
 
-  disabledTestPaths = [ "docs/tutorial.rst" ];
+  disabledTestPaths = ["docs/tutorial.rst"];
 
-  pythonImportsCheck = [ "drms" ];
+  pythonImportsCheck = ["drms"];
 
   meta = {
     description = "Access HMI, AIA and MDI data with Python";
     homepage = "https://github.com/sunpy/drms";
     changelog = "https://github.com/sunpy/drms/blob/v${version}/CHANGELOG.rst";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
   };
 }

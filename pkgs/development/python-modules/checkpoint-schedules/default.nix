@@ -6,7 +6,6 @@
   numpy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "checkpoint-schedules";
   version = "1.0.4";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-3bn/KxxtRLRtOHFeULQdnndonpuhuYLL8/y/zoAurzY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     "checkpoint_schedules"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     homepage = "https://www.firedrakeproject.org/checkpoint_schedules";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "Schedules for incremental checkpointing of adjoint simulations";
     changelog = "https://github.com/firedrakeproject/checkpoint_schedules/releases/tag/${src.tag}";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 }

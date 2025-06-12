@@ -12,7 +12,6 @@
   typing-extensions,
   uv-dynamic-versioning,
 }:
-
 buildPythonPackage rec {
   pname = "pypitoken";
   version = "7.1.1";
@@ -49,13 +48,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pypitoken" ];
+  pythonImportsCheck = ["pypitoken"];
 
   meta = with lib; {
     description = "Library for generating and manipulating PyPI tokens";
     homepage = "https://pypitoken.readthedocs.io/";
     changelog = "https://github.com/ewjoachim/pypitoken/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

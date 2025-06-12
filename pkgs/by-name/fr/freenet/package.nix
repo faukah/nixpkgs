@@ -11,9 +11,7 @@
   replaceVars,
   nixosTests,
   writeText,
-}:
-
-let
+}: let
   gradle = gradle_8;
   jdk = jdk_headless;
 
@@ -32,73 +30,72 @@ let
       cat $out/* > $out/seednodes.fref
     '';
   };
-
 in
-stdenv.mkDerivation rec {
-  pname = "freenet";
-  version = "01501";
+  stdenv.mkDerivation rec {
+    pname = "freenet";
+    version = "01501";
 
-  src = fetchFromGitHub {
-    owner = "freenet";
-    repo = "fred";
-    tag = "build${version}";
-    hash = "sha256-XtcTQlgUNv6IQD89oelCyjb9r6wIbT3hCH+QHkjtgP8=";
-  };
+    src = fetchFromGitHub {
+      owner = "freenet";
+      repo = "fred";
+      tag = "build${version}";
+      hash = "sha256-XtcTQlgUNv6IQD89oelCyjb9r6wIbT3hCH+QHkjtgP8=";
+    };
 
-  nativeBuildInputs = [
-    gradle
-    jdk
-  ];
+    nativeBuildInputs = [
+      gradle
+      jdk
+    ];
 
-  wrapper = replaceVars ./freenetWrapper {
-    inherit
-      bash
-      coreutils
-      jre
-      seednodes
-      ;
-    # replaced in installPhase
-    CLASSPATH = null;
-  };
+    wrapper = replaceVars ./freenetWrapper {
+      inherit
+        bash
+        coreutils
+        jre
+        seednodes
+        ;
+      # replaced in installPhase
+      CLASSPATH = null;
+    };
 
-  mitmCache = gradle.fetchDeps {
-    inherit pname;
-    data = ./deps.json;
-  };
+    mitmCache = gradle.fetchDeps {
+      inherit pname;
+      data = ./deps.json;
+    };
 
-  # using reproducible archives breaks the build
-  gradleInitScript = writeText "empty-init-script.gradle" "";
+    # using reproducible archives breaks the build
+    gradleInitScript = writeText "empty-init-script.gradle" "";
 
-  gradleFlags = [ "-Dorg.gradle.java.home=${jdk}" ];
+    gradleFlags = ["-Dorg.gradle.java.home=${jdk}"];
 
-  gradleBuildTask = "jar";
+    gradleBuildTask = "jar";
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -Dm644 build/libs/freenet.jar $out/share/freenet/freenet.jar
-    ln -s ${freenet_ext} $out/share/freenet/freenet-ext.jar
-    mkdir -p $out/bin
-    install -Dm755 ${wrapper} $out/bin/freenet
-    export CLASSPATH="$(find ${mitmCache} -name "*.jar"| sort | grep -v bcprov-jdk15on-1.48.jar|tr $'\n' :):$out/share/freenet/freenet-ext.jar:$out/share/freenet/freenet.jar"
-    substituteInPlace $out/bin/freenet \
-      --subst-var-by CLASSPATH "$CLASSPATH"
+      install -Dm644 build/libs/freenet.jar $out/share/freenet/freenet.jar
+      ln -s ${freenet_ext} $out/share/freenet/freenet-ext.jar
+      mkdir -p $out/bin
+      install -Dm755 ${wrapper} $out/bin/freenet
+      export CLASSPATH="$(find ${mitmCache} -name "*.jar"| sort | grep -v bcprov-jdk15on-1.48.jar|tr $'\n' :):$out/share/freenet/freenet-ext.jar:$out/share/freenet/freenet.jar"
+      substituteInPlace $out/bin/freenet \
+        --subst-var-by CLASSPATH "$CLASSPATH"
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru.tests = {
-    inherit (nixosTests) freenet;
-  };
+    passthru.tests = {
+      inherit (nixosTests) freenet;
+    };
 
-  meta = {
-    description = "Decentralised and censorship-resistant network";
-    homepage = "https://freenetproject.org/";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-    license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ nagy ];
-    platforms = with lib.platforms; linux;
-    changelog = "https://github.com/freenet/fred/blob/build${version}/NEWS.md";
-    mainProgram = "freenet";
-  };
-}
+    meta = {
+      description = "Decentralised and censorship-resistant network";
+      homepage = "https://freenetproject.org/";
+      sourceProvenance = with lib.sourceTypes; [binaryBytecode];
+      license = lib.licenses.gpl2Plus;
+      maintainers = with lib.maintainers; [nagy];
+      platforms = with lib.platforms; linux;
+      changelog = "https://github.com/freenet/fred/blob/build${version}/NEWS.md";
+      mainProgram = "freenet";
+    };
+  }

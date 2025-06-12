@@ -7,13 +7,12 @@
   bluez,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ds4drv";
   version = "0.5.1";
 
   pyproject = true;
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # PyPi only carries py3 wheel
   src = fetchFromGitHub {
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     pyudev
   ];
 
-  buildInputs = [ bluez ];
+  buildInputs = [bluez];
 
   meta = {
     description = "Userspace driver for the DualShock 4 controller";

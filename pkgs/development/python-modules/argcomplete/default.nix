@@ -6,7 +6,6 @@
   hatchling,
   hatch-vcs,
 }:
-
 buildPythonPackage rec {
   pname = "argcomplete";
   version = "3.5.3";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
   # Tries to build and install test packages which fails
   doCheck = false;
 
-  pythonImportsCheck = [ "argcomplete" ];
+  pythonImportsCheck = ["argcomplete"];
 
   meta = with lib; {
     description = "Bash tab completion for argparse";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/kislyuk/argcomplete/blob/${src.tag}/Changes.rst";
     downloadPage = "https://github.com/kislyuk/argcomplete";
     license = licenses.asl20;
-    maintainers = with maintainers; [ womfoo ];
+    maintainers = with maintainers; [womfoo];
   };
 }

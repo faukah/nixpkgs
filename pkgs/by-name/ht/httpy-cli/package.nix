@@ -4,7 +4,6 @@
   fetchPypi,
   curl,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "httpy-cli";
   version = "1.1.0";
@@ -49,6 +48,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/knid/httpy";
     license = licenses.mit;
     mainProgram = "httpy";
-    maintainers = with maintainers; [ eymeric ];
+    maintainers = with maintainers; [eymeric];
   };
 }

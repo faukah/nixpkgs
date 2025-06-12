@@ -17,7 +17,6 @@
   libxml2,
   hicolor-icon-theme,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libhandy";
   version = "0.0.13";
@@ -80,7 +79,7 @@ stdenv.mkDerivation rec {
     mainProgram = "handy-0.0-demo";
     homepage = "https://source.puri.sm/Librem5/libhandy";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

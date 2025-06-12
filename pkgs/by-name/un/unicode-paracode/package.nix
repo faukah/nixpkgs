@@ -6,7 +6,6 @@
   installShellFiles,
   gitUpdater,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "unicode";
   version = "2.9";
@@ -23,7 +22,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-gG6a7WUDcZfx7IXhK+bozYcPxWCLTeD//ZkPaJ83anM=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postFixup = ''
     substituteInPlace "$out/bin/.unicode-wrapped" \
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     description = "Display unicode character properties";
     homepage = "https://github.com/garabik/unicode";
     license = licenses.gpl3;
-    maintainers = [ maintainers.woffs ];
+    maintainers = [maintainers.woffs];
     platforms = platforms.all;
   };
 }

@@ -3,34 +3,31 @@
   config,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.esdm;
-in
-{
+in {
   imports = [
     # removed option 'services.esdm.cuseRandomEnable'
-    (lib.mkRemovedOptionModule [ "services" "esdm" "cuseRandomEnable" ] ''
+    (lib.mkRemovedOptionModule ["services" "esdm" "cuseRandomEnable"] ''
       Use services.esdm.enableLinuxCompatServices instead.
     '')
     # removed option 'services.esdm.cuseUrandomEnable'
-    (lib.mkRemovedOptionModule [ "services" "esdm" "cuseUrandomEnable" ] ''
+    (lib.mkRemovedOptionModule ["services" "esdm" "cuseUrandomEnable"] ''
       Use services.esdm.enableLinuxCompatServices instead.
     '')
     # removed option 'services.esdm.procEnable'
-    (lib.mkRemovedOptionModule [ "services" "esdm" "procEnable" ] ''
+    (lib.mkRemovedOptionModule ["services" "esdm" "procEnable"] ''
       Use services.esdm.enableLinuxCompatServices instead.
     '')
     # removed option 'services.esdm.verbose'
-    (lib.mkRemovedOptionModule [ "services" "esdm" "verbose" ] ''
+    (lib.mkRemovedOptionModule ["services" "esdm" "verbose"] ''
       There is no replacement.
     '')
   ];
 
   options.services.esdm = {
     enable = lib.mkEnableOption "ESDM service configuration";
-    package = lib.mkPackageOption pkgs "esdm" { };
+    package = lib.mkPackageOption pkgs "esdm" {};
     enableLinuxCompatServices = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -42,13 +39,13 @@ in
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
-      ({
-        systemd.packages = [ cfg.package ];
-        systemd.services."esdm-server".wantedBy = [ "basic.target" ];
-      })
+      {
+        systemd.packages = [cfg.package];
+        systemd.services."esdm-server".wantedBy = ["basic.target"];
+      }
       # It is necessary to set those options for these services to be started by systemd in NixOS
       (lib.mkIf cfg.enableLinuxCompatServices {
-        systemd.targets."esdm-linux-compat".wantedBy = [ "basic.target" ];
+        systemd.targets."esdm-linux-compat".wantedBy = ["basic.target"];
         systemd.services."esdm-server-suspend".wantedBy = [
           "sleep.target"
           "suspend.target"

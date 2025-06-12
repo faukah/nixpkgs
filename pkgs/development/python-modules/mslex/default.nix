@@ -5,7 +5,6 @@
   setuptools,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "mslex";
   version = "1.3.0";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "Like shlex, but for windows";
     homepage = "https://github.com/smoofra/mslex";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ yzx9 ];
+    maintainers = with lib.maintainers; [yzx9];
   };
 }

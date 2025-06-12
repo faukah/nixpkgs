@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "courier-prime";
   version = "unstable-2019-12-05";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Monospaced font designed specifically for screenplays";
     homepage = "https://github.com/quoteunquoteapps/CourierPrime";
     license = licenses.ofl;
-    maintainers = [ maintainers.austinbutler ];
+    maintainers = [maintainers.austinbutler];
     platforms = platforms.all;
   };
 }

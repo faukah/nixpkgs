@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-T0ZeDQiYIAhKR8aw3iv3rtwzc+R0PTQuIh6+Hi4rIHQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     emoji
@@ -30,7 +30,7 @@ buildPythonPackage rec {
     unidecode
   ];
 
-  pythonImportsCheck = [ "mpris_server" ];
+  pythonImportsCheck = ["mpris_server"];
 
   # upstream has no tests
   doCheck = false;
@@ -39,6 +39,6 @@ buildPythonPackage rec {
     description = "Publish a MediaPlayer2 MPRIS device to D-Bus";
     homepage = "https://pypi.org/project/mpris-server/";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ quadradical ];
+    maintainers = with lib.maintainers; [quadradical];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "fcitx5-rose-pine";
   version = "0-unstable-2024-03-01";
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "Fcitx5 themes based on Rosé Pine";
     homepage = "https://github.com/rose-pine/fcitx5";
-    maintainers = with lib.maintainers; [ rosehobgoblin ];
+    maintainers = with lib.maintainers; [rosehobgoblin];
     platforms = lib.platforms.all;
     license = lib.licenses.unfree;
   };

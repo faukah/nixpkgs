@@ -3,7 +3,6 @@
   js_of_ocaml,
   ppxlib,
 }:
-
 buildDunePackage {
   pname = "js_of_ocaml-ppx_deriving_json";
 

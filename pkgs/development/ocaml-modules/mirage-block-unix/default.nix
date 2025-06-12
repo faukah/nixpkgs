@@ -10,7 +10,6 @@
   rresult,
   uri,
 }:
-
 buildDunePackage rec {
   pname = "mirage-block-unix";
   version = "2.14.2";
@@ -41,6 +40,6 @@ buildDunePackage rec {
     description = "MirageOS disk block driver for Unix";
     homepage = "https://github.com/mirage/mirage-block-unix";
     license = licenses.isc;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
   };
 }

@@ -7,7 +7,6 @@
   gettext,
   which,
 }:
-
 stdenv.mkDerivation {
   pname = "cpupower";
   inherit (kernel) version src patches;
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     gettext
     which
   ];
-  buildInputs = [ pciutils ];
+  buildInputs = [pciutils];
 
   postPatch = ''
     cd tools/power/cpupower

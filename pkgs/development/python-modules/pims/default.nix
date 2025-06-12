@@ -9,7 +9,6 @@
   scikit-image,
   slicerator,
 }:
-
 buildPythonPackage rec {
   pname = "pims";
   version = "0.7";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     scikit-image
   ];
 
-  pythonImportsCheck = [ "pims" ];
+  pythonImportsCheck = ["pims"];
 
   pytestFlagsArray = [
     "-W"
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/soft-matter/pims";
     changelog = "https://github.com/soft-matter/pims/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

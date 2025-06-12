@@ -11,7 +11,6 @@
   qttools,
   qtbase,
 }:
-
 mkDerivation {
   pname = "kconfigwidgets";
   nativeBuildInputs = [

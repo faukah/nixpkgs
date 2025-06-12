@@ -7,7 +7,6 @@
   setuptools,
   wsproto,
 }:
-
 buildPythonPackage rec {
   pname = "simple-websocket";
   version = "1.1.0";
@@ -22,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-dwL6GUyygNGBXqkkTnsHwFFpa1JAaeWc9ycQNRgTN4I=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ wsproto ];
+  dependencies = [wsproto];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "simple_websocket" ];
+  pythonImportsCheck = ["simple_websocket"];
 
   disabledTests = [
     # Tests require network access
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/miguelgrinberg/simple-websocket";
     changelog = "https://github.com/miguelgrinberg/simple-websocket/blob/${version}/CHANGES.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

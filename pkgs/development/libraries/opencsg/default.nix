@@ -12,7 +12,6 @@
   libX11,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "opencsg";
   version = "1.8.1";
@@ -22,12 +21,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-r8wASontO8R4qeS6ObIPPVibJOI+J1tzg/kaWQ1NV8U=";
   };
 
-  patches = lib.optionals stdenv.hostPlatform.isDarwin [ ./opencsgexample.patch ];
+  patches = lib.optionals stdenv.hostPlatform.isDarwin [./opencsgexample.patch];
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [cmake] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   buildInputs =
-    [ glew ]
+    [glew]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       libGLU
       libGL
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "opencsgexample";
     homepage = "http://www.opencsg.org/";
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     license = lib.licenses.gpl2Plus;
   };
 })

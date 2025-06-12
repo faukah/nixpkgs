@@ -4,7 +4,6 @@
   fetchFromGitHub,
   jdupes,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "fcitx5-mellow-themes";
   version = "0-unstable-2024-11-11";
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-+wJOPUmUkR/uR9zdFyrV86D6nsYnC94zHXkEfjmAVjs=";
   };
 
-  nativeBuildInputs = [ jdupes ];
+  nativeBuildInputs = [jdupes];
 
   installPhase = ''
     runHook preInstall

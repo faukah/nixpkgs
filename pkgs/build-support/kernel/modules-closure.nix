@@ -2,7 +2,6 @@
 # produce a module tree in $out/lib/modules/VERSION that contains only
 # the modules identified by `rootModules', plus their dependencies.
 # Also generate an appropriate modules.dep.
-
 {
   stdenvNoCC,
   kernel,
@@ -11,9 +10,8 @@
   rootModules,
   kmod,
   allowMissing ? false,
-  extraFirmwarePaths ? [ ],
+  extraFirmwarePaths ? [],
 }:
-
 stdenvNoCC.mkDerivation {
   name = kernel.name + "-shrunk";
   builder = ./modules-closure.sh;
@@ -28,5 +26,5 @@ stdenvNoCC.mkDerivation {
     allowMissing
     extraFirmwarePaths
     ;
-  allowedReferences = [ "out" ];
+  allowedReferences = ["out"];
 }

@@ -14,7 +14,6 @@
   setuptools,
   trustme,
 }:
-
 buildPythonPackage rec {
   pname = "aiounifi";
   version = "83";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
       --replace-fail "wheel==" "wheel>="
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -52,16 +51,16 @@ buildPythonPackage rec {
     trustme
   ];
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" ];
+  pytestFlagsArray = ["--asyncio-mode=auto"];
 
-  pythonImportsCheck = [ "aiounifi" ];
+  pythonImportsCheck = ["aiounifi"];
 
   meta = with lib; {
     description = "Python library for communicating with Unifi Controller API";
     homepage = "https://github.com/Kane610/aiounifi";
     changelog = "https://github.com/Kane610/aiounifi/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "aiounifi";
   };
 }

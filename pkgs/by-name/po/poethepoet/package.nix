@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "poethepoet";
   version = "0.28.0";
@@ -31,14 +30,14 @@ python3.pkgs.buildPythonApplication rec {
     ];
   };
 
-  pythonImportsCheck = [ "poethepoet" ];
+  pythonImportsCheck = ["poethepoet"];
 
   meta = {
     description = "Task runner that works well with poetry";
     homepage = "https://github.com/nat-n/poethepoet";
     changelog = "https://github.com/nat-n/poethepoet/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "poe";
   };
 }

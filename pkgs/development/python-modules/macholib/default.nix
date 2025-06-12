@@ -10,7 +10,6 @@
   typing-extensions,
   pyinstaller,
 }:
-
 buildPythonPackage rec {
   pname = "macholib";
   version = "1.16.3";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-bTql10Ceny4fBCxnEWz1m1wi03EWMDW9u99IQiWYbnY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ronaldoussoren/macholib";
     changelog = "https://github.com/ronaldoussoren/macholib/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ eveeifyeve ];
+    maintainers = with maintainers; [eveeifyeve];
   };
 }

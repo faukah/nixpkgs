@@ -6,7 +6,6 @@
   pkg-config,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnu-mdk";
   version = "1.3.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     pkg-config
     intltool
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
   postInstall = ''
     mkdir -p $out/share/emacs/site-lisp/
     cp -v ./misc/*.el $out/share/emacs/site-lisp

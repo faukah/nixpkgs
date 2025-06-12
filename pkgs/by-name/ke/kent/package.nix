@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
     homepage = "http://genome.ucsc.edu";
     changelog = "https://github.com/ucscGenomeBrowser/kent/releases/tag/v${version}_base";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ scalavision ];
+    maintainers = with lib.maintainers; [scalavision];
     platforms = lib.platforms.linux;
   };
 }

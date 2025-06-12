@@ -14,7 +14,6 @@
   gtk3,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-mpc-plugin";
   version = "0.6.0";
@@ -52,6 +51,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "MPD plugin for Xfce panel";
     platforms = lib.platforms.linux;
     license = lib.licenses.bsd0;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
   };
 })

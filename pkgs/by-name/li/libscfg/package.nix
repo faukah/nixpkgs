@@ -8,7 +8,6 @@
   wayland,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libscfg";
   version = "0.1.1";
@@ -25,15 +24,15 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
   ];
-  buildInputs = [ wayland ];
+  buildInputs = [wayland];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://sr.ht/~emersion/libscfg";
     description = "Simple configuration file format";
     license = licenses.mit;
-    maintainers = with maintainers; [ michaeladler ];
+    maintainers = with maintainers; [michaeladler];
     platforms = platforms.linux;
   };
 }

@@ -3,13 +3,11 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.prowlarr;
-  servarr = import ./settings-options.nix { inherit lib pkgs; };
+  servarr = import ./settings-options.nix {inherit lib pkgs;};
   isCustomDataDir = cfg.dataDir != "/var/lib/prowlarr";
-in
-{
+in {
   options = {
     services.prowlarr = {
       enable = lib.mkEnableOption "Prowlarr, an indexer manager/proxy for Torrent trackers and Usenet indexers";
@@ -25,7 +23,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "prowlarr" { };
+      package = lib.mkPackageOption pkgs "prowlarr" {};
 
       openFirewall = lib.mkOption {
         type = lib.types.bool;
@@ -43,11 +41,13 @@ in
     systemd = {
       services.prowlarr = {
         description = "Prowlarr";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        environment = servarr.mkServarrSettingsEnvVars "PROWLARR" cfg.settings // {
-          HOME = "/var/empty";
-        };
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
+        environment =
+          servarr.mkServarrSettingsEnvVars "PROWLARR" cfg.settings
+          // {
+            HOME = "/var/empty";
+          };
 
         serviceConfig = {
           Type = "simple";
@@ -69,12 +69,12 @@ in
         what = cfg.dataDir;
         where = "/var/lib/private/prowlarr";
         options = "bind";
-        wantedBy = [ "local-fs.target" ];
+        wantedBy = ["local-fs.target"];
       };
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings.server.port ];
+      allowedTCPPorts = [cfg.settings.server.port];
     };
   };
 }

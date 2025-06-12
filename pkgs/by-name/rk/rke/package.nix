@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "rke";
   version = "1.8.3";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-OWC8OZhORHwntAR2YHd4KfQgB2Wtma6ayBWfY94uOA4=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -31,6 +30,6 @@ buildGoModule rec {
     mainProgram = "rke";
     changelog = "https://github.com/rancher/rke/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ urandom ];
+    maintainers = with lib.maintainers; [urandom];
   };
 }

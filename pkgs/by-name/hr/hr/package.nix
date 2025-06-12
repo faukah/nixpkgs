@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hr";
   version = "1.5";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/LuRsT/hr";
     description = "Horizontal bar for your terminal";
     license = licenses.mit;
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
     platforms = platforms.unix;
     mainProgram = "hr";
   };

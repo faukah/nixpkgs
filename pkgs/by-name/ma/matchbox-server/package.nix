@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "matchbox-server";
   version = "v0.11.0";
@@ -38,7 +37,7 @@ buildGoModule rec {
     homepage = "https://matchbox.psdn.io/";
     changelog = "https://github.com/poseidon/matchbox/blob/main/CHANGES.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dghubble ];
+    maintainers = with maintainers; [dghubble];
     mainProgram = "matchbox";
   };
 }

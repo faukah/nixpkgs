@@ -6,7 +6,6 @@
   perl,
   buildPackages,
 }:
-
 stdenv.mkDerivation {
   version = "3.7.7";
   pname = "taktuk";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     perl # pod2man pod2html
   ];
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   src = fetchFromGitLab {
     domain = "gitlab.inria.fr";
@@ -50,7 +49,7 @@ stdenv.mkDerivation {
     homepage = "https://taktuk.gitlabpages.inria.fr/";
     changelog = "https://gitlab.inria.fr/taktuk/taktuk/-/blob/HEAD/ChangeLog";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.bzizou ];
+    maintainers = [lib.maintainers.bzizou];
     platforms = lib.platforms.linux;
   };
 }

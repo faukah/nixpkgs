@@ -9,7 +9,6 @@
   mpi,
   mpi4py,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-mpi";
   version = "0.6";
@@ -47,12 +46,12 @@ buildPythonPackage rec {
     "pytester"
   ];
 
-  pythonImportsCheck = [ "pytest_mpi" ];
+  pythonImportsCheck = ["pytest_mpi"];
 
   meta = {
     description = "Pytest plugin for working with MPI";
     homepage = "https://github.com/aragilar/pytest-mpi";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

@@ -4,11 +4,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.nixpkgs.flake;
-in
-{
+in {
   options.nixpkgs.flake = {
     source = lib.mkOption {
       # In newer Nix versions, particularly with lazy trees, outPath of
@@ -103,7 +101,7 @@ in
         # perhaps, to ever make that work (in order to know where the Nix expr for the system came
         # from and how to call it).
         nix.nixPath = lib.mkDefault (
-          [ "nixpkgs=flake:nixpkgs" ]
+          ["nixpkgs=flake:nixpkgs"]
           ++ lib.optional config.nix.channel.enable "/nix/var/nix/profiles/per-user/root/channels"
         );
       })

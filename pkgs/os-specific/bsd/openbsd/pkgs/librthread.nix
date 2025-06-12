@@ -3,7 +3,6 @@
   mkDerivation,
   libcMinimal,
 }:
-
 mkDerivation {
   path = "lib/librthread";
 
@@ -14,7 +13,7 @@ mkDerivation {
     "dev"
   ];
 
-  makeFlags = [ "LIBCSRCDIR=../libc" ];
+  makeFlags = ["LIBCSRCDIR=../libc"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 

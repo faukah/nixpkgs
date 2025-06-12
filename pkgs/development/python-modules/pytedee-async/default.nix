@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pytedee-async";
   version = "0.2.23";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-aRxZcYm+xXt0QiUVeAe7OocY3Tew/UPiKzMCvSTaUuw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
-  pythonImportsCheck = [ "aiotedee" ];
+  pythonImportsCheck = ["aiotedee"];
 
   # Module has no tests
   doCheck = false;
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zweckj/pytedee_async";
     changelog = "https://github.com/zweckj/pytedee_async/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

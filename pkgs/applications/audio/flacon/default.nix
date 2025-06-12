@@ -21,7 +21,6 @@
   qttools,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "flacon";
   version = "12.0.0";
@@ -70,6 +69,6 @@ stdenv.mkDerivation rec {
     homepage = "https://flacon.github.io/";
     license = licenses.lgpl21;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ snglth ];
+    maintainers = with maintainers; [snglth];
   };
 }

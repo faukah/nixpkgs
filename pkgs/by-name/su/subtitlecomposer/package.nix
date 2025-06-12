@@ -8,7 +8,6 @@
   stdenv,
   libsForQt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "subtitlecomposer";
   version = "0.8.1";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     '';
     changelog = "https://invent.kde.org/multimedia/subtitlecomposer/-/blob/master/ChangeLog";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ kugland ];
+    maintainers = with maintainers; [kugland];
     mainProgram = "subtitlecomposer";
     platforms = with platforms; linux ++ freebsd ++ windows;
   };

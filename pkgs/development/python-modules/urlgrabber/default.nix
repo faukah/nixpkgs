@@ -5,7 +5,6 @@
   pycurl,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "urlgrabber";
   version = "4.1.0";
@@ -26,6 +25,6 @@ buildPythonPackage rec {
     license = licenses.lgpl2Plus;
     description = "Python module for downloading files";
     mainProgram = "urlgrabber";
-    maintainers = with maintainers; [ qknight ];
+    maintainers = with maintainers; [qknight];
   };
 }

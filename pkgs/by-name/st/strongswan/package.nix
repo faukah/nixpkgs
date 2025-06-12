@@ -30,11 +30,9 @@
   networkmanager,
   nixosTests,
 }:
-
 # Note on curl support: If curl is built with gnutls as its backend, the
 # strongswan curl plugin may break.
 # See https://wiki.strongswan.org/projects/strongswan/wiki/Curl for more info.
-
 stdenv.mkDerivation rec {
   pname = "strongswan";
   version = "5.9.14"; # Make sure to also update <nixpkgs/nixos/modules/services/networking/strongswan-swanctl/swanctl-params.nix> when upgrading!
@@ -186,7 +184,7 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = lib.optionalString stdenv.cc.isGNU "-lgcc_s";
 
-  passthru.tests = { inherit (nixosTests) strongswan-swanctl; };
+  passthru.tests = {inherit (nixosTests) strongswan-swanctl;};
 
   meta = with lib; {
     description = "OpenSource IPsec-based VPN Solution";

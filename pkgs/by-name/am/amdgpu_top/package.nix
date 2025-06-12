@@ -13,7 +13,6 @@
   libXcursor,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "amdgpu_top";
   version = "0.10.5";
@@ -49,7 +48,7 @@ rustPlatform.buildRustPackage rec {
     patchelf --set-rpath "${lib.makeLibraryPath buildInputs}" $out/bin/${pname}
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tool to display AMDGPU usage";

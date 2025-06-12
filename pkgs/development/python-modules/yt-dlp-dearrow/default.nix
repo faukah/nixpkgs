@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "yt-dlp-dearrow";
   version = "2023.01.01-unstable-2024-01-13"; # setup.cfg
@@ -17,16 +16,16 @@ buildPythonPackage {
     hash = "sha256-Ubi1kn/1FqkuwnxToBuSsAfCYWiNCTl/EUD8eeG3MSY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "yt_dlp_plugins" ];
+  pythonImportsCheck = ["yt_dlp_plugins"];
 
   meta = {
     description = "Post-processor plugin to use DeArrow video titles in YT-DLP";
     homepage = "https://github.com/QuantumWarpCode/yt-dlp-dearrow";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

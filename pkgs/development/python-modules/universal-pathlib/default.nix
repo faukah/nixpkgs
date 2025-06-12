@@ -7,7 +7,6 @@
   setuptools-scm,
   fsspec,
 }:
-
 buildPythonPackage rec {
   pname = "universal-pathlib";
   version = "0.2.6";
@@ -26,15 +25,15 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ fsspec ];
+  dependencies = [fsspec];
 
-  pythonImportsCheck = [ "upath" ];
+  pythonImportsCheck = ["upath"];
 
   meta = with lib; {
     description = "Pathlib api extended to use fsspec backends";
     homepage = "https://github.com/fsspec/universal_pathlib";
     changelog = "https://github.com/fsspec/universal_pathlib/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

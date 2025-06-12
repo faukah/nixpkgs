@@ -16,7 +16,6 @@
   libgee,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-camera";
   version = "8.0.1";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     granite7
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-base
-    (gst_all_1.gst-plugins-good.override { gtkSupport = true; })
+    (gst_all_1.gst-plugins-good.override {gtkSupport = true;})
     gst_all_1.gst-plugins-rs # GTK 4 sink
     gst_all_1.gst-plugins-ugly
     gst_all_1.gstreamer
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/camera";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.camera";
   };
 }

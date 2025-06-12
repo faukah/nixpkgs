@@ -1,9 +1,6 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (lib) types;
-in
-{
-
+in {
   options = {
     int = lib.mkOption {
       type = types.lazyAttrsOf types.int;
@@ -21,7 +18,7 @@ in
       type = types.lazyAttrsOf (types.nullOr types.int);
     };
     submodule = lib.mkOption {
-      type = types.lazyAttrsOf (types.submodule { });
+      type = types.lazyAttrsOf (types.submodule {});
     };
   };
 
@@ -33,5 +30,4 @@ in
     null.a = lib.mkIf false null;
     submodule.a = lib.mkIf false null;
   };
-
 }

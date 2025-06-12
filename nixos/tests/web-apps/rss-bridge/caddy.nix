@@ -1,19 +1,20 @@
 import ../../make-test-python.nix (
-  { lib, pkgs, ... }:
   {
+    lib,
+    pkgs,
+    ...
+  }: {
     name = "rss-bridge-caddy";
-    meta.maintainers = with lib.maintainers; [ mynacol ];
+    meta.maintainers = with lib.maintainers; [mynacol];
 
-    nodes.machine =
-      { ... }:
-      {
-        services.rss-bridge = {
-          enable = true;
-          webserver = "caddy";
-          virtualHost = "localhost:80";
-          config.system.enabled_bridges = [ "DemoBridge" ];
-        };
+    nodes.machine = {...}: {
+      services.rss-bridge = {
+        enable = true;
+        webserver = "caddy";
+        virtualHost = "localhost:80";
+        config.system.enabled_bridges = ["DemoBridge"];
       };
+    };
 
     testScript = ''
       machine.wait_for_unit("caddy.service")

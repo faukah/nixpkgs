@@ -13,7 +13,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-idle";
   version = "1.0.0-alpha.7";
@@ -52,7 +51,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru = {
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         cosmic
         cosmic-autologin
         cosmic-noxwayland
@@ -74,8 +74,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/pop-os/cosmic-idle";
     license = lib.licenses.gpl3Only;
     mainProgram = "cosmic-idle";
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
     platforms = lib.platforms.linux;
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
   };
 })

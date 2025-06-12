@@ -5,7 +5,6 @@
   pytestCheckHook,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "test-results-parser";
   version = "0.5.4";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     description = "Codecov test results parser";
     homepage = "https://github.com/codecov/test-results-parser";
     license = lib.licenses.fsl11Asl20;
-    maintainers = with lib.maintainers; [ veehaitch ];
+    maintainers = with lib.maintainers; [veehaitch];
   };
 }

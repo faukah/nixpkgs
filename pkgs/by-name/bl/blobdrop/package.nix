@@ -6,7 +6,6 @@
   pkg-config,
   qt6,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "blobdrop";
   version = "2.1";
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/vimpostor/blobdrop";
     license = lib.licenses.gpl3Only;
     mainProgram = "blobdrop";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.all;
   };
 })

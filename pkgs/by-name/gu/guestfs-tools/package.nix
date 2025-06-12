@@ -28,7 +28,6 @@
   xz,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "guestfs-tools";
   version = "1.52.3";
@@ -103,21 +102,21 @@ stdenv.mkDerivation (finalAttrs: {
     wrapProgram $out/bin/virt-builder \
       --argv0 virt-builder \
       --prefix PATH : ${
-        lib.makeBinPath [
-          curl
-          gnupg
-        ]
-      }:$out/bin \
+      lib.makeBinPath [
+        curl
+        gnupg
+      ]
+    }:$out/bin \
       --suffix VIRT_BUILDER_DIRS : /etc:$out/etc
     wrapProgram $out/bin/virt-win-reg \
       --prefix PERL5LIB : ${
-        with perlPackages;
+      with perlPackages;
         makeFullPerlPath [
           hivex
           libintl-perl
           libguestfs-with-appliance
         ]
-      }
+    }
   '';
 
   passthru.updateScript = gitUpdater {
@@ -134,8 +133,8 @@ stdenv.mkDerivation (finalAttrs: {
     ];
     homepage = "https://libguestfs.org/";
     changelog = "https://www.libguestfs.org/guestfs-tools-release-notes-${lib.versions.majorMinor finalAttrs.version}.1.html";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 })

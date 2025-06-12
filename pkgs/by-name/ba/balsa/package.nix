@@ -22,7 +22,6 @@
   webkitgtk_4_0,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "balsa";
   version = "2.6.4";
@@ -75,6 +74,6 @@ stdenv.mkDerivation rec {
     description = "E-mail client for GNOME";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

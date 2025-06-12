@@ -12,7 +12,6 @@
   gsettings-qt,
   gtest,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-session-ui";
   version = "6.0.20";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     gtest
   ];
 
-  cmakeFlags = [ "-DDISABLE_SYS_UPDATE=ON" ];
+  cmakeFlags = ["-DDISABLE_SYS_UPDATE=ON"];
 
   postFixup = ''
     for binary in $out/lib/deepin-daemon/*; do
@@ -67,6 +66,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dde-session-ui";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

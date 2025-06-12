@@ -10,6 +10,6 @@ mkDerivation {
     sed -i 's/DPADD/#DPADD/' $BSDSRCDIR/sbin/dhcpleased/Makefile
   '';
 
-  buildInputs = [ libevent ];
-  extraNativeBuildInputs = [ byacc ];
+  buildInputs = [libevent];
+  extraNativeBuildInputs = [byacc];
 }

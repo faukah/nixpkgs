@@ -5,7 +5,6 @@
   pyyaml,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "tika";
   version = "3.1.0";
@@ -23,13 +22,13 @@ buildPythonPackage rec {
 
   # Requires network
   doCheck = false;
-  pythonImportsCheck = [ pname ];
+  pythonImportsCheck = [pname];
 
   meta = with lib; {
     description = "Python binding to the Apache Tika™ REST services";
     mainProgram = "tika-python";
     homepage = "https://github.com/chrismattmann/tika-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
   };
 }

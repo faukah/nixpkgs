@@ -3,10 +3,8 @@
   newScope,
   symlinkJoin,
 }:
-
 # Note this scope isn't recursed into, at the time of writing.
 lib.makeScope newScope (self: {
-
   # The config is only exposed as an attrset so that the user may reach the
   # default values, for inspectability purposes.
   dockerConfig = {
@@ -16,7 +14,7 @@ lib.makeScope newScope (self: {
     nvidia-container-cli = {
       #root = "/run/nvidia/driver";
       #path = "/usr/bin/nvidia-container-cli";
-      environment = [ ];
+      environment = [];
       #debug = "/var/log/nvidia-container-runtime-hook.log";
       ldcache = "/tmp/ld.so.cache";
       load-kmods = true;
@@ -37,5 +35,5 @@ lib.makeScope newScope (self: {
     ];
     inherit (self.nvidia-docker-unwrapped) meta;
   };
-  nvidia-docker-unwrapped = self.callPackage ./nvidia-docker.nix { };
+  nvidia-docker-unwrapped = self.callPackage ./nvidia-docker.nix {};
 })

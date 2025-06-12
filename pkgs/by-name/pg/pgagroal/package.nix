@@ -9,7 +9,6 @@
   openssl,
   systemd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pgagroal";
   version = "1.6.0";
@@ -21,25 +20,27 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-bgJvGJ35RdFopW88o+H1DLpG70anP197y6xrpRRrxUA=";
   };
 
-  patches = [ ./do-not-search-libatomic.patch ];
+  patches = [./do-not-search-libatomic.patch];
 
   nativeBuildInputs = [
     cmake
     docutils
   ];
 
-  buildInputs = [
-    cjson
-    libev
-    openssl
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ systemd ];
+  buildInputs =
+    [
+      cjson
+      libev
+      openssl
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [systemd];
 
   meta = with lib; {
     description = "High-performance connection pool for PostgreSQL";
     homepage = "https://agroal.github.io/pgagroal/";
     changelog = "https://github.com/agroal/pgagroal/releases/tag/${finalAttrs.version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 })

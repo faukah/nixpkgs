@@ -10,7 +10,6 @@
   gtk4-layer-shell,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "walker";
   version = "0.12.23";
@@ -23,9 +22,9 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-6PPNVnsH1eU4fLcZpxiBoHCzN/TUUxfTfmxDsBDPDKQ=";
-  subPackages = [ "cmd/walker.go" ];
+  subPackages = ["cmd/walker.go"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   nativeBuildInputs = [
     pkg-config
@@ -44,7 +43,7 @@ buildGoModule rec {
     homepage = "https://github.com/abenz1267/walker";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ donovanglover ];
+    maintainers = with maintainers; [donovanglover];
     mainProgram = "walker";
   };
 }

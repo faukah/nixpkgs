@@ -6,7 +6,6 @@
   rustPlatform,
   perl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "matrix-commander-rs";
   version = "0.10.0";
@@ -26,14 +25,14 @@ rustPlatform.buildRustPackage rec {
     perl
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = {
     description = "CLI-based Matrix client app for sending and receiving";
     homepage = "https://github.com/8go/matrix-commander-rs";
     changelog = "https://github.com/8go/matrix-commander-rs/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "matrix-commander-rs";
   };
 }

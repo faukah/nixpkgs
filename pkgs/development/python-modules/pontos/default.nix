@@ -16,7 +16,6 @@
   rich,
   tomlkit,
 }:
-
 buildPythonPackage rec {
   pname = "pontos";
   version = "25.4.0";
@@ -31,19 +30,21 @@ buildPythonPackage rec {
     hash = "sha256-/RX4lYtMk+X4BmMWH8Su2sfE3sUTawxIb8D10UNvP/E=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [
-    colorful
-    httpx
-    lxml
-    packaging
-    python-dateutil
-    semver
-    shtab
-    rich
-    tomlkit
-  ] ++ httpx.optional-dependencies.http2;
+  dependencies =
+    [
+      colorful
+      httpx
+      lxml
+      packaging
+      python-dateutil
+      semver
+      shtab
+      rich
+      tomlkit
+    ]
+    ++ httpx.optional-dependencies.http2;
 
   nativeCheckInputs = [
     git
@@ -72,13 +73,13 @@ buildPythonPackage rec {
     "test_verify_version_does_not_match"
   ];
 
-  pythonImportsCheck = [ "pontos" ];
+  pythonImportsCheck = ["pontos"];
 
   meta = with lib; {
     description = "Collection of Python utilities, tools, classes and functions";
     homepage = "https://github.com/greenbone/pontos";
     changelog = "https://github.com/greenbone/pontos/releases/tag/${src.tag}";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

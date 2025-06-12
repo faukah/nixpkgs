@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "htmx-lsp";
   version = "0.1.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Language server implementation for htmx";
     homepage = "https://github.com/ThePrimeagen/htmx-lsp";
     license = licenses.mit;
-    maintainers = with maintainers; [ vinnymeller ];
+    maintainers = with maintainers; [vinnymeller];
     mainProgram = "htmx-lsp";
   };
 }

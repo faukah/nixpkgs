@@ -6,7 +6,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage {
   pname = "nanomsg-python";
   version = "1.0.20190114";
@@ -21,19 +20,19 @@ buildPythonPackage {
     hash = "sha256-NHurZWiW/Csp6NyuSV+oD16+L2uPUZWGzb2nWi9b/uE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ nanomsg ];
+  buildInputs = [nanomsg];
 
   # Tests requires network connections
   doCheck = false;
 
-  pythonImportsCheck = [ "nanomsg" ];
+  pythonImportsCheck = ["nanomsg"];
 
   meta = with lib; {
     description = "Bindings for nanomsg";
     homepage = "https://github.com/tonysimpson/nanomsg-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ bgamari ];
+    maintainers = with maintainers; [bgamari];
   };
 }

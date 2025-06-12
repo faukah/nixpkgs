@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "dvc-oss";
   version = "3.0.0";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
   };
 
   # Prevent circular dependency
-  pythonRemoveDeps = [ "dvc" ];
+  pythonRemoveDeps = ["dvc"];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     dvc-objects
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://pypi.org/project/dvc-oss/";
     changelog = "https://github.com/iterative/dvc-oss/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

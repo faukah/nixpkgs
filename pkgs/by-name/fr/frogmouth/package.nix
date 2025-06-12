@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "frogmouth";
   version = "0.9.1";
@@ -32,7 +31,7 @@ python3.pkgs.buildPythonApplication rec {
     "textual"
   ];
 
-  pythonImportsCheck = [ "frogmouth" ];
+  pythonImportsCheck = ["frogmouth"];
 
   meta = with lib; {
     description = "Markdown browser for your terminal";
@@ -40,6 +39,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/Textualize/frogmouth";
     changelog = "https://github.com/Textualize/frogmouth/blob/${src.rev}/ChangeLog.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

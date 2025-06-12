@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "nufmt";
   version = "0-unstable-2025-04-28";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-zS4g/uMh1eOoPo/RZfanL6afCEU5cnyzHrIqkvuQVrg=";
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = {
     description = "Nushell formatter";

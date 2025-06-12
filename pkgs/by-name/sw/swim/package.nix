@@ -7,7 +7,6 @@
   spade,
   git,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "swim";
   version = "0.13.0";
@@ -31,13 +30,13 @@ rustPlatform.buildRustPackage rec {
     ln -s ${spade.src} runt/spade
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
   ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   checkFlags = [
     # tries to clone https://gitlab.com/spade-lang/swim-templates
@@ -57,7 +56,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://gitlab.com/spade-lang/swim";
     changelog = "https://gitlab.com/spade-lang/swim/-/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.eupl12;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
     mainProgram = "swim";
   };
 }

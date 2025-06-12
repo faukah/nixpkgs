@@ -18,14 +18,15 @@
   zlib,
   makeWrapper,
   waylandSupport ? false,
-}:
-
-let
+}: let
   pname = "warp-terminal";
   versions = lib.importJSON ./versions.json;
   passthru.updateScript = ./update.sh;
 
-  linux_arch = if stdenv.hostPlatform.system == "x86_64-linux" then "x86_64" else "aarch64";
+  linux_arch =
+    if stdenv.hostPlatform.system == "x86_64-linux"
+    then "x86_64"
+    else "aarch64";
 
   linux = stdenv.mkDerivation (finalAttrs: {
     inherit pname meta passthru;
@@ -56,17 +57,19 @@ let
       zlib
     ];
 
-    runtimeDependencies = [
-      libglvnd # for libegl
-      libxkbcommon
-      stdenv.cc.libc
-      vulkan-loader
-      xdg-utils
-      xorg.libX11
-      xorg.libxcb
-      xorg.libXcursor
-      xorg.libXi
-    ] ++ lib.optionals waylandSupport [ wayland ];
+    runtimeDependencies =
+      [
+        libglvnd # for libegl
+        libxkbcommon
+        stdenv.cc.libc
+        vulkan-loader
+        xdg-utils
+        xorg.libX11
+        xorg.libxcb
+        xorg.libXcursor
+        xorg.libXi
+      ]
+      ++ lib.optionals waylandSupport [wayland];
 
     installPhase =
       ''
@@ -94,7 +97,7 @@ let
 
     sourceRoot = ".";
 
-    nativeBuildInputs = [ undmg ];
+    nativeBuildInputs = [undmg];
 
     installPhase = ''
       runHook preInstall
@@ -110,18 +113,21 @@ let
     description = "Rust-based terminal";
     homepage = "https://www.warp.dev";
     license = licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     maintainers = with maintainers; [
       emilytrau
       imadnyc
       donteatoreo
       johnrtitor
     ];
-    platforms = platforms.darwin ++ [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms =
+      platforms.darwin
+      ++ [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
   };
-
 in
-if stdenvNoCC.hostPlatform.isDarwin then darwin else linux
+  if stdenvNoCC.hostPlatform.isDarwin
+  then darwin
+  else linux

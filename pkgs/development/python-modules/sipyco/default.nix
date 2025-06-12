@@ -6,7 +6,6 @@
   pytestCheckHook,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "sipyco";
   version = "1.8";
@@ -19,13 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-PPnAyDedUQ7Og/Cby9x5OT9wMkNGTP8GS53V6N/dk4w=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "sipyco" ];
+  pythonImportsCheck = ["sipyco"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/m-labs/sipyco";
     changelog = "https://github.com/m-labs/sipyco/releases/tag/v${version}";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ charlesbaynham ];
+    maintainers = with maintainers; [charlesbaynham];
   };
 }

@@ -7,7 +7,6 @@
   nodejs,
   npmHooks,
 }:
-
 buildGoModule rec {
   pname = "karma";
   version = "0.115";
@@ -65,6 +64,6 @@ buildGoModule rec {
     mainProgram = "karma";
     homepage = "https://karma-dashboard.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nukaduka ];
+    maintainers = with maintainers; [nukaduka];
   };
 }

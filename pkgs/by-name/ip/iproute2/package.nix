@@ -14,7 +14,6 @@
   gitUpdater,
   pkgsStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "iproute2";
   version = "6.14.0";
@@ -76,7 +75,7 @@ stdenv.mkDerivation rec {
     "CONFDIR=$(out)/etc/iproute2"
   ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ]; # netem requires $HOSTCC
+  depsBuildBuild = [buildPackages.stdenv.cc]; # netem requires $HOSTCC
   nativeBuildInputs = [
     bison
     flex

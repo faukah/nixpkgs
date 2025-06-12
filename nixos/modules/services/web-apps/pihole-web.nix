@@ -3,16 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.pihole-web;
-in
-{
+in {
   options.services.pihole-web = {
     enable = lib.mkEnableOption "Pi-hole dashboard";
 
-    package = lib.mkPackageOption pkgs "pihole-web" { };
+    package = lib.mkPackageOption pkgs "pihole-web" {};
 
     hostName = lib.mkOption {
       type = lib.types.str;
@@ -20,32 +17,31 @@ in
       default = "pi.hole";
     };
 
-    ports =
-      let
-        portType = lib.types.submodule {
-          options = {
-            port = lib.mkOption {
-              type = lib.types.port;
-              description = "Port to bind";
-            };
-            optional = lib.mkOption {
-              type = lib.types.bool;
-              default = false;
-              description = "Skip the port if it cannot be bound";
-            };
-            redirectSSL = lib.mkOption {
-              type = lib.types.bool;
-              default = false;
-              description = "Redirect from this port to the first configured SSL port";
-            };
-            ssl = lib.mkOption {
-              type = lib.types.bool;
-              default = false;
-              description = "Serve SSL on the port";
-            };
+    ports = let
+      portType = lib.types.submodule {
+        options = {
+          port = lib.mkOption {
+            type = lib.types.port;
+            description = "Port to bind";
+          };
+          optional = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+            description = "Skip the port if it cannot be bound";
+          };
+          redirectSSL = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+            description = "Redirect from this port to the first configured SSL port";
+          };
+          ssl = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+            description = "Serve SSL on the port";
           };
         };
-      in
+      };
+    in
       lib.mkOption {
         type = lib.types.listOf (
           lib.types.oneOf [
@@ -67,23 +63,20 @@ in
           "80r"
           "443s"
         ];
-        apply =
-          values:
-          let
-            convert =
-              value:
-              if (builtins.typeOf) value == "int" then
-                toString value
-              else if builtins.typeOf value == "set" then
-                lib.strings.concatStrings [
-                  (toString value.port)
-                  (lib.optionalString value.optional "o")
-                  (lib.optionalString value.redirectSSL "r")
-                  (lib.optionalString value.ssl "s")
-                ]
-              else
-                value;
-          in
+        apply = values: let
+          convert = value:
+            if (builtins.typeOf) value == "int"
+            then toString value
+            else if builtins.typeOf value == "set"
+            then
+              lib.strings.concatStrings [
+                (toString value.port)
+                (lib.optionalString value.optional "o")
+                (lib.optionalString value.redirectSSL "r")
+                (lib.optionalString value.ssl "s")
+              ]
+            else value;
+        in
           lib.strings.concatStringsSep "," (map convert values);
       };
   };
@@ -99,6 +92,6 @@ in
 
   meta = {
     doc = ./pihole-web.md;
-    maintainers = with lib.maintainers; [ averyvigolo ];
+    maintainers = with lib.maintainers; [averyvigolo];
   };
 }

@@ -9,7 +9,7 @@ stdenv.mkDerivation {
   inherit (libajantv2) src;
   sourceRoot = "${libajantv2.src.name}/driver/linux";
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 

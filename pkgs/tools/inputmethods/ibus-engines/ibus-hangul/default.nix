@@ -14,7 +14,6 @@
   libhangul,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ibus-hangul";
   version = "1.5.5";
@@ -46,10 +45,11 @@ stdenv.mkDerivation rec {
     ibus
     libhangul
     (python3.withPackages (
-      pypkgs: with pypkgs; [
-        pygobject3
-        (toPythonModule ibus)
-      ]
+      pypkgs:
+        with pypkgs; [
+          pygobject3
+          (toPythonModule ibus)
+        ]
     ))
   ];
 
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     mainProgram = "ibus-setup-hangul";
     homepage = "https://github.com/libhangul/ibus-hangul";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

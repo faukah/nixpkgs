@@ -12,7 +12,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "glpi-agent";
   version = "1.14";
@@ -33,10 +32,9 @@ perlPackages.buildPerlPackage rec {
       --replace-fail "/sbin/ip" "${lib.getExe' iproute2 "ip"}"
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = (
-    with perlPackages;
-    [
+    with perlPackages; [
       CGI
       CpanelJSONXS
       CryptDES
@@ -100,20 +98,20 @@ perlPackages.buildPerlPackage rec {
       if [ -x "$cur" ]; then
         sed -e "s|./lib|$out/lib|" -i "$cur"
         wrapProgram "$cur" --prefix PATH : ${
-          lib.makeBinPath [
-            nix
-            dmidecode
-            pciutils
-            usbutils
-            nettools
-            iproute2
-          ]
-        }
+      lib.makeBinPath [
+        nix
+        dmidecode
+        pciutils
+        usbutils
+        nettools
+        iproute2
+      ]
+    }
       fi
     done
   '';
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   nativeInstallCheckInputs = [
     versionCheckHook
@@ -122,7 +120,7 @@ perlPackages.buildPerlPackage rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -130,7 +128,7 @@ perlPackages.buildPerlPackage rec {
     homepage = "https://glpi-project.org/";
     changelog = "https://github.com/glpi-project/glpi-agent/releases/tag/${src.tag}";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     mainProgram = "glpi-agent";
   };
 }

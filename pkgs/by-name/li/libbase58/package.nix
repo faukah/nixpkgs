@@ -6,7 +6,6 @@
   libgcrypt,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libbase58";
   version = "0.1.4";
@@ -23,13 +22,13 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ libgcrypt ];
+  buildInputs = [libgcrypt];
 
   meta = {
     description = "C library for Bitcoin's base58 encoding";
     homepage = "https://github.com/bitcoin/libbase58";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nagy ];
+    maintainers = with lib.maintainers; [nagy];
     mainProgram = "base58";
     platforms = lib.platforms.all;
   };

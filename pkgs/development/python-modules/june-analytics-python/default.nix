@@ -9,7 +9,6 @@
   backoff,
   unittestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "june-analytics-python";
   version = "unstable-2022-07-26";
@@ -24,7 +23,7 @@ buildPythonPackage {
 
   pythonRelaxDeps = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     dateutils
@@ -37,14 +36,14 @@ buildPythonPackage {
     unittestCheckHook
   ];
 
-  unittestFlagsArray = [ "june" ];
+  unittestFlagsArray = ["june"];
 
-  pythonImportsCheck = [ "june" ];
+  pythonImportsCheck = ["june"];
 
   meta = {
     description = "Hassle-free way to integrate analytics into any python application";
     homepage = "https://github.com/juneHQ/analytics-python";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ soyouzpanda ];
+    maintainers = with lib.maintainers; [soyouzpanda];
   };
 }

@@ -2,15 +2,12 @@
 # tries to run a missing command in Bash.  This is implemented using a
 # SQLite database that maps program names to Nix package names (e.g.,
 # "pdflatex" is mapped to "tetex").
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.command-not-found;
   commandNotFound = pkgs.replaceVarsWith {
     name = "command-not-found";
@@ -25,12 +22,8 @@ let
       ]);
     };
   };
-
-in
-
-{
+in {
   options.programs.command-not-found = {
-
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -95,7 +88,6 @@ in
       }
     '';
 
-    environment.systemPackages = [ commandNotFound ];
+    environment.systemPackages = [commandNotFound];
   };
-
 }

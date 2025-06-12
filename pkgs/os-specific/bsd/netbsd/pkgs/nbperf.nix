@@ -1,3 +1,2 @@
-{ mkDerivation }:
-
-mkDerivation { path = "usr.bin/nbperf"; }
+{mkDerivation}:
+mkDerivation {path = "usr.bin/nbperf";}

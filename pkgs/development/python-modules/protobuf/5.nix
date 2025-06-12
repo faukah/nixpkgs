@@ -5,7 +5,6 @@
   setuptools,
   protobuf,
 }:
-
 buildPythonPackage rec {
   pname = "protobuf";
   version = "5.29.4";
@@ -16,7 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-Tx3815l7Me+PU+yCeB/0NKKL9x2RAt3eFNB2rc/HjJk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   propagatedNativeBuildInputs = [
     protobuf
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://developers.google.com/protocol-buffers/";
     changelog = "https://github.com/protocolbuffers/protobuf/releases/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ SuperSandro2000 ];
+    maintainers = with lib.maintainers; [SuperSandro2000];
   };
 }

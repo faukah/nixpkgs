@@ -9,7 +9,6 @@
   rustPlatform,
   wayland,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "woomer";
   version = "0.1.0";
@@ -52,7 +51,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -60,7 +59,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/coffeeispower/woomer";
     changelog = "https://github.com/coffeeispower/woomer/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "woomer";
     # Not all platforms supported by Wayland are supported by the libraries
     # used here

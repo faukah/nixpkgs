@@ -5,7 +5,6 @@
   makeWrapper,
   metasploit,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "social-engineer-toolkit";
   version = "8.0.3";
@@ -71,6 +70,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/trustedsec/social-engineer-toolkit";
     mainProgram = "setoolkit";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

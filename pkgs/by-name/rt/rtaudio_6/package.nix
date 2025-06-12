@@ -15,7 +15,6 @@
   coreaudioSupport ? stdenv.hostPlatform.isDarwin,
   validatePkgConfig,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rtaudio";
   version = "6.0.1";
@@ -60,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.music.mcgill.ca/~gary/rtaudio/";
     changelog = "https://github.com/thestk/rtaudio/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ magnetophon ];
+    maintainers = with lib.maintainers; [magnetophon];
     platforms = lib.platforms.unix;
     pkgConfigModules = [
       "rtaudio"

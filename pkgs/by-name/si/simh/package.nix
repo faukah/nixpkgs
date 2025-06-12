@@ -8,7 +8,6 @@
   vde2,
   pcre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "simh";
   version = "3.11-1";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
   # Workaround to build against upstream gcc-10 and clang-11.
   # Can be removed when next release contains
   #    https://github.com/simh/simh/issues/794
-  env.NIX_CFLAGS_COMPILE = toString [ "-fcommon" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-fcommon"];
 
   makeFlags = [
     "GCC=${stdenv.cc.targetPrefix}cc"
@@ -72,8 +71,9 @@ stdenv.mkDerivation rec {
       available copies of significant or representative software.
     '';
     license = with licenses; mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = with platforms; unix;
   };
 }
 # TODO: install documentation
+

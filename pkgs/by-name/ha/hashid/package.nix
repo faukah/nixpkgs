@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "hashid";
   version = "3.1.4-unstable-2015-03-17";
@@ -20,6 +19,6 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/psypanda/hashID";
     mainProgram = "hashid";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
   };
 }

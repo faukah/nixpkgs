@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "cc2538-bsl";
   version = "2.1-unstable-2025-01-14";
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/JelmerT/cc2538-bsl";
     description = "Flash TI SimpleLink chips (CC2538, CC13xx, CC26xx) over serial";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lorenz ];
+    maintainers = with maintainers; [lorenz];
     mainProgram = "cc2538-bsl";
   };
 }

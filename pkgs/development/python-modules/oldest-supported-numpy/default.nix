@@ -4,7 +4,6 @@
   fetchPypi,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "oldest-supported-numpy";
   version = "2023.12.21";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
       --replace 'numpy==' 'numpy>='
   '';
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   # package has no tests
   doCheck = false;
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Meta-package providing the oldest supported Numpy for a given Python version and platform";
     homepage = "https://github.com/scipy/oldest-supported-numpy";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ tjni ];
+    maintainers = with maintainers; [tjni];
   };
 }

@@ -1,9 +1,7 @@
 {
   lib,
   stdenv,
-
   fetchFromGitHub,
-
   cmake,
   ninja,
   pkg-config,
@@ -12,7 +10,6 @@
   rustPlatform,
   ensureNewerSourcesForZipFilesHook,
   removeReferencesTo,
-
   pcre2,
   openssl,
   gflags,
@@ -25,14 +22,10 @@
   fbthrift,
   fb303,
   cpptoml,
-
   gtest,
-
   nix-update-script,
-
   stateDir ? "",
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "watchman";
   version = "2025.04.21.00";

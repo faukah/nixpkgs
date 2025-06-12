@@ -4,7 +4,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "reg";
   version = "0.16.1";
@@ -37,7 +36,7 @@ buildGoModule rec {
     description = "Docker registry v2 command line client and repo listing generator with security checks";
     homepage = "https://github.com/genuinetools/reg";
     license = licenses.mit;
-    maintainers = with maintainers; [ ereslibre ];
+    maintainers = with maintainers; [ereslibre];
     mainProgram = "reg";
   };
 }

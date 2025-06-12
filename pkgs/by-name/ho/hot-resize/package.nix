@@ -16,7 +16,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "hot-resize";
   version = "0.1.3";
@@ -46,16 +45,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postInstall = ''
     wrapProgram $out/bin/hot-resize \
       --prefix PATH : ${
-        lib.makeBinPath [
-          btrfs-progs
-          cloud-utils
-          cryptsetup
-          e2fsprogs
-          udev
-          util-linux
-          xfsprogs
-        ]
-      }
+      lib.makeBinPath [
+        btrfs-progs
+        cloud-utils
+        cryptsetup
+        e2fsprogs
+        udev
+        util-linux
+        xfsprogs
+      ]
+    }
   '';
 
   nativeInstallCheckInputs = [
@@ -65,14 +64,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Tool for hot resizing disk partitions and filesystems without rebooting";
     homepage = "https://github.com/liberodark/hot-resize";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     platforms = lib.platforms.linux;
     mainProgram = "hot-resize";
   };

@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "androidtvremote2";
   version = "0.2.2";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-KlOvtJ7TyX+SUuO5TF/2gkHh059dMKmPOzc6H+MDfbg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiofiles
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     protobuf
   ];
 
-  pythonImportsCheck = [ "androidtvremote2" ];
+  pythonImportsCheck = ["androidtvremote2"];
 
   # Module only has a dummy test
   doCheck = false;
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tronikos/androidtvremote2";
     changelog = "https://github.com/tronikos/androidtvremote2/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

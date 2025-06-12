@@ -35,7 +35,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/TeaInside/teavpn2";
     license = licenses.gpl2Plus;
     mainProgram = "teavpn2";
-    maintainers = with maintainers; [ ludovicopiero ];
+    maintainers = with maintainers; [ludovicopiero];
     platforms = platforms.linux;
   };
 }

@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     "--skip=selection::no_owns::smoke"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgramArg = "--version";
 

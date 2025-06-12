@@ -7,7 +7,6 @@
   rustPlatform,
   writableTmpDirAsHomeHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cargo-seek";
   version = "0.1.0";
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeInstallCheckInputs = [writableTmpDirAsHomeHook];
   # We cannot use `versionCheckHook` here since access to the $HOME directory is required.
   installCheckPhase = ''
     runHook preInstallCheck
@@ -38,14 +37,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
     runHook postInstallCheck
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Terminal user interface for searching, adding and installing cargo crates";
     homepage = "https://github.com/tareqimbasher/cargo-seek";
     changelog = "https://github.com/tareqimbasher/cargo-seek/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ qwqawawow ];
+    maintainers = with lib.maintainers; [qwqawawow];
     mainProgram = "cargo-seek";
   };
 })

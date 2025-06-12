@@ -4,10 +4,9 @@
   pkgs,
   utils,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe
     mkOption
     types
@@ -16,8 +15,7 @@ let
   inherit (utils) escapeSystemdExecArgs;
 
   cfg = config.services.prometheus.exporters.rasdaemon;
-in
-{
+in {
   port = 10029;
   extraOpts = with types; {
     databasePath = mkOption {

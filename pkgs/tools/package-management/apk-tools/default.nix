@@ -9,7 +9,6 @@
   luaSupport ? stdenv.hostPlatform == stdenv.buildPlatform,
   lua,
 }:
-
 stdenv.mkDerivation rec {
   pname = "apk-tools";
   version = "2.14.10";
@@ -31,17 +30,23 @@ stdenv.mkDerivation rec {
       lua
       lua.pkgs.lua-zlib
     ];
-  buildInputs = [
-    openssl
-    zlib
-  ] ++ lib.optional luaSupport lua;
+  buildInputs =
+    [
+      openssl
+      zlib
+    ]
+    ++ lib.optional luaSupport lua;
   strictDeps = true;
 
   makeFlags = [
     "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
     "SBINDIR=$(out)/bin"
     "LIBDIR=$(out)/lib"
-    "LUA=${if luaSupport then "lua" else "no"}"
+    "LUA=${
+      if luaSupport
+      then "lua"
+      else "no"
+    }"
     "LUA_LIBDIR=$(out)/lib/lua/${lib.versions.majorMinor lua.version}"
     "MANDIR=$(out)/share/man"
     "DOCDIR=$(out)/share/doc/apk"
@@ -59,7 +64,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gitlab.alpinelinux.org/alpine/apk-tools";
     description = "Alpine Package Keeper";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.gpl2Only;
     platforms = platforms.linux;
     mainProgram = "apk";

@@ -4,12 +4,10 @@
   pkgs,
   ...
 }:
-
 # openafsMod, openafsBin, mkCellServDB
-with import ./lib.nix { inherit config lib pkgs; };
-
-let
-  inherit (lib)
+with import ./lib.nix {inherit config lib pkgs;}; let
+  inherit
+    (lib)
     getBin
     literalExpression
     mkOption
@@ -30,21 +28,17 @@ let
     mkCellServDB cfg.cellName cfg.cellServDB
   );
 
-  afsConfig = pkgs.runCommand "afsconfig" { preferLocalBuild = true; } ''
+  afsConfig = pkgs.runCommand "afsconfig" {preferLocalBuild = true;} ''
     mkdir -p $out
     echo ${cfg.cellName} > $out/ThisCell
     cat ${cellServDB} ${clientServDB} > $out/CellServDB
     echo "${cfg.mountPoint}:${cfg.cache.directory}:${toString cfg.cache.blocks}" > $out/cacheinfo
   '';
-
-in
-{
+in {
   ###### interface
 
   options = {
-
     services.openafsClient = {
-
       enable = mkOption {
         default = false;
         type = types.bool;
@@ -65,9 +59,8 @@ in
       };
 
       cellServDB = mkOption {
-        default = [ ];
-        type =
-          with types;
+        default = [];
+        type = with types;
           listOf (submodule {
             options = cellServDBConfig;
           });
@@ -200,17 +193,15 @@ in
           connected mode. Useful for roaming devices.
         '';
       };
-
     };
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
-
     assertions = [
       {
-        assertion = cfg.afsdb || cfg.cellServDB != [ ];
+        assertion = cfg.afsdb || cfg.cellServDB != [];
         message = "You should specify all cell-local database servers in config.services.openafsClient.cellServDB or set config.services.openafsClient.afsdb.";
       }
       {
@@ -219,11 +210,11 @@ in
       }
     ];
 
-    environment.systemPackages = [ openafsBin ];
+    environment.systemPackages = [openafsBin];
 
     environment.etc = {
       clientCellServDB = {
-        source = pkgs.runCommand "CellServDB" { preferLocalBuild = true; } ''
+        source = pkgs.runCommand "CellServDB" {preferLocalBuild = true;} ''
           cat ${cellServDB} ${clientServDB} > $out
         '';
         target = "openafs/CellServDB";
@@ -240,9 +231,13 @@ in
 
     systemd.services.afsd = {
       description = "AFS client";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       wants = lib.optional (!cfg.startDisconnected) "network-online.target";
-      after = singleton (if cfg.startDisconnected then "network.target" else "network-online.target");
+      after = singleton (
+        if cfg.startDisconnected
+        then "network.target"
+        else "network-online.target"
+      );
       serviceConfig = {
         RemainAfterExit = true;
       };
@@ -260,10 +255,22 @@ in
           -chunksize ${toString cfg.cache.chunksize} \
           ${optionalString cfg.cache.diskless "-memcache"} \
           -inumcalc ${cfg.inumcalc} \
-          ${if cfg.fakestat then "-fakestat-all" else "-fakestat"} \
-          ${if cfg.sparse then "-dynroot-sparse" else "-dynroot"} \
+          ${
+          if cfg.fakestat
+          then "-fakestat-all"
+          else "-fakestat"
+        } \
+          ${
+          if cfg.sparse
+          then "-dynroot-sparse"
+          else "-dynroot"
+        } \
           ${optionalString cfg.afsdb "-afsdb"}
-        ${openafsBin}/bin/fs setcrypt ${if cfg.crypt then "on" else "off"}
+        ${openafsBin}/bin/fs setcrypt ${
+          if cfg.crypt
+          then "on"
+          else "off"
+        }
         ${optionalString cfg.startDisconnected "${openafsBin}/bin/fs discon offline"}
       '';
 

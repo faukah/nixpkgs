@@ -7,43 +7,42 @@
   numpy,
   setuptools,
   testers,
-}:
-let
+}: let
   pname = "soundcard";
   version = "0.4.4";
 in
-buildPythonPackage {
-  inherit pname version;
-  pyproject = true;
-
-  src = fetchPypi {
+  buildPythonPackage {
     inherit pname version;
-    hash = "sha256-h9+cS47JdYX+RAodnbr6vOzljq5YV+0AXmuzhbIXnP8=";
-  };
+    pyproject = true;
 
-  patchPhase = ''
-    substituteInPlace soundcard/pulseaudio.py \
-      --replace "'pulse'" "'${libpulseaudio}/lib/libpulse.so'"
-  '';
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-h9+cS47JdYX+RAodnbr6vOzljq5YV+0AXmuzhbIXnP8=";
+    };
 
-  build-system = [ setuptools ];
+    patchPhase = ''
+      substituteInPlace soundcard/pulseaudio.py \
+        --replace "'pulse'" "'${libpulseaudio}/lib/libpulse.so'"
+    '';
 
-  dependencies = [
-    cffi
-    numpy
-  ];
+    build-system = [setuptools];
 
-  # doesn't work because there are not many soundcards in the
-  # sandbox. See VM-test
-  # pythonImportsCheck = [ "soundcard" ];
+    dependencies = [
+      cffi
+      numpy
+    ];
 
-  passthru.tests.vm-with-soundcard = testers.runNixOSTest ./test.nix;
+    # doesn't work because there are not many soundcards in the
+    # sandbox. See VM-test
+    # pythonImportsCheck = [ "soundcard" ];
 
-  meta = {
-    description = "Pure-Python Real-Time Audio Library";
-    homepage = "https://github.com/bastibe/SoundCard";
-    changelog = "https://github.com/bastibe/SoundCard/blob/${version}/README.rst#changelog";
-    license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ matthiasdotsh ];
-  };
-}
+    passthru.tests.vm-with-soundcard = testers.runNixOSTest ./test.nix;
+
+    meta = {
+      description = "Pure-Python Real-Time Audio Library";
+      homepage = "https://github.com/bastibe/SoundCard";
+      changelog = "https://github.com/bastibe/SoundCard/blob/${version}/README.rst#changelog";
+      license = lib.licenses.bsd3;
+      maintainers = with lib.maintainers; [matthiasdotsh];
+    };
+  }

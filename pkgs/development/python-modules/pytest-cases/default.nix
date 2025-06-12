@@ -8,7 +8,6 @@
   pytest,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-cases";
   version = "3.8.6";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-XCTgqwy2+OgCpGm3llkGozPTuruHRYbrxW9+LL4afEQ=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   dependencies = [
     decopatch
@@ -36,13 +35,13 @@ buildPythonPackage rec {
   # makefun, pytest-*) have circular dependencies.
   doCheck = false;
 
-  pythonImportsCheck = [ "pytest_cases" ];
+  pythonImportsCheck = ["pytest_cases"];
 
   meta = with lib; {
     description = "Separate test code from test cases in pytest";
     homepage = "https://github.com/smarie/python-pytest-cases";
     changelog = "https://github.com/smarie/python-pytest-cases/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

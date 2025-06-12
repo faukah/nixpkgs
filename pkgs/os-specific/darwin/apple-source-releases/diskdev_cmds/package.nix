@@ -5,9 +5,7 @@
   mkAppleDerivation,
   removefile,
   stdenvNoCC,
-}:
-
-let
+}: let
   Libc = apple-sdk.sourceRelease "Libc";
   xnu = apple-sdk.sourceRelease "xnu";
 
@@ -38,31 +36,31 @@ let
     '';
   };
 in
-mkAppleDerivation {
-  releaseName = "diskdev_cmds";
+  mkAppleDerivation {
+    releaseName = "diskdev_cmds";
 
-  outputs = [
-    "out"
-    "man"
-  ];
+    outputs = [
+      "out"
+      "man"
+    ];
 
-  xcodeHash = "sha256-P2dg3B5pU2ayasMHIM5nI0iG+YDdYQNcEpnJzZxm1kw=";
+    xcodeHash = "sha256-P2dg3B5pU2ayasMHIM5nI0iG+YDdYQNcEpnJzZxm1kw=";
 
-  postPatch =
-    # Fix incompatible pointer to integer conversion. The last parameter is size_t not a pointer.
-    # https://developer.apple.com/documentation/kernel/1387446-sysctlbyname
-    ''
-      substituteInPlace mount.tproj/mount.c \
-        --replace-fail 'sysctlbyname ("vfs.generic.apfs.rosp", &is_rosp, &rospsize, NULL, NULL);' 'sysctlbyname ("vfs.generic.apfs.rosp", &is_rosp, &rospsize, NULL, 0);'
-    '';
+    postPatch =
+      # Fix incompatible pointer to integer conversion. The last parameter is size_t not a pointer.
+      # https://developer.apple.com/documentation/kernel/1387446-sysctlbyname
+      ''
+        substituteInPlace mount.tproj/mount.c \
+          --replace-fail 'sysctlbyname ("vfs.generic.apfs.rosp", &is_rosp, &rospsize, NULL, NULL);' 'sysctlbyname ("vfs.generic.apfs.rosp", &is_rosp, &rospsize, NULL, 0);'
+      '';
 
-  env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
+    env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
 
-  buildInputs = [
-    apple-sdk.privateFrameworksHook
-    libutil
-    removefile
-  ];
+    buildInputs = [
+      apple-sdk.privateFrameworksHook
+      libutil
+      removefile
+    ];
 
-  meta.description = "Disk commands for Darwin";
-}
+    meta.description = "Disk commands for Darwin";
+  }

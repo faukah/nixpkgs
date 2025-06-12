@@ -5,7 +5,6 @@
   autoreconfHook,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wol";
   version = "0.7.1";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "Implements Wake On LAN functionality in a small program";
     homepage = "https://sourceforge.net/projects/wake-on-lan/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
     mainProgram = "wol";
     platforms = platforms.unix;
   };

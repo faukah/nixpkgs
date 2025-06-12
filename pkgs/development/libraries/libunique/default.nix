@@ -7,7 +7,6 @@
   gtk2,
   dbus-glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libunique";
   version = "1.1.6";
@@ -26,14 +25,16 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS";
 
   # Patches from Gentoo portage
-  patches = [
-    ./1.1.6-compiler-warnings.patch
-    ./1.1.6-fix-test.patch
-    ./1.1.6-G_CONST_RETURN.patch
-    ./1.1.6-include-terminator.patch
-  ] ++ [ ./gcc7-bug.patch ];
+  patches =
+    [
+      ./1.1.6-compiler-warnings.patch
+      ./1.1.6-fix-test.patch
+      ./1.1.6-G_CONST_RETURN.patch
+      ./1.1.6-include-terminator.patch
+    ]
+    ++ [./gcc7-bug.patch];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     gtk2

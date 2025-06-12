@@ -4,7 +4,6 @@
   buildGoModule,
   unzip,
 }:
-
 buildGoModule rec {
   pname = "goresym";
   version = "3.0.2";
@@ -16,11 +15,11 @@ buildGoModule rec {
     hash = "sha256-tt13vHe6wE27kv+1HVXytY1hKmOt6rWJaMBgLRCvO2E=";
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorHash = "sha256-pjkBrHhIqLmSzwi1dKS5+aJrrAAIzNATOt3LgLsMtx0=";
 
-  nativeCheckInputs = [ unzip ];
+  nativeCheckInputs = [unzip];
 
   preCheck = ''
     cd test
@@ -36,6 +35,6 @@ buildGoModule rec {
     homepage = "https://github.com/mandiant/GoReSym";
     changelog = "https://github.com/mandiant/GoReSym/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

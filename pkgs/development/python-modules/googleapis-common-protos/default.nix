@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "googleapis-common-protos";
   version = "1.69.2";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-PhuQSiejPIIbS3Sf0x0zTAycMOYRMCPUleSJeaPcnF8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     grpc
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/python-api-common-protos";
     changelog = "https://github.com/googleapis/python-api-common-protos/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   installShellFiles,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "sftpgo";
   version = "2.6.6";
@@ -26,11 +25,11 @@ buildGoModule rec {
     "-X github.com/drakkan/sftpgo/v2/internal/version.date=1970-01-01T00:00:00Z"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   postInstall = ''
     $out/bin/sftpgo gen man
@@ -63,7 +62,7 @@ buildGoModule rec {
       agpl3Only
       unfreeRedistributable
     ]; # Software is AGPLv3, web UI is unfree
-    maintainers = with lib.maintainers; [ thenonameguy ];
+    maintainers = with lib.maintainers; [thenonameguy];
     mainProgram = "sftpgo";
   };
 }

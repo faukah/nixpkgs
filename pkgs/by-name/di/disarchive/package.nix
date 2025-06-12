@@ -11,7 +11,6 @@
   pkg-config,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "disarchive";
   version = "0.5.0";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ngyro.com/software/disarchive.html";
     license = licenses.gpl3Plus;
     mainProgram = "disarchive";
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
     platforms = guile.meta.platforms;
   };
 }

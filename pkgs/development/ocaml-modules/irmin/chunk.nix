@@ -7,9 +7,7 @@
   lwt,
   alcotest,
 }:
-
 buildDunePackage {
-
   pname = "irmin-chunk";
   inherit (irmin) version src;
 
@@ -26,8 +24,9 @@ buildDunePackage {
     irmin-test
   ];
 
-  meta = irmin.meta // {
-    description = "Irmin backend which allow to store values into chunks";
-  };
-
+  meta =
+    irmin.meta
+    // {
+      description = "Irmin backend which allow to store values into chunks";
+    };
 }

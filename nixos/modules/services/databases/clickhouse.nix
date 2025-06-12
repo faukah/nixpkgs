@@ -3,30 +3,22 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.clickhouse;
-in
-{
-
+in {
   ###### interface
 
   options = {
-
     services.clickhouse = {
-
       enable = lib.mkEnableOption "ClickHouse database server";
 
-      package = lib.mkPackageOption pkgs "clickhouse" { };
-
+      package = lib.mkPackageOption pkgs "clickhouse" {};
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     users.users.clickhouse = {
       name = "clickhouse";
       uid = config.ids.uids.clickhouse;
@@ -39,9 +31,9 @@ in
     systemd.services.clickhouse = {
       description = "ClickHouse server";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      after = [ "network.target" ];
+      after = ["network.target"];
 
       serviceConfig = {
         Type = "notify";
@@ -71,11 +63,9 @@ in
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # startup requires a `/etc/localtime` which only if exists if `time.timeZone != null`
     time.timeZone = lib.mkDefault "UTC";
-
   };
-
 }

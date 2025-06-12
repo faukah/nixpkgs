@@ -12,7 +12,7 @@ mkDerivation {
     libpam
     libbsm
   ];
-  extraNativeBuildInputs = [ cap_mkdb ];
+  extraNativeBuildInputs = [cap_mkdb];
 
   postPatch = ''
     sed -E -i -e "s|..DESTDIR./etc|\''${CONFDIR}|g" $BSDSRCDIR/usr.bin/login/Makefile

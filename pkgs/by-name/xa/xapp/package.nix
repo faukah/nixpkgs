@@ -21,7 +21,6 @@
   dbus,
   libdbusmenu-gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xapp";
   version = "2.8.9";
@@ -54,10 +53,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     (python3.withPackages (
-      ps: with ps; [
-        pygobject3
-        setproctitle # mate applet
-      ]
+      ps:
+        with ps; [
+          pygobject3
+          setproctitle # mate applet
+        ]
     ))
     libgnomekbd
     gdk-pixbuf
@@ -101,6 +101,6 @@ stdenv.mkDerivation rec {
     description = "Cross-desktop libraries and common resources";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

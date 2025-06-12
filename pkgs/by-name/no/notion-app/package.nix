@@ -3,38 +3,37 @@
   stdenvNoCC,
   fetchurl,
   unzip,
-}:
-let
+}: let
   info = (lib.importJSON ./info.json)."${stdenvNoCC.hostPlatform.parsed.cpu.name}-darwin";
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "notion-app";
-  version = info.version;
+  stdenvNoCC.mkDerivation (finalAttrs: {
+    pname = "notion-app";
+    version = info.version;
 
-  src = fetchurl { inherit (info) url hash; };
+    src = fetchurl {inherit (info) url hash;};
 
-  sourceRoot = ".";
-  nativeBuildInputs = [ unzip ];
-  installPhase = ''
-    runHook preInstall
+    sourceRoot = ".";
+    nativeBuildInputs = [unzip];
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/Applications
-    mv Notion.app $out/Applications
+      mkdir -p $out/Applications
+      mv Notion.app $out/Applications
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru.updateScript = ./update/update.mjs;
+    passthru.updateScript = ./update/update.mjs;
 
-  meta = {
-    description = "App to write, plan, collaborate, and get organised";
-    homepage = "https://www.notion.so/";
-    license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ xiaoxiangmoe ];
-    platforms = [
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-  };
-})
+    meta = {
+      description = "App to write, plan, collaborate, and get organised";
+      homepage = "https://www.notion.so/";
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [xiaoxiangmoe];
+      platforms = [
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    };
+  })

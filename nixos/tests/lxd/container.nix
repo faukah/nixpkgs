@@ -1,42 +1,40 @@
 import ../make-test-python.nix (
-  { pkgs, lib, ... }:
-
-  let
+  {
+    pkgs,
+    lib,
+    ...
+  }: let
     releases = import ../../release.nix {
       configuration = {
         # Building documentation makes the test unnecessarily take a longer time:
         documentation.enable = lib.mkForce false;
 
         # Our tests require `grep` & friends:
-        environment.systemPackages = with pkgs; [ busybox ];
+        environment.systemPackages = with pkgs; [busybox];
       };
     };
 
     lxd-image-metadata = releases.lxdContainerMeta.${pkgs.stdenv.hostPlatform.system};
     lxd-image-rootfs = releases.lxdContainerImage.${pkgs.stdenv.hostPlatform.system};
     lxd-image-rootfs-squashfs = releases.lxdContainerImageSquashfs.${pkgs.stdenv.hostPlatform.system};
-
-  in
-  {
+  in {
     name = "lxd-container";
 
-    nodes.machine =
-      { lib, ... }:
-      {
-        virtualisation = {
-          diskSize = 6144;
+    nodes.machine = {lib, ...}: {
+      virtualisation = {
+        diskSize = 6144;
 
-          # Since we're testing `limits.cpu`, we've gotta have a known number of
-          # cores to lean on
-          cores = 2;
+        # Since we're testing `limits.cpu`, we've gotta have a known number of
+        # cores to lean on
+        cores = 2;
 
-          # Ditto, for `limits.memory`
-          memorySize = 512;
+        # Ditto, for `limits.memory`
+        memorySize = 512;
 
-          lxc.lxcfs.enable = true;
-          lxd.enable = true;
-        };
+        lxc.lxcfs.enable = true;
+        lxd.enable = true;
       };
+    };
 
     testScript = ''
       def instance_is_up(_) -> bool:

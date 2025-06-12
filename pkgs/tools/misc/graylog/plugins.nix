@@ -4,41 +4,40 @@
   fetchurl,
   unzip,
   graylogPackage,
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     licenses
     maintainers
     platforms
     sourceTypes
     ;
 
-  glPlugin =
-    a@{
-      pluginName,
-      version,
-      installPhase ? ''
-        mkdir -p $out/bin
-        cp $src $out/bin/${pluginName}-${version}.jar
-      '',
-      ...
-    }:
+  glPlugin = a @ {
+    pluginName,
+    version,
+    installPhase ? ''
+      mkdir -p $out/bin
+      cp $src $out/bin/${pluginName}-${version}.jar
+    '',
+    ...
+  }:
     stdenv.mkDerivation (
       a
       // {
         inherit installPhase;
         dontUnpack = true;
-        nativeBuildInputs = [ unzip ];
-        meta = a.meta // {
-          platforms = graylogPackage.meta.platforms;
-          maintainers = (a.meta.maintainers or [ ]) ++ [ maintainers.fadenb ];
-          sourceProvenance = with sourceTypes; [ binaryBytecode ];
-        };
+        nativeBuildInputs = [unzip];
+        meta =
+          a.meta
+          // {
+            platforms = graylogPackage.meta.platforms;
+            maintainers = (a.meta.maintainers or []) ++ [maintainers.fadenb];
+            sourceProvenance = with sourceTypes; [binaryBytecode];
+          };
       }
     );
-in
-{
+in {
   aggregates = glPlugin rec {
     name = "graylog-aggregates-${version}";
     pluginName = "graylog-plugin-aggregates";

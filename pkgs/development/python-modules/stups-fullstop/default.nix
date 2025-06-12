@@ -10,7 +10,6 @@
   pytest-cov-stub,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   pname = "stups-fullstop";
   version = "1.1.31";
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Convenience command line tool for fullstop. audit reporting";
     homepage = "https://github.com/zalando-stups/stups-fullstop-cli";
     license = licenses.asl20;
-    maintainers = [ maintainers.mschuwalow ];
+    maintainers = [maintainers.mschuwalow];
   };
 }

@@ -5,7 +5,6 @@
   autoreconfHook,
   autoconf-archive,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libxls";
   version = "1.6.3";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     description = "Extract Cell Data From Excel xls files";
     homepage = "https://github.com/libxls/libxls";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     mainProgram = "xls2csv";
     platforms = platforms.unix;
   };

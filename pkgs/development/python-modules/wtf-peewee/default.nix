@@ -7,7 +7,6 @@
   wtforms,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "wtf-peewee";
   version = "3.0.6";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-gZZEam46tk8SJ/ulqKsxvoF3X3PYGfdfyv7P1cDAC5I=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     peewee
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "WTForms integration for peewee models";
     homepage = "https://github.com/coleifer/wtf-peewee/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

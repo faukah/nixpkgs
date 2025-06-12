@@ -7,7 +7,6 @@
   postgresqlTestExtension,
   unstableGitUpdater,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pgjwt";
   version = "0-unstable-2023-03-02";
@@ -19,7 +18,7 @@ postgresqlBuildExtension (finalAttrs: {
     hash = "sha256-nDZEDf5+sFc1HDcG2eBNQj+kGcdAYRXJseKi9oww+JU=";
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   passthru.tests = lib.recurseIntoAttrs {
     pgjwt = nixosTests.postgresql.pgjwt.passthru.override postgresql;
@@ -40,6 +39,6 @@ postgresqlBuildExtension (finalAttrs: {
     '';
     license = lib.licenses.mit;
     platforms = postgresql.meta.platforms;
-    maintainers = with lib.maintainers; [ spinus ];
+    maintainers = with lib.maintainers; [spinus];
   };
 })

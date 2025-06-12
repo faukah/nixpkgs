@@ -7,7 +7,6 @@
   ncurses,
   fuse,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wiimms-iso-tools";
   version = "3.05a";
@@ -55,6 +54,6 @@ stdenv.mkDerivation rec {
     description = "Set of command line tools to manipulate Wii and GameCube ISO images and WBFS containers";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ nilp0inter ];
+    maintainers = with maintainers; [nilp0inter];
   };
 }

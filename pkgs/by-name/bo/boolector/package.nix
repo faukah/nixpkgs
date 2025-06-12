@@ -10,7 +10,6 @@
   gtest,
   gmp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "boolector";
   version = "3.2.3";
@@ -41,18 +40,22 @@ stdenv.mkDerivation rec {
     gmp
   ];
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-    "-DUSE_LINGELING=YES"
-    "-DBtor2Tools_INCLUDE_DIR=${btor2tools.dev}/include/btor2parser"
-  ] ++ (lib.optional (gmp != null) "-DUSE_GMP=YES");
+  cmakeFlags =
+    [
+      "-DBUILD_SHARED_LIBS=ON"
+      "-DUSE_LINGELING=YES"
+      "-DBtor2Tools_INCLUDE_DIR=${btor2tools.dev}/include/btor2parser"
+    ]
+    ++ (lib.optional (gmp != null) "-DUSE_GMP=YES");
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
   doCheck = true;
-  preCheck =
-    let
-      var = if stdenv.hostPlatform.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
-    in
+  preCheck = let
+    var =
+      if stdenv.hostPlatform.isDarwin
+      then "DYLD_LIBRARY_PATH"
+      else "LD_LIBRARY_PATH";
+  in
     # tests modelgen and modelgensmt2 spawn boolector in another processes and
     # macOS strips DYLD_LIBRARY_PATH, hardcode it for testing
     lib.optionalString stdenv.hostPlatform.isDarwin ''
@@ -80,6 +83,6 @@ stdenv.mkDerivation rec {
     homepage = "https://boolector.github.io";
     license = licenses.mit;
     platforms = with platforms; linux ++ darwin;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

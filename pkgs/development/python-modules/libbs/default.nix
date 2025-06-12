@@ -17,7 +17,6 @@
   tqdm,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "libbs";
   version = "2.13.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-QNiI8qNqh3DlYoGcfExu5PXK1FHXRmcyefMsAfpOMy0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     filelock
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "libbs" ];
+  pythonImportsCheck = ["libbs"];
 
   disabledTests = [
     "test_change_watcher_plugin_cli"
@@ -64,6 +63,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/binsync/libbs";
     changelog = "https://github.com/binsync/libbs/releases/tag/${src.tag}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ scoder12 ];
+    maintainers = with lib.maintainers; [scoder12];
   };
 }

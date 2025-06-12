@@ -10,7 +10,6 @@
   lxml-html-clean,
   timeout-decorator,
 }:
-
 buildPythonPackage rec {
   pname = "readability-lxml";
   version = "0.8.1";
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     description = "Fast python port of arc90's readability tool";
     homepage = "https://github.com/buriy/python-readability";
     license = licenses.asl20;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
   };
 }

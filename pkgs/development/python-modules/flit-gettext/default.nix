@@ -3,20 +3,16 @@
   buildPythonPackage,
   fetchFromGitHub,
   replaceVars,
-
   # build-system
   flit-scm,
   wheel,
-
   # dependencies
   flit-core,
   gettext,
-
   # tests
   build,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flit-gettext";
   version = "1.0.0";
@@ -44,17 +40,19 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ flit-core ];
+  propagatedBuildInputs = [flit-core];
 
   optional-dependencies = {
-    scm = [ flit-scm ];
+    scm = [flit-scm];
   };
 
-  nativeCheckInputs = [
-    build
-    pytestCheckHook
-    wheel
-  ] ++ optional-dependencies.scm;
+  nativeCheckInputs =
+    [
+      build
+      pytestCheckHook
+      wheel
+    ]
+    ++ optional-dependencies.scm;
 
   disabledTests = [
     # tests for missing msgfmt, but we always provide it
@@ -67,12 +65,12 @@ buildPythonPackage rec {
     "tests/test_scm.py"
   ];
 
-  pythonImportsCheck = [ "flit_gettext" ];
+  pythonImportsCheck = ["flit_gettext"];
 
   meta = with lib; {
     description = "Compiling gettext i18n messages during project bundling";
     homepage = "https://github.com/codingjoe/flit-gettext";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

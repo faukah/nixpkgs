@@ -4,11 +4,10 @@
   fetchFromGitHub,
   ncurses,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dijo";
   version = "0.2.7";
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
   src = fetchFromGitHub {
     owner = "NerdyPepper";
     repo = "dijo";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Scriptable, curses-based, digital habit tracker";
     homepage = "https://github.com/NerdyPepper/dijo";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "dijo";
   };
 }

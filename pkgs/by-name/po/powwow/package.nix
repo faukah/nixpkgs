@@ -4,7 +4,6 @@
   fetchurl,
   ncurses,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "powwow";
   version = "1.2.23";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.hoopajoo.net/projects/powwow.html";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     mainProgram = "powwow";
   };
 })

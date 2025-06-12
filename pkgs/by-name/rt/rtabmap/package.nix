@@ -3,13 +3,11 @@
   stdenv,
   fetchFromGitHub,
   fetchpatch,
-
   # nativeBuildInputs
   cmake,
   libsForQt5,
   pkg-config,
   wrapGAppsHook3,
-
   # buildInputs
   opencv,
   pcl,
@@ -31,11 +29,9 @@
   vtkWithQt5,
   zed-open-capture,
   hidapi,
-
   # passthru
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rtabmap";
   version = "0.21.13";
@@ -101,7 +97,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -109,7 +105,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://introlab.github.io/rtabmap/";
     changelog = "https://github.com/introlab/rtabmap/releases/tag/${finalAttrs.version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ marius851000 ];
+    maintainers = with lib.maintainers; [marius851000];
     platforms = with lib.platforms; linux;
   };
 })

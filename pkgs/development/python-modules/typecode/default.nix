@@ -14,7 +14,6 @@
   pytest-xdist,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "typecode";
   version = "30.0.2";
@@ -68,13 +67,13 @@ buildPythonPackage rec {
     "test_compiled_elf_so_2"
   ];
 
-  pythonImportsCheck = [ "typecode" ];
+  pythonImportsCheck = ["typecode"];
 
   meta = with lib; {
     description = "Comprehensive filetype and mimetype detection using libmagic and Pygments";
     homepage = "https://github.com/aboutcode-org/typecode";
     changelog = "https://github.com/aboutcode-org/typecode/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

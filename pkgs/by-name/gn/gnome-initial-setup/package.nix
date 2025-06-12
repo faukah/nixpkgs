@@ -34,7 +34,6 @@
   gnome-tecla,
   gsettings-desktop-schemas,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-initial-setup";
   version = "48.1";
@@ -91,7 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-initial-setup"; };
+    updateScript = gnome.updateScript {packageName = "gnome-initial-setup";};
   };
 
   meta = with lib; {
@@ -100,6 +99,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/blob/${finalAttrs.version}/NEWS?ref_type=tags";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 })

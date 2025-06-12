@@ -1,22 +1,14 @@
 # CFS Zen Tweaks
-
 {
   config,
   pkgs,
   lib,
   ...
-}:
-
-let
-
+}: let
   cfg = config.programs.cfs-zen-tweaks;
-
-in
-
-{
-
+in {
   meta = {
-    maintainers = with lib.maintainers; [ mkg20001 ];
+    maintainers = with lib.maintainers; [mkg20001];
   };
 
   options = {
@@ -24,7 +16,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.packages = [ pkgs.cfs-zen-tweaks ];
+    systemd.packages = [pkgs.cfs-zen-tweaks];
 
     systemd.services.set-cfs-tweaks.wantedBy = [
       "multi-user.target"

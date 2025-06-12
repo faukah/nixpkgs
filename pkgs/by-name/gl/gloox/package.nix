@@ -9,7 +9,6 @@
   idnSupport ? true,
   libidn,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gloox";
   version = "1.0.28";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs =
-    [ ]
+    []
     ++ lib.optional zlibSupport zlib
     ++ lib.optional sslSupport openssl
     ++ lib.optional idnSupport libidn;
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     mainProgram = "gloox-config";
     homepage = "http://camaya.net/gloox";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

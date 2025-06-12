@@ -18,7 +18,6 @@
   wayland,
   layer-shell-qt,
 }:
-
 mkDerivation {
   pname = "kscreenlocker";
   nativeBuildInputs = [

@@ -7,7 +7,6 @@
   qtbase,
   qtmultimedia,
 }:
-
 stdenv.mkDerivation {
   pname = "qmltermwidget";
   version = "unstable-2022-01-09";
@@ -62,6 +61,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Swordfish90/qmltermwidget";
     license = lib.licenses.gpl2Plus;
     platforms = with lib.platforms; linux ++ darwin;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
   };
 }

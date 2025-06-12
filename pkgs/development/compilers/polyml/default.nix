@@ -6,7 +6,6 @@
   gmp,
   libffi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "polyml";
   version = "5.9.1";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     gmp
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags = [
     "--enable-shared"

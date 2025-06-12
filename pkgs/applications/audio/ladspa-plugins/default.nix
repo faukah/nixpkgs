@@ -10,7 +10,6 @@
   pkg-config,
   perlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "swh-plugins";
   version = "0.4.17";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     homepage = "http://plugin.org.uk/";
     description = "LADSPA format audio plugins";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.unix;
   };
 }

@@ -4,15 +4,12 @@
   pkgs,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.artalk;
-  settingsFormat = pkgs.formats.json { };
-in
-{
-
+  settingsFormat = pkgs.formats.json {};
+in {
   meta = {
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
   };
 
   options = {
@@ -45,7 +42,7 @@ in
         description = "Artalk group name.";
       };
 
-      package = lib.mkPackageOption pkgs "artalk" { };
+      package = lib.mkPackageOption pkgs "artalk" {};
       settings = lib.mkOption {
         type = lib.types.submodule {
           freeformType = settingsFormat.type;
@@ -66,7 +63,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         description = ''
           The artalk configuration.
 
@@ -86,32 +83,31 @@ in
       isSystemUser = true;
       group = cfg.group;
     };
-    users.groups.artalk = lib.optionalAttrs (cfg.group == "artalk") { };
+    users.groups.artalk = lib.optionalAttrs (cfg.group == "artalk") {};
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.artalk = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       preStart =
         ''
           umask 0077
           ${utils.genJqSecretsReplacementSnippet cfg.settings "/run/artalk/new"}
         ''
         + (
-          if cfg.allowModify then
-            ''
-              [ -e "${cfg.configFile}" ] || ${lib.getExe cfg.package} gen config "${cfg.configFile}"
-              cat "${cfg.configFile}" | ${lib.getExe pkgs.yj} > "/run/artalk/old"
-              ${lib.getExe pkgs.jq} -s '.[0] * .[1]' "/run/artalk/old" "/run/artalk/new" > "/run/artalk/result"
-              cat "/run/artalk/result" | ${lib.getExe pkgs.yj} -r > "${cfg.configFile}"
-              rm /run/artalk/{old,new,result}
-            ''
-          else
-            ''
-              cat /run/artalk/new | ${lib.getExe pkgs.yj} -r > "${cfg.configFile}"
-              rm /run/artalk/new
-            ''
+          if cfg.allowModify
+          then ''
+            [ -e "${cfg.configFile}" ] || ${lib.getExe cfg.package} gen config "${cfg.configFile}"
+            cat "${cfg.configFile}" | ${lib.getExe pkgs.yj} > "/run/artalk/old"
+            ${lib.getExe pkgs.jq} -s '.[0] * .[1]' "/run/artalk/old" "/run/artalk/new" > "/run/artalk/result"
+            cat "/run/artalk/result" | ${lib.getExe pkgs.yj} -r > "${cfg.configFile}"
+            rm /run/artalk/{old,new,result}
+          ''
+          else ''
+            cat /run/artalk/new | ${lib.getExe pkgs.yj} -r > "${cfg.configFile}"
+            rm /run/artalk/new
+          ''
         );
       serviceConfig = {
         User = cfg.user;
@@ -120,10 +116,10 @@ in
         ExecStart = "${lib.getExe cfg.package} server --config ${cfg.configFile} --workdir ${cfg.workdir} --host ${cfg.settings.host} --port ${builtins.toString cfg.settings.port}";
         Restart = "on-failure";
         RestartSec = "5s";
-        ConfigurationDirectory = [ "artalk" ];
-        StateDirectory = [ "artalk" ];
-        RuntimeDirectory = [ "artalk" ];
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+        ConfigurationDirectory = ["artalk"];
+        StateDirectory = ["artalk"];
+        RuntimeDirectory = ["artalk"];
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
         ProtectHome = "yes";
       };
     };

@@ -4,9 +4,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.networking.resolvconf;
 
   resolvconfOptions =
@@ -36,26 +34,27 @@ let
       name_servers='127.0.0.1${lib.optionalString config.networking.enableIPv6 " ::1"}'
     ''
     + cfg.extraConfig;
-
-in
-
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "networking" "dnsSingleRequest" ]
-      [ "networking" "resolvconf" "dnsSingleRequest" ]
+    (
+      lib.mkRenamedOptionModule
+      ["networking" "dnsSingleRequest"]
+      ["networking" "resolvconf" "dnsSingleRequest"]
     )
-    (lib.mkRenamedOptionModule
-      [ "networking" "dnsExtensionMechanism" ]
-      [ "networking" "resolvconf" "dnsExtensionMechanism" ]
+    (
+      lib.mkRenamedOptionModule
+      ["networking" "dnsExtensionMechanism"]
+      ["networking" "resolvconf" "dnsExtensionMechanism"]
     )
-    (lib.mkRenamedOptionModule
-      [ "networking" "extraResolvconfConf" ]
-      [ "networking" "resolvconf" "extraConfig" ]
+    (
+      lib.mkRenamedOptionModule
+      ["networking" "extraResolvconfConf"]
+      ["networking" "resolvconf" "extraConfig"]
     )
-    (lib.mkRenamedOptionModule
-      [ "networking" "resolvconfOptions" ]
-      [ "networking" "resolvconf" "extraOptions" ]
+    (
+      lib.mkRenamedOptionModule
+      ["networking" "resolvconfOptions"]
+      ["networking" "resolvconf" "extraOptions"]
     )
     (lib.mkRemovedOptionModule [
       "networking"
@@ -65,9 +64,7 @@ in
   ];
 
   options = {
-
     networking.resolvconf = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = !(config.environment.etc ? "resolv.conf");
@@ -125,7 +122,7 @@ in
 
       extraOptions = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         example = [
           "ndots:1"
           "rotate"
@@ -145,47 +142,45 @@ in
 
       subscriberFiles = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = ''
           Files written by resolvconf updates
         '';
         internal = true;
       };
-
     };
-
   };
 
   config = lib.mkMerge [
     {
       environment.etc."resolvconf.conf".text =
-        if !cfg.enable then
+        if !cfg.enable
+        then
           # Force-stop any attempts to use resolvconf
           ''
             echo "resolvconf is disabled on this system but was used anyway:" >&2
             echo "$0 $*" >&2
             exit 1
           ''
-        else
-          configText;
+        else configText;
     }
 
     (lib.mkIf cfg.enable {
-      users.groups.resolvconf = { };
+      users.groups.resolvconf = {};
 
-      networking.resolvconf.subscriberFiles = [ "/etc/resolv.conf" ];
+      networking.resolvconf.subscriberFiles = ["/etc/resolv.conf"];
 
       networking.resolvconf.package = pkgs.openresolv;
 
-      environment.systemPackages = [ cfg.package ];
+      environment.systemPackages = [cfg.package];
 
       systemd.services.resolvconf = {
         description = "resolvconf update";
 
-        before = [ "network-pre.target" ];
-        wants = [ "network-pre.target" ];
-        wantedBy = [ "multi-user.target" ];
-        restartTriggers = [ config.environment.etc."resolvconf.conf".source ];
+        before = ["network-pre.target"];
+        wants = ["network-pre.target"];
+        wantedBy = ["multi-user.target"];
+        restartTriggers = [config.environment.etc."resolvconf.conf".source];
         serviceConfig.Type = "oneshot";
         serviceConfig.RemainAfterExit = true;
 
@@ -199,8 +194,6 @@ in
             /run/resolvconf
         '';
       };
-
     })
   ];
-
 }

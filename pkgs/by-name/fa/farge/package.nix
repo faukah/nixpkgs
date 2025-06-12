@@ -11,11 +11,9 @@
   slurp,
   wl-clipboard,
   xcolor,
-
   waylandSupport ? true,
   x11Support ? true,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "farge";
   version = "1.0.9";
@@ -27,7 +25,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-vCMuFMGcI4D4EzbSsXeNGKNS6nBFkfTcAmSzb9UMArc=";
   };
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   # Ensure the following programs are found within $PATH
   wrapperPath = lib.makeBinPath (
@@ -36,7 +34,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       feh
       libnotify # notify-send
       # Needed to fix font rendering issue in imagemagick
-      (imagemagick.override { ghostscriptSupport = true; })
+      (imagemagick.override {ghostscriptSupport = true;})
     ]
     ++ lib.optionals waylandSupport [
       grim

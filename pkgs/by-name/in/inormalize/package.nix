@@ -8,7 +8,6 @@
   libminc,
   ebtks,
 }:
-
 stdenv.mkDerivation {
   pname = "inormalize";
   version = "unstable-2014-10-21";
@@ -58,7 +57,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://github.com/BIC-MNI/inormalize";
     description = "Program to normalize intensity of MINC files";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.free;
   };

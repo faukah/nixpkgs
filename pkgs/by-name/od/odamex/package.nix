@@ -10,7 +10,6 @@
   SDL_net,
   wxGTK32,
 }:
-
 stdenv.mkDerivation rec {
   pname = "odamex";
   version = "0.9.5";
@@ -38,16 +37,15 @@ stdenv.mkDerivation rec {
       runHook preInstall
     ''
     + (
-      if stdenv.hostPlatform.isDarwin then
-        ''
-          mkdir -p $out/{Applications,bin}
-          mv odalaunch/odalaunch.app $out/Applications
-          makeWrapper $out/{Applications/odalaunch.app/Contents/MacOS,bin}/odalaunch
-        ''
-      else
-        ''
-          make install
-        ''
+      if stdenv.hostPlatform.isDarwin
+      then ''
+        mkdir -p $out/{Applications,bin}
+        mv odalaunch/odalaunch.app $out/Applications
+        makeWrapper $out/{Applications/odalaunch.app/Contents/MacOS,bin}/odalaunch
+      ''
+      else ''
+        make install
+      ''
     )
     + ''
       runHook postInstall
@@ -58,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "Client/server port for playing old-school Doom online";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

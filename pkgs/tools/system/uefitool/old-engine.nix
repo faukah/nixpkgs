@@ -7,7 +7,6 @@
   cmake,
   zip,
 }:
-
 mkDerivation rec {
   pname = "uefitool";
   version = "0.28.0";
@@ -19,7 +18,7 @@ mkDerivation rec {
     tag = version;
   };
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
   nativeBuildInputs = [
     qmake
     cmake
@@ -40,7 +39,7 @@ mkDerivation rec {
     description = "UEFI firmware image viewer and editor";
     homepage = "https://github.com/LongSoft/uefitool";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ athre0z ];
+    maintainers = with lib.maintainers; [athre0z];
     # uefitool supposedly works on other platforms, but their build script only works on linux in nixpkgs
     platforms = lib.platforms.linux;
     mainProgram = "UEFITool";

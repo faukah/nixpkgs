@@ -4,11 +4,9 @@
   pythonOlder,
   fetchFromGitHub,
   stdenv,
-
   glib,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "darkdetect";
   version = "0.8.0";
@@ -23,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-OOINgrgjSLr3L07E9zf1+mlTPr+7ZlgN3CfkWE8+LoE=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "darkdetect" ];
+  pythonImportsCheck = ["darkdetect"];
 
   postPatch = lib.optionalString (stdenv.hostPlatform.isLinux) ''
     substituteInPlace darkdetect/_linux_detect.py \
@@ -36,6 +34,6 @@ buildPythonPackage rec {
     description = "Detect OS Dark Mode from Python";
     homepage = "https://github.com/albertosottile/darkdetect";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

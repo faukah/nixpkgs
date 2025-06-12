@@ -8,7 +8,6 @@
   sqlite,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.0.10";
   pname = "glyr";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Music related metadata searchengine";
     homepage = "https://github.com/sahib/glyr";
     license = licenses.lgpl3;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     mainProgram = "glyrc";
     platforms = platforms.unix;
   };

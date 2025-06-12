@@ -29,7 +29,7 @@ stdenvNoCC.mkDerivation {
     # Awaiting upstream response (gkovacs/rime-japanese#6)
     # Packages are assumed unfree unless explicitly indicated otherwise
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ pluiedev ];
+    maintainers = with lib.maintainers; [pluiedev];
     platforms = lib.platforms.all;
   };
 }

@@ -8,7 +8,6 @@
   testers,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zunit";
   version = "0.8.2";
@@ -29,7 +28,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     zsh
     installShellFiles
   ];
-  nativeCheckInputs = [ revolver ];
+  nativeCheckInputs = [revolver];
   buildInputs = [
     zsh
     revolver
@@ -79,8 +78,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
-    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -91,6 +90,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "zunit";
     inherit (zsh.meta) platforms;
-    maintainers = with lib.maintainers; [ d-brasher ];
+    maintainers = with lib.maintainers; [d-brasher];
   };
 })

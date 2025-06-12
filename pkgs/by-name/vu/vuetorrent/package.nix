@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "vuetorrent";
   version = "2.24.2";
@@ -27,7 +26,7 @@ buildNpmPackage rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Full-featured BitTorrent client written in Vue";
@@ -35,6 +34,6 @@ buildNpmPackage rec {
     changelog = "https://github.com/VueTorrent/VueTorrent/releases/tag/${src.tag}";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ redxtech ];
+    maintainers = with lib.maintainers; [redxtech];
   };
 }

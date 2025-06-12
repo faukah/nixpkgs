@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "encpipe";
   version = "0.5";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     description = "Encryption tool";
     homepage = "https://github.com/jedisct1/encpipe";
     license = licenses.isc;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "encpipe";
   };
 }

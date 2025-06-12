@@ -12,7 +12,6 @@
   boost,
   libiberty,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.5.3";
   pname = "grive2";

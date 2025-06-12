@@ -7,7 +7,6 @@
   version,
   sha256,
 }:
-
 stdenv.mkDerivation {
   inherit version;
   pname = "vimpager";
@@ -20,8 +19,8 @@ stdenv.mkDerivation {
     rev = version;
   };
 
-  nativeBuildInputs = [ sharutils ]; # for uuencode
-  buildInputs = [ coreutils ];
+  nativeBuildInputs = [sharutils]; # for uuencode
+  buildInputs = [coreutils];
 
   makeFlags = [
     "PREFIX=$(out)"

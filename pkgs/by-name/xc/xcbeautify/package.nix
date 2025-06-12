@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xcbeautify";
   version = "2.27.0";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   unpackPhase = ''
     unzip $src
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mit;
     platforms = lib.platforms.darwin;
     mainProgram = "xcbeautify";
-    maintainers = with lib.maintainers; [ siddarthkay ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [siddarthkay];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 }

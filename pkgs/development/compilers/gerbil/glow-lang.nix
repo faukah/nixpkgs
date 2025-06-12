@@ -5,9 +5,7 @@
   gerbilPackages,
   gerbil,
   ...
-}:
-
-rec {
+}: rec {
   pname = "glow-lang";
   version = "unstable-2023-12-04";
   git-version = "0.3.2-237-g08d849ad";
@@ -49,7 +47,7 @@ rec {
     ORIG_GERBIL_PATH="\$GERBIL_PATH"
     ORIG_GERBIL_HOME="\$GERBIL_HOME"
     unset GERBIL_HOME
-    GERBIL_LOADPATH="${gerbil-support.gerbilLoadPath ([ "$out" ] ++ gerbilInputs)}"
+    GERBIL_LOADPATH="${gerbil-support.gerbilLoadPath (["$out"] ++ gerbilInputs)}"
     GLOW_SOURCE="\''${GLOW_SOURCE:-$out/share/glow}"
     GERBIL_PATH="\$HOME/.cache/glow/gerbil"
     export GERBIL_PATH GERBIL_LOADPATH GLOW_SOURCE ORIG_GERBIL_PATH ORIG_GERBIL_LOADPATH ORIG_GERBIL_HOME
@@ -63,7 +61,7 @@ rec {
     homepage = "https://glow-lang.org";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fare ];
+    maintainers = with maintainers; [fare];
     broken = true; # Broken for all platforms since 2023-10-13
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mieru";
   version = "3.16.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     description = "Socks5 / HTTP / HTTPS proxy to bypass censorship";
     homepage = "https://github.com/enfein/mieru";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ oluceps ];
+    maintainers = with lib.maintainers; [oluceps];
     mainProgram = "mieru";
   };
 }

@@ -10,7 +10,6 @@
   xdotool,
   importlib-metadata,
 }:
-
 buildPythonApplication rec {
   pname = "i3-resurrect";
   version = "1.4.5";
@@ -37,6 +36,6 @@ buildPythonApplication rec {
     mainProgram = "i3-resurrect";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
   };
 }

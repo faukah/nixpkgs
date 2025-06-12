@@ -11,7 +11,6 @@
   pkgsBuildBuild,
   readline,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guile";
   version = "1.8.8";
@@ -37,9 +36,11 @@ stdenv.mkDerivation rec {
     # pthreads, which work only in native builds.
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "--with-threads=no";
 
-  depsBuildBuild = [
-    buildPackages.stdenv.cc
-  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) pkgsBuildBuild.guile_1_8;
+  depsBuildBuild =
+    [
+      buildPackages.stdenv.cc
+    ]
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) pkgsBuildBuild.guile_1_8;
   nativeBuildInputs = [
     makeWrapper
     pkg-config
@@ -108,7 +109,7 @@ stdenv.mkDerivation rec {
       foreign function call interface, and powerful string processing.
     '';
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ ludo ];
+    maintainers = with maintainers; [ludo];
     platforms = platforms.all;
   };
 }

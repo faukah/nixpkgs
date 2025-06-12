@@ -37,7 +37,6 @@
   opencolorio,
   color-transformation-language,
 }:
-
 stdenv.mkDerivation rec {
   pname = "art";
   version = "1.25.5";
@@ -108,7 +107,7 @@ stdenv.mkDerivation rec {
     description = "Raw converter based on RawTherapee";
     homepage = "https://art.pixls.us";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ paperdigits ];
+    maintainers = with lib.maintainers; [paperdigits];
     mainProgram = "art";
     platforms = lib.platforms.linux;
   };

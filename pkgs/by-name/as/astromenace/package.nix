@@ -18,7 +18,6 @@
   libvorbis,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "astromenace";
   version = "1.4.3";
@@ -74,6 +73,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     mainProgram = "astromenace";
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

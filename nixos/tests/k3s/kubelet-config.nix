@@ -5,47 +5,43 @@ import ../make-test-python.nix (
     lib,
     k3s,
     ...
-  }:
-  let
+  }: let
     nodeName = "test";
     shutdownGracePeriod = "1m13s";
     shutdownGracePeriodCriticalPods = "13s";
     podsPerCore = 3;
     memoryThrottlingFactor = 0.69;
     containerLogMaxSize = "5Mi";
-  in
-  {
+  in {
     name = "${k3s.name}-kubelet-config";
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = [ pkgs.jq ];
+    nodes.machine = {pkgs, ...}: {
+      environment.systemPackages = [pkgs.jq];
 
-        # k3s uses enough resources the default vm fails.
-        virtualisation.memorySize = 1536;
-        virtualisation.diskSize = 4096;
+      # k3s uses enough resources the default vm fails.
+      virtualisation.memorySize = 1536;
+      virtualisation.diskSize = 4096;
 
-        services.k3s = {
+      services.k3s = {
+        enable = true;
+        package = k3s;
+        # Slightly reduce resource usage
+        extraFlags = [
+          "--disable coredns"
+          "--disable local-storage"
+          "--disable metrics-server"
+          "--disable servicelb"
+          "--disable traefik"
+          "--node-name ${nodeName}"
+        ];
+        gracefulNodeShutdown = {
           enable = true;
-          package = k3s;
-          # Slightly reduce resource usage
-          extraFlags = [
-            "--disable coredns"
-            "--disable local-storage"
-            "--disable metrics-server"
-            "--disable servicelb"
-            "--disable traefik"
-            "--node-name ${nodeName}"
-          ];
-          gracefulNodeShutdown = {
-            enable = true;
-            inherit shutdownGracePeriod shutdownGracePeriodCriticalPods;
-          };
-          extraKubeletConfig = {
-            inherit podsPerCore memoryThrottlingFactor containerLogMaxSize;
-          };
+          inherit shutdownGracePeriod shutdownGracePeriodCriticalPods;
+        };
+        extraKubeletConfig = {
+          inherit podsPerCore memoryThrottlingFactor containerLogMaxSize;
         };
       };
+    };
 
     testScript = ''
       import json

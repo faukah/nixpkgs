@@ -4,7 +4,6 @@
   fetchurl,
   cppo,
 }:
-
 buildDunePackage rec {
   pname = "merlin-extend";
   version = "0.6.2";
@@ -14,12 +13,12 @@ buildDunePackage rec {
     hash = "sha256-R1WOfzC2RGLyucgvt/eHEzrPoNUTJFK2rXhI4LD013k=";
   };
 
-  nativeBuildInputs = [ cppo ];
+  nativeBuildInputs = [cppo];
 
   meta = with lib; {
     homepage = "https://github.com/let-def/merlin-extend";
     description = "SDK to extend Merlin";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

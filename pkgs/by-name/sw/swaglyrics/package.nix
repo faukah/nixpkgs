@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ncurses,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "swaglyrics";
   version = "unstable-2021-06-17";
@@ -31,8 +30,7 @@ python3.pkgs.buildPythonApplication {
     unidecode
   ];
 
-  nativeCheckInputs =
-    with python3.pkgs;
+  nativeCheckInputs = with python3.pkgs;
     [
       blinker
       flask
@@ -65,7 +63,7 @@ python3.pkgs.buildPythonApplication {
     description = "Lyrics fetcher for currently playing Spotify song";
     homepage = "https://github.com/SwagLyrics/SwagLyrics-For-Spotify";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     mainProgram = "swaglyrics";
   };
 }

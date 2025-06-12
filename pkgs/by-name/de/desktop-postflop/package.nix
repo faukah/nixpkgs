@@ -10,7 +10,6 @@
   libsoup_2_4,
   webkitgtk_4_0,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "desktop-postflop";
   version = "0.2.7";
@@ -69,7 +68,7 @@ rustPlatform.buildRustPackage rec {
       icon = "desktop-postflop";
       desktopName = "Desktop Postflop";
       comment = meta.description;
-      categories = [ "Utility" ];
+      categories = ["Utility"];
       terminal = false;
     })
   ];
@@ -80,6 +79,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/b-inary/desktop-postflop";
     license = lib.licenses.agpl3Plus;
     mainProgram = "desktop-postflop";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

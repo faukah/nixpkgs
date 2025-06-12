@@ -6,12 +6,11 @@
   libXinerama,
   libXft,
   writeText,
-  patches ? [ ],
+  patches ? [],
   conf ? null,
   # update script dependencies
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dwm";
   version = "6.5";
@@ -35,14 +34,15 @@ stdenv.mkDerivation rec {
   inherit patches;
 
   # Allow users to set the config.def.h file containing the configuration
-  postPatch =
-    let
-      configFile =
-        if lib.isDerivation conf || builtins.isPath conf then conf else writeText "config.def.h" conf;
-    in
+  postPatch = let
+    configFile =
+      if lib.isDerivation conf || builtins.isPath conf
+      then conf
+      else writeText "config.def.h" conf;
+  in
     lib.optionalString (conf != null) "cp ${configFile} config.def.h";
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   passthru.updateScript = gitUpdater {
     url = "git://git.suckless.org/dwm";
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       tags.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ neonfuz ];
+    maintainers = with maintainers; [neonfuz];
     platforms = platforms.all;
     mainProgram = "dwm";
   };

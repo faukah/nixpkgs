@@ -9,7 +9,6 @@
   pytestCheckHook,
   pytest-django,
 }:
-
 buildPythonPackage rec {
   pname = "django-json-widget";
   version = "2.0.1";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-GY6rYY//n8kkWCJZk6OY+EOBv62ocNovNmE/ai8VCn4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
   nativeCheckInputs = [
     pytest-django
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     export DJANGO_SETTINGS_MODULE=tests.settings
   '';
 
-  pythonImportsCheck = [ "django_json_widget" ];
+  pythonImportsCheck = ["django_json_widget"];
 
   meta = {
     description = "Alternative widget that makes it easy to edit the jsonfield field of django";
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     # Contradictory license specifications
     # https://github.com/jmrivas86/django-json-widget/issues/93
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.onny ];
+    maintainers = [lib.maintainers.onny];
   };
 }

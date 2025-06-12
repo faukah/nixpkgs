@@ -15,7 +15,6 @@
   typing-extensions,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aioguardian";
   version = "2025.02.0";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     "typing-extensions"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -59,9 +58,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [ "examples/" ];
+  disabledTestPaths = ["examples/"];
 
-  pythonImportsCheck = [ "aioguardian" ];
+  pythonImportsCheck = ["aioguardian"];
 
   meta = with lib; {
     description = " Python library to interact with Elexa Guardian devices";
@@ -71,7 +70,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/bachya/aioguardian";
     changelog = "https://github.com/bachya/aioguardian/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

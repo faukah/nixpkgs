@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "json-api-doc";
   version = "0.15.0";
@@ -26,17 +25,17 @@ buildPythonPackage rec {
       --replace-fail "'pytest-runner'," ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "json_api_doc" ];
+  pythonImportsCheck = ["json_api_doc"];
 
   meta = {
     description = "JSON API parser returning a simple Python dictionary";
     homepage = "https://github.com/julien-duponchelle/json-api-doc";
     changelog = "https://github.com/julien-duponchelle/json-api-doc/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

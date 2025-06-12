@@ -5,7 +5,6 @@
   libv4l,
   gd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fswebcam";
   version = "20200725";

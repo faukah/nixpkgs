@@ -11,7 +11,6 @@
   setuptools-scm,
   zstandard,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-btrfs";
   version = "1.7";
@@ -41,19 +40,19 @@ buildPythonPackage rec {
       python-lzo
       zstandard
     ];
-    gcrc32 = [ google-crc32c ];
+    gcrc32 = [google-crc32c];
   };
 
   # Issue with the test file handling
   doCheck = false;
 
-  pythonImportsCheck = [ "dissect.btrfs" ];
+  pythonImportsCheck = ["dissect.btrfs"];
 
   meta = with lib; {
     description = "Dissect module implementing a parser for the BTRFS file system";
     homepage = "https://github.com/fox-it/dissect.btrfs";
     changelog = "https://github.com/fox-it/dissect.btrfs/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

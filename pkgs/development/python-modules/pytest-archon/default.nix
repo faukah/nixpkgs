@@ -7,7 +7,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-archon";
   version = "0.0.6";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     pytest
   ];
 
-  pythonImportsCheck = [ "pytest_archon" ];
+  pythonImportsCheck = ["pytest_archon"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     description = "Tool that helps you structure (large) Python projects";
     homepage = "https://github.com/jwbargsten/pytest-archon";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

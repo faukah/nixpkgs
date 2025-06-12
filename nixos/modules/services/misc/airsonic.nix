@@ -4,14 +4,11 @@
   options,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.airsonic;
   opt = options.services.airsonic;
-in
-{
+in {
   options = {
-
     services.airsonic = {
       enable = lib.mkEnableOption "Airsonic, the Free and Open Source media streaming server (fork of Subsonic and Libresonic)";
 
@@ -80,7 +77,7 @@ in
 
       transcoders = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ "${pkgs.ffmpeg.bin}/bin/ffmpeg" ];
+        default = ["${pkgs.ffmpeg.bin}/bin/ffmpeg"];
         defaultText = lib.literalExpression ''[ "''${pkgs.ffmpeg.bin}/bin/ffmpeg" ]'';
         description = ''
           List of paths to transcoder executables that should be accessible
@@ -121,15 +118,14 @@ in
           "-Djavax.sound.sampled.TargetDataLine='#CODEC [plughw:1,0]'"
         ];
       };
-
     };
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.airsonic = {
       description = "Airsonic Media Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         # Install transcoders.
@@ -174,6 +170,6 @@ in
       createHome = true;
       isSystemUser = true;
     };
-    users.groups.airsonic = { };
+    users.groups.airsonic = {};
   };
 }

@@ -8,7 +8,6 @@
   qtbase,
   poppler,
 }:
-
 mkDerivation rec {
   version = "2.1.3";
   pname = "diffpdf";
@@ -68,7 +67,7 @@ mkDerivation rec {
     description = "Tool for diffing pdf files visually or textually";
     mainProgram = "diffpdf";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux;
   };
 }

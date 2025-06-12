@@ -3,27 +3,23 @@
   config,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.privatebin;
 
   customToINI = lib.generators.toINI {
     mkKeyValue = lib.generators.mkKeyValueDefault {
-      mkValueString =
-        v:
-        if v == true then
-          ''true''
-        else if v == false then
-          ''false''
-        else if builtins.isInt v then
-          ''${builtins.toString v}''
-        else if builtins.isPath v then
-          ''"${builtins.toString v}"''
-        else if builtins.isString v then
-          ''"${v}"''
-        else
-          lib.generators.mkValueStringDefault { } v;
+      mkValueString = v:
+        if v == true
+        then ''true''
+        else if v == false
+        then ''false''
+        else if builtins.isInt v
+        then ''${builtins.toString v}''
+        else if builtins.isPath v
+        then ''"${builtins.toString v}"''
+        else if builtins.isString v
+        then ''"${v}"''
+        else lib.generators.mkValueStringDefault {} v;
     } "=";
   };
 
@@ -34,12 +30,8 @@ let
 
   defaultUser = "privatebin";
   defaultGroup = "privatebin";
-
-in
-{
-
+in {
   options.services.privatebin = {
-
     enable = lib.mkEnableOption "Privatebin: A minimalist, open source online
       pastebin where the server has zero knowledge of pasted data.";
 
@@ -51,7 +43,10 @@ in
 
     group = lib.mkOption {
       type = lib.types.str;
-      default = if cfg.enableNginx then "nginx" else defaultGroup;
+      default =
+        if cfg.enableNginx
+        then "nginx"
+        else defaultGroup;
       defaultText = lib.literalExpression "if config.services.privatebin.enableNginx then \"nginx\" else \"${defaultGroup}\"";
       description = ''
         Group under which privatebin runs. It is best to set this to the group
@@ -67,7 +62,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "privatebin" { };
+    package = lib.mkPackageOption pkgs "privatebin" {};
 
     enableNginx = lib.mkOption {
       type = lib.types.bool;
@@ -108,7 +103,7 @@ in
           "pm.max_requests" = 500;
         }
       '';
-      default = { };
+      default = {};
       description = ''
         Options for the PrivateBin PHP pool. See the documentation on <literal>php-fpm.conf</literal>
         for details on configuration directives.
@@ -116,7 +111,7 @@ in
     };
 
     settings = lib.mkOption {
-      default = { };
+      default = {};
       description = ''
         Options for privatebin configuration. Refer to
         <https://github.com/PrivateBin/PrivateBin/wiki/Configuration> for
@@ -134,13 +129,13 @@ in
           model_options.dir = "/var/lib/privatebin/data";
         }
       '';
-      type = lib.types.submodule { freeformType = lib.types.attrsOf lib.types.anything; };
+      type = lib.types.submodule {freeformType = lib.types.attrsOf lib.types.anything;};
     };
   };
 
   config = lib.mkIf cfg.enable {
     services.privatebin.settings = {
-      main = lib.mkDefault { };
+      main = lib.mkDefault {};
       model.class = lib.mkDefault "Filesystem";
       model_options.dir = lib.mkDefault "${cfg.dataDir}/data";
       purge.dir = lib.mkDefault "${cfg.dataDir}/purge";
@@ -199,18 +194,18 @@ in
 
     systemd.tmpfiles.settings."10-privatebin" =
       lib.attrsets.genAttrs
-        [
-          "${cfg.dataDir}/data"
-          "${cfg.dataDir}/traffic"
-          "${cfg.dataDir}/purge"
-        ]
-        (n: {
-          d = {
-            group = group;
-            mode = "0750";
-            user = user;
-          };
-        });
+      [
+        "${cfg.dataDir}/data"
+        "${cfg.dataDir}/traffic"
+        "${cfg.dataDir}/purge"
+      ]
+      (n: {
+        d = {
+          group = group;
+          mode = "0750";
+          user = user;
+        };
+      });
 
     users = {
       users = lib.mkIf (user == defaultUser) {
@@ -221,7 +216,7 @@ in
           home = cfg.dataDir;
         };
       };
-      groups = lib.mkIf (group == defaultGroup) { ${defaultGroup} = { }; };
+      groups = lib.mkIf (group == defaultGroup) {${defaultGroup} = {};};
     };
   };
 }

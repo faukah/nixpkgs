@@ -6,7 +6,6 @@
   buildLua,
   buildGoModule,
 }:
-
 buildLua (finalAttrs: {
   pname = "uosc";
   version = "5.10.0";
@@ -18,7 +17,7 @@ buildLua (finalAttrs: {
     rev = finalAttrs.version;
     hash = "sha256-Jj88PkP7hpyUOHsz0w0TOTTdJoQ/ShgJfHg//GUuUvM=";
   };
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   tools = buildGoModule {
     pname = "uosc-bin";
@@ -33,7 +32,7 @@ buildLua (finalAttrs: {
     "--set"
     "FONTCONFIG_FILE"
     (toString (makeFontsConf {
-      fontDirectories = [ "${finalAttrs.finalPackage}/share/fonts" ];
+      fontDirectories = ["${finalAttrs.finalPackage}/share/fonts"];
     }))
     "--set"
     "MPV_UOSC_ZIGGY"
@@ -44,6 +43,6 @@ buildLua (finalAttrs: {
     description = "Feature-rich minimalist proximity-based UI for MPV player";
     homepage = "https://github.com/tomasklaen/uosc";
     license = licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ apfelkuchen6 ];
+    maintainers = with lib.maintainers; [apfelkuchen6];
   };
 })

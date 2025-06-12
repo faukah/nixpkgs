@@ -4,7 +4,6 @@
   fetchFromGitHub,
   menhir,
 }:
-
 buildDunePackage rec {
   pname = "odate";
   version = "0.7";
@@ -18,13 +17,12 @@ buildDunePackage rec {
     sha256 = "sha256-C11HpftrYOCVyWT31wrqo8FVZuP7mRUkRv5IDeAZ+To=";
   };
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
 
   meta = {
     description = "Date and duration in OCaml";
     inherit (src.meta) homepage;
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

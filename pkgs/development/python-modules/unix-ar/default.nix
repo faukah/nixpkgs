@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "unix-ar";
   version = "0.2.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     description = "AR file handling for Python (including .deb files)";
     homepage = "https://github.com/getninjas/unix_ar";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ tirimia ];
+    maintainers = with maintainers; [tirimia];
     platforms = with platforms; linux ++ darwin;
   };
 }

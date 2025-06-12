@@ -10,7 +10,6 @@
   setuptools-scm,
   isPy27,
 }:
-
 buildPythonPackage rec {
   pname = "matchpy";
   version = "0.5.5"; # Don't upgrade to 4.3.1, this tag is very old
@@ -40,7 +39,7 @@ buildPythonPackage rec {
       --replace "multiset>=2.0,<3.0" "multiset"
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     hopcroftkarp
@@ -52,12 +51,12 @@ buildPythonPackage rec {
     hypothesis
   ];
 
-  pythonImportsCheck = [ "matchpy" ];
+  pythonImportsCheck = ["matchpy"];
 
   meta = with lib; {
     description = "Library for pattern matching on symbolic expressions";
     homepage = "https://github.com/HPAC/matchpy";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   khard,
   testers,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   version = "0.19.1";
   pname = "khard";
@@ -22,7 +21,7 @@ python3.pkgs.buildPythonApplication rec {
     sphinx-autodoc-typehints
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   propagatedBuildInputs = with python3.pkgs; [
     atomicwrites
@@ -41,15 +40,15 @@ python3.pkgs.buildPythonApplication rec {
     export COLUMNS=80
   '';
 
-  pythonImportsCheck = [ "khard" ];
+  pythonImportsCheck = ["khard"];
 
-  passthru.tests.version = testers.testVersion { package = khard; };
+  passthru.tests.version = testers.testVersion {package = khard;};
 
   meta = {
     homepage = "https://github.com/scheibler/khard";
     description = "Console carddav client";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ matthiasbeyer ];
+    maintainers = with lib.maintainers; [matthiasbeyer];
     mainProgram = "khard";
   };
 }

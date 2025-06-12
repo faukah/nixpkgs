@@ -2,13 +2,10 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   yarnConfigHook,
   fetchYarnDeps,
   nodejs,
-
   setuptools,
-
   flask,
   werkzeug,
   plotly,
@@ -20,20 +17,17 @@
   requests,
   retrying,
   nest-asyncio,
-
   celery,
   redis,
   diskcache,
   multiprocess,
   psutil,
   flask-compress,
-
   pytestCheckHook,
   pytest-mock,
   mock,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "dash";
   version = "3.0.4";
@@ -72,7 +66,7 @@ buildPythonPackage rec {
     popd
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     flask
@@ -103,7 +97,7 @@ buildPythonPackage rec {
       multiprocess
       psutil
     ];
-    compress = [ flask-compress ];
+    compress = [flask-compress];
   };
 
   nativeCheckInputs = [
@@ -119,7 +113,7 @@ buildPythonPackage rec {
     "tests/integration"
   ];
 
-  pythonImportsCheck = [ "dash" ];
+  pythonImportsCheck = ["dash"];
 
   meta = {
     changelog = "https://github.com/plotly/dash/blob/${src.tag}/CHANGELOG.md";

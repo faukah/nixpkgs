@@ -18,7 +18,6 @@
   twisted,
   typer,
 }:
-
 buildPythonPackage rec {
   pname = "pymodbus";
   version = "3.9.2";
@@ -31,23 +30,25 @@ buildPythonPackage rec {
     hash = "sha256-nzaIE8ZBIwo6ZChYBzQzMndCM/hOwCVKepkUACn8e80=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
-    repl = [ pymodbus-repl ];
-    serial = [ pyserial ];
-    simulator = [ aiohttp ];
+    repl = [pymodbus-repl];
+    serial = [pyserial];
+    simulator = [aiohttp];
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-cov-stub
-    pytest-xdist
-    pytestCheckHook
-    redis
-    sqlalchemy
-    twisted
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytest-cov-stub
+      pytest-xdist
+      pytestCheckHook
+      redis
+      sqlalchemy
+      twisted
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   preCheck = ''
     pushd test
@@ -57,7 +58,7 @@ buildPythonPackage rec {
     popd
   '';
 
-  pythonImportsCheck = [ "pymodbus" ];
+  pythonImportsCheck = ["pymodbus"];
 
   disabledTests =
     [
@@ -80,8 +81,8 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/pymodbus-dev/pymodbus";
     changelog = "https://github.com/pymodbus-dev/pymodbus/releases/tag/v${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
     mainProgram = "pymodbus.simulator";
   };
 }

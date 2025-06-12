@@ -1,5 +1,7 @@
-{ requireFile, callPackage }:
-
+{
+  requireFile,
+  callPackage,
+}:
 callPackage ./runtime-build.nix rec {
   version = "20.5.445";
   eulaDate = "2021-10-13";

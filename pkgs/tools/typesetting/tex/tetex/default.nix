@@ -10,7 +10,6 @@
   ed,
   automake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tetex";
   version = "3.0";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     ed
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # fixes "error: conflicting types for 'calloc'", etc.
   preBuild = lib.optionalString stdenv.hostPlatform.isDarwin ''
@@ -42,12 +41,11 @@ stdenv.mkDerivation rec {
   '';
 
   preConfigure =
-    if stdenv.hostPlatform.isCygwin then
-      ''
-        find ./ -name "config.guess" -exec rm {} \; -exec ln -s ${automake}/share/automake-*/config.guess {} \;
-      ''
-    else
-      null;
+    if stdenv.hostPlatform.isCygwin
+    then ''
+      find ./ -name "config.guess" -exec rm {} \; -exec ln -s ${automake}/share/automake-*/config.guess {} \;
+    ''
+    else null;
 
   patches = [
     ./environment.patch
@@ -89,8 +87,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Full-featured (La)TeX distribution";
     homepage = "http://www.tug.org/tetex/";
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

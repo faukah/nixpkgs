@@ -1,6 +1,8 @@
-{ qtModule, qtbase }:
-
+{
+  qtModule,
+  qtbase,
+}:
 qtModule {
   pname = "qtnetworkauth";
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
 }

@@ -11,7 +11,6 @@
   cudaSupport ? config.cudaSupport,
   which,
 }:
-
 buildPythonPackage rec {
   pname = "causal-conv1d";
   version = "1.5.0.post8";
@@ -30,12 +29,11 @@ buildPythonPackage rec {
     torch
   ];
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   buildInputs = (
     lib.optionals cudaSupport (
-      with cudaPackages;
-      [
+      with cudaPackages; [
         cuda_cudart # cuda_runtime.h, -lcudart
         cuda_cccl
         libcusparse # cusparse.h
@@ -51,17 +49,19 @@ buildPythonPackage rec {
   ];
 
   # pytest tests not enabled due to nvidia GPU dependency
-  pythonImportsCheck = [ "causal_conv1d" ];
+  pythonImportsCheck = ["causal_conv1d"];
 
-  env = {
-    CAUSAL_CONV1D_FORCE_BUILD = "TRUE";
-  } // lib.optionalAttrs cudaSupport { CUDA_HOME = "${lib.getDev cudaPackages.cuda_nvcc}"; };
+  env =
+    {
+      CAUSAL_CONV1D_FORCE_BUILD = "TRUE";
+    }
+    // lib.optionalAttrs cudaSupport {CUDA_HOME = "${lib.getDev cudaPackages.cuda_nvcc}";};
 
   meta = with lib; {
     description = "Causal depthwise conv1d in CUDA with a PyTorch interface";
     homepage = "https://github.com/Dao-AILab/causal-conv1d";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ cfhammill ];
+    maintainers = with maintainers; [cfhammill];
     # The package requires CUDA or ROCm, the ROCm build hasn't
     # been completed or tested, so broken if not using cuda.
     broken = !cudaSupport;

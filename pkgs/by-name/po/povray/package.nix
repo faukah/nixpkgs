@@ -15,7 +15,6 @@
   pkg-config,
   SDL2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "povray";
   version = "3.8.0-beta.2";
@@ -86,6 +85,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.free;
     platforms = lib.platforms.linux;
     mainProgram = "povray";
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
   };
 })

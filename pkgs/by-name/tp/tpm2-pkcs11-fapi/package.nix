@@ -1,8 +1,4 @@
-{
-  tpm2-pkcs11,
-  ...
-}@args:
-
+{tpm2-pkcs11, ...} @ args:
 tpm2-pkcs11.override (
   args
   // {

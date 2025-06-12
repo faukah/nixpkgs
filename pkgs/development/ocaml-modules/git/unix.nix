@@ -31,7 +31,6 @@
   happy-eyeballs-lwt,
   git-mirage,
 }:
-
 buildDunePackage {
   pname = "git-unix";
   inherit (git) version src;
@@ -73,7 +72,7 @@ buildDunePackage {
     mtime
     cacert # sets up NIX_SSL_CERT_FILE
   ];
-  nativeCheckInputs = [ git-binary ];
+  nativeCheckInputs = [git-binary];
   doCheck = true;
 
   meta = {

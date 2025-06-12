@@ -6,7 +6,6 @@
   gsl,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "treemix";
   version = "1.13";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "Inference of patterns of population splitting and mixing from genome-wide allele frequency data";
     homepage = "https://bitbucket.org/nygcresearch/treemix/wiki/Home";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
     platforms = platforms.linux;
   };
 }

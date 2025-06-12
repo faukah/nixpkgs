@@ -4,7 +4,6 @@
   fetchurl,
   netcdf,
 }:
-
 buildOctavePackage rec {
   pname = "netcdf";
   version = "1.0.18";
@@ -21,7 +20,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/netcdf/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "NetCDF interface for Octave";
   };
 }

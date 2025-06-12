@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "go-audit";
   version = "1.2.0";
@@ -23,8 +22,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Alternative to the auditd daemon";
     homepage = "https://github.com/slackhq/go-audit";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
     platforms = platforms.linux;
     mainProgram = "go-audit";
   };

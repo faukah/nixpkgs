@@ -4,7 +4,6 @@
   fetchurl,
   mpfr,
 }:
-
 buildOctavePackage rec {
   pname = "interval";
   version = "3.2.1";
@@ -21,7 +20,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/interval/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Interval arithmetic to evaluate functions over subsets of their domain";
     longDescription = ''
       The interval package for real-valued interval arithmetic allows one to

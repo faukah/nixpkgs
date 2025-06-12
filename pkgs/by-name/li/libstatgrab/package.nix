@@ -5,7 +5,6 @@
   withSaidar ? true,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libstatgrab";
   version = "0.92.1";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.i-scream.org/libstatgrab/";
     description = "Library that provides cross platforms access to statistics about the running system";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl2;
     platforms = platforms.unix;
   };

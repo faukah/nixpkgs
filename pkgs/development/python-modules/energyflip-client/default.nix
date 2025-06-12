@@ -9,7 +9,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "energyflip-client";
   version = "0.2.2";
@@ -35,12 +34,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "energyflip" ];
+  pythonImportsCheck = ["energyflip"];
 
   meta = with lib; {
     description = "Library to communicate with the API behind EnergyFlip";
     homepage = "https://github.com/dennisschroer/energyflip-client";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

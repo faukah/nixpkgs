@@ -7,7 +7,6 @@
   mock,
   python-openstackclient,
 }:
-
 buildPythonPackage {
   pname = "python-manilaclient-tests";
   inherit (python-manilaclient) version src;

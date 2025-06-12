@@ -4,7 +4,6 @@
   buildPythonPackage,
   fetchFromGitHub,
   rustPlatform,
-
   # optional-dependencies
   numpy,
   torch,
@@ -19,11 +18,9 @@
   pytest,
   pytest-benchmark,
   hypothesis,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "safetensors";
   version = "0.5.2";
@@ -49,34 +46,46 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = lib.fix (self: {
-    numpy = [ numpy ];
-    torch = self.numpy ++ [
-      torch
-    ];
-    tensorflow = self.numpy ++ [
-      tensorflow
-    ];
-    pinned-tf = self.numpy ++ [
-      tensorflow
-    ];
-    jax = self.numpy ++ [
-      flax
-      jax
-    ];
+    numpy = [numpy];
+    torch =
+      self.numpy
+      ++ [
+        torch
+      ];
+    tensorflow =
+      self.numpy
+      ++ [
+        tensorflow
+      ];
+    pinned-tf =
+      self.numpy
+      ++ [
+        tensorflow
+      ];
+    jax =
+      self.numpy
+      ++ [
+        flax
+        jax
+      ];
     mlx = [
       mlx
     ];
-    paddlepaddle = self.numpy ++ [
-      paddlepaddle
-    ];
-    testing = self.numpy ++ [
-      h5py
-      huggingface-hub
-      setuptools-rust
-      pytest
-      pytest-benchmark
-      hypothesis
-    ];
+    paddlepaddle =
+      self.numpy
+      ++ [
+        paddlepaddle
+      ];
+    testing =
+      self.numpy
+      ++ [
+        h5py
+        huggingface-hub
+        setuptools-rust
+        pytest
+        pytest-benchmark
+        hypothesis
+      ];
     all = self.torch ++ self.numpy ++ self.pinned-tf ++ self.jax ++ self.paddlepaddle ++ self.testing;
     dev = self.all;
   });
@@ -87,7 +96,7 @@ buildPythonPackage rec {
     pytestCheckHook
     torch
   ];
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
   # don't require PaddlePaddle (not in Nixpkgs), Flax, or Tensorflow (onerous) to run tests:
   disabledTestPaths =
     [
@@ -100,13 +109,13 @@ buildPythonPackage rec {
       "tests/test_mlx_comparison.py"
     ];
 
-  pythonImportsCheck = [ "safetensors" ];
+  pythonImportsCheck = ["safetensors"];
 
   meta = {
     homepage = "https://github.com/huggingface/safetensors";
     description = "Fast (zero-copy) and safe (unlike pickle) format for storing tensors";
     changelog = "https://github.com/huggingface/safetensors/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

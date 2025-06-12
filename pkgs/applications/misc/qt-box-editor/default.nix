@@ -8,7 +8,6 @@
   leptonica,
   tesseract4,
 }:
-
 mkDerivation {
   pname = "qt-box-editor";
   version = "unstable-2019-07-14";
@@ -27,7 +26,7 @@ mkDerivation {
     tesseract4
   ];
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   # https://github.com/zdenop/qt-box-editor/issues/87
   postPatch = ''
@@ -42,7 +41,7 @@ mkDerivation {
     mainProgram = "qt-box-editor-1.12rc1";
     homepage = "https://github.com/zdenop/qt-box-editor";
     license = licenses.asl20;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
     platforms = platforms.all;
   };
 }

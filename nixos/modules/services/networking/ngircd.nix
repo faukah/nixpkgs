@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.ngircd;
 
   configFile = pkgs.stdenv.mkDerivation {
@@ -22,8 +19,7 @@ let
       ${cfg.package}/sbin/ngircd --config $out --configtest
     '';
   };
-in
-{
+in {
   options = {
     services.ngircd = {
       enable = mkEnableOption "the ngircd IRC server";
@@ -34,7 +30,7 @@ in
         type = types.lines;
       };
 
-      package = mkPackageOption pkgs "ngircd" { };
+      package = mkPackageOption pkgs "ngircd" {};
     };
   };
 
@@ -43,7 +39,7 @@ in
     systemd.services.ngircd = {
       description = "The ngircd IRC server";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig.ExecStart = "${cfg.package}/sbin/ngircd --config ${configFile} --nodaemon";
 
@@ -55,7 +51,6 @@ in
       group = "ngircd";
       description = "ngircd user.";
     };
-    users.groups.ngircd = { };
-
+    users.groups.ngircd = {};
   };
 }

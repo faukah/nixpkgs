@@ -6,17 +6,16 @@
   enableNLS ? false,
   libnatspec,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unzip";
   version = "6.0";
 
   src = fetchurl {
-    url = "mirror://sourceforge/infozip/unzip${lib.replaceStrings [ "." ] [ "" ] version}.tar.gz";
+    url = "mirror://sourceforge/infozip/unzip${lib.replaceStrings ["."] [""] version}.tar.gz";
     sha256 = "0dxx11knh3nk95p2gg2ak777dd11pr7jx5das2g49l262scrcv83";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   patchFlags = [
     "-p1"
@@ -83,8 +82,8 @@ stdenv.mkDerivation rec {
       sha256 = "67ab260ae6adf8e7c5eda2d1d7846929b43562943ec4aff629bd7018954058b1";
     });
 
-  nativeBuildInputs = [ bzip2 ];
-  buildInputs = [ bzip2 ] ++ lib.optional enableNLS libnatspec;
+  nativeBuildInputs = [bzip2];
+  buildInputs = [bzip2] ++ lib.optional enableNLS libnatspec;
 
   makefile = "unix/Makefile";
 
@@ -98,7 +97,7 @@ stdenv.mkDerivation rec {
     ]
     # `lchmod` is not available on Linux, so we remove it to fix "not supported" errors (when the zip file contains symlinks).
     # Alpine (musl) and Debian (glibc) also add this flag.
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ "LOCAL_UNZIP=-DNO_LCHMOD" ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux ["LOCAL_UNZIP=-DNO_LCHMOD"];
 
   preConfigure = ''
     sed -i -e 's@CF="-O3 -Wall -I. -DASM_CRC $(LOC)"@CF="-O3 -Wall -I. -DASM_CRC -DLARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 $(LOC)"@' unix/Makefile
@@ -115,7 +114,7 @@ stdenv.mkDerivation rec {
     description = "Extraction utility for archives compressed in .zip format";
     license = lib.licenses.info-zip;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ RossComputerGuy ];
+    maintainers = with lib.maintainers; [RossComputerGuy];
     mainProgram = "unzip";
   };
 }

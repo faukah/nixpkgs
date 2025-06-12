@@ -10,7 +10,6 @@
   nix-update-script,
   testers,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ugit";
   version = "5.9";
@@ -32,8 +31,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ncurses
   ];
 
-  propagatedBuildInputs = [ git ];
-  nativeInstallCheckInputs = [ ncurses ];
+  propagatedBuildInputs = [git];
+  nativeInstallCheckInputs = [ncurses];
 
   postPatch = ''
     substituteInPlace ugit \
@@ -61,8 +60,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
-    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -72,6 +71,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "ugit";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ d-brasher ];
+    maintainers = with lib.maintainers; [d-brasher];
   };
 })

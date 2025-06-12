@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   disabled = !python3Packages.isPy3k;
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
   propagatedBuildInputs = with python3Packages; [
     lyricwikia
     jeepney
@@ -33,7 +33,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://pwittchen.github.io/spotify-cli-linux/";
-    maintainers = [ maintainers.kmein ];
+    maintainers = [maintainers.kmein];
     description = "Command line interface to Spotify on Linux";
     mainProgram = "spotifycli";
     license = licenses.gpl3;

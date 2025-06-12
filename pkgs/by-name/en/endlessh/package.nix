@@ -6,7 +6,6 @@
   endlessh,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "endlessh";
   version = "1.1";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-yHQzDrjZycDL/2oSQCJjxbZQJ30FoixVG1dnFyTKPH4=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   passthru.tests = {
     inherit (nixosTests) endlessh;
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/skeeto/endlessh";
     changelog = "https://github.com/skeeto/endlessh/releases/tag/${version}";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ azahi ];
+    maintainers = with lib.maintainers; [azahi];
     platforms = lib.platforms.unix;
     mainProgram = "endlessh";
   };

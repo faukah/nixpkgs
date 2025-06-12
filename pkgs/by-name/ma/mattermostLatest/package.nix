@@ -1,7 +1,4 @@
-{
-  mattermost,
-}:
-
+{mattermost}:
 mattermost.override {
   versionInfo = {
     # Latest, non-RC releases only.

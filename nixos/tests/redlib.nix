@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "redlib";
   meta.maintainers = with lib.maintainers; [
     bpeetz

@@ -5,7 +5,6 @@
   makeBinaryWrapper,
   delta,
 }:
-
 buildGoModule rec {
   pname = "diffnav";
   version = "0.3.1";
@@ -24,10 +23,10 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
   postInstall = ''
     wrapProgram $out/bin/diffnav \
-      --prefix PATH : ${lib.makeBinPath [ delta ]}
+      --prefix PATH : ${lib.makeBinPath [delta]}
   '';
 
   meta = {
@@ -35,7 +34,7 @@ buildGoModule rec {
     description = "Git diff pager based on delta but with a file tree, à la GitHub";
     homepage = "https://github.com/dlvhdr/diffnav";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ amesgen ];
+    maintainers = with lib.maintainers; [amesgen];
     mainProgram = "diffnav";
   };
 }

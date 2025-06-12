@@ -42,7 +42,6 @@
   vgmstream,
   wavpack,
 }:
-
 stdenv.mkDerivation rec {
   pname = "audacious-plugins";
   version = "4.4.2";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-fA7xB04WLlleLIBDEZOVqDQguKAXtTsJoedQ9A/ZHQg=";
   };
 
-  patches = [ ./0001-Set-plugindir-to-PREFIX-lib-audacious.patch ];
+  patches = [./0001-Set-plugindir-to-PREFIX-lib-audacious.patch];
 
   nativeBuildInputs = [
     meson
@@ -113,8 +112,10 @@ stdenv.mkDerivation rec {
     ln -s ${vgmstream.audacious}/lib/audacious/Input/* $out/lib/audacious/Input
   '';
 
-  meta = audacious-bare.meta // {
-    description = "Plugins for Audacious music player";
-    downloadPage = "https://github.com/audacious-media-player/audacious-plugins";
-  };
+  meta =
+    audacious-bare.meta
+    // {
+      description = "Plugins for Audacious music player";
+      downloadPage = "https://github.com/audacious-media-player/audacious-plugins";
+    };
 }

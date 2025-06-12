@@ -2,10 +2,8 @@
   name-prefix ? "temurin",
   brand-name ? "Eclipse Temurin",
   sourcePerArch,
-  knownVulnerabilities ? [ ],
-}:
-
-{
+  knownVulnerabilities ? [],
+}: {
   stdenv,
   lib,
   fetchurl,
@@ -28,9 +26,7 @@
   cairo,
   glib,
   gtk3,
-}:
-
-let
+}: let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;
   runtimeDependencies =
     [
@@ -48,10 +44,9 @@ let
   );
   result = stdenv.mkDerivation {
     pname =
-      if sourcePerArch.packageType == "jdk" then
-        "${name-prefix}-bin"
-      else
-        "${name-prefix}-${sourcePerArch.packageType}-bin";
+      if sourcePerArch.packageType == "jdk"
+      then "${name-prefix}-bin"
+      else "${name-prefix}-${sourcePerArch.packageType}-bin";
 
     version = sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
 
@@ -59,18 +54,20 @@ let
       inherit (sourcePerArch.${cpuName}) url sha256;
     };
 
-    buildInputs = [
-      alsa-lib # libasound.so wanted by lib/libjsound.so
-      fontconfig
-      freetype
-      (lib.getLib stdenv.cc.cc) # libstdc++.so.6
-      xorg.libX11
-      xorg.libXext
-      xorg.libXi
-      xorg.libXrender
-      xorg.libXtst
-      zlib
-    ] ++ lib.optional stdenv.hostPlatform.isAarch32 libffi;
+    buildInputs =
+      [
+        alsa-lib # libasound.so wanted by lib/libjsound.so
+        fontconfig
+        freetype
+        (lib.getLib stdenv.cc.cc) # libstdc++.so.6
+        xorg.libX11
+        xorg.libXext
+        xorg.libXi
+        xorg.libXrender
+        xorg.libXtst
+        zlib
+      ]
+      ++ lib.optional stdenv.hostPlatform.isAarch32 libffi;
 
     nativeBuildInputs = [
       autoPatchelfHook
@@ -137,11 +134,11 @@ let
       ];
       description = "${brand-name}, prebuilt OpenJDK binary";
       platforms = builtins.map (arch: arch + "-linux") providedCpuTypes; # some inherit jre.meta.platforms
-      maintainers = with maintainers; [ taku0 ];
-      teams = [ teams.java ];
+      maintainers = with maintainers; [taku0];
+      teams = [teams.java];
       inherit knownVulnerabilities;
       mainProgram = "java";
     };
   };
 in
-result
+  result

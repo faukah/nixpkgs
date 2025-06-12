@@ -5,7 +5,6 @@
   jq,
   openjdk11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eclair";
   version = "0.8.0";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Scala implementation of the Lightning Network";
     homepage = "https://github.com/ACINQ/eclair";
     license = licenses.asl20;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     platforms = platforms.unix;
   };
 }

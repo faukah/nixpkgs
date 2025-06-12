@@ -9,9 +9,7 @@
   jre,
   fetchzip,
   buildNpmPackage,
-}:
-
-let
+}: let
   version = "0.25.1";
   apalacheVersion = "0.47.2";
   evaluatorVersion = "0.2.0";
@@ -21,7 +19,7 @@ let
     homepage = "https://quint-lang.org";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ bugarela ];
+    maintainers = with lib.maintainers; [bugarela];
   };
 
   src = fetchFromGitHub {
@@ -36,7 +34,7 @@ let
     pname = "quint-cli";
     inherit version src;
 
-    nativeBuildInputs = [ nodejs_20 ];
+    nativeBuildInputs = [nodejs_20];
 
     sourceRoot = "${src.name}/quint";
 
@@ -56,9 +54,11 @@ let
       runHook postInstall
     '';
 
-    meta = metaCommon // {
-      description = "CLI for the Quint formal specification language";
-    };
+    meta =
+      metaCommon
+      // {
+        description = "CLI for the Quint formal specification language";
+      };
   };
 
   # Build the Rust evaluator from source
@@ -74,9 +74,11 @@ let
 
     cargoHash = "sha256-beWqUDaWWCbGL+V1LNtf35wZrIqWCCbFLYo5HCZF7FI=";
 
-    meta = metaCommon // {
-      description = "Evaluator for the Quint formal specification language";
-    };
+    meta =
+      metaCommon
+      // {
+        description = "Evaluator for the Quint formal specification language";
+      };
   };
 
   # Download Apalache. It runs on the JVM, so no need to build it from source.
@@ -85,35 +87,37 @@ let
     hash = "sha256-P0QOxB14OSlphqBALR1YL9WJ0XYaUYE/R52yZytVzds=";
   };
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "quint";
-  inherit version src;
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "quint";
+    inherit version src;
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  dontBuild = true;
+    dontBuild = true;
 
-  dontConfigure = true;
+    dontConfigure = true;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/bin
-    makeWrapper ${nodejs}/bin/node $out/bin/quint \
-      --add-flags "${quint-cli}/share/quint/dist/src/cli.js" \
-      --set QUINT_HOME "$out/share/quint" \
-      --prefix PATH : ${lib.makeBinPath [ jre ]}
+      mkdir -p $out/bin
+      makeWrapper ${nodejs}/bin/node $out/bin/quint \
+        --add-flags "${quint-cli}/share/quint/dist/src/cli.js" \
+        --set QUINT_HOME "$out/share/quint" \
+        --prefix PATH : ${lib.makeBinPath [jre]}
 
-    install -Dm755 ${quint-evaluator}/bin/quint_evaluator -t $out/share/quint/rust-evaluator-v${evaluatorVersion}/
+      install -Dm755 ${quint-evaluator}/bin/quint_evaluator -t $out/share/quint/rust-evaluator-v${evaluatorVersion}/
 
-    mkdir -p $out/share/quint/apalache-dist-${apalacheVersion}
-    cp -r ${apalacheDist} $out/share/quint/apalache-dist-${apalacheVersion}/apalache
-    chmod +x $out/share/quint/apalache-dist-${apalacheVersion}/apalache/bin/apalache-mc
+      mkdir -p $out/share/quint/apalache-dist-${apalacheVersion}
+      cp -r ${apalacheDist} $out/share/quint/apalache-dist-${apalacheVersion}/apalache
+      chmod +x $out/share/quint/apalache-dist-${apalacheVersion}/apalache/bin/apalache-mc
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = metaCommon // {
-    mainProgram = "quint";
-  };
-})
+    meta =
+      metaCommon
+      // {
+        mainProgram = "quint";
+      };
+  })

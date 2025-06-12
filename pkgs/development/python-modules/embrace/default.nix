@@ -8,7 +8,6 @@
   sqlparse,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "embrace";
   version = "4.2.1";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     wrapt
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "embrace" ];
+  pythonImportsCheck = ["embrace"];
 
   # Some test for hot-reload fails on Darwin, but the rest of the library
   # should remain usable. (https://todo.sr.ht/~olly/embrace-sql/4)
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     description = "Embrace SQL keeps your SQL queries in SQL files";
     homepage = "https://pypi.org/project/embrace/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ euxane ];
+    maintainers = with maintainers; [euxane];
   };
 }

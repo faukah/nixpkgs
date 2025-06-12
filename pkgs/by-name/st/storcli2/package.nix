@@ -6,14 +6,12 @@
   testers,
 }:
 stdenvNoCC.mkDerivation (
-  finalAttrs:
-  let
+  finalAttrs: let
     majVer = "8";
     minVer = "11";
     relPhs = "14";
     verCode = "00" + majVer + ".00" + minVer + ".0000.00" + relPhs;
-  in
-  {
+  in {
     pname = "storcli";
     version = majVer + "." + minVer;
 
@@ -22,20 +20,18 @@ stdenvNoCC.mkDerivation (
       hash = "sha256-vztV+Jp+p6nU4q7q8QQIkuL30QsoGj2tyIZp87luhH8=";
     };
 
-    nativeBuildInputs = [ rpmextract ];
+    nativeBuildInputs = [rpmextract];
 
-    unpackPhase =
-      let
-        inherit (stdenvNoCC.hostPlatform) system;
-        platforms = {
-          x86_64-linux = "Linux";
-          aarch64-linux = "ARM/Linux";
-        };
-        platform = platforms.${system} or (throw "unsupported system: ${system}");
-      in
-      ''
-        rpmextract $src/Avenger_StorCLI/${platform}/storcli2-${verCode}-1.*.rpm
-      '';
+    unpackPhase = let
+      inherit (stdenvNoCC.hostPlatform) system;
+      platforms = {
+        x86_64-linux = "Linux";
+        aarch64-linux = "ARM/Linux";
+      };
+      platform = platforms.${system} or (throw "unsupported system: ${system}");
+    in ''
+      rpmextract $src/Avenger_StorCLI/${platform}/storcli2-${verCode}-1.*.rpm
+    '';
 
     dontPatch = true;
     dontConfigure = true;
@@ -60,9 +56,9 @@ stdenvNoCC.mkDerivation (
       # Then search manually for the latest version.
       homepage = "https://www.broadcom.com/support/download-search?pg=&pf=Host+Bus+Adapters&pn=&pa=&po=&dk=storcli2&pl=&l=false";
       description = "Storage Command Line Tool";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
       license = licenses.unfree;
-      maintainers = with maintainers; [ edwtjo ];
+      maintainers = with maintainers; [edwtjo];
       mainProgram = "storcli2";
       platforms = [
         "x86_64-linux"

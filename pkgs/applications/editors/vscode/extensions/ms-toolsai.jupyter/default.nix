@@ -4,7 +4,6 @@
   jq,
   moreutils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "jupyter";
@@ -42,6 +41,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     description = "Jupyter extension for vscode";
     homepage = "https://github.com/microsoft/vscode-jupyter";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.jraygauthier ];
+    maintainers = [lib.maintainers.jraygauthier];
   };
 }

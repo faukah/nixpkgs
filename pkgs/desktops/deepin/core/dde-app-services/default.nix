@@ -9,7 +9,6 @@
   libsForQt5,
   doxygen,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-app-services";
   version = "1.0.25";
@@ -65,6 +64,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dde-app-services";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

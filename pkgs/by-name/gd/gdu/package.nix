@@ -7,7 +7,6 @@
   testers,
   gdu,
 }:
-
 buildGoModule rec {
   pname = "gdu";
   version = "5.30.1";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-aKhHC3sPRyi/l9BxeUgx+3TdYulb0cI9WxuPvbLoswg=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -45,7 +44,7 @@ buildGoModule rec {
     "-skip=TestStoredAnalyzer"
   ];
 
-  passthru.tests.version = testers.testVersion { package = gdu; };
+  passthru.tests.version = testers.testVersion {package = gdu;};
 
   meta = {
     description = "Disk usage analyzer with console interface";
@@ -56,7 +55,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/dundee/gdu";
     changelog = "https://github.com/dundee/gdu/releases/tag/v${version}";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     maintainers = with lib.maintainers; [
       fab
       zowoq

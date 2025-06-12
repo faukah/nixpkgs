@@ -4,7 +4,6 @@
   cmake,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "ffts";
   version = "0-unstable-2019-03-19";
@@ -16,15 +15,15 @@ stdenv.mkDerivation {
     hash = "sha256-Cj0n7fwFAu6+3ojgczL0Unobdx/XzGNFvNVMXdyHXE4=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-DENABLE_SHARED=ON" ];
+  cmakeFlags = ["-DENABLE_SHARED=ON"];
 
   meta = {
     description = "Fastest Fourier Transform in the South";
     homepage = "https://github.com/linkotec/ffts";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bgamari ];
+    maintainers = with lib.maintainers; [bgamari];
     platforms = lib.platforms.linux;
   };
 }

@@ -6,7 +6,6 @@
   testers,
   icloudpd,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "icloudpd";
   version = "1.28.0";
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     wheel
   ];
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   nativeCheckInputs = with python3Packages; [
     freezegun
@@ -66,8 +65,8 @@ python3Packages.buildPythonApplication rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests = testers.testVersion { package = icloudpd; };
+    updateScript = nix-update-script {};
+    tests = testers.testVersion {package = icloudpd;};
   };
 
   preBuild = ''

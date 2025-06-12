@@ -8,7 +8,6 @@
   pcre2,
   asciidoc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pdfgrep";
   version = "2.2.0";

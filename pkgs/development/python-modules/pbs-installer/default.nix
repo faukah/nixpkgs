@@ -7,7 +7,6 @@
   httpx,
   zstandard,
 }:
-
 buildPythonPackage rec {
   pname = "pbs-installer";
   version = "2025.03.17";
@@ -22,15 +21,15 @@ buildPythonPackage rec {
     hash = "sha256-4SwbxTwl0DQjtYTxFMBg4p9aTyELNIOSRQw9fiweDhg=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   optional-dependencies = {
     all = optional-dependencies.install ++ optional-dependencies.download;
-    download = [ httpx ];
-    install = [ zstandard ];
+    download = [httpx];
+    install = [zstandard];
   };
 
-  pythonImportsCheck = [ "pbs_installer" ];
+  pythonImportsCheck = ["pbs_installer"];
 
   # upstream has no test
   doCheck = false;
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/frostming/pbs-installer";
     changelog = "https://github.com/frostming/pbs-installer/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

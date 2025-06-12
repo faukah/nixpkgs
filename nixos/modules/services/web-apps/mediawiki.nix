@@ -3,11 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
-
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkDefault
     mkEnableOption
     mkPackageOption
@@ -16,7 +14,8 @@ let
     mkMerge
     mkOption
     ;
-  inherit (lib)
+  inherit
+    (lib)
     concatStringsSep
     literalExpression
     mapAttrsToList
@@ -30,12 +29,11 @@ let
   fpm = config.services.phpfpm.pools.mediawiki;
   user = "mediawiki";
   group =
-    if cfg.webserver == "apache" then
-      config.services.httpd.group
-    else if cfg.webserver == "nginx" then
-      config.services.nginx.group
-    else
-      "mediawiki";
+    if cfg.webserver == "apache"
+    then config.services.httpd.group
+    else if cfg.webserver == "nginx"
+    then config.services.nginx.group
+    else "mediawiki";
 
   cacheDir = "/var/cache/mediawiki";
   stateDir = "/var/lib/mediawiki";
@@ -57,60 +55,63 @@ let
         mapAttrsToList (k: v: ''
           rm -rf $out/share/mediawiki/skins/${k}
           ln -s ${v} $out/share/mediawiki/skins/${k}
-        '') cfg.skins
+        '')
+        cfg.skins
       )}
 
       ${concatStringsSep "\n" (
         mapAttrsToList (k: v: ''
           rm -rf $out/share/mediawiki/extensions/${k}
           ln -s ${
-            if v != null then v else "$src/share/mediawiki/extensions/${k}"
+            if v != null
+            then v
+            else "$src/share/mediawiki/extensions/${k}"
           } $out/share/mediawiki/extensions/${k}
-        '') cfg.extensions
+        '')
+        cfg.extensions
       )}
     '';
   };
 
   mediawikiScripts =
     pkgs.runCommand "mediawiki-scripts"
-      {
-        nativeBuildInputs = [ pkgs.makeWrapper ];
-        preferLocalBuild = true;
-      }
-      ''
-        mkdir -p $out/bin
-        makeWrapper ${php}/bin/php $out/bin/mediawiki-maintenance \
-          --set MEDIAWIKI_CONFIG ${mediawikiConfig} \
-          --add-flags ${pkg}/share/mediawiki/maintenance/run.php
+    {
+      nativeBuildInputs = [pkgs.makeWrapper];
+      preferLocalBuild = true;
+    }
+    ''
+      mkdir -p $out/bin
+      makeWrapper ${php}/bin/php $out/bin/mediawiki-maintenance \
+        --set MEDIAWIKI_CONFIG ${mediawikiConfig} \
+        --add-flags ${pkg}/share/mediawiki/maintenance/run.php
 
-        for i in changePassword createAndPromote deleteUserEmail resetUserEmail userOptions edit nukePage update importDump run; do
-          script="$out/bin/mediawiki-$i"
-        cat <<'EOF' >"$script"
-        #!${pkgs.runtimeShell}
-        become=(exec)
-        if [[ "$(id -u)" != ${user} ]]; then
-          become=(exec /run/wrappers/bin/sudo -u ${user} --)
+      for i in changePassword createAndPromote deleteUserEmail resetUserEmail userOptions edit nukePage update importDump run; do
+        script="$out/bin/mediawiki-$i"
+      cat <<'EOF' >"$script"
+      #!${pkgs.runtimeShell}
+      become=(exec)
+      if [[ "$(id -u)" != ${user} ]]; then
+        become=(exec /run/wrappers/bin/sudo -u ${user} --)
+      fi
+      "${"$"}{become[@]}" ${placeholder "out"}/bin/mediawiki-maintenance \
+      EOF
+        if [[ "$i" != "run" ]]; then
+          echo "  ${pkg}/share/mediawiki/maintenance/$i.php \"\$@\"" >>"$script"
+        else
+          echo "  ${pkg}/share/mediawiki/maintenance/\$1.php \"\''${@:2}\"" >>"$script"
         fi
-        "${"$"}{become[@]}" ${placeholder "out"}/bin/mediawiki-maintenance \
-        EOF
-          if [[ "$i" != "run" ]]; then
-            echo "  ${pkg}/share/mediawiki/maintenance/$i.php \"\$@\"" >>"$script"
-          else
-            echo "  ${pkg}/share/mediawiki/maintenance/\$1.php \"\''${@:2}\"" >>"$script"
-          fi
-          chmod +x "$script"
-        done
-      '';
+        chmod +x "$script"
+      done
+    '';
 
   dbAddr =
-    if cfg.database.socket == null then
-      "${cfg.database.host}:${toString cfg.database.port}"
-    else if cfg.database.type == "mysql" then
-      "${cfg.database.host}:${cfg.database.socket}"
-    else if cfg.database.type == "postgres" then
-      "${cfg.database.socket}"
-    else
-      throw "Unsupported database type: ${cfg.database.type} for socket: ${cfg.database.socket}";
+    if cfg.database.socket == null
+    then "${cfg.database.host}:${toString cfg.database.port}"
+    else if cfg.database.type == "mysql"
+    then "${cfg.database.host}:${cfg.database.socket}"
+    else if cfg.database.type == "postgres"
+    then "${cfg.database.socket}"
+    else throw "Unsupported database type: ${cfg.database.type} for socket: ${cfg.database.socket}";
 
   mediawikiConfig = pkgs.writeTextFile {
     name = "LocalSettings.php";
@@ -141,9 +142,9 @@ let
         $wgResourceBasePath = $wgScriptPath;
 
         ${lib.optionalString (cfg.webserver == "nginx") ''
-          $wgArticlePath = "/wiki/$1";
-          $wgUsePathInfo = true;
-        ''}
+        $wgArticlePath = "/wiki/$1";
+        $wgUsePathInfo = true;
+      ''}
 
         ## The URL path to the logo.  Make sure you change this from the default,
         ## or else you'll overwrite your logo when you upgrade!
@@ -167,27 +168,27 @@ let
         $wgDBname = "${cfg.database.name}";
         $wgDBuser = "${cfg.database.user}";
         ${optionalString (
-          cfg.database.passwordFile != null
-        ) "$wgDBpassword = file_get_contents(\"${cfg.database.passwordFile}\");"}
+        cfg.database.passwordFile != null
+      ) "$wgDBpassword = file_get_contents(\"${cfg.database.passwordFile}\");"}
 
         ${optionalString (cfg.database.type == "mysql" && cfg.database.tablePrefix != null) ''
-          # MySQL specific settings
-          $wgDBprefix = "${cfg.database.tablePrefix}";
-        ''}
+        # MySQL specific settings
+        $wgDBprefix = "${cfg.database.tablePrefix}";
+      ''}
 
         ${optionalString (cfg.database.type == "mysql") ''
-          # MySQL table options to use during installation or update
-          $wgDBTableOptions = "ENGINE=InnoDB, DEFAULT CHARSET=binary";
-        ''}
+        # MySQL table options to use during installation or update
+        $wgDBTableOptions = "ENGINE=InnoDB, DEFAULT CHARSET=binary";
+      ''}
 
         ## Shared memory settings
         $wgMainCacheType = CACHE_NONE;
         $wgMemCachedServers = [];
 
         ${optionalString (cfg.uploadsDir != null) ''
-          $wgEnableUploads = true;
-          $wgUploadDirectory = "${cfg.uploadsDir}";
-        ''}
+        $wgEnableUploads = true;
+        $wgUploadDirectory = "${cfg.uploadsDir}";
+      ''}
 
         $wgUseImageMagick = true;
         $wgImageMagickConvertCommand = "${pkgs.imagemagick}/bin/convert";
@@ -244,16 +245,17 @@ let
     '';
   };
 
-  withTrailingSlash = str: if lib.hasSuffix "/" str then str else "${str}/";
-in
-{
+  withTrailingSlash = str:
+    if lib.hasSuffix "/" str
+    then str
+    else "${str}/";
+in {
   # interface
   options = {
     services.mediawiki = {
-
       enable = mkEnableOption "MediaWiki";
 
-      package = mkPackageOption pkgs "mediawiki" { };
+      package = mkPackageOption pkgs "mediawiki" {};
 
       finalPackage = mkOption {
         type = types.package;
@@ -275,24 +277,21 @@ in
       url = mkOption {
         type = types.str;
         default =
-          if cfg.webserver == "apache" then
-            "${
-              if
-                cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL || cfg.httpd.virtualHost.onlySSL
-              then
-                "https"
-              else
-                "http"
-            }://${cfg.httpd.virtualHost.hostName}"
-          else if cfg.webserver == "nginx" then
-            let
-              hasSSL = host: host.forceSSL || host.addSSL;
-            in
-            "${
-              if hasSSL config.services.nginx.virtualHosts.${cfg.nginx.hostName} then "https" else "http"
-            }://${cfg.nginx.hostName}"
-          else
-            "http://localhost";
+          if cfg.webserver == "apache"
+          then "${
+            if cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL || cfg.httpd.virtualHost.onlySSL
+            then "https"
+            else "http"
+          }://${cfg.httpd.virtualHost.hostName}"
+          else if cfg.webserver == "nginx"
+          then let
+            hasSSL = host: host.forceSSL || host.addSSL;
+          in "${
+            if hasSSL config.services.nginx.virtualHosts.${cfg.nginx.hostName}
+            then "https"
+            else "http"
+          }://${cfg.nginx.hostName}"
+          else "http://localhost";
         defaultText = ''
           if "mediawiki uses ssl" then "{"https" else "http"}://''${cfg.hostName}" else "http://localhost";
         '';
@@ -320,13 +319,12 @@ in
       passwordSender = mkOption {
         type = types.str;
         default =
-          if cfg.webserver == "apache" then
-            if cfg.httpd.virtualHost.adminAddr != null then
-              cfg.httpd.virtualHost.adminAddr
-            else
-              config.services.httpd.adminAddr
-          else
-            "root@localhost";
+          if cfg.webserver == "apache"
+          then
+            if cfg.httpd.virtualHost.adminAddr != null
+            then cfg.httpd.virtualHost.adminAddr
+            else config.services.httpd.adminAddr
+          else "root@localhost";
         defaultText = literalExpression ''
           if cfg.webserver == "apache" then
             if cfg.httpd.virtualHost.adminAddr != null then
@@ -338,7 +336,7 @@ in
       };
 
       skins = mkOption {
-        default = { };
+        default = {};
         type = types.attrsOf types.path;
         description = ''
           Attribute set of paths whose content is copied to the {file}`skins`
@@ -347,7 +345,7 @@ in
       };
 
       extensions = mkOption {
-        default = { };
+        default = {};
         type = types.attrsOf (types.nullOr types.path);
         description = ''
           Attribute set of paths whose content is copied to the {file}`extensions`
@@ -396,7 +394,10 @@ in
 
         port = mkOption {
           type = types.port;
-          default = if cfg.database.type == "mysql" then 3306 else 5432;
+          default =
+            if cfg.database.type == "mysql"
+            then 3306
+            else 5432;
           defaultText = literalExpression "3306";
           description = "Database host port.";
         };
@@ -438,12 +439,11 @@ in
         socket = mkOption {
           type = types.nullOr types.path;
           default =
-            if (cfg.database.type == "mysql" && cfg.database.createLocally) then
-              "/run/mysqld/mysqld.sock"
-            else if (cfg.database.type == "postgres" && cfg.database.createLocally) then
-              "/run/postgresql"
-            else
-              null;
+            if (cfg.database.type == "mysql" && cfg.database.createLocally)
+            then "/run/mysqld/mysqld.sock"
+            else if (cfg.database.type == "postgres" && cfg.database.createLocally)
+            then "/run/postgresql"
+            else null;
           defaultText = literalExpression "/run/mysqld/mysqld.sock";
           description = "Path to the unix socket file to use for authentication.";
         };
@@ -486,8 +486,7 @@ in
       };
 
       poolConfig = mkOption {
-        type =
-          with types;
+        type = with types;
           attrsOf (oneOf [
             str
             int
@@ -519,20 +518,19 @@ in
           $wgEnableEmail = false;
         '';
       };
-
     };
   };
 
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "mediawiki" "virtualHost" ]
-      [ "services" "mediawiki" "httpd" "virtualHost" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "mediawiki" "virtualHost"]
+      ["services" "mediawiki" "httpd" "virtualHost"]
     )
   ];
 
   # implementation
   config = mkIf cfg.enable {
-
     assertions = [
       {
         assertion =
@@ -563,7 +561,7 @@ in
     services.mysql = mkIf (cfg.database.type == "mysql" && cfg.database.createLocally) {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -576,7 +574,7 @@ in
 
     services.postgresql = mkIf (cfg.database.type == "postgres" && cfg.database.createLocally) {
       enable = true;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -591,28 +589,27 @@ in
       phpPackage = php;
       settings =
         (
-          if (cfg.webserver == "apache") then
-            {
-              "listen.owner" = config.services.httpd.user;
-              "listen.group" = config.services.httpd.group;
-            }
-          else if (cfg.webserver == "nginx") then
-            {
-              "listen.owner" = config.services.nginx.user;
-              "listen.group" = config.services.nginx.group;
-            }
-          else
-            {
-              "listen.owner" = user;
-              "listen.group" = group;
-            }
+          if (cfg.webserver == "apache")
+          then {
+            "listen.owner" = config.services.httpd.user;
+            "listen.group" = config.services.httpd.group;
+          }
+          else if (cfg.webserver == "nginx")
+          then {
+            "listen.owner" = config.services.nginx.user;
+            "listen.group" = config.services.nginx.group;
+          }
+          else {
+            "listen.owner" = user;
+            "listen.group" = group;
+          }
         )
         // cfg.poolConfig;
     };
 
     services.httpd = lib.mkIf (cfg.webserver == "apache") {
       enable = true;
-      extraModules = [ "proxy_fcgi" ];
+      extraModules = ["proxy_fcgi"];
       virtualHosts.${cfg.httpd.virtualHost.hostName} = mkMerge [
         cfg.httpd.virtualHost
         {
@@ -703,8 +700,8 @@ in
       ];
 
     systemd.services.mediawiki-init = {
-      wantedBy = [ "multi-user.target" ];
-      before = [ "phpfpm-mediawiki.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["phpfpm-mediawiki.service"];
       after =
         optional (cfg.database.type == "mysql" && cfg.database.createLocally) "mysql.service"
         ++ optional (cfg.database.type == "postgres" && cfg.database.createLocally) "postgresql.service";
@@ -722,16 +719,16 @@ in
           --dbport ${toString cfg.database.port} \
           --dbname ${lib.escapeShellArg cfg.database.name} \
           ${
-            optionalString (
-              cfg.database.tablePrefix != null
-            ) "--dbprefix ${lib.escapeShellArg cfg.database.tablePrefix}"
-          } \
+          optionalString (
+            cfg.database.tablePrefix != null
+          ) "--dbprefix ${lib.escapeShellArg cfg.database.tablePrefix}"
+        } \
           --dbuser ${lib.escapeShellArg cfg.database.user} \
           ${
-            optionalString (
-              cfg.database.passwordFile != null
-            ) "--dbpassfile ${lib.escapeShellArg cfg.database.passwordFile}"
-          } \
+          optionalString (
+            cfg.database.passwordFile != null
+          ) "--dbpassfile ${lib.escapeShellArg cfg.database.passwordFile}"
+        } \
           --passfile ${lib.escapeShellArg cfg.passwordFile} \
           --dbtype ${cfg.database.type} \
           ${lib.escapeShellArg cfg.name} \
@@ -760,8 +757,8 @@ in
       inherit group;
       isSystemUser = true;
     };
-    users.groups.${group} = { };
+    users.groups.${group} = {};
 
-    environment.systemPackages = [ mediawikiScripts ];
+    environment.systemPackages = [mediawikiScripts];
   };
 }

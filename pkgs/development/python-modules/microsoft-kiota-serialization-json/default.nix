@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "microsoft-kiota-serialization-json";
   version = "1.9.3";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/packages/serialization/json/";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     microsoft-kiota-abstractions
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "kiota_serialization_json" ];
+  pythonImportsCheck = ["kiota_serialization_json"];
 
   meta = with lib; {
     description = "JSON serialization implementation for Kiota clients in Python";
     homepage = "https://github.com/microsoft/kiota-python/tree/main/packages/serialization/json";
     changelog = "https://github.com/microsoft/kiota-python/releases/tag/microsoft-kiota-serialization-json-${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

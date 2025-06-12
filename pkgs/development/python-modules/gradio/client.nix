@@ -4,12 +4,10 @@
   buildPythonPackage,
   fetchFromGitHub,
   nix-update-script,
-
   # build-system
   hatchling,
   hatch-requirements-txt,
   hatch-fancy-pypi-readme,
-
   # dependencies
   fsspec,
   httpx,
@@ -17,7 +15,6 @@
   packaging,
   typing-extensions,
   websockets,
-
   # tests
   gradio,
   pydub,
@@ -28,7 +25,6 @@
   tomlkit,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "gradio-client";
   version = "1.10.1";
@@ -40,7 +36,7 @@ buildPythonPackage rec {
     repo = "gradio";
     # not to be confused with @gradio/client@${version}
     tag = "gradio_client@${version}";
-    sparseCheckout = [ "client/python" ];
+    sparseCheckout = ["client/python"];
     hash = "sha256-jIJkJvXy4mKQN0gVb4nm3hCzgk9qofBrXc3Tws2n2qw=";
   };
 
@@ -79,7 +75,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
   # ensuring we don't propagate this intermediate build
-  disallowedReferences = [ gradio.sans-reverse-dependencies ];
+  disallowedReferences = [gradio.sans-reverse-dependencies];
 
   # Add a pytest hook skipping tests that access network, marking them as "Expected fail" (xfail).
   preCheck = ''
@@ -100,7 +96,7 @@ buildPythonPackage rec {
     "test_httpx_kwargs"
   ];
 
-  pythonImportsCheck = [ "gradio_client" ];
+  pythonImportsCheck = ["gradio_client"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -116,6 +112,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/gradio-app/gradio/releases/tag/gradio_client@${version}";
     description = "Lightweight library to use any Gradio app as an API";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
   };
 }

@@ -12,7 +12,6 @@
   systemd,
   dde-polkit-agent,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-session";
   version = "1.2.12";
@@ -60,13 +59,13 @@ stdenv.mkDerivation rec {
   ];
 
   # FIXME: dde-wayland always exits abnormally
-  passthru.providedSessions = [ "dde-x11" ];
+  passthru.providedSessions = ["dde-x11"];
 
   meta = with lib; {
     description = "New deepin session based on systemd and existing projects";
     homepage = "https://github.com/linuxdeepin/dde-session";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

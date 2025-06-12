@@ -1,13 +1,10 @@
 {
   lib,
   stdenv,
-
   fetchFromGitHub,
-
   cmake,
   ninja,
   removeReferencesTo,
-
   glog,
   gflags,
   folly,
@@ -15,10 +12,8 @@
   wangle,
   fbthrift,
   gtest,
-
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "edencommon";
   version = "2025.04.21.00";
@@ -110,7 +105,7 @@ stdenv.mkDerivation (finalAttrs: {
     )
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Shared library for Meta's source control filesystem tools (EdenFS and Watchman)";

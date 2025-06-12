@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "base91";
   version = "0.1.0";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "CLI tool for encoding binary data as ASCII characters";
     homepage = "https://github.com/douzebis/base91";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ douzebis ];
+    maintainers = with lib.maintainers; [douzebis];
     platforms = lib.platforms.unix;
   };
 })

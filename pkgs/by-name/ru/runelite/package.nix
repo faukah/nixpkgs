@@ -10,7 +10,6 @@
   gitUpdater,
   libGL,
 }:
-
 maven.buildMavenPackage rec {
   pname = "runelite";
   version = "2.7.2";
@@ -33,12 +32,12 @@ maven.buildMavenPackage rec {
     comment = "Open source Old School RuneScape client";
     desktopName = "RuneLite";
     genericName = "Oldschool Runescape";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 
   # tests require internet :(
   mvnParameters = "-Dmaven.test.skip";
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/share/icons
@@ -51,15 +50,15 @@ maven.buildMavenPackage rec {
 
     makeWrapper ${jre}/bin/java $out/bin/runelite \
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [
-          xorg.libXxf86vm
-          libGL
-        ]
-      }" \
+      lib.makeLibraryPath [
+        xorg.libXxf86vm
+        libGL
+      ]
+    }" \
       --add-flags "-jar $out/share/RuneLite.jar"
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Open source Old School RuneScape client";
@@ -73,7 +72,7 @@ maven.buildMavenPackage rec {
       kmeakin
       moody
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "runelite";
   };
 }

@@ -7,7 +7,6 @@
   zlib,
   osi,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.17.10";
   pname = "clp";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-9IlBT6o1aHAaYw2/39XrUis72P9fesmG3B6i/e+v3mM=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   propagatedBuildInputs = [
     zlib
@@ -34,6 +33,6 @@ stdenv.mkDerivation rec {
     description = "Open-source linear programming solver written in C++";
     mainProgram = "clp";
     platforms = platforms.darwin ++ platforms.linux;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

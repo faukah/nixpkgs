@@ -7,7 +7,6 @@
   setuptools,
   regex,
 }:
-
 buildPythonPackage rec {
   pname = "somajo";
   version = "2.4.3";
@@ -22,21 +21,21 @@ buildPythonPackage rec {
     hash = "sha256-fq891LX6PukUEfrXplulhnisuPX/RqLAQ/5ty/Fvm9k=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ regex ];
+  dependencies = [regex];
 
   # loops forever
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  pythonImportsCheck = [ "somajo" ];
+  pythonImportsCheck = ["somajo"];
 
   meta = with lib; {
     description = "Tokenizer and sentence splitter for German and English web texts";
     homepage = "https://github.com/tsproisl/SoMaJo";
     changelog = "https://github.com/tsproisl/SoMaJo/blob/v${version}/CHANGES.txt";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "somajo-tokenizer";
   };
 }

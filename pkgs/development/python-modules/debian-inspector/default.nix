@@ -9,7 +9,6 @@
   setuptools-scm,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "debian-inspector";
   version = "31.1.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     chardet
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "debian_inspector" ];
+  pythonImportsCheck = ["debian_inspector"];
 
   meta = with lib; {
     description = "Utilities to parse Debian package, copyright and control files";
@@ -47,6 +46,6 @@ buildPythonPackage rec {
       bsd3
       mit
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

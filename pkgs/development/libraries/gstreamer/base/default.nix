@@ -47,7 +47,6 @@
   directoryListingUpdater,
   apple-sdk_gstreamer,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gst-plugins-base";
   version = "1.26.0";
@@ -170,7 +169,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # This package has some `_("string literal")` string formats
   # that trip up clang with format security enabled.
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doCheck = false; # fails, wants DRI access for OpenGL
 
@@ -190,7 +189,7 @@ stdenv.mkDerivation (finalAttrs: {
     glEnabled = enableGl;
     waylandEnabled = enableWayland;
 
-    updateScript = directoryListingUpdater { };
+    updateScript = directoryListingUpdater {};
   };
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
@@ -206,6 +205,6 @@ stdenv.mkDerivation (finalAttrs: {
       "gstreamer-video-1.0"
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
   };
 })

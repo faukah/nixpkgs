@@ -7,7 +7,6 @@
   reportlab,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pdfrw2";
   version = "0.5.0";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-5qnMq4Pnaaeov+Lb3fD0ndfr5SAy6SlXTwG7v6IZce0=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     pillow
@@ -26,12 +25,12 @@ buildPythonPackage rec {
     pycryptodome
   ];
 
-  pythonImportsCheck = [ "pdfrw" ];
+  pythonImportsCheck = ["pdfrw"];
 
   meta = with lib; {
     description = "Pure Python library that reads and writes PDFs";
     homepage = "https://github.com/sarnold/pdfrw";
-    maintainers = with maintainers; [ loicreynier ];
+    maintainers = with maintainers; [loicreynier];
     license = licenses.mit;
   };
 }

@@ -20,11 +20,11 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-JIm0XcgqXGPXlkQ1rhG5D38bQkQT9K44F71ZaCT2g8o=";
 
-  cargoBuildFlags = [ "-p minidsp -p minidsp-daemon" ];
+  cargoBuildFlags = ["-p minidsp -p minidsp-daemon"];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ libusb1 ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [libusb1];
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
 
   meta = with lib; {
     description = "Control interface for some MiniDSP products";

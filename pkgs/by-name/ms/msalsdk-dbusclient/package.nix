@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-AVPrNxCjXGza2gGETP0YrlXeEgI6AjlrSVTtqKb2UBI=";
   };
 
-  nativeBuildInputs = [ dpkg ];
+  nativeBuildInputs = [dpkg];
 
   installPhase = ''
     runHook preInstall
@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
     description = "Microsoft Authentication Library cross platform Dbus client for talking to microsoft-identity-broker";
     homepage = "https://github.com/AzureAD/microsoft-authentication-library-for-cpp";
     license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ rhysmdnz ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [rhysmdnz];
   };
 }

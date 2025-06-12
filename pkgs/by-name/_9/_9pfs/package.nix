@@ -6,7 +6,6 @@
   fuse,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "9pfs";
   version = "0.4";
@@ -26,17 +25,17 @@ stdenv.mkDerivation rec {
     "BIN=$(out)/bin"
     "MAN=$(out)/share/man/man1"
   ];
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ fuse ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [fuse];
   enableParallelBuilding = true;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://github.com/ftrvxmtrx/9pfs";
     description = "FUSE-based client of the 9P network filesystem protocol";
     mainProgram = "9pfs";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
     license = with lib.licenses; [
       lpl-102

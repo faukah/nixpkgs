@@ -10,7 +10,6 @@
   readline,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "saw-tools";
   version = "1.3";
@@ -50,9 +49,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Tools for software verification and analysis";
     homepage = "https://saw.galois.com";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.bsd3;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    platforms = ["x86_64-linux"];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 })

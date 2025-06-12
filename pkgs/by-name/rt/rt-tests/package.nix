@@ -6,7 +6,6 @@
   numactl,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rt-tests";
   version = "2.8";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iBpd7K9VpvUH5wXBKypyQl8NAHN3Om5/PcoJ8RH37mI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     numactl
     python3
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git";
     description = "Suite of real-time tests - cyclictest, hwlatdetect, pip_stress, pi_stress, pmqtest, ptsematest, rt-migrate-test, sendme, signaltest, sigwaittest, svsematest";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ poelzi ];
+    maintainers = with maintainers; [poelzi];
     license = licenses.gpl2Only;
   };
 }

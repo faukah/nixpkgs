@@ -11,7 +11,6 @@
   stdenv,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "unison-code-manager";
   version = "0.5.40";
@@ -31,16 +30,20 @@ stdenv.mkDerivation (finalAttrs: {
         hash = "sha256-o1Zx9Vmovl0b/QMVT9XGaRM6FphsIsZQZamYlJ6b6y0=";
       };
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported platform ${stdenv.hostPlatform.system}");
+    .${
+      stdenv.hostPlatform.system
+    } or (throw "Unsupported platform ${stdenv.hostPlatform.system}");
 
   # The tarball is just the prebuilt binary, in the archive root.
   sourceRoot = ".";
   dontBuild = true;
   dontConfigure = true;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook;
+  nativeBuildInputs =
+    [
+      makeWrapper
+    ]
+    ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook;
   buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [
     gmp
     ncurses6
@@ -54,12 +57,12 @@ stdenv.mkDerivation (finalAttrs: {
     mv unison $out/unison
     makeWrapper $out/unison/unison $out/bin/ucm \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          libb2
-          openssl
-        ]
-      } \
-      --prefix PATH ":" "${lib.makeBinPath [ less ]}" \
+      lib.makeLibraryPath [
+        libb2
+        openssl
+      ]
+    } \
+      --prefix PATH ":" "${lib.makeBinPath [less]}" \
       --add-flags "--runtime-path $out/lib/runtime/bin/unison-runtime" \
       --set UCM_WEB_UI "$out/ui"
   '';
@@ -82,6 +85,6 @@ stdenv.mkDerivation (finalAttrs: {
       "x86_64-linux"
       "aarch64-darwin"
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 })

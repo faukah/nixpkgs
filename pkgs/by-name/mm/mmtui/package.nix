@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mmtui";
   version = "0.1.1";
@@ -23,14 +22,14 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/SL-RU/mmtui/releases/tag/v${version}";
     description = "TUI disk mount manager for TUI file managers";
     homepage = "https://github.com/SL-RU/mmtui";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ grimmauld ];
+    maintainers = with lib.maintainers; [grimmauld];
     mainProgram = "mmtui";
     platforms = lib.platforms.linux;
   };

@@ -1,9 +1,7 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   name = "ifm";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ litchipi ];
+    maintainers = [litchipi];
   };
 
   nodes = {

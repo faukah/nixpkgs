@@ -13,7 +13,6 @@
   pkg-config,
   libbsd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scrot";
   version = "1.12.1";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "Command-line screen capture utility";
     mainProgram = "scrot";
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mitAdvertising;
   };
 }

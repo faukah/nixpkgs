@@ -7,7 +7,6 @@
   libzip,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kitsas";
   version = "5.9";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     mkdir build && cd build
   '';
 
-  qmakeFlags = [ "../kitsas/kitsas.pro" ];
+  qmakeFlags = ["../kitsas/kitsas.pro"];
 
   installPhase =
     lib.optionalString stdenv.hostPlatform.isDarwin ''
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/artoh/kitupiikki";
     description = "Accounting tool suitable for Finnish associations and small business";
     mainProgram = "kitsas";
-    maintainers = with maintainers; [ gspia ];
+    maintainers = with maintainers; [gspia];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

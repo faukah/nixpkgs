@@ -5,17 +5,16 @@
   indilib ? indilib,
   pname ? "indi-with-drivers",
   version ? indilib.version,
-  extraDrivers ? [ ],
+  extraDrivers ? [],
 }:
-
 buildEnv {
   name = "${pname}-${version}";
 
-  paths = [ indilib ] ++ extraDrivers;
+  paths = [indilib] ++ extraDrivers;
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
-  postBuild = lib.optionalString (extraDrivers != [ ]) ''
+  postBuild = lib.optionalString (extraDrivers != []) ''
     rm $out/bin/indiserver
     makeBinaryWrapper ${indilib}/bin/indiserver $out/bin/indiserver --set-default INDIPREFIX $out
   '';

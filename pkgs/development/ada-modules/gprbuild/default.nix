@@ -6,14 +6,14 @@
   gnat,
   xmlada,
 }:
-
 stdenv.mkDerivation {
   pname = "gprbuild";
 
   # See ./boot.nix for an explanation of the gprbuild setupHook,
   # our custom knowledge base entry and the situation wrt a
   # (future) gprbuild wrapper.
-  inherit (gprbuild-boot)
+  inherit
+    (gprbuild-boot)
     version
     src
     setupHooks
@@ -32,7 +32,11 @@ stdenv.mkDerivation {
 
   makeFlags =
     [
-      "ENABLE_SHARED=${if stdenv.hostPlatform.isStatic then "no" else "yes"}"
+      "ENABLE_SHARED=${
+        if stdenv.hostPlatform.isStatic
+        then "no"
+        else "yes"
+      }"
       "PROCESSORS=$(NIX_BUILD_CORES)"
       # confusingly, for gprbuild --target is autoconf --host
       "TARGET=${stdenv.hostPlatform.config}"

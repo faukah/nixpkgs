@@ -7,7 +7,6 @@
   libplist,
   libimobiledevice-glue,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libusbmuxd";
   version = "2.1.0";
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/libimobiledevice/libusbmuxd";
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

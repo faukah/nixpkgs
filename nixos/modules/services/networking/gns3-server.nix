@@ -3,26 +3,22 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.gns3-server;
 
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
   configFile = settingsFormat.generate "gns3-server.conf" cfg.settings;
-
-in
-{
+in {
   meta = {
     doc = ./gns3-server.md;
-    maintainers = [ lib.maintainers.anthonyroussel ];
+    maintainers = [lib.maintainers.anthonyroussel];
   };
 
   options = {
     services.gns3-server = {
       enable = lib.mkEnableOption "GNS3 Server daemon";
 
-      package = lib.mkPackageOption pkgs "gns3-server" { };
+      package = lib.mkPackageOption pkgs "gns3-server" {};
 
       auth = {
         enable = lib.mkEnableOption "password based HTTP authentication to access the GNS3 Server";
@@ -50,8 +46,8 @@ in
       };
 
       settings = lib.mkOption {
-        type = lib.types.submodule { freeformType = settingsFormat.type; };
-        default = { };
+        type = lib.types.submodule {freeformType = settingsFormat.type;};
+        default = {};
         example = {
           host = "127.0.0.1";
           port = 3080;
@@ -97,29 +93,27 @@ in
 
       dynamips = {
         enable = lib.mkEnableOption ''Dynamips support'';
-        package = lib.mkPackageOption pkgs "dynamips" { };
+        package = lib.mkPackageOption pkgs "dynamips" {};
       };
 
       ubridge = {
         enable = lib.mkEnableOption ''uBridge support'';
-        package = lib.mkPackageOption pkgs "ubridge" { };
+        package = lib.mkPackageOption pkgs "ubridge" {};
       };
 
       vpcs = {
         enable = lib.mkEnableOption ''VPCS support'';
-        package = lib.mkPackageOption pkgs "vpcs" { };
+        package = lib.mkPackageOption pkgs "vpcs" {};
       };
     };
   };
 
-  config =
-    let
-      flags = {
-        enableDocker = config.virtualisation.docker.enable;
-        enableLibvirtd = config.virtualisation.libvirtd.enable;
-      };
-
-    in
+  config = let
+    flags = {
+      enableDocker = config.virtualisation.docker.enable;
+      enableLibvirtd = config.virtualisation.libvirtd.enable;
+    };
+  in
     lib.mkIf cfg.enable {
       assertions = [
         {
@@ -140,9 +134,9 @@ in
         }
       ];
 
-      users.groups.gns3 = { };
+      users.groups.gns3 = {};
 
-      users.groups.ubridge = lib.mkIf cfg.ubridge.enable { };
+      users.groups.ubridge = lib.mkIf cfg.ubridge.enable {};
 
       users.users.gns3 = {
         group = "gns3";
@@ -185,115 +179,113 @@ in
         })
       ];
 
-      systemd.services.gns3-server =
-        let
-          commandArgs = lib.cli.toGNUCommandLineShell { } {
-            config = "/etc/gns3/gns3_server.conf";
-            pid = "/run/gns3/server.pid";
-            log = cfg.log.file;
-            ssl = cfg.ssl.enable;
-            # These are implicitly not set if `null`
-            certfile = cfg.ssl.certFile;
-            certkey = cfg.ssl.keyFile;
-          };
-        in
-        {
-          description = "GNS3 Server";
-
-          after = [
-            "network.target"
-            "network-online.target"
-          ];
-          wantedBy = [ "multi-user.target" ];
-          wants = [ "network-online.target" ];
-
-          # configFile cannot be stored in RuntimeDirectory, because GNS3
-          # uses the `--config` base path to stores supplementary configuration files at runtime.
-          #
-          preStart = ''
-            install -m660 ${configFile} /etc/gns3/gns3_server.conf
-
-            ${lib.optionalString cfg.auth.enable ''
-              ${pkgs.replace-secret}/bin/replace-secret \
-                '@AUTH_PASSWORD@' \
-                "''${CREDENTIALS_DIRECTORY}/AUTH_PASSWORD" \
-                /etc/gns3/gns3_server.conf
-            ''}
-          '';
-
-          path = lib.optional flags.enableLibvirtd pkgs.qemu;
-
-          reloadTriggers = [ configFile ];
-
-          serviceConfig = {
-            ConfigurationDirectory = "gns3";
-            ConfigurationDirectoryMode = "0750";
-            Environment = "HOME=%S/gns3";
-            ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-            ExecStart = "${lib.getExe cfg.package} ${commandArgs}";
-            Group = "gns3";
-            LimitNOFILE = 16384;
-            LoadCredential = lib.mkIf cfg.auth.enable [ "AUTH_PASSWORD:${cfg.auth.passwordFile}" ];
-            LogsDirectory = "gns3";
-            LogsDirectoryMode = "0750";
-            PIDFile = "/run/gns3/server.pid";
-            Restart = "on-failure";
-            RestartSec = 5;
-            RuntimeDirectory = "gns3";
-            StateDirectory = "gns3";
-            StateDirectoryMode = "0750";
-            SupplementaryGroups =
-              lib.optional flags.enableDocker "docker"
-              ++ lib.optional flags.enableLibvirtd "libvirtd"
-              ++ lib.optional cfg.ubridge.enable "ubridge";
-            User = "gns3";
-            WorkingDirectory = "%S/gns3";
-
-            # Required for ubridge integration to work
-            #
-            # GNS3 needs to run SUID binaries (ubridge)
-            # but NoNewPrivileges breaks execution of SUID binaries
-            DynamicUser = false;
-            NoNewPrivileges = false;
-            RestrictSUIDSGID = false;
-            PrivateUsers = false;
-
-            # Hardening
-            DeviceAllow =
-              [
-                # ubridge needs access to tun/tap devices
-                "/dev/net/tap rw"
-                "/dev/net/tun rw"
-              ]
-              ++ lib.optionals flags.enableLibvirtd [
-                "/dev/kvm"
-              ];
-            DevicePolicy = "closed";
-            LockPersonality = true;
-            MemoryDenyWriteExecute = true;
-            PrivateTmp = true;
-            # Don't restrict ProcSubset because python3Packages.psutil requires read access to /proc/stat
-            # ProcSubset = "pid";
-            ProtectClock = true;
-            ProtectControlGroups = true;
-            ProtectHome = true;
-            ProtectHostname = true;
-            ProtectKernelLogs = true;
-            ProtectKernelModules = true;
-            ProtectKernelTunables = true;
-            ProtectProc = "invisible";
-            ProtectSystem = "strict";
-            RestrictAddressFamilies = [
-              "AF_INET"
-              "AF_INET6"
-              "AF_NETLINK"
-              "AF_UNIX"
-              "AF_PACKET"
-            ];
-            RestrictNamespaces = true;
-            RestrictRealtime = true;
-            UMask = "0022";
-          };
+      systemd.services.gns3-server = let
+        commandArgs = lib.cli.toGNUCommandLineShell {} {
+          config = "/etc/gns3/gns3_server.conf";
+          pid = "/run/gns3/server.pid";
+          log = cfg.log.file;
+          ssl = cfg.ssl.enable;
+          # These are implicitly not set if `null`
+          certfile = cfg.ssl.certFile;
+          certkey = cfg.ssl.keyFile;
         };
+      in {
+        description = "GNS3 Server";
+
+        after = [
+          "network.target"
+          "network-online.target"
+        ];
+        wantedBy = ["multi-user.target"];
+        wants = ["network-online.target"];
+
+        # configFile cannot be stored in RuntimeDirectory, because GNS3
+        # uses the `--config` base path to stores supplementary configuration files at runtime.
+        #
+        preStart = ''
+          install -m660 ${configFile} /etc/gns3/gns3_server.conf
+
+          ${lib.optionalString cfg.auth.enable ''
+            ${pkgs.replace-secret}/bin/replace-secret \
+              '@AUTH_PASSWORD@' \
+              "''${CREDENTIALS_DIRECTORY}/AUTH_PASSWORD" \
+              /etc/gns3/gns3_server.conf
+          ''}
+        '';
+
+        path = lib.optional flags.enableLibvirtd pkgs.qemu;
+
+        reloadTriggers = [configFile];
+
+        serviceConfig = {
+          ConfigurationDirectory = "gns3";
+          ConfigurationDirectoryMode = "0750";
+          Environment = "HOME=%S/gns3";
+          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+          ExecStart = "${lib.getExe cfg.package} ${commandArgs}";
+          Group = "gns3";
+          LimitNOFILE = 16384;
+          LoadCredential = lib.mkIf cfg.auth.enable ["AUTH_PASSWORD:${cfg.auth.passwordFile}"];
+          LogsDirectory = "gns3";
+          LogsDirectoryMode = "0750";
+          PIDFile = "/run/gns3/server.pid";
+          Restart = "on-failure";
+          RestartSec = 5;
+          RuntimeDirectory = "gns3";
+          StateDirectory = "gns3";
+          StateDirectoryMode = "0750";
+          SupplementaryGroups =
+            lib.optional flags.enableDocker "docker"
+            ++ lib.optional flags.enableLibvirtd "libvirtd"
+            ++ lib.optional cfg.ubridge.enable "ubridge";
+          User = "gns3";
+          WorkingDirectory = "%S/gns3";
+
+          # Required for ubridge integration to work
+          #
+          # GNS3 needs to run SUID binaries (ubridge)
+          # but NoNewPrivileges breaks execution of SUID binaries
+          DynamicUser = false;
+          NoNewPrivileges = false;
+          RestrictSUIDSGID = false;
+          PrivateUsers = false;
+
+          # Hardening
+          DeviceAllow =
+            [
+              # ubridge needs access to tun/tap devices
+              "/dev/net/tap rw"
+              "/dev/net/tun rw"
+            ]
+            ++ lib.optionals flags.enableLibvirtd [
+              "/dev/kvm"
+            ];
+          DevicePolicy = "closed";
+          LockPersonality = true;
+          MemoryDenyWriteExecute = true;
+          PrivateTmp = true;
+          # Don't restrict ProcSubset because python3Packages.psutil requires read access to /proc/stat
+          # ProcSubset = "pid";
+          ProtectClock = true;
+          ProtectControlGroups = true;
+          ProtectHome = true;
+          ProtectHostname = true;
+          ProtectKernelLogs = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          ProtectProc = "invisible";
+          ProtectSystem = "strict";
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+            "AF_NETLINK"
+            "AF_UNIX"
+            "AF_PACKET"
+          ];
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          UMask = "0022";
+        };
+      };
     };
 }

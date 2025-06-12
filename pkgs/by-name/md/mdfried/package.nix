@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mdfried";
   version = "0.12.2";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Markdown viewer TUI for the terminal, with big text and image rendering";
     homepage = "https://github.com/benjajaja/mdfried";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ benjajaja ];
+    maintainers = with lib.maintainers; [benjajaja];
     platforms = lib.platforms.unix;
     mainProgram = "mdfried";
   };

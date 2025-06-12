@@ -16,7 +16,7 @@ mkLibretroCore rec {
   };
 
   makefile = "Makefile";
-  makeFlags = [ "GIT_VERSION=${builtins.substring 0 7 src.rev}" ];
+  makeFlags = ["GIT_VERSION=${builtins.substring 0 7 src.rev}"];
 
   meta = {
     description = "Port of Mr.Boom to libretro";

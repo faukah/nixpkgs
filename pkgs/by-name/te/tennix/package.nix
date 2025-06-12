@@ -10,7 +10,6 @@
   SDL_net,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tennix";
   version = "1.3.1";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-U5+S1jEeg+7gdM1++dln6ePTqxZu2Zt0oUrH3DIlkgk=";
   };
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   buildInputs = [
     python3
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
     mainProgram = "tennix";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

@@ -6,7 +6,6 @@
   libpng,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "pngloss";
   version = "unstable-2020-11-25";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-dqrrzbLu4znyWOlTDIf56O3efxszetiP+CdFiy2PBd4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libpng
     zlib
@@ -37,7 +36,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/foobaz/pngloss";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ _2gn ];
+    maintainers = with maintainers; [_2gn];
     mainProgram = "pngloss";
   };
 }

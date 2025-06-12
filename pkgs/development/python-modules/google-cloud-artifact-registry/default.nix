@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-artifact-registry";
   version = "1.16.0";
@@ -25,17 +24,19 @@ buildPythonPackage rec {
     hash = "sha256-PDikL/ECsIdQn7gXoF04SVxpp7aZ9allTJL+pnd947E=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    google-api-core
-    google-auth
-    grpc-google-iam-v1
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      google-api-core
+      google-auth
+      grpc-google-iam-v1
+      proto-plus
+      protobuf
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "google.cloud.artifactregistry"
@@ -48,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-artifact-registry";
     changelog = "https://github.com/googleapis/google-cloud-python/blob/google-cloud-artifact-registry-v${version}/packages/google-cloud-artifact-registry/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

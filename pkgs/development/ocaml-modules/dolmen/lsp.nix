@@ -7,14 +7,13 @@
   linol,
   linol-lwt,
   logs,
-# lsp, # transitive dependency from linol
+  # lsp, # transitive dependency from linol
 }:
-
 buildDunePackage {
   pname = "dolmen_lsp";
   inherit (dolmen) src version;
 
-  patches = [ ./linol-lwt-6.patch ];
+  patches = [./linol-lwt-6.patch];
 
   buildInputs = [
     dolmen
@@ -26,9 +25,11 @@ buildDunePackage {
     # lsp # transitive dependency from linol
   ];
 
-  meta = dolmen.meta // {
-    description = "A LSP server for automated deduction languages";
-    mainProgram = "dolmenls";
-    maintainers = [ lib.maintainers.stepbrobd ];
-  };
+  meta =
+    dolmen.meta
+    // {
+      description = "A LSP server for automated deduction languages";
+      mainProgram = "dolmenls";
+      maintainers = [lib.maintainers.stepbrobd];
+    };
 }

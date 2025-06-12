@@ -5,7 +5,6 @@
   python,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "ibis";
   version = "3.2.0";
@@ -24,12 +23,12 @@ buildPythonPackage rec {
     ${python.interpreter} test_ibis.py
   '';
 
-  pythonImportsCheck = [ "ibis" ];
+  pythonImportsCheck = ["ibis"];
 
   meta = with lib; {
     description = "Lightweight template engine";
     homepage = "https://github.com/dmulholland/ibis";
     license = licenses.publicDomain;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

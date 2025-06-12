@@ -7,7 +7,6 @@
   postgresqlBuildExtension,
   postgresqlTestExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pgsodium";
   version = "3.1.9";
@@ -49,7 +48,7 @@ postgresqlBuildExtension (finalAttrs: {
     homepage = "https://github.com/michelp/pgsodium";
     changelog = "https://github.com/michelp/pgsodium/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.postgresql;
-    maintainers = [ ];
+    maintainers = [];
     platforms = postgresql.meta.platforms;
   };
 })

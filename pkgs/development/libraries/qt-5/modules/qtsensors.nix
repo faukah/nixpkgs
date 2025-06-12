@@ -3,7 +3,6 @@
   qtbase,
   qtdeclarative,
 }:
-
 qtModule {
   pname = "qtsensors";
   propagatedBuildInputs = [

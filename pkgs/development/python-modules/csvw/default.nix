@@ -12,7 +12,6 @@
   pytestCheckHook,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "csvw";
   version = "1.11.0";
@@ -58,12 +57,12 @@ buildPythonPackage rec {
       "test_doubleQuote"
     ];
 
-  pythonImportsCheck = [ "csvw" ];
+  pythonImportsCheck = ["csvw"];
 
   meta = with lib; {
     description = "CSV on the Web";
     homepage = "https://github.com/cldf/csvw";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

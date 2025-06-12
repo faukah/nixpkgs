@@ -8,7 +8,6 @@
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "llm-echo";
   version = "0.3a3";
@@ -21,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-4345UIyaQx+mYYBAFD5AaX5YbjbnJQt8bKMD5Vl8VJc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ llm ];
+  dependencies = [llm];
 
   nativeCheckInputs = [
     pytestCheckHook
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "llm_echo" ];
+  pythonImportsCheck = ["llm_echo"];
 
   passthru.tests = llm.mkPluginTest llm-echo;
 
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-echo";
     changelog = "https://github.com/simonw/llm-echo/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

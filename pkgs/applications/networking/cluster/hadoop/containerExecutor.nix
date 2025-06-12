@@ -8,7 +8,6 @@
   platformAttrs,
   ...
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hadoop-yarn-containerexecutor";
   inherit version;
@@ -21,9 +20,9 @@ stdenv.mkDerivation (finalAttrs: {
     "hadoop-${finalAttrs.version}-src/hadoop-yarn-project/hadoop-yarn/"
     + "hadoop-yarn-server/hadoop-yarn-server-nodemanager/src";
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ openssl ];
-  cmakeFlags = [ "-DHADOOP_CONF_DIR=/run/wrappers/yarn-nodemanager/etc/hadoop" ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [openssl];
+  cmakeFlags = ["-DHADOOP_CONF_DIR=/run/wrappers/yarn-nodemanager/etc/hadoop"];
 
   installPhase = ''
     mkdir $out
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
       resources like CPU and memory are allocated according to the policies defined in the ResourceManager.
     '';
 
-    maintainers = with maintainers; [ illustris ];
+    maintainers = with maintainers; [illustris];
     platforms = filter (strings.hasSuffix "linux") (attrNames platformAttrs);
   };
 })

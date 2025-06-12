@@ -7,7 +7,6 @@
   copyDesktopItems,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zap";
   version = "2.16.1";
@@ -30,9 +29,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ jre ];
+  buildInputs = [jre];
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
 
   # From https://github.com/zaproxy/zaproxy/blob/master/zap/src/main/java/org/parosproxy/paros/Constant.java
   version_tag = "20012000";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
 
     cat >> "$out/bin/${pname}" << EOF
     #!${runtimeShell}
-    export PATH="${lib.makeBinPath [ jre ]}:\$PATH"
+    export PATH="${lib.makeBinPath [jre]}:\$PATH"
     export JAVA_HOME='${jre}'
     if ! [ -f "\$HOME/.ZAP/config.xml" ];then
       mkdir -p "\$HOME/.ZAP"

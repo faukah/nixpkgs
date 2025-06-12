@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "desync";
   version = "0.9.6";
@@ -27,6 +26,6 @@ buildGoModule rec {
     homepage = "https://github.com/folbricht/desync";
     changelog = "https://github.com/folbricht/desync/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ chaduffy ];
+    maintainers = with lib.maintainers; [chaduffy];
   };
 }

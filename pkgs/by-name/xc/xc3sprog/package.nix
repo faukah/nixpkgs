@@ -6,10 +6,8 @@
   libusb-compat-0_1,
   libftdi,
 }:
-
 # The xc3sprog project doesn't seem to make proper releases, they only put out
 # prebuilt binary subversion snapshots on sourceforge.
-
 stdenv.mkDerivation rec {
   version = "787";
   pname = "xc3sprog";
@@ -20,7 +18,7 @@ stdenv.mkDerivation rec {
     rev = version;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libusb-compat-0_1
     libftdi
@@ -38,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://xc3sprog.sourceforge.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

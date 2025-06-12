@@ -7,23 +7,18 @@
   pythonAtLeast,
   pythonOlder,
   replaceVars,
-
   # build
   setuptools,
-
   # patched in
   geos,
   gdal,
   withGdal ? false,
-
   # propagates
   asgiref,
   sqlparse,
-
   # extras
   argon2-cffi,
   bcrypt,
-
   # tests
   aiosmtpd,
   docutils,
@@ -42,7 +37,6 @@
   tblib,
   tzdata,
 }:
-
 buildPythonPackage rec {
   pname = "django";
   version = "4.2.21";
@@ -77,7 +71,7 @@ buildPythonPackage rec {
       # FIXME: remove if ever backported upstream
       (fetchpatch {
         url = "https://github.com/django/django/commit/ec0e784f91b551c654f0962431cc31091926792d.patch";
-        includes = [ "django/*" ]; # tests don't apply
+        includes = ["django/*"]; # tests don't apply
         hash = "sha256-8YwdOBNJq6+GNoxzdLyN9HEEIWRXGQk9YbyfPwYVkwU=";
       })
     ]
@@ -108,7 +102,7 @@ buildPythonPackage rec {
         "dont_test_help_default_options_with_custom_arguments"
     '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     asgiref
@@ -116,28 +110,30 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    argon2 = [ argon2-cffi ];
-    bcrypt = [ bcrypt ];
+    argon2 = [argon2-cffi];
+    bcrypt = [bcrypt];
   };
 
-  nativeCheckInputs = [
-    # tests/requirements/py3.txt
-    aiosmtpd
-    docutils
-    geoip2
-    jinja2
-    numpy
-    pillow
-    pylibmc
-    pymemcache
-    pywatchman
-    pyyaml
-    pytz
-    redis
-    selenium
-    tblib
-    tzdata
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      # tests/requirements/py3.txt
+      aiosmtpd
+      docutils
+      geoip2
+      jinja2
+      numpy
+      pillow
+      pylibmc
+      pymemcache
+      pywatchman
+      pyyaml
+      pytz
+      redis
+      selenium
+      tblib
+      tzdata
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   doCheck =
     !stdenv.hostPlatform.isDarwin
@@ -170,6 +166,6 @@ buildPythonPackage rec {
     mainProgram = "django-admin";
     homepage = "https://www.djangoproject.com";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

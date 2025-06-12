@@ -18,7 +18,7 @@ buildNpmPackage rec {
     tag = "v${version}";
     hash = "sha256-HWt3BxW2nBgnJ+BzsL+JpFfrLht2Yl/Btbre6EfM9F4=";
   };
-  buildInputs = [ vips ];
+  buildInputs = [vips];
   nativeBuildInputs = [
     pkg-config
     makeWrapper
@@ -44,13 +44,13 @@ buildNpmPackage rec {
 
     runHook postInstall
   '';
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/factoriolab/factoriolab";
     changelog = "https://github.com/factoriolab/factoriolab/releases/tag/${version}";
     description = "Angular-based calculator for factory games like Factorio and Dyson Sphere Program";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ patrickdag ];
+    maintainers = with lib.maintainers; [patrickdag];
   };
 }

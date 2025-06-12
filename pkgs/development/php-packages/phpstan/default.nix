@@ -4,7 +4,6 @@
   php,
   versionCheckHook,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "phpstan";
   version = "2.1.17";
@@ -20,7 +19,7 @@ php.buildComposerProject2 (finalAttrs: {
   composerStrictValidation = false;
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -36,6 +35,6 @@ php.buildComposerProject2 (finalAttrs: {
     '';
     license = lib.licenses.mit;
     mainProgram = "phpstan";
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 })

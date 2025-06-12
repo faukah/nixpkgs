@@ -13,7 +13,6 @@
   swig ? null,
   python3 ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libsemanage";
   version = "3.8.1";
@@ -24,11 +23,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ezkSeyGcxwv9k1pK9rDyuoPUs1yRbyU8fpQsI6tJDwc=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-  ] ++ lib.optional enablePython "py";
+  outputs =
+    [
+      "out"
+      "dev"
+      "man"
+    ]
+    ++ lib.optional enablePython "py";
 
   strictDeps = true;
 
@@ -43,12 +44,14 @@ stdenv.mkDerivation rec {
       swig
     ];
 
-  buildInputs = [
-    libsepol
-    libselinux
-    bzip2
-    audit
-  ] ++ lib.optional enablePython python3;
+  buildInputs =
+    [
+      libsepol
+      libselinux
+      bzip2
+      audit
+    ]
+    ++ lib.optional enablePython python3;
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -69,14 +72,16 @@ stdenv.mkDerivation rec {
   #  1278 |  int i;
   #       |      ^
   # cc1: all warnings being treated as errors
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=clobbered" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=clobbered"];
 
-  installTargets = [ "install" ] ++ lib.optionals enablePython [ "install-pywrap" ];
+  installTargets = ["install"] ++ lib.optionals enablePython ["install-pywrap"];
 
   enableParallelBuilding = true;
 
-  meta = removeAttrs libsepol.meta [ "outputsToInstall" ] // {
-    description = "Policy management tools for SELinux";
-    license = lib.licenses.lgpl21;
-  };
+  meta =
+    removeAttrs libsepol.meta ["outputsToInstall"]
+    // {
+      description = "Policy management tools for SELinux";
+      license = lib.licenses.lgpl21;
+    };
 }

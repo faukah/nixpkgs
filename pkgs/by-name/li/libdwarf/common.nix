@@ -8,7 +8,6 @@
   url,
   knownVulnerabilities,
 }:
-
 stdenv.mkDerivation {
   pname = "libdwarf";
   inherit version;
@@ -35,7 +34,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/davea42/libdwarf-code";
     platforms = lib.platforms.unix;
     license = lib.licenses.lgpl21Plus;
-    maintainers = [ lib.maintainers.atry ];
+    maintainers = [lib.maintainers.atry];
     inherit knownVulnerabilities;
   };
 }

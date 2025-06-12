@@ -1,25 +1,20 @@
 {
   lib,
   stdenv,
-
   buildGoModule,
   fetchFromGitHub,
   makeDesktopItem,
-
   cmake,
   copyDesktopItems,
   ninja,
-
   libcpr,
   protobuf,
   qt6Packages,
   yaml-cpp,
   zxing-cpp,
-
   sing-geoip,
   sing-geosite,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nekoray";
   version = "4.3.5";
@@ -94,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
       icon = "nekoray";
       comment = finalAttrs.meta.description;
       terminal = false;
-      categories = [ "Network" ];
+      categories = ["Network"];
     })
   ];
 

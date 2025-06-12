@@ -5,8 +5,7 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.matomo;
   fpm = config.services.phpfpm.pools.${pool};
 
@@ -17,14 +16,13 @@ let
   pool = user;
   phpExecutionUnit = "phpfpm-${pool}";
   databaseService = "mysql.service";
-
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule [ "services" "piwik" "enable" ] [ "services" "matomo" "enable" ])
-    (mkRenamedOptionModule
-      [ "services" "piwik" "webServerUser" ]
-      [ "services" "matomo" "webServerUser" ]
+    (mkRenamedOptionModule ["services" "piwik" "enable"] ["services" "matomo" "enable"])
+    (
+      mkRenamedOptionModule
+      ["services" "piwik" "webServerUser"]
+      ["services" "matomo" "webServerUser"]
     )
     (mkRemovedOptionModule [
       "services"
@@ -36,10 +34,11 @@ in
       "matomo"
       "phpfpmProcessManagerConfig"
     ] "Use services.phpfpm.pools.<name>.settings")
-    (mkRenamedOptionModule [ "services" "piwik" "nginx" ] [ "services" "matomo" "nginx" ])
-    (mkRenamedOptionModule
-      [ "services" "matomo" "periodicArchiveProcessingUrl" ]
-      [ "services" "matomo" "hostname" ]
+    (mkRenamedOptionModule ["services" "piwik" "nginx"] ["services" "matomo" "nginx"])
+    (
+      mkRenamedOptionModule
+      ["services" "matomo" "periodicArchiveProcessingUrl"]
+      ["services" "matomo" "hostname"]
     )
   ];
 
@@ -57,7 +56,7 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs "matomo" { };
+      package = mkPackageOption pkgs "matomo" {};
 
       webServerUser = mkOption {
         type = types.nullOr types.str;
@@ -101,7 +100,7 @@ in
       nginx = mkOption {
         type = types.nullOr (
           types.submodule (
-            recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) {
+            recursiveUpdate (import ../web-servers/nginx/vhost-options.nix {inherit config lib;}) {
               # enable encryption by default,
               # as sensitive login and Matomo data should not be transmitted in clear text.
               options.forceSSL.default = true;
@@ -150,16 +149,16 @@ in
       home = dataDir;
       group = user;
     };
-    users.groups.${user} = { };
+    users.groups.${user} = {};
 
     systemd.services.matomo-setup-update = {
       # everything needs to set up and up to date before Matomo php files are executed
-      requiredBy = [ "${phpExecutionUnit}.service" ];
-      before = [ "${phpExecutionUnit}.service" ];
+      requiredBy = ["${phpExecutionUnit}.service"];
+      before = ["${phpExecutionUnit}.service"];
       # the update part of the script can only work if the database is already up and running
-      requires = [ databaseService ];
-      after = [ databaseService ];
-      path = [ cfg.package ];
+      requires = [databaseService];
+      after = [databaseService];
+      path = [cfg.package];
       environment.PIWIK_USER_PATH = dataDir;
       serviceConfig = {
         Type = "oneshot";
@@ -220,8 +219,8 @@ in
     systemd.services.matomo-archive-processing = {
       description = "Archive Matomo reports";
       # the archiving can only work if the database is already up and running
-      requires = [ databaseService ];
-      after = [ databaseService ];
+      requires = [databaseService];
+      after = [databaseService];
 
       # TODO: might get renamed to MATOMO_USER_PATH in future versions
       environment.PIWIK_USER_PATH = dataDir;
@@ -238,7 +237,7 @@ in
     systemd.timers.matomo-archive-processing = mkIf cfg.periodicArchiveProcessing {
       description = "Automatically archive Matomo reports every hour";
 
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnCalendar = "hourly";
         Persistent = "yes";
@@ -248,46 +247,43 @@ in
 
     systemd.services.${phpExecutionUnit} = {
       # stop phpfpm on package upgrade, do database upgrade via matomo-setup-update, and then restart
-      restartTriggers = [ cfg.package ];
+      restartTriggers = [cfg.package];
       # stop config.ini.php from getting written with read permission for others
       serviceConfig.UMask = "0007";
     };
 
-    services.phpfpm.pools =
-      let
-        # workaround for when both are null and need to generate a string,
-        # which is illegal, but as assertions apparently are being triggered *after* config generation,
-        # we have to avoid already throwing errors at this previous stage.
-        socketOwner =
-          if (cfg.nginx != null) then
-            config.services.nginx.user
-          else if (cfg.webServerUser != null) then
-            cfg.webServerUser
-          else
-            "";
-      in
-      {
-        ${pool} = {
-          inherit user;
-          phpOptions = ''
-            error_log = 'stderr'
-            log_errors = on
-          '';
-          settings = mapAttrs (name: mkDefault) {
-            "listen.owner" = socketOwner;
-            "listen.group" = "root";
-            "listen.mode" = "0660";
-            "pm" = "dynamic";
-            "pm.max_children" = 75;
-            "pm.start_servers" = 10;
-            "pm.min_spare_servers" = 5;
-            "pm.max_spare_servers" = 20;
-            "pm.max_requests" = 500;
-            "catch_workers_output" = true;
-          };
-          phpEnv.PIWIK_USER_PATH = dataDir;
+    services.phpfpm.pools = let
+      # workaround for when both are null and need to generate a string,
+      # which is illegal, but as assertions apparently are being triggered *after* config generation,
+      # we have to avoid already throwing errors at this previous stage.
+      socketOwner =
+        if (cfg.nginx != null)
+        then config.services.nginx.user
+        else if (cfg.webServerUser != null)
+        then cfg.webServerUser
+        else "";
+    in {
+      ${pool} = {
+        inherit user;
+        phpOptions = ''
+          error_log = 'stderr'
+          log_errors = on
+        '';
+        settings = mapAttrs (name: mkDefault) {
+          "listen.owner" = socketOwner;
+          "listen.group" = "root";
+          "listen.mode" = "0660";
+          "pm" = "dynamic";
+          "pm.max_children" = 75;
+          "pm.start_servers" = 10;
+          "pm.min_spare_servers" = 5;
+          "pm.max_spare_servers" = 20;
+          "pm.max_requests" = 500;
+          "catch_workers_output" = true;
         };
+        phpEnv.PIWIK_USER_PATH = dataDir;
       };
+    };
 
     services.nginx.virtualHosts = mkIf (cfg.nginx != null) {
       # References:
@@ -351,6 +347,6 @@ in
 
   meta = {
     doc = ./matomo.md;
-    maintainers = with lib.maintainers; [ florianjacob ];
+    maintainers = with lib.maintainers; [florianjacob];
   };
 }

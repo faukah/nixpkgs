@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "sftpman";
   version = "1.2.2";
@@ -24,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     description = "Application that handles sshfs/sftp file systems mounting";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ contrun ];
+    maintainers = with maintainers; [contrun];
     mainProgram = "sftpman";
   };
 }

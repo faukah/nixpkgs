@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "barlow";
   version = "1.422";
@@ -30,7 +29,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Grotesk variable font superfamily";
     homepage = "https://tribby.com/fonts/barlow/";
     license = licenses.ofl;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

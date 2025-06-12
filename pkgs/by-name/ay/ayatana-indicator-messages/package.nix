@@ -23,7 +23,6 @@
   vala,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ayatana-indicator-messages";
   version = "24.5.1";
@@ -35,10 +34,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-M6IXI0ZnWPZod2ewxxfCeHhdYUrWDW/BFc1vMHmjObA=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals withDocumentation [ "devdoc" ];
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optionals withDocumentation ["devdoc"];
 
   postPatch =
     ''
@@ -87,10 +88,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeCheckInputs = [
     (python3.withPackages (
-      ps: with ps; [
-        pygobject3
-        python-dbusmock
-      ]
+      ps:
+        with ps; [
+          pygobject3
+          python-dbusmock
+        ]
     ))
   ];
 
@@ -148,7 +150,7 @@ stdenv.mkDerivation (finalAttrs: {
       pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
       vm = nixosTests.ayatana-indicators;
     };
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -159,11 +161,13 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/AyatanaIndicators/ayatana-indicator-messages";
     changelog = "https://github.com/AyatanaIndicators/ayatana-indicator-messages/blob/${
-      if (!builtins.isNull finalAttrs.src.tag) then finalAttrs.src.tag else finalAttrs.src.rev
+      if (!builtins.isNull finalAttrs.src.tag)
+      then finalAttrs.src.tag
+      else finalAttrs.src.rev
     }/ChangeLog";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
-    pkgConfigModules = [ "messaging-menu" ];
+    maintainers = with lib.maintainers; [OPNA2608];
+    pkgConfigModules = ["messaging-menu"];
   };
 })

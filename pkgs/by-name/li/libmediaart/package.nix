@@ -15,7 +15,6 @@
   gobject-introspection,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libmediaart";
   version = "1.9.7";
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description = "Library tasked with managing, extracting and handling media art caches";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2;
     platforms = platforms.unix;
   };

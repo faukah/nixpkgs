@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "kalamine";
   version = "0.38";
@@ -29,13 +28,13 @@ python3.pkgs.buildPythonApplication rec {
     tomli
   ];
 
-  pythonImportsCheck = [ "kalamine" ];
+  pythonImportsCheck = ["kalamine"];
 
   meta = with lib; {
     description = "Keyboard Layout Maker";
     homepage = "https://github.com/OneDeadKey/kalamine/";
     license = licenses.mit;
-    maintainers = with maintainers; [ iogamaster ];
+    maintainers = with maintainers; [iogamaster];
     mainProgram = "kalamine";
   };
 }

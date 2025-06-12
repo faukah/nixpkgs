@@ -11,7 +11,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyxnat";
   version = "1.6.3";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-peyQQ1fc+0O1I9LztYSgk2VBC17Y3UlOZGR2WSYKVTk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   propagatedBuildInputs = [
     lxml
@@ -49,7 +48,7 @@ buildPythonPackage rec {
   preCheck = ''
     export PYXNAT_SKIP_NETWORK_TESTS=1
   '';
-  pytestFlagsArray = [ "pyxnat" ];
+  pytestFlagsArray = ["pyxnat"];
   disabledTestPaths = [
     # require a running local XNAT instance e.g. in a docker container:
     "pyxnat/tests/attributes_test.py"
@@ -71,7 +70,7 @@ buildPythonPackage rec {
     "test_project_manager"
   ];
 
-  pythonImportsCheck = [ "pyxnat" ];
+  pythonImportsCheck = ["pyxnat"];
 
   meta = with lib; {
     homepage = "https://pyxnat.github.io/pyxnat";
@@ -79,6 +78,6 @@ buildPythonPackage rec {
     mainProgram = "sessionmirror.py";
     changelog = "https://github.com/pyxnat/pyxnat/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

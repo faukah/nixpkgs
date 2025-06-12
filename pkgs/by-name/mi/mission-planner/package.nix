@@ -7,9 +7,7 @@
   unzip,
   mono,
   gitUpdater,
-}:
-
-let
+}: let
   pname = "mission-planner";
   desktopItem = makeDesktopItem {
     name = pname;
@@ -20,70 +18,70 @@ let
     genericName = "Ground Control Station";
   };
 in
-stdenv.mkDerivation rec {
-  inherit pname;
-  version = "1.3.82";
+  stdenv.mkDerivation rec {
+    inherit pname;
+    version = "1.3.82";
 
-  src = fetchurl {
-    url = "https://firmware.ardupilot.org/Tools/MissionPlanner/MissionPlanner-${version}.zip";
-    sha256 = "sha256-554fFDxHMo4jV3yrPdGgDYQ6XeW+TWdVIIkGQIBdrCQ=";
-  };
+    src = fetchurl {
+      url = "https://firmware.ardupilot.org/Tools/MissionPlanner/MissionPlanner-${version}.zip";
+      sha256 = "sha256-554fFDxHMo4jV3yrPdGgDYQ6XeW+TWdVIIkGQIBdrCQ=";
+    };
 
-  nativeBuildInputs = [
-    makeWrapper
-    mono
-    unzip
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+      mono
+      unzip
+    ];
 
-  # zip has no outer directory, so make one and unpack there
-  unpackPhase = ''
-    runHook preUnpack
+    # zip has no outer directory, so make one and unpack there
+    unpackPhase = ''
+      runHook preUnpack
 
-    mkdir -p source
-    cd source
-    unzip -q $src
+      mkdir -p source
+      cd source
+      unzip -q $src
 
-    runHook postUnpack
-  '';
-
-  AOT_FILES = [
-    "MissionPlanner.exe"
-    "MissionPlanner.*.dll"
-  ];
-
-  buildPhase = ''
-    runHook preBuild
-    for file in $AOT_FILES
-    do
-      mono --aot $file
-    done
-    runHook postBuild
-  '';
-
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/{bin,opt/mission-planner}
-    install -m 444 -D mpdesktop150.png $out/share/icons/mission-planner.png
-    cp -r ${desktopItem}/share/applications $out/share/
-    mv * $out/opt/mission-planner
-    makeWrapper ${mono}/bin/mono $out/bin/mission-planner \
-      --add-flags $out/opt/mission-planner/MissionPlanner.exe
-    runHook postInstall
-  '';
-
-  passthru.updateScript = gitUpdater { };
-
-  meta = with lib; {
-    description = "ArduPilot ground station";
-    mainProgram = "mission-planner";
-    longDescription = ''
-      Full-featured ground station application for the ArduPilot open source
-      autopilot project.  Lets you both flash, configure and control ArduPilot
-      Plane, Copter and Rover targets.
+      runHook postUnpack
     '';
-    homepage = "https://ardupilot.org/planner/";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wucke13 ];
-    platforms = platforms.all;
-  };
-}
+
+    AOT_FILES = [
+      "MissionPlanner.exe"
+      "MissionPlanner.*.dll"
+    ];
+
+    buildPhase = ''
+      runHook preBuild
+      for file in $AOT_FILES
+      do
+        mono --aot $file
+      done
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/{bin,opt/mission-planner}
+      install -m 444 -D mpdesktop150.png $out/share/icons/mission-planner.png
+      cp -r ${desktopItem}/share/applications $out/share/
+      mv * $out/opt/mission-planner
+      makeWrapper ${mono}/bin/mono $out/bin/mission-planner \
+        --add-flags $out/opt/mission-planner/MissionPlanner.exe
+      runHook postInstall
+    '';
+
+    passthru.updateScript = gitUpdater {};
+
+    meta = with lib; {
+      description = "ArduPilot ground station";
+      mainProgram = "mission-planner";
+      longDescription = ''
+        Full-featured ground station application for the ArduPilot open source
+        autopilot project.  Lets you both flash, configure and control ArduPilot
+        Plane, Copter and Rover targets.
+      '';
+      homepage = "https://ardupilot.org/planner/";
+      license = licenses.gpl3Plus;
+      maintainers = with maintainers; [wucke13];
+      platforms = platforms.all;
+    };
+  }

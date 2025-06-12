@@ -3,17 +3,18 @@
   config,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.bitmagnet;
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
     mkPackageOption
     optional
     ;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     bool
     int
     port
@@ -22,9 +23,8 @@ let
     ;
   inherit (lib.generators) toYAML;
 
-  freeformType = (pkgs.formats.yaml { }).type;
-in
-{
+  freeformType = (pkgs.formats.yaml {}).type;
+in {
   options.services.bitmagnet = {
     enable = mkEnableOption "Bitmagnet service";
     useLocalPostgresDB = mkOption {
@@ -34,12 +34,12 @@ in
     };
     settings = mkOption {
       description = "Bitmagnet configuration (https://bitmagnet.io/setup/configuration.html).";
-      default = { };
+      default = {};
       type = submodule {
         inherit freeformType;
         options = {
           http_server = mkOption {
-            default = { };
+            default = {};
             description = "HTTP server settings";
             type = submodule {
               inherit freeformType;
@@ -53,7 +53,7 @@ in
             };
           };
           dht_server = mkOption {
-            default = { };
+            default = {};
             description = "DHT server settings";
             type = submodule {
               inherit freeformType;
@@ -67,7 +67,7 @@ in
             };
           };
           postgres = mkOption {
-            default = { };
+            default = {};
             description = "PostgreSQL database configuration";
             type = submodule {
               inherit freeformType;
@@ -98,7 +98,7 @@ in
         };
       };
     };
-    package = mkPackageOption pkgs "bitmagnet" { };
+    package = mkPackageOption pkgs "bitmagnet" {};
     user = mkOption {
       description = "User running bitmagnet";
       type = str;
@@ -117,17 +117,19 @@ in
   };
   config = mkIf cfg.enable {
     environment.etc."xdg/bitmagnet/config.yml" = {
-      text = toYAML { } cfg.settings;
+      text = toYAML {} cfg.settings;
       mode = "0440";
       user = cfg.user;
       group = cfg.group;
     };
     systemd.services.bitmagnet = {
       enable = true;
-      wantedBy = [ "multi-user.target" ];
-      after = [
-        "network.target"
-      ] ++ optional cfg.useLocalPostgresDB "postgresql.service";
+      wantedBy = ["multi-user.target"];
+      after =
+        [
+          "network.target"
+        ]
+        ++ optional cfg.useLocalPostgresDB "postgresql.service";
       requires = optional cfg.useLocalPostgresDB "postgresql.service";
       serviceConfig = {
         Type = "simple";
@@ -170,25 +172,32 @@ in
         isSystemUser = true;
       };
     };
-    users.groups = mkIf (cfg.group == "bitmagnet") { bitmagnet = { }; };
+    users.groups = mkIf (cfg.group == "bitmagnet") {bitmagnet = {};};
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings.dht_server.port ];
-      allowedUDPPorts = [ cfg.settings.dht_server.port ];
+      allowedTCPPorts = [cfg.settings.dht_server.port];
+      allowedUDPPorts = [cfg.settings.dht_server.port];
     };
     services.postgresql = mkIf cfg.useLocalPostgresDB {
       enable = true;
       ensureDatabases = [
         cfg.settings.postgres.name
-        (if (cfg.settings.postgres.user == "") then cfg.user else cfg.settings.postgres.user)
+        (
+          if (cfg.settings.postgres.user == "")
+          then cfg.user
+          else cfg.settings.postgres.user
+        )
       ];
       ensureUsers = [
         {
-          name = if (cfg.settings.postgres.user == "") then cfg.user else cfg.settings.postgres.user;
+          name =
+            if (cfg.settings.postgres.user == "")
+            then cfg.user
+            else cfg.settings.postgres.user;
           ensureDBOwnership = true;
         }
       ];
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ gileri ];
+  meta.maintainers = with lib.maintainers; [gileri];
 }

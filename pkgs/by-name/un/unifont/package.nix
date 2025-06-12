@@ -5,7 +5,6 @@
   xorg,
   libfaketime,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "unifont";
   version = "16.0.03";
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Basically GPL2+ with font exception.
     license = "https://unifoundry.com/LICENSE.txt";
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
     platforms = platforms.all;
   };
 })

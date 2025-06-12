@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libsForQt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "atools";
   version = "4.0.17";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/albar965/atools";
     changelog = "https://github.com/albar965/atools/blob/${src.rev}/CHANGELOG.txt";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ ck3d ];
+    maintainers = with lib.maintainers; [ck3d];
     platforms = lib.platforms.all;
   };
 }

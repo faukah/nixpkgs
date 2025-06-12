@@ -6,7 +6,6 @@
   pkg-config,
   fdk_aac,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fdkaac";
   version = "1.0.6";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ fdk_aac ];
+  buildInputs = [fdk_aac];
 
   doCheck = true;
 
@@ -37,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nu774/fdkaac";
     license = licenses.zlib;
     platforms = platforms.all;
-    maintainers = [ maintainers.lunik1 ];
+    maintainers = [maintainers.lunik1];
   };
 }

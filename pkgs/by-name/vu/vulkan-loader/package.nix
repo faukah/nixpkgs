@@ -14,7 +14,6 @@
   enableX11 ? stdenv.hostPlatform.isLinux,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vulkan-loader";
   version = "1.4.313.0";
@@ -26,14 +25,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-CeIjyW90Ri0MvhyFfYgss5Rjh5fHKhQf7CgBEcB/nPk=";
   };
 
-  patches = [ ./fix-pkgconfig.patch ];
+  patches = [./fix-pkgconfig.patch];
 
   nativeBuildInputs = [
     cmake
     pkg-config
   ];
   buildInputs =
-    [ vulkan-headers ]
+    [vulkan-headers]
     ++ lib.optionals enableX11 [
       libX11
       libxcb
@@ -78,8 +77,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.lunarg.com";
     platforms = platforms.unix ++ platforms.windows;
     license = licenses.asl20;
-    maintainers = [ maintainers.ralith ];
+    maintainers = [maintainers.ralith];
     broken = finalAttrs.version != vulkan-headers.version;
-    pkgConfigModules = [ "vulkan" ];
+    pkgConfigModules = ["vulkan"];
   };
 })

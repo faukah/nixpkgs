@@ -4,18 +4,16 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.jitsi;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     escapeShellArg
     concatStringsSep
     ;
-in
-{
+in {
   port = 9700;
   extraOpts = {
     url = mkOption {

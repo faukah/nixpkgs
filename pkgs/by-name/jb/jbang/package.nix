@@ -7,7 +7,6 @@
   coreutils,
   curl,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.126.2";
   pname = "jbang";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sSmkY1OSaPsxoRTrvl/L3LjWexZeLn5t3s8VFGBGTyw=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -26,13 +25,13 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/jbang \
       --set JAVA_HOME ${jdk} \
       --set PATH ${
-        lib.makeBinPath [
-          (placeholder "out")
-          coreutils
-          jdk
-          curl
-        ]
-      }
+      lib.makeBinPath [
+        (placeholder "out")
+        coreutils
+        jdk
+        curl
+      ]
+    }
     runHook postInstall
   '';
 
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.jbang.dev";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ moaxcp ];
+    maintainers = with maintainers; [moaxcp];
   };
 }

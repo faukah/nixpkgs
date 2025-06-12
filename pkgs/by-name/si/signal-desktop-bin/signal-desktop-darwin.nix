@@ -14,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
   sourceRoot = ".";
 
-  nativeBuildInputs = [ _7zz ];
+  nativeBuildInputs = [_7zz];
 
   dontConfigure = true;
   dontBuild = true;
@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript.command = [ ./update.sh ];
+    updateScript.command = [./update.sh];
   };
 
   meta = {
@@ -49,13 +49,13 @@ stdenv.mkDerivation (finalAttrs: {
       # has non-redistributable Apple emoji packaged, see main derivation
       unfree
     ];
-    maintainers = with lib.maintainers; [ nickhu ];
+    maintainers = with lib.maintainers; [nickhu];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
       "x86_64-darwin"
       "aarch64-darwin"
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

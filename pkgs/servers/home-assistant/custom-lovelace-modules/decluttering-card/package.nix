@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "decluttering-card";
   version = "1.0.0";
@@ -31,7 +30,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/custom-cards/decluttering-card";
     changelog = "https://github.com/custom-cards/decluttering-card/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ k900 ];
+    maintainers = with maintainers; [k900];
     platforms = platforms.all;
   };
 }

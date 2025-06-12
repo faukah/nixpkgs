@@ -6,8 +6,7 @@
   buildGoModule,
   dotnetCorePackages,
   versionCheckHook,
-}:
-let
+}: let
   version = "4.0.7030";
   src = fetchFromGitHub {
     owner = "Azure";
@@ -22,40 +21,40 @@ let
     vendorHash = null;
   };
 in
-buildDotnetModule {
-  pname = "azure-functions-core-tools";
-  inherit src version;
+  buildDotnetModule {
+    pname = "azure-functions-core-tools";
+    inherit src version;
 
-  dotnet-sdk = dotnetCorePackages.sdk_8_0;
-  dotnet-runtime = dotnetCorePackages.sdk_8_0;
-  dotnetFlags = [ "-p:TargetFramework=net8.0" ];
-  nugetDeps = ./deps.json;
-  useDotnetFromEnv = true;
-  executables = [ "func" ];
+    dotnet-sdk = dotnetCorePackages.sdk_8_0;
+    dotnet-runtime = dotnetCorePackages.sdk_8_0;
+    dotnetFlags = ["-p:TargetFramework=net8.0"];
+    nugetDeps = ./deps.json;
+    useDotnetFromEnv = true;
+    executables = ["func"];
 
-  postPatch = ''
-    substituteInPlace src/Azure.Functions.Cli/Common/CommandChecker.cs \
-      --replace-fail "CheckExitCode(\"/bin/bash" "CheckExitCode(\"${stdenv.shell}"
-  '';
+    postPatch = ''
+      substituteInPlace src/Azure.Functions.Cli/Common/CommandChecker.cs \
+        --replace-fail "CheckExitCode(\"/bin/bash" "CheckExitCode(\"${stdenv.shell}"
+    '';
 
-  postInstall = ''
-    mkdir -p $out/bin
-    ln -s ${gozip}/bin/gozip $out/bin/gozip
-  '';
+    postInstall = ''
+      mkdir -p $out/bin
+      ln -s ${gozip}/bin/gozip $out/bin/gozip
+    '';
 
-  meta = {
-    homepage = "https://github.com/Azure/azure-functions-core-tools";
-    description = "Command line tools for Azure Functions";
-    mainProgram = "func";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [
-      mdarocha
-      detegr
-    ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
-    ];
-  };
-}
+    meta = {
+      homepage = "https://github.com/Azure/azure-functions-core-tools";
+      description = "Command line tools for Azure Functions";
+      mainProgram = "func";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [
+        mdarocha
+        detegr
+      ];
+      platforms = [
+        "x86_64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+    };
+  }

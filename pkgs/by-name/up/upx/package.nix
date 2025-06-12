@@ -6,7 +6,6 @@
   nix-update-script,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "upx";
   version = "5.0.1";
@@ -18,11 +17,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Tkyhr9iuyD2EnVZgo2X/NF0Am12JEZ3vQ9ojOjqsZ2E=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+    updateScript = nix-update-script {};
+    tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
   };
 
   meta = with lib; {

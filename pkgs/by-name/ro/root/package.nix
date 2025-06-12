@@ -49,13 +49,12 @@
   tbb,
   xrootd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "root";
   version = "6.36.00";
 
   passthru = {
-    tests = import ./tests { inherit callPackage; };
+    tests = import ./tests {inherit callPackage;};
   };
 
   src = fetchurl {
@@ -73,7 +72,7 @@ stdenv.mkDerivation rec {
   };
 
   # ROOT requires a patched version of clang
-  clang = (callPackage ./clang-root.nix { });
+  clang = callPackage ./clang-root.nix {};
 
   nativeBuildInputs = [
     makeWrapper
@@ -114,7 +113,7 @@ stdenv.mkDerivation rec {
       zlib
       zstd
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ apple-sdk.privateFrameworksHook ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [apple-sdk.privateFrameworksHook]
     ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
       libGLU
       libGL
@@ -155,12 +154,11 @@ stdenv.mkDerivation rec {
       substituteInPlace core/macosx/CMakeLists.txt \
         --replace-fail "-F/System/Library/PrivateFrameworks " ""
     ''
-    +
-      lib.optionalString
-        (stdenv.hostPlatform.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
-        ''
-          MACOSX_DEPLOYMENT_TARGET=10.16
-        '';
+    + lib.optionalString
+    (stdenv.hostPlatform.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
+    ''
+      MACOSX_DEPLOYMENT_TARGET=10.16
+    '';
 
   cmakeFlags =
     [
@@ -194,12 +192,12 @@ stdenv.mkDerivation rec {
     # Make ldd and sed available to the ROOT executable by prefixing PATH.
     wrapProgram "$out/bin/root" \
       --prefix PATH : "${
-        lib.makeBinPath [
-          gnused # sed
-          stdenv.cc # c++ ld etc.
-          stdenv.cc.libc # ldd
-        ]
-      }"
+      lib.makeBinPath [
+        gnused # sed
+        stdenv.cc # c++ ld etc.
+        stdenv.cc.libc # ldd
+      ]
+    }"
 
     # Patch thisroot.{sh,csh,fish}
 
@@ -239,9 +237,7 @@ stdenv.mkDerivation rec {
 
   # workaround for
   # https://github.com/root-project/root/issues/14778
-  env.NIX_LDFLAGS = lib.optionalString (
-    !stdenv.hostPlatform.isDarwin
-  ) "--version-script,${writeText "version.map" "ROOT { global: *; };"}";
+  env.NIX_LDFLAGS = lib.optionalString (!stdenv.hostPlatform.isDarwin) "--version-script,${writeText "version.map" "ROOT { global: *; };"}";
 
   # To use the debug information on the fly (without installation)
   # add the outPath of root.debug into NIX_DEBUG_INFO_DIRS (in PATH-like format)

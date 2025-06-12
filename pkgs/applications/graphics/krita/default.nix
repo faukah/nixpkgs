@@ -1,5 +1,4 @@
-{ callPackage, ... }:
-
+{callPackage, ...}:
 callPackage ./generic.nix {
   version = "5.2.9";
   kde-channel = "stable";

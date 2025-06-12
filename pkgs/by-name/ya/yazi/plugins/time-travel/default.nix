@@ -18,6 +18,6 @@ mkYaziPlugin {
     description = "Yazi plugin for browsing backwards and forwards in time via BTRFS / ZFS snapshots";
     homepage = "https://github.com/iynaix/time-travel.yazi";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
   };
 }

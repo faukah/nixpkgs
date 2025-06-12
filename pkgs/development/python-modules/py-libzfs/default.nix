@@ -7,7 +7,6 @@
   cython_0,
   zfs,
 }:
-
 buildPythonPackage rec {
   pname = "py-libzfs";
   version = "24.04.0";
@@ -33,8 +32,8 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ cython_0 ];
-  buildInputs = [ zfs ];
+  build-system = [cython_0];
+  buildInputs = [zfs];
 
   # Passing CFLAGS in configureFlags does not work, see https://github.com/truenas/py-libzfs/issues/107
   postPatch = lib.optionalString stdenv.hostPlatform.isLinux ''
@@ -45,13 +44,13 @@ buildPythonPackage rec {
       --replace-fail 'zof=false' 'zof=true'
   '';
 
-  pythonImportsCheck = [ "libzfs" ];
+  pythonImportsCheck = ["libzfs"];
 
   meta = with lib; {
     description = "Python libzfs bindings";
     homepage = "https://github.com/truenas/py-libzfs";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ chuangzhu ];
+    maintainers = with maintainers; [chuangzhu];
     # The project also supports macOS (OpenZFS on OSX, O3X), FreeBSD and OpenSolaris
     # I don't have a machine to test out, thus only packaged for Linux
     platforms = platforms.linux;

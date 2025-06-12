@@ -18,7 +18,6 @@
   plasma-framework,
   libgit2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kup";
   version = "0.9.1";
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
     description = "Backup tool for KDE";
     homepage = "https://apps.kde.org/kup";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.pwoelfel ];
+    maintainers = [maintainers.pwoelfel];
   };
 }

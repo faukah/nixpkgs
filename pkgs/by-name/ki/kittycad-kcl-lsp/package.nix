@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kittycad-kcl-lsp";
   version = "0.1.71";
@@ -19,14 +18,14 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-OlAy/WqoLRwkk1x4dOXE8MzBzeLyofQDVv81aR/sIMQ=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = {
     description = "KittyCAD KCL language server";
     changelog = "https://github.com/KittyCAD/kcl-lsp/releases/tag/v${version}";
     homepage = "https://github.com/KittyCAD/kcl-lsp";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jljox ];
+    maintainers = with lib.maintainers; [jljox];
     mainProgram = "kittycad-kcl-lsp";
   };
 }

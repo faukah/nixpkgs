@@ -3,7 +3,6 @@
   fetchurl,
   lib,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "plymouth-blahaj-theme";
   version = "1.0.0";
@@ -43,6 +42,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/190n/plymouth-blahaj";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ miampf ];
+    maintainers = with lib.maintainers; [miampf];
   };
 }

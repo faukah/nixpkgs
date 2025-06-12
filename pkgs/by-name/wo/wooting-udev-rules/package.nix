@@ -1,11 +1,13 @@
-{ lib, stdenv }:
-
+{
+  lib,
+  stdenv,
+}:
 stdenv.mkDerivation {
   pname = "wooting-udev-rules";
   version = "0-unstable-2024-11-20";
 
   # Source: https://help.wooting.io/article/147-configuring-device-access-for-wootility-under-linux-udev-rules
-  src = [ ./wooting.rules ];
+  src = [./wooting.rules];
 
   dontUnpack = true;
 

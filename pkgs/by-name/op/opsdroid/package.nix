@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "opsdroid";
   version = "0.30.0";
@@ -16,7 +15,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-7H44wdhJD4Z6OP1sUmSGlepuvx+LlwKLq7iR8cwqR24=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     aiohttp
@@ -36,7 +35,7 @@ python3Packages.buildPythonPackage rec {
     emoji
     get-video-properties
     ibm-watson
-    (matrix-nio.override { withOlm = true; })
+    (matrix-nio.override {withOlm = true;})
     mattermostdriver
     motor
     multidict

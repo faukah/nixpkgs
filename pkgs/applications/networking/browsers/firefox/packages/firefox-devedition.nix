@@ -6,7 +6,6 @@
   nixosTests,
   buildMozillaMach,
 }:
-
 buildMozillaMach rec {
   pname = "firefox-devedition";
   binaryName = pname;

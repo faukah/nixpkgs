@@ -3,7 +3,6 @@
   buildDunePackage,
   dune_3,
 }:
-
 buildDunePackage {
   pname = "chrome-trace";
   inherit (dune_3) src version;

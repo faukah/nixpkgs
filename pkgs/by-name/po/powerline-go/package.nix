@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "powerline-go";
   version = "1.25";
@@ -22,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/justjanne/powerline-go";
     changelog = "https://github.com/justjanne/powerline-go/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ sifmelcara ];
+    maintainers = with lib.maintainers; [sifmelcara];
     mainProgram = "powerline-go";
   };
 }

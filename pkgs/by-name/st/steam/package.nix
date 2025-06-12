@@ -3,23 +3,21 @@
   steam-unwrapped,
   buildFHSEnv,
   writeShellScript,
-  extraPkgs ? pkgs: [ ], # extra packages to add to targetPkgs
-  extraLibraries ? pkgs: [ ], # extra packages to add to multiPkgs
+  extraPkgs ? pkgs: [], # extra packages to add to targetPkgs
+  extraLibraries ? pkgs: [], # extra packages to add to multiPkgs
   extraProfile ? "", # string to append to profile
   extraPreBwrapCmds ? "", # extra commands to run before calling bubblewrap
-  extraBwrapArgs ? [ ], # extra arguments to pass to bubblewrap (real default is at usage site)
+  extraBwrapArgs ? [], # extra arguments to pass to bubblewrap (real default is at usage site)
   extraArgs ? "", # arguments to always pass to steam
-  extraEnv ? { }, # Environment variables to pass to Steam
+  extraEnv ? {}, # Environment variables to pass to Steam
   privateTmp ? true, # if the steam bubblewrap should isolate /tmp
-}:
-let
-  steamEnv =
-    {
-      name,
-      runScript,
-      passthru ? { },
-      meta ? { },
-    }:
+}: let
+  steamEnv = {
+    name,
+    runScript,
+    passthru ? {},
+    meta ? {},
+  }:
     buildFHSEnv {
       inherit
         name
@@ -33,57 +31,55 @@ let
       includeClosures = true;
 
       # https://gitlab.steamos.cloud/steamrt/steam-runtime-tools/-/blob/main/docs/distro-assumptions.md#command-line-tools
-      targetPkgs =
-        pkgs:
+      targetPkgs = pkgs:
         with pkgs;
-        [
-          steam-unwrapped
+          [
+            steam-unwrapped
 
-          bash
-          coreutils
-          file
-          lsb-release # not documented, called from Big Picture
-          pciutils # not documented, complains about lspci on startup
-          glibc_multi.bin
-          xz
-          zenity
+            bash
+            coreutils
+            file
+            lsb-release # not documented, called from Big Picture
+            pciutils # not documented, complains about lspci on startup
+            glibc_multi.bin
+            xz
+            zenity
 
-          # Steam expects it to be /sbin specifically
-          (pkgs.runCommand "sbin-ldconfig" { } ''
-            mkdir -p $out/sbin
-            ln -s /bin/ldconfig $out/sbin/ldconfig
-          '')
+            # Steam expects it to be /sbin specifically
+            (pkgs.runCommand "sbin-ldconfig" {} ''
+              mkdir -p $out/sbin
+              ln -s /bin/ldconfig $out/sbin/ldconfig
+            '')
 
-          # crashes on startup if it can't find libX11 locale files
-          (pkgs.runCommand "xorg-locale" { } ''
-            mkdir -p $out
-            ln -s ${xorg.libX11}/share $out/share
-          '')
-        ]
-        ++ extraPkgs pkgs;
+            # crashes on startup if it can't find libX11 locale files
+            (pkgs.runCommand "xorg-locale" {} ''
+              mkdir -p $out
+              ln -s ${xorg.libX11}/share $out/share
+            '')
+          ]
+          ++ extraPkgs pkgs;
 
       # https://gitlab.steamos.cloud/steamrt/steam-runtime-tools/-/blob/main/docs/distro-assumptions.md#shared-libraries
-      multiPkgs =
-        pkgs:
+      multiPkgs = pkgs:
         with pkgs;
-        [
-          glibc
-          libxcrypt
-          libGL
+          [
+            glibc
+            libxcrypt
+            libGL
 
-          libdrm
-          libgbm
-          udev
-          libudev0-shim
-          libva
-          vulkan-loader
+            libdrm
+            libgbm
+            udev
+            libudev0-shim
+            libva
+            vulkan-loader
 
-          networkmanager
-          # not documented, used for network status things in Big Picture
-          # FIXME: figure out how to only build libnm?
-          libcap # not documented, required by srt-bwrap
-        ]
-        ++ extraLibraries pkgs;
+            networkmanager
+            # not documented, used for network status things in Big Picture
+            # FIXME: figure out how to only build libnm?
+            libcap # not documented, required by srt-bwrap
+          ]
+          ++ extraLibraries pkgs;
 
       extraInstallCommands = lib.optionalString (steam-unwrapped != null) ''
         ln -s ${steam-unwrapped}/share $out/share
@@ -129,43 +125,49 @@ let
 
       inherit extraPreBwrapCmds;
 
-      extraBwrapArgs = [
-        # Steam will dump crash reports here, make those more accessible
-        "--bind-try /tmp/dumps /tmp/dumps"
-      ] ++ extraBwrapArgs;
+      extraBwrapArgs =
+        [
+          # Steam will dump crash reports here, make those more accessible
+          "--bind-try /tmp/dumps /tmp/dumps"
+        ]
+        ++ extraBwrapArgs;
     };
 in
-steamEnv {
-  name = "steam";
+  steamEnv {
+    name = "steam";
 
-  runScript = writeShellScript "steam-wrapped" ''
-    exec steam ${extraArgs} "$@"
-  '';
-
-  passthru.run = steamEnv {
-    name = "steam-run";
-
-    runScript = writeShellScript "steam-run" ''
-      if [ $# -eq 0 ]; then
-        echo "Usage: steam-run command-to-run args..." >&2
-        exit 1
-      fi
-
-      exec "$@"
+    runScript = writeShellScript "steam-wrapped" ''
+      exec steam ${extraArgs} "$@"
     '';
 
-    meta = (steam-unwrapped.meta or { }) // {
-      description = "Run commands in the same FHS environment that is used for Steam";
-      mainProgram = "steam-run";
+    passthru.run = steamEnv {
       name = "steam-run";
-      # steam-run itself is just a script that lives in nixpkgs (which is licensed under MIT).
-      # steam is a dependency and already unfree, so normal steam-run will not install without
-      # allowing unfree packages or appropriate `allowUnfreePredicate` rules.
-      license = lib.licenses.mit;
-    };
-  };
 
-  meta = (steam-unwrapped.meta or { }) // {
-    description = "Steam dependencies (dummy package, do not use)";
-  };
-}
+      runScript = writeShellScript "steam-run" ''
+        if [ $# -eq 0 ]; then
+          echo "Usage: steam-run command-to-run args..." >&2
+          exit 1
+        fi
+
+        exec "$@"
+      '';
+
+      meta =
+        (steam-unwrapped.meta or {})
+        // {
+          description = "Run commands in the same FHS environment that is used for Steam";
+          mainProgram = "steam-run";
+          name = "steam-run";
+          # steam-run itself is just a script that lives in nixpkgs (which is licensed under MIT).
+          # steam is a dependency and already unfree, so normal steam-run will not install without
+          # allowing unfree packages or appropriate `allowUnfreePredicate` rules.
+          license = lib.licenses.mit;
+        };
+    };
+
+    meta =
+      (steam-unwrapped.meta or {})
+      // {
+        description = "Steam dependencies (dummy package, do not use)";
+      };
+  }

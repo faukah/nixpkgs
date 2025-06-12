@@ -36,7 +36,6 @@
   xorgproto,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "allegro";
   version = "5.2.10.1";
@@ -99,7 +98,7 @@ stdenv.mkDerivation rec {
     sed -e 's@OpenAL/@AL/@g' -i addons/audio/openal.c
   '';
 
-  cmakeFlags = [ "-DCMAKE_SKIP_RPATH=ON" ];
+  cmakeFlags = ["-DCMAKE_SKIP_RPATH=ON"];
 
   outputs = [
     "out"
@@ -110,7 +109,7 @@ stdenv.mkDerivation rec {
     description = "Game programming library";
     homepage = "https://liballeg.org/";
     license = licenses.zlib;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

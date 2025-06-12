@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cronie";
   version = "1.7.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-WrzdpE9t7vWpc8QFoFs+S/HgHwsidRNmfcHp7ltSWQw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   outputs = [
     "out"
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl21Plus
     ];
     mainProgram = "crond";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

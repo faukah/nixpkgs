@@ -5,7 +5,6 @@
   cmake,
   sfml_2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "antsimulator";
   version = "3.1";
@@ -17,8 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-1KWoGbdjF8VI4th/ZjAzASgsLEuS3xiwObulzxQAppA=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ sfml_2 ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [sfml_2];
 
   postPatch = ''
     substituteInPlace src/main.cpp \
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Simple Ants simulator";
     mainProgram = "antsimulator";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

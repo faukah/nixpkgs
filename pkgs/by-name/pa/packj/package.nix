@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "packj";
   version = "0.15-beta";
@@ -57,7 +56,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/ossillate-inc/packj";
     changelog = "https://github.com/ossillate-inc/packj/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "packj";
   };
 }

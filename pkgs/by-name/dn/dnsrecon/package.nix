@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "dnsrecon";
   version = "1.3.1";
@@ -16,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-CW5HM8hATfhyQDbSAV+zSp8Gc/C5uy40yKMJAGawn0k=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     dnspython
@@ -30,7 +29,7 @@ python3.pkgs.buildPythonApplication rec {
   # Tests require access to /etc/resolv.conf
   doCheck = false;
 
-  pythonImportsCheck = [ "dnsrecon" ];
+  pythonImportsCheck = ["dnsrecon"];
 
   meta = {
     description = "DNS Enumeration script";

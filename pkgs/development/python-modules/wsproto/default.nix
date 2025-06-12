@@ -6,7 +6,6 @@
   h11,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "wsproto";
   version = "1.2.0";
@@ -18,16 +17,16 @@ buildPythonPackage rec {
     hash = "sha256-rVZfJuy5JYij5DvD2WFk3oTNmQJIKxMNDduqlmSoUGU=";
   };
 
-  propagatedBuildInputs = [ h11 ];
+  propagatedBuildInputs = [h11];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "wsproto" ];
+  pythonImportsCheck = ["wsproto"];
 
   meta = with lib; {
     description = "Pure Python, pure state-machine WebSocket implementation";
     homepage = "https://github.com/python-hyper/wsproto/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

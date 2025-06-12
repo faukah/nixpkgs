@@ -5,7 +5,6 @@
   sharutils,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aespipe";
   version = "2.4i";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tBx6qsJULlnY/1jB/52HtS1KjBhHt5nIr+yR2UUXx14=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   configureFlags = [
     "--enable-padlock"
@@ -25,14 +24,14 @@ stdenv.mkDerivation rec {
   postInstall = ''
     cp bz2aespipe $out/bin
     wrapProgram $out/bin/bz2aespipe \
-     --prefix PATH : $out/bin:${lib.makeBinPath [ sharutils ]}
+     --prefix PATH : $out/bin:${lib.makeBinPath [sharutils]}
   '';
 
   meta = with lib; {
     description = "AES encrypting or decrypting pipe";
     homepage = "https://loop-aes.sourceforge.net/aespipe.README";
     license = licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

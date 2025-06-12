@@ -35,7 +35,6 @@
   libX11,
   libXcursor,
 }:
-
 mkDerivation {
   pname = "kio-extras";
   meta = {
@@ -43,7 +42,7 @@ mkDerivation {
       gpl2
       lgpl21
     ];
-    maintainers = [ lib.maintainers.ttuegel ];
+    maintainers = [lib.maintainers.ttuegel];
   };
   nativeBuildInputs = [
     extra-cmake-modules
@@ -88,5 +87,4 @@ mkDerivation {
     substituteInPlace $out/share/dbus-1/services/org.kde.kmtpd5.service \
       --replace Exec=$out Exec=${kio}
   '';
-
 }

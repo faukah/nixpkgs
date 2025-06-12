@@ -7,9 +7,8 @@
   python3,
   makeWrapper,
   # optional list of extra waf tools, e.g. `[ "doxygen" "pytest" ]`
-  extraTools ? [ ],
+  extraTools ? [],
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "waf";
   version = "2.1.5";
@@ -42,23 +41,21 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postConfigure
   '';
 
-  buildPhase =
-    let
-      extraToolsList = lib.optionalString (
-        extraTools != [ ]
-      ) "--tools=\"${lib.concatStringsSep "," extraTools}\"";
-    in
-    ''
-      runHook preBuild
+  buildPhase = let
+    extraToolsList = lib.optionalString (
+      extraTools != []
+    ) "--tools=\"${lib.concatStringsSep "," extraTools}\"";
+  in ''
+    runHook preBuild
 
-      python waf-light build ${extraToolsList}
+    python waf-light build ${extraToolsList}
 
-      substituteInPlace waf \
-        --replace "w = test(i + '/lib/' + dirname)" \
-                  "w = test('$out/${python3.sitePackages}')"
+    substituteInPlace waf \
+      --replace "w = test(i + '/lib/' + dirname)" \
+                "w = test('$out/${python3.sitePackages}')"
 
-      runHook postBuild
-    '';
+    runHook postBuild
+  '';
 
   installPhase = ''
     runHook preInstall
@@ -83,8 +80,8 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.com/ita1024/waf/blob/waf-${finalAttrs.version}/ChangeLog";
     license = lib.licenses.bsd3;
     mainProgram = "waf";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (python3.meta) platforms;
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
   };
 })

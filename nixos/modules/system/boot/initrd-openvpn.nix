@@ -4,19 +4,10 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.boot.initrd.network.openvpn;
-
-in
-
-{
-
+in {
   options = {
-
     boot.initrd.network.openvpn.enable = mkOption {
       type = types.bool;
       default = false;
@@ -40,7 +31,6 @@ in
       '';
       example = literalExpression "./configuration.ovpn";
     };
-
   };
 
   config = mkIf (config.boot.initrd.network.enable && cfg.enable) {
@@ -88,8 +78,8 @@ in
     '';
 
     boot.initrd.systemd.services.openvpn = {
-      wantedBy = [ "initrd.target" ];
-      path = [ pkgs.iproute2 ];
+      wantedBy = ["initrd.target"];
+      path = [pkgs.iproute2];
       after = [
         "network.target"
         "initrd-nixos-copy-secrets.service"
@@ -98,5 +88,4 @@ in
       serviceConfig.Type = "notify";
     };
   };
-
 }

@@ -6,7 +6,6 @@
   makeWrapper,
   doWrap ? true,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "vcpkg";
   version = "2025.04.09";
@@ -35,7 +34,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postPatch = ''
     substituteInPlace scripts/toolchains/linux.cmake \

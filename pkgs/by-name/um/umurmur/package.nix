@@ -9,7 +9,6 @@
   libconfig,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "umurmur";
   version = "0.3.0";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-q5k1Lv+/Kz602QFcdb/FoWWaH9peAQIf7u1NTCWKTBM=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     openssl
     protobufc
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;
-    maintainers = with lib.maintainers; [ _3JlOy-PYCCKUi ];
+    maintainers = with lib.maintainers; [_3JlOy-PYCCKUi];
     mainProgram = "umurmurd";
   };
 }

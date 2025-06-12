@@ -4,7 +4,6 @@
   buildLua,
   ffsubsync,
 }:
-
 buildLua {
   pname = "autosubsync-mpv";
   version = "0-unstable-2024-10-29";
@@ -32,7 +31,7 @@ buildLua {
   meta = with lib; {
     description = "Automatically sync subtitles in mpv using the `n` button";
     homepage = "https://github.com/joaquintorres/autosubsync-mpv";
-    maintainers = with maintainers; [ kovirobi ];
+    maintainers = with maintainers; [kovirobi];
     license = licenses.mit;
   };
 }

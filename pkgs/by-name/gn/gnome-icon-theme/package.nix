@@ -7,7 +7,6 @@
   iconnamingutils,
   gtk2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-icon-theme";
   version = "3.12.0";
@@ -34,14 +33,14 @@ stdenv.mkDerivation rec {
     rm -r "$out/share/locale"
   '';
 
-  allowedReferences = [ ];
+  allowedReferences = [];
 
   meta = with lib; {
     description = "Collection of icons for the GNOME 2 desktop";
     homepage = "https://download.gnome.org/sources/gnome-icon-theme/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
     broken = stdenv.hostPlatform.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/gnome-icon-theme.x86_64-darwin
   };
 }

@@ -6,7 +6,6 @@
   pytestCheckHook,
   poetry-core,
 }:
-
 buildPythonPackage rec {
   pname = "qasync";
   version = "0.27.1";
@@ -24,20 +23,20 @@ buildPythonPackage rec {
     rm qasync/_windows.py # Ignoring it is not taking effect and it will not be used on Linux
   '';
 
-  buildInputs = [ poetry-core ];
+  buildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ pyqt5 ];
+  propagatedBuildInputs = [pyqt5];
 
-  checkInputs = [ pytestCheckHook ];
+  checkInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "qasync" ];
+  pythonImportsCheck = ["qasync"];
 
-  disabledTestPaths = [ "tests/test_qeventloop.py" ];
+  disabledTestPaths = ["tests/test_qeventloop.py"];
 
   meta = {
     description = "Allows coroutines to be used in PyQt/PySide applications by providing an implementation of the PEP 3156 event-loop";
     homepage = "https://github.com/CabbageDevelopment/qasync";
-    license = [ lib.licenses.bsd2 ];
-    maintainers = [ lib.maintainers.lucasew ];
+    license = [lib.licenses.bsd2];
+    maintainers = [lib.maintainers.lucasew];
   };
 }

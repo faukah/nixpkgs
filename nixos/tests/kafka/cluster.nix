@@ -1,7 +1,9 @@
 import ../make-test-python.nix (
-  { lib, pkgs, ... }:
-
-  let
+  {
+    lib,
+    pkgs,
+    ...
+  }: let
     inherit (lib) mkMerge;
 
     # Generate with `kafka-storage.sh random-uuid`
@@ -16,7 +18,7 @@ import ../make-test-python.nix (
       virtualisation.diskSize = 1024;
       virtualisation.memorySize = 1024 * 2;
 
-      environment.systemPackages = [ pkgs.apacheKafka ];
+      environment.systemPackages = [pkgs.apacheKafka];
 
       services.apache-kafka = {
         enable = true;
@@ -37,14 +39,14 @@ import ../make-test-python.nix (
           "controller.quorum.voters" = lib.imap1 (i: name: "${toString i}@${name}:9093") (
             builtins.attrNames kafkaNodes
           );
-          "controller.listener.names" = [ "CONTROLLER" ];
+          "controller.listener.names" = ["CONTROLLER"];
 
           "process.roles" = [
             "broker"
             "controller"
           ];
 
-          "log.dirs" = [ "/var/lib/apache-kafka" ];
+          "log.dirs" = ["/var/lib/apache-kafka"];
           "num.partitions" = 6;
           "offsets.topic.replication.factor" = 2;
           "transaction.state.log.replication.factor" = 2;
@@ -53,8 +55,8 @@ import ../make-test-python.nix (
       };
 
       systemd.services.apache-kafka = {
-        after = [ "network-online.target" ];
-        requires = [ "network-online.target" ];
+        after = ["network-online.target"];
+        requires = ["network-online.target"];
         serviceConfig.StateDirectory = "apache-kafka";
       };
     };
@@ -89,34 +91,34 @@ import ../make-test-python.nix (
       };
     };
 
-    kafkaNodes = builtins.mapAttrs (
-      _: val:
-      mkMerge [
-        val
-        kafkaConfig
-      ]
-    ) extraKafkaConfig;
-  in
-  {
+    kafkaNodes =
+      builtins.mapAttrs (
+        _: val:
+          mkMerge [
+            val
+            kafkaConfig
+          ]
+      )
+      extraKafkaConfig;
+  in {
     name = "kafka-cluster";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ jpds ];
+      maintainers = [jpds];
     };
 
     nodes = {
-      inherit (kafkaNodes)
+      inherit
+        (kafkaNodes)
         kafka1
         kafka2
         kafka3
         kafka4
         ;
 
-      client =
-        { config, ... }:
-        {
-          environment.systemPackages = [ pkgs.apacheKafka ];
-          virtualisation.diskSize = 1024;
-        };
+      client = {config, ...}: {
+        environment.systemPackages = [pkgs.apacheKafka];
+        virtualisation.diskSize = 1024;
+      };
     };
 
     testScript = ''

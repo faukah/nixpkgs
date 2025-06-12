@@ -11,7 +11,6 @@
   scipy,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "scooby";
   version = "0.10.1";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-ldDmw2TDvXgfu0fMj6dSr2zh9WfYGNpBGZb3MixKq+k=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   nativeCheckInputs = [
     beautifulsoup4
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     export PATH="$PATH:$out/bin";
   '';
 
-  pythonImportsCheck = [ "scooby" ];
+  pythonImportsCheck = ["scooby"];
 
   disabledTests = [
     # Tests have additions requirements (e.g., time and module)
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     mainProgram = "scooby";
     homepage = "https://github.com/banesullivan/scooby";
     license = licenses.mit;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

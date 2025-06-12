@@ -5,7 +5,6 @@
   printbox-text,
   reason,
 }:
-
 buildDunePackage {
   pname = "reperf";
   version = "1.5.1";
@@ -21,7 +20,7 @@ buildDunePackage {
     substituteInPlace src/dune --replace "printbox" "printbox-text"
   '';
 
-  nativeBuildInputs = [ reason ];
+  nativeBuildInputs = [reason];
 
   propagatedBuildInputs = [
     printbox-text
@@ -41,7 +40,7 @@ buildDunePackage {
       Outputs a JSON performance report, and compare it with previous iterations - and fail if a regression is detected.
     '';
     homepage = "https://github.com/bryphe/reperf";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mit;
   };
 }

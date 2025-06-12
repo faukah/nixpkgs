@@ -76,7 +76,7 @@ llvmPackages_18.stdenv.mkDerivation {
         "Game"
         "Emulator"
       ];
-      keywords = [ "xbox" ];
+      keywords = ["xbox"];
     })
   ];
 
@@ -89,14 +89,14 @@ llvmPackages_18.stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Xbox 360 Emulator Research Project";
     homepage = "https://github.com/xenia-canary/xenia-canary";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ tuxy ];
+    maintainers = with lib.maintainers; [tuxy];
     mainProgram = "xenia_canary";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

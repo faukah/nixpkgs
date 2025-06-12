@@ -5,7 +5,6 @@
   makeWrapper,
   roboto,
 }:
-
 buildGoModule rec {
   pname = "deckmaster";
   version = "0.9.0";
@@ -42,7 +41,7 @@ buildGoModule rec {
     homepage = "https://github.com/muesli/deckmaster";
     changelog = "https://github.com/muesli/deckmaster/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

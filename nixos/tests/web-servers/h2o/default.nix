@@ -1,5 +1,7 @@
-{ recurseIntoAttrs, runTest }:
-
+{
+  recurseIntoAttrs,
+  runTest,
+}:
 recurseIntoAttrs {
   basic = runTest ./basic.nix;
   mruby = runTest ./mruby.nix;

@@ -18,6 +18,6 @@ mkYaziPlugin {
     description = "Soothing pastel theme for Yatline";
     homepage = "https://github.com/imsi32/yatline-catppuccin.yazi";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
   };
 }

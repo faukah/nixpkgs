@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aiooui";
   version = "0.1.9";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
       --replace-fail '"setuptools>=65.4.1", ' ""
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -39,13 +38,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiooui" ];
+  pythonImportsCheck = ["aiooui"];
 
   meta = with lib; {
     description = "Async OUI lookups";
     homepage = "https://github.com/Bluetooth-Devices/aiooui";
     changelog = "https://github.com/Bluetooth-Devices/aiooui/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -2,24 +2,19 @@
   lib,
   stdenv,
   rustPlatform,
-
   fetchFromGitHub,
   fetchNpmDeps,
-
   cargo-tauri,
   makeBinaryWrapper,
   nodejs,
   npmHooks,
   pkg-config,
   wrapGAppsHook3,
-
   alsa-lib,
   openssl,
   webkitgtk_4_1,
-
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lrcget";
   version = "0.9.3";
@@ -91,7 +86,7 @@ rustPlatform.buildRustPackage rec {
     )
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Utility for mass-downloading LRC synced lyrics for your offline music library";

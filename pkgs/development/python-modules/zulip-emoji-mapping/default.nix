@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "zulip-emoji-mapping";
   version = "1.0.1";
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/GearKite/zulip-emoji-mapping";
     changelog = "https://github.com/GearKite/zulip-emoji-mapping/releases";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ robertrichter ];
+    maintainers = with lib.maintainers; [robertrichter];
   };
 }

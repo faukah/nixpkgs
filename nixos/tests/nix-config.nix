@@ -1,15 +1,12 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "nix-config";
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      nix.settings = {
-        nix-path = [ "nonextra=/etc/value.nix" ];
-        extra-nix-path = [ "extra=/etc/value.nix" ];
-      };
-      environment.etc."value.nix".text = "42";
+  nodes.machine = {pkgs, ...}: {
+    nix.settings = {
+      nix-path = ["nonextra=/etc/value.nix"];
+      extra-nix-path = ["extra=/etc/value.nix"];
     };
+    environment.etc."value.nix".text = "42";
+  };
   testScript = ''
     start_all()
     machine.wait_for_unit("nix-daemon.socket")

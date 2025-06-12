@@ -8,7 +8,6 @@
   makeWrapper,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "javacc";
   version = "7.0.13";
@@ -60,6 +59,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://javacc.github.io/javacc";
     license = licenses.bsd2;
     mainProgram = "javacc";
-    teams = [ teams.deshaw ];
+    teams = [teams.deshaw];
   };
 })

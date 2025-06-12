@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ccat";
   version = "004";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Utility to copy project tree contents to clipboard";
     homepage = "https://github.com/DeeKahy/CopyCat";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.deekahy ];
+    maintainers = [lib.maintainers.deekahy];
     mainProgram = "ccat";
   };
 }

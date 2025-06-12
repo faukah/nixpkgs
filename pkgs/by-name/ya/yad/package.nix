@@ -10,7 +10,6 @@
   hicolor-icon-theme,
   netpbm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yad";
   version = "14.1";
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
 
     license = licenses.gpl3;
     mainProgram = "yad";
-    maintainers = with maintainers; [ smironov ];
+    maintainers = with maintainers; [smironov];
     platforms = with platforms; linux;
   };
 }

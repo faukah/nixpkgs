@@ -5,7 +5,6 @@
   python3Packages,
   xvfb-run,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "interactive-html-bom";
   version = "2.10.0";
@@ -18,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-o7GWdAFFK3zK0fc7aTSwOsd/c4uPg3cJfR0SXbl2RW8=";
   };
 
-  build-system = [ python3Packages.hatchling ];
+  build-system = [python3Packages.hatchling];
 
   dependencies = [
     python3Packages.jsonschema
@@ -44,7 +43,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/openscopeproject/InteractiveHtmlBom/";
     license = lib.licenses.mit;
     changelog = "https://github.com/openscopeproject/InteractiveHtmlBom/releases/tag/${src.tag}";
-    maintainers = with lib.maintainers; [ wuyoli ];
+    maintainers = with lib.maintainers; [wuyoli];
     mainProgram = "generate_interactive_bom";
   };
 }

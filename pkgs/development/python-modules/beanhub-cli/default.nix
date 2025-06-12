@@ -4,7 +4,6 @@
   buildPythonPackage,
   pythonOlder,
   pytestCheckHook,
-
   # dependencies
   beancount-black,
   beancount-parser,
@@ -20,7 +19,6 @@
   rich,
   starlette-wtf,
   uvicorn,
-
   # optional-dependencies
   attrs,
   cryptography,
@@ -29,14 +27,12 @@
   python-dateutil,
   tomli-w,
   tomli,
-
   # tests
   pytest,
   pytest-asyncio,
   pytest-httpx,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "beanhub-cli";
   version = "2.1.1";
@@ -55,23 +51,25 @@ buildPythonPackage rec {
     "rich"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [
-    beancount-black
-    beancount-parser
-    beanhub-forms
-    beanhub-import
-    click
-    fastapi
-    jinja2
-    pydantic
-    pydantic-settings
-    pyyaml
-    rich
-    starlette-wtf
-    uvicorn
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  dependencies =
+    [
+      beancount-black
+      beancount-parser
+      beanhub-forms
+      beanhub-import
+      click
+      fastapi
+      jinja2
+      pydantic
+      pydantic-settings
+      pyyaml
+      rich
+      starlette-wtf
+      uvicorn
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   optional-dependencies = {
     login = [
@@ -92,21 +90,23 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-httpx
-    pytest-mock
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytest-httpx
+      pytest-mock
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "beanhub_cli" ];
+  pythonImportsCheck = ["beanhub_cli"];
 
   meta = {
     description = "Command line tools for BeanHub or Beancount users";
     mainProgram = "bh";
     homepage = "https://github.com/LaunchPlatform/beanhub-cli/";
     changelog = "https://github.com/LaunchPlatform/beanhub-cli/releases/tag/${src.tag}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ fangpen ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [fangpen];
   };
 }

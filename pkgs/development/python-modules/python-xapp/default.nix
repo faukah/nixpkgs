@@ -12,7 +12,6 @@
   polkit,
   gitUpdater,
 }:
-
 buildPythonPackage rec {
   pname = "python-xapp";
   version = "2.4.2";
@@ -46,10 +45,10 @@ buildPythonPackage rec {
   '';
 
   doCheck = false;
-  pythonImportsCheck = [ "xapp" ];
+  pythonImportsCheck = ["xapp"];
 
   passthru = {
-    updateScript = gitUpdater { ignoredVersions = "^master.*"; };
+    updateScript = gitUpdater {ignoredVersions = "^master.*";};
     skipBulkUpdate = true; # This should be bumped as part of Cinnamon update.
   };
 
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     description = "Cross-desktop libraries and common resources for python";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "wormhole-william";
   version = "1.0.8";
@@ -28,7 +27,7 @@ buildGoModule rec {
                 "SkipWormholeDirectoryTransportSendRecvDirect"
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd wormhole-william \
@@ -42,7 +41,7 @@ buildGoModule rec {
     description = "End-to-end encrypted file transfers";
     changelog = "https://github.com/psanford/wormhole-william/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ psanford ];
+    maintainers = with lib.maintainers; [psanford];
     mainProgram = "wormhole-william";
   };
 }

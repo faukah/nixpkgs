@@ -9,7 +9,6 @@
   udev,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "libuuu";
   version = "1.5.202";
@@ -58,7 +57,7 @@ buildPythonPackage rec {
     description = "Python wrapper for libuuu";
     homepage = "https://github.com/nxp-imx/mfgtools/tree/master/wrapper";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     badPlatforms = [
       # The pypi archive does not contain the pre-built library for these platforms
       "aarch64-linux"

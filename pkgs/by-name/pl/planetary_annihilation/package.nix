@@ -21,7 +21,6 @@
   xorg,
   requireFile,
 }:
-
 stdenv.mkDerivation rec {
   pname = "planetary-annihalation";
   version = "62857";
@@ -90,15 +89,15 @@ stdenv.mkDerivation rec {
 
     for f in $out/lib/*; do
       patchelf --set-rpath "${
-        lib.makeLibraryPath [
-          stdenv.cc.cc
-          curl
-          xorg.libX11
-          stdenv.cc.libc
-          xorg.libXcursor
-          "$out"
-        ]
-      }:${lib.getLib stdenv.cc.cc}/lib64:${stdenv.cc.libc}/lib64" $f
+      lib.makeLibraryPath [
+        stdenv.cc.cc
+        curl
+        xorg.libX11
+        stdenv.cc.libc
+        xorg.libXcursor
+        "$out"
+      ]
+    }:${lib.getLib stdenv.cc.cc}/lib64:${stdenv.cc.libc}/lib64" $f
     done
   '';
 
@@ -107,7 +106,7 @@ stdenv.mkDerivation rec {
     description = "Next-generation RTS that takes the genre to a planetary scale";
     license = lib.licenses.unfree;
     platforms = platforms.linux;
-    maintainers = [ ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    maintainers = [];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 }

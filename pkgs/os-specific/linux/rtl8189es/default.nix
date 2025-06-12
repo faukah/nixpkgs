@@ -7,7 +7,6 @@
   bc,
   nukeReferences,
 }:
-
 stdenv.mkDerivation rec {
   name = "rtl8189es-${kernel.version}-${version}";
   version = "2025-04-29";
@@ -19,10 +18,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1BCrMJlXswVZrnbulrF2m0lh7jw8PgHzYPkLk6Stbx8=";
   };
 
-  nativeBuildInputs = [
-    bc
-    nukeReferences
-  ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs =
+    [
+      bc
+      nukeReferences
+    ]
+    ++ kernel.moduleBuildDependencies;
 
   hardeningDisable = [
     "pic"
@@ -35,14 +36,25 @@ stdenv.mkDerivation rec {
     substituteInPlace ./Makefile --replace '$(MODDESTDIR)' "$out/lib/modules/${kernel.modDirVersion}/kernel/net/wireless/"
   '';
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    (
-      "CONFIG_PLATFORM_I386_PC="
-      + (if (stdenv.hostPlatform.isi686 || stdenv.hostPlatform.isx86_64) then "y" else "n")
-    )
-    ("CONFIG_PLATFORM_ARM_RPI=" + (if stdenv.hostPlatform.isAarch then "y" else "n"))
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      (
+        "CONFIG_PLATFORM_I386_PC="
+        + (
+          if (stdenv.hostPlatform.isi686 || stdenv.hostPlatform.isx86_64)
+          then "y"
+          else "n"
+        )
+      )
+      ("CONFIG_PLATFORM_ARM_RPI="
+        + (
+          if stdenv.hostPlatform.isAarch
+          then "y"
+          else "n"
+        ))
+    ];
 
   preInstall = ''
     mkdir -p "$out/lib/modules/${kernel.modDirVersion}/kernel/net/wireless/"
@@ -57,6 +69,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jwrdegoede/rtl8189ES_linux";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ danielfullmer ];
+    maintainers = with maintainers; [danielfullmer];
   };
 }

@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.magnetico;
 
   dataDir = "/var/lib/magnetico";
 
-  credFile =
-    with cfg.web;
-    if credentialsFile != null then
-      credentialsFile
+  credFile = with cfg.web;
+    if credentialsFile != null
+    then credentialsFile
     else
       pkgs.writeText "magnetico-credentials" (
         lib.concatStrings (lib.mapAttrsToList (user: hash: "${user}:${hash}\n") cfg.web.credentials)
@@ -26,8 +24,7 @@ let
     "&_foreign_keys=true"
   ];
 
-  crawlerArgs =
-    with cfg.crawler;
+  crawlerArgs = with cfg.crawler;
     lib.escapeShellArgs (
       [
         "--database=${dbURI}"
@@ -38,25 +35,20 @@ let
       ++ extraOptions
     );
 
-  webArgs =
-    with cfg.web;
+  webArgs = with cfg.web;
     lib.escapeShellArgs (
       [
         "--database=${dbURI}"
         (
-          if (cfg.web.credentialsFile != null || cfg.web.credentials != { }) then
-            "--credentials=${toString credFile}"
-          else
-            "--no-auth"
+          if (cfg.web.credentialsFile != null || cfg.web.credentials != {})
+          then "--credentials=${toString credFile}"
+          else "--no-auth"
         )
         "--addr=${address}:${toString port}"
       ]
       ++ extraOptions
     );
-
-in
-{
-
+in {
   ###### interface
 
   options.services.magnetico = {
@@ -102,7 +94,7 @@ in
 
     crawler.extraOptions = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         Extra command line arguments to pass to magneticod.
       '';
@@ -127,7 +119,7 @@ in
 
     web.credentials = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           myuser = "$2y$12$YE01LZ8jrbQbx6c0s2hdZO71dSjn2p/O9XsYJpz.5968yCysUgiaG";
@@ -173,29 +165,27 @@ in
 
     web.extraOptions = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         Extra command line arguments to pass to magneticow.
       '';
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     users.users.magnetico = {
       description = "Magnetico daemons user";
       group = "magnetico";
       isSystemUser = true;
     };
-    users.groups.magnetico = { };
+    users.groups.magnetico = {};
 
     systemd.services.magneticod = {
       description = "Magnetico DHT crawler";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = "magnetico";
@@ -206,7 +196,7 @@ in
 
     systemd.services.magneticow = {
       description = "Magnetico web interface";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "magneticod.service"
@@ -222,16 +212,14 @@ in
 
     assertions = [
       {
-        assertion = cfg.web.credentialsFile == null || cfg.web.credentials == { };
+        assertion = cfg.web.credentialsFile == null || cfg.web.credentials == {};
         message = ''
           The options services.magnetico.web.credentialsFile and
           services.magnetico.web.credentials are mutually exclusives.
         '';
       }
     ];
-
   };
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

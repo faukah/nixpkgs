@@ -6,7 +6,6 @@
   pkg-config,
   lib,
 }:
-
 stdenv.mkDerivation {
   pname = "wvdial";
   version = "unstable-2016-06-15";
@@ -26,8 +25,8 @@ stdenv.mkDerivation {
     })
   ];
 
-  buildInputs = [ wvstreams ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [wvstreams];
+  nativeBuildInputs = [pkg-config];
 
   makeFlags = [
     "prefix=${placeholder "out"}"
@@ -38,7 +37,7 @@ stdenv.mkDerivation {
     description = "Dialer that automatically recognises the modem";
     homepage = "https://gitea.osmocom.org/retronetworking/wvdial";
     license = lib.licenses.lgpl2;
-    maintainers = with lib.maintainers; [ flokli ];
+    maintainers = with lib.maintainers; [flokli];
     platforms = lib.platforms.linux;
   };
 }

@@ -6,7 +6,6 @@
   pkg-config,
   python3,
 }:
-
 stdenv.mkDerivation {
   pname = "x86info";
   version = "unstable-2021-08-07";
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
   ];
 
   # causes redefinition of _FORTIFY_SOURCE
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   postBuild = ''
     patchShebangs lsmsr/createheader.py
@@ -55,6 +54,6 @@ stdenv.mkDerivation {
     ];
     license = lib.licenses.gpl2Only;
     homepage = "https://github.com/kernelslacker/x86info";
-    maintainers = with lib.maintainers; [ jcumming ];
+    maintainers = with lib.maintainers; [jcumming];
   };
 }

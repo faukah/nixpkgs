@@ -5,7 +5,6 @@
   setuptools,
   pygobject3,
 }:
-
 buildPythonPackage rec {
   pname = "pydbus";
   version = "0.6.0";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
       --replace "getargspec" "getfullargspec"
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ pygobject3 ];
+  propagatedBuildInputs = [pygobject3];
 
   pythonImportsCheck = [
     "pydbus"
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/LEW21/pydbus";
     description = "Pythonic DBus library";
     license = lib.licenses.lgpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

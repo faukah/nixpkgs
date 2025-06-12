@@ -18,7 +18,6 @@
   pkg-config,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "netsniff-ng";
   version = "0.6.9";
@@ -90,7 +89,7 @@ stdenv.mkDerivation rec {
       development and analysis, debugging, auditing or network reconnaissance.
     '';
     homepage = "http://netsniff-ng.org/";
-    license = with licenses; [ gpl2Only ];
+    license = with licenses; [gpl2Only];
     platforms = platforms.linux;
   };
 }

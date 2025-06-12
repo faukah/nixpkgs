@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kangaru";
   version = "4.3.2";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Inversion of control container for C++11, C++14 and later";
     homepage = "https://github.com/gracicot/kangaru";
-    maintainers = with lib.maintainers; [ l33tname ];
+    maintainers = with lib.maintainers; [l33tname];
     platforms = lib.platforms.all;
     license = lib.licenses.mit;
   };

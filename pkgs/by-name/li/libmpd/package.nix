@@ -6,7 +6,6 @@
   doxygen,
   glib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libmpd";
   version = "11.8.17";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.musicpd.org/download/libmpd/";
     changelog = "https://www.musicpd.org/download/libmpd/${finalAttrs.version}/README";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.all;
     # Getting DARWIN_NULL related errors
     broken = stdenv.hostPlatform.isDarwin;

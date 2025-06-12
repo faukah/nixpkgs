@@ -4,7 +4,6 @@
   fetchFromGitHub,
   qt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "savvycan";
   version = "220";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "QT based cross platform canbus tool";
     homepage = "https://savvycan.com/";
     changelog = "https://github.com/collin80/SavvyCAN/releases/tag/${version}";
-    maintainers = with lib.maintainers; [ simoneruffini ];
+    maintainers = with lib.maintainers; [simoneruffini];
     platforms = lib.platforms.all;
     license = lib.licenses.mit;
     mainProgram = "SavvyCAN";

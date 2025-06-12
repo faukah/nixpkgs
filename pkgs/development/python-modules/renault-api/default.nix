@@ -17,7 +17,6 @@
   tabulate,
   typeguard,
 }:
-
 buildPythonPackage rec {
   pname = "renault-api";
   version = "0.3.1";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-xnlFt6K7SOpeT4yXxLnep5NvNaP6REteUhBpcT7ipN0=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -49,22 +48,24 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    aioresponses
-    pytest-asyncio
-    pytestCheckHook
-    syrupy
-    typeguard
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      aioresponses
+      pytest-asyncio
+      pytestCheckHook
+      syrupy
+      typeguard
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "renault_api" ];
+  pythonImportsCheck = ["renault_api"];
 
   meta = with lib; {
     description = "Python library to interact with the Renault API";
     homepage = "https://github.com/hacf-fr/renault-api";
     changelog = "https://github.com/hacf-fr/renault-api/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "renault-api";
   };
 }

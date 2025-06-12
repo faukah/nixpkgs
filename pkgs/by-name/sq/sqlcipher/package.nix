@@ -11,7 +11,6 @@
   zlib,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sqlcipher";
   version = "4.6.1";
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     mainProgram = "sqlcipher";
     homepage = "https://www.zetetic.net/sqlcipher/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 }

@@ -6,7 +6,6 @@
   scipy,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "miniful";
   version = "0.0.6";
@@ -27,12 +26,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "miniful" ];
+  pythonImportsCheck = ["miniful"];
 
   meta = with lib; {
     description = "Minimal Fuzzy Library";
     homepage = "https://github.com/aresio/miniful";
-    license = with licenses; [ lgpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

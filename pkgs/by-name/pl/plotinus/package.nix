@@ -12,7 +12,6 @@
   nixosTests,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "plotinus";
   version = "0.2.0";
@@ -37,12 +36,12 @@ stdenv.mkDerivation rec {
     gtk3
   ];
 
-  passthru.tests = { inherit (nixosTests) plotinus; };
+  passthru.tests = {inherit (nixosTests) plotinus;};
 
   meta = with lib; {
     description = "Searchable command palette in every modern GTK application";
     homepage = "https://github.com/p-e-w/plotinus";
-    maintainers = with maintainers; [ samdroid-apps ];
+    maintainers = with maintainers; [samdroid-apps];
     platforms = platforms.linux;
     # No COPYING file, but headers in the source code
     license = licenses.gpl3;

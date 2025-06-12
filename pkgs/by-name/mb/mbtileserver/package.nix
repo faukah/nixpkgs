@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mbtileserver";
   version = "0.11.0";
@@ -23,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/consbio/mbtileserver";
     changelog = "https://github.com/consbio/mbtileserver/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.isc;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

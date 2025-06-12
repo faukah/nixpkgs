@@ -7,7 +7,6 @@
   kparts,
   kwindowsystem,
 }:
-
 mkDerivation {
   pname = "keditbookmarks";
   nativeBuildInputs = [
@@ -27,7 +26,7 @@ mkDerivation {
       fdl12Plus
       bsd3
     ];
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
   };
 }

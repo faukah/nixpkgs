@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "cldr-annotations";
   version = "46.1";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://cldr.unicode.org";
     license = licenses.unicode-30;
     platforms = platforms.all;
-    maintainers = with maintainers; [ DeeUnderscore ];
+    maintainers = with maintainers; [DeeUnderscore];
   };
 }

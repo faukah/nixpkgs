@@ -11,9 +11,8 @@
   expat,
   scons,
   stdenv,
-  extraPkgs ? [ ],
-}:
-let
+  extraPkgs ? [],
+}: let
   pname = "fah-client";
   version = "8.3.18";
 
@@ -41,7 +40,7 @@ let
       git
     ];
 
-    buildInputs = [ openssl ];
+    buildInputs = [openssl];
 
     postUnpack = ''
       export CBANG_HOME=$NIX_BUILD_TOP/cbang
@@ -68,30 +67,28 @@ let
 
       runHook postInstall
     '';
-
   };
 in
-buildFHSEnv {
-  inherit pname version;
+  buildFHSEnv {
+    inherit pname version;
 
-  targetPkgs =
-    _:
-    [
-      fah-client
-      ocl-icd
-      zlib
-      expat
-    ]
-    ++ extraPkgs;
+    targetPkgs = _:
+      [
+        fah-client
+        ocl-icd
+        zlib
+        expat
+      ]
+      ++ extraPkgs;
 
-  runScript = "/bin/fah-client";
+    runScript = "/bin/fah-client";
 
-  meta = {
-    description = "Folding@home client";
-    homepage = "https://foldingathome.org/";
-    license = lib.licenses.gpl3;
-    mainProgram = "fah-client";
-    maintainers = [ lib.maintainers.zimbatm ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = {
+      description = "Folding@home client";
+      homepage = "https://foldingathome.org/";
+      license = lib.licenses.gpl3;
+      mainProgram = "fah-client";
+      maintainers = [lib.maintainers.zimbatm];
+      platforms = ["x86_64-linux"];
+    };
+  }

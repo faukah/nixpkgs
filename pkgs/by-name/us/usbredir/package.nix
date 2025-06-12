@@ -8,7 +8,6 @@
   glib,
   libusb1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "usbredir";
   version = "0.15.0";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     mainProgram = "usbredirect";
     homepage = "https://www.spice-space.org/usbredir.html";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.unix;
   };
 }

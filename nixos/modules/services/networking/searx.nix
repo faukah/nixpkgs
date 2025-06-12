@@ -5,18 +5,15 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   runDir = "/run/searx";
 
   cfg = config.services.searx;
 
   settingsFile = pkgs.writeText "settings.yml" (builtins.toJSON cfg.settings);
 
-  limiterSettingsFile = (pkgs.formats.toml { }).generate "limiter.toml" cfg.limiterSettings;
-  faviconsSettingsFile = (pkgs.formats.toml { }).generate "favicons.toml" cfg.faviconsSettings;
+  limiterSettingsFile = (pkgs.formats.toml {}).generate "limiter.toml" cfg.limiterSettings;
+  faviconsSettingsFile = (pkgs.formats.toml {}).generate "favicons.toml" cfg.faviconsSettings;
 
   generateConfig = ''
     cd ${runDir}
@@ -33,8 +30,7 @@ let
     done
   '';
 
-  settingType =
-    with types;
+  settingType = with types;
     (oneOf [
       bool
       int
@@ -46,13 +42,9 @@ let
     // {
       description = "JSON value";
     };
-
-in
-
-{
-
+in {
   imports = [
-    (mkRenamedOptionModule [ "services" "searx" "configFile" ] [ "services" "searx" "settingsFile" ])
+    (mkRenamedOptionModule ["services" "searx" "configFile"] ["services" "searx" "settingsFile"])
   ];
 
   options = {
@@ -60,7 +52,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        relatedPackages = [ "searx" ];
+        relatedPackages = ["searx"];
         description = "Whether to enable Searx, the meta search engine.";
       };
 
@@ -86,7 +78,7 @@ in
 
       settings = mkOption {
         type = types.attrsOf settingType;
-        default = { };
+        default = {};
         example = literalExpression ''
           { server.port = 8080;
             server.bind_address = "0.0.0.0";
@@ -132,7 +124,7 @@ in
 
       limiterSettings = mkOption {
         type = types.attrsOf settingType;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             real_ip = {
@@ -157,7 +149,7 @@ in
 
       faviconsSettings = mkOption {
         type = types.attrsOf settingType;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             favicons = {
@@ -183,7 +175,7 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs "searxng" { };
+      package = mkPackageOption pkgs "searxng" {};
 
       runInUwsgi = mkOption {
         type = types.bool;
@@ -218,13 +210,11 @@ in
           should listen.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users.users.searx = {
       description = "Searx daemon user";
@@ -232,7 +222,7 @@ in
       isSystemUser = true;
     };
 
-    users.groups.searx = { };
+    users.groups.searx = {};
 
     systemd.services.searx-init = {
       description = "Initialise Searx settings";
@@ -256,8 +246,8 @@ in
         "network.target"
         "multi-user.target"
       ];
-      requires = [ "searx-init.service" ];
-      after = [ "searx-init.service" ];
+      requires = ["searx-init.service"];
+      after = ["searx-init.service"];
       serviceConfig =
         {
           User = "searx";
@@ -274,8 +264,8 @@ in
     };
 
     systemd.services.uwsgi = mkIf cfg.runInUwsgi {
-      requires = [ "searx-init.service" ];
-      after = [ "searx-init.service" ];
+      requires = ["searx-init.service"];
+      after = ["searx-init.service"];
     };
 
     services.searx.settings = {
@@ -286,26 +276,28 @@ in
 
     services.uwsgi = mkIf cfg.runInUwsgi {
       enable = true;
-      plugins = [ "python3" ];
+      plugins = ["python3"];
 
       instance.type = "emperor";
-      instance.vassals.searx = {
-        type = "normal";
-        strict = true;
-        immediate-uid = "searx";
-        immediate-gid = "searx";
-        lazy-apps = true;
-        enable-threads = true;
-        module = "searx.webapp";
-        env = [
-          # TODO: drop this as it is only required for searx
-          "SEARX_SETTINGS_PATH=${cfg.settingsFile}"
-          # searxng compatibility https://github.com/searxng/searxng/issues/1519
-          "SEARXNG_SETTINGS_PATH=${cfg.settingsFile}"
-        ];
-        buffer-size = 32768;
-        pythonPackages = self: [ cfg.package ];
-      } // cfg.uwsgiConfig;
+      instance.vassals.searx =
+        {
+          type = "normal";
+          strict = true;
+          immediate-uid = "searx";
+          immediate-gid = "searx";
+          lazy-apps = true;
+          enable-threads = true;
+          module = "searx.webapp";
+          env = [
+            # TODO: drop this as it is only required for searx
+            "SEARX_SETTINGS_PATH=${cfg.settingsFile}"
+            # searxng compatibility https://github.com/searxng/searxng/issues/1519
+            "SEARXNG_SETTINGS_PATH=${cfg.settingsFile}"
+          ];
+          buffer-size = 32768;
+          pythonPackages = self: [cfg.package];
+        }
+        // cfg.uwsgiConfig;
     };
 
     services.redis.servers.searx = lib.mkIf cfg.redisCreateLocally {
@@ -315,10 +307,10 @@ in
     };
 
     environment.etc = {
-      "searxng/limiter.toml" = lib.mkIf (cfg.limiterSettings != { }) {
+      "searxng/limiter.toml" = lib.mkIf (cfg.limiterSettings != {}) {
         source = limiterSettingsFile;
       };
-      "searxng/favicons.toml" = lib.mkIf (cfg.faviconsSettings != { }) {
+      "searxng/favicons.toml" = lib.mkIf (cfg.faviconsSettings != {}) {
         source = faviconsSettingsFile;
       };
     };

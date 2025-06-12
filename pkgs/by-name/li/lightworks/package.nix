@@ -27,8 +27,7 @@
   gmp,
   libdrm,
   libpulseaudio,
-}:
-let
+}: let
   fullPath = lib.makeLibraryPath [
     stdenv.cc.cc
     gtk3
@@ -61,13 +60,13 @@ let
     pname = "lightworks";
 
     src =
-      if stdenv.hostPlatform.system == "x86_64-linux" then
+      if stdenv.hostPlatform.system == "x86_64-linux"
+      then
         fetchurl {
           url = "https://cdn.lwks.com/releases/${version}/lightworks_${version}_r${rev}.deb";
           sha256 = "sha256-opYbWzZYim5wqSaxDeGmc10XxFkkE521PDB8OULh7Jc=";
         }
-      else
-        throw "${pname}-${version} is not supported on ${stdenv.hostPlatform.system}";
+      else throw "${pname}-${version} is not supported on ${stdenv.hostPlatform.system}";
 
     nativeBuildInputs = [
       dpkg
@@ -105,27 +104,26 @@ let
 
     dontPatchELF = true;
   };
-
 in
-# Lightworks expects some files in /usr/share/lightworks
-buildFHSEnv {
-  inherit (lightworks) pname version;
+  # Lightworks expects some files in /usr/share/lightworks
+  buildFHSEnv {
+    inherit (lightworks) pname version;
 
-  targetPkgs = pkgs: [ lightworks ];
+    targetPkgs = pkgs: [lightworks];
 
-  runScript = "lightworks";
+    runScript = "lightworks";
 
-  meta = {
-    description = "Professional Non-Linear Video Editor";
-    homepage = "https://www.lwks.com/";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    license = lib.licenses.unfree;
-    mainProgram = "lightworks";
-    maintainers = with lib.maintainers; [
-      antonxy
-      vojta001
-      kashw2
-    ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = {
+      description = "Professional Non-Linear Video Editor";
+      homepage = "https://www.lwks.com/";
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      license = lib.licenses.unfree;
+      mainProgram = "lightworks";
+      maintainers = with lib.maintainers; [
+        antonxy
+        vojta001
+        kashw2
+      ];
+      platforms = ["x86_64-linux"];
+    };
+  }

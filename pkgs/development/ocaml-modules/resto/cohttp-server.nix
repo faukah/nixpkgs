@@ -8,10 +8,10 @@
   conduit-lwt-unix,
   lwt,
 }:
-
 buildDunePackage {
   pname = "resto-cohttp-server";
-  inherit (resto)
+  inherit
+    (resto)
     src
     version
     meta

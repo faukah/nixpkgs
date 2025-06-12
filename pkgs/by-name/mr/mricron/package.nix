@@ -19,7 +19,6 @@
   zlib,
 }:
 stdenv.mkDerivation rec {
-
   pname = "mricron";
   version = "1.0.20190902";
   src = fetchurl {
@@ -81,9 +80,9 @@ stdenv.mkDerivation rec {
     description = "Application to display NIfTI medical imaging data";
     homepage = "https://people.cas.sc.edu/rorden/mricron/index.HTML";
     license = lib.licenses.bsd1;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ adriangl ];
+    maintainers = with lib.maintainers; [adriangl];
     mainProgram = "mricron";
   };
 }

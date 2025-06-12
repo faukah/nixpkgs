@@ -4,7 +4,6 @@
   fetchpatch,
   substitute,
 }:
-
 callPackage ../generic.nix rec {
   pname = "summoning-pixel-dungeon";
   version = "1.2.5a";

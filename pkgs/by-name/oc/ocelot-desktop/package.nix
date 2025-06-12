@@ -2,13 +2,10 @@
   lib,
   stdenv,
   fetchurl,
-
   makeBinaryWrapper,
   makeDesktopItem,
   copyDesktopItems,
-
   jre,
-
   # deps
   alsa-lib,
   libjack2,
@@ -20,10 +17,8 @@
   libXext,
   libXrandr,
   libXxf86vm,
-
   # runtime (path)
   xrandr,
-
   # native
   unzip,
 }:
@@ -51,53 +46,51 @@ stdenv.mkDerivation (finalAttrs: {
     unzip
   ];
 
-  installPhase =
-    let
-      # does darwin need any deps?
-      runtimeLibs = lib.optionals stdenv.hostPlatform.isLinux [
-        # openal
-        alsa-lib
-        libjack2
-        libpulseaudio
-        pipewire
+  installPhase = let
+    # does darwin need any deps?
+    runtimeLibs = lib.optionals stdenv.hostPlatform.isLinux [
+      # openal
+      alsa-lib
+      libjack2
+      libpulseaudio
+      pipewire
 
-        # lwjgl
-        libGL
-        libX11
-        libXcursor
-        libXext
-        libXrandr
-        libXxf86vm
-      ];
-      runtimePrograms = lib.optionals stdenv.hostPlatform.isLinux [
-        # https://github.com/LWJGL/lwjgl/issues/128
-        xrandr
-      ];
-    in
-    ''
-      runHook preInstall
+      # lwjgl
+      libGL
+      libX11
+      libXcursor
+      libXext
+      libXrandr
+      libXxf86vm
+    ];
+    runtimePrograms = lib.optionals stdenv.hostPlatform.isLinux [
+      # https://github.com/LWJGL/lwjgl/issues/128
+      xrandr
+    ];
+  in ''
+    runHook preInstall
 
-      mkdir -p $out/{bin,share/ocelot-desktop}
-      install -Dm644 ${finalAttrs.src} $out/share/ocelot-desktop/ocelot-desktop.jar
+    mkdir -p $out/{bin,share/ocelot-desktop}
+    install -Dm644 ${finalAttrs.src} $out/share/ocelot-desktop/ocelot-desktop.jar
 
-      makeBinaryWrapper ${jre}/bin/java $out/bin/ocelot-desktop \
-        --set JAVA_HOME ${jre.home} \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibs}" \
-        --prefix PATH : "${lib.makeBinPath runtimePrograms}" \
-        --add-flags "-jar $out/share/ocelot-desktop/ocelot-desktop.jar"
+    makeBinaryWrapper ${jre}/bin/java $out/bin/ocelot-desktop \
+      --set JAVA_HOME ${jre.home} \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibs}" \
+      --prefix PATH : "${lib.makeBinPath runtimePrograms}" \
+      --add-flags "-jar $out/share/ocelot-desktop/ocelot-desktop.jar"
 
-      # copy icons from zip file
-      # ocelot/desktop/images/icon*.png
-      # 16,32,64,128,256
+    # copy icons from zip file
+    # ocelot/desktop/images/icon*.png
+    # 16,32,64,128,256
 
-      for size in 16 32 64 128 256; do
-        mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
-        unzip -p $out/share/ocelot-desktop/ocelot-desktop.jar \
-          ocelot/desktop/images/icon"$size".png > $out/share/icons/hicolor/"$size"x"$size"/apps/ocelot-desktop.png
-      done
+    for size in 16 32 64 128 256; do
+      mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
+      unzip -p $out/share/ocelot-desktop/ocelot-desktop.jar \
+        ocelot/desktop/images/icon"$size".png > $out/share/icons/hicolor/"$size"x"$size"/apps/ocelot-desktop.png
+    done
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   desktopItems = [
     (makeDesktopItem {
@@ -143,7 +136,7 @@ stdenv.mkDerivation (finalAttrs: {
       # missing compatible lwjgl.dylib
       "aarch64-darwin"
     ];
-    maintainers = with lib.maintainers; [ griffi-gh ];
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    maintainers = with lib.maintainers; [griffi-gh];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
   };
 })

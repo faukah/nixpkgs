@@ -4,7 +4,6 @@
   fetchurl,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stone";
   version = "2.4";
@@ -14,9 +13,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-1dwa9uxdpQPypAs98/4ZqPv5085pa49G9NU9KsjY628=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  makeFlags = [ "linux-ssl" ];
+  makeFlags = ["linux-ssl"];
 
   installPhase = ''
     runHook preInstall
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.gcd.org/sengoku/stone/";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ corngood ];
+    maintainers = with maintainers; [corngood];
     mainProgram = "stone";
   };
 }

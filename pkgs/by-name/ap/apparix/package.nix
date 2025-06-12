@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "apparix";
   version = "11-062";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://micans.org/apparix";
     description = "Add directory bookmarks, distant listing, and distant editing to the command line";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl2Plus;
     platforms = platforms.all;
     mainProgram = "apparix";

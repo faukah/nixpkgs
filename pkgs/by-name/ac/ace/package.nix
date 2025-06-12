@@ -6,7 +6,6 @@
   libtool,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ace";
   version = "7.0.11";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     pkg-config
     libtool
   ];
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=format-security"
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "ADAPTIVE Communication Environment";
     mainProgram = "ace_gperf";
     license = licenses.doc;
-    maintainers = with maintainers; [ nico202 ];
+    maintainers = with maintainers; [nico202];
     platforms = platforms.linux;
   };
 }

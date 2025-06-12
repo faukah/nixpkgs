@@ -9,7 +9,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "foobot-async";
   version = "1.0.1";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
       --replace-fail "with async_timeout.timeout" "async with async_timeout.timeout"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -41,12 +40,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "foobot_async" ];
+  pythonImportsCheck = ["foobot_async"];
 
   meta = with lib; {
     description = "API Client for Foobot Air Quality Monitoring devices";
     homepage = "https://github.com/reefab/foobot_async";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

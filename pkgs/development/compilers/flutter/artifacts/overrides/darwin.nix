@@ -1,9 +1,4 @@
-{ }:
-{
-  buildInputs ? [ ],
-  ...
-}:
-{
+{}: {buildInputs ? [], ...}: {
   postPatch = ''
     if [ "$pname" == "flutter-tools" ]; then
       # Use arm64 instead of arm64e.

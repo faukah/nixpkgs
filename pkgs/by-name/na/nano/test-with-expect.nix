@@ -3,9 +3,7 @@
   expect,
   runCommand,
   writeScriptBin,
-}:
-
-let
+}: let
   expect-script = writeScriptBin "expect-script" ''
     #!${expect}/bin/expect -f
 
@@ -31,13 +29,13 @@ let
     exit
   '';
 in
-runCommand "nano-test-expect"
+  runCommand "nano-test-expect"
   {
     nativeBuildInputs = [
       nano
       expect
     ];
-    passthru = { inherit expect-script; };
+    passthru = {inherit expect-script;};
   }
   ''
     expect -f ${expect-script}/bin/expect-script

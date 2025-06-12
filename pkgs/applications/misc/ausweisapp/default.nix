@@ -51,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
       package = finalAttrs.finalPackage;
       command = "QT_QPA_PLATFORM=offscreen ${finalAttrs.meta.mainProgram} --version";
     };
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -60,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.ausweisapp.bund.de/open-source-software";
     license = lib.licenses.eupl12;
     mainProgram = "AusweisApp";
-    maintainers = with lib.maintainers; [ b4dm4n ];
+    maintainers = with lib.maintainers; [b4dm4n];
     platforms = lib.platforms.linux;
   };
 })

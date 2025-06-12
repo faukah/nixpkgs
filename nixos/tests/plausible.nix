@@ -1,22 +1,19 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "plausible";
   meta = {
     maintainers = lib.teams.cyberus.members;
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      virtualisation.memorySize = 4096;
-      services.plausible = {
-        enable = true;
-        server = {
-          baseUrl = "http://localhost:8000";
-          secretKeybaseFile = "${pkgs.writeText "dont-try-this-at-home" "nannannannannannannannannannannannannannannannannannannan_batman!"}";
-        };
+  nodes.machine = {pkgs, ...}: {
+    virtualisation.memorySize = 4096;
+    services.plausible = {
+      enable = true;
+      server = {
+        baseUrl = "http://localhost:8000";
+        secretKeybaseFile = "${pkgs.writeText "dont-try-this-at-home" "nannannannannannannannannannannannannannannannannannannan_batman!"}";
       };
     };
+  };
 
   testScript = ''
     start_all()

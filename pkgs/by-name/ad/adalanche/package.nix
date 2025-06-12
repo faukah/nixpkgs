@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libpcap,
 }:
-
 buildGoModule rec {
   pname = "adalanche";
   version = "2024.1.11";
@@ -33,7 +32,7 @@ buildGoModule rec {
     homepage = "https://github.com/lkarlslund/adalanche";
     changelog = "https://github.com/lkarlslund/Adalanche/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "adalanche";
   };
 }

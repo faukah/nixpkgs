@@ -4,7 +4,6 @@
   fetchFromGitHub,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "obs-cli";
   version = "0.5.0";
@@ -34,7 +33,7 @@ buildGoModule rec {
     homepage = "https://github.com/muesli/obs-cli";
     changelog = "https://github.com/muesli/obs-cli/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ flexiondotorg ];
+    maintainers = with lib.maintainers; [flexiondotorg];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "obs-cli";
   };

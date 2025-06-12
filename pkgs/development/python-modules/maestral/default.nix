@@ -28,7 +28,6 @@
   pytestCheckHook,
   nixosTests,
 }:
-
 buildPythonPackage rec {
   pname = "maestral";
   version = "1.9.4";
@@ -43,28 +42,30 @@ buildPythonPackage rec {
     hash = "sha256-akh0COltpUU4Z4kfubg6A7k6W8ICoqVYkmFpMkTC8H8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    click
-    desktop-notifier
-    dbus-python
-    dropbox
-    fasteners
-    importlib-metadata
-    keyring
-    keyrings-alt
-    packaging
-    pathspec
-    pyro5
-    requests
-    rich
-    setuptools
-    survey
-    typing-extensions
-    watchdog
-    xattr
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ rubicon-objc ];
+  dependencies =
+    [
+      click
+      desktop-notifier
+      dbus-python
+      dropbox
+      fasteners
+      importlib-metadata
+      keyring
+      keyrings-alt
+      packaging
+      pathspec
+      pyro5
+      requests
+      rich
+      setuptools
+      survey
+      typing-extensions
+      watchdog
+      xattr
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [rubicon-objc];
 
   makeWrapperArgs = [
     # Add the installed directories to the python path so the daemon can find them
@@ -72,7 +73,7 @@ buildPythonPackage rec {
     "--prefix PYTHONPATH : $out/${python.sitePackages}"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # ModuleNotFoundError: No module named '_watchdog_fsevents'
   doCheck = !(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64);
@@ -113,7 +114,7 @@ buildPythonPackage rec {
       "test_stop"
     ];
 
-  pythonImportsCheck = [ "maestral" ];
+  pythonImportsCheck = ["maestral"];
 
   passthru.tests.maestral = nixosTests.maestral;
 

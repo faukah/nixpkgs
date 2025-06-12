@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   aiohttp,
   mashumaro,
-
   # tests
   pytestCheckHook,
   pytest-aiohttp,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "aiojellyfin";
   version = "0.14.1";
@@ -28,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-C2jIP2q+1z6iQoK18jRVaFKXtxyF1RXZMtXWakx7qO0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -41,13 +37,13 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pythonImportsCheck = [ "aiojellyfin" ];
+  pythonImportsCheck = ["aiojellyfin"];
 
   meta = with lib; {
     description = "";
     homepage = "https://github.com/Jc2k/aiojellyfin";
     changelog = "https://github.com/Jc2k/aiojellyfin/blob/${src.tag}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

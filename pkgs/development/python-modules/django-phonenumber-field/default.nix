@@ -11,7 +11,6 @@
   python,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "django-phonenumber-field";
   version = "8.1.0";
@@ -24,22 +23,22 @@ buildPythonPackage rec {
     hash = "sha256-KRi2rUx88NYoQhRChmNABP8KalMbf4HhWC8Wwnc/xB4=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   # Upstream doesn't put phonenumbers in dependencies but the package doesn't
   # make sense without either of the two optional dependencies. Since, in
   # Nixpkgs, phonenumberslite depends on phonenumbers, add the latter
   # unconditionally.
-  dependencies = [ django ] ++ optional-dependencies.phonenumbers;
+  dependencies = [django] ++ optional-dependencies.phonenumbers;
 
   nativeCheckInputs = [
     babel
     djangorestframework
   ];
 
-  nativeBuildInputs = [ gettext ];
+  nativeBuildInputs = [gettext];
 
-  pythonImportsCheck = [ "phonenumber_field" ];
+  pythonImportsCheck = ["phonenumber_field"];
 
   checkPhase = ''
     ${python.interpreter} -m django test --settings tests.settings
@@ -50,8 +49,8 @@ buildPythonPackage rec {
   '';
 
   optional-dependencies = {
-    phonenumbers = [ phonenumbers ];
-    phonenumberslite = [ phonenumberslite ];
+    phonenumbers = [phonenumbers];
+    phonenumberslite = [phonenumberslite];
   };
 
   meta = with lib; {
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/stefanfoulis/django-phonenumber-field/";
     changelog = "https://github.com/stefanfoulis/django-phonenumber-field/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

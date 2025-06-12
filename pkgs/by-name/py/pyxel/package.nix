@@ -5,7 +5,6 @@
   rustPlatform,
   SDL2,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "pyxel";
   version = "2.1.6";
@@ -20,7 +19,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-6S+fl6J1JN785HxG8i0oYlwoTsqa3Gm1DpCd4swUPZ8=";
   };
 
-  patches = [ ./never-bundle-sdl2.patch ];
+  patches = [./never-bundle-sdl2.patch];
 
   postPatch = ''
     cp ${./Cargo.lock} rust/Cargo.lock
@@ -41,7 +40,7 @@ python3.pkgs.buildPythonApplication rec {
     bindgenHook
   ];
 
-  buildInputs = [ SDL2 ];
+  buildInputs = [SDL2];
 
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL2}/include/SDL2";
 
@@ -59,7 +58,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/kitao/pyxel";
     license = lib.licenses.mit;
     mainProgram = "pyxel";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

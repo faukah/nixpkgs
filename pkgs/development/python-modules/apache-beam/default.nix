@@ -3,7 +3,6 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython,
   distlib,
@@ -15,7 +14,6 @@
   redis,
   setuptools,
   yapf,
-
   # dependencies
   crcmod,
   dill,
@@ -38,7 +36,6 @@
   requests,
   typing-extensions,
   zstandard,
-
   # tests
   python,
   docstring-parser,
@@ -59,7 +56,6 @@
   testcontainers,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "apache-beam";
   version = "2.65.0";
@@ -147,7 +143,7 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "apache_beam" ];
+  pythonImportsCheck = ["apache_beam"];
 
   nativeCheckInputs = [
     docstring-parser
@@ -366,6 +362,6 @@ buildPythonPackage rec {
     homepage = "https://beam.apache.org/";
     changelog = "https://github.com/apache/beam/blob/release-${version}/CHANGES.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ndl ];
+    maintainers = with lib.maintainers; [ndl];
   };
 }

@@ -3,21 +3,16 @@
   buildPythonPackage,
   fetchPypi,
   fetchpatch2,
-
   # build-system
   flit-core,
-
   # dependencies
   progress,
   pyserial,
-
   # optional-dependencies
   intelhex,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "stm32loader";
   version = "0.7.1";
@@ -37,7 +32,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     progress
@@ -45,14 +40,16 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    hex = [ intelhex ];
+    hex = [intelhex];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
   meta = with lib; {
     description = "Flash firmware to STM32 microcontrollers in Python";
@@ -60,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/florisla/stm32loader";
     changelog = "https://github.com/florisla/stm32loader/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

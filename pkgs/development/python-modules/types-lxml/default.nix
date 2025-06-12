@@ -17,7 +17,6 @@
   typing-extensions,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "types-lxml";
   version = "2025.03.04";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
     hash = "sha256-dA9sspqEChHarwk2LrK2F7Ehri2ffjOlGk3nj4KFsfU=";
   };
 
-  pythonRelaxDeps = [ "beautifulsoup4" ];
+  pythonRelaxDeps = ["beautifulsoup4"];
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     cssselect
@@ -42,22 +41,24 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    mypy = [ mypy ];
-    pyright = [ pyright ];
+    mypy = [mypy];
+    pyright = [pyright];
   };
 
-  nativeCheckInputs = [
-    beautifulsoup4
-    html5lib
-    hypothesis
-    lxml
-    pook
-    pytestCheckHook
-    typeguard
-    urllib3
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      beautifulsoup4
+      html5lib
+      hypothesis
+      lxml
+      pook
+      pytestCheckHook
+      typeguard
+      urllib3
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "lxml-stubs" ];
+  pythonImportsCheck = ["lxml-stubs"];
 
   # there may only be one conftest.py
   preCheck = ''
@@ -79,6 +80,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/abelcheung/types-lxml";
     changelog = "https://github.com/abelcheung/types-lxml/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

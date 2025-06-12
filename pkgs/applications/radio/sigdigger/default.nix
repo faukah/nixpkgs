@@ -15,7 +15,6 @@
   libxml2,
   volk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sigdigger";
   version = "0.3.0";

@@ -13,7 +13,6 @@
   xfconf,
   xfce4-panel,
 }:
-
 mkXfceDerivation {
   category = "xfce";
   pname = "xfce4-power-manager";
@@ -48,6 +47,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Power manager for the Xfce Desktop Environment";
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

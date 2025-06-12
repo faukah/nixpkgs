@@ -3,8 +3,7 @@
   ffmpeg-full,
   nunicode,
   getopt,
-}:
-''
+}: ''
   #!${stdenv.shell}
 
   port=8000

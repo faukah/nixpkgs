@@ -8,7 +8,6 @@
   flex,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gob2";
   version = "2.0.20";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
   };
 
   # configure script looks for d-bus but it is only needed for tests
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     bison

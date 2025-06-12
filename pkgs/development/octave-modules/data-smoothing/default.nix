@@ -4,7 +4,6 @@
   fetchurl,
   optim,
 }:
-
 buildOctavePackage rec {
   pname = "data-smoothing";
   version = "1.3.0";
@@ -21,7 +20,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/data-smoothing/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Algorithms for smoothing noisy data";
     # Hasn't been updated since 2012, and fails to build with octave >= 10.1.0
     broken = true;

@@ -8,7 +8,6 @@
   libpng,
   libjpeg,
 }:
-
 stdenv.mkDerivation {
   pname = "ffmpegthumbnailer";
   version = "unstable-2024-01-04";
@@ -31,7 +30,7 @@ stdenv.mkDerivation {
     libjpeg
   ];
 
-  cmakeFlags = [ "-DENABLE_THUMBNAILER=ON" ];
+  cmakeFlags = ["-DENABLE_THUMBNAILER=ON"];
 
   # https://github.com/dirkvdb/ffmpegthumbnailer/issues/215
   postPatch = ''
@@ -56,7 +55,7 @@ stdenv.mkDerivation {
     ";
     homepage = "https://github.com/dirkvdb/ffmpegthumbnailer";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.jagajaga ];
+    maintainers = [maintainers.jagajaga];
     platforms = platforms.unix;
     mainProgram = "ffmpegthumbnailer";
   };

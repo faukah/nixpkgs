@@ -7,7 +7,6 @@
   qtbase,
   qtsvg,
 }:
-
 mkDerivation rec {
   pname = "kdiagram";
   version = "2.8.0";
@@ -30,6 +29,6 @@ mkDerivation rec {
     description = "Libraries for creating business diagrams";
     license = lib.licenses.gpl2;
     platforms = qtbase.meta.platforms;
-    maintainers = [ lib.maintainers.ttuegel ];
+    maintainers = [lib.maintainers.ttuegel];
   };
 }

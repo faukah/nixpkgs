@@ -8,12 +8,10 @@
   ncurses,
   alsa-lib,
   buildPackages,
-
   ## Additional optional output modes
   enableVorbis ? false,
   libvorbis,
 }:
-
 stdenv.mkDerivation rec {
   pname = "timidity";
   version = "2.15.0";
@@ -35,7 +33,7 @@ stdenv.mkDerivation rec {
       --replace-fail "\$(pkg-config" "\$(\$PKG_CONFIG"
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       libjack2
@@ -119,7 +117,7 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/timidity/";
     license = licenses.gpl2Plus;
     description = "Software MIDI renderer";
-    maintainers = [ maintainers.marcweber ];
+    maintainers = [maintainers.marcweber];
     platforms = platforms.unix;
     mainProgram = "timidity";
   };

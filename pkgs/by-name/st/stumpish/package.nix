@@ -8,7 +8,6 @@
   xorg,
   rlwrap,
 }:
-
 stdenv.mkDerivation {
   pname = "stumpish";
   version = "0.0.1";
@@ -48,7 +47,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/stumpwm/stumpwm-contrib";
     description = "STUMPwm Interactive SHell";
     license = licenses.gpl2;
-    maintainers = [ maintainers.ebzzry ];
+    maintainers = [maintainers.ebzzry];
     platforms = platforms.unix;
     mainProgram = "stumpish";
   };

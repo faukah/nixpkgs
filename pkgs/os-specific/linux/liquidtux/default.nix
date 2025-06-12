@@ -4,7 +4,6 @@
   fetchFromGitHub,
   kernel,
 }:
-
 stdenv.mkDerivation rec {
   name = "liquidtux-${version}-${kernel.version}";
   version = "0.1.0-unstable-2025-01-16";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-68W7n3QWoAO07FDW45ualpOo5Cty6vcQt/9cLtlnDX0=";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = with maintainers; [ nickhu ];
+    maintainers = with maintainers; [nickhu];
     broken = lib.versionOlder kernel.version "5.10";
   };
 }

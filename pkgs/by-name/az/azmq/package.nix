@@ -9,7 +9,6 @@
   catch2,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "azmq";
   version = "1.0.3-unstable-2025-01-19";
@@ -43,7 +42,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/zeromq/azmq";
     license = licenses.boost;
     description = "C++ language binding library integrating ZeroMQ with Boost Asio";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

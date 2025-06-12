@@ -13,7 +13,6 @@
   wsgiprox,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "warcio";
   version = "1.7.5";
@@ -56,7 +55,7 @@ buildPythonPackage rec {
     "--ignore=test/test_capture_http_proxy.py"
   ];
 
-  pythonImportsCheck = [ "warcio" ];
+  pythonImportsCheck = ["warcio"];
 
   meta = with lib; {
     description = "Streaming WARC/ARC library for fast web archive IO";
@@ -64,6 +63,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/webrecorder/warcio";
     changelog = "https://github.com/webrecorder/warcio/blob/master/CHANGELIST.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

@@ -9,7 +9,6 @@
   python3Packages,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gemmi";
   version = "0.7.1";
@@ -22,17 +21,16 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs =
-    [ cmake ]
+    [cmake]
     ++ lib.optionals enablePython (
-      with python3Packages;
-      [
+      with python3Packages; [
         nanobind
         python
         pythonImportsCheckHook
       ]
     );
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   cmakeFlags = [
     (lib.cmakeBool "USE_PYTHON" enablePython)
@@ -41,12 +39,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  pythonImportsCheck = [ "gemmi" ];
+  pythonImportsCheck = ["gemmi"];
 
   doInstallCheck = enablePython;
 
-  nativeInstallCheckInputs =
-    with python3Packages;
+  nativeInstallCheckInputs = with python3Packages;
     [
       # biopython
       numpy
@@ -65,14 +62,14 @@ stdenv.mkDerivation (finalAttrs: {
     "test_reading"
   ];
 
-  pytestFlagsArray = [ "../tests" ];
+  pytestFlagsArray = ["../tests"];
 
   meta = {
     description = "Macromolecular crystallography library and utilities";
     homepage = "https://github.com/project-gemmi/gemmi";
     changelog = "https://github.com/project-gemmi/gemmi/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     mainProgram = "gemmi";
     platforms = lib.platforms.unix;
   };

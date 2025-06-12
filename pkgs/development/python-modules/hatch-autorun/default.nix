@@ -7,7 +7,6 @@
   pytestCheckHook,
   build,
 }:
-
 buildPythonPackage rec {
   pname = "hatch-autorun";
   version = "1.1.0";
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "Hatch build hook plugin to inject code that will automatically run";
     homepage = "https://github.com/ofek/hatch-autorun";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
   };
 }

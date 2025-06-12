@@ -27,7 +27,6 @@
   externalEtc ? "/etc",
   removeReferencesTo,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xrootd";
   version = "5.8.1";
@@ -50,12 +49,14 @@ stdenv.mkDerivation (finalAttrs: {
       sed -i cmake/XRootDOSDefs.cmake -e '/set( MacOSX TRUE )/ainclude( GNUInstallDirs )'
     '';
 
-  outputs = [
-    "bin"
-    "out"
-    "dev"
-    "man"
-  ] ++ lib.optional (externalEtc != null) "etc";
+  outputs =
+    [
+      "bin"
+      "out"
+      "dev"
+      "man"
+    ]
+    ++ lib.optional (externalEtc != null) "etc";
 
   nativeBuildInputs = [
     cmake
@@ -127,7 +128,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # TODO(@ShamrockLee): Enable the checks.
   doCheck = false;
-  checkInputs = [ gtest ];
+  checkInputs = [gtest];
 
   postFixup = lib.optionalString (externalEtc != null) ''
     moveToOutput etc "$etc"
@@ -137,7 +138,7 @@ stdenv.mkDerivation (finalAttrs: {
   dontPatchELF = true; # shrinking rpath will cause runtime failures in dlopen
 
   passthru = {
-    fetchxrd = callPackage ./fetchxrd.nix { xrootd = finalAttrs.finalPackage; };
+    fetchxrd = callPackage ./fetchxrd.nix {xrootd = finalAttrs.finalPackage;};
     tests = {
       test-xrdcp = finalAttrs.passthru.fetchxrd {
         pname = "xrootd-test-xrdcp";
@@ -159,6 +160,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/xrootd/xrootd/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ ShamrockLee ];
+    maintainers = with lib.maintainers; [ShamrockLee];
   };
 })

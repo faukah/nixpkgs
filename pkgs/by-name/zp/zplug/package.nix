@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zplug";
   version = "2.4.2";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "Next-generation plugin manager for zsh";
     homepage = "https://github.com/zplug/zplug";
     license = licenses.mit;
-    maintainers = [ maintainers.s1341 ];
+    maintainers = [maintainers.s1341];
     mainProgram = "zplug-env";
     platforms = platforms.all;
   };

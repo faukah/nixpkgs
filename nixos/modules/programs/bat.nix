@@ -3,10 +3,10 @@
   config,
   lib,
   ...
-}:
-let
+}: let
   inherit (builtins) isList elem;
-  inherit (lib)
+  inherit
+    (lib)
     getExe
     literalExpression
     maintainers
@@ -25,35 +25,30 @@ let
 
   cfg = config.programs.bat;
 
-  settingsFormat = pkgs.formats.keyValue { listsAsDuplicateKeys = true; };
+  settingsFormat = pkgs.formats.keyValue {listsAsDuplicateKeys = true;};
   inherit (settingsFormat) generate type;
 
-  recursiveToString =
-    value:
-    if isList value then
-      map recursiveToString value
-    else if isBool value then
-      boolToString value
-    else
-      toString value;
+  recursiveToString = value:
+    if isList value
+    then map recursiveToString value
+    else if isBool value
+    then boolToString value
+    else toString value;
 
-  initScript =
-    {
-      program,
-      shell,
-      flags ? [ ],
-    }:
-    if (shell != "fish") then
-      ''
-        eval "$(${getExe program} ${toString flags})"
-      ''
-    else
-      ''
-        ${getExe program} ${toString flags} | source
-      '';
+  initScript = {
+    program,
+    shell,
+    flags ? [],
+  }:
+    if (shell != "fish")
+    then ''
+      eval "$(${getExe program} ${toString flags})"
+    ''
+    else ''
+      ${getExe program} ${toString flags} | source
+    '';
 
-  shellInit =
-    shell:
+  shellInit = shell:
     optionalString (elem pkgs.bat-extras.batpipe cfg.extraPackages) (initScript {
       program = pkgs.bat-extras.batpipe;
       inherit shell;
@@ -61,17 +56,16 @@ let
     + optionalString (elem pkgs.bat-extras.batman cfg.extraPackages) (initScript {
       program = pkgs.bat-extras.batman;
       inherit shell;
-      flags = [ "--export-env" ];
+      flags = ["--export-env"];
     });
-in
-{
+in {
   options.programs.bat = {
     enable = mkEnableOption "`bat`, a {manpage}`cat(1)` clone with wings";
 
-    package = mkPackageOption pkgs "bat" { };
+    package = mkPackageOption pkgs "bat" {};
 
     extraPackages = mkOption {
-      default = [ ];
+      default = [];
       example = literalExpression ''
         with pkgs.bat-extras; [
           batdiff
@@ -86,7 +80,7 @@ in
     };
 
     settings = mkOption {
-      default = { };
+      default = {};
       example = {
         theme = "TwoDark";
         italic-text = "always";
@@ -106,7 +100,7 @@ in
 
   config = mkIf cfg.enable {
     environment = {
-      systemPackages = [ cfg.package ] ++ cfg.extraPackages;
+      systemPackages = [cfg.package] ++ cfg.extraPackages;
       etc."bat/config".source = generate "bat-config" (
         mapAttrs' (name: value: nameValuePair ("--" + name) (recursiveToString value)) cfg.settings
       );
@@ -124,5 +118,5 @@ in
       };
     };
   };
-  meta.maintainers = with maintainers; [ sigmasquadron ];
+  meta.maintainers = with maintainers; [sigmasquadron];
 }

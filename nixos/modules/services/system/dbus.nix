@@ -1,14 +1,10 @@
 # D-Bus configuration and system bus daemon.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.services.dbus;
 
   configDir = pkgs.makeDBusConf.override {
@@ -18,25 +14,21 @@ let
     serviceDirectories = cfg.packages;
   };
 
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     mkEnableOption
     mkIf
     mkMerge
     types
     ;
-
-in
-
-{
+in {
   options = {
-
     boot.initrd.systemd.dbus = {
       enable = mkEnableOption "dbus in stage 1";
     };
 
     services.dbus = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -47,9 +39,9 @@ in
         '';
       };
 
-      dbusPackage = lib.mkPackageOption pkgs "dbus" { };
+      dbusPackage = lib.mkPackageOption pkgs "dbus" {};
 
-      brokerPackage = lib.mkPackageOption pkgs "dbus-broker" { };
+      brokerPackage = lib.mkPackageOption pkgs "dbus-broker" {};
 
       implementation = mkOption {
         type = types.enum [
@@ -67,7 +59,7 @@ in
 
       packages = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = ''
           Packages whose D-Bus configuration files should be included in
           the configuration of the D-Bus system-wide or session-wide
@@ -143,8 +135,8 @@ in
 
     (mkIf config.boot.initrd.systemd.dbus.enable {
       boot.initrd.systemd = {
-        users.messagebus = { };
-        groups.messagebus = { };
+        users.messagebus = {};
+        groups.messagebus = {};
         contents."/etc/dbus-1".source = pkgs.makeDBusConf.override {
           inherit (cfg) apparmor;
           dbus = cfg.dbusPackage;
@@ -154,13 +146,13 @@ in
             config.boot.initrd.systemd.package
           ];
         };
-        packages = [ cfg.dbusPackage ];
+        packages = [cfg.dbusPackage];
         storePaths = [
           "${cfg.dbusPackage}/bin/dbus-daemon"
           "${config.boot.initrd.systemd.package}/share/dbus-1/system-services"
           "${config.boot.initrd.systemd.package}/share/dbus-1/system.d"
         ];
-        targets.sockets.wants = [ "dbus.socket" ];
+        targets.sockets.wants = ["dbus.socket"];
       };
     })
 
@@ -200,7 +192,6 @@ in
           configDir
         ];
       };
-
     })
 
     (mkIf (cfg.implementation == "broker") {
@@ -227,7 +218,7 @@ in
         unitConfig = {
           # We get errors when reloading the dbus-broker service
           # if /tmp got remounted after this service started
-          RequiresMountsFor = [ "/tmp" ];
+          RequiresMountsFor = ["/tmp"];
         };
         # Don't restart dbus. Bad things tend to happen if we do.
         reloadIfChanged = true;
@@ -252,6 +243,5 @@ in
         ];
       };
     })
-
   ]);
 }

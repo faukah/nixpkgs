@@ -8,7 +8,6 @@
   libexif,
   conf ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sxiv";
   version = "26";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     libexif
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   postInstall = ''
     install -Dt $out/share/applications sxiv.desktop
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/muennich/sxiv";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with maintainers; [ h7x4 ];
+    maintainers = with maintainers; [h7x4];
     mainProgram = "sxiv";
   };
 }

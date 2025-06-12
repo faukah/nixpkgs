@@ -11,7 +11,6 @@
   py3nvml,
   sympy,
 }:
-
 buildPythonPackage rec {
   pname = "onnxruntime-tools";
   version = "1.7.0";
@@ -40,12 +39,12 @@ buildPythonPackage rec {
     sympy
   ];
 
-  pythonImportsCheck = [ "onnxruntime_tools" ];
+  pythonImportsCheck = ["onnxruntime_tools"];
 
   meta = {
     description = "Transformers Model Optimization Tool of ONNXRuntime";
     homepage = "https://pypi.org/project/onnxruntime-tools/";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ happysalada ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [happysalada];
   };
 }

@@ -6,7 +6,6 @@
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "tunnelto";
   version = "unstable-2022-09-25";
@@ -21,13 +20,13 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-QXkKqEEbNEDcypErDIFarJLuIoYWOZj/9jCbslxrOXs=";
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ openssl ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [openssl];
 
   meta = with lib; {
     description = "Expose your local web server to the internet with a public URL";
     homepage = "https://tunnelto.dev";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
   };
 }

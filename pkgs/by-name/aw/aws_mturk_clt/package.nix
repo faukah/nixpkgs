@@ -4,7 +4,6 @@
   fetchurl,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aws-mturk-clt";
   version = "1.3.0";

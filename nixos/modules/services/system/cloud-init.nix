@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.cloud-init;
-  path =
-    with pkgs;
+  path = with pkgs;
     [
       cloud-init
       iproute2
@@ -22,10 +20,9 @@ let
     ++ lib.optional cfg.xfs.enable xfsprogs
     ++ cfg.extraPackages;
   hasFs = fsName: lib.any (fs: fs.fsType == fsName) (lib.attrValues config.fileSystems);
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   cfgfile = settingsFormat.generate "cloud.cfg" cfg.settings;
-in
-{
+in {
   options = {
     services.cloud-init = {
       enable = lib.mkOption {
@@ -85,7 +82,7 @@ in
 
       extraPackages = lib.mkOption {
         type = lib.types.listOf lib.types.package;
-        default = [ ];
+        default = [];
         description = ''
           List of additional packages to be available within cloud-init jobs.
         '';
@@ -98,7 +95,7 @@ in
         type = lib.types.submodule {
           freeformType = settingsFormat.type;
         };
-        default = { };
+        default = {};
       };
 
       config = lib.mkOption {
@@ -110,9 +107,7 @@ in
           Takes precedence over the `settings` option if set.
         '';
       };
-
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -120,11 +115,11 @@ in
       system_info = lib.mkDefault {
         distro = "nixos";
         network = {
-          renderers = [ "networkd" ];
+          renderers = ["networkd"];
         };
       };
 
-      users = lib.mkDefault [ "root" ];
+      users = lib.mkDefault ["root"];
       disable_root = lib.mkDefault false;
       preserve_hostname = lib.mkDefault false;
 
@@ -169,13 +164,15 @@ in
     };
 
     environment.etc."cloud/cloud.cfg" =
-      if cfg.config == "" then { source = cfgfile; } else { text = cfg.config; };
+      if cfg.config == ""
+      then {source = cfgfile;}
+      else {text = cfg.config;};
 
     systemd.network.enable = lib.mkIf cfg.network.enable true;
 
     systemd.services.cloud-init-local = {
       description = "Initial cloud-init job (pre-networking)";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       # In certain environments (AWS for example), cloud-init-local will
       # first configure an IP through DHCP, and later delete it.
       # This can cause race conditions with anything else trying to set IP through DHCP.
@@ -195,7 +192,7 @@ in
 
     systemd.services.cloud-init = {
       description = "Initial cloud-init job (metadata service crawler)";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       wants = [
         "network-online.target"
         "cloud-init-local.service"
@@ -210,7 +207,7 @@ in
         "sshd.service"
         "sshd-keygen.service"
       ];
-      requires = [ "network.target" ];
+      requires = ["network.target"];
       path = path;
       serviceConfig = {
         Type = "oneshot";
@@ -223,8 +220,8 @@ in
 
     systemd.services.cloud-config = {
       description = "Apply the settings specified in cloud-config";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
       after = [
         "network-online.target"
         "cloud-config.target"
@@ -242,14 +239,14 @@ in
 
     systemd.services.cloud-final = {
       description = "Execute cloud user/final scripts";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
       after = [
         "network-online.target"
         "cloud-config.service"
         "rc-local.service"
       ];
-      requires = [ "cloud-config.target" ];
+      requires = ["cloud-config.target"];
       path = path;
       serviceConfig = {
         Type = "oneshot";
@@ -269,5 +266,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.zimbatm ];
+  meta.maintainers = [lib.maintainers.zimbatm];
 }

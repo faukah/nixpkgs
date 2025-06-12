@@ -6,7 +6,6 @@
   zlib,
   boost,
 }:
-
 stdenv.mkDerivation {
   pname = "avy";
   version = "2019.05.01"; # date of cav19 tag
@@ -18,14 +17,14 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     zlib
     boost.out
     boost.dev
   ];
   env.NIX_CFLAGS_COMPILE = toString (
-    [ "-Wno-narrowing" ]
+    ["-Wno-narrowing"]
     # Squelch endless stream of warnings on same few things
     ++ lib.optionals stdenv.cc.isClang [
       "-Wno-empty-body"
@@ -54,7 +53,7 @@ stdenv.mkDerivation {
     description = "AIGER model checking for Property Directed Reachability";
     homepage = "https://arieg.bitbucket.io/avy/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [thoughtpolice];
     platforms = lib.platforms.linux;
   };
 }

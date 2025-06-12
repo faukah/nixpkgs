@@ -8,7 +8,6 @@
   reptyr,
   makeWrapper,
 }:
-
 stdenv.mkDerivation {
   pname = "tmpi";
   version = "0-unstable-2022-02-22";
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
     tmux
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -38,13 +37,13 @@ stdenv.mkDerivation {
 
     wrapProgram $out/bin/tmpi \
       --prefix PATH : ${
-        lib.makeBinPath [
-          mpi
-          mpich
-          tmux
-          reptyr
-        ]
-      }
+      lib.makeBinPath [
+        mpi
+        mpich
+        tmux
+        reptyr
+      ]
+    }
 
     runHook postInstall
   '';
@@ -54,7 +53,7 @@ stdenv.mkDerivation {
     mainProgram = "tmpi";
     homepage = "https://github.com/Azrael3000/tmpi";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ vasissualiyp ];
+    maintainers = with lib.maintainers; [vasissualiyp];
     platforms = reptyr.meta.platforms;
   };
 }

@@ -6,7 +6,6 @@
   openssl,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "orogene";
   version = "0.3.34";
@@ -56,7 +55,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       isc
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "oro";
   };
 }

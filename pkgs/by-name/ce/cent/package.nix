@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cent";
   version = "1.3.4";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/xm1k3/cent";
     changelog = "https://github.com/xm1k3/cent/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "cent";
   };
 }

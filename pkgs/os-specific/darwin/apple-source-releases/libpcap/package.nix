@@ -11,15 +11,13 @@
   # Provided for compatibility with the top-level derivation.
   withBluez ? false,
   withRemote ? false,
-}:
-
-let
+}: let
   xnu = apple-sdk_15.sourceRelease "xnu";
 
   privateHeaders = stdenvNoCC.mkDerivation {
     name = "libpcap-deps-private-headers";
 
-    nativeBuildInputs = [ unifdef ];
+    nativeBuildInputs = [unifdef];
 
     buildCommand = ''
       mkdir -p "$out/include/net"
@@ -65,34 +63,42 @@ let
     '';
   };
 in
-mkAppleDerivation {
-  releaseName = "libpcap";
+  mkAppleDerivation {
+    releaseName = "libpcap";
 
-  postPatch = ''
-    substituteInPlace libpcap/Makefile.in \
-      --replace-fail '@PLATFORM_C_SRC@' '@PLATFORM_C_SRC@ pcap-darwin.c pcap-util.c pcapng.c'
-    substituteInPlace libpcap/pcap/pcap.h \
-      --replace-fail '#if PRIVATE' '#if 1'
-  '';
+    postPatch = ''
+      substituteInPlace libpcap/Makefile.in \
+        --replace-fail '@PLATFORM_C_SRC@' '@PLATFORM_C_SRC@ pcap-darwin.c pcap-util.c pcapng.c'
+      substituteInPlace libpcap/pcap/pcap.h \
+        --replace-fail '#if PRIVATE' '#if 1'
+    '';
 
-  configureFlags = [
-    (lib.withFeatureAs true "pcap" (if stdenv.hostPlatform.isLinux then "linux" else "bpf"))
-    (lib.enableFeature withRemote "remote")
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ (lib.enableFeature false "universal") ];
+    configureFlags =
+      [
+        (lib.withFeatureAs true "pcap" (
+          if stdenv.hostPlatform.isLinux
+          then "linux"
+          else "bpf"
+        ))
+        (lib.enableFeature withRemote "remote")
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [(lib.enableFeature false "universal")];
 
-  preConfigure = ''
-    cd libpcap
-  '';
+    preConfigure = ''
+      cd libpcap
+    '';
 
-  env.NIX_CFLAGS_COMPILE = "-DHAVE_PKTAP_API -I${privateHeaders}/include";
+    env.NIX_CFLAGS_COMPILE = "-DHAVE_PKTAP_API -I${privateHeaders}/include";
 
-  nativeBuildInputs = [
-    bison
-    flex
-  ] ++ lib.optionals withBluez [ bluez.dev ];
+    nativeBuildInputs =
+      [
+        bison
+        flex
+      ]
+      ++ lib.optionals withBluez [bluez.dev];
 
-  meta = {
-    description = "Packet Capture Library (with Apple modifications)";
-    mainProgram = "pcap-config";
-  };
-}
+    meta = {
+      description = "Packet Capture Library (with Apple modifications)";
+      mainProgram = "pcap-config";
+    };
+  }

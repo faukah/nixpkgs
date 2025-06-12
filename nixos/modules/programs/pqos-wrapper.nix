@@ -3,14 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.pqos-wrapper;
-in
-{
+in {
   options.programs.pqos-wrapper = {
     enable = lib.mkEnableOption "PQoS Wrapper for BenchExec";
-    package = lib.mkPackageOption pkgs "pqos-wrapper" { };
+    package = lib.mkPackageOption pkgs "pqos-wrapper" {};
   };
 
   config = lib.mkIf cfg.enable {
@@ -24,5 +22,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ lorenzleutgeb ];
+  meta.maintainers = with lib.maintainers; [lorenzleutgeb];
 }

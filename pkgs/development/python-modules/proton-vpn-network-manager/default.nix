@@ -17,7 +17,6 @@
   pytestCheckHook,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "proton-vpn-network-manager";
   version = "0.12.13";

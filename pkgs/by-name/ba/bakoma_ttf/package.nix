@@ -1,5 +1,7 @@
-{ stdenvNoCC, fetchurl }:
-
+{
+  stdenvNoCC,
+  fetchurl,
+}:
 stdenvNoCC.mkDerivation rec {
   pname = "bakoma-ttf";
   version = "2.2";

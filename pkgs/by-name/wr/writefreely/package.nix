@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "writefreely";
   version = "0.15.1";
@@ -24,9 +23,9 @@ buildGoModule rec {
     "-X github.com/writefreely/writefreely.softwareVer=${version}"
   ];
 
-  tags = [ "sqlite" ];
+  tags = ["sqlite"];
 
-  subPackages = [ "cmd/writefreely" ];
+  subPackages = ["cmd/writefreely"];
 
   passthru.tests = {
     inherit (nixosTests) writefreely;
@@ -36,7 +35,7 @@ buildGoModule rec {
     description = "Build a digital writing community";
     homepage = "https://github.com/writefreely/writefreely";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ soopyc ];
+    maintainers = with maintainers; [soopyc];
     mainProgram = "writefreely";
   };
 }

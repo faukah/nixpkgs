@@ -5,7 +5,6 @@
   setuptools,
   textual,
 }:
-
 buildPythonPackage {
   pname = "textual-slider";
   version = "0.1.2";
@@ -19,14 +18,14 @@ buildPythonPackage {
 
   pyproject = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ textual ];
+  dependencies = [textual];
 
   meta = with lib; {
     description = "Textual widget for a simple slider";
     homepage = "https://github.com/TomJGooding/textual-slider";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.lukegb ];
+    maintainers = [maintainers.lukegb];
   };
 }

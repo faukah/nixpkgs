@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "chainsaw";
   version = "2.12.2";
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/WithSecureLabs/chainsaw";
     changelog = "https://github.com/WithSecureLabs/chainsaw/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "chainsaw";
   };
 })

@@ -23,7 +23,6 @@
   ninja,
   libepoxy,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sushi";
   version = "46.0";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     libepoxy
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
-    (gst_all_1.gst-plugins-good.override { gtkSupport = true; })
+    (gst_all_1.gst-plugins-good.override {gtkSupport = true;})
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-ugly
   ];
@@ -82,7 +81,7 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.gnome.org/GNOME/sushi/-/blob/${version}/NEWS?ref_type=tags";
     description = "Quick previewer for Nautilus";
     mainProgram = "sushi";
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };

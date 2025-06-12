@@ -6,7 +6,6 @@
   libkeyfinder,
   fftw,
 }:
-
 stdenv.mkDerivation rec {
   pname = "keyfinder-cli";
   version = "1.1.2";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     fftw
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 

@@ -6,7 +6,6 @@
   cmake,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "novacom";
   version = "18";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Utility for communicating with WebOS devices";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

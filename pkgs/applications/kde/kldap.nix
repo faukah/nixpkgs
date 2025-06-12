@@ -12,7 +12,6 @@
   openldap,
   qtkeychain,
 }:
-
 mkDerivation {
   pname = "kldap";
   meta = {

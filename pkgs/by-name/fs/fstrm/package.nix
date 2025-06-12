@@ -7,7 +7,6 @@
   libevent,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fstrm";
   version = "0.6.1";

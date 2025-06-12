@@ -3,25 +3,19 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.metabase;
 
   inherit (lib) mkEnableOption mkIf mkOption;
   inherit (lib) optional optionalAttrs types;
 
   dataDir = "/var/lib/metabase";
-
-in
-{
-
+in {
   options = {
-
     services.metabase = {
       enable = mkEnableOption "Metabase service";
 
-      package = lib.mkPackageOption pkgs "metabase" { };
+      package = lib.mkPackageOption pkgs "metabase" {};
 
       listen = {
         ip = mkOption {
@@ -66,7 +60,6 @@ in
             [Java KeyStore](https://www.digitalocean.com/community/tutorials/java-keytool-essentials-working-with-java-keystores) file containing the certificates.
           '';
         };
-
       };
 
       openFirewall = mkOption {
@@ -77,16 +70,14 @@ in
         '';
       };
     };
-
   };
 
   config = mkIf cfg.enable {
-
     systemd.services.metabase = {
       description = "Metabase server";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
       environment =
         {
           MB_PLUGINS_DIR = "${dataDir}/plugins";
@@ -107,8 +98,7 @@ in
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.listen.port ] ++ optional cfg.ssl.enable cfg.ssl.port;
+      allowedTCPPorts = [cfg.listen.port] ++ optional cfg.ssl.enable cfg.ssl.port;
     };
-
   };
 }

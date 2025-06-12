@@ -6,19 +6,18 @@
   stdenv,
   tk,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tkdiff";
   version = "5.7";
 
   src = fetchzip {
     url = "mirror://sourceforge/tkdiff/tkdiff-${
-      builtins.replaceStrings [ "." ] [ "-" ] finalAttrs.version
+      builtins.replaceStrings ["."] ["-"] finalAttrs.version
     }.zip";
     hash = "sha256-ZndpolvaXoCAzR4KF+Bu7DJrXyB/C2H2lWp5FyzOc4M=";
   };
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -26,11 +25,11 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 -t $out/bin tkdiff
     wrapProgram $out/bin/tkdiff \
       --prefix PATH : ${
-        lib.makeBinPath [
-          diffutils
-          tk
-        ]
-      }
+      lib.makeBinPath [
+        diffutils
+        tk
+      ]
+    }
 
     runHook postInstall
   '';
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
       diff regions to achieve exactly the merge output desired.
     '';
     mainProgram = "tkdiff";
-    maintainers = with lib.maintainers; [ mikaelfangel ];
+    maintainers = with lib.maintainers; [mikaelfangel];
     platforms = tk.meta.platforms;
   };
 })

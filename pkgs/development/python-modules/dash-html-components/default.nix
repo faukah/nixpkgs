@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "dash-html-components";
   version = "2.0.0";
@@ -22,6 +21,6 @@ buildPythonPackage rec {
     description = "HTML components for Dash";
     homepage = "https://dash.plot.ly/dash-html-components";
     license = licenses.mit;
-    maintainers = [ maintainers.antoinerg ];
+    maintainers = [maintainers.antoinerg];
   };
 }

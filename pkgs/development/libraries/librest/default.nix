@@ -12,7 +12,6 @@
   docbook_xml_dtd_412,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rest";
   version = "0.8.1";
@@ -73,6 +72,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/librest";
     license = licenses.lgpl21Only;
     platforms = platforms.unix;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 }

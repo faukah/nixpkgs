@@ -7,7 +7,6 @@
   taglib_1,
   zlib,
 }:
-
 buildDunePackage rec {
   pname = "taglib";
   version = "0.3.10";
@@ -21,8 +20,8 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.05.0"; # Documented version 4.02.0. 4.05.0 actually required.
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     taglib_1
     zlib
@@ -35,6 +34,6 @@ buildDunePackage rec {
       lgpl21Plus
       "link-exception"
     ]; # GNU Library Public License 2 Linking Exception
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

@@ -16,7 +16,6 @@
   texinfo,
   help2man,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xprintidle-ng";
   version = "unstable-2015-09-01";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
     description = "Command-line tool to print idle time from libXss";
     homepage = "https://github.com/taktoa/xprintidle-ng";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
     mainProgram = "xprintidle-ng";
   };

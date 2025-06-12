@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools-scm,
-
   # dependencies
   bokeh,
   colorcet,
   holoviews,
   pandas,
-
   # tests
   pytestCheckHook,
   dask,
@@ -23,7 +20,6 @@
   scipy,
   plotly,
 }:
-
 buildPythonPackage rec {
   pname = "hvplot";
   version = "0.11.2";
@@ -87,13 +83,13 @@ buildPythonPackage rec {
     export MPLBACKEND=agg
   '';
 
-  pythonImportsCheck = [ "hvplot.pandas" ];
+  pythonImportsCheck = ["hvplot.pandas"];
 
   meta = {
     description = "High-level plotting API for the PyData ecosystem built on HoloViews";
     homepage = "https://hvplot.pyviz.org";
     changelog = "https://github.com/holoviz/hvplot/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

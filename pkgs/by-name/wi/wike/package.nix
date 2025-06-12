@@ -18,7 +18,6 @@
   webkitgtk_6_0,
   nix-update-script,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "wike";
   version = "3.1.1";
@@ -65,7 +64,7 @@ python3.pkgs.buildPythonApplication rec {
 
   passthru = {
     tests.cross = pkgsCross.aarch64-multiplatform.wike;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -73,8 +72,8 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/hugolabe/Wike";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ samalws ];
-    teams = [ teams.gnome-circle ];
+    maintainers = with maintainers; [samalws];
+    teams = [teams.gnome-circle];
     mainProgram = "wike";
   };
 }

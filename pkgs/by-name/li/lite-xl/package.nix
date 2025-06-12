@@ -10,7 +10,6 @@
   SDL2,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lite-xl";
   version = "2.1.7";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "Lightweight text editor written in Lua";
     homepage = "https://github.com/lite-xl/lite-xl";
     license = licenses.mit;
-    maintainers = with maintainers; [ sefidel ];
+    maintainers = with maintainers; [sefidel];
     platforms = platforms.unix;
     mainProgram = "lite-xl";
   };

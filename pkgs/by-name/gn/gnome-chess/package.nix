@@ -19,7 +19,6 @@
   librsvg,
   pango,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-chess";
   version = "48.0";
@@ -51,14 +50,14 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-chess"; };
+    updateScript = gnome.updateScript {packageName = "gnome-chess";};
   };
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-chess";
     description = "Play the classic two-player boardgame of chess";
     mainProgram = "gnome-chess";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

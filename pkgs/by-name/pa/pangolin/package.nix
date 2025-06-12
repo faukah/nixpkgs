@@ -14,7 +14,6 @@
   libtiff,
   eigen,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pangolin";
   version = "0.9.1";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
   # The tests use cmake's findPackage to find the installed version of
   # pangolin, which isn't what we want (or available).
   doCheck = false;
-  cmakeFlags = [ (lib.cmakeBool "BUILD_TESTS" false) ];
+  cmakeFlags = [(lib.cmakeBool "BUILD_TESTS" false)];
 
   meta = {
     description = "Lightweight portable rapid development library for managing OpenGL display / interaction and abstracting video input";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/stevenlovegrove/Pangolin";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 })

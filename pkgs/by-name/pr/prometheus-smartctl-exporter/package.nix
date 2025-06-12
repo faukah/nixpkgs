@@ -5,7 +5,6 @@
   nixosTests,
   smartmontools,
 }:
-
 buildGoModule rec {
   pname = "smartctl_exporter";
   version = "0.14.0";
@@ -28,7 +27,7 @@ buildGoModule rec {
     "-X github.com/prometheus/common/version.Version=${version}"
   ];
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) smartctl; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) smartctl;};
 
   meta = with lib; {
     description = "Export smartctl statistics for Prometheus";

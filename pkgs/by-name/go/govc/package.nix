@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "govc";
   version = "0.51.0";
@@ -29,7 +28,7 @@ buildGoModule (finalAttrs: {
     description = "VSphere CLI built on top of govmomi";
     homepage = "https://github.com/vmware/govmomi/tree/main/govc";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nicknovitski ];
+    maintainers = with lib.maintainers; [nicknovitski];
     mainProgram = "govc";
   };
 })

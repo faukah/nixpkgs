@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "rmv-card";
   version = "0-unstable-2023-10-09";
@@ -27,13 +26,13 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Custom card for the RMV component";
     homepage = "https://github.com/custom-cards/rmv-card";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
     platforms = platforms.all;
   };
 }

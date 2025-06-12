@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ...
 }:
-
 stdenv.mkDerivation rec {
   pname = "nullidentdmod";
   version = "1.3";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     mainProgram = "nullidentdmod";
     license = licenses.gpl2Plus;
     homepage = "https://github.com/Ranthrall/nullidentdmod";
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
     platforms = platforms.linux; # Must be run by systemd
   };
 }

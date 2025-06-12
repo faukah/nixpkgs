@@ -7,7 +7,6 @@
   bash,
   replaceVars,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bcache-tools";
   version = "1.0.8";
@@ -19,8 +18,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-6gy0ymecMgEHXbwp/nXHlrUEeDFnmFXWZZPlzP292g4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ util-linux ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [util-linux];
 
   # * Remove broken install rules (they ignore $PREFIX) for stuff we don't need
   #   anyway (it's distro specific stuff).
@@ -64,6 +63,6 @@ stdenv.mkDerivation rec {
     homepage = "https://bcache.evilpiepirate.org/";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

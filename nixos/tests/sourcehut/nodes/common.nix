@@ -3,20 +3,18 @@
   pkgs,
   nodes,
   ...
-}:
-let
+}: let
   domain = config.networking.domain;
 
   # Note that wildcard certificates just under the TLD (eg. *.com)
   # would be rejected by clients like curl.
-  tls-cert = pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
+  tls-cert = pkgs.runCommand "selfSignedCerts" {buildInputs = [pkgs.openssl];} ''
     openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
       -subj '/CN=${domain}' -extensions v3_req \
       -addext 'subjectAltName = DNS:*.${domain}'
     install -D -t $out key.pem cert.pem
   '';
-in
-{
+in {
   # buildsrht needs space
   virtualisation.diskSize = 4 * 1024;
   virtualisation.memorySize = 2 * 1024;
@@ -89,7 +87,7 @@ in
     80
     443
   ];
-  security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
+  security.pki.certificateFiles = ["${tls-cert}/cert.pem"];
   services.nginx = {
     enable = true;
     recommendedGzipSettings = true;

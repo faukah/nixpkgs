@@ -6,31 +6,26 @@
   fetchurl,
   pythonOlder,
   pythonAtLeast,
-
   # buildInputs
   cudaPackages,
   ffmpeg_6,
   sox,
-
   # nativeBuildInputs
   addDriverRunpath,
   autoPatchelfHook,
-
   # dependencies
   torch-bin,
 }:
-
 buildPythonPackage rec {
   pname = "torchaudio";
   version = "2.7.1";
   format = "wheel";
 
-  src =
-    let
-      pyVerNoDot = lib.replaceStrings [ "." ] [ "" ] python.pythonVersion;
-      unsupported = throw "Unsupported system";
-      srcs = (import ./binary-hashes.nix version)."${stdenv.system}-${pyVerNoDot}" or unsupported;
-    in
+  src = let
+    pyVerNoDot = lib.replaceStrings ["."] [""] python.pythonVersion;
+    unsupported = throw "Unsupported system";
+    srcs = (import ./binary-hashes.nix version)."${stdenv.system}-${pyVerNoDot}" or unsupported;
+  in
     fetchurl srcs;
 
   disabled = (pythonOlder "3.9") || (pythonAtLeast "3.14");
@@ -42,8 +37,7 @@ buildPythonPackage rec {
       sox
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux (
-      with cudaPackages;
-      [
+      with cudaPackages; [
         # $out/${sitePackages}/torchaudio/lib/libtorchaudio*.so wants libcudart.so.11.0 but torch/lib only ships
         # libcudart.$hash.so.11.0
         cuda_cudart
@@ -59,7 +53,7 @@ buildPythonPackage rec {
     addDriverRunpath
   ];
 
-  dependencies = [ torch-bin ];
+  dependencies = [torch-bin];
 
   preInstall = lib.optionals stdenv.hostPlatform.isLinux ''
     addAutoPatchelfSearchPath "${torch-bin}/${python.sitePackages}/torch"
@@ -74,7 +68,7 @@ buildPythonPackage rec {
   # The wheel-binary is not stripped to avoid the error of `ImportError: libtorch_cuda_cpp.so: ELF load command address/offset not properly aligned.`.
   dontStrip = true;
 
-  pythonImportsCheck = [ "torchaudio" ];
+  pythonImportsCheck = ["torchaudio"];
 
   meta = {
     description = "PyTorch audio library";
@@ -84,7 +78,7 @@ buildPythonPackage rec {
     # https://docs.nvidia.com/cuda/eula/index.html
     # https://www.intel.com/content/www/us/en/developer/articles/license/onemkl-license-faq.html
     license = lib.licenses.bsd3;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     platforms = [
       "aarch64-linux"
       "x86_64-linux"

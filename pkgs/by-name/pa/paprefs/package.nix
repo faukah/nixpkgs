@@ -11,7 +11,6 @@
   gtkmm3,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "paprefs";
   version = "1.2";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
 
     license = licenses.gpl2Plus;
 
-    maintainers = [ maintainers.abbradar ];
+    maintainers = [maintainers.abbradar];
     platforms = platforms.linux;
   };
 }

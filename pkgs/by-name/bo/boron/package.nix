@@ -4,7 +4,6 @@
   fetchurl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "boron";
   version = "2.1.0";
@@ -21,9 +20,9 @@ stdenv.mkDerivation rec {
     patchShebangs configure
   '';
 
-  configureFlags = [ "--thread" ];
+  configureFlags = ["--thread"];
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   buildInputs = [
     zlib
@@ -47,6 +46,6 @@ stdenv.mkDerivation rec {
     mainProgram = "boron";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mausch ];
+    maintainers = with maintainers; [mausch];
   };
 }

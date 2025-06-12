@@ -3,18 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.xserver.windowManager.dk;
-in
-
-{
+in {
   options = {
     services.xserver.windowManager.dk = {
       enable = lib.mkEnableOption "dk";
 
-      package = lib.mkPackageOption pkgs "dk" { };
+      package = lib.mkPackageOption pkgs "dk" {};
     };
   };
 
@@ -27,6 +23,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

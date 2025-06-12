@@ -23,7 +23,6 @@
   pantheon,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "snippetpixie";
   version = "1.5.3";
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -84,7 +83,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.snippetpixie.com";
     license = licenses.gpl2Plus;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     mainProgram = "com.github.bytepixie.snippetpixie";
   };

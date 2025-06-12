@@ -20,7 +20,7 @@ buildGoModule rec {
     description = "Command-line program for working with ham logfiles.";
     homepage = "https://github.com/flwyd/adif-multitool";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mafo ];
+    maintainers = with maintainers; [mafo];
     mainProgram = "adifmt";
   };
 }

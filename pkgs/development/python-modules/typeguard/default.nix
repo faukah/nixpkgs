@@ -14,7 +14,6 @@
   sphinx-rtd-theme,
   glibcLocales,
 }:
-
 buildPythonPackage rec {
   pname = "typeguard";
   version = "4.4.2";
@@ -41,9 +40,11 @@ buildPythonPackage rec {
     sphinx-rtd-theme
   ];
 
-  dependencies = [
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  dependencies =
+    [
+      typing-extensions
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   env.LC_ALL = "en_US.utf-8";
 
@@ -52,13 +53,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "typeguard" ];
+  pythonImportsCheck = ["typeguard"];
 
   meta = {
     description = "This library provides run-time type checking for functions defined with argument type annotations";
     homepage = "https://github.com/agronholm/typeguard";
     changelog = "https://github.com/agronholm/typeguard/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

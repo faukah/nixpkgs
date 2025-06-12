@@ -10,9 +10,7 @@
   curl,
   bash,
   debugInfo ? false,
-}@inputs:
-
-{
+} @ inputs: {
   baseName ? "elixir",
   version,
   erlang ? inputs.erlang,
@@ -20,16 +18,16 @@
   maximumOTPVersion ? null,
   sha256 ? null,
   rev ? "v${version}",
-  src ? fetchFromGitHub {
-    inherit rev sha256;
-    owner = "elixir-lang";
-    repo = "elixir";
-  },
+  src ?
+    fetchFromGitHub {
+      inherit rev sha256;
+      owner = "elixir-lang";
+      repo = "elixir";
+    },
   escriptPath ? "lib/elixir/generate_app.escript",
-}@args:
-
-let
-  inherit (lib)
+} @ args: let
+  inherit
+    (lib)
     assertMsg
     concatStringsSep
     getVersion
@@ -54,57 +52,53 @@ let
 
   maxShiftMajor = builtins.toString ((toInt (versions.major maximumOTPVersion)) + 1);
   maxAssert =
-    if (maximumOTPVersion == null) then
-      true
-    else
-      versionOlder (versions.major (getVersion erlang)) maxShiftMajor;
+    if (maximumOTPVersion == null)
+    then true
+    else versionOlder (versions.major (getVersion erlang)) maxShiftMajor;
 
   elixirShebang =
-    if stdenv.hostPlatform.isDarwin then
+    if stdenv.hostPlatform.isDarwin
+    then
       # Darwin disallows shebang scripts from using other scripts as their
       # command. Use env as an intermediary instead of calling elixir directly
       # (another shebang script).
       # See https://github.com/NixOS/nixpkgs/pull/9671
       "${coreutils}/bin/env $out/bin/elixir"
-    else
-      "$out/bin/elixir";
+    else "$out/bin/elixir";
 in
-assert assertMsg (versionAtLeast (getVersion erlang) minimumOTPVersion) compatibilityMsg;
-assert assertMsg maxAssert compatibilityMsg;
+  assert assertMsg (versionAtLeast (getVersion erlang) minimumOTPVersion) compatibilityMsg;
+  assert assertMsg maxAssert compatibilityMsg;
+    stdenv.mkDerivation {
+      pname = "${baseName}";
 
-stdenv.mkDerivation ({
-  pname = "${baseName}";
+      inherit src version debugInfo;
 
-  inherit src version debugInfo;
+      nativeBuildInputs = [makeWrapper];
+      buildInputs = [erlang];
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ erlang ];
+      LANG = "C.UTF-8";
+      LC_TYPE = "C.UTF-8";
 
-  LANG = "C.UTF-8";
-  LC_TYPE = "C.UTF-8";
+      ERLC_OPTS = let
+        erlc_opts = ["deterministic"] ++ optional debugInfo "debug_info";
+      in "[${concatStringsSep "," erlc_opts}]";
 
-  ERLC_OPTS =
-    let
-      erlc_opts = [ "deterministic" ] ++ optional debugInfo "debug_info";
-    in
-    "[${concatStringsSep "," erlc_opts}]";
+      preBuild = ''
+        patchShebangs ${escriptPath} || true
 
-  preBuild = ''
-    patchShebangs ${escriptPath} || true
+        substituteInPlace Makefile \
+          --replace "/usr/local" $out
+      '';
 
-    substituteInPlace Makefile \
-      --replace "/usr/local" $out
-  '';
+      postFixup = ''
+        # Elixir binaries are shell scripts which run erl. Add some stuff
+        # to PATH so the scripts can run without problems.
 
-  postFixup = ''
-    # Elixir binaries are shell scripts which run erl. Add some stuff
-    # to PATH so the scripts can run without problems.
-
-    for f in $out/bin/*; do
-      b=$(basename $f)
-      if [ "$b" = mix ]; then continue; fi
-      wrapProgram $f \
-        --prefix PATH ":" "${
+        for f in $out/bin/*; do
+          b=$(basename $f)
+          if [ "$b" = mix ]; then continue; fi
+          wrapProgram $f \
+            --prefix PATH ":" "${
           lib.makeBinPath [
             erlang
             coreutils
@@ -112,36 +106,36 @@ stdenv.mkDerivation ({
             bash
           ]
         }"
-    done
+        done
 
-    substituteInPlace $out/bin/mix \
-      --replace "/usr/bin/env elixir" "${elixirShebang}"
-  '';
+        substituteInPlace $out/bin/mix \
+          --replace "/usr/bin/env elixir" "${elixirShebang}"
+      '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version-regex"
-      "v(${lib.versions.major version}\\.${lib.versions.minor version}\\.[0-9\\-rc.]+)"
-      "--override-filename"
-      "pkgs/development/interpreters/elixir/${lib.versions.major version}.${lib.versions.minor version}.nix"
-    ];
-  };
+      passthru.updateScript = nix-update-script {
+        extraArgs = [
+          "--version-regex"
+          "v(${lib.versions.major version}\\.${lib.versions.minor version}\\.[0-9\\-rc.]+)"
+          "--override-filename"
+          "pkgs/development/interpreters/elixir/${lib.versions.major version}.${lib.versions.minor version}.nix"
+        ];
+      };
 
-  pos = builtins.unsafeGetAttrPos "sha256" args;
-  meta = with lib; {
-    homepage = "https://elixir-lang.org/";
-    description = "Functional, meta-programming aware language built on top of the Erlang VM";
+      pos = builtins.unsafeGetAttrPos "sha256" args;
+      meta = with lib; {
+        homepage = "https://elixir-lang.org/";
+        description = "Functional, meta-programming aware language built on top of the Erlang VM";
 
-    longDescription = ''
-      Elixir is a functional, meta-programming aware language built on
-      top of the Erlang VM. It is a dynamic language with flexible
-      syntax and macro support that leverages Erlang's abilities to
-      build concurrent, distributed and fault-tolerant applications
-      with hot code upgrades.
-    '';
+        longDescription = ''
+          Elixir is a functional, meta-programming aware language built on
+          top of the Erlang VM. It is a dynamic language with flexible
+          syntax and macro support that leverages Erlang's abilities to
+          build concurrent, distributed and fault-tolerant applications
+          with hot code upgrades.
+        '';
 
-    license = licenses.asl20;
-    platforms = platforms.unix;
-    teams = [ teams.beam ];
-  };
-})
+        license = licenses.asl20;
+        platforms = platforms.unix;
+        teams = [teams.beam];
+      };
+    }

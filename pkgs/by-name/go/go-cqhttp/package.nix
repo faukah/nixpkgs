@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "go-cqhttp";
   version = "1.2.0";
@@ -21,6 +20,6 @@ buildGoModule rec {
     description = "Golang implementation of OneBot based on Mirai and MiraiGo";
     homepage = "https://github.com/Mrs4s/go-cqhttp";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ Anillc ];
+    maintainers = with maintainers; [Anillc];
   };
 }

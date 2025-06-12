@@ -9,7 +9,6 @@
   yarl,
   poetry-core,
 }:
-
 buildPythonPackage rec {
   pname = "aiormq";
   version = "6.8.1";
@@ -28,16 +27,16 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  pythonRelaxDeps = [ "pamqp" ];
+  pythonRelaxDeps = ["pamqp"];
 
   propagatedBuildInputs = [
     pamqp
     yarl
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  checkInputs = [ aiomisc-pytest ];
+  checkInputs = [aiomisc-pytest];
 
   # Tests attempt to connect to a RabbitMQ server
   disabledTestPaths = [
@@ -45,13 +44,13 @@ buildPythonPackage rec {
     "tests/test_connection.py"
   ];
 
-  pythonImportsCheck = [ "aiormq" ];
+  pythonImportsCheck = ["aiormq"];
 
   meta = with lib; {
     description = "AMQP 0.9.1 asynchronous client library";
     homepage = "https://github.com/mosquito/aiormq";
     changelog = "https://github.com/mosquito/aiormq/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

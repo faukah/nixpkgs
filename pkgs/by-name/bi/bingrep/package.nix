@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bingrep";
   version = "0.11.0";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "bingrep";
     homepage = "https://github.com/m4b/bingrep";
     license = licenses.mit;
-    maintainers = with maintainers; [ minijackson ];
+    maintainers = with maintainers; [minijackson];
   };
 }

@@ -9,7 +9,6 @@
   lm_sensors,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openrgb-plugin-hardwaresync";
   version = "0.9";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/OpenRGBDevelopers/OpenRGBHardwareSyncPlugin";
     description = "Sync your ARGB devices colors with hardware measures (CPU, GPU, fan speed, etc...)";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.linux;
   };
 })

@@ -2,33 +2,33 @@
   lib,
   pkgs,
   alsa-lib,
-  plugins ? [ pkgs.alsa-plugins ],
+  plugins ? [pkgs.alsa-plugins],
   lndir,
   symlinkJoin,
   runCommand,
-}:
-let
+}: let
   merged = symlinkJoin {
     name = "alsa-plugins-merged";
     paths = plugins;
   };
 in
-runCommand "${alsa-lib.pname}-${alsa-lib.version}"
+  runCommand "${alsa-lib.pname}-${alsa-lib.version}"
   {
     meta = with lib; {
       description = "wrapper to ease access to ALSA plugins";
       mainProgram = "aserver";
       platforms = platforms.linux;
-      maintainers = with maintainers; [ gm6k ];
+      maintainers = with maintainers; [gm6k];
     };
     outputs = alsa-lib.outputs;
   }
   (
     (lib.concatMapStringsSep "\n" (output: ''
-      mkdir ${builtins.placeholder output}
-      ${lndir}/bin/lndir ${lib.attrByPath [ output ] null alsa-lib} \
-        ${builtins.placeholder output}
-    '') alsa-lib.outputs)
+        mkdir ${builtins.placeholder output}
+        ${lndir}/bin/lndir ${lib.attrByPath [output] null alsa-lib} \
+          ${builtins.placeholder output}
+      '')
+      alsa-lib.outputs)
     + ''
       cp -r ${merged}/lib/alsa-lib $out/lib
       (

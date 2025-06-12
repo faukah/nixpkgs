@@ -1,22 +1,20 @@
-{ lib, runCommand }:
-
-rec {
-  runTest =
-    name: body:
-    runCommand name { strictDeps = true; } ''
+{
+  lib,
+  runCommand,
+}: rec {
+  runTest = name: body:
+    runCommand name {strictDeps = true;} ''
       set -o errexit
       ${body}
       touch $out
     '';
 
-  skip =
-    cond: text:
-    if cond then
-      ''
-        echo "Skipping test $name" > /dev/stderr
-      ''
-    else
-      text;
+  skip = cond: text:
+    if cond
+    then ''
+      echo "Skipping test $name" > /dev/stderr
+    ''
+    else text;
 
   fail = text: ''
     echo "FAIL: $name: ${text}" > /dev/stderr

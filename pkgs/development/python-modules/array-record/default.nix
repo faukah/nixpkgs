@@ -8,7 +8,6 @@
   absl-py,
   etils,
 }:
-
 buildPythonPackage rec {
   pname = "array-record";
   version = "0.7.2";
@@ -16,10 +15,9 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.10" || pythonAtLeast "3.14";
 
-  src =
-    let
-      pyShortVersion = "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
-    in
+  src = let
+    pyShortVersion = "cp${builtins.replaceStrings ["."] [""] python.pythonVersion}";
+  in
     fetchPypi {
       inherit version format;
       pname = "array_record";
@@ -34,21 +32,25 @@ buildPythonPackage rec {
           cp312 = "sha256-S+cV0NhXXlOzSTr2ED1oUuk6U1gQA0ZXoGPaWxGp/ZQ=";
           cp313 = "sha256-C7UvwXV0/NXA5dhr7NbUCW/KeUWg5w5F18aN2oAUXAQ=";
         }
-        .${pyShortVersion} or (throw "${pname} is missing hash for ${pyShortVersion}");
+        .${
+          pyShortVersion
+        } or (throw "${pname} is missing hash for ${pyShortVersion}");
     };
 
-  dependencies = [
-    absl-py
-    etils
-  ] ++ etils.optional-dependencies.epath;
+  dependencies =
+    [
+      absl-py
+      etils
+    ]
+    ++ etils.optional-dependencies.epath;
 
-  pythonImportsCheck = [ "array_record" ];
+  pythonImportsCheck = ["array_record"];
 
   meta = {
     description = "New file format derived from Riegeli, achieving a new frontier of IO efficiency";
     homepage = "https://github.com/google/array_record";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [GaetanLepage];
+    platforms = ["x86_64-linux"];
   };
 }

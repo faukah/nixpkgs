@@ -18,18 +18,18 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-wdJTQjDCmbJVPEUV6DENb2UegAc1ET4iSw3SzmlGPnA=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "CLI tool to convert clippy diagnostics into SARIF";
     homepage = "https://psastras.github.io/sarif-rs";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "clippy-sarif";
     inherit (clippy.meta) platforms;
   };

@@ -3,15 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.systembus-notify;
 
   inherit (lib) mkEnableOption mkIf;
-
-in
-{
+in {
   options.services.systembus-notify = {
     enable = mkEnableOption ''
       System bus notification support
@@ -24,9 +20,9 @@ in
 
   config = mkIf cfg.enable {
     systemd = {
-      packages = with pkgs; [ systembus-notify ];
+      packages = with pkgs; [systembus-notify];
 
-      user.services.systembus-notify.wantedBy = [ "graphical-session.target" ];
+      user.services.systembus-notify.wantedBy = ["graphical-session.target"];
     };
   };
 }

@@ -5,53 +5,50 @@
   autoPatchelfHook,
   testers,
   starpls,
-}:
-
-let
+}: let
   manifest = lib.importJSON ./manifest.json;
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "starpls";
-  version = manifest.version;
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "starpls";
+    version = manifest.version;
 
-  src =
-    let
+    src = let
       system = stdenv.hostPlatform.system;
     in
-    fetchurl (manifest.assets.${system} or (throw "Unsupported system: ${system}"));
+      fetchurl (manifest.assets.${system} or (throw "Unsupported system: ${system}"));
 
-  dontUnpack = true;
-  dontConfigure = true;
-  dontBuild = true;
+    dontUnpack = true;
+    dontConfigure = true;
+    dontBuild = true;
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isElf [
-    autoPatchelfHook
-  ];
+    nativeBuildInputs = lib.optionals stdenv.hostPlatform.isElf [
+      autoPatchelfHook
+    ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isElf [
-    (lib.getLib stdenv.cc.cc)
-  ];
+    buildInputs = lib.optionals stdenv.hostPlatform.isElf [
+      (lib.getLib stdenv.cc.cc)
+    ];
 
-  installPhase = ''
-    install -D $src $out/bin/starpls
-  '';
+    installPhase = ''
+      install -D $src $out/bin/starpls
+    '';
 
-  passthru = {
-    tests.version = testers.testVersion {
-      package = starpls;
-      command = "starpls version";
-      version = "v${finalAttrs.version}";
+    passthru = {
+      tests.version = testers.testVersion {
+        package = starpls;
+        command = "starpls version";
+        version = "v${finalAttrs.version}";
+      };
+      updateScript = ./update.py;
     };
-    updateScript = ./update.py;
-  };
 
-  meta = {
-    description = "Language server for Starlark";
-    homepage = "https://github.com/withered-magic/starpls";
-    license = lib.licenses.asl20;
-    platforms = builtins.attrNames manifest.assets;
-    maintainers = with lib.maintainers; [ aaronjheng ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    mainProgram = "starpls";
-  };
-})
+    meta = {
+      description = "Language server for Starlark";
+      homepage = "https://github.com/withered-magic/starpls";
+      license = lib.licenses.asl20;
+      platforms = builtins.attrNames manifest.assets;
+      maintainers = with lib.maintainers; [aaronjheng];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      mainProgram = "starpls";
+    };
+  })

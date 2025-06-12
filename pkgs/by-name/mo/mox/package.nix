@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mox";
   version = "0.0.15";
@@ -16,7 +15,7 @@ buildGoModule rec {
   };
 
   # set the version during buildtime
-  patches = [ ./version.patch ];
+  patches = [./version.patch];
 
   vendorHash = null;
 

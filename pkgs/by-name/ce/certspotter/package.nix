@@ -4,7 +4,6 @@
   buildGoModule,
   lowdown-unsandboxed,
 }:
-
 buildGoModule rec {
   pname = "certspotter";
   version = "0.19.1";
@@ -23,7 +22,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ lowdown-unsandboxed ];
+  nativeBuildInputs = [lowdown-unsandboxed];
 
   postInstall = ''
     cd man
@@ -38,6 +37,6 @@ buildGoModule rec {
     changelog = "https://github.com/SSLMate/certspotter/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mpl20;
     mainProgram = "certspotter";
-    maintainers = with maintainers; [ chayleaf ];
+    maintainers = with maintainers; [chayleaf];
   };
 }

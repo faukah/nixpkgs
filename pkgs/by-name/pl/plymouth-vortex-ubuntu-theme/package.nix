@@ -4,7 +4,6 @@
   lib,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "plymouth-vortex-ubuntu-theme";
   version = "0-unstable-2024-11-20";
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Animated Plymouth boot theme with rotating Ubuntu logo";
@@ -38,6 +37,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/emanuele-scarsella/vortex-ubuntu-plymouth-theme";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ johnrtitor ];
+    maintainers = with lib.maintainers; [johnrtitor];
   };
 }

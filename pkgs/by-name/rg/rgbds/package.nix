@@ -7,7 +7,6 @@
   pkg-config,
   libpng,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rgbds";
   version = "0.9.2";
@@ -22,11 +21,11 @@ stdenv.mkDerivation rec {
     flex
     pkg-config
   ];
-  buildInputs = [ libpng ];
+  buildInputs = [libpng];
   postPatch = ''
     patchShebangs --host src/bison.sh
   '';
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     homepage = "https://rgbds.gbdev.io/";

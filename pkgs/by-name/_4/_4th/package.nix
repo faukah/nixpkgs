@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "4th";
   version = "3.64.1";
@@ -50,8 +49,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Portable Forth compiler";
     license = lib.licenses.lgpl3Plus;
     mainProgram = "4th";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })
 # TODO: set Makefile according to platform
+

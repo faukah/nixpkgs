@@ -11,7 +11,6 @@
   libXrender,
   imlib2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "alock";
   version = "2.5.1";

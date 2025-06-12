@@ -5,7 +5,6 @@
   cmake,
   gtest,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "parallel-hashmap";
   version = "2.0.0";
@@ -29,7 +28,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags = [
-    "-DPHMAP_BUILD_TESTS=${if finalAttrs.finalPackage.doCheck then "ON" else "OFF"}"
+    "-DPHMAP_BUILD_TESTS=${
+      if finalAttrs.finalPackage.doCheck
+      then "ON"
+      else "OFF"
+    }"
     "-DPHMAP_BUILD_EXAMPLES=OFF"
   ];
 
@@ -45,6 +48,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/greg7mdp/parallel-hashmap/releases/tag/v${finalAttrs.version}";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 })

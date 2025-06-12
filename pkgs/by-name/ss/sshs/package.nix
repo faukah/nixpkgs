@@ -5,7 +5,6 @@
   testers,
   sshs,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sshs";
   version = "4.7.2";
@@ -20,13 +19,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Py85+zv54KHFXjhiThTPXgJQmCImXN42ePOjazjzxIQ=";
 
-  passthru.tests.version = testers.testVersion { package = sshs; };
+  passthru.tests.version = testers.testVersion {package = sshs;};
 
   meta = {
     description = "Terminal user interface for SSH";
     homepage = "https://github.com/quantumsheep/sshs";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ not-my-segfault ];
+    maintainers = with lib.maintainers; [not-my-segfault];
     mainProgram = "sshs";
   };
 }

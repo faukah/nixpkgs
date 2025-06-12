@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pyradio";
   version = "0.9.3.11.13";

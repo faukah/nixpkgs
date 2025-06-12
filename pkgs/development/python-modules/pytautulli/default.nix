@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pytautulli";
   version = "23.1.1";
@@ -34,9 +33,9 @@ buildPythonPackage rec {
       --replace-fail "str(self.port)" "int(self.port)"
   '';
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   checkInputs = [
     aresponses
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     "test_api_url"
   ];
 
-  pythonImportsCheck = [ "pytautulli" ];
+  pythonImportsCheck = ["pytautulli"];
 
   meta = with lib; {
     description = "Python module to get information from Tautulli";
     homepage = "https://github.com/ludeeus/pytautulli";
     changelog = "https://github.com/ludeeus/pytautulli/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

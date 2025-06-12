@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-
   # build-system
   setuptools,
-
   # dependencies
   absl-py,
   chex,
@@ -16,14 +14,12 @@
   jaxlib,
   numpy,
   tensorflow-probability,
-
   # tests
   dm-haiku,
   optax,
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rlax";
   version = "0.1.6";
@@ -84,7 +80,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "rlax" ];
+  pythonImportsCheck = ["rlax"];
 
   disabledTests = [
     # AssertionError: Array(2, dtype=int32) != 0
@@ -113,6 +109,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/deepmind/rlax";
     changelog = "https://github.com/google-deepmind/rlax/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
   };
 }

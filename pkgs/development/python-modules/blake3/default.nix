@@ -9,7 +9,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "blake3";
   version = "1.0.5";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "blake3" ];
+  pythonImportsCheck = ["blake3"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
@@ -60,6 +59,6 @@ buildPythonPackage rec {
       cc0
       asl20
     ];
-    maintainers = with lib.maintainers; [ Luflosi ];
+    maintainers = with lib.maintainers; [Luflosi];
   };
 }

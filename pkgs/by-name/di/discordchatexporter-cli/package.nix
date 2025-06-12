@@ -6,7 +6,6 @@
   testers,
   discordchatexporter-cli,
 }:
-
 buildDotnetModule rec {
   pname = "discordchatexporter-cli";
   version = "2.43.3";
@@ -40,7 +39,7 @@ buildDotnetModule rec {
     homepage = "https://github.com/Tyrrrz/DiscordChatExporter";
     license = lib.licenses.gpl3Plus;
     changelog = "https://github.com/Tyrrrz/DiscordChatExporter/blob/${version}/Changelog.md";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
     mainProgram = "discordchatexporter-cli";
   };

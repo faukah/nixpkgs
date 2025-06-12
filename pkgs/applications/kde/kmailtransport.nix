@@ -19,7 +19,6 @@
   qtkeychain,
   libsecret,
 }:
-
 mkDerivation {
   pname = "kmailtransport";
   meta = {

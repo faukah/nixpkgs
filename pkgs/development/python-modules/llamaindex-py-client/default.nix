@@ -7,7 +7,6 @@
   pydantic,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "llamaindex-py-client";
   version = "0.1.19";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-c/dHkruMCSuubcYmYnoJrBOgmfqNEPj8yD4XorMyzKc=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     httpx
@@ -31,12 +30,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "llama_index_client" ];
+  pythonImportsCheck = ["llama_index_client"];
 
   meta = with lib; {
     description = "Client for LlamaIndex";
     homepage = "https://pypi.org/project/llamaindex-py-client/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

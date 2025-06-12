@@ -1,9 +1,9 @@
 # Unit tests for lib.path functions. Use `nix-build` in this directory to
 # run these
-{ libpath }:
-let
+{libpath}: let
   lib = import libpath;
-  inherit (lib.path)
+  inherit
+    (lib.path)
     hasPrefix
     removePrefix
     append
@@ -237,23 +237,23 @@ let
       expected = "./foo/bar/baz";
     };
     testSubpathJoinExample3 = {
-      expr = subpath.join [ ];
+      expr = subpath.join [];
       expected = "./.";
     };
     testSubpathJoinExample4 = {
-      expr = (builtins.tryEval (subpath.join [ /foo ])).success;
+      expr = (builtins.tryEval (subpath.join [/foo])).success;
       expected = false;
     };
     testSubpathJoinExample5 = {
-      expr = (builtins.tryEval (subpath.join [ "" ])).success;
+      expr = (builtins.tryEval (subpath.join [""])).success;
       expected = false;
     };
     testSubpathJoinExample6 = {
-      expr = (builtins.tryEval (subpath.join [ "/foo" ])).success;
+      expr = (builtins.tryEval (subpath.join ["/foo"])).success;
       expected = false;
     };
     testSubpathJoinExample7 = {
-      expr = (builtins.tryEval (subpath.join [ "../foo" ])).success;
+      expr = (builtins.tryEval (subpath.join ["../foo"])).success;
       expected = false;
     };
 
@@ -310,7 +310,7 @@ let
 
     testSubpathComponentsExample1 = {
       expr = subpath.components ".";
-      expected = [ ];
+      expected = [];
     };
     testSubpathComponentsExample2 = {
       expr = subpath.components "./foo//bar/./baz/";
@@ -326,7 +326,6 @@ let
     };
   };
 in
-if cases == [ ] then
-  "Unit tests successful"
-else
-  throw "Path unit tests failed: ${lib.generators.toPretty { } cases}"
+  if cases == []
+  then "Unit tests successful"
+  else throw "Path unit tests failed: ${lib.generators.toPretty {} cases}"

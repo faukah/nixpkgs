@@ -5,7 +5,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "publicsuffix";
   version = "1.1.1";
@@ -24,14 +23,14 @@ buildPythonPackage rec {
     \\t@unittest.skip('requires internet')" -e "/def additional_tests():/,+1d" tests.py
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "publicsuffix" ];
+  pythonImportsCheck = ["publicsuffix"];
 
   meta = with lib; {
     description = "Allows to get the public suffix of a domain name";
     homepage = "https://pypi.python.org/pypi/publicsuffix/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

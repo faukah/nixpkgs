@@ -5,7 +5,6 @@
   zope-interface,
   zope-testing,
 }:
-
 buildPythonPackage rec {
   pname = "tl-eggdeps";
   version = "1.0";

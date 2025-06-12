@@ -8,7 +8,6 @@
   spglib,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "symfc";
   version = "1.3.3";
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/symfc/symfc";
     changelog = "https://github.com/symfc/symfc/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

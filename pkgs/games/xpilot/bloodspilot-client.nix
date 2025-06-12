@@ -11,7 +11,6 @@
   SDL_ttf,
   SDL_image,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.5.0";
   pname = "bloodspilot-client";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "1qwl95av5an2zl01m7saj6fyy49xpixga7gbn4lwbpgpqs1rbwxj";
   };
 
-  patches = [ ./bloodspilot-sdl-window-fix.patch ];
+  patches = [./bloodspilot-sdl-window-fix.patch];
 
   buildInputs = [
     libX11
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     mainProgram = "bloodspilot-client-sdl";
     homepage = "http://bloodspilot.sf.net/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
   };
 }

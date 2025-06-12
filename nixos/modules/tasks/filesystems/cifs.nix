@@ -4,19 +4,11 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   inInitrd = config.boot.initrd.supportedFilesystems.cifs or false;
-
-in
-
-{
+in {
   config = {
-
-    system.fsPackages = mkIf (config.boot.supportedFilesystems.cifs or false) [ pkgs.cifs-utils ];
+    system.fsPackages = mkIf (config.boot.supportedFilesystems.cifs or false) [pkgs.cifs-utils];
 
     boot.initrd.availableKernelModules = mkIf inInitrd [
       "cifs"
@@ -33,6 +25,5 @@ in
     '';
 
     boot.initrd.systemd.extraBin."mount.cifs" = mkIf inInitrd "${pkgs.cifs-utils}/sbin/mount.cifs";
-
   };
 }

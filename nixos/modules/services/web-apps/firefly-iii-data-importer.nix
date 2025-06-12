@@ -3,9 +3,7 @@
   config,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.firefly-iii-data-importer;
 
   user = cfg.user;
@@ -38,7 +36,7 @@ let
     User = user;
     Group = group;
     StateDirectory = "firefly-iii-data-importer";
-    ReadWritePaths = [ cfg.dataDir ];
+    ReadWritePaths = [cfg.dataDir];
     WorkingDirectory = cfg.package;
     PrivateTmp = true;
     PrivateDevices = true;
@@ -69,10 +67,7 @@ let
     LockPersonality = true;
     PrivateUsers = true;
   };
-
-in
-{
-
+in {
   options.services.firefly-iii-data-importer = {
     enable = lib.mkEnableOption "Firefly III Data Importer";
 
@@ -84,7 +79,10 @@ in
 
     group = lib.mkOption {
       type = lib.types.str;
-      default = if cfg.enableNginx then "nginx" else defaultGroup;
+      default =
+        if cfg.enableNginx
+        then "nginx"
+        else defaultGroup;
       defaultText = "If `services.firefly-iii-data-importer.enableNginx` is true then `nginx` else ${defaultGroup}";
       description = ''
         Group under which firefly-iii-data-importer runs. It is best to set this to the group
@@ -110,8 +108,7 @@ in
         may also be used to set the package to a different version, say a
         development version.
       '';
-      apply =
-        firefly-iii-data-importer:
+      apply = firefly-iii-data-importer:
         firefly-iii-data-importer.override (prev: {
           dataDir = cfg.dataDir;
         });
@@ -146,7 +143,7 @@ in
           lib.types.bool
         ]
       );
-      default = { };
+      default = {};
       defaultText = lib.literalExpression ''
         {
           "pm" = "dynamic";
@@ -164,7 +161,7 @@ in
     };
 
     settings = lib.mkOption {
-      default = { };
+      default = {};
       description = ''
         Options for firefly-iii data importer configuration. Refer to
         <https://github.com/firefly-iii/data-importer/blob/main/.env.example> for
@@ -200,28 +197,32 @@ in
       phpOptions = ''
         log_errors = on
       '';
-      settings = {
-        "listen.mode" = "0660";
-        "listen.owner" = user;
-        "listen.group" = group;
-        "pm" = lib.mkDefault "dynamic";
-        "pm.max_children" = lib.mkDefault 32;
-        "pm.start_servers" = lib.mkDefault 2;
-        "pm.min_spare_servers" = lib.mkDefault 2;
-        "pm.max_spare_servers" = lib.mkDefault 4;
-        "pm.max_requests" = lib.mkDefault 500;
-      } // cfg.poolConfig;
+      settings =
+        {
+          "listen.mode" = "0660";
+          "listen.owner" = user;
+          "listen.group" = group;
+          "pm" = lib.mkDefault "dynamic";
+          "pm.max_children" = lib.mkDefault 32;
+          "pm.start_servers" = lib.mkDefault 2;
+          "pm.min_spare_servers" = lib.mkDefault 2;
+          "pm.max_spare_servers" = lib.mkDefault 4;
+          "pm.max_requests" = lib.mkDefault 500;
+        }
+        // cfg.poolConfig;
     };
 
     systemd.services.firefly-iii-data-importer-setup = {
-      requiredBy = [ "phpfpm-firefly-iii-data-importer.service" ];
-      before = [ "phpfpm-firefly-iii-data-importer.service" ];
-      serviceConfig = {
-        ExecStart = data-importer-maintenance;
-        RemainAfterExit = true;
-      } // commonServiceConfig;
+      requiredBy = ["phpfpm-firefly-iii-data-importer.service"];
+      before = ["phpfpm-firefly-iii-data-importer.service"];
+      serviceConfig =
+        {
+          ExecStart = data-importer-maintenance;
+          RemainAfterExit = true;
+        }
+        // commonServiceConfig;
       unitConfig.JoinsNamespaceOf = "phpfpm-firefly-iii-data-importer.service";
-      restartTriggers = [ cfg.package ];
+      restartTriggers = [cfg.package];
     };
 
     services.nginx = lib.mkIf cfg.enableNginx {
@@ -253,31 +254,31 @@ in
 
     systemd.tmpfiles.settings."10-firefly-iii-data-importer" =
       lib.attrsets.genAttrs
-        [
-          "${cfg.dataDir}/storage"
-          "${cfg.dataDir}/storage/app"
-          "${cfg.dataDir}/storage/app/public"
-          "${cfg.dataDir}/storage/configurations"
-          "${cfg.dataDir}/storage/conversion-routines"
-          "${cfg.dataDir}/storage/debugbar"
-          "${cfg.dataDir}/storage/framework"
-          "${cfg.dataDir}/storage/framework/cache"
-          "${cfg.dataDir}/storage/framework/sessions"
-          "${cfg.dataDir}/storage/framework/testing"
-          "${cfg.dataDir}/storage/framework/views"
-          "${cfg.dataDir}/storage/jobs"
-          "${cfg.dataDir}/storage/logs"
-          "${cfg.dataDir}/storage/submission-routines"
-          "${cfg.dataDir}/storage/uploads"
-          "${cfg.dataDir}/cache"
-        ]
-        (n: {
-          d = {
-            group = group;
-            mode = "0710";
-            user = user;
-          };
-        })
+      [
+        "${cfg.dataDir}/storage"
+        "${cfg.dataDir}/storage/app"
+        "${cfg.dataDir}/storage/app/public"
+        "${cfg.dataDir}/storage/configurations"
+        "${cfg.dataDir}/storage/conversion-routines"
+        "${cfg.dataDir}/storage/debugbar"
+        "${cfg.dataDir}/storage/framework"
+        "${cfg.dataDir}/storage/framework/cache"
+        "${cfg.dataDir}/storage/framework/sessions"
+        "${cfg.dataDir}/storage/framework/testing"
+        "${cfg.dataDir}/storage/framework/views"
+        "${cfg.dataDir}/storage/jobs"
+        "${cfg.dataDir}/storage/logs"
+        "${cfg.dataDir}/storage/submission-routines"
+        "${cfg.dataDir}/storage/uploads"
+        "${cfg.dataDir}/cache"
+      ]
+      (n: {
+        d = {
+          group = group;
+          mode = "0710";
+          user = user;
+        };
+      })
       // {
         "${cfg.dataDir}".d = {
           group = group;
@@ -295,7 +296,7 @@ in
           home = cfg.dataDir;
         };
       };
-      groups = lib.mkIf (group == defaultGroup) { ${defaultGroup} = { }; };
+      groups = lib.mkIf (group == defaultGroup) {${defaultGroup} = {};};
     };
   };
 }

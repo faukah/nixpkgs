@@ -8,7 +8,6 @@
   zlib,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bfc";
   version = "1.12.0";
@@ -39,7 +38,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "bfc";
     homepage = "https://bfc.wilfred.me.uk";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     broken = stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform.isLinux;
   };
 }

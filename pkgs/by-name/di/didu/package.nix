@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitea,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "didu";
   version = "2.5.2";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     description = "Duration conversion between units";
     homepage = "https://codeberg.org/annaaurora/didu";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
     mainProgram = "didu";
   };
 }

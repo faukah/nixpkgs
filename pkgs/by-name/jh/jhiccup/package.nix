@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jhiccup";
   version = "2.0.10";
@@ -33,9 +32,9 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Measure JVM application stalls and GC pauses";
     homepage = "https://www.azul.com/jhiccup/";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.cc0;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [thoughtpolice];
   };
 }

@@ -8,7 +8,6 @@
   pps-tools,
   libcap,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ntp";
   version = "4.2.8p18";
@@ -24,16 +23,18 @@ stdenv.mkDerivation rec {
       --replace-fail "pthread_detach(NULL)" "pthread_detach(pthread_self())"
   '';
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-    "--with-openssl-libdir=${lib.getLib openssl}/lib"
-    "--with-openssl-incdir=${openssl.dev}/include"
-    "--enable-ignore-dns-errors"
-    "--with-yielding-select=yes"
-  ] ++ lib.optional stdenv.hostPlatform.isLinux "--enable-linuxcaps";
+  configureFlags =
+    [
+      "--sysconfdir=/etc"
+      "--localstatedir=/var"
+      "--with-openssl-libdir=${lib.getLib openssl}/lib"
+      "--with-openssl-incdir=${openssl.dev}/include"
+      "--enable-ignore-dns-errors"
+      "--with-yielding-select=yes"
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux "--enable-linuxcaps";
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs =
     [
@@ -45,7 +46,7 @@ stdenv.mkDerivation rec {
       libcap
     ];
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   postInstall = ''
     rm -rf $out/share/doc
@@ -58,7 +59,7 @@ stdenv.mkDerivation rec {
       # very close to isc and bsd2
       url = "https://www.eecis.udel.edu/~mills/ntp/html/copyright.html";
     };
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
     platforms = platforms.unix;
   };
 }

@@ -29,7 +29,6 @@
   bash,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "system-config-printer";
   version = "1.5.18";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       url = "https://github.com/OpenPrinting/system-config-printer/commit/399b3334d6519639cfe7f1c0457e2475b8ee5230.patch";
       sha256 = "sha256-JCdGmZk2vRn3X1BDxOJaY3Aw8dr0ODVzi0oY20ZWfRs=";
-      excludes = [ "NEWS" ];
+      excludes = ["NEWS"];
     })
 
     # switch to pep517 build tools
@@ -95,8 +94,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  pythonPath =
-    with python3Packages;
+  pythonPath = with python3Packages;
     requiredPythonModules [
       pycups
       pycurl

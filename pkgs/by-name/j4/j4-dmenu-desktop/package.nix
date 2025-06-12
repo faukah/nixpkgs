@@ -9,7 +9,6 @@
   fmt,
   spdlog,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "j4-dmenu-desktop";
   version = "3.2";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/enkore/j4-dmenu-desktop";
     license = licenses.gpl3Only;
     mainProgram = "j4-dmenu-desktop";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 })

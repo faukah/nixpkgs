@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "modelscan";
   version = "0.8.5";
@@ -16,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-8VupkPiHebVtOqMdtkBflAI1zPRdDSvHCEq3ghjASaE=";
   };
 
-  pythonRelaxDeps = [ "rich" ];
+  pythonRelaxDeps = ["rich"];
 
   build-system = with python3.pkgs; [
     poetry-core
@@ -31,12 +30,11 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   optional-dependencies = with python3.pkgs; {
-    h5py = [ h5py ];
+    h5py = [h5py];
     # tensorflow = [ tensorflow ];
   };
 
-  nativeCheckInputs =
-    with python3.pkgs;
+  nativeCheckInputs = with python3.pkgs;
     [
       dill
       pytestCheckHook
@@ -46,14 +44,14 @@ python3.pkgs.buildPythonApplication rec {
   # tensorflow doesn0t support Python 3.12
   doCheck = false;
 
-  pythonImportsCheck = [ "modelscan" ];
+  pythonImportsCheck = ["modelscan"];
 
   meta = with lib; {
     description = "Protection against Model Serialization Attacks";
     homepage = "https://github.com/protectai/modelscan";
     changelog = "https://github.com/protectai/modelscan/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "modelscan";
   };
 }

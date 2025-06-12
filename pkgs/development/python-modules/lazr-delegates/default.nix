@@ -6,7 +6,6 @@
   zope-interface,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "lazr-delegates";
   version = "2.1.1";
@@ -18,15 +17,15 @@ buildPythonPackage rec {
     hash = "sha256-rs6yYW5Rtz8yf78SxOwrfXZwy4IL1eT2hRIV+3lsAtw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ zope-interface ];
+  dependencies = [zope-interface];
 
-  pythonImportsCheck = [ "lazr.delegates" ];
+  pythonImportsCheck = ["lazr.delegates"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonNamespaces = [ "lazr" ];
+  pythonNamespaces = ["lazr"];
 
   meta = {
     description = "Easily write objects that delegate behavior";

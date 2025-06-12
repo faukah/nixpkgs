@@ -10,7 +10,6 @@
   qttools,
   sphinx,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xca";
   version = "2.9.0";

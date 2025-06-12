@@ -9,7 +9,6 @@
   testers,
   yara-x,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "yara-x";
   version = "0.15.0";

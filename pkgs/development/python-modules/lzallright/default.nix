@@ -7,7 +7,6 @@
   rustPlatform,
   libiconv,
 }:
-
 buildPythonPackage rec {
   pname = "lzallright";
   version = "0.2.5";
@@ -31,14 +30,14 @@ buildPythonPackage rec {
     maturinBuildHook
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
-  pythonImportsCheck = [ "lzallright" ];
+  pythonImportsCheck = ["lzallright"];
 
   doCheck = false;
 
   passthru.tests = {
-    pytest = callPackage ./tests.nix { };
+    pytest = callPackage ./tests.nix {};
   };
 
   meta = with lib; {
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/vlaci/lzallright";
     license = licenses.mit;
-    maintainers = with maintainers; [ vlaci ];
+    maintainers = with maintainers; [vlaci];
   };
 }

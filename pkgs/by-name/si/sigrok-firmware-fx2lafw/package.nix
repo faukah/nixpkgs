@@ -5,7 +5,6 @@
   autoreconfHook,
   sdcc,
 }:
-
 stdenv.mkDerivation {
   pname = "sigrok-firmware-fx2lafw";
   version = "0.1.7-unstable-2024-02-03";
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
       lgpl21Plus # fx2lib, Hantek 6022BE, Sainsmart DDS120 firmwares
     ];
 
-    sourceProvenance = with sourceTypes; [ fromSource ];
+    sourceProvenance = with sourceTypes; [fromSource];
     platforms = platforms.all;
     maintainers = with maintainers; [
       panicgh

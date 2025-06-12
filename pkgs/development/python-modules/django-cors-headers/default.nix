@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "django-cors-headers";
   version = "4.7.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-xKdHUGsl9H724IQn/AFtdumB/TH8m2pUUXs263gYsEg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     asgiref
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "corsheaders" ];
+  pythonImportsCheck = ["corsheaders"];
 
   meta = with lib; {
     description = "Django app for handling server Cross-Origin Resource Sharing (CORS) headers";
     homepage = "https://github.com/OttoYiu/django-cors-headers";
     changelog = "https://github.com/adamchainz/django-cors-headers/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -13,7 +13,6 @@
   typing-extensions,
   vcrpy,
 }:
-
 buildPythonPackage rec {
   pname = "pygitguardian";
   version = "1.22.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     "setuptools"
   ];
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     marshmallow
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "pygitguardian" ];
+  pythonImportsCheck = ["pygitguardian"];
 
   env.GITGUARDIAN_API_KEY = "Test key for tests";
 
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/GitGuardian/py-gitguardian";
     changelog = "https://github.com/GitGuardian/py-gitguardian/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromSourcehut,
   scdoc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scd2html";
   version = "1.0.0";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "scd2html generates HTML from scdoc source files";
     homepage = "https://git.sr.ht/~bitfehler/scd2html";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
     mainProgram = "scd2html";
   };

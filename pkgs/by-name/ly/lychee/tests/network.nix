@@ -3,9 +3,8 @@
   hostPkgs,
   lib,
   ...
-}:
-let
-  sitePkg = hostPkgs.runCommand "site" { } ''
+}: let
+  sitePkg = hostPkgs.runCommand "site" {} ''
     dist=$out/dist
     mkdir -p $dist
     echo "<html><body><a href=\"http://example/foo.html\">foo</a></body></html>" > $dist/index.html
@@ -14,12 +13,11 @@ let
   check = config.node.pkgs.testers.lycheeLinkCheck {
     site = sitePkg;
   };
-in
-{
+in {
   name = "testers-lychee-link-check-run";
-  nodes.client = { ... }: { };
+  nodes.client = {...}: {};
   nodes.example = {
-    networking.firewall.allowedTCPPorts = [ 80 ];
+    networking.firewall.allowedTCPPorts = [80];
     services.nginx = {
       enable = true;
       virtualHosts."example" = {
@@ -29,7 +27,6 @@ in
         };
       };
     };
-
   };
   testScript = ''
     start_all()

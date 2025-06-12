@@ -8,7 +8,6 @@
   openssl,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-codspeed";
   version = "2.10.1";
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     zlib
   ];
 
-  cargoBuildFlags = [ "-p=cargo-codspeed" ];
+  cargoBuildFlags = ["-p=cargo-codspeed"];
   cargoTestFlags = cargoBuildFlags;
   checkFlags = [
     # requires an extra dependency, blit
@@ -54,7 +53,7 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "cargo-codspeed";
   };
 }

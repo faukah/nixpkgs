@@ -16,7 +16,6 @@
   base64,
   ohex,
 }:
-
 buildDunePackage rec {
   minimalOCamlVersion = "4.08";
 
@@ -28,7 +27,7 @@ buildDunePackage rec {
     hash = "sha256-/IFq4sZei0L6YNkKUHshQEleKNCVrTeyfkwmiuPADWw=";
   };
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
   propagatedBuildInputs = [
     asn1-combinators
     domain-name
@@ -50,6 +49,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mirleft/ocaml-x509";
     description = "X509 (RFC5280) handling in OCaml";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

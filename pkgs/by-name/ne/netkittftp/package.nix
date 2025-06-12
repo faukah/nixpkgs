@@ -4,7 +4,6 @@
   fetchurl,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netkit-tftp";
   version = "0.17";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Netkit TFTP client and server";
     homepage = "ftp://ftp.uk.linux.org/pub/linux/Networking/netkit/";
     license = lib.licenses.bsdOriginal;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux;
   };
 })

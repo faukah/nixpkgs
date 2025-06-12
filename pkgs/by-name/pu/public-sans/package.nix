@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "public-sans";
   version = "2.001";
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://public-sans.digital.gov/";
     changelog = "https://github.com/uswds/public-sans/raw/v${version}/FONTLOG.txt";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 }

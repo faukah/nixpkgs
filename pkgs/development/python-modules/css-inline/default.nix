@@ -3,18 +3,14 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   rustPlatform,
-
   # native darwin dependencies
   libiconv,
-
   # tests
   pytestCheckHook,
   hypothesis,
 }:
-
 buildPythonPackage rec {
   pname = "css-inline";
   version = "0.14.6";
@@ -52,7 +48,7 @@ buildPythonPackage rec {
     libiconv
   ];
 
-  pythonImportsCheck = [ "css_inline" ];
+  pythonImportsCheck = ["css_inline"];
 
   nativeCheckInputs = [
     hypothesis
@@ -75,6 +71,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Stranger6667/css-inline";
     changelog = "https://github.com/Stranger6667/css-inline/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

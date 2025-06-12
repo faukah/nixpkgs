@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.logstash;
   ops = lib.optionalString;
   verbosityFlag = "--log.level " + cfg.logLevel;
@@ -29,23 +28,22 @@ let
 
   logstashSettingsDir =
     pkgs.runCommand "logstash-settings"
-      {
-        inherit logstashJvmOptionsFile;
-        inherit logstashSettingsYml;
-        preferLocalBuild = true;
-      }
-      ''
-        mkdir -p $out
-        ln -s $logstashSettingsYml $out/logstash.yml
-        ln -s $logstashJvmOptionsFile $out/jvm.options
-      '';
-in
-
-{
+    {
+      inherit logstashJvmOptionsFile;
+      inherit logstashSettingsYml;
+      preferLocalBuild = true;
+    }
+    ''
+      mkdir -p $out
+      ln -s $logstashSettingsYml $out/logstash.yml
+      ln -s $logstashJvmOptionsFile $out/jvm.options
+    '';
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "logstash" "address" ]
-      [ "services" "logstash" "listenAddress" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "logstash" "address"]
+      ["services" "logstash" "listenAddress"]
     )
     (lib.mkRemovedOptionModule [
       "services"
@@ -57,20 +55,18 @@ in
   ###### interface
 
   options = {
-
     services.logstash = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         description = "Enable logstash.";
       };
 
-      package = lib.mkPackageOption pkgs "logstash" { };
+      package = lib.mkPackageOption pkgs "logstash" {};
 
       plugins = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         example = lib.literalExpression "[ pkgs.logstash-contrib ]";
         description = "The paths to find other logstash plugins in.";
       };
@@ -178,7 +174,6 @@ in
           -Xmx2g
         '';
       };
-
     };
   };
 
@@ -187,8 +182,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.logstash = {
       description = "Logstash Daemon";
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.bash ];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.bash];
       serviceConfig = {
         ExecStartPre = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.dataDir}" ; ${pkgs.coreutils}/bin/chmod 700 "${cfg.dataDir}"'';
         ExecStart = lib.concatStringsSep " " (

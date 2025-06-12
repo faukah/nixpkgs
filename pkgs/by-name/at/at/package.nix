@@ -10,7 +10,6 @@
   sendmailPath ? "/run/wrappers/bin/sendmail",
   atWrapperPath ? "/run/wrappers/bin/at",
 }:
-
 stdenv.mkDerivation rec {
   pname = "at";
   version = "3.2.5";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     perl # for `prove` (tests)
   ];
 
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   preConfigure = ''
     export SENDMAIL=${sendmailPath}

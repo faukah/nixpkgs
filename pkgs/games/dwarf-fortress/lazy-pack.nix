@@ -24,10 +24,9 @@
   enableFPS ? false,
   enableTextMode ? false,
   enableSound ? true,
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getAttr
     hasAttr
     licenses
@@ -38,45 +37,47 @@ let
 
   dfGame = versionToName dfVersion;
   dwarf-fortress =
-    if hasAttr dfGame df-games then
-      getAttr dfGame df-games
-    else
-      throw "Unknown Dwarf Fortress version: ${dfVersion}";
+    if hasAttr dfGame df-games
+    then getAttr dfGame df-games
+    else throw "Unknown Dwarf Fortress version: ${dfVersion}";
   dwarf-therapist = dwarf-fortress.dwarf-therapist;
 
-  mainProgram = if enableDFHack then "dfhack" else "dwarf-fortress";
+  mainProgram =
+    if enableDFHack
+    then "dfhack"
+    else "dwarf-fortress";
 in
-buildEnv {
-  name = "dwarf-fortress-full";
-  paths =
-    [
-      (dwarf-fortress.override {
-        inherit
-          enableDFHack
-          enableTWBT
-          enableSoundSense
-          enableStoneSense
-          theme
-          enableIntro
-          enableTruetype
-          enableFPS
-          enableTextMode
-          enableSound
-          ;
-      })
-    ]
-    ++ optional enableDwarfTherapist dwarf-therapist
-    ++ optional enableLegendsBrowser legends-browser;
+  buildEnv {
+    name = "dwarf-fortress-full";
+    paths =
+      [
+        (dwarf-fortress.override {
+          inherit
+            enableDFHack
+            enableTWBT
+            enableSoundSense
+            enableStoneSense
+            theme
+            enableIntro
+            enableTruetype
+            enableFPS
+            enableTextMode
+            enableSound
+            ;
+        })
+      ]
+      ++ optional enableDwarfTherapist dwarf-therapist
+      ++ optional enableLegendsBrowser legends-browser;
 
-  meta = {
-    inherit mainProgram;
-    description = "Opinionated wrapper for Dwarf Fortress";
-    maintainers = with maintainers; [
-      Baughn
-      numinit
-    ];
-    license = licenses.mit;
-    platforms = platforms.all;
-    homepage = "https://github.com/NixOS/nixpkgs/";
-  };
-}
+    meta = {
+      inherit mainProgram;
+      description = "Opinionated wrapper for Dwarf Fortress";
+      maintainers = with maintainers; [
+        Baughn
+        numinit
+      ];
+      license = licenses.mit;
+      platforms = platforms.all;
+      homepage = "https://github.com/NixOS/nixpkgs/";
+    };
+  }

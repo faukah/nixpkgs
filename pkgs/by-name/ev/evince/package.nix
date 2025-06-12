@@ -39,7 +39,6 @@
   supportMultimedia ? true, # PDF multimedia
   withLibsecret ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "evince";
   version = "48.0";
@@ -99,8 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
       libsecret
     ]
     ++ lib.optionals supportMultimedia (
-      with gst_all_1;
-      [
+      with gst_all_1; [
         gstreamer
         gst-plugins-base
         gst-plugins-good

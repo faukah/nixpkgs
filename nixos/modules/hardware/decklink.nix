@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.hardware.decklink;
   kernelPackages = config.boot.kernelPackages;
-in
-{
+in {
   options.hardware.decklink.enable = lib.mkEnableOption "hardware support for the Blackmagic Design Decklink audio/video interfaces";
 
   config = lib.mkIf cfg.enable {
@@ -19,8 +16,8 @@ in
       "blackmagic"
       "blackmagic-io"
     ];
-    boot.extraModulePackages = [ kernelPackages.decklink ];
-    systemd.packages = [ pkgs.blackmagic-desktop-video ];
-    systemd.services.DesktopVideoHelper.wantedBy = [ "multi-user.target" ];
+    boot.extraModulePackages = [kernelPackages.decklink];
+    systemd.packages = [pkgs.blackmagic-desktop-video];
+    systemd.services.DesktopVideoHelper.wantedBy = ["multi-user.target"];
   };
 }

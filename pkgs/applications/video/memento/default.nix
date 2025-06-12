@@ -5,7 +5,6 @@
   cmake,
   qt6,
   wrapQtAppsHook,
-
   # before that => zeal
   sqlite,
   json_c,
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     mecab
   ];
 
-  propagatedBuildInputs = [ mpv ];
+  propagatedBuildInputs = [mpv];
 
   preFixup = ''
     wrapProgram "$out/bin/memento" \
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Mpv-based video player for studying Japanese";
     homepage = "https://ripose-jp.github.io/Memento/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
     platforms = platforms.linux;
     mainProgram = "memento";
   };

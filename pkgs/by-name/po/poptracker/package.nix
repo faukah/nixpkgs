@@ -16,7 +16,6 @@
   copyDesktopItems,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "poptracker";
   version = "0.31.0";
@@ -29,9 +28,9 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  patches = [ ./assets-path.diff ];
+  patches = [./assets-path.diff];
 
   postPatch = ''
     substituteInPlace src/poptracker.cpp --replace "@assets@" "$out/share/poptracker/"
@@ -105,6 +104,6 @@ stdenv.mkDerivation (finalAttrs: {
       pyrox0
     ];
     mainProgram = "poptracker";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 })

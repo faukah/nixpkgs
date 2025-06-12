@@ -24,7 +24,6 @@
   appstream,
   elementary-settings-daemon,
 }:
-
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-about";
   version = "8.2.1";
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -71,7 +70,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/switchboard-plug-about";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
-
 }

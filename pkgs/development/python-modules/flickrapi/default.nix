@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "flickrapi";
   version = "2.4";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       --replace-fail "assertNotEquals" "assertNotEqual"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -65,13 +64,13 @@ buildPythonPackage rec {
     "test_xmlnode_format_error"
   ];
 
-  pythonImportsCheck = [ "flickrapi" ];
+  pythonImportsCheck = ["flickrapi"];
 
   meta = with lib; {
     description = "Python interface to the Flickr API";
     homepage = "https://stuvel.eu/flickrapi";
     changelog = "https://github.com/sybrenstuvel/flickrapi/blob/version-${version}/CHANGELOG.md";
     license = licenses.psfl;
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
   };
 }

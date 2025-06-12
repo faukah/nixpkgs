@@ -15,7 +15,6 @@
   tenacity,
   typer,
 }:
-
 buildPythonPackage rec {
   pname = "pytrydan";
   version = "0.8.1";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
     hash = "sha256-OHC+Ul64BYCsgoFDxI1hPjBGkd/pQ0j0c9Pt5lWg1E0=";
   };
 
-  pythonRelaxDeps = [ "tenacity" ];
+  pythonRelaxDeps = ["tenacity"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     httpx
@@ -50,14 +49,14 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "pytrydan" ];
+  pythonImportsCheck = ["pytrydan"];
 
   meta = with lib; {
     description = "Library to interface with V2C EVSE Trydan";
     homepage = "https://github.com/dgomes/pytrydan";
     changelog = "https://github.com/dgomes/pytrydan/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "pytrydan";
   };
 }

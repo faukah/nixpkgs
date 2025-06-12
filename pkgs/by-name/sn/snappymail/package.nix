@@ -5,7 +5,6 @@
   writeText,
   dataPath ? "/var/lib/snappymail",
 }:
-
 stdenv.mkDerivation rec {
   pname = "snappymail";
   version = "2.38.2";
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     downloadPage = "https://github.com/the-djmaze/snappymail/releases";
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ mic92 ];
+    maintainers = with lib.maintainers; [mic92];
   };
 }

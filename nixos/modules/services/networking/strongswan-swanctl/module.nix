@@ -4,22 +4,18 @@
   pkgs,
   ...
 }:
-
 with lib;
-with (import ./param-lib.nix lib);
-
-let
+with (import ./param-lib.nix lib); let
   cfg = config.services.strongswan-swanctl;
   configFile = pkgs.writeText "swanctl.conf" (
     (paramsToConf cfg.swanctl swanctlParams) + (concatMapStrings (i: "\ninclude ${i}") cfg.includes)
   );
   swanctlParams = import ./swanctl-params.nix lib;
-in
-{
+in {
   options.services.strongswan-swanctl = {
     enable = mkEnableOption "strongswan-swanctl service";
 
-    package = mkPackageOption pkgs "strongswan" { };
+    package = mkPackageOption pkgs "strongswan" {};
 
     strongswan.extraConfig = mkOption {
       type = types.str;
@@ -32,7 +28,7 @@ in
     swanctl = paramsToOptions swanctlParams;
     includes = mkOption {
       type = types.listOf types.path;
-      default = [ ];
+      default = [];
       description = ''
         Extra configuration files to include in the swanctl configuration. This can be used to provide secret values from outside the nix store.
       '';
@@ -40,7 +36,6 @@ in
   };
 
   config = mkIf cfg.enable {
-
     assertions = [
       {
         assertion = !config.services.strongswan.enable;
@@ -71,9 +66,9 @@ in
 
     systemd.services.strongswan-swanctl = {
       description = "strongSwan IPsec IKEv1/IKEv2 daemon using swanctl";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
       path = with pkgs; [
         kmod
         iproute2

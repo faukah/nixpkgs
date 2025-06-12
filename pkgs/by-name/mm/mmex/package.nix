@@ -17,7 +17,6 @@
   lua,
   wxsqlite3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "money-manager-ex";
   version = "1.9.0";
@@ -83,7 +82,7 @@ stdenv.mkDerivation rec {
     description = "Easy-to-use personal finance software";
     homepage = "https://www.moneymanagerex.org/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; unix;
     mainProgram = "mmex";
   };

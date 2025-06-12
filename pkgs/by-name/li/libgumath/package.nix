@@ -5,7 +5,6 @@
   libndtypes,
   libxnd,
 }:
-
 stdenv.mkDerivation {
   pname = "libgumath";
   version = "unstable-2019-08-01";
@@ -34,6 +33,6 @@ stdenv.mkDerivation {
     description = "Library supporting function dispatch on general data containers. C base and Python wrapper";
     homepage = "https://xnd.io/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

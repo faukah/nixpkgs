@@ -7,7 +7,6 @@
   pytestCheckHook,
   simplejson,
 }:
-
 buildPythonPackage rec {
   pname = "marshmallow";
   version = "3.26.1";
@@ -20,22 +19,22 @@ buildPythonPackage rec {
     hash = "sha256-l5pEhv8D6jRlU24SlsGQEkXda/b7KUdP9mAqrZCbl38=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ packaging ];
+  propagatedBuildInputs = [packaging];
 
   nativeCheckInputs = [
     pytestCheckHook
     simplejson
   ];
 
-  pythonImportsCheck = [ "marshmallow" ];
+  pythonImportsCheck = ["marshmallow"];
 
   meta = with lib; {
     description = "Library for converting complex objects to and from simple Python datatypes";
     homepage = "https://github.com/marshmallow-code/marshmallow";
     changelog = "https://github.com/marshmallow-code/marshmallow/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ cript0nauta ];
+    maintainers = with maintainers; [cript0nauta];
   };
 }

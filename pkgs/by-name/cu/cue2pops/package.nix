@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "cue2pops";
   version = "0-unstable-2023-01-15";
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
     # Upstream license is unclear.
     # <https://github.com/ErikAndren/cue2pops-mac/issues/2#issuecomment-673983298>
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
     mainProgram = "cue2pops";
   };

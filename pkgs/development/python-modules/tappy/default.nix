@@ -7,44 +7,43 @@
   pyyaml,
   more-itertools,
   pytestCheckHook,
-}:
-let
+}: let
   version = "3.2.1";
 in
-buildPythonPackage {
-  pname = "tap.py";
-  inherit version;
-  pyproject = true;
-
-  disabled = pythonOlder "3.9";
-
-  src = fetchPypi {
-    pname = "tap_py";
+  buildPythonPackage {
+    pname = "tap.py";
     inherit version;
-    hash = "sha256-0DyeavClb62ZTxxp8UBB5naBHXPu7vIL9Ad8Q9Yh1gg=";
-  };
+    pyproject = true;
 
-  build-system = [
-    hatchling
-  ];
+    disabled = pythonOlder "3.9";
 
-  optional-dependencies = {
-    yaml = [
-      pyyaml
-      more-itertools
+    src = fetchPypi {
+      pname = "tap_py";
+      inherit version;
+      hash = "sha256-0DyeavClb62ZTxxp8UBB5naBHXPu7vIL9Ad8Q9Yh1gg=";
+    };
+
+    build-system = [
+      hatchling
     ];
-  };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+    optional-dependencies = {
+      yaml = [
+        pyyaml
+        more-itertools
+      ];
+    };
 
-  pythonImportsCheck = [ "tap" ];
+    nativeCheckInputs = [pytestCheckHook];
 
-  meta = {
-    description = "Set of tools for working with the Test Anything Protocol (TAP) in Python";
-    homepage = "https://github.com/python-tap/tappy";
-    changelog = "https://tappy.readthedocs.io/en/latest/releases.html";
-    mainProgram = "tappy";
-    license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ ];
-  };
-}
+    pythonImportsCheck = ["tap"];
+
+    meta = {
+      description = "Set of tools for working with the Test Anything Protocol (TAP) in Python";
+      homepage = "https://github.com/python-tap/tappy";
+      changelog = "https://tappy.readthedocs.io/en/latest/releases.html";
+      mainProgram = "tappy";
+      license = lib.licenses.bsd2;
+      maintainers = with lib.maintainers; [];
+    };
+  }

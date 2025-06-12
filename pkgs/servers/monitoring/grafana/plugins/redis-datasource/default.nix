@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "redis-datasource";
   version = "2.2.0";
@@ -7,7 +9,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "Redis Data Source for Grafana";
     license = licenses.asl20;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.unix;
   };
 }

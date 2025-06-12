@@ -6,7 +6,6 @@
   cups,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lprint";
   version = "1.3.1";
@@ -45,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/michaelrsweet/lprint";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

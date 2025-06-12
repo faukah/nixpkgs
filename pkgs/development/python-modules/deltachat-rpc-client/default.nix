@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "deltachat-rpc-client";
   inherit (deltachat-rpc-server) version src;
@@ -19,9 +18,9 @@ buildPythonPackage rec {
       --replace-fail deltachat-rpc-server "${lib.getExe deltachat-rpc-server}"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "deltachat_rpc_client" ];
+  pythonImportsCheck = ["deltachat_rpc_client"];
 
   nativeCheckInputs = [
     imap-tools

@@ -8,7 +8,6 @@
   llvm,
   llvmPackages,
 }:
-
 stdenv.mkDerivation {
   pname = "milu-nightly";
   version = "2016-05-09";
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
     hash = "sha256-0w7SOZONj2eLX/E0VIrCZutSXTY648P3pTxSRgCnj5E=";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preConfigure = ''
     substituteInPlace Makefile \
@@ -57,7 +56,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/yuejia/Milu";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "milu";
   };
 }

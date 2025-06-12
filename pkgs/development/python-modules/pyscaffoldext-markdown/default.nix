@@ -17,7 +17,6 @@
   twine,
   virtualenv,
 }:
-
 buildPythonPackage rec {
   pname = "pyscaffoldext-markdown";
   version = "0.5";
@@ -55,12 +54,12 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "pyscaffoldext.markdown" ];
+  pythonImportsCheck = ["pyscaffoldext.markdown"];
 
   meta = with lib; {
     description = "PyScaffold extension which uses Markdown instead of reStructuredText";
     homepage = "https://pypi.org/project/pyscaffoldext-markdown/";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

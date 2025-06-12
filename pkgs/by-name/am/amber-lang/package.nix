@@ -12,7 +12,6 @@
   amber-lang,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "amber-lang";
   version = "0.4.0-alpha";
@@ -56,7 +55,7 @@ rustPlatform.buildRustPackage rec {
 
   postInstall =
     ''
-      wrapProgram "$out/bin/amber" --prefix PATH : "${lib.makeBinPath [ bc ]}"
+      wrapProgram "$out/bin/amber" --prefix PATH : "${lib.makeBinPath [bc]}"
     ''
     + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
       installShellCompletion --cmd amber \
@@ -64,8 +63,8 @@ rustPlatform.buildRustPackage rec {
     '';
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests.run = runCommand "amber-lang-eval-test" { nativeBuildInputs = [ amber-lang ]; } ''
+    updateScript = nix-update-script {};
+    tests.run = runCommand "amber-lang-eval-test" {nativeBuildInputs = [amber-lang];} ''
       diff -U3 --color=auto <(amber eval 'echo "Hello, World"') <(echo 'Hello, World')
       touch $out
     '';

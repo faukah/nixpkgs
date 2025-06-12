@@ -15,7 +15,6 @@
   cudaPackages,
   openclSupport ? !cudaSupport,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "opensubdiv";
   version = "3.6.0";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "PixarAnimationStudios";
     repo = "OpenSubdiv";
-    tag = "v${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+    tag = "v${lib.replaceStrings ["."] ["_"] finalAttrs.version}";
     hash = "sha256-liy6pQyWMk7rw0usrCoLGzZLO7RAg0z2pV/GF2NnOkE=";
   };
 
@@ -96,24 +95,22 @@ stdenv.mkDerivation (finalAttrs: {
       })
     ];
 
-  preBuild =
-    let
-      maxBuildCores = 16;
-    in
+  preBuild = let
+    maxBuildCores = 16;
+  in
     lib.optionalString cudaSupport ''
       # https://github.com/PixarAnimationStudios/OpenSubdiv/issues/1313
       NIX_BUILD_CORES=$(( NIX_BUILD_CORES < ${toString maxBuildCores} ? NIX_BUILD_CORES : ${toString maxBuildCores} ))
     '';
 
   postInstall =
-    if stdenv.hostPlatform.isWindows then
-      ''
-        ln -s $out $static
-      ''
-    else
-      ''
-        moveToOutput "lib/libosd*.a" $static
-      '';
+    if stdenv.hostPlatform.isWindows
+    then ''
+      ln -s $out $static
+    ''
+    else ''
+      moveToOutput "lib/libosd*.a" $static
+    '';
 
   postFixup = ''
     # Adjust static library path to reflect relocation to $static
@@ -126,7 +123,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://graphics.pixar.com/opensubdiv";
     broken = openclSupport && cudaSupport;
     platforms = lib.platforms.unix ++ lib.platforms.windows;
-    maintainers = [ ];
+    maintainers = [];
     license = lib.licenses.asl20;
   };
 })

@@ -8,9 +8,7 @@
   jdk11,
   z3,
   dotnetCorePackages,
-}:
-
-let
+}: let
   examples = fetchFromGitHub {
     owner = "gaberch";
     repo = "Various-Algorithms-Verified-With-Dafny";
@@ -19,7 +17,7 @@ let
   };
 
   tests = {
-    verify = runCommand "dafny-test" { } ''
+    verify = runCommand "dafny-test" {} ''
       mkdir $out
       cp ${examples}/SlowMax.dfy $out
       ${dafny}/bin/dafny verify --allow-warnings $out/SlowMax.dfy
@@ -36,22 +34,20 @@ let
     # languages (Java, Cpp, etc.)
   };
 in
-buildDotnetModule rec {
-  pname = "Dafny";
-  version = "4.10.0";
+  buildDotnetModule rec {
+    pname = "Dafny";
+    version = "4.10.0";
 
-  src = fetchFromGitHub {
-    owner = "dafny-lang";
-    repo = "dafny";
-    tag = "v${version}";
-    hash = "sha256-aPOjt4bwalhJUTJm4+pGqN88LwDP5zrVtakF26b3K4s=";
-  };
+    src = fetchFromGitHub {
+      owner = "dafny-lang";
+      repo = "dafny";
+      tag = "v${version}";
+      hash = "sha256-aPOjt4bwalhJUTJm4+pGqN88LwDP5zrVtakF26b3K4s=";
+    };
 
-  postPatch =
-    let
+    postPatch = let
       runtimeJarVersion = "4.10.0";
-    in
-    ''
+    in ''
       cp ${writeScript "fake-gradlew-for-dafny" ''
         mkdir -p build/libs/
         javac $(find -name "*.java" | grep "^./src/main") -d classes
@@ -68,34 +64,34 @@ buildDotnetModule rec {
         --replace-fail "netstandard2.0;net452" net8.0
     '';
 
-  dotnet-sdk = dotnetCorePackages.sdk_8_0;
-  nativeBuildInputs = [ jdk11 ];
-  nugetDeps = ./deps.json;
+    dotnet-sdk = dotnetCorePackages.sdk_8_0;
+    nativeBuildInputs = [jdk11];
+    nugetDeps = ./deps.json;
 
-  # Build just these projects. Building Source/Dafny.sln includes a bunch of
-  # unnecessary components like tests.
-  projectFile = [
-    "Source/Dafny/Dafny.csproj"
-    "Source/DafnyRuntime/DafnyRuntime.csproj"
-    "Source/DafnyLanguageServer/DafnyLanguageServer.csproj"
-  ];
+    # Build just these projects. Building Source/Dafny.sln includes a bunch of
+    # unnecessary components like tests.
+    projectFile = [
+      "Source/Dafny/Dafny.csproj"
+      "Source/DafnyRuntime/DafnyRuntime.csproj"
+      "Source/DafnyLanguageServer/DafnyLanguageServer.csproj"
+    ];
 
-  executables = [ "Dafny" ];
+    executables = ["Dafny"];
 
-  # Help Dafny find z3
-  makeWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ z3 ]}" ];
+    # Help Dafny find z3
+    makeWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [z3]}"];
 
-  postFixup = ''
-    ln -s "$out/bin/Dafny" "$out/bin/dafny" || true
-  '';
+    postFixup = ''
+      ln -s "$out/bin/Dafny" "$out/bin/dafny" || true
+    '';
 
-  passthru.tests = tests;
+    passthru.tests = tests;
 
-  meta = with lib; {
-    description = "Programming language with built-in specification constructs";
-    homepage = "https://research.microsoft.com/dafny";
-    maintainers = with maintainers; [ layus ];
-    license = licenses.mit;
-    platforms = with platforms; (linux ++ darwin);
-  };
-}
+    meta = with lib; {
+      description = "Programming language with built-in specification constructs";
+      homepage = "https://research.microsoft.com/dafny";
+      maintainers = with maintainers; [layus];
+      license = licenses.mit;
+      platforms = with platforms; (linux ++ darwin);
+    };
+  }

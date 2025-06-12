@@ -9,7 +9,6 @@
   fortune,
   withOffensive ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fortune-mod";
   version = "3.24.0";
@@ -32,11 +31,13 @@ stdenv.mkDerivation rec {
       fortune
     ];
 
-  buildInputs = [ recode ];
+  buildInputs = [recode];
 
-  cmakeFlags = [
-    "-DLOCALDIR=${placeholder "out"}/share/fortunes"
-  ] ++ lib.optional (!withOffensive) "-DNO_OFFENSIVE=true";
+  cmakeFlags =
+    [
+      "-DLOCALDIR=${placeholder "out"}/share/fortunes"
+    ]
+    ++ lib.optional (!withOffensive) "-DNO_OFFENSIVE=true";
 
   patches = [
     (builtins.toFile "not-a-game.patch" ''
@@ -66,6 +67,6 @@ stdenv.mkDerivation rec {
     description = "Program that displays a pseudorandom message from a database of quotations";
     license = licenses.bsdOriginal;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ vonfry ];
+    maintainers = with maintainers; [vonfry];
   };
 }

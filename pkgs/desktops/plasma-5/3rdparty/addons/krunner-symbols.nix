@@ -10,7 +10,6 @@
   kdelibs4support,
   krunner,
 }:
-
 stdenv.mkDerivation rec {
   pname = "krunner-symbols";
   version = "1.1.0";
@@ -45,13 +44,13 @@ stdenv.mkDerivation rec {
       --replace "LOCATION_DESKTOP" "KDE_INSTALL_KSERVICES5DIR"
   '';
 
-  cmakeFlags = [ "-DLOCATION_CONFIG=share/config" ];
+  cmakeFlags = ["-DLOCATION_CONFIG=share/config"];
 
   meta = with lib; {
     description = "Little krunner plugin (Plasma 5) to retrieve unicode symbols, or any other string, based on a corresponding keyword";
     homepage = "https://github.com/domschrei/krunner-symbols";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hqurve ];
+    maintainers = with maintainers; [hqurve];
     platforms = platforms.linux;
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "utterly-round-plasma-style";
   version = "2.1";
@@ -36,6 +35,6 @@ stdenv.mkDerivation {
     homepage = "https://himdek.com/Utterly-Round-Plasma-Style/";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

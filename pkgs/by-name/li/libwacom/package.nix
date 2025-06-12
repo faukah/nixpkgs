@@ -12,7 +12,6 @@
   python3,
   valgrind,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libwacom";
   version = "2.15.0";
@@ -46,10 +45,11 @@ stdenv.mkDerivation (finalAttrs: {
     libevdev
     libgudev
     (python3.withPackages (
-      pp: with pp; [
-        pp.libevdev
-        pp.pyudev
-      ]
+      pp:
+        with pp; [
+          pp.libevdev
+          pp.pyudev
+        ]
     ))
   ];
 
@@ -72,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    tests = finalAttrs.finalPackage.overrideAttrs { doCheck = true; };
+    tests = finalAttrs.finalPackage.overrideAttrs {doCheck = true;};
   };
 
   meta = {
@@ -80,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://linuxwacom.github.io/";
     changelog = "https://github.com/linuxwacom/libwacom/blob/${finalAttrs.src.rev}/NEWS";
     description = "Libraries, configuration, and diagnostic tools for Wacom tablets running under Linux";
-    teams = [ lib.teams.freedesktop ];
+    teams = [lib.teams.freedesktop];
     license = lib.licenses.hpnd;
   };
 })

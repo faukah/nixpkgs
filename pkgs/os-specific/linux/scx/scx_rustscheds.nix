@@ -61,16 +61,18 @@ rustPlatform.buildRustPackage {
   # Enable this when default kernel in nixpkgs is 6.12+
   doCheck = false;
 
-  meta = scx-common.meta // {
-    description = "Sched-ext Rust userspace schedulers";
-    longDescription = ''
-      This includes Rust based schedulers such as
-      scx_rustland, scx_bpfland, scx_lavd, scx_layered, scx_rlfifo.
+  meta =
+    scx-common.meta
+    // {
+      description = "Sched-ext Rust userspace schedulers";
+      longDescription = ''
+        This includes Rust based schedulers such as
+        scx_rustland, scx_bpfland, scx_lavd, scx_layered, scx_rlfifo.
 
-      ::: {.note}
-      Sched-ext schedulers are only available on kernels version 6.12 or later.
-      It is recommended to use the latest kernel for the best compatibility.
-      :::
-    '';
-  };
+        ::: {.note}
+        Sched-ext schedulers are only available on kernels version 6.12 or later.
+        It is recommended to use the latest kernel for the best compatibility.
+        :::
+      '';
+    };
 }

@@ -18,7 +18,6 @@
   zstd,
   doxygen,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kronosnet";
   version = "1.31";
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
       lgpl21Plus
       gpl2Plus
     ];
-    maintainers = with maintainers; [ ryantm ];
+    maintainers = with maintainers; [ryantm];
   };
 }

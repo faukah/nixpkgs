@@ -13,7 +13,6 @@
   enableFb ? false,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ctx";
   version = "unstable-2023-09-03";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   configureScript = "./configure.sh";
   configureFlags = lib.optional enableFb "--enable-fb";
-  configurePlatforms = [ ];
+  configurePlatforms = [];
   dontAddPrefix = true;
   dontDisableStatic = true;
 
@@ -77,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
       a vector graphics protocol.
     '';
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

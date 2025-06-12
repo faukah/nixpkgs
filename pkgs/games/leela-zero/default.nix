@@ -9,7 +9,6 @@
   qtbase,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "leela-zero";
   version = "0.17";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   dontWrapQtApps = true;
 

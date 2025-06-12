@@ -5,7 +5,6 @@
   lun,
   ppxlib,
 }:
-
 buildDunePackage {
   pname = "ppx_lun";
   inherit (lun) version src;
@@ -15,12 +14,14 @@ buildDunePackage {
     ppxlib
   ];
 
-  checkInputs = [ fmt ];
+  checkInputs = [fmt];
 
   doCheck = true;
 
-  meta = lun.meta // {
-    description = "Optics with lun package and PPX";
-    license = lib.licenses.mit;
-  };
+  meta =
+    lun.meta
+    // {
+      description = "Optics with lun package and PPX";
+      license = lib.licenses.mit;
+    };
 }

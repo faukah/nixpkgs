@@ -4,12 +4,11 @@
   fetchurl,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hashcash";
   version = "1.22";
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   src = fetchurl {
     url = "http://www.hashcash.org/source/hashcash-${version}.tgz";
@@ -31,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "Proof-of-work algorithm used as spam and denial-of-service counter measure";
     homepage = "http://hashcash.org";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ kisonecat ];
+    maintainers = with maintainers; [kisonecat];
   };
 }

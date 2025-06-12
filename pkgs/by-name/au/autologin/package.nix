@@ -7,7 +7,6 @@
   pam,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "autologin";
   version = "1.0.0";
@@ -25,9 +24,9 @@ stdenv.mkDerivation rec {
     meson
     ninja
   ];
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Run a command inside of a new PAM user session";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     changelog = "https://git.sr.ht/~kennylevinsen/autologin/refs/${version}";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ beviu ];
+    maintainers = with lib.maintainers; [beviu];
     mainProgram = "autologin";
   };
 }

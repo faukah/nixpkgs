@@ -11,7 +11,6 @@
   libxslt,
   docbook_xsl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ima-evm-utils";
   version = "1.6.2";
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
       gpl2Plus # evmctl
     ];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

@@ -25,7 +25,6 @@
   desktop-file-utils,
   vala,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gedit";
   version = "48.2";
@@ -87,12 +86,12 @@ stdenv.mkDerivation rec {
   # Reliably fails to generate gedit-file-browser-enum-types.h in time
   enableParallelBuilding = false;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/World/gedit/gedit";
     description = "Former GNOME text editor";
-    maintainers = with maintainers; [ bobby285271 ];
+    maintainers = with maintainers; [bobby285271];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     mainProgram = "gedit";

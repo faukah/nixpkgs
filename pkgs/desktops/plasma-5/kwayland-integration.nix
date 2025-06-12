@@ -10,7 +10,6 @@
   wayland-scanner,
   wayland,
 }:
-
 mkDerivation {
   pname = "kwayland-integration";
   nativeBuildInputs = [

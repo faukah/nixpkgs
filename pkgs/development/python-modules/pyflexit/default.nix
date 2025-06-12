@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyflexit";
   version = "0.3";
@@ -22,12 +21,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyflexit" ];
+  pythonImportsCheck = ["pyflexit"];
 
   meta = with lib; {
     description = "Python library for Flexit A/C units";
     homepage = "https://github.com/Sabesto/pyflexit";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

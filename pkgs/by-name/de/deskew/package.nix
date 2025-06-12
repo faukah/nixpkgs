@@ -5,9 +5,7 @@
   libtiff,
   fpc,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "deskew";
   version = "1.30";
 
@@ -18,8 +16,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-xghVOEMkQ/mXpOzJqMaT3SII7xneMNoFqRlqjtzmDnA=";
   };
 
-  nativeBuildInputs = [ fpc ];
-  buildInputs = [ libtiff ];
+  nativeBuildInputs = [fpc];
+  buildInputs = [libtiff];
 
   buildPhase = ''
     runHook preBuild
@@ -47,9 +45,8 @@ stdenv.mkDerivation rec {
       mit
       mpl11
     ];
-    maintainers = with maintainers; [ ryantm ];
+    maintainers = with maintainers; [ryantm];
     platforms = platforms.all;
     mainProgram = "deskew";
   };
-
 }

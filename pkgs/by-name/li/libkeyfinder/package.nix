@@ -6,7 +6,6 @@
   fftw,
   catch2_3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libkeyfinder";
   version = "2.2.8";
@@ -18,11 +17,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-Et8u5j/ke9u2bwHFriPCCBiXkPel37gwx+kwuViAr4o=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ fftw ];
+  buildInputs = [fftw];
 
-  nativeCheckInputs = [ catch2_3 ];
+  nativeCheckInputs = [catch2_3];
 
   doCheck = true;
 

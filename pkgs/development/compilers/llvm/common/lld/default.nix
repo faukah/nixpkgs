@@ -12,7 +12,7 @@
   libxml2,
   libllvm,
   version,
-  devExtraCmakeFlags ? [ ],
+  devExtraCmakeFlags ? [],
   getVersionFile,
   fetchpatch,
 }:
@@ -21,8 +21,9 @@ stdenv.mkDerivation (finalAttrs: {
   inherit version;
 
   src =
-    if monorepoSrc != null then
-      runCommand "lld-src-${version}" { inherit (monorepoSrc) passthru; } (
+    if monorepoSrc != null
+    then
+      runCommand "lld-src-${version}" {inherit (monorepoSrc) passthru;} (
         ''
           mkdir -p "$out"
         ''
@@ -36,13 +37,12 @@ stdenv.mkDerivation (finalAttrs: {
           mkdir -p "$out/llvm"
         ''
       )
-    else
-      src;
+    else src;
 
   sourceRoot = "${finalAttrs.src.name}/lld";
 
   patches =
-    [ (getVersionFile "lld/gnu-install-dirs.patch") ]
+    [(getVersionFile "lld/gnu-install-dirs.patch")]
     ++ lib.optional (lib.versions.major release_version == "14") (
       getVersionFile "lld/fix-root-src-dir.patch"
     )
@@ -59,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
       }
     );
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional (lib.versionAtLeast release_version "15") ninja;
+  nativeBuildInputs = [cmake] ++ lib.optional (lib.versionAtLeast release_version "15") ninja;
   buildInputs = [
     libllvm
     libxml2
@@ -93,16 +93,18 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  meta = llvm_meta // {
-    homepage = "https://lld.llvm.org/";
-    description = "LLVM linker (unwrapped)";
-    longDescription = ''
-      LLD is a linker from the LLVM project that is a drop-in replacement for
-      system linkers and runs much faster than them. It also provides features
-      that are useful for toolchain developers.
-      The linker supports ELF (Unix), PE/COFF (Windows), Mach-O (macOS), and
-      WebAssembly in descending order of completeness. Internally, LLD consists
-      of several different linkers.
-    '';
-  };
+  meta =
+    llvm_meta
+    // {
+      homepage = "https://lld.llvm.org/";
+      description = "LLVM linker (unwrapped)";
+      longDescription = ''
+        LLD is a linker from the LLVM project that is a drop-in replacement for
+        system linkers and runs much faster than them. It also provides features
+        that are useful for toolchain developers.
+        The linker supports ELF (Unix), PE/COFF (Windows), Mach-O (macOS), and
+        WebAssembly in descending order of completeness. Internally, LLD consists
+        of several different linkers.
+      '';
+    };
 })

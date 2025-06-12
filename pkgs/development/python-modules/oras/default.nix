@@ -8,7 +8,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "oras";
   version = "0.2.33";
@@ -23,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-789XJTMB+07hN8qcZS8S+Sa/E58VYi1N48RnBOAGFY8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     jsonschema
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "oras" ];
+  pythonImportsCheck = ["oras"];
 
   disabledTests = [
     # Test requires network access
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/oras-project/oras-py";
     changelog = "https://github.com/oras-project/oras-py/blob/${src.tag}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

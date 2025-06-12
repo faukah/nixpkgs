@@ -4,7 +4,6 @@
   fetchzip,
   gitUpdater,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "beedii";
   version = "1.0.0";

@@ -10,7 +10,6 @@
   libcsys,
   qdocumentview,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "corepdf";
   version = "5.0.0";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "corepdf";
     homepage = "https://gitlab.com/cubocore/coreapps/corepdf";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dan4ik605743 ];
+    maintainers = with lib.maintainers; [dan4ik605743];
     platforms = lib.platforms.linux;
   };
 })

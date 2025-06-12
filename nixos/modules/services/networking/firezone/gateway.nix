@@ -3,9 +3,9 @@
   pkgs,
   config,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     boolToString
     getExe
     mkEnableOption
@@ -16,8 +16,7 @@ let
     ;
 
   cfg = config.services.firezone.gateway;
-in
-{
+in {
   options = {
     services.firezone.gateway = {
       enable = mkOption {
@@ -35,7 +34,7 @@ in
         '';
         type = lib.types.bool;
       };
-      package = mkPackageOption pkgs "firezone-gateway" { };
+      package = mkPackageOption pkgs "firezone-gateway" {};
 
       name = mkOption {
         type = types.str;
@@ -81,10 +80,10 @@ in
   config = mkIf cfg.enable {
     systemd.services.firezone-gateway = {
       description = "Gateway service for the Firezone zero-trust access platform";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
-      path = [ pkgs.util-linux ];
+      path = [pkgs.util-linux];
       script = ''
         # If FIREZONE_ID is not given by the user, use a persisted (or newly generated) uuid.
         if [[ -z "''${FIREZONE_ID:-}" ]]; then
@@ -109,11 +108,11 @@ in
         Type = "exec";
         DynamicUser = true;
         User = "firezone-gateway";
-        LoadCredential = [ "firezone-token:${cfg.tokenFile}" ];
+        LoadCredential = ["firezone-token:${cfg.tokenFile}"];
 
         DeviceAllow = "/dev/net/tun";
-        AmbientCapabilities = [ "CAP_NET_ADMIN" ];
-        CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
+        AmbientCapabilities = ["CAP_NET_ADMIN"];
+        CapabilityBoundingSet = ["CAP_NET_ADMIN"];
 
         StateDirectory = "firezone-gateway";
         WorkingDirectory = "/var/lib/firezone-gateway";

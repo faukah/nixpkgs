@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tls-parser";
   version = "2.0.2";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-nNQ5XLsZMUXmsTnaqiUeaaHtiVc5r4woRxeYVhO3ICY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "tls_parser" ];
+  pythonImportsCheck = ["tls_parser"];
 
   meta = with lib; {
     description = "Small library to parse TLS records";
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/nabla-c0d3/tls_parser/releases/tag/${src.tag}";
     platforms = with platforms; linux ++ darwin;
     license = licenses.mit;
-    maintainers = with maintainers; [ veehaitch ];
+    maintainers = with maintainers; [veehaitch];
   };
 }

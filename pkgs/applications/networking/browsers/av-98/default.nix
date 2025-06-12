@@ -20,14 +20,14 @@ python3Packages.buildPythonApplication {
 
   # No tests are available
   doCheck = false;
-  pythonImportsCheck = [ "av98" ];
+  pythonImportsCheck = ["av98"];
 
   meta = with lib; {
     homepage = "https://tildegit.org/solderpunk/AV-98";
     description = "Experimental console client for the Gemini protocol";
     mainProgram = "av98";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
 
     broken = true;
   };

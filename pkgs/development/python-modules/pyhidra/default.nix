@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyhidra";
   version = "1.3.0";
@@ -20,16 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-8xouU+S7Apy1ySIlvOLPerTApqKy/MNdl9vuBdt+9Vk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ jpype1 ];
+  dependencies = [jpype1];
 
   nativeCheckInputs = [
     pytest-datadir
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyhidra" ];
+  pythonImportsCheck = ["pyhidra"];
 
   disabledTests = [
     # Tests require a running Ghidra instance
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dod-cyber-crime-center/pyhidra";
     changelog = "https://github.com/dod-cyber-crime-center/pyhidra/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ scoder12 ];
+    maintainers = with lib.maintainers; [scoder12];
   };
 }

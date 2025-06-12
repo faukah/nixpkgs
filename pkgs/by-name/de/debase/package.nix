@@ -5,7 +5,6 @@
   libgit2,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "debase";
   # NOTE: When updating version, also update commit hash in prePatch.
@@ -42,7 +41,9 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
     install -Dm755 build-${
-      if stdenv.hostPlatform.isDarwin then "mac" else "linux"
+      if stdenv.hostPlatform.isDarwin
+      then "mac"
+      else "linux"
     }/release/debase $out/bin/debase
     runHook postInstall
   '';
@@ -51,12 +52,11 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "ARCHS=${
-      if stdenv.hostPlatform.isx86_64 then
-        "x86_64"
-      else if stdenv.hostPlatform.isAarch64 then
-        "arm64"
-      else
-        throw "unsupported system: ${stdenv.system}"
+      if stdenv.hostPlatform.isx86_64
+      then "x86_64"
+      else if stdenv.hostPlatform.isAarch64
+      then "arm64"
+      else throw "unsupported system: ${stdenv.system}"
     }"
   ];
 

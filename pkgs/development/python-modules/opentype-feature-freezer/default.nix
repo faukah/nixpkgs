@@ -9,7 +9,6 @@
   configparser,
   biplist,
 }:
-
 buildPythonPackage {
   pname = "opentype-feature-freezer";
   version = "0-unstable-2022-07-09";
@@ -33,7 +32,7 @@ buildPythonPackage {
     configparser
   ];
 
-  dependencies = [ fonttools ];
+  dependencies = [fonttools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -51,13 +50,13 @@ buildPythonPackage {
     "tests/test_rename.py"
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Permanently \"apply\" OpenType features to fonts, by remapping their Unicode assignments";
     homepage = "https://github.com/twardoch/fonttools-opentype-feature-freezer";
     license = lib.licenses.asl20;
     mainProgram = "pyftfeatfreeze";
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
   };
 }

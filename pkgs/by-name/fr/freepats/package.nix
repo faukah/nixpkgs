@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "freepats";
   version = "20060219";
@@ -24,6 +23,6 @@ stdenv.mkDerivation rec {
     homepage = "https://freepats.zenvoid.org/";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

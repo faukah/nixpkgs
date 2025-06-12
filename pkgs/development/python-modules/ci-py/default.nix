@@ -5,7 +5,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ci-py";
   version = "1.0.0";
@@ -23,15 +22,15 @@ buildPythonPackage rec {
       --replace "'pytest-runner', " ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ci" ];
+  pythonImportsCheck = ["ci"];
 
   meta = with lib; {
     description = "Library for working with Continuous Integration services";
     homepage = "https://github.com/grantmcconnaughey/ci.py";
     changelog = "https://github.com/grantmcconnaughey/ci.py/blob/master/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

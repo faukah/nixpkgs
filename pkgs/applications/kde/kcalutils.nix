@@ -12,7 +12,6 @@
   kidentitymanagement,
   kpimtextedit,
 }:
-
 mkDerivation {
   pname = "kcalutils";
   meta = {

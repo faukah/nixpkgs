@@ -6,9 +6,7 @@
   cmdliner,
   ptime,
 }:
-
 buildDunePackage rec {
-
   pname = "crunch";
   version = "4.0.0";
 
@@ -19,9 +17,9 @@ buildDunePackage rec {
     sha256 = "sha256-k5uNESntbGNMsPnMxvbUSqFwPNBc5gkfLuKgFilEuJs=";
   };
 
-  buildInputs = [ cmdliner ];
+  buildInputs = [cmdliner];
 
-  propagatedBuildInputs = [ ptime ];
+  propagatedBuildInputs = [ptime];
 
   outputs = [
     "lib"
@@ -38,7 +36,6 @@ buildDunePackage rec {
     description = "Convert a filesystem into a static OCaml module";
     mainProgram = "ocaml-crunch";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

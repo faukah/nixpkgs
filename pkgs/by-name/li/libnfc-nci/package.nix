@@ -7,7 +7,6 @@
   config,
   debug ? config.libnfc-nci.debug or false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libnfc-nci";
   version = "2.4.1-unstable-2024-08-05";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Linux NFC stack for NCI based NXP NFC Controllers";
     homepage = "https://github.com/NXPNFCLinux/linux_libnfc-nci";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ stargate01 ];
+    maintainers = with lib.maintainers; [stargate01];
     platforms = lib.platforms.linux;
   };
 })

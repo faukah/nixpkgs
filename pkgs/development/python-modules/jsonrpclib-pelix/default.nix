@@ -4,12 +4,11 @@
   fetchPypi,
   lib,
 }:
-
 buildPythonPackage rec {
   pname = "jsonrpclib-pelix";
   version = "0.4.3.4";
   pyproject = true;
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   src = fetchPypi {
     pname = "jsonrpclib_pelix";
@@ -23,6 +22,6 @@ buildPythonPackage rec {
     description = "JSON RPC client library - Pelix compatible fork";
     homepage = "https://pypi.python.org/pypi/jsonrpclib-pelix/";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

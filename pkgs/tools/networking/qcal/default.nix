@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromSourcehut,
 }:
-
 buildGoModule rec {
   pname = "qcal";
   version = "0.9.2";
@@ -33,6 +32,6 @@ buildGoModule rec {
     changelog = "https://git.sr.ht/~psic4t/qcal/refs/${version}";
     license = licenses.gpl3;
     mainProgram = "qcal";
-    maintainers = with maintainers; [ antonmosich ];
+    maintainers = with maintainers; [antonmosich];
   };
 }

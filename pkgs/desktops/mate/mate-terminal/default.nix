@@ -14,7 +14,6 @@
   mateUpdateScript,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-terminal";
   version = "1.28.1";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   passthru.tests.test = nixosTests.terminal-emulators.mate-terminal;
 
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "https://mate-desktop.org";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

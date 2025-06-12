@@ -6,7 +6,6 @@
   wheel,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "iisignature";
   version = "0.24";
@@ -22,17 +21,17 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   # PyPI tarball has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "iisignature" ];
+  pythonImportsCheck = ["iisignature"];
 
   meta = with lib; {
     description = "Iterated integral signature calculations";
     homepage = "https://pypi.org/project/iisignature";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

@@ -3,32 +3,31 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.pcscd;
   cfgFile = pkgs.writeText "reader.conf" (
     builtins.concatStringsSep "\n\n" config.services.pcscd.readerConfigs
   );
 
-  package = if config.security.polkit.enable then pkgs.pcscliteWithPolkit else pkgs.pcsclite;
+  package =
+    if config.security.polkit.enable
+    then pkgs.pcscliteWithPolkit
+    else pkgs.pcsclite;
 
   pluginEnv = pkgs.buildEnv {
     name = "pcscd-plugins";
     paths = map (p: "${p}/pcsc/drivers") config.services.pcscd.plugins;
   };
-
-in
-{
+in {
   imports = [
-    (lib.mkChangedOptionModule
-      [ "services" "pcscd" "readerConfig" ]
-      [ "services" "pcscd" "readerConfigs" ]
+    (
+      lib.mkChangedOptionModule
+      ["services" "pcscd" "readerConfig"]
+      ["services" "pcscd" "readerConfigs"]
       (
-        config:
-        let
-          readerConfig = lib.getAttrFromPath [ "services" "pcscd" "readerConfig" ] config;
-        in
-        [ readerConfig ]
+        config: let
+          readerConfig = lib.getAttrFromPath ["services" "pcscd" "readerConfig"] config;
+        in [readerConfig]
       )
     )
   ];
@@ -45,7 +44,7 @@ in
 
     readerConfigs = lib.mkOption {
       type = lib.types.listOf lib.types.lines;
-      default = [ ];
+      default = [];
       example = [
         ''
           FRIENDLYNAME      "Some serial reader"
@@ -63,7 +62,7 @@ in
 
     extraArgs = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = "Extra command line arguments to be passed to the PCSC daemon.";
     };
   };
@@ -71,12 +70,12 @@ in
   config = lib.mkIf config.services.pcscd.enable {
     environment.etc."reader.conf".source = cfgFile;
 
-    environment.systemPackages = [ package ];
-    systemd.packages = [ package ];
+    environment.systemPackages = [package];
+    systemd.packages = [package];
 
-    services.pcscd.plugins = [ pkgs.ccid ];
+    services.pcscd.plugins = [pkgs.ccid];
 
-    systemd.sockets.pcscd.wantedBy = [ "sockets.target" ];
+    systemd.sockets.pcscd.wantedBy = ["sockets.target"];
 
     systemd.services.pcscd = {
       environment.PCSCLITE_HP_DROPDIR = pluginEnv;

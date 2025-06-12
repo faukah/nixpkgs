@@ -1,18 +1,14 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (lib) mkOption types;
 
-  moduleWithKey =
-    { config, ... }:
-    {
-      config = {
-        enable = true;
-      };
+  moduleWithKey = {config, ...}: {
+    config = {
+      enable = true;
     };
-in
-{
+  };
+in {
   imports = [
     ./declare-enable.nix
   ];
-  disabledModules = [ { } ];
+  disabledModules = [{}];
 }

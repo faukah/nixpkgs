@@ -11,7 +11,6 @@
   buildPackages,
   gobject-introspection,
 }:
-
 mkXfceDerivation {
   category = "xfce";
   pname = "garcon";
@@ -35,6 +34,6 @@ mkXfceDerivation {
       lgpl2Only
       fdl11Only
     ];
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

@@ -12,7 +12,6 @@
   tree-sitter-javascript,
   tree-sitter-json,
 }:
-
 buildPythonPackage rec {
   pname = "tree-sitter";
   version = "0.24.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     ./segfault-patch.diff
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     tree-sitter-json
   ];
 
-  pythonImportsCheck = [ "tree_sitter" ];
+  pythonImportsCheck = ["tree_sitter"];
 
   preCheck = ''
     # https://github.com/NixOS/nixpkgs/issues/255262#issuecomment-1721265871
@@ -61,6 +60,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tree-sitter/py-tree-sitter";
     changelog = "https://github.com/tree-sitter/py-tree-sitter/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

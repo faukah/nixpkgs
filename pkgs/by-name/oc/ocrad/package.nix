@@ -6,7 +6,6 @@
   texinfo,
   libpng,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ocrad";
   version = "0.29";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ pSub ];
+    maintainers = with lib.maintainers; [pSub];
     platforms = lib.platforms.unix;
     mainProgram = "ocrad";
   };

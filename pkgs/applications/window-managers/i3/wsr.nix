@@ -5,7 +5,6 @@
   libxcb,
   python3,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "i3wsr";
   version = "3.1.1";
@@ -20,8 +19,8 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-7WS+8EGGl8sJ3TeT7IM+u1AiD0teJ2AITb++zK/keXs=";
 
-  nativeBuildInputs = [ python3 ];
-  buildInputs = [ libxcb ];
+  nativeBuildInputs = [python3];
+  buildInputs = [libxcb];
 
   # has not tests
   doCheck = false;
@@ -36,6 +35,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/roosta/i3wsr";
     license = licenses.mit;
-    maintainers = [ maintainers.sebbadk ];
+    maintainers = [maintainers.sebbadk];
   };
 }

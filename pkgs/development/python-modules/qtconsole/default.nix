@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   ipykernel,
   jupyter-core,
@@ -14,11 +12,9 @@
   pyqt5,
   qtpy,
   traitlets,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "qtconsole";
   version = "5.6.1";
@@ -31,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-esCt7UQ0va/FJ0gdSrcc/k/FgyBVqKy7ttrN6E6mx+E=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     ipykernel
@@ -43,12 +39,12 @@ buildPythonPackage rec {
     traitlets
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # : cannot connect to X server
   doCheck = false;
 
-  pythonImportsCheck = [ "qtconsole" ];
+  pythonImportsCheck = ["qtconsole"];
 
   meta = {
     description = "Jupyter Qt console";
@@ -57,6 +53,6 @@ buildPythonPackage rec {
     changelog = "https://qtconsole.readthedocs.io/en/stable/changelog.html#changes-in-jupyter-qt-console";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

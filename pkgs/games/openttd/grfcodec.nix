@@ -6,7 +6,6 @@
   cmake,
   git,
 }:
-
 stdenv.mkDerivation {
   pname = "openttd-grfcodec";
   version = "unstable-2021-03-10";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
     sha256 = "0b4xnnkqc01d3r834lhkq744ymar6c8iyxk51wc4c7hvz0vp9vmy";
   };
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
   nativeBuildInputs = [
     cmake
     git
@@ -33,6 +32,6 @@ stdenv.mkDerivation {
     description = "Low-level (dis)assembler and linter for OpenTTD GRF files";
     homepage = "http://openttd.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ToxicFrog ];
+    maintainers = with maintainers; [ToxicFrog];
   };
 }

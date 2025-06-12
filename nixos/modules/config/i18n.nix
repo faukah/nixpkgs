@@ -3,10 +3,8 @@
   lib,
   pkgs,
   ...
-}:
-let
-  sanitizeUTF8Capitalization =
-    lang: (lib.replaceStrings [ "utf8" "utf-8" "UTF8" ] [ "UTF-8" "UTF-8" "UTF-8" ] lang);
+}: let
+  sanitizeUTF8Capitalization = lang: (lib.replaceStrings ["utf8" "utf-8" "UTF8"] ["UTF-8" "UTF-8" "UTF-8"] lang);
   aggregatedLocales =
     [
       "${config.i18n.defaultLocale}/${config.i18n.defaultCharset}"
@@ -21,12 +19,10 @@ let
       lib.optionals (builtins.isList config.i18n.extraLocales) config.i18n.extraLocales
     ))
     ++ (lib.optional (builtins.isString config.i18n.extraLocales) config.i18n.extraLocales);
-in
-{
+in {
   ###### interface
 
   options = {
-
     i18n = {
       glibcLocales = lib.mkOption {
         type = lib.types.path;
@@ -69,9 +65,9 @@ in
       };
 
       extraLocales = lib.mkOption {
-        type = lib.types.either (lib.types.listOf lib.types.str) (lib.types.enum [ "all" ]);
-        default = [ ];
-        example = [ "nl_NL.UTF-8/UTF-8" ];
+        type = lib.types.either (lib.types.listOf lib.types.str) (lib.types.enum ["all"]);
+        default = [];
+        example = ["nl_NL.UTF-8/UTF-8"];
         description = ''
           Additional locales that the system should support, besides the ones
           configured with {option}`i18n.defaultLocale` and
@@ -82,7 +78,7 @@ in
 
       extraLocaleSettings = lib.mkOption {
         type = lib.types.attrsOf lib.types.str;
-        default = { };
+        default = {};
         example = {
           LC_MESSAGES = "en_US.UTF-8";
           LC_TIME = "de_DE.UTF-8";
@@ -104,7 +100,7 @@ in
       };
       localeCharsets = lib.mkOption {
         type = lib.types.attrsOf lib.types.str;
-        default = { };
+        default = {};
         example = {
           LC_MESSAGES = "ISO-8859-15";
           LC_TIME = "ISO-8859-1";
@@ -137,9 +133,7 @@ in
           can be found at <https://sourceware.org/git/?p=glibc.git;a=blob;f=localedata/SUPPORTED>.
         '';
       };
-
     };
-
   };
 
   ###### implementation
@@ -147,33 +141,34 @@ in
   config = {
     warnings =
       lib.optional
-        (
-          !(
-            (lib.subtractLists config.i18n.supportedLocales aggregatedLocales) == [ ]
-            || lib.any (x: x == "all") config.i18n.supportedLocales
-          )
-        )
-        ''
-          `i18n.supportedLocales` is deprecated in favor of `i18n.extraLocales`,
-          and it seems you are using `i18n.supportedLocales` and forgot to
-          include some locales specified in `i18n.defaultLocale`,
-          `i18n.extraLocales` or `i18n.extraLocaleSettings`.
+      (!(
+        (lib.subtractLists config.i18n.supportedLocales aggregatedLocales)
+        == []
+        || lib.any (x: x == "all") config.i18n.supportedLocales
+      ))
+      ''
+        `i18n.supportedLocales` is deprecated in favor of `i18n.extraLocales`,
+        and it seems you are using `i18n.supportedLocales` and forgot to
+        include some locales specified in `i18n.defaultLocale`,
+        `i18n.extraLocales` or `i18n.extraLocaleSettings`.
 
-          If you're trying to install additional locales not specified in
-          `i18n.defaultLocale` or `i18n.extraLocaleSettings`, consider adding
-          only those locales to `i18n.extraLocales`.
-        '';
+        If you're trying to install additional locales not specified in
+        `i18n.defaultLocale` or `i18n.extraLocaleSettings`, consider adding
+        only those locales to `i18n.extraLocales`.
+      '';
 
     environment.systemPackages =
       # We increase the priority a little, so that plain glibc in systemPackages can't win.
-      lib.optional (config.i18n.supportedLocales != [ ]) (lib.setPrio (-1) config.i18n.glibcLocales);
+      lib.optional (config.i18n.supportedLocales != []) (lib.setPrio (-1) config.i18n.glibcLocales);
 
-    environment.sessionVariables = {
-      LANG = config.i18n.defaultLocale;
-      LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
-    } // config.i18n.extraLocaleSettings;
+    environment.sessionVariables =
+      {
+        LANG = config.i18n.defaultLocale;
+        LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
+      }
+      // config.i18n.extraLocaleSettings;
 
-    systemd.globalEnvironment = lib.mkIf (config.i18n.supportedLocales != [ ]) {
+    systemd.globalEnvironment = lib.mkIf (config.i18n.supportedLocales != []) {
       LOCALE_ARCHIVE = "${config.i18n.glibcLocales}/lib/locale/locale-archive";
     };
 
@@ -184,6 +179,5 @@ in
         lib.mapAttrsToList (n: v: "${n}=${v}") config.i18n.extraLocaleSettings
       )}
     '';
-
   };
 }

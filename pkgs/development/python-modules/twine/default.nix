@@ -21,7 +21,6 @@
   pytest-socket,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "twine";
   version = "6.1.0";
@@ -62,7 +61,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "twine" ];
+  pythonImportsCheck = ["twine"];
 
   meta = {
     description = "Collection of utilities for interacting with PyPI";

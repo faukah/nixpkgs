@@ -46,22 +46,22 @@ stdenv.mkDerivation rec {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/check_snmp_int.pl";
   preVersionCheck = ''
     version=${builtins.head (lib.splitString "-" version)}
   '';
 
   passthru = {
-    updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+    updateScript = nix-update-script {extraArgs = ["--version=branch"];};
   };
 
   meta = {
     changelog = "https://github.com/SteScho/manubulon-snmp/releases/tag/v${version}";
     description = "Set of Icinga/Nagios plugins to check hosts and hardware with the SNMP protocol";
     homepage = "https://github.com/SteScho/manubulon-snmp";
-    license = with lib.licenses; [ gpl2Only ];
+    license = with lib.licenses; [gpl2Only];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ jwillikers ];
+    maintainers = with lib.maintainers; [jwillikers];
   };
 }

@@ -2,9 +2,7 @@
   lib,
   fetchPypi,
   python3Packages,
-}:
-
-let
+}: let
   self = python3Packages.buildPythonApplication {
     pname = "git-branchstack";
     version = "0.2.0";
@@ -23,8 +21,8 @@ let
       homepage = "https://github.com/krobelus/git-branchstack";
       description = "Efficiently manage Git branches without leaving your local branch";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ ];
+      maintainers = with lib.maintainers; [];
     };
   };
 in
-self
+  self

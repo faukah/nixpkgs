@@ -17,7 +17,6 @@
   gtk4,
   sqlite,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "furtherance";
   version = "1.8.3";
@@ -60,6 +59,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/lakoliu/Furtherance";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ CaptainJawZ ];
+    maintainers = with maintainers; [CaptainJawZ];
   };
 })

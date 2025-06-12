@@ -2,14 +2,11 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "conda-inject";
   version = "1.3.2";
@@ -42,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/koesterlab/conda-inject";
     changelog = "https://github.com/koesterlab/conda-inject/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

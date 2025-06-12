@@ -1,13 +1,17 @@
-{ config, lib, ... }:
 {
+  config,
+  lib,
+  ...
+}: {
   meta = {
-    maintainers = [ lib.maintainers.joachifm ];
+    maintainers = [lib.maintainers.joachifm];
   };
 
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "security" "virtualization" "flushL1DataCache" ]
-      [ "security" "virtualisation" "flushL1DataCache" ]
+    (
+      lib.mkRenamedOptionModule
+      ["security" "virtualization" "flushL1DataCache"]
+      ["security" "virtualisation" "flushL1DataCache"]
     )
   ];
 
@@ -127,17 +131,17 @@
 
     (lib.mkIf config.security.protectKernelImage {
       # Disable hibernation (allows replacing the running kernel)
-      boot.kernelParams = [ "nohibernate" ];
+      boot.kernelParams = ["nohibernate"];
       # Prevent replacing the running kernel image w/o reboot
       boot.kernel.sysctl."kernel.kexec_load_disabled" = lib.mkDefault true;
     })
 
     (lib.mkIf (!config.security.allowSimultaneousMultithreading) {
-      boot.kernelParams = [ "nosmt" ];
+      boot.kernelParams = ["nosmt"];
     })
 
     (lib.mkIf config.security.forcePageTableIsolation {
-      boot.kernelParams = [ "pti=on" ];
+      boot.kernelParams = ["pti=on"];
     })
 
     (lib.mkIf (config.security.virtualisation.flushL1DataCache != null) {

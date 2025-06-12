@@ -5,7 +5,6 @@
   autoreconfHook,
   cryptsetup,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bruteforce-luks";
   version = "1.4.1";
@@ -23,8 +22,8 @@ stdenv.mkDerivation rec {
       --replace-fail " crack-volume3.sh" ""
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ cryptsetup ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [cryptsetup];
 
   enableParallelBuilding = true;
 

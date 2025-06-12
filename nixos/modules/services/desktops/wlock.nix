@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.wlock;
-in
-{
+in {
   options = {
     services.wlock = {
       enable = lib.mkEnableOption "wlock, a Wayland sessionlocker using the ext-session-lock-v1 protocol";
 
-      package = lib.mkPackageOption pkgs "wlock" { };
+      package = lib.mkPackageOption pkgs "wlock" {};
     };
   };
 
@@ -27,5 +25,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.fliegendewurst ];
+  meta.maintainers = [lib.maintainers.fliegendewurst];
 }

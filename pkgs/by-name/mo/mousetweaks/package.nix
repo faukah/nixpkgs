@@ -10,7 +10,6 @@
   wrapGAppsHook3,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mousetweaks";
   version = "3.32.0";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/Archive/mousetweaks";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.johnazoidberg ];
+    maintainers = [maintainers.johnazoidberg];
     mainProgram = "mousetweaks";
   };
 }

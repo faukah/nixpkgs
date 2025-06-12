@@ -17,22 +17,20 @@
   pango,
   pciutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zotero";
   version = "7.0.0-beta.111+b4f6c050e";
 
-  src =
-    let
-      escapedVersion = lib.replaceStrings [ "+" ] [ "%2B" ] version;
-    in
+  src = let
+    escapedVersion = lib.replaceStrings ["+"] ["%2B"] version;
+  in
     fetchurl {
       url = "https://download.zotero.org/client/beta/${escapedVersion}/Zotero-${escapedVersion}_linux-x86_64.tar.bz2";
       hash = "sha256-pZsmS4gKCT8UAjz9IJg5C7n4kk7bWT/7H5ONF20CzPM=";
     };
 
   dontPatchELF = true;
-  nativeBuildInputs = [ wrapGAppsHook3 ];
+  nativeBuildInputs = [wrapGAppsHook3];
 
   libPath =
     lib.makeLibraryPath [
@@ -59,7 +57,7 @@ stdenv.mkDerivation rec {
       pciutils
     ]
     + ":"
-    + lib.makeSearchPathOutput "lib" "lib" [ stdenv.cc.cc ];
+    + lib.makeSearchPathOutput "lib" "lib" [stdenv.cc.cc];
 
   desktopItem = makeDesktopItem {
     name = "zotero";
@@ -120,9 +118,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.zotero.org";
     description = "Collect, organize, cite, and share your research sources";
     mainProgram = "zotero";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.agpl3Only;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       atila
       justanotherariel

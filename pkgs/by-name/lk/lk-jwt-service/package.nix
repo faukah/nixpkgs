@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "lk-jwt-service";
   version = "0.2.3";
@@ -25,7 +24,7 @@ buildGoModule (finalAttrs: {
     description = "Minimal service to issue LiveKit JWTs for MatrixRTC";
     homepage = "https://github.com/element-hq/lk-jwt-service";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ kilimnik ];
+    maintainers = with maintainers; [kilimnik];
     mainProgram = "lk-jwt-service";
   };
 })

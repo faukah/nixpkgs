@@ -2,8 +2,7 @@
   stdenv,
   lib,
   fetchurl,
-}:
-let
+}: let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
 
@@ -27,36 +26,36 @@ let
   };
   platform = systemToPlatform.${system} or throwSystem;
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "gh-copilot";
-  version = "1.1.0";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "gh-copilot";
+    version = "1.1.0";
 
-  src = fetchurl {
-    name = "gh-copilot";
-    url = "https://github.com/github/gh-copilot/releases/download/v${finalAttrs.version}/${platform.name}";
-    hash = platform.hash;
-  };
+    src = fetchurl {
+      name = "gh-copilot";
+      url = "https://github.com/github/gh-copilot/releases/download/v${finalAttrs.version}/${platform.name}";
+      hash = platform.hash;
+    };
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -m755 -D $src $out/bin/gh-copilot
+      install -m755 -D $src $out/bin/gh-copilot
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru.updateScript = ./update.sh;
+    passthru.updateScript = ./update.sh;
 
-  meta = {
-    changelog = "https://github.com/github/gh-copilot/releases/tag/v${finalAttrs.version}";
-    description = "Ask for assistance right in your terminal";
-    homepage = "https://github.com/github/gh-copilot";
-    license = lib.licenses.unfree;
-    mainProgram = "gh-copilot";
-    maintainers = with lib.maintainers; [ perchun ];
-    platforms = lib.attrNames systemToPlatform;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-  };
-})
+    meta = {
+      changelog = "https://github.com/github/gh-copilot/releases/tag/v${finalAttrs.version}";
+      description = "Ask for assistance right in your terminal";
+      homepage = "https://github.com/github/gh-copilot";
+      license = lib.licenses.unfree;
+      mainProgram = "gh-copilot";
+      maintainers = with lib.maintainers; [perchun];
+      platforms = lib.attrNames systemToPlatform;
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    };
+  })

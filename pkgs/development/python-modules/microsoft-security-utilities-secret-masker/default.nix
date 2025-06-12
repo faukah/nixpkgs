@@ -5,7 +5,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "microsoft-security-utilities-secret-masker";
   version = "1.0.0b4";
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     description = "A tool for detecting and masking secrets";
     homepage = "https://pypi.org/project/microsoft-security-utilities-secret-masker/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

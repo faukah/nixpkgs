@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "swhid_core";
   version = "0.1";
@@ -21,6 +20,6 @@ buildDunePackage rec {
     description = "OCaml library to work with swhids";
     homepage = "https://github.com/ocamlpro/swhid_core";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

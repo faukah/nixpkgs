@@ -3,23 +3,22 @@
   pkgs,
   config,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkOption
     types
     mkIf
     optionalString
     ;
   cfg = config.services.opengfw;
-in
-{
+in {
   options.services.opengfw = {
     enable = lib.mkEnableOption ''
       OpenGFW, A flexible, easy-to-use, open source implementation of GFW on Linux
     '';
 
-    package = lib.mkPackageOption pkgs "opengfw" { default = "opengfw"; };
+    package = lib.mkPackageOption pkgs "opengfw" {default = "opengfw";};
 
     user = mkOption {
       default = "opengfw";
@@ -109,7 +108,7 @@ in
               description = ''
                 PCAP replay settings.
               '';
-              default = { };
+              default = {};
               type = types.submodule {
                 options = {
                   realtime = mkOption {
@@ -128,7 +127,7 @@ in
               description = ''
                 IO settings.
               '';
-              default = { };
+              default = {};
               type = types.submodule {
                 options = {
                   queueSize = mkOption {
@@ -174,7 +173,7 @@ in
                 The path to load specific local geoip/geosite db files.
                 If not set, they will be automatically downloaded from [Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat).
               '';
-              default = { };
+              default = {};
               type = types.submodule {
                 options = {
                   geoip = mkOption {
@@ -191,7 +190,7 @@ in
               };
             };
             workers = mkOption {
-              default = { };
+              default = {};
               description = "Worker settings.";
               type = types.submodule {
                 options = {
@@ -250,7 +249,7 @@ in
     };
 
     rules = mkOption {
-      default = [ ];
+      default = [];
       description = ''
         Rules passed to OpenGFW. [Example rules](https://gfw.dev/docs/rules)
       '';
@@ -349,17 +348,18 @@ in
     };
   };
 
-  config =
-    let
-      format = pkgs.formats.yaml { };
+  config = let
+    format = pkgs.formats.yaml {};
 
-      settings =
-        if cfg.settings != null then
-          format.generate "opengfw-config.yaml" cfg.settings
-        else
-          cfg.settingsFile;
-      rules = if cfg.rules != [ ] then format.generate "opengfw-rules.yaml" cfg.rules else cfg.rulesFile;
-    in
+    settings =
+      if cfg.settings != null
+      then format.generate "opengfw-config.yaml" cfg.settings
+      else cfg.settingsFile;
+    rules =
+      if cfg.rules != []
+      then format.generate "opengfw-rules.yaml" cfg.rules
+      else cfg.rulesFile;
+  in
     mkIf cfg.enable {
       security.wrappers.OpenGFW = {
         owner = cfg.user;
@@ -370,9 +370,9 @@ in
 
       systemd.services.opengfw = {
         description = "OpenGFW";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-        path = with pkgs; [ iptables ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
+        path = with pkgs; [iptables];
 
         preStart = ''
           ${optionalString (rules != null) "ln -sf ${rules} rules.yaml"}
@@ -399,7 +399,7 @@ in
       };
 
       users = {
-        groups.${cfg.user} = { };
+        groups.${cfg.user} = {};
         users.${cfg.user} = {
           description = "opengfw user";
           isSystemUser = true;
@@ -410,5 +410,5 @@ in
         };
       };
     };
-  meta.maintainers = with lib.maintainers; [ eum3l ];
+  meta.maintainers = with lib.maintainers; [eum3l];
 }

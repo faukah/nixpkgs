@@ -21,7 +21,6 @@
   hicolor-icon-theme,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "poedit";
   version = "3.6.2";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     hicolor-icon-theme
   ];
 
-  propagatedBuildInputs = [ gettext ];
+  propagatedBuildInputs = [gettext];
 
   preConfigure = "
     patchShebangs bootstrap
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
   ];
 
   preFixup = ''
-    gappsWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [ gettext ]}")
+    gappsWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [gettext]}")
   '';
 
   enableParallelBuilding = true;
@@ -83,7 +82,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.poedit.net/";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dasj19 ];
+    maintainers = with maintainers; [dasj19];
     # configure: error: GTK+ build of wxWidgets is required
     broken = stdenv.hostPlatform.isDarwin;
   };

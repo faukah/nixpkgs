@@ -9,7 +9,6 @@
   python3,
   python3Packages,
 }:
-
 buildGoModule rec {
   pname = "ntfy-sh";
   version = "2.12.0";

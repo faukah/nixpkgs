@@ -6,7 +6,6 @@
   stdenv,
   fetchpatch,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fcp";
   version = "0.2.1";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-WcbrHAgFTP5OtLI+T0d0BoIxG0MBJzPgjjgCWL2nPus=";
 
-  nativeBuildInputs = [ expect ];
+  nativeBuildInputs = [expect];
 
   # character_device fails with "File name too long" on darwin
   doCheck = !stdenv.hostPlatform.isDarwin;
@@ -48,7 +47,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/svetlitski/fcp/releases/tag/v${version}";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "fcp";
   };
 }

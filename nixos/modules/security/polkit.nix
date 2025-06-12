@@ -3,20 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.security.polkit;
-
-in
-
-{
-
+in {
   options = {
-
     security.polkit.enable = lib.mkEnableOption "polkit";
 
-    security.polkit.package = lib.mkPackageOption pkgs "polkit" { };
+    security.polkit.package = lib.mkPackageOption pkgs "polkit" {};
 
     security.polkit.debug = lib.mkEnableOption "debug logs from polkit. This is required in order to see log messages from rule definitions";
 
@@ -43,7 +36,7 @@ in
 
     security.polkit.adminIdentities = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ "unix-group:wheel" ];
+      default = ["unix-group:wheel"];
       example = [
         "unix-user:alice"
         "unix-group:admin"
@@ -55,28 +48,26 @@ in
         value).  By default, this is all users in the `wheel` group.
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     environment.systemPackages = [
       cfg.package.bin
       cfg.package.out
     ];
 
-    systemd.packages = [ cfg.package.out ];
+    systemd.packages = [cfg.package.out];
 
     systemd.services.polkit.serviceConfig.ExecStart = [
       ""
       "${cfg.package.out}/lib/polkit-1/polkitd ${lib.optionalString (!cfg.debug) "--no-debug"}"
     ];
 
-    systemd.services.polkit.restartTriggers = [ config.system.path ];
+    systemd.services.polkit.restartTriggers = [config.system.path];
     systemd.services.polkit.stopIfChanged = false;
 
     # The polkit daemon reads action/rule files
-    environment.pathsToLink = [ "/share/polkit-1" ];
+    environment.pathsToLink = ["/share/polkit-1"];
 
     # PolKit rules for NixOS.
     environment.etc."polkit-1/rules.d/10-nixos.rules".text = ''
@@ -87,9 +78,9 @@ in
       ${cfg.extraConfig}
     ''; # TODO: validation on compilation (at least against typos)
 
-    services.dbus.packages = [ cfg.package.out ];
+    services.dbus.packages = [cfg.package.out];
 
-    security.pam.services.polkit-1 = { };
+    security.pam.services.polkit-1 = {};
 
     security.wrappers = {
       pkexec = {
@@ -118,7 +109,6 @@ in
       group = "polkituser";
     };
 
-    users.groups.polkituser = { };
+    users.groups.polkituser = {};
   };
-
 }

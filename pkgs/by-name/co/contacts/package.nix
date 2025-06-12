@@ -4,7 +4,6 @@
   fetchFromGitHub,
   xcbuildHook,
 }:
-
 stdenv.mkDerivation {
   version = "1.1a-3";
   pname = "contacts";
@@ -21,7 +20,7 @@ stdenv.mkDerivation {
       --replace "int peopleSort" "long peopleSort"
   '';
 
-  nativeBuildInputs = [ xcbuildHook ];
+  nativeBuildInputs = [xcbuildHook];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
     description = "Access contacts from the Mac address book from command-line";
     homepage = "http://www.gnufoo.org/contacts/contacts.html";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ jwiegley ];
+    maintainers = with maintainers; [jwiegley];
     platforms = platforms.darwin;
     hydraPlatforms = platforms.darwin;
   };

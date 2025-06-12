@@ -1,8 +1,7 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "rmfakecloud";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ martinetd ];
+    maintainers = [martinetd];
   };
 
   nodes.machine = {

@@ -13,7 +13,6 @@
   kservice,
   qtbase,
 }:
-
 mkDerivation {
   pname = "kded";
   nativeBuildInputs = [

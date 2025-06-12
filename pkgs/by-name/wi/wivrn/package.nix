@@ -10,7 +10,7 @@
   boost,
   cli11,
   cmake,
-  cudaPackages ? { },
+  cudaPackages ? {},
   cudaSupport ? config.cudaSupport,
   eigen,
   ffmpeg,
@@ -171,7 +171,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   preFixup = ''
     wrapQtApp "$out/bin/wivrn-dashboard" \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [vulkan-loader]}
   '';
 
   desktopItems = [
@@ -183,11 +183,11 @@ stdenv.mkDerivation (finalAttrs: {
       icon = "io.github.wivrn.wivrn";
       exec = "wivrn-dashboard";
       type = "Application";
-      categories = [ "Network" ];
+      categories = ["Network"];
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "OpenXR streaming application to a standalone headset";
@@ -200,6 +200,6 @@ stdenv.mkDerivation (finalAttrs: {
     ];
     platforms = lib.platforms.linux;
     mainProgram = "wivrn-server";
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
   };
 })

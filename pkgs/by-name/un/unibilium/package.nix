@@ -8,7 +8,6 @@
   ncurses,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unibilium";
   version = "2.1.2";
@@ -29,13 +28,13 @@ stdenv.mkDerivation rec {
     perl
     libtool
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   meta = with lib; {
     homepage = "https://github.com/neovim/unibilium";
     description = "Very basic terminfo library";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

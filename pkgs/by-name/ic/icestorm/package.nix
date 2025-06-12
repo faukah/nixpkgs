@@ -6,7 +6,6 @@
   libftdi1,
   python3,
   pypy3,
-
   # PyPy yields large improvements in build time and runtime performance, and
   # IceStorm isn't intended to be used as a library other than by the nextpnr
   # build process (which is also sped up by using PyPy), so we use it by default.
@@ -17,13 +16,15 @@
   # that downstream overrides can't re-enable pypy and break their build somehow)
   usePyPy ? stdenv.hostPlatform.system == "x86_64-linux",
 }:
-
 stdenv.mkDerivation rec {
   pname = "icestorm";
   version = "2020.12.04";
 
   passthru = rec {
-    pythonPkg = if (false && usePyPy) then pypy3 else python3;
+    pythonPkg =
+      if (false && usePyPy)
+      then pypy3
+      else python3;
     pythonInterp = pythonPkg.interpreter;
   };
 
@@ -34,12 +35,12 @@ stdenv.mkDerivation rec {
     sha256 = "0vxhqs2fampglg3xlfwb35229iv96kvlwp1gyxrdrmlpznhkqdrk";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     passthru.pythonPkg
     libftdi1
   ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 

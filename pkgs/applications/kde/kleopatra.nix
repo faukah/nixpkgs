@@ -18,7 +18,6 @@
   kcrash,
   kpipewire,
 }:
-
 mkDerivation {
   pname = "kleopatra";
 

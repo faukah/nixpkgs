@@ -8,7 +8,6 @@
   fixup-yarn-lock,
   yarn,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pkg";
   version = "5.8.1";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/vercel/pkg";
     license = lib.licenses.mit;
     mainProgram = "pkg";
-    maintainers = with lib.maintainers; [ cmcdragonkai ];
+    maintainers = with lib.maintainers; [cmcdragonkai];
     platforms = lib.platforms.all;
   };
 }

@@ -5,7 +5,6 @@
   qtdeclarative,
   qtwebengine,
 }:
-
 qtModule {
   pname = "qtwebview";
   propagatedBuildInputs = [

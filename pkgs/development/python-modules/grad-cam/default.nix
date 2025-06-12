@@ -14,7 +14,6 @@
   ttach,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "grad-cam";
   version = "1.5.5";
@@ -50,7 +49,7 @@ buildPythonPackage rec {
   ];
 
   # Let the user bring their own instance (as with torchmetrics)
-  buildInputs = [ torch ];
+  buildInputs = [torch];
 
   doCheck = false; # every nontrivial test tries to download a pretrained model
 
@@ -68,6 +67,6 @@ buildPythonPackage rec {
     description = "Advanced AI explainability for computer vision";
     homepage = "https://jacobgil.github.io/pytorch-gradcam-book";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

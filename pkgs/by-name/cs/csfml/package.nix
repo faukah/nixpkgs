@@ -5,7 +5,6 @@
   cmake,
   sfml_2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "csfml";
   version = "2.6.1";
@@ -26,8 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
         "libdir=@CMAKE_INSTALL_FULL_LIBDIR@"
   '';
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ sfml_2 ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [sfml_2];
   cmakeFlags = [
     (lib.cmakeFeature "CMAKE_MODULE_PATH" "${sfml_2}/share/SFML/cmake/Modules/")
   ];
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
       It is written in C++, and has bindings for various languages such as C, .Net, Ruby, Python.
     '';
     license = lib.licenses.zlib;
-    maintainers = [ lib.maintainers.jpdoyle ];
+    maintainers = [lib.maintainers.jpdoyle];
     platforms = lib.platforms.linux;
   };
 })

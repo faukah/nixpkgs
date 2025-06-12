@@ -18,7 +18,6 @@
   which,
   xdelta,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fwup";
   version = "1.12.0";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
     description = "Configurable embedded Linux firmware update creator and runner";
     homepage = "https://github.com/fhunleth/fwup";
     license = licenses.asl20;
-    maintainers = [ maintainers.georgewhewell ];
+    maintainers = [maintainers.georgewhewell];
     platforms = platforms.all;
   };
 }

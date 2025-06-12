@@ -8,7 +8,6 @@
   glm,
   tbb_2021_11,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "manifold";
   version = "3.1.1";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-dCCTjWRjXSyuEDxGI9ZS2UTmLdZVSmDOmHFnhox3N+4=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     gtest

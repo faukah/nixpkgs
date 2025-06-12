@@ -4,7 +4,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mdzk";
   version = "0.5.2";

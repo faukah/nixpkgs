@@ -7,7 +7,6 @@
   isodate,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-ai-vision-imageanalysis";
   version = "1.0.0b3";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/sdk/vision/azure-ai-vision-imageanalysis";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-core
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "azure.ai.vision.imageanalysis" ];
+  pythonImportsCheck = ["azure.ai.vision.imageanalysis"];
 
   doCheck = false; # cannot import 'devtools_testutils'
 
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Azure Image Analysis client library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/vision/azure-ai-vision-imageanalysis";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

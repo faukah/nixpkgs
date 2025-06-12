@@ -14,7 +14,6 @@
   rapidfuzz-cpp,
   taskflow,
 }:
-
 buildPythonPackage rec {
   pname = "rapidfuzz";
   version = "3.13.0";
@@ -48,7 +47,7 @@ buildPythonPackage rec {
   '';
 
   optional-dependencies = {
-    all = [ numpy ];
+    all = [numpy];
   };
 
   preCheck = ''
@@ -78,6 +77,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/maxbachmann/RapidFuzz";
     changelog = "https://github.com/maxbachmann/RapidFuzz/blob/${src.tag}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

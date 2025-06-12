@@ -7,7 +7,6 @@
   libGLU,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   version = "6.3";
   pname = "molden";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "02qi16pz2wffn3cc47dpjqhfafzwfmb79waw4nnhfyir8a4h3cq1";
   };
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
   buildInputs = [
     gfortran
     libGLU
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     xorg.libXmu
   ];
 
-  patches = [ ./dont_register_file_types.patch ];
+  patches = [./dont_register_file_types.patch];
 
   # fix build with GCC 14
   env.NIX_CFLAGS_COMPILE = "-Wno-implicit-function-declaration -Wno-implicit-int -Wno-return-mismatch";
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
       free = false;
     };
     platforms = platforms.linux;
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
   };
 }

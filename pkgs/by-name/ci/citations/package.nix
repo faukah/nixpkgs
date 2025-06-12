@@ -20,7 +20,6 @@
   clippy,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "citations";
   version = "0.8.0";
@@ -70,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  nativeCheckInputs = [ clippy ];
+  nativeCheckInputs = [clippy];
 
   preCheck = ''
     sed -i -e '/PATH=/d' ../src/meson.build
@@ -82,15 +81,15 @@ stdenv.mkDerivation (finalAttrs: {
       command = "citations --help";
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Manage your bibliographies using the BibTeX format";
     homepage = "https://apps.gnome.org/app/org.gnome.World.Citations";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ benediktbroich ];
-    teams = [ teams.gnome-circle ];
+    maintainers = with maintainers; [benediktbroich];
+    teams = [teams.gnome-circle];
     platforms = platforms.unix;
     mainProgram = "citations";
   };

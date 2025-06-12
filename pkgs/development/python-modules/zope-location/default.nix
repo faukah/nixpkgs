@@ -10,7 +10,6 @@
   zope-configuration,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zope-location";
   version = "5.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-C8tQ4qqzkQx+iU+Pm3iCEchtqOZT/qcYFSzJWzqlhnI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     zope-interface
@@ -32,13 +31,13 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    zcml = [ zope-configuration ];
-    component = [ zope-component ];
+    zcml = [zope-configuration];
+    component = [zope-component];
   };
 
-  pythonImportsCheck = [ "zope.location" ];
+  pythonImportsCheck = ["zope.location"];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   # prevent cirtular import
   preCheck = ''
@@ -46,15 +45,15 @@ buildPythonPackage rec {
     rm src/zope/location/tests/test_pickling.py
   '';
 
-  unittestFlagsArray = [ "src/zope/location/tests" ];
+  unittestFlagsArray = ["src/zope/location/tests"];
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = {
     homepage = "https://github.com/zopefoundation/zope.location/";
     description = "Zope Location";
     changelog = "https://github.com/zopefoundation/zope.location/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

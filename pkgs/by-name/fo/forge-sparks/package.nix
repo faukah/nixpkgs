@@ -18,7 +18,6 @@
   stdenv,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "forge-sparks";
   version = "0.4.0";
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -70,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/rafaelmardojai/forge-sparks";
     license = lib.licenses.mit;
     mainProgram = "forge-sparks";
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.linux;
   };
 })

@@ -15,7 +15,6 @@
   libgee,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cipher";
   version = "2.5.0";
@@ -52,14 +51,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Simple application for encoding and decoding text, designed for elementary OS";
     homepage = "https://github.com/arshubham/cipher";
-    maintainers = with maintainers; [ xiorcale ];
-    teams = [ teams.pantheon ];
+    maintainers = with maintainers; [xiorcale];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
     mainProgram = "com.github.arshubham.cipher";

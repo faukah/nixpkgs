@@ -17,7 +17,6 @@
   libspelling,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "alpaca";
   version = "6.1.7";
@@ -62,7 +61,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   optional-dependencies = {
-    speech-to-text = [ python3Packages.openai-whisper ];
+    speech-to-text = [python3Packages.openai-whisper];
   };
 
   dontWrapGApps = true;
@@ -80,7 +79,7 @@ python3Packages.buildPythonApplication rec {
     "--set FLATPAK_DEST ${placeholder "out"}"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Ollama client made with GTK4 and Adwaita";

@@ -3,29 +3,25 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.uwsm;
 
   # Helper function to create desktop entry files for UWSM-managed compositors
-  mk_uwsm_desktop_entry =
-    opts:
-    (pkgs.writeTextFile {
-      name = "${opts.name}-uwsm";
-      text = ''
-        [Desktop Entry]
-        Name=${opts.prettyName} (UWSM)
-        Comment=${opts.comment}
-        Exec=${lib.getExe cfg.package} start -S -F ${opts.binPath}
-        Type=Application
-      '';
-      destination = "/share/wayland-sessions/${opts.name}-uwsm.desktop";
-      derivationArgs = {
-        passthru.providedSessions = [ "${opts.name}-uwsm" ];
-      };
-    });
-in
-{
+  mk_uwsm_desktop_entry = opts: (pkgs.writeTextFile {
+    name = "${opts.name}-uwsm";
+    text = ''
+      [Desktop Entry]
+      Name=${opts.prettyName} (UWSM)
+      Comment=${opts.comment}
+      Exec=${lib.getExe cfg.package} start -S -F ${opts.binPath}
+      Type=Application
+    '';
+    destination = "/share/wayland-sessions/${opts.name}-uwsm.desktop";
+    derivationArgs = {
+      passthru.providedSessions = ["${opts.name}-uwsm"];
+    };
+  });
+in {
   options.programs.uwsm = {
     enable = lib.mkEnableOption ''
       uwsm, which wraps standalone Wayland compositors with a set
@@ -50,7 +46,7 @@ in
       `graphical-session.target`, while using a WM, enabling this option
       might help
     '';
-    package = lib.mkPackageOption pkgs "uwsm" { };
+    package = lib.mkPackageOption pkgs "uwsm" {};
 
     waylandCompositors = lib.mkOption {
       description = ''
@@ -60,8 +56,7 @@ in
       '';
       type = lib.types.attrsOf (
         lib.types.submodule (
-          { ... }:
-          {
+          {...}: {
             options = {
               prettyName = lib.mkOption {
                 type = lib.types.str;
@@ -104,22 +99,24 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-    systemd.packages = [ cfg.package ];
-    environment.pathsToLink = [ "/share/uwsm" ];
+    environment.systemPackages = [cfg.package];
+    systemd.packages = [cfg.package];
+    environment.pathsToLink = ["/share/uwsm"];
 
     # UWSM recommends dbus broker for better compatibility
     services.dbus.implementation = "broker";
 
     services.displayManager = {
       enable = true;
-      sessionPackages = lib.mapAttrsToList (
-        name: value:
-        mk_uwsm_desktop_entry {
-          inherit name;
-          inherit (value) prettyName comment binPath;
-        }
-      ) cfg.waylandCompositors;
+      sessionPackages =
+        lib.mapAttrsToList (
+          name: value:
+            mk_uwsm_desktop_entry {
+              inherit name;
+              inherit (value) prettyName comment binPath;
+            }
+        )
+        cfg.waylandCompositors;
     };
   };
 

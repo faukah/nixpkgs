@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cmake,
   nanobind,
@@ -11,7 +10,6 @@
   scikit-build-core,
   setuptools,
   setuptools-scm,
-
   # dependencies
   h5py,
   matplotlib,
@@ -19,10 +17,8 @@
   scipy,
   spglib,
   symfc,
-
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "phonopy";
   version = "2.38.2";
@@ -56,14 +52,14 @@ buildPythonPackage rec {
     symfc
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # prevent pytest from importing local directory
   preCheck = ''
     rm -r phonopy
   '';
 
-  pythonImportsCheck = [ "phonopy" ];
+  pythonImportsCheck = ["phonopy"];
 
   meta = {
     description = "Modulefor phonon calculations at harmonic and quasi-harmonic levels";

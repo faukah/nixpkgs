@@ -11,7 +11,6 @@
   cairo,
   pango,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rofi-games";
   version = "1.12.2";
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Rofi plugin which adds a mode that will list available games for launch along with their box art";
     homepage = "https://github.com/Rolv-Apneseth/rofi-games";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.linux;
   };
 })

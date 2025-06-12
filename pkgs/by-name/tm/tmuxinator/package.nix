@@ -4,11 +4,9 @@
   ruby,
   installShellFiles,
 }:
-
 # Cannot use bundleEnv because bundleEnv create stub with
 # BUNDLE_FROZEN='1' environment variable set, which broke everything
 # that rely on Bundler that runs under Tmuxinator.
-
 buildRubyGem rec {
   inherit ruby;
   name = "${gemName}-${version}";
@@ -46,7 +44,7 @@ buildRubyGem rec {
     xdg
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion $GEM_HOME/gems/${gemName}-${version}/completion/tmuxinator.{bash,zsh,fish}

@@ -21,7 +21,6 @@
   enableUnfree ? false,
   opencv,
 }:
-
 mkDerivation rec {
   pname = "pfstools";
   version = "2.2.0";
@@ -37,7 +36,7 @@ mkDerivation rec {
     "man"
   ];
 
-  cmakeFlags = [ "-DWITH_MATLAB=false" ];
+  cmakeFlags = ["-DWITH_MATLAB=false"];
 
   preConfigure = ''
     sed -e 's|#include( ''${PROJECT_SRC_DIR}/cmake/FindNETPBM.cmake )|include( ''${PROJECT_SOURCE_DIR}/cmake/FindNETPBM.cmake )|' -i CMakeLists.txt
@@ -72,7 +71,7 @@ mkDerivation rec {
       libGL
       libglut
     ]
-    ++ lib.optional enableUnfree (opencv.override { enableUnfree = true; });
+    ++ lib.optional enableUnfree (opencv.override {enableUnfree = true;});
 
   patches = [
     ./glut.patch
@@ -86,6 +85,6 @@ mkDerivation rec {
     description = "Toolkit for manipulation of HDR images";
     platforms = platforms.linux;
     license = licenses.lgpl2;
-    maintainers = [ maintainers.juliendehos ];
+    maintainers = [maintainers.juliendehos];
   };
 }

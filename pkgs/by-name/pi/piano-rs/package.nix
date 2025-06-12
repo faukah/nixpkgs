@@ -6,7 +6,6 @@
   pkg-config,
   alsa-lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "piano-rs";
   version = "0.2.0";
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ritiek/piano-rs";
     license = licenses.mit;
     mainProgram = "piano-rs";
-    maintainers = with maintainers; [ ritiek ];
+    maintainers = with maintainers; [ritiek];
     platforms = platforms.unix;
   };
 }

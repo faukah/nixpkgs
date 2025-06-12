@@ -3,37 +3,37 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib) types;
-  jsonFormat = pkgs.formats.json { };
+  jsonFormat = pkgs.formats.json {};
 
   cfg = config.services.anubis;
   enabledInstances = lib.filterAttrs (_: conf: conf.enable) cfg.instances;
-  instanceName = name: if name == "" then "anubis" else "anubis-${name}";
+  instanceName = name:
+    if name == ""
+    then "anubis"
+    else "anubis-${name}";
 
-  commonSubmodule =
-    isDefault:
-    let
-      mkDefaultOption =
-        path: opts:
-        lib.mkOption (
-          opts
-          // lib.optionalAttrs (!isDefault && opts ? default) {
-            default =
-              lib.attrByPath (lib.splitString "." path)
-                (throw "This is a bug in the Anubis module. Please report this as an issue.")
-                cfg.defaultOptions;
-            defaultText = lib.literalExpression "config.services.anubis.defaultOptions.${path}";
-          }
-        );
-    in
-    { name, ... }:
-    {
+  commonSubmodule = isDefault: let
+    mkDefaultOption = path: opts:
+      lib.mkOption (
+        opts
+        // lib.optionalAttrs (!isDefault && opts ? default) {
+          default =
+            lib.attrByPath (lib.splitString "." path)
+            (throw "This is a bug in the Anubis module. Please report this as an issue.")
+            cfg.defaultOptions;
+          defaultText = lib.literalExpression "config.services.anubis.defaultOptions.${path}";
+        }
+      );
+  in
+    {name, ...}: {
       options = {
-        enable = lib.mkEnableOption "this instance of Anubis" // {
-          default = true;
-        };
+        enable =
+          lib.mkEnableOption "this instance of Anubis"
+          // {
+            default = true;
+          };
         user = mkDefaultOption "user" {
           default = "anubis";
           description = ''
@@ -70,14 +70,14 @@ let
         };
 
         extraFlags = mkDefaultOption "extraFlags" {
-          default = [ ];
+          default = [];
           description = "A list of extra flags to be passed to Anubis.";
-          example = [ "-metrics-bind \"\"" ];
+          example = ["-metrics-bind \"\""];
           type = types.listOf types.str;
         };
 
         settings = lib.mkOption {
-          default = { };
+          default = {};
           description = ''
             Freeform configuration via environment variables for Anubis.
 
@@ -86,8 +86,7 @@ let
           '';
           type = types.submodule [
             {
-              freeformType =
-                with types;
+              freeformType = with types;
                 attrsOf (
                   nullOr (oneOf [
                     str
@@ -218,19 +217,18 @@ let
       };
     };
   };
-in
-{
+in {
   options.services.anubis = {
-    package = lib.mkPackageOption pkgs "anubis" { };
+    package = lib.mkPackageOption pkgs "anubis" {};
 
     defaultOptions = lib.mkOption {
-      default = { };
+      default = {};
       description = "Default options for all instances of Anubis.";
       type = types.submodule (commonSubmodule true);
     };
 
     instances = lib.mkOption {
-      default = { };
+      default = {};
       description = ''
         An attribute set of Anubis instances.
 
@@ -244,7 +242,7 @@ in
     };
   };
 
-  config = lib.mkIf (enabledInstances != { }) {
+  config = lib.mkIf (enabledInstances != {}) {
     users.users = lib.mkIf (cfg.defaultOptions.user == "anubis") {
       anubis = {
         isSystemUser = true;
@@ -253,79 +251,82 @@ in
     };
 
     users.groups = lib.mkIf (cfg.defaultOptions.group == "anubis") {
-      anubis = { };
+      anubis = {};
     };
 
-    systemd.services = lib.mapAttrs' (
-      name: instance:
-      lib.nameValuePair "${instanceName name}" {
-        description = "Anubis (${if name == "" then "default" else name} instance)";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network-online.target" ];
-        wants = [ "network-online.target" ];
+    systemd.services =
+      lib.mapAttrs' (
+        name: instance:
+          lib.nameValuePair "${instanceName name}" {
+            description = "Anubis (${
+              if name == ""
+              then "default"
+              else name
+            } instance)";
+            wantedBy = ["multi-user.target"];
+            after = ["network-online.target"];
+            wants = ["network-online.target"];
 
-        environment = lib.mapAttrs (lib.const (lib.generators.mkValueStringDefault { })) (
-          lib.filterAttrs (_: v: v != null) instance.settings
-        );
+            environment = lib.mapAttrs (lib.const (lib.generators.mkValueStringDefault {})) (
+              lib.filterAttrs (_: v: v != null) instance.settings
+            );
 
-        serviceConfig = {
-          User = instance.user;
-          Group = instance.group;
-          DynamicUser = true;
+            serviceConfig = {
+              User = instance.user;
+              Group = instance.group;
+              DynamicUser = true;
 
-          ExecStart = lib.concatStringsSep " " (
-            (lib.singleton (lib.getExe cfg.package)) ++ instance.extraFlags
-          );
-          RuntimeDirectory =
-            if
-              lib.any (lib.hasPrefix "/run/anubis") (
-                with instance.settings;
-                [
-                  BIND
-                  METRICS_BIND
-                ]
-              )
-            then
-              "anubis"
-            else
-              null;
+              ExecStart = lib.concatStringsSep " " (
+                (lib.singleton (lib.getExe cfg.package)) ++ instance.extraFlags
+              );
+              RuntimeDirectory =
+                if
+                  lib.any (lib.hasPrefix "/run/anubis") (
+                    with instance.settings; [
+                      BIND
+                      METRICS_BIND
+                    ]
+                  )
+                then "anubis"
+                else null;
 
-          # hardening
-          NoNewPrivileges = true;
-          CapabilityBoundingSet = null;
-          SystemCallFilter = [
-            "@system-service"
-            "~@privileged"
-          ];
-          SystemCallArchitectures = "native";
-          MemoryDenyWriteExecute = true;
-          AmbientCapabilities = "";
-          PrivateMounts = true;
-          PrivateUsers = true;
-          PrivateTmp = true;
-          PrivateDevices = true;
-          ProtectHome = true;
-          ProtectClock = true;
-          ProtectHostname = true;
-          ProtectKernelLogs = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          ProtectProc = "invisible";
-          ProtectSystem = "strict";
-          ProtectControlGroups = "strict";
-          LockPersonality = true;
-          RemoveIPC = true;
-          RestrictRealtime = true;
-          RestrictSUIDSGID = true;
-          RestrictNamespaces = true;
-          RestrictAddressFamilies = [
-            "AF_UNIX"
-            "AF_INET"
-            "AF_INET6"
-          ];
-        };
-      }
-    ) enabledInstances;
+              # hardening
+              NoNewPrivileges = true;
+              CapabilityBoundingSet = null;
+              SystemCallFilter = [
+                "@system-service"
+                "~@privileged"
+              ];
+              SystemCallArchitectures = "native";
+              MemoryDenyWriteExecute = true;
+              AmbientCapabilities = "";
+              PrivateMounts = true;
+              PrivateUsers = true;
+              PrivateTmp = true;
+              PrivateDevices = true;
+              ProtectHome = true;
+              ProtectClock = true;
+              ProtectHostname = true;
+              ProtectKernelLogs = true;
+              ProtectKernelModules = true;
+              ProtectKernelTunables = true;
+              ProtectProc = "invisible";
+              ProtectSystem = "strict";
+              ProtectControlGroups = "strict";
+              LockPersonality = true;
+              RemoveIPC = true;
+              RestrictRealtime = true;
+              RestrictSUIDSGID = true;
+              RestrictNamespaces = true;
+              RestrictAddressFamilies = [
+                "AF_UNIX"
+                "AF_INET"
+                "AF_INET6"
+              ];
+            };
+          }
+      )
+      enabledInstances;
   };
 
   meta.maintainers = with lib.maintainers; [

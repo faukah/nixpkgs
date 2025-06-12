@@ -11,7 +11,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "adguardhome";
   version = "0.7.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
       --replace-fail '"0.0.0"' '"${version}"'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -47,13 +46,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "adguardhome" ];
+  pythonImportsCheck = ["adguardhome"];
 
   meta = with lib; {
     description = "Python client for the AdGuard Home API";
     homepage = "https://github.com/frenck/python-adguardhome";
     changelog = "https://github.com/frenck/python-adguardhome/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
   };
 }

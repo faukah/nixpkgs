@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "untie";
   version = "0.3";
@@ -17,12 +16,12 @@ stdenv.mkDerivation (finalAttrs: {
     ./add-define-gnu-source.patch
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Tool to run processes untied from some of the namespaces";
     mainProgram = "untie";
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
   };

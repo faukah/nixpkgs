@@ -24,8 +24,7 @@
   gtk3,
   # runtime dependencies for JavaFX
   ffmpeg,
-}:
-let
+}: let
   dist =
     dists.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
@@ -34,7 +33,9 @@ let
       "aarch64" = "aarch64";
       "x86_64" = "x64";
     }
-    .${stdenv.hostPlatform.parsed.cpu.name}
+    .${
+      stdenv.hostPlatform.parsed.cpu.name
+    }
       or (throw "Unsupported architecture: ${stdenv.hostPlatform.parsed.cpu.name}");
 
   platform =
@@ -42,7 +43,9 @@ let
       "darwin" = "macosx";
       "linux" = "linux";
     }
-    .${stdenv.hostPlatform.parsed.kernel.name}
+    .${
+      stdenv.hostPlatform.parsed.kernel.name
+    }
       or (throw "Unsupported platform: ${stdenv.hostPlatform.parsed.kernel.name}");
 
   runtimeDependencies =
@@ -68,7 +71,10 @@ let
     hash = "sha256-gCGii4ysQbRPFCH9IQoKCCL8r4jWLS5wo1sv9iioZ1o=";
   };
 
-  javaPackage = if enableJavaFX then "ca-fx-jdk" else "ca-jdk";
+  javaPackage =
+    if enableJavaFX
+    then "ca-fx-jdk"
+    else "ca-jdk";
 
   isJdk8 = lib.versions.major dist.jdkVersion == "8";
 
@@ -108,13 +114,12 @@ let
       ++ lib.optionals (stdenv.hostPlatform.isLinux && enableJavaFX) runtimeDependencies;
 
     autoPatchelfIgnoreMissingDeps =
-      if (stdenv.hostPlatform.isLinux && enableJavaFX) then
-        [
-          "libavcodec*.so.*"
-          "libavformat*.so.*"
-        ]
-      else
-        null;
+      if (stdenv.hostPlatform.isLinux && enableJavaFX)
+      then [
+        "libavcodec*.so.*"
+        "libavformat*.so.*"
+      ]
+      else null;
 
     installPhase =
       ''
@@ -143,8 +148,16 @@ let
 
     preFixup =
       ''
-        # Propagate the setJavaClassPath setup hook from the ${if isJdk8 then "JRE" else "JDK"} so that
-        # any package that depends on the ${if isJdk8 then "JRE" else "JDK"} has $CLASSPATH set up
+        # Propagate the setJavaClassPath setup hook from the ${
+          if isJdk8
+          then "JRE"
+          else "JDK"
+        } so that
+        # any package that depends on the ${
+          if isJdk8
+          then "JRE"
+          else "JDK"
+        } has $CLASSPATH set up
         # properly.
         mkdir -p $out/nix-support
         printWords ${setJavaClassPath} > $out/nix-support/propagated-build-inputs
@@ -197,7 +210,7 @@ let
       homepage = "https://www.azul.com/products/zulu/";
       license = lib.licenses.gpl2Only;
       mainProgram = "java";
-      teams = [ lib.teams.java ];
+      teams = [lib.teams.java];
       platforms = builtins.attrNames dists;
       sourceProvenance = with lib.sourceTypes; [
         binaryBytecode
@@ -206,4 +219,4 @@ let
     };
   };
 in
-jdk
+  jdk

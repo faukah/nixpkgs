@@ -13,9 +13,7 @@
   stdenv,
   udev,
   wrapGAppsHook3,
-}:
-
-let
+}: let
   version = "0.2.0";
 
   src = fetchzip {
@@ -41,61 +39,60 @@ let
     '';
   };
 in
-stdenv.mkDerivation {
-  pname = "usbkvm";
-  inherit version src;
+  stdenv.mkDerivation {
+    pname = "usbkvm";
+    inherit version src;
 
-  nativeBuildInputs = [
-    pkg-config
-    python3
-    meson
-    ninja
-    makeWrapper
-    wrapGAppsHook3
-    udev
-  ];
+    nativeBuildInputs = [
+      pkg-config
+      python3
+      meson
+      ninja
+      makeWrapper
+      wrapGAppsHook3
+      udev
+    ];
 
-  buildInputs = [
-    gst_all_1.gstreamer
-    gtkmm3
-    hidapi
-  ];
+    buildInputs = [
+      gst_all_1.gstreamer
+      gtkmm3
+      hidapi
+    ];
 
-  # The package includes instructions to build the "mslib.{a,h}" files using a
-  # Go compiler, but that doesn't work in the Nix sandbox. We patch out this
-  # build step to instead copy those files from the Nix store:
-  patches = [
-    ./precompiled-mslib.patch
-  ];
-  postPatch = ''
-    substituteInPlace meson.build \
-      --replace-fail "@MSLIB_A_PRECOMPILED@" "${ms-tools-lib}/mslib.a" \
-      --replace-fail "@MSLIB_H_PRECOMPILED@" "${ms-tools-lib}/mslib.h"
-  '';
-
-  # Install udev rules in this package's out path:
-  mesonFlags = [
-    "-Dudevrulesdir=lib/udev/rules.d"
-  ];
-
-  postFixup =
-    let
-      GST_PLUGIN_PATH = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
-        gst_all_1.gst-plugins-base
-        (gst_all_1.gst-plugins-good.override { gtkSupport = true; })
-      ];
-    in
-    lib.optionalString stdenv.hostPlatform.isLinux ''
-      wrapProgram $out/bin/usbkvm \
-        --prefix GST_PLUGIN_PATH : "${GST_PLUGIN_PATH}"
+    # The package includes instructions to build the "mslib.{a,h}" files using a
+    # Go compiler, but that doesn't work in the Nix sandbox. We patch out this
+    # build step to instead copy those files from the Nix store:
+    patches = [
+      ./precompiled-mslib.patch
+    ];
+    postPatch = ''
+      substituteInPlace meson.build \
+        --replace-fail "@MSLIB_A_PRECOMPILED@" "${ms-tools-lib}/mslib.a" \
+        --replace-fail "@MSLIB_H_PRECOMPILED@" "${ms-tools-lib}/mslib.h"
     '';
 
-  meta = {
-    homepage = "https://github.com/carrotIndustries/usbkvm";
-    description = "Open-source USB KVM (Keyboard, Video and Mouse) adapter";
-    changelog = "https://github.com/carrotIndustries/usbkvm/releases/tag/v${version}";
-    license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ lschuermann ];
-    mainProgram = "usbkvm";
-  };
-}
+    # Install udev rules in this package's out path:
+    mesonFlags = [
+      "-Dudevrulesdir=lib/udev/rules.d"
+    ];
+
+    postFixup = let
+      GST_PLUGIN_PATH = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
+        gst_all_1.gst-plugins-base
+        (gst_all_1.gst-plugins-good.override {gtkSupport = true;})
+      ];
+    in
+      lib.optionalString stdenv.hostPlatform.isLinux ''
+        wrapProgram $out/bin/usbkvm \
+          --prefix GST_PLUGIN_PATH : "${GST_PLUGIN_PATH}"
+      '';
+
+    meta = {
+      homepage = "https://github.com/carrotIndustries/usbkvm";
+      description = "Open-source USB KVM (Keyboard, Video and Mouse) adapter";
+      changelog = "https://github.com/carrotIndustries/usbkvm/releases/tag/v${version}";
+      license = lib.licenses.gpl3;
+      maintainers = with lib.maintainers; [lschuermann];
+      mainProgram = "usbkvm";
+    };
+  }

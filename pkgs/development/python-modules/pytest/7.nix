@@ -5,11 +5,9 @@
   pythonOlder,
   fetchPypi,
   writeText,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   attrs,
   exceptiongroup,
@@ -17,7 +15,6 @@
   packaging,
   pluggy,
   tomli,
-
   # optional-dependencies
   argcomplete,
   hypothesis,
@@ -25,9 +22,7 @@
   pygments,
   requests,
   xmlschema,
-}:
-
-let
+}: let
   self = buildPythonPackage rec {
     pname = "pytest";
     version = "7.4.4";
@@ -78,7 +73,7 @@ let
     '';
 
     doCheck = false;
-    passthru.tests.pytest = callPackage ./tests.nix { pytest = self; };
+    passthru.tests.pytest = callPackage ./tests.nix {pytest = self;};
 
     # Remove .pytest_cache when using py.test in a Nix build
     setupHook = writeText "pytest-hook" ''
@@ -101,7 +96,7 @@ let
       appendToVar preDistPhases pytestRemoveBytecodePhase
     '';
 
-    pythonImportsCheck = [ "pytest" ];
+    pythonImportsCheck = ["pytest"];
 
     meta = with lib; {
       description = "Framework for writing tests";
@@ -116,4 +111,4 @@ let
     };
   };
 in
-self
+  self

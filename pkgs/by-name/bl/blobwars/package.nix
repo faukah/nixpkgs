@@ -11,7 +11,6 @@
   SDL2_ttf,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "blobwars";
   version = "2.00";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "c406279f6cdf2aed3c6edb8d8be16efeda0217494acd525f39ee2bd3e77e4a99";
   };
 
-  patches = [ ./blobwars-2.00-glibc-2.38.patch ];
+  patches = [./blobwars-2.00-glibc-2.38.patch];
 
   nativeBuildInputs = [
     pkg-config
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     SDL2_ttf
     zlib
   ];
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error"];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
       free
     ];
-    maintainers = with maintainers; [ iblech ];
+    maintainers = with maintainers; [iblech];
     platforms = platforms.unix;
   };
 }

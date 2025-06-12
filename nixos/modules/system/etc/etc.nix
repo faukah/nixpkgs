@@ -4,81 +4,76 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   etc' = lib.filter (f: f.enable) (lib.attrValues config.environment.etc);
 
   etc =
     pkgs.runCommandLocal "etc"
-      {
-        # This is needed for the systemd module
-        passthru.targets = map (x: x.target) etc';
-      } # sh
-      ''
-        set -euo pipefail
+    {
+      # This is needed for the systemd module
+      passthru.targets = map (x: x.target) etc';
+    } # sh
+    
+    ''
+      set -euo pipefail
 
-        makeEtcEntry() {
-          src="$1"
-          target="$2"
-          mode="$3"
-          user="$4"
-          group="$5"
+      makeEtcEntry() {
+        src="$1"
+        target="$2"
+        mode="$3"
+        user="$4"
+        group="$5"
 
-          if [[ "$src" = *'*'* ]]; then
-            # If the source name contains '*', perform globbing.
-            mkdir -p "$out/etc/$target"
-            for fn in $src; do
-                ln -s "$fn" "$out/etc/$target/"
-            done
+        if [[ "$src" = *'*'* ]]; then
+          # If the source name contains '*', perform globbing.
+          mkdir -p "$out/etc/$target"
+          for fn in $src; do
+              ln -s "$fn" "$out/etc/$target/"
+          done
+        else
+
+          mkdir -p "$out/etc/$(dirname "$target")"
+          if ! [ -e "$out/etc/$target" ]; then
+            ln -s "$src" "$out/etc/$target"
           else
-
-            mkdir -p "$out/etc/$(dirname "$target")"
-            if ! [ -e "$out/etc/$target" ]; then
-              ln -s "$src" "$out/etc/$target"
-            else
-              echo "duplicate entry $target -> $src"
-              if [ "$(readlink "$out/etc/$target")" != "$src" ]; then
-                echo "mismatched duplicate entry $(readlink "$out/etc/$target") <-> $src"
-                ret=1
-              fi
-            fi
-
-            if [ "$mode" != symlink ]; then
-              echo "$mode" > "$out/etc/$target.mode"
-              echo "$user" > "$out/etc/$target.uid"
-              echo "$group" > "$out/etc/$target.gid"
+            echo "duplicate entry $target -> $src"
+            if [ "$(readlink "$out/etc/$target")" != "$src" ]; then
+              echo "mismatched duplicate entry $(readlink "$out/etc/$target") <-> $src"
+              ret=1
             fi
           fi
-        }
 
-        mkdir -p "$out/etc"
-        ${lib.concatMapStringsSep "\n" (
+          if [ "$mode" != symlink ]; then
+            echo "$mode" > "$out/etc/$target.mode"
+            echo "$user" > "$out/etc/$target.uid"
+            echo "$group" > "$out/etc/$target.gid"
+          fi
+        fi
+      }
+
+      mkdir -p "$out/etc"
+      ${lib.concatMapStringsSep "\n" (
           etcEntry:
-          lib.escapeShellArgs [
-            "makeEtcEntry"
-            # Force local source paths to be added to the store
-            "${etcEntry.source}"
-            etcEntry.target
-            etcEntry.mode
-            etcEntry.user
-            etcEntry.group
-          ]
-        ) etc'}
-      '';
+            lib.escapeShellArgs [
+              "makeEtcEntry"
+              # Force local source paths to be added to the store
+              "${etcEntry.source}"
+              etcEntry.target
+              etcEntry.mode
+              etcEntry.user
+              etcEntry.group
+            ]
+        )
+        etc'}
+    '';
 
   etcHardlinks = lib.filter (f: f.mode != "symlink" && f.mode != "direct-symlink") etc';
-
-in
-
-{
-
-  imports = [ ../build.nix ];
+in {
+  imports = [../build.nix];
 
   ###### interface
 
   options = {
-
     system.etc.overlay = {
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -104,7 +99,7 @@ in
     };
 
     environment.etc = lib.mkOption {
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         { example-configuration-file =
             { source = "/nix/store/.../etc/dir/file.conf.example";
@@ -117,8 +112,7 @@ in
         Set of files that have to be linked in {file}`/etc`.
       '';
 
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (
           submodule (
             {
@@ -126,10 +120,8 @@ in
               config,
               options,
               ...
-            }:
-            {
+            }: {
               options = {
-
                 enable = lib.mkOption {
                   type = lib.types.bool;
                   default = true;
@@ -217,47 +209,42 @@ in
                     takes precedence over `gid`.
                   '';
                 };
-
               };
 
               config = {
                 target = lib.mkDefault name;
                 source = lib.mkIf (config.text != null) (
                   let
-                    name' = "etc-" + lib.replaceStrings [ "/" ] [ "-" ] name;
+                    name' = "etc-" + lib.replaceStrings ["/"] ["-"] name;
                   in
-                  lib.mkDerivedConfig options.text (pkgs.writeText name')
+                    lib.mkDerivedConfig options.text (pkgs.writeText name')
                 );
               };
-
             }
           )
         );
-
     };
-
   };
 
   ###### implementation
 
   config = {
-
     system.build.etc = etc;
-    system.build.etcActivationCommands =
-      let
-        etcOverlayOptions = lib.concatStringsSep "," (
-          [
-            "relatime"
-            "redirect_dir=on"
-            "metacopy=on"
-          ]
-          ++ lib.optionals config.system.etc.overlay.mutable [
-            "upperdir=/.rw-etc/upper"
-            "workdir=/.rw-etc/work"
-          ]
-        );
-      in
-      if config.system.etc.overlay.enable then
+    system.build.etcActivationCommands = let
+      etcOverlayOptions = lib.concatStringsSep "," (
+        [
+          "relatime"
+          "redirect_dir=on"
+          "metacopy=on"
+        ]
+        ++ lib.optionals config.system.etc.overlay.mutable [
+          "upperdir=/.rw-etc/upper"
+          "workdir=/.rw-etc/work"
+        ]
+      );
+    in
+      if config.system.etc.overlay.enable
+      then
         #bash
         ''
           # This script atomically remounts /etc when switching configuration.
@@ -275,12 +262,12 @@ in
             echo "remounting /etc..."
 
             ${lib.optionalString config.system.etc.overlay.mutable ''
-              # These directories are usually created in initrd,
-              # but we need to create them here when we're called directly,
-              # for instance by nixos-enter
-              mkdir --parents /.rw-etc/upper /.rw-etc/work
-              chmod 0755 /.rw-etc /.rw-etc/upper /.rw-etc/work
-            ''}
+            # These directories are usually created in initrd,
+            # but we need to create them here when we're called directly,
+            # for instance by nixos-enter
+            mkdir --parents /.rw-etc/upper /.rw-etc/work
+            chmod 0755 /.rw-etc /.rw-etc/upper /.rw-etc/work
+          ''}
 
             tmpMetadataMount=$(TMPDIR="/run" mktemp --directory -t nixos-etc-metadata.XXXXXXXXXX)
             mount --type erofs --options ro,nodev,nosuid ${config.system.build.etcMetadataImage} $tmpMetadataMount
@@ -310,22 +297,21 @@ in
 
                 tmpMountPoint="$tmpEtcMount/''${mountPoint:5}"
                   ${
-                    if config.system.etc.overlay.mutable then
-                      ''
-                        if [[ -f "$mountPoint" ]]; then
-                          touch "$tmpMountPoint"
-                        elif [[ -d "$mountPoint" ]]; then
-                          mkdir -p "$tmpMountPoint"
-                        fi
-                      ''
-                    else
-                      ''
-                        if [[ ! -e "$tmpMountPoint" ]]; then
-                          echo "Skipping undeclared mountpoint in environment.etc: $mountPoint"
-                          continue
-                        fi
-                      ''
-                  }
+            if config.system.etc.overlay.mutable
+            then ''
+              if [[ -f "$mountPoint" ]]; then
+                touch "$tmpMountPoint"
+              elif [[ -d "$mountPoint" ]]; then
+                mkdir -p "$tmpMountPoint"
+              fi
+            ''
+            else ''
+              if [[ ! -e "$tmpMountPoint" ]]; then
+                echo "Skipping undeclared mountpoint in environment.etc: $mountPoint"
+                continue
+              fi
+            ''
+          }
                 mount --bind "$mountPoint" "$tmpMountPoint"
               done
 
@@ -357,14 +343,13 @@ in
             done
           fi
         ''
-      else
-        ''
-          # Set up the statically computed bits of /etc.
-          echo "setting up /etc..."
-          ${pkgs.perl.withPackages (p: [ p.FileSlurp ])}/bin/perl ${./setup-etc.pl} ${etc}/etc
-        '';
+      else ''
+        # Set up the statically computed bits of /etc.
+        echo "setting up /etc..."
+        ${pkgs.perl.withPackages (p: [p.FileSlurp])}/bin/perl ${./setup-etc.pl} ${etc}/etc
+      '';
 
-    system.build.etcBasedir = pkgs.runCommandLocal "etc-lowerdir" { } ''
+    system.build.etcBasedir = pkgs.runCommandLocal "etc-lowerdir" {} ''
       set -euo pipefail
 
       makeEtcEntry() {
@@ -377,35 +362,33 @@ in
 
       mkdir -p "$out"
       ${lib.concatMapStringsSep "\n" (
-        etcEntry:
-        lib.escapeShellArgs [
-          "makeEtcEntry"
-          # Force local source paths to be added to the store
-          "${etcEntry.source}"
-          etcEntry.target
-        ]
-      ) etcHardlinks}
+          etcEntry:
+            lib.escapeShellArgs [
+              "makeEtcEntry"
+              # Force local source paths to be added to the store
+              "${etcEntry.source}"
+              etcEntry.target
+            ]
+        )
+        etcHardlinks}
     '';
 
-    system.build.etcMetadataImage =
-      let
-        etcJson = pkgs.writeText "etc-json" (builtins.toJSON etc');
-        etcDump = pkgs.runCommandLocal "etc-dump" { } ''
-          ${lib.getExe pkgs.buildPackages.python3} ${./build-composefs-dump.py} ${etcJson} > $out
-        '';
-      in
+    system.build.etcMetadataImage = let
+      etcJson = pkgs.writeText "etc-json" (builtins.toJSON etc');
+      etcDump = pkgs.runCommandLocal "etc-dump" {} ''
+        ${lib.getExe pkgs.buildPackages.python3} ${./build-composefs-dump.py} ${etcJson} > $out
+      '';
+    in
       pkgs.runCommandLocal "etc-metadata.erofs"
-        {
-          nativeBuildInputs = with pkgs.buildPackages; [
-            composefs
-            erofs-utils
-          ];
-        }
-        ''
-          mkcomposefs --from-file ${etcDump} $out
-          fsck.erofs $out
-        '';
-
+      {
+        nativeBuildInputs = with pkgs.buildPackages; [
+          composefs
+          erofs-utils
+        ];
+      }
+      ''
+        mkcomposefs --from-file ${etcDump} $out
+        fsck.erofs $out
+      '';
   };
-
 }

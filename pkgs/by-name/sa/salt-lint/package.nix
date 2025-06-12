@@ -4,7 +4,6 @@
   python3Packages,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "salt-lint";
   version = "0.9.2";
@@ -38,6 +37,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://salt-lint.readthedocs.io/en/latest/";
     license = lib.licenses.mit;
     mainProgram = "salt-lint";
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
   };
 }

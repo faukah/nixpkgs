@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "gtrash";
   version = "0.0.6";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-JJA9kxNCtvfs51TzO7hEaS4UngBOEJuIIRIfHKSUMls=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   # disabled because it is required to run on docker.
   doCheck = false;
@@ -31,7 +30,7 @@ buildGoModule rec {
     "-X main.builtBy=nixpkgs"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd gtrash \
@@ -45,7 +44,7 @@ buildGoModule rec {
     homepage = "https://github.com/umlx5h/gtrash";
     changelog = "https://github.com/umlx5h/gtrash/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ umlx5h ];
+    maintainers = with lib.maintainers; [umlx5h];
     mainProgram = "gtrash";
   };
 }

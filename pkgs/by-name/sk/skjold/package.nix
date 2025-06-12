@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "skjold";
   version = "0.6.2";
@@ -16,9 +15,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-/ltaRs2WZXbrG3cVez+QIwupJrsV550TjOALbHX9Z0I=";
   };
 
-  pythonRelaxDeps = [ "packaging" ];
+  pythonRelaxDeps = ["packaging"];
 
-  build-system = with python3.pkgs; [ poetry-core ];
+  build-system = with python3.pkgs; [poetry-core];
 
   dependencies = with python3.pkgs; [
     click
@@ -51,13 +50,13 @@ python3.pkgs.buildPythonApplication rec {
     "urllib3"
   ];
 
-  pythonImportsCheck = [ "skjold" ];
+  pythonImportsCheck = ["skjold"];
 
   meta = {
     description = "Tool to Python dependencies against security advisory databases";
     homepage = "https://github.com/twu/skjold";
     changelog = "https://github.com/twu/skjold/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

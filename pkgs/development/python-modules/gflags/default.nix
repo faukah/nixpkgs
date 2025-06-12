@@ -5,7 +5,6 @@
   six,
   pytest,
 }:
-
 buildPythonPackage rec {
   version = "3.1.2";
   pname = "python-gflags";
@@ -15,9 +14,9 @@ buildPythonPackage rec {
     sha256 = "40ae131e899ef68e9e14aa53ca063839c34f6a168afe622217b5b875492a1ee2";
   };
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   checkPhase = ''
     # clashes with our pythhon wrapper (which is in argv0)

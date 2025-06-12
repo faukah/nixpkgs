@@ -4,7 +4,6 @@
   lib,
   lm_sensors,
 }:
-
 buildGoModule rec {
   pname = "fan2go";
   version = "0.10.0";
@@ -24,9 +23,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-IJJTolpOtstVov8MNel6EOJqv1oCkTOTiPyW42ElQjc=";
 
-  buildInputs = [ lm_sensors ];
+  buildInputs = [lm_sensors];
 
-  patches = [ ./lazy-binding.patch ];
+  patches = [./lazy-binding.patch];
 
   postConfigure = ''
     substituteInPlace vendor/github.com/md14454/gosensors/gosensors.go \
@@ -61,7 +60,7 @@ buildGoModule rec {
     mainProgram = "fan2go";
     homepage = "https://github.com/markusressel/fan2go";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ mtoohey ];
+    maintainers = with maintainers; [mtoohey];
     platforms = platforms.linux;
   };
 }

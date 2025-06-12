@@ -4,16 +4,14 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.mainsail;
   moonraker = config.services.moonraker;
-in
-{
+in {
   options.services.mainsail = {
     enable = mkEnableOption "a modern and responsive user interface for Klipper";
 
-    package = mkPackageOption pkgs "mainsail" { };
+    package = mkPackageOption pkgs "mainsail" {};
 
     hostName = mkOption {
       type = types.str;
@@ -22,8 +20,8 @@ in
     };
 
     nginx = mkOption {
-      type = types.submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; });
-      default = { };
+      type = types.submodule (import ../web-servers/nginx/vhost-options.nix {inherit config lib;});
+      default = {};
       example = literalExpression ''
         {
           serverAliases = [ "mainsail.''${config.networking.domain}" ];
@@ -36,7 +34,7 @@ in
   config = mkIf cfg.enable {
     services.nginx = {
       enable = true;
-      upstreams.mainsail-apiserver.servers."${moonraker.address}:${toString moonraker.port}" = { };
+      upstreams.mainsail-apiserver.servers."${moonraker.address}:${toString moonraker.port}" = {};
       virtualHosts."${cfg.hostName}" = mkMerge [
         cfg.nginx
         {

@@ -4,7 +4,6 @@
   stdenvNoCC,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "whisky";
   version = "2.3.2";
@@ -27,14 +26,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Wine wrapper built with SwiftUI";
     homepage = "https://getwhisky.app/";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ iivusly ];
+    maintainers = with lib.maintainers; [iivusly];
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

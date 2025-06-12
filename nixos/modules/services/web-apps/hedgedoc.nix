@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkOption types literalExpression;
 
   cfg = config.services.hedgedoc;
@@ -14,27 +12,31 @@ let
   # versionAtLeast statement remains set to 21.03 for backwards compatibility.
   # See https://github.com/NixOS/nixpkgs/pull/108899 and
   # https://github.com/NixOS/rfcs/blob/master/rfcs/0080-nixos-release-schedule.md.
-  name = if lib.versionAtLeast config.system.stateVersion "21.03" then "hedgedoc" else "codimd";
+  name =
+    if lib.versionAtLeast config.system.stateVersion "21.03"
+    then "hedgedoc"
+    else "codimd";
 
-  settingsFormat = pkgs.formats.json { };
-in
-{
+  settingsFormat = pkgs.formats.json {};
+in {
   meta.maintainers = with lib.maintainers; [
     SuperSandro2000
     h7x4
   ];
 
   imports = [
-    (lib.mkRenamedOptionModule [ "services" "codimd" ] [ "services" "hedgedoc" ])
-    (lib.mkRenamedOptionModule
-      [ "services" "hedgedoc" "configuration" ]
-      [ "services" "hedgedoc" "settings" ]
+    (lib.mkRenamedOptionModule ["services" "codimd"] ["services" "hedgedoc"])
+    (
+      lib.mkRenamedOptionModule
+      ["services" "hedgedoc" "configuration"]
+      ["services" "hedgedoc" "settings"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "hedgedoc" "groups" ]
-      [ "users" "users" "hedgedoc" "extraGroups" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "hedgedoc" "groups"]
+      ["users" "users" "hedgedoc" "extraGroups"]
     )
-    (lib.mkRemovedOptionModule [ "services" "hedgedoc" "workDir" ] ''
+    (lib.mkRemovedOptionModule ["services" "hedgedoc" "workDir"] ''
       This option has been removed in favor of systemd managing the state directory.
 
       If you have set this option without specifying `services.hedgedoc.settings.uploadsPath`,
@@ -44,7 +46,7 @@ in
   ];
 
   options.services.hedgedoc = {
-    package = lib.mkPackageOption pkgs "hedgedoc" { };
+    package = lib.mkPackageOption pkgs "hedgedoc" {};
     enable = lib.mkEnableOption "the HedgeDoc Markdown Editor";
 
     settings = mkOption {
@@ -117,7 +119,7 @@ in
           };
           allowOrigin = mkOption {
             type = with types; listOf str;
-            default = with cfg.settings; [ host ] ++ lib.optionals (domain != null) [ domain ];
+            default = with cfg.settings; [host] ++ lib.optionals (domain != null) [domain];
             defaultText = literalExpression ''
               with config.services.hedgedoc.settings; [ host ] ++ lib.optionals (domain != null) [ domain ]
             '';
@@ -242,7 +244,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.groups.${name} = { };
+    users.groups.${name} = {};
     users.users.${name} = {
       description = "HedgeDoc service user";
       group = name;
@@ -257,34 +259,34 @@ in
 
     systemd.services.hedgedoc = {
       description = "HedgeDoc Service";
-      documentation = [ "https://docs.hedgedoc.org/" ];
-      wantedBy = [ "multi-user.target" ];
-      after = [ "networking.target" ];
-      preStart =
-        let
-          configFile = settingsFormat.generate "hedgedoc-config.json" {
-            production = cfg.settings;
-          };
-        in
-        ''
-          ${pkgs.envsubst}/bin/envsubst \
-            -o /run/${name}/config.json \
-            -i ${configFile}
-          ${pkgs.coreutils}/bin/mkdir -p ${cfg.settings.uploadsPath}
-        '';
+      documentation = ["https://docs.hedgedoc.org/"];
+      wantedBy = ["multi-user.target"];
+      after = ["networking.target"];
+      preStart = let
+        configFile = settingsFormat.generate "hedgedoc-config.json" {
+          production = cfg.settings;
+        };
+      in ''
+        ${pkgs.envsubst}/bin/envsubst \
+          -o /run/${name}/config.json \
+          -i ${configFile}
+        ${pkgs.coreutils}/bin/mkdir -p ${cfg.settings.uploadsPath}
+      '';
       serviceConfig = {
         User = name;
         Group = name;
 
         Restart = "always";
         ExecStart = lib.getExe cfg.package;
-        RuntimeDirectory = [ name ];
-        StateDirectory = [ name ];
+        RuntimeDirectory = [name];
+        StateDirectory = [name];
         WorkingDirectory = "/run/${name}";
-        ReadWritePaths = [
-          "-${cfg.settings.uploadsPath}"
-        ] ++ lib.optionals (cfg.settings.db ? "storage") [ "-${cfg.settings.db.storage}" ];
-        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+        ReadWritePaths =
+          [
+            "-${cfg.settings.uploadsPath}"
+          ]
+          ++ lib.optionals (cfg.settings.db ? "storage") ["-${cfg.settings.db.storage}"];
+        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [cfg.environmentFile];
         Environment = [
           "CMD_CONFIG_FILE=/run/${name}/config.json"
           "NODE_ENV=production"

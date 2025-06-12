@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "go-landlock";
   version = "0-unstable-2024-02-16";
@@ -26,6 +25,6 @@ buildGoModule {
     description = "Go library for the Linux Landlock sandboxing feature";
     homepage = "https://github.com/landlock-lsm/go-landlock";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

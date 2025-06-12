@@ -5,18 +5,14 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.mininet;
-in
-{
+in {
   options.programs.mininet.enable = lib.mkEnableOption "Mininet, an emulator for rapid prototyping of Software Defined Networks";
 
   config = lib.mkIf cfg.enable {
-
     virtualisation.vswitch.enable = true;
 
-    environment.systemPackages = [ pkgs.mininet ];
+    environment.systemPackages = [pkgs.mininet];
   };
 }

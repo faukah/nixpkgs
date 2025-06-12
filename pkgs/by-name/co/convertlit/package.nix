@@ -4,22 +4,21 @@
   fetchzip,
   libtommath,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "convertlit";
   version = "1.8";
 
   src = fetchzip {
     url = "http://www.convertlit.com/convertlit${
-      lib.replaceStrings [ "." ] [ "" ] finalAttrs.version
+      lib.replaceStrings ["."] [""] finalAttrs.version
     }src.zip";
     sha256 = "182nsin7qscgbw2h92m0zadh3h8q410h5cza6v486yjfvla3dxjx";
     stripRoot = false;
   };
 
-  buildInputs = [ libtommath ];
+  buildInputs = [libtommath];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
 

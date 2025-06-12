@@ -7,7 +7,6 @@
   testers,
   org-stats,
 }:
-
 buildGoModule rec {
   pname = "org-stats";
   version = "1.12.2";
@@ -60,7 +59,7 @@ buildGoModule rec {
     homepage = "https://github.com/caarlos0/org-stats";
     changelog = "https://github.com/caarlos0/org-stats/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "org-stats";
   };
 }

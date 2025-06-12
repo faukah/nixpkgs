@@ -13,7 +13,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nvc";
   version = "1.16.1";
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
     mainProgram = "nvc";
     homepage = "https://www.nickg.me.uk/nvc/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 }

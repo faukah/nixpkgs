@@ -3,20 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.nano;
-in
-
-{
+in {
   options = {
     programs.nano = {
-      enable = lib.mkEnableOption "nano, a small user-friendly console text editor" // {
-        default = true;
-      };
+      enable =
+        lib.mkEnableOption "nano, a small user-friendly console text editor"
+        // {
+          default = true;
+        };
 
-      package = lib.mkPackageOption pkgs "nano" { };
+      package = lib.mkPackageOption pkgs "nano" {};
 
       nanorc = lib.mkOption {
         type = lib.types.lines;
@@ -49,8 +47,8 @@ in
           include "${cfg.package}/share/nano/extra/*.nanorc"
         '')
         + cfg.nanorc;
-      systemPackages = [ cfg.package ];
-      pathsToLink = [ "/share/nano" ];
+      systemPackages = [cfg.package];
+      pathsToLink = ["/share/nano"];
     };
   };
 }

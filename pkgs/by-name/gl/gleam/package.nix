@@ -12,7 +12,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "gleam";
   version = "1.11.1";
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     deno
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   checkFlags = [
     # Makes a network request
@@ -43,9 +42,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Statically typed language for the Erlang VM";
@@ -57,6 +56,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
       philtaken
       llakala
     ];
-    teams = [ lib.teams.beam ];
+    teams = [lib.teams.beam];
   };
 })

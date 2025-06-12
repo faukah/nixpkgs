@@ -54,7 +54,6 @@
   wayland,
   libXScrnSaver,
 }:
-
 stdenv.mkDerivation rec {
   pname = "webex";
   version = "45.2.0.31846";
@@ -177,7 +176,7 @@ stdenv.mkDerivation rec {
     homepage = "https://webex.com/";
     downloadPage = "https://www.webex.com/downloads.html";
     license = licenses.unfree;
-    maintainers = with lib.maintainers; [ uvnikita ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [uvnikita];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -9,7 +9,6 @@
   glibcLocales,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "seekpath";
   version = "2.1.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
 
   LC_ALL = "en_US.utf-8";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -32,19 +31,19 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    bz = [ scipy ];
+    bz = [scipy];
   };
 
-  nativeBuildInputs = [ glibcLocales ];
+  nativeBuildInputs = [glibcLocales];
 
-  pythonImportsCheck = [ "seekpath" ];
+  pythonImportsCheck = ["seekpath"];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.bz;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.bz;
 
   meta = with lib; {
     description = "Module to obtain and visualize band paths in the Brillouin zone of crystal structures";
     homepage = "https://github.com/giovannipizzi/seekpath";
     license = licenses.mit;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

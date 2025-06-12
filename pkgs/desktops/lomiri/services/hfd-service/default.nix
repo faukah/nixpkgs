@@ -14,7 +14,6 @@
   qtdeclarative,
   qtfeedback,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hfd-service";
   version = "0.2.3";
@@ -66,14 +65,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontWrapQtApps = true;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "DBus-activated service that manages human feedback devices such as LEDs and vibrators on mobile devices";
     homepage = "https://gitlab.com/ubports/development/core/hfd-service";
     changelog = "https://gitlab.com/ubports/development/core/hfd-service/-/blob/${finalAttrs.version}/ChangeLog";
     license = licenses.lgpl3Only;
-    teams = [ teams.lomiri ];
+    teams = [teams.lomiri];
     platforms = platforms.linux;
   };
 })

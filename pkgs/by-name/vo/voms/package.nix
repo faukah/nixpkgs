@@ -18,7 +18,6 @@
   # and symlink "$out/etc" to externalEtc.
   externalEtc ? "/etc",
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "voms";
   version = "2.1.2";
@@ -90,6 +89,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/italiangrid/voms/blob/master/ChangeLog";
     license = licenses.asl20;
     platforms = platforms.linux; # gsoap is currently Linux-only in Nixpkgs
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
   };
 })

@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "laspy";
   version = "2.5.4";
@@ -21,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-7r2/M3mvvAsk5+SBL6xWe/+IDR6FH3AXXSI3Wq7N9+E=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     numpy
     laszip
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "laspy"
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/laspy/laspy";
     changelog = "https://github.com/laspy/laspy/blob/${version}/CHANGELOG.md";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

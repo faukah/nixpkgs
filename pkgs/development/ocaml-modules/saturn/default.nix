@@ -10,13 +10,12 @@
   qcheck-alcotest,
   qcheck-stm,
 }:
-
 buildDunePackage {
   pname = "saturn";
 
   inherit (saturn_lockfree) src version;
 
-  propagatedBuildInputs = [ saturn_lockfree ];
+  propagatedBuildInputs = [saturn_lockfree];
 
   doCheck = lib.versionAtLeast ocaml.version "5.0";
   checkInputs = [
@@ -28,8 +27,9 @@ buildDunePackage {
     qcheck-stm
   ];
 
-  meta = saturn_lockfree.meta // {
-    description = "Parallelism-safe data structures for multicore OCaml";
-  };
-
+  meta =
+    saturn_lockfree.meta
+    // {
+      description = "Parallelism-safe data structures for multicore OCaml";
+    };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   standard-library,
 }:
-
 mkDerivation rec {
   pname = "generic";
   version = "0.1.0.2";

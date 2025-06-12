@@ -8,7 +8,6 @@
   stdenv,
   libiconv,
 }:
-
 buildPythonPackage rec {
   pname = "py-bip39-bindings";
   version = "0.2.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-CglVEvmZ8xYtjFPNhCyzToYrOvGe/Sw3zHAIy1HidzM=";
   };
 
-  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
+  cargoDeps = rustPlatform.importCargoLock {lockFile = ./Cargo.lock;};
 
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
@@ -34,18 +33,18 @@ buildPythonPackage rec {
     maturinBuildHook
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
-  pythonImportsCheck = [ "bip39" ];
+  pythonImportsCheck = ["bip39"];
 
   meta = with lib; {
     description = "Python bindings for the tiny-bip39 library";
     homepage = "https://github.com/polkascan/py-bip39-bindings";
     license = licenses.asl20;
-    maintainers = with maintainers; [ stargate01 ];
+    maintainers = with maintainers; [stargate01];
   };
 }

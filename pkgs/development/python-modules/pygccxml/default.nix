@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pygccxml";
   version = "3.0.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-pIo25/tKiXpyiWUkpILPDPTNWIUEGK4uRSTpvoGwS1Q=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   buildInputs = [
     castxml
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/gccxml/pygccxml";
     changelog = "https://github.com/CastXML/pygccxml/blob/${src.tag}/CHANGELOG.md";
     license = licenses.boost;
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
   };
 }

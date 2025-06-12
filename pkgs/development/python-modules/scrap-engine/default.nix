@@ -5,7 +5,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "scrap-engine";
   version = "1.4.3";
@@ -22,13 +21,13 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonImportsCheck = [ "scrap_engine" ];
+  pythonImportsCheck = ["scrap_engine"];
 
   # raise scrap_engine.CoordinateError
   doCheck = false;
 
   meta = {
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     description = "2D ascii game engine for the terminal";
     homepage = "https://github.com/lxgr-linux/scrap_engine";
     license = lib.licenses.gpl3Only;

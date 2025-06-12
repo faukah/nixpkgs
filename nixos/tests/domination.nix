@@ -1,20 +1,21 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "domination";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ fgaz ];
+    maintainers = [fgaz];
   };
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      imports = [
-        ./common/x11.nix
-      ];
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [
+      ./common/x11.nix
+    ];
 
-      services.xserver.enable = true;
-      environment.systemPackages = [ pkgs.domination ];
-    };
+    services.xserver.enable = true;
+    environment.systemPackages = [pkgs.domination];
+  };
 
   enableOCR = true;
 

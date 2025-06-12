@@ -4,26 +4,19 @@
   pkgs,
   utils,
   ...
-}:
-let
-
+}: let
   uid = config.ids.uids.gpsd;
   gid = config.ids.gids.gpsd;
   cfg = config.services.gpsd;
-
-in
-{
-
+in {
   ###### interface
 
   imports = [
-    (lib.mkRemovedOptionModule [ "services" "gpsd" "device" ] "Use `services.gpsd.devices` instead.")
+    (lib.mkRemovedOptionModule ["services" "gpsd" "device"] "Use `services.gpsd.devices` instead.")
   ];
 
   options = {
-
     services.gpsd = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -34,7 +27,7 @@ in
 
       devices = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ "/dev/ttyUSB0" ];
+        default = ["/dev/ttyUSB0"];
         description = ''
           List of devices that `gpsd` should subscribe to.
 
@@ -97,7 +90,7 @@ in
 
       extraArgs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         example = [
           "-r"
           "-s"
@@ -108,15 +101,12 @@ in
           Check {manpage}`gpsd(8)` mangpage for possible arguments.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     users.users.gpsd = {
       inherit uid;
       group = "gpsd";
@@ -124,31 +114,27 @@ in
       home = "/var/empty";
     };
 
-    users.groups.gpsd = { inherit gid; };
+    users.groups.gpsd = {inherit gid;};
 
     systemd.services.gpsd = {
       description = "GPSD daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         Type = "forking";
-        ExecStart =
-          let
-            devices = utils.escapeSystemdExecArgs cfg.devices;
-            extraArgs = utils.escapeSystemdExecArgs cfg.extraArgs;
-          in
-          ''
-            ${pkgs.gpsd}/sbin/gpsd -D "${toString cfg.debugLevel}"  \
-              -S "${toString cfg.port}"                             \
-              ${lib.optionalString cfg.readonly "-b"}                   \
-              ${lib.optionalString cfg.nowait "-n"}                     \
-              ${lib.optionalString cfg.listenany "-G"}                  \
-              ${extraArgs}                                          \
-              ${devices}
-          '';
+        ExecStart = let
+          devices = utils.escapeSystemdExecArgs cfg.devices;
+          extraArgs = utils.escapeSystemdExecArgs cfg.extraArgs;
+        in ''
+          ${pkgs.gpsd}/sbin/gpsd -D "${toString cfg.debugLevel}"  \
+            -S "${toString cfg.port}"                             \
+            ${lib.optionalString cfg.readonly "-b"}                   \
+            ${lib.optionalString cfg.nowait "-n"}                     \
+            ${lib.optionalString cfg.listenany "-G"}                  \
+            ${extraArgs}                                          \
+            ${devices}
+        '';
       };
     };
-
   };
-
 }

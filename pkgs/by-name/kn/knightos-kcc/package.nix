@@ -7,7 +7,6 @@
   flex,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kcc";
 
@@ -28,14 +27,14 @@ stdenv.mkDerivation rec {
     flex
   ];
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
   meta = with lib; {
     homepage = "https://github.com/KnightOS/kcc";
     description = "KnightOS C compiler";
     mainProgram = "kcc";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

@@ -9,7 +9,6 @@
   sqlite, # compile GUI
   withGUI ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lshw";
   # Fix repology.org by not including the prefixed B, otherwise the `pname` attr
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ hwdata ]
+    [hwdata]
     ++ lib.optionals withGUI [
       gtk3
       sqlite
@@ -41,11 +40,11 @@ stdenv.mkDerivation rec {
     "VERSION=${src.rev}"
   ];
 
-  buildFlags = [ "all" ] ++ lib.optional withGUI "gui";
+  buildFlags = ["all"] ++ lib.optional withGUI "gui";
 
-  hardeningDisable = lib.optionals stdenv.hostPlatform.isStatic [ "fortify" ];
+  hardeningDisable = lib.optionals stdenv.hostPlatform.isStatic ["fortify"];
 
-  installTargets = [ "install" ] ++ lib.optional withGUI "install-gui";
+  installTargets = ["install"] ++ lib.optional withGUI "install-gui";
 
   enableParallelBuilding = true;
 
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ezix.org/project/wiki/HardwareLiSter";
     license = licenses.gpl2;
     mainProgram = "lshw";
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
     platforms = platforms.linux;
   };
 }

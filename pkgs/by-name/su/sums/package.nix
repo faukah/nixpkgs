@@ -10,7 +10,6 @@
   libadwaita,
   mpfr,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sums";
   version = "0.15";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/leesonwai/sums";
     license = lib.licenses.gpl3Plus;
     mainProgram = "sums";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
   };
 })

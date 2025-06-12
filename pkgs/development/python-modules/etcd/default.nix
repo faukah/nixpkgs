@@ -6,7 +6,6 @@
   pytz,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "etcd";
   version = "2.0.8";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "Python etcd client that just works";
     homepage = "https://github.com/dsoprea/PythonEtcdClient";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

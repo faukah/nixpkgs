@@ -3,23 +3,20 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   cfg = config.services.hatsu;
-in
-{
+in {
   meta.doc = ./hatsu.md;
-  meta.maintainers = with lib.maintainers; [ kwaa ];
+  meta.maintainers = with lib.maintainers; [kwaa];
 
   options.services.hatsu = {
     enable = lib.mkEnableOption "Self-hosted and fully-automated ActivityPub bridge for static sites";
 
-    package = lib.mkPackageOption pkgs "hatsu" { };
+    package = lib.mkPackageOption pkgs "hatsu" {};
 
     settings = lib.mkOption {
       type = lib.types.submodule {
-        freeformType =
-          with lib.types;
+        freeformType = with lib.types;
           attrsOf (
             nullOr (oneOf [
               bool
@@ -62,7 +59,7 @@ in
         };
       };
 
-      default = { };
+      default = {};
 
       description = ''
         Configuration for Hatsu, see
@@ -77,12 +74,12 @@ in
       environment = cfg.settings;
 
       description = "Hatsu server";
-      documentation = [ "https://hatsu.cli.rs/" ];
+      documentation = ["https://hatsu.cli.rs/"];
 
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         DynamicUser = true;

@@ -5,7 +5,6 @@
   python,
   antlr4,
 }:
-
 buildPythonPackage rec {
   pname = "antlr4-python3-runtime";
   inherit (antlr4.runtime.cpp) version src;
@@ -16,7 +15,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/runtime/Python3";
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   postPatch = ''
     substituteInPlace tests/TestIntervalSet.py \

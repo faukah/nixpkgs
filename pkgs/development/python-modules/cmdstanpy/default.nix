@@ -13,7 +13,6 @@
   pytestCheckHook,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "cmdstanpy";
   version = "1.2.5";
@@ -49,16 +48,16 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    all = [ xarray ];
+    all = [xarray];
   };
 
-  pythonRelaxDeps = [ "stanio" ];
+  pythonRelaxDeps = ["stanio"];
 
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.all;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.all;
 
   disabledTestPaths = [
     # No need to test these when using Nix
@@ -80,13 +79,13 @@ buildPythonPackage rec {
       "test_init_types" # CmdStan error: error during processing Operation not permitted
     ];
 
-  pythonImportsCheck = [ "cmdstanpy" ];
+  pythonImportsCheck = ["cmdstanpy"];
 
   meta = {
     homepage = "https://github.com/stan-dev/cmdstanpy";
     description = "Lightweight interface to Stan for Python users";
     changelog = "https://github.com/stan-dev/cmdstanpy/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

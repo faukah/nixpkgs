@@ -10,7 +10,6 @@
   # checkPhase dependencies
   python,
 }:
-
 buildPythonPackage rec {
   pname = "ckzg";
   version = "2.1.1";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-U7UwKhXrf3uEjvHaQgGS7NAUrtTrbsXYKIHKy/VYA7M=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ clang ];
+  nativeBuildInputs = [clang];
 
   dependencies = [
     pyyaml
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "ckzg" ];
+  pythonImportsCheck = ["ckzg"];
 
   meta = {
     description = "Minimal implementation of the Polynomial Commitments API for EIP-4844 and EIP-7594";
     homepage = "https://github.com/ethereum/c-kzg-4844";
     changelog = "https://github.com/ethereum/c-kzg-4844/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ hellwolf ];
+    maintainers = with lib.maintainers; [hellwolf];
   };
 }

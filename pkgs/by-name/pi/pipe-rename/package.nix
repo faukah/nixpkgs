@@ -4,7 +4,6 @@
   fetchCrate,
   python3,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pipe-rename";
   version = "1.6.5";
@@ -17,7 +16,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-0+m11mPR/s45MeY90WM3vmnGk6Xb0j2DJnZrEZ/EX1g=";
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   checkFlags = [
     # tests are failing upstream
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     description = "Rename your files using your favorite text editor";
     homepage = "https://github.com/marcusbuffett/pipe-rename";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "renamer";
   };
 }

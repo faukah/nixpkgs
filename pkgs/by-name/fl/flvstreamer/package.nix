@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "flvstreamer";
   version = "2.1c1";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://savannah.nongnu.org/projects/flvstreamer";
 
-    maintainers = [ lib.maintainers.thammers ];
+    maintainers = [lib.maintainers.thammers];
     platforms = with lib.platforms; linux ++ darwin;
   };
 }

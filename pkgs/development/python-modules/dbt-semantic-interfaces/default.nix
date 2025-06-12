@@ -16,7 +16,6 @@
   pyyaml,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "dbt-semantic-interfaces";
   version = "0.8.1";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-gY2CJqN/ohYs4Qej451PexWcsM7N9GuHt79qC+NC7T4=";
   };
 
-  pythonRelaxDeps = [ "importlib-metadata" ];
+  pythonRelaxDeps = ["importlib-metadata"];
 
   build-system = [
     hatchling
@@ -54,13 +53,13 @@ buildPythonPackage rec {
     hypothesis
   ];
 
-  pythonImportsCheck = [ "dbt_semantic_interfaces" ];
+  pythonImportsCheck = ["dbt_semantic_interfaces"];
 
   meta = with lib; {
     description = "Shared interfaces used by dbt-core and MetricFlow projects";
     homepage = "https://github.com/dbt-labs/dbt-semantic-interfaces";
     changelog = "https://github.com/dbt-labs/dbt-semantic-interfaces/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

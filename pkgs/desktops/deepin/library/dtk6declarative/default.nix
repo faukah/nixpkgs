@@ -8,7 +8,6 @@
   qt6Packages,
   dtk6gui,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dtk6declarative";
   version = "6.0.33";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   propagatedBuildInputs =
-    [ dtk6gui ]
+    [dtk6gui]
     ++ (with qt6Packages; [
       qtbase
       qtdeclarative
@@ -70,6 +69,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/linuxdeepin/dtk6declarative";
     license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 })

@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.flexget;
   pkg = cfg.package;
   ymlFile = pkgs.writeText "flexget.yml" ''
@@ -13,13 +12,12 @@ let
     ${lib.optionalString cfg.systemScheduler "schedules: no"}
   '';
   configFile = "${toString cfg.homeDir}/flexget.yml";
-in
-{
+in {
   options = {
     services.flexget = {
       enable = lib.mkEnableOption "FlexGet daemon";
 
-      package = lib.mkPackageOption pkgs "flexget" { };
+      package = lib.mkPackageOption pkgs "flexget" {};
 
       user = lib.mkOption {
         default = "deluge";
@@ -58,13 +56,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
-    environment.systemPackages = [ pkg ];
+    environment.systemPackages = [pkg];
 
     systemd.services = {
       flexget = {
         description = "FlexGet Daemon";
-        path = [ pkg ];
+        path = [pkg];
         serviceConfig = {
           User = cfg.user;
           ExecStartPre = "${pkgs.coreutils}/bin/install -m644 ${ymlFile} ${configFile}";
@@ -75,13 +72,13 @@ in
           PrivateTmp = true;
           WorkingDirectory = toString cfg.homeDir;
         };
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
       };
 
       flexget-runner = lib.mkIf cfg.systemScheduler {
         description = "FlexGet Runner";
-        after = [ "flexget.service" ];
-        wants = [ "flexget.service" ];
+        after = ["flexget.service"];
+        wants = ["flexget.service"];
         serviceConfig = {
           User = cfg.user;
           ExecStart = "${pkg}/bin/flexget -c ${configFile} execute";
@@ -93,7 +90,7 @@ in
 
     systemd.timers.flexget-runner = lib.mkIf cfg.systemScheduler {
       description = "Run FlexGet every ${cfg.interval}";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnBootSec = "5m";
         OnUnitInactiveSec = cfg.interval;

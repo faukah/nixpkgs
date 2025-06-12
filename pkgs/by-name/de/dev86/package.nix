@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitea,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dev86";
   version = "1.0.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-xeOtESc0X7RZWCIpNZSHE8au9+opXwnHsAcayYLSX7w=";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = {
     homepage = "https://codeberg.org/jbruchon/dev86";

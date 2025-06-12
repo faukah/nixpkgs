@@ -5,7 +5,6 @@
   nix-update-script,
   hcp,
 }:
-
 buildGoModule rec {
   pname = "hcp";
   version = "0.10.0";
@@ -23,7 +22,7 @@ buildGoModule rec {
     export HOME=$TMPDIR
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "HashiCorp Cloud Platform CLI";

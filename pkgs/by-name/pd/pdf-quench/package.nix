@@ -6,7 +6,6 @@
   wrapGAppsHook3,
   gobject-introspection,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "pdf-quench";
   version = "1.0.5";
@@ -45,6 +44,6 @@ python3.pkgs.buildPythonApplication {
     mainProgram = "pdf-quench";
     platforms = platforms.linux;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

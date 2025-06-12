@@ -9,24 +9,25 @@
   callPackage,
   fetchFromGitiles,
   fetchFromGitHub,
-}:
-
-let
+}: let
   fetchers = {
     inherit fetchgit fetchFromGitiles fetchFromGitHub;
   };
 
-  importGclientDeps =
-    depsAttrsOrFile:
-    let
-      depsAttrs = if lib.isAttrs depsAttrsOrFile then depsAttrsOrFile else lib.importJSON depsAttrsOrFile;
-      fetchdep = dep: fetchers.${dep.fetcher} dep.args;
-      fetchedDeps = lib.mapAttrs (_name: fetchdep) depsAttrs;
-      manifestContents = lib.mapAttrs (_: dep: {
+  importGclientDeps = depsAttrsOrFile: let
+    depsAttrs =
+      if lib.isAttrs depsAttrsOrFile
+      then depsAttrsOrFile
+      else lib.importJSON depsAttrsOrFile;
+    fetchdep = dep: fetchers.${dep.fetcher} dep.args;
+    fetchedDeps = lib.mapAttrs (_name: fetchdep) depsAttrs;
+    manifestContents =
+      lib.mapAttrs (_: dep: {
         path = dep;
-      }) fetchedDeps;
-      manifest = writers.writeJSON "gclient-manifest.json" manifestContents;
-    in
+      })
+      fetchedDeps;
+    manifest = writers.writeJSON "gclient-manifest.json" manifestContents;
+  in
     manifestContents
     // {
       inherit manifest;
@@ -39,30 +40,29 @@ let
       makeSetupHook,
       jq,
     }:
-
-    makeSetupHook {
-      name = "gclient-unpack-hook";
-      substitutions = {
-        jq = lib.getExe jq;
-      };
-    } ./gclient-unpack-hook.sh
-  ) { };
+      makeSetupHook {
+        name = "gclient-unpack-hook";
+        substitutions = {
+          jq = lib.getExe jq;
+        };
+      }
+      ./gclient-unpack-hook.sh
+  ) {};
 
   python = python3.withPackages (
-    ps: with ps; [
-      joblib
-      platformdirs
-      click
-      click-log
-    ]
+    ps:
+      with ps; [
+        joblib
+        platformdirs
+        click
+        click-log
+      ]
   );
-
 in
-
-runCommand "gclient2nix"
+  runCommand "gclient2nix"
   {
-    nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ python ];
+    nativeBuildInputs = [makeWrapper];
+    buildInputs = [python];
 
     # substitutions
     depot_tools_checkout = fetchgit {
@@ -80,5 +80,5 @@ runCommand "gclient2nix"
     substituteAll ${./gclient2nix.py} $out/bin/gclient2nix
     chmod u+x $out/bin/gclient2nix
     patchShebangs $out/bin/gclient2nix
-    wrapProgram $out/bin/gclient2nix --set PATH "${lib.makeBinPath [ nurl ]}"
+    wrapProgram $out/bin/gclient2nix --set PATH "${lib.makeBinPath [nurl]}"
   ''

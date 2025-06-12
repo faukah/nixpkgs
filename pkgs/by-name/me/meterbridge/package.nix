@@ -8,7 +8,6 @@
   SDL_image,
   libjack2,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.9.3";
   pname = "meterbridge";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     ./fix_build_with_gcc-5.patch
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libGL
     SDL
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "http://plugin.org.uk/meterbridge/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.nico202 ];
+    maintainers = [maintainers.nico202];
     mainProgram = "meterbridge";
   };
 }

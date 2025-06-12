@@ -15,6 +15,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=platformio.platformio-ide";
     homepage = "https://platformio.org/";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.therobot2105 ];
+    maintainers = [lib.maintainers.therobot2105];
   };
 }

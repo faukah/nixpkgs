@@ -7,7 +7,6 @@
   jdk,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "calcoo";
   version = "2.1.0";
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://calcoo.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
     mainProgram = "calcoo";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (jdk.meta) platforms;
   };
 })

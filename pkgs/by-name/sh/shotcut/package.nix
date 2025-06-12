@@ -16,7 +16,6 @@
   gitUpdater,
   ffmpeg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "shotcut";
   version = "25.01.25";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = "-DSHOTCUT_NOUPGRADE";
 
-  cmakeFlags = [ "-DSHOTCUT_VERSION=${finalAttrs.version}" ];
+  cmakeFlags = ["-DSHOTCUT_VERSION=${finalAttrs.version}"];
 
   patches = [
     (replaceVars ./fix-mlt-ffmpeg-path.patch {
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--set FREI0R_PATH ${frei0r}/lib/frei0r-1"
     "--set LADSPA_PATH ${ladspaPlugins}/lib/ladspa"
     "--prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath ([ SDL2 ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ jack1 ])
+      lib.makeLibraryPath ([SDL2] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [jack1])
     }"
   ];
 
@@ -72,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s $out/Applications/Shotcut.app/Contents/MacOS/Shotcut $out/bin/shotcut
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "Free, open source, cross-platform video editor";

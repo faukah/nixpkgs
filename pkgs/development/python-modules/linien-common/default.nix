@@ -10,7 +10,6 @@
   appdirs,
   callPackage,
 }:
-
 buildPythonPackage rec {
   pname = "linien-common";
   version = "2.1.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "importlib-metadata"
@@ -44,10 +43,10 @@ buildPythonPackage rec {
     appdirs
   ];
 
-  pythonImportsCheck = [ "linien_common" ];
+  pythonImportsCheck = ["linien_common"];
 
   passthru.tests = {
-    pytest = callPackage ./tests.nix { };
+    pytest = callPackage ./tests.nix {};
   };
 
   meta = {

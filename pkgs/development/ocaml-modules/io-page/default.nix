@@ -7,7 +7,6 @@
   bigarray-compat,
   ounit,
 }:
-
 buildDunePackage rec {
   pname = "io-page";
   version = "3.0.0";
@@ -20,18 +19,18 @@ buildDunePackage rec {
     hash = "sha256-DjbKdNkFa6YQgJDLmLsuvyrweb4/TNvqAiggcj/3hu4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   propagatedBuildInputs = [
     cstruct
     bigarray-compat
   ];
-  checkInputs = [ ounit ];
+  checkInputs = [ounit];
   doCheck = true;
 
   meta = {
     homepage = "https://github.com/mirage/io-page";
     license = lib.licenses.isc;
     description = "IO memory page library for Mirage backends";
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
   };
 }

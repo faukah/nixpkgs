@@ -7,7 +7,6 @@
   pkg-config,
   python3,
 }:
-
 buildNpmPackage rec {
   pname = "azurite";
   version = "3.34.0";
@@ -34,7 +33,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/Azure/Azurite";
     changelog = "https://github.com/Azure/Azurite/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ danielalvsaaker ];
+    maintainers = with lib.maintainers; [danielalvsaaker];
     mainProgram = "azurite";
   };
 }

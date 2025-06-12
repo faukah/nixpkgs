@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.virtualisation.amazon-init;
 
   script = ''
@@ -71,9 +68,7 @@ let
 
     nixos-rebuild switch
   '';
-in
-{
-
+in {
   options.virtualisation.amazon-init = {
     enable = mkOption {
       default = true;
@@ -89,9 +84,9 @@ in
       inherit script;
       description = "Reconfigure the system from EC2 userdata on startup";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "multi-user.target" ];
-      requires = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["multi-user.target"];
+      requires = ["network-online.target"];
 
       path = [
         "/run/wrappers"
@@ -107,5 +102,5 @@ in
       };
     };
   };
-  meta.maintainers = with maintainers; [ arianvp ];
+  meta.maintainers = with maintainers; [arianvp];
 }

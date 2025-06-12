@@ -3,18 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.qgroundcontrol;
-in
-{
-
+in {
   options = {
     programs.qgroundcontrol = {
       enable = lib.mkEnableOption "qgroundcontrol";
 
-      package = lib.mkPackageOption pkgs "qgroundcontrol" { };
+      package = lib.mkPackageOption pkgs "qgroundcontrol" {};
 
       blacklistModemManagerFromTTYUSB = lib.mkOption {
         type = lib.types.bool;
@@ -41,7 +37,7 @@ in
     };
 
     # Add to systemPackages for desktop entry file
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 
   meta.maintainers = pkgs.qgroundcontrol.meta.maintainers;

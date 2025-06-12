@@ -4,25 +4,22 @@
   fetchFromGitHub,
   clickgen,
   python3,
-  themeVariants ? [ ],
-  sizeVariants ? [ ],
-  platformVariants ? [ ],
-}:
-
-let
+  themeVariants ? [],
+  sizeVariants ? [],
+  platformVariants ? [],
+}: let
   pname = "fuchsia-cursor";
 in
-lib.checkListOfEnum "${pname}: theme variants" [ "Fuchsia" "Fuchsia-Pop" "Fuchsia-Red" ]
+  lib.checkListOfEnum "${pname}: theme variants" ["Fuchsia" "Fuchsia-Pop" "Fuchsia-Red"]
   themeVariants
   lib.checkListOfEnum
   "${pname}: size variants"
-  [ "16" "24" "32" "48" ]
+  ["16" "24" "32" "48"]
   sizeVariants
   lib.checkListOfEnum
   "${pname}: platform variants"
-  [ "x11" "windows" ]
+  ["x11" "windows"]
   platformVariants
-
   stdenvNoCC.mkDerivation
   rec {
     inherit pname;
@@ -44,26 +41,25 @@ lib.checkListOfEnum "${pname}: theme variants" [ "Fuchsia" "Fuchsia-Pop" "Fuchsi
       runHook preInstall
 
       ${
-        if themeVariants != [ ] then
-          ''
-            name= ctgen build.toml \
-              ${
-                lib.optionalString (themeVariants != [ ]) "-d bitmaps/"
-                + toString themeVariants
-                + " -n "
-                + toString themeVariants
-              } \
-              ${lib.optionalString (sizeVariants != [ ]) "-s " + toString sizeVariants} \
-              ${lib.optionalString (platformVariants != [ ]) "-p " + toString platformVariants} \
-              -o $out/share/icons
-          ''
-        else
-          ''
-            name= ctgen build.toml -d bitmaps/Fuchsia -n Fuchsia \
-              ${lib.optionalString (sizeVariants != [ ]) "-s " + toString sizeVariants} \
-              ${lib.optionalString (platformVariants != [ ]) "-p " + toString platformVariants} \
-              -o $out/share/icons
-          ''
+        if themeVariants != []
+        then ''
+          name= ctgen build.toml \
+            ${
+            lib.optionalString (themeVariants != []) "-d bitmaps/"
+            + toString themeVariants
+            + " -n "
+            + toString themeVariants
+          } \
+            ${lib.optionalString (sizeVariants != []) "-s " + toString sizeVariants} \
+            ${lib.optionalString (platformVariants != []) "-p " + toString platformVariants} \
+            -o $out/share/icons
+        ''
+        else ''
+          name= ctgen build.toml -d bitmaps/Fuchsia -n Fuchsia \
+            ${lib.optionalString (sizeVariants != []) "-s " + toString sizeVariants} \
+            ${lib.optionalString (platformVariants != []) "-p " + toString platformVariants} \
+            -o $out/share/icons
+        ''
       }
 
       runHook postInstall
@@ -72,7 +68,7 @@ lib.checkListOfEnum "${pname}: theme variants" [ "Fuchsia" "Fuchsia-Pop" "Fuchsi
     meta = with lib; {
       description = "First OpenSource port of FuchsiaOS's cursors for Linux and Windows";
       homepage = "https://github.com/ful1e5/fuchsia-cursor";
-      maintainers = with maintainers; [ d3vil0p3r ];
+      maintainers = with maintainers; [d3vil0p3r];
       platforms = platforms.all;
       license = licenses.gpl3Plus;
     };

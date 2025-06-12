@@ -14,7 +14,6 @@
   runCommand,
   fend,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fend";
   version = "1.5.6";
@@ -78,15 +77,15 @@ rustPlatform.buildRustPackage rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
-      version = testers.testVersion { package = fend; };
+      version = testers.testVersion {package = fend;};
       units = testers.testEqualContents {
         assertion = "fend does simple math and unit conversions";
         expected = writeText "expected" ''
           36 kph
         '';
-        actual = runCommand "actual" { } ''
+        actual = runCommand "actual" {} ''
           ${lib.getExe fend} '(100 meters) / (10 seconds) to kph' > $out
         '';
       };

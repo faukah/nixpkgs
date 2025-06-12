@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tfautomv";
   version = "0.6.2";
@@ -30,6 +29,6 @@ buildGoModule rec {
     description = "When refactoring a Terraform codebase, you often need to write moved blocks. This can be tedious. Let tfautomv do it for you";
     mainProgram = "tfautomv";
     license = licenses.asl20;
-    maintainers = with maintainers; [ qjoly ];
+    maintainers = with maintainers; [qjoly];
   };
 }

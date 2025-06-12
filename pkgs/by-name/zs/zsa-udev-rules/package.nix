@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "zsa-udev-rules";
   version = "unstable-2023-11-30";
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "udev rules for ZSA devices";
     license = licenses.mit;
-    maintainers = with maintainers; [ davidak ];
+    maintainers = with maintainers; [davidak];
     platforms = platforms.linux;
     homepage = "https://github.com/zsa/wally/wiki/Linux-install#2-create-a-udev-rule-file";
   };

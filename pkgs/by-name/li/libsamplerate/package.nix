@@ -5,7 +5,6 @@
   pkg-config,
   libsndfile,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libsamplerate";
   version = "0.2.2";
@@ -15,10 +14,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-MljaKAUR0ktJ1rCGFbvoJNDKzJhCsOTK8RxSzysEOJM=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libsndfile ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libsndfile];
 
-  configureFlags = [ "--disable-fftw" ];
+  configureFlags = ["--disable-fftw"];
 
   outputs = [
     "dev"
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "Sample Rate Converter for audio";
     homepage = "https://libsndfile.github.io/libsamplerate/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.all;
     # Linker is unhappy with the `.def` file.
     broken = stdenv.hostPlatform.isMinGW;

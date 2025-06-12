@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-OMgxhb+9GdLK00nl/df9QiYYewr+YEjdX2KjQWvu1mk=";
   };
 
-  nativeBuildInputs = [ qt6.wrapQtAppsHook ];
+  nativeBuildInputs = [qt6.wrapQtAppsHook];
 
   buildInputs = [
     qt6.qtbase
@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/Pedro-Beirao/dsda-launcher";
@@ -49,6 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "dsda-launcher";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ Gliczy ];
+    maintainers = with lib.maintainers; [Gliczy];
   };
 })

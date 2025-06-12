@@ -4,7 +4,6 @@
   stdenv,
   autogen,
 }:
-
 stdenv.mkDerivation rec {
   pname = "complexity";
   version = "1.10";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1vfns9xm7w0wrz12a3w15slrqnrfh6qxk15nv7qkj3irll3ff522";
   };
 
-  buildInputs = [ autogen ];
+  buildInputs = [autogen];
 
   doCheck = true;
 
@@ -32,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/complexity/";
 
     platforms = lib.platforms.gnu ++ lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

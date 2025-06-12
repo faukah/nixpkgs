@@ -6,7 +6,6 @@
   testers,
   texinfo,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "quickjs-ng";
   version = "0.10.1";
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Mighty JavaScript engine";
     license = lib.licenses.mit;
     mainProgram = "qjs";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

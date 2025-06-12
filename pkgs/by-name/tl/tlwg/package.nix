@@ -6,7 +6,6 @@
   autoconf-archive,
   fontforge,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tlwg";
   version = "0.7.3";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     autoconf-archive
   ];
 
-  buildInputs = [ fontforge ];
+  buildInputs = [fontforge];
 
   meta = with lib; {
     description = "Collection of Thai scalable fonts available under free licenses";
@@ -34,6 +33,6 @@ stdenv.mkDerivation rec {
       lppl13c
       free
     ];
-    maintainers = [ maintainers.yrashk ];
+    maintainers = [maintainers.yrashk];
   };
 }

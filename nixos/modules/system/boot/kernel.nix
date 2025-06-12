@@ -4,11 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   inherit (config.boot) kernelPatches;
   inherit (config.boot.kernel) features randstructSeed;
   inherit (config.boot.kernelPackages) kernel;
@@ -16,11 +12,7 @@ let
   kernelModulesConf = pkgs.writeText "nixos.conf" ''
     ${concatStringsSep "\n" config.boot.kernelModules}
   '';
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
@@ -31,7 +23,7 @@ in
       };
 
     boot.kernel.features = mkOption {
-      default = { };
+      default = {};
       example = literalExpression "{ debug = true; }";
       internal = true;
       description = ''
@@ -46,13 +38,12 @@ in
     boot.kernelPackages = mkOption {
       default = pkgs.linuxPackages;
       type = types.raw;
-      apply =
-        kernelPackages:
+      apply = kernelPackages:
         kernelPackages.extend (
           self: super: {
             kernel = super.kernel.override (originalArgs: {
               inherit randstructSeed;
-              kernelPatches = (originalArgs.kernelPatches or [ ]) ++ kernelPatches;
+              kernelPatches = (originalArgs.kernelPatches or []) ++ kernelPatches;
               features = lib.recursiveUpdate super.kernel.features features;
             });
           }
@@ -82,7 +73,7 @@ in
 
     boot.kernelPatches = mkOption {
       type = types.listOf types.attrs;
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [
           {
@@ -154,7 +145,7 @@ in
           description = "string, with spaces inside double quotes";
         }
       );
-      default = [ ];
+      default = [];
       description = "Parameters added to the kernel command line.";
     };
 
@@ -182,14 +173,14 @@ in
 
     boot.extraModulePackages = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       example = literalExpression "[ config.boot.kernelPackages.nvidia_x11 ]";
       description = "A list of additional packages supplying kernel modules.";
     };
 
     boot.kernelModules = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = ''
         The set of kernel modules to be loaded in the second stage of
         the boot process.  Note that modules that are needed to
@@ -201,7 +192,7 @@ in
 
     boot.initrd.availableKernelModules = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "sata_nv"
         "ext3"
@@ -225,7 +216,7 @@ in
 
     boot.initrd.kernelModules = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = "List of modules that are always loaded by the initrd.";
     };
 
@@ -242,22 +233,21 @@ in
     system.modulesTree = mkOption {
       type = types.listOf types.path;
       internal = true;
-      default = [ ];
+      default = [];
       description = ''
         Tree of kernel modules.  This includes the kernel, plus modules
         built outside of the kernel.  Combine these into a single tree of
         symlinks because modprobe only supports one directory.
       '';
       # Convert the list of path to only one path.
-      apply =
-        let
-          kernel-name = config.boot.kernelPackages.kernel.name or "kernel";
-        in
-        modules: (pkgs.aggregateModules modules).override { name = kernel-name + "-modules"; };
+      apply = let
+        kernel-name = config.boot.kernelPackages.kernel.name or "kernel";
+      in
+        modules: (pkgs.aggregateModules modules).override {name = kernel-name + "-modules";};
     };
 
     system.requiredKernelConfig = mkOption {
-      default = [ ];
+      default = [];
       example = literalExpression ''
         with config.lib.kernelConfig; [
           (isYes "MODULES")
@@ -273,7 +263,6 @@ in
         lib.kernelConfig functions to build list elements.
       '';
     };
-
   };
 
   ###### implementation
@@ -325,7 +314,6 @@ in
           "hid_microsoft"
           "hid_cherry"
           "hid_corsair"
-
         ]
         ++ optionals pkgs.stdenv.hostPlatform.isx86 [
           # Misc. x86 keyboard stuff.
@@ -342,44 +330,42 @@ in
     })
 
     (mkIf config.boot.kernel.enable {
-      system.build = { inherit kernel; };
+      system.build = {inherit kernel;};
 
-      system.modulesTree = [ kernel ] ++ config.boot.extraModulePackages;
+      system.modulesTree = [kernel] ++ config.boot.extraModulePackages;
 
       # Not required for, e.g., containers as they don't have their own kernel or initrd.
       # They boot directly into stage 2.
       system.systemBuilderArgs.kernelParams = config.boot.kernelParams;
-      system.systemBuilderCommands =
-        let
-          kernelPath = "${config.boot.kernelPackages.kernel}/" + "${config.system.boot.loader.kernelFile}";
-          initrdPath = "${config.system.build.initialRamdisk}/" + "${config.system.boot.loader.initrdFile}";
-        in
-        ''
-          if [ ! -f ${kernelPath} ]; then
-            echo "The bootloader cannot find the proper kernel image."
-            echo "(Expecting ${kernelPath})"
-            false
-          fi
+      system.systemBuilderCommands = let
+        kernelPath = "${config.boot.kernelPackages.kernel}/" + "${config.system.boot.loader.kernelFile}";
+        initrdPath = "${config.system.build.initialRamdisk}/" + "${config.system.boot.loader.initrdFile}";
+      in ''
+        if [ ! -f ${kernelPath} ]; then
+          echo "The bootloader cannot find the proper kernel image."
+          echo "(Expecting ${kernelPath})"
+          false
+        fi
 
-          ln -s ${kernelPath} $out/kernel
-          ln -s ${config.system.modulesTree} $out/kernel-modules
-          ${optionalString (config.hardware.deviceTree.package != null) ''
-            ln -s ${config.hardware.deviceTree.package} $out/dtbs
-          ''}
+        ln -s ${kernelPath} $out/kernel
+        ln -s ${config.system.modulesTree} $out/kernel-modules
+        ${optionalString (config.hardware.deviceTree.package != null) ''
+          ln -s ${config.hardware.deviceTree.package} $out/dtbs
+        ''}
 
-          echo -n "$kernelParams" > $out/kernel-params
+        echo -n "$kernelParams" > $out/kernel-params
 
-          ln -s ${initrdPath} $out/initrd
+        ln -s ${initrdPath} $out/initrd
 
-          ln -s ${config.system.build.initialRamdiskSecretAppender}/bin/append-initrd-secrets $out
+        ln -s ${config.system.build.initialRamdiskSecretAppender}/bin/append-initrd-secrets $out
 
-          ln -s ${config.hardware.firmware}/lib/firmware $out/firmware
-        '';
+        ln -s ${config.hardware.firmware}/lib/firmware $out/firmware
+      '';
 
       # Implement consoleLogLevel both in early boot and using sysctl
       # (so you don't need to reboot to have changes take effect).
       boot.kernelParams =
-        [ "loglevel=${toString config.boot.consoleLogLevel}" ]
+        ["loglevel=${toString config.boot.consoleLogLevel}"]
         ++ optionals config.boot.vesa [
           "vga=0x317"
           "nomodeset"
@@ -399,8 +385,8 @@ in
       };
 
       systemd.services.systemd-modules-load = {
-        wantedBy = [ "multi-user.target" ];
-        restartTriggers = [ kernelModulesConf ];
+        wantedBy = ["multi-user.target"];
+        restartTriggers = [kernelModulesConf];
         serviceConfig = {
           # Ignore failed module loads.  Typically some of the
           # modules in ‘boot.kernelModules’ are "nice to have but
@@ -446,8 +432,7 @@ in
       };
 
       # The config options that all modules can depend upon
-      system.requiredKernelConfig =
-        with config.lib.kernelConfig;
+      system.requiredKernelConfig = with config.lib.kernelConfig;
         [
           # !!! Should this really be needed?
           (isYes "MODULES")
@@ -457,19 +442,16 @@ in
 
       # nixpkgs kernels are assumed to have all required features
       assertions =
-        if config.boot.kernelPackages.kernel ? features then
-          [ ]
-        else
-          let
-            cfg = config.boot.kernelPackages.kernel.config;
-          in
+        if config.boot.kernelPackages.kernel ? features
+        then []
+        else let
+          cfg = config.boot.kernelPackages.kernel.config;
+        in
           map (attrs: {
             assertion = attrs.assertion cfg;
             inherit (attrs) message;
-          }) config.system.requiredKernelConfig;
-
+          })
+          config.system.requiredKernelConfig;
     })
-
   ];
-
 }

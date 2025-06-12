@@ -6,7 +6,6 @@
   cmake,
   ninja,
 }:
-
 stdenv.mkDerivation {
   pname = "chrome-pak-customizer";
   version = "2.0-unstable-2021-06-24";
@@ -24,7 +23,7 @@ stdenv.mkDerivation {
     installShellFiles
   ];
 
-  cmakeFlags = [ (lib.cmakeBool "LGPL" false) ];
+  cmakeFlags = [(lib.cmakeBool "LGPL" false)];
 
   installPhase = ''
     runHook preInstall
@@ -38,7 +37,7 @@ stdenv.mkDerivation {
     description = "Simple batch tool to customize pak files in chrome or chromium-based browser";
     homepage = "https://github.com/myfreeer/chrome-pak-customizer";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ulysseszhan ];
+    maintainers = with lib.maintainers; [ulysseszhan];
     mainProgram = "pak";
     platforms = lib.platforms.all;
   };

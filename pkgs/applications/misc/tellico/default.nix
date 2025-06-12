@@ -24,7 +24,6 @@
   taglib,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tellico";
   version = "4.1.2";
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
       gpl3Only
       lgpl2Only
     ];
-    maintainers = with maintainers; [ numkem ];
+    maintainers = with maintainers; [numkem];
     platforms = platforms.linux;
   };
 }

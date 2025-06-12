@@ -4,7 +4,6 @@
   fetchurl,
   bison,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hugs98";
   version = "2006-09";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ bison ];
+  nativeBuildInputs = [bison];
 
   postUnpack = "find -type f -exec sed -i 's@/bin/cp@cp@' {} +";
 
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     mainProgram = "hugs";
     homepage = "https://www.haskell.org/hugs";
     description = "Haskell interpreter";
-    maintainers = with maintainers; [ joachifm ];
+    maintainers = with maintainers; [joachifm];
     license = licenses.bsd3;
     platforms = platforms.all;
   };

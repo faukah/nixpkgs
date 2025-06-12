@@ -7,7 +7,6 @@
   apple-sdk_12,
   darwinMinVersionHook,
 }:
-
 buildGoModule rec {
   pname = "ghostunnel";
   version = "1.8.4";
@@ -32,7 +31,7 @@ buildGoModule rec {
   # which doesn't work from a nix build. Presumably other platform implementations of the
   # certstore would have similar issues, so it probably makes sense to skip them in
   # general wherever they are available.
-  checkFlags = [ "-skip=^Test(ImportDelete|Signer|Certificate)(RSA|ECDSA|EC)$" ];
+  checkFlags = ["-skip=^Test(ImportDelete|Signer|Certificate)(RSA|ECDSA|EC)$"];
 
   passthru.tests = {
     nixos = nixosTests.ghostunnel;

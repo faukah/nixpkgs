@@ -4,7 +4,6 @@
   lib,
   pycryptodome,
 }:
-
 buildPythonApplication rec {
   pname = "dcnnt";
   version = "0.10.0";
@@ -26,7 +25,7 @@ buildPythonApplication rec {
       KDE Connect.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ arnoutkroeze ];
+    maintainers = with maintainers; [arnoutkroeze];
     mainProgram = "dcnnt";
   };
 }

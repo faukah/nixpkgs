@@ -8,7 +8,6 @@
   nifticlib,
   hdf5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libminc";
   version = "2.4.06";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs .
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     zlib
     nifticlib
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://github.com/BIC-MNI/libminc";
     description = "Medical imaging library based on HDF5";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.free;
   };

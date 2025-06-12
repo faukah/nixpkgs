@@ -18,7 +18,6 @@
   giflib, # GIF image format
   swap16bitcspSupport ? false, # Byte swap for 16bit color spaces
   libwebpmuxSupport ? true, # Build libwebpmux
-
   # for passthru.tests
   gd,
   graphicsmagick,
@@ -30,7 +29,6 @@
   python3,
   vips,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libwebp";
   version = "1.5.0";
@@ -54,18 +52,18 @@ stdenv.mkDerivation rec {
     (lib.cmakeBool "WEBP_BUILD_LIBWEBPMUX" libwebpmuxSupport)
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs =
-    [ ]
+    []
     ++ lib.optionals openglSupport [
       libglut
       libGL
       libGLU
     ]
-    ++ lib.optionals pngSupport [ libpng ]
-    ++ lib.optionals jpegSupport [ libjpeg ]
-    ++ lib.optionals tiffSupport [ libtiff ]
-    ++ lib.optionals gifSupport [ giflib ];
+    ++ lib.optionals pngSupport [libpng]
+    ++ lib.optionals jpegSupport [libjpeg]
+    ++ lib.optionals tiffSupport [libtiff]
+    ++ lib.optionals gifSupport [giflib];
 
   passthru.tests = {
     inherit
@@ -86,6 +84,6 @@ stdenv.mkDerivation rec {
     homepage = "https://developers.google.com/speed/webp/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ajs124 ];
+    maintainers = with maintainers; [ajs124];
   };
 }

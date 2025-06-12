@@ -11,7 +11,6 @@
   # any issues they run into.
   withGoolm ? false,
 }:
-
 buildGoModule rec {
   pname = "mautrix-whatsapp";
   version = "0.12.1";
@@ -30,7 +29,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/tulir/mautrix-whatsapp";

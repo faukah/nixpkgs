@@ -15,7 +15,6 @@
   pytestCheckHook,
   pytest-astropy,
 }:
-
 buildPythonPackage rec {
   pname = "pvextractor";
   version = "0.4";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     sha256 = "sha256-TjwoTtoGWU6C6HdFuS+gJj69PUnfchPHs7UjFqwftVQ=";
   };
 
-  buildInputs = [ pyqt-builder ];
+  buildInputs = [pyqt-builder];
   nativeBuildInputs = [
     setuptools
     setuptools-scm
@@ -53,12 +52,12 @@ buildPythonPackage rec {
     pytest-astropy
   ];
 
-  pythonImportsCheck = [ "pvextractor" ];
+  pythonImportsCheck = ["pvextractor"];
 
   meta = with lib; {
     homepage = "http://pvextractor.readthedocs.io";
     description = "Position-velocity diagram extractor";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ifurther ];
+    maintainers = with maintainers; [ifurther];
   };
 }

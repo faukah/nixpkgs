@@ -6,7 +6,6 @@
   findlib,
   ocamlbuild,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-process";
   version = "0.2.1";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Easy process control in OCaml";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     inherit (src.meta) homepage;
     inherit (ocaml.meta) platforms;
   };

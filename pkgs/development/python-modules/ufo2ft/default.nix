@@ -16,7 +16,6 @@
   syrupy,
   ufolib2,
 }:
-
 buildPythonPackage rec {
   pname = "ufo2ft";
   version = "3.4.3";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonRelaxDeps = [ "cffsubr" ];
+  pythonRelaxDeps = ["cffsubr"];
 
   dependencies =
     [
@@ -68,13 +67,13 @@ buildPythonPackage rec {
     "test_drop_glyph_names_variable"
   ];
 
-  pythonImportsCheck = [ "ufo2ft" ];
+  pythonImportsCheck = ["ufo2ft"];
 
   meta = with lib; {
     description = "Bridge from UFOs to FontTools objects";
     homepage = "https://github.com/googlefonts/ufo2ft";
     changelog = "https://github.com/googlefonts/ufo2ft/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

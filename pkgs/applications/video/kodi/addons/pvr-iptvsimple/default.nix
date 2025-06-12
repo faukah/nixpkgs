@@ -10,7 +10,6 @@
   inputstream-ffmpegdirect,
   inputstream-rtmp,
 }:
-
 buildKodiBinaryAddon rec {
   pname = "pvr-iptvsimple";
   namespace = "pvr.iptvsimple";
@@ -39,6 +38,6 @@ buildKodiBinaryAddon rec {
     description = "Kodi's IPTV Simple client addon";
     platforms = platforms.all;
     license = licenses.gpl2Plus;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

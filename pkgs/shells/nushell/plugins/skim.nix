@@ -8,7 +8,6 @@
   nushell,
   skim,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nu_plugin_skim";
   version = "0.14.0";
@@ -23,16 +22,15 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-VTnaEqIuvTalemVhc/GJnTCQh1DCWQrtoo7oGJBZMXs=";
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ rustPlatform.bindgenHook ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [rustPlatform.bindgenHook];
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests.check =
-      let
-        nu = lib.getExe nushell;
-        plugin = lib.getExe skim;
-      in
-      runCommand "${pname}-test" { } ''
+    updateScript = nix-update-script {};
+    tests.check = let
+      nu = lib.getExe nushell;
+      plugin = lib.getExe skim;
+    in
+      runCommand "${pname}-test" {} ''
         touch $out
         ${nu} -n -c "plugin add --plugin-config $out ${plugin}"
         ${nu} -n -c "plugin use --plugin-config $out skim"
@@ -44,7 +42,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "nu_plugin_skim";
     homepage = "https://github.com/idanarye/nu_plugin_skim";
     license = licenses.mit;
-    maintainers = with maintainers; [ aftix ];
+    maintainers = with maintainers; [aftix];
     platforms = platforms.all;
   };
 }

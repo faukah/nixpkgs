@@ -8,9 +8,7 @@
   dataclasses-json,
   deprecated,
   pytestCheckHook,
-}:
-
-let
+}: let
   gltf-sample-models = fetchFromGitHub {
     owner = "KhronosGroup";
     repo = "glTF-Sample-Models";
@@ -18,40 +16,39 @@ let
     hash = "sha256-TxSg1O6eIiaKagcZUoWZ5Iw/tBKvQIoepRFp3MdVlyI=";
   };
 in
+  buildPythonPackage rec {
+    pname = "pygltflib";
+    version = "1.16.2";
+    pyproject = true;
 
-buildPythonPackage rec {
-  pname = "pygltflib";
-  version = "1.16.2";
-  pyproject = true;
+    disabled = pythonOlder "3.6";
 
-  disabled = pythonOlder "3.6";
+    src = fetchFromGitLab {
+      owner = "dodgyville";
+      repo = "pygltflib";
+      tag = "v${version}";
+      hash = "sha256-rUAg05M5biVsdG2yEH0Olng/0jH1R/Jo5/+j4ToKkTI=";
+    };
 
-  src = fetchFromGitLab {
-    owner = "dodgyville";
-    repo = "pygltflib";
-    tag = "v${version}";
-    hash = "sha256-rUAg05M5biVsdG2yEH0Olng/0jH1R/Jo5/+j4ToKkTI=";
-  };
+    nativeBuildInputs = [setuptools];
 
-  nativeBuildInputs = [ setuptools ];
+    propagatedBuildInputs = [
+      dataclasses-json
+      deprecated
+    ];
 
-  propagatedBuildInputs = [
-    dataclasses-json
-    deprecated
-  ];
+    nativeCheckInputs = [pytestCheckHook];
+    preCheck = ''
+      ln -s ${gltf-sample-models} glTF-Sample-Models
+    '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  preCheck = ''
-    ln -s ${gltf-sample-models} glTF-Sample-Models
-  '';
+    pythonImportsCheck = ["pygltflib"];
 
-  pythonImportsCheck = [ "pygltflib" ];
-
-  meta = with lib; {
-    description = "Module for reading and writing basic glTF files";
-    homepage = "https://gitlab.com/dodgyville/pygltflib";
-    changelog = "https://gitlab.com/dodgyville/pygltflib/-/blob/v${version}/CHANGELOG.md";
-    license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
-  };
-}
+    meta = with lib; {
+      description = "Module for reading and writing basic glTF files";
+      homepage = "https://gitlab.com/dodgyville/pygltflib";
+      changelog = "https://gitlab.com/dodgyville/pygltflib/-/blob/v${version}/CHANGELOG.md";
+      license = licenses.mit;
+      maintainers = with maintainers; [bcdarwin];
+    };
+  }

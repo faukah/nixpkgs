@@ -17,7 +17,6 @@
   gpgme,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nemo-seahorse";
   version = "6.4.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/nemo-seahorse";
 
-  patches = [ ./fix-schemas.patch ];
+  patches = [./fix-schemas.patch];
 
   nativeBuildInputs = [
     meson
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
 
   PKG_CONFIG_LIBNEMO_EXTENSION_EXTENSIONDIR = "${placeholder "out"}/${nemo.extensiondir}";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/linuxmint/nemo-extensions/tree/master/nemo-seahorse";
@@ -85,6 +84,6 @@ stdenv.mkDerivation rec {
     '';
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.cinnamon ];
+    teams = [lib.teams.cinnamon];
   };
 }

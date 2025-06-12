@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "commitizen-go";
   version = "1.0.3";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-TbrgKE7P3c0gkqJPDkbchWTPkOuTaTAWd8wDcpffcCc=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   env.CGO_ENABLED = 0;
 
@@ -33,7 +32,7 @@ buildGoModule rec {
     description = "Command line utility to standardize git commit messages, golang version";
     homepage = "https://github.com/lintingzhen/commitizen-go";
     license = licenses.mit;
-    maintainers = with maintainers; [ seanrmurphy ];
+    maintainers = with maintainers; [seanrmurphy];
     mainProgram = "commitizen-go";
   };
 }

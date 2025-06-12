@@ -11,7 +11,6 @@
   pytestCheckHook,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "swh-journal";
   version = "2.0.0";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     swh-model
   ];
 
-  pythonImportsCheck = [ "swh.journal" ];
+  pythonImportsCheck = ["swh.journal"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     description = "Persistent logger of changes to the archive, with publish-subscribe support";
     homepage = "https://gitlab.softwareheritage.org/swh/devel/swh-journal";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

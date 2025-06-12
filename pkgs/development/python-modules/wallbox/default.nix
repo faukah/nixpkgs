@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "wallbox";
   version = "0.9.0";
@@ -31,13 +30,13 @@ buildPythonPackage rec {
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "wallbox" ];
+  pythonImportsCheck = ["wallbox"];
 
   meta = {
     description = "Module for interacting with Wallbox EV charger API";
     homepage = "https://github.com/cliviu74/wallbox";
     changelog = "https://github.com/cliviu74/wallbox/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

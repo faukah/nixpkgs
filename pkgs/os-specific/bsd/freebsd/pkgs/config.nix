@@ -13,7 +13,6 @@
   libnv,
   libsbuf,
 }:
-
 mkDerivation {
   path = "usr.sbin/config";
   nativeBuildInputs = [
@@ -28,8 +27,10 @@ mkDerivation {
     byacc
     file2c
   ];
-  buildInputs = compatIfNeeded ++ [
-    libnv
-    libsbuf
-  ];
+  buildInputs =
+    compatIfNeeded
+    ++ [
+      libnv
+      libsbuf
+    ];
 }

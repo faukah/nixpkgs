@@ -3,12 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.wayland.miracle-wm;
-in
-{
+in {
   options.programs.wayland.miracle-wm = {
     enable = lib.mkEnableOption ''
       miracle-wm, a tiling Mir based Wayland compositor. You can manually launch miracle-wm by
@@ -22,11 +19,11 @@ in
     lib.mkMerge [
       {
         environment = {
-          systemPackages = [ pkgs.miracle-wm ];
+          systemPackages = [pkgs.miracle-wm];
         };
 
         # To make the miracle-wm session available if a display manager like SDDM is enabled:
-        services.displayManager.sessionPackages = [ pkgs.miracle-wm ];
+        services.displayManager.sessionPackages = [pkgs.miracle-wm];
       }
 
       (import ./wayland-session.nix {
@@ -40,5 +37,5 @@ in
     ]
   );
 
-  meta.maintainers = with lib.maintainers; [ OPNA2608 ];
+  meta.maintainers = with lib.maintainers; [OPNA2608];
 }

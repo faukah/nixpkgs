@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "para";
   version = "0.0.8";
@@ -17,11 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-RsMjKunY6p2IbP0IzdESiSICvthkX0C2JVWXukz+8hc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "para" ];
+  pythonImportsCheck = ["para"];
 
   #  AttributeError: Can't get local object 'test_output_queue_size.<locals>.get_the_a'
   doCheck = !stdenv.hostPlatform.isDarwin;
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     description = "Set utilities that ake advantage of python's 'multiprocessing' module to distribute CPU-intensive tasks";
     homepage = "https://pypi.org/project/para";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

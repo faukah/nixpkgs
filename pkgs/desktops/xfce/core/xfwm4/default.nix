@@ -14,7 +14,6 @@
   libXpresent,
   xfconf,
 }:
-
 mkXfceDerivation {
   category = "xfce";
   pname = "xfwm4";
@@ -42,6 +41,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Window manager for Xfce";
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

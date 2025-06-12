@@ -4,7 +4,6 @@
   fetchpatch,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "brotab";
   version = "1.4.2";
@@ -50,6 +49,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/balta2ar/brotab";
     description = "Control your browser's tabs from the command line";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

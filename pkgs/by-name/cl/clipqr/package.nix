@@ -16,7 +16,6 @@
   pkg-config,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "clipqr";
   version = "1.3.0";
@@ -61,7 +60,7 @@ buildGoModule rec {
       name = "ClipQR";
       desktopName = "ClipQR";
       exec = "clipqr";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
       icon = "clipqr";
       comment = "Scan QR codes on screen and from camera";
       genericName = "ClipQR";
@@ -71,7 +70,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Scan QR codes on screen and from camera, the result is in your clipboard";
     license = licenses.mit;
-    maintainers = with maintainers; [ MatthieuBarthel ];
+    maintainers = with maintainers; [MatthieuBarthel];
     homepage = "https://gitlab.com/imatt-foss/clipqr";
     broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "clipqr";

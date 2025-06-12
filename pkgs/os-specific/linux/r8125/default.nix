@@ -4,7 +4,6 @@
   fetchFromGitLab,
   kernel,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "r8125";
   version = "9.015.00";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-RA7rvvF2Ngeu+hSACBbKfAJgLbPqhaXG14DH2NmztTE=";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     "BASEDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}"
   ];
 
-  buildFlags = [ "modules" ];
+  buildFlags = ["modules"];
 
   installPhase = ''
     mkdir -p $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/ethernet/realtek
@@ -42,6 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Realtek r8125 2.5G Ethernet driver";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.peelz ];
+    maintainers = [lib.maintainers.peelz];
   };
 })

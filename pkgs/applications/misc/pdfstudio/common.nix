@@ -8,7 +8,7 @@
   longDescription,
   broken ? false,
   buildFHSEnv,
-  extraBuildInputs ? [ ],
+  extraBuildInputs ? [],
   jdk,
   stdenv,
   lib,
@@ -18,15 +18,16 @@
   autoPatchelfHook,
   sane-backends,
   cups,
-}:
-let
+}: let
   thisPackage = stdenv.mkDerivation rec {
     inherit pname src version;
     strictDeps = true;
 
-    buildInputs = [
-      sane-backends # for libsane.so.1
-    ] ++ extraBuildInputs;
+    buildInputs =
+      [
+        sane-backends # for libsane.so.1
+      ]
+      ++ extraBuildInputs;
 
     nativeBuildInputs = [
       autoPatchelfHook
@@ -42,8 +43,8 @@ let
         exec = "${pname} %f";
         icon = "${pname}";
         comment = "Views and edits PDF files";
-        mimeTypes = [ "application/pdf" ];
-        categories = [ "Office" ];
+        mimeTypes = ["application/pdf"];
+        categories = ["Office"];
       })
     ];
 
@@ -66,39 +67,38 @@ let
       runHook postInstall
     '';
   };
-
 in
-# Package with cups in FHS sandbox, because JAVA bin expects "/usr/bin/lpr" for printing.
-buildFHSEnv {
-  inherit pname version;
+  # Package with cups in FHS sandbox, because JAVA bin expects "/usr/bin/lpr" for printing.
+  buildFHSEnv {
+    inherit pname version;
 
-  targetPkgs = pkgs: [
-    cups
-    thisPackage
-  ];
-
-  runScript = "${program}${year}";
-
-  # link desktop item and icon into FHS user environment
-  extraInstallCommands = ''
-    mkdir -p "$out/share/applications"
-    mkdir -p "$out/share/pixmaps"
-    ln -s ${thisPackage}/share/applications/*.desktop "$out/share/applications/"
-    ln -s ${thisPackage}/share/pixmaps/*.png "$out/share/pixmaps/"
-  '';
-
-  meta = {
-    inherit broken;
-    homepage = "https://www.qoppa.com/${pname}/";
-    description = "Easy to use, full-featured PDF editing software";
-    longDescription = longDescription;
-    sourceProvenance = with lib.sourceTypes; [
-      binaryBytecode
-      binaryNativeCode
+    targetPkgs = pkgs: [
+      cups
+      thisPackage
     ];
-    license = lib.licenses.unfree;
-    platforms = lib.platforms.linux;
-    mainProgram = pname;
-    maintainers = with lib.maintainers; [ pwoelfel ];
-  };
-}
+
+    runScript = "${program}${year}";
+
+    # link desktop item and icon into FHS user environment
+    extraInstallCommands = ''
+      mkdir -p "$out/share/applications"
+      mkdir -p "$out/share/pixmaps"
+      ln -s ${thisPackage}/share/applications/*.desktop "$out/share/applications/"
+      ln -s ${thisPackage}/share/pixmaps/*.png "$out/share/pixmaps/"
+    '';
+
+    meta = {
+      inherit broken;
+      homepage = "https://www.qoppa.com/${pname}/";
+      description = "Easy to use, full-featured PDF editing software";
+      longDescription = longDescription;
+      sourceProvenance = with lib.sourceTypes; [
+        binaryBytecode
+        binaryNativeCode
+      ];
+      license = lib.licenses.unfree;
+      platforms = lib.platforms.linux;
+      mainProgram = pname;
+      maintainers = with lib.maintainers; [pwoelfel];
+    };
+  }

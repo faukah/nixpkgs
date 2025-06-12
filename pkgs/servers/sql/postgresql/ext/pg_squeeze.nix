@@ -6,10 +6,9 @@
   postgresqlBuildExtension,
   postgresqlTestExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pg_squeeze";
-  version = "${builtins.replaceStrings [ "_" ] [ "." ] (
+  version = "${builtins.replaceStrings ["_"] ["."] (
     lib.strings.removePrefix "REL" finalAttrs.src.rev
   )}";
 
@@ -20,7 +19,7 @@ postgresqlBuildExtension (finalAttrs: {
     hash = "sha256-Kh1wSOvV5Rd1CG/na3yzbWzvaR8SJ6wmTZOnM+lbgik=";
   };
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex=REL(.*)" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version-regex=REL(.*)"];};
   passthru.tests.extension = postgresqlTestExtension {
     inherit (finalAttrs) finalPackage;
     postgresqlExtraSettings = ''
@@ -45,7 +44,7 @@ postgresqlBuildExtension (finalAttrs: {
     homepage = "https://github.com/cybertec-postgresql/pg_squeeze";
     changelog = "https://github.com/cybertec-postgresql/pg_squeeze/blob/${finalAttrs.src.rev}/NEWS";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = postgresql.meta.platforms;
   };
 })

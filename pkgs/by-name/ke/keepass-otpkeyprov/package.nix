@@ -4,9 +4,7 @@
   buildEnv,
   fetchzip,
   mono,
-}:
-
-let
+}: let
   version = "2.6";
   drv = stdenv.mkDerivation {
     pname = "otpkeyprov";
@@ -23,7 +21,7 @@ let
       homepage = "https://keepass.info/plugins.html#otpkeyprov";
       platforms = with lib.platforms; linux;
       license = lib.licenses.gpl2;
-      maintainers = [ lib.maintainers.Enteee ];
+      maintainers = [lib.maintainers.Enteee];
     };
 
     pluginFilename = "OtpKeyProv.plgx";
@@ -34,11 +32,11 @@ let
     '';
   };
 in
-# Mono is required to compile plugin at runtime, after loading.
-buildEnv {
-  name = drv.name;
-  paths = [
-    mono
-    drv
-  ];
-}
+  # Mono is required to compile plugin at runtime, after loading.
+  buildEnv {
+    name = drv.name;
+    paths = [
+      mono
+      drv
+    ];
+  }

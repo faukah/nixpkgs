@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation {
   pname = "quadprogpp";
   version = "unstable-2023-01-20";
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/liuq/QuadProgpp";
     license = licenses.mit;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.all;
   };
 }

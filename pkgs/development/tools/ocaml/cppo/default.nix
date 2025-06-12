@@ -6,9 +6,7 @@
   findlib,
   ocamlbuild,
   buildDunePackage,
-}:
-
-let
+}: let
   pname = "cppo";
 
   meta = with lib; {
@@ -18,63 +16,55 @@ let
       Cppo is an equivalent of the C preprocessor targeted at the OCaml language and its variants.
     '';
     homepage = "https://github.com/ocaml-community/${pname}";
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
     license = licenses.bsd3;
   };
-
 in
+  if lib.versionAtLeast ocaml.version "4.02"
+  then
+    buildDunePackage rec {
+      inherit pname;
+      version = "1.8.0";
 
-if lib.versionAtLeast ocaml.version "4.02" then
+      src = fetchFromGitHub {
+        owner = "ocaml-community";
+        repo = pname;
+        rev = "v${version}";
+        hash = "sha256-+HnAGM+GddYJK0RCvKrs+baZS+1o8Yq+/cVa3U3nFWg=";
+      };
 
-  buildDunePackage rec {
-    inherit pname;
-    version = "1.8.0";
+      doCheck = true;
 
-    src = fetchFromGitHub {
-      owner = "ocaml-community";
-      repo = pname;
-      rev = "v${version}";
-      hash = "sha256-+HnAGM+GddYJK0RCvKrs+baZS+1o8Yq+/cVa3U3nFWg=";
-    };
-
-    doCheck = true;
-
-    inherit meta;
-  }
-
-else
-
-  let
+      inherit meta;
+    }
+  else let
     version = "1.5.0";
   in
+    stdenv.mkDerivation {
+      name = "${pname}-${version}";
 
-  stdenv.mkDerivation {
+      src = fetchFromGitHub {
+        owner = "mjambon";
+        repo = pname;
+        rev = "v${version}";
+        sha256 = "1xqldjz9risndnabvadw41fdbi5sa2hl4fnqls7j9xfbby1izbg8";
+      };
 
-    name = "${pname}-${version}";
+      strictDeps = true;
 
-    src = fetchFromGitHub {
-      owner = "mjambon";
-      repo = pname;
-      rev = "v${version}";
-      sha256 = "1xqldjz9risndnabvadw41fdbi5sa2hl4fnqls7j9xfbby1izbg8";
-    };
+      nativeBuildInputs = [
+        ocaml
+        findlib
+        ocamlbuild
+      ];
 
-    strictDeps = true;
+      inherit meta;
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-      ocamlbuild
-    ];
+      createFindlibDestdir = true;
 
-    inherit meta;
+      makeFlags = ["PREFIX=$(out)"];
 
-    createFindlibDestdir = true;
-
-    makeFlags = [ "PREFIX=$(out)" ];
-
-    preBuild = ''
-      mkdir -p $out/bin
-    '';
-
-  }
+      preBuild = ''
+        mkdir -p $out/bin
+      '';
+    }

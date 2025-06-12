@@ -5,7 +5,6 @@
   json_c,
   libbsd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "health-check";
   version = "0.04.01";
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ColinIanKing/health-check";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

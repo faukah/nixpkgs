@@ -3,7 +3,6 @@
   isPyPy,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-tests";
   inherit (pytest) version;

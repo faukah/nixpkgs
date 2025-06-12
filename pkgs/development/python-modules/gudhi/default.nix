@@ -18,7 +18,6 @@
   pytest,
   enableTBB ? false,
 }:
-
 buildPythonPackage rec {
   pname = "gudhi";
   version = "3.11.0";
@@ -40,18 +39,20 @@ buildPythonPackage rec {
     matplotlib
     setuptools
   ];
-  buildInputs = [
-    boost
-    eigen
-    gmp
-    cgal
-    mpfr
-  ] ++ lib.optionals enableTBB [ tbb ];
+  buildInputs =
+    [
+      boost
+      eigen
+      gmp
+      cgal
+      mpfr
+    ]
+    ++ lib.optionals enableTBB [tbb];
   propagatedBuildInputs = [
     numpy
     scipy
   ];
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   cmakeFlags = [
     (lib.cmakeBool "WITH_GUDHI_PYTHON" true)
@@ -91,6 +92,6 @@ buildPythonPackage rec {
       mit
       gpl3
     ];
-    maintainers = with lib.maintainers; [ yl3dy ];
+    maintainers = with lib.maintainers; [yl3dy];
   };
 }

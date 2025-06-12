@@ -18,7 +18,7 @@ buildGoModule rec {
   vendorHash = null;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -26,6 +26,6 @@ buildGoModule rec {
     homepage = "https://github.com/agneum/plan-exporter";
     changelog = "https://github.com/agneum/plan-exporter/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ autra ];
+    maintainers = with lib.maintainers; [autra];
   };
 }

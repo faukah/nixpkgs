@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   setuptools,
   setuptools-scm,
   poetry-core,
@@ -12,7 +11,6 @@
   xonsh,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "xontrib-abbrevs";
   version = "0.1.0";
@@ -46,13 +44,13 @@ buildPythonPackage rec {
     xonsh
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Command abbreviations for Xonsh";
     homepage = "https://github.com/xonsh/xontrib-abbrevs";
     changelog = "https://github.com/xonsh/xontrib-apprevs/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ greg ];
+    maintainers = with lib.maintainers; [greg];
   };
 }

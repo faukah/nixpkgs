@@ -7,7 +7,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fcgiwrap";
   version = "1.1.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/gnosek/fcgiwrap";
     description = "Simple server for running CGI applications over FastCGI";
-    maintainers = [ ];
+    maintainers = [];
     platforms = with platforms; linux;
     license = licenses.mit;
     mainProgram = "fcgiwrap";

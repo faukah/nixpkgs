@@ -60,14 +60,14 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version-regex=^opengothic-v(.*)$" ];
+    extraArgs = ["--version-regex=^opengothic-v(.*)$"];
   };
 
   meta = {
     description = "Open source re-implementation of Gothic 2: Night of the Raven";
     homepage = "https://github.com/Try/OpenGothic";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ azahi ];
+    maintainers = with lib.maintainers; [azahi];
     platforms = lib.platforms.linux;
     mainProgram = "Gothic2Notr";
   };

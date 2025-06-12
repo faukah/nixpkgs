@@ -2,42 +2,39 @@
   stdenv,
   python3,
   lib,
-}:
-
-let
-  pythonEnv = python3.withPackages (ps: [ ps.pyelftools ]);
-
+}: let
+  pythonEnv = python3.withPackages (ps: [ps.pyelftools]);
 in
-# Note: Not using python3Packages.buildPythonApplication because of dependency propagation.
-stdenv.mkDerivation {
-  pname = "auto-patchelf";
-  version = "0-unstable-2024-08-14";
+  # Note: Not using python3Packages.buildPythonApplication because of dependency propagation.
+  stdenv.mkDerivation {
+    pname = "auto-patchelf";
+    version = "0-unstable-2024-08-14";
 
-  buildInputs = [ pythonEnv ];
+    buildInputs = [pythonEnv];
 
-  src = ./source;
+    src = ./source;
 
-  buildPhase = ''
-    runHook preBuild
+    buildPhase = ''
+      runHook preBuild
 
-    substituteInPlace auto-patchelf.py --replace-fail "@defaultBintools@" "$NIX_BINTOOLS"
+      substituteInPlace auto-patchelf.py --replace-fail "@defaultBintools@" "$NIX_BINTOOLS"
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -Dm755 auto-patchelf.py $out/bin/auto-patchelf
+      install -Dm755 auto-patchelf.py $out/bin/auto-patchelf
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = {
-    description = "Automatically patch ELF binaries using patchelf";
-    mainProgram = "auto-patchelf";
-    license = lib.licenses.mit;
-    platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ Scrumplex ];
-  };
-}
+    meta = {
+      description = "Automatically patch ELF binaries using patchelf";
+      mainProgram = "auto-patchelf";
+      license = lib.licenses.mit;
+      platforms = lib.platforms.unix;
+      maintainers = with lib.maintainers; [Scrumplex];
+    };
+  }

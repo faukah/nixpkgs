@@ -46,13 +46,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postFixup = ''
     wrapProgram $out/bin/hddfancontrol \
       --prefix PATH : ${
-        lib.makeBinPath [
-          hddtemp
-          hdparm
-          sdparm
-          smartmontools
-        ]
-      }
+      lib.makeBinPath [
+        hddtemp
+        hdparm
+        sdparm
+        smartmontools
+      ]
+    }
   '';
 
   meta = {

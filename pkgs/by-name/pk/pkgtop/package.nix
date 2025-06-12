@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pkgtop";
   version = "2.5.1";
@@ -26,7 +25,7 @@ buildGoModule rec {
     homepage = "https://github.com/orhun/pkgtop";
     changelog = "https://github.com/orhun/pkgtop/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "pkgtop";
   };
 }

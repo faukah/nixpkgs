@@ -7,7 +7,6 @@
   setuptools-scm,
   sip,
 }:
-
 buildPythonPackage rec {
   pname = "pyqt-builder";
   version = "1.18.1";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     sip
   ];
 
-  pythonImportsCheck = [ "pyqtbuild" ];
+  pythonImportsCheck = ["pyqtbuild"];
 
   # There aren't tests
   doCheck = false;
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "PEP 517 compliant build system for PyQt";
     homepage = "https://github.com/Python-PyQt/PyQt-builder";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

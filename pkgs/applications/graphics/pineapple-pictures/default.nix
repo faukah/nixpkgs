@@ -6,7 +6,6 @@
   qt6Packages,
   exiv2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pineapple-pictures";
   version = "1.0.0";
@@ -39,6 +38,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     mainProgram = "ppic";
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [rewine];
   };
 })

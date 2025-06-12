@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "uarmsolver";
   version = "0.3.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IMlh6Y5iVouMZatR1uxw0gUNZBdh2qm56s+GEjcr1+M=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   installPhase = ''
     install -D -t $out/bin uARMSolver
@@ -28,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/firefly-cpp/uARMSolver";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ firefly-cpp ];
+    maintainers = with maintainers; [firefly-cpp];
   };
 }

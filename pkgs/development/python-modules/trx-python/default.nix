@@ -11,7 +11,6 @@
   pytestCheckHook,
   psutil,
 }:
-
 buildPythonPackage rec {
   pname = "trx-python";
   version = "0.3";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "trx" ];
+  pythonImportsCheck = ["trx"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  pytestFlagsArray = [ "trx/tests" ];
+  pytestFlagsArray = ["trx/tests"];
 
   disabledTestPaths = [
     # access to network
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tee-ar-ex/trx-python";
     changelog = "https://github.com/tee-ar-ex/trx-python/releases/tag/${version}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

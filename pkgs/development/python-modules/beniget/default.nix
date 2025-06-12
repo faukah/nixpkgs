@@ -6,7 +6,6 @@
   gast,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "beniget";
   version = "0.4.2.post1";
@@ -19,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-rNMgCEkI6p9KtLSz/2jVJ9rPeJzxv5rT+Pu6OHM8z70=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ gast ];
+  dependencies = [gast];
 
-  pythonImportsCheck = [ "beniget" ];
+  pythonImportsCheck = ["beniget"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Extract semantic information about static Python code";
     homepage = "https://github.com/serge-sans-paille/beniget";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

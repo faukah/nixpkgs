@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rman";
   version = "3.2";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/man
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
 

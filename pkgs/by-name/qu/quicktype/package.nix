@@ -6,7 +6,6 @@
   quicktype,
   testers,
 }:
-
 buildNpmPackage rec {
   pname = "quicktype";
   version = "23.0.105"; # version from https://npm.im/quicktype
@@ -29,14 +28,14 @@ buildNpmPackage rec {
   '';
 
   passthru.tests = {
-    version = testers.testVersion { package = quicktype; };
+    version = testers.testVersion {package = quicktype;};
   };
 
   meta = with lib; {
     description = "Generate types and converters from JSON, Schema, and GraphQL";
     homepage = "https://quicktype.io/";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "quicktype";
   };
 }

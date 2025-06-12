@@ -4,19 +4,15 @@
   fetchFromGitHub,
   nix-update-script,
   fetchpatch2,
-
   # build system
   setuptools,
   wheel,
-
   # deps
   docutils,
   sphinx,
   tabulate,
-
   # tests
   pytestCheckHook,
-
   # optional deps
   black,
   bumpver,
@@ -30,7 +26,6 @@
   sphinxcontrib-httpdomain,
   sphinxcontrib-plantuml,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-markdown-builder";
   version = "0.6.8";
@@ -92,12 +87,12 @@ buildPythonPackage rec {
   # `black` is included here, with python3.13
   checkInputs = lib.remove black optional-dependencies.dev;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Sphinx extension to add markdown generation support";
     homepage = "https://github.com/liran-funaro/sphinx-markdown-builder";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ eljamm ];
+    maintainers = with lib.maintainers; [eljamm];
   };
 }

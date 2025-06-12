@@ -25,13 +25,13 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "woodblock" ];
+  pythonImportsCheck = ["woodblock"];
 
   meta = with lib; {
     description = "Framework to generate file carving test data";
     mainProgram = "woodblock";
     homepage = "https://github.com/fkie-cad/woodblock";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

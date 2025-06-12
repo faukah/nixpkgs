@@ -4,7 +4,6 @@
   nix-update-script,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "codebook";
   version = "0.3.3";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # Integration tests require internet access for dictionaries
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Unholy spellchecker for code";

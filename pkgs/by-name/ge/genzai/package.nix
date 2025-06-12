@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "genzai";
   version = "1.0";
@@ -31,7 +30,7 @@ buildGoModule rec {
     homepage = "https://github.com/umair9747/Genzai";
     changelog = "https://github.com/umair9747/Genzai/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "genzai";
   };
 }

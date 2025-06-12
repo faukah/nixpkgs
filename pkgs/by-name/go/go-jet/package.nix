@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go-jet";
   version = "2.13.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-KheXtpbmW8GoD7nHE7vg8qOsg5sRXfrFuBJbDEXOTBs=";
 
-  subPackages = [ "cmd/jet" ];
+  subPackages = ["cmd/jet"];
 
   tags = [
     "mysql"
@@ -50,7 +49,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/go-jet/jet";
     description = "Type safe SQL builder with code generation and automatic query result data mapping";
-    maintainers = with maintainers; [ mrityunjaygr8 ];
+    maintainers = with maintainers; [mrityunjaygr8];
     license = licenses.asl20;
     mainProgram = "jet";
   };

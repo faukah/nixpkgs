@@ -9,9 +9,8 @@
   unixtools,
   writeShellApplication,
   nix-update-script,
-  displays ? { },
+  displays ? {},
 }:
-
 # Usage:
 #   let
 #     edids = linuxhw-edid-fetcher.override {
@@ -57,18 +56,18 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p "$out/bin"
     ln -s "$fetch" "$out/bin/"
-    ${lib.optionalString (displays != { }) ''
+    ${lib.optionalString (displays != {}) ''
       install -D --mode=444 --target-directory="$out/lib/firmware/edid" *.bin
     ''}
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch=master" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch=master"];};
 
   meta = {
     description = "Fetcher for EDID binaries from Linux Hardware Project's EDID repository";
     homepage = "https://github.com/linuxhw/EDID";
     license = lib.licenses.cc-by-40;
-    maintainers = with lib.maintainers; [ nazarewk ];
+    maintainers = with lib.maintainers; [nazarewk];
     platforms = lib.platforms.all;
     mainProgram = "linuxhw-edid-fetch";
   };

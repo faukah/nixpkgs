@@ -1,15 +1,16 @@
 # This file defines the structure of the `config` nixpkgs option.
-
 # This file is tested in `pkgs/test/config.nix`.
 # Run tests with:
 #
 #     nix-build -A tests.config
 #
-
-{ config, lib, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit
+    (lib)
     literalExpression
     mapAttrsToList
     mkOption
@@ -17,17 +18,17 @@ let
     types
     ;
 
-  mkMassRebuild =
-    args:
+  mkMassRebuild = args:
     mkOption (
-      builtins.removeAttrs args [ "feature" ]
+      builtins.removeAttrs args ["feature"]
       // {
         type = args.type or (types.uniq types.bool);
         default = args.default or false;
         description = (
-          (args.description or ''
-            Whether to ${args.feature} while building nixpkgs packages.
-          ''
+          (
+            args.description or ''
+              Whether to ${args.feature} while building nixpkgs packages.
+            ''
           )
           + ''
             Changing the default may cause a mass rebuild.
@@ -37,7 +38,6 @@ let
     );
 
   options = {
-
     # Internal stuff
 
     # Hide built-in module system options from docs.
@@ -47,7 +47,7 @@ let
 
     warnings = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       internal = true;
     };
 
@@ -232,8 +232,8 @@ let
     };
 
     showDerivationWarnings = mkOption {
-      type = types.listOf (types.enum [ "maintainerless" ]);
-      default = [ ];
+      type = types.listOf (types.enum ["maintainerless"]);
+      default = [];
       description = ''
         Which warnings to display for potentially dangerous
         or deprecated values passed into `stdenv.mkDerivation`.
@@ -275,30 +275,23 @@ let
       '';
     };
   };
-
-in
-{
-
-  freeformType =
-    let
-      t = types.lazyAttrsOf types.raw;
-    in
+in {
+  freeformType = let
+    t = types.lazyAttrsOf types.raw;
+  in
     t
     // {
-      merge =
-        loc: defs:
-        let
-          r = t.merge loc defs;
-        in
-        r // { _undeclared = r; };
+      merge = loc: defs: let
+        r = t.merge loc defs;
+      in
+        r // {_undeclared = r;};
     };
 
   inherit options;
 
   config = {
     warnings = optionals config.warnUndeclaredOptions (
-      mapAttrsToList (k: v: "undeclared Nixpkgs option set: config.${k}") config._undeclared or { }
+      mapAttrsToList (k: v: "undeclared Nixpkgs option set: config.${k}") config._undeclared or {}
     );
   };
-
 }

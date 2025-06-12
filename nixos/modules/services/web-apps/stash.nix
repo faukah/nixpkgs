@@ -3,9 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe
     literalExpression
     mkEnableOption
@@ -86,7 +86,7 @@ let
     recentlyAddedPerformers = recentlyAdded "Performers";
   };
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   settingsFile = settingsFormat.generate "config.yml" cfg.settings;
   settingsType = types.submodule {
     freeformType = settingsFormat.type;
@@ -125,7 +125,7 @@ let
       };
       stash_boxes = mkOption {
         type = types.listOf stashBoxType;
-        default = [ ];
+        default = [];
         description = ''Stash-box facilitates automated tagging of scenes and performers based on fingerprints and filenames'';
         example = literalExpression ''
           {
@@ -167,7 +167,10 @@ let
             presets.recentlyAddedImages
           ]
         '';
-        apply = type: if lib.isFunction type then (type uiPresets) else type;
+        apply = type:
+          if lib.isFunction type
+          then (type uiPresets)
+          else type;
       };
       blobs_path = mkOption {
         type = types.path;
@@ -314,70 +317,67 @@ let
     };
   };
 
-  pluginType =
-    kind:
+  pluginType = kind:
     mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       description = ''
         The ${kind} Stash should be started with.
       '';
-      apply =
-        srcs:
+      apply = srcs:
         pkgs.runCommand "stash-${kind}"
-          {
-            inherit srcs;
-            nativeBuildInputs = [ pkgs.yq-go ];
-            preferLocalBuild = true;
-          }
-          ''
-            mkdir -p $out
-            touch $out/.keep
-            find $srcs -mindepth 1 -name '*.yml' | while read plugin_file; do
-              grep -q "^#pkgignore" "$plugin_file" && continue
+        {
+          inherit srcs;
+          nativeBuildInputs = [pkgs.yq-go];
+          preferLocalBuild = true;
+        }
+        ''
+          mkdir -p $out
+          touch $out/.keep
+          find $srcs -mindepth 1 -name '*.yml' | while read plugin_file; do
+            grep -q "^#pkgignore" "$plugin_file" && continue
 
-              plugin_dir=$(dirname $plugin_file)
-              out_path=$out/$(basename $plugin_dir)
-              mkdir -p $out_path
-              ls $plugin_dir | xargs -I{} ln -sf "$plugin_dir/{}" $out_path
+            plugin_dir=$(dirname $plugin_file)
+            out_path=$out/$(basename $plugin_dir)
+            mkdir -p $out_path
+            ls $plugin_dir | xargs -I{} ln -sf "$plugin_dir/{}" $out_path
 
-              env \
-                plugin_id=$(basename $plugin_file .yml) \
-                plugin_name="$(yq '.name' $plugin_file)" \
-                plugin_description="$(yq '.description' $plugin_file)" \
-                plugin_version="$(yq '.version' $plugin_file)" \
-                plugin_files="$(find -L $out_path -mindepth 1 -type f -printf "%P\n")" \
-                yq -n '
-                  .id = strenv(plugin_id) |
-                  .name = strenv(plugin_name) |
-                  (
-                    strenv(plugin_description) as $desc |
-                    with(select($desc == "null"); .metadata = {}) |
-                    with(select($desc != "null"); .metadata.description = $desc)
-                  ) |
-                  (
-                    strenv(plugin_version) as $ver |
-                    with(select($ver == "null"); .version = "Unknown") |
-                    with(select($ver != "null"); .version = $ver)
-                  ) |
-                  .date = (now | format_datetime("2006-01-02 15:04:05")) |
-                  .files = (strenv(plugin_files) | split("\n"))
-                ' > $out_path/manifest
-            done
-          '';
+            env \
+              plugin_id=$(basename $plugin_file .yml) \
+              plugin_name="$(yq '.name' $plugin_file)" \
+              plugin_description="$(yq '.description' $plugin_file)" \
+              plugin_version="$(yq '.version' $plugin_file)" \
+              plugin_files="$(find -L $out_path -mindepth 1 -type f -printf "%P\n")" \
+              yq -n '
+                .id = strenv(plugin_id) |
+                .name = strenv(plugin_name) |
+                (
+                  strenv(plugin_description) as $desc |
+                  with(select($desc == "null"); .metadata = {}) |
+                  with(select($desc != "null"); .metadata.description = $desc)
+                ) |
+                (
+                  strenv(plugin_version) as $ver |
+                  with(select($ver == "null"); .version = "Unknown") |
+                  with(select($ver != "null"); .version = $ver)
+                ) |
+                .date = (now | format_datetime("2006-01-02 15:04:05")) |
+                .files = (strenv(plugin_files) | split("\n"))
+              ' > $out_path/manifest
+          done
+        '';
     };
-in
-{
+in {
   meta = {
     buildDocsInSandbox = false;
-    maintainers = with lib.maintainers; [ DrakeTDL ];
+    maintainers = with lib.maintainers; [DrakeTDL];
   };
 
   options = {
     services.stash = {
       enable = mkEnableOption "stash";
 
-      package = mkPackageOption pkgs "stash" { };
+      package = mkPackageOption pkgs "stash" {};
 
       user = mkOption {
         type = types.str;
@@ -479,14 +479,14 @@ in
       scrapers_path = mkIf (!cfg.mutableScrapers) cfg.scrapers;
     };
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.settings.port];
 
     users.users.${cfg.user} = {
       inherit (cfg) group;
       isSystemUser = true;
       home = cfg.dataDir;
     };
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
 
     systemd = {
       tmpfiles.settings."10-stash-datadir".${cfg.dataDir}."d" = {
@@ -494,8 +494,8 @@ in
         mode = "0755";
       };
       services.stash = {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         path = with pkgs; [
           ffmpeg-full
           python3
@@ -539,14 +539,14 @@ in
           ExecStart = getExe cfg.package;
 
           ProtectHome = "tmpfs";
-          BindReadOnlyPaths = mkIf (cfg.settings != { }) (map (stash: "${stash.path}") cfg.settings.stash);
+          BindReadOnlyPaths = mkIf (cfg.settings != {}) (map (stash: "${stash.path}") cfg.settings.stash);
 
           # hardening
 
           DevicePolicy = "auto"; # needed for hardware acceleration
           PrivateDevices = false; # needed for hardware acceleration
-          AmbientCapabilities = [ "" ];
-          CapabilityBoundingSet = [ "" ];
+          AmbientCapabilities = [""];
+          CapabilityBoundingSet = [""];
           ProtectSystem = "full";
           LockPersonality = true;
           NoNewPrivileges = true;

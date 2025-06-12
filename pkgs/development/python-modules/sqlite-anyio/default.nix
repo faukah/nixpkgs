@@ -8,7 +8,6 @@
   pytestCheckHook,
   trio,
 }:
-
 buildPythonPackage rec {
   pname = "sqlite-anyio";
   version = "0.2.3";
@@ -23,11 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-cZyTpFmYD0l20Cmxl+Hwfh3oVkWvtXD45dMpcSwA2QE=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ anyio ];
+  dependencies = [anyio];
 
-  pythonImportsCheck = [ "sqlite_anyio" ];
+  pythonImportsCheck = ["sqlite_anyio"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/davidbrochart/sqlite-anyio";
     changelog = "https://github.com/davidbrochart/sqlite-anyio/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

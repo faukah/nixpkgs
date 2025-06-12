@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "newt";
   version = "1.2.0";
@@ -23,7 +22,7 @@ buildGoModule rec {
       --replace-fail "replaceme" "${version}"
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   ldflags = [
     "-s"
@@ -32,14 +31,14 @@ buildGoModule rec {
 
   doInstallCheck = true;
 
-  versionCheckProgramArg = [ "-version" ];
+  versionCheckProgramArg = ["-version"];
 
   meta = {
     description = "Tunneling client for Pangolin";
     homepage = "https://github.com/fosrl/newt";
     changelog = "https://github.com/fosrl/newt/releases/tag/${src.tag}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "newt";
   };
 }

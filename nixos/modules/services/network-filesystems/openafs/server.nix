@@ -4,12 +4,10 @@
   pkgs,
   ...
 }:
-
 # openafsBin, openafsSrv, mkCellServDB
-with import ./lib.nix { inherit config lib pkgs; };
-
-let
-  inherit (lib)
+with import ./lib.nix {inherit config lib pkgs;}; let
+  inherit
+    (lib)
     concatStringsSep
     literalExpression
     mkIf
@@ -42,7 +40,8 @@ let
       parm ${openafsSrv}/libexec/openafs/dasalvager ${cfg.roles.fileserver.salvagerArgs}
       end
     '')
-    + (optionalString
+    + (
+      optionalString
       (cfg.roles.database.enable && cfg.roles.backup.enable && (!cfg.roles.backup.enableFabs))
       ''
         bnode simple buserver 1
@@ -50,7 +49,8 @@ let
         end
       ''
     )
-    + (optionalString
+    + (
+      optionalString
       (cfg.roles.database.enable && cfg.roles.backup.enable && cfg.roles.backup.enableFabs)
       ''
         bnode simple buserver 1
@@ -61,16 +61,15 @@ let
   );
 
   netInfo =
-    if (cfg.advertisedAddresses != [ ]) then
-      pkgs.writeText "NetInfo" ((concatStringsSep "\nf " cfg.advertisedAddresses) + "\n")
-    else
-      null;
+    if (cfg.advertisedAddresses != [])
+    then pkgs.writeText "NetInfo" ((concatStringsSep "\nf " cfg.advertisedAddresses) + "\n")
+    else null;
 
   buCellServDB = pkgs.writeText "backup-cellServDB-${cfg.cellName}" (
     mkCellServDB cfg.cellName cfg.roles.backup.cellServDB
   );
 
-  useBuCellServDB = (cfg.roles.backup.cellServDB != [ ]) && (!cfg.roles.backup.enableFabs);
+  useBuCellServDB = (cfg.roles.backup.cellServDB != []) && (!cfg.roles.backup.enableFabs);
 
   cfg = config.services.openafsServer;
 
@@ -92,14 +91,9 @@ let
       // cfg.roles.backup.fabsExtraConfig
     )
   );
-
-in
-{
-
+in {
   options = {
-
     services.openafsServer = {
-
       enable = mkOption {
         default = false;
         type = types.bool;
@@ -116,7 +110,7 @@ in
 
       advertisedAddresses = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = "List of IP addresses this server is advertised under. See {manpage}`NetInfo(5)`";
       };
 
@@ -128,12 +122,12 @@ in
       };
 
       cellServDB = mkOption {
-        default = [ ];
-        type = with types; listOf (submodule [ { options = cellServDBConfig; } ]);
+        default = [];
+        type = with types; listOf (submodule [{options = cellServDBConfig;}]);
         description = "Definition of all cell-local database server machines.";
       };
 
-      package = mkPackageOption pkgs "openafs" { };
+      package = mkPackageOption pkgs "openafs" {};
 
       roles = {
         fileserver = {
@@ -226,8 +220,8 @@ in
           };
 
           cellServDB = mkOption {
-            default = [ ];
-            type = with types; listOf (submodule [ { options = cellServDBConfig; } ]);
+            default = [];
+            type = with types; listOf (submodule [{options = cellServDBConfig;}]);
             description = ''
               Definition of all cell-local backup database server machines.
               Use this when your cell uses less backup database servers than
@@ -246,7 +240,7 @@ in
           };
 
           fabsExtraConfig = mkOption {
-            default = { };
+            default = {};
             type = types.attrs;
             description = ''
               Additional configuration parameters for the FABS backup server.
@@ -281,16 +275,13 @@ in
           sysctl.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
-
     assertions = [
       {
-        assertion = cfg.cellServDB != [ ];
+        assertion = cfg.cellServDB != [];
         message = "You must specify all cell-local database servers in config.services.openafsServer.cellServDB.";
       }
       {
@@ -299,7 +290,7 @@ in
       }
     ];
 
-    environment.systemPackages = [ openafsBin ];
+    environment.systemPackages = [openafsBin];
 
     environment.etc = {
       bosConfig = {
@@ -327,8 +318,8 @@ in
     systemd.services = {
       openafs-server = {
         description = "OpenAFS server";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         restartIfChanged = false;
         unitConfig.ConditionPathExists = [
           "|/etc/openafs/server/KeyFileExt"

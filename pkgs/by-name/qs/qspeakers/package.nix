@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libsForQt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qspeakers";
   version = "1.8";
@@ -31,6 +30,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/be1/qspeakers";
     license = lib.licenses.gpl3Plus;
     mainProgram = "qspeakers";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 })

@@ -8,7 +8,6 @@
   typing-extensions,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pynrrd";
   version = "1.1.3";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-qu3s3XswJCUchqYfYMuqIzI4sfeXrttvXSEW9/GSENA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "nrrd" ];
+  pythonImportsCheck = ["nrrd"];
 
   meta = {
     homepage = "https://github.com/mhe/pynrrd";
     description = "Simple pure-Python reader for NRRD files";
     changelog = "https://github.com/mhe/pynrrd/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

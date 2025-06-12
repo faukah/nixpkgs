@@ -8,7 +8,6 @@
   databasePath ? "/etc/secureboot",
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "sbctl";
   version = "0.17";
@@ -55,7 +54,7 @@ buildGoModule rec {
         --zsh <($out/bin/sbctl completion zsh)
     '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Secure Boot key manager";

@@ -28,7 +28,6 @@
   wrapGAppsHook3,
   xmlto,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "roxterm";
   version = "3.16.3";
@@ -96,7 +95,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl3Plus
     ];
     mainProgram = "roxterm";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

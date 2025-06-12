@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wttrbar";
   version = "0.12.0";
@@ -19,13 +18,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-sv9hSTmq5J6s0PPBMJgaMUWBaRk0/NJV41nNDIj6MoY=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple but detailed weather indicator for Waybar using wttr.in";
     homepage = "https://github.com/bjesus/wttrbar";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
     mainProgram = "wttrbar";
   };
 }

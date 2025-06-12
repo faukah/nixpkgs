@@ -6,7 +6,6 @@
   click,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "click-aliases";
   version = "1.0.5";
@@ -20,18 +19,18 @@ buildPythonPackage rec {
     hash = "sha256-vR5MUbgQfgownnq/VuEB/Jreibh/SB8wbDWGOmareRU=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ click ];
+  propagatedBuildInputs = [click];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "click_aliases" ];
+  pythonImportsCheck = ["click_aliases"];
 
   meta = with lib; {
     homepage = "https://github.com/click-contrib/click-aliases";
     description = "Enable aliases for click";
     license = licenses.mit;
-    maintainers = with maintainers; [ panicgh ];
+    maintainers = with maintainers; [panicgh];
   };
 }

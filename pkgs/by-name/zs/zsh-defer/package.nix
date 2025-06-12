@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "zsh-defer";
   version = "unstable-2022-06-13";
@@ -28,6 +27,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/romkatv/zsh-defer";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = [ maintainers.vinnymeller ];
+    maintainers = [maintainers.vinnymeller];
   };
 }

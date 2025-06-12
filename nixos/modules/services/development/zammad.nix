@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.zammad;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   filterNull = lib.filterAttrs (_: v: v != null);
   serviceConfig = {
     Type = "simple";
@@ -30,14 +28,12 @@ let
   package = cfg.package.override {
     dataDir = cfg.dataDir;
   };
-in
-{
-
+in {
   options = {
     services.zammad = {
       enable = lib.mkEnableOption "Zammad, a web-based, open source user support/ticketing solution";
 
-      package = lib.mkPackageOption pkgs "zammad" { };
+      package = lib.mkPackageOption pkgs "zammad" {};
 
       user = lib.mkOption {
         type = lib.types.str;
@@ -164,7 +160,7 @@ in
 
         settings = lib.mkOption {
           type = settingsFormat.type;
-          default = { };
+          default = {};
           example = lib.literalExpression ''
             {
             }
@@ -227,7 +223,7 @@ in
       isSystemUser = true;
     };
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
 
     assertions = [
       {
@@ -247,7 +243,7 @@ in
 
     services.postgresql = lib.optionalAttrs (cfg.database.createLocally) {
       enable = true;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -265,10 +261,12 @@ in
 
     systemd.services.zammad-web = {
       inherit environment;
-      serviceConfig = serviceConfig // {
-        # loading all the gems takes time
-        TimeoutStartSec = 1200;
-      };
+      serviceConfig =
+        serviceConfig
+        // {
+          # loading all the gems takes time
+          TimeoutStartSec = 1200;
+        };
       after =
         [
           "network.target"
@@ -284,7 +282,7 @@ in
         "postgresql.service"
       ];
       description = "Zammad web";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         # config file
         cat ${databaseConfig} > ${cfg.dataDir}/config/database.yml
@@ -341,19 +339,19 @@ in
 
     systemd.services.zammad-websocket = {
       inherit serviceConfig environment;
-      after = [ "zammad-web.service" ];
-      requires = [ "zammad-web.service" ];
+      after = ["zammad-web.service"];
+      requires = ["zammad-web.service"];
       description = "Zammad websocket";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       script = "./script/websocket-server.rb -b ${cfg.host} -p ${toString cfg.websocketPort} start";
     };
 
     systemd.services.zammad-worker = {
       inherit serviceConfig environment;
-      after = [ "zammad-web.service" ];
-      requires = [ "zammad-web.service" ];
+      after = ["zammad-web.service"];
+      requires = ["zammad-web.service"];
       description = "Zammad background worker";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       script = "./script/background-worker.rb start";
     };
   };

@@ -5,7 +5,6 @@
   testers,
   static ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libjpeg";
   version = "9f";
@@ -29,9 +28,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://www.ijg.org/";
     description = "Library that implements the JPEG image file format";
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     license = lib.licenses.free;
-    pkgConfigModules = [ "libjpeg" ];
+    pkgConfigModules = ["libjpeg"];
     platforms = lib.platforms.unix;
   };
 })

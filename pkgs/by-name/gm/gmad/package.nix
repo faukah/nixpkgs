@@ -5,7 +5,6 @@
   premake4,
   bootil,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gmad";
   version = "unstable-2020-02-24";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     description = "Garry's Mod Addon Creator and Extractor";
     homepage = "https://github.com/Facepunch/gmad";
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.abigailbuccaneer ];
+    maintainers = [lib.maintainers.abigailbuccaneer];
     platforms = lib.platforms.all;
   };
 
@@ -31,12 +30,11 @@ stdenv.mkDerivation rec {
   ];
 
   targetName =
-    if stdenv.hostPlatform.isLinux then
-      "gmad_linux"
-    else if stdenv.hostPlatform.isDarwin then
-      "gmad_osx"
-    else
-      "gmad";
+    if stdenv.hostPlatform.isLinux
+    then "gmad_linux"
+    else if stdenv.hostPlatform.isDarwin
+    then "gmad_osx"
+    else "gmad";
 
   premakeFlags = [
     "--bootil_lib=${bootil}/lib"

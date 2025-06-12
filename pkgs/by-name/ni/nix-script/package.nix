@@ -4,7 +4,6 @@
   haskellPackages,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "nix-script";
   version = "2020-03-23";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
 
   strictDeps = true;
   nativeBuildInputs = [
-    (haskellPackages.ghcWithPackages (hs: with hs; [ posix-escape ]))
+    (haskellPackages.ghcWithPackages (hs: with hs; [posix-escape]))
   ];
 
   buildPhase = ''

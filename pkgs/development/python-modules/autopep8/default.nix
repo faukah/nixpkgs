@@ -9,7 +9,6 @@
   setuptools,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "autopep8";
   version = "2.3.2";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-9OJ5XbzpHMHsFjf5oVyHjn5zqmAxRuSItWP4sQx8jD4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  propagatedBuildInputs = [ pycodestyle ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [pycodestyle] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   nativeCheckInputs = [
     glibcLocales
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/hhatto/autopep8";
     license = licenses.mit;
     mainProgram = "autopep8";
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

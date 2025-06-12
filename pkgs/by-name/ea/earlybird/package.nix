@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "earlybird";
   version = "4.0.0";
@@ -28,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/americanexpress/earlybird";
     changelog = "https://github.com/americanexpress/earlybird/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

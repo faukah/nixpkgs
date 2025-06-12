@@ -10,7 +10,6 @@
   ninja,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "laze";
   version = "0.1.36";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-vLlkgF8vfL4RbFH7S3pQaAgHs08glHJaIkFIBYLoAWE=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   nativeBuildInputs = [
     makeWrapper
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postInstall =
     ''
       wrapProgram "$out/bin/laze" \
-        --suffix PATH : ${lib.makeBinPath [ ninja ]}
+        --suffix PATH : ${lib.makeBinPath [ninja]}
     ''
     + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
       installShellCompletion --cmd laze \
@@ -56,7 +55,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "laze";
     homepage = "https://github.com/kaspar030/laze";
     changelog = "https://github.com/kaspar030/laze/blob/${finalAttrs.version}/CHANGELOG.md";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ dannixon ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [dannixon];
   };
 })

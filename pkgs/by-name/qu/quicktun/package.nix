@@ -5,7 +5,6 @@
   libsodium,
   nixosTests,
 }:
-
 stdenv.mkDerivation {
   pname = "quicktun";
   version = "2.2.5";
@@ -17,9 +16,9 @@ stdenv.mkDerivation {
     sha256 = "1ydvwasj84qljfbzh6lmhyzjc20yw24a0v2mykp8afsm97zzlqgx";
   };
 
-  patches = [ ./tar-1.30.diff ]; # quicktun master seems not to need this
+  patches = [./tar-1.30.diff]; # quicktun master seems not to need this
 
-  buildInputs = [ libsodium ];
+  buildInputs = [libsodium];
 
   postPatch = ''
     substituteInPlace build.sh \
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
     broken = stdenv.hostPlatform.isDarwin;
     description = "Very simple, yet secure VPN software";
     homepage = "http://wiki.ucis.nl/QuickTun";
-    maintainers = with maintainers; [ h7x4 ];
+    maintainers = with maintainers; [h7x4];
     platforms = platforms.unix;
     license = licenses.bsd2;
   };

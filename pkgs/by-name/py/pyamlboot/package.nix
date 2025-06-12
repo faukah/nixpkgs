@@ -5,7 +5,6 @@
   testers,
   pyamlboot,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pyamlboot";
   version = "1.0.0";
@@ -41,7 +40,7 @@ python3Packages.buildPythonApplication rec {
       gpl2Only
       mit
     ];
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "boot.py";
   };
 }

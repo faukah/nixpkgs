@@ -5,7 +5,6 @@
   fetchpatch,
   sqlite,
 }:
-
 buildGoModule rec {
   pname = "textql";
   version = "unstable-2021-07-06";
@@ -32,7 +31,7 @@ buildGoModule rec {
   '';
 
   # needed for tests
-  nativeBuildInputs = [ sqlite ];
+  nativeBuildInputs = [sqlite];
 
   doCheck = true;
 
@@ -41,6 +40,6 @@ buildGoModule rec {
     mainProgram = "textql";
     homepage = "https://github.com/dinedal/textql";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

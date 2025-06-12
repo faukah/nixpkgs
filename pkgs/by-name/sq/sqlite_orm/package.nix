@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Light header only SQLite ORM";
     homepage = "https://sqliteorm.com/";
     license = licenses.agpl3Only; # MIT license is commercial
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
     platforms = platforms.all;
   };
 })

@@ -5,7 +5,6 @@
   capnproto,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "capnproto-rust";
   version = "0.21.0";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     capnproto
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Cap'n Proto codegen plugin for Rust";

@@ -17,6 +17,6 @@ mkYaziPlugin {
   meta = {
     description = "Previewing archive contents with mime-ext";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
   };
 }

@@ -5,7 +5,6 @@
   python,
   pyusb,
 }:
-
 buildPythonPackage rec {
   pname = "py3buddy";
   version = "1.0";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-KJ0xGEXHY6o2074WFZ0u7gATS+wrrjyzanYretckWYk=";
   };
 
-  dependencies = [ pyusb ];
+  dependencies = [pyusb];
 
   dontConfigure = true;
   dontBuild = true;
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     description = "Code to work with the iBuddy MSN figurine";
     homepage = "https://github.com/armijnhemel/py3buddy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ prusnak ];
+    maintainers = with lib.maintainers; [prusnak];
   };
 }

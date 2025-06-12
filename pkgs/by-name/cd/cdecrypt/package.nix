@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cdecrypt";
   version = "4.8";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/VitaSmith/cdecrypt";
     changelog = "https://github.com/VitaSmith/cdecrypt/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ hughobrien ];
+    maintainers = with lib.maintainers; [hughobrien];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

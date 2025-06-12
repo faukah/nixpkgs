@@ -17,9 +17,11 @@
   pkg-config,
   ctestCheckHook,
 }:
-
 stdenv.mkDerivation rec {
-  pname = if enablePython then "python-gdcm" else "gdcm";
+  pname =
+    if enablePython
+    then "python-gdcm"
+    else "gdcm";
   version = "3.0.25";
 
   src = fetchFromGitHub {
@@ -63,10 +65,12 @@ stdenv.mkDerivation rec {
       "-DGDCM_INSTALL_PYTHONMODULE_DIR=${placeholder "out"}/${python.sitePackages}/python_gdcm"
     ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin DarwinTools;
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin DarwinTools;
 
   buildInputs =
     [
@@ -128,7 +132,7 @@ stdenv.mkDerivation rec {
       bsd3
       asl20
     ];
-    maintainers = with maintainers; [ tfmoraes ];
+    maintainers = with maintainers; [tfmoraes];
     platforms = platforms.all;
   };
 }

@@ -5,7 +5,6 @@
   cmake,
   sfml_2,
 }:
-
 stdenv.mkDerivation {
   pname = "simplenes";
   version = "0-unstable-2025-01-05";
@@ -17,8 +16,8 @@ stdenv.mkDerivation {
     hash = "sha256-4Nb42tb/pJaVOOhj7hH9cQLDKCz8GUXWz8KAHPOd9nE=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ sfml_2 ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [sfml_2];
 
   installPhase = ''
     runHook preInstall
@@ -33,7 +32,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/amhndu/SimpleNES";
     description = "NES emulator written in C++";
     license = lib.licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
     mainProgram = "SimpleNES";
   };

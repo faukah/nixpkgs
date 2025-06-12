@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "comic-neue";
   version = "2.51";
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

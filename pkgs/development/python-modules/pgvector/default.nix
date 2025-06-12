@@ -2,13 +2,10 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   numpy,
-
   # tests
   asyncpg,
   django,
@@ -25,7 +22,6 @@
   sqlalchemy,
   sqlmodel,
 }:
-
 buildPythonPackage rec {
   pname = "pgvector";
   version = "0.4.1";
@@ -38,9 +34,9 @@ buildPythonPackage rec {
     hash = "sha256-QbNzEQctKgxdH1cpMmf2Yg05Q3KOT9tGtK4YSr9GiC4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   nativeCheckInputs = [
     asyncpg
@@ -50,7 +46,7 @@ buildPythonPackage rec {
     psycopg
     psycopg2
     psycopg-pool
-    (postgresql.withPackages (p: with p; [ pgvector ]))
+    (postgresql.withPackages (p: with p; [pgvector]))
     postgresqlTestHook
     pytest-asyncio
     pytestCheckHook
@@ -71,7 +67,7 @@ buildPythonPackage rec {
     "tests/test_sqlalchemy.py"
   ];
 
-  pythonImportsCheck = [ "pgvector" ];
+  pythonImportsCheck = ["pgvector"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -80,6 +76,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pgvector/pgvector-python";
     changelog = "https://github.com/pgvector/pgvector-python/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

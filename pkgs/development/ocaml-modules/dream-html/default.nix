@@ -4,7 +4,6 @@
   dream,
   pure-html,
 }:
-
 buildDunePackage {
   pname = "dream-html";
   inherit (pure-html) src version;
@@ -17,6 +16,6 @@ buildDunePackage {
   meta = {
     description = "Write HTML directly in your OCaml source files with editor support.";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.naora ];
+    maintainers = [lib.maintainers.naora];
   };
 }

@@ -7,7 +7,6 @@
   pytestCheckHook,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "files-to-prompt";
   version = "0.6";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-LWp/DNP3bsh7/goQGkpi4x2N11tRuhLVh2J8H6AUH0w=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ click ];
+  dependencies = [click];
 
   nativeCheckInputs = [
     pytestCheckHook

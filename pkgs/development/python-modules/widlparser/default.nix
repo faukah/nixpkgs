@@ -8,7 +8,6 @@
   setuptools-scm,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "widlparser";
   version = "1.1.5";
@@ -28,9 +27,9 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ typing-extensions ];
+  dependencies = [typing-extensions];
 
-  pythonImportsCheck = [ "widlparser" ];
+  pythonImportsCheck = ["widlparser"];
 
   # https://github.com/plinss/widlparser/blob/v1.1.5/.github/workflows/test.yml
   checkPhase = ''
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     description = "Stand-alone WebIDL Parser in Python";
     homepage = "https://github.com/plinss/widlparser";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

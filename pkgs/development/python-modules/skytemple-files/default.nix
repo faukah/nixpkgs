@@ -25,7 +25,6 @@
   parameterized,
   xmldiff,
 }:
-
 buildPythonPackage rec {
   pname = "skytemple-files";
   version = "1.8.5";
@@ -47,9 +46,9 @@ buildPythonPackage rec {
       --replace-fail "exec_name = os.getenv(\"SKYTEMPLE_ARMIPS_EXEC\", f\"{prefix}armips\")" "exec_name = \"${armips}/bin/armips\""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ armips ];
+  buildInputs = [armips];
 
   dependencies = [
     appdirs
@@ -64,19 +63,23 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    spritecollab = [
-      aiohttp
-      gql
-      graphql-core
-      lru-dict
-    ] ++ gql.optional-dependencies.aiohttp;
+    spritecollab =
+      [
+        aiohttp
+        gql
+        graphql-core
+        lru-dict
+      ]
+      ++ gql.optional-dependencies.aiohttp;
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    parameterized
-    xmldiff
-  ] ++ optional-dependencies.spritecollab;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      parameterized
+      xmldiff
+    ]
+    ++ optional-dependencies.spritecollab;
 
   preCheck = "pushd test";
   postCheck = "popd";
@@ -86,14 +89,14 @@ buildPythonPackage rec {
     "skytemple_files_test/compression_container/atupx/atupx_test.py" # Particularly long test
   ];
 
-  pythonImportsCheck = [ "skytemple_files" ];
+  pythonImportsCheck = ["skytemple_files"];
 
   meta = with lib; {
     homepage = "https://github.com/SkyTemple/skytemple-files";
     description = "Python library to edit the ROM of Pokémon Mystery Dungeon Explorers of Sky";
     mainProgram = "skytemple_export_maps";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ marius851000 ];
+    maintainers = with maintainers; [marius851000];
     broken = stdenv.hostPlatform.isDarwin; # pyobjc is missing
   };
 }

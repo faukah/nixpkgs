@@ -13,7 +13,6 @@
   libGLU,
   libGL,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "trackballs";
   version = "1.3.4";
@@ -29,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace src/glHelp.h --replace-fail _TTF_Font TTF_Font
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     zlib
     SDL2

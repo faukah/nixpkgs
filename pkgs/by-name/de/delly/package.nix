@@ -11,7 +11,6 @@
   delly,
   runCommand,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "delly";
   version = "1.3.3";
@@ -28,13 +27,15 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "-std=c++17" "-std=c++14"
   '';
 
-  buildInputs = [
-    boost
-    bzip2
-    htslib
-    xz
-    zlib
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin llvmPackages.openmp;
+  buildInputs =
+    [
+      boost
+      bzip2
+      htslib
+      xz
+      zlib
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin llvmPackages.openmp;
 
   makeFlags = [
     "EBROOTHTSLIB=${htslib}"
@@ -50,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.tests = {
-    simple = runCommand "${finalAttrs.pname}-test" { } ''
+    simple = runCommand "${finalAttrs.pname}-test" {} ''
       mkdir $out
       ${lib.getExe delly} call -g ${delly.src}/example/ref.fa ${delly.src}/example/sr.bam > $out/sr.vcf
       ${lib.getExe delly} lr -g ${delly.src}/example/ref.fa ${delly.src}/example/lr.bam > $out/lr.vcf
@@ -62,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Structural variant caller for mapped DNA sequenced data";
     mainProgram = "delly";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ scalavision ];
+    maintainers = with maintainers; [scalavision];
     platforms = platforms.unix;
     longDescription = ''
       Delly is an integrated structural variant (SV) prediction method

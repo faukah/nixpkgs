@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation {
     "fte"
   ];
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   buildInputs = with python3.pkgs; [
     colorama
@@ -59,6 +59,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/nzp-team/quakec";
     license = lib.licenses.gpl2Plus;
     platforms = with lib.platforms; linux ++ darwin;
-    maintainers = with lib.maintainers; [ pluiedev ];
+    maintainers = with lib.maintainers; [pluiedev];
   };
 }

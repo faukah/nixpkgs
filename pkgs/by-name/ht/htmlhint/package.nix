@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "htmlhint";
   version = "1.5.0";
@@ -23,6 +22,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/htmlhint/HTMLHint";
     license = lib.licenses.mit;
     mainProgram = "htmlhint";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -3,8 +3,7 @@
   replaceVars,
   fetchFromGitHub,
   crystal,
-}:
-let
+}: let
   fingers = crystal.buildCrystalPackage rec {
     format = "shards";
     version = "2.4.1";
@@ -31,15 +30,15 @@ let
     doInstallCheck = false;
   };
 in
-mkTmuxPlugin {
-  inherit (fingers) version src meta;
+  mkTmuxPlugin {
+    inherit (fingers) version src meta;
 
-  pluginName = fingers.src.repo;
-  rtpFilePath = "tmux-fingers.tmux";
+    pluginName = fingers.src.repo;
+    rtpFilePath = "tmux-fingers.tmux";
 
-  patches = [
-    (replaceVars ./fix.patch {
-      tmuxFingersDir = "${fingers}/bin";
-    })
-  ];
-}
+    patches = [
+      (replaceVars ./fix.patch {
+        tmuxFingersDir = "${fingers}/bin";
+      })
+    ];
+  }

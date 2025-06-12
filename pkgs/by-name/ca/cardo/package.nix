@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "cardo";
   version = "1.04";
@@ -37,7 +36,7 @@ stdenvNoCC.mkDerivation {
     '';
     homepage = "http://scholarsfonts.net/cardofnt.html";
     license = licenses.ofl;
-    maintainers = with lib.maintainers; [ kmein ];
+    maintainers = with lib.maintainers; [kmein];
     platforms = platforms.all;
   };
 }

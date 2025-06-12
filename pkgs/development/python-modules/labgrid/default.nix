@@ -26,7 +26,6 @@
   setuptools-scm,
   xmodem,
 }:
-
 buildPythonPackage rec {
   pname = "labgrid";
   version = "25.0";
@@ -76,9 +75,9 @@ buildPythonPackage rec {
     xmodem
   ];
 
-  pythonRemoveDeps = [ "pyserial-labgrid" ];
+  pythonRemoveDeps = ["pyserial-labgrid"];
 
-  pythonImportsCheck = [ "labgrid" ];
+  pythonImportsCheck = ["labgrid"];
 
   nativeCheckInputs = [
     mock
@@ -95,13 +94,13 @@ buildPythonPackage rec {
     "test_timing"
   ];
 
-  pytestFlagsArray = [ "--benchmark-disable" ];
+  pytestFlagsArray = ["--benchmark-disable"];
 
   meta = with lib; {
     description = "Embedded control & testing library";
     homepage = "https://github.com/labgrid-project/labgrid";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ emantor ];
+    maintainers = with maintainers; [emantor];
     platforms = with platforms; linux;
   };
 }

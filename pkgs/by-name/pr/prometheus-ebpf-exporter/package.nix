@@ -8,13 +8,11 @@
   libelf,
   libsystemtap,
   libz,
-}:
-
-let
+}: let
   version = "2.4.2";
   tag = "v${version}";
 in
-buildGoModule.override
+  buildGoModule.override
   {
     stdenv = pkgs.clangStdenv;
   }
@@ -44,7 +42,7 @@ buildGoModule.override
 
     CGO_LDFLAGS = "-l bpf";
 
-    hardeningDisable = [ "zerocallusedregs" ];
+    hardeningDisable = ["zerocallusedregs"];
 
     # Tests fail on trying to access cgroups.
     doCheck = false;
@@ -68,7 +66,7 @@ buildGoModule.override
       mv examples/*.o examples/*.yaml $out/examples
     '';
 
-    passthru.tests = { inherit (nixosTests.prometheus-exporters) ebpf; };
+    passthru.tests = {inherit (nixosTests.prometheus-exporters) ebpf;};
 
     meta = {
       description = "Prometheus exporter for custom eBPF metrics";
@@ -76,7 +74,7 @@ buildGoModule.override
       homepage = "https://github.com/cloudflare/ebpf_exporter";
       changelog = "https://github.com/cloudflare/ebpf_exporter/releases/tag/v${tag}";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ jpds ];
+      maintainers = with lib.maintainers; [jpds];
       platforms = lib.platforms.linux;
     };
   }

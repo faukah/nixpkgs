@@ -4,18 +4,14 @@
   fetchFromGitHub,
   writeText,
   elixir,
-}:
-
-let
-  shell =
-    drv:
+}: let
+  shell = drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
-      buildInputs = [ drv ];
+      buildInputs = [drv];
     };
 
-  pkg =
-    self:
+  pkg = self:
     stdenv.mkDerivation rec {
       pname = "hex";
       version = "2.2.1";
@@ -33,7 +29,7 @@ let
 
       dontStrip = true;
 
-      buildInputs = [ elixir ];
+      buildInputs = [elixir];
 
       buildPhase = ''
         runHook preBuild
@@ -57,7 +53,7 @@ let
         description = "Package manager for the Erlang VM https://hex.pm";
         license = lib.licenses.mit;
         homepage = "https://github.com/hexpm/hex";
-        maintainers = with lib.maintainers; [ ericbmerritt ];
+        maintainers = with lib.maintainers; [ericbmerritt];
       };
 
       passthru = {
@@ -65,4 +61,4 @@ let
       };
     };
 in
-lib.fix pkg
+  lib.fix pkg

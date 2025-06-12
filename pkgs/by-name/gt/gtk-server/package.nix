@@ -8,7 +8,6 @@
   pkg-config,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtk-server";
   version = "2.4.6";
@@ -32,13 +31,13 @@ stdenv.mkDerivation rec {
     gtk3
   ];
 
-  configureOptions = [ "--with-gtk3" ];
+  configureOptions = ["--with-gtk3"];
 
   meta = with lib; {
     homepage = "http://www.gtk-server.org/";
     description = "gtk-server for interpreted GUI programming";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
   fetchpatch,
-
   # nativeBuildInputs
   asciidoc,
   docbook_xml_dtd_45,
@@ -12,7 +11,6 @@
   libxml2,
   libxslt,
   makeWrapper,
-
   # wrapper
   coreutils,
   gawk,
@@ -21,11 +19,9 @@
   gnused,
   jq,
   nix,
-
   versionCheckHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nix-prefetch";
   version = "0.4.1";
@@ -85,16 +81,16 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm444 -t $lib lib/*
     makeWrapper $lib/main.sh $out/bin/nix-prefetch \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          gawk
-          gitMinimal
-          gnugrep
-          gnused
-          jq
-          nix
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        gawk
+        gitMinimal
+        gnugrep
+        gnused
+        jq
+        nix
+      ]
+    }
 
     installManPage doc/nix-prefetch.?
 
@@ -111,7 +107,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -119,7 +115,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/msteen/nix-prefetch";
     changelog = "https://github.com/msteen/nix-prefetch/blob/${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ msteen ];
+    maintainers = with lib.maintainers; [msteen];
     platforms = lib.platforms.all;
     mainProgram = "nix-prefetch";
   };

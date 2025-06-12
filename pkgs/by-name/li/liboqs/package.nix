@@ -8,7 +8,6 @@
   enableStatic ? stdenv.hostPlatform.isStatic,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "liboqs";
   version = "0.13.0";
@@ -31,11 +30,15 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [openssl];
 
   cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=${if enableStatic then "OFF" else "ON"}"
+    "-DBUILD_SHARED_LIBS=${
+      if enableStatic
+      then "OFF"
+      else "ON"
+    }"
     "-DOQS_DIST_BUILD=ON"
     "-DOQS_BUILD_ONLY_LIB=ON"
   ];
@@ -47,13 +50,13 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "C library for prototyping and experimenting with quantum-resistant cryptography";
     homepage = "https://openquantumsafe.org";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.sigmanificient ];
+    maintainers = [maintainers.sigmanificient];
   };
 })

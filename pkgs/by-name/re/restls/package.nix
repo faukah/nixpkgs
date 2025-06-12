@@ -3,7 +3,6 @@
   rustPlatform,
   lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "restls";
   version = "0.1.1";
@@ -24,6 +23,6 @@ rustPlatform.buildRustPackage rec {
     description = "Perfect Impersonation of TLS";
     license = licenses.bsd3;
     mainProgram = "restls";
-    maintainers = with maintainers; [ oluceps ];
+    maintainers = with maintainers; [oluceps];
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 # To make use of this plugin, need to add
 #   programs.zsh.interactiveShellInit = ''
 #     source ${pkgs.zsh-command-time}/share/zsh/plugins/command-time/command-time.plugin.zsh
@@ -11,7 +10,6 @@
 #     ZSH_COMMAND_TIME_MIN_SECONDS=3
 #     ZSH_COMMAND_TIME_ECHO=1
 #   '';
-
 stdenv.mkDerivation {
   version = "2020-11-15";
   pname = "zsh-command-time";
@@ -35,6 +33,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/popstas/zsh-command-time";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ lassulus ];
+    maintainers = with maintainers; [lassulus];
   };
 }

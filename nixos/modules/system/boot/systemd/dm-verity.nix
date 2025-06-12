@@ -1,19 +1,22 @@
-{ config, lib, ... }:
-
-let
-  cfg = config.boot.initrd.systemd.dmVerity;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.boot.initrd.systemd.dmVerity;
+in {
   options = {
     boot.initrd.systemd.dmVerity = {
-      enable = lib.mkEnableOption "dm-verity" // {
-        description = ''
-          Mount verity-protected block devices in the initrd.
+      enable =
+        lib.mkEnableOption "dm-verity"
+        // {
+          description = ''
+            Mount verity-protected block devices in the initrd.
 
-          Enabling this option allows to use `systemd-veritysetup` and
-          `systemd-veritysetup-generator` in the initrd.
-        '';
-      };
+            Enabling this option allows to use `systemd-veritysetup` and
+            `systemd-veritysetup-generator` in the initrd.
+          '';
+        };
     };
   };
 

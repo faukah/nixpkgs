@@ -15,7 +15,6 @@
   vtk,
   wrapQtAppsHook,
 }:
-
 buildPythonPackage rec {
   pname = "mayavi";
   version = "4.8.3";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-72nMvfWPIPGzlJMNXjoW3aSxo5rcvHb3mr0mSD0prPU=";
   };
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   propagatedBuildInputs = [
     apptools
@@ -47,20 +46,20 @@ buildPythonPackage rec {
   # Needs X server
   doCheck = false;
 
-  pythonImportsCheck = [ "mayavi" ];
+  pythonImportsCheck = ["mayavi"];
 
   preFixup = ''
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")
   '';
 
   # stripping the ico file on macos cause segfault
-  stripExclude = [ "*.ico" ];
+  stripExclude = ["*.ico"];
 
   meta = with lib; {
     description = "3D visualization of scientific data in Python";
     homepage = "https://github.com/enthought/mayavi";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "mayavi2";
   };
 }

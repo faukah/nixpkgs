@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "torrent-parser";
   version = "0.4.1";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-zM738r3o9dGZYoWLN7fM4E06m6YPcAODEkgDS6wU/Sc=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "torrent_parser" ];
+  pythonImportsCheck = ["torrent_parser"];
 
   meta = {
     description = ".torrent file parser and creator for both Python 2 and 3";
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/7sDream/torrent_parser";
     changelog = "https://github.com/7sDream/torrent_parser/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

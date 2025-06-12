@@ -6,7 +6,6 @@
   rustPlatform,
   rustc,
 }:
-
 buildPythonPackage rec {
   pname = "zenoh";
   version = "1.4.0"; # nixpkgs-update: no auto update
@@ -42,6 +41,6 @@ buildPythonPackage rec {
       asl20
       epl20
     ];
-    maintainers = with lib.maintainers; [ markuskowa ];
+    maintainers = with lib.maintainers; [markuskowa];
   };
 }

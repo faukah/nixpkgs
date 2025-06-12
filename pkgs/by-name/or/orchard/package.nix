@@ -4,7 +4,6 @@
   buildGoModule,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "orchard";
   version = "0.33.3";
@@ -26,7 +25,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-D1zTKHioavIpWwS0i/uP91hK+Cxg9Git6DQ0iCowcXM=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-w"
@@ -39,7 +38,7 @@ buildGoModule rec {
     ldflags+=" -X github.com/cirruslabs/orchard/internal/version.Commit=$(cat COMMIT)"
   '';
 
-  subPackages = [ "cmd/orchard" ];
+  subPackages = ["cmd/orchard"];
 
   postInstall = ''
     export HOME="$(mktemp -d)"
@@ -54,6 +53,6 @@ buildGoModule rec {
     description = "Orchestrator for running Tart Virtual Machines on a cluster of Apple Silicon devices";
     homepage = "https://github.com/cirruslabs/orchard";
     license = licenses.fairsource09;
-    maintainers = with maintainers; [ techknowlogick ];
+    maintainers = with maintainers; [techknowlogick];
   };
 }

@@ -7,7 +7,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "gitlab-runner";
   version = "17.11.0";
@@ -22,7 +21,7 @@ buildGoModule (finalAttrs: {
   vendorHash = "sha256-wxFVDkqiqs7jaZEPGyawWfs6h6UgAhCWSckM90G44lA=";
 
   # For patchShebangs
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   patches = [
     ./fix-shell-path.patch
@@ -76,15 +75,13 @@ buildGoModule (finalAttrs: {
     "./scripts"
   ];
 
-  ldflags =
-    let
-      ldflagsPackageVariablePrefix = "gitlab.com/gitlab-org/gitlab-runner/common";
-    in
-    [
-      "-X ${ldflagsPackageVariablePrefix}.NAME=gitlab-runner"
-      "-X ${ldflagsPackageVariablePrefix}.VERSION=${finalAttrs.version}"
-      "-X ${ldflagsPackageVariablePrefix}.REVISION=v${finalAttrs.version}"
-    ];
+  ldflags = let
+    ldflagsPackageVariablePrefix = "gitlab.com/gitlab-org/gitlab-runner/common";
+  in [
+    "-X ${ldflagsPackageVariablePrefix}.NAME=gitlab-runner"
+    "-X ${ldflagsPackageVariablePrefix}.VERSION=${finalAttrs.version}"
+    "-X ${ldflagsPackageVariablePrefix}.REVISION=v${finalAttrs.version}"
+  ];
 
   preCheck = ''
     # Make the tests pass outside of GitLab CI
@@ -100,12 +97,12 @@ buildGoModule (finalAttrs: {
 
   doInstallCheck = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   versionCheckProgramArg = "--version";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -113,7 +110,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://docs.gitlab.com/runner";
     license = lib.licenses.mit;
     mainProgram = "gitlab-runner";
-    maintainers = with lib.maintainers; [ zimbatm ];
-    teams = [ lib.teams.gitlab ];
+    maintainers = with lib.maintainers; [zimbatm];
+    teams = [lib.teams.gitlab];
   };
 })

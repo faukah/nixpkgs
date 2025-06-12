@@ -13,7 +13,6 @@
   gdk-pixbuf,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "museeks";
   version = "0.20.9";
@@ -47,14 +46,14 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple, clean and cross-platform music player";
     homepage = "https://github.com/martpie/museeks";
     license = lib.licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ zendo ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [zendo];
     mainProgram = "museeks";
   };
 })

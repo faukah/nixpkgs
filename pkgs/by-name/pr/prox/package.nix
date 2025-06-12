@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "prox";
   # While upstream did release a v1.0.0, v1.1.0 is actually newer: https://github.com/fgrosse/prox/releases/tag/v1.1.0
@@ -28,6 +27,6 @@ buildGoModule rec {
     description = "Process runner for Procfile-based applications";
     mainProgram = "prox";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "multipart-parser-c";
   version = "unstable-2015-12-14";
@@ -30,7 +29,6 @@ stdenv.mkDerivation {
   meta = {
     description = "Http multipart parser implemented in C";
     homepage = "https://github.com/iafonov/multipart-parser-c";
-    license = [ lib.licenses.mit ];
+    license = [lib.licenses.mit];
   };
-
 }

@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aioairq";
   version = "0.4.6";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-XlOVCDWbcdh8VjNxlEcVNttRN3mw19AXlIIQJ1II144=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aioairq" ];
+  pythonImportsCheck = ["aioairq"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     description = "Library to retrieve data from air-Q devices";
     homepage = "https://github.com/CorantGmbH/aioairq";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

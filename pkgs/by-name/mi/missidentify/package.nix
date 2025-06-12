@@ -4,7 +4,6 @@
   fetchurl,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "missidentify";
   version = "1.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     ./fix-darwin-build.patch
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags = lib.optionals (stdenv.hostPlatform.isAarch32 || stdenv.hostPlatform.isAarch64) [
     "--build=arm"
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     mainProgram = "missidentify";
     homepage = "https://missidentify.sourceforge.net";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
     license = licenses.gpl2Only;
   };

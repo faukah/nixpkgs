@@ -5,7 +5,6 @@
   unittestCheckHook,
   click,
 }:
-
 buildPythonPackage rec {
   pname = "spark-parser";
   version = "1.9.0";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     sha256 = "sha256-3GbUjEJlxBM9tBqcX+nBxQKzsgFn3xWKDyNM0xcSz2Q=";
   };
 
-  propagatedBuildInputs = [ click ];
+  propagatedBuildInputs = [click];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
   unittestFlagsArray = [
     "-s"
     "test"
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     mainProgram = "spark-parser-coverage";
     homepage = "https://github.com/rocky/python-spark";
     license = licenses.mit;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
   };
 }

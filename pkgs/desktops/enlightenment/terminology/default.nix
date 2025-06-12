@@ -10,7 +10,6 @@
   nixosTests,
   directoryListingUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "terminology";
   version = "1.14.0";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
 
   passthru.tests.test = nixosTests.terminal-emulators.terminology;
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "Powerful terminal emulator based on EFL";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
       matejc
       ftrvxmtrx
     ];
-    teams = [ teams.enlightenment ];
+    teams = [teams.enlightenment];
   };
 }

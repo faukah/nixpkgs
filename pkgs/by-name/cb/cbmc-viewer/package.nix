@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "cbmc-viewer";
   version = "3.8";
@@ -24,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     description = "Produces browsable summary of CBMC model checker output";
     homepage = "https://github.com/model-checking/cbmc-viewer";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jacg ];
+    maintainers = with lib.maintainers; [jacg];
     mainProgram = "cbmc-viewer";
   };
 }

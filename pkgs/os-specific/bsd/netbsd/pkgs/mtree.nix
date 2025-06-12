@@ -1,6 +1,8 @@
-{ mkDerivation, mknod }:
-
+{
+  mkDerivation,
+  mknod,
+}:
 mkDerivation {
   path = "usr.sbin/mtree";
-  extraPaths = [ mknod.path ];
+  extraPaths = [mknod.path];
 }

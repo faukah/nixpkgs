@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "crackql";
   version = "unstable-20230818";
@@ -37,7 +36,7 @@ python3.pkgs.buildPythonApplication {
     description = "GraphQL password brute-force and fuzzing utility";
     mainProgram = "crackql";
     homepage = "https://github.com/nicholasaleks/CrackQL";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

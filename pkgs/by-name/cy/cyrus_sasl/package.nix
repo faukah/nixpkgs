@@ -17,7 +17,6 @@
   pruneLibtoolFiles,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cyrus-sasl";
   version = "2.1.28";
@@ -49,11 +48,13 @@ stdenv.mkDerivation rec {
     "devdoc"
   ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [
-    autoreconfHook
-    pruneLibtoolFiles
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      pruneLibtoolFiles
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
   buildInputs =
     [
       openssl

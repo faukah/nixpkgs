@@ -12,12 +12,10 @@
   sqlite,
   stdenv,
   zlib,
-
   pname,
   version,
   meta,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   inherit
     pname
@@ -52,6 +50,5 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  cmakeFlags = [ "-Wno-dev" ];
-
+  cmakeFlags = ["-Wno-dev"];
 })

@@ -20,7 +20,6 @@
   setuptools-scm,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "proxy-py";
   version = "2.4.9";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     --replace "SHELL := /bin/bash" "SHELL := ${bash}/bin/bash"
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     paramiko
@@ -83,13 +82,13 @@ buildPythonPackage rec {
     "test_grout"
   ];
 
-  pythonImportsCheck = [ "proxy" ];
+  pythonImportsCheck = ["proxy"];
 
   meta = with lib; {
     description = "Python proxy framework";
     homepage = "https://github.com/abhinavsingh/proxy.py";
     changelog = "https://github.com/abhinavsingh/proxy.py/releases/tag/${src.tag}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

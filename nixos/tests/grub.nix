@@ -1,25 +1,22 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "grub";
 
   meta = with lib.maintainers; {
-    maintainers = [ rnhmjoj ];
+    maintainers = [rnhmjoj];
   };
 
-  nodes.machine =
-    { ... }:
-    {
-      virtualisation.useBootLoader = true;
+  nodes.machine = {...}: {
+    virtualisation.useBootLoader = true;
 
-      boot.loader.timeout = null;
-      boot.loader.grub = {
-        enable = true;
-        users.alice.password = "supersecret";
+    boot.loader.timeout = null;
+    boot.loader.grub = {
+      enable = true;
+      users.alice.password = "supersecret";
 
-        # OCR is not accurate enough
-        extraConfig = "serial; terminal_output serial";
-      };
+      # OCR is not accurate enough
+      extraConfig = "serial; terminal_output serial";
     };
+  };
 
   testScript = ''
     def grub_login_as(user, password):

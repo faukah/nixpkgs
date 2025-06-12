@@ -7,7 +7,6 @@
   callPackage,
   ejson2env,
 }:
-
 buildGoModule rec {
   pname = "ejson2env";
   version = "2.0.7";
@@ -28,17 +27,17 @@ buildGoModule rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
-      version = testers.testVersion { package = ejson2env; };
-      decryption = callPackage ./test-decryption.nix { };
+      version = testers.testVersion {package = ejson2env;};
+      decryption = callPackage ./test-decryption.nix {};
     };
   };
 
   meta = with lib; {
     description = "Decrypt EJSON secrets and export them as environment variables";
     homepage = "https://github.com/Shopify/ejson2env";
-    maintainers = with maintainers; [ viraptor ];
+    maintainers = with maintainers; [viraptor];
     license = licenses.mit;
     mainProgram = "ejson2env";
   };

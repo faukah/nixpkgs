@@ -19,7 +19,6 @@
   setuptools,
   testers,
 }:
-
 buildPythonPackage rec {
   pname = "apprise";
   version = "1.9.3";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-9YNmfqNbiJnNRjGMbLJvD69qRgWxGRdMJSOgElkMZaY=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   build-system = [
     babel
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     installManPage packaging/man/apprise.1
   '';
 
-  pythonImportsCheck = [ "apprise" ];
+  pythonImportsCheck = ["apprise"];
 
   passthru = {
     tests.version = testers.testVersion {
@@ -73,7 +72,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/caronc/apprise";
     changelog = "https://github.com/caronc/apprise/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "apprise";
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   blas,
 }:
-
 buildOctavePackage rec {
   pname = "nan";
   version = "3.7.0";
@@ -21,7 +20,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/nan/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Statistics and machine learning toolbox for data with and w/o missing values";
   };
 }

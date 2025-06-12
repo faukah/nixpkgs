@@ -8,12 +8,11 @@
   roundedIcons ? false,
   blackPanelIcons ? false,
   allColorVariants ? false,
-  colorVariants ? [ ],
-}:
-let
+  colorVariants ? [],
+}: let
   pname = "Fluent-icon-theme";
 in
-lib.checkListOfEnum "${pname}: available color variants"
+  lib.checkListOfEnum "${pname}: available color variants"
   [
     "standard"
     "green"
@@ -26,7 +25,6 @@ lib.checkListOfEnum "${pname}: available color variants"
     "teal"
   ]
   colorVariants
-
   stdenvNoCC.mkDerivation
   rec {
     inherit pname;
@@ -44,7 +42,7 @@ lib.checkListOfEnum "${pname}: available color variants"
       jdupes
     ];
 
-    buildInputs = [ hicolor-icon-theme ];
+    buildInputs = [hicolor-icon-theme];
 
     # Unnecessary & slow fixup's
     dontPatchELF = true;
@@ -75,6 +73,6 @@ lib.checkListOfEnum "${pname}: available color variants"
       homepage = "https://github.com/vinceliuice/Fluent-icon-theme";
       license = licenses.gpl3Plus;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ icy-thought ];
+      maintainers = with maintainers; [icy-thought];
     };
   }

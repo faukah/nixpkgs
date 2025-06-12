@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "creds";
   version = "0.5.3";
@@ -16,8 +15,8 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-nATmzEUwvJwzPZs+bO+/6ZHIrGgvjApaEwVpMyCXmik=";
   };
 
-  pythonRelaxDeps = [ "tinydb" ];
-  pythonRemoveDeps = [ "pathlib" ];
+  pythonRelaxDeps = ["tinydb"];
+  pythonRemoveDeps = ["pathlib"];
 
   postPatch = ''
     substituteInPlace creds \
@@ -40,6 +39,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/ihebski/DefaultCreds-cheat-sheet";
     changelog = "https://github.com/ihebski/DefaultCreds-cheat-sheet/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

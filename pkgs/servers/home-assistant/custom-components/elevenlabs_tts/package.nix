@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildHomeAssistantComponent,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "carleeno";
   domain = "elevenlabs_tts";
@@ -20,7 +19,7 @@ buildHomeAssistantComponent rec {
     changelog = "https://github.com/carleeno/elevenlabs_tts/releases/tag/${version}";
     description = "Home Assistant Eleven Labs TTS Integration";
     homepage = "https://github.com/carleeno/elevenlabs_tts";
-    maintainers = with maintainers; [ mindstorms6 ];
+    maintainers = with maintainers; [mindstorms6];
     license = licenses.asl20;
   };
 }

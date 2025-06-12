@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "kgb";
   version = "7.2";
@@ -18,16 +17,16 @@ buildPythonPackage rec {
     hash = "sha256-hNJXoUIyrCB9PCWLCmN81F6pBRwZApDR6JWA0adyklw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "kgb" ];
+  pythonImportsCheck = ["kgb"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Python function spy support for unit tests";
     homepage = "https://github.com/beanbaginc/kgb";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 }

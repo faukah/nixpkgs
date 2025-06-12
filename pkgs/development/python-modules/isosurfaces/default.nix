@@ -4,7 +4,6 @@
   fetchPypi,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "isosurfaces";
   version = "0.1.2";
@@ -15,12 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-+lHr6GTqk1WyaDDif91qQdWli0GfqNS0fjuLgHGNbiE=";
   };
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   # no tests defined upstream
   doCheck = false;
 
-  pythonImportsCheck = [ "isosurfaces" ];
+  pythonImportsCheck = ["isosurfaces"];
 
   meta = with lib; {
     homepage = "https://github.com/jared-hughes/isosurfaces";
@@ -33,6 +32,6 @@ buildPythonPackage rec {
       many far from the implicit surface.
     '';
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "pep8";
   version = "1.7.1";
@@ -22,6 +21,6 @@ buildPythonPackage rec {
     description = "Python style guide checker";
     mainProgram = "pep8";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

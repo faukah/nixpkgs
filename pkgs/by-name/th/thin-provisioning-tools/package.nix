@@ -7,7 +7,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "thin-provisioning-tools";
   version = "1.1.0";
@@ -68,6 +67,6 @@ rustPlatform.buildRustPackage rec {
     description = "Suite of tools for manipulating the metadata of the dm-thin device-mapper target";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

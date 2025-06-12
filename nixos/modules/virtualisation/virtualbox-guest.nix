@@ -4,16 +4,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.virtualisation.virtualbox.guest;
   kernel = config.boot.kernelPackages;
 
   mkVirtualBoxUserService = serviceArgs: verbose: {
     description = "VirtualBox Guest User Services ${serviceArgs}";
 
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
+    wantedBy = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
 
     # The graphical session may not be ready when starting the service
     # Hence, check if the DISPLAY env var is set, otherwise fail, wait and retry again
@@ -34,16 +33,15 @@ let
     };
   };
 
-  mkVirtualBoxUserX11OnlyService =
-    serviceArgs: verbose:
+  mkVirtualBoxUserX11OnlyService = serviceArgs: verbose:
     (mkVirtualBoxUserService serviceArgs verbose)
     // {
       unitConfig.ConditionEnvironment = "XDG_SESSION_TYPE=x11";
     };
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
+    (
+      lib.mkRenamedOptionModule
       [
         "virtualisation"
         "virtualbox"
@@ -109,16 +107,16 @@ in
           }
         ];
 
-        environment.systemPackages = [ kernel.virtualboxGuestAdditions ];
+        environment.systemPackages = [kernel.virtualboxGuestAdditions];
 
-        boot.extraModulePackages = [ kernel.virtualboxGuestAdditions ];
+        boot.extraModulePackages = [kernel.virtualboxGuestAdditions];
 
         systemd.services.virtualbox = {
           description = "VirtualBox Guest Services";
 
-          wantedBy = [ "multi-user.target" ];
-          requires = [ "dev-vboxguest.device" ];
-          after = [ "dev-vboxguest.device" ];
+          wantedBy = ["multi-user.target"];
+          requires = ["dev-vboxguest.device"];
+          after = ["dev-vboxguest.device"];
 
           unitConfig.ConditionVirtualization = "oracle";
 
@@ -137,8 +135,8 @@ in
         systemd.user.services.virtualboxClientVmsvga = mkVirtualBoxUserService "--vmsvga-session" cfg.verbose;
       }
       (lib.mkIf cfg.vboxsf {
-        boot.supportedFilesystems = [ "vboxsf" ];
-        boot.initrd.supportedFilesystems = [ "vboxsf" ];
+        boot.supportedFilesystems = ["vboxsf"];
+        boot.initrd.supportedFilesystems = ["vboxsf"];
 
         users.groups.vboxsf.gid = config.ids.gids.vboxsf;
       })

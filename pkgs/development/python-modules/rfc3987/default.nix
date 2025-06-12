@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "rfc3987";
   version = "1.3.8";
@@ -19,6 +18,6 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/rfc3987";
     license = licenses.gpl3Plus;
     description = "Parsing and validation of URIs (RFC 3986) and IRIs (RFC 3987)";
-    maintainers = with maintainers; [ vanschelven ];
+    maintainers = with maintainers; [vanschelven];
   };
 }

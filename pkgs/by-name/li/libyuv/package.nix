@@ -6,7 +6,6 @@
   libjpeg,
   gtest,
 }:
-
 stdenv.mkDerivation {
   pname = "libyuv";
   version = "1908"; # Defined in: include/libyuv/version.h
@@ -54,7 +53,7 @@ stdenv.mkDerivation {
     description = "Open source project that includes YUV scaling and conversion functionality";
     mainProgram = "yuvconvert";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ leixb ];
+    maintainers = with maintainers; [leixb];
     license = licenses.bsd3;
   };
 }

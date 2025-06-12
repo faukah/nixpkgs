@@ -4,7 +4,6 @@
   fetchurl,
   file,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmodplug";
   version = "0.8.9.0";
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://modplug-xmms.sourceforge.net/";
     license = licenses.publicDomain;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
   };
 }

@@ -5,7 +5,6 @@
   pytestCheckHook,
   poetry-core,
 }:
-
 buildPythonPackage rec {
   pname = "mnemonic";
   version = "0.21";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-D1mS/JQhefYmwrShfWR9SdiGsBUM+jmuCkfWix9tDOU=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mnemonic" ];
+  pythonImportsCheck = ["mnemonic"];
 
   meta = with lib; {
     description = "Reference implementation of BIP-0039";

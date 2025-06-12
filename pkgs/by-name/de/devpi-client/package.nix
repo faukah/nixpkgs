@@ -7,7 +7,6 @@
   fetchPypi,
   nix-update-script,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "devpi-client";
   version = "7.2.0";
@@ -24,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     setuptools-changelog-shortener
   ];
 
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
 
   dependencies = with python3.pkgs; [
     build
@@ -65,9 +64,9 @@ python3.pkgs.buildPythonApplication rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "devpi" ];
+  pythonImportsCheck = ["devpi"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Client for devpi, a pypi index server and packaging meta tool";

@@ -1,5 +1,8 @@
-{ pkgs, makeInstalledTest, ... }:
-
+{
+  pkgs,
+  makeInstalledTest,
+  ...
+}:
 makeInstalledTest {
   tested = pkgs.gnome-photos;
 
@@ -17,7 +20,7 @@ makeInstalledTest {
           glib
           wrapGAppsHook3
         ];
-        buildInputs = [ gsettings-desktop-schemas ];
+        buildInputs = [gsettings-desktop-schemas];
         installPhase = ''
           runHook preInstall
           mkdir -p $out/bin
@@ -26,7 +29,7 @@ makeInstalledTest {
         '';
       })
     ];
-    services.dbus.packages = with pkgs; [ gnome-photos ];
+    services.dbus.packages = with pkgs; [gnome-photos];
   };
 
   preTestScript = ''

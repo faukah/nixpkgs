@@ -5,7 +5,6 @@
   makeWrapper,
   imagemagick,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tiv";
   version = "1.1.1";
@@ -17,17 +16,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mCgybL4af19zqECN1pBV+WnxMq2ZtlK5GDTQO3u9CK0=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ imagemagick ];
+  buildInputs = [imagemagick];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   preConfigure = "cd src/main/cpp";
 
   postFixup = ''
     wrapProgram $out/bin/tiv \
-      --prefix PATH : ${lib.makeBinPath [ imagemagick ]}
+      --prefix PATH : ${lib.makeBinPath [imagemagick]}
   '';
 
   meta = with lib; {
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Small C++ program to display images in a (modern) terminal using RGB ANSI codes and unicode block graphics characters";
     mainProgram = "tiv";
     license = licenses.asl20;
-    maintainers = with maintainers; [ magnetophon ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [magnetophon];
+    platforms = ["x86_64-linux"];
   };
 }

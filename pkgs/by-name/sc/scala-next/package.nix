@@ -1,5 +1,7 @@
-{ scala, fetchurl }:
-
+{
+  scala,
+  fetchurl,
+}:
 scala.bare.overrideAttrs (oldAttrs: {
   version = "3.7.0";
   pname = "scala-next";

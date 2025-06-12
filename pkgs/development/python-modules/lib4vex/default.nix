@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "lib4vex";
   version = "0.2.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-mR9ZpJDC2O04js3Kd/8qlg4Ds/jy2CmpTywRVYqmnQw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     csaf-tool
@@ -34,13 +33,13 @@ buildPythonPackage rec {
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "lib4vex" ];
+  pythonImportsCheck = ["lib4vex"];
 
   meta = with lib; {
     description = "Library to ingest and generate VEX documents";
     homepage = "https://github.com/anthonyharrison/lib4vex";
     changelog = "https://github.com/anthonyharrison/lib4vex/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ teatwig ];
+    maintainers = with maintainers; [teatwig];
   };
 }

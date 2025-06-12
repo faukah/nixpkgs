@@ -9,7 +9,6 @@
   chromium,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "vhs";
   version = "0.9.0";
@@ -37,7 +36,7 @@ buildGoModule rec {
   postInstall = ''
     wrapProgram $out/bin/vhs --prefix PATH : ${
       lib.makeBinPath (
-        lib.optionals stdenv.hostPlatform.isLinux [ chromium ]
+        lib.optionals stdenv.hostPlatform.isLinux [chromium]
         ++ [
           ffmpeg
           ttyd

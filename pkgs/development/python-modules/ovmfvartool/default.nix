@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pyyaml,
 }:
-
 buildPythonPackage {
   pname = "ovmfvartool";
   version = "unstable-2022-09-04";
@@ -17,12 +16,12 @@ buildPythonPackage {
     hash = "sha256-XbvcE/MXNj5S5N7A7jxdwgEE5yMuB82Xg+PYBsFRIm0=";
   };
 
-  propagatedBuildInputs = [ pyyaml ];
+  propagatedBuildInputs = [pyyaml];
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "ovmfvartool" ];
+  pythonImportsCheck = ["ovmfvartool"];
 
   meta = with lib; {
     description = "Parse and generate OVMF_VARS.fd from Yaml";

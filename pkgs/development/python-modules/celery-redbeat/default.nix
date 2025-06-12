@@ -11,7 +11,6 @@
   fakeredis,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "celery-redbeat";
   version = "2.3.2";
@@ -38,12 +37,12 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pythonImportsCheck = [ "redbeat" ];
+  pythonImportsCheck = ["redbeat"];
 
   meta = with lib; {
     description = "Database-backed Periodic Tasks";
     homepage = "https://github.com/celery/django-celery-beat";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

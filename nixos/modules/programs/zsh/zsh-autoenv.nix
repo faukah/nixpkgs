@@ -3,16 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.zsh.zsh-autoenv;
-in
-{
+in {
   options = {
     programs.zsh.zsh-autoenv = {
       enable = lib.mkEnableOption "zsh-autoenv";
-      package = lib.mkPackageOption pkgs "zsh-autoenv" { };
+      package = lib.mkPackageOption pkgs "zsh-autoenv" {};
     };
   };
 

@@ -9,7 +9,6 @@
   linenoise,
   lrzsz,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "picocom";
   version = "2024-07";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     ./use-system-linenoise.patch
-    (replaceVars ./lrzsz-path.patch { inherit lrzsz; })
+    (replaceVars ./lrzsz-path.patch {inherit lrzsz;})
   ];
 
   nativeBuildInputs = [

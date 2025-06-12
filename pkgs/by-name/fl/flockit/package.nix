@@ -4,7 +4,6 @@
   fetchFromGitHub,
   runtimeShell,
 }:
-
 stdenv.mkDerivation {
   pname = "flockit";
   version = "2012-08-11";
@@ -52,6 +51,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/smerritt/flockit";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = [ maintainers.basvandijk ];
+    maintainers = [maintainers.basvandijk];
   };
 }

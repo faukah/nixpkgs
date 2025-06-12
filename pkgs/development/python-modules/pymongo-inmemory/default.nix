@@ -7,7 +7,6 @@
   pymongo,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pymongo-inmemory";
   version = "0.5.0";
@@ -36,11 +35,11 @@ buildPythonPackage rec {
         'os.makedirs(current_path)'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  dependencies = [ pymongo ];
+  dependencies = [pymongo];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # new test with insufficient monkey patching, try to remove on next bump
@@ -51,12 +50,12 @@ buildPythonPackage rec {
     export HOME="$(mktemp -d)"
   '';
 
-  pythonImportsCheck = [ "pymongo_inmemory" ];
+  pythonImportsCheck = ["pymongo_inmemory"];
 
   meta = {
     homepage = "https://github.com/kaizendorks/pymongo_inmemory";
     description = "Mongo mocking library with an ephemeral MongoDB running in memory";
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
     license = lib.licenses.mit;
   };
 }

@@ -6,7 +6,6 @@
   boost,
   llvmPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mdds";
   version = "2.1.1";
@@ -18,11 +17,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-a412LpgDiYM8TMToaUrTlHtblYS1HehzrDOwvIAAxiA=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  buildInputs = lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
-  nativeCheckInputs = [ boost ];
+  nativeCheckInputs = [boost];
 
   postInstall = ''
     mkdir -p $out/lib/
@@ -34,8 +33,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Collection of multi-dimensional data structure and indexing algorithms";
     changelog = "https://gitlab.com/mdds/mdds/-/blob/${finalAttrs.version}/CHANGELOG";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 })
 # TODO: multi-output
+

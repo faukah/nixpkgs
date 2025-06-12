@@ -3,11 +3,10 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "krane";
   gemdir = ./.;
-  exes = [ "krane" ];
+  exes = ["krane"];
 
   passthru.updateScript = bundlerUpdateScript "krane";
 
@@ -16,6 +15,6 @@ bundlerApp {
     homepage = "https://github.com/Shopify/krane";
     changelog = "https://github.com/Shopify/krane/blob/main/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
   };
 }

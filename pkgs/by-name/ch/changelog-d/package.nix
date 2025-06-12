@@ -3,12 +3,10 @@
   lib,
   haskell,
   haskellPackages,
-}:
-
-let
+}: let
   hsPkg = haskellPackages.changelog-d;
 
-  addCompletions = haskellPackages.generateOptparseApplicativeCompletions [ "changelog-d" ];
+  addCompletions = haskellPackages.generateOptparseApplicativeCompletions ["changelog-d"];
 
   haskellModifications = lib.flip lib.pipe [
     addCompletions
@@ -16,17 +14,17 @@ let
   ];
 
   mkDerivationOverrides = finalAttrs: oldAttrs: {
-
     # nix-build -A changelog-d.tests
     passthru.tests = {
-      basic = callPackage ./tests/basic.nix { changelog-d = finalAttrs.finalPackage; };
+      basic = callPackage ./tests/basic.nix {changelog-d = finalAttrs.finalPackage;};
     };
 
-    meta = oldAttrs.meta // {
-      homepage = "https://codeberg.org/fgaz/changelog-d";
-      maintainers = [ lib.maintainers.roberth ];
-    };
-
+    meta =
+      oldAttrs.meta
+      // {
+        homepage = "https://codeberg.org/fgaz/changelog-d";
+        maintainers = [lib.maintainers.roberth];
+      };
   };
 in
-(haskellModifications hsPkg).overrideAttrs mkDerivationOverrides
+  (haskellModifications hsPkg).overrideAttrs mkDerivationOverrides

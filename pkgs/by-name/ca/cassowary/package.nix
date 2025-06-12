@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cassowary";
   version = "0.19.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/rogerwelin/cassowary";
     description = "Modern cross-platform HTTP load-testing tool written in Go";
     license = licenses.mit;
-    maintainers = with maintainers; [ hugoreeves ];
+    maintainers = with maintainers; [hugoreeves];
     mainProgram = "cassowary";
   };
 }

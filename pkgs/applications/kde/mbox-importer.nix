@@ -13,7 +13,6 @@
   mailimporter,
   messagelib,
 }:
-
 mkDerivation {
   pname = "mbox-importer";
   meta = {

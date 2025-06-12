@@ -8,7 +8,6 @@
   re2,
   texinfo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cre2";
   version = "0.3.6";

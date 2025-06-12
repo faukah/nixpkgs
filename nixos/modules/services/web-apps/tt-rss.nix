@@ -4,9 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.services.tt-rss;
 
   inherit (cfg) phpPackage;
@@ -14,26 +12,28 @@ let
   configVersion = 26;
 
   dbPort =
-    if cfg.database.port == null then
-      (if cfg.database.type == "pgsql" then 5432 else 3306)
-    else
-      cfg.database.port;
+    if cfg.database.port == null
+    then
+      (
+        if cfg.database.type == "pgsql"
+        then 5432
+        else 3306
+      )
+    else cfg.database.port;
 
   poolName = "tt-rss";
 
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql";
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "pgsql";
 
-  tt-rss-config =
-    let
-      password =
-        if (cfg.database.password != null) then
-          "'${(escape [ "'" "\\" ] cfg.database.password)}'"
-        else if (cfg.database.passwordFile != null) then
-          "file_get_contents('${cfg.database.passwordFile}')"
-        else
-          null;
-    in
+  tt-rss-config = let
+    password =
+      if (cfg.database.password != null)
+      then "'${(escape ["'" "\\"] cfg.database.password)}'"
+      else if (cfg.database.passwordFile != null)
+      then "file_get_contents('${cfg.database.passwordFile}')"
+      else null;
+  in
     pkgs.writeText "config.php" ''
       <?php
         putenv('TTRSS_PHP_EXECUTABLE=${phpPackage}/bin/php');
@@ -56,7 +56,7 @@ let
         putenv('TTRSS_AUTH_AUTO_CREATE=${boolToString cfg.auth.autoCreate}');
         putenv('TTRSS_AUTH_AUTO_LOGIN=${boolToString cfg.auth.autoLogin}');
 
-        putenv('TTRSS_FEED_CRYPT_KEY=${escape [ "'" "\\" ] cfg.feedCryptKey}');
+        putenv('TTRSS_FEED_CRYPT_KEY=${escape ["'" "\\"] cfg.feedCryptKey}');
 
 
         putenv('TTRSS_SINGLE_USER_MODE=${boolToString cfg.singleUserMode}');
@@ -97,41 +97,36 @@ let
 
         putenv('TTRSS_SMTP_SERVER=${cfg.email.server}');
         putenv('TTRSS_SMTP_LOGIN=${cfg.email.login}');
-        putenv('TTRSS_SMTP_PASSWORD=${escape [ "'" "\\" ] cfg.email.password}');
+        putenv('TTRSS_SMTP_PASSWORD=${escape ["'" "\\"] cfg.email.password}');
         putenv('TTRSS_SMTP_SECURE=${cfg.email.security}');
 
-        putenv('TTRSS_SMTP_FROM_NAME=${escape [ "'" "\\" ] cfg.email.fromName}');
-        putenv('TTRSS_SMTP_FROM_ADDRESS=${escape [ "'" "\\" ] cfg.email.fromAddress}');
-        putenv('TTRSS_DIGEST_SUBJECT=${escape [ "'" "\\" ] cfg.email.digestSubject}');
+        putenv('TTRSS_SMTP_FROM_NAME=${escape ["'" "\\"] cfg.email.fromName}');
+        putenv('TTRSS_SMTP_FROM_ADDRESS=${escape ["'" "\\"] cfg.email.fromAddress}');
+        putenv('TTRSS_DIGEST_SUBJECT=${escape ["'" "\\"] cfg.email.digestSubject}');
 
         ${cfg.extraConfig}
     '';
 
   # tt-rss and plugins and themes and config.php
-  servedRoot = pkgs.runCommand "tt-rss-served-root" { } ''
+  servedRoot = pkgs.runCommand "tt-rss-served-root" {} ''
     cp --no-preserve=mode -r ${pkgs.tt-rss} $out
     cp ${tt-rss-config} $out/config.php
-    ${optionalString (cfg.pluginPackages != [ ]) ''
+    ${optionalString (cfg.pluginPackages != []) ''
       for plugin in ${concatStringsSep " " cfg.pluginPackages}; do
       cp -r "$plugin"/* "$out/plugins.local/"
       done
     ''}
-    ${optionalString (cfg.themePackages != [ ]) ''
+    ${optionalString (cfg.themePackages != []) ''
       for theme in ${concatStringsSep " " cfg.themePackages}; do
       cp -r "$theme"/* "$out/themes.local/"
       done
     ''}
   '';
-
-in
-{
-
+in {
   ###### interface
 
   options = {
-
     services.tt-rss = {
-
       enable = mkEnableOption "tt-rss";
 
       root = mkOption {
@@ -505,7 +500,7 @@ in
 
       pluginPackages = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         description = ''
           List of plugins to install. The list elements are expected to
           be derivations. All elements in this derivation are automatically
@@ -515,7 +510,7 @@ in
 
       themePackages = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         description = ''
           List of themes to install. The list elements are expected to
           be derivations. All elements in this derivation are automatically
@@ -560,7 +555,7 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule [ "services" "tt-rss" "checkForUpdates" ] ''
+    (mkRemovedOptionModule ["services" "tt-rss" "checkForUpdates"] ''
       This option was removed because setting this to true will cause TT-RSS
       to be unable to start if an automatic update of the code in
       services.tt-rss.root leads to a database schema upgrade that is not
@@ -571,7 +566,6 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-
     assertions = [
       {
         assertion = cfg.database.password != null -> cfg.database.passwordFile == null;
@@ -647,7 +641,7 @@ in
 
     systemd.services = {
       phpfpm-tt-rss = mkIf (cfg.pool == "${poolName}") {
-        restartTriggers = [ servedRoot ];
+        restartTriggers = [servedRoot];
       };
 
       tt-rss = {
@@ -666,10 +660,10 @@ in
           SyslogIdentifier = "tt-rss";
         };
 
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         requires = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
         after =
-          [ "network.target" ]
+          ["network.target"]
           ++ optional mysqlLocal "mysql.service"
           ++ optional pgsqlLocal "postgresql.service";
       };
@@ -678,7 +672,7 @@ in
     services.mysql = mkIf mysqlLocal {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.user;
@@ -691,7 +685,7 @@ in
 
     services.postgresql = mkIf pgsqlLocal {
       enable = mkDefault true;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -706,6 +700,6 @@ in
       group = "tt_rss";
     };
 
-    users.groups.tt_rss = { };
+    users.groups.tt_rss = {};
   };
 }

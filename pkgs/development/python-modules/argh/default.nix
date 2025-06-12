@@ -7,7 +7,6 @@
   mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "argh";
   version = "0.31.3";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-8wAj2L4Uyl7msbPuq4KRUde72kZK4H3E3VNHkZxYkvk=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   nativeCheckInputs = [
     iocapture
@@ -26,13 +25,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "argh" ];
+  pythonImportsCheck = ["argh"];
 
   meta = with lib; {
     changelog = "https://github.com/neithere/argh/blob/v${version}/CHANGES";
     homepage = "https://github.com/neithere/argh";
     description = "Unobtrusive argparse wrapper with natural syntax";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
   dontUnpack = true;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall
@@ -29,8 +29,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Uninstall unwanted apps";
     homepage = "https://freemacsoft.net/appcleaner";
     license = licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ emilytrau ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.darwin;
   };
 })

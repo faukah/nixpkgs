@@ -3,33 +3,28 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.nfs.server;
 
   exports = pkgs.writeText "exports" cfg.exports;
-
-in
-
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "nfs" "lockdPort" ]
-      [ "services" "nfs" "server" "lockdPort" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "nfs" "lockdPort"]
+      ["services" "nfs" "server" "lockdPort"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "nfs" "statdPort" ]
-      [ "services" "nfs" "server" "statdPort" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "nfs" "statdPort"]
+      ["services" "nfs" "server" "statdPort"]
     )
   ];
 
   ###### interface
 
   options = {
-
     services.nfs = {
-
       server = {
         enable = lib.mkOption {
           type = lib.types.bool;
@@ -109,26 +104,22 @@ in
             useful if the NFS server is behind a firewall.
           '';
         };
-
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     services.rpcbind.enable = true;
 
-    boot.supportedFilesystems = [ "nfs" ]; # needed for statd and idmapd
+    boot.supportedFilesystems = ["nfs"]; # needed for statd and idmapd
 
     environment.etc.exports.source = exports;
 
     systemd.services.nfs-server = {
       enable = true;
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         mkdir -p /var/lib/nfs/v4recovery
@@ -137,7 +128,7 @@ in
 
     systemd.services.nfs-mountd = {
       enable = true;
-      restartTriggers = [ exports ];
+      restartTriggers = [exports];
 
       preStart = ''
         mkdir -p /var/lib/nfs
@@ -151,7 +142,5 @@ in
         ''}
       '';
     };
-
   };
-
 }

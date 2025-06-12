@@ -7,7 +7,6 @@
   protobuf,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fedimint";
   version = "0.5.1";
@@ -76,8 +75,8 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "Federated E-Cash Mint";
     homepage = "https://github.com/fedimint/fedimint";
-    license = [ lib.licenses.mit ];
-    maintainers = with lib.maintainers; [ dpc ];
+    license = [lib.licenses.mit];
+    maintainers = with lib.maintainers; [dpc];
     mainProgram = "fedimint-cli";
   };
 }

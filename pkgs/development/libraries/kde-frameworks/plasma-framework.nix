@@ -27,7 +27,6 @@
   kirigami2,
   qtquickcontrols2,
 }:
-
 mkDerivation {
   pname = "plasma-framework";
   nativeBuildInputs = [

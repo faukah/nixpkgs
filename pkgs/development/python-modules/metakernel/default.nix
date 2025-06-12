@@ -9,7 +9,6 @@
   pexpect,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "metakernel";
   version = "0.30.3";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-nryNTYciAq16xkpW4HIm2NPFzkW1tCDQQB9UfHUKR10=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     ipykernel
@@ -34,13 +33,13 @@ buildPythonPackage rec {
   # Tests hang, so disable
   doCheck = false;
 
-  pythonImportsCheck = [ "metakernel" ];
+  pythonImportsCheck = ["metakernel"];
 
   meta = with lib; {
     description = "Jupyter/IPython Kernel Tools";
     homepage = "https://github.com/Calysto/metakernel";
     changelog = "https://github.com/Calysto/metakernel/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ thomasjm ];
+    maintainers = with maintainers; [thomasjm];
   };
 }

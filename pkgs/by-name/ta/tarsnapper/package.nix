@@ -5,7 +5,6 @@
   fetchpatch,
   tarsnap,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "tarsnapper";
   version = "0.5";
@@ -46,17 +45,17 @@ python3Packages.buildPythonApplication rec {
   ];
 
   # Remove standard module argparse from requirements
-  pythonRemoveDeps = [ "argparse" ];
+  pythonRemoveDeps = ["argparse"];
 
-  makeWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ tarsnap ]}" ];
+  makeWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [tarsnap]}"];
 
-  pythonImportsCheck = [ "tarsnapper" ];
+  pythonImportsCheck = ["tarsnapper"];
 
   meta = with lib; {
     description = "Wrapper which expires backups using a gfs-scheme";
     homepage = "https://github.com/miracle2k/tarsnapper";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ gmacon ];
+    maintainers = with maintainers; [gmacon];
     mainProgram = "tarsnapper";
   };
 }

@@ -4,7 +4,6 @@
   coreutils,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "greenmask";
   version = "0.2.12";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-t2U65GAGBGdMRXPTkCQCuXfLuqohA6erTlvAN/xx/ek=";
 
-  subPackages = [ "cmd/greenmask/" ];
+  subPackages = ["cmd/greenmask/"];
 
   ldflags = [
     "-s"
@@ -26,7 +25,7 @@ buildGoModule rec {
     "-X=github.com/greenmaskio/greenmask/cmd/greenmask/cmd.Version=${version}"
   ];
 
-  nativeCheckInputs = [ coreutils ];
+  nativeCheckInputs = [coreutils];
 
   preCheck = ''
     substituteInPlace internal/db/postgres/transformers/custom/dynamic_definition_test.go \
@@ -44,7 +43,7 @@ buildGoModule rec {
     homepage = "https://github.com/GreenmaskIO/greenmask";
     changelog = "https://github.com/GreenmaskIO/greenmask/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "greenmask";
   };
 }

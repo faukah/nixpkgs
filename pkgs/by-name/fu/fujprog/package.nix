@@ -7,7 +7,6 @@
   libftdi1,
   libusb-compat-0_1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fujprog";
   version = "4.8";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     mainProgram = "fujprog";
     homepage = "https://github.com/kost/fujprog";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ trepetti ];
+    maintainers = with lib.maintainers; [trepetti];
     platforms = lib.platforms.all;
     changelog = "https://github.com/kost/fujprog/releases/tag/v${version}";
   };

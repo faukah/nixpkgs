@@ -6,7 +6,6 @@
   isPyPy,
   six,
 }:
-
 buildPythonPackage rec {
   version = "0.12.0";
   format = "setuptools";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
 
   patches = lib.optional stdenv.cc.isClang ./pyfribidi-clang.patch;
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   meta = with lib; {
     description = "Simple wrapper around fribidi";

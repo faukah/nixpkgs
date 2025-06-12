@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sjasmplus";
   version = "1.18.3";
@@ -32,6 +31,6 @@ stdenv.mkDerivation rec {
     mainProgram = "sjasmplus";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ electrified ];
+    maintainers = with maintainers; [electrified];
   };
 }

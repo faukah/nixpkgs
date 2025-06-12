@@ -5,7 +5,6 @@
   fetchFromGitHub,
   go-task,
 }:
-
 buildGoModule rec {
   pname = "arduino-create-agent";
   version = "1.7.0";
@@ -35,6 +34,6 @@ buildGoModule rec {
     homepage = "https://github.com/arduino/arduino-create-agent";
     changelog = "https://github.com/arduino/arduino-create-agent/releases/tag/${version}";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ kilimnik ];
+    maintainers = with lib.maintainers; [kilimnik];
   };
 }

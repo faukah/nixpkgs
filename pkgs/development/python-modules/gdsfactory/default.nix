@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   flit-core,
-
   # dependencies
   jinja2,
   loguru,
@@ -37,7 +35,6 @@
   graphviz,
   pyglet,
   typing-extensions,
-
   # tests
   jsondiff,
   jsonschema,
@@ -56,7 +53,7 @@ buildPythonPackage rec {
     hash = "sha256-BcFEMcHt0qUQ0hTLSznuIH37rAk+10JGrPdrhE/sTfU=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     jinja2
@@ -106,13 +103,13 @@ buildPythonPackage rec {
   # tests require >32GB of RAM
   doCheck = false;
 
-  pythonImportsCheck = [ "gdsfactory" ];
+  pythonImportsCheck = ["gdsfactory"];
 
   meta = {
     description = "Python library to generate GDS layouts";
     homepage = "https://github.com/gdsfactory/gdsfactory";
     changelog = "https://github.com/gdsfactory/gdsfactory/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fbeffa ];
+    maintainers = with lib.maintainers; [fbeffa];
   };
 }

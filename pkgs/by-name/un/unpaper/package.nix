@@ -2,23 +2,18 @@
   lib,
   stdenv,
   fetchurl,
-
   # build
   meson,
   ninja,
   pkg-config,
-
   # docs
   sphinx,
-
   # runtime
   buildPackages,
   ffmpeg-headless,
-
   # tests
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unpaper";
   version = "7.0.0";
@@ -56,6 +51,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.all;
     mainProgram = "unpaper";
-    maintainers = [ lib.maintainers.rycee ];
+    maintainers = [lib.maintainers.rycee];
   };
 }

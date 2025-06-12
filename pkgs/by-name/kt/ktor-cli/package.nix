@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ktor-cli";
   version = "0.5.0";
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/ktorio/ktor-cli";
     changelog = "https://github.com/ktorio/ktor-cli/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nartsiss ];
+    maintainers = with lib.maintainers; [nartsiss];
     mainProgram = "ktor";
   };
 }

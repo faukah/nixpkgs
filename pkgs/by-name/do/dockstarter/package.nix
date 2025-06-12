@@ -8,7 +8,6 @@
   ncurses,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   pname = "dockstarter";
   version = "unstable-2022-10-26";
@@ -22,7 +21,7 @@ stdenv.mkDerivation {
 
   dontBuild = false;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dm755 main.sh $out/bin/ds
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
     description = "Make it quick and easy to get up and running with Docker";
     homepage = "https://dockstarter.com";
     license = licenses.mit;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
     mainProgram = "ds";
   };
 }

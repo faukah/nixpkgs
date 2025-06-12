@@ -12,12 +12,10 @@
   azure-static-sites-client,
   # "latest", "stable" or "backup"
   versionFlavor ? "stable",
-}:
-let
+}: let
   versions = lib.importJSON ./versions.json;
   flavor = lib.head (lib.filter (x: x.version == versionFlavor) versions);
-  fetchBinary =
-    runtimeId:
+  fetchBinary = runtimeId:
     fetchurl {
       url = flavor.files.${runtimeId}.url;
       sha256 = flavor.files.${runtimeId}.sha;
@@ -27,76 +25,76 @@ let
     "x86_64-darwin" = fetchBinary "osx-x64";
   };
 in
-stdenv.mkDerivation {
-  pname = "StaticSitesClient-${versionFlavor}";
-  version = flavor.buildId;
+  stdenv.mkDerivation {
+    pname = "StaticSitesClient-${versionFlavor}";
+    version = flavor.buildId;
 
-  src =
-    sources.${stdenv.hostPlatform.system}
+    src =
+      sources.${stdenv.hostPlatform.system}
       or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+    ];
 
-  buildInputs = [
-    curl
-    icu70
-    libkrb5
-    lttng-ust
-    openssl
-    (lib.getLib stdenv.cc.cc)
-    zlib
-  ];
+    buildInputs = [
+      curl
+      icu70
+      libkrb5
+      lttng-ust
+      openssl
+      (lib.getLib stdenv.cc.cc)
+      zlib
+    ];
 
-  dontUnpack = true;
-  dontBuild = true;
+    dontUnpack = true;
+    dontBuild = true;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -m755 "$src" -D "$out/bin/StaticSitesClient"
+      install -m755 "$src" -D "$out/bin/StaticSitesClient"
 
-    for icu_lib in 'icui18n' 'icuuc' 'icudata'; do
-      patchelf --add-needed "lib''${icu_lib}.so.${lib.head (lib.splitVersion (lib.getVersion icu70.name))}" "$out/bin/StaticSitesClient"
-    done
+      for icu_lib in 'icui18n' 'icuuc' 'icudata'; do
+        patchelf --add-needed "lib''${icu_lib}.so.${lib.head (lib.splitVersion (lib.getVersion icu70.name))}" "$out/bin/StaticSitesClient"
+      done
 
-    patchelf --add-needed 'libgssapi_krb5.so' \
-             --add-needed 'liblttng-ust.so'   \
-             --add-needed 'libssl.so.3'     \
-             "$out/bin/StaticSitesClient"
+      patchelf --add-needed 'libgssapi_krb5.so' \
+               --add-needed 'liblttng-ust.so'   \
+               --add-needed 'libssl.so.3'     \
+               "$out/bin/StaticSitesClient"
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  # Stripping kills the binary
-  dontStrip = true;
+    # Stripping kills the binary
+    dontStrip = true;
 
-  # Just make sure the binary executes successfully
-  doInstallCheck = true;
-  installCheckPhase = ''
-    runHook preInstallCheck
+    # Just make sure the binary executes successfully
+    doInstallCheck = true;
+    installCheckPhase = ''
+      runHook preInstallCheck
 
-    $out/bin/StaticSitesClient version
+      $out/bin/StaticSitesClient version
 
-    runHook postInstallCheck
-  '';
+      runHook postInstallCheck
+    '';
 
-  passthru = {
-    # Create tests for all flavors
-    tests = lib.genAttrs (map (x: x.version) versions) (
-      versionFlavor: azure-static-sites-client.override { inherit versionFlavor; }
-    );
-    updateScript = ./update.sh;
-  };
+    passthru = {
+      # Create tests for all flavors
+      tests = lib.genAttrs (map (x: x.version) versions) (
+        versionFlavor: azure-static-sites-client.override {inherit versionFlavor;}
+      );
+      updateScript = ./update.sh;
+    };
 
-  meta = {
-    description = "Azure static sites client";
-    homepage = "https://github.com/Azure/static-web-apps-cli";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    license = lib.licenses.unfree;
-    mainProgram = "StaticSitesClient";
-    maintainers = with lib.maintainers; [ veehaitch ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = {
+      description = "Azure static sites client";
+      homepage = "https://github.com/Azure/static-web-apps-cli";
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      license = lib.licenses.unfree;
+      mainProgram = "StaticSitesClient";
+      maintainers = with lib.maintainers; [veehaitch];
+      platforms = ["x86_64-linux"];
+    };
+  }

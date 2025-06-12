@@ -8,7 +8,6 @@
   xmlstarlet,
   common-updater-scripts,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "xld";
   version = "20240511";
@@ -18,7 +17,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-8xfjAWgtSdbD8gGlkGzT8QRz7egIf4PE/rFsFEDX0+c=";
   };
 
-  buildInputs = [ undmg ];
+  buildInputs = [undmg];
 
   sourceRoot = ".";
 
@@ -55,9 +54,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Lossless audio decoder";
     homepage = "https://tmkk.undo.jp/xld/index_e.html";
     license = lib.licenses.osl3;
-    maintainers = with lib.maintainers; [ iivusly ];
+    maintainers = with lib.maintainers; [iivusly];
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     mainProgram = "xld";
   };
 })

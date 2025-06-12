@@ -6,7 +6,6 @@
   versionCheckHook,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "go-blueprint";
   version = "0.10.10";
@@ -24,7 +23,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-WBzToupC1/O70OYHbKk7S73OEe7XRLAAbY5NoLL7xvw=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   nativeInstallCheckInputs = [
     versionCheckHook
   ];
@@ -42,7 +41,7 @@ buildGoModule rec {
     description = "Initialize Go projects using popular frameworks";
     homepage = "https://github.com/Melkeydev/go-blueprint";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tobifroe ];
+    maintainers = with lib.maintainers; [tobifroe];
     mainProgram = "go-blueprint";
   };
 }

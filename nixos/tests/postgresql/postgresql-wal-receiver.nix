@@ -2,63 +2,57 @@
   pkgs,
   makeTest,
   genTests,
-}:
-
-let
+}: let
   inherit (pkgs) lib;
 
-  makeTestFor =
-    package:
-    let
-      postgresqlDataDir = "/var/lib/postgresql/${package.psqlSchema}";
-      replicationUser = "wal_receiver_user";
-      replicationSlot = "wal_receiver_slot";
-      replicationConn = "postgresql://${replicationUser}@localhost";
-      baseBackupDir = "/var/cache/wals/pg_basebackup";
-      walBackupDir = "/var/cache/wals/pg_wal";
-      recoveryFile = pkgs.writeTextDir "recovery.signal" "";
-    in
+  makeTestFor = package: let
+    postgresqlDataDir = "/var/lib/postgresql/${package.psqlSchema}";
+    replicationUser = "wal_receiver_user";
+    replicationSlot = "wal_receiver_slot";
+    replicationConn = "postgresql://${replicationUser}@localhost";
+    baseBackupDir = "/var/cache/wals/pg_basebackup";
+    walBackupDir = "/var/cache/wals/pg_wal";
+    recoveryFile = pkgs.writeTextDir "recovery.signal" "";
+  in
     makeTest {
       name = "postgresql-wal-receiver-${package.name}";
-      meta.maintainers = with lib.maintainers; [ euxane ];
+      meta.maintainers = with lib.maintainers; [euxane];
 
-      nodes.machine =
-        { ... }:
-        {
-          systemd.tmpfiles.rules = [
-            "d /var/cache/wals 0750 postgres postgres - -"
-          ];
+      nodes.machine = {...}: {
+        systemd.tmpfiles.rules = [
+          "d /var/cache/wals 0750 postgres postgres - -"
+        ];
 
-          services.postgresql = {
-            inherit package;
-            enable = true;
-            settings = {
-              max_replication_slots = 10;
-              max_wal_senders = 10;
-              recovery_end_command = "touch recovery.done";
-              restore_command = "cp ${walBackupDir}/%f %p";
-              wal_level = "archive"; # alias for replica on pg >= 9.6
-            };
-            authentication = ''
-              host replication ${replicationUser} all trust
-            '';
-            initialScript = pkgs.writeText "init.sql" ''
-              create user ${replicationUser} replication;
-              select * from pg_create_physical_replication_slot('${replicationSlot}');
-            '';
+        services.postgresql = {
+          inherit package;
+          enable = true;
+          settings = {
+            max_replication_slots = 10;
+            max_wal_senders = 10;
+            recovery_end_command = "touch recovery.done";
+            restore_command = "cp ${walBackupDir}/%f %p";
+            wal_level = "archive"; # alias for replica on pg >= 9.6
           };
-
-          services.postgresqlWalReceiver.receivers.main = {
-            postgresqlPackage = package;
-            connection = replicationConn;
-            slot = replicationSlot;
-            directory = walBackupDir;
-          };
-          # This is only to speedup test, it isn't time racing. Service is set to autorestart always,
-          # default 60sec is fine for real system, but is too much for a test
-          systemd.services.postgresql-wal-receiver-main.serviceConfig.RestartSec = lib.mkForce 5;
-          systemd.services.postgresql.serviceConfig.ReadWritePaths = [ "/var/cache/wals" ];
+          authentication = ''
+            host replication ${replicationUser} all trust
+          '';
+          initialScript = pkgs.writeText "init.sql" ''
+            create user ${replicationUser} replication;
+            select * from pg_create_physical_replication_slot('${replicationSlot}');
+          '';
         };
+
+        services.postgresqlWalReceiver.receivers.main = {
+          postgresqlPackage = package;
+          connection = replicationConn;
+          slot = replicationSlot;
+          directory = walBackupDir;
+        };
+        # This is only to speedup test, it isn't time racing. Service is set to autorestart always,
+        # default 60sec is fine for real system, but is too much for a test
+        systemd.services.postgresql-wal-receiver-main.serviceConfig.RestartSec = lib.mkForce 5;
+        systemd.services.postgresql.serviceConfig.ReadWritePaths = ["/var/cache/wals"];
+      };
 
       testScript = ''
         # make an initial base backup
@@ -108,4 +102,4 @@ let
       '';
     };
 in
-genTests { inherit makeTestFor; }
+  genTests {inherit makeTestFor;}

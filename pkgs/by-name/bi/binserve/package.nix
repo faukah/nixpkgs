@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "binserve";
   version = "0.2.0";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       single-binary you can set up with zero code
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ snapdgn ];
+    maintainers = with maintainers; [snapdgn];
     platforms = platforms.unix;
     mainProgram = "binserve";
   };

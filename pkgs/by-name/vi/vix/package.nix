@@ -5,7 +5,6 @@
   autoreconfHook,
   SDL,
 }:
-
 stdenv.mkDerivation {
   pname = "vix";
   version = "0.1.2";
@@ -17,21 +16,21 @@ stdenv.mkDerivation {
     sha256 = "1y0a2sajkrsg36px21b8lgx1irf0pyj7hccyd6k806bm4zhgxw1z";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags = [
     (lib.enableFeature (!stdenv.hostPlatform.isDarwin) "sdltest")
   ];
 
-  buildInputs = [ SDL ];
+  buildInputs = [SDL];
 
   meta = with lib; {
     description = "Visual Interface heXadecimal dump";
     homepage = "http://actinid.org/vix/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.ehmry ];
+    maintainers = [maintainers.ehmry];
     mainProgram = "vix";
     # sys/io.h missing on other platforms
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

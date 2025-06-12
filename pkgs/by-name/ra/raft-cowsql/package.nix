@@ -9,7 +9,6 @@
   incus,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "raft-cowsql";
   version = "0.22.1";
@@ -64,6 +63,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/cowsql/raft";
     license = licenses.lgpl3Only;
     platforms = platforms.linux;
-    teams = [ teams.lxc ];
+    teams = [teams.lxc];
   };
 }

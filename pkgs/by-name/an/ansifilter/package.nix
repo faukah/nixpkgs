@@ -6,7 +6,6 @@
   boost,
   lua,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ansifilter";
   version = "2.21";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-XqfP39B1LVoWklnaAFwYuQN2KANv2J2LgmJLrOycE5A=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     boost
     lua
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.andre-simon.de/doku/ansifilter/en/ansifilter.html";
     license = licenses.gpl3;
-    maintainers = [ maintainers.Adjective-Object ];
+    maintainers = [maintainers.Adjective-Object];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

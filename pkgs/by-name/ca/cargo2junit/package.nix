@@ -3,7 +3,6 @@
   lib,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo2junit";
   version = "0.1.13";
@@ -25,6 +24,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "cargo2junit";
     homepage = "https://github.com/johnterickson/cargo2junit";
     license = licenses.mit;
-    maintainers = with maintainers; [ alekseysidorov ];
+    maintainers = with maintainers; [alekseysidorov];
   };
 }

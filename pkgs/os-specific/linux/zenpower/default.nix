@@ -4,7 +4,6 @@
   kernel,
   fetchFromGitLab,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zenpower";
   version = "unstable-2025-02-28";
@@ -16,11 +15,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kLtkG97Lje+Fd5FoYf+UlSaEyxFaETtXrSjYzFnHkjY=";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = [ "KERNEL_BUILD=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags = ["KERNEL_BUILD=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"];
 
   installPhase = ''
     install -D zenpower.ko -t "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/hwmon/zenpower/"
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
       alexbakker
       artturin
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     broken = versionOlder kernel.version "4.14";
   };
 }

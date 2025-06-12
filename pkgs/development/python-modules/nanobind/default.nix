@@ -3,16 +3,13 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cmake,
   ninja,
   pathspec,
   scikit-build-core,
-
   # dependencies
   eigen,
-
   # tests
   pytestCheckHook,
   numpy,
@@ -21,7 +18,6 @@
   tensorflow-bin,
   jax,
   jaxlib,
-
   nanobind,
 }:
 buildPythonPackage rec {
@@ -44,7 +40,7 @@ buildPythonPackage rec {
     scikit-build-core
   ];
 
-  dependencies = [ eigen ];
+  dependencies = [eigen];
 
   dontUseCmakeBuildDir = true;
 
@@ -72,7 +68,7 @@ buildPythonPackage rec {
     ];
 
   passthru.tests = {
-    pytest = nanobind.overridePythonAttrs { doCheck = true; };
+    pytest = nanobind.overridePythonAttrs {doCheck = true;};
   };
 
   meta = {
@@ -87,6 +83,6 @@ buildPythonPackage rec {
       smaller binaries, and have better runtime performance.
     '';
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ parras ];
+    maintainers = with lib.maintainers; [parras];
   };
 }

@@ -8,7 +8,6 @@
   which,
   getopt,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "rmtrash";
   version = "1.15";
@@ -20,20 +19,20 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-vCtIM6jAYfrAOopiTcb4M5GNtucVnK0XEEKbMq1Cbc4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     for f in rm{,dir}trash; do
       install -D ./$f $out/bin/$f
       wrapProgram $out/bin/$f \
         --prefix PATH : ${
-          lib.makeBinPath [
-            trash-cli
-            coreutils
-            which
-            getopt
-          ]
-        }
+      lib.makeBinPath [
+        trash-cli
+        coreutils
+        which
+        getopt
+      ]
+    }
     done
   '';
 
@@ -46,7 +45,7 @@ stdenvNoCC.mkDerivation rec {
       and `rmdir`.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ peelz ];
+    maintainers = with maintainers; [peelz];
     platforms = platforms.all;
   };
 }

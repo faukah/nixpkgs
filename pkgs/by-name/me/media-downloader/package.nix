@@ -13,7 +13,6 @@
   qt6,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "media-downloader";
   version = "5.4.0";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtwayland
   ];
 
-  qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath extraPackages}" ];
+  qtWrapperArgs = ["--prefix PATH : ${lib.makeBinPath extraPackages}"];
 
   meta = {
     description = "Qt/C++ GUI front end for yt-dlp and others";

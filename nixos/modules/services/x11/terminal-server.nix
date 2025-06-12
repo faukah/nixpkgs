@@ -4,25 +4,23 @@
 # checks to see if a X server is already running for that user.  If
 # not, a X server (Xvfb) is started for that user.  The Xvfb instances
 # persist across VNC sessions.
-
-{ lib, pkgs, ... }:
-
-with lib;
-
 {
-
+  lib,
+  pkgs,
+  ...
+}:
+with lib; {
   config = {
-
     services.xserver.enable = true;
-    services.xserver.videoDrivers = [ ];
+    services.xserver.videoDrivers = [];
 
     # Enable GDM.  Any display manager will do as long as it supports XDMCP.
     services.displayManager.gdm.enable = true;
 
     systemd.sockets.terminal-server = {
       description = "Terminal Server Socket";
-      wantedBy = [ "sockets.target" ];
-      before = [ "multi-user.target" ];
+      wantedBy = ["sockets.target"];
+      before = ["multi-user.target"];
       socketConfig.Accept = true;
       socketConfig.ListenStream = 5900;
     };
@@ -58,7 +56,5 @@ with lib;
         KillMode = "process";
       };
     };
-
   };
-
 }

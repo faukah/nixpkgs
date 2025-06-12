@@ -5,7 +5,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "fleeting-plugin-aws";
   version = "1.0.1";
@@ -22,24 +21,22 @@ buildGoModule (finalAttrs: {
   # Needed for "fleeting-plugin-aws -version" to not show "dev".
   #
   # https://gitlab.com/gitlab-org/fleeting/plugins/aws/-/blob/v1.0.0/Makefile?ref_type=tags#L20-22
-  ldflags =
-    let
-      ldflagsPackageVariablePrefix = "gitlab.com/gitlab-org/fleeting/plugins/aws";
-    in
-    [
-      "-X ${ldflagsPackageVariablePrefix}.NAME=fleeting-plugin-aws"
-      "-X ${ldflagsPackageVariablePrefix}.VERSION=${finalAttrs.version}"
-      "-X ${ldflagsPackageVariablePrefix}.REFERENCE=v${finalAttrs.version}"
-    ];
+  ldflags = let
+    ldflagsPackageVariablePrefix = "gitlab.com/gitlab-org/fleeting/plugins/aws";
+  in [
+    "-X ${ldflagsPackageVariablePrefix}.NAME=fleeting-plugin-aws"
+    "-X ${ldflagsPackageVariablePrefix}.VERSION=${finalAttrs.version}"
+    "-X ${ldflagsPackageVariablePrefix}.REFERENCE=v${finalAttrs.version}"
+  ];
 
   doInstallCheck = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   versionCheckProgramArg = "-version";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -47,6 +44,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://gitlab.com/gitlab-org/fleeting/plugins/aws";
     license = lib.licenses.mit;
     mainProgram = "fleeting-plugin-aws";
-    maintainers = with lib.maintainers; [ commiterate ];
+    maintainers = with lib.maintainers; [commiterate];
   };
 })

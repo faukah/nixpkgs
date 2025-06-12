@@ -3,21 +3,16 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   setuptools,
-
   # docs
   sphinx-rtd-theme,
   sphinxHook,
-
   # dependencies
   colorzero,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "gpiozero";
   version = "2.0.1";
@@ -48,9 +43,9 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  propagatedBuildInputs = [ colorzero ];
+  propagatedBuildInputs = [colorzero];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "gpiozero"
@@ -68,6 +63,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/gpiozero/gpiozero/blob/v${version}/docs/changelog.rst";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -18,7 +18,6 @@
   seatd,
   wlroots,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qwlroots";
   version = "0.5.3";
@@ -69,6 +68,6 @@ stdenv.mkDerivation (finalAttrs: {
       asl20
     ];
     platforms = wlroots.meta.platforms;
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [rewine];
   };
 })

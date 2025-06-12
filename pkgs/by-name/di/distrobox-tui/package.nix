@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "distrobox-tui";
   version = "0.2.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-y64KqlJsZ8aVK7oBcduEC8VvbutoRC15LMUeZdokPfY=";
 
-  ldflags = [ "-s" ];
+  ldflags = ["-s"];
 
   meta = {
     changelog = "https://github.com/phanirithvij/distrobox-tui/releases/tag/v${version}";
@@ -25,8 +24,8 @@ buildGoModule rec {
     homepage = "https://github.com/phanirithvij/distrobox-tui";
     license = lib.licenses.gpl3Plus;
     mainProgram = "distrobox-tui";
-    maintainers = with lib.maintainers; [ phanirithvij ];
+    maintainers = with lib.maintainers; [phanirithvij];
     platforms = lib.platforms.linux;
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
   };
 }

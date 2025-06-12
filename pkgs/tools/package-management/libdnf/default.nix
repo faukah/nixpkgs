@@ -22,7 +22,6 @@
   pcre2,
   sphinx,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdnf";
   version = "0.74.0";
@@ -73,7 +72,7 @@ stdenv.mkDerivation rec {
     cp ${libsolv}/share/cmake/Modules/FindLibSolv.cmake cmake/modules/
   '';
 
-  patches = [ ./fix-python-install-dir.patch ];
+  patches = [./fix-python-install-dir.patch];
 
   postPatch = ''
     # https://github.com/rpm-software-management/libdnf/issues/1518
@@ -86,7 +85,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DWITH_GTKDOC=OFF"
     "-DWITH_HTML=OFF"
-    "-DPYTHON_DESIRED=${lib.head (lib.splitString [ "." ] python3.version)}"
+    "-DPYTHON_DESIRED=${lib.head (lib.splitString ["."] python3.version)}"
   ];
 
   postInstall = ''

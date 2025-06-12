@@ -12,7 +12,6 @@
   pytestCheckHook,
   pythonOlder,
   wcmatch,
-
 }:
 buildPythonPackage rec {
   pname = "mkdocs-awesome-nav";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-F52LG5kdrZvQbVhV++0SwRYKLg6kgBY4ycomfr/bG/0=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     mkdocs
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/lukasgeiter/mkdocs-awesome-nav";
     changelog = "https://github.com/lukasgeiter/mkdocs-awesome-nav/blob/${src.tag}/CHANGELOG";
     license = licenses.mit;
-    maintainers = with maintainers; [ phaer ];
+    maintainers = with maintainers; [phaer];
   };
 }

@@ -13,21 +13,18 @@
   libayatana-appindicator,
   libGL,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sparkle";
   version = "1.6.7";
 
-  src =
-    let
-      selectSystem =
-        attrs:
-        attrs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-      arch = selectSystem {
-        x86_64-linux = "amd64";
-        aarch64-linux = "arm64";
-      };
-    in
+  src = let
+    selectSystem = attrs:
+      attrs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    arch = selectSystem {
+      x86_64-linux = "amd64";
+      aarch64-linux = "arm64";
+    };
+  in
     fetchurl {
       url = "https://github.com/xishang0128/sparkle/releases/download/${finalAttrs.version}/sparkle-linux-${finalAttrs.version}-${arch}.deb";
       hash = selectSystem {
@@ -66,12 +63,12 @@ stdenv.mkDerivation (finalAttrs: {
   preFixup = ''
     patchelf --add-needed libGL.so.1 \
       --add-rpath ${
-        lib.makeLibraryPath [
-          libGL
-          udev
-          libayatana-appindicator
-        ]
-      } $out/opt/sparkle/sparkle
+      lib.makeLibraryPath [
+        libGL
+        udev
+        libayatana-appindicator
+      ]
+    } $out/opt/sparkle/sparkle
   '';
 
   passthru.updateScript = ./update.sh;
@@ -85,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
       "x86_64-linux"
     ];
     license = lib.licenses.gpl3Plus;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with lib.maintainers; [ emaryn ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with lib.maintainers; [emaryn];
   };
 })

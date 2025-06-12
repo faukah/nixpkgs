@@ -14,7 +14,6 @@
   qtquickcontrols2,
   gst_all_1,
 }:
-
 mkDerivation {
   pname = "booth";
 
@@ -53,6 +52,6 @@ mkDerivation {
     mainProgram = "booth";
     homepage = "https://invent.kde.org/maui/booth";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

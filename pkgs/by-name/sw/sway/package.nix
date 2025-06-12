@@ -12,17 +12,13 @@
   gdk-pixbuf,
   glib,
   gtk3,
-  extraOptions ? [ ], # E.g.: [ "--verbose" ]
+  extraOptions ? [], # E.g.: [ "--verbose" ]
   # Used by the NixOS module:
   isNixOS ? false,
-
   enableXWayland ? true,
   dbusSupport ? true,
 }:
-
-assert extraSessionCommands != "" -> withBaseWrapper;
-
-let
+assert extraSessionCommands != "" -> withBaseWrapper; let
   inherit (builtins) replaceStrings;
   inherit (lib.lists) optional optionals;
   inherit (lib.meta) getExe;
@@ -46,39 +42,40 @@ let
     fi
   '';
 in
-symlinkJoin rec {
-  pname = replaceStrings [ "-unwrapped" ] [ "" ] sway.pname;
-  inherit (sway) version;
-  name = "${pname}-${version}";
+  symlinkJoin rec {
+    pname = replaceStrings ["-unwrapped"] [""] sway.pname;
+    inherit (sway) version;
+    name = "${pname}-${version}";
 
-  paths = (optional withBaseWrapper baseWrapper) ++ [ sway ];
+    paths = (optional withBaseWrapper baseWrapper) ++ [sway];
 
-  strictDeps = false;
-  nativeBuildInputs = [ makeWrapper ] ++ (optional withGtkWrapper wrapGAppsHook3);
+    strictDeps = false;
+    nativeBuildInputs = [makeWrapper] ++ (optional withGtkWrapper wrapGAppsHook3);
 
-  buildInputs = optionals withGtkWrapper [
-    gdk-pixbuf
-    glib
-    gtk3
-  ];
+    buildInputs = optionals withGtkWrapper [
+      gdk-pixbuf
+      glib
+      gtk3
+    ];
 
-  # We want to run wrapProgram manually
-  dontWrapGApps = true;
+    # We want to run wrapProgram manually
+    dontWrapGApps = true;
 
-  postBuild = ''
-    ${optionalString withGtkWrapper "gappsWrapperArgsHook"}
+    postBuild = ''
+      ${optionalString withGtkWrapper "gappsWrapperArgsHook"}
 
-    wrapProgram $out/bin/${sway.meta.mainProgram} \
-      ${optionalString withGtkWrapper ''"''${gappsWrapperArgs[@]}"''} \
-      ${optionalString (extraOptions != [ ])
+      wrapProgram $out/bin/${sway.meta.mainProgram} \
+        ${optionalString withGtkWrapper ''"''${gappsWrapperArgs[@]}"''} \
+        ${
+        optionalString (extraOptions != [])
         "${concatMapStrings (x: " --add-flags " + x) extraOptions}"
       }
-  '';
+    '';
 
-  passthru = {
-    inherit (sway.passthru) tests;
-    providedSessions = [ sway.meta.mainProgram ];
-  };
+    passthru = {
+      inherit (sway.passthru) tests;
+      providedSessions = [sway.meta.mainProgram];
+    };
 
-  inherit (sway) meta;
-}
+    inherit (sway) meta;
+  }

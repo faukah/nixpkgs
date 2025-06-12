@@ -16,7 +16,6 @@
   withUtempter ? stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isMusl,
   libutempter,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mosh";
   version = "1.4.0";
@@ -35,14 +34,16 @@ stdenv.mkDerivation rec {
     protobuf
     perl
   ];
-  buildInputs = [
-    protobuf
-    ncurses
-    zlib
-    openssl
-    bash-completion
-    perl
-  ] ++ lib.optional withUtempter libutempter;
+  buildInputs =
+    [
+      protobuf
+      ncurses
+      zlib
+      openssl
+      bash-completion
+      perl
+    ]
+    ++ lib.optional withUtempter libutempter;
 
   strictDeps = true;
 
@@ -67,7 +68,7 @@ stdenv.mkDerivation rec {
       --subst-var-by mosh-client "$out/bin/mosh-client"
   '';
 
-  configureFlags = [ "--enable-completion" ] ++ lib.optional withUtempter "--with-utempter";
+  configureFlags = ["--enable-completion"] ++ lib.optional withUtempter "--with-utempter";
 
   postInstall = ''
     wrapProgram $out/bin/mosh --prefix PERL5LIB : $PERL5LIB
@@ -85,7 +86,7 @@ stdenv.mkDerivation rec {
       especially over Wi-Fi, cellular, and long-distance links.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ skeuchel ];
+    maintainers = with lib.maintainers; [skeuchel];
     platforms = platforms.unix;
   };
 }

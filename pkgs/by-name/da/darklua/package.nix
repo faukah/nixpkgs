@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "darklua";
   version = "0.16.0";
@@ -29,6 +28,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://darklua.com";
     changelog = "https://github.com/seaofvoices/darklua/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ tomodachi94 ];
+    maintainers = with maintainers; [tomodachi94];
   };
 }

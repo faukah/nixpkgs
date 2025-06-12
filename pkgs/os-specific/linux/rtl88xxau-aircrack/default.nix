@@ -4,7 +4,6 @@
   fetchFromGitHub,
   kernel,
 }:
-
 stdenv.mkDerivation {
   pname = "rtl88xxau-aircrack";
   version = "${kernel.version}-unstable-2024-04-09";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   prePatch = ''
     substituteInPlace ./Makefile \

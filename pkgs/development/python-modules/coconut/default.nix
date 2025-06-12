@@ -15,7 +15,6 @@
   tkinter,
   watchdog,
 }:
-
 buildPythonPackage rec {
   pname = "coconut";
   version = "3.1.2";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-Vd6ZY3PlbPOy63/0/0YJ1U2PpsVdctOoInyKftj//cM=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     anyio
@@ -49,15 +48,15 @@ buildPythonPackage rec {
   ];
 
   # Currently most tests have performance issues
-  pytestFlagsArray = [ "coconut/tests/constants_test.py" ];
+  pytestFlagsArray = ["coconut/tests/constants_test.py"];
 
-  pythonImportsCheck = [ "coconut" ];
+  pythonImportsCheck = ["coconut"];
 
   meta = with lib; {
     description = "Simple, elegant, Pythonic functional programming";
     homepage = "http://coconut-lang.org/";
     changelog = "https://github.com/evhub/coconut/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fabianhjr ];
+    maintainers = with maintainers; [fabianhjr];
   };
 }

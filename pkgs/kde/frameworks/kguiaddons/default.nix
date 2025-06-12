@@ -7,7 +7,7 @@
 mkKdeDerivation {
   pname = "kguiaddons";
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     qtwayland
     wayland-protocols

@@ -9,7 +9,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "pyaussiebb";
   version = "0.1.5";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
       --replace-fail 'requests = "^2.27.1"' 'requests = "*"'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -41,13 +40,13 @@ buildPythonPackage rec {
   # Tests require credentials and requests-testing
   doCheck = false;
 
-  pythonImportsCheck = [ "aussiebb" ];
+  pythonImportsCheck = ["aussiebb"];
 
   meta = with lib; {
     description = "Module for interacting with the Aussie Broadband APIs";
     homepage = "https://github.com/yaleman/aussiebb";
     changelog = "https://github.com/yaleman/pyaussiebb/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -7,7 +7,6 @@
   robotframework-excellib,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "robotframework-databaselibrary";
   version = "2.0.4";
@@ -30,14 +29,14 @@ buildPythonPackage rec {
     robotframework-excellib
   ];
 
-  pythonImportsCheck = [ "DatabaseLibrary" ];
+  pythonImportsCheck = ["DatabaseLibrary"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Database Library contains utilities meant for Robot Framework";
     homepage = "https://github.com/MarketSquare/Robotframework-Database-Library";
     license = licenses.asl20;
-    maintainers = with maintainers; [ talkara ];
+    maintainers = with maintainers; [talkara];
   };
 }

@@ -29,7 +29,6 @@
   wrapQtAppsHook,
   python3Packages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pymeshlab";
   version = "2023.12";
@@ -100,7 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Open source mesh processing python library";
     homepage = "https://github.com/cnr-isti-vclab/PyMeshLab";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     platforms = with lib.platforms; linux;
   };
 })

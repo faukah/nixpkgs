@@ -4,25 +4,19 @@
   pkgs,
   lib,
   ...
-}:
-let
-
+}: let
   cfg = config.services.matterbridge;
 
   matterbridgeConfToml =
-    if cfg.configPath == null then
-      pkgs.writeText "matterbridge.toml" (cfg.configFile)
-    else
-      cfg.configPath;
-
-in
-
-{
+    if cfg.configPath == null
+    then pkgs.writeText "matterbridge.toml" (cfg.configFile)
+    else cfg.configPath;
+in {
   options = {
     services.matterbridge = {
       enable = lib.mkEnableOption "Matterbridge chat platform bridge";
 
-      package = lib.mkPackageOption pkgs "matterbridge" { };
+      package = lib.mkPackageOption pkgs "matterbridge" {};
 
       configPath = lib.mkOption {
         type = with lib.types; nullOr str;
@@ -104,13 +98,13 @@ in
     };
 
     users.groups = lib.optionalAttrs (cfg.group == "matterbridge") {
-      matterbridge = { };
+      matterbridge = {};
     };
 
     systemd.services.matterbridge = {
       description = "Matterbridge chat platform bridge";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = cfg.user;

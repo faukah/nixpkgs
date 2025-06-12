@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "t1utils";
   version = "1.42";
@@ -31,6 +30,6 @@ stdenv.mkDerivation rec {
       redistributable = true;
     };
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

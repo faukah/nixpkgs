@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.tandoor-recipes;
   pkg = cfg.package;
 
@@ -29,9 +28,8 @@ let
       -t $MainPID -m -S $UID -G $GID --wdns=${env.MEDIA_ROOT} \
       ${pkg}/bin/tandoor-recipes "$@"
   '';
-in
-{
-  meta.maintainers = with lib.maintainers; [ jvanbruegge ];
+in {
+  meta.maintainers = with lib.maintainers; [jvanbruegge];
 
   options.services.tandoor-recipes = {
     enable = lib.mkOption {
@@ -63,7 +61,7 @@ in
 
     extraConfig = lib.mkOption {
       type = lib.types.attrs;
-      default = { };
+      default = {};
       description = ''
         Extra tandoor recipes config options.
 
@@ -87,7 +85,7 @@ in
       description = "Group under which Tandoor runs.";
     };
 
-    package = lib.mkPackageOption pkgs "tandoor-recipes" { };
+    package = lib.mkPackageOption pkgs "tandoor-recipes" {};
   };
 
   config = lib.mkIf cfg.enable {
@@ -99,7 +97,7 @@ in
     };
 
     users.groups = lib.mkIf (cfg.group == "tandoor_recipes") {
-      tandoor_recipes = { };
+      tandoor_recipes = {};
     };
 
     systemd.services.tandoor-recipes = {
@@ -157,7 +155,7 @@ in
         UMask = "0066";
       };
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         ln -sf ${manage} tandoor-recipes-manage
@@ -166,9 +164,11 @@ in
         ${pkg}/bin/tandoor-recipes migrate
       '';
 
-      environment = env // {
-        PYTHONPATH = "${pkg.python.pkgs.makePythonPath pkg.propagatedBuildInputs}:${pkg}/lib/tandoor-recipes";
-      };
+      environment =
+        env
+        // {
+          PYTHONPATH = "${pkg.python.pkgs.makePythonPath pkg.propagatedBuildInputs}:${pkg}/lib/tandoor-recipes";
+        };
     };
   };
 }

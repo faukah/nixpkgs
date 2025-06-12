@@ -1,20 +1,21 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "containers-unified-hierarchy";
   meta = {
-    maintainers = with lib.maintainers; [ farnoy ];
+    maintainers = with lib.maintainers; [farnoy];
   };
 
-  nodes.machine =
-    { ... }:
-    {
-      containers = {
-        test-container = {
-          autoStart = true;
-          config = { };
-        };
+  nodes.machine = {...}: {
+    containers = {
+      test-container = {
+        autoStart = true;
+        config = {};
       };
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("default.target")

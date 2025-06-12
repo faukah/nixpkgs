@@ -4,8 +4,7 @@
   buildDotnetModule,
   dotnetCorePackages,
   lib,
-}:
-let
+}: let
   version = "1.0.1";
   pname = "CLPS2C-Compiler";
   owner = "NiV-L-A";
@@ -24,52 +23,52 @@ let
     src = keystone-src;
   });
 in
-buildDotnetModule rec {
-  inherit version pname;
+  buildDotnetModule rec {
+    inherit version pname;
 
-  srcs = [
-    (fetchFromGitHub {
-      name = pname;
-      inherit owner;
-      repo = pname;
-      rev = "CLPS2C-Compiler-${version}";
-      sha256 = "sha256-4gLdrIxyw9BFSxF+EXZqTgUf9Kik6oK7eO9HBUzk4QM=";
-    })
-    keystone-src
-  ];
+    srcs = [
+      (fetchFromGitHub {
+        name = pname;
+        inherit owner;
+        repo = pname;
+        rev = "CLPS2C-Compiler-${version}";
+        sha256 = "sha256-4gLdrIxyw9BFSxF+EXZqTgUf9Kik6oK7eO9HBUzk4QM=";
+      })
+      keystone-src
+    ];
 
-  sourceRoot = ".";
+    sourceRoot = ".";
 
-  patches = [
-    ./patches/dont_trim_leading_newline.patch
-    ./patches/build_fixes.patch
-    ./patches/remove_platformtarget.patch
-    ./patches/use_compiled_keystone.patch
-    ./patches/set_langversion.patch
-    ./patches/set_runtimeidentifiers.patch
-    ./patches/keystone_set_targetframework.patch
-  ];
+    patches = [
+      ./patches/dont_trim_leading_newline.patch
+      ./patches/build_fixes.patch
+      ./patches/remove_platformtarget.patch
+      ./patches/use_compiled_keystone.patch
+      ./patches/set_langversion.patch
+      ./patches/set_runtimeidentifiers.patch
+      ./patches/keystone_set_targetframework.patch
+    ];
 
-  dotnet-sdk = dotnetCorePackages.sdk_8_0;
-  dotnet-runtime = dotnetCorePackages.runtime_8_0;
+    dotnet-sdk = dotnetCorePackages.sdk_8_0;
+    dotnet-runtime = dotnetCorePackages.runtime_8_0;
 
-  dotnetFlags = [
-    "-p:TargetFramework=net8.0"
-  ];
+    dotnetFlags = [
+      "-p:TargetFramework=net8.0"
+    ];
 
-  nugetDeps = ./deps.json;
+    nugetDeps = ./deps.json;
 
-  runtimeDeps = [
-    keystone-override
-  ];
+    runtimeDeps = [
+      keystone-override
+    ];
 
-  projectFile = "CLPS2C-Compiler/CLPS2C-Compiler/CLPS2C-Compiler.csproj";
+    projectFile = "CLPS2C-Compiler/CLPS2C-Compiler/CLPS2C-Compiler.csproj";
 
-  meta = {
-    homepage = "https://github.com/NiV-L-A/CLPS2C-Compiler";
-    description = "Compiler for CLPS2C, a domain-specific language built specifically for writing PS2 cheat codes";
-    mainProgram = "CLPS2C-Compiler";
-    maintainers = [ lib.maintainers.gigahawk ];
-    license = lib.licenses.gpl3Only;
-  };
-}
+    meta = {
+      homepage = "https://github.com/NiV-L-A/CLPS2C-Compiler";
+      description = "Compiler for CLPS2C, a domain-specific language built specifically for writing PS2 cheat codes";
+      mainProgram = "CLPS2C-Compiler";
+      maintainers = [lib.maintainers.gigahawk];
+      license = lib.licenses.gpl3Only;
+    };
+  }

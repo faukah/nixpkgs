@@ -6,7 +6,6 @@
   zlib,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "polygraph";
   version = "4.13.0";
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     description = "Performance testing tool for caching proxies, origin server accelerators, L4/7 switches, content filters, and other Web intermediaries";
     platforms = platforms.linux;
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

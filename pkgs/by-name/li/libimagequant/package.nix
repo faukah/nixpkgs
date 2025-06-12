@@ -6,13 +6,11 @@
   rustPlatform,
   cargo-c,
   python3,
-
   # tests
   testers,
   vips,
   libimagequant,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "libimagequant";
   version = "4.3.4";
@@ -33,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
-  nativeBuildInputs = [ cargo-c ];
+  nativeBuildInputs = [cargo-c];
 
   postBuild = ''
     pushd imagequant-sys
@@ -53,7 +51,7 @@ rustPlatform.buildRustPackage rec {
 
     pkg-config = testers.hasPkgConfigModules {
       package = libimagequant;
-      moduleNames = [ "imagequant" ];
+      moduleNames = ["imagequant"];
     };
   };
 
@@ -63,6 +61,6 @@ rustPlatform.buildRustPackage rec {
     longDescription = "Small, portable C library for high-quality conversion of RGBA images to 8-bit indexed-color (palette) images.";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ma9e ];
+    maintainers = with maintainers; [ma9e];
   };
 }

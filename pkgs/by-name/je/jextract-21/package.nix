@@ -7,7 +7,6 @@
   jdk21,
   llvmPackages,
 }:
-
 stdenv.mkDerivation {
   pname = "jextract";
   version = "unstable-2023-11-27";
@@ -49,6 +48,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/openjdk/jextract";
     platforms = jdk21.meta.platforms;
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ sharzy ];
+    maintainers = with maintainers; [sharzy];
   };
 }

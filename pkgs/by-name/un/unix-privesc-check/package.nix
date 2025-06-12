@@ -18,7 +18,6 @@
   util-linux,
   which,
 }:
-
 # resholve does not yet support `finalAttrs` call pattern hence `rec`
 # https://github.com/abathur/resholve/issues/107
 resholve.mkDerivation rec {
@@ -36,7 +35,7 @@ resholve.mkDerivation rec {
 
   solutions = {
     unix-privesc-check = {
-      scripts = [ "bin/unix-privesc-check" ];
+      scripts = ["bin/unix-privesc-check"];
       interpreter = "${bash}/bin/bash";
       inputs = [
         gawk
@@ -81,7 +80,7 @@ resholve.mkDerivation rec {
     description = "Find misconfigurations that could allow local unprivilged users to escalate privileges to other users or to access local apps";
     mainProgram = "unix-privesc-check";
     homepage = "https://pentestmonkey.net/tools/audit/unix-privesc-check";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
   };

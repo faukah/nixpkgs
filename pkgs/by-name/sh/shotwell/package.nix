@@ -37,7 +37,6 @@
   gsettings-desktop-schemas,
   libheif,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "shotwell";
   version = "0.32.13";
@@ -112,7 +111,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "shotwell";
     homepage = "https://gitlab.gnome.org/GNOME/shotwell";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ bobby285271 ];
+    maintainers = with maintainers; [bobby285271];
     platforms = platforms.linux;
   };
 })

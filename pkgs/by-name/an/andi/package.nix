@@ -9,7 +9,6 @@
   libdivsufsort,
   llvmPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "andi";
   version = "0.14";
@@ -26,14 +25,16 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [
-    gsl
-    libdivsufsort
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ llvmPackages.openmp ];
+  buildInputs =
+    [
+      gsl
+      libdivsufsort
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [llvmPackages.openmp];
 
-  configureFlags = [ (lib.enableFeature finalAttrs.finalPackage.doCheck "unit-tests") ];
+  configureFlags = [(lib.enableFeature finalAttrs.finalPackage.doCheck "unit-tests")];
 
-  nativeCheckInputs = [ glib ];
+  nativeCheckInputs = [glib];
 
   doCheck = true;
 
@@ -45,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Efficient Estimation of Evolutionary Distances";
     homepage = "https://github.com/evolbioinf/andi";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     mainProgram = "andi";
     platforms = lib.platforms.all;
   };

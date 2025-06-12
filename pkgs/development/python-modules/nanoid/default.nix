@@ -4,7 +4,6 @@
   fetchPypi,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "nanoid";
   version = "2.0.0";
@@ -17,14 +16,14 @@ buildPythonPackage rec {
 
   doCheck = false; # tests not in sdist, git not tagged
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "nanoid" ];
+  pythonImportsCheck = ["nanoid"];
 
   meta = with lib; {
     description = "Tiny, secure, URL-friendly, unique string ID generator for Python";
     homepage = "https://github.com/puyuan/py-nanoid";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -15,7 +15,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-firestore";
   version = "2.20.2";
@@ -29,14 +28,16 @@ buildPythonPackage rec {
     hash = "sha256-CtLjP6faC6j7fMwyT5HT9Xhmt3DiSEC9YvaicvdHxfk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    google-api-core
-    google-cloud-core
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      google-api-core
+      google-cloud-core
+      proto-plus
+      protobuf
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   nativeCheckInputs = [
     aiounittest
@@ -75,6 +76,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/python-firestore";
     changelog = "https://github.com/googleapis/python-firestore/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

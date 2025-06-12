@@ -8,7 +8,6 @@
   pillow,
   mesa,
 }:
-
 buildPythonPackage rec {
   pname = "pyopengl";
   version = "3.1.9";
@@ -19,14 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-KOvYLF9EkaQYrsqWct/7Otvn0zs56tpFSKW06MA/YMg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pillow ];
+  dependencies = [pillow];
 
-  patchPhase =
-    let
-      ext = stdenv.hostPlatform.extensions.sharedLibrary;
-    in
+  patchPhase = let
+    ext = stdenv.hostPlatform.extensions.sharedLibrary;
+  in
     lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
       # Theses lines are patching the name of dynamic libraries
       # so pyopengl can find them at runtime.

@@ -18,7 +18,6 @@
   pyyaml,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "MolBar";
   version = "1.1.3";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     gfortran
   ];
 
-  pythonRelaxDeps = [ "networkx" ];
+  pythonRelaxDeps = ["networkx"];
 
   build-system = [
     cmake
@@ -56,7 +55,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   dontUseCmakeConfigure = true;
 
@@ -66,6 +65,6 @@ buildPythonPackage rec {
     description = "Unique molecular identifiers for molecular barcoding";
     homepage = "https://git.rwth-aachen.de/bannwarthlab/molbar";
     license = licenses.mit;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

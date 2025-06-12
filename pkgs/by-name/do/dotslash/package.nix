@@ -6,7 +6,6 @@
   nix-update-script,
   dotslash,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dotslash";
   version = "0.5.3";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   doCheck = false; # http tests
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = testers.testVersion {
       package = dotslash;
     };
@@ -44,6 +43,6 @@ rustPlatform.buildRustPackage rec {
       mit
     ];
     mainProgram = "dotslash";
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

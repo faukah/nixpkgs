@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "iprange";
   version = "1.0.4";
@@ -18,6 +17,6 @@ stdenv.mkDerivation rec {
     mainProgram = "iprange";
     homepage = "https://github.com/firehol/iprange";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

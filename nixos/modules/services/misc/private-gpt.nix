@@ -3,18 +3,16 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib) types;
 
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   cfg = config.services.private-gpt;
-in
-{
+in {
   options = {
     services.private-gpt = {
       enable = lib.mkEnableOption "private-gpt for local large language models";
-      package = lib.mkPackageOption pkgs "private-gpt" { };
+      package = lib.mkPackageOption pkgs "private-gpt" {};
 
       stateDir = lib.mkOption {
         type = types.path;
@@ -54,8 +52,8 @@ in
           data = {
             local_data_folder = "/var/lib/private-gpt";
           };
-          openai = { };
-          azopenai = { };
+          openai = {};
+          azopenai = {};
         };
         description = ''
           settings-local.yaml for private-gpt
@@ -67,20 +65,18 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.private-gpt = {
       description = "Interact with your documents using the power of GPT, 100% privately, no data leaks";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
-      preStart =
-        let
-          config = format.generate "settings-local.yaml" (cfg.settings // { server.env_name = "local"; });
-        in
-        ''
-          mkdir -p ${cfg.stateDir}/{settings,huggingface,matplotlib,tiktoken_cache}
-          cp ${cfg.package.cl100k_base.tiktoken} ${cfg.stateDir}/tiktoken_cache/9b5ad71b2ce5302211f9c61530b329a4922fc6a4
-          cp ${pkgs.python3Packages.private-gpt}/${pkgs.python3.sitePackages}/private_gpt/settings.yaml ${cfg.stateDir}/settings/settings.yaml
-          cp "${config}" "${cfg.stateDir}/settings/settings-local.yaml"
-          chmod 600 "${cfg.stateDir}/settings/settings-local.yaml"
-        '';
+      preStart = let
+        config = format.generate "settings-local.yaml" (cfg.settings // {server.env_name = "local";});
+      in ''
+        mkdir -p ${cfg.stateDir}/{settings,huggingface,matplotlib,tiktoken_cache}
+        cp ${cfg.package.cl100k_base.tiktoken} ${cfg.stateDir}/tiktoken_cache/9b5ad71b2ce5302211f9c61530b329a4922fc6a4
+        cp ${pkgs.python3Packages.private-gpt}/${pkgs.python3.sitePackages}/private_gpt/settings.yaml ${cfg.stateDir}/settings/settings.yaml
+        cp "${config}" "${cfg.stateDir}/settings/settings-local.yaml"
+        chmod 600 "${cfg.stateDir}/settings/settings-local.yaml"
+      '';
 
       environment = {
         PGPT_PROFILES = "local";
@@ -118,5 +114,5 @@ in
     };
   };
 
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 }

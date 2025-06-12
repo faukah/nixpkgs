@@ -6,7 +6,6 @@
   ounit2,
   qcheck-core,
 }:
-
 buildDunePackage rec {
   pname = "iter";
   version = "1.9";
@@ -19,7 +18,7 @@ buildDunePackage rec {
   };
 
   doCheck = true;
-  nativeCheckInputs = [ mdx.bin ];
+  nativeCheckInputs = [mdx.bin];
   checkInputs = [
     ounit2
     qcheck-core

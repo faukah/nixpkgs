@@ -7,9 +7,7 @@
   rustPlatform,
   stdenv,
   testers,
-}:
-
-let
+}: let
   self = rustPlatform.buildRustPackage {
     pname = "so";
     version = "0.4.10";
@@ -26,10 +24,10 @@ let
     useFetchCargoVendor = true;
     cargoHash = "sha256-cSLsfYYtdMiXGCG3jpq2Cxl8TgSb7iCWoeXNwEuv4FM=";
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
     buildInputs =
-      [ openssl ]
+      [openssl]
       ++ lib.optionals stdenv.hostPlatform.isDarwin [
         libiconv
       ];
@@ -60,4 +58,4 @@ let
     };
   };
 in
-self
+  self

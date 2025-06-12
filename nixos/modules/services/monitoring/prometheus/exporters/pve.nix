@@ -4,11 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.pve;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     mkPackageOption
@@ -22,12 +21,14 @@ let
     text = "default:";
   };
 
-  computedConfigFile = if cfg.configFile == null then emptyConfigFile else cfg.configFile;
-in
-{
+  computedConfigFile =
+    if cfg.configFile == null
+    then emptyConfigFile
+    else cfg.configFile;
+in {
   port = 9221;
   extraOpts = {
-    package = mkPackageOption pkgs "prometheus-pve-exporter" { };
+    package = mkPackageOption pkgs "prometheus-pve-exporter" {};
 
     environmentFile = mkOption {
       type = with types; nullOr path;

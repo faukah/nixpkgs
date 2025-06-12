@@ -11,27 +11,25 @@
   nixos-render-docs,
   nixos-render-docs-redirects,
   writeShellScriptBin,
-  nixpkgs ? { },
+  nixpkgs ? {},
   markdown-code-runner,
   roboto,
   treefmt,
 }:
 stdenvNoCC.mkDerivation (
-  finalAttrs:
-  let
+  finalAttrs: let
     inherit (finalAttrs.finalPackage.optionsDoc) optionsJSON;
     inherit (finalAttrs.finalPackage) epub lib-docs pythonInterpreterTable;
-  in
-  {
+  in {
     name = "nixpkgs-manual";
 
-    nativeBuildInputs = [ nixos-render-docs ];
+    nativeBuildInputs = [nixos-render-docs];
 
     src = lib.cleanSourceWith {
       src = ../.;
-      filter =
-        path: type:
-        type == "directory"
+      filter = path: type:
+        type
+        == "directory"
         || lib.hasSuffix ".md" path
         || lib.hasSuffix ".md.in" path
         || lib.elem path (
@@ -111,22 +109,21 @@ stdenvNoCC.mkDerivation (
     '';
 
     passthru = {
-      lib-docs = callPackage ./lib-function-docs.nix { inherit nixpkgs; };
+      lib-docs = callPackage ./lib-function-docs.nix {inherit nixpkgs;};
 
-      epub = callPackage ./epub.nix { };
+      epub = callPackage ./epub.nix {};
 
-      optionsDoc = callPackage ./options-doc.nix { };
+      optionsDoc = callPackage ./options-doc.nix {};
 
-      pythonInterpreterTable = callPackage ./python-interpreter-table.nix { };
+      pythonInterpreterTable = callPackage ./python-interpreter-table.nix {};
 
-      shell =
-        let
-          devmode' = devmode.override {
-            buildArgs = toString ../.;
-            open = "/share/doc/nixpkgs/index.html";
-          };
-          nixos-render-docs-redirects' = writeShellScriptBin "redirects" "${lib.getExe nixos-render-docs-redirects} --file ${toString ../redirects.json} $@";
-        in
+      shell = let
+        devmode' = devmode.override {
+          buildArgs = toString ../.;
+          open = "/share/doc/nixpkgs/index.html";
+        };
+        nixos-render-docs-redirects' = writeShellScriptBin "redirects" "${lib.getExe nixos-render-docs-redirects} --file ${toString ../redirects.json} $@";
+      in
         mkShellNoCC {
           packages = [
             devmode'
@@ -136,8 +133,8 @@ stdenvNoCC.mkDerivation (
         };
 
       tests = {
-        manpage-urls = callPackage ../tests/manpage-urls.nix { };
-        check-nix-code-blocks = callPackage ../tests/check-nix-code-blocks.nix { };
+        manpage-urls = callPackage ../tests/manpage-urls.nix {};
+        check-nix-code-blocks = callPackage ../tests/check-nix-code-blocks.nix {};
       };
     };
   }

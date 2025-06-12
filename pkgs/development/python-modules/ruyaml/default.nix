@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "ruyaml";
   version = "0.91.0";
@@ -29,18 +28,18 @@ buildPythonPackage rec {
       --replace '"setuptools_scm_git_archive >= 1.1",' ""
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ distro ];
+  propagatedBuildInputs = [distro];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray = [
     "-W"
     "ignore::DeprecationWarning"
   ];
 
-  pythonImportsCheck = [ "ruyaml" ];
+  pythonImportsCheck = ["ruyaml"];
 
   disabledTests = [
     # Assertion error
@@ -53,7 +52,7 @@ buildPythonPackage rec {
     description = "YAML 1.2 loader/dumper package for Python";
     homepage = "https://ruyaml.readthedocs.io/";
     changelog = "https://github.com/pycontribs/ruyaml/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

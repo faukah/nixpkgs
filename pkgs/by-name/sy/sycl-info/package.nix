@@ -11,7 +11,6 @@
   ronn,
   doctest,
 }:
-
 stdenv.mkDerivation {
   pname = "sycl-info";
   version = "unstable-2019-11-19";
@@ -53,6 +52,6 @@ stdenv.mkDerivation {
     mainProgram = "sycl-info";
     platforms = platforms.linux;
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -25,16 +25,16 @@ buildLua (finalAttrs: {
     "--set"
     "FONTCONFIG_FILE"
     (toString (makeFontsConf {
-      fontDirectories = [ "${finalAttrs.finalPackage}/share/fonts" ];
+      fontDirectories = ["${finalAttrs.finalPackage}/share/fonts"];
     }))
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Another MPV OSC Script";
     homepage = "https://github.com/maoiscat/mpv-osc-modern";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ Guanran928 ];
+    maintainers = with maintainers; [Guanran928];
   };
 })

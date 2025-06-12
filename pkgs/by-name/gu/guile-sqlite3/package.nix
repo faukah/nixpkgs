@@ -8,7 +8,6 @@
   stdenv,
   texinfo,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "guile-sqlite3";
   version = "0.1.3";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     sqlite
   ];
 
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
 
   strictDeps = true;
 
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://notabug.org/guile-sqlite3/guile-sqlite3";
     description = "Guile bindings for the SQLite3 database engine";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (guile.meta) platforms;
   };
 })

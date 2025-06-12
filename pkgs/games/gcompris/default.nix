@@ -17,7 +17,6 @@
   qttools,
   extra-cmake-modules,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gcompris";
   version = "25.1";
@@ -79,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gcompris.net/";
     license = lib.licenses.gpl3Plus;
     mainProgram = "gcompris-qt";
-    maintainers = with lib.maintainers; [ guibou ];
+    maintainers = with lib.maintainers; [guibou];
     platforms = lib.platforms.linux;
   };
 })

@@ -8,7 +8,6 @@
   requests,
   fusepy,
 }:
-
 buildPythonPackage rec {
   pname = "htmllistparse";
   version = "0.6.1";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-bcimvwPIQ7nTJYQ6JqI1GnlbVzzZKiybgnFiEBnGQII=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
   propagatedBuildInputs = [
     beautifulsoup4
     html5lib
@@ -30,13 +29,13 @@ buildPythonPackage rec {
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "htmllistparse" ];
+  pythonImportsCheck = ["htmllistparse"];
 
   meta = with lib; {
     homepage = "https://github.com/gumblex/htmllisting-parser";
     description = "Python parser for Apache/nginx-style HTML directory listing";
     mainProgram = "rehttpfs";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

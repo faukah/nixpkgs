@@ -17,7 +17,6 @@
   withPipewire ? true,
   withNotmuch ? false,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "i3status-rust";
   version = "0.33.2";
@@ -32,10 +31,12 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-EFFmH9aG7DvSA5rsAuszc1B8kcLdruSk3Hhp4V9t9Gk=";
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ] ++ (lib.optionals withPipewire [ rustPlatform.bindgenHook ]);
+  nativeBuildInputs =
+    [
+      pkg-config
+      makeWrapper
+    ]
+    ++ (lib.optionals withPipewire [rustPlatform.bindgenHook]);
 
   buildInputs =
     [
@@ -44,17 +45,17 @@ rustPlatform.buildRustPackage rec {
       openssl
       lm_sensors
     ]
-    ++ (lib.optionals withPipewire [ pipewire ])
-    ++ (lib.optionals withNotmuch [ notmuch ]);
+    ++ (lib.optionals withPipewire [pipewire])
+    ++ (lib.optionals withNotmuch [notmuch]);
 
   buildFeatures =
     [
       "maildir"
       "pulseaudio"
     ]
-    ++ (lib.optionals withICUCalendar [ "icu_calendar" ])
-    ++ (lib.optionals withPipewire [ "pipewire" ])
-    ++ (lib.optionals withNotmuch [ "notmuch" ]);
+    ++ (lib.optionals withICUCalendar ["icu_calendar"])
+    ++ (lib.optionals withPipewire ["pipewire"])
+    ++ (lib.optionals withNotmuch ["notmuch"]);
 
   prePatch = ''
     substituteInPlace src/util.rs \

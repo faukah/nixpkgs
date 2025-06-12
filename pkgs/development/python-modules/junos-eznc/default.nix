@@ -21,7 +21,6 @@
   transitions,
   yamlordereddictloader,
 }:
-
 buildPythonPackage rec {
   pname = "junos-eznc";
   version = "2.7.4";
@@ -36,9 +35,9 @@ buildPythonPackage rec {
     hash = "sha256-iuCVfzS8k/TZ58v/OPJfSpIMYwwKRj1zyd4FF/KLjjI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "ncclient" ];
+  pythonRelaxDeps = ["ncclient"];
 
   dependencies = [
     jinja2
@@ -62,7 +61,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
   disabledTests = [
     # jnpr.junos.exception.FactLoopError: A loop was detected while gathering the...
@@ -75,13 +74,13 @@ buildPythonPackage rec {
     "test_domain_fact_from_config"
   ];
 
-  pythonImportsCheck = [ "jnpr.junos" ];
+  pythonImportsCheck = ["jnpr.junos"];
 
   meta = with lib; {
     description = "Junos 'EZ' automation for non-programmers";
     homepage = "https://github.com/Juniper/py-junos-eznc";
     changelog = "https://github.com/Juniper/py-junos-eznc/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ xnaveira ];
+    maintainers = with maintainers; [xnaveira];
   };
 }

@@ -3,7 +3,6 @@
   mkDerivation,
   stdenv,
 }:
-
 mkDerivation {
   path = "contrib/bmake";
   version = "9.2";
@@ -21,5 +20,5 @@ mkDerivation {
   postInstall = ''
     make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
   '';
-  extraPaths = [ "share/mk" ] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk";
+  extraPaths = ["share/mk"] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk";
 }

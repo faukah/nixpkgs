@@ -7,7 +7,6 @@
   pkg-config,
   libusb1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opencbm";
   version = "0.4.99.104";
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://spiro.trikaliotis.net/opencbm";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.sander ];
+    maintainers = [maintainers.sander];
   };
 }

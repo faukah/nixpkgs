@@ -3,12 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.desktopManager.lomiri;
-in
-{
+in {
   options.services.desktopManager.lomiri = {
     enable = lib.mkEnableOption ''
       the Lomiri graphical shell (formerly known as Unity8)
@@ -31,11 +28,11 @@ in
         # To override the default keyboard layout in Lomiri
         etc.${pkgs.lomiri.lomiri.passthru.etcLayoutsFile}.text =
           lib.strings.replaceStrings
-            [ "," ]
-            [
-              "\n"
-            ]
-            config.services.xserver.xkb.layout;
+          [","]
+          [
+            "\n"
+          ]
+          config.services.xserver.xkb.layout;
 
         pathsToLink = [
           # Data
@@ -60,8 +57,7 @@ in
       services.ayatana-indicators = {
         enable = true;
         packages = (
-          with pkgs;
-          [
+          with pkgs; [
             ayatana-indicator-datetime # Clock
             ayatana-indicator-session # Controls for shutting down etc
           ]
@@ -142,20 +138,20 @@ in
         packages =
           (
             with pkgs;
-            [
-              ayatana-indicator-display
-              ayatana-indicator-messages
-              ayatana-indicator-power
-            ]
-            ++ lib.optionals config.hardware.bluetooth.enable [ ayatana-indicator-bluetooth ]
-            ++ lib.optionals (config.services.pulseaudio.enable || config.services.pipewire.pulse.enable) [
-              ayatana-indicator-sound
-            ]
+              [
+                ayatana-indicator-display
+                ayatana-indicator-messages
+                ayatana-indicator-power
+              ]
+              ++ lib.optionals config.hardware.bluetooth.enable [ayatana-indicator-bluetooth]
+              ++ lib.optionals (config.services.pulseaudio.enable || config.services.pipewire.pulse.enable) [
+                ayatana-indicator-sound
+              ]
           )
           ++ (
             with pkgs.lomiri;
-            [ lomiri-telephony-service ]
-            ++ lib.optionals config.networking.networkmanager.enable [ lomiri-indicator-network ]
+              [lomiri-telephony-service]
+              ++ lib.optionals config.networking.networkmanager.enable [lomiri-indicator-network]
           );
       };
 
@@ -174,7 +170,7 @@ in
 
       services.displayManager = {
         defaultSession = lib.mkDefault "lomiri";
-        sessionPackages = with pkgs.lomiri; [ lomiri-session ];
+        sessionPackages = with pkgs.lomiri; [lomiri-session];
       };
 
       services.xserver = {
@@ -200,55 +196,53 @@ in
         "/share/sounds"
       ];
 
-      systemd.user.services =
-        let
-          lomiriService = "lomiri.service";
-          lomiriServiceNames = [
-            lomiriService
-            "lomiri-full-greeter.service"
-            "lomiri-full-shell.service"
-            "lomiri-greeter.service"
-            "lomiri-shell.service"
-          ];
-        in
-        {
-          # Unconditionally run service that collects system-installed URL handlers before LUD
-          # TODO also run user-installed one?
-          "lomiri-url-dispatcher-update-system-dir" = {
-            description = "Lomiri URL dispatcher system directory updater";
-            wantedBy = [ "lomiri-url-dispatcher.service" ];
-            before = [ "lomiri-url-dispatcher.service" ];
-            serviceConfig = {
-              Type = "oneshot";
-              ExecStart = "${pkgs.lomiri.lomiri-url-dispatcher}/libexec/lomiri-url-dispatcher/lomiri-update-directory /run/current-system/sw/share/lomiri-url-dispatcher/urls/";
-            };
-          };
-
-          "lomiri-polkit-agent" = {
-            description = "Lomiri Polkit agent";
-            wantedBy = [ lomiriService ];
-            after = [ lomiriService ];
-            partOf = [ lomiriService ];
-            serviceConfig = {
-              Type = "simple";
-              Restart = "always";
-              ExecStart = "${pkgs.lomiri.lomiri-polkit-agent}/libexec/lomiri-polkit-agent/policykit-agent";
-            };
-          };
-
-          "mediascanner-2.0" = {
-            description = "Media Scanner";
-            wantedBy = lomiriServiceNames;
-            before = lomiriServiceNames;
-            partOf = lomiriServiceNames;
-            serviceConfig = {
-              Type = "dbus";
-              BusName = "com.lomiri.MediaScanner2.Daemon";
-              Restart = "on-failure";
-              ExecStart = "${lib.getExe pkgs.lomiri.mediascanner2}";
-            };
+      systemd.user.services = let
+        lomiriService = "lomiri.service";
+        lomiriServiceNames = [
+          lomiriService
+          "lomiri-full-greeter.service"
+          "lomiri-full-shell.service"
+          "lomiri-greeter.service"
+          "lomiri-shell.service"
+        ];
+      in {
+        # Unconditionally run service that collects system-installed URL handlers before LUD
+        # TODO also run user-installed one?
+        "lomiri-url-dispatcher-update-system-dir" = {
+          description = "Lomiri URL dispatcher system directory updater";
+          wantedBy = ["lomiri-url-dispatcher.service"];
+          before = ["lomiri-url-dispatcher.service"];
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = "${pkgs.lomiri.lomiri-url-dispatcher}/libexec/lomiri-url-dispatcher/lomiri-update-directory /run/current-system/sw/share/lomiri-url-dispatcher/urls/";
           };
         };
+
+        "lomiri-polkit-agent" = {
+          description = "Lomiri Polkit agent";
+          wantedBy = [lomiriService];
+          after = [lomiriService];
+          partOf = [lomiriService];
+          serviceConfig = {
+            Type = "simple";
+            Restart = "always";
+            ExecStart = "${pkgs.lomiri.lomiri-polkit-agent}/libexec/lomiri-polkit-agent/policykit-agent";
+          };
+        };
+
+        "mediascanner-2.0" = {
+          description = "Media Scanner";
+          wantedBy = lomiriServiceNames;
+          before = lomiriServiceNames;
+          partOf = lomiriServiceNames;
+          serviceConfig = {
+            Type = "dbus";
+            BusName = "com.lomiri.MediaScanner2.Daemon";
+            Restart = "on-failure";
+            ExecStart = "${lib.getExe pkgs.lomiri.mediascanner2}";
+          };
+        };
+      };
 
       systemd.services = {
         "dbus-com.lomiri.UserMetrics" = {
@@ -275,7 +269,7 @@ in
         isSystemUser = true;
       };
 
-      users.groups.usermetrics = { };
+      users.groups.usermetrics = {};
     })
   ];
 

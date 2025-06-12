@@ -7,12 +7,11 @@
   imagemagick,
   wpa_supplicant,
 }:
-
 mkDerivation {
   pname = "wpa_gui";
   inherit (wpa_supplicant) version src;
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
   nativeBuildInputs = [
     qmake
     inkscape

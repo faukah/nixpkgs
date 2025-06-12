@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "gtop";
   version = "1.1.5";
@@ -23,7 +22,7 @@ buildNpmPackage rec {
     description = "System monitoring dashboard for the terminal";
     homepage = "https://github.com/aksakalli/gtop";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tfc ];
+    maintainers = with lib.maintainers; [tfc];
     mainProgram = "gtop";
   };
 }

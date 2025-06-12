@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-JbgnpXrb/Zo/qGJeQ6vD6Qf2HeYiND5+U4SC75tG/Qs=";
   };
 
-  pythonImportsCheck = [ "euclid3" ];
+  pythonImportsCheck = ["euclid3"];
 
   meta = with lib; {
     description = "2D and 3D vector, matrix, quaternion and geometry module";

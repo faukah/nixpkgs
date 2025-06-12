@@ -8,7 +8,6 @@
   gnome,
   intltool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gdl";
   version = "3.40.0";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Gnome docking library";
     homepage = "https://developer.gnome.org/gdl/";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2;
     platforms = platforms.unix;
   };

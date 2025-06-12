@@ -5,7 +5,6 @@
   python3,
   python3Packages,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "my-b-bscan";
   version = "3.2.0";
@@ -18,7 +17,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-cX1483JK+bejQWua9d7V3GDw6cPPvlnLX5w2XQjqMOQ=";
   };
 
-  build-system = [ makeWrapper ];
+  build-system = [makeWrapper];
 
   dependencies = with python3Packages; [
     huepy
@@ -38,9 +37,9 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/0xB9/MyBBscan";
     # https://github.com/0xB9/MyBBscan/issues/12
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
     mainProgram = "mybbscan";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     platforms = lib.platforms.all;
   };
 }

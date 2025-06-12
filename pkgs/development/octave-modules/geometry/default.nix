@@ -4,7 +4,6 @@
   fetchhg,
   matgeom,
 }:
-
 buildOctavePackage rec {
   pname = "geometry";
   version = "unstable-2021-07-07";
@@ -25,7 +24,7 @@ buildOctavePackage rec {
       gpl3Plus
       boost
     ];
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Library for extending MatGeom functionality";
   };
 }

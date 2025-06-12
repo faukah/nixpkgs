@@ -14,7 +14,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "autarco";
   version = "3.1.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-zSqIEtQucrrAFEY7pBJ14Cevq8xbcGOheEmEE7Jd4qk=";
   };
 
-  pythonRelaxDeps = [ "orjson" ];
+  pythonRelaxDeps = ["orjson"];
 
   postPatch = ''
     # Upstream doesn't set a version for the pyproject.toml
@@ -37,7 +36,7 @@ buildPythonPackage rec {
       --replace-fail "0.0.0" "${version}"
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -56,13 +55,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "autarco" ];
+  pythonImportsCheck = ["autarco"];
 
   meta = with lib; {
     description = "Module for the Autarco Inverter";
     homepage = "https://github.com/klaasnicolaas/python-autarco";
     changelog = "https://github.com/klaasnicolaas/python-autarco/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

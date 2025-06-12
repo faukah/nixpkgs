@@ -4,7 +4,6 @@
   fetchFromGitHub,
   netlify-cli,
 }:
-
 buildGoModule {
   pname = "esbuild";
   version = "0.14.39";
@@ -28,7 +27,7 @@ buildGoModule {
     description = "Fork of esbuild maintained by netlify";
     homepage = "https://github.com/netlify/esbuild";
     license = licenses.mit;
-    maintainers = with maintainers; [ roberth ];
+    maintainers = with maintainers; [roberth];
     mainProgram = "esbuild";
   };
 }

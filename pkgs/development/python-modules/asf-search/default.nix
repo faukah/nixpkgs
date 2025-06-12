@@ -17,7 +17,6 @@
   shapely,
   tenacity,
 }:
-
 buildPythonPackage rec {
   pname = "asf-search";
   version = "8.3.4";
@@ -32,9 +31,9 @@ buildPythonPackage rec {
     hash = "sha256-MzHE3PNoV8SCGaajeSqdHaJwk7BuNiaP77YHo9soQO8=";
   };
 
-  pythonRelaxDeps = [ "tenacity" ];
+  pythonRelaxDeps = ["tenacity"];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     dateparser
@@ -54,13 +53,13 @@ buildPythonPackage rec {
     tenacity
   ];
 
-  pythonImportsCheck = [ "asf_search" ];
+  pythonImportsCheck = ["asf_search"];
 
   meta = with lib; {
     description = "Python wrapper for the ASF SearchAPI";
     homepage = "https://github.com/asfadmin/Discovery-asf_search";
     changelog = "https://github.com/asfadmin/Discovery-asf_search/blob/${src.tag}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bzizou ];
+    maintainers = with maintainers; [bzizou];
   };
 }

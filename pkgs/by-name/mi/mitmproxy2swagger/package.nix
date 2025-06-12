@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "mitmproxy2swagger";
   version = "0.14.0";
@@ -21,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     "ruamel.yaml"
   ];
 
-  build-system = with python3.pkgs; [ poetry-core ];
+  build-system = with python3.pkgs; [poetry-core];
 
   dependencies = with python3.pkgs; [
     json-stream
@@ -32,14 +31,14 @@ python3.pkgs.buildPythonApplication rec {
   # No tests available
   doCheck = false;
 
-  pythonImportsCheck = [ "mitmproxy2swagger" ];
+  pythonImportsCheck = ["mitmproxy2swagger"];
 
   meta = {
     description = "Tool to automagically reverse-engineer REST APIs";
     homepage = "https://github.com/alufers/mitmproxy2swagger";
     changelog = "https://github.com/alufers/mitmproxy2swagger/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "mitmproxy2swagger";
   };
 }

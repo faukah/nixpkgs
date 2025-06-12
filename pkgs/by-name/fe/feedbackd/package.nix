@@ -23,7 +23,6 @@
   feedbackd-device-themes,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "feedbackd";
   version = "0.8.2";
@@ -99,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   strictDeps = true;

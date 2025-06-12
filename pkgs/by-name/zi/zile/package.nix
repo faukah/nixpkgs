@@ -11,7 +11,6 @@
   pkg-config,
   vala,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zile";
   version = "2.6.4";
@@ -79,7 +78,7 @@ stdenv.mkDerivation rec {
       every Emacs user should feel at home.
     '';
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ pSub ];
+    maintainers = with lib.maintainers; [pSub];
     platforms = lib.platforms.unix;
     mainProgram = "zile";
   };

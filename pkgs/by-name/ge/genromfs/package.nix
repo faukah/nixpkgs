@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.5.2";
   pname = "genromfs";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     homepage = "https://romfs.sourceforge.net/";
     description = "Tool for creating romfs file system images";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     platforms = platforms.all;
     mainProgram = "genromfs";
   };

@@ -9,7 +9,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-randr";
   version = "1.0.0-alpha.7";
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [ wayland ];
+  buildInputs = [wayland];
 
   dontUseJustBuild = true;
   dontUseJustCheck = true;
@@ -46,7 +45,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru = {
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         cosmic
         cosmic-autologin
         cosmic-noxwayland
@@ -67,7 +67,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/pop-os/cosmic-randr";
     description = "Library and utility for displaying and configuring Wayland outputs";
     license = lib.licenses.mpl20;
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
     platforms = lib.platforms.linux;
     mainProgram = "cosmic-randr";
   };

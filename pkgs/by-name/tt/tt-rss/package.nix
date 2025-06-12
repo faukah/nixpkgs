@@ -6,7 +6,6 @@
   nixosTests,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tt-rss";
   version = "0-unstable-2025-04-17";
@@ -31,8 +30,8 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) tt-rss; };
-    updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+    tests = {inherit (nixosTests) tt-rss;};
+    updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
   };
 
   meta = with lib; {

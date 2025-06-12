@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kine";
   version = "0.13.15";
@@ -32,7 +31,7 @@ buildGoModule rec {
     description = "Kine is an etcdshim that translates etcd API to RDMS";
     homepage = "https://github.com/k3s-io/kine";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ techknowlogick ];
+    maintainers = with lib.maintainers; [techknowlogick];
     mainProgram = "kine";
   };
 }

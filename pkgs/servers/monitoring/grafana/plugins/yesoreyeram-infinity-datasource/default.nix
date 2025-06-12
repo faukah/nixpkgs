@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "yesoreyeram-infinity-datasource";
   version = "2.11.0";
@@ -12,7 +14,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "Visualize data from JSON, CSV, XML, GraphQL and HTML endpoints in Grafana.";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nagisa ];
+    maintainers = with maintainers; [nagisa];
     platforms = platforms.unix;
   };
 }

@@ -6,7 +6,6 @@
   librsvg,
   xcursorgen,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "simp1e-cursors";
   version = "20250223";
@@ -20,7 +19,7 @@ stdenvNoCC.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    (python3.withPackages (ps: [ ps.pillow ]))
+    (python3.withPackages (ps: [ps.pillow]))
     librsvg
     xcursorgen
   ];
@@ -45,6 +44,6 @@ stdenvNoCC.mkDerivation rec {
     changelog = "https://gitlab.com/cursors/simp1e/-/tags/${version}";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.natto1784 ];
+    maintainers = [lib.maintainers.natto1784];
   };
 }

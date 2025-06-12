@@ -9,9 +9,7 @@
   avahi,
   clang,
   git,
-}:
-let
-
+}: let
   libgeneral = clangStdenv.mkDerivation rec {
     pname = "libgeneral";
     version = "74";
@@ -35,58 +33,57 @@ let
       platforms = platforms.all;
     };
   };
-
 in
-clangStdenv.mkDerivation rec {
-  pname = "usbmuxd2";
-  version = "unstable-2023-12-12";
+  clangStdenv.mkDerivation rec {
+    pname = "usbmuxd2";
+    version = "unstable-2023-12-12";
 
-  src = fetchFromGitHub {
-    owner = "tihmstar";
-    repo = pname;
-    rev = "2ce399ddbacb110bd5a83a6b8232d42c9a9b6e84";
-    hash = "sha256-UVLLE73XuWTgGlpTMxUDykFmiBDqz6NCRO2rpRAYfow=";
-    # Leave DotGit so that autoconfigure can read version from git tags
-    leaveDotGit = true;
-  };
+    src = fetchFromGitHub {
+      owner = "tihmstar";
+      repo = pname;
+      rev = "2ce399ddbacb110bd5a83a6b8232d42c9a9b6e84";
+      hash = "sha256-UVLLE73XuWTgGlpTMxUDykFmiBDqz6NCRO2rpRAYfow=";
+      # Leave DotGit so that autoconfigure can read version from git tags
+      leaveDotGit = true;
+    };
 
-  postPatch = ''
-    # Checking for libgeneral version still fails
-    sed -i 's/libgeneral >= $LIBGENERAL_MINVERS_STR/libgeneral/' configure.ac
+    postPatch = ''
+      # Checking for libgeneral version still fails
+      sed -i 's/libgeneral >= $LIBGENERAL_MINVERS_STR/libgeneral/' configure.ac
 
-    # Otherwise, it will complain about no matching function for call to 'find'
-    sed -i 1i'#include <algorithm>' usbmuxd2/Muxer.cpp
-  '';
+      # Otherwise, it will complain about no matching function for call to 'find'
+      sed -i 1i'#include <algorithm>' usbmuxd2/Muxer.cpp
+    '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    clang
-    git
-    pkg-config
-  ];
+    nativeBuildInputs = [
+      autoreconfHook
+      clang
+      git
+      pkg-config
+    ];
 
-  propagatedBuildInputs = [
-    avahi
-    libgeneral
-    libimobiledevice
-    libusb1
-  ];
+    propagatedBuildInputs = [
+      avahi
+      libgeneral
+      libimobiledevice
+      libusb1
+    ];
 
-  configureFlags = [
-    "--with-udevrulesdir=${placeholder "out"}/lib/udev/rules.d"
-    "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
-  ];
+    configureFlags = [
+      "--with-udevrulesdir=${placeholder "out"}/lib/udev/rules.d"
+      "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
+    ];
 
-  makeFlags = [
-    "sbindir=${placeholder "out"}/bin"
-  ];
+    makeFlags = [
+      "sbindir=${placeholder "out"}/bin"
+    ];
 
-  meta = with lib; {
-    homepage = "https://github.com/tihmstar/usbmuxd2";
-    description = "Socket daemon to multiplex connections from and to iOS devices";
-    license = licenses.lgpl3;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ onny ];
-    mainProgram = "usbmuxd";
-  };
-}
+    meta = with lib; {
+      homepage = "https://github.com/tihmstar/usbmuxd2";
+      description = "Socket daemon to multiplex connections from and to iOS devices";
+      license = licenses.lgpl3;
+      platforms = platforms.linux;
+      maintainers = with maintainers; [onny];
+      mainProgram = "usbmuxd";
+    };
+  }

@@ -4,7 +4,6 @@
   bootstrapTools,
   unpack,
 }:
-
 builtins.derivation {
   inherit (stdenv.hostPlatform) system;
 
@@ -21,5 +20,5 @@ builtins.derivation {
     unpack
   ];
 
-  allowedReferences = [ "out" ];
+  allowedReferences = ["out"];
 }

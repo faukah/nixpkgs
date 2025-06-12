@@ -4,7 +4,6 @@
   lib,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "nhc";
   version = "0.4.12";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-DXtAfKAtkOO7VvtnQyCXxh2PDlJJRQWzGhYQHbTJUME=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "nhc" ];
+  pythonImportsCheck = ["nhc"];
 
   # upstream has no test
   doCheck = false;
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     description = "SDK for Niko Home Control";
     homepage = "https://github.com/vandeurenglenn/nhc";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

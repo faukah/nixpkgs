@@ -5,7 +5,6 @@
   autoreconfHook,
   libsass,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sassc";
   version = "3.6.2"; # also check libsass for updates
@@ -21,9 +20,9 @@ stdenv.mkDerivation rec {
     export SASSC_VERSION=${version}
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ libsass ];
+  buildInputs = [libsass];
 
   enableParallelBuilding = true;
 

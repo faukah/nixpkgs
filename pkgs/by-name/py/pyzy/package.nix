@@ -10,7 +10,6 @@
   sqlite,
   nix-update-script,
 }:
-
 stdenv.mkDerivation {
   pname = "pyzy";
   version = "1.1-unstable-2023-02-28";
@@ -49,7 +48,7 @@ stdenv.mkDerivation {
     description = "Chinese PinYin and Bopomofo conversion library";
     homepage = "https://github.com/openSUSE/pyzy";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ azuwis ];
+    maintainers = with maintainers; [azuwis];
     platforms = platforms.linux;
   };
 }

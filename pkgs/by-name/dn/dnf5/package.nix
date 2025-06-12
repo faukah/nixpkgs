@@ -31,7 +31,6 @@
   zchunk,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dnf5";
   version = "5.2.13.1";
@@ -118,8 +117,8 @@ stdenv.mkDerivation (finalAttrs: {
   dontFixCmake = true;
 
   passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
-    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

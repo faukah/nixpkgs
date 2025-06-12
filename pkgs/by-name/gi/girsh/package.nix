@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "girsh";
   version = "0.41";
@@ -31,6 +30,6 @@ buildGoModule rec {
     homepage = "https://github.com/nodauf/Girsh";
     changelog = "https://github.com/nodauf/Girsh/releases/tag/v${version}";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

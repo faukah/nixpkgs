@@ -19,11 +19,13 @@ stdenv.mkDerivation rec {
         hash = "sha256-/fcMCS7k2LT0ELcrFPpiQ/WNJtxaJoYOLLhROHTgIdY=";
       };
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${
+      stdenv.hostPlatform.system
+    } or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   dontBuild = true;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   sourceRoot = ".";
 
@@ -41,11 +43,11 @@ stdenv.mkDerivation rec {
     description = "Customizable personal knowledge-base and blogging platform with git as backup manager";
     homepage = "https://github.com/tiddly-gittly/TidGi-Desktop";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ klchen0112 ];
+    maintainers = with lib.maintainers; [klchen0112];
     platforms = [
       "aarch64-darwin"
       "x86_64-darwin"
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 }

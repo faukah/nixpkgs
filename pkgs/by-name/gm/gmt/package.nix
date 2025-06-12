@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-KKIYhljCtk9t9CuvTLsSGvUkUwazWTm9ymBB3wLwSoI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   env = {
     NIX_LDFLAGS = "-lxml2 -L${lib.getLib libxml2}/lib";
@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
       lapack
     ];
 
-  propagatedBuildInputs = [ ghostscript ];
+  propagatedBuildInputs = [ghostscript];
 
   cmakeFlags =
     [
@@ -92,6 +92,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     platforms = lib.platforms.unix;
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ tviti ];
+    maintainers = with lib.maintainers; [tviti];
   };
 })

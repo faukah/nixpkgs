@@ -3,14 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.journald.gateway;
 
-  cliArgs = lib.cli.toGNUCommandLineShell { } {
+  cliArgs = lib.cli.toGNUCommandLineShell {} {
     # If either of these are null / false, they are not passed in the command-line
-    inherit (cfg)
+    inherit
+      (cfg)
       cert
       key
       trust
@@ -19,9 +18,8 @@ let
       merge
       ;
   };
-in
-{
-  meta.maintainers = [ lib.maintainers.raitobezarius ];
+in {
+  meta.maintainers = [lib.maintainers.raitobezarius];
   options.services.journald.gateway = {
     enable = lib.mkEnableOption "the HTTP gateway to the journal";
 
@@ -136,7 +134,7 @@ in
     ];
 
     systemd.sockets.systemd-journal-gatewayd = {
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       listenStreams = [
         # Clear the default port
         ""

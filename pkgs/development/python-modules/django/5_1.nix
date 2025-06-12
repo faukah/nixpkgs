@@ -6,23 +6,18 @@
   fetchpatch,
   pythonOlder,
   replaceVars,
-
   # build-system
   setuptools,
-
   # patched in
   geos,
   gdal,
   withGdal ? false,
-
   # dependencies
   asgiref,
   sqlparse,
-
   # optional-dependencies
   argon2-cffi,
   bcrypt,
-
   # tests
   aiosmtpd,
   docutils,
@@ -40,7 +35,6 @@
   tblib,
   tzdata,
 }:
-
 buildPythonPackage rec {
   pname = "django";
   version = "5.1.11";
@@ -85,7 +79,7 @@ buildPythonPackage rec {
       --replace-fail "/usr/bin/python" "${python.interpreter}"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     asgiref
@@ -93,27 +87,29 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    argon2 = [ argon2-cffi ];
-    bcrypt = [ bcrypt ];
+    argon2 = [argon2-cffi];
+    bcrypt = [bcrypt];
   };
 
-  nativeCheckInputs = [
-    # tests/requirements/py3.txt
-    aiosmtpd
-    docutils
-    geoip2
-    jinja2
-    numpy
-    pillow
-    pylibmc
-    pymemcache
-    pyyaml
-    pytz
-    redis
-    selenium
-    tblib
-    tzdata
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      # tests/requirements/py3.txt
+      aiosmtpd
+      docutils
+      geoip2
+      jinja2
+      numpy
+      pillow
+      pylibmc
+      pymemcache
+      pyyaml
+      pytz
+      redis
+      selenium
+      tblib
+      tzdata
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   preCheck = ''
     # make sure the installed library gets imported
@@ -145,6 +141,6 @@ buildPythonPackage rec {
     description = "High-level Python Web framework that encourages rapid development and clean, pragmatic design";
     homepage = "https://www.djangoproject.com";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

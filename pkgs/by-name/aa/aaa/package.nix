@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "aaa";
   version = "1.1.1";
@@ -20,8 +19,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Terminal viewer for 3a format";
     homepage = "https://github.com/DomesticMoth/aaa";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ asciimoth ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [asciimoth];
     mainProgram = "aaa";
   };
 }

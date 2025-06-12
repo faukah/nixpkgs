@@ -14,7 +14,6 @@
   tomli,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "setuptools-rust";
   version = "1.11.0";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "setuptools_rust" ];
+  pythonImportsCheck = ["setuptools_rust"];
 
   doCheck = false;
 
@@ -48,7 +47,7 @@ buildPythonPackage rec {
       buildAndTestSubdir = null;
 
       nativeBuildInputs =
-        [ setuptools-rust ]
+        [setuptools-rust]
         ++ [
           rustPlatform.cargoSetupHook
           cargo
@@ -68,6 +67,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/PyO3/setuptools-rust";
     changelog = "https://github.com/PyO3/setuptools-rust/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

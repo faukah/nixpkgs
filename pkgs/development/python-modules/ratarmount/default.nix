@@ -13,7 +13,6 @@
   ratarmountcore,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ratarmount";
   version = "1.0.0";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-cXm301LMEsiE1eKJO70gTy7asdZ5CKnKtxLinW2+iJ4=";
   };
 
-  pythonRelaxDeps = [ "python-xz" ];
+  pythonRelaxDeps = ["python-xz"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     fusepy
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/mxmlnkn/ratarmount";
     changelog = "https://github.com/mxmlnkn/ratarmount/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ mxmlnkn ];
+    maintainers = with lib.maintainers; [mxmlnkn];
     mainProgram = "ratarmount";
   };
 }

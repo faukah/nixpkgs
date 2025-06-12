@@ -7,7 +7,6 @@
   future,
   pyusb,
 }:
-
 buildPythonPackage rec {
   pname = "pygreat";
   version = "2024.0.3";
@@ -53,7 +52,7 @@ buildPythonPackage rec {
     changelog = "https://github.com/greatscottgadgets/libgreat/releases/tag/v${version}";
     description = "Python library for talking with libGreat devices";
     homepage = "https://github.com/greatscottgadgets/libgreat/";
-    license = with lib.licenses; [ bsd3 ];
-    maintainers = with lib.maintainers; [ carlossless ];
+    license = with lib.licenses; [bsd3];
+    maintainers = with lib.maintainers; [carlossless];
   };
 }

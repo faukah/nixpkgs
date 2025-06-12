@@ -10,7 +10,6 @@
   pytestCheckHook,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-intl";
   version = "2.3.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-VrWtRdI9j/y2m7kN7/m/5cdxpI0dAaiprdXKt8m6MPc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     babel
@@ -38,12 +37,12 @@ buildPythonPackage rec {
     transifex-cli
   ];
 
-  pythonImportsCheck = [ "sphinx_intl" ];
+  pythonImportsCheck = ["sphinx_intl"];
 
   meta = with lib; {
     description = "Sphinx utility that make it easy to translate and to apply translation";
     homepage = "https://github.com/sphinx-doc/sphinx-intl";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ thornycrackers ];
+    maintainers = with maintainers; [thornycrackers];
   };
 }

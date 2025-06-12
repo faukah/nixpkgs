@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "epoll-shim";
   version = "0.0.20240608";
@@ -39,6 +38,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/jiixyj/epoll-shim";
     license = licenses.mit;
     platforms = platforms.darwin ++ platforms.freebsd ++ platforms.netbsd ++ platforms.openbsd;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 })

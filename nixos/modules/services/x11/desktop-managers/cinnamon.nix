@@ -5,11 +5,7 @@
   utils,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.xserver.desktopManager.cinnamon;
   serviceCfg = config.services.cinnamon;
 
@@ -19,9 +15,7 @@ let
   };
 
   notExcluded = pkg: utils.disablePackageByName pkg config.environment.cinnamon.excludePackages;
-in
-
-{
+in {
   options = {
     services.cinnamon = {
       apps.enable = mkEnableOption "Cinnamon default applications";
@@ -31,7 +25,7 @@ in
       enable = mkEnableOption "the cinnamon desktop manager";
 
       sessionPath = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.package;
         example = literalExpression "[ pkgs.gpaste ]";
         description = ''
@@ -49,24 +43,23 @@ in
       };
 
       extraGSettingsOverridePackages = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.path;
         description = "List of packages for which gsettings are overridden.";
       };
     };
 
     environment.cinnamon.excludePackages = mkOption {
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.blueman ]";
       type = types.listOf types.package;
       description = "Which packages cinnamon should exclude from the default environment";
     };
-
   };
 
   config = mkMerge [
     (mkIf cfg.enable {
-      services.displayManager.sessionPackages = [ pkgs.cinnamon-common ];
+      services.displayManager.sessionPackages = [pkgs.cinnamon-common];
 
       services.xserver.displayManager.lightdm.greeters.slick = {
         enable = mkDefault true;
@@ -89,15 +82,16 @@ in
       # Have to take care of GDM + Cinnamon on Wayland users
       environment.extraInit = ''
         ${concatMapStrings (p: ''
-          if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
-            export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
-          fi
+            if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
+              export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
+            fi
 
-          if [ -d "${p}/lib/girepository-1.0" ]; then
-            export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
-            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
-          fi
-        '') cfg.sessionPath}
+            if [ -d "${p}/lib/girepository-1.0" ]; then
+              export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
+              export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
+            fi
+          '')
+          cfg.sessionPath}
       '';
 
       # Default services
@@ -105,7 +99,7 @@ in
       hardware.bluetooth.enable = mkDefault true;
       security.polkit.enable = true;
       services.accounts-daemon.enable = true;
-      services.system-config-printer.enable = (mkIf config.services.printing.enable (mkDefault true));
+      services.system-config-printer.enable = mkIf config.services.printing.enable (mkDefault true);
       services.dbus.packages = with pkgs; [
         cinnamon-common
         cinnamon-screensaver
@@ -137,74 +131,73 @@ in
 
       # Fix lockscreen
       security.pam.services = {
-        cinnamon-screensaver = { };
+        cinnamon-screensaver = {};
       };
 
-      environment.systemPackages =
-        with pkgs;
-        (
-          [
-            # Teach nemo-desktop how to launch file browser.
-            # https://github.com/linuxmint/nemo/blob/6.4.0/src/nemo-desktop-application.c#L398
-            (writeTextFile {
-              name = "x-cinnamon-mimeapps";
-              destination = "/share/applications/x-cinnamon-mimeapps.list";
-              text = ''
-                [Default Applications]
-                inode/directory=nemo.desktop
-              '';
-            })
+      environment.systemPackages = with pkgs; (
+        [
+          # Teach nemo-desktop how to launch file browser.
+          # https://github.com/linuxmint/nemo/blob/6.4.0/src/nemo-desktop-application.c#L398
+          (writeTextFile {
+            name = "x-cinnamon-mimeapps";
+            destination = "/share/applications/x-cinnamon-mimeapps.list";
+            text = ''
+              [Default Applications]
+              inode/directory=nemo.desktop
+            '';
+          })
 
-            desktop-file-utils
+          desktop-file-utils
 
-            # common-files
-            cinnamon-common
-            cinnamon-session
-            cinnamon-desktop
-            cinnamon-menus
-            cinnamon-translations
+          # common-files
+          cinnamon-common
+          cinnamon-session
+          cinnamon-desktop
+          cinnamon-menus
+          cinnamon-translations
 
-            # utils needed by some scripts
-            killall
+          # utils needed by some scripts
+          killall
 
-            # session requirements
-            cinnamon-screensaver
-            # cinnamon-killer-daemon: provided by cinnamon-common
-            networkmanagerapplet # session requirement - also nm-applet not needed
+          # session requirements
+          cinnamon-screensaver
+          # cinnamon-killer-daemon: provided by cinnamon-common
+          networkmanagerapplet # session requirement - also nm-applet not needed
 
-            # packages
-            nemo-with-extensions
-            gnome-online-accounts-gtk
-            cinnamon-control-center
-            cinnamon-settings-daemon
-            libgnomekbd
+          # packages
+          nemo-with-extensions
+          gnome-online-accounts-gtk
+          cinnamon-control-center
+          cinnamon-settings-daemon
+          libgnomekbd
 
-            # theme
-            adwaita-icon-theme
-            gnome-themes-extra
-            gtk3.out
+          # theme
+          adwaita-icon-theme
+          gnome-themes-extra
+          gtk3.out
 
-            # other
-            glib # for gsettings
-            xdg-user-dirs
-          ]
-          ++ utils.removePackagesByName [
-            # accessibility
-            onboard
+          # other
+          glib # for gsettings
+          xdg-user-dirs
+        ]
+        ++ utils.removePackagesByName [
+          # accessibility
+          onboard
 
-            # theme
-            sound-theme-freedesktop
-            nixos-artwork.wallpapers.simple-dark-gray
-            mint-artwork
-            mint-cursor-themes
-            mint-l-icons
-            mint-l-theme
-            mint-themes
-            mint-x-icons
-            mint-y-icons
-            xapp # provides some xapp-* icons
-          ] config.environment.cinnamon.excludePackages
-        );
+          # theme
+          sound-theme-freedesktop
+          nixos-artwork.wallpapers.simple-dark-gray
+          mint-artwork
+          mint-cursor-themes
+          mint-l-icons
+          mint-l-theme
+          mint-themes
+          mint-x-icons
+          mint-y-icons
+          xapp # provides some xapp-* icons
+        ]
+        config.environment.cinnamon.excludePackages
+      );
 
       xdg.mime.enable = true;
       xdg.icons.enable = true;
@@ -217,7 +210,7 @@ in
 
       services.orca.enable = mkDefault (notExcluded pkgs.orca);
 
-      xdg.portal.configPackages = mkDefault [ pkgs.cinnamon-common ];
+      xdg.portal.configPackages = mkDefault [pkgs.cinnamon-common];
 
       # Override GSettings schemas
       environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
@@ -243,8 +236,7 @@ in
       programs.gnome-terminal.enable = mkDefault (notExcluded pkgs.gnome-terminal);
       programs.file-roller.enable = mkDefault (notExcluded pkgs.file-roller);
 
-      environment.systemPackages =
-        with pkgs;
+      environment.systemPackages = with pkgs;
         utils.removePackagesByName [
           # cinnamon team apps
           bulky
@@ -261,7 +253,8 @@ in
           gnome-calculator
           gnome-calendar
           gnome-screenshot
-        ] config.environment.cinnamon.excludePackages;
+        ]
+        config.environment.cinnamon.excludePackages;
     })
   ];
 }

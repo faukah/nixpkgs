@@ -6,7 +6,6 @@
   ghostscript,
   cairo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libspectre";
   version = "0.2.12";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-VadRfNNXK9JWXfDPRQlEoE1Sc7J567NpqJU5GVfw+WA=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     # Need `libgs.so'.

@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "attrs";
   version = "21.4.0";
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Python attributes without boilerplate";
     homepage = "https://github.com/hynek/attrs";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

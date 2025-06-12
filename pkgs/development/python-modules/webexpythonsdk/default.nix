@@ -9,7 +9,6 @@
   poetry-core,
   poetry-dynamic-versioning,
 }:
-
 buildPythonPackage rec {
   pname = "webexpythonsdk";
   version = "2.0.4";
@@ -38,13 +37,13 @@ buildPythonPackage rec {
   # Tests require a Webex Teams test domain
   doCheck = false;
 
-  pythonImportsCheck = [ "webexpythonsdk" ];
+  pythonImportsCheck = ["webexpythonsdk"];
 
   meta = with lib; {
     description = "Python module for Webex Teams APIs";
     homepage = "https://github.com/WebexCommunity/WebexPythonSDK";
     changelog = "https://github.com/WebexCommunity/WebexPythonSDK/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

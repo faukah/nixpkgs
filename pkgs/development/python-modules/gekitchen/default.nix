@@ -12,7 +12,6 @@
   slixmpp,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "gekitchen";
   version = "0.2.19";
@@ -37,14 +36,14 @@ buildPythonPackage rec {
     websockets
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "gekitchen" ];
+  pythonImportsCheck = ["gekitchen"];
 
   meta = with lib; {
     description = "Python SDK for GE smart appliances";
     homepage = "https://github.com/ajmarks/gekitchen";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

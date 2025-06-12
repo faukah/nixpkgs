@@ -9,7 +9,7 @@ mkKdeDerivation {
   pname = "plasma-integration";
 
   # force it to check our custom import path too
-  patches = [ ./qml-path.patch ];
+  patches = [./qml-path.patch];
 
   outputs = [
     "out"

@@ -13,7 +13,6 @@
   pam,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pappl";
   version = "1.4.9";
@@ -69,6 +68,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/michaelrsweet/pappl";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux; # should also work for darwin, but requires additional work
-    maintainers = [ lib.maintainers.NotAShelf ];
+    maintainers = [lib.maintainers.NotAShelf];
   };
 }

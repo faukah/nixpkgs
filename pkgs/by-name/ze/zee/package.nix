@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zee";
   version = "0.3.2";
@@ -24,9 +23,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ./update-ropey-for-rust-1.65.diff
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   # disable downloading and building the tree-sitter grammars at build time
   # grammars can be configured in a config file and installed with `zee --build`
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Modern text editor for the terminal written in Rust";
     homepage = "https://github.com/zee-editor/zee";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ booklearner ];
+    maintainers = with lib.maintainers; [booklearner];
     mainProgram = "zee";
   };
 })

@@ -8,7 +8,6 @@
   requests-toolbelt,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "betamax-matchers";
   version = "0.4.0";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-BV9DOfZLDAZIr2E75l988QxFWWvazBL9VttxGFIez1M=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     betamax
     requests-toolbelt
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "betamax_matchers" ];
+  pythonImportsCheck = ["betamax_matchers"];
 
   meta = with lib; {
     description = "A group of experimental matchers for Betamax";
     homepage = "https://github.com/sigmavirus24/betamax_matchers";
     changelog = "https://github.com/betamaxpy/betamax_matchers/blob/${version}/HISTORY.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

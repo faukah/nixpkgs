@@ -6,9 +6,7 @@
   pam,
   fscrypt-experimental,
 }:
-
 # Don't use this for anything important yet!
-
 buildGoModule rec {
   pname = "fscrypt";
   version = "0.3.5";
@@ -30,8 +28,8 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ gnum4 ];
-  buildInputs = [ pam ];
+  nativeBuildInputs = [gnum4];
+  buildInputs = [pam];
 
   buildPhase = ''
     runHook preBuild
@@ -57,6 +55,6 @@ buildGoModule rec {
     changelog = "https://github.com/google/fscrypt/releases/tag/v${version}";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ primeos ];
+    maintainers = with lib.maintainers; [primeos];
   };
 }

@@ -5,7 +5,6 @@
   lib,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "goslide-api";
   version = "0.7.4";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-Z3+GijoI+351zV7IpLSBQu6LE2OhhXho4ygNMVbg2xs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
-  pythonImportsCheck = [ "goslideapi" ];
+  pythonImportsCheck = ["goslideapi"];
 
   # upstream has no tests
   doCheck = false;
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "Python API to utilise the Slide Open Cloud and Local API";
     homepage = "https://github.com/ualex73/goslide-api";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

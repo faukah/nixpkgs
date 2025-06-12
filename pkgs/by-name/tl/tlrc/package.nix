@@ -4,7 +4,6 @@
   rustPlatform,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tlrc";
   version = "1.11.1";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-i2nSwsQnwhiMhG8QJb0z0zPuNxTLwuO1dgJxI4e4FqY=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage tldr.1
@@ -32,6 +31,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/tldr-pages/tlrc/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = "tldr";
-    maintainers = with lib.maintainers; [ acuteenvy ];
+    maintainers = with lib.maintainers; [acuteenvy];
   };
 }

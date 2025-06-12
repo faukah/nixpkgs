@@ -14,15 +14,16 @@
   gupnp_1_6,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gupnp-igd";
   version = "1.6.0";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) ["devdoc"];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gupnp-igd/${lib.versions.majorMinor finalAttrs.version}/gupnp-igd-${finalAttrs.version}.tar.xz";

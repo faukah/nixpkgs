@@ -15,7 +15,6 @@
   gnome-console,
   vte-gtk4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "apx-gui";
   version = "1.0.4";
@@ -52,11 +51,11 @@ stdenv.mkDerivation (finalAttrs: {
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : "${
-        lib.makeBinPath [
-          apx
-          gnome-console
-        ]
-      }"
+      lib.makeBinPath [
+        apx
+        gnome-console
+      ]
+    }"
     )
   '';
 
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Vanilla-OS/apx-gui";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ chewblacka ];
+    maintainers = with lib.maintainers; [chewblacka];
     mainProgram = "apx-gui";
   };
 })

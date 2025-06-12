@@ -16,10 +16,7 @@
   removeReferencesTo,
   nixosTests,
   writers,
-}:
-
-let
-
+}: let
   info = builtins.fromJSON (builtins.readFile ./info.json);
 
   opensslSrc = fetchurl info.openssl;
@@ -32,80 +29,77 @@ let
       autoPatchelfHook
       ;
   };
-
 in
+  stdenvNoCC.mkDerivation rec {
+    pname = "osquery";
 
-stdenvNoCC.mkDerivation rec {
+    version = info.osquery.rev;
 
-  pname = "osquery";
+    src = fetchFromGitHub info.osquery;
 
-  version = info.osquery.rev;
+    patches = [
+      ./Remove-git-reset.patch
+    ];
 
-  src = fetchFromGitHub info.osquery;
+    nativeBuildInputs = [
+      cmake
+      git
+      perl
+      python3
+      ninja
+      autoPatchelfHook
+      jq
+      removeReferencesTo
+    ];
 
-  patches = [
-    ./Remove-git-reset.patch
-  ];
+    postPatch = ''
+      substituteInPlace cmake/install_directives.cmake --replace "/control" "control"
+    '';
 
-  nativeBuildInputs = [
-    cmake
-    git
-    perl
-    python3
-    ninja
-    autoPatchelfHook
-    jq
-    removeReferencesTo
-  ];
+    configurePhase = ''
+      mkdir build
+      cd build
+      cmake .. \
+        -DCMAKE_INSTALL_PREFIX=$out \
+        -DOSQUERY_TOOLCHAIN_SYSROOT=${toolchain} \
+        -DOSQUERY_VERSION=${version} \
+        -DCMAKE_PREFIX_PATH=${toolchain}/usr/lib/cmake \
+        -DCMAKE_LIBRARY_PATH=${toolchain}/usr/lib \
+        -DOSQUERY_OPENSSL_ARCHIVE_PATH=${opensslSrc} \
+        -GNinja
+    '';
 
-  postPatch = ''
-    substituteInPlace cmake/install_directives.cmake --replace "/control" "control"
-  '';
+    disallowedReferences = [toolchain];
 
-  configurePhase = ''
-    mkdir build
-    cd build
-    cmake .. \
-      -DCMAKE_INSTALL_PREFIX=$out \
-      -DOSQUERY_TOOLCHAIN_SYSROOT=${toolchain} \
-      -DOSQUERY_VERSION=${version} \
-      -DCMAKE_PREFIX_PATH=${toolchain}/usr/lib/cmake \
-      -DCMAKE_LIBRARY_PATH=${toolchain}/usr/lib \
-      -DOSQUERY_OPENSSL_ARCHIVE_PATH=${opensslSrc} \
-      -GNinja
-  '';
+    postInstall = ''
+      rm -rf $out/control
+      remove-references-to -t ${toolchain} $out/bin/osqueryd
+    '';
 
-  disallowedReferences = [ toolchain ];
-
-  postInstall = ''
-    rm -rf $out/control
-    remove-references-to -t ${toolchain} $out/bin/osqueryd
-  '';
-
-  passthru = {
-    inherit opensslSrc toolchain;
-    tests = {
-      inherit (nixosTests) osquery;
+    passthru = {
+      inherit opensslSrc toolchain;
+      tests = {
+        inherit (nixosTests) osquery;
+      };
+      updateScript = writers.writePython3 "osquery-update" {
+        makeWrapperArgs = "--prefix PATH : ${lib.makeBinPath [nix-prefetch-git]}";
+      } (builtins.readFile ./update.py);
     };
-    updateScript = writers.writePython3 "osquery-update" {
-      makeWrapperArgs = "--prefix PATH : ${lib.makeBinPath [ nix-prefetch-git ]}";
-    } (builtins.readFile ./update.py);
-  };
 
-  meta = with lib; {
-    description = "SQL powered operating system instrumentation, monitoring, and analytics";
-    homepage = "https://osquery.io";
-    license = with licenses; [
-      gpl2Only
-      asl20
-    ];
-    platforms = platforms.linux;
-    sourceProvenance = with sourceTypes; [ fromSource ];
-    maintainers = with maintainers; [
-      znewman01
-      lewo
-      squalus
-      lesuisse
-    ];
-  };
-}
+    meta = with lib; {
+      description = "SQL powered operating system instrumentation, monitoring, and analytics";
+      homepage = "https://osquery.io";
+      license = with licenses; [
+        gpl2Only
+        asl20
+      ];
+      platforms = platforms.linux;
+      sourceProvenance = with sourceTypes; [fromSource];
+      maintainers = with maintainers; [
+        znewman01
+        lewo
+        squalus
+        lesuisse
+      ];
+    };
+  }

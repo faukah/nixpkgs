@@ -5,14 +5,10 @@
   utils,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.systemd.coredump;
   systemd = config.systemd.package;
-in
-{
+in {
   options = {
     systemd.coredump.enable = mkOption {
       default = true;
@@ -36,7 +32,6 @@ in
   };
 
   config = mkMerge [
-
     (mkIf cfg.enable {
       systemd.additionalUpstreamSystemUnits = [
         "systemd-coredump.socket"
@@ -63,7 +58,7 @@ in
               "${systemd}"
               "${pkgs.symlinkJoin {
                 name = "systemd";
-                paths = [ systemd ];
+                paths = [systemd];
               }}"
             ];
           };
@@ -75,13 +70,11 @@ in
         uid = config.ids.uids.systemd-coredump;
         group = "systemd-coredump";
       };
-      users.groups.systemd-coredump = { };
+      users.groups.systemd-coredump = {};
     })
 
     (mkIf (!cfg.enable) {
       boot.kernel.sysctl."kernel.core_pattern" = mkDefault "core";
     })
-
   ];
-
 }

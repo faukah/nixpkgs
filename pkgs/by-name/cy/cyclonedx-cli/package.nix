@@ -4,7 +4,6 @@
   fetchFromGitHub,
   dotnetCorePackages,
 }:
-
 buildDotnetModule rec {
   pname = "cyclonedx-cli";
   version = "0.27.2";
@@ -33,8 +32,8 @@ buildDotnetModule rec {
     description = "CycloneDX CLI tool for SBOM analysis, merging, diffs and format conversions";
     homepage = "https://github.com/CycloneDX/cyclonedx-cli";
     changelog = "https://github.com/CycloneDX/cyclonedx-cli/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ thillux ];
-    teams = [ lib.teams.cyberus ];
+    maintainers = with lib.maintainers; [thillux];
+    teams = [lib.teams.cyberus];
     license = lib.licenses.asl20;
     platforms = with lib.platforms; (linux ++ darwin);
     mainProgram = "cyclonedx";

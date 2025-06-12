@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "print-color";
   version = "0.4.6";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-PHPbzzWG7smEsoTFYFT2tgXfCxUYjevpB9rxG2bZVy4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "print_color" ];
+  pythonImportsCheck = ["print_color"];
 
   meta = with lib; {
     description = "Module to print color messages in the terminal";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

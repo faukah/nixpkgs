@@ -16,7 +16,6 @@
   gobject-introspection,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "granite";
   version = "7.6.0";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/granite";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "granite-7-demo";
   };
 }

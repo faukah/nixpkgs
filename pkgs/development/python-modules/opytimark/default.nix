@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "opytimark";
   version = "1.0.8";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # several tests are failing
   disabledTests = [
@@ -41,13 +40,13 @@ buildPythonPackage rec {
     "cec_benchmark"
   ];
 
-  pythonImportsCheck = [ "opytimark" ];
+  pythonImportsCheck = ["opytimark"];
 
   meta = with lib; {
     description = "Library consisting of optimization benchmarking functions";
     homepage = "https://github.com/gugarosa/opytimark";
     changelog = "https://github.com/gugarosa/opytimark/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ firefly-cpp ];
+    maintainers = with maintainers; [firefly-cpp];
   };
 }

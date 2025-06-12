@@ -5,7 +5,6 @@
   testers,
   weaver,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "weaver";
   version = "0.15.2";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "OpenTelemetry tool for dealing with semantic conventions and application telemetry schemas";
     homepage = "https://github.com/open-telemetry/weaver";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "weaver";
   };
 })

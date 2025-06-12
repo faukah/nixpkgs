@@ -19,7 +19,6 @@
   soundfont-fluid,
   openlilylib-fonts,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lenmus";
   version = "6.0.1";
@@ -92,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "http://www.lenmus.org/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ramkromberg ];
+    maintainers = with lib.maintainers; [ramkromberg];
     platforms = lib.platforms.unix;
     mainProgram = "lenmus";
   };

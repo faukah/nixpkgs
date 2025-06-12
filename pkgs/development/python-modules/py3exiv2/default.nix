@@ -7,7 +7,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "py3exiv2";
   version = "0.12.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
   # Work around Python distutils compiling C++ with $CC (see issue #26709)
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin "-I${lib.getInclude stdenv.cc.libcxx}/include/c++/v1";
 
-  pythonImportsCheck = [ "pyexiv2" ];
+  pythonImportsCheck = ["pyexiv2"];
 
   # Tests are not shipped
   doCheck = false;
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     description = "Python binding to the library exiv2";
     homepage = "https://launchpad.net/py3exiv2";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ vinymeuh ];
+    maintainers = with maintainers; [vinymeuh];
     platforms = with platforms; linux ++ darwin;
   };
 }

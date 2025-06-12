@@ -6,7 +6,6 @@
   qtbase,
   sudo,
 }:
-
 mkDerivation rec {
   pname = "qsudo";
   version = "2020.03.27";
@@ -39,6 +38,6 @@ mkDerivation rec {
     homepage = "https://github.com/project-trident/qsudo";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

@@ -9,12 +9,10 @@
   pythonOlder,
   setuptools,
   typing-extensions,
-
   # for passthru.tests
   django,
   aiosmtplib,
 }:
-
 buildPythonPackage rec {
   pname = "aiosmtpd";
   version = "1.4.6";
@@ -29,12 +27,14 @@ buildPythonPackage rec {
     hash = "sha256-Ih/xbWM9O/fFQiZezydlPlIr36fLRc2lLgdfxD5Jviw=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [
-    atpublic
-    attrs
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs =
+    [
+      atpublic
+      attrs
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   nativeCheckInputs = [
     pytest-mock
@@ -51,7 +51,7 @@ buildPythonPackage rec {
     "test_byclient"
   ];
 
-  pythonImportsCheck = [ "aiosmtpd" ];
+  pythonImportsCheck = ["aiosmtpd"];
 
   passthru.tests = {
     inherit django aiosmtplib;
@@ -67,6 +67,6 @@ buildPythonPackage rec {
       standard library's smtpd.py module.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

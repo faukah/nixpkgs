@@ -1,13 +1,11 @@
 let
-  cert =
-    pkgs:
-    pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
+  cert = pkgs:
+    pkgs.runCommand "selfSignedCerts" {buildInputs = [pkgs.openssl];} ''
       openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=example.com/CN=uploads.example.com/CN=conference.example.com' -days 36500
       mkdir -p $out
       cp key.pem cert.pem $out
     '';
-  createUsers =
-    pkgs:
+  createUsers = pkgs:
     pkgs.writeScriptBin "create-prosody-users" ''
       #!${pkgs.bash}/bin/bash
       set -e
@@ -21,8 +19,7 @@ let
       prosodyctl register cthon98 example.com nothunter2
       prosodyctl register azurediamond example.com hunter2
     '';
-  delUsers =
-    pkgs:
+  delUsers = pkgs:
     pkgs.writeScriptBin "delete-prosody-users" ''
       #!${pkgs.bash}/bin/bash
       set -e
@@ -37,18 +34,16 @@ let
       prosodyctl deluser azurediamond@example.com
     '';
 in
-import ../make-test-python.nix {
-  name = "prosody-mysql";
-  nodes = {
-    client =
-      {
+  import ../make-test-python.nix {
+    name = "prosody-mysql";
+    nodes = {
+      client = {
         nodes,
         pkgs,
         config,
         ...
-      }:
-      {
-        security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+      }: {
+        security.pki.certificateFiles = ["${cert pkgs}/cert.pem"];
         console.keyMap = "fr-bepo";
         networking.extraHosts = ''
           ${nodes.server.config.networking.primaryIPAddress} example.com
@@ -61,17 +56,19 @@ import ../make-test-python.nix {
           })
         ];
       };
-    server =
-      { config, pkgs, ... }:
-      {
+      server = {
+        config,
+        pkgs,
+        ...
+      }: {
         nixpkgs.overlays = [
           (self: super: {
             prosody = super.prosody.override {
-              withExtraLuaPackages = p: [ p.luadbi-mysql ];
+              withExtraLuaPackages = p: [p.luadbi-mysql];
             };
           })
         ];
-        security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+        security.pki.certificateFiles = ["${cert pkgs}/cert.pem"];
         console.keyMap = "fr-bepo";
         networking.extraHosts = ''
           ${config.networking.primaryIPAddress} example.com
@@ -114,9 +111,11 @@ import ../make-test-python.nix {
           '';
         };
       };
-    mysql =
-      { config, pkgs, ... }:
-      {
+      mysql = {
+        config,
+        pkgs,
+        ...
+      }: {
         networking.firewall.enable = false;
         services.mysql = {
           enable = true;
@@ -129,11 +128,9 @@ import ../make-test-python.nix {
           package = pkgs.mariadb;
         };
       };
-  };
+    };
 
-  testScript =
-    { nodes, ... }:
-    ''
+    testScript = {nodes, ...}: ''
       # Check with mysql storage
       mysql.wait_for_unit("mysql.service")
       server.wait_for_unit("prosody.service")
@@ -143,4 +140,4 @@ import ../make-test-python.nix {
       client.succeed("send-message")
       server.succeed("delete-prosody-users")
     '';
-}
+  }

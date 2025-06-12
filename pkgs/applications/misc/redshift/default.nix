@@ -17,7 +17,6 @@
   python,
   pygobject3,
   pyxdg,
-
   withQuartz ? stdenv.hostPlatform.isDarwin,
   withRandr ? stdenv.hostPlatform.isLinux,
   libxcb,
@@ -25,7 +24,6 @@
   libdrm,
   withVidmode ? stdenv.hostPlatform.isLinux,
   libXxf86vm,
-
   withGeolocation ? true,
   withCoreLocation ? withGeolocation && stdenv.hostPlatform.isDarwin,
   withGeoclue ? withGeolocation && stdenv.hostPlatform.isLinux,
@@ -33,16 +31,13 @@
   withAppIndicator ? stdenv.hostPlatform.isLinux,
   libappindicator,
   libayatana-appindicator,
-}:
-
-let
-  mkRedshift =
-    {
-      pname,
-      version,
-      src,
-      meta,
-    }:
+}: let
+  mkRedshift = {
+    pname,
+    version,
+    src,
+    meta,
+  }:
     stdenv.mkDerivation rec {
       inherit
         pname
@@ -58,29 +53,55 @@ let
 
       strictDeps = true;
 
-      depsBuildBuild = [ pkg-config ];
+      depsBuildBuild = [pkg-config];
 
-      nativeBuildInputs = [
-        autoconf
-        automake
-        gettext
-        intltool
-        libtool
-        pkg-config
-        wrapGAppsHook3
-        wrapPython
-        gobject-introspection
-        python
-      ] ++ lib.optionals (pname == "gammastep") [ wayland-scanner ];
+      nativeBuildInputs =
+        [
+          autoconf
+          automake
+          gettext
+          intltool
+          libtool
+          pkg-config
+          wrapGAppsHook3
+          wrapPython
+          gobject-introspection
+          python
+        ]
+        ++ lib.optionals (pname == "gammastep") [wayland-scanner];
 
       configureFlags =
         [
-          "--enable-randr=${if withRandr then "yes" else "no"}"
-          "--enable-geoclue2=${if withGeoclue then "yes" else "no"}"
-          "--enable-drm=${if withDrm then "yes" else "no"}"
-          "--enable-vidmode=${if withVidmode then "yes" else "no"}"
-          "--enable-quartz=${if withQuartz then "yes" else "no"}"
-          "--enable-corelocation=${if withCoreLocation then "yes" else "no"}"
+          "--enable-randr=${
+            if withRandr
+            then "yes"
+            else "no"
+          }"
+          "--enable-geoclue2=${
+            if withGeoclue
+            then "yes"
+            else "no"
+          }"
+          "--enable-drm=${
+            if withDrm
+            then "yes"
+            else "no"
+          }"
+          "--enable-vidmode=${
+            if withVidmode
+            then "yes"
+            else "no"
+          }"
+          "--enable-quartz=${
+            if withQuartz
+            then "yes"
+            else "no"
+          }"
+          "--enable-corelocation=${
+            if withCoreLocation
+            then "yes"
+            else "no"
+          }"
         ]
         ++ lib.optionals (pname == "gammastep") [
           "--with-systemduserunitdir=${placeholder "out"}/lib/systemd/user/"
@@ -96,7 +117,9 @@ let
         ++ lib.optional withDrm libdrm
         ++ lib.optional withVidmode libXxf86vm
         ++ lib.optional withAppIndicator (
-          if (pname != "gammastep") then libappindicator else libayatana-appindicator
+          if (pname != "gammastep")
+          then libappindicator
+          else libayatana-appindicator
         );
 
       pythonPath = [
@@ -120,25 +143,23 @@ let
       # the geoclue agent may inspect these paths and expect them to be
       # valid without having the correct $PATH set
       postInstall =
-        if (pname == "gammastep") then
-          ''
-            substituteInPlace $out/share/applications/gammastep.desktop \
-              --replace 'Exec=gammastep' "Exec=$out/bin/gammastep"
-            substituteInPlace $out/share/applications/gammastep-indicator.desktop \
-              --replace 'Exec=gammastep-indicator' "Exec=$out/bin/gammastep-indicator"
-          ''
-        else
-          ''
-            substituteInPlace $out/share/applications/redshift.desktop \
-              --replace 'Exec=redshift' "Exec=$out/bin/redshift"
-            substituteInPlace $out/share/applications/redshift-gtk.desktop \
-              --replace 'Exec=redshift-gtk' "Exec=$out/bin/redshift-gtk"
-          '';
+        if (pname == "gammastep")
+        then ''
+          substituteInPlace $out/share/applications/gammastep.desktop \
+            --replace 'Exec=gammastep' "Exec=$out/bin/gammastep"
+          substituteInPlace $out/share/applications/gammastep-indicator.desktop \
+            --replace 'Exec=gammastep-indicator' "Exec=$out/bin/gammastep-indicator"
+        ''
+        else ''
+          substituteInPlace $out/share/applications/redshift.desktop \
+            --replace 'Exec=redshift' "Exec=$out/bin/redshift"
+          substituteInPlace $out/share/applications/redshift-gtk.desktop \
+            --replace 'Exec=redshift-gtk' "Exec=$out/bin/redshift-gtk"
+        '';
 
       enableParallelBuilding = true;
     };
-in
-rec {
+in rec {
   redshift = mkRedshift rec {
     pname = "redshift";
     version = "1.12";
@@ -164,7 +185,7 @@ rec {
       homepage = "http://jonls.dk/redshift";
       platforms = platforms.unix;
       mainProgram = "redshift";
-      maintainers = [ ];
+      maintainers = [];
     };
   };
 
@@ -179,12 +200,14 @@ rec {
       hash = "sha256-c8JpQLHHLYuzSC9bdymzRTF6dNqOLwYqgwUOpKcgAEU=";
     };
 
-    meta = redshift.meta // {
-      name = "${pname}-${version}";
-      longDescription = "Gammastep" + lib.removePrefix "Redshift" redshift.meta.longDescription;
-      homepage = "https://gitlab.com/chinstrap/gammastep";
-      mainProgram = "gammastep";
-      maintainers = (with lib.maintainers; [ primeos ]) ++ redshift.meta.maintainers;
-    };
+    meta =
+      redshift.meta
+      // {
+        name = "${pname}-${version}";
+        longDescription = "Gammastep" + lib.removePrefix "Redshift" redshift.meta.longDescription;
+        homepage = "https://gitlab.com/chinstrap/gammastep";
+        mainProgram = "gammastep";
+        maintainers = (with lib.maintainers; [primeos]) ++ redshift.meta.maintainers;
+      };
   };
 }

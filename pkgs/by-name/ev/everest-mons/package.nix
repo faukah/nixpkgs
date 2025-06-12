@@ -3,7 +3,6 @@
   fetchPypi,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "everest-mons";
   version = "2.0.0";
@@ -30,7 +29,7 @@ python3Packages.buildPythonApplication rec {
     platformdirs
   ];
 
-  pythonImportsCheck = [ "mons" ];
+  pythonImportsCheck = ["mons"];
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook
   ];
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://mons.coloursofnoise.ca/";
     description = "Commandline Everest installer and mod manager for Celeste";
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ ulysseszhan ];
+    maintainers = with lib.maintainers; [ulysseszhan];
     mainProgram = "mons";
   };
 }

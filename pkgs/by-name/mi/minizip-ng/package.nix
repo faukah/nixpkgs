@@ -11,7 +11,6 @@
   zstd,
   openssl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "minizip-ng";
   version = "4.0.9";
@@ -37,10 +36,22 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags =
     [
-      "-DBUILD_SHARED_LIBS=${if stdenv.hostPlatform.isStatic then "OFF" else "ON"}"
+      "-DBUILD_SHARED_LIBS=${
+        if stdenv.hostPlatform.isStatic
+        then "OFF"
+        else "ON"
+      }"
       "-DMZ_OPENSSL=ON"
-      "-DMZ_BUILD_TESTS=${if finalAttrs.finalPackage.doCheck then "ON" else "OFF"}"
-      "-DMZ_BUILD_UNIT_TESTS=${if finalAttrs.finalPackage.doCheck then "ON" else "OFF"}"
+      "-DMZ_BUILD_TESTS=${
+        if finalAttrs.finalPackage.doCheck
+        then "ON"
+        else "OFF"
+      }"
+      "-DMZ_BUILD_UNIT_TESTS=${
+        if finalAttrs.finalPackage.doCheck
+        then "ON"
+        else "OFF"
+      }"
       "-DMZ_LIB_SUFFIX='-ng'"
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
@@ -63,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
   enableParallelChecking = false;
 
   meta = with lib; {

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pacman-game";
   version = "0-unstable-2017-01-30";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/justinjo/Pacman";
     license = lib.licenses.unlicense;
     platforms = lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     mainProgram = "pacman";
   };
 })

@@ -43,15 +43,16 @@ let
     passthru.src = self;
 
     meta = {
-      inherit (godot.meta)
+      inherit
+        (godot.meta)
         changelog
         description
         homepage
         license
         maintainers
         ;
-      sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+      sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };
   };
 in
-self
+  self

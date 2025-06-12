@@ -4,7 +4,6 @@
   fetchurl,
   undmg,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "xbar";
   version = "2.1.7-beta";
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   sourceRoot = "xbar.app";
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   installPhase = ''
     runHook preInstall
@@ -30,9 +29,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = {
     description = "Put the output from any script or program into your macOS Menu Bar (the BitBar reboot)";
     homepage = "https://xbarapp.com/";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     platforms = lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ r17x ];
+    maintainers = with lib.maintainers; [r17x];
     license = lib.licenses.mit;
   };
 })

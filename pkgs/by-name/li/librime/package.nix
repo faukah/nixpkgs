@@ -18,9 +18,7 @@
     librime-lua
     librime-octagram
   ],
-}:
-
-let
+}: let
   copySinglePlugin = plug: "cp -r ${plug} plugins/${plug.name}";
   copyPlugins = ''
     mkdir -p plugins
@@ -28,40 +26,42 @@ let
     chmod +w -R plugins/*
   '';
 in
-stdenv.mkDerivation rec {
-  pname = "librime";
-  version = "1.13.1";
+  stdenv.mkDerivation rec {
+    pname = "librime";
+    version = "1.13.1";
 
-  src = fetchFromGitHub {
-    owner = "rime";
-    repo = "librime";
-    rev = version;
-    sha256 = "sha256-pv1I/YFzPLOmBDcT4HcrJWSikPEErEB5UzGrGqfJBvg=";
-  };
+    src = fetchFromGitHub {
+      owner = "rime";
+      repo = "librime";
+      rev = version;
+      sha256 = "sha256-pv1I/YFzPLOmBDcT4HcrJWSikPEErEB5UzGrGqfJBvg=";
+    };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+    ];
 
-  buildInputs = [
-    boost
-    glog
-    leveldb
-    marisa
-    opencc
-    yaml-cpp
-    gtest
-    capnproto
-  ] ++ plugins; # for propagated build inputs
+    buildInputs =
+      [
+        boost
+        glog
+        leveldb
+        marisa
+        opencc
+        yaml-cpp
+        gtest
+        capnproto
+      ]
+      ++ plugins; # for propagated build inputs
 
-  preConfigure = copyPlugins;
+    preConfigure = copyPlugins;
 
-  meta = with lib; {
-    homepage = "https://rime.im/";
-    description = "Rime Input Method Engine, the core library";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [ vonfry ];
-    platforms = platforms.linux ++ platforms.darwin;
-  };
-}
+    meta = with lib; {
+      homepage = "https://rime.im/";
+      description = "Rime Input Method Engine, the core library";
+      license = licenses.bsd3;
+      maintainers = with maintainers; [vonfry];
+      platforms = platforms.linux ++ platforms.darwin;
+    };
+  }

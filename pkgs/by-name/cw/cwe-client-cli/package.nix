@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage rec {
     rev = "v${version}";
     hash = "sha256-3ehzERWV0/hV0Suy9LtCcp+xmaD13Chgu4a0gPT7cHs=";
   };
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     dbus
@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     description = "Simple command line client for CWE";
     homepage = "https://github.com/NotBalds/cwe-client-cli";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ tbwanderer ];
+    maintainers = with lib.maintainers; [tbwanderer];
     mainProgram = "cwe-client-cli";
     platforms = lib.platforms.linux;
   };

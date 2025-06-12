@@ -25,7 +25,6 @@
   dbus,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "eloquent";
   version = "1.2";
@@ -87,13 +86,13 @@ stdenv.mkDerivation (finalAttrs: {
     )
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Proofreading software for English, Spanish, French, German, and more than 20 other languages";
     homepage = "https://github.com/sonnyp/eloquent";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ thtrf ];
+    maintainers = with lib.maintainers; [thtrf];
     mainProgram = "eloquent";
     platforms = lib.platforms.linux;
   };

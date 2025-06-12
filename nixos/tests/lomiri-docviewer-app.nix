@@ -1,43 +1,42 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   exampleText = "Lorem ipsum dolor sit amet";
-in
-{
+in {
   name = "lomiri-docviewer-app-standalone";
   meta.maintainers = lib.teams.lomiri.members;
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      imports = [ ./common/x11.nix ];
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [./common/x11.nix];
 
-      services.xserver.enable = true;
+    services.xserver.enable = true;
 
-      environment = {
-        etc."docviewer-sampletext.txt".text = exampleText;
-        systemPackages =
-          with pkgs;
-          [
-            libreoffice # txt -> odf to test LibreOfficeKit integration
-          ]
-          ++ (with pkgs.lomiri; [
-            suru-icon-theme
-            lomiri-docviewer-app
-          ]);
-        variables = {
-          UITK_ICON_THEME = "suru";
-        };
-      };
-
-      i18n.supportedLocales = [ "all" ];
-
-      fonts = {
-        packages = with pkgs; [
-          # Intended font & helps with OCR
-          ubuntu-classic
-        ];
+    environment = {
+      etc."docviewer-sampletext.txt".text = exampleText;
+      systemPackages = with pkgs;
+        [
+          libreoffice # txt -> odf to test LibreOfficeKit integration
+        ]
+        ++ (with pkgs.lomiri; [
+          suru-icon-theme
+          lomiri-docviewer-app
+        ]);
+      variables = {
+        UITK_ICON_THEME = "suru";
       };
     };
+
+    i18n.supportedLocales = ["all"];
+
+    fonts = {
+      packages = with pkgs; [
+        # Intended font & helps with OCR
+        ubuntu-classic
+      ];
+    };
+  };
 
   enableOCR = true;
 

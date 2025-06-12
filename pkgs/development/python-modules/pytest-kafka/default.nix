@@ -7,7 +7,6 @@
   port-for,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-kafka";
   version = "0.8.1";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-OR8SpNswbPOVtAcFuZgrZJR5K6wPb1TS5leybKWr3zY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     kafka-python-ng
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     pytest
   ];
 
-  pythonImportsCheck = [ "pytest_kafka" ];
+  pythonImportsCheck = ["pytest_kafka"];
 
   # Tests depends on a kafka server running
   doCheck = false;
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "Pytest fixture factories for Zookeeper, Kafka server and Kafka consumer";
     homepage = "https://gitlab.com/karolinepauls/pytest-kafka";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

@@ -3,14 +3,11 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   imcfg = config.i18n.inputMethod;
   cfg = imcfg.uim;
-in
-{
+in {
   options = {
-
     i18n.inputMethod.uim = {
       toolbar = lib.mkOption {
         type = lib.types.enum [
@@ -27,7 +24,6 @@ in
         '';
       };
     };
-
   };
 
   config = lib.mkIf (imcfg.enable && imcfg.type == "uim") {

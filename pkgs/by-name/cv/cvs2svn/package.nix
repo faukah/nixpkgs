@@ -9,7 +9,6 @@
   breezy,
   installShellFiles,
 }:
-
 pypy2Packages.buildPythonApplication rec {
   pname = "cvs2svn";
   version = "2.5.0";
@@ -37,7 +36,7 @@ pypy2Packages.buildPythonApplication rec {
   postInstall = ''
     for i in bzr svn git; do
       wrapProgram $out/bin/cvs2$i \
-          --prefix PATH : "${lib.makeBinPath [ cvs ]}"
+          --prefix PATH : "${lib.makeBinPath [cvs]}"
       $out/bin/cvs2$i --man > csv2$i.1
       installManPage csv2$i.1
     done

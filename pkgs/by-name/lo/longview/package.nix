@@ -7,7 +7,6 @@
   makeWrapper,
   glibc,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.1.5";
   pname = "longview";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
         --replace /etc/linode /run/longview
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs =
     [
       perl
@@ -75,7 +74,7 @@ stdenv.mkDerivation rec {
     description = "Collects all of your system-level metrics and sends them to Linode";
     mainProgram = "longview";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.rvl ];
+    maintainers = [maintainers.rvl];
     inherit version;
     platforms = [
       "x86_64-linux"

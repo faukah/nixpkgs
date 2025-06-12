@@ -8,7 +8,6 @@
   pytz,
   tzlocal,
 }:
-
 buildPythonPackage rec {
   pname = "delorean";
   version = "1.0.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     tzlocal
   ];
 
-  pythonImportsCheck = [ "delorean" ];
+  pythonImportsCheck = ["delorean"];
 
   # test data not included
   doCheck = false;
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "Delorean: Time Travel Made Easy";
     homepage = "https://github.com/myusuf3/delorean";
     license = licenses.mit;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
   };
 }

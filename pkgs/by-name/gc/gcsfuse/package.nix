@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "gcsfuse";
   version = "2.12.2";
@@ -29,15 +28,13 @@ buildGoModule rec {
     "-X main.gcsfuseVersion=${version}"
   ];
 
-  checkFlags =
-    let
-      skippedTests = [
-        # Disable flaky tests
-        "Test_Main"
-        "TestFlags"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    skippedTests = [
+      # Disable flaky tests
+      "Test_Main"
+      "TestFlags"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   postInstall = ''
     ln -s $out/bin/mount_gcsfuse $out/bin/mount.gcsfuse
@@ -49,7 +46,7 @@ buildGoModule rec {
     homepage = "https://cloud.google.com/storage/docs/gcs-fuse";
     changelog = "https://github.com/GoogleCloudPlatform/gcsfuse/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     # internal/cache/file/downloader/job.go:386:77: undefined: syscall.O_DIRECT
     broken = stdenv.hostPlatform.isDarwin;
   };

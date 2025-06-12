@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.rsnapshot;
   cfgfile = pkgs.writeText "rsnapshot.conf" ''
     config_version	1.2
@@ -20,8 +19,7 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   options = {
     services.rsnapshot = {
       enable = lib.mkEnableOption "rsnapshot backups";
@@ -52,7 +50,7 @@ in
       };
 
       cronIntervals = lib.mkOption {
-        default = { };
+        default = {};
         example = {
           hourly = "0 * * * *";
           daily = "50 21 * * *";
@@ -70,12 +68,14 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       {
-        services.cron.systemCronJobs = lib.mapAttrsToList (
-          interval: time: "${time} root ${pkgs.rsnapshot}/bin/rsnapshot -c ${cfgfile} ${interval}"
-        ) cfg.cronIntervals;
+        services.cron.systemCronJobs =
+          lib.mapAttrsToList (
+            interval: time: "${time} root ${pkgs.rsnapshot}/bin/rsnapshot -c ${cfgfile} ${interval}"
+          )
+          cfg.cronIntervals;
       }
       (lib.mkIf cfg.enableManualRsnapshot {
-        environment.systemPackages = [ pkgs.rsnapshot ];
+        environment.systemPackages = [pkgs.rsnapshot];
         environment.etc."rsnapshot.conf".source = cfgfile;
       })
     ]

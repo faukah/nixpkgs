@@ -11,7 +11,6 @@
   mpg123,
   qtbase,
 }:
-
 mkDerivation rec {
   pname = "qtads";
   version = "3.4.0";
@@ -43,6 +42,6 @@ mkDerivation rec {
     mainProgram = "qtads";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

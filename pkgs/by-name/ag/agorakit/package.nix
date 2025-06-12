@@ -4,7 +4,6 @@
   php82,
   dataDir ? "/var/lib/agorakit",
 }:
-
 php82.buildComposerProject2 (finalAttrs: {
   pname = "agorakit";
   version = "1.9.3";
@@ -35,6 +34,6 @@ php82.buildComposerProject2 (finalAttrs: {
     homepage = "https://github.com/agorakit/agorakit";
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ shogo ];
+    maintainers = with lib.maintainers; [shogo];
   };
 })

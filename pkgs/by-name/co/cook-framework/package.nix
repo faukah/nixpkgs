@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gitUpdater,
 }:
-
 buildGoModule rec {
   pname = "cook-framework";
   version = "2.2.1";
@@ -22,7 +21,7 @@ buildGoModule rec {
 
   doCheck = false; # uses network to fetch data sources
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "Wordlist generator, splitter, merger, finder, saver for security researchers, bug bounty and hackers";
@@ -30,6 +29,6 @@ buildGoModule rec {
     changelog = "https://github.com/glitchedgitz/cook/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = "cook";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

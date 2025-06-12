@@ -17,7 +17,6 @@
   ppx_optcomp,
   gitUpdater,
 }:
-
 buildDunePackage rec {
   pname = "earlybird";
   version = "1.3.3";
@@ -31,7 +30,7 @@ buildDunePackage rec {
     hash = "sha256-TzRJ+0I3VEx4Lvj3lhN9POzlXRgmTTdD5Bg1AX0pf3c=";
   };
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
 
   buildInputs = [
     cmdliner
@@ -48,12 +47,12 @@ buildDunePackage rec {
     ppx_optcomp
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://github.com/hackwaly/ocamlearlybird";
     description = "OCaml debug adapter";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
   };
 }

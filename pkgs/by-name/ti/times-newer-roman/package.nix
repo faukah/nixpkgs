@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "times-newer-roman";
   version = "unstable-2018-09-11";
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation {
     description = "Font that looks just like Times New Roman, except each character is 5-10% wider";
     homepage = "https://timesnewerroman.com/";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

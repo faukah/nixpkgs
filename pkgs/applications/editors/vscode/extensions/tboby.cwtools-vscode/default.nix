@@ -14,6 +14,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=tboby.cwtools-vscode";
     homepage = "https://github.com/cwtools/cwtools-vscode";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.therobot2105 ];
+    maintainers = [lib.maintainers.therobot2105];
   };
 }

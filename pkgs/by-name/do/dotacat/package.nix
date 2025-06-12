@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitLab,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "dotacat";
   version = "v0.3.0";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage {
     description = "Like lolcat, but fast";
     homepage = "https://gitlab.scd31.com/stephen/dotacat";
     license = licenses.mit;
-    maintainers = with maintainers; [ traxys ];
+    maintainers = with maintainers; [traxys];
     mainProgram = "dotacat";
   };
 }

@@ -19,7 +19,6 @@
   gtk3,
   xdg-utils,
 }:
-
 stdenv.mkDerivation {
   pname = "filezilla";
   version = "3.68.1";
@@ -70,6 +69,6 @@ stdenv.mkDerivation {
     '';
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

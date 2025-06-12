@@ -19,7 +19,6 @@
   wrapGAppsHook3,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eom";
   version = "1.28.0";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Image viewing and cataloging program for the MATE desktop";
@@ -60,6 +59,6 @@ stdenv.mkDerivation rec {
     homepage = "https://mate-desktop.org";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

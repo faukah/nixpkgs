@@ -1,9 +1,9 @@
-{ callPackage, fetchpatch }:
-
-let
-  common = callPackage ./common.nix { };
-in
 {
+  callPackage,
+  fetchpatch,
+}: let
+  common = callPackage ./common.nix {};
+in {
   mir = common {
     version = "2.20.2";
     hash = "sha256-kxXPRIvgvpWqos8l/fJyHvfJBNi0jOZfV5inY3SBavM=";

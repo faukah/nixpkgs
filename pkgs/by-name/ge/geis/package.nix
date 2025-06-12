@@ -19,7 +19,6 @@
   testers,
   validatePkgConfig,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "geis";
   version = "2.2.17";
@@ -31,9 +30,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=misleading-indentation -Wno-error=pointer-compare";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  pythonPath = with python3Packages; [ pygobject3 ];
+  pythonPath = with python3Packages; [pygobject3];
 
   nativeBuildInputs = [
     pkg-config
@@ -84,6 +83,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://launchpad.net/geis";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    pkgConfigModules = [ "libgeis" ];
+    pkgConfigModules = ["libgeis"];
   };
 })

@@ -9,7 +9,6 @@
   testers,
   vfkit,
 }:
-
 buildGoModule rec {
   pname = "vfkit";
   version = "0.6.1";
@@ -23,7 +22,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-YvrcEPyAvuECUVgQoHKveMoFOeh4M3k5ngsP2w46+vY=";
 
-  subPackages = [ "cmd/vfkit" ];
+  subPackages = ["cmd/vfkit"];
 
   ldflags = [
     "-s"
@@ -44,10 +43,10 @@ buildGoModule rec {
   '';
 
   passthru.tests = {
-    version = testers.testVersion { package = vfkit; };
+    version = testers.testVersion {package = vfkit;};
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple command line tool to start VMs through the macOS Virtualization framework";
@@ -59,7 +58,7 @@ buildGoModule rec {
       phaer
     ];
     platforms = lib.platforms.darwin;
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
     mainProgram = "vfkit";
   };
 }

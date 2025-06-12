@@ -4,7 +4,6 @@
   lib,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "tanka";
   version = "0.32.0";
@@ -22,7 +21,7 @@ buildGoModule rec {
   # Required for versions >= 0.28 as they introduce a gowork.sum file. This is only used for tests so we can safely disable GOWORK
   env.GOWORK = "off";
 
-  subPackages = [ "cmd/tk" ];
+  subPackages = ["cmd/tk"];
 
   ldflags = [
     "-s"
@@ -31,7 +30,7 @@ buildGoModule rec {
     "-X github.com/grafana/tanka/pkg/tanka.CurrentVersion=v${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     echo "complete -C $out/bin/tk tk" > tk.bash
@@ -65,7 +64,7 @@ buildGoModule rec {
     description = "Flexible, reusable and concise configuration for Kubernetes";
     homepage = "https://tanka.dev";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mikefaille ];
+    maintainers = with maintainers; [mikefaille];
     mainProgram = "tk";
   };
 }

@@ -7,7 +7,6 @@
   bzip2,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-make";
   version = "0.37.24";

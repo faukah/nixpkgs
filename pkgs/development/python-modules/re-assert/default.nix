@@ -6,7 +6,6 @@
   regex,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "re-assert";
   version = "1.1.0";
@@ -19,13 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-UTXFTD3QOKIzjq05J9Ontv5h9aClOwlPYKFXfDnBWuc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ regex ];
+  dependencies = [regex];
 
-  pythonImportsCheck = [ "re_assert" ];
+  pythonImportsCheck = ["re_assert"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Show where your regex match assertion failed";

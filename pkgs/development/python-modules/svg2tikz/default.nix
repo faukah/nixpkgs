@@ -7,7 +7,6 @@
   lxml,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "svg2tikz";
   version = "3.3.2";
@@ -35,9 +34,9 @@ buildPythonPackage rec {
     "lxml"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "svg2tikz" ];
+  pythonImportsCheck = ["svg2tikz"];
 
   meta = {
     changelog = "https://github.com/xyz2tex/svg2tikz/blob/${src.tag}/CHANGELOG.md";

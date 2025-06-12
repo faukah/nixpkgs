@@ -22,7 +22,6 @@
   stdlib-shims,
   git-binary, # pkgs.git
 }:
-
 buildDunePackage {
   pname = "carton-lwt";
 

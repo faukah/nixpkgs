@@ -24,7 +24,6 @@
   qt6, # withQcam
   libtiff, # withQcam
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcamera";
   version = "0.5.0";
@@ -86,27 +85,29 @@ stdenv.mkDerivation rec {
 
       gtest
     ]
-    ++ lib.optionals stdenv.hostPlatform.isAarch [ libpisp ]
-    ++ lib.optionals withTracing [ lttng-ust ]
+    ++ lib.optionals stdenv.hostPlatform.isAarch [libpisp]
+    ++ lib.optionals withTracing [lttng-ust]
     ++ lib.optionals withQcam [
       libtiff
       qt6.qtbase
       qt6.qttools
     ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    python3Packages.jinja2
-    python3Packages.pyyaml
-    python3Packages.ply
-    python3Packages.sphinx
-    graphviz
-    doxygen
-    openssl
-  ] ++ lib.optional withQcam qt6.wrapQtAppsHook;
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      python3
+      python3Packages.jinja2
+      python3Packages.pyyaml
+      python3Packages.ply
+      python3Packages.sphinx
+      graphviz
+      doxygen
+      openssl
+    ]
+    ++ lib.optional withQcam qt6.wrapQtAppsHook;
 
   mesonFlags = [
     "-Dv4l2=true"
@@ -126,14 +127,14 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
 
   # Silence fontconfig warnings about missing config
-  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ ]; };
+  FONTCONFIG_FILE = makeFontsConf {fontDirectories = [];};
 
   meta = with lib; {
     description = "Open source camera stack and framework for Linux, Android, and ChromeOS";
     homepage = "https://libcamera.org";
     changelog = "https://git.libcamera.org/libcamera/libcamera.git/tag/?h=${src.rev}";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ citadelcore ];
+    maintainers = with maintainers; [citadelcore];
     platforms = platforms.linux;
     badPlatforms = [
       # Mandatory shared libraries.

@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
   tomli,
-
   # dependencies
   fastapi,
   httpx,
@@ -17,14 +15,12 @@
   rich,
   typer,
   uvicorn,
-
   # tests
   coverage,
   pytest-asyncio,
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fastapi-mcp";
   version = "0.3.4";
@@ -55,7 +51,7 @@ buildPythonPackage rec {
     uvicorn
   ];
 
-  pythonImportsCheck = [ "fastapi_mcp" ];
+  pythonImportsCheck = ["fastapi_mcp"];
 
   nativeCheckInputs = [
     coverage
@@ -71,6 +67,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tadata-org/fastapi_mcp";
     changelog = "https://github.com/tadata-org/fastapi_mcp/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

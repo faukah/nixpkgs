@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   version = "0.4.0";
   pname = "undervolt";
@@ -27,6 +26,6 @@ python3Packages.buildPythonApplication rec {
       target (CPU will throttle when this temperature is reached).
     '';
     license = licenses.gpl2Only;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

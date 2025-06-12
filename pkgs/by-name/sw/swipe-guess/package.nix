@@ -3,7 +3,6 @@
   stdenv,
   fetchFromSourcehut,
 }:
-
 stdenv.mkDerivation rec {
   pname = "swipe-guess";
   version = "0.2.1";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://git.sr.ht/~earboxer/swipeGuess/";
     license = lib.licenses.agpl3Only;
     mainProgram = "swipeGuess";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 }

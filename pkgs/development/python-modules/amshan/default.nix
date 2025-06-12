@@ -8,7 +8,6 @@
   pyserial-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "amshan";
   version = "2.1.1";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "han" ];
+  pythonImportsCheck = ["han"];
 
   # 2021.12.1 is an older version
   passthru.skipBulkUpdate = true;
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/toreamun/amshan";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bjornfor ];
+    maintainers = with lib.maintainers; [bjornfor];
   };
 }

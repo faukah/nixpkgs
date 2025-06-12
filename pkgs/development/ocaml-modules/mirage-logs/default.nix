@@ -10,7 +10,6 @@
   lwt,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "mirage-logs";
   version = "2.1.0";
@@ -40,6 +39,6 @@ buildDunePackage rec {
     description = "Reporter for the Logs library that writes log messages to stderr, using a Mirage `CLOCK` to add timestamps";
     homepage = "https://github.com/mirage/mirage-logs";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

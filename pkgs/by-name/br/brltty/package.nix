@@ -17,7 +17,6 @@
   systemd,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "brltty";
   version = "6.7";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://brltty.app";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.bramd ];
+    maintainers = [lib.maintainers.bramd];
     platforms = lib.platforms.all;
   };
 

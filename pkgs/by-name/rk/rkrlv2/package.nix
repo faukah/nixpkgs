@@ -12,7 +12,6 @@
   libsamplerate,
   libsndfile,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rkrlv2";
   version = "beta_3";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "Rakarrak effects ported to LV2";
     homepage = "https://github.com/ssj71/rkrlv2";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.joelmo ];
+    maintainers = [maintainers.joelmo];
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isAarch64; # g++: error: unrecognized command line option '-mfpmath=sse'
   };

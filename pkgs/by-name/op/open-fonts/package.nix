@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "open-fonts";
   version = "0.7.0";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/kiwi0fruit/open-fonts";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
   };
 }

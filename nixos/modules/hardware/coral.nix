@@ -3,19 +3,16 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkMerge
     ;
 
   cfg = config.hardware.coral;
-in
-
-{
+in {
   options.hardware.coral = {
     usb.enable = mkEnableOption "Coral USB support";
     pcie.enable = mkEnableOption "Coral PCIe support";
@@ -23,13 +20,13 @@ in
 
   config = mkMerge [
     (mkIf (cfg.usb.enable || cfg.pcie.enable) {
-      users.groups.coral = { };
+      users.groups.coral = {};
     })
     (mkIf cfg.usb.enable {
-      services.udev.packages = with pkgs; [ libedgetpu ];
+      services.udev.packages = with pkgs; [libedgetpu];
     })
     (mkIf cfg.pcie.enable {
-      boot.extraModulePackages = with config.boot.kernelPackages; [ gasket ];
+      boot.extraModulePackages = with config.boot.kernelPackages; [gasket];
       services.udev.extraRules = ''
         SUBSYSTEM=="apex",MODE="0660",GROUP="coral"
       '';

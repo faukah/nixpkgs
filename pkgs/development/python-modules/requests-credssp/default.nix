@@ -8,7 +8,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "requests-credssp";
   version = "2.0.0";
@@ -29,18 +28,18 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   optional-dependencies = {
     kerberos = pyspnego.optional-dependencies.kerberos;
   };
 
-  pythonImportsCheck = [ "requests_credssp" ];
+  pythonImportsCheck = ["requests_credssp"];
 
   meta = with lib; {
     description = "HTTPS CredSSP authentication with the requests library";
     homepage = "https://github.com/jborean93/requests-credssp";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -1,7 +1,6 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "broadcast-box";
-  meta = { inherit (pkgs.broadcast-box.meta) maintainers; };
+  meta = {inherit (pkgs.broadcast-box.meta) maintainers;};
 
   nodes.machine = {
     services.broadcast-box = {

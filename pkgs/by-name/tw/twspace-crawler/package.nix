@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "twspace-crawler";
   version = "1.12.9";
@@ -22,7 +21,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/HitomaruKonpaku/twspace-crawler";
     changelog = "https://github.com/HitomaruKonpaku/twspace-crawler/blob/${src.rev}/CHANGELOG.md";
     license = licenses.isc;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "twspace-crawler";
   };
 }

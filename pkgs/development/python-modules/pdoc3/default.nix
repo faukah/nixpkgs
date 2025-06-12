@@ -9,7 +9,6 @@
   setuptools-scm,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pdoc3";
   version = "0.11.1";
@@ -33,9 +32,9 @@ buildPythonPackage rec {
     markdown
   ];
 
-  pythonImportsCheck = [ "pdoc" ];
+  pythonImportsCheck = ["pdoc"];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   meta = {
     changelog = "https://github.com/pdoc3/pdoc/blob/${src.rev}/CHANGELOG";
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://pdoc3.github.io/pdoc/";
     license = lib.licenses.agpl3Plus;
     mainProgram = "pdoc";
-    maintainers = with lib.maintainers; [ catern ];
+    maintainers = with lib.maintainers; [catern];
   };
 }

@@ -14,7 +14,6 @@
   gobject-introspection,
   vala,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtk-layer-shell";
   version = "0.9.1";

@@ -6,9 +6,7 @@
   appimageTools,
   makeWrapper,
   nativeWayland ? false,
-}:
-
-let
+}: let
   pname = "osu-lazer-bin";
   version = "2025.607.0";
 
@@ -29,7 +27,9 @@ let
         hash = "sha256-jG3KedllnVNd5TLSkKYae2V8CzN90g5lJhT4EKI+nuk=";
       };
     }
-    .${stdenvNoCC.system} or (throw "osu-lazer-bin: ${stdenvNoCC.system} is unsupported.");
+    .${
+      stdenvNoCC.system
+    } or (throw "osu-lazer-bin: ${stdenvNoCC.system} is unsupported.");
 
   meta = {
     description = "Rhythm is just a *click* away (AppImage version for score submission and multiplayer, and binary distribution for Darwin systems)";
@@ -39,7 +39,7 @@ let
       cc-by-nc-40
       unfreeRedistributable # osu-framework contains libbass.so in repository
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     maintainers = with lib.maintainers; [
       gepbird
       stepbrobd
@@ -55,41 +55,40 @@ let
 
   passthru.updateScript = ./update.sh;
 in
-if stdenvNoCC.hostPlatform.isDarwin then
-  stdenvNoCC.mkDerivation {
-    inherit
-      pname
-      version
-      src
-      meta
-      passthru
-      ;
+  if stdenvNoCC.hostPlatform.isDarwin
+  then
+    stdenvNoCC.mkDerivation {
+      inherit
+        pname
+        version
+        src
+        meta
+        passthru
+        ;
 
-    installPhase = ''
-      runHook preInstall
-      APP_DIR="$out/Applications"
-      mkdir -p "$APP_DIR"
-      cp -r . "$APP_DIR"
-      runHook postInstall
-    '';
-  }
-else
-  appimageTools.wrapType2 {
-    inherit
-      pname
-      version
-      src
-      meta
-      passthru
-      ;
+      installPhase = ''
+        runHook preInstall
+        APP_DIR="$out/Applications"
+        mkdir -p "$APP_DIR"
+        cp -r . "$APP_DIR"
+        runHook postInstall
+      '';
+    }
+  else
+    appimageTools.wrapType2 {
+      inherit
+        pname
+        version
+        src
+        meta
+        passthru
+        ;
 
-    extraPkgs = pkgs: with pkgs; [ icu ];
+      extraPkgs = pkgs: with pkgs; [icu];
 
-    extraInstallCommands =
-      let
-        contents = appimageTools.extract { inherit pname version src; };
-      in
-      ''
+      extraInstallCommands = let
+        contents = appimageTools.extract {inherit pname version src;};
+      in ''
         . ${makeWrapper}/nix-support/setup-hook
         mv -v $out/bin/${pname} $out/bin/osu!
 
@@ -102,4 +101,4 @@ else
           install -D ${contents}/osu.png $out/share/icons/hicolor/''${i}x$i/apps/osu.png
         done
       '';
-  }
+    }

@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "pyqrcode";
   version = "1.2.1";
@@ -21,6 +20,6 @@ buildPythonPackage rec {
     description = "QR code generator written purely in Python with SVG, EPS, PNG and terminal output";
     homepage = "https://github.com/mnooner256/pyqrcode";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

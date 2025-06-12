@@ -4,7 +4,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pg_ed25519";
   version = "0.2";
@@ -19,7 +18,7 @@ postgresqlBuildExtension (finalAttrs: {
   meta = {
     description = "PostgreSQL extension for signing and verifying ed25519 signatures";
     homepage = "https://gitlab.com/dwagin/pg_ed25519";
-    maintainers = with lib.maintainers; [ renzo ];
+    maintainers = with lib.maintainers; [renzo];
     platforms = postgresql.meta.platforms;
     license = lib.licenses.mit;
     # Broken with no upstream fix available.

@@ -6,7 +6,6 @@
   pkg-config,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tuxmux";
   version = "0.2.3";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ceEF9ySxcU9vVZdNIogSiHbN/xYjudAoohy7jyeKrBU=";
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
   nativeBuildInputs = [
     pkg-config
     installShellFiles
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     description = "Tmux session manager";
     homepage = "https://github.com/edeneast/tuxmux";
     license = licenses.asl20;
-    maintainers = with maintainers; [ edeneast ];
+    maintainers = with maintainers; [edeneast];
     mainProgram = "tux";
   };
 }

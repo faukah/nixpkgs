@@ -36,10 +36,8 @@
   withEditor ? true,
   wxGTK,
 }:
-
 # You can find more instructions on how to build 0ad here:
 #    https://trac.wildfiregames.com/wiki/BuildInstructions
-
 stdenv.mkDerivation rec {
   pname = "0ad";
   version = "0.27.0";
@@ -55,36 +53,38 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    spidermonkey_115
-    boost
-    icu
-    libxml2
-    libpng
-    libjpeg
-    zlib
-    curl
-    libogg
-    libvorbis
-    enet
-    miniupnpc
-    openal
-    libidn
-    libGLU
-    libGL
-    xorgproto
-    libX11
-    libXcursor
-    nspr
-    SDL2
-    gloox
-    nvidia-texture-tools
-    libsodium
-    fmt
-    freetype
-    premake5
-    cxxtest
-  ] ++ lib.optional withEditor wxGTK;
+  buildInputs =
+    [
+      spidermonkey_115
+      boost
+      icu
+      libxml2
+      libpng
+      libjpeg
+      zlib
+      curl
+      libogg
+      libvorbis
+      enet
+      miniupnpc
+      openal
+      libidn
+      libGLU
+      libGL
+      xorgproto
+      libX11
+      libXcursor
+      nspr
+      SDL2
+      gloox
+      nvidia-texture-tools
+      libsodium
+      fmt
+      freetype
+      premake5
+      cxxtest
+    ]
+    ++ lib.optional withEditor wxGTK;
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${xorgproto}/include"
@@ -171,7 +171,7 @@ stdenv.mkDerivation rec {
       cc-by-sa-30
       licenses.zlib # otherwise masked by pkgs.zlib
     ];
-    maintainers = with maintainers; [ chvp ];
+    maintainers = with maintainers; [chvp];
     platforms = subtractLists platforms.i686 platforms.linux;
     mainProgram = "0ad";
   };

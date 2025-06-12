@@ -23,7 +23,7 @@ buildGoModule rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -31,7 +31,7 @@ buildGoModule rec {
     homepage = "https://github.com/d-Rickyy-b/certstream-server-go";
     changelog = "https://github.com/d-Rickyy-b/certstream-server-go/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ x123 ];
+    maintainers = with lib.maintainers; [x123];
     mainProgram = "certstream-server-go";
   };
 }

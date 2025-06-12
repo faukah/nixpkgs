@@ -12,7 +12,6 @@
   libva,
   addDriverRunpath,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nvidia-vaapi-driver";
   version = "0.0.14";
@@ -53,6 +52,6 @@ stdenv.mkDerivation rec {
     description = "VA-API implemention using NVIDIA's NVDEC";
     changelog = "https://github.com/elFarto/nvidia-vaapi-driver/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

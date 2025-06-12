@@ -6,7 +6,6 @@
   makeWrapper,
   nasm,
 }:
-
 stdenv.mkDerivation {
   pname = "rappel";
   version = "0-unstable-2024-03-07";
@@ -18,9 +17,9 @@ stdenv.mkDerivation {
     hash = "sha256-EnHNwasET3EdYjOQtvg4SDC9cWIA7RKP6xox3Ux9oRk=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ libedit ];
+  buildInputs = [libedit];
 
   installPhase = ''
     runHook preInstall
@@ -36,7 +35,7 @@ stdenv.mkDerivation {
     description = "Pretty janky assembly REPL";
     mainProgram = "rappel";
     license = lib.licenses.bsdOriginal;
-    maintainers = [ lib.maintainers.pamplemousse ];
+    maintainers = [lib.maintainers.pamplemousse];
     platforms = lib.platforms.linux;
   };
 }

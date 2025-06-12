@@ -6,7 +6,6 @@
   hypothesis,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "zstandard";
   version = "0.23.0";
@@ -19,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-stjGLQjnJV9o96dAuuhbPJuOVGa6qcv39X8c3grGvAk=";
   };
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
-  nativeCheckInputs = [ hypothesis ];
+  nativeCheckInputs = [hypothesis];
 
-  pythonImportsCheck = [ "zstandard" ];
+  pythonImportsCheck = ["zstandard"];
 
   meta = with lib; {
     description = "zstandard bindings for Python";
     homepage = "https://github.com/indygreg/python-zstandard";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ arnoldfarkas ];
+    maintainers = with maintainers; [arnoldfarkas];
   };
 }

@@ -24,16 +24,17 @@
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
   withDocs ? withIntrospection,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dconf";
   version = "0.40.0";
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-  ] ++ lib.optional withDocs "devdoc";
+  outputs =
+    [
+      "out"
+      "lib"
+      "dev"
+    ]
+    ++ lib.optional withDocs "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
@@ -90,7 +91,7 @@ stdenv.mkDerivation rec {
       packageName = pname;
       versionPolicy = "odd-unstable";
     };
-    tests = { inherit (nixosTests) dconf; };
+    tests = {inherit (nixosTests) dconf;};
   };
 
   meta = with lib; {
@@ -101,7 +102,7 @@ stdenv.mkDerivation rec {
       # Mandatory libdconfsettings shared library.
       lib.systems.inspect.platformPatterns.isStatic
     ];
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     mainProgram = "dconf";
   };
 }

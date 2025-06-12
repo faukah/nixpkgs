@@ -13,15 +13,14 @@
   kirigami2,
   kquickcharts,
 }:
-
 mkDerivation {
   pname = "filelight";
   meta = {
     description = "Disk usage statistics";
     mainProgram = "filelight";
     homepage = "https://apps.kde.org/filelight/";
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = with lib.maintainers; [ vcunat ];
+    license = with lib.licenses; [gpl2];
+    maintainers = with lib.maintainers; [vcunat];
   };
   nativeBuildInputs = [
     extra-cmake-modules

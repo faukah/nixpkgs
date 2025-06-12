@@ -28,7 +28,6 @@
   which,
   zlib,
 }:
-
 # We need to keep around at least the latest version released with a stable
 # NixOS
 let
@@ -52,19 +51,16 @@ let
     libffi
   ];
 
-  binaryUrl =
-    version: rel:
-    if arch == archs.aarch64-linux then
-      "https://dev.alpinelinux.org/archive/crystal/crystal-${version}-aarch64-alpine-linux-musl.tar.gz"
-    else
-      "https://github.com/crystal-lang/crystal/releases/download/${version}/crystal-${version}-${toString rel}-${arch}.tar.gz";
+  binaryUrl = version: rel:
+    if arch == archs.aarch64-linux
+    then "https://dev.alpinelinux.org/archive/crystal/crystal-${version}-aarch64-alpine-linux-musl.tar.gz"
+    else "https://github.com/crystal-lang/crystal/releases/download/${version}/crystal-${version}-${toString rel}-${arch}.tar.gz";
 
-  genericBinary =
-    {
-      version,
-      sha256s,
-      rel ? 1,
-    }:
+  genericBinary = {
+    version,
+    sha256s,
+    rel ? 1,
+  }:
     stdenv.mkDerivation rec {
       pname = "crystal-binary";
       inherit version;
@@ -83,20 +79,19 @@ let
       meta.platforms = lib.attrNames sha256s;
     };
 
-  generic =
-    {
-      version,
-      sha256,
-      binary,
-      llvmPackages,
-      doCheck ? true,
-      extraBuildInputs ? [ ],
-      buildFlags ? [
-        "all"
-        "docs"
-        "release=1"
-      ],
-    }:
+  generic = {
+    version,
+    sha256,
+    binary,
+    llvmPackages,
+    doCheck ? true,
+    extraBuildInputs ? [],
+    buildFlags ? [
+      "all"
+      "docs"
+      "release=1"
+    ],
+  }:
     stdenv.mkDerivation (finalAttrs: {
       pname = "crystal";
       inherit buildFlags doCheck version;
@@ -196,7 +191,7 @@ let
           openssl
         ]
         ++ extraBuildInputs
-        ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+        ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
       makeFlags = [
         "CRYSTAL_CONFIG_VERSION=${version}"
@@ -221,16 +216,16 @@ let
         install -Dm755 .build/crystal $bin/bin/crystal
         wrapProgram $bin/bin/crystal \
           --suffix PATH : ${
-            lib.makeBinPath [
-              pkg-config
-              llvmPackages.clang
-              which
-            ]
-          } \
+          lib.makeBinPath [
+            pkg-config
+            llvmPackages.clang
+            which
+          ]
+        } \
           --suffix CRYSTAL_PATH : lib:$lib/crystal \
           --suffix PKG_CONFIG_PATH : ${
-            lib.makeSearchPathOutput "dev" "lib/pkgconfig" finalAttrs.buildInputs
-          } \
+          lib.makeSearchPathOutput "dev" "lib/pkgconfig" finalAttrs.buildInputs
+        } \
           --suffix CRYSTAL_LIBRARY_PATH : ${lib.makeLibraryPath finalAttrs.buildInputs}
         install -dm755 $lib/crystal
         cp -r src/* $lib/crystal/
@@ -287,8 +282,7 @@ let
         ];
       };
     });
-in
-rec {
+in rec {
   binaryCrystal_1_10 = genericBinary {
     version = "1.10.1";
     sha256s = {

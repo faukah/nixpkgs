@@ -8,7 +8,6 @@
   wayland-protocols,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "havoc";
   version = "0.6.0";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontConfigure = true;
 
-  installFlags = [ "PREFIX=$$out" ];
+  installFlags = ["PREFIX=$$out"];
 
   postInstall = ''
     install -Dm 644 havoc.cfg -t $out/etc/havoc/
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
       publicDomain
     ];
     mainProgram = "havoc";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (wayland.meta) platforms;
     broken = stdenv.hostPlatform.isDarwin; # fatal error: 'sys/epoll.h' file not found
   };

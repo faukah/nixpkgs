@@ -13,7 +13,6 @@
   wrapGAppsHook3,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "vala-lint";
   version = "0-unstable-2024-08-28";
@@ -62,7 +61,7 @@ stdenv.mkDerivation {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.vala-lint";
   };
 }

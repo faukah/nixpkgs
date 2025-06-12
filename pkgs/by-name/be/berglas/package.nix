@@ -4,9 +4,7 @@
   fetchFromGitHub,
   testers,
   berglas,
-}:
-
-let
+}: let
   skipTests = {
     access = "Access";
     create = "Create";
@@ -20,11 +18,9 @@ let
   };
 
   skipTestsCommand = builtins.foldl' (
-    acc: goFileName:
-    let
+    acc: goFileName: let
       testName = builtins.getAttr goFileName skipTests;
-    in
-    ''
+    in ''
       ${acc}
       substituteInPlace pkg/berglas/${goFileName}_test.go \
         --replace "TestClient_${testName}_storage" "SkipClient_${testName}_storage" \
@@ -32,38 +28,37 @@ let
     ''
   ) "" (builtins.attrNames skipTests);
 in
+  buildGoModule rec {
+    pname = "berglas";
+    version = "2.0.8";
 
-buildGoModule rec {
-  pname = "berglas";
-  version = "2.0.8";
-
-  src = fetchFromGitHub {
-    owner = "GoogleCloudPlatform";
-    repo = "berglas";
-    rev = "v${version}";
-    sha256 = "sha256-gBZY/xj/T7UYQ5mnN6udpBKViE/RYz9tmbmYN+JqsBk=";
-  };
-
-  vendorHash = "sha256-NR4YoaJ5ztc7eokRexNzDBtAH7JM4vZH13K550KWFNM=";
-
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/GoogleCloudPlatform/berglas/v2/internal/version.version=${version}"
-  ];
-
-  postPatch = skipTestsCommand;
-
-  passthru.tests = {
-    version = testers.testVersion {
-      package = berglas;
+    src = fetchFromGitHub {
+      owner = "GoogleCloudPlatform";
+      repo = "berglas";
+      rev = "v${version}";
+      sha256 = "sha256-gBZY/xj/T7UYQ5mnN6udpBKViE/RYz9tmbmYN+JqsBk=";
     };
-  };
 
-  meta = with lib; {
-    description = "Tool for managing secrets on Google Cloud";
-    homepage = "https://github.com/GoogleCloudPlatform/berglas";
-    license = licenses.asl20;
-    mainProgram = "berglas";
-  };
-}
+    vendorHash = "sha256-NR4YoaJ5ztc7eokRexNzDBtAH7JM4vZH13K550KWFNM=";
+
+    ldflags = [
+      "-s"
+      "-w"
+      "-X github.com/GoogleCloudPlatform/berglas/v2/internal/version.version=${version}"
+    ];
+
+    postPatch = skipTestsCommand;
+
+    passthru.tests = {
+      version = testers.testVersion {
+        package = berglas;
+      };
+    };
+
+    meta = with lib; {
+      description = "Tool for managing secrets on Google Cloud";
+      homepage = "https://github.com/GoogleCloudPlatform/berglas";
+      license = licenses.asl20;
+      mainProgram = "berglas";
+    };
+  }

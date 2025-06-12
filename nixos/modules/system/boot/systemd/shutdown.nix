@@ -4,19 +4,17 @@
   utils,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.systemd.shutdownRamfs;
 
   ramfsContents = pkgs.writeText "shutdown-ramfs-contents.json" (builtins.toJSON cfg.storePaths);
-
-in
-{
+in {
   options.systemd.shutdownRamfs = {
-    enable = lib.mkEnableOption "pivoting back to an initramfs for shutdown" // {
-      default = true;
-    };
+    enable =
+      lib.mkEnableOption "pivoting back to an initramfs for shutdown"
+      // {
+        default = true;
+      };
     contents = lib.mkOption {
       description = "Set of files that have to be linked into the shutdown ramfs";
       example = lib.literalExpression ''
@@ -32,7 +30,7 @@ in
         Store paths to copy into the shutdown ramfs as well.
       '';
       type = utils.systemdUtils.types.initrdStorePath;
-      default = [ ];
+      default = [];
     };
   };
 
@@ -42,10 +40,12 @@ in
       "/etc/initrd-release".source = config.environment.etc.os-release.source;
       "/etc/os-release".source = config.environment.etc.os-release.source;
     };
-    systemd.shutdownRamfs.storePaths = [
-      pkgs.runtimeShell
-      "${pkgs.coreutils}/bin"
-    ] ++ map (c: builtins.removeAttrs c [ "text" ]) (builtins.attrValues cfg.contents);
+    systemd.shutdownRamfs.storePaths =
+      [
+        pkgs.runtimeShell
+        "${pkgs.coreutils}/bin"
+      ]
+      ++ map (c: builtins.removeAttrs c ["text"]) (builtins.attrValues cfg.contents);
 
     systemd.mounts = [
       {
@@ -58,8 +58,8 @@ in
 
     systemd.services.generate-shutdown-ramfs = {
       description = "Generate shutdown ramfs";
-      wantedBy = [ "shutdown.target" ];
-      before = [ "shutdown.target" ];
+      wantedBy = ["shutdown.target"];
+      before = ["shutdown.target"];
       unitConfig = {
         DefaultDependencies = false;
         RequiresMountsFor = "/run/initramfs";

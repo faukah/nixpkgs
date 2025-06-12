@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ddns-go";
   version = "6.9.5";
@@ -28,7 +27,7 @@ buildGoModule rec {
     homepage = "https://github.com/jeessy2/ddns-go";
     description = "Simple and easy to use DDNS";
     license = licenses.mit;
-    maintainers = with maintainers; [ oluceps ];
+    maintainers = with maintainers; [oluceps];
     mainProgram = "ddns-go";
   };
 }

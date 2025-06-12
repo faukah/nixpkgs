@@ -5,7 +5,6 @@
   setuptools,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "py65";
   version = "1.2.0";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-BMX+sMPx/YBFA4NFkaY0rl0EPicGHgb6xXVvLEIdllA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   meta = {
     homepage = "https://github.com/mnaberez/py65";

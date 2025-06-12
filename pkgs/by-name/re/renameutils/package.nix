@@ -5,7 +5,6 @@
   readline,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "renameutils";
   version = "0.12.0";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "18xlkr56jdyajjihcmfqlyyanzyiqqlzbhrm6695mkvw081g1lnb";
   };
 
-  patches = [ ./install-exec.patch ];
+  patches = [./install-exec.patch];
 
   postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
     substituteInPlace src/apply.c \
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
       --replace "ls_program = xstrdup(\"ls\")" "ls_program = xstrdup(\"${coreutils}/bin/ls\")"
   '';
 
-  nativeBuildInputs = [ readline ];
+  nativeBuildInputs = [readline];
 
   preConfigure = lib.optionalString (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) ''
     export ac_cv_func_lstat64=no

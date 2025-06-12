@@ -23,8 +23,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-iWRjXC+JaBA/z2eOHiiqFFtS2gug5/hkIpYrPdHyux0=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   # reqwest's native-tls-vendored feature flag uses vendored openssl. this disables that
   env.OPENSSL_NO_VENDOR = true;
@@ -33,11 +33,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doCheck = !stdenv.hostPlatform.isDarwin;
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/rojo";
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/rojo-rbx/rojo/blob/v${finalAttrs.version}/CHANGELOG.md";

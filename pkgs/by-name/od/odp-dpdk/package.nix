@@ -17,7 +17,6 @@
   jansson,
   libnl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "odp-dpdk";
   version = "1.46.0.0_DPDK_22.11";
@@ -67,6 +66,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.opendataplane.org";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.abuibrahim ];
+    maintainers = [maintainers.abuibrahim];
   };
 }

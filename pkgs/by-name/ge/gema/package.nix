@@ -4,7 +4,6 @@
   fetchurl,
   installShellFiles,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gema";
   version = "2.0";
@@ -14,9 +13,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-c7qxgZYk/QaqocjRXVlgJxUWCgf3T1JBY7v9Fg9YfIU=";
   };
 
-  makeFlags = [ "--directory=src" ];
+  makeFlags = ["--directory=src"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     runHook preInstall
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gema.sourceforge.net/";
     license = lib.licenses.mit;
     mainProgram = "gema";
-    maintainers = with lib.maintainers; [ quag ];
+    maintainers = with lib.maintainers; [quag];
     platforms = lib.platforms.unix;
   };
 })

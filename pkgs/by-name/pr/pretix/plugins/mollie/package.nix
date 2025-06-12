@@ -5,7 +5,6 @@
   pretix-plugin-build,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pretix-mollie";
   version = "2.4.0";
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "Mollie payments for pretix";
     homepage = "https://github.com/pretix/pretix-mollie";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

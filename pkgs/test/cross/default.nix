@@ -1,111 +1,105 @@
-{ pkgs, lib }:
+{
+  pkgs,
+  lib,
+}: let
+  testedSystems =
+    lib.filterAttrs (
+      name: value: let
+        platform = lib.systems.elaborate value;
+      in
+        platform.isLinux || platform.isWindows
+    )
+    lib.systems.examples;
 
-let
+  getExecutable = pkgs: pkgFun: exec: "${pkgFun pkgs}${exec}${pkgs.stdenv.hostPlatform.extensions.executable}";
 
-  testedSystems = lib.filterAttrs (
-    name: value:
-    let
-      platform = lib.systems.elaborate value;
-    in
-    platform.isLinux || platform.isWindows
-  ) lib.systems.examples;
-
-  getExecutable =
-    pkgs: pkgFun: exec:
-    "${pkgFun pkgs}${exec}${pkgs.stdenv.hostPlatform.extensions.executable}";
-
-  compareTest =
-    {
-      emulator,
-      pkgFun,
-      hostPkgs,
-      crossPkgs,
-      exec,
-      args ? [ ],
-    }:
-    let
-      pkgName = (pkgFun hostPkgs).name;
-      args' = lib.concatStringsSep " " args;
-    in
+  compareTest = {
+    emulator,
+    pkgFun,
+    hostPkgs,
+    crossPkgs,
+    exec,
+    args ? [],
+  }: let
+    pkgName = (pkgFun hostPkgs).name;
+    args' = lib.concatStringsSep " " args;
+  in
     crossPkgs.runCommand "test-${pkgName}-${crossPkgs.stdenv.hostPlatform.config}"
-      {
-        nativeBuildInputs = [ pkgs.dos2unix ];
-      }
-      ''
-        # Just in case we are using wine, get rid of that annoying extra
-        # stuff.
-        export WINEDEBUG=-all
+    {
+      nativeBuildInputs = [pkgs.dos2unix];
+    }
+    ''
+      # Just in case we are using wine, get rid of that annoying extra
+      # stuff.
+      export WINEDEBUG=-all
 
-        HOME=$(pwd)
-        mkdir -p $out
+      HOME=$(pwd)
+      mkdir -p $out
 
-        # We need to remove whitespace, unfortunately
-        # Windows programs use \r but Unix programs use \n
+      # We need to remove whitespace, unfortunately
+      # Windows programs use \r but Unix programs use \n
 
-        echo Running native-built program natively
+      echo Running native-built program natively
 
-        # find expected value natively
-        ${getExecutable hostPkgs pkgFun exec} ${args'} \
-          | dos2unix > $out/expected
+      # find expected value natively
+      ${getExecutable hostPkgs pkgFun exec} ${args'} \
+        | dos2unix > $out/expected
 
-        echo Running cross-built program in emulator
+      echo Running cross-built program in emulator
 
-        # run emulator to get actual value
-        ${emulator} ${getExecutable crossPkgs pkgFun exec} ${args'} \
-          | dos2unix > $out/actual
+      # run emulator to get actual value
+      ${emulator} ${getExecutable crossPkgs pkgFun exec} ${args'} \
+        | dos2unix > $out/actual
 
-        echo Comparing results...
+      echo Comparing results...
 
-        if [ "$(cat $out/actual)" != "$(cat $out/expected)" ]; then
-          echo "${pkgName} did not output expected value:"
-          cat $out/expected
-          echo "instead it output:"
-          cat $out/actual
-          exit 1
-        else
-          echo "${pkgName} test passed"
-          echo "both produced output:"
-          cat $out/actual
-        fi
-      '';
+      if [ "$(cat $out/actual)" != "$(cat $out/expected)" ]; then
+        echo "${pkgName} did not output expected value:"
+        cat $out/expected
+        echo "instead it output:"
+        cat $out/actual
+        exit 1
+      else
+        echo "${pkgName} test passed"
+        echo "both produced output:"
+        cat $out/actual
+      fi
+    '';
 
-  mapMultiPlatformTest =
-    crossSystemFun: test:
+  mapMultiPlatformTest = crossSystemFun: test:
     lib.dontRecurseIntoAttrs (
       lib.mapAttrs (
         name: system:
-        lib.recurseIntoAttrs (test rec {
-          crossPkgs = import pkgs.path {
-            localSystem = { inherit (pkgs.stdenv.hostPlatform) config; };
-            crossSystem = crossSystemFun system;
-          };
+          lib.recurseIntoAttrs (test rec {
+            crossPkgs = import pkgs.path {
+              localSystem = {inherit (pkgs.stdenv.hostPlatform) config;};
+              crossSystem = crossSystemFun system;
+            };
 
-          emulator = crossPkgs.stdenv.hostPlatform.emulator pkgs;
+            emulator = crossPkgs.stdenv.hostPlatform.emulator pkgs;
 
-          # Apply some transformation on windows to get dlls in the right
-          # place. Unfortunately mingw doesn’t seem to be able to do linking
-          # properly.
-          platformFun =
-            pkg:
-            if crossPkgs.stdenv.hostPlatform.isWindows then
-              pkgs.buildEnv {
-                name = "${pkg.name}-winlinks";
-                paths = [ pkg ] ++ pkg.buildInputs;
-              }
-            else
-              pkg;
-        })
-      ) testedSystems
+            # Apply some transformation on windows to get dlls in the right
+            # place. Unfortunately mingw doesn’t seem to be able to do linking
+            # properly.
+            platformFun = pkg:
+              if crossPkgs.stdenv.hostPlatform.isWindows
+              then
+                pkgs.buildEnv {
+                  name = "${pkg.name}-winlinks";
+                  paths = [pkg] ++ pkg.buildInputs;
+                }
+              else pkg;
+          })
+      )
+      testedSystems
     );
 
   tests = {
-
-    file =
-      {
-        platformFun,
-        crossPkgs,
-        emulator,
-      }:
+    file = {
+      platformFun,
+      crossPkgs,
+      emulator,
+    }:
       compareTest {
         inherit emulator crossPkgs;
         hostPkgs = pkgs;
@@ -117,12 +111,11 @@ let
         pkgFun = pkgs: platformFun pkgs.file;
       };
 
-    hello =
-      {
-        platformFun,
-        crossPkgs,
-        emulator,
-      }:
+    hello = {
+      platformFun,
+      crossPkgs,
+      emulator,
+    }:
       compareTest {
         inherit emulator crossPkgs;
         hostPkgs = pkgs;
@@ -130,39 +123,37 @@ let
         pkgFun = pkgs: pkgs.hello;
       };
 
-    pkg-config =
-      {
-        platformFun,
-        crossPkgs,
-        emulator,
-      }:
+    pkg-config = {
+      platformFun,
+      crossPkgs,
+      emulator,
+    }:
       crossPkgs.runCommand "test-pkg-config-${crossPkgs.stdenv.hostPlatform.config}"
-        {
-          depsBuildBuild = [ crossPkgs.pkgsBuildBuild.pkg-config ];
-          nativeBuildInputs = [
-            crossPkgs.pkgsBuildHost.pkg-config
-            crossPkgs.buildPackages.zlib
-          ];
-          depsBuildTarget = [ crossPkgs.pkgsBuildTarget.pkg-config ];
-          buildInputs = [ crossPkgs.zlib ];
-          NIX_DEBUG = 7;
-        }
-        ''
-          mkdir $out
-          ${crossPkgs.pkgsBuildBuild.pkg-config.targetPrefix}pkg-config --cflags zlib > "$out/for-build"
-          ${crossPkgs.pkgsBuildHost.pkg-config.targetPrefix}pkg-config --cflags zlib > "$out/for-host"
-          ! diff "$out/for-build" "$out/for-host"
-        '';
+      {
+        depsBuildBuild = [crossPkgs.pkgsBuildBuild.pkg-config];
+        nativeBuildInputs = [
+          crossPkgs.pkgsBuildHost.pkg-config
+          crossPkgs.buildPackages.zlib
+        ];
+        depsBuildTarget = [crossPkgs.pkgsBuildTarget.pkg-config];
+        buildInputs = [crossPkgs.zlib];
+        NIX_DEBUG = 7;
+      }
+      ''
+        mkdir $out
+        ${crossPkgs.pkgsBuildBuild.pkg-config.targetPrefix}pkg-config --cflags zlib > "$out/for-build"
+        ${crossPkgs.pkgsBuildHost.pkg-config.targetPrefix}pkg-config --cflags zlib > "$out/for-host"
+        ! diff "$out/for-build" "$out/for-host"
+      '';
   };
 
   # see https://github.com/NixOS/nixpkgs/issues/213453
   # this is a good test of a lot of tricky glibc/libgcc corner cases
-  mbuffer =
-    let
-      mbuffer = pkgs.pkgsCross.aarch64-multiplatform.mbuffer;
-      emulator = with lib.systems; (elaborate examples.aarch64-multiplatform).emulator pkgs;
-    in
-    pkgs.runCommand "test-mbuffer" { } ''
+  mbuffer = let
+    mbuffer = pkgs.pkgsCross.aarch64-multiplatform.mbuffer;
+    emulator = with lib.systems; (elaborate examples.aarch64-multiplatform).emulator pkgs;
+  in
+    pkgs.runCommand "test-mbuffer" {} ''
       echo hello | ${emulator} ${mbuffer}/bin/mbuffer
       touch $out
     '';
@@ -198,7 +189,6 @@ let
       pkgs.pkgsCross.mingwW64.stdenv
       # Uses the expression that is used by the most cross-compil_ed_ GHCs
       pkgs.pkgsCross.riscv64.haskell.compiler.native-bignum.ghc948
-
     ]
     ++ lib.optionals (with pkgs.stdenv.buildPlatform; isx86_64 && isLinux) [
       # Musl-to-glibc cross on the same architecture tends to turn up
@@ -213,14 +203,12 @@ let
       # Uses pkgsCross.riscv64-embedded; see https://github.com/NixOS/nixpkgs/issues/267859
       pkgs.spike
     ];
-
-in
-{
+in {
   gcc = lib.recurseIntoAttrs (
-    lib.mapAttrs (_: mapMultiPlatformTest (system: system // { useLLVM = false; })) tests
+    lib.mapAttrs (_: mapMultiPlatformTest (system: system // {useLLVM = false;})) tests
   );
   llvm = lib.recurseIntoAttrs (
-    lib.mapAttrs (_: mapMultiPlatformTest (system: system // { useLLVM = true; })) tests
+    lib.mapAttrs (_: mapMultiPlatformTest (system: system // {useLLVM = true;})) tests
   );
 
   inherit mbuffer sanity;

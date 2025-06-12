@@ -8,7 +8,6 @@
   unittestCheckHook,
   zope-testing,
 }:
-
 buildPythonPackage rec {
   pname = "zdaemon";
   version = "5.1";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-Iun+UFDq67ngPZrWTk9jzNheBMOP2zUc8RO+9vaNt6Q=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ zconfig ];
+  dependencies = [zconfig];
 
-  pythonImportsCheck = [ "zdaemon" ];
+  pythonImportsCheck = ["zdaemon"];
 
   # require zc-customdoctests but it is not packaged
   doCheck = false;
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     zope-testing
   ];
 
-  unittestFlagsArray = [ "src/zdaemon/tests" ];
+  unittestFlagsArray = ["src/zdaemon/tests"];
 
   meta = {
     description = "Daemon process control library and tools for Unix-based systems";
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zopefoundation/zdaemon";
     changelog = "https://github.com/zopefoundation/zdaemon/blob/${version}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

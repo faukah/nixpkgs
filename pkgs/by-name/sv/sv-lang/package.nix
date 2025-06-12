@@ -10,7 +10,6 @@
   mimalloc,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sv-lang";
   version = "7.0";
@@ -32,7 +31,11 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
     "-DCMAKE_INSTALL_LIBDIR=lib"
 
-    "-DSLANG_INCLUDE_TESTS=${if doCheck then "ON" else "OFF"}"
+    "-DSLANG_INCLUDE_TESTS=${
+      if doCheck
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   nativeBuildInputs = [
@@ -57,7 +60,7 @@ stdenv.mkDerivation rec {
     description = "SystemVerilog compiler and language services";
     homepage = "https://github.com/MikePopoloski/slang";
     license = licenses.mit;
-    maintainers = with maintainers; [ sharzy ];
+    maintainers = with maintainers; [sharzy];
     mainProgram = "slang";
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin;

@@ -6,7 +6,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "deepsource";
   version = "0.9.0";
@@ -18,20 +17,18 @@ buildGoModule rec {
     hash = "sha256-GWIQT6VIvU4ZIHwK3v2bGasE4mJc2cMpUAJvIQ2zJR4=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = true;
 
-  checkFlags =
-    let
-      # Skip tests that require network access
-      skippedTests = [
-        "TestReportKeyValueWorkflow"
-        "TestReportAnalyzerTypeWorkflow"
-        "TestReportKeyValueFileWorkflow"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    # Skip tests that require network access
+    skippedTests = [
+      "TestReportKeyValueWorkflow"
+      "TestReportAnalyzerTypeWorkflow"
+      "TestReportKeyValueFileWorkflow"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   vendorHash = "sha256-SsMq4ngq3sSOL28ysHTxTF4CT9sIcCIW7yIhBxIPrNs=";
 
@@ -59,6 +56,6 @@ buildGoModule rec {
     mainProgram = "deepsource";
     homepage = "https://github.com/DeepSourceCorp/cli";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ nipeharefa ];
+    maintainers = with lib.maintainers; [nipeharefa];
   };
 }

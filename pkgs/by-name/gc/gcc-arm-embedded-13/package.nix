@@ -9,7 +9,6 @@
   makeBinaryWrapper,
   darwin,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gcc-arm-embedded";
   version = "13.3.rel1";
@@ -21,7 +20,9 @@ stdenv.mkDerivation rec {
       x86_64-darwin = "darwin-x86_64";
       x86_64-linux = "x86_64";
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${
+      stdenv.hostPlatform.system
+    } or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
     url = "https://developer.arm.com/-/media/Files/downloads/gnu/${version}/binrel/arm-gnu-toolchain-${version}-${platform}-arm-none-eabi.tar.xz";
@@ -33,7 +34,9 @@ stdenv.mkDerivation rec {
         x86_64-darwin = "1ab00742d1ed0926e6f227df39d767f8efab46f5250505c29cb81f548222d794";
         x86_64-linux = "95c011cee430e64dd6087c75c800f04b9c49832cc1000127a92a97f9c8d83af4";
       }
-      .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+      .${
+        stdenv.hostPlatform.system
+      } or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
   patches = [
@@ -65,13 +68,13 @@ stdenv.mkDerivation rec {
         patchelf "$f" > /dev/null 2>&1 || continue
         patchelf --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) "$f" || true
         patchelf --set-rpath ${
-          lib.makeLibraryPath [
-            "$out"
-            stdenv.cc.cc
-            ncurses5
-            libxcrypt-legacy
-          ]
-        } "$f" || true
+        lib.makeLibraryPath [
+          "$out"
+          stdenv.cc.cc
+          ncurses5
+          libxcrypt-legacy
+        ]
+      } "$f" || true
       done
     ''
     + lib.optionalString (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64) ''
@@ -107,6 +110,6 @@ stdenv.mkDerivation rec {
       "x86_64-darwin"
       "aarch64-darwin"
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 }

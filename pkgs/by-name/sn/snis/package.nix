@@ -7,7 +7,7 @@
 buildEnv {
   name = "snis-${snis-unwrapped.version}";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   paths = [
     snis-unwrapped
@@ -26,7 +26,9 @@ buildEnv {
     done
   '';
 
-  meta = snis-unwrapped.meta // {
-    hydraPlatforms = [ ];
-  };
+  meta =
+    snis-unwrapped.meta
+    // {
+      hydraPlatforms = [];
+    };
 }

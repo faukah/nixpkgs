@@ -6,7 +6,6 @@
   pam,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "please";
   version = "0.5.5";
@@ -21,11 +20,11 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-iKRLq2G0XYZFM/k0V6GVtx/Pl4rdfGaD4EVN34FLlOg=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
-  patches = [ ./nixos-specific.patch ];
+  patches = [./nixos-specific.patch];
 
   postInstall = ''
     installManPage man/*
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
   # Unit tests are broken on NixOS.
   doCheck = false;
 
-  passthru.tests = { inherit (nixosTests) please; };
+  passthru.tests = {inherit (nixosTests) please;};
 
   meta = with lib; {
     description = "Polite regex-first sudo alternative";
@@ -49,7 +48,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://www.usenix.org.uk/content/please.html";
     changelog = "https://github.com/edneville/please/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

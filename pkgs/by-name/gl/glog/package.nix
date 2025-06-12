@@ -8,7 +8,6 @@
   perl,
   pkgsBuildHost,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "glog";
   version = "0.7.1";
@@ -25,11 +24,11 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-warn "/usr/bin/true" "${pkgsBuildHost.coreutils}/bin/true"
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ gtest ];
+  buildInputs = [gtest];
 
-  propagatedBuildInputs = [ gflags ];
+  propagatedBuildInputs = [gflags];
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=ON"
@@ -44,47 +43,43 @@ stdenv.mkDerivation (finalAttrs: {
 
   # There are some non-thread safe tests that can fail
   enableParallelChecking = false;
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
 
-  env.GTEST_FILTER =
-    let
-      filteredTests =
-        lib.optionals stdenv.hostPlatform.isMusl [
-          "Symbolize.SymbolizeStackConsumption"
-          "Symbolize.SymbolizeWithDemanglingStackConsumption"
-        ]
-        ++ lib.optionals stdenv.hostPlatform.isStatic [
-          "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled"
-        ]
-        ++ lib.optionals stdenv.cc.isClang [
-          # Clang optimizes an expected allocation away.
-          # See https://github.com/google/glog/issues/937
-          "DeathNoAllocNewHook.logging"
-        ]
-        ++ lib.optionals stdenv.hostPlatform.isDarwin [
-          "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled"
-        ];
-    in
-    "-${builtins.concatStringsSep ":" filteredTests}";
+  env.GTEST_FILTER = let
+    filteredTests =
+      lib.optionals stdenv.hostPlatform.isMusl [
+        "Symbolize.SymbolizeStackConsumption"
+        "Symbolize.SymbolizeWithDemanglingStackConsumption"
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isStatic [
+        "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled"
+      ]
+      ++ lib.optionals stdenv.cc.isClang [
+        # Clang optimizes an expected allocation away.
+        # See https://github.com/google/glog/issues/937
+        "DeathNoAllocNewHook.logging"
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled"
+      ];
+  in "-${builtins.concatStringsSep ":" filteredTests}";
 
-  checkPhase =
-    let
-      excludedTests =
-        lib.optionals stdenv.hostPlatform.isDarwin [
-          "mock-log"
-        ]
-        ++ [
-          "logging" # works around segfaults for now
-        ];
-      excludedTestsRegex = lib.optionalString (
-        excludedTests != [ ]
-      ) "(${lib.concatStringsSep "|" excludedTests})";
-    in
-    ''
-      runHook preCheck
-      ctest -E "${excludedTestsRegex}" --output-on-failure
-      runHook postCheck
-    '';
+  checkPhase = let
+    excludedTests =
+      lib.optionals stdenv.hostPlatform.isDarwin [
+        "mock-log"
+      ]
+      ++ [
+        "logging" # works around segfaults for now
+      ];
+    excludedTestsRegex = lib.optionalString (
+      excludedTests != []
+    ) "(${lib.concatStringsSep "|" excludedTests})";
+  in ''
+    runHook preCheck
+    ctest -E "${excludedTestsRegex}" --output-on-failure
+    runHook postCheck
+  '';
 
   meta = with lib; {
     homepage = "https://github.com/google/glog";

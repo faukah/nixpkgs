@@ -6,7 +6,6 @@
   prompt-toolkit,
   pygments,
 }:
-
 buildPythonPackage {
   pname = "pypager";
   version = "3.0.1";
@@ -19,14 +18,14 @@ buildPythonPackage {
     hash = "sha256-uPpVAI12INKFZDiTQdzQ0dhWCBAGeu0488zZDEV22mU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     prompt-toolkit
     pygments
   ];
 
-  pythonImportsCheck = [ "pypager" ];
+  pythonImportsCheck = ["pypager"];
 
   # no tests
   doCheck = false;
@@ -36,6 +35,6 @@ buildPythonPackage {
     homepage = "https://github.com/prompt-toolkit/pypager";
     license = lib.licenses.bsd3;
     mainProgram = "pypager";
-    maintainers = with lib.maintainers; [ taha-yassine ];
+    maintainers = with lib.maintainers; [taha-yassine];
   };
 }

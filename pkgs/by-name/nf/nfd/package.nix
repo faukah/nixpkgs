@@ -14,7 +14,6 @@
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
   withWebSocket ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nfd";
   version = "24.07";
@@ -43,16 +42,18 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withWebSocket websocketpp
     ++ lib.optional withSystemd systemd;
-  wafConfigureFlags = [
-    "--boost-includes=${boost186.dev}/include"
-    "--boost-libs=${boost186.out}/lib"
-  ] ++ lib.optional (!withWebSocket) "--without-websocket";
+  wafConfigureFlags =
+    [
+      "--boost-includes=${boost186.dev}/include"
+      "--boost-libs=${boost186.out}/lib"
+    ]
+    ++ lib.optional (!withWebSocket) "--without-websocket";
 
   meta = with lib; {
     homepage = "https://named-data.net/";
     description = "Named Data Networking (NDN) Forwarding Daemon";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ bertof ];
+    maintainers = with maintainers; [bertof];
   };
 }

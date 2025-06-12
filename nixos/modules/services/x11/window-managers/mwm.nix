@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.mwm;
-in
-{
+in {
   ###### interface
   options = {
     services.xserver.windowManager.mwm.enable = mkEnableOption "mwm";
@@ -25,6 +21,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.motif ];
+    environment.systemPackages = [pkgs.motif];
   };
 }

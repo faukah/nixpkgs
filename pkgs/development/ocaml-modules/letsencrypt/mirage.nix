@@ -5,7 +5,6 @@
   http-mirage-client,
   paf,
 }:
-
 buildDunePackage {
   pname = "letsencrypt-mirage";
 
@@ -18,7 +17,9 @@ buildDunePackage {
     paf
   ];
 
-  meta = letsencrypt.meta // {
-    description = "ACME implementation in OCaml for MirageOS";
-  };
+  meta =
+    letsencrypt.meta
+    // {
+      description = "ACME implementation in OCaml for MirageOS";
+    };
 }

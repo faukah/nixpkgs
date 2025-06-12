@@ -10,7 +10,6 @@
   kxmlgui,
   qtx11extras,
 }:
-
 mkDerivation {
   pname = "kontactinterface";
   meta = {
@@ -31,7 +30,7 @@ mkDerivation {
     kxmlgui
     qtx11extras
   ];
-  propagatedBuildInputs = [ kparts ];
+  propagatedBuildInputs = [kparts];
   postInstall = ''
     # added as an include directory by cmake files and fails to compile if it's missing
     mkdir -p "$out/include/KF5"

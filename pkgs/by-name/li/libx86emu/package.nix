@@ -4,7 +4,6 @@
   fetchFromGitHub,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libx86emu";
   version = "3.7";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ilAmGlkMeuG0FlygMdE3NreFPJJF6g/26C8C5grvjrk=";
   };
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   postUnpack = "rm $sourceRoot/git2log";
   patchPhase = ''
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "x86 emulation library";
     license = licenses.bsd2;
     homepage = "https://github.com/wfeldt/libx86emu";
-    maintainers = with maintainers; [ bobvanderlinden ];
+    maintainers = with maintainers; [bobvanderlinden];
     platforms = platforms.linux;
   };
 }

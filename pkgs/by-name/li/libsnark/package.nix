@@ -10,7 +10,6 @@
   withProcps ? false,
   procps,
 }:
-
 stdenv.mkDerivation {
   pname = "libsnark";
   version = "20140603-unstable-2024-02-23";
@@ -19,18 +18,20 @@ stdenv.mkDerivation {
     cmake
     pkg-config
   ];
-  buildInputs = [
-    openssl
-    boost
-    gmp
-  ] ++ lib.optional withProcps procps;
+  buildInputs =
+    [
+      openssl
+      boost
+      gmp
+    ]
+    ++ lib.optional withProcps procps;
 
   cmakeFlags =
-    lib.optionals (!withProcps) [ "-DWITH_PROCPS=OFF" ]
+    lib.optionals (!withProcps) ["-DWITH_PROCPS=OFF"]
     ++ lib.optionals (stdenv.hostPlatform.isDarwin || !stdenv.hostPlatform.isx86) [
       "-DWITH_SUPERCOP=OFF"
     ]
-    ++ lib.optionals (!stdenv.hostPlatform.isx86) [ "-DCURVE=ALT_BN128" ];
+    ++ lib.optionals (!stdenv.hostPlatform.isx86) ["-DCURVE=ALT_BN128"];
 
   src = fetchFromGitHub {
     owner = "scipr-lab";

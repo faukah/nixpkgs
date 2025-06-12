@@ -8,7 +8,6 @@
   electron,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "caprine";
   version = "2.60.3";
@@ -24,7 +23,7 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-hNOAplCSXrO4NZqDTkmhf0oZVeGRUHr2Y/Qdx2RIV9c=";
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
 
   postBuild = ''
     cp -r ${electron.dist} electron-dist
@@ -38,7 +37,7 @@ buildNpmPackage rec {
         -c.electronVersion=${electron.version}
   '';
 
-  patches = [ ./001-disable-auto-update.patch ];
+  patches = [./001-disable-auto-update.patch];
 
   installPhase = ''
     runHook preInstall
@@ -77,12 +76,12 @@ buildNpmPackage rec {
         "InstantMessaging"
         "Chat"
       ];
-      mimeTypes = [ "x-scheme-handler/caprine" ];
+      mimeTypes = ["x-scheme-handler/caprine"];
       terminal = false;
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/sindresorhus/caprine/releases/tag/${src.rev}";

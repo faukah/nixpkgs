@@ -32,7 +32,7 @@ buildGoModule rec {
     description = "Forward proxy with multiple protocols support";
     license = licenses.gpl3Only;
     mainProgram = "glider";
-    maintainers = with maintainers; [ oluceps ];
+    maintainers = with maintainers; [oluceps];
     platforms = platforms.linux;
   };
 }

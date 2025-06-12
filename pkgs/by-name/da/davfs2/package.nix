@@ -9,7 +9,6 @@
   zlib,
   wrapperDir ? "/run/wrappers/bin",
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "davfs2";
   version = "1.7.1";
@@ -57,6 +56,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
   };
 })

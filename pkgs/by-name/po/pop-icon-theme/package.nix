@@ -8,7 +8,6 @@
   adwaita-icon-theme,
   hicolor-icon-theme,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "pop-icon-theme";
   version = "3.5.0";
@@ -41,6 +40,6 @@ stdenvNoCC.mkDerivation rec {
       gpl3
     ];
     platforms = platforms.linux; # hash mismatch on darwin due to file names differing only in case
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

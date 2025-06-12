@@ -11,7 +11,6 @@
   ncurses,
   c-ares,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bzflag";
   version = "2.4.30";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-u3i3UOe856p8Eb01kGuwikmsx8UL8pYprzgO7NFTiU0=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     curl
@@ -38,6 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://bzflag.org/";
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

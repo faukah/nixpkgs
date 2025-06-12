@@ -8,7 +8,6 @@
   perl, # For pod2man
   qt6,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kdocker";
   version = "6.2";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/user-none/KDocker";
     changelog = "https://github.com/user-none/KDocker/blob/${finalAttrs.version}/ChangeLog";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ hexclover ];
+    maintainers = with maintainers; [hexclover];
     platforms = platforms.linux;
     mainProgram = "kdocker";
   };

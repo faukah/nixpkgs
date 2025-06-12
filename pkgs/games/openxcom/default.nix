@@ -15,7 +15,6 @@
   yaml-cpp,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "openxcom";
   version = "1.0.0.2024.02.28";
@@ -50,7 +49,7 @@ stdenv.mkDerivation {
     mainProgram = "openxcom";
     homepage = "https://openxcom.org";
     license = lib.licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 }

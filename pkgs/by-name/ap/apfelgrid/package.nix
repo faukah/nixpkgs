@@ -8,7 +8,6 @@
   lhapdf,
   root5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "apfelgrid";
   version = "1.0.1";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0l0cyxd00kmb5aggzwsxg83ah0qiwav0shbxkxwrz3dvw78n89jk";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     apfel
     applgrid
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = "https://nhartland.github.io/APFELgrid/";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

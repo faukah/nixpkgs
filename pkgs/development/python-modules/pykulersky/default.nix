@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pykulersky";
   version = "0.5.8";
@@ -35,13 +34,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pykulersky" ];
+  pythonImportsCheck = ["pykulersky"];
 
   meta = with lib; {
     description = "Python module to control Brightech Kuler Sky Bluetooth LED devices";
     mainProgram = "pykulersky";
     homepage = "https://github.com/emlove/pykulersky";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -9,7 +9,6 @@
   pythonOlder,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "aiobafi6";
   version = "0.9.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-QxjrspvNrcMcGChjj1B4QF/SnWCsGmPxnI2bWAL6BiI=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     protobuf
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiobafi6" ];
+  pythonImportsCheck = ["aiobafi6"];
 
   meta = with lib; {
     description = "Library for communication with the Big Ass Fans i6 firmware";
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jfroy/aiobafi6";
     changelog = "https://github.com/jfroy/aiobafi6/releases/tag/0.8.2";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

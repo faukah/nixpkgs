@@ -24,7 +24,6 @@
   libxdg_basedir,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xmoto";
   version = "0.6.3";

@@ -1,5 +1,7 @@
-{ lib, vscode-utils }:
-
+{
+  lib,
+  vscode-utils,
+}:
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "code-spell-checker-german";
@@ -13,6 +15,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker-german";
     homepage = "https://streetsidesoftware.github.io/vscode-spell-checker-german";
     license = lib.licenses.gpl3Only;
-    maintainers = [ lib.maintainers.koschi13 ];
+    maintainers = [lib.maintainers.koschi13];
   };
 }

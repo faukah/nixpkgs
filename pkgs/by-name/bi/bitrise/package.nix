@@ -25,7 +25,7 @@ buildGoModule rec {
   ];
   env.CGO_ENABLED = 0;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/bitrise-io/bitrise/releases";
@@ -34,6 +34,6 @@ buildGoModule rec {
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     mainProgram = "bitrise";
-    maintainers = with lib.maintainers; [ ofalvai ];
+    maintainers = with lib.maintainers; [ofalvai];
   };
 }

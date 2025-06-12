@@ -14,7 +14,6 @@
   withTesseractSupport ? true,
   withCuneiformSupport ? stdenv.hostPlatform.isLinux,
 }:
-
 buildPythonPackage rec {
   pname = "pyocr";
   version = "0.8.5";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
   };
 
   patches =
-    [ ]
+    []
     ++ (lib.optional withTesseractSupport (
       replaceVars ./paths-tesseract.patch {
         inherit tesseract;
@@ -45,14 +44,14 @@ buildPythonPackage rec {
       }
     ));
 
-  propagatedBuildInputs = [ pillow ];
+  propagatedBuildInputs = [pillow];
 
   nativeBuildInputs = [
     setuptools
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     inherit (src.meta) homepage;

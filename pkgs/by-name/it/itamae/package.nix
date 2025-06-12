@@ -3,11 +3,10 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "itamae";
   gemdir = ./.;
-  exes = [ "itamae" ];
+  exes = ["itamae"];
 
   passthru.updateScript = bundlerUpdateScript "itamae";
 
@@ -15,7 +14,7 @@ bundlerApp {
     description = "Simple and lightweight configuration management tool inspired by Chef";
     homepage = "https://itamae.kitchen/";
     license = with licenses; mit;
-    maintainers = with maintainers; [ refi64 ];
+    maintainers = with maintainers; [refi64];
     platforms = platforms.unix;
     mainProgram = "itamae";
   };

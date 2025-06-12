@@ -8,11 +8,7 @@
   git,
   nix,
   nixfmt-rfc-style,
-}:
-
-attrPath:
-
-let
+}: attrPath: let
   updateScript = writeScript "bundler-update-script" ''
     #!${runtimeShell}
     PATH=${
@@ -43,8 +39,7 @@ let
     bundix
     nixfmt gemset.nix
   '';
-in
-[
+in [
   updateScript
   attrPath
 ]

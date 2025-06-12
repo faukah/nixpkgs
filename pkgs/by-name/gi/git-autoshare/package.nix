@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-F8wcAayIR6MH8e0cQSwFJn/AVSLG3tVil80APjcFG/0=";
   };
 
-  build-system = with python3Packages; [ setuptools-scm ];
+  build-system = with python3Packages; [setuptools-scm];
   dependencies = with python3Packages; [
     appdirs
     click
@@ -26,15 +26,15 @@ python3Packages.buildPythonApplication rec {
   # Tests require network
   doCheck = false;
 
-  makeWrapperArgs = [ "--set-default GIT_AUTOSHARE_GIT_BIN ${lib.getExe git}" ];
+  makeWrapperArgs = ["--set-default GIT_AUTOSHARE_GIT_BIN ${lib.getExe git}"];
 
-  pythonImportsCheck = [ "git_autoshare" ];
+  pythonImportsCheck = ["git_autoshare"];
 
   meta = {
     changelog = "https://github.com/acsone/git-autoshare/releases/tag/${version}";
     description = "Git clone wrapper that automatically uses --reference to save disk space and download time";
     homepage = "https://github.com/acsone/git-autoshare";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ yajo ];
+    maintainers = with lib.maintainers; [yajo];
   };
 }

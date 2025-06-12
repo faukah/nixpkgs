@@ -10,7 +10,6 @@
   xinput,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libuiohook";
   version = "1.2.2";
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/kwhat/libuiohook";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ anoa ];
+    maintainers = with maintainers; [anoa];
   };
 
   passthru.tests.libuiohook = nixosTests.libuiohook;

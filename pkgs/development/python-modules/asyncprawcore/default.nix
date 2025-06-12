@@ -15,7 +15,6 @@
   vcrpy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "asyncprawcore";
   version = "2.4.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-FDQdtnNjsbiEp9BUYdQFMC/hkyJDhCh2WHhQWSQwrFY=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     requests
@@ -54,13 +53,13 @@ buildPythonPackage rec {
     "tests/integration/test_sessions.py"
   ];
 
-  pythonImportsCheck = [ "asyncprawcore" ];
+  pythonImportsCheck = ["asyncprawcore"];
 
   meta = {
     description = "Low-level asynchronous communication layer for Async PRAW";
     homepage = "https://asyncpraw.readthedocs.io/";
     changelog = "https://github.com/praw-dev/asyncprawcore/blob/v${version}/CHANGES.rst";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.amadejkastelic ];
+    maintainers = [lib.maintainers.amadejkastelic];
   };
 }

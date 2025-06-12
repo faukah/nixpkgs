@@ -16,7 +16,6 @@
   setuptools,
   tenacity,
 }:
-
 buildPythonPackage rec {
   pname = "nibe";
   version = "2.17.0";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
     hash = "sha256-wq+Gtt2oW8koxOqu3z8G3XvHo6Ur+FhWPe+KslDG754=";
   };
 
-  pythonRelaxDeps = [ "async-modbus" ];
+  pythonRelaxDeps = ["async-modbus"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     async-modbus
@@ -48,22 +47,24 @@ buildPythonPackage rec {
       pandas
       python-slugify
     ];
-    cli = [ asyncclick ];
+    cli = [asyncclick];
   };
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      aresponses
+      pytest-asyncio
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "nibe" ];
+  pythonImportsCheck = ["nibe"];
 
   meta = with lib; {
     description = "Library for the communication with Nibe heatpumps";
     homepage = "https://github.com/yozik04/nibe";
     changelog = "https://github.com/yozik04/nibe/releases/tag/${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

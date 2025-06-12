@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   version = "2024.2.0";
   pname = "fsnotifier";
@@ -13,11 +12,11 @@ stdenv.mkDerivation rec {
     repo = "intellij-community";
     rev = "0f6d9ccb67b8fcad0d802cd76209d503c4ed66a6";
     hash = "sha256-3TAiVvKi50JQRrVG6J7LUJKTiuOTDyKt4DhoA1QmbrM=";
-    sparseCheckout = [ "native/fsNotifier/linux" ];
+    sparseCheckout = ["native/fsNotifier/linux"];
   };
 
   # fix for hard-links in nix-store, https://github.com/JetBrains/intellij-community/pull/2171
-  patches = [ ./fsnotifier.patch ];
+  patches = [./fsnotifier.patch];
 
   sourceRoot = "${src.name}/native/fsNotifier/linux";
 
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "IntelliJ Platform companion program for watching and reporting file and directory structure modification";
     license = lib.licenses.asl20;
     mainProgram = "fsnotifier";
-    maintainers = with lib.maintainers; [ shyim ];
+    maintainers = with lib.maintainers; [shyim];
     platforms = lib.platforms.linux;
   };
 }

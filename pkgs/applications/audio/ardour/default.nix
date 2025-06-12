@@ -165,21 +165,23 @@ stdenv.mkDerivation rec {
       xjadeo
     ];
 
-  wafConfigureFlags = [
-    "--cxx17"
-    "--docs"
-    "--freedesktop"
-    "--no-phone-home"
-    "--ptformat"
-    "--run-tests"
-    "--test"
-    # since we don't have https://github.com/agfline/LibAAF yet,
-    # we need to use some of ardours internal libs, see:
-    # https://discourse.ardour.org/t/ardour-8-2-released/109615/6
-    # and
-    # https://discourse.ardour.org/t/ardour-8-2-released/109615/8
-    # "--use-external-libs"
-  ] ++ lib.optional optimize "--optimize";
+  wafConfigureFlags =
+    [
+      "--cxx17"
+      "--docs"
+      "--freedesktop"
+      "--no-phone-home"
+      "--ptformat"
+      "--run-tests"
+      "--test"
+      # since we don't have https://github.com/agfline/LibAAF yet,
+      # we need to use some of ardours internal libs, see:
+      # https://discourse.ardour.org/t/ardour-8-2-released/109615/6
+      # and
+      # https://discourse.ardour.org/t/ardour-8-2-released/109615/8
+      # "--use-external-libs"
+    ]
+    ++ lib.optional optimize "--optimize";
 
   postInstall =
     ''
@@ -201,11 +203,11 @@ stdenv.mkDerivation rec {
       # `harvid` and `xjadeo` must be accessible in `PATH` for video to work.
       wrapProgram "$out/bin/ardour${lib.versions.major version}" \
         --prefix PATH : "${
-          lib.makeBinPath [
-            harvid
-            xjadeo
-          ]
-        }"
+        lib.makeBinPath [
+          harvid
+          xjadeo
+        ]
+      }"
     '';
 
   LINKFLAGS = "-lpthread";

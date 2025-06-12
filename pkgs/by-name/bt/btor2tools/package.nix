@@ -5,7 +5,6 @@
   fetchFromGitHub,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation {
   pname = "btor2tools";
   version = "unstable-2024-08-07";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "0ncl4xwms8d656x95ga8v8zjybx4cmdl5hlcml7dpcgm3p8qj4ks";
   };
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [cmake] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   installPhase = ''
     mkdir -p $out $dev/include/btor2parser/ $lib/lib
@@ -58,6 +57,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Boolector/btor2tools";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

@@ -1,7 +1,10 @@
-{ buildAstalModule, json-glib }:
+{
+  buildAstalModule,
+  json-glib,
+}:
 buildAstalModule {
   name = "river";
-  buildInputs = [ json-glib ];
+  buildInputs = [json-glib];
   meta.description = "Astal module for River using IPC";
 
   postUnpack = ''

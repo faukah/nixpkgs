@@ -8,7 +8,6 @@
   libXpm,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "AlsaMixer.app";
 
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     libXext
   ];
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   dontConfigure = true;
 
@@ -43,6 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Alsa mixer application for Windowmaker";
     homepage = "https://www.dockapps.net/alsamixerapp";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

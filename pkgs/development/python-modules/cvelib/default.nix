@@ -11,7 +11,6 @@
   setuptools,
   testers,
 }:
-
 buildPythonPackage rec {
   pname = "cvelib";
   version = "1.7.1";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       --replace-fail '"collective.checkdocs",' ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     click
@@ -40,18 +39,18 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cvelib" ];
+  pythonImportsCheck = ["cvelib"];
 
-  passthru.tests.version = testers.testVersion { package = cve; };
+  passthru.tests.version = testers.testVersion {package = cve;};
 
   meta = with lib; {
     description = "Library and a command line interface for the CVE Services API";
     homepage = "https://github.com/RedHatProductSecurity/cvelib";
     changelog = "https://github.com/RedHatProductSecurity/cvelib/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ raboof ];
+    maintainers = with maintainers; [raboof];
     mainProgram = "cve";
   };
 }

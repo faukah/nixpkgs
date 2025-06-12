@@ -5,7 +5,6 @@
   rstr,
   sre-yield,
 }:
-
 buildPythonPackage rec {
   pname = "stringbrewer";
   version = "0.0.1";
@@ -23,12 +22,12 @@ buildPythonPackage rec {
 
   # Package has no tests
   doCheck = false;
-  pythonImportsCheck = [ "stringbrewer" ];
+  pythonImportsCheck = ["stringbrewer"];
 
   meta = with lib; {
     description = "Python library to generate random strings matching a pattern";
     homepage = "https://github.com/simoncozens/stringbrewer";
     license = licenses.mit;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

@@ -8,7 +8,6 @@
   steampipe,
   testers,
 }:
-
 buildGoModule rec {
   pname = "steampipe";
   version = "1.1.3";
@@ -44,14 +43,12 @@ buildGoModule rec {
 
   doCheck = true;
 
-  checkFlags =
-    let
-      skippedTests = [
-        # panic: could not create backups directory: mkdir /var/empty/.steampipe: operation not permitted
-        "TestTrimBackups"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    skippedTests = [
+      # panic: could not create backups directory: mkdir /var/empty/.steampipe: operation not permitted
+      "TestTrimBackups"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   postInstall = ''
     wrapProgram $out/bin/steampipe \
@@ -71,7 +68,7 @@ buildGoModule rec {
       package = steampipe;
       version = "v${version}";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

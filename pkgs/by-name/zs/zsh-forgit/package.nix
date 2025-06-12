@@ -12,7 +12,6 @@
   gnused,
   makeWrapper,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zsh-forgit";
   version = "25.06.0";
@@ -33,7 +32,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -43,17 +42,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     install -D forgit.plugin.zsh $out/share/zsh/zsh-forgit/forgit.plugin.zsh
     wrapProgram $out/bin/git-forgit \
       --prefix PATH : ${
-        lib.makeBinPath [
-          bash
-          coreutils
-          findutils
-          fzf
-          gawk
-          git
-          gnugrep
-          gnused
-        ]
-      }
+      lib.makeBinPath [
+        bash
+        coreutils
+        findutils
+        fzf
+        gawk
+        git
+        gnugrep
+        gnused
+      ]
+    }
 
     runHook postInstall
   '';
@@ -63,7 +62,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Utility tool powered by fzf for using git interactively";
     mainProgram = "git-forgit";
     license = licenses.mit;
-    maintainers = with maintainers; [ deejayem ];
+    maintainers = with maintainers; [deejayem];
     platforms = platforms.all;
   };
 })

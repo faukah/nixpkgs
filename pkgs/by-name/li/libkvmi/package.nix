@@ -9,7 +9,6 @@
   glib,
   libuuid,
 }:
-
 stdenv.mkDerivation {
   pname = "libkvmi";
   version = "1.1.0-unstable-2023-12-13";
@@ -38,15 +37,15 @@ stdenv.mkDerivation {
     libuuid
   ];
 
-  passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
+  passthru.updateScript = unstableGitUpdater {tagPrefix = "v";};
 
   meta = {
     description = "KVM virtual machine introspection library";
     homepage = "https://github.com/bitdefender/libkvmi";
     license = lib.licenses.lgpl3Only;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ sigmasquadron ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [sigmasquadron];
     mainProgram = "hookguest-libkvmi";
-    outputsToInstall = [ "lib" ];
+    outputsToInstall = ["lib"];
   };
 }

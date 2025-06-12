@@ -5,7 +5,6 @@
   rpcgen,
   mtree,
 }:
-
 mkDerivation {
   noLibc = true;
   path = "include";
@@ -34,7 +33,7 @@ mkDerivation {
     sed -E -i -e "/_PATH_LOGIN/d" $BSDSRCDIR/include/paths.h
   '';
 
-  makeFlags = [ "RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp" ];
+  makeFlags = ["RPCGEN_CPP=${buildPackages.stdenv.cc.cc}/bin/cpp"];
 
   # multiple header dirs, see above
   postConfigure = ''

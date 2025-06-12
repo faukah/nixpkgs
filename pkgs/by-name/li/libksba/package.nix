@@ -6,7 +6,6 @@
   gettext,
   libgpg-error,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libksba";
   version = "1.6.7";
@@ -22,11 +21,11 @@ stdenv.mkDerivation rec {
     "info"
   ];
 
-  buildInputs = [ gettext ];
-  propagatedBuildInputs = [ libgpg-error ];
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  buildInputs = [gettext];
+  propagatedBuildInputs = [libgpg-error];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
-  configureFlags = [ "--with-libgpg-error-prefix=${libgpg-error.dev}" ];
+  configureFlags = ["--with-libgpg-error-prefix=${libgpg-error.dev}"];
 
   postInstall = ''
     mkdir -p $dev/bin
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "CMS and X.509 access library";
     mainProgram = "ksba-config";
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.lgpl3;
   };
 }

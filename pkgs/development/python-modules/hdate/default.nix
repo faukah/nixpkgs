@@ -11,7 +11,6 @@
   pytestCheckHook,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "hdate";
   version = "1.1.0";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    astral = [ astral ];
+    astral = [astral];
   };
 
   nativeCheckInputs = [
@@ -48,15 +47,15 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
-  pythonImportsCheck = [ "hdate" ];
+  pythonImportsCheck = ["hdate"];
 
   meta = with lib; {
     description = "Python module for Jewish/Hebrew date and Zmanim";
     homepage = "https://github.com/py-libhdate/py-libhdate";
     changelog = "https://github.com/py-libhdate/py-libhdate/blob/${src.tag}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

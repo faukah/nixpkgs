@@ -6,7 +6,6 @@
   qtwebkit,
   hunspell,
 }:
-
 stdenv.mkDerivation {
   pname = "qtwebkit-plugins";
   version = "unstable-2017-01-25";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
     sha256 = "04wvlhdj45g1v1a3zl0pkf9r72i22h1br10lhhrgad7ypym974gw";
   };
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   buildInputs = [
     qtwebkit
@@ -37,6 +36,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/QupZilla/qtwebkit-plugins";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

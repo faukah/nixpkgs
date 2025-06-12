@@ -16,9 +16,7 @@
   webp-pixbuf-loader,
   libxfce4util,
 }:
-
 # TODO: add libopenraw
-
 mkXfceDerivation {
   category = "xfce";
   pname = "tumbler";
@@ -52,15 +50,15 @@ mkXfceDerivation {
     gappsWrapperArgs+=(
       # Thumbnailers
       --prefix XDG_DATA_DIRS : "${
-        lib.makeSearchPath "share" [
-          libheif.out
-          libjxl
-          librsvg
-          webp-pixbuf-loader
-        ]
-      }"
+      lib.makeSearchPath "share" [
+        libheif.out
+        libjxl
+        librsvg
+        webp-pixbuf-loader
+      ]
+    }"
       # For heif-thumbnailer in heif.thumbnailer
-      --prefix PATH : "${lib.makeBinPath [ libheif ]}"
+      --prefix PATH : "${lib.makeBinPath [libheif]}"
     )
   '';
 
@@ -71,6 +69,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "D-Bus thumbnailer service";
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

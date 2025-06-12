@@ -23,7 +23,6 @@
   wrapGAppsHook4,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sysprof";
   version = "48.0";
@@ -87,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
       be restarted.
     '';
     license = licenses.gpl3Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 })

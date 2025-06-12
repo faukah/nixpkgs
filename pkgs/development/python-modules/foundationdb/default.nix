@@ -3,7 +3,6 @@
   lib,
   foundationdb,
 }:
-
 buildPythonPackage {
   pname = "foundationdb";
   version = foundationdb.version;
@@ -21,7 +20,7 @@ buildPythonPackage {
   meta = {
     description = "Python bindings for FoundationDB";
     homepage = "https://www.foundationdb.org";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [thoughtpolice];
   };
 }

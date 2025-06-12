@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gh-s";
   version = "0.0.8";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Search github repositories interactively";
     homepage = "https://github.com/gennaro-tedesco/gh-s";
     license = licenses.asl20;
-    maintainers = with maintainers; [ daru-san ];
+    maintainers = with maintainers; [daru-san];
     mainProgram = "gh-s";
   };
 }

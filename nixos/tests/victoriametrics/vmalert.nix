@@ -4,8 +4,7 @@ import ../make-test-python.nix (
     lib,
     pkgs,
     ...
-  }:
-  {
+  }: {
     name = "victoriametrics-vmalert";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -15,124 +14,118 @@ import ../make-test-python.nix (
     };
 
     nodes = {
-      victoriametrics =
-        {
-          config,
-          pkgs,
-          ...
-        }:
-        {
-          environment.systemPackages = [ pkgs.jq ];
-          networking.firewall.allowedTCPPorts = [ 8428 ];
-          services.victoriametrics = {
-            enable = true;
-            prometheusConfig = {
-              global = {
-                scrape_interval = "2s";
-              };
-              scrape_configs = [
-                {
-                  job_name = "alertmanager";
-                  static_configs = [
-                    {
-                      targets = [
-                        "alertmanager:${toString config.services.prometheus.alertmanager.port}"
-                      ];
-                    }
-                  ];
-                }
-                {
-                  job_name = "node";
-                  static_configs = [
-                    {
-                      targets = [
-                        "node:${toString config.services.prometheus.exporters.node.port}"
-                      ];
-                    }
-                  ];
-                }
-              ];
+      victoriametrics = {
+        config,
+        pkgs,
+        ...
+      }: {
+        environment.systemPackages = [pkgs.jq];
+        networking.firewall.allowedTCPPorts = [8428];
+        services.victoriametrics = {
+          enable = true;
+          prometheusConfig = {
+            global = {
+              scrape_interval = "2s";
             };
-          };
-
-          services.vmalert.instances."" = {
-            enable = true;
-            settings = {
-              "datasource.url" = "http://localhost:8428"; # victoriametrics' api
-              "notifier.url" = [
-                "http://alertmanager:${toString config.services.prometheus.alertmanager.port}"
-              ]; # alertmanager's api
-              rule = [
-                (pkgs.writeText "instance-down.yml" ''
-                  groups:
-                    - name: test
-                      rules:
-                        - alert: InstanceDown
-                          expr: up == 0
-                          for: 5s
-                          labels:
-                            severity: page
-                          annotations:
-                            summary: "Instance {{ $labels.instance }} down"
-                '')
-              ];
-            };
+            scrape_configs = [
+              {
+                job_name = "alertmanager";
+                static_configs = [
+                  {
+                    targets = [
+                      "alertmanager:${toString config.services.prometheus.alertmanager.port}"
+                    ];
+                  }
+                ];
+              }
+              {
+                job_name = "node";
+                static_configs = [
+                  {
+                    targets = [
+                      "node:${toString config.services.prometheus.exporters.node.port}"
+                    ];
+                  }
+                ];
+              }
+            ];
           };
         };
 
-      alertmanager =
-        {
-          config,
-          pkgs,
-          ...
-        }:
-        {
-          services.prometheus.alertmanager = {
-            enable = true;
-            openFirewall = true;
-
-            configuration = {
-              global = {
-                resolve_timeout = "1m";
-              };
-
-              route = {
-                # Root route node
-                receiver = "test";
-                group_by = [ "..." ];
-                continue = false;
-                group_wait = "1s";
-                group_interval = "15s";
-                repeat_interval = "24h";
-              };
-
-              receivers = [
-                {
-                  name = "test";
-                  webhook_configs = [
-                    {
-                      url = "http://logger:6725";
-                      send_resolved = true;
-                      max_alerts = 0;
-                    }
-                  ];
-                }
-              ];
-            };
+        services.vmalert.instances."" = {
+          enable = true;
+          settings = {
+            "datasource.url" = "http://localhost:8428"; # victoriametrics' api
+            "notifier.url" = [
+              "http://alertmanager:${toString config.services.prometheus.alertmanager.port}"
+            ]; # alertmanager's api
+            rule = [
+              (pkgs.writeText "instance-down.yml" ''
+                groups:
+                  - name: test
+                    rules:
+                      - alert: InstanceDown
+                        expr: up == 0
+                        for: 5s
+                        labels:
+                          severity: page
+                        annotations:
+                          summary: "Instance {{ $labels.instance }} down"
+              '')
+            ];
           };
         };
+      };
 
-      logger =
-        {
-          config,
-          pkgs,
-          ...
-        }:
-        {
-          networking.firewall.allowedTCPPorts = [ 6725 ];
+      alertmanager = {
+        config,
+        pkgs,
+        ...
+      }: {
+        services.prometheus.alertmanager = {
+          enable = true;
+          openFirewall = true;
 
-          services.prometheus.alertmanagerWebhookLogger.enable = true;
+          configuration = {
+            global = {
+              resolve_timeout = "1m";
+            };
+
+            route = {
+              # Root route node
+              receiver = "test";
+              group_by = ["..."];
+              continue = false;
+              group_wait = "1s";
+              group_interval = "15s";
+              repeat_interval = "24h";
+            };
+
+            receivers = [
+              {
+                name = "test";
+                webhook_configs = [
+                  {
+                    url = "http://logger:6725";
+                    send_resolved = true;
+                    max_alerts = 0;
+                  }
+                ];
+              }
+            ];
+          };
         };
+      };
+
+      logger = {
+        config,
+        pkgs,
+        ...
+      }: {
+        networking.firewall.allowedTCPPorts = [6725];
+
+        services.prometheus.alertmanagerWebhookLogger.enable = true;
+      };
     };
 
     testScript = ''

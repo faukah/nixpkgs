@@ -8,7 +8,6 @@
   versionCheckHook,
   git,
 }:
-
 buildGoModule rec {
   pname = "gitleaks";
   version = "8.27.2";
@@ -33,7 +32,7 @@ buildGoModule rec {
     versionCheckHook
   ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd ${pname} \
@@ -44,7 +43,7 @@ buildGoModule rec {
 
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Scan git repos (or files) for secrets";
@@ -54,8 +53,8 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/zricethezav/gitleaks";
     changelog = "https://github.com/zricethezav/gitleaks/releases/tag/v${version}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "gitleaks";
   };
 }

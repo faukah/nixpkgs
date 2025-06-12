@@ -3,8 +3,7 @@
   stdenv,
   fetchzip,
   fetchFromGitHub,
-}:
-let
+}: let
   pname = "nitrokey-storage-firmware";
   version = "0.57";
 
@@ -43,42 +42,42 @@ let
       # Because it is very clearly a fork of GCC 4.3.3,
       # it should be licensed under GPLv2+
       license = lib.licenses.gpl2Plus;
-      platforms = [ "x86_64-linux" ];
+      platforms = ["x86_64-linux"];
     };
   });
 in
-stdenv.mkDerivation {
-  inherit pname version src;
+  stdenv.mkDerivation {
+    inherit pname version src;
 
-  sourceRoot = "${src.name}/src";
+    sourceRoot = "${src.name}/src";
 
-  postPatch = ''
-    substituteInPlace Makefile \
-      --replace-fail '$(shell git describe)' "V${version}"
-  '';
+    postPatch = ''
+      substituteInPlace Makefile \
+        --replace-fail '$(shell git describe)' "V${version}"
+    '';
 
-  makeFlags = [
-    "CC=${toolchain}/bin/avr32-gcc"
-    "nitrokey-storage-V${version}-reproducible.hex"
-  ];
-
-  enableParallelBuilding = true;
-
-  installPhase = ''
-    runHook preInstall
-    install -D nitrokey-storage-V${version}-reproducible.hex $out/nitrokey-storage-V${version}-reproducible.hex
-    runHook postInstall
-  '';
-
-  meta = {
-    description = "Firmware for the Nitrokey Storage device";
-    homepage = "https://github.com/Nitrokey/nitrokey-storage-firmware";
-    license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [
-      imadnyc
-      kiike
-      amerino
+    makeFlags = [
+      "CC=${toolchain}/bin/avr32-gcc"
+      "nitrokey-storage-V${version}-reproducible.hex"
     ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+
+    enableParallelBuilding = true;
+
+    installPhase = ''
+      runHook preInstall
+      install -D nitrokey-storage-V${version}-reproducible.hex $out/nitrokey-storage-V${version}-reproducible.hex
+      runHook postInstall
+    '';
+
+    meta = {
+      description = "Firmware for the Nitrokey Storage device";
+      homepage = "https://github.com/Nitrokey/nitrokey-storage-firmware";
+      license = lib.licenses.gpl3Plus;
+      maintainers = with lib.maintainers; [
+        imadnyc
+        kiike
+        amerino
+      ];
+      platforms = ["x86_64-linux"];
+    };
+  }

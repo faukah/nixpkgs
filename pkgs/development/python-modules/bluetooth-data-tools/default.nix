@@ -12,7 +12,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "bluetooth-data-tools";
   version = "1.28.1";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ cryptography ];
+  dependencies = [cryptography];
 
   nativeCheckInputs = [
     pytest-benchmark
@@ -47,15 +46,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--benchmark-disable" ];
+  pytestFlagsArray = ["--benchmark-disable"];
 
-  pythonImportsCheck = [ "bluetooth_data_tools" ];
+  pythonImportsCheck = ["bluetooth_data_tools"];
 
   meta = with lib; {
     description = "Library for converting bluetooth data and packets";
     homepage = "https://github.com/Bluetooth-Devices/bluetooth-data-tools";
     changelog = "https://github.com/Bluetooth-Devices/bluetooth-data-tools/blob/${src.tag}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

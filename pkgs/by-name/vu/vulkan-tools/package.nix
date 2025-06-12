@@ -21,7 +21,6 @@
   wayland-scanner,
   moltenvk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vulkan-tools";
   version = "1.4.313.0";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-47RVuhK9NDtOazG4awTjwbZSnG+thGw6GpyKmcCgWpQ=";
   };
 
-  patches = [ ./wayland-scanner.patch ];
+  patches = [./wayland-scanner.patch];
 
   nativeBuildInputs = [
     cmake
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
       moltenvk.dev
     ];
 
-  libraryPath = lib.strings.makeLibraryPath [ vulkan-loader ];
+  libraryPath = lib.strings.makeLibraryPath [vulkan-loader];
 
   dontPatchELF = true;
 
@@ -96,6 +95,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/KhronosGroup/Vulkan-Tools";
     platforms = platforms.unix;
     license = licenses.asl20;
-    maintainers = [ maintainers.ralith ];
+    maintainers = [maintainers.ralith];
   };
 }

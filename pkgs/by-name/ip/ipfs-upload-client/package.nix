@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ipfs-upload-client";
   version = "0.1.2";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Minimal CLI tool to upload files and directories to IPFS via Infura's IPFS or another API endpoint";
     homepage = "https://github.com/INFURA/ipfs-upload-client";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
     mainProgram = "ipfs-upload-client";
   };
 }

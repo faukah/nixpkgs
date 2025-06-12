@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "host-spawn";
   version = "1.6.1";
@@ -22,7 +21,7 @@ buildGoModule rec {
     description = "Run commands on your host machine from inside your flatpak sandbox, toolbox or distrobox containers";
     license = licenses.mit0;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ garrison ];
+    maintainers = with maintainers; [garrison];
     mainProgram = "host-spawn";
   };
 }

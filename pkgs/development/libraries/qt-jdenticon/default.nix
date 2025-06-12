@@ -5,7 +5,6 @@
   qmake,
   qtbase,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qt-jdenticon";
   version = "0.3.1";
@@ -17,8 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-3XJHBn+S6oDPfmWSyFDW7qkg69wuxj+GUqMBUCDp3n0=";
   };
 
-  nativeBuildInputs = [ qmake ];
-  buildInputs = [ qtbase ];
+  nativeBuildInputs = [qmake];
+  buildInputs = [qtbase];
 
   dontWrapQtApps = true;
 
@@ -33,6 +32,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Nheko-Reborn/qt-jdenticon";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ unclechu ];
+    maintainers = with lib.maintainers; [unclechu];
   };
 })

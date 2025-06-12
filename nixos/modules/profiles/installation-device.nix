@@ -5,10 +5,7 @@
   lib,
   ...
 }:
-
-with lib;
-
-{
+with lib; {
   imports = [
     # Enable devices which are usually scanned, because we don't know the
     # target system.
@@ -92,7 +89,7 @@ with lib;
     # Enable wpa_supplicant, but don't start it by default.
     networking.wireless.enable = mkDefault true;
     networking.wireless.userControlled.enable = true;
-    systemd.services.wpa_supplicant.wantedBy = mkOverride 50 [ ];
+    systemd.services.wpa_supplicant.wantedBy = mkOverride 50 [];
 
     # Tell the Nix evaluator to garbage collect more aggressively.
     # This is desirable in memory-constrained environments that don't
@@ -108,8 +105,7 @@ with lib;
 
     # To speed up installation a little bit, include the complete
     # stdenv in the Nix store on the CD.
-    system.extraDependencies =
-      with pkgs;
+    system.extraDependencies = with pkgs;
       [
         stdenv
         stdenvNoCC # for runCommand
@@ -137,14 +133,14 @@ with lib;
     '';
 
     # allow nix-copy to live system
-    nix.settings.trusted-users = [ "nixos" ];
+    nix.settings.trusted-users = ["nixos"];
 
     # Install less voices for speechd to save some space
     nixpkgs.overlays = [
       (_: prev: {
         mbrola-voices = prev.mbrola-voices.override {
           # only ship with one voice per language
-          languages = [ "*1" ];
+          languages = ["*1"];
         };
       })
     ];

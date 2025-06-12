@@ -18,7 +18,6 @@
   portmidi,
   autoPatchelfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "butt";
   version = "1.45.0";
@@ -71,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "butt (broadcast using this tool) is an easy to use, multi OS streaming tool";
     homepage = "https://danielnoethen.de/butt/";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     mainProgram = "butt";
     platforms = lib.platforms.linux;
   };

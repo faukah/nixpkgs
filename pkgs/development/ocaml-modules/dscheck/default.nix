@@ -6,7 +6,6 @@
   oseq,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "dscheck";
   version = "0.5.0";
@@ -24,12 +23,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   meta = {
     description = "Traced atomics";
     homepage = "https://github.com/ocaml-multicore/dscheck";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

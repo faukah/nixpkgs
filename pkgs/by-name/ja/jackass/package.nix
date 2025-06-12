@@ -7,7 +7,6 @@
   wine64,
   enableJackAssWine64 ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jackass";
   version = "1.1";
@@ -23,9 +22,9 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r ${vst2-sdk}/{public.sdk,pluginterfaces} vstsdk2.4
   '';
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals enableJackAssWine64 [ wine64 ];
+  nativeBuildInputs = [pkg-config] ++ lib.optionals enableJackAssWine64 [wine64];
 
-  makeFlags = [ "linux" ] ++ lib.optionals enableJackAssWine64 [ "wine64" ];
+  makeFlags = ["linux"] ++ lib.optionals enableJackAssWine64 ["wine64"];
 
   installPhase = ''
     runHook preInstall
@@ -51,8 +50,8 @@ stdenv.mkDerivation (finalAttrs: {
       applications. Set enableJackAssWine64 to true to enable this output.
     '';
     homepage = "https://github.com/falkTX/JackAss";
-    maintainers = with lib.maintainers; [ PowerUser64 ];
-    license = [ lib.licenses.mit ];
+    maintainers = with lib.maintainers; [PowerUser64];
+    license = [lib.licenses.mit];
     platforms = lib.platforms.linux;
   };
 })

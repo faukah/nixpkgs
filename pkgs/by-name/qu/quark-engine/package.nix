@@ -4,7 +4,6 @@
   gitMinimal,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "quark-engine";
   version = "25.6.1";
@@ -17,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-DAD37fzswY3c0d+ubOCYImxs4qyD4fhC3m2l0iD977A=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     androguard
@@ -43,13 +42,13 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "quark" ];
+  pythonImportsCheck = ["quark"];
 
   meta = with lib; {
     description = "Android malware (analysis and scoring) system";
     homepage = "https://quark-engine.readthedocs.io/";
     changelog = "https://github.com/quark-engine/quark-engine/releases/tag/${src.tag}";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

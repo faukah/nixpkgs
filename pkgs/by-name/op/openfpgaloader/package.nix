@@ -10,7 +10,6 @@
   udev,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openfpgaloader";
   version = "0.13.1";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "openFPGALoader";
     homepage = "https://github.com/trabucayre/openFPGALoader";
     license = lib.licenses.agpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

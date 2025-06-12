@@ -20,7 +20,6 @@
   tqdm,
   unicrypto,
 }:
-
 buildPythonPackage rec {
   pname = "aardwolf";
   version = "0.2.12";
@@ -52,23 +51,25 @@ buildPythonPackage rec {
     rustc
   ];
 
-  dependencies = [
-    arc4
-    asn1crypto
-    asn1tools
-    asyauth
-    asysocks
-    colorama
-    pillow
-    pyperclip
-    tqdm
-    unicrypto
-  ] ++ lib.optionals (stdenv.hostPlatform.isDarwin) [ iconv ];
+  dependencies =
+    [
+      arc4
+      asn1crypto
+      asn1tools
+      asyauth
+      asysocks
+      colorama
+      pillow
+      pyperclip
+      tqdm
+      unicrypto
+    ]
+    ++ lib.optionals (stdenv.hostPlatform.isDarwin) [iconv];
 
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aardwolf" ];
+  pythonImportsCheck = ["aardwolf"];
 
   meta = with lib; {
     description = "Asynchronous RDP protocol implementation";
@@ -76,6 +77,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/skelsec/aardwolf";
     changelog = "https://github.com/skelsec/aardwolf/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

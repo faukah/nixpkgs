@@ -5,7 +5,6 @@
   setuptools,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "proglog";
   version = "0.1.12";
@@ -16,9 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-Nh7gdHIcJ3uJt1wGEzbLjF8ofJKwQ++lYsz3hmzakxw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ tqdm ];
+  dependencies = [tqdm];
 
   meta = with lib; {
     description = "Logs and progress bars manager for Python";

@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     protobuf
   ];
-  buildInputs = [ openssl_3 ];
+  buildInputs = [openssl_3];
   src = fetchCrate {
     inherit pname version;
     hash = "sha256-F0lZG1neAPVvyOxUtDPv0t7o+ZC+aQRtpFeq55QwcmE=";
@@ -23,8 +23,8 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "Tools for building and running enclaves for the Fortanix SGX ABI";
     homepage = "https://github.com/fortanix/rust-sgx";
-    maintainers = [ lib.maintainers.ozwaldorf ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [lib.maintainers.ozwaldorf];
+    platforms = ["x86_64-linux"];
     license = lib.licenses.mpl20;
   };
 }

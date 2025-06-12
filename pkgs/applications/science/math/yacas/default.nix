@@ -18,7 +18,6 @@
   openjdk,
   gtest,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yacas";
   version = "1.9.1";
@@ -30,12 +29,24 @@ stdenv.mkDerivation rec {
     sha256 = "0dqgqvsb6ggr8jb3ngf0jwfkn6xwj2knhmvqyzx3amc74yd3ckqx";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   cmakeFlags = [
-    "-DENABLE_CYACAS_GUI=${if enableGui then "ON" else "OFF"}"
-    "-DENABLE_CYACAS_KERNEL=${if enableJupyter then "ON" else "OFF"}"
-    "-DENABLE_JYACAS=${if enableJava then "ON" else "OFF"}"
+    "-DENABLE_CYACAS_GUI=${
+      if enableGui
+      then "ON"
+      else "OFF"
+    }"
+    "-DENABLE_CYACAS_KERNEL=${
+      if enableJupyter
+      then "ON"
+      else "OFF"
+    }"
+    "-DENABLE_JYACAS=${
+      if enableJava
+      then "ON"
+      else "OFF"
+    }"
     "-DENABLE_CYACAS_UNIT_TESTS=ON"
   ];
   patches = [
@@ -86,7 +97,7 @@ stdenv.mkDerivation rec {
     description = "Easy to use, general purpose Computer Algebra System${lib.optionalString enableGui ", built with GUI."}";
     homepage = "http://www.yacas.org/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux;
   };
 }

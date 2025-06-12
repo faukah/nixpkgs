@@ -9,7 +9,6 @@
   libzip,
   installShellFiles,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgourou";
   version = "0.8.7";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s ${updfparser}/lib lib/updfparser
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   buildInputs = [
     pugixml
     updfparser
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Implementation of Adobe's ADEPT protocol for ePub/PDF DRM";
     homepage = "https://forge.soutade.fr/soutade/libgourou";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ autumnal ];
+    maintainers = with maintainers; [autumnal];
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin;
   };

@@ -3,21 +3,18 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.zsh.autosuggestions;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "programs" "zsh" "enableAutosuggestions" ]
-      [ "programs" "zsh" "autosuggestions" "enable" ]
+    (
+      lib.mkRenamedOptionModule
+      ["programs" "zsh" "enableAutosuggestions"]
+      ["programs" "zsh" "autosuggestions" "enable"]
     )
   ];
 
   options.programs.zsh.autosuggestions = {
-
     enable = lib.mkEnableOption "zsh-autosuggestions";
 
     highlightStyle = lib.mkOption {
@@ -35,7 +32,7 @@ in
           "match_prev_cmd"
         ]
       );
-      default = [ "history" ];
+      default = ["history"];
       description = ''
         `ZSH_AUTOSUGGEST_STRATEGY` is an array that specifies how suggestions should be generated.
         The strategies in the array are tried successively until a suggestion is found.
@@ -58,7 +55,7 @@ in
 
     extraConfig = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = { };
+      default = {};
       description = "Attribute set with additional configuration values";
       example = lib.literalExpression ''
         {
@@ -66,11 +63,9 @@ in
         }
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     programs.zsh.interactiveShellInit = ''
       source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
@@ -82,6 +77,5 @@ in
         lib.mapAttrsToList (key: value: ''export ${key}="${value}"'') cfg.extraConfig
       )}
     '';
-
   };
 }

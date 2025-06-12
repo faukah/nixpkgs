@@ -11,8 +11,7 @@
   platformdirs,
   tqdm,
   versionCheckHook,
-}:
-let
+}: let
   testsResources = fetchFromGitHub {
     owner = "Breakthrough";
     repo = "PySceneDetect";
@@ -20,51 +19,51 @@ let
     hash = "sha256-7ws7F7CkEJAa0PgfMEOwnpF4Xl2BQCn9+qFQb5MMlZ0=";
   };
 in
-buildPythonPackage rec {
-  pname = "scenedetect";
-  version = "0.6.6";
-  pyproject = true;
+  buildPythonPackage rec {
+    pname = "scenedetect";
+    version = "0.6.6";
+    pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "Breakthrough";
-    repo = "PySceneDetect";
-    tag = "v${version}-release";
-    hash = "sha256-G5NLk6eOpclfrzzHad2KT3uZqydSJU0oF/4L2NIdZe0=";
-  };
+    src = fetchFromGitHub {
+      owner = "Breakthrough";
+      repo = "PySceneDetect";
+      tag = "v${version}-release";
+      hash = "sha256-G5NLk6eOpclfrzzHad2KT3uZqydSJU0oF/4L2NIdZe0=";
+    };
 
-  build-system = [ setuptools ];
+    build-system = [setuptools];
 
-  dependencies = [
-    av
-    click
-    numpy
-    opencv-python
-    platformdirs
-    tqdm
-  ];
+    dependencies = [
+      av
+      click
+      numpy
+      opencv-python
+      platformdirs
+      tqdm
+    ];
 
-  pythonImportsCheck = [
-    "scenedetect"
-  ];
+    pythonImportsCheck = [
+      "scenedetect"
+    ];
 
-  preCheck = ''
-    cp -r ${testsResources}/tests/resources tests/
-    chmod -R +w tests/resources
-  '';
+    preCheck = ''
+      cp -r ${testsResources}/tests/resources tests/
+      chmod -R +w tests/resources
+    '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    versionCheckHook
-  ];
+    nativeCheckInputs = [
+      pytestCheckHook
+      versionCheckHook
+    ];
 
-  versionCheckProgramArg = "version";
+    versionCheckProgramArg = "version";
 
-  meta = {
-    description = "Python and OpenCV-based scene cut/transition detection program & library";
-    homepage = "https://www.scenedetect.com";
-    changelog = "https://github.com/Breakthrough/PySceneDetect/releases/tag/v${version}-release";
-    mainProgram = "scenedetect";
-    license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ DataHearth ];
-  };
-}
+    meta = {
+      description = "Python and OpenCV-based scene cut/transition detection program & library";
+      homepage = "https://www.scenedetect.com";
+      changelog = "https://github.com/Breakthrough/PySceneDetect/releases/tag/v${version}-release";
+      mainProgram = "scenedetect";
+      license = lib.licenses.bsd3;
+      maintainers = with lib.maintainers; [DataHearth];
+    };
+  }

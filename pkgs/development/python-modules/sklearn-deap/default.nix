@@ -9,7 +9,6 @@
   scipy,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sklearn-deap";
   version = "0.3.0";
@@ -42,14 +41,14 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "evolutionary_search" ];
+  pythonImportsCheck = ["evolutionary_search"];
 
   meta = with lib; {
     description = "Use evolutionary algorithms instead of gridsearch in scikit-learn";
     homepage = "https://github.com/rsteca/sklearn-deap";
     license = licenses.mit;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

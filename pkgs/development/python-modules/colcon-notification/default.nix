@@ -9,7 +9,6 @@
   setuptools,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "colcon-notification";
   version = "0.3.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     tag = version;
     hash = "sha256-78LruNk3KlHFgwujSbnbkjC24IN6jGnfRN+qdjvZh+k=";
   };
-  build-system = [ setuptools ];
+  build-system = [setuptools];
   dependencies = [
     colcon
     notify2
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     description = "Extension for colcon-core to provide status notifications";
     homepage = "https://github.com/colcon/colcon-notification";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ guelakais ];
+    maintainers = with lib.maintainers; [guelakais];
   };
 }

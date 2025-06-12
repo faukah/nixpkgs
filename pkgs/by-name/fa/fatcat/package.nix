@@ -5,7 +5,6 @@
   cmake,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fatcat";
   version = "1.1.1";
@@ -30,6 +29,6 @@ stdenv.mkDerivation rec {
     mainProgram = "fatcat";
     homepage = "https://github.com/Gregwar/fatcat";
     license = licenses.mit;
-    maintainers = with maintainers; [ cynerd ];
+    maintainers = with maintainers; [cynerd];
   };
 }

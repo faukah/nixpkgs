@@ -4,7 +4,6 @@
   buildGoModule,
   gnumake,
 }:
-
 buildGoModule {
   pname = "emacsclient-commands";
   version = "unstable-2023-09-22";
@@ -18,7 +17,7 @@ buildGoModule {
 
   vendorHash = "sha256-8oREed2Igz5UvUTDdOFwW5wQQy3H8Xj8epxo6gqnZFA=";
 
-  buildInputs = [ gnumake ];
+  buildInputs = [gnumake];
 
   buildPhase = ''
     runHook preBuild
@@ -30,6 +29,6 @@ buildGoModule {
     description = "Collection of small shell utilities that connect to a local Emacs server";
     homepage = "https://github.com/szermatt/emacsclient-commands";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ binarycat ];
+    maintainers = with maintainers; [binarycat];
   };
 }

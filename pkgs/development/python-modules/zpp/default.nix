@@ -19,10 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-Jvh80TfOonZ57lb+4PulVOUKi9Y74nplIcrPzlUPw3M=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   passthru = {
-    tests.version = testers.testVersion { package = zpp; };
+    tests.version = testers.testVersion {package = zpp;};
   };
 
   meta = {
@@ -30,6 +30,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jbigot/zpp";
     license = lib.licenses.mit;
     mainProgram = "zpp";
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

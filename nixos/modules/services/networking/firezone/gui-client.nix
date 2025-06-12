@@ -3,9 +3,9 @@
   pkgs,
   config,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     boolToString
     getExe'
     mkEnableOption
@@ -16,16 +16,15 @@ let
     ;
 
   cfg = config.services.firezone.gui-client;
-in
-{
+in {
   options = {
     services.firezone.gui-client = {
       enable = mkEnableOption "the firezone gui client";
-      package = mkPackageOption pkgs "firezone-gui-client" { };
+      package = mkPackageOption pkgs "firezone-gui-client" {};
 
       allowedUsers = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = ''
           All listed users will become part of the `firezone-client` group so
           they can control the IPC service. This is a convenience option.
@@ -53,17 +52,17 @@ in
     users.groups.firezone-client.members = cfg.allowedUsers;
 
     # Required for deep-link mimetype registration
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # Required for the token store in the gui application
     services.gnome.gnome-keyring.enable = true;
 
     systemd.services.firezone-ipc-service = {
       description = "GUI IPC service for the Firezone zero-trust access platform";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
-      path = [ pkgs.util-linux ];
+      path = [pkgs.util-linux];
       script = ''
         # If FIREZONE_ID is not given by the user, use a persisted (or newly generated) uuid.
         if [[ -z "''${FIREZONE_ID:-}" ]]; then
@@ -86,8 +85,8 @@ in
         Type = "notify";
 
         DeviceAllow = "/dev/net/tun";
-        AmbientCapabilities = [ "CAP_NET_ADMIN" ];
-        CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
+        AmbientCapabilities = ["CAP_NET_ADMIN"];
+        CapabilityBoundingSet = ["CAP_NET_ADMIN"];
 
         # This block contains hardcoded values in the client, we cannot change these :(
         Group = "firezone-client";

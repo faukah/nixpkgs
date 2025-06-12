@@ -1,5 +1,7 @@
-{ melpaBuild, llvmPackages }:
-
+{
+  melpaBuild,
+  llvmPackages,
+}:
 melpaBuild {
   pname = "llvm-mode";
   inherit (llvmPackages.llvm) src version;

@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kzipmix";
   version = "20200115";
@@ -23,9 +22,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Tool that aggressively optimizes the sizes of Zip archives";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     homepage = "http://advsys.net/ken/utils.htm";
-    maintainers = [ maintainers.sander ];
+    maintainers = [maintainers.sander];
   };
 }

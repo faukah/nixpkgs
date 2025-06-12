@@ -10,7 +10,6 @@
   libsamplerate,
   qtbase,
 }:
-
 stdenv.mkDerivation {
   pname = "liblastfm-unstable";
   version = "2019-08-23";
@@ -51,7 +50,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/lastfm/liblastfm";
     description = "Official LastFM library";
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl3;
   };
 }

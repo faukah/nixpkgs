@@ -39,18 +39,18 @@ stdenv.mkDerivation (finalAttrs: {
     plutovg
   ];
 
-  cmakeFlags = [ (lib.cmakeBool "BUILD_SHARED_LIBS" (!stdenv.hostPlatform.isStatic)) ];
+  cmakeFlags = [(lib.cmakeBool "BUILD_SHARED_LIBS" (!stdenv.hostPlatform.isStatic))];
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/sammycage/plutosvg";
     changelog = "https://github.com/sammycage/plutosvg/releases/tag/${finalAttrs.src.tag}";
     description = "Tiny SVG rendering library in C";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ marcin-serwin ];
-    pkgConfigModules = [ "plutosvg" ];
+    maintainers = with lib.maintainers; [marcin-serwin];
+    pkgConfigModules = ["plutosvg"];
   };
 })

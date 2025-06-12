@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "resumed";
   version = "4.1.0";
@@ -21,7 +20,7 @@ buildNpmPackage rec {
     description = "Lightweight JSON Resume builder, no-frills alternative to resume-cli";
     homepage = "https://github.com/rbardini/resumed";
     license = licenses.mit;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
     mainProgram = "resumed";
   };
 }

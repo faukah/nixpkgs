@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "litefs";
   version = "0.5.14";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-i0gYhPwcs3dfWy6GANlUl1Nc+dXD8KuAT71FATwxpDo=";
 
-  subPackages = [ "cmd/litefs" ];
+  subPackages = ["cmd/litefs"];
 
   # following https://github.com/superfly/litefs/blob/main/Dockerfile
   ldflags = [
@@ -39,7 +38,7 @@ buildGoModule rec {
     description = "FUSE-based file system for replicating SQLite databases across a cluster of machines";
     homepage = "https://github.com/superfly/litefs";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     mainProgram = "litefs";
   };
 }

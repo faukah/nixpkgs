@@ -11,7 +11,6 @@
   cyrus_sasl,
   snappy,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mongoc";
   version = "1.30.3";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     homepage = "http://mongoc.org";
     license = licenses.asl20;
     mainProgram = "mongoc-stat";
-    maintainers = with maintainers; [ archer-65 ];
+    maintainers = with maintainers; [archer-65];
     platforms = platforms.all;
   };
 }

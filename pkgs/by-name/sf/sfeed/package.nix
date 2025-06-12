@@ -4,7 +4,6 @@
   fetchgit,
   ncurses,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sfeed";
   version = "2.2";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ULCYZYRTdrsUaL0XJd5Dxa9Cd0Hc6PVNMnnLTGs4pIo=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   makeFlags =
     [
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     # use macOS's strlcat() and strlcpy() instead of vendored ones
     ++ lib.optional stdenv.hostPlatform.isDarwin "COMPATOBJ:=";
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   # otherwise does not find SIGWINCH
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin "-D_DARWIN_C_SOURCE";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
       items.
     '';
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.matthiasbeyer ];
+    maintainers = [lib.maintainers.matthiasbeyer];
     platforms = lib.platforms.all;
   };
 })

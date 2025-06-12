@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "mastodon-archive";
   version = "1.4.2";
@@ -29,6 +28,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "mastodon-archive";
     homepage = "https://alexschroeder.ch/software/Mastodon_Archive";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ julm ];
+    maintainers = with maintainers; [julm];
   };
 }

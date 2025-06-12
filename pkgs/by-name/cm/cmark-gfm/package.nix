@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HiSGtRsSbW03R6aKoMVVFOLrwP5aXtpeXUC/bE5M/qo=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = true;
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     mainProgram = "cmark-gfm";
     homepage = "https://github.com/github/cmark-gfm";
     changelog = "https://github.com/github/cmark-gfm/raw/${version}/changelog.txt";
-    maintainers = with lib.maintainers; [ cyplo ];
+    maintainers = with lib.maintainers; [cyplo];
     platforms = lib.platforms.unix;
     license = lib.licenses.bsd2;
   };

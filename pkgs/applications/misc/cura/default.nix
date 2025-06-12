@@ -8,9 +8,8 @@
   qtquickcontrols2,
   qtgraphicaleffects,
   curaengine,
-  plugins ? [ ],
+  plugins ? [],
 }:
-
 mkDerivation rec {
   pname = "cura";
   version = "4.13.1";
@@ -34,8 +33,7 @@ mkDerivation rec {
     qtquickcontrols2
     qtgraphicaleffects
   ];
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       libsavitar
       numpy-stl

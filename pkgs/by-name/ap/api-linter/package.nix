@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "api-linter";
   version = "1.69.2";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-wQQGQHz7Z8iSaDbfGWR/MazCo27uLycN0rKerRqzCDc=";
 
-  subPackages = [ "cmd/api-linter" ];
+  subPackages = ["cmd/api-linter"];
 
   ldflags = [
     "-s"
@@ -29,7 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/googleapis/api-linter/";
     changelog = "https://github.com/googleapis/api-linter/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ xrelkd ];
+    maintainers = with maintainers; [xrelkd];
     mainProgram = "api-linter";
   };
 }

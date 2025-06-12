@@ -6,7 +6,6 @@
   makeWrapper,
   openjdk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pmd";
   version = "6.55.0";

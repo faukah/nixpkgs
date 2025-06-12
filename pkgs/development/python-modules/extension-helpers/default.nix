@@ -9,7 +9,6 @@
   setuptools,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "extension-helpers";
   version = "1.2.0";
@@ -29,16 +28,16 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ setuptools ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies = [setuptools] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   nativeCheckInputs = [
     pytestCheckHook
     pip
   ];
 
-  pythonImportsCheck = [ "extension_helpers" ];
+  pythonImportsCheck = ["extension_helpers"];
 
-  pytestFlagsArray = [ "extension_helpers/tests" ];
+  pytestFlagsArray = ["extension_helpers/tests"];
 
   disabledTests = [
     # Test require network access
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/astropy/extension-helpers";
     changelog = "https://github.com/astropy/extension-helpers/blob/${version}/CHANGES.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

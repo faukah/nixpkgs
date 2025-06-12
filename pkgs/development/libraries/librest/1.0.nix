@@ -14,7 +14,6 @@
   gobject-introspection,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rest";
   version = "0.9.1";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -99,6 +98,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/librest";
     license = licenses.lgpl21Only;
     platforms = platforms.unix;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 }

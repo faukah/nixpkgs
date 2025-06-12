@@ -2,9 +2,7 @@
   lib,
   fetchFromGitHub,
   python3,
-}:
-
-let
+}: let
   py = python3.override {
     self = py;
     packageOverrides = self: super: {
@@ -31,8 +29,7 @@ let
           hash = "sha256-3BbQeCaAhlz9h5GnhficNubJHu4kTpnCDM4oKzlti0w=";
         };
         doCheck = false;
-        dependencies =
-          with self;
+        dependencies = with self;
           [
             requests
             requests-oauthlib
@@ -43,64 +40,64 @@ let
     };
   };
 in
-py.pkgs.buildPythonApplication {
-  pname = "ioccheck";
-  version = "unstable-2021-09-29";
-  pyproject = true;
+  py.pkgs.buildPythonApplication {
+    pname = "ioccheck";
+    version = "unstable-2021-09-29";
+    pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "ranguli";
-    repo = "ioccheck";
-    rev = "db02d921e2519b77523a200ca2d78417802463db";
-    hash = "sha256-qf5tHIpbj/BfrzUST+EzohKh1hUg09KwF+vT0tj1+FE=";
-  };
+    src = fetchFromGitHub {
+      owner = "ranguli";
+      repo = "ioccheck";
+      rev = "db02d921e2519b77523a200ca2d78417802463db";
+      hash = "sha256-qf5tHIpbj/BfrzUST+EzohKh1hUg09KwF+vT0tj1+FE=";
+    };
 
-  nativeBuildInputs = with py.pkgs; [
-    poetry-core
-  ];
+    nativeBuildInputs = with py.pkgs; [
+      poetry-core
+    ];
 
-  pythonRelaxDeps = [
-    "backoff"
-    "pyfiglet"
-    "tabulate"
-    "termcolor"
-    "vt-py"
-  ];
+    pythonRelaxDeps = [
+      "backoff"
+      "pyfiglet"
+      "tabulate"
+      "termcolor"
+      "vt-py"
+    ];
 
-  propagatedBuildInputs = with py.pkgs; [
-    backoff
-    click
-    emoji
-    jinja2
-    pyfiglet
-    ratelimit
-    requests
-    shodan
-    tabulate
-    termcolor
-    tweepy
-    vt-py
-  ];
+    propagatedBuildInputs = with py.pkgs; [
+      backoff
+      click
+      emoji
+      jinja2
+      pyfiglet
+      ratelimit
+      requests
+      shodan
+      tabulate
+      termcolor
+      tweepy
+      vt-py
+    ];
 
-  nativeCheckInputs = with py.pkgs; [
-    pytestCheckHook
-  ];
+    nativeCheckInputs = with py.pkgs; [
+      pytestCheckHook
+    ];
 
-  postPatch = ''
-    # Can be removed with the next release
-    substituteInPlace pyproject.toml \
-      --replace '"hurry.filesize" = "^0.9"' ""
-  '';
+    postPatch = ''
+      # Can be removed with the next release
+      substituteInPlace pyproject.toml \
+        --replace '"hurry.filesize" = "^0.9"' ""
+    '';
 
-  pythonImportsCheck = [
-    "ioccheck"
-  ];
+    pythonImportsCheck = [
+      "ioccheck"
+    ];
 
-  meta = with lib; {
-    description = "Tool for researching IOCs";
-    mainProgram = "ioccheck";
-    homepage = "https://github.com/ranguli/ioccheck";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
-  };
-}
+    meta = with lib; {
+      description = "Tool for researching IOCs";
+      mainProgram = "ioccheck";
+      homepage = "https://github.com/ranguli/ioccheck";
+      license = with licenses; [mit];
+      maintainers = with maintainers; [fab];
+    };
+  }

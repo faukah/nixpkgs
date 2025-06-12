@@ -10,28 +10,25 @@
   pandoc ? null,
   ...
 }:
-
 assert pandocSupport -> pandoc != null;
+  stdenv.mkDerivation rec {
+    pname = "memo";
 
-stdenv.mkDerivation rec {
+    version = "0.8";
 
-  pname = "memo";
+    src = fetchFromGitHub {
+      owner = "mrVanDalo";
+      repo = "memo";
+      rev = version;
+      sha256 = "0azx2bx6y7j0637fg3m8zigcw09zfm2mw9wjfg218sx88cm1wdkp";
+    };
 
-  version = "0.8";
-
-  src = fetchFromGitHub {
-    owner = "mrVanDalo";
-    repo = "memo";
-    rev = version;
-    sha256 = "0azx2bx6y7j0637fg3m8zigcw09zfm2mw9wjfg218sx88cm1wdkp";
-  };
-
-  installPhase =
-    let
+    installPhase = let
       pandocReplacement =
-        if pandocSupport then "pandoc_cmd=${pandoc}/bin/pandoc" else "#pandoc_cmd=pandoc";
-    in
-    ''
+        if pandocSupport
+        then "pandoc_cmd=${pandoc}/bin/pandoc"
+        else "#pandoc_cmd=pandoc";
+    in ''
       mkdir -p $out/{bin,share/man/man1,share/bash-completion/completions,share/zsh/site-functions}
       substituteInPlace memo \
         --replace "ack_cmd=ack"       "ack_cmd=${silver-searcher}/bin/ag" \
@@ -45,17 +42,17 @@ stdenv.mkDerivation rec {
       mv completion/zsh/_memo    $out/share/zsh/site-functions/_memo
     '';
 
-  meta = {
-    description = "Simple tool written in bash to memorize stuff";
-    longDescription = ''
-      A simple tool written in bash to memorize stuff.
-      Memo organizes is structured through topics which are folders in ~/memo.
-    '';
-    homepage = "http://palovandalo.com/memo/";
-    downloadPage = "https://github.com/mrVanDalo/memo/releases";
-    license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.mrVanDalo ];
-    platforms = lib.platforms.all;
-    mainProgram = "memo";
-  };
-}
+    meta = {
+      description = "Simple tool written in bash to memorize stuff";
+      longDescription = ''
+        A simple tool written in bash to memorize stuff.
+        Memo organizes is structured through topics which are folders in ~/memo.
+      '';
+      homepage = "http://palovandalo.com/memo/";
+      downloadPage = "https://github.com/mrVanDalo/memo/releases";
+      license = lib.licenses.gpl3;
+      maintainers = [lib.maintainers.mrVanDalo];
+      platforms = lib.platforms.all;
+      mainProgram = "memo";
+    };
+  }

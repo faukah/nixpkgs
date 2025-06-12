@@ -4,9 +4,7 @@
   lib,
   callPackage,
   qt6Packages,
-}:
-
-let
+}: let
   # Upstream replaces minor versions, so use archived URLs.
   srcs = rec {
     x86_64-linux = fetchurl {
@@ -22,28 +20,27 @@ let
   };
 
   mkDerivation =
-    if stdenv.hostPlatform.isDarwin then
-      callPackage ./darwin.nix { }
-    else
-      qt6Packages.callPackage ./linux.nix { };
+    if stdenv.hostPlatform.isDarwin
+    then callPackage ./darwin.nix {}
+    else qt6Packages.callPackage ./linux.nix {};
 in
-mkDerivation {
-  pname = "p4v";
-  version = "2024.2/2606884";
+  mkDerivation {
+    pname = "p4v";
+    version = "2024.2/2606884";
 
-  src =
-    srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    src =
+      srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
-  meta = {
-    description = "Perforce Helix Visual Client";
-    homepage = "https://www.perforce.com";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    license = lib.licenses.unfreeRedistributable;
-    platforms = builtins.attrNames srcs;
-    maintainers = with lib.maintainers; [
-      impl
-      nathyong
-      nioncode
-    ];
-  };
-}
+    meta = {
+      description = "Perforce Helix Visual Client";
+      homepage = "https://www.perforce.com";
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      license = lib.licenses.unfreeRedistributable;
+      platforms = builtins.attrNames srcs;
+      maintainers = with lib.maintainers; [
+        impl
+        nathyong
+        nioncode
+      ];
+    };
+  }

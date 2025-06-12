@@ -6,7 +6,6 @@
   cmake,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libpoly";
   version = "0.2.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
       --replace-warn " -Werror " " "
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     gmp

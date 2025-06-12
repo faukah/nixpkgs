@@ -5,9 +5,7 @@
   copyDesktopItems,
   libsForQt5,
   makeDesktopItem,
-}:
-
-let
+}: let
   # get rid of rec
   pname = "pyspread";
   version = "2.4";
@@ -15,74 +13,75 @@ let
     inherit pname version;
     hash = "sha256-MZlR2Rap5oMRfCmswg9W//FYFkSEki7eyMNhLoGZgJM=";
   };
-  inherit (libsForQt5)
+  inherit
+    (libsForQt5)
     qtsvg
     wrapQtAppsHook
     ;
 in
-python3.pkgs.buildPythonApplication {
-  inherit pname version src;
+  python3.pkgs.buildPythonApplication {
+    inherit pname version src;
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    wrapQtAppsHook
-  ];
+    nativeBuildInputs = [
+      copyDesktopItems
+      wrapQtAppsHook
+    ];
 
-  buildInputs = [
-    qtsvg
-  ];
+    buildInputs = [
+      qtsvg
+    ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    python-dateutil
-    markdown2
-    matplotlib
-    numpy
-    pyenchant
-    pyqt5
-    setuptools
-  ];
+    propagatedBuildInputs = with python3.pkgs; [
+      python-dateutil
+      markdown2
+      matplotlib
+      numpy
+      pyenchant
+      pyqt5
+      setuptools
+    ];
 
-  strictDeps = true;
+    strictDeps = true;
 
-  doCheck = false; # it fails miserably with a core dump
+    doCheck = false; # it fails miserably with a core dump
 
-  pythonImportsCheck = [ "pyspread" ];
+    pythonImportsCheck = ["pyspread"];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "pyspread";
-      exec = "pyspread";
-      icon = "pyspread";
-      desktopName = "Pyspread";
-      genericName = "Spreadsheet";
-      comment = "A Python-oriented spreadsheet application";
-      categories = [
-        "Office"
-        "Development"
-        "Spreadsheet"
-      ];
-    })
-  ];
+    desktopItems = [
+      (makeDesktopItem {
+        name = "pyspread";
+        exec = "pyspread";
+        icon = "pyspread";
+        desktopName = "Pyspread";
+        genericName = "Spreadsheet";
+        comment = "A Python-oriented spreadsheet application";
+        categories = [
+          "Office"
+          "Development"
+          "Spreadsheet"
+        ];
+      })
+    ];
 
-  preFixup = ''
-    makeWrapperArgs+=("''${qtWrapperArgs[@]}")
-  '';
-
-  meta = {
-    homepage = "https://pyspread.gitlab.io/";
-    description = "Python-oriented spreadsheet application";
-    longDescription = ''
-      pyspread is a non-traditional spreadsheet application that is based on and
-      written in the programming language Python. The goal of pyspread is to be
-      the most pythonic spreadsheet.
-
-      pyspread expects Python expressions in its grid cells, which makes a
-      spreadsheet specific language obsolete. Each cell returns a Python object
-      that can be accessed from other cells. These objects can represent
-      anything including lists or matrices.
+    preFixup = ''
+      makeWrapperArgs+=("''${qtWrapperArgs[@]}")
     '';
-    license = with lib.licenses; [ gpl3Plus ];
-    mainProgram = "pyspread";
-    maintainers = with lib.maintainers; [ ];
-  };
-}
+
+    meta = {
+      homepage = "https://pyspread.gitlab.io/";
+      description = "Python-oriented spreadsheet application";
+      longDescription = ''
+        pyspread is a non-traditional spreadsheet application that is based on and
+        written in the programming language Python. The goal of pyspread is to be
+        the most pythonic spreadsheet.
+
+        pyspread expects Python expressions in its grid cells, which makes a
+        spreadsheet specific language obsolete. Each cell returns a Python object
+        that can be accessed from other cells. These objects can represent
+        anything including lists or matrices.
+      '';
+      license = with lib.licenses; [gpl3Plus];
+      mainProgram = "pyspread";
+      maintainers = with lib.maintainers; [];
+    };
+  }

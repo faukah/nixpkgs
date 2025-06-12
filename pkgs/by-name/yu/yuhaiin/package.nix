@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "yuhaiin";
   version = "0.3.8";
@@ -18,33 +17,31 @@ buildGoModule rec {
 
   vendorHash = "sha256-FSm/oG0XkTqx93DrtVKoJAmIlkHNXEG20IanXuMxBgw=";
 
-  subPackages = [ "cmd/yuhaiin" ];
+  subPackages = ["cmd/yuhaiin"];
 
-  ldflags =
-    let
-      # https://github.com/yuhaiin/yuhaiin/blob/dbbcd93c3dce141a3323e03043d5d0eabe7252d1/makefile#L1
-      module = "github.com/Asutorufa/yuhaiin/internal";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${module}/version.Version=v${version}"
-      "-X ${module}/version.GitCommit=${src.rev}"
-      "-X ${module}/version.BuildDate=unknown"
-    ];
+  ldflags = let
+    # https://github.com/yuhaiin/yuhaiin/blob/dbbcd93c3dce141a3323e03043d5d0eabe7252d1/makefile#L1
+    module = "github.com/Asutorufa/yuhaiin/internal";
+  in [
+    "-s"
+    "-w"
+    "-X ${module}/version.Version=v${version}"
+    "-X ${module}/version.GitCommit=${src.rev}"
+    "-X ${module}/version.BuildDate=unknown"
+  ];
 
   nativeCheckInputs = [
     versionCheckHook
   ];
 
-  versionCheckProgramArg = [ "--version" ];
+  versionCheckProgramArg = ["--version"];
 
   meta = {
     description = "Proxy kit for Linux/Windows/MacOS";
     homepage = "https://github.com/yuhaiin/yuhaiin";
     changelog = "https://github.com/yuhaiin/yuhaiin/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ oluceps ];
+    maintainers = with lib.maintainers; [oluceps];
     mainProgram = "yuhaiin";
   };
 }

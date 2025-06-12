@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.brltty;
 
   targets = [
@@ -21,18 +20,13 @@ let
       echo done
     fi
   '';
-
-in
-{
-
+in {
   options = {
-
     services.brltty.enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
       description = "Whether to enable the BRLTTY daemon.";
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -42,8 +36,8 @@ in
       isSystemUser = true;
     };
     users.groups = {
-      brltty = { };
-      brlapi = { };
+      brltty = {};
+      brlapi = {};
     };
 
     systemd.services."brltty@".serviceConfig = {
@@ -51,14 +45,13 @@ in
     };
 
     # Install all upstream-provided files
-    systemd.packages = [ pkgs.brltty ];
-    systemd.tmpfiles.packages = [ pkgs.brltty ];
-    services.udev.packages = [ pkgs.brltty ];
-    environment.systemPackages = [ pkgs.brltty ];
+    systemd.packages = [pkgs.brltty];
+    systemd.tmpfiles.packages = [pkgs.brltty];
+    services.udev.packages = [pkgs.brltty];
+    environment.systemPackages = [pkgs.brltty];
 
     # Add missing WantedBys (see issue #81138)
     systemd.paths.brltty.wantedBy = targets;
     systemd.paths."brltty@".wantedBy = targets;
   };
-
 }

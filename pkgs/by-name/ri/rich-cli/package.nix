@@ -6,7 +6,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "rich-cli";
   version = "1.8.0";
@@ -50,7 +49,7 @@ python3Packages.buildPythonApplication rec {
     textual
   ];
 
-  pythonImportsCheck = [ "rich_cli" ];
+  pythonImportsCheck = ["rich_cli"];
 
   nativeCheckInputs = [
     versionCheckHook
@@ -59,7 +58,7 @@ python3Packages.buildPythonApplication rec {
   versionCheckProgramArg = "--version";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -67,7 +66,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/Textualize/rich-cli";
     changelog = "https://github.com/Textualize/rich-cli/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "rich";
   };
 }

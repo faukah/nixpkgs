@@ -5,8 +5,7 @@
   pkg-config,
   libde265,
   libheif,
-}:
-let
+}: let
   pname = "matrix-media-repo";
   version = "1.3.8";
 
@@ -28,44 +27,43 @@ let
     ];
   };
 in
+  buildGoModule {
+    inherit
+      pname
+      version
+      src
+      vendorHash
+      ;
 
-buildGoModule {
-  inherit
-    pname
-    version
-    src
-    vendorHash
-    ;
+    nativeBuildInputs = [
+      pkg-config
+      asset-compiler
+    ];
 
-  nativeBuildInputs = [
-    pkg-config
-    asset-compiler
-  ];
+    buildInputs = [
+      libde265
+      libheif
+    ];
 
-  buildInputs = [
-    libde265
-    libheif
-  ];
+    preBuild = ''
+      compile_assets
+    '';
 
-  preBuild = ''
-    compile_assets
-  '';
+    ldflags = [
+      "-s"
+      "-w"
+      "-X"
+      "github.com/t2bot/matrix-media-repo/common/version.Version=${version}"
+    ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X"
-    "github.com/t2bot/matrix-media-repo/common/version.Version=${version}"
-  ];
+    doCheck = false; # requires docker
 
-  doCheck = false; # requires docker
-
-  meta = with lib; {
-    description = "Highly configurable multi-domain media repository for Matrix";
-    homepage = "https://github.com/t2bot/matrix-media-repo";
-    changelog = "https://github.com/t2bot/matrix-media-repo/blob/${src.rev}/CHANGELOG.md";
-    license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
-    mainProgram = "media_repo";
-  };
-}
+    meta = with lib; {
+      description = "Highly configurable multi-domain media repository for Matrix";
+      homepage = "https://github.com/t2bot/matrix-media-repo";
+      changelog = "https://github.com/t2bot/matrix-media-repo/blob/${src.rev}/CHANGELOG.md";
+      license = licenses.mit;
+      maintainers = with maintainers; [hexa];
+      mainProgram = "media_repo";
+    };
+  }

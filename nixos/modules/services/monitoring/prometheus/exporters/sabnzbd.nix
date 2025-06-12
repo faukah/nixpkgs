@@ -4,13 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkOption types;
   cfg = config.services.prometheus.exporters.sabnzbd;
-in
-{
+in {
   port = 9387;
 
   extraOpts = {
@@ -39,32 +36,34 @@ in
     };
   };
 
-  serviceOpts =
-    let
-      servers = lib.zipAttrs cfg.servers;
-      credentials = lib.imap0 (i: v: {
+  serviceOpts = let
+    servers = lib.zipAttrs cfg.servers;
+    credentials =
+      lib.imap0 (i: v: {
         name = "apikey-${toString i}";
         path = v;
-      }) servers.apiKeyFile;
-    in
-    {
-      serviceConfig.LoadCredential = builtins.map ({ name, path }: "${name}:${path}") credentials;
+      })
+      servers.apiKeyFile;
+  in {
+    serviceConfig.LoadCredential = builtins.map ({
+      name,
+      path,
+    }: "${name}:${path}")
+    credentials;
 
-      environment = {
-        METRICS_PORT = toString cfg.port;
-        METRICS_ADDR = cfg.listenAddress;
-        SABNZBD_BASEURLS = lib.concatStringsSep "," servers.baseUrl;
-      };
-
-      script =
-        let
-          apiKeys = lib.concatStringsSep "," (
-            builtins.map (cred: "$(< $CREDENTIALS_DIRECTORY/${cred.name})") credentials
-          );
-        in
-        ''
-          export SABNZBD_APIKEYS="${apiKeys}"
-          exec ${lib.getExe pkgs.prometheus-sabnzbd-exporter}
-        '';
+    environment = {
+      METRICS_PORT = toString cfg.port;
+      METRICS_ADDR = cfg.listenAddress;
+      SABNZBD_BASEURLS = lib.concatStringsSep "," servers.baseUrl;
     };
+
+    script = let
+      apiKeys = lib.concatStringsSep "," (
+        builtins.map (cred: "$(< $CREDENTIALS_DIRECTORY/${cred.name})") credentials
+      );
+    in ''
+      export SABNZBD_APIKEYS="${apiKeys}"
+      exec ${lib.getExe pkgs.prometheus-sabnzbd-exporter}
+    '';
+  };
 }

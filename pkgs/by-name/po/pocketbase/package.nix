@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "pocketbase";
   version = "0.28.2";
@@ -19,7 +18,7 @@ buildGoModule rec {
   vendorHash = "sha256-bTXxhHibKiu+btHhnktTpNycMJSzGekRJ+w9b1IwAQs=";
 
   # This is the released subpackage from upstream repo
-  subPackages = [ "examples/base" ];
+  subPackages = ["examples/base"];
 
   env.CGO_ENABLED = 0;
 
@@ -34,7 +33,7 @@ buildGoModule rec {
     mv $out/bin/base $out/bin/pocketbase
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Open Source realtime backend in 1 file";

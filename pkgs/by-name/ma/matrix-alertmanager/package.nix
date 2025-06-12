@@ -4,7 +4,6 @@
   fetchFromGitHub,
   jq,
 }:
-
 buildNpmPackage rec {
   pname = "matrix-alertmanager";
   version = "0.8.0";
@@ -31,6 +30,6 @@ buildNpmPackage rec {
     mainProgram = "matrix-alertmanager";
     homepage = "https://github.com/jaywink/matrix-alertmanager";
     license = licenses.mit;
-    maintainers = with maintainers; [ erethon ];
+    maintainers = with maintainers; [erethon];
   };
 }

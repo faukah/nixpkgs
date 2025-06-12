@@ -15,7 +15,6 @@
   coreutils,
   kmod,
 }:
-
 stdenv.mkDerivation rec {
   pname = "roccat-tools";
   version = "5.9.0";

@@ -6,7 +6,6 @@
   cmake,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "TandemAligner";
   version = "0.1";
@@ -29,9 +28,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/tandem_aligner";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   installPhase = ''
     runHook preInstall
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/seryrzu/tandem_aligner";
     changelog = "https://github.com/seryrzu/tandem_aligner/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ amesgen ];
+    maintainers = with lib.maintainers; [amesgen];
     platforms = lib.platforms.linux;
     mainProgram = "tandem_aligner";
   };

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "awsbck";
   version = "0.3.13";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ beeb ];
+    maintainers = with maintainers; [beeb];
     mainProgram = "awsbck";
   };
 }

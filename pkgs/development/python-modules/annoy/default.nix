@@ -2,18 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # nativeBuildInputs
   h5py,
-
   # tests
   numpy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "annoy";
   version = "1.17.3";
@@ -31,9 +27,9 @@ buildPythonPackage rec {
       --replace-fail "'nose>=1.0'" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ h5py ];
+  nativeBuildInputs = [h5py];
 
   nativeCheckInputs = [
     numpy
@@ -49,14 +45,14 @@ buildPythonPackage rec {
     "test/accuracy_test.py"
   ];
 
-  pythonImportsCheck = [ "annoy" ];
+  pythonImportsCheck = ["annoy"];
 
   meta = {
     description = "Approximate Nearest Neighbors in C++/Python optimized for memory usage and loading/saving to disk";
     homepage = "https://github.com/spotify/annoy";
     changelog = "https://github.com/spotify/annoy/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ timokau ];
+    maintainers = with lib.maintainers; [timokau];
     badPlatforms = [
       # Several tests fail with AssertionError
       lib.systems.inspect.patterns.isDarwin

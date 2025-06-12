@@ -3,20 +3,16 @@
   pkgs,
   config,
   ...
-}:
-
-let
+}: let
   cfg = config.services.libeufin;
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
   configFile = settingsFormat.generate "generated-libeufin.conf" cfg.settings;
-in
-
-{
+in {
   options.services.libeufin = {
     settings = lib.mkOption {
       description = "Global configuration options for the libeufin bank system config file.";
-      type = lib.types.submodule { freeformType = settingsFormat.type; };
-      default = { };
+      type = lib.types.submodule {freeformType = settingsFormat.type;};
+      default = {};
     };
   };
 

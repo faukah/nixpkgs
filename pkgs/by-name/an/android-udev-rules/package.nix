@@ -3,11 +3,9 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 ## Usage
 # In NixOS, simply add this package to services.udev.packages:
 #   services.udev.packages = [ pkgs.android-udev-rules ];
-
 stdenv.mkDerivation rec {
   pname = "android-udev-rules";
   version = "20250525";
@@ -30,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "Android udev rules list aimed to be the most comprehensive on the net";
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ abbradar ];
-    teams = [ lib.teams.android ];
+    maintainers = with maintainers; [abbradar];
+    teams = [lib.teams.android];
   };
 }

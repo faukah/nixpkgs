@@ -1,5 +1,4 @@
-{ callPackage, ... }@args:
-
+{callPackage, ...} @ args:
 callPackage ./. (
   args
   // {

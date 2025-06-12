@@ -14,7 +14,6 @@
   jsonrpc-glib,
   vala,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vala-language-server";
   version = "0.48.7";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   };
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   nativeBuildInputs =
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     mainProgram = "vala-language-server";
     homepage = "https://github.com/vala-lang/vala-language-server";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ andreasfelix ];
+    maintainers = with maintainers; [andreasfelix];
     platforms = platforms.unix;
   };
 }

@@ -2,17 +2,14 @@
   buildPythonPackage,
   fetchFromGitHub,
   lib,
-
   # Python Dependencies
   six,
   urllib3,
   requests,
-
   # tests
   pytestCheckHook,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "mixpanel";
   version = "4.10.1";
@@ -40,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mixpanel/mixpanel-python";
     description = "Official Mixpanel Python library";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

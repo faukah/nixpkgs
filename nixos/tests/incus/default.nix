@@ -1,14 +1,12 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../../.. {inherit system config;},
   lts ? true,
   ...
-}:
-let
+}: let
   incusTest = import ./incus-tests.nix;
-in
-{
+in {
   all = incusTest {
     inherit lts pkgs system;
     allTests = true;

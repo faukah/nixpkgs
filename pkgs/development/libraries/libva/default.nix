@@ -23,7 +23,6 @@
   vlc,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libva" + lib.optionalString minimal "-minimal";
   version = "2.22.0";
@@ -40,16 +39,18 @@ stdenv.mkDerivation (finalAttrs: {
     "out"
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    ninja
-  ] ++ lib.optional (!minimal) wayland-scanner;
+  nativeBuildInputs =
+    [
+      meson
+      pkg-config
+      ninja
+    ]
+    ++ lib.optional (!minimal) wayland-scanner;
 
   buildInputs =
-    [ libdrm ]
+    [libdrm]
     ++ lib.optionals (!minimal) [
       libX11
       libXext
@@ -66,9 +67,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   env =
     lib.optionalAttrs (stdenv.cc.bintools.isLLVM && lib.versionAtLeast stdenv.cc.bintools.version "17")
-      {
-        NIX_LDFLAGS = "--undefined-version";
-      }
+    {
+      NIX_LDFLAGS = "--undefined-version";
+    }
     // lib.optionalAttrs (stdenv.targetPlatform.useLLVM or false) {
       NIX_CFLAGS_COMPILE = "-DHAVE_SECURE_GETENV";
     };
@@ -97,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://01.org/linuxmedia/vaapi";
     changelog = "https://raw.githubusercontent.com/intel/libva/${finalAttrs.version}/NEWS";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     pkgConfigModules =
       [
         "libva"

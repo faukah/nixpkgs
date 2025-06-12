@@ -20,13 +20,12 @@
   tcpip,
   ca-certs-nss,
 }:
-
 buildDunePackage {
   pname = "conduit-mirage";
 
   inherit (conduit-lwt) version src;
 
-  nativeBuildInputs = [ ppx_sexp_conv ];
+  nativeBuildInputs = [ppx_sexp_conv];
 
   propagatedBuildInputs = [
     sexplib0
@@ -49,7 +48,9 @@ buildDunePackage {
     ca-certs-nss
   ];
 
-  meta = conduit-lwt.meta // {
-    description = "Network connection establishment library for MirageOS";
-  };
+  meta =
+    conduit-lwt.meta
+    // {
+      description = "Network connection establishment library for MirageOS";
+    };
 }

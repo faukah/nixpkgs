@@ -24,7 +24,6 @@
   pimcommon,
   qttools,
 }:
-
 mkDerivation {
   pname = "kmail-account-wizard";
   meta = {

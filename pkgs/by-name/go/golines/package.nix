@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "golines";
   version = "0.12.2";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Golang formatter that fixes long lines";
     homepage = "https://github.com/segmentio/golines";
     license = licenses.mit;
-    maintainers = with maintainers; [ meain ];
+    maintainers = with maintainers; [meain];
     mainProgram = "golines";
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "reviewdog";
   version = "0.20.3";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/reviewdog" ];
+  subPackages = ["cmd/reviewdog"];
 
   ldflags = [
     "-s"
@@ -32,7 +31,7 @@ buildGoModule rec {
     mainProgram = "reviewdog";
     homepage = "https://github.com/reviewdog/reviewdog";
     changelog = "https://github.com/reviewdog/reviewdog/blob/v${version}/CHANGELOG.md";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     license = lib.licenses.mit;
   };
 }

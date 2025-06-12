@@ -2,17 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   numpy,
   scikit-learn,
   termcolor,
   tqdm,
   pandas,
-
   # tests
   cleanvision,
   datasets,
@@ -29,7 +26,6 @@
   wget,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "cleanlab";
   version = "2.7.1";
@@ -42,7 +38,7 @@ buildPythonPackage rec {
     hash = "sha256-KzVqBOLTxxkgvoGPYMeYb7zMuG8VwQwX6SYR/FUhfBw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "numpy"
@@ -60,7 +56,7 @@ buildPythonPackage rec {
   # The reason we do this is because of duplicate packages in the enclosure
   # when using the packages in nativeCheckInputs.
   # Affected packages: grpcio protobuf tensorboard tensorboard-plugin-profile
-  catchConflicts = (!doCheck);
+  catchConflicts = !doCheck;
   doCheck = true;
 
   nativeCheckInputs = [
@@ -111,6 +107,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/cleanlab/cleanlab";
     changelog = "https://github.com/cleanlab/cleanlab/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 }

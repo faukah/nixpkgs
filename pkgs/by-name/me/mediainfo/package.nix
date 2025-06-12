@@ -8,7 +8,6 @@
   libmediainfo,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mediainfo";
   version = "25.04";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "MediaInfo/Project/GNU/CLI";
 
-  configureFlags = [ "--with-libmediainfo=${libmediainfo}" ];
+  configureFlags = ["--with-libmediainfo=${libmediainfo}"];
 
   enableParallelBuilding = true;
 
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://mediaarea.net/";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.devhell ];
+    maintainers = [maintainers.devhell];
     mainProgram = "mediainfo";
   };
 }

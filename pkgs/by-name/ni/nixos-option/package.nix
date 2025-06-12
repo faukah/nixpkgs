@@ -11,7 +11,6 @@
   runCommand,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation {
   name = "nixos-option";
 
@@ -45,18 +44,18 @@ stdenvNoCC.mkDerivation {
   postFixup = ''
     wrapProgram $out/bin/nixos-option \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          jq
-          man-db
-          nix
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        jq
+        man-db
+        nix
+      ]
+    }
   '';
 
   passthru.tests = {
     installer-simpleUefiSystemdBoot = nixosTests.installer.simpleUefiSystemdBoot;
-    shellcheck = runCommand "nixos-option-shellchecked" { nativeBuildInputs = [ shellcheck ]; } ''
+    shellcheck = runCommand "nixos-option-shellchecked" {nativeBuildInputs = [shellcheck];} ''
       shellcheck ${./nixos-option.sh} && touch $out
     '';
   };

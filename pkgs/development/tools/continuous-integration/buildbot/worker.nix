@@ -3,25 +3,20 @@
   buildPythonPackage,
   buildbot,
   stdenv,
-
   # patch
   coreutils,
-
   # propagates
   autobahn,
   msgpack,
   twisted,
-
   # tests
   parameterized,
   psutil,
   setuptools-trial,
-
   # passthru
   nixosTests,
 }:
-
-buildPythonPackage ({
+buildPythonPackage {
   pname = "buildbot_worker";
   inherit (buildbot) src version;
 
@@ -54,7 +49,7 @@ buildPythonPackage ({
   meta = with lib; {
     homepage = "https://buildbot.net/";
     description = "Buildbot Worker Daemon";
-    teams = [ teams.buildbot ];
+    teams = [teams.buildbot];
     license = licenses.gpl2;
   };
-})
+}

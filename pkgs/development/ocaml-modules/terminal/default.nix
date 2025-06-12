@@ -9,7 +9,6 @@
   alcotest,
   fmt,
 }:
-
 buildDunePackage rec {
   pname = "terminal";
   version = "0.4.0";
@@ -37,6 +36,6 @@ buildDunePackage rec {
     description = "Basic utilities for interacting with terminals";
     homepage = "https://github.com/CraigFe/progress";
     license = licenses.mit;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

@@ -9,7 +9,6 @@
   innernet,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "innernet";
   version = "1.6.1";

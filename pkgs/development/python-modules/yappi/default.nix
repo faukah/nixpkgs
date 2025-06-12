@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "yappi";
   version = "1.6.10";
@@ -22,11 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-RVa8IzyRuIQMfI0DhKdybJBBwqmyc2KI8XjD0PKQ8M8=";
   };
 
-  patches = [ ./tests.patch ];
+  patches = [./tests.patch];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ gevent ];
+  nativeCheckInputs = [gevent];
 
   checkPhase = ''
     runHook preCheck
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "yappi" ];
+  pythonImportsCheck = ["yappi"];
 
   meta = with lib; {
     description = "Python profiler that supports multithreading and measuring CPU time";
     mainProgram = "yappi";
     homepage = "https://github.com/sumerc/yappi";
     license = licenses.mit;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

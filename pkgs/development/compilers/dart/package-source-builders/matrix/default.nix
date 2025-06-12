@@ -3,10 +3,11 @@
   lib,
   writeScript,
   openssl,
+}: {
+  version,
+  src,
+  ...
 }:
-
-{ version, src, ... }:
-
 stdenv.mkDerivation rec {
   pname = "matrix";
   inherit version src;

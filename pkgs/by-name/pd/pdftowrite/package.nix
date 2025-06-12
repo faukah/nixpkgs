@@ -5,7 +5,6 @@
   makeWrapper,
   versionCheckHook,
   nix-update-script,
-
   # shared
   gzip,
   # pdftowrite
@@ -48,28 +47,27 @@ python3Packages.buildPythonApplication rec {
     ./inkscape-unknown-option-pdf-page.patch
   ];
 
-  postInstall =
-    let
-      pdftowritePath = lib.makeBinPath [
-        # shared
-        gzip
-        # pdftowrite
-        poppler-utils
-        inkscape
-        ghostscript
-        imagemagick
-        libxml2
-        libxslt
-      ];
-      writetopdfPath = lib.makeBinPath [
-        # shared
-        gzip
-        # writetopdf
-        wkhtmltopdf
-        pdftk
-        librsvg
-      ];
-    in
+  postInstall = let
+    pdftowritePath = lib.makeBinPath [
+      # shared
+      gzip
+      # pdftowrite
+      poppler-utils
+      inkscape
+      ghostscript
+      imagemagick
+      libxml2
+      libxslt
+    ];
+    writetopdfPath = lib.makeBinPath [
+      # shared
+      gzip
+      # writetopdf
+      wkhtmltopdf
+      pdftk
+      librsvg
+    ];
+  in
     # `SELF_CALL=xxx` prevents inkscape shananigans (see https://gitlab.com/inkscape/inkscape/-/issues/4716)
     ''
       wrapProgram $out/bin/pdftowrite --prefix PATH : ${pdftowritePath} \
@@ -77,15 +75,15 @@ python3Packages.buildPythonApplication rec {
       wrapProgram $out/bin/writetopdf --prefix PATH : ${writetopdfPath}
     '';
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/apebl/pdftowrite";
     description = "Utility that converts PDF to Stylus Labs Write documents, and vice versa";
     platforms = lib.platforms.linux;
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ henrispriet ];
+    maintainers = with lib.maintainers; [henrispriet];
   };
 }

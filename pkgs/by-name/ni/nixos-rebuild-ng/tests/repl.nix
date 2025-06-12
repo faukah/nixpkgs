@@ -7,8 +7,7 @@
   runCommand,
   stdenv,
   writeText,
-}:
-let
+}: let
   # Arguably not true, but it holds up for now.
   escapeExpect = lib.strings.escapeNixString;
 
@@ -29,18 +28,20 @@ let
   # In case we want/need to evaluate packages or the assertions or whatever,
   # we want to have a linux system.
   # TODO: make the non-flake test use this.
-  linuxSystem = lib.replaceStrings [ "darwin" ] [ "linux" ] stdenv.hostPlatform.system;
-
+  linuxSystem = lib.replaceStrings ["darwin"] ["linux"] stdenv.hostPlatform.system;
 in
-runCommand "test-nixos-rebuild-repl"
+  runCommand "test-nixos-rebuild-repl"
   {
     nativeBuildInputs = [
       expect
       nix
-      (nixos-rebuild-ng.override { withNgSuffix = false; })
+      (nixos-rebuild-ng.override {withNgSuffix = false;})
     ];
 
-    nixpkgs = if builtins.pathExists (path + "/.git") then lib.cleanSource path else path;
+    nixpkgs =
+      if builtins.pathExists (path + "/.git")
+      then lib.cleanSource path
+      else path;
   }
   ''
     export HOME=$(mktemp -d)

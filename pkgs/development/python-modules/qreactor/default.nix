@@ -6,7 +6,6 @@
   qtpy,
   pyqt5,
 }:
-
 buildPythonPackage {
   pname = "qreactor-unstable";
   version = "2018-09-29";
@@ -23,14 +22,14 @@ buildPythonPackage {
     qtpy
   ];
 
-  nativeCheckInputs = [ pyqt5 ];
+  nativeCheckInputs = [pyqt5];
 
-  pythonImportsCheck = [ "qreactor" ];
+  pythonImportsCheck = ["qreactor"];
 
   meta = with lib; {
     homepage = "https://github.com/frmdstryr/qt-reactor";
     description = "Twisted and PyQt5/qtpy eventloop integration base";
     license = licenses.mit;
-    maintainers = with maintainers; [ raboof ];
+    maintainers = with maintainers; [raboof];
   };
 }

@@ -15,7 +15,6 @@
   hatchling,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "uvicorn";
   version = "0.34.0";
@@ -35,12 +34,14 @@ buildPythonPackage rec {
     "testsout"
   ];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [
-    click
-    h11
-  ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  dependencies =
+    [
+      click
+      h11
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [typing-extensions];
 
   optional-dependencies.standard = [
     httptools
@@ -56,13 +57,13 @@ buildPythonPackage rec {
     cp -R tests $testsout/tests
   '';
 
-  pythonImportsCheck = [ "uvicorn" ];
+  pythonImportsCheck = ["uvicorn"];
 
   # check in passthru.tests.pytest to escape infinite recursion with httpx/httpcore
   doCheck = false;
 
   passthru.tests = {
-    pytest = callPackage ./tests.nix { };
+    pytest = callPackage ./tests.nix {};
   };
 
   meta = with lib; {
@@ -71,6 +72,6 @@ buildPythonPackage rec {
     description = "Lightning-fast ASGI server";
     mainProgram = "uvicorn";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ wd15 ];
+    maintainers = with maintainers; [wd15];
   };
 }

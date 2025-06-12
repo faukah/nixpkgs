@@ -11,7 +11,6 @@
   pillow,
   traitlets,
 }:
-
 buildPythonPackage rec {
   pname = "ipympl";
   version = "0.9.7";

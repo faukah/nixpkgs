@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.prometheus.pushgateway;
 
   cmdlineArgs =
@@ -19,14 +18,12 @@ let
     ++ cfg.extraFlags;
 
   opt = k: v: lib.optional (v != null) ''--${k}="${v}"'';
-
-in
-{
+in {
   options = {
     services.prometheus.pushgateway = {
       enable = lib.mkEnableOption "Prometheus Pushgateway";
 
-      package = lib.mkPackageOption pkgs "prometheus-pushgateway" { };
+      package = lib.mkPackageOption pkgs "prometheus-pushgateway" {};
 
       web.listen-address = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
@@ -109,7 +106,7 @@ in
 
       extraFlags = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           Extra commandline options when launching the Pushgateway.
         '';
@@ -155,8 +152,8 @@ in
       }
     ];
     systemd.services.pushgateway = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart =
           "${cfg.package}/bin/pushgateway"
@@ -164,8 +161,8 @@ in
             " \\\n  " + lib.concatStringsSep " \\\n  " cmdlineArgs
           );
 
-        CapabilityBoundingSet = [ "" ];
-        DeviceAllow = [ "" ];
+        CapabilityBoundingSet = [""];
+        DeviceAllow = [""];
         DynamicUser = true;
         NoNewPrivileges = true;
 
@@ -200,7 +197,10 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
 
-        StateDirectory = if cfg.persistMetrics then cfg.stateDir else null;
+        StateDirectory =
+          if cfg.persistMetrics
+          then cfg.stateDir
+          else null;
         SystemCallFilter = [
           "@system-service"
           "~@cpu-emulation"

@@ -9,7 +9,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 buildDotnetModule rec {
   pname = "mqttmultimeter";
   version = "1.8.2.272";
@@ -23,17 +22,17 @@ buildDotnetModule rec {
 
   sourceRoot = "${src.name}/Source";
 
-  projectFile = [ "mqttMultimeter.sln" ];
+  projectFile = ["mqttMultimeter.sln"];
   nugetDeps = ./deps.json;
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnet-runtime_8;
-  executables = [ "mqttMultimeter" ];
+  executables = ["mqttMultimeter"];
 
   nativeBuildInputs = [
     copyDesktopItems
   ];
 
-  buildInputs = [ (lib.getLib stdenv.cc.cc) ];
+  buildInputs = [(lib.getLib stdenv.cc.cc)];
 
   postInstall = ''
     rm -rf $out/lib/${lib.toLower pname}/runtimes/{*musl*,win*}
@@ -52,7 +51,7 @@ buildDotnetModule rec {
       genericName = meta.description;
       comment = meta.description;
       type = "Application";
-      categories = [ "Network" ];
+      categories = ["Network"];
       startupNotify = true;
     })
   ];
@@ -61,7 +60,7 @@ buildDotnetModule rec {
     mainProgram = builtins.head executables;
     description = "MQTT traffic monitor";
     license = licenses.free;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
   };
 }

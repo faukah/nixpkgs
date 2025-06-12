@@ -4,7 +4,6 @@
   core_unix ? null,
   async,
 }:
-
 buildDunePackage {
   pname = "faraday-async";
   inherit (faraday) version src;
@@ -18,7 +17,9 @@ buildDunePackage {
     async
   ];
 
-  meta = faraday.meta // {
-    description = "Async support for Faraday";
-  };
+  meta =
+    faraday.meta
+    // {
+      description = "Async support for Faraday";
+    };
 }

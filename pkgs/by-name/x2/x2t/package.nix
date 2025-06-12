@@ -14,9 +14,7 @@
   onlyoffice-documentserver,
   writeScript,
   x2t,
-}:
-
-let
+}: let
   qmake = qt5.qmake;
   libv8 = nodejs.libv8;
   fixIcu = writeScript "fix-icu.sh" ''
@@ -94,7 +92,7 @@ let
     hash = "sha256-nFYI7PbcLyquhAWVGkjNLHp+tymv+Pzvfa5DNPeqZiw=";
   };
   #qmakeFlags = [ "CONFIG+=debug" ];
-  qmakeFlags = [ ];
+  qmakeFlags = [];
   dontStrip = false;
   core-rev = "d257c68d5fdd71a33776a291914f2c856426c259";
   core = fetchFromGitHub {
@@ -104,68 +102,65 @@ let
     rev = core-rev;
     hash = "sha256-EXeqG8MJWS1asjFihnuMnDSHeKt2x+Ui+8MYK50AnSY=";
   };
-  buildCoreComponent =
-    rootdir: attrs:
+  buildCoreComponent = rootdir: attrs:
     stdenv.mkDerivation (
       finalAttrs:
-      {
-        pname = "onlyoffice-core-${rootdir}";
-        # Could be neater, but these are intermediate derivations anyway
-        version = core-rev;
-        src = core;
-        sourceRoot = "${finalAttrs.src.name}/${rootdir}";
-        dontWrapQtApps = true;
-        nativeBuildInputs = [
-          qmake
-        ];
-        inherit dontStrip qmakeFlags;
-        prePatch = ''
-          export SRCRT=$(pwd)
-          cd $(echo "${rootdir}" | sed -s "s/[^/]*/../g")
-          export BUILDRT=$(pwd)
-          ln -s $(pwd)/../source ../core
-          chmod -R u+w .
-        '';
-        postPatch = ''
-          cd $SRCRT
-        '';
+        {
+          pname = "onlyoffice-core-${rootdir}";
+          # Could be neater, but these are intermediate derivations anyway
+          version = core-rev;
+          src = core;
+          sourceRoot = "${finalAttrs.src.name}/${rootdir}";
+          dontWrapQtApps = true;
+          nativeBuildInputs = [
+            qmake
+          ];
+          inherit dontStrip qmakeFlags;
+          prePatch = ''
+            export SRCRT=$(pwd)
+            cd $(echo "${rootdir}" | sed -s "s/[^/]*/../g")
+            export BUILDRT=$(pwd)
+            ln -s $(pwd)/../source ../core
+            chmod -R u+w .
+          '';
+          postPatch = ''
+            cd $SRCRT
+          '';
 
-        installPhase = ''
-          runHook preInstall
+          installPhase = ''
+            runHook preInstall
 
-          mkdir -p $out/lib
-          # debug builds are a level deeper than release builds
-          find $BUILDRT/build -type f -exec cp {} $out/lib \;
+            mkdir -p $out/lib
+            # debug builds are a level deeper than release builds
+            find $BUILDRT/build -type f -exec cp {} $out/lib \;
 
-          runHook postInstall
-        '';
-      }
-      // attrs
+            runHook postInstall
+          '';
+        }
+        // attrs
     );
-  buildCoreTests =
-    rootdir: attrs:
-    (buildCoreComponent rootdir (
-      {
-        doCheck = true;
-        qmakeFlags = qmakeFlags ++ icuQmakeFlags;
-        checkPhase = ''
-          runHook preCheck
-          TEST=$(find . -type f -name test)
-          if [ -f "$TEST" ]; then
-              $TEST
-          else
-              echo "Test executable not found"
-              find .
-              exit 1
-          fi
-          runHook postCheck
-        '';
-        installPhase = ''
-          touch $out
-        '';
-      }
-      // attrs
-    ));
+  buildCoreTests = rootdir: attrs: (buildCoreComponent rootdir (
+    {
+      doCheck = true;
+      qmakeFlags = qmakeFlags ++ icuQmakeFlags;
+      checkPhase = ''
+        runHook preCheck
+        TEST=$(find . -type f -name test)
+        if [ -f "$TEST" ]; then
+            $TEST
+        else
+            echo "Test executable not found"
+            find .
+            exit 1
+        fi
+        runHook postCheck
+      '';
+      installPhase = ''
+        touch $out
+      '';
+    }
+    // attrs
+  ));
   unicodeConverter = buildCoreComponent "UnicodeConverter" {
     patches = [
       # icu needs c++20 for include/unicode/localpointer.h
@@ -244,18 +239,18 @@ let
 
       ln -s ${hyphen-src} $BUILDRT/Common/3dParty/hyphen/hyphen
     '';
-    passthru.tests = lib.attrsets.genAttrs [ "alphaMask" "graphicsLayers" "TestPICT" ] (
+    passthru.tests = lib.attrsets.genAttrs ["alphaMask" "graphicsLayers" "TestPICT"] (
       test:
-      buildCoreTests "DesktopEditor/graphics/tests/${test}" {
-        preConfigure = ''
-          source ${fixIcu}
-        '';
-        buildInputs = [
-          graphics
-          kernel
-          unicodeConverter
-        ];
-      }
+        buildCoreTests "DesktopEditor/graphics/tests/${test}" {
+          preConfigure = ''
+            source ${fixIcu}
+          '';
+          buildInputs = [
+            graphics
+            kernel
+            unicodeConverter
+          ];
+        }
     );
   };
   network = buildCoreComponent "Common/Network" {
@@ -268,45 +263,45 @@ let
       # Interestingly only seems to pop up when debug mode is enabled
       ./xlsx-missing-import.patch
     ];
-    buildInputs = [ boost ];
+    buildInputs = [boost];
   };
   cryptopp = buildCoreComponent "Common/3dParty/cryptopp/project" {
-    buildInputs = [ boost ];
+    buildInputs = [boost];
   };
   xlsbformatlib = buildCoreComponent "OOXML/Projects/Linux/XlsbFormatLib" {
-    buildInputs = [ boost ];
+    buildInputs = [boost];
   };
   xlsformatlib = buildCoreComponent "MsBinaryFile/Projects/XlsFormatLib/Linux" {
     patches = [
       ./MsBinaryFile-pragma-regions.patch
     ];
-    buildInputs = [ boost ];
+    buildInputs = [boost];
   };
   docformatlib = buildCoreComponent "MsBinaryFile/Projects/DocFormatLib/Linux" {
-    buildInputs = [ boost ];
+    buildInputs = [boost];
   };
   pptformatlib = buildCoreComponent "MsBinaryFile/Projects/PPTFormatLib/Linux" {
-    buildInputs = [ boost ];
+    buildInputs = [boost];
   };
   rtfformatlib = buildCoreComponent "RtfFile/Projects/Linux" {
-    buildInputs = [ boost ];
+    buildInputs = [boost];
   };
   txtxmlformatlib = buildCoreComponent "TxtFile/Projects/Linux" {
-    buildInputs = [ boost ];
+    buildInputs = [boost];
   };
   bindocument = buildCoreComponent "OOXML/Projects/Linux/BinDocument" {
-    buildInputs = [ boost ];
+    buildInputs = [boost];
   };
   pptxformatlib = buildCoreComponent "OOXML/Projects/Linux/PPTXFormatLib" {
-    buildInputs = [ boost ];
+    buildInputs = [boost];
   };
-  compoundfilelib = buildCoreComponent "Common/cfcpp" { };
+  compoundfilelib = buildCoreComponent "Common/cfcpp" {};
   iworkfile = buildCoreComponent "Apple" {
     patches = [
       ./zlib-cstd.patch
     ];
     # mdds uses bool_constant which needs a newer c++
-    qmakeFlags = qmakeFlags ++ [ "CONFIG+=c++1z" ];
+    qmakeFlags = qmakeFlags ++ ["CONFIG+=c++1z"];
     buildInputs = [
       kernel
       unicodeConverter
@@ -344,10 +339,10 @@ let
     };
   };
   vbaformatlib = buildCoreComponent "MsBinaryFile/Projects/VbaFormatLib/Linux" {
-    buildInputs = [ boost ];
+    buildInputs = [boost];
   };
   odfformatlib = buildCoreComponent "OdfFile/Projects/Linux" {
-    buildInputs = [ boost ];
+    buildInputs = [boost];
   };
   hwpfile = buildCoreComponent "HwpFile" {
     buildInputs = [
@@ -474,14 +469,14 @@ let
 
       cd $BUILDRT/DesktopEditor/doctrenderer
     '';
-    passthru.tests = lib.attrsets.genAttrs [ "embed/external" "embed/internal" "js_internal" "json" ] (
+    passthru.tests = lib.attrsets.genAttrs ["embed/external" "embed/internal" "js_internal" "json"] (
       test:
-      buildCoreTests "DesktopEditor/doctrenderer/test/${test}" {
-        buildInputs = [ doctrenderer ];
-        preConfigure = ''
-          ln -s ${googletest-src} $BUILDRT/Common/3dParty/googletest/googletest
-        '';
-      }
+        buildCoreTests "DesktopEditor/doctrenderer/test/${test}" {
+          buildInputs = [doctrenderer];
+          preConfigure = ''
+            ln -s ${googletest-src} $BUILDRT/Common/3dParty/googletest/googletest
+          '';
+        }
     );
   };
   htmlfile2 = buildCoreComponent "HtmlFile2" {
@@ -511,9 +506,11 @@ let
       graphics
       boost
     ];
-    qmakeFlags = qmakeFlags ++ [
-      "QMAKE_LFLAGS+=-Wl,--no-undefined"
-    ];
+    qmakeFlags =
+      qmakeFlags
+      ++ [
+        "QMAKE_LFLAGS+=-Wl,--no-undefined"
+      ];
     preConfigure = ''
       ln -s ${gumbo-parser-src} $BUILDRT/Common/3dParty/html/gumbo-parser
     '';
@@ -559,7 +556,7 @@ let
     rev = "d5d80e6ae15800ccf31e1c4dbb1ae3385992e0c2";
     hash = "sha256-daJG/4tcdRVVmlMCUW4iuoUkEEfY7sx5icYWMva4o+c=";
   };
-  allfonts = runCommand "allfonts" { } ''
+  allfonts = runCommand "allfonts" {} ''
     mkdir -p $out/web
     mkdir -p $out/converter
     mkdir -p $out/images
@@ -573,109 +570,109 @@ let
       --output-web=$out/fonts
   '';
 in
-buildCoreComponent "X2tConverter/build/Qt" {
-  pname = "x2t";
-  # x2t is not 'directly' versioned, so we version it after the version
-  # of documentserver it's pulled into as a submodule
-  version = "8.3.2";
+  buildCoreComponent "X2tConverter/build/Qt" {
+    pname = "x2t";
+    # x2t is not 'directly' versioned, so we version it after the version
+    # of documentserver it's pulled into as a submodule
+    version = "8.3.2";
 
-  buildInputs = [
-    unicodeConverter
-    kernel
-    graphics
-    network
-    boost
-    docformatlib
-    pptformatlib
-    rtfformatlib
-    txtxmlformatlib
-    bindocument
-    pptxformatlib
-    docxformatlib
-    xlsbformatlib
-    xlsformatlib
-    compoundfilelib
-    cryptopp
-    fb2file
-    pdffile
-    htmlfile2
-    epubfile
-    xpsfile
-    djvufile
-    doctrenderer
-    docxrenderer
-    iworkfile
-    hwpfile
-    vbaformatlib
-    odfformatlib
-  ];
-  qmakeFlags = qmakeFlags ++ icuQmakeFlags ++ [ "X2tConverter.pro" ];
-  preConfigure = ''
-    source ${fixIcu}
-
-    # (not as patch because of line endings)
-    sed -i '47 a #include <limits>' $BUILDRT/Common/OfficeFileFormatChecker2.cpp
-
-    substituteInPlace \
-      $BUILDRT/Test/Applications/TestDownloader/mainwindow.h \
-      --replace-fail "../core" ""
-  '';
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/bin
-    find $BUILDRT/build -type f -exec cp {} $out/bin \;
-
-    mkdir -p $out/etc
-    cat >$out/etc/DoctRenderer.config <<EOF
-          <Settings>
-            <file>${onlyoffice-documentserver}/var/www/onlyoffice/documentserver/sdkjs/common/Native/native.js</file>
-            <file>${onlyoffice-documentserver}/var/www/onlyoffice/documentserver/sdkjs/common/Native/jquery_native.js</file>
-            <allfonts>${allfonts}/converter/AllFonts.js</allfonts>
-            <file>${onlyoffice-documentserver}/var/www/onlyoffice/documentserver/web-apps/vendor/xregexp/xregexp-all-min.js</file>
-            <sdkjs>${onlyoffice-documentserver}/var/www/onlyoffice/documentserver/sdkjs</sdkjs>
-            <dictionaries>${onlyoffice-documentserver}/var/www/onlyoffice/documentserver/dictionaries</dictionaries>
-          </Settings>
-    EOF
-
-    runHook postInstall
-  '';
-  passthru.tests = {
-    unicodeConverter = unicodeConverter.tests;
-    fb2file = fb2file.tests;
-    graphics = graphics.tests;
-    iworkfile = iworkfile.tests;
-    docxrenderer = docxrenderer.tests;
-    doctrenderer = doctrenderer.tests;
-    x2t = runCommand "x2t-test" { } ''
-      (${x2t}/bin/x2t || true) | grep "OOX/binary file converter." && mkdir -p $out
-    '';
-  };
-  passthru.components = {
-    inherit
-      allfontsgen
-      allfonts
+    buildInputs = [
       unicodeConverter
       kernel
       graphics
       network
+      boost
+      docformatlib
+      pptformatlib
+      rtfformatlib
+      txtxmlformatlib
+      bindocument
+      pptxformatlib
       docxformatlib
-      cryptopp
       xlsbformatlib
       xlsformatlib
-      doctrenderer
+      compoundfilelib
+      cryptopp
+      fb2file
+      pdffile
       htmlfile2
       epubfile
-      fb2file
+      xpsfile
+      djvufile
+      doctrenderer
+      docxrenderer
       iworkfile
-      ;
-  };
-  meta = {
-    description = "Convert files from one format to another";
-    homepage = "https://github.com/ONLYOFFICE/core/tree/master/X2tConverter";
-    license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ raboof ];
-    platforms = lib.platforms.all;
-  };
-}
+      hwpfile
+      vbaformatlib
+      odfformatlib
+    ];
+    qmakeFlags = qmakeFlags ++ icuQmakeFlags ++ ["X2tConverter.pro"];
+    preConfigure = ''
+      source ${fixIcu}
+
+      # (not as patch because of line endings)
+      sed -i '47 a #include <limits>' $BUILDRT/Common/OfficeFileFormatChecker2.cpp
+
+      substituteInPlace \
+        $BUILDRT/Test/Applications/TestDownloader/mainwindow.h \
+        --replace-fail "../core" ""
+    '';
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/bin
+      find $BUILDRT/build -type f -exec cp {} $out/bin \;
+
+      mkdir -p $out/etc
+      cat >$out/etc/DoctRenderer.config <<EOF
+            <Settings>
+              <file>${onlyoffice-documentserver}/var/www/onlyoffice/documentserver/sdkjs/common/Native/native.js</file>
+              <file>${onlyoffice-documentserver}/var/www/onlyoffice/documentserver/sdkjs/common/Native/jquery_native.js</file>
+              <allfonts>${allfonts}/converter/AllFonts.js</allfonts>
+              <file>${onlyoffice-documentserver}/var/www/onlyoffice/documentserver/web-apps/vendor/xregexp/xregexp-all-min.js</file>
+              <sdkjs>${onlyoffice-documentserver}/var/www/onlyoffice/documentserver/sdkjs</sdkjs>
+              <dictionaries>${onlyoffice-documentserver}/var/www/onlyoffice/documentserver/dictionaries</dictionaries>
+            </Settings>
+      EOF
+
+      runHook postInstall
+    '';
+    passthru.tests = {
+      unicodeConverter = unicodeConverter.tests;
+      fb2file = fb2file.tests;
+      graphics = graphics.tests;
+      iworkfile = iworkfile.tests;
+      docxrenderer = docxrenderer.tests;
+      doctrenderer = doctrenderer.tests;
+      x2t = runCommand "x2t-test" {} ''
+        (${x2t}/bin/x2t || true) | grep "OOX/binary file converter." && mkdir -p $out
+      '';
+    };
+    passthru.components = {
+      inherit
+        allfontsgen
+        allfonts
+        unicodeConverter
+        kernel
+        graphics
+        network
+        docxformatlib
+        cryptopp
+        xlsbformatlib
+        xlsformatlib
+        doctrenderer
+        htmlfile2
+        epubfile
+        fb2file
+        iworkfile
+        ;
+    };
+    meta = {
+      description = "Convert files from one format to another";
+      homepage = "https://github.com/ONLYOFFICE/core/tree/master/X2tConverter";
+      license = lib.licenses.agpl3Only;
+      maintainers = with lib.maintainers; [raboof];
+      platforms = lib.platforms.all;
+    };
+  }

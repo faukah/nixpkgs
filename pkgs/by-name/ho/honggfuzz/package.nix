@@ -10,7 +10,6 @@
   libunwind,
   libblocksruntime,
 }:
-
 stdenv.mkDerivation rec {
   pname = "honggfuzz";
   version = "2.6";
@@ -29,8 +28,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ llvm ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [llvm];
   propagatedBuildInputs = [
     libbfd
     libopcodes
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Fortify causes build failures: 'str*' defined both normally and as 'alias' attribute
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   makeFlags = [
     "PREFIX=$(out)"

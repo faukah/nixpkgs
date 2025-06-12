@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libsForQt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mathmod";
   version = "12.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-gDIYDXI9X24JAM1HP10EhJXkHZV2X8QngD5KPCUqdyI=";
   };
 
-  patches = [ ./fix-paths.patch ];
+  patches = [./fix-paths.patch];
 
   postPatch = ''
     substituteInPlace MathMod.pro --subst-var out
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/parisolab/mathmod";
     license = lib.licenses.gpl2Plus;
     mainProgram = "MathMod";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.unix;
   };
 })

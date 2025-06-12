@@ -6,7 +6,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bato";
   version = "0.1.7";
@@ -26,14 +25,14 @@ rustPlatform.buildRustPackage rec {
     cmake
   ];
 
-  buildInputs = [ libnotify ];
+  buildInputs = [libnotify];
 
   meta = {
     description = "Small program to send battery notifications";
     homepage = "https://github.com/doums/bato";
     changelog = "https://github.com/doums/bato/releases/tag/v${version}";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ HaskellHegemonie ];
+    maintainers = with lib.maintainers; [HaskellHegemonie];
     platforms = lib.platforms.linux;
     mainProgram = "bato";
   };

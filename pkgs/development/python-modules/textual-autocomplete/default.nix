@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "Python library that provides autocomplete capabilities to textual";
     homepage = "https://github.com/darrenburns/textual-autocomplete";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jorikvanveen ];
+    maintainers = with lib.maintainers; [jorikvanveen];
   };
 }

@@ -17,7 +17,6 @@
   utilmacros,
   xorgserver,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xf86-input-wacom";
   version = "1.2.3";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
     description = "Wacom digitizer driver for X11";
     homepage = "https://linuxwacom.sourceforge.net";
     license = licenses.gpl2Only;

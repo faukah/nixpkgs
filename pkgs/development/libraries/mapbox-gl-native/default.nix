@@ -11,7 +11,6 @@
   glfw3,
   rapidjson,
 }:
-
 mkDerivation rec {
   pname = "mapbox-gl-native";
   version = "1.6.0";

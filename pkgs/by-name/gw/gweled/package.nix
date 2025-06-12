@@ -12,7 +12,6 @@
   gsound,
   libgnome-games-support,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gweled";
   version = "1.0-beta1";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     libgnome-games-support
   ];
 
-  configureFlags = [ "--disable-setgid" ];
+  configureFlags = ["--disable-setgid"];
 
   meta = {
     description = "Puzzle game similar to Bejeweled or Diamond Mine";
@@ -46,6 +45,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gweled.org";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
   };
 })

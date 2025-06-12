@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "timoni";
   version = "0.25.0";
@@ -18,8 +17,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-hCvFe27DdX/pAeyfSEDx5oiLEZjhldOVDz6ElsUPjJs=";
 
-  subPackages = [ "cmd/timoni" ];
-  nativeBuildInputs = [ installShellFiles ];
+  subPackages = ["cmd/timoni"];
+  nativeBuildInputs = [installShellFiles];
 
   # Some tests require running Kubernetes instance
   doCheck = false;
@@ -45,6 +44,6 @@ buildGoModule rec {
     description = "Package manager for Kubernetes, powered by CUE and inspired by Helm";
     mainProgram = "timoni";
     license = licenses.asl20;
-    maintainers = with maintainers; [ votava ];
+    maintainers = with maintainers; [votava];
   };
 }

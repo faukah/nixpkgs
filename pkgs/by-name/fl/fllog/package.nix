@@ -6,7 +6,6 @@
   libjpeg,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.2.8";
   pname = "fllog";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "Digital modem log program";
     homepage = "https://sourceforge.net/projects/fldigi/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dysinger ];
+    maintainers = with lib.maintainers; [dysinger];
     platforms = lib.platforms.linux;
     mainProgram = "fllog";
   };

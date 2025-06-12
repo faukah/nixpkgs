@@ -3,34 +3,31 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.rust-motd;
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
 
   # Order the sections in the TOML according to the order of sections
   # in `cfg.order`.
   motdConf =
     pkgs.runCommand "motd.conf"
-      {
-        __structuredAttrs = true;
-        inherit (cfg) order settings;
-        nativeBuildInputs = [
-          pkgs.remarshal
-          pkgs.jq
-        ];
-      }
-      ''
-        cat "$NIX_ATTRS_JSON_FILE" \
-          | jq '.settings as $settings
-                | .order
-                | map({ key: ., value: $settings."\(.)" })
-                | from_entries' -r \
-          | json2toml /dev/stdin "$out"
-      '';
-in
-{
+    {
+      __structuredAttrs = true;
+      inherit (cfg) order settings;
+      nativeBuildInputs = [
+        pkgs.remarshal
+        pkgs.jq
+      ];
+    }
+    ''
+      cat "$NIX_ATTRS_JSON_FILE" \
+        | jq '.settings as $settings
+              | .order
+              | map({ key: ., value: $settings."\(.)" })
+              | from_entries' -r \
+        | json2toml /dev/stdin "$out"
+    '';
+in {
   options.programs.rust-motd = {
     enable = lib.mkEnableOption "rust-motd, a Message Of The Day (MOTD) generator";
     enableMotdInSSHD = lib.mkOption {
@@ -113,17 +110,17 @@ in
       }
     ];
     systemd.services.rust-motd = {
-      path = with pkgs; [ bash ];
+      path = with pkgs; [bash];
       documentation = [
         "https://github.com/rust-motd/rust-motd/blob/v${pkgs.rust-motd.version}/README.md"
       ];
       description = "motd generator";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.writeShellScript "update-motd" ''
           ${pkgs.rust-motd}/bin/rust-motd ${motdConf} > motd
         ''}";
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         NoNewPrivileges = true;
@@ -138,7 +135,7 @@ in
         ProtectKernelTunables = true;
         ProtectSystem = "full";
         StateDirectory = "rust-motd";
-        RestrictAddressFamilies = [ "AF_UNIX" ];
+        RestrictAddressFamilies = ["AF_UNIX"];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -147,7 +144,7 @@ in
       };
     };
     systemd.timers.rust-motd = {
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig.OnCalendar = cfg.refreshInterval;
     };
     security.pam.services.sshd.text = lib.mkIf cfg.enableMotdInSSHD (
@@ -158,10 +155,10 @@ in
       )
     );
     services.openssh.extraConfig =
-      lib.mkIf (cfg.settings ? last_login && cfg.settings.last_login != { })
-        ''
-          PrintLastLog no
-        '';
+      lib.mkIf (cfg.settings ? last_login && cfg.settings.last_login != {})
+      ''
+        PrintLastLog no
+      '';
   };
-  meta.maintainers = with lib.maintainers; [ ma27 ];
+  meta.maintainers = with lib.maintainers; [ma27];
 }

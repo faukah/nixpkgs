@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
 
   # SDK built with stackprotector produces broken enclaves which crash at runtime.
   # Disable all to be safe, SDK build configures compiler mitigations manually.
-  hardeningDisable = [ "all" ];
+  hardeningDisable = ["all"];
 
   nativeBuildInputs = [
     autoconf
@@ -101,46 +101,44 @@ stdenv.mkDerivation rec {
   # Build external/ippcp_internal first. The Makefile is rewritten to make the
   # build faster by splitting different versions of ipp-crypto builds and to
   # avoid patching the Makefile for reproducibility issues.
-  preBuild =
-    let
-      ipp-crypto-no_mitigation = callPackage ./ipp-crypto.nix { };
+  preBuild = let
+    ipp-crypto-no_mitigation = callPackage ./ipp-crypto.nix {};
 
-      sgx-asm-pp = "python ${src}/build-scripts/sgx-asm-pp.py --assembler=nasm";
+    sgx-asm-pp = "python ${src}/build-scripts/sgx-asm-pp.py --assembler=nasm";
 
-      nasm-load = writeShellScript "nasm-load" "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=LOAD $@";
-      ipp-crypto-cve_2020_0551_load = callPackage ./ipp-crypto.nix {
-        extraCmakeFlags = [ "-DCMAKE_ASM_NASM_COMPILER=${nasm-load}" ];
-      };
+    nasm-load = writeShellScript "nasm-load" "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=LOAD $@";
+    ipp-crypto-cve_2020_0551_load = callPackage ./ipp-crypto.nix {
+      extraCmakeFlags = ["-DCMAKE_ASM_NASM_COMPILER=${nasm-load}"];
+    };
 
-      nasm-cf = writeShellScript "nasm-cf" "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=CF $@";
-      ipp-crypto-cve_2020_0551_cf = callPackage ./ipp-crypto.nix {
-        extraCmakeFlags = [ "-DCMAKE_ASM_NASM_COMPILER=${nasm-cf}" ];
-      };
-    in
-    ''
-      echo "Setting up IPP crypto build artifacts"
+    nasm-cf = writeShellScript "nasm-cf" "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=CF $@";
+    ipp-crypto-cve_2020_0551_cf = callPackage ./ipp-crypto.nix {
+      extraCmakeFlags = ["-DCMAKE_ASM_NASM_COMPILER=${nasm-cf}"];
+    };
+  in ''
+    echo "Setting up IPP crypto build artifacts"
 
-      pushd 'external/ippcp_internal'
+    pushd 'external/ippcp_internal'
 
-      install -D -m a+rw ${ipp-crypto-no_mitigation}/lib/intel64/libippcp.a \
-        lib/linux/intel64/no_mitigation/libippcp.a
-      install -D -m a+rw ${ipp-crypto-cve_2020_0551_load}/lib/intel64/libippcp.a \
-        lib/linux/intel64/cve_2020_0551_load/libippcp.a
-      install -D -m a+rw ${ipp-crypto-cve_2020_0551_cf}/lib/intel64/libippcp.a \
-        lib/linux/intel64/cve_2020_0551_cf/libippcp.a
+    install -D -m a+rw ${ipp-crypto-no_mitigation}/lib/intel64/libippcp.a \
+      lib/linux/intel64/no_mitigation/libippcp.a
+    install -D -m a+rw ${ipp-crypto-cve_2020_0551_load}/lib/intel64/libippcp.a \
+      lib/linux/intel64/cve_2020_0551_load/libippcp.a
+    install -D -m a+rw ${ipp-crypto-cve_2020_0551_cf}/lib/intel64/libippcp.a \
+      lib/linux/intel64/cve_2020_0551_cf/libippcp.a
 
-      cp -r ${ipp-crypto-no_mitigation}/include/* inc/
+    cp -r ${ipp-crypto-no_mitigation}/include/* inc/
 
-      mkdir inc/ippcp
-      cp ${ipp-crypto-no_mitigation}/include/fips_cert.h inc/ippcp/
+    mkdir inc/ippcp
+    cp ${ipp-crypto-no_mitigation}/include/fips_cert.h inc/ippcp/
 
-      rm inc/ippcp.h
-      patch ${ipp-crypto-no_mitigation}/include/ippcp.h -i ./inc/ippcp21u11.patch -o ./inc/ippcp.h
+    rm inc/ippcp.h
+    patch ${ipp-crypto-no_mitigation}/include/ippcp.h -i ./inc/ippcp21u11.patch -o ./inc/ippcp.h
 
-      install -D ${ipp-crypto-no_mitigation.src}/LICENSE license/LICENSE
+    install -D ${ipp-crypto-no_mitigation.src}/LICENSE license/LICENSE
 
-      popd
-    '';
+    popd
+  '';
 
   buildFlags =
     [
@@ -271,15 +269,14 @@ stdenv.mkDerivation rec {
     postHooks+=(sgxsdk)
   '';
 
-  passthru.tests = callPackage ../samples { sgxMode = "SIM"; };
+  passthru.tests = callPackage ../samples {sgxMode = "SIM";};
 
   # Run tests in SGX hardware mode on an SGX-enabled machine
   # $(nix-build -A sgx-sdk.runTestsHW)/bin/run-tests-hw
-  passthru.runTestsHW =
-    let
-      testsHW = lib.filterAttrs (_: v: v ? "name") (callPackage ../samples { sgxMode = "HW"; });
-      testsHWLinked = linkFarmFromDrvs "sgx-samples-hw-bundle" (lib.attrValues testsHW);
-    in
+  passthru.runTestsHW = let
+    testsHW = lib.filterAttrs (_: v: v ? "name") (callPackage ../samples {sgxMode = "HW";});
+    testsHWLinked = linkFarmFromDrvs "sgx-samples-hw-bundle" (lib.attrValues testsHW);
+  in
     writeShellApplication {
       name = "run-tests-hw";
       text = ''
@@ -300,7 +297,7 @@ stdenv.mkDerivation rec {
       arturcygan
       veehaitch
     ];
-    platforms = [ "x86_64-linux" ];
-    license = [ lib.licenses.bsd3 ];
+    platforms = ["x86_64-linux"];
+    license = [lib.licenses.bsd3];
   };
 }

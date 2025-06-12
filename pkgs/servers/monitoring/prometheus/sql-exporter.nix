@@ -6,7 +6,6 @@
   prometheus-sql-exporter,
   testers,
 }:
-
 buildGoModule rec {
   pname = "sql_exporter";
   version = "0.6";
@@ -20,18 +19,16 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  ldflags =
-    let
-      t = "github.com/prometheus/common/version";
-    in
-    [
-      "-X ${t}.Version=${version}"
-      "-X ${t}.Revision=${src.rev}"
-      "-X ${t}.Branch=unknown"
-      "-X ${t}.BuildUser=nix@nixpkgs"
-      "-X ${t}.BuildDate=unknown"
-      "-X ${t}.GoVersion=${lib.getVersion go}"
-    ];
+  ldflags = let
+    t = "github.com/prometheus/common/version";
+  in [
+    "-X ${t}.Version=${version}"
+    "-X ${t}.Revision=${src.rev}"
+    "-X ${t}.Branch=unknown"
+    "-X ${t}.BuildUser=nix@nixpkgs"
+    "-X ${t}.BuildDate=unknown"
+    "-X ${t}.GoVersion=${lib.getVersion go}"
+  ];
 
   passthru.tests.version = testers.testVersion {
     package = prometheus-sql-exporter;
@@ -43,6 +40,6 @@ buildGoModule rec {
     mainProgram = "sql_exporter";
     homepage = "https://github.com/justwatchcom/sql_exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ justinas ];
+    maintainers = with maintainers; [justinas];
   };
 }

@@ -12,7 +12,6 @@
   qt5compat,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "texmaker";
   version = "6.0.1";

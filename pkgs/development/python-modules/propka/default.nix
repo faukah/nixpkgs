@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "propka";
   version = "3.5.1";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-EJQqCe4WPOpqsSxxfbTjF0qETpSPYqpixpylweTCjko=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "propka" ];
+  pythonImportsCheck = ["propka"];
 
   meta = with lib; {
     description = "Predictor of the pKa values of ionizable groups in proteins and protein-ligand complexes based in the 3D structure";
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jensengroup/propka";
     changelog = "https://github.com/jensengroup/propka/releases/tag/v${version}";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

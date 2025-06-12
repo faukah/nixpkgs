@@ -12,7 +12,6 @@
   libusb1,
   udev,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libbladeRF";
   version = "2.5.0";
@@ -43,8 +42,8 @@ stdenv.mkDerivation rec {
       tecla
       libusb1
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ udev ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ ncurses ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [udev]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ncurses];
 
   # Fixup shebang
   prePatch = "patchShebangs host/utilities/bladeRF-cli/src/cmd/doc/generate.bash";
@@ -68,13 +67,13 @@ stdenv.mkDerivation rec {
     NIX_CFLAGS_COMPILE = "-Wno-error=unused-but-set-variable";
   };
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   meta = with lib; {
     homepage = "https://nuand.com/libbladeRF-doc";
     description = "Supporting library of the BladeRF SDR opensource hardware";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
     platforms = platforms.unix;
   };
 }

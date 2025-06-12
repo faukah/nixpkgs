@@ -10,12 +10,11 @@
   pytestCheckHook,
   pytest-xdist,
 }:
-
 buildPythonPackage rec {
   pname = "ml-collections";
   version = "1.1.0";
   pyproject = true;
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   src = fetchFromGitHub {
     owner = "google";
@@ -41,12 +40,12 @@ buildPythonPackage rec {
     "--ignore=ml_collections/config_dict/examples/examples_test.py" # From github workflows
   ];
 
-  pythonImportsCheck = [ "ml_collections" ];
+  pythonImportsCheck = ["ml_collections"];
 
   meta = {
     description = "ML Collections is a library of Python collections designed for ML usecases";
     homepage = "https://github.com/google/ml_collections";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ samuela ];
+    maintainers = with lib.maintainers; [samuela];
   };
 }

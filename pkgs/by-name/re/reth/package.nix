@@ -4,7 +4,6 @@
   nix-update-script,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "reth";
   version = "1.4.3";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     "--skip=cli::tests::parse_env_filter_directives"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Modular Ethereum execution client in Rust by Paradigm";
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage rec {
       asl20
     ];
     mainProgram = "reth";
-    maintainers = with lib.maintainers; [ mitchmindtree ];
+    maintainers = with lib.maintainers; [mitchmindtree];
     platforms = lib.platforms.unix;
   };
 }

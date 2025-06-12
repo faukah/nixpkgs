@@ -13,9 +13,7 @@
   libX11,
   qt5,
   vst2-sdk,
-}:
-
-let
+}: let
   version = "1.3.3";
 
   airwave-src = fetchFromGitHub {
@@ -31,72 +29,70 @@ let
   };
 
   wine-xembed = wine-wow64.overrideDerivation (oldAttrs: {
-    patchFlags = [ "-p2" ];
-    patches = [ "${airwave-src}/fix-xembed-wine-windows.patch" ];
+    patchFlags = ["-p2"];
+    patches = ["${airwave-src}/fix-xembed-wine-windows.patch"];
   });
-
 in
+  multiStdenv.mkDerivation {
+    pname = "airwave";
+    inherit version;
 
-multiStdenv.mkDerivation {
-  pname = "airwave";
-  inherit version;
+    src = airwave-src;
 
-  src = airwave-src;
+    nativeBuildInputs = [
+      cmake
+      makeWrapper
+      wrapQtAppsHook
+    ];
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    wrapQtAppsHook
-  ];
+    buildInputs = [
+      file
+      libX11
+      qt5.qtbase
+      wine-xembed
+    ];
 
-  buildInputs = [
-    file
-    libX11
-    qt5.qtbase
-    wine-xembed
-  ];
+    postPatch = ''
+      # Binaries not used directly should land in libexec/.
+      substituteInPlace src/common/storage.cpp --replace '"/bin"' '"/libexec"'
 
-  postPatch = ''
-    # Binaries not used directly should land in libexec/.
-    substituteInPlace src/common/storage.cpp --replace '"/bin"' '"/libexec"'
-
-    # For airwave-host-32.exe.so, point wineg++ to 32-bit versions of
-    # these libraries, as $NIX_LDFLAGS contains only 64-bit ones.
-    substituteInPlace src/host/CMakeLists.txt --replace '-m32' \
-      '-m32 -L${wine-xembed}/lib -L${wine-xembed}/lib/wine -L${multiStdenv.cc.libc.out}/lib/32'
-  '';
-
-  # libstdc++.so link gets lost in 64-bit executables during
-  # shrinking.
-  dontPatchELF = true;
-
-  # Cf. https://github.com/phantom-code/airwave/issues/57
-  hardeningDisable = [ "format" ];
-
-  cmakeFlags = [ "-DVSTSDK_PATH=${vst2-sdk}" ];
-
-  postInstall = ''
-    mv $out/bin $out/libexec
-    mkdir $out/bin
-    mv $out/libexec/airwave-manager $out/bin
-    wrapProgram $out/libexec/airwave-host-32.exe --set WINELOADER ${wine-xembed}/bin/wine
-    wrapProgram $out/libexec/airwave-host-64.exe --set WINELOADER ${wine-xembed}/bin/wine64
-  '';
-
-  meta = {
-    description = "WINE-based VST bridge for Linux VST hosts";
-    longDescription = ''
-      Airwave is a wine based VST bridge, that allows for the use of
-      Windows 32- and 64-bit VST 2.4 audio plugins with Linux VST
-      hosts. Due to the use of shared memory, only one extra copying
-      is made for each data transfer. Airwave also uses the XEMBED
-      protocol to correctly embed the plugin editor into the host
-      window.
+      # For airwave-host-32.exe.so, point wineg++ to 32-bit versions of
+      # these libraries, as $NIX_LDFLAGS contains only 64-bit ones.
+      substituteInPlace src/host/CMakeLists.txt --replace '-m32' \
+        '-m32 -L${wine-xembed}/lib -L${wine-xembed}/lib/wine -L${multiStdenv.cc.libc.out}/lib/32'
     '';
-    homepage = "https://github.com/phantom-code/airwave";
-    license = lib.licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ michalrus ];
-    hydraPlatforms = [ ];
-  };
-}
+
+    # libstdc++.so link gets lost in 64-bit executables during
+    # shrinking.
+    dontPatchELF = true;
+
+    # Cf. https://github.com/phantom-code/airwave/issues/57
+    hardeningDisable = ["format"];
+
+    cmakeFlags = ["-DVSTSDK_PATH=${vst2-sdk}"];
+
+    postInstall = ''
+      mv $out/bin $out/libexec
+      mkdir $out/bin
+      mv $out/libexec/airwave-manager $out/bin
+      wrapProgram $out/libexec/airwave-host-32.exe --set WINELOADER ${wine-xembed}/bin/wine
+      wrapProgram $out/libexec/airwave-host-64.exe --set WINELOADER ${wine-xembed}/bin/wine64
+    '';
+
+    meta = {
+      description = "WINE-based VST bridge for Linux VST hosts";
+      longDescription = ''
+        Airwave is a wine based VST bridge, that allows for the use of
+        Windows 32- and 64-bit VST 2.4 audio plugins with Linux VST
+        hosts. Due to the use of shared memory, only one extra copying
+        is made for each data transfer. Airwave also uses the XEMBED
+        protocol to correctly embed the plugin editor into the host
+        window.
+      '';
+      homepage = "https://github.com/phantom-code/airwave";
+      license = lib.licenses.mit;
+      platforms = ["x86_64-linux"];
+      maintainers = with lib.maintainers; [michalrus];
+      hydraPlatforms = [];
+    };
+  }

@@ -35,7 +35,6 @@
   matplotlib,
   fpdf,
 }:
-
 buildPythonPackage rec {
   pname = "opensfm";
   version = "unstable-2023-12-09";
@@ -72,7 +71,7 @@ buildPythonPackage rec {
     sed -i -e 's/^.*BuildDoc.*$//' setup.py
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     cmake
@@ -132,7 +131,7 @@ buildPythonPackage rec {
       "test_reconstruction_triangulation"
     ];
 
-  pythonImportsCheck = [ "opensfm" ];
+  pythonImportsCheck = ["opensfm"];
 
   meta = {
     broken = stdenv.hostPlatform.isDarwin;

@@ -13,7 +13,6 @@
   setuptools,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "whirlpool-sixth-sense";
   version = "0.20.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-Sl8Y1sVZolk8KLS3bKGQNFXTVntcPusrf2A0zdixq8A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aioconsole
@@ -44,12 +43,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "whirlpool" ];
+  pythonImportsCheck = ["whirlpool"];
 
   meta = with lib; {
     description = "Python library for Whirlpool 6th Sense appliances";
     homepage = "https://github.com/abmantis/whirlpool-sixth-sense/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

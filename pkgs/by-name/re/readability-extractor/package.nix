@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "readability-extractor";
   version = "0.0.11";
@@ -23,7 +22,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/ArchiveBox/readability-extractor";
     description = "Javascript wrapper around Mozilla Readability for ArchiveBox to call as a oneshot CLI to extract article text";
     license = licenses.mit;
-    maintainers = with maintainers; [ viraptor ];
+    maintainers = with maintainers; [viraptor];
     mainProgram = "readability-extractor";
   };
 }

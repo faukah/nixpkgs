@@ -5,7 +5,6 @@
   testers,
   texinfo,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "quickjs";
   version = "2025-04-26";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     texinfo
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   doInstallCheck = true;
 

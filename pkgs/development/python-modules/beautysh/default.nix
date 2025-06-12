@@ -10,7 +10,6 @@
   types-colorama,
   types-setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "beautysh";
   version = "6.2.1";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
       --replace 'types-setuptools = "^57.4.0"' 'types-setuptools = "*"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     colorama
@@ -46,15 +45,15 @@ buildPythonPackage rec {
     types-setuptools
   ];
 
-  nativeCheckInputs = [ pytest7CheckHook ];
+  nativeCheckInputs = [pytest7CheckHook];
 
-  pythonImportsCheck = [ "beautysh" ];
+  pythonImportsCheck = ["beautysh"];
 
   meta = with lib; {
     description = "Tool for beautifying Bash scripts";
     homepage = "https://github.com/lovesegfault/beautysh";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
     mainProgram = "beautysh";
   };
 }

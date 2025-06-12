@@ -13,7 +13,6 @@
   isocodes,
   gsettings-desktop-schemas,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtkhtml";
   version = "4.10.0";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gtkhtml"; };
+    updateScript = gnome.updateScript {packageName = "gtkhtml";};
   };
 
   nativeBuildInputs = [
@@ -59,6 +58,6 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

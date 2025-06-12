@@ -9,7 +9,6 @@
   jupyterlab,
   ploomber-core,
 }:
-
 buildPythonPackage rec {
   pname = "jupysql-plugin";
   version = "0.4.5";
@@ -31,18 +30,18 @@ buildPythonPackage rec {
     jupyterlab
   ];
 
-  dependencies = [ ploomber-core ];
+  dependencies = [ploomber-core];
 
   # testing requires a circular dependency over jupysql
   doCheck = false;
 
-  pythonImportsCheck = [ "jupysql_plugin" ];
+  pythonImportsCheck = ["jupysql_plugin"];
 
   meta = with lib; {
     description = "Better SQL in Jupyter";
     homepage = "https://github.com/ploomber/jupysql-plugin";
     changelog = "https://github.com/ploomber/jupysql-plugin/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ euxane ];
+    maintainers = with maintainers; [euxane];
   };
 }

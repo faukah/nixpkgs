@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "svls";
   version = "0.2.12";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "svls";
     homepage = "https://github.com/dalance/svls";
     license = licenses.mit;
-    maintainers = with maintainers; [ trepetti ];
+    maintainers = with maintainers; [trepetti];
   };
 }

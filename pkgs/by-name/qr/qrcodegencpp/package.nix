@@ -3,7 +3,6 @@
   stdenv,
   qrcodegen,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qrcodegencpp";
   version = qrcodegen.version;
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     stdenv.cc.cc.libllvm.out
   ];
 
-  makeFlags = lib.optionals stdenv.cc.isClang [ "AR=llvm-ar" ];
+  makeFlags = lib.optionals stdenv.cc.isClang ["AR=llvm-ar"];
 
   installPhase = ''
     runHook preInstall
@@ -28,7 +27,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    inherit (qrcodegen.meta)
+    inherit
+      (qrcodegen.meta)
       description
       homepage
       license

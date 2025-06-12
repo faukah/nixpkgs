@@ -12,7 +12,6 @@
   python3Packages,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "iwd";
   version = "3.6";
@@ -23,11 +22,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-JQfYZtdpJfIZWTbYYj07YWx4auAGQMiedIMpP5DyxSo=";
   };
 
-  outputs = [
-    "out"
-    "man"
-    "doc"
-  ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "test";
+  outputs =
+    [
+      "out"
+      "man"
+      "doc"
+    ]
+    ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "test";
   separateDebugInfo = true;
 
   nativeBuildInputs = [
@@ -43,7 +44,7 @@ stdenv.mkDerivation rec {
     readline
   ];
 
-  nativeCheckInputs = [ openssl ];
+  nativeCheckInputs = [openssl];
 
   # wrapPython wraps the scripts in $test. They pull in gobject-introspection,
   # which doesn't cross-compile.

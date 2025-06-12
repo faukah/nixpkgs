@@ -16,7 +16,6 @@
   docbook_xml_dtd_45,
   docbook_xsl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "i3status";
   version = "2.15";
@@ -47,10 +46,9 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Generates a status line for i3bar, dzen2, xmobar or lemonbar";
     homepage = "https://i3wm.org";
-    maintainers = [ ];
+    maintainers = [];
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
     mainProgram = "i3status";
   };
-
 }

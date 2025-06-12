@@ -12,7 +12,6 @@
   pytest-httpx,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "llm-grok";
   version = "1.0.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-OeeU/53XKucLCtGvnl5RWc/QqF0TprB/SO8pnnK5fdw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     llm
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "llm_grok" ];
+  pythonImportsCheck = ["llm_grok"];
 
   passthru.tests = llm.mkPluginTest llm-grok;
 
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Hiepler/llm-grok";
     changelog = "https://github.com/Hiepler/llm-grok/releases/tag/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

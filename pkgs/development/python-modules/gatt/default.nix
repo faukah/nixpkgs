@@ -5,7 +5,6 @@
   dbus-python,
   pygobject3,
 }:
-
 buildPythonPackage rec {
   pname = "gatt";
   version = "0.2.6";
@@ -23,13 +22,13 @@ buildPythonPackage rec {
     pygobject3
   ];
 
-  pythonImportsCheck = [ "gatt" ];
+  pythonImportsCheck = ["gatt"];
 
   meta = with lib; {
     description = "Bluetooth (Generic Attribute Profile) GATT SDK for Python";
     mainProgram = "gattctl";
     homepage = "https://github.com/getsenic/gatt-python/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

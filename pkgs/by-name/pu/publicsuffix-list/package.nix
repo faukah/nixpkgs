@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "publicsuffix-list";
   version = "0-unstable-2025-03-12";
@@ -26,13 +25,13 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     homepage = "https://publicsuffix.org/";
     description = "Cross-vendor public domain suffix database";
     platforms = platforms.all;
     license = licenses.mpl20;
-    maintainers = [ maintainers.c0bw3b ];
+    maintainers = [maintainers.c0bw3b];
   };
 }

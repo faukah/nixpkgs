@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     "out"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_DWARFDUMP" false)
@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Minimal libdwarf mirror for faster cloning and configuration";
     homepage = "https://github.com/jeremy-rifkin/libdwarf-lite";
     license = lib.licenses.lgpl21Only;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "libdwarf-lite";
     platforms = lib.platforms.all;
   };

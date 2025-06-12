@@ -4,19 +4,17 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.mikrotik;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     literalExpression
     concatStringsSep
     escapeShellArg
     ;
-in
-{
+in {
   port = 9436;
   extraOpts = {
     configFile = mkOption {
@@ -59,23 +57,20 @@ in
       '';
     };
   };
-  serviceOpts =
-    let
-      configFile =
-        if cfg.configFile != null then
-          cfg.configFile
-        else
-          "${pkgs.writeText "mikrotik-exporter.yml" (builtins.toJSON cfg.configuration)}";
-    in
-    {
-      serviceConfig = {
-        # -port is misleading name, it actually accepts address too
-        ExecStart = ''
-          ${pkgs.prometheus-mikrotik-exporter}/bin/mikrotik-exporter \
-            -config-file=${escapeShellArg configFile} \
-            -port=${cfg.listenAddress}:${toString cfg.port} \
-            ${concatStringsSep " \\\n  " cfg.extraFlags}
-        '';
-      };
+  serviceOpts = let
+    configFile =
+      if cfg.configFile != null
+      then cfg.configFile
+      else "${pkgs.writeText "mikrotik-exporter.yml" (builtins.toJSON cfg.configuration)}";
+  in {
+    serviceConfig = {
+      # -port is misleading name, it actually accepts address too
+      ExecStart = ''
+        ${pkgs.prometheus-mikrotik-exporter}/bin/mikrotik-exporter \
+          -config-file=${escapeShellArg configFile} \
+          -port=${cfg.listenAddress}:${toString cfg.port} \
+          ${concatStringsSep " \\\n  " cfg.extraFlags}
+      '';
     };
+  };
 }

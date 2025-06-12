@@ -7,7 +7,6 @@
   pythonOlder,
   yara-python,
 }:
-
 buildPythonPackage rec {
   pname = "karton-yaramatcher";
   version = "1.3.0";
@@ -27,16 +26,16 @@ buildPythonPackage rec {
     yara-python
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "karton.yaramatcher" ];
+  pythonImportsCheck = ["karton.yaramatcher"];
 
   meta = with lib; {
     description = "File and analysis artifacts yara matcher for the Karton framework";
     mainProgram = "karton-yaramatcher";
     homepage = "https://github.com/CERT-Polska/karton-yaramatcher";
     changelog = "https://github.com/CERT-Polska/karton-yaramatcher/releases/tag/v${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

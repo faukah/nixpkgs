@@ -5,7 +5,6 @@
   pretix-plugin-build,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "pretix-reluctant-stripe";
   version = "unstable-2023-08-03";
@@ -33,6 +32,6 @@ buildPythonPackage {
     description = "Nudge users to not use Stripe as a payment provider";
     homepage = "https://github.com/metarheinmain/pretix-reluctant-stripe";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

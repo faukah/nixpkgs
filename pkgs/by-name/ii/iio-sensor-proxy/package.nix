@@ -12,7 +12,6 @@
   systemd,
   polkit,
 }:
-
 stdenv.mkDerivation rec {
   pname = "iio-sensor-proxy";
   version = "3.7";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     mainProgram = "monitor-sensor";
     homepage = "https://gitlab.freedesktop.org/hadess/iio-sensor-proxy";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ _999eagle ];
+    maintainers = with maintainers; [_999eagle];
     platforms = platforms.linux;
   };
 }

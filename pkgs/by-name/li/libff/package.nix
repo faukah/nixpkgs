@@ -9,7 +9,6 @@
   pkg-config,
   enableStatic ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libff";
   version = "0.2.1";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
   };
 
   cmakeFlags =
-    [ "-DWITH_PROCPS=Off" ]
+    ["-DWITH_PROCPS=Off"]
     ++ lib.optionals stdenv.hostPlatform.isAarch64 [
       "-DCURVE=ALT_BN128"
       "-DUSE_ASM=OFF"
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/scipr-lab/libff";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ arturcygan ];
+    maintainers = with maintainers; [arturcygan];
   };
 }

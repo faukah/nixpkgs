@@ -18,7 +18,6 @@
   qtkeychain,
   libsecret,
 }:
-
 mkDerivation {
   pname = "akonadi-import-wizard";
   meta = {

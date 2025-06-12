@@ -1,6 +1,8 @@
-{ config, lib, ... }:
 {
-
+  config,
+  lib,
+  ...
+}: {
   _file = "optionTypeFile.nix";
 
   options.theType = lib.mkOption {
@@ -9,7 +11,7 @@
 
   options.theOption = lib.mkOption {
     type = config.theType;
-    default = { };
+    default = {};
   };
 
   config.theType = lib.mkMerge [
@@ -25,5 +27,4 @@
       };
     })
   ];
-
 }

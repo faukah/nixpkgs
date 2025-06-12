@@ -5,7 +5,6 @@
   openssl,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yate";
   version = "6.4.0-1";
@@ -16,8 +15,8 @@ stdenv.mkDerivation rec {
   };
 
   # TODO zaptel ? postgres ?
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   # /dev/null is used when linking which is a impure path for the wrapper
   postPatch = ''
@@ -41,11 +40,10 @@ stdenv.mkDerivation rec {
     # Yate's license is GPL with an exception for linking with
     # OpenH323 and PWlib (licensed under MPL).
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.marcweber ];
+    maintainers = [lib.maintainers.marcweber];
     platforms = [
       "i686-linux"
       "x86_64-linux"
     ];
   };
-
 }

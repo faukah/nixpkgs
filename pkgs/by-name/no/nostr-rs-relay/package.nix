@@ -8,7 +8,6 @@
   libiconv,
   protobuf,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nostr-rs-relay";
   version = "0.9.0";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-hrq9EEUot9painlXVGjIh+NMlrH4iRQ28U3PLGnvYsw=";
 
   buildInputs =
-    [ openssl.dev ]
+    [openssl.dev]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     description = "Nostr relay written in Rust";
     homepage = "https://sr.ht/~gheartsfield/nostr-rs-relay/";
     changelog = "https://github.com/scsibug/nostr-rs-relay/releases/tag/${version}";
-    maintainers = with lib.maintainers; [ jurraca ];
+    maintainers = with lib.maintainers; [jurraca];
     license = lib.licenses.mit;
   };
 }

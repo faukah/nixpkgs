@@ -17,7 +17,6 @@
   withPython ? false,
   withMpi ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nest";
   version = "3.8";
@@ -62,8 +61,16 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-    "-Dwith-python=${if withPython then "ON" else "OFF"}"
-    "-Dwith-mpi=${if withMpi then "ON" else "OFF"}"
+    "-Dwith-python=${
+      if withPython
+      then "ON"
+      else "OFF"
+    }"
+    "-Dwith-mpi=${
+      if withMpi
+      then "ON"
+      else "OFF"
+    }"
     "-Dwith-openmp=ON"
   ];
 

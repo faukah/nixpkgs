@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "controller-tools";
   version = "0.18.0";
@@ -36,6 +35,6 @@ buildGoModule rec {
     homepage = "https://github.com/kubernetes-sigs/controller-tools";
     changelog = "https://github.com/kubernetes-sigs/controller-tools/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ michojel ];
+    maintainers = with lib.maintainers; [michojel];
   };
 }

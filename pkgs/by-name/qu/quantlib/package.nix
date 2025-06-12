@@ -5,7 +5,6 @@
   cmake,
   boost,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "quantlib";
   version = "1.38";
@@ -22,11 +21,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-4a86sGUOz/B5IQHE41r5+OTvR9es4FgXeufy3bKRWAc=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ boost ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [boost];
 
   # Required by RQuantLib, may be beneficial for others too
-  cmakeFlags = [ "-DQL_HIGH_RESOLUTION_DATE=ON" ];
+  cmakeFlags = ["-DQL_HIGH_RESOLUTION_DATE=ON"];
 
   # Needed for RQuantLib and possible others
   postInstall = ''
@@ -39,6 +38,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/lballabio/QuantLib/releases/tag/v${finalAttrs.version}";
     platforms = platforms.unix;
     license = licenses.bsd3;
-    maintainers = [ maintainers.kupac ];
+    maintainers = [maintainers.kupac];
   };
 })

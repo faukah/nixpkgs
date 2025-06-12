@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
   nixosTests,
-
   # updater
   git,
   coreutils,
@@ -12,7 +11,6 @@
   writeScript,
   nix-update,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mailcap";
   version = "2.1.54";
@@ -60,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Helper application and MIME type associations for file types";
     homepage = "https://pagure.io/mailcap";
     license = licenses.mit;
-    maintainers = with maintainers; [ c0bw3b ];
+    maintainers = with maintainers; [c0bw3b];
     platforms = platforms.all;
   };
 }

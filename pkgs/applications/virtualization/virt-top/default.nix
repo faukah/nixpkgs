@@ -8,7 +8,6 @@
   pkg-config,
   getopt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "virt-top";
   version = "1.1.2";
@@ -28,8 +27,7 @@ stdenv.mkDerivation rec {
     ocamlPackages.ocaml
     ocamlPackages.findlib
   ];
-  buildInputs =
-    with ocamlPackages;
+  buildInputs = with ocamlPackages;
     [
       ocamlPackages.ocaml
       calendar
@@ -37,7 +35,7 @@ stdenv.mkDerivation rec {
       gettext-stub
       ocaml_libvirt
     ]
-    ++ [ libxml2 ];
+    ++ [libxml2];
 
   prePatch = ''
     substituteInPlace ocaml-dep.sh.in --replace '#!/bin/bash' '#!${stdenv.shell}'
@@ -48,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "Top-like utility for showing stats of virtualized domains";
     homepage = "https://people.redhat.com/~rjones/virt-top/";
     license = licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "virt-top";
   };

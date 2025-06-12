@@ -1,20 +1,17 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "firefly-iii-data-importer";
-  meta.maintainers = [ lib.maintainers.savyajha ];
+  meta.maintainers = [lib.maintainers.savyajha];
 
-  nodes.dataImporter =
-    { ... }:
-    {
-      services.firefly-iii-data-importer = {
-        enable = true;
-        enableNginx = true;
-        settings = {
-          LOG_CHANNEL = "stdout";
-          USE_CACHE = true;
-        };
+  nodes.dataImporter = {...}: {
+    services.firefly-iii-data-importer = {
+      enable = true;
+      enableNginx = true;
+      settings = {
+        LOG_CHANNEL = "stdout";
+        USE_CACHE = true;
       };
     };
+  };
 
   testScript = ''
     dataImporter.wait_for_unit("phpfpm-firefly-iii-data-importer.service")

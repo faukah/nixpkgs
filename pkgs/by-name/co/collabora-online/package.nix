@@ -21,7 +21,6 @@
   stdenv,
   zstd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "collabora-online";
   version = "24.04.13-2";
@@ -108,7 +107,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Collaborative online office suite based on LibreOffice technology";
     license = lib.licenses.mpl20;
-    maintainers = [ lib.maintainers.xzfc ];
+    maintainers = [lib.maintainers.xzfc];
     homepage = "https://www.collaboraonline.com";
     platforms = lib.platforms.linux;
   };

@@ -13,7 +13,6 @@
   copyDesktopItems,
   nix-update-script,
 }:
-
 buildDotnetModule rec {
   pname = "galaxy-buds-client";
   version = "5.1.2";
@@ -25,13 +24,13 @@ buildDotnetModule rec {
     hash = "sha256-ygxrtRapduvK7qAHZzdHnCijm8mcqOviMl2ddf9ge+Y=";
   };
 
-  projectFile = [ "GalaxyBudsClient/GalaxyBudsClient.csproj" ];
+  projectFile = ["GalaxyBudsClient/GalaxyBudsClient.csproj"];
   nugetDeps = ./deps.json;
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.runtime_8_0;
   dotnetFlags =
-    lib.optionals stdenv.hostPlatform.isx86_64 [ "-p:Runtimeidentifier=linux-x64" ]
-    ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "-p:Runtimeidentifier=linux-arm64" ];
+    lib.optionals stdenv.hostPlatform.isx86_64 ["-p:Runtimeidentifier=linux-x64"]
+    ++ lib.optionals stdenv.hostPlatform.isAarch64 ["-p:Runtimeidentifier=linux-arm64"];
 
   nativeBuildInputs = [
     makeWrapper
@@ -67,20 +66,20 @@ buildDotnetModule rec {
       genericName = "Galaxy Buds Client";
       comment = meta.description;
       type = "Application";
-      categories = [ "Settings" ];
+      categories = ["Settings"];
       startupNotify = true;
     })
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Unofficial Galaxy Buds Manager";
     homepage = "https://github.com/ThePBone/GalaxyBudsClient";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ icy-thought ];
+    maintainers = with lib.maintainers; [icy-thought];
     platforms = lib.platforms.linux;
     mainProgram = "GalaxyBudsClient";
   };

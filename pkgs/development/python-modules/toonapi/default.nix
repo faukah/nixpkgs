@@ -7,7 +7,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "toonapi";
   version = "0.3.0";
@@ -31,13 +30,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "toonapi" ];
+  pythonImportsCheck = ["toonapi"];
 
   meta = with lib; {
     description = "Python client for the Quby ToonAPI";
     homepage = "https://github.com/frenck/python-toonapi";
     changelog = "https://github.com/frenck/python-toonapi/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   click,
   rich,
   typing-extensions,
-
   # tests
   inline-snapshot,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rich-toolkit";
   version = "0.14.1";
@@ -52,6 +48,6 @@ buildPythonPackage rec {
     description = "Rich toolkit for building command-line applications";
     homepage = "https://pypi.org/project/rich-toolkit";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

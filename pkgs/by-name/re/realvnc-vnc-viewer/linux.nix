@@ -9,7 +9,6 @@
   version,
   meta,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   inherit pname version;
 
@@ -21,7 +20,9 @@ stdenv.mkDerivation (finalAttrs: {
         hash = "sha256-fwMfQdOyLnYVfdBj80JHWT+CnKpq/9oM5oNF3aP+jgo=";
       };
     }
-    .${stdenv.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${
+      stdenv.system
+    } or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -52,7 +53,9 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = meta // {
-    mainProgram = "vncviewer";
-  };
+  meta =
+    meta
+    // {
+      mainProgram = "vncviewer";
+    };
 })

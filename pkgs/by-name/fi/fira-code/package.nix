@@ -4,7 +4,6 @@
   fetchzip,
   useVariableFont ? true,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "fira-code";
   version = "6.2";
@@ -20,7 +19,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook preInstall
 
     install -Dm644 -t $out/share/fonts/truetype ${
-      if useVariableFont then "variable_ttf/*-VF.ttf" else "ttf/*.ttf"
+      if useVariableFont
+      then "variable_ttf/*-VF.ttf"
+      else "ttf/*.ttf"
     }
 
     runHook postInstall
@@ -35,7 +36,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       combinations.
     '';
     license = licenses.ofl;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
     platforms = platforms.all;
   };
 })

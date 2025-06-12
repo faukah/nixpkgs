@@ -8,7 +8,6 @@
   jre,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gpsprune";
   version = "25";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     copyDesktopItems
   ];
-  buildInputs = [ jre ];
+  buildInputs = [jre];
 
   desktopItems = [
     (makeDesktopItem {
@@ -62,9 +61,9 @@ stdenv.mkDerivation rec {
     description = "Application for viewing, editing and converting GPS coordinate data";
     homepage = "https://activityworkshop.net/software/gpsprune/";
     changelog = "https://activityworkshop.net/software/gpsprune/whats_new.html";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ rycee ];
+    maintainers = with maintainers; [rycee];
     platforms = platforms.all;
     mainProgram = "gpsprune";
   };

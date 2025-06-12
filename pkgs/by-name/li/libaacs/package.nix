@@ -7,14 +7,11 @@
   bison,
   flex,
 }:
-
 # library that allows libbluray to play AACS protected bluray disks
 # libaacs does not infringe DRM's right or copyright. See the legal page of the website for more info.
-
 # Info on how to use / obtain aacs keys:
 # http://vlc-bluray.whoknowsmy.name/
 # https://wiki.archlinux.org/index.php/BluRay
-
 stdenv.mkDerivation rec {
   pname = "libaacs";
   version = "0.11.1";
@@ -39,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Library to access AACS protected Blu-Ray disks";
     mainProgram = "aacs_info";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = with platforms; linux;
   };
 }

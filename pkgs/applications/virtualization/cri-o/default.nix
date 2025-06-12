@@ -14,7 +14,6 @@
   nixosTests,
   go-md2man,
 }:
-
 buildGoModule rec {
   pname = "cri-o";
   version = "1.33.0";
@@ -76,7 +75,7 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  passthru.tests = { inherit (nixosTests) cri-o; };
+  passthru.tests = {inherit (nixosTests) cri-o;};
 
   meta = with lib; {
     homepage = "https://cri-o.io";
@@ -85,7 +84,7 @@ buildGoModule rec {
       Kubernetes Container Runtime Interface
     '';
     license = licenses.asl20;
-    teams = [ teams.podman ];
+    teams = [teams.podman];
     platforms = platforms.linux;
   };
 }

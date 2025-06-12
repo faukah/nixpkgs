@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-yH/+E2IBe9KZxKTiP8oNcb9fJcZ0ukuenqTSv97ed44=";
   };
 
-  nativeBuildInputs = [ pkgs.pkg-config ];
+  nativeBuildInputs = [pkgs.pkg-config];
 
   buildInputs = [
     xorg.libX11
@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Fast compositor for X11";
     homepage = "https://github.com/tycho-kirchner/fastcompmgr";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ camerondugan ];
+    maintainers = with lib.maintainers; [camerondugan];
     platforms = lib.platforms.linux;
   };
 })

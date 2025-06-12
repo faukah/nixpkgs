@@ -10,7 +10,6 @@
   pkg-config,
   withBluez ? false,
   withRemote ? false,
-
   # for passthru.tests
   ettercap,
   nmap,
@@ -21,7 +20,6 @@
   python3,
   haskellPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libpcap";
   version = "1.10.5";
@@ -32,22 +30,26 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    lib.optionals stdenv.hostPlatform.isLinux [ libnl ]
-    ++ lib.optionals withRemote [ libxcrypt ];
+    lib.optionals stdenv.hostPlatform.isLinux [libnl]
+    ++ lib.optionals withRemote [libxcrypt];
 
   nativeBuildInputs =
     [
       flex
       bison
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ]
-    ++ lib.optionals withBluez [ bluez.dev ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [pkg-config]
+    ++ lib.optionals withBluez [bluez.dev];
 
   # We need to force the autodetection because detection doesn't
   # work in pure build environments.
   configureFlags =
     [
-      "--with-pcap=${if stdenv.hostPlatform.isLinux then "linux" else "bpf"}"
+      "--with-pcap=${
+        if stdenv.hostPlatform.isLinux
+        then "linux"
+        else "bpf"
+      }"
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       "--disable-universal"
@@ -55,7 +57,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withRemote [
       "--enable-remote"
     ]
-    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ "ac_cv_linux_vers=2" ];
+    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) ["ac_cv_linux_vers=2"];
 
   postInstall = ''
     if [ "$dontDisableStatic" -ne "1" ]; then
@@ -83,7 +85,7 @@ stdenv.mkDerivation rec {
     description = "Packet Capture Library";
     mainProgram = "pcap-config";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     license = licenses.bsd3;
   };
 }

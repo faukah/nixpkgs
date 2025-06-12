@@ -5,8 +5,7 @@
   fetchFromGitHub,
   protobuf,
   buildNpmPackage,
-}:
-let
+}: let
   version = "0.4.1";
 
   src = fetchFromGitHub {
@@ -16,8 +15,11 @@ let
     hash = "sha256-+IHV+dJb/j1/tmdqDXo6bqhvj3nBQ7i4AsUeHFA3+NU=";
   };
 
-  mkSshxPackage =
-    { pname, cargoHash, ... }@args:
+  mkSshxPackage = {
+    pname,
+    cargoHash,
+    ...
+  } @ args:
     rustPlatform.buildRustPackage (
       rec {
         inherit
@@ -29,7 +31,7 @@ let
 
         useFetchCargoVendor = true;
 
-        nativeBuildInputs = [ protobuf ];
+        nativeBuildInputs = [protobuf];
 
         cargoBuildFlags = [
           "--package"
@@ -52,8 +54,7 @@ let
       }
       // args
     );
-in
-{
+in {
   sshx = mkSshxPackage {
     pname = "sshx";
     cargoHash = "sha256-QftBUGDQvCSHoOBLnEzNOe1dMTpVTvMDXNp5qZr0C2M=";

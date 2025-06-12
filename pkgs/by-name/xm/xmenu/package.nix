@@ -7,7 +7,6 @@
   libXft,
   libXinerama,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xmenu";
   version = "4.5.5";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "Menu utility for X";
     homepage = "https://github.com/phillbush/xmenu";
     license = licenses.mit;
-    maintainers = with maintainers; [ neonfuz ];
+    maintainers = with maintainers; [neonfuz];
     platforms = platforms.all;
     mainProgram = "xmenu";
   };

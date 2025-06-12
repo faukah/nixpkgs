@@ -1,20 +1,17 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "grocy";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ ma27 ];
+    maintainers = [ma27];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.grocy = {
-        enable = true;
-        hostName = "localhost";
-        nginx.enableSSL = false;
-      };
-      environment.systemPackages = [ pkgs.jq ];
+  nodes.machine = {pkgs, ...}: {
+    services.grocy = {
+      enable = true;
+      hostName = "localhost";
+      nginx.enableSSL = false;
     };
+    environment.systemPackages = [pkgs.jq];
+  };
 
   testScript = ''
     from base64 import b64encode

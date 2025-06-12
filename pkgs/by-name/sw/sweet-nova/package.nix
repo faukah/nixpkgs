@@ -4,7 +4,6 @@
   lib,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "sweet-nova";
   version = "unstable-2023-09-30";
@@ -40,13 +39,13 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Dark and colorful, blurry theme for the KDE Plasma desktop";
     homepage = "https://github.com/EliverLara/Sweet";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.dr460nf1r3 ];
+    maintainers = [maintainers.dr460nf1r3];
     platforms = platforms.all;
   };
 }

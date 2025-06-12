@@ -6,7 +6,6 @@
   dnspython,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pynslookup";
   version = "1.8.1";
@@ -21,19 +20,19 @@ buildPythonPackage rec {
     hash = "sha256-cb8oyI8D8SzBP+tm1jGPPshJYhPegYOH0RwIH03/K/A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ dnspython ];
+  dependencies = [dnspython];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "nslookup" ];
+  pythonImportsCheck = ["nslookup"];
 
   meta = with lib; {
     description = "Module to do DNS lookups";
     homepage = "https://github.com/wesinator/pynslookup";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

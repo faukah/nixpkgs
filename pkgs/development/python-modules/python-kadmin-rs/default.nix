@@ -5,7 +5,6 @@
   rustPlatform,
   pythonImportsCheckHook,
   buildPythonPackage,
-
   cargo,
   rustc,
   pkg-config,
@@ -14,7 +13,6 @@
   setuptools-rust,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "python-kadmin-rs";
   version = "0.6.0";
@@ -62,6 +60,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/authentik-community/kadmin-rs";
     changelog = "https://github.com/authentik-community/kadmin-rs/releases/tag/kadmin%2Fversion%2F${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jvanbruegge ];
+    maintainers = with lib.maintainers; [jvanbruegge];
   };
 }

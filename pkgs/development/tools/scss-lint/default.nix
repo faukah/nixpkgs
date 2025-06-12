@@ -3,11 +3,10 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "scss_lint";
   gemdir = ./.;
-  exes = [ "scss-lint" ];
+  exes = ["scss-lint"];
 
   passthru.updateScript = bundlerUpdateScript "scss-lint";
 

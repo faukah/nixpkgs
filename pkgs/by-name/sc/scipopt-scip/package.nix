@@ -17,7 +17,6 @@
   criterion,
   mpfr,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scipopt-scip";
   version = "9.2.2";
@@ -25,11 +24,11 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "scipopt";
     repo = "scip";
-    tag = "v${lib.replaceStrings [ "." ] [ "" ] version}";
+    tag = "v${lib.replaceStrings ["."] [""] version}";
     hash = "sha256-gxR308XrlmuUym/ujwGcD9a7Z+Z7vQNHaK4zO/PWPBQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     scipopt-soplex
@@ -46,12 +45,12 @@ stdenv.mkDerivation rec {
     mpfr # if not included, throws fatal error: mpfr.h not found
   ];
 
-  cmakeFlags = [ ];
+  cmakeFlags = [];
 
   doCheck = true;
 
   meta = {
-    maintainers = with lib.maintainers; [ fettgoenner ];
+    maintainers = with lib.maintainers; [fettgoenner];
     changelog = "https://scipopt.org/doc-${version}/html/RN${lib.versions.major version}.php";
     description = "Solving Constraint Integer Programs";
     license = lib.licenses.asl20;

@@ -4,9 +4,7 @@
   gitUpdater,
   python3Packages,
   testers,
-}:
-
-let
+}: let
   self = python3Packages.buildPythonApplication {
     pname = "revup";
     version = "0.3.0";
@@ -40,7 +38,7 @@ let
     ];
 
     passthru = {
-      updateScript = gitUpdater { };
+      updateScript = gitUpdater {};
       tests.version = testers.testVersion {
         package = self;
       };
@@ -70,8 +68,8 @@ let
       '';
       license = lib.licenses.mit;
       mainProgram = "revup";
-      maintainers = with lib.maintainers; [ ];
+      maintainers = with lib.maintainers; [];
     };
   };
 in
-self
+  self

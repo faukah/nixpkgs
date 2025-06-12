@@ -8,7 +8,6 @@
   SDL2_mixer,
   SDL2_ttf,
 }:
-
 stdenv.mkDerivation rec {
   pname = "flare-engine";
   version = "1.14";
@@ -20,9 +19,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-DIzfTqwZJ8NAPB/TWzvPjepHb7hIbIr+Kk+doXJmpLc=";
   };
 
-  patches = [ ./desktop.patch ];
+  patches = [./desktop.patch];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     SDL2
     SDL2_image
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
       aanderse
       McSinyx
     ];
-    license = [ lib.licenses.gpl3Plus ];
+    license = [lib.licenses.gpl3Plus];
     platforms = lib.platforms.unix;
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   perl,
 }:
-
 stdenv.mkDerivation {
   pname = "redo";
   version = "1.4";
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/jdebp/redo";
     description = "System for building target files from source files";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ momeemt ];
+    maintainers = with lib.maintainers; [momeemt];
     mainProgram = "redo";
     platforms = lib.platforms.unix;
   };

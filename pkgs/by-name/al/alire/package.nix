@@ -5,7 +5,6 @@
   gprbuild,
   gnat,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "alire";
   version = "2.1.0";
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://alire.ada.dev";
     changelog = "https://github.com/alire-project/alire/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ atalii ];
+    maintainers = with lib.maintainers; [atalii];
     platforms = lib.platforms.unix;
     mainProgram = "alr";
   };

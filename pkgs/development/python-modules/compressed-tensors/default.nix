@@ -11,7 +11,6 @@
   nbformat,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "compressed-tensors";
   version = "0.9.2";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-PxW8zseDUF0EOh7E/N8swwgFTfvkoTpp+d3ngAUpFNU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pydantic
@@ -35,7 +34,7 @@ buildPythonPackage rec {
 
   doCheck = true;
 
-  pythonImportsCheck = [ "compressed_tensors" ];
+  pythonImportsCheck = ["compressed_tensors"];
 
   nativeCheckInputs = [
     nbconvert
@@ -63,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/neuralmagic/compressed-tensors";
     changelog = "https://github.com/neuralmagic/compressed-tensors/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

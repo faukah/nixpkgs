@@ -26,7 +26,6 @@
   gsettings-desktop-schemas,
   tinysparql,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-notes";
   version = "40.1";
@@ -79,7 +78,7 @@ stdenv.mkDerivation rec {
     adwaita-icon-theme
   ];
 
-  mesonFlags = [ "-Dupdate_mimedb=false" ];
+  mesonFlags = ["-Dupdate_mimedb=false"];
 
   passthru = {
     updateScript = gnome.updateScript {
@@ -93,7 +92,7 @@ stdenv.mkDerivation rec {
     mainProgram = "bijiben";
     homepage = "https://gitlab.gnome.org/GNOME/gnome-notes";
     license = licenses.gpl3;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 }

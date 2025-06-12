@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-UoUxCwR+qOUufHuS0gw6A5Q7sB77VO4HYuMjFGN7mhA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     llm
@@ -41,7 +41,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "llm_openai" ];
+  pythonImportsCheck = ["llm_openai"];
 
   passthru.tests = llm.mkPluginTest llm-openai-plugin;
 
@@ -50,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-openai-plugin";
     changelog = "https://github.com/simonw/llm-openai-plugin/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ josh ];
+    maintainers = with lib.maintainers; [josh];
   };
 }

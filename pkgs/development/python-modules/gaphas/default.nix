@@ -10,7 +10,6 @@
   pygobject3,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "gaphas";
   version = "5.0.3";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     gobject-introspection
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   propagatedBuildInputs = [
     pycairo
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "gaphas" ];
+  pythonImportsCheck = ["gaphas"];
 
   meta = with lib; {
     description = "GTK+ based diagramming widget";
     homepage = "https://github.com/gaphor/gaphas";
     changelog = "https://github.com/gaphor/gaphas/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -3,9 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mapAttrs'
     nameValuePair
     filterAttrs
@@ -22,18 +22,27 @@ let
 
   cfg = config.services.autosuspend;
 
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
 
   checks = mapAttrs' (n: v: nameValuePair "check.${n}" (filterAttrs (_: v: v != null) v)) cfg.checks;
-  wakeups = mapAttrs' (
-    n: v: nameValuePair "wakeup.${n}" (filterAttrs (_: v: v != null) v)
-  ) cfg.wakeups;
+  wakeups =
+    mapAttrs' (
+      n: v: nameValuePair "wakeup.${n}" (filterAttrs (_: v: v != null) v)
+    )
+    cfg.wakeups;
 
   # Whether the given check is enabled
-  hasCheck =
-    class:
-    (filterAttrs (n: v: v.enabled && (if v.class == null then n else v.class) == class) cfg.checks)
-    != { };
+  hasCheck = class:
+    (filterAttrs (n: v:
+      v.enabled
+      && (
+        if v.class == null
+        then n
+        else v.class
+      )
+      == class)
+    cfg.checks)
+    != {};
 
   # Dependencies needed by specific checks
   dependenciesForChecks = {
@@ -45,7 +54,7 @@ let
   };
 
   autosuspend-conf = settingsFormat.generate "autosuspend.conf" (
-    { general = cfg.settings; } // checks // wakeups
+    {general = cfg.settings;} // checks // wakeups
   );
 
   autosuspend = cfg.package;
@@ -53,14 +62,15 @@ let
   checkType = types.submodule {
     freeformType = settingsFormat.type.nestedTypes.elemType;
 
-    options.enabled = mkEnableOption "this activity check" // {
-      default = true;
-    };
+    options.enabled =
+      mkEnableOption "this activity check"
+      // {
+        default = true;
+      };
 
     options.class = mkOption {
       default = null;
-      type =
-        with types;
+      type = with types;
         nullOr (enum [
           "ActiveCalendarEvent"
           "ActiveConnection"
@@ -90,14 +100,15 @@ let
   wakeupType = types.submodule {
     freeformType = settingsFormat.type.nestedTypes.elemType;
 
-    options.enabled = mkEnableOption "this wake-up check" // {
-      default = true;
-    };
+    options.enabled =
+      mkEnableOption "this wake-up check"
+      // {
+        default = true;
+      };
 
     options.class = mkOption {
       default = null;
-      type =
-        with types;
+      type = with types;
         nullOr (enum [
           "Calendar"
           "Command"
@@ -113,13 +124,12 @@ let
       '';
     };
   };
-in
-{
+in {
   options = {
     services.autosuspend = {
       enable = mkEnableOption "the autosuspend daemon";
 
-      package = mkPackageOption pkgs "autosuspend" { };
+      package = mkPackageOption pkgs "autosuspend" {};
 
       settings = mkOption {
         type = types.submodule {
@@ -147,7 +157,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             enable = true;
@@ -163,7 +173,7 @@ in
       };
 
       checks = mkOption {
-        default = { };
+        default = {};
         type = with types; attrsOf checkType;
         description = ''
           Checks for activity.  For more information, see:
@@ -205,7 +215,7 @@ in
       };
 
       wakeups = mkOption {
-        default = { };
+        default = {};
         type = with types; attrsOf wakeupType;
         description = ''
           Checks for wake up.  For more information, see:
@@ -227,9 +237,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.autosuspend = {
       description = "A daemon to suspend your server in case of inactivity";
-      documentation = [ "https://autosuspend.readthedocs.io/en/latest/systemd_integration.html" ];
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      documentation = ["https://autosuspend.readthedocs.io/en/latest/systemd_integration.html"];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       path = flatten (attrValues (filterAttrs (n: _: hasCheck n) dependenciesForChecks));
       serviceConfig = {
         ExecStart = ''${autosuspend}/bin/autosuspend -l ${autosuspend}/etc/autosuspend-logging.conf -c ${autosuspend-conf} daemon'';
@@ -238,9 +248,9 @@ in
 
     systemd.services.autosuspend-detect-suspend = {
       description = "Notifies autosuspend about suspension";
-      documentation = [ "https://autosuspend.readthedocs.io/en/latest/systemd_integration.html" ];
-      wantedBy = [ "sleep.target" ];
-      after = [ "sleep.target" ];
+      documentation = ["https://autosuspend.readthedocs.io/en/latest/systemd_integration.html"];
+      wantedBy = ["sleep.target"];
+      after = ["sleep.target"];
       serviceConfig = {
         ExecStart = ''${autosuspend}/bin/autosuspend -l ${autosuspend}/etc/autosuspend-logging.conf -c ${autosuspend-conf} presuspend'';
       };
@@ -248,6 +258,6 @@ in
   };
 
   meta = {
-    maintainers = with maintainers; [ xlambein ];
+    maintainers = with maintainers; [xlambein];
   };
 }

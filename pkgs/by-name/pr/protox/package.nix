@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "protox";
   version = "0.5.0";
@@ -16,7 +15,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Hfo7Yj2ttO5Yj1YfksjgN5RVUocSsS23I+p+0whpzX4=";
 
-  buildFeatures = [ "bin" ];
+  buildFeatures = ["bin"];
 
   # tests are not included in the crate source
   doCheck = false;
@@ -30,6 +29,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

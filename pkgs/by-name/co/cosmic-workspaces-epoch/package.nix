@@ -11,7 +11,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-workspaces-epoch";
   version = "1.0.0-alpha.7";
@@ -49,7 +48,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru = {
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         cosmic
         cosmic-autologin
         cosmic-noxwayland
@@ -71,7 +71,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Workspaces Epoch for the COSMIC Desktop Environment";
     mainProgram = "cosmic-workspaces";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
     platforms = lib.platforms.linux;
   };
 })

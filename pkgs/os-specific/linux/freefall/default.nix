@@ -3,7 +3,6 @@
   stdenv,
   kernel,
 }:
-
 stdenv.mkDerivation {
   inherit (kernel) version src;
 
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     substituteInPlace freefall.c --replace "alarm(2)" "alarm(5)"
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     inherit (kernel.meta) homepage license;

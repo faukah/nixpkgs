@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "georss-tfs-incidents-client";
   version = "0.4";
@@ -21,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-Cz0PRcGReAE0mg04ktCUaoLqPTjvyU1TiB/Pdz7o7zo=";
   };
 
-  propagatedBuildInputs = [ georss-client ];
+  propagatedBuildInputs = [georss-client];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "georss_tfs_incidents_client" ];
+  pythonImportsCheck = ["georss_tfs_incidents_client"];
 
   meta = with lib; {
     description = "Python library for accessing Tasmania Fire Service Incidents feed";
     homepage = "https://github.com/exxamalte/python-georss-tfs-incidents-client";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

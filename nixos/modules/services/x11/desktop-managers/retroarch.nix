@@ -4,14 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.desktopManager.retroarch;
-
-in
-{
+in {
   options.services.xserver.desktopManager.retroarch = {
     enable = mkEnableOption "RetroArch";
 
@@ -21,7 +16,7 @@ in
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "--verbose"
         "--host"
@@ -41,8 +36,8 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 
-  meta.maintainers = with maintainers; [ j0hax ];
+  meta.maintainers = with maintainers; [j0hax];
 }

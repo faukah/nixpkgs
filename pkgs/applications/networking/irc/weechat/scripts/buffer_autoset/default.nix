@@ -4,7 +4,6 @@
   fetchurl,
   weechat,
 }:
-
 stdenv.mkDerivation {
   pname = "buffer_autoset";
   version = "1.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  passthru.scripts = [ "buffer_autoset.py" ];
+  passthru.scripts = ["buffer_autoset.py"];
 
   installPhase = ''
     install -D $src $out/share/buffer_autoset.py
@@ -26,6 +25,6 @@ stdenv.mkDerivation {
     inherit (weechat.meta) platforms;
     description = "buffer_autoset.py is a weechat script which auto-set buffer properties when a buffer is opened";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ govanify ];
+    maintainers = with maintainers; [govanify];
   };
 }

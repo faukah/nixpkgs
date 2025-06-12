@@ -1,10 +1,8 @@
 {
   lib,
   stdenv,
-
   buildGoModule,
   fetchFromGitHub,
-
   makeWrapper,
   installShellFiles,
   # runtime tooling - linux
@@ -17,92 +15,88 @@
   lsof,
   # check phase tooling - darwin
   unixtools,
-
   nixosTests,
   tailscale-nginx-auth,
-}:
-
-let
+}: let
   version = "1.84.1";
 in
-buildGoModule {
-  pname = "tailscale";
-  inherit version;
+  buildGoModule {
+    pname = "tailscale";
+    inherit version;
 
-  outputs = [
-    "out"
-    "derper"
-  ];
+    outputs = [
+      "out"
+      "derper"
+    ];
 
-  src = fetchFromGitHub {
-    owner = "tailscale";
-    repo = "tailscale";
-    rev = "v${version}";
-    hash = "sha256-rEfBoRKOM1DnMfgEkPI6wzzMwGIOUhowJRlaAQ8QZjY=";
-  };
+    src = fetchFromGitHub {
+      owner = "tailscale";
+      repo = "tailscale";
+      rev = "v${version}";
+      hash = "sha256-rEfBoRKOM1DnMfgEkPI6wzzMwGIOUhowJRlaAQ8QZjY=";
+    };
 
-  vendorHash = "sha256-QBYCMOWQOBCt+69NtJtluhTZIOiBWcQ78M9Gbki6bN0=";
+    vendorHash = "sha256-QBYCMOWQOBCt+69NtJtluhTZIOiBWcQ78M9Gbki6bN0=";
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+      installShellFiles
+    ];
 
-  nativeCheckInputs = lib.optionals stdenv.hostPlatform.isDarwin [
-    unixtools.netstat
-  ];
+    nativeCheckInputs = lib.optionals stdenv.hostPlatform.isDarwin [
+      unixtools.netstat
+    ];
 
-  env.CGO_ENABLED = 0;
+    env.CGO_ENABLED = 0;
 
-  subPackages = [
-    "cmd/derper"
-    "cmd/derpprobe"
-    "cmd/tailscaled"
-    "cmd/tsidp"
-    "cmd/get-authkey"
-  ];
+    subPackages = [
+      "cmd/derper"
+      "cmd/derpprobe"
+      "cmd/tailscaled"
+      "cmd/tsidp"
+      "cmd/get-authkey"
+    ];
 
-  excludedPackages = [
-    # exlude integration tests which fail to work
-    # and require additional tooling
-    "tstest/integration"
-  ];
+    excludedPackages = [
+      # exlude integration tests which fail to work
+      # and require additional tooling
+      "tstest/integration"
+    ];
 
-  ldflags = [
-    "-w"
-    "-s"
-    "-X tailscale.com/version.longStamp=${version}"
-    "-X tailscale.com/version.shortStamp=${version}"
-  ];
+    ldflags = [
+      "-w"
+      "-s"
+      "-X tailscale.com/version.longStamp=${version}"
+      "-X tailscale.com/version.shortStamp=${version}"
+    ];
 
-  tags = [
-    "ts_include_cli"
-  ];
+    tags = [
+      "ts_include_cli"
+    ];
 
-  # remove vendored tooling to ensure it's not used
-  # also avoids some unnecessary tests
-  preBuild = ''
-    rm -rf ./tool
-  '';
+    # remove vendored tooling to ensure it's not used
+    # also avoids some unnecessary tests
+    preBuild = ''
+      rm -rf ./tool
+    '';
 
-  # Tests start http servers which need to bind to local addresses:
-  # panic: httptest: failed to listen on a port: listen tcp6 [::1]:0: bind: operation not permitted
-  __darwinAllowLocalNetworking = true;
+    # Tests start http servers which need to bind to local addresses:
+    # panic: httptest: failed to listen on a port: listen tcp6 [::1]:0: bind: operation not permitted
+    __darwinAllowLocalNetworking = true;
 
-  preCheck = ''
-    # feed in all tests for testing
-    # subPackages above limits what is built to just what we
-    # want but also limits the tests
-    unset subPackages
+    preCheck = ''
+      # feed in all tests for testing
+      # subPackages above limits what is built to just what we
+      # want but also limits the tests
+      unset subPackages
 
-    # several tests hang, but keeping the file for tsnet/packet_filter_test.go
-    # packet_filter_test issue: https://github.com/tailscale/tailscale/issues/16051
-    substituteInPlace tsnet/tsnet_test.go \
-      --replace-fail 'func Test' 'func skippedTest'
-  '';
+      # several tests hang, but keeping the file for tsnet/packet_filter_test.go
+      # packet_filter_test issue: https://github.com/tailscale/tailscale/issues/16051
+      substituteInPlace tsnet/tsnet_test.go \
+        --replace-fail 'func Test' 'func skippedTest'
+    '';
 
-  checkFlags =
-    let
+    checkFlags = let
       skippedTests =
         [
           # dislikes vendoring
@@ -167,28 +161,27 @@ buildGoModule {
           # Fails only on Darwin, succeeds on other tested platforms.
           "TestOnTailnetDefaultAutoUpdate"
         ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+    in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
-  postInstall =
-    ''
-      ln -s $out/bin/tailscaled $out/bin/tailscale
-      moveToOutput "bin/derper" "$derper"
-      moveToOutput "bin/derpprobe" "$derper"
-    ''
-    + lib.optionalString stdenv.hostPlatform.isDarwin ''
-      wrapProgram $out/bin/tailscaled \
-        --prefix PATH : ${
+    postInstall =
+      ''
+        ln -s $out/bin/tailscaled $out/bin/tailscale
+        moveToOutput "bin/derper" "$derper"
+        moveToOutput "bin/derpprobe" "$derper"
+      ''
+      + lib.optionalString stdenv.hostPlatform.isDarwin ''
+        wrapProgram $out/bin/tailscaled \
+          --prefix PATH : ${
           lib.makeBinPath [
             # Uses lsof only on macOS to detect socket location
             # See tailscale safesocket_darwin.go
             lsof
           ]
         }
-    ''
-    + lib.optionalString stdenv.hostPlatform.isLinux ''
-      wrapProgram $out/bin/tailscaled \
-        --prefix PATH : ${
+      ''
+      + lib.optionalString stdenv.hostPlatform.isLinux ''
+        wrapProgram $out/bin/tailscaled \
+          --prefix PATH : ${
           lib.makeBinPath [
             getent
             iproute2
@@ -196,34 +189,34 @@ buildGoModule {
             shadow
           ]
         } \
-        --suffix PATH : ${lib.makeBinPath [ procps ]}
-      sed -i -e "s#/usr/sbin#$out/bin#" -e "/^EnvironmentFile/d" ./cmd/tailscaled/tailscaled.service
-      install -D -m0444 -t $out/lib/systemd/system ./cmd/tailscaled/tailscaled.service
-    ''
-    + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-      local INSTALL="$out/bin/tailscale"
-      installShellCompletion --cmd tailscale \
-        --bash <($out/bin/tailscale completion bash) \
-        --fish <($out/bin/tailscale completion fish) \
-        --zsh <($out/bin/tailscale completion zsh)
-    '';
+          --suffix PATH : ${lib.makeBinPath [procps]}
+        sed -i -e "s#/usr/sbin#$out/bin#" -e "/^EnvironmentFile/d" ./cmd/tailscaled/tailscaled.service
+        install -D -m0444 -t $out/lib/systemd/system ./cmd/tailscaled/tailscaled.service
+      ''
+      + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+        local INSTALL="$out/bin/tailscale"
+        installShellCompletion --cmd tailscale \
+          --bash <($out/bin/tailscale completion bash) \
+          --fish <($out/bin/tailscale completion fish) \
+          --zsh <($out/bin/tailscale completion zsh)
+      '';
 
-  passthru.tests = {
-    inherit (nixosTests) headscale;
-    inherit tailscale-nginx-auth;
-  };
+    passthru.tests = {
+      inherit (nixosTests) headscale;
+      inherit tailscale-nginx-auth;
+    };
 
-  meta = {
-    homepage = "https://tailscale.com";
-    description = "Node agent for Tailscale, a mesh VPN built on WireGuard";
-    changelog = "https://github.com/tailscale/tailscale/releases/tag/v${version}";
-    license = lib.licenses.bsd3;
-    mainProgram = "tailscale";
-    maintainers = with lib.maintainers; [
-      mbaillie
-      jk
-      mfrw
-      pyrox0
-    ];
-  };
-}
+    meta = {
+      homepage = "https://tailscale.com";
+      description = "Node agent for Tailscale, a mesh VPN built on WireGuard";
+      changelog = "https://github.com/tailscale/tailscale/releases/tag/v${version}";
+      license = lib.licenses.bsd3;
+      mainProgram = "tailscale";
+      maintainers = with lib.maintainers; [
+        mbaillie
+        jk
+        mfrw
+        pyrox0
+      ];
+    };
+  }

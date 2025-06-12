@@ -4,7 +4,6 @@
   buildHomeAssistantComponent,
   dirigera,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "sanjoyg";
   domain = "dirigera_platform";
@@ -22,14 +21,14 @@ buildHomeAssistantComponent rec {
       --replace-fail "0.0.1" "${version}"
   '';
 
-  dependencies = [ dirigera ];
+  dependencies = [dirigera];
 
-  ignoreVersionRequirement = [ "dirigera" ];
+  ignoreVersionRequirement = ["dirigera"];
 
   meta = with lib; {
     description = "Home-assistant integration for IKEA Dirigera hub";
     homepage = "https://github.com/sanjoyg/dirigera_platform";
-    maintainers = with maintainers; [ rhoriguchi ];
+    maintainers = with maintainers; [rhoriguchi];
     license = licenses.mit;
   };
 }

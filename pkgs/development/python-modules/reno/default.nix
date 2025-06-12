@@ -14,7 +14,6 @@
   testtools,
   testscenarios,
 }:
-
 buildPythonApplication rec {
   pname = "reno";
   version = "4.1.0";
@@ -74,7 +73,7 @@ buildPythonApplication rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "reno" ];
+  pythonImportsCheck = ["reno"];
 
   postInstallCheck = ''
     $out/bin/reno -h
@@ -85,6 +84,6 @@ buildPythonApplication rec {
     mainProgram = "reno";
     homepage = "https://docs.openstack.org/reno/latest";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

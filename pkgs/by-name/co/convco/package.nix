@@ -8,7 +8,6 @@
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "convco";
   version = "0.6.1";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage rec {
     description = "Conventional commit cli";
     mainProgram = "convco";
     homepage = "https://github.com/convco/convco";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
     maintainers = with maintainers; [
       hoverbear
       cafkafk

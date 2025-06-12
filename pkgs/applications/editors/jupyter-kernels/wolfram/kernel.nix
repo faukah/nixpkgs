@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wolfram-for-jupyter-kernel";
   version = "0.9.2";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "Jupyter kernel for Wolfram Language";
     homepage = "https://github.com/WolframResearch/WolframLanguageForJupyter";
     license = licenses.mit;
-    maintainers = with maintainers; [ fbeffa ];
+    maintainers = with maintainers; [fbeffa];
     platforms = platforms.all;
   };
 }

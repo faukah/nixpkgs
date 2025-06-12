@@ -18,7 +18,7 @@ stdenv.mkDerivation (final: {
     hash = "sha256-7mfGTC5vJ4806bDbrPMSVthtW05a+M3vgUlHGbtaI4Q=";
   };
 
-  patches = [ ./0001-meson.build-use-prefix.patch ];
+  patches = [./0001-meson.build-use-prefix.patch];
 
   nativeBuildInputs = [
     meson

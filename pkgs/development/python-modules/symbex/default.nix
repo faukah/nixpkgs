@@ -9,7 +9,6 @@
   pytest-icdiff,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "symbex";
   version = "2.0";
@@ -22,11 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-swg98z4DpQJ5rq7tdsd3FofbYF7O5S+9ZR0weoM2DoI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ click ];
+  dependencies = [click];
 
-  pythonImportsCheck = [ "symbex" ];
+  pythonImportsCheck = ["symbex"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/symbex";
     changelog = "https://github.com/simonw/symbex/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

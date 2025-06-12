@@ -8,7 +8,6 @@
   pyyaml,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pymarshal";
   version = "2.2.0";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
       --replace-fail "'pytest-runner'" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ bson ];
+  dependencies = [bson];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -37,12 +36,12 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  pytestFlagsArray = [ "test" ];
+  pytestFlagsArray = ["test"];
 
   meta = {
     description = "Python data serialization library";
     homepage = "https://github.com/stargateaudio/pymarshal";
-    maintainers = with lib.maintainers; [ yuu ];
+    maintainers = with lib.maintainers; [yuu];
     license = lib.licenses.bsd2;
   };
 }

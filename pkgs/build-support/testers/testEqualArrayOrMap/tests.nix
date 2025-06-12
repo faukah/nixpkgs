@@ -2,8 +2,10 @@
 # `testers.testBuildFailure`. This is due to the fact that `testers.testBuildFailure` modifies the derivation such that
 # it produces an output containing the exit code, logs, and other things. Since `testers.runCommand` expects the empty
 # derivation, it produces a hash mismatch.
-{ lib, testers }:
-let
+{
+  lib,
+  testers,
+}: let
   inherit (lib.attrsets) recurseIntoAttrs;
   inherit (testers) testBuildFailure' testEqualArrayOrMap;
   concatValuesArrayToActualArray = ''
@@ -19,139 +21,102 @@ let
     done
   '';
 in
-recurseIntoAttrs {
-  # NOTE: This particular test is used in the docs:
-  # See https://nixos.org/manual/nixpkgs/unstable/#tester-testEqualArrayOrMap
-  # or doc/build-helpers/testers.chapter.md
-  docs-test-function-add-cowbell = testEqualArrayOrMap {
-    name = "test-function-add-cowbell";
-    valuesArray = [
-      "cowbell"
-      "cowbell"
-    ];
-    expectedArray = [
-      "cowbell"
-      "cowbell"
-      "cowbell"
-    ];
-    script = ''
-      addCowbell() {
-        local -rn arrayNameRef="$1"
-        arrayNameRef+=( "cowbell" )
-      }
+  recurseIntoAttrs {
+    # NOTE: This particular test is used in the docs:
+    # See https://nixos.org/manual/nixpkgs/unstable/#tester-testEqualArrayOrMap
+    # or doc/build-helpers/testers.chapter.md
+    docs-test-function-add-cowbell = testEqualArrayOrMap {
+      name = "test-function-add-cowbell";
+      valuesArray = [
+        "cowbell"
+        "cowbell"
+      ];
+      expectedArray = [
+        "cowbell"
+        "cowbell"
+        "cowbell"
+      ];
+      script = ''
+        addCowbell() {
+          local -rn arrayNameRef="$1"
+          arrayNameRef+=( "cowbell" )
+        }
 
-      nixLog "appending all values in valuesArray to actualArray"
-      for value in "''${valuesArray[@]}"; do
-        actualArray+=( "$value" )
-      done
+        nixLog "appending all values in valuesArray to actualArray"
+        for value in "''${valuesArray[@]}"; do
+          actualArray+=( "$value" )
+        done
 
-      nixLog "applying addCowbell"
-      addCowbell actualArray
-    '';
-  };
-  array-append = testEqualArrayOrMap {
-    name = "testEqualArrayOrMap-array-append";
-    valuesArray = [
-      "apple"
-      "bee"
-      "cat"
-    ];
-    expectedArray = [
-      "apple"
-      "bee"
-      "cat"
-      "dog"
-    ];
-    script = ''
-      ${concatValuesArrayToActualArray}
-      actualArray+=( "dog" )
-    '';
-  };
-  array-prepend = testEqualArrayOrMap {
-    name = "testEqualArrayOrMap-array-prepend";
-    valuesArray = [
-      "apple"
-      "bee"
-      "cat"
-    ];
-    expectedArray = [
-      "dog"
-      "apple"
-      "bee"
-      "cat"
-    ];
-    script = ''
-      actualArray+=( "dog" )
-      ${concatValuesArrayToActualArray}
-    '';
-  };
-  array-empty = testEqualArrayOrMap {
-    name = "testEqualArrayOrMap-array-empty";
-    valuesArray = [
-      "apple"
-      "bee"
-      "cat"
-    ];
-    expectedArray = [ ];
-    script = ''
-      # doing nothing
-    '';
-  };
-  array-missing-value = testBuildFailure' {
-    drv = testEqualArrayOrMap {
-      name = "testEqualArrayOrMap-array-missing-value";
-      valuesArray = [ "apple" ];
-      expectedArray = [ ];
-      script = concatValuesArrayToActualArray;
+        nixLog "applying addCowbell"
+        addCowbell actualArray
+      '';
     };
-    expectedBuilderLogEntries = [
-      "ERROR: assertEqualArray: arrays differ in length: expectedArray has length 0 but actualArray has length 1"
-      "ERROR: assertEqualArray: arrays differ at index 0: expectedArray has no such index but actualArray has value 'apple'"
-    ];
-  };
-  map-insert = testEqualArrayOrMap {
-    name = "testEqualArrayOrMap-map-insert";
-    valuesMap = {
-      apple = "0";
-      bee = "1";
-      cat = "2";
+    array-append = testEqualArrayOrMap {
+      name = "testEqualArrayOrMap-array-append";
+      valuesArray = [
+        "apple"
+        "bee"
+        "cat"
+      ];
+      expectedArray = [
+        "apple"
+        "bee"
+        "cat"
+        "dog"
+      ];
+      script = ''
+        ${concatValuesArrayToActualArray}
+        actualArray+=( "dog" )
+      '';
     };
-    expectedMap = {
-      apple = "0";
-      bee = "1";
-      cat = "2";
-      dog = "3";
+    array-prepend = testEqualArrayOrMap {
+      name = "testEqualArrayOrMap-array-prepend";
+      valuesArray = [
+        "apple"
+        "bee"
+        "cat"
+      ];
+      expectedArray = [
+        "dog"
+        "apple"
+        "bee"
+        "cat"
+      ];
+      script = ''
+        actualArray+=( "dog" )
+        ${concatValuesArrayToActualArray}
+      '';
     };
-    script = ''
-      ${concatValuesMapToActualMap}
-      actualMap["dog"]="3"
-    '';
-  };
-  map-remove = testEqualArrayOrMap {
-    name = "testEqualArrayOrMap-map-remove";
-    valuesMap = {
-      apple = "0";
-      bee = "1";
-      cat = "2";
-      dog = "3";
+    array-empty = testEqualArrayOrMap {
+      name = "testEqualArrayOrMap-array-empty";
+      valuesArray = [
+        "apple"
+        "bee"
+        "cat"
+      ];
+      expectedArray = [];
+      script = ''
+        # doing nothing
+      '';
     };
-    expectedMap = {
-      apple = "0";
-      cat = "2";
-      dog = "3";
+    array-missing-value = testBuildFailure' {
+      drv = testEqualArrayOrMap {
+        name = "testEqualArrayOrMap-array-missing-value";
+        valuesArray = ["apple"];
+        expectedArray = [];
+        script = concatValuesArrayToActualArray;
+      };
+      expectedBuilderLogEntries = [
+        "ERROR: assertEqualArray: arrays differ in length: expectedArray has length 0 but actualArray has length 1"
+        "ERROR: assertEqualArray: arrays differ at index 0: expectedArray has no such index but actualArray has value 'apple'"
+      ];
     };
-    script = ''
-      ${concatValuesMapToActualMap}
-      unset 'actualMap[bee]'
-    '';
-  };
-  map-missing-key = testBuildFailure' {
-    drv = testEqualArrayOrMap {
-      name = "testEqualArrayOrMap-map-missing-key";
+    map-insert = testEqualArrayOrMap {
+      name = "testEqualArrayOrMap-map-insert";
       valuesMap = {
+        apple = "0";
         bee = "1";
         cat = "2";
-        dog = "3";
       };
       expectedMap = {
         apple = "0";
@@ -159,28 +124,13 @@ recurseIntoAttrs {
         cat = "2";
         dog = "3";
       };
-      script = concatValuesMapToActualMap;
+      script = ''
+        ${concatValuesMapToActualMap}
+        actualMap["dog"]="3"
+      '';
     };
-    expectedBuilderLogEntries = [
-      "ERROR: assertEqualMap: maps differ in length: expectedMap has length 4 but actualMap has length 3"
-      "ERROR: assertEqualMap: maps differ at key 'apple': expectedMap has value '0' but actualMap has no such key"
-    ];
-  };
-  map-missing-key-with-empty = testBuildFailure' {
-    drv = testEqualArrayOrMap {
-      name = "testEqualArrayOrMap-map-missing-key-with-empty";
-      valuesArray = [ ];
-      expectedMap.apple = 1;
-      script = "";
-    };
-    expectedBuilderLogEntries = [
-      "ERROR: assertEqualMap: maps differ in length: expectedMap has length 1 but actualMap has length 0"
-      "ERROR: assertEqualMap: maps differ at key 'apple': expectedMap has value '1' but actualMap has no such key"
-    ];
-  };
-  map-extra-key = testBuildFailure' {
-    drv = testEqualArrayOrMap {
-      name = "testEqualArrayOrMap-map-extra-key";
+    map-remove = testEqualArrayOrMap {
+      name = "testEqualArrayOrMap-map-remove";
       valuesMap = {
         apple = "0";
         bee = "1";
@@ -189,14 +139,66 @@ recurseIntoAttrs {
       };
       expectedMap = {
         apple = "0";
-        bee = "1";
+        cat = "2";
         dog = "3";
       };
-      script = concatValuesMapToActualMap;
+      script = ''
+        ${concatValuesMapToActualMap}
+        unset 'actualMap[bee]'
+      '';
     };
-    expectedBuilderLogEntries = [
-      "ERROR: assertEqualMap: maps differ in length: expectedMap has length 3 but actualMap has length 4"
-      "ERROR: assertEqualMap: maps differ at key 'cat': expectedMap has no such key but actualMap has value '2'"
-    ];
-  };
-}
+    map-missing-key = testBuildFailure' {
+      drv = testEqualArrayOrMap {
+        name = "testEqualArrayOrMap-map-missing-key";
+        valuesMap = {
+          bee = "1";
+          cat = "2";
+          dog = "3";
+        };
+        expectedMap = {
+          apple = "0";
+          bee = "1";
+          cat = "2";
+          dog = "3";
+        };
+        script = concatValuesMapToActualMap;
+      };
+      expectedBuilderLogEntries = [
+        "ERROR: assertEqualMap: maps differ in length: expectedMap has length 4 but actualMap has length 3"
+        "ERROR: assertEqualMap: maps differ at key 'apple': expectedMap has value '0' but actualMap has no such key"
+      ];
+    };
+    map-missing-key-with-empty = testBuildFailure' {
+      drv = testEqualArrayOrMap {
+        name = "testEqualArrayOrMap-map-missing-key-with-empty";
+        valuesArray = [];
+        expectedMap.apple = 1;
+        script = "";
+      };
+      expectedBuilderLogEntries = [
+        "ERROR: assertEqualMap: maps differ in length: expectedMap has length 1 but actualMap has length 0"
+        "ERROR: assertEqualMap: maps differ at key 'apple': expectedMap has value '1' but actualMap has no such key"
+      ];
+    };
+    map-extra-key = testBuildFailure' {
+      drv = testEqualArrayOrMap {
+        name = "testEqualArrayOrMap-map-extra-key";
+        valuesMap = {
+          apple = "0";
+          bee = "1";
+          cat = "2";
+          dog = "3";
+        };
+        expectedMap = {
+          apple = "0";
+          bee = "1";
+          dog = "3";
+        };
+        script = concatValuesMapToActualMap;
+      };
+      expectedBuilderLogEntries = [
+        "ERROR: assertEqualMap: maps differ in length: expectedMap has length 3 but actualMap has length 4"
+        "ERROR: assertEqualMap: maps differ at key 'cat': expectedMap has no such key but actualMap has value '2'"
+      ];
+    };
+  }

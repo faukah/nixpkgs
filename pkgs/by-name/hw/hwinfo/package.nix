@@ -17,7 +17,6 @@
   buildPackages,
   perlPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hwinfo";
   version = "23.5";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     perlPackages.XMLWriter
     perlPackages.XMLParser
   ];
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   buildInputs = [
     libuuid
@@ -99,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
     "CC=${stdenv.cc.targetPrefix}cc"
     "ARCH=${stdenv.hostPlatform.uname.processor}"
   ];
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   enableParallelBuilding = false; # broken parallel dependencies
 
@@ -110,8 +109,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests = {
-      version = testers.testVersion { package = finalAttrs.finalPackage; };
-      pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+      version = testers.testVersion {package = finalAttrs.finalPackage;};
+      pkg-config = testers.hasPkgConfigModules {package = finalAttrs.finalPackage;};
       no-usr = testers.testEqualContents {
         assertion = "There should be no /usr/ paths in the binaries";
         # There is a bash script that refers to lshal, which is deprecated and not available in Nixpkgs.
@@ -119,21 +118,21 @@ stdenv.mkDerivation (finalAttrs: {
         expected = writeText "expected" ''
           if [ -x /usr/bin/lshal ] ; then
         '';
-        actual = runCommand "actual" { nativeBuildInputs = [ binutils ]; } ''
+        actual = runCommand "actual" {nativeBuildInputs = [binutils];} ''
           strings ${finalAttrs.finalPackage}/bin/* | grep /usr/ > $out
         '';
       };
     };
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = with lib; {
     description = "Hardware detection tool from openSUSE";
     license = licenses.gpl2Only;
     homepage = "https://github.com/openSUSE/hwinfo";
-    maintainers = with maintainers; [ bobvanderlinden ];
+    maintainers = with maintainers; [bobvanderlinden];
     platforms = platforms.linux;
     mainProgram = "hwinfo";
-    pkgConfigModules = [ "hwinfo" ];
+    pkgConfigModules = ["hwinfo"];
   };
 })

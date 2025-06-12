@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "ivsc-firmware";
   version = "unstable-2024-06-14";
@@ -41,7 +40,7 @@ stdenv.mkDerivation {
     sourceProvenance = with sourceTypes; [
       binaryFirmware
     ];
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
   };
 }

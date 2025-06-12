@@ -19,7 +19,6 @@
   perl,
   wrapGAppsHook3,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "oculante";
   version = "0.9.2";
@@ -70,14 +69,14 @@ rustPlatform.buildRustPackage rec {
     install -Dm444 $src/res/oculante.desktop -t $out/share/applications
     wrapProgram $out/bin/oculante \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath (
-          [
-            libGL
-            libxkbcommon
-          ]
-          ++ lib.optionals stdenv.hostPlatform.isLinux [ wayland ]
-        )
-      }
+      lib.makeLibraryPath (
+        [
+          libGL
+          libxkbcommon
+        ]
+        ++ lib.optionals stdenv.hostPlatform.isLinux [wayland]
+      )
+    }
   '';
 
   meta = {

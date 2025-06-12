@@ -3,13 +3,12 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.porn-vault;
-  configFormat = pkgs.formats.json { };
+  configFormat = pkgs.formats.json {};
   defaultConfig = import ./default-config.nix;
-  inherit (lib)
+  inherit
+    (lib)
     mkIf
     mkEnableOption
     mkPackageOption
@@ -18,13 +17,12 @@ let
     literalExpression
     types
     ;
-in
-{
+in {
   options = {
     services.porn-vault = {
       enable = lib.mkEnableOption "Porn-Vault";
 
-      package = lib.mkPackageOption pkgs "porn-vault" { };
+      package = lib.mkPackageOption pkgs "porn-vault" {};
 
       autoStart = lib.mkOption {
         type = lib.types.bool;
@@ -64,7 +62,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.porn-vault = {
       description = "Porn-Vault server";
@@ -78,8 +76,8 @@ in
         ExecStart = getExe cfg.package;
         CacheDirectory = "porn-vault";
         # Hardening options
-        CapabilityBoundingSet = [ "CAP_SYS_NICE" ];
-        AmbientCapabilities = [ "CAP_SYS_NICE" ];
+        CapabilityBoundingSet = ["CAP_SYS_NICE"];
+        AmbientCapabilities = ["CAP_SYS_NICE"];
         LockPersonality = true;
         NoNewPrivileges = true;
         PrivateTmp = true;
@@ -93,8 +91,8 @@ in
         Restart = "on-failure";
         RestartSec = 5;
       };
-      wantedBy = mkIf cfg.autoStart [ "multi-user.target" ];
-      wants = [ "network.target" ];
+      wantedBy = mkIf cfg.autoStart ["multi-user.target"];
+      wants = ["network.target"];
     };
 
     environment.etc = {
@@ -102,9 +100,9 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
   };
 
-  meta.maintainers = [ lib.maintainers.luNeder ];
+  meta.maintainers = [lib.maintainers.luNeder];
 }

@@ -7,7 +7,6 @@
   imagemagick,
   libsForQt5,
 }:
-
 stdenv.mkDerivation {
   pname = "kxstitch";
   version = "unstable-2023-12-31";
@@ -44,7 +43,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://invent.kde.org/graphics/kxstitch";
     description = "Cross stitch pattern and chart creation";
-    maintainers = with lib.maintainers; [ eliandoran ];
+    maintainers = with lib.maintainers; [eliandoran];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     mainProgram = "kxstitch";

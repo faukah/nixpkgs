@@ -7,7 +7,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "xattr";
   version = "1.1.4";
@@ -28,13 +27,13 @@ buildPythonPackage rec {
   # https://github.com/xattr/xattr/issues/43
   doCheck = false;
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
   postBuild = ''
     ${python.pythonOnBuildForHost.interpreter} -m compileall -f xattr
   '';
 
-  pythonImportsCheck = [ "xattr" ];
+  pythonImportsCheck = ["xattr"];
 
   meta = with lib; {
     description = "Python wrapper for extended filesystem attributes";
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/xattr/xattr";
     changelog = "https://github.com/xattr/xattr/blob/v${version}/CHANGES.txt";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "gortr";
   version = "0.15.0";
@@ -24,12 +23,12 @@ buildGoModule rec {
     "-X=main.version=${version}"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "RPKI-to-Router server used at Cloudflare";
     homepage = "https://github.com/cloudflare/gortr/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ stv0g ];
+    maintainers = with lib.maintainers; [stv0g];
   };
 }

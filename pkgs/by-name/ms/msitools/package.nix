@@ -16,7 +16,6 @@
   bzip2,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "msitools";
   version = "0.106";
@@ -67,7 +66,7 @@ stdenv.mkDerivation rec {
       # Tools
       gpl2Plus
     ];
-    maintainers = with maintainers; [ PlushBeaver ];
+    maintainers = with maintainers; [PlushBeaver];
     platforms = platforms.unix;
   };
 }

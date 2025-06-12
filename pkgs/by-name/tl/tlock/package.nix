@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "tlock";
   version = "1.0.0";
@@ -35,7 +34,7 @@ buildGoModule rec {
     homepage = "https://github.com/eklairs/tlock";
     description = "Two-Factor Authentication Tokens Manager in Terminal";
     changelog = "https://github.com/eklairs/tlock/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ eklairs ];
+    maintainers = with lib.maintainers; [eklairs];
     platforms = lib.platforms.unix;
   };
 }

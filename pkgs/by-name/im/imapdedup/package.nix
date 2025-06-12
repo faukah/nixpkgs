@@ -15,17 +15,17 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-CmWkLz9hdmedUxcojmUVTkPjqpaMmtEeHnF7aglKR+s=";
   };
 
-  build-system = with python3Packages; [ hatchling ];
+  build-system = with python3Packages; [hatchling];
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "imapdedup" ];
+  pythonImportsCheck = ["imapdedup"];
 
   meta = {
     description = "Duplicate email message remover";
     homepage = "https://github.com/quentinsf/IMAPdedup";
-    maintainers = with lib.maintainers; [ sigmanificient ];
-    license = with lib.licenses; [ gpl2Only ];
+    maintainers = with lib.maintainers; [sigmanificient];
+    license = with lib.licenses; [gpl2Only];
     mainProgram = "imapdedup";
   };
 }

@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   hatchling,
-
   # dependencies
   aiohttp,
   docstring-parser,
@@ -18,7 +16,6 @@
   rich,
   tenacity,
   typer,
-
   # tests
   anthropic,
   diskcache,
@@ -29,7 +26,6 @@
   python-dotenv,
   redis,
 }:
-
 buildPythonPackage rec {
   pname = "instructor";
   version = "1.7.9";
@@ -44,9 +40,9 @@ buildPythonPackage rec {
     hash = "sha256-3IwvbepDrylOIlL+IteyFChqYc/ZIu6IieIkbAPL+mw=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  pythonRelaxDeps = [ "rich" ];
+  pythonRelaxDeps = ["rich"];
 
   dependencies = [
     aiohttp
@@ -72,7 +68,7 @@ buildPythonPackage rec {
     redis
   ];
 
-  pythonImportsCheck = [ "instructor" ];
+  pythonImportsCheck = ["instructor"];
 
   disabledTests = [
     # Tests require OpenAI API key
@@ -103,7 +99,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/jxnl/instructor";
     changelog = "https://github.com/jxnl/instructor/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mic92 ];
+    maintainers = with lib.maintainers; [mic92];
     mainProgram = "instructor";
   };
 }

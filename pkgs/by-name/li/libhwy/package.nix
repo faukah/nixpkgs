@@ -7,7 +7,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libhwy";
   version = "1.0.7";
@@ -21,15 +20,15 @@ stdenv.mkDerivation rec {
 
   patches =
     lib.optional stdenv.hostPlatform.isRiscV
-      # Adds CMake option HWY_CMAKE_RVV
-      # https://github.com/google/highway/pull/1743
-      (
-        fetchpatch {
-          name = "libhwy-add-rvv-optout.patch";
-          url = "https://github.com/google/highway/commit/5d58d233fbcec0c6a39df8186a877329147324b3.patch";
-          hash = "sha256-ileSNYddOt1F5rooRB0fXT20WkVlnG+gP5w7qJdBuww=";
-        }
-      );
+    # Adds CMake option HWY_CMAKE_RVV
+    # https://github.com/google/highway/pull/1743
+    (
+      fetchpatch {
+        name = "libhwy-add-rvv-optout.patch";
+        url = "https://github.com/google/highway/commit/5d58d233fbcec0c6a39df8186a877329147324b3.patch";
+        hash = "sha256-ileSNYddOt1F5rooRB0fXT20WkVlnG+gP5w7qJdBuww=";
+      }
+    );
 
   hardeningDisable = lib.optionals stdenv.hostPlatform.isAarch64 [
     # aarch64-specific code gets:
@@ -45,10 +44,9 @@ stdenv.mkDerivation rec {
   # Required for case-insensitive filesystems ("BUILD" exists)
   dontUseCmakeBuildDir = true;
 
-  cmakeFlags =
-    let
-      libExt = stdenv.hostPlatform.extensions.library;
-    in
+  cmakeFlags = let
+    libExt = stdenv.hostPlatform.extensions.library;
+  in
     [
       "-GNinja"
       "-DCMAKE_INSTALL_LIBDIR=lib"
@@ -90,6 +88,6 @@ stdenv.mkDerivation rec {
       bsd3
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

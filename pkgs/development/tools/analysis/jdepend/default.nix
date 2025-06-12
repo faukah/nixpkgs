@@ -7,7 +7,6 @@
   makeWrapper,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jdepend";
   version = "2.10";
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Traverses Java class file directories and generates design quality metrics for each Java package";
     homepage = "http://www.clarkware.com/software/JDepend.html";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.linux;
   };
 })

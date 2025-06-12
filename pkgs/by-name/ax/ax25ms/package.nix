@@ -11,7 +11,6 @@
   automake,
   libax25,
 }:
-
 stdenv.mkDerivation {
   pname = "ax25ms";
   version = "0-unstable-2024-04-28";

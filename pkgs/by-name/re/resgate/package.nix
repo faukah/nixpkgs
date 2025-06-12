@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "resgate";
   version = "1.8.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Realtime API Gateway used with NATS to build REST, real time, and RPC APIs";
     homepage = "https://resgate.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ farcaller ];
+    maintainers = with maintainers; [farcaller];
     mainProgram = "resgate";
   };
 }

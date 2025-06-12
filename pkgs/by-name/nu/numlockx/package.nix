@@ -6,7 +6,6 @@
   libX11,
   libXext,
 }:
-
 stdenv.mkDerivation {
   version = "1.2";
   pname = "numlockx";

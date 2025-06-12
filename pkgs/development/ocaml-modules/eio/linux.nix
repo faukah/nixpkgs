@@ -5,10 +5,10 @@
   logs,
   uring,
 }:
-
 buildDunePackage {
   pname = "eio_linux";
-  inherit (eio)
+  inherit
+    (eio)
     meta
     src
     patches

@@ -6,7 +6,6 @@
   gnupg,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "python-gnupg";
   version = "0.5.4";
@@ -25,22 +24,22 @@ buildPythonPackage rec {
       --replace "os.environ.get('GPGBINARY', 'gpg')" "os.environ.get('GPGBINARY', '${gnupg}/bin/gpg')"
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # network access
     "test_search_keys"
   ];
 
-  pythonImportsCheck = [ "gnupg" ];
+  pythonImportsCheck = ["gnupg"];
 
   meta = with lib; {
     description = "API for the GNU Privacy Guard (GnuPG)";
     homepage = "https://github.com/vsajip/python-gnupg";
     changelog = "https://github.com/vsajip/python-gnupg/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -8,7 +8,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "flatpak-xdg-utils";
   version = "1.0.6";
@@ -30,14 +29,14 @@ stdenv.mkDerivation (finalAttrs: {
     glib
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/flatpak/flatpak-xdg-utils/releases/tag/${finalAttrs.version}";
     description = "Commandline utilities for use inside Flatpak sandboxes";
     homepage = "https://flatpak.org/";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ michaelgrahamevans ];
+    maintainers = with lib.maintainers; [michaelgrahamevans];
     platforms = lib.platforms.linux;
   };
 })

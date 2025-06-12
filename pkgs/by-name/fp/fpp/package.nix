@@ -5,7 +5,6 @@
   python3,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fpp";
   version = "0.9.5";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4BkdGvG/RyF3JBnd/X5r5nboEHG4aqahcYHDunMv2zU=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postPatch = ''
     substituteInPlace fpp --replace 'PYTHONCMD="python3"' 'PYTHONCMD="${python3.interpreter}"'

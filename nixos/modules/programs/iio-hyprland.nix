@@ -3,22 +3,20 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.iio-hyprland;
-in
-{
+in {
   options = {
     programs.iio-hyprland = {
       enable = lib.mkEnableOption "iio-hyprland and iio-sensor-proxy";
-      package = lib.mkPackageOption pkgs "iio-hyprland" { };
+      package = lib.mkPackageOption pkgs "iio-hyprland" {};
     };
   };
 
   config = lib.mkIf cfg.enable {
     hardware.sensor.iio.enable = lib.mkDefault true;
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
-  meta.maintainers = with lib.maintainers; [ yusuf-duran ];
+  meta.maintainers = with lib.maintainers; [yusuf-duran];
 }

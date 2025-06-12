@@ -5,12 +5,9 @@
   pkgsCross,
   bash,
 }:
-
 stdenvNoCC.mkDerivation (
-  finalAttrs:
-  let
-    useWin32ThreadModel =
-      stdenv:
+  finalAttrs: let
+    useWin32ThreadModel = stdenv:
       overrideCC stdenv (
         stdenv.cc.override (old: {
           cc = old.cc.override {
@@ -26,24 +23,23 @@ stdenvNoCC.mkDerivation (
     mingwW64Stdenv = useWin32ThreadModel pkgsCross.mingwW64.stdenv;
 
     dxvk32 =
-      if stdenvNoCC.hostPlatform.isDarwin then
+      if stdenvNoCC.hostPlatform.isDarwin
+      then
         pkgsCross.mingw32.dxvk_1.override {
           stdenv = mingw32Stdenv;
           enableMoltenVKCompat = true;
         }
-      else
-        pkgsCross.mingw32.dxvk_2.override { stdenv = mingw32Stdenv; };
+      else pkgsCross.mingw32.dxvk_2.override {stdenv = mingw32Stdenv;};
 
     dxvk64 =
-      if stdenvNoCC.hostPlatform.isDarwin then
+      if stdenvNoCC.hostPlatform.isDarwin
+      then
         pkgsCross.mingwW64.dxvk_1.override {
           stdenv = mingwW64Stdenv;
           enableMoltenVKCompat = true;
         }
-      else
-        pkgsCross.mingwW64.dxvk_2.override { stdenv = mingwW64Stdenv; };
-  in
-  {
+      else pkgsCross.mingwW64.dxvk_2.override {stdenv = mingwW64Stdenv;};
+  in {
     pname = "dxvk";
     inherit (dxvk64) version;
 
@@ -81,7 +77,7 @@ stdenvNoCC.mkDerivation (
       mainProgram = "setup_dxvk.sh";
       homepage = "https://github.com/doitsujin/dxvk";
       changelog = "https://github.com/doitsujin/dxvk/releases";
-      maintainers = [ lib.maintainers.reckenrode ];
+      maintainers = [lib.maintainers.reckenrode];
       license = lib.licenses.zlib;
       platforms = [
         "x86_64-darwin"

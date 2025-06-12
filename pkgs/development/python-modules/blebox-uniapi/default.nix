@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "blebox-uniapi";
   version = "2.5.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
       --replace-fail "pytest-runner" ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiohttp
@@ -45,13 +44,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "blebox_uniapi" ];
+  pythonImportsCheck = ["blebox_uniapi"];
 
   meta = with lib; {
     changelog = "https://github.com/blebox/blebox_uniapi/blob/v${version}/HISTORY.rst";
     description = "Python API for accessing BleBox smart home devices";
     homepage = "https://github.com/blebox/blebox_uniapi";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

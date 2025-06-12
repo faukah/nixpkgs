@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchurl,
 }:
-
 buildDunePackage rec {
   pname = "ANSITerminal";
   version = "0.8.5";
@@ -28,6 +27,6 @@ buildDunePackage rec {
     '';
     homepage = "https://github.com/Chris00/ANSITerminal";
     license = licenses.lgpl3;
-    maintainers = [ maintainers.jirkamarsik ];
+    maintainers = [maintainers.jirkamarsik];
   };
 }

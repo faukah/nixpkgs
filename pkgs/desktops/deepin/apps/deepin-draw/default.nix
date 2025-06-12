@@ -9,7 +9,6 @@
   qt5integration,
   qt5platform-plugins,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-draw";
   version = "7.0.2";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     qt5platform-plugins
   ];
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   strictDeps = true;
 
@@ -51,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-draw";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

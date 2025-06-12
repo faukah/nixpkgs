@@ -30,7 +30,6 @@
     ]
   ),
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocsolver${clr.gpuArchSuffix}";
   version = "6.3.3";
@@ -92,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
     ]
-    ++ lib.optionals (gpuTargets != [ ]) [
+    ++ lib.optionals (gpuTargets != []) [
       "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
     ]
     ++ lib.optionals buildTests [
@@ -120,13 +119,13 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs.src) owner repo;
   };
 
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   meta = with lib; {
     description = "ROCm LAPACK implementation";
     homepage = "https://github.com/ROCm/rocSOLVER";
-    license = with licenses; [ bsd2 ];
-    teams = [ teams.rocm ];
+    license = with licenses; [bsd2];
+    teams = [teams.rocm];
     platforms = platforms.linux;
     timeout = 14400; # 4 hours
     maxSilent = 14400; # 4 hours

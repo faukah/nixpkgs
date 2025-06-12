@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pinyin-tool";
   version = "0.1.3";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "pinyin-tool";
     homepage = "https://github.com/briankung/pinyin-tool";
     license = licenses.mit;
-    maintainers = with maintainers; [ neonfuz ];
+    maintainers = with maintainers; [neonfuz];
   };
 }

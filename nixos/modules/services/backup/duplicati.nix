@@ -3,16 +3,14 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.duplicati;
-in
-{
+in {
   options = {
     services.duplicati = {
       enable = lib.mkEnableOption "Duplicati";
 
-      package = lib.mkPackageOption pkgs "duplicati" { };
+      package = lib.mkPackageOption pkgs "duplicati" {};
 
       port = lib.mkOption {
         default = 8200;
@@ -57,12 +55,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.duplicati = {
       description = "Duplicati backup";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = lib.mkMerge [
         {
           User = cfg.user;
@@ -84,6 +82,5 @@ in
       };
     };
     users.groups.duplicati.gid = config.ids.gids.duplicati;
-
   };
 }

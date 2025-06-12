@@ -25,13 +25,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "condense_json" ];
+  pythonImportsCheck = ["condense_json"];
 
   meta = {
     description = "Python function for condensing JSON using replacement strings";
     homepage = "https://github.com/simonw/condense-json";
     changelog = "https://github.com/simonw/condense-json/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ josh ];
+    maintainers = with lib.maintainers; [josh];
   };
 }

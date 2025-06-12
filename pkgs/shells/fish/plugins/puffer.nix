@@ -3,7 +3,6 @@
   buildFishPlugin,
   fetchFromGitHub,
 }:
-
 buildFishPlugin rec {
   pname = "puffer";
   version = "1.0.0";
@@ -19,6 +18,6 @@ buildFishPlugin rec {
     description = "Text Expansions for Fish";
     homepage = "https://github.com/nickeb96/puffer-fish";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ quantenzitrone ];
+    maintainers = with lib.maintainers; [quantenzitrone];
   };
 }

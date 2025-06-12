@@ -7,7 +7,6 @@
   pydantic,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "scim2-models";
   version = "0.3.5";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-nOLCYyyB7Si+KfwdWM7DCkDoaVEj/coUA//ZW3hKHuA=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ pydantic ] ++ pydantic.optional-dependencies.email;
+  dependencies = [pydantic] ++ pydantic.optional-dependencies.email;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "scim2_models" ];
+  pythonImportsCheck = ["scim2_models"];
 
   meta = with lib; {
     description = "SCIM2 models serialization and validation with pydantic";
     homepage = "https://github.com/python-scim/scim2-models";
     changelog = "https://github.com/python-scim/scim2-models/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
   };
 }

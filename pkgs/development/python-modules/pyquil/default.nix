@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   deprecated,
   ipython,
   matplotlib-inline,
@@ -22,7 +21,6 @@
   types-deprecated,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "pyquil";
   version = "4.16.2";
@@ -44,7 +42,7 @@ buildPythonPackage rec {
     "rpcq"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     deprecated
@@ -72,13 +70,13 @@ buildPythonPackage rec {
   # tests hang
   doCheck = false;
 
-  pythonImportsCheck = [ "pyquil" ];
+  pythonImportsCheck = ["pyquil"];
 
   meta = {
     description = "Python library for creating Quantum Instruction Language (Quil) programs";
     homepage = "https://github.com/rigetti/pyquil";
     changelog = "https://github.com/rigetti/pyquil/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

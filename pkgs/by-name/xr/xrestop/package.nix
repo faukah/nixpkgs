@@ -6,7 +6,6 @@
   pkg-config,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xrestop";
   version = "0.6";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Li7BEcSyeYtdwtwrPsevT2smGUbpA7jhTbBGgx0gOyk=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     xorg.libX11
     xorg.libXres
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "'top' like tool for monitoring X Client server resource usage";
     homepage = "https://gitlab.freedesktop.org/xorg/app/xrestop";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
     mainProgram = "xrestop";

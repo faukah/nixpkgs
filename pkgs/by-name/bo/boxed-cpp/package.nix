@@ -5,7 +5,6 @@
   cmake,
   catch2,
 }:
-
 stdenv.mkDerivation (final: {
   pname = "boxed-cpp";
   version = "1.4.3";
@@ -17,14 +16,14 @@ stdenv.mkDerivation (final: {
     hash = "sha256-uZ/wT159UuEcTUtoQyt0D59z2wnLT5KpeeCpjyij198=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ catch2 ];
+  buildInputs = [catch2];
 
   meta = with lib; {
     description = "Boxing primitive types in C++";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = [ maintainers.moni ];
+    maintainers = [maintainers.moni];
   };
 })

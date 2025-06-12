@@ -6,7 +6,6 @@
   pyserial,
   sockio,
 }:
-
 buildPythonPackage rec {
   pname = "serialio";
   version = "2.4.0";
@@ -29,12 +28,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "serialio" ];
+  pythonImportsCheck = ["serialio"];
 
   meta = with lib; {
     description = "Library for concurrency agnostic serial communication";
     homepage = "https://github.com/tiagocoutinho/serialio";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

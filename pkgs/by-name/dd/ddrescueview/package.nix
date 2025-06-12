@@ -12,7 +12,6 @@
   libX11,
   pango,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ddrescueview";
   version = "0.4.5";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/ddrescueview/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     mainProgram = "ddrescueview";
   };
 }

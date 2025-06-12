@@ -8,7 +8,6 @@
   bzip2,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "mangl";
   version = "1.1.5-unstable-2024-07-10";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
     rev = "9d369fb0b9637969bbdfaafca73832fe8a31445b";
     hash = "sha256-22JnflZtlkjI3wr6UHweb77pOk9cMwF+c6KORutCSDM=";
   };
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     freetype
     glfw
@@ -41,7 +40,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/zigalenarcic/mangl";
     description = "Graphical man page viewer based on the mandoc library";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nrabulinski ];
+    maintainers = with maintainers; [nrabulinski];
     platforms = platforms.linux;
     mainProgram = "mangl";
   };

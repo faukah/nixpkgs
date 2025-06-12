@@ -7,7 +7,6 @@
   pynput,
   screeninfo,
 }:
-
 buildPythonApplication rec {
   pname = "remarkable-mouse";
   version = "7.1.1";
@@ -26,12 +25,12 @@ buildPythonApplication rec {
 
   # no tests
   doCheck = false;
-  pythonImportsCheck = [ "remarkable_mouse" ];
+  pythonImportsCheck = ["remarkable_mouse"];
 
   meta = with lib; {
     description = "Program to use a reMarkable as a graphics tablet";
     homepage = "https://github.com/evidlo/remarkable_mouse";
     license = licenses.gpl3;
-    maintainers = [ maintainers.nickhu ];
+    maintainers = [maintainers.nickhu];
   };
 }

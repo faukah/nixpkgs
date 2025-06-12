@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "powerlevel9k";
   version = "2017-11-10";
@@ -30,6 +29,6 @@ stdenv.mkDerivation {
     license = lib.licenses.mit;
 
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.pierrechevalier83 ];
+    maintainers = [lib.maintainers.pierrechevalier83];
   };
 }

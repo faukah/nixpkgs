@@ -21,7 +21,6 @@
   wsproto,
   zstandard,
 }:
-
 buildPythonPackage rec {
   pname = "selenium-wire";
   version = "5.1.0";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     hash = "sha256-KgaDxHS0dAK6CT53L1qqx1aORMmkeaiXAUtGC82hiIQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     blinker
@@ -60,7 +59,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "seleniumwire" ];
+  pythonImportsCheck = ["seleniumwire"];
 
   disabledTestPaths = [
     # Don't run End2End tests
@@ -72,7 +71,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/wkeeling/selenium-wire";
     changelog = "https://github.com/wkeeling/selenium-wire/blob/${version}/HISTORY.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     broken = versionAtLeast blinker.version "1.8";
   };
 }

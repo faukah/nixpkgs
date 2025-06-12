@@ -9,7 +9,6 @@
   pandas,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "cmsdials";
   version = "1.5.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-bYFADE6Fi0hQ0IaaeN3RhtPPQwWqhhRbNyGOUPLksp4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     pydantic
@@ -31,8 +30,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    pandas = [ pandas ];
-    tqdm = [ tqdm ];
+    pandas = [pandas];
+    tqdm = [tqdm];
   };
 
   pythonRelaxDeps = [
@@ -42,12 +41,12 @@ buildPythonPackage rec {
     "typing-extensions"
   ];
 
-  pythonImportsCheck = [ "cmsdials" ];
+  pythonImportsCheck = ["cmsdials"];
 
   meta = with lib; {
     description = "Python API client interface to CMS DIALS service";
     homepage = "https://github.com/cms-DQM/dials-py";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
   };
 }

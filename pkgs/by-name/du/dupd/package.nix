@@ -7,10 +7,8 @@
   openssl,
   sqlite,
 }:
-
 # Instead of writing directly into $HOME, we change the default db location
 # from $HOME/.dupd_sqlite to $HOME/.cache/dupd.sqlite3
-
 stdenv.mkDerivation rec {
   pname = "dupd";
   version = "1.7.3";
@@ -57,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "CLI utility to find duplicate files";
     homepage = "http://www.virkki.com/dupd";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     mainProgram = "dupd";
   };
 }

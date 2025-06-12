@@ -13,7 +13,6 @@
   libxml2,
   libsndfile,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "soundtracker";
   version = "1.0.5";
@@ -55,15 +54,17 @@ stdenv.mkDerivation (finalAttrs: {
     autoreconfHook
   ];
 
-  buildInputs = [
-    gtk2
-    SDL
-    jack2
-    audiofile
-    goocanvas
-    libxml2
-    libsndfile
-  ] ++ lib.optional stdenv.hostPlatform.isLinux alsa-lib;
+  buildInputs =
+    [
+      gtk2
+      SDL
+      jack2
+      audiofile
+      goocanvas
+      libxml2
+      libsndfile
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux alsa-lib;
 
   meta = with lib; {
     description = "Music tracking tool similar in design to the DOS program FastTracker and the Amiga legend ProTracker";
@@ -77,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.soundtracker.org/";
     downloadPage = "https://sourceforge.net/projects/soundtracker/files/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     hydraPlatforms = platforms.linux; # sdl-config times out on darwin
   };

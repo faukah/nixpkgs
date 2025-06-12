@@ -3,23 +3,19 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatch-vcs,
   hatchling,
-
   # dependencies
   dnspython,
   greenlet,
   isPyPy,
   six,
-
   # tests
   iana-etc,
   pytestCheckHook,
   libredirect,
 }:
-
 buildPythonPackage rec {
   pname = "eventlet";
   version = "0.38.2";
@@ -73,13 +69,13 @@ buildPythonPackage rec {
     "test_send_timeout"
   ];
 
-  pythonImportsCheck = [ "eventlet" ];
+  pythonImportsCheck = ["eventlet"];
 
   meta = with lib; {
     changelog = "https://github.com/eventlet/eventlet/blob/v${version}/NEWS";
     description = "Concurrent networking library for Python";
     homepage = "https://github.com/eventlet/eventlet/";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

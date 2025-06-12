@@ -5,34 +5,33 @@
   system,
   ...
 }:
+with import ../../lib/testing-python.nix {inherit system pkgs;};
+  runTest (
+    {
+      config,
+      lib,
+      ...
+    }: let
+      accessKey = "BKIKJAA5BMMU2RHO6IBB";
+      secretKey = "V7f1CwQqAcwo80UEIJEjc5gVQUSSx5ohQ9GSrr12";
 
-with import ../../lib/testing-python.nix { inherit system pkgs; };
-runTest (
-  { config, lib, ... }:
-  let
-    accessKey = "BKIKJAA5BMMU2RHO6IBB";
-    secretKey = "V7f1CwQqAcwo80UEIJEjc5gVQUSSx5ohQ9GSrr12";
+      rootCredentialsFile = pkgs.writeText "minio-credentials-full" ''
+        MINIO_ROOT_USER=${accessKey}
+        MINIO_ROOT_PASSWORD=${secretKey}
+      '';
+    in {
+      inherit name;
+      meta.maintainers = lib.teams.nextcloud.members;
 
-    rootCredentialsFile = pkgs.writeText "minio-credentials-full" ''
-      MINIO_ROOT_USER=${accessKey}
-      MINIO_ROOT_PASSWORD=${secretKey}
-    '';
-  in
-  {
-    inherit name;
-    meta.maintainers = lib.teams.nextcloud.members;
+      imports = [testBase];
 
-    imports = [ testBase ];
-
-    nodes = {
-      nextcloud =
-        {
+      nodes = {
+        nextcloud = {
           config,
           pkgs,
           nodes,
           ...
-        }:
-        {
+        }: {
           services.nextcloud.config.dbtype = "sqlite";
 
           services.nextcloud.config.objectstore.s3 = {
@@ -52,7 +51,7 @@ runTest (
             (builtins.readFile ../common/acme/server/ca.cert.pem)
           ];
 
-          environment.systemPackages = [ pkgs.minio-client ];
+          environment.systemPackages = [pkgs.minio-client];
 
           # The dummy certs are for acme.test, so we pretend that's the FQDN
           # of the minio VM.
@@ -61,9 +60,7 @@ runTest (
           '';
         };
 
-      client =
-        { nodes, ... }:
-        {
+        client = {nodes, ...}: {
           security.pki.certificates = [
             (builtins.readFile ../common/acme/server/ca.cert.pem)
           ];
@@ -72,9 +69,7 @@ runTest (
           '';
         };
 
-      minio =
-        { ... }:
-        {
+        minio = {...}: {
           security.pki.certificates = [
             (builtins.readFile ../common/acme/server/ca.cert.pem)
           ];
@@ -108,18 +103,16 @@ runTest (
             inherit rootCredentialsFile;
           };
         };
-    };
+      };
 
-    test-helpers.init = ''
-      minio.start()
-      minio.wait_for_open_port(9000)
-      minio.wait_for_unit("nginx.service")
-      minio.wait_for_open_port(443)
-    '';
+      test-helpers.init = ''
+        minio.start()
+        minio.wait_for_open_port(9000)
+        minio.wait_for_unit("nginx.service")
+        minio.wait_for_open_port(443)
+      '';
 
-    test-helpers.extraTests =
-      { nodes, ... }:
-      ''
+      test-helpers.extraTests = {nodes, ...}: ''
 
         with subtest("File is not on the filesystem"):
             nextcloud.succeed("test ! -e ${nodes.nextcloud.services.nextcloud.home}/data/root/files/test-shared-file")
@@ -165,5 +158,5 @@ runTest (
 
             client.succeed("test hi = $(cat test)")
       '';
-  }
-)
+    }
+  )

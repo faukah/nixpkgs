@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "holidays";
   version = "0.74";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     ./scripts/l10n/generate_mo_files.py
   '';
 
-  dependencies = [ python-dateutil ];
+  dependencies = [python-dateutil];
 
   doCheck = false;
 
@@ -55,7 +54,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "holidays" ];
+  pythonImportsCheck = ["holidays"];
 
   meta = with lib; {
     description = "Generate and work with holidays in Python";

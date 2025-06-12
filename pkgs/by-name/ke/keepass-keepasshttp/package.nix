@@ -4,9 +4,7 @@
   buildEnv,
   fetchFromGitHub,
   mono,
-}:
-
-let
+}: let
   version = "1.8.4.2";
   drv = stdenv.mkDerivation {
     pname = "keepasshttp";
@@ -36,11 +34,11 @@ let
     '';
   };
 in
-# Mono is required to compile plugin at runtime, after loading.
-buildEnv {
-  name = drv.name;
-  paths = [
-    mono
-    drv
-  ];
-}
+  # Mono is required to compile plugin at runtime, after loading.
+  buildEnv {
+    name = drv.name;
+    paths = [
+      mono
+      drv
+    ];
+  }

@@ -43,8 +43,8 @@ stdenv.mkDerivation (finalAttrs: {
       hpndSellVariant
     ];
     mainProgram = "cvt";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
-    badPlatforms = [ lib.systems.inspect.platformPatterns.isStatic ];
+    badPlatforms = [lib.systems.inspect.platformPatterns.isStatic];
   };
 })

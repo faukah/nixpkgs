@@ -37,7 +37,6 @@
   doxygen,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "geeqie";
   version = "2.5";
@@ -99,67 +98,67 @@ stdenv.mkDerivation rec {
     # Requires exiftran (fbida package) and exiv2.
     sed -i $out/lib/geeqie/geeqie-rotate \
         -e '1 a export PATH=${
-          lib.makeBinPath [
-            exiv2
-            fbida
-          ]
-        }:$PATH'
+      lib.makeBinPath [
+        exiv2
+        fbida
+      ]
+    }:$PATH'
     # Zenity and yad are used in some scripts for reporting errors.
     # Allow change quality of image.
     # Requires imagemagick and yad.
     sed -i $out/lib/geeqie/geeqie-resize-image \
         -e '1 a export PATH=${
-          lib.makeBinPath [
-            imagemagick
-            yad
-          ]
-        }:$PATH'
+      lib.makeBinPath [
+        imagemagick
+        yad
+      ]
+    }:$PATH'
     # Allow to crop image.
     # Requires imagemagick, exiv2 and exiftool.
     sed -i $out/lib/geeqie/geeqie-image-crop \
         -e '1 a export PATH=${
-          lib.makeBinPath [
-            imagemagick
-            exiv2
-            exiftool
-            zenity
-          ]
-        }:$PATH'
+      lib.makeBinPath [
+        imagemagick
+        exiv2
+        exiftool
+        zenity
+      ]
+    }:$PATH'
     # Requires gphoto2 and libnotify
     sed -i $out/lib/geeqie/geeqie-tethered-photography \
         -e '1 a export PATH=${
-          lib.makeBinPath [
-            gphoto2
-            zenity
-            libnotify
-          ]
-        }:$PATH'
+      lib.makeBinPath [
+        gphoto2
+        zenity
+        libnotify
+      ]
+    }:$PATH'
     # Import images from camera.
     # Requires gphoto2.
     sed -i $out/lib/geeqie/geeqie-camera-import \
         -e '1 a export PATH=${
-          lib.makeBinPath [
-            gphoto2
-            zenity
-          ]
-        }:$PATH'
+      lib.makeBinPath [
+        gphoto2
+        zenity
+      ]
+    }:$PATH'
     # Export jpeg from raw file.
     # Requires exiv2, exiftool and lcms2.
     sed -i $out/lib/geeqie/geeqie-export-jpeg \
         -e '1 a export PATH=${
-          lib.makeBinPath [
-            zenity
-            exiv2
-            exiftool
-            lcms2
-          ]
-        }:$PATH'
+      lib.makeBinPath [
+        zenity
+        exiv2
+        exiftool
+        lcms2
+      ]
+    }:$PATH'
   '';
 
   enableParallelBuilding = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

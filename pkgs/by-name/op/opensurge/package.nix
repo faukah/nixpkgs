@@ -12,7 +12,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "opensurge";
   version = "0.6.1.2";
@@ -45,11 +44,11 @@ stdenv.mkDerivation (finalAttrs: {
     "-DWANT_BUILD_DATE=OFF"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   # Darwin fails with "Critical error: required built-in appearance SystemAppearance not found"
   doInstallCheck = !stdenv.hostPlatform.isDarwin;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "opensurge";
@@ -59,6 +58,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/alemart/opensurge/blob/v${finalAttrs.version}/CHANGES.md";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })

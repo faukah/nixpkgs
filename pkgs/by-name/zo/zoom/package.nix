@@ -8,9 +8,7 @@
   freetype,
   xorg,
 }:
-
 # !!! assert freetype == xorg.freetype
-
 stdenv.mkDerivation rec {
   pname = "zoom";
   version = "1.1.5";

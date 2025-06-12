@@ -5,7 +5,6 @@
   fetchFromGitHub,
   pytestCheckHook,
   pythonOlder,
-
   attrs,
   click,
   flit,
@@ -14,7 +13,6 @@
   pyproj,
   rasterio,
 }:
-
 buildPythonPackage rec {
   pname = "morecantile";
   version = "6.2.0";
@@ -28,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-ohTSgkjgaANS/Pli4fao+THA4ltts6svj5CdJEgorz0=";
   };
 
-  nativeBuildInputs = [ flit ];
+  nativeBuildInputs = [flit];
 
   propagatedBuildInputs = [
     attrs
@@ -48,13 +46,13 @@ buildPythonPackage rec {
     "test_tiles_when_tms_bounds_and_provided_bounds_cross_antimeridian"
   ];
 
-  pythonImportsCheck = [ "morecantile" ];
+  pythonImportsCheck = ["morecantile"];
 
   meta = {
     description = "Construct and use map tile grids in different projection";
     homepage = "https://developmentseed.org/morecantile/";
     license = lib.licenses.mit;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
     mainProgram = "morecantile";
   };
 }

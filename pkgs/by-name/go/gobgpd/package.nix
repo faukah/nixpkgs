@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "gobgpd";
   version = "3.37.0";
@@ -32,7 +31,7 @@ buildGoModule rec {
     "cmd/gobgpd"
   ];
 
-  passthru.tests = { inherit (nixosTests) gobgpd; };
+  passthru.tests = {inherit (nixosTests) gobgpd;};
 
   meta = {
     description = "BGP implemented in Go";
@@ -40,6 +39,6 @@ buildGoModule rec {
     homepage = "https://osrg.github.io/gobgp/";
     changelog = "https://github.com/osrg/gobgp/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ higebu ];
+    maintainers = with lib.maintainers; [higebu];
   };
 }

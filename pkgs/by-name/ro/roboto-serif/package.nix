@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "roboto-serif";
   version = "1.008";
@@ -37,7 +36,7 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://github.com/googlefonts/roboto-serif";
     license = licenses.ofl;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.all;
   };
 }

@@ -12,7 +12,6 @@
   wrapGAppsHook3,
   xapp,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "blueberry";
   version = "1.4.8";

@@ -10,7 +10,6 @@
   validatePkgConfig,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "matio";
   version = "1.5.28";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-naaYk0ohVprwWOY0hWRmb0UCnmwrCHjKDY+WCb93uNg=";
   };
 
-  configureFlags = [ "ac_cv_va_copy=1" ];
+  configureFlags = ["ac_cv_va_copy=1"];
 
   nativeBuildInputs = [
     pkgconf
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
         package = matio;
       };
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -50,9 +49,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "C library for reading and writing Matlab MAT files";
     homepage = "https://matio.sourceforge.net/";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ jwillikers ];
+    maintainers = with lib.maintainers; [jwillikers];
     mainProgram = "matdump";
     platforms = lib.platforms.all;
-    pkgConfigModules = [ "matio" ];
+    pkgConfigModules = ["matio"];
   };
 })

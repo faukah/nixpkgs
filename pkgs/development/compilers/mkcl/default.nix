@@ -7,7 +7,6 @@
   gmp,
   gcc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mkcl";
   version = "1.1.11";
@@ -35,11 +34,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  propagatedBuildInputs = [ gmp ];
+  propagatedBuildInputs = [gmp];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   configureFlags = [
     "GMP_CFLAGS=-I${lib.getDev gmp}/include"
@@ -65,12 +64,12 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     description = "ANSI Common Lisp Implementation";
     homepage = "https://common-lisp.net/project/mkcl/";
     license = licenses.lgpl2Plus;
     mainProgram = "mkcl";
-    teams = [ lib.teams.lisp ];
+    teams = [lib.teams.lisp];
     platforms = platforms.linux;
   };
 }

@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   version = "0.4.1";
   format = "setuptools";
@@ -20,6 +19,6 @@ buildPythonPackage rec {
     description = "WSGI HTTP Digest Authentication middleware";
     homepage = "https://github.com/jonashaag/httpauth";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

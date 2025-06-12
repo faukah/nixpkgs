@@ -5,7 +5,6 @@
   gdcm,
   cmake,
 }:
-
 buildOctavePackage rec {
   pname = "dicom";
   version = "0.6.1";
@@ -28,7 +27,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/dicom/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Digital communications in medicine (DICOM) file io";
   };
 }

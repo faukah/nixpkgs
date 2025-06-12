@@ -13,7 +13,6 @@
   gitUpdater,
   enableDecLocator ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xterm";
   version = "397";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Lpt0K5y6ROzsWAdOUTI39s1tWSPxc3yzak5WJfSuhmI=";
   };
 
-  patches = [ ./sixel-256.support.patch ];
+  patches = [./sixel-256.support.patch];
 
   strictDeps = true;
 
@@ -50,19 +49,21 @@ stdenv.mkDerivation rec {
     xorg.luit
   ];
 
-  configureFlags = [
-    "--enable-wide-chars"
-    "--enable-256-color"
-    "--enable-sixel-graphics"
-    "--enable-regis-graphics"
-    "--enable-load-vt-fonts"
-    "--enable-i18n"
-    "--enable-doublechars"
-    "--enable-luit"
-    "--enable-mini-luit"
-    "--with-tty-group=tty"
-    "--with-app-defaults=$(out)/lib/X11/app-defaults"
-  ] ++ lib.optional enableDecLocator "--enable-dec-locator";
+  configureFlags =
+    [
+      "--enable-wide-chars"
+      "--enable-256-color"
+      "--enable-sixel-graphics"
+      "--enable-regis-graphics"
+      "--enable-load-vt-fonts"
+      "--enable-i18n"
+      "--enable-doublechars"
+      "--enable-luit"
+      "--enable-mini-luit"
+      "--with-tty-group=tty"
+      "--with-app-defaults=$(out)/lib/X11/app-defaults"
+    ]
+    ++ lib.optional enableDecLocator "--enable-dec-locator";
 
   env =
     {
@@ -110,8 +111,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://invisible-island.net/xterm";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ nequissimus ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [nequissimus];
     platforms = with lib.platforms; linux ++ darwin;
     changelog = "https://invisible-island.net/xterm/xterm.log.html";
   };

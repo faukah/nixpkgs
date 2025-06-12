@@ -38,13 +38,9 @@
 # value -> string but a function from a value to an attribute set:
 # { "${name}" = string }. This allows parameters to change the attribute
 # name like in the previous example.
-
 lib:
-
 with lib;
-with (import ./param-lib.nix lib);
-
-rec {
+with (import ./param-lib.nix lib); rec {
   mkParamOfType = type: strongswanDefault: description: {
     _type = "param";
     option = mkOption {
@@ -55,10 +51,9 @@ rec {
     render = single toString;
   };
 
-  documentDefault =
-    description: strongswanDefault:
-    if strongswanDefault == null then
-      description
+  documentDefault = description: strongswanDefault:
+    if strongswanDefault == null
+    then description
     else
       (
         description
@@ -69,7 +64,7 @@ rec {
         ''
       );
 
-  single = f: name: value: { ${name} = f value; };
+  single = f: name: value: {${name} = f value;};
 
   mkStrParam = mkParamOfType types.str;
   mkOptionalStrParam = mkStrParam null;
@@ -97,7 +92,10 @@ rec {
       default = null;
       description = documentDefault description strongswanDefault;
     };
-    render = single (b: if b then "yes" else "no");
+    render = single (b:
+      if b
+      then "yes"
+      else "no");
   };
   yes = true;
   no = false;
@@ -115,7 +113,7 @@ rec {
     render = single (value: concatStringsSep sep value);
   };
 
-  mkAttrsOfParams = params: mkAttrsOf params (types.submodule { options = paramsToOptions params; });
+  mkAttrsOfParams = params: mkAttrsOf params (types.submodule {options = paramsToOptions params;});
 
   mkAttrsOfParam = param: mkAttrsOf param param.option.type;
 
@@ -123,14 +121,13 @@ rec {
     _type = "param";
     option = mkOption {
       type = types.attrsOf option;
-      default = { };
+      default = {};
       description = description;
     };
     render = single (attrs: (paramsToRenderedStrings attrs (mapAttrs (_n: _v: param) attrs)));
   };
 
-  mkPrefixedAttrsOfParams =
-    params: mkPrefixedAttrsOf params (types.submodule { options = paramsToOptions params; });
+  mkPrefixedAttrsOfParams = params: mkPrefixedAttrsOf params (types.submodule {options = paramsToOptions params;});
 
   mkPrefixedAttrsOfParam = param: mkPrefixedAttrsOf param param.option.type;
 
@@ -138,30 +135,25 @@ rec {
     _type = "param";
     option = mkOption {
       type = types.attrsOf option;
-      default = { };
+      default = {};
       description = description;
     };
-    render =
-      prefix: attrs:
-      let
-        prefixedAttrs = mapAttrs' (name: nameValuePair "${prefix}-${name}") attrs;
-      in
+    render = prefix: attrs: let
+      prefixedAttrs = mapAttrs' (name: nameValuePair "${prefix}-${name}") attrs;
+    in
       paramsToRenderedStrings prefixedAttrs (mapAttrs (_n: _v: p) prefixedAttrs);
   };
 
   mkPostfixedAttrsOfParams = params: description: {
     _type = "param";
     option = mkOption {
-      type = types.attrsOf (types.submodule { options = paramsToOptions params; });
-      default = { };
+      type = types.attrsOf (types.submodule {options = paramsToOptions params;});
+      default = {};
       description = description;
     };
-    render =
-      postfix: attrs:
-      let
-        postfixedAttrs = mapAttrs' (name: nameValuePair "${name}-${postfix}") attrs;
-      in
+    render = postfix: attrs: let
+      postfixedAttrs = mapAttrs' (name: nameValuePair "${name}-${postfix}") attrs;
+    in
       paramsToRenderedStrings postfixedAttrs (mapAttrs (_n: _v: params) postfixedAttrs);
   };
-
 }

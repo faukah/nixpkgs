@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "archiver";
   version = "3.5.1";
@@ -32,7 +31,7 @@ buildGoModule rec {
     homepage = "https://github.com/mholt/archiver";
     mainProgram = "arc";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     knownVulnerabilities = [
       "CVE-2024-0406"
       "Package is unmaintained upstream"

@@ -20,7 +20,6 @@
   wayland,
   wayland-protocols,
   xcbutilcursor,
-
   demoSupport ? true,
   jpegSupport ? true,
   libjpeg,
@@ -46,7 +45,6 @@
   libXcursor,
   xwayland,
 }:
-
 stdenv.mkDerivation rec {
   pname = "weston";
   version = "14.0.1";
@@ -65,7 +63,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -129,7 +127,7 @@ stdenv.mkDerivation rec {
       (lib.mesonOption "xwayland-path" (lib.getExe xwayland))
     ];
 
-  passthru.providedSessions = [ "weston" ];
+  passthru.providedSessions = ["weston"];
 
   meta = with lib; {
     description = "Lightweight and functional Wayland compositor";

@@ -5,7 +5,6 @@
   gnustep-libobjc,
   which,
 }:
-
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "gnustep-make";
   version = "2.9.3";
@@ -28,16 +27,16 @@ clangStdenv.mkDerivation (finalAttrs: {
     "GNUSTEP_INSTALLATION_DOMAIN=SYSTEM"
   ];
 
-  buildInputs = [ gnustep-libobjc ];
+  buildInputs = [gnustep-libobjc];
 
-  propagatedBuildInputs = [ which ];
+  propagatedBuildInputs = [which];
 
-  patches = [ ./fixup-paths.patch ];
+  patches = [./fixup-paths.patch];
   setupHook = ./setup-hook.sh;
 
   meta = {
     changelog = "https://github.com/gnustep/tools-make/releases/tag/make-${
-      builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version
+      builtins.replaceStrings ["."] ["_"] finalAttrs.version
     }";
     description = "Build manager for GNUstep";
     homepage = "https://gnustep.github.io/";

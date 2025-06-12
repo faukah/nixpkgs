@@ -3,68 +3,64 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   keyfile = pkgs.writeText "luks-keyfile" ''
     MIGHAoGBAJ4rGTSo/ldyjQypd0kuS7k2OSsmQYzMH6TNj3nQ/vIUjDn7fqa3slt2
     gV6EK3TmTbGc4tzC1v4SWx2m+2Bjdtn4Fs4wiBwn1lbRdC6i5ZYCqasTWIntWn+6
     FllUkMD5oqjOR/YcboxG8Z3B5sJuvTP9llsF+gnuveWih9dpbBr7AgEC
   '';
-in
-{
+in {
   name = "initrd-luks-empty-passphrase";
 
   _module.args.systemdStage1 = lib.mkDefault false;
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = lib.optionals (!systemdStage1) [ ./common/auto-format-root-device.nix ];
+  nodes.machine = {pkgs, ...}: {
+    imports = lib.optionals (!systemdStage1) [./common/auto-format-root-device.nix];
 
-      virtualisation = {
-        emptyDiskImages = [ 512 ];
-        useBootLoader = true;
-        useEFIBoot = true;
-        # This requires to have access
-        # to a host Nix store as
-        # the new root device is /dev/vdb
-        # an empty 512MiB drive, containing no Nix store.
-        mountHostNixStore = true;
-        fileSystems."/".autoFormat = lib.mkIf systemdStage1 true;
-      };
-
-      boot.loader.systemd-boot.enable = true;
-      boot.initrd.systemd = lib.mkIf systemdStage1 {
-        enable = true;
-        emergencyAccess = true;
-      };
-      environment.systemPackages = with pkgs; [ cryptsetup ];
-
-      specialisation.boot-luks-wrong-keyfile.configuration = {
-        boot.initrd.luks.devices = lib.mkVMOverride {
-          cryptroot = {
-            device = "/dev/vdb";
-            keyFile = "/etc/cryptroot.key";
-            tryEmptyPassphrase = true;
-            fallbackToPassword = !systemdStage1;
-          };
-        };
-        virtualisation.rootDevice = "/dev/mapper/cryptroot";
-        boot.initrd.secrets."/etc/cryptroot.key" = keyfile;
-      };
-
-      specialisation.boot-luks-missing-keyfile.configuration = {
-        boot.initrd.luks.devices = lib.mkVMOverride {
-          cryptroot = {
-            device = "/dev/vdb";
-            keyFile = "/etc/cryptroot.key";
-            tryEmptyPassphrase = true;
-            fallbackToPassword = !systemdStage1;
-          };
-        };
-        virtualisation.rootDevice = "/dev/mapper/cryptroot";
-      };
+    virtualisation = {
+      emptyDiskImages = [512];
+      useBootLoader = true;
+      useEFIBoot = true;
+      # This requires to have access
+      # to a host Nix store as
+      # the new root device is /dev/vdb
+      # an empty 512MiB drive, containing no Nix store.
+      mountHostNixStore = true;
+      fileSystems."/".autoFormat = lib.mkIf systemdStage1 true;
     };
+
+    boot.loader.systemd-boot.enable = true;
+    boot.initrd.systemd = lib.mkIf systemdStage1 {
+      enable = true;
+      emergencyAccess = true;
+    };
+    environment.systemPackages = with pkgs; [cryptsetup];
+
+    specialisation.boot-luks-wrong-keyfile.configuration = {
+      boot.initrd.luks.devices = lib.mkVMOverride {
+        cryptroot = {
+          device = "/dev/vdb";
+          keyFile = "/etc/cryptroot.key";
+          tryEmptyPassphrase = true;
+          fallbackToPassword = !systemdStage1;
+        };
+      };
+      virtualisation.rootDevice = "/dev/mapper/cryptroot";
+      boot.initrd.secrets."/etc/cryptroot.key" = keyfile;
+    };
+
+    specialisation.boot-luks-missing-keyfile.configuration = {
+      boot.initrd.luks.devices = lib.mkVMOverride {
+        cryptroot = {
+          device = "/dev/vdb";
+          keyFile = "/etc/cryptroot.key";
+          tryEmptyPassphrase = true;
+          fallbackToPassword = !systemdStage1;
+        };
+      };
+      virtualisation.rootDevice = "/dev/mapper/cryptroot";
+    };
+  };
 
   testScript = ''
     # Encrypt key with empty key so boot should try keyfile and then fallback to empty passphrase

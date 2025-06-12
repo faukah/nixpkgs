@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.afterstep;
-in
-{
+in {
   ###### interface
   options = {
     services.xserver.windowManager.afterstep.enable = mkEnableOption "afterstep";
@@ -25,6 +21,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.afterstep ];
+    environment.systemPackages = [pkgs.afterstep];
   };
 }

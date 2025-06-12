@@ -14,7 +14,6 @@
   opencv4,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "camelot-py";
   version = "0.11.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-l6fZBtaF5AWaSlSaY646UfCrcqPIJlV/hEPGWhGB3+Y=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     charset-normalizer
@@ -43,7 +42,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "camelot" ];
+  pythonImportsCheck = ["camelot"];
 
   meta = with lib; {
     description = "Python library to extract tabular data from PDFs";
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "http://camelot-py.readthedocs.io";
     changelog = "https://github.com/camelot-dev/camelot/blob/v${version}/HISTORY.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ _2gn ];
+    maintainers = with maintainers; [_2gn];
   };
 }

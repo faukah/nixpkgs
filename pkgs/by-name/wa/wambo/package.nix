@@ -3,7 +3,6 @@
   lib,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wambo";
   version = "0.4.0";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/phip1611/wambo";
     changelog = "https://github.com/phip1611/wambo/blob/v${version}/CHANGELOG.md";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ phip1611 ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [phip1611];
   };
 }

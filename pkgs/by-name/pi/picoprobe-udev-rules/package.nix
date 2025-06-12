@@ -3,11 +3,9 @@
   stdenv,
   fetchurl,
 }:
-
 ## Usage
 # In NixOS, simply add this package to services.udev.packages:
 #   services.udev.packages = [ pkgs.picoprobe-udev-rules ];
-
 stdenv.mkDerivation {
   pname = "picoprobe-udev-rules";
   version = "unstable-2023-01-31";
@@ -31,6 +29,6 @@ stdenv.mkDerivation {
     description = "Picoprobe udev rules list";
     platforms = platforms.linux;
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ mglolenstine ];
+    maintainers = with maintainers; [mglolenstine];
   };
 }

@@ -14,7 +14,6 @@
   inkscape,
   pkgsCross,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lib2geom";
   version = "1.4";
@@ -58,39 +57,37 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
   # TODO: Update cmake hook to make it simpler to selectively disable cmake tests: #113829
-  checkPhase =
-    let
-      disabledTests =
-        lib.optionals stdenv.hostPlatform.isMusl [
-          # Fails due to rounding differences
-          # https://gitlab.com/inkscape/lib2geom/-/issues/70
-          "circle-test"
-        ]
-        ++ lib.optionals (stdenv.hostPlatform.system != "x86_64-linux") [
-          # Broken on all platforms, test just accidentally passes on some.
-          # https://gitlab.com/inkscape/lib2geom/-/issues/63
-          "elliptical-arc-test"
+  checkPhase = let
+    disabledTests =
+      lib.optionals stdenv.hostPlatform.isMusl [
+        # Fails due to rounding differences
+        # https://gitlab.com/inkscape/lib2geom/-/issues/70
+        "circle-test"
+      ]
+      ++ lib.optionals (stdenv.hostPlatform.system != "x86_64-linux") [
+        # Broken on all platforms, test just accidentally passes on some.
+        # https://gitlab.com/inkscape/lib2geom/-/issues/63
+        "elliptical-arc-test"
 
-          # https://gitlab.com/inkscape/lib2geom/-/issues/69
-          "polynomial-test"
+        # https://gitlab.com/inkscape/lib2geom/-/issues/69
+        "polynomial-test"
 
-          # https://gitlab.com/inkscape/lib2geom/-/issues/75
-          "line-test"
+        # https://gitlab.com/inkscape/lib2geom/-/issues/75
+        "line-test"
 
-          # Failure observed on i686
-          "angle-test"
-          "self-intersections-test"
+        # Failure observed on i686
+        "angle-test"
+        "self-intersections-test"
 
-          # Failure observed on aarch64-darwin
-          "bezier-test"
-          "ellipse-test"
-        ];
-    in
-    ''
-      runHook preCheck
-      ctest --output-on-failure -E '^${lib.concatStringsSep "|" disabledTests}$'
-      runHook postCheck
-    '';
+        # Failure observed on aarch64-darwin
+        "bezier-test"
+        "ellipse-test"
+      ];
+  in ''
+    runHook preCheck
+    ctest --output-on-failure -E '^${lib.concatStringsSep "|" disabledTests}$'
+    runHook postCheck
+  '';
 
   passthru = {
     tests =
@@ -110,7 +107,7 @@ stdenv.mkDerivation (finalAttrs: {
       licenses.lgpl21Only
       licenses.mpl11
     ];
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 })

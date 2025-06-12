@@ -2,26 +2,21 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   chardet,
   regex,
   packaging,
-
   # optionals
   faust-cchardet,
   pandas,
   tabview,
   # TODO: , wilderness
-
   # tests
   python,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "clevercsv";
   version = "0.8.3";
@@ -34,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-T4eYTr3+MUr1fPWE490v1m8THdZrBUP4wODftjpvnLQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     chardet
@@ -51,7 +46,7 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.full;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.full;
 
   pythonImportsCheck = [
     "clevercsv"
@@ -65,7 +60,7 @@ buildPythonPackage rec {
   '';
 
   # their ci only runs unit tests, there are also integration and fuzzing tests
-  pytestFlagsArray = [ "./tests/test_unit" ];
+  pytestFlagsArray = ["./tests/test_unit"];
 
   disabledTestPaths = [
     # ModuleNotFoundError: No module named 'wilderness'
@@ -84,6 +79,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/alan-turing-institute/CleverCSV";
     changelog = "https://github.com/alan-turing-institute/CleverCSV/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

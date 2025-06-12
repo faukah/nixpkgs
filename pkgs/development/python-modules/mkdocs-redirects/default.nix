@@ -6,7 +6,6 @@
   mkdocs,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocs-redirects";
   version = "1.2.2";
@@ -19,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-YsMA00yajeGSqSB6CdKxGqyClC9Cgc3ImRBTucHEHhs=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  propagatedBuildInputs = [ mkdocs ];
+  propagatedBuildInputs = [mkdocs];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mkdocs_redirects" ];
+  pythonImportsCheck = ["mkdocs_redirects"];
 
   meta = with lib; {
     description = "Open source plugin for Mkdocs page redirects";
     homepage = "https://github.com/mkdocs/mkdocs-redirects";
     license = licenses.mit;
-    maintainers = with maintainers; [ tfc ];
+    maintainers = with maintainers; [tfc];
   };
 }

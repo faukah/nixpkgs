@@ -6,7 +6,6 @@
   go-mockery,
   mockgen,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "terragrunt";
   version = "0.81.1";

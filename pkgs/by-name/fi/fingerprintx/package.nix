@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "fingerprintx";
   version = "1.1.15";
@@ -31,6 +30,6 @@ buildGoModule rec {
     homepage = "https://github.com/praetorian-inc/fingerprintx";
     changelog = "https://github.com/praetorian-inc/fingerprintx/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

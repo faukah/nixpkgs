@@ -10,7 +10,6 @@
   zstd,
   zoxide,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "felix";
   version = "2.16.1";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-1JjvfXyjGUHIwJJAlI2pB829kHcPrVmKOp+msDk5Qp4=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     bzip2
@@ -34,13 +33,13 @@ rustPlatform.buildRustPackage rec {
     zstd
   ];
 
-  nativeCheckInputs = [ zoxide ];
+  nativeCheckInputs = [zoxide];
 
   env = {
     ZSTD_SYS_USE_PKG_CONFIG = true;
   };
 
-  buildFeatures = [ "zstd/pkg-config" ];
+  buildFeatures = ["zstd/pkg-config"];
 
   checkFlags = [
     # extra test files not shipped with the repository
@@ -48,14 +47,14 @@ rustPlatform.buildRustPackage rec {
     "--skip=state::tests::test_has_write_permission"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tui file manager with vim-like key mapping";
     homepage = "https://github.com/kyoheiu/felix";
     changelog = "https://github.com/kyoheiu/felix/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "fx";
   };
 }

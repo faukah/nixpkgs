@@ -5,7 +5,6 @@
   testers,
   jsonfmt,
 }:
-
 buildGoModule rec {
   pname = "jsonfmt";
   version = "0.5.1";
@@ -36,7 +35,7 @@ buildGoModule rec {
     homepage = "https://github.com/caarlos0/jsonfmt";
     changelog = "https://github.com/caarlos0/jsonfmt/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "jsonfmt";
   };
 }

@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "click-help-colors";
   version = "0.9.4";
@@ -19,17 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-9Mq+Us9VApm4iI9PLuTF81msJ+M7z+TWHbR3haXMk2w=";
   };
 
-  propagatedBuildInputs = [ click ];
+  propagatedBuildInputs = [click];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "click_help_colors" ];
+  pythonImportsCheck = ["click_help_colors"];
 
   meta = with lib; {
     description = "Colorization of help messages in Click";
     homepage = "https://github.com/click-contrib/click-help-colors";
     changelog = "https://github.com/click-contrib/click-help-colors/blob/${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
   };
 }

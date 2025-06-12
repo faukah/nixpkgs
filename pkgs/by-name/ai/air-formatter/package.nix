@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   # Remove duplicate entries from cargo lock
-  cargoPatches = [ ./cargo-lock.patch ];
+  cargoPatches = [./cargo-lock.patch];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-3v/pgm6BjPvQToSmZ2PrUWTrgffjifB3Xmp1liWCUck=";
@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://posit-dev.github.io/air";
     changelog = "https://github.com/posit-dev/air/blob/${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.kupac ];
+    maintainers = [lib.maintainers.kupac];
     mainProgram = "air";
   };
 })

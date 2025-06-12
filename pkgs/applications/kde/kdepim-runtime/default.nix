@@ -33,7 +33,6 @@
   qtwebengine,
   qtxmlpatterns,
 }:
-
 mkDerivation {
   pname = "kdepim-runtime";
   meta = {

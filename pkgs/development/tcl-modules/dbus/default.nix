@@ -5,7 +5,6 @@
   pkg-config,
   dbus,
 }:
-
 mkTclDerivation rec {
   pname = "dbus";
   version = "4.1";
@@ -27,6 +26,6 @@ mkTclDerivation rec {
     description = "DBus bindings for Tcl";
     homepage = "https://chiselapp.com/user/schelte/repository/dbus/home";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
   };
 }

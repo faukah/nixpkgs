@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "hydroxide";
   version = "0.2.29";
@@ -19,13 +18,13 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/hydroxide" ];
+  subPackages = ["cmd/hydroxide"];
 
   meta = with lib; {
     description = "Third-party, open-source ProtonMail bridge";
     homepage = "https://github.com/emersion/hydroxide";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
     mainProgram = "hydroxide";
   };
 }

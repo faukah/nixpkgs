@@ -9,7 +9,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "java-hamcrest";
   version = "3.0";
 
-  nativeBuildInputs = [ gradle ];
+  nativeBuildInputs = [gradle];
 
   src = fetchFromGitHub {
     owner = "hamcrest";
@@ -37,6 +37,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Java library containing matchers that can be combined to create flexible expressions of intent";
     platforms = jdk.meta.platforms;
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ tomodachi94 ];
+    maintainers = with lib.maintainers; [tomodachi94];
   };
 })

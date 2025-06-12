@@ -9,7 +9,6 @@
   pytestCheckHook,
   mpiCheckPhaseHook,
 }:
-
 buildPythonPackage rec {
   pname = "mpi4py";
   version = "4.0.3";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     (toPythonModule mpi)
   ];
 
-  pythonImportsCheck = [ "mpi4py" ];
+  pythonImportsCheck = ["mpi4py"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -63,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mpi4py/mpi4py";
     changelog = "https://github.com/mpi4py/mpi4py/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

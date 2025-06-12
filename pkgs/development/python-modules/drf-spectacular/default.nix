@@ -29,7 +29,6 @@
   setuptools,
   uritemplate,
 }:
-
 buildPythonPackage rec {
   pname = "drf-spectacular";
   version = "0.28.0";
@@ -57,7 +56,7 @@ buildPythonPackage rec {
       --replace-fail "'allauth.account'," "'allauth.account', 'allauth.socialaccount',"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -68,25 +67,27 @@ buildPythonPackage rec {
     uritemplate
   ];
 
-  nativeCheckInputs = [
-    dj-rest-auth
-    django-allauth
-    django-filter
-    django-oauth-toolkit
-    django-polymorphic
-    django-rest-auth
-    django-rest-polymorphic
-    djangorestframework-camel-case
-    djangorestframework-dataclasses
-    djangorestframework-recursive
-    djangorestframework-simplejwt
-    drf-jwt
-    drf-nested-routers
-    drf-spectacular-sidecar
-    psycopg2
-    pytest-django
-    pytestCheckHook
-  ] ++ django-allauth.optional-dependencies.socialaccount;
+  nativeCheckInputs =
+    [
+      dj-rest-auth
+      django-allauth
+      django-filter
+      django-oauth-toolkit
+      django-polymorphic
+      django-rest-auth
+      django-rest-polymorphic
+      djangorestframework-camel-case
+      djangorestframework-dataclasses
+      djangorestframework-recursive
+      djangorestframework-simplejwt
+      drf-jwt
+      drf-nested-routers
+      drf-spectacular-sidecar
+      psycopg2
+      pytest-django
+      pytestCheckHook
+    ]
+    ++ django-allauth.optional-dependencies.socialaccount;
 
   disabledTests = [
     # Test requires django with gdal
@@ -104,15 +105,15 @@ buildPythonPackage rec {
     "tests/contrib/test_pydantic.py"
   ];
 
-  pythonImportsCheck = [ "drf_spectacular" ];
+  pythonImportsCheck = ["drf_spectacular"];
 
-  optional-dependencies.sidecar = [ drf-spectacular-sidecar ];
+  optional-dependencies.sidecar = [drf-spectacular-sidecar];
 
   meta = with lib; {
     description = "Sane and flexible OpenAPI 3 schema generation for Django REST framework";
     homepage = "https://github.com/tfranzel/drf-spectacular";
     changelog = "https://github.com/tfranzel/drf-spectacular/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

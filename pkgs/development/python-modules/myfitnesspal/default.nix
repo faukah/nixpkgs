@@ -18,7 +18,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "myfitnesspal";
   version = "2.1.2";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
     hash = "sha256-eE807M8qFDlSMAcE+GFJyve1YfmlWmB3ML9VJhMUeIE=";
   };
 
-  pythonRelaxDeps = [ "typing-extensions" ];
+  pythonRelaxDeps = ["typing-extensions"];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     blessed
@@ -69,13 +68,13 @@ buildPythonPackage rec {
     "test_integration"
   ];
 
-  pythonImportsCheck = [ "myfitnesspal" ];
+  pythonImportsCheck = ["myfitnesspal"];
 
   meta = {
     description = "Python module to access meal tracking data stored in MyFitnessPal";
     mainProgram = "myfitnesspal";
     homepage = "https://github.com/coddingtonbear/python-myfitnesspal";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bhipple ];
+    maintainers = with lib.maintainers; [bhipple];
   };
 }

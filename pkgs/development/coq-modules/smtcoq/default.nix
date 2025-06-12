@@ -8,7 +8,6 @@
   stdlib,
   version ? null,
 }:
-
 # Broken since https://github.com/NixOS/nixpkgs/pull/354627, temporarily disactivated
 # let
 #   # version of veriT that works with SMTCoq
@@ -20,7 +19,6 @@
 #     meta.broken = false;
 #   });
 # in
-
 mkCoqDerivation {
   pname = "smtcoq";
   owner = "smtcoq";
@@ -42,8 +40,7 @@ mkCoqDerivation {
   releaseRev = v: v;
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.version [
       {
         case = isEq "8.19";
@@ -73,7 +70,8 @@ mkCoqDerivation {
         case = isEq "8.13";
         out = "SMTCoq-2.2+8.13";
       }
-    ] null;
+    ]
+    null;
 
   propagatedBuildInputs =
     [
@@ -88,14 +86,14 @@ mkCoqDerivation {
       zarith
     ]);
   mlPlugin = true;
-  nativeBuildInputs = (with pkgs; [ gnumake42 ]) ++ (with coq.ocamlPackages; [ ocamlbuild ]);
+  nativeBuildInputs = (with pkgs; [gnumake42]) ++ (with coq.ocamlPackages; [ocamlbuild]);
 
   # This is meant to ease future troubleshooting of cvc5 build failures
-  passthru = { inherit cvc5; };
+  passthru = {inherit cvc5;};
 
   meta = with lib; {
     description = "Communication between Coq and SAT/SMT solvers";
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.cecill-b;
     platforms = platforms.unix;
   };

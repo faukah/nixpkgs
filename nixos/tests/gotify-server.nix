@@ -1,22 +1,23 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "gotify-server";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ ];
+    maintainers = [];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = [ pkgs.jq ];
+  nodes.machine = {pkgs, ...}: {
+    environment.systemPackages = [pkgs.jq];
 
-      services.gotify = {
-        enable = true;
-        environment = {
-          GOTIFY_SERVER_PORT = 3000;
-        };
+    services.gotify = {
+      enable = true;
+      environment = {
+        GOTIFY_SERVER_PORT = 3000;
       };
     };
+  };
 
   testScript = ''
     machine.start()

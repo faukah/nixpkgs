@@ -6,7 +6,6 @@
   boost,
   kdePackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kdiff3";
   version = "1.12.3";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     kiconthemes
   ];
 
-  cmakeFlags = [ "-Wno-dev" ];
+  cmakeFlags = ["-Wno-dev"];
 
   env.LANG = "C.UTF-8";
 
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "kdiff3";
     homepage = "https://invent.kde.org/sdk/kdiff3";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     inherit (kdePackages.qtbase.meta) platforms;
   };
 })

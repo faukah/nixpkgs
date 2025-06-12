@@ -8,7 +8,6 @@
   llvmPackages,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cmtk";
   version = "3.3.2";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
       "float xyzFloat[3] = { (float)xyz[0], (float)xyz[1], (float)xyz[2] };"
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     [
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
       biomedical images, CMTK comprises a set of command line tools and a
       back-end general-purpose library for processing and I/O
     '';
-    maintainers = with maintainers; [ tbenst ];
+    maintainers = with maintainers; [tbenst];
     platforms = platforms.all;
     license = licenses.gpl3Plus;
     homepage = "https://www.nitrc.org/projects/cmtk/";

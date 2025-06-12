@@ -8,7 +8,6 @@
   withShared ? true,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-uchar";
   version = "0.0.2";
@@ -28,11 +27,11 @@ stdenv.mkDerivation rec {
 
   buildPhase = "ocaml pkg/build.ml native=true native-dynlink=${lib.boolToString withShared}";
   installPhase = "${opaline}/bin/opaline -libdir $OCAMLFIND_DESTDIR";
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   meta = {
     description = "Compatibility library for OCaml’s Uchar module";
     inherit (ocaml.meta) platforms license;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

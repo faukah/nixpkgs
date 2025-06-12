@@ -9,7 +9,6 @@
   gawk,
   glibc,
 }:
-
 buildGoModule rec {
   pname = "vault";
   version = "1.19.5";
@@ -25,14 +24,14 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   nativeBuildInputs = [
     installShellFiles
     makeWrapper
   ];
 
-  tags = [ "vault" ];
+  tags = ["vault"];
 
   ldflags = [
     "-s"
@@ -50,15 +49,16 @@ buildGoModule rec {
     + lib.optionalString stdenv.hostPlatform.isLinux ''
       wrapProgram $out/bin/vault \
         --prefix PATH ${
-          lib.makeBinPath [
-            gawk
-            glibc
-          ]
-        }
+        lib.makeBinPath [
+          gawk
+          glibc
+        ]
+      }
     '';
 
   passthru.tests = {
-    inherit (nixosTests)
+    inherit
+      (nixosTests)
       vault
       vault-postgresql
       vault-dev

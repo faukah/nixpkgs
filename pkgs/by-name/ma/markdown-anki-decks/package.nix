@@ -3,7 +3,6 @@
   python3,
   fetchPypi,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "markdown-anki-decks";
   version = "1.1.1";
@@ -44,7 +43,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/lukesmurray/markdown-anki-decks";
     changelog = "https://github.com/lukesmurray/markdown-anki-decks/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ totoroot ];
+    maintainers = with lib.maintainers; [totoroot];
     platforms = lib.platforms.unix;
     mainProgram = "mdankideck";
   };

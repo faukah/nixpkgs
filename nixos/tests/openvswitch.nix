@@ -3,7 +3,7 @@
 
   nodes = {
     node1 = {
-      virtualisation.vlans = [ 1 ];
+      virtualisation.vlans = [1];
 
       networking = {
         useNetworkd = true;
@@ -12,21 +12,19 @@
 
         vswitches.vs0 = {
           interfaces = {
-            eth1 = { };
+            eth1 = {};
           };
         };
-
       };
 
       systemd.network.networks."40-vs0" = {
         name = "vs0";
         networkConfig.Address = "10.0.0.1/24";
       };
-
     };
 
     node2 = {
-      virtualisation.vlans = [ 1 ];
+      virtualisation.vlans = [1];
 
       networking = {
         useNetworkd = true;
@@ -35,10 +33,9 @@
 
         vswitches.vs0 = {
           interfaces = {
-            eth1 = { };
+            eth1 = {};
           };
         };
-
       };
 
       systemd.network.networks."40-vs0" = {
@@ -48,7 +45,8 @@
     };
   };
 
-  testScript = # python
+  testScript =
+    # python
     ''
       start_all()
       node1.wait_for_unit("ovsdb.service")

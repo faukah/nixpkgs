@@ -10,7 +10,6 @@
   libXaw,
   localStateDir ? null,
 }:
-
 stdenv.mkDerivation {
   pname = "xjump";
   version = "2.9.3";
@@ -31,13 +30,13 @@ stdenv.mkDerivation {
     libXaw
   ];
   preConfigure = "autoreconf --install";
-  patches = lib.optionals stdenv.buildPlatform.isDarwin [ ./darwin.patch ];
-  configureFlags = lib.optionals (localStateDir != null) [ "--localstatedir=${localStateDir}" ];
+  patches = lib.optionals stdenv.buildPlatform.isDarwin [./darwin.patch];
+  configureFlags = lib.optionals (localStateDir != null) ["--localstatedir=${localStateDir}"];
 
   meta = with lib; {
     description = "Falling tower game";
     mainProgram = "xjump";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ pmeunier ];
+    maintainers = with maintainers; [pmeunier];
   };
 }

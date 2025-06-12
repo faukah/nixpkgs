@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "treeland-protocols";
   version = "0.4.5";
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
       asl20
     ];
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

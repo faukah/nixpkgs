@@ -5,7 +5,6 @@
   enableWideVine,
   ungoogled,
 }:
-
 mkChromiumDerivation (base: rec {
   name = "chromium-browser";
   packageName = "chromium";
@@ -78,9 +77,9 @@ mkChromiumDerivation (base: rec {
       $out/share/applications/chromium-browser.desktop
   '';
 
-  passthru = { inherit sandboxExecutableName; };
+  passthru = {inherit sandboxExecutableName;};
 
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   meta = {
     description =
@@ -93,25 +92,25 @@ mkChromiumDerivation (base: rec {
       of source code for Google Chrome (which has some additional features).
     '';
     homepage =
-      if ungoogled then
-        "https://github.com/ungoogled-software/ungoogled-chromium"
-      else
-        "https://www.chromium.org/";
+      if ungoogled
+      then "https://github.com/ungoogled-software/ungoogled-chromium"
+      else "https://www.chromium.org/";
     # Maintainer pings for this derivation are highly unreliable.
     # If you add yourself as maintainer here, please also add yourself as CODEOWNER.
-    maintainers =
-      with lib.maintainers;
-      if ungoogled then
-        [
-          networkexception
-          emilylange
-        ]
-      else
-        [
-          networkexception
-          emilylange
-        ];
-    license = if enableWideVine then lib.licenses.unfree else lib.licenses.bsd3;
+    maintainers = with lib.maintainers;
+      if ungoogled
+      then [
+        networkexception
+        emilylange
+      ]
+      else [
+        networkexception
+        emilylange
+      ];
+    license =
+      if enableWideVine
+      then lib.licenses.unfree
+      else lib.licenses.bsd3;
     platforms = lib.platforms.linux;
     mainProgram = "chromium";
     hydraPlatforms = [

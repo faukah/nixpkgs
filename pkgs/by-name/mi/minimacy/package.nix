@@ -9,7 +9,6 @@
   libXext,
   makeBinaryWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "minimacy";
   version = "1.2.0";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-uA+4dnhOnv7qRE7nqew8a14DGaQblsMY2uBZ+iyLtFU=";
   };
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   buildInputs =
     [
@@ -39,13 +38,23 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-Wno-unused-result";
 
   preBuild = ''
-    pushd ${if stdenv.hostPlatform.isDarwin then "macos/cmdline" else "unix"}
+    pushd ${
+      if stdenv.hostPlatform.isDarwin
+      then "macos/cmdline"
+      else "unix"
+    }
   '';
 
   # TODO: build graphic version for darwin
-  buildFlags = (if stdenv.hostPlatform.isDarwin then [ "nox" ] else [ "all" ]) ++ [
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ];
+  buildFlags =
+    (
+      if stdenv.hostPlatform.isDarwin
+      then ["nox"]
+      else ["all"]
+    )
+    ++ [
+      "CC=${stdenv.cc.targetPrefix}cc"
+    ];
 
   postBuild = ''
     popd
@@ -57,7 +66,9 @@ stdenv.mkDerivation rec {
     runHook preCheck
 
     bin/${
-      if stdenv.hostPlatform.isDarwin then "minimacyMac" else "minimacy"
+      if stdenv.hostPlatform.isDarwin
+      then "minimacyMac"
+      else "minimacy"
     } system/demo/demo.fun.mandelbrot.mcy
 
     runHook postCheck
@@ -86,7 +97,7 @@ stdenv.mkDerivation rec {
       Minimacy is an open-source minimalist computation system based on the principle "Less is more".
       It is designed and programmed by Sylvain Huet.
     '';
-    maintainers = with lib.maintainers; [ jboy ];
+    maintainers = with lib.maintainers; [jboy];
     homepage = "https://minimacy.net";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;

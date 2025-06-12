@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.zookeeper;
 
   zookeeperConfig = ''
@@ -22,10 +21,7 @@ let
       (pkgs.writeTextDir "log4j.properties" cfg.logging)
     ];
   };
-
-in
-{
-
+in {
   options.services.zookeeper = {
     enable = lib.mkEnableOption "Zookeeper";
 
@@ -113,7 +109,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "zookeeper" { };
+    package = lib.mkPackageOption pkgs "zookeeper" {};
 
     jre = lib.mkOption {
       description = "The JRE with which to run Zookeeper";
@@ -125,7 +121,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.tmpfiles.rules = [
       "d '${cfg.dataDir}' 0700 zookeeper - - -"
@@ -134,8 +130,8 @@ in
 
     systemd.services.zookeeper = {
       description = "Zookeeper Daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = ''
           ${cfg.jre}/bin/java \
@@ -160,6 +156,6 @@ in
       description = "Zookeeper daemon user";
       home = cfg.dataDir;
     };
-    users.groups.zookeeper = { };
+    users.groups.zookeeper = {};
   };
 }

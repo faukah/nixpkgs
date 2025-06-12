@@ -12,7 +12,6 @@
   cbc,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "minizinc";
   version = "2.9.2";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.tests = {
-    simple = callPackage ./simple-test { };
+    simple = callPackage ./simple-test {};
   };
 
   meta = with lib; {
@@ -64,6 +63,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = licenses.mpl20;
     platforms = platforms.unix;
-    maintainers = [ maintainers.sheenobu ];
+    maintainers = [maintainers.sheenobu];
   };
 })

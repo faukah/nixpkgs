@@ -7,7 +7,6 @@
   wrapQtAppsHook,
   qtbase,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tytools";
   version = "0.9.8";
@@ -33,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "https://koromix.dev/tytools";
     license = licenses.unlicense;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ahuzik ];
+    maintainers = with maintainers; [ahuzik];
   };
 }

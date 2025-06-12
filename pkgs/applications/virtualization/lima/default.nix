@@ -11,7 +11,6 @@
   apple-sdk_15,
   lima,
 }:
-
 buildGoModule rec {
   pname = "lima";
   version = "1.0.7";
@@ -25,12 +24,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-JxrUX22yNb5/tZIBWDiBaMLOpEnOk+2lZdpzCjjqO4E=";
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ sigtool ];
+  nativeBuildInputs =
+    [
+      makeWrapper
+      installShellFiles
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [sigtool];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ apple-sdk_15 ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [apple-sdk_15];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -58,7 +59,7 @@ buildGoModule rec {
       mkdir -p $out
       cp -r _output/* $out
       wrapProgram $out/bin/limactl \
-        --prefix PATH : ${lib.makeBinPath [ qemu ]}
+        --prefix PATH : ${lib.makeBinPath [qemu]}
     ''
     + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
       installShellCompletion --cmd limactl \
@@ -83,13 +84,13 @@ buildGoModule rec {
     USER=nix $out/bin/limactl validate templates/default.yaml
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/lima-vm/lima";
     description = "Linux virtual machines (on macOS, in most cases)";
     changelog = "https://github.com/lima-vm/lima/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ anhduy ];
+    maintainers = with lib.maintainers; [anhduy];
   };
 }

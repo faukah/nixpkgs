@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "urxvt-autocomplete-all-the-things";
   version = "1.6.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     description = "urxvt plugin allowing user to easily complete arbitrary text";
     homepage = "https://github.com/Vifon/autocomplete-ALL-the-things";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ nickhu ];
+    maintainers = with maintainers; [nickhu];
     platforms = with platforms; unix;
   };
 }

@@ -10,6 +10,6 @@ mkKdeDerivation {
     "-DENABLE_LIBVLC=0"
   ];
 
-  extraNativeBuildInputs = [ pkg-config ];
-  extraBuildInputs = [ mpv ];
+  extraNativeBuildInputs = [pkg-config];
+  extraBuildInputs = [mpv];
 }

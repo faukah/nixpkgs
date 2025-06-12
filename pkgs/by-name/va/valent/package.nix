@@ -23,7 +23,6 @@
   pulseaudio,
   tinysparql,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "valent";
   version = "1.0.0.alpha.46-unstable-2024-10-26";
@@ -94,7 +93,7 @@ stdenv.mkDerivation (finalAttrs: {
       cc0
       cc-by-sa-30
     ];
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 })

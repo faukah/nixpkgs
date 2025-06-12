@@ -7,12 +7,11 @@
   testers,
   telegraf,
 }:
-
 buildGoModule rec {
   pname = "telegraf";
   version = "1.34.4";
 
-  subPackages = [ "cmd/telegraf" ];
+  subPackages = ["cmd/telegraf"];
 
   src = fetchFromGitHub {
     owner = "influxdata";

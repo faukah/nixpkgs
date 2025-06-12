@@ -6,7 +6,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "tendo";
   version = "0.4.0";
@@ -36,15 +35,15 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "tendo" ];
+  pythonImportsCheck = ["tendo"];
 
   meta = with lib; {
     description = "Adds basic functionality that is not provided by Python";
     homepage = "https://github.com/pycontribs/tendo";
     changelog = "https://github.com/pycontribs/tendo/releases/tag/v${version}";
     license = licenses.psfl;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

@@ -29,7 +29,6 @@
   withFreestanding ? false,
   ocaml-freestanding,
 }:
-
 buildDunePackage rec {
   pname = "tcpip";
   version = "9.0.1";
@@ -81,7 +80,7 @@ buildDunePackage rec {
   meta = with lib; {
     description = "OCaml TCP/IP networking stack, used in MirageOS";
     homepage = "https://github.com/mirage/mirage-tcpip";
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     license = licenses.isc;
   };
 }

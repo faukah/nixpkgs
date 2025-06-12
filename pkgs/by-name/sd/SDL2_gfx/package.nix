@@ -9,7 +9,6 @@
   enableMmx ? stdenv.hostPlatform.isx86,
   enableSdltest ? (!stdenv.hostPlatform.isDarwin),
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "SDL2_gfx";
   version = "1.0.4";
@@ -73,8 +72,8 @@ stdenv.mkDerivation (finalAttrs: {
       written in plain C and can be used in C++ code.
     '';
     license = lib.licenses.zlib;
-    teams = [ lib.teams.sdl ];
-    pkgConfigModules = [ "SDL2_gfx" ];
+    teams = [lib.teams.sdl];
+    pkgConfigModules = ["SDL2_gfx"];
     inherit (SDL2.meta) platforms;
   };
 })

@@ -6,7 +6,6 @@
   audiothekar,
   testers,
 }:
-
 buildDotnetModule rec {
   pname = "audiothekar";
   version = "1.0.1";
@@ -55,7 +54,7 @@ buildDotnetModule rec {
     maintainers = with maintainers; [
       wamserma
     ];
-    platforms = [ "x86_64-linux" ]; # needs some work to enable dotnet-sdk.meta.platforms;
+    platforms = ["x86_64-linux"]; # needs some work to enable dotnet-sdk.meta.platforms;
     mainProgram = "audiothekar-cli";
   };
 }

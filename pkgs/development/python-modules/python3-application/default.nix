@@ -6,7 +6,6 @@
   zope-interface,
   twisted,
 }:
-
 buildPythonPackage rec {
   pname = "python3-application";
   version = "3.0.6";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     twisted
   ];
 
-  pythonImportsCheck = [ "application" ];
+  pythonImportsCheck = ["application"];
 
   meta = with lib; {
     description = "Collection of modules that are useful when building python applications";

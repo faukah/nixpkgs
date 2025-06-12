@@ -13,7 +13,6 @@
   ufolib2,
   defcon,
 }:
-
 buildPythonPackage rec {
   pname = "vfblib";
   version = "0.9.4";
@@ -40,16 +39,16 @@ buildPythonPackage rec {
     defcon
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "vfbLib" ];
+  pythonImportsCheck = ["vfbLib"];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "Converter and deserializer for FontLab Studio 5 VFB files";
     homepage = "https://github.com/LucasFonts/vfbLib";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ jopejoe1 ];
+    maintainers = with maintainers; [jopejoe1];
   };
 }

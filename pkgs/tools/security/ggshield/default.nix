@@ -4,7 +4,6 @@
   git,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "ggshield";
   version = "1.40.0";
@@ -19,7 +18,7 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonRelaxDeps = true;
 
-  build-system = with python3.pkgs; [ pdm-backend ];
+  build-system = with python3.pkgs; [pdm-backend];
 
   dependencies = with python3.pkgs; [
     appdirs
@@ -40,7 +39,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   nativeCheckInputs =
-    [ git ]
+    [git]
     ++ (with python3.pkgs; [
       jsonschema
       pyfakefs
@@ -52,7 +51,7 @@ python3.pkgs.buildPythonApplication rec {
       vcrpy
     ]);
 
-  pythonImportsCheck = [ "ggshield" ];
+  pythonImportsCheck = ["ggshield"];
 
   disabledTestPaths = [
     # Don't run functional tests
@@ -84,7 +83,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/GitGuardian/ggshield";
     changelog = "https://github.com/GitGuardian/ggshield/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "ggshield";
   };
 }

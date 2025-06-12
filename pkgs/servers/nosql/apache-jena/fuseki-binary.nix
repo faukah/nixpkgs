@@ -9,7 +9,6 @@
   # For the test
   pkgs,
 }:
-
 stdenv.mkDerivation rec {
   pname = "apache-jena-fuseki";
   version = "5.1.0";
@@ -36,13 +35,13 @@ stdenv.mkDerivation rec {
   '';
   passthru = {
     tests = {
-      basic-test = pkgs.callPackage ./fuseki-test.nix { };
+      basic-test = pkgs.callPackage ./fuseki-test.nix {};
     };
   };
   meta = with lib; {
     description = "SPARQL server";
     license = licenses.asl20;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.all;
     sourceProvenance = with sourceTypes; [
       binaryBytecode

@@ -8,7 +8,6 @@
   azure-mgmt-core,
   azure-mgmt-nspkg,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-notificationhubs";
   version = "8.0.0";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "This is the Microsoft Azure Notification Hubs Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

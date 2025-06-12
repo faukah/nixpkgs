@@ -7,7 +7,6 @@
   # dependencies
   slither-analyzer,
 }:
-
 haskellPackages.mkDerivation rec {
   pname = "echidna";
   version = "2.2.6";
@@ -90,9 +89,8 @@ haskellPackages.mkDerivation rec {
     hpack
   '';
 
-  postInstall =
-    with haskellPackages;
-    # https://github.com/NixOS/nixpkgs/pull/304352
+  postInstall = with haskellPackages;
+  # https://github.com/NixOS/nixpkgs/pull/304352
     lib.optionalString (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) ''
       remove-references-to -t ${warp.out} "$out/bin/echidna"
       remove-references-to -t ${wreq.out} "$out/bin/echidna"
@@ -100,7 +98,7 @@ haskellPackages.mkDerivation rec {
     # make slither-analyzer a runtime dependency
     + ''
       wrapProgram $out/bin/echidna \
-        --prefix PATH : ${lib.makeBinPath [ slither-analyzer ]}
+        --prefix PATH : ${lib.makeBinPath [slither-analyzer]}
     '';
 
   doHaddock = false;

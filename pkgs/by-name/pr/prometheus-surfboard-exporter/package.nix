@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "surfboard_exporter";
   version = "2.0.0";
@@ -22,14 +21,14 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) surfboard; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) surfboard;};
 
   meta = with lib; {
     description = "Arris Surfboard signal metrics exporter";
     mainProgram = "surfboard_exporter";
     homepage = "https://github.com/ipstatic/surfboard_exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ disassembler ];
+    maintainers = with maintainers; [disassembler];
     platforms = platforms.unix;
   };
 }

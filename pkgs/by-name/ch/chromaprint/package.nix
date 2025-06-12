@@ -15,7 +15,6 @@
   withExamples ? true,
   withTools ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "chromaprint";
   version = "1.5.1";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     (fetchpatch {
       url = "https://github.com/acoustid/chromaprint/commit/8ccad6937177b1b92e40ab8f4447ea27bac009a7.patch";
       hash = "sha256-yO2iWmU9s2p0uJfwIdmk3jZ5HXBIQZ/NyOqG+Y5EHdg=";
-      excludes = [ "package/build.sh" ];
+      excludes = ["package/build.sh"];
     })
     # ffmpeg5 fix for issue #122
     # https://github.com/acoustid/chromaprint/pull/125
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs =
-    [ ffmpeg-headless ]
+    [ffmpeg-headless]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       zlib
     ];
@@ -66,29 +65,27 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
   };
 
   doCheck = true;
-  checkPhase =
-    let
-      exampleAudio = fetchurl {
-        name = "Dvorak_Symphony_9_1.mp3";
-        url = "https://archive.org/download/Dvorak_Symphony_9/01.Adagio-Allegro_Molto.mp3";
-        hash = "sha256-I+Ve3/OpL+3Joc928F8M21LhCH2eQfRtaJVx9mNOLW0=";
-        meta.license = lib.licenses.publicDomain;
-      };
+  checkPhase = let
+    exampleAudio = fetchurl {
+      name = "Dvorak_Symphony_9_1.mp3";
+      url = "https://archive.org/download/Dvorak_Symphony_9/01.Adagio-Allegro_Molto.mp3";
+      hash = "sha256-I+Ve3/OpL+3Joc928F8M21LhCH2eQfRtaJVx9mNOLW0=";
+      meta.license = lib.licenses.publicDomain;
+    };
 
-      # sha256 because actual output of fpcalc is quite long
-      expectedHash = "c47ae40e02caf798ff5ab4d91ff00cfdca8f6786c581662436941d3e000c9aac";
-    in
-    ''
-      runHook preCheck
-      tests/all_tests
-      ${lib.optionalString withTools "diff -u <(src/cmd/fpcalc ${exampleAudio} | sha256sum | cut -c-64) <(echo '${expectedHash}')"}
-      runHook postCheck
-    '';
+    # sha256 because actual output of fpcalc is quite long
+    expectedHash = "c47ae40e02caf798ff5ab4d91ff00cfdca8f6786c581662436941d3e000c9aac";
+  in ''
+    runHook preCheck
+    tests/all_tests
+    ${lib.optionalString withTools "diff -u <(src/cmd/fpcalc ${exampleAudio} | sha256sum | cut -c-64) <(echo '${expectedHash}')"}
+    runHook postCheck
+  '';
 
   meta =
     {
@@ -97,7 +94,7 @@ stdenv.mkDerivation (finalAttrs: {
       description = "AcoustID audio fingerprinting library";
       license = lib.licenses.lgpl21Plus;
       platforms = lib.platforms.unix;
-      pkgConfigModules = [ "libchromaprint" ];
+      pkgConfigModules = ["libchromaprint"];
     }
     // lib.attrsets.optionalAttrs withTools {
       mainProgram = "fpcalc";

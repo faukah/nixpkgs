@@ -22,10 +22,9 @@
   which,
   gnumake42,
   enableParallelBuilding ? true,
-  extraPatches ? [ ],
-  env ? { },
+  extraPatches ? [],
+  env ? {},
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mono";
   inherit version src env;
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # We want pkg-config to take priority over the dlls in the Mono framework and the GAC
   # because we control pkg-config
-  patches = [ ./pkgconfig-before-gac.patch ] ++ extraPatches;
+  patches = [./pkgconfig-before-gac.patch] ++ extraPatches;
 
   # Patch all the necessary scripts
   preBuild = ''
@@ -111,10 +110,9 @@ stdenv.mkDerivation (finalAttrs: {
       )
       || !stdenv.buildPlatform.canExecute stdenv.hostPlatform;
     homepage =
-      if lib.versionOlder finalAttrs.version "6.14.0" then
-        "https://mono-project.com/"
-      else
-        "https://gitlab.winehq.org/mono/mono";
+      if lib.versionOlder finalAttrs.version "6.14.0"
+      then "https://mono-project.com/"
+      else "https://gitlab.winehq.org/mono/mono";
     description = "Cross platform, open source .NET development framework";
     platforms = with platforms; darwin ++ linux;
     knownVulnerabilities = lib.optionals (lib.versionOlder finalAttrs.version "6.14.0") [

@@ -8,7 +8,6 @@
   ncurses,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vk-cli";
   version = "0.7.6";
@@ -43,20 +42,20 @@ stdenv.mkDerivation rec {
     patchelf $out/bin/vk-cli \
       --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       --set-rpath "${
-        lib.makeLibraryPath [
-          curl
-          glibc
-        ]
-      }"
+      lib.makeLibraryPath [
+        curl
+        glibc
+      ]
+    }"
   '';
 
   meta = with lib; {
     description = "Console (ncurses) client for vk.com written in D";
     mainProgram = "vk-cli";
     homepage = "https://github.com/vk-cli/vk";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.asl20;
-    maintainers = with maintainers; [ dan4ik605743 ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [dan4ik605743];
+    platforms = ["x86_64-linux"];
   };
 }

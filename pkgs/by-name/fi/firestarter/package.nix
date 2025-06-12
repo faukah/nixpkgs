@@ -9,11 +9,9 @@
   glibc,
   git,
   pkg-config,
-  cudaPackages ? { },
+  cudaPackages ? {},
   withCuda ? false,
-}:
-
-let
+}: let
   inherit (cudaPackages) cudatoolkit;
 
   hwloc = stdenv.mkDerivation rec {
@@ -43,7 +41,7 @@ let
       "--disable-plugin-ltdl"
     ];
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
     enableParallelBuilding = true;
 
@@ -55,77 +53,75 @@ let
       "man"
     ];
   };
-
 in
-stdenv.mkDerivation rec {
-  pname = "firestarter";
-  version = "2.0";
+  stdenv.mkDerivation rec {
+    pname = "firestarter";
+    version = "2.0";
 
-  src = fetchFromGitHub {
-    owner = "tud-zih-energy";
-    repo = "FIRESTARTER";
-    rev = "v${version}";
-    sha256 = "1ik6j1lw5nldj4i3lllrywqg54m9i2vxkxsb2zr4q0d2rfywhn23";
-    fetchSubmodules = true;
-  };
+    src = fetchFromGitHub {
+      owner = "tud-zih-energy";
+      repo = "FIRESTARTER";
+      rev = "v${version}";
+      sha256 = "1ik6j1lw5nldj4i3lllrywqg54m9i2vxkxsb2zr4q0d2rfywhn23";
+      fetchSubmodules = true;
+    };
 
-  nativeBuildInputs =
-    [
-      cmake
-      git
-      pkg-config
-    ]
-    ++ lib.optionals withCuda [
-      addDriverRunpath
-    ];
+    nativeBuildInputs =
+      [
+        cmake
+        git
+        pkg-config
+      ]
+      ++ lib.optionals withCuda [
+        addDriverRunpath
+      ];
 
-  buildInputs =
-    [ hwloc ]
-    ++ (
-      if withCuda then
-        [
+    buildInputs =
+      [hwloc]
+      ++ (
+        if withCuda
+        then [
           glibc_multi
           cudatoolkit
         ]
-      else
-        [ glibc.static ]
-    );
+        else [glibc.static]
+      );
 
-  NIX_LDFLAGS = lib.optionals withCuda [
-    "-L${cudatoolkit}/lib/stubs"
-  ];
-
-  cmakeFlags =
-    [
-      "-DFIRESTARTER_BUILD_HWLOC=OFF"
-      "-DCMAKE_C_COMPILER_WORKS=1"
-      "-DCMAKE_CXX_COMPILER_WORKS=1"
-    ]
-    ++ lib.optionals withCuda [
-      "-DFIRESTARTER_BUILD_TYPE=FIRESTARTER_CUDA"
+    NIX_LDFLAGS = lib.optionals withCuda [
+      "-L${cudatoolkit}/lib/stubs"
     ];
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/bin
-    cp src/FIRESTARTER${lib.optionalString withCuda "_CUDA"} $out/bin/
-    runHook postInstall
-  '';
+    cmakeFlags =
+      [
+        "-DFIRESTARTER_BUILD_HWLOC=OFF"
+        "-DCMAKE_C_COMPILER_WORKS=1"
+        "-DCMAKE_CXX_COMPILER_WORKS=1"
+      ]
+      ++ lib.optionals withCuda [
+        "-DFIRESTARTER_BUILD_TYPE=FIRESTARTER_CUDA"
+      ];
 
-  postFixup = lib.optionalString withCuda ''
-    addDriverRunpath $out/bin/FIRESTARTER_CUDA
-  '';
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/bin
+      cp src/FIRESTARTER${lib.optionalString withCuda "_CUDA"} $out/bin/
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
-    homepage = "https://tu-dresden.de/zih/forschung/projekte/firestarter";
-    description = "Processor Stress Test Utility";
-    platforms = platforms.linux;
-    maintainers = with maintainers; [
-      astro
-      marenz
-    ];
-    license = licenses.gpl3;
-    mainProgram = "FIRESTARTER";
-  };
-}
+    postFixup = lib.optionalString withCuda ''
+      addDriverRunpath $out/bin/FIRESTARTER_CUDA
+    '';
+
+    meta = with lib; {
+      broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
+      homepage = "https://tu-dresden.de/zih/forschung/projekte/firestarter";
+      description = "Processor Stress Test Utility";
+      platforms = platforms.linux;
+      maintainers = with maintainers; [
+        astro
+        marenz
+      ];
+      license = licenses.gpl3;
+      mainProgram = "FIRESTARTER";
+    };
+  }

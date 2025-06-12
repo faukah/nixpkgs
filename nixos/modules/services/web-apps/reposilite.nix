@@ -3,10 +3,9 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.reposilite;
-  format = pkgs.formats.cdn { };
+  format = pkgs.formats.cdn {};
   configFile = format.generate "reposilite.cdn" cfg.settings;
 
   useEmbeddedDb = cfg.database.type == "sqlite" || cfg.database.type == "h2";
@@ -15,10 +14,9 @@ let
 
   # db password is appended at runtime by the service script (if needed)
   dbString =
-    if useEmbeddedDb then
-      "${cfg.database.type} ${cfg.database.path}"
-    else
-      "${cfg.database.type} ${cfg.database.host}:${builtins.toString cfg.database.port} ${cfg.database.dbname} ${cfg.database.user} $(<${cfg.database.passwordFile})";
+    if useEmbeddedDb
+    then "${cfg.database.type} ${cfg.database.path}"
+    else "${cfg.database.type} ${cfg.database.host}:${builtins.toString cfg.database.port} ${cfg.database.dbname} ${cfg.database.user} $(<${cfg.database.passwordFile})";
 
   certDir = config.security.acme.certs.${cfg.useACMEHost}.directory;
 
@@ -62,7 +60,10 @@ let
         defaultText = lib.literalExpression ''
           if type == "postgresql" then 5432 else 3306
         '';
-        default = if usePostgres then config.services.postgresql.settings.port else 3306;
+        default =
+          if usePostgres
+          then config.services.postgresql.settings.port
+          else 3306;
       };
 
       dbname = lib.mkOption {
@@ -254,30 +255,30 @@ let
       };
     };
   };
-in
-{
+in {
   options.services.reposilite = {
     enable = lib.mkEnableOption "Reposilite";
-    package = lib.mkPackageOption pkgs "reposilite" { } // {
-      apply =
-        pkg:
-        pkg.override (old: {
-          plugins = (old.plugins or [ ]) ++ cfg.plugins;
-        });
-    };
+    package =
+      lib.mkPackageOption pkgs "reposilite" {}
+      // {
+        apply = pkg:
+          pkg.override (old: {
+            plugins = (old.plugins or []) ++ cfg.plugins;
+          });
+      };
 
     plugins = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       description = ''
         List of plugins to add to Reposilite.
       '';
-      default = [ ];
+      default = [];
       example = "with reposilitePlugins; [ checksum groovy ]";
     };
 
     database = lib.mkOption {
       description = "Database options.";
-      default = { };
+      default = {};
       type = lib.types.submodule databaseModule;
     };
 
@@ -302,7 +303,7 @@ in
 
     settings = lib.mkOption {
       description = "Configuration written to the reposilite.cdn file";
-      default = { };
+      default = {};
       type = lib.types.submodule settingsModule;
     };
 
@@ -319,7 +320,7 @@ in
       description = ''
         Extra arguments/parameters passed to the Reposilite. Can be used for first token generation.
       '';
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''[ "--token" "name:tempsecrettoken" ]'';
     };
 
@@ -371,10 +372,10 @@ in
       cfg.useACMEHost != null
     ) "${certDir}/fullchain.pem ${certDir}/key.pem";
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users = {
-      groups.${cfg.group} = lib.mkIf (cfg.group == "reposilite") { };
+      groups.${cfg.group} = lib.mkIf (cfg.group == "reposilite") {};
       users.${cfg.user} = lib.mkIf (cfg.user == "reposilite") {
         isSystemUser = true;
         group = cfg.group;
@@ -384,19 +385,19 @@ in
     networking.firewall = lib.mkIf cfg.openFirewall (
       lib.mkMerge [
         {
-          allowedTCPPorts = [ cfg.settings.port ];
+          allowedTCPPorts = [cfg.settings.port];
         }
         (lib.mkIf cfg.settings.sslEnabled {
-          allowedTCPPorts = [ cfg.settings.sslPort ];
+          allowedTCPPorts = [cfg.settings.sslPort];
         })
       ]
     );
 
     systemd.services.reposilite = {
       enable = true;
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after =
-        [ "network.target" ]
+        ["network.target"]
         ++ (lib.optional useMySQL "mysql.service")
         ++ (lib.optional usePostgres "postgresql.service");
 
@@ -435,5 +436,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.uku3lig ];
+  meta.maintainers = [lib.maintainers.uku3lig];
 }

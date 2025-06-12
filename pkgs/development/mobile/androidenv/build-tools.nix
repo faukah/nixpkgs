@@ -12,10 +12,9 @@
   postInstall,
   meta,
 }:
-
 deployAndroidPackage {
   inherit package os arch;
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals (os == "linux") [ autoPatchelfHook ];
+  nativeBuildInputs = [makeWrapper] ++ lib.optionals (os == "linux") [autoPatchelfHook];
   buildInputs =
     lib.optionals (os == "linux") [
       pkgs.glibc
@@ -24,8 +23,7 @@ deployAndroidPackage {
       pkgs.libcxx
     ]
     ++ lib.optionals (os == "linux" && stdenv.hostPlatform.isx86_64) (
-      with pkgsi686Linux;
-      [
+      with pkgsi686Linux; [
         glibc
         zlib
         ncurses5

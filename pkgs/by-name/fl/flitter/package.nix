@@ -6,7 +6,6 @@
   pkg-config,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "flitter";
   version = "1.1.3";
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Livesplit-inspired speedrunning split timer for Linux/macOS terminal";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     homepage = "https://github.com/alexozer/flitter";
     platforms = platforms.unix;
     mainProgram = "flitter";

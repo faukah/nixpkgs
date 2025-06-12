@@ -14,7 +14,6 @@
   syrupy,
   tenacity,
 }:
-
 buildPythonPackage rec {
   pname = "nettigo-air-monitor";
   version = "4.1.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-tGadB2v3UIgX/v3Cvx95bEOpoOtQXGizk24FelKpidc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -52,13 +51,13 @@ buildPythonPackage rec {
     "test_retry_success"
   ];
 
-  pythonImportsCheck = [ "nettigo_air_monitor" ];
+  pythonImportsCheck = ["nettigo_air_monitor"];
 
   meta = with lib; {
     description = "Python module to get air quality data from Nettigo Air Monitor devices";
     homepage = "https://github.com/bieniu/nettigo-air-monitor";
     changelog = "https://github.com/bieniu/nettigo-air-monitor/releases/tag/${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

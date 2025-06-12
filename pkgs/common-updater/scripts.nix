@@ -11,7 +11,6 @@
   nix,
   python3Packages,
 }:
-
 stdenv.mkDerivation {
   name = "common-updater-scripts";
 
@@ -35,21 +34,21 @@ stdenv.mkDerivation {
     for f in $out/bin/*; do
       if ! (head -n1 "$f" | grep -q '#!.*/env.*\(python\|pypy\)'); then
         wrapProgram $f --prefix PATH : ${
-          lib.makeBinPath [
-            coreutils
-            diffutils
-            git
-            gnugrep
-            gnused
-            jq
-            nix
-          ]
-        }
+      lib.makeBinPath [
+        coreutils
+        diffutils
+        git
+        gnugrep
+        gnused
+        jq
+        nix
+      ]
+    }
       fi
     done
 
     # wrap python scripts
-    makeWrapperArgs+=( --prefix PATH : "${lib.makeBinPath [ nix ]}" )
+    makeWrapperArgs+=( --prefix PATH : "${lib.makeBinPath [nix]}" )
     wrapPythonPrograms
   '';
 }

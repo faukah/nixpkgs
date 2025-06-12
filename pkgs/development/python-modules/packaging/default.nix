@@ -3,16 +3,12 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   flit-core,
-
   # tests
   pretend,
   pytestCheckHook,
-}:
-
-let
+}: let
   packaging = buildPythonPackage rec {
     pname = "packaging";
     version = "24.2";
@@ -25,7 +21,7 @@ let
       hash = "sha256-wiim3F6TLTRrxXOTeRCdSeiFPdgiNXHHxbVSYO3AuX8=";
     };
 
-    nativeBuildInputs = [ flit-core ];
+    nativeBuildInputs = [flit-core];
 
     nativeCheckInputs = [
       pytestCheckHook
@@ -57,9 +53,9 @@ let
         bsd2
         asl20
       ];
-      maintainers = with maintainers; [ bennofs ];
-      teams = [ teams.python ];
+      maintainers = with maintainers; [bennofs];
+      teams = [teams.python];
     };
   };
 in
-packaging
+  packaging

@@ -6,7 +6,6 @@
   protobuf,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kcl-language-server";
   version = "0.11.2";

@@ -5,7 +5,6 @@
   ffmpeg,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "yutto";
   version = "2.0.3";
@@ -20,10 +19,9 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-giwCLA9M1XR0neLJVfO017Q1wK34yVQpOxUzgShDJL0=";
   };
 
-  build-system = with python3Packages; [ hatchling ];
+  build-system = with python3Packages; [hatchling];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       httpx
       aiofiles
@@ -36,18 +34,18 @@ python3Packages.buildPythonApplication rec {
     ++ (with httpx.optional-dependencies; http2 ++ socks);
 
   preFixup = ''
-    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ ffmpeg ]})
+    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ffmpeg]})
   '';
 
-  pythonImportsCheck = [ "yutto" ];
+  pythonImportsCheck = ["yutto"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Bilibili downloader";
     homepage = "https://github.com/yutto-dev/yutto";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ linsui ];
+    maintainers = with maintainers; [linsui];
     mainProgram = "yutto";
   };
 }

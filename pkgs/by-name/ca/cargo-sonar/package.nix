@@ -20,15 +20,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-KLw6kAR2pF5RFhRDfsL093K+jk3oiSHLZ2CQvrBuhWY=";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Utility to produce some Sonar-compatible format from different Rust tools like cargo-clippy cargo-audit or cargo-outdated";
     mainProgram = "cargo-sonar";
     homepage = "https://gitlab.com/woshilapin/cargo-sonar";
-    license = [ lib.licenses.mit ];
-    maintainers = [ lib.maintainers.jonboh ];
+    license = [lib.licenses.mit];
+    maintainers = [lib.maintainers.jonboh];
   };
 })

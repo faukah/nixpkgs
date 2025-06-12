@@ -9,7 +9,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-httpbin";
   version = "2.1.0";
@@ -24,11 +23,11 @@ buildPythonPackage rec {
     hash = "sha256-gESU1SDpqSQs8GRcGJclWM0WpS4DZicfdtwxk2sQubQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  propagatedBuildInputs = [ httpbin ];
+  propagatedBuildInputs = [httpbin];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -44,13 +43,13 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "pytest_httpbin" ];
+  pythonImportsCheck = ["pytest_httpbin"];
 
   meta = with lib; {
     description = "Test your HTTP library against a local copy of httpbin.org";
     homepage = "https://github.com/kevin1024/pytest-httpbin";
     changelog = "https://github.com/kevin1024/pytest-httpbin/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

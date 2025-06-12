@@ -5,7 +5,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "thud";
   version = "0.3.1";
@@ -36,13 +35,13 @@ rustPlatform.buildRustPackage rec {
       --zsh <(cat target/completions/_thud)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Generate directory thumbnails for GTK-based file browsers from images inside them";
     homepage = "https://github.com/donovanglover/thud";
     license = licenses.mit;
-    maintainers = with maintainers; [ donovanglover ];
+    maintainers = with maintainers; [donovanglover];
     mainProgram = "thud";
   };
 }

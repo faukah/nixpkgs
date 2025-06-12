@@ -1,7 +1,3 @@
-{
-  callPackage,
-}:
-
-{
-  verilog = callPackage ./modelgen-verilog.nix { };
+{callPackage}: {
+  verilog = callPackage ./modelgen-verilog.nix {};
 }

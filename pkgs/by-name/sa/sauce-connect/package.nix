@@ -6,7 +6,6 @@
   unzip,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sauce-connect";
   version = "5.2.2";
@@ -69,10 +68,10 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Secure tunneling app for executing tests securely when testing behind firewalls";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
     homepage = "https://docs.saucelabs.com/reference/sauce-connect/";
-    maintainers = with lib.maintainers; [ offline ];
+    maintainers = with lib.maintainers; [offline];
     platforms = builtins.attrNames passthru.sources;
   };
 }

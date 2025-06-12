@@ -5,10 +5,8 @@
   fetchPypi,
   pythonAtLeast,
   pythonOlder,
-
   # Build dependencies
   setuptools,
-
   # Runtime dependencies
   decorator,
   ipython-pygments-lexers,
@@ -20,20 +18,16 @@
   stack-data,
   traitlets,
   typing-extensions,
-
   # Optional dependencies
   matplotlib,
-
   # Reverse dependency
   sage,
-
   # Test dependencies
   pickleshare,
   pytest-asyncio,
   pytestCheckHook,
   testpath,
 }:
-
 buildPythonPackage rec {
   pname = "ipython";
   version = "9.2.0";
@@ -44,25 +38,27 @@ buildPythonPackage rec {
     hash = "sha256-Yqk3PbwS8o+f6vRwDQUhlb+JgGJ5/IyhHz9UAX0EdRs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    decorator
-    ipython-pygments-lexers
-    jedi
-    matplotlib-inline
-    pexpect
-    prompt-toolkit
-    pygments
-    stack-data
-    traitlets
-  ] ++ lib.optionals (pythonOlder "3.12") [ typing-extensions ];
+  dependencies =
+    [
+      decorator
+      ipython-pygments-lexers
+      jedi
+      matplotlib-inline
+      pexpect
+      prompt-toolkit
+      pygments
+      stack-data
+      traitlets
+    ]
+    ++ lib.optionals (pythonOlder "3.12") [typing-extensions];
 
   optional-dependencies = {
-    matplotlib = [ matplotlib ];
+    matplotlib = [matplotlib];
   };
 
-  pythonImportsCheck = [ "IPython" ];
+  pythonImportsCheck = ["IPython"];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -104,7 +100,7 @@ buildPythonPackage rec {
     homepage = "https://ipython.readthedocs.io/en/stable/";
     changelog = "https://github.com/ipython/ipython/blob/${version}/docs/source/whatsnew/version${lib.versions.major version}.rst";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ bjornfor ];
-    teams = [ lib.teams.jupyter ];
+    maintainers = with lib.maintainers; [bjornfor];
+    teams = [lib.teams.jupyter];
   };
 }

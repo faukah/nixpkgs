@@ -11,7 +11,6 @@
   wrapGAppsHook3,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-desktop";
   version = "1.28.2";
@@ -44,13 +43,13 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Library with common API for various MATE modules";
     homepage = "https://mate-desktop.org";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

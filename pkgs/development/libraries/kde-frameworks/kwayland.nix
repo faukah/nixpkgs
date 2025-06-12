@@ -9,7 +9,6 @@
   wayland,
   wayland-protocols,
 }:
-
 mkDerivation {
   pname = "kwayland";
   nativeBuildInputs = [
@@ -21,7 +20,7 @@ mkDerivation {
     wayland
     wayland-protocols
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
   setupHook = propagateBin; # XDG_CONFIG_DIRS
   meta.platforms = lib.platforms.linux ++ lib.platforms.freebsd;
 }

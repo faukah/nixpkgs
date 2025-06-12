@@ -7,7 +7,6 @@
   makeWrapper,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "apt-mirror";
   version = "0.5.4";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     perl # pod2man
   ];
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   makeFlags = [
     "DESTDIR=$(out)"
@@ -35,17 +34,17 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = ''
     wrapProgram $out/bin/apt-mirror \
-      --prefix PATH : ${lib.makeBinPath [ wget ]}
+      --prefix PATH : ${lib.makeBinPath [wget]}
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Tool that provides the ability to mirror any parts of apt sources";
     homepage = "https://github.com/apt-mirror/apt-mirror";
     changelog = "https://github.com/apt-mirror/apt-mirror/blob/${finalAttrs.src.rev}/CHANGELOG";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ arthsmn ];
+    maintainers = with maintainers; [arthsmn];
     mainProgram = "apt-mirror";
     platforms = platforms.all;
   };

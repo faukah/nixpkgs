@@ -11,7 +11,6 @@
   setuptools-scm,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "fast-histogram";
   version = "0.14";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   nativeCheckInputs = [
     hypothesis
@@ -39,9 +38,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "${builtins.placeholder "out"}/${python.sitePackages}" ];
+  pytestFlagsArray = ["${builtins.placeholder "out"}/${python.sitePackages}"];
 
-  pythonImportsCheck = [ "fast_histogram" ];
+  pythonImportsCheck = ["fast_histogram"];
 
   disabledTests = [
     # ValueError
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/astrofrog/fast-histogram";
     changelog = "https://github.com/astrofrog/fast-histogram/blob/v${version}/CHANGES.md";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ifurther ];
+    maintainers = with maintainers; [ifurther];
   };
 }

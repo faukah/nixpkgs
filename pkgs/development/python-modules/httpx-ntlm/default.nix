@@ -6,7 +6,6 @@
   pyspnego,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "httpx-ntlm";
   version = "1.4.0";
@@ -28,13 +27,13 @@ buildPythonPackage rec {
   # https://github.com/ulodciv/httpx-ntlm/issues/5
   doCheck = false;
 
-  pythonImportsCheck = [ "httpx_ntlm" ];
+  pythonImportsCheck = ["httpx_ntlm"];
 
   meta = with lib; {
     description = "NTLM authentication support for HTTPX";
     homepage = "https://github.com/ulodciv/httpx-ntlm";
     changelog = "https://github.com/ulodciv/httpx-ntlm/releases/tag/${version}";
     license = licenses.isc;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

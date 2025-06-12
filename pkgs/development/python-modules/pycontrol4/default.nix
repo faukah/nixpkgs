@@ -9,7 +9,6 @@
   python-socketio-v4,
   websocket-client,
 }:
-
 buildPythonPackage rec {
   pname = "pycontrol4";
   version = "1.2.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-0ZuztqHbrd+kMDGv3xyUYoTF/Ho+oHkycjSrKz8JABM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     description = "Python 3 asyncio package for interacting with Control4 systems";
     homepage = "https://github.com/lawtancool/pyControl4";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

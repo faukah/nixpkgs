@@ -15,7 +15,6 @@
   xcbuild,
   ...
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "misskey";
 
@@ -38,12 +37,14 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [
-    nodejs
-    pnpm_9.configHook
-    makeWrapper
-    python3
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcbuild.xcrun ];
+  nativeBuildInputs =
+    [
+      nodejs
+      pnpm_9.configHook
+      makeWrapper
+      python3
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [xcbuild.xcrun];
 
   # https://nixos.org/manual/nixpkgs/unstable/#javascript-pnpm
   pnpmDeps = pnpm_9.fetchDeps {
@@ -76,49 +77,47 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postBuild
   '';
 
-  installPhase =
-    let
-      checkEnvVarScript = writeShellScript "misskey-check-env-var" ''
-        if [[ -z $MISSKEY_CONFIG_YML ]]; then
-          echo "MISSKEY_CONFIG_YML must be set to the location of the Misskey config file."
-          exit 1
-        fi
-      '';
-    in
-    ''
-      runHook preInstall
-
-      mkdir -p $out/data
-      cp -r . $out/data
-
-      # Set up symlink for use at runtime
-      # TODO: Find a better solution for this (potentially patch Misskey to make this configurable?)
-      # Line that would need to be patched: https://github.com/misskey-dev/misskey/blob/9849aab40283cbde2184e74d4795aec8ef8ccba3/packages/backend/src/core/InternalStorageService.ts#L18
-      # Otherwise, maybe somehow bindmount a writable directory into <package>/data/files.
-      ln -s /var/lib/misskey $out/data/files
-
-      makeWrapper ${pnpm_9}/bin/pnpm $out/bin/misskey \
-        --run "${checkEnvVarScript} || exit" \
-        --chdir $out/data \
-        --add-flags run \
-        --set-default NODE_ENV production \
-        --prefix PATH : ${
-          lib.makeBinPath [
-            nodejs
-            pnpm_9
-            bash
-          ]
-        } \
-        --prefix LD_LIBRARY_PATH : ${
-          lib.makeLibraryPath [
-            jemalloc
-            ffmpeg-headless
-            stdenv.cc.cc
-          ]
-        }
-
-      runHook postInstall
+  installPhase = let
+    checkEnvVarScript = writeShellScript "misskey-check-env-var" ''
+      if [[ -z $MISSKEY_CONFIG_YML ]]; then
+        echo "MISSKEY_CONFIG_YML must be set to the location of the Misskey config file."
+        exit 1
+      fi
     '';
+  in ''
+    runHook preInstall
+
+    mkdir -p $out/data
+    cp -r . $out/data
+
+    # Set up symlink for use at runtime
+    # TODO: Find a better solution for this (potentially patch Misskey to make this configurable?)
+    # Line that would need to be patched: https://github.com/misskey-dev/misskey/blob/9849aab40283cbde2184e74d4795aec8ef8ccba3/packages/backend/src/core/InternalStorageService.ts#L18
+    # Otherwise, maybe somehow bindmount a writable directory into <package>/data/files.
+    ln -s /var/lib/misskey $out/data/files
+
+    makeWrapper ${pnpm_9}/bin/pnpm $out/bin/misskey \
+      --run "${checkEnvVarScript} || exit" \
+      --chdir $out/data \
+      --add-flags run \
+      --set-default NODE_ENV production \
+      --prefix PATH : ${
+      lib.makeBinPath [
+        nodejs
+        pnpm_9
+        bash
+      ]
+    } \
+      --prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [
+        jemalloc
+        ffmpeg-headless
+        stdenv.cc.cc
+      ]
+    }
+
+    runHook postInstall
+  '';
 
   passthru = {
     inherit (finalAttrs) pnpmDeps;
@@ -129,7 +128,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "🌎 An interplanetary microblogging platform 🚀";
     homepage = "https://misskey-hub.net/";
     license = lib.licenses.agpl3Only;
-    maintainers = [ lib.maintainers.feathecutie ];
+    maintainers = [lib.maintainers.feathecutie];
     platforms = lib.platforms.unix;
     mainProgram = "misskey";
   };

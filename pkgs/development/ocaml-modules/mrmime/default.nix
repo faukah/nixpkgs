@@ -23,7 +23,6 @@
   unstrctrd,
   uutf,
 }:
-
 buildDunePackage rec {
   pname = "mrmime";
   version = "0.7.0";
@@ -65,7 +64,7 @@ buildDunePackage rec {
     description = "Parser and generator of mail in OCaml";
     homepage = "https://github.com/mirage/mrmime";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "mrmime.generate";
   };
 }

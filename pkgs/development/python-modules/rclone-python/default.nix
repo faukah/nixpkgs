@@ -6,7 +6,6 @@
   rich,
   rclone,
 }:
-
 buildPythonPackage rec {
   pname = "rclone-python";
   version = "0.1.21";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-lYrPSDBWGVQmT2/MgzbtZ6hHNZXINCmmFP+ZHFZQDw8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     rclone
@@ -29,13 +28,13 @@ buildPythonPackage rec {
   # tests require working internet connection
   doCheck = false;
 
-  pythonImportsCheck = [ "rclone_python" ];
+  pythonImportsCheck = ["rclone_python"];
 
   meta = {
     changelog = "https://github.com/Johannes11833/rclone_python/releases/tag/${src.tag}";
     description = "Python wrapper for rclone";
     homepage = "https://github.com/Johannes11833/rclone_python";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ CaptainJawZ ];
+    maintainers = with lib.maintainers; [CaptainJawZ];
   };
 }

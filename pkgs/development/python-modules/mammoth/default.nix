@@ -10,7 +10,6 @@
   tempman,
   gitUpdater,
 }:
-
 buildPythonPackage rec {
   pname = "mammoth";
   version = "1.8.0";
@@ -28,11 +27,11 @@ buildPythonPackage rec {
       --replace-fail 'read("README")' '""'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ cobble ];
+  dependencies = [cobble];
 
-  pythonImportsCheck = [ "mammoth" ];
+  pythonImportsCheck = ["mammoth"];
 
   nativeCheckInputs = [
     funk
@@ -45,13 +44,13 @@ buildPythonPackage rec {
     export PATH=$out/bin:$PATH
   '';
 
-  passthru.updateScripts = gitUpdater { };
+  passthru.updateScripts = gitUpdater {};
 
   meta = {
     description = "Convert Word documents (.docx files) to HTML";
     homepage = "https://github.com/mwilliamson/python-mammoth";
     changelog = "https://github.com/mwilliamson/python-mammoth/blob/${src.tag}/NEWS";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

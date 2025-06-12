@@ -15,7 +15,6 @@
   kdiagram,
   kgraphviewer,
 }:
-
 mkDerivation rec {
   pname = "massif-visualizer";
   version = "0.7.0";
@@ -48,6 +47,6 @@ mkDerivation rec {
     mainProgram = "massif-visualizer";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zraexy ];
+    maintainers = with maintainers; [zraexy];
   };
 }

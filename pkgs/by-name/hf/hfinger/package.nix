@@ -4,7 +4,6 @@
   python3,
   wireshark-cli,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "hfinger";
   version = "0.2.2";
@@ -21,8 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       fnvhash
       python-magic
@@ -43,7 +41,7 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "hfinger";
     homepage = "https://github.com/CERT-Polska/hfinger";
     changelog = "https://github.com/CERT-Polska/hfinger/releases/tag/v${version}";
-    license = with lib.licenses; [ gpl3Only ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [gpl3Only];
+    maintainers = with lib.maintainers; [fab];
   };
 }

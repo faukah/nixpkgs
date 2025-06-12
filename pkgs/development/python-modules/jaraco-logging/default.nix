@@ -7,7 +7,6 @@
   setuptools-scm,
   tempora,
 }:
-
 buildPythonPackage rec {
   pname = "jaraco-logging";
   version = "3.3.0";
@@ -21,25 +20,25 @@ buildPythonPackage rec {
     hash = "sha256-9KfPusuGqDTCiGwBo7UrxM3icowdlxfEnU3OHWJI8Hs=";
   };
 
-  pythonNamespaces = [ "jaraco" ];
+  pythonNamespaces = ["jaraco"];
 
   nativeBuildInputs = [
     setuptools
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [ tempora ];
+  propagatedBuildInputs = [tempora];
 
   # test no longer packaged with pypi
   doCheck = false;
 
-  pythonImportsCheck = [ "jaraco.logging" ];
+  pythonImportsCheck = ["jaraco.logging"];
 
   meta = with lib; {
     description = "Support for Python logging facility";
     homepage = "https://github.com/jaraco/jaraco.logging";
     changelog = "https://github.com/jaraco/jaraco.logging/blob/v${version}/NEWS.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

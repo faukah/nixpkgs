@@ -9,7 +9,6 @@
   rclone,
   python3,
 }:
-
 buildGoModule rec {
   pname = "restic";
   version = "0.18.0";
@@ -28,14 +27,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-cxOwVf1qZXJbDZC/7cGnKPNpwJnAk3OunKVZpwtI8pI=";
 
-  subPackages = [ "cmd/restic" ];
+  subPackages = ["cmd/restic"];
 
   nativeBuildInputs = [
     installShellFiles
     makeWrapper
   ];
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   passthru.tests = lib.optionalAttrs stdenv.hostPlatform.isLinux {
     restic = nixosTests.restic;

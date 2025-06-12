@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dumbpipe";
   version = "0.27.0";
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ cameronfyfe ];
+    maintainers = with maintainers; [cameronfyfe];
     mainProgram = "dumbpipe";
   };
 }

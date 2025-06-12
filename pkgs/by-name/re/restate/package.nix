@@ -4,20 +4,16 @@
   rustPlatform,
   fetchFromGitHub,
   protobuf,
-
   # nativeBuildInputs
   cmake,
   openssl,
   perl,
   pkg-config,
-
   # buildInputs
   rdkafka,
-
   # tests
   cacert,
   versionCheckHook,
-
   # passthru
   testers,
   restate,
@@ -44,33 +40,38 @@ rustPlatform.buildRustPackage (finalAttrs: {
     VERGEN_GIT_SHA = "v${finalAttrs.version}";
 
     # rustflags as defined in the upstream's .cargo/config.toml
-    RUSTFLAGS =
-      let
-        target = stdenv.hostPlatform.config;
-        targetFlags = lib.fix (self: {
-          build = [
-            "-C force-unwind-tables"
-            "--cfg uuid_unstable"
-            "--cfg tokio_unstable"
-          ];
+    RUSTFLAGS = let
+      target = stdenv.hostPlatform.config;
+      targetFlags = lib.fix (self: {
+        build = [
+          "-C force-unwind-tables"
+          "--cfg uuid_unstable"
+          "--cfg tokio_unstable"
+        ];
 
-          "aarch64-unknown-linux-gnu" = self.build ++ [
+        "aarch64-unknown-linux-gnu" =
+          self.build
+          ++ [
             # Enable frame pointers to support Parca (https://github.com/parca-dev/parca-agent/pull/1805)
             "-C force-frame-pointers=yes"
           ];
 
-          "x86_64-unknown-linux-musl" = self.build ++ [
+        "x86_64-unknown-linux-musl" =
+          self.build
+          ++ [
             "-C link-self-contained=yes"
           ];
 
-          "aarch64-unknown-linux-musl" = self.build ++ [
+        "aarch64-unknown-linux-musl" =
+          self.build
+          ++ [
             # Enable frame pointers to support Parca (https://github.com/parca-dev/parca-agent/pull/1805)
             "-C force-frame-pointers=yes"
             "-C link-self-contained=yes"
           ];
-        });
-      in
-      lib.concatStringsSep " " (lib.attrsets.attrByPath [ target ] targetFlags.build targetFlags);
+      });
+    in
+      lib.concatStringsSep " " (lib.attrsets.attrByPath [target] targetFlags.build targetFlags);
 
     # Have to be set to dynamically link librdkafka
     CARGO_FEATURE_DYNAMIC_LINKING = 1;
@@ -128,7 +129,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       package = restate;
       command = "restatectl --version";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -137,6 +138,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     changelog = "https://github.com/restatedev/restate/releases/tag/v${finalAttrs.version}";
     mainProgram = "restate";
     license = lib.licenses.bsl11;
-    maintainers = with lib.maintainers; [ myypo ];
+    maintainers = with lib.maintainers; [myypo];
   };
 })

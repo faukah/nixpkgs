@@ -11,7 +11,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "weconnect";
   version = "0.60.8";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
       --replace-fail "required_plugins = pytest-cov" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     oauthlib
@@ -55,13 +54,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "weconnect" ];
+  pythonImportsCheck = ["weconnect"];
 
   meta = with lib; {
     description = "Python client for the Volkswagen WeConnect Services";
     homepage = "https://github.com/tillsteinbach/WeConnect-python";
     changelog = "https://github.com/tillsteinbach/WeConnect-python/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

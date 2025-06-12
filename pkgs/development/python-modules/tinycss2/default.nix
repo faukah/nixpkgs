@@ -8,7 +8,6 @@
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "tinycss2";
   version = "1.4.0";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-GVymUobWAE0YS65lti9dXRIIGpx0YkwF/vSb3y7cpYY=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [ webencodings ];
+  dependencies = [webencodings];
 
   nativeCheckInputs = [
     pytest-cov-stub
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Low-level CSS parser for Python";
     homepage = "https://github.com/Kozea/tinycss2";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

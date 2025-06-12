@@ -9,7 +9,6 @@
   pkg-config,
   udns,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sniproxy";
   version = "0.6.1";
@@ -43,5 +42,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     mainProgram = "sniproxy";
   };
-
 }

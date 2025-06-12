@@ -5,7 +5,6 @@
   jre,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "schemacrawler";
   version = "16.25.4";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-/Onb2JYq+twkm5SG9F/ATPlozcdLB57fon6e08hMupM=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -36,13 +35,13 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Database schema discovery and comprehension tool";
     mainProgram = "schemacrawler";
     homepage = "https://www.schemacrawler.com/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = with licenses; [
       epl10
       gpl3Only
       lgpl3Only
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 })

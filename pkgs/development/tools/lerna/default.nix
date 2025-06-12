@@ -1,9 +1,7 @@
 {
   lib,
   callPackage,
-}:
-
-let
+}: let
   inherit (lib) mapAttrs' nameValuePair;
 
   variants = {
@@ -21,10 +19,10 @@ let
     };
   };
 
-  callLerna =
-    variant:
+  callLerna = variant:
     callPackage ./generic.nix {
-      inherit (variant)
+      inherit
+        (variant)
         version
         hash
         npmDepsHash
@@ -34,4 +32,4 @@ let
 
   mkLerna = versionSuffix: variant: nameValuePair "lerna_${versionSuffix}" (callLerna variant);
 in
-mapAttrs' mkLerna variants
+  mapAttrs' mkLerna variants

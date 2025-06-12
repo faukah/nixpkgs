@@ -30,6 +30,6 @@ buildDunePackage rec {
     description = "Dice roller";
     homepage = "https://github.com/raphael-proust/odds";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.Denommus ];
+    maintainers = [lib.maintainers.Denommus];
   };
 }

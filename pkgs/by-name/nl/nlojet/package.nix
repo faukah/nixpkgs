@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nlojet++";
   version = "4.1.3";
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2;
     description = "Implementation of calculation of the hadron jet cross sections";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "shellspec";
   version = "0.28.1";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ bash ];
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  buildInputs = [bash];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   checkPhase = ''
     ./shellspec --no-banner --task fixture:stat:prepare
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     homepage = "https://shellspec.info/";
     changelog = "https://github.com/shellspec/shellspec/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ j0hax ];
+    maintainers = with lib.maintainers; [j0hax];
     platforms = lib.platforms.unix;
     mainProgram = "shellspec";
   };

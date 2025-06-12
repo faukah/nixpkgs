@@ -8,7 +8,6 @@
   installShellFiles,
   curl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sheldon";
   version = "0.8.2";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-MHQbCsZng7YRvY5K+l9u90M/zyyfz2nl01RN46EUSXk=";
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       curl
     ];
@@ -67,8 +66,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Fast and configurable shell plugin manager";
     homepage = "https://github.com/rossmacarthur/sheldon";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ seqizz ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [seqizz];
     platforms = platforms.unix;
     mainProgram = "sheldon";
   };

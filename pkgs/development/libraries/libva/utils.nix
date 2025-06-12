@@ -12,7 +12,6 @@
   libXfixes,
   wayland,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libva-utils";
   version = "2.22.0";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/intel/libva-utils";
     changelog = "https://raw.githubusercontent.com/intel/libva-utils/${version}/NEWS";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     platforms = platforms.unix;
   };
 }

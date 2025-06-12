@@ -12,9 +12,7 @@
   yojson,
   cacert,
 }:
-
 buildDunePackage {
-
   pname = "irmin-graphql";
 
   inherit (irmin) version src;
@@ -38,7 +36,9 @@ buildDunePackage {
     cacert
   ];
 
-  meta = irmin.meta // {
-    description = "GraphQL server for Irmin";
-  };
+  meta =
+    irmin.meta
+    // {
+      description = "GraphQL server for Irmin";
+    };
 }

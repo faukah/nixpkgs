@@ -4,7 +4,6 @@
   lib,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "courier-unicode";
   version = "2.3.2";

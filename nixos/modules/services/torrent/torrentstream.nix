@@ -3,16 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.torrentstream;
   dataDir = "/var/lib/torrentstream/";
-in
-{
+in {
   options.services.torrentstream = {
     enable = lib.mkEnableOption "TorrentStream daemon";
-    package = lib.mkPackageOption pkgs "torrentstream" { };
+    package = lib.mkPackageOption pkgs "torrentstream" {};
     port = lib.mkOption {
       type = lib.types.port;
       default = 5082;
@@ -37,9 +34,9 @@ in
   };
   config = lib.mkIf cfg.enable {
     systemd.services.torrentstream = {
-      after = [ "network.target" ];
+      after = ["network.target"];
       description = "TorrentStream Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = lib.getExe cfg.package;
         Restart = "on-failure";
@@ -53,6 +50,6 @@ in
         LISTEN_ADDR = cfg.address;
       };
     };
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [cfg.port];
   };
 }

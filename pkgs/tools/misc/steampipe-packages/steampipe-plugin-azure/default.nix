@@ -5,7 +5,6 @@
   nix-update-script,
   steampipe,
 }:
-
 buildGoModule rec {
   pname = "steampipe-plugin-azure";
   version = "1.4.0";
@@ -37,7 +36,7 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/turbot/steampipe-plugin-azure/blob/v${version}/CHANGELOG.md";
@@ -45,7 +44,7 @@ buildGoModule rec {
     homepage = "https://github.com/turbot/steampipe-plugin-azure";
     license = lib.licenses.apsl20;
     longDescription = "Use SQL to instantly query Azure resources across regions and subscriptions.";
-    maintainers = with lib.maintainers; [ petee ];
+    maintainers = with lib.maintainers; [petee];
     platforms = steampipe.meta.platforms;
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildDartApplication rec {
   pname = "fvm";
   version = "3.2.1";
@@ -18,12 +17,12 @@ buildDartApplication rec {
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple CLI to manage Flutter SDK versions";
     homepage = "https://github.com/leoafarias/fvm";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 }

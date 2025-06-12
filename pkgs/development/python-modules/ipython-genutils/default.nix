@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ipython-genutils";
   version = "0.2.0";
@@ -26,11 +25,11 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ipython_genutils" ];
+  pythonImportsCheck = ["ipython_genutils"];
 
   meta = {
     description = "Vestigial utilities from IPython";

@@ -11,7 +11,6 @@
   pkg-config,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmypaint";
   version = "1.6.1";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     homepage = "http://mypaint.org/";
     description = "Library for making brushstrokes which is used by MyPaint and other projects";
     license = licenses.isc;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

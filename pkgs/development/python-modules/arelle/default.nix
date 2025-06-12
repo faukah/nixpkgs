@@ -3,10 +3,8 @@
   buildPythonPackage,
   pythonAtLeast,
   fetchFromGitHub,
-
   setuptools,
   setuptools-scm,
-
   certifi,
   filelock,
   isodate,
@@ -16,10 +14,8 @@
   pyparsing,
   python-dateutil,
   regex,
-
   gui ? true,
   tkinter,
-
   pycryptodome,
   pg8000,
   pymysql,
@@ -32,17 +28,14 @@
   cheroot,
   cherrypy,
   tornado,
-
   sphinxHook,
   sphinx-autodoc2,
   myst-parser,
   sphinx-copybutton,
   furo,
-
   pytestCheckHook,
   boto3,
 }:
-
 buildPythonPackage rec {
   pname = "arelle${lib.optionalString (!gui) "-headless"}";
   version = "2.30.25";
@@ -73,20 +66,22 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [
-    certifi
-    filelock
-    isodate
-    lxml
-    numpy
-    openpyxl
-    pyparsing
-    python-dateutil
-    regex
-  ] ++ lib.optionals gui [ tkinter ];
+  dependencies =
+    [
+      certifi
+      filelock
+      isodate
+      lxml
+      numpy
+      openpyxl
+      pyparsing
+      python-dateutil
+      regex
+    ]
+    ++ lib.optionals gui [tkinter];
 
   optional-dependencies = {
-    crypto = [ pycryptodome ];
+    crypto = [pycryptodome];
     db = [
       pg8000
       pymysql
@@ -97,8 +92,8 @@ buildPythonPackage rec {
       holidays
       pytz
     ];
-    esef = [ tinycss2 ];
-    objectmaker = [ graphviz ];
+    esef = [tinycss2];
+    objectmaker = [graphviz];
     webserver = [
       cheroot
       cherrypy
@@ -120,10 +115,12 @@ buildPythonPackage rec {
     find $out/bin -name "*arelleGUI*" -delete
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    boto3
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      boto3
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   preCheck = ''
     export HOME=$(mktemp -d)

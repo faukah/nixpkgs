@@ -4,17 +4,13 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.grocy;
-in
-{
+in {
   options.services.grocy = {
     enable = mkEnableOption "grocy";
 
-    package = mkPackageOption pkgs "grocy" { };
+    package = mkPackageOption pkgs "grocy" {};
 
     hostName = mkOption {
       type = types.str;
@@ -33,8 +29,7 @@ in
     };
 
     phpfpm.settings = mkOption {
-      type =
-        with types;
+      type = with types;
         attrsOf (oneOf [
           int
           str
@@ -167,8 +162,8 @@ in
     # After an update of grocy, the viewcache needs to be deleted. Otherwise grocy will not work
     # https://github.com/grocy/grocy#how-to-update
     systemd.services.grocy-setup = {
-      wantedBy = [ "multi-user.target" ];
-      before = [ "phpfpm-grocy.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["phpfpm-grocy.service"];
       script = ''
         rm -rf ${cfg.dataDir}/viewcache/*
       '';
@@ -211,7 +206,7 @@ in
   };
 
   meta = {
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     doc = ./grocy.md;
   };
 }

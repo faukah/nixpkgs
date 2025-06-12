@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "et-book";
   version = "unstable-2015-10-05";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation {
     description = "Typeface used in Edward Tufte’s books";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jethro ];
+    maintainers = with maintainers; [jethro];
   };
 }

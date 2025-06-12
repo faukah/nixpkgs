@@ -16,7 +16,6 @@
   gobject-introspection,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "collector";
   version = "0-unstable-2024-11-11";
@@ -44,15 +43,16 @@ stdenv.mkDerivation (finalAttrs: {
     libadwaita
     gobject-introspection
     (python3.withPackages (
-      ps: with ps; [
-        pillow
-        requests
-        pygobject3
-      ]
+      ps:
+        with ps; [
+          pillow
+          requests
+          pygobject3
+        ]
     ))
   ];
 
-  passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+  passthru.updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
 
   meta = {
     description = "Drag multiple files and folders on to Collection window, drop them anywhere!";
@@ -60,6 +60,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/mijorus/collector";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ CaptainJawZ ];
+    maintainers = with lib.maintainers; [CaptainJawZ];
   };
 })

@@ -1,15 +1,11 @@
 # This module defines global configuration for the zshell.
-
 {
   config,
   lib,
   options,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfge = config.environment;
 
   cfg = config.programs.zsh;
@@ -38,15 +34,9 @@ let
     #
     # See "STARTUP/SHUTDOWN FILES" section of zsh(1) for more info.
   '';
-
-in
-
-{
-
+in {
   options = {
-
     programs.zsh = {
-
       enable = lib.mkOption {
         default = false;
         description = ''
@@ -59,7 +49,7 @@ in
       };
 
       shellAliases = lib.mkOption {
-        default = { };
+        default = {};
         description = ''
           Set of aliases for zsh shell, which overrides {option}`environment.shellAliases`.
           See {option}`environment.shellAliases` for an option format description.
@@ -174,13 +164,10 @@ in
         '';
         type = lib.types.bool;
       };
-
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     programs.zsh.shellAliases = builtins.mapAttrs (name: lib.mkDefault) cfge.shellAliases;
 
     environment.etc.zshenv.text = ''
@@ -244,7 +231,7 @@ in
       if [ -n "$__ETC_ZSHRC_SOURCED" -o -n "$NOSYSZSHRC" ]; then return; fi
       __ETC_ZSHRC_SOURCED=1
 
-      ${lib.optionalString (cfg.setOptions != [ ]) ''
+      ${lib.optionalString (cfg.setOptions != []) ''
         # Set zsh options.
         setopt ${builtins.concatStringsSep " " cfg.setOptions}
       ''}
@@ -306,9 +293,11 @@ in
     # see https://github.com/NixOS/nixpkgs/issues/132732
     environment.etc.zinputrc.text = builtins.readFile ./zinputrc;
 
-    environment.systemPackages = [
-      pkgs.zsh
-    ] ++ lib.optional cfg.enableCompletion pkgs.nix-zsh-completions;
+    environment.systemPackages =
+      [
+        pkgs.zsh
+      ]
+      ++ lib.optional cfg.enableCompletion pkgs.nix-zsh-completions;
 
     environment.pathsToLink = lib.optional cfg.enableCompletion "/share/zsh";
 
@@ -318,7 +307,5 @@ in
       "/run/current-system/sw/bin/zsh"
       "${pkgs.zsh}/bin/zsh"
     ];
-
   };
-
 }

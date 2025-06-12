@@ -87,14 +87,16 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--with-ca-bundle=${
-      if stdenv.hostPlatform.isDarwin then "/etc/ssl/cert.pem" else "/etc/ssl/certs/ca-certificates.crt"
+      if stdenv.hostPlatform.isDarwin
+      then "/etc/ssl/cert.pem"
+      else "/etc/ssl/certs/ca-certificates.crt"
     }"
     "--with-ca-path=${cacert}/etc/ssl/certs"
   ];
 
-  buildFlags = [ "firefox-build" ];
+  buildFlags = ["firefox-build"];
   checkTarget = "firefox-checkbuild";
-  installTargets = [ "firefox-install" ];
+  installTargets = ["firefox-install"];
 
   doCheck = true;
 
@@ -150,24 +152,22 @@ stdenv.mkDerivation rec {
       installShellCompletion $TMPDIR/curl-impersonate-ff.{zsh,fish}
     '';
 
-  preFixup =
-    let
-      libext = stdenv.hostPlatform.extensions.sharedLibrary;
-    in
-    ''
-      # If libnssckbi.so is needed, link libnssckbi.so without needing nss in closure
-      if grep -F nssckbi $out/lib/libcurl-impersonate-*${libext} &>/dev/null; then
-        ln -s ${p11-kit}/lib/pkcs11/p11-kit-trust${libext} $out/lib/libnssckbi${libext}
-        ${lib.optionalString stdenv.hostPlatform.isElf ''
-          patchelf --add-needed libnssckbi${libext} $out/lib/libcurl-impersonate-*${libext}
-        ''}
-      fi
-    '';
+  preFixup = let
+    libext = stdenv.hostPlatform.extensions.sharedLibrary;
+  in ''
+    # If libnssckbi.so is needed, link libnssckbi.so without needing nss in closure
+    if grep -F nssckbi $out/lib/libcurl-impersonate-*${libext} &>/dev/null; then
+      ln -s ${p11-kit}/lib/pkcs11/p11-kit-trust${libext} $out/lib/libnssckbi${libext}
+      ${lib.optionalString stdenv.hostPlatform.isElf ''
+      patchelf --add-needed libnssckbi${libext} $out/lib/libcurl-impersonate-*${libext}
+    ''}
+    fi
+  '';
 
-  disallowedReferences = [ go ];
+  disallowedReferences = [go];
 
   passthru = {
-    deps = callPackage ./deps.nix { };
+    deps = callPackage ./deps.nix {};
 
     updateScript = ./update.sh;
 
@@ -178,7 +178,7 @@ stdenv.mkDerivation rec {
         src = passthru.deps."boringssl.zip";
         vendorHash = "sha256-SNUsBiKOGWmkRdTVABVrlbLAVMfu0Q9IgDe+kFC5vXs=";
 
-        nativeBuildInputs = [ unzip ];
+        nativeBuildInputs = [unzip];
 
         proxyVendor = true;
       }).goModules;
@@ -191,7 +191,7 @@ stdenv.mkDerivation rec {
       curl
       mit
     ];
-    maintainers = with maintainers; [ deliciouslytyped ];
+    maintainers = with maintainers; [deliciouslytyped];
     platforms = platforms.unix;
     mainProgram = "curl-impersonate-ff";
   };

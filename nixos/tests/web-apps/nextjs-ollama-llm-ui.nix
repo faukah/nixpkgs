@@ -1,17 +1,13 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "nextjs-ollama-llm-ui";
-  meta.maintainers = with lib.maintainers; [ malteneuss ];
+  meta.maintainers = with lib.maintainers; [malteneuss];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.nextjs-ollama-llm-ui = {
-        enable = true;
-        port = 8080;
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.nextjs-ollama-llm-ui = {
+      enable = true;
+      port = 8080;
     };
+  };
 
   testScript = ''
     # Ensure the service is started and reachable

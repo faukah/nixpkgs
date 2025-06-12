@@ -1,5 +1,4 @@
 {
-
   "elm-explorations/markdown" = {
     sha256 = "0k3110ixa4wwf3vkkdplagwah9ypr965qxr1y147rnsc1xsxmr6y";
     version = "1.0.0";

@@ -11,7 +11,6 @@
   atk,
   cairo,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "castor";
   version = "0.9.0";
@@ -49,6 +48,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "castor";
     homepage = "https://sr.ht/~julienxx/Castor";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

@@ -34,7 +34,6 @@
   wxGTK,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hugin";
   version = "2024.0.1";
@@ -81,7 +80,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   # disable installation of the python scripting interface
-  cmakeFlags = [ "-DBUILD_HSI:BOOl=OFF" ];
+  cmakeFlags = ["-DBUILD_HSI:BOOl=OFF"];
 
   postInstall = ''
     for p in $out/bin/*; do
@@ -97,7 +96,7 @@ stdenv.mkDerivation rec {
     homepage = "https://hugin.sourceforge.io/";
     description = "Toolkit for stitching photographs and assembling panoramas, together with an easy to use graphical front end";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ hrdinka ];
+    maintainers = with maintainers; [hrdinka];
     platforms = platforms.linux;
   };
 }

@@ -6,47 +6,45 @@
   ssreflect,
   stdlib,
 }:
-
 mkCoqDerivation {
   pname = "deriving";
   owner = "arthuraa";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch
-      [ coq.coq-version ssreflect.version ]
-      [
-        {
-          cases = [
-            (range "8.17" "9.0")
-            (range "2.0.0" "2.4.0")
-          ];
-          out = "0.2.2";
-        }
-        {
-          cases = [
-            (range "8.17" "9.0")
-            (range "2.0.0" "2.3.0")
-          ];
-          out = "0.2.1";
-        }
-        {
-          cases = [
-            (range "8.17" "8.20")
-            (range "2.0.0" "2.2.0")
-          ];
-          out = "0.2.0";
-        }
-        {
-          cases = [
-            (range "8.11" "8.20")
-            (isLe "2.0.0")
-          ];
-          out = "0.1.1";
-        }
-      ]
-      null;
+    [coq.coq-version ssreflect.version]
+    [
+      {
+        cases = [
+          (range "8.17" "9.0")
+          (range "2.0.0" "2.4.0")
+        ];
+        out = "0.2.2";
+      }
+      {
+        cases = [
+          (range "8.17" "9.0")
+          (range "2.0.0" "2.3.0")
+        ];
+        out = "0.2.1";
+      }
+      {
+        cases = [
+          (range "8.17" "8.20")
+          (range "2.0.0" "2.2.0")
+        ];
+        out = "0.2.0";
+      }
+      {
+        cases = [
+          (range "8.11" "8.20")
+          (isLe "2.0.0")
+        ];
+        out = "0.1.1";
+      }
+    ]
+    null;
 
   releaseRev = v: "v${v}";
 
@@ -66,7 +64,6 @@ mkCoqDerivation {
   meta = with lib; {
     description = "Generic instances of MathComp classes";
     license = licenses.mit;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
-
 }

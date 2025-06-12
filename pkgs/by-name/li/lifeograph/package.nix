@@ -13,7 +13,6 @@
   shared-mime-info,
   libshumate,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lifeograph";
   version = "3.0.2";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://lifeograph.sourceforge.net/doku.php?id=start";
     description = "Off-line and private journal and note taking application";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
     mainProgram = "lifeograph";
     platforms = lib.platforms.linux;
   };

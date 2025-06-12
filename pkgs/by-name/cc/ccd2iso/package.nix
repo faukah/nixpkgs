@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ccd2iso";
   version = "0.3";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     description = "CloneCD to ISO converter";
     homepage = "https://sourceforge.net/projects/ccd2iso/";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     mainProgram = "ccd2iso";
   };

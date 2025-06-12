@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (builtins) concatMap;
   inherit (lib) maintainers;
   inherit (lib.attrsets) attrByPath mapAttrsToList;
@@ -13,7 +11,8 @@ let
   inherit (lib.modules) mkIf;
   inherit (lib.options) literalExpression mkOption;
   inherit (lib.strings) concatStringsSep makeSearchPath;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     bool
     listOf
     attrsOf
@@ -26,34 +25,33 @@ let
   cfg = pwCfg.wireplumber;
   pwUsedForAudio = pwCfg.audio.enable;
 
-  json = pkgs.formats.json { };
+  json = pkgs.formats.json {};
 
-  configSectionsToConfFile =
-    path: value:
+  configSectionsToConfFile = path: value:
     pkgs.writeTextDir path (
       concatStringsSep "\n" (
         mapAttrsToList (section: content: "${section} = " + (builtins.toJSON content)) value
       )
     );
 
-  mapConfigToFiles =
-    config:
+  mapConfigToFiles = config:
     mapAttrsToList (
       name: value: configSectionsToConfFile "share/wireplumber/wireplumber.conf.d/${name}.conf" value
-    ) config;
+    )
+    config;
 
-  mapScriptsToFiles =
-    scripts:
+  mapScriptsToFiles = scripts:
     mapAttrsToList (
       relativePath: value:
-      pkgs.writeTextDir (subpath.join [
-        "share/wireplumber/scripts"
-        relativePath
-      ]) value
-    ) scripts;
-in
-{
-  meta.maintainers = [ maintainers.k900 ];
+        pkgs.writeTextDir (subpath.join [
+          "share/wireplumber/scripts"
+          relativePath
+        ])
+        value
+    )
+    scripts;
+in {
+  meta.maintainers = [maintainers.k900];
 
   options = {
     services.pipewire.wireplumber = {
@@ -76,7 +74,7 @@ in
         # config file not being a JSON object, but a concatenation of JSON objects
         # in sections.
         type = attrsOf (attrsOf json.type);
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             "log-level-debug" = {
@@ -132,7 +130,7 @@ in
 
       extraScripts = mkOption {
         type = attrsOf lines;
-        default = { };
+        default = {};
         example = {
           "test/hello-world.lua" = ''
             print("Hello, world!")
@@ -183,7 +181,7 @@ in
 
       configPackages = mkOption {
         type = listOf package;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [
             (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-bluez.conf" '''
@@ -207,7 +205,7 @@ in
 
       extraLv2Packages = mkOption {
         type = listOf package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.lsp-plugins ]";
         description = ''
           List of packages that provide LV2 plugins in `lib/lv2` that should
@@ -223,54 +221,53 @@ in
     };
   };
 
-  config =
-    let
-      pwNotForAudioConfigPkg = pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/90-nixos-no-audio.conf" ''
-        # PipeWire is not used for audio, so WirePlumber should not be handling it
-        wireplumber.profiles = {
-          main = {
-            hardware.audio = disabled
-            hardware.bluetooth = disabled
-          }
+  config = let
+    pwNotForAudioConfigPkg = pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/90-nixos-no-audio.conf" ''
+      # PipeWire is not used for audio, so WirePlumber should not be handling it
+      wireplumber.profiles = {
+        main = {
+          hardware.audio = disabled
+          hardware.bluetooth = disabled
         }
-      '';
+      }
+    '';
 
-      extraConfigPkg = pkgs.buildEnv {
-        name = "wireplumber-extra-config";
-        paths = mapConfigToFiles cfg.extraConfig;
-        pathsToLink = [ "/share/wireplumber/wireplumber.conf.d" ];
-      };
+    extraConfigPkg = pkgs.buildEnv {
+      name = "wireplumber-extra-config";
+      paths = mapConfigToFiles cfg.extraConfig;
+      pathsToLink = ["/share/wireplumber/wireplumber.conf.d"];
+    };
 
-      extraScriptsPkg = pkgs.buildEnv {
-        name = "wireplumber-extra-scrips";
-        paths = mapScriptsToFiles cfg.extraScripts;
-        pathsToLink = [ "/share/wireplumber/scripts" ];
-      };
+    extraScriptsPkg = pkgs.buildEnv {
+      name = "wireplumber-extra-scrips";
+      paths = mapScriptsToFiles cfg.extraScripts;
+      pathsToLink = ["/share/wireplumber/scripts"];
+    };
 
-      configPackages =
-        cfg.configPackages
-        ++ [
-          extraConfigPkg
-          extraScriptsPkg
-        ]
-        ++ optional (!pwUsedForAudio) pwNotForAudioConfigPkg;
+    configPackages =
+      cfg.configPackages
+      ++ [
+        extraConfigPkg
+        extraScriptsPkg
+      ]
+      ++ optional (!pwUsedForAudio) pwNotForAudioConfigPkg;
 
-      configs = pkgs.buildEnv {
-        name = "wireplumber-configs";
-        paths = configPackages;
-        pathsToLink = [ "/share/wireplumber" ];
-      };
+    configs = pkgs.buildEnv {
+      name = "wireplumber-configs";
+      paths = configPackages;
+      pathsToLink = ["/share/wireplumber"];
+    };
 
-      requiredLv2Packages = flatten (
-        concatMap (p: attrByPath [ "passthru" "requiredLv2Packages" ] [ ] p) configPackages
-      );
+    requiredLv2Packages = flatten (
+      concatMap (p: attrByPath ["passthru" "requiredLv2Packages"] [] p) configPackages
+    );
 
-      lv2Plugins = pkgs.buildEnv {
-        name = "wireplumber-lv2-plugins";
-        paths = cfg.extraLv2Packages ++ requiredLv2Packages;
-        pathsToLink = [ "/lib/lv2" ];
-      };
-    in
+    lv2Plugins = pkgs.buildEnv {
+      name = "wireplumber-lv2-plugins";
+      paths = cfg.extraLv2Packages ++ requiredLv2Packages;
+      pathsToLink = ["/lib/lv2"];
+    };
+  in
     mkIf cfg.enable {
       assertions = [
         {
@@ -279,15 +276,15 @@ in
         }
       ];
 
-      environment.systemPackages = [ cfg.package ];
+      environment.systemPackages = [cfg.package];
 
-      systemd.packages = [ cfg.package ];
+      systemd.packages = [cfg.package];
 
       systemd.services.wireplumber.enable = pwCfg.systemWide;
       systemd.user.services.wireplumber.enable = !pwCfg.systemWide;
 
-      systemd.services.wireplumber.wantedBy = [ "pipewire.service" ];
-      systemd.user.services.wireplumber.wantedBy = [ "pipewire.service" ];
+      systemd.services.wireplumber.wantedBy = ["pipewire.service"];
+      systemd.user.services.wireplumber.wantedBy = ["pipewire.service"];
 
       systemd.services.wireplumber.environment = mkIf pwCfg.systemWide {
         # Force WirePlumber to use system dbus.

@@ -12,7 +12,6 @@
   polkit,
   accountsservice,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-default-settings";
   version = "8.1.0";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -60,6 +59,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/default-settings";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

@@ -8,7 +8,6 @@
   curl,
   expat,
 }:
-
 stdenv.mkDerivation rec {
   pname = "s3backer";
   version = "2.1.4";

@@ -9,7 +9,6 @@
   lablgtk,
   stdio,
 }:
-
 buildDunePackage rec {
   pname = "camlimages";
   version = "5.0.5";
@@ -24,9 +23,9 @@ buildDunePackage rec {
   };
 
   # stdio v0.17 compatibility
-  patches = [ ./camlimages.patch ];
+  patches = [./camlimages.patch];
 
-  nativeBuildInputs = [ cppo ];
+  nativeBuildInputs = [cppo];
   buildInputs = [
     dune-configurator
     findlib

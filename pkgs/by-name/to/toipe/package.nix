@@ -3,7 +3,6 @@
   fetchCrate,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "toipe";
   version = "0.5.0";

@@ -5,7 +5,6 @@
   testers,
   vpcs,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vpcs";
   version = "0.8.3";
@@ -50,6 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.bsd2;
     platforms = platforms.linux ++ platforms.darwin;
     mainProgram = "vpcs";
-    maintainers = with maintainers; [ anthonyroussel ];
+    maintainers = with maintainers; [anthonyroussel];
   };
 })

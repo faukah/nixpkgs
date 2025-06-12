@@ -11,7 +11,6 @@
   cohttp-lwt-unix,
   graphql-lwt,
 }:
-
 buildDunePackage rec {
   pname = "graphql-cohttp";
 
@@ -19,7 +18,7 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  nativeBuildInputs = [ ocaml-crunch ];
+  nativeBuildInputs = [ocaml-crunch];
   propagatedBuildInputs = [
     astring
     cohttp
@@ -36,8 +35,9 @@ buildDunePackage rec {
 
   doCheck = true;
 
-  meta = graphql.meta // {
-    description = "Run GraphQL servers with “cohttp”";
-  };
-
+  meta =
+    graphql.meta
+    // {
+      description = "Run GraphQL servers with “cohttp”";
+    };
 }

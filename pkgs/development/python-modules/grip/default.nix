@@ -14,7 +14,6 @@
   requests,
   tabulate,
 }:
-
 buildPythonPackage rec {
   pname = "grip";
   version = "4.6.1";
@@ -61,6 +60,6 @@ buildPythonPackage rec {
     mainProgram = "grip";
     homepage = "https://github.com/joeyespo/grip";
     license = licenses.mit;
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
   };
 }

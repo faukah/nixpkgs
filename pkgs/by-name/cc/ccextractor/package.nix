@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
   writeTextFile,
-
   pkg-config,
   cmake,
   ninja,
@@ -11,7 +10,6 @@
   rustc,
   corrosion,
   rustPlatform,
-
   gpac,
   protobufc,
   libpng,
@@ -22,12 +20,10 @@
   libarchive,
   curl,
   libiconv,
-
   enableOcr ? true,
   leptonica,
   tesseract,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ccextractor";
   version = "0.94-unstable-2024-08-12";
@@ -39,10 +35,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-bp7T9uJK4bauR2Co4lKqqnM6oGa3WZ+1toEKmzOx4mI=";
   };
 
-  patches = [
-    ./remove-default-commit-hash.patch
-    ./remove-vendored-libraries.patch
-  ] ++ finalAttrs.cargoDeps.vendorStaging.patches;
+  patches =
+    [
+      ./remove-default-commit-hash.patch
+      ./remove-vendored-libraries.patch
+    ]
+    ++ finalAttrs.cargoDeps.vendorStaging.patches;
 
   cmakeDir = "../src";
 
@@ -50,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src cargoRoot;
-    patches = [ ./use-rsmpeg-0.15.patch ];
+    patches = [./use-rsmpeg-0.15.patch];
     hash = "sha256-7v3gQghByUDWZLJRRGa/7X2ivUumirq6BbexNQcCXCk=";
   };
 
@@ -107,27 +105,25 @@ stdenv.mkDerivation (finalAttrs: {
     # pulls in all the FFmpeg libraries they bind to.
     #
     # See: <https://github.com/CCExtractor/rusty_ffmpeg/pull/69>
-    FFMPEG_DLL_PATH =
-      let
-        ffmpegLibNames = [
-          "avcodec"
-          "avdevice"
-          "avfilter"
-          "avformat"
-          "avutil"
-          "swresample"
-          "swscale"
-        ];
-        ffmpegLibDir = "${lib.getLib ffmpeg}/lib";
-        ffmpegLibExt = stdenv.hostPlatform.extensions.library;
-        ffmpegLibPath = ffmpegLibName: "${ffmpegLibDir}/lib${ffmpegLibName}.${ffmpegLibExt}";
-        ffmpegLinkerScript = writeTextFile {
-          name = "ccextractor-ffmpeg-linker-script";
-          destination = "/lib/ffmpeg.ld";
-          text = "INPUT(${lib.concatMapStringsSep " " ffmpegLibPath ffmpegLibNames})";
-        };
-      in
-      "${ffmpegLinkerScript}/lib/ffmpeg.ld";
+    FFMPEG_DLL_PATH = let
+      ffmpegLibNames = [
+        "avcodec"
+        "avdevice"
+        "avfilter"
+        "avformat"
+        "avutil"
+        "swresample"
+        "swscale"
+      ];
+      ffmpegLibDir = "${lib.getLib ffmpeg}/lib";
+      ffmpegLibExt = stdenv.hostPlatform.extensions.library;
+      ffmpegLibPath = ffmpegLibName: "${ffmpegLibDir}/lib${ffmpegLibName}.${ffmpegLibExt}";
+      ffmpegLinkerScript = writeTextFile {
+        name = "ccextractor-ffmpeg-linker-script";
+        destination = "/lib/ffmpeg.ld";
+        text = "INPUT(${lib.concatMapStringsSep " " ffmpegLibPath ffmpegLibNames})";
+      };
+    in "${ffmpegLinkerScript}/lib/ffmpeg.ld";
   };
 
   doCheck = true;
@@ -147,9 +143,9 @@ stdenv.mkDerivation (finalAttrs: {
       It works on Linux, Windows, and OSX.
     '';
     platforms = lib.platforms.unix;
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.emily ];
+    maintainers = [lib.maintainers.emily];
     mainProgram = "ccextractor";
   };
 })

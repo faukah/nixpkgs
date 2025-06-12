@@ -8,7 +8,6 @@
   pythonOlder,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "flynt";
   version = "1.0.1";
@@ -23,13 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-UHY4UDBHcP3ARikktIehSUD3Dx8A0xpOnfKWWrLCsOY=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  propagatedBuildInputs = [ astor ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [astor] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "flynt" ];
+  pythonImportsCheck = ["flynt"];
 
   disabledTests = [
     # AssertionError
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/ikamensh/flynt";
     changelog = "https://github.com/ikamensh/flynt/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
     mainProgram = "flynt";
   };
 }

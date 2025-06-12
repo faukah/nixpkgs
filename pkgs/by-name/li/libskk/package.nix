@@ -14,7 +14,6 @@
   skkDictionaries,
   libxkbcommon,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libskk";
   version = "1.0.5";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ libxkbcommon ];
+  buildInputs = [libxkbcommon];
   nativeBuildInputs = [
     vala
     gnome-common
@@ -79,7 +78,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/ueno/libskk";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ yuriaisaka ];
+    maintainers = with lib.maintainers; [yuriaisaka];
     platforms = lib.platforms.linux;
   };
 }

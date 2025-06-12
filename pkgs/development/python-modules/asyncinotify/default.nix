@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "asyncinotify";
   version = "4.2.0";
@@ -21,13 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-RHzjUoVhDxI7kYD5HWkb0f8X6BjjTTCAvSvASPy6FGk=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "asyncinotify" ];
+  pythonImportsCheck = ["asyncinotify"];
 
-  pytestFlagsArray = [ "test.py" ];
+  pytestFlagsArray = ["test.py"];
 
   meta = with lib; {
     badPlatforms = [
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/absperf/asyncinotify/";
     changelog = "https://github.com/absperf/asyncinotify/releases/tag/v${version}";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ cynerd ];
+    maintainers = with maintainers; [cynerd];
   };
 }

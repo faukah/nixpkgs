@@ -8,7 +8,6 @@
   libpng,
   openssl,
 }:
-
 stdenv.mkDerivation {
   pname = "libagar-test";
   inherit (libagar) version src;
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
     cat configure.in | ${bsdbuild}/bin/mkconfigure > configure
   '';
 
-  configureFlags = [ "--with-agar=${libagar}" ];
+  configureFlags = ["--with-agar=${libagar}"];
 
   buildInputs = [
     perl
@@ -39,12 +38,12 @@ stdenv.mkDerivation {
   ];
 
   meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     description = "Tests for libagar";
     mainProgram = "agartest";
     homepage = "http://libagar.org/index.html";
     license = with licenses; bsd3;
-    maintainers = with maintainers; [ ramkromberg ];
+    maintainers = with maintainers; [ramkromberg];
     platforms = with platforms; linux;
   };
 }

@@ -14,7 +14,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Z1ozkS6zo/h0j0AU5K+Ri/ml8KqCjdEcQKpFtNER4Hk=";
   };
 
-  build-system = [ python3.pkgs.setuptools ];
+  build-system = [python3.pkgs.setuptools];
   dependencies = with python3.pkgs; [
     pygls
     lsprotocol
@@ -32,7 +32,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Language server for text spell and grammar check with various tools";
     homepage = "https://github.com/hangyav/textLSP/tree/main";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ justdeeevin ];
+    maintainers = with lib.maintainers; [justdeeevin];
     mainProgram = "textlsp";
     changelog = "https://github.com/hangyav/textLSP/releases/tag/v${version}";
     platforms = lib.platforms.all;

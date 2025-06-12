@@ -7,7 +7,6 @@
   jq,
   xcursorgen,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "hackneyed";
   version = "0.9.3";
@@ -58,6 +57,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Scalable cursor theme that resembles Windows 3.x/NT 3.x cursors";
     platforms = lib.platforms.all;
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ somasis ];
+    maintainers = with lib.maintainers; [somasis];
   };
 }

@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   appdirs,
   asgiref,
@@ -27,7 +25,6 @@
   uvicorn,
   watchfiles,
   websockets,
-
   # tests
   anthropic,
   cacert,
@@ -44,7 +41,6 @@
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "shiny";
   version = "1.4.0";
@@ -91,23 +87,25 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "shiny" ];
+  pythonImportsCheck = ["shiny"];
 
-  nativeCheckInputs = [
-    anthropic
-    google-generativeai
-    langchain-core
-    ollama
-    openai
-    pandas
-    polars
-    pytest-asyncio
-    pytest-playwright
-    pytest-rerunfailures
-    pytest-timeout
-    pytest-xdist
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      anthropic
+      google-generativeai
+      langchain-core
+      ollama
+      openai
+      pandas
+      polars
+      pytest-asyncio
+      pytest-playwright
+      pytest-rerunfailures
+      pytest-timeout
+      pytest-xdist
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   env.SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
@@ -125,6 +123,6 @@ buildPythonPackage rec {
     homepage = "https://shiny.posit.co/py";
     changelog = "https://github.com/posit-dev/py-shiny/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

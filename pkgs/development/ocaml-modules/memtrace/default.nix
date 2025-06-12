@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchFromGitHub,
 }:
-
 buildDunePackage rec {
   pname = "memtrace";
   version = "0.2.3";
@@ -21,6 +20,6 @@ buildDunePackage rec {
     homepage = "https://github.com/janestreet/${pname}";
     description = "Streaming client for OCaml's Memprof";
     license = licenses.mit;
-    maintainers = with maintainers; [ niols ];
+    maintainers = with maintainers; [niols];
   };
 }

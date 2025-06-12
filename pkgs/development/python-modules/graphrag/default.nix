@@ -37,7 +37,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "graphrag";
   version = "1.2.0";
@@ -91,7 +90,7 @@ buildPythonPackage rec {
 
   env.NUMBA_CACHE_DIR = "$TMPDIR";
 
-  pythonImportsCheck = [ "graphrag" ];
+  pythonImportsCheck = ["graphrag"];
 
   nativeCheckInputs = [
     nbformat
@@ -99,7 +98,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
   disabledTests = [
     # touch the network
@@ -117,6 +116,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/microsoft/graphrag";
     changelog = "https://github.com/microsoft/graphrag/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

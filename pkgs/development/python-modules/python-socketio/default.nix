@@ -3,27 +3,21 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   bidict,
   python-engineio,
-
   # optional-dependencies
   aiohttp,
   requests,
   websocket-client,
-
   # tests
   msgpack,
   pytestCheckHook,
   simple-websocket,
   uvicorn,
-
 }:
-
 buildPythonPackage rec {
   pname = "python-socketio";
   version = "5.13.0";
@@ -36,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-iOipxGALYOXLvUwn6OSjLCMZoUl7u4S5eCktUgcs/X0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     bidict
@@ -48,17 +42,19 @@ buildPythonPackage rec {
       requests
       websocket-client
     ];
-    asyncio_client = [ aiohttp ];
+    asyncio_client = [aiohttp];
   };
 
-  nativeCheckInputs = [
-    msgpack
-    pytestCheckHook
-    uvicorn
-    simple-websocket
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      msgpack
+      pytestCheckHook
+      uvicorn
+      simple-websocket
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "socketio" ];
+  pythonImportsCheck = ["socketio"];
 
   disabledTestPaths = lib.optionals stdenv.hostPlatform.isDarwin [
     # Use fixed ports which leads to failures when building concurrently
@@ -76,7 +72,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/miguelgrinberg/python-socketio/";
     changelog = "https://github.com/miguelgrinberg/python-socketio/blob/${src.tag}/CHANGES.md";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ mic92 ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [mic92];
   };
 }

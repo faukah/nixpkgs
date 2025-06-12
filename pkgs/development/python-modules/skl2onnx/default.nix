@@ -12,7 +12,6 @@
   pandas,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "skl2onnx";
   version = "1.18.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     onnxconverter-common
   ];
 
-  pythonRelaxDeps = [ "scikit-learn" ];
+  pythonRelaxDeps = ["scikit-learn"];
 
   nativeCheckInputs = [
     onnxruntime
@@ -50,6 +49,6 @@ buildPythonPackage rec {
 
   meta = {
     description = "Convert scikit-learn models to ONNX";
-    license = with lib.licenses; [ asl20 ];
+    license = with lib.licenses; [asl20];
   };
 }

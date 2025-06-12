@@ -13,7 +13,6 @@
   ktextwidgets,
   kxmlgui,
 }:
-
 mkDerivation {
   pname = "kidentitymanagement";
   meta = {

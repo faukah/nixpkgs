@@ -8,13 +8,12 @@
   owl-base,
   npy,
 }:
-
 buildDunePackage {
   pname = "owl";
 
   inherit (owl-base) version src meta;
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
   buildInputs = [
     dune-configurator
     stdio

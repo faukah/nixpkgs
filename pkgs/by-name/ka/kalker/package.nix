@@ -7,7 +7,6 @@
   mpfr,
   libmpc,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kalker";
   version = "2.2.1";

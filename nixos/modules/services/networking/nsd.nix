@@ -4,10 +4,7 @@
   lib,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.nsd;
 
   username = "nsd";
@@ -23,11 +20,13 @@ let
     zoneStats = length (collect (x: (x.zoneStats or null) != null) cfg.zones) > 0;
   };
 
-  mkZoneFileName = name: if name == "." then "root" else name;
+  mkZoneFileName = name:
+    if name == "."
+    then "root"
+    else name;
 
   # replaces include: directives for keys with fake keys for nsd-checkconf
-  injectFakeKeys =
-    keys:
+  injectFakeKeys = keys:
     concatStrings (
       mapAttrsToList (keyName: keyOptions: ''
         fakeKey="$(${pkgs.bind}/bin/tsig-keygen -a ${
@@ -37,13 +36,14 @@ let
           ]
         } | grep -oP "\s*secret \"\K.*(?=\";)")"
         sed "s@^\s*include:\s*\"${stateDir}/private/${keyName}\"\$@secret: $fakeKey@" -i $out/nsd.conf
-      '') keys
+      '')
+      keys
     );
 
   nsdEnv = pkgs.buildEnv {
     name = "nsd-env";
 
-    paths = [ configFile ] ++ mapAttrsToList (name: zone: writeZoneData name zone.data) zoneConfigs;
+    paths = [configFile] ++ mapAttrsToList (name: zone: writeZoneData name zone.data) zoneConfigs;
 
     postBuild = ''
       echo "checking zone files"
@@ -74,8 +74,7 @@ let
     '';
   };
 
-  writeZoneData =
-    name: text:
+  writeZoneData = name: text:
     pkgs.writeTextFile {
       name = "nsd-zone-${mkZoneFileName name}";
       inherit text;
@@ -147,7 +146,10 @@ let
     ${cfg.extraConfig}
   '';
 
-  yesOrNo = b: if b then "yes" else "no";
+  yesOrNo = b:
+    if b
+    then "yes"
+    else "no";
   maybeString = prefix: x: optionalString (x != null) ''${prefix} "${x}"'';
   maybeToString = prefix: x: optionalString (x != null) ''${prefix} ${toString x}'';
   forEach = pre: l: concatMapStrings (x: pre + x + "\n") l;
@@ -158,7 +160,8 @@ let
         name:      "${keyName}"
         algorithm: "${keyOptions.algorithm}"
         include:   "${stateDir}/private/${keyName}"
-    '') cfg.keys
+    '')
+    cfg.keys
   );
 
   copyKeys = concatStrings (
@@ -166,7 +169,8 @@ let
       secret=$(cat "${keyOptions.keyFile}")
       dest="${stateDir}/private/${keyName}"
       install -m 0400 -o "${username}" -g "${username}" <(echo "  secret: \"$secret\"") "$dest"
-    '') cfg.keys
+    '')
+    cfg.keys
   );
 
   # options are ordered alphanumerically by the nixos option name
@@ -193,28 +197,24 @@ let
     ${forEach "  provide-xfr: " zone.provideXFR}
   '';
 
-  zoneConfigs = zoneConfigs' { } "" { children = cfg.zones; };
+  zoneConfigs = zoneConfigs' {} "" {children = cfg.zones;};
 
-  zoneConfigs' =
-    parent: name: zone:
-    if
-      !(zone ? children) || zone.children == null || zone.children == { }
+  zoneConfigs' = parent: name: zone:
+    if !(zone ? children) || zone.children == null || zone.children == {}
     # leaf -> actual zone
-    then
-      listToAttrs [ (nameValuePair name (parent // zone)) ]
-
+    then listToAttrs [(nameValuePair name (parent // zone))]
     # fork -> pattern
     else
       zipAttrsWith (name: head) (
         mapAttrsToList (
-          name: child: zoneConfigs' (parent // zone // { children = { }; }) name child
-        ) zone.children
+          name: child: zoneConfigs' (parent // zone // {children = {};}) name child
+        )
+        zone.children
       );
 
   # options are ordered alphanumerically
   zoneOptions = types.submodule {
     options = {
-
       allowAXFRFallback = mkOption {
         type = types.bool;
         default = true;
@@ -226,7 +226,7 @@ let
 
       allowNotify = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "192.0.2.0/24 NOKEY"
           "10.0.0.1-10.0.0.5 my_tsig_key_name"
@@ -261,7 +261,7 @@ let
         # type here with `zoneConfigs`, since that would set all the attributes
         # to default values, breaking the parent inheriting function.
         type = types.attrsOf types.anything;
-        default = { };
+        default = {};
         description = ''
           Children zones inherit all options of their parents. Attributes
           defined in a child will overwrite the ones of its parent. Only
@@ -372,7 +372,7 @@ let
 
       notify = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "10.0.0.1@3721 my_key"
           "::5 NOKEY"
@@ -413,7 +413,7 @@ let
 
       provideXFR = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "192.0.2.0/24 NOKEY"
           "192.0.2.0/24 my_tsig_key_name"
@@ -426,15 +426,14 @@ let
 
       requestXFR = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = ''
           Format: `[AXFR|UDP] <ip-address> <key-name | NOKEY>`
         '';
       };
 
       rrlWhitelist = mkOption {
-        type =
-          with types;
+        type = with types;
           listOf (enum [
             "nxdomain"
             "error"
@@ -447,7 +446,7 @@ let
             "positive"
             "all"
           ]);
-        default = [ ];
+        default = [];
         description = ''
           Whitelists the given rrl-types.
         '';
@@ -489,11 +488,15 @@ let
     };
   };
 
-  dnssecZones = (filterAttrs (n: v: if v ? dnssec then v.dnssec else false) zoneConfigs);
+  dnssecZones = filterAttrs (n: v:
+    if v ? dnssec
+    then v.dnssec
+    else false)
+  zoneConfigs;
 
-  dnssec = dnssecZones != { };
+  dnssec = dnssecZones != {};
 
-  dnssecTools = pkgs.bind.override { enablePython = true; };
+  dnssecTools = pkgs.bind.override {enablePython = true;};
 
   signZones = optionalString dnssec ''
     install -m 0600 -o "${username}" -g "${username}" -d "${stateDir}/dnssec"
@@ -505,8 +508,7 @@ let
     ${dnssecTools}/bin/dnssec-signzone -S -K ${stateDir}/dnssec -o ${name} -O full -N date ${stateDir}/zones/${name}
     ${nsdPkg}/sbin/nsd-checkzone ${name} ${stateDir}/zones/${name}.signed && mv -v ${stateDir}/zones/${name}.signed ${stateDir}/zones/${name}
   '';
-  policyFile =
-    name: policy:
+  policyFile = name: policy:
     pkgs.writeText "${name}.policy" ''
       zone ${name} {
         algorithm ${policy.algorithm};
@@ -522,11 +524,9 @@ let
         coverage ${policy.coverage};
       };
     '';
-in
-{
+in {
   # options are ordered alphanumerically
   options.services.nsd = {
-
     enable = mkEnableOption "NSD authoritative DNS server";
 
     bind8Stats = mkEnableOption "BIND8 like statistics";
@@ -761,7 +761,6 @@ in
       type = types.attrsOf (
         types.submodule {
           options = {
-
             algorithm = mkOption {
               type = types.str;
               default = "hmac-sha256";
@@ -779,11 +778,10 @@ in
                 user.
               '';
             };
-
           };
         }
       );
-      default = { };
+      default = {};
       example = literalExpression ''
         { "tsig.example.org" = {
             algorithm = "hmac-md5";
@@ -797,7 +795,6 @@ in
     };
 
     ratelimit = {
-
       enable = mkEnableOption "ratelimit capabilities";
 
       ipv4PrefixLength = mkOption {
@@ -853,11 +850,9 @@ in
           queries to apply this limit instead of the default to them.
         '';
       };
-
     };
 
     remoteControl = {
-
       enable = mkEnableOption "remote control via nsd-control";
 
       controlCertFile = mkOption {
@@ -914,12 +909,11 @@ in
           but not by nsd-control. This file is generated by nsd-control-setup.
         '';
       };
-
     };
 
     zones = mkOption {
       type = types.attrsOf zoneOptions;
-      default = { };
+      default = {};
       example = literalExpression ''
         { "serverGroup1" = {
             provideXFR = [ "10.1.2.3 NOKEY" ];
@@ -963,7 +957,6 @@ in
   };
 
   config = mkIf cfg.enable {
-
     assertions = singleton {
       assertion = zoneConfigs ? "." -> cfg.rootServer;
       message =
@@ -972,7 +965,7 @@ in
     };
 
     environment = {
-      systemPackages = [ nsdPkg ];
+      systemPackages = [nsdPkg];
       etc."nsd/nsd.conf".source = "${configFile}/nsd.conf";
     };
 
@@ -989,8 +982,8 @@ in
     systemd.services.nsd = {
       description = "NSD authoritative only domain name service";
 
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       startLimitBurst = 4;
       startLimitIntervalSec = 5 * 60; # 5 mins
@@ -1026,7 +1019,7 @@ in
     systemd.timers.nsd-dnssec = mkIf dnssec {
       description = "Automatic DNSSEC key rollover";
 
-      wantedBy = [ "nsd.service" ];
+      wantedBy = ["nsd.service"];
 
       timerConfig = {
         OnActiveSec = cfg.dnssecInterval;
@@ -1037,8 +1030,8 @@ in
     systemd.services.nsd-dnssec = mkIf dnssec {
       description = "DNSSEC key rollover";
 
-      wantedBy = [ "nsd.service" ];
-      before = [ "nsd.service" ];
+      wantedBy = ["nsd.service"];
+      before = ["nsd.service"];
 
       script = signZones;
 
@@ -1046,8 +1039,7 @@ in
         /run/current-system/systemd/bin/systemctl kill -s SIGHUP nsd.service
       '';
     };
-
   };
 
-  meta.maintainers = with lib.maintainers; [ hrdinka ];
+  meta.maintainers = with lib.maintainers; [hrdinka];
 }

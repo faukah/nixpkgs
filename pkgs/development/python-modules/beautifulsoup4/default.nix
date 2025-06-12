@@ -11,7 +11,6 @@
   pythonOlder,
   soupsieve,
   sphinxHook,
-
   # for passthru.tests
   html-sanitizer,
   markdownify,
@@ -20,7 +19,6 @@
   subliminal,
   wagtail,
 }:
-
 buildPythonPackage rec {
   pname = "beautifulsoup4";
   version = "4.12.3";
@@ -57,15 +55,17 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    html5lib = [ html5lib ];
-    lxml = [ lxml ];
+    html5lib = [html5lib];
+    lxml = [lxml];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "bs4" ];
+  pythonImportsCheck = ["bs4"];
 
   passthru.tests = {
     inherit
@@ -83,6 +83,6 @@ buildPythonPackage rec {
     description = "HTML and XML parser";
     homepage = "http://crummy.com/software/BeautifulSoup/bs4/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

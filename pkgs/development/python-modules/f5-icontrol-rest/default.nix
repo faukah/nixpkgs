@@ -5,7 +5,6 @@
   requests,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "f5-icontrol-rest";
   version = "1.3.16";
@@ -26,14 +25,14 @@ buildPythonPackage rec {
   # needs to be updated to newer pytest version and requires physical device
   doCheck = false;
 
-  pytestFlags = [ "icontrol/test" ];
+  pytestFlags = ["icontrol/test"];
 
-  pythonImportsCheck = [ "icontrol" ];
+  pythonImportsCheck = ["icontrol"];
 
   meta = with lib; {
     description = "F5 BIG-IP iControl REST API client";
     homepage = "https://github.com/F5Networks/f5-icontrol-rest-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

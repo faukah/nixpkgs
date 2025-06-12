@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "Flootty";
   version = "3.2.2";
@@ -18,6 +17,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "flootty";
     homepage = "https://floobits.com/help/flootty";
     license = licenses.asl20;
-    maintainers = with maintainers; [ sellout ];
+    maintainers = with maintainers; [sellout];
   };
 }

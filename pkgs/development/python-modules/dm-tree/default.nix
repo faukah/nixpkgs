@@ -2,17 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # nativeBuildInputs
   cmake,
   pybind11,
-
   # buildInputs
   abseil-cpp,
-
   # build-system
   setuptools,
-
   # dependencies
   absl-py,
   attrs,
@@ -57,7 +53,7 @@ buildPythonPackage rec {
     pybind11
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # It is unclear whether those are runtime dependencies or simply test dependencies
   # https://github.com/google-deepmind/tree/issues/127
@@ -68,7 +64,7 @@ buildPythonPackage rec {
     wrapt
   ];
 
-  pythonImportsCheck = [ "tree" ];
+  pythonImportsCheck = ["tree"];
 
   meta = {
     description = "Tree is a library for working with nested data structures";

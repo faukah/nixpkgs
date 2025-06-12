@@ -7,7 +7,6 @@
   nix-update-script,
   hatchling,
 }:
-
 buildPythonPackage rec {
   pname = "character-encoding-utils";
   version = "0.0.9";
@@ -21,13 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-QxnXNerl7qncoBxhfC3G0ar+YprfBpn6pWnUKakNR+c=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "character_encoding_utils" ];
+  pythonImportsCheck = ["character_encoding_utils"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/TakWolf/character-encoding-utils";

@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dua";
   version = "2.30.1";
@@ -39,13 +38,13 @@ rustPlatform.buildRustPackage rec {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tool to conveniently learn about the disk usage of directories";
     homepage = "https://github.com/Byron/dua-cli";
     changelog = "https://github.com/Byron/dua-cli/blob/v${version}/CHANGELOG.md";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     maintainers = with lib.maintainers; [
       figsoda
       killercup

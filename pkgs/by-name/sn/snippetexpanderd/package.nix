@@ -10,7 +10,6 @@
   xdotool,
   wtype,
 }:
-
 buildGoModule rec {
   pname = "snippetexpanderd";
   version = "1.0.3";
@@ -56,20 +55,20 @@ buildGoModule rec {
     # Ensure xclip/wcopy and xdotool/wtype are available for copy and paste duties.
     wrapProgram $out/bin/snippetexpanderd \
       --prefix PATH : ${
-        lib.makeBinPath [
-          xclip
-          wl-clipboard
-          xdotool
-          wtype
-        ]
-      }
+      lib.makeBinPath [
+        xclip
+        wl-clipboard
+        xdotool
+        wtype
+      ]
+    }
   '';
 
   meta = {
     description = "Your little expandable text snippet helper daemon";
     homepage = "https://snippetexpander.org";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
     mainProgram = "snippetexpanderd";
   };

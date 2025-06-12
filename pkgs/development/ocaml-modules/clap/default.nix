@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "clap";
   version = "0.3.0";

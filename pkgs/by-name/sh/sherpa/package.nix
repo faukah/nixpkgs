@@ -10,7 +10,6 @@
   lhapdf,
   autoPatchelfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sherpa";
   version = "3.0.1";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
     homepage = "https://gitlab.com/sherpa-team/sherpa";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;
   };

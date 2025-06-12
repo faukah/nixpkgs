@@ -2,7 +2,6 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-
   libGL,
   libX11,
   libXcursor,
@@ -12,7 +11,6 @@
   libXxf86vm,
   pkg-config,
 }:
-
 buildGoModule rec {
   pname = "fyne";
   version = "2.6.1";
@@ -26,7 +24,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-3lXDkiQoq+rDUN8Am9Bd/DJ5CKQqfQucbHKQrkS4wIg=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libGL
@@ -44,7 +42,7 @@ buildGoModule rec {
     homepage = "https://fyne.io";
     description = "Cross platform GUI toolkit in Go";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ greg ];
+    maintainers = with maintainers; [greg];
     mainProgram = "fyne";
   };
 }

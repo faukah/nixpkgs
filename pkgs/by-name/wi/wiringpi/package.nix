@@ -4,9 +4,7 @@
   symlinkJoin,
   fetchFromGitHub,
   libxcrypt,
-}:
-
-let
+}: let
   version = "3.10";
   srcAll = fetchFromGitHub {
     owner = "WiringPi";
@@ -14,12 +12,11 @@ let
     rev = version;
     sha256 = "sha256-OWR+yo+SnYaMd8J+ku9ettZi+rDHcHlGZCoucCiRkCI=";
   };
-  mkSubProject =
-    {
-      subprj, # The only mandatory argument
-      buildInputs ? [ ],
-      src ? srcAll,
-    }:
+  mkSubProject = {
+    subprj, # The only mandatory argument
+    buildInputs ? [],
+    src ? srcAll,
+  }:
     stdenv.mkDerivation (finalAttrs: {
       pname = "wiringpi-${subprj}";
       inherit version src;
@@ -44,11 +41,11 @@ let
     inherit mkSubProject;
     wiringPi = mkSubProject {
       subprj = "wiringPi";
-      buildInputs = [ libxcrypt ];
+      buildInputs = [libxcrypt];
     };
     devLib = mkSubProject {
       subprj = "devLib";
-      buildInputs = [ passthru.wiringPi ];
+      buildInputs = [passthru.wiringPi];
     };
     wiringPiD = mkSubProject {
       subprj = "wiringPiD";
@@ -68,21 +65,20 @@ let
     };
   };
 in
-
-symlinkJoin {
-  name = "wiringpi-${version}";
-  inherit passthru;
-  paths = [
-    passthru.wiringPi
-    passthru.devLib
-    passthru.wiringPiD
-    passthru.gpio
-  ];
-  meta = with lib; {
-    description = "Gordon's Arduino wiring-like WiringPi Library for the Raspberry Pi (Unofficial Mirror for WiringPi bindings)";
-    homepage = "https://github.com/WiringPi/WiringPi";
-    license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ doronbehar ];
-    platforms = platforms.linux;
-  };
-}
+  symlinkJoin {
+    name = "wiringpi-${version}";
+    inherit passthru;
+    paths = [
+      passthru.wiringPi
+      passthru.devLib
+      passthru.wiringPiD
+      passthru.gpio
+    ];
+    meta = with lib; {
+      description = "Gordon's Arduino wiring-like WiringPi Library for the Raspberry Pi (Unofficial Mirror for WiringPi bindings)";
+      homepage = "https://github.com/WiringPi/WiringPi";
+      license = licenses.lgpl3Plus;
+      maintainers = with maintainers; [doronbehar];
+      platforms = platforms.linux;
+    };
+  }

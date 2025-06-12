@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ldproxy";
   version = "0.31.4";
@@ -32,6 +31,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with lib.maintainers; [ vpochapuis ];
+    maintainers = with lib.maintainers; [vpochapuis];
   };
 }

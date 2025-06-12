@@ -21,7 +21,6 @@
   types-pyyaml,
   types-requests,
 }:
-
 buildPythonPackage rec {
   pname = "swh-scanner";
   version = "0.8.3";
@@ -61,7 +60,7 @@ buildPythonPackage rec {
     swh-web-client
   ];
 
-  pythonImportsCheck = [ "swh.scanner" ];
+  pythonImportsCheck = ["swh.scanner"];
 
   nativeCheckInputs = [
     beautifulsoup4
@@ -84,6 +83,6 @@ buildPythonPackage rec {
     description = "Implementation of the Data model of the Software Heritage project, used to archive source code artifacts";
     homepage = "https://gitlab.softwareheritage.org/swh/devel/swh-model";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

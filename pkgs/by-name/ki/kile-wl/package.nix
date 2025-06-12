@@ -4,7 +4,6 @@
   unstableGitUpdater,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "kile-wl";
   version = "2.1-unstable-2023-07-23";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage {
     homepage = "https://gitlab.com/snakedye/kile";
     license = licenses.mit;
     platforms = platforms.linux; # It's meant for river, a wayland compositor
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
     mainProgram = "kile";
   };
 }

@@ -19,7 +19,6 @@
   srsly,
   wasabi,
 }:
-
 buildPythonPackage rec {
   pname = "thinc";
   version = "8.3.6";
@@ -69,13 +68,13 @@ buildPythonPackage rec {
     rm -r thinc
   '';
 
-  pythonImportsCheck = [ "thinc" ];
+  pythonImportsCheck = ["thinc"];
 
   meta = {
     description = "Library for NLP machine learning";
     homepage = "https://github.com/explosion/thinc";
     changelog = "https://github.com/explosion/thinc/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ aborsu ];
+    maintainers = with lib.maintainers; [aborsu];
   };
 }

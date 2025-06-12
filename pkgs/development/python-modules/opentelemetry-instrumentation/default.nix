@@ -10,7 +10,6 @@
   setuptools,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "opentelemetry-instrumentation";
   version = "0.52b1";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/opentelemetry-instrumentation";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     opentelemetry-api
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "opentelemetry.instrumentation" ];
+  pythonImportsCheck = ["opentelemetry.instrumentation"];
 
   disabledTests = [
     # bootstrap: error: argument -a/--action: invalid choice: 'pipenv' (choose from install, requirements)
@@ -58,7 +57,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/tree/main/opentelemetry-instrumentation";
     changelog = "https://github.com/open-telemetry/opentelemetry-python-contrib/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ maintainers.natsukium ];
-    teams = [ teams.deshaw ];
+    maintainers = [maintainers.natsukium];
+    teams = [teams.deshaw];
   };
 }

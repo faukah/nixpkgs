@@ -6,7 +6,6 @@
   fuse,
   android-tools,
 }:
-
 stdenv.mkDerivation rec {
   pname = "adbfs-rootless";
   version = "unstable-2023-03-21";
@@ -18,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "atiVjRfqvhTlm8Q+3iTNNPQiNkLIaHDLg5HZDJvpl2Q=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ fuse ];
+  buildInputs = [fuse];
 
   postPatch = ''
     # very ugly way of replacing the adb calls
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     mainProgram = "adbfs";
     inherit (src.meta) homepage;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.unix;
   };
 }

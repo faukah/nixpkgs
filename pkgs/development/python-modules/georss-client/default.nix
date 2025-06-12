@@ -10,7 +10,6 @@
   setuptools,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "georss-client";
   version = "0.18";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-KtndXsNvmjSGwqfKqkGAimHbapIC3I0yi4JuDh6cMzs=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     haversine
@@ -34,15 +33,15 @@ buildPythonPackage rec {
     dateparser
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "georss_client" ];
+  pythonImportsCheck = ["georss_client"];
 
   meta = with lib; {
     description = "Python library for accessing GeoRSS feeds";
     homepage = "https://github.com/exxamalte/python-georss-client";
     changelog = "https://github.com/exxamalte/python-georss-client/releases/tag/${src.tag}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

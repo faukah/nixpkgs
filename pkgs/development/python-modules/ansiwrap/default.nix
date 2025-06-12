@@ -29,23 +29,23 @@ buildPythonPackage rec {
       --replace-fail "set(range(120, 400)).difference(LINE_LENGTHS)" "sorted(set(range(120, 400)).difference(LINE_LENGTHS))"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ textwrap3 ];
+  dependencies = [textwrap3];
 
   nativeCheckInputs = [
     ansicolors
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "ansiwrap" ];
+  pythonImportsCheck = ["ansiwrap"];
 
   meta = with lib; {
     description = "Textwrap, but savvy to ANSI colors and styles";
     homepage = "https://github.com/jonathaneunice/ansiwrap";
     changelog = "https://github.com/jonathaneunice/ansiwrap/blob/master/CHANGES.yml";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
 
     broken = true;
   };

@@ -10,7 +10,6 @@
   cmake,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "ganv";
   version = "1.8.2-unstable-2024-07-04";
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
     mainProgram = "ganv_bench";
     homepage = "http://drobilla.net";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ t4ccer ];
+    maintainers = with lib.maintainers; [t4ccer];
     platforms = lib.platforms.linux;
   };
 }

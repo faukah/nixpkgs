@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.bluemap;
-  format = pkgs.formats.hocon { };
+  format = pkgs.formats.hocon {};
 
   coreConfig = format.generate "core.conf" cfg.coreSettings;
   webappConfig = format.generate "webapp.conf" cfg.webappSettings;
@@ -15,13 +14,15 @@ let
   mapsFolder = pkgs.linkFarm "maps" (
     lib.attrsets.mapAttrs' (
       name: value: lib.nameValuePair "${name}.conf" (format.generate "${name}.conf" value)
-    ) cfg.maps
+    )
+    cfg.maps
   );
 
   storageFolder = pkgs.linkFarm "storage" (
     lib.attrsets.mapAttrs' (
       name: value: lib.nameValuePair "${name}.conf" (format.generate "${name}.conf" value)
-    ) cfg.storage
+    )
+    cfg.storage
   );
 
   configFolder = pkgs.linkFarm "bluemap-config" {
@@ -34,14 +35,14 @@ let
   };
 
   inherit (lib) mkOption;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "bluemap" "resourcepacks" ]
-      [ "services" "bluemap" "packs" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "bluemap" "resourcepacks"]
+      ["services" "bluemap" "packs"]
     )
-    (lib.mkRenamedOptionModule [ "services" "bluemap" "addons" ] [ "services" "bluemap" "packs" ])
+    (lib.mkRenamedOptionModule ["services" "bluemap" "addons"] ["services" "bluemap" "packs"])
   ];
 
   options.services.bluemap = {
@@ -144,7 +145,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = ''
         Settings for the webserver.conf file, usually not required.
         [See upstream docs](https://github.com/BlueMap-Minecraft/BlueMap/blob/master/BlueMapCommon/src/main/resources/de/bluecolored/bluemap/config/webserver.conf).
@@ -272,7 +273,7 @@ in
 
     packs = mkOption {
       type = lib.types.attrsOf lib.types.pathInStore;
-      default = { };
+      default = {};
       description = ''
         A set of resourcepacks, datapacks, and mods to extract resources from,
         loaded in alphabetical order.
@@ -305,7 +306,7 @@ in
     };
 
     systemd.timers."render-bluemap-maps" = lib.mkIf cfg.enableRender {
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnCalendar = cfg.onCalendar;
         Persistent = true;

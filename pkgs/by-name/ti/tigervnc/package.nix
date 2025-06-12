@@ -23,7 +23,6 @@
   nixosTests,
   ffmpeg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "1.15.0";
   pname = "tigervnc";
@@ -103,16 +102,15 @@ stdenv.mkDerivation (finalAttrs: {
 
       wrapProgram $out/bin/vncserver \
         --prefix PATH : ${
-          lib.makeBinPath (
-            with xorg;
-            [
-              xterm
-              twm
-              xsetroot
-              xauth
-            ]
-          )
-        }
+        lib.makeBinPath (
+          with xorg; [
+            xterm
+            twm
+            xsetroot
+            xauth
+          ]
+        )
+      }
     ''
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       mkdir -p $out/Applications
@@ -134,28 +132,28 @@ stdenv.mkDerivation (finalAttrs: {
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux (
       with xorg;
-      [
-        nettle
-        pam
-        perl
-        xorgproto
-        utilmacros
-        libXtst
-        libXext
-        libX11
-        libXext
-        libICE
-        libXi
-        libSM
-        libXft
-        libxkbfile
-        libXfont2
-        libpciaccess
-        libGLU
-        libXrandr
-        libXdamage
-      ]
-      ++ xorg.xorgserver.buildInputs
+        [
+          nettle
+          pam
+          perl
+          xorgproto
+          utilmacros
+          libXtst
+          libXext
+          libX11
+          libXext
+          libICE
+          libXi
+          libSM
+          libXft
+          libxkbfile
+          libXfont2
+          libpciaccess
+          libGLU
+          libXrandr
+          libXdamage
+        ]
+        ++ xorg.xorgserver.buildInputs
     );
 
   nativeBuildInputs =
@@ -165,14 +163,14 @@ stdenv.mkDerivation (finalAttrs: {
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux (
       with xorg;
-      [
-        fontutil
-        libtool
-        makeWrapper
-        utilmacros
-        zlib
-      ]
-      ++ xorg.xorgserver.nativeBuildInputs
+        [
+          fontutil
+          libtool
+          makeWrapper
+          utilmacros
+          zlib
+        ]
+        ++ xorg.xorgserver.nativeBuildInputs
     );
 
   propagatedBuildInputs = lib.optional stdenv.hostPlatform.isLinux xorg.xorgserver.propagatedBuildInputs;
@@ -183,7 +181,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://tigervnc.org/";
     license = lib.licenses.gpl2Plus;
     description = "Fork of tightVNC, made in cooperation with VirtualGL";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
     # Prevent a store collision.

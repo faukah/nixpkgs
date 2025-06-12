@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "py-ocsf-models";
   version = "0.5.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = true;
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     cryptography
@@ -34,18 +33,18 @@ buildPythonPackage rec {
     pydantic
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Tests are outdated
   doCheck = false;
 
-  pythonImportsCheck = [ "py_ocsf_models" ];
+  pythonImportsCheck = ["py_ocsf_models"];
 
   meta = {
     description = "OCSF models in Python using Pydantic";
     homepage = "https://github.com/prowler-cloud/py-ocsf-models";
     changelog = "https://github.com/prowler-cloud/py-ocsf-models/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

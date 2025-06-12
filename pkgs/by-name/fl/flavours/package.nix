@@ -6,7 +6,6 @@
   libiconv,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "flavours";
   version = "0.7.1";
@@ -18,12 +17,12 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-SOsHvcfDdUpb0x5VZ1vZJnGaIiWWOPgnAwKYNXzfUfI=";
   };
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-9/2kiLuIyErwZ1O9457WkYbwlsbPY3P8wlH2hW0W1xU=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd flavours \

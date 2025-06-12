@@ -7,7 +7,6 @@
   rtl-sdr,
   soapysdr,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "soapyrtlsdr";
   version = "0.3.3";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     soapysdr
   ];
 
-  cmakeFlags = [ "-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/" ];
+  cmakeFlags = ["-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/"];
 
   meta = with lib; {
     homepage = "https://github.com/pothosware/SoapyRTLSDR";

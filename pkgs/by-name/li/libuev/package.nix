@@ -5,7 +5,6 @@
   pkg-config,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libuev";
   version = "2.4.1";
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://codedocs.xyz/troglobit/libuev/";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ vifino ];
+    maintainers = with maintainers; [vifino];
   };
 }

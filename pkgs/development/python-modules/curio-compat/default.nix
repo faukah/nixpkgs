@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "curio-compat";
   version = "1.6.7";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-Crd9r4Icwga85wvtXaePbE56R192o+FXU9Zn+Lc7trI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "curio" ];
+  pythonImportsCheck = ["curio"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # contacts google.com
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "Coroutine-based library for concurrent systems programming";
     homepage = "https://github.com/klen/curio";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

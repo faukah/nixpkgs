@@ -17,7 +17,6 @@
   enableSDL ? true,
   SDL,
 }:
-
 stdenv.mkDerivation rec {
   pname = "directfb";
   version = "1.7.7";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "deniskropp";
     repo = "DirectFB";
-    rev = "DIRECTFB_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "DIRECTFB_${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "0bs3yzb7hy3mgydrj8ycg7pllrd2b6j0gxj596inyr7ihssr3i0y";
   };
 
@@ -89,8 +88,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableSDL SDL
     ++ lib.optionals enableX11 (
-      with xorg;
-      [
+      with xorg; [
         xorgproto
         libX11
         libXext
@@ -146,6 +144,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/deniskropp/DirectFB";
     license = licenses.lgpl21;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

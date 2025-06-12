@@ -12,7 +12,6 @@
   nix-update-script,
   pkg-config,
 }:
-
 buildPerlPackage rec {
   pname = "Tirex";
   version = "0.7.1";
@@ -39,14 +38,16 @@ buildPerlPackage rec {
     pkg-config
   ];
 
-  buildInputs = [
-    GD
-    IPCShareLite
-    JSON
-    LWP
-    mapnik
-    boost
-  ] ++ mapnik.buildInputs;
+  buildInputs =
+    [
+      GD
+      IPCShareLite
+      JSON
+      LWP
+      mapnik
+      boost
+    ]
+    ++ mapnik.buildInputs;
 
   installPhase = ''
     install -m 755 -d $out/usr/libexec
@@ -55,12 +56,12 @@ buildPerlPackage rec {
     rmdir $out/$out $out/nix/store $out/nix
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tools for running a map tile server";
     homepage = "https://wiki.openstreetmap.org/wiki/Tirex";
-    maintainers = with lib.maintainers; [ jglukasik ];
-    license = with lib.licenses; [ gpl2Only ];
+    maintainers = with lib.maintainers; [jglukasik];
+    license = with lib.licenses; [gpl2Only];
   };
 }

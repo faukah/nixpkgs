@@ -7,7 +7,6 @@
   rich,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyporscheconnectapi";
   version = "0.2.4";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
       --replace-fail '"pytest-runner"' ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     beautifulsoup4
@@ -36,13 +35,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyporscheconnectapi" ];
+  pythonImportsCheck = ["pyporscheconnectapi"];
 
   meta = {
     description = "Python client library for Porsche Connect API";
     homepage = "https://github.com/CJNE/pyporscheconnectapi";
     changelog = "https://github.com/CJNE/pyporscheconnectapi/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

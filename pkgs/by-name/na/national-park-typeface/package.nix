@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "national-park-typeface";
   version = "206464";
@@ -26,6 +25,6 @@ stdenvNoCC.mkDerivation rec {
     description = ''Typeface designed to mimic the national park service signs that are carved using a router bit'';
     homepage = "https://nationalparktypeface.com/";
     license = licenses.ofl;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

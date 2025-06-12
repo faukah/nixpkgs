@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "gentium-book";
   version = "7.000";

@@ -1,5 +1,7 @@
-{ alephone, fetchurl }:
-
+{
+  alephone,
+  fetchurl,
+}:
 alephone.makeWrapper {
   pname = "marathon-evil";
   version = "0";
@@ -14,5 +16,4 @@ alephone.makeWrapper {
     description = "First conversion for Marathon Infinity";
     homepage = "https://alephone.lhowon.org/scenarios.html";
   };
-
 }

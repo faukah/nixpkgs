@@ -5,19 +5,18 @@
   runtimeShell,
   ctagsWrapped,
   name ? "${ctags.name}-wrapped",
-  args ? lib.concatLists [
-    ctagsWrapped.defaultArgs
-    ctagsWrapped.phpLang
-    ctagsWrapped.jsLang
-    ctagsWrapped.nixLang
-    ctagsWrapped.asLang
-    ctagsWrapped.rubyLang
-  ],
+  args ?
+    lib.concatLists [
+      ctagsWrapped.defaultArgs
+      ctagsWrapped.phpLang
+      ctagsWrapped.jsLang
+      ctagsWrapped.nixLang
+      ctagsWrapped.asLang
+      ctagsWrapped.rubyLang
+    ],
 }:
-
 # Define a ctags wrapper derivation adding support for some not-that-common languages customization.
 # Override this to provide different args.
-
 writeTextFile {
   inherit name;
   executable = true;
@@ -71,7 +70,7 @@ writeTextFile {
       # {
       # a : function () {}
       # only recognize names up 100 characters. Else you'll be in trouble scanning compressed .js files.
-      jsLang = [ "--regex-JavaScript=/([^ \\t]{1,100})[ \\t]*:[ \\t]*function[ \\t]*\\(/\\1/f/" ];
+      jsLang = ["--regex-JavaScript=/([^ \\t]{1,100})[ \\t]*:[ \\t]*function[ \\t]*\\(/\\1/f/"];
 
       # find foo in "foo =", don't think we can do a lot better
       nixLang = [

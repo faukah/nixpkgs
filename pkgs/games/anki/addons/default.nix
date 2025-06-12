@@ -1,18 +1,15 @@
-{
-  callPackage,
-}:
-{
-  adjust-sound-volume = callPackage ./adjust-sound-volume { };
+{callPackage}: {
+  adjust-sound-volume = callPackage ./adjust-sound-volume {};
 
-  anki-connect = callPackage ./anki-connect { };
+  anki-connect = callPackage ./anki-connect {};
 
-  local-audio-yomichan = callPackage ./local-audio-yomichan { };
+  local-audio-yomichan = callPackage ./local-audio-yomichan {};
 
-  passfail2 = callPackage ./passfail2 { };
+  passfail2 = callPackage ./passfail2 {};
 
-  recolor = callPackage ./recolor { };
+  recolor = callPackage ./recolor {};
 
-  reviewer-refocus-card = callPackage ./reviewer-refocus-card { };
+  reviewer-refocus-card = callPackage ./reviewer-refocus-card {};
 
-  yomichan-forvo-server = callPackage ./yomichan-forvo-server { };
+  yomichan-forvo-server = callPackage ./yomichan-forvo-server {};
 }

@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aioairzone-cloud";
   version = "0.6.12";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-maSYT1sd1GTe0Av0NvOUinI/GBYFzjUAemRLx7sDPUk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
-  pythonImportsCheck = [ "aioairzone_cloud" ];
+  pythonImportsCheck = ["aioairzone_cloud"];
 
   # Module has no tests
   doCheck = false;
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Noltari/aioairzone-cloud";
     changelog = "https://github.com/Noltari/aioairzone-cloud/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

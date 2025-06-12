@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "juicefs";
   version = "1.2.3";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-TIcxqMMsihV3Rf8WpQM/Ct9CNs3gBKBIx6myXHfca+s=";
 
-  excludedPackages = [ "sdk/java/libjfs" ];
+  excludedPackages = ["sdk/java/libjfs"];
 
   ldflags = [
     "-s"
@@ -35,6 +34,6 @@ buildGoModule rec {
     description = "Distributed POSIX file system built on top of Redis and S3";
     homepage = "https://www.juicefs.com/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

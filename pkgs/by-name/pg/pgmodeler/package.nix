@@ -10,7 +10,6 @@
   libxml2,
   qt6,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pgmodeler";
   version = "1.2.0";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
       qt6.qtsvg
       libpq
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ qt6.qtwayland ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [qt6.qtwayland]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       cups
       libxml2
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
       desktopName = "PgModeler";
       genericName = "PgModeler";
       comment = meta.description;
-      categories = [ "Development" ];
+      categories = ["Development"];
       startupWMClass = "pgmodeler";
     })
   ];
@@ -85,7 +84,7 @@ stdenv.mkDerivation rec {
     description = "Database modeling tool for PostgreSQL";
     homepage = "https://pgmodeler.io/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.esclear ];
+    maintainers = [maintainers.esclear];
     platforms = platforms.unix;
   };
 }

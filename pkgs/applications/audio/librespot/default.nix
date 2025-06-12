@@ -19,7 +19,6 @@
   withDNS-SD ? false,
   avahi-compat,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "librespot";
   version = "0.6.0";
@@ -44,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optional withALSA alsa-lib
     ++ lib.optional withDNS-SD avahi-compat
     ++ lib.optional withPortAudio portaudio
@@ -70,7 +69,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "librespot";
     homepage = "https://github.com/librespot-org/librespot";
     changelog = "https://github.com/librespot-org/librespot/blob/v${version}/CHANGELOG.md";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ bennofs ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [bennofs];
   };
 }

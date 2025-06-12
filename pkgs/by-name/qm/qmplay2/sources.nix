@@ -1,21 +1,18 @@
-{ fetchFromGitHub }:
+{fetchFromGitHub}: {
+  qmplay2 = let
+    self = {
+      pname = "qmplay2";
+      version = "25.01.19";
 
-{
-  qmplay2 =
-    let
-      self = {
-        pname = "qmplay2";
-        version = "25.01.19";
-
-        src = fetchFromGitHub {
-          owner = "zaps166";
-          repo = "QMPlay2";
-          tag = self.version;
-          hash = "sha256-Of/zEQ6o2J/wXfAoY10IPtCaMaSk8ux8L6MrimeMWVA=";
-          fetchSubmodules = true;
-        };
+      src = fetchFromGitHub {
+        owner = "zaps166";
+        repo = "QMPlay2";
+        tag = self.version;
+        hash = "sha256-Of/zEQ6o2J/wXfAoY10IPtCaMaSk8ux8L6MrimeMWVA=";
+        fetchSubmodules = true;
       };
-    in
+    };
+  in
     self;
 
   qmvk = {

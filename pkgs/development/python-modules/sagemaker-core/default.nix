@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   boto3,
   importlib-metadata,
@@ -15,17 +13,14 @@
   pydantic,
   pyyaml,
   rich,
-
   # optional-dependencies
   black,
   pandas,
   pylint,
   pytest,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sagemaker-core";
   version = "1.0.36";
@@ -73,9 +68,11 @@ buildPythonPackage rec {
     "sagemaker_core"
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTestPaths = [
     # Tries to import deprecated `sklearn`
@@ -90,6 +87,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aws/sagemaker-core";
     changelog = "https://github.com/aws/sagemaker-core/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

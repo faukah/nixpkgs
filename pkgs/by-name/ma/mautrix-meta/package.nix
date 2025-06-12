@@ -12,12 +12,11 @@
   # issues they run into.
   withGoolm ? false,
 }:
-
 buildGoModule rec {
   pname = "mautrix-meta";
   version = "0.4.6";
 
-  subPackages = [ "cmd/mautrix-meta" ];
+  subPackages = ["cmd/mautrix-meta"];
 
   src = fetchFromGitHub {
     owner = "mautrix";
@@ -33,13 +32,14 @@ buildGoModule rec {
 
   passthru = {
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         mautrix-meta-postgres
         mautrix-meta-sqlite
         ;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

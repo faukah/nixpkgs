@@ -14,7 +14,6 @@
   setuptools,
   sortedcontainers,
 }:
-
 buildPythonPackage rec {
   pname = "blinkpy";
   version = "0.23.0";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
       --replace "setuptools~=68.0" "setuptools"
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiofiles
@@ -74,6 +73,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/fronzbot/blinkpy";
     changelog = "https://github.com/fronzbot/blinkpy/blob/${src.rev}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

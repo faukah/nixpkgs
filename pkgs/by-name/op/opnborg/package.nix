@@ -5,7 +5,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "opnborg";
   version = "0.1.71";
@@ -24,9 +23,9 @@ buildGoModule (finalAttrs: {
     "-w"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doInstallCheck = true;
   versionCheckProgram = "${placeholder "out"}/bin/opnborg";
@@ -38,6 +37,6 @@ buildGoModule (finalAttrs: {
     description = "Sefhosted OPNSense Appliance Backup & Configuration Management Portal";
     license = lib.licenses.bsd3;
     mainProgram = "opnborg";
-    maintainers = with lib.maintainers; [ paepcke ];
+    maintainers = with lib.maintainers; [paepcke];
   };
 })

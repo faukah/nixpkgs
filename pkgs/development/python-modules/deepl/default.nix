@@ -6,7 +6,6 @@
   poetry-core,
   keyring,
 }:
-
 buildPythonPackage rec {
   pname = "deepl";
   version = "1.22.0";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-6wlWjlmW3/aiwxjUCiK9Z9P88E8uwrGvmFuNS2zwlrY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     requests
@@ -27,7 +26,7 @@ buildPythonPackage rec {
   # Requires internet access and an API key
   doCheck = false;
 
-  pythonImportsCheck = [ "deepl" ];
+  pythonImportsCheck = ["deepl"];
 
   meta = with lib; {
     description = "Language translation API that allows other computer programs to send texts and documents to DeepL's servers and receive high-quality translations";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/DeepLcom/deepl-python";
     changelog = "https://github.com/DeepLcom/deepl-python/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ MaskedBelgian ];
+    maintainers = with maintainers; [MaskedBelgian];
   };
 }

@@ -3,48 +3,45 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.freeciv;
   inherit (config.users) groups;
   rootDir = "/run/freeciv";
   argsFormat = {
-    type =
-      with lib.types;
-      let
-        valueType =
-          nullOr (oneOf [
-            bool
-            int
-            float
-            str
-            (listOf valueType)
-          ])
-          // {
-            description = "freeciv-server params";
-          };
-      in
+    type = with lib.types; let
+      valueType =
+        nullOr (oneOf [
+          bool
+          int
+          float
+          str
+          (listOf valueType)
+        ])
+        // {
+          description = "freeciv-server params";
+        };
+    in
       valueType;
-    generate =
-      name: value:
-      let
-        mkParam =
-          k: v:
-          if v == null then
-            [ ]
-          else if lib.isBool v then
-            lib.optional v ("--" + k)
-          else
-            [
-              ("--" + k)
-              v
-            ];
-        mkParams = k: v: map (mkParam k) (if lib.isList v then v else [ v ]);
-      in
+    generate = name: value: let
+      mkParam = k: v:
+        if v == null
+        then []
+        else if lib.isBool v
+        then lib.optional v ("--" + k)
+        else [
+          ("--" + k)
+          v
+        ];
+      mkParams = k: v:
+        map (mkParam k) (
+          if lib.isList v
+          then v
+          else [v]
+        );
+    in
       lib.escapeShellArgs (lib.concatLists (lib.concatLists (lib.mapAttrsToList mkParams value)));
   };
-in
-{
+in {
   options = {
     services.freeciv = {
       enable = lib.mkEnableOption ''freeciv'';
@@ -52,7 +49,7 @@ in
         description = ''
           Parameters of freeciv-server.
         '';
-        default = { };
+        default = {};
         type = lib.types.submodule {
           freeformType = argsFormat.type;
           options.Announce = lib.mkOption {
@@ -116,13 +113,13 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    users.groups.freeciv = { };
+    users.groups.freeciv = {};
     # Use with:
     #   journalctl -u freeciv.service -f -o cat &
     #   cat >/run/freeciv.stdin
     #   load saves/2020-11-14_05-22-27/freeciv-T0005-Y-3750-interrupted.sav.bz2
     systemd.sockets.freeciv = {
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       socketConfig = {
         ListenFIFO = "/run/freeciv.stdin";
         SocketGroup = groups.freeciv.name;
@@ -132,8 +129,8 @@ in
     };
     systemd.services.freeciv = {
       description = "Freeciv Service";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment.HOME = "/var/lib/freeciv";
       serviceConfig = {
         Restart = "on-failure";
@@ -155,16 +152,16 @@ in
             ]
           )
           + " "
-          + argsFormat.generate "freeciv-server" (cfg.settings // { saves = null; })
+          + argsFormat.generate "freeciv-server" (cfg.settings // {saves = null;})
         );
         DynamicUser = true;
         # Create rootDir in the host's mount namespace.
-        RuntimeDirectory = [ (baseNameOf rootDir) ];
+        RuntimeDirectory = [(baseNameOf rootDir)];
         RuntimeDirectoryMode = "755";
-        StateDirectory = [ "freeciv" ];
+        StateDirectory = ["freeciv"];
         WorkingDirectory = "/var/lib/freeciv";
         # Avoid mounting rootDir in the own rootDir of ExecStart='s mount namespace.
-        InaccessiblePaths = [ "-+${rootDir}" ];
+        InaccessiblePaths = ["-+${rootDir}"];
         # This is for BindPaths= and BindReadOnlyPaths=
         # to allow traversal of directories they create in RootDirectory=.
         UMask = "0066";
@@ -225,7 +222,7 @@ in
         SystemCallErrorNumber = "EPERM";
       };
     };
-    networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.port ]; };
+    networking.firewall = lib.mkIf cfg.openFirewall {allowedTCPPorts = [cfg.settings.port];};
   };
-  meta.maintainers = with lib.maintainers; [ julm ];
+  meta.maintainers = with lib.maintainers; [julm];
 }

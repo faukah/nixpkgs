@@ -5,19 +5,12 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   memtest86 = pkgs.memtest86plus;
   cfg = config.boot.loader.grub.memtest86;
-in
-
-{
+in {
   options = {
-
     boot.loader.grub.memtest86 = {
-
       enable = mkOption {
         default = false;
         type = types.bool;
@@ -28,8 +21,8 @@ in
       };
 
       params = mkOption {
-        default = [ ];
-        example = [ "console=ttyS0,115200" ];
+        default = [];
+        example = ["console=ttyS0,115200"];
         type = types.listOf types.str;
         description = ''
           Parameters added to the Memtest86+ command line. As of memtest86+ 5.01
@@ -59,7 +52,6 @@ in
           Memtest86+ source code.
         '';
       };
-
     };
   };
 

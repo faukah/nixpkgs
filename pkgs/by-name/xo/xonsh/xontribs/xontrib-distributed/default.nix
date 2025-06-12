@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   poetry-core,
   distributed,
   writableTmpDirAsHomeHook,
@@ -10,7 +9,6 @@
   xonsh,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "xontrib-distributed";
   version = "0.0.4";
@@ -45,12 +43,12 @@ buildPythonPackage rec {
     xonsh
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Dask Distributed integration for Xonsh";
     homepage = "https://github.com/xonsh/xontrib-distributed";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ greg ];
+    maintainers = with lib.maintainers; [greg];
   };
 }

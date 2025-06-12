@@ -7,7 +7,6 @@
   perl,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yaws";
   version = "2.2.0";
@@ -19,9 +18,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-acO8Vc8sZJl22HUml2kTxVswLEirqMbqHQdRIbkkcvs=";
   };
 
-  configureFlags = [ "--with-extrainclude=${pam}/include/security" ];
+  configureFlags = ["--with-extrainclude=${pam}/include/security"];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     erlang
     pam
@@ -38,7 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/erlyaws/yaws";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
-
 }

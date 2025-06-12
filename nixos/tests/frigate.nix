@@ -2,11 +2,9 @@
   pkgs,
   lib,
   ...
-}:
-
-{
+}: {
   name = "frigate";
-  meta = { inherit (pkgs.frigate.meta) maintainers; };
+  meta = {inherit (pkgs.frigate.meta) maintainers;};
 
   nodes = {
     machine = {
@@ -51,7 +49,7 @@
         };
       };
 
-      environment.systemPackages = with pkgs; [ httpie ];
+      environment.systemPackages = with pkgs; [httpie];
     };
   };
 

@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "yasi";
   version = "2.1.2";
@@ -19,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-xKhVTmh/vrtBkatxtk8R4yqbGroH0I+xTKNYUpuikt4=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ colorama ];
+  propagatedBuildInputs = [colorama];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.py \
       --replace "test.test_yasi" "tests.test_yasi"
   '';
 
-  pythonImportsCheck = [ "yasi" ];
+  pythonImportsCheck = ["yasi"];
 
   meta = with lib; {
     description = "Dialect-aware s-expression indenter written in Python and newLISP";
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/nkmathew/yasi-sexp-indenter";
     changelog = "https://github.com/nkmathew/yasi-sexp-indenter/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
   };
 }

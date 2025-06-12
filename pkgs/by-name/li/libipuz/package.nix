@@ -8,7 +8,6 @@
   glib,
   json-glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libipuz";
   version = "0.4.5";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/jrb/libipuz";
     changelog = "https://gitlab.gnome.org/jrb/libipuz/-/blob/${version}/NEWS.md?ref_type=tags";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
   };
 }

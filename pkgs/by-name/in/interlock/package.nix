@@ -8,7 +8,6 @@
   systemd,
   umount,
 }:
-
 buildGoModule rec {
   pname = "interlock";
   version = "2020.03.05";

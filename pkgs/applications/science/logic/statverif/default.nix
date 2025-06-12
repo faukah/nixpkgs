@@ -4,7 +4,6 @@
   fetchurl,
   ocaml,
 }:
-
 stdenv.mkDerivation rec {
   pname = "statverif";
   version = "1.86pl4";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ ocaml ];
+  nativeBuildInputs = [ocaml];
 
   patchPhase = "patch -p1 < ${pf-patch}";
   buildPhase = "./build";
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://markryan.eu/research/statverif/";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

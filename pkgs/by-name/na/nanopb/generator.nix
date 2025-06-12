@@ -11,7 +11,7 @@ stdenvNoCC.mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ python3.pkgs.wrapPython ];
+  nativeBuildInputs = [python3.pkgs.wrapPython];
 
   propagatedBuildInputs = [
     protobuf

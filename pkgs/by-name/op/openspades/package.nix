@@ -21,7 +21,6 @@
   libogg,
   libXext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openspades";
   version = "0.1.3";

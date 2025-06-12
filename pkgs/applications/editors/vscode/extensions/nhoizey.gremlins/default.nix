@@ -1,5 +1,7 @@
-{ lib, vscode-utils }:
-
+{
+  lib,
+  vscode-utils,
+}:
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "gremlins";
@@ -14,6 +16,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=nhoizey.gremlins";
     homepage = "https://github.com/nhoizey/vscode-gremlins";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.theobori ];
+    maintainers = [lib.maintainers.theobori];
   };
 }

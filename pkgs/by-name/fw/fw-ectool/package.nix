@@ -7,7 +7,6 @@
   libusb1,
   libftdi1,
 }:
-
 stdenv.mkDerivation {
   pname = "fw-ectool";
   version = "0-unstable-2024-04-23";
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
     description = "EC-Tool adjusted for usage with framework embedded controller";
     homepage = "https://gitlab.howett.net/DHowett/ectool";
     license = licenses.bsd3;
-    maintainers = [ maintainers.mkg20001 ];
+    maintainers = [maintainers.mkg20001];
     platforms = platforms.linux;
     mainProgram = "ectool";
   };

@@ -5,9 +5,11 @@
   libxcrypt,
   withoutInitTools ? false,
 }:
-
 stdenv.mkDerivation rec {
-  pname = if withoutInitTools then "sysvtools" else "sysvinit";
+  pname =
+    if withoutInitTools
+    then "sysvtools"
+    else "sysvinit";
   version = "3.04";
 
   src = fetchurl {
@@ -20,7 +22,7 @@ stdenv.mkDerivation rec {
     sed -i -e "s,/sbin/,$out/sbin/," src/halt.c src/init.c src/paths.h
   '';
 
-  buildInputs = [ libxcrypt ];
+  buildInputs = [libxcrypt];
 
   makeFlags = [
     "SULOGINLIBS=-lcrypt"

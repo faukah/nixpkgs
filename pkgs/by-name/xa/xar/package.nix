@@ -5,21 +5,17 @@
   applyPatches,
   autoreconfHook,
   nix-update-script,
-
   # Required dependencies.
   openssl,
   zlib,
   libxml2,
-
   # Optional dependencies.
   e2fsprogs,
   bzip2,
   xz, # lzma
-
   # Platform-specific dependencies.
   acl,
   musl-fts,
-
   # for tests
   testers,
   python3,
@@ -55,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     ) (lib.filesystem.listFilesRecursive ./patches);
 
   # We do not use or modify files outside of the xar subdirectory.
-  patchFlags = [ "-p2" ];
+  patchFlags = ["-p2"];
   sourceRoot = "${finalAttrs.src.name}/xar";
 
   outputs = [
@@ -66,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   env.NIX_CFLAGS_COMPILE = toString (
     [
@@ -96,95 +92,93 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional stdenv.hostPlatform.isLinux acl
     ++ lib.optional stdenv.hostPlatform.isMusl musl-fts;
 
-  passthru =
-    let
-      patchedSource = applyPatches { inherit (finalAttrs) src patches; };
-      pythonForTests = python3.withPackages (p: [ p.xattr ]);
-    in
-    {
-      # Tests xar outside of the Nix sandbox (extended attributes are not supported
-      # in Nix sandbox, e.g. filtered with seccomp on Linux).
-      #
-      # Run with
-      # $ nix run --file . xar.impureTests.integrationTest
-      # Ensure that all tests are PASSED and none are FAILED or SKIPPED.
-      impureTests.integrationTest =
-        runCommand "xar-impure-tests-integration-test"
-          {
-            src = patchedSource;
-            xar = finalAttrs.finalPackage;
-            xsltproc = lib.getBin libxslt;
-            pythonInterpreter = pythonForTests.interpreter;
-            nativeBuildInputs = [ makeWrapper ];
-          }
-          ''
-            makeWrapper "$pythonInterpreter" "$out/bin/$name" \
-              --prefix PATH : "$xar/bin" \
-              --suffix PATH : "$xsltproc/bin" \
-              --add-flags -- \
-              --add-flags "$src/xar/test/run-all.py"
-          '';
+  passthru = let
+    patchedSource = applyPatches {inherit (finalAttrs) src patches;};
+    pythonForTests = python3.withPackages (p: [p.xattr]);
+  in {
+    # Tests xar outside of the Nix sandbox (extended attributes are not supported
+    # in Nix sandbox, e.g. filtered with seccomp on Linux).
+    #
+    # Run with
+    # $ nix run --file . xar.impureTests.integrationTest
+    # Ensure that all tests are PASSED and none are FAILED or SKIPPED.
+    impureTests.integrationTest =
+      runCommand "xar-impure-tests-integration-test"
+      {
+        src = patchedSource;
+        xar = finalAttrs.finalPackage;
+        xsltproc = lib.getBin libxslt;
+        pythonInterpreter = pythonForTests.interpreter;
+        nativeBuildInputs = [makeWrapper];
+      }
+      ''
+        makeWrapper "$pythonInterpreter" "$out/bin/$name" \
+          --prefix PATH : "$xar/bin" \
+          --suffix PATH : "$xsltproc/bin" \
+          --add-flags -- \
+          --add-flags "$src/xar/test/run-all.py"
+      '';
 
-      tests = lib.optionalAttrs (stdenv.buildPlatform.canExecute stdenv.hostPlatform) {
-        version = testers.testVersion {
-          package = finalAttrs.finalPackage;
-          version = "1.8dev";
-        };
-
-        integrationTest =
-          runCommand "xar-tests-integration-test"
-            {
-              src = patchedSource;
-              strictDeps = true;
-              pythonExecutable = pythonForTests.executable;
-              nativeBuildInputs = [
-                finalAttrs.finalPackage
-                pythonForTests
-                libxslt
-              ];
-            }
-            ''
-              "$pythonExecutable" "$src"/xar/test/run-all.py
-              touch "$out"
-            '';
-
-        smokeTest =
-          runCommandCC "xar-tests-smoke-test"
-            {
-              src = patchedSource;
-              strictDeps = true;
-              nativeBuildInputs = [ finalAttrs.finalPackage ];
-              buildInputs = [
-                finalAttrs.finalPackage
-                openssl
-              ];
-            }
-            ''
-              cp "$src"/xar/test/{buffer.c,validate.c} .
-              "$CC" -lxar -o buffer buffer.c
-              "$CC" -lxar -lcrypto -o validate validate.c
-              ./buffer validate.c
-              xar -x -f test.xar
-              diff validate.c mydir/secondfile
-              ./validate test.xar
-              touch "$out"
-            '';
+    tests = lib.optionalAttrs (stdenv.buildPlatform.canExecute stdenv.hostPlatform) {
+      version = testers.testVersion {
+        package = finalAttrs.finalPackage;
+        version = "1.8dev";
       };
 
-      updateScript = nix-update-script {
-        extraArgs = [
-          "--version-regex"
-          "xar-(.*)"
-        ];
-      };
+      integrationTest =
+        runCommand "xar-tests-integration-test"
+        {
+          src = patchedSource;
+          strictDeps = true;
+          pythonExecutable = pythonForTests.executable;
+          nativeBuildInputs = [
+            finalAttrs.finalPackage
+            pythonForTests
+            libxslt
+          ];
+        }
+        ''
+          "$pythonExecutable" "$src"/xar/test/run-all.py
+          touch "$out"
+        '';
+
+      smokeTest =
+        runCommandCC "xar-tests-smoke-test"
+        {
+          src = patchedSource;
+          strictDeps = true;
+          nativeBuildInputs = [finalAttrs.finalPackage];
+          buildInputs = [
+            finalAttrs.finalPackage
+            openssl
+          ];
+        }
+        ''
+          cp "$src"/xar/test/{buffer.c,validate.c} .
+          "$CC" -lxar -o buffer buffer.c
+          "$CC" -lxar -lcrypto -o validate validate.c
+          ./buffer validate.c
+          xar -x -f test.xar
+          diff validate.c mydir/secondfile
+          ./validate test.xar
+          touch "$out"
+        '';
     };
+
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version-regex"
+        "xar-(.*)"
+      ];
+    };
+  };
 
   meta = {
     homepage = "https://github.com/apple-oss-distributions/xar";
     description = "Easily extensible archive format";
     license = lib.licenses.bsd3;
-    maintainers = lib.attrValues { inherit (lib.maintainers) tie; };
-    teams = [ lib.teams.darwin ];
+    maintainers = lib.attrValues {inherit (lib.maintainers) tie;};
+    teams = [lib.teams.darwin];
     platforms = lib.platforms.unix;
     mainProgram = "xar";
   };

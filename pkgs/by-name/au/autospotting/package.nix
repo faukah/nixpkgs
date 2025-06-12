@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "autospotting";
   version = "unstable-2023-07-03";
@@ -17,7 +16,7 @@ buildGoModule {
 
   vendorHash = "sha256-RuBchKainwE6RM3AphKWjndGZc1nh7A/Xxcacq1r7Nk=";
 
-  excludedPackages = [ "scripts" ];
+  excludedPackages = ["scripts"];
 
   ldflags = [
     "-s"
@@ -28,7 +27,7 @@ buildGoModule {
     description = "Automatically convert your existing AutoScaling groups to up to 90% cheaper spot instances with minimal configuration changes";
     homepage = "https://github.com/cloudutil/AutoSpotting";
     license = licenses.osl3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
     mainProgram = "AutoSpotting";
   };
 }

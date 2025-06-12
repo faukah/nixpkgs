@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "prom2json";
   version = "1.4.2";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "prom2json";
     homepage = "https://github.com/prometheus/prom2json";
     license = licenses.asl20;
-    maintainers = with maintainers; [ benley ];
+    maintainers = with maintainers; [benley];
   };
 }

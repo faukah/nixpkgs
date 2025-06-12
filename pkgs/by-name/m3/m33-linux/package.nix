@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation {
   pname = "M33-Linux";
   version = "unstable-2016-06-23";
@@ -37,6 +36,6 @@ stdenv.mkDerivation {
     mainProgram = "m33-linux";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

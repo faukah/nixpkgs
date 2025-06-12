@@ -9,7 +9,6 @@
   gpm,
   miniupnpc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qodem";
   version = "1.0.1-unstable-2022-02-12";
@@ -82,8 +81,8 @@ stdenv.mkDerivation (finalAttrs: {
       connections.
     '';
     changelog = "${finalAttrs.src.meta.homepage}-/blob/${finalAttrs.src.rev}/ChangeLog";
-    maintainers = with lib.maintainers; [ embr ];
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    maintainers = with lib.maintainers; [embr];
+    sourceProvenance = [lib.sourceTypes.fromSource];
     license = lib.licenses.publicDomain;
     platforms = lib.platforms.unix;
   };

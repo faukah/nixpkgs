@@ -15,7 +15,6 @@
   libnma,
   glib,
 }:
-
 stdenv.mkDerivation {
   pname = "NetworkManager-iodine${lib.optionalString withGnome "-gnome"}";
   version = "1.2.0-unstable-2024-11-02";
@@ -54,7 +53,11 @@ stdenv.mkDerivation {
     ];
 
   configureFlags = [
-    "--with-gnome=${if withGnome then "yes" else "no"}"
+    "--with-gnome=${
+      if withGnome
+      then "yes"
+      else "no"
+    }"
     "--localstatedir=/" # needed for the management socket under /run/NetworkManager
     "--enable-absolute-paths"
   ];

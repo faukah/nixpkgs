@@ -4,7 +4,6 @@
   fetchurl,
   libsForQt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libguytools";
   version = "2.1.0";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     libsForQt5.wrapQtAppsHook
   ];
   dontWrapQtApps = true;
-  buildInputs = [ libsForQt5.qtbase ];
+  buildInputs = [libsForQt5.qtbase];
 
   postPatch = ''
     sed -i "/dpkg-buildflags/d" tools.pro
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Small programming toolbox";
     mainProgram = "libguytools";
     homepage = "https://libguytools.sourceforge.io";
-    maintainers = with lib.maintainers; [ d3vil0p3r ];
+    maintainers = with lib.maintainers; [d3vil0p3r];
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
   };

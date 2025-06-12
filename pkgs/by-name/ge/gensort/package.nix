@@ -4,7 +4,6 @@
   zlib,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   name = "gensort";
   version = "1.5";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://www.ordinal.com/gensort.html";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ zimeg ];
+    maintainers = with lib.maintainers; [zimeg];
     mainProgram = "gensort";
     platforms = lib.platforms.linux;
   };

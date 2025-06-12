@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mev-boost";
   version = "1.9";
@@ -21,7 +20,7 @@ buildGoModule rec {
     homepage = "https://github.com/flashbots/mev-boost";
     license = licenses.mit;
     mainProgram = "mev-boost";
-    maintainers = with maintainers; [ ekimber ];
+    maintainers = with maintainers; [ekimber];
     platforms = platforms.unix;
   };
 }

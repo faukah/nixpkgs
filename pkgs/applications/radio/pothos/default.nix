@@ -19,7 +19,6 @@
   muparserx,
   python3,
 }:
-
 mkDerivation rec {
   pname = "pothos";
   version = "0.7.1";
@@ -47,7 +46,7 @@ mkDerivation rec {
   ];
 
   # poco 1.14 requires c++17
-  NIX_CFLAGS_COMPILE = [ "-std=gnu++17" ];
+  NIX_CFLAGS_COMPILE = ["-std=gnu++17"];
 
   nativeBuildInputs = [
     cmake
@@ -97,6 +96,6 @@ mkDerivation rec {
     homepage = "https://github.com/pothosware/PothosCore/wiki";
     license = licenses.boost;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

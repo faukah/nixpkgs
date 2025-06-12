@@ -10,7 +10,6 @@
   wayland-scanner,
   zig_0_12,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rivercarro";
   version = "0.4.0";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postPatch = ''
-    ln -s ${callPackage ./deps.nix { }} $ZIG_GLOBAL_CACHE_DIR/p
+    ln -s ${callPackage ./deps.nix {}} $ZIG_GLOBAL_CACHE_DIR/p
   '';
 
   meta = with lib; {
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     changelog = "https://git.sr.ht/~novakane/rivercarro/refs/v${finalAttrs.version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kraem ];
+    maintainers = with maintainers; [kraem];
     inherit (zig_0_12.meta) platforms;
     mainProgram = "rivercarro";
   };

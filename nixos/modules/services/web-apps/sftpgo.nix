@@ -6,13 +6,10 @@
   utils,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.sftpgo;
   defaultUser = "sftpgo";
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   configFile = settingsFormat.generate "sftpgo.json" cfg.settings;
   hasPrivilegedPorts = any (port: port > 0 && port < 1024) (
     catAttrs "port" (
@@ -22,8 +19,7 @@ let
       ++ cfg.settings.webdavd.bindings
     )
   );
-in
-{
+in {
   options.services.sftpgo = {
     enable = mkOption {
       type = types.bool;
@@ -31,11 +27,11 @@ in
       description = "sftpgo";
     };
 
-    package = mkPackageOption pkgs "sftpgo" { };
+    package = mkPackageOption pkgs "sftpgo" {};
 
     extraArgs = mkOption {
       type = with types; listOf str;
-      default = [ ];
+      default = [];
       description = ''
         Additional command line arguments to pass to the sftpgo daemon.
       '';
@@ -55,7 +51,7 @@ in
 
     extraReadWriteDirs = mkOption {
       type = types.listOf types.path;
-      default = [ ];
+      default = [];
       description = ''
         Extra directories where SFTPGo is allowed to write to.
       '';
@@ -88,19 +84,18 @@ in
     };
 
     settings = mkOption {
-      default = { };
+      default = {};
       description = ''
         The primary sftpgo configuration. See the
         [configuration reference](https://sftpgo.github.io/latest/config-file/)
         for possible values.
       '';
-      type =
-        with types;
+      type = with types;
         submodule {
           freeformType = settingsFormat.type;
           options = {
             httpd.bindings = mkOption {
-              default = [ ];
+              default = [];
               description = ''
                 Configure listen addresses and ports for httpd.
               '';
@@ -148,7 +143,7 @@ in
             };
 
             ftpd.bindings = mkOption {
-              default = [ ];
+              default = [];
               description = ''
                 Configure listen addresses and ports for ftpd.
               '';
@@ -180,7 +175,7 @@ in
             };
 
             sftpd.bindings = mkOption {
-              default = [ ];
+              default = [];
               description = ''
                 Configure listen addresses and ports for sftpd.
               '';
@@ -212,7 +207,7 @@ in
             };
 
             webdavd.bindings = mkOption {
-              default = [ ];
+              default = [];
               description = ''
                 Configure listen addresses and ports for webdavd.
               '';
@@ -244,7 +239,7 @@ in
             };
 
             smtp = mkOption {
-              default = { };
+              default = {};
               description = ''
                 SMTP configuration section.
               '';
@@ -318,10 +313,10 @@ in
   config = mkIf cfg.enable {
     services.sftpgo.settings = (
       mapAttrs (name: mkDefault) {
-        ftpd.bindings = [ { port = 0; } ];
-        httpd.bindings = [ { port = 0; } ];
-        sftpd.bindings = [ { port = 0; } ];
-        webdavd.bindings = [ { port = 0; } ];
+        ftpd.bindings = [{port = 0;}];
+        httpd.bindings = [{port = 0;}];
+        sftpd.bindings = [{port = 0;}];
+        webdavd.bindings = [{port = 0;}];
         httpd.openapi_path = "${cfg.package}/share/sftpgo/openapi";
         httpd.templates_path = "${cfg.package}/share/sftpgo/templates";
         httpd.static_files_path = "${cfg.package}/share/sftpgo/static";
@@ -341,15 +336,15 @@ in
 
       groups = {
         ${defaultUser} = {
-          members = [ defaultUser ];
+          members = [defaultUser];
         };
       };
     };
 
     systemd.services.sftpgo = {
       description = "SFTPGo daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         SFTPGO_CONFIG_FILE = mkDefault configFile;
@@ -358,19 +353,19 @@ in
       };
 
       serviceConfig = mkMerge [
-        ({
+        {
           Type = "simple";
           User = cfg.user;
           Group = cfg.group;
           WorkingDirectory = cfg.dataDir;
-          ReadWritePaths = [ cfg.dataDir ] ++ cfg.extraReadWriteDirs;
+          ReadWritePaths = [cfg.dataDir] ++ cfg.extraReadWriteDirs;
           LimitNOFILE = 8192; # taken from upstream
           KillMode = "mixed";
           ExecStart = "${cfg.package}/bin/sftpgo serve ${utils.escapeSystemdExecArgs cfg.extraArgs}";
           ExecReload = "${pkgs.util-linux}/bin/kill -s HUP $MAINPID";
 
           # Service hardening
-          CapabilityBoundingSet = [ (optionalString hasPrivilegedPorts "CAP_NET_BIND_SERVICE") ];
+          CapabilityBoundingSet = [(optionalString hasPrivilegedPorts "CAP_NET_BIND_SERVICE")];
           DevicePolicy = "closed";
           LockPersonality = true;
           NoNewPrivileges = true;
@@ -397,7 +392,7 @@ in
             "~@privileged"
           ];
           UMask = "0077";
-        })
+        }
         (mkIf hasPrivilegedPorts {
           AmbientCapabilities = "CAP_NET_BIND_SERVICE";
         })

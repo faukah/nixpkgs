@@ -5,7 +5,6 @@
   undmg,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "numi";
   version = "3.32.721";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-IbX4nsrPqwOSlYdNJLeaRQwIDVJrzfMXFqRqixHd2zA=";
   };
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = ".";
 
@@ -28,14 +27,14 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Beautiful calculator app for macOS";
     homepage = "https://numi.app/";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ donteatoreo ];
+    maintainers = with lib.maintainers; [donteatoreo];
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

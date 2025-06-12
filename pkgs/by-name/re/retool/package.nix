@@ -5,7 +5,6 @@
   fetchFromGitHub,
   qt6,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "retool";
   version = "2.3.9";
@@ -53,6 +52,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/unexpectedpanda/retool";
     changelog = "https://github.com/unexpectedpanda/retool/blob/${src.tag}/changelog.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
   };
 }

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     eprover
     coq
   ];
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   src = fetchurl {
     url = "https://www.ps.uni-saarland.de/~cebrown/satallax/downloads/${pname}-${version}.tar.gz";
@@ -72,11 +72,11 @@ stdenv.mkDerivation rec {
     cp bin/satallax.opt "$out/bin/satallax"
     wrapProgram "$out/bin/satallax" \
       --suffix PATH : "${
-        lib.makeBinPath [
-          coq
-          eprover
-        ]
-      }:$out/libexec/satallax" \
+      lib.makeBinPath [
+        coq
+        eprover
+      ]
+    }:$out/libexec/satallax" \
       --add-flags "-M" --add-flags "$out/lib/satallax/modes"
 
     cp LICENSE README "$out/share/doc/satallax"
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
     description = "Automated theorem prover for higher-order logic";
     mainProgram = "satallax";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.unix;
     downloadPage = "http://www.ps.uni-saarland.de/~cebrown/satallax/downloads.php";
     homepage = "http://www.ps.uni-saarland.de/~cebrown/satallax/index.php";

@@ -16,7 +16,6 @@
   requests,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "auth0-python";
   version = "4.10.0";
@@ -36,14 +35,16 @@ buildPythonPackage rec {
     poetry-dynamic-versioning
   ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    cryptography
-    pyjwt
-    pyopenssl
-    requests
-    urllib3
-  ] ++ pyjwt.optional-dependencies.crypto;
+  propagatedBuildInputs =
+    [
+      aiohttp
+      cryptography
+      pyjwt
+      pyopenssl
+      requests
+      urllib3
+    ]
+    ++ pyjwt.optional-dependencies.crypto;
 
   nativeCheckInputs = [
     aiohttp
@@ -53,7 +54,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonRelaxDeps = [ "cryptography" ];
+  pythonRelaxDeps = ["cryptography"];
 
   disabledTests = [
     # Tries to ping websites (e.g. google.com)
@@ -62,13 +63,13 @@ buildPythonPackage rec {
     "test_options_are_used_and_override"
   ];
 
-  pythonImportsCheck = [ "auth0" ];
+  pythonImportsCheck = ["auth0"];
 
   meta = with lib; {
     description = "Auth0 Python SDK";
     homepage = "https://github.com/auth0/auth0-python";
     changelog = "https://github.com/auth0/auth0-python/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

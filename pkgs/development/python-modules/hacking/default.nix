@@ -10,7 +10,6 @@
   stestr,
   testscenarios,
 }:
-
 buildPythonPackage rec {
   pname = "hacking";
   version = "7.0.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ flake8 ];
+  dependencies = [flake8];
 
   nativeCheckInputs = [
     ddt
@@ -46,12 +45,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "hacking" ];
+  pythonImportsCheck = ["hacking"];
 
   meta = with lib; {
     description = "OpenStack Hacking Guideline Enforcement";
     homepage = "https://github.com/openstack/hacking";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

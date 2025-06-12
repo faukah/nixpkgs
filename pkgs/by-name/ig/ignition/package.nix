@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   appstream,
   blueprint-compiler,
   desktop-file-utils,
@@ -12,12 +11,10 @@
   pkg-config,
   typescript,
   wrapGAppsHook4,
-
   gjs,
   gtk4,
   libadwaita,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ignition";
   version = "2.1.1";
@@ -62,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Manage startup apps and scripts";
     homepage = "https://github.com/flattool/ignition";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     mainProgram = "io.github.flattool.Ignition";
     platforms = lib.platforms.linux;
   };

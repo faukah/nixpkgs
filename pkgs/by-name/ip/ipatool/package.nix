@@ -6,7 +6,6 @@
   testers,
   ipatool,
 }:
-
 buildGoModule rec {
   pname = "ipatool";
   version = "2.1.6";
@@ -34,7 +33,7 @@ buildGoModule rec {
   doCheck = false;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       inherit version;
       package = ipatool;
@@ -47,7 +46,7 @@ buildGoModule rec {
     homepage = "https://github.com/majd/ipatool";
     changelog = "https://github.com/majd/ipatool/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ gaelreyrol ];
+    maintainers = with maintainers; [gaelreyrol];
     mainProgram = "ipatool";
   };
 }

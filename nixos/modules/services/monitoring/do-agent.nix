@@ -3,21 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.do-agent;
-
-in
-{
+in {
   options.services.do-agent = {
     enable = lib.mkEnableOption "do-agent, the DigitalOcean droplet metrics agent";
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.packages = [ pkgs.do-agent ];
+    systemd.packages = [pkgs.do-agent];
 
     systemd.services.do-agent = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = [
           ""

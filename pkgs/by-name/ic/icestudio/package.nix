@@ -6,12 +6,9 @@
   makeDesktopItem,
   makeWrapper,
   unstableGitUpdater,
-
   nwjs,
   python3,
-}:
-
-let
+}: let
   # Use unstable because it has improvements for finding python
   version = "0.12-unstable-2025-03-08";
 
@@ -45,81 +42,81 @@ let
     exec = "icestudio";
     icon = "icestudio";
     terminal = false;
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 in
-buildNpmPackage rec {
-  pname = "icestudio";
-  inherit version src;
-  npmDepsHash = "sha256-ZHvXC0hpAcPMsHhxQWELFC2b+WBNoEvbtLLNJsDhMso=";
-  npmFlags = [
-    # Use the legacy dependency resolution, with less strict version
-    # requirements for transative dependencies
-    "--legacy-peer-deps"
+  buildNpmPackage rec {
+    pname = "icestudio";
+    inherit version src;
+    npmDepsHash = "sha256-ZHvXC0hpAcPMsHhxQWELFC2b+WBNoEvbtLLNJsDhMso=";
+    npmFlags = [
+      # Use the legacy dependency resolution, with less strict version
+      # requirements for transative dependencies
+      "--legacy-peer-deps"
 
-    # We want to avoid call the scripts/postInstall.sh until we copy the
-    # collection and app derivation we do that on installPhase
-    "--ignore-scripts"
-  ];
-
-  buildPhase = ''
-    runHook preBuild
-
-    # Copy the `app` derivation into the folder expected for grunt
-    cp -r ${app}/* app
-
-    # Copy the cached `collection` derivation into the cache location so that
-    # grunt avoids downloading it
-    install -m444 -D ${collection} cache/collection/collection-default.zip
-
-    ./node_modules/.bin/grunt getcollection
-
-    # Use grunt to distribute package
-    # TODO: support aarch64
-    ./node_modules/.bin/grunt dist \
-        --platform=none    `# skip platform-specific steps` \
-        --dont-build-nwjs  `# use the nwjs package shipped by Nix` \
-        --dont-clean-tmp   `# skip cleaning the tmp folder as we'll use it in $out`
-
-    runHook postBuild
-  '';
-
-  installPhase = ''
-    runHook preInstall
-
-    cp -r dist/tmp $out
-
-    for size in 16 32 64 128 256; do
-      install -Dm644 docs/resources/icons/"$size"x"$size"/apps/icon.png \
-        $out/share/icons/hicolor/"$size"x"$size"/apps/icestudio.png
-    done
-
-    install -Dm644 ${desktopItem}/share/applications/icestudio.desktop -t $out/share/applications
-
-    makeWrapper ${nwjs}/bin/nw $out/bin/${pname} \
-        --add-flags $out \
-        --prefix PATH : "${python3}/bin"
-
-    runHook postInstall
-  '';
-  passthru.updateScript = unstableGitUpdater { };
-
-  nativeBuildInputs = [ makeWrapper ];
-
-  buildInputs = [ python3 ];
-
-  meta = {
-    description = "Visual editor for open FPGA boards";
-    homepage = "https://github.com/FPGAwars/icestudio/";
-    license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [
-      kiike
-      jleightcap
-      rcoeurjoly
-      amerino
+      # We want to avoid call the scripts/postInstall.sh until we copy the
+      # collection and app derivation we do that on installPhase
+      "--ignore-scripts"
     ];
-    teams = [ lib.teams.ngi ];
-    mainProgram = "icestudio";
-    platforms = lib.platforms.linux;
-  };
-}
+
+    buildPhase = ''
+      runHook preBuild
+
+      # Copy the `app` derivation into the folder expected for grunt
+      cp -r ${app}/* app
+
+      # Copy the cached `collection` derivation into the cache location so that
+      # grunt avoids downloading it
+      install -m444 -D ${collection} cache/collection/collection-default.zip
+
+      ./node_modules/.bin/grunt getcollection
+
+      # Use grunt to distribute package
+      # TODO: support aarch64
+      ./node_modules/.bin/grunt dist \
+          --platform=none    `# skip platform-specific steps` \
+          --dont-build-nwjs  `# use the nwjs package shipped by Nix` \
+          --dont-clean-tmp   `# skip cleaning the tmp folder as we'll use it in $out`
+
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+
+      cp -r dist/tmp $out
+
+      for size in 16 32 64 128 256; do
+        install -Dm644 docs/resources/icons/"$size"x"$size"/apps/icon.png \
+          $out/share/icons/hicolor/"$size"x"$size"/apps/icestudio.png
+      done
+
+      install -Dm644 ${desktopItem}/share/applications/icestudio.desktop -t $out/share/applications
+
+      makeWrapper ${nwjs}/bin/nw $out/bin/${pname} \
+          --add-flags $out \
+          --prefix PATH : "${python3}/bin"
+
+      runHook postInstall
+    '';
+    passthru.updateScript = unstableGitUpdater {};
+
+    nativeBuildInputs = [makeWrapper];
+
+    buildInputs = [python3];
+
+    meta = {
+      description = "Visual editor for open FPGA boards";
+      homepage = "https://github.com/FPGAwars/icestudio/";
+      license = lib.licenses.gpl2Only;
+      maintainers = with lib.maintainers; [
+        kiike
+        jleightcap
+        rcoeurjoly
+        amerino
+      ];
+      teams = [lib.teams.ngi];
+      mainProgram = "icestudio";
+      platforms = lib.platforms.linux;
+    };
+  }

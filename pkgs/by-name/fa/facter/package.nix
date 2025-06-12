@@ -16,34 +16,31 @@
   virt-what,
   zfs,
 }:
-
 bundlerApp {
   pname = "facter";
   gemdir = ./.;
-  exes = [ "facter" ];
+  exes = ["facter"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  postBuild =
-    let
-      runtimeDependencies =
-        [
-          coreutils
-          gnugrep
-          nettools
-          pciutils
-          procps
-          util-linux
-        ]
-        ++ lib.optionals stdenv.hostPlatform.isLinux [
-          iproute2
-          virt-what
-          zfs
-        ];
-    in
-    ''
-      wrapProgram $out/bin/facter --prefix PATH : ${lib.makeBinPath runtimeDependencies}
-    '';
+  postBuild = let
+    runtimeDependencies =
+      [
+        coreutils
+        gnugrep
+        nettools
+        pciutils
+        procps
+        util-linux
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
+        iproute2
+        virt-what
+        zfs
+      ];
+  in ''
+    wrapProgram $out/bin/facter --prefix PATH : ${lib.makeBinPath runtimeDependencies}
+  '';
 
   passthru = {
     tests.version = testers.testVersion {

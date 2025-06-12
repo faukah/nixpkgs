@@ -1,3 +1,2 @@
-{ mkDerivation }:
-
-mkDerivation { path = "usr.bin/getconf"; }
+{mkDerivation}:
+mkDerivation {path = "usr.bin/getconf";}

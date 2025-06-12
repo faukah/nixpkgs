@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubeaudit";
   version = "0.22.2";
@@ -28,8 +27,8 @@ buildGoModule rec {
     description = "Audit tool for Kubernetes";
     homepage = "https://github.com/Shopify/kubeaudit";
     changelog = "https://github.com/Shopify/kubeaudit/releases/tag/v${version}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "kubeaudit";
   };
 }

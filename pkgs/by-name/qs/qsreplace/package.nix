@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "qsreplace";
   version = "0.0.3";
@@ -26,9 +25,9 @@ buildGoModule rec {
     homepage = "https://github.com/tomnomnom/qsreplace";
     description = "Accept URLs on stdin, replace all query string values with a user-supplied value";
     mainProgram = "qsreplace";
-    maintainers = with maintainers; [ averagebit ];
+    maintainers = with maintainers; [averagebit];
     platforms = platforms.unix;
-    sourceProvenance = with sourceTypes; [ fromSource ];
+    sourceProvenance = with sourceTypes; [fromSource];
     license = licenses.mit;
   };
 }

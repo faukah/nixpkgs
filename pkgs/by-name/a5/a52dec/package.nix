@@ -4,7 +4,6 @@
   fetchFromGitLab,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "a52dec";
   version = "0.8.0";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Z4riiwetJkhQYa+AD8qOiwB1+cuLbOyN/g7D8HM8Pkw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags = [
     "--enable-shared"
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     "ac_cv_c_inline=yes"
   ];
 
-  makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];
+  makeFlags = ["AR=${stdenv.cc.targetPrefix}ar"];
 
   # fails 1 out of 1 tests with "BAD GLOBAL SYMBOLS" on i686
   # which can also be fixed with
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://liba52.sourceforge.io/";
     changelog = "https://git.adelielinux.org/community/a52dec/-/blob/v${version}/ChangeLog?ref_type=tags";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     mainProgram = "a52dec";
     platforms = lib.platforms.unix;
   };

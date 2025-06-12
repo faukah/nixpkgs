@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
       or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   nativeBuildInputs =
-    [ installShellFiles ]
+    [installShellFiles]
     ++ lib.optionals stdenv.hostPlatform.isx86_64 [
       xxd
     ];
@@ -48,15 +48,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch =
     lib.optionalString stdenv.hostPlatform.isx86_64 # bash
-      ''
-        # aarch64 code is compiled on all targets, which causes our Apple SDK headers to error out.
-        # Since multilib doesn't work on darwin i dont know of a better way of handling this.
-        substituteInPlace makefile \
-        --replace-fail "-arch arm64e" "" \
-        --replace-fail "-arch arm64" ""
-      '';
+    
+    ''
+      # aarch64 code is compiled on all targets, which causes our Apple SDK headers to error out.
+      # Since multilib doesn't work on darwin i dont know of a better way of handling this.
+      substituteInPlace makefile \
+      --replace-fail "-arch arm64e" "" \
+      --replace-fail "-arch arm64" ""
+    '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
@@ -102,9 +103,8 @@ stdenv.mkDerivation (finalAttrs: {
       shardy
       khaneliman
     ];
-    sourceProvenance =
-      with lib.sourceTypes;
-      lib.optionals stdenv.hostPlatform.isx86_64 [ fromSource ]
-      ++ lib.optionals stdenv.hostPlatform.isAarch64 [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes;
+      lib.optionals stdenv.hostPlatform.isx86_64 [fromSource]
+      ++ lib.optionals stdenv.hostPlatform.isAarch64 [binaryNativeCode];
   };
 })

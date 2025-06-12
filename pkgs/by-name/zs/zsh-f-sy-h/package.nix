@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "zsh-f-sy-h";
   version = "1.67";
@@ -30,7 +29,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Feature-rich Syntax Highlighting for Zsh";
     homepage = "https://github.com/z-shell/F-Sy-H";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mrfreezeex ];
+    maintainers = with maintainers; [mrfreezeex];
     platforms = platforms.unix;
   };
 }

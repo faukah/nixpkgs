@@ -8,7 +8,6 @@
   libimobiledevice,
   libzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ideviceinstaller";
   version = "1.1.1+date=2023-04-30";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ aristid ];
+    maintainers = with maintainers; [aristid];
     mainProgram = "ideviceinstaller";
   };
 }

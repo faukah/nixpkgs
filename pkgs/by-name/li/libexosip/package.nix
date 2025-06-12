@@ -6,7 +6,6 @@
   openssl,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libexosip2";
   version = "5.3.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-W3gjmGQx6lztyfCV1pZKzpZvCTsq59CwhAR4i/zrycI=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libosip
     openssl

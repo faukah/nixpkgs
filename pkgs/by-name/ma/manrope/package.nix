@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "manrope";
   version = "4.505";
@@ -35,6 +34,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://www.gent.media/manrope";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

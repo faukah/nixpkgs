@@ -7,7 +7,6 @@
   openssl,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lychee";
   version = "0.18.1";
@@ -22,9 +21,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-TKKhT4AhV2uzXOHRnKHiZJusNoCWUliKmKvDw+Aeqnc=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   cargoTestFlags = [
     # don't run doctests since they tend to use the network
@@ -54,9 +53,9 @@ rustPlatform.buildRustPackage rec {
   passthru.tests = {
     # NOTE: These assume that testers.lycheeLinkCheck uses this exact derivation.
     #       Which is true most of the time, but not necessarily after overriding.
-    ok = callPackage ./tests/ok.nix { };
-    fail = callPackage ./tests/fail.nix { };
-    fail-emptyDirectory = callPackage ./tests/fail-emptyDirectory.nix { };
+    ok = callPackage ./tests/ok.nix {};
+    fail = callPackage ./tests/fail.nix {};
+    fail-emptyDirectory = callPackage ./tests/fail-emptyDirectory.nix {};
     network = testers.runNixOSTest ./tests/network.nix;
   };
 

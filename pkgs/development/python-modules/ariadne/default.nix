@@ -16,7 +16,6 @@
   typing-extensions,
   werkzeug,
 }:
-
 buildPythonPackage rec {
   pname = "ariadne";
   version = "0.26.2";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
     hash = "sha256-zkxRg11O/P7+qU+vdDG3i8Tpn6dXByaGLN9t+e2dhyE=";
   };
 
-  patches = [ ./remove-opentracing.patch ];
+  patches = [./remove-opentracing.patch];
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     graphql-core
@@ -52,9 +51,9 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  pythonImportsCheck = [ "ariadne" ];
+  pythonImportsCheck = ["ariadne"];
 
-  pytestFlagsArray = [ "--snapshot-update" ];
+  pytestFlagsArray = ["--snapshot-update"];
 
   disabledTests = [
     # TypeError: TestClient.request() got an unexpected keyword argument 'content'
@@ -80,6 +79,6 @@ buildPythonPackage rec {
     homepage = "https://ariadnegraphql.org";
     changelog = "https://github.com/mirumee/ariadne/blob/${src.tag}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

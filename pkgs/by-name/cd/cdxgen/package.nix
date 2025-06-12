@@ -10,7 +10,6 @@
   stdenv,
   xcbuild,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cdxgen";
   version = "11.0.3";

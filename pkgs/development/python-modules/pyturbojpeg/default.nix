@@ -9,7 +9,6 @@
   python,
   replaceVars,
 }:
-
 buildPythonPackage rec {
   pname = "pyturbojpeg";
   version = "1.8.0";
@@ -28,9 +27,9 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   # upstream has no tests, but we want to test whether the library is found
   checkPhase = ''
@@ -41,13 +40,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "turbojpeg" ];
+  pythonImportsCheck = ["turbojpeg"];
 
   meta = with lib; {
     changelog = "https://github.com/lilohuang/PyTurboJPEG/releases/tag/v${version}";
     description = "Python wrapper of libjpeg-turbo for decoding and encoding JPEG image";
     homepage = "https://github.com/lilohuang/PyTurboJPEG";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

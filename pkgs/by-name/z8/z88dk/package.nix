@@ -12,9 +12,7 @@
   perl,
   perlPackages,
   fetchurl,
-}:
-
-let
+}: let
   # Perl packages used by this project.
   # TODO: put these into global perl-packages.nix once this is submitted.
   ObjectTinyRW = perlPackages.buildPerlPackage {
@@ -87,7 +85,7 @@ let
       hash = "sha256-cJ8Fl2KZw9/bnBDUzFuwwdw9x23OUvcftk78kw7abdU=";
     };
     buildInputs =
-      [ AsmPreproc ]
+      [AsmPreproc]
       ++ (with perlPackages; [
         CaptureTiny
         RegexpTrie
@@ -103,106 +101,106 @@ let
     };
   };
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "z88dk";
-  version = "2.3-unstable-2025-01-08";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "z88dk";
+    version = "2.3-unstable-2025-01-08";
 
-  src = fetchFromGitHub {
-    owner = "z88dk";
-    repo = "z88dk";
-    rev = "e223137af42ed0332b11fa6185268246293245c4";
-    hash = "sha256-m0ZEAfKISEqzsh4VNXwRSceBC4uWmIIdi5cw+7lEC9o=";
-    fetchSubmodules = true;
-  };
+    src = fetchFromGitHub {
+      owner = "z88dk";
+      repo = "z88dk";
+      rev = "e223137af42ed0332b11fa6185268246293245c4";
+      hash = "sha256-m0ZEAfKISEqzsh4VNXwRSceBC4uWmIIdi5cw+7lEC9o=";
+      fetchSubmodules = true;
+    };
 
-  postPatch = ''
-    # we dont rely on build.sh :
-    export PATH="$PWD/bin:$PATH" # needed to have zcc in testsuite
-    export ZCCCFG=$PWD/lib/config/
+    postPatch = ''
+      # we dont rely on build.sh :
+      export PATH="$PWD/bin:$PATH" # needed to have zcc in testsuite
+      export ZCCCFG=$PWD/lib/config/
 
-    # we don't want to build zsdcc since it required network (svn)
-    # we test in checkPhase
-    substituteInPlace Makefile \
-      --replace 'testsuite bin/z88dk-lib$(EXESUFFIX)' 'bin/z88dk-lib$(EXESUFFIX)'\
-      --replace 'ALL_EXT = bin/zsdcc$(EXESUFFIX)' 'ALL_EXT ='
+      # we don't want to build zsdcc since it required network (svn)
+      # we test in checkPhase
+      substituteInPlace Makefile \
+        --replace 'testsuite bin/z88dk-lib$(EXESUFFIX)' 'bin/z88dk-lib$(EXESUFFIX)'\
+        --replace 'ALL_EXT = bin/zsdcc$(EXESUFFIX)' 'ALL_EXT ='
 
-    # rc2014.lib not created, making corresponding tests fail. Comment out.
-    substituteInPlace  test/suites/make.config \
-      --replace 'zcc +rc2014'            '#zcc +rc2014' \
-      --replace '@$(MACHINE) -pc 0x9000' '#@$(MACHINE) -pc 0x9000'
+      # rc2014.lib not created, making corresponding tests fail. Comment out.
+      substituteInPlace  test/suites/make.config \
+        --replace 'zcc +rc2014'            '#zcc +rc2014' \
+        --replace '@$(MACHINE) -pc 0x9000' '#@$(MACHINE) -pc 0x9000'
 
-    # The following tests don't pass.
-    rm src/z80asm/t/issue_0341.t
-    rm src/z80asm/t/z80asm_lib.t
-  '';
+      # The following tests don't pass.
+      rm src/z80asm/t/issue_0341.t
+      rm src/z80asm/t/z80asm_lib.t
+    '';
 
-  # Parallel building is not working yet with the upstream Makefiles.
-  # Explicitly switch this off for now.
-  enableParallelBuilding = false;
+    # Parallel building is not working yet with the upstream Makefiles.
+    # Explicitly switch this off for now.
+    enableParallelBuilding = false;
 
-  doCheck = true;
-  checkPhase = ''
-    # Need to build libs first, Makefile deps not fully defined
-    make libs      $makeFlags
-    make testsuite $makeFlags
-    make -k test   $makeFlags
-  '';
+    doCheck = true;
+    checkPhase = ''
+      # Need to build libs first, Makefile deps not fully defined
+      make libs      $makeFlags
+      make testsuite $makeFlags
+      make -k test   $makeFlags
+    '';
 
-  short_rev = builtins.substring 0 7 finalAttrs.src.rev;
-  makeFlags = [
-    "git_rev=${finalAttrs.short_rev}"
-    "version=${finalAttrs.version}"
-    "PREFIX=$(out)"
-    "git_count=0"
-  ];
-
-  nativeBuildInputs =
-    [
-      which
-      unzip
-      m4
-      perl
-      pkg-config
-
-      # Local perl packages
-      AsmPreproc
-      CPUZ80Assembler
-      ObjectTinyRW
-    ]
-    ++ (with perlPackages; [
-      CaptureTiny
-      DataHexDump
-      ModernPerl
-      PathTiny
-      RegexpCommon
-      TestHexDifferences
-      TextDiff
-      RegexpTrie
-    ]);
-
-  buildInputs = [
-    libxml2
-    uthash
-    gmp
-  ];
-
-  preInstall = ''
-    mkdir -p $out/{bin,share}
-  '';
-
-  installTargets = [
-    "libs"
-    "install"
-  ];
-
-  meta = with lib; {
-    homepage = "https://www.z88dk.org";
-    description = "z80 Development Kit";
-    license = licenses.clArtistic;
-    maintainers = with maintainers; [
-      siraben
-      hzeller
+    short_rev = builtins.substring 0 7 finalAttrs.src.rev;
+    makeFlags = [
+      "git_rev=${finalAttrs.short_rev}"
+      "version=${finalAttrs.version}"
+      "PREFIX=$(out)"
+      "git_count=0"
     ];
-    platforms = platforms.unix;
-  };
-})
+
+    nativeBuildInputs =
+      [
+        which
+        unzip
+        m4
+        perl
+        pkg-config
+
+        # Local perl packages
+        AsmPreproc
+        CPUZ80Assembler
+        ObjectTinyRW
+      ]
+      ++ (with perlPackages; [
+        CaptureTiny
+        DataHexDump
+        ModernPerl
+        PathTiny
+        RegexpCommon
+        TestHexDifferences
+        TextDiff
+        RegexpTrie
+      ]);
+
+    buildInputs = [
+      libxml2
+      uthash
+      gmp
+    ];
+
+    preInstall = ''
+      mkdir -p $out/{bin,share}
+    '';
+
+    installTargets = [
+      "libs"
+      "install"
+    ];
+
+    meta = with lib; {
+      homepage = "https://www.z88dk.org";
+      description = "z80 Development Kit";
+      license = licenses.clArtistic;
+      maintainers = with maintainers; [
+        siraben
+        hzeller
+      ];
+      platforms = platforms.unix;
+    };
+  })

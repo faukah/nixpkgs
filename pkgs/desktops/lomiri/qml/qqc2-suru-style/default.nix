@@ -7,7 +7,6 @@
   qtdeclarative,
   qtquickcontrols2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qqc2-suru-style";
   version = "0.20230630";
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
   # QMake can't find Qt modules from buildInputs
   strictDeps = false;
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   buildInputs = [
     qtdeclarative
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontWrapQtApps = true;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Suru Style for QtQuick Controls 2";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl3Only
       cc-by-sa-30
     ];
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.unix;
   };
 })

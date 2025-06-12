@@ -10,7 +10,6 @@
   unixtools,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "hub";
   version = "unstable-2022-12-01";
@@ -45,7 +44,7 @@ buildGoModule rec {
   vendorHash = "sha256-wQH8V9jRgh45JGs4IfYS1GtmCIYdo93JG1UjJ0BGxXk=";
 
   # Only needed to build the man-pages
-  excludedPackages = [ "github.com/github/hub/md2roff-bin" ];
+  excludedPackages = ["github.com/github/hub/md2roff-bin"];
 
   nativeBuildInputs = [
     groff
@@ -64,19 +63,19 @@ buildGoModule rec {
     installManPage share/man/man[1-9]/*.[1-9]
 
     wrapProgram $out/bin/hub \
-      --suffix PATH : ${lib.makeBinPath [ git ]}
+      --suffix PATH : ${lib.makeBinPath [git]}
   '';
 
   nativeCheckInputs = [
     git
   ];
 
-  passthru.tests = { inherit (nixosTests) hub; };
+  passthru.tests = {inherit (nixosTests) hub;};
 
   meta = with lib; {
     description = "Command-line wrapper for git that makes you better at GitHub";
     homepage = "https://hub.github.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
   };
 }

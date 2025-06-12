@@ -4,7 +4,6 @@
   nodejs,
   buildNpmPackage,
 }:
-
 buildNpmPackage rec {
   pname = "mdx-language-server";
   version = "0.5.2";
@@ -27,7 +26,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/mdx-js/mdx-analyzer/tree/main/packages/language-server";
     changelog = "https://github.com/mdx-js/mdx-analyzer/blob/@mdx-js/language-server@${version}/packages/language-server/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ThaoTranLePhuong ];
+    maintainers = with lib.maintainers; [ThaoTranLePhuong];
     mainProgram = "mdx-language-server";
   };
 }

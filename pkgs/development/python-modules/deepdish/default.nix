@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
-
   # dependencies
   numpy,
   scipy,
   tables,
 }:
-
 buildPythonPackage rec {
   pname = "deepdish";
   version = "0.3.7";
@@ -37,7 +34,7 @@ buildPythonPackage rec {
     tables
   ];
 
-  pythonImportsCheck = [ "deepdish" ];
+  pythonImportsCheck = ["deepdish"];
 
   # nativeCheckInputs = [
   #   pandas
@@ -51,6 +48,6 @@ buildPythonPackage rec {
     mainProgram = "ddls";
     homepage = "https://github.com/uchicago-cs/deepdish";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ndl ];
+    maintainers = with lib.maintainers; [ndl];
   };
 }

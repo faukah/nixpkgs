@@ -6,10 +6,9 @@
   compatIfNeeded,
   defaultMakeFlags,
 }:
-
 mkDerivation {
   path = "lib/libcurses";
-  buildInputs = [ libterminfo ];
+  buildInputs = [libterminfo];
   env.NIX_CFLAGS_COMPILE = toString (
     [
       "-D__scanflike(a,b)="
@@ -20,7 +19,7 @@ mkDerivation {
   );
   propagatedBuildInputs = compatIfNeeded;
   MKDOC = "no"; # missing vfontedpr
-  makeFlags = defaultMakeFlags ++ [ "LIBDO.terminfo=${libterminfo}/lib" ];
+  makeFlags = defaultMakeFlags ++ ["LIBDO.terminfo=${libterminfo}/lib"];
   postPatch = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
     substituteInPlace $COMPONENT_PATH/printw.c \
       --replace "funopen(win, NULL, __winwrite, NULL, NULL)" NULL \

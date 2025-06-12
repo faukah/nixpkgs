@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "unfurl";
   version = "0.4.3";
@@ -32,6 +31,6 @@ buildGoModule rec {
     mainProgram = "unfurl";
     homepage = "https://github.com/tomnomnom/unfurl";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

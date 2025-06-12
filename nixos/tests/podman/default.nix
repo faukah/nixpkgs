@@ -1,6 +1,9 @@
 import ../make-test-python.nix (
-  { pkgs, lib, ... }:
-  let
+  {
+    pkgs,
+    lib,
+    ...
+  }: let
     quadletContainerFile = pkgs.writeText "quadlet.container" ''
       [Unit]
       Description=A test quadlet container
@@ -15,59 +18,50 @@ import ../make-test-python.nix (
       [Install]
       WantedBy=default.target
     '';
-  in
-  {
+  in {
     name = "podman";
     meta = {
       maintainers = lib.teams.podman.members;
     };
 
     nodes = {
-      rootful =
-        { pkgs, ... }:
-        {
-          virtualisation.podman.enable = true;
+      rootful = {pkgs, ...}: {
+        virtualisation.podman.enable = true;
 
-          # hack to ensure that podman built with and without zfs in extraPackages is cached
-          boot.supportedFilesystems = [ "zfs" ];
-          networking.hostId = "00000000";
+        # hack to ensure that podman built with and without zfs in extraPackages is cached
+        boot.supportedFilesystems = ["zfs"];
+        networking.hostId = "00000000";
+      };
+      rootless = {pkgs, ...}: {
+        virtualisation.podman.enable = true;
+
+        users.users.alice = {
+          isNormalUser = true;
         };
-      rootless =
-        { pkgs, ... }:
-        {
-          virtualisation.podman.enable = true;
+      };
+      dns = {pkgs, ...}: {
+        virtualisation.podman.enable = true;
 
-          users.users.alice = {
-            isNormalUser = true;
-          };
+        virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
+      };
+      docker = {pkgs, ...}: {
+        virtualisation.podman.enable = true;
+
+        virtualisation.podman.dockerSocket.enable = true;
+
+        environment.systemPackages = [
+          pkgs.docker-client
+        ];
+
+        users.users.alice = {
+          isNormalUser = true;
+          extraGroups = ["podman"];
         };
-      dns =
-        { pkgs, ... }:
-        {
-          virtualisation.podman.enable = true;
 
-          virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
+        users.users.mallory = {
+          isNormalUser = true;
         };
-      docker =
-        { pkgs, ... }:
-        {
-          virtualisation.podman.enable = true;
-
-          virtualisation.podman.dockerSocket.enable = true;
-
-          environment.systemPackages = [
-            pkgs.docker-client
-          ];
-
-          users.users.alice = {
-            isNormalUser = true;
-            extraGroups = [ "podman" ];
-          };
-
-          users.users.mallory = {
-            isNormalUser = true;
-          };
-        };
+      };
     };
 
     testScript = ''

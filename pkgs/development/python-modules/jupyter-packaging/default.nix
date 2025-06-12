@@ -12,7 +12,6 @@
   setuptools,
   tomlkit,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-packaging";
   version = "0.12.3";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     deprecation
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     pytest-timeout
   ];
 
-  pytestFlagsArray = [ "-Wignore::DeprecationWarning" ];
+  pytestFlagsArray = ["-Wignore::DeprecationWarning"];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -64,7 +63,7 @@ buildPythonPackage rec {
     "test_ensure_with_skip_npm"
   ];
 
-  pythonImportsCheck = [ "jupyter_packaging" ];
+  pythonImportsCheck = ["jupyter_packaging"];
 
   meta = with lib; {
     description = "Jupyter Packaging Utilities";

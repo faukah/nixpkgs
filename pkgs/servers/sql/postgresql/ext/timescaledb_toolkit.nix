@@ -6,8 +6,7 @@
   nix-update-script,
   postgresql,
 }:
-
-(buildPgrxExtension.override { cargo-pgrx = cargo-pgrx_0_12_6; }) (finalAttrs: {
+(buildPgrxExtension.override {cargo-pgrx = cargo-pgrx_0_12_6;}) (finalAttrs: {
   inherit postgresql;
 
   pname = "timescaledb_toolkit";
@@ -29,7 +28,7 @@
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = postgresql.pkgs.timescaledb.tests;
   };
 
@@ -39,7 +38,7 @@
   meta = {
     description = "Provide additional tools to ease all things analytic when using TimescaleDB";
     homepage = "https://github.com/timescale/timescaledb-toolkit";
-    maintainers = with lib.maintainers; [ typetetris ];
+    maintainers = with lib.maintainers; [typetetris];
     platforms = postgresql.meta.platforms;
     license = lib.licenses.tsl;
     broken = lib.versionOlder postgresql.version "15";

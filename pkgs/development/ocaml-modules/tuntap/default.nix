@@ -6,7 +6,6 @@
   macaddr,
   cmdliner,
 }:
-
 buildDunePackage rec {
   pname = "tuntap";
   version = "2.0.0";

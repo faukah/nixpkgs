@@ -7,7 +7,6 @@
   hypothesis,
   hs-dbus-signature,
 }:
-
 buildPythonPackage rec {
   pname = "dbus-signature-pyparsing";
   version = "0.4.1";
@@ -20,19 +19,19 @@ buildPythonPackage rec {
     hash = "sha256-+jY8kg3jBDpZr5doih3DiyUEcSskq7TgubmW3qdBoZM=";
   };
 
-  propagatedBuildInputs = [ pyparsing ];
+  propagatedBuildInputs = [pyparsing];
   nativeCheckInputs = [
     pytestCheckHook
     hypothesis
     hs-dbus-signature
   ];
 
-  pythonImportsCheck = [ "dbus_signature_pyparsing" ];
+  pythonImportsCheck = ["dbus_signature_pyparsing"];
 
   meta = with lib; {
     description = "Parser for a D-Bus Signature";
     homepage = "https://github.com/stratis-storage/dbus-signature-pyparsing";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

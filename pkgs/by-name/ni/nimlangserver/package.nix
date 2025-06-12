@@ -28,7 +28,7 @@ buildNimPackage (
         homepage = "https://github.com/nim-lang/langserver";
         license = licenses.mit;
         mainProgram = "nimlangserver";
-        maintainers = with maintainers; [ daylinmorgan ];
+        maintainers = with maintainers; [daylinmorgan];
       });
   }
 )

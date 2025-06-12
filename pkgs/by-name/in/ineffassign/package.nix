@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "ineffassign";
   version = "0.1.0";
@@ -22,7 +21,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-WpX5I9PK7xuln6BkIEW2qIF1K/BgaEu/gkJsz+ThVk0=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   allowGoReference = true;
 

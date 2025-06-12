@@ -10,7 +10,6 @@
   boost,
   graphviz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kgraphviewer";
   version = "2.4.3";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Graphviz dot graph viewer for KDE";
     mainProgram = "kgraphviewer";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

@@ -5,7 +5,6 @@
   responses,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "openrouteservice";
   version = "2.3.3";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/GIScience/openrouteservice-py";
     description = "Python API to consume openrouteservice(s) painlessly";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Scriptkiddi ];
+    maintainers = with maintainers; [Scriptkiddi];
   };
 }

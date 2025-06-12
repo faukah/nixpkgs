@@ -16,7 +16,6 @@
   typer,
   uvicorn,
 }:
-
 buildPythonPackage rec {
   pname = "aiohomeconnect";
   version = "0.17.1";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-UY1OFrydA42B/Tu4jwDwTe0kpnAhXfi75GUc4FlI9pE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     httpx
@@ -48,20 +47,22 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-cov-stub
-    pytest-httpx
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytest-cov-stub
+      pytest-httpx
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "aiohomeconnect" ];
+  pythonImportsCheck = ["aiohomeconnect"];
 
   meta = {
     description = "An asyncio client for the Home Connect API";
     homepage = "https://github.com/MartinHjelmare/aiohomeconnect";
     changelog = "https://github.com/MartinHjelmare/aiohomeconnect/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

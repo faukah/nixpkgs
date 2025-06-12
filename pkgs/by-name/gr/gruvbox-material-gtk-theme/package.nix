@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-NHjE/HI/BJyjrRfoH9gOKIU8HsUIBPV9vyvuW12D01M=";
   };
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   dontBuild = true;
 
@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation {
     description = "GTK Theme based off of the Gruvbox Material colour palette";
     homepage = "https://github.com/TheGreatMcPain/gruvbox-material-gtk";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.amadaluzia ];
+    maintainers = [lib.maintainers.amadaluzia];
     platforms = lib.platforms.unix;
   };
 }

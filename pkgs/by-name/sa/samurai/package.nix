@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "samurai";
   version = "1.2";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
       mit
       asl20
     ]; # see LICENSE
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
     mainProgram = "samu";
     platforms = platforms.all;
   };

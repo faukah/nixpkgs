@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "hednsextractor";
   version = "1.0.7";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/HuntDownProject/HEDnsExtractor";
     changelog = "https://github.com/HuntDownProject/HEDnsExtractor/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "hednsextractor";
   };
 }

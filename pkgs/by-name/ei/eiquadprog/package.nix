@@ -9,7 +9,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "eiquadprog";
   version = "1.2.9";
@@ -32,8 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     jrl-cmakemodules
   ];
-  propagatedBuildInputs = [ eigen ];
-  checkInputs = [ boost ];
+  propagatedBuildInputs = [eigen];
+  checkInputs = [boost];
 
   doCheck = true;
 
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/stack-of-tasks/eiquadprog";
     changelog = "https://github.com/stack-of-tasks/eiquadprog/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     platforms = lib.platforms.unix;
   };
 })

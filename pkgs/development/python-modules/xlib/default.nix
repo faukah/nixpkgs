@@ -11,13 +11,12 @@
   pytestCheckHook,
   util-linux,
 }:
-
 buildPythonPackage rec {
   pname = "xlib";
   version = "0.33";
   pyproject = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   src = fetchFromGitHub {
     owner = "python-xlib";
@@ -26,11 +25,11 @@ buildPythonPackage rec {
     hash = "sha256-u06OWlMIOUzHOVS4hvm72jGgTSXWUqMvEQd8bTpFog0=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  buildInputs = [ xorg.libX11 ];
+  buildInputs = [xorg.libX11];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     description = "Fully functional X client library for Python programs";
     homepage = "https://github.com/python-xlib/python-xlib";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

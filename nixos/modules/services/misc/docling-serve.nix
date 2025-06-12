@@ -3,17 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib) types;
 
   cfg = config.services.docling-serve;
-in
-{
+in {
   options = {
     services.docling-serve = {
       enable = lib.mkEnableOption "Docling Serve server";
-      package = lib.mkPackageOption pkgs "docling-serve" { };
+      package = lib.mkPackageOption pkgs "docling-serve" {};
 
       stateDir = lib.mkOption {
         type = types.path;
@@ -81,14 +79,16 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.docling-serve = {
       description = "Running Docling as an API service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
-      environment = {
-        HF_HOME = ".";
-        EASYOCR_MODULE_PATH = ".";
-        MPLCONFIGDIR = ".";
-      } // cfg.environment;
+      environment =
+        {
+          HF_HOME = ".";
+          EASYOCR_MODULE_PATH = ".";
+          MPLCONFIGDIR = ".";
+        }
+        // cfg.environment;
 
       serviceConfig = {
         ExecStart = "${lib.getExe cfg.package} run --host \"${cfg.host}\" --port ${toString cfg.port}";
@@ -123,8 +123,8 @@ in
       };
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = lib.mkIf cfg.openFirewall {allowedTCPPorts = [cfg.port];};
   };
 
-  meta.maintainers = with lib.maintainers; [ drupol ];
+  meta.maintainers = with lib.maintainers; [drupol];
 }

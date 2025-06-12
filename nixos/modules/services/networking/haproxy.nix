@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.haproxy;
   haproxyCfg = pkgs.writeText "haproxy.conf" ''
     global
@@ -12,14 +11,12 @@ let
       stats socket /run/haproxy/haproxy.sock mode 600 expose-fd listeners level user
     ${cfg.config}
   '';
-in
-{
+in {
   options = {
     services.haproxy = {
-
       enable = lib.mkEnableOption "HAProxy, the reliable, high performance TCP/HTTP load balancer";
 
-      package = lib.mkPackageOption pkgs "haproxy" { };
+      package = lib.mkPackageOption pkgs "haproxy" {};
 
       user = lib.mkOption {
         type = lib.types.str;
@@ -45,7 +42,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     assertions = [
       {
         assertion = cfg.config != null;
@@ -58,8 +54,8 @@ in
 
     systemd.services.haproxy = {
       description = "HAProxy";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -103,7 +99,7 @@ in
     };
 
     users.groups = lib.optionalAttrs (cfg.group == "haproxy") {
-      haproxy = { };
+      haproxy = {};
     };
   };
 }

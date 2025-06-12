@@ -13,7 +13,6 @@
   txtorcon,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "foolscap";
   version = "24.9.0";
@@ -36,23 +35,27 @@ buildPythonPackage rec {
     rm versioneer.py
   '';
 
-  dependencies = [
-    six
-    twisted
-    pyopenssl
-  ] ++ twisted.optional-dependencies.tls;
+  dependencies =
+    [
+      six
+      twisted
+      pyopenssl
+    ]
+    ++ twisted.optional-dependencies.tls;
 
   optional-dependencies = {
-    i2p = [ txi2p-tahoe ];
-    tor = [ txtorcon ];
+    i2p = [txi2p-tahoe];
+    tor = [txtorcon];
   };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      mock
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "foolscap" ];
+  pythonImportsCheck = ["foolscap"];
 
   meta = with lib; {
     description = "RPC protocol for Python that follows the distributed object-capability model";
@@ -63,6 +66,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/warner/foolscap";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

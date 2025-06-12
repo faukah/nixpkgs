@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace data/spice-vdagent.desktop --replace /usr $out
   '';
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     alsa-lib
     spice-protocol
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.spice-space.org/";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.aboseley ];
+    maintainers = [lib.maintainers.aboseley];
     platforms = lib.platforms.linux;
   };
 }

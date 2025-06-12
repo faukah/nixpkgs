@@ -6,7 +6,6 @@
   mediastreamer,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "msilbc";
   version = "2.1.2";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     ilbc
     mediastreamer
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   configureFlags = [
     "ILBC_LIBS=ilbc"

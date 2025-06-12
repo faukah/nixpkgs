@@ -4,7 +4,6 @@
   fetchPypi,
   nmap,
 }:
-
 buildPythonPackage rec {
   pname = "python-nmap";
   version = "0.7.1";
@@ -15,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-91r2uR3Y47DDH4adsyFj9iraaGlF5bfCX4S8D3+tO2Q=";
   };
 
-  propagatedBuildInputs = [ nmap ];
+  propagatedBuildInputs = [nmap];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -25,7 +24,7 @@ buildPythonPackage rec {
   # Tests requires sudo and performs scans
   doCheck = false;
 
-  pythonImportsCheck = [ "nmap" ];
+  pythonImportsCheck = ["nmap"];
 
   meta = with lib; {
     description = "Python library which helps in using nmap";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
       It also supports nmap script outputs.
     '';
     homepage = "https://xael.org/pages/python-nmap-en.html";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

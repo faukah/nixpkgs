@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.below;
   cfgContents = lib.concatStringsSep "\n" (
     lib.mapAttrsToList (n: v: ''${n} = "${v}"'') (
@@ -16,28 +15,25 @@ let
     )
   );
 
-  mkDisableOption =
-    n:
+  mkDisableOption = n:
     lib.mkOption {
       type = lib.types.bool;
       default = true;
       description = "Whether to enable ${n}.";
     };
-  optionalType =
-    ty: x:
+  optionalType = ty: x:
     lib.mkOption (
       x
       // {
         description = x.description;
-        type = (lib.types.nullOr ty);
+        type = lib.types.nullOr ty;
         default = null;
       }
     );
   optionalPath = optionalType lib.types.path;
   optionalStr = optionalType lib.types.str;
   optionalInt = optionalType lib.types.int;
-in
-{
+in {
   options = {
     services.below = {
       enable = lib.mkEnableOption "'below' resource monitor";
@@ -80,7 +76,7 @@ in
         };
       };
       dirs = {
-        log = optionalPath { description = "Where to store below's logs"; };
+        log = optionalPath {description = "Where to store below's logs";};
         store = optionalPath {
           description = "Where to store below's data";
           example = "/var/lib/below";
@@ -90,17 +86,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.below ];
+    environment.systemPackages = [pkgs.below];
     # /etc/below.conf is also referred to by the `below` CLI tool,
     #  so this can't be a store-only file whose path is passed to the service
     environment.etc."below/below.conf".text = cfgContents;
 
     systemd = {
-      packages = [ pkgs.below ];
+      packages = [pkgs.below];
       services.below = {
         # Workaround for https://github.com/NixOS/nixpkgs/issues/81138
-        wantedBy = [ "multi-user.target" ];
-        restartTriggers = [ cfgContents ];
+        wantedBy = ["multi-user.target"];
+        restartTriggers = [cfgContents];
 
         serviceConfig.ExecStart = [
           ""
@@ -111,9 +107,7 @@ in
               ++ lib.optional cfg.collect.ioStats "--collect-io-stat"
               ++ lib.optional (!cfg.collect.exitStats) "--disable-exitstats"
               ++ lib.optional cfg.compression.enable "--compress"
-              ++
-
-                lib.optional (cfg.retention.size != null) "--store-size-limit ${toString cfg.retention.size}"
+              ++ lib.optional (cfg.retention.size != null) "--store-size-limit ${toString cfg.retention.size}"
               ++ lib.optional (cfg.retention.time != null) "--retain-for-s ${toString cfg.retention.time}"
             ))
           )
@@ -122,5 +116,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ nicoo ];
+  meta.maintainers = with lib.maintainers; [nicoo];
 }

@@ -6,7 +6,6 @@
   zip,
   love,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vrrtest";
   version = "2.1.0";
@@ -18,9 +17,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-esyD+BpdnB8miUrIjV6P8Lho1xztmhLDnKxdQKW8GXc=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ zip ];
+  buildInputs = [zip];
 
   buildPhase = ''
     runHook preBuild
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Nixola/VRRTest";
     license = licenses.zlib;
     mainProgram = "vrrtest";
-    maintainers = with maintainers; [ justinlime ];
+    maintainers = with maintainers; [justinlime];
     inherit (love.meta) platforms;
   };
 })

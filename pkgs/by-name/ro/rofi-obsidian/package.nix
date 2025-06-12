@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage {
     description = "Launch your Obsidian vaults from the comfort of rofi";
     homepage = "https://github.com/Nydragon/rofi-obsidian";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ nydragon ];
+    maintainers = with lib.maintainers; [nydragon];
     mainProgram = "rofi-obsidian";
   };
 }

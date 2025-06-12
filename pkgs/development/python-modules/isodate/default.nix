@@ -6,7 +6,6 @@
   setuptools-scm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "isodate";
   version = "0.7.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     changelog = "https://github.com/gweis/isodate/blob/${version}/CHANGES.txt";

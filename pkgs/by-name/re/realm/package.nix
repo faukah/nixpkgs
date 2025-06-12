@@ -5,7 +5,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "realm";
   version = "2.7.0";
@@ -23,8 +22,8 @@ rustPlatform.buildRustPackage rec {
   env.RUSTC_BOOTSTRAP = 1;
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests = { inherit (nixosTests) realm; };
+    updateScript = nix-update-script {};
+    tests = {inherit (nixosTests) realm;};
   };
 
   meta = with lib; {
@@ -32,6 +31,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/zhboner/realm";
     mainProgram = "realm";
     license = licenses.mit;
-    maintainers = with maintainers; [ ocfox ];
+    maintainers = with maintainers; [ocfox];
   };
 }

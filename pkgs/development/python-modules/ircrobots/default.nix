@@ -11,7 +11,6 @@
   async-timeout,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ircrobots";
   version = "0.7.2";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-slz4AH2Mi21N3aV+OrnoXoQsseS7arW2NuUZARQJsf0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = true;
 
@@ -37,14 +36,14 @@ buildPythonPackage rec {
     async-timeout
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "ircrobots" ];
+  pythonImportsCheck = ["ircrobots"];
 
   meta = with lib; {
     description = "Asynchronous bare-bones IRC bot framework for python3";
     license = licenses.mit;
     homepage = "https://github.com/jesopo/ircrobots";
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

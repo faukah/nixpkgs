@@ -9,7 +9,6 @@
   lib,
   perl,
 }:
-
 stdenv.mkDerivation {
   pname = "wvstreams";
   version = "4.6.1";
@@ -104,7 +103,7 @@ stdenv.mkDerivation {
     description = "Network programming library in C++";
     homepage = "http://alumnit.ca/wiki/index.php?page=WvStreams";
     license = lib.licenses.lgpl2;
-    maintainers = [ lib.maintainers.flokli ];
+    maintainers = [lib.maintainers.flokli];
     platforms = lib.platforms.linux;
   };
 }

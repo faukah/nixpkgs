@@ -12,7 +12,6 @@
   # Helper functions:
   chromiumVersionAtLeast,
   versionRange,
-
   # Native build inputs:
   ninja,
   bashInteractive,
@@ -29,7 +28,6 @@
   # configurePhase:
   gnChromium,
   symlinkJoin,
-
   # Build inputs:
   libpng,
   bzip2,
@@ -85,7 +83,6 @@
   glibc, # gconv + locale
   # postFixup:
   vulkan-loader,
-
   # Package customization:
   cupsSupport ? true,
   cups ? null,
@@ -98,56 +95,49 @@
   libgcrypt ? null, # cupsSupport
   systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
   systemd,
-}:
-
-buildFun:
-
-let
+}: buildFun: let
   python3WithPackages = python3.pythonOnBuildForHost.withPackages (
-    ps: with ps; [
-      ply
-      jinja2
-      setuptools
-    ]
+    ps:
+      with ps; [
+        ply
+        jinja2
+        setuptools
+      ]
   );
 
   # The additional attributes for creating derivations based on the chromium
   # source tree.
   extraAttrs = buildFun base;
 
-  githubPatch =
-    {
-      commit,
-      hash,
-      revert ? false,
-      excludes ? [ ],
-    }:
+  githubPatch = {
+    commit,
+    hash,
+    revert ? false,
+    excludes ? [],
+  }:
     fetchpatch {
       url = "https://github.com/chromium/chromium/commit/${commit}.patch";
       inherit hash revert excludes;
     };
 
-  mkGnFlags =
-    let
-      # Serialize Nix types into GN types according to this document:
-      # https://source.chromium.org/gn/gn/+/master:docs/language.md
-      mkGnString = value: "\"${lib.escape [ "\"" "$" "\\" ] value}\"";
-      sanitize =
-        value:
-        if value == true then
-          "true"
-        else if value == false then
-          "false"
-        else if lib.isList value then
-          "[${lib.concatMapStringsSep ", " sanitize value}]"
-        else if lib.isInt value then
-          toString value
-        else if lib.isString value then
-          mkGnString value
-        else
-          throw "Unsupported type for GN value `${value}'.";
-      toFlag = key: value: "${key}=${sanitize value}";
-    in
+  mkGnFlags = let
+    # Serialize Nix types into GN types according to this document:
+    # https://source.chromium.org/gn/gn/+/master:docs/language.md
+    mkGnString = value: "\"${lib.escape ["\"" "$" "\\"] value}\"";
+    sanitize = value:
+      if value == true
+      then "true"
+      else if value == false
+      then "false"
+      else if lib.isList value
+      then "[${lib.concatMapStringsSep ", " sanitize value}]"
+      else if lib.isInt value
+      then toString value
+      else if lib.isString value
+      then mkGnString value
+      else throw "Unsupported type for GN value `${value}'.";
+    toFlag = key: value: "${key}=${sanitize value}";
+  in
     attrs: lib.concatStringsSep " " (lib.attrValues (lib.mapAttrs toFlag attrs));
 
   # https://source.chromium.org/chromium/chromium/src/+/master:build/linux/unbundle/replace_gn_files.py
@@ -181,10 +171,9 @@ let
   # There currently isn't a (much) more concise way to get a stdenv
   # that uses lld as its linker without bootstrapping pkgsLLVM; see
   # https://github.com/NixOS/nixpkgs/issues/142901
-  buildPlatformLlvmStdenv =
-    let
-      llvmPackages = pkgsBuildBuild.rustc.llvmPackages;
-    in
+  buildPlatformLlvmStdenv = let
+    llvmPackages = pkgsBuildBuild.rustc.llvmPackages;
+  in
     overrideCC llvmPackages.stdenv (
       llvmPackages.stdenv.cc.override {
         inherit (llvmPackages) bintools;
@@ -192,78 +181,77 @@ let
     );
 
   chromiumRosettaStone = {
-    cpu =
-      platform:
-      let
-        name = platform.parsed.cpu.name;
-      in
-      (
-        {
-          "x86_64" = "x64";
-          "i686" = "x86";
-          "arm" = "arm";
-          "aarch64" = "arm64";
-        }
-        .${platform.parsed.cpu.name} or (throw "no chromium Rosetta Stone entry for cpu: ${name}")
-      );
-    os =
-      platform:
-      if platform.isLinux then
-        "linux"
-      else
-        throw "no chromium Rosetta Stone entry for os: ${platform.config}";
+    cpu = platform: let
+      name = platform.parsed.cpu.name;
+    in (
+      {
+        "x86_64" = "x64";
+        "i686" = "x86";
+        "arm" = "arm";
+        "aarch64" = "arm64";
+      }
+        .${
+        platform.parsed.cpu.name
+      } or (throw "no chromium Rosetta Stone entry for cpu: ${name}")
+    );
+    os = platform:
+      if platform.isLinux
+      then "linux"
+      else throw "no chromium Rosetta Stone entry for os: ${platform.config}";
   };
 
   isElectron = packageName == "electron";
   needsCompgen = chromiumVersionAtLeast "133";
   rustcVersion = buildPackages.rustc.version;
 
-  chromiumDeps = lib.mapAttrs (
-    path: args:
-    fetchFromGitiles (
-      removeAttrs args [ "recompress" ]
-      // lib.optionalAttrs args.recompress or false {
-        name = "source.tar.zstd";
-        downloadToTemp = false;
-        passthru.unpack = true;
-        nativeBuildInputs = [ zstd ];
-        postFetch = ''
-          tar \
-            --use-compress-program="zstd -T$NIX_BUILD_CORES" \
-            --sort=name \
-            --mtime="1970-01-01" \
-            --owner=root --group=root \
-            --numeric-owner --mode=go=rX,u+rw,a-s \
-            --remove-files \
-            --directory="$out" \
-            -cf "$TMPDIR/source.zstd" .
-          mv "$TMPDIR/source.zstd" "$out"
-        '';
-      }
+  chromiumDeps =
+    lib.mapAttrs (
+      path: args:
+        fetchFromGitiles (
+          removeAttrs args ["recompress"]
+          // lib.optionalAttrs args.recompress or false {
+            name = "source.tar.zstd";
+            downloadToTemp = false;
+            passthru.unpack = true;
+            nativeBuildInputs = [zstd];
+            postFetch = ''
+              tar \
+                --use-compress-program="zstd -T$NIX_BUILD_CORES" \
+                --sort=name \
+                --mtime="1970-01-01" \
+                --owner=root --group=root \
+                --numeric-owner --mode=go=rX,u+rw,a-s \
+                --remove-files \
+                --directory="$out" \
+                -cf "$TMPDIR/source.zstd" .
+              mv "$TMPDIR/source.zstd" "$out"
+            '';
+          }
+        )
     )
-  ) upstream-info.DEPS;
+    upstream-info.DEPS;
 
   unpackPhaseSnippet = lib.concatStrings (
     lib.mapAttrsToList (
       path: dep:
-      (
-        if dep.unpack or false then
-          ''
+        (
+          if dep.unpack or false
+          then ''
             mkdir -p ${path}
             pushd ${path}
             unpackFile ${dep}
             popd
           ''
-        else
-          ''
+          else ''
             mkdir -p ${builtins.dirOf path}
             cp -r ${dep}/. ${path}
           ''
-      )
-      + ''
-        chmod u+w -R ${path}
-      ''
-    ) chromiumDeps
+        )
+        + ''
+          chmod u+w -R ${path}
+        ''
+    )
+    chromiumDeps
   );
 
   base = rec {
@@ -287,9 +275,9 @@ let
         sourceRoot = npmRoot;
         hash = upstream-info.deps.npmHash;
       }).overrideAttrs
-        (p: {
-          nativeBuildInputs = p.nativeBuildInputs or [ ] ++ [ zstd ];
-        });
+      (p: {
+        nativeBuildInputs = p.nativeBuildInputs or [] ++ [zstd];
+      });
 
     nativeBuildInputs =
       [
@@ -328,8 +316,8 @@ let
       # simply throw in the kitchen sink.
       # ** Because of overrides, we have to copy the list as it otherwise mess with splicing **
       ++ [
-        (buildPackages.libpng.override { apngSupport = false; }) # https://bugs.chromium.org/p/chromium/issues/detail?id=752403
-        (buildPackages.libopus.override { withCustomModes = true; })
+        (buildPackages.libpng.override {apngSupport = false;}) # https://bugs.chromium.org/p/chromium/issues/detail?id=752403
+        (buildPackages.libopus.override {withCustomModes = true;})
         bzip2
         flac
         speex
@@ -385,8 +373,8 @@ let
 
     buildInputs =
       [
-        (libpng.override { apngSupport = false; }) # https://bugs.chromium.org/p/chromium/issues/detail?id=752403
-        (libopus.override { withCustomModes = true; })
+        (libpng.override {apngSupport = false;}) # https://bugs.chromium.org/p/chromium/issues/detail?id=752403
+        (libopus.override {withCustomModes = true;})
         bzip2
         flac
         speex
@@ -509,7 +497,7 @@ let
         (githubPatch {
           commit = "fc838e8cc887adbe95110045d146b9d5885bf2a9";
           hash = "sha256-NNKzIp6NYdeZaqBLWDW/qNxiDB1VFRz7msjMXuMOrZ8=";
-          excludes = [ "base/allocator/partition_allocator/src/partition_alloc/*" ];
+          excludes = ["base/allocator/partition_allocator/src/partition_alloc/*"];
           revert = true;
         })
       ]
@@ -573,7 +561,7 @@ let
           # https://chromium-review.googlesource.com/c/chromium/src/+/6514242
           name = "chromium-137-llvm-19.patch";
           url = "https://chromium.googlesource.com/chromium/src/+/ddf8f8a465be2779bd826db57f1299ccd2f3aa25^!?format=TEXT";
-          includes = [ "build/config/compiler/BUILD.gn" ];
+          includes = ["build/config/compiler/BUILD.gn"];
           revert = true;
           decode = "base64 -d";
           hash = "sha256-wAR8E4WKMvdkW8DzdKpyNpp4dynIsYAbnJ2MqE8V2o8=";
@@ -595,20 +583,19 @@ let
 
     postPatch =
       lib.optionalString (!isElectron)
-        # TODO: reuse mkGnFlags for this
-        (
-          if (chromiumVersionAtLeast "136") then
-            ''
-              cp ${./files/gclient_args.gni} build/config/gclient_args.gni
-              chmod u+w build/config/gclient_args.gni
-              echo 'checkout_mutter = false' >> build/config/gclient_args.gni
-              echo 'checkout_glic_e2e_tests = false' >> build/config/gclient_args.gni
-            ''
-          else
-            ''
-              ln -s ${./files/gclient_args.gni} build/config/gclient_args.gni
-            ''
-        )
+      # TODO: reuse mkGnFlags for this
+      (
+        if (chromiumVersionAtLeast "136")
+        then ''
+          cp ${./files/gclient_args.gni} build/config/gclient_args.gni
+          chmod u+w build/config/gclient_args.gni
+          echo 'checkout_mutter = false' >> build/config/gclient_args.gni
+          echo 'checkout_glic_e2e_tests = false' >> build/config/gclient_args.gni
+        ''
+        else ''
+          ln -s ${./files/gclient_args.gni} build/config/gclient_args.gni
+        ''
+      )
       + lib.optionalString (!isElectron) ''
 
         echo 'LASTCHANGE=${upstream-info.DEPS."src".rev}-refs/tags/${version}@{#0}' > build/util/LASTCHANGE
@@ -703,7 +690,7 @@ let
 
         patchShebangs .
       ''
-      + lib.optionalString (ungoogled) ''
+      + lib.optionalString ungoogled ''
         # Prune binaries (ungoogled only) *before* linking our own binaries:
         ${ungoogler}/utils/prune_binaries.py . ${ungoogler}/pruning.list || echo "some errors"
       ''
@@ -717,12 +704,11 @@ let
         sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' tools/generate_shim_headers/generate_shim_headers.py
 
       ''
-      +
-        lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform && stdenv.hostPlatform.isAarch64)
-          ''
-            substituteInPlace build/toolchain/linux/BUILD.gn \
-              --replace 'toolprefix = "aarch64-linux-gnu-"' 'toolprefix = ""'
-          ''
+      + lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform && stdenv.hostPlatform.isAarch64)
+      ''
+        substituteInPlace build/toolchain/linux/BUILD.gn \
+          --replace 'toolprefix = "aarch64-linux-gnu-"' 'toolprefix = ""'
+      ''
       + lib.optionalString ungoogled ''
         ${ungoogler}/utils/patches.py . ${ungoogler}/patches
         ${ungoogler}/utils/domain_substitution.py apply -r ${ungoogler}/domain_regex.list -f ${ungoogler}/domain_substitution.list -c ./ungoogled-domsubcache.tar.gz .
@@ -812,15 +798,14 @@ let
       }
       // (
         # M134 changed use_qt to use_qt5 (and use_qt6)
-        if chromiumVersionAtLeast "134" then
-          {
-            use_qt5 = false;
-            use_qt6 = false;
-          }
-        else
-          {
-            use_qt = false;
-          }
+        if chromiumVersionAtLeast "134"
+        then {
+          use_qt5 = false;
+          use_qt6 = false;
+        }
+        else {
+          use_qt = false;
+        }
       )
       // lib.optionalAttrs (chromiumVersionAtLeast "136") {
         # LLVM < v21 does not support --warning-suppression-mappings yet:
@@ -855,7 +840,7 @@ let
         link_pulseaudio = true;
       }
       // lib.optionalAttrs ungoogled (lib.importTOML ./ungoogled-flags.toml)
-      // (extraAttrs.gnFlags or { })
+      // (extraAttrs.gnFlags or {})
     );
 
     # TODO: Migrate this to env.RUSTC_BOOTSTRAP next mass-rebuild.
@@ -900,37 +885,35 @@ let
     env.BUILD_NM = "$NM_FOR_BUILD";
     env.BUILD_READELF = "$READELF_FOR_BUILD";
 
-    buildPhase =
-      let
-        buildCommand = target: ''
-          TERM=dumb ninja -C "${buildPath}" -j$NIX_BUILD_CORES "${target}"
-          ${lib.optionalString needsCompgen "bash -s << EOL\n"}(
-            source chrome/installer/linux/common/installer.include
-            PACKAGE=$packageName
-            MENUNAME="Chromium"
-            process_template chrome/app/resources/manpage.1.in "${buildPath}/chrome.1"
-          )${lib.optionalString needsCompgen "\nEOL"}
-        '';
-        targets = extraAttrs.buildTargets or [ ];
-        commands = map buildCommand targets;
-      in
-      ''
-        runHook preBuild
-        ${lib.concatStringsSep "\n" commands}
-        runHook postBuild
+    buildPhase = let
+      buildCommand = target: ''
+        TERM=dumb ninja -C "${buildPath}" -j$NIX_BUILD_CORES "${target}"
+        ${lib.optionalString needsCompgen "bash -s << EOL\n"}(
+          source chrome/installer/linux/common/installer.include
+          PACKAGE=$packageName
+          MENUNAME="Chromium"
+          process_template chrome/app/resources/manpage.1.in "${buildPath}/chrome.1"
+        )${lib.optionalString needsCompgen "\nEOL"}
       '';
+      targets = extraAttrs.buildTargets or [];
+      commands = map buildCommand targets;
+    in ''
+      runHook preBuild
+      ${lib.concatStringsSep "\n" commands}
+      runHook postBuild
+    '';
 
     postFixup = ''
       # Make sure that libGLESv2 and libvulkan are found by dlopen in both chromium binary and ANGLE libGLESv2.so.
       # libpci (from pciutils) is needed by dlopen in angle/src/gpu_info_util/SystemInfo_libpci.cpp
       for chromiumBinary in "$libExecPath/$packageName" "$libExecPath/libGLESv2.so"; do
         patchelf --set-rpath "${
-          lib.makeLibraryPath [
-            libGL
-            vulkan-loader
-            pciutils
-          ]
-        }:$(patchelf --print-rpath "$chromiumBinary")" "$chromiumBinary"
+        lib.makeLibraryPath [
+          libGL
+          vulkan-loader
+          pciutils
+        ]
+      }:$(patchelf --print-rpath "$chromiumBinary")" "$chromiumBinary"
       done
 
       # replace bundled vulkan-loader
@@ -946,17 +929,16 @@ let
         inherit chromiumDeps npmDeps;
       };
   };
-
 in
-# Remove some extraAttrs we supplied to the base attributes already.
-stdenv.mkDerivation (
-  base
-  // removeAttrs extraAttrs [
-    "name"
-    "gnFlags"
-    "buildTargets"
-  ]
-  // {
-    passthru = base.passthru // (extraAttrs.passthru or { });
-  }
-)
+  # Remove some extraAttrs we supplied to the base attributes already.
+  stdenv.mkDerivation (
+    base
+    // removeAttrs extraAttrs [
+      "name"
+      "gnFlags"
+      "buildTargets"
+    ]
+    // {
+      passthru = base.passthru // (extraAttrs.passthru or {});
+    }
+  )

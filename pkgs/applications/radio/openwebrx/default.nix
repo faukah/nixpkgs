@@ -18,10 +18,7 @@
   sox,
   wsjtx,
   codecserver,
-}:
-
-let
-
+}: let
   js8py = buildPythonPackage rec {
     pname = "js8py";
     version = "0.1.1";
@@ -42,7 +39,7 @@ let
       homepage = "https://github.com/jketterl/js8py";
       description = "Library to decode the output of the js8 binary of JS8Call";
       license = licenses.gpl3Only;
-      teams = [ teams.c3d2 ];
+      teams = [teams.c3d2];
     };
   };
 
@@ -75,51 +72,50 @@ let
       description = "Set of connectors that are used by OpenWebRX to interface with SDR hardware";
       license = licenses.gpl3Only;
       platforms = platforms.unix;
-      teams = [ teams.c3d2 ];
+      teams = [teams.c3d2];
     };
   };
-
 in
-buildPythonApplication rec {
-  pname = "openwebrx";
-  version = "1.2.2";
+  buildPythonApplication rec {
+    pname = "openwebrx";
+    version = "1.2.2";
 
-  src = fetchFromGitHub {
-    owner = "jketterl";
-    repo = pname;
-    rev = version;
-    hash = "sha256-i3Znp5Sxs/KtJazHh2v9/2P+3cEocWB5wIpF7E4pK9s=";
-  };
+    src = fetchFromGitHub {
+      owner = "jketterl";
+      repo = pname;
+      rev = version;
+      hash = "sha256-i3Znp5Sxs/KtJazHh2v9/2P+3cEocWB5wIpF7E4pK9s=";
+    };
 
-  propagatedBuildInputs = [
-    setuptools
-    csdr
-    pycsdr
-    pydigiham
-    js8py
-    soapysdr-with-plugins
-    owrx_connector
-    direwolf
-    sox
-    wsjtx
-    codecserver
-  ];
+    propagatedBuildInputs = [
+      setuptools
+      csdr
+      pycsdr
+      pydigiham
+      js8py
+      soapysdr-with-plugins
+      owrx_connector
+      direwolf
+      sox
+      wsjtx
+      codecserver
+    ];
 
-  pythonImportsCheck = [
-    "csdr"
-    "owrx"
-    "test"
-  ];
+    pythonImportsCheck = [
+      "csdr"
+      "owrx"
+      "test"
+    ];
 
-  passthru = {
-    inherit js8py owrx_connector;
-  };
+    passthru = {
+      inherit js8py owrx_connector;
+    };
 
-  meta = with lib; {
-    homepage = "https://github.com/jketterl/openwebrx";
-    description = "Simple DSP library and command-line tool for Software Defined Radio";
-    mainProgram = "openwebrx";
-    license = licenses.gpl3Only;
-    teams = [ teams.c3d2 ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://github.com/jketterl/openwebrx";
+      description = "Simple DSP library and command-line tool for Software Defined Radio";
+      mainProgram = "openwebrx";
+      license = licenses.gpl3Only;
+      teams = [teams.c3d2];
+    };
+  }

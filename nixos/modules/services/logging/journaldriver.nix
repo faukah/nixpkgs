@@ -8,19 +8,15 @@
 #
 # For further information please consult the documentation in the
 # upstream repository at: https://github.com/tazjin/journaldriver/
-
 {
   config,
   lib,
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.services.journaldriver;
-in
-{
+in {
   options.services.journaldriver = {
     enable = mkOption {
       type = types.bool;
@@ -92,9 +88,9 @@ in
     systemd.services.journaldriver = {
       description = "Stackdriver Logging journal forwarder";
       script = "${pkgs.journaldriver}/bin/journaldriver";
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Restart = "always";

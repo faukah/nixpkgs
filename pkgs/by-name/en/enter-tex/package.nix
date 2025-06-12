@@ -23,7 +23,6 @@
   libgee,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "enter-tex";
   version = "3.48.0";
@@ -70,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/World/gedit/enter-tex";

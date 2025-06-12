@@ -6,7 +6,6 @@
   libXext,
   libXpm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cputnik";
 
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     )
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   installPhase = ''
     runHook preInstall
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Calendar clock with antialiased text";
     homepage = "https://www.dockapps.net/wmcalclock";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 })

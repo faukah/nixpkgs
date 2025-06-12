@@ -16,7 +16,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "borb";
   version = "2.1.25";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     done
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cryptography
@@ -58,7 +57,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "borb.pdf" ];
+  pythonImportsCheck = ["borb.pdf"];
 
   disabledTests = [
     "test_code_files_are_small"
@@ -77,6 +76,6 @@ buildPythonPackage rec {
     homepage = "https://borbpdf.com/";
     changelog = "https://github.com/jorisschellekens/borb/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
   };
 }

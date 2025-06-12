@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "linja-pi-pu-lukin";
   version = "unstable-2021-10-29";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://jansa-tp.github.io/linja-pi-pu-lukin/";
     license = licenses.unfree; # license is unspecified in repository
     platforms = platforms.all;
-    maintainers = with maintainers; [ somasis ];
+    maintainers = with maintainers; [somasis];
   };
 }

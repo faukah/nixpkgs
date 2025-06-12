@@ -8,10 +8,10 @@
   logs,
   iomux,
 }:
-
 buildDunePackage {
   pname = "eio_posix";
-  inherit (eio)
+  inherit
+    (eio)
     meta
     src
     patches

@@ -9,7 +9,6 @@
   torch,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "slicer";
   version = "0.0.8";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     dos2unix slicer/*
   '';
 
-  nativeBuildInputs = [ dos2unix ];
+  nativeBuildInputs = [dos2unix];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     description = "Wraps tensor-like objects and provides a uniform slicing interface via __getitem__";
     homepage = "https://github.com/interpretml/slicer";
     license = licenses.mit;
-    maintainers = with maintainers; [ evax ];
+    maintainers = with maintainers; [evax];
     platforms = platforms.unix;
   };
 }

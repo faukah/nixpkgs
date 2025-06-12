@@ -3,7 +3,6 @@
   fetchCrate,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "asahi-bless";
   version = "0.4.1";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     description = "Tool to select active boot partition on ARM Macs";
     homepage = "https://crates.io/crates/asahi-bless";
     license = licenses.mit;
-    maintainers = with maintainers; [ lukaslihotzki ];
+    maintainers = with maintainers; [lukaslihotzki];
     mainProgram = "asahi-bless";
     platforms = platforms.linux;
   };

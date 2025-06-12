@@ -5,7 +5,6 @@
   six,
   pynacl,
 }:
-
 buildPythonPackage rec {
   pname = "pymacaroons";
   version = "0.13.0";

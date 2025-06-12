@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "graphs";
   version = "20210214";
@@ -22,6 +21,6 @@ stdenv.mkDerivation rec {
     description = "Database of graphs";
     license = licenses.gpl2;
     platforms = platforms.all;
-    teams = [ teams.sage ];
+    teams = [teams.sage];
   };
 }

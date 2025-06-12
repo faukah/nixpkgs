@@ -4,7 +4,6 @@
   fetchFromGitHub,
   m2libc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "m2-planet";
   version = "1.11.0";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   # Upstream overrides the optimisation to be -O0, which is incompatible with fortify. Let's disable it.
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   installPhase = ''
     runHook preInstall
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "PLAtform NEutral Transpiler";
     homepage = "https://github.com/oriansj/M2-Planet";
     license = licenses.gpl3Only;
-    teams = [ teams.minimal-bootstrap ];
+    teams = [teams.minimal-bootstrap];
     inherit (m2libc.meta) platforms;
     mainProgram = "M2-Planet";
   };

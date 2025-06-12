@@ -2,18 +2,14 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-
   # nativeBuildInputs
   pkg-config,
-
   # buildInputs
   openssl,
-
   # passthru
   nixosTests,
   unstableGitUpdater,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "inv-sig-helper";
   version = "0-unstable-2025-04-23";
@@ -40,14 +36,14 @@ rustPlatform.buildRustPackage {
     tests = {
       inherit (nixosTests) invidious;
     };
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = {
     description = "Rust service that decrypts YouTube signatures and manages player information";
     homepage = "https://github.com/iv-org/inv_sig_helper";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "inv_sig_helper_rust";
   };
 }

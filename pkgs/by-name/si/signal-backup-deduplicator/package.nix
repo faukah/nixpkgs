@@ -6,7 +6,6 @@
   cryptopp,
   protobuf,
 }:
-
 stdenv.mkDerivation {
   pname = "signal-backup-deduplicator";
   version = "0-unstable-2024-05-24";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
     hash = "sha256-JR2Qu4EtTMObM/BvxQS5WwGFqWj9g0bqOpKt4y5UNaM=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     protobuf
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
     description = "Generate chunked backups for Signal messages";
     homepage = "https://gitlab.com/gerum/signal-backup-deduplicator";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "signal_backup_deduplicate";
     platforms = lib.platforms.all;
     # ld: symbol(s) not found for architecture ...

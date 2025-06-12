@@ -12,7 +12,6 @@
   dbus,
   cmocka,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tpm2-abrmd";
   version = "3.0.0";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     glib
     dbus
   ];
-  nativeCheckInputs = [ cmocka ];
+  nativeCheckInputs = [cmocka];
 
   enableParallelBuilding = true;
 
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
   # /dev/tpm0) in it's LD_LIBRARY_PATH
   postFixup = ''
     wrapProgram $out/bin/tpm2-abrmd \
-      --suffix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ tpm2-tss ]}"
+      --suffix LD_LIBRARY_PATH : "${lib.makeLibraryPath [tpm2-tss]}"
   '';
 
   meta = with lib; {
@@ -65,6 +64,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/tpm2-software/tpm2-tools";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

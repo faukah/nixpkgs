@@ -5,7 +5,6 @@
   go-md2man,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "maker-panel";
   version = "0.12.4";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-H4eKZlay0IZ8vAclGruDAyh7Vd6kCvGLxJ5y/cuF+F4=";
 
-  cargoPatches = [ ./update-gerber-types-to-0.3.patch ];
+  cargoPatches = [./update-gerber-types-to-0.3.patch];
 
   nativeBuildInputs = [
     go-md2man
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Make mechanical PCBs by combining shapes together";
     homepage = "https://github.com/twitchyliquid64/maker-panel";
-    license = with licenses; [ mit ];
-    maintainers = [ ];
+    license = with licenses; [mit];
+    maintainers = [];
   };
 }

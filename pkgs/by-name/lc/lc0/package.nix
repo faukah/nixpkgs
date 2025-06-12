@@ -10,7 +10,6 @@
   gtest,
   eigen,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lc0";
   version = "0.31.2";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
       "-Dembed=false"
     ]
     # in version 31 this option will be required
-    ++ lib.optionals (lib.versionAtLeast version "0.31") [ "-Dnative_cuda=false" ];
+    ++ lib.optionals (lib.versionAtLeast version "0.31") ["-Dnative_cuda=false"];
 
   enableParallelBuilding = true;
 
@@ -64,10 +63,9 @@ stdenv.mkDerivation rec {
     longDescription = ''
       Lc0 is a UCI-compliant chess engine designed to play chess via neural network, specifically those of the LeelaChessZero project.
     '';
-    maintainers = with lib.maintainers; [ _9glenda ];
+    maintainers = with lib.maintainers; [_9glenda];
     platforms = lib.platforms.unix;
     license = lib.licenses.gpl3Plus;
     broken = stdenv.hostPlatform.isDarwin;
   };
-
 }

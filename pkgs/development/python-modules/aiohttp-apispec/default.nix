@@ -12,7 +12,6 @@
   setuptools,
   webargs,
 }:
-
 buildPythonPackage rec {
   pname = "aiohttp-apispec";
   version = "3.0.0b2";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
       --replace-fail 'return loop.run_until_complete' 'return event_loop.run_until_complete'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -48,12 +47,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiohttp_apispec" ];
+  pythonImportsCheck = ["aiohttp_apispec"];
 
   meta = with lib; {
     description = "Build and document REST APIs with aiohttp and apispec";
     homepage = "https://github.com/maximdanilchenko/aiohttp-apispec/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -6,9 +6,8 @@
   installShellFiles,
   buildkit,
   cni-plugins,
-  extraPackages ? [ ],
+  extraPackages ? [],
 }:
-
 buildGoModule rec {
   pname = "nerdctl";
   version = "1.7.7";
@@ -27,23 +26,21 @@ buildGoModule rec {
     installShellFiles
   ];
 
-  ldflags =
-    let
-      t = "github.com/containerd/nerdctl/pkg/version";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${t}.Version=v${version}"
-      "-X ${t}.Revision=<unknown>"
-    ];
+  ldflags = let
+    t = "github.com/containerd/nerdctl/pkg/version";
+  in [
+    "-s"
+    "-w"
+    "-X ${t}.Version=v${version}"
+    "-X ${t}.Revision=<unknown>"
+  ];
 
   # Many checks require a containerd socket and running nerdctl after it's built
   doCheck = false;
 
   postInstall = ''
     wrapProgram $out/bin/nerdctl \
-      --prefix PATH : "${lib.makeBinPath ([ buildkit ] ++ extraPackages)}" \
+      --prefix PATH : "${lib.makeBinPath ([buildkit] ++ extraPackages)}" \
       --prefix CNI_PATH : "${cni-plugins}/bin"
 
     installShellCompletion --cmd nerdctl \

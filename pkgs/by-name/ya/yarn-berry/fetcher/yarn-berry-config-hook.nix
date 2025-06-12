@@ -5,7 +5,6 @@
   nodejs,
   diffutils,
 }:
-
 makeSetupHook {
   name = "yarn-berry-config-hook";
   substitutions = {
@@ -21,4 +20,5 @@ makeSetupHook {
   meta = {
     description = "Install nodejs dependencies from an offline yarn cache produced by fetchYarnDeps";
   };
-} ./yarn-berry-config-hook.sh
+}
+./yarn-berry-config-hook.sh

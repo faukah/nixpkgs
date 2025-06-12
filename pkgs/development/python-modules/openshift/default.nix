@@ -11,7 +11,6 @@
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "openshift";
   version = "0.13.2";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-uLfewj7M8KNs3oL1AM18sR/WhAR2mvBfqadyhR73FP0=";
   };
 
-  pythonRelaxDeps = [ "kubernetes" ];
+  pythonRelaxDeps = ["kubernetes"];
 
   propagatedBuildInputs = [
     jinja2
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "openshift" ];
+  pythonImportsCheck = ["openshift"];
 
   nativeCheckInputs = [
     pytest-bdd
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     description = "Python client for the OpenShift API";
     homepage = "https://github.com/openshift/openshift-restclient-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
   };
 }

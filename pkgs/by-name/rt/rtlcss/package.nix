@@ -4,7 +4,6 @@
   lib,
   ...
 }:
-
 buildNpmPackage rec {
   pname = "rtlcss";
   version = "4.1.0";
@@ -25,6 +24,6 @@ buildNpmPackage rec {
     mainProgram = "rtlcss";
     homepage = "https://rtlcss.com";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

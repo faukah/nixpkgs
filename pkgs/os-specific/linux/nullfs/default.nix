@@ -16,15 +16,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nEwLxcELLBd+BN7OHYLJZCpie0rG0a1wj0RCOKpZkRU=";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   enableParallelBuilding = true;
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    ];
 
   prePatch = ''
     substituteInPlace "Makefile" \
@@ -43,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/abbbi/nullfsvfs";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ callumio ];
+    maintainers = with maintainers; [callumio];
   };
 }

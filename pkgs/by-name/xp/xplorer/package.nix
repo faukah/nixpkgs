@@ -15,10 +15,7 @@
   pkg-config,
   rustPlatform,
   webkitgtk_4_0,
-}:
-
-let
-
+}: let
   pname = "xplorer";
   version = "unstable-2023-03-19";
 
@@ -48,51 +45,50 @@ let
     '';
   });
 in
+  rustPlatform.buildRustPackage {
+    inherit version src pname;
 
-rustPlatform.buildRustPackage {
-  inherit version src pname;
+    sourceRoot = "${src.name}/src-tauri";
 
-  sourceRoot = "${src.name}/src-tauri";
+    useFetchCargoVendor = true;
+    cargoHash = "sha256-D7qgmxDYQEgOkEYKDSLA875bXeTKDvAntF7kB4esn24=";
 
-  useFetchCargoVendor = true;
-  cargoHash = "sha256-D7qgmxDYQEgOkEYKDSLA875bXeTKDvAntF7kB4esn24=";
+    # copy the frontend static resources to final build directory
+    # Also modify tauri.conf.json so that it expects the resources at the new location
+    postPatch = ''
+      mkdir -p frontend-build
+      cp -R ${frontend-build}/src frontend-build
 
-  # copy the frontend static resources to final build directory
-  # Also modify tauri.conf.json so that it expects the resources at the new location
-  postPatch = ''
-    mkdir -p frontend-build
-    cp -R ${frontend-build}/src frontend-build
+      substituteInPlace tauri.conf.json --replace '"distDir": "../out/src",' '"distDir": "frontend-build/src",'
+    '';
 
-    substituteInPlace tauri.conf.json --replace '"distDir": "../out/src",' '"distDir": "frontend-build/src",'
-  '';
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+    ];
+    buildInputs = [
+      dbus
+      openssl
+      freetype
+      libsoup_2_4
+      gtk3
+      webkitgtk_4_0
+    ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    dbus
-    openssl
-    freetype
-    libsoup_2_4
-    gtk3
-    webkitgtk_4_0
-  ];
+    checkFlags = [
+      # tries to mutate the parent directory
+      "--skip=test_file_operation"
+    ];
 
-  checkFlags = [
-    # tries to mutate the parent directory
-    "--skip=test_file_operation"
-  ];
+    postInstall = ''
+      mv $out/bin/app $out/bin/xplorer
+    '';
 
-  postInstall = ''
-    mv $out/bin/app $out/bin/xplorer
-  '';
-
-  meta = with lib; {
-    description = "Customizable, modern file manager";
-    homepage = "https://xplorer.space";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ dit7ya ];
-    mainProgram = "xplorer";
-  };
-}
+    meta = with lib; {
+      description = "Customizable, modern file manager";
+      homepage = "https://xplorer.space";
+      license = licenses.asl20;
+      maintainers = with maintainers; [dit7ya];
+      mainProgram = "xplorer";
+    };
+  }

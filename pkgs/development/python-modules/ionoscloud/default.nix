@@ -9,7 +9,6 @@
   python-dateutil,
   asn1crypto,
 }:
-
 buildPythonPackage rec {
   pname = "ionoscloud";
   version = "6.1.9";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-IpDhuZ8KrqT8g3UKgdEmjzKRlK1SXq1fgrTDFy/fvpU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     urllib3
@@ -33,13 +32,13 @@ buildPythonPackage rec {
   # upstream only has codecoverage tests, but no actual tests to go with them
   doCheck = false;
 
-  pythonImportsCheck = [ "ionoscloud" ];
+  pythonImportsCheck = ["ionoscloud"];
 
   meta = with lib; {
     homepage = "https://github.com/ionos-cloud/sdk-python";
     description = "Python API client for ionoscloud";
     changelog = "https://github.com/ionos-cloud/sdk-python/blob/v${version}/docs/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

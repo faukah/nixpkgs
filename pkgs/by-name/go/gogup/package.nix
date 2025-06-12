@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gogup";
   version = "0.27.8";
@@ -28,7 +27,7 @@ buildGoModule rec {
     changelog = "https://github.com/nao1215/gup/blob/v${version}/CHANGELOG.md";
     homepage = "https://github.com/nao1215/gup";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ phanirithvij ];
+    maintainers = with lib.maintainers; [phanirithvij];
     mainProgram = "gup";
   };
 }

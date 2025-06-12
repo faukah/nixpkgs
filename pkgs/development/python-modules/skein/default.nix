@@ -15,7 +15,6 @@
   setuptools,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "skein";
   version = "0.8.2";
@@ -27,14 +26,16 @@ buildPythonPackage rec {
 
   # Update this hash if bumping versions
   jarHash = "sha256-x2KH6tnoG7sogtjrJvUaxy0PCEA8q/zneuI969oBOKo=";
-  skeinJar = callPackage ./skeinjar.nix { inherit pname version jarHash; };
+  skeinJar = callPackage ./skeinjar.nix {inherit pname version jarHash;};
 
-  propagatedBuildInputs = [
-    cryptography
-    grpcio
-    pyyaml
-  ] ++ lib.optionals (!pythonOlder "3.12") [ setuptools ];
-  buildInputs = [ grpcio-tools ];
+  propagatedBuildInputs =
+    [
+      cryptography
+      grpcio
+      pyyaml
+    ]
+    ++ lib.optionals (!pythonOlder "3.12") [setuptools];
+  buildInputs = [grpcio-tools];
 
   preBuild = ''
     # Ensure skein.jar exists skips the maven build in setup.py
@@ -54,11 +55,11 @@ buildPythonPackage rec {
         --replace-fail "distutils" "setuptools._distutils"
     '';
 
-  build-system = [ versioneer ];
+  build-system = [versioneer];
 
-  pythonImportsCheck = [ "skein" ];
+  pythonImportsCheck = ["skein"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   # These tests require connecting to a YARN cluster. They could be done through NixOS tests later.
   disabledTests = [
     "test_ui"

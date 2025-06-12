@@ -14,7 +14,6 @@
   humanity-icon-theme,
   hicolor-icon-theme,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yaru";
   version = "25.04.1";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     humanity-icon-theme
     hicolor-icon-theme
   ];
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   dontDropIconThemeCache = true;
 
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
       lgpl3Only
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
   };
 }

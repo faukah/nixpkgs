@@ -14,7 +14,7 @@ anki-utils.buildAnkiAddon (finalAttrs: {
     hash = "sha256-N98EoCE/Bx+9QUQVeU64FXHXSek7ASBVv1b9ltJ4G1U=";
   };
   sourceRoot = "${finalAttrs.src.name}/plugin";
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
   meta = {
     description = ''
       Enable external applications such as Yomichan to communicate
@@ -22,6 +22,6 @@ anki-utils.buildAnkiAddon (finalAttrs: {
     '';
     homepage = "https://foosoft.net/projects/anki-connect/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ junestepp ];
+    maintainers = with lib.maintainers; [junestepp];
   };
 })

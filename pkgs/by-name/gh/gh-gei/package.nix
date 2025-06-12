@@ -4,7 +4,6 @@
   buildDotnetModule,
   dotnetCorePackages,
 }:
-
 buildDotnetModule rec {
   pname = "gh-gei";
   version = "1.15.1";
@@ -24,7 +23,7 @@ buildDotnetModule rec {
     homepage = "https://github.com/github/gh-gei";
     description = "Migration CLI for GitHub to GitHub migrations";
     license = licenses.mit;
-    maintainers = with maintainers; [ lafrenierejm ];
+    maintainers = with maintainers; [lafrenierejm];
     mainProgram = "gei";
   };
 }

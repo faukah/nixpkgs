@@ -21,7 +21,7 @@ stdenv.mkDerivation {
     hash = "sha256-fWzk1gM8vmqkM9hwl6Jnut2AAMQQ91hAYu41xgoI1Jk=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     SDL2
@@ -36,13 +36,13 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+  passthru.updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
 
   meta = {
     description = "Very fast (200+ Gbit/s) pixelflut server written in C with full IPv6 support";
     homepage = "https://github.com/TobleMiner/shoreline";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ zebreus ];
+    maintainers = with lib.maintainers; [zebreus];
     platforms = lib.platforms.linux;
     mainProgram = "shoreline";
   };

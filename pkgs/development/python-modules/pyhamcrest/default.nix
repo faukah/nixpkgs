@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyhamcrest";
   version = "2.1.0";
@@ -47,12 +46,12 @@ buildPythonPackage rec {
     "test_numpy_numeric_type_int"
   ];
 
-  pythonImportsCheck = [ "hamcrest" ];
+  pythonImportsCheck = ["hamcrest"];
 
   meta = with lib; {
     description = "Hamcrest framework for matcher objects";
     homepage = "https://github.com/hamcrest/PyHamcrest";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ alunduil ];
+    maintainers = with maintainers; [alunduil];
   };
 }

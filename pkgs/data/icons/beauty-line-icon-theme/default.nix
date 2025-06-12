@@ -10,7 +10,6 @@
   pantheon,
   jdupes,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "BeautyLine";
   version = "0.0.4";
@@ -62,7 +61,7 @@ stdenvNoCC.mkDerivation rec {
     description = "BeautyLine icon theme";
     homepage = "https://www.gnome-look.org/p/1425426/";
     platforms = platforms.linux;
-    license = [ licenses.publicDomain ];
-    maintainers = with maintainers; [ gvolpe ];
+    license = [licenses.publicDomain];
+    maintainers = with maintainers; [gvolpe];
   };
 }

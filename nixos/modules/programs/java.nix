@@ -1,48 +1,40 @@
 # This module provides JAVA_HOME, with a different way to install java
 # system-wide.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.java;
-in
-{
-
+in {
   options = {
-
     programs.java = {
+      enable =
+        lib.mkEnableOption "java"
+        // {
+          description = ''
+            Install and setup the Java development kit.
 
-      enable = lib.mkEnableOption "java" // {
-        description = ''
-          Install and setup the Java development kit.
+            ::: {.note}
+            This adds JAVA_HOME to the global environment, by sourcing the
+            jdk's setup-hook on shell init. It is equivalent to starting a shell
+            through 'nix-shell -p jdk', or roughly the following system-wide
+            configuration:
 
-          ::: {.note}
-          This adds JAVA_HOME to the global environment, by sourcing the
-          jdk's setup-hook on shell init. It is equivalent to starting a shell
-          through 'nix-shell -p jdk', or roughly the following system-wide
-          configuration:
+                environment.variables.JAVA_HOME = ''${pkgs.jdk.home}/lib/openjdk;
+                environment.systemPackages = [ pkgs.jdk ];
+            :::
+          '';
+        };
 
-              environment.variables.JAVA_HOME = ''${pkgs.jdk.home}/lib/openjdk;
-              environment.systemPackages = [ pkgs.jdk ];
-          :::
-        '';
-      };
-
-      package = lib.mkPackageOption pkgs "jdk" { example = "jre"; };
+      package = lib.mkPackageOption pkgs "jdk" {example = "jre";};
 
       binfmt = lib.mkEnableOption "binfmt to execute java jar's and classes";
-
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     boot.binfmt.registrations = lib.mkIf cfg.binfmt {
       java-class = {
         recognitionType = "extension";
@@ -64,12 +56,10 @@ in
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.shellInit = ''
       test -e ${cfg.package}/nix-support/setup-hook && . ${cfg.package}/nix-support/setup-hook
     '';
-
   };
-
 }

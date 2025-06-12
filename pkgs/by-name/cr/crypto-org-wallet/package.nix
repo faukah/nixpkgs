@@ -4,7 +4,6 @@
   appimageTools,
   imagemagick,
 }:
-
 appimageTools.wrapAppImage rec {
   pname = "chain-desktop-wallet";
   version = "1.5.1";
@@ -29,8 +28,8 @@ appimageTools.wrapAppImage rec {
     description = "Crypto.org Chain desktop wallet (Beta)";
     homepage = "https://github.com/crypto-com/chain-desktop-wallet";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ th0rgal ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [th0rgal];
+    platforms = ["x86_64-linux"];
     mainProgram = "chain-desktop-wallet";
   };
 }

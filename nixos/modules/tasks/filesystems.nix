@@ -4,9 +4,9 @@
   pkgs,
   utils,
   ...
-}@moduleArgs:
-let
-  inherit (lib)
+} @ moduleArgs: let
+  inherit
+    (lib)
     any
     attrValues
     concatMapStrings
@@ -31,11 +31,10 @@ let
   inherit (utils) fsBefore;
 
   # https://wiki.archlinux.org/index.php/fstab#Filepath_spaces
-  escape = string: builtins.replaceStrings [ " " "\t" ] [ "\\040" "\\011" ] string;
+  escape = string: builtins.replaceStrings [" " "\t"] ["\\040" "\\011"] string;
 
-  addCheckDesc =
-    desc: elemType: check:
-    types.addCheck elemType check // { description = "${elemType.description} (with check: ${desc})"; };
+  addCheckDesc = desc: elemType: check:
+    types.addCheck elemType check // {description = "${elemType.description} (with check: ${desc})";};
 
   isNonEmpty = s: (builtins.match "[ \t\n]*" s) == null;
   nonEmptyStr = addCheckDesc "non-empty" types.str isNonEmpty;
@@ -43,7 +42,8 @@ let
   fileSystems' = toposort fsBefore (attrValues config.fileSystems);
 
   fileSystems =
-    if fileSystems' ? result then
+    if fileSystems' ? result
+    then
       # use topologically sorted fileSystems everywhere
       fileSystems'.result
     else
@@ -66,235 +66,221 @@ let
     s: isNonEmpty s && (builtins.match ".+/" s) == null
   );
 
-  coreFileSystemOpts =
-    { name, config, ... }:
-    {
-
-      options = {
-        enable = mkEnableOption "the filesystem mount" // {
+  coreFileSystemOpts = {
+    name,
+    config,
+    ...
+  }: {
+    options = {
+      enable =
+        mkEnableOption "the filesystem mount"
+        // {
           default = true;
         };
 
-        mountPoint = mkOption {
-          example = "/mnt/usb";
-          type = nonEmptyWithoutTrailingSlash;
-          description = "Location of the mounted file system.";
-        };
-
-        stratis.poolUuid = mkOption {
-          type = types.uniq (types.nullOr types.str);
-          description = ''
-            UUID of the stratis pool that the fs is located in
-          '';
-          example = "04c68063-90a5-4235-b9dd-6180098a20d9";
-          default = null;
-        };
-
-        device = mkOption {
-          default = null;
-          example = "/dev/sda";
-          type = types.nullOr nonEmptyStr;
-          description = "Location of the device.";
-        };
-
-        fsType = mkOption {
-          default = "auto";
-          example = "ext3";
-          type = nonEmptyStr;
-          description = "Type of the file system.";
-        };
-
-        options = mkOption {
-          default = [ "defaults" ];
-          example = [ "data=journal" ];
-          description = ''
-            Options used to mount the file system.
-            See {manpage}`mount(8)` for common options.
-          '';
-          type = types.nonEmptyListOf nonEmptyStr;
-        };
-
-        depends = mkOption {
-          default = [ ];
-          example = [ "/persist" ];
-          type = types.listOf nonEmptyWithoutTrailingSlash;
-          description = ''
-            List of paths that should be mounted before this one. This filesystem's
-            {option}`device` and {option}`mountPoint` are always
-            checked and do not need to be included explicitly. If a path is added
-            to this list, any other filesystem whose mount point is a parent of
-            the path will be mounted before this filesystem. The paths do not need
-            to actually be the {option}`mountPoint` of some other filesystem.
-          '';
-        };
-
+      mountPoint = mkOption {
+        example = "/mnt/usb";
+        type = nonEmptyWithoutTrailingSlash;
+        description = "Location of the mounted file system.";
       };
 
-      config = {
-        mountPoint = mkDefault name;
-        device = mkIf (elem config.fsType specialFSTypes) (mkDefault config.fsType);
+      stratis.poolUuid = mkOption {
+        type = types.uniq (types.nullOr types.str);
+        description = ''
+          UUID of the stratis pool that the fs is located in
+        '';
+        example = "04c68063-90a5-4235-b9dd-6180098a20d9";
+        default = null;
       };
 
+      device = mkOption {
+        default = null;
+        example = "/dev/sda";
+        type = types.nullOr nonEmptyStr;
+        description = "Location of the device.";
+      };
+
+      fsType = mkOption {
+        default = "auto";
+        example = "ext3";
+        type = nonEmptyStr;
+        description = "Type of the file system.";
+      };
+
+      options = mkOption {
+        default = ["defaults"];
+        example = ["data=journal"];
+        description = ''
+          Options used to mount the file system.
+          See {manpage}`mount(8)` for common options.
+        '';
+        type = types.nonEmptyListOf nonEmptyStr;
+      };
+
+      depends = mkOption {
+        default = [];
+        example = ["/persist"];
+        type = types.listOf nonEmptyWithoutTrailingSlash;
+        description = ''
+          List of paths that should be mounted before this one. This filesystem's
+          {option}`device` and {option}`mountPoint` are always
+          checked and do not need to be included explicitly. If a path is added
+          to this list, any other filesystem whose mount point is a parent of
+          the path will be mounted before this filesystem. The paths do not need
+          to actually be the {option}`mountPoint` of some other filesystem.
+        '';
+      };
     };
 
-  fileSystemOpts =
-    { config, ... }:
-    {
+    config = {
+      mountPoint = mkDefault name;
+      device = mkIf (elem config.fsType specialFSTypes) (mkDefault config.fsType);
+    };
+  };
 
-      options = {
-
-        label = mkOption {
-          default = null;
-          example = "root-partition";
-          type = types.nullOr nonEmptyStr;
-          description = "Label of the device (if any).";
-        };
-
-        autoFormat = mkOption {
-          default = false;
-          type = types.bool;
-          description = ''
-            If the device does not currently contain a filesystem (as
-            determined by {command}`blkid`), then automatically
-            format it with the filesystem type specified in
-            {option}`fsType`.  Use with caution.
-          '';
-        };
-
-        formatOptions = mkOption {
-          visible = false;
-          type = types.unspecified;
-          default = null;
-        };
-
-        autoResize = mkOption {
-          default = false;
-          type = types.bool;
-          description = ''
-            If set, the filesystem is grown to its maximum size before
-            being mounted. (This is typically the size of the containing
-            partition.) This is currently only supported for ext2/3/4
-            filesystems that are mounted during early boot.
-          '';
-        };
-
-        noCheck = mkOption {
-          default = false;
-          type = types.bool;
-          description = "Disable running fsck on this filesystem.";
-        };
-
+  fileSystemOpts = {config, ...}: {
+    options = {
+      label = mkOption {
+        default = null;
+        example = "root-partition";
+        type = types.nullOr nonEmptyStr;
+        description = "Label of the device (if any).";
       };
 
-      config.device = mkIf (config.label != null) (mkDefault "/dev/disk/by-label/${escape config.label}");
+      autoFormat = mkOption {
+        default = false;
+        type = types.bool;
+        description = ''
+          If the device does not currently contain a filesystem (as
+          determined by {command}`blkid`), then automatically
+          format it with the filesystem type specified in
+          {option}`fsType`.  Use with caution.
+        '';
+      };
 
-      config.options =
-        let
-          inInitrd = utils.fsNeededForBoot config;
-        in
-        mkMerge [
-          (mkIf config.autoResize [ "x-systemd.growfs" ])
-          (mkIf config.autoFormat [ "x-systemd.makefs" ])
-          (mkIf (utils.fsNeededForBoot config) [ "x-initrd.mount" ])
-          (mkIf
-            # With scripted stage 1, depends is implemented by sorting 'config.system.build.fileSystems'
-            (lib.length config.depends > 0 && (inInitrd -> moduleArgs.config.boot.initrd.systemd.enable))
-            (map (x: "x-systemd.requires-mounts-for=${optionalString inInitrd "/sysroot"}${x}") config.depends)
-          )
-        ];
+      formatOptions = mkOption {
+        visible = false;
+        type = types.unspecified;
+        default = null;
+      };
 
+      autoResize = mkOption {
+        default = false;
+        type = types.bool;
+        description = ''
+          If set, the filesystem is grown to its maximum size before
+          being mounted. (This is typically the size of the containing
+          partition.) This is currently only supported for ext2/3/4
+          filesystems that are mounted during early boot.
+        '';
+      };
+
+      noCheck = mkOption {
+        default = false;
+        type = types.bool;
+        description = "Disable running fsck on this filesystem.";
+      };
     };
+
+    config.device = mkIf (config.label != null) (mkDefault "/dev/disk/by-label/${escape config.label}");
+
+    config.options = let
+      inInitrd = utils.fsNeededForBoot config;
+    in
+      mkMerge [
+        (mkIf config.autoResize ["x-systemd.growfs"])
+        (mkIf config.autoFormat ["x-systemd.makefs"])
+        (mkIf (utils.fsNeededForBoot config) ["x-initrd.mount"])
+        (
+          mkIf
+          # With scripted stage 1, depends is implemented by sorting 'config.system.build.fileSystems'
+          (lib.length config.depends > 0 && (inInitrd -> moduleArgs.config.boot.initrd.systemd.enable))
+          (map (x: "x-systemd.requires-mounts-for=${optionalString inInitrd "/sysroot"}${x}") config.depends)
+        )
+      ];
+  };
 
   # Makes sequence of `specialMount device mountPoint options fsType` commands.
   # `systemMount` should be defined in the sourcing script.
-  makeSpecialMounts =
-    mounts:
+  makeSpecialMounts = mounts:
     pkgs.writeText "mounts.sh" (
       concatMapStringsSep "\n" (mount: ''
         specialMount "${mount.device}" "${mount.mountPoint}" "${concatStringsSep "," mount.options}" "${mount.fsType}"
-      '') mounts
+      '')
+      mounts
     );
 
-  makeFstabEntries =
-    let
-      fsToSkipCheck =
-        [
-          "none"
-          "auto"
-          "overlay"
-          "iso9660"
-          "bindfs"
-          "udf"
-          "btrfs"
-          "zfs"
-          "tmpfs"
-          "bcachefs"
-          "nfs"
-          "nfs4"
-          "nilfs2"
-          "vboxsf"
-          "squashfs"
-          "glusterfs"
-          "apfs"
-          "9p"
-          "cifs"
-          "prl_fs"
-          "vmhgfs"
-        ]
-        ++ lib.optionals (!config.boot.initrd.checkJournalingFS) [
-          "ext3"
-          "ext4"
-          "reiserfs"
-          "xfs"
-          "jfs"
-          "f2fs"
-        ];
-      isBindMount = fs: builtins.elem "bind" fs.options;
-      skipCheck =
-        fs: fs.noCheck || fs.device == "none" || builtins.elem fs.fsType fsToSkipCheck || isBindMount fs;
-    in
-    fstabFileSystems:
-    { }:
-    concatMapStrings (
-      fs:
-      (
-        if fs.device != null then
-          escape fs.device
-        else
-          throw "No device specified for mount point ‘${fs.mountPoint}’."
+  makeFstabEntries = let
+    fsToSkipCheck =
+      [
+        "none"
+        "auto"
+        "overlay"
+        "iso9660"
+        "bindfs"
+        "udf"
+        "btrfs"
+        "zfs"
+        "tmpfs"
+        "bcachefs"
+        "nfs"
+        "nfs4"
+        "nilfs2"
+        "vboxsf"
+        "squashfs"
+        "glusterfs"
+        "apfs"
+        "9p"
+        "cifs"
+        "prl_fs"
+        "vmhgfs"
+      ]
+      ++ lib.optionals (!config.boot.initrd.checkJournalingFS) [
+        "ext3"
+        "ext4"
+        "reiserfs"
+        "xfs"
+        "jfs"
+        "f2fs"
+      ];
+    isBindMount = fs: builtins.elem "bind" fs.options;
+    skipCheck = fs: fs.noCheck || fs.device == "none" || builtins.elem fs.fsType fsToSkipCheck || isBindMount fs;
+  in
+    fstabFileSystems: {}:
+      concatMapStrings (
+        fs:
+          (
+            if fs.device != null
+            then escape fs.device
+            else throw "No device specified for mount point ‘${fs.mountPoint}’."
+          )
+          + " "
+          + escape fs.mountPoint
+          + " "
+          + fs.fsType
+          + " "
+          + escape (builtins.concatStringsSep "," fs.options)
+          + " 0 "
+          + (
+            if skipCheck fs
+            then "0"
+            else if fs.mountPoint == "/"
+            then "1"
+            else "2"
+          )
+          + "\n"
       )
-      + " "
-      + escape fs.mountPoint
-      + " "
-      + fs.fsType
-      + " "
-      + escape (builtins.concatStringsSep "," fs.options)
-      + " 0 "
-      + (
-        if skipCheck fs then
-          "0"
-        else if fs.mountPoint == "/" then
-          "1"
-        else
-          "2"
-      )
-      + "\n"
-    ) fstabFileSystems;
+      fstabFileSystems;
 
   initrdFstab = pkgs.writeText "initrd-fstab" (
-    makeFstabEntries (filter utils.fsNeededForBoot fileSystems) { }
+    makeFstabEntries (filter utils.fsNeededForBoot fileSystems) {}
   );
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     fileSystems = mkOption {
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           "/".device = "/dev/hda1";
@@ -332,12 +318,12 @@ in
 
     system.fsPackages = mkOption {
       internal = true;
-      default = [ ];
+      default = [];
       description = "Packages supplying file system mounters and checkers.";
     };
 
     boot.supportedFilesystems = mkOption {
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           btrfs = true;
@@ -356,7 +342,7 @@ in
     };
 
     boot.specialFileSystems = mkOption {
-      default = { };
+      default = {};
       type = types.attrsOf (types.submodule coreFileSystemOpts);
       apply = lib.filterAttrs (_: fs: fs.enable);
       internal = true;
@@ -399,18 +385,16 @@ in
   ###### implementation
 
   config = {
-
-    assertions =
-      let
-        ls = sep: concatMapStringsSep sep (x: x.mountPoint);
-        resizableFSes = [
-          "ext3"
-          "ext4"
-          "btrfs"
-          "xfs"
-        ];
-        notAutoResizable = fs: fs.autoResize && !(builtins.elem fs.fsType resizableFSes);
-      in
+    assertions = let
+      ls = sep: concatMapStringsSep sep (x: x.mountPoint);
+      resizableFSes = [
+        "ext3"
+        "ext4"
+        "btrfs"
+        "xfs"
+      ];
+      notAutoResizable = fs: fs.autoResize && !(builtins.elem fs.fsType resizableFSes);
+    in
       [
         {
           assertion = !(fileSystems' ? cycle);
@@ -418,15 +402,13 @@ in
         }
         {
           assertion = !(any notAutoResizable fileSystems);
-          message =
-            let
-              fs = head (filter notAutoResizable fileSystems);
-            in
-            ''
-              Mountpoint '${fs.mountPoint}': 'autoResize = true' is not supported for 'fsType = "${fs.fsType}"'
-              ${optionalString (fs.fsType == "auto") "fsType has to be explicitly set and"}
-              only the following support it: ${lib.concatStringsSep ", " resizableFSes}.
-            '';
+          message = let
+            fs = head (filter notAutoResizable fileSystems);
+          in ''
+            Mountpoint '${fs.mountPoint}': 'autoResize = true' is not supported for 'fsType = "${fs.fsType}"'
+            ${optionalString (fs.fsType == "auto") "fsType has to be explicitly set and"}
+            only the following support it: ${lib.concatStringsSep ", " resizableFSes}.
+          '';
         }
         {
           assertion = !(any (fs: fs.formatOptions != null) fileSystems);
@@ -445,55 +427,53 @@ in
             device: ${toString fs.device}
           'filesystems.<name>.label' and 'filesystems.<name>.device' are mutually exclusive. Please set only one.
         '';
-      }) fileSystems;
+      })
+      fileSystems;
 
     # Export for use in other modules
     system.build.fileSystems = fileSystems;
-    system.build.earlyMountScript = makeSpecialMounts (toposort fsBefore (
-      attrValues config.boot.specialFileSystems
-    )).result;
+    system.build.earlyMountScript =
+      makeSpecialMounts
+      (toposort fsBefore (
+        attrValues config.boot.specialFileSystems
+      )).result;
 
     boot.supportedFilesystems = map (fs: fs.fsType) fileSystems;
 
     # Add the mount helpers to the system path so that `mount' can find them.
-    system.fsPackages = [ pkgs.dosfstools ];
+    system.fsPackages = [pkgs.dosfstools];
 
-    environment.systemPackages =
-      with pkgs;
+    environment.systemPackages = with pkgs;
       [
         fuse3
         fuse
       ]
       ++ config.system.fsPackages;
 
-    environment.etc.fstab.text =
-      let
-        swapOptions =
-          sw:
-          concatStringsSep "," (
-            sw.options
-            ++ optional (sw.priority != null) "pri=${toString sw.priority}"
-            ++
-              optional (sw.discardPolicy != null)
-                "discard${optionalString (sw.discardPolicy != "both") "=${toString sw.discardPolicy}"}"
-          );
-      in
-      ''
-        # This is a generated file.  Do not edit!
-        #
-        # To make changes, edit the fileSystems and swapDevices NixOS options
-        # in your /etc/nixos/configuration.nix file.
-        #
-        # <file system> <mount point>   <type>  <options>       <dump>  <pass>
+    environment.etc.fstab.text = let
+      swapOptions = sw:
+        concatStringsSep "," (
+          sw.options
+          ++ optional (sw.priority != null) "pri=${toString sw.priority}"
+          ++ optional (sw.discardPolicy != null)
+          "discard${optionalString (sw.discardPolicy != "both") "=${toString sw.discardPolicy}"}"
+        );
+    in ''
+      # This is a generated file.  Do not edit!
+      #
+      # To make changes, edit the fileSystems and swapDevices NixOS options
+      # in your /etc/nixos/configuration.nix file.
+      #
+      # <file system> <mount point>   <type>  <options>       <dump>  <pass>
 
-        # Filesystems.
-        ${makeFstabEntries fileSystems { }}
+      # Filesystems.
+      ${makeFstabEntries fileSystems {}}
 
-        ${optionalString (config.swapDevices != [ ]) "# Swap devices."}
-        ${flip concatMapStrings config.swapDevices (sw: "${sw.realDevice} none swap ${swapOptions sw}\n")}
-      '';
+      ${optionalString (config.swapDevices != []) "# Swap devices."}
+      ${flip concatMapStrings config.swapDevices (sw: "${sw.realDevice} none swap ${swapOptions sw}\n")}
+    '';
 
-    boot.initrd.systemd.storePaths = [ initrdFstab ];
+    boot.initrd.systemd.storePaths = [initrdFstab];
     boot.initrd.systemd.managerEnvironment.SYSTEMD_SYSROOT_FSTAB = initrdFstab;
     boot.initrd.systemd.services.initrd-parse-etc.environment.SYSTEMD_SYSROOT_FSTAB = initrdFstab;
 
@@ -540,8 +520,8 @@ in
           "systemd-pstore.service"
           "shutdown.target"
         ];
-        conflicts = [ "shutdown.target" ];
-        wantedBy = [ "systemd-pstore.service" ];
+        conflicts = ["shutdown.target"];
+        wantedBy = ["systemd-pstore.service"];
       };
     };
 
@@ -624,7 +604,5 @@ in
           ];
         };
       };
-
   };
-
 }

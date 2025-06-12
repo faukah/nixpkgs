@@ -23,7 +23,6 @@
   polkit,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "appcenter";
   version = "8.2.0";
@@ -74,7 +73,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -82,7 +81,7 @@ stdenv.mkDerivation rec {
     description = "Open, pay-what-you-want app store for indie developers, designed for elementary OS";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.appcenter";
   };
 }

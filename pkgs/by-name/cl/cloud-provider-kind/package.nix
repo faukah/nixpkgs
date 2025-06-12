@@ -15,7 +15,7 @@ buildGoModule rec {
     tag = "v${version}";
     hash = "sha256-6HdP6/uUCtLyZ7vjFGB2NLqe73v/yolRTUE5s/KyIIk=";
   };
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   vendorHash = null;
 
@@ -25,7 +25,7 @@ buildGoModule rec {
     description = "Load Balancer implementation for Kubernetes-in-Docker";
     homepage = "https://github.com/kubernetes-sigs/cloud-provider-kind";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nicoo ];
+    maintainers = with lib.maintainers; [nicoo];
     mainProgram = "cloud-provider-kind";
   };
 }

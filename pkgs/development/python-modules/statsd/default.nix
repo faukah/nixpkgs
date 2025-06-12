@@ -6,7 +6,6 @@
   mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "statsd";
   version = "4.0.1";
@@ -19,17 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-g830TjFERKUguFKlZeaOhCTlaUs0wcDg4bMdRDr3smw=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     mock
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "statsd/tests.py" ];
+  pytestFlagsArray = ["statsd/tests.py"];
 
   meta = with lib; {
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     description = "Simple statsd client";
     license = licenses.mit;
     homepage = "https://github.com/jsocol/pystatsd";

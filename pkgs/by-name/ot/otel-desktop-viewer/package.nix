@@ -7,7 +7,6 @@
   stdenv,
   apple-sdk_12,
 }:
-
 buildGoModule rec {
   pname = "otel-desktop-viewer";
   version = "0.1.4";
@@ -20,9 +19,9 @@ buildGoModule rec {
   };
 
   # https://github.com/CtrlSpice/otel-desktop-viewer/issues/139
-  patches = [ ./version-0.1.4.patch ];
+  patches = [./version-0.1.4.patch];
 
-  subPackages = [ "..." ];
+  subPackages = ["..."];
 
   vendorHash = "sha256-pH16DCYeW8mdnkkRi0zqioovZu9slVc3gAdhMYu2y98=";
 
@@ -44,7 +43,7 @@ buildGoModule rec {
     description = "Receive & visualize OpenTelemtry traces locally within one CLI tool";
     homepage = "https://github.com/CtrlSpice/otel-desktop-viewer";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ gaelreyrol ];
+    maintainers = with lib.maintainers; [gaelreyrol];
     mainProgram = "otel-desktop-viewer";
   };
 }

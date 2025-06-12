@@ -6,7 +6,6 @@
   makeWrapper,
   testers,
 }:
-
 buildNpmPackage (finalAttrs: {
   pname = "amp-cli";
   version = "0.0.1749297687-g3e4f54";
@@ -66,7 +65,7 @@ buildNpmPackage (finalAttrs: {
 
   postInstall = ''
     wrapProgram $out/bin/amp \
-      --prefix PATH : ${lib.makeBinPath [ ripgrep ]}
+      --prefix PATH : ${lib.makeBinPath [ripgrep]}
   '';
 
   passthru.updateScript = ./update.sh;

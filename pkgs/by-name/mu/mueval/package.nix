@@ -3,10 +3,8 @@
   stdenv,
   makeWrapper,
   haskellPackages,
-  packages ? (pkgs: [ ]),
-}:
-
-let
+  packages ? (pkgs: []),
+}: let
   defaultPkgs = pkgs: [
     pkgs.show
     pkgs.simple-reflect
@@ -14,28 +12,27 @@ let
     pkgs.mtl
   ];
   env = haskellPackages.ghcWithPackages (pkgs: defaultPkgs pkgs ++ packages pkgs);
-
 in
-stdenv.mkDerivation {
-  name = "mueval-env";
+  stdenv.mkDerivation {
+    name = "mueval-env";
 
-  inherit (haskellPackages) mueval;
+    inherit (haskellPackages) mueval;
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  buildPhase = ''
-    runHook preBuild
+    buildPhase = ''
+      runHook preBuild
 
-    mkdir -p $out/bin
+      mkdir -p $out/bin
 
-    makeWrapper $mueval/bin/mueval $out/bin/mueval \
-      --set "NIX_GHC_LIBDIR" "$(${lib.getExe' env "ghc"} --print-libdir)"
+      makeWrapper $mueval/bin/mueval $out/bin/mueval \
+        --set "NIX_GHC_LIBDIR" "$(${lib.getExe' env "ghc"} --print-libdir)"
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
-  passthru = { inherit defaultPkgs; };
-  meta.mainProgram = "mueval";
-}
+    passthru = {inherit defaultPkgs;};
+    meta.mainProgram = "mueval";
+  }

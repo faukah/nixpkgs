@@ -10,7 +10,6 @@
   perl,
   xcbuild,
 }:
-
 buildNpmPackage rec {
   pname = "bitwarden-cli";
   version = "2025.5.0";
@@ -48,7 +47,7 @@ buildNpmPackage rec {
 
   npmWorkspace = "apps/cli";
 
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = ["--legacy-peer-deps"];
 
   npmRebuildFlags = [
     # we'll run npm rebuild manually later
@@ -105,6 +104,6 @@ buildNpmPackage rec {
     homepage = "https://bitwarden.com";
     license = lib.licenses.gpl3Only;
     mainProgram = "bw";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

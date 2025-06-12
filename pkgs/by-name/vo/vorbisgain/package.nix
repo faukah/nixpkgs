@@ -5,7 +5,6 @@
   libogg,
   libvorbis,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vorbisgain";
   version = "0.37";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "Utility that corrects the volume of an Ogg Vorbis file to a predefined standardized loudness";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     mainProgram = "vorbisgain";
   };
 }

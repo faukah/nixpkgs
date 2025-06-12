@@ -28,36 +28,35 @@
     done
   '';
 
-  propagatedBuildInputs = [ gfal2-python ];
+  propagatedBuildInputs = [gfal2-python];
 
-  pythonImportsCheck = [ "gfal2_util" ];
+  pythonImportsCheck = ["gfal2_util"];
 
   meta = with lib; {
     description = "CLI for gfal2";
     homepage = "https://github.com/cern-fts/gfal2-utils";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
   };
 }).overrideAttrs
-  (
-    finalAttrs: previousAttrs:
+(
+  finalAttrs: previousAttrs:
     lib.recursiveUpdate previousAttrs {
       passthru = {
         inherit (gfal2-python) gfal2;
 
         fetchGfal2 = lib.makeOverridable (
-          callPackage ./fetchgfal2.nix { gfal2-util = finalAttrs.finalPackage; }
+          callPackage ./fetchgfal2.nix {gfal2-util = finalAttrs.finalPackage;}
         );
 
         # With these functionality tests, it should be safe to merge version bumps once all the tests are passed.
-        tests =
-          let
-            # Use the the bin output hash of gfal2-util as version to ensure that
-            # the test gets rebuild everytime gfal2-util gets rebuild
-            versionFODTests =
-              finalAttrs.version + "-" + lib.substring (lib.stringLength builtins.storeDir + 1) 32 "${self}";
-            self = finalAttrs.finalPackage;
-          in
+        tests = let
+          # Use the the bin output hash of gfal2-util as version to ensure that
+          # the test gets rebuild everytime gfal2-util gets rebuild
+          versionFODTests =
+            finalAttrs.version + "-" + lib.substring (lib.stringLength builtins.storeDir + 1) 32 "${self}";
+          self = finalAttrs.finalPackage;
+        in
           lib.optionalAttrs gfal2-python.gfal2.enablePluginStatus.xrootd (
             let
               # Test against a real-world dataset from CERN Open Data
@@ -65,12 +64,11 @@
               urlTestFile = xrootd.tests.test-xrdcp.url;
               hashTestFile = xrootd.tests.test-xrdcp.outputHash;
               urlTestDir = dirOf urlTestFile;
-            in
-            {
+            in {
               test-copy-file-xrootd = finalAttrs.passthru.fetchGfal2 {
                 url = urlTestFile;
                 hash = hashTestFile;
-                extraGfalCopyFlags = [ "--verbose" ];
+                extraGfalCopyFlags = ["--verbose"];
                 pname = "gfal2-util-test-copy-file-xrootd";
                 version = versionFODTests;
                 allowSubstitutes = false;
@@ -80,32 +78,32 @@
                 url = urlTestDir;
                 hash = "sha256-vOahIhvx1oE9sfkqANMGUvGeLHS737wyfYWo4rkvrxw=";
                 recursive = true;
-                extraGfalCopyFlags = [ "--verbose" ];
+                extraGfalCopyFlags = ["--verbose"];
                 pname = "gfal2-util-test-copy-dir-xrootd";
                 version = versionFODTests;
                 allowSubstitutes = false;
               };
 
               test-ls-dir-xrootd =
-                (runCommandLocal "test-gfal2-util-ls-dir-xrootd" { } ''
+                (runCommandLocal "test-gfal2-util-ls-dir-xrootd" {} ''
                   set -eu -o pipefail
                   gfal-ls "$url" | grep "$baseNameExpected" | tee "$out"
                 '').overrideAttrs
-                  (
-                    finalAttrs: previousAttrs: {
-                      pname = previousAttrs.name;
-                      version = versionFODTests;
-                      name = "${finalAttrs.pname}-${finalAttrs.version}";
-                      nativeBuildInputs = [ self ];
-                      url = urlTestDir;
-                      baseNameExpected = baseNameOf urlTestFile;
-                      outputHashMode = "flat";
-                      outputHashAlgo = "sha256";
-                      outputHash = builtins.hashString finalAttrs.outputHashAlgo (finalAttrs.baseNameExpected + "\n");
-                    }
-                  );
+                (
+                  finalAttrs: previousAttrs: {
+                    pname = previousAttrs.name;
+                    version = versionFODTests;
+                    name = "${finalAttrs.pname}-${finalAttrs.version}";
+                    nativeBuildInputs = [self];
+                    url = urlTestDir;
+                    baseNameExpected = baseNameOf urlTestFile;
+                    outputHashMode = "flat";
+                    outputHashAlgo = "sha256";
+                    outputHash = builtins.hashString finalAttrs.outputHashAlgo (finalAttrs.baseNameExpected + "\n");
+                  }
+                );
             }
           );
       };
     }
-  )
+)

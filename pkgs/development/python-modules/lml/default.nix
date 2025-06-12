@@ -6,7 +6,6 @@
   mock,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "lml";
   version = "0.2.0";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-jdWvtDZ6WT0c2yFEoFh0zZk49SZr67DJ4UEyAEI8DXQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     homepage = "http://lml.readthedocs.io/";
     changelog = "https://github.com/python-lml/lml/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

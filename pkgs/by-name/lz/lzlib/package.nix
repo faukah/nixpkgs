@@ -5,7 +5,6 @@
   texinfo,
   lzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lzlib";
   version = "1.15";
@@ -35,13 +34,13 @@ stdenv.mkDerivation (finalAttrs: {
   ];
   doCheck = true;
 
-  configureFlags = [ "--enable-shared" ];
+  configureFlags = ["--enable-shared"];
 
   meta = {
     homepage = "https://www.nongnu.org/lzip/lzlib.html";
     description = "Data compression library providing in-memory LZMA compression and decompression functions, including integrity checking of the decompressed data";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
   };
 })

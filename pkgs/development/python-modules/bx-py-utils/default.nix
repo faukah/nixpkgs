@@ -16,7 +16,6 @@
   requests-mock,
   typeguard,
 }:
-
 buildPythonPackage rec {
   pname = "bx-py-utils";
   version = "108";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     rm bx_py_utils_tests/publish.py
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   pythonImportsCheck = [
     "bx_py_utils.anonymize"
@@ -79,7 +78,7 @@ buildPythonPackage rec {
   ];
 
   disabledTestPaths =
-    [ "bx_py_utils_tests/tests/test_project_setup.py" ]
+    ["bx_py_utils_tests/tests/test_project_setup.py"]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       # processify() doesn't work under darwin
       # https://github.com/boxine/bx_py_utils/issues/80
@@ -92,6 +91,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/boxine/bx_py_utils";
     changelog = "https://github.com/boxine/bx_py_utils/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -14,9 +14,7 @@
   copyDesktopItems,
   wrapGAppsHook3,
   metaCommon,
-}:
-
-let
+}: let
   pname = "trilium-desktop";
   version = "0.63.6";
 
@@ -26,13 +24,15 @@ let
   darwinSource.url = "https://github.com/zadam/trilium/releases/download/v${version}/trilium-mac-x64-${version}.zip";
   darwinSource.sha256 = "0ry512cn622av3nm8rnma2yvqc71rpzax639872ivvc5vm4rsc30";
 
-  meta = metaCommon // {
-    mainProgram = "trilium";
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
-  };
+  meta =
+    metaCommon
+    // {
+      mainProgram = "trilium";
+      platforms = [
+        "x86_64-linux"
+        "x86_64-darwin"
+      ];
+    };
 
   linux = stdenv.mkDerivation rec {
     inherit pname version meta;
@@ -63,7 +63,7 @@ let
         icon = "trilium";
         comment = meta.description;
         desktopName = "Trilium Notes";
-        categories = [ "Office" ];
+        categories = ["Office"];
         startupWMClass = "trilium notes";
       })
     ];
@@ -101,13 +101,14 @@ let
     inherit pname version meta;
 
     src = fetchurl darwinSource;
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
     installPhase = ''
       mkdir -p $out/Applications
       cp -r *.app $out/Applications
     '';
   };
-
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

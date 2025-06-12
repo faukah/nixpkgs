@@ -5,7 +5,6 @@
   testers,
   gh-dash,
 }:
-
 buildGoModule rec {
   pname = "gh-dash";
   version = "4.16.0";
@@ -26,7 +25,7 @@ buildGoModule rec {
   ];
 
   passthru.tests = {
-    version = testers.testVersion { package = gh-dash; };
+    version = testers.testVersion {package = gh-dash;};
   };
 
   meta = {
@@ -34,7 +33,7 @@ buildGoModule rec {
     description = "Github Cli extension to display a dashboard with pull requests and issues";
     homepage = "https://github.com/dlvhdr/gh-dash";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ amesgen ];
+    maintainers = with lib.maintainers; [amesgen];
     mainProgram = "gh-dash";
   };
 }

@@ -7,52 +7,49 @@
   pkg-config,
   libnl,
   iptables,
-}:
-
-let
-  sourceAttrs = (import ./source.nix) { inherit fetchFromGitHub; };
+}: let
+  sourceAttrs = (import ./source.nix) {inherit fetchFromGitHub;};
 in
+  stdenv.mkDerivation {
+    pname = "jool-cli";
+    version = sourceAttrs.version;
 
-stdenv.mkDerivation {
-  pname = "jool-cli";
-  version = sourceAttrs.version;
+    src = sourceAttrs.src;
 
-  src = sourceAttrs.src;
+    patches = [./validate-config.patch];
 
-  patches = [ ./validate-config.patch ];
+    outputs = [
+      "out"
+      "man"
+    ];
 
-  outputs = [
-    "out"
-    "man"
-  ];
+    nativeBuildInputs = [
+      autoreconfHook
+      pkg-config
+    ];
+    buildInputs = [
+      libnl
+      iptables
+    ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
-  buildInputs = [
-    libnl
-    iptables
-  ];
+    makeFlags = [
+      "-C"
+      "src/usr"
+    ];
 
-  makeFlags = [
-    "-C"
-    "src/usr"
-  ];
+    prePatch = ''
+      sed -e 's%^XTABLES_SO_DIR = .*%XTABLES_SO_DIR = '"$out"'/lib/xtables%g' -i src/usr/iptables/Makefile
+    '';
 
-  prePatch = ''
-    sed -e 's%^XTABLES_SO_DIR = .*%XTABLES_SO_DIR = '"$out"'/lib/xtables%g' -i src/usr/iptables/Makefile
-  '';
+    passthru.tests = {
+      inherit (nixosTests) jool;
+    };
 
-  passthru.tests = {
-    inherit (nixosTests) jool;
-  };
-
-  meta = {
-    homepage = "https://www.jool.mx/";
-    description = "Fairly compliant SIIT and Stateful NAT64 for Linux - CLI tools";
-    platforms = lib.platforms.linux;
-    license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ fpletz ];
-  };
-}
+    meta = {
+      homepage = "https://www.jool.mx/";
+      description = "Fairly compliant SIIT and Stateful NAT64 for Linux - CLI tools";
+      platforms = lib.platforms.linux;
+      license = lib.licenses.gpl2Only;
+      maintainers = with lib.maintainers; [fpletz];
+    };
+  }

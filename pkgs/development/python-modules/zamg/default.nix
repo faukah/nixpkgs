@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "zamg";
   version = "0.3.6";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-j864+3c0GDDftdLqLDD0hizT54c0IgTjT77jOneXlq0=";
   };
 
-  pythonRelaxDeps = [ "async-timeout" ];
+  pythonRelaxDeps = ["async-timeout"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "zamg" ];
+  pythonImportsCheck = ["zamg"];
 
   disabledTests = [
     # Tests are outdated
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/killer0071234/python-zamg";
     changelog = "https://github.com/killer0071234/python-zamg/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -10,14 +10,12 @@
   pythonAtLeast,
   pythonOlder,
   setuptools,
-
   # for passthru.tests
   django-allauth,
   django-oauth-toolkit,
   google-auth-oauthlib,
   requests-oauthlib,
 }:
-
 buildPythonPackage rec {
   pname = "oauthlib";
   version = "3.2.2";
@@ -32,21 +30,23 @@ buildPythonPackage rec {
     hash = "sha256-KADS1pEaLYi86LEt2VVuz8FVTBANzxC8EeQLgGMxuBU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   optional-dependencies = {
-    rsa = [ cryptography ];
+    rsa = [cryptography];
     signedtoken = [
       cryptography
       pyjwt
     ];
-    signals = [ blinker ];
+    signals = [blinker];
   };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      mock
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTests =
     [
@@ -57,7 +57,7 @@ buildPythonPackage rec {
       "test_filter_params"
     ];
 
-  pythonImportsCheck = [ "oauthlib" ];
+  pythonImportsCheck = ["oauthlib"];
 
   passthru.tests = {
     inherit
@@ -73,6 +73,6 @@ buildPythonPackage rec {
     description = "Generic, spec-compliant, thorough implementation of the OAuth request-signing logic";
     homepage = "https://github.com/oauthlib/oauthlib";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ prikhi ];
+    maintainers = with maintainers; [prikhi];
   };
 }

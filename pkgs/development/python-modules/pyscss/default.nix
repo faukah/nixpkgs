@@ -5,7 +5,6 @@
   pytestCheckHook,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "pyscss";
   version = "1.4.0";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-z0y4z+/JE6rZWHAvps/taDZvutyVhxxs2gMujV5rNu4=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   # Test suite is broken.
   # See https://github.com/Kronuz/pyScss/issues/415
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     description = "Scss compiler for Python";
     homepage = "https://pyscss.readthedocs.org/en/latest/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

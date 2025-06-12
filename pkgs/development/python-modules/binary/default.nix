@@ -6,7 +6,6 @@
   hatch-vcs,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "binary";
   version = "1.0.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "binary"
@@ -39,6 +38,6 @@ buildPythonPackage rec {
       asl20
       mit
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

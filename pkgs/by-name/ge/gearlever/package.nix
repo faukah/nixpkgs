@@ -20,7 +20,6 @@
   dwarfs,
   squashfsTools,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gearlever";
   version = "3.2.4";
@@ -62,7 +61,7 @@ python3Packages.buildPythonApplication rec {
     desktop-file-utils
   ];
 
-  buildInputs = [ libadwaita ];
+  buildInputs = [libadwaita];
 
   dependencies = with python3Packages; [
     pygobject3
@@ -111,7 +110,7 @@ python3Packages.buildPythonApplication rec {
       cc0
     ];
     mainProgram = "gearlever";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 }

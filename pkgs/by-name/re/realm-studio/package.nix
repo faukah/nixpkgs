@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "realm-studio";
   version = "15.2.1";
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall
@@ -29,8 +28,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Visual tool to view, edit, and model Realm databases.";
     homepage = "https://www.mongodb.com/docs/atlas/device-sdks/studio/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ matteopacini ];
+    maintainers = with lib.maintainers; [matteopacini];
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

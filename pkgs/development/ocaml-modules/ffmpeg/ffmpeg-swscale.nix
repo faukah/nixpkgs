@@ -3,11 +3,10 @@
   dune-configurator,
   pkg-config,
   callPackage,
-  ffmpeg-base ? callPackage ./base.nix { },
+  ffmpeg-base ? callPackage ./base.nix {},
   ffmpeg-avutil,
   ffmpeg,
 }:
-
 buildDunePackage {
   pname = "ffmpeg-swscale";
 
@@ -15,8 +14,8 @@ buildDunePackage {
 
   inherit (ffmpeg-base) version src;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     ffmpeg-avutil
     ffmpeg.dev
@@ -24,7 +23,9 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = ffmpeg-base.meta // {
-    description = "Bindings for the ffmpeg swscale library";
-  };
+  meta =
+    ffmpeg-base.meta
+    // {
+      description = "Bindings for the ffmpeg swscale library";
+    };
 }

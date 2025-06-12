@@ -5,7 +5,6 @@
   libxml2,
   openssl,
 }:
-
 crystal.buildCrystalPackage rec {
   pname = "mint";
   version = "0.24.1";
@@ -28,7 +27,7 @@ crystal.buildCrystalPackage rec {
     libxml2 # xmllint
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   preCheck = ''
     substituteInPlace spec/spec_helper.cr \
@@ -40,6 +39,6 @@ crystal.buildCrystalPackage rec {
     mainProgram = "mint";
     homepage = "https://www.mint-lang.com/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ manveru ];
+    maintainers = with lib.maintainers; [manveru];
   };
 }

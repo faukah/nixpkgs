@@ -7,7 +7,6 @@
   makeBinaryWrapper,
   gv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "klong";
   version = "20221212";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "Simple Array programming language";
     homepage = "https://t3x.org/klong";
     mainProgram = "kg";
-    maintainers = [ lib.maintainers.casaca ];
+    maintainers = [lib.maintainers.casaca];
     platforms = lib.platforms.all;
     license = with lib.licenses; [
       publicDomain

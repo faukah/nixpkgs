@@ -7,7 +7,6 @@
   testers,
   callPackage,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "cue";
   version = "0.13.1";
@@ -21,9 +20,9 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-J9Ox9Yt64PmL2AE+GRdWDHlBtpfmDtxgUbEPaka5JSo=";
 
-  subPackages = [ "cmd/*" ];
+  subPackages = ["cmd/*"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -39,9 +38,9 @@ buildGoModule (finalAttrs: {
   '';
 
   passthru = {
-    writeCueValidator = callPackage ./validator.nix { };
+    writeCueValidator = callPackage ./validator.nix {};
     tests = {
-      test-001-all-good = callPackage ./tests/001-all-good.nix { };
+      test-001-all-good = callPackage ./tests/001-all-good.nix {};
       version = testers.testVersion {
         package = finalAttrs.finalPackage;
         command = "cue version";
@@ -54,7 +53,7 @@ buildGoModule (finalAttrs: {
     description = "Data constraint language which aims to simplify tasks involving defining and using data";
     homepage = "https://cuelang.org/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "cue";
   };
 })

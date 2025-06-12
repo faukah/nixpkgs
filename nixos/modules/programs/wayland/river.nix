@@ -3,14 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.river;
 
-  wayland-lib = import ./lib.nix { inherit lib; };
-in
-{
+  wayland-lib = import ./lib.nix {inherit lib;};
+in {
   options.programs.river = {
     enable = lib.mkEnableOption "river, a dynamic tiling Wayland compositor";
 
@@ -26,19 +23,20 @@ in
         '';
       }
       // {
-        apply =
-          p:
-          if p == null then
-            null
+        apply = p:
+          if p == null
+          then null
           else
             wayland-lib.genFinalPackage p {
               xwaylandSupport = cfg.xwayland.enable;
             };
       };
 
-    xwayland.enable = lib.mkEnableOption "XWayland" // {
-      default = true;
-    };
+    xwayland.enable =
+      lib.mkEnableOption "XWayland"
+      // {
+        default = true;
+      };
 
     extraPackages = lib.mkOption {
       type = with lib.types; listOf package;
@@ -83,5 +81,5 @@ in
     ]
   );
 
-  meta.maintainers = with lib.maintainers; [ GaetanLepage ];
+  meta.maintainers = with lib.maintainers; [GaetanLepage];
 }

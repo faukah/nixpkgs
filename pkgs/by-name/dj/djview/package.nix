@@ -11,7 +11,6 @@
   xorg,
   libtiff,
 }:
-
 stdenv.mkDerivation rec {
   pname = "djview";
   version = "4.12";
@@ -54,10 +53,9 @@ stdenv.mkDerivation rec {
     "--disable-nsdejavu" # 2023-11-14: modern browsers have dropped support for NPAPI
   ];
 
-  postInstall =
-    let
-      Applications = "$out/Applications";
-    in
+  postInstall = let
+    Applications = "$out/Applications";
+  in
     lib.optionalString stdenv.hostPlatform.isDarwin ''
       mkdir -p ${Applications}
       cp -a src/djview.app -t ${Applications}

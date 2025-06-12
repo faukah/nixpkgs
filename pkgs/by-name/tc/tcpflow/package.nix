@@ -11,7 +11,6 @@
   useCairo ? false,
   cairo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tcpflow";
   version = "1.6.1";
@@ -28,12 +27,14 @@ stdenv.mkDerivation rec {
     automake
     autoconf
   ];
-  buildInputs = [
-    openssl
-    zlib
-    libpcap
-    boost
-  ] ++ lib.optional useCairo cairo;
+  buildInputs =
+    [
+      openssl
+      zlib
+      libpcap
+      boost
+    ]
+    ++ lib.optional useCairo cairo;
 
   prePatch = ''
     substituteInPlace bootstrap.sh \

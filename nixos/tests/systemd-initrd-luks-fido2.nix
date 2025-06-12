@@ -1,39 +1,44 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "systemd-initrd-luks-fido2";
 
-  nodes.machine =
-    { pkgs, config, ... }:
-    {
-      # Use systemd-boot
-      virtualisation = {
-        emptyDiskImages = [ 512 ];
-        useBootLoader = true;
-        # Booting off the encrypted disk requires having a Nix store available for the init script
-        mountHostNixStore = true;
-        useEFIBoot = true;
-        qemu.options = [
-          "-device pci-ohci,id=usb-bus"
-          "-device canokey,bus=usb-bus.0,file=/tmp/canokey-file"
-        ];
-      };
-      boot.loader.systemd-boot.enable = true;
-
-      boot.initrd.systemd.enable = true;
-
-      environment.systemPackages = with pkgs; [ cryptsetup ];
-
-      specialisation.boot-luks.configuration = {
-        boot.initrd.luks.devices = lib.mkVMOverride {
-          cryptroot = {
-            device = "/dev/vdb";
-            crypttabExtraOpts = [ "fido2-device=auto" ];
-          };
-        };
-        virtualisation.rootDevice = "/dev/mapper/cryptroot";
-        virtualisation.fileSystems."/".autoFormat = true;
-      };
+  nodes.machine = {
+    pkgs,
+    config,
+    ...
+  }: {
+    # Use systemd-boot
+    virtualisation = {
+      emptyDiskImages = [512];
+      useBootLoader = true;
+      # Booting off the encrypted disk requires having a Nix store available for the init script
+      mountHostNixStore = true;
+      useEFIBoot = true;
+      qemu.options = [
+        "-device pci-ohci,id=usb-bus"
+        "-device canokey,bus=usb-bus.0,file=/tmp/canokey-file"
+      ];
     };
+    boot.loader.systemd-boot.enable = true;
+
+    boot.initrd.systemd.enable = true;
+
+    environment.systemPackages = with pkgs; [cryptsetup];
+
+    specialisation.boot-luks.configuration = {
+      boot.initrd.luks.devices = lib.mkVMOverride {
+        cryptroot = {
+          device = "/dev/vdb";
+          crypttabExtraOpts = ["fido2-device=auto"];
+        };
+      };
+      virtualisation.rootDevice = "/dev/mapper/cryptroot";
+      virtualisation.fileSystems."/".autoFormat = true;
+    };
+  };
 
   testScript = ''
     # Create encrypted volume

@@ -49,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://sr.ht/~autumnull/treecat/";
     license = lib.licenses.wtfpl;
-    maintainers = with lib.maintainers; [ onemoresuza ];
+    maintainers = with lib.maintainers; [onemoresuza];
     mainProgram = "treecat";
     inherit (hareHook.meta) platforms badPlatforms;
   };

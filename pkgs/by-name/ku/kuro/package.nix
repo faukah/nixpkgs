@@ -12,7 +12,6 @@
   electron,
   imagemagick,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kuro";
   version = "9.0.0";
@@ -75,7 +74,7 @@ stdenv.mkDerivation rec {
       desktopName = "Kuro";
       genericName = "Microsoft To-Do Client";
       comment = meta.description;
-      categories = [ "Office" ];
+      categories = ["Office"];
       startupWMClass = "kuro";
     })
   ];
@@ -86,7 +85,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/davidsmorais/kuro";
     license = licenses.mit;
     mainProgram = "kuro";
-    maintainers = with maintainers; [ ChaosAttractor ];
+    maintainers = with maintainers; [ChaosAttractor];
     inherit (electron.meta) platforms;
   };
 }

@@ -11,7 +11,6 @@
   setuptools,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rns";
   version = "0.9.6";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     bleak
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     pyserial
   ];
 
-  pythonImportsCheck = [ "RNS" ];
+  pythonImportsCheck = ["RNS"];
 
   nativeCheckInputs = [
     versionCheckHook

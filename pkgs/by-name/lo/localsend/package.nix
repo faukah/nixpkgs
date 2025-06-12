@@ -10,9 +10,7 @@
   libayatana-appindicator,
   undmg,
   makeBinaryWrapper,
-}:
-
-let
+}: let
   pname = "localsend";
   version = "1.17.0";
 
@@ -44,7 +42,7 @@ let
       copyDesktopItems
     ];
 
-    buildInputs = [ libayatana-appindicator ];
+    buildInputs = [libayatana-appindicator];
 
     postInstall = ''
       for s in 32 128 256 512; do
@@ -85,9 +83,11 @@ let
       tests.localsend = nixosTests.localsend;
     };
 
-    meta = metaCommon // {
-      mainProgram = "localsend_app";
-    };
+    meta =
+      metaCommon
+      // {
+        mainProgram = "localsend_app";
+      };
   };
 
   darwin = stdenv.mkDerivation {
@@ -115,14 +115,16 @@ let
       runHook postInstall
     '';
 
-    meta = metaCommon // {
-      mainProgram = "localsend";
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-      platforms = [
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
-    };
+    meta =
+      metaCommon
+      // {
+        mainProgram = "localsend";
+        sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+        platforms = [
+          "x86_64-darwin"
+          "aarch64-darwin"
+        ];
+      };
   };
 
   metaCommon = {
@@ -136,4 +138,6 @@ let
     ];
   };
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

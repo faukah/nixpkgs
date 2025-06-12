@@ -14,7 +14,6 @@
   mdds,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libetonyek";
   version = "0.1.12";
@@ -43,14 +42,14 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  configureFlags = [ "--with-mdds=2.1" ];
+  configureFlags = ["--with-mdds=2.1"];
 
   meta = with lib; {
     description = "Library and a set of tools for reading and converting Apple iWork documents (Keynote, Pages and Numbers)";
     homepage = "https://github.com/LibreOffice/libetonyek";
     changelog = "https://github.com/LibreOffice/libetonyek/blob/${src.rev}/NEWS";
     license = licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "findbugs";
   version = "3.0.1";
@@ -42,9 +41,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Static analysis tool to find bugs in Java programs automatically";
     homepage = "https://findbugs.sourceforge.net/";
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = with platforms; unix;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.lgpl3;
   };
 }

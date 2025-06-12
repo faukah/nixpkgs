@@ -14,7 +14,6 @@
   dejavu_fonts,
   zenity,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "trigger-control";
   version = "1.5.1";
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
     wrapProgram $out/bin/trigger-control \
-      --prefix PATH : ${lib.makeBinPath [ zenity ]}
+      --prefix PATH : ${lib.makeBinPath [zenity]}
   '';
 
   meta = with lib; {
@@ -77,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Etaash-mathamsetty/trigger-control";
     license = licenses.mit;
     mainProgram = "trigger-control";
-    maintainers = with maintainers; [ azuwis ];
+    maintainers = with maintainers; [azuwis];
     platforms = platforms.all;
   };
 })

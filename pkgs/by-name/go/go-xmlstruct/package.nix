@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "go-xmlstruct";
   version = "1.10.0";
@@ -36,7 +35,7 @@ buildGoModule (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -45,6 +44,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/twpayne/go-xmlstruct";
     changelog = "https://github.com/twpayne/go-xmlstruct/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dvcorreia ];
+    maintainers = with lib.maintainers; [dvcorreia];
   };
 })

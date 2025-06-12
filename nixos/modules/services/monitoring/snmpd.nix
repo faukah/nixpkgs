@@ -3,23 +3,20 @@
   config,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.snmpd;
   configFile =
-    if cfg.configText != "" then
+    if cfg.configText != ""
+    then
       pkgs.writeText "snmpd.cfg" ''
         ${cfg.configText}
       ''
-    else
-      null;
-in
-{
+    else null;
+in {
   options.services.snmpd = {
     enable = lib.mkEnableOption "snmpd";
 
-    package = lib.mkPackageOption pkgs "net-snmp" { };
+    package = lib.mkPackageOption pkgs "net-snmp" {};
 
     listenAddress = lib.mkOption {
       type = lib.types.str;
@@ -68,14 +65,13 @@ in
         a config file will be automatically generated.
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services."snmpd" = {
       description = "Simple Network Management Protocol (SNMP) daemon.";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${lib.getExe' cfg.package "snmpd"} -f -Lo -c ${cfg.configFile} ${cfg.listenAddress}:${toString cfg.port}";
@@ -87,6 +83,5 @@ in
     ];
   };
 
-  meta.maintainers = [ lib.maintainers.eliandoran ];
-
+  meta.maintainers = [lib.maintainers.eliandoran];
 }

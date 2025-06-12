@@ -5,7 +5,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "vine";
   version = "5.1.0";
@@ -27,13 +26,13 @@ buildPythonPackage rec {
     "t/unit/test_synchronization.py"
   ];
 
-  pythonImportsCheck = [ "vine" ];
+  pythonImportsCheck = ["vine"];
 
   meta = with lib; {
     description = "Python promises";
     homepage = "https://github.com/celery/vine";
     changelog = "https://github.com/celery/vine/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

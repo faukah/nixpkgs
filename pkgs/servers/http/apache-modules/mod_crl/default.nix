@@ -8,7 +8,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mod_crl";
   version = "0.2.4";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-w8YIhed9J1uo5uwhfOVe5LhNLUvFZCgUO4FrHm344Rg=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     apr
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     changelog = "https://source.redwax.eu/projects/RS/repos/mod_crl/browse/ChangeLog";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dirkx ];
+    maintainers = with maintainers; [dirkx];
   };
 }

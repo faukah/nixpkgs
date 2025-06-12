@@ -6,7 +6,6 @@
   libjpeg,
   perl,
   zlib,
-
   # for passthru.tests
   cups-filters,
   pdfmixtool,
@@ -15,7 +14,6 @@
   testers,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qpdf";
   version = "11.10.1";
@@ -45,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     libjpeg
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
   preConfigure = ''
@@ -58,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = true;
 
   passthru.tests = {
-    pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+    pkg-config = testers.hasPkgConfigModules {package = finalAttrs.finalPackage;};
     inherit (python3.pkgs) pikepdf;
     inherit
       cups-filters
@@ -71,10 +69,10 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://qpdf.sourceforge.io/";
     description = "C++ library and set of programs that inspect and manipulate the structure of PDF files";
     license = lib.licenses.asl20; # as of 7.0.0, people may stay at artistic2
-    maintainers = with lib.maintainers; [ abbradar ];
+    maintainers = with lib.maintainers; [abbradar];
     mainProgram = "qpdf";
     platforms = lib.platforms.all;
     changelog = "https://github.com/qpdf/qpdf/blob/v${finalAttrs.version}/ChangeLog";
-    pkgConfigModules = [ "libqpdf" ];
+    pkgConfigModules = ["libqpdf"];
   };
 })

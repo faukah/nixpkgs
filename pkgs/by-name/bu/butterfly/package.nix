@@ -8,7 +8,6 @@
   _experimental-update-script-combinators,
   gitUpdater,
 }:
-
 flutter329.buildFlutterApplication rec {
   pname = "butterfly";
   version = "2.3.1";
@@ -45,13 +44,13 @@ flutter329.buildFlutterApplication rec {
   passthru = {
     pubspecSource =
       runCommand "pubspec.lock.json"
-        {
-          buildInputs = [ yq ];
-          inherit (butterfly) src;
-        }
-        ''
-          cat $src/app/pubspec.lock | yq > $out
-        '';
+      {
+        buildInputs = [yq];
+        inherit (butterfly) src;
+      }
+      ''
+        cat $src/app/pubspec.lock | yq > $out
+      '';
     updateScript = _experimental-update-script-combinators.sequence [
       (gitUpdater {
         ignoredVersions = ".*rc.*";
@@ -70,7 +69,7 @@ flutter329.buildFlutterApplication rec {
       cc-by-sa-40
       asl20
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = [
       "aarch64-linux"
       "x86_64-linux"

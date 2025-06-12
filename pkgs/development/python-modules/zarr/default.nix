@@ -3,20 +3,16 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   setuptools-scm,
-
   # dependencies
   asciitree,
   numpy,
   fasteners,
   numcodecs,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zarr";
   version = "2.18.7";
@@ -33,18 +29,20 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [
-    asciitree
-    numpy
-    fasteners
-    numcodecs
-  ] ++ numcodecs.optional-dependencies.msgpack;
+  dependencies =
+    [
+      asciitree
+      numpy
+      fasteners
+      numcodecs
+    ]
+    ++ numcodecs.optional-dependencies.msgpack;
 
   nativeCheckInputs = [
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "zarr" ];
+  pythonImportsCheck = ["zarr"];
 
   # FIXME remove once zarr's reverse dependencies support v3
   passthru.skipBulkUpdate = true;
@@ -54,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zarr-developers/zarr";
     changelog = "https://github.com/zarr-developers/zarr-python/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

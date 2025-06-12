@@ -4,18 +4,15 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkOption types mkIf;
 
   opt = options.services.quicktun;
   cfg = config.services.quicktun;
-in
-{
+in {
   options = {
     services.quicktun = mkOption {
-      default = { };
+      default = {};
       description = ''
         QuickTun tunnels.
 
@@ -23,14 +20,16 @@ in
       '';
       type = types.attrsOf (
         types.submodule (
-          { name, ... }:
-          let
+          {name, ...}: let
             qtcfg = cfg.${name};
-          in
-          {
+          in {
             options = {
               tunMode = mkOption {
-                type = with types; coercedTo bool (b: if b then 1 else 0) (ints.between 0 1);
+                type = with types;
+                  coercedTo bool (b:
+                    if b
+                    then 1
+                    else 0) (ints.between 0 1);
                 default = false;
                 example = true;
                 description = "Whether to operate in tun (IP) or tap (Ethernet) mode.";
@@ -66,7 +65,11 @@ in
               };
 
               remoteFloat = mkOption {
-                type = with types; coercedTo bool (b: if b then 1 else 0) (ints.between 0 1);
+                type = with types;
+                  coercedTo bool (b:
+                    if b
+                    then 1
+                    else 0) (ints.between 0 1);
                 default = false;
                 example = true;
                 description = ''
@@ -105,7 +108,9 @@ in
                 type = with types; nullOr path;
                 # This is a hack to deprecate `privateKey` without using `mkChangedModuleOption`
                 default =
-                  if qtcfg.privateKey == null then null else pkgs.writeText "quickttun-key-${name}" qtcfg.privateKey;
+                  if qtcfg.privateKey == null
+                  then null
+                  else pkgs.writeText "quickttun-key-${name}" qtcfg.privateKey;
                 defaultText = "null";
                 description = ''
                   Path to file containing local secret key in binary or hexadecimal form.
@@ -152,26 +157,29 @@ in
 
   config = {
     warnings = lib.pipe cfg [
-      (lib.mapAttrsToList (name: value: if value.privateKey != null then name else null))
+      (lib.mapAttrsToList (name: value:
+        if value.privateKey != null
+        then name
+        else null))
       (builtins.filter (n: n != null))
       (map (n: "  - services.quicktun.${n}.privateKey"))
       (
         services:
-        lib.optional (services != [ ]) ''
-          `services.quicktun.<name>.privateKey` is deprecated.
-          Please use `services.quicktun.<name>.privateKeyFile` instead.
+          lib.optional (services != []) ''
+            `services.quicktun.<name>.privateKey` is deprecated.
+            Please use `services.quicktun.<name>.privateKeyFile` instead.
 
-          Offending options:
-          ${lib.concatStringsSep "\n" services}
-        ''
+            Offending options:
+            ${lib.concatStringsSep "\n" services}
+          ''
       )
     ];
 
     systemd.services = lib.mkMerge (
       lib.mapAttrsToList (name: qtcfg: {
         "quicktun-${name}" = {
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
           environment = {
             INTERFACE = name;
             TUN_MODE = toString qtcfg.tunMode;
@@ -193,7 +201,8 @@ in
             ExecStart = "${pkgs.quicktun}/bin/quicktun.${qtcfg.protocol}";
           };
         };
-      }) cfg
+      })
+      cfg
     );
   };
 }

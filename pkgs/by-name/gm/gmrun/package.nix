@@ -5,7 +5,6 @@
   pkg-config,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gmrun";
   version = "1.4w";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/wdlkmpx/gmrun";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
     mainProgram = "gmrun";
   };

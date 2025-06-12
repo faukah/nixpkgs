@@ -6,7 +6,6 @@
   installShellFiles,
   git,
 }:
-
 buildGoModule rec {
   pname = "fac";
   version = "2.0.0-unstable-2023-12-29";
@@ -27,7 +26,7 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/fac \
-      --prefix PATH : ${lib.makeBinPath [ git ]}
+      --prefix PATH : ${lib.makeBinPath [git]}
 
     # Install man page, not installed by default
     installManPage assets/doc/fac.1
@@ -39,6 +38,6 @@ buildGoModule rec {
     homepage = "https://github.com/mkchoi212/fac";
     license = lib.licenses.mit;
     mainProgram = "fac";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

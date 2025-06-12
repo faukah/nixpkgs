@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "awacs";
   version = "2.5.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "awacs" ];
+  pythonImportsCheck = ["awacs"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/cloudtools/awacs";
     changelog = "https://github.com/cloudtools/awacs/blob/${version}/CHANGELOG.md";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ jlesquembre ];
+    maintainers = with lib.maintainers; [jlesquembre];
   };
 }

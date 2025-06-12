@@ -12,7 +12,6 @@
   wrapQtAppsHook,
   writableTmpDirAsHomeHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "doublecmd";
   version = "1.1.26";
@@ -70,8 +69,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Two-panel graphical file manager written in Pascal";
     license = lib.licenses.gpl2Plus;
     mainProgram = "doublecmd";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })
 # TODO: deal with other platforms too
+

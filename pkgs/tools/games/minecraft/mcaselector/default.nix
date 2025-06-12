@@ -6,7 +6,6 @@
   wrapGAppsHook3,
   jre,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "mcaselector";
   version = "2.5.2";
@@ -46,9 +45,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Querz/mcaselector";
     description = "Tool to select chunks from Minecraft worlds for deletion or export";
     mainProgram = "mcaselector";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mit;
-    maintainers = [ maintainers.Scrumplex ];
+    maintainers = [maintainers.Scrumplex];
     platforms = platforms.linux;
   };
 })

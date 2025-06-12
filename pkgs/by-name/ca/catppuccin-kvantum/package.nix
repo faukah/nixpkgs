@@ -5,11 +5,10 @@
   unstableGitUpdater,
   accent ? "blue",
   variant ? "frappe",
-}:
-let
+}: let
   pname = "catppuccin-kvantum";
 in
-lib.checkListOfEnum "${pname}: theme accent"
+  lib.checkListOfEnum "${pname}: theme accent"
   [
     "blue"
     "flamingo"
@@ -26,10 +25,9 @@ lib.checkListOfEnum "${pname}: theme accent"
     "teal"
     "yellow"
   ]
-  [ accent ]
+  [accent]
   lib.checkListOfEnum
-  "${pname}: color variant" [ "latte" "frappe" "macchiato" "mocha" ] [ variant ]
-
+  "${pname}: color variant" ["latte" "frappe" "macchiato" "mocha"] [variant]
   stdenvNoCC.mkDerivation
   {
     inherit pname;
@@ -49,13 +47,13 @@ lib.checkListOfEnum "${pname}: theme accent"
       runHook postInstall
     '';
 
-    passthru.updateScript = unstableGitUpdater { };
+    passthru.updateScript = unstableGitUpdater {};
 
     meta = {
       description = "Soothing pastel theme for Kvantum";
       homepage = "https://github.com/catppuccin/Kvantum";
       license = lib.licenses.mit;
       platforms = lib.platforms.linux;
-      maintainers = [ lib.maintainers.bastaynav ];
+      maintainers = [lib.maintainers.bastaynav];
     };
   }

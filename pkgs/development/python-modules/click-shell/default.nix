@@ -6,7 +6,6 @@
   pytestCheckHook,
   pytest-click,
 }:
-
 buildPythonPackage rec {
   pname = "click-shell";
   version = "2.1";
@@ -20,14 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-4QpQzg0yFuOFymGiTI+A8o6LyX78iTJMqr0ernYbilI=";
   };
 
-  propagatedBuildInputs = [ click ];
+  propagatedBuildInputs = [click];
 
   nativeCheckInputs = [
     pytest-click
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "click_shell" ];
+  pythonImportsCheck = ["click_shell"];
 
   preCheck = "export HOME=$(mktemp -d)";
 
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/clarkperkins/click-shell";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ binsky ];
+    maintainers = with maintainers; [binsky];
   };
 }

@@ -5,8 +5,7 @@
   options,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.buildbot-worker;
   opt = options.services.buildbot-worker;
 
@@ -44,12 +43,9 @@ let
                numcpus=numcpus, allow_shutdown=allow_shutdown)
     s.setServiceParent(application)
   '';
-
-in
-{
+in {
   options = {
     services.buildbot-worker = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -70,7 +66,7 @@ in
 
       extraGroups = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = "List of extra groups that the Buildbot Worker user should be a part of.";
       };
 
@@ -131,10 +127,10 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "buildbot-worker" { };
+      package = lib.mkPackageOption pkgs "buildbot-worker" {};
 
       packages = lib.mkOption {
-        default = with pkgs; [ git ];
+        default = with pkgs; [git];
         defaultText = lib.literalExpression "[ pkgs.git ]";
         type = lib.types.listOf lib.types.package;
         description = "Packages to add to PATH for the buildbot process.";
@@ -148,7 +144,7 @@ in
     );
 
     users.groups = lib.optionalAttrs (cfg.group == "bbworker") {
-      bbworker = { };
+      bbworker = {};
     };
 
     users.users = lib.optionalAttrs (cfg.user == "bbworker") {
@@ -169,9 +165,9 @@ in
         "network.target"
         "buildbot-master.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = cfg.packages;
-      environment.PYTHONPATH = "${python.withPackages (p: [ package ])}/${python.sitePackages}";
+      environment.PYTHONPATH = "${python.withPackages (p: [package])}/${python.sitePackages}";
 
       preStart = ''
         mkdir -vp "${cfg.buildbotDir}/info"
@@ -192,10 +188,8 @@ in
         # NOTE: call twistd directly with stdout logging for systemd
         ExecStart = "${python.pkgs.twisted}/bin/twistd --nodaemon --pidfile= --logfile - --python ${tacFile}";
       };
-
     };
   };
 
   meta.maintainers = lib.teams.buildbot.members;
-
 }

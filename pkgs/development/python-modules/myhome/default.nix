@@ -9,7 +9,6 @@
   pythonOlder,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "myhome";
   version = "0.2.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-DJzwvgvSA9Q0kpueUoQV64pdDDNA7WzGu7r+g5aqutk=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -32,14 +31,14 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "myhome" ];
+  pythonImportsCheck = ["myhome"];
 
   meta = with lib; {
     description = "Python library for interacting with MyHomeSERVER1";
     homepage = "https://github.com/speijnik/myhome";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

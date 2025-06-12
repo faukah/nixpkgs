@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.blendfarm;
-  json = pkgs.formats.json { };
+  json = pkgs.formats.json {};
   configFile = json.generate "ServerSettings" (defaultConfig // cfg.serverConfig);
   defaultConfig = {
     Port = 15000;
@@ -14,13 +13,12 @@ let
     BypassScriptUpdate = false;
     BasicSecurityPassword = null;
   };
-in
-{
-  meta.maintainers = with lib.maintainers; [ gador ];
+in {
+  meta.maintainers = with lib.maintainers; [gador];
 
   options.services.blendfarm = with lib.types; {
     enable = lib.mkEnableOption "Blendfarm, a render farm management software for Blender";
-    package = lib.mkPackageOption pkgs "blendfarm" { };
+    package = lib.mkPackageOption pkgs "blendfarm" {};
     openFirewall = lib.mkEnableOption "allowing blendfarm network access through the firewall";
 
     user = lib.mkOption {
@@ -43,7 +41,7 @@ in
       type = nullOr str;
     };
 
-    blenderPackage = lib.mkPackageOption pkgs "blender" { };
+    blenderPackage = lib.mkPackageOption pkgs "blender" {};
 
     serverConfig = lib.mkOption {
       description = "Server configuration";
@@ -73,18 +71,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     networking.firewall = lib.optionalAttrs (cfg.openFirewall) {
-      allowedTCPPorts = [ cfg.serverConfig.Port ];
-      allowedUDPPorts = [ cfg.serverConfig.BroadcastPort ];
+      allowedTCPPorts = [cfg.serverConfig.Port];
+      allowedUDPPorts = [cfg.serverConfig.BroadcastPort];
     };
 
     systemd.services.blendfarm-server = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
       description = "blendfarm server";
-      path = [ cfg.blenderPackage ];
+      path = [cfg.blenderPackage];
       preStart =
         ''
           rm -f ServerSettings
@@ -145,6 +143,6 @@ in
       isSystemUser = true;
       group = "blendfarm";
     };
-    users.groups.blendfarm = { };
+    users.groups.blendfarm = {};
   };
 }

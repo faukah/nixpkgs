@@ -10,7 +10,6 @@
   setuptools,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "frigidaire";
   version = "0.18.24";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
       --replace-warn 'version = "SNAPSHOT"' 'version = "${version}"'
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     certifi
@@ -43,13 +42,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "frigidaire" ];
+  pythonImportsCheck = ["frigidaire"];
 
   meta = with lib; {
     description = "Python API for the Frigidaire devices";
     homepage = "https://github.com/bm1549/frigidaire";
     changelog = "https://github.com/bm1549/frigidaire/releases/tag/${src.tag}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

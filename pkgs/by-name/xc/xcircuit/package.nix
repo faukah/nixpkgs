@@ -13,7 +13,6 @@
   xorg,
   zlib,
 }:
-
 stdenv.mkDerivation {
   version = "3.10.37";
   pname = "xcircuit";
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
     automake
     pkg-config
   ];
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   configureFlags = [
     "--with-tcl=${tcl}/lib"

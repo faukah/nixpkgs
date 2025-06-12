@@ -11,7 +11,6 @@
   testers,
   sysbench,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sysbench";
   version = "1.0.20";
@@ -20,11 +19,13 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [
-    libmysqlclient
-    luajit
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ libaio ];
-  depsBuildBuild = [ pkg-config ];
+  buildInputs =
+    [
+      libmysqlclient
+      luajit
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [libaio];
+  depsBuildBuild = [pkg-config];
 
   src = fetchFromGitHub {
     owner = "akopytov";
@@ -53,13 +54,12 @@ stdenv.mkDerivation rec {
         --replace-fail \
           'COMPILER=`./.1 2> /dev/null`' \
           "COMPILER=${
-            if stdenv.cc.isGNU then
-              "gcc"
-            else if stdenv.cc.isClang then
-              "clang"
-            else
-              throw "Unsupported compiler"
-          }" \
+      if stdenv.cc.isGNU
+      then "gcc"
+      else if stdenv.cc.isClang
+      then "clang"
+      else throw "Unsupported compiler"
+    }" \
         --replace-fail \
           'PLATFORM=`uname -m 2> /dev/null`' \
           "PLATFORM=${stdenv.hostPlatform.parsed.cpu.name}"

@@ -5,7 +5,6 @@
   pkg-config,
   libmnl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ipset";
   version = "7.24";
@@ -15,10 +14,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-++NCTf8iLBy15cNNOLZFJLIhfOgCJsFP3LsTsp6jYRI=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libmnl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libmnl];
 
-  configureFlags = [ "--with-kmod=no" ];
+  configureFlags = ["--with-kmod=no"];
 
   meta = with lib; {
     homepage = "https://ipset.netfilter.org/";

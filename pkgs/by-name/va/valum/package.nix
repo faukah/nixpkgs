@@ -12,7 +12,6 @@
   libsoup_2_4,
   fcgi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "valum";
   version = "0.3.18";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "Web micro-framework written in Vala";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     # Likely broken by GLib 2.74 switch to PCRE 2.
     # https://github.com/valum-framework/valum/issues/238
     broken = true;

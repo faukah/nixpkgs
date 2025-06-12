@@ -4,28 +4,22 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.udisks2;
   settingsFormat = pkgs.formats.ini {
-    listToValue = lib.concatMapStringsSep "," (lib.generators.mkValueStringDefault { });
+    listToValue = lib.concatMapStringsSep "," (lib.generators.mkValueStringDefault {});
   };
   configFiles = lib.mapAttrs (name: value: (settingsFormat.generate name value)) (
     lib.mapAttrs' (name: value: lib.nameValuePair name value) config.services.udisks2.settings
   );
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.udisks2 = {
-
       enable = lib.mkEnableOption "udisks2, a DBus service that allows applications to query and manipulate storage devices";
 
-      package = lib.mkPackageOption pkgs "udisks2" { };
+      package = lib.mkPackageOption pkgs "udisks2" {};
 
       mountOnMedia = lib.mkOption {
         type = lib.types.bool;
@@ -43,7 +37,7 @@ in
         default = {
           "udisks2.conf" = {
             udisks2 = {
-              modules = [ "*" ];
+              modules = ["*"];
               modules_load_preference = "ondemand";
             };
             defaults = {
@@ -66,49 +60,44 @@ in
           drive configuration in [here](http://manpages.ubuntu.com/manpages/latest/en/man8/udisks.8.html) for supported options.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf config.services.udisks2.enable {
-
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc =
-      (lib.mapAttrs' (name: value: lib.nameValuePair "udisks2/${name}" { source = value; }) configFiles)
+      (lib.mapAttrs' (name: value: lib.nameValuePair "udisks2/${name}" {source = value;}) configFiles)
       // (
         let
           libblockdev = cfg.package.libblockdev;
           majorVer = lib.versions.major libblockdev.version;
-        in
-        {
+        in {
           # We need to make sure /etc/libblockdev/@major_ver@/conf.d is populated to avoid
           # warnings
-          "libblockdev/${majorVer}/conf.d/00-default.cfg".source =
-            "${libblockdev}/etc/libblockdev/${majorVer}/conf.d/00-default.cfg";
-          "libblockdev/${majorVer}/conf.d/10-lvm-dbus.cfg".source =
-            "${libblockdev}/etc/libblockdev/${majorVer}/conf.d/10-lvm-dbus.cfg";
+          "libblockdev/${majorVer}/conf.d/00-default.cfg".source = "${libblockdev}/etc/libblockdev/${majorVer}/conf.d/00-default.cfg";
+          "libblockdev/${majorVer}/conf.d/10-lvm-dbus.cfg".source = "${libblockdev}/etc/libblockdev/${majorVer}/conf.d/10-lvm-dbus.cfg";
         }
       );
 
     security.polkit.enable = true;
 
-    services.dbus.packages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
 
-    systemd.tmpfiles.rules = [
-      "d /var/lib/udisks2 0755 root root -"
-    ] ++ lib.optional cfg.mountOnMedia "D! /media 0755 root root -";
+    systemd.tmpfiles.rules =
+      [
+        "d /var/lib/udisks2 0755 root root -"
+      ]
+      ++ lib.optional cfg.mountOnMedia "D! /media 0755 root root -";
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
     services.udev.extraRules = lib.optionalString cfg.mountOnMedia ''
       ENV{ID_FS_USAGE}=="filesystem", ENV{UDISKS_FILESYSTEM_SHARED}="1"
     '';
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
   };
-
 }

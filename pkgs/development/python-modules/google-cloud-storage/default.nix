@@ -15,7 +15,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-storage";
   version = "3.1.0";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     hash = "sha256-lEJzF5iXx8igfuFfLmRmoC2gx8S57M6sKiYBfLKXIEk=";
   };
 
-  pythonRelaxDeps = [ "google-auth" ];
+  pythonRelaxDeps = ["google-auth"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     google-auth
@@ -41,7 +40,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    protobuf = [ protobuf ];
+    protobuf = [protobuf];
   };
 
   nativeCheckInputs = [
@@ -88,13 +87,13 @@ buildPythonPackage rec {
     rm tests/conformance/test_conformance.py
   '';
 
-  pythonImportsCheck = [ "google.cloud.storage" ];
+  pythonImportsCheck = ["google.cloud.storage"];
 
   meta = with lib; {
     description = "Google Cloud Storage API client library";
     homepage = "https://github.com/googleapis/python-storage";
     changelog = "https://github.com/googleapis/python-storage/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

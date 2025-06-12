@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
   poetry-dynamic-versioning,
-
   # dependencies
   docutils,
   pygments,
   sphinx,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-prompt";
   version = "1.7.0"; # read before updating past 1.7.0 https://github.com/sbrunner/sphinx-prompt/issues/398
@@ -50,7 +46,7 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # versions >=1.8.0 cannot be build from source
   passthru.skipBulkUpdate = true;
@@ -59,6 +55,6 @@ buildPythonPackage rec {
     description = "Sphinx extension for creating unselectable prompt";
     homepage = "https://github.com/sbrunner/sphinx-prompt";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

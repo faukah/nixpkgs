@@ -23,9 +23,9 @@ buildPythonPackage rec {
   # - it uses diff instead of git-diff
   # - modifies the tests output to resemble the paths resulting from running inside the source-tree
   # - drop the openscad image geneneration tests, these don't work on the nix sandbox due to the need for xserver
-  patches = [ ./difftool_tests.patch ];
+  patches = [./difftool_tests.patch];
 
-  propagatedBuildInputs = lib.optionals withOpenSCAD [ openscad ];
+  propagatedBuildInputs = lib.optionals withOpenSCAD [openscad];
 
   build-system = [
     poetry-core
@@ -34,7 +34,7 @@ buildPythonPackage rec {
     ply
     setuptools
   ];
-  pythonImportsCheck = [ "solid2" ];
+  pythonImportsCheck = ["solid2"];
   checkPhase = ''
     runHook preCheck
     python $TMPDIR/source/tests/run_tests.py
@@ -45,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jeff-dh/SolidPython";
     description = "A python frontend for solid modelling that compiles to OpenSCAD";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ jonboh ];
+    maintainers = with maintainers; [jonboh];
   };
 }

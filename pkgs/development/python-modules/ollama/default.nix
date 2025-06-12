@@ -11,7 +11,6 @@
   pytest-httpserver,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ollama";
   version = "0.5.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-XCsBdU8dUJIcfbvwUB6UNP2AhAmBxnk0kiFkOYcd1zY=";
   };
 
-  pythonRelaxDeps = [ "httpx" ];
+  pythonRelaxDeps = ["httpx"];
 
   build-system = [
     hatchling
@@ -45,7 +44,7 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "ollama" ];
+  pythonImportsCheck = ["ollama"];
 
   disabledTestPaths = [
     # Don't test the examples
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ollama/ollama-python";
     changelog = "https://github.com/ollama/ollama-python/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

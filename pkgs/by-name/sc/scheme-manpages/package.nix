@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "scheme-manpages";
   version = "0-unstable-2024-02-11";
@@ -23,13 +22,13 @@ stdenvNoCC.mkDerivation {
     cp -r man3/ man7/ $out/share/man/
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Unix manual pages for R6RS and R7RS";
     homepage = "https://github.com/schemedoc/manpages";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

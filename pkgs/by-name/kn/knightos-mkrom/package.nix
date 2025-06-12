@@ -5,7 +5,6 @@
   libxslt,
   asciidoc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mkrom";
   version = "1.0.4";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     libxslt.bin
   ];
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
   installTargets = [
     "install"
     "install_man"
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Packages KnightOS distribution files into a ROM";
     mainProgram = "mkrom";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.all;
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nrg2iso";
   version = "0.4.1";
@@ -13,7 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-O+NqQWdY/BkQRztJqNrfKiqj1R8ZdhlzNrwXS8HjBuU=";
   };
 
-  patches = [ ./c-compiler.patch ];
+  patches = [./c-compiler.patch];
 
   installPhase = ''
     mkdir -pv $out/bin/

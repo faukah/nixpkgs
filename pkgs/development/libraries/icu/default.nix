@@ -7,9 +7,7 @@
   testers,
   buildPackages,
   updateAutotoolsGnuConfigScriptsHook,
-}:
-
-let
+}: let
   make-icu = (import ./make-icu.nix) {
     inherit
       stdenv
@@ -21,8 +19,7 @@ let
       updateAutotoolsGnuConfigScriptsHook
       ;
   };
-in
-{
+in {
   icu77 = make-icu {
     version = "77.1";
     hash = "sha256-WI5DH3cyfDkDH/u4hDwOO8EiwhE3RIX6h9xfP6/yQGE=";
@@ -81,7 +78,7 @@ in
         sha256 = "1awfa98ljcf95a85cssahw6bvdnpbq5brf1kgspy14w4mlmhd0jb";
       })
     ];
-    patchFlags = [ "-p3" ];
+    patchFlags = ["-p3"];
   };
   icu60 = make-icu {
     version = "60.2";

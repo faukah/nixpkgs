@@ -3,7 +3,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "check";
   version = "0.15.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
   # fortify breaks the libcompat vsnprintf implementation
   hardeningDisable = lib.optionals (
     stdenv.hostPlatform.isMusl && (stdenv.hostPlatform != stdenv.buildPlatform)
-  ) [ "fortify" ];
+  ) ["fortify"];
 
   # Test can randomly fail: https://hydra.nixos.org/build/7243912
   doCheck = false;

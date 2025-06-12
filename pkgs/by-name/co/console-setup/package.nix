@@ -9,7 +9,6 @@
   otf2bdf,
   gitUpdater,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "console-setup";
   version = "1.236";
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     perl
   ];
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   enableParallelBuilding = true;
 
@@ -41,16 +40,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   preBuild = "make -j$NIX_BUILD_CORES bdf";
 
-  installTargets = [ "install-linux" ];
+  installTargets = ["install-linux"];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Console font and keymap setup program";
     homepage = "https://salsa.debian.org/installer-team/console-setup";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ ners ];
+    maintainers = with lib.maintainers; [ners];
     mainProgram = "setupcon";
   };
 })

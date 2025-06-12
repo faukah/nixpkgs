@@ -14,7 +14,6 @@
   python,
   django-app-helper,
 }:
-
 buildPythonPackage rec {
   pname = "djangocms-alias";
   version = "2.0.3";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-q5iNTnoPto7jgxF/46I0oA8NYFBbDafsRUFmKMFoQM4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -54,13 +53,13 @@ buildPythonPackage rec {
   # Disable tests because dependency djangocms-versioning isn't packaged yet.
   doCheck = false;
 
-  pythonImportsCheck = [ "djangocms_alias" ];
+  pythonImportsCheck = ["djangocms_alias"];
 
   meta = {
     description = "Lean enterprise content management powered by Django";
     homepage = "https://django-cms.org";
     changelog = "https://github.com/django-cms/django-cms/releases/tag/${src.tag}";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.onny ];
+    maintainers = [lib.maintainers.onny];
   };
 }

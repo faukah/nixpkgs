@@ -4,19 +4,17 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.hardware.uni-sync;
-in
-{
-  meta.maintainers = with maintainers; [ yunfachi ];
+in {
+  meta.maintainers = with maintainers; [yunfachi];
 
   options.hardware.uni-sync = {
     enable = mkEnableOption "udev rules and software for Lian Li Uni Controllers";
-    package = mkPackageOption pkgs "uni-sync" { };
+    package = mkPackageOption pkgs "uni-sync" {};
 
     devices = mkOption {
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [
           {
@@ -68,7 +66,7 @@ in
               description = "Enable ARGB header sync.";
             };
             channels = mkOption {
-              default = [ ];
+              default = [];
               example = literalExpression ''
                 [
                   {
@@ -118,11 +116,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.etc."uni-sync/uni-sync.json".text = mkIf (cfg.devices != [ ]) (
-      builtins.toJSON { configs = cfg.devices; }
+    environment.etc."uni-sync/uni-sync.json".text = mkIf (cfg.devices != []) (
+      builtins.toJSON {configs = cfg.devices;}
     );
 
-    environment.systemPackages = [ cfg.package ];
-    services.udev.packages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
+    services.udev.packages = [cfg.package];
   };
 }

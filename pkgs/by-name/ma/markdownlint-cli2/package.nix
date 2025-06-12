@@ -8,7 +8,6 @@
   runCommand,
   zstd,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "markdownlint-cli2";
   version = "0.18.1";
@@ -41,7 +40,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru.tests = {
-    smoke = runCommand "${finalAttrs.pname}-test" { nativeBuildInputs = [ markdownlint-cli2 ]; } ''
+    smoke = runCommand "${finalAttrs.pname}-test" {nativeBuildInputs = [markdownlint-cli2];} ''
       markdownlint-cli2 ${markdownlint-cli2}/share/doc/markdownlint-cli2/README.md > $out
     '';
   };
@@ -51,7 +50,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Fast, flexible, configuration-based command-line interface for linting Markdown/CommonMark files with the markdownlint library";
     homepage = "https://github.com/DavidAnson/markdownlint-cli2";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     mainProgram = "markdownlint-cli2";
   };
 })

@@ -13,7 +13,6 @@
   multimarkdown,
   pandoc,
 }:
-
 mkDerivation {
   pname = "ghostwriter";
 

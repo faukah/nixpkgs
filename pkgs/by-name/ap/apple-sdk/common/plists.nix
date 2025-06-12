@@ -2,9 +2,7 @@
   lib,
   stdenvNoCC,
   xcodePlatform,
-}:
-
-let
+}: let
   inherit (lib.generators) toPlist;
 
   Info = {
@@ -188,19 +186,19 @@ let
       Identifier = "com.apple.product-type.tool";
       Type = "ProductType";
       Name = "Command-line Tool";
-      PackageTypes = [ "com.apple.package-type.mach-o-executable" ];
+      PackageTypes = ["com.apple.package-type.mach-o-executable"];
     }
     {
       Identifier = "com.apple.product-type.objfile";
       Type = "ProductType";
       Name = "Object File";
-      PackageTypes = [ "com.apple.package-type.mach-o-objfile" ];
+      PackageTypes = ["com.apple.package-type.mach-o-objfile"];
     }
     {
       Identifier = "com.apple.product-type.library.dynamic";
       Type = "ProductType";
       Name = "Dynamic Library";
-      PackageTypes = [ "com.apple.package-type.mach-o-dylib" ];
+      PackageTypes = ["com.apple.package-type.mach-o-dylib"];
       DefaultBuildProperties = {
         FULL_PRODUCT_NAME = "$(EXECUTABLE_NAME)";
         MACH_O_TYPE = "mh_dylib";
@@ -222,7 +220,7 @@ let
       Identifier = "com.apple.product-type.library.static";
       Type = "ProductType";
       Name = "Static Library";
-      PackageTypes = [ "com.apple.package-type.static-library" ];
+      PackageTypes = ["com.apple.package-type.static-library"];
       DefaultBuildProperties = {
         FULL_PRODUCT_NAME = "$(EXECUTABLE_NAME)";
         MACH_O_TYPE = "staticlib";
@@ -254,7 +252,7 @@ let
         LIBRARY_FLAG_NOSPACE = "YES";
         STRIP_STYLE = "non-global";
       };
-      PackageTypes = [ "com.apple.package-type.wrapper" ];
+      PackageTypes = ["com.apple.package-type.wrapper"];
       IsWrapper = "YES";
       HasInfoPlist = "YES";
       HasInfoPlistStrings = "YES";
@@ -269,7 +267,7 @@ let
         WRAPPER_SUFFIX = ".$(WRAPPER_EXTENSION)";
         WRAPPER_EXTENSION = "app";
       };
-      PackageTypes = [ "com.apple.package-type.wrapper.application" ];
+      PackageTypes = ["com.apple.package-type.wrapper.application"];
     }
     {
       Type = "ProductType";
@@ -287,7 +285,7 @@ let
         LIBRARY_FLAG_NOSPACE = "YES";
         STRIP_STYLE = "non-global";
       };
-      PackageTypes = [ "com.apple.package-type.wrapper" ];
+      PackageTypes = ["com.apple.package-type.wrapper"];
       IsWrapper = "YES";
       HasInfoPlist = "YES";
       HasInfoPlistStrings = "YES";
@@ -297,11 +295,10 @@ let
   ToolchainInfo = {
     Identifier = "com.apple.dt.toolchain.XcodeDefault";
   };
-in
-{
-  "Info.plist" = builtins.toFile "Info.plist" (toPlist { } Info);
-  "ToolchainInfo.plist" = builtins.toFile "ToolchainInfo.plist" (toPlist { } ToolchainInfo);
-  "Architectures.xcspec" = builtins.toFile "Architectures.xcspec" (toPlist { } Architectures);
-  "PackageTypes.xcspec" = builtins.toFile "PackageTypes.xcspec" (toPlist { } PackageTypes);
-  "ProductTypes.xcspec" = builtins.toFile "ProductTypes.xcspec" (toPlist { } ProductTypes);
+in {
+  "Info.plist" = builtins.toFile "Info.plist" (toPlist {} Info);
+  "ToolchainInfo.plist" = builtins.toFile "ToolchainInfo.plist" (toPlist {} ToolchainInfo);
+  "Architectures.xcspec" = builtins.toFile "Architectures.xcspec" (toPlist {} Architectures);
+  "PackageTypes.xcspec" = builtins.toFile "PackageTypes.xcspec" (toPlist {} PackageTypes);
+  "ProductTypes.xcspec" = builtins.toFile "ProductTypes.xcspec" (toPlist {} ProductTypes);
 }

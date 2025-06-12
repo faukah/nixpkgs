@@ -1,13 +1,11 @@
 {
   fetchurl,
   appimageTools,
-
   pname,
   version,
   meta,
   passthru,
 }:
-
 appimageTools.wrapType2 rec {
   inherit
     pname
@@ -22,16 +20,14 @@ appimageTools.wrapType2 rec {
     hash = "sha256-nLPqEI6u5NNQ/kPbXRWPG0pIwutKNK2J8JeTPN6wHlg=";
   };
 
-  extraInstallCommands =
-    let
-      contents = appimageTools.extractType2 { inherit pname version src; };
-    in
-    ''
-      mkdir -p "$out/share/applications"
-      mkdir -p "$out/share/lib/miru"
-      cp -r ${contents}/{locales,resources} "$out/share/lib/miru"
-      cp -r ${contents}/usr/* "$out"
-      cp "${contents}/${pname}.desktop" "$out/share/applications/"
-      substituteInPlace $out/share/applications/${pname}.desktop --replace 'Exec=AppRun' 'Exec=${pname}'
-    '';
+  extraInstallCommands = let
+    contents = appimageTools.extractType2 {inherit pname version src;};
+  in ''
+    mkdir -p "$out/share/applications"
+    mkdir -p "$out/share/lib/miru"
+    cp -r ${contents}/{locales,resources} "$out/share/lib/miru"
+    cp -r ${contents}/usr/* "$out"
+    cp "${contents}/${pname}.desktop" "$out/share/applications/"
+    substituteInPlace $out/share/applications/${pname}.desktop --replace 'Exec=AppRun' 'Exec=${pname}'
+  '';
 }

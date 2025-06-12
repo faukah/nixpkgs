@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "leftwm-config";
   version = "0-unstable-2024-03-13";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage {
   meta = {
     description = "Little satellite utility for LeftWM";
     homepage = "https://github.com/leftwm/leftwm-config";
-    maintainers = with lib.maintainers; [ denperidge ];
+    maintainers = with lib.maintainers; [denperidge];
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
   };

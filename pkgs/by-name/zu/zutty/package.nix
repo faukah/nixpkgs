@@ -21,17 +21,15 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-izUbn2B3RqIIOW9tuL7DFLqJdektCftxnpQssJMYxC8=";
   };
 
-  postPatch =
-    let
-      fontpaths = [
-        "/run/current-system/sw/share/X11/fonts" # available if fonts.fontDir.enable = true
-        "${ucs-fonts}/share/fonts"
-      ];
-    in
-    ''
-      substituteInPlace src/options.h \
-        --replace-fail /usr/share/fonts ${builtins.concatStringsSep ":" fontpaths}
-    '';
+  postPatch = let
+    fontpaths = [
+      "/run/current-system/sw/share/X11/fonts" # available if fonts.fontDir.enable = true
+      "${ucs-fonts}/share/fonts"
+    ];
+  in ''
+    substituteInPlace src/options.h \
+      --replace-fail /usr/share/fonts ${builtins.concatStringsSep ":" fontpaths}
+  '';
 
   nativeBuildInputs = [
     pkg-config
@@ -55,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://tomscii.sig7.se/zutty/";
     description = "X terminal emulator rendering through OpenGL ES Compute Shaders";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.rolfschr ];
+    maintainers = [lib.maintainers.rolfschr];
     platforms = lib.platforms.linux;
   };
 })

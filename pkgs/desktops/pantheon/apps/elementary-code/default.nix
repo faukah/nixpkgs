@@ -24,7 +24,6 @@
   vte,
   ctags,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-code";
   version = "7.4.0";
@@ -64,12 +63,12 @@ stdenv.mkDerivation rec {
   # ctags needed in path by outline plugin
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ ctags ]}"
+      --prefix PATH : "${lib.makeBinPath [ctags]}"
     )
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -77,7 +76,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/code";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.code";
   };
 }

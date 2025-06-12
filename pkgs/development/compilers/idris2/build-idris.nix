@@ -25,26 +25,24 @@
   version ? "unversioned",
   idrisLibraries, # Other libraries built with buildIdris
   ...
-}@attrs:
-
-let
+} @ attrs: let
   # loop over idrisLibraries and normalize them by turning any that are
   # direct outputs of the buildIdris function into the `.library {}`
   # property.
-  idrisLibraryLibs = map (
-    idrisLib:
-    if lib.isDerivation idrisLib then
-      idrisLib
-    else if builtins.isFunction idrisLib then
-      idrisLib { }
-    else if (builtins.isAttrs idrisLib && idrisLib ? "library") then
-      idrisLib.library { }
-    else
-      throw "Found an Idris2 library dependency that was not the result of the buildIdris function"
-  ) idrisLibraries;
+  idrisLibraryLibs =
+    map (
+      idrisLib:
+        if lib.isDerivation idrisLib
+        then idrisLib
+        else if builtins.isFunction idrisLib
+        then idrisLib {}
+        else if (builtins.isAttrs idrisLib && idrisLib ? "library")
+        then idrisLib.library {}
+        else throw "Found an Idris2 library dependency that was not the result of the buildIdris function"
+    )
+    idrisLibraries;
 
-  propagate =
-    libs: lib.unique (lib.concatMap (nextLib: [ nextLib ] ++ nextLib.propagatedIdrisLibraries) libs);
+  propagate = libs: lib.unique (lib.concatMap (nextLib: [nextLib] ++ nextLib.propagatedIdrisLibraries) libs);
   ipkgFileName = ipkgName + ".ipkg";
   idrName = "idris2-${idris2.version}";
   libSuffix = "lib/${idrName}";
@@ -55,47 +53,50 @@ let
     "idrisLibraries"
   ];
 
-  mkDerivation =
-    withSource:
-    let
-      applyWithSource = lib: if withSource then lib.withSource else lib;
-      propagatedIdrisLibraries = map applyWithSource (propagate idrisLibraryLibs);
-    in
+  mkDerivation = withSource: let
+    applyWithSource = lib:
+      if withSource
+      then lib.withSource
+      else lib;
+    propagatedIdrisLibraries = map applyWithSource (propagate idrisLibraryLibs);
+  in
     stdenv.mkDerivation (
       finalAttrs:
-      drvAttrs
-      // {
-        pname = ipkgName;
-        inherit src version;
-        nativeBuildInputs = [
-          idris2
-          makeBinaryWrapper
-        ] ++ attrs.nativeBuildInputs or [ ];
-        buildInputs = propagatedIdrisLibraries ++ attrs.buildInputs or [ ];
+        drvAttrs
+        // {
+          pname = ipkgName;
+          inherit src version;
+          nativeBuildInputs =
+            [
+              idris2
+              makeBinaryWrapper
+            ]
+            ++ attrs.nativeBuildInputs or [];
+          buildInputs = propagatedIdrisLibraries ++ attrs.buildInputs or [];
 
-        env.IDRIS2_PACKAGE_PATH = libDirs propagatedIdrisLibraries;
+          env.IDRIS2_PACKAGE_PATH = libDirs propagatedIdrisLibraries;
 
-        buildPhase = ''
-          runHook preBuild
-          idris2 --build ${ipkgFileName}
-          runHook postBuild
-        '';
+          buildPhase = ''
+            runHook preBuild
+            idris2 --build ${ipkgFileName}
+            runHook postBuild
+          '';
 
-        passthru = {
-          inherit propagatedIdrisLibraries;
-        } // (attrs.passthru or { });
+          passthru =
+            {
+              inherit propagatedIdrisLibraries;
+            }
+            // (attrs.passthru or {});
 
-        shellHook = ''
-          export IDRIS2_PACKAGE_PATH="${finalAttrs.env.IDRIS2_PACKAGE_PATH}"
-        '';
-      }
+          shellHook = ''
+            export IDRIS2_PACKAGE_PATH="${finalAttrs.env.IDRIS2_PACKAGE_PATH}"
+          '';
+        }
     );
 
-  mkExecutable =
-    withSource:
-    let
-      derivation = mkDerivation withSource;
-    in
+  mkExecutable = withSource: let
+    derivation = mkDerivation withSource;
+  in
     derivation.overrideAttrs {
       installPhase = ''
         runHook preInstall
@@ -123,17 +124,20 @@ let
 
       # allow an executable's dependencies to be built with source. this is convenient when
       # building a development shell for the executable using `mkShell`'s `inputsFrom`.
-      passthru = derivation.passthru // {
-        withSource = mkExecutable true;
-      };
+      passthru =
+        derivation.passthru
+        // {
+          withSource = mkExecutable true;
+        };
     };
 
-  mkLibrary =
-    withSource:
-    let
-      installCmd = if withSource then "--install-with-src" else "--install";
-      derivation = mkDerivation withSource;
-    in
+  mkLibrary = withSource: let
+    installCmd =
+      if withSource
+      then "--install-with-src"
+      else "--install";
+    derivation = mkDerivation withSource;
+  in
     derivation.overrideAttrs {
       installPhase = ''
         runHook preInstall
@@ -150,19 +154,16 @@ let
       # with-source. We surface this regardless of whether the original library
       # was built with source because that allows downstream to call this
       # property unconditionally.
-      passthru = derivation.passthru // {
-        withSource = mkLibrary true;
-      };
+      passthru =
+        derivation.passthru
+        // {
+          withSource = mkLibrary true;
+        };
     };
-
-in
-{
+in {
   executable = mkExecutable false;
 
-  library =
-    {
-      withSource ? false,
-    }:
+  library = {withSource ? false}:
     mkLibrary withSource;
 
   # Make a library without source; you can still use the `withSource` attribute

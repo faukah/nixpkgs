@@ -10,7 +10,6 @@
   glib,
   librest_1_0,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgovirt";
   version = "0.3.9";

@@ -35,7 +35,6 @@
   withWebservices ? true,
   webkitgtk_4_0,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gthumb";
   version = "3.12.7";
@@ -57,31 +56,33 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook3
   ];
 
-  buildInputs = [
-    clutter-gtk
-    exiv2
-    glib
-    adwaita-icon-theme
-    gsettings-desktop-schemas
-    gst_all_1.gst-plugins-base
-    (gst_all_1.gst-plugins-good.override { gtkSupport = true; })
-    gst_all_1.gst-libav
-    gst_all_1.gst-plugins-bad
-    gst_all_1.gst-plugins-ugly
-    gtk3
-    json-glib
-    lcms2
-    libchamplain
-    libheif
-    libjpeg
-    libraw
-    librsvg
-    libsecret
-    libsoup_2_4
-    libtiff
-    libwebp
-    libX11
-  ] ++ lib.optional withWebservices webkitgtk_4_0;
+  buildInputs =
+    [
+      clutter-gtk
+      exiv2
+      glib
+      adwaita-icon-theme
+      gsettings-desktop-schemas
+      gst_all_1.gst-plugins-base
+      (gst_all_1.gst-plugins-good.override {gtkSupport = true;})
+      gst_all_1.gst-libav
+      gst_all_1.gst-plugins-bad
+      gst_all_1.gst-plugins-ugly
+      gtk3
+      json-glib
+      lcms2
+      libchamplain
+      libheif
+      libjpeg
+      libraw
+      librsvg
+      libsecret
+      libsoup_2_4
+      libtiff
+      libwebp
+      libX11
+    ]
+    ++ lib.optional withWebservices webkitgtk_4_0;
 
   mesonFlags = [
     "-Dlibchamplain=true"
@@ -115,6 +116,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "gthumb";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.mimame ];
+    maintainers = [maintainers.mimame];
   };
 })

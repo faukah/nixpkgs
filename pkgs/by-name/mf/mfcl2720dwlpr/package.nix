@@ -12,7 +12,6 @@
   which,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mfcl2720dwlpr";
   version = "3.2.0-1";
@@ -41,14 +40,14 @@ stdenv.mkDerivation rec {
 
     wrapProgram $dir/lpd/filter_MFCL2720DW \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          ghostscript
-          gnugrep
-          gnused
-          which
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        ghostscript
+        gnugrep
+        gnused
+        which
+      ]
+    }
 
     # need to use i686 glibc here, these are 32bit proprietary binaries
     interpreter=${pkgs.pkgsi686Linux.glibc}/lib/ld-linux.so.2
@@ -60,12 +59,12 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Brother MFC-L2720DW lpr driver";
     homepage = "http://www.brother.com/";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
     platforms = [
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = [ lib.maintainers.xeji ];
+    maintainers = [lib.maintainers.xeji];
   };
 }

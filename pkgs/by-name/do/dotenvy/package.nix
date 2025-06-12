@@ -3,7 +3,6 @@
   fetchCrate,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dotenvy";
   version = "0.15.7";
@@ -22,12 +21,12 @@ rustPlatform.buildRustPackage rec {
   ];
 
   # just run unittests and skip doc-tests
-  cargoTestFlags = [ "--lib" ];
+  cargoTestFlags = ["--lib"];
 
   meta = {
     description = "Loads environment variables from a .env file";
     homepage = "https://github.com/allan2/dotenvy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ phlip9 ];
+    maintainers = with lib.maintainers; [phlip9];
   };
 }

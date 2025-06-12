@@ -9,7 +9,6 @@
   pybind11,
   zlib,
 }:
-
 buildPythonPackage {
   pname = "pybind11-protobuf";
   version = "0-unstable-2025-02-10";
@@ -28,7 +27,7 @@ buildPythonPackage {
     ./add-install-target-for-cmake-builds.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     abseil-cpp
@@ -56,6 +55,6 @@ buildPythonPackage {
     description = "Pybind11 bindings for Google's Protocol Buffers";
     homepage = "https://github.com/pybind/pybind11_protobuf";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
   };
 }

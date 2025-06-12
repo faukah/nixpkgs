@@ -14,7 +14,6 @@
   setuptools,
   uvicorn,
 }:
-
 buildPythonPackage rec {
   pname = "json-logging";
   version = "1.5.0-rc0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
         --replace-fail '"written_at",' '"taskName", "written_at",'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     fastapi
@@ -47,11 +46,11 @@ buildPythonPackage rec {
     uvicorn
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "json_logging" ];
+  pythonImportsCheck = ["json_logging"];
 
-  disabledTests = [ "quart" ];
+  disabledTests = ["quart"];
 
   disabledTestPaths = [
     # Smoke tests don't always work
@@ -69,6 +68,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/bobbui/json-logging-python";
     changelog = "https://github.com/bobbui/json-logging-python/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "rmapi";
   version = "0.0.30";
@@ -24,7 +23,7 @@ buildGoModule rec {
     homepage = "https://github.com/ddvk/rmapi";
     changelog = "https://github.com/ddvk/rmapi/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.agpl3Only;
-    maintainers = [ lib.maintainers.nickhu ];
+    maintainers = [lib.maintainers.nickhu];
     mainProgram = "rmapi";
   };
 }

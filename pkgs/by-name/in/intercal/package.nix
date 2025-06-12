@@ -8,9 +8,7 @@
   flex,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "intercal";
   version = "0.31";
 
@@ -54,8 +52,9 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.catb.org/~esr/intercal/";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }
 # TODO: investigate if LD_LIBRARY_PATH needs to be set
+

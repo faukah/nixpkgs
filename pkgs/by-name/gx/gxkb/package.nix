@@ -12,7 +12,6 @@
   appindicatorSupport ? true,
   libayatana-appindicator,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gxkb";
   version = "0.9.5";
@@ -28,11 +27,13 @@ stdenv.mkDerivation rec {
     pkg-config
     autoreconfHook
   ];
-  buildInputs = [
-    gtk3
-    libwnck
-    libxklavier
-  ] ++ lib.optional appindicatorSupport libayatana-appindicator;
+  buildInputs =
+    [
+      gtk3
+      libwnck
+      libxklavier
+    ]
+    ++ lib.optional appindicatorSupport libayatana-appindicator;
 
   configureFlags = lib.optional appindicatorSupport "--enable-appindicator=yes";
   outputs = [
@@ -56,7 +57,7 @@ stdenv.mkDerivation rec {
     description = "X11 keyboard indicator and switcher";
     homepage = "https://zen-tools.github.io/gxkb/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.omgbebebe ];
+    maintainers = [maintainers.omgbebebe];
     platforms = platforms.linux;
     mainProgram = "gxkb";
   };

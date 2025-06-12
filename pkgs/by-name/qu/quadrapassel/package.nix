@@ -22,7 +22,6 @@
   vala,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "quadrapassel";
   version = "40.2";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "quadrapassel"; };
+    updateScript = gnome.updateScript {packageName = "quadrapassel";};
   };
 
   meta = {
@@ -67,7 +66,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/quadrapassel";
     changelog = "https://gitlab.gnome.org/GNOME/quadrapassel/-/blob/${version}/NEWS?ref_type=tags";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     platforms = lib.platforms.linux;
   };
 }

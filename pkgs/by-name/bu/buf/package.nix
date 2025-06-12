@@ -8,7 +8,6 @@
   buf,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "buf";
   version = "1.52.1";
@@ -27,7 +26,7 @@ buildGoModule rec {
     ./skip_broken_tests.patch
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -81,7 +80,7 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  passthru.tests.version = testers.testVersion { package = buf; };
+  passthru.tests.version = testers.testVersion {package = buf;};
 
   meta = {
     homepage = "https://buf.build";

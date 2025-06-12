@@ -12,7 +12,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyopenuv";
   version = "2023.12.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-r+StbiU77/1dz41tCseleIWjiIvuvRveVgPNr3n4CEY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -49,13 +48,13 @@ buildPythonPackage rec {
     "examples/"
   ];
 
-  pythonImportsCheck = [ "pyopenuv" ];
+  pythonImportsCheck = ["pyopenuv"];
 
   meta = with lib; {
     description = "Python API to retrieve data from openuv.io";
     homepage = "https://github.com/bachya/pyopenuv";
     changelog = "https://github.com/bachya/pyopenuv/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

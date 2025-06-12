@@ -5,7 +5,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aliyun-python-sdk-config";
   version = "2.2.14";
@@ -18,18 +17,18 @@ buildPythonPackage rec {
     hash = "sha256-drmk41/k/JJ6Zs6MrnMQa7xwpkO7MZEaSeyfm2QimKo=";
   };
 
-  propagatedBuildInputs = [ aliyun-python-sdk-core ];
+  propagatedBuildInputs = [aliyun-python-sdk-core];
 
   # All components are stored in a mono repo
   doCheck = false;
 
-  pythonImportsCheck = [ "aliyunsdkconfig" ];
+  pythonImportsCheck = ["aliyunsdkconfig"];
 
   meta = with lib; {
     description = "Configuration module of Aliyun Python SDK";
     homepage = "https://github.com/aliyun/aliyun-openapi-python-sdk";
     changelog = "https://github.com/aliyun/aliyun-openapi-python-sdk/blob/master/aliyun-python-sdk-config/ChangeLog.txt";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -13,7 +13,6 @@
   glib,
   libsoup_3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "uhttpmock";
   version = "0.11.0";
@@ -57,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Project for mocking web service APIs which use HTTP or HTTPS";
     homepage = "https://gitlab.freedesktop.org/pwithnall/uhttpmock/";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 })

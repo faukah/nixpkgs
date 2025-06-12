@@ -27,7 +27,6 @@
   urlobject,
   werkzeug,
 }:
-
 buildPythonPackage rec {
   pname = "flask-dance";
   version = "7.1.0";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     hash = "sha256-rKHC0G5S7l52QSrbbweMii68AZuBAgf6tYsJdPKIeUk=";
   };
 
-  build-system = [ flit ];
+  build-system = [flit];
 
   dependencies = [
     flask
@@ -62,9 +61,9 @@ buildPythonPackage rec {
       sqlalchemy
     ];
 
-    signals = [ blinker ];
+    signals = [blinker];
 
-    sqla = [ sqlalchemy ];
+    sqla = [sqlalchemy];
 
     test = [
       betamax
@@ -81,15 +80,15 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs = [pytestCheckHook] ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "flask_dance" ];
+  pythonImportsCheck = ["flask_dance"];
 
   meta = {
     description = "Doing the OAuth dance with style using Flask, requests, and oauthlib";
     homepage = "https://github.com/singingwolfboy/flask-dance";
     changelog = "https://github.com/singingwolfboy/flask-dance/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
   };
 }

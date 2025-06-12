@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-PA0ttRtFmNVITBidxZsZFMfMaGi2X6296ve5y6Mqlm0=";
   };
 
-  nativeBuildInputs = [ scdoc ];
+  nativeBuildInputs = [scdoc];
 
   buildPhase = ''
     runHook preBuild
@@ -42,7 +42,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Vladimir-csp/xdg-terminal-exec";
     license = lib.licenses.gpl3Plus;
     mainProgram = "xdg-terminal-exec";
-    maintainers = with lib.maintainers; [ quantenzitrone ];
+    maintainers = with lib.maintainers; [quantenzitrone];
     platforms = lib.platforms.unix;
   };
 })

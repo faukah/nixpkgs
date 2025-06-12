@@ -8,7 +8,6 @@
   pkg-config,
   SDL2,
 }:
-
 stdenv.mkDerivation {
   pname = "smpeg2";
   version = "unstable-2022-05-26";
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
     pkg-config
   ];
 
-  buildInputs = [ SDL2 ];
+  buildInputs = [SDL2];
 
   outputs = [
     "out"
@@ -53,6 +52,6 @@ stdenv.mkDerivation {
     description = "SDL2 MPEG Player Library";
     license = licenses.lgpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

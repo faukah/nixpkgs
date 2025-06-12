@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/brainboxdotcc/DPP";
     changelog = "https://github.com/brainboxdotcc/DPP/releases/tag/${finalAttrs.src.rev}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ xbz ];
+    maintainers = with lib.maintainers; [xbz];
     platforms = lib.platforms.unix;
   };
 })

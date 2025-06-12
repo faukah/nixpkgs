@@ -5,7 +5,6 @@
   cmake,
   qt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qmqtt";
   version = "1.0.3";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "MQTT client for Qt";
     homepage = "https://github.com/emqx/qmqtt";
     license = licenses.epl10;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
     platforms = platforms.all;
   };
 }

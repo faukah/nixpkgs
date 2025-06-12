@@ -10,7 +10,6 @@
   sqlite,
   glib-networking,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "hackgregator";
   version = "0.5.0-unstable-2023-12-05";
@@ -60,7 +59,7 @@ rustPlatform.buildRustPackage {
       cc0
     ];
     mainProgram = "hackgregator";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
   };
 }

@@ -1,5 +1,7 @@
-{ lib, custom, ... }:
-
 {
-  imports = [ ] ++ lib.optional custom ./define-enable-force.nix;
+  lib,
+  custom,
+  ...
+}: {
+  imports = [] ++ lib.optional custom ./define-enable-force.nix;
 }

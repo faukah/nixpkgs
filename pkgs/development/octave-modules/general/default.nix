@@ -5,7 +5,6 @@
   pkg-config,
   nettle,
 }:
-
 buildOctavePackage rec {
   pname = "general";
   version = "2.1.3";
@@ -26,7 +25,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/general/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "General tools for Octave";
   };
 }

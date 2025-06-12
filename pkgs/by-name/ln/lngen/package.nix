@@ -3,7 +3,6 @@
   haskellPackages,
   fetchFromGitHub,
 }:
-
 haskellPackages.mkDerivation {
   pname = "lngen";
   version = "0-unstable-2024-10-22";
@@ -24,7 +23,7 @@ haskellPackages.mkDerivation {
     containers
     mtl
   ];
-  executableHaskellDepends = with haskellPackages; [ base ];
+  executableHaskellDepends = with haskellPackages; [base];
 
   # Fix build on GHC >=9.8.1, where using partial functions was made an error with `-Werror`
   preBuild = ''
@@ -33,7 +32,7 @@ haskellPackages.mkDerivation {
 
   homepage = "https://github.com/plclub/lngen";
   description = "Tool for generating Locally Nameless definitions and proofs in Coq, working together with Ott";
-  maintainers = with lib.maintainers; [ chen ];
+  maintainers = with lib.maintainers; [chen];
   license = lib.licenses.mit;
   mainProgram = "lngen";
 }

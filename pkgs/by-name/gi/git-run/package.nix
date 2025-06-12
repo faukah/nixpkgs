@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "git-run";
   version = "0.5.5";
@@ -34,6 +33,6 @@ buildNpmPackage rec {
     homepage = "https://mixu.net/gr/";
     license = lib.licenses.bsd3;
     mainProgram = "gr";
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

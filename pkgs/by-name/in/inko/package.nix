@@ -12,7 +12,6 @@
   callPackage,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "inko";
   version = "0.18.1";
@@ -47,7 +46,7 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = ''
     wrapProgram $out/bin/inko \
-      --prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}
+      --prefix PATH : ${lib.makeBinPath [stdenv.cc]}
   '';
 
   postInstall = ''
@@ -57,9 +56,9 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
-      simple = callPackage ./test.nix { };
+      simple = callPackage ./test.nix {};
     };
   };
 
@@ -67,8 +66,8 @@ rustPlatform.buildRustPackage rec {
     description = "Language for building concurrent software with confidence";
     homepage = "https://inko-lang.org/";
     license = lib.licenses.mpl20;
-    maintainers = [ lib.maintainers.feathecutie ];
-    teams = [ lib.teams.ngi ];
+    maintainers = [lib.maintainers.feathecutie];
+    teams = [lib.teams.ngi];
     platforms = lib.platforms.unix;
     mainProgram = "inko";
   };

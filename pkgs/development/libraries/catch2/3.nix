@@ -5,7 +5,6 @@
   cmake,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "catch2";
   version = "3.8.1";
@@ -21,12 +20,16 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  hardeningDisable = [ "trivialautovarinit" ];
+  hardeningDisable = ["trivialautovarinit"];
 
   cmakeFlags =
     [
       "-DCATCH_DEVELOPMENT_BUILD=ON"
-      "-DCATCH_BUILD_TESTING=${if doCheck then "ON" else "OFF"}"
+      "-DCATCH_BUILD_TESTING=${
+        if doCheck
+        then "ON"
+        else "OFF"
+      }"
       "-DCATCH_ENABLE_WERROR=OFF"
     ]
     ++ lib.optionals (stdenv.hostPlatform.isDarwin && doCheck) [
@@ -56,7 +59,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/catchorg/Catch2";
     changelog = "https://github.com/catchorg/Catch2/blob/${src.rev}/docs/release-notes.md";
     license = lib.licenses.boost;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     platforms = with lib.platforms; unix ++ windows;
   };
 }

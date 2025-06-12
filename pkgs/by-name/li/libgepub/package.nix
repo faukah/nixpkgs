@@ -13,7 +13,6 @@
   libxml2,
   libarchive,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgepub";
   version = "0.7.3";
@@ -51,6 +50,6 @@ stdenv.mkDerivation rec {
     description = "GObject based library for handling and rendering epub documents";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 }

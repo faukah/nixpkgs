@@ -10,7 +10,6 @@
   stdenv,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rfdump";
   version = "1.6";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     substituteInPlace src/tagtypes.c --replace-fail "/usr/share/rfdump/rfd_types.xml" "$out/share/rfdump/rfd_types.xml"
   '';
 
-  configureFlags = [ "PREFIX=$out" ];
+  configureFlags = ["PREFIX=$out"];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -63,14 +62,14 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  makeFlags = [ "LIBS=-lexpat" ];
+  makeFlags = ["LIBS=-lexpat"];
 
   meta = {
     description = "Tool to detect RFID-Tags and show their meta information";
     homepage = "https://www.rfdump.org/";
     changelog = "https://salsa.debian.org/pkg-security-team/rfdump/-/blob/debian/master/ChangeLog";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
     mainProgram = "rfdump";
     platforms = lib.platforms.all;
   };

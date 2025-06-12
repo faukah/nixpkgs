@@ -12,7 +12,6 @@
   gtk3,
   pango,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtksheet";
   version = "4.3.14";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Spreadsheet widget for GTK+";
     homepage = "https://fpaquet.github.io/gtksheet/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     platforms = lib.platforms.unix;
   };
 })

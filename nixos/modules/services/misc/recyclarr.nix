@@ -4,23 +4,20 @@
   pkgs,
   utils,
   ...
-}:
-
-let
+}: let
   cfg = config.services.recyclarr;
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   stateDir = "/var/lib/recyclarr";
   configPath = "${stateDir}/config.json";
-in
-{
+in {
   options.services.recyclarr = {
     enable = lib.mkEnableOption "recyclarr service";
 
-    package = lib.mkPackageOption pkgs "recyclarr" { };
+    package = lib.mkPackageOption pkgs "recyclarr" {};
 
     configuration = lib.mkOption {
       type = format.type;
-      default = { };
+      default = {};
       example = {
         sonarr = [
           {
@@ -85,7 +82,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     users.users = lib.mkIf (cfg.user == "recyclarr") {
       recyclarr = {
         isSystemUser = true;
@@ -96,7 +92,7 @@ in
     };
 
     users.groups = lib.mkIf (cfg.group == "recyclarr") {
-      ${cfg.group} = { };
+      ${cfg.group} = {};
     };
 
     systemd.services.recyclarr = {
@@ -133,7 +129,7 @@ in
         RestrictSUIDSGID = true;
         RemoveIPC = true;
 
-        ReadWritePaths = [ stateDir ];
+        ReadWritePaths = [stateDir];
 
         CapabilityBoundingSet = "";
 
@@ -144,8 +140,8 @@ in
 
     systemd.timers.recyclarr = {
       description = "Recyclarr Timer";
-      wantedBy = [ "timers.target" ];
-      partOf = [ "recyclarr.service" ];
+      wantedBy = ["timers.target"];
+      partOf = ["recyclarr.service"];
 
       timerConfig = {
         OnCalendar = cfg.schedule;

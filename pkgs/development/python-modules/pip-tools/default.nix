@@ -16,7 +16,6 @@
   tomli-w,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "pip-tools";
   version = "7.4.1";
@@ -29,18 +28,20 @@ buildPythonPackage rec {
     hash = "sha256-hkgm9Qc4ZEUOJNvuuFzjkgzfsJhIo9aev1N7Uh8UvMk=";
   };
 
-  patches = [ ./fix-setup-py-bad-syntax-detection.patch ];
+  patches = [./fix-setup-py-bad-syntax-detection.patch];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [
-    build
-    click
-    pep517
-    pip
-    setuptools
-    wheel
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies =
+    [
+      build
+      click
+      pep517
+      pip
+      setuptools
+      wheel
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   __darwinAllowLocalNetworking = true;
 
@@ -83,13 +84,13 @@ buildPythonPackage rec {
     "test_failure_of_legacy_resolver_prompts_for_backtracking"
   ];
 
-  pythonImportsCheck = [ "piptools" ];
+  pythonImportsCheck = ["piptools"];
 
   meta = with lib; {
     description = "Keeps your pinned dependencies fresh";
     homepage = "https://github.com/jazzband/pip-tools/";
     changelog = "https://github.com/jazzband/pip-tools/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
   };
 }

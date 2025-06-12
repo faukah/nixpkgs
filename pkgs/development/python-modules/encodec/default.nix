@@ -2,14 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # dependencies
   einops,
   numpy,
   torch,
   torchaudio,
 }:
-
 buildPythonPackage rec {
   pname = "encodec";
   version = "0.1.1";
@@ -29,7 +27,7 @@ buildPythonPackage rec {
     torchaudio
   ];
 
-  pythonImportsCheck = [ "encodec" ];
+  pythonImportsCheck = ["encodec"];
 
   # requires model data from the internet
   doCheck = false;
@@ -39,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/facebookresearch/encodec";
     changelog = "https://github.com/facebookresearch/encodec/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    teams = [ teams.tts ];
+    teams = [teams.tts];
   };
 }

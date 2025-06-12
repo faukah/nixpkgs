@@ -13,7 +13,6 @@
   osmo-hlr,
   lksctp-tools,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osmo-msc";
   version = "1.13.0";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     mainProgram = "osmo-msc";
     homepage = "https://osmocom.org/projects/osmomsc/wiki";
     license = lib.licenses.agpl3Only;
-    maintainers = [ lib.maintainers.markuskowa ];
+    maintainers = [lib.maintainers.markuskowa];
     platforms = lib.platforms.linux;
   };
 }

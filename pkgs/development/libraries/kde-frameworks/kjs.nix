@@ -5,7 +5,6 @@
   kdoctools,
   qtbase,
 }:
-
 mkDerivation {
   pname = "kjs";
   nativeBuildInputs = [

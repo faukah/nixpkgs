@@ -7,7 +7,6 @@
   curl,
   common-updater-scripts,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "arc-browser";
   version = "1.97.0-63507";
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-8HdPyJJT1boiMpflIe6wX4oOTqw4oKm982gm1Ei8h4w=";
   };
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = "Arc.app";
 
@@ -52,11 +51,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Arc from The Browser Company";
     homepage = "https://arc.net/";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ donteatoreo ];
+    maintainers = with lib.maintainers; [donteatoreo];
     platforms = [
       "aarch64-darwin"
       "x86_64-darwin"
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

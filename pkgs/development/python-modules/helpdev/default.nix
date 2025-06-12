@@ -5,7 +5,6 @@
   importlib-metadata,
   psutil,
 }:
-
 buildPythonPackage rec {
   pname = "helpdev";
   version = "0.7.1";

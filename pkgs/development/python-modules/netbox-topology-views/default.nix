@@ -20,15 +20,15 @@ buildPythonPackage rec {
     hash = "sha256-ysupqyRFOKVa+evNbfSdW2W57apI0jVEU92afz6+AaE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ netbox ];
+  nativeCheckInputs = [netbox];
 
   preFixup = ''
     export PYTHONPATH=${netbox}/opt/netbox/netbox:$PYTHONPATH
   '';
 
-  pythonImportsCheck = [ "netbox_topology_views" ];
+  pythonImportsCheck = ["netbox_topology_views"];
 
   meta = {
     description = "Netbox plugin for generate topology views/maps from your devices";
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/netbox-community/netbox-topology-views/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ felbinger ];
+    maintainers = with lib.maintainers; [felbinger];
   };
 }

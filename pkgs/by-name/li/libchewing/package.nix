@@ -9,7 +9,6 @@
   cargo,
   rustc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libchewing";
   version = "0.9.1";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Intelligent Chinese phonetic input method";
     homepage = "https://chewing.im/";
     license = lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ ShamrockLee ];
+    maintainers = with lib.maintainers; [ShamrockLee];
     platforms = lib.platforms.all;
     # compile time tools init_database, dump_database are built for host
     broken = !stdenv.buildPlatform.canExecute stdenv.hostPlatform;

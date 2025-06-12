@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "gorilla";
   version = "0.4.0";
@@ -20,19 +19,19 @@ buildPythonPackage rec {
     hash = "sha256-AFq4hTsDcWKnx3u4JGBMbggYeO4DwJrQHvQXRIVgGdM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "gorilla" ];
+  pythonImportsCheck = ["gorilla"];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.12") [ "test_find_patches_2" ];
+  disabledTests = lib.optionals (pythonAtLeast "3.12") ["test_find_patches_2"];
 
   meta = with lib; {
     description = "Convenient approach to monkey patching";
     homepage = "https://github.com/christophercrouzet/gorilla";
     changelog = "https://github.com/christophercrouzet/gorilla/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ tbenst ];
+    maintainers = with maintainers; [tbenst];
   };
 }

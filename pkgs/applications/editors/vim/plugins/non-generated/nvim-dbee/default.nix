@@ -8,8 +8,7 @@
   stdenv,
   vimPlugins,
   vimUtils,
-}:
-let
+}: let
   version = "0.1.9";
   src = fetchFromGitHub {
     owner = "kndndrj";
@@ -36,35 +35,35 @@ let
     meta.mainProgram = "dbee";
   };
 in
-vimUtils.buildVimPlugin {
-  pname = "nvim-dbee";
-  inherit version src;
+  vimUtils.buildVimPlugin {
+    pname = "nvim-dbee";
+    inherit version src;
 
-  postPatch = ''
-    substituteInPlace lua/dbee/install/init.lua \
-      --replace-fail 'return vim.fn.stdpath("data") .. "/dbee/bin"' 'return "${dbee-bin}/bin"'
-  '';
+    postPatch = ''
+      substituteInPlace lua/dbee/install/init.lua \
+        --replace-fail 'return vim.fn.stdpath("data") .. "/dbee/bin"' 'return "${dbee-bin}/bin"'
+    '';
 
-  preFixup = ''
-    mkdir $target/bin
-    ln -s ${lib.getExe dbee-bin} $target/bin/dbee
-  '';
+    preFixup = ''
+      mkdir $target/bin
+      ln -s ${lib.getExe dbee-bin} $target/bin/dbee
+    '';
 
-  passthru = {
-    updateScript = nix-update-script {
-      attrPath = "vimPlugins.nvim-dbee.dbee-bin";
+    passthru = {
+      updateScript = nix-update-script {
+        attrPath = "vimPlugins.nvim-dbee.dbee-bin";
+      };
+
+      # needed for the update script
+      inherit dbee-bin;
     };
 
-    # needed for the update script
-    inherit dbee-bin;
-  };
+    dependencies = [vimPlugins.nui-nvim];
 
-  dependencies = [ vimPlugins.nui-nvim ];
-
-  meta = {
-    description = "Interactive database client for neovim";
-    homepage = "https://github.com/kndndrj/nvim-dbee";
-    changelog = "https://github.com/kndndrj/nvim-dbee/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ perchun ];
-  };
-}
+    meta = {
+      description = "Interactive database client for neovim";
+      homepage = "https://github.com/kndndrj/nvim-dbee";
+      changelog = "https://github.com/kndndrj/nvim-dbee/releases/tag/v${version}";
+      maintainers = with lib.maintainers; [perchun];
+    };
+  }

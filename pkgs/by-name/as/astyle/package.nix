@@ -6,7 +6,6 @@
   versionCheckHook,
   asLibrary ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "astyle";
   version = "3.6.9";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-tkRZdlTfW0AIe+SkZyPGUED3zlnzNp8bj2kPnBDKurw=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # upstream repo includes a build/ directory
   cmakeBuildDir = "_build";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     install -Dm444 ../src/astyle.h $out/include/astyle.h
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = !asLibrary;
 
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     mainProgram = "astyle";
     homepage = "https://astyle.sourceforge.net/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ carlossless ];
+    maintainers = with maintainers; [carlossless];
     platforms = platforms.unix;
   };
 }

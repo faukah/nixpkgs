@@ -5,7 +5,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "youtubeuploader";
   version = "1.24.4";
@@ -19,14 +18,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-FgAfUcgY2dY8Jj3YcxrIGOpzQeAAICELeKL+scblZq0=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   ldflags = [
     "-s"
     "-X main.appVersion=${version}"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "-version";
   doInstallCheck = true;
 
@@ -35,7 +34,7 @@ buildGoModule rec {
     homepage = "https://github.com/porjo/youtubeuploader";
     changelog = "https://github.com/porjo/youtubeuploader/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ srghma ];
+    maintainers = with lib.maintainers; [srghma];
     mainProgram = "youtubeuploader";
     platforms = lib.platforms.unix;
   };

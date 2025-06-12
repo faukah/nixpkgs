@@ -10,13 +10,12 @@
   jwt,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "django-rest-registration";
   version = "0.9.0";
   pyproject = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   disabled = pythonOlder "3.7";
 
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     jwt
   ];
 
-  pythonImportsCheck = [ "rest_registration" ];
+  pythonImportsCheck = ["rest_registration"];
 
   disabledTests = [
     # This test fails on Python 3.10
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/apragacz/django-rest-registration/";
     changelog = "https://github.com/apragacz/django-rest-registration/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sephi ];
+    maintainers = with lib.maintainers; [sephi];
   };
 }

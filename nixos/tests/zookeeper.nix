@@ -1,10 +1,6 @@
-{ pkgs, ... }:
-let
-
-  perlEnv = pkgs.perl.withPackages (p: [ p.NetZooKeeper ]);
-
-in
-{
+{pkgs, ...}: let
+  perlEnv = pkgs.perl.withPackages (p: [p.NetZooKeeper]);
+in {
   name = "zookeeper";
   meta = with pkgs.lib.maintainers; {
     maintainers = [
@@ -14,15 +10,13 @@ in
   };
 
   nodes = {
-    server =
-      { ... }:
-      {
-        services.zookeeper = {
-          enable = true;
-        };
-
-        networking.firewall.allowedTCPPorts = [ 2181 ];
+    server = {...}: {
+      services.zookeeper = {
+        enable = true;
       };
+
+      networking.firewall.allowedTCPPorts = [2181];
+    };
   };
 
   testScript = ''

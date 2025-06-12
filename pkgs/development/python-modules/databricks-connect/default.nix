@@ -8,7 +8,6 @@
   py4j,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "databricks-connect";
   version = "11.3.40";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
 
   sourceRoot = ".";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     py4j
@@ -34,7 +33,7 @@ buildPythonPackage rec {
   # requires network access
   doCheck = false;
 
-  pythonRelaxDeps = [ "py4j" ];
+  pythonRelaxDeps = ["py4j"];
 
   preFixup = ''
     substituteInPlace "$out/bin/find-spark-home" \
@@ -50,8 +49,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Client for connecting to remote Databricks clusters";
     homepage = "https://pypi.org/project/databricks-connect";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.databricks;
-    maintainers = with maintainers; [ kfollesdal ];
+    maintainers = with maintainers; [kfollesdal];
   };
 }

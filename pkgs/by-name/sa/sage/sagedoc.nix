@@ -4,7 +4,6 @@
   python3,
   jupyter-kernel-specs,
 }:
-
 stdenv.mkDerivation rec {
   version = src.version;
   pname = "sagedoc";

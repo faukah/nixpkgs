@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "zfsbackup";
   version = "unstable-2022-09-23";
@@ -30,7 +29,7 @@ buildGoModule rec {
     description = "Backup ZFS snapshots to cloud storage such as Google, Amazon, Azure, etc";
     homepage = "https://github.com/someone1/zfsbackup-go";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "zfsbackup-go";
   };

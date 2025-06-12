@@ -12,7 +12,6 @@
   pytestCheckHook,
   ruamel-yaml,
 }:
-
 buildPythonPackage rec {
   pname = "construct-typing";
   version = "0.6.2";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-zXpxu+VUcepEoAPLQnSlMCZkt8fDsMCLS0HBKhaYD20=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "construct" ];
+  pythonRelaxDeps = ["construct"];
 
   dependencies = [
     construct
@@ -64,6 +63,6 @@ buildPythonPackage rec {
     description = "Extension for the python package 'construct' that adds typing features";
     homepage = "https://github.com/timrid/construct-typing";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

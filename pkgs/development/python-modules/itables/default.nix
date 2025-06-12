@@ -3,23 +3,19 @@
   buildPythonPackage,
   fetchPypi,
   python,
-
   # build-system
   dash,
   hatchling,
   hatch-jupyter-builder,
   pyyaml,
   setuptools,
-
   # nativeBuildInputs
   nodejs,
-
   # dependencies
   ipython,
   numpy,
   pandas,
 }:
-
 buildPythonPackage rec {
   pname = "itables";
   version = "2.4.0";
@@ -67,13 +63,13 @@ buildPythonPackage rec {
     cp -R itables $out/${python.sitePackages}
   '';
 
-  pythonImportsCheck = [ "itables" ];
+  pythonImportsCheck = ["itables"];
 
   meta = {
     description = "Pandas and Polar DataFrames as interactive DataTables";
     homepage = "https://github.com/mwouts/itables";
     changelog = "https://github.com/mwouts/itables/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ flokli ];
+    maintainers = with lib.maintainers; [flokli];
   };
 }

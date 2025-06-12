@@ -21,10 +21,10 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-9Ug6lyDvacj47FnLzJo4fwpXeMYxgSlMB7+2fIv5oxo=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   postFixup = ''
     wrapProgram $out/bin/mini-calc \
-      --prefix PATH : "${lib.makeBinPath [ gnuplot ]}"
+      --prefix PATH : "${lib.makeBinPath [gnuplot]}"
   '';
 
   passthru.tests.version = testers.testVersion {
@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/vanilla-extracts/calc/blob/${version}/CHANGELOG.md";
     homepage = "https://calc.charlotte-thomas.me/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     mainProgram = "mini-calc";
     platforms = lib.platforms.unix;
   };

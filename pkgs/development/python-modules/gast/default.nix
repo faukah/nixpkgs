@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "gast";
   version = "0.6.0";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-zrbxW8qWhCY6tObP+/WDReoCnlCpMEzQucX2inpRTL4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     astunparse
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "gast" ];
+  pythonImportsCheck = ["gast"];
 
   meta = {
     description = "Compatibility layer between the AST of various Python versions";

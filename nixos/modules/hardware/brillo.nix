@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.hardware.brillo;
-in
-{
+in {
   options = {
     hardware.brillo = {
       enable = lib.mkEnableOption ''
@@ -18,7 +16,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.udev.packages = [ pkgs.brillo ];
-    environment.systemPackages = [ pkgs.brillo ];
+    services.udev.packages = [pkgs.brillo];
+    environment.systemPackages = [pkgs.brillo];
   };
 }

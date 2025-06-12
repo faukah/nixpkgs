@@ -5,7 +5,6 @@
   libcoldclear,
   luajit,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ccloader";
   version = "11.4.2";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "Luajit wrapper for Cold Clear, a Tetris AI";
     homepage = "https://github.com/26F-Studio/cold_clear_ai_love2d_wrapper";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ chayleaf ];
+    maintainers = with maintainers; [chayleaf];
   };
 }

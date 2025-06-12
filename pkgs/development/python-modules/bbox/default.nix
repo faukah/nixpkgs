@@ -11,7 +11,6 @@
   poetry-core,
   pyquaternion,
 }:
-
 buildPythonPackage {
   pname = "bbox";
   version = "0.9.4";
@@ -27,7 +26,7 @@ buildPythonPackage {
     hash = "sha256-FrJ8FhlqwmnEB/QvPlkDfqZncNGPhwY9aagM9yv1LGs=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   postPatch = ''
     substituteInPlace bbox/metrics.py \
@@ -51,14 +50,14 @@ buildPythonPackage {
     "test_multi_jaccard_index_2d_performance"
   ];
 
-  pythonRelaxDeps = [ "numpy" ];
+  pythonRelaxDeps = ["numpy"];
 
-  pythonImportsCheck = [ "bbox" ];
+  pythonImportsCheck = ["bbox"];
 
   meta = {
     description = "Python library for 2D/3D bounding boxes";
     homepage = "https://github.com/varunagrawal/bbox";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lucasew ];
+    maintainers = with lib.maintainers; [lucasew];
   };
 }

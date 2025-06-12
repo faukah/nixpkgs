@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.virtualisation.digitalOceanImage;
-in
-{
-
+in {
   imports = [
     ./digital-ocean-config.nix
     ./disk-size-option.nix
@@ -58,57 +54,54 @@ in
   };
 
   #### implementation
-  config =
-    let
-      format = "qcow2";
-    in
-    {
-      image.extension = lib.concatStringsSep "." [
+  config = let
+    format = "qcow2";
+  in {
+    image.extension = lib.concatStringsSep "." [
+      format
+      (
+        {
+          "gzip" = "gz";
+          "bzip2" = "bz2";
+        }
+          .${
+          cfg.compressionMethod
+        }
+      )
+    ];
+    system.nixos.tags = ["digital-ocean"];
+    system.build.image = config.system.build.digitalOceanImage;
+    system.build.digitalOceanImage = import ../../lib/make-disk-image.nix {
+      name = "digital-ocean-image";
+      inherit (config.image) baseName;
+      inherit (config.virtualisation) diskSize;
+      inherit
+        config
+        lib
+        pkgs
         format
-        (
+        ;
+      postVM = let
+        compress =
           {
-            "gzip" = "gz";
-            "bzip2" = "bz2";
+            "gzip" = "${pkgs.gzip}/bin/gzip";
+            "bzip2" = "${pkgs.bzip2}/bin/bzip2";
           }
-          .${cfg.compressionMethod}
-        )
-      ];
-      system.nixos.tags = [ "digital-ocean" ];
-      system.build.image = config.system.build.digitalOceanImage;
-      system.build.digitalOceanImage = import ../../lib/make-disk-image.nix {
-        name = "digital-ocean-image";
-        inherit (config.image) baseName;
-        inherit (config.virtualisation) diskSize;
-        inherit
-          config
-          lib
-          pkgs
-          format
-          ;
-        postVM =
-          let
-            compress =
-              {
-                "gzip" = "${pkgs.gzip}/bin/gzip";
-                "bzip2" = "${pkgs.bzip2}/bin/bzip2";
-              }
-              .${cfg.compressionMethod};
-          in
-          ''
-            ${compress} $diskImage
-          '';
-        configFile =
-          if cfg.configFile == null then
-            config.virtualisation.digitalOcean.defaultConfigFile
-          else
-            cfg.configFile;
-      };
-
+              .${
+            cfg.compressionMethod
+          };
+      in ''
+        ${compress} $diskImage
+      '';
+      configFile =
+        if cfg.configFile == null
+        then config.virtualisation.digitalOcean.defaultConfigFile
+        else cfg.configFile;
     };
+  };
 
   meta.maintainers = with maintainers; [
     arianvp
     eamsden
   ];
-
 }

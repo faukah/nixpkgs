@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-aag66YafLDSLBcXyRNcTyiqf3U4hx2gjimxhKVns/zc=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   nativeCheckInputs = [
     flask
@@ -58,7 +58,7 @@ buildPythonPackage rec {
     "markupsafe"
   ];
 
-  pythonImportsCheck = [ "openapidocs" ];
+  pythonImportsCheck = ["openapidocs"];
 
   disabledTestPaths = lib.optionals stdenv.hostPlatform.isDarwin [
     # These tests start a server using a hardcoded port, and since

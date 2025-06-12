@@ -12,9 +12,7 @@
   runCommand,
   tesseract,
   nixosTests,
-}:
-
-let
+}: let
   mvnDepsHashes = {
     "x86_64-linux" = "sha256-OTd51n6SSlFziqvvHmfyMAyQRwIzsHxFGuJ62zlX1Ec=";
     "aarch64-linux" = "sha256-tPaGLqm0jgEoz0BD/C6AG9xupovQvib/v0kB/jjqwB8=";
@@ -38,50 +36,53 @@ let
     jdk = jdk17;
   };
 in
-maven.buildMavenPackage rec {
-  pname = "tika";
-  version = "2.9.3";
+  maven.buildMavenPackage rec {
+    pname = "tika";
+    version = "2.9.3";
 
-  src = fetchFromGitHub {
-    owner = "apache";
-    repo = "tika";
-    tag = version;
-    hash = "sha256-nuiE+MWJNA4PLprAC0vDBadk34TFsVEDBcCZct1XRxo=";
-  };
+    src = fetchFromGitHub {
+      owner = "apache";
+      repo = "tika";
+      tag = version;
+      hash = "sha256-nuiE+MWJNA4PLprAC0vDBadk34TFsVEDBcCZct1XRxo=";
+    };
 
-  buildOffline = true;
+    buildOffline = true;
 
-  manualMvnArtifacts = [
-    "org.objenesis:objenesis:2.1"
-    "org.apache.apache.resources:apache-jar-resource-bundle:1.5"
-    "org.apache.maven.surefire:surefire-junit-platform:3.1.2"
-    "org.junit.platform:junit-platform-launcher:1.10.0"
-  ];
+    manualMvnArtifacts = [
+      "org.objenesis:objenesis:2.1"
+      "org.apache.apache.resources:apache-jar-resource-bundle:1.5"
+      "org.apache.maven.surefire:surefire-junit-platform:3.1.2"
+      "org.junit.platform:junit-platform-launcher:1.10.0"
+    ];
 
-  mvnJdk = jdk17;
-  mvnHash = if mvnDepsHash != null then mvnDepsHash else knownMvnDepsHash;
+    mvnJdk = jdk17;
+    mvnHash =
+      if mvnDepsHash != null
+      then mvnDepsHash
+      else knownMvnDepsHash;
 
-  mvnParameters = toString (
-    [
-      "-DskipTests=true" # skip tests (out of memory exceptions)
-      "-Dossindex.skip" # skip dependency with vulnerability (recommended by upstream)
-    ]
-    ++ lib.optionals (!enableGui) [
-      "-am -pl :tika-server-standard"
-    ]
-  );
+    mvnParameters = toString (
+      [
+        "-DskipTests=true" # skip tests (out of memory exceptions)
+        "-Dossindex.skip" # skip dependency with vulnerability (recommended by upstream)
+      ]
+      ++ lib.optionals (!enableGui) [
+        "-am -pl :tika-server-standard"
+      ]
+    );
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  installPhase =
-    let
+    installPhase = let
       flags = "--add-opens java.base/jdk.internal.ref=ALL-UNNAMED --add-opens java.base/java.nio=ALL-UNNAMED";
 
       binPath = lib.makeBinPath (
         [
-          (runCommand "jdk-tika"
+          (
+            runCommand "jdk-tika"
             {
-              nativeBuildInputs = [ makeWrapper ];
+              nativeBuildInputs = [makeWrapper];
             }
             ''
               makeWrapper ${jdk}/bin/java $out/bin/java \
@@ -89,49 +90,49 @@ maven.buildMavenPackage rec {
             ''
           )
         ]
-        ++ lib.optionals enableOcr [ tesseract ]
+        ++ lib.optionals enableOcr [tesseract]
       );
     in
-    ''
-      runHook preInstall
+      ''
+        runHook preInstall
 
-      # Note: using * instead of version would match multiple files
-    ''
-    + lib.optionalString enableGui ''
-      install -Dm644 tika-app/target/tika-app-${version}.jar $out/share/tika/tika-app.jar
-      makeWrapper ${jdk}/bin/java $out/bin/tika-app \
-          --add-flags "${flags} -jar $out/share/tika/tika-app.jar"
-    ''
-    + ''
-      install -Dm644 tika-server/tika-server-standard/target/tika-server-standard-${version}.jar $out/share/tika/tika-server.jar
-      makeWrapper ${jdk}/bin/java $out/bin/tika-server \
-          --prefix PATH : ${binPath} \
-          --add-flags "-jar $out/share/tika/tika-server.jar"
+        # Note: using * instead of version would match multiple files
+      ''
+      + lib.optionalString enableGui ''
+        install -Dm644 tika-app/target/tika-app-${version}.jar $out/share/tika/tika-app.jar
+        makeWrapper ${jdk}/bin/java $out/bin/tika-app \
+            --add-flags "${flags} -jar $out/share/tika/tika-app.jar"
+      ''
+      + ''
+        install -Dm644 tika-server/tika-server-standard/target/tika-server-standard-${version}.jar $out/share/tika/tika-server.jar
+        makeWrapper ${jdk}/bin/java $out/bin/tika-server \
+            --prefix PATH : ${binPath} \
+            --add-flags "-jar $out/share/tika/tika-server.jar"
 
-      runHook postInstall
-    '';
+        runHook postInstall
+      '';
 
-  passthru.tests = {
-    inherit (nixosTests) tika;
-  };
+    passthru.tests = {
+      inherit (nixosTests) tika;
+    };
 
-  meta = {
-    changelog = "https://github.com/apache/tika/blob/${src.rev}/CHANGES.txt";
-    description = "Toolkit for extracting metadata and text from over a thousand different file types";
-    longDescription = ''
-      The Apache Tika™ toolkit detects and extracts metadata and text
-      from over a thousand different file types (such as PPT, XLS, and PDF).
-      All of these file types can be parsed through a single interface,
-      making Tika useful for search engine indexing, content analysis,
-      translation, and much more.
-    '';
-    homepage = "https://tika.apache.org";
-    license = lib.licenses.asl20;
-    mainProgram = "tika-server";
-    maintainers = with lib.maintainers; [ tomasajt ];
-    sourceProvenance = with lib.sourceTypes; [
-      fromSource
-      binaryBytecode # maven dependencies
-    ];
-  };
-}
+    meta = {
+      changelog = "https://github.com/apache/tika/blob/${src.rev}/CHANGES.txt";
+      description = "Toolkit for extracting metadata and text from over a thousand different file types";
+      longDescription = ''
+        The Apache Tika™ toolkit detects and extracts metadata and text
+        from over a thousand different file types (such as PPT, XLS, and PDF).
+        All of these file types can be parsed through a single interface,
+        making Tika useful for search engine indexing, content analysis,
+        translation, and much more.
+      '';
+      homepage = "https://tika.apache.org";
+      license = lib.licenses.asl20;
+      mainProgram = "tika-server";
+      maintainers = with lib.maintainers; [tomasajt];
+      sourceProvenance = with lib.sourceTypes; [
+        fromSource
+        binaryBytecode # maven dependencies
+      ];
+    };
+  }

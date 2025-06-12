@@ -9,7 +9,6 @@
   glib,
   colord,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xiccd";
   version = "0.3.0";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "X color profile daemon";
     homepage = "https://github.com/agalakhov/xiccd";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = platforms.linux;
     mainProgram = "xiccd";
   };

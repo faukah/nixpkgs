@@ -3,7 +3,6 @@
   buildHomeAssistantComponent,
   fetchFromGitHub,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "BeryJu";
   domain = "auth_header";
@@ -20,7 +19,7 @@ buildHomeAssistantComponent rec {
     changelog = "https://github.com/BeryJu/hass-auth-header/releases/tag/v${version}";
     description = "Home Assistant custom component which allows you to delegate authentication to a reverse proxy";
     homepage = "https://github.com/BeryJu/hass-auth-header";
-    maintainers = with maintainers; [ mjm ];
+    maintainers = with maintainers; [mjm];
     license = licenses.gpl3;
   };
 }

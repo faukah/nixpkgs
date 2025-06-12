@@ -4,9 +4,7 @@
   fetchFromGitHub,
   pkgsBuildBuild,
   dbip-country-lite,
-}:
-
-let
+}: let
   generator = pkgsBuildBuild.buildGoModule rec {
     pname = "v2ray-geoip";
     version = "202501190004";
@@ -24,38 +22,39 @@ let
       description = "GeoIP for V2Ray";
       homepage = "https://github.com/v2fly/geoip";
       license = lib.licenses.cc-by-sa-40;
-      maintainers = with lib.maintainers; [ nickcao ];
+      maintainers = with lib.maintainers; [nickcao];
     };
   };
 in
+  stdenvNoCC.mkDerivation {
+    inherit (generator) pname src;
+    inherit (dbip-country-lite) version;
 
-stdenvNoCC.mkDerivation {
-  inherit (generator) pname src;
-  inherit (dbip-country-lite) version;
+    nativeBuildInputs = [generator];
 
-  nativeBuildInputs = [ generator ];
+    buildPhase = ''
+      runHook preBuild
 
-  buildPhase = ''
-    runHook preBuild
+      mkdir -p db-ip
+      ln -s ${dbip-country-lite.mmdb} ./db-ip/dbip-country-lite.mmdb
+      geoip
 
-    mkdir -p db-ip
-    ln -s ${dbip-country-lite.mmdb} ./db-ip/dbip-country-lite.mmdb
-    geoip
+      runHook postBuild
+    '';
 
-    runHook postBuild
-  '';
+    installPhase = ''
+      runHook preInstall
 
-  installPhase = ''
-    runHook preInstall
+      install -Dm444 -t "$out/share/v2ray" output/{cn,geoip-only-cn-private,geoip,private}.dat
 
-    install -Dm444 -t "$out/share/v2ray" output/{cn,geoip-only-cn-private,geoip,private}.dat
+      runHook postInstall
+    '';
 
-    runHook postInstall
-  '';
+    passthru.generator = generator;
 
-  passthru.generator = generator;
-
-  meta = generator.meta // {
-    inherit (dbip-country-lite.meta) license;
-  };
-}
+    meta =
+      generator.meta
+      // {
+        inherit (dbip-country-lite.meta) license;
+      };
+  }

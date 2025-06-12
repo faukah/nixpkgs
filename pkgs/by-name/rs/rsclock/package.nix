@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rsClock";
   version = "0.1.12";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Simple terminal clock written in Rust";
     homepage = "https://github.com/valebes/rsClock";
     license = licenses.mit;
-    maintainers = with maintainers; [ valebes ];
+    maintainers = with maintainers; [valebes];
     mainProgram = "rsclock";
   };
 }

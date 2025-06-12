@@ -5,7 +5,6 @@
   async,
   core,
 }:
-
 buildDunePackage {
   pname = "cstruct-async";
   inherit (cstruct) src version meta;

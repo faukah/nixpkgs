@@ -24,7 +24,6 @@
   gst_all_1,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "newsflash";
   version = "3.3.5";
@@ -61,7 +60,6 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Provides setup hook to fix "Unrecognized image file format"
     gdk-pixbuf
-
   ];
 
   buildInputs =
@@ -88,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
       gst-plugins-bad
     ]);
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v."; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v.";};
 
   meta = {
     description = "Modern feed reader designed for the GNOME desktop";
@@ -98,7 +96,7 @@ stdenv.mkDerivation (finalAttrs: {
       kira-bruneau
       stunkymonkey
     ];
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.unix;
     mainProgram = "io.gitlab.news_flash.NewsFlash";
   };

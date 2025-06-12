@@ -7,7 +7,6 @@
   stdenv,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rip2";
   version = "0.9.4";
@@ -22,14 +21,14 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-KUVybOCtc66AubXjei0YCkXirfuIDgK3xSxjNODun98=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # TODO: Unsure why this test fails, but not a major issue so
   #       skipping for now.
-  checkFlags = [ "--skip=test_filetypes::file_type_3___fifo__" ];
+  checkFlags = ["--skip=test_filetypes::file_type_3___fifo__"];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/rip";
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd rip \
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
       --zsh <($out/bin/rip completions zsh)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Safe and ergonomic alternative to rm";

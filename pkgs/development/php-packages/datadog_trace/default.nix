@@ -11,7 +11,6 @@
   libiconv,
   php,
 }:
-
 buildPecl rec {
   pname = "ddtrace";
   version = "0.97.0";
@@ -55,7 +54,7 @@ buildPecl rec {
       asl20
       bsd3
     ];
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
     broken = lib.versionAtLeast php.version "8.4";
   };
 }

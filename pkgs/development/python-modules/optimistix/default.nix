@@ -2,17 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   equinox,
   jax,
   jaxtyping,
   lineax,
   typing-extensions,
-
   # tests
   beartype,
   jaxlib,
@@ -20,7 +17,6 @@
   pytestCheckHook,
   pytest-xdist,
 }:
-
 buildPythonPackage rec {
   pname = "optimistix";
   version = "0.0.10";
@@ -33,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-stVPHzv0XNd0I31N2Cj0QYrMmhImyx0cablqZfKBFrM=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     equinox
@@ -43,7 +39,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "optimistix" ];
+  pythonImportsCheck = ["optimistix"];
 
   nativeCheckInputs = [
     beartype
@@ -65,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/patrick-kidger/optimistix";
     changelog = "https://github.com/patrick-kidger/optimistix/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

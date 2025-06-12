@@ -12,7 +12,6 @@
   qtx11extras,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qsynth";
   version = "1.0.3";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     mainProgram = "qsynth";
     homepage = "https://sourceforge.net/projects/qsynth";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

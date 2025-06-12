@@ -1,5 +1,4 @@
-{ runTest }:
-{
+{runTest}: {
   http01-builtin = runTest ./http01-builtin.nix;
   dns01 = runTest ./dns01.nix;
   caddy = runTest ./caddy.nix;

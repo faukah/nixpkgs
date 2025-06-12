@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "cnstrokeorder";
   version = "0.0.4.7";
@@ -26,8 +25,8 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Chinese font that shows stroke order for HSK 1-4";
     homepage = "http://rtega.be/chmn/index.php?subpage=68";
-    license = [ licenses.arphicpl ];
-    maintainers = with maintainers; [ johnazoidberg ];
+    license = [licenses.arphicpl];
+    maintainers = with maintainers; [johnazoidberg];
     platforms = platforms.all;
   };
 }

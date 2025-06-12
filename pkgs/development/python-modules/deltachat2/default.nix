@@ -6,7 +6,6 @@
   setuptools-scm,
   replaceVars,
 }:
-
 buildPythonPackage rec {
   pname = "deltachat2";
   version = "0.7.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonImportsCheck = [ "deltachat2" ];
+  pythonImportsCheck = ["deltachat2"];
 
   meta = {
     description = "Client library for Delta Chat core JSON-RPC interface";

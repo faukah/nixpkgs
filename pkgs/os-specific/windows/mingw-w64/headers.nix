@@ -4,7 +4,6 @@
   fetchurl,
   crt ? stdenvNoCC.hostPlatform.libc,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "mingw_w64-headers";
   version = "12.0.0";

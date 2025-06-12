@@ -4,7 +4,6 @@
   kernel,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "new-lg4ff";
   version = "0-unstable-2024-11-25";
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
     description = "Experimental Logitech force feedback module for Linux";
     homepage = "https://github.com/berarma/new-lg4ff";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ matthiasbenaets ];
+    maintainers = with maintainers; [matthiasbenaets];
     platforms = platforms.linux;
     broken = stdenv.hostPlatform.isAarch64;
   };

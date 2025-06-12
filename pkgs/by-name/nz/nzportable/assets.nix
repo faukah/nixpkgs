@@ -37,8 +37,8 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "Game asset repository for Nazi Zombies: Portable";
     homepage = "https://github.com/nzp-team/assets";
-    license = with lib.licenses; [ cc-by-sa-40 ];
+    license = with lib.licenses; [cc-by-sa-40];
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ pluiedev ];
+    maintainers = with lib.maintainers; [pluiedev];
   };
 }

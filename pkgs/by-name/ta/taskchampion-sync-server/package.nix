@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     description = "Sync server for Taskwarrior 3";
     license = lib.licenses.mit;
     homepage = "https://github.com/GothenburgBitFactory/taskchampion-sync-server";
-    maintainers = with lib.maintainers; [ mlaradji ];
+    maintainers = with lib.maintainers; [mlaradji];
     mainProgram = "taskchampion-sync-server";
   };
 }

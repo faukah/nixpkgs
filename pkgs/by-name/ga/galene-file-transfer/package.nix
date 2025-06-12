@@ -10,7 +10,6 @@
   nix,
   sd,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "galene-file-transfer";
   version = "0.2";

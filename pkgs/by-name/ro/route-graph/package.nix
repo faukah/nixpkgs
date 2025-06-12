@@ -4,7 +4,6 @@
   graphviz,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "route-graph";
   version = "0.2.2";
@@ -48,7 +47,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/audiusGmbH/route-graph";
     changelog = "https://github.com/audiusGmbH/route-graph/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "route-graph";
   };
 }

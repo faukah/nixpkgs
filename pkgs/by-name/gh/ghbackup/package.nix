@@ -5,7 +5,6 @@
   git,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "ghbackup";
   version = "1.13.0";
@@ -17,19 +16,19 @@ buildGoModule rec {
     hash = "sha256-3LSe805VrbUGjqjnhTJD2KBVZ4rq+4Z3l4d0I1MrBMA=";
   };
 
-  patches = [ ./patches/fix-next-page-logic.patch ];
+  patches = [./patches/fix-next-page-logic.patch];
 
   postPatch = ''
     go mod init qvl.io/ghbackup
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   vendorHash = null;
 
   postFixup = ''
     wrapProgram $out/bin/${meta.mainProgram} \
-      --prefix PATH : "${lib.makeBinPath [ git ]}"
+      --prefix PATH : "${lib.makeBinPath [git]}"
   '';
 
   doCheck = false; # tests want to actually download from github
@@ -39,6 +38,6 @@ buildGoModule rec {
     homepage = "https://github.com/qvl/ghbackup";
     license = licenses.mit;
     mainProgram = "ghbackup";
-    maintainers = with maintainers; [ lenny ];
+    maintainers = with maintainers; [lenny];
   };
 }

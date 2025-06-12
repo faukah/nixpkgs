@@ -11,5 +11,5 @@ mkKdeDerivation {
     qt5compat
     boost
   ];
-  extraPropagatedBuildInputs = [ qgpgme ];
+  extraPropagatedBuildInputs = [qgpgme];
 }

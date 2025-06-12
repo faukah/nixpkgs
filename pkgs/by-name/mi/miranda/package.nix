@@ -4,7 +4,6 @@
   fetchzip,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "miranda";
   version = "2.066";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
   # from the start so this mismatch cannot occur.
   src = fetchzip {
     url = "https://www.cs.kent.ac.uk/people/staff/dat/miranda/src/mira-${
-      builtins.replaceStrings [ "." ] [ "" ] version
+      builtins.replaceStrings ["."] [""] version
     }-src.tgz";
     sha256 = "KE/FTL9YW9l7VBAgkFZlqgSM1Bt/BXT6GkkONtyKJjQ=";
   };
@@ -88,7 +87,7 @@ stdenv.mkDerivation rec {
     description = "Compiler for Miranda -- a pure, non-strict, polymorphic, higher order functional programming language";
     homepage = "https://www.cs.kent.ac.uk/people/staff/dat/miranda/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.all;
     mainProgram = "mira";
   };

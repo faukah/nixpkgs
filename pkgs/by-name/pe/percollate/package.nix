@@ -5,7 +5,6 @@
   chromium,
   makeWrapper,
 }:
-
 buildNpmPackage rec {
   pname = "percollate";
   version = "4.2.3";
@@ -23,9 +22,9 @@ buildNpmPackage rec {
 
   # Dev dependencies include an unnecessary Java dependency (epubchecker)
   # https://github.com/danburzo/percollate/blob/v4.2.3/package.json#L40
-  npmInstallFlags = [ "--omit=dev" ];
+  npmInstallFlags = ["--omit=dev"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   env = {
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = true;
@@ -44,7 +43,7 @@ buildNpmPackage rec {
     description = "Command-line tool to turn web pages into readable PDF, EPUB, HTML, or Markdown docs";
     homepage = "https://github.com/danburzo/percollate";
     license = licenses.mit;
-    maintainers = [ maintainers.austinbutler ];
+    maintainers = [maintainers.austinbutler];
     mainProgram = "percollate";
   };
 }

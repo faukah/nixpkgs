@@ -5,7 +5,7 @@
   symlinkJoin,
   lib,
   stdenv,
-  extraPackages ? [ ],
+  extraPackages ? [],
   runc, # Default container runtime
   crun, # Container runtime (default with cgroups v2 for podman/buildah)
   conmon, # Container runtime monitor
@@ -16,9 +16,7 @@
   aardvark-dns,
   netavark,
   passt,
-}:
-
-let
+}: let
   binPath = lib.makeBinPath (
     [
     ]
@@ -47,16 +45,15 @@ let
         passt
       ];
   };
-
 in
-runCommand buildah-unwrapped.name
+  runCommand buildah-unwrapped.name
   {
     name = "${buildah-unwrapped.pname}-wrapper-${buildah-unwrapped.version}";
     inherit (buildah-unwrapped) pname version passthru;
 
     preferLocalBuild = true;
 
-    meta = builtins.removeAttrs buildah-unwrapped.meta [ "outputsToInstall" ];
+    meta = builtins.removeAttrs buildah-unwrapped.meta ["outputsToInstall"];
 
     outputs = [
       "out"
@@ -66,7 +63,6 @@ runCommand buildah-unwrapped.name
     nativeBuildInputs = [
       makeWrapper
     ];
-
   }
   ''
     ln -s ${buildah-unwrapped.man} $man

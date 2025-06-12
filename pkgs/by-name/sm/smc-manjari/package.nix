@@ -6,7 +6,6 @@
   gnumake,
   truetype ? false,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "smc-manjari";
   version = "2.200";
@@ -24,7 +23,7 @@ stdenvNoCC.mkDerivation rec {
     python3Packages.fontmake
   ];
 
-  buildFlags = [ "otf" ] ++ lib.optional truetype "ttf";
+  buildFlags = ["otf"] ++ lib.optional truetype "ttf";
 
   installPhase = ''
     runHook preInstall
@@ -44,6 +43,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Manjari Malayalam Typeface";
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ adtya ];
+    maintainers = with lib.maintainers; [adtya];
   };
 }

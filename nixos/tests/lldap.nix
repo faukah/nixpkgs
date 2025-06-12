@@ -1,19 +1,16 @@
-{ ... }:
-{
+{...}: {
   name = "lldap";
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.lldap = {
-        enable = true;
-        settings = {
-          verbose = true;
-          ldap_base_dn = "dc=example,dc=com";
-        };
+  nodes.machine = {pkgs, ...}: {
+    services.lldap = {
+      enable = true;
+      settings = {
+        verbose = true;
+        ldap_base_dn = "dc=example,dc=com";
       };
-      environment.systemPackages = [ pkgs.openldap ];
     };
+    environment.systemPackages = [pkgs.openldap];
+  };
 
   testScript = ''
     machine.wait_for_unit("lldap.service")

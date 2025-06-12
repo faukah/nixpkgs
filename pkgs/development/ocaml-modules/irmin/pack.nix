@@ -16,7 +16,6 @@
   astring,
   irmin-test,
 }:
-
 buildDunePackage {
   minimalOCamlVersion = "4.12";
 
@@ -24,7 +23,7 @@ buildDunePackage {
 
   inherit (irmin) version src;
 
-  nativeBuildInputs = [ ppx_irmin ];
+  nativeBuildInputs = [ppx_irmin];
 
   propagatedBuildInputs = [
     index
@@ -48,9 +47,10 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = irmin.meta // {
-    description = "Irmin backend which stores values in a pack file";
-    mainProgram = "irmin_fsck";
-  };
-
+  meta =
+    irmin.meta
+    // {
+      description = "Irmin backend which stores values in a pack file";
+      mainProgram = "irmin_fsck";
+    };
 }

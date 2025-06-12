@@ -6,7 +6,6 @@
   docutils,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "restructuredtext-lint";
   version = "1.4.0";
@@ -18,15 +17,15 @@ buildPythonPackage rec {
     hash = "sha256-GyNcDJIjQatsUwOQiS656S+QubdQRgY+BHys+w8FDEU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ docutils ];
+  propagatedBuildInputs = [docutils];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "restructuredtext_lint/test/test.py" ];
+  pytestFlagsArray = ["restructuredtext_lint/test/test.py"];
 
-  pythonImportsCheck = [ "restructuredtext_lint" ];
+  pythonImportsCheck = ["restructuredtext_lint"];
 
   meta = {
     description = "reStructuredText linter";

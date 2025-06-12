@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.mealie;
   pkg = cfg.package;
-in
-{
+in {
   options.services.mealie = {
     enable = lib.mkEnableOption "Mealie, a recipe manager and meal planner";
 
-    package = lib.mkPackageOption pkgs "mealie" { };
+    package = lib.mkPackageOption pkgs "mealie" {};
 
     listenAddress = lib.mkOption {
       type = lib.types.str;
@@ -28,7 +26,7 @@ in
 
     settings = lib.mkOption {
       type = with lib.types; attrsOf anything;
-      default = { };
+      default = {};
       description = ''
         Configuration of the Mealie service.
 
@@ -66,18 +64,20 @@ in
     systemd.services.mealie = {
       description = "Mealie, a self hosted recipe manager and meal planner";
 
-      after = [ "network-online.target" ] ++ lib.optional cfg.database.createLocally "postgresql.service";
+      after = ["network-online.target"] ++ lib.optional cfg.database.createLocally "postgresql.service";
       requires = lib.optional cfg.database.createLocally "postgresql.service";
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
-      environment = {
-        PRODUCTION = "true";
-        API_PORT = toString cfg.port;
-        BASE_URL = "http://localhost:${toString cfg.port}";
-        DATA_DIR = "/var/lib/mealie";
-        NLTK_DATA = pkgs.nltk-data.averaged-perceptron-tagger-eng;
-      } // (builtins.mapAttrs (_: val: toString val) cfg.settings);
+      environment =
+        {
+          PRODUCTION = "true";
+          API_PORT = toString cfg.port;
+          BASE_URL = "http://localhost:${toString cfg.port}";
+          DATA_DIR = "/var/lib/mealie";
+          NLTK_DATA = pkgs.nltk-data.averaged-perceptron-tagger-eng;
+        }
+        // (builtins.mapAttrs (_: val: toString val) cfg.settings);
 
       serviceConfig = {
         DynamicUser = true;
@@ -97,7 +97,7 @@ in
 
     services.postgresql = lib.mkIf cfg.database.createLocally {
       enable = true;
-      ensureDatabases = [ "mealie" ];
+      ensureDatabases = ["mealie"];
       ensureUsers = [
         {
           name = "mealie";

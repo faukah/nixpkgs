@@ -15,9 +15,7 @@
   lua5_3,
   plan9port,
   rustPlatform,
-}:
-
-self: super: {
+}: self: super: {
   inherit kakoune-lsp parinfer-rust rep;
 
   case-kak = buildKakounePluginFrom2Nix {
@@ -184,7 +182,7 @@ self: super: {
       description = "hinting brought to Kakoune selections";
       homepage = "https://git.sr.ht/~hadronized/hop.kak/";
       license = licenses.bsd3;
-      maintainers = with maintainers; [ oleina ];
+      maintainers = with maintainers; [oleina];
       platforms = platforms.all;
     };
   };
@@ -199,7 +197,7 @@ self: super: {
       sha256 = "0y1g3zpa2ql8l9rl5i2w84bka8a09kig9nq9zdchaff5pw660mcx";
     };
 
-    buildInputs = [ lua5_3 ];
+    buildInputs = [lua5_3];
 
     installPhase = ''
       mkdir -p $out/share/kak/autoload/plugins/
@@ -212,7 +210,7 @@ self: super: {
       description = "Highlight f and t jump positions";
       homepage = "https://sr.ht/~voroskoi/quickscope.kak/";
       license = licenses.unlicense;
-      maintainers = with maintainers; [ eraserhd ];
+      maintainers = with maintainers; [eraserhd];
       platforms = platforms.all;
     };
   };
@@ -231,7 +229,7 @@ self: super: {
       homepage = "https://github.com/catppuccin/kakoune/";
       license = licenses.mit;
       platforms = platforms.all;
-      maintainers = with maintainers; [ philipwilk ];
+      maintainers = with maintainers; [philipwilk];
     };
   };
 }

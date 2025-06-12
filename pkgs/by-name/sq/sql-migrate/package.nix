@@ -21,6 +21,6 @@ buildGoModule rec {
     homepage = "https://github.com/rubenv/sql-migrate";
     mainProgram = "sql-migrate";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.tebro ];
+    maintainers = [lib.maintainers.tebro];
   };
 }

@@ -16,7 +16,6 @@
   itstool,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "baobab";
   version = "48.0";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
     mainProgram = "baobab";
     homepage = "https://apps.gnome.org/Baobab/";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 }

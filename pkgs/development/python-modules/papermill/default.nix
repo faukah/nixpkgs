@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   ansicolors,
   click,
@@ -19,7 +17,6 @@
   tqdm,
   pythonAtLeast,
   aiohttp,
-
   # optional-dependencies
   azure-datalake-store,
   azure-identity,
@@ -28,7 +25,6 @@
   pygithub,
   pyarrow,
   boto3,
-
   # tests
   ipykernel,
   moto,
@@ -37,7 +33,6 @@
   versionCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "papermill";
   version = "2.6.0";
@@ -50,19 +45,21 @@ buildPythonPackage rec {
     hash = "sha256-NxC5+hRDdMCl/7ZIho5ml4hdENrgO+wzi87GRPeMv8Q=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    ansicolors
-    click
-    entrypoints
-    nbclient
-    nbformat
-    pyyaml
-    requests
-    tenacity
-    tqdm
-  ] ++ lib.optionals (pythonAtLeast "3.12") [ aiohttp ];
+  dependencies =
+    [
+      ansicolors
+      click
+      entrypoints
+      nbclient
+      nbformat
+      pyyaml
+      requests
+      tenacity
+      tqdm
+    ]
+    ++ lib.optionals (pythonAtLeast "3.12") [aiohttp];
 
   optional-dependencies = {
     azure = [
@@ -70,10 +67,10 @@ buildPythonPackage rec {
       azure-identity
       azure-storage-blob
     ];
-    gcs = [ gcsfs ];
-    github = [ pygithub ];
-    hdfs = [ pyarrow ];
-    s3 = [ boto3 ];
+    gcs = [gcsfs];
+    github = [pygithub];
+    hdfs = [pyarrow];
+    s3 = [boto3];
   };
 
   nativeCheckInputs =
@@ -90,7 +87,7 @@ buildPythonPackage rec {
     ++ optional-dependencies.gcs;
   versionCheckProgramArg = "--version";
 
-  pythonImportsCheck = [ "papermill" ];
+  pythonImportsCheck = ["papermill"];
 
   # Using pytestFlagsArray to prevent disabling false positives
   pytestFlagsArray = [
@@ -123,7 +120,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/nteract/papermill";
     changelog = "https://papermill.readthedocs.io/en/latest/changelog.html";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "papermill";
   };
 }

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitLab,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "watchlog";
   version = "1.246.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Easier monitoring of live logs";
     homepage = "https://gitlab.com/kevincox/watchlog";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ kevincox ];
+    maintainers = with lib.maintainers; [kevincox];
 
     # Dependency only supports Linux + Windows: https://github.com/mentaljam/standard_paths/tree/master/src
     platforms = with lib.platforms; linux ++ windows;

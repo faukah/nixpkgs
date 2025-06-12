@@ -7,7 +7,6 @@
   zstd,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wastebin";
   version = "3.2.0";

@@ -2,28 +2,26 @@
   lib,
   stdenvNoCC,
 }:
-
 /**
-  `buildTypstPackage` is a helper builder for typst packages.
+`buildTypstPackage` is a helper builder for typst packages.
 
-  # Inputs
+# Inputs
 
-    `attrs`
-    : attrs for stdenvNoCC.mkDerivation + typstDeps (a list of `buildTypstPackage` derivations)
+  `attrs`
+  : attrs for stdenvNoCC.mkDerivation + typstDeps (a list of `buildTypstPackage` derivations)
 
-  # Example
-  ```nix
-  { buildTypstPackage, typstPackages }:
+# Example
+```nix
+{ buildTypstPackage, typstPackages }:
 
-  buildTypstPackage {
-    pname = "example";
-    version = "0.0.1";
-    src = ./.;
-    typstDeps = with typstPackages; [ oxifmt ];
-  }
-  ```
+buildTypstPackage {
+  pname = "example";
+  version = "0.0.1";
+  src = ./.;
+  typstDeps = with typstPackages; [ oxifmt ];
+}
+```
 */
-
 lib.extendMkDerivation {
   constructDrv = stdenvNoCC.mkDerivation;
 
@@ -31,32 +29,24 @@ lib.extendMkDerivation {
     "typstDeps"
   ];
 
-  extendDrvArgs =
-    finalAttrs:
-    {
-      typstDeps ? [ ],
-      ...
-    }@attrs:
-    {
-      name = "typst-package-${finalAttrs.pname}-${finalAttrs.version}";
+  extendDrvArgs = finalAttrs: {typstDeps ? [], ...} @ attrs: {
+    name = "typst-package-${finalAttrs.pname}-${finalAttrs.version}";
 
-      dontBuild = true;
+    dontBuild = true;
 
-      installPhase =
-        let
-          outDir = "$out/lib/typst-packages/${finalAttrs.pname}/${finalAttrs.version}";
-        in
-        ''
-          runHook preInstall
-          mkdir -p ${outDir}
-          cp -r . ${outDir}
-          runHook postInstall
-        '';
+    installPhase = let
+      outDir = "$out/lib/typst-packages/${finalAttrs.pname}/${finalAttrs.version}";
+    in ''
+      runHook preInstall
+      mkdir -p ${outDir}
+      cp -r . ${outDir}
+      runHook postInstall
+    '';
 
-      propagatedBuildInputs = typstDeps;
+    propagatedBuildInputs = typstDeps;
 
-      passthru = {
-        inherit typstDeps;
-      };
+    passthru = {
+      inherit typstDeps;
     };
+  };
 }

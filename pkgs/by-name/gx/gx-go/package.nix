@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "gx-go";
   version = "unstable-2020-03-03";
@@ -27,6 +26,6 @@ buildGoModule {
     mainProgram = "gx-go";
     homepage = "https://github.com/whyrusleeping/gx-go";
     license = licenses.mit;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
   };
 }

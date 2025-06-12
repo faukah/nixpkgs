@@ -8,7 +8,6 @@
   gmp,
   mpfr,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fplll";
   version = "5.5.0";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
       "https://groups.google.com/forum/#!searchin/fplll-devel/FPLLL$20${version}"
     ];
     license = licenses.lgpl21Plus;
-    teams = [ teams.sage ];
+    teams = [teams.sage];
     platforms = platforms.unix;
   };
 }

@@ -16,7 +16,6 @@
   xz,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "snort";
   version = "3.8.1.0";
@@ -50,11 +49,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   # Patch that is tracking upstream PR https://github.com/snort3/snort3/pull/399
-  patches = [ ./0001-cmake-fix-pkg-config-path-for-libdir.patch ];
+  patches = [./0001-cmake-fix-pkg-config-path-for-libdir.patch];
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Network intrusion prevention and detection system (IDS/IPS)";

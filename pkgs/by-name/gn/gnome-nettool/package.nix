@@ -19,7 +19,6 @@
   inetutils,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-nettool";
   version = "42.0";
@@ -62,25 +61,25 @@ stdenv.mkDerivation rec {
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : "${
-        lib.makeBinPath [
-          dnsutils # for dig
-          iputils # for ping
-          nmap # for nmap
-          inetutils # for ping6, traceroute, whois
-        ]
-      }"
+      lib.makeBinPath [
+        dnsutils # for dig
+        iputils # for ping
+        nmap # for nmap
+        inetutils # for ping6, traceroute, whois
+      ]
+    }"
     )
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-nettool"; };
+    updateScript = gnome.updateScript {packageName = "gnome-nettool";};
   };
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-nettool";
     description = "Collection of networking tools";
     mainProgram = "gnome-nettool";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

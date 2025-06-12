@@ -17,7 +17,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation {
   pname = "ingen";
   version = "0-unstable-2024-07-13";
@@ -53,7 +52,7 @@ stdenv.mkDerivation {
   strictDeps = true;
 
   # lv2specgen.py is not packaged in lv2 but required to build docs
-  mesonFlags = [ "-Ddocs=disabled" ];
+  mesonFlags = ["-Ddocs=disabled"];
 
   pythonPath = [
     python3
@@ -69,7 +68,7 @@ stdenv.mkDerivation {
     description = "Modular audio processing system using JACK and LV2 or LADSPA plugins";
     homepage = "http://drobilla.net/software/ingen";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ t4ccer ];
+    maintainers = with lib.maintainers; [t4ccer];
     platforms = lib.platforms.linux;
   };
 }

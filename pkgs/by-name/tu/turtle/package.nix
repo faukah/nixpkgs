@@ -8,7 +8,6 @@
   libadwaita,
   meld,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "turtle";
   version = "0.13.3";
@@ -34,9 +33,9 @@ python3Packages.buildPythonApplication rec {
     installShellFiles
   ];
 
-  buildInputs = [ libadwaita ];
+  buildInputs = [libadwaita];
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     pygobject3
@@ -80,7 +79,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://gitlab.gnome.org/philippun1/turtle";
     license = lib.licenses.gpl3Plus;
     mainProgram = "turtle_cli";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
   };
 }

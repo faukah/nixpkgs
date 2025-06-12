@@ -4,9 +4,7 @@
   buildNetSdk,
   fetchNupkg,
 }:
-
 # v6.0 (maintenance)
-
 let
   commonPackages = [
     (fetchNupkg {
@@ -570,9 +568,7 @@ let
       })
     ];
   };
-
-in
-rec {
+in rec {
   release_6_0 = "6.0.36";
 
   aspnetcore_6_0 = buildAspNetCore {

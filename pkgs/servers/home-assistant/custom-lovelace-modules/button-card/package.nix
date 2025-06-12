@@ -4,7 +4,6 @@
   fetchYarnDeps,
   fetchFromGitHub,
 }:
-
 mkYarnPackage rec {
   pname = "button-card";
   version = "4.1.2";
@@ -47,7 +46,7 @@ mkYarnPackage rec {
     homepage = "https://github.com/custom-cards/button-card";
     changelog = "https://github.com/custom-cards/button-card/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ k900 ];
+    maintainers = with maintainers; [k900];
     platforms = platforms.all;
   };
 }

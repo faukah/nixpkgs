@@ -13,7 +13,6 @@
   python3Packages,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "crocoddyl";
   version = "3.0.1";
@@ -73,8 +72,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   doCheck = true;
-  pythonImportsCheck = [ "crocoddyl" ];
-  checkInputs = lib.optionals pythonSupport [ python3Packages.scipy ];
+  pythonImportsCheck = ["crocoddyl"];
+  checkInputs = lib.optionals pythonSupport [python3Packages.scipy];
 
   meta = with lib; {
     description = "Crocoddyl optimal control library";

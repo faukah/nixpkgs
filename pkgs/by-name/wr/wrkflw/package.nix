@@ -21,16 +21,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-iCagvOIc1Gsox6yQDfOrSTXaM30Q93CwHZdDZOi4kK0=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openssl
     docker
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Validate and execute GitHub Actions workflows locally";

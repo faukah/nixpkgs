@@ -15,7 +15,6 @@
   setuptools,
   svglib,
 }:
-
 buildPythonPackage rec {
   pname = "xhtml2pdf";
   version = "0.2.17";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     svglib
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Tests requires network access
@@ -65,6 +64,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/xhtml2pdf/xhtml2pdf";
     license = lib.licenses.asl20;
     mainProgram = "xhtml2pdf";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

@@ -9,7 +9,6 @@
   pygments, # for Erlang support
   pathspec, # for .gitignore support
 }:
-
 buildPythonPackage rec {
   pname = "lizard";
   version = "1.17.30";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     "test/test_languages/testFortran.py"
   ];
 
-  pythonImportsCheck = [ "lizard" ];
+  pythonImportsCheck = ["lizard"];
 
   meta = with lib; {
     changelog = "https://github.com/terryyin/lizard/blob/${version}/CHANGELOG.md";
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/terryyin/lizard";
     homepage = "http://www.lizard.ws";
     license = licenses.mit;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

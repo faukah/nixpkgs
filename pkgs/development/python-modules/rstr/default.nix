@@ -6,7 +6,6 @@
   setuptools-scm,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rstr";
   version = "3.2.2";
@@ -23,12 +22,12 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   meta = with lib; {
     description = "Python library to generate random strings";
     homepage = "https://github.com/leapfrogonline/rstr";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

@@ -12,7 +12,6 @@
   setuptools,
   service-identity,
 }:
-
 buildPythonPackage rec {
   pname = "aioquic";
   version = "1.2.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-+RJjuz9xlIxciRW01Q7jcABPIKQW9n+rPcyQVWx+cZk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     certifi
@@ -35,11 +34,11 @@ buildPythonPackage rec {
     service-identity
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "aioquic" ];
+  pythonImportsCheck = ["aioquic"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "Implementation of QUIC and HTTP/3";
     homepage = "https://github.com/aiortc/aioquic";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

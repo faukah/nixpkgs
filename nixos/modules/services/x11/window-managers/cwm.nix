@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.cwm;
-in
-{
+in {
   options = {
     services.xserver.windowManager.cwm.enable = mkEnableOption "cwm";
   };
@@ -22,6 +18,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.cwm ];
+    environment.systemPackages = [pkgs.cwm];
   };
 }

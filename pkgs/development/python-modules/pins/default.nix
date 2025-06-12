@@ -25,7 +25,6 @@
   setuptools-scm,
   xxhash,
 }:
-
 buildPythonPackage rec {
   pname = "pins";
   version = "0.8.7";
@@ -60,22 +59,24 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    aws = [ s3fs ];
-    azure = [ adlfs ];
-    gcs = [ gcsfs ];
+    aws = [s3fs];
+    azure = [adlfs];
+    gcs = [gcsfs];
   };
 
-  nativeCheckInputs = [
-    fastparquet
-    pyarrow
-    pytest-cases
-    pytest-parallel
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      fastparquet
+      pyarrow
+      pytest-cases
+      pytest-parallel
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "pins" ];
+  pythonImportsCheck = ["pins"];
 
-  pytestFlagsArray = [ "pins/tests/" ];
+  pytestFlagsArray = ["pins/tests/"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -90,6 +91,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/rstudio/pins-python";
     changelog = "https://github.com/rstudio/pins-python/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

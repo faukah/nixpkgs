@@ -14,7 +14,6 @@
   stdenv,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lighthouse";
   version = "6.0.1";
@@ -79,7 +78,7 @@ rustPlatform.buildRustPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  checkFeatures = [ ];
+  checkFeatures = [];
 
   # All of these tests require network access and/or docker
   cargoTestFlags = [
@@ -124,7 +123,7 @@ rustPlatform.buildRustPackage rec {
       command = "lighthouse --version";
       version = "v${lighthouse.version}";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   enableParallelBuilding = true;

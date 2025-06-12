@@ -9,7 +9,6 @@
   coreutils,
   file,
 }:
-
 stdenv.mkDerivation rec {
   pname = "notmuch-bower";
   version = "1.1.1";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/wangp/bower";
     description = "Curses terminal client for the Notmuch email system";
     mainProgram = "bower";
-    maintainers = with maintainers; [ jgart ];
+    maintainers = with maintainers; [jgart];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

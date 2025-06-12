@@ -15,7 +15,6 @@
   doxygen,
   graphviz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "waylandpp";
   version = "1.0.0";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
 
   # Complains about not being able to find the fontconfig config file otherwise
   FONTCONFIG_FILE = lib.optional docSupport (makeFontsConf {
-    fontDirectories = [ ];
+    fontDirectories = [];
   });
 
   nativeBuildInputs =
@@ -93,6 +92,6 @@ stdenv.mkDerivation rec {
       bsd2
       hpnd
     ];
-    maintainers = with lib.maintainers; [ minijackson ];
+    maintainers = with lib.maintainers; [minijackson];
   };
 }

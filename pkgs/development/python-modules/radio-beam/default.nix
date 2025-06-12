@@ -11,7 +11,6 @@
   pytestCheckHook,
   pytest-astropy,
 }:
-
 buildPythonPackage rec {
   pname = "radio-beam";
   version = "0.3.8";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-CE/rcYKO3Duz5zwmJ4gEuqOoO3Uy7sjwOi96HP0Y53A=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     astropy
@@ -38,13 +37,13 @@ buildPythonPackage rec {
     pytest-astropy
   ];
 
-  pythonImportsCheck = [ "radio_beam" ];
+  pythonImportsCheck = ["radio_beam"];
 
   meta = with lib; {
     description = "Tools for Beam IO and Manipulation";
     homepage = "http://radio-astro-tools.github.io";
     changelog = "https://github.com/radio-astro-tools/radio-beam/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ smaret ];
+    maintainers = with maintainers; [smaret];
   };
 }

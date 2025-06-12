@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "bumps";
   version = "0.9.3";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "bumps" ];
+  pythonImportsCheck = ["bumps"];
 
   meta = with lib; {
     description = "Data fitting with bayesian uncertainty analysis";
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     homepage = "https://bumps.readthedocs.io/";
     changelog = "https://github.com/bumps/bumps/releases/tag/v${version}";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ rprospero ];
+    maintainers = with maintainers; [rprospero];
   };
 }

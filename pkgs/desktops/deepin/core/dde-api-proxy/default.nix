@@ -8,7 +8,6 @@
   dtkcore,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-api-proxy";
   version = "1.0.20";
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dde-api-proxy";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

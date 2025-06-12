@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "aws-assume-role";
   version = "0.3.2";
@@ -38,7 +37,7 @@ buildGoModule rec {
     homepage = "https://github.com/remind101/assume-role";
     license = licenses.bsd2;
     mainProgram = "assume-role";
-    maintainers = with lib.maintainers; [ averyvigolo ];
+    maintainers = with lib.maintainers; [averyvigolo];
     platforms = platforms.all;
   };
 }

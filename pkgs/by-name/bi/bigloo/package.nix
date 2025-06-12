@@ -8,7 +8,6 @@
   gmp,
   libunistring,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bigloo";
   version = "4.6a";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     libunistring
   ];
 
-  propagatedBuildInputs = [ gmp ];
+  propagatedBuildInputs = [gmp];
 
   preConfigure =
     # For libuv on darwin
@@ -70,7 +69,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www-sop.inria.fr/indes/fp/Bigloo/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [thoughtpolice];
     broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64; # segfault during build
 
     longDescription = ''

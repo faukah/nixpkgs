@@ -6,7 +6,6 @@
   pyyaml,
   jinja2,
 }:
-
 buildPythonPackage rec {
   pname = "hiyapyco";
   version = "0.7.0";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-uF5DblAg4q8L1tZKopcjJ14NIQVQF5flNHdZ/jnw71M=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     pyyaml
@@ -35,12 +34,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "hiyapyco" ];
+  pythonImportsCheck = ["hiyapyco"];
 
   meta = with lib; {
     description = "Python library allowing hierarchical overlay of config files in YAML syntax";
     homepage = "https://github.com/zerwes/hiyapyco";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ veehaitch ];
+    maintainers = with maintainers; [veehaitch];
   };
 }

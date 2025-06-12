@@ -7,7 +7,6 @@
   versionCheckHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bold";
   version = "0.1.0";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   postPatch = ''
-    ln -s ${callPackage ./deps.nix { }} $ZIG_GLOBAL_CACHE_DIR/p
+    ln -s ${callPackage ./deps.nix {}} $ZIG_GLOBAL_CACHE_DIR/p
   '';
 
   nativeBuildInputs = [
@@ -28,11 +27,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "-v";
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/kubkon/bold";
     changelog = "https://github.com/kubkon/bold/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ DimitarNestorov ];
+    maintainers = with lib.maintainers; [DimitarNestorov];
     platforms = lib.platforms.darwin;
     mainProgram = "bold";
   };

@@ -1,58 +1,53 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   domain = "h2o.local";
 
   port = 8080;
 
   sawatdi_chao_lok = "สวัสดีชาวโลก";
-in
-{
+in {
   name = "h2o-mruby";
 
   meta = {
-    maintainers = with lib.maintainers; [ toastal ];
+    maintainers = with lib.maintainers; [toastal];
   };
 
   nodes = {
-    server =
-      { pkgs, ... }:
-      {
-        services.h2o = {
-          enable = true;
-          package = pkgs.h2o.override { withMruby = true; };
-          settings = {
-            listen = port;
-            hosts = {
-              "${domain}" = {
-                paths = {
-                  "/hello_world" = {
-                    "mruby.handler" = # ruby
-                      ''
-                        Proc.new do |env|
-                          [200, {'content-type' => 'text/plain'}, ["${sawatdi_chao_lok}"]]
-                        end
-                      '';
-                  };
-                  "/file_handler" = {
-                    "mruby.handler-file" = ./file_handler.rb;
-                  };
+    server = {pkgs, ...}: {
+      services.h2o = {
+        enable = true;
+        package = pkgs.h2o.override {withMruby = true;};
+        settings = {
+          listen = port;
+          hosts = {
+            "${domain}" = {
+              paths = {
+                "/hello_world" = {
+                  "mruby.handler" =
+                    # ruby
+                    ''
+                      Proc.new do |env|
+                        [200, {'content-type' => 'text/plain'}, ["${sawatdi_chao_lok}"]]
+                      end
+                    '';
+                };
+                "/file_handler" = {
+                  "mruby.handler-file" = ./file_handler.rb;
                 };
               };
             };
           };
         };
-
-        networking.extraHosts = ''
-          127.0.0.1 ${domain}
-        '';
       };
+
+      networking.extraHosts = ''
+        127.0.0.1 ${domain}
+      '';
+    };
   };
 
-  testScript =
-    let
-      portStr = builtins.toString port;
-    in
+  testScript = let
+    portStr = builtins.toString port;
+  in
     # python
     ''
       server.wait_for_unit("h2o.service")

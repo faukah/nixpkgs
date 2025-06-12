@@ -5,7 +5,6 @@
   mopidy,
   nix-update-script,
 }:
-
 pythonPackages.buildPythonApplication rec {
   pname = "mopidy-spotify";
   version = "5.0.0a3";
@@ -18,7 +17,7 @@ pythonPackages.buildPythonApplication rec {
     hash = "sha256-pM+kqeWYiPXv9DZDBTgwiEwC6Sbqv6uz5vJ5odcixOw=";
   };
 
-  build-system = [ pythonPackages.setuptools ];
+  build-system = [pythonPackages.setuptools];
 
   dependencies = [
     mopidy
@@ -41,15 +40,15 @@ pythonPackages.buildPythonApplication rec {
       responses
     ];
 
-    dev = optional-dependencies.lint ++ optional-dependencies.test ++ [ pythonPackages.tox ];
+    dev = optional-dependencies.lint ++ optional-dependencies.test ++ [pythonPackages.tox];
   };
 
-  nativeCheckInputs = [ pythonPackages.pytestCheckHook ] ++ optional-dependencies.test;
+  nativeCheckInputs = [pythonPackages.pytestCheckHook] ++ optional-dependencies.test;
 
-  pythonImportsCheck = [ "mopidy_spotify" ];
+  pythonImportsCheck = ["mopidy_spotify"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -57,6 +56,6 @@ pythonPackages.buildPythonApplication rec {
     homepage = "https://github.com/mopidy/mopidy-spotify";
     changelog = "https://github.com/mopidy/mopidy-spotify/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
   };
 }

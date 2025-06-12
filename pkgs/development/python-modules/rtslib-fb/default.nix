@@ -2,15 +2,12 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
-
   # build-system
   hatchling,
   hatch-vcs,
-
   # dependencies
   pyudev,
 }:
-
 buildPythonPackage rec {
   pname = "rtslib-fb";
   version = "2.2.2";

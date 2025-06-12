@@ -18,7 +18,6 @@
   # This disables transparency support.
   withGtkLayerShell ? (stdenv.buildPlatform == stdenv.hostPlatform),
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wlogout";
   version = "1.2.2";
@@ -73,16 +72,16 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
     homepage = "https://github.com/ArtsyMacaw/wlogout";
     description = "Wayland based logout menu";
     changelog = "https://github.com/ArtsyMacaw/wlogout/releases/tag/${finalAttrs.src.rev}";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     mainProgram = "wlogout";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (wayland.meta) platforms;
   };
 })

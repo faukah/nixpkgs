@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sway-new-workspace";
   version = "0.1.5";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/nzig/sway-new-workspace";
     license = licenses.mit;
     mainProgram = "sway-new-workspace";
-    maintainers = with maintainers; [ bbenno ];
+    maintainers = with maintainers; [bbenno];
     platforms = platforms.linux;
   };
 }

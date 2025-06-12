@@ -26,7 +26,6 @@
   md4c,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stellarium";
   version = "25.1";
@@ -121,7 +120,7 @@ stdenv.mkDerivation (finalAttrs: {
         HOME="$tmpdir" ${lib.getExe xvfb-run} stellarium --version
       '';
     };
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
@@ -130,7 +129,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://stellarium.org/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ kilianar ];
+    maintainers = with lib.maintainers; [kilianar];
     broken = stdenv.hostPlatform.isDarwin;
   };
 })

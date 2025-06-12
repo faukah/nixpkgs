@@ -5,7 +5,6 @@
   setuptools,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "py-opensonic";
   version = "5.3.1";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-bgD+wtq9AXCobUCpDfGVe6Ze1cTbbM5auXohQw5gcnk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   doCheck = false; # no tests
 
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/khers/py-opensonic";
     changelog = "https://github.com/khers/py-opensonic/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "degit-rs";
   version = "0.1.2-unstable-2021-09-22";
@@ -26,9 +25,9 @@ rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-bUoZsXU7iWK7MZ/hXk1JNUX1hN88lrU1mc1rrYuiCYs=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   # The test suite is not working for it requires a network connection,
   # so we disable it
@@ -40,6 +39,6 @@ rustPlatform.buildRustPackage {
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     mainProgram = "degit";
-    maintainers = with lib.maintainers; [ chillcicada ];
+    maintainers = with lib.maintainers; [chillcicada];
   };
 }

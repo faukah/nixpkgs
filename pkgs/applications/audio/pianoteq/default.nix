@@ -14,33 +14,30 @@
   makeWrapper,
   p7zip,
   writeShellScript,
-}:
-let
-  versionForFile = v: builtins.replaceStrings [ "." ] [ "" ] v;
+}: let
+  versionForFile = v: builtins.replaceStrings ["."] [""] v;
 
   archdirs =
-    if stdenv.hostPlatform.isx86_64 then
-      [
-        "x86-64bit"
-        "amd64"
-      ]
-    else if stdenv.hostPlatform.isAarch64 then
-      [
-        "arm-64bit"
-        "arm"
-      ]
-    else
-      throw "unsupported platform";
+    if stdenv.hostPlatform.isx86_64
+    then [
+      "x86-64bit"
+      "amd64"
+    ]
+    else if stdenv.hostPlatform.isAarch64
+    then [
+      "arm-64bit"
+      "arm"
+    ]
+    else throw "unsupported platform";
 
-  mkPianoteq =
-    {
-      name,
-      mainProgram,
-      startupWMClass,
-      src,
-      version,
-      ...
-    }:
+  mkPianoteq = {
+    name,
+    mainProgram,
+    startupWMClass,
+    src,
+    version,
+    ...
+  }:
     stdenv.mkDerivation rec {
       inherit src version;
 
@@ -112,17 +109,16 @@ let
           mausch
           ners
         ];
-        sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+        sourceProvenance = [lib.sourceTypes.binaryNativeCode];
       };
     };
 
-  fetchWithCurlScript =
-    {
-      name,
-      hash,
-      script,
-      impureEnvVars ? [ ],
-    }:
+  fetchWithCurlScript = {
+    name,
+    hash,
+    script,
+    impureEnvVars ? [],
+  }:
     stdenv.mkDerivation {
       inherit name;
       builder = writeShellScript "builder.sh" ''
@@ -147,7 +143,7 @@ let
         ${script}
 
       '';
-      nativeBuildInputs = [ curl ];
+      nativeBuildInputs = [curl];
       outputHashAlgo = "sha256";
       outputHash = hash;
 
@@ -160,8 +156,10 @@ let
         ];
     };
 
-  fetchPianoteqTrial =
-    { name, hash }:
+  fetchPianoteqTrial = {
+    name,
+    hash,
+  }:
     fetchWithCurlScript {
       inherit name hash;
       script = ''
@@ -194,8 +192,10 @@ let
       '';
     };
 
-  fetchPianoteqWithLogin =
-    { name, hash }:
+  fetchPianoteqWithLogin = {
+    name,
+    hash,
+  }:
     fetchWithCurlScript {
       inherit name hash;
 
@@ -244,8 +244,7 @@ let
   version7 = "7.5.4";
   version8 = "8.4.0";
 
-  mkStandard =
-    version: hash:
+  mkStandard = version: hash:
     mkPianoteq {
       name = "standard";
       mainProgram = "Pianoteq ${lib.versions.major version}";
@@ -256,8 +255,7 @@ let
         inherit hash;
       };
     };
-  mkStage =
-    version: hash:
+  mkStage = version: hash:
     mkPianoteq {
       name = "stage";
       mainProgram = "Pianoteq ${lib.versions.major version} STAGE";
@@ -268,8 +266,7 @@ let
         inherit hash;
       };
     };
-  mkStandardTrial =
-    version: hash:
+  mkStandardTrial = version: hash:
     mkPianoteq {
       name = "standard-trial";
       mainProgram = "Pianoteq ${lib.versions.major version}";
@@ -280,8 +277,7 @@ let
         inherit hash;
       };
     };
-  mkStageTrial =
-    version: hash:
+  mkStageTrial = version: hash:
     mkPianoteq {
       name = "stage-trial";
       mainProgram = "Pianoteq ${lib.versions.major version} STAGE";
@@ -292,8 +288,7 @@ let
         inherit hash;
       };
     };
-in
-{
+in {
   standard_8 = mkStandard version8 "sha256-ZDGB/SOOz+sWz7P+sNzyaipEH452n8zq5LleO3ztSXc=";
   stage_8 = mkStage version8 "";
   standard-trial_8 = mkStandardTrial version8 "sha256-K3LbAWxciXt9hVAyRayxSoE/IYJ38Fd03+j0s7ZsMuw=";

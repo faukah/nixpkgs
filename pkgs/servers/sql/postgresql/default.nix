@@ -1,5 +1,4 @@
-self:
-let
+self: let
   # Before removing an EOL major version, make sure to check the versioning policy in:
   # <nixpkgs>/nixos/modules/services/databases/postgresql.md
   #
@@ -16,22 +15,25 @@ let
     postgresql_17 = ./17.nix;
   };
 
-  mkAttributes =
-    jitSupport:
+  mkAttributes = jitSupport:
     self.lib.mapAttrs' (
-      version: path:
-      let
-        attrName = if jitSupport then "${version}_jit" else version;
-        postgresql = import path { inherit self; };
-        attrValue = if jitSupport then postgresql.withJIT else postgresql.withoutJIT;
+      version: path: let
+        attrName =
+          if jitSupport
+          then "${version}_jit"
+          else version;
+        postgresql = import path {inherit self;};
+        attrValue =
+          if jitSupport
+          then postgresql.withJIT
+          else postgresql.withoutJIT;
       in
-      self.lib.nameValuePair attrName attrValue
-    ) versions;
+        self.lib.nameValuePair attrName attrValue
+    )
+    versions;
 
-  libpq = self.callPackage ./libpq.nix { };
-
-in
-{
+  libpq = self.callPackage ./libpq.nix {};
+in {
   # variations without and with JIT
   postgresqlVersions = mkAttributes false;
   postgresqlJitVersions = mkAttributes true;

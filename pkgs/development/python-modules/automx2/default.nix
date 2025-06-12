@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "automx2";
   version = "2025.1.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-wsKE1lplFUOi6i12ZMV9Oidc58jyuYawbAxJ4qqcYmg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     flask
@@ -34,15 +33,15 @@ buildPythonPackage rec {
     ldap3
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "automx2" ];
+  pythonImportsCheck = ["automx2"];
 
   meta = {
     description = "Email client configuration made easy";
     homepage = "https://rseichter.github.io/automx2/";
     changelog = "https://github.com/rseichter/automx2/blob/${version}/CHANGELOG";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ twey ];
+    maintainers = with lib.maintainers; [twey];
   };
 }

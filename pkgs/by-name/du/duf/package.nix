@@ -4,7 +4,6 @@
   buildGoModule,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "duf";
   version = "0.8.1";
@@ -24,7 +23,7 @@ buildGoModule rec {
     "-X=main.Version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage duf.1

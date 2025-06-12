@@ -4,9 +4,7 @@
   fetchFromGitHub,
   pkg-config,
   vips,
-}:
-
-let
+}: let
   pname = "psitransfer";
   version = "2.2.0";
   src = fetchFromGitHub {
@@ -32,28 +30,28 @@ let
     '';
   };
 in
-buildNpmPackage {
-  inherit pname version src;
+  buildNpmPackage {
+    inherit pname version src;
 
-  npmDepsHash = "sha256-EW/Fej58LE/nbJomPtWvEjDveAUdo0jIWwC+ziN0gy0=";
+    npmDepsHash = "sha256-EW/Fej58LE/nbJomPtWvEjDveAUdo0jIWwC+ziN0gy0=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    vips # for 'sharp' dependency
-  ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [
+      vips # for 'sharp' dependency
+    ];
 
-  postPatch = ''
-    rm -r public/app
-    cp -r ${app} public/app
-  '';
+    postPatch = ''
+      rm -r public/app
+      cp -r ${app} public/app
+    '';
 
-  dontBuild = true;
+    dontBuild = true;
 
-  meta = {
-    homepage = "https://github.com/psi-4ward/psitransfer";
-    description = "Simple open source self-hosted file sharing solution";
-    license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ hyshka ];
-    mainProgram = "psitransfer";
-  };
-}
+    meta = {
+      homepage = "https://github.com/psi-4ward/psitransfer";
+      description = "Simple open source self-hosted file sharing solution";
+      license = lib.licenses.bsd2;
+      maintainers = with lib.maintainers; [hyshka];
+      mainProgram = "psitransfer";
+    };
+  }

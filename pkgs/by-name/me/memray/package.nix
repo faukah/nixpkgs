@@ -7,7 +7,6 @@
   pkg-config,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "memray";
   version = "1.17.2";
@@ -25,13 +24,15 @@ python3Packages.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [
-    elfutils # for `-ldebuginfod`
-    libunwind
-    lz4
-  ] ++ (with python3Packages; [ cython ]);
+  buildInputs =
+    [
+      elfutils # for `-ldebuginfod`
+      libunwind
+      lz4
+    ]
+    ++ (with python3Packages; [cython]);
 
   dependencies = with python3Packages; [
     pkgconfig
@@ -40,19 +41,18 @@ python3Packages.buildPythonApplication rec {
     rich
   ];
 
-  nativeCheckInputs =
-    with python3Packages;
+  nativeCheckInputs = with python3Packages;
     [
       ipython
       pytest-cov # fix Unknown pytest.mark.no_cover
       pytest-textual-snapshot
       pytestCheckHook
     ]
-    ++ lib.optionals (pythonOlder "3.14") [ greenlet ];
+    ++ lib.optionals (pythonOlder "3.14") [greenlet];
 
-  pythonImportsCheck = [ "memray" ];
+  pythonImportsCheck = ["memray"];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   disabledTests = [
     # Import issue
@@ -70,7 +70,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://bloomberg.github.io/memray/";
     changelog = "https://github.com/bloomberg/memray/releases/tag/v${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     platforms = lib.platforms.linux;
   };
 }

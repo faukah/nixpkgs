@@ -3,13 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.udevil;
-
-in
-{
+in {
   options.programs.udevil.enable = lib.mkEnableOption "udevil, to mount filesystems without password";
 
   config = lib.mkIf cfg.enable {

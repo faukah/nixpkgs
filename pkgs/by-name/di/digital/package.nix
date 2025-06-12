@@ -6,9 +6,7 @@
   makeWrapper,
   jre,
   maven,
-}:
-
-let
+}: let
   pname = "digital";
   pkgDescription = "A digital logic designer and circuit simulator.";
   version = "0.31";
@@ -25,7 +23,7 @@ let
       "Education"
       "Electronics"
     ];
-    mimeTypes = [ "text/x-digital" ];
+    mimeTypes = ["text/x-digital"];
     terminal = false;
     keywords = [
       "simulator"
@@ -41,53 +39,53 @@ let
   # Also use the commit date as a build and output timestamp.
   mvnParameters = "-Pno-git-rev -Dgit.commit.id.describe=${version} -Dproject.build.outputTimestamp=${buildDate} -DbuildTimestamp=${buildDate}";
 in
-maven.buildMavenPackage rec {
-  inherit pname version jre;
+  maven.buildMavenPackage rec {
+    inherit pname version jre;
 
-  src = fetchFromGitHub {
-    owner = "hneemann";
-    repo = "Digital";
-    rev = "v${version}";
-    hash = "sha256-6XaM3U1x/yvoCrkJ2nMtBmj972gCFlWn3F4DM7TLWgw=";
-  };
+    src = fetchFromGitHub {
+      owner = "hneemann";
+      repo = "Digital";
+      rev = "v${version}";
+      hash = "sha256-6XaM3U1x/yvoCrkJ2nMtBmj972gCFlWn3F4DM7TLWgw=";
+    };
 
-  inherit mvnParameters;
-  mvnHash = "sha256-wm/axWJucoW9P98dKqHI4bjrUnmBTfosCOdJg9VBJ+4=";
+    inherit mvnParameters;
+    mvnHash = "sha256-wm/axWJucoW9P98dKqHI4bjrUnmBTfosCOdJg9VBJ+4=";
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      copyDesktopItems
+      makeWrapper
+    ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/bin
-    mkdir -p $out/share/java
+      mkdir -p $out/bin
+      mkdir -p $out/share/java
 
-    classpath=$(find $mvnDeps/.m2 -name "*.jar" -printf ':%h/%f');
-    install -Dm644 target/Digital.jar $out/share/java
+      classpath=$(find $mvnDeps/.m2 -name "*.jar" -printf ':%h/%f');
+      install -Dm644 target/Digital.jar $out/share/java
 
-    makeWrapper ${jre}/bin/java $out/bin/${pname} \
-      --add-flags "-classpath $out/share/java/${pname}-${version}.jar:''${classpath#:}" \
-      --add-flags "-jar $out/share/java/Digital.jar"
+      makeWrapper ${jre}/bin/java $out/bin/${pname} \
+        --add-flags "-classpath $out/share/java/${pname}-${version}.jar:''${classpath#:}" \
+        --add-flags "-jar $out/share/java/Digital.jar"
 
-    install -Dm644 src/main/svg/icon.svg $out/share/icons/hicolor/scalable/apps/${pname}.svg
-    for size in 16 32 48 64 128; do
-      install -Dm644 src/main/resources/icons/icon"$size".png $out/share/icons/hicolor/"$size"x"$size"/apps/${pname}.png
-    done
+      install -Dm644 src/main/svg/icon.svg $out/share/icons/hicolor/scalable/apps/${pname}.svg
+      for size in 16 32 48 64 128; do
+        install -Dm644 src/main/resources/icons/icon"$size".png $out/share/icons/hicolor/"$size"x"$size"/apps/${pname}.png
+      done
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  desktopItems = [ desktopItem ];
+    desktopItems = [desktopItem];
 
-  meta = with lib; {
-    homepage = "https://github.com/hneemann/Digital";
-    description = pkgDescription;
-    mainProgram = "digital";
-    license = licenses.gpl3Only;
-    platforms = platforms.all;
-    maintainers = with maintainers; [ Dettorer ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://github.com/hneemann/Digital";
+      description = pkgDescription;
+      mainProgram = "digital";
+      license = licenses.gpl3Only;
+      platforms = platforms.all;
+      maintainers = with maintainers; [Dettorer];
+    };
+  }

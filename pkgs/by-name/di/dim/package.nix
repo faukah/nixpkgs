@@ -13,7 +13,6 @@
   libva,
   fetchpatch,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "dim";
   version = "0-unstable-2023-12-29";
@@ -90,7 +89,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     git
   ];
 
-  buildInputs = [ sqlite ] ++ lib.optional libvaSupport libva;
+  buildInputs = [sqlite] ++ lib.optional libvaSupport libva;
 
   buildFeatures = lib.optional libvaSupport "vaapi";
 
@@ -109,7 +108,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   postInstall = ''
     wrapProgram $out/bin/dim \
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+      --prefix PATH : ${lib.makeBinPath [ffmpeg]}
   '';
 
   meta = {
@@ -117,7 +116,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Self-hosted media manager";
     license = lib.licenses.agpl3Only;
     mainProgram = "dim";
-    maintainers = [ lib.maintainers.misterio77 ];
+    maintainers = [lib.maintainers.misterio77];
     platforms = lib.platforms.unix;
   };
 })

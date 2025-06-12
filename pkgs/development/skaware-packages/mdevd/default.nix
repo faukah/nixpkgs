@@ -3,7 +3,6 @@
   skawarePackages,
   skalibs,
 }:
-
 skawarePackages.buildPackage {
   pname = "mdevd";
   version = "0.1.7.0";

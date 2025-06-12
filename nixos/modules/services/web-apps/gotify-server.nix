@@ -3,14 +3,12 @@
   lib,
   config,
   ...
-}:
-
-let
+}: let
   cfg = config.services.gotify;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
+    (
+      lib.mkRenamedOptionModule
       [
         "services"
         "gotify"
@@ -28,7 +26,7 @@ in
   options.services.gotify = {
     enable = lib.mkEnableOption "Gotify webserver";
 
-    package = lib.mkPackageOption pkgs "gotify-server" { };
+    package = lib.mkPackageOption pkgs "gotify-server" {};
 
     environment = lib.mkOption {
       type = lib.types.attrsOf (
@@ -37,7 +35,7 @@ in
           lib.types.int
         ]
       );
-      default = { };
+      default = {};
       example = {
         GOTIFY_SERVER_PORT = 8080;
         GOTIFY_DATABASE_DIALECT = "sqlite3";
@@ -50,7 +48,7 @@ in
 
     environmentFiles = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
+      default = [];
       description = ''
         Files containing additional config environment variables for gotify-server.
         Secrets should be set in environmentFiles instead of environment.
@@ -69,8 +67,8 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.services.gotify-server = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       description = "Simple server for sending and receiving messages";
 
       environment = lib.mapAttrs (_: toString) cfg.environment;
@@ -86,5 +84,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ DCsunset ];
+  meta.maintainers = with lib.maintainers; [DCsunset];
 }

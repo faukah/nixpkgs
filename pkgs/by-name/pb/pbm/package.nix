@@ -1,5 +1,7 @@
-{ buildDotnetGlobalTool, lib }:
-
+{
+  buildDotnetGlobalTool,
+  lib,
+}:
 buildDotnetGlobalTool {
   pname = "pbm";
   version = "1.4.4";

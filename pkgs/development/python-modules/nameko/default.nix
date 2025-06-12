@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # install_requires
   dnspython,
   eventlet,
@@ -18,7 +17,6 @@
   werkzeug,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "nameko";
   version = "2.14.1";
@@ -35,7 +33,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace-fail "path.py" "path"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     dnspython
@@ -56,7 +54,7 @@ buildPythonPackage rec {
   # and most of the tests are network based
   doCheck = false;
 
-  pythonImportsCheck = [ "nameko" ];
+  pythonImportsCheck = ["nameko"];
 
   meta = with lib; {
     description = "Microservices framework that lets service developers concentrate on application logic and encourages testability";
@@ -64,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://www.nameko.io/";
     changelog = "https://github.com/nameko/nameko/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ siddharthdhakane ];
+    maintainers = with maintainers; [siddharthdhakane];
   };
 }

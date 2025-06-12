@@ -3,51 +3,55 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.virtualisation.virtualbox.host;
 
   virtualbox = cfg.package.override {
-    inherit (cfg)
+    inherit
+      (cfg)
       enableHardening
       headless
       enableWebService
       enableKvm
       ;
-    extensionPack = if cfg.enableExtensionPack then pkgs.virtualboxExtpack else null;
+    extensionPack =
+      if cfg.enableExtensionPack
+      then pkgs.virtualboxExtpack
+      else null;
   };
 
   kernelModules = config.boot.kernelPackages.virtualbox.override {
     inherit virtualbox;
   };
-
-in
-
-{
+in {
   options.virtualisation.virtualbox.host = {
-    enable = lib.mkEnableOption "VirtualBox" // {
-      description = ''
-        Whether to enable VirtualBox.
+    enable =
+      lib.mkEnableOption "VirtualBox"
+      // {
+        description = ''
+          Whether to enable VirtualBox.
 
-        ::: {.note}
-        In order to pass USB devices from the host to the guests, the user
-        needs to be in the `vboxusers` group.
-        :::
-      '';
-    };
+          ::: {.note}
+          In order to pass USB devices from the host to the guests, the user
+          needs to be in the `vboxusers` group.
+          :::
+        '';
+      };
 
-    enableExtensionPack = lib.mkEnableOption "VirtualBox extension pack" // {
-      description = ''
-        Whether to install the Oracle Extension Pack for VirtualBox.
+    enableExtensionPack =
+      lib.mkEnableOption "VirtualBox extension pack"
+      // {
+        description = ''
+          Whether to install the Oracle Extension Pack for VirtualBox.
 
-        ::: {.important}
-        You must set `nixpkgs.config.allowUnfree = true` in
-        order to use this.  This requires you accept the VirtualBox PUEL.
-        :::
-      '';
-    };
+          ::: {.important}
+          You must set `nixpkgs.config.allowUnfree = true` in
+          order to use this.  This requires you accept the VirtualBox PUEL.
+          :::
+        '';
+      };
 
-    package = lib.mkPackageOption pkgs "virtualbox" { };
+    package = lib.mkPackageOption pkgs "virtualbox" {};
 
     addNetworkInterface = lib.mkOption {
       type = lib.types.bool;
@@ -109,35 +113,35 @@ in
         warnings = lib.mkIf (pkgs.config.virtualbox.enableExtensionPack or false) [
           "'nixpkgs.virtualbox.enableExtensionPack' has no effect, please use 'virtualisation.virtualbox.host.enableExtensionPack'"
         ];
-        environment.systemPackages = [ virtualbox ];
+        environment.systemPackages = [virtualbox];
 
-        security.wrappers =
-          let
-            mkSuid = program: {
-              source = "${virtualbox}/libexec/virtualbox/${program}";
-              owner = "root";
-              group = "vboxusers";
-              setuid = true;
-            };
-            executables =
-              [
-                "VBoxHeadless"
-                "VBoxNetAdpCtl"
-                "VBoxNetDHCP"
-                "VBoxNetNAT"
-                "VBoxVolInfo"
-              ]
-              ++ (lib.optionals (!cfg.headless) [
-                "VBoxSDL"
-                "VirtualBoxVM"
-              ]);
-          in
+        security.wrappers = let
+          mkSuid = program: {
+            source = "${virtualbox}/libexec/virtualbox/${program}";
+            owner = "root";
+            group = "vboxusers";
+            setuid = true;
+          };
+          executables =
+            [
+              "VBoxHeadless"
+              "VBoxNetAdpCtl"
+              "VBoxNetDHCP"
+              "VBoxNetNAT"
+              "VBoxVolInfo"
+            ]
+            ++ (lib.optionals (!cfg.headless) [
+              "VBoxSDL"
+              "VirtualBoxVM"
+            ]);
+        in
           lib.mkIf cfg.enableHardening (
             builtins.listToAttrs (
               map (x: {
                 name = x;
                 value = mkSuid x;
-              }) executables
+              })
+              executables
             )
           );
 
@@ -164,7 +168,7 @@ in
           "vboxnetadp"
           "vboxnetflt"
         ];
-        boot.extraModulePackages = [ kernelModules ];
+        boot.extraModulePackages = [kernelModules];
 
         services.udev.extraRules = ''
           KERNEL=="vboxdrv",    OWNER="root", GROUP="vboxusers", MODE="0660", TAG+="systemd"
@@ -177,13 +181,13 @@ in
       (lib.mkIf cfg.addNetworkInterface {
         systemd.services.vboxnet0 = {
           description = "VirtualBox vboxnet0 Interface";
-          requires = [ "dev-vboxnetctl.device" ];
-          after = [ "dev-vboxnetctl.device" ];
+          requires = ["dev-vboxnetctl.device"];
+          after = ["dev-vboxnetctl.device"];
           wantedBy = [
             "network.target"
             "sys-subsystem-net-devices-vboxnet0.device"
           ];
-          path = [ virtualbox ];
+          path = [virtualbox];
           serviceConfig.RemainAfterExit = true;
           serviceConfig.Type = "oneshot";
           serviceConfig.PrivateTmp = true;
@@ -207,7 +211,7 @@ in
         ];
         # Make sure NetworkManager won't assume this interface being up
         # means we have internet access.
-        networking.networkmanager.unmanaged = [ "vboxnet0" ];
+        networking.networkmanager.unmanaged = ["vboxnet0"];
       })
       (lib.mkIf config.networking.useNetworkd {
         systemd.network.networks."40-vboxnet0".extraConfig = ''
@@ -215,7 +219,6 @@ in
           RequiredForOnline=no
         '';
       })
-
     ]
   );
 }

@@ -3,7 +3,6 @@
   macaddr,
   cstruct,
 }:
-
 buildDunePackage {
   pname = "macaddr-cstruct";
 
@@ -18,7 +17,9 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = macaddr.meta // {
-    description = "Library for manipulation of MAC address representations using Cstructs";
-  };
+  meta =
+    macaddr.meta
+    // {
+      description = "Library for manipulation of MAC address representations using Cstructs";
+    };
 }

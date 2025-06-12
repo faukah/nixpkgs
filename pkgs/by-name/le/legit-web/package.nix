@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "legit";
   version = "0.2.4";
@@ -26,13 +25,13 @@ buildGoModule rec {
     cp -r $src/static/* $out/lib/legit/static
   '';
 
-  passthru.tests = { inherit (nixosTests) legit; };
+  passthru.tests = {inherit (nixosTests) legit;};
 
   meta = {
     description = "Web frontend for git";
     homepage = "https://github.com/icyphox/legit";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ratsclub ];
+    maintainers = [lib.maintainers.ratsclub];
     mainProgram = "legit";
   };
 }

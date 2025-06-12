@@ -5,14 +5,12 @@
   stdpp,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "iris";
   domain = "gitlab.mpi-sws.org";
   owner = "iris";
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = range "8.19" "9.0";
@@ -42,7 +40,8 @@ mkCoqDerivation {
         case = range "8.9" "8.10";
         out = "3.3.0";
       }
-    ] null;
+    ]
+    null;
   release."4.3.0".sha256 = "sha256-3qhjiFI+A3I3fD8rFfJL5Hek77wScfn/FNNbDyGqA1k=";
   release."4.2.0".sha256 = "sha256-HuiHIe+5letgr1NN1biZZFq0qlWUbFmoVI7Q91+UIfM=";
   release."4.1.0".sha256 = "sha256-nTZUeZOXiH7HsfGbMKDE7vGrNVCkbMaWxdMWUcTUNlo=";
@@ -53,7 +52,7 @@ mkCoqDerivation {
   release."3.3.0".sha256 = "0az4gkp5m8sq0p73dlh0r7ckkzhk7zkg5bndw01bdsy5ywj0vilp";
   releaseRev = v: "iris-${v}";
 
-  propagatedBuildInputs = [ stdpp ];
+  propagatedBuildInputs = [stdpp];
 
   preBuild = ''
     if [[ -f coq-lint.sh ]]

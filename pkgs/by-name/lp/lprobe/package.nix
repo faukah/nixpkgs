@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libpcap,
 }:
-
 buildGoModule rec {
   pname = "lprobe";
   version = "0.1.6";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/fivexl/lprobe";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ cageyv ];
+    maintainers = with lib.maintainers; [cageyv];
     mainProgram = "lprobe";
   };
 }

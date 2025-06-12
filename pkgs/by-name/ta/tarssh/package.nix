@@ -3,7 +3,6 @@
   rustPlatform,
   lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tarssh";
   version = "0.7.0";
@@ -21,8 +20,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Simple SSH tarpit inspired by endlessh";
     homepage = "https://github.com/Freaky/tarssh";
-    license = [ licenses.mit ];
-    maintainers = with maintainers; [ sohalt ];
+    license = [licenses.mit];
+    maintainers = with maintainers; [sohalt];
     platforms = platforms.unix;
     mainProgram = "tarssh";
   };

@@ -14,7 +14,6 @@
   openssl,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "neohtop";
   version = "1.2.0";
@@ -53,7 +52,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     webkitgtk_4_1
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Blazing-fast system monitoring for your desktop";
@@ -62,6 +61,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "NeoHtop";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 })

@@ -1,14 +1,13 @@
-{ config, lib, ... }:
-
-with lib;
-
 {
+  config,
+  lib,
+  ...
+}:
+with lib; {
   ###### interface
 
   options = {
-
     hardware.trackpoint = {
-
       enable = mkOption {
         default = false;
         type = types.bool;
@@ -63,17 +62,14 @@ with lib;
           Some newer devices (example x1c6) use "TPPS/2 Elan TrackPoint".
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
-  config =
-    let
-      cfg = config.hardware.trackpoint;
-    in
+  config = let
+    cfg = config.hardware.trackpoint;
+  in
     mkMerge [
       (mkIf cfg.enable {
         services.udev.extraRules = ''
@@ -81,12 +77,12 @@ with lib;
         '';
 
         systemd.services.trackpoint = {
-          wantedBy = [ "sysinit.target" ];
+          wantedBy = ["sysinit.target"];
           before = [
             "sysinit.target"
             "shutdown.target"
           ];
-          conflicts = [ "shutdown.target" ];
+          conflicts = ["shutdown.target"];
           unitConfig.DefaultDependencies = false;
           serviceConfig.Type = "oneshot";
           serviceConfig.RemainAfterExit = true;
@@ -101,10 +97,9 @@ with lib;
           ''
             Identifier "Trackpoint Wheel Emulation"
             MatchProduct "${
-              if cfg.fakeButtons then
-                "PS/2 Generic Mouse"
-              else
-                "ETPS/2 Elantech TrackPoint|Elantech PS/2 TrackPoint|TPPS/2 IBM TrackPoint|DualPoint Stick|Synaptics Inc. Composite TouchPad / TrackPoint|ThinkPad USB Keyboard with TrackPoint|USB Trackpoint pointing device|Composite TouchPad / TrackPoint|${cfg.device}"
+              if cfg.fakeButtons
+              then "PS/2 Generic Mouse"
+              else "ETPS/2 Elantech TrackPoint|Elantech PS/2 TrackPoint|TPPS/2 IBM TrackPoint|DualPoint Stick|Synaptics Inc. Composite TouchPad / TrackPoint|ThinkPad USB Keyboard with TrackPoint|USB Trackpoint pointing device|Composite TouchPad / TrackPoint|${cfg.device}"
             }"
             MatchDevicePath "/dev/input/event*"
             Option "EmulateWheel" "true"

@@ -6,7 +6,6 @@
   unzip,
   jdk,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sqlcl";
   version = "25.1.1.113.2054";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/";
     license = licenses.unfreeRedistributable;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ misterio77 ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [misterio77];
   };
 })

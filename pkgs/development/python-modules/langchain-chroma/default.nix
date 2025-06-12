@@ -11,7 +11,6 @@
   pytestCheckHook,
   pytest-asyncio,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-chroma";
   version = "0.2.4";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/partners/chroma";
 
-  patches = [ ./001-async-test.patch ];
+  patches = [./001-async-test.patch];
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   pythonRelaxDeps = [
     # Each component release requests the exact latest core.
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "langchain_chroma" ];
+  pythonImportsCheck = ["langchain_chroma"];
 
   nativeCheckInputs = [
     langchain-tests

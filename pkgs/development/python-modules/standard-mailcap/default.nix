@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "standard-mailcap";
   version = "3.13.0";
@@ -19,19 +18,19 @@ buildPythonPackage rec {
     repo = "python-deadlib";
     tag = "v${version}";
     hash = "sha256-9mtQi5ufxP6xRonTrFC3oWFpWLbJraAmdQYozP3evgc=";
-    sparseCheckout = [ "mailcap" ];
+    sparseCheckout = ["mailcap"];
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
   sourceRoot = "${src.name}/mailcap";
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "mailcap" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["mailcap"];
 
   meta = {
     description = "Standard library mailcap redistribution";
     homepage = "https://github.com/youknowone/python-deadlib";
     license = lib.licenses.psfl;
-    maintainers = [ lib.maintainers.lucc ];
+    maintainers = [lib.maintainers.lucc];
   };
 }

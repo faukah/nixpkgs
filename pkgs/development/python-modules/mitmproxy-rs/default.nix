@@ -8,7 +8,6 @@
   mitmproxy-macos,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "mitmproxy-rs";
   version = "0.12.3";
@@ -34,21 +33,21 @@ buildPythonPackage rec {
   ];
 
   dependencies =
-    lib.optionals stdenv.hostPlatform.isLinux [ mitmproxy-linux ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ mitmproxy-macos ];
+    lib.optionals stdenv.hostPlatform.isLinux [mitmproxy-linux]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [mitmproxy-macos];
   # not packaged yet
   # ++ lib.optionals stdenv.hostPlatform.isWindows [ mitmproxy-windows ]
 
   # repo has no python tests
   doCheck = false;
 
-  pythonImportsCheck = [ "mitmproxy_rs" ];
+  pythonImportsCheck = ["mitmproxy_rs"];
 
   meta = with lib; {
     description = "Rust bits in mitmproxy";
     homepage = "https://github.com/mitmproxy/mitmproxy_rs";
     changelog = "https://github.com/mitmproxy/mitmproxy_rs/blob/${src.rev}/CHANGELOG.md#${
-      lib.replaceStrings [ "." ] [ "" ] version
+      lib.replaceStrings ["."] [""] version
     }";
     license = licenses.mit;
     inherit (mitmproxy.meta) maintainers;

@@ -6,7 +6,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "kiwiki-client";
   version = "0.1.2";
@@ -29,13 +28,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "kiwiki" ];
+  pythonImportsCheck = ["kiwiki"];
 
   meta = with lib; {
     description = "Module to interact with the KIWI.KI API";
     homepage = "https://github.com/c7h/kiwiki_client";
     changelog = "https://github.com/c7h/kiwiki_client/releases/tag/${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

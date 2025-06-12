@@ -24,7 +24,6 @@
   curl,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wesnoth";
   version = "1.18.5";

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "kt";
   version = "13.1.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Kafka command line tool";
     homepage = "https://github.com/fgeller/kt";
-    maintainers = with maintainers; [ utdemir ];
+    maintainers = with maintainers; [utdemir];
     platforms = with platforms; unix;
     license = licenses.mit;
     mainProgram = "kt";

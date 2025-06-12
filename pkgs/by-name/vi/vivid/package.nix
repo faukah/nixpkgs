@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "vivid";
   version = "0.10.1";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = [ maintainers.dtzWill ];
+    maintainers = [maintainers.dtzWill];
     platforms = platforms.unix;
     mainProgram = "vivid";
   };

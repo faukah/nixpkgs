@@ -26,7 +26,6 @@
   gst_all_1,
   pipewire,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-contacts";
   version = "48.0";
@@ -69,14 +68,14 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-contacts"; };
+    updateScript = gnome.updateScript {packageName = "gnome-contacts";};
   };
 
   meta = with lib; {
     homepage = "https://apps.gnome.org/Contacts/";
     description = "GNOME’s integrated address book";
     mainProgram = "gnome-contacts";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

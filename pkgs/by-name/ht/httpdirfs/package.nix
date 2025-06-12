@@ -14,7 +14,6 @@
   stdenv,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "httpdirfs";
   version = "1.2.7";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
       command = "${lib.getExe finalAttrs.finalPackage} --version";
       package = finalAttrs.finalPackage;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

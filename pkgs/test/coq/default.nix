@@ -1,5 +1,7 @@
-{ lib, callPackage }:
-
+{
+  lib,
+  callPackage,
+}:
 lib.recurseIntoAttrs {
-  overrideCoqDerivation = callPackage ./overrideCoqDerivation { };
+  overrideCoqDerivation = callPackage ./overrideCoqDerivation {};
 }

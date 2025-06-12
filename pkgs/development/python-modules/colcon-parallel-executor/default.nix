@@ -8,7 +8,6 @@
   scspell,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "colcon-parallel-executor";
   version = "0.3.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     tag = version;
     hash = "sha256-uhVl1fqoyMF/L98PYCmM6m7+52c4mWj2qlna5sz/RxE=";
   };
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     colcon
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     description = "Extension for colcon-core to process packages in parallel";
     homepage = "https://github.com/colcon/colcon-parallel-executor";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ guelakais ];
+    maintainers = with lib.maintainers; [guelakais];
   };
 }

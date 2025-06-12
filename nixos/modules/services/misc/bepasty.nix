@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   gunicorn = pkgs.python3Packages.gunicorn;
   bepasty = pkgs.bepasty;
   gevent = pkgs.python3Packages.gevent;
@@ -13,26 +12,21 @@ let
   user = "bepasty";
   group = "bepasty";
   default_home = "/var/lib/bepasty";
-in
-{
+in {
   options.services.bepasty = {
     enable = lib.mkEnableOption "bepasty, a binary pastebin server";
 
     servers = lib.mkOption {
-      default = { };
+      default = {};
       description = ''
         configure a number of bepasty servers which will be started with
         gunicorn.
       '';
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (
           submodule (
-            { config, ... }:
-            {
-
+            {config, ...}: {
               options = {
-
                 bind = lib.mkOption {
                   type = lib.types.str;
                   description = ''
@@ -110,19 +104,18 @@ in
                   '';
                   default = default_home;
                 };
-
               };
               config = {
                 secretKeyFile = lib.mkDefault (
-                  if config.secretKey != "" then
+                  if config.secretKey != ""
+                  then
                     toString (
                       pkgs.writeTextFile {
                         name = "bepasty-secret-key";
                         text = config.secretKey;
                       }
                     )
-                  else
-                    null
+                  else null
                 );
               };
             }
@@ -132,62 +125,60 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
-    environment.systemPackages = [ bepasty ];
+    environment.systemPackages = [bepasty];
 
     # creates gunicorn systemd service for each configured server
-    systemd.services = lib.mapAttrs' (
-      name: server:
-      lib.nameValuePair ("bepasty-server-${name}-gunicorn") ({
-        description = "Bepasty Server ${name}";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-        restartIfChanged = true;
+    systemd.services =
+      lib.mapAttrs' (
+        name: server:
+          lib.nameValuePair "bepasty-server-${name}-gunicorn" {
+            description = "Bepasty Server ${name}";
+            wantedBy = ["multi-user.target"];
+            after = ["network.target"];
+            restartIfChanged = true;
 
-        environment =
-          let
-            penv = python.buildEnv.override {
-              extraLibs = [
-                bepasty
-                gevent
-              ];
+            environment = let
+              penv = python.buildEnv.override {
+                extraLibs = [
+                  bepasty
+                  gevent
+                ];
+              };
+            in {
+              BEPASTY_CONFIG = "${server.workDir}/bepasty-${name}.conf";
+              PYTHONPATH = "${penv}/${python.sitePackages}/";
             };
-          in
-          {
-            BEPASTY_CONFIG = "${server.workDir}/bepasty-${name}.conf";
-            PYTHONPATH = "${penv}/${python.sitePackages}/";
-          };
 
-        serviceConfig = {
-          Type = "simple";
-          PrivateTmp = true;
-          ExecStartPre =
-            assert server.secretKeyFile != null;
-            pkgs.writeScript "bepasty-server.${name}-init" ''
-              #!/bin/sh
-              mkdir -p "${server.workDir}"
-              mkdir -p "${server.dataDir}"
-              chown ${user}:${group} "${server.workDir}" "${server.dataDir}"
-              cat > ${server.workDir}/bepasty-${name}.conf <<EOF
-              SITENAME="${name}"
-              STORAGE_FILESYSTEM_DIRECTORY="${server.dataDir}"
-              SECRET_KEY="$(cat "${server.secretKeyFile}")"
-              DEFAULT_PERMISSIONS="${server.defaultPermissions}"
-              ${server.extraConfig}
-              EOF
-            '';
-          ExecStart = ''
-            ${gunicorn}/bin/gunicorn bepasty.wsgi --name ${name} \
-                          -u ${user} \
-                          -g ${group} \
-                          --workers 3 --log-level=info \
-                          --bind=${server.bind} \
-                          --pid ${server.workDir}/gunicorn-${name}.pid \
-                          -k gevent
-          '';
-        };
-      })
-    ) cfg.servers;
+            serviceConfig = {
+              Type = "simple";
+              PrivateTmp = true;
+              ExecStartPre = assert server.secretKeyFile != null;
+                pkgs.writeScript "bepasty-server.${name}-init" ''
+                  #!/bin/sh
+                  mkdir -p "${server.workDir}"
+                  mkdir -p "${server.dataDir}"
+                  chown ${user}:${group} "${server.workDir}" "${server.dataDir}"
+                  cat > ${server.workDir}/bepasty-${name}.conf <<EOF
+                  SITENAME="${name}"
+                  STORAGE_FILESYSTEM_DIRECTORY="${server.dataDir}"
+                  SECRET_KEY="$(cat "${server.secretKeyFile}")"
+                  DEFAULT_PERMISSIONS="${server.defaultPermissions}"
+                  ${server.extraConfig}
+                  EOF
+                '';
+              ExecStart = ''
+                ${gunicorn}/bin/gunicorn bepasty.wsgi --name ${name} \
+                              -u ${user} \
+                              -g ${group} \
+                              --workers 3 --log-level=info \
+                              --bind=${server.bind} \
+                              --pid ${server.workDir}/gunicorn-${name}.pid \
+                              -k gevent
+              '';
+            };
+          }
+      )
+      cfg.servers;
 
     users.users.${user} = {
       uid = config.ids.uids.bepasty;

@@ -6,7 +6,6 @@
   makeWrapper,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jmeter";
   version = "5.6.3";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
 
   doInstallCheck = false; # NoClassDefFoundError: org/apache/logging/log4j/Level for tests
 
-  nativeCheckInputs = [ coreutils ];
+  nativeCheckInputs = [coreutils];
 
   installCheckPhase = ''
     $out/bin/jmeter --version 2>&1 | grep -q "${version}"
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
       Applications but has since expanded to other test functions.
     '';
     license = licenses.asl20;
-    maintainers = [ maintainers.bryanasdev000 ];
+    maintainers = [maintainers.bryanasdev000];
     priority = 1;
     platforms = platforms.unix;
   };

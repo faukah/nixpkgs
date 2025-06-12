@@ -6,7 +6,6 @@
   qtbase,
   libGLU,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libqglviewer";
   version = "2.9.1";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-T8KAcw3cXbp0FZm53OjlQBnUvLRFdoj80dIQzQY0/yw=";
   };
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
   buildInputs = [
     qtbase
     libGLU

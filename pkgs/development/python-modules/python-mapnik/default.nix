@@ -25,7 +25,6 @@
   pytestCheckHook,
   sparsehash,
 }:
-
 buildPythonPackage rec {
   pname = "python-mapnik";
   version = "3.0.16-unstable-2024-02-22";
@@ -53,7 +52,7 @@ buildPythonPackage rec {
 
   stdenv = python.stdenv;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     mapnik # for mapnik_config
@@ -82,7 +81,7 @@ buildPythonPackage rec {
     pycairo
   ];
 
-  configureFlags = [ "XMLPARSER=libxml2" ];
+  configureFlags = ["XMLPARSER=libxml2"];
 
   disabled = isPyPy;
 
@@ -94,7 +93,7 @@ buildPythonPackage rec {
     export XMLPARSER=libxml2
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck =
     ''
@@ -126,12 +125,12 @@ buildPythonPackage rec {
       "test_pycairo_svg_surface3"
     ];
 
-  pythonImportsCheck = [ "mapnik" ];
+  pythonImportsCheck = ["mapnik"];
 
   meta = {
     description = "Python bindings for Mapnik";
     homepage = "https://mapnik.org";
     license = lib.licenses.lgpl21Plus;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

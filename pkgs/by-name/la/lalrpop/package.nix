@@ -5,7 +5,6 @@
   replaceVars,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lalrpop";
   version = "0.22.2";
@@ -43,6 +42,6 @@ rustPlatform.buildRustPackage rec {
       mit
     ];
     mainProgram = "lalrpop";
-    maintainers = with maintainers; [ chayleaf ];
+    maintainers = with maintainers; [chayleaf];
   };
 }

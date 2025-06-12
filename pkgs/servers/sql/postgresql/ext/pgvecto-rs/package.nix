@@ -11,33 +11,32 @@
   postgresqlTestExtension,
   replaceVars,
   rustPlatform,
-}:
-
-let
+}: let
   # Upstream only works with clang 16, so we're pinning it here to
   # avoid future incompatibility.
   # See https://docs.vectorchord.ai/developers/development.html#set-up-development-environment, step 2
   clang = clang_16;
-  rustPlatform' = rustPlatform // {
-    bindgenHook = rustPlatform.bindgenHook.override { inherit clang; };
-  };
-
+  rustPlatform' =
+    rustPlatform
+    // {
+      bindgenHook = rustPlatform.bindgenHook.override {inherit clang;};
+    };
 in
-(buildPgrxExtension.override {
-  # Upstream only works with a fixed version of cargo-pgrx for each release,
-  # so we're pinning it here to avoid future incompatibility.
-  # See https://docs.vectorchord.ai/developers/development.html#set-up-development-environment, step 5
-  cargo-pgrx = cargo-pgrx_0_12_0_alpha_1;
-  rustPlatform = rustPlatform';
-})
+  (buildPgrxExtension.override {
+    # Upstream only works with a fixed version of cargo-pgrx for each release,
+    # so we're pinning it here to avoid future incompatibility.
+    # See https://docs.vectorchord.ai/developers/development.html#set-up-development-environment, step 5
+    cargo-pgrx = cargo-pgrx_0_12_0_alpha_1;
+    rustPlatform = rustPlatform';
+  })
   (finalAttrs: {
     inherit postgresql;
 
     pname = "pgvecto-rs";
     version = "0.3.0";
 
-    buildInputs = [ openssl ];
-    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [openssl];
+    nativeBuildInputs = [pkg-config];
 
     patches = [
       # Tell the `c` crate to use the flags from the rust bindgen hook
@@ -79,7 +78,7 @@ in
     usePgTestCheckFeature = false;
 
     passthru = {
-      updateScript = nix-update-script { };
+      updateScript = nix-update-script {};
       tests.extension = postgresqlTestExtension {
         inherit (finalAttrs) finalPackage;
         postgresqlExtraSettings = ''
@@ -120,9 +119,9 @@ in
       broken =
         (lib.versionOlder postgresql.version "14")
         ||
-          # PostgreSQL 17 support issue upstream: https://github.com/tensorchord/pgvecto.rs/issues/607
-          # Check after next package update.
-          lib.versionAtLeast postgresql.version "17" && finalAttrs.version == "0.3.0";
+        # PostgreSQL 17 support issue upstream: https://github.com/tensorchord/pgvecto.rs/issues/607
+        # Check after next package update.
+        lib.versionAtLeast postgresql.version "17" && finalAttrs.version == "0.3.0";
       description = "Scalable, Low-latency and Hybrid-enabled Vector Search in Postgres";
       homepage = "https://github.com/tensorchord/pgvecto.rs";
       license = lib.licenses.asl20;

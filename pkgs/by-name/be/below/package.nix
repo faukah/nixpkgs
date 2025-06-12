@@ -9,7 +9,6 @@
   rustfmt,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "below";
   version = "0.9.0";
@@ -61,7 +60,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = {
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ globin ];
+    maintainers = with lib.maintainers; [globin];
     description = "Time traveling resource monitor for modern Linux systems";
     license = lib.licenses.asl20;
     homepage = "https://github.com/facebookincubator/below";

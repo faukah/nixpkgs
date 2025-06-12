@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "netassert";
   version = "2.0.4";
@@ -36,7 +35,7 @@ buildGoModule rec {
       You can check the traffic flow between these objects or from these objects to a remote host or an IP address.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
     mainProgram = "netassert";
   };
 }

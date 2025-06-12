@@ -19,7 +19,6 @@
   urllib3,
   websocket-client,
 }:
-
 buildPythonPackage rec {
   pname = "kubernetes";
   version = "32.0.1";
@@ -52,15 +51,17 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    adal = [ adal ];
+    adal = [adal];
   };
 
-  pythonImportsCheck = [ "kubernetes" ];
+  pythonImportsCheck = ["kubernetes"];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      mock
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   disabledTests = lib.optionals stdenv.hostPlatform.isDarwin [
     # AssertionError: <class 'urllib3.poolmanager.ProxyManager'> != <class 'urllib3.poolmanager.Poolmanager'>
@@ -72,6 +73,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/kubernetes-client/python";
     changelog = "https://github.com/kubernetes-client/python/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lsix ];
+    maintainers = with maintainers; [lsix];
   };
 }

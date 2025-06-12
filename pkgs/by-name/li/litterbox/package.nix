@@ -6,7 +6,6 @@
   pkg-config,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "litterbox";
   version = "1.9";
@@ -21,18 +20,18 @@ stdenv.mkDerivation rec {
     sqlite
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   strictDeps = true;
 
-  buildFlags = [ "all" ];
+  buildFlags = ["all"];
 
   meta = with lib; {
     description = "Simple TLS-only IRC logger";
     homepage = "https://code.causal.agency/june/litterbox";
     license = licenses.gpl3Plus;
     mainProgram = "litterbox";
-    maintainers = with maintainers; [ ajwhouse ];
+    maintainers = with maintainers; [ajwhouse];
     platforms = platforms.linux;
   };
 }

@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "frozendict";
   version = "2.4.6";
@@ -33,17 +32,17 @@ buildPythonPackage rec {
     fi
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "frozendict" ];
+  pythonImportsCheck = ["frozendict"];
 
   meta = with lib; {
     description = "Module for immutable dictionary";
     homepage = "https://github.com/Marco-Sulla/python-frozendict";
     changelog = "https://github.com/Marco-Sulla/python-frozendict/releases/tag/v${version}";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

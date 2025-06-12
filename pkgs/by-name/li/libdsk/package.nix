@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdsk";
   version = "1.5.21";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     description = "Library for accessing discs and disc image files";
     homepage = "http://www.seasip.info/Unix/LibDsk/";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

@@ -5,7 +5,6 @@
   cmake,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libutp";
   version = "0-unstable-2024-11-16";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ArUOr392s/rIplthSmHYXnqhO6i1PkkGV1jmQPQL7Yg=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   passthru = {
     updateScript = unstableGitUpdater {
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     mainProgram = "ucat";
     homepage = "https://github.com/transmission/libutp";
     license = licenses.mit;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.unix;
   };
 }

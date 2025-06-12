@@ -4,7 +4,6 @@
   stdenv,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "unyaffs";
   version = "0.9";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgramArg = "-V";
 
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/whataday/unyaffs";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ KSJ2000 ];
+    maintainers = with lib.maintainers; [KSJ2000];
     mainProgram = "unyaffs";
   };
 })

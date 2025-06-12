@@ -6,7 +6,6 @@
   llm,
   llm-fragments-github,
 }:
-
 buildPythonPackage rec {
   pname = "llm-fragments-github";
   version = "0.4";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-7i1WRix5AAEG5EXJqtaU+QY56aL0SePdqz84z+C+iYM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ llm ];
+  dependencies = [llm];
 
-  pythonImportsCheck = [ "llm_fragments_github" ];
+  pythonImportsCheck = ["llm_fragments_github"];
 
   passthru.tests = llm.mkPluginTest llm-fragments-github;
 
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-fragments-github";
     changelog = "https://github.com/simonw/llm-fragments-github/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

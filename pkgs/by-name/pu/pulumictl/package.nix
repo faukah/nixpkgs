@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pulumictl";
   version = "0.0.49";
@@ -23,13 +22,13 @@ buildGoModule rec {
     "-X=github.com/pulumi/pulumictl/pkg/version.Version=${src.rev}"
   ];
 
-  subPackages = [ "cmd/pulumictl" ];
+  subPackages = ["cmd/pulumictl"];
 
   meta = with lib; {
     description = "Swiss Army Knife for Pulumi Development";
     mainProgram = "pulumictl";
     homepage = "https://github.com/pulumi/pulumictl";
     license = licenses.asl20;
-    maintainers = with maintainers; [ vincentbernat ];
+    maintainers = with maintainers; [vincentbernat];
   };
 }

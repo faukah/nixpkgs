@@ -3,17 +3,14 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   cloudpickle,
   numpy,
   gym-notices,
   importlib-metadata,
   pythonOlder,
-
   # tests
   moviepy,
   pybox2d,
@@ -21,7 +18,6 @@
   pytestCheckHook,
   opencv-python,
 }:
-
 buildPythonPackage rec {
   pname = "gym";
   version = "0.26.2";
@@ -58,13 +54,15 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [
-    cloudpickle
-    numpy
-    gym-notices
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  dependencies =
+    [
+      cloudpickle
+      numpy
+      gym-notices
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
-  pythonImportsCheck = [ "gym" ];
+  pythonImportsCheck = ["gym"];
 
   nativeCheckInputs = [
     moviepy
@@ -128,6 +126,6 @@ buildPythonPackage rec {
     description = "Toolkit for developing and comparing your reinforcement learning agents";
     homepage = "https://www.gymlibrary.dev/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

@@ -7,7 +7,6 @@
   libselinux,
   e2fsprogs,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nilfs-utils";
   version = "2.2.11";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qvs0PBkMYzGfIQ/Z2Wz0aHe2Y2Ia6fA4pMSk5Jhejf4=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     libuuid
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
   # According to upstream, libmount should be detected automatically but the
   # build system fails to do this. This is likely a bug with their build system
   # hence it is explicitly enabled here.
-  configureFlags = [ "--with-libmount" ];
+  configureFlags = ["--with-libmount"];
 
   installFlags = [
     "sysconfdir=${placeholder "out"}/etc"
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "NILFS utilities";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
     license = with licenses; [
       gpl2Plus

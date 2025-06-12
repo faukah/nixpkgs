@@ -3,19 +3,15 @@
   buildPythonPackage,
   fetchFromGitHub,
   replaceVars,
-
   # build-system
   setuptools,
   versioningit,
-
   # native dependencies
   isa-l,
-
   # tests
   pytest-timeout,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "isal";
   version = "1.7.2";
@@ -39,7 +35,7 @@ buildPythonPackage rec {
     versioningit
   ];
 
-  buildInputs = [ isa-l ];
+  buildInputs = [isa-l];
 
   env.PYTHON_ISAL_LINK_DYNAMIC = true;
 
@@ -48,7 +44,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   disabledTests = [
     # calls `python -m isal` and fails on import
@@ -59,13 +55,13 @@ buildPythonPackage rec {
     "test_decompress_infile_outfile_error"
   ];
 
-  pythonImportsCheck = [ "isal" ];
+  pythonImportsCheck = ["isal"];
 
   meta = with lib; {
     changelog = "https://github.com/pycompression/python-isal/blob/${src.rev}/CHANGELOG.rst";
     description = "Faster zlib and gzip compatible compression and decompression by providing python bindings for the isa-l library";
     homepage = "https://github.com/pycompression/python-isal";
     license = licenses.psfl;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

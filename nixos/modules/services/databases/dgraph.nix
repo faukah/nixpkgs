@@ -3,21 +3,20 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.dgraph;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   configFile = settingsFormat.generate "config.json" cfg.settings;
   dgraphWithNode =
     pkgs.runCommand "dgraph"
-      {
-        nativeBuildInputs = [ pkgs.makeWrapper ];
-      }
-      ''
-        mkdir -p $out/bin
-        makeWrapper ${cfg.package}/bin/dgraph $out/bin/dgraph \
-          --prefix PATH : "${lib.makeBinPath [ pkgs.nodejs ]}" \
-      '';
+    {
+      nativeBuildInputs = [pkgs.makeWrapper];
+    }
+    ''
+      mkdir -p $out/bin
+      makeWrapper ${cfg.package}/bin/dgraph $out/bin/dgraph \
+        --prefix PATH : "${lib.makeBinPath [pkgs.nodejs]}" \
+    '';
   securityOptions = {
     NoNewPrivileges = true;
 
@@ -63,17 +62,16 @@ let
       "~@setuid"
     ];
   };
-in
-{
+in {
   options = {
     services.dgraph = {
       enable = lib.mkEnableOption "Dgraph native GraphQL database with a graph backend";
 
-      package = lib.mkPackageOption pkgs "dgraph" { };
+      package = lib.mkPackageOption pkgs "dgraph" {};
 
       settings = lib.mkOption {
         type = settingsFormat.type;
-        default = { };
+        default = {};
         description = ''
           Contents of the dgraph config. For more details see https://dgraph.io/docs/deploy/config
         '';
@@ -94,7 +92,6 @@ in
             The port which to run dgraph alpha on.
           '';
         };
-
       };
 
       zero = {
@@ -113,7 +110,6 @@ in
           '';
         };
       };
-
     };
   };
 
@@ -124,16 +120,18 @@ in
 
     systemd.services.dgraph-zero = {
       description = "Dgraph native GraphQL database with a graph backend. Zero controls node clustering";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
-      serviceConfig = {
-        StateDirectory = "dgraph-zero";
-        WorkingDirectory = "/var/lib/dgraph-zero";
-        DynamicUser = true;
-        ExecStart = "${cfg.package}/bin/dgraph zero --my ${cfg.zero.host}:${toString cfg.zero.port}";
-        Restart = "on-failure";
-      } // securityOptions;
+      serviceConfig =
+        {
+          StateDirectory = "dgraph-zero";
+          WorkingDirectory = "/var/lib/dgraph-zero";
+          DynamicUser = true;
+          ExecStart = "${cfg.package}/bin/dgraph zero --my ${cfg.zero.host}:${toString cfg.zero.port}";
+          Restart = "on-failure";
+        }
+        // securityOptions;
     };
 
     systemd.services.dgraph-alpha = {
@@ -142,24 +140,26 @@ in
         "network.target"
         "dgraph-zero.service"
       ];
-      requires = [ "dgraph-zero.service" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["dgraph-zero.service"];
+      wantedBy = ["multi-user.target"];
 
-      serviceConfig = {
-        StateDirectory = "dgraph-alpha";
-        WorkingDirectory = "/var/lib/dgraph-alpha";
-        DynamicUser = true;
-        ExecStart = "${dgraphWithNode}/bin/dgraph alpha --config ${configFile} --my ${cfg.alpha.host}:${toString cfg.alpha.port} --zero ${cfg.zero.host}:${toString cfg.zero.port}";
-        ExecStop = ''
-          ${pkgs.curl}/bin/curl --data "mutation { shutdown { response { message code } } }" \
-              --header 'Content-Type: application/graphql' \
-              -X POST \
-              http://localhost:8080/admin
-        '';
-        Restart = "on-failure";
-      } // securityOptions;
+      serviceConfig =
+        {
+          StateDirectory = "dgraph-alpha";
+          WorkingDirectory = "/var/lib/dgraph-alpha";
+          DynamicUser = true;
+          ExecStart = "${dgraphWithNode}/bin/dgraph alpha --config ${configFile} --my ${cfg.alpha.host}:${toString cfg.alpha.port} --zero ${cfg.zero.host}:${toString cfg.zero.port}";
+          ExecStop = ''
+            ${pkgs.curl}/bin/curl --data "mutation { shutdown { response { message code } } }" \
+                --header 'Content-Type: application/graphql' \
+                -X POST \
+                http://localhost:8080/admin
+          '';
+          Restart = "on-failure";
+        }
+        // securityOptions;
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ happysalada ];
+  meta.maintainers = with lib.maintainers; [happysalada];
 }

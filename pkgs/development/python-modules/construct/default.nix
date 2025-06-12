@@ -13,7 +13,6 @@
   ruamel-yaml,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "construct";
   version = "2.10.70";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-5otjjIyje0+z/Y/C2ivmu08PNm0oJcSSvZkQfGxHDuQ=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     # Not an explicit dependency, but it's imported by an entrypoint
@@ -45,21 +44,25 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "construct" ];
+  pythonImportsCheck = ["construct"];
 
-  disabledTests = [
-    "test_benchmarks"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "test_multiprocessing" ];
+  disabledTests =
+    [
+      "test_benchmarks"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["test_multiprocessing"];
 
   meta = with lib; {
     description = "Powerful declarative parser (and builder) for binary data";
     homepage = "https://construct.readthedocs.org/";
     changelog = "https://github.com/construct/construct/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

@@ -9,7 +9,6 @@
   pythonOlder,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "django-scheduler";
   version = "0.10.1";
@@ -37,13 +36,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "schedule" ];
+  pythonImportsCheck = ["schedule"];
 
   meta = with lib; {
     description = "Calendar app for Django";
     homepage = "https://github.com/llazzaro/django-scheduler";
     changelog = "https://github.com/llazzaro/django-scheduler/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ derdennisop ];
+    maintainers = with maintainers; [derdennisop];
   };
 }

@@ -3,14 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.nix-required-mounts;
   package = pkgs.nix-required-mounts;
 
-  Mount =
-    with lib;
+  Mount = with lib;
     types.submodule {
       options.host = mkOption {
         type = types.str;
@@ -21,15 +18,17 @@ let
         description = "Location in the sandbox to mount the host path at";
       };
     };
-  Pattern =
-    with lib.types;
+  Pattern = with lib.types;
     types.submodule (
-      { config, name, ... }:
       {
+        config,
+        name,
+        ...
+      }: {
         options.onFeatures = lib.mkOption {
           type = listOf types.str;
           description = "Which requiredSystemFeatures should trigger relaxation of the sandbox";
-          default = [ name ];
+          default = [name];
         };
         options.paths = lib.mkOption {
           type = listOf (oneOf [
@@ -46,23 +45,24 @@ let
       }
     );
 
-  driverPaths = [
-    pkgs.addDriverRunpath.driverLink
+  driverPaths =
+    [
+      pkgs.addDriverRunpath.driverLink
 
-    # mesa:
-    config.hardware.graphics.package
+      # mesa:
+      config.hardware.graphics.package
 
-    # nvidia_x11, etc:
-  ] ++ config.hardware.graphics.extraPackages; # nvidia_x11
+      # nvidia_x11, etc:
+    ]
+    ++ config.hardware.graphics.extraPackages; # nvidia_x11
 
   defaults = {
     nvidia-gpu.onFeatures = package.allowedPatterns.nvidia-gpu.onFeatures;
     nvidia-gpu.paths = package.allowedPatterns.nvidia-gpu.paths ++ driverPaths;
     nvidia-gpu.unsafeFollowSymlinks = false;
   };
-in
-{
-  meta.maintainers = with lib.maintainers; [ SomeoneSerge ];
+in {
+  meta.maintainers = with lib.maintainers; [SomeoneSerge];
   options.programs.nix-required-mounts = {
     enable = lib.mkEnableOption "Expose extra paths to the sandbox depending on derivations' requiredSystemFeatures";
     presets.nvidia-gpu.enable = lib.mkEnableOption ''
@@ -74,12 +74,11 @@ in
       You may extend or override the exposed paths via the
       `programs.nix-required-mounts.allowedPatterns.nvidia-gpu.paths` option.
     '';
-    allowedPatterns =
-      with lib.types;
+    allowedPatterns = with lib.types;
       lib.mkOption rec {
         type = attrsOf Pattern;
         description = "The hook config, describing which paths to mount for which system features";
-        default = { };
+        default = {};
         defaultText = lib.literalExpression ''
           {
             opengl.paths = config.hardware.graphics.extraPackages ++ [
@@ -89,24 +88,24 @@ in
             ];
           }
         '';
-        example.require-ipfs.paths = [ "/ipfs" ];
-        example.require-ipfs.onFeatures = [ "ipfs" ];
+        example.require-ipfs.paths = ["/ipfs"];
+        example.require-ipfs.onFeatures = ["ipfs"];
       };
     extraWrapperArgs = lib.mkOption {
       type = with lib.types; listOf str;
-      default = [ ];
+      default = [];
       description = "List of extra arguments (such as `--add-flags -v`) to pass to the hook's wrapper";
     };
     package = lib.mkOption {
       type = lib.types.package;
-      default = package.override { inherit (cfg) allowedPatterns extraWrapperArgs; };
+      default = package.override {inherit (cfg) allowedPatterns extraWrapperArgs;};
       description = "The final package with the final config applied";
       internal = true;
     };
   };
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
-      { nix.settings.pre-build-hook = lib.getExe cfg.package; }
+      {nix.settings.pre-build-hook = lib.getExe cfg.package;}
       (lib.mkIf cfg.presets.nvidia-gpu.enable {
         nix.settings.system-features = cfg.allowedPatterns.nvidia-gpu.onFeatures;
         programs.nix-required-mounts.allowedPatterns = {

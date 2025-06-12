@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "anyconfig";
   version = "0.14.0";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     sed -i '/addopts =/d' setup.cfg
   '';
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # OSError: /build/anyconfig-0.12.0/tests/res/cli/no_template/10/e/10.* should exists but not
@@ -35,13 +34,13 @@ buildPythonPackage rec {
     "tests/backend/loaders/pickle/test_pickle_stdlib.py"
   ];
 
-  pythonImportsCheck = [ "anyconfig" ];
+  pythonImportsCheck = ["anyconfig"];
 
   meta = with lib; {
     description = "Python library provides common APIs to load and dump configuration files in various formats";
     mainProgram = "anyconfig_cli";
     homepage = "https://github.com/ssato/python-anyconfig";
     license = licenses.mit;
-    maintainers = with maintainers; [ tboerger ];
+    maintainers = with maintainers; [tboerger];
   };
 }

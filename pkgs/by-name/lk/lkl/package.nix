@@ -9,10 +9,8 @@
   fuse3,
   libarchive,
   buildPackages,
-
   firewallSupport ? false,
 }:
-
 stdenv.mkDerivation {
   pname = "lkl";
 

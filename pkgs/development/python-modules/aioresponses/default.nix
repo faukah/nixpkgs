@@ -3,19 +3,15 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   pbr,
   setuptools,
-
   # dependencies
   aiohttp,
-
   # tests
   ddt,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "aioresponses";
   version = "0.7.8";
@@ -33,9 +29,9 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
-  pythonImportsCheck = [ "aioresponses" ];
+  pythonImportsCheck = ["aioresponses"];
 
   nativeCheckInputs = [
     ddt

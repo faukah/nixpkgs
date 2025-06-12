@@ -39,7 +39,6 @@
   dbus,
   xvfb-run,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-builder";
   version = "48.0";
@@ -175,7 +174,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://apps.gnome.org/Builder/";
     license = licenses.gpl3Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
     mainProgram = "gnome-builder";
   };

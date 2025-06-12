@@ -3,22 +3,19 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   dataDir = "/var/lib/mautrix-telegram";
   registrationFile = "${dataDir}/telegram-registration.yaml";
   cfg = config.services.mautrix-telegram;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   settingsFileUnsubstituted = settingsFormat.generate "mautrix-telegram-config.json" cfg.settings;
   settingsFile = "${dataDir}/config.json";
-
-in
-{
+in {
   options = {
     services.mautrix-telegram = {
       enable = lib.mkEnableOption "Mautrix-Telegram, a Matrix-Telegram hybrid puppeting/relaybot bridge";
 
-      package = lib.mkPackageOption pkgs "mautrix-telegram" { };
+      package = lib.mkPackageOption pkgs "mautrix-telegram" {};
 
       settings = lib.mkOption rec {
         apply = lib.recursiveUpdate default;
@@ -30,7 +27,7 @@ in
 
           appservice = rec {
             database = "sqlite:///${dataDir}/mautrix-telegram.db";
-            database_opts = { };
+            database_opts = {};
             hostname = "0.0.0.0";
             port = 8080;
             address = "http://localhost:${toString port}";
@@ -38,9 +35,9 @@ in
 
           bridge = {
             permissions."*" = "relaybot";
-            relaybot.whitelist = [ ];
-            double_puppet_server_map = { };
-            login_shared_secret_map = { };
+            relaybot.whitelist = [];
+            double_puppet_server_map = {};
+            login_shared_secret_map = {};
           };
 
           logging = {
@@ -65,7 +62,7 @@ in
             # log to console/systemd instead of file
             root = {
               level = "INFO";
-              handlers = [ "console" ];
+              handlers = ["console"];
             };
           };
         };
@@ -149,7 +146,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     users.users.mautrix-telegram = {
       isSystemUser = true;
       group = "mautrix-telegram";
@@ -157,21 +153,21 @@ in
       description = "Mautrix-Telegram bridge user";
     };
 
-    users.groups.mautrix-telegram = { };
+    users.groups.mautrix-telegram = {};
 
     services.matrix-synapse = lib.mkIf cfg.registerToSynapse {
-      settings.app_service_config_files = [ registrationFile ];
+      settings.app_service_config_files = [registrationFile];
     };
     systemd.services.matrix-synapse = lib.mkIf cfg.registerToSynapse {
-      serviceConfig.SupplementaryGroups = [ "mautrix-telegram" ];
+      serviceConfig.SupplementaryGroups = ["mautrix-telegram"];
     };
 
     systemd.services.mautrix-telegram = {
       description = "Mautrix-Telegram, a Matrix-Telegram hybrid puppeting/relaybot bridge.";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ] ++ cfg.serviceDependencies;
-      after = [ "network-online.target" ] ++ cfg.serviceDependencies;
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"] ++ cfg.serviceDependencies;
+      after = ["network-online.target"] ++ cfg.serviceDependencies;
       path = [
         pkgs.lottieconverter
         pkgs.ffmpeg-headless

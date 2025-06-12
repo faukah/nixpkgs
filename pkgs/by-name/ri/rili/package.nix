@@ -7,7 +7,6 @@
   SDL,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ri_li";
   version = "2.0.1";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
 
   CPPFLAGS = "-I${lib.getDev SDL}/include -I${lib.getDev SDL}/include/SDL -I${SDL_mixer}/include";
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     SDL
     SDL_mixer
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
       You drive a toy wood engine in many levels and you must collect all the coaches
       to win.
     '';
-    maintainers = with lib.maintainers; [ jcumming ];
+    maintainers = with lib.maintainers; [jcumming];
     platforms = with lib.platforms; linux;
     mainProgram = "Ri_li";
   };

@@ -6,7 +6,6 @@
   withRapidocr ? false,
   withCPU ? false,
 }:
-
 (python3Packages.toPythonApplication (
   python3Packages.docling-serve.override {
     inherit

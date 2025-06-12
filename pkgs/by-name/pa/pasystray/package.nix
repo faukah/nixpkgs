@@ -14,7 +14,6 @@
   libpulseaudio,
   gsettings-desktop-schemas,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pasystray";
   version = "0.8.2";

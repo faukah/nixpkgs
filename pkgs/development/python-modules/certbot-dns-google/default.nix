@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "certbot-dns-google";
   inherit (certbot) src version;
@@ -15,7 +14,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/certbot-dns-google";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     acme
@@ -24,13 +23,15 @@ buildPythonPackage rec {
     google-auth
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray = [
     "-p no:cacheprovider"
   ];
 
-  meta = certbot.meta // {
-    description = "Google Cloud DNS Authenticator plugin for Certbot";
-  };
+  meta =
+    certbot.meta
+    // {
+      description = "Google Cloud DNS Authenticator plugin for Certbot";
+    };
 }

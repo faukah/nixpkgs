@@ -5,7 +5,6 @@
   zorns-lemma,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "topology";
 
@@ -21,8 +20,7 @@ mkCoqDerivation {
   release."8.6.0".sha256 = "sha256-eu/dBEFo3y6vnXlJljUD4hds6+qgAPQVvsuspyGHcj8=";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = range "8.12" "8.18";
@@ -48,9 +46,10 @@ mkCoqDerivation {
         case = "8.6";
         out = "8.6.0";
       }
-    ] null;
+    ]
+    null;
 
-  propagatedBuildInputs = [ zorns-lemma ];
+  propagatedBuildInputs = [zorns-lemma];
 
   useDuneifVersion = lib.versions.isGe "9.0";
 
@@ -60,7 +59,7 @@ mkCoqDerivation {
       This library develops some of the basic concepts and results of
       general topology in Coq.
     '';
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.lgpl21Plus;
   };
 }

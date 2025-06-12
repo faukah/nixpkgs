@@ -12,7 +12,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-network-connectivity";
   version = "2.8.0";
@@ -26,14 +25,16 @@ buildPythonPackage rec {
     hash = "sha256-NHZII5BYlysvlPBxXSu9nN7uqh/Ly3dLtgEuTS9eQOw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    google-api-core
-    grpc-google-iam-v1
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      google-api-core
+      grpc-google-iam-v1
+      proto-plus
+      protobuf
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   nativeCheckInputs = [
     mock
@@ -51,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-network-connectivity";
     changelog = "https://github.com/googleapis/google-cloud-python/blob/google-cloud-network-connectivity-v${version}/packages/google-cloud-network-connectivity/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aksiksi ];
+    maintainers = with maintainers; [aksiksi];
   };
 }

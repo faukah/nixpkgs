@@ -12,7 +12,6 @@
   libnl,
   python3Packages,
 }:
-
 stdenv.mkDerivation {
   pname = "neard";
   version = "0.19-unstable-2024-07-02";
@@ -79,7 +78,7 @@ stdenv.mkDerivation {
     description = "Near Field Communication manager";
     homepage = "https://01.org/linux-nfc";
     license = licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

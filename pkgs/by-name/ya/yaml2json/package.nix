@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "yaml2json";
   version = "1.3.5";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-g+yaVIx4jxpAQ/+WrGKxhVeliYx7nLQe/zsGpxV4Fn4=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -28,7 +27,7 @@ buildGoModule rec {
     homepage = "https://github.com/bronze1man/yaml2json";
     description = "Convert yaml to json";
     mainProgram = "yaml2json";
-    license = with licenses; [ mit ];
-    maintainers = [ ];
+    license = with licenses; [mit];
+    maintainers = [];
   };
 }

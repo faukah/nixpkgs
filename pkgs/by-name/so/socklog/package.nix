@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "socklog";
   version = "2.1.0";
@@ -60,6 +59,6 @@ stdenv.mkDerivation rec {
     homepage = "https://smarden.org/socklog/";
     license = licenses.publicDomain;
     platforms = platforms.unix;
-    maintainers = [ maintainers.joachifm ];
+    maintainers = [maintainers.joachifm];
   };
 }

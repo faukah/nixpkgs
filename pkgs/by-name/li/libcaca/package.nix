@@ -10,7 +10,6 @@
   zlib,
   x11Support ? !stdenv.hostPlatform.isDarwin,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcaca";
   version = "0.99.beta20";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     [
       ncurses
       zlib
-      (imlib2.override { inherit x11Support; })
+      (imlib2.override {inherit x11Support;})
     ]
     ++ lib.optionals x11Support [
       xorg.libX11
@@ -47,7 +46,11 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [
-      (if x11Support then "--enable-x11" else "--disable-x11")
+      (
+        if x11Support
+        then "--enable-x11"
+        else "--disable-x11"
+      )
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       # Suppresses a build failure building Cocoa support due to accessing private ivar `_running`,
@@ -82,7 +85,7 @@ stdenv.mkDerivation rec {
       Libcaca was written by Sam Hocevar and Jean-Yves Lamoureux.
     '';
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

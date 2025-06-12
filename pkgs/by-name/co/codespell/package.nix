@@ -4,7 +4,6 @@
   aspellDicts,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "codespell";
   version = "2.4.1";
@@ -38,7 +37,7 @@ python3.pkgs.buildPythonApplication rec {
     "test_basic"
   ];
 
-  pythonImportsCheck = [ "codespell_lib" ];
+  pythonImportsCheck = ["codespell_lib"];
 
   meta = with lib; {
     description = "Fix common misspellings in source code";

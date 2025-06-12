@@ -5,7 +5,6 @@
   testers,
   bibtex-tidy,
 }:
-
 buildNpmPackage rec {
   pname = "bibtex-tidy";
   version = "1.14.0";
@@ -36,6 +35,6 @@ buildNpmPackage rec {
     mainProgram = "bibtex-tidy";
     homepage = "https://github.com/FlamingTempura/bibtex-tidy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bertof ];
+    maintainers = with lib.maintainers; [bertof];
   };
 }

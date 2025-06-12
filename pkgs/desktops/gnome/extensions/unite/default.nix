@@ -6,7 +6,6 @@
   xprop,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-unite";
   version = "82";
@@ -23,9 +22,9 @@ stdenv.mkDerivation rec {
     extensionPortalSlug = "unite";
   };
 
-  nativeBuildInputs = [ glib ];
+  nativeBuildInputs = [glib];
 
-  buildInputs = [ xprop ];
+  buildInputs = [xprop];
 
   buildPhase = ''
     runHook preBuild
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Unite is a GNOME Shell extension which makes a few layout tweaks to the top panel and removes window decorations to make it look like Ubuntu Unity Shell";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ rhoriguchi ];
+    maintainers = with maintainers; [rhoriguchi];
     homepage = "https://github.com/hardpixel/unite-shell";
     broken = versionOlder gnome-shell.version "3.32";
   };

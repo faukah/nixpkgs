@@ -3,7 +3,6 @@
   fetchCrate,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "keepass-diff";
   version = "1.2.0";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
     description = "CLI-tool to diff Keepass (.kdbx) files";
     homepage = "https://keepass-diff.narigo.dev/";
     license = licenses.mit;
-    maintainers = with maintainers; [ wamserma ];
+    maintainers = with maintainers; [wamserma];
     mainProgram = "keepass-diff";
   };
 }

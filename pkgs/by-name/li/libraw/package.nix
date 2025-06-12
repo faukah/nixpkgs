@@ -5,14 +5,12 @@
   autoreconfHook,
   lcms2,
   pkg-config,
-
   # for passthru.tests
   freeimage,
   hdrmerge,
   imagemagick,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libraw";
   version = "0.21.3";
@@ -31,7 +29,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  propagatedBuildInputs = [ lcms2 ];
+  propagatedBuildInputs = [lcms2];
 
   nativeBuildInputs = [
     autoreconfHook

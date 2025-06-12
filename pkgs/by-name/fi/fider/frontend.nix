@@ -1,12 +1,10 @@
 {
   buildNpmPackage,
-
   pname,
   version,
   src,
   npmDepsHash,
 }:
-
 buildNpmPackage {
   inherit version src npmDepsHash;
   pname = "${pname}-frontend";

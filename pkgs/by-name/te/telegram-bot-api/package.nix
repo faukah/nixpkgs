@@ -8,7 +8,6 @@
   zlib,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation {
   pname = "telegram-bot-api";
   version = "8.2";
@@ -31,7 +30,7 @@ stdenv.mkDerivation {
     zlib
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doInstallCheck = true;
   versionCheckProgramArg = "--version";

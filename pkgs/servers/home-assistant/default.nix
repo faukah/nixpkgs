@@ -11,23 +11,17 @@
   nixosTests,
   home-assistant,
   testers,
-
   # Look up dependencies of specified components in component-packages.nix
-  extraComponents ? [ ],
-
+  extraComponents ? [],
   # Additional packages to add to propagatedBuildInputs
-  extraPackages ? ps: [ ],
-
+  extraPackages ? ps: [],
   # Override Python packages using
   # self: super: { pkg = super.pkg.overridePythonAttrs (oldAttrs: { ... }); }
   # Applied after defaultOverrides
-  packageOverrides ? self: super: { },
-
+  packageOverrides ? self: super: {},
   # Skip pip install of required packages on startup
   skipPip ? true,
-}:
-
-let
+}: let
   defaultOverrides = [
     # Override the version of some packages pinned in Home Assistant's setup.py and requirements_all.txt
 
@@ -82,9 +76,11 @@ let
             --replace-fail "poetry>=1.0.0b1" "poetry-core" \
             --replace-fail "poetry.masonry" "poetry.core.masonry"
         '';
-        propagatedBuildInputs = (oldAttrs.propagatedBuildInputs or [ ]) ++ [
-          self.pytz
-        ];
+        propagatedBuildInputs =
+          (oldAttrs.propagatedBuildInputs or [])
+          ++ [
+            self.pytz
+          ];
       });
 
       async-timeout = super.async-timeout.overridePythonAttrs (oldAttrs: rec {
@@ -97,7 +93,7 @@ let
         };
       });
 
-      av = super.av.overridePythonAttrs (rec {
+      av = super.av.overridePythonAttrs rec {
         version = "13.1.0";
         src = fetchFromGitHub {
           owner = "PyAV-Org";
@@ -105,9 +101,9 @@ let
           tag = "v${version}";
           hash = "sha256-x2a9SC4uRplC6p0cD7fZcepFpRidbr6JJEEOaGSWl60=";
         };
-      });
+      };
 
-      brother = super.brother.overridePythonAttrs (rec {
+      brother = super.brother.overridePythonAttrs rec {
         version = "4.3.1";
         src = fetchFromGitHub {
           owner = "bieniu";
@@ -115,7 +111,7 @@ let
           tag = version;
           hash = "sha256-fWa5FNBGV8tnJ3CozMicXLGsDvnTjNzU8PdV266MeeQ=";
         };
-      });
+      };
 
       eq3btsmart = super.eq3btsmart.overridePythonAttrs (oldAttrs: rec {
         version = "1.4.1";
@@ -125,7 +121,7 @@ let
           tag = version;
           hash = "sha256-FRnCnSMtsiZ1AbZOMwO/I5UoFWP0xAFqRZsnrHG9WJA=";
         };
-        build-system = with self; [ poetry-core ];
+        build-system = with self; [poetry-core];
       });
 
       google-genai = super.google-genai.overridePythonAttrs (old: rec {
@@ -252,9 +248,11 @@ let
           rev = "refs/tags/v${version}";
           hash = "sha256-kIE3y/qlsO9Y1MjEQcX0pfaBeIzCCHk4f1Xa215BBHo=";
         };
-        dependencies = oldAttrs.propagatedBuildInputs or [ ] ++ [
-          self.pytz
-        ];
+        dependencies =
+          oldAttrs.propagatedBuildInputs or []
+          ++ [
+            self.pytz
+          ];
       });
 
       pykaleidescape = super.pykaleidescape.overridePythonAttrs (oldAttrs: rec {
@@ -295,7 +293,7 @@ let
           tag = "v${version}";
           hash = "sha256-f0w4Nucpe+5VE6nhlnePRH95AnGitXeT3BZb3dhBOTk=";
         };
-        build-system = with self; [ setuptools ];
+        build-system = with self; [setuptools];
         postPatch = ''
           # ValueError: invalid literal for int() with base 10: 'post0' in File "<string>", line 104, in <listcomp>
           substituteInPlace setup.py --replace \
@@ -322,7 +320,7 @@ let
           rev = "refs/tags/${version}";
           hash = "sha256-xOdTzG0bF5p1QpkXv2btwrVugQRjSwdAj8bXcC0IoQg=";
         };
-        patches = [ ];
+        patches = [];
         doCheck = false;
       });
 
@@ -346,7 +344,7 @@ let
         };
       });
 
-      wolf-comm = super.wolf-comm.overridePythonAttrs (rec {
+      wolf-comm = super.wolf-comm.overridePythonAttrs rec {
         version = "0.0.23";
         src = fetchFromGitHub {
           owner = "janrothkegel";
@@ -354,22 +352,22 @@ let
           tag = version;
           hash = "sha256-LpehooW3vmohiyMwOQTFNLiNCsaLKelWQxQk8bl+y1k=";
         };
-      });
+      };
 
       # internal python packages only consumed by home-assistant itself
-      hass-web-proxy-lib = self.callPackage ./python-modules/hass-web-proxy-lib { };
-      home-assistant-frontend = self.callPackage ./frontend.nix { };
-      home-assistant-intents = self.callPackage ./intents.nix { };
+      hass-web-proxy-lib = self.callPackage ./python-modules/hass-web-proxy-lib {};
+      home-assistant-frontend = self.callPackage ./frontend.nix {};
+      home-assistant-intents = self.callPackage ./intents.nix {};
       homeassistant = self.toPythonModule home-assistant;
       pytest-homeassistant-custom-component =
         self.callPackage ./pytest-homeassistant-custom-component.nix
-          { };
+        {};
     })
   ];
 
   python = python313.override {
     self = python;
-    packageOverrides = lib.composeManyExtensions (defaultOverrides ++ [ packageOverrides ]);
+    packageOverrides = lib.composeManyExtensions (defaultOverrides ++ [packageOverrides]);
   };
 
   componentPackages = import ./component-packages.nix;
@@ -387,234 +385,230 @@ let
 
   # Don't forget to run update-component-packages.py after updating
   hassVersion = "2025.5.3";
-
 in
-python.pkgs.buildPythonApplication rec {
-  pname = "homeassistant";
-  version =
-    assert (componentPackages.version == hassVersion);
-    hassVersion;
-  pyproject = true;
+  python.pkgs.buildPythonApplication rec {
+    pname = "homeassistant";
+    version = assert (componentPackages.version == hassVersion); hassVersion;
+    pyproject = true;
 
-  # check REQUIRED_PYTHON_VER in homeassistant/const.py
-  disabled = python.pythonOlder "3.13";
+    # check REQUIRED_PYTHON_VER in homeassistant/const.py
+    disabled = python.pythonOlder "3.13";
 
-  # don't try and fail to strip 6600+ python files, it takes minutes!
-  dontStrip = true;
+    # don't try and fail to strip 6600+ python files, it takes minutes!
+    dontStrip = true;
 
-  # Primary source is the git, which has the tests and allows bisecting the core
-  src = fetchFromGitHub {
-    owner = "home-assistant";
-    repo = "core";
-    tag = version;
-    hash = "sha256-qqPO7dr+Sb1RKYoOV7MhT2E1FcW7lAKTTB0T+UzLwzk=";
-  };
+    # Primary source is the git, which has the tests and allows bisecting the core
+    src = fetchFromGitHub {
+      owner = "home-assistant";
+      repo = "core";
+      tag = version;
+      hash = "sha256-qqPO7dr+Sb1RKYoOV7MhT2E1FcW7lAKTTB0T+UzLwzk=";
+    };
 
-  # Secondary source is pypi sdist for translations
-  sdist = fetchPypi {
-    inherit pname version;
-    hash = "sha256-8WusUfZEyoBPltVrDpDQVkbIFEHn1GGdA4Pt0Zb1+Fo=";
-  };
+    # Secondary source is pypi sdist for translations
+    sdist = fetchPypi {
+      inherit pname version;
+      hash = "sha256-8WusUfZEyoBPltVrDpDQVkbIFEHn1GGdA4Pt0Zb1+Fo=";
+    };
 
-  build-system = with python.pkgs; [
-    setuptools
-  ];
-
-  pythonRelaxDeps = true;
-
-  # extract translations from pypi sdist
-  prePatch = ''
-    tar --extract --gzip --file $sdist --strip-components 1 --wildcards "**/translations"
-  '';
-
-  # leave this in, so users don't have to constantly update their downstream patch handling
-  patches = [
-    # Follow symlinks in /var/lib/hass/www
-    ./patches/static-follow-symlinks.patch
-
-    # Patch path to ffmpeg binary
-    (replaceVars ./patches/ffmpeg-path.patch {
-      ffmpeg = "${lib.getExe ffmpeg-headless}";
-    })
-  ];
-
-  postPatch = ''
-    substituteInPlace tests/test_core_config.py --replace-fail '"/usr"' "\"$NIX_BUILD_TOP/media\""
-
-    substituteInPlace pyproject.toml \
-      --replace-fail "setuptools==78.1.1" setuptools
-  '';
-
-  dependencies = with python.pkgs; [
-    # Only packages required in pyproject.toml
-    aiodns
-    aiohasupervisor
-    aiohttp
-    aiohttp-asyncmdnsresolver
-    aiohttp-cors
-    aiohttp-fast-zlib
-    aiozoneinfo
-    annotatedyaml
-    astral
-    async-interrupt
-    atomicwrites-homeassistant
-    attrs
-    audioop-lts
-    awesomeversion
-    bcrypt
-    certifi
-    ciso8601
-    cronsim
-    cryptography
-    fnv-hash-fast
-    ha-ffmpeg
-    hass-nabucasa
-    hassil
-    home-assistant-bluetooth
-    home-assistant-intents
-    httpx
-    ifaddr
-    jinja2
-    lru-dict
-    mutagen
-    numpy
-    orjson
-    packaging
-    pillow
-    propcache
-    psutil-home-assistant
-    pyjwt
-    pymicro-vad
-    pyopenssl
-    pyspeex-noise
-    python-slugify
-    pyturbojpeg
-    pyyaml
-    requests
-    securetar
-    sqlalchemy
-    standard-aifc
-    standard-telnetlib
-    typing-extensions
-    ulid-transform
-    urllib3
-    uv
-    voluptuous
-    voluptuous-openapi
-    voluptuous-serialize
-    webrtc-models
-    yarl
-    zeroconf
-    # REQUIREMENTS in homeassistant/auth/mfa_modules/totp.py and homeassistant/auth/mfa_modules/notify.py
-    pyotp
-    pyqrcode
-  ];
-
-  makeWrapperArgs = lib.optional skipPip "--add-flags --skip-pip";
-
-  # upstream only tests on Linux, so do we.
-  doCheck = stdenv.hostPlatform.isLinux;
-
-  nativeCheckInputs =
-    with python.pkgs;
-    [
-      # test infrastructure (selectively from requirement_test.txt)
-      freezegun
-      pytest-asyncio
-      pytest-aiohttp
-      pytest-freezer
-      pytest-mock
-      pytest-socket
-      pytest-timeout
-      pytest-unordered
-      pytest-xdist
-      pytestCheckHook
-      requests-mock
-      respx
-      syrupy
-      tomli
-      # Sneakily imported in tests/conftest.py
-      paho-mqtt
-      # Used in tests/non_packaged_scripts/test_alexa_locales.py
-      beautifulsoup4
-    ]
-    ++ lib.concatMap (component: getPackages component python.pkgs) [
-      # some components are needed even if tests in tests/components are disabled
-      "default_config"
-      "hue"
-      "qwikswitch"
+    build-system = with python.pkgs; [
+      setuptools
     ];
 
-  pytestFlagsArray = [
-    # assign tests grouped by file to workers
-    "--dist loadfile"
-    # enable full variable printing on error
-    "--showlocals"
-    # AssertionError: assert 1 == 0
-    "--deselect tests/test_config.py::test_merge"
-    # checks whether pip is installed
-    "--deselect=tests/util/test_package.py::test_check_package_fragment"
-    # flaky
-    "--deselect=tests/test_bootstrap.py::test_setup_hass_takes_longer_than_log_slow_startup"
-    "--deselect=tests/test_test_fixtures.py::test_evict_faked_translations"
-    "--deselect=tests/helpers/test_backup.py::test_async_get_manager"
-    # tests are located in tests/
-    "tests"
-  ];
+    pythonRelaxDeps = true;
 
-  disabledTestPaths = [
-    # we neither run nor distribute hassfest
-    "tests/hassfest"
-    # we don't care about code quality
-    "tests/pylint"
-    # redundant component import test, which would make debugpy & sentry expensive to review
-    "tests/test_circular_imports.py"
-    # don't bulk test all components
-    "tests/components"
-  ];
+    # extract translations from pypi sdist
+    prePatch = ''
+      tar --extract --gzip --file $sdist --strip-components 1 --wildcards "**/translations"
+    '';
 
-  preCheck = ''
-    export HOME="$TEMPDIR"
+    # leave this in, so users don't have to constantly update their downstream patch handling
+    patches = [
+      # Follow symlinks in /var/lib/hass/www
+      ./patches/static-follow-symlinks.patch
 
-    # the tests require the existance of a media dir
-    mkdir "$NIX_BUILD_TOP"/media
+      # Patch path to ffmpeg binary
+      (replaceVars ./patches/ffmpeg-path.patch {
+        ffmpeg = "${lib.getExe ffmpeg-headless}";
+      })
+    ];
 
-    # put ping binary into PATH, e.g. for wake_on_lan tests
-    export PATH=${inetutils}/bin:$PATH
-  '';
+    postPatch = ''
+      substituteInPlace tests/test_core_config.py --replace-fail '"/usr"' "\"$NIX_BUILD_TOP/media\""
 
-  passthru = {
-    inherit
-      availableComponents
-      extraComponents
-      getPackages
-      python
-      supportedComponentsWithTests
-      ;
-    pythonPath = python.pkgs.makePythonPath (componentBuildInputs ++ extraBuildInputs);
-    frontend = python.pkgs.home-assistant-frontend;
-    intents = python.pkgs.home-assistant-intents;
-    tests = {
-      nixos = nixosTests.home-assistant;
-      components = callPackage ./tests.nix { };
-      version = testers.testVersion {
-        package = home-assistant;
-        command = "hass --version";
-      };
-      withoutCheckDeps = home-assistant.overridePythonAttrs {
-        pname = "home-assistant-without-check-deps";
-        doCheck = false;
+      substituteInPlace pyproject.toml \
+        --replace-fail "setuptools==78.1.1" setuptools
+    '';
+
+    dependencies = with python.pkgs; [
+      # Only packages required in pyproject.toml
+      aiodns
+      aiohasupervisor
+      aiohttp
+      aiohttp-asyncmdnsresolver
+      aiohttp-cors
+      aiohttp-fast-zlib
+      aiozoneinfo
+      annotatedyaml
+      astral
+      async-interrupt
+      atomicwrites-homeassistant
+      attrs
+      audioop-lts
+      awesomeversion
+      bcrypt
+      certifi
+      ciso8601
+      cronsim
+      cryptography
+      fnv-hash-fast
+      ha-ffmpeg
+      hass-nabucasa
+      hassil
+      home-assistant-bluetooth
+      home-assistant-intents
+      httpx
+      ifaddr
+      jinja2
+      lru-dict
+      mutagen
+      numpy
+      orjson
+      packaging
+      pillow
+      propcache
+      psutil-home-assistant
+      pyjwt
+      pymicro-vad
+      pyopenssl
+      pyspeex-noise
+      python-slugify
+      pyturbojpeg
+      pyyaml
+      requests
+      securetar
+      sqlalchemy
+      standard-aifc
+      standard-telnetlib
+      typing-extensions
+      ulid-transform
+      urllib3
+      uv
+      voluptuous
+      voluptuous-openapi
+      voluptuous-serialize
+      webrtc-models
+      yarl
+      zeroconf
+      # REQUIREMENTS in homeassistant/auth/mfa_modules/totp.py and homeassistant/auth/mfa_modules/notify.py
+      pyotp
+      pyqrcode
+    ];
+
+    makeWrapperArgs = lib.optional skipPip "--add-flags --skip-pip";
+
+    # upstream only tests on Linux, so do we.
+    doCheck = stdenv.hostPlatform.isLinux;
+
+    nativeCheckInputs = with python.pkgs;
+      [
+        # test infrastructure (selectively from requirement_test.txt)
+        freezegun
+        pytest-asyncio
+        pytest-aiohttp
+        pytest-freezer
+        pytest-mock
+        pytest-socket
+        pytest-timeout
+        pytest-unordered
+        pytest-xdist
+        pytestCheckHook
+        requests-mock
+        respx
+        syrupy
+        tomli
+        # Sneakily imported in tests/conftest.py
+        paho-mqtt
+        # Used in tests/non_packaged_scripts/test_alexa_locales.py
+        beautifulsoup4
+      ]
+      ++ lib.concatMap (component: getPackages component python.pkgs) [
+        # some components are needed even if tests in tests/components are disabled
+        "default_config"
+        "hue"
+        "qwikswitch"
+      ];
+
+    pytestFlagsArray = [
+      # assign tests grouped by file to workers
+      "--dist loadfile"
+      # enable full variable printing on error
+      "--showlocals"
+      # AssertionError: assert 1 == 0
+      "--deselect tests/test_config.py::test_merge"
+      # checks whether pip is installed
+      "--deselect=tests/util/test_package.py::test_check_package_fragment"
+      # flaky
+      "--deselect=tests/test_bootstrap.py::test_setup_hass_takes_longer_than_log_slow_startup"
+      "--deselect=tests/test_test_fixtures.py::test_evict_faked_translations"
+      "--deselect=tests/helpers/test_backup.py::test_async_get_manager"
+      # tests are located in tests/
+      "tests"
+    ];
+
+    disabledTestPaths = [
+      # we neither run nor distribute hassfest
+      "tests/hassfest"
+      # we don't care about code quality
+      "tests/pylint"
+      # redundant component import test, which would make debugpy & sentry expensive to review
+      "tests/test_circular_imports.py"
+      # don't bulk test all components
+      "tests/components"
+    ];
+
+    preCheck = ''
+      export HOME="$TEMPDIR"
+
+      # the tests require the existance of a media dir
+      mkdir "$NIX_BUILD_TOP"/media
+
+      # put ping binary into PATH, e.g. for wake_on_lan tests
+      export PATH=${inetutils}/bin:$PATH
+    '';
+
+    passthru = {
+      inherit
+        availableComponents
+        extraComponents
+        getPackages
+        python
+        supportedComponentsWithTests
+        ;
+      pythonPath = python.pkgs.makePythonPath (componentBuildInputs ++ extraBuildInputs);
+      frontend = python.pkgs.home-assistant-frontend;
+      intents = python.pkgs.home-assistant-intents;
+      tests = {
+        nixos = nixosTests.home-assistant;
+        components = callPackage ./tests.nix {};
+        version = testers.testVersion {
+          package = home-assistant;
+          command = "hass --version";
+        };
+        withoutCheckDeps = home-assistant.overridePythonAttrs {
+          pname = "home-assistant-without-check-deps";
+          doCheck = false;
+        };
       };
     };
-  };
 
-  meta = with lib; {
-    homepage = "https://home-assistant.io/";
-    changelog = "https://github.com/home-assistant/core/releases/tag/${src.tag}";
-    description = "Open source home automation that puts local control and privacy first";
-    license = licenses.asl20;
-    teams = [ teams.home-assistant ];
-    platforms = platforms.linux;
-    mainProgram = "hass";
-  };
-}
+    meta = with lib; {
+      homepage = "https://home-assistant.io/";
+      changelog = "https://github.com/home-assistant/core/releases/tag/${src.tag}";
+      description = "Open source home automation that puts local control and privacy first";
+      license = licenses.asl20;
+      teams = [teams.home-assistant];
+      platforms = platforms.linux;
+      mainProgram = "hass";
+    };
+  }

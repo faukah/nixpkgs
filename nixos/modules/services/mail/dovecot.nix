@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     attrValues
     concatMapStringsSep
     concatStrings
@@ -38,34 +37,37 @@ let
   baseDir = "/run/dovecot2";
   stateDir = "/var/lib/dovecot";
 
-  sieveScriptSettings = mapAttrs' (
-    to: _: nameValuePair "sieve_${to}" "${stateDir}/sieve/${to}"
-  ) cfg.sieve.scripts;
+  sieveScriptSettings =
+    mapAttrs' (
+      to: _: nameValuePair "sieve_${to}" "${stateDir}/sieve/${to}"
+    )
+    cfg.sieve.scripts;
   imapSieveMailboxSettings = listToAttrs (
     flatten (
       imap1 (
         idx: el:
-        singleton {
-          name = "imapsieve_mailbox${toString idx}_name";
-          value = el.name;
-        }
-        ++ optional (el.from != null) {
-          name = "imapsieve_mailbox${toString idx}_from";
-          value = el.from;
-        }
-        ++ optional (el.causes != [ ]) {
-          name = "imapsieve_mailbox${toString idx}_causes";
-          value = concatStringsSep "," el.causes;
-        }
-        ++ optional (el.before != null) {
-          name = "imapsieve_mailbox${toString idx}_before";
-          value = "file:${stateDir}/imapsieve/before/${baseNameOf el.before}";
-        }
-        ++ optional (el.after != null) {
-          name = "imapsieve_mailbox${toString idx}_after";
-          value = "file:${stateDir}/imapsieve/after/${baseNameOf el.after}";
-        }
-      ) cfg.imapsieve.mailbox
+          singleton {
+            name = "imapsieve_mailbox${toString idx}_name";
+            value = el.name;
+          }
+          ++ optional (el.from != null) {
+            name = "imapsieve_mailbox${toString idx}_from";
+            value = el.from;
+          }
+          ++ optional (el.causes != []) {
+            name = "imapsieve_mailbox${toString idx}_causes";
+            value = concatStringsSep "," el.causes;
+          }
+          ++ optional (el.before != null) {
+            name = "imapsieve_mailbox${toString idx}_before";
+            value = "file:${stateDir}/imapsieve/before/${baseNameOf el.before}";
+          }
+          ++ optional (el.after != null) {
+            name = "imapsieve_mailbox${toString idx}_after";
+            value = "file:${stateDir}/imapsieve/after/${baseNameOf el.after}";
+          }
+      )
+      cfg.imapsieve.mailbox
     )
   );
 
@@ -103,7 +105,8 @@ let
     map (el: {
       name = builtins.unsafeDiscardStringContext (baseNameOf el);
       path = el;
-    }) cfg.sieve.pipeBins
+    })
+    cfg.sieve.pipeBins
   );
 
   dovecotConf = concatStrings [
@@ -121,23 +124,23 @@ let
         protocol ${protocol} {
           mail_plugins = $mail_plugins ${concatStringsSep " " plugins.enable}
         }
-      '') cfg.mailPlugins.perProtocol
+      '')
+      cfg.mailPlugins.perProtocol
     ))
 
     (
-      if cfg.sslServerCert == null then
-        ''
-          ssl = no
-          disable_plaintext_auth = no
-        ''
-      else
-        ''
-          ssl_cert = <${cfg.sslServerCert}
-          ssl_key = <${cfg.sslServerKey}
-          ${optionalString (cfg.sslCACert != null) ("ssl_ca = <" + cfg.sslCACert)}
-          ${optionalString cfg.enableDHE ''ssl_dh = <${config.security.dhparams.params.dovecot2.path}''}
-          disable_plaintext_auth = yes
-        ''
+      if cfg.sslServerCert == null
+      then ''
+        ssl = no
+        disable_plaintext_auth = no
+      ''
+      else ''
+        ssl_cert = <${cfg.sslServerCert}
+        ssl_key = <${cfg.sslServerKey}
+        ${optionalString (cfg.sslCACert != null) ("ssl_ca = <" + cfg.sslCACert)}
+        ${optionalString cfg.enableDHE ''ssl_dh = <${config.security.dhparams.params.dovecot2.path}''}
+        disable_plaintext_auth = yes
+      ''
     )
 
     ''
@@ -169,7 +172,7 @@ let
       }
     '')
 
-    (optionalString (cfg.mailboxes != { }) ''
+    (optionalString (cfg.mailboxes != {}) ''
       namespace inbox {
         inbox=yes
         ${concatStringsSep "\n" (map mailboxConfig (attrValues cfg.mailboxes))}
@@ -208,8 +211,7 @@ let
     cfg.extraConfig
   ];
 
-  mailboxConfig =
-    mailbox:
+  mailboxConfig = mailbox:
     ''
       mailbox "${mailbox.name}" {
         auto = ${toString mailbox.auto}
@@ -222,66 +224,64 @@ let
     ''
     + "}";
 
-  mailboxes =
-    { name, ... }:
-    {
-      options = {
-        name = mkOption {
-          type = types.strMatching ''[^"]+'';
-          example = "Spam";
-          default = name;
-          readOnly = true;
-          description = "The name of the mailbox.";
-        };
-        auto = mkOption {
-          type = types.enum [
-            "no"
-            "create"
-            "subscribe"
-          ];
-          default = "no";
-          example = "subscribe";
-          description = "Whether to automatically create or create and subscribe to the mailbox or not.";
-        };
-        specialUse = mkOption {
-          type = types.nullOr (
-            types.enum [
-              "All"
-              "Archive"
-              "Drafts"
-              "Flagged"
-              "Junk"
-              "Sent"
-              "Trash"
-            ]
-          );
-          default = null;
-          example = "Junk";
-          description = "Null if no special use flag is set. Other than that every use flag mentioned in the RFC is valid.";
-        };
-        autoexpunge = mkOption {
-          type = types.nullOr types.str;
-          default = null;
-          example = "60d";
-          description = ''
-            To automatically remove all email from the mailbox which is older than the
-            specified time.
-          '';
-        };
+  mailboxes = {name, ...}: {
+    options = {
+      name = mkOption {
+        type = types.strMatching ''[^"]+'';
+        example = "Spam";
+        default = name;
+        readOnly = true;
+        description = "The name of the mailbox.";
+      };
+      auto = mkOption {
+        type = types.enum [
+          "no"
+          "create"
+          "subscribe"
+        ];
+        default = "no";
+        example = "subscribe";
+        description = "Whether to automatically create or create and subscribe to the mailbox or not.";
+      };
+      specialUse = mkOption {
+        type = types.nullOr (
+          types.enum [
+            "All"
+            "Archive"
+            "Drafts"
+            "Flagged"
+            "Junk"
+            "Sent"
+            "Trash"
+          ]
+        );
+        default = null;
+        example = "Junk";
+        description = "Null if no special use flag is set. Other than that every use flag mentioned in the RFC is valid.";
+      };
+      autoexpunge = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        example = "60d";
+        description = ''
+          To automatically remove all email from the mailbox which is older than the
+          specified time.
+        '';
       };
     };
-in
-{
+  };
+in {
   imports = [
-    (mkRemovedOptionModule [ "services" "dovecot2" "package" ] "")
+    (mkRemovedOptionModule ["services" "dovecot2" "package"] "")
     (mkRemovedOptionModule [
       "services"
       "dovecot2"
       "modules"
     ] "Now need to use `environment.systemPackages` to load additional Dovecot modules")
-    (mkRenamedOptionModule
-      [ "services" "dovecot2" "sieveScripts" ]
-      [ "services" "dovecot2" "sieve" "scripts" ]
+    (
+      mkRenamedOptionModule
+      ["services" "dovecot2" "sieveScripts"]
+      ["services" "dovecot2" "sieve" "scripts"]
     )
   ];
 
@@ -290,15 +290,17 @@ in
 
     enablePop3 = mkEnableOption "starting the POP3 listener (when Dovecot is enabled)";
 
-    enableImap = mkEnableOption "starting the IMAP listener (when Dovecot is enabled)" // {
-      default = true;
-    };
+    enableImap =
+      mkEnableOption "starting the IMAP listener (when Dovecot is enabled)"
+      // {
+        default = true;
+      };
 
     enableLmtp = mkEnableOption "starting the LMTP listener (when Dovecot is enabled)";
 
     protocols = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = "Additional listeners to start when Dovecot is enabled.";
     };
 
@@ -321,53 +323,50 @@ in
       description = "Additional entries to put verbatim into Dovecot's config file.";
     };
 
-    mailPlugins =
-      let
-        plugins =
-          hint:
-          types.submodule {
-            options = {
-              enable = mkOption {
-                type = types.listOf types.str;
-                default = [ ];
-                description = "mail plugins to enable as a list of strings to append to the ${hint} `$mail_plugins` configuration variable";
-              };
+    mailPlugins = let
+      plugins = hint:
+        types.submodule {
+          options = {
+            enable = mkOption {
+              type = types.listOf types.str;
+              default = [];
+              description = "mail plugins to enable as a list of strings to append to the ${hint} `$mail_plugins` configuration variable";
             };
           };
-      in
+        };
+    in
       mkOption {
-        type =
-          with types;
+        type = with types;
           submodule {
             options = {
               globally = mkOption {
                 description = "Additional entries to add to the mail_plugins variable for all protocols";
                 type = plugins "top-level";
                 example = {
-                  enable = [ "virtual" ];
+                  enable = ["virtual"];
                 };
                 default = {
-                  enable = [ ];
+                  enable = [];
                 };
               };
               perProtocol = mkOption {
                 description = "Additional entries to add to the mail_plugins variable, per protocol";
                 type = attrsOf (plugins "corresponding per-protocol");
-                default = { };
+                default = {};
                 example = {
-                  imap = [ "imap_acl" ];
+                  imap = ["imap_acl"];
                 };
               };
             };
           };
         description = "Additional entries to add to the mail_plugins variable, globally and per protocol";
         example = {
-          globally.enable = [ "acl" ];
-          perProtocol.imap.enable = [ "imap_acl" ];
+          globally.enable = ["acl"];
+          perProtocol.imap.enable = ["imap_acl"];
         };
         default = {
-          globally.enable = [ ];
-          perProtocol = { };
+          globally.enable = [];
+          perProtocol = {};
         };
       };
 
@@ -375,7 +374,10 @@ in
       type = types.nullOr types.path;
       default = null;
       description = "Config file used for the whole dovecot configuration.";
-      apply = v: if v != null then v else pkgs.writeText "dovecot.conf" dovecotConf;
+      apply = v:
+        if v != null
+        then v
+        else pkgs.writeText "dovecot.conf" dovecotConf;
     };
 
     mailLocation = mkOption {
@@ -426,29 +428,33 @@ in
       description = "Path to the server's private key.";
     };
 
-    enablePAM = mkEnableOption "creating a own Dovecot PAM service and configure PAM user logins" // {
-      default = true;
-    };
+    enablePAM =
+      mkEnableOption "creating a own Dovecot PAM service and configure PAM user logins"
+      // {
+        default = true;
+      };
 
-    enableDHE = mkEnableOption "ssl_dh and generation of primes for the key exchange" // {
-      default = true;
-    };
+    enableDHE =
+      mkEnableOption "ssl_dh and generation of primes for the key exchange"
+      // {
+        default = true;
+      };
 
     showPAMFailure = mkEnableOption "showing the PAM failure message on authentication error (useful for OTPW)";
 
     mailboxes = mkOption {
-      type =
-        with types;
+      type = with types;
         coercedTo (listOf unspecified) (
           list:
-          listToAttrs (
-            map (entry: {
-              name = entry.name;
-              value = removeAttrs entry [ "name" ];
-            }) list
-          )
+            listToAttrs (
+              map (entry: {
+                name = entry.name;
+                value = removeAttrs entry ["name"];
+              })
+              list
+            )
         ) (attrsOf (submodule mailboxes));
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           Spam = { specialUse = "Junk"; auto = "create"; };
@@ -482,7 +488,7 @@ in
           types.package
         ]
       );
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           sieve = "file:~/sieve;active=~/.dovecot.sieve";
@@ -499,12 +505,11 @@ in
     };
 
     imapsieve.mailbox = mkOption {
-      default = [ ];
+      default = [];
       description = "Configure Sieve filtering rules on IMAP actions";
       type = types.listOf (
         types.submodule (
-          { config, ... }:
-          {
+          {config, ...}: {
             options = {
               name = mkOption {
                 description = ''
@@ -530,7 +535,7 @@ in
               };
 
               causes = mkOption {
-                default = [ ];
+                default = [];
                 description = ''
                   Only execute the administrator Sieve scripts for the mailbox configured with services.dovecot2.imapsieve.mailbox.<name>.name when one of the listed IMAPSIEVE causes apply.
 
@@ -578,14 +583,14 @@ in
 
     sieve = {
       plugins = mkOption {
-        default = [ ];
-        example = [ "sieve_extprograms" ];
+        default = [];
+        example = ["sieve_extprograms"];
         description = "Sieve plugins to load";
         type = types.listOf types.str;
       };
 
       extensions = mkOption {
-        default = [ ];
+        default = [];
         description = "Sieve extensions for use in user scripts";
         example = [
           "notify"
@@ -596,20 +601,20 @@ in
       };
 
       globalExtensions = mkOption {
-        default = [ ];
-        example = [ "vnd.dovecot.environment" ];
+        default = [];
+        example = ["vnd.dovecot.environment"];
         description = "Sieve extensions for use in global scripts";
         type = types.listOf types.str;
       };
 
       scripts = mkOption {
         type = types.attrsOf types.path;
-        default = { };
+        default = {};
         description = "Sieve scripts to be executed. Key is a sequence, e.g. 'before2', 'after' etc.";
       };
 
       pipeBins = mkOption {
-        default = [ ];
+        default = [];
         example = literalExpression ''
           map lib.getExe [
             (pkgs.writeShellScriptBin "learn-ham.sh" "exec ''${pkgs.rspamd}/bin/rspamc learn_ham")
@@ -623,11 +628,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    security.pam.services.dovecot2 = mkIf cfg.enablePAM { };
+    security.pam.services.dovecot2 = mkIf cfg.enablePAM {};
 
     security.dhparams = mkIf (cfg.sslServerCert != null && cfg.enableDHE) {
       enable = true;
-      params.dovecot2 = { };
+      params.dovecot2 = {};
     };
 
     services.dovecot2 = {
@@ -635,15 +640,15 @@ in
         optional cfg.enableImap "imap" ++ optional cfg.enablePop3 "pop3" ++ optional cfg.enableLmtp "lmtp";
 
       mailPlugins = mkIf cfg.enableQuota {
-        globally.enable = [ "quota" ];
-        perProtocol.imap.enable = [ "imap_quota" ];
+        globally.enable = ["quota"];
+        perProtocol.imap.enable = ["imap_quota"];
       };
 
       sieve.plugins =
-        optional (cfg.imapsieve.mailbox != [ ]) "sieve_imapsieve"
-        ++ optional (cfg.sieve.pipeBins != [ ]) "sieve_extprograms";
+        optional (cfg.imapsieve.mailbox != []) "sieve_imapsieve"
+        ++ optional (cfg.sieve.pipeBins != []) "sieve_extprograms";
 
-      sieve.globalExtensions = optional (cfg.sieve.pipeBins != [ ]) "vnd.dovecot.pipe";
+      sieve.globalExtensions = optional (cfg.sieve.pipeBins != []) "vnd.dovecot.pipe";
 
       pluginSettings = lib.mapAttrs (n: lib.mkDefault) (
         {
@@ -673,10 +678,12 @@ in
         };
       }
       // optionalAttrs (cfg.createMailUser && cfg.mailUser != null) {
-        ${cfg.mailUser} = {
-          description = "Virtual Mail User";
-          isSystemUser = true;
-        } // optionalAttrs (cfg.mailGroup != null) { group = cfg.mailGroup; };
+        ${cfg.mailUser} =
+          {
+            description = "Virtual Mail User";
+            isSystemUser = true;
+          }
+          // optionalAttrs (cfg.mailGroup != null) {group = cfg.mailGroup;};
       };
 
     users.groups =
@@ -687,7 +694,7 @@ in
         dovecot2.gid = config.ids.gids.dovecot2;
       }
       // optionalAttrs (cfg.createMailUser && cfg.mailGroup != null) {
-        ${cfg.mailGroup} = { };
+        ${cfg.mailGroup} = {};
       };
 
     environment.etc."dovecot/dovecot.conf".source = cfg.configFile;
@@ -695,8 +702,8 @@ in
     systemd.services.dovecot2 = {
       description = "Dovecot IMAP/POP3 server";
 
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       restartTriggers = [
         cfg.configFile
       ];
@@ -708,7 +715,7 @@ in
         ExecReload = "${dovecotPkg}/sbin/doveadm reload";
         Restart = "on-failure";
         RestartSec = "1s";
-        RuntimeDirectory = [ "dovecot2" ];
+        RuntimeDirectory = ["dovecot2"];
       };
 
       # When copying sieve scripts preserve the original time stamp
@@ -718,7 +725,7 @@ in
         ''
           rm -rf ${stateDir}/sieve ${stateDir}/imapsieve
         ''
-        + optionalString (cfg.sieve.scripts != { }) ''
+        + optionalString (cfg.sieve.scripts != {}) ''
           mkdir -p ${stateDir}/sieve
           ${concatStringsSep "\n" (
             mapAttrsToList (to: from: ''
@@ -729,24 +736,26 @@ in
                 cp -p '${from}' '${stateDir}/sieve/${to}'
               fi
               ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/sieve/${to}'
-            '') cfg.sieve.scripts
+            '')
+            cfg.sieve.scripts
           )}
           chown -R '${cfg.mailUser}:${cfg.mailGroup}' '${stateDir}/sieve'
         ''
-        + optionalString (cfg.imapsieve.mailbox != [ ]) ''
+        + optionalString (cfg.imapsieve.mailbox != []) ''
           mkdir -p ${stateDir}/imapsieve/{before,after}
 
           ${concatMapStringsSep "\n" (
-            el:
-            optionalString (el.before != null) ''
-              cp -p ${el.before} ${stateDir}/imapsieve/before/${baseNameOf el.before}
-              ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/imapsieve/before/${baseNameOf el.before}'
-            ''
-            + optionalString (el.after != null) ''
-              cp -p ${el.after} ${stateDir}/imapsieve/after/${baseNameOf el.after}
-              ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/imapsieve/after/${baseNameOf el.after}'
-            ''
-          ) cfg.imapsieve.mailbox}
+              el:
+                optionalString (el.before != null) ''
+                  cp -p ${el.before} ${stateDir}/imapsieve/before/${baseNameOf el.before}
+                  ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/imapsieve/before/${baseNameOf el.before}'
+                ''
+                + optionalString (el.after != null) ''
+                  cp -p ${el.after} ${stateDir}/imapsieve/after/${baseNameOf el.after}
+                  ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/imapsieve/after/${baseNameOf el.after}'
+                ''
+            )
+            cfg.imapsieve.mailbox}
 
           ${optionalString (
             cfg.mailUser != null && cfg.mailGroup != null
@@ -754,14 +763,15 @@ in
         '';
     };
 
-    environment.systemPackages = [ dovecotPkg ];
+    environment.systemPackages = [dovecotPkg];
 
     warnings = warnAboutExtraConfigCollisions;
 
     assertions = [
       {
         assertion =
-          (cfg.sslServerCert == null) == (cfg.sslServerKey == null)
+          (cfg.sslServerCert == null)
+          == (cfg.sslServerKey == null)
           && (cfg.sslCACert != null -> !(cfg.sslServerCert == null || cfg.sslServerKey == null));
         message = "dovecot needs both sslServerCert and sslServerKey defined for working crypto";
       }
@@ -770,12 +780,11 @@ in
         message = "dovecot is configured with showPAMFailure while enablePAM is disabled";
       }
       {
-        assertion = cfg.sieve.scripts != { } -> (cfg.mailUser != null && cfg.mailGroup != null);
+        assertion = cfg.sieve.scripts != {} -> (cfg.mailUser != null && cfg.mailGroup != null);
         message = "dovecot requires mailUser and mailGroup to be set when `sieve.scripts` is set";
       }
     ];
-
   };
 
-  meta.maintainers = [ lib.maintainers.dblsaiko ];
+  meta.maintainers = [lib.maintainers.dblsaiko];
 }

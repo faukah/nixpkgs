@@ -7,7 +7,6 @@
   nix-update-script,
   runCommand,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stdoutisatty";
   version = "1.0";
@@ -30,9 +29,9 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
-      ls-color = runCommand "${finalAttrs.pname}-test-ls-color" { } ''
+      ls-color = runCommand "${finalAttrs.pname}-test-ls-color" {} ''
         set -x
         mkdir somedir
         ln -s somedir somelink
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/lilydjwg/stdoutisatty";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ bryango ];
+    maintainers = with lib.maintainers; [bryango];
     mainProgram = "stdoutisatty";
     platforms = lib.platforms.linux;
   };

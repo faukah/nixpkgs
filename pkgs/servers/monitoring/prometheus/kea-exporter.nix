@@ -4,7 +4,6 @@
   fetchPypi,
   nixosTests,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "kea-exporter";
   version = "0.7.0";
@@ -41,6 +40,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "kea-exporter";
     homepage = "https://github.com/mweinelt/kea-exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

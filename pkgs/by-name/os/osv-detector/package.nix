@@ -5,7 +5,6 @@
   osv-detector,
   testers,
 }:
-
 buildGoModule rec {
   pname = "osv-detector";
   version = "0.11.1";
@@ -25,24 +24,22 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  checkFlags =
-    let
-      skippedTests = [
-        # Disable tests requiring network access
-        "TestRun_ParseAs_CsvFile"
-        "TestRun_ParseAs_CsvRow"
-        "TestRun_DBs"
-        "TestRun_Lockfile"
-        "TestRun_ParseAsGlobal"
-        "TestRun_Ignores"
-        "TestRun_ParseAsSpecific"
-        "TestRun_Configs"
-      ];
-    in
-    [
-      "-skip"
-      "${builtins.concatStringsSep "|" skippedTests}"
+  checkFlags = let
+    skippedTests = [
+      # Disable tests requiring network access
+      "TestRun_ParseAs_CsvFile"
+      "TestRun_ParseAs_CsvRow"
+      "TestRun_DBs"
+      "TestRun_Lockfile"
+      "TestRun_ParseAsGlobal"
+      "TestRun_Ignores"
+      "TestRun_ParseAsSpecific"
+      "TestRun_Configs"
     ];
+  in [
+    "-skip"
+    "${builtins.concatStringsSep "|" skippedTests}"
+  ];
 
   passthru.tests.version = testers.testVersion {
     package = osv-detector;
@@ -56,6 +53,6 @@ buildGoModule rec {
     homepage = "https://github.com/G-Rath/osv-detector";
     changelog = "https://github.com/G-Rath/osv-detector/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

@@ -9,56 +9,57 @@
   pkg-config,
   gpgme,
   btrfs-progs,
-}:
-let
+}: let
   version = "1.5";
 in
-buildGoModule {
-  pname = "gomanagedocker";
-  inherit version;
+  buildGoModule {
+    pname = "gomanagedocker";
+    inherit version;
 
-  src = fetchFromGitHub {
-    owner = "ajayd-san";
-    repo = "gomanagedocker";
-    tag = "v${version}";
-    hash = "sha256-y2lepnhaLsjokd587D0bCEd9cmG7GuNBbbx+0sKSCGA=";
-  };
+    src = fetchFromGitHub {
+      owner = "ajayd-san";
+      repo = "gomanagedocker";
+      tag = "v${version}";
+      hash = "sha256-y2lepnhaLsjokd587D0bCEd9cmG7GuNBbbx+0sKSCGA=";
+    };
 
-  vendorHash = "sha256-hUlv3i+ri9W8Pf1zVtFxB/QSdPJu1cWCjMbquCxoSno=";
+    vendorHash = "sha256-hUlv3i+ri9W8Pf1zVtFxB/QSdPJu1cWCjMbquCxoSno=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+    nativeBuildInputs = [
+      pkg-config
+    ];
 
-  buildInputs = [
-    gpgme
-    btrfs-progs
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ xorg.libX11 ];
+    buildInputs =
+      [
+        gpgme
+        btrfs-progs
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [xorg.libX11];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+    ldflags = [
+      "-s"
+      "-w"
+    ];
 
-  # Mocking of docker and podman containers fails
-  doCheck = false;
+    # Mocking of docker and podman containers fails
+    doCheck = false;
 
-  nativeInstallCheckInputs = [
-    versionCheckHook
-  ];
+    nativeInstallCheckInputs = [
+      versionCheckHook
+    ];
 
-  versionCheckProgramArg = "--version";
-  doInstallCheck = true;
+    versionCheckProgramArg = "--version";
+    doInstallCheck = true;
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+    passthru = {
+      updateScript = nix-update-script {};
+    };
 
-  meta = {
-    description = "TUI tool to manage your docker images, containers and volumes";
-    homepage = "https://github.com/ajayd-san/gomanagedocker";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ genga898 ];
-    mainProgram = "gomanagedocker";
-  };
-}
+    meta = {
+      description = "TUI tool to manage your docker images, containers and volumes";
+      homepage = "https://github.com/ajayd-san/gomanagedocker";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [genga898];
+      mainProgram = "gomanagedocker";
+    };
+  }

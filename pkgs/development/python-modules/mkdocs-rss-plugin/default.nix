@@ -13,7 +13,6 @@
   setuptools,
   validator-collection,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocs-rss-plugin";
   version = "1.17.3";
@@ -28,13 +27,15 @@ buildPythonPackage rec {
     hash = "sha256-wgR0uwme7fXNZHx7xdm0HNfXG6qT4qpTJgR2SaXDel4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    cachecontrol
-    gitpython
-    mkdocs
-  ] ++ cachecontrol.optional-dependencies.filecache;
+  dependencies =
+    [
+      cachecontrol
+      gitpython
+      mkdocs
+    ]
+    ++ cachecontrol.optional-dependencies.filecache;
 
   nativeCheckInputs = [
     feedparser
@@ -44,7 +45,7 @@ buildPythonPackage rec {
     validator-collection
   ];
 
-  pythonImportsCheck = [ "mkdocs_rss_plugin" ];
+  pythonImportsCheck = ["mkdocs_rss_plugin"];
 
   disabledTests = [
     # Tests require network access
@@ -69,6 +70,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Guts/mkdocs-rss-plugin";
     changelog = "https://github.com/Guts/mkdocs-rss-plugin/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -1,25 +1,18 @@
 # Global configuration for freetds environment.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.environment.freetds;
-
-in
-{
+in {
   ###### interface
 
   options = {
-
     environment.freetds = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         { MYDATABASE = '''
             host = 10.0.2.100
@@ -36,15 +29,12 @@ in
         will be configured to allow the programs that use freetds to find the
         library and config.
       '';
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf (builtins.length (builtins.attrNames cfg) > 0) {
-
     environment.variables.FREETDSCONF = "/etc/freetds.conf";
     environment.variables.FREETDS = "/etc/freetds.conf";
     environment.variables.SYBASE = "${pkgs.freetds}";
@@ -55,11 +45,10 @@ in
           lib.mapAttrsToList (name: value: ''
             [${name}]
             ${value}
-          '') cfg
+          '')
+          cfg
         )
       );
     };
-
   };
-
 }

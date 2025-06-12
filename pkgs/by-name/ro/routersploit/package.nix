@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "routersploit";
   version = "3.4.1-unstable-2025-04-24";
@@ -16,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-IET0vL0VVP9ZNn75hKdTCiEmOZRHHYICykhzW2g3LEg=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     future
@@ -41,7 +40,7 @@ python3.pkgs.buildPythonApplication rec {
     mv $out/bin/rsf.py $out/bin/rsf
   '';
 
-  pythonImportsCheck = [ "routersploit" ];
+  pythonImportsCheck = ["routersploit"];
 
   pytestFlagsArray = [
     # Run the same tests as upstream does in the first round
@@ -54,7 +53,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Exploitation Framework for Embedded Devices";
     homepage = "https://github.com/threat9/routersploit";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "rsf";
   };
 }

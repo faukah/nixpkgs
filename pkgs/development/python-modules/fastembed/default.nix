@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   huggingface-hub,
   loguru,
@@ -20,7 +18,6 @@
   tokenizers,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "fastembed";
   version = "0.7.0";
@@ -33,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-CnUg6ZJ3VmKXbeWWsD0j4KTdUhqrgOP5PBnHtghugHQ=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     huggingface-hub
@@ -50,7 +47,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "fastembed" ];
+  pythonImportsCheck = ["fastembed"];
 
   pythonRelaxDeps = [
     "mmh3"
@@ -66,8 +63,8 @@ buildPythonPackage rec {
     homepage = "https://github.com/qdrant/fastembed";
     changelog = "https://github.com/qdrant/fastembed/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
     # terminate called after throwing an instance of 'onnxruntime::OnnxRuntimeException'
-    badPlatforms = [ "aarch64-linux" ];
+    badPlatforms = ["aarch64-linux"];
   };
 }

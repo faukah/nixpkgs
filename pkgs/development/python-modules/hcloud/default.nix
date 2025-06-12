@@ -10,7 +10,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "hcloud";
   version = "2.5.2";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-v1vnII5q1bOf/neiNOJPa+t03ma/cjLbxbabo2jQptQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     future
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "hcloud" ];
+  pythonImportsCheck = ["hcloud"];
 
   meta = with lib; {
     description = "Library for the Hetzner Cloud API";
     homepage = "https://github.com/hetznercloud/hcloud-python";
     changelog = "https://github.com/hetznercloud/hcloud-python/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ liff ];
+    maintainers = with maintainers; [liff];
   };
 }

@@ -11,7 +11,6 @@
   openssl,
   pango,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "noaa-apt";
   version = "1.4.0";

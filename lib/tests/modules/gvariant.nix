@@ -1,9 +1,11 @@
-{ config, lib, ... }:
-
 {
+  config,
+  lib,
+  ...
+}: {
   options = {
-    examples = lib.mkOption { type = lib.types.attrs; };
-    assertion = lib.mkOption { type = lib.types.bool; };
+    examples = lib.mkOption {type = lib.types.attrs;};
+    assertion = lib.mkOption {type = lib.types.bool;};
   };
 
   config = {
@@ -16,9 +18,9 @@
       uint16 = mkUint16 42;
       int64 = mkInt64 (-42);
       uint64 = mkUint64 42;
-      array1 = [ "one" ];
-      array2 = mkArray [ (mkInt32 1) ];
-      array3 = mkArray [ (mkUint32 2) ];
+      array1 = ["one"];
+      array2 = mkArray [(mkInt32 1)];
+      array3 = mkArray [(mkUint32 2)];
       emptyArray = mkEmptyArray type.uint32;
       string = "foo";
       escapedString = ''
@@ -26,20 +28,20 @@
       '';
       tuple = mkTuple [
         (mkInt32 1)
-        [ "foo" ]
+        ["foo"]
       ];
       maybe1 = mkNothing type.string;
       maybe2 = mkJust (mkUint32 4);
       variant = mkVariant "foo";
-      dictionaryEntry = mkDictionaryEntry (mkInt32 1) [ "foo" ];
+      dictionaryEntry = mkDictionaryEntry (mkInt32 1) ["foo"];
     };
 
-    assertion =
-      let
-        mkLine = n: v: "${n} = ${toString (lib.gvariant.mkValue v)}";
-        result = lib.concatStringsSep "\n" (lib.mapAttrsToList mkLine config.examples);
-      in
-      (result + "\n") == ''
+    assertion = let
+      mkLine = n: v: "${n} = ${toString (lib.gvariant.mkValue v)}";
+      result = lib.concatStringsSep "\n" (lib.mapAttrsToList mkLine config.examples);
+    in
+      (result + "\n")
+      == ''
         array1 = @as ['one']
         array2 = @ai [1]
         array3 = @au [@u 2]

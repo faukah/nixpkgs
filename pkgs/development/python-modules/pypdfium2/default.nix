@@ -13,9 +13,7 @@
   removeReferencesTo,
   python,
   replaceVars,
-}:
-
-let
+}: let
   pdfiumVersion = "${pdfium-binaries.version}";
 
   headers = fetchgit {
@@ -53,54 +51,51 @@ let
 
     env.SETUPTOOLS_SCM_PRETEND_VERSION = "${version}";
   };
-
 in
-buildPythonPackage rec {
-  pname = "pypdfium2";
-  version = "4.30.1";
-  pyproject = true;
+  buildPythonPackage rec {
+    pname = "pypdfium2";
+    version = "4.30.1";
+    pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "pypdfium2-team";
-    repo = "pypdfium2";
-    tag = version;
-    hash = "sha256-v8f/XruGJYK3H9z4Q1rLg4fEnPHa8tTOlNTBMVxPEgA=";
-  };
+    src = fetchFromGitHub {
+      owner = "pypdfium2-team";
+      repo = "pypdfium2";
+      tag = version;
+      hash = "sha256-v8f/XruGJYK3H9z4Q1rLg4fEnPHa8tTOlNTBMVxPEgA=";
+    };
 
-  build-system = [
-    ctypesgen
-    setuptools-scm
-  ];
+    build-system = [
+      ctypesgen
+      setuptools-scm
+    ];
 
-  nativeBuildInputs = [
-    removeReferencesTo
-  ];
+    nativeBuildInputs = [
+      removeReferencesTo
+    ];
 
-  propagatedBuildInputs = [
-    pdfium-binaries
-  ];
+    propagatedBuildInputs = [
+      pdfium-binaries
+    ];
 
-  # Build system insists on fetching from the internet unless "cached" files
-  # are prepared. Even then, some code patching needs to happen to make it not
-  # talk to the internet.
+    # Build system insists on fetching from the internet unless "cached" files
+    # are prepared. Even then, some code patching needs to happen to make it not
+    # talk to the internet.
 
-  # The project doesn't seem very open to allow for offline building either,
-  # see: https://github.com/pypdfium2-team/pypdfium2/discussions/274
-  preBuild =
-    let
-      pdfiumLib = lib.makeLibraryPath [ pdfium-binaries ];
-      inputVersionFile = (pkgs.formats.json { }).generate "version.json" {
+    # The project doesn't seem very open to allow for offline building either,
+    # see: https://github.com/pypdfium2-team/pypdfium2/discussions/274
+    preBuild = let
+      pdfiumLib = lib.makeLibraryPath [pdfium-binaries];
+      inputVersionFile = (pkgs.formats.json {}).generate "version.json" {
         version = lib.strings.toInt pdfiumVersion;
         source = "generated";
-        flags = [ ];
-        run_lds = [ pdfiumLib ];
+        flags = [];
+        run_lds = [pdfiumLib];
         guard_symbols = false;
       };
       bindingsDir = "data/bindings";
       headersDir = "${bindingsDir}/headers";
       versionFile = "${bindingsDir}/version.json";
-    in
-    ''
+    in ''
       # Preseed the headers and version file
       mkdir -p ${bindingsDir}
       cp -r ${headers}/public ${headersDir}
@@ -116,31 +111,31 @@ buildPythonPackage rec {
         --replace-fail 'PdfiumVer.to_full(build)._asdict()' \
                        '{"major": 133, "minor": 0, "build": ${pdfiumVersion}, "patch": 1}'
     '';
-  env.PDFIUM_PLATFORM = "system:${pdfiumVersion}";
+    env.PDFIUM_PLATFORM = "system:${pdfiumVersion}";
 
-  # Remove references to stdenv in comments.
-  postInstall = ''
-    remove-references-to -t ${stdenv.cc.cc} $out/${python.sitePackages}/pypdfium2_raw/bindings.py
-  '';
+    # Remove references to stdenv in comments.
+    postInstall = ''
+      remove-references-to -t ${stdenv.cc.cc} $out/${python.sitePackages}/pypdfium2_raw/bindings.py
+    '';
 
-  nativeCheckInputs = [
-    numpy
-    pillow
-    pytestCheckHook
-  ];
-
-  pythonImportsCheck = [
-    "pypdfium2"
-  ];
-
-  meta = {
-    changelog = "https://github.com/pypdfium2-team/pypdfium2/releases/tag/${version}";
-    description = "Python bindings to PDFium";
-    homepage = "https://pypdfium2.readthedocs.io/";
-    license = with lib.licenses; [
-      asl20 # or
-      mit
+    nativeCheckInputs = [
+      numpy
+      pillow
+      pytestCheckHook
     ];
-    maintainers = with lib.maintainers; [ booxter ];
-  };
-}
+
+    pythonImportsCheck = [
+      "pypdfium2"
+    ];
+
+    meta = {
+      changelog = "https://github.com/pypdfium2-team/pypdfium2/releases/tag/${version}";
+      description = "Python bindings to PDFium";
+      homepage = "https://pypdfium2.readthedocs.io/";
+      license = with lib.licenses; [
+        asl20 # or
+        mit
+      ];
+      maintainers = with lib.maintainers; [booxter];
+    };
+  }

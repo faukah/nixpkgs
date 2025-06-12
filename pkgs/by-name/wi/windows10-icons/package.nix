@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "windows10-icons";
   version = "1.0";
@@ -34,7 +33,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Windows 10 icon theme";
     homepage = "http://b00merang.weebly.com/windows-10.html";
     license = licenses.unfree;
-    maintainers = with maintainers; [ mib ];
+    maintainers = with maintainers; [mib];
     platforms = platforms.linux;
   };
 })

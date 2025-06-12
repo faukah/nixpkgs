@@ -6,7 +6,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "emmet-language-server";
   version = "2.6.1";
@@ -58,7 +57,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Language server for emmet.io";

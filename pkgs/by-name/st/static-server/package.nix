@@ -8,7 +8,6 @@
   static-server,
   replaceVars,
 }:
-
 buildGoModule rec {
   pname = "static-server";
   version = "1.2.1";
@@ -53,7 +52,7 @@ buildGoModule rec {
     description = "Simple, zero-configuration HTTP server CLI for serving static files";
     homepage = "https://github.com/eliben/static-server";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "static-server";
   };
 }

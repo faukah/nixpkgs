@@ -6,7 +6,6 @@
   ppx_expect,
   ppx_optcomp,
 }:
-
 buildDunePackage rec {
   pname = "kqueue";
   version = "0.4.0";
@@ -34,6 +33,6 @@ buildDunePackage rec {
     homepage = "https://github.com/anuragsoni/kqueue-ml";
     changelog = "https://github.com/anuragsoni/kqueue-ml/blob/${version}/CHANGES.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ sixstring982 ];
+    maintainers = with lib.maintainers; [sixstring982];
   };
 }

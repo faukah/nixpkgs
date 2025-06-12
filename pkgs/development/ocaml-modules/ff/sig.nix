@@ -4,7 +4,6 @@
   buildDunePackage,
   zarith,
 }:
-
 buildDunePackage rec {
   pname = "ff-sig";
   version = "0.6.2";
@@ -27,6 +26,6 @@ buildDunePackage rec {
     inherit (src.meta) homepage;
     description = "Minimal finite field signatures";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

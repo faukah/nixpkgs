@@ -5,7 +5,6 @@
   gzip,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ndppd";
   version = "0.2.5";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0niri5q9qyyyw5lmjpxk19pv3v4srjvmvyd5k6ks99mvqczjx9c0";
   };
 
-  nativeBuildInputs = [ gzip ];
+  nativeBuildInputs = [gzip];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -32,14 +31,14 @@ stdenv.mkDerivation rec {
     cp ndppd.conf-dist $out/etc/ndppd.conf
   '';
 
-  passthru.tests = { inherit (nixosTests) ndppd; };
+  passthru.tests = {inherit (nixosTests) ndppd;};
 
   meta = with lib; {
     description = "Daemon that proxies NDP (Neighbor Discovery Protocol) messages between interfaces";
     homepage = "https://github.com/DanielAdolfsson/ndppd";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fadenb ];
+    maintainers = with maintainers; [fadenb];
     mainProgram = "ndppd";
   };
 }

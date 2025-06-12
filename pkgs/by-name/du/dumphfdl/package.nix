@@ -16,7 +16,6 @@
   gperftools,
   libacars,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dumphfdl";
   version = "1.6.1";
@@ -46,9 +45,9 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/szpajder/dumphfdl";
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl3Plus;
     mainProgram = "dumphfdl";
-    maintainers = [ lib.maintainers.mafo ];
+    maintainers = [lib.maintainers.mafo];
     platforms = with lib.platforms; linux ++ darwin;
     badPlatforms = lib.platforms.darwin;
   };

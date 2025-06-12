@@ -3,7 +3,6 @@
   pythonPackages,
   fetchFromGitHub,
 }:
-
 pythonPackages.buildPythonApplication rec {
   pname = "nixbang";
   version = "0.1.2";
@@ -20,7 +19,7 @@ pythonPackages.buildPythonApplication rec {
     homepage = "https://github.com/madjar/nixbang";
     description = "Special shebang to run scripts in a nix-shell";
     mainProgram = "nixbang";
-    maintainers = [ lib.maintainers.madjar ];
+    maintainers = [lib.maintainers.madjar];
     platforms = lib.platforms.all;
   };
 }

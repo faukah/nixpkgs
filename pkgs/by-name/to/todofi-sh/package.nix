@@ -10,7 +10,6 @@
   rofi,
   todo-txt-cli,
 }:
-
 stdenv.mkDerivation rec {
   pname = "todofi.sh";
   version = "1.0.0";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "1gmy5inlghycsxiwnyyjyv81jn2fmfk3s9x78kcgyf7khzb5kwvj";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dm 755 todofi.sh -t $out/bin
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     mainProgram = "todofi.sh";
     homepage = "https://github.com/hugokernel/todofi.sh";
     license = licenses.mit;
-    maintainers = with maintainers; [ ewok ];
+    maintainers = with maintainers; [ewok];
     platforms = platforms.linux;
   };
 }

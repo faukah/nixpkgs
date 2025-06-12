@@ -11,7 +11,6 @@
   jansson,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mediasynclite";
   version = "0.4.2";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook3
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postPatch = ''
     substitute ./src/ibmsl.c ./src/ibmsl.c --subst-var out
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     downloadPage = "https://github.com/tobz619/MediaSyncLiteLinuxNix";
     homepage = "https://github.com/iBroadcastMediaServices/MediaSyncLiteLinux";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ tobz619 ];
+    maintainers = with maintainers; [tobz619];
   };
 }

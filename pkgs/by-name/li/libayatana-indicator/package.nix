@@ -8,7 +8,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libayatana-indicator";
   version = "0.9.4";
@@ -26,9 +25,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
-  propagatedBuildInputs = [ ayatana-ido ];
+  propagatedBuildInputs = [ayatana-ido];
 
   strictDeps = true;
 
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/AyatanaIndicators/libayatana-indicator";
     changelog = "https://github.com/AyatanaIndicators/libayatana-indicator/blob/${version}/ChangeLog";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.nickhu ];
+    maintainers = [lib.maintainers.nickhu];
     platforms = lib.platforms.linux;
   };
 }

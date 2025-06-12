@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "bront_fonts";
   version = "unstable-2015-06-28";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation {
       ufl
     ];
     platforms = platforms.all;
-    maintainers = [ maintainers.grburst ];
+    maintainers = [maintainers.grburst];
   };
 }

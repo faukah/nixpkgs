@@ -4,7 +4,6 @@
   lib,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "plymouth-proxzima-theme";
   version = "0-unstable-2023-01-30";
@@ -27,13 +26,13 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Techno Plymouth theme with crazy animation";
     homepage = "https://github.com/PROxZIMA/proxzima-plymouth";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ johnrtitor ];
+    maintainers = with lib.maintainers; [johnrtitor];
   };
 }

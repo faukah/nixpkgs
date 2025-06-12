@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sregex";
   version = "0.0.1";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     description = "Non-backtracking NFA/DFA-based Perl-compatible regex engine matching on large data streams";
     mainProgram = "sregex-cli";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

@@ -8,7 +8,6 @@
   libnabo,
   yaml-cpp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libpointmatcher";
   version = "1.4.4";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-OkfWdim0JDKiBx5spYpkMyFrLQP3AMWBVDpzmFwqNFM=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     eigen
     boost
@@ -40,6 +39,6 @@ stdenv.mkDerivation rec {
     description = "\"Iterative Closest Point\" library for 2-D/3-D mapping in robotic";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cryptix ];
+    maintainers = with maintainers; [cryptix];
   };
 }

@@ -7,7 +7,6 @@
   plasma-framework,
   systemsettings,
 }:
-
 mkDerivation rec {
   pname = "krohnkite";
   version = "0.8.2";
@@ -42,7 +41,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "Dynamic tiling extension for KWin";
     license = licenses.mit;
-    maintainers = with maintainers; [ seqizz ];
+    maintainers = with maintainers; [seqizz];
     inherit (src.meta) homepage;
     inherit (kwindowsystem.meta) platforms;
   };

@@ -50,15 +50,13 @@
   revision,
   system,
   throwSystem,
-}:
-let
+}: let
   suffix' =
-    if lib.hasPrefix "linux" suffix then
-      "ubuntu-22.04" + (lib.removePrefix "linux" suffix)
-    else if lib.hasPrefix "mac" suffix then
-      "mac-14" + (lib.removePrefix "mac" suffix)
-    else
-      suffix;
+    if lib.hasPrefix "linux" suffix
+    then "ubuntu-22.04" + (lib.removePrefix "linux" suffix)
+    else if lib.hasPrefix "mac" suffix
+    then "mac-14" + (lib.removePrefix "mac" suffix)
+    else suffix;
   libvpx' = libvpx.overrideAttrs (
     finalAttrs: previousAttrs: {
       version = "1.12.0";
@@ -80,7 +78,7 @@ let
         hash = "sha256-ME/mkaHhFeHajTbc7zhg9vtf/8XgkgSRu9I/mlQXnds=";
       };
       postPatch = "";
-      patches = [ ];
+      patches = [];
     }
   );
 
@@ -129,7 +127,9 @@ let
           x86_64-linux = "sha256-kGTfPFosn8BsBDo9boJWgkPtdAig8+Ffv3Q4eYPy5ls=";
           aarch64-linux = "sha256-9NFR3j8M9i3Gk/LCwK+LRpKzJsTt3w2VHGmsGtsoKJU=";
         }
-        .${system} or throwSystem;
+        .${
+          system
+        } or throwSystem;
     };
 
     nativeBuildInputs = [
@@ -180,7 +180,7 @@ let
       zlib
     ];
 
-    patchelfFlags = [ "--no-clobber-old-sections" ];
+    patchelfFlags = ["--no-clobber-old-sections"];
     buildPhase = ''
       cp -R . $out
 
@@ -204,13 +204,17 @@ let
         x86_64-darwin = "sha256-yvIscuu+37eFH/lEhTPostoJ5kHmpdkZiRBtKWDlOuw=";
         aarch64-darwin = "sha256-VtOmp/YJ8oRBZvDg4sNskY7TVQdHglwkAveybY7QYno=";
       }
-      .${system} or throwSystem;
+      .${
+        system
+      } or throwSystem;
   };
 in
-{
-  x86_64-linux = webkit-linux;
-  aarch64-linux = webkit-linux;
-  x86_64-darwin = webkit-darwin;
-  aarch64-darwin = webkit-darwin;
-}
-.${system} or throwSystem
+  {
+    x86_64-linux = webkit-linux;
+    aarch64-linux = webkit-linux;
+    x86_64-darwin = webkit-darwin;
+    aarch64-darwin = webkit-darwin;
+  }
+.${
+    system
+  } or throwSystem

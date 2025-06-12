@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pytouchlinesl";
   version = "0.3.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-hrC5cBtAU9P9VaRIoUKDx5x4KwUN6mO/JwEZrsnYB0s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [ "pytouchlinesl" ];
+  pythonImportsCheck = ["pytouchlinesl"];
 
   meta = {
     description = "A Python API client for Roth's TouchlineSL API";
     homepage = "https://github.com/jnsgruk/pytouchlinesl";
     changelog = "https://github.com/jnsgruk/pytouchlinesl/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
   };
 }

@@ -5,28 +5,18 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.pgpkeyserver-lite;
   sksCfg = config.services.sks;
   sksOpt = options.services.sks;
 
   webPkg = cfg.package;
-
-in
-
-{
-
+in {
   options = {
-
     services.pgpkeyserver-lite = {
-
       enable = mkEnableOption "pgpkeyserver-lite on a nginx vHost proxying to a gpg keyserver";
 
-      package = mkPackageOption pkgs "pgpkeyserver-lite" { };
+      package = mkPackageOption pkgs "pgpkeyserver-lite" {};
 
       hostname = mkOption {
         type = types.str;
@@ -56,24 +46,21 @@ in
   };
 
   config = mkIf cfg.enable {
-
     services.nginx.enable = true;
 
-    services.nginx.virtualHosts =
-      let
-        hkpPort = builtins.toString cfg.hkpPort;
-      in
-      {
-        ${cfg.hostname} = {
-          root = webPkg;
-          locations = {
-            "/pks".extraConfig = ''
-              proxy_pass         http://${cfg.hkpAddress}:${hkpPort};
-              proxy_pass_header  Server;
-              add_header         Via "1.1 ${cfg.hostname}";
-            '';
-          };
+    services.nginx.virtualHosts = let
+      hkpPort = builtins.toString cfg.hkpPort;
+    in {
+      ${cfg.hostname} = {
+        root = webPkg;
+        locations = {
+          "/pks".extraConfig = ''
+            proxy_pass         http://${cfg.hkpAddress}:${hkpPort};
+            proxy_pass_header  Server;
+            add_header         Via "1.1 ${cfg.hostname}";
+          '';
         };
       };
+    };
   };
 }

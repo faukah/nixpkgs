@@ -29,7 +29,7 @@ buildGoModule rec {
     substituteInPlace clicommand/agent_start.go --replace /bin/bash ${bash}/bin/bash
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   doCheck = false;
 
@@ -47,14 +47,14 @@ buildGoModule rec {
     # These are runtime dependencies
     wrapProgram $out/bin/buildkite-agent \
       --prefix PATH : '${
-        lib.makeBinPath [
-          openssh
-          git
-          coreutils
-          gnused
-          gnugrep
-        ]
-      }'
+      lib.makeBinPath [
+        openssh
+        git
+        coreutils
+        gnused
+        gnugrep
+      ]
+    }'
   '';
 
   passthru = {

@@ -16,7 +16,6 @@
   libwnck,
   librsvg,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "accerciser";
   version = "3.46.2";
@@ -74,7 +73,7 @@ python3.pkgs.buildPythonApplication rec {
     changelog = "https://gitlab.gnome.org/GNOME/accerciser/-/blob/${version}/NEWS?ref_type=tags";
     description = "Interactive Python accessibility explorer";
     mainProgram = "accerciser";
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
   };

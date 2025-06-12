@@ -8,10 +8,9 @@
   kpty,
   qtbase,
 }:
-
 mkDerivation {
   pname = "kwrited";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kcoreaddons
     kdbusaddons

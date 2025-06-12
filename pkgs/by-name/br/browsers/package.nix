@@ -11,7 +11,6 @@
   gtk3,
   pango,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "browsers";
   version = "0.7.0";
@@ -61,7 +60,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://browsers.software";
     changelog = "https://github.com/Browsers-software/browsers/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ravenz46 ];
+    maintainers = with lib.maintainers; [ravenz46];
     mainProgram = "browsers";
   };
 }

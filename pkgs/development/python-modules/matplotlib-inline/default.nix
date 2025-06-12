@@ -5,11 +5,9 @@
   pythonOlder,
   setuptools,
   traitlets,
-
   # tests
   ipython,
 }:
-
 buildPythonPackage rec {
   pname = "matplotlib-inline";
   version = "0.1.7";
@@ -24,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-y7T8BshNa8NVWzH8oLS4dTAyhG+YmkkYQJFAyMXsJFA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ traitlets ];
+  dependencies = [traitlets];
 
   # wants to import ipython, which creates a circular dependency
   doCheck = false;
@@ -45,6 +43,6 @@ buildPythonPackage rec {
     description = "Matplotlib Inline Back-end for IPython and Jupyter";
     homepage = "https://github.com/ipython/matplotlib-inline";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

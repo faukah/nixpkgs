@@ -3,7 +3,6 @@
   lib,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "clini";
   version = "0.1.0";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
     description = "Simple tool to do basic modification of ini files";
     homepage = "https://github.com/domgreen/clini";
     license = licenses.mit;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
     mainProgram = "clini";
   };
 }

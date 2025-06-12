@@ -5,14 +5,11 @@
   testers,
   wireguard-go,
 }:
-
 buildGoModule (
-  finalAttrs:
-  let
+  finalAttrs: let
     rev = "12269c2761734b15625017d8565745096325392f";
     shortVer = "${finalAttrs.version} (${lib.substring 0 7 rev})";
-  in
-  {
+  in {
     pname = "wireguard-go";
     version = "0-unstable-2023-12-11";
 
@@ -31,9 +28,9 @@ buildGoModule (
 
     vendorHash = "sha256-RqZ/3+Xus5N1raiUTUpiKVBs/lrJQcSwr1dJib2ytwc=";
 
-    subPackages = [ "." ];
+    subPackages = ["."];
 
-    ldflags = [ "-s" ];
+    ldflags = ["-s"];
 
     # No tests besides the formatting one are in root.
     # We can't override subPackages per-phase (and we don't

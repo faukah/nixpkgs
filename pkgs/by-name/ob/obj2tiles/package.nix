@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildDotnetModule (finalAttrs: {
   pname = "obj2tiles";
   version = "1.0.13";
@@ -17,7 +16,7 @@ buildDotnetModule (finalAttrs: {
   };
   projectFile = "Obj2Tiles/Obj2Tiles.csproj";
   nugetDeps = ./deps.json;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/Obj2Tiles";
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
@@ -26,7 +25,7 @@ buildDotnetModule (finalAttrs: {
     homepage = "https://github.com/OpenDroneMap/Obj2Tiles";
     changelog = "https://github.com/OpenDroneMap/Obj2Tiles/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ mapperfr ];
+    maintainers = with lib.maintainers; [mapperfr];
     mainProgram = "Obj2Tiles";
   };
 })

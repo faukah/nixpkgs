@@ -3,24 +3,20 @@
   stdenv,
   buildNpmPackage,
   fetchFromGitHub,
-
   electron,
   nodejs,
-
   cmake,
   zip,
   makeWrapper,
   wayland-scanner,
   copyDesktopItems,
   makeDesktopItem,
-
   libxkbcommon,
   libX11,
   libXtst,
   libXi,
   wayland,
 }:
-
 buildNpmPackage rec {
   pname = "kando";
   version = "1.8.0";
@@ -34,7 +30,7 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-lyCIuvyoVhcrNDDg0P3lSY8ru81momG1EKKT5u4yW8Y=";
 
-  npmFlags = [ "--ignore-scripts" ];
+  npmFlags = ["--ignore-scripts"];
 
   makeCacheWritable = true;
 
@@ -127,7 +123,7 @@ buildNpmPackage rec {
       desktopName = "Kando";
       genericName = "Pie Menu";
       comment = "The Cross-Platform Pie Menu";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -137,7 +133,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/kando-menu/kando";
     license = lib.licenses.mit;
     mainProgram = "kando";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = electron.meta.platforms;
   };
 }

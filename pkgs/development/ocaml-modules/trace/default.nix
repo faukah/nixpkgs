@@ -3,7 +3,6 @@
   fetchurl,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "trace";
   version = "0.5";
@@ -19,7 +18,6 @@ buildDunePackage rec {
     description = "Common interface for tracing/instrumentation libraries in OCaml";
     license = lib.licenses.mit;
     homepage = "https://c-cube.github.io/ocaml-trace/";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

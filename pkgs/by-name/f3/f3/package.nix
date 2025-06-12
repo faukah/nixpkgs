@@ -6,7 +6,6 @@
   systemd,
   argp-standalone,
 }:
-
 stdenv.mkDerivation rec {
   pname = "f3";
   version = "9.0";
@@ -32,19 +31,23 @@ stdenv.mkDerivation rec {
       systemd
       parted
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ argp-standalone ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [argp-standalone];
 
-  buildFlags = [
-    "all" # f3read, f3write
-  ] ++ lib.optional stdenv.hostPlatform.isLinux "extra"; # f3brew, f3fix, f3probe
+  buildFlags =
+    [
+      "all" # f3read, f3write
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux "extra"; # f3brew, f3fix, f3probe
 
   installFlags = [
     "PREFIX=${placeholder "out"}"
   ];
 
-  installTargets = [
-    "install"
-  ] ++ lib.optional stdenv.hostPlatform.isLinux "install-extra";
+  installTargets =
+    [
+      "install"
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux "install-extra";
 
   postInstall = ''
     install -Dm555 -t $out/bin f3write.h2w log-f3wr

@@ -12,7 +12,6 @@
   openal ? null,
   SDL2 ? null,
 }:
-
 mkDerivation rec {
   pname = "yabause";
   version = "0.9.15";
@@ -54,7 +53,7 @@ mkDerivation rec {
     mainProgram = "yabause";
     homepage = "https://yabause.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

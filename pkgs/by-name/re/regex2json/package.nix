@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitLab,
 }:
-
 buildGoModule rec {
   pname = "regex2json";
   version = "0.11.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://gitlab.com/tozd/regex2json";
     changelog = "https://gitlab.com/tozd/regex2json/-/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nagy ];
+    maintainers = with lib.maintainers; [nagy];
     mainProgram = "regex2json";
   };
 }

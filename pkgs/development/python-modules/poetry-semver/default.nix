@@ -4,7 +4,6 @@
   fetchPypi,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "poetry-semver";
   version = "0.1.0";
@@ -15,12 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-2Am2Eqons5vy0PydMbT0gJsOlyZGxfGc+kbHJbdjiBA=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Semantic versioning library for Python";
     homepage = "https://github.com/python-poetry/semver";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

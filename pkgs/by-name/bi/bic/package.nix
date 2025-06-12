@@ -13,7 +13,6 @@
   makeWrapper,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bic";
   version = "1.0.0-unstable-2022-02-16";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/bic \
-      --prefix PATH : ${lib.makeBinPath [ gcc ]}
+      --prefix PATH : ${lib.makeBinPath [gcc]}
   '';
 
   meta = {
@@ -54,10 +53,10 @@ stdenv.mkDerivation rec {
       bic This a project that allows developers to explore and test C-APIs using a
       read eval print loop, also known as a REPL.
     '';
-    license = with lib.licenses; [ gpl2Plus ];
+    license = with lib.licenses; [gpl2Plus];
     homepage = "https://github.com/hexagonal-sun/bic";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ hexagonal-sun ];
+    maintainers = with lib.maintainers; [hexagonal-sun];
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;
   };

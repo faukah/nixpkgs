@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cgreen";
   version = "1.6.4";
@@ -22,14 +21,14 @@ stdenv.mkDerivation (finalAttrs: {
     done
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     homepage = "https://github.com/cgreen-devs/cgreen";
     description = "Modern Unit Test and Mocking Framework for C and C++";
     mainProgram = "cgreen-runner";
     license = lib.licenses.isc;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

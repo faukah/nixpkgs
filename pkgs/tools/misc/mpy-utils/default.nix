@@ -6,7 +6,6 @@
   fusepy,
   pyserial,
 }:
-
 buildPythonApplication rec {
   pname = "mpy-utils";
   version = "0.1.13";
@@ -25,7 +24,7 @@ buildPythonApplication rec {
     description = "MicroPython development utility programs";
     homepage = "https://github.com/nickzoic/mpy-utils";
     license = licenses.mit;
-    maintainers = with maintainers; [ aciceri ];
+    maintainers = with maintainers; [aciceri];
     broken = stdenv.hostPlatform.isDarwin;
   };
 }

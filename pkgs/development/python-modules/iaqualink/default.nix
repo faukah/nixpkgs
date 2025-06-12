@@ -10,7 +10,6 @@
   pythonOlder,
   respx,
 }:
-
 buildPythonPackage rec {
   pname = "iaqualink";
   version = "0.5.3";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  dependencies = [ httpx ] ++ httpx.optional-dependencies.http2;
+  dependencies = [httpx] ++ httpx.optional-dependencies.http2;
 
   nativeCheckInputs = [
     pytest-cov-stub
@@ -38,13 +37,13 @@ buildPythonPackage rec {
     respx
   ];
 
-  pythonImportsCheck = [ "iaqualink" ];
+  pythonImportsCheck = ["iaqualink"];
 
   meta = with lib; {
     description = "Python library for Jandy iAqualink";
     homepage = "https://github.com/flz/iaqualink-py";
     changelog = "https://github.com/flz/iaqualink-py/releases/tag/v${src.tag}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

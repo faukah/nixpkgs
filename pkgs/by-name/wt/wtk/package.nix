@@ -5,7 +5,6 @@
   unzip,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sun-java-wtk";
   version = "2.5.2_01";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
 
   builder = ./builder.sh;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   libraries = [
     xorg.libXpm
@@ -32,8 +31,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "http://java.sun.com/products/sjwtoolkit/download.html";
     description = "Sun Java Wireless Toolkit 2.5.2_01 for CLDC";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    platforms = [ "i686-linux" ];
+    platforms = ["i686-linux"];
   };
 }

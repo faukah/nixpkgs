@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rewatch";
   version = "1.0.12";
@@ -21,14 +20,14 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Alternative build system for the Rescript Compiler";
     homepage = "https://github.com/rescript-lang/rewatch";
     changelog = "https://github.com/rescript-lang/rewatch/releases/tag/v${version}";
     mainProgram = "rewatch";
-    maintainers = with lib.maintainers; [ r17x ];
+    maintainers = with lib.maintainers; [r17x];
     license = lib.licenses.mit;
   };
 }

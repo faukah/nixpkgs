@@ -1,6 +1,4 @@
-with import ../../../../. { };
-
-let
+with import ../../../../. {}; let
   package-requests = stdenv.mkDerivation {
     name = "julia-package-requests.csv";
 
@@ -19,19 +17,18 @@ let
     '';
   };
 
-  registry = callPackage ../registry.nix { };
-
+  registry = callPackage ../registry.nix {};
 in
-
-runCommand "top-julia-packages.yaml"
+  runCommand "top-julia-packages.yaml"
   {
     __impure = true;
     nativeBuildInputs = [
       (python3.withPackages (
-        ps: with ps; [
-          pyyaml
-          toml
-        ]
+        ps:
+          with ps; [
+            pyyaml
+            toml
+          ]
       ))
     ];
   }

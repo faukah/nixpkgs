@@ -3,17 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.grafana-to-ntfy;
-in
-{
+in {
   options = {
     services.grafana-to-ntfy = {
       enable = lib.mkEnableOption "Grafana-to-ntfy (ntfy.sh) alerts channel";
 
-      package = lib.mkPackageOption pkgs "grafana-to-ntfy" { };
+      package = lib.mkPackageOption pkgs "grafana-to-ntfy" {};
 
       settings = {
         ntfyUrl = lib.mkOption {
@@ -60,7 +57,7 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.services.grafana-to-ntfy = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       script = ''
         export BAUTH_PASS=$(${lib.getExe' config.systemd.package "systemd-creds"} cat BAUTH_PASS_FILE)
@@ -89,7 +86,7 @@ in
           ) "NTFY_BAUTH_PASS_FILE:${cfg.settings.ntfyBAuthPass}";
 
         DynamicUser = true;
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DeviceAllow = "";
         LockPersonality = true;
         PrivateDevices = true;

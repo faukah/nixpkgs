@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jitterentropy-rngd";
   version = "1.2.8";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
       lib.licenses.bsd3
     ];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ thillux ];
+    maintainers = with lib.maintainers; [thillux];
     mainProgram = "jitterentropy-rngd";
   };
 }

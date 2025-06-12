@@ -1,44 +1,43 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "velocity";
-  meta.maintainers = [ lib.maintainers.Tert0 ];
+  meta.maintainers = [lib.maintainers.Tert0];
 
-  nodes.server =
-    { ... }:
-    {
-      imports =
-        let
-          mkVelocityService = name: pkg: {
-            systemd.sockets.${name} = {
-              socketConfig = {
-                ListenFIFO = "/run/${name}.stdin";
-                Service = "${name}";
-              };
-            };
-            systemd.services.${name} = {
-              serviceConfig = {
-                ExecStart = "${pkg}/bin/velocity";
-                DynamicUser = true;
-                StateDirectory = "${name}";
-                WorkingDirectory = "/var/lib/${name}";
-
-                Sockets = "${name}.socket";
-                StandardInput = "socket";
-                StandardOutput = "journal";
-                StandardError = "journal";
-              };
-            };
+  nodes.server = {...}: {
+    imports = let
+      mkVelocityService = name: pkg: {
+        systemd.sockets.${name} = {
+          socketConfig = {
+            ListenFIFO = "/run/${name}.stdin";
+            Service = "${name}";
           };
-        in
-        [
-          (mkVelocityService "velocity-without-native" (
-            pkgs.velocity.override { withVelocityNative = false; }
-          ))
-          (mkVelocityService "velocity-with-native" (pkgs.velocity.override { withVelocityNative = true; }))
-        ];
+        };
+        systemd.services.${name} = {
+          serviceConfig = {
+            ExecStart = "${pkg}/bin/velocity";
+            DynamicUser = true;
+            StateDirectory = "${name}";
+            WorkingDirectory = "/var/lib/${name}";
 
-      environment.systemPackages = [ pkgs.mcstatus ];
-    };
+            Sockets = "${name}.socket";
+            StandardInput = "socket";
+            StandardOutput = "journal";
+            StandardError = "journal";
+          };
+        };
+      };
+    in [
+      (mkVelocityService "velocity-without-native" (
+        pkgs.velocity.override {withVelocityNative = false;}
+      ))
+      (mkVelocityService "velocity-with-native" (pkgs.velocity.override {withVelocityNative = true;}))
+    ];
+
+    environment.systemPackages = [pkgs.mcstatus];
+  };
 
   testScript = ''
     def test_velocity(name: str, native: bool):

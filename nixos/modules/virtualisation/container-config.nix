@@ -4,13 +4,8 @@
   lib,
   ...
 }:
-
-with lib;
-
-{
-
+with lib; {
   config = mkIf config.boot.isContainer {
-
     # Disable some features that are not useful in a container.
 
     # containers don't have a kernel
@@ -42,7 +37,5 @@ with lib;
 
     # Use the host's nix-daemon.
     environment.variables.NIX_REMOTE = "daemon";
-
   };
-
 }

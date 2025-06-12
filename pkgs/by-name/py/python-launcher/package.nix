@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "python-launcher";
   version = "1.0.1";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-rWawf1YYeTWKPaZwua/f4BNo56z3mkCBU4jyZIFNqP4=";
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   useNextest = true;
 
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/brettcannon/python-launcher";
     changelog = "https://github.com/brettcannon/python-launcher/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "py";
   };
 }

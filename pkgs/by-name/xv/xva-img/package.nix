@@ -6,7 +6,6 @@
   openssl,
   xxHash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xva-img";
   version = "1.5";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-YyWfN6VcEABmzHkkoA/kRehLum1UxsNJ58XBs1pl+c8=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     openssl
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    maintainers = [ ];
+    maintainers = [];
     description = "Tool for converting Xen images to raw and back";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;

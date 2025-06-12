@@ -8,7 +8,6 @@
   hatchling,
   hatch-vcs,
 }:
-
 buildPythonPackage rec {
   pname = "pandoc-latex-environment";
   version = "1.2.1.0";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  dependencies = [ panflute ];
+  dependencies = [panflute];
 
-  pythonImportsCheck = [ "pandoc_latex_environment" ];
+  pythonImportsCheck = ["pandoc_latex_environment"];
   nativeCheckInputs = [
     pytestCheckHook
     pandoc
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Pandoc filter for adding LaTeX environment on specific div";
     homepage = "https://github.com/chdemko/pandoc-latex-environment";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

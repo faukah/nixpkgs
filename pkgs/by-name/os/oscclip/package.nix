@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "oscclip";
   version = "0.4.1";
@@ -17,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-WQvZn+SWamEqEXPutIZVDZTIczybtHUG9QsN8XxUeg8=";
   };
 
-  nativeBuildInputs = with python3Packages; [ poetry-core ];
+  nativeBuildInputs = with python3Packages; [poetry-core];
 
   meta = with lib; {
     description = "Program that allows to copy/paste from a terminal using osc-52 control sequences";

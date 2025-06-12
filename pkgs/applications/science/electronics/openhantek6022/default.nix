@@ -10,7 +10,6 @@
   libusb1,
   libglvnd,
 }:
-
 mkDerivation rec {
   pname = "openhantek6022";
   version = "3.4.0";
@@ -46,7 +45,7 @@ mkDerivation rec {
     mainProgram = "OpenHantek";
     homepage = "https://github.com/OpenHantek/OpenHantek6022";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ baracoder ];
+    maintainers = with maintainers; [baracoder];
     platforms = qtbase.meta.platforms;
   };
 }

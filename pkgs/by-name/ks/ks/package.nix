@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ks";
   version = "0.4.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-v05wqlG7Utq1b7ctvDY9MCdjHVVZZNNzuHaIBwuRjEE=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/loteoo/ks";
     description = "Command-line secrets manager powered by macOS keychains";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ivankovnatsky ];
+    maintainers = with lib.maintainers; [ivankovnatsky];
     platforms = lib.platforms.darwin;
   };
 })

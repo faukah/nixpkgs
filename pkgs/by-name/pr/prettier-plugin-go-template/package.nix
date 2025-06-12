@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage {
   pname = "prettier-plugin-go-template";
   version = "0.0.15-unstable-2023-07-26";
@@ -31,6 +30,6 @@ buildNpmPackage {
     mainProgram = "prettier-plugin-go-template";
     homepage = "https://github.com/NiklasPor/prettier-plugin-go-template";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jukremer ];
+    maintainers = with lib.maintainers; [jukremer];
   };
 }

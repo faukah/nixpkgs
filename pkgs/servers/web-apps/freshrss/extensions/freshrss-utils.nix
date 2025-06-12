@@ -1,27 +1,28 @@
-{ stdenv, unzip }:
-let
-  buildFreshRssExtension =
-    args@{
-      pname,
-      version,
-      src,
-      FreshRssExtUniqueId,
-      configurePhase ? ''
-        runHook preConfigure
-        runHook postConfigure
-      '',
-      buildPhase ? ''
-        runHook preBuild
-        runHook postBuild
-      '',
-      dontPatchELF ? true,
-      dontStrip ? true,
-      passthru ? { },
-      sourceRoot ? "source",
-      ...
-    }:
+{
+  stdenv,
+  unzip,
+}: let
+  buildFreshRssExtension = args @ {
+    pname,
+    version,
+    src,
+    FreshRssExtUniqueId,
+    configurePhase ? ''
+      runHook preConfigure
+      runHook postConfigure
+    '',
+    buildPhase ? ''
+      runHook preBuild
+      runHook postBuild
+    '',
+    dontPatchELF ? true,
+    dontStrip ? true,
+    passthru ? {},
+    sourceRoot ? "source",
+    ...
+  }:
     stdenv.mkDerivation (
-      (removeAttrs args [ "FreshRssExtUniqueId" ])
+      (removeAttrs args ["FreshRssExtUniqueId"])
       // {
         pname = "freshrss-extension-${pname}";
 
@@ -46,12 +47,13 @@ let
           runHook postInstall
         '';
 
-        passthru = passthru // {
-          inherit FreshRssExtUniqueId;
-        };
+        passthru =
+          passthru
+          // {
+            inherit FreshRssExtUniqueId;
+          };
       }
     );
-in
-{
+in {
   inherit buildFreshRssExtension;
 }

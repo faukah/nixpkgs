@@ -8,7 +8,6 @@
   fetchurl,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lbreakouthd";
   version = "1.1.11";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2_ttf
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   passthru.updateScript = directoryListingUpdater {
     inherit (finalAttrs) pname version;
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Widescreen Breakout clone";
     license = lib.licenses.gpl2Plus;
     mainProgram = "lbreakouthd";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (SDL2.meta) platforms;
     broken = stdenv.hostPlatform.isDarwin;
   };

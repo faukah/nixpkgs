@@ -6,7 +6,6 @@
   ninja,
   useFloat ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fuzzylite";
   version = "6.0";
@@ -36,7 +35,11 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DFL_BUILD_TESTS:BOOL=OFF"
-    "-DFL_USE_FLOAT:BOOL=${if useFloat then "ON" else "OFF"}"
+    "-DFL_USE_FLOAT:BOOL=${
+      if useFloat
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   meta = with lib; {
@@ -45,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://fuzzylite.com";
     changelog = "https://github.com/fuzzylite/fuzzylite/${src.rev}/release/CHANGELOG";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.all;
   };
 }

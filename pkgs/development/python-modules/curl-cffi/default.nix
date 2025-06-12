@@ -21,7 +21,6 @@
   websockets,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "curl-cffi";
   version = "0.11.1";
@@ -34,8 +33,8 @@ buildPythonPackage rec {
     hash = "sha256-hpsAga5741oTBT87Rt7XTyxxu7SQ5Usw+2VVr54oA8k=";
   };
 
-  patches = [ ./use-system-libs.patch ];
-  buildInputs = [ curl-impersonate-chrome ];
+  patches = [./use-system-libs.patch];
+  buildInputs = [curl-impersonate-chrome];
 
   build-system = [
     cffi
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
   };
 
-  pythonImportsCheck = [ "curl_cffi" ];
+  pythonImportsCheck = ["curl_cffi"];
 
   nativeCheckInputs = [
     charset-normalizer
@@ -99,6 +98,6 @@ buildPythonPackage rec {
     description = "Python binding for curl-impersonate via cffi";
     homepage = "https://curl-cffi.readthedocs.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ chuangzhu ];
+    maintainers = with maintainers; [chuangzhu];
   };
 }

@@ -9,7 +9,6 @@
   docbook_xsl,
   docbook_xml_dtd_45,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "systemd-bootchart";
   version = "235";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Boot performance graphing tool from systemd";
     homepage = "https://github.com/systemd/systemd-bootchart";
     license = lib.licenses.lgpl21Plus;
-    maintainers = [ lib.maintainers.brianmcgillion ];
+    maintainers = [lib.maintainers.brianmcgillion];
     platforms = lib.platforms.linux;
   };
 })

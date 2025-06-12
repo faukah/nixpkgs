@@ -2,14 +2,11 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools-scm,
-
   # dependencies
   cwcwidth,
   lxml,
-
   # tests
   aeidon,
   charset-normalizer,
@@ -25,7 +22,6 @@
   syrupy,
   vobject,
 }:
-
 buildPythonPackage rec {
   pname = "translate-toolkit";
   version = "3.15.2";
@@ -39,7 +35,7 @@ buildPythonPackage rec {
     hash = "sha256-HZ00ds3MUrtLb6WjxpCch8CPvOuadHJXZsJRQdqge0M=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     cwcwidth
@@ -70,7 +66,7 @@ buildPythonPackage rec {
     "test_xliff_conformance"
   ];
 
-  pythonImportsCheck = [ "translate" ];
+  pythonImportsCheck = ["translate"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -79,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://toolkit.translatehouse.org/";
     changelog = "https://docs.translatehouse.org/projects/translate-toolkit/en/latest/releases/${version}.html";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ erictapen ];
+    maintainers = with lib.maintainers; [erictapen];
   };
 }

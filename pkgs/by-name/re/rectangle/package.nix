@@ -5,7 +5,6 @@
   undmg,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "rectangle";
   version = "0.87";
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   installPhase = ''
     runHook preInstall
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Move and resize windows in macOS using keyboard shortcuts or snap areas";
@@ -39,6 +38,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       wegank
     ];
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

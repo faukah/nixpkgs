@@ -8,7 +8,6 @@
   qmake,
   soqt,
 }:
-
 buildPythonPackage rec {
   pname = "pivy";
   version = "0.6.10";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-DRA4NTAHg2iB/D1CU9pJEpsZwX9GW3X5gpxbIwP54Ko=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dontUseCmakeConfigure = true;
 
@@ -31,21 +30,19 @@ buildPythonPackage rec {
     cmake
   ];
 
-  buildInputs =
-    with pkgs;
-    with xorg;
-    [
-      coin3d
-      soqt
-      qtbase
-      libGLU
-      libGL
-      libXi
-      libXext
-      libSM
-      libICE
-      libX11
-    ];
+  buildInputs = with pkgs;
+  with xorg; [
+    coin3d
+    soqt
+    qtbase
+    libGLU
+    libGL
+    libXi
+    libXext
+    libSM
+    libICE
+    libX11
+  ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${qtbase.dev}/include/QtCore"
@@ -63,12 +60,12 @@ buildPythonPackage rec {
       \$'{Coin_INCLUDE_DIR}'\;\$'{SoQt_INCLUDE_DIRS}'
   '';
 
-  pythonImportsCheck = [ "pivy" ];
+  pythonImportsCheck = ["pivy"];
 
   meta = with lib; {
     homepage = "https://github.com/coin3d/pivy/";
     description = "Python binding for Coin";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

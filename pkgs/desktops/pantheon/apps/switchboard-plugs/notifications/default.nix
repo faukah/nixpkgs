@@ -16,7 +16,6 @@
   switchboard,
   elementary-notifications,
 }:
-
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-notifications";
   version = "8.0.0";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -55,6 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/switchboard-plug-notifications";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

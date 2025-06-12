@@ -3,7 +3,6 @@
   fetchurl,
   lib,
 }:
-
 appimageTools.wrapType2 rec {
   pname = "sylk";
   version = "3.0.1";
@@ -22,11 +21,11 @@ appimageTools.wrapType2 rec {
     homepage = "https://sylkserver.com/";
     license = lib.licenses.agpl3Plus;
     mainProgram = "Sylk";
-    maintainers = with lib.maintainers; [ zimbatm ];
+    maintainers = with lib.maintainers; [zimbatm];
     platforms = [
       "i386-linux"
       "x86_64-linux"
     ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 }

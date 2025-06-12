@@ -5,7 +5,6 @@
   testers,
   zed,
 }:
-
 buildGoModule rec {
   pname = "zed";
   version = "1.18.0";

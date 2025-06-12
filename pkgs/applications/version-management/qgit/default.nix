@@ -5,7 +5,6 @@
   cmake,
   qtbase,
 }:
-
 mkDerivation rec {
   pname = "qgit";
   version = "2.11";
@@ -17,9 +16,9 @@ mkDerivation rec {
     sha256 = "sha256-DmwxOy71mIklLQ7V/qMzi8qCMtKa9nWHlkjEr/9HJIU=";
   };
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     license = licenses.gpl2Only;

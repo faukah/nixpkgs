@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkIf
     mkOption
     mkPackageOption
@@ -13,18 +13,16 @@ let
     ;
   inherit (lib.types) bool;
 
-  mkRemovedOptionModule' = name: reason: mkRemovedOptionModule [ "krb5" name ] reason;
-  mkRemovedOptionModuleCfg =
-    name:
+  mkRemovedOptionModule' = name: reason: mkRemovedOptionModule ["krb5" name] reason;
+  mkRemovedOptionModuleCfg = name:
     mkRemovedOptionModule' name ''
       The option `krb5.${name}' has been removed. Use
       `security.krb5.settings.${name}' for structured configuration.
     '';
 
   cfg = config.security.krb5;
-  format = import ./krb5-conf-format.nix { inherit pkgs lib; } { };
-in
-{
+  format = import ./krb5-conf-format.nix {inherit pkgs lib;} {};
+in {
   imports = [
     (mkRemovedOptionModuleCfg "libdefaults")
     (mkRemovedOptionModuleCfg "realms")
@@ -52,15 +50,15 @@ in
       };
 
       settings = mkOption {
-        default = { };
+        default = {};
         type = format.type;
         description = ''
           Structured contents of the {file}`krb5.conf` file. See
           {manpage}`krb5.conf(5)` for details about configuration.
         '';
         example = {
-          include = [ "/run/secrets/secret-krb5.conf" ];
-          includedir = [ "/run/secrets/secret-krb5.conf.d" ];
+          include = ["/run/secrets/secret-krb5.conf"];
+          includedir = ["/run/secrets/secret-krb5.conf.d"];
 
           libdefaults = {
             default_realm = "ATHENA.MIT.EDU";
@@ -95,8 +93,7 @@ in
       (
         let
           implementation = cfg.package.passthru.implementation or "<NOT SET>";
-        in
-        {
+        in {
           assertion = lib.elem implementation [
             "krb5"
             "heimdal"
@@ -114,7 +111,7 @@ in
     ];
 
     environment = mkIf cfg.enable {
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
       etc."krb5.conf".source = format.generate "krb5.conf" cfg.settings;
     };
   };

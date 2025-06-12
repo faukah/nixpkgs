@@ -5,11 +5,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.xserver.desktopManager.pantheon;
   serviceCfg = config.services.pantheon;
 
@@ -19,25 +15,19 @@ let
   };
 
   notExcluded = pkg: utils.disablePackageByName pkg config.environment.pantheon.excludePackages;
-in
-
-{
-
+in {
   meta = {
     doc = ./pantheon.md;
     maintainers = teams.pantheon.members;
   };
 
   options = {
-
     services.pantheon = {
-
       contractor = {
         enable = mkEnableOption "contractor, a desktop-wide extension service used by Pantheon";
       };
 
       apps.enable = mkEnableOption "Pantheon default applications";
-
     };
 
     services.xserver.desktopManager.pantheon = {
@@ -48,7 +38,7 @@ in
       };
 
       sessionPath = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.package;
         example = literalExpression "[ pkgs.gpaste ]";
         description = ''
@@ -78,31 +68,31 @@ in
       };
 
       extraGSettingsOverridePackages = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.path;
         description = "List of packages for which gsettings are overridden.";
       };
 
       debug = mkEnableOption "gnome-session debug messages";
-
     };
 
     environment.pantheon.excludePackages = mkOption {
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.pantheon.elementary-camera ]";
       type = types.listOf types.package;
       description = "Which packages pantheon should exclude from the default environment";
     };
-
   };
 
   config = mkMerge [
     (mkIf cfg.enable {
-      services.xserver.desktopManager.pantheon.sessionPath = utils.removePackagesByName [
-        pkgs.pantheon.pantheon-agent-geoclue2
-      ] config.environment.pantheon.excludePackages;
+      services.xserver.desktopManager.pantheon.sessionPath =
+        utils.removePackagesByName [
+          pkgs.pantheon.pantheon-agent-geoclue2
+        ]
+        config.environment.pantheon.excludePackages;
 
-      services.displayManager.sessionPackages = [ pkgs.pantheon.elementary-session-settings ];
+      services.displayManager.sessionPackages = [pkgs.pantheon.elementary-session-settings];
 
       # Ensure lightdm is used when Pantheon is enabled
       # Without it screen locking will be nonfunctional because of the use of lightlocker
@@ -118,15 +108,16 @@ in
 
       environment.extraInit = ''
         ${concatMapStrings (p: ''
-          if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
-            export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
-          fi
+            if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
+              export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
+            fi
 
-          if [ -d "${p}/lib/girepository-1.0" ]; then
-            export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
-            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
-          fi
-        '') cfg.sessionPath}
+            if [ -d "${p}/lib/girepository-1.0" ]; then
+              export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
+              export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
+            fi
+          '')
+          cfg.sessionPath}
       '';
 
       # Default services
@@ -141,7 +132,7 @@ in
       services.touchegg.enable = mkDefault true;
       services.touchegg.package = pkgs.pantheon.touchegg;
       services.tumbler.enable = mkDefault true;
-      services.system-config-printer.enable = (mkIf config.services.printing.enable (mkDefault true));
+      services.system-config-printer.enable = mkIf config.services.printing.enable (mkDefault true);
       services.dbus.packages = with pkgs.pantheon; [
         switchboard-plug-power
         elementary-default-settings # accountsservice extensions
@@ -234,12 +225,12 @@ in
             pantheon-agent-geoclue2
             pantheon-agent-polkit
           ])
-        ) config.environment.pantheon.excludePackages;
+        )
+        config.environment.pantheon.excludePackages;
 
       # Settings from elementary-default-settings
       # GTK4 will try both $XDG_CONFIG_DIRS/gtk-4.0 and ${gtk4}/etc/gtk-4.0, but not /etc/gtk-4.0.
-      environment.etc."xdg/gtk-4.0/settings.ini".source =
-        "${pkgs.pantheon.elementary-default-settings}/etc/gtk-4.0/settings.ini";
+      environment.etc."xdg/gtk-4.0/settings.ini".source = "${pkgs.pantheon.elementary-default-settings}/etc/gtk-4.0/settings.ini";
 
       xdg.mime.enable = true;
       xdg.icons.enable = true;
@@ -255,7 +246,7 @@ in
           xdg-desktop-portal-pantheon
         ]);
 
-      xdg.portal.configPackages = mkDefault [ pkgs.pantheon.elementary-default-settings ];
+      xdg.portal.configPackages = mkDefault [pkgs.pantheon.elementary-default-settings];
 
       # Override GSettings schemas
       environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
@@ -286,8 +277,8 @@ in
       ];
 
       fonts.fontconfig.defaultFonts = {
-        monospace = [ "Roboto Mono" ];
-        sansSerif = [ "Inter" ];
+        monospace = ["Roboto Mono"];
+        sansSerif = ["Inter"];
       };
     })
 
@@ -295,35 +286,37 @@ in
       programs.evince.enable = mkDefault (notExcluded pkgs.evince);
       programs.file-roller.enable = mkDefault (notExcluded pkgs.file-roller);
 
-      environment.systemPackages = utils.removePackagesByName (
-        [
-          pkgs.gnome-font-viewer
-        ]
-        ++ (
-          with pkgs.pantheon;
+      environment.systemPackages =
+        utils.removePackagesByName (
           [
-            elementary-calculator
-            elementary-calendar
-            elementary-camera
-            elementary-code
-            elementary-files
-            elementary-mail
-            elementary-music
-            elementary-photos
-            elementary-screenshot
-            elementary-tasks
-            elementary-terminal
-            elementary-videos
-            epiphany
+            pkgs.gnome-font-viewer
           ]
-          ++ lib.optionals config.services.flatpak.enable [
-            # Only install appcenter if flatpak is enabled before
-            # https://github.com/NixOS/nixpkgs/issues/15932 is resolved.
-            appcenter
-            sideload
-          ]
+          ++ (
+            with pkgs.pantheon;
+              [
+                elementary-calculator
+                elementary-calendar
+                elementary-camera
+                elementary-code
+                elementary-files
+                elementary-mail
+                elementary-music
+                elementary-photos
+                elementary-screenshot
+                elementary-tasks
+                elementary-terminal
+                elementary-videos
+                epiphany
+              ]
+              ++ lib.optionals config.services.flatpak.enable [
+                # Only install appcenter if flatpak is enabled before
+                # https://github.com/NixOS/nixpkgs/issues/15932 is resolved.
+                appcenter
+                sideload
+              ]
+          )
         )
-      ) config.environment.pantheon.excludePackages;
+        config.environment.pantheon.excludePackages;
 
       # needed by screenshot
       fonts.packages = [
@@ -341,6 +334,5 @@ in
         "/share/contractor"
       ];
     })
-
   ];
 }

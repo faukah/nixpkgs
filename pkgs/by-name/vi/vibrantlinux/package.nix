@@ -9,7 +9,6 @@
   pkg-config,
   qt6,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vibrantLinux";
   version = "2.2.0";

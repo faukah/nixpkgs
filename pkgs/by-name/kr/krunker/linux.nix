@@ -1,6 +1,7 @@
-{ appimageTools, fetchurl }:
-
-let
+{
+  appimageTools,
+  fetchurl,
+}: let
   pname = "krunker";
   version = "2.1.3";
 
@@ -15,16 +16,15 @@ let
     inherit pname version src;
   };
 in
+  appimageTools.wrapType2 {
+    inherit pname version src;
 
-appimageTools.wrapType2 {
-  inherit pname version src;
+    extraInstallCommands = ''
+      mkdir -p $out/share/{applications,pixmaps}
+      install -Dm644 ${appimageContents}/${appId}.desktop -t $out/share/applications
+      install -Dm644 ${appimageContents}/${appId}.png -t $out/share/pixmaps
 
-  extraInstallCommands = ''
-    mkdir -p $out/share/{applications,pixmaps}
-    install -Dm644 ${appimageContents}/${appId}.desktop -t $out/share/applications
-    install -Dm644 ${appimageContents}/${appId}.png -t $out/share/pixmaps
-
-    substituteInPlace $out/share/applications/${appId}.desktop \
-      --replace-fail 'Exec=AppRun' "Exec=$pname"
-  '';
-}
+      substituteInPlace $out/share/applications/${appId}.desktop \
+        --replace-fail 'Exec=AppRun' "Exec=$pname"
+    '';
+  }

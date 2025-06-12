@@ -1,10 +1,9 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
   lib ? pkgs.lib,
-}:
-let
+}: let
   makeTest = import ./make-test-python.nix;
   textInput = "This works.";
   inputBoxText = "Enter input";
@@ -18,17 +17,16 @@ let
         """
         return f"sudo -u alice -i {cmd}"
   '';
-in
-{
+in {
   headless = makeTest {
     name = "headless";
 
     enableOCR = true;
 
     nodes.machine = {
-      imports = [ ./common/user-account.nix ];
+      imports = [./common/user-account.nix];
 
-      users.users.alice.extraGroups = [ "ydotool" ];
+      users.users.alice.extraGroups = ["ydotool"];
 
       programs.ydotool.enable = true;
 
@@ -67,7 +65,7 @@ in
         ./common/x11.nix
       ];
 
-      users.users.alice.extraGroups = [ "ydotool" ];
+      users.users.alice.extraGroups = ["ydotool"];
 
       programs.ydotool.enable = true;
 
@@ -108,7 +106,7 @@ in
     enableOCR = true;
 
     nodes.machine = {
-      imports = [ ./common/user-account.nix ];
+      imports = [./common/user-account.nix];
 
       services.cage = {
         enable = true;
@@ -139,14 +137,13 @@ in
     ];
   };
 
-  customGroup =
-    let
-      name = "customGroup";
-      nodeName = "${name}Node";
-      insideGroupUsername = "ydotool-user";
-      outsideGroupUsername = "other-user";
-      groupName = "custom-group";
-    in
+  customGroup = let
+    name = "customGroup";
+    nodeName = "${name}Node";
+    insideGroupUsername = "ydotool-user";
+    outsideGroupUsername = "other-user";
+    groupName = "custom-group";
+  in
     makeTest {
       inherit name;
 
@@ -159,7 +156,7 @@ in
         users.users = {
           "${insideGroupUsername}" = {
             isNormalUser = true;
-            extraGroups = [ groupName ];
+            extraGroups = [groupName];
           };
           "${outsideGroupUsername}".isNormalUser = true;
         };
@@ -179,6 +176,6 @@ in
         ${nodeName}.fail("sudo --login --user=${outsideGroupUsername} ydotool type 'Hello, World!'")
       '';
 
-      meta.maintainers = with lib.maintainers; [ l0b0 ];
+      meta.maintainers = with lib.maintainers; [l0b0];
     };
 }

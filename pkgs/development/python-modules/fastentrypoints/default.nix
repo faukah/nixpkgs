@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "fastentrypoints";
   version = "0.12";
@@ -19,6 +18,6 @@ buildPythonPackage rec {
     mainProgram = "fastep";
     homepage = "https://github.com/ninjaaron/fast-entry_points";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nixy ];
+    maintainers = with maintainers; [nixy];
   };
 }

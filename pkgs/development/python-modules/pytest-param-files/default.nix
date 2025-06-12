@@ -7,7 +7,6 @@
   pytest,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-param-files";
   version = "0.6.0";
@@ -20,20 +19,20 @@ buildPythonPackage rec {
     hash = "sha256-hgEEfKf9Kmah5WDNHoFWQJKLOs9Z5BDHiebXCdDc1zE=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  propagatedBuildInputs = [ ruamel-yaml ];
+  propagatedBuildInputs = [ruamel-yaml];
 
-  pythonImportsCheck = [ "pytest_param_files" ];
+  pythonImportsCheck = ["pytest_param_files"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Package to generate parametrized pytests from external files";
     homepage = "https://github.com/chrisjsewell/pytest-param-files";
     license = licenses.mit;
-    maintainers = with maintainers; [ loicreynier ];
+    maintainers = with maintainers; [loicreynier];
   };
 }

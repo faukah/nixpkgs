@@ -8,7 +8,6 @@
   pytestCheckHook,
   glibcLocalesUtf8,
 }:
-
 buildPythonPackage rec {
   pname = "python-bugzilla";
   version = "3.3.0";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-4YIgFx4DPrO6YAxNE5NZ0BqhrOwdrrxDCJEORQdj3kc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     mainProgram = "bugzilla";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pierron ];
+    maintainers = with maintainers; [pierron];
   };
 }

@@ -7,7 +7,6 @@
   regex,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "curated-tokenizers";
   version = "2.0.0";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
 
   # Explicitly set the path to avoid running vendored
   # sentencepiece tests.
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   preCheck = ''
     # avoid local paths, relative imports wont resolve correctly
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     rm -r curated_tokenizers
   '';
 
-  pythonImportsCheck = [ "curated_tokenizers" ];
+  pythonImportsCheck = ["curated_tokenizers"];
 
   meta = with lib; {
     description = "Lightweight piece tokenization library";
     homepage = "https://github.com/explosion/curated-tokenizers";
     changelog = "https://github.com/explosion/curated-tokenizers/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ danieldk ];
+    maintainers = with maintainers; [danieldk];
   };
 }

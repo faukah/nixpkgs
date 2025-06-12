@@ -10,7 +10,6 @@
   librevenge,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libwpd";
   version = "0.10.3";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-JGWwtmL9xdTjvrzcmnkCdxP7Ypyiv/BKPJJR/exC3Qk=";
   };
 
-  patches = [ ./gcc-1.0.patch ];
+  patches = [./gcc-1.0.patch];
 
   buildInputs = [
     glib
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     boost
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "Library for importing and exporting WordPerfect documents";

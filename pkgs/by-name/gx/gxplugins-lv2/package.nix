@@ -8,7 +8,6 @@
   lv2,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "GxPlugins.lv2";
   version = "1.0";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     xorg.libX11
     xorgproto
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     lv2
   ];
 
-  installFlags = [ "INSTALL_DIR=$(out)/lib/lv2" ];
+  installFlags = ["INSTALL_DIR=$(out)/lib/lv2"];
 
   configurePhase = ''
     for i in GxBoobTube GxValveCaster; do
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/brummer10/GxPlugins.lv2";
     description = "Set of extra lv2 plugins from the guitarix project";
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     license = licenses.gpl3Plus;
   };
 }

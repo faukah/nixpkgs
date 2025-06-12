@@ -4,7 +4,6 @@
   fetchFromGitHub,
   kernel,
 }:
-
 stdenv.mkDerivation rec {
   name = "isgx-${version}-${kernel.version}";
   version = "2.14";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0kbbf2inaywp44lm8ig26mkb36jq3smsln0yp6kmrirdwc3c53mi";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -47,8 +46,8 @@ stdenv.mkDerivation rec {
       bsd3 # OR
       gpl2Only
     ];
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
     # This kernel module is now in mainline so newer kernels should
     # use that rather than this out-of-tree version (officially
     # deprecated by Intel)

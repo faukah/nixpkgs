@@ -1,100 +1,94 @@
-{
-  pkgs ? import ../../.. { },
-}:
-let
+{pkgs ? import ../../.. {}}: let
   inherit (pkgs) runCommand closureInfo;
   # splicing doesn't seem to work right here
   inherit (pkgs.buildPackages) dumpnar rsync;
-  pack-all =
-    packCmd: name: pkgs: fixups:
-    (runCommand name
-      {
-        nativeBuildInputs = [
-          rsync
-          dumpnar
-        ];
-      }
-      ''
-        base=$PWD
-        requisites="$(cat ${closureInfo { rootPaths = pkgs; }}/store-paths)"
-        for f in $requisites; do
-          cd $f
-          rsync --safe-links --chmod="+w" -av . $base
+  pack-all = packCmd: name: pkgs: fixups: (
+    runCommand name
+    {
+      nativeBuildInputs = [
+        rsync
+        dumpnar
+      ];
+    }
+    ''
+      base=$PWD
+      requisites="$(cat ${closureInfo {rootPaths = pkgs;}}/store-paths)"
+      for f in $requisites; do
+        cd $f
+        rsync --safe-links --chmod="+w" -av . $base
+      done
+      cd $base
+
+      rm -rf nix nix-support
+      mkdir nix-support
+      for dir in $requisites; do
+        cd "$dir/nix-support" 2>/dev/null || continue
+        for f in $(find . -type f); do
+          mkdir -p "$base/nix-support/$(dirname $f)"
+          cat $f >>"$base/nix-support/$f"
         done
-        cd $base
+      done
+      rm -f $base/nix-support/propagated-build-inputs
+      cd $base
 
-        rm -rf nix nix-support
-        mkdir nix-support
-        for dir in $requisites; do
-          cd "$dir/nix-support" 2>/dev/null || continue
-          for f in $(find . -type f); do
-            mkdir -p "$base/nix-support/$(dirname $f)"
-            cat $f >>"$base/nix-support/$f"
-          done
-        done
-        rm -f $base/nix-support/propagated-build-inputs
-        cd $base
+      ${fixups}
 
-        ${fixups}
-
-        ${packCmd}
-      ''
-    );
+      ${packCmd}
+    ''
+  );
   nar-all = pack-all "dumpnar . | xz -9 -e -T $NIX_BUILD_CORES >$out";
   tar-all = pack-all "XZ_OPT=\"-9 -e -T $NIX_BUILD_CORES\" tar cJf $out --hard-dereference --sort=name --numeric-owner --owner=0 --group=0 --mtime=@1 .";
-  coreutils-big = pkgs.coreutils.override { singleBinary = false; };
-  mkdir = runCommand "mkdir" { coreutils = coreutils-big; } ''
+  coreutils-big = pkgs.coreutils.override {singleBinary = false;};
+  mkdir = runCommand "mkdir" {coreutils = coreutils-big;} ''
     mkdir -p $out/bin
     cp $coreutils/bin/mkdir $out/bin
   '';
-in
-rec {
+in rec {
   unpack =
     nar-all "unpack.nar.xz"
-      (with pkgs; [
-        bash
-        mkdir
-        xz
-        gnutar
-      ])
-      ''
-        rm -rf include lib/*.a lib/i18n lib/bash share
-      '';
+    (with pkgs; [
+      bash
+      mkdir
+      xz
+      gnutar
+    ])
+    ''
+      rm -rf include lib/*.a lib/i18n lib/bash share
+    '';
   bootstrap-tools = tar-all "bootstrap-tools.tar.xz" (
     with pkgs;
     # SYNCME: this version number must be synced with the one in default.nix
-    let
-      llvmPackages = llvmPackages_18;
-    in
-    [
-      (runCommand "bsdcp" { } "mkdir -p $out/bin; cp ${freebsd.cp}/bin/cp $out/bin/bsdcp")
-      coreutils
-      gnutar
-      findutils
-      gnumake
-      gnused
-      patchelf
-      gnugrep
-      gawk
-      diffutils
-      patch
-      bash
-      xz
-      xz.dev
-      gzip
-      bzip2
-      bzip2.dev
-      curl
-      expand-response-params
-      binutils-unwrapped
-      freebsd.libc
-      llvmPackages.libcxx
-      llvmPackages.libcxx.dev
-      llvmPackages.compiler-rt
-      llvmPackages.compiler-rt.dev
-      llvmPackages.clang-unwrapped
-      (freebsd.locales.override { locales = [ "C.UTF-8" ]; })
-    ]
+      let
+        llvmPackages = llvmPackages_18;
+      in [
+        (runCommand "bsdcp" {} "mkdir -p $out/bin; cp ${freebsd.cp}/bin/cp $out/bin/bsdcp")
+        coreutils
+        gnutar
+        findutils
+        gnumake
+        gnused
+        patchelf
+        gnugrep
+        gawk
+        diffutils
+        patch
+        bash
+        xz
+        xz.dev
+        gzip
+        bzip2
+        bzip2.dev
+        curl
+        expand-response-params
+        binutils-unwrapped
+        freebsd.libc
+        llvmPackages.libcxx
+        llvmPackages.libcxx.dev
+        llvmPackages.compiler-rt
+        llvmPackages.compiler-rt.dev
+        llvmPackages.clang-unwrapped
+        (freebsd.locales.override {locales = ["C.UTF-8"];})
+      ]
     # INSTRUCTIONS FOR GENERATING THE SPURIOUS LIST
     # - empty this list
     # - rebuild bootstrap files and update their urls and hashes
@@ -112,7 +106,7 @@ rec {
     # - manually remove all files under include and lib/clang/*/include from the list in order to improve forward compatibility (and since they are very small)
     # - plop it here
   ) "xargs rm -f <${./bootstrap-tools-spurious.txt}";
-  build = runCommand "build" { } ''
+  build = runCommand "build" {} ''
     mkdir -p $out/on-server
     ln -s ${unpack} $out/on-server/unpack.nar.xz
     ln -s ${bootstrap-tools} $out/on-server/bootstrap-tools.tar.xz

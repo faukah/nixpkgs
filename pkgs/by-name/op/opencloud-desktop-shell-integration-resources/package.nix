@@ -5,7 +5,6 @@
   cmake,
   kdePackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opencloud-desktop-shell-integration-resources";
   version = "1.0.0";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "Shared assets for OpenCloud desktop shell integrations";
     homepage = "https://github.com/opencloud-eu/desktop-shell-integration-resources";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ k900 ];
+    maintainers = with lib.maintainers; [k900];
     platforms = lib.platforms.all;
   };
 }

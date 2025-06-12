@@ -5,7 +5,6 @@
   cmake,
   igraph,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libleidenalg";
   version = "0.11.1";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "C++ library of Leiden algorithm";
     homepage = "https://github.com/vtraag/libleidenalg";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     platforms = lib.platforms.all;
   };
 }

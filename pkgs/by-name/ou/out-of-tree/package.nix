@@ -6,12 +6,11 @@
   podman,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "out-of-tree";
   version = "2.1.1";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   src = fetchgit {
     tag = "v${version}";
@@ -26,18 +25,18 @@ buildGoModule rec {
   postFixup = ''
     wrapProgram $out/bin/out-of-tree \
       --prefix PATH : "${
-        lib.makeBinPath [
-          qemu
-          podman
-        ]
-      }"
+      lib.makeBinPath [
+        qemu
+        podman
+      ]
+    }"
   '';
 
   meta = with lib; {
     description = "kernel {module, exploit} development tool";
     mainProgram = "out-of-tree";
     homepage = "https://out-of-tree.io";
-    maintainers = [ maintainers.dump_stack ];
+    maintainers = [maintainers.dump_stack];
     license = licenses.agpl3Plus;
   };
 }

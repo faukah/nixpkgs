@@ -6,7 +6,6 @@
   jre,
   unzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kotlin";
   version = "2.1.20";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-oRgZew3lX/qyvI1c0DpeOQM8+1M4PWkxvHYd7AeEiRo=";
   };
 
-  propagatedBuildInputs = [ jre ];
+  propagatedBuildInputs = [jre];
   nativeBuildInputs = [
     makeWrapper
     unzip
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://kotlinlang.org/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ SubhrajyotiSen ];
+    maintainers = with lib.maintainers; [SubhrajyotiSen];
     platforms = lib.platforms.all;
   };
 })

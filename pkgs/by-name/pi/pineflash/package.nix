@@ -31,9 +31,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-OgUWOtqgGCRNYCrdMa8IAfxbbYqv+1WwubvfYybuAQU=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ] ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
+  nativeBuildInputs =
+    [
+      pkg-config
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
 
   buildInputs = [
     blisp
@@ -75,7 +77,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

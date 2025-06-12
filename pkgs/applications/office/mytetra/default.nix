@@ -7,7 +7,6 @@
   makeWrapper,
   xdg-utils,
 }:
-
 mkDerivation rec {
   pname = "mytetra";
   version = "1.44.183";
@@ -23,9 +22,9 @@ mkDerivation rec {
     qmake
     makeWrapper
   ];
-  buildInputs = [ qtsvg ];
+  buildInputs = [qtsvg];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preBuild = ''
     substituteInPlace app/app.pro \
@@ -51,7 +50,7 @@ mkDerivation rec {
     mainProgram = "mytetra";
     homepage = "https://webhamster.ru/site/page/index/articles/projectcode/138";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

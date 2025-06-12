@@ -8,7 +8,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "readsb";
   version = "3.14.1666";
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     ncurses
@@ -37,10 +36,12 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   enableParallelBuilding = true;
-  makeFlags = [
-    # set something for version, we removed the original value in postPatch
-    "READSB_VERSION=${finalAttrs.version}"
-  ] ++ (lib.lists.optional (rtl-sdr != null) "RTLSDR=yes");
+  makeFlags =
+    [
+      # set something for version, we removed the original value in postPatch
+      "READSB_VERSION=${finalAttrs.version}"
+    ]
+    ++ (lib.lists.optional (rtl-sdr != null) "RTLSDR=yes");
 
   doCheck = true;
   checkTarget = "cprtest";
@@ -67,8 +68,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "ADS-B decoder swiss knife";
     homepage = "https://github.com/wiedehopf/readsb";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ wucke13 ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [wucke13];
     platforms = lib.platforms.linux; # uses epoll, hence its linux only
   };
 })

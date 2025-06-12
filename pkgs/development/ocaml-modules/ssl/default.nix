@@ -8,7 +8,6 @@
   openssl,
   pkg-config,
 }:
-
 buildDunePackage rec {
   pname = "ssl";
   version = "0.7.0";
@@ -22,13 +21,13 @@ buildDunePackage rec {
     hash = "sha256-gi80iwlKaI4TdAVnCyPG03qRWFa19DHdTrA0KMFBAc4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dune-configurator];
+  propagatedBuildInputs = [openssl];
 
   __darwinAllowLocalNetworking = true;
   doCheck = lib.versionAtLeast ocaml.version "4.08";
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
   preCheck = ''
     mkdir -p _build/default/tests/
     cp tests/digicert_certificate.pem _build/default/tests/

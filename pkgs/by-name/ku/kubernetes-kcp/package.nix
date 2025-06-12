@@ -7,7 +7,6 @@
   testers,
   kubernetes-kcp,
 }:
-
 buildGoModule rec {
   pname = "kubernetes-kcp";
   version = "0.27.1";
@@ -20,7 +19,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-rzHHudaYSzr15zkB8K0A4wR4AHhMyzQt2V0OVVDhKjA=";
 
-  subPackages = [ "cmd/kcp" ];
+  subPackages = ["cmd/kcp"];
 
   # TODO: The upstream has the additional version information pulled from go.mod
   # dependencies.
@@ -42,7 +41,7 @@ buildGoModule rec {
   # TODO: Check if this is necessary.
   # __darwinAllowLocalNetworking = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     $out/bin/kcp completion bash > kcp.bash
     $out/bin/kcp completion zsh > kcp.zsh

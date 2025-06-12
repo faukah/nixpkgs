@@ -1,11 +1,12 @@
-{ pkgs, lib, ... }:
-
-let
-  port = "1234";
-in
 {
+  pkgs,
+  lib,
+  ...
+}: let
+  port = "1234";
+in {
   name = "evcc";
-  meta.maintainers = with lib.maintainers; [ hexa ];
+  meta.maintainers = with lib.maintainers; [hexa];
 
   nodes = {
     machine = {

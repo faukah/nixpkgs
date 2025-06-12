@@ -11,7 +11,6 @@
   pytestCheckHook,
   sse-starlette,
 }:
-
 buildPythonPackage rec {
   pname = "httpx-sse";
   version = "0.4.0";
@@ -42,9 +41,9 @@ buildPythonPackage rec {
     wheel
   ];
 
-  dependencies = [ httpx ];
+  dependencies = [httpx];
 
-  pythonImportsCheck = [ "httpx_sse" ];
+  pythonImportsCheck = ["httpx_sse"];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/florimondmanca/httpx-sse";
     changelog = "https://github.com/florimondmanca/httpx-sse/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

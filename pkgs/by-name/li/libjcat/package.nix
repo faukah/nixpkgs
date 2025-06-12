@@ -17,7 +17,6 @@
   python3,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libjcat";
   version = "0.2.3";
@@ -81,7 +80,7 @@ stdenv.mkDerivation rec {
     mainProgram = "jcat-tool";
     homepage = "https://github.com/hughsie/libjcat";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

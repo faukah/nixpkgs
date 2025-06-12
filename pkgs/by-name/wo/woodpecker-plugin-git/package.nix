@@ -5,7 +5,6 @@
   testers,
   woodpecker-plugin-git,
 }:
-
 buildGoModule rec {
   pname = "woodpecker-plugin-git";
   version = "2.6.5";
@@ -30,7 +29,7 @@ buildGoModule rec {
   # Checks fail because they require network access.
   doCheck = false;
 
-  passthru.tests.version = testers.testVersion { package = woodpecker-plugin-git; };
+  passthru.tests.version = testers.testVersion {package = woodpecker-plugin-git;};
 
   meta = {
     description = "Woodpecker plugin for cloning Git repositories";
@@ -38,6 +37,6 @@ buildGoModule rec {
     changelog = "https://github.com/woodpecker-ci/plugin-git/releases/tag/${version}";
     license = lib.licenses.asl20;
     mainProgram = "plugin-git";
-    maintainers = with lib.maintainers; [ ambroisie ];
+    maintainers = with lib.maintainers; [ambroisie];
   };
 }

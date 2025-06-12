@@ -21,7 +21,7 @@ buildGoModule rec {
     hash = "sha256-wSccfhVp1PDn/gj46r8BNskEuBuRIx1wydYAW1PV4cg=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   ldflags = [
     "-s"
@@ -32,19 +32,19 @@ buildGoModule rec {
   postInstall = ''
     wrapProgram $out/bin/ctags-lsp \
       --suffix PATH : ${
-        lib.makeBinPath [
-          universal-ctags
-          git
-          jujutsu
-        ]
-      }
+      lib.makeBinPath [
+        universal-ctags
+        git
+        jujutsu
+      ]
+    }
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/netmute/ctags-lsp/releases/tag/v${version}";
@@ -52,6 +52,6 @@ buildGoModule rec {
     homepage = "https://github.com/netmute/ctags-lsp";
     license = lib.licenses.mit;
     mainProgram = "ctags-lsp";
-    maintainers = with lib.maintainers; [ voronind ];
+    maintainers = with lib.maintainers; [voronind];
   };
 }

@@ -10,7 +10,6 @@
   versionCheckHook,
   pie ? stdenv.hostPlatform.isDarwin,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ncdu";
   version = "2.8.2";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     installManPage ncdu.1
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 

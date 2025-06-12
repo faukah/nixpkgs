@@ -1,6 +1,8 @@
-{ testers, fetchtorrent, ... }:
-
-let
+{
+  testers,
+  fetchtorrent,
+  ...
+}: let
   wired-cd.meta.license = [
     # track 1, 4 and 11
     {
@@ -17,9 +19,7 @@ let
       free = true; # no use in advertisement
     }
   ];
-in
-
-{
+in {
   http-link = testers.invalidateFetcherByDrvHash fetchtorrent {
     url = "https://webtorrent.io/torrents/wired-cd.torrent";
     hash = "sha256-OCsC22WuanqoN6lPv5wDT5ZxPcEHDpZ1EgXGvz1SDYo=";

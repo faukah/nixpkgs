@@ -8,7 +8,6 @@
   pkg-config,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation rec {
   pname = "river-tag-overlay";
   version = "1.0.0";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "Pop-up showing tag status";
     homepage = "https://sr.ht/~leon_plickat/river-tag-overlay";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ edrex ];
+    maintainers = with maintainers; [edrex];
     platforms = platforms.linux;
     mainProgram = "river-tag-overlay";
   };

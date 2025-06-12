@@ -137,13 +137,10 @@
   libdisplay-info,
   buildPackages,
 }:
-
 assert usbSupport -> !udevSupport; # libusb-compat-0_1 won't be used if udev is available
-assert gbmSupport || waylandSupport || x11Support;
 
-let
+assert gbmSupport || waylandSupport || x11Support; let
   # see https://github.com/xbmc/xbmc/blob/${kodiVersion}-${rel}/tools/depends/target/ to get suggested versions for all dependencies
-
   # We can build these externally but FindLibDvd.cmake forces us to build it
   # them, so we currently just use them for the src.
   libdvdcss = fetchFromGitHub {
@@ -187,342 +184,355 @@ let
     ++ lib.optional waylandSupport "wayland"
     ++ lib.optional x11Support "x11";
 in
-stdenv.mkDerivation (
-  finalAttrs:
-  let
-    texturePacker = buildPackages.callPackage (
-      {
-        cmake,
-        giflib,
-        libjpeg,
-        libpng,
-        lzo,
-        stdenv,
-        zlib,
-        pkg-config,
-      }:
-      stdenv.mkDerivation {
-        pname = finalAttrs.pname + "-build-tool-texture-packer";
-        inherit (finalAttrs) version src;
+  stdenv.mkDerivation (
+    finalAttrs: let
+      texturePacker = buildPackages.callPackage (
+        {
+          cmake,
+          giflib,
+          libjpeg,
+          libpng,
+          lzo,
+          stdenv,
+          zlib,
+          pkg-config,
+        }:
+          stdenv.mkDerivation {
+            pname = finalAttrs.pname + "-build-tool-texture-packer";
+            inherit (finalAttrs) version src;
 
-        sourceRoot = "${finalAttrs.src.name}/tools/depends/native/TexturePacker/src";
+            sourceRoot = "${finalAttrs.src.name}/tools/depends/native/TexturePacker/src";
 
-        nativeBuildInputs = [
-          pkg-config
-          cmake
-        ];
+            nativeBuildInputs = [
+              pkg-config
+              cmake
+            ];
 
-        buildInputs = [
-          giflib
+            buildInputs = [
+              giflib
+              libjpeg
+              libpng
+              lzo
+              zlib
+            ];
+
+            env.NIX_CFLAGS_COMPILE = lib.optionalString (!stdenv.hostPlatform.isWindows) "-DTARGET_POSIX";
+
+            preConfigure = ''
+              cmakeFlagsArray+=(-DKODI_SOURCE_DIR=$src -DCMAKE_MODULE_PATH=$src/cmake/modules)
+            '';
+
+            meta.mainProgram = "TexturePacker";
+          }
+      ) {};
+
+      jsonSchemaBuilder = buildPackages.callPackage (
+        {
+          stdenv,
+          cmake,
+        }:
+          stdenv.mkDerivation {
+            pname = finalAttrs.pname + "-build-tool-json-schema-builder";
+            inherit (finalAttrs) version src;
+
+            sourceRoot = "${finalAttrs.src.name}/tools/depends/native/JsonSchemaBuilder/src";
+
+            nativeBuildInputs = [cmake];
+
+            meta.mainProgram = "JsonSchemaBuilder";
+          }
+      ) {};
+    in {
+      pname = "kodi";
+      version = "21.2";
+      kodiReleaseName = "Omega";
+
+      src = fetchFromGitHub {
+        owner = "xbmc";
+        repo = "xbmc";
+        rev = "${finalAttrs.version}-${finalAttrs.kodiReleaseName}";
+        hash = "sha256-RdTJcq6FPerQx05dU3r8iyaorT4L7162hg5RdywsA88=";
+      };
+
+      patches = [
+        # Backport to fix build with Pipewire 1.4
+        # FIXME: remove in the next update
+        (fetchpatch {
+          url = "https://github.com/xbmc/xbmc/commit/269053ebbfd3cc4a3156a511f54ab7f08a09a730.patch";
+          hash = "sha256-JzzrMJvAufrxTxtWnzknUS9JLJEed+qdtVnIYYe9LCw=";
+        })
+      ];
+
+      # make  derivations declared in the let binding available here, so
+      # they can be overridden
+      inherit
+        libdvdcss
+        libdvdnav
+        libdvdread
+        groovy
+        apache_commons_lang
+        apache_commons_text
+        ;
+
+      buildInputs =
+        [
+          gnutls
+          libidn2
+          libtasn1
+          nasm
+          p11-kit
+          libxml2
+          python3Packages.python
+          boost
+          libmicrohttpd
+          gettext
+          pcre-cpp
+          yajl
+          fribidi
+          libva
+          libdrm
+          openssl
+          gperf
+          tinyxml2
+          tinyxml-2
+          taglib
+          libssh
+          gtest
+          ncurses
+          spdlog
+          alsa-lib
+          libGL
+          libGLU
+          fontconfig
+          freetype
+          ftgl
           libjpeg
           libpng
+          libtiff
+          libmpeg2
+          libsamplerate
+          libmad
+          libogg
+          libvorbis
+          flac
+          libxslt
+          systemd
           lzo
+          libcdio
+          libmodplug
+          libass
+          libbluray
+          libudfread
+          sqlite
+          libmysqlclient
+          avahi
+          lame
+          curl
+          bzip2
+          zip
+          unzip
+          mesa-demos
+          libcec
+          libcec_platform
+          dcadec
+          libuuid
+          libxcrypt
+          libgcrypt
+          libgpg-error
+          libunistring
+          libcrossguid
+          libplist
+          bluez
+          glib
+          harfbuzz
+          lcms2
+          libpthreadstubs
+          ffmpeg
+          flatbuffers
+          fstrcmp
+          rapidjson
+          lirc
+          mesa-gl-headers
+
+          # Deps needed by TexturePacker, which is built and installed in normal
+          # kodi build, however the one used during the build is not this one
+          # in order to support cross-compilation.
+          giflib
           zlib
+        ]
+        ++ lib.optionals x11Support [
+          libX11
+          xorgproto
+          libXt
+          libXmu
+          libXext.dev
+          libXdmcp
+          libXinerama
+          libXrandr.dev
+          libXtst
+          libXfixes
+        ]
+        ++ lib.optional dbusSupport dbus
+        ++ lib.optional joystickSupport cwiid
+        ++ lib.optional nfsSupport libnfs
+        ++ lib.optional pulseSupport libpulseaudio
+        ++ lib.optional pipewireSupport pipewire
+        ++ lib.optional rtmpSupport rtmpdump
+        ++ lib.optional sambaSupport samba
+        ++ lib.optional udevSupport udev
+        ++ lib.optional usbSupport libusb-compat-0_1
+        ++ lib.optional vdpauSupport libvdpau
+        ++ lib.optionals waylandSupport [
+          wayland
+          waylandpp.dev
+          wayland-protocols
+          # Not sure why ".dev" is needed here, but CMake doesn't find libxkbcommon otherwise
+          libxkbcommon.dev
+        ]
+        ++ lib.optionals gbmSupport [
+          libxkbcommon.dev
+          libgbm
+          libinput.dev
+          libdisplay-info
         ];
 
-        env.NIX_CFLAGS_COMPILE = lib.optionalString (!stdenv.hostPlatform.isWindows) "-DTARGET_POSIX";
+      nativeBuildInputs =
+        [
+          cmake
+          doxygen
+          makeWrapper
+          which
+          pkg-config
+          autoconf
+          automake
+          libtool # still needed for some components. Check if that is the case with 19.0
+          jre_headless
+          yasm
+          gettext
+          python3Packages.python
+          flatbuffers
+        ]
+        ++ lib.optionals waylandSupport [
+          wayland-protocols
+          waylandpp.bin
+        ];
 
-        preConfigure = ''
-          cmakeFlagsArray+=(-DKODI_SOURCE_DIR=$src -DCMAKE_MODULE_PATH=$src/cmake/modules)
-        '';
-
-        meta.mainProgram = "TexturePacker";
-      }
-    ) { };
-
-    jsonSchemaBuilder = buildPackages.callPackage (
-      { stdenv, cmake }:
-      stdenv.mkDerivation {
-        pname = finalAttrs.pname + "-build-tool-json-schema-builder";
-        inherit (finalAttrs) version src;
-
-        sourceRoot = "${finalAttrs.src.name}/tools/depends/native/JsonSchemaBuilder/src";
-
-        nativeBuildInputs = [ cmake ];
-
-        meta.mainProgram = "JsonSchemaBuilder";
-      }
-    ) { };
-  in
-  {
-    pname = "kodi";
-    version = "21.2";
-    kodiReleaseName = "Omega";
-
-    src = fetchFromGitHub {
-      owner = "xbmc";
-      repo = "xbmc";
-      rev = "${finalAttrs.version}-${finalAttrs.kodiReleaseName}";
-      hash = "sha256-RdTJcq6FPerQx05dU3r8iyaorT4L7162hg5RdywsA88=";
-    };
-
-    patches = [
-      # Backport to fix build with Pipewire 1.4
-      # FIXME: remove in the next update
-      (fetchpatch {
-        url = "https://github.com/xbmc/xbmc/commit/269053ebbfd3cc4a3156a511f54ab7f08a09a730.patch";
-        hash = "sha256-JzzrMJvAufrxTxtWnzknUS9JLJEed+qdtVnIYYe9LCw=";
-      })
-    ];
-
-    # make  derivations declared in the let binding available here, so
-    # they can be overridden
-    inherit
-      libdvdcss
-      libdvdnav
-      libdvdread
-      groovy
-      apache_commons_lang
-      apache_commons_text
-      ;
-
-    buildInputs =
-      [
-        gnutls
-        libidn2
-        libtasn1
-        nasm
-        p11-kit
-        libxml2
-        python3Packages.python
-        boost
-        libmicrohttpd
-        gettext
-        pcre-cpp
-        yajl
-        fribidi
-        libva
-        libdrm
-        openssl
-        gperf
-        tinyxml2
-        tinyxml-2
-        taglib
-        libssh
-        gtest
-        ncurses
-        spdlog
-        alsa-lib
-        libGL
-        libGLU
-        fontconfig
-        freetype
-        ftgl
-        libjpeg
-        libpng
-        libtiff
-        libmpeg2
-        libsamplerate
-        libmad
-        libogg
-        libvorbis
-        flac
-        libxslt
-        systemd
-        lzo
-        libcdio
-        libmodplug
-        libass
-        libbluray
-        libudfread
-        sqlite
-        libmysqlclient
-        avahi
-        lame
-        curl
-        bzip2
-        zip
-        unzip
-        mesa-demos
-        libcec
-        libcec_platform
-        dcadec
-        libuuid
-        libxcrypt
-        libgcrypt
-        libgpg-error
-        libunistring
-        libcrossguid
-        libplist
-        bluez
-        glib
-        harfbuzz
-        lcms2
-        libpthreadstubs
-        ffmpeg
-        flatbuffers
-        fstrcmp
-        rapidjson
-        lirc
-        mesa-gl-headers
-
-        # Deps needed by TexturePacker, which is built and installed in normal
-        # kodi build, however the one used during the build is not this one
-        # in order to support cross-compilation.
-        giflib
-        zlib
-      ]
-      ++ lib.optionals x11Support [
-        libX11
-        xorgproto
-        libXt
-        libXmu
-        libXext.dev
-        libXdmcp
-        libXinerama
-        libXrandr.dev
-        libXtst
-        libXfixes
-      ]
-      ++ lib.optional dbusSupport dbus
-      ++ lib.optional joystickSupport cwiid
-      ++ lib.optional nfsSupport libnfs
-      ++ lib.optional pulseSupport libpulseaudio
-      ++ lib.optional pipewireSupport pipewire
-      ++ lib.optional rtmpSupport rtmpdump
-      ++ lib.optional sambaSupport samba
-      ++ lib.optional udevSupport udev
-      ++ lib.optional usbSupport libusb-compat-0_1
-      ++ lib.optional vdpauSupport libvdpau
-      ++ lib.optionals waylandSupport [
-        wayland
-        waylandpp.dev
-        wayland-protocols
-        # Not sure why ".dev" is needed here, but CMake doesn't find libxkbcommon otherwise
-        libxkbcommon.dev
-      ]
-      ++ lib.optionals gbmSupport [
-        libxkbcommon.dev
-        libgbm
-        libinput.dev
-        libdisplay-info
+      depsBuildBuild = [
+        buildPackages.stdenv.cc
       ];
 
-    nativeBuildInputs =
-      [
-        cmake
-        doxygen
-        makeWrapper
-        which
-        pkg-config
-        autoconf
-        automake
-        libtool # still needed for some components. Check if that is the case with 19.0
-        jre_headless
-        yasm
-        gettext
-        python3Packages.python
-        flatbuffers
-      ]
-      ++ lib.optionals waylandSupport [
-        wayland-protocols
-        waylandpp.bin
-      ];
-
-    depsBuildBuild = [
-      buildPackages.stdenv.cc
-    ];
-
-    cmakeFlags =
-      [
-        "-DAPP_RENDER_SYSTEM=${if gbmSupport then "gles" else "gl"}"
-        "-Dlibdvdcss_URL=${finalAttrs.libdvdcss}"
-        "-Dlibdvdnav_URL=${finalAttrs.libdvdnav}"
-        "-Dlibdvdread_URL=${finalAttrs.libdvdread}"
-        "-Dgroovy_SOURCE_DIR=${finalAttrs.groovy}"
-        "-Dapache-commons-lang_SOURCE_DIR=${finalAttrs.apache_commons_lang}"
-        "-Dapache-commons-text_SOURCE_DIR=${finalAttrs.apache_commons_text}"
-        # Upstream derives this from the git HEADs hash and date.
-        # LibreElec (minimal distro for kodi) uses the equivalent to this.
-        "-DGIT_VERSION=${finalAttrs.version}-${finalAttrs.kodiReleaseName}"
-        "-DENABLE_EVENTCLIENTS=ON"
-        "-DENABLE_INTERNAL_CROSSGUID=OFF"
-        "-DENABLE_INTERNAL_RapidJSON=OFF"
-        "-DENABLE_OPTICAL=${if opticalSupport then "ON" else "OFF"}"
-        "-DENABLE_VDPAU=${if vdpauSupport then "ON" else "OFF"}"
-        "-DLIRC_DEVICE=/run/lirc/lircd"
-        "-DSWIG_EXECUTABLE=${buildPackages.swig}/bin/swig"
-        "-DFLATBUFFERS_FLATC_EXECUTABLE=${buildPackages.flatbuffers}/bin/flatc"
-        "-DPYTHON_EXECUTABLE=${buildPackages.python3Packages.python}/bin/python"
-        "-DPYTHON_LIB_PATH=${python3Packages.python.sitePackages}"
-        "-DWITH_JSONSCHEMABUILDER=${lib.getExe jsonSchemaBuilder}"
-        # When wrapped KODI_HOME will likely contain symlinks to static assets
-        # that Kodi's built in webserver will cautiously refuse to serve up
-        # (because their realpaths are outside of KODI_HOME and the other
-        # whitelisted directories). This adds the entire nix store to the Kodi
-        # webserver whitelist to avoid this problem.
-        "-DKODI_WEBSERVER_EXTRA_WHITELIST=${builtins.storeDir}"
-      ]
-      ++ lib.optionals waylandSupport [
-        "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++"
-      ]
-      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-        "-DWITH_TEXTUREPACKER=${lib.getExe texturePacker}"
-      ];
-
-    # 14 tests fail but the biggest issue is that every test takes 30 seconds -
-    # I'm guessing there is a thing waiting to time out
-    doCheck = false;
-
-    preConfigure = ''
-      cmakeFlagsArray+=("-DCORE_PLATFORM_NAME=${lib.concatStringsSep " " kodi_platforms}")
-    '';
-
-    postInstall = ''
-      # TODO: figure out which binaries should be wrapped this way and which shouldn't
-      for p in $(ls --ignore=kodi-send $out/bin/) ; do
-        wrapProgram $out/bin/$p \
-          --prefix PATH ":" "${
-            lib.makeBinPath (
-              [
-                python3Packages.python
-                mesa-demos
-              ]
-              ++ lib.optional x11Support xdpyinfo
-              ++ lib.optional sambaSupport samba
-            )
-          }" \
-          --prefix LD_LIBRARY_PATH ":" "${
-            lib.makeLibraryPath (
-              [
-                curl
-                systemd
-                libmad
-                libcec
-                libcec_platform
-                libass
-              ]
-              ++ lib.optional vdpauSupport libvdpau
-              ++ lib.optional nfsSupport libnfs
-              ++ lib.optional rtmpSupport rtmpdump
-            )
+      cmakeFlags =
+        [
+          "-DAPP_RENDER_SYSTEM=${
+            if gbmSupport
+            then "gles"
+            else "gl"
           }"
-      done
+          "-Dlibdvdcss_URL=${finalAttrs.libdvdcss}"
+          "-Dlibdvdnav_URL=${finalAttrs.libdvdnav}"
+          "-Dlibdvdread_URL=${finalAttrs.libdvdread}"
+          "-Dgroovy_SOURCE_DIR=${finalAttrs.groovy}"
+          "-Dapache-commons-lang_SOURCE_DIR=${finalAttrs.apache_commons_lang}"
+          "-Dapache-commons-text_SOURCE_DIR=${finalAttrs.apache_commons_text}"
+          # Upstream derives this from the git HEADs hash and date.
+          # LibreElec (minimal distro for kodi) uses the equivalent to this.
+          "-DGIT_VERSION=${finalAttrs.version}-${finalAttrs.kodiReleaseName}"
+          "-DENABLE_EVENTCLIENTS=ON"
+          "-DENABLE_INTERNAL_CROSSGUID=OFF"
+          "-DENABLE_INTERNAL_RapidJSON=OFF"
+          "-DENABLE_OPTICAL=${
+            if opticalSupport
+            then "ON"
+            else "OFF"
+          }"
+          "-DENABLE_VDPAU=${
+            if vdpauSupport
+            then "ON"
+            else "OFF"
+          }"
+          "-DLIRC_DEVICE=/run/lirc/lircd"
+          "-DSWIG_EXECUTABLE=${buildPackages.swig}/bin/swig"
+          "-DFLATBUFFERS_FLATC_EXECUTABLE=${buildPackages.flatbuffers}/bin/flatc"
+          "-DPYTHON_EXECUTABLE=${buildPackages.python3Packages.python}/bin/python"
+          "-DPYTHON_LIB_PATH=${python3Packages.python.sitePackages}"
+          "-DWITH_JSONSCHEMABUILDER=${lib.getExe jsonSchemaBuilder}"
+          # When wrapped KODI_HOME will likely contain symlinks to static assets
+          # that Kodi's built in webserver will cautiously refuse to serve up
+          # (because their realpaths are outside of KODI_HOME and the other
+          # whitelisted directories). This adds the entire nix store to the Kodi
+          # webserver whitelist to avoid this problem.
+          "-DKODI_WEBSERVER_EXTRA_WHITELIST=${builtins.storeDir}"
+        ]
+        ++ lib.optionals waylandSupport [
+          "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++"
+        ]
+        ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+          "-DWITH_TEXTUREPACKER=${lib.getExe texturePacker}"
+        ];
 
-      wrapProgram $out/bin/kodi-send \
-        --prefix PYTHONPATH : $out/${python3Packages.python.sitePackages}
+      # 14 tests fail but the biggest issue is that every test takes 30 seconds -
+      # I'm guessing there is a thing waiting to time out
+      doCheck = false;
 
-      substituteInPlace $out/share/xsessions/kodi.desktop \
-        --replace kodi-standalone $out/bin/kodi-standalone
-    '';
+      preConfigure = ''
+        cmakeFlagsArray+=("-DCORE_PLATFORM_NAME=${lib.concatStringsSep " " kodi_platforms}")
+      '';
 
-    doInstallCheck = true;
+      postInstall = ''
+        # TODO: figure out which binaries should be wrapped this way and which shouldn't
+        for p in $(ls --ignore=kodi-send $out/bin/) ; do
+          wrapProgram $out/bin/$p \
+            --prefix PATH ":" "${
+          lib.makeBinPath (
+            [
+              python3Packages.python
+              mesa-demos
+            ]
+            ++ lib.optional x11Support xdpyinfo
+            ++ lib.optional sambaSupport samba
+          )
+        }" \
+            --prefix LD_LIBRARY_PATH ":" "${
+          lib.makeLibraryPath (
+            [
+              curl
+              systemd
+              libmad
+              libcec
+              libcec_platform
+              libass
+            ]
+            ++ lib.optional vdpauSupport libvdpau
+            ++ lib.optional nfsSupport libnfs
+            ++ lib.optional rtmpSupport rtmpdump
+          )
+        }"
+        done
 
-    installCheckPhase = "$out/bin/kodi --version";
+        wrapProgram $out/bin/kodi-send \
+          --prefix PYTHONPATH : $out/${python3Packages.python.sitePackages}
 
-    passthru = {
-      pythonPackages = python3Packages;
-      ffmpeg = ffmpeg;
-      kodi = finalAttrs.finalPackage;
-    };
+        substituteInPlace $out/share/xsessions/kodi.desktop \
+          --replace kodi-standalone $out/bin/kodi-standalone
+      '';
 
-    meta = with lib; {
-      description = "Media center";
-      homepage = "https://kodi.tv/";
-      license = licenses.gpl2Plus;
-      platforms = platforms.linux;
-      teams = [ teams.kodi ];
-      mainProgram = "kodi";
-    };
-  }
-)
+      doInstallCheck = true;
+
+      installCheckPhase = "$out/bin/kodi --version";
+
+      passthru = {
+        pythonPackages = python3Packages;
+        ffmpeg = ffmpeg;
+        kodi = finalAttrs.finalPackage;
+      };
+
+      meta = with lib; {
+        description = "Media center";
+        homepage = "https://kodi.tv/";
+        license = licenses.gpl2Plus;
+        platforms = platforms.linux;
+        teams = [teams.kodi];
+        mainProgram = "kodi";
+      };
+    }
+  )

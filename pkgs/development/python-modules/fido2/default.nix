@@ -8,7 +8,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fido2";
   version = "1.2.0";
@@ -21,25 +20,25 @@ buildPythonPackage rec {
     hash = "sha256-45+VkgEi1kKD/aXlWB2VogbnBPpChGv6RmL4aqDTMzs=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ cryptography ];
+  dependencies = [cryptography];
 
   optional-dependencies = {
-    pcsc = [ pyscard ];
+    pcsc = [pyscard];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  unittestFlagsArray = [ "-v" ];
+  unittestFlagsArray = ["-v"];
 
-  pythonImportsCheck = [ "fido2" ];
+  pythonImportsCheck = ["fido2"];
 
   meta = with lib; {
     description = "Provides library functionality for FIDO 2.0, including communication with a device over USB";
     homepage = "https://github.com/Yubico/python-fido2";
     changelog = "https://github.com/Yubico/python-fido2/releases/tag/${version}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

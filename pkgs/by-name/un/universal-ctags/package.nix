@@ -15,7 +15,6 @@
   pcre2,
   libxml2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "universal-ctags";
   version = "6.1.0";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     autoreconfHook
     perl
     pkg-config
-    (python3.withPackages (p: [ p.docutils ]))
+    (python3.withPackages (p: [p.docutils]))
   ];
 
   buildInputs =
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional stdenv.hostPlatform.isDarwin libiconv
     ++ lib.optional stdenv.hostPlatform.isLinux libseccomp;
 
-  configureFlags = [ "--enable-tmpdir=/tmp" ];
+  configureFlags = ["--enable-tmpdir=/tmp"];
 
   patches = [
     ./000-nixos-specific.patch
@@ -87,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
       editors and other tools to locate the indexed items.
     '';
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
     mainProgram = "ctags";
     priority = 1; # over the emacs implementation

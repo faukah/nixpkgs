@@ -13,9 +13,7 @@
   copyDesktopItems,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
-
   pname = "satty";
   version = "0.19.0";
 
@@ -54,7 +52,7 @@ rustPlatform.buildRustPackage rec {
       --zsh completions/_satty
   '';
 
-  desktopItems = [ "satty.desktop" ];
+  desktopItems = ["satty.desktop"];
 
   meta = with lib; {
     description = "Screenshot annotation tool inspired by Swappy and Flameshot";

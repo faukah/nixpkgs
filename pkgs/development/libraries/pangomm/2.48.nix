@@ -11,7 +11,6 @@
   cairomm_1_16,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pangomm";
   version = "2.56.1";
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
       lovek323
       raskin
     ];
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 }

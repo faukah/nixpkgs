@@ -8,7 +8,6 @@
   psutil,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "adb-enhanced";
   version = "2.5.24";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-0HxeL6VGM+HTiAxs3NFRcEFbmH9q+0/pJdGyF1hl4hU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     psutil
@@ -38,7 +37,7 @@ buildPythonPackage rec {
   # Disable tests because they require a dedicated Android emulator
   doCheck = false;
 
-  pythonImportsCheck = [ "adbe" ];
+  pythonImportsCheck = ["adbe"];
 
   meta = with lib; {
     description = "Tool for Android testing and development";
@@ -48,7 +47,7 @@ buildPythonPackage rec {
       binaryBytecode
     ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ vtuan10 ];
+    maintainers = with maintainers; [vtuan10];
     mainProgram = "adbe";
   };
 }

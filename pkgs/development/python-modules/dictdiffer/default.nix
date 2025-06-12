@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "dictdiffer";
   version = "0.9.0";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-lQyPs3lQWtsvNPuvvwJUTDzrFaOX5uwGuRHe3yWUheU=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -32,12 +31,12 @@ buildPythonPackage rec {
       --replace ' --isort --pydocstyle --pycodestyle --doctest-glob="*.rst" --doctest-modules --cov=dictdiffer --cov-report=term-missing' ""
   '';
 
-  pythonImportsCheck = [ "dictdiffer" ];
+  pythonImportsCheck = ["dictdiffer"];
 
   meta = with lib; {
     description = "Module to diff and patch dictionaries";
     homepage = "https://github.com/inveniosoftware/dictdiffer";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

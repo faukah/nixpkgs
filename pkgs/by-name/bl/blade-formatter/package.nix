@@ -13,7 +13,6 @@
   runCommand,
   blade-formatter,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "blade-formatter";
   version = "1.42.1";
@@ -38,7 +37,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       version = testers.testVersion {
         package = blade-formatter;
@@ -54,15 +53,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         '';
         actual =
           runCommand "actual"
-            {
-              nativeBuildInputs = [ blade-formatter ];
-              base = writeText "base" ''
-                @if(   true )  Hello world!   @endif
-              '';
-            }
-            ''
-              blade-formatter $base > $out
+          {
+            nativeBuildInputs = [blade-formatter];
+            base = writeText "base" ''
+              @if(   true )  Hello world!   @endif
             '';
+          }
+          ''
+            blade-formatter $base > $out
+          '';
       };
     };
   };
@@ -71,7 +70,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Laravel Blade template formatter";
     homepage = "https://github.com/shufo/blade-formatter";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lelgenio ];
+    maintainers = with lib.maintainers; [lelgenio];
     mainProgram = "blade-formatter";
     inherit (nodejs.meta) platforms;
   };

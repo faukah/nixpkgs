@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.bitbox-bridge;
-in
-{
+in {
   options = {
     services.bitbox-bridge = {
       enable = lib.mkEnableOption "Bitbox bridge daemon, for use with Bitbox hardware wallets.";
 
-      package = lib.mkPackageOption pkgs "bitbox-bridge" { };
+      package = lib.mkPackageOption pkgs "bitbox-bridge" {};
 
       port = lib.mkOption {
         type = lib.types.port;
@@ -22,20 +20,22 @@ in
         '';
       };
 
-      runOnMount = lib.mkEnableOption null // {
-        default = true;
-        description = ''
-          Run bitbox-bridge.service only when hardware wallet is plugged, also registers the systemd device unit.
-          This option is enabled by default to save power, when false, bitbox-bridge service runs all the time instead.
-        '';
-      };
+      runOnMount =
+        lib.mkEnableOption null
+        // {
+          default = true;
+          description = ''
+            Run bitbox-bridge.service only when hardware wallet is plugged, also registers the systemd device unit.
+            This option is enabled by default to save power, when false, bitbox-bridge service runs all the time instead.
+          '';
+        };
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     services.udev.packages =
-      [ cfg.package ]
+      [cfg.package]
       ++ lib.optionals (cfg.runOnMount) [
         (pkgs.writeTextFile {
           name = "bitbox-bridge-run-on-mount-udev-rules";
@@ -48,10 +48,10 @@ in
 
     systemd.services.bitbox-bridge = {
       description = "BitBox Bridge";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      bindsTo = lib.optionals (cfg.runOnMount) [ "dev-bitbox02.device" ];
-      after = [ "network.target" ];
+      bindsTo = lib.optionals (cfg.runOnMount) ["dev-bitbox02.device"];
+      after = ["network.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -60,12 +60,12 @@ in
       };
     };
 
-    users.groups.bitbox = { };
+    users.groups.bitbox = {};
     users.users.bitbox = {
       group = "bitbox";
       description = "bitbox-bridge daemon user";
       isSystemUser = true;
-      extraGroups = [ "bitbox" ];
+      extraGroups = ["bitbox"];
     };
   };
 }

@@ -12,7 +12,6 @@
   stdenv,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "geventhttpclient";
   version = "2.3.3";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-0ltTmF09EKs+55Mitfe5vxPjmCtnhla6q6SAvhyIQPk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     brotli
@@ -48,15 +47,15 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pytestFlagsArray = [ "-m 'not network'" ];
+  pytestFlagsArray = ["-m 'not network'"];
 
-  pythonImportsCheck = [ "geventhttpclient" ];
+  pythonImportsCheck = ["geventhttpclient"];
 
   meta = with lib; {
     homepage = "https://github.com/geventhttpclient/geventhttpclient";
     description = "High performance, concurrent HTTP client library using gevent";
     changelog = "https://github.com/geventhttpclient/geventhttpclient/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
   };
 }

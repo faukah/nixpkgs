@@ -10,7 +10,6 @@
   gtest,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "proj";
   version = "7.2.1";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     curl
   ];
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   cmakeFlags = [
     "-DUSE_EXTERNAL_GTEST=ON"
@@ -71,6 +70,6 @@ stdenv.mkDerivation rec {
     homepage = "https://proj4.org";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

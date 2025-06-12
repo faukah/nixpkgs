@@ -17,7 +17,6 @@
   gobject-introspection,
   xvfb-run,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gtg";
   version = "0.6";
@@ -88,7 +87,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/getting-things-gnome/gtg";
     downloadPage = "https://github.com/getting-things-gnome/gtg/releases";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ oyren ];
+    maintainers = with maintainers; [oyren];
     platforms = platforms.linux;
   };
 }

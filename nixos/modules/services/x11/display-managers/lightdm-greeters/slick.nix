@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   ldmcfg = config.services.xserver.displayManager.lightdm;
   cfg = ldmcfg.greeters.slick;
 
@@ -29,8 +26,7 @@ let
     draw-user-backgrounds=${boolToString cfg.draw-user-backgrounds}
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   options = {
     services.xserver.displayManager.lightdm.greeters.slick = {
       enable = mkEnableOption "lightdm-slick-greeter as the lightdm greeter";
@@ -147,7 +143,7 @@ in
       theme
     ];
 
-    fonts.packages = [ font ];
+    fonts.packages = [font];
 
     environment.etc."lightdm/slick-greeter.conf".source = slickGreeterConf;
   };

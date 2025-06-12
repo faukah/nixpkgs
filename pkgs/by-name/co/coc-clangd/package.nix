@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage {
   pname = "coc-clangd";
   version = "0.31.0";
@@ -22,6 +21,6 @@ buildNpmPackage {
     description = "clangd extension for coc.nvim";
     homepage = "https://github.com/clangd/coc-clangd";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

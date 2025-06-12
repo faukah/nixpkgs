@@ -9,7 +9,6 @@
   swapspace,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "swapspace";
   version = "1.18.1";
@@ -63,6 +62,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "swapspace";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ Luflosi ];
+    maintainers = with lib.maintainers; [Luflosi];
   };
 })

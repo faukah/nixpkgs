@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pox";
   version = "0.3.6";
@@ -20,13 +19,13 @@ buildPythonPackage rec {
   # Test sare failing the sandbox
   doCheck = false;
 
-  pythonImportsCheck = [ "pox" ];
+  pythonImportsCheck = ["pox"];
 
   meta = with lib; {
     description = "Utilities for filesystem exploration and automated builds";
     mainProgram = "pox";
     homepage = "https://pox.readthedocs.io/";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

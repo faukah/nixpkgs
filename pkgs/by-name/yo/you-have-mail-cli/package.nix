@@ -5,7 +5,6 @@
   go,
   buildGoModule,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "you-have-mail-cli";
   version = "0.3.0";
@@ -52,6 +51,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/LeanderBB/you-have-mail-cli";
     license = lib.licenses.agpl3Only;
     mainProgram = "you-have-mail-cli";
-    maintainers = with lib.maintainers; [ baksa ];
+    maintainers = with lib.maintainers; [baksa];
   };
 }

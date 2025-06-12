@@ -6,7 +6,6 @@
   flex,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "acpica-tools";
   version = "R2025_04_04";
@@ -34,9 +33,9 @@ stdenv.mkDerivation (finalAttrs: {
     "iasl"
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString ([
+  env.NIX_CFLAGS_COMPILE = toString [
     "-O3"
-  ]);
+  ];
 
   enableParallelBuilding = true;
 
@@ -49,9 +48,9 @@ stdenv.mkDerivation (finalAttrs: {
   # Unless we are on Darwin. Upstream makefiles degrade coreutils install to cp if _APPLE is detected.
   INSTALLFLAGS = lib.optionals (!stdenv.hostPlatform.isDarwin) "-m 555";
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://www.acpica.org/";

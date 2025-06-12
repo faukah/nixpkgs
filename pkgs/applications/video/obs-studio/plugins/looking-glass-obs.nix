@@ -8,7 +8,6 @@
   obs-studio,
   looking-glass-client,
 }:
-
 stdenv.mkDerivation {
   pname = "looking-glass-obs";
   version = looking-glass-client.version;
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
 
   sourceRoot = "${looking-glass-client.src.name}/obs";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     obs-studio
     libbfd
@@ -36,7 +35,7 @@ stdenv.mkDerivation {
     description = "Plugin for OBS Studio for efficient capturing of looking-glass";
     homepage = "https://looking-glass.io/docs/stable/obs/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ babbaj ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [babbaj];
+    platforms = ["x86_64-linux"];
   };
 }

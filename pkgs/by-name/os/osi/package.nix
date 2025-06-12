@@ -13,7 +13,6 @@
   withCplex ? false,
   cplex,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osi";
   version = "0.108.11";
@@ -52,17 +51,17 @@ stdenv.mkDerivation rec {
 
   # Compile errors
   env.NIX_CFLAGS_COMPILE = "-Wno-cast-qual";
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   enableParallelBuilding = true;
 
-  passthru = { inherit withGurobi withCplex; };
+  passthru = {inherit withGurobi withCplex;};
 
   meta = with lib; {
     description = "Abstract base class to a generic linear programming (LP) solver";
     homepage = "https://github.com/coin-or/Osi";
     license = licenses.epl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

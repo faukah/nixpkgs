@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rs-tftpd";
   version = "0.4.0";
@@ -19,9 +18,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ZED5+WnOALLXAW/l/QMFKWco6kJnz4rFv8nfp00HS78=";
 
-  buildFeatures = [ "client" ];
+  buildFeatures = ["client"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "TFTP Server Daemon implemented in Rust";

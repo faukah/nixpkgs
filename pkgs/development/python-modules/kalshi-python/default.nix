@@ -9,7 +9,6 @@
   python-dateutil,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "kalshi-python";
   version = "2.0.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     six
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Official python SDK for algorithmic trading on Kalshi.";
     homepage = "https://github.com/Kalshi/kalshi-python";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ robbiebuxton ];
+    maintainers = with lib.maintainers; [robbiebuxton];
   };
 }

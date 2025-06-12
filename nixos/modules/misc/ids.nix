@@ -1,6 +1,5 @@
 # This module defines the global list of uids and gids.  We keep a
 # central list to prevent id collisions.
-
 # IMPORTANT!
 #
 # https://github.com/NixOS/rfcs/blob/master/rfcs/0052-dynamic-ids.md
@@ -17,15 +16,10 @@
 # It's only for special circumstances like for example the ids being hardcoded
 # in the application or the ids having to be consistent across multiple hosts
 # that configuring static ids in this file makes sense.
-
-{ lib, ... }:
-
-let
+{lib, ...}: let
   inherit (lib) types;
-in
-{
+in {
   options = {
-
     ids.uids = lib.mkOption {
       internal = true;
       description = ''
@@ -41,11 +35,9 @@ in
       '';
       type = types.attrsOf types.int;
     };
-
   };
 
   config = {
-
     ids.uids = {
       root = 0;
       #wheel = 1; # unused
@@ -738,7 +730,5 @@ in
       nixbld = 30000;
       nogroup = 65534;
     };
-
   };
-
 }

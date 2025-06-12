@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pythonfinder";
   version = "2.1.0";
@@ -30,20 +29,22 @@ buildPythonPackage rec {
       --replace " --cov" ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ packaging ] ++ lib.optionals (pythonOlder "3.8") [ cached-property ];
+  propagatedBuildInputs = [packaging] ++ lib.optionals (pythonOlder "3.8") [cached-property];
 
   optional-dependencies = {
-    cli = [ click ];
+    cli = [click];
   };
 
-  nativeCheckInputs = [
-    pytest-timeout
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-timeout
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "pythonfinder" ];
+  pythonImportsCheck = ["pythonfinder"];
 
   meta = with lib; {
     description = "Cross platform search tool for finding Python";
@@ -51,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sarugaku/pythonfinder";
     changelog = "https://github.com/sarugaku/pythonfinder/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

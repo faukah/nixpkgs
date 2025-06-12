@@ -19,10 +19,8 @@
   aiosqlite,
   asyncpg,
   ruamel-yaml,
-
   withOlm ? false,
 }:
-
 buildPythonPackage rec {
   pname = "mautrix";
   version = "0.20.8";
@@ -37,16 +35,18 @@ buildPythonPackage rec {
     hash = "sha256-giK8JZ6nzsA8SV6CzDNEbJmbwDju9t6fLJr/oXNjvKs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    aiohttp
-    attrs
-    yarl
-  ] ++ lib.optionals withOlm optional-dependencies.encryption;
+  dependencies =
+    [
+      aiohttp
+      attrs
+      yarl
+    ]
+    ++ lib.optionals withOlm optional-dependencies.encryption;
 
   optional-dependencies = {
-    detect_mimetype = [ python-magic ];
+    detect_mimetype = [python-magic];
     encryption = [
       python-olm
       unpaddedbase64
@@ -62,9 +62,9 @@ buildPythonPackage rec {
     ruamel-yaml
   ];
 
-  disabledTestPaths = lib.optionals (!withOlm) [ "mautrix/crypto/" ];
+  disabledTestPaths = lib.optionals (!withOlm) ["mautrix/crypto/"];
 
-  pythonImportsCheck = [ "mautrix" ];
+  pythonImportsCheck = ["mautrix"];
 
   meta = with lib; {
     description = "Asyncio Matrix framework";

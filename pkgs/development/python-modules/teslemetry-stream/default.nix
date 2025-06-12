@@ -5,7 +5,6 @@
   setuptools,
   aiohttp,
 }:
-
 buildPythonPackage rec {
   pname = "teslemetry-stream";
   version = "0.7.7";
@@ -18,19 +17,19 @@ buildPythonPackage rec {
     hash = "sha256-0gFX6tNBqqA7vh4d5zi38F2C1NqKjblc/8lz3DEBEJ8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "teslemetry_stream" ];
+  pythonImportsCheck = ["teslemetry_stream"];
 
   meta = {
     changelog = "https://github.com/Teslemetry/python-teslemetry-stream/releases/tag/${src.tag}";
     description = "Python library for the Teslemetry Streaming API";
     homepage = "https://github.com/Teslemetry/python-teslemetry-stream";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

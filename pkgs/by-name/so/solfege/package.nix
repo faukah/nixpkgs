@@ -20,7 +20,6 @@
   vorbis-tools,
   wrapGAppsHook3,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "solfege";
   version = "3.23.4";

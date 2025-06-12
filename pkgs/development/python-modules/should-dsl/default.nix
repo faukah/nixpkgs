@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "should-dsl";
   version = "2.1.2";
@@ -22,6 +21,6 @@ buildPythonPackage rec {
     description = "Should assertions in Python as clear and readable as possible";
     homepage = "https://github.com/nsi-iff/should-dsl";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

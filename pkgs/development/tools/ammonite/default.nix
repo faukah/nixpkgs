@@ -10,13 +10,13 @@
   coreutils,
   gnused,
   disableRemoteLogging ? true,
-}:
-
-let
+}: let
   repo = "git@github.com:lihaoyi/Ammonite.git";
 
-  common =
-    { scalaVersion, sha256 }:
+  common = {
+    scalaVersion,
+    sha256,
+  }:
     stdenv.mkDerivation rec {
       pname = "ammonite";
       version = "3.0.2";
@@ -33,13 +33,12 @@ let
           install -Dm755 $src $out/bin/amm
           sed -i '0,/java/{s|java|${jre}/bin/java|}' $out/bin/amm
         ''
-        + lib.optionalString (disableRemoteLogging) ''
+        + lib.optionalString disableRemoteLogging ''
           sed -i "0,/ammonite.Main/{s|ammonite.Main'|ammonite.Main' --no-remote-logging|}" $out/bin/amm
           sed -i '1i #!/bin/sh' $out/bin/amm
         '';
 
       passthru = {
-
         updateScript = writeScript "update.sh" ''
           #!${stdenv.shell}
           set -o errexit
@@ -83,13 +82,12 @@ let
         '';
         homepage = "https://github.com/com-lihaoyi/Ammonite";
         license = licenses.mit;
-        maintainers = [ maintainers.nequissimus ];
+        maintainers = [maintainers.nequissimus];
         mainProgram = "amm";
         platforms = platforms.all;
       };
     };
-in
-{
+in {
   ammonite_2_12 = common {
     scalaVersion = "2.12";
     sha256 = "sha256-wPVvLMuc8EjTqaHY4VcP1gd4DVJQhQm0uS2f+HFuTls=";

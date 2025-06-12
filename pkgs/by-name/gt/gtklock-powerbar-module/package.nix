@@ -8,7 +8,6 @@
   gtk3,
   gtklock,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtklock-powerbar-module";
   version = "4.0.0";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   passthru.tests.testModule = gtklock.testModule finalAttrs.finalPackage;
 
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Gtklock module adding power controls to the lockscreen";
     homepage = "https://github.com/jovanlanik/gtklock-powerbar-module";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 })

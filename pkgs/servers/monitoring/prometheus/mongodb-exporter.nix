@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mongodb_exporter";
   version = "0.44.0";
@@ -26,7 +25,7 @@ buildGoModule rec {
     "-X main.buildDate=unknown"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   # those check depends on docker;
   # nixpkgs doesn't have mongodb application available;
@@ -36,7 +35,7 @@ buildGoModule rec {
     description = "Prometheus exporter for MongoDB including sharding, replication and storage engines";
     homepage = "https://github.com/percona/mongodb_exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ undefined-moe ];
+    maintainers = with maintainers; [undefined-moe];
     mainProgram = "mongodb_exporter";
   };
 }

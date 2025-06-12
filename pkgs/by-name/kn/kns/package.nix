@@ -36,7 +36,7 @@ stdenvNoCC.mkDerivation {
     description = "Kubernetes namespace switcher";
     homepage = "https://github.com/blendle/kns";
     license = licenses.isc;
-    maintainers = with maintainers; [ mmlb ];
+    maintainers = with maintainers; [mmlb];
     platforms = platforms.unix;
   };
 }

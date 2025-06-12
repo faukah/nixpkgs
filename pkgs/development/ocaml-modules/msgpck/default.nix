@@ -5,7 +5,6 @@
   ocplib-endian,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "msgpck";
   version = "1.7";
@@ -17,9 +16,9 @@ buildDunePackage rec {
     hash = "sha256-gBHIiicmk/5KBkKzRKyV0ymEH8dGCZG8vfE0mtpcDCM=";
   };
 
-  propagatedBuildInputs = [ ocplib-endian ];
+  propagatedBuildInputs = [ocplib-endian];
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   doCheck = true;
 
@@ -27,6 +26,6 @@ buildDunePackage rec {
     description = "Fast MessagePack (http://msgpack.org) library";
     license = lib.licenses.isc;
     homepage = "https://github.com/vbmithr/ocaml-msgpck";
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

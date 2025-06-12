@@ -6,7 +6,6 @@
   # Package dependencies
   qt5,
 }:
-
 stdenv.mkDerivation {
   pname = "fgqcanvas";
   version = "0-unstable-2024-02-11";
@@ -48,7 +47,7 @@ stdenv.mkDerivation {
     description = "Qt-based remote canvas application for FlightGear";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "fgqcanvas";
   };
 }

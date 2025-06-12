@@ -8,7 +8,6 @@
   vapoursynth,
   yasm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vapoursynth-nnedi3";
   version = "12";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     yasm
   ];
 
-  configureFlags = [ "--libdir=$(out)/lib/vapoursynth" ];
+  configureFlags = ["--libdir=$(out)/lib/vapoursynth"];
 
   postInstall = ''
     rm -f $out/lib/vapoursynth/*.la
@@ -47,8 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Filter for VapourSynth";
     homepage = "https://github.com/dubhater/vapoursynth-nnedi3";
-    license = with lib.licenses; [ gpl2Plus ];
-    maintainers = with lib.maintainers; [ snaki ];
+    license = with lib.licenses; [gpl2Plus];
+    maintainers = with lib.maintainers; [snaki];
     platforms = with lib.platforms; x86_64 ++ aarch64;
   };
 })

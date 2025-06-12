@@ -7,7 +7,6 @@
   stdenv,
   zint,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zxing-cpp";
   version = "2.3.0";
@@ -57,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
       formats.
     '';
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ lukegb ];
+    maintainers = with lib.maintainers; [lukegb];
     platforms = lib.platforms.unix;
   };
 })

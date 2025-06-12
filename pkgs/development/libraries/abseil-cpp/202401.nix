@@ -8,7 +8,6 @@
   static ? stdenv.hostPlatform.isStatic,
   cxxStandard ? null,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "abseil-cpp";
   version = "20240116.3";
@@ -34,7 +33,11 @@ stdenv.mkDerivation (finalAttrs: {
     [
       "-DABSL_BUILD_TEST_HELPERS=ON"
       "-DABSL_USE_EXTERNAL_GOOGLETEST=ON"
-      "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}"
+      "-DBUILD_SHARED_LIBS=${
+        if static
+        then "OFF"
+        else "ON"
+      }"
     ]
     ++ lib.optionals (cxxStandard != null) [
       "-DCMAKE_CXX_STANDARD=${cxxStandard}"
@@ -42,9 +45,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ gtest ];
+  buildInputs = [gtest];
 
   meta = {
     description = "Open-source collection of C++ code designed to augment the C++ standard library";
@@ -52,6 +55,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/abseil/abseil-cpp/releases/tag/${finalAttrs.version}";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.GaetanLepage ];
+    maintainers = [lib.maintainers.GaetanLepage];
   };
 })

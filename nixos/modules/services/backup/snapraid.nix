@@ -3,20 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.snapraid;
-in
-{
+in {
   imports = [
     # Should have never been on the top-level.
-    (lib.mkRenamedOptionModule [ "snapraid" ] [ "services" "snapraid" ])
+    (lib.mkRenamedOptionModule ["snapraid"] ["services" "snapraid"])
   ];
 
   options.services.snapraid = with lib.types; {
     enable = lib.mkEnableOption "SnapRAID";
     dataDisks = lib.mkOption {
-      default = { };
+      default = {};
       example = {
         d1 = "/mnt/disk1/";
         d2 = "/mnt/disk2/";
@@ -26,7 +24,7 @@ in
       type = attrsOf str;
     };
     parityFiles = lib.mkOption {
-      default = [ ];
+      default = [];
       example = [
         "/mnt/diskp/snapraid.parity"
         "/mnt/diskq/snapraid.2-parity"
@@ -39,7 +37,7 @@ in
       type = listOf str;
     };
     contentFiles = lib.mkOption {
-      default = [ ];
+      default = [];
       example = [
         "/var/snapraid.content"
         "/mnt/disk1/snapraid.content"
@@ -49,7 +47,7 @@ in
       type = listOf str;
     };
     exclude = lib.mkOption {
-      default = [ ];
+      default = [];
       example = [
         "*.unrecoverable"
         "/tmp/"
@@ -104,11 +102,10 @@ in
     };
   };
 
-  config =
-    let
-      nParity = builtins.length cfg.parityFiles;
-      mkPrepend = pre: s: pre + s;
-    in
+  config = let
+    nParity = builtins.length cfg.parityFiles;
+    mkPrepend = pre: s: pre + s;
+  in
     lib.mkIf cfg.enable {
       assertions = [
         {
@@ -122,21 +119,20 @@ in
       ];
 
       environment = {
-        systemPackages = with pkgs; [ snapraid ];
+        systemPackages = with pkgs; [snapraid];
 
         etc."snapraid.conf" = {
-          text =
-            with cfg;
-            let
-              prependData = mkPrepend "data ";
-              prependContent = mkPrepend "content ";
-              prependExclude = mkPrepend "exclude ";
-            in
+          text = with cfg; let
+            prependData = mkPrepend "data ";
+            prependContent = mkPrepend "content ";
+            prependExclude = mkPrepend "exclude ";
+          in
             lib.concatStringsSep "\n" (
               map prependData ((lib.mapAttrsToList (name: value: name + " " + value)) dataDisks)
               ++ lib.zipListsWith (a: b: a + b) (
-                [ "parity " ] ++ map (i: toString i + "-parity ") (lib.range 2 6)
-              ) parityFiles
+                ["parity "] ++ map (i: toString i + "-parity ") (lib.range 2 6)
+              )
+              parityFiles
               ++ map prependContent contentFiles
               ++ map prependExclude exclude
             )
@@ -184,7 +180,7 @@ in
               let
                 contentDirs = map dirOf contentFiles;
               in
-              lib.unique (lib.attrValues dataDisks ++ contentDirs);
+                lib.unique (lib.attrValues dataDisks ++ contentDirs);
           };
           unitConfig.After = "snapraid-sync.service";
         };
@@ -230,7 +226,7 @@ in
                   # https://www.snapraid.it/manual#7.1
                   splitParityFiles = map (s: lib.splitString "," s) parityFiles;
                 in
-                lib.unique (lib.attrValues dataDisks ++ splitParityFiles ++ contentDirs);
+                  lib.unique (lib.attrValues dataDisks ++ splitParityFiles ++ contentDirs);
             }
             // lib.optionalAttrs touchBeforeSync {
               ExecStartPre = "${pkgs.snapraid}/bin/snapraid touch";

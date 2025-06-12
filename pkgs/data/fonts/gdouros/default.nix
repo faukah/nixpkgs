@@ -2,9 +2,7 @@
   lib,
   stdenvNoCC,
   fetchzip,
-}:
-
-let
+}: let
   fonts = {
     aegan = {
       version = "13.00";
@@ -62,14 +60,12 @@ let
     };
   };
 
-  mkpkg =
-    pname:
-    {
-      version,
-      file,
-      hash,
-      description,
-    }:
+  mkpkg = pname: {
+    version,
+    file,
+    hash,
+    description,
+  }:
     stdenvNoCC.mkDerivation rec {
       inherit pname version;
 
@@ -100,4 +96,4 @@ let
       };
     };
 in
-lib.mapAttrs mkpkg fonts
+  lib.mapAttrs mkpkg fonts

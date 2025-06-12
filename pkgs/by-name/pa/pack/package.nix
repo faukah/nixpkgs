@@ -6,7 +6,6 @@
   testers,
   pack,
 }:
-
 buildGoModule rec {
   pname = "pack";
   version = "0.37.0";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-W8FTk2eJYaTE9gCRwrT+mDhda/ZZeCytqQ9vvVZZHSQ=";
 
-  subPackages = [ "cmd/pack" ];
+  subPackages = ["cmd/pack"];
 
   ldflags = [
     "-s"
@@ -29,8 +28,8 @@ buildGoModule rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion { package = pack; };
+    updateScript = nix-update-script {};
+    tests.version = testers.testVersion {package = pack;};
   };
 
   meta = {
@@ -38,6 +37,6 @@ buildGoModule rec {
     homepage = "https://github.com/buildpacks/pack/";
     license = lib.licenses.asl20;
     mainProgram = "pack";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

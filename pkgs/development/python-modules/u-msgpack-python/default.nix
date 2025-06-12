@@ -5,7 +5,6 @@
   glibcLocales,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "u-msgpack-python";
   version = "2.8.0";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
 
   env.LC_ALL = "en_US.UTF-8";
 
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   meta = {
     description = "Portable, lightweight MessagePack serializer and deserializer written in pure Python";

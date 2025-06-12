@@ -5,11 +5,8 @@
   buildLinux,
   variant,
   ...
-}@args:
-
-let
+} @ args: let
   # These names are how they are designated in https://xanmod.org.
-
   # NOTE: When updating these, please also take a look at the changes done to
   # kernel config in the xanmod version commit
   variants = {
@@ -23,12 +20,11 @@ let
     };
   };
 
-  xanmodKernelFor =
-    {
-      version,
-      suffix ? "xanmod1",
-      hash,
-    }:
+  xanmodKernelFor = {
+    version,
+    suffix ? "xanmod1",
+    hash,
+  }:
     buildLinux (
       args
       // rec {
@@ -79,12 +75,12 @@ let
             zzzsy
             eljamm
           ];
-          teams = [ ];
+          teams = [];
           description = "Built with custom settings and new features built to provide a stable, responsive and smooth desktop experience";
           broken = stdenv.hostPlatform.isAarch64;
         };
       }
-      // (args.argsOverride or { })
+      // (args.argsOverride or {})
     );
 in
-xanmodKernelFor variants.${variant}
+  xanmodKernelFor variants.${variant}

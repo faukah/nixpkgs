@@ -20,10 +20,9 @@
   kirigami2,
   syndication,
 }:
-
 mkDerivation {
   pname = "knewstuff";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     karchive
     kcompletion

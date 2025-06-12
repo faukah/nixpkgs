@@ -9,7 +9,6 @@
   hypothesis,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "yamlloader";
   version = "1.5.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  dependencies = [ pyyaml ];
+  dependencies = [pyyaml];
 
   nativeCheckInputs = [
     hypothesis
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Phynix/yamlloader";
     changelog = "https://github.com/Phynix/yamlloader/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
   };
 }

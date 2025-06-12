@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "ansi2image";
   version = "0.1.4";
@@ -27,11 +26,11 @@ buildPythonPackage rec {
     pillow
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ansi2image" ];
+  pythonImportsCheck = ["ansi2image"];
 
-  pytestFlagsArray = [ "tests/tests.py" ];
+  pytestFlagsArray = ["tests/tests.py"];
 
   meta = with lib; {
     description = "Module to convert ANSI text to an image";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/helviojunior/ansi2image";
     changelog = "https://github.com/helviojunior/ansi2image/blob/${version}/CHANGELOG";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

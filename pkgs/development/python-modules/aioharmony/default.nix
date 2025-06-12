@@ -9,7 +9,6 @@
   setuptools,
   slixmpp,
 }:
-
 buildPythonPackage rec {
   pname = "aioharmony";
   version = "0.5.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-QFl+OqduNGxs/+QNXpNZqtys0OTCWGmKTNa1Xht4Fuw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     description = "Python library for interacting the Logitech Harmony devices";
     mainProgram = "aioharmony";
     license = licenses.asl20;
-    maintainers = with maintainers; [ oro ];
+    maintainers = with maintainers; [oro];
   };
 }

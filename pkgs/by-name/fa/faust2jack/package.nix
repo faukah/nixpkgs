@@ -8,9 +8,7 @@
   libsndfile,
   which,
 }:
-
 faust.wrapWithBuildEnv {
-
   baseName = "faust2jack";
 
   scripts = [
@@ -30,5 +28,4 @@ faust.wrapWithBuildEnv {
     libsndfile
     which
   ];
-
 }

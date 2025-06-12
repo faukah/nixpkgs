@@ -14,7 +14,6 @@
   pytestCheckHook,
   testpath,
 }:
-
 buildPythonPackage rec {
   pname = "nbformat";
   version = "5.10.4";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     traitlets
   ];
 
-  pythonImportsCheck = [ "nbformat" ];
+  pythonImportsCheck = ["nbformat"];
 
   nativeCheckInputs = [
     pep440
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     mainProgram = "jupyter-trust";
     homepage = "https://jupyter.org/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ globin ];
+    maintainers = with lib.maintainers; [globin];
   };
 }

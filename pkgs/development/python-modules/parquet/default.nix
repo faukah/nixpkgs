@@ -9,7 +9,6 @@
   setuptools,
   thriftpy2,
 }:
-
 buildPythonPackage rec {
   pname = "parquet";
   version = "1.3.1";
@@ -33,14 +32,14 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     python-snappy
     thriftpy2
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Fails with AttributeError
@@ -48,14 +47,14 @@ buildPythonPackage rec {
     "testFromExample"
   ];
 
-  pythonImportsCheck = [ "thriftpy2" ];
+  pythonImportsCheck = ["thriftpy2"];
 
   meta = with lib; {
     description = "Python implementation of the parquet columnar file format";
     homepage = "https://github.com/jcrobak/parquet-python";
     changelog = "https://github.com/jcrobak/parquet-python/releases/tag/v${version}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "parquet";
   };
 }

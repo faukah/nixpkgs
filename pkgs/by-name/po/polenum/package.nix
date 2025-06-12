@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "polenum";
   version = "1.6.1-unstable-2024-07-30";
@@ -32,7 +31,7 @@ python3.pkgs.buildPythonApplication {
     description = "Tool to get the password policy from a windows machine";
     homepage = "https://github.com/Wh1t3Fox/polenum";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ exploitoverload ];
+    maintainers = with maintainers; [exploitoverload];
     mainProgram = "polenum";
   };
 }

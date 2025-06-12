@@ -8,7 +8,6 @@
   fcft,
   arrow-cpp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "utf8proc";
   version = "2.10.0";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-wmtMo6eBK/xxxkIeJfh5Yb293po9cKK+7WjqNPoxM9g=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=ON"

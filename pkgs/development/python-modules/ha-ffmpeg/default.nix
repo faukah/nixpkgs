@@ -6,7 +6,6 @@
   async-timeout,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ha-ffmpeg";
   version = "3.2.2";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-TbSoKoOiLx3O7iykiTri5GBHGj7WoB8iSCpFIrV4ZgU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ async-timeout ];
+  dependencies = [async-timeout];
 
   # only manual tests
   doCheck = false;
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/home-assistant-libs/ha-ffmpeg/";
     changelog = "https://github.com/home-assistant-libs/ha-ffmpeg/releases/tag/${version}";
     license = licenses.bsd3;
-    teams = [ teams.home-assistant ];
+    teams = [teams.home-assistant];
   };
 }

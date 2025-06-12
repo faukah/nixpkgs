@@ -6,7 +6,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage {
   pname = "acunetix";
   version = "0.0.7";
@@ -30,12 +29,12 @@ buildPythonPackage {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "acunetix" ];
+  pythonImportsCheck = ["acunetix"];
 
   meta = with lib; {
     description = "Acunetix Web Vulnerability Scanner SDK for Python";
     homepage = "https://github.com/hikariatama/acunetix";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -10,7 +10,6 @@
   pythonOlder,
   testfixtures,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-golden";
   version = "0.2.2";
@@ -31,14 +30,14 @@ buildPythonPackage rec {
       --replace-fail poetry.masonry.api poetry.core.masonry.api
   '';
 
-  pythonRelaxDeps = [ "testfixtures" ];
+  pythonRelaxDeps = ["testfixtures"];
 
   build-system = [
     # hatchling used for > 0.2.2
     poetry-core
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   dependencies = [
     atomicwrites
@@ -46,14 +45,14 @@ buildPythonPackage rec {
     testfixtures
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_golden" ];
+  pythonImportsCheck = ["pytest_golden"];
 
   meta = with lib; {
     description = "Plugin for pytest that offloads expected outputs to data files";
     homepage = "https://github.com/oprypin/pytest-golden";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

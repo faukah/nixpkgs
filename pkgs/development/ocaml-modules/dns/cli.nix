@@ -25,7 +25,6 @@
   randomconv,
   alcotest,
 }:
-
 buildDunePackage {
   pname = "dns-cli";
 
@@ -66,8 +65,10 @@ buildDunePackage {
     alcotest
   ];
 
-  meta = dns.meta // {
-    description = "Unix command line utilities using uDNS";
-    mainProgram = "odns";
-  };
+  meta =
+    dns.meta
+    // {
+      description = "Unix command line utilities using uDNS";
+      mainProgram = "odns";
+    };
 }

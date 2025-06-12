@@ -4,7 +4,6 @@
   rustPlatform,
   perl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "managarr";
   version = "0.5.1";
@@ -19,13 +18,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-bddsQlPsVXrhKoitEmxb2fZIoq4ePsVCGBN1y5hMn2U=";
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   meta = {
     description = "TUI and CLI to manage your Servarrs";
     homepage = "https://github.com/Dark-Alex-17/managarr";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.IncredibleLaser ];
+    maintainers = [lib.maintainers.IncredibleLaser];
     mainProgram = "managarr";
   };
 }

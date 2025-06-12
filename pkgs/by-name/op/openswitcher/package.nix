@@ -12,7 +12,6 @@
   scdoc,
   wrapGAppsHook3,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "openswitcher";
   version = "0.12.0";
@@ -76,6 +75,6 @@ python3Packages.buildPythonApplication rec {
     downloadPage = "https://git.sr.ht/~martijnbraam/pyatem";
     homepage = "https://openswitcher.org/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

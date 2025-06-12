@@ -6,7 +6,6 @@
   automake,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unrtf";
   version = "0.21.10";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     automake
   ];
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
   preConfigure = "./bootstrap";
 
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.gnu.org/software/unrtf/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ joachifm ];
+    maintainers = with maintainers; [joachifm];
     platforms = platforms.unix;
   };
 }

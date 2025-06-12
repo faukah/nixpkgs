@@ -3,9 +3,9 @@
   pkgs,
   config,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     attrNames
     boolToString
     concatLines
@@ -35,7 +35,7 @@ let
     ;
 
   cfg = config.services.firezone.server;
-  jsonFormat = pkgs.formats.json { };
+  jsonFormat = pkgs.formats.json {};
   availableAuthAdapters = [
     "email"
     "openid_connect"
@@ -49,39 +49,40 @@ let
 
   typePortRange =
     types.coercedTo types.port
-      (x: {
-        from = x;
-        to = x;
-      })
-      (
-        types.submodule {
-          options = {
-            from = mkOption {
-              type = types.port;
-              description = "The start of the port range, inclusive.";
-            };
-
-            to = mkOption {
-              type = types.port;
-              description = "The end of the port range, inclusive.";
-            };
+    (x: {
+      from = x;
+      to = x;
+    })
+    (
+      types.submodule {
+        options = {
+          from = mkOption {
+            type = types.port;
+            description = "The start of the port range, inclusive.";
           };
-        }
-      );
+
+          to = mkOption {
+            type = types.port;
+            description = "The end of the port range, inclusive.";
+          };
+        };
+      }
+    );
 
   # All non-secret environment variables or the given component
-  collectEnvironment =
-    component:
-    mapAttrs (_: v: if isBool v then boolToString v else toString v) (
+  collectEnvironment = component:
+    mapAttrs (_: v:
+      if isBool v
+      then boolToString v
+      else toString v) (
       cfg.settings // cfg.${component}.settings
     );
 
   # All mandatory secrets which were not explicitly provided by the user will
   # have to be generated, if they do not yet exist.
-  generateSecrets =
-    let
-      requiredSecrets = filterAttrs (_: v: v == null) cfg.settingsSecret;
-    in
+  generateSecrets = let
+    requiredSecrets = filterAttrs (_: v: v == null) cfg.settingsSecret;
+  in
     ''
       mkdir -p secrets
       chmod 700 secrets
@@ -100,51 +101,46 @@ let
   # All secrets given in `cfg.settingsSecret` must be loaded from a file and
   # exported into the environment. Also exclude any variables that were
   # overwritten by the local component settings.
-  loadSecretEnvironment =
-    component:
-    let
-      relevantSecrets = subtractLists (attrNames cfg.${component}.settings) (
-        attrNames cfg.settingsSecret
-      );
-    in
+  loadSecretEnvironment = component: let
+    relevantSecrets = subtractLists (attrNames cfg.${component}.settings) (
+      attrNames cfg.settingsSecret
+    );
+  in
     concatLines (
       forEach relevantSecrets (
-        secret:
-        ''export ${secret}=$(< ${
-          if cfg.settingsSecret.${secret} == null then
-            "secrets/${secret}"
-          else
-            "\"$CREDENTIALS_DIRECTORY/${secret}\""
-        })''
+        secret: ''export ${secret}=$(< ${
+            if cfg.settingsSecret.${secret} == null
+            then "secrets/${secret}"
+            else "\"$CREDENTIALS_DIRECTORY/${secret}\""
+          })''
       )
     );
 
-  provisionStateJson =
-    let
-      # Convert clientSecretFile options into the real counterpart
-      augmentedAccounts = flip mapAttrs cfg.provision.accounts (
-        accountName: account:
+  provisionStateJson = let
+    # Convert clientSecretFile options into the real counterpart
+    augmentedAccounts = flip mapAttrs cfg.provision.accounts (
+      accountName: account:
         account
         // {
           auth = flip mapAttrs account.auth (
             authName: auth:
-            recursiveUpdate auth (
-              optionalAttrs (auth.adapter_config.clientSecretFile != null) {
-                adapter_config.client_secret = "{env:AUTH_CLIENT_SECRET_${toUpper accountName}_${toUpper authName}}";
-              }
-            )
+              recursiveUpdate auth (
+                optionalAttrs (auth.adapter_config.clientSecretFile != null) {
+                  adapter_config.client_secret = "{env:AUTH_CLIENT_SECRET_${toUpper accountName}_${toUpper authName}}";
+                }
+              )
           );
         }
-      );
-    in
+    );
+  in
     jsonFormat.generate "provision-state.json" {
       # Do not include any clientSecretFile attributes in the resulting json
       accounts = filterAttrsRecursive (k: _: k != "clientSecretFile") augmentedAccounts;
     };
 
   commonServiceConfig = {
-    AmbientCapablities = [ ];
-    CapabilityBoundingSet = [ ];
+    AmbientCapablities = [];
+    CapabilityBoundingSet = [];
     LockPersonality = true;
     MemoryDenyWriteExecute = true;
     NoNewPrivileges = true;
@@ -191,7 +187,7 @@ let
 
   componentOptions = component: {
     enable = mkEnableOption "the Firezone ${component} server";
-    package = mkPackageOption pkgs "firezone-server-${component}" { };
+    package = mkPackageOption pkgs "firezone-server-${component}" {};
 
     settings = mkOption {
       description = ''
@@ -205,7 +201,7 @@ let
         {option}`services.firezone.server.settingsSecret`, but which can be
         overwritten by this option.
       '';
-      default = { };
+      default = {};
       type = types.submodule {
         freeformType = types.attrsOf (
           types.oneOf [
@@ -220,8 +216,7 @@ let
       };
     };
   };
-in
-{
+in {
   options.services.firezone.server = {
     enable = mkEnableOption "all Firezone components";
     enableLocalDB = mkEnableOption "a local postgresql database for Firezone";
@@ -255,7 +250,7 @@ in
     };
 
     settingsSecret = mkOption {
-      default = { };
+      default = {};
       description = ''
         This is a convenience option which allows you to set secret values for
         environment variables by specifying a file which will contain the value
@@ -388,7 +383,7 @@ in
         Each component has an additional `settings` option which allows you to
         override specific variables passed to that component.
       '';
-      default = { };
+      default = {};
       type = types.submodule {
         freeformType = types.attrsOf (
           types.oneOf [
@@ -462,65 +457,69 @@ in
 
     domain = componentOptions "domain";
 
-    web = componentOptions "web" // {
-      externalUrl = mkOption {
-        type = types.strMatching "^https://.+/$";
-        example = "https://firezone.example.com/";
-        description = ''
-          The external URL under which you will serve the web interface. You
-          need to setup a reverse proxy for TLS termination, either with
-          {option}`services.firezone.server.nginx.enable` or manually.
-        '';
+    web =
+      componentOptions "web"
+      // {
+        externalUrl = mkOption {
+          type = types.strMatching "^https://.+/$";
+          example = "https://firezone.example.com/";
+          description = ''
+            The external URL under which you will serve the web interface. You
+            need to setup a reverse proxy for TLS termination, either with
+            {option}`services.firezone.server.nginx.enable` or manually.
+          '';
+        };
+
+        address = mkOption {
+          type = types.str;
+          default = "127.0.0.1";
+          description = "The address to listen on";
+        };
+
+        port = mkOption {
+          type = types.port;
+          default = 8080;
+          description = "The port under which the web interface will be served locally";
+        };
+
+        trustedProxies = mkOption {
+          type = types.listOf types.str;
+          default = [];
+          description = "A list of trusted proxies";
+        };
       };
 
-      address = mkOption {
-        type = types.str;
-        default = "127.0.0.1";
-        description = "The address to listen on";
-      };
+    api =
+      componentOptions "api"
+      // {
+        externalUrl = mkOption {
+          type = types.strMatching "^https://.+/$";
+          example = "https://firezone.example.com/api/";
+          description = ''
+            The external URL under which you will serve the api. You need to
+            setup a reverse proxy for TLS termination, either with
+            {option}`services.firezone.server.nginx.enable` or manually.
+          '';
+        };
 
-      port = mkOption {
-        type = types.port;
-        default = 8080;
-        description = "The port under which the web interface will be served locally";
-      };
+        address = mkOption {
+          type = types.str;
+          default = "127.0.0.1";
+          description = "The address to listen on";
+        };
 
-      trustedProxies = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-        description = "A list of trusted proxies";
-      };
-    };
+        port = mkOption {
+          type = types.port;
+          default = 8081;
+          description = "The port under which the api will be served locally";
+        };
 
-    api = componentOptions "api" // {
-      externalUrl = mkOption {
-        type = types.strMatching "^https://.+/$";
-        example = "https://firezone.example.com/api/";
-        description = ''
-          The external URL under which you will serve the api. You need to
-          setup a reverse proxy for TLS termination, either with
-          {option}`services.firezone.server.nginx.enable` or manually.
-        '';
+        trustedProxies = mkOption {
+          type = types.listOf types.str;
+          default = [];
+          description = "A list of trusted proxies";
+        };
       };
-
-      address = mkOption {
-        type = types.str;
-        default = "127.0.0.1";
-        description = "The address to listen on";
-      };
-
-      port = mkOption {
-        type = types.port;
-        default = 8081;
-        description = "The port under which the api will be served locally";
-      };
-
-      trustedProxies = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-        description = "A list of trusted proxies";
-      };
-    };
 
     provision = {
       enable = mkEnableOption "provisioning of the Firezone domain server";
@@ -535,26 +534,23 @@ in
                 example = "My Organization";
               };
 
-              features =
-                let
-                  mkFeatureOption =
-                    name: default:
-                    mkOption {
-                      type = types.bool;
-                      inherit default;
-                      description = "Whether to enable the `${name}` feature for this account.";
-                    };
-                in
-                {
-                  flow_activities = mkFeatureOption "flow_activities" true;
-                  policy_conditions = mkFeatureOption "policy_conditions" true;
-                  multi_site_resources = mkFeatureOption "multi_site_resources" true;
-                  traffic_filters = mkFeatureOption "traffic_filters" true;
-                  self_hosted_relays = mkFeatureOption "self_hosted_relays" true;
-                  idp_sync = mkFeatureOption "idp_sync" true;
-                  rest_api = mkFeatureOption "rest_api" true;
-                  internet_resource = mkFeatureOption "internet_resource" true;
-                };
+              features = let
+                mkFeatureOption = name: default:
+                  mkOption {
+                    type = types.bool;
+                    inherit default;
+                    description = "Whether to enable the `${name}` feature for this account.";
+                  };
+              in {
+                flow_activities = mkFeatureOption "flow_activities" true;
+                policy_conditions = mkFeatureOption "policy_conditions" true;
+                multi_site_resources = mkFeatureOption "multi_site_resources" true;
+                traffic_filters = mkFeatureOption "traffic_filters" true;
+                self_hosted_relays = mkFeatureOption "self_hosted_relays" true;
+                idp_sync = mkFeatureOption "idp_sync" true;
+                rest_api = mkFeatureOption "rest_api" true;
+                internet_resource = mkFeatureOption "internet_resource" true;
+              };
 
               actors = mkOption {
                 type = types.attrsOf (
@@ -582,7 +578,7 @@ in
                     };
                   }
                 );
-                default = { };
+                default = {};
                 example = {
                   admin = {
                     type = "account_admin_user";
@@ -623,7 +619,7 @@ in
                     };
                   }
                 );
-                default = { };
+                default = {};
                 example = {
                   myoidcprovider = {
                     adapter = "openid_connect";
@@ -699,30 +695,34 @@ in
                                     to = 8100;
                                   }
                                 ];
-                                default = [ ];
-                                apply =
-                                  xs: map (x: if x.from == x.to then toString x.from else "${toString x.from} - ${toString x.to}") xs;
+                                default = [];
+                                apply = xs:
+                                  map (x:
+                                    if x.from == x.to
+                                    then toString x.from
+                                    else "${toString x.from} - ${toString x.to}")
+                                  xs;
                                 description = "Either a single port or port range to allow. Both bounds are inclusive.";
                               };
                             };
                           }
                         );
-                        default = [ ];
+                        default = [];
                         description = "A list of filter to restrict traffic. If no filters are given, all traffic is allowed.";
                       };
                     };
                   }
                 );
-                default = { };
+                default = {};
                 example = {
                   vaultwarden = {
                     type = "dns";
                     name = "Vaultwarden";
                     address = "vault.example.com";
                     address_description = "https://vault.example.com";
-                    gatewayGroups = [ "my-site" ];
+                    gatewayGroups = ["my-site"];
                     filters = [
-                      { protocol = "icmp"; }
+                      {protocol = "icmp";}
                       {
                         protocol = "tcp";
                         ports = [
@@ -760,7 +760,7 @@ in
                     };
                   }
                 );
-                default = { };
+                default = {};
                 example = {
                   access_vaultwarden = {
                     name = "Allow anyone to access vaultwarden";
@@ -785,7 +785,7 @@ in
 
                       members = mkOption {
                         type = types.listOf types.str;
-                        default = [ ];
+                        default = [];
                         description = "The members of this group";
                       };
 
@@ -797,7 +797,7 @@ in
                     };
                   }
                 );
-                default = { };
+                default = {};
                 example = {
                   users = {
                     name = "Users";
@@ -823,7 +823,7 @@ in
                     };
                   }
                 );
-                default = { };
+                default = {};
                 example = {
                   my-relays = {
                     name = "My Relays";
@@ -847,7 +847,7 @@ in
                     };
                   }
                 );
-                default = { };
+                default = {};
                 example = {
                   my-gateways = {
                     name = "My Gateways";
@@ -862,7 +862,7 @@ in
             };
           }
         );
-        default = { };
+        default = {};
         example = {
           main = {
             name = "My Account / Organization";
@@ -895,18 +895,18 @@ in
         ++ concatLists (
           flip mapAttrsToList cfg.provision.accounts (
             accountName: accountCfg:
-            [
-              {
-                assertion = (builtins.match "^[[:lower:]_-]+$" accountName) != null;
-                message = "An account name must contain only lowercase characters and underscores, as it will be used as the URL slug for this account.";
-              }
-            ]
-            ++ flip mapAttrsToList accountCfg.auth (
-              authName: _: {
-                assertion = (builtins.match "^[[:alnum:]_-]+$" authName) != null;
-                message = "The authentication provider attribute key must contain only letters, numbers, underscores or dashes.";
-              }
-            )
+              [
+                {
+                  assertion = (builtins.match "^[[:lower:]_-]+$" accountName) != null;
+                  message = "An account name must contain only lowercase characters and underscores, as it will be used as the URL slug for this account.";
+                }
+              ]
+              ++ flip mapAttrsToList accountCfg.auth (
+                authName: _: {
+                  assertion = (builtins.match "^[[:alnum:]_-]+$" authName) != null;
+                  message = "The authentication provider attribute key must contain only letters, numbers, underscores or dashes.";
+                }
+              )
           )
         );
     }
@@ -926,7 +926,7 @@ in
             ensureDBOwnership = true;
           }
         ];
-        ensureDatabases = [ "firezone" ];
+        ensureDatabases = ["firezone"];
       };
 
       services.firezone.server.settings = {
@@ -948,8 +948,7 @@ in
             urlComponents = builtins.elemAt (builtins.split "https://([^/]*)(/?.*)" cfg.web.externalUrl) 1;
             domain = builtins.elemAt urlComponents 0;
             location = builtins.elemAt urlComponents 1;
-          in
-          {
+          in {
             virtualHosts.${domain} = {
               forceSSL = mkDefault true;
               locations.${location} = {
@@ -965,8 +964,7 @@ in
             urlComponents = builtins.elemAt (builtins.split "https://([^/]*)(/?.*)" cfg.api.externalUrl) 1;
             domain = builtins.elemAt urlComponents 0;
             location = builtins.elemAt urlComponents 1;
-          in
-          {
+          in {
             virtualHosts.${domain} = {
               forceSSL = mkDefault true;
               locations.${location} = {
@@ -1053,11 +1051,14 @@ in
     (mkIf (!cfg.smtp.configureManually) {
       services.firezone.server.settings = {
         OUTBOUND_EMAIL_ADAPTER = "Elixir.Swoosh.Adapters.Mua";
-        OUTBOUND_EMAIL_ADAPTER_OPTS = builtins.toJSON { };
+        OUTBOUND_EMAIL_ADAPTER_OPTS = builtins.toJSON {};
         OUTBOUND_EMAIL_FROM = cfg.smtp.from;
         OUTBOUND_EMAIL_SMTP_HOST = cfg.smtp.host;
         OUTBOUND_EMAIL_SMTP_PORT = toString cfg.smtp.port;
-        OUTBOUND_EMAIL_SMTP_PROTOCOL = if cfg.smtp.implicitTls then "ssl" else "tcp";
+        OUTBOUND_EMAIL_SMTP_PROTOCOL =
+          if cfg.smtp.implicitTls
+          then "ssl"
+          else "tcp";
         OUTBOUND_EMAIL_SMTP_USERNAME = cfg.smtp.username;
       };
       services.firezone.server.settingsSecret = {
@@ -1068,13 +1069,13 @@ in
       # Load client secrets from authentication providers
       services.firezone.server.settingsSecret = flip concatMapAttrs cfg.provision.accounts (
         accountName: accountCfg:
-        flip concatMapAttrs accountCfg.auth (
-          authName: authCfg:
-          optionalAttrs (authCfg.adapter_config.clientSecretFile != null) {
-            "AUTH_CLIENT_SECRET_${toUpper accountName}_${toUpper authName}" =
-              authCfg.adapter_config.clientSecretFile;
-          }
-        )
+          flip concatMapAttrs accountCfg.auth (
+            authName: authCfg:
+              optionalAttrs (authCfg.adapter_config.clientSecretFile != null) {
+                "AUTH_CLIENT_SECRET_${toUpper accountName}_${toUpper authName}" =
+                  authCfg.adapter_config.clientSecretFile;
+              }
+          )
       );
     })
     (mkIf (cfg.openClusterFirewall && cfg.domain.enable) {
@@ -1099,16 +1100,16 @@ in
 
       systemd.targets.firezone = {
         description = "Common target for all Firezone services.";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
       };
 
       systemd.services.firezone-initialize = {
         description = "Backend initialization service for the Firezone zero-trust access platform";
 
-        after = mkIf cfg.enableLocalDB [ "postgresql.service" ];
-        requires = mkIf cfg.enableLocalDB [ "postgresql.service" ];
-        wantedBy = [ "firezone.target" ];
-        partOf = [ "firezone.target" ];
+        after = mkIf cfg.enableLocalDB ["postgresql.service"];
+        requires = mkIf cfg.enableLocalDB ["postgresql.service"];
+        wantedBy = ["firezone.target"];
+        partOf = ["firezone.target"];
 
         script = ''
           mkdir -p "$TZDATA_DIR"
@@ -1123,25 +1124,27 @@ in
 
         # We use the domain environment to be able to run migrations
         environment = collectEnvironment "domain";
-        serviceConfig = commonServiceConfig // {
-          Type = "oneshot";
-          RemainAfterExit = true;
-        };
+        serviceConfig =
+          commonServiceConfig
+          // {
+            Type = "oneshot";
+            RemainAfterExit = true;
+          };
       };
 
       systemd.services.firezone-server-domain = mkIf cfg.domain.enable {
         description = "Backend domain server for the Firezone zero-trust access platform";
-        after = [ "firezone-initialize.service" ];
-        bindsTo = [ "firezone-initialize.service" ];
-        wantedBy = [ "firezone.target" ];
-        partOf = [ "firezone.target" ];
+        after = ["firezone-initialize.service"];
+        bindsTo = ["firezone-initialize.service"];
+        wantedBy = ["firezone.target"];
+        partOf = ["firezone.target"];
 
         script = ''
           ${loadSecretEnvironment "domain"}
           exec ${getExe cfg.domain.package} start;
         '';
 
-        path = [ pkgs.curl ];
+        path = [pkgs.curl];
         postStart =
           ''
             # Wait for the firezone server to come online
@@ -1171,10 +1174,10 @@ in
 
       systemd.services.firezone-server-web = mkIf cfg.web.enable {
         description = "Backend web server for the Firezone zero-trust access platform";
-        after = [ "firezone-initialize.service" ];
-        bindsTo = [ "firezone-initialize.service" ];
-        wantedBy = [ "firezone.target" ];
-        partOf = [ "firezone.target" ];
+        after = ["firezone-initialize.service"];
+        bindsTo = ["firezone-initialize.service"];
+        wantedBy = ["firezone.target"];
+        partOf = ["firezone.target"];
 
         script = ''
           ${loadSecretEnvironment "web"}
@@ -1187,10 +1190,10 @@ in
 
       systemd.services.firezone-server-api = mkIf cfg.api.enable {
         description = "Backend api server for the Firezone zero-trust access platform";
-        after = [ "firezone-initialize.service" ];
-        bindsTo = [ "firezone-initialize.service" ];
-        wantedBy = [ "firezone.target" ];
-        partOf = [ "firezone.target" ];
+        after = ["firezone-initialize.service"];
+        bindsTo = ["firezone-initialize.service"];
+        wantedBy = ["firezone.target"];
+        partOf = ["firezone.target"];
 
         script = ''
           ${loadSecretEnvironment "api"}

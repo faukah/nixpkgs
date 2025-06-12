@@ -7,7 +7,6 @@
   automake,
   cyrus_sasl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cyrus-sasl-xoauth2";
   version = "0.2";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     automake
   ];
 
-  buildInputs = [ cyrus_sasl ];
+  buildInputs = [cyrus_sasl];
 
   preConfigure = "./autogen.sh";
 
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     description = "XOAUTH2 mechanism plugin for cyrus-sasl";
     platforms = platforms.unix;
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ wentasah ];
+    maintainers = with lib.maintainers; [wentasah];
   };
 }

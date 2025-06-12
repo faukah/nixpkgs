@@ -5,14 +5,12 @@
   fetchFromGitHub,
   setuptools,
   ply,
-
   pytestCheckHook,
   pycodestyle,
   pydocstyle,
   pyflakes,
   coverage,
 }:
-
 buildPythonPackage rec {
   pname = "plyara";
   version = "2.2.8";

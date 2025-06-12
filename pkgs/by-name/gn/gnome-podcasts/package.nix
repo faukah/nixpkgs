@@ -22,7 +22,6 @@
   wrapGAppsHook4,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-podcasts";
   version = "25.2";
@@ -71,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = false;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

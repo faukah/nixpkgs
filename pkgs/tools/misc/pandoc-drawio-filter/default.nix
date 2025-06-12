@@ -7,9 +7,7 @@
   pandocfilters,
   runCommand,
   texliveTeTeX,
-}:
-
-let
+}: let
   version = "1.1";
 
   src = fetchFromGitHub {
@@ -29,16 +27,15 @@ let
       pandocfilters
     ];
 
-    passthru.tests.example-doc =
-      let
-        env = {
-          nativeBuildInputs = [
-            pandoc
-            pandoc-drawio-filter
-            texliveTeTeX
-          ];
-        };
-      in
+    passthru.tests.example-doc = let
+      env = {
+        nativeBuildInputs = [
+          pandoc
+          pandoc-drawio-filter
+          texliveTeTeX
+        ];
+      };
+    in
       runCommand "$pandoc-drawio-filter-example-doc.pdf" env ''
         cp -r ${src}/example/* .
         pandoc -F pandoc-drawio example.md -T pdf -o $out
@@ -48,11 +45,9 @@ let
       homepage = "https://github.com/tfc/pandoc-drawio-filter";
       description = "Pandoc filter which converts draw.io diagrams to PDF";
       license = licenses.mit;
-      maintainers = with maintainers; [ tfc ];
+      maintainers = with maintainers; [tfc];
       mainProgram = "pandoc-drawio";
     };
   };
-
 in
-
-pandoc-drawio-filter
+  pandoc-drawio-filter

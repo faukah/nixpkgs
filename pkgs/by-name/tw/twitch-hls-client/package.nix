@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "twitch-hls-client";
   version = "1.4.1";
@@ -22,9 +21,9 @@ rustPlatform.buildRustPackage rec {
     description = "Minimal CLI client for watching/recording Twitch streams";
     homepage = "https://github.com/2bc4/twitch-hls-client.git";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ lenivaya ];
+    maintainers = with maintainers; [lenivaya];
     mainProgram = "twitch-hls-client";
-    sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    sourceProvenance = with lib.sourceTypes; [fromSource];
     platforms = platforms.all;
   };
 }

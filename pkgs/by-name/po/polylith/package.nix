@@ -5,7 +5,6 @@
   jdk,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "polylith";
   version = "0.2.21";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  passAsFile = [ "polyWrapper" ];
+  passAsFile = ["polyWrapper"];
   polyWrapper = ''
     #!${runtimeShell}
     ARGS=""
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "Tool used to develop Polylith based architectures in Clojure";
     mainProgram = "poly";
     homepage = "https://github.com/polyfy/polylith";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.epl10;
     maintainers = with maintainers; [
       ericdallo

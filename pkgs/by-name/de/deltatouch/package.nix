@@ -9,7 +9,6 @@
   qt5,
   quirc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "deltatouch";
   version = "1.14.3";
@@ -74,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://codeberg.org/lk108/deltatouch";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ link2xt ];
+    maintainers = with maintainers; [link2xt];
     mainProgram = "deltatouch";
     platforms = platforms.linux;
   };

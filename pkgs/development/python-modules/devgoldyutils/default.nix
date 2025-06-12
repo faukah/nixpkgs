@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "devgoldyutils";
   version = "3.0.0";
@@ -17,14 +16,14 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  pythonImportsCheck = [ "devgoldyutils" ];
+  pythonImportsCheck = ["devgoldyutils"];
 
   meta = {
     description = "Collection of utility functions for Python used by mov-cli";
     homepage = "https://github.com/THEGOLDENPRO/devgoldyutils";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ youhaveme9 ];
+    maintainers = with lib.maintainers; [youhaveme9];
   };
 }

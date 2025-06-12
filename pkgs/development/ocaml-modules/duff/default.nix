@@ -8,7 +8,6 @@
   crowbar,
   bigstringaf,
 }:
-
 buildDunePackage rec {
   pname = "duff";
   version = "0.5";
@@ -21,7 +20,7 @@ buildDunePackage rec {
     sha256 = "sha256-+UU89Ko7aFDv6MxvE/BT6+XyER+vF3zqv7sD5dmtbt4=";
   };
 
-  propagatedBuildInputs = [ fmt ];
+  propagatedBuildInputs = [fmt];
 
   doCheck = true;
   checkInputs = [
@@ -35,6 +34,6 @@ buildDunePackage rec {
     description = "Pure OCaml implementation of libXdiff (Rabin’s fingerprint)";
     homepage = "https://github.com/mirage/duff";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

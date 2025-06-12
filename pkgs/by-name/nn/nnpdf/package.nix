@@ -13,7 +13,6 @@
   sqlite,
   swig,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nnpdf";
   version = "4.0.9";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     mainProgram = "evolven3fit";
     homepage = "https://docs.nnpdf.science/";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.veprbl ];
+    maintainers = [maintainers.veprbl];
     platforms = platforms.unix;
   };
 }

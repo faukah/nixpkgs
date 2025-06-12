@@ -11,7 +11,6 @@
   pytestCheckHook,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "python-youtube";
   version = "0.9.7";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     "requests-oauthlib"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     dataclasses-json
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     requests-oauthlib
   ];
 
-  pythonImportsCheck = [ "pyyoutube" ];
+  pythonImportsCheck = ["pyyoutube"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sns-sdks/python-youtube";
     changelog = "https://github.com/sns-sdks/python-youtube/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

@@ -11,7 +11,6 @@
   pythonOlder,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-bdd";
   version = "7.1.2";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-PC4VSsUU5qEFp/C/7OTgHINo8wmOo0w2d1Hpe0EnFzE=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   dependencies = [
     mako
@@ -37,20 +36,20 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export PATH=$PATH:$out/bin
   '';
 
-  pythonImportsCheck = [ "pytest_bdd" ];
+  pythonImportsCheck = ["pytest_bdd"];
 
   meta = with lib; {
     description = "BDD library for the pytest";
     homepage = "https://github.com/pytest-dev/pytest-bdd";
     changelog = "https://github.com/pytest-dev/pytest-bdd/blob/${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ jm2dev ];
+    maintainers = with maintainers; [jm2dev];
     mainProgram = "pytest-bdd";
   };
 }

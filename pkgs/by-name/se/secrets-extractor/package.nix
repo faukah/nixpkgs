@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libpcap,
 }:
-
 buildGoModule rec {
   pname = "secrets-extractor";
   version = "1.0.2";
@@ -18,13 +17,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-1NfeFw8v6F00CZe8a3qdk/TrUBNi2wr9PvwIsZzkDSk=";
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   meta = with lib; {
     description = "Tool to check packets for secrets";
     homepage = "https://github.com/Xenios91/Secrets-Extractor";
     # https://github.com/Xenios91/Secrets-Extractor/issues/1
     license = licenses.unfree;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

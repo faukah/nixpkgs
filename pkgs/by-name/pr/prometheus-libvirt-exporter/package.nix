@@ -5,7 +5,6 @@
   pkg-config,
   libvirt,
 }:
-
 buildGoModule rec {
   pname = "prometheus-libvirt-exporter";
   version = "2.3.3";
@@ -19,16 +18,16 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  ldflags = [ "-X=main.Version=${version}" ];
+  ldflags = ["-X=main.Version=${version}"];
 
-  buildInputs = [ libvirt ];
+  buildInputs = [libvirt];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "Prometheus metrics exporter for libvirt";
     homepage = "https://github.com/Tinkoff/libvirt-exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ farcaller ];
+    maintainers = with maintainers; [farcaller];
   };
 }

@@ -7,12 +7,11 @@
   python3,
   sassc,
   nix-update-script,
-  accents ? [ "blue" ],
+  accents ? ["blue"],
   size ? "standard",
-  tweaks ? [ ],
+  tweaks ? [],
   variant ? "frappe",
-}:
-let
+}: let
   validAccents = [
     "blue"
     "flamingo"
@@ -49,20 +48,18 @@ let
   pname = "catppuccin-gtk";
   version = "1.0.3";
 in
-
-lib.checkListOfEnum "${pname}: theme accent" validAccents accents lib.checkListOfEnum
+  lib.checkListOfEnum "${pname}: theme accent" validAccents accents lib.checkListOfEnum
   "${pname}: color variant"
   validVariants
-  [ variant ]
+  [variant]
   lib.checkListOfEnum
   "${pname}: size variant"
   validSizes
-  [ size ]
+  [size]
   lib.checkListOfEnum
   "${pname}: tweaks"
   validTweaks
   tweaks
-
   stdenvNoCC.mkDerivation
   {
     inherit pname version;
@@ -75,7 +72,7 @@ lib.checkListOfEnum "${pname}: theme accent" validAccents accents lib.checkListO
       hash = "sha256-q5/VcFsm3vNEw55zq/vcM11eo456SYE5TQA3g2VQjGc=";
     };
 
-    patches = [ ./fix-inconsistent-theme-name.patch ];
+    patches = [./fix-inconsistent-theme-name.patch];
 
     nativeBuildInputs = [
       gtk3
@@ -83,7 +80,7 @@ lib.checkListOfEnum "${pname}: theme accent" validAccents accents lib.checkListO
       # git is needed here since "git apply" is being used for patches
       # see <https://github.com/catppuccin/gtk/blob/4173b70b910bbb3a42ef0e329b3e98d53cef3350/build.py#L465>
       git
-      (python3.withPackages (ps: [ ps.catppuccin ]))
+      (python3.withPackages (ps: [ps.catppuccin]))
     ];
 
     dontConfigure = true;
@@ -96,14 +93,14 @@ lib.checkListOfEnum "${pname}: theme accent" validAccents accents lib.checkListO
 
       python3 build.py ${variant} \
         --accent ${builtins.toString accents} \
-        ${lib.optionalString (size != [ ]) "--size " + size} \
-        ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
+        ${lib.optionalString (size != []) "--size " + size} \
+        ${lib.optionalString (tweaks != []) "--tweaks " + builtins.toString tweaks} \
         --dest $out/share/themes
 
       runHook postInstall
     '';
 
-    passthru.updateScript = nix-update-script { };
+    passthru.updateScript = nix-update-script {};
 
     meta = {
       description = "Soothing pastel theme for GTK";

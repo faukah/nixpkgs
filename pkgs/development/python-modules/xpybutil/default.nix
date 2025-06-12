@@ -5,7 +5,6 @@
   xcffib,
   pillow,
 }:
-
 buildPythonPackage rec {
   pname = "xpybutil";
   version = "0.0.6";
@@ -25,17 +24,17 @@ buildPythonPackage rec {
     xcffib
   ];
 
-  propagatedNativeBuildInputs = [ xcffib ];
+  propagatedNativeBuildInputs = [xcffib];
 
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "xpybutil" ];
+  pythonImportsCheck = ["xpybutil"];
 
   meta = with lib; {
     homepage = "https://github.com/BurntSushi/xpybutil";
     description = "Incomplete xcb-util port plus some extras";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

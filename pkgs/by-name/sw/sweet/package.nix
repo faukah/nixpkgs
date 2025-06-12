@@ -4,10 +4,8 @@
   fetchurl,
   unzip,
   gtk-engine-murrine,
-  colorVariants ? [ ], # default: install all icons
-}:
-
-let
+  colorVariants ? [], # default: install all icons
+}: let
   pname = "sweet";
   colorVariantList = [
     "Sweet-Ambar-Blue-Dark-v40"
@@ -23,10 +21,8 @@ let
     "Sweet-v40"
     "Sweet"
   ];
-
 in
-lib.checkListOfEnum "${pname}: color variants" colorVariantList colorVariants
-
+  lib.checkListOfEnum "${pname}: color variants" colorVariantList colorVariants
   stdenvNoCC.mkDerivation
   (finalAttrs: {
     inherit pname;
@@ -83,9 +79,9 @@ lib.checkListOfEnum "${pname}: color variants" colorVariantList colorVariants
       })
     ];
 
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
-    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+    propagatedUserEnvPkgs = [gtk-engine-murrine];
 
     sourceRoot = ".";
 
@@ -93,7 +89,11 @@ lib.checkListOfEnum "${pname}: color variants" colorVariantList colorVariants
       runHook preInstall
       mkdir -p $out/share/themes/
       cp -r ${
-        lib.concatStringsSep " " (if colorVariants != [ ] then colorVariants else colorVariantList)
+        lib.concatStringsSep " " (
+          if colorVariants != []
+          then colorVariants
+          else colorVariantList
+        )
       } $out/share/themes/
       runHook postInstall
     '';

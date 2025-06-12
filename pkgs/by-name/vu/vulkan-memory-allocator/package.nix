@@ -5,7 +5,6 @@
   cmake,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "vulkan-memory-allocator";
   version = "3.3.0";
@@ -29,14 +28,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Easy to integrate Vulkan memory allocation library";
     homepage = "https://gpuopen.com/vulkan-memory-allocator/";
     changelog = "https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     mainProgram = "vulkan-memory-allocator";
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };

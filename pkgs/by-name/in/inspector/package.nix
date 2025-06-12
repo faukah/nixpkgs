@@ -16,7 +16,6 @@
   usbutils,
   pciutils,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "inspector";
   version = "0.2.0";
@@ -62,6 +61,6 @@ python3Packages.buildPythonApplication rec {
     ];
     platforms = lib.platforms.linux;
     mainProgram = "inspector";
-    maintainers = with lib.maintainers; [ mksafavi ];
+    maintainers = with lib.maintainers; [mksafavi];
   };
 }

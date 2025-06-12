@@ -6,7 +6,6 @@
   wheel,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "langid";
   version = "1.1.6";
@@ -23,16 +22,16 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   doCheck = false; # Package has no tests
-  pythonImportsCheck = [ "langid" ];
+  pythonImportsCheck = ["langid"];
 
   meta = with lib; {
     description = "Langid.py is a standalone Language Identification (LangID) tool";
     mainProgram = "langid";
     homepage = "https://pypi.org/project/langid/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

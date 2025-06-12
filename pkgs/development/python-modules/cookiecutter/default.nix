@@ -20,7 +20,6 @@
   arrow,
   rich,
 }:
-
 buildPythonPackage rec {
   pname = "cookiecutter";
   version = "2.6.0";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
       --replace-fail "/bin/bash" "${lib.getExe bash}"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -63,7 +62,7 @@ buildPythonPackage rec {
     rich
   ];
 
-  pythonImportsCheck = [ "cookiecutter.main" ];
+  pythonImportsCheck = ["cookiecutter.main"];
 
   preCheck = ''
     export HOME="$(mktemp -d)"
@@ -80,6 +79,6 @@ buildPythonPackage rec {
     description = "Command-line utility that creates projects from project templates";
     mainProgram = "cookiecutter";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kragniz ];
+    maintainers = with maintainers; [kragniz];
   };
 }

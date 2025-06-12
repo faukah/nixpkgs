@@ -6,7 +6,6 @@
   xclip,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "cloudlens";
   version = "0.1.4";
@@ -30,7 +29,7 @@ buildGoModule rec {
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
 
-  buildInputs = [ xclip ];
+  buildInputs = [xclip];
 
   #Some tests require internet access
   doCheck = false;
@@ -39,7 +38,7 @@ buildGoModule rec {
     description = "K9s like CLI for AWS and GCP";
     homepage = "https://github.com/one2nc/cloudlens";
     license = lib.licenses.apsl20;
-    maintainers = with lib.maintainers; [ ByteSudoer ];
+    maintainers = with lib.maintainers; [ByteSudoer];
     mainProgram = "cloudlens";
   };
 }

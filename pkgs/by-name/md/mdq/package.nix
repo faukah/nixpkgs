@@ -5,7 +5,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mdq";
   version = "0.7.2";
@@ -20,10 +19,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-k+St07jA+F+c4md9OzFiDp9idie6zoNI65HEQ2JqynM=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ DimitarNestorov ];
+    maintainers = with lib.maintainers; [DimitarNestorov];
     mainProgram = "mdq";
   };
 })

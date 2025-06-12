@@ -12,7 +12,6 @@
   requests-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sectxt";
   version = "0.9.7";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-CDVfT3ANb4ugLEvrSRTbkZMvZA6rcEwBu2c3pnjsza8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "sectxt" ];
+  pythonImportsCheck = ["sectxt"];
 
   meta = {
     homepage = "https://github.com/DigitalTrustCenter/sectxt";
     changelog = "https://github.com/DigitalTrustCenter/sectxt/releases/tag/${src.tag}";
     description = "security.txt parser and validator";
     license = lib.licenses.eupl12;
-    maintainers = with lib.maintainers; [ networkexception ];
+    maintainers = with lib.maintainers; [networkexception];
   };
 }

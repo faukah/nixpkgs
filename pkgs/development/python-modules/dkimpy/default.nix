@@ -9,7 +9,6 @@
   authres,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "dkimpy";
   version = "1.1.8";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-tfYPtHu/XY12LxNLzqDDiOumtJg0KmgqIfFoZUUJS3c=";
   };
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   propagatedBuildInputs = [
     openssl
     dnspython
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://launchpad.net/dkimpy";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

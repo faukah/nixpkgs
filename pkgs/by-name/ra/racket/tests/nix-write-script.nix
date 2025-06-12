@@ -1,16 +1,16 @@
-{ runCommandLocal, racket }:
-
-let
-  script = racket.writeScript "racket-test-nix-write-script-the-script" { } ''
+{
+  runCommandLocal,
+  racket,
+}: let
+  script = racket.writeScript "racket-test-nix-write-script-the-script" {} ''
     #lang racket/base
     (display "success")
     (newline)
   '';
 in
-
-runCommandLocal "racket-test-nix-write-script"
+  runCommandLocal "racket-test-nix-write-script"
   {
-    nativeBuildInputs = [ racket ];
+    nativeBuildInputs = [racket];
   }
   ''
     expectation="success"

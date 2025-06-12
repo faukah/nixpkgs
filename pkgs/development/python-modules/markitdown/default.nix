@@ -27,7 +27,6 @@
   pytestCheckHook,
   gitUpdater,
 }:
-
 buildPythonPackage rec {
   pname = "markitdown";
   version = "0.1.2";
@@ -42,7 +41,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/packages/markitdown";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     beautifulsoup4
@@ -68,9 +67,9 @@ buildPythonPackage rec {
     youtube-transcript-api
   ];
 
-  pythonImportsCheck = [ "markitdown" ];
+  pythonImportsCheck = ["markitdown"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Require network access
@@ -80,12 +79,12 @@ buildPythonPackage rec {
     "test_module_misc"
   ];
 
-  passthru.updateScripts = gitUpdater { };
+  passthru.updateScripts = gitUpdater {};
 
   meta = {
     description = "Python tool for converting files and office documents to Markdown";
     homepage = "https://github.com/microsoft/markitdown";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

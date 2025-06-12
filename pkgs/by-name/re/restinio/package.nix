@@ -15,78 +15,78 @@
   # Build with the asio library bundled in boost instead of the standalone asio package.
   with_boost_asio ? false,
 }:
-
 assert with_boost_asio -> boost != null;
 assert !with_boost_asio -> asio != null;
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "restinio";
+    version = "0.7.7";
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "restinio";
-  version = "0.7.7";
+    src = fetchFromGitHub {
+      owner = "Stiffstream";
+      repo = "restinio";
+      tag = "v${finalAttrs.version}";
+      hash = "sha256-bbiBz/WkQc3HiS7+x/qsRdHoravPX8LBKb+a2WeC81s=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "Stiffstream";
-    repo = "restinio";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-bbiBz/WkQc3HiS7+x/qsRdHoravPX8LBKb+a2WeC81s=";
-  };
+    # https://www.github.com/Stiffstream/restinio/issues/230
+    # > string sub-command JSON failed parsing json string: * Line 1, Column 1
+    # > Syntax error: value, object or array expected.
+    postPatch = ''
+      substituteInPlace dev/test/CMakeLists.txt \
+        --replace-fail "add_subdirectory(metaprogramming)" ""
+    '';
 
-  # https://www.github.com/Stiffstream/restinio/issues/230
-  # > string sub-command JSON failed parsing json string: * Line 1, Column 1
-  # > Syntax error: value, object or array expected.
-  postPatch = ''
-    substituteInPlace dev/test/CMakeLists.txt \
-      --replace-fail "add_subdirectory(metaprogramming)" ""
-  '';
+    strictDeps = true;
 
-  strictDeps = true;
+    nativeBuildInputs = [cmake];
 
-  nativeBuildInputs = [ cmake ];
-
-  propagatedBuildInputs =
-    [
-      expected-lite
-      fmt
-      llhttp
-      openssl
-      pcre2
-      zlib
-    ]
-    ++ (
-      if with_boost_asio then
-        [
+    propagatedBuildInputs =
+      [
+        expected-lite
+        fmt
+        llhttp
+        openssl
+        pcre2
+        zlib
+      ]
+      ++ (
+        if with_boost_asio
+        then [
           boost
         ]
-      else
-        [
+        else [
           asio
         ]
-    );
+      );
 
-  buildInputs = [
-    catch2_3
-  ];
+    buildInputs = [
+      catch2_3
+    ];
 
-  cmakeDir = "../dev";
-  cmakeFlags = [
-    "-DCMAKE_CATCH_DISCOVER_TESTS_DISCOVERY_MODE=PRE_TEST"
-    "-DRESTINIO_TEST=ON"
-    "-DRESTINIO_SAMPLE=OFF"
-    "-DRESTINIO_BENCHMARK=OFF"
-    "-DRESTINIO_WITH_SOBJECTIZER=OFF"
-    "-DRESTINIO_ASIO_SOURCE=${if with_boost_asio then "boost" else "standalone"}"
-    "-DRESTINIO_DEP_EXPECTED_LITE=find"
-    "-DRESTINIO_DEP_FMT=find"
-    "-DRESTINIO_DEP_LLHTTP=find"
-    "-DRESTINIO_DEP_CATCH2=find"
-  ];
+    cmakeDir = "../dev";
+    cmakeFlags = [
+      "-DCMAKE_CATCH_DISCOVER_TESTS_DISCOVERY_MODE=PRE_TEST"
+      "-DRESTINIO_TEST=ON"
+      "-DRESTINIO_SAMPLE=OFF"
+      "-DRESTINIO_BENCHMARK=OFF"
+      "-DRESTINIO_WITH_SOBJECTIZER=OFF"
+      "-DRESTINIO_ASIO_SOURCE=${
+        if with_boost_asio
+        then "boost"
+        else "standalone"
+      }"
+      "-DRESTINIO_DEP_EXPECTED_LITE=find"
+      "-DRESTINIO_DEP_FMT=find"
+      "-DRESTINIO_DEP_LLHTTP=find"
+      "-DRESTINIO_DEP_CATCH2=find"
+    ];
 
-  doCheck = true;
-  enableParallelChecking = false;
-  __darwinAllowLocalNetworking = true;
-  preCheck =
-    let
+    doCheck = true;
+    enableParallelChecking = false;
+    __darwinAllowLocalNetworking = true;
+    preCheck = let
       disabledTests =
-        [ ]
+        []
         ++ lib.optionals stdenv.hostPlatform.isDarwin [
           # Tests that fail with error: 'unable to write: Operation not permitted'
           "HTTP echo server"
@@ -101,16 +101,16 @@ stdenv.mkDerivation (finalAttrs: {
         ];
       excludeRegex = "^(${builtins.concatStringsSep "|" disabledTests})";
     in
-    lib.optionalString (builtins.length disabledTests != 0) ''
-      checkFlagsArray+=(ARGS="--exclude-regex '${excludeRegex}'")
-    '';
+      lib.optionalString (builtins.length disabledTests != 0) ''
+        checkFlagsArray+=(ARGS="--exclude-regex '${excludeRegex}'")
+      '';
 
-  meta = with lib; {
-    description = "Cross-platform, efficient, customizable, and robust asynchronous HTTP(S)/WebSocket server C++ library";
-    homepage = "https://github.com/Stiffstream/restinio";
-    changelog = "https://github.com/Stiffstream/restinio/releases/tag/${finalAttrs.src.rev}";
-    license = licenses.bsd3;
-    platforms = platforms.all;
-    maintainers = with maintainers; [ tobim ];
-  };
-})
+    meta = with lib; {
+      description = "Cross-platform, efficient, customizable, and robust asynchronous HTTP(S)/WebSocket server C++ library";
+      homepage = "https://github.com/Stiffstream/restinio";
+      changelog = "https://github.com/Stiffstream/restinio/releases/tag/${finalAttrs.src.rev}";
+      license = licenses.bsd3;
+      platforms = platforms.all;
+      maintainers = with maintainers; [tobim];
+    };
+  })

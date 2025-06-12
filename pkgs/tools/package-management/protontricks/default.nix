@@ -16,7 +16,6 @@
   nix-update-script,
   extraCompatPaths ? "",
 }:
-
 buildPythonApplication rec {
   pname = "protontricks";
   version = "1.12.1";
@@ -45,7 +44,7 @@ buildPythonApplication rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     setuptools # implicit dependency, used to find data/icon_placeholder.png
@@ -66,7 +65,7 @@ buildPythonApplication rec {
     ]
     ++ lib.optional (extraCompatPaths != "") "--set STEAM_EXTRA_COMPAT_TOOLS_PATHS ${extraCompatPaths}";
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # From 1.6.0 release notes (https://github.com/Matoking/protontricks/releases/tag/1.6.0):
   # In most cases the script is unnecessary and should be removed as part of the packaging process.
@@ -74,16 +73,16 @@ buildPythonApplication rec {
     rm "$out/bin/protontricks-desktop-install"
   '';
 
-  pythonImportsCheck = [ "protontricks" ];
+  pythonImportsCheck = ["protontricks"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Simple wrapper for running Winetricks commands for Proton-enabled games";
     homepage = "https://github.com/Matoking/protontricks";
     changelog = "https://github.com/Matoking/protontricks/blob/${src.tag}/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
     platforms = [
       "x86_64-linux"
       "i686-linux"

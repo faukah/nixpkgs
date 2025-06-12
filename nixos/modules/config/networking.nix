@@ -5,9 +5,7 @@
   options,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.networking;
   opt = options.networking;
 
@@ -19,16 +17,12 @@ let
       ]
     )
   );
-
-in
-
-{
+in {
   imports = [
-    (lib.mkRemovedOptionModule [ "networking" "hostConf" ] "Use environment.etc.\"host.conf\" instead.")
+    (lib.mkRemovedOptionModule ["networking" "hostConf"] "Use environment.etc.\"host.conf\" instead.")
   ];
 
   options = {
-
     networking.hosts = lib.mkOption {
       type = lib.types.attrsOf (lib.types.listOf lib.types.str);
       example = lib.literalExpression ''
@@ -75,7 +69,6 @@ in
     };
 
     networking.proxy = {
-
       default = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
@@ -149,7 +142,7 @@ in
       envVars = lib.mkOption {
         type = lib.types.attrs;
         internal = true;
-        default = { };
+        default = {};
         description = ''
           Environment variables used for the network proxy.
         '';
@@ -158,7 +151,6 @@ in
   };
 
   config = {
-
     assertions = [
       {
         assertion = !localhostMultiple;
@@ -172,34 +164,31 @@ in
 
     # These entries are required for "hostname -f" and to resolve both the
     # hostname and FQDN correctly:
-    networking.hosts =
-      let
-        hostnames = # Note: The FQDN (canonical hostname) has to come first:
-          lib.optional (cfg.hostName != "" && cfg.domain != null) "${cfg.hostName}.${cfg.domain}"
-          ++ lib.optional (cfg.hostName != "") cfg.hostName; # Then the hostname (without the domain)
-      in
-      {
-        "127.0.0.2" = hostnames;
-      };
+    networking.hosts = let
+      hostnames =
+        # Note: The FQDN (canonical hostname) has to come first:
+        lib.optional (cfg.hostName != "" && cfg.domain != null) "${cfg.hostName}.${cfg.domain}"
+        ++ lib.optional (cfg.hostName != "") cfg.hostName; # Then the hostname (without the domain)
+    in {
+      "127.0.0.2" = hostnames;
+    };
 
-    networking.hostFiles =
-      let
-        # Note: localhostHosts has to appear first in /etc/hosts so that 127.0.0.1
-        # resolves back to "localhost" (as some applications assume) instead of
-        # the FQDN! By default "networking.hosts" also contains entries for the
-        # FQDN so that e.g. "hostname -f" works correctly.
-        localhostHosts = pkgs.writeText "localhost-hosts" ''
-          127.0.0.1 localhost
-          ${lib.optionalString cfg.enableIPv6 "::1 localhost"}
-        '';
-        stringHosts =
-          let
-            oneToString = set: ip: ip + " " + lib.concatStringsSep " " set.${ip} + "\n";
-            allToString = set: lib.concatMapStrings (oneToString set) (lib.attrNames set);
-          in
-          pkgs.writeText "string-hosts" (allToString (lib.filterAttrs (_: v: v != [ ]) cfg.hosts));
-        extraHosts = pkgs.writeText "extra-hosts" cfg.extraHosts;
+    networking.hostFiles = let
+      # Note: localhostHosts has to appear first in /etc/hosts so that 127.0.0.1
+      # resolves back to "localhost" (as some applications assume) instead of
+      # the FQDN! By default "networking.hosts" also contains entries for the
+      # FQDN so that e.g. "hostname -f" works correctly.
+      localhostHosts = pkgs.writeText "localhost-hosts" ''
+        127.0.0.1 localhost
+        ${lib.optionalString cfg.enableIPv6 "::1 localhost"}
+      '';
+      stringHosts = let
+        oneToString = set: ip: ip + " " + lib.concatStringsSep " " set.${ip} + "\n";
+        allToString = set: lib.concatMapStrings (oneToString set) (lib.attrNames set);
       in
+        pkgs.writeText "string-hosts" (allToString (lib.filterAttrs (_: v: v != []) cfg.hosts));
+      extraHosts = pkgs.writeText "extra-hosts" cfg.extraHosts;
+    in
       lib.mkBefore [
         localhostHosts
         stringHosts
@@ -224,7 +213,6 @@ in
         "host.conf".text = ''
           multi on
         '';
-
       }
       // lib.optionalAttrs (pkgs.stdenv.hostPlatform.libc == "glibc") {
         # /etc/rpc: RPC program numbers.
@@ -257,7 +245,5 @@ in
 
     # Install the proxy environment variables
     environment.sessionVariables = cfg.proxy.envVars;
-
   };
-
 }

@@ -11,7 +11,6 @@
   pytest-cov-stub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyexcel-xls";
   version = "0.7.0";
@@ -30,11 +29,11 @@ buildPythonPackage rec {
       name = "nose-to-pytest.patch";
       url = "https://github.com/pyexcel/pyexcel-xls/compare/d8953c8ff7dc9a4a3465f2cfc182acafa49f6ea2...9f0d48035114f73077dd0f109395af32b4d9d48b.patch";
       hash = "sha256-2kVdN+kEYaJjXGzv9eudfKjRweMG0grTd5wnZXIDzUU=";
-      excludes = [ ".github/*" ];
+      excludes = [".github/*"];
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyexcel-io
@@ -56,6 +55,6 @@ buildPythonPackage rec {
     description = "Wrapper library to read, manipulate and write data in xls using xlrd and xlwt";
     homepage = "http://docs.pyexcel.org/";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

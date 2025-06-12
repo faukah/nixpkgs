@@ -27,7 +27,6 @@
   tomlkit,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "snowflake-connector-python";
   version = "3.14.0";
@@ -75,7 +74,7 @@ buildPythonPackage rec {
       pandas
       pyarrow
     ];
-    secure-local-storage = [ keyring ];
+    secure-local-storage = [keyring];
   };
 
   preCheck = ''
@@ -120,6 +119,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/snowflakedb/snowflake-connector-python";
     changelog = "https://github.com/snowflakedb/snowflake-connector-python/blob/v${version}/DESCRIPTION.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

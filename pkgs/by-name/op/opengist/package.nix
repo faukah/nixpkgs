@@ -9,7 +9,6 @@
   git,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "opengist";
 
@@ -48,7 +47,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-m2f9+PEMjVhlXs7b1neEWO0VY1fQSfe+T1aNEdtML28=";
 
-  tags = [ "fs_embed" ];
+  tags = ["fs_embed"];
 
   ldflags = [
     "-s"
@@ -85,7 +84,7 @@ buildGoModule (finalAttrs: {
     license = lib.licenses.agpl3Only;
     changelog = "https://github.com/thomiceli/opengist/blob/v${finalAttrs.version}/CHANGELOG.md";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ phanirithvij ];
+    maintainers = with lib.maintainers; [phanirithvij];
     mainProgram = "opengist";
   };
 })

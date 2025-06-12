@@ -11,7 +11,6 @@
   _experimental-update-script-combinators,
   gitUpdater,
 }:
-
 flutter332.buildFlutterApplication rec {
   pname = "chatmcp";
   version = "0.0.62";
@@ -46,15 +45,15 @@ flutter332.buildFlutterApplication rec {
   passthru = {
     pubspecSource =
       runCommand "pubspec.lock.json"
-        {
-          nativeBuildInputs = [ yq ];
-          inherit (chatmcp) src;
-        }
-        ''
-          cat $src/pubspec.lock | yq > $out
-        '';
+      {
+        nativeBuildInputs = [yq];
+        inherit (chatmcp) src;
+      }
+      ''
+        cat $src/pubspec.lock | yq > $out
+      '';
     updateScript = _experimental-update-script-combinators.sequence [
-      (gitUpdater { rev-prefix = "v"; })
+      (gitUpdater {rev-prefix = "v";})
       (_experimental-update-script-combinators.copyAttrOutputToFile "chatmcp.pubspecSource" ./pubspec.lock.json)
     ];
   };
@@ -65,6 +64,6 @@ flutter332.buildFlutterApplication rec {
     mainProgram = "chatmcp";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 }

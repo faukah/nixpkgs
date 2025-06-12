@@ -2,9 +2,7 @@
   lib,
   stdenvNoCC,
   callPackage,
-}:
-
-let
+}: let
   pname = "hamrs";
   version = "1.0.7";
 
@@ -24,10 +22,9 @@ let
       "x86_64-darwin"
     ];
     mainProgram = "hamrs";
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 in
-if stdenvNoCC.hostPlatform.isDarwin then
-  callPackage ./darwin.nix { inherit pname version meta; }
-else
-  callPackage ./linux.nix { inherit pname version meta; }
+  if stdenvNoCC.hostPlatform.isDarwin
+  then callPackage ./darwin.nix {inherit pname version meta;}
+  else callPackage ./linux.nix {inherit pname version meta;}

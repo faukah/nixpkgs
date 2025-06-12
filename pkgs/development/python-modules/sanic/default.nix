@@ -24,7 +24,6 @@
   uvloop,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "sanic";
   version = "25.3.0";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     hash = "sha256-tucLXWYPpALQrPYf+aiovKHYf2iouu6jezvNdukEu9w=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiofiles
@@ -55,18 +54,20 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    ext = [ sanic-ext ];
-    http3 = [ aioquic ];
+    ext = [sanic-ext];
+    http3 = [aioquic];
   };
 
-  nativeCheckInputs = [
-    beautifulsoup4
-    gunicorn
-    pytest-asyncio
-    pytestCheckHook
-    sanic-testing
-    uvicorn
-  ] ++ optional-dependencies.http3;
+  nativeCheckInputs =
+    [
+      beautifulsoup4
+      gunicorn
+      pytest-asyncio
+      pytestCheckHook
+      sanic-testing
+      uvicorn
+    ]
+    ++ optional-dependencies.http3;
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
@@ -105,14 +106,14 @@ buildPythonPackage rec {
   # for the same local port
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "sanic" ];
+  pythonImportsCheck = ["sanic"];
 
   meta = with lib; {
     description = "Web server and web framework";
     homepage = "https://github.com/sanic-org/sanic/";
     changelog = "https://github.com/sanic-org/sanic/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ p0lyw0lf ];
+    maintainers = with maintainers; [p0lyw0lf];
     mainProgram = "sanic";
   };
 }

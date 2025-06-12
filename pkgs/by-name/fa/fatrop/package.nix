@@ -8,7 +8,6 @@
   pythonSupport ? false,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fatrop";
   version = "0.0.4";
@@ -20,11 +19,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-XVOS9L2vQeFkPXZieX1ZJiVagR0f2BtiRmSDPB9LQeI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs =
-    [ blasfeo ]
-    ++ lib.optionals pythonSupport [ python3Packages.pybind11 ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ llvmPackages.openmp ];
+    [blasfeo]
+    ++ lib.optionals pythonSupport [python3Packages.pybind11]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [llvmPackages.openmp];
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_DOCS" true)
@@ -40,6 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "nonlinear optimal control problem solver that aims to be fast, support a broad class of optimal control problems and achieve a high numerical robustness";
     homepage = "https://github.com/meco-group/fatrop";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
   };
 })

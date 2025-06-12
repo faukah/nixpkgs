@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "pup";
   version = "unstable-2022-03-06";
@@ -22,6 +21,6 @@ buildGoModule {
     mainProgram = "pup";
     homepage = "https://github.com/ericchiang/pup";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

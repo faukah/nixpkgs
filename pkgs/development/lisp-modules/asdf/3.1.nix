@@ -6,7 +6,6 @@
   texLive,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "asdf";
   version = "3.1.7";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Standard software-system definition library for Common Lisp";
     homepage = "https://asdf.common-lisp.dev/";
     license = licenses.mit;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
   };
 }

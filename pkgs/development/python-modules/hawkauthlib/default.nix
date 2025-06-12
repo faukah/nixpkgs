@@ -7,7 +7,6 @@
   webob,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "hawkauthlib";
   version = "0.1.1";
@@ -25,21 +24,21 @@ buildPythonPackage rec {
         --replace-warn 'assertEquals' 'assertEqual'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
     webob
   ];
 
-  pythonImportsCheck = [ "hawkauthlib" ];
+  pythonImportsCheck = ["hawkauthlib"];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/mozilla-services/hawkauthlib";
     description = "Hawk Access Authentication protocol";
     license = licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

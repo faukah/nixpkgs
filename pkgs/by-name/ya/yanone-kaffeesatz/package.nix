@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "yanone-kaffeesatz";
   version = "2004";
@@ -24,7 +23,7 @@ stdenvNoCC.mkDerivation {
 
   meta = {
     description = "Free font classic";
-    maintainers = with lib.maintainers; [ mt-caret ];
+    maintainers = with lib.maintainers; [mt-caret];
     platforms = with lib.platforms; all;
     homepage = "https://yanone.de/fonts/kaffeesatz/";
     license = lib.licenses.ofl;

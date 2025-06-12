@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = ''
     wrapProgram $out/bin/tplay \
-      --prefix PATH : "${lib.makeBinPath [ ffmpeg ]}"
+      --prefix PATH : "${lib.makeBinPath [ffmpeg]}"
   '';
 
   meta = {

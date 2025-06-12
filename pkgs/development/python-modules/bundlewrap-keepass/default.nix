@@ -6,7 +6,6 @@
   bundlewrap,
   pykeepass,
 }:
-
 buildPythonPackage rec {
   pname = "bundlewrap-keepass";
   version = "0.1.0";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-P41VtI8VIqSp1IXe7fzKDBGmmXmDLRm7v1qV1g35IC4";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     bundlewrap
@@ -27,12 +26,12 @@ buildPythonPackage rec {
   # upstream has no checks
   doCheck = false;
 
-  pythonImportsCheck = [ "bwkeepass" ];
+  pythonImportsCheck = ["bwkeepass"];
 
   meta = with lib; {
     homepage = "https://pypi.org/project/bundlewrap-keepass";
     description = "Use secrets from keepass in your BundleWrap repo";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

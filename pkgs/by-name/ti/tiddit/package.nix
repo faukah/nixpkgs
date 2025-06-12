@@ -45,7 +45,7 @@ python3Packages.buildPythonApplication rec {
     description = "Identify chromosomal rearrangements using Mate Pair or Paired End sequencing data";
     mainProgram = "tiddit";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ apraga ];
+    maintainers = with lib.maintainers; [apraga];
     platforms = lib.platforms.unix;
   };
 }

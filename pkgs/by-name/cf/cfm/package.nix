@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cfm";
   version = "0.6.6";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/willeccles/cfm";
     description = "Simple and fast TUI file manager with no dependencies";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ lom ];
+    maintainers = with maintainers; [lom];
     platforms = platforms.all;
     mainProgram = "cfm";
   };

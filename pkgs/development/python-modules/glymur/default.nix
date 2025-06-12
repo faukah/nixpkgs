@@ -15,7 +15,6 @@
   setuptools,
   replaceVars,
 }:
-
 buildPythonPackage rec {
   pname = "glymur";
   version = "0.13.6";
@@ -50,7 +49,7 @@ buildPythonPackage rec {
 
   __propagatedImpureHostDeps = lib.optional stdenv.hostPlatform.isDarwin "/usr/lib/libc.dylib";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     lxml
@@ -72,13 +71,13 @@ buildPythonPackage rec {
     "tests/test_config.py"
   ];
 
-  pythonImportsCheck = [ "glymur" ];
+  pythonImportsCheck = ["glymur"];
 
   meta = {
     description = "Tools for accessing JPEG2000 files";
     homepage = "https://github.com/quintusdias/glymur";
     changelog = "https://github.com/quintusdias/glymur/blob/${src.rev}/CHANGES.txt";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

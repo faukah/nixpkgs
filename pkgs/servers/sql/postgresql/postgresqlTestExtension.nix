@@ -3,15 +3,13 @@
   postgresql,
   postgresqlTestHook,
   stdenvNoCC,
-}:
-
-{
-  asserts ? [ ],
+}: {
+  asserts ? [],
   finalPackage,
   sql,
-  withPackages ? [ ],
+  withPackages ? [],
   ...
-}@extraArgs:
+} @ extraArgs:
 stdenvNoCC.mkDerivation (
   {
     name = "${finalPackage.name}-test-extension";
@@ -19,10 +17,10 @@ stdenvNoCC.mkDerivation (
     doCheck = true;
     nativeCheckInputs = [
       postgresqlTestHook
-      (postgresql.withPackages (ps: [ finalPackage ] ++ (map (p: ps."${p}") withPackages)))
+      (postgresql.withPackages (ps: [finalPackage] ++ (map (p: ps."${p}") withPackages)))
     ];
     postgresqlTestUserOptions = "LOGIN SUPERUSER";
-    passAsFile = [ "sql" ];
+    passAsFile = ["sql"];
     sql =
       sql
       + lib.concatMapStrings (
@@ -30,13 +28,13 @@ stdenvNoCC.mkDerivation (
           query,
           expected,
           description,
-        }:
-        ''
+        }: ''
           DO $$ BEGIN
-            ASSERT (${query}) = (${expected}), '${lib.replaceStrings [ "'" ] [ "''" ] description}';
+            ASSERT (${query}) = (${expected}), '${lib.replaceStrings ["'"] ["''"] description}';
           END $$;
         ''
-      ) asserts;
+      )
+      asserts;
     checkPhase = ''
       runHook preCheck
       psql -a -v ON_ERROR_STOP=1 -f "$sqlPath"

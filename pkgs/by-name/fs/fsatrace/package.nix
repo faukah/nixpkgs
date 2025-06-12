@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fsatrace";
   version = "0.0.5";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
 
   installDir = "libexec/${pname}-${version}";
 
-  makeFlags = [ "INSTALLDIR=$(out)/$(installDir)" ];
+  makeFlags = ["INSTALLDIR=$(out)/$(installDir)"];
 
   preInstall = ''
     mkdir -p $out/$installDir

@@ -13,7 +13,6 @@
   pixman,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "neatvnc";
   version = "0.9.4";
@@ -62,6 +61,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/any1/neatvnc/releases/tag/v${version}";
     license = lib.licenses.isc;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

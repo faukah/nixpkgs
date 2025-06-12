@@ -7,7 +7,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "go-task";
   version = "3.43.3";
@@ -21,9 +20,9 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-3Uu0ozwOgp6vQh+s9nGKojw6xPUI49MjjPqKh9g35lQ=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "cmd/task" ];
+  subPackages = ["cmd/task"];
 
   ldflags = [
     "-s"
@@ -51,13 +50,13 @@ buildGoModule (finalAttrs: {
   versionCheckProgram = "${placeholder "out"}/bin/task";
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://taskfile.dev/";
     description = "Task runner / simpler Make alternative written in Go";
     changelog = "https://github.com/go-task/task/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ parasrah ];
+    maintainers = with maintainers; [parasrah];
   };
 })

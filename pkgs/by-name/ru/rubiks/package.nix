@@ -6,7 +6,6 @@
   coreutils,
   dos2unix,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rubiks";
   version = "20070912";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     "PREFIX=$(out)"
   ];
 
-  nativeBuildInputs = [ dos2unix ];
+  nativeBuildInputs = [dos2unix];
 
   prePatch = ''
     find ./dietz/ -type f -exec dos2unix {} \;
@@ -108,7 +107,7 @@ stdenv.mkDerivation rec {
       gpl2 # Michael Reid's and Eric Dietz software
       mit # Dik T. Winter's software
     ];
-    teams = [ teams.sage ];
+    teams = [teams.sage];
     platforms = platforms.unix;
   };
 }

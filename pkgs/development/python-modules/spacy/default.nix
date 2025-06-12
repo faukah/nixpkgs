@@ -3,7 +3,6 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cymem,
   cython,
@@ -11,7 +10,6 @@
   numpy,
   preshed,
   thinc,
-
   # dependencies
   catalogue,
   jinja2,
@@ -27,16 +25,13 @@
   typer,
   wasabi,
   weasel,
-
   # optional-dependencies
   spacy-transformers,
   spacy-lookups-data,
-
   # tests
   pytestCheckHook,
   hypothesis,
   mock,
-
   # passthru
   writeScript,
   git,
@@ -44,7 +39,6 @@
   nix-update,
   callPackage,
 }:
-
 buildPythonPackage rec {
   pname = "spacy";
   version = "3.8.7";
@@ -66,7 +60,7 @@ buildPythonPackage rec {
     thinc
   ];
 
-  pythonRelaxDeps = [ "thinc" ];
+  pythonRelaxDeps = ["thinc"];
 
   dependencies = [
     catalogue
@@ -91,8 +85,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    transformers = [ spacy-transformers ];
-    lookups = [ spacy-lookups-data ];
+    transformers = [spacy-transformers];
+    lookups = [spacy-lookups-data];
   };
 
   nativeCheckInputs = [
@@ -106,7 +100,7 @@ buildPythonPackage rec {
     cd $out
   '';
 
-  pytestFlagsArray = [ "-m 'slow'" ];
+  pytestFlagsArray = ["-m 'slow'"];
 
   disabledTests = [
     # touches network
@@ -115,7 +109,7 @@ buildPythonPackage rec {
     "test_project_assets"
   ];
 
-  pythonImportsCheck = [ "spacy" ];
+  pythonImportsCheck = ["spacy"];
 
   passthru = {
     updateScript = writeScript "update-spacy" ''
@@ -134,7 +128,7 @@ buildPythonPackage rec {
       # update spacy models as well
       echo | nix-shell maintainers/scripts/update.nix --argstr package python3Packages.spacy-models.en_core_web_sm
     '';
-    tests.annotation = callPackage ./annotation-test { };
+    tests.annotation = callPackage ./annotation-test {};
   };
 
   meta = {
@@ -142,7 +136,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/explosion/spaCy";
     changelog = "https://github.com/explosion/spaCy/releases/tag/release-v${version}";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "spacy";
   };
 }

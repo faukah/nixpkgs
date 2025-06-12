@@ -4,76 +4,73 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.services.waagent;
 
   # Format for waagent.conf
   settingsFormat = {
-    type =
-      with types;
-      let
-        singleAtom =
-          (nullOr (oneOf [
-            bool
-            str
-            int
-            float
-          ]))
-          // {
-            description = "atom (bool, string, int or float) or null";
-          };
-        atom = either singleAtom (listOf singleAtom) // {
+    type = with types; let
+      singleAtom =
+        (nullOr (oneOf [
+          bool
+          str
+          int
+          float
+        ]))
+        // {
+          description = "atom (bool, string, int or float) or null";
+        };
+      atom =
+        either singleAtom (listOf singleAtom)
+        // {
           description = singleAtom.description + " or a list of them";
         };
-      in
+    in
       attrsOf (
         either atom (attrsOf atom)
         // {
           description = atom.description + " or an attribute set of them";
         }
       );
-    generate =
-      name: value:
-      let
-        # Transform non-attribute values
-        transform =
-          x:
-          # Transform bool to "y" or "n"
-          if (isBool x) then
-            (if x then "y" else "n")
-          # Concatenate list items with comma
-          else if (isList x) then
-            concatStringsSep "," (map transform x)
-          else
-            toString x;
+    generate = name: value: let
+      # Transform non-attribute values
+      transform = x:
+      # Transform bool to "y" or "n"
+        if (isBool x)
+        then
+          (
+            if x
+            then "y"
+            else "n"
+          )
+        # Concatenate list items with comma
+        else if (isList x)
+        then concatStringsSep "," (map transform x)
+        else toString x;
 
-        # Convert to format of waagent.conf
-        recurse =
-          path: value:
-          if builtins.isAttrs value then
-            pipe value [
-              (mapAttrsToList (k: v: recurse (path ++ [ k ]) v))
-              concatLists
-            ]
-          else
-            [
-              {
-                name = concatStringsSep "." path;
-                inherit value;
-              }
-            ];
-        convert =
-          attrs:
-          pipe (recurse [ ] attrs) [
-            # Filter out null values and empty lists
-            (filter (kv: kv.value != null && kv.value != [ ]))
-            # Transform to Key=Value form, then concatenate
-            (map (kv: "${kv.name}=${transform kv.value}"))
-            (concatStringsSep "\n")
-          ];
-      in
+      # Convert to format of waagent.conf
+      recurse = path: value:
+        if builtins.isAttrs value
+        then
+          pipe value [
+            (mapAttrsToList (k: v: recurse (path ++ [k]) v))
+            concatLists
+          ]
+        else [
+          {
+            name = concatStringsSep "." path;
+            inherit value;
+          }
+        ];
+      convert = attrs:
+        pipe (recurse [] attrs) [
+          # Filter out null values and empty lists
+          (filter (kv: kv.value != null && kv.value != []))
+          # Transform to Key=Value form, then concatenate
+          (map (kv: "${kv.name}=${transform kv.value}"))
+          (concatStringsSep "\n")
+        ];
+    in
       pkgs.writeText name (convert value);
   };
 
@@ -148,7 +145,7 @@ let
 
         MountOptions = mkOption {
           type = with types; listOf str;
-          default = [ ];
+          default = [];
           example = [
             "nodev"
             "nosuid"
@@ -237,15 +234,14 @@ let
       };
     };
   };
-in
-{
+in {
   options.services.waagent = {
     enable = lib.mkEnableOption "Windows Azure Linux Agent";
 
-    package = lib.mkPackageOption pkgs "waagent" { };
+    package = lib.mkPackageOption pkgs "waagent" {};
 
     extraPackages = lib.mkOption {
-      default = [ ];
+      default = [];
       description = ''
         Additional packages to add to the waagent {env}`PATH`.
       '';
@@ -255,7 +251,7 @@ in
 
     settings = lib.mkOption {
       type = settingsType;
-      default = { };
+      default = {};
       description = ''
         The waagent.conf configuration, see https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/agent-linux for documentation.
       '';
@@ -270,18 +266,18 @@ in
       }
     ];
 
-    boot.initrd.kernelModules = [ "ata_piix" ];
-    networking.firewall.allowedUDPPorts = [ 68 ];
+    boot.initrd.kernelModules = ["ata_piix"];
+    networking.firewall.allowedUDPPorts = [68];
 
-    services.udev.packages = with pkgs; [ waagent ];
+    services.udev.packages = with pkgs; [waagent];
 
     boot.initrd.services.udev = with pkgs; {
       # Provide waagent-shipped udev rules in initrd too.
-      packages = [ waagent ];
+      packages = [waagent];
       # udev rules shell out to chmod, cut and readlink, which are all
       # provided by pkgs.coreutils, which is in services.udev.path, but not
       # boot.initrd.services.udev.binPackages.
-      binPackages = [ coreutils ];
+      binPackages = [coreutils];
     };
 
     networking.dhcpcd.persistent = true;
@@ -314,7 +310,7 @@ in
         "waagent.service"
       ];
 
-      path = [ pkgs.coreutils ];
+      path = [pkgs.coreutils];
       script = ''
         echo "Fetching entropy..."
         cat /sys/firmware/acpi/tables/OEM0 > /dev/random
@@ -326,18 +322,19 @@ in
     };
 
     systemd.services.waagent = {
-      wantedBy = [ "multi-user.target" ];
-      after = [
-        "network-online.target"
-      ] ++ lib.optionals config.services.cloud-init.enable [ "cloud-init.service" ];
+      wantedBy = ["multi-user.target"];
+      after =
+        [
+          "network-online.target"
+        ]
+        ++ lib.optionals config.services.cloud-init.enable ["cloud-init.service"];
       wants = [
         "network-online.target"
         "sshd.service"
         "sshd-keygen.service"
       ];
 
-      path =
-        with pkgs;
+      path = with pkgs;
         [
           e2fsprogs
           bash

@@ -8,7 +8,6 @@
   libGLU,
   catch,
 }:
-
 stdenv.mkDerivation {
   pname = "recastai";
   # use latest revision for the CMake build process and OpenMW
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
 
   doCheck = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     libGL
@@ -53,7 +52,7 @@ stdenv.mkDerivation {
     description = "Navigation-mesh Toolset for Games";
     mainProgram = "RecastDemo";
     license = licenses.zlib;
-    maintainers = with maintainers; [ marius851000 ];
+    maintainers = with maintainers; [marius851000];
     platforms = platforms.all;
   };
 }

@@ -11,7 +11,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "signify";
   version = "0.7.1";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-yQCb7vNbz+ZGftqlEUUh6UUuxwv5+zhvBJmUn1eNgqM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     asn1crypto
@@ -36,15 +35,15 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "signify" ];
+  pythonImportsCheck = ["signify"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     changelog = "https://github.com/ralphje/signify/blob/refs/tags/${src.tag}/docs/changelog.rst";
     description = "library that verifies PE Authenticode-signed binaries";
     homepage = "https://github.com/ralphje/signify";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ baloo ];
+    maintainers = with lib.maintainers; [baloo];
   };
 }

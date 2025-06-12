@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "pyttsx3";
   version = "2.98";
@@ -23,6 +22,6 @@ buildPythonPackage rec {
     description = "Offline text-to-speech synthesis library";
     homepage = "https://github.com/nateshmbhat/pyttsx3";
     license = licenses.mpl20;
-    maintainers = [ maintainers.ethindp ];
+    maintainers = [maintainers.ethindp];
   };
 }

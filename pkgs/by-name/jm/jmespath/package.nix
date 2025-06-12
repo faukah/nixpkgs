@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "jmespath";
   version = "0.4.0";
@@ -30,7 +29,7 @@ buildGoModule rec {
     description = "JMESPath implementation in Go";
     homepage = "https://github.com/jmespath/go-jmespath";
     license = licenses.asl20;
-    maintainers = with maintainers; [ cransom ];
+    maintainers = with maintainers; [cransom];
     mainProgram = "jpgo";
   };
 }

@@ -3,21 +3,19 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   inherit (lib) mkIf mkEnableOption mkPackageOption;
 
   cfg = config.services.cato-client;
-in
-{
+in {
   options.services.cato-client = {
     enable = mkEnableOption "cato-client service";
-    package = mkPackageOption pkgs "cato-client" { };
+    package = mkPackageOption pkgs "cato-client" {};
   };
 
   config = mkIf cfg.enable {
     users = {
-      groups.cato-client = { };
+      groups.cato-client = {};
     };
 
     environment.systemPackages = [
@@ -27,7 +25,7 @@ in
     systemd.services.cato-client = {
       enable = true;
       description = "Cato Networks Linux client - connects tunnel to Cato cloud";
-      after = [ "network.target" ];
+      after = ["network.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -52,7 +50,7 @@ in
         ProtectSystem = true;
       };
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     # set up Security wrapper Same as intended in deb post install

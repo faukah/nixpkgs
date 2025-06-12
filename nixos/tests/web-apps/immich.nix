@@ -1,24 +1,21 @@
-{ ... }:
-{
+{...}: {
   name = "immich-nixos";
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      # These tests need a little more juice
-      virtualisation = {
-        cores = 2;
-        memorySize = 2048;
-        diskSize = 4096;
-      };
-
-      environment.systemPackages = with pkgs; [ immich-cli ];
-
-      services.immich = {
-        enable = true;
-        environment.IMMICH_LOG_LEVEL = "verbose";
-      };
+  nodes.machine = {pkgs, ...}: {
+    # These tests need a little more juice
+    virtualisation = {
+      cores = 2;
+      memorySize = 2048;
+      diskSize = 4096;
     };
+
+    environment.systemPackages = with pkgs; [immich-cli];
+
+    services.immich = {
+      enable = true;
+      environment.IMMICH_LOG_LEVEL = "verbose";
+    };
+  };
 
   testScript = ''
     import json

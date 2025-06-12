@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bashmount";
   version = "4.3.2";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jamielinux/bashmount";
     description = "Menu-driven bash script for the management of removable media with udisks";
     mainProgram = "bashmount";
-    maintainers = [ maintainers.koral ];
+    maintainers = [maintainers.koral];
     license = licenses.gpl2Only;
     platforms = platforms.all;
   };

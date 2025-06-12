@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchurl,
 }:
-
 buildDunePackage rec {
   pname = "atdgen-codec-runtime";
   version = "2.16.0";
@@ -16,7 +15,7 @@ buildDunePackage rec {
   meta = {
     description = "Runtime for atdgen generated bucklescript converters";
     homepage = "https://github.com/ahrefs/atd";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     license = lib.licenses.mit;
   };
 }

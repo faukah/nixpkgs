@@ -3,19 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.whoami;
-in
-
-{
-  meta.maintainers = with lib.maintainers; [ defelo ];
+in {
+  meta.maintainers = with lib.maintainers; [defelo];
 
   options.services.whoami = {
     enable = lib.mkEnableOption "whoami";
 
-    package = lib.mkPackageOption pkgs "whoami" { };
+    package = lib.mkPackageOption pkgs "whoami" {};
 
     port = lib.mkOption {
       type = lib.types.port;
@@ -26,16 +22,16 @@ in
     extraArgs = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "Extra command line arguments to pass to whoami. See <https://github.com/traefik/whoami#flags> for details.";
-      default = [ ];
+      default = [];
     };
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.whoami = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
 
       serviceConfig = {
         User = "whoami";
@@ -52,7 +48,7 @@ in
 
         # Hardening
         AmbientCapabilities = "";
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DevicePolicy = "closed";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -71,7 +67,7 @@ in
         ProtectProc = "invisible";
         ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET AF_INET6" ];
+        RestrictAddressFamilies = ["AF_INET AF_INET6"];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;

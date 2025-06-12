@@ -17,7 +17,6 @@
   qt6Packages,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ovito";
   version = "3.12.2";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-qpKQAO2f1TfspqjbCLA/3ERWdMeknKe0a54yd9PZbsA=";
     fetchSubmodules = true;
   };
-  patches = [ ./zstd.patch ];
+  patches = [./zstd.patch];
 
   nativeBuildInputs = [
     cmake
@@ -66,20 +65,18 @@ stdenv.mkDerivation rec {
       startupNotify = false;
       desktopName = "ovito";
       startupWMClass = "Ovito";
-      categories = [ "Science" ];
+      categories = ["Science"];
     })
   ];
 
-  postInstall =
-    let
-      icon = fetchurl {
-        url = "https://www.ovito.org/wp-content/uploads/logo_rgb-768x737.png";
-        hash = "sha256-FOmIUeXem+4MjavQNag0UIlcR2wa2emJjivwxoJh6fI=";
-      };
-    in
-    ''
-      install -Dm644 ${icon} $out/share/pixmaps/ovito.png
-    '';
+  postInstall = let
+    icon = fetchurl {
+      url = "https://www.ovito.org/wp-content/uploads/logo_rgb-768x737.png";
+      hash = "sha256-FOmIUeXem+4MjavQNag0UIlcR2wa2emJjivwxoJh6fI=";
+    };
+  in ''
+    install -Dm644 ${icon} $out/share/pixmaps/ovito.png
+  '';
 
   meta = with lib; {
     description = "Scientific visualization and analysis software for atomistic and particle simulation data";

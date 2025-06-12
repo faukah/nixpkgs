@@ -5,7 +5,6 @@
   cmake,
   obs-studio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-command-source";
   version = "0.5.0";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yrzY4pHSupkkdRlx725oSVtQTH1Ci9zFolHN3i2Vm28=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ obs-studio ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [obs-studio];
 
   postInstall = ''
     mkdir $out/lib $out/share
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "OBS Studio plugin that provides a dummy source to execute arbitrary commands when a scene is switched";
     homepage = "https://github.com/norihiro/command-source";
-    maintainers = with maintainers; [ flexiondotorg ];
+    maintainers = with maintainers; [flexiondotorg];
     license = licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"

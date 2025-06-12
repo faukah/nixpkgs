@@ -5,12 +5,11 @@
   stdenv,
   runtimeShell,
   bashInteractive,
-
   # apparmor deps
   libapparmor,
   apparmor-parser,
-}:
-(runCommand "logprof_conf"
+}: (
+  runCommand "logprof_conf"
   {
     header = ''
       [settings]
@@ -36,7 +35,7 @@
         ${bashInteractive}/bin/sh = icnu
         ${bashInteractive}/bin/bash = icnu
     '';
-    passAsFile = [ "header" ];
+    passAsFile = ["header"];
   }
   ''
     mkdir $out

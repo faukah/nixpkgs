@@ -3,26 +3,22 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.sonic-server;
 
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   configFile = settingsFormat.generate "sonic-server-config.toml" cfg.settings;
-
-in
-{
-  meta.maintainers = [ lib.maintainers.anthonyroussel ];
+in {
+  meta.maintainers = [lib.maintainers.anthonyroussel];
 
   options = {
     services.sonic-server = {
       enable = lib.mkEnableOption "Sonic Search Index";
 
-      package = lib.mkPackageOption pkgs "sonic-server" { };
+      package = lib.mkPackageOption pkgs "sonic-server" {};
 
       settings = lib.mkOption {
-        type = lib.types.submodule { freeformType = settingsFormat.type; };
+        type = lib.types.submodule {freeformType = settingsFormat.type;};
         default = {
           store.kv.path = "/var/lib/sonic/kv";
           store.fst.path = "/var/lib/sonic/fst";
@@ -44,18 +40,18 @@ in
 
   config = lib.mkIf cfg.enable {
     services.sonic-server.settings = lib.mapAttrs (name: lib.mkDefault) {
-      server = { };
-      channel.search = { };
+      server = {};
+      channel.search = {};
       store = {
         kv = {
           path = "/var/lib/sonic/kv";
-          database = { };
-          pool = { };
+          database = {};
+          pool = {};
         };
         fst = {
           path = "/var/lib/sonic/fst";
-          graph = { };
-          pool = { };
+          graph = {};
+          pool = {};
         };
       };
     };
@@ -63,8 +59,8 @@ in
     systemd.services.sonic-server = {
       description = "Sonic Search Index";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         Type = "simple";

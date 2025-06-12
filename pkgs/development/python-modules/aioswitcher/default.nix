@@ -16,7 +16,6 @@
   pytz,
   time-machine,
 }:
-
 buildPythonPackage rec {
   pname = "aioswitcher";
   version = "6.0.1";
@@ -33,9 +32,9 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  pythonRelaxDeps = [ "aiohttp" ];
+  pythonRelaxDeps = ["aiohttp"];
 
   dependencies = [
     aiohttp
@@ -71,13 +70,13 @@ buildPythonPackage rec {
       "test_current_timestamp_to_hexadecimal_with_errornous_value_should_throw_an_error"
     ];
 
-  pythonImportsCheck = [ "aioswitcher" ];
+  pythonImportsCheck = ["aioswitcher"];
 
   meta = with lib; {
     description = "Python module to interact with Switcher water heater";
     homepage = "https://github.com/TomerFi/aioswitcher";
     changelog = "https://github.com/TomerFi/aioswitcher/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

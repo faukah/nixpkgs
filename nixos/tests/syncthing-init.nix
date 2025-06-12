@@ -1,12 +1,12 @@
-{ lib, pkgs, ... }:
-let
-
-  testId = "7CFNTQM-IMTJBHJ-3UWRDIU-ZGQJFR6-VCXZ3NB-XUH3KZO-N52ITXR-LAIYUAU";
-
-in
 {
+  lib,
+  pkgs,
+  ...
+}: let
+  testId = "7CFNTQM-IMTJBHJ-3UWRDIU-ZGQJFR6-VCXZ3NB-XUH3KZO-N52ITXR-LAIYUAU";
+in {
   name = "syncthing-init";
-  meta.maintainers = with pkgs.lib.maintainers; [ lassulus ];
+  meta.maintainers = with pkgs.lib.maintainers; [lassulus];
 
   nodes.machine = {
     services.syncthing = {
@@ -16,7 +16,7 @@ in
       };
       settings.folders.testFolder = {
         path = "/tmp/test";
-        devices = [ "testDevice" ];
+        devices = ["testDevice"];
       };
       settings.gui.user = "guiUser";
     };

@@ -7,7 +7,6 @@
   python3,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "3.4";
   pname = "hmmer";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doInstallCheck = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   versionCheckProgram = "${placeholder "out"}/bin/hmmalign";
 
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://hmmer.org/";
     changelog = "https://github.com/EddyRivasLab/hmmer/blob/hmmer-${finalAttrs.version}/release-notes/RELEASE-${finalAttrs.version}.md";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.iimog ];
+    maintainers = [lib.maintainers.iimog];
     platforms = lib.platforms.unix;
   };
 })

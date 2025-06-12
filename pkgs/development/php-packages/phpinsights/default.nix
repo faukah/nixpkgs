@@ -4,7 +4,6 @@
   php,
   versionCheckHook,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "phpinsights";
   version = "2.12.0";
@@ -32,6 +31,6 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://phpinsights.com/";
     license = lib.licenses.mit;
     mainProgram = "phpinsights";
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 })

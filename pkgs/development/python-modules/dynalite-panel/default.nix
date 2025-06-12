@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "dynalite-panel";
   version = "0.0.4";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
       --replace "~=" ">="
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "dynalite_panel" ];
+  pythonImportsCheck = ["dynalite_panel"];
 
   # upstream has no tests
   doCheck = false;
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "Dynalite panel for Home Assistant";
     homepage = "https://github.com/ziv1234/dynalitepanel";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

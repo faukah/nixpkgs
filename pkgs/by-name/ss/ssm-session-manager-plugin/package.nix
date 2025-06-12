@@ -43,7 +43,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-wK+aWRC5yrPtdihXAj6RlYC9ZTTPuGUg9wLY33skzeE=";
 
-  subPackages = [ "src/sessionmanagerplugin-main" ];
+  subPackages = ["src/sessionmanagerplugin-main"];
 
   preBuild = ''
     echo -n ${lib.escapeShellArg version} > VERSION
@@ -51,7 +51,7 @@ buildGoModule rec {
   '';
 
   doCheck = true;
-  checkFlags = [ "-skip=TestSetSessionHandlers" ];
+  checkFlags = ["-skip=TestSetSessionHandlers"];
 
   # The AWS CLI is expecting the binary name to be 'session-manager-plugin' and
   # since the outfile is different the following workaround is renaming the binary.

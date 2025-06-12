@@ -5,7 +5,6 @@
   pam,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   version = "13";
   pname = "physlock";

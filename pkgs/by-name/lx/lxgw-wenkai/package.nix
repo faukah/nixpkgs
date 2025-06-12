@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "lxgw-wenkai";
   version = "1.511";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Open-source Chinese font derived from Fontworks' Klee One";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ryanccn ];
+    maintainers = with maintainers; [ryanccn];
   };
 }

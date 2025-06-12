@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.zoneminder;
   fpm = config.services.phpfpm.pools.zoneminder;
   pkg = pkgs.zoneminder;
@@ -18,20 +16,25 @@ let
       nginx = config.services.nginx.group;
       none = user;
     }
-    .${cfg.webserver};
+    .${
+      cfg.webserver
+    };
 
   useNginx = cfg.webserver == "nginx";
 
   defaultDir = "/var/lib/${user}";
-  home = if useCustomDir then cfg.storageDir else defaultDir;
+  home =
+    if useCustomDir
+    then cfg.storageDir
+    else defaultDir;
 
   useCustomDir = cfg.storageDir != null;
 
   zms = "/cgi-bin/zms";
 
-  dirs = dirList: [ dirName ] ++ map (e: "${dirName}/${e}") dirList;
+  dirs = dirList: [dirName] ++ map (e: "${dirName}/${e}") dirList;
 
-  cacheDirs = [ "swap" ];
+  cacheDirs = ["swap"];
   libDirs = [
     "events"
     "exports"
@@ -39,8 +42,7 @@ let
     "sounds"
   ];
 
-  dirStanzas =
-    baseDir: lib.concatStringsSep "\n" (map (e: "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}") libDirs);
+  dirStanzas = baseDir: lib.concatStringsSep "\n" (map (e: "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}") libDirs);
 
   defaultsFile = pkgs.writeText "60-defaults.conf" ''
     # 01-system-paths.conf
@@ -72,9 +74,7 @@ let
 
     ${cfg.extraConfig}
   '';
-
-in
-{
+in {
   options = {
     services.zoneminder = with lib; {
       enable = lib.mkEnableOption ''
@@ -198,7 +198,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     assertions = [
       {
         assertion = cfg.database.createLocally -> cfg.database.username == user;
@@ -221,13 +220,13 @@ in
         process.prefork = cfg.cameras;
         process.user = user;
         process.group = group;
-        socket = { inherit (config.services.nginx) user group; };
+        socket = {inherit (config.services.nginx) user group;};
       };
 
       mysql = lib.mkIf cfg.database.createLocally {
         enable = true;
         package = lib.mkDefault pkgs.mariadb;
-        ensureDatabases = [ cfg.database.name ];
+        ensureDatabases = [cfg.database.name];
         ensureUsers = [
           {
             name = cfg.database.username;
@@ -307,12 +306,15 @@ in
         pools.zoneminder = {
           inherit user group;
           phpPackage = pkgs.php.withExtensions (
-            { enabled, all }:
-            enabled
-            ++ [
-              all.apcu
-              all.sysvsem
-            ]
+            {
+              enabled,
+              all,
+            }:
+              enabled
+              ++ [
+                all.apcu
+                all.sysvsem
+              ]
           );
           phpOptions = ''
             date.timezone = "${config.time.timeZone}"
@@ -338,14 +340,14 @@ in
     systemd.services = {
       zoneminder = with pkgs; {
         inherit (zoneminder.meta) description;
-        documentation = [ "https://zoneminder.readthedocs.org/en/latest/" ];
+        documentation = ["https://zoneminder.readthedocs.org/en/latest/"];
         path = [
           coreutils
           procps
           psmisc
         ];
-        after = [ "nginx.service" ] ++ lib.optional cfg.database.createLocally "mysql.service";
-        wantedBy = [ "multi-user.target" ];
+        after = ["nginx.service"] ++ lib.optional cfg.database.createLocally "mysql.service";
+        wantedBy = ["multi-user.target"];
         restartTriggers = [
           defaultsFile
           configFile
@@ -374,7 +376,7 @@ in
         serviceConfig = {
           User = user;
           Group = group;
-          SupplementaryGroups = [ "video" ];
+          SupplementaryGroups = ["video"];
           ExecStart = "${zoneminder}/bin/zmpkg.pl start";
           ExecStop = "${zoneminder}/bin/zmpkg.pl stop";
           ExecReload = "${zoneminder}/bin/zmpkg.pl restart";
@@ -384,7 +386,7 @@ in
           RestartSec = "10s";
           CacheDirectory = dirs cacheDirs;
           RuntimeDirectory = dirName;
-          ReadWritePaths = lib.mkIf useCustomDir [ cfg.storageDir ];
+          ReadWritePaths = lib.mkIf useCustomDir [cfg.storageDir];
           StateDirectory = dirs (lib.optionals (!useCustomDir) libDirs);
           LogsDirectory = dirName;
           PrivateTmp = true;
@@ -408,5 +410,5 @@ in
     };
   };
 
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 }

@@ -6,7 +6,6 @@
   stdenv,
   primecount,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "primesieve";
   version = "12.9";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     "man"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   strictDeps = true;
 
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       inherit primecount; # dependent
     };
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/kimwalisch/primesieve/blob/${finalAttrs.src.rev}/ChangeLog";
     license = lib.licenses.bsd2;
     mainProgram = "primesieve";
-    teams = [ lib.teams.sage ];
+    teams = [lib.teams.sage];
     platforms = lib.platforms.unix;
   };
 })

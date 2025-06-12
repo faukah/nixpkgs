@@ -7,8 +7,7 @@
   figlet,
   hello,
   zlib,
-}:
-{
+}: {
   inherit
     figlet
     hello
@@ -22,8 +21,8 @@
   path = ./apath.txt;
   pathLike.outPath = ./apath.txt;
   helloFigletRef = writeText "hi" "hello ${hello} ${figlet}";
-  selfRef = runCommand "self-ref-1" { } "echo $out >$out";
-  selfRef2 = runCommand "self-ref-2" { } ''echo "${figlet}, $out" >$out'';
+  selfRef = runCommand "self-ref-1" {} "echo $out >$out";
+  selfRef2 = runCommand "self-ref-2" {} ''echo "${figlet}, $out" >$out'';
   inherit
     emptyFile
     emptyDirectory

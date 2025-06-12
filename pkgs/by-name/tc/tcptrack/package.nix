@@ -6,7 +6,6 @@
   ncurses,
   libpcap,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tcptrack";
   version = "unstable-2017-04-29";
@@ -41,6 +40,6 @@ stdenv.mkDerivation rec {
     mainProgram = "tcptrack";
     license = licenses.lgpl21;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

@@ -3,14 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.novacomd;
-
-in
-{
-
+in {
   options = {
     services.novacomd = {
       enable = lib.mkEnableOption "Novacom service for connecting to WebOS devices";
@@ -18,11 +13,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.webos.novacom ];
+    environment.systemPackages = [pkgs.webos.novacom];
 
     systemd.services.novacomd = {
       description = "Novacom WebOS daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.webos.novacomd}/sbin/novacomd";
@@ -30,5 +25,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ dtzWill ];
+  meta.maintainers = with lib.maintainers; [dtzWill];
 }

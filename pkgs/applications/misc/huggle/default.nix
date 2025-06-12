@@ -11,7 +11,6 @@
   yaml-cpp,
   libirc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "huggle";
   version = "3.4.13";
@@ -61,14 +60,14 @@ stdenv.mkDerivation rec {
     "-DHUGGLE_EXT=TRUE"
   ];
 
-  installTargets = [ "install" ];
+  installTargets = ["install"];
 
   meta = with lib; {
     description = "Anti-vandalism tool for use on MediaWiki-based projects";
     mainProgram = "huggle";
     homepage = "https://github.com/huggle/huggle3-qt-lx";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.fee1-dead ];
+    maintainers = [maintainers.fee1-dead];
     platforms = platforms.x86_64;
   };
 }

@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools-scm,
-
   # dependencies
   fastprogress,
   jax,
@@ -13,14 +11,11 @@
   jaxopt,
   optax,
   typing-extensions,
-
   # checks
   pytestCheckHook,
   pytest-xdist,
-
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "blackjax";
   version = "1.2.5";
@@ -33,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-2GTjKjLIWFaluTjdWdUF9Iim973y81xv715xspghRZI=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     fastprogress
@@ -84,13 +79,13 @@ buildPythonPackage rec {
       "test_chees_adaptation"
     ];
 
-  pythonImportsCheck = [ "blackjax" ];
+  pythonImportsCheck = ["blackjax"];
 
   meta = {
     homepage = "https://blackjax-devs.github.io/blackjax";
     description = "Sampling library designed for ease of use, speed and modularity";
     changelog = "https://github.com/blackjax-devs/blackjax/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

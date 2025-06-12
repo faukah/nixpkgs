@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "fx";
   version = "36.0.3";
@@ -18,9 +17,9 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-8KiCj2khO0zxsZDG1YD0EjsoZSY4q+IXC+NLeeXgVj4=";
 
-  ldflags = [ "-s" ];
+  ldflags = ["-s"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd fx \
@@ -35,6 +34,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/antonmedv/fx";
     license = lib.licenses.mit;
     mainProgram = "fx";
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 })

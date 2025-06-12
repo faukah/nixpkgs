@@ -11,7 +11,6 @@
   gcc,
   icu,
 }:
-
 stdenv.mkDerivation rec {
   pname = "urweb";
   version = "20200209";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     sed -e 's@/usr/bin/file@${file}/bin/file@g' -i configure
   '';
 
-  configureFlags = [ "--with-openssl=${openssl.dev}" ];
+  configureFlags = ["--with-openssl=${openssl.dev}"];
 
   preConfigure = ''
     export MSHEADER="${libmysqlclient}/include/mysql/mysql.h";

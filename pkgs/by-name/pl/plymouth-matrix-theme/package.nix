@@ -4,7 +4,6 @@
   lib,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "plymouth-matrix-theme";
   version = "0.1.0-unstable-2017-02-19";
@@ -31,7 +30,7 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Plymouth boot theme inspired by Matrix";
@@ -43,6 +42,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/storax/plymouth-matrix-theme";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ johnrtitor ];
+    maintainers = with lib.maintainers; [johnrtitor];
   };
 }

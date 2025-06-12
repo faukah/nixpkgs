@@ -5,7 +5,6 @@
   cmake,
   obs-studio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-dir-watch-media";
   version = "0.7.0";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zvg8Bu5wlcQe91ggteEj7G9Kx+mY1R6EN64T13vp7pc=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ obs-studio ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [obs-studio];
 
   postInstall = ''
     rm -rf $out/obs-plugins $out/data
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Plugin for OBS Studio adding a filter that can watch a directory for media files";
     homepage = "https://github.com/exeldro/obs-dir-watch-media";
-    maintainers = with maintainers; [ flexiondotorg ];
+    maintainers = with maintainers; [flexiondotorg];
     license = licenses.gpl2Only;
     platforms = [
       "x86_64-linux"

@@ -2,7 +2,6 @@
   callPackage,
   fetchFromGitHub,
 }:
-
 callPackage ../generic.nix rec {
   pname = "experienced-pixel-dungeon";
   version = "2.19";

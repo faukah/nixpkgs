@@ -29,7 +29,6 @@
   urllib3,
   url-normalize,
 }:
-
 buildPythonPackage rec {
   pname = "requests-cache";
   version = "1.2.1";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     hash = "sha256-juRCcBUr+Ko6kVPpUapwRbUGqWLKaRiCqppOc3S5FMU=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     attrs
@@ -60,12 +59,12 @@ buildPythonPackage rec {
       boto3
       botocore
     ];
-    mongodbo = [ pymongo ];
-    redis = [ redis ];
-    bson = [ bson ];
-    json = [ ujson ];
-    security = [ itsdangerous ];
-    yaml = [ pyyaml ];
+    mongodbo = [pymongo];
+    redis = [redis];
+    bson = [bson];
+    json = [ujson];
+    security = [itsdangerous];
+    yaml = [pyyaml];
   };
 
   nativeCheckInputs =
@@ -101,13 +100,13 @@ buildPythonPackage rec {
     "test_stale_if_error__error_code"
   ];
 
-  pythonImportsCheck = [ "requests_cache" ];
+  pythonImportsCheck = ["requests_cache"];
 
   meta = with lib; {
     description = "Persistent cache for requests library";
     homepage = "https://github.com/reclosedev/requests-cache";
     changelog = "https://github.com/requests-cache/requests-cache/blob/v${version}/HISTORY.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

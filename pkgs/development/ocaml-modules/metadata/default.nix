@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchFromGitHub,
 }:
-
 buildDunePackage rec {
   pname = "metadata";
   version = "0.3.1";
@@ -21,6 +20,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-metadata";
     description = "Library to read metadata from files in various formats.";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

@@ -9,7 +9,6 @@
   pytest-django,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "django-filter";
   version = "25.1";
@@ -22,11 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-ODbBlaJo6sgXkFxLNhqwGTXSHs2d6R6wGKyDz5qA7bs=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
-  pythonImportsCheck = [ "django_filters" ];
+  pythonImportsCheck = ["django_filters"];
 
   nativeCheckInputs = [
     djangorestframework
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/carltongibson/django-filter";
     changelog = "https://github.com/carltongibson/django-filter/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mmai ];
+    maintainers = with maintainers; [mmai];
   };
 }

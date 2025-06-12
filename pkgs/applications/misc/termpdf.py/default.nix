@@ -12,7 +12,6 @@
   pagelabels,
   setuptools,
 }:
-
 buildPythonApplication {
   pname = "termpdf.py";
   version = "2022-03-28";
@@ -46,7 +45,7 @@ buildPythonApplication {
     '';
     mainProgram = "termpdf.py";
     homepage = "https://github.com/dsanson/termpdf.py";
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
     license = licenses.mit;
   };
 }

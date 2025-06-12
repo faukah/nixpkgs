@@ -15,7 +15,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "pyipp";
   version = "0.17.1";
@@ -36,15 +35,17 @@ buildPythonPackage rec {
       --replace-fail "--cov" ""
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [
-    aiohttp
-    awesomeversion
-    backoff
-    deepmerge
-    yarl
-  ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
+  dependencies =
+    [
+      aiohttp
+      awesomeversion
+      backoff
+      deepmerge
+      yarl
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [async-timeout];
 
   nativeCheckInputs = [
     aresponses
@@ -55,13 +56,13 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "pyipp" ];
+  pythonImportsCheck = ["pyipp"];
 
   meta = with lib; {
     changelog = "https://github.com/ctalkington/python-ipp/releases/tag/${version}";
     description = "Asynchronous Python client for Internet Printing Protocol (IPP)";
     homepage = "https://github.com/ctalkington/python-ipp";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

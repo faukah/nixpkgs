@@ -5,7 +5,6 @@
   makeWrapper,
   bundlerUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jsduck";
   version = (import ./gemset.nix).jsduck.version;
@@ -19,8 +18,8 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ env ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [env];
 
   installPhase = ''
     mkdir -p $out/bin

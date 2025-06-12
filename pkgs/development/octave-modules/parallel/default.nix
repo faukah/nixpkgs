@@ -6,7 +6,6 @@
   gnutls,
   pkg-config,
 }:
-
 buildOctavePackage rec {
   pname = "parallel";
   version = "4.0.1";
@@ -34,7 +33,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/parallel/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Parallel execution package";
     # Although upstream has added an identical patch to that of ../database, it
     # still won't build with octave>8.1

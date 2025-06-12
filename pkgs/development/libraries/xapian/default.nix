@@ -5,21 +5,17 @@
   autoreconfHook,
   libuuid,
   zlib,
-
   # tests
   mu,
   perlPackages,
   python3,
   xapian-omega,
-}:
-
-let
-  generic =
-    version: hash:
+}: let
+  generic = version: hash:
     stdenv.mkDerivation {
       pname = "xapian";
       inherit version;
-      passthru = { inherit version; };
+      passthru = {inherit version;};
 
       src = fetchurl {
         url = "https://oligarchy.co.uk/xapian/${version}/xapian-core-${version}.tar.xz";
@@ -36,7 +32,7 @@ let
         libuuid
         zlib
       ];
-      nativeBuildInputs = [ autoreconfHook ];
+      nativeBuildInputs = [autoreconfHook];
 
       enableParallelBuilding = true;
 
@@ -68,12 +64,11 @@ let
         homepage = "https://xapian.org/";
         changelog = "https://xapian.org/docs/xapian-core-${version}/NEWS";
         license = licenses.gpl2Plus;
-        maintainers = with maintainers; [ matthiasbeyer ];
+        maintainers = with maintainers; [matthiasbeyer];
         platforms = platforms.unix;
       };
     };
-in
-{
+in {
   # Don't forget to change the hashes in xapian-omega and
   # python3Packages.xapian. They inherit the version from this package, and
   # should always be built with the equivalent xapian version.

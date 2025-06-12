@@ -17,7 +17,6 @@
   testers,
   libgbm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libdevil";
   version = "1.8.0";
@@ -84,8 +83,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Image library which can can load, save, convert, manipulate, filter and display a wide variety of image formats";
     mainProgram = "ilur";
     license = licenses.lgpl2;
-    pkgConfigModules = [ "IL" ];
+    pkgConfigModules = ["IL"];
     inherit (libgbm.meta) platforms;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

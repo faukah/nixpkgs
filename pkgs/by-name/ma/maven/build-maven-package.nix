@@ -3,29 +3,25 @@
   stdenv,
   jdk,
   maven,
-}:
-
-{
+}: {
   src,
   sourceRoot ? null,
   buildOffline ? false,
   doCheck ? true,
-  patches ? [ ],
+  patches ? [],
   pname,
   version,
   mvnJdk ? jdk,
   mvnHash ? "",
-  mvnFetchExtraArgs ? { },
+  mvnFetchExtraArgs ? {},
   mvnDepsParameters ? "",
-  manualMvnArtifacts ? [ ],
-  manualMvnSources ? [ ],
+  manualMvnArtifacts ? [],
+  manualMvnSources ? [],
   mvnParameters ? "",
   ...
-}@args:
-
+} @ args:
 # originally extracted from dbeaver
 # created to allow using maven packages in the same style as rust
-
 let
   mvnSkipTests = lib.optionalString (!doCheck) "-DskipTests";
   fetchedMavenDeps = stdenv.mkDerivation (
@@ -33,9 +29,11 @@ let
       name = "${pname}-${version}-maven-deps";
       inherit src sourceRoot patches;
 
-      nativeBuildInputs = [
-        maven
-      ] ++ args.nativeBuildInputs or [ ];
+      nativeBuildInputs =
+        [
+          maven
+        ]
+        ++ args.nativeBuildInputs or [];
 
       JAVA_HOME = mvnJdk;
 
@@ -82,36 +80,43 @@ let
 
       # don't do any fixup
       dontFixup = true;
-      outputHashAlgo = if mvnHash != "" then null else "sha256";
+      outputHashAlgo =
+        if mvnHash != ""
+        then null
+        else "sha256";
       outputHashMode = "recursive";
       outputHash = mvnHash;
     }
     // mvnFetchExtraArgs
   );
 in
-stdenv.mkDerivation (
-  builtins.removeAttrs args [ "mvnFetchExtraArgs" ]
-  // {
-    inherit fetchedMavenDeps;
+  stdenv.mkDerivation (
+    builtins.removeAttrs args ["mvnFetchExtraArgs"]
+    // {
+      inherit fetchedMavenDeps;
 
-    nativeBuildInputs = args.nativeBuildInputs or [ ] ++ [
-      maven
-    ];
+      nativeBuildInputs =
+        args.nativeBuildInputs or []
+        ++ [
+          maven
+        ];
 
-    JAVA_HOME = mvnJdk;
+      JAVA_HOME = mvnJdk;
 
-    buildPhase = ''
-      runHook preBuild
+      buildPhase = ''
+        runHook preBuild
 
-      mvnDeps=$(cp -dpR ${fetchedMavenDeps}/.m2 ./ && chmod +w -R .m2 && pwd)
-      runHook afterDepsSetup
-      mvn package -o -nsu "-Dmaven.repo.local=$mvnDeps/.m2" ${mvnSkipTests} ${mvnParameters}
+        mvnDeps=$(cp -dpR ${fetchedMavenDeps}/.m2 ./ && chmod +w -R .m2 && pwd)
+        runHook afterDepsSetup
+        mvn package -o -nsu "-Dmaven.repo.local=$mvnDeps/.m2" ${mvnSkipTests} ${mvnParameters}
 
-      runHook postBuild
-    '';
+        runHook postBuild
+      '';
 
-    meta = args.meta or { } // {
-      platforms = args.meta.platforms or maven.meta.platforms;
-    };
-  }
-)
+      meta =
+        args.meta or {}
+        // {
+          platforms = args.meta.platforms or maven.meta.platforms;
+        };
+    }
+  )

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   php,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "pest";
   version = "3.7.4";
@@ -24,6 +23,6 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://pestphp.com";
     license = lib.licenses.mit;
     mainProgram = "pest";
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 })

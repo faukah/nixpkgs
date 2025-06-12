@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.honk;
 
-  honk-initdb-script =
-    cfg:
+  honk-initdb-script = cfg:
     pkgs.writeShellApplication {
       name = "honk-initdb-script";
 
-      runtimeInputs = with pkgs; [ coreutils ];
+      runtimeInputs = with pkgs; [coreutils];
 
       text = ''
         PW=$(cat "$CREDENTIALS_DIRECTORY/honk_passwordFile")
@@ -20,12 +18,11 @@ let
         echo -e "${cfg.username}\n''$PW\n${cfg.host}:${toString cfg.port}\n${cfg.servername}" | ${lib.getExe cfg.package} -datadir "$STATE_DIRECTORY" init
       '';
     };
-in
-{
+in {
   options = {
     services.honk = {
       enable = lib.mkEnableOption "the Honk server";
-      package = lib.mkPackageOption pkgs "honk" { };
+      package = lib.mkPackageOption pkgs "honk" {};
 
       host = lib.mkOption {
         default = "127.0.0.1";
@@ -101,8 +98,8 @@ in
 
     systemd.services.honk-initdb = {
       description = "Honk server database setup";
-      requiredBy = [ "honk.service" ];
-      before = [ "honk.service" ];
+      requiredBy = ["honk.service"];
+      before = ["honk.service"];
 
       serviceConfig = {
         LoadCredential = [
@@ -126,9 +123,9 @@ in
 
     systemd.services.honk = {
       description = "Honk server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      bindsTo = [ "honk-initdb.service" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      bindsTo = ["honk-initdb.service"];
       preStart = ''
         mkdir -p $STATE_DIRECTORY/views
         ${lib.optionalString (cfg.extraJS != null) "ln -fs ${cfg.extraJS} $STATE_DIRECTORY/views/local.js"}
@@ -152,7 +149,7 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     doc = ./honk.md;
   };
 }

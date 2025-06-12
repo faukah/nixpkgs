@@ -7,7 +7,6 @@
   makeWrapper,
   slurp,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "shotman";
   version = "0.4.7";
@@ -27,11 +26,11 @@ rustPlatform.buildRustPackage rec {
     makeWrapper
   ];
 
-  buildInputs = [ libxkbcommon ];
+  buildInputs = [libxkbcommon];
 
   preFixup = ''
     wrapProgram $out/bin/shotman \
-      --prefix PATH ":" "${lib.makeBinPath [ slurp ]}";
+      --prefix PATH ":" "${lib.makeBinPath [slurp]}";
   '';
 
   meta = with lib; {

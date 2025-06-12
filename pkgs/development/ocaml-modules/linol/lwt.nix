@@ -5,7 +5,6 @@
   lwt,
   yojson,
 }:
-
 buildDunePackage {
   pname = "linol-lwt";
   inherit (linol) version src;
@@ -17,7 +16,9 @@ buildDunePackage {
     yojson
   ];
 
-  meta = linol.meta // {
-    description = "LSP server library (with Lwt for concurrency)";
-  };
+  meta =
+    linol.meta
+    // {
+      description = "LSP server library (with Lwt for concurrency)";
+    };
 }

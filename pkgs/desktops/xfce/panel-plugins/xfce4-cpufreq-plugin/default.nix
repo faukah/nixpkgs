@@ -14,7 +14,6 @@
   xfconf,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-cpufreq-plugin";
   version = "1.3.0";
@@ -45,13 +44,13 @@ stdenv.mkDerivation (finalAttrs: {
     xfconf
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "xfce4-cpufreq-plugin-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "xfce4-cpufreq-plugin-";};
 
   meta = {
     description = "CPU Freq load plugin for Xfce panel";
     homepage = "https://gitlab.xfce.org/panel-plugins/xfce4-cpufreq-plugin";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

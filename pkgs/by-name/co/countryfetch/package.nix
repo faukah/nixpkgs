@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "countryfetch";
   version = "0.2.0";
@@ -26,24 +25,24 @@ rustPlatform.buildRustPackage (finalAttrs: {
     OPENSSL_NO_VENDOR = true;
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  cargoBuildFlags = [ "--package=countryfetch" ];
+  cargoBuildFlags = ["--package=countryfetch"];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Command-line tool similar to Neofetch for obtaining information about your country";
     homepage = "https://github.com/nik-rev/countryfetch";
     changelog = "https://github.com/nik-rev/countryfetch/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
     mainProgram = "countryfetch";
   };
 })

@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
@@ -19,16 +18,11 @@ let
   configFile = pkgs.writeText "charybdis.conf" ''
     ${cfg.config}
   '';
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.charybdis = {
-
       enable = mkEnableOption "Charybdis IRC daemon";
 
       config = mkOption {
@@ -72,9 +66,7 @@ in
           If set, the value of this option will be written to this path.
         '';
       };
-
     };
-
   };
 
   ###### implementation
@@ -100,7 +92,7 @@ in
 
         systemd.services.charybdis = {
           description = "Charybdis IRC daemon";
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           reloadIfChanged = true;
           restartTriggers = [
             configFile
@@ -115,7 +107,6 @@ in
             User = cfg.user;
           };
         };
-
       }
 
       (mkIf (cfg.motd != null) {

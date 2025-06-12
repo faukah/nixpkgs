@@ -9,7 +9,6 @@
   pythonOlder,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "yamllint";
   version = "1.37.1";
@@ -24,14 +23,14 @@ buildPythonPackage rec {
     hash = "sha256-CohqiBoQcgvGVP0Bt6U768BY1aIwh59YRsgzJfaDmP0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyyaml
     pathspec
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -47,14 +46,14 @@ buildPythonPackage rec {
       "test_run_with_locale"
     ];
 
-  pythonImportsCheck = [ "yamllint" ];
+  pythonImportsCheck = ["yamllint"];
 
   meta = with lib; {
     description = "Linter for YAML files";
     homepage = "https://github.com/adrienverge/yamllint";
     changelog = "https://github.com/adrienverge/yamllint/blob/${src.tag}/CHANGELOG.rst";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mikefaille ];
+    maintainers = with maintainers; [mikefaille];
     mainProgram = "yamllint";
   };
 }

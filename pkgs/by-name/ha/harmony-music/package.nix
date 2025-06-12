@@ -14,7 +14,6 @@
   yq,
   jdk,
 }:
-
 flutter324.buildFlutterApplication rec {
   pname = "harmony-music";
   version = "1.12.0";
@@ -68,21 +67,21 @@ flutter324.buildFlutterApplication rec {
   '';
 
   extraWrapProgramArgs = ''
-    --prefix LD_LIBRARY_PATH : $out/app/harmony-music/lib:${lib.makeLibraryPath [ mpv ]}
+    --prefix LD_LIBRARY_PATH : $out/app/harmony-music/lib:${lib.makeLibraryPath [mpv]}
   '';
 
   passthru = {
     pubspecSource =
       runCommand "pubspec.lock.json"
-        {
-          buildInputs = [ yq ];
-          inherit (harmony-music) src;
-        }
-        ''
-          cat $src/pubspec.lock | yq > $out
-        '';
+      {
+        buildInputs = [yq];
+        inherit (harmony-music) src;
+      }
+      ''
+        cat $src/pubspec.lock | yq > $out
+      '';
     updateScript = _experimental-update-script-combinators.sequence [
-      (gitUpdater { rev-prefix = "v"; })
+      (gitUpdater {rev-prefix = "v";})
       (_experimental-update-script-combinators.copyAttrOutputToFile "harmony-music.pubspecSource" ./pubspec.lock.json)
     ];
   };
@@ -91,8 +90,8 @@ flutter324.buildFlutterApplication rec {
     description = "Cross platform App for streaming Music";
     homepage = "https://github.com/anandnet/Harmony-Music";
     mainProgram = "harmonymusic";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

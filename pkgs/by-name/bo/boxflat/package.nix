@@ -10,7 +10,6 @@
   makeDesktopItem,
   nix-update-script,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "boxflat";
   version = "1.32.0";
@@ -23,7 +22,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-zxaBz2ooo+h3a9svtC+j23EhpH8TTQIxjdRDCnhAvJ4=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   propagatedBuildInputs = [
     gtk4
@@ -109,14 +108,14 @@ python3Packages.buildPythonPackage rec {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/Lawstorant/boxflat";
     changelog = "https://github.com/Lawstorant/boxflat/releases/tag/v${version}";
     description = "Control your Moza gear settings";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ racci ];
+    maintainers = with lib.maintainers; [racci];
     platforms = lib.platforms.linux;
     mainProgram = "boxflat";
   };

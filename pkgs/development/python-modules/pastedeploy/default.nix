@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pastedeploy";
   version = "3.1";
@@ -26,17 +25,17 @@ buildPythonPackage rec {
       --replace-fail " --cov" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "paste.deploy" ];
+  pythonImportsCheck = ["paste.deploy"];
 
   meta = {
     description = "Load, configure, and compose WSGI applications and servers";
     homepage = "https://github.com/Pylons/pastedeploy";
     changelog = "https://github.com/Pylons/pastedeploy/blob/${src.tag}/docs/news.rst";
     license = lib.licenses.mit;
-    teams = [ lib.teams.openstack ];
+    teams = [lib.teams.openstack];
   };
 }

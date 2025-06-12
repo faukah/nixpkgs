@@ -1,20 +1,20 @@
-{ lib, pkgs, ... }:
-
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "goatcounter";
 
-  meta.maintainers = with lib.maintainers; [ bhankas ];
+  meta.maintainers = with lib.maintainers; [bhankas];
 
-  nodes.machine =
-    { config, ... }:
-    {
-      virtualisation.memorySize = 2048;
+  nodes.machine = {config, ...}: {
+    virtualisation.memorySize = 2048;
 
-      services.goatcounter = {
-        enable = true;
-        proxy = true;
-      };
+    services.goatcounter = {
+      enable = true;
+      proxy = true;
     };
+  };
 
   testScript = ''
     start_all()

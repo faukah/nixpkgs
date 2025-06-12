@@ -19,7 +19,6 @@
   nix-update-script,
   nativeWayland ? false,
 }:
-
 buildDotnetModule rec {
   pname = "osu-lazer";
   version = "2025.607.0";
@@ -65,7 +64,7 @@ buildDotnetModule rec {
     vulkan-loader
   ];
 
-  executables = [ "osu!" ];
+  executables = ["osu!"];
 
   fixupPhase = ''
     runHook preFixup
@@ -91,11 +90,11 @@ buildDotnetModule rec {
       icon = "osu";
       comment = "Rhythm is just a *click* away (no score submission or multiplayer, see osu-lazer-bin)";
       type = "Application";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Rhythm is just a *click* away (no score submission or multiplayer, see osu-lazer-bin)";
@@ -110,7 +109,7 @@ buildDotnetModule rec {
       thiagokokada
       Guanran928
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "osu!";
   };
 }

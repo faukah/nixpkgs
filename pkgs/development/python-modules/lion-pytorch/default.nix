@@ -5,7 +5,6 @@
   fetchFromGitHub,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "lion-pytorch";
   version = "0.2.3";
@@ -19,15 +18,15 @@ buildPythonPackage rec {
     hash = "sha256-RHixPIZ1kCawWQiqYqLY+c3r6Rg86LKm3tQTyW2BNFU=";
   };
 
-  propagatedBuildInputs = [ torch ];
+  propagatedBuildInputs = [torch];
 
-  pythonImportsCheck = [ "lion_pytorch" ];
+  pythonImportsCheck = ["lion_pytorch"];
   doCheck = false; # no tests currently
 
   meta = with lib; {
     description = "Optimizer tuned by Google Brain using genetic algorithms";
     homepage = "https://github.com/lucidrains/lion-pytorch";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

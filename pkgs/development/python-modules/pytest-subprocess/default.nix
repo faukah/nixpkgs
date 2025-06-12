@@ -13,7 +13,6 @@
   anyio,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-subprocess";
   version = "1.5.3";
@@ -28,9 +27,9 @@ buildPythonPackage rec {
     hash = "sha256-3vBYOk/P78NOjAbs3fT6py5QOOK3fX+AKtO4j5vxZfk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pytestFlagsArray = [ "-W ignore::DeprecationWarning" ];
+  pytestFlagsArray = ["-W ignore::DeprecationWarning"];
 
   meta = with lib; {
     description = "Plugin to fake subprocess for pytest";
     homepage = "https://github.com/aklajnert/pytest-subprocess";
     changelog = "https://github.com/aklajnert/pytest-subprocess/blob/${src.tag}/HISTORY.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

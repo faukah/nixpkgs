@@ -13,7 +13,6 @@
   pkg-config,
   withDocs ? stdenv.hostPlatform.emulatorAvailable buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "playerctl";
   version = "2.4.1";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (withDocs && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
     ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   mesonFlags = [
     (lib.mesonBool "bash-completions" true)
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/acrisci/playerctl";
     license = licenses.lgpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ puffnfresh ];
+    maintainers = with maintainers; [puffnfresh];
     broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "playerctl";
   };

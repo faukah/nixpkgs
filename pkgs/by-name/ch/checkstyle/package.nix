@@ -5,7 +5,6 @@
   makeBinaryWrapper,
   jre,
 }:
-
 stdenvNoCC.mkDerivation rec {
   version = "10.25.0";
   pname = "checkstyle";
@@ -15,8 +14,8 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-CnzGj5jVQIzv5BZ5h0cDLJZrB0DgdRXWIYdKbzWtOA0=";
   };
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeBinaryWrapper];
+  buildInputs = [jre];
 
   dontUnpack = true;
 
@@ -38,9 +37,9 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://checkstyle.org/";
     changelog = "https://checkstyle.org/releasenotes.html#Release_${version}";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.lgpl21;
-    maintainers = with lib.maintainers; [ pSub ];
+    maintainers = with lib.maintainers; [pSub];
     platforms = jre.meta.platforms;
   };
 }

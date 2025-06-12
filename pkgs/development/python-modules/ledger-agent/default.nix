@@ -7,7 +7,6 @@
   libagent,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "ledger-agent";
   version = "0.9.0";

@@ -8,7 +8,6 @@
   testers,
   nix-update-script,
 }:
-
 buildNpmPackage (finalAttrs: {
   pname = "mongosh";
   version = "2.5.1";
@@ -53,13 +52,13 @@ buildNpmPackage (finalAttrs: {
     tests.version = testers.testVersion {
       package = finalAttrs.finalPackage;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     homepage = "https://www.mongodb.com/try/download/shell";
     description = "MongoDB Shell";
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     license = lib.licenses.asl20;
     mainProgram = "mongosh";
   };

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "firefly";
   version = "1.4.3";
@@ -33,7 +32,7 @@ buildGoModule rec {
     homepage = "https://github.com/Brum3ns/firefly";
     # https://github.com/Brum3ns/firefly/issues/12
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "firefly";
   };
 }

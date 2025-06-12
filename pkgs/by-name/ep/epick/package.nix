@@ -10,7 +10,6 @@
   libGL,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "epick";
   version = "0.9.0";
@@ -47,7 +46,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
-    patchelf $out/bin/epick --add-rpath ${lib.makeLibraryPath [ libGL ]}
+    patchelf $out/bin/epick --add-rpath ${lib.makeLibraryPath [libGL]}
   '';
 
   meta = {
@@ -55,7 +54,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/vv9k/epick";
     changelog = "https://github.com/vv9k/epick/blob/${version}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "epick";
   };
 }

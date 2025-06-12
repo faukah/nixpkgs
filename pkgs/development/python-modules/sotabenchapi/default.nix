@@ -6,47 +6,45 @@
   click,
   requests,
   tabulate,
-}:
-
-let
+}: let
   version = "0.0.16";
   pname = "sotabenchapi";
 in
-buildPythonPackage {
-  inherit pname version;
-  pyproject = true;
-
-  src = fetchPypi {
+  buildPythonPackage {
     inherit pname version;
-    hash = "sha256-thbVH4aLmEgi8K17PkmbUg4nHqGj+dEiXPDILjvQMzk=";
-  };
+    pyproject = true;
 
-  # requirements.txt is missing in the Pypi archive and this makes the setup.py script fails
-  postPatch = ''
-    touch requirements.txt
-  '';
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-thbVH4aLmEgi8K17PkmbUg4nHqGj+dEiXPDILjvQMzk=";
+    };
 
-  build-system = [
-    setuptools
-  ];
+    # requirements.txt is missing in the Pypi archive and this makes the setup.py script fails
+    postPatch = ''
+      touch requirements.txt
+    '';
 
-  dependencies = [
-    click
-    requests
-    tabulate
-  ];
+    build-system = [
+      setuptools
+    ];
 
-  pythonImportsCheck = [
-    "sotabenchapi"
-  ];
+    dependencies = [
+      click
+      requests
+      tabulate
+    ];
 
-  # No tests
-  doCheck = false;
+    pythonImportsCheck = [
+      "sotabenchapi"
+    ];
 
-  meta = {
-    description = "Easily benchmark Machine Learning models on selected tasks and datasets";
-    homepage = "https://pypi.org/project/sotabenchapi/";
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ drupol ];
-  };
-}
+    # No tests
+    doCheck = false;
+
+    meta = {
+      description = "Easily benchmark Machine Learning models on selected tasks and datasets";
+      homepage = "https://pypi.org/project/sotabenchapi/";
+      license = lib.licenses.asl20;
+      maintainers = with lib.maintainers; [drupol];
+    };
+  }

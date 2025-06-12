@@ -4,10 +4,8 @@
   fetchFromGitHub,
   fetchpatch2,
   pythonOlder,
-
   # build
   hatchling,
-
   # runtime
   jsonschema,
   python-json-logger,
@@ -16,17 +14,14 @@
   rfc3339-validator,
   rfc3986-validator,
   traitlets,
-
   # optionals
   click,
   rich,
-
   # tests
   pytest-asyncio,
   pytest-console-scripts,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-events";
   version = "0.11.0";
@@ -48,17 +43,19 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [
-    jsonschema
-    python-json-logger
-    pyyaml
-    referencing
-    rfc3339-validator
-    rfc3986-validator
-    traitlets
-  ] ++ jsonschema.optional-dependencies.format-nongpl;
+  dependencies =
+    [
+      jsonschema
+      python-json-logger
+      pyyaml
+      referencing
+      rfc3339-validator
+      rfc3986-validator
+      traitlets
+    ]
+    ++ jsonschema.optional-dependencies.format-nongpl;
 
   optional-dependencies = {
     cli = [
@@ -67,17 +64,19 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-console-scripts
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytest-console-scripts
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   preCheck = ''
     export PATH="$out/bin:$PATH"
   '';
 
-  pythonImportsCheck = [ "jupyter_events" ];
+  pythonImportsCheck = ["jupyter_events"];
 
   meta = {
     changelog = "https://github.com/jupyter/jupyter_events/releases/tag/v${version}";
@@ -85,6 +84,6 @@ buildPythonPackage rec {
     mainProgram = "jupyter-events";
     homepage = "https://github.com/jupyter/jupyter_events";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.jupyter ];
+    teams = [lib.teams.jupyter];
   };
 }

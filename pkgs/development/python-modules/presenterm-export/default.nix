@@ -9,7 +9,6 @@
   weasyprint,
   dataclass-wizard,
 }:
-
 buildPythonPackage rec {
   pname = "presenterm-export";
   version = "0.2.7";
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     dataclass-wizard
   ];
 
-  pythonImportsCheck = [ "presenterm_export" ];
+  pythonImportsCheck = ["presenterm_export"];
 
   meta = with lib; {
     description = "PDF exporter for presenterm";
     homepage = "https://github.com/mfontanini/presenterm-export";
     changelog = "https://github.com/mfontanini/presenterm-export/releases/tag/v${version}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ shivaraj-bh ];
+    maintainers = with maintainers; [shivaraj-bh];
   };
 }

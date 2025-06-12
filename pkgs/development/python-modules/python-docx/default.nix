@@ -11,7 +11,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "python-docx";
   version = "1.1.2";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-isxMtq5j5J02GcHMzOJdJw+ZokLoxA6fG1xsN21Irbc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     lxml
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     behave --format progress --stop --tags=-wip
   '';
 
-  pythonImportsCheck = [ "docx" ];
+  pythonImportsCheck = ["docx"];
 
   disabledTests = [
     # https://github.com/python-openxml/python-docx/issues/1302
@@ -61,6 +60,6 @@ buildPythonPackage rec {
     homepage = "https://python-docx.readthedocs.io/";
     changelog = "https://github.com/python-openxml/python-docx/blob/v${version}/HISTORY.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ alexchapman ];
+    maintainers = with maintainers; [alexchapman];
   };
 }

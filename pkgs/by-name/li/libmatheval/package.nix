@@ -7,7 +7,6 @@
   flex,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.1.11";
   pname = "libmatheval";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     pkg-config
     flex
   ];
-  buildInputs = [ guile ];
+  buildInputs = [guile];
 
   src = fetchurl {
     url = "https://ftp.gnu.org/gnu/libmatheval/${pname}-${version}.tar.gz";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.gnu.org/software/libmatheval/";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.bzizou ];
+    maintainers = [lib.maintainers.bzizou];
     platforms = lib.platforms.unix;
   };
 }

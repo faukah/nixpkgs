@@ -9,7 +9,6 @@
   fetchFromGitHub,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eternity-engine";
   version = "4.02.00";
@@ -45,6 +44,6 @@ stdenv.mkDerivation rec {
     mainProgram = "eternity";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

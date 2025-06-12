@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.hardware.bolt;
-in
-{
+in {
   options = {
     services.hardware.bolt = {
       enable = lib.mkOption {
@@ -21,13 +19,13 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "bolt" { };
+      package = lib.mkPackageOption pkgs "bolt" {};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-    services.udev.packages = [ cfg.package ];
-    systemd.packages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
+    services.udev.packages = [cfg.package];
+    systemd.packages = [cfg.package];
   };
 }

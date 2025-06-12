@@ -7,7 +7,6 @@
   pbr,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "stevedore";
   version = "5.4.1";
@@ -29,15 +28,15 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
-  pythonImportsCheck = [ "stevedore" ];
+  pythonImportsCheck = ["stevedore"];
 
   meta = with lib; {
     description = "Manage dynamic plugins for Python applications";
     homepage = "https://github.com/openstack/stevedore";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

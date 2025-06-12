@@ -5,7 +5,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "podcastparser";
   version = "0.6.10";
@@ -25,14 +24,14 @@ buildPythonPackage rec {
       --replace "--cov=podcastparser --cov-report html --doctest-modules" ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "podcastparser" ];
+  pythonImportsCheck = ["podcastparser"];
 
   meta = with lib; {
     description = "Module to parse podcasts";
     homepage = "http://gpodder.org/podcastparser/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

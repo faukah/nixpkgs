@@ -19,8 +19,8 @@ stdenv.mkDerivation (finalAttrs: {
     lua
     luaPackages.fennel
   ];
-  makeFlags = [ "PREFIX=$(out)" ];
-  installFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Language server for intelligent editing of the Fennel Programming Language";

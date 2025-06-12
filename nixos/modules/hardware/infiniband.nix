@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.hardware.infiniband;
   opensm-services =
     {
       "opensm@" = {
         enable = true;
         description = "Starts OpenSM Infiniband fabric Subnet Managers";
-        before = [ "network.target" ];
+        before = ["network.target"];
         unitConfig = {
           ConditionPathExists = "/sys/class/infiniband_mad/abi_version";
         };
@@ -27,21 +25,19 @@ let
         name = "opensm@${guid}";
         value = {
           enable = true;
-          wantedBy = [ "machines.target" ];
+          wantedBy = ["machines.target"];
           overrideStrategy = "asDropin";
         };
-      }) cfg.guids
+      })
+      cfg.guids
     ));
-
-in
-
-{
+in {
   options.hardware.infiniband = {
     enable = lib.mkEnableOption "Infiniband support";
     guids = lib.mkOption {
       type = with lib.types; listOf str;
-      default = [ ];
-      example = [ "0xe8ebd30000eee2e1" ];
+      default = [];
+      example = ["0xe8ebd30000eee2e1"];
       description = ''
         A list of infiniband port guids on the system. This is discoverable using `ibstat -p`
       '';

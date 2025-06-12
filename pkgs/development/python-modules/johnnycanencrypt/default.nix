@@ -13,7 +13,6 @@
   rustPlatform,
   vcrpy,
 }:
-
 buildPythonPackage rec {
   pname = "johnnycanencrypt";
   version = "0.16.0";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
   ];
 
   nativeBuildInputs =
-    [ pkg-config ]
+    [pkg-config]
     ++ (with rustPlatform; [
       bindgenHook
       cargoSetupHook
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     ]);
 
   buildInputs =
-    [ nettle ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ pcsclite ]
+    [nettle]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [pcsclite]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];
 
-  dependencies = [ httpx ];
+  dependencies = [httpx];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -66,13 +65,13 @@ buildPythonPackage rec {
     rm -r johnnycanencrypt
   '';
 
-  pythonImportsCheck = [ "johnnycanencrypt" ];
+  pythonImportsCheck = ["johnnycanencrypt"];
 
   meta = with lib; {
     description = "Python module for OpenPGP written in Rust";
     homepage = "https://github.com/kushaldas/johnnycanencrypt";
     changelog = "https://github.com/kushaldas/johnnycanencrypt/blob/v${version}/changelog.md";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ _0x4A6F ];
+    maintainers = with maintainers; [_0x4A6F];
   };
 }

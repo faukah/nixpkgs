@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "twemoji-color-font";
   version = "15.1.0";
@@ -41,6 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
       cc-by-40
       mit
     ];
-    maintainers = [ maintainers.fgaz ];
+    maintainers = [maintainers.fgaz];
   };
 })

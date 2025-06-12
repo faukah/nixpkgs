@@ -5,7 +5,6 @@
   fetchPypi,
   nixosTests,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "steck";
   version = "0.7.0";
@@ -46,6 +45,6 @@ python3Packages.buildPythonApplication rec {
     license = licenses.mit;
     description = "Client for pinnwand pastebin";
     mainProgram = "steck";
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

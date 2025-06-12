@@ -17,8 +17,7 @@
   wrapQtAppsHook,
   kdePackages,
 }:
-
-stdenv.mkDerivation (rec {
+stdenv.mkDerivation rec {
   pname = "CopyQ";
   version = "10.0.0";
 
@@ -68,9 +67,9 @@ stdenv.mkDerivation (rec {
     homepage = "https://hluk.github.io/CopyQ";
     description = "Clipboard Manager with Advanced Features";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ artturin ];
+    maintainers = with lib.maintainers; [artturin];
     # NOTE: CopyQ supports windows and osx, but I cannot test these.
     platforms = lib.platforms.linux;
     mainProgram = "copyq";
   };
-})
+}

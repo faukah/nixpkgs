@@ -5,7 +5,6 @@
   openssl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "siege";
   version = "4.1.7";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.joedog.org/siege-home/";
     changelog = "https://github.com/JoeDog/siege/blob/v${version}/ChangeLog";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = lib.platforms.unix;
   };
 }

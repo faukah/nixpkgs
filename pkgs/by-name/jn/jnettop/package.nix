@@ -9,7 +9,6 @@
   pkg-config,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jnettop";
   version = "0.13.0";

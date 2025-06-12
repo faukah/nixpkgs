@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "miniscript";
   version = "unstable-2023-03-16";

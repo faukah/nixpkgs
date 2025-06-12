@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gtfocli";
   version = "0.0.5";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/cmd-tools/gtfocli";
     changelog = "https://github.com/cmd-tools/gtfocli/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "gtfocli";
   };
 }

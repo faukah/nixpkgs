@@ -1,37 +1,36 @@
 # This only tests if YARN is able to start its services
 import ../make-test-python.nix (
-  { package, ... }:
-  {
+  {package, ...}: {
     name = "hadoop-yarn";
 
     nodes = {
-      resourcemanager =
-        { ... }:
-        {
-          services.hadoop = {
-            inherit package;
-            yarn.resourcemanager = {
-              enable = true;
-              openFirewall = true;
-            };
+      resourcemanager = {...}: {
+        services.hadoop = {
+          inherit package;
+          yarn.resourcemanager = {
+            enable = true;
+            openFirewall = true;
           };
         };
-      nodemanager =
-        { options, lib, ... }:
-        {
-          services.hadoop = {
-            inherit package;
-            yarn.nodemanager = {
-              enable = true;
-              openFirewall = true;
-              useCGroups = false;
-            };
-            yarnSite = {
-              "yarn.resourcemanager.hostname" = "resourcemanager";
-              "yarn.nodemanager.log-dirs" = "/tmp/userlogs";
-            };
+      };
+      nodemanager = {
+        options,
+        lib,
+        ...
+      }: {
+        services.hadoop = {
+          inherit package;
+          yarn.nodemanager = {
+            enable = true;
+            openFirewall = true;
+            useCGroups = false;
+          };
+          yarnSite = {
+            "yarn.resourcemanager.hostname" = "resourcemanager";
+            "yarn.nodemanager.log-dirs" = "/tmp/userlogs";
           };
         };
+      };
     };
 
     testScript = ''

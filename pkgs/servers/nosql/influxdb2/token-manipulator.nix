@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "influxdb2-token-manipulator";
   version = "1.0.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Utility program to manipulate influxdb api tokens for declarative setups";
     homepage = "https://github.com/oddlama/influxdb2-token-manipulator";
     license = licenses.mit;
-    maintainers = with maintainers; [ oddlama ];
+    maintainers = with maintainers; [oddlama];
     mainProgram = "influxdb2-token-manipulator";
   };
 }

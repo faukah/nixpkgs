@@ -1,41 +1,37 @@
-{ system, pkgs }:
-let
+{
+  system,
+  pkgs,
+}: let
   tests = {
     xorg = {
-      node =
-        { pkgs, ... }:
-        {
-          imports = [
-            ./common/user-account.nix
-            ./common/x11.nix
-          ];
-          services.xserver.enable = true;
-          services.xserver.displayManager.sessionCommands = ''
-            ${pkgs.drawterm}/bin/drawterm -g 1024x768 &
-          '';
-          test-support.displayManager.auto.user = "alice";
-        };
+      node = {pkgs, ...}: {
+        imports = [
+          ./common/user-account.nix
+          ./common/x11.nix
+        ];
+        services.xserver.enable = true;
+        services.xserver.displayManager.sessionCommands = ''
+          ${pkgs.drawterm}/bin/drawterm -g 1024x768 &
+        '';
+        test-support.displayManager.auto.user = "alice";
+      };
       systems = [
         "x86_64-linux"
         "aarch64-linux"
       ];
     };
     wayland = {
-      node =
-        { pkgs, ... }:
-        {
-          imports = [ ./common/wayland-cage.nix ];
-          services.cage.program = "${pkgs.drawterm-wayland}/bin/drawterm";
-        };
-      systems = [ "x86_64-linux" ];
+      node = {pkgs, ...}: {
+        imports = [./common/wayland-cage.nix];
+        services.cage.program = "${pkgs.drawterm-wayland}/bin/drawterm";
+      };
+      systems = ["x86_64-linux"];
     };
   };
 
-  mkTest =
-    name: machine:
+  mkTest = name: machine:
     import ./make-test-python.nix (
-      { pkgs, ... }:
-      {
+      {pkgs, ...}: {
         inherit name;
 
         nodes = {
@@ -43,7 +39,7 @@ let
         };
 
         meta = with pkgs.lib.maintainers; {
-          maintainers = [ moody ];
+          maintainers = [moody];
         };
 
         enableOCR = true;
@@ -77,11 +73,11 @@ let
           machine.wait_for_text("ending")
           machine.screenshot("out.png")
         '';
-
       }
     );
-  mkTestOn =
-    systems: name: machine:
-    if pkgs.lib.elem system systems then mkTest name machine else { ... }: { };
+  mkTestOn = systems: name: machine:
+    if pkgs.lib.elem system systems
+    then mkTest name machine
+    else {...}: {};
 in
-builtins.mapAttrs (k: v: mkTestOn v.systems k v.node { inherit system; }) tests
+  builtins.mapAttrs (k: v: mkTestOn v.systems k v.node {inherit system;}) tests

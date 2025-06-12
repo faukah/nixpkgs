@@ -1,17 +1,12 @@
 # LXC Configuration
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.virtualisation.lxc;
-in
-
-{
+in {
   meta = {
     maintainers = lib.teams.lxc.members;
   };
@@ -37,7 +32,7 @@ in
         {manpage}`lxc.system.conf(5)`.
       '';
     };
-    package = lib.mkPackageOption pkgs "lxc" { };
+    package = lib.mkPackageOption pkgs "lxc" {};
 
     defaultConfig = lib.mkOption {
       type = lib.types.lines;
@@ -69,15 +64,15 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     environment.etc."lxc/lxc.conf".text = cfg.systemConfig;
     environment.etc."lxc/lxc-usernet".text = cfg.usernetConfig;
     environment.etc."lxc/default.conf".text = cfg.defaultConfig;
     environment.etc."lxc/lxc-net".text = cfg.bridgeConfig;
-    environment.pathsToLink = [ "/share/lxc" ];
-    systemd.tmpfiles.rules = [ "d /var/lib/lxc/rootfs 0755 root root -" ];
+    environment.pathsToLink = ["/share/lxc"];
+    systemd.tmpfiles.rules = ["d /var/lib/lxc/rootfs 0755 root root -"];
 
-    security.apparmor.packages = [ cfg.package ];
+    security.apparmor.packages = [cfg.package];
     security.apparmor.policies = {
       "bin.lxc-start".profile = ''
         include ${cfg.package}/etc/apparmor.d/usr.bin.lxc-start
@@ -88,7 +83,7 @@ in
     };
 
     # We don't need the `lxc-user` group, unless the unprivileged containers are enabled.
-    users.groups = lib.mkIf cfg.unprivilegedContainers { lxc-user = { }; };
+    users.groups = lib.mkIf cfg.unprivilegedContainers {lxc-user = {};};
 
     # `lxc-user-nic` needs suid to attach to bridge for unpriv containers.
     security.wrappers = lib.mkIf cfg.unprivilegedContainers {
@@ -103,11 +98,11 @@ in
     };
 
     # Add lxc-net service if unpriv mode is enabled.
-    systemd.packages = lib.mkIf cfg.unprivilegedContainers [ pkgs.lxc ];
+    systemd.packages = lib.mkIf cfg.unprivilegedContainers [pkgs.lxc];
     systemd.services = lib.mkIf cfg.unprivilegedContainers {
       lxc-net = {
         enable = true;
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         path = [
           pkgs.iproute2
           pkgs.iptables

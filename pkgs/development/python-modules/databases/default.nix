@@ -12,7 +12,6 @@
   setuptools,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "databases";
   version = "0.9.0";
@@ -27,22 +26,22 @@ buildPythonPackage rec {
     hash = "sha256-Zf9QqBgDhWAnHdNvzjXtri5rdT00BOjc4YTNzJALldM=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ sqlalchemy ];
+  propagatedBuildInputs = [sqlalchemy];
 
   optional-dependencies = {
-    postgresql = [ asyncpg ];
-    asyncpg = [ asyncpg ];
-    aiopg = [ aiopg ];
-    mysql = [ aiomysql ];
-    aiomysql = [ aiomysql ];
-    asyncmy = [ asyncmy ];
-    sqlite = [ aiosqlite ];
-    aiosqlite = [ aiosqlite ];
+    postgresql = [asyncpg];
+    asyncpg = [asyncpg];
+    aiopg = [aiopg];
+    mysql = [aiomysql];
+    aiomysql = [aiomysql];
+    asyncmy = [asyncmy];
+    sqlite = [aiosqlite];
+    aiosqlite = [aiosqlite];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # circular dependency on starlette
@@ -52,13 +51,13 @@ buildPythonPackage rec {
     "tests/test_connection_options.py"
   ];
 
-  pythonImportsCheck = [ "databases" ];
+  pythonImportsCheck = ["databases"];
 
   meta = with lib; {
     description = "Async database support for Python";
     homepage = "https://github.com/encode/databases";
     changelog = "https://github.com/encode/databases/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

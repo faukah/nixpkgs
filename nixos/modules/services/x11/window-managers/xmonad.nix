@@ -4,10 +4,9 @@
   config,
   ...
 }:
-
-with lib;
-let
-  inherit (lib)
+with lib; let
+  inherit
+    (lib)
     mkOption
     mkIf
     optionals
@@ -17,8 +16,7 @@ let
   cfg = config.services.xserver.windowManager.xmonad;
 
   ghcWithPackages = cfg.haskellPackages.ghcWithPackages;
-  packages =
-    self:
+  packages = self:
     cfg.extraPackages self
     ++ optionals cfg.enableContribAndExtras [
       self.xmonad-contrib
@@ -29,37 +27,40 @@ let
     inherit ghcWithPackages packages;
   };
 
-  xmonad-config =
-    let
-      xmonadAndPackages = self: [ self.xmonad ] ++ packages self;
-      xmonadEnv = ghcWithPackages xmonadAndPackages;
-      configured = pkgs.writers.writeHaskellBin "xmonad" {
+  xmonad-config = let
+    xmonadAndPackages = self: [self.xmonad] ++ packages self;
+    xmonadEnv = ghcWithPackages xmonadAndPackages;
+    configured =
+      pkgs.writers.writeHaskellBin "xmonad" {
         ghc = cfg.haskellPackages.ghc;
         libraries = xmonadAndPackages cfg.haskellPackages;
         inherit (cfg) ghcArgs;
-      } cfg.config;
-    in
-    pkgs.runCommand "xmonad"
-      {
-        preferLocalBuild = true;
-        nativeBuildInputs = [ pkgs.makeWrapper ];
       }
-      (
-        ''
-          install -D ${xmonadEnv}/share/man/man1/xmonad.1.gz $out/share/man/man1/xmonad.1.gz
-          makeWrapper ${configured}/bin/xmonad $out/bin/xmonad \
-        ''
-        + optionalString cfg.enableConfiguredRecompile ''
-          --set XMONAD_GHC "${xmonadEnv}/bin/ghc" \
-        ''
-        + ''
-          --set XMONAD_XMESSAGE "${pkgs.xorg.xmessage}/bin/xmessage"
-        ''
-      );
+      cfg.config;
+  in
+    pkgs.runCommand "xmonad"
+    {
+      preferLocalBuild = true;
+      nativeBuildInputs = [pkgs.makeWrapper];
+    }
+    (
+      ''
+        install -D ${xmonadEnv}/share/man/man1/xmonad.1.gz $out/share/man/man1/xmonad.1.gz
+        makeWrapper ${configured}/bin/xmonad $out/bin/xmonad \
+      ''
+      + optionalString cfg.enableConfiguredRecompile ''
+        --set XMONAD_GHC "${xmonadEnv}/bin/ghc" \
+      ''
+      + ''
+        --set XMONAD_XMESSAGE "${pkgs.xorg.xmessage}/bin/xmessage"
+      ''
+    );
 
-  xmonad = if (cfg.config != null) then xmonad-config else xmonad-vanilla;
-in
-{
+  xmonad =
+    if (cfg.config != null)
+    then xmonad-config
+    else xmonad-vanilla;
+in {
   meta.maintainers = with maintainers; [
     lassulus
     xaverdh
@@ -86,7 +87,7 @@ in
 
       extraPackages = mkOption {
         type = types.functionTo (types.listOf types.package);
-        default = self: [ ];
+        default = self: [];
         defaultText = literalExpression "self: []";
         example = literalExpression ''
           haskellPackages: [
@@ -198,7 +199,7 @@ in
       };
 
       xmonadCliArgs = mkOption {
-        default = [ ];
+        default = [];
         type = with lib.types; listOf str;
         description = ''
           Command line arguments passed to the xmonad binary.
@@ -206,14 +207,13 @@ in
       };
 
       ghcArgs = mkOption {
-        default = [ ];
+        default = [];
         type = with lib.types; listOf str;
         description = ''
           Command line arguments passed to the compiler (ghc)
           invocation when xmonad.config is set.
         '';
       };
-
     };
   };
   config = mkIf cfg.enable {
@@ -229,6 +229,6 @@ in
       ];
     };
 
-    environment.systemPackages = [ xmonad ];
+    environment.systemPackages = [xmonad];
   };
 }

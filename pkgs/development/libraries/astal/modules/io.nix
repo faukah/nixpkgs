@@ -1,4 +1,4 @@
-{ buildAstalModule }:
+{buildAstalModule}:
 buildAstalModule {
   name = "io";
   sourceRoot = "lib/astal/io";

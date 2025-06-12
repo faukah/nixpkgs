@@ -14,17 +14,14 @@
   gnused,
   mercurial,
   subversion,
-}:
-
-let
-  mkPrefetchScript =
-    tool: src: deps:
+}: let
+  mkPrefetchScript = tool: src: deps:
     stdenv.mkDerivation {
       name = "nix-prefetch-${tool}";
 
       strictDeps = true;
-      nativeBuildInputs = [ makeWrapper ];
-      buildInputs = [ bash ];
+      nativeBuildInputs = [makeWrapper];
+      buildInputs = [bash];
 
       dontUnpack = true;
 
@@ -32,14 +29,14 @@ let
         install -vD ${src} $out/bin/$name;
         wrapProgram $out/bin/$name \
           --prefix PATH : ${
-            lib.makeBinPath (
-              deps
-              ++ [
-                coreutils
-                gnused
-              ]
-            )
-          } \
+          lib.makeBinPath (
+            deps
+            ++ [
+              coreutils
+              gnused
+            ]
+          )
+        } \
           --set HOME /homeless-shelter
       '';
 
@@ -47,20 +44,19 @@ let
 
       meta = with lib; {
         description = "Script used to obtain source hashes for fetch${tool}";
-        maintainers = with maintainers; [ bennofs ];
+        maintainers = with maintainers; [bennofs];
         platforms = platforms.unix;
         mainProgram = "nix-prefetch-${tool}";
       };
     };
-in
-rec {
+in rec {
   # No explicit dependency on Nix, as these can be used inside builders,
   # and thus will cause dependency loops. When used _outside_ builders,
   # we expect people to have a Nix implementation available ambiently.
   nix-prefetch-bzr = mkPrefetchScript "bzr" ../../../build-support/fetchbzr/nix-prefetch-bzr [
     breezy
   ];
-  nix-prefetch-cvs = mkPrefetchScript "cvs" ../../../build-support/fetchcvs/nix-prefetch-cvs [ cvs ];
+  nix-prefetch-cvs = mkPrefetchScript "cvs" ../../../build-support/fetchcvs/nix-prefetch-cvs [cvs];
   nix-prefetch-git = mkPrefetchScript "git" ../../../build-support/fetchgit/nix-prefetch-git [
     findutils
     gawk
@@ -87,7 +83,7 @@ rec {
 
     meta = with lib; {
       description = "Collection of all the nix-prefetch-* scripts which may be used to obtain source hashes";
-      maintainers = with maintainers; [ bennofs ];
+      maintainers = with maintainers; [bennofs];
       platforms = platforms.unix;
     };
   };

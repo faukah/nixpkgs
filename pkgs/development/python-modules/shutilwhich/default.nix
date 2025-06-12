@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "shutilwhich";
   version = "1.1.0";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "05fwcjn86w8wprck04iv1zccfi39skdf0lhwpb4b9gpvklyc9mj0";
   };
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     pytest -rs
@@ -27,6 +26,6 @@ buildPythonPackage rec {
     description = "Backport of shutil.which";
     license = licenses.psfl;
     homepage = "https://github.com/mbr/shutilwhich";
-    maintainers = with maintainers; [ multun ];
+    maintainers = with maintainers; [multun];
   };
 }

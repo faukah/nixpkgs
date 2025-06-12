@@ -4,15 +4,11 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.pdns-recursor;
 
   oneOrMore = type: with types; either type (listOf type);
-  valueType =
-    with types;
+  valueType = with types;
     oneOf [
       int
       str
@@ -21,36 +17,38 @@ let
     ];
   configType = with types; attrsOf (nullOr (oneOrMore valueType));
 
-  toBool = val: if val then "yes" else "no";
-  serialize =
-    val:
+  toBool = val:
+    if val
+    then "yes"
+    else "no";
+  serialize = val:
     with types;
-    if str.check val then
-      val
-    else if int.check val then
-      toString val
-    else if path.check val then
-      toString val
-    else if bool.check val then
-      toBool val
-    else if builtins.isList val then
-      (concatMapStringsSep "," serialize val)
-    else
-      "";
+      if str.check val
+      then val
+      else if int.check val
+      then toString val
+      else if path.check val
+      then toString val
+      else if bool.check val
+      then toBool val
+      else if builtins.isList val
+      then (concatMapStringsSep "," serialize val)
+      else "";
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
 
   mkForwardZone = mapAttrsToList (
     zone: uri: {
       inherit zone;
-      forwarders = [ uri ];
+      forwarders = [uri];
     }
   );
 
   configFile =
-    if cfg.old-settings != { } then
+    if cfg.old-settings != {}
+    then
       # Convert recursor.conf to recursor.yml and merge it
       let
         conf = pkgs.writeText "recursor.conf" (
@@ -59,15 +57,12 @@ let
 
         yaml = settingsFormat.generate "recursor.yml" cfg.yaml-settings;
       in
-      pkgs.runCommand "recursor-merged.yml" { } ''
-        ${pkgs.pdns-recursor}/bin/rec_control show-yaml --config ${conf} > override.yml
-        ${pkgs.yq-go}/bin/yq '. *= load("override.yml")' ${yaml} > $out
-      ''
-    else
-      settingsFormat.generate "recursor.yml" cfg.yaml-settings;
-
-in
-{
+        pkgs.runCommand "recursor-merged.yml" {} ''
+          ${pkgs.pdns-recursor}/bin/rec_control show-yaml --config ${conf} > override.yml
+          ${pkgs.yq-go}/bin/yq '. *= load("override.yml")' ${yaml} > $out
+        ''
+    else settingsFormat.generate "recursor.yml" cfg.yaml-settings;
+in {
   options.services.pdns-recursor = {
     enable = mkEnableOption "PowerDNS Recursor, a recursive DNS server";
 
@@ -153,7 +148,7 @@ in
 
     forwardZones = mkOption {
       type = types.attrs;
-      default = { };
+      default = {};
       description = ''
         DNS zones to be forwarded to other authoritative servers.
       '';
@@ -164,7 +159,7 @@ in
       example = {
         eth = "[::1]:5353";
       };
-      default = { };
+      default = {};
       description = ''
         DNS zones to be forwarded to other recursive servers.
       '';
@@ -199,7 +194,7 @@ in
 
     old-settings = mkOption {
       type = configType;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           loglevel = 8;
@@ -222,7 +217,7 @@ in
 
     yaml-settings = mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           loglevel = 8;
@@ -249,7 +244,6 @@ in
   };
 
   config = mkIf cfg.enable {
-
     environment.etc."/pdns-recursor/recursor.yml".source = configFile;
 
     services.pdns-recursor.yaml-settings = {
@@ -285,11 +279,11 @@ in
       };
     };
 
-    systemd.packages = [ pkgs.pdns-recursor ];
+    systemd.packages = [pkgs.pdns-recursor];
 
     systemd.services.pdns-recursor = {
-      restartTriggers = [ config.environment.etc."/pdns-recursor/recursor.yml".source ];
-      wantedBy = [ "multi-user.target" ];
+      restartTriggers = [config.environment.etc."/pdns-recursor/recursor.yml".source];
+      wantedBy = ["multi-user.target"];
     };
 
     users.users.pdns-recursor = {
@@ -298,9 +292,9 @@ in
       description = "PowerDNS Recursor daemon user";
     };
 
-    users.groups.pdns-recursor = { };
+    users.groups.pdns-recursor = {};
 
-    warnings = lib.optional (cfg.old-settings != { }) ''
+    warnings = lib.optional (cfg.old-settings != {}) ''
       pdns-recursor has changed its configuration file format from pdns-recursor.conf
       (mapped to `services.pdns-recursor.old-settings`) to the newer pdns-recursor.yml
       (mapped to `services.pdns-recursor.yaml-settings`).
@@ -308,7 +302,6 @@ in
       Support for the older format will be removed in a future version, so please migrate
       your settings over. See <https://doc.powerdns.com/recursor/yamlsettings.html>.
     '';
-
   };
 
   imports = [
@@ -318,7 +311,8 @@ in
       "extraConfig"
     ] "To change extra Recursor settings use services.pdns-recursor.settings instead.")
 
-    (mkRenamedOptionModule
+    (
+      mkRenamedOptionModule
       [
         "services"
         "pdns-recursor"
@@ -332,6 +326,5 @@ in
     )
   ];
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

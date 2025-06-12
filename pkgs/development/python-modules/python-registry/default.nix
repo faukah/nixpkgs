@@ -8,7 +8,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "python-registry";
   version = "1.4";
@@ -23,26 +22,26 @@ buildPythonPackage rec {
     hash = "sha256-OgRPcyx+NJnbtETMakUT0p8Pb0Qfzgj+qvWtmJksnT8=";
   };
 
-  pythonRemoveDeps = [ "enum-compat" ];
+  pythonRemoveDeps = ["enum-compat"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ unicodecsv ];
+  dependencies = [unicodecsv];
 
   nativeCheckInputs = [
     pytestCheckHook
     six
   ];
 
-  disabledTestPaths = [ "samples" ];
+  disabledTestPaths = ["samples"];
 
-  pythonImportsCheck = [ "Registry" ];
+  pythonImportsCheck = ["Registry"];
 
   meta = with lib; {
     description = "Module to parse the Windows Registry hives";
     homepage = "https://github.com/williballenthin/python-registry";
     changelog = "https://github.com/williballenthin/python-registry/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   kubectl,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "gsctl";
   version = "1.1.6";
@@ -44,7 +43,7 @@ buildGoModule rec {
     description = "Giant Swarm command line interface";
     homepage = "https://github.com/giantswarm/gsctl";
     license = licenses.asl20;
-    maintainers = with maintainers; [ joesalisbury ];
+    maintainers = with maintainers; [joesalisbury];
     mainProgram = "gsctl";
   };
 }

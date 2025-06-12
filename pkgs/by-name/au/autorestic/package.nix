@@ -4,7 +4,6 @@
   installShellFiles,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "autorestic";
   version = "1.8.3";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-riAjjIrG00vJweaFHc3ArhaAQb08v6cYUJsNys4Hwio=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd autorestic \
@@ -31,7 +30,7 @@ buildGoModule rec {
     description = "High level CLI utility for restic";
     homepage = "https://github.com/cupcakearmy/autorestic";
     license = licenses.asl20;
-    maintainers = with maintainers; [ renesat ];
+    maintainers = with maintainers; [renesat];
     mainProgram = "autorestic";
   };
 }

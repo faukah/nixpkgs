@@ -10,17 +10,15 @@
   xdg-utils,
   writeScript,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "irpf";
   version = "2025-1.3";
 
   # https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/download/pgd/dirpf
   # Para outros sistemas operacionais -> Multi
-  src =
-    let
-      year = lib.head (lib.splitVersion finalAttrs.version);
-    in
+  src = let
+    year = lib.head (lib.splitVersion finalAttrs.version);
+  in
     fetchzip {
       url = "https://downloadirpf.receita.fazenda.gov.br/irpf/${year}/irpf/arquivos/IRPF${finalAttrs.version}.zip";
       hash = "sha256-BWCxnKPvkijVkXfbA1iVbdcgLZqY5SAzASqnzdjXwiw=";
@@ -49,7 +47,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       icon = "rfb64";
       desktopName = "Imposto de Renda Pessoa Física";
       comment = "Programa Oficial da Receita para elaboração do IRPF";
-      categories = [ "Office" ];
+      categories = ["Office"];
     })
   ];
 
@@ -68,7 +66,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       --add-flags "-Dawt.useSystemAAFontSettings=on" \
       --add-flags "-Dswing.aatext=true" \
       --add-flags "-jar $BASEDIR/irpf.jar" \
-      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
+      --suffix PATH : ${lib.makeBinPath [xdg-utils]} \
       --set _JAVA_AWT_WM_NONREPARENTING 1 \
       --set AWT_TOOLKIT MToolkit
 
@@ -88,7 +86,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://www.gov.br/receitafederal/pt-br";
     license = licenses.unfree;
     platforms = platforms.all;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     maintainers = with maintainers; [
       atila
       bryanasdev000

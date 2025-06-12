@@ -9,7 +9,6 @@
   python3,
   ruby,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qpid-cpp";
   version = "1.39.0";
@@ -59,6 +58,6 @@ stdenv.mkDerivation rec {
     description = "AMQP message broker and a C++ messaging API";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

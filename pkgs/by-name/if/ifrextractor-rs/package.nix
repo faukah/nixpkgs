@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ifrextractor-rs";
   version = "1.5.1";
@@ -28,6 +27,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "ifrextractor";
     homepage = "https://github.com/LongSoft/IFRExtractor-RS";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ jiegec ];
+    maintainers = with maintainers; [jiegec];
   };
 }

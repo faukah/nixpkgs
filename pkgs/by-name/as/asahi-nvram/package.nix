@@ -3,7 +3,6 @@
   fetchCrate,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "asahi-nvram";
   version = "0.2.3";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     description = "Tool to read and write nvram variables on ARM Macs";
     homepage = "https://crates.io/crates/asahi-nvram";
     license = licenses.mit;
-    maintainers = with maintainers; [ lukaslihotzki ];
+    maintainers = with maintainers; [lukaslihotzki];
     mainProgram = "asahi-nvram";
     platforms = platforms.linux;
   };

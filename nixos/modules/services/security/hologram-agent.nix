@@ -3,8 +3,7 @@
   config,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.hologram-agent;
 
   cfgFile = pkgs.writeText "hologram-agent.json" (
@@ -12,8 +11,7 @@ let
       host = cfg.dialAddress;
     }
   );
-in
-{
+in {
   options = {
     services.hologram-agent = {
       enable = lib.mkOption {
@@ -33,12 +31,11 @@ in
         default = "80";
         description = "Port for metadata service to listen on.";
       };
-
     };
   };
 
   config = lib.mkIf cfg.enable {
-    boot.kernelModules = [ "dummy" ];
+    boot.kernelModules = ["dummy"];
 
     networking.interfaces.dummy0.ipv4.addresses = [
       {
@@ -49,8 +46,8 @@ in
 
     systemd.services.hologram-agent = {
       description = "Provide EC2 instance credentials to machines outside of EC2";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       requires = [
         "network-link-dummy0.service"
         "network-addresses-dummy0.service"
@@ -62,8 +59,7 @@ in
         ExecStart = "${pkgs.hologram}/bin/hologram-agent -debug -conf ${cfgFile} -port ${cfg.httpPort}";
       };
     };
-
   };
 
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 }

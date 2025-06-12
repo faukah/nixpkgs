@@ -26,7 +26,6 @@
   clevisSupport ? false,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stratisd";
   version = "3.8.1";
@@ -75,7 +74,7 @@ stdenv.mkDerivation rec {
     util-linux
     systemd
     lvm2
-    (python3.withPackages (ps: [ ps.dbus-python ]))
+    (python3.withPackages (ps: [ps.dbus-python]))
   ];
 
   outputs = [
@@ -103,7 +102,7 @@ stdenv.mkDerivation rec {
     "PREFIX=${placeholder "out"}"
     "INSTALL=install"
   ];
-  buildFlags = [ "build-all" ];
+  buildFlags = ["build-all"];
 
   doCheck = true;
   checkTarget = "test";
@@ -122,15 +121,17 @@ stdenv.mkDerivation rec {
     rm -r "$out/lib/systemd/system-generators"
   '';
 
-  passthru.tests = nixosTests.stratis // {
-    inherit (nixosTests.installer-systemd-stage-1) stratisRoot;
-  };
+  passthru.tests =
+    nixosTests.stratis
+    // {
+      inherit (nixosTests.installer-systemd-stage-1) stratisRoot;
+    };
 
   meta = with lib; {
     description = "Easy to use local storage management for Linux";
     homepage = "https://stratis-storage.github.io";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ nickcao ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [nickcao];
+    platforms = ["x86_64-linux"];
   };
 }

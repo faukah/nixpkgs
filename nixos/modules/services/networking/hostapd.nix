@@ -12,7 +12,8 @@
 # to make informed decisions you will probably need to look
 # at hostapd's code. You have been warned, proceed with care.
 let
-  inherit (lib)
+  inherit
+    (lib)
     attrNames
     attrValues
     concatLists
@@ -50,54 +51,55 @@ let
   cfg = config.services.hostapd;
 
   extraSettingsFormat = {
-    type =
-      let
-        singleAtom = types.oneOf [
-          types.bool
-          types.int
-          types.str
-        ];
-        atom = types.either singleAtom (types.listOf singleAtom) // {
+    type = let
+      singleAtom = types.oneOf [
+        types.bool
+        types.int
+        types.str
+      ];
+      atom =
+        types.either singleAtom (types.listOf singleAtom)
+        // {
           description = "atom (bool, int or string) or a list of them for duplicate keys";
         };
-      in
+    in
       types.attrsOf atom;
 
-    generate =
-      name: value:
+    generate = name: value:
       pkgs.writeText name (
         generators.toKeyValue {
           listsAsDuplicateKeys = true;
           mkKeyValue = generators.mkKeyValueDefault {
-            mkValueString =
-              v:
-              if isInt v then
-                toString v
-              else if isString v then
-                v
-              else if true == v then
-                "1"
-              else if false == v then
-                "0"
-              else
-                throw "unsupported type ${builtins.typeOf v}: ${(generators.toPretty { }) v}";
+            mkValueString = v:
+              if isInt v
+              then toString v
+              else if isString v
+              then v
+              else if true == v
+              then "1"
+              else if false == v
+              then "0"
+              else throw "unsupported type ${builtins.typeOf v}: ${(generators.toPretty {}) v}";
           } "=";
-        } value
+        }
+        value
       );
   };
 
   # Generates the header for a single BSS (i.e. WiFi network)
-  writeBssHeader =
-    radio: bss: bssIdx:
+  writeBssHeader = radio: bss: bssIdx:
     pkgs.writeText "hostapd-radio-${radio}-bss-${bss}.conf" ''
       ''\n''\n# BSS ${toString bssIdx}: ${bss}
       ################################
 
-      ${if bssIdx == 0 then "interface" else "bss"}=${bss}
+      ${
+        if bssIdx == 0
+        then "interface"
+        else "bss"
+      }=${bss}
     '';
 
-  makeRadioRuntimeFiles =
-    radio: radioCfg:
+  makeRadioRuntimeFiles = radio: radioCfg:
     pkgs.writeShellScript "make-hostapd-${radio}-files" (
       ''
         set -euo pipefail
@@ -133,15 +135,15 @@ let
             ${concatMapStrings (
               script: "${script} \"$hostapd_config_file\" \"$mac_allow_file\" \"$mac_deny_file\"\n"
             ) (attrValues bssCfg.dynamicConfigScripts)}
-          '') radioCfg.networks
+          '')
+          radioCfg.networks
         )
       )
     );
 
   runtimeConfigFiles = mapAttrsToList (radio: _: "/run/hostapd/${radio}.hostapd.conf") cfg.radios;
-in
-{
-  meta.maintainers = with maintainers; [ oddlama ];
+in {
+  meta.maintainers = with maintainers; [oddlama];
 
   options = {
     services.hostapd = {
@@ -152,10 +154,10 @@ in
         authentication server
       '';
 
-      package = mkPackageOption pkgs "hostapd" { };
+      package = mkPackageOption pkgs "hostapd" {};
 
       radios = mkOption {
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             # Simple 2.4GHz AP
@@ -283,7 +285,7 @@ in
               };
 
               settings = mkOption {
-                default = { };
+                default = {};
                 example = {
                   acs_exclude_dfs = true;
                 };
@@ -301,7 +303,7 @@ in
               };
 
               dynamicConfigScripts = mkOption {
-                default = { };
+                default = {};
                 type = types.attrsOf types.path;
                 example = literalExpression ''
                   {
@@ -381,7 +383,7 @@ in
 
                 capabilities = mkOption {
                   type = types.listOf types.str;
-                  default = [ ];
+                  default = [];
                   example = [
                     "SHORT-GI-80"
                     "TX-STBC-2BY1"
@@ -410,8 +412,7 @@ in
                     "160"
                     "80+80"
                   ];
-                  apply =
-                    x:
+                  apply = x:
                     getAttr x {
                       "20or40" = 0;
                       "80" = 1;
@@ -470,8 +471,7 @@ in
                     "160"
                     "80+80"
                   ];
-                  apply =
-                    x:
+                  apply = x:
                     getAttr x {
                       "20or40" = 0;
                       "80" = 1;
@@ -527,8 +527,7 @@ in
                     "160"
                     "80+80"
                   ];
-                  apply =
-                    x:
+                  apply = x:
                     getAttr x {
                       "20or40" = 0;
                       "80" = 1;
@@ -549,7 +548,7 @@ in
               #### BSS definitions
 
               networks = mkOption {
-                default = { };
+                default = {};
                 example = literalExpression ''
                   {
                     wlp2s0 = {
@@ -624,8 +623,7 @@ in
                           "allow"
                           "radius"
                         ];
-                        apply =
-                          x:
+                        apply = x:
                           getAttr x {
                             "deny" = 0;
                             "allow" = 1;
@@ -646,8 +644,8 @@ in
 
                       macAllow = mkOption {
                         type = types.listOf types.str;
-                        default = [ ];
-                        example = [ "11:22:33:44:55:66" ];
+                        default = [];
+                        example = ["11:22:33:44:55:66"];
                         description = ''
                           Specifies the MAC addresses to allow if {option}`macAcl` is set to {var}`"allow"` or {var}`"radius"`.
                           These values will be world-readable in the Nix store. Values will automatically be merged with
@@ -668,8 +666,8 @@ in
 
                       macDeny = mkOption {
                         type = types.listOf types.str;
-                        default = [ ];
-                        example = [ "11:22:33:44:55:66" ];
+                        default = [];
+                        example = ["11:22:33:44:55:66"];
                         description = ''
                           Specifies the MAC addresses to deny if {option}`macAcl` is set to {var}`"deny"` or {var}`"radius"`.
                           These values will be world-readable in the Nix store. Values will automatically be merged with
@@ -695,8 +693,7 @@ in
                           "empty"
                           "clear"
                         ];
-                        apply =
-                          x:
+                        apply = x:
                           getAttr x {
                             "disabled" = 0;
                             "empty" = 1;
@@ -726,7 +723,7 @@ in
                       };
 
                       settings = mkOption {
-                        default = { };
+                        default = {};
                         example = {
                           multi_ap = true;
                         };
@@ -745,7 +742,7 @@ in
                       };
 
                       dynamicConfigScripts = mkOption {
-                        default = { };
+                        default = {};
                         type = types.attrsOf types.path;
                         example = literalExpression ''
                           {
@@ -804,7 +801,7 @@ in
                         };
 
                         pairwiseCiphers = mkOption {
-                          default = [ "CCMP" ];
+                          default = ["CCMP"];
                           example = [
                             "GCMP"
                             "GCMP-256"
@@ -892,7 +889,7 @@ in
                         };
 
                         saePasswords = mkOption {
-                          default = [ ];
+                          default = [];
                           example = literalExpression ''
                             [
                               # Any client may use these passwords
@@ -1015,206 +1012,199 @@ in
                       };
                     };
 
-                    config =
-                      let
-                        bssCfg = bssSubmod.config;
-                        pairwiseCiphers = concatStringsSep " " (
-                          unique (
-                            bssCfg.authentication.pairwiseCiphers
-                            ++ optionals bssCfg.authentication.enableRecommendedPairwiseCiphers [
-                              "CCMP"
-                              "GCMP"
-                              "GCMP-256"
-                            ]
+                    config = let
+                      bssCfg = bssSubmod.config;
+                      pairwiseCiphers = concatStringsSep " " (
+                        unique (
+                          bssCfg.authentication.pairwiseCiphers
+                          ++ optionals bssCfg.authentication.enableRecommendedPairwiseCiphers [
+                            "CCMP"
+                            "GCMP"
+                            "GCMP-256"
+                          ]
+                        )
+                      );
+                    in {
+                      settings =
+                        {
+                          ssid = bssCfg.ssid;
+                          utf8_ssid = bssCfg.utf8Ssid;
+
+                          logger_syslog = mkDefault (-1);
+                          logger_syslog_level = bssCfg.logLevel;
+                          logger_stdout = mkDefault (-1);
+                          logger_stdout_level = bssCfg.logLevel;
+                          ctrl_interface = mkDefault "/run/hostapd";
+                          ctrl_interface_group = bssCfg.group;
+
+                          macaddr_acl = bssCfg.macAcl;
+
+                          ignore_broadcast_ssid = bssCfg.ignoreBroadcastSsid;
+
+                          # IEEE 802.11i (authentication) related configuration
+                          # Encrypt management frames to protect against deauthentication and similar attacks
+                          ieee80211w = mkDefault 1;
+                          sae_require_mfp = mkDefault 1;
+
+                          # Only allow WPA by default and disable insecure WEP
+                          auth_algs = mkDefault 1;
+                          # Always enable QoS, which is required for 802.11n and above
+                          wmm_enabled = mkDefault true;
+                          ap_isolate = bssCfg.apIsolate;
+                        }
+                        // optionalAttrs (bssCfg.bssid != null) {
+                          bssid = bssCfg.bssid;
+                        }
+                        // optionalAttrs
+                        (bssCfg.macAllow != [] || bssCfg.macAllowFile != null || bssCfg.authentication.saeAddToMacAllow)
+                        {
+                          accept_mac_file = "/run/hostapd/${bssCfg._module.args.name}.mac.allow";
+                        }
+                        // optionalAttrs (bssCfg.macDeny != [] || bssCfg.macDenyFile != null) {
+                          deny_mac_file = "/run/hostapd/${bssCfg._module.args.name}.mac.deny";
+                        }
+                        // optionalAttrs (bssCfg.authentication.mode == "none") {
+                          wpa = mkDefault 0;
+                        }
+                        // optionalAttrs (bssCfg.authentication.mode == "wpa3-sae") {
+                          wpa = 2;
+                          wpa_key_mgmt = "SAE";
+                          # Derive PWE using both hunting-and-pecking loop and hash-to-element
+                          sae_pwe = 2;
+                          # Prevent downgrade attacks by indicating to clients that they should
+                          # disable any transition modes from now on.
+                          transition_disable = "0x01";
+                        }
+                        // optionalAttrs (bssCfg.authentication.mode == "wpa3-sae-transition") {
+                          wpa = 2;
+                          wpa_key_mgmt = "WPA-PSK-SHA256 SAE";
+                        }
+                        // optionalAttrs (bssCfg.authentication.mode == "wpa2-sha1") {
+                          wpa = 2;
+                          wpa_key_mgmt = "WPA-PSK";
+                        }
+                        // optionalAttrs (bssCfg.authentication.mode == "wpa2-sha256") {
+                          wpa = 2;
+                          wpa_key_mgmt = "WPA-PSK-SHA256";
+                        }
+                        // optionalAttrs (bssCfg.authentication.mode != "none") {
+                          wpa_pairwise = pairwiseCiphers;
+                          rsn_pairwise = pairwiseCiphers;
+                        }
+                        // optionalAttrs (bssCfg.authentication.wpaPassword != null) {
+                          wpa_passphrase = bssCfg.authentication.wpaPassword;
+                        }
+                        // optionalAttrs (bssCfg.authentication.wpaPskFile != null) {
+                          wpa_psk_file = toString bssCfg.authentication.wpaPskFile;
+                        };
+
+                      dynamicConfigScripts = let
+                        # All MAC addresses from SAE entries that aren't the wildcard address
+                        saeMacs = filter (mac: mac != null && (toLower mac) != "ff:ff:ff:ff:ff:ff") (
+                          map (x: x.mac) bssCfg.authentication.saePasswords
+                        );
+                      in {
+                        "20-addMacAllow" = mkIf (bssCfg.macAllow != []) (
+                          pkgs.writeShellScript "add-mac-allow" ''
+                            MAC_ALLOW_FILE=$2
+                            cat >> "$MAC_ALLOW_FILE" <<EOF
+                            ${concatStringsSep "\n" bssCfg.macAllow}
+                            EOF
+                          ''
+                        );
+                        "20-addMacAllowFile" = mkIf (bssCfg.macAllowFile != null) (
+                          pkgs.writeShellScript "add-mac-allow-file" ''
+                            MAC_ALLOW_FILE=$2
+                            grep -Eo '^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})' ${escapeShellArg bssCfg.macAllowFile} >> "$MAC_ALLOW_FILE"
+                          ''
+                        );
+                        "20-addMacAllowFromSae" = mkIf (bssCfg.authentication.saeAddToMacAllow && saeMacs != []) (
+                          pkgs.writeShellScript "add-mac-allow-from-sae" ''
+                            MAC_ALLOW_FILE=$2
+                            cat >> "$MAC_ALLOW_FILE" <<EOF
+                            ${concatStringsSep "\n" saeMacs}
+                            EOF
+                          ''
+                        );
+                        # Populate mac allow list from saePasswordsFile
+                        # (filter for lines with mac=;  exclude commented lines; filter for real mac-addresses; strip mac=)
+                        "20-addMacAllowFromSaeFile" =
+                          mkIf (bssCfg.authentication.saeAddToMacAllow && bssCfg.authentication.saePasswordsFile != null)
+                          (
+                            pkgs.writeShellScript "add-mac-allow-from-sae-file" ''
+                              MAC_ALLOW_FILE=$2
+                              grep mac= ${escapeShellArg bssCfg.authentication.saePasswordsFile} \
+                                | grep -v '^\s*#' \
+                                | grep -Eo 'mac=([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})' \
+                                | sed 's|^mac=||' >> "$MAC_ALLOW_FILE"
+                            ''
+                          );
+                        "20-addMacDeny" = mkIf (bssCfg.macDeny != []) (
+                          pkgs.writeShellScript "add-mac-deny" ''
+                            MAC_DENY_FILE=$3
+                            cat >> "$MAC_DENY_FILE" <<EOF
+                            ${concatStringsSep "\n" bssCfg.macDeny}
+                            EOF
+                          ''
+                        );
+                        "20-addMacDenyFile" = mkIf (bssCfg.macDenyFile != null) (
+                          pkgs.writeShellScript "add-mac-deny-file" ''
+                            MAC_DENY_FILE=$3
+                            grep -Eo '^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})' ${escapeShellArg bssCfg.macDenyFile} >> "$MAC_DENY_FILE"
+                          ''
+                        );
+                        # Add wpa_passphrase from file
+                        "20-wpaPasswordFile" = mkIf (bssCfg.authentication.wpaPasswordFile != null) (
+                          pkgs.writeShellScript "wpa-password-file" ''
+                            HOSTAPD_CONFIG_FILE=$1
+                            cat >> "$HOSTAPD_CONFIG_FILE" <<EOF
+                            wpa_passphrase=$(cat ${escapeShellArg bssCfg.authentication.wpaPasswordFile})
+                            EOF
+                          ''
+                        );
+                        # Add sae passwords from file
+                        "20-saePasswordsFile" = mkIf (bssCfg.authentication.saePasswordsFile != null) (
+                          pkgs.writeShellScript "sae-passwords-file" ''
+                            HOSTAPD_CONFIG_FILE=$1
+                            grep -v '^\s*#' ${escapeShellArg bssCfg.authentication.saePasswordsFile} \
+                              | sed 's/^/sae_password=/' >> "$HOSTAPD_CONFIG_FILE"
+                          ''
+                        );
+                        # Add sae passwords from nix definitions, potentially reading secrets
+                        "20-saePasswords" = mkIf (bssCfg.authentication.saePasswords != []) (
+                          pkgs.writeShellScript "sae-passwords" (
+                            ''
+                              HOSTAPD_CONFIG_FILE=$1
+                            ''
+                            + concatMapStrings (
+                              entry: let
+                                lineSuffix =
+                                  optionalString (entry.password != null) entry.password
+                                  + optionalString (entry.mac != null) "|mac=${entry.mac}"
+                                  + optionalString (entry.vlanid != null) "|vlanid=${toString entry.vlanid}"
+                                  + optionalString (entry.pk != null) "|pk=${entry.pk}"
+                                  + optionalString (entry.id != null) "|id=${entry.id}";
+                              in ''
+                                (
+                                  echo -n 'sae_password='
+                                  ${optionalString (entry.passwordFile != null) ''tr -d '\n' < ${entry.passwordFile}''}
+                                  echo ${escapeShellArg lineSuffix}
+                                ) >> "$HOSTAPD_CONFIG_FILE"
+                              ''
+                            )
+                            bssCfg.authentication.saePasswords
                           )
                         );
-                      in
-                      {
-                        settings =
-                          {
-                            ssid = bssCfg.ssid;
-                            utf8_ssid = bssCfg.utf8Ssid;
-
-                            logger_syslog = mkDefault (-1);
-                            logger_syslog_level = bssCfg.logLevel;
-                            logger_stdout = mkDefault (-1);
-                            logger_stdout_level = bssCfg.logLevel;
-                            ctrl_interface = mkDefault "/run/hostapd";
-                            ctrl_interface_group = bssCfg.group;
-
-                            macaddr_acl = bssCfg.macAcl;
-
-                            ignore_broadcast_ssid = bssCfg.ignoreBroadcastSsid;
-
-                            # IEEE 802.11i (authentication) related configuration
-                            # Encrypt management frames to protect against deauthentication and similar attacks
-                            ieee80211w = mkDefault 1;
-                            sae_require_mfp = mkDefault 1;
-
-                            # Only allow WPA by default and disable insecure WEP
-                            auth_algs = mkDefault 1;
-                            # Always enable QoS, which is required for 802.11n and above
-                            wmm_enabled = mkDefault true;
-                            ap_isolate = bssCfg.apIsolate;
-                          }
-                          // optionalAttrs (bssCfg.bssid != null) {
-                            bssid = bssCfg.bssid;
-                          }
-                          //
-                            optionalAttrs
-                              (bssCfg.macAllow != [ ] || bssCfg.macAllowFile != null || bssCfg.authentication.saeAddToMacAllow)
-                              {
-                                accept_mac_file = "/run/hostapd/${bssCfg._module.args.name}.mac.allow";
-                              }
-                          // optionalAttrs (bssCfg.macDeny != [ ] || bssCfg.macDenyFile != null) {
-                            deny_mac_file = "/run/hostapd/${bssCfg._module.args.name}.mac.deny";
-                          }
-                          // optionalAttrs (bssCfg.authentication.mode == "none") {
-                            wpa = mkDefault 0;
-                          }
-                          // optionalAttrs (bssCfg.authentication.mode == "wpa3-sae") {
-                            wpa = 2;
-                            wpa_key_mgmt = "SAE";
-                            # Derive PWE using both hunting-and-pecking loop and hash-to-element
-                            sae_pwe = 2;
-                            # Prevent downgrade attacks by indicating to clients that they should
-                            # disable any transition modes from now on.
-                            transition_disable = "0x01";
-                          }
-                          // optionalAttrs (bssCfg.authentication.mode == "wpa3-sae-transition") {
-                            wpa = 2;
-                            wpa_key_mgmt = "WPA-PSK-SHA256 SAE";
-                          }
-                          // optionalAttrs (bssCfg.authentication.mode == "wpa2-sha1") {
-                            wpa = 2;
-                            wpa_key_mgmt = "WPA-PSK";
-                          }
-                          // optionalAttrs (bssCfg.authentication.mode == "wpa2-sha256") {
-                            wpa = 2;
-                            wpa_key_mgmt = "WPA-PSK-SHA256";
-                          }
-                          // optionalAttrs (bssCfg.authentication.mode != "none") {
-                            wpa_pairwise = pairwiseCiphers;
-                            rsn_pairwise = pairwiseCiphers;
-                          }
-                          // optionalAttrs (bssCfg.authentication.wpaPassword != null) {
-                            wpa_passphrase = bssCfg.authentication.wpaPassword;
-                          }
-                          // optionalAttrs (bssCfg.authentication.wpaPskFile != null) {
-                            wpa_psk_file = toString bssCfg.authentication.wpaPskFile;
-                          };
-
-                        dynamicConfigScripts =
-                          let
-                            # All MAC addresses from SAE entries that aren't the wildcard address
-                            saeMacs = filter (mac: mac != null && (toLower mac) != "ff:ff:ff:ff:ff:ff") (
-                              map (x: x.mac) bssCfg.authentication.saePasswords
-                            );
-                          in
-                          {
-                            "20-addMacAllow" = mkIf (bssCfg.macAllow != [ ]) (
-                              pkgs.writeShellScript "add-mac-allow" ''
-                                MAC_ALLOW_FILE=$2
-                                cat >> "$MAC_ALLOW_FILE" <<EOF
-                                ${concatStringsSep "\n" bssCfg.macAllow}
-                                EOF
-                              ''
-                            );
-                            "20-addMacAllowFile" = mkIf (bssCfg.macAllowFile != null) (
-                              pkgs.writeShellScript "add-mac-allow-file" ''
-                                MAC_ALLOW_FILE=$2
-                                grep -Eo '^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})' ${escapeShellArg bssCfg.macAllowFile} >> "$MAC_ALLOW_FILE"
-                              ''
-                            );
-                            "20-addMacAllowFromSae" = mkIf (bssCfg.authentication.saeAddToMacAllow && saeMacs != [ ]) (
-                              pkgs.writeShellScript "add-mac-allow-from-sae" ''
-                                MAC_ALLOW_FILE=$2
-                                cat >> "$MAC_ALLOW_FILE" <<EOF
-                                ${concatStringsSep "\n" saeMacs}
-                                EOF
-                              ''
-                            );
-                            # Populate mac allow list from saePasswordsFile
-                            # (filter for lines with mac=;  exclude commented lines; filter for real mac-addresses; strip mac=)
-                            "20-addMacAllowFromSaeFile" =
-                              mkIf (bssCfg.authentication.saeAddToMacAllow && bssCfg.authentication.saePasswordsFile != null)
-                                (
-                                  pkgs.writeShellScript "add-mac-allow-from-sae-file" ''
-                                    MAC_ALLOW_FILE=$2
-                                    grep mac= ${escapeShellArg bssCfg.authentication.saePasswordsFile} \
-                                      | grep -v '^\s*#' \
-                                      | grep -Eo 'mac=([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})' \
-                                      | sed 's|^mac=||' >> "$MAC_ALLOW_FILE"
-                                  ''
-                                );
-                            "20-addMacDeny" = mkIf (bssCfg.macDeny != [ ]) (
-                              pkgs.writeShellScript "add-mac-deny" ''
-                                MAC_DENY_FILE=$3
-                                cat >> "$MAC_DENY_FILE" <<EOF
-                                ${concatStringsSep "\n" bssCfg.macDeny}
-                                EOF
-                              ''
-                            );
-                            "20-addMacDenyFile" = mkIf (bssCfg.macDenyFile != null) (
-                              pkgs.writeShellScript "add-mac-deny-file" ''
-                                MAC_DENY_FILE=$3
-                                grep -Eo '^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})' ${escapeShellArg bssCfg.macDenyFile} >> "$MAC_DENY_FILE"
-                              ''
-                            );
-                            # Add wpa_passphrase from file
-                            "20-wpaPasswordFile" = mkIf (bssCfg.authentication.wpaPasswordFile != null) (
-                              pkgs.writeShellScript "wpa-password-file" ''
-                                HOSTAPD_CONFIG_FILE=$1
-                                cat >> "$HOSTAPD_CONFIG_FILE" <<EOF
-                                wpa_passphrase=$(cat ${escapeShellArg bssCfg.authentication.wpaPasswordFile})
-                                EOF
-                              ''
-                            );
-                            # Add sae passwords from file
-                            "20-saePasswordsFile" = mkIf (bssCfg.authentication.saePasswordsFile != null) (
-                              pkgs.writeShellScript "sae-passwords-file" ''
-                                HOSTAPD_CONFIG_FILE=$1
-                                grep -v '^\s*#' ${escapeShellArg bssCfg.authentication.saePasswordsFile} \
-                                  | sed 's/^/sae_password=/' >> "$HOSTAPD_CONFIG_FILE"
-                              ''
-                            );
-                            # Add sae passwords from nix definitions, potentially reading secrets
-                            "20-saePasswords" = mkIf (bssCfg.authentication.saePasswords != [ ]) (
-                              pkgs.writeShellScript "sae-passwords" (
-                                ''
-                                  HOSTAPD_CONFIG_FILE=$1
-                                ''
-                                + concatMapStrings (
-                                  entry:
-                                  let
-                                    lineSuffix =
-                                      optionalString (entry.password != null) entry.password
-                                      + optionalString (entry.mac != null) "|mac=${entry.mac}"
-                                      + optionalString (entry.vlanid != null) "|vlanid=${toString entry.vlanid}"
-                                      + optionalString (entry.pk != null) "|pk=${entry.pk}"
-                                      + optionalString (entry.id != null) "|id=${entry.id}";
-                                  in
-                                  ''
-                                    (
-                                      echo -n 'sae_password='
-                                      ${optionalString (entry.passwordFile != null) ''tr -d '\n' < ${entry.passwordFile}''}
-                                      echo ${escapeShellArg lineSuffix}
-                                    ) >> "$HOSTAPD_CONFIG_FILE"
-                                  ''
-                                ) bssCfg.authentication.saePasswords
-                              )
-                            );
-                          };
                       };
+                    };
                   })
                 );
               };
             };
 
-            config.settings =
-              let
-                radioCfg = radioSubmod.config;
-              in
+            config.settings = let
+              radioCfg = radioSubmod.config;
+            in
               {
                 driver = radioCfg.driver;
                 hw_mode =
@@ -1224,7 +1214,9 @@ in
                     "6g" = "a";
                     "60g" = "ad";
                   }
-                  .${radioCfg.band};
+                  .${
+                    radioCfg.band
+                  };
                 channel = radioCfg.channel;
                 noscan = radioCfg.noScan;
               }
@@ -1271,65 +1263,64 @@ in
     };
   };
 
-  imports =
-    let
-      renamedOptionMessage = message: ''
-        ${message}
-        Refer to the documentation of `services.hostapd.radios` for an example and more information.
-      '';
-    in
-    [
-      (mkRemovedOptionModule [ "services" "hostapd" "interface" ] (
-        renamedOptionMessage "All other options for this interface are now set via `services.hostapd.radios.«interface».*`."
-      ))
+  imports = let
+    renamedOptionMessage = message: ''
+      ${message}
+      Refer to the documentation of `services.hostapd.radios` for an example and more information.
+    '';
+  in [
+    (mkRemovedOptionModule ["services" "hostapd" "interface"] (
+      renamedOptionMessage "All other options for this interface are now set via `services.hostapd.radios.«interface».*`."
+    ))
 
-      (mkRemovedOptionModule [ "services" "hostapd" "driver" ] (
-        renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».driver`."
-      ))
-      (mkRemovedOptionModule [ "services" "hostapd" "noScan" ] (
-        renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».noScan`."
-      ))
-      (mkRemovedOptionModule [ "services" "hostapd" "countryCode" ] (
-        renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».countryCode`."
-      ))
-      (mkRemovedOptionModule [ "services" "hostapd" "hwMode" ] (
-        renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».band`."
-      ))
-      (mkRemovedOptionModule [ "services" "hostapd" "channel" ] (
-        renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».channel`."
-      ))
-      (mkRemovedOptionModule [ "services" "hostapd" "extraConfig" ] (renamedOptionMessage ''
-        It has been replaced by `services.hostapd.radios.«interface».settings` and
-        `services.hostapd.radios.«interface».networks.«network».settings` respectively
-        for per-radio and per-network extra configuration. The module now supports a lot more
-        options inherently, so please re-check whether using settings is still necessary.''))
+    (mkRemovedOptionModule ["services" "hostapd" "driver"] (
+      renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».driver`."
+    ))
+    (mkRemovedOptionModule ["services" "hostapd" "noScan"] (
+      renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».noScan`."
+    ))
+    (mkRemovedOptionModule ["services" "hostapd" "countryCode"] (
+      renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».countryCode`."
+    ))
+    (mkRemovedOptionModule ["services" "hostapd" "hwMode"] (
+      renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».band`."
+    ))
+    (mkRemovedOptionModule ["services" "hostapd" "channel"] (
+      renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».channel`."
+    ))
+    (mkRemovedOptionModule ["services" "hostapd" "extraConfig"] (renamedOptionMessage ''
+      It has been replaced by `services.hostapd.radios.«interface».settings` and
+      `services.hostapd.radios.«interface».networks.«network».settings` respectively
+      for per-radio and per-network extra configuration. The module now supports a lot more
+      options inherently, so please re-check whether using settings is still necessary.''))
 
-      (mkRemovedOptionModule [ "services" "hostapd" "logLevel" ] (
-        renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».networks.«network».logLevel`."
-      ))
-      (mkRemovedOptionModule [ "services" "hostapd" "group" ] (
-        renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».networks.«network».group`."
-      ))
-      (mkRemovedOptionModule [ "services" "hostapd" "ssid" ] (
-        renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».networks.«network».ssid`."
-      ))
+    (mkRemovedOptionModule ["services" "hostapd" "logLevel"] (
+      renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».networks.«network».logLevel`."
+    ))
+    (mkRemovedOptionModule ["services" "hostapd" "group"] (
+      renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».networks.«network».group`."
+    ))
+    (mkRemovedOptionModule ["services" "hostapd" "ssid"] (
+      renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».networks.«network».ssid`."
+    ))
 
-      (mkRemovedOptionModule [ "services" "hostapd" "wpa" ] (
-        renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».networks.«network».authentication.mode`."
-      ))
-      (mkRemovedOptionModule [ "services" "hostapd" "wpaPassphrase" ]
-        (renamedOptionMessage ''
-          It has been replaced by `services.hostapd.radios.«interface».networks.«network».authentication.wpaPassword`.
-          While upgrading your config, please consider using the newer SAE authentication scheme
-          and one of the new `passwordFile`-like options to avoid putting the password into the world readable nix-store.'')
-      )
-    ];
+    (mkRemovedOptionModule ["services" "hostapd" "wpa"] (
+      renamedOptionMessage "It has been replaced by `services.hostapd.radios.«interface».networks.«network».authentication.mode`."
+    ))
+    (
+      mkRemovedOptionModule ["services" "hostapd" "wpaPassphrase"]
+      (renamedOptionMessage ''
+        It has been replaced by `services.hostapd.radios.«interface».networks.«network».authentication.wpaPassword`.
+        While upgrading your config, please consider using the newer SAE authentication scheme
+        and one of the new `passwordFile`-like options to avoid putting the password into the world readable nix-store.'')
+    )
+  ];
 
   config = mkIf cfg.enable {
     assertions =
       [
         {
-          assertion = cfg.radios != { };
+          assertion = cfg.radios != {};
           message = "At least one radio must be configured with hostapd!";
         }
       ]
@@ -1337,99 +1328,103 @@ in
       ++ (concatLists (
         mapAttrsToList (
           radio: radioCfg:
-          [
-            {
-              assertion = radioCfg.networks != { };
-              message = "hostapd radio ${radio}: At least one network must be configured!";
-            }
-            # XXX: There could be many more useful assertions about (band == xy) -> ensure other required settings.
-            # see https://github.com/openwrt/openwrt/blob/539cb5389d9514c99ec1f87bd4465f77c7ed9b93/package/kernel/mac80211/files/lib/netifd/wireless/mac80211.sh#L158
-            {
-              assertion = length (filter (bss: bss == radio) (attrNames radioCfg.networks)) == 1;
-              message = ''hostapd radio ${radio}: Exactly one network must be named like the radio, for reasons internal to hostapd.'';
-            }
-            {
-              assertion =
-                (radioCfg.wifi4.enable && builtins.elem "HT40-" radioCfg.wifi4.capabilities)
-                -> radioCfg.channel != 0;
-              message = ''hostapd radio ${radio}: using ACS (channel = 0) together with HT40- (wifi4.capabilities) is unsupported by hostapd'';
-            }
-          ]
-          # BSS warnings
-          ++ (concatLists (
-            mapAttrsToList (
-              bss: bssCfg:
-              let
-                auth = bssCfg.authentication;
-                countWpaPasswordDefinitions = count (x: x != null) [
-                  auth.wpaPassword
-                  auth.wpaPasswordFile
-                  auth.wpaPskFile
-                ];
-              in
-              [
-                {
-                  assertion = hasPrefix radio bss;
-                  message = "hostapd radio ${radio} bss ${bss}: The bss (network) name ${bss} is invalid. It must be prefixed by the radio name for reasons internal to hostapd. A valid name would be e.g. ${radio}, ${radio}-1, ...";
-                }
-                {
-                  assertion = (length (attrNames radioCfg.networks) > 1) -> (bssCfg.bssid != null);
-                  message = ''hostapd radio ${radio} bss ${bss}: bssid must be specified manually (for now) since this radio uses multiple BSS.'';
-                }
-                {
-                  assertion = countWpaPasswordDefinitions <= 1;
-                  message = ''hostapd radio ${radio} bss ${bss}: must use at most one WPA password option (wpaPassword, wpaPasswordFile, wpaPskFile)'';
-                }
-                {
-                  assertion =
-                    auth.wpaPassword != null
-                    -> (stringLength auth.wpaPassword >= 8 && stringLength auth.wpaPassword <= 63);
-                  message = ''hostapd radio ${radio} bss ${bss}: uses a wpaPassword of invalid length (must be in [8,63]).'';
-                }
-                {
-                  assertion = auth.saePasswords == [ ] || auth.saePasswordsFile == null;
-                  message = ''hostapd radio ${radio} bss ${bss}: must use only one SAE password option (saePasswords or saePasswordsFile)'';
-                }
-                {
-                  assertion = auth.mode == "wpa3-sae" -> (auth.saePasswords != [ ] || auth.saePasswordsFile != null);
-                  message = ''hostapd radio ${radio} bss ${bss}: uses WPA3-SAE which requires defining a sae password option'';
-                }
-                {
-                  assertion =
-                    auth.mode == "wpa3-sae-transition"
-                    -> (auth.saePasswords != [ ] || auth.saePasswordsFile != null) && countWpaPasswordDefinitions == 1;
-                  message = ''hostapd radio ${radio} bss ${bss}: uses WPA3-SAE in transition mode requires defining both a wpa password option and a sae password option'';
-                }
-                {
-                  assertion =
-                    (auth.mode == "wpa2-sha1" || auth.mode == "wpa2-sha256") -> countWpaPasswordDefinitions == 1;
-                  message = ''hostapd radio ${radio} bss ${bss}: uses WPA2-PSK which requires defining a wpa password option'';
-                }
-              ]
-              ++ optionals (auth.saePasswords != [ ]) (
-                imap1 (i: entry: {
-                  assertion = (entry.password == null) != (entry.passwordFile == null);
-                  message = ''hostapd radio ${radio} bss ${bss} saePassword entry ${i}: must set exactly one of `password` or `passwordFile`'';
-                }) auth.saePasswords
+            [
+              {
+                assertion = radioCfg.networks != {};
+                message = "hostapd radio ${radio}: At least one network must be configured!";
+              }
+              # XXX: There could be many more useful assertions about (band == xy) -> ensure other required settings.
+              # see https://github.com/openwrt/openwrt/blob/539cb5389d9514c99ec1f87bd4465f77c7ed9b93/package/kernel/mac80211/files/lib/netifd/wireless/mac80211.sh#L158
+              {
+                assertion = length (filter (bss: bss == radio) (attrNames radioCfg.networks)) == 1;
+                message = ''hostapd radio ${radio}: Exactly one network must be named like the radio, for reasons internal to hostapd.'';
+              }
+              {
+                assertion =
+                  (radioCfg.wifi4.enable && builtins.elem "HT40-" radioCfg.wifi4.capabilities)
+                  -> radioCfg.channel != 0;
+                message = ''hostapd radio ${radio}: using ACS (channel = 0) together with HT40- (wifi4.capabilities) is unsupported by hostapd'';
+              }
+            ]
+            # BSS warnings
+            ++ (concatLists (
+              mapAttrsToList (
+                bss: bssCfg: let
+                  auth = bssCfg.authentication;
+                  countWpaPasswordDefinitions = count (x: x != null) [
+                    auth.wpaPassword
+                    auth.wpaPasswordFile
+                    auth.wpaPskFile
+                  ];
+                in
+                  [
+                    {
+                      assertion = hasPrefix radio bss;
+                      message = "hostapd radio ${radio} bss ${bss}: The bss (network) name ${bss} is invalid. It must be prefixed by the radio name for reasons internal to hostapd. A valid name would be e.g. ${radio}, ${radio}-1, ...";
+                    }
+                    {
+                      assertion = (length (attrNames radioCfg.networks) > 1) -> (bssCfg.bssid != null);
+                      message = ''hostapd radio ${radio} bss ${bss}: bssid must be specified manually (for now) since this radio uses multiple BSS.'';
+                    }
+                    {
+                      assertion = countWpaPasswordDefinitions <= 1;
+                      message = ''hostapd radio ${radio} bss ${bss}: must use at most one WPA password option (wpaPassword, wpaPasswordFile, wpaPskFile)'';
+                    }
+                    {
+                      assertion =
+                        auth.wpaPassword
+                        != null
+                        -> (stringLength auth.wpaPassword >= 8 && stringLength auth.wpaPassword <= 63);
+                      message = ''hostapd radio ${radio} bss ${bss}: uses a wpaPassword of invalid length (must be in [8,63]).'';
+                    }
+                    {
+                      assertion = auth.saePasswords == [] || auth.saePasswordsFile == null;
+                      message = ''hostapd radio ${radio} bss ${bss}: must use only one SAE password option (saePasswords or saePasswordsFile)'';
+                    }
+                    {
+                      assertion = auth.mode == "wpa3-sae" -> (auth.saePasswords != [] || auth.saePasswordsFile != null);
+                      message = ''hostapd radio ${radio} bss ${bss}: uses WPA3-SAE which requires defining a sae password option'';
+                    }
+                    {
+                      assertion =
+                        auth.mode
+                        == "wpa3-sae-transition"
+                        -> (auth.saePasswords != [] || auth.saePasswordsFile != null) && countWpaPasswordDefinitions == 1;
+                      message = ''hostapd radio ${radio} bss ${bss}: uses WPA3-SAE in transition mode requires defining both a wpa password option and a sae password option'';
+                    }
+                    {
+                      assertion =
+                        (auth.mode == "wpa2-sha1" || auth.mode == "wpa2-sha256") -> countWpaPasswordDefinitions == 1;
+                      message = ''hostapd radio ${radio} bss ${bss}: uses WPA2-PSK which requires defining a wpa password option'';
+                    }
+                  ]
+                  ++ optionals (auth.saePasswords != []) (
+                    imap1 (i: entry: {
+                      assertion = (entry.password == null) != (entry.passwordFile == null);
+                      message = ''hostapd radio ${radio} bss ${bss} saePassword entry ${i}: must set exactly one of `password` or `passwordFile`'';
+                    })
+                    auth.saePasswords
+                  )
               )
-            ) radioCfg.networks
-          ))
-        ) cfg.radios
+              radioCfg.networks
+            ))
+        )
+        cfg.radios
       ));
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.hostapd = {
       description = "IEEE 802.11 Host Access-Point Daemon";
 
-      path = [ cfg.package ];
+      path = [cfg.package];
       after = map (radio: "sys-subsystem-net-devices-${utils.escapeSystemdPath radio}.device") (
         attrNames cfg.radios
       );
       bindsTo = map (radio: "sys-subsystem-net-devices-${utils.escapeSystemdPath radio}.device") (
         attrNames cfg.radios
       );
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       # Create merged configuration and acl files for each radio (and their bss's) prior to starting
       preStart = concatStringsSep "\n" (mapAttrsToList makeRadioRuntimeFiles cfg.radios);

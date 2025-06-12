@@ -8,7 +8,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "online-judge-tools";
   version = "12.0.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-m6V4Sq3yU/KPnbpA0oCLI/qaSrAPA6TutcBL5Crb/Cc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     colorama
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     mainProgram = "oj";
     homepage = "https://github.com/online-judge-tools/oj";
     license = licenses.mit;
-    maintainers = with maintainers; [ sei40kr ];
+    maintainers = with maintainers; [sei40kr];
   };
 }

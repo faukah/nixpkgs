@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "awsipranges";
   version = "0.3.3";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-ve1+0zkDDUGswtQoXhfESMcBzoNgUutxEhz43HXL4H8=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     pyopenssl
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "awsipranges" ];
+  pythonImportsCheck = ["awsipranges"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aws-samples/awsipranges";
     changelog = "https://github.com/aws-samples/awsipranges/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

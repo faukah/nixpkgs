@@ -4,7 +4,6 @@
   fetchurl,
   appimageTools,
 }:
-
 appimageTools.wrapType2 rec {
   pname = "quiet";
   version = "5.1.2";
@@ -19,7 +18,7 @@ appimageTools.wrapType2 rec {
     homepage = "https://github.com/TryQuiet/quiet";
     changelog = "https://github.com/TryQuiet/quiet/releases/tag/@quiet/desktop@${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ kashw2 ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [kashw2];
+    platforms = ["x86_64-linux"];
   };
 }

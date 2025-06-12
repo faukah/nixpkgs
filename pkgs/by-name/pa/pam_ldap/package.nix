@@ -7,7 +7,6 @@
   perl,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pam_ldap";
   version = "0-unstable-2024-02-22";
@@ -28,13 +27,13 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace Makefile --replace '-o root -g root' ''
   ";
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
   buildInputs = [
     pam
     openldap
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://www.padl.com/OSS/pam_ldap.html";

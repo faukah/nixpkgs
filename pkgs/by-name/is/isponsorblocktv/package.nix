@@ -4,7 +4,6 @@
   lib,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "isponsorblocktv";
   version = "2.4.0";
@@ -57,7 +56,7 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/dmunozv04/iSponsorBlockTV/releases/tag/${src.tag}";
     description = "SponsorBlock client for all YouTube TV clients";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ lukegb ];
+    maintainers = with lib.maintainers; [lukegb];
     mainProgram = "iSponsorBlockTV";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };

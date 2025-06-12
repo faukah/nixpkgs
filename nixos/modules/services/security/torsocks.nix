@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.tor.torsocks;
   optionalNullStr = b: v: lib.optionalString (b != null) v;
 
@@ -17,11 +16,14 @@ let
     ${optionalNullStr cfg.socks5Username "SOCKS5Username ${cfg.socks5Username}"}
     ${optionalNullStr cfg.socks5Password "SOCKS5Password ${cfg.socks5Password}"}
 
-    AllowInbound ${if cfg.allowInbound then "1" else "0"}
+    AllowInbound ${
+      if cfg.allowInbound
+      then "1"
+      else "0"
+    }
   '';
 
-  wrapTorsocks =
-    name: server:
+  wrapTorsocks = name: server:
     pkgs.writeTextFile {
       name = name;
       text = ''
@@ -31,9 +33,7 @@ let
       executable = true;
       destination = "/bin/${name}";
     };
-
-in
-{
+in {
   options = {
     services.tor.torsocks = {
       enable = lib.mkOption {
@@ -108,7 +108,6 @@ in
           allowed to be used with non localhost address.
         '';
       };
-
     };
   };
 

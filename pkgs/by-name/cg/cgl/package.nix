@@ -7,7 +7,6 @@
   coin-utils,
   osi,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cgl";
   version = "0.60.9";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Cut Generator Library";
     homepage = "https://github.com/coin-or/Cgl";
     license = licenses.epl20;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 })

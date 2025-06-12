@@ -9,7 +9,6 @@
   pytest-httpx,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "luftdaten";
   version = "0.7.4";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-nOhJKlUJ678DJ/ilyRHaiQ2fGfoCl+x6l9lsczVLAGw=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ httpx ];
+  propagatedBuildInputs = [httpx];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "luftdaten" ];
+  pythonImportsCheck = ["luftdaten"];
 
   meta = with lib; {
     description = "Python API for interacting with luftdaten.info";

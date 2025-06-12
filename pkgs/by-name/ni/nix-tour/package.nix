@@ -7,7 +7,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nix-tour";
   version = "unstable-2022-01-03";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     copyDesktopItems
   ];
-  buildInputs = [ electron ];
+  buildInputs = [electron];
 
   installPhase = ''
     install -d $out/bin $out/share/nix-tour

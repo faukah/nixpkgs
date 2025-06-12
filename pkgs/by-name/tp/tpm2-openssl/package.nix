@@ -9,7 +9,6 @@
   openssl,
   tpm2-tss,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tpm2-openssl";
   version = "1.3.0";
@@ -31,19 +30,19 @@ stdenv.mkDerivation (finalAttrs: {
     tpm2-tss
   ];
 
-  configureFlags = [ "--with-modulesdir=$$out/lib/ossl-modules" ];
+  configureFlags = ["--with-modulesdir=$$out/lib/ossl-modules"];
 
   postPatch = ''
     echo ${finalAttrs.version} > VERSION
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "OpenSSL Provider for TPM2 integration";
     homepage = "https://github.com/tpm2-software/tpm2-openssl";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ stv0g ];
+    maintainers = with maintainers; [stv0g];
     platforms = platforms.linux;
   };
 })

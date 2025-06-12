@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "changedetection-io";
   version = "0.49.4";
@@ -18,8 +17,7 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonRelaxDeps = true;
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       apprise
       beautifulsoup4
@@ -77,7 +75,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/dgtlmoon/changedetection.io";
     changelog = "https://github.com/dgtlmoon/changedetection.io/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mikaelfangel ];
+    maintainers = with maintainers; [mikaelfangel];
     mainProgram = "changedetection.io";
   };
 }

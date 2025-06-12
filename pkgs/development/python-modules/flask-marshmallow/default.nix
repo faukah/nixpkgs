@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "flask-marshmallow";
   version = "1.3.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-dK2bE5mZiFh0nAN2yRpABT+SGG/UGWJ1oDtnD6bgyXk=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     flask
@@ -39,9 +38,9 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.sqlalchemy;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.sqlalchemy;
 
-  pythonImportsCheck = [ "flask_marshmallow" ];
+  pythonImportsCheck = ["flask_marshmallow"];
 
   pytestFlagsArray = [
     "-W"
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/marshmallow-code/flask-marshmallow";
     changelog = "https://github.com/marshmallow-code/flask-marshmallow/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

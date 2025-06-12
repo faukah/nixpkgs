@@ -47,7 +47,6 @@
   typing-extensions,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "msticpy";
   version = "2.16.2.post";
@@ -62,9 +61,9 @@ buildPythonPackage rec {
     hash = "sha256-EUZAN56EXNnAFXiBhtjsu652+K3T/qMZoWt2N1C92mU=";
   };
 
-  pythonRelaxDeps = [ "bokeh" ];
+  pythonRelaxDeps = ["bokeh"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     attrs
@@ -112,13 +111,13 @@ buildPythonPackage rec {
   # Test requires network access
   doCheck = false;
 
-  pythonImportsCheck = [ "msticpy" ];
+  pythonImportsCheck = ["msticpy"];
 
   meta = {
     description = "Microsoft Threat Intelligence Security Tools";
     homepage = "https://github.com/microsoft/msticpy";
     changelog = "https://github.com/microsoft/msticpy/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

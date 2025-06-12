@@ -1,37 +1,37 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   port = 81;
-in
-{
+in {
   name = "keter";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ jappie ];
+    maintainers = [jappie];
   };
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      services.keter = {
-        enable = true;
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    services.keter = {
+      enable = true;
 
-        globalKeterConfig = {
-          cli-port = 123; # just adding this to test the freeform
-          listeners = [
-            {
-              host = "*4";
-              inherit port;
-            }
-          ];
-        };
-        bundle = {
-          appName = "test-bundle";
-          domain = "localhost";
-          executable = pkgs.writeShellScript "run" ''
-            ${pkgs.python3}/bin/python -m http.server $PORT
-          '';
-        };
+      globalKeterConfig = {
+        cli-port = 123; # just adding this to test the freeform
+        listeners = [
+          {
+            host = "*4";
+            inherit port;
+          }
+        ];
+      };
+      bundle = {
+        appName = "test-bundle";
+        domain = "localhost";
+        executable = pkgs.writeShellScript "run" ''
+          ${pkgs.python3}/bin/python -m http.server $PORT
+        '';
       };
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("keter.service")

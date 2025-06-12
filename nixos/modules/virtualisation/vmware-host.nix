@@ -3,48 +3,47 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.virtualisation.vmware.host;
   wrapperDir = "/run/vmware/bin"; # Perfectly fits as /usr/local/bin
   parentWrapperDir = dirOf wrapperDir;
-  vmwareWrappers = # Needed as hardcoded paths workaround
+  vmwareWrappers =
+    # Needed as hardcoded paths workaround
     let
       mkVmwareSymlink = program: ''
         ln -s "${config.security.wrapperDir}/${program}" $wrapperDir/${program}
       '';
-    in
-    [
+    in [
       (mkVmwareSymlink "pkexec")
       (mkVmwareSymlink "mount")
       (mkVmwareSymlink "umount")
     ];
-in
-{
+in {
   options = with lib; {
     virtualisation.vmware.host = {
-      enable = mkEnableOption "VMware" // {
-        description = ''
-          This enables VMware host virtualisation for running VMs.
+      enable =
+        mkEnableOption "VMware"
+        // {
+          description = ''
+            This enables VMware host virtualisation for running VMs.
 
-          ::: {.important}
-          `vmware-vmx` will cause kcompactd0 due to
-          `Transparent Hugepages` feature in kernel.
-          Apply `[ "transparent_hugepage=never" ]` in
-          option {option}`boot.kernelParams` to disable them.
-          :::
+            ::: {.important}
+            `vmware-vmx` will cause kcompactd0 due to
+            `Transparent Hugepages` feature in kernel.
+            Apply `[ "transparent_hugepage=never" ]` in
+            option {option}`boot.kernelParams` to disable them.
+            :::
 
-          ::: {.note}
-          If that didn't work disable `TRANSPARENT_HUGEPAGE`,
-          `COMPACTION` configs and recompile kernel.
-          :::
-        '';
-      };
-      package = mkPackageOption pkgs "vmware-workstation" { };
+            ::: {.note}
+            If that didn't work disable `TRANSPARENT_HUGEPAGE`,
+            `COMPACTION` configs and recompile kernel.
+            :::
+          '';
+        };
+      package = mkPackageOption pkgs "vmware-workstation" {};
       extraPackages = mkOption {
         type = with types; listOf package;
-        default = with pkgs; [ ];
+        default = with pkgs; [];
         description = "Extra packages to be used with VMware host.";
         example = "with pkgs; [ ntfs3g ]";
       };
@@ -62,7 +61,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    boot.extraModulePackages = [ config.boot.kernelPackages.vmware ];
+    boot.extraModulePackages = [config.boot.kernelPackages.vmware];
     boot.extraModprobeConfig = "alias char-major-10-229 fuse";
     boot.kernelModules = [
       "vmw_pvscsi"
@@ -72,28 +71,27 @@ in
       "fuse"
     ];
 
-    environment.systemPackages = [ cfg.package ] ++ cfg.extraPackages;
-    services.printing.drivers = [ cfg.package ];
+    environment.systemPackages = [cfg.package] ++ cfg.extraPackages;
+    services.printing.drivers = [cfg.package];
 
-    environment.etc."vmware/config".source =
-      let
-        packageConfig = "${cfg.package}/etc/vmware/config";
-      in
-      if cfg.extraConfig == "" then
-        packageConfig
+    environment.etc."vmware/config".source = let
+      packageConfig = "${cfg.package}/etc/vmware/config";
+    in
+      if cfg.extraConfig == ""
+      then packageConfig
       else
         pkgs.runCommandLocal "etc-vmware-config"
-          {
-            inherit packageConfig;
-            inherit (cfg) extraConfig;
-          }
-          ''
-            (
-              cat "$packageConfig"
-              printf "\n"
-              echo "$extraConfig"
-            ) >"$out"
-          '';
+        {
+          inherit packageConfig;
+          inherit (cfg) extraConfig;
+        }
+        ''
+          (
+            cat "$packageConfig"
+            printf "\n"
+            echo "$extraConfig"
+          ) >"$out"
+        '';
 
     environment.etc."vmware/bootstrap".source = "${cfg.package}/etc/vmware/bootstrap";
     environment.etc."vmware/icu".source = "${cfg.package}/etc/vmware/icu";
@@ -114,14 +112,14 @@ in
 
     systemd.services."vmware-wrappers" = {
       description = "Create VMVare Wrappers";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       before = [
         "vmware-authdlauncher.service"
         "vmware-networks-configuration.service"
         "vmware-networks.service"
         "vmware-usbarbitrator.service"
       ];
-      after = [ "systemd-sysusers.service" ];
+      after = ["systemd-sysusers.service"];
       serviceConfig.Type = "oneshot";
       serviceConfig.RemainAfterExit = true;
       script = ''
@@ -130,7 +128,7 @@ in
         # We want to place the tmpdirs for the wrappers to the parent dir.
         wrapperDir=$(mktemp --directory --tmpdir="${parentWrapperDir}" wrappers.XXXXXXXXXX)
         chmod a+rx "$wrapperDir"
-        ${lib.concatStringsSep "\n" (vmwareWrappers)}
+        ${lib.concatStringsSep "\n" vmwareWrappers}
         if [ -L ${wrapperDir} ]; then
           # Atomically replace the symlink
           # See https://axialcorps.com/2013/07/03/atomically-replacing-files-and-directories/
@@ -152,9 +150,9 @@ in
       description = "VMware Authentication Daemon";
       serviceConfig = {
         Type = "forking";
-        ExecStart = [ "${cfg.package}/bin/vmware-authdlauncher" ];
+        ExecStart = ["${cfg.package}/bin/vmware-authdlauncher"];
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     systemd.services."vmware-networks-configuration" = {
@@ -168,28 +166,28 @@ in
         Type = "oneshot";
         RemainAfterExit = "yes";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     systemd.services."vmware-networks" = {
       description = "VMware Networks";
-      after = [ "vmware-networks-configuration.service" ];
-      requires = [ "vmware-networks-configuration.service" ];
+      after = ["vmware-networks-configuration.service"];
+      requires = ["vmware-networks-configuration.service"];
       serviceConfig = {
         Type = "forking";
-        ExecCondition = [ "${pkgs.kmod}/bin/modprobe vmnet" ];
-        ExecStart = [ "${cfg.package}/bin/vmware-networks --start" ];
-        ExecStop = [ "${cfg.package}/bin/vmware-networks --stop" ];
+        ExecCondition = ["${pkgs.kmod}/bin/modprobe vmnet"];
+        ExecStart = ["${cfg.package}/bin/vmware-networks --start"];
+        ExecStop = ["${cfg.package}/bin/vmware-networks --stop"];
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     systemd.services."vmware-usbarbitrator" = {
       description = "VMware USB Arbitrator";
       serviceConfig = {
-        ExecStart = [ "${cfg.package}/bin/vmware-usbarbitrator -f" ];
+        ExecStart = ["${cfg.package}/bin/vmware-usbarbitrator -f"];
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 }

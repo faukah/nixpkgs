@@ -6,7 +6,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "i3blocks";
   version = "1.5";

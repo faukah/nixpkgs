@@ -7,7 +7,6 @@
   testers,
   minify,
 }:
-
 buildGoModule rec {
   pname = "minify";
   version = "2.23.1";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Btc5d/wwDmjhyDZwAIHDSbXuh8xqq/nIjTAkPsdeHU4=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -29,10 +28,10 @@ buildGoModule rec {
     "-X main.Version=${version}"
   ];
 
-  subPackages = [ "cmd/minify" ];
+  subPackages = ["cmd/minify"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       inherit version;
       package = minify;
@@ -50,7 +49,7 @@ buildGoModule rec {
     downloadPage = "https://github.com/tdewolff/minify";
     changelog = "https://github.com/tdewolff/minify/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ gaelreyrol ];
+    maintainers = with lib.maintainers; [gaelreyrol];
     mainProgram = "minify";
   };
 }

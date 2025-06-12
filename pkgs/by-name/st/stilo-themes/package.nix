@@ -10,7 +10,6 @@
   gtk_engines,
   gtk-engine-murrine,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stilo-themes";
   version = "4.0";
@@ -34,13 +33,13 @@ stdenv.mkDerivation rec {
     gtk_engines
   ];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   meta = with lib; {
     description = "Minimalistic GTK, gnome shell and Xfce themes";
     homepage = "https://github.com/lassekongo83/stilo-themes";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

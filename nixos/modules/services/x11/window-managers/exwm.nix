@@ -4,21 +4,17 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.exwm;
   loadScript = pkgs.writeText "emacs-exwm-load" ''
     ${cfg.loadScript}
   '';
-  packages = epkgs: cfg.extraPackages epkgs ++ [ epkgs.exwm ];
+  packages = epkgs: cfg.extraPackages epkgs ++ [epkgs.exwm];
   exwm-emacs = cfg.package.pkgs.withPackages packages;
-in
-{
-
+in {
   imports = [
-    (mkRemovedOptionModule [ "services" "xserver" "windowManager" "exwm" "enableDefaultConfig" ]
+    (
+      mkRemovedOptionModule ["services" "xserver" "windowManager" "exwm" "enableDefaultConfig"]
       "The upstream EXWM project no longer provides a default configuration, instead copy (parts of) exwm-config.el to your local config."
     )
   ];
@@ -40,11 +36,11 @@ in
       };
       package = mkPackageOption pkgs "Emacs" {
         default = "emacs";
-        example = [ "emacs-gtk" ];
+        example = ["emacs-gtk"];
       };
       extraPackages = mkOption {
         type = types.functionTo (types.listOf types.package);
-        default = epkgs: [ ];
+        default = epkgs: [];
         defaultText = literalExpression "epkgs: []";
         example = literalExpression ''
           epkgs: [
@@ -69,6 +65,6 @@ in
         ${exwm-emacs}/bin/emacs -l ${loadScript}
       '';
     };
-    environment.systemPackages = [ exwm-emacs ];
+    environment.systemPackages = [exwm-emacs];
   };
 }

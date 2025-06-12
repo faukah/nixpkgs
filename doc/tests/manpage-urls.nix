@@ -6,14 +6,13 @@
   cacert,
   python3,
 }:
-
 invalidateFetcherByDrvHash (
   {
     name ? "manual_check-manpage-urls",
     script ? ./manpage-urls.py,
     urlsFile ? ../manpage-urls.json,
   }:
-  runCommand name
+    runCommand name
     {
       nativeBuildInputs = [
         cacert
@@ -29,4 +28,4 @@ invalidateFetcherByDrvHash (
       python3 ${script} ${urlsFile}
       touch $out
     ''
-) { }
+) {}

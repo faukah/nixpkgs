@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "age-plugin-sss";
   version = "0.3.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     description = "Age plugin to split keys and wrap them with different recipients using Shamir's Secret Sharing";
     homepage = "https://github.com/olastor/age-plugin-sss/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ arbel-arad ];
+    maintainers = with lib.maintainers; [arbel-arad];
     mainProgram = "age-plugin-sss";
   };
 }

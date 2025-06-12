@@ -29,7 +29,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/qdrant/qdrant-web-ui";
     changelog = "https://github.com/qdrant/qdrant-web-ui/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ xzfc ];
+    maintainers = with lib.maintainers; [xzfc];
     platforms = lib.platforms.all;
   };
 }

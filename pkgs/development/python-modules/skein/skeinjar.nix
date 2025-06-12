@@ -6,7 +6,6 @@
   version,
   jarHash,
 }:
-
 stdenv.mkDerivation rec {
   inherit pname version;
 
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     unzip ${src}

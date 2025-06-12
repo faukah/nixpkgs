@@ -3,7 +3,6 @@
   fetchPypi,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "bikeshed";
   version = "5.2.0";
@@ -14,7 +13,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-HUPkLEpwLRnrffUMN62WPqsZX2UsGqPfjEa91UMbUMM=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   pythonRelaxDeps = true;
 
@@ -57,7 +56,7 @@ python3Packages.buildPythonApplication rec {
     $out/bin/bikeshed test
   '';
 
-  pythonImportsCheck = [ "bikeshed" ];
+  pythonImportsCheck = ["bikeshed"];
 
   meta = with lib; {
     description = "Preprocessor for anyone writing specifications that converts source files into actual specs";

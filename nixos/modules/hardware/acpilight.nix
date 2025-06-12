@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.hardware.acpilight;
-in
-{
+in {
   options = {
     hardware.acpilight = {
       enable = lib.mkOption {
@@ -22,7 +20,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ acpilight ];
-    services.udev.packages = with pkgs; [ acpilight ];
+    environment.systemPackages = with pkgs; [acpilight];
+    services.udev.packages = with pkgs; [acpilight];
   };
 }

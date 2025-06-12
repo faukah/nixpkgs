@@ -3,7 +3,6 @@
   mkcsmapper,
   mkesdb,
 }:
-
 mkDerivation {
   path = "share/i18n";
 

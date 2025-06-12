@@ -3,7 +3,6 @@
   fetchurl,
   raylib,
 }:
-
 buildDunePackage rec {
   pname = "raygui";
   version = "1.4.0";
@@ -17,7 +16,9 @@ buildDunePackage rec {
     raylib
   ];
 
-  meta = raylib.meta // {
-    description = "OCaml bindings for raygui";
-  };
+  meta =
+    raylib.meta
+    // {
+      description = "OCaml bindings for raygui";
+    };
 }

@@ -7,7 +7,6 @@
   pkg-config,
   fuse3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unionfs-fuse";
   version = "3.6";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [ fuse3 ];
+  buildInputs = [fuse3];
 
   # Put the unionfs mount helper in place as mount.unionfs-fuse. This makes it
   # possible to do:
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     substituteInPlace $out/sbin/mount.unionfs-fuse --replace unionfs $out/bin/unionfs
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     broken = stdenv.hostPlatform.isDarwin;
@@ -59,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/rpodgorny/unionfs-fuse";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.orivej ];
+    maintainers = [lib.maintainers.orivej];
   };
 }

@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pytouchline-extended";
   version = "0.4.5";
@@ -25,14 +24,14 @@ buildPythonPackage rec {
       --replace-fail '$GITHUB_REF_NAME' '${version}'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     faust-cchardet
     httplib2
   ];
 
-  pythonImportsCheck = [ "pytouchline_extended" ];
+  pythonImportsCheck = ["pytouchline_extended"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Roth Touchline interface library";
     homepage = "https://github.com/brondum/pytouchline";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

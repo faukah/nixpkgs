@@ -21,6 +21,6 @@ buildKodiBinaryAddon rec {
     description = "Kodi's Tvheadend HTSP client addon";
     platforms = platforms.all;
     license = licenses.gpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

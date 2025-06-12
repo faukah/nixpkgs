@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "goimports-reviser";
   version = "3.9.1";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   env.CGO_ENABLED = 0;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -42,6 +41,6 @@ buildGoModule rec {
     mainProgram = "goimports-reviser";
     homepage = "https://github.com/incu6us/goimports-reviser";
     license = licenses.mit;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
   };
 }

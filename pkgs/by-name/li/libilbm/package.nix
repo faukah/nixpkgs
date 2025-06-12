@@ -7,7 +7,6 @@
   pkg-config,
   help2man,
 }:
-
 stdenv.mkDerivation {
   pname = "libilbm";
   version = "0-unstable-2024-03-02";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     rev = "586f5822275ef5780509a851cb90c7407b2633d9";
     hash = "sha256-EcsrspL/N40yFE15UFWGienpJHhoq1zd8zZe6x4nK6o=";
   };
-  buildInputs = [ libiff ];
+  buildInputs = [libiff];
   nativeBuildInputs = [
     autoreconfHook
     pkg-config
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/svanderburg/libilbm";
     changelog = "https://github.com/svanderburg/libilbm/blob/master/ChangeLog";
-    maintainers = with maintainers; [ _414owen ];
+    maintainers = with maintainers; [_414owen];
     platforms = platforms.all;
     license = licenses.mit;
   };

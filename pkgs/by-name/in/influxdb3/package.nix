@@ -57,11 +57,11 @@ rustPlatform.buildRustPackage {
     wrapProgram $out/bin/influxdb3 \
       --set PYTHONHOME ${python3} \
       --suffix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          rust-jemalloc-sys-unprefixed
-          python3
-        ]
-      }
+      lib.makeLibraryPath [
+        rust-jemalloc-sys-unprefixed
+        python3
+      ]
+    }
   '';
 
   # Tests require running instance
@@ -81,7 +81,7 @@ rustPlatform.buildRustPackage {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ oddlama ];
+    maintainers = with lib.maintainers; [oddlama];
     mainProgram = "influxdb3";
   };
 }

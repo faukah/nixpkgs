@@ -3,7 +3,6 @@
   stdenv,
   frrSource,
   frrVersion,
-
   # build time
   autoreconfHook,
   flex,
@@ -12,9 +11,7 @@
   elfutils,
   perl,
   python3,
-
 }:
-
 stdenv.mkDerivation {
   pname = "frr-clippy-helper";
   version = frrVersion;
@@ -60,7 +57,7 @@ stdenv.mkDerivation {
       gpl2Plus
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ thillux ];
+    maintainers = with maintainers; [thillux];
     platforms = platforms.unix;
   };
 }

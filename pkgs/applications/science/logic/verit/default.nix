@@ -7,7 +7,6 @@
   flex,
   bison,
 }:
-
 stdenv.mkDerivation {
   pname = "veriT";
   version = "2021.06.2";
@@ -22,12 +21,12 @@ stdenv.mkDerivation {
     flex
     bison
   ];
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
   # --disable-static actually enables static linking here...
   dontDisableStatic = true;
 
-  makeFlags = [ "LEX=${flex}/bin/flex" ];
+  makeFlags = ["LEX=${flex}/bin/flex"];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -38,6 +37,6 @@ stdenv.mkDerivation {
     homepage = "https://verit.loria.fr/";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

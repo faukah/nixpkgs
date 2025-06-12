@@ -16,7 +16,6 @@
   libgbm,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wf-recorder";
   version = "0.5.0";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     changelog = "https://github.com/ammen99/wf-recorder/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dywedir ];
+    maintainers = with lib.maintainers; [dywedir];
     platforms = lib.platforms.linux;
     mainProgram = "wf-recorder";
   };

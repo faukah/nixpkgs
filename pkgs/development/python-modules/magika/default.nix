@@ -14,7 +14,6 @@
   testers,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "magika";
   version = "0.6.2";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-N+tq6AIPbmjyMbwGBSwKDL6Ob6J0kts0Xo3IZ9vOsGc=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     click
@@ -37,16 +36,16 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "magika" ];
+  pythonImportsCheck = ["magika"];
 
-  passthru.tests.version = testers.testVersion { package = magika; };
+  passthru.tests.version = testers.testVersion {package = magika;};
 
   meta = with lib; {
     description = "Magika: Detect file content types with deep learning";
     homepage = "https://github.com/google/magika";
     changelog = "https://github.com/google/magika/blob/python-v${version}/python/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mihaimaruseac ];
+    maintainers = with maintainers; [mihaimaruseac];
     mainProgram = "magika-python-client";
     # Currently, disabling on AArch64 as it onnx runtime crashes on ofborg
     broken = stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform.isLinux;

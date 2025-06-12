@@ -6,7 +6,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "simple-di";
   version = "0.1.5";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "simple_di" ];
+  pythonImportsCheck = ["simple_di"];
 
   # pypi distribution contains no tests
   doCheck = false;
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "Simple dependency injection library";
     homepage = "https://github.com/bentoml/simple_di";
     license = licenses.asl20;
-    maintainers = with maintainers; [ sauyon ];
+    maintainers = with maintainers; [sauyon];
   };
 }

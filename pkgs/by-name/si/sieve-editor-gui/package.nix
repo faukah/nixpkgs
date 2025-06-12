@@ -50,7 +50,7 @@ buildNpmPackage {
       exec = "sieve-editor-gui";
       desktopName = "Sieve Editor";
       icon = "sieve-editor-gui";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -63,7 +63,7 @@ buildNpmPackage {
     description = "Activate, edit, delete and add Sieve scripts with a convenient interface";
     homepage = "https://github.com/thsmi/sieve";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ Silver-Golden ];
+    maintainers = with lib.maintainers; [Silver-Golden];
     platforms = lib.platforms.linux;
     mainProgram = "sieve-editor-gui";
   };

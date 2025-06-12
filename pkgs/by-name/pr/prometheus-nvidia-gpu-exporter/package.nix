@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "prometheus-nvidia-gpu-exporter";
   version = "1.3.2";
@@ -31,7 +30,7 @@ buildGoModule rec {
     description = "Nvidia GPU exporter for prometheus using nvidia-smi binary";
     homepage = "https://github.com/utkuozdemir/nvidia_gpu_exporter";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ck3d ];
+    maintainers = with lib.maintainers; [ck3d];
     mainProgram = "nvidia_gpu_exporter";
   };
 }

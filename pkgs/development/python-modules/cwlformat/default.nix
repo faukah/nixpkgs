@@ -7,7 +7,6 @@
   pythonOlder,
   ruamel-yaml,
 }:
-
 buildPythonPackage rec {
   pname = "cwlformat";
   version = "2022.02.18";
@@ -31,17 +30,17 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ ruamel-yaml ];
+  propagatedBuildInputs = [ruamel-yaml];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cwlformat" ];
+  pythonImportsCheck = ["cwlformat"];
 
   meta = with lib; {
     description = "Code formatter for CWL";
     homepage = "https://github.com/rabix/cwl-format";
     changelog = "https://github.com/rabix/cwl-format/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

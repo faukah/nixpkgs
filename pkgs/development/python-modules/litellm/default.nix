@@ -43,7 +43,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "litellm";
   version = "1.72.2";
@@ -58,7 +57,7 @@ buildPythonPackage rec {
     hash = "sha256-CGmdk5SjtmeqXLVWiBqvofQ4+C2gW4TJXFkQdaQqMEA=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -112,7 +111,7 @@ buildPythonPackage rec {
   ];
 
   # Relax dependency check on openai, may not be needed in the future
-  pythonRelaxDeps = [ "openai" ];
+  pythonRelaxDeps = ["openai"];
 
   # access network
   doCheck = false;
@@ -125,7 +124,7 @@ buildPythonPackage rec {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) litellm; };
+    tests = {inherit (nixosTests) litellm;};
     updateScript = nix-update-script {
       extraArgs = [
         "--version-regex"
@@ -140,6 +139,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/BerriAI/litellm";
     changelog = "https://github.com/BerriAI/litellm/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 }

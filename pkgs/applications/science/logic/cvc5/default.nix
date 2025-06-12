@@ -15,7 +15,6 @@
   boost,
   jdk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cvc5";
   version = "1.2.1";
@@ -42,10 +41,11 @@ stdenv.mkDerivation rec {
     boost
     jdk
     (python3.withPackages (
-      ps: with ps; [
-        pyparsing
-        tomli
-      ]
+      ps:
+        with ps; [
+          pyparsing
+          tomli
+        ]
     ))
   ];
 
@@ -68,6 +68,6 @@ stdenv.mkDerivation rec {
     homepage = "https://cvc5.github.io";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ shadaj ];
+    maintainers = with maintainers; [shadaj];
   };
 }

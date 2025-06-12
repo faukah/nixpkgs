@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyvows";
   version = "3.0.0";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-2+4umWLNkbFlCpfFwX0FA2N0zOZhst/YM4ozBfXoaMI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     gevent
     preggy
   ];
 
-  pythonImportsCheck = [ "pyvows" ];
+  pythonImportsCheck = ["pyvows"];
 
   checkPhase = ''
     ${python.interpreter} pyvows/cli.py tests/
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     description = "BDD test engine based on Vows.js";
     homepage = "https://github.com/heynemann/pyvows";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ joachimschmidt557 ];
+    maintainers = with lib.maintainers; [joachimschmidt557];
   };
 }

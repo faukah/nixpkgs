@@ -14,7 +14,6 @@
   pythonOlder,
   respx,
 }:
-
 buildPythonPackage rec {
   pname = "pydiscovergy";
   version = "3.1.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
       --replace-fail 'version = "0.0.0"' 'version = "${version}"'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     authlib
@@ -51,13 +50,13 @@ buildPythonPackage rec {
     respx
   ];
 
-  pythonImportsCheck = [ "pydiscovergy" ];
+  pythonImportsCheck = ["pydiscovergy"];
 
   meta = with lib; {
     description = "Library for interacting with the Discovergy API";
     homepage = "https://github.com/jpbede/pydiscovergy";
     changelog = "https://github.com/jpbede/pydiscovergy/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

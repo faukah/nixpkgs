@@ -9,7 +9,6 @@
   pytestCheckHook,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   pname = "stups-zign";
   version = "1.2";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     stups-tokens
@@ -42,12 +41,12 @@ buildPythonPackage rec {
     export HOME=$TEMPDIR
   ";
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "OAuth2 token management command line utility";
     homepage = "https://github.com/zalando-stups/zign";
     license = licenses.asl20;
-    maintainers = [ maintainers.mschuwalow ];
+    maintainers = [maintainers.mschuwalow];
   };
 }

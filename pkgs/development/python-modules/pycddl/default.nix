@@ -9,7 +9,6 @@
   cbor2,
   hypothesis,
 }:
-
 buildPythonPackage rec {
   pname = "pycddl";
   version = "0.6.3";
@@ -56,13 +55,13 @@ buildPythonPackage rec {
     "test_memory_usage"
   ];
 
-  pythonImportsCheck = [ "pycddl" ];
+  pythonImportsCheck = ["pycddl"];
 
   meta = with lib; {
     description = "Python bindings for the Rust cddl crate";
     homepage = "https://gitlab.com/tahoe-lafs/pycddl";
     changelog = "https://gitlab.com/tahoe-lafs/pycddl/-/tree/v${version}#release-notes";
     license = licenses.mit;
-    maintainers = [ maintainers.exarkun ];
+    maintainers = [maintainers.exarkun];
   };
 }

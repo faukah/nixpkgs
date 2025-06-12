@@ -7,7 +7,6 @@
   setuptools-scm,
   crcmod,
 }:
-
 buildPythonPackage rec {
   pname = "fx2";
   version = "0.13";
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     mainProgram = "fx2tool";
     homepage = "https://github.com/whitequark/libfx2";
     license = licenses.bsd0;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

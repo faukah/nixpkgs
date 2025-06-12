@@ -4,19 +4,14 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xandikos;
-in
-{
-
+in {
   options = {
     services.xandikos = {
       enable = mkEnableOption "Xandikos CalDAV and CardDAV server";
 
-      package = mkPackageOption pkgs "xandikos" { };
+      package = mkPackageOption pkgs "xandikos" {};
 
       address = mkOption {
         type = types.str;
@@ -43,7 +38,7 @@ in
       };
 
       extraOptions = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         example = literalExpression ''
           [ "--autocreate"
@@ -58,7 +53,7 @@ in
       };
 
       nginx = mkOption {
-        default = { };
+        default = {};
         description = ''
           Configuration for nginx reverse proxy.
         '';
@@ -82,20 +77,17 @@ in
           };
         };
       };
-
     };
-
   };
 
-  meta.maintainers = with lib.maintainers; [ _0x4A6F ];
+  meta.maintainers = with lib.maintainers; [_0x4A6F];
 
   config = mkIf cfg.enable (mkMerge [
     {
-
       systemd.services.xandikos = {
         description = "A Simple Calendar and Contact Server";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = {
           User = "xandikos";

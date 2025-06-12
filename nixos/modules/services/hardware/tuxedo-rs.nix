@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.hardware.tuxedo-rs;
-
-in
-{
+in {
   options = {
     hardware.tuxedo-rs = {
       enable = lib.mkEnableOption "Rust utilities for interacting with hardware from TUXEDO Computers";
@@ -26,8 +23,8 @@ in
           services.tailord = {
             enable = true;
             description = "Tuxedo Tailor hardware control service";
-            after = [ "systemd-logind.service" ];
-            wantedBy = [ "multi-user.target" ];
+            after = ["systemd-logind.service"];
+            wantedBy = ["multi-user.target"];
 
             serviceConfig = {
               Type = "dbus";
@@ -39,15 +36,15 @@ in
           };
         };
 
-        services.dbus.packages = [ pkgs.tuxedo-rs ];
+        services.dbus.packages = [pkgs.tuxedo-rs];
 
-        environment.systemPackages = [ pkgs.tuxedo-rs ];
+        environment.systemPackages = [pkgs.tuxedo-rs];
       }
       (lib.mkIf cfg.tailor-gui.enable {
-        environment.systemPackages = [ pkgs.tailor-gui ];
+        environment.systemPackages = [pkgs.tailor-gui];
       })
     ]
   );
 
-  meta.maintainers = with lib.maintainers; [ mrcjkb ];
+  meta.maintainers = with lib.maintainers; [mrcjkb];
 }

@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "fireflyalgorithm";
   version = "0.4.6";
@@ -27,13 +26,13 @@ buildPythonPackage rec {
       --replace-fail 'numpy = "^1.26.1"' ""
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "fireflyalgorithm" ];
+  pythonImportsCheck = ["fireflyalgorithm"];
 
   meta = {
     description = "Implementation of the stochastic nature-inspired algorithm for optimization";
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/firefly-cpp/FireflyAlgorithm";
     changelog = "https://github.com/firefly-cpp/FireflyAlgorithm/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ firefly-cpp ];
+    maintainers = with lib.maintainers; [firefly-cpp];
   };
 }

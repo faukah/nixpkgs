@@ -4,7 +4,6 @@
   fetchzip,
   moralerspace,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "moralerspace-hwjpdoc";
   inherit (moralerspace) version meta;

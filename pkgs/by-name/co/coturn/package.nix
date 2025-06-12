@@ -11,7 +11,6 @@
   nixosTests,
   systemdMinimal,
 }:
-
 stdenv.mkDerivation rec {
   pname = "coturn";
   version = "4.6.3";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     [
       openssl
-      (libevent.override { inherit openssl; })
+      (libevent.override {inherit openssl;})
       libprom
       libmicrohttpd
       sqlite.dev
@@ -65,9 +64,9 @@ stdenv.mkDerivation rec {
     description = "TURN server";
     homepage = "https://coturn.net/";
     changelog = "https://github.com/coturn/coturn/blob/${version}/ChangeLog";
-    license = with lib.licenses; [ bsd3 ];
+    license = with lib.licenses; [bsd3];
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ _0x4A6F ];
+    maintainers = with lib.maintainers; [_0x4A6F];
     broken = stdenv.hostPlatform.isDarwin; # 2018-10-21
   };
 }

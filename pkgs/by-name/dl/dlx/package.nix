@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation {
   pname = "dlx";
   version = "0-unstable-2012-07-08";
@@ -21,7 +20,7 @@ stdenv.mkDerivation {
     )
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   installPhase = ''
     mkdir -p $out/include/dlx $out/share/dlx/{examples,doc} $out/bin

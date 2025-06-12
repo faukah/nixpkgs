@@ -3,33 +3,31 @@
   config,
   newScope,
   runCommand,
-}:
+}: let
+  unionOfDisjoints = lib.fold lib.attrsets.unionOfDisjoint {};
 
-let
-  unionOfDisjoints = lib.fold lib.attrsets.unionOfDisjoint { };
+  addTests = attrPath: drv:
+    if !lib.isDerivation drv
+    then drv
+    else let
+      name = lib.concatStringsSep "." attrPath;
 
-  addTests =
-    attrPath: drv:
-    if !lib.isDerivation drv then
-      drv
-    else
-      let
-        name = lib.concatStringsSep "." attrPath;
-
-        inherit (drv) scriptName;
-        scriptPath = "share/mpv/scripts/${scriptName}";
-        fullScriptPath = "${drv}/${scriptPath}";
-      in
+      inherit (drv) scriptName;
+      scriptPath = "share/mpv/scripts/${scriptName}";
+      fullScriptPath = "${drv}/${scriptPath}";
+    in
       drv.overrideAttrs (old: {
-        passthru = (old.passthru or { }) // {
-          tests = unionOfDisjoints [
-            (old.passthru.tests or { })
+        passthru =
+          (old.passthru or {})
+          // {
+            tests = unionOfDisjoints [
+              (old.passthru.tests or {})
 
-            {
-              scriptName-is-valid =
-                runCommand "mpvScripts.${name}.passthru.tests.scriptName-is-valid"
+              {
+                scriptName-is-valid =
+                  runCommand "mpvScripts.${name}.passthru.tests.scriptName-is-valid"
                   {
-                    meta.maintainers = with lib.maintainers; [ nicoo ];
+                    meta.maintainers = with lib.maintainers; [nicoo];
                     preferLocalBuild = true;
                   }
                   ''
@@ -40,22 +38,21 @@ let
                       exit 1
                     fi
                   '';
-            }
+              }
 
-            # can't check whether `fullScriptPath` is a directory, in pure-evaluation mode
-            (lib.optionalAttrs
+              # can't check whether `fullScriptPath` is a directory, in pure-evaluation mode
               (
-                !lib.any (s: lib.hasSuffix s drv.passthru.scriptName) [
+                lib.optionalAttrs
+                (!lib.any (s: lib.hasSuffix s drv.passthru.scriptName) [
                   ".js"
                   ".lua"
                   ".so"
-                ]
-              )
-              {
-                single-main-in-script-dir =
-                  runCommand "mpvScripts.${name}.passthru.tests.single-main-in-script-dir"
+                ])
+                {
+                  single-main-in-script-dir =
+                    runCommand "mpvScripts.${name}.passthru.tests.single-main-in-script-dir"
                     {
-                      meta.maintainers = with lib.maintainers; [ nicoo ];
+                      meta.maintainers = with lib.maintainers; [nicoo];
                       preferLocalBuild = true;
                     }
                     ''
@@ -74,16 +71,15 @@ let
                         die "'${scriptPath}' contains multiple 'main.*' files:" "''${mains[*]}"
                       fi
                     '';
-              }
-            )
-          ];
-        };
+                }
+              )
+            ];
+          };
       });
 
-  scope =
-    self:
+  scope = self:
     with lib;
-    pipe
+      pipe
       {
         inherit (self) callPackage;
         directory = ./scripts;
@@ -95,17 +91,20 @@ let
       ];
 
   mkAliases = self: {
-    inherit (self.builtins)
+    inherit
+      (self.builtins)
       acompressor
       autocrop
       autodeint
       autoload
       ; # added 2024-11-28
-    inherit (self.eisa01)
+    inherit
+      (self.eisa01)
       smart-copy-paste-2
       smartskip
       ; # added 2025-03-09
-    inherit (self.occivink)
+    inherit
+      (self.occivink)
       blacklistExtensions
       crop
       encode
@@ -114,15 +113,13 @@ let
     youtube-quality = throw "'youtube-quality' is no longer maintained, use 'quality-menu' instead"; # added 2023-07-14
   };
 in
-
-lib.pipe scope [
-  (lib.makeScope newScope)
-  (
-    self:
-    let
-      aliases = mkAliases self;
-    in
-    assert builtins.intersectAttrs self aliases == { };
-    self // lib.optionalAttrs config.allowAliases aliases
-  )
-]
+  lib.pipe scope [
+    (lib.makeScope newScope)
+    (
+      self: let
+        aliases = mkAliases self;
+      in
+        assert builtins.intersectAttrs self aliases == {};
+          self // lib.optionalAttrs config.allowAliases aliases
+    )
+  ]

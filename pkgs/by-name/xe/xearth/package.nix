@@ -7,7 +7,6 @@
   libXt,
   libXext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xearth";
   version = "1.1";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
       correctly shaded for the current position of the Sun.
       By default, xearth updates the displayed image every  five  minutes.
     '';
-    maintainers = with lib.maintainers; [ mafo ];
+    maintainers = with lib.maintainers; [mafo];
     license = {
       fullName = "xearth license";
       url = "https://xearth.org/copyright.html";

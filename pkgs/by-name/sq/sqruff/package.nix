@@ -50,12 +50,12 @@ rustPlatform.buildRustPackage rec {
       'sqruff_path.push(format!("../../target/${stdenv.hostPlatform.rust.cargoShortTarget}/{}/sqruff", profile));'
   '';
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -64,6 +64,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/quarylabs/sqruff/releases/tag/${version}";
     license = lib.licenses.asl20;
     mainProgram = "sqruff";
-    maintainers = with lib.maintainers; [ hasnep ];
+    maintainers = with lib.maintainers; [hasnep];
   };
 }

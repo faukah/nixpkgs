@@ -7,7 +7,6 @@
   lua,
   glib,
 }:
-
 stdenv.mkDerivation {
   pname = "pinsel";
   version = "unstable-2021-09-13";
@@ -31,7 +30,7 @@ stdenv.mkDerivation {
     gtk3
   ];
 
-  makeFlags = [ "INSTALLDIR=${placeholder "out"}/bin" ];
+  makeFlags = ["INSTALLDIR=${placeholder "out"}/bin"];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -42,7 +41,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Nooo37/pinsel";
     # no license
     license = licenses.unfree;
-    maintainers = with maintainers; [ lom ];
+    maintainers = with maintainers; [lom];
     mainProgram = "pinsel";
   };
 }

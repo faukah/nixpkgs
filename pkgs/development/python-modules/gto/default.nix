@@ -22,7 +22,6 @@
   tabulate,
   typer,
 }:
-
 buildPythonPackage rec {
   pname = "gto";
   version = "1.7.2";
@@ -80,14 +79,14 @@ buildPythonPackage rec {
     "test_action_doesnt_push_even_if_repo_has_remotes_set"
   ];
 
-  pythonImportsCheck = [ "gto" ];
+  pythonImportsCheck = ["gto"];
 
   meta = with lib; {
     description = "Module for Git Tag Operations";
     homepage = "https://github.com/iterative/gto";
     changelog = "https://github.com/iterative/gto/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "gto";
   };
 }

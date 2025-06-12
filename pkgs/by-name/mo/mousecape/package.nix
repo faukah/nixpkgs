@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "mousecape";
   version = "1813";
@@ -26,8 +25,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Cursor manager for macOS built using private, nonintrusive CoreGraphics APIs";
     homepage = "https://github.com/alexzielenski/Mousecape";
     license = lib.licenses.free;
-    maintainers = with lib.maintainers; [ donteatoreo ];
+    maintainers = with lib.maintainers; [donteatoreo];
     platforms = lib.platforms.darwin;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 })

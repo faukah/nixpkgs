@@ -13,7 +13,6 @@
   atk,
   wafHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "hamster";
   version = "3.0.3";
@@ -71,6 +70,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "http://projecthamster.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.fabianhauser ];
+    maintainers = [maintainers.fabianhauser];
   };
 }

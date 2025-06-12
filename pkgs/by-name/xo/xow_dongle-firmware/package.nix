@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ cabextract ];
+  nativeBuildInputs = [cabextract];
 
   unpackPhase = ''
     sources=($srcs)

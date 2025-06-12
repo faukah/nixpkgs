@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "kubernetes-polaris";
   version = "9.6.3";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-yDR2eY/idL4Realr84iLMA2P9SoALP3/4V+Dvd4j6Ow=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -48,7 +47,7 @@ buildGoModule rec {
     description = "Validate and remediate Kubernetes resources to ensure configuration best practices are followed";
     mainProgram = "polaris";
     homepage = "https://www.fairwinds.com/polaris";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ longer ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [longer];
   };
 }

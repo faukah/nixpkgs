@@ -10,7 +10,6 @@
   pythonOlder,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "flask-sqlalchemy";
   version = "3.1.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-5LaLuIGALdoafYeLL8hMBtHuV/tAuHTT3Jfav6NrgxI=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     flask
@@ -51,13 +50,13 @@ buildPythonPackage rec {
     "ignore::DeprecationWarning"
   ];
 
-  pythonImportsCheck = [ "flask_sqlalchemy" ];
+  pythonImportsCheck = ["flask_sqlalchemy"];
 
   meta = with lib; {
     description = "SQLAlchemy extension for Flask";
     homepage = "http://flask-sqlalchemy.pocoo.org/";
     changelog = "https://github.com/pallets-eco/flask-sqlalchemy/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ gerschtli ];
+    maintainers = with maintainers; [gerschtli];
   };
 }

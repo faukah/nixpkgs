@@ -6,7 +6,6 @@
   intltool,
   gtk2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtk-engine-murrine";
   version = "0.98.2";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     pkg-config
     intltool
   ];
-  buildInputs = [ gtk2 ];
+  buildInputs = [gtk2];
 
   meta = {
     description = "Very flexible theme engine";

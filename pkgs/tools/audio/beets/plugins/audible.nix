@@ -34,14 +34,14 @@ python3Packages.buildPythonApplication rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Beets-audible: Organize Your Audiobook Collection With Beets";
     homepage = "https://github.com/Neurrone/beets-audible";
     platforms = with lib.platforms; linux ++ darwin ++ windows;
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ jwillikers ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [jwillikers];
   };
 }

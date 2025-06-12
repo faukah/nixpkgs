@@ -5,7 +5,6 @@
   stdenv,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "sshesame";
   version = "0.0.39";
@@ -24,9 +23,9 @@ buildGoModule rec {
     "-w"
   ];
 
-  hardeningEnable = lib.optionals (!stdenv.hostPlatform.isDarwin) [ "pie" ];
+  hardeningEnable = lib.optionals (!stdenv.hostPlatform.isDarwin) ["pie"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Easy to set up and use SSH honeypot";
@@ -37,7 +36,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/jaksi/sshesame";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "sshesame";
   };
 }

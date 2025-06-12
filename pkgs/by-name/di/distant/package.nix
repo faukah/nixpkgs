@@ -10,7 +10,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "distant";
   version = "0.20.0";
@@ -72,7 +71,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -82,7 +81,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # From the README:
     # "This project is licensed under either of Apache License, Version 2.0, MIT license at your option."
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "distant";
   };
 })

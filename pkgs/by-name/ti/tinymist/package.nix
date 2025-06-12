@@ -10,7 +10,6 @@
   nix-update-script,
   vscode-extensions,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tinymist";
   # Please update the corresponding vscode extension when updating
@@ -59,8 +58,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
+    in ''
       installShellCompletion --cmd tinymist \
         --bash <(${emulator} $out/bin/tinymist completion bash) \
         --fish <(${emulator} $out/bin/tinymist completion fish) \
@@ -75,7 +73,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       vscode-extension = vscode-extensions.myriad-dreamin.tinymist;
     };

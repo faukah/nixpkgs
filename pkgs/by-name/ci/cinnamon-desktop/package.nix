@@ -18,7 +18,6 @@
   wrapGAppsHook3,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cinnamon-desktop";
   version = "6.4.1";
@@ -84,6 +83,6 @@ stdenv.mkDerivation rec {
       licenses.lgpl2
     ];
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   ankiSyncTest = pkgs.writeScript "anki-sync-test.py" ''
     #!${pkgs.python3}/bin/python
 
@@ -34,11 +33,10 @@ let
     # and check we got it?
   '';
   testPasswordFile = pkgs.writeText "anki-password" "passfilepassword";
-in
-{
+in {
   name = "anki-sync-server";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ martinetd ];
+    maintainers = [martinetd];
   };
 
   nodes.machine = {

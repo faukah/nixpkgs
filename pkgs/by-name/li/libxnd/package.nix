@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libndtypes,
 }:
-
 stdenv.mkDerivation {
   pname = "libxnd";
   version = "0.2.0-unstable-2023-11-17";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     hash = "sha256-RWt2Nx0tfMghQES2SM+0jbAU7IunuuTORhBe2tvqVTY=";
   };
 
-  buildInputs = [ libndtypes ];
+  buildInputs = [libndtypes];
 
   # Override linker with cc (symlink to either gcc or clang)
   # Library expects to use cc for linking
@@ -43,6 +42,6 @@ stdenv.mkDerivation {
     description = "C library for managing typed memory blocks and Python container module";
     homepage = "https://xnd.io/";
     license = lib.licenses.bsdOriginal;
-    maintainers = with lib.maintainers; [ costrouc ];
+    maintainers = with lib.maintainers; [costrouc];
   };
 }

@@ -5,7 +5,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   name = "florist";
   version = "24.2";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-EFGmcQfWpxEWfsAoQrHegTlizl6siE8obKx+fCpVwUQ=";
   };
 
-  configureFlags = [ "--enable-shared" ];
+  configureFlags = ["--enable-shared"];
 
   nativeBuildInputs = [
     gnat13
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     description = "Posix Ada Bindings";
     homepage = "https://github.com/adacore/florist";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lutzberger ];
+    maintainers = with lib.maintainers; [lutzberger];
     platforms = lib.platforms.linux;
   };
 }

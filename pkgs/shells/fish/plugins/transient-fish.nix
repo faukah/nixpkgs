@@ -18,6 +18,6 @@ buildFishPlugin {
     description = "Fish plugin to enable a transient prompt";
     homepage = "https://github.com/zzhaolei/transient.fish";
     license = licenses.mit;
-    maintainers = with maintainers; [ iynaix ];
+    maintainers = with maintainers; [iynaix];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "reflex";
   version = "0.3.1";
@@ -27,6 +26,6 @@ buildGoModule rec {
     mainProgram = "reflex";
     homepage = "https://github.com/cespare/reflex";
     license = licenses.mit;
-    maintainers = with maintainers; [ nicknovitski ];
+    maintainers = with maintainers; [nicknovitski];
   };
 }

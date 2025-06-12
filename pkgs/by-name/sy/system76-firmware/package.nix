@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     dbus
   ];
 
-  cargoBuildFlags = [ "--workspace" ];
+  cargoBuildFlags = ["--workspace"];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-YgDWaxrEfG1xxZOqa7tk2NaPVfMIqoMNZdjejkY6Jow=";
@@ -51,7 +51,7 @@ rustPlatform.buildRustPackage rec {
     description = "Tools for managing firmware updates for system76 devices";
     homepage = "https://github.com/pop-os/system76-firmware";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ shlevy ];
+    maintainers = with maintainers; [shlevy];
     platforms = [
       "i686-linux"
       "x86_64-linux"

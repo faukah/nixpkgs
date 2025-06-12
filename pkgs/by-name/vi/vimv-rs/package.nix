@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "vimv-rs";
   version = "3.1.0";
@@ -22,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://www.dmulholl.com/dev/vimv.html";
     license = licenses.bsd0;
     mainProgram = "vimv";
-    maintainers = with maintainers; [ zowoq ];
+    maintainers = with maintainers; [zowoq];
   };
 }

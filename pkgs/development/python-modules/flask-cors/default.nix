@@ -6,12 +6,10 @@
   packaging,
   pytestCheckHook,
   setuptools,
-
   # for passthru.tests
   aiobotocore,
   moto,
 }:
-
 buildPythonPackage rec {
   pname = "flask-cors";
   version = "5.0.0";
@@ -24,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-DbTeq18CLuwj8lzQnpyPMEfxgR97XlF0s37wkTYd4O4=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ flask ];
+  propagatedBuildInputs = [flask];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -41,7 +39,7 @@ buildPythonPackage rec {
     description = "Flask extension adding a decorator for CORS support";
     homepage = "https://github.com/corydolphin/flask-cors";
     changelog = "https://github.com/corydolphin/flask-cors/releases/tag/${src.tag}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ nickcao ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [nickcao];
   };
 }

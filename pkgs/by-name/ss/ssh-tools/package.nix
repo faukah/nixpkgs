@@ -5,7 +5,6 @@
   installShellFiles,
   perl,
 }:
-
 buildGoModule rec {
   pname = "ssh-tools";
   version = "1.9";
@@ -25,9 +24,9 @@ buildGoModule rec {
     "cmd/go/ssh-sig"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   postInstall = ''
     install cmd/{bash,perl}/ssh-*/ssh-* -t $out/bin
@@ -38,6 +37,6 @@ buildGoModule rec {
     description = "Making SSH more convenient";
     homepage = "https://codeberg.org/vaporup/ssh-tools";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

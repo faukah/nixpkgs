@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zsync";
   version = "0.6.2-unstable-2017-04-25";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     ./read-blocksums-declaration-fix.patch
   ];
 
-  makeFlags = [ "AR=${stdenv.cc.bintools.targetPrefix}ar" ];
+  makeFlags = ["AR=${stdenv.cc.bintools.targetPrefix}ar"];
 
   # Suppress error "call to undeclared library function 'strcasecmp'" during compilation.
   # The function is found by the linker correctly, so this doesn't introduce any issues.

@@ -7,7 +7,6 @@
   pytestCheckHook,
   unstableGitUpdater,
 }:
-
 buildPythonPackage {
   pname = "migen";
   version = "0.9.2-unstable-2025-02-07";
@@ -20,20 +19,20 @@ buildPythonPackage {
     hash = "sha256-GproDJowtcgbccsT+I0mObzFhE483shcS8MSszKXwlc=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ colorama ];
+  propagatedBuildInputs = [colorama];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "migen" ];
+  pythonImportsCheck = ["migen"];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = " A Python toolbox for building complex digital hardware";
     homepage = "https://m-labs.hk/migen";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ l-as ];
+    maintainers = with lib.maintainers; [l-as];
   };
 }

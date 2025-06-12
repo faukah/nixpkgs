@@ -14,7 +14,6 @@
   unify,
   yapf,
 }:
-
 buildPythonPackage {
   pname = "sphinx-markdown-parser";
   version = "0.2.4";
@@ -31,7 +30,7 @@ buildPythonPackage {
     sha256 = "0i0hhapmdmh83yx61lxi2h4bsmhnzddamz95844g2ghm132kw5mv";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     commonmark
@@ -43,11 +42,11 @@ buildPythonPackage {
     yapf
   ];
 
-  buildInputs = [ sphinx ];
+  buildInputs = [sphinx];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "sphinx_markdown_parser" ];
+  pythonImportsCheck = ["sphinx_markdown_parser"];
 
   disabledTests = [
     # AssertionError
@@ -60,6 +59,6 @@ buildPythonPackage {
     description = "Write markdown inside of docutils & sphinx projects";
     homepage = "https://github.com/clayrisser/sphinx-markdown-parser";
     license = licenses.mit;
-    maintainers = with maintainers; [ FlorianFranzen ];
+    maintainers = with maintainers; [FlorianFranzen];
   };
 }

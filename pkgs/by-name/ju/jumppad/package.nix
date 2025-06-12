@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "jumppad";
   version = "0.20.1";
@@ -16,7 +15,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-mr7Rnqp2rPIeW9oqNMbxc0SR+l8pPhKm6jk6EEycpRQ=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -31,7 +30,7 @@ buildGoModule rec {
     description = "Tool for building modern cloud native development environments";
     homepage = "https://jumppad.dev";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
     mainProgram = "jumppad";
   };
 }

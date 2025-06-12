@@ -8,7 +8,6 @@
   pkg-config,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ricochet-refresh";
   version = "3.0.34";

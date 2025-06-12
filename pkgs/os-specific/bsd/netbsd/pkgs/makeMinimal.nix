@@ -5,11 +5,10 @@
   make,
   make-rules,
 }:
-
 mkDerivation {
   path = "tools/make";
 
-  buildInputs = [ ];
+  buildInputs = [];
   nativeBuildInputs = [
     bsdSetupHook
     netbsdSetupHook
@@ -43,5 +42,5 @@ mkDerivation {
     runHook postInstall
   '';
 
-  extraPaths = [ make.path ];
+  extraPaths = [make.path];
 }

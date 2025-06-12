@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "play";
   version = "0.4.0";
@@ -28,7 +27,7 @@ buildGoModule rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -36,7 +35,7 @@ buildGoModule rec {
     homepage = "https://github.com/paololazzari/play";
     changelog = "https://github.com/paololazzari/play/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     mainProgram = "play";
   };
 }

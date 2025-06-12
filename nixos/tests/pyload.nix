@@ -1,23 +1,20 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "pyload";
-  meta.maintainers = with lib.maintainers; [ ambroisie ];
+  meta.maintainers = with lib.maintainers; [ambroisie];
 
   nodes = {
-    machine =
-      { ... }:
-      {
-        services.pyload = {
-          enable = true;
+    machine = {...}: {
+      services.pyload = {
+        enable = true;
 
-          listenAddress = "0.0.0.0";
-          port = 9876;
-        };
-
-        networking.firewall.allowedTCPPorts = [ 9876 ];
+        listenAddress = "0.0.0.0";
+        port = 9876;
       };
 
-    client = { };
+      networking.firewall.allowedTCPPorts = [9876];
+    };
+
+    client = {};
   };
 
   testScript = ''

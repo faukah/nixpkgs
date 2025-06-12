@@ -9,7 +9,6 @@
   nixosTests,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "hound";
   version = "0.7.1";
@@ -36,7 +35,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-0psvz4bnhGuwwSAXvQp0ju0GebxoUyY2Rjp/D43KF78=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # requires network access
   doCheck = false;
@@ -51,7 +50,7 @@ buildGoModule rec {
     }
   '';
 
-  passthru.tests = { inherit (nixosTests) hound; };
+  passthru.tests = {inherit (nixosTests) hound;};
 
   meta = with lib; {
     description = "Lightning fast code searching made easy";

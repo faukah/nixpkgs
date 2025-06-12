@@ -66,7 +66,6 @@
   cctools,
   xcbuild,
 }:
-
 qtModule {
   pname = "qtwebengine";
   nativeBuildInputs =
@@ -78,7 +77,7 @@ qtModule {
       gperf
       ninja
       pkg-config
-      (python3.withPackages (ps: with ps; [ html5lib ]))
+      (python3.withPackages (ps: with ps; [html5lib]))
       which
       gn
       nodejs
@@ -98,7 +97,7 @@ qtModule {
 
   # ninja builds some components with -Wno-format,
   # which cannot be set at the same time as -Wformat-security
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   patches = [
     # Don't assume /usr/share/X11, and also respect the XKB_CONFIG_ROOT
@@ -272,7 +271,7 @@ qtModule {
     cups
   ];
 
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   preConfigure = ''
     export NINJAFLAGS="-j$NIX_BUILD_CORES"

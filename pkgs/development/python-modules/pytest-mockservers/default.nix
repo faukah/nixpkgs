@@ -10,7 +10,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-mockservers";
   version = "0.6.0";
@@ -33,9 +32,9 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     aiohttp
@@ -44,14 +43,14 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_mockservers" ];
+  pythonImportsCheck = ["pytest_mockservers"];
 
   meta = with lib; {
     description = "Set of fixtures to test your requests to HTTP/UDP servers";
     homepage = "https://github.com/Gr1N/pytest-mockservers";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

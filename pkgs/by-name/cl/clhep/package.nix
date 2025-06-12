@@ -4,7 +4,6 @@
   fetchurl,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clhep";
   version = "2.4.7.1";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
       gpl3Only
       lgpl3Only
     ];
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
     platforms = platforms.unix;
   };
 }

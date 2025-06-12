@@ -2,14 +2,11 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   asgiref,
   typing-extensions,
-
   # tests
   django,
   djangorestframework,
@@ -17,7 +14,6 @@
   pytestCheckHook,
   pytest-django,
 }:
-
 buildPythonPackage rec {
   pname = "django-countries";
   version = "7.6.1";
@@ -30,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-IR9cJbDVkZrcF3Ti70mV8VeXINQDK8OpwUTWVjD4Zn0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     asgiref
@@ -54,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/SmileyChris/django-countries";
     changelog = "https://github.com/SmileyChris/django-countries/blob/v${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

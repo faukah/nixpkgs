@@ -2,7 +2,6 @@
   lib,
   buildGoModule,
 }:
-
 buildGoModule {
   name = "hello-go";
 
@@ -40,7 +39,7 @@ buildGoModule {
       of available platforms.
     '';
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     mainProgram = "hello-go";
   };
 }

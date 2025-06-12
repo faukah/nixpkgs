@@ -12,7 +12,6 @@
   libwebp,
   libexif,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "1.3.2";
   pname = "jp2a";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-GcwwzVgF7BK2N8TL8z/7R7Ry1e9pmGiXUrOAQQmPIBo=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -41,14 +40,14 @@ stdenv.mkDerivation (finalAttrs: {
     libexif
   ];
 
-  installFlags = [ "bashcompdir=\${out}/share/bash-completion/completions" ];
+  installFlags = ["bashcompdir=\${out}/share/bash-completion/completions"];
 
   meta = {
     broken = stdenv.hostPlatform.isDarwin;
     homepage = "https://csl.name/jp2a/";
     description = "Small utility that converts JPG images to ASCII";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.FlorianFranzen ];
+    maintainers = [lib.maintainers.FlorianFranzen];
     platforms = lib.platforms.unix;
     mainProgram = "jp2a";
   };

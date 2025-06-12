@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   __darwinAllowLocalNetworking = true;
 
   # There is a requirement on the specific Java toolchain.
-  gradleFlags = [ "-Dorg.gradle.java.home=${zulu11}" ];
+  gradleFlags = ["-Dorg.gradle.java.home=${zulu11}"];
 
   gradleBuildTask = "build";
   doCheck = true;
@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Intelligent diff tool for the output of Gradle's dependencies task";
@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
       binaryBytecode
     ];
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.progrm_jarvis ];
+    maintainers = [lib.maintainers.progrm_jarvis];
     inherit (jre_headless.meta) platforms;
     badPlatforms = [
       # Currently fails to build on Darwin due to `Could not connect to the Gradle daemon.` error

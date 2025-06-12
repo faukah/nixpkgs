@@ -4,18 +4,14 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   parso,
-
   # tests
   attrs,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jedi";
   version = "0.19.2";
@@ -31,9 +27,9 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ parso ];
+  dependencies = [parso];
 
   nativeCheckInputs = [
     attrs
@@ -63,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/davidhalter/jedi";
     changelog = "https://github.com/davidhalter/jedi/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

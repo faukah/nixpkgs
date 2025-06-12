@@ -7,7 +7,6 @@
   qtbase,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-multi-rtmp";
   version = "0.6.0.1";
@@ -24,11 +23,11 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       url = "https://github.com/sorayuki/obs-multi-rtmp/commit/a1289fdef404b08a7acbbf0d6d0f93da4c9fc087.patch";
       hash = "sha256-PDkR315y0iem1+LAqGmiqBFUiMBeEgnFW/xd1W2bAu4=";
-      includes = [ "CMakeLists.txt" ];
+      includes = ["CMakeLists.txt"];
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     obs-studio
     qtbase
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/sorayuki/obs-multi-rtmp/releases/tag/${version}";
     description = "Multi-site simultaneous broadcast plugin for OBS Studio";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ jk ];
+    maintainers = with lib.maintainers; [jk];
     platforms = [
       "x86_64-linux"
       "i686-linux"

@@ -4,18 +4,16 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.dnsmasq;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     concatStringsSep
     escapeShellArg
     ;
-in
-{
+in {
   port = 9153;
   extraOpts = {
     dnsmasqListenAddress = mkOption {

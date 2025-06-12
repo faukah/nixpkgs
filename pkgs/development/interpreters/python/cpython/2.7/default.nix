@@ -25,7 +25,7 @@
   # Some proprietary libs assume UCS2 unicode, especially on darwin :(
   ucsEncoding ? 4,
   # For the Python package set
-  packageOverrides ? (self: super: { }),
+  packageOverrides ? (self: super: {}),
   pkgsBuildBuild,
   pkgsBuildHost,
   pkgsBuildTarget,
@@ -45,33 +45,25 @@
   stripTests ? false,
   pythonAttr ? "python${sourceVersion.major}${sourceVersion.minor}",
 }:
-
 assert x11Support -> tcl != null && tk != null && libX11 != null;
-
 assert lib.assertMsg (enableOptimizations -> (!stdenv.cc.isClang))
-  "Optimizations with clang are not supported. configure: error: llvm-profdata is required for a --enable-optimizations build but could not be found.";
-
+"Optimizations with clang are not supported. configure: error: llvm-profdata is required for a --enable-optimizations build but could not be found.";
 assert lib.assertMsg (
   reproducibleBuild -> stripBytecode
 ) "Deterministic builds require stripping bytecode.";
-
 assert lib.assertMsg (
   reproducibleBuild -> (!enableOptimizations)
 ) "Deterministic builds are not achieved when optimizations are enabled.";
-
 assert lib.assertMsg (
   reproducibleBuild -> (!rebuildBytecode)
-) "Deterministic builds are not achieved when (default unoptimized) bytecode is created.";
-
-let
+) "Deterministic builds are not achieved when (default unoptimized) bytecode is created."; let
   buildPackages = pkgsBuildHost;
   inherit (passthru) pythonOnBuildForHost;
 
   pythonOnBuildForHostInterpreter =
-    if stdenv.hostPlatform == stdenv.buildPlatform then
-      "$out/bin/python"
-    else
-      pythonOnBuildForHost.interpreter;
+    if stdenv.hostPlatform == stdenv.buildPlatform
+    then "$out/bin/python"
+    else pythonOnBuildForHost.interpreter;
 
   passthru =
     passthruFun rec {
@@ -86,7 +78,7 @@ let
       pythonOnBuildForHost = pkgsBuildHost.${pythonAttr};
       pythonOnBuildForTarget = pkgsBuildTarget.${pythonAttr};
       pythonOnHostForHost = pkgsHostHost.${pythonAttr};
-      pythonOnTargetForTarget = pkgsTargetTarget.${pythonAttr} or { };
+      pythonOnTargetForTarget = pkgsTargetTarget.${pythonAttr} or {};
     }
     // {
       inherit ucsEncoding;
@@ -154,10 +146,8 @@ let
     ]
     ++ lib.optionals (x11Support && stdenv.hostPlatform.isDarwin) [
       ./use-correct-tcl-tk-on-darwin.patch
-
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
-
       # Disable the use of ldconfig in ctypes.util.find_library (since
       # ldconfig doesn't work on NixOS), and don't use
       # ctypes.util.find_library during the loading of the uuid module
@@ -167,7 +157,6 @@ let
 
       # Fix ctypes.util.find_library with gcc10.
       ./find_library-gcc10.patch
-
     ]
     ++ lib.optionals stdenv.hostPlatform.isCygwin [
       ./2.5.2-ctypes-util-find_library.patch
@@ -182,7 +171,6 @@ let
       ./2.7.3-no-libm.patch
     ]
     ++ lib.optionals hasDistutilsCxxPatch [
-
       # Patch from http://bugs.python.org/issue1222585 adapted to work with
       # `patch -p1' and with a last hunk removed
       # Upstream distutils is calling C compiler to compile C++ code, which
@@ -280,7 +268,7 @@ let
       libX11
     ];
   nativeBuildInputs =
-    [ autoreconfHook ]
+    [autoreconfHook]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       buildPackages.stdenv.cc
       buildPackages.python27
@@ -295,131 +283,129 @@ let
   crossCompileEnv = lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform) {
     _PYTHON_HOST_PLATFORM = stdenv.hostPlatform.config;
   };
-
   # Build the basic Python interpreter without modules that have
   # external dependencies.
-
 in
-with passthru;
-stdenv.mkDerivation (
-  {
-    pname = "python";
-    inherit version;
+  with passthru;
+    stdenv.mkDerivation (
+      {
+        pname = "python";
+        inherit version;
 
-    inherit
-      src
-      patches
-      buildInputs
-      nativeBuildInputs
-      preConfigure
-      configureFlags
-      ;
+        inherit
+          src
+          patches
+          buildInputs
+          nativeBuildInputs
+          preConfigure
+          configureFlags
+          ;
 
-    LDFLAGS = lib.optionalString (!stdenv.hostPlatform.isDarwin) "-lgcc_s";
-    inherit (mkPaths buildInputs) C_INCLUDE_PATH LIBRARY_PATH;
+        LDFLAGS = lib.optionalString (!stdenv.hostPlatform.isDarwin) "-lgcc_s";
+        inherit (mkPaths buildInputs) C_INCLUDE_PATH LIBRARY_PATH;
 
-    env.NIX_CFLAGS_COMPILE =
-      lib.optionalString (stdenv.targetPlatform.system == "x86_64-darwin") "-msse2"
-      + lib.optionalString stdenv.hostPlatform.isMusl " -DTHREAD_STACK_SIZE=0x100000";
-    DETERMINISTIC_BUILD = 1;
+        env.NIX_CFLAGS_COMPILE =
+          lib.optionalString (stdenv.targetPlatform.system == "x86_64-darwin") "-msse2"
+          + lib.optionalString stdenv.hostPlatform.isMusl " -DTHREAD_STACK_SIZE=0x100000";
+        DETERMINISTIC_BUILD = 1;
 
-    setupHook = python-setup-hook sitePackages;
+        setupHook = python-setup-hook sitePackages;
 
-    postPatch = lib.optionalString (x11Support && ((tclPackages.tix or null) != null)) ''
-      substituteInPlace "Lib/lib-tk/Tix.py" --replace "os.environ.get('TIX_LIBRARY')" "os.environ.get('TIX_LIBRARY') or '${tclPackages.tix}/lib'"
-    '';
+        postPatch = lib.optionalString (x11Support && ((tclPackages.tix or null) != null)) ''
+          substituteInPlace "Lib/lib-tk/Tix.py" --replace "os.environ.get('TIX_LIBRARY')" "os.environ.get('TIX_LIBRARY') or '${tclPackages.tix}/lib'"
+        '';
 
-    postInstall =
-      ''
-        # needed for some packages, especially packages that backport
-        # functionality to 2.x from 3.x
-        for item in $out/lib/${libPrefix}/test/*; do
-          if [[ "$item" != */test_support.py*
-             && "$item" != */test/support
-             && "$item" != */test/regrtest.py* ]]; then
-            rm -rf "$item"
-          else
-            echo $item
-          fi
-        done
-        touch $out/lib/${libPrefix}/test/__init__.py
-        ln -s $out/lib/${libPrefix}/pdb.py $out/bin/pdb
-        ln -s $out/lib/${libPrefix}/pdb.py $out/bin/pdb${sourceVersion.major}.${sourceVersion.minor}
-        ln -s $out/share/man/man1/{python2.7.1.gz,python.1.gz}
+        postInstall =
+          ''
+            # needed for some packages, especially packages that backport
+            # functionality to 2.x from 3.x
+            for item in $out/lib/${libPrefix}/test/*; do
+              if [[ "$item" != */test_support.py*
+                 && "$item" != */test/support
+                 && "$item" != */test/regrtest.py* ]]; then
+                rm -rf "$item"
+              else
+                echo $item
+              fi
+            done
+            touch $out/lib/${libPrefix}/test/__init__.py
+            ln -s $out/lib/${libPrefix}/pdb.py $out/bin/pdb
+            ln -s $out/lib/${libPrefix}/pdb.py $out/bin/pdb${sourceVersion.major}.${sourceVersion.minor}
+            ln -s $out/share/man/man1/{python2.7.1.gz,python.1.gz}
 
-        rm "$out"/lib/python*/plat-*/regen # refers to glibc.dev
+            rm "$out"/lib/python*/plat-*/regen # refers to glibc.dev
 
-        # Determinism: Windows installers were not deterministic.
-        # We're also not interested in building Windows installers.
-        find "$out" -name 'wininst*.exe' | xargs -r rm -f
-      ''
-      + lib.optionalString stripBytecode ''
-        # Determinism: deterministic bytecode
-        # First we delete all old bytecode.
-        find $out -name "*.pyc" -delete
-      ''
-      + lib.optionalString rebuildBytecode ''
-        # We build 3 levels of optimized bytecode. Note the default level, without optimizations,
-        # is not reproducible yet. https://bugs.python.org/issue29708
-        # Not creating bytecode will result in a large performance loss however, so we do build it.
-        find $out -name "*.py" | ${pythonOnBuildForHostInterpreter} -m compileall -q -f -x "lib2to3" -i -
-        find $out -name "*.py" | ${pythonOnBuildForHostInterpreter} -O  -m compileall -q -f -x "lib2to3" -i -
-        find $out -name "*.py" | ${pythonOnBuildForHostInterpreter} -OO -m compileall -q -f -x "lib2to3" -i -
-      ''
-      + lib.optionalString stdenv.hostPlatform.isCygwin ''
-        cp libpython2.7.dll.a $out/lib
-      '';
+            # Determinism: Windows installers were not deterministic.
+            # We're also not interested in building Windows installers.
+            find "$out" -name 'wininst*.exe' | xargs -r rm -f
+          ''
+          + lib.optionalString stripBytecode ''
+            # Determinism: deterministic bytecode
+            # First we delete all old bytecode.
+            find $out -name "*.pyc" -delete
+          ''
+          + lib.optionalString rebuildBytecode ''
+            # We build 3 levels of optimized bytecode. Note the default level, without optimizations,
+            # is not reproducible yet. https://bugs.python.org/issue29708
+            # Not creating bytecode will result in a large performance loss however, so we do build it.
+            find $out -name "*.py" | ${pythonOnBuildForHostInterpreter} -m compileall -q -f -x "lib2to3" -i -
+            find $out -name "*.py" | ${pythonOnBuildForHostInterpreter} -O  -m compileall -q -f -x "lib2to3" -i -
+            find $out -name "*.py" | ${pythonOnBuildForHostInterpreter} -OO -m compileall -q -f -x "lib2to3" -i -
+          ''
+          + lib.optionalString stdenv.hostPlatform.isCygwin ''
+            cp libpython2.7.dll.a $out/lib
+          '';
 
-    inherit passthru;
+        inherit passthru;
 
-    postFixup =
-      ''
-        # Include a sitecustomize.py file. Note it causes an error when it's in postInstall with 2.7.
-        cp ${../../sitecustomize.py} $out/${sitePackages}/sitecustomize.py
-      ''
-      + lib.optionalString strip2to3 ''
-        rm -R $out/bin/2to3 $out/lib/python*/lib2to3
-      ''
-      + lib.optionalString stripConfig ''
-        rm -R $out/bin/python*-config $out/lib/python*/config*
-      ''
-      + lib.optionalString stripIdlelib ''
-        # Strip IDLE
-        rm -R $out/bin/idle* $out/lib/python*/idlelib
-      ''
-      + lib.optionalString stripTests ''
-        # Strip tests
-        rm -R $out/lib/python*/test $out/lib/python*/**/test{,s}
-      '';
+        postFixup =
+          ''
+            # Include a sitecustomize.py file. Note it causes an error when it's in postInstall with 2.7.
+            cp ${../../sitecustomize.py} $out/${sitePackages}/sitecustomize.py
+          ''
+          + lib.optionalString strip2to3 ''
+            rm -R $out/bin/2to3 $out/lib/python*/lib2to3
+          ''
+          + lib.optionalString stripConfig ''
+            rm -R $out/bin/python*-config $out/lib/python*/config*
+          ''
+          + lib.optionalString stripIdlelib ''
+            # Strip IDLE
+            rm -R $out/bin/idle* $out/lib/python*/idlelib
+          ''
+          + lib.optionalString stripTests ''
+            # Strip tests
+            rm -R $out/lib/python*/test $out/lib/python*/**/test{,s}
+          '';
 
-    enableParallelBuilding = true;
+        enableParallelBuilding = true;
 
-    doCheck = false; # expensive, and fails
+        doCheck = false; # expensive, and fails
 
-    meta = {
-      homepage = "http://python.org";
-      description = "High-level dynamically-typed programming language";
-      longDescription = ''
-        Python is a remarkably powerful dynamic programming language that
-        is used in a wide variety of application domains. Some of its key
-        distinguishing features include: clear, readable syntax; strong
-        introspection capabilities; intuitive object orientation; natural
-        expression of procedural code; full modularity, supporting
-        hierarchical packages; exception-based error handling; and very
-        high level dynamic data types.
-      '';
-      license = lib.licenses.psfl;
-      platforms = lib.platforms.all;
-      knownVulnerabilities = [
-        "Python 2.7 has reached its end of life after 2020-01-01. See https://www.python.org/doc/sunset-python-2/."
-        # Quote: That means that we will not improve it anymore after that day,
-        # even if someone finds a security problem in it. You should upgrade to
-        # Python 3 as soon as you can. [..] So, in 2008, we announced that we
-        # would sunset Python 2 in 2015, and asked people to upgrade before
-        # then. Some did, but many did not. So, in 2014, we extended that
-        # sunset till 2020.
-      ];
-    };
-  }
-  // crossCompileEnv
-)
+        meta = {
+          homepage = "http://python.org";
+          description = "High-level dynamically-typed programming language";
+          longDescription = ''
+            Python is a remarkably powerful dynamic programming language that
+            is used in a wide variety of application domains. Some of its key
+            distinguishing features include: clear, readable syntax; strong
+            introspection capabilities; intuitive object orientation; natural
+            expression of procedural code; full modularity, supporting
+            hierarchical packages; exception-based error handling; and very
+            high level dynamic data types.
+          '';
+          license = lib.licenses.psfl;
+          platforms = lib.platforms.all;
+          knownVulnerabilities = [
+            "Python 2.7 has reached its end of life after 2020-01-01. See https://www.python.org/doc/sunset-python-2/."
+            # Quote: That means that we will not improve it anymore after that day,
+            # even if someone finds a security problem in it. You should upgrade to
+            # Python 3 as soon as you can. [..] So, in 2008, we announced that we
+            # would sunset Python 2 in 2015, and asked people to upgrade before
+            # then. Some did, but many did not. So, in 2014, we extended that
+            # sunset till 2020.
+          ];
+        };
+      }
+      // crossCompileEnv
+    )

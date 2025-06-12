@@ -4,50 +4,51 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.dex;
-  fixClient =
-    client:
-    if client ? secretFile then
+  fixClient = client:
+    if client ? secretFile
+    then
       (
-        (builtins.removeAttrs client [ "secretFile" ])
+        (builtins.removeAttrs client ["secretFile"])
         // {
           secret = client.secretFile;
         }
       )
-    else
-      client;
-  filteredSettings = mapAttrs (
-    n: v: if n == "staticClients" then (builtins.map fixClient v) else v
-  ) cfg.settings;
+    else client;
+  filteredSettings =
+    mapAttrs (
+      n: v:
+        if n == "staticClients"
+        then (builtins.map fixClient v)
+        else v
+    )
+    cfg.settings;
   secretFiles = flatten (
-    builtins.map (c: optional (c ? secretFile) c.secretFile) (cfg.settings.staticClients or [ ])
+    builtins.map (c: optional (c ? secretFile) c.secretFile) (cfg.settings.staticClients or [])
   );
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configFile = settingsFormat.generate "config.yaml" filteredSettings;
 
   startPreScript = pkgs.writeShellScript "dex-start-pre" (
     concatStringsSep "\n" (
       map (file: ''
         replace-secret '${file}' '${file}' /run/dex/config.yaml
-      '') secretFiles
+      '')
+      secretFiles
     )
   );
 
   restartTriggers =
-    [ ]
-    ++ (optionals (cfg.environmentFile != null) [ cfg.environmentFile ])
+    []
+    ++ (optionals (cfg.environmentFile != null) [cfg.environmentFile])
     ++ (filter (file: builtins.typeOf file == "path") secretFiles);
-in
-{
+in {
   options.services.dex = {
     enable = mkEnableOption "the OpenID Connect and OAuth2 identity provider";
 
-    package = mkPackageOption pkgs "dex-oidc" { };
+    package = mkPackageOption pkgs "dex-oidc" {};
 
     environmentFile = mkOption {
       type = types.nullOr types.path;
@@ -61,7 +62,7 @@ in
 
     settings = mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           # External url
@@ -97,11 +98,13 @@ in
   config = mkIf cfg.enable {
     systemd.services.dex = {
       description = "dex identity provider";
-      wantedBy = [ "multi-user.target" ];
-      after = [
-        "networking.target"
-      ] ++ (optional (cfg.settings.storage.type == "postgres") "postgresql.service");
-      path = with pkgs; [ replace-secret ];
+      wantedBy = ["multi-user.target"];
+      after =
+        [
+          "networking.target"
+        ]
+        ++ (optional (cfg.settings.storage.type == "postgres") "postgresql.service");
+      path = with pkgs; [replace-secret];
       restartTriggers = restartTriggers;
       serviceConfig =
         {

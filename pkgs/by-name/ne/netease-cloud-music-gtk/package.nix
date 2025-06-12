@@ -17,7 +17,6 @@
   gst_all_1,
   libxml2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netease-cloud-music-gtk";
   version = "2.5.2";

@@ -15,8 +15,7 @@
   coreutils,
   scalingFactor ? 2, # this is to resize the fixed-size zod_launcher window
   replaceVars,
-}:
-let
+}: let
   pname = "zod-engine";
   version = "2011-09-06";
   src = fetchzip {
@@ -38,7 +37,7 @@ let
     wxGTK32
     coreutils
   ];
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
   NIX_LDFLAGS = "-L${libmysqlclient}/lib/mysql";
   zod_engine = stdenv.mkDerivation {
     inherit
@@ -72,7 +71,7 @@ let
     pname = "${pname}-map_editor";
     enableParallelBuilding = true;
     preBuild = "cd zod_src";
-    makeFlags = [ "map_editor" ];
+    makeFlags = ["map_editor"];
     installPhase = ''
       mkdir -p $out/bin
       install -m755 zod_map_editor $out/bin
@@ -109,7 +108,7 @@ let
       install -m755 zod_launcher $out/bin
     '';
   };
-  zod_assets = runCommandLocal "${pname}-assets" { } ''
+  zod_assets = runCommandLocal "${pname}-assets" {} ''
     mkdir -p $out/usr/lib/commander-zod{,blank_maps}
     cp -r ${src}/assets $out/usr/lib/commander-zod/assets
     for i in ${src}/*.map ${src}/*.txt; do
@@ -120,19 +119,19 @@ let
     done
   '';
 in
-symlinkJoin {
-  inherit pname version;
-  paths = [
-    zod_engine
-    zod_launcher
-    zod_map_editor
-    zod_assets
-  ];
-  meta = with lib; {
-    description = "Multiplayer remake of ZED";
-    homepage = "https://zod.sourceforge.net/";
-    maintainers = with maintainers; [ zeri ];
-    license = licenses.gpl3Plus; # Says the website
-    platforms = platforms.linux;
-  };
-}
+  symlinkJoin {
+    inherit pname version;
+    paths = [
+      zod_engine
+      zod_launcher
+      zod_map_editor
+      zod_assets
+    ];
+    meta = with lib; {
+      description = "Multiplayer remake of ZED";
+      homepage = "https://zod.sourceforge.net/";
+      maintainers = with maintainers; [zeri];
+      license = licenses.gpl3Plus; # Says the website
+      platforms = platforms.linux;
+    };
+  }

@@ -11,7 +11,6 @@
   jack,
   coremidiSupport ? stdenv.hostPlatform.isDarwin,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rtmidi";
   version = "6.0.0";
@@ -31,16 +30,28 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optional alsaSupport alsa-lib ++ lib.optional jackSupport jack;
 
   cmakeFlags = [
-    "-DRTMIDI_API_ALSA=${if alsaSupport then "ON" else "OFF"}"
-    "-DRTMIDI_API_JACK=${if jackSupport then "ON" else "OFF"}"
-    "-DRTMIDI_API_CORE=${if coremidiSupport then "ON" else "OFF"}"
+    "-DRTMIDI_API_ALSA=${
+      if alsaSupport
+      then "ON"
+      else "OFF"
+    }"
+    "-DRTMIDI_API_JACK=${
+      if jackSupport
+      then "ON"
+      else "OFF"
+    }"
+    "-DRTMIDI_API_CORE=${
+      if coremidiSupport
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   meta = {
     description = "Set of C++ classes that provide a cross platform API for realtime MIDI input/output";
     homepage = "https://www.music.mcgill.ca/~gary/rtmidi/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ magnetophon ];
+    maintainers = with lib.maintainers; [magnetophon];
     platforms = lib.platforms.unix;
   };
 }

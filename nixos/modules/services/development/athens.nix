@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.athens;
 
-  athensConfig = lib.flip lib.recursiveUpdate cfg.extraConfig ({
+  athensConfig = lib.flip lib.recursiveUpdate cfg.extraConfig {
     GoBinary = "${cfg.goBinary}/bin/go";
     GoEnv = cfg.goEnv;
     GoBinaryEnvVars = lib.mapAttrsToList (k: v: "${k}=${v}") cfg.goBinaryEnvVars;
@@ -141,14 +140,13 @@ let
         };
       };
     };
-  });
+  };
 
   configFile = lib.pipe athensConfig [
     (lib.filterAttrsRecursive (_k: v: v != null))
-    ((pkgs.formats.toml { }).generate "config.toml")
+    ((pkgs.formats.toml {}).generate "config.toml")
   ];
-in
-{
+in {
   meta = {
     maintainers = pkgs.athens.meta.maintainers;
     doc = ./athens.md;
@@ -195,7 +193,7 @@ in
       example = ''
         { "GOPROXY" = "direct", "GODEBUG" = "true" }
       '';
-      default = { };
+      default = {};
     };
 
     goGetWorkers = lib.mkOption {
@@ -451,7 +449,7 @@ in
     };
 
     statsExporter = lib.mkOption {
-      type = lib.types.nullOr (lib.types.enum [ "prometheus" ]);
+      type = lib.types.nullOr (lib.types.enum ["prometheus"]);
       description = "Stats exporter to use.";
       default = null;
     };
@@ -462,7 +460,7 @@ in
         List of fully qualified URLs that Athens will proxy
         that the go command can use a checksum verifier.
       '';
-      default = [ "https://sum.golang.org" ];
+      default = ["https://sum.golang.org"];
     };
 
     noSumPatterns = lib.mkOption {
@@ -470,8 +468,8 @@ in
       description = ''
         List of patterns that Athens sum db proxy will return a 403 for.
       '';
-      default = [ ];
-      example = [ "github.com/mycompany/*" ];
+      default = [];
+      example = ["github.com/mycompany/*"];
     };
 
     downloadMode = lib.mkOption {
@@ -579,8 +577,8 @@ in
         endpoints = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           description = "URLs that determine all distributed etcd servers.";
-          default = [ ];
-          example = [ "localhost:2379" ];
+          default = [];
+          example = ["localhost:2379"];
         };
       };
       redis = {
@@ -623,8 +621,8 @@ in
         endpoints = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           description = "URLs that determine all distributed redis servers.";
-          default = [ ];
-          example = [ "localhost:26379" ];
+          default = [];
+          example = ["localhost:26379"];
         };
         masterName = lib.mkOption {
           type = lib.types.str;
@@ -940,18 +938,18 @@ in
       description = ''
         Extra configuration options for the athens config file.
       '';
-      default = { };
+      default = {};
     };
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.athens = {
       description = "Athens Go module proxy";
-      documentation = [ "https://docs.gomods.io" ];
+      documentation = ["https://docs.gomods.io"];
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
 
       serviceConfig = {
         Restart = "on-abnormal";
@@ -973,22 +971,21 @@ in
 
         ReadWritePaths = lib.mkIf (
           cfg.storage.disk.rootPath != null && (!lib.hasPrefix "/var/lib/" cfg.storage.disk.rootPath)
-        ) [ cfg.storage.disk.rootPath ];
+        ) [cfg.storage.disk.rootPath];
         StateDirectory = lib.mkIf (lib.hasPrefix "/var/lib/" cfg.storage.disk.rootPath) [
           (lib.removePrefix "/var/lib/" cfg.storage.disk.rootPath)
         ];
 
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
         NoNewPrivileges = true;
       };
     };
 
     networking.firewall = {
       allowedTCPPorts =
-        lib.optionals (cfg.unixSocket == null) [ cfg.port ]
-        ++ lib.optionals cfg.enablePprof [ cfg.pprofPort ];
+        lib.optionals (cfg.unixSocket == null) [cfg.port]
+        ++ lib.optionals cfg.enablePprof [cfg.pprofPort];
     };
   };
-
 }

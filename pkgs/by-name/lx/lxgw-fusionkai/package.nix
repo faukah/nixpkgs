@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "lxgw-fusionkai";
   version = "24.134";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Simplified Chinese font derived from LXGW WenKai GB, iansui and Klee One";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ hellodword ];
+    maintainers = with maintainers; [hellodword];
   };
 }

@@ -6,7 +6,6 @@
   pkg-config,
   libusb1,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xlink";
   version = "0-unstable-2025-14-03";
@@ -80,6 +79,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/luxonis/XLink";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ phodina ];
+    maintainers = with lib.maintainers; [phodina];
   };
 })

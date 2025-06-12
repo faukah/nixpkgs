@@ -5,7 +5,6 @@
   cmake,
   gumbo,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "litehtml";
   version = "0.9";
@@ -44,6 +43,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.litehtml.com/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 })

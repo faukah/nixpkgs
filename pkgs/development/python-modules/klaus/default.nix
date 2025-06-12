@@ -14,7 +14,6 @@
   python-ctags3,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "klaus";
   version = "3.0.1";
@@ -49,11 +48,13 @@ buildPythonPackage rec {
     humanize
   ];
 
-  nativeCheckInputs = [
-    pytest
-    requests
-    python-ctags3
-  ] ++ lib.optional (!isPy3k) mock;
+  nativeCheckInputs =
+    [
+      pytest
+      requests
+      python-ctags3
+    ]
+    ++ lib.optional (!isPy3k) mock;
 
   checkPhase = ''
     ./runtests.sh
@@ -67,6 +68,6 @@ buildPythonPackage rec {
     mainProgram = "klaus";
     homepage = "https://github.com/jonashaag/klaus";
     license = licenses.isc;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

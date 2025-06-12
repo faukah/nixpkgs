@@ -15,7 +15,6 @@
   ## Darwin headless will hang when trying to run the SDL test program
   enableSdltest ? (!stdenv.hostPlatform.isDarwin),
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "SDL2_image";
   version = "2.8.8";
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "SDL image library";
     homepage = "https://github.com/libsdl-org/SDL_image";
     license = lib.licenses.zlib;
-    teams = [ lib.teams.sdl ];
+    teams = [lib.teams.sdl];
     platforms = lib.platforms.unix;
   };
 })

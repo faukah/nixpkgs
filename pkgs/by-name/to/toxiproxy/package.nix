@@ -5,7 +5,6 @@
   testers,
   toxiproxy,
 }:
-
 buildGoModule rec {
   pname = "toxiproxy";
   version = "2.12.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-4nKWTjB9aV5ILgHVceV76Ip0byBxlEY5TTAQwNLvL2s=";
 
-  excludedPackages = [ "test/e2e" ];
+  excludedPackages = ["test/e2e"];
 
   ldflags = [
     "-s"
@@ -57,7 +56,7 @@ buildGoModule rec {
     changelog = "https://github.com/Shopify/toxiproxy/releases/tag/v${version}";
     description = "Proxy for for simulating network conditions";
     homepage = "https://github.com/Shopify/toxiproxy";
-    maintainers = with lib.maintainers; [ avnik ];
+    maintainers = with lib.maintainers; [avnik];
     license = lib.licenses.mit;
   };
 }

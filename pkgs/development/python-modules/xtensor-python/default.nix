@@ -9,7 +9,6 @@
   pybind11,
   numpy,
 }:
-
 toPythonModule (
   stdenv.mkDerivation (finalAttrs: {
     pname = "xtensor-python";
@@ -22,9 +21,9 @@ toPythonModule (
       hash = "sha256-Cy/aXuiriE/qxSd4Apipzak30DjgE7jX8ai1ThJ/VnE=";
     };
 
-    nativeBuildInputs = [ cmake ];
-    buildInputs = [ pybind11 ];
-    nativeCheckInputs = [ gtest ];
+    nativeBuildInputs = [cmake];
+    buildInputs = [pybind11];
+    nativeCheckInputs = [gtest];
     doCheck = true;
     cmakeFlags = [
       # Always build the tests, even if not running them, because testing whether
@@ -43,7 +42,7 @@ toPythonModule (
       homepage = "https://github.com/xtensor-stack/xtensor-python";
       description = "Python bindings for the xtensor C++ multi-dimensional array library";
       license = licenses.bsd3;
-      maintainers = with maintainers; [ lsix ];
+      maintainers = with maintainers; [lsix];
     };
   })
 )

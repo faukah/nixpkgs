@@ -9,7 +9,6 @@
   nodejs,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "patch-package";
   version = "8.0.0";
@@ -33,13 +32,13 @@ stdenv.mkDerivation (finalAttrs: {
     nodejs
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Fix broken node modules instantly";
     mainProgram = "patch-package";
     homepage = "https://github.com/ds300/patch-package";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 })

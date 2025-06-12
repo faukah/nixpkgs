@@ -19,7 +19,6 @@
   sortedcollections,
   tzlocal,
 }:
-
 buildPythonPackage rec {
   pname = "aioxmpp";
   version = "0.13.3";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     "lxml"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiosasl
@@ -71,9 +70,9 @@ buildPythonPackage rec {
     "aioxmpp.stream"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTestPaths = [ "benchmarks" ];
+  disabledTestPaths = ["benchmarks"];
 
   disabledTests =
     [
@@ -98,6 +97,6 @@ buildPythonPackage rec {
     homepage = "https://codeberg.org/jssfr/aioxmpp";
     changelog = "https://codeberg.org/jssfr/aioxmpp/blob/${src.rev}/docs/api/changelog.rst";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

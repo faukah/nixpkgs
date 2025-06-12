@@ -28,11 +28,10 @@
   version,
   hash,
   fetchSubmodules ? false,
-  extraPatches ? [ ],
+  extraPatches ? [],
   extraPostInstall ? "",
   ...
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "percona-xtrabackup";
   inherit version;
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs =
     [
-      (curl.override { inherit openssl; })
+      (curl.override {inherit openssl;})
       cyrus_sasl
       libaio
       libedit
@@ -111,7 +110,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.percona.com/software/percona-xtrabackup";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.izorkin ];
-    teams = [ teams.flyingcircus ];
+    maintainers = [maintainers.izorkin];
+    teams = [teams.flyingcircus];
   };
 })

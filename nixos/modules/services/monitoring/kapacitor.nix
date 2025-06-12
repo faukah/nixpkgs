@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.kapacitor;
 
   kapacitorConf = pkgs.writeTextFile {
@@ -56,8 +55,7 @@ let
       ${cfg.extraConfig}
     '';
   };
-in
-{
+in {
   options.services.kapacitor = {
     enable = lib.mkEnableOption "kapacitor";
 
@@ -160,7 +158,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.kapacitor ];
+    environment.systemPackages = [pkgs.kapacitor];
 
     systemd.tmpfiles.settings."10-kapacitor".${cfg.dataDir}.d = {
       inherit (cfg) user group;
@@ -168,8 +166,8 @@ in
 
     systemd.services.kapacitor = {
       description = "Kapacitor Real-Time Stream Processing Engine";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "networking.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["networking.target"];
       serviceConfig = {
         ExecStart = "${pkgs.kapacitor}/bin/kapacitord -config ${kapacitorConf}";
         User = "kapacitor";

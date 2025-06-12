@@ -5,7 +5,6 @@
   fetchFromGitHub,
   cacert,
 }:
-
 buildNpmPackage rec {
   pname = "inshellisense";
   version = "0.0.1-rc.21";
@@ -33,6 +32,6 @@ buildNpmPackage rec {
     description = "IDE style command line auto complete";
     homepage = "https://github.com/microsoft/inshellisense";
     license = licenses.mit;
-    maintainers = [ maintainers.malo ];
+    maintainers = [maintainers.malo];
   };
 }

@@ -6,7 +6,6 @@
   libmysofa,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libspatialaudio";
   version = "0.3.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-sPnQPD41AceXM4uGqWXMYhuQv0TUkA6TZP8ChxUFIoI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libmysofa
     zlib
@@ -34,6 +33,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/videolabs/libspatialaudio";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ krav ];
+    maintainers = with maintainers; [krav];
   };
 }

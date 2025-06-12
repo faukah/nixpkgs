@@ -10,7 +10,6 @@
   fontconfig,
   libsigcxx30,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cairomm";
   version = "1.18.0";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
       lgpl2Plus
       mpl10
     ];
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 }

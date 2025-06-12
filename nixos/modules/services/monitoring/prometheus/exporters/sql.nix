@@ -4,10 +4,10 @@
   pkgs,
   options,
   ...
-}:
-let
+}: let
   cfg = config.services.prometheus.exporters.sql;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     mapAttrs
@@ -18,7 +18,7 @@ let
     options = with types; {
       jobs = mkOption {
         type = attrsOf (submodule jobOptions);
-        default = { };
+        default = {};
         description = "An attrset of metrics scraping jobs to run.";
       };
     };
@@ -38,7 +38,7 @@ let
       };
       startupSql = mkOption {
         type = listOf str;
-        default = [ ];
+        default = [];
         description = "A list of SQL statements to execute once after making a connection.";
       };
       queries = mkOption {
@@ -56,7 +56,7 @@ let
       };
       labels = mkOption {
         type = listOf str;
-        default = [ ];
+        default = [];
         description = "A set of columns that will be used as Prometheus labels.";
       };
       query = mkOption {
@@ -71,21 +71,19 @@ let
   };
 
   configFile =
-    if cfg.configFile != null then
-      cfg.configFile
-    else
-      let
-        nameInline = mapAttrsToList (k: v: v // { name = k; });
-        renameStartupSql = j: removeAttrs (j // { startup_sql = j.startupSql; }) [ "startupSql" ];
-        configuration = {
-          jobs = map renameStartupSql (
-            nameInline (mapAttrs (k: v: (v // { queries = nameInline v.queries; })) cfg.configuration.jobs)
-          );
-        };
-      in
+    if cfg.configFile != null
+    then cfg.configFile
+    else let
+      nameInline = mapAttrsToList (k: v: v // {name = k;});
+      renameStartupSql = j: removeAttrs (j // {startup_sql = j.startupSql;}) ["startupSql"];
+      configuration = {
+        jobs = map renameStartupSql (
+          nameInline (mapAttrs (k: v: (v // {queries = nameInline v.queries;})) cfg.configuration.jobs)
+        );
+      };
+    in
       builtins.toFile "config.yaml" (builtins.toJSON configuration);
-in
-{
+in {
   extraOpts = {
     configFile = mkOption {
       type = with types; nullOr path;

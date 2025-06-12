@@ -6,7 +6,6 @@
   xorgproto,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ratmen";
   version = "2.2.3";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Minimalistic X11 menu creator";
     license = licenses.free; # 9menu derivative with 9menu license
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     homepage = "http://www.update.uu.se/~zrajm/programs/";
     downloadPage = "http://www.update.uu.se/~zrajm/programs/ratmen/";

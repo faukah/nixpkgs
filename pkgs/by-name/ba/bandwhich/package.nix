@@ -4,9 +4,7 @@
   fetchFromGitHub,
   rustPlatform,
   installShellFiles,
-
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bandwhich";
   version = "0.23.1";
@@ -21,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-bsyEEbwBTDcIOc+PRkZqcfqcDgQnchuVy8a8eSZZUHU=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # 10 passed; 47 failed https://hydra.nixos.org/build/148943783/nixlog/1
   doCheck = !stdenv.hostPlatform.isDarwin;

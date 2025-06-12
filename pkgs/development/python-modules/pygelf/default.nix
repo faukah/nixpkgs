@@ -18,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-0LuPRf9kipoYdxP0oFwJ9oX8uK3XsEu3Rx8gBxvRGq0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "pygelf" ];
+  pythonImportsCheck = ["pygelf"];
 
   nativeCheckInputs = [
     mock
@@ -45,6 +45,6 @@ buildPythonPackage rec {
     description = "Python logging handlers with GELF (Graylog Extended Log Format) support";
     homepage = "https://github.com/keeprocking/pygelf";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

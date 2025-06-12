@@ -2,55 +2,54 @@
   pkgs,
   config,
   ...
-}:
-{
+}: {
   name = "davis";
 
   meta.maintainers = pkgs.davis.meta.maintainers;
 
-  nodes.machine1 =
-    { config, ... }:
-    {
-      virtualisation = {
-        memorySize = 512;
-      };
-
-      services.davis = {
-        enable = true;
-        hostname = "davis.example.com";
-        database = {
-          driver = "postgresql";
-        };
-        mail = {
-          dsnFile = "${pkgs.writeText "davisMailDns" "smtp://username:password@example.com:25"}";
-          inviteFromAddress = "dav@example.com";
-        };
-        adminLogin = "admin";
-        appSecretFile = "${pkgs.writeText "davisAppSecret" "52882ef142066e09ab99ce816ba72522e789505caba224"}";
-        adminPasswordFile = "${pkgs.writeText "davisAdminPass" "nixos"}";
-      };
+  nodes.machine1 = {config, ...}: {
+    virtualisation = {
+      memorySize = 512;
     };
-  nodes.machine2 =
-    { nodes, config, ... }:
-    {
-      virtualisation = {
-        memorySize = 512;
-      };
-      environment.systemPackages = [ pkgs.fcgi ];
 
-      # no nginx, and no mail dsn
-      services.davis = {
-        enable = true;
-        hostname = "davis.example.com";
-        database = {
-          driver = "postgresql";
-        };
-        adminLogin = "admin";
-        appSecretFile = "${pkgs.writeText "davisAppSecret" "52882ef142066e09ab99ce816ba72522e789505caba224"}";
-        adminPasswordFile = "${pkgs.writeText "davisAdminPass" "nixos"}";
-        nginx = null;
+    services.davis = {
+      enable = true;
+      hostname = "davis.example.com";
+      database = {
+        driver = "postgresql";
       };
+      mail = {
+        dsnFile = "${pkgs.writeText "davisMailDns" "smtp://username:password@example.com:25"}";
+        inviteFromAddress = "dav@example.com";
+      };
+      adminLogin = "admin";
+      appSecretFile = "${pkgs.writeText "davisAppSecret" "52882ef142066e09ab99ce816ba72522e789505caba224"}";
+      adminPasswordFile = "${pkgs.writeText "davisAdminPass" "nixos"}";
     };
+  };
+  nodes.machine2 = {
+    nodes,
+    config,
+    ...
+  }: {
+    virtualisation = {
+      memorySize = 512;
+    };
+    environment.systemPackages = [pkgs.fcgi];
+
+    # no nginx, and no mail dsn
+    services.davis = {
+      enable = true;
+      hostname = "davis.example.com";
+      database = {
+        driver = "postgresql";
+      };
+      adminLogin = "admin";
+      appSecretFile = "${pkgs.writeText "davisAppSecret" "52882ef142066e09ab99ce816ba72522e789505caba224"}";
+      adminPasswordFile = "${pkgs.writeText "davisAdminPass" "nixos"}";
+      nginx = null;
+    };
+  };
 
   testScript = ''
     start_all()

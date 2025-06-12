@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.tor;
 
   torify = pkgs.writeTextFile {
@@ -17,17 +15,11 @@ let
     executable = true;
     destination = "/bin/tsocks";
   };
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.tor.tsocks = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -61,16 +53,13 @@ in
           configuration file.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.tsocks.enable {
-
-    environment.systemPackages = [ torify ]; # expose it to the users
+    environment.systemPackages = [torify]; # expose it to the users
 
     services.tor.tsocks.config = ''
       server = ${toString (lib.head (lib.splitString ":" cfg.tsocks.server))}
@@ -80,5 +69,4 @@ in
       local = 127.128.0.0/255.192.0.0
     '';
   };
-
 }

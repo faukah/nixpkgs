@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   pkg = pkgs.ostinato;
   cfg = config.services.ostinato;
   configFile = pkgs.writeText "drone.ini" ''
@@ -21,16 +18,11 @@ let
     Include=${concatStringsSep "," cfg.portList.include}
     Exclude=${concatStringsSep "," cfg.portList.exclude}
   '';
-
-in
-{
-
+in {
   ###### interface
 
   options = {
-
     services.ostinato = {
-
       enable = mkEnableOption "Ostinato agent-controller (Drone)";
 
       port = mkOption {
@@ -72,7 +64,7 @@ in
       portList = {
         include = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           example = [
             "eth*"
             "lo*"
@@ -84,7 +76,7 @@ in
         };
         exclude = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           example = [
             "usbmon*"
             "eth0"
@@ -94,25 +86,20 @@ in
           '';
         };
       };
-
     };
-
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
-
-    environment.systemPackages = [ pkg ];
+    environment.systemPackages = [pkg];
 
     systemd.services.drone = {
       description = "Ostinato agent-controller";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       script = ''
         ${pkg}/bin/drone ${toString cfg.port} ${configFile}
       '';
     };
-
   };
-
 }

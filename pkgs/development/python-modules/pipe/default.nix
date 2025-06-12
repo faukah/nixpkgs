@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pipe";
   version = "2.2";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-/xMhh70g2KPOOivTjpAuyfu+Z44tBE5zAwpSIEKhK6M=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pipe" ];
+  pythonImportsCheck = ["pipe"];
 
   disabledTests = [
     # Test require network access
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/JulienPalard/Pipe";
     changelog = "https://github.com/JulienPalard/Pipe/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

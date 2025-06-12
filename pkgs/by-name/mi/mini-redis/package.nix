@@ -6,7 +6,6 @@
   openssl,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mini-redis";
   version = "0.4.1";
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Incomplete, idiomatic implementation of a Redis client and server built with Tokio, for learning purposes";
     homepage = "https://github.com/tokio-rs/mini-redis";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nomaterials ];
+    maintainers = with lib.maintainers; [nomaterials];
     mainProgram = "mini-redis-cli";
   };
 })

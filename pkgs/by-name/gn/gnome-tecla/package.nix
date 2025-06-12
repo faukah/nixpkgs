@@ -13,7 +13,6 @@
   wayland,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tecla";
   version = "48.0.2";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Keyboard layout viewer";
     homepage = "https://gitlab.gnome.org/GNOME/tecla";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
     mainProgram = "tecla";
   };

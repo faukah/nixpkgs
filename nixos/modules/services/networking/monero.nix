@@ -3,17 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.monero;
 
   listToConf = option: list: lib.concatMapStrings (value: "${option}=${value}\n") list;
 
-  login = (cfg.rpc.user != null && cfg.rpc.password != null);
+  login = cfg.rpc.user != null && cfg.rpc.password != null;
 
-  configFile =
-    with cfg;
+  configFile = with cfg;
     pkgs.writeText "monero.conf" ''
       log-file=/dev/stdout
       data-dir=${dataDir}
@@ -47,17 +44,11 @@ let
 
       ${extraConfig}
     '';
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.monero = {
-
       enable = lib.mkEnableOption "Monero node daemon";
 
       dataDir = lib.mkOption {
@@ -188,7 +179,7 @@ in
 
       extraNodes = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           List of additional peer IP addresses to add to the local list.
         '';
@@ -196,7 +187,7 @@ in
 
       priorityNodes = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           List of peer IP addresses to connect to and
           attempt to keep the connection open.
@@ -205,7 +196,7 @@ in
 
       exclusiveNodes = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           List of peer IP addresses to connect to *only*.
           If given the other peer options will be ignored.
@@ -219,15 +210,12 @@ in
           Extra lines to be added verbatim to monerod configuration.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     users.users.monero = {
       isSystemUser = true;
       group = "monero";
@@ -236,12 +224,12 @@ in
       createHome = true;
     };
 
-    users.groups.monero = { };
+    users.groups.monero = {};
 
     systemd.services.monero = {
       description = "monero daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = "monero";
@@ -262,9 +250,7 @@ in
         specify one using option monero.mining.address.
       '';
     };
-
   };
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

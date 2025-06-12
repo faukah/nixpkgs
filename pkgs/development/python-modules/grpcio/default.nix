@@ -12,7 +12,6 @@
   setuptools,
   zlib,
 }:
-
 # This package should be updated together with the main grpc package and other
 # related python grpc packages.
 # nixpkgs-update: no auto update
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     "dev"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     cython
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     zlib
   ];
 
-  dependencies = [ protobuf ];
+  dependencies = [protobuf];
 
   preBuild =
     ''
@@ -69,13 +68,13 @@ buildPythonPackage rec {
 
   enableParallelBuilding = true;
 
-  pythonImportsCheck = [ "grpc" ];
+  pythonImportsCheck = ["grpc"];
 
   meta = with lib; {
     description = "HTTP/2-based RPC framework";
     homepage = "https://grpc.io/grpc/python/";
     changelog = "https://github.com/grpc/grpc/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

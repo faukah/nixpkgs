@@ -4,12 +4,10 @@
   buildNpmPackage,
   libsForQt5,
 }:
-
 # how to update:
 # 1. check out the tag for the version in question
 # 2. run `prefetch-npm-deps package-lock.json`
 # 3. update npmDepsHash with the output of the previous step
-
 buildNpmPackage rec {
   pname = "polonium";
   version = "1.0rc";
@@ -32,7 +30,7 @@ buildNpmPackage rec {
     "src"
   ];
 
-  nativeBuildInputs = with libsForQt5; [ plasma-framework ];
+  nativeBuildInputs = with libsForQt5; [plasma-framework];
 
   dontNpmBuild = true;
 

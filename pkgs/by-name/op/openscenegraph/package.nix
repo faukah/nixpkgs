@@ -59,7 +59,6 @@
   withExamples ? false,
   fltk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openscenegraph";
   version = "3.6.5";
@@ -112,7 +111,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional luaSupport lua
     ++ lib.optional sdlSupport SDL2
     ++ lib.optional restSupport asio
-    ++ lib.optionals withExamples [ fltk ]
+    ++ lib.optionals withExamples [fltk]
     ++ lib.optional (restSupport || colladaSupport) boost;
 
   patches = [

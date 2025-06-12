@@ -6,7 +6,6 @@
   fetchpatch,
   xercesc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libe57format";
   version = "3.2.0";
@@ -47,10 +46,9 @@ stdenv.mkDerivation (finalAttrs: {
     "-DE57_RELEASE_LTO=OFF"
     # See https://github.com/asmaloney/libE57Format/blob/9372bdea8db2cc0c032a08f6d655a53833d484b8/test/README.md
     (
-      if finalAttrs.finalPackage.doCheck then
-        "-DE57_TEST_DATA_PATH=${finalAttrs.libE57Format-test-data_src}"
-      else
-        "-DE57_BUILD_TEST=OFF"
+      if finalAttrs.finalPackage.doCheck
+      then "-DE57_TEST_DATA_PATH=${finalAttrs.libE57Format-test-data_src}"
+      else "-DE57_BUILD_TEST=OFF"
     )
   ];
 

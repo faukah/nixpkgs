@@ -5,7 +5,6 @@
   buildGoModule,
   testers,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "podman-tui";
   version = "1.6.1";
@@ -21,25 +20,25 @@ buildGoModule (finalAttrs: {
 
   env.CGO_ENABLED = 0;
 
-  tags = [
-    "containers_image_openpgp"
-    "remote"
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin "darwin";
+  tags =
+    [
+      "containers_image_openpgp"
+      "remote"
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin "darwin";
 
   ldflags = [
     "-s"
     "-w"
   ];
 
-  checkFlags =
-    let
-      skippedTests = [
-        # Disable flaky tests
-        "TestDialogs"
-        "TestVoldialogs"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    skippedTests = [
+      # Disable flaky tests
+      "TestDialogs"
+      "TestVoldialogs"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   passthru.tests.version = testers.testVersion {
     package = finalAttrs.finalPackage;
@@ -51,7 +50,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/containers/podman-tui";
     description = "Podman Terminal UI";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "podman-tui";
   };
 })

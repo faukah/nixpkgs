@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "playwright-stealth";
   version = "1.0.6-unstable-2023-09-11";
@@ -22,19 +21,19 @@ buildPythonPackage {
     hash = "sha256-ZWmuVwjEgrPmfxjvws3TdocW6tyNH++fyRfKQ0oJ6bo=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ playwright ];
+  propagatedBuildInputs = [playwright];
 
   # Tests require Chromium binary
   doCheck = false;
 
-  pythonImportsCheck = [ "playwright_stealth" ];
+  pythonImportsCheck = ["playwright_stealth"];
 
   meta = with lib; {
     description = "Playwright stealth";
     homepage = "https://github.com/AtuboDad/playwright_stealth";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

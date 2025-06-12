@@ -11,7 +11,6 @@
   nixosTests,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bpftune";
   version = "0-unstable-2025-03-20";
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     tests = {
       inherit (nixosTests) bpftune;
     };
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   enableParallelBuilding = true;
@@ -74,6 +73,6 @@ stdenv.mkDerivation rec {
     mainProgram = "bpftune";
     homepage = "https://github.com/oracle-samples/bpftune";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

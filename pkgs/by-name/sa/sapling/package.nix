@@ -16,11 +16,8 @@
   fixup-yarn-lock,
   glibcLocales,
   libiconv,
-
   enableMinimal ? false,
-}:
-
-let
+}: let
   inherit (lib.importJSON ./deps.json) links version versionHash;
   # Sapling sets a Cargo config containing lines like so:
   # [target.aarch64-apple-darwin]
@@ -95,104 +92,104 @@ let
     '';
   };
 in
-# Builds the main `sl` binary and its Python extensions
-python311Packages.buildPythonApplication {
-  pname = "sapling";
-  inherit src version;
+  # Builds the main `sl` binary and its Python extensions
+  python311Packages.buildPythonApplication {
+    pname = "sapling";
+    inherit src version;
 
-  sourceRoot = "${src.name}/eden/scm";
+    sourceRoot = "${src.name}/eden/scm";
 
-  # Upstream does not commit Cargo.lock
-  cargoDeps = rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-    outputHashes = {
-      "abomonation-0.7.3+smallvec1" = "sha256-AxEXR6GC8gHjycIPOfoViP7KceM29p2ZISIt4iwJzvM=";
-      "cloned-0.1.0" = "sha256-2BaNR/pQmR7pHtRf6VBQLcZgLHbj2JCxeX4auAB0efU=";
-      "fb303_core-0.0.0" = "sha256-PDGdKjR6KPv1uH1JSTeoG5Rs0ZkmNJLqqSXtvV3RWic=";
-      "fbthrift-0.0.1+unstable" = "sha256-J4REXGuLjHyN3SHilSWhMoqpRcn1QnEtsTsZF4Z3feU=";
-      "serde_bser-0.4.0" = "sha256-Su1IP3NzQu/87p/+uQaG8JcICL9hit3OV1O9oFiACsQ=";
+    # Upstream does not commit Cargo.lock
+    cargoDeps = rustPlatform.importCargoLock {
+      lockFile = ./Cargo.lock;
+      outputHashes = {
+        "abomonation-0.7.3+smallvec1" = "sha256-AxEXR6GC8gHjycIPOfoViP7KceM29p2ZISIt4iwJzvM=";
+        "cloned-0.1.0" = "sha256-2BaNR/pQmR7pHtRf6VBQLcZgLHbj2JCxeX4auAB0efU=";
+        "fb303_core-0.0.0" = "sha256-PDGdKjR6KPv1uH1JSTeoG5Rs0ZkmNJLqqSXtvV3RWic=";
+        "fbthrift-0.0.1+unstable" = "sha256-J4REXGuLjHyN3SHilSWhMoqpRcn1QnEtsTsZF4Z3feU=";
+        "serde_bser-0.4.0" = "sha256-Su1IP3NzQu/87p/+uQaG8JcICL9hit3OV1O9oFiACsQ=";
+      };
     };
-  };
-  postPatch =
-    ''
-      cp ${./Cargo.lock} Cargo.lock
-    ''
-    + lib.optionalString (!enableMinimal) ''
-      # If asked, we optionally patch in a hardcoded path to the
-      # 'nodejs' package, so that 'sl web' always works. Without the
-      # patch, 'sl web' will still work if 'nodejs' is in $PATH.
-      substituteInPlace lib/config/loader/src/builtin_static/core.rs \
-        --replace '"#);' $'[web]\nnode-path=${nodejs}/bin/node\n"#);'
+    postPatch =
+      ''
+        cp ${./Cargo.lock} Cargo.lock
+      ''
+      + lib.optionalString (!enableMinimal) ''
+        # If asked, we optionally patch in a hardcoded path to the
+        # 'nodejs' package, so that 'sl web' always works. Without the
+        # patch, 'sl web' will still work if 'nodejs' is in $PATH.
+        substituteInPlace lib/config/loader/src/builtin_static/core.rs \
+          --replace '"#);' $'[web]\nnode-path=${nodejs}/bin/node\n"#);'
+      '';
+
+    # Since the derivation builder doesn't have network access to remain pure,
+    # fetch the artifacts manually and link them. Then replace the hardcoded URLs
+    # with filesystem paths for the curl calls.
+    postUnpack = ''
+      mkdir $sourceRoot/hack_pydeps
+      ${lib.concatStrings (
+        map (li: "ln -s ${fetchurl li} $sourceRoot/hack_pydeps/${baseNameOf li.url}\n") links
+      )}
+      sed -i "s|https://files.pythonhosted.org/packages/[[:alnum:]]*/[[:alnum:]]*/[[:alnum:]]*/|file://$NIX_BUILD_TOP/$sourceRoot/hack_pydeps/|g" $sourceRoot/setup.py
     '';
 
-  # Since the derivation builder doesn't have network access to remain pure,
-  # fetch the artifacts manually and link them. Then replace the hardcoded URLs
-  # with filesystem paths for the curl calls.
-  postUnpack = ''
-    mkdir $sourceRoot/hack_pydeps
-    ${lib.concatStrings (
-      map (li: "ln -s ${fetchurl li} $sourceRoot/hack_pydeps/${baseNameOf li.url}\n") links
-    )}
-    sed -i "s|https://files.pythonhosted.org/packages/[[:alnum:]]*/[[:alnum:]]*/[[:alnum:]]*/|file://$NIX_BUILD_TOP/$sourceRoot/hack_pydeps/|g" $sourceRoot/setup.py
-  '';
+    postInstall = ''
+      install ${isl}/isl-dist.tar.xz $out/lib/isl-dist.tar.xz
+    '';
 
-  postInstall = ''
-    install ${isl}/isl-dist.tar.xz $out/lib/isl-dist.tar.xz
-  '';
+    postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
+      wrapProgram $out/bin/sl \
+        --set LOCALE_ARCHIVE "${glibcLocales}/lib/locale/locale-archive"
+    '';
 
-  postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
-    wrapProgram $out/bin/sl \
-      --set LOCALE_ARCHIVE "${glibcLocales}/lib/locale/locale-archive"
-  '';
-
-  nativeBuildInputs = [
-    curl
-    pkg-config
-    myCargoSetupHook
-    cargo
-    rustc
-  ];
-
-  buildInputs =
-    [
-      openssl
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    nativeBuildInputs = [
       curl
-      libiconv
+      pkg-config
+      myCargoSetupHook
+      cargo
+      rustc
     ];
 
-  HGNAME = "sl";
-  SAPLING_OSS_BUILD = "true";
-  SAPLING_VERSION_HASH = versionHash;
+    buildInputs =
+      [
+        openssl
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        curl
+        libiconv
+      ];
 
-  # Python setuptools version 66 and newer does not support upstream Sapling's
-  # version numbers (e.g. "0.2.20230124-180750-hf8cd450a"). Change the version
-  # number to something supported by setuptools (e.g. "0.2.20230124").
-  # https://github.com/facebook/sapling/issues/571
-  SAPLING_VERSION = builtins.elemAt (builtins.split "-" version) 0;
+    HGNAME = "sl";
+    SAPLING_OSS_BUILD = "true";
+    SAPLING_VERSION_HASH = versionHash;
 
-  # just a simple check phase, until we have a running test suite. this should
-  # help catch issues like lack of a LOCALE_ARCHIVE setting (see GH PR #202760)
-  doCheck = true;
-  installCheckPhase = ''
-    echo -n "testing sapling version; should be \"$SAPLING_VERSION\"... "
-    $out/bin/sl version | grep -qw "$SAPLING_VERSION"
-    echo "OK!"
-  '';
+    # Python setuptools version 66 and newer does not support upstream Sapling's
+    # version numbers (e.g. "0.2.20230124-180750-hf8cd450a"). Change the version
+    # number to something supported by setuptools (e.g. "0.2.20230124").
+    # https://github.com/facebook/sapling/issues/571
+    SAPLING_VERSION = builtins.elemAt (builtins.split "-" version) 0;
 
-  # Expose isl to nix repl as sapling.isl.
-  passthru.isl = isl;
+    # just a simple check phase, until we have a running test suite. this should
+    # help catch issues like lack of a LOCALE_ARCHIVE setting (see GH PR #202760)
+    doCheck = true;
+    installCheckPhase = ''
+      echo -n "testing sapling version; should be \"$SAPLING_VERSION\"... "
+      $out/bin/sl version | grep -qw "$SAPLING_VERSION"
+      echo "OK!"
+    '';
 
-  meta = with lib; {
-    description = "Scalable, User-Friendly Source Control System";
-    homepage = "https://sapling-scm.com";
-    license = licenses.gpl2Only;
-    maintainers = with maintainers; [
-      pbar
-      thoughtpolice
-    ];
-    platforms = platforms.unix;
-    mainProgram = "sl";
-  };
-}
+    # Expose isl to nix repl as sapling.isl.
+    passthru.isl = isl;
+
+    meta = with lib; {
+      description = "Scalable, User-Friendly Source Control System";
+      homepage = "https://sapling-scm.com";
+      license = licenses.gpl2Only;
+      maintainers = with maintainers; [
+        pbar
+        thoughtpolice
+      ];
+      platforms = platforms.unix;
+      mainProgram = "sl";
+    };
+  }

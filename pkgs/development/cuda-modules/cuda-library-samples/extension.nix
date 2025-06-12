@@ -1,5 +1,7 @@
-{ lib, stdenv }:
-let
+{
+  lib,
+  stdenv,
+}: let
   inherit (stdenv) hostPlatform;
 
   # Samples are built around the CUDA Toolkit, which is not available for
@@ -7,10 +9,9 @@ let
   platformIsSupported = hostPlatform.isx86_64 && hostPlatform.isLinux;
 
   # Build our extension
-  extension =
-    final: _:
+  extension = final: _:
     lib.attrsets.optionalAttrs platformIsSupported {
-      cuda-library-samples = final.callPackage ./generic.nix { };
+      cuda-library-samples = final.callPackage ./generic.nix {};
     };
 in
-extension
+  extension

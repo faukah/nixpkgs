@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ndstrim";
   version = "0.2.1";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/Nemris/ndstrim/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
     mainProgram = "ndstrim";
   };
 }

@@ -9,7 +9,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "acme";
   inherit (certbot) version src;
@@ -33,9 +32,11 @@ buildPythonPackage rec {
   # does not contain any tests
   doCheck = false;
 
-  pythonImportsCheck = [ "acme" ];
+  pythonImportsCheck = ["acme"];
 
-  meta = certbot.meta // {
-    description = "ACME protocol implementation in Python";
-  };
+  meta =
+    certbot.meta
+    // {
+      description = "ACME protocol implementation in Python";
+    };
 }

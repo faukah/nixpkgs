@@ -3,9 +3,7 @@
   fetchFromGitHub,
   python3Packages,
   unstableGitUpdater,
-}:
-
-let
+}: let
   self = python3Packages.buildPythonApplication {
     pname = "ophis";
     version = "2.2-unstable-2024-07-28";
@@ -18,10 +16,10 @@ let
       hash = "sha256-cxgSgAypS02AO9vjYjNWDY/cx7kxLt1Bdw8HGgGGBhU=";
     };
 
-    build-system = [ python3Packages.setuptools ];
+    build-system = [python3Packages.setuptools];
 
     passthru = {
-      updateScript = unstableGitUpdater { };
+      updateScript = unstableGitUpdater {};
     };
 
     meta = {
@@ -36,8 +34,8 @@ let
       '';
       license = lib.licenses.mit;
       mainProgram = "ophis";
-      maintainers = with lib.maintainers; [ ];
+      maintainers = with lib.maintainers; [];
     };
   };
 in
-self
+  self

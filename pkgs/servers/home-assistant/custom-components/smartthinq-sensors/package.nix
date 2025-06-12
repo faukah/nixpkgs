@@ -6,7 +6,6 @@
   pycountry,
   xmltodict,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "ollo69";
   domain = "smartthinq_sensors";
@@ -29,7 +28,7 @@ buildHomeAssistantComponent rec {
     description = "Home Assistant custom integration for SmartThinQ LG devices configurable with Lovelace User Interface";
     homepage = "https://github.com/ollo69/ha-smartthinq-sensors";
     changelog = "https://github.com/ollo69/ha-smartthinq-sensors/releases/tag/v${version}";
-    maintainers = with maintainers; [ k900 ];
+    maintainers = with maintainers; [k900];
     license = licenses.asl20;
   };
 }

@@ -6,7 +6,6 @@
   addonUpdateScript,
   six,
 }:
-
 buildKodiAddon rec {
   pname = "dateutil";
   namespace = "script.module.dateutil";
@@ -35,6 +34,6 @@ buildKodiAddon rec {
       asl20
       bsd3
     ];
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

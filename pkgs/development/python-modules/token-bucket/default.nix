@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "token-bucket";
   version = "0.3.0";
@@ -37,9 +36,9 @@ buildPythonPackage rec {
       --replace "'pytest-runner'" ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/falconry/token-bucket";
     changelog = "https://github.com/falconry/token-bucket/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -13,7 +13,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "nutils";
   version = "8.8";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-E/y1YXW+0+LfntRQsdIU9rMOmN8mlFwXktD/sViJo3I=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     appdirs
@@ -40,11 +39,11 @@ buildPythonPackage rec {
     treelog
   ];
 
-  pythonRelaxDeps = [ "psutil" ];
+  pythonRelaxDeps = ["psutil"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "nutils" ];
+  pythonImportsCheck = ["nutils"];
 
   disabledTestPaths = [
     # AttributeError: type object 'setup' has no attribute '__code__'
@@ -56,6 +55,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/evalf/nutils/releases/tag/v${version}";
     homepage = "https://www.nutils.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ Scriptkiddi ];
+    maintainers = with maintainers; [Scriptkiddi];
   };
 }

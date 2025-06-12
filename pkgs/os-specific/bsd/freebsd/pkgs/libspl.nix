@@ -1,5 +1,7 @@
-{ lib, mkDerivation }:
-
+{
+  lib,
+  mkDerivation,
+}:
 mkDerivation {
   path = "cddl/lib/libspl";
   extraPaths = [

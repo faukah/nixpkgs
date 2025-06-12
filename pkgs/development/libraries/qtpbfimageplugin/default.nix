@@ -5,7 +5,6 @@
   qmake,
   qtbase,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qtpbfimageplugin";
   version = "4.2";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/tumic0/QtPBFImagePlugin";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 }

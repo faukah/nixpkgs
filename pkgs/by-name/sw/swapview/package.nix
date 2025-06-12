@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "swapview";
   version = "0.1.0-unstable-2023-12-03";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage {
     mainProgram = "swapview";
     homepage = "https://github.com/lilydjwg/swapview";
     platforms = platforms.linux;
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ oxalica ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [oxalica];
   };
 }

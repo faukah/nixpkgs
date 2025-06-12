@@ -1,19 +1,15 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "ksm";
   meta = with lib.maintainers; {
-    maintainers = [ rnhmjoj ];
+    maintainers = [rnhmjoj];
   };
 
-  nodes.machine =
-    { ... }:
-    {
-      imports = [ ../modules/profiles/minimal.nix ];
+  nodes.machine = {...}: {
+    imports = [../modules/profiles/minimal.nix];
 
-      hardware.ksm.enable = true;
-      hardware.ksm.sleep = 300;
-    };
+    hardware.ksm.enable = true;
+    hardware.ksm.sleep = 300;
+  };
 
   testScript = ''
     machine.start()

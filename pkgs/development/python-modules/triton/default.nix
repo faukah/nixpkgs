@@ -26,7 +26,6 @@
   rocmPackages,
   triton,
 }:
-
 buildPythonPackage {
   pname = "triton";
   version = "3.1.0";
@@ -47,9 +46,14 @@ buildPythonPackage {
         ccCmdExtraFlags = "-Wl,-rpath,${addDriverRunpath.driverLink}/lib";
       })
       (replaceVars ./0002-nvidia-amd-driver-short-circuit-before-ldconfig.patch {
-        libhipDir = if rocmSupport then "${lib.getLib rocmPackages.clr}/lib" else null;
+        libhipDir =
+          if rocmSupport
+          then "${lib.getLib rocmPackages.clr}/lib"
+          else null;
         libcudaStubsDir =
-          if cudaSupport then "${lib.getOutput "stubs" cudaPackages.cuda_cudart}/lib/stubs" else null;
+          if cudaSupport
+          then "${lib.getOutput "stubs" cudaPackages.cuda_cudart}/lib/stubs"
+          else null;
       })
     ]
     ++ lib.optionals cudaSupport [
@@ -57,7 +61,7 @@ buildPythonPackage {
         cudaToolkitIncludeDirs = "${lib.getInclude cudaPackages.cuda_cudart}/include";
       })
       (replaceVars ./0004-nvidia-allow-static-ptxas-path.patch {
-        nixpkgsExtraBinaryPaths = lib.escapeShellArgs [ (lib.getExe' cudaPackages.cuda_nvcc "ptxas") ];
+        nixpkgsExtraBinaryPaths = lib.escapeShellArgs [(lib.getExe' cudaPackages.cuda_nvcc "ptxas")];
       })
     ];
 
@@ -85,7 +89,7 @@ buildPythonPackage {
         'return 80 + min(minor, 5)'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     cmake
@@ -167,7 +171,7 @@ buildPythonPackage {
   # CMake is run by setup.py instead
   dontUseCmakeConfigure = true;
 
-  nativeCheckInputs = [ cmake ];
+  nativeCheckInputs = [cmake];
   preCheck = ''
     # build/temp* refers to build_ext.build_temp (looked up in the build logs)
     (cd ./build/temp* ; ctest)
@@ -182,7 +186,7 @@ buildPythonPackage {
     pname = "triton-pytest";
     inherit (triton) version src;
 
-    requiredSystemFeatures = [ "cuda" ];
+    requiredSystemFeatures = ["cuda"];
 
     nativeBuildInputs = [
       (python.withPackages (ps: [
@@ -193,7 +197,7 @@ buildPythonPackage {
     ];
 
     dontBuild = true;
-    nativeCheckInputs = [ pytestCheckHook ];
+    nativeCheckInputs = [pytestCheckHook];
 
     doCheck = true;
 
@@ -214,56 +218,56 @@ buildPythonPackage {
     # or, using `programs.nix-required-mounts`, as `nix build -f "<nixpkgs>" python3Packages.triton.tests.axpy-cuda.gpuCheck`
     axpy-cuda =
       cudaPackages.writeGpuTestPython
-        {
-          libraries = ps: [
-            ps.triton
-            ps.torch-no-triton
-          ];
-        }
-        ''
-          # Adopted from Philippe Tillet https://triton-lang.org/main/getting-started/tutorials/01-vector-add.html
+      {
+        libraries = ps: [
+          ps.triton
+          ps.torch-no-triton
+        ];
+      }
+      ''
+        # Adopted from Philippe Tillet https://triton-lang.org/main/getting-started/tutorials/01-vector-add.html
 
-          import triton
-          import triton.language as tl
-          import torch
-          import os
+        import triton
+        import triton.language as tl
+        import torch
+        import os
 
-          @triton.jit
-          def axpy_kernel(n, a: tl.constexpr, x_ptr, y_ptr, out, BLOCK_SIZE: tl.constexpr):
-            pid = tl.program_id(axis=0)
-            block_start = pid * BLOCK_SIZE
-            offsets = block_start + tl.arange(0, BLOCK_SIZE)
-            mask = offsets < n
-            x = tl.load(x_ptr + offsets, mask=mask)
-            y = tl.load(y_ptr + offsets, mask=mask)
-            output = a * x + y
-            tl.store(out + offsets, output, mask=mask)
+        @triton.jit
+        def axpy_kernel(n, a: tl.constexpr, x_ptr, y_ptr, out, BLOCK_SIZE: tl.constexpr):
+          pid = tl.program_id(axis=0)
+          block_start = pid * BLOCK_SIZE
+          offsets = block_start + tl.arange(0, BLOCK_SIZE)
+          mask = offsets < n
+          x = tl.load(x_ptr + offsets, mask=mask)
+          y = tl.load(y_ptr + offsets, mask=mask)
+          output = a * x + y
+          tl.store(out + offsets, output, mask=mask)
 
-          def axpy(a, x, y):
-            output = torch.empty_like(x)
-            assert x.is_cuda and y.is_cuda and output.is_cuda
-            n_elements = output.numel()
+        def axpy(a, x, y):
+          output = torch.empty_like(x)
+          assert x.is_cuda and y.is_cuda and output.is_cuda
+          n_elements = output.numel()
 
-            def grid(meta):
-              return (triton.cdiv(n_elements, meta['BLOCK_SIZE']), )
+          def grid(meta):
+            return (triton.cdiv(n_elements, meta['BLOCK_SIZE']), )
 
-            axpy_kernel[grid](n_elements, a, x, y, output, BLOCK_SIZE=1024)
-            return output
+          axpy_kernel[grid](n_elements, a, x, y, output, BLOCK_SIZE=1024)
+          return output
 
-          if __name__ == "__main__":
-            if os.environ.get("HOME", None) == "/homeless-shelter":
-              os.environ["HOME"] = os.environ.get("TMPDIR", "/tmp")
-            if "CC" not in os.environ:
-              os.environ["CC"] = "${lib.getExe' cudaPackages.backendStdenv.cc "cc"}"
-            torch.manual_seed(0)
-            size = 12345
-            x = torch.rand(size, device='cuda')
-            y = torch.rand(size, device='cuda')
-            output_torch = 3.14 * x + y
-            output_triton = axpy(3.14, x, y)
-            assert output_torch.sub(output_triton).abs().max().item() < 1e-6
-            print("Triton axpy: OK")
-        '';
+        if __name__ == "__main__":
+          if os.environ.get("HOME", None) == "/homeless-shelter":
+            os.environ["HOME"] = os.environ.get("TMPDIR", "/tmp")
+          if "CC" not in os.environ:
+            os.environ["CC"] = "${lib.getExe' cudaPackages.backendStdenv.cc "cc"}"
+          torch.manual_seed(0)
+          size = 12345
+          x = torch.rand(size, device='cuda')
+          y = torch.rand(size, device='cuda')
+          output_torch = 3.14 * x + y
+          output_triton = axpy(3.14, x, y)
+          assert output_torch.sub(output_triton).abs().max().item() < 1e-6
+          print("Triton axpy: OK")
+      '';
   };
 
   meta = {

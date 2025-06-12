@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "melt";
   version = "0.6.2";
@@ -29,6 +28,6 @@ buildGoModule rec {
     homepage = "https://github.com/charmbracelet/melt";
     changelog = "https://github.com/charmbracelet/melt/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ penguwin ];
+    maintainers = with lib.maintainers; [penguwin];
   };
 }

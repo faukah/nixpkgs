@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule {
   pname = "txtpbfmt";
   version = "0-unstable-2025-03-26";
@@ -24,14 +23,14 @@ buildGoModule {
   ];
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = {
     description = "Formatter for text proto files";
     homepage = "https://github.com/protocolbuffers/txtpbfmt";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "txtpbfmt";
   };
 }

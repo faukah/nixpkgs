@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
@@ -16,16 +15,11 @@ let
   cfg = config.services.solanum;
 
   configFile = pkgs.writeText "solanum.conf" cfg.config;
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.solanum = {
-
       enable = mkEnableOption "Solanum IRC daemon";
 
       config = mkOption {
@@ -78,9 +72,7 @@ in
           If set, the value of this option will be written to this path.
         '';
       };
-
     };
-
   };
 
   ###### implementation
@@ -88,13 +80,12 @@ in
   config = mkIf cfg.enable (
     lib.mkMerge [
       {
-
         environment.etc."solanum/ircd.conf".source = configFile;
 
         systemd.services.solanum = {
           description = "Solanum IRC daemon";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
           reloadIfChanged = true;
           restartTriggers = [
             configFile
@@ -109,7 +100,6 @@ in
             LimitNOFILE = "${toString cfg.openFilesLimit}";
           };
         };
-
       }
 
       (mkIf (cfg.motd != null) {

@@ -7,7 +7,6 @@
   glibcLocales,
   libfaketime,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dict-db-wiktionary";
   version = "20240901";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "DICT version of English Wiktionary";
     homepage = "https://en.wiktionary.org/";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     platforms = platforms.all;
     license = with licenses; [
       cc-by-sa-30

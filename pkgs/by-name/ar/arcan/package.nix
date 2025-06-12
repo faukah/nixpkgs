@@ -55,9 +55,8 @@
   useStaticSqlite ? true,
   useTracy ? true,
   # Configurable options
-  sources ? callPackage ./sources.nix { },
+  sources ? callPackage ./sources.nix {},
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   inherit (sources.letoram-arcan) pname version src;
 
@@ -69,52 +68,56 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    pkg-config
-    wayland-scanner
-  ] ++ lib.optionals buildManPages [ ruby ];
+  nativeBuildInputs =
+    [
+      cmake
+      makeWrapper
+      pkg-config
+      wayland-scanner
+    ]
+    ++ lib.optionals buildManPages [ruby];
 
-  buildInputs = [
-    SDL2
-    ffmpeg
-    file
-    freetype
-    glib
-    gumbo
-    harfbuzz
-    jbig2dec
-    leptonica
-    libGL
-    libX11
-    libXau
-    libXcomposite
-    libXdmcp
-    libXfixes
-    libdrm
-    libffi
-    libjpeg
-    libusb1
-    libuvc
-    libvlc
-    libvncserver
-    libxcb
-    libxkbcommon
-    libgbm
-    mupdf
-    openal
-    openjpeg
-    pcre2
-    sqlite
-    tesseract
-    valgrind
-    wayland
-    wayland-protocols
-    xcbutil
-    xcbutilwm
-    xz
-  ] ++ lib.optionals useEspeak [ espeak-ng ];
+  buildInputs =
+    [
+      SDL2
+      ffmpeg
+      file
+      freetype
+      glib
+      gumbo
+      harfbuzz
+      jbig2dec
+      leptonica
+      libGL
+      libX11
+      libXau
+      libXcomposite
+      libXdmcp
+      libXfixes
+      libdrm
+      libffi
+      libjpeg
+      libusb1
+      libuvc
+      libvlc
+      libvncserver
+      libxcb
+      libxkbcommon
+      libgbm
+      mupdf
+      openal
+      openjpeg
+      pcre2
+      sqlite
+      tesseract
+      valgrind
+      wayland
+      wayland-protocols
+      xcbutil
+      xcbutilwm
+      xz
+    ]
+    ++ lib.optionals useEspeak [espeak-ng];
 
   cmakeFlags = [
     # The upstream project recommends tagging the distribution
@@ -136,26 +139,25 @@ stdenv.mkDerivation (finalAttrs: {
     "man"
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   strictDeps = true;
 
   # Emulate external/git/clone.sh
-  postUnpack =
-    let
-      inherit (sources)
-        letoram-openal
-        libuvc
-        luajit
-        tracy
-        ;
-      prepareSource =
-        flag: source: destination:
-        lib.optionalString flag ''
-          cp -va ${source}/ ${destination}
-          chmod --recursive 744 ${destination}
-        '';
-    in
+  postUnpack = let
+    inherit
+      (sources)
+      letoram-openal
+      libuvc
+      luajit
+      tracy
+      ;
+    prepareSource = flag: source: destination:
+      lib.optionalString flag ''
+        cp -va ${source}/ ${destination}
+        chmod --recursive 744 ${destination}
+      '';
+  in
     ''
       pushd $sourceRoot/external/git/
     ''
@@ -185,7 +187,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit sources;
-    wrapper = callPackage ./wrapper.nix { };
+    wrapper = callPackage ./wrapper.nix {};
   };
 
   meta = {
@@ -202,7 +204,7 @@ stdenv.mkDerivation (finalAttrs: {
       gpl2Plus
       lgpl2Plus
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

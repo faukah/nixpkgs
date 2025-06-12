@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "sqldef";
   version = "2.0.0";
@@ -36,6 +35,6 @@ buildGoModule rec {
     ];
     homepage = "https://github.com/sqldef/sqldef";
     changelog = "https://github.com/sqldef/sqldef/blob/v${version}/CHANGELOG.md";
-    maintainers = with lib.maintainers; [ kgtkr ];
+    maintainers = with lib.maintainers; [kgtkr];
   };
 }

@@ -4,7 +4,6 @@
   buildGoModule,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "tt";
   version = "0.4.2";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-edY2CcZXOIed0+7IA8kr4lAfuSJx/nHtmc734XzT4z4=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     mv $out/bin/src $out/bin/tt
@@ -30,6 +29,6 @@ buildGoModule rec {
     homepage = "https://github.com/lemnos/tt";
     license = lib.licenses.mit;
     mainProgram = "tt";
-    maintainers = with lib.maintainers; [ vinetos ];
+    maintainers = with lib.maintainers; [vinetos];
   };
 }

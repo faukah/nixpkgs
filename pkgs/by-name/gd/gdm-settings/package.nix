@@ -14,13 +14,13 @@
   wrapGAppsHook4,
   # gdm-settings needs to know where to look for themes
   # This should work for most systems, but can be overridden if not
-  dataDirs ? lib.concatStringsSep ":" [
-    "/run/current-system/sw/share"
-    "/usr/local/share"
-    "/usr/share"
-  ],
+  dataDirs ?
+    lib.concatStringsSep ":" [
+      "/run/current-system/sw/share"
+      "/usr/local/share"
+      "/usr/share"
+    ],
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gdm-settings";
   version = "5.0";
@@ -44,9 +44,9 @@ python3Packages.buildPythonApplication rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ libadwaita ];
+  buildInputs = [libadwaita];
 
-  dependencies = [ python3Packages.pygobject3 ];
+  dependencies = [python3Packages.pygobject3];
 
   dontWrapGApps = true;
   makeWrapperArgs = [
@@ -54,14 +54,14 @@ python3Packages.buildPythonApplication rec {
     "--set-default HOST_DATA_DIRS ${dataDirs}"
   ];
 
-  pythonImportsCheck = [ "gdms" ];
+  pythonImportsCheck = ["gdms"];
 
   meta = {
     description = "Settings app for GNOME's Login Manager";
     homepage = "https://gdm-settings.github.io/";
     changelog = "https://github.com/gdm-settings/gdm-settings/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "gdm-settings";
     inherit (gdm.meta) platforms;
   };

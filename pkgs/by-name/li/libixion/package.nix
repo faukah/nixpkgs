@@ -8,7 +8,6 @@
   mdds,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libixion";
   version = "0.19.0";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/ixion/ixion";
     changelog = "https://gitlab.com/ixion/ixion/-/blob/${src.rev}/CHANGELOG";
     license = licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

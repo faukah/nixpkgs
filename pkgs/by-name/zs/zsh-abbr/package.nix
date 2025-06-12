@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     runHook preInstall
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       cc-by-nc-sa-40
       hl3
     ];
-    maintainers = with maintainers; [ icy-thought ];
+    maintainers = with maintainers; [icy-thought];
     platforms = platforms.all;
   };
 }

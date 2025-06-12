@@ -16,7 +16,6 @@
   pkg-config,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lock";
   version = "1.6.2";
@@ -50,14 +49,14 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Process data with GnuPG";
     homepage = "https://konstantintutsch.com/Lock";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "com.konstantintutsch.Lock";
     inherit (gpgme.meta) platforms;
   };

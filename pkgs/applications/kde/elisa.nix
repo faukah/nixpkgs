@@ -16,7 +16,6 @@
   baloo,
   libvlc,
 }:
-
 mkDerivation {
   pname = "elisa";
 
@@ -25,7 +24,7 @@ mkDerivation {
     "dev"
   ];
 
-  buildInputs = [ libvlc ];
+  buildInputs = [libvlc];
 
   nativeBuildInputs = [
     extra-cmake-modules
@@ -51,6 +50,6 @@ mkDerivation {
     description = "Simple media player for KDE";
     mainProgram = "elisa";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

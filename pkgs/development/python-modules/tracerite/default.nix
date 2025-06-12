@@ -8,7 +8,6 @@
   python,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "tracerite";
   version = "1.1.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-rI1MNdYl/P64tUHyB3qV9gfLbGbCVOXnEFoqFTkaqgg=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     html5tagger
@@ -37,13 +36,13 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "tracerite" ];
+  pythonImportsCheck = ["tracerite"];
 
   meta = with lib; {
     description = "Tracebacks for Humans in Jupyter notebooks";
     homepage = "https://github.com/sanic-org/tracerite";
     changelog = "https://github.com/sanic-org/tracerite/releases/tag/v${version}";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ p0lyw0lf ];
+    maintainers = with maintainers; [p0lyw0lf];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "taproot-assets";
   version = "0.5.1";
@@ -31,6 +30,6 @@ buildGoModule rec {
     description = "Daemon for the Taro protocol specification";
     homepage = "https://github.com/lightninglabs/taro";
     license = licenses.mit;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

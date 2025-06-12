@@ -15,7 +15,6 @@
   staplSupport ? true,
   svfSupport ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "urjtag";
   version = "2021.03";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

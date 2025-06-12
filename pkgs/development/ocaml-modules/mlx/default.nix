@@ -6,7 +6,6 @@
   ppxlib,
   menhir,
 }:
-
 buildDunePackage rec {
   pname = "mlx";
   version = "0.9";
@@ -36,6 +35,6 @@ buildDunePackage rec {
     description = "OCaml syntax dialect which adds JSX syntax expressions";
     homepage = "https://github.com/ocaml-mlx/mlx";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ Denommus ];
+    maintainers = with maintainers; [Denommus];
   };
 }

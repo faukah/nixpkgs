@@ -21,7 +21,6 @@
   xdg-user-dirs,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxqt-session";
   version = "2.2.0";
@@ -56,13 +55,13 @@ stdenv.mkDerivation rec {
     xdg-user-dirs
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lxqt-session";
     description = "Alternative session manager ported from the original razor-session";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

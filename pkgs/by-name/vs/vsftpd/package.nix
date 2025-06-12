@@ -9,7 +9,6 @@
   libxcrypt,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vsftpd";
   version = "3.0.5";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     libxcrypt
   ];
 
-  patches = [ ./CVE-2015-1419.patch ];
+  patches = [./CVE-2015-1419.patch];
 
   postPatch = ''
     sed -i "/VSF_BUILD_SSL/s/^#undef/#define/" builddefs.h
@@ -51,14 +50,14 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   passthru = {
-    tests = { inherit (nixosTests) vsftpd; };
+    tests = {inherit (nixosTests) vsftpd;};
   };
 
   meta = with lib; {
     description = "Very secure FTP daemon";
     mainProgram = "vsftpd";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
   };
 }

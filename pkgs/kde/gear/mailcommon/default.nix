@@ -8,7 +8,7 @@
 mkKdeDerivation {
   pname = "mailcommon";
 
-  extraNativeBuildInputs = [ libxslt ];
+  extraNativeBuildInputs = [libxslt];
   extraBuildInputs = [
     qtmultimedia
     qttools

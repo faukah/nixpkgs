@@ -14,7 +14,6 @@
   python,
   spdlog,
 }:
-
 mkDerivation {
   pname = "gr-bladeRF";
   version = "0-unstable-2023-11-20";
@@ -58,7 +57,7 @@ mkDerivation {
     description = "GNU Radio source and sink blocks for bladeRF devices";
     homepage = "https://github.com/Nuand/gr-bladeRF";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ wucke13 ];
+    maintainers = with lib.maintainers; [wucke13];
     platforms = lib.platforms.linux;
   };
 }

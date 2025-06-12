@@ -14,7 +14,6 @@
   libconfig,
   libgpg-error,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pinentry-dmenu";
   version = "0.2.2";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-FmP9tI/oU7VM8x+Wu6bbeg1CVopZc6oOWnd4qUptVV8=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     fontconfig
     gpgme
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ritze/pinentry-dmenu";
     changelog = "https://github.com/ritze/pinentry-dmenu/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ sweiglbosker ];
+    maintainers = with lib.maintainers; [sweiglbosker];
     mainProgram = "pinentry-dmenu";
     platforms = lib.platforms.linux;
   };

@@ -2,19 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython,
   pip,
   pkgconfig,
   setuptools,
-
   # dependencies
   mpi4py,
   numpy,
   precice,
 }:
-
 buildPythonPackage rec {
   pname = "pyprecice";
   version = "3.1.2";
@@ -60,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/precice/python-bindings";
     changelog = "https://github.com/precice/python-bindings/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ Scriptkiddi ];
+    maintainers = with lib.maintainers; [Scriptkiddi];
   };
 }

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "karla";
   version = "2.004";
@@ -35,6 +34,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/googlefonts/karla";
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ mimvoid ];
+    maintainers = with lib.maintainers; [mimvoid];
   };
 }

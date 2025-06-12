@@ -4,7 +4,6 @@
   lib,
   m4,
 }:
-
 buildGoModule {
   pname = "localtime";
   version = "unstable-2022-02-20";
@@ -18,7 +17,7 @@ buildGoModule {
 
   vendorHash = "sha256-12JnEU41sp9qRP07p502EYogveE+aNdfmLwlDRbIdxU=";
 
-  nativeBuildInputs = [ m4 ];
+  nativeBuildInputs = [m4];
 
   buildPhase = ''
     runHook preBuild
@@ -37,7 +36,7 @@ buildGoModule {
   meta = with lib; {
     description = "Daemon for keeping the system timezone up-to-date based on the current location";
     homepage = "https://github.com/Stebalien/localtime";
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
     platforms = platforms.linux;
     license = licenses.gpl3;
     mainProgram = "localtimed";

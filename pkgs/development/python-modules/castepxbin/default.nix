@@ -8,7 +8,6 @@
   scipy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "castepxbin";
   version = "0.3.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-6kumVnm4PLRxuKO6Uz0iHzfYuu21hFC7EPRsc3S1kxE=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   pythonRelaxDeps = [
     "numpy"
@@ -34,12 +33,12 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Collection of readers for CASTEP binary outputs";
     homepage = "https://github.com/zhubonan/castepxbin";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

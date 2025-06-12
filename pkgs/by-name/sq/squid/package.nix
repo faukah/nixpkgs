@@ -17,19 +17,18 @@
   ipv6 ? true,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "squid";
   version = "7.0.1";
 
   src = fetchurl {
     url = "https://github.com/squid-cache/squid/releases/download/SQUID_${
-      builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version
+      builtins.replaceStrings ["."] ["_"] finalAttrs.version
     }/squid-${finalAttrs.version}.tar.xz";
     hash = "sha256-Bw3Y5iGtItRdcAYF6xnSysG2zae3PwTzRXjTw/2N35s=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       perl
@@ -60,13 +59,17 @@ stdenv.mkDerivation (finalAttrs: {
       "--enable-x-accelerator-vary"
       "--enable-htcp"
     ]
-    ++ (if ipv6 then [ "--enable-ipv6" ] else [ "--disable-ipv6" ])
+    ++ (
+      if ipv6
+      then ["--enable-ipv6"]
+      else ["--disable-ipv6"]
+    )
     ++ lib.optional (
       stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isMusl
     ) "--enable-linux-netfilter";
 
   doCheck = true;
-  nativeCheckInputs = [ cppunit ];
+  nativeCheckInputs = [cppunit];
   preCheck = ''
     # tests attempt to copy around "/bin/true" to make some things
     # no-ops but this doesn't work if our "true" is a multi-call
@@ -102,7 +105,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.squid-cache.org";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     knownVulnerabilities = [
       "Squid has multiple unresolved security vulnerabilities, for more information see https://megamansec.github.io/Squid-Security-Audit/"
     ];

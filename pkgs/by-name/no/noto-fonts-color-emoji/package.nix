@@ -11,7 +11,6 @@
   pngquant,
   which,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "noto-fonts-color-emoji";
   version = "2.047";
@@ -49,7 +48,7 @@ stdenvNoCC.mkDerivation rec {
     sed -i 's;\t@;\t;' Makefile
   '';
 
-  buildFlags = [ "BYPASS_SEQUENCE_CHECK=True" ];
+  buildFlags = ["BYPASS_SEQUENCE_CHECK=True"];
 
   enableParallelBuilding = true;
 

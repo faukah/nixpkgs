@@ -5,7 +5,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "consul";
   version = "1.21.1";
@@ -47,7 +46,7 @@ buildGoModule rec {
       inherit (nixosTests) consul;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

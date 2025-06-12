@@ -10,7 +10,6 @@
   ujson,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "python-jsonrpc-server";
   version = "0.4.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     versioneer
   ];
 
-  dependencies = [ ujson ];
+  dependencies = [ujson];
 
   nativeCheckInputs = [
     mock
@@ -43,13 +42,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyls_jsonrpc" ];
+  pythonImportsCheck = ["pyls_jsonrpc"];
 
   meta = with lib; {
     description = "Module for erver implementation of the JSON RPC 2.0 protocol";
     homepage = "https://github.com/palantir/python-jsonrpc-server";
     changelog = "https://github.com/palantir/python-jsonrpc-server/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

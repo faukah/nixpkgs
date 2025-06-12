@@ -7,7 +7,6 @@
   pkg-config,
 }:
 stdenv.mkDerivation (finalAttrs: {
-
   pname = "ftx-prog";
   version = "0.4";
 
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-wBOzsJ1XIkswuwuCwGQk2Q+RUsGe5EOlbAhcf0R7rfc=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libftdi
     libusb1
@@ -37,6 +36,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/richardeoin/ftx-prog";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = [ lib.maintainers.funkeleinhorn ];
+    maintainers = [lib.maintainers.funkeleinhorn];
   };
 })

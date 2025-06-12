@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "aces-container";
   version = "1.0.2";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Reference Implementation of SMPTE ST2065-4";
     homepage = "https://github.com/ampas/aces_container";
     license = lib.licenses.ampas;
-    maintainers = with lib.maintainers; [ paperdigits ];
+    maintainers = with lib.maintainers; [paperdigits];
     mainProgram = "aces-container";
     platforms = lib.platforms.all;
   };

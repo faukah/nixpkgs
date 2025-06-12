@@ -27,7 +27,6 @@
   urllib3,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "reptor";
   version = "0.28";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     asgiref
@@ -69,20 +68,22 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    ghostwriter = [ gql ] ++ gql.optional-dependencies.aiohttp;
-    translate = [ deepl ];
+    ghostwriter = [gql] ++ gql.optional-dependencies.aiohttp;
+    translate = [deepl];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   preCheck = ''
     export HOME=$(mktemp -d)
     export PATH="$PATH:$out/bin";
   '';
 
-  pythonImportsCheck = [ "reptor" ];
+  pythonImportsCheck = ["reptor"];
 
   disabledTestPaths = [
     # Tests want to use pip install dependencies
@@ -100,7 +101,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/Syslifters/reptor";
     changelog = "https://github.com/Syslifters/reptor/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "reptor";
   };
 }

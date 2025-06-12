@@ -4,7 +4,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "initool";
   version = "1.0.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-PROsyYw8xdnn0PX+3OyUPaybQbTmO88G2koeZhBfwjg=";
   };
 
-  nativeBuildInputs = [ mlton ];
+  nativeBuildInputs = [mlton];
 
   doCheck = true;
 
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     mainProgram = "initool";
     homepage = "https://github.com/dbohdan/initool";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ e1mo ];
+    maintainers = with lib.maintainers; [e1mo];
     changelog = "https://github.com/dbohdan/initool/releases/tag/v${version}";
   };
 }

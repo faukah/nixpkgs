@@ -9,7 +9,6 @@
   pyyaml,
   redis,
 }:
-
 buildPythonPackage rec {
   pname = "jug";
   version = "2.3.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-Y2TWqJi7GjmWUFpe1b150NgwRw9VKhCk5EoN5NDcPXU=";
   };
 
-  propagatedBuildInputs = [ bottle ];
+  propagatedBuildInputs = [bottle];
 
   nativeCheckInputs = [
     numpy
@@ -32,13 +31,13 @@ buildPythonPackage rec {
     redis
   ];
 
-  pythonImportsCheck = [ "jug" ];
+  pythonImportsCheck = ["jug"];
 
   meta = with lib; {
     description = "Task-Based Parallelization Framework";
     homepage = "https://jug.readthedocs.io/";
     changelog = "https://github.com/luispedro/jug/blob/v${version}/ChangeLog";
     license = licenses.mit;
-    maintainers = with maintainers; [ luispedro ];
+    maintainers = with maintainers; [luispedro];
   };
 }

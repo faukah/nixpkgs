@@ -4,7 +4,6 @@
   buildPythonPackage,
   fetchFromGitHub,
   setuptools,
-
   bitmath,
   bpylist2,
   click,
@@ -28,11 +27,9 @@
   wrapt,
   wurlitzer,
   xdg-base-dirs,
-
   pytestCheckHook,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "osxphotos";
   version = "0.69.2";
@@ -45,7 +42,7 @@ buildPythonPackage rec {
     hash = "sha256-uVcoGIfxz+jKirnE3giST/v20eA5pq+LHgrsRb5b+Lc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
   dependencies = [
     bitmath
     bpylist2
@@ -80,7 +77,7 @@ buildPythonPackage rec {
     "tenacity"
   ];
 
-  pythonImportsCheck = [ "osxphotos" ];
+  pythonImportsCheck = ["osxphotos"];
   nativeCheckInputs = [
     pytestCheckHook
     pytest-mock
@@ -90,7 +87,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  disabledTestPaths = [ "tests/test_comments.py" ];
+  disabledTestPaths = ["tests/test_comments.py"];
   disabledTests = [
     "test_iphoto_info"
     "test_from_to_date_tz"
@@ -107,7 +104,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/RhetTbull/osxphotos";
     changelog = "https://github.com/RhetTbull/osxphotos/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     broken = stdenv.hostPlatform.isDarwin;
   };
 }

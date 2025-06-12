@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-scsNigSqKWeauAyIDxDzwbgtl3rM5CGBCCmVj/98w84=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -27,13 +27,13 @@ buildPythonPackage rec {
   ];
 
   # netbox is required for the pythonImportsCheck; plugin does not provide unit tests
-  nativeCheckInputs = [ netbox ];
+  nativeCheckInputs = [netbox];
 
   preFixup = ''
     export PYTHONPATH=${netbox}/opt/netbox/netbox:$PYTHONPATH
   '';
 
-  pythonImportsCheck = [ "netbox_interface_synchronization" ];
+  pythonImportsCheck = ["netbox_interface_synchronization"];
 
   meta = {
     description = "Netbox plugin to compare and synchronize interfaces between devices and device types";
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/NetTech2001/netbox-interface-synchronization/releases/tag/${src.tag}";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ felbinger ];
+    maintainers = with lib.maintainers; [felbinger];
   };
 }

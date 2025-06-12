@@ -8,7 +8,6 @@
   pyaes,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "ckcc-protocol";
   version = "1.4.0";
@@ -31,13 +30,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "ckcc" ];
+  pythonImportsCheck = ["ckcc"];
 
   meta = with lib; {
     description = "Communicate with your Coldcard using Python";
     mainProgram = "ckcc";
     homepage = "https://github.com/Coldcard/ckcc-protocol";
     license = licenses.mit;
-    maintainers = with maintainers; [ hkjn ];
+    maintainers = with maintainers; [hkjn];
   };
 }

@@ -8,7 +8,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "elasticsearch-dsl";
   version = "8.17.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-2BcGmb/bT+f6s4VM2sMZotbd26opyep5k9LsIgVttaA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     elasticsearch
@@ -31,7 +30,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    async = [ elasticsearch ] ++ elasticsearch.optional-dependencies.async;
+    async = [elasticsearch] ++ elasticsearch.optional-dependencies.async;
   };
 
   # ImportError: No module named test_elasticsearch_dsl
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/elasticsearch/elasticsearch-dsl-py";
     changelog = "https://github.com/elastic/elasticsearch-dsl-py/blob/v${version}/Changelog.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ desiderius ];
+    maintainers = with maintainers; [desiderius];
   };
 }

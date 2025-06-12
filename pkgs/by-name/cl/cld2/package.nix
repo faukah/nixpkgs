@@ -5,7 +5,6 @@
   cmake,
   fetchpatch,
 }:
-
 stdenv.mkDerivation {
   pname = "cld2";
   version = "unstable-2015-08-21";
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://github.com/CLD2Owners/cld2";
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
       numbers, etc.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ chvp ];
+    maintainers = with maintainers; [chvp];
     platforms = platforms.all;
   };
 }

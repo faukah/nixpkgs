@@ -33,7 +33,7 @@ buildGoModule rec {
     changelog = "https://github.com/samuong/alpaca/releases/tag/v${src.rev}";
     license = licenses.asl20;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ _1nv0k32 ];
+    maintainers = with maintainers; [_1nv0k32];
     mainProgram = "alpaca-proxy";
   };
 }

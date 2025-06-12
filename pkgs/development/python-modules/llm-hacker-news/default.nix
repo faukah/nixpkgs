@@ -6,7 +6,6 @@
   llm,
   llm-hacker-news,
 }:
-
 buildPythonPackage rec {
   pname = "llm-hacker-news";
   version = "0.1.1";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-pywx9TAN/mnGR6Vv6YsPhLO4R5Geagw/bcydQjvTH5s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ llm ];
+  dependencies = [llm];
 
-  pythonImportsCheck = [ "llm_hacker_news" ];
+  pythonImportsCheck = ["llm_hacker_news"];
 
   passthru.tests = llm.mkPluginTest llm-hacker-news;
 
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-hacker-news";
     changelog = "https://github.com/simonw/llm-hacker-news/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

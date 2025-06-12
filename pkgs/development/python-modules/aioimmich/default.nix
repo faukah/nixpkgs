@@ -10,7 +10,6 @@
   setuptools,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "aioimmich";
   version = "0.9.1";
@@ -28,14 +27,14 @@ buildPythonPackage rec {
       --replace-fail setuptools==80.9.0 setuptools
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
     mashumaro
   ];
 
-  pythonImportsCheck = [ "aioimmich" ];
+  pythonImportsCheck = ["aioimmich"];
 
   nativeCheckInputs = [
     aioresponses
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     description = "Asynchronous library to fetch albums and assests from immich";
     homepage = "https://github.com/mib1185/aioimmich";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

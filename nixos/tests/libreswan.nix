@@ -2,11 +2,11 @@
 # own network and with Eve as the only route between each other. We check that
 # Eve can eavesdrop the plaintext traffic between Alice and Bob, but once they
 # enable the secure tunnel Eve's spying becomes ineffective.
-
-{ lib, pkgs, ... }:
-
-let
-
+{
+  lib,
+  pkgs,
+  ...
+}: let
   # IPsec tunnel between Alice and Bob
   tunnelConfig = {
     services.libreswan.enable = true;
@@ -34,12 +34,12 @@ let
     '';
     # remove all automatic addresses
     useDHCP = false;
-    interfaces.eth1.ipv4.addresses = lib.mkVMOverride [ ];
-    interfaces.eth2.ipv4.addresses = lib.mkVMOverride [ ];
-    interfaces.eth1.ipv6.addresses = lib.mkVMOverride [ ];
-    interfaces.eth2.ipv6.addresses = lib.mkVMOverride [ ];
+    interfaces.eth1.ipv4.addresses = lib.mkVMOverride [];
+    interfaces.eth2.ipv4.addresses = lib.mkVMOverride [];
+    interfaces.eth1.ipv6.addresses = lib.mkVMOverride [];
+    interfaces.eth2.ipv6.addresses = lib.mkVMOverride [];
     # open a port for testing
-    firewall.allowedUDPPorts = [ 1234 ];
+    firewall.allowedUDPPorts = [1234];
   };
 
   # Adds an address and route from a to b via Eve
@@ -58,59 +58,52 @@ let
       }
     ];
   };
-
-in
-
-{
+in {
   name = "libreswan";
   meta = with lib.maintainers; {
-    maintainers = [ rnhmjoj ];
+    maintainers = [rnhmjoj];
   };
 
   # Our protagonist
-  nodes.alice =
-    { ... }:
+  nodes.alice = {...}:
     {
-      virtualisation.vlans = [ 1 ];
+      virtualisation.vlans = [1];
       networking = baseNetwork // addRoute "fd::a" "fd::b";
     }
     // tunnelConfig;
 
   # Her best friend
-  nodes.bob =
-    { ... }:
+  nodes.bob = {...}:
     {
-      virtualisation.vlans = [ 2 ];
+      virtualisation.vlans = [2];
       networking = baseNetwork // addRoute "fd::b" "fd::a";
     }
     // tunnelConfig;
 
   # The malicious network operator
-  nodes.eve =
-    { ... }:
-    {
-      virtualisation.vlans = [
-        1
-        2
-      ];
-      networking = lib.mkMerge [
-        baseNetwork
-        {
-          interfaces.br0.ipv6.addresses = [
-            {
-              address = "fd::e";
-              prefixLength = 64;
-            }
-          ];
-          bridges.br0.interfaces = [
-            "eth1"
-            "eth2"
-          ];
-        }
-      ];
-      environment.systemPackages = [ pkgs.tcpdump ];
-      boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
-    };
+  nodes.eve = {...}: {
+    virtualisation.vlans = [
+      1
+      2
+    ];
+    networking = lib.mkMerge [
+      baseNetwork
+      {
+        interfaces.br0.ipv6.addresses = [
+          {
+            address = "fd::e";
+            prefixLength = 64;
+          }
+        ];
+        bridges.br0.interfaces = [
+          "eth1"
+          "eth2"
+        ];
+      }
+    ];
+    environment.systemPackages = [pkgs.tcpdump];
+    boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
+  };
 
   testScript = ''
     def alice_to_bob(msg: str):

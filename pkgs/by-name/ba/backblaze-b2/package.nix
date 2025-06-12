@@ -8,7 +8,6 @@
   # executable is renamed to backblaze-b2 by default, to avoid collision with boost's 'b2'
   execName ? "backblaze-b2",
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "backblaze-b2";
   version = "4.3.3";
@@ -44,7 +43,7 @@ python3Packages.buildPythonApplication rec {
     setuptools
   ];
 
-  pythonRelaxDeps = [ "phx-class-registry" ];
+  pythonRelaxDeps = ["phx-class-registry"];
 
   nativeCheckInputs = with python3Packages; [
     backoff
@@ -91,20 +90,20 @@ python3Packages.buildPythonApplication rec {
       package = backblaze-b2;
       command = "${execName} version --short";
     }).overrideAttrs
-      (old: {
-        # workaround the error: Permission denied: '/homeless-shelter'
-        # backblaze-b2 fails to create a 'b2' directory under the XDG config path
-        preHook = ''
-          export HOME=$(mktemp -d)
-        '';
-      });
+    (old: {
+      # workaround the error: Permission denied: '/homeless-shelter'
+      # backblaze-b2 fails to create a 'b2' directory under the XDG config path
+      preHook = ''
+        export HOME=$(mktemp -d)
+      '';
+    });
 
   meta = with lib; {
     description = "Command-line tool for accessing the Backblaze B2 storage service";
     homepage = "https://github.com/Backblaze/B2_Command_Line_Tool";
     changelog = "https://github.com/Backblaze/B2_Command_Line_Tool/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hrdinka ];
+    maintainers = with maintainers; [hrdinka];
     mainProgram = "backblaze-b2";
   };
 }

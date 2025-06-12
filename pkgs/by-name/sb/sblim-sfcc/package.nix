@@ -5,7 +5,6 @@
   autoreconfHook,
   curl,
 }:
-
 stdenv.mkDerivation {
   pname = "sblim-sfcc";
   version = "2.2.8-unstable-2023-06-26";
@@ -17,9 +16,9 @@ stdenv.mkDerivation {
     hash = "sha256-zXQD+IYuMV5vw27FpTpeCfh/mf0wvKzOvc4bplEDJCw=";
   };
 
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   enableParallelBuilding = true;
 
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
     description = "Small Footprint CIM Client Library";
     homepage = "https://sourceforge.net/projects/sblim/";
     license = licenses.cpl10;
-    maintainers = with maintainers; [ deepfire ];
+    maintainers = with maintainers; [deepfire];
     platforms = platforms.unix;
   };
 }

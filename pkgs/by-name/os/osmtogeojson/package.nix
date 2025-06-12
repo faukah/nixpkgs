@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "osmtogeojson";
   version = "3.0.0-beta.5";
@@ -25,7 +24,7 @@ buildNpmPackage rec {
   meta = with lib; {
     description = "Converts OSM data to GeoJSON";
     homepage = "https://tyrasd.github.io/osmtogeojson/";
-    maintainers = with maintainers; [ thibautmarty ];
+    maintainers = with maintainers; [thibautmarty];
     license = licenses.mit;
     mainProgram = "osmtogeojson";
   };

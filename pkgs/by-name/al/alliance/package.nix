@@ -13,21 +13,18 @@
   autoconf,
   libtool,
 }:
-
 stdenv.mkDerivation {
   pname = "alliance";
   version = "unstable-2025-02-24";
 
-  src =
-    let
-      src = fetchFromGitHub {
-        owner = "lip6";
-        repo = "alliance";
-        rev = "a8502d32df0a4ad1bd29ab784c4332319669ecd2";
-        hash = "sha256-b2uaYZEzHMB3qCMRVANNnjTxr6OYb1Unswxjq5knYzM=";
-      };
-    in
-    "${src}/alliance/src";
+  src = let
+    src = fetchFromGitHub {
+      owner = "lip6";
+      repo = "alliance";
+      rev = "a8502d32df0a4ad1bd29ab784c4332319669ecd2";
+      hash = "sha256-b2uaYZEzHMB3qCMRVANNnjTxr6OYb1Unswxjq5knYzM=";
+    };
+  in "${src}/alliance/src";
 
   nativeBuildInputs = [
     libtool
@@ -74,7 +71,7 @@ stdenv.mkDerivation {
     description = "(deprecated) Complete set of free CAD tools and portable libraries for VLSI design";
     homepage = "http://coriolis.lip6.fr/";
     license = with licenses; gpl2Plus;
-    maintainers = with maintainers; [ l-as ];
+    maintainers = with maintainers; [l-as];
     platforms = with platforms; linux;
   };
 }

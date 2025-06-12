@@ -18,7 +18,6 @@
   switchboard,
   tzdata,
 }:
-
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-datetime";
   version = "8.1.0";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -63,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/switchboard-plug-datetime";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

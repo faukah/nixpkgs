@@ -38,7 +38,6 @@
   enableNVML ? config.cudaSupport,
   nvml,
 }:
-
 stdenv.mkDerivation rec {
   pname = "slurm";
   version = "25.05.0.1";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     owner = "SchedMD";
     repo = "slurm";
     # The release tags use - instead of .
-    rev = "${pname}-${builtins.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "${pname}-${builtins.replaceStrings ["."] ["-"] version}";
     hash = "sha256-C1euW/twT3AhwtNUmUDtmFjMUi5B4I7r488YcT+N/zM=";
   };
 
@@ -84,7 +83,7 @@ stdenv.mkDerivation rec {
   # nixos test fails to start slurmd with 'undefined symbol: slurm_job_preempt_mode'
   # https://groups.google.com/forum/#!topic/slurm-devel/QHOajQ84_Es
   # this doesn't fix tests completely at least makes slurmd to launch
-  hardeningDisable = [ "bindnow" ];
+  hardeningDisable = ["bindnow"];
 
   nativeBuildInputs = [
     pkg-config
@@ -116,10 +115,10 @@ stdenv.mkDerivation rec {
       libbpf
       http-parser
     ]
-    ++ lib.optionals enableX11 [ xorg.xauth ]
-    ++ lib.optionals enableGtk2 [ gtk2 ]
+    ++ lib.optionals enableX11 [xorg.xauth]
+    ++ lib.optionals enableGtk2 [gtk2]
     ++ lib.optionals enableNVML [
-      (runCommand "collect-nvml" { } ''
+      (runCommand "collect-nvml" {} ''
         mkdir $out
         ln -s ${nvml.dev}/include $out/include
         ln -s ${nvml.lib}/lib/stubs $out/lib
@@ -144,7 +143,7 @@ stdenv.mkDerivation rec {
     ]
     ++ (lib.optional enableGtk2 "--disable-gtktest")
     ++ (lib.optional (!enableX11) "--disable-x11")
-    ++ (lib.optional (enableNVML) "--with-nvml");
+    ++ (lib.optional enableNVML "--with-nvml");
 
   preConfigure = ''
     patchShebangs ./doc/html/shtml2html.py

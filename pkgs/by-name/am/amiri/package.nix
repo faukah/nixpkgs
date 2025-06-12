@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "amiri";
   version = "1.002";
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Classical Arabic typeface in Naskh style";
     homepage = "https://www.amirifont.org/";
     license = licenses.ofl;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
     platforms = platforms.all;
   };
 }

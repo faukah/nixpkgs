@@ -8,7 +8,6 @@
   texinfo,
   curl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "guile-curl";
   version = "0.9";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/spk121/guile-curl";
     changelog = "https://github.com/spk121/guile-curl/releases/tag/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     platforms = guile.meta.platforms;
   };
 })

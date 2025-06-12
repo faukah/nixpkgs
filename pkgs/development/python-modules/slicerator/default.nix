@@ -5,7 +5,6 @@
   python,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "slicerator";
   version = "1.1.0";
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     description = "Lazy-loading, fancy-sliceable iterable";
     homepage = "https://github.com/soft-matter/slicerator";
     license = licenses.bsdOriginal;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

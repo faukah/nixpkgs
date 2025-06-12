@@ -6,7 +6,6 @@
   pkg-config,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "trousers";
   version = "0.3.15";
@@ -20,13 +19,13 @@ stdenv.mkDerivation rec {
     pkg-config
     autoreconfHook
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  patches = [ ./allow-non-tss-config-file-owner.patch ];
+  patches = [./allow-non-tss-config-file-owner.patch];
 
-  configureFlags = [ "--disable-usercheck" ];
+  configureFlags = ["--disable-usercheck"];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-DALLOW_NON_TSS_CONFIG_FILE" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-DALLOW_NON_TSS_CONFIG_FILE"];
   enableParallelBuilding = true;
 
   meta = with lib; {
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     mainProgram = "tcsd";
     homepage = "https://trousers.sourceforge.net/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.ak ];
+    maintainers = [maintainers.ak];
     platforms = platforms.linux;
   };
 }

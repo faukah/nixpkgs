@@ -6,7 +6,6 @@
   pytestCheckHook,
   gitUpdater,
 }:
-
 buildPythonPackage rec {
   pname = "cobble";
   version = "0.1.4";
@@ -19,15 +18,15 @@ buildPythonPackage rec {
     hash = "sha256-xi6cCSUnMYc5Tp6+TQlC9Oo9kpam5C7QGCul/IoTW1k=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "cobble" ];
+  pythonImportsCheck = ["cobble"];
 
   nativeCheckInputs = [
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
   disabledTests = [
     # Broken tests
@@ -40,12 +39,12 @@ buildPythonPackage rec {
     "test_sub_sub_classes_are_included_in_abc"
   ];
 
-  passthru.updateScripts = gitUpdater { };
+  passthru.updateScripts = gitUpdater {};
 
   meta = {
     description = "Create Python data objects";
     homepage = "https://github.com/mwilliamson/python-cobble";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

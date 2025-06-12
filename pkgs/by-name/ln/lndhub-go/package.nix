@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "lndhub-go";
   version = "1.0.2";
@@ -23,7 +22,7 @@ buildGoModule rec {
     description = "Accounting wrapper for the Lightning Network";
     homepage = "https://github.com/getAlby/lndhub.go";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     mainProgram = "lndhub.go";
   };
 }

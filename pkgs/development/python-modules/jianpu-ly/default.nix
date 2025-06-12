@@ -5,7 +5,6 @@
   setuptools,
   lilypond,
 }:
-
 buildPythonPackage rec {
   pname = "jianpu-ly";
   version = "1.858";
@@ -17,11 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-IzFNCBJBDMJrqDxrH8OtHQCbh0O3z9P7OYHSpF39Xao=";
   };
 
-  dependencies = [ lilypond ];
+  dependencies = [lilypond];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "jianpu_ly" ];
+  pythonImportsCheck = ["jianpu_ly"];
 
   # no tests in shipped with upstream
   doCheck = false;
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "Assists with printing jianpu";
     changelog = "https://github.com/ssb22/jianpu-ly/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ifurther ];
+    maintainers = with lib.maintainers; [ifurther];
   };
 }

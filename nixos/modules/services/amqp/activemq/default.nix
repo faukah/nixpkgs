@@ -3,27 +3,22 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.activemq;
 
   activemqBroker =
     pkgs.runCommand "activemq-broker"
-      {
-        nativeBuildInputs = [ pkgs.jdk ];
-      }
-      ''
-        mkdir -p $out/lib
-        source ${pkgs.activemq}/lib/classpath.env
-        export CLASSPATH
-        ln -s "${./ActiveMQBroker.java}" ActiveMQBroker.java
-        javac -d $out/lib ActiveMQBroker.java
-      '';
-
-in
-{
-
+    {
+      nativeBuildInputs = [pkgs.jdk];
+    }
+    ''
+      mkdir -p $out/lib
+      source ${pkgs.activemq}/lib/classpath.env
+      export CLASSPATH
+      ln -s "${./ActiveMQBroker.java}" ActiveMQBroker.java
+      javac -d $out/lib ActiveMQBroker.java
+    '';
+in {
   options = {
     services.activemq = {
       enable = lib.mkOption {
@@ -66,14 +61,13 @@ in
       };
       javaProperties = lib.mkOption {
         type = lib.types.attrs;
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             "java.net.preferIPv4Stack" = "true";
           }
         '';
-        apply =
-          attrs:
+        apply = attrs:
           {
             "activemq.base" = "${cfg.baseDir}";
             "activemq.data" = "${cfg.baseDir}/data";
@@ -111,9 +105,9 @@ in
     users.groups.activemq.gid = config.ids.gids.activemq;
 
     systemd.services.activemq_init = {
-      wantedBy = [ "activemq.service" ];
-      partOf = [ "activemq.service" ];
-      before = [ "activemq.service" ];
+      wantedBy = ["activemq.service"];
+      partOf = ["activemq.service"];
+      before = ["activemq.service"];
       serviceConfig.Type = "oneshot";
       script = ''
         mkdir -p "${cfg.javaProperties."activemq.data"}"
@@ -122,23 +116,21 @@ in
     };
 
     systemd.services.activemq = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path = [ pkgs.jre ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      path = [pkgs.jre];
       serviceConfig.User = "activemq";
       script = ''
         source ${pkgs.activemq}/lib/classpath.env
         export CLASSPATH=${activemqBroker}/lib:${cfg.configurationDir}:$CLASSPATH
         exec java \
           ${
-            lib.concatStringsSep " \\\n" (
-              lib.mapAttrsToList (name: value: "-D${name}=${value}") cfg.javaProperties
-            )
-          } \
+          lib.concatStringsSep " \\\n" (
+            lib.mapAttrsToList (name: value: "-D${name}=${value}") cfg.javaProperties
+          )
+        } \
           ${cfg.extraJavaOptions} ActiveMQBroker "${cfg.configurationURI}"
       '';
     };
-
   };
-
 }

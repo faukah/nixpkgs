@@ -6,7 +6,6 @@
   feh,
   xorg,
 }:
-
 stdenv.mkDerivation {
   pname = "deco";
   version = "unstable-2019-04-03";
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/ebzzry/deco";
     description = "Simple root image setter";
     license = licenses.mit;
-    maintainers = [ maintainers.ebzzry ];
+    maintainers = [maintainers.ebzzry];
     platforms = platforms.unix;
     mainProgram = "deco";
   };

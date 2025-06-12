@@ -12,7 +12,6 @@
   ncurses,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttr: {
   pname = "ivm";
   version = "0.6.0";
@@ -38,30 +37,30 @@ rustPlatform.buildRustPackage (finalAttr: {
   postFixup = ''
     wrapProgram $out/bin/ivm \
       --prefix PATH : ${
-        lib.makeBinPath [
-          cargo
-          llvm_16.dev
-          stdenv.cc
-        ]
-      } \
+      lib.makeBinPath [
+        cargo
+        llvm_16.dev
+        stdenv.cc
+      ]
+    } \
       --prefix LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          libffi
-          libz
-          libxml2
-          ncurses
-        ]
-      }
+      lib.makeLibraryPath [
+        libffi
+        libz
+        libxml2
+        ncurses
+      ]
+    }
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Cross-platform Inko version manager";
     homepage = "https://github.com/inko-lang/ivm";
     license = lib.licenses.mpl20;
-    maintainers = [ lib.maintainers.feathecutie ];
-    teams = [ lib.teams.ngi ];
+    maintainers = [lib.maintainers.feathecutie];
+    teams = [lib.teams.ngi];
     platforms = lib.platforms.unix;
     mainProgram = "ivm";
   };

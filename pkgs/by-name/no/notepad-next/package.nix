@@ -4,7 +4,6 @@
   qt5,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "notepad-next";
   version = "0.11";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     qt5.qttools
     qt5.wrapQtAppsHook
   ];
-  buildInputs = [ qt5.qtx11extras ];
+  buildInputs = [qt5.qtx11extras];
 
   qmakeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Cross-platform, reimplementation of Notepad++";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ sebtm ];
+    maintainers = with lib.maintainers; [sebtm];
     broken = stdenv.hostPlatform.isAarch64;
     mainProgram = "NotepadNext";
   };

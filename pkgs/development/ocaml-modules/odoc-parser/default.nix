@@ -7,9 +7,7 @@
   result,
   camlp-streams,
   version ? "2.4.4",
-}:
-
-let
+}: let
   param =
     {
       "2.4.4" = {
@@ -32,10 +30,8 @@ let
     }
     ."${version}";
 in
-
-lib.throwIf (param ? max_version && lib.versionAtLeast ocaml.version param.max_version)
+  lib.throwIf (param ? max_version && lib.versionAtLeast ocaml.version param.max_version)
   "odoc-parser ${version} is not available for OCaml ${ocaml.version}"
-
   buildDunePackage
   rec {
     pname = "odoc-parser";
@@ -45,22 +41,23 @@ lib.throwIf (param ? max_version && lib.versionAtLeast ocaml.version param.max_v
 
     src = fetchurl {
       url =
-        if lib.versionAtLeast version "2.4" then
-          "https://github.com/ocaml/odoc/releases/download/${version}/odoc-${version}.tbz"
-        else
-          "https://github.com/ocaml-doc/odoc-parser/releases/download/${version}/odoc-parser-${version}.tbz";
+        if lib.versionAtLeast version "2.4"
+        then "https://github.com/ocaml/odoc/releases/download/${version}/odoc-${version}.tbz"
+        else "https://github.com/ocaml-doc/odoc-parser/releases/download/${version}/odoc-parser-${version}.tbz";
       inherit (param) sha256;
     };
 
-    propagatedBuildInputs = [
-      astring
-      result
-    ] ++ lib.optional (lib.versionAtLeast version "1.0.1") camlp-streams;
+    propagatedBuildInputs =
+      [
+        astring
+        result
+      ]
+      ++ lib.optional (lib.versionAtLeast version "1.0.1") camlp-streams;
 
     meta = {
       description = "Parser for Ocaml documentation comments";
       license = lib.licenses.isc;
-      maintainers = with lib.maintainers; [ momeemt ];
+      maintainers = with lib.maintainers; [momeemt];
       homepage = "https://github.com/ocaml-doc/odoc-parser";
       changelog = "https://github.com/ocaml-doc/odoc-parser/raw/${version}/CHANGES.md";
     };

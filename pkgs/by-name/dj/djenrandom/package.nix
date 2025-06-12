@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "djenrandom";
   version = "1.0";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   meta = {
     homepage = "http://www.deadhat.com/";

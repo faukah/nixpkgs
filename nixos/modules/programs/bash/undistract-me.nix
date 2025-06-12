@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.bash.undistractMe;
-in
-{
+in {
   options = {
     programs.bash.undistractMe = {
       enable = lib.mkEnableOption "notifications when long-running terminal commands complete";
@@ -28,12 +25,16 @@ in
   config = lib.mkIf cfg.enable {
     programs.bash.promptPluginInit = ''
       export LONG_RUNNING_COMMAND_TIMEOUT=${builtins.toString cfg.timeout}
-      export UDM_PLAY_SOUND=${if cfg.playSound then "1" else "0"}
+      export UDM_PLAY_SOUND=${
+        if cfg.playSound
+        then "1"
+        else "0"
+      }
       . "${pkgs.undistract-me}/etc/profile.d/undistract-me.sh"
     '';
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ kira-bruneau ];
+    maintainers = with lib.maintainers; [kira-bruneau];
   };
 }

@@ -7,7 +7,6 @@
   pkg-config,
   gash,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gash-utils";
   version = "0.2.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Core POSIX utilities written in Guile Scheme";
     homepage = "https://savannah.nongnu.org/projects/gash/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.all;
   };
 })

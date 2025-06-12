@@ -7,7 +7,6 @@
   testers,
   versionCheckHook,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "phpunit";
   version = "12.1.6";
@@ -22,12 +21,12 @@ php.buildComposerProject2 (finalAttrs: {
   vendorHash = "sha256-ktWbLgexvz85mGnwvyfS2hXd9u7T0yqCr9MYUjSxRkU=";
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion { package = phpunit; };
+    updateScript = nix-update-script {};
+    tests.version = testers.testVersion {package = phpunit;};
   };
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -36,7 +35,7 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://phpunit.de";
     license = lib.licenses.bsd3;
     mainProgram = "phpunit";
-    maintainers = with lib.maintainers; [ onny ];
-    teams = [ lib.teams.php ];
+    maintainers = with lib.maintainers; [onny];
+    teams = [lib.teams.php];
   };
 })

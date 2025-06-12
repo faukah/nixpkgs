@@ -15,7 +15,6 @@
   typer,
   websocket-client,
 }:
-
 buildPythonPackage rec {
   pname = "coinmetrics-api-client";
   version = "2025.5.6.13";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
     hash = "sha256-EUxgT+LK0s7IV+EWrLKgkNMsuhZBOUfMN1PLjub9JWQ=";
   };
 
-  pythonRelaxDeps = [ "typer" ];
+  pythonRelaxDeps = ["typer"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     orjson
@@ -45,22 +44,24 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    pandas = [ pandas ];
-    polars = [ polars ];
+    pandas = [pandas];
+    polars = [polars];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-mock
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "coinmetrics.api_client" ];
+  pythonImportsCheck = ["coinmetrics.api_client"];
 
   meta = with lib; {
     description = "Coin Metrics API v4 client library";
     homepage = "https://coinmetrics.github.io/api-client-python/site/index.html";
     license = licenses.mit;
-    maintainers = with maintainers; [ centromere ];
+    maintainers = with maintainers; [centromere];
     mainProgram = "coinmetrics";
   };
 }

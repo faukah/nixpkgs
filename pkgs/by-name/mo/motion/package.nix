@@ -8,7 +8,6 @@
   libjpeg,
   libmicrohttpd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "motion";
   version = "4.7.0";

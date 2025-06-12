@@ -11,7 +11,6 @@
   responses,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ibm-cloud-sdk-core";
   version = "3.22.1";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-wXffw+/esHvWxrNdlnYLTPflgOaRyIdf0hxI4M12Xdc=";
   };
 
-  pythonRelaxDeps = [ "requests" ];
+  pythonRelaxDeps = ["requests"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyjwt
@@ -68,6 +67,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/IBM/python-sdk-core";
     changelog = "https://github.com/IBM/python-sdk-core/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
   };
 }

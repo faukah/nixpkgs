@@ -4,7 +4,6 @@
   buildGoModule,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "os-agent";
   version = "1.7.2";
@@ -23,7 +22,7 @@ buildGoModule rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -31,7 +30,7 @@ buildGoModule rec {
     homepage = "https://github.com/home-assistant/os-agent";
     changelog = "https://github.com/home-assistant/os-agent/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "os-agent";
   };
 }

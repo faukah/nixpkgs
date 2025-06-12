@@ -9,7 +9,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "opencensus-ext-azure";
   version = "1.1.14";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-ycbrrVQq62GBMyLmJ9WImlY+e4xOAkv1hGnQbbc6sUg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-core
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "opencensus.ext.azure" ];
+  pythonImportsCheck = ["opencensus.ext.azure"];
 
   doCheck = false; # tests are not included in the PyPi tarball
 

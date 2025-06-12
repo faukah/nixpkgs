@@ -6,7 +6,6 @@
   python-vagrant,
   docker,
 }:
-
 buildPythonPackage rec {
   pname = "molecule-plugins";
   version = "23.5.3";
@@ -18,18 +17,18 @@ buildPythonPackage rec {
   };
 
   # reverse the dependency
-  pythonRemoveDeps = [ "molecule" ];
+  pythonRemoveDeps = ["molecule"];
 
   nativeBuildInputs = [
     setuptools-scm
   ];
 
   optional-dependencies = {
-    docker = [ docker ];
-    vagrant = [ python-vagrant ];
+    docker = [docker];
+    vagrant = [python-vagrant];
   };
 
-  pythonImportsCheck = [ "molecule_plugins" ];
+  pythonImportsCheck = ["molecule_plugins"];
 
   # Tests require container runtimes
   doCheck = false;
@@ -37,7 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Collection on molecule plugins";
     homepage = "https://github.com/ansible-community/molecule-plugins";
-    maintainers = with maintainers; [ dawidd6 ];
+    maintainers = with maintainers; [dawidd6];
     license = licenses.mit;
   };
 }

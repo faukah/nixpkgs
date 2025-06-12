@@ -8,7 +8,6 @@
   pango,
   gtksourceview3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "genxword";
   version = "2.1.0";
@@ -49,6 +48,6 @@ python3.pkgs.buildPythonApplication rec {
     inherit (src.meta) homepage;
     description = "Crossword generator";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -3,9 +3,8 @@
   stdenv,
   cffi,
 }:
-
-if cffi == null then
-  null
+if cffi == null
+then null
 else
   cffi.overridePythonAttrs {
     disabledTests = lib.optionals stdenv.hostPlatform.isDarwin [

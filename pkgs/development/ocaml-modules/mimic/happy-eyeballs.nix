@@ -5,7 +5,6 @@
   mimic,
   happy-eyeballs-mirage,
 }:
-
 buildDunePackage {
   pname = "mimic-happy-eyeballs";
 
@@ -22,7 +21,7 @@ buildDunePackage {
 
   meta = {
     description = "Happy-eyeballs integration into mimic";
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
     inherit (mimic.meta) license homepage;
   };
 }

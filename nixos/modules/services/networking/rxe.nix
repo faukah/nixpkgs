@@ -4,14 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.networking.rxe;
-
-in
-{
+in {
   ###### interface
 
   options = {
@@ -19,8 +14,8 @@ in
       enable = mkEnableOption "RDMA over converged ethernet";
       interfaces = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "eth0" ];
+        default = [];
+        example = ["eth0"];
         description = ''
           Enable RDMA on the listed interfaces. The corresponding virtual
           RDMA interfaces will be named rxe_\<interface\>.
@@ -33,11 +28,10 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-
     systemd.services.rxe = {
       description = "RoCE interfaces";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "systemd-modules-load.service"
         "network-online.target"
@@ -50,9 +44,11 @@ in
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart = map (
-          x: "${pkgs.iproute2}/bin/rdma link add rxe_${x} type rxe netdev ${x}"
-        ) cfg.interfaces;
+        ExecStart =
+          map (
+            x: "${pkgs.iproute2}/bin/rdma link add rxe_${x} type rxe netdev ${x}"
+          )
+          cfg.interfaces;
 
         ExecStop = map (x: "${pkgs.iproute2}/bin/rdma link delete rxe_${x}") cfg.interfaces;
       };

@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.hardware.i2c;
-in
-
-{
+in {
   options.hardware.i2c = {
     enable = lib.mkEnableOption ''
       i2c devices support. By default access is granted to users in the "i2c"
@@ -26,11 +23,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
-    boot.kernelModules = [ "i2c-dev" ];
+    boot.kernelModules = ["i2c-dev"];
 
     users.groups = lib.mkIf (cfg.group == "i2c") {
-      i2c = { };
+      i2c = {};
     };
 
     services.udev.packages = lib.singleton (
@@ -43,9 +39,7 @@ in
         destination = "/etc/udev/rules.d/70-i2c.rules";
       }
     );
-
   };
 
-  meta.maintainers = [ lib.maintainers.rnhmjoj ];
-
+  meta.maintainers = [lib.maintainers.rnhmjoj];
 }

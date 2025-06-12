@@ -7,13 +7,12 @@
   responses,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "tunigo";
   version = "1.0.0";
   format = "setuptools";
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   src = fetchFromGitHub {
     owner = "trygveaa";

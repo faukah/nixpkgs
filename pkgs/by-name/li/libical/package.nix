@@ -19,7 +19,6 @@
   gobject-introspection,
   vala,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libical";
   version = "3.0.20";
@@ -65,9 +64,10 @@ stdenv.mkDerivation (finalAttrs: {
   nativeInstallCheckInputs = [
     # running libical-glib tests
     (python3.pythonOnBuildForHost.withPackages (
-      pkgs: with pkgs; [
-        pygobject3
-      ]
+      pkgs:
+        with pkgs; [
+          pygobject3
+        ]
     ))
   ];
 
@@ -80,8 +80,16 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags =
     [
       "-DENABLE_GTK_DOC=False"
-      "-DGOBJECT_INTROSPECTION=${if withIntrospection then "True" else "False"}"
-      "-DICAL_GLIB_VAPI=${if withIntrospection then "True" else "False"}"
+      "-DGOBJECT_INTROSPECTION=${
+        if withIntrospection
+        then "True"
+        else "False"
+      }"
+      "-DICAL_GLIB_VAPI=${
+        if withIntrospection
+        then "True"
+        else "False"
+      }"
     ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "-DIMPORT_ICAL_GLIB_SRC_GENERATOR=${lib.getDev pkgsBuildBuild.libical}/lib/cmake/LibIcal/IcalGlibSrcGenerator.cmake"
@@ -98,16 +106,15 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = !stdenv.hostPlatform.isMusl;
   enableParallelChecking = false;
   preInstallCheck =
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        for testexe in $(find ./src/test -maxdepth 1 -type f -executable); do
-          for lib in $(cd lib && ls *.3.dylib); do
-            install_name_tool -change $lib $out/lib/$lib $testexe
-          done
+    if stdenv.hostPlatform.isDarwin
+    then ''
+      for testexe in $(find ./src/test -maxdepth 1 -type f -executable); do
+        for lib in $(cd lib && ls *.3.dylib); do
+          install_name_tool -change $lib $out/lib/$lib $testexe
         done
-      ''
-    else
-      null;
+      done
+    ''
+    else null;
   installCheckPhase = ''
     runHook preInstallCheck
 

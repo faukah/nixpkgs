@@ -9,7 +9,6 @@
   subunit,
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yder";
   version = "1.4.20";
@@ -27,18 +26,20 @@ stdenv.mkDerivation rec {
     ./fix-pkgconfig.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ orcania ] ++ lib.optional withSystemd systemd;
+  buildInputs = [orcania] ++ lib.optional withSystemd systemd;
 
   nativeCheckInputs = [
     check
     subunit
   ];
 
-  cmakeFlags = [
-    "-DBUILD_YDER_TESTING=on"
-  ] ++ lib.optional (!withSystemd) "-DWITH_JOURNALD=off";
+  cmakeFlags =
+    [
+      "-DBUILD_YDER_TESTING=on"
+    ]
+    ++ lib.optional (!withSystemd) "-DWITH_JOURNALD=off";
 
   doCheck = true;
 
@@ -46,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Logging library for C applications";
     homepage = "https://github.com/babelouest/yder";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ johnazoidberg ];
+    maintainers = with maintainers; [johnazoidberg];
     platforms = platforms.all;
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   git,
 }:
-
 buildGoModule rec {
   pname = "codecrafters-cli";
   version = "36";
@@ -42,13 +41,13 @@ buildGoModule rec {
   # include setting up a global gitignore which doesn't work.
   doCheck = false;
 
-  nativeBuildInputs = [ git ];
+  nativeBuildInputs = [git];
 
   meta = with lib; {
     description = "CodeCrafters CLI to run tests";
     mainProgram = "codecrafters";
     homepage = "https://github.com/codecrafters-io/cli";
-    maintainers = with maintainers; [ builditluc ];
+    maintainers = with maintainers; [builditluc];
     license = licenses.mit;
   };
 }

@@ -22,7 +22,7 @@ buildPythonPackage {
     tag = "0.2.1";
     hash = "sha256-8DTpixa5ZGuSOpmwoeJgxLQI+17XheLxPWcJymE0GqM=";
   };
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     colcon
@@ -49,6 +49,6 @@ buildPythonPackage {
     description = "An extension for colcon-core to coordinate ROS_DOMAIN_ID values across multiple terminals";
     homepage = "https://github.com/colcon/colcon-ros-domain-id-coordinator";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ guelakais ];
+    maintainers = with lib.maintainers; [guelakais];
   };
 }

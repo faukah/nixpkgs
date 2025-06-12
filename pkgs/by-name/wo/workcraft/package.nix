@@ -5,7 +5,6 @@
   jre,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "workcraft";
   version = "3.5.2";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/Qax8cSO9j77OXNTYoZoAk5H5teWuNuR+9ubQuFq6qc=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontConfigure = true;
 
@@ -34,6 +33,6 @@ stdenv.mkDerivation rec {
     mainProgram = "workcraft";
     platforms = lib.platforms.linux;
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ timor ];
+    maintainers = with lib.maintainers; [timor];
   };
 }

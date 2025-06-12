@@ -8,7 +8,6 @@
   nix-prefetch-git,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "crate2nix";
   version = "0.14.1";
@@ -36,12 +35,12 @@ rustPlatform.buildRustPackage rec {
   postInstall = ''
     wrapProgram $out/bin/crate2nix \
       --suffix PATH ":" ${
-        lib.makeBinPath [
-          cargo
-          nix
-          nix-prefetch-git
-        ]
-      }
+      lib.makeBinPath [
+        cargo
+        nix
+        nix-prefetch-git
+      ]
+    }
 
       for shell in bash zsh fish
       do

@@ -17,10 +17,12 @@ cava.overrideAttrs (old: rec {
     hash = "sha256-ZDFbI69ECsUTjbhlw2kHRufZbQMu+FQSMmncCJ5pagg=";
   };
 
-  nativeBuildInputs = old.nativeBuildInputs ++ [
-    meson
-    ninja
-  ];
+  nativeBuildInputs =
+    old.nativeBuildInputs
+    ++ [
+      meson
+      ninja
+    ];
 
   # Automatically enable all optional dependencies
   # (instead, Nix sets this option to "enabled" which
@@ -29,10 +31,12 @@ cava.overrideAttrs (old: rec {
   mesonAutoFeatures = "auto";
 
   dontVersionCheck = true; # no `bin/cava`
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  meta = old.meta // {
-    homepage = "https://github.com/LukashonakV/cava";
-    description = "Fork of CAVA to build it as a shared library";
-  };
+  meta =
+    old.meta
+    // {
+      homepage = "https://github.com/LukashonakV/cava";
+      description = "Fork of CAVA to build it as a shared library";
+    };
 })

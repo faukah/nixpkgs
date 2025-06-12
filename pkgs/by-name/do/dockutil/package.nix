@@ -13,9 +13,7 @@
   # Building from source on x86_64 fails (among other things) due to:
   # error: cannot load underlying module for 'Darwin'
   fromSource ? (stdenv.system != "x86_64-darwin"),
-}:
-
-let
+}: let
   generated = swiftpm2nix.helpers ./generated;
 
   pname = "dockutil";
@@ -25,7 +23,7 @@ let
     description = "Tool for managing dock items";
     homepage = "https://github.com/kcrawford/dockutil";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tboerger ];
+    maintainers = with maintainers; [tboerger];
     mainProgram = "dockutil";
     platforms = platforms.darwin;
   };
@@ -93,9 +91,13 @@ let
       runHook postInstall
     '';
 
-    meta = meta // {
-      sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-    };
+    meta =
+      meta
+      // {
+        sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+      };
   });
 in
-if fromSource then buildFromSource else installBinary
+  if fromSource
+  then buildFromSource
+  else installBinary

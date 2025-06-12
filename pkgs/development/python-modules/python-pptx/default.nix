@@ -8,7 +8,6 @@
   typing-extensions,
   xlsxwriter,
 }:
-
 buildPythonPackage rec {
   pname = "python-pptx";
   version = "1.0.2";
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     description = "Create Open XML PowerPoint documents in Python";
     homepage = "https://github.com/scanny/python-pptx";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mitama-cpp-result";
   version = "11.0.0";
@@ -30,8 +29,9 @@ stdenv.mkDerivation (finalAttrs: {
       (like Result and Option in Programming Language Rust).
     '';
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 })
 # TODO [ ken-matsui ]: tests
+

@@ -8,7 +8,6 @@
   dzen2,
   xorg,
 }:
-
 stdenv.mkDerivation {
   pname = "xscast-unstable";
   version = "2016-07-26";
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
     sha256 = "0br27bq9bpglfdpv63h827bipgvhlh10liyhmhcxls4227kagz72";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -31,15 +30,15 @@ stdenv.mkDerivation {
 
     wrapProgram "$out/bin/xscast" \
       --prefix PATH : ${
-        lib.makeBinPath [
-          ffmpeg
-          dzen2
-          xorg.xwininfo
-          xorg.xinput
-          xorg.xmodmap
-          imagemagick
-        ]
-      }
+      lib.makeBinPath [
+        ffmpeg
+        dzen2
+        xorg.xwininfo
+        xorg.xinput
+        xorg.xmodmap
+        imagemagick
+      ]
+    }
 
     runHook postInstall
   '';
@@ -48,7 +47,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/KeyboardFire/xscast";
     license = licenses.mit;
     description = "Screencasts of windows with list of keystrokes overlayed";
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "xscast";
   };
 }

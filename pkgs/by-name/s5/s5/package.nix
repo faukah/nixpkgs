@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "s5";
   version = "0.1.15";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-axcZ4XzgsPVU9at/g3WS8Hv92P2hmZRb+tUfw+h9iH0=";
 
-  subPackages = [ "cmd/s5" ];
+  subPackages = ["cmd/s5"];
 
   ldflags = [
     "-X main.version=v${version}"
@@ -31,6 +30,6 @@ buildGoModule rec {
     homepage = "https://github.com/mvisonneau/s5";
     license = licenses.asl20;
     platforms = platforms.unix ++ platforms.darwin;
-    maintainers = with maintainers; [ mvisonneau ];
+    maintainers = with maintainers; [mvisonneau];
   };
 }

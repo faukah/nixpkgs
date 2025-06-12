@@ -20,7 +20,6 @@
   pyyaml,
   fastjsonschema,
 }:
-
 # FIXME: Move to rocmPackages_common
 buildPythonPackage rec {
   pname = "rocm-docs-core";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-fGRJyQq0Eook1Dc9Qy+dehQ5BVNX+6pkkFN9adb21Eo=";
   };
 
-  buildInputs = [ setuptools ];
+  buildInputs = [setuptools];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -54,9 +53,9 @@ buildPythonPackage rec {
     fastjsonschema
   ];
 
-  pythonImportsCheck = [ "rocm_docs" ];
+  pythonImportsCheck = ["rocm_docs"];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "ROCm Documentation Python package for ReadTheDocs build standardization";
@@ -65,7 +64,7 @@ buildPythonPackage rec {
       mit
       cc-by-40
     ];
-    teams = [ teams.rocm ];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 }

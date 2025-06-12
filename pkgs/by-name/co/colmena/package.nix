@@ -11,7 +11,6 @@
   colmena,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "colmena";
   version = "0.4.0";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     makeBinaryWrapper
   ];
 
-  buildInputs = [ nix-eval-jobs ];
+  buildInputs = [nix-eval-jobs];
 
   NIX_EVAL_JOBS = "${nix-eval-jobs}/bin/nix-eval-jobs";
 
@@ -50,7 +49,7 @@ rustPlatform.buildRustPackage rec {
       --fish <($out/bin/colmena gen-completions fish)
 
     wrapProgram $out/bin/colmena \
-      --prefix PATH ":" "${lib.makeBinPath [ nix ]}"
+      --prefix PATH ":" "${lib.makeBinPath [nix]}"
   '';
 
   # Recursive Nix is not stable yet
@@ -60,14 +59,14 @@ rustPlatform.buildRustPackage rec {
     # We guarantee CLI and Nix API stability for the same minor version
     apiVersion = builtins.concatStringsSep "." (lib.take 2 (lib.splitVersion version));
 
-    tests.version = testers.testVersion { package = colmena; };
+    tests.version = testers.testVersion {package = colmena;};
   };
 
   meta = with lib; {
     description = "Simple, stateless NixOS deployment tool";
     homepage = "https://colmena.cli.rs/${passthru.apiVersion}";
     license = licenses.mit;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
     platforms = platforms.linux ++ platforms.darwin;
     mainProgram = "colmena";
   };

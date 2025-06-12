@@ -11,9 +11,7 @@
   pythonOlder,
   rpds-py,
   typing-extensions,
-}:
-
-let
+}: let
   self = buildPythonPackage rec {
     pname = "referencing";
     version = "0.36.2";
@@ -49,17 +47,17 @@ let
     # Avoid infinite recursion with jsonschema
     doCheck = false;
 
-    passthru.tests.referencing = self.overridePythonAttrs { doCheck = true; };
+    passthru.tests.referencing = self.overridePythonAttrs {doCheck = true;};
 
-    pythonImportsCheck = [ "referencing" ];
+    pythonImportsCheck = ["referencing"];
 
     meta = with lib; {
       description = "Cross-specification JSON referencing";
       homepage = "https://github.com/python-jsonschema/referencing";
       changelog = "https://github.com/python-jsonschema/referencing/releases/tag/${src.tag}";
       license = licenses.mit;
-      maintainers = with maintainers; [ fab ];
+      maintainers = with maintainers; [fab];
     };
   };
 in
-self
+  self

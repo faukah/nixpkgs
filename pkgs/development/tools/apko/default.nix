@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "apko";
   version = "0.27.6";
@@ -27,7 +26,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-zZwEdHZOPNCLpOgdV23ewOQhAkob8bcasUopwzXLtGk=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"

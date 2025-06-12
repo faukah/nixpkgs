@@ -5,7 +5,6 @@
   perl,
   read-edid,
 }:
-
 stdenv.mkDerivation rec {
   pname = "i2c-tools";
   version = "4.4";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Zm83gxdZH2XQCc/Dihp7vumF9WAvKgt6OORns5Mua7M=";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   postPatch = ''
     substituteInPlace eeprom/decode-edid \
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
       --replace "/sbin/" ""
   '';
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   outputs = [
     "out"
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
       lgpl21Plus
       gpl2Plus
     ];
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
     platforms = platforms.linux;
   };
 }

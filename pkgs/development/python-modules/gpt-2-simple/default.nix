@@ -10,7 +10,6 @@
   toposort,
   tensorflow,
 }:
-
 buildPythonPackage rec {
   pname = "gpt-2-simple";
   version = "0.8.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-WwD4sDcc28zXEOISJsq8e+rgaNrrgIy79Wa4J3E7Ovc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   propagatedBuildInputs = [
     regex
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     description = "Easily retrain OpenAI's GPT-2 text-generating model on new texts";
     homepage = "https://github.com/minimaxir/gpt-2-simple";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

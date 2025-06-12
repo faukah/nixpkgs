@@ -4,7 +4,6 @@
   fetchurl,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.15.2";
   pname = "liburcu";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
 
   preCheck = "patchShebangs tests/unit";
   doCheck = true;
@@ -42,7 +41,6 @@ stdenv.mkDerivation rec {
       ++ lib.platforms.riscv
       ++ lib.platforms.loongarch64
     );
-    maintainers = [ lib.maintainers.bjornfor ];
+    maintainers = [lib.maintainers.bjornfor];
   };
-
 }

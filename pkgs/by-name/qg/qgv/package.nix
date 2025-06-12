@@ -7,7 +7,6 @@
   libsForQt5,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qgv";
   version = "1.3.5";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Interactive Qt graphViz display";
     homepage = "https://github.com/gepetto/qgv";
     license = lib.licenses.lgpl3Only;
-    maintainers = [ lib.maintainers.nim65s ];
+    maintainers = [lib.maintainers.nim65s];
     platforms = lib.platforms.unix;
   };
 })

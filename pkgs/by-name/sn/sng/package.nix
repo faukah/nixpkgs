@@ -6,7 +6,6 @@
   netpbm,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sng";
   version = "1.1.1";
@@ -16,9 +15,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-yb37gPWhfbGquTN7rtZKjr6lwN34KRXGiHuM+4fs5h4=";
   };
 
-  nativeBuildInputs = [ asciidoctor ];
+  nativeBuildInputs = [asciidoctor];
 
-  buildInputs = [ libpng ];
+  buildInputs = [libpng];
 
   outputs = [
     "out"

@@ -6,7 +6,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rustic";
   version = "0.9.5";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-+BlLVnvI2qBfwEtyxmZFNhR9MEzs0/a1Ce6ALOKtoPU=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd rustic \
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
       --zsh <($out/bin/rustic completions zsh)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/rustic-rs/rustic";

@@ -16,7 +16,6 @@
   ghostscript,
   a2ps,
 }:
-
 # Why:
 # The executable "brprintconf_mfcj6510dw" binary is looking for "/opt/brother/Printers/%s/inf/br%sfunc" and "/opt/brother/Printers/%s/inf/br%src".
 # Whereby, %s is printf(3) string substitution for stdin's arg0 (the command's own filename) from the 10th char forwards, as a runtime dependency.
@@ -34,7 +33,6 @@
 # We also write a shell script that invoked "mktemp -d" to produce a r/w temporary directory and link what we need in the temporary directory.
 # Result:
 # The user can run brprintconf_mfcj6510dw in the shell.
-
 stdenv.mkDerivation rec {
   pname = "mfcj6510dwlpr";
   version = "3.0.0-1";
@@ -44,7 +42,7 @@ stdenv.mkDerivation rec {
     sha256 = "1ccvx393pqavsgzd8igrzlin5jrsf01d3acyvwqd1d0yz5jgqy6d";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     cups
     ghostscript
@@ -95,31 +93,31 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/opt/brother/Printers/mfcj6510dw/lpd/psconvertij2 \
       --prefix PATH ":" ${
-        lib.makeBinPath [
-          coreutils
-          gnused
-          gawk
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        gnused
+        gawk
+      ]
+    }
     wrapProgram $out/opt/brother/Printers/mfcj6510dw/lpd/filtermfcj6510dw \
       --prefix PATH ":" ${
-        lib.makeBinPath [
-          coreutils
-          gnused
-          file
-          ghostscript
-          a2ps
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        gnused
+        file
+        ghostscript
+        a2ps
+      ]
+    }
   '';
 
   meta = with lib; {
     description = "Brother MFC-J6510DW LPR driver";
     downloadPage = "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj6510dw_all&os=128";
     homepage = "http://www.brother.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = with licenses; unfree;
-    maintainers = with maintainers; [ ramkromberg ];
+    maintainers = with maintainers; [ramkromberg];
     platforms = with platforms; linux;
   };
 }

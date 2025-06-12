@@ -46,8 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
       unlicense # or
       mit0
     ];
-    maintainers = [ maintainers.jansol ];
-    pkgConfigModules = [ "miniaudio" ];
+    maintainers = [maintainers.jansol];
+    pkgConfigModules = ["miniaudio"];
     platforms = platforms.all;
   };
 })

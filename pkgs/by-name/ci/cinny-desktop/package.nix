@@ -14,7 +14,6 @@
   jq,
   moreutils,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cinny-desktop";
   # We have to be using the same version as cinny-web or this isn't going to work.
@@ -32,23 +31,20 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-lWU1NrUwcAXQR6mEiCr6Ze3TzpDYvCx5/fBIef9ao5I=";
 
-  postPatch =
-    let
-      cinny' =
-        assert lib.assertMsg (
-          cinny.version == finalAttrs.version
-        ) "cinny.version (${cinny.version}) != cinny-desktop.version (${finalAttrs.version})";
-        cinny.override {
-          conf = {
-            hashRouter.enabled = true;
-          };
+  postPatch = let
+    cinny' = assert lib.assertMsg (
+      cinny.version == finalAttrs.version
+    ) "cinny.version (${cinny.version}) != cinny-desktop.version (${finalAttrs.version})";
+      cinny.override {
+        conf = {
+          hashRouter.enabled = true;
         };
-    in
-    ''
-      ${lib.getExe jq} \
-        'del(.tauri.updater) | .build.distDir = "${cinny'}" | del(.build.beforeBuildCommand)' tauri.conf.json \
-        | ${lib.getExe' moreutils "sponge"} tauri.conf.json
-    '';
+      };
+  in ''
+    ${lib.getExe jq} \
+      'del(.tauri.updater) | .build.distDir = "${cinny'}" | del(.build.beforeBuildCommand)' tauri.conf.json \
+      | ${lib.getExe' moreutils "sponge"} tauri.conf.json
+  '';
 
   postInstall =
     lib.optionalString stdenv.hostPlatform.isDarwin ''

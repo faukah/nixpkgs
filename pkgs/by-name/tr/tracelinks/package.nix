@@ -5,7 +5,6 @@
   nix-update-script,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tracelinks";
   version = "1.0.2";
@@ -21,16 +20,16 @@ stdenv.mkDerivation (finalAttrs: {
     "PREFIX=$(out)"
     "VERSION=${finalAttrs.version}"
   ];
-  nativeBuildInputs = [ help2man ];
+  nativeBuildInputs = [help2man];
   doCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Report on symbolic links encountered in path traversals";
     homepage = "https://github.com/flox/tracelinks";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ limeytexan ];
+    maintainers = with lib.maintainers; [limeytexan];
     platforms = lib.platforms.unix;
   };
 })

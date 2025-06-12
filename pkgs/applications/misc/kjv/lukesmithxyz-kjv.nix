@@ -4,7 +4,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "lukesmithxyz-bible-kjv";
   version = "unstable-2022-06-01";
@@ -16,9 +15,9 @@ stdenv.mkDerivation {
     hash = "sha256-ii5SGZmO99VYbKdebfEbN3rL7LLSSQ0jm5mGqX2G3o0=";
   };
 
-  buildInputs = [ gawk ];
+  buildInputs = [gawk];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Read the Word of God from your terminal + Apocrypha";
@@ -26,6 +25,6 @@ stdenv.mkDerivation {
     homepage = "https://lukesmith.xyz/articles/command-line-bibles";
     license = licenses.unlicense;
     platforms = platforms.unix;
-    maintainers = [ maintainers.wesleyjrz ];
+    maintainers = [maintainers.wesleyjrz];
   };
 }

@@ -3,18 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.ympd;
-in
-{
-
+in {
   ###### interface
 
   options = {
-
     services.ympd = {
-
       enable = lib.mkEnableOption "ympd, the MPD Web GUI";
 
       webPort = lib.mkOption {
@@ -39,21 +34,18 @@ in
           example = 6600;
         };
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.ympd = {
       description = "Standalone MPD Web GUI written in C";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
 
       serviceConfig = {
         ExecStart = ''
@@ -95,7 +87,5 @@ in
         ];
       };
     };
-
   };
-
 }

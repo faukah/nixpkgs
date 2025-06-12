@@ -21,7 +21,6 @@
   nix-update-script,
   libXinerama,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "methane";
   version = "2.1.0";
@@ -65,14 +64,14 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/rombust/methane";
     description = "Clone of Taito's Bubble Bobble arcade game released for Amiga in 1993 by Apache Software";
     mainProgram = "methane";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ nixinator ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [nixinator];
+    platforms = ["x86_64-linux"];
   };
 })

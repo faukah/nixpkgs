@@ -9,7 +9,6 @@
   coreutils,
   testers,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "disko";
   version = "1.12.0";
@@ -19,8 +18,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     rev = "v${finalAttrs.version}";
     hash = "sha256-eDoSOhxGEm2PykZFa/x9QG5eTH0MJdiJ9aR00VAofXE=";
   };
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ bash ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [bash];
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin $out/share/disko
@@ -32,12 +31,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       wrapProgram "$out/bin/$i" \
         --set DISKO_VERSION "${finalAttrs.version}" \
         --prefix PATH : ${
-          lib.makeBinPath [
-            nix
-            coreutils
-            nixos-install
-          ]
-        }
+      lib.makeBinPath [
+        nix
+        coreutils
+        nixos-install
+      ]
+    }
     done
     runHook postInstall
   '';
@@ -49,7 +48,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstallCheck
   '';
 
-  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  passthru.tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
 
   meta = {
     homepage = "https://github.com/nix-community/disko";

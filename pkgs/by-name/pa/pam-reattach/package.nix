@@ -5,7 +5,6 @@
   cmake,
   openpam,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pam_reattach";
   version = "1.3";
@@ -22,15 +21,15 @@ stdenv.mkDerivation rec {
     "-DENABLE_CLI=ON"
   ];
 
-  buildInputs = [ openpam ];
+  buildInputs = [openpam];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://github.com/fabianishere/pam_reattach";
     description = "Reattach to the user's GUI session on macOS during authentication (for Touch ID support in tmux)";
     license = licenses.mit;
-    maintainers = with maintainers; [ lockejan ];
+    maintainers = with maintainers; [lockejan];
     platforms = platforms.darwin;
   };
 }

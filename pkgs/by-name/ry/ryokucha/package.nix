@@ -8,7 +8,6 @@
   vala,
   gtk4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ryokucha";
   version = "0.3.1";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     vala
   ];
 
-  buildInputs = [ gtk4 ];
+  buildInputs = [gtk4];
 
   strictDeps = true;
 
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "GTK4 library that includes customized widgets";
     homepage = "https://github.com/ryonakano/ryokucha";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
   };
 })

@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pysqueezebox";
   version = "0.12.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-Bi809OzIoQ2TJH77kZlsSSPEmDNgz6hAybmOXbFn3LM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     async-timeout
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pysqueezebox" ];
+  pythonImportsCheck = ["pysqueezebox"];
 
   disabledTests = lib.optionals (pythonAtLeast "3.12") [
     # AttributeError: 'has_calls' is not a valid assertion. Use a spec for the mock if 'has_calls' is meant to be an attribute.
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/rajlaud/pysqueezebox";
     changelog = "https://github.com/rajlaud/pysqueezebox/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nyanloutre ];
+    maintainers = with maintainers; [nyanloutre];
   };
 }

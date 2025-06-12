@@ -4,7 +4,6 @@
   buildGoModule,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "mihomo";
   version = "1.19.10";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-2hLI8R6hwam7/n8JRQ9Xs4ycWwdNxGRvFM+JhH7ExgM=";
 
-  excludedPackages = [ "./test" ];
+  excludedPackages = ["./test"];
 
   ldflags = [
     "-s"
@@ -41,7 +40,7 @@ buildGoModule rec {
     description = "Rule-based tunnel in Go";
     homepage = "https://github.com/MetaCubeX/mihomo/tree/Alpha";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ oluceps ];
+    maintainers = with maintainers; [oluceps];
     mainProgram = "mihomo";
   };
 }

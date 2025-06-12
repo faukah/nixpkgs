@@ -6,7 +6,6 @@
   nixosTests,
   sqlite,
 }:
-
 buildGoModule rec {
   pname = "magnetico";
   version = "0.12.1";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-jIVMQtPCq9RYaYsH4LSZJFspH6TpCbgzHN0GX8cM/CI=";
 
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
   tags = [
     "fts5"
@@ -34,13 +33,13 @@ buildGoModule rec {
 
   doCheck = !stdenv.hostPlatform.isStatic;
 
-  passthru.tests = { inherit (nixosTests) magnetico; };
+  passthru.tests = {inherit (nixosTests) magnetico;};
 
   meta = with lib; {
     description = "Autonomous (self-hosted) BitTorrent DHT search engine suite";
     homepage = "https://maxwell.eurofusion.eu/git/rnhmjoj/magnetico";
     license = licenses.agpl3Only;
     badPlatforms = platforms.darwin;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
   };
 }

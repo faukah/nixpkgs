@@ -8,7 +8,6 @@
   udisks2,
   gdk-pixbuf,
 }:
-
 stdenv.mkDerivation {
   pname = "usermount";
   version = "0.1";
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-giMHUVYdAygiemYru20VxpQixr5aGgHhevNkHvkG9z4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     dbus
     libnotify

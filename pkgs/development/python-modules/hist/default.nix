@@ -11,7 +11,6 @@
   pytest-mpl,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "hist";
   version = "2.8.1";
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://hist.readthedocs.io/";
     changelog = "https://github.com/scikit-hep/hist/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

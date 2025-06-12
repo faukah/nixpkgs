@@ -10,7 +10,6 @@
   dbus,
   libpulseaudio,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "songrec";
   version = "0.4.3";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-wSRn1JY067RVqGGdiox87+zRb2/2OMcvKLYZE1QUs/s=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     alsa-lib
@@ -45,7 +44,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/marin-m/SongRec";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ tcbravo ];
+    maintainers = with maintainers; [tcbravo];
     mainProgram = "songrec";
   };
 }

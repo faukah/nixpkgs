@@ -4,7 +4,6 @@
   buildGoModule,
   unzip,
 }:
-
 buildGoModule (
   rec {
     pname = "pagessrht";

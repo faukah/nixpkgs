@@ -6,7 +6,6 @@
   urwid,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "upass";
   version = "0.3.0";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-IlNqPmDaRZ3yRV8O6YKjQkZ3fKNcFgzJHtIX0ADrOyU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyperclip
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     mkdir $HOME/.config
   '';
 
-  pythonImportsCheck = [ "upass" ];
+  pythonImportsCheck = ["upass"];
 
   meta = with lib; {
     description = "Console UI for pass";
     mainProgram = "upass";
     homepage = "https://github.com/Kwpolska/upass";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

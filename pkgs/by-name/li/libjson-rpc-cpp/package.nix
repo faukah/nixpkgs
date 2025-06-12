@@ -12,7 +12,6 @@
   jsoncpp,
   libmicrohttpd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libjson-rpc-cpp";
   version = "1.4.1";
@@ -70,13 +69,13 @@ stdenv.mkDerivation rec {
     function fixRunPath {
       p=$(patchelf --print-rpath $1)
       q="$p:${
-        lib.makeLibraryPath [
-          jsoncpp
-          argtable
-          libmicrohttpd
-          curl
-        ]
-      }:$out/lib"
+      lib.makeLibraryPath [
+        jsoncpp
+        argtable
+        libmicrohttpd
+        curl
+      ]
+    }:$out/lib"
       patchelf --set-rpath $q $1
     }
 
@@ -103,7 +102,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/cinemast/libjson-rpc-cpp";
     license = licenses.mit;
     platforms = platforms.linux;
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-    maintainers = with maintainers; [ robertrichter ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
+    maintainers = with maintainers; [robertrichter];
   };
 }

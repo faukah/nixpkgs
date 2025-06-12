@@ -8,7 +8,6 @@
   curl,
   gnugrep,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hblock";
   version = "3.5.1";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     gnugrep
     gawk
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installFlags = [
     "prefix=$(out)"
@@ -34,13 +33,13 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram "$out/bin/hblock" \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          curl
-          gnugrep
-          gawk
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        curl
+        gnugrep
+        gawk
+      ]
+    }
   '';
 
   meta = with lib; {
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     mainProgram = "hblock";
     homepage = "https://github.com/hectorm/hblock";
     license = licenses.mit;
-    maintainers = with maintainers; [ alanpearce ];
+    maintainers = with maintainers; [alanpearce];
     platforms = platforms.unix;
   };
 }

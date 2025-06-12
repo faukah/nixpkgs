@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "supervisor";
   version = "4.2.5";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
   # wants to write to /tmp/foo which is likely already owned by another
   # nixbld user on hydra
@@ -43,13 +42,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "supervisor" ];
+  pythonImportsCheck = ["supervisor"];
 
   meta = with lib; {
     description = "System for controlling process state under UNIX";
     homepage = "https://supervisord.org/";
     changelog = "https://github.com/Supervisor/supervisor/blob/${version}/CHANGES.rst";
     license = licenses.free; # http://www.repoze.org/LICENSE.txt
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
   };
 }

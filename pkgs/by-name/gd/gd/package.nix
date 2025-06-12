@@ -17,7 +17,6 @@
   fontconfig,
   freetype,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gd";
   version = "2.3.3";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   configureFlags =
     [
@@ -81,6 +80,6 @@ stdenv.mkDerivation rec {
     description = "Dynamic image creation library";
     license = licenses.free; # some custom license
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

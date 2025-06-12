@@ -12,7 +12,6 @@
   libadwaita,
   gtksourceview5,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "escambo";
   version = "0.1.2";
@@ -56,7 +55,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/CleoMenezesJr/escambo";
     license = lib.licenses.gpl3Plus;
     mainProgram = "escambo";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 }

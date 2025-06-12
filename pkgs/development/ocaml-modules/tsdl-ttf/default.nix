@@ -7,7 +7,6 @@
   SDL2_ttf,
   tsdl,
 }:
-
 buildDunePackage rec {
   pname = "tsdl-ttf";
   version = "0.6";
@@ -35,6 +34,6 @@ buildDunePackage rec {
     description = "SDL2_ttf bindings for Ocaml with Tsdl";
     homepage = "https://github.com/sanette/tsdl-ttf";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

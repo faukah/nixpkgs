@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "changetower";
   version = "1.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Tools to watch for webppage changes";
     homepage = "https://github.com/Dc4ts/ChangeTower";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "ChangeTower";
   };
 }

@@ -24,7 +24,6 @@
   # contains binary-only libraries
   enableDPA ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mstflint";
 
@@ -99,12 +98,12 @@ stdenv.mkDerivation rec {
         --replace \
         'exec $PYTHON_EXEC $SCRIPT_PATH "$@"' \
         'export PATH=$PATH:${
-          lib.makeBinPath [
-            (placeholder "out")
-            pciutils
-            busybox
-          ]
-        }; exec ${python3}/bin/python3 $SCRIPT_PATH "$@"'
+        lib.makeBinPath [
+          (placeholder "out")
+          pciutils
+          busybox
+        ]
+      }; exec ${python3}/bin/python3 $SCRIPT_PATH "$@"'
     '')
   ];
 
@@ -127,7 +126,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   dontDisableStatic = true; # the build fails without this. should probably be reported upstream
 
@@ -138,7 +137,7 @@ stdenv.mkDerivation rec {
       gpl2Only
       bsd2
     ];
-    maintainers = with maintainers; [ thillux ];
+    maintainers = with maintainers; [thillux];
     platforms = platforms.linux;
   };
 }

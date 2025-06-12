@@ -15,7 +15,6 @@
   withUsb ? stdenv.hostPlatform.isLinux,
   libusb1,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "knxd";
   version = "0.14.71";
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.enableFeature withUsb "usb")
   ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   installFlags = lib.optionals withSystemd [
     "systemdsystemunitdir=$(out)/lib/systemd/system"
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Advanced router/gateway for KNX";
     homepage = "https://github.com/knxd/knxd";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 })

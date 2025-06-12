@@ -4,7 +4,6 @@
   stdenvNoCC,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "material-design-icons";
   version = "7.4.47";
@@ -14,7 +13,7 @@ stdenvNoCC.mkDerivation rec {
     repo = "MaterialDesign-Webfont";
     rev = "v${version}";
     hash = "sha256-7t3i3nPJZ/tRslLBfY+9kXH8TR145GC2hPFYJeMHRL8=";
-    sparseCheckout = [ "fonts" ];
+    sparseCheckout = ["fonts"];
   };
 
   installPhase = ''
@@ -29,7 +28,7 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "7000+ Material Design Icons from the Community";

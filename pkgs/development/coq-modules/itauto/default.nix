@@ -6,7 +6,6 @@
   stdlib,
   version ? null,
 }:
-
 (mkCoqDerivation {
   pname = "itauto";
   owner = "fbesson";
@@ -21,8 +20,7 @@
   release."8.14.0".sha256 = "sha256:1k6pqhv4dwpkwg81f2rlfg40wh070ks1gy9r0ravm2zhsbxqcfc9";
   release."8.13+no".sha256 = "sha256-gXoxtLcHPoyjJkt7WqvzfCMCQlh6kL2KtCGe3N6RC/A=";
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = isEq "8.20";
@@ -56,26 +54,27 @@
         case = isEq "8.13";
         out = "8.13+no";
       }
-    ] null;
+    ]
+    null;
 
   mlPlugin = true;
-  nativeBuildInputs = (with coq.ocamlPackages; [ ocamlbuild ]);
+  nativeBuildInputs = with coq.ocamlPackages; [ocamlbuild];
   enableParallelBuilding = false;
 
-  passthru.tests.suite = callPackage ./test.nix { };
+  passthru.tests.suite = callPackage ./test.nix {};
 
-  propagatedBuildInputs = [ stdlib ];
+  propagatedBuildInputs = [stdlib];
 
   meta = with lib; {
     description = "Reflexive SAT solver parameterised by a leaf tactic and Nelson-Oppen support";
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.gpl3Plus;
   };
 }).overrideAttrs
-  (
-    o:
+(
+  o:
     lib.optionalAttrs (o.version == "dev" || lib.versionAtLeast o.version "8.16") {
-      propagatedBuildInputs = o.propagatedBuildInputs ++ [ coq.ocamlPackages.findlib ];
+      propagatedBuildInputs = o.propagatedBuildInputs ++ [coq.ocamlPackages.findlib];
     }
     // lib.optionalAttrs (o.version == "dev" || lib.versionAtLeast o.version "8.18") {
       nativeBuildInputs = with coq.ocamlPackages; [
@@ -84,4 +83,4 @@
         dune_3
       ];
     }
-  )
+)

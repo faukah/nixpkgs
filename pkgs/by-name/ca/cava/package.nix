@@ -19,7 +19,6 @@
   withSDL2 ? false,
   withPipewire ? stdenv.hostPlatform.isLinux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cava";
   version = "0.10.4";

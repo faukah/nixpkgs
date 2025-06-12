@@ -10,7 +10,6 @@
   ptyprocess,
   pexpect,
 }:
-
 buildPythonPackage rec {
   pname = "lineedit";
   version = "0.1.6";
@@ -36,12 +35,12 @@ buildPythonPackage rec {
     ptyprocess
   ];
 
-  pythonImportsCheck = [ "lineedit" ];
+  pythonImportsCheck = ["lineedit"];
 
   meta = with lib; {
     description = "Readline library based on prompt_toolkit which supports multiple modes";
     homepage = "https://github.com/randy3k/lineedit";
     license = licenses.mit;
-    maintainers = with maintainers; [ savyajha ];
+    maintainers = with maintainers; [savyajha];
   };
 }

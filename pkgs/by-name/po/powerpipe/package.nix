@@ -8,7 +8,6 @@
   powerpipe,
   testers,
 }:
-
 buildGoModule rec {
   pname = "powerpipe";
   version = "1.2.7";
@@ -36,14 +35,12 @@ buildGoModule rec {
 
   doCheck = true;
 
-  checkFlags =
-    let
-      skippedTests = [
-        # test fails in the original github.com/turbot/powerpipe project as well
-        "TestGetAsSnapshotPropertyMap/card"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    skippedTests = [
+      # test fails in the original github.com/turbot/powerpipe project as well
+      "TestGetAsSnapshotPropertyMap/card"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   postInstall = ''
     wrapProgram $out/bin/powerpipe \
@@ -57,7 +54,7 @@ buildGoModule rec {
       package = powerpipe;
       version = "v${version}";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -66,6 +63,6 @@ buildGoModule rec {
     homepage = "https://powerpipe.io/";
     license = lib.licenses.agpl3Only;
     mainProgram = "powerpipe";
-    maintainers = with lib.maintainers; [ weitzj ];
+    maintainers = with lib.maintainers; [weitzj];
   };
 }

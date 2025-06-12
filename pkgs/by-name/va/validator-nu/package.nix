@@ -8,9 +8,7 @@
   stdenvNoCC,
   lib,
   testers,
-}:
-
-let
+}: let
   pname = "validator-nu";
   version = "23.4.11-unstable-2023-12-18";
 
@@ -45,57 +43,56 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-LPtxpUd7LAYZHJL7elgcZOTaTgHqeqquiB9hiuajA6c=";
   };
-
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
-  inherit pname version src;
+  stdenvNoCC.mkDerivation (finalAttrs: {
+    inherit pname version src;
 
-  nativeBuildInputs = [
-    git
-    jdk_headless
-    makeWrapper
-    python3
-  ];
-
-  postPatch = ''
-    substituteInPlace build/build.py --replace-warn \
-      'validatorVersion = "%s.%s.%s" % (year, month, day)' \
-      'validatorVersion = "${finalAttrs.version}"'
-  '';
-
-  buildPhase = ''
-    ln -s '${deps}/dependencies' '${deps}/extras' .
-    JAVA_HOME='${jdk_headless}' python checker.py build
-  '';
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p "$out/bin" "$out/share/java"
-    mv build/dist/vnu.jar "$out/share/java/"
-    makeWrapper "${jre_headless}/bin/java" "$out/bin/vnu" \
-      --add-flags "-jar '$out/share/java/vnu.jar'"
-
-    runHook postInstall
-  '';
-
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-  };
-
-  meta = {
-    description = "Helps you catch problems in your HTML/CSS/SVG";
-    homepage = "https://validator.github.io/validator/";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [
-      andersk
-      ivan
+    nativeBuildInputs = [
+      git
+      jdk_headless
+      makeWrapper
+      python3
     ];
-    mainProgram = "vnu";
-    platforms = lib.platforms.all;
-    sourceProvenance = with lib.sourceTypes; [
-      binaryBytecode
-      fromSource
-    ];
-  };
-})
+
+    postPatch = ''
+      substituteInPlace build/build.py --replace-warn \
+        'validatorVersion = "%s.%s.%s" % (year, month, day)' \
+        'validatorVersion = "${finalAttrs.version}"'
+    '';
+
+    buildPhase = ''
+      ln -s '${deps}/dependencies' '${deps}/extras' .
+      JAVA_HOME='${jdk_headless}' python checker.py build
+    '';
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p "$out/bin" "$out/share/java"
+      mv build/dist/vnu.jar "$out/share/java/"
+      makeWrapper "${jre_headless}/bin/java" "$out/bin/vnu" \
+        --add-flags "-jar '$out/share/java/vnu.jar'"
+
+      runHook postInstall
+    '';
+
+    passthru.tests.version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+    };
+
+    meta = {
+      description = "Helps you catch problems in your HTML/CSS/SVG";
+      homepage = "https://validator.github.io/validator/";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [
+        andersk
+        ivan
+      ];
+      mainProgram = "vnu";
+      platforms = lib.platforms.all;
+      sourceProvenance = with lib.sourceTypes; [
+        binaryBytecode
+        fromSource
+      ];
+    };
+  })

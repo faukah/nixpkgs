@@ -13,7 +13,6 @@
   libimobiledevice-glue,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libimobiledevice";
   version = "1.3.0-unstable-2024-05-20";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     export RELEASE_VERSION=${version}
   '';
 
-  configureFlags = [ "--without-cython" ];
+  configureFlags = ["--without-cython"];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/libimobiledevice/libimobiledevice";
@@ -81,6 +80,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ RossComputerGuy ];
+    maintainers = with maintainers; [RossComputerGuy];
   };
 }

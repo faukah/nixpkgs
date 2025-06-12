@@ -5,7 +5,6 @@
   installShellFiles,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "gotop";
   version = "4.2.0";
@@ -31,8 +30,8 @@ buildGoModule (finalAttrs: {
     "-X main.Version=v${finalAttrs.version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeBuildInputs = [installShellFiles];
+  nativeCheckInputs = [writableTmpDirAsHomeHook];
 
   postInstall = ''
     $out/bin/gotop --create-manpage > gotop.1
@@ -44,7 +43,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/xxxserxxx/gotop";
     changelog = "https://github.com/xxxserxxx/gotop/raw/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
     mainProgram = "gotop";
   };
 })

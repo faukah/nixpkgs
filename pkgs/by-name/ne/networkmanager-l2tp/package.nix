@@ -19,7 +19,6 @@
   openssl,
   nss,
 }:
-
 stdenv.mkDerivation rec {
   name = "${pname}${lib.optionalString withGnome "-gnome"}-${version}";
   pname = "NetworkManager-l2tp";
@@ -64,8 +63,16 @@ stdenv.mkDerivation rec {
     ];
 
   configureFlags = [
-    "--with-gnome=${if withGnome then "yes" else "no"}"
-    "--with-gtk4=${if withGnome then "yes" else "no"}"
+    "--with-gnome=${
+      if withGnome
+      then "yes"
+      else "no"
+    }"
+    "--with-gtk4=${
+      if withGnome
+      then "yes"
+      else "no"
+    }"
     "--localstatedir=/var"
     "--enable-absolute-paths"
   ];

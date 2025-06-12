@@ -8,7 +8,6 @@
   lsd,
   git,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lsd";
   version = "1.1.5";
@@ -38,9 +37,9 @@ rustPlatform.buildRustPackage rec {
       --zsh $releaseDir/build/lsd-*/out/_lsd
   '';
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
-  passthru.tests.version = testers.testVersion { package = lsd; };
+  passthru.tests.version = testers.testVersion {package = lsd;};
 
   meta = {
     homepage = "https://github.com/lsd-rs/lsd";

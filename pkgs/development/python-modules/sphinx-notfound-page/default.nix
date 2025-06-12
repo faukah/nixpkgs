@@ -15,7 +15,6 @@
   sphinx,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-notfound-page";
   version = "1.0.0";
@@ -45,17 +44,17 @@ buildPythonPackage rec {
     sphinxemoji
   ];
 
-  buildInputs = [ sphinx ];
+  buildInputs = [sphinx];
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "notfound" ];
+  pythonImportsCheck = ["notfound"];
 
   meta = with lib; {
     description = "Sphinx extension to create a custom 404 page with absolute URLs hardcoded";
     homepage = "https://github.com/readthedocs/sphinx-notfound-page";
     changelog = "https://github.com/readthedocs/sphinx-notfound-page/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

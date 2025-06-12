@@ -5,7 +5,6 @@
   wrapGAppsHook3,
   qt5,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "buttermanager";
   version = "2.5.2";
@@ -49,7 +48,7 @@ python3Packages.buildPythonApplication rec {
     description = "Btrfs tool for managing snapshots, balancing filesystems and upgrading the system safetly";
     homepage = "https://github.com/egara/buttermanager";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ t4ccer ];
+    maintainers = with maintainers; [t4ccer];
     mainProgram = "buttermanager";
   };
 }

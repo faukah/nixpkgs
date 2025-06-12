@@ -3,24 +3,24 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.bash;
-in
-{
+in {
   options.programs.bash.completion = {
-    enable = lib.mkEnableOption "Bash completion for all interactive bash shells" // {
-      default = true;
-    };
+    enable =
+      lib.mkEnableOption "Bash completion for all interactive bash shells"
+      // {
+        default = true;
+      };
 
-    package = lib.mkPackageOption pkgs "bash-completion" { };
+    package = lib.mkPackageOption pkgs "bash-completion" {};
   };
 
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "programs" "bash" "enableCompletion" ]
-      [ "programs" "bash" "completion" "enable" ]
+    (
+      lib.mkRenamedOptionModule
+      ["programs" "bash" "enableCompletion"]
+      ["programs" "bash" "completion" "enable"]
     )
   ];
 

@@ -16,7 +16,6 @@
   libportal-gtk4,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "junction";
   version = "1.9";
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -73,8 +72,8 @@ stdenv.mkDerivation rec {
     description = "Choose the application to open files and links";
     homepage = "https://apps.gnome.org/Junction/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ hqurve ];
-    teams = [ teams.gnome-circle ];
+    maintainers = with maintainers; [hqurve];
+    teams = [teams.gnome-circle];
     platforms = platforms.linux;
   };
 }

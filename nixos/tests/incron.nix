@@ -1,23 +1,23 @@
-{ pkgs, lib, ... }:
-
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "incron";
-  meta.maintainers = [ lib.maintainers.aanderse ];
+  meta.maintainers = [lib.maintainers.aanderse];
 
-  nodes.machine =
-    { ... }:
-    {
-      services.incron.enable = true;
-      services.incron.extraPackages = [ pkgs.coreutils ];
-      services.incron.systab = ''
-        /test IN_CREATE,IN_MODIFY,IN_CLOSE_WRITE,IN_MOVED_FROM,IN_MOVED_TO echo "$@/$# $%" >> /root/incron.log
-      '';
+  nodes.machine = {...}: {
+    services.incron.enable = true;
+    services.incron.extraPackages = [pkgs.coreutils];
+    services.incron.systab = ''
+      /test IN_CREATE,IN_MODIFY,IN_CLOSE_WRITE,IN_MOVED_FROM,IN_MOVED_TO echo "$@/$# $%" >> /root/incron.log
+    '';
 
-      # ensure the directory to be monitored exists before incron is started
-      systemd.tmpfiles.settings.incron-test = {
-        "/test".d = { };
-      };
+    # ensure the directory to be monitored exists before incron is started
+    systemd.tmpfiles.settings.incron-test = {
+      "/test".d = {};
     };
+  };
 
   testScript = ''
     start_all()

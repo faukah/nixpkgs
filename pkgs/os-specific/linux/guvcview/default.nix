@@ -26,7 +26,6 @@
   gtk3,
   wrapGAppsHook3 ? null,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "guvcview";
   version = "2.2.1";
@@ -42,8 +41,8 @@ stdenv.mkDerivation (finalAttrs: {
       pkg-config
       cmake
     ]
-    ++ lib.optionals useGtk [ wrapGAppsHook3 ]
-    ++ lib.optionals useQt [ wrapQtAppsHook ];
+    ++ lib.optionals useGtk [wrapGAppsHook3]
+    ++ lib.optionals useQt [wrapQtAppsHook];
 
   buildInputs =
     [
@@ -58,8 +57,8 @@ stdenv.mkDerivation (finalAttrs: {
       libpng
       sfml_2
     ]
-    ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
-    ++ lib.optionals useGtk [ gtk3 ]
+    ++ lib.optionals pulseaudioSupport [libpulseaudio]
+    ++ lib.optionals useGtk [gtk3]
     ++ lib.optionals useQt [
       qtbase
     ];
@@ -68,14 +67,14 @@ stdenv.mkDerivation (finalAttrs: {
     [
       "--enable-sfml"
     ]
-    ++ lib.optionals useGtk [ "--enable-gtk3" ]
-    ++ lib.optionals useQt [ "--enable-qt5" ];
+    ++ lib.optionals useGtk ["--enable-gtk3"]
+    ++ lib.optionals useQt ["--enable-qt5"];
 
   meta = {
     description = "Simple interface for devices supported by the linux UVC driver";
     mainProgram = "guvcview";
     homepage = "https://guvcview.sourceforge.net";
-    maintainers = [ lib.maintainers.coconnor ];
+    maintainers = [lib.maintainers.coconnor];
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
   };

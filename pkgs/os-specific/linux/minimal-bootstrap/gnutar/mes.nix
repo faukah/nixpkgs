@@ -8,8 +8,7 @@
   gnumake,
   gnused,
   gnugrep,
-}:
-let
+}: let
   pname = "gnutar";
   # >= 1.13 is incompatible with mes-libc
   version = "1.12";
@@ -19,7 +18,7 @@ let
     sha256 = "02m6gajm647n8l9a5bnld6fnbgdpyi4i3i83p7xcwv0kif47xhy6";
   };
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -30,9 +29,8 @@ bash.runCommand "${pname}-${version}"
       gnugrep
     ];
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/tar --version
         mkdir $out
       '';
@@ -41,7 +39,7 @@ bash.runCommand "${pname}-${version}"
       description = "GNU implementation of the `tar' archiver";
       homepage = "https://www.gnu.org/software/tar";
       license = licenses.gpl3Plus;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       mainProgram = "tar";
       platforms = platforms.unix;
     };

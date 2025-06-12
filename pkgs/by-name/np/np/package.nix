@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "np";
   version = "0.11.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/leesoh/np";
     changelog = "https://github.com/leesoh/np/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "np";
   };
 }

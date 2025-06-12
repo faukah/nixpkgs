@@ -20,7 +20,6 @@
   tqdm,
   tritonclient,
 }:
-
 buildPythonPackage rec {
   pname = "clarifai";
   version = "11.0.5";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     "schema"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     clarifai-grpc
@@ -60,10 +59,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    all = [ pycocotools ];
+    all = [pycocotools];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -95,14 +94,14 @@ buildPythonPackage rec {
     "tests/workflow/test_predict.py"
   ];
 
-  pythonImportsCheck = [ "clarifai" ];
+  pythonImportsCheck = ["clarifai"];
 
   meta = with lib; {
     description = "Clarifai Python Utilities";
     homepage = "https://github.com/Clarifai/clarifai-python";
     changelog = "https://github.com/Clarifai/clarifai-python/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
     mainProgram = "clarifai";
   };
 }

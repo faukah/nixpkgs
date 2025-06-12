@@ -11,7 +11,6 @@
   pkg-config,
   wrapGAppsHook4,
 }:
-
 buildGoModule rec {
   pname = "mpris-timer";
   version = "2.1.1";
@@ -60,7 +59,7 @@ buildGoModule rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

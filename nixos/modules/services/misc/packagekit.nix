@@ -3,12 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.packagekit;
 
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkOption
     mkIf
@@ -18,7 +17,7 @@ let
     recursiveUpdate
     ;
 
-  iniFmt = pkgs.formats.ini { };
+  iniFmt = pkgs.formats.ini {};
 
   confFiles = [
     (iniFmt.generate "PackageKit.conf" (
@@ -27,7 +26,8 @@ let
           DefaultBackend = "test_nop";
           KeepCache = false;
         };
-      } cfg.settings
+      }
+      cfg.settings
     ))
 
     (iniFmt.generate "Vendor.conf" (
@@ -39,12 +39,11 @@ let
           FontUrl = DefaultUrl;
           MimeUrl = DefaultUrl;
         };
-      } cfg.vendorSettings
+      }
+      cfg.vendorSettings
     ))
   ];
-
-in
-{
+in {
   imports = [
     (mkRemovedOptionModule [
       "services"
@@ -62,27 +61,26 @@ in
 
     settings = mkOption {
       type = iniFmt.type;
-      default = { };
+      default = {};
       description = "Additional settings passed straight through to PackageKit.conf";
     };
 
     vendorSettings = mkOption {
       type = iniFmt.type;
-      default = { };
+      default = {};
       description = "Additional settings passed straight through to Vendor.conf";
     };
   };
 
   config = mkIf cfg.enable {
+    services.dbus.packages = with pkgs; [packagekit];
 
-    services.dbus.packages = with pkgs; [ packagekit ];
+    environment.systemPackages = with pkgs; [packagekit];
 
-    environment.systemPackages = with pkgs; [ packagekit ];
-
-    systemd.packages = with pkgs; [ packagekit ];
+    systemd.packages = with pkgs; [packagekit];
 
     environment.etc = listToAttrs (
-      map (e: lib.nameValuePair "PackageKit/${e.name}" { source = e; }) confFiles
+      map (e: lib.nameValuePair "PackageKit/${e.name}" {source = e;}) confFiles
     );
   };
 }

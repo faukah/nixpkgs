@@ -8,7 +8,6 @@
   inetutils,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "msfpc";
   version = "1.4.5";
@@ -35,13 +34,13 @@ stdenv.mkDerivation rec {
   postFixup = ''
     wrapProgram $out/bin/msfpc \
       --prefix PATH : "${
-        lib.makeBinPath [
-          metasploit
-          curl
-          inetutils
-          openssl
-        ]
-      }"
+      lib.makeBinPath [
+        metasploit
+        curl
+        inetutils
+        openssl
+      ]
+    }"
   '';
 
   meta = with lib; {
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     mainProgram = "msfpc";
     homepage = "https://github.com/g0tmi1k/msfpc";
     license = licenses.mit;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.unix;
   };
 }

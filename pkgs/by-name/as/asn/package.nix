@@ -13,7 +13,6 @@
   nmap,
   aha,
 }:
-
 stdenv.mkDerivation rec {
   pname = "asn";
   version = "0.78.3";
@@ -34,18 +33,18 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/asn \
       --prefix PATH : "${
-        lib.makeBinPath [
-          curl
-          whois
-          bind
-          mtr
-          jq
-          ipcalc
-          grepcidr
-          nmap
-          aha
-        ]
-      }"
+      lib.makeBinPath [
+        curl
+        whois
+        bind
+        mtr
+        jq
+        ipcalc
+        grepcidr
+        nmap
+        aha
+      ]
+    }"
   '';
 
   meta = {
@@ -57,8 +56,8 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/nitefood/asn";
     changelog = "https://github.com/nitefood/asn/releases/tag/v${version}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ devhell ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [devhell];
     mainProgram = "asn";
   };
 }

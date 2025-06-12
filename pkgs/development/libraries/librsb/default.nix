@@ -19,7 +19,6 @@
   doxygen,
   octave,
 }:
-
 stdenv.mkDerivation rec {
   pname = "librsb";
   version = "1.3.0.2";
@@ -94,8 +93,8 @@ stdenv.mkDerivation rec {
       Contains libraries and header files for developing applications that
       want to make use of librsb.
     '';
-    license = with lib.licenses; [ lgpl3Plus ];
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    license = with lib.licenses; [lgpl3Plus];
+    maintainers = with lib.maintainers; [KarlJoad];
     platforms = lib.platforms.all;
     # linking errors such as 'undefined reference to `gzungetc'
     broken = true;

@@ -6,7 +6,6 @@
   gradio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "groovy";
   version = "0.1.2";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  pythonImportsCheck = [ "groovy" ];
+  pythonImportsCheck = ["groovy"];
 
   nativeCheckInputs = [
     gradio
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Small Python library created to help developers protect their applications from Server Side Request Forgery (SSRF) attacks";
     homepage = "https://pypi.org/project/groovy";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

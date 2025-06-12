@@ -10,11 +10,10 @@
   usePython ? false,
   python ? null,
   swig,
-  extraPackages ? [ ],
+  extraPackages ? [],
   buildPackages,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "soapysdr";
   # Don't forget to change passthru.abiVersion
@@ -45,11 +44,11 @@ stdenv.mkDerivation (finalAttrs: {
       swig
     ];
 
-  propagatedBuildInputs = lib.optionals usePython [ python.pkgs.numpy ];
+  propagatedBuildInputs = lib.optionals usePython [python.pkgs.numpy];
 
-  cmakeFlags = lib.optionals usePython [ "-DUSE_PYTHON_CONFIG=ON" ];
+  cmakeFlags = lib.optionals usePython ["-DUSE_PYTHON_CONFIG=ON"];
 
-  postFixup = lib.optionalString (extraPackages != [ ]) (
+  postFixup = lib.optionalString (extraPackages != []) (
     # Join all plugins via symlinking
     lib.pipe extraPackages [
       (map (pkg: ''
@@ -81,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
       numinit
     ];
     mainProgram = "SoapySDRUtil";
-    pkgConfigModules = [ "SoapySDR" ];
+    pkgConfigModules = ["SoapySDR"];
     platforms = platforms.unix;
   };
 })

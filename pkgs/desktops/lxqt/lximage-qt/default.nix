@@ -18,7 +18,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lximage-qt";
   version = "2.2.0";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     qtwayland
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lximage-qt";
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
     mainProgram = "lximage-qt";
     license = licenses.gpl2Plus;
     platforms = with platforms; unix;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.sslmate-agent;
-
-in
-{
-  meta.maintainers = [ ];
+in {
+  meta.maintainers = [];
 
   options = {
     services.sslmate-agent = {
@@ -18,12 +15,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ sslmate-agent ];
+    environment.systemPackages = with pkgs; [sslmate-agent];
 
     systemd = {
-      packages = [ pkgs.sslmate-agent ];
+      packages = [pkgs.sslmate-agent];
       services.sslmate-agent = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           ConfigurationDirectory = "sslmate-agent";
           LogsDirectory = "sslmate-agent";

@@ -4,7 +4,6 @@
   fetchpatch,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stargate-libcds";
   version = "1.0.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "C data structure library";
     homepage = "https://github.com/stargateaudio/libcds";
-    maintainers = with maintainers; [ yuu ];
+    maintainers = with maintainers; [yuu];
     license = licenses.lgpl3Only;
   };
 }

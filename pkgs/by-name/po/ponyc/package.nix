@@ -21,8 +21,7 @@
   cctools,
   procps,
 }:
-
-stdenv.mkDerivation (rec {
+stdenv.mkDerivation rec {
   pname = "ponyc";
   version = "0.59.0";
 
@@ -118,10 +117,12 @@ stdenv.mkDerivation (rec {
       make configure "''${extraFlags[@]}"
     '';
 
-  makeFlags = [
-    "PONYC_VERSION=${version}"
-    "prefix=${placeholder "out"}"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin ([ "bits=64" ] ++ lib.optional (!lto) "lto=no");
+  makeFlags =
+    [
+      "PONYC_VERSION=${version}"
+      "prefix=${placeholder "out"}"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin (["bits=64"] ++ lib.optional (!lto) "lto=no");
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=redundant-move"
@@ -130,7 +131,7 @@ stdenv.mkDerivation (rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [ procps ];
+  nativeCheckInputs = [procps];
 
   installPhase =
     ''
@@ -148,12 +149,12 @@ stdenv.mkDerivation (rec {
         --prefix PATH ":" "${stdenv.cc}/bin" \
         --set-default CC "$CC" \
         --prefix PONYPATH : "${
-          lib.makeLibraryPath [
-            pcre2
-            openssl
-            (placeholder "out")
-          ]
-        }"
+        lib.makeLibraryPath [
+          pcre2
+          openssl
+          (placeholder "out")
+        ]
+      }"
     '';
 
   # Stripping breaks linking for ponyc
@@ -178,4 +179,4 @@ stdenv.mkDerivation (rec {
       "aarch64-darwin"
     ];
   };
-})
+}

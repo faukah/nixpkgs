@@ -4,25 +4,18 @@
   config,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.documize;
 
-  mkParams =
-    optional:
+  mkParams = optional:
     concatMapStrings (
-      name:
-      let
+      name: let
         predicate = optional -> cfg.${name} != null;
         template = " -${name} '${toString cfg.${name}}'";
       in
-      optionalString predicate template
+        optionalString predicate template
     );
-
-in
-{
+in {
   options.services.documize = {
     enable = mkEnableOption "Documize Wiki";
 
@@ -35,7 +28,7 @@ in
       '';
     };
 
-    package = mkPackageOption pkgs "documize-community" { };
+    package = mkPackageOption pkgs "documize-community" {};
 
     salt = mkOption {
       type = types.nullOr types.str;
@@ -84,7 +77,10 @@ in
       description = ''
         Set `true` for offline mode.
       '';
-      apply = v: if true == v then 1 else 0;
+      apply = v:
+        if true == v
+        then 1
+        else 0;
     };
 
     dbtype = mkOption {
@@ -129,8 +125,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.documize-server = {
       description = "Documize Wiki";
-      documentation = [ "https://documize.com/" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["https://documize.com/"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = concatStringsSep " " [

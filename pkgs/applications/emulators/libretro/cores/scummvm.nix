@@ -6,8 +6,7 @@
   which,
   zip,
   mkLibretroCore,
-}:
-let
+}: let
   # https://github.com/libretro/scummvm/blob/master/backends/platform/libretro/dependencies.mk#L8-L14
   libretro-common-src = fetchFromGitHub {
     owner = "libretro";
@@ -23,41 +22,41 @@ let
     hash = "sha256-tdGytbSNMCfMuXIAUunOSVw9qFq2rRaruELhZwEmhWE=";
   };
 in
-mkLibretroCore {
-  core = "scummvm";
-  version = "0-unstable-2025-06-03";
+  mkLibretroCore {
+    core = "scummvm";
+    version = "0-unstable-2025-06-03";
 
-  src = fetchFromGitHub {
-    owner = "libretro";
-    repo = "scummvm";
-    rev = "55fcf4050ac1102638cd7975677f81ae1a2c2070";
-    hash = "sha256-GJqh34l7qC59l5zFnGGBeVIvyUCB9AfHKioqtCmjN2s=";
-  };
+    src = fetchFromGitHub {
+      owner = "libretro";
+      repo = "scummvm";
+      rev = "55fcf4050ac1102638cd7975677f81ae1a2c2070";
+      hash = "sha256-GJqh34l7qC59l5zFnGGBeVIvyUCB9AfHKioqtCmjN2s=";
+    };
 
-  extraBuildInputs = [
-    libGL
-    libGLU
-    zip
-  ];
+    extraBuildInputs = [
+      libGL
+      libGLU
+      zip
+    ];
 
-  extraNativeBuildInputs = [ which ];
+    extraNativeBuildInputs = [which];
 
-  preConfigure = "cd backends/platform/libretro";
+    preConfigure = "cd backends/platform/libretro";
 
-  preBuild = ''
-    mkdir -p deps/libretro-{common,deps}
-    cp -a ${libretro-common-src}/* deps/libretro-common
-    cp -a ${libretro-deps-src}/* deps/libretro-deps
-    chmod -R u+w deps/
+    preBuild = ''
+      mkdir -p deps/libretro-{common,deps}
+      cp -a ${libretro-common-src}/* deps/libretro-common
+      cp -a ${libretro-deps-src}/* deps/libretro-deps
+      chmod -R u+w deps/
 
-    patchShebangs ./scripts/*
-  '';
+      patchShebangs ./scripts/*
+    '';
 
-  makefile = "Makefile";
+    makefile = "Makefile";
 
-  meta = {
-    description = "Libretro port of ScummVM";
-    homepage = "https://github.com/libretro/scummvm";
-    license = lib.licenses.gpl2Only;
-  };
-}
+    meta = {
+      description = "Libretro port of ScummVM";
+      homepage = "https://github.com/libretro/scummvm";
+      license = lib.licenses.gpl2Only;
+    };
+  }

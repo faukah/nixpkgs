@@ -28,11 +28,11 @@ stdenv.mkDerivation {
     echo "'${mono}/bin/mono' '$out/bin/wavefunctioncollapse.exe' \"\$@\"" >>  "$out/bin/wavefunctioncollapse"
     chmod a+x "$out/bin/wavefunctioncollapse"
   '';
-  buildInputs = [ mono ];
+  buildInputs = [mono];
   meta = {
     description = "Generator of bitmaps that are locally similar to the input bitmap";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
   };
 }

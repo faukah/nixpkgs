@@ -4,16 +4,13 @@
   fetchFromGitHub,
   cmake,
   pkg-config,
-
   callPackage,
-
   # for passthru.tests
   imagemagick,
   libheif,
   imlib2Full,
   gst_all_1,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "1.0.15";
   pname = "libde265";
@@ -47,6 +44,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "dec265";
     license = lib.licenses.lgpl3;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 })

@@ -14,7 +14,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "gg";
   version = "0.27.0";
@@ -49,7 +48,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       webkitgtk_4_1
     ];
@@ -63,17 +62,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   # The generated Darwin bundle cannot be tested in the same way as a standalone Linux executable
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "GUI for the version control system Jujutsu";
     homepage = "https://github.com/gulbanana/gg";
     changelog = "https://github.com/gulbanana/gg/blob/v${finalAttrs.version}/CHANGELOG.md";
-    license = with lib.licenses; [ asl20 ];
+    license = with lib.licenses; [asl20];
     inherit (cargo-tauri.hook.meta) platforms;
-    maintainers = with lib.maintainers; [ pluiedev ];
+    maintainers = with lib.maintainers; [pluiedev];
     mainProgram = "gg";
   };
 })

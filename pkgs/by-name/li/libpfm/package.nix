@@ -5,7 +5,6 @@
   enableShared ? !stdenv.hostPlatform.isStatic,
   windows,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "4.13.0";
   pname = "libpfm";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Don't install libpfm.so on windows as it doesn't exist
   # This target is created only if `ifeq ($(SYS),Linux)` passes
-  patches = [ ./fix-windows.patch ];
+  patches = [./fix-windows.patch];
 
   # Upstream uses "WINDOWS" instead of "Windows" which is incorrect
   # See: https://github.com/NixOS/nixpkgs/pull/252982#discussion_r1314346216
@@ -34,7 +33,10 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
-  env.CONFIG_PFMLIB_SHARED = if enableShared then "y" else "n";
+  env.CONFIG_PFMLIB_SHARED =
+    if enableShared
+    then "y"
+    else "n";
 
   buildInputs = lib.optional stdenv.hostPlatform.isWindows windows.libgnurx;
 

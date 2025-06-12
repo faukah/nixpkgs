@@ -5,7 +5,6 @@
   pytestCheckHook,
   lib,
 }:
-
 buildPythonPackage rec {
   pname = "before-after";
   version = "1.0.1";
@@ -29,14 +28,14 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "before_after" ];
+  pythonImportsCheck = ["before_after"];
 
   meta = with lib; {
     description = "sugar over the Mock library to help test race conditions";
     homepage = "https://github.com/c-oreills/before_after";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl2Only;
   };
 }

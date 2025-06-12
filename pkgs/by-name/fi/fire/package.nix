@@ -14,7 +14,6 @@
   freetype,
   alsa-lib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fire";
   version = "1.0.1-unstable-2025-03-12";
@@ -67,37 +66,42 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_CATCH2" "${catch2_3.src}")
   ];
 
-  installPhase =
-    let
-      pathMappings =
-        [
-          {
-            from = "LV2";
-            to = "${placeholder "out"}/${
-              if stdenv.hostPlatform.isDarwin then "Library/Audio/Plug-Ins/LV2" else "lib/lv2"
-            }";
-          }
-          {
-            from = "VST3";
-            to = "${placeholder "out"}/${
-              if stdenv.hostPlatform.isDarwin then "Library/Audio/Plug-Ins/VST3" else "lib/vst3"
-            }";
-          }
-          # this one's a guess, don't know where ppl have agreed to put them yet
-          {
-            from = "CLAP";
-            to = "${placeholder "out"}/${
-              if stdenv.hostPlatform.isDarwin then "Library/Audio/Plug-Ins/CLAP" else "lib/clap"
-            }";
-          }
-        ]
-        ++ lib.optionals stdenv.hostPlatform.isDarwin [
-          {
-            from = "AU";
-            to = "${placeholder "out"}/Library/Audio/Plug-Ins/Components";
-          }
-        ];
-    in
+  installPhase = let
+    pathMappings =
+      [
+        {
+          from = "LV2";
+          to = "${placeholder "out"}/${
+            if stdenv.hostPlatform.isDarwin
+            then "Library/Audio/Plug-Ins/LV2"
+            else "lib/lv2"
+          }";
+        }
+        {
+          from = "VST3";
+          to = "${placeholder "out"}/${
+            if stdenv.hostPlatform.isDarwin
+            then "Library/Audio/Plug-Ins/VST3"
+            else "lib/vst3"
+          }";
+        }
+        # this one's a guess, don't know where ppl have agreed to put them yet
+        {
+          from = "CLAP";
+          to = "${placeholder "out"}/${
+            if stdenv.hostPlatform.isDarwin
+            then "Library/Audio/Plug-Ins/CLAP"
+            else "lib/clap"
+          }";
+        }
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        {
+          from = "AU";
+          to = "${placeholder "out"}/Library/Audio/Plug-Ins/Components";
+        }
+      ];
+  in
     ''
       runHook preInstall
 
@@ -106,7 +110,8 @@ stdenv.mkDerivation (finalAttrs: {
       mkdir -p ${entry.to}
       # Exact path of the build artefact depends on used CMAKE_BUILD_TYPE
       cp -r Fire_artefacts/*/${entry.from}/* ${entry.to}/
-    '') pathMappings
+    '')
+    pathMappings
     + ''
 
       runHook postInstall
@@ -114,13 +119,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
-  passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
+  passthru.updateScript = unstableGitUpdater {tagPrefix = "v";};
 
   meta = {
     description = "Multi-band distortion plugin by Wings";
     homepage = "https://github.com/jerryuhoo/Fire";
     license = lib.licenses.agpl3Only; # Not clarified if Only or Plus
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
   };
 })

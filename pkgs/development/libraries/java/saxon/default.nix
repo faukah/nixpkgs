@@ -10,31 +10,32 @@
   makeWrapper,
   common-updater-scripts,
   gnused,
-}:
-
-let
+}: let
   inherit (lib.versions) major majorMinor splitVersion;
   inherit (lib.strings) concatStringsSep versionAtLeast;
 
-  common =
-    {
-      pname,
-      version,
-      src,
-      description,
-      java ? jre,
-      prog ? null,
-      jar ? null,
-      license ? lib.licenses.mpl20,
-      updateScript ? null,
-    }:
+  common = {
+    pname,
+    version,
+    src,
+    description,
+    java ? jre,
+    prog ? null,
+    jar ? null,
+    license ? lib.licenses.mpl20,
+    updateScript ? null,
+  }:
     stdenvNoCC.mkDerivation (
-      finalAttrs:
-      let
-        mainProgram = if prog == null then pname else prog;
-        jar' = if jar == null then pname else jar;
-      in
-      {
+      finalAttrs: let
+        mainProgram =
+          if prog == null
+          then pname
+          else prog;
+        jar' =
+          if jar == null
+          then pname
+          else jar;
+      in {
         inherit pname version src;
 
         nativeBuildInputs = [
@@ -74,12 +75,11 @@ let
         meta = with lib; {
           inherit description license mainProgram;
           homepage =
-            if versionAtLeast finalAttrs.version "11" then
-              "https://www.saxonica.com/products/latest.xml"
-            else
-              "https://www.saxonica.com/products/archive.xml";
-          sourceProvenance = with sourceTypes; [ binaryBytecode ];
-          maintainers = with maintainers; [ rvl ];
+            if versionAtLeast finalAttrs.version "11"
+            then "https://www.saxonica.com/products/latest.xml"
+            else "https://www.saxonica.com/products/archive.xml";
+          sourceProvenance = with sourceTypes; [binaryBytecode];
+          maintainers = with maintainers; [rvl];
           platforms = platforms.all;
         };
       }
@@ -94,8 +94,7 @@ let
   # Older releases were uploaded to SourceForge. They are also
   # available from the Saxon-Archive GitHub repository.
   github = {
-    updateScript =
-      version:
+    updateScript = version:
       genericUpdater {
         versionLister = writeShellScript "saxon-he-versionLister" ''
           export PATH="${
@@ -112,17 +111,12 @@ let
         '';
       };
 
-    downloadUrl =
-      version:
-      let
-        tag = "SaxonHE${dashify version}";
-        filename = "${major version}/Java/${tag}J.zip";
-      in
-      "https://raw.githubusercontent.com/Saxonica/Saxon-HE/${tag}/${filename}";
+    downloadUrl = version: let
+      tag = "SaxonHE${dashify version}";
+      filename = "${major version}/Java/${tag}J.zip";
+    in "https://raw.githubusercontent.com/Saxonica/Saxon-HE/${tag}/${filename}";
   };
-
-in
-{
+in {
   saxon = common rec {
     pname = "saxon";
     version = "6.5.3";

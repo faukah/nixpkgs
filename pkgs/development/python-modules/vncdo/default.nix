@@ -11,7 +11,6 @@
   setuptools,
   twisted,
 }:
-
 buildPythonPackage rec {
   pname = "vncdo";
   version = "1.2.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-QrD6z/g85FwaZCJ1PRn8CBKCOQcbVjQ9g0NpPIxguqk=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     pillow
@@ -40,14 +39,14 @@ buildPythonPackage rec {
     pyvirtualdisplay
   ];
 
-  pythonImportsCheck = [ "vncdotool" ];
+  pythonImportsCheck = ["vncdotool"];
 
   meta = with lib; {
     description = "Command line VNC client and Python library";
     homepage = "https://github.com/sibson/vncdotool";
     changelog = "https://github.com/sibson/vncdotool/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ elitak ];
+    maintainers = with maintainers; [elitak];
     mainProgram = "vncdo";
     platforms = with platforms; linux ++ darwin;
   };

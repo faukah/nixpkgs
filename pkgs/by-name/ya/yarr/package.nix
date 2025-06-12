@@ -7,7 +7,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "yarr";
   version = "2.5";
@@ -34,11 +33,11 @@ buildGoModule rec {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = lib.optionalAttrs stdenv.hostPlatform.isLinux nixosTests.yarr;
   };
 

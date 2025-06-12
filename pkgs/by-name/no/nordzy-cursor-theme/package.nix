@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "nordzy-cursor-theme";
   version = "2.4.0";

@@ -15,7 +15,6 @@
   wrapGAppsHook4,
   upscayl-ncnn,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "upscaler";
   version = "1.5.2";
@@ -30,7 +29,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-QpKeu4k31BKcpPFLvb4iuFMdE3IwQARCDXTqWhWhBM0=";
   };
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   postPatch = ''
     substituteInPlace upscaler/window.py \
@@ -75,7 +74,7 @@ python3Packages.buildPythonApplication rec {
 
   dontWrapGApps = true;
 
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
   meta = {
     description = "Upscale and enhance images";

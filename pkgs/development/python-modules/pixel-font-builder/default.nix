@@ -12,7 +12,6 @@
   pcffont,
   pypng,
 }:
-
 buildPythonPackage rec {
   pname = "pixel-font-builder";
   version = "0.0.34";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-+t1N2GlIyPr7OHppP3h0TDQNYhrQCrBHc8fGyYq2AiM=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     fonttools
@@ -36,11 +35,11 @@ buildPythonPackage rec {
     pypng
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pixel_font_builder" ];
+  pythonImportsCheck = ["pixel_font_builder"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/TakWolf/pixel-font-builder";

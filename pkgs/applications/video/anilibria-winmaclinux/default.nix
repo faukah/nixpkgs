@@ -12,13 +12,11 @@
   wrapQtAppsHook,
   makeDesktopItem,
   copyDesktopItems,
-
   withVLC ? true,
   libvlc,
   withMPV ? true,
   mpv-unwrapped,
 }:
-
 mkDerivation rec {
   pname = "anilibria-winmaclinux";
   version = "2.2.27";
@@ -33,9 +31,9 @@ mkDerivation rec {
   sourceRoot = "${src.name}/src";
 
   qmakeFlags =
-    [ "PREFIX=${placeholder "out"}" ]
-    ++ lib.optionals withVLC [ "CONFIG+=unixvlc" ]
-    ++ lib.optionals withMPV [ "CONFIG+=unixmpv" ];
+    ["PREFIX=${placeholder "out"}"]
+    ++ lib.optionals withVLC ["CONFIG+=unixvlc"]
+    ++ lib.optionals withMPV ["CONFIG+=unixmpv"];
 
   patches = [
     ./0001-fix-installation-paths.patch
@@ -51,13 +49,13 @@ mkDerivation rec {
     "--prefix GST_PLUGIN_PATH : ${
       (
         with gst_all_1;
-        lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
-          gst-plugins-bad
-          gst-plugins-good
-          gst-plugins-base
-          gst-libav
-          gstreamer
-        ]
+          lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
+            gst-plugins-bad
+            gst-plugins-good
+            gst-plugins-base
+            gst-libav
+            gstreamer
+          ]
       )
     }"
   ];
@@ -83,11 +81,11 @@ mkDerivation rec {
       gst-libav
       gstreamer
     ])
-    ++ lib.optionals withVLC [ libvlc ]
-    ++ lib.optionals withMPV [ mpv-unwrapped.dev ];
+    ++ lib.optionals withVLC [libvlc]
+    ++ lib.optionals withMPV [mpv-unwrapped.dev];
 
   desktopItems = [
-    (makeDesktopItem (rec {
+    (makeDesktopItem rec {
       name = "AniLibria";
       desktopName = name;
       icon = "anilibria";
@@ -98,17 +96,17 @@ mkDerivation rec {
         "AudioVideo"
         "Player"
       ];
-      keywords = [ "anime" ];
+      keywords = ["anime"];
       exec = name;
       terminal = false;
-    }))
+    })
   ];
 
   meta = with lib; {
     homepage = "https://github.com/anilibria/anilibria-winmaclinux";
     description = "AniLibria cross platform desktop client";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ _3JlOy-PYCCKUi ];
+    maintainers = with maintainers; [_3JlOy-PYCCKUi];
     inherit (qtbase.meta) platforms;
     mainProgram = "AniLibria";
   };

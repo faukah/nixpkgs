@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jacoco";
   version = "0.8.12";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     changelog = "https://www.jacoco.org/jacoco/trunk/doc/changes.html";
     license = licenses.epl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   installShellFiles,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dxa";
   version = "0.1.5";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-jkDtd4FlgfmtlaysLtaaL7KseFDkM9Gc1oQZOkWCZ5k=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   dontConfigure = true;
 
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Andre Fachat's open-source 6502 disassembler";
     mainProgram = "dxa";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = with lib.platforms; unix;
   };
 })

@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "template-entity-row";
   version = "1.4.1";
@@ -31,7 +30,7 @@ buildNpmPackage rec {
     description = "Display whatever you want in an entities card row";
     homepage = "https://github.com/thomasloven/lovelace-template-entity-row";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
     platforms = platforms.all;
   };
 }

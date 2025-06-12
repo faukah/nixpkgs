@@ -3,18 +3,14 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   bitarray,
   crc,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "airtouch5py";
   version = "0.2.11";
@@ -29,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-qJSqgdT1G26JOEjmsQv07IdWvApFvtHIdRGi9TFaKZ8=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   pythonRelaxDeps = [
     "bitarray"
@@ -41,15 +37,15 @@ buildPythonPackage rec {
     crc
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "airtouch5py" ];
+  pythonImportsCheck = ["airtouch5py"];
 
   meta = with lib; {
     changelog = "https://github.com/danzel/airtouch5py/releases/tag/${version}";
     description = "Python client for the airtouch 5";
     homepage = "https://github.com/danzel/airtouch5py";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
   };
 }

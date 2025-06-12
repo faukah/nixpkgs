@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "twtxt";
   version = "1.3.1";
@@ -16,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-CbFh1o2Ijinfb8X+h1GP3Tp+8D0D3/Czt/Uatd1B4cw=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     aiohttp
@@ -26,9 +25,9 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
-  pythonImportsCheck = [ "twtxt" ];
+  pythonImportsCheck = ["twtxt"];
 
   disabledTests = [
     # Disable test using relative date and time
@@ -40,7 +39,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/buckket/twtxt";
     changelog = "https://github.com/buckket/twtxt/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ siraben ];
+    maintainers = with lib.maintainers; [siraben];
     mainProgram = "twtxt";
   };
 }

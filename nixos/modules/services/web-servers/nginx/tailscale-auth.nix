@@ -1,7 +1,10 @@
-{ config, lib, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit
+    (lib)
     genAttrs
     maintainers
     mkAliasOptionModule
@@ -12,24 +15,27 @@ let
     ;
   cfg = config.services.nginx.tailscaleAuth;
   cfgAuth = config.services.tailscaleAuth;
-in
-{
+in {
   imports = [
-    (mkAliasOptionModule
-      [ "services" "nginx" "tailscaleAuth" "package" ]
-      [ "services" "tailscaleAuth" "package" ]
+    (
+      mkAliasOptionModule
+      ["services" "nginx" "tailscaleAuth" "package"]
+      ["services" "tailscaleAuth" "package"]
     )
-    (mkAliasOptionModule
-      [ "services" "nginx" "tailscaleAuth" "user" ]
-      [ "services" "tailscaleAuth" "user" ]
+    (
+      mkAliasOptionModule
+      ["services" "nginx" "tailscaleAuth" "user"]
+      ["services" "tailscaleAuth" "user"]
     )
-    (mkAliasOptionModule
-      [ "services" "nginx" "tailscaleAuth" "group" ]
-      [ "services" "tailscaleAuth" "group" ]
+    (
+      mkAliasOptionModule
+      ["services" "nginx" "tailscaleAuth" "group"]
+      ["services" "tailscaleAuth" "group"]
     )
-    (mkAliasOptionModule
-      [ "services" "nginx" "tailscaleAuth" "socketPath" ]
-      [ "services" "tailscaleAuth" "socketPath" ]
+    (
+      mkAliasOptionModule
+      ["services" "nginx" "tailscaleAuth" "socketPath"]
+      ["services" "tailscaleAuth" "socketPath"]
     )
   ];
 
@@ -48,7 +54,7 @@ in
 
     virtualHosts = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = ''
         A list of nginx virtual hosts to put behind tailscale.nginx-auth
       '';
@@ -59,11 +65,11 @@ in
     services.tailscaleAuth.enable = true;
     services.nginx.enable = true;
 
-    users.users.${config.services.nginx.user}.extraGroups = [ cfgAuth.group ];
+    users.users.${config.services.nginx.user}.extraGroups = [cfgAuth.group];
 
     systemd.services.tailscale-nginx-auth = {
-      after = [ "nginx.service" ];
-      wants = [ "nginx.service" ];
+      after = ["nginx.service"];
+      wants = ["nginx.service"];
     };
 
     services.nginx.virtualHosts = genAttrs cfg.virtualHosts (vhost: {
@@ -105,6 +111,5 @@ in
     });
   };
 
-  meta.maintainers = with maintainers; [ phaer ];
-
+  meta.maintainers = with maintainers; [phaer];
 }

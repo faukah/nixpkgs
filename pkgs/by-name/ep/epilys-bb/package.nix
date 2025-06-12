@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "epilys-bb";
   version = "0.4.4";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Clean, simple, and fast process viewer";
     homepage = "https://nessuent.xyz/bb.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ cafkafk ];
+    maintainers = with maintainers; [cafkafk];
     platforms = platforms.linux;
     mainProgram = "bb";
   };

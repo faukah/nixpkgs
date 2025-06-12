@@ -5,7 +5,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 picom.overrideAttrs (previousAttrs: {
   pname = "picom-pijulius";
   version = "8.2-unstable-2025-03-01";
@@ -27,7 +26,8 @@ picom.overrideAttrs (previousAttrs: {
   };
 
   meta = {
-    inherit (previousAttrs.meta)
+    inherit
+      (previousAttrs.meta)
       license
       longDescription
       mainProgram

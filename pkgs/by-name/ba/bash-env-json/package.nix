@@ -7,7 +7,6 @@
   jq,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "bash-env-json";
   version = "0.10.1";
@@ -36,14 +35,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     substituteInPlace $out/bin/bash-env-json --replace-fail " touch " " ${lib.getExe' coreutils "touch"} "
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Export Bash environment as JSON for import into modern shells like Elvish and Nushell";
     homepage = "https://github.com/tesujimath/bash-env-json";
     mainProgram = "bash-env-json";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jaredmontoya ];
+    maintainers = with lib.maintainers; [jaredmontoya];
     platforms = lib.platforms.all;
   };
 })

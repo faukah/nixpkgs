@@ -11,7 +11,6 @@
   wheel,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "vulkan";
   version = "1.3.275.1";

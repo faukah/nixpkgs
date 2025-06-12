@@ -12,7 +12,6 @@
   xcbutilkeysyms,
   xcbutilwm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "spectrwm";
   version = "3.6.0";
@@ -20,11 +19,11 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "conformal";
     repo = "spectrwm";
-    tag = "SPECTRWM_${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+    tag = "SPECTRWM_${lib.replaceStrings ["."] ["_"] finalAttrs.version}";
     hash = "sha256-Dnn/iIrceiAVuMR8iMGcc7LqNhWC496eT5gNrYOInRU=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libXrandr
     libXcursor
@@ -36,9 +35,15 @@ stdenv.mkDerivation (finalAttrs: {
     libbsd
   ];
 
-  sourceRoot = finalAttrs.src.name + (if stdenv.hostPlatform.isDarwin then "/osx" else "/linux");
+  sourceRoot =
+    finalAttrs.src.name
+    + (
+      if stdenv.hostPlatform.isDarwin
+      then "/osx"
+      else "/linux"
+    );
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = {
     description = "Tiling window manager";
@@ -58,5 +63,4 @@ stdenv.mkDerivation (finalAttrs: {
       strives to be small, compact and fast.
     '';
   };
-
 })

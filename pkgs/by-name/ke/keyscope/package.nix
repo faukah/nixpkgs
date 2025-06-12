@@ -6,7 +6,6 @@
   pkg-config,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "keyscope";
   version = "1.4.0";
@@ -21,9 +20,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-f4r0zZTkVDfycrGqRCaBQrncpAm0NP6XYkj3w7fzQeY=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   # build script tries to get information from git
   postPatch = ''
@@ -35,14 +34,14 @@ rustPlatform.buildRustPackage rec {
   # Test require network access
   doCheck = false;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Key and secret workflow (validation, invalidation, etc.) tool";
     homepage = "https://github.com/spectralops/keyscope";
     changelog = "https://github.com/spectralops/keyscope/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "keyscope";
   };
 }

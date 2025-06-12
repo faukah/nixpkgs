@@ -1,9 +1,10 @@
-{ config, lib, ... }:
-
-let
-  cfg = config.services.userdbd;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.services.userdbd;
+in {
   options.services.userdbd.enable = lib.mkEnableOption ''
     the systemd JSON user/group record lookup service
   '';
@@ -13,6 +14,6 @@ in
       "systemd-userdbd.service"
     ];
 
-    systemd.sockets.systemd-userdbd.wantedBy = [ "sockets.target" ];
+    systemd.sockets.systemd-userdbd.wantedBy = ["sockets.target"];
   };
 }

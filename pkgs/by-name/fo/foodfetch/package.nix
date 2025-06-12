@@ -20,14 +20,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ZPV6sDQHV+G0HxRAVlcilh4tCCQspTnxnH1aHxVP8tI=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/noahfraiture/foodfetch/releases/tag/v${finalAttrs.version}";
@@ -35,6 +35,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/noahfraiture/foodfetch";
     license = lib.licenses.mit;
     mainProgram = "foodfetch";
-    maintainers = with lib.maintainers; [ noahfraiture ];
+    maintainers = with lib.maintainers; [noahfraiture];
   };
 })

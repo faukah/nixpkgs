@@ -13,8 +13,7 @@
   config,
   genassym,
   defaultMakeFlags,
-}:
-{
+}: {
   path = "sys";
 
   # Make the build ignore linker warnings
@@ -38,12 +37,12 @@
         --replace "-nocombreloc" "-z nocombreloc"
     ''
     +
-      # multiple header dirs, see above
-      include.postPatch;
+    # multiple header dirs, see above
+    include.postPatch;
 
   CONFIG = "GENERIC";
 
-  propagatedBuildInputs = [ include ];
+  propagatedBuildInputs = [include];
   nativeBuildInputs = [
     bsdSetupHook
     netbsdSetupHook
@@ -66,8 +65,8 @@
     # multiple header dirs, see above
     + include.postConfigure;
 
-  makeFlags = defaultMakeFlags ++ [ "FIRMWAREDIR=$(out)/libdata/firmware" ];
-  hardeningDisable = [ "pic" ];
+  makeFlags = defaultMakeFlags ++ ["FIRMWAREDIR=$(out)/libdata/firmware"];
+  hardeningDisable = ["pic"];
   MKKMOD = "no";
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=array-parameter"
@@ -84,5 +83,5 @@
   '';
 
   meta.platforms = lib.platforms.netbsd;
-  extraPaths = [ "common" ];
+  extraPaths = ["common"];
 }

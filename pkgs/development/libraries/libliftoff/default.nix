@@ -2,14 +2,12 @@
   callPackage,
   fetchFromGitLab,
   fetchpatch,
-}:
-let
-  mkVariant =
-    {
-      version,
-      hash,
-      patches ? [ ],
-    }:
+}: let
+  mkVariant = {
+    version,
+    hash,
+    patches ? [],
+  }:
     callPackage ./generic.nix {
       inherit version patches;
       src = fetchFromGitLab {
@@ -20,8 +18,7 @@ let
         inherit hash;
       };
     };
-in
-{
+in {
   libliftoff_0_4 = mkVariant {
     version = "0.4.1";
     hash = "sha256-NPwhsd6IOQ0XxNQQNdaaM4kmwoLftokV86WYhoa5csY=";

@@ -55,10 +55,8 @@
   libpng,
   libjpeg,
 }:
-
 # TODO
 # 1. detach sbsms
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "audacity";
   version = "3.7.4";
@@ -183,7 +181,7 @@ stdenv.mkDerivation (finalAttrs: {
     lib.optionalString stdenv.hostPlatform.isLinux ''
       wrapProgram "$out/bin/audacity" \
         "''${gappsWrapperArgs[@]}" \
-        --prefix LD_LIBRARY_PATH : "$out/lib/audacity":${lib.makeLibraryPath [ ffmpeg ]} \
+        --prefix LD_LIBRARY_PATH : "$out/lib/audacity":${lib.makeLibraryPath [ffmpeg]} \
         --suffix AUDACITY_MODULES_PATH : "$out/lib/audacity/modules" \
         --suffix AUDACITY_PATH : "$out/share/audacity" \
         --set-default GDK_BACKEND x11

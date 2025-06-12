@@ -9,7 +9,6 @@
   lua5_3,
   pcre2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tym";
   version = "3.5.2";

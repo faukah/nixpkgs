@@ -6,7 +6,6 @@
   stdenvNoCC,
   writableTmpDirAsHomeHook,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "goto";
   version = "2.1.0-unstable-2020-11-15";
@@ -21,7 +20,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  buildInputs = [ gawk ];
+  buildInputs = [gawk];
 
   postInstall = ''
     install -Dm644 goto.sh -t $out/share/
@@ -29,29 +28,29 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru.tests.basic-usage =
     runCommand "goto-basic-usage"
-      {
-        nativeBuildInputs = [ writableTmpDirAsHomeHook ];
-      }
-      ''
-        # Mock `complete` since the builder `pkgs.bash` is not interactive.
-        complete() { return; }
+    {
+      nativeBuildInputs = [writableTmpDirAsHomeHook];
+    }
+    ''
+      # Mock `complete` since the builder `pkgs.bash` is not interactive.
+      complete() { return; }
 
-        source ${finalAttrs.finalPackage}/share/goto.sh
+      source ${finalAttrs.finalPackage}/share/goto.sh
 
-        goto --register pwd .
-        cd /
-        goto pwd
-        goto --unregister pwd
-        goto --list
+      goto --register pwd .
+      cd /
+      goto pwd
+      goto --unregister pwd
+      goto --list
 
-        touch $out
-      '';
+      touch $out
+    '';
 
   meta = {
     description = "Alias and navigate to directories with tab completion";
     homepage = "https://github.com/iridakos/goto";
     changelog = "https://github.com/iridakos/goto/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.bmrips ];
+    maintainers = [lib.maintainers.bmrips];
   };
 })

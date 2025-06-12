@@ -11,7 +11,6 @@
   libXpm,
   libXxf86vm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xbrightness";
   version = "0.3-mika-akk";

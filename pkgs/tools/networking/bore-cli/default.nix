@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bore-cli";
   version = "0.6.0";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     description = "Rust tool to create TCP tunnels";
     homepage = "https://github.com/ekzhang/bore";
     license = licenses.mit;
-    maintainers = with maintainers; [ DieracDelta ];
+    maintainers = with maintainers; [DieracDelta];
     mainProgram = "bore";
   };
 }

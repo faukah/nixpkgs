@@ -5,7 +5,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spice-protocol";
   version = "0.14.5";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "Protocol headers for the SPICE protocol";
     homepage = "https://www.spice-space.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bluescreen303 ];
+    maintainers = with maintainers; [bluescreen303];
     platforms = platforms.all;
   };
 }

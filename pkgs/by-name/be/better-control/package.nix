@@ -16,7 +16,6 @@
   upower,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "better-control";
   version = "6.12.1";
@@ -66,7 +65,7 @@ python3Packages.buildPythonApplication rec {
     pycairo
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   dontWrapGApps = true;
 
@@ -91,13 +90,13 @@ python3Packages.buildPythonApplication rec {
     wrapPythonProgramsIn "$out/share/better-control" "$out $pythonPath"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple control panel for linux based on GTK";
     homepage = "https://github.com/better-ecosystem/better-control";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ Rishabh5321 ];
+    maintainers = with lib.maintainers; [Rishabh5321];
     platforms = lib.platforms.linux;
     mainProgram = "control"; # Users use both "control" and "better-control" to launch
   };

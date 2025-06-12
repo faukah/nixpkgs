@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "monocypher";
   version = "4.0.2";
@@ -13,7 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ONBxeXOMDJBnfbo863p7hJa8/qdYuhpT6AP+0wrgh5w=";
   };
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   doCheck = true;
 
@@ -25,6 +24,6 @@ stdenv.mkDerivation rec {
       cc0
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

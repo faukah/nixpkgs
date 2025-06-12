@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "interactsh";
   version = "1.2.4";
@@ -36,6 +35,6 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/interactsh";
     changelog = "https://github.com/projectdiscovery/interactsh/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hanemile ];
+    maintainers = with lib.maintainers; [hanemile];
   };
 }

@@ -4,7 +4,6 @@
   buildDunePackage,
   lwt,
 }:
-
 buildDunePackage rec {
   pname = "lwt-watcher";
   version = "0.2";
@@ -26,6 +25,6 @@ buildDunePackage rec {
   meta = {
     description = "One-to-many broadcast in Lwt";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

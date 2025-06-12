@@ -25,17 +25,15 @@ buildGoModule (finalAttrs: {
     "-X main.arch=${stdenv.hostPlatform.system}"
   ];
 
-  checkFlags =
-    let
-      # Skip tests that require network access
-      skippedTests = [
-        "TestLookupIP"
-        "TestGeoIPApi"
-        "TestFetchGeoIP"
-        "TestCloudflareDetection"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    # Skip tests that require network access
+    skippedTests = [
+      "TestLookupIP"
+      "TestGeoIPApi"
+      "TestFetchGeoIP"
+      "TestCloudflareDetection"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   postInstall = ''
     pushd $out/bin
@@ -55,14 +53,14 @@ buildGoModule (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Agent of Nezha Monitoring";
     homepage = "https://github.com/nezhahq/agent";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "nezha-agent";
   };
 })

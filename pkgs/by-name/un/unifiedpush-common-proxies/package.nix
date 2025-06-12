@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "unifiedpush-common-proxies";
   version = "2.0.1";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Set of rewrite proxies and gateways for UnifiedPush";
     homepage = "https://github.com/UnifiedPush/common-proxies";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "up_rewrite";
   };
 }

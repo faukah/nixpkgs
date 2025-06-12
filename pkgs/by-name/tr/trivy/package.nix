@@ -8,7 +8,6 @@
   testers,
   trivy,
 }:
-
 buildGo124Module rec {
   pname = "trivy";
   version = "0.63.0";
@@ -25,7 +24,7 @@ buildGo124Module rec {
 
   vendorHash = "sha256-lp5rajoeGR+nLO8EOLPdRLz0r19nGq2YNSjba8Zpq9E=";
 
-  subPackages = [ "cmd/trivy" ];
+  subPackages = ["cmd/trivy"];
 
   ldflags = [
     "-s"
@@ -33,25 +32,22 @@ buildGo124Module rec {
     "-X=github.com/aquasecurity/trivy/pkg/version/app.ver=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # Tests require network access
   doCheck = false;
 
-  postInstall =
-    let
-      trivy =
-        if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
-          placeholder "out"
-        else
-          buildPackages.trivy;
-    in
-    ''
-      installShellCompletion --cmd trivy \
-        --bash <(${trivy}/bin/trivy completion bash) \
-        --fish <(${trivy}/bin/trivy completion fish) \
-        --zsh <(${trivy}/bin/trivy completion zsh)
-    '';
+  postInstall = let
+    trivy =
+      if stdenv.buildPlatform.canExecute stdenv.hostPlatform
+      then placeholder "out"
+      else buildPackages.trivy;
+  in ''
+    installShellCompletion --cmd trivy \
+      --bash <(${trivy}/bin/trivy completion bash) \
+      --fish <(${trivy}/bin/trivy completion fish) \
+      --zsh <(${trivy}/bin/trivy completion zsh)
+  '';
 
   doInstallCheck = true;
 

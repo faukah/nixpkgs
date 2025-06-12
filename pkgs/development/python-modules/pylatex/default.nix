@@ -10,7 +10,6 @@
   quantities,
   texlive,
 }:
-
 buildPythonPackage rec {
   pname = "pylatex";
   version = "1.4.2";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-gZKMYGMp7bzDY5+Xx9h1AFP4l0Zd936fDfSXyW5lY1k=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ ordered-set ];
+  propagatedBuildInputs = [ordered-set];
 
   pythonImportsCheck = [
     "pylatex"
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     pytestCheckHook
     matplotlib
     quantities
-    (texlive.combine { inherit (texlive) scheme-small lastpage collection-fontsrecommended; })
+    (texlive.combine {inherit (texlive) scheme-small lastpage collection-fontsrecommended;})
   ];
 
   meta = with lib; {
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/JelteF/PyLaTeX/releases";
     changelog = "https://jeltef.github.io/PyLaTeX/current/changelog.html";
     license = licenses.mit;
-    maintainers = with maintainers; [ MayNiklas ];
+    maintainers = with maintainers; [MayNiklas];
   };
 }

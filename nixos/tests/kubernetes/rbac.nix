@@ -1,10 +1,8 @@
 {
   system ? builtins.currentSystem,
-  pkgs ? import ../../.. { inherit system; },
+  pkgs ? import ../../.. {inherit system;},
 }:
-with import ./base.nix { inherit system; };
-let
-
+with import ./base.nix {inherit system;}; let
   roServiceAccount = pkgs.writeText "ro-service-account.json" (
     builtins.toJSON {
       kind = "ServiceAccount";
@@ -49,8 +47,8 @@ let
       };
       rules = [
         {
-          apiGroups = [ "" ];
-          resources = [ "pods" ];
+          apiGroups = [""];
+          resources = ["pods"];
           verbs = [
             "get"
             "list"
@@ -107,7 +105,7 @@ let
     }
   );
 
-  copyKubectl = pkgs.runCommand "copy-kubectl" { } ''
+  copyKubectl = pkgs.runCommand "copy-kubectl" {} ''
     mkdir -p $out/bin
     cp ${pkgs.kubernetes}/bin/kubectl $out/bin/kubectl
   '';
@@ -117,88 +115,90 @@ let
     tag = "latest";
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      pathsToLink = [ "/bin" ];
+      pathsToLink = ["/bin"];
       paths = [
         copyKubectl
         pkgs.busybox
         kubectlPod2
       ];
     };
-    config.Entrypoint = [ "/bin/sh" ];
+    config.Entrypoint = ["/bin/sh"];
   };
 
   base = {
     name = "rbac";
   };
 
-  singlenode = base // {
-    test = ''
-      machine1.wait_until_succeeds("kubectl get node machine1.my.zyx | grep -w Ready")
+  singlenode =
+    base
+    // {
+      test = ''
+        machine1.wait_until_succeeds("kubectl get node machine1.my.zyx | grep -w Ready")
 
-      machine1.wait_until_succeeds(
-          "${pkgs.gzip}/bin/zcat ${kubectlImage} | ${pkgs.containerd}/bin/ctr -n k8s.io image import -"
-      )
+        machine1.wait_until_succeeds(
+            "${pkgs.gzip}/bin/zcat ${kubectlImage} | ${pkgs.containerd}/bin/ctr -n k8s.io image import -"
+        )
 
-      machine1.wait_until_succeeds(
-          "kubectl apply -f ${roServiceAccount}"
-      )
-      machine1.wait_until_succeeds(
-          "kubectl apply -f ${roRole}"
-      )
-      machine1.wait_until_succeeds(
-          "kubectl apply -f ${roRoleBinding}"
-      )
-      machine1.wait_until_succeeds(
-          "kubectl create -f ${kubectlPod}"
-      )
+        machine1.wait_until_succeeds(
+            "kubectl apply -f ${roServiceAccount}"
+        )
+        machine1.wait_until_succeeds(
+            "kubectl apply -f ${roRole}"
+        )
+        machine1.wait_until_succeeds(
+            "kubectl apply -f ${roRoleBinding}"
+        )
+        machine1.wait_until_succeeds(
+            "kubectl create -f ${kubectlPod}"
+        )
 
-      machine1.wait_until_succeeds("kubectl get pod kubectl | grep Running")
+        machine1.wait_until_succeeds("kubectl get pod kubectl | grep Running")
 
-      machine1.wait_until_succeeds("kubectl exec kubectl -- kubectl get pods")
-      machine1.fail("kubectl exec kubectl -- kubectl create -f /kubectl-pod-2.json")
-      machine1.fail("kubectl exec kubectl -- kubectl delete pods -l name=kubectl")
-    '';
-  };
+        machine1.wait_until_succeeds("kubectl exec kubectl -- kubectl get pods")
+        machine1.fail("kubectl exec kubectl -- kubectl create -f /kubectl-pod-2.json")
+        machine1.fail("kubectl exec kubectl -- kubectl delete pods -l name=kubectl")
+      '';
+    };
 
-  multinode = base // {
-    test = ''
-      # Node token exchange
-      machine1.wait_until_succeeds(
-          "cp -f /var/lib/cfssl/apitoken.secret /tmp/shared/apitoken.secret"
-      )
-      machine2.wait_until_succeeds(
-          "cat /tmp/shared/apitoken.secret | nixos-kubernetes-node-join"
-      )
+  multinode =
+    base
+    // {
+      test = ''
+        # Node token exchange
+        machine1.wait_until_succeeds(
+            "cp -f /var/lib/cfssl/apitoken.secret /tmp/shared/apitoken.secret"
+        )
+        machine2.wait_until_succeeds(
+            "cat /tmp/shared/apitoken.secret | nixos-kubernetes-node-join"
+        )
 
-      machine1.wait_until_succeeds("kubectl get node machine2.my.zyx | grep -w Ready")
+        machine1.wait_until_succeeds("kubectl get node machine2.my.zyx | grep -w Ready")
 
-      machine2.wait_until_succeeds(
-          "${pkgs.gzip}/bin/zcat ${kubectlImage} | ${pkgs.containerd}/bin/ctr -n k8s.io image import -"
-      )
+        machine2.wait_until_succeeds(
+            "${pkgs.gzip}/bin/zcat ${kubectlImage} | ${pkgs.containerd}/bin/ctr -n k8s.io image import -"
+        )
 
-      machine1.wait_until_succeeds(
-          "kubectl apply -f ${roServiceAccount}"
-      )
-      machine1.wait_until_succeeds(
-          "kubectl apply -f ${roRole}"
-      )
-      machine1.wait_until_succeeds(
-          "kubectl apply -f ${roRoleBinding}"
-      )
-      machine1.wait_until_succeeds(
-          "kubectl create -f ${kubectlPod}"
-      )
+        machine1.wait_until_succeeds(
+            "kubectl apply -f ${roServiceAccount}"
+        )
+        machine1.wait_until_succeeds(
+            "kubectl apply -f ${roRole}"
+        )
+        machine1.wait_until_succeeds(
+            "kubectl apply -f ${roRoleBinding}"
+        )
+        machine1.wait_until_succeeds(
+            "kubectl create -f ${kubectlPod}"
+        )
 
-      machine1.wait_until_succeeds("kubectl get pod kubectl | grep Running")
+        machine1.wait_until_succeeds("kubectl get pod kubectl | grep Running")
 
-      machine1.wait_until_succeeds("kubectl exec kubectl -- kubectl get pods")
-      machine1.fail("kubectl exec kubectl -- kubectl create -f /kubectl-pod-2.json")
-      machine1.fail("kubectl exec kubectl -- kubectl delete pods -l name=kubectl")
-    '';
-  };
-
-in
-{
+        machine1.wait_until_succeeds("kubectl exec kubectl -- kubectl get pods")
+        machine1.fail("kubectl exec kubectl -- kubectl create -f /kubectl-pod-2.json")
+        machine1.fail("kubectl exec kubectl -- kubectl delete pods -l name=kubectl")
+      '';
+    };
+in {
   singlenode = mkKubernetesSingleNodeTest singlenode;
   multinode = mkKubernetesMultiNodeTest multinode;
 }

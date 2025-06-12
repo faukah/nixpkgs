@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "fasd";
   version = "unstable-2016-08-11";
@@ -33,7 +32,7 @@ stdenv.mkDerivation {
     '';
 
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "fasd";
   };
 }

@@ -10,7 +10,6 @@
   yara-python,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "karton-classifier";
   version = "2.1.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     "python-magic"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     chardet
@@ -39,9 +38,9 @@ buildPythonPackage rec {
     yara-python
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "karton.classifier" ];
+  pythonImportsCheck = ["karton.classifier"];
 
   disabledTests = [
     # Tests expecting results from a different version of libmagic
@@ -56,7 +55,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/CERT-Polska/karton-classifier";
     changelog = "https://github.com/CERT-Polska/karton-classifier/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "karton-classifier";
   };
 }

@@ -9,7 +9,6 @@
   sqlite,
   openssl,
 }:
-
 stdenv.mkDerivation {
   pname = "scitokens-cpp";
   version = "1.1.3";
@@ -38,6 +37,6 @@ stdenv.mkDerivation {
     description = "C++ implementation of the SciTokens library with a C library interface";
     platforms = platforms.unix;
     license = licenses.asl20;
-    maintainers = with maintainers; [ evey ];
+    maintainers = with maintainers; [evey];
   };
 }

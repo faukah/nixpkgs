@@ -7,7 +7,6 @@
   libX11,
   libXt,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xsel";
   version = "1.2.1";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.kfish.org/software/xsel";
     changelog = "https://github.com/kfish/xsel/releases/tag/${finalAttrs.version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ cafkafk ];
+    maintainers = with maintainers; [cafkafk];
     platforms = lib.platforms.unix;
     mainProgram = "xsel";
   };

@@ -5,7 +5,6 @@
   fetchurl,
   unzip,
 }:
-
 gccStdenv.mkDerivation (finalAttrs: {
   pname = "bwbasic";
   version = "3.30";
@@ -30,7 +29,7 @@ gccStdenv.mkDerivation (finalAttrs: {
     chmod +x configure
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -40,7 +39,7 @@ gccStdenv.mkDerivation (finalAttrs: {
     description = "Bywater BASIC Interpreter";
     mainProgram = "bwbasic";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ irenes ];
+    maintainers = with lib.maintainers; [irenes];
     platforms = lib.platforms.all;
     homepage = "https://sourceforge.net/projects/bwbasic/";
   };

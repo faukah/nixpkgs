@@ -8,7 +8,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-monitor-query";
   version = "1.4.1";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-cYJOK1d9Jd8NO+u7sFTAahrj68uRgxqbrAuzRNCt32g=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   dependencies = [
     azure-core

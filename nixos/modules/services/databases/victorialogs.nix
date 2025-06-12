@@ -3,9 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     escapeShellArgs
     getBin
     hasPrefix
@@ -19,16 +19,17 @@ let
     types
     ;
   cfg = config.services.victorialogs;
-  startCLIList = [
-    "${cfg.package}/bin/victoria-logs"
-    "-storageDataPath=/var/lib/${cfg.stateDir}"
-    "-httpListenAddr=${cfg.listenAddress}"
-  ] ++ cfg.extraOptions;
-in
-{
+  startCLIList =
+    [
+      "${cfg.package}/bin/victoria-logs"
+      "-storageDataPath=/var/lib/${cfg.stateDir}"
+      "-httpListenAddr=${cfg.listenAddress}"
+    ]
+    ++ cfg.extraOptions;
+in {
   options.services.victorialogs = {
     enable = mkEnableOption "VictoriaLogs is an open source user-friendly database for logs from VictoriaMetrics";
-    package = mkPackageOption pkgs "victoriametrics" { };
+    package = mkPackageOption pkgs "victoriametrics" {};
     listenAddress = mkOption {
       default = ":9428";
       type = types.str;
@@ -46,7 +47,7 @@ in
     };
     extraOptions = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [
           "-httpAuth.username=username"
@@ -63,8 +64,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.victorialogs = {
       description = "VictoriaLogs logs database";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       startLimitBurst = 5;
 
       serviceConfig = {
@@ -78,7 +79,7 @@ in
         StateDirectoryMode = "0700";
 
         # Hardening
-        DeviceAllow = [ "/dev/null rw" ];
+        DeviceAllow = ["/dev/null rw"];
         DevicePolicy = "strict";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -111,10 +112,9 @@ in
         ];
       };
 
-      postStart =
-        let
-          bindAddr = (optionalString (hasPrefix ":" cfg.listenAddress) "127.0.0.1") + cfg.listenAddress;
-        in
+      postStart = let
+        bindAddr = (optionalString (hasPrefix ":" cfg.listenAddress) "127.0.0.1") + cfg.listenAddress;
+      in
         mkBefore ''
           until ${getBin pkgs.curl}/bin/curl -s -o /dev/null http://${bindAddr}/ping; do
             sleep 1;

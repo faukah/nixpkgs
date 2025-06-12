@@ -8,7 +8,6 @@
   pkg-config,
   xz,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pwninit";
   version = "3.3.1";
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "pwninit";
     homepage = "https://github.com/io12/pwninit";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.scoder12 ];
+    maintainers = [lib.maintainers.scoder12];
     platforms = lib.platforms.all;
   };
 }

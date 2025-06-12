@@ -11,7 +11,6 @@
   anywidget,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ipyniivue";
   version = "2.1.0";
@@ -50,16 +49,16 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  dependencies = [ anywidget ];
+  dependencies = [anywidget];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "ipyniivue" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["ipyniivue"];
 
   meta = with lib; {
     description = "Show a nifti image in a webgl 2.0 canvas within a jupyter notebook cell";
     homepage = "https://github.com/niivue/ipyniivue";
     changelog = "https://github.com/niivue/ipyniivue/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

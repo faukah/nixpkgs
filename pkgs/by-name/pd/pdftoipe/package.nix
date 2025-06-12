@@ -6,7 +6,6 @@
   poppler,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pdftoipe";
   version = "7.2.29.1";
@@ -20,8 +19,8 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/pdftoipe";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ poppler ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [poppler];
 
   installPhase = ''
     install -D pdftoipe $out/bin/pdftoipe
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/otfried/ipe-tools";
     changelog = "https://github.com/otfried/ipe-tools/releases";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ yrd ];
+    maintainers = with maintainers; [yrd];
     mainProgram = "pdftoipe";
   };
 }

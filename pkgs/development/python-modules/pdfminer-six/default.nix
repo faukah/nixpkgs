@@ -9,7 +9,6 @@
   setuptools-scm,
   ocrmypdf,
 }:
-
 buildPythonPackage rec {
   pname = "pdfminer-six";
   version = "20250506";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     "pdfminer.high_level"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # The binary file samples/contrib/issue-1004-indirect-mediabox.pdf is
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     description = "PDF parser and analyzer";
     homepage = "https://github.com/pdfminer/pdfminer.six";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ psyanticy ];
+    maintainers = with lib.maintainers; [psyanticy];
   };
 }

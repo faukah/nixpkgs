@@ -16,7 +16,6 @@
   glib,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "geocode-glib";
   version = "3.26.4";
@@ -77,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Convenience library for the geocoding and reverse geocoding using Nominatim service";
     homepage = "https://gitlab.gnome.org/GNOME/geocode-glib";
     license = lib.licenses.lgpl2Plus;
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     platforms = lib.platforms.unix;
   };
 })

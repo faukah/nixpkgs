@@ -6,7 +6,6 @@
   guile,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "guile-sjson";
   version = "0.2.2";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "S-expression based json reader/writer for Guile";
     homepage = "https://gitlab.com/dustyweb/guile-sjson";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ galaxy ];
+    maintainers = with maintainers; [galaxy];
     platforms = guile.meta.platforms;
   };
 })

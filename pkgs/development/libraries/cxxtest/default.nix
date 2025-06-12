@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ply,
 }:
-
 buildPythonApplication rec {
   pname = "cxxtest";
   version = "4.4";
@@ -18,7 +17,7 @@ buildPythonApplication rec {
 
   sourceRoot = "${src.name}/python";
 
-  nativeCheckInputs = [ ply ];
+  nativeCheckInputs = [ply];
 
   preCheck = ''
     cd ../
@@ -48,6 +47,6 @@ buildPythonApplication rec {
     mainProgram = "cxxtestgen";
     license = licenses.lgpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ juliendehos ];
+    maintainers = with maintainers; [juliendehos];
   };
 }

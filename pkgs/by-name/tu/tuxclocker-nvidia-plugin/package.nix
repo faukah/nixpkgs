@@ -7,11 +7,11 @@
   openssl,
   tuxclocker-plugins,
 }:
-
 stdenv.mkDerivation {
   pname = "tuxclocker-nvidia-plugin";
 
-  inherit (tuxclocker-plugins)
+  inherit
+    (tuxclocker-plugins)
     src
     version
     meta

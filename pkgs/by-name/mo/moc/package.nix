@@ -52,7 +52,6 @@
   libsamplerate,
   withDebug ? false,
 }:
-
 stdenv.mkDerivation {
   pname = "moc";
   version = "2.6-alpha3-unstable-2019-09-14";
@@ -63,23 +62,25 @@ stdenv.mkDerivation {
     hash = "sha256-JksJxHQgQ8hPTFtLvEvZuFh2lflDNrEmDTMWWwVnjZQ=";
   };
 
-  patches = [
-    # FFmpeg 6 support
-    (fetchpatch2 {
-      url = "https://cygwin.com/cgit/cygwin-packages/moc/plain/Support-for-recent-ffmpeg-change.patch?id=ab70f1306b8416852915be4347003aac3bdc216";
-      hash = "sha256-5hLEFBJ+7Nvxn6pNj4bngcg2qJsCzxiuP6yEj+7tvs0=";
-      stripLen = 1;
-    })
+  patches =
+    [
+      # FFmpeg 6 support
+      (fetchpatch2 {
+        url = "https://cygwin.com/cgit/cygwin-packages/moc/plain/Support-for-recent-ffmpeg-change.patch?id=ab70f1306b8416852915be4347003aac3bdc216";
+        hash = "sha256-5hLEFBJ+7Nvxn6pNj4bngcg2qJsCzxiuP6yEj+7tvs0=";
+        stripLen = 1;
+      })
 
-    # FFmpeg 7 support
-    (fetchpatch2 {
-      url = "https://cygwin.com/cgit/cygwin-packages/moc/plain/ffmpeg-7.0.patch?id=ab70f1306b8416852915be4347003aac3bdc216e";
-      hash = "sha256-dYw6DNyw61MGfv+GdBz5Dtrr9fVph1tf7vxexWONwF8=";
-      stripLen = 1;
-    })
+      # FFmpeg 7 support
+      (fetchpatch2 {
+        url = "https://cygwin.com/cgit/cygwin-packages/moc/plain/ffmpeg-7.0.patch?id=ab70f1306b8416852915be4347003aac3bdc216e";
+        hash = "sha256-dYw6DNyw61MGfv+GdBz5Dtrr9fVph1tf7vxexWONwF8=";
+        stripLen = 1;
+      })
 
-    ./use-ax-check-compile-flag.patch
-  ] ++ lib.optional pulseSupport ./pulseaudio.patch;
+      ./use-ax-check-compile-flag.patch
+    ]
+    ++ lib.optional pulseSupport ./pulseaudio.patch;
 
   postPatch = ''
     rm m4/*
@@ -147,7 +148,12 @@ stdenv.mkDerivation {
     # Misc
     (lib.withFeature curlSupport "curl")
     (lib.withFeature samplerateSupport "samplerate")
-    ("--enable-debug=" + (if withDebug then "yes" else "no"))
+    ("--enable-debug="
+      + (
+        if withDebug
+        then "yes"
+        else "no"
+      ))
     "--disable-cache"
     "--without-rcc"
   ];

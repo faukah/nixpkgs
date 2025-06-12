@@ -3,15 +3,12 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build
   poetry-core,
-
   # tests
   pytestCheckHook,
   freezegun,
 }:
-
 buildPythonPackage rec {
   pname = "astral";
   version = "3.2";
@@ -24,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-m3w7QS6eadFyz7JL4Oat3MnxvQGijbi+vmbXXMxTPYg=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     freezegun
@@ -36,6 +33,6 @@ buildPythonPackage rec {
     description = "Calculations for the position of the sun and the moon";
     homepage = "https://github.com/sffjunkie/astral/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

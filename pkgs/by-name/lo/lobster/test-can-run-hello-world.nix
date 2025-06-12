@@ -1,5 +1,7 @@
-{ stdenv, lobster }:
-
+{
+  stdenv,
+  lobster,
+}:
 stdenv.mkDerivation {
   name = "lobster-test-can-run-hello-world";
   meta.timeout = 10;

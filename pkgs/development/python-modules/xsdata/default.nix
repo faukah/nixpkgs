@@ -15,7 +15,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "xsdata";
   version = "25.4";
@@ -39,9 +38,9 @@ buildPythonPackage rec {
       --replace-fail "--benchmark-skip" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ typing-extensions ];
+  dependencies = [typing-extensions];
 
   optional-dependencies = {
     cli = [
@@ -51,8 +50,8 @@ buildPythonPackage rec {
       jinja2
       toposort
     ];
-    lxml = [ lxml ];
-    soap = [ requests ];
+    lxml = [lxml];
+    soap = [requests];
   };
 
   nativeCheckInputs =
@@ -63,7 +62,7 @@ buildPythonPackage rec {
     ++ optional-dependencies.lxml
     ++ optional-dependencies.soap;
 
-  disabledTestPaths = [ "tests/integration/benchmarks" ];
+  disabledTestPaths = ["tests/integration/benchmarks"];
 
   pythonImportsCheck = [
     "xsdata.formats.dataclass.context"
@@ -86,6 +85,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tefra/xsdata";
     changelog = "https://github.com/tefra/xsdata/blob/${src.rev}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

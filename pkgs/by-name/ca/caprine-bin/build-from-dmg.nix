@@ -6,9 +6,8 @@
   pname,
   version,
   sha256,
-  metaCommon ? { },
+  metaCommon ? {},
 }:
-
 stdenvNoCC.mkDerivation {
   inherit pname version;
 
@@ -20,7 +19,7 @@ stdenvNoCC.mkDerivation {
 
   sourceRoot = "Caprine.app";
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   installPhase = ''
     mkdir -p "$out/Applications/Caprine.app"
@@ -29,7 +28,9 @@ stdenvNoCC.mkDerivation {
     ln -s "$out/Applications/Caprine.app/Contents/MacOS/Caprine" "$out/bin/caprine"
   '';
 
-  meta = metaCommon // {
-    platforms = with lib.platforms; darwin;
-  };
+  meta =
+    metaCommon
+    // {
+      platforms = with lib.platforms; darwin;
+    };
 }

@@ -11,7 +11,6 @@
   dune-site,
   ppx_expect,
 }:
-
 buildDunePackage rec {
   pname = "ocaml-protoc-plugin";
   version = "4.5.0";
@@ -37,7 +36,7 @@ buildDunePackage rec {
     protobuf
   ];
   doCheck = true;
-  nativeCheckInputs = [ protobuf ];
+  nativeCheckInputs = [protobuf];
 
   meta = {
     description = "Maps google protobuf compiler to Ocaml types";
@@ -49,6 +48,6 @@ buildDunePackage rec {
       (protoc) to generate Ocaml types and serialization
       and de-serialization function from a .proto file.
     '';
-    maintainers = [ lib.maintainers.GirardR1006 ];
+    maintainers = [lib.maintainers.GirardR1006];
   };
 }

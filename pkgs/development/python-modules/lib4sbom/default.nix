@@ -9,7 +9,6 @@
   semantic-version,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "lib4sbom";
   version = "0.8.4";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-QTYtaEo5LdDPfv8KgQ3IUJgKphQl2xyQXrcSn19IeKo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     defusedxml
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     semantic-version
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # stub tests that always fail
@@ -55,13 +54,13 @@ buildPythonPackage rec {
     "test_set_originator"
   ];
 
-  pythonImportsCheck = [ "lib4sbom" ];
+  pythonImportsCheck = ["lib4sbom"];
 
   meta = with lib; {
     description = "Library to ingest and generate SBOMs";
     homepage = "https://github.com/anthonyharrison/lib4sbom";
     changelog = "https://github.com/anthonyharrison/lib4sbom/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ teatwig ];
+    maintainers = with maintainers; [teatwig];
   };
 }

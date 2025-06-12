@@ -1,5 +1,7 @@
-{ roundcubePlugin, fetchzip }:
-
+{
+  roundcubePlugin,
+  fetchzip,
+}:
 roundcubePlugin rec {
   pname = "contextmenu";
   version = "3.3.1";

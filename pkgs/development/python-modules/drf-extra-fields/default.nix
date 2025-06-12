@@ -13,7 +13,6 @@
   setuptools,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "drf-extra-fields";
   version = "3.7.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-Ym4vnZ/t0ZdSxU53BC0ducJl1YiTygRSWql/35PNbOU";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -35,18 +34,20 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    Base64ImageField = [ pillow ];
+    Base64ImageField = [pillow];
   };
 
-  nativeCheckInputs = [
-    (django.override { withGdal = true; })
-    psycopg2
-    pytestCheckHook
-    pytest-django
-    pytz
-  ] ++ optional-dependencies.Base64ImageField;
+  nativeCheckInputs =
+    [
+      (django.override {withGdal = true;})
+      psycopg2
+      pytestCheckHook
+      pytest-django
+      pytz
+    ]
+    ++ optional-dependencies.Base64ImageField;
 
-  pythonImportsCheck = [ "drf_extra_fields" ];
+  pythonImportsCheck = ["drf_extra_fields"];
 
   disabledTests = lib.optionals (pythonAtLeast "3.13") [
     # https://github.com/Hipo/drf-extra-fields/issues/210
@@ -64,6 +65,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Hipo/drf-extra-fields";
     changelog = "https://github.com/Hipo/drf-extra-fields/releases/tag/${src.rev}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ felbinger ];
+    maintainers = with lib.maintainers; [felbinger];
   };
 }

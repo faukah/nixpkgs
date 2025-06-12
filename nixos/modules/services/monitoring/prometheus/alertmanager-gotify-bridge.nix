@@ -3,11 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.prometheus.alertmanagerGotify;
   pkg = cfg.package;
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkOption
     types
@@ -15,12 +15,11 @@ let
     mkPackageOption
     optionalString
     ;
-in
-{
-  meta.maintainers = with lib.maintainers; [ juli0604 ];
+in {
+  meta.maintainers = with lib.maintainers; [juli0604];
   options.services.prometheus.alertmanagerGotify = {
     enable = mkEnableOption "alertmagager-gotify";
-    package = mkPackageOption pkgs "alertmanager-gotify-bridge" { };
+    package = mkPackageOption pkgs "alertmanager-gotify-bridge" {};
     bindAddress = mkOption {
       type = types.str;
       default = "0.0.0.0";
@@ -125,7 +124,7 @@ in
 
   config = mkIf cfg.enable {
     users = {
-      groups.alertmanager-gotify = { };
+      groups.alertmanager-gotify = {};
       users.alertmanager-gotify = {
         group = "alertmanager-gotify";
         isSystemUser = true;
@@ -133,15 +132,15 @@ in
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
 
     systemd.services.alertmanager-gotify-bridge = {
       description = "A bridge between Prometheus AlertManager and a Gotify server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${lib.getExe pkg} ${optionalString cfg.debug "--debug"}";
-        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [cfg.environmentFile];
         User = "alertmanager-gotify";
         Group = "alertmanager-gotify";
 
@@ -171,7 +170,6 @@ in
         ProcSubset = "pid";
         SystemCallArchitectures = "native";
         RemoveIPC = true;
-
       };
       environment = {
         BIND_ADDRESS = cfg.bindAddress;
@@ -185,7 +183,9 @@ in
         TITLE_ANNOTATION = cfg.titleAnnotation;
         WEBHOOK_PATH = cfg.webhookPath;
         GOTIFY_ENDPOINT = "${
-          if cfg.gotifyEndpoint.tls then "https://" else "http://"
+          if cfg.gotifyEndpoint.tls
+          then "https://"
+          else "http://"
         }${toString cfg.gotifyEndpoint.host}:${toString cfg.gotifyEndpoint.port}/message";
         AUTH_USERNAME = cfg.metrics.username;
       };

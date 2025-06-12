@@ -9,7 +9,6 @@
   xcbutilwm,
   xcbproto,
 }:
-
 stdenv.mkDerivation rec {
   pname = "windowchef";
   version = "0.5.2";
@@ -30,12 +29,12 @@ stdenv.mkDerivation rec {
     xcbproto
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Stacking window manager that cooks windows with orders from the Waitron";
     homepage = "https://github.com/tudurom/windowchef";
-    maintainers = with maintainers; [ bhougland ];
+    maintainers = with maintainers; [bhougland];
     license = licenses.isc;
     platforms = platforms.linux;
   };

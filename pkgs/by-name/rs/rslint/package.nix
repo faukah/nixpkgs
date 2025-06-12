@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rslint";
   version = "0.3.2";
@@ -29,6 +28,6 @@ rustPlatform.buildRustPackage rec {
     description = "Fast, customizable, and easy to use JavaScript and TypeScript linter";
     homepage = "https://rslint.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

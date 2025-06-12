@@ -25,9 +25,9 @@ buildGoModule (finalAttrs: {
     "-X github.com/dagimg-dot/gitsnip/internal/cli.builtBy=nixpkgs"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "version";
   doInstallCheck = true;
 

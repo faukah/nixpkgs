@@ -14,7 +14,6 @@
   dns-tsig,
   base64,
 }:
-
 buildDunePackage {
   pname = "dns-server";
 
@@ -40,7 +39,9 @@ buildDunePackage {
     base64
   ];
 
-  meta = dns.meta // {
-    description = "DNS server, primary and secondary";
-  };
+  meta =
+    dns.meta
+    // {
+      description = "DNS server, primary and secondary";
+    };
 }

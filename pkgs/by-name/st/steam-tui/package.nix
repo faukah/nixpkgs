@@ -10,7 +10,6 @@
   withWine ? false,
   wine,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "steam-tui";
   version = "0.3.0";
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ steamcmd ] ++ lib.optional withWine wine;
+  buildInputs = [steamcmd] ++ lib.optional withWine wine;
 
   preFixup = ''
     mv $out/bin/steam-tui $out/bin/.steam-tui-unwrapped
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     chmod +x $out/bin/steam-tui
   '';
 
-  checkFlags = [ "--skip=impure" ];
+  checkFlags = ["--skip=impure"];
 
   PKG_CONFIG_PATH = "${openssl.dev}/lib/pkgconfig";
 
@@ -55,7 +54,7 @@ rustPlatform.buildRustPackage rec {
       dmadisetti
     ];
     # steam only supports that platform
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "steam-tui";
   };
 }

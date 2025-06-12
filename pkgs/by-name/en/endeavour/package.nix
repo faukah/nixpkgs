@@ -20,7 +20,6 @@
   itstool,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "endeavour";
   version = "43.0";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = with lib; {
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
     mainProgram = "endeavour";
     homepage = "https://gitlab.gnome.org/World/Endeavour";
     license = licenses.gpl3Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 }

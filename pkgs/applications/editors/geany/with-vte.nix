@@ -4,7 +4,6 @@
   geany,
   vte,
 }:
-
 symlinkJoin {
   name = "geany-with-vte-${geany.version}";
 
@@ -15,7 +14,7 @@ symlinkJoin {
     man
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     # need to replace the directory since it is a symlink
@@ -27,7 +26,8 @@ symlinkJoin {
   meta = {
     # can't just "inherit (geany) meta;" because:
     # error: derivation '/nix/store/...-geany-with-vte-2.0.drv' does not have wanted outputs 'man'
-    inherit (geany.meta)
+    inherit
+      (geany.meta)
       description
       longDescription
       homepage

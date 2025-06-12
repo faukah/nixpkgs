@@ -11,7 +11,6 @@
   cargo,
   rustc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libopenraw";
   version = "0.3.7";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    maintainers = [ maintainers.struan ];
+    maintainers = [maintainers.struan];
   };
 }

@@ -2,17 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   affine,
   cachetools,
   numpy,
   pyproj,
   shapely,
-
   # optional-dependencies
   azure-storage-blob,
   boto3,
@@ -21,13 +18,11 @@
   rasterio,
   tifffile,
   xarray,
-
   # tests
   geopandas,
   matplotlib,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "odc-geo";
   version = "0.4.10";
@@ -53,8 +48,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    xr = [ xarray ];
-    wrap = [ rasterio ];
+    xr = [xarray];
+    wrap = [rasterio];
     tiff = [
       dask
       distributed
@@ -62,8 +57,8 @@ buildPythonPackage rec {
       tifffile
       xarray
     ];
-    s3 = [ boto3 ];
-    az = [ azure-storage-blob ];
+    s3 = [boto3];
+    az = [azure-storage-blob];
     all = [
       azure-storage-blob
       boto3
@@ -75,13 +70,15 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    geopandas
-    matplotlib
-    pytestCheckHook
-  ] ++ optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      geopandas
+      matplotlib
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.all;
 
-  pytestFlagsArray = [ "-m 'not network'" ];
+  pytestFlagsArray = ["-m 'not network'"];
 
   disabledTests = [
     # AttributeError (fixes: https://github.com/opendatacube/odc-geo/pull/202)
@@ -112,6 +109,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/opendatacube/odc-geo/";
     changelog = "https://github.com/opendatacube/odc-geo/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ daspk04 ];
+    maintainers = with lib.maintainers; [daspk04];
   };
 }

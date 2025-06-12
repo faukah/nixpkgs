@@ -5,31 +5,29 @@
   swift,
   swiftpm,
   nix-update-script,
-}:
-let
+}: let
   inherit (swiftPackages) stdenv;
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "age-plugin-se";
-  version = "0.1.4";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "age-plugin-se";
+    version = "0.1.4";
 
-  src = fetchFromGitHub {
-    owner = "remko";
-    repo = "age-plugin-se";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-sg73DzlW4aXNbIIePZox4JkF10OfsMtPw0q/0DWwgDk=";
-  };
+    src = fetchFromGitHub {
+      owner = "remko";
+      repo = "age-plugin-se";
+      tag = "v${finalAttrs.version}";
+      hash = "sha256-sg73DzlW4aXNbIIePZox4JkF10OfsMtPw0q/0DWwgDk=";
+    };
 
-  nativeBuildInputs = [
-    swift
-    swiftpm
-  ];
+    nativeBuildInputs = [
+      swift
+      swiftpm
+    ];
 
-  # Can't find libdispatch without this on NixOS. (swift 5.8)
-  LD_LIBRARY_PATH = lib.optionalString stdenv.hostPlatform.isLinux "${swiftPackages.Dispatch}/lib";
+    # Can't find libdispatch without this on NixOS. (swift 5.8)
+    LD_LIBRARY_PATH = lib.optionalString stdenv.hostPlatform.isLinux "${swiftPackages.Dispatch}/lib";
 
-  postPatch =
-    let
+    postPatch = let
       swift-crypto = fetchFromGitHub {
         owner = "apple";
         repo = "swift-crypto";
@@ -39,28 +37,27 @@ stdenv.mkDerivation (finalAttrs: {
         tag = "3.7.1";
         hash = "sha256-zxmHxTryAezgqU5qjXlFFThJlfUsPxb1KRBan4DSm9A=";
       };
-    in
-    ''
+    in ''
       ln -s ${swift-crypto} swift-crypto
       substituteInPlace Package.swift --replace-fail 'url: "https://github.com/apple/swift-crypto.git"' 'path: "./swift-crypto"), //'
     '';
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "RELEASE=1"
-  ];
-
-  passthru.updateScript = nix-update-script { };
-
-  meta = {
-    description = "Age plugin for Apple's Secure Enclave";
-    homepage = "https://github.com/remko/age-plugin-se/";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [
-      onnimonni
-      remko
+    makeFlags = [
+      "PREFIX=$(out)"
+      "RELEASE=1"
     ];
-    mainProgram = "age-plugin-se";
-    platforms = lib.platforms.unix;
-  };
-})
+
+    passthru.updateScript = nix-update-script {};
+
+    meta = {
+      description = "Age plugin for Apple's Secure Enclave";
+      homepage = "https://github.com/remko/age-plugin-se/";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [
+        onnimonni
+        remko
+      ];
+      mainProgram = "age-plugin-se";
+      platforms = lib.platforms.unix;
+    };
+  })

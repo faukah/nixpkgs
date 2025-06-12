@@ -2,14 +2,11 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
-
   # build-system
   setuptools,
-
   # dependencies
   luna-usb,
 }:
-
 buildPythonPackage rec {
   pname = "luna-soc";
   version = "0.3.2";
@@ -32,7 +29,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ luna-usb ];
+  dependencies = [luna-usb];
 
   # has no tests
   doCheck = false;
@@ -46,6 +43,6 @@ buildPythonPackage rec {
     description = "Amaranth HDL library for building USB-capable SoC designs";
     homepage = "https://github.com/greatscottgadgets/luna-soc";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ carlossless ];
+    maintainers = with lib.maintainers; [carlossless];
   };
 }

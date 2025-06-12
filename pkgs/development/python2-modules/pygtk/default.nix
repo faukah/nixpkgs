@@ -12,7 +12,6 @@
   buildPythonPackage,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   pname = "pygtk";
   outputs = [
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     pango
   ];
@@ -94,7 +93,7 @@ buildPythonPackage rec {
     description = "GTK 2 Python bindings";
     homepage = "https://gitlab.gnome.org/Archive/pygtk";
     platforms = platforms.all;
-    license = with licenses; [ lgpl21Plus ];
-    maintainers = with lib.maintainers; [ bryango ];
+    license = with licenses; [lgpl21Plus];
+    maintainers = with lib.maintainers; [bryango];
   };
 }

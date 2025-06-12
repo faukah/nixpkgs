@@ -8,7 +8,6 @@
   wheel,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "shiv";
   version = "1.0.8";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
     wheel
   ];
 
-  pythonImportsCheck = [ "shiv" ];
+  pythonImportsCheck = ["shiv"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # AssertionError
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "Command line utility for building fully self contained Python zipapps";
     homepage = "https://github.com/linkedin/shiv";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

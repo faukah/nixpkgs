@@ -3,7 +3,6 @@
   fetchPypi,
   buildPythonPackage,
 }:
-
 buildPythonPackage rec {
   # the frontend version corresponding to a specific home-assistant version can be found here
   # https://github.com/home-assistant/home-assistant/blob/master/homeassistant/components/frontend/manifest.json
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     description = "Frontend for Home Assistant";
     homepage = "https://github.com/home-assistant/frontend";
     license = licenses.asl20;
-    teams = [ teams.home-assistant ];
+    teams = [teams.home-assistant];
   };
 }

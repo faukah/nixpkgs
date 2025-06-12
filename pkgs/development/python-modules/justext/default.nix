@@ -7,7 +7,6 @@
   lxml,
   lxml-html-clean,
 }:
-
 buildPythonPackage rec {
   pname = "justext";
   version = "3.0.2";
@@ -30,13 +29,13 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pythonImportsCheck = [ "justext" ];
+  pythonImportsCheck = ["justext"];
 
   meta = with lib; {
     description = "Heuristic based boilerplate removal tool";
     homepage = "https://github.com/miso-belica/jusText";
     changelog = "https://github.com/miso-belica/jusText/blob/${src.tag}/CHANGELOG.rst";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ jokatzke ];
+    maintainers = with maintainers; [jokatzke];
   };
 }

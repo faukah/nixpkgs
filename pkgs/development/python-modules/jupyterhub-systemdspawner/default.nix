@@ -8,7 +8,6 @@
   setuptools,
   tornado,
 }:
-
 buildPythonPackage rec {
   pname = "jupyterhub-systemdspawner";
   version = "1.0.2";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
       --replace-fail "/bin/bash" "${bash}/bin/bash"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     jupyterhub
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     patchShebangs $out/bin
   '';
 
-  pythonImportsCheck = [ "systemdspawner" ];
+  pythonImportsCheck = ["systemdspawner"];
 
   meta = with lib; {
     description = "JupyterHub Spawner using systemd for resource isolation";
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jupyterhub/systemdspawner";
     changelog = "https://github.com/jupyterhub/systemdspawner/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

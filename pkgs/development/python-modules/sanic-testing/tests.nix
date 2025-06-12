@@ -5,7 +5,6 @@
   sanic-testing,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "sanic-testing-tests";
   inherit (sanic-testing) version;
@@ -23,5 +22,5 @@ buildPythonPackage {
     setuptools
   ];
 
-  pythonImportsCheck = [ "sanic_testing" ];
+  pythonImportsCheck = ["sanic_testing"];
 }

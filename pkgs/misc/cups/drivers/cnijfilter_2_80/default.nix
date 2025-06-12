@@ -11,25 +11,23 @@
   libpng,
   ghostscript,
 }:
-
 /*
-  this derivation is basically just a transcription of the rpm .spec
-  file included in the tarball
+this derivation is basically just a transcription of the rpm .spec
+file included in the tarball
 */
-
 gcc13Stdenv.mkDerivation {
   pname = "cnijfilter";
 
   /*
-    important note about versions: cnijfilter packages seem to use
-    versions in a non-standard way.  the version indicates which
-    printers are supported in the package.  so this package should
-    not be "upgraded" in the usual way.
+  important note about versions: cnijfilter packages seem to use
+  versions in a non-standard way.  the version indicates which
+  printers are supported in the package.  so this package should
+  not be "upgraded" in the usual way.
 
-    instead, if you want to include another version supporting your
-    printer, you should try to abstract out the common things (which
-    should be pretty much everything except the version and the 'pr'
-    and 'pr_id' values to loop over).
+  instead, if you want to include another version supporting your
+  printer, you should try to abstract out the common things (which
+  should be pretty much everything except the version and the 'pr'
+  and 'pr_id' values to loop over).
   */
   version = "2.80";
 
@@ -114,20 +112,20 @@ gcc13Stdenv.mkDerivation {
   '';
 
   /*
-    the tarball includes some pre-built shared libraries.  we run
-    'patchelf --set-rpath' on them just a few lines above, so that
-    they can find each other.  but that's not quite enough.  some of
-    those libraries load each other in non-standard ways -- they
-    don't list each other in the DT_NEEDED section.  so, if the
-    standard 'patchelf --shrink-rpath' (from
-    pkgs/development/tools/misc/patchelf/setup-hook.sh) is run on
-    them, it undoes the --set-rpath.  this prevents that.
+  the tarball includes some pre-built shared libraries.  we run
+  'patchelf --set-rpath' on them just a few lines above, so that
+  they can find each other.  but that's not quite enough.  some of
+  those libraries load each other in non-standard ways -- they
+  don't list each other in the DT_NEEDED section.  so, if the
+  standard 'patchelf --shrink-rpath' (from
+  pkgs/development/tools/misc/patchelf/setup-hook.sh) is run on
+  them, it undoes the --set-rpath.  this prevents that.
   */
   dontPatchELF = true;
 
   # fortify hardening makes the filter crash
   # https://github.com/NixOS/nixpkgs/issues/276125
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   meta = with lib; {
     description = "Canon InkJet printer drivers for the iP5400, MP520, MP210, MP140, iP3500, and MP610 series.  (MP520 drivers also work for MX700.)";
@@ -138,6 +136,6 @@ gcc13Stdenv.mkDerivation {
     ];
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jerith666 ];
+    maintainers = with maintainers; [jerith666];
   };
 }

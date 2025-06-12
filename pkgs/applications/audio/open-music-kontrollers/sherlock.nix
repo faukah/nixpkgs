@@ -3,8 +3,7 @@
   sratom,
   flex,
   ...
-}@args:
-
+} @ args:
 callPackage ./generic.nix (
   args
   // {

@@ -4,21 +4,17 @@
   pkgs,
   options,
   ...
-}:
-let
+}: let
   cfg = config.services.ipfs-cluster;
 
   # secret is by envvar, not flag
   initFlags = toString [
-    (lib.optionalString (cfg.initPeers != [ ]) "--peers")
+    (lib.optionalString (cfg.initPeers != []) "--peers")
     (lib.strings.concatStringsSep "," cfg.initPeers)
   ];
-in
-{
+in {
   options = {
-
     services.ipfs-cluster = {
-
       enable = lib.mkEnableOption "Pinset orchestration for IPFS - requires ipfs daemon to be useful";
 
       consensus = lib.mkOption {
@@ -37,7 +33,7 @@ in
 
       initPeers = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = "Peer addresses to initialize with on first run.";
       };
 
@@ -72,7 +68,7 @@ in
       }
     ];
 
-    environment.systemPackages = [ pkgs.ipfs-cluster ];
+    environment.systemPackages = [pkgs.ipfs-cluster];
 
     systemd.tmpfiles.rules = [
       "d '${cfg.dataDir}' - ${config.services.kubo.user} ${config.services.kubo.group} - -"
@@ -84,7 +80,7 @@ in
         pkgs.ipfs-cluster
       ];
       environment.IPFS_CLUSTER_PATH = cfg.dataDir;
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
 
       serviceConfig = {
         ExecStart = [
@@ -102,20 +98,20 @@ in
 
     systemd.services.ipfs-cluster = {
       environment.IPFS_CLUSTER_PATH = cfg.dataDir;
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      wants = [ "ipfs-cluster-init.service" ];
-      after = [ "ipfs-cluster-init.service" ];
+      wants = ["ipfs-cluster-init.service"];
+      after = ["ipfs-cluster-init.service"];
 
       serviceConfig = {
         Type = "notify";
-        ExecStart = [ "${lib.getExe' pkgs.ipfs-cluster "ipfs-cluster-service"} daemon" ];
+        ExecStart = ["${lib.getExe' pkgs.ipfs-cluster "ipfs-cluster-service"} daemon"];
         User = config.services.kubo.user;
         Group = config.services.kubo.group;
       };
     };
 
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openSwarmPort [ 9096 ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openSwarmPort [9096];
   };
 
   meta = {

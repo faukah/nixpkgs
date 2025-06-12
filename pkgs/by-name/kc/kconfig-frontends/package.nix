@@ -10,7 +10,6 @@
   pkg-config,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kconfig-frontends";
   version = "4.11.0.1";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://bitbucket.org/nuttx/tools/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

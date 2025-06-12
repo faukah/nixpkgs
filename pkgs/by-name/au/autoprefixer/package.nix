@@ -47,9 +47,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests = {
-      simple-execution = callPackage ./tests/simple-execution.nix { };
+      simple-execution = callPackage ./tests/simple-execution.nix {};
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -58,6 +58,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/postcss/autoprefixer/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     mainProgram = "autoprefixer";
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 })

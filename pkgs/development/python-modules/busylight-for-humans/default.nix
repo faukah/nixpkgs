@@ -13,7 +13,6 @@
   typer,
   webcolors,
 }:
-
 buildPythonPackage rec {
   pname = "busylight-for-humans";
   version = "0.35.2";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-0jmaVMN4wwqoO5wGMaV4kJefNUPOuJpWbsqHcZZ0Nh4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     bitvector-for-humans
@@ -44,9 +43,9 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  disabledTestPaths = [ "tests/test_pydantic_models.py" ];
+  disabledTestPaths = ["tests/test_pydantic_models.py"];
 
-  pythonImportsCheck = [ "busylight" ];
+  pythonImportsCheck = ["busylight"];
 
   postInstall = ''
     mkdir -p $out/lib/udev/rules.d
@@ -58,7 +57,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/JnyJny/busylight";
     changelog = "https://github.com/JnyJny/busylight/releases/tag/${version}";
     license = licenses.asl20;
-    teams = [ teams.helsinki-systems ];
+    teams = [teams.helsinki-systems];
     mainProgram = "busylight";
   };
 }

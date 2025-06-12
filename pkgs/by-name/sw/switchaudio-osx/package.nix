@@ -5,7 +5,6 @@
   xcodebuild,
   xcbuildHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "switchaudio-osx";
   version = "1.2.2";
@@ -17,9 +16,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-AZJn5kHK/al94ONfIHcG+W0jyMfgdJkIngN+PVj+I44=";
   };
 
-  buildInputs = [ xcodebuild ];
+  buildInputs = [xcodebuild];
 
-  nativeBuildInputs = [ xcbuildHook ];
+  nativeBuildInputs = [xcbuildHook];
 
   patches = [
     # Patch to fix running on earlier version of macOS
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/deweller/switchaudio-osx";
     mainProgram = "SwitchAudioSource";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ taranarmo ];
+    maintainers = with lib.maintainers; [taranarmo];
     platforms = lib.platforms.darwin;
   };
 }

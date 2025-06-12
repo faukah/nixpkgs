@@ -5,9 +5,7 @@
   makeRustPlatform,
   installShellFiles,
   stdenv,
-}:
-
-let
+}: let
   args = rec {
     pname = "cargo-auditable";
     version = "0.6.5";
@@ -38,7 +36,7 @@ let
         mit # or
         asl20
       ];
-      maintainers = with maintainers; [ figsoda ];
+      maintainers = with maintainers; [figsoda];
       broken = stdenv.hostPlatform != stdenv.buildPlatform;
     };
   };
@@ -57,20 +55,19 @@ let
     }
   );
 in
+  rustPlatform.buildRustPackage.override {cargo-auditable = bootstrap;} (
+    args
+    // {
+      nativeBuildInputs = [
+        installShellFiles
+      ];
 
-rustPlatform.buildRustPackage.override { cargo-auditable = bootstrap; } (
-  args
-  // {
-    nativeBuildInputs = [
-      installShellFiles
-    ];
+      postInstall = ''
+        installManPage cargo-auditable/cargo-auditable.1
+      '';
 
-    postInstall = ''
-      installManPage cargo-auditable/cargo-auditable.1
-    '';
-
-    passthru = {
-      inherit bootstrap;
-    };
-  }
-)
+      passthru = {
+        inherit bootstrap;
+      };
+    }
+  )

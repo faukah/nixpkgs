@@ -47,13 +47,11 @@
   withLto ? !stdenv.hostPlatform.isStatic && !stdenv.hostPlatform.isMinGW,
   withMakeWrapper ? !stdenv.hostPlatform.isMinGW,
   libnghttp2,
-
   # for passthru.updateScript
   nix-update-script,
   # for passthru.tests
   gnutls,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "unbound";
   version = "1.23.0";
@@ -72,14 +70,14 @@ stdenv.mkDerivation (finalAttrs: {
   ]; # "dev" would only split ~20 kB
 
   nativeBuildInputs =
-    lib.optionals withMakeWrapper [ makeWrapper ]
-    ++ lib.optionals withDNSTAP [ protobufc ]
+    lib.optionals withMakeWrapper [makeWrapper]
+    ++ lib.optionals withDNSTAP [protobufc]
     ++ [
       pkg-config
       flex
       bison
     ]
-    ++ lib.optionals withPythonModule [ swig ];
+    ++ lib.optionals withPythonModule [swig];
 
   buildInputs =
     [
@@ -88,9 +86,9 @@ stdenv.mkDerivation (finalAttrs: {
       expat
       libevent
     ]
-    ++ lib.optionals withSystemd [ systemd ]
-    ++ lib.optionals withDoH [ libnghttp2 ]
-    ++ lib.optionals withPythonModule [ python ];
+    ++ lib.optionals withSystemd [systemd]
+    ++ lib.optionals withDoH [libnghttp2]
+    ++ lib.optionals withPythonModule [python];
 
   enableParallelBuilding = true;
 
@@ -151,13 +149,11 @@ stdenv.mkDerivation (finalAttrs: {
   PROTOC_C = lib.optionalString withDNSTAP "${protobufc}/bin/protoc-c";
 
   # Remove references to compile-time dependencies that are included in the configure flags
-  postConfigure =
-    let
-      inherit (builtins) storeDir;
-    in
-    ''
-      sed -E '/CONFCMDLINE/ s;${storeDir}/[a-z0-9]{32}-;${storeDir}/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-;g' -i config.h
-    '';
+  postConfigure = let
+    inherit (builtins) storeDir;
+  in ''
+    sed -E '/CONFCMDLINE/ s;${storeDir}/[a-z0-9]{32}-;${storeDir}/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-;g' -i config.h
+  '';
 
   doCheck = true;
 
@@ -166,7 +162,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace "\$(DESTDIR)\$(PYTHON_SITE_PKG)" "$out/${python.sitePackages}"
   '';
 
-  installFlags = [ "configfile=\${out}/etc/unbound/unbound.conf" ];
+  installFlags = ["configfile=\${out}/etc/unbound/unbound.conf"];
 
   postInstall =
     ''
@@ -174,7 +170,7 @@ stdenv.mkDerivation (finalAttrs: {
     ''
     + lib.optionalString withMakeWrapper ''
       wrapProgram $out/bin/unbound-control-setup \
-        --prefix PATH : ${lib.makeBinPath [ openssl ]}
+        --prefix PATH : ${lib.makeBinPath [openssl]}
     ''
     + lib.optionalString (withMakeWrapper && withPythonModule) ''
       wrapProgram $out/bin/unbound \
@@ -184,25 +180,25 @@ stdenv.mkDerivation (finalAttrs: {
 
   preFixup =
     lib.optionalString withSlimLib
-      # Build libunbound again, but only against nettle instead of openssl.
-      # This avoids gnutls.out -> unbound.lib -> lib.getLib openssl.
-      ''
-        appendToVar configureFlags "--with-nettle=${nettle.dev}"
-        appendToVar configureFlags "--with-libunbound-only"
-        configurePhase
-        buildPhase
-        if [ -n "$doCheck" ]; then
-            checkPhase
-        fi
-        installPhase
-      ''
+    # Build libunbound again, but only against nettle instead of openssl.
+    # This avoids gnutls.out -> unbound.lib -> lib.getLib openssl.
+    ''
+      appendToVar configureFlags "--with-nettle=${nettle.dev}"
+      appendToVar configureFlags "--with-libunbound-only"
+      configurePhase
+      buildPhase
+      if [ -n "$doCheck" ]; then
+          checkPhase
+      fi
+      installPhase
+    ''
     # get rid of runtime dependencies on $dev outputs
     + ''substituteInPlace "$lib/lib/libunbound.la" ''
     + lib.concatMapStrings (
       pkg:
-      lib.optionalString (
-        pkg ? dev
-      ) " --replace '-L${pkg.dev}/lib' '-L${pkg.out}/lib' --replace '-R${pkg.dev}/lib' '-R${pkg.out}/lib'"
+        lib.optionalString (
+          pkg ? dev
+        ) " --replace '-L${pkg.dev}/lib' '-L${pkg.out}/lib' --replace '-R${pkg.dev}/lib' '-R${pkg.out}/lib'"
     ) (builtins.filter (p: p != null) finalAttrs.buildInputs);
 
   passthru = {
@@ -222,7 +218,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Validating, recursive, and caching DNS resolver";
     license = lib.licenses.bsd3;
     homepage = "https://www.unbound.net";
-    maintainers = with lib.maintainers; [ Scrumplex ];
+    maintainers = with lib.maintainers; [Scrumplex];
     platforms = with lib.platforms; unix ++ windows;
   };
 })

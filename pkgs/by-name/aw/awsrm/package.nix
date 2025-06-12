@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "awsrm";
   version = "0.4.0";
@@ -17,17 +16,15 @@ buildGoModule rec {
 
   vendorHash = "sha256-CldEAeiFH7gdFNLbIe/oTzs8Pdnde7EqLr7vP7SMDGU=";
 
-  ldflags =
-    let
-      t = "github.com/jckuester/awsrm/internal";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${t}.version=${version}"
-      "-X ${t}.commit=${src.rev}"
-      "-X ${t}.date=unknown"
-    ];
+  ldflags = let
+    t = "github.com/jckuester/awsrm/internal";
+  in [
+    "-s"
+    "-w"
+    "-X ${t}.version=${version}"
+    "-X ${t}.commit=${src.rev}"
+    "-X ${t}.date=unknown"
+  ];
 
   doCheck = false;
 
@@ -35,7 +32,7 @@ buildGoModule rec {
     description = "Remove command for AWS resources";
     homepage = "https://github.com/jckuester/awsrm";
     license = licenses.mit;
-    maintainers = [ maintainers.markus1189 ];
+    maintainers = [maintainers.markus1189];
     mainProgram = "awsrm";
   };
 }

@@ -3,7 +3,6 @@
   lib,
   fetchFromGitLab,
 }:
-
 buildGoModule rec {
   pname = "gitlab-pages";
   version = "18.0.1";
@@ -17,7 +16,7 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-BjCwPt1duDINHP7L0qT2KNTjOZ62bWgVij88ztjjyPg=";
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = {
     description = "Daemon used to serve static websites for GitLab users";
@@ -25,6 +24,6 @@ buildGoModule rec {
     homepage = "https://gitlab.com/gitlab-org/gitlab-pages";
     changelog = "https://gitlab.com/gitlab-org/gitlab-pages/-/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    teams = [ lib.teams.gitlab ];
+    teams = [lib.teams.gitlab];
   };
 }

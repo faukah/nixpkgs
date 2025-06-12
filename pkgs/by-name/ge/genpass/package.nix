@@ -26,6 +26,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "genpass";
     homepage = "https://sr.ht/~cyplo/genpass/";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ cyplo ];
+    maintainers = with maintainers; [cyplo];
   };
 }

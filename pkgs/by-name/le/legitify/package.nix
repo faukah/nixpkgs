@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "legitify";
   version = "1.0.11";
@@ -32,7 +31,7 @@ buildGoModule rec {
     homepage = "https://github.com/Legit-Labs/legitify";
     changelog = "https://github.com/Legit-Labs/legitify/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "legitify";
   };
 }

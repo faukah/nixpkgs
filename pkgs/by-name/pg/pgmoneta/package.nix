@@ -17,7 +17,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pgmoneta";
   version = "0.17.1";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     homepage = "https://pgmoneta.github.io/";
     changelog = "https://github.com/pgmoneta/pgmoneta/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

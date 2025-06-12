@@ -5,7 +5,6 @@
   fetchpatch,
   kernel,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dddvb";
   version = "0.9.38-pre.6";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/DigitalDevices/dddvb";
     description = "ddbridge linux driver";
     license = licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     broken = lib.versionAtLeast kernel.version "6.2";
   };

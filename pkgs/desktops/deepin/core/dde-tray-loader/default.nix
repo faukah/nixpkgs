@@ -15,7 +15,6 @@
   xorg,
   libsForQt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dde-tray-loader";
   version = "1.0.9";
@@ -62,8 +61,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Tray plugins that integrated into task bar";
     homepage = "https://github.com/linuxdeepin/dde-tray-loader";
-    license = with lib.licenses; [ gpl3Plus ];
+    license = with lib.licenses; [gpl3Plus];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [rewine];
   };
 })

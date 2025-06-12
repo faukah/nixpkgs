@@ -6,7 +6,6 @@
   stdenvNoCC,
   unzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ijhttp";
   version = "243.24978.46";
@@ -39,6 +38,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = lib.licenses.unfree;
     mainProgram = "ijhttp";
     platforms = lib.platforms.all;
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
   };
 })

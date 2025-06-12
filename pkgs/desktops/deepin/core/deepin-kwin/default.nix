@@ -15,7 +15,6 @@
   lcms2,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-kwin";
   version = "5.25.27";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-EjPPjdxa+iL/nXhuccoM3NiLmGXh7Un2aGz8O3sP6xE=";
   };
 
-  patches = [ ./0001-hardcode-fallback-background.diff ];
+  patches = [./0001-hardcode-fallback-background.diff];
 
   # Avoid using absolute path to distinguish applications
   postPatch = ''
@@ -82,7 +81,7 @@ stdenv.mkDerivation rec {
       breeze-qt5
     ]);
 
-  cmakeFlags = [ "-DKWIN_BUILD_RUNNERS=OFF" ];
+  cmakeFlags = ["-DKWIN_BUILD_RUNNERS=OFF"];
 
   outputs = [
     "out"
@@ -94,6 +93,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-kwin";
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

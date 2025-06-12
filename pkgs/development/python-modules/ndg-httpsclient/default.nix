@@ -5,7 +5,6 @@
   pyasn1,
   pyopenssl,
 }:
-
 buildPythonPackage rec {
   version = "0.5.1";
   format = "setuptools";
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "Provide enhanced HTTPS support for httplib and urllib2 using PyOpenSSL";
     mainProgram = "ndg_httpclient";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -7,7 +7,6 @@
   jaraco-classes,
   jaraco-text,
 }:
-
 buildPythonPackage rec {
   pname = "jaraco-collections";
   version = "5.1.0";
@@ -34,17 +33,17 @@ buildPythonPackage rec {
     jaraco-text
   ];
 
-  pythonNamespaces = [ "jaraco" ];
+  pythonNamespaces = ["jaraco"];
 
   doCheck = false;
 
-  pythonImportsCheck = [ "jaraco.collections" ];
+  pythonImportsCheck = ["jaraco.collections"];
 
   meta = with lib; {
     description = "Models and classes to supplement the stdlib 'collections' module";
     homepage = "https://github.com/jaraco/jaraco.collections";
     changelog = "https://github.com/jaraco/jaraco.collections/blob/v${version}/NEWS.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

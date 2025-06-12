@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libxl";
   version = "3.9.4.3";
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.libxl.com/";
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

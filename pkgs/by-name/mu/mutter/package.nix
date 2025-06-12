@@ -68,7 +68,6 @@
   wayland,
   wayland-protocols,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mutter";
   version = "48.2";
@@ -206,7 +205,7 @@ stdenv.mkDerivation (finalAttrs: {
     libdir = "${finalAttrs.finalPackage}/lib/mutter-${finalAttrs.passthru.libmutter_api_version}";
 
     tests = {
-      libdirExists = runCommand "mutter-libdir-exists" { } ''
+      libdirExists = runCommand "mutter-libdir-exists" {} ''
         if [[ ! -d ${finalAttrs.finalPackage.libdir} ]]; then
           echo "passthru.libdir should contain a directory, “${finalAttrs.finalPackage.libdir}” is not one."
           exit 1
@@ -226,7 +225,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/GNOME/mutter";
     changelog = "https://gitlab.gnome.org/GNOME/mutter/-/blob/${finalAttrs.version}/NEWS?ref_type=tags";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 })

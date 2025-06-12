@@ -4,7 +4,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tamzen-font";
   version = "1.11.6";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-W5Wqsm5rpzzcbJl2lv6ORAznaAwLcmJ2S6Qo2zIoq9I=";
   };
 
-  nativeBuildInputs = [ xorg.mkfontscale ];
+  nativeBuildInputs = [xorg.mkfontscale];
 
   installPhase = ''
     install -m 644 -D otb/*.otb pcf/*.pcf -t "$out/share/fonts/misc"
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/sunaku/tamzen-font";
     license = licenses.free;
-    maintainers = with maintainers; [ wishfort36 ];
+    maintainers = with maintainers; [wishfort36];
   };
 }

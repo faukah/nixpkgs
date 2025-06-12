@@ -3,7 +3,6 @@
   fetchPypi,
   buildPythonPackage,
 }:
-
 buildPythonPackage rec {
   pname = "dbfread";
   version = "2.0.7";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Read DBF Files with Python";
     homepage = "https://dbfread.readthedocs.org/";
-    license = with licenses; [ mit ];
-    maintainers = [ ];
+    license = with licenses; [mit];
+    maintainers = [];
   };
 }

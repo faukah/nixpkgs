@@ -13,7 +13,6 @@
   gettext,
   physfs,
 }:
-
 stdenv.mkDerivation rec {
   pname = "neverball";
   version = "1.6.0";
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
     homepage = "https://neverball.org/";
     description = "Tilt the floor to roll a ball";
     license = "GPL";
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux;
   };
 }

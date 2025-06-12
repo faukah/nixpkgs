@@ -2,15 +2,12 @@
   lib,
   stdenv,
   fetchgit,
-}:
-
-let
-  mkDictFromChromium =
-    {
-      shortName,
-      dictFileName,
-      shortDescription,
-    }:
+}: let
+  mkDictFromChromium = {
+    shortName,
+    dictFileName,
+    shortDescription,
+  }:
     stdenv.mkDerivation {
       pname = "hunspell-dict-${shortName}-chromium";
       version = "115.0.5790.170";
@@ -50,13 +47,11 @@ let
           mpl11
           lgpl3
         ];
-        maintainers = with lib.maintainers; [ networkexception ];
+        maintainers = with lib.maintainers; [networkexception];
         platforms = lib.platforms.all;
       };
     };
-in
-rec {
-
+in rec {
   # ENGLISH
 
   en_US = en-us;

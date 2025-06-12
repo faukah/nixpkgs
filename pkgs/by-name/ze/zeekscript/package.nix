@@ -3,7 +3,6 @@
   python3,
   fetchPypi,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "zeekscript";
   version = "1.2.8";

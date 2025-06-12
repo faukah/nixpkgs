@@ -3,18 +3,14 @@
   buildPythonPackage,
   fetchFromGitHub,
   stdenv,
-
   # build-system
   setuptools,
-
   # dependencies
   orderly-set,
-
   # optional-dependencies
   click,
   orjson,
   pyyaml,
-
   # tests
   jsonpickle,
   numpy,
@@ -24,7 +20,6 @@
   polars,
   pandas,
 }:
-
 buildPythonPackage rec {
   pname = "deepdiff";
   version = "8.4.1";
@@ -55,15 +50,17 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    jsonpickle
-    numpy
-    pytestCheckHook
-    python-dateutil
-    tomli-w
-    polars
-    pandas
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      jsonpickle
+      numpy
+      pytestCheckHook
+      python-dateutil
+      tomli-w
+      polars
+      pandas
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTests =
     [
@@ -79,7 +76,7 @@ buildPythonPackage rec {
       "test_repeated_timer"
     ];
 
-  pythonImportsCheck = [ "deepdiff" ];
+  pythonImportsCheck = ["deepdiff"];
 
   meta = {
     description = "Deep Difference and Search of any Python object/data";

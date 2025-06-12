@@ -6,7 +6,6 @@
   alsa-lib,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "sampler";
   version = "1.1.0";
@@ -30,7 +29,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   buildInputs = lib.optional stdenv.hostPlatform.isLinux alsa-lib;
 
@@ -38,7 +37,7 @@ buildGoModule rec {
     description = "Tool for shell commands execution, visualization and alerting";
     homepage = "https://sampler.dev";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ uvnikita ];
+    maintainers = with maintainers; [uvnikita];
     mainProgram = "sampler";
   };
 }

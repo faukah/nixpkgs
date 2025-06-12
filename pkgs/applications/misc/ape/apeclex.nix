@@ -3,7 +3,6 @@
   attemptoClex,
   callPackage,
 }:
-
 callPackage ./. {
   pname = "ape-clex";
   lexiconPath = "${attemptoClex}/clex_lexicon.pl";

@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   flet-client-flutter,
-
   # build-system
   poetry-core,
-
   flet,
   flet-desktop,
   flet-web,
@@ -13,7 +11,6 @@
   toml,
   watchdog,
 }:
-
 buildPythonPackage rec {
   pname = "flet-cli";
   inherit (flet-client-flutter) version src;
@@ -21,7 +18,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/sdk/python/packages/flet-cli";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     flet
@@ -50,7 +47,7 @@ buildPythonPackage rec {
       --prefix PYTHONPATH : $PYTHONPATH
   '';
 
-  pythonImportsCheck = [ "flet_cli" ];
+  pythonImportsCheck = ["flet_cli"];
 
   meta = {
     description = "Command-line interface tool for Flet, a framework for building interactive multi-platform applications using Python.";

@@ -12,7 +12,6 @@
   libtiff,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "capypdf";
   version = "0.16.0";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Fully color managed PDF generation library";
     homepage = "https://github.com/jpakkane/capypdf";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jtojnar ];
+    maintainers = with lib.maintainers; [jtojnar];
     mainProgram = "capypdf";
     platforms = lib.platforms.all;
   };

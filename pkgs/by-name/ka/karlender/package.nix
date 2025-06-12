@@ -12,7 +12,6 @@
   dbus,
   cargo-gra,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "karlender";
   version = "0.10.11";
@@ -66,7 +65,7 @@ rustPlatform.buildRustPackage rec {
     install -Dm444 target/gra-gen/data/codes.loers.Karlender.appdata.xml -t $out/share/metainfo/
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Mobile-friendly GTK calendar application";

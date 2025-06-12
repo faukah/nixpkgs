@@ -6,7 +6,6 @@
   testers,
   roxctl,
 }:
-
 buildGoModule rec {
   pname = "roxctl";
   version = "4.7.3";
@@ -20,9 +19,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-eTxcJnAZUKk6VDQhbjxnsiQWEpM2jA228SAhrCqjbF4=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "roxctl" ];
+  subPackages = ["roxctl"];
 
   ldflags = [
     "-s"
@@ -47,6 +46,6 @@ buildGoModule rec {
     mainProgram = "roxctl";
     license = licenses.asl20;
     homepage = "https://www.stackrox.io";
-    maintainers = with maintainers; [ stehessel ];
+    maintainers = with maintainers; [stehessel];
   };
 }

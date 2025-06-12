@@ -12,7 +12,6 @@
   gtk4,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pantheon-wayland";
   version = "1.0.0";
@@ -29,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     gobject-introspection
@@ -46,14 +45,14 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Wayland integration library to the Pantheon Desktop";
     homepage = "https://github.com/elementary/pantheon-wayland";
     license = lib.licenses.lgpl3Plus;
-    teams = [ lib.teams.pantheon ];
+    teams = [lib.teams.pantheon];
     platforms = lib.platforms.linux;
   };
 })

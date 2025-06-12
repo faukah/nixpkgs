@@ -3,7 +3,6 @@
   fetchCrate,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "twiggy";
   version = "0.7.0";
@@ -24,6 +23,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
   };
 }

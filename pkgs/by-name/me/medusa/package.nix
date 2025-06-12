@@ -7,7 +7,6 @@
   openssl,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "medusa";
   version = "2.3";
@@ -24,9 +23,9 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  configureFlags = [ "--enable-module-ssh=yes" ];
+  configureFlags = ["--enable-module-ssh=yes"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     freerdp
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jmk-foofus/medusa";
     changelog = "https://github.com/jmk-foofus/medusa/releases/tag/${src.tag}";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "medusa";
   };
 }

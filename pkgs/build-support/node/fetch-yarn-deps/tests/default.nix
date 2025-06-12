@@ -1,6 +1,8 @@
-{ testers, fetchYarnDeps, ... }:
-
 {
+  testers,
+  fetchYarnDeps,
+  ...
+}: {
   file = testers.invalidateFetcherByDrvHash fetchYarnDeps {
     yarnLock = ./file.lock;
     sha256 = "sha256-BPuyQVCbdpFL/iRhmarwWAmWO2NodlVCOY9JU+4pfa4=";

@@ -13,9 +13,7 @@
   makeDesktopItem,
   copyDesktopItems,
   nix-update-script,
-}:
-
-let
+}: let
   pname = "gui-for-singbox";
   version = "1.9.7";
 
@@ -29,8 +27,8 @@ let
   metaCommon = {
     description = "SingBox GUI program developed by vue3 + wails";
     homepage = "https://github.com/GUI-for-Cores/GUI.for.SingBox";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 
@@ -69,76 +67,77 @@ let
     meta = metaCommon;
   });
 in
+  buildGoModule {
+    inherit pname version src;
 
-buildGoModule {
-  inherit pname version src;
+    patches = [./bridge.patch];
 
-  patches = [ ./bridge.patch ];
+    postPatch = ''
+      # As we need the $out reference, we can't use `replaceVars` here.
+      substituteInPlace bridge/bridge.go \
+        --replace-fail '@basepath@' "$out"
+    '';
 
-  postPatch = ''
-    # As we need the $out reference, we can't use `replaceVars` here.
-    substituteInPlace bridge/bridge.go \
-      --replace-fail '@basepath@' "$out"
-  '';
+    vendorHash = "sha256-Coq8GtaIS7ClmOTFw6PSgGDFW/CpGpKPvXgNw8qz3Hs=";
 
-  vendorHash = "sha256-Coq8GtaIS7ClmOTFw6PSgGDFW/CpGpKPvXgNw8qz3Hs=";
+    nativeBuildInputs = [
+      wails
+      pkg-config
+      autoPatchelfHook
+      copyDesktopItems
+    ];
 
-  nativeBuildInputs = [
-    wails
-    pkg-config
-    autoPatchelfHook
-    copyDesktopItems
-  ];
+    buildInputs = [
+      webkitgtk_4_0
+      libsoup_3
+    ];
 
-  buildInputs = [
-    webkitgtk_4_0
-    libsoup_3
-  ];
+    preBuild = ''
+      cp -r ${frontend} frontend/dist
+    '';
 
-  preBuild = ''
-    cp -r ${frontend} frontend/dist
-  '';
+    buildPhase = ''
+      runHook preBuild
 
-  buildPhase = ''
-    runHook preBuild
+      wails build -m -s -trimpath -skipbindings -devtools -tags webkit2_40 -o GUI.for.SingBox
 
-    wails build -m -s -trimpath -skipbindings -devtools -tags webkit2_40 -o GUI.for.SingBox
+      runHook postBuild
+    '';
 
-    runHook postBuild
-  '';
+    desktopItems = [
+      (makeDesktopItem {
+        name = "gui-for-singbox";
+        exec = "GUI.for.SingBox";
+        icon = "gui-for-singbox";
+        genericName = "GUI.for.SingBox";
+        desktopName = "GUI.for.SingBox";
+        categories = ["Network"];
+        keywords = ["Proxy"];
+      })
+    ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "gui-for-singbox";
-      exec = "GUI.for.SingBox";
-      icon = "gui-for-singbox";
-      genericName = "GUI.for.SingBox";
-      desktopName = "GUI.for.SingBox";
-      categories = [ "Network" ];
-      keywords = [ "Proxy" ];
-    })
-  ];
+    installPhase = ''
+      runHook preInstall
 
-  installPhase = ''
-    runHook preInstall
+      install -Dm 0755 build/bin/GUI.for.SingBox $out/bin/GUI.for.SingBox
+      install -Dm 0644 build/appicon.png $out/share/pixmaps/gui-for-singbox.png
 
-    install -Dm 0755 build/bin/GUI.for.SingBox $out/bin/GUI.for.SingBox
-    install -Dm 0644 build/appicon.png $out/share/pixmaps/gui-for-singbox.png
+      runHook postInstall
+    '';
 
-    runHook postInstall
-  '';
-
-  passthru = {
-    inherit frontend;
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--subpackage"
-        "frontend"
-      ];
+    passthru = {
+      inherit frontend;
+      updateScript = nix-update-script {
+        extraArgs = [
+          "--subpackage"
+          "frontend"
+        ];
+      };
     };
-  };
 
-  meta = metaCommon // {
-    mainProgram = "GUI.for.SingBox";
-  };
-}
+    meta =
+      metaCommon
+      // {
+        mainProgram = "GUI.for.SingBox";
+      };
+  }

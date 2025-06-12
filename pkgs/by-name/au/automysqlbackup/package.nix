@@ -10,7 +10,6 @@
   bzip2,
   gzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "automysqlbackup";
   version = "3.0.7";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-C0p1AY4yIxybQ6a/HsE3ZTHumtvQw5kKM51Ap+Se0ZI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin $out/etc
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     mainProgram = "automysqlbackup";
     homepage = "https://github.com/sixhop/AutoMySQLBackup";
     platforms = platforms.linux;
-    maintainers = [ maintainers.aanderse ];
+    maintainers = [maintainers.aanderse];
     license = licenses.gpl2Plus;
   };
 }

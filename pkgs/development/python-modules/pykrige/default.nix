@@ -2,23 +2,19 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython,
   setuptools,
   setuptools-scm,
-
   # dependencies
   numpy,
   scipy,
-
   # tests
   gstools,
   pytestCheckHook,
   scikit-learn,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "pykrige";
   version = "1.7.2";
@@ -64,6 +60,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/GeoStat-Framework/PyKrige";
     changelog = "https://github.com/GeoStat-Framework/PyKrige/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.sikmir ];
+    maintainers = [lib.maintainers.sikmir];
   };
 }

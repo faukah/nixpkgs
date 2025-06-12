@@ -5,7 +5,6 @@
   harec,
   fetchFromSourcehut,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hare-compress";
   version = "0-unstable-2023-11-01";
@@ -17,17 +16,17 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-sz8xPBZaUFye3HH4lkRnH52ye451e6seZXN/qvg87jE=";
   };
 
-  nativeBuildInputs = [ hareHook ];
+  nativeBuildInputs = [hareHook];
 
-  makeFlags = [ "PREFIX=${builtins.placeholder "out"}" ];
+  makeFlags = ["PREFIX=${builtins.placeholder "out"}"];
 
   doCheck = true;
 
   meta = with lib; {
     homepage = "https://git.sr.ht/~sircmpwn/hare-compress/";
     description = "Compression algorithms for Hare";
-    license = with licenses; [ mpl20 ];
-    maintainers = with maintainers; [ starzation ];
+    license = with licenses; [mpl20];
+    maintainers = with maintainers; [starzation];
     inherit (harec.meta) platforms badPlatforms;
   };
 })

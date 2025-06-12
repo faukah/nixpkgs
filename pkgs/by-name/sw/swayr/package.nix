@@ -3,7 +3,6 @@
   fetchFromSourcehut,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "swayr";
   version = "0.28.1";
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://git.sr.ht/~tsdh/swayr";
     license = lib.licenses.gpl3Plus;
     mainProgram = "swayr";
-    maintainers = with lib.maintainers; [ artturin ];
+    maintainers = with lib.maintainers; [artturin];
     platforms = lib.platforms.linux;
   };
 }

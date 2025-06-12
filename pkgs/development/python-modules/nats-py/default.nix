@@ -12,7 +12,6 @@
   setuptools,
   uvloop,
 }:
-
 buildPythonPackage rec {
   pname = "nats-py";
   version = "2.10.0";
@@ -27,13 +26,13 @@ buildPythonPackage rec {
     hash = "sha256-cgcoxDTfXeP2w1k8Miw8zY1Bln0XpTdtUY13SSvrHXw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ ed25519 ];
+  dependencies = [ed25519];
 
   optional-dependencies = {
-    aiohttp = [ aiohttp ];
-    nkeys = [ nkeys ];
+    aiohttp = [aiohttp];
+    nkeys = [nkeys];
     # fast_parse = [ fast-mail-parser ];
   };
 
@@ -63,13 +62,13 @@ buildPythonPackage rec {
       "test_buf_size_force_flush_timeout"
     ];
 
-  pythonImportsCheck = [ "nats" ];
+  pythonImportsCheck = ["nats"];
 
   meta = with lib; {
     description = "Python client for NATS.io";
     homepage = "https://github.com/nats-io/nats.py";
     changelog = "https://github.com/nats-io/nats.py/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

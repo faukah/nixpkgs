@@ -4,7 +4,6 @@
   lib,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pnpm-shell-completion";
   version = "0.5.4";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-JL9bWVHmdSktOEF70WMOmZKdZwO/gNDp0GPDMYteR1E=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd pnpm \
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/g-plane/pnpm-shell-completion";
     description = "Complete your pnpm command fastly";
     license = licenses.mit;
-    maintainers = with maintainers; [ donovanglover ];
+    maintainers = with maintainers; [donovanglover];
     mainProgram = "pnpm-shell-completion";
   };
 }

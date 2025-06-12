@@ -10,7 +10,6 @@
   python3,
   tuxclocker,
 }:
-
 stdenv.mkDerivation {
   inherit (tuxclocker) src version meta;
 
@@ -21,7 +20,7 @@ stdenv.mkDerivation {
     meson
     ninja
     pkg-config
-    (python3.withPackages (p: [ p.hwdata ]))
+    (python3.withPackages (p: [p.hwdata]))
   ];
 
   buildInputs = [

@@ -26,7 +26,6 @@
   kuserfeedback,
   pimcommon,
 }:
-
 mkDerivation {
   pname = "korganizer";
   meta = {

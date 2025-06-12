@@ -7,7 +7,6 @@
   libbtree,
   multitrandata,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmtquery";
   version = "0.0.1alpha3";

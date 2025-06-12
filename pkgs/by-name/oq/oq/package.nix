@@ -7,7 +7,6 @@
   libxml2,
   makeWrapper,
 }:
-
 crystal.buildCrystalPackage rec {
   pname = "oq";
   version = "1.3.4";
@@ -26,15 +25,15 @@ crystal.buildCrystalPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ libxml2 ];
-  nativeCheckInputs = [ jq ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [libxml2];
+  nativeCheckInputs = [jq];
 
   format = "shards";
 
   postInstall = ''
     wrapProgram "$out/bin/oq" \
-      --prefix PATH : "${lib.makeBinPath [ jq ]}"
+      --prefix PATH : "${lib.makeBinPath [jq]}"
   '';
 
   meta = with lib; {
@@ -42,7 +41,7 @@ crystal.buildCrystalPackage rec {
     mainProgram = "oq";
     homepage = "https://blacksmoke16.github.io/oq/";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
     platforms = platforms.unix;
   };
 }

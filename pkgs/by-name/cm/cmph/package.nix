@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cmph";
   version = "2.0.2";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
       mpl11
     ];
     mainProgram = "cmph";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 })

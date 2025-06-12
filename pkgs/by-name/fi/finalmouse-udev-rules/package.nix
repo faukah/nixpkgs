@@ -3,7 +3,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   pname = "finalmouse-udev-rules";
   version = "0-unstable-2025-05-05";

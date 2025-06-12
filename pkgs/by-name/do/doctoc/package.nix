@@ -4,7 +4,6 @@
   fetchFromGitHub,
   callPackage,
 }:
-
 buildNpmPackage rec {
   pname = "doctoc";
   version = "2.2.0";
@@ -25,14 +24,14 @@ buildNpmPackage rec {
   dontNpmBuild = true;
 
   passthru.tests = {
-    generates-valid-markdown = callPackage ./test-generates-valid-markdown { };
+    generates-valid-markdown = callPackage ./test-generates-valid-markdown {};
   };
 
   meta = {
     description = "Generate table of contents for Markdown files";
     homepage = "https://github.com/thlorenz/doctoc";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tomodachi94 ];
+    maintainers = with lib.maintainers; [tomodachi94];
     mainProgram = "doctoc";
     platforms = lib.platforms.all;
   };

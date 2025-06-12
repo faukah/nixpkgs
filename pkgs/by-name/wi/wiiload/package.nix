@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     autoconf
     automake
   ];
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   src = fetchFromGitHub {
     owner = "devkitPro";
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     mainProgram = "wiiload";
     homepage = "https://wiibrew.org/wiki/Wiiload";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ tomsmeets ];
+    maintainers = with maintainers; [tomsmeets];
   };
 }

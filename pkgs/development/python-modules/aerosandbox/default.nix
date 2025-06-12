@@ -13,7 +13,6 @@
   dill,
   casadi,
 }:
-
 buildPythonPackage rec {
   pname = "aerosandbox";
   version = "4.2.8";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-+rrZzaBWyc9a20bUlsB0iDqYkn+ldlKT0lFfCy2yeXk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
   dependencies = [
     numpy
     scipy
@@ -41,12 +40,12 @@ buildPythonPackage rec {
     casadi
   ];
 
-  pythonImportsCheck = [ "aerosandbox" ];
+  pythonImportsCheck = ["aerosandbox"];
 
   meta = {
     description = "Aircraft design optimization made fast through modern automatic differentiation";
     homepage = "https://peterdsharpe.github.io/AeroSandbox";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

@@ -6,7 +6,6 @@
   installShellFiles,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "sqlc";
   version = "1.29.0";
@@ -21,9 +20,9 @@ buildGoModule (finalAttrs: {
   proxyVendor = true;
   vendorHash = "sha256-LpF94Jv7kukSa803WCmnO+y6kvHLPz0ZGEdbjwVFV40=";
 
-  subPackages = [ "cmd/sqlc" ];
+  subPackages = ["cmd/sqlc"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -38,14 +37,14 @@ buildGoModule (finalAttrs: {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "version";
 
   meta = {
     description = "Generate type-safe code from SQL";
     homepage = "https://sqlc.dev/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "sqlc";
   };
 })

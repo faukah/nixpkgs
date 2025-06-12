@@ -7,7 +7,6 @@
   python,
   fetchPypi,
   autoPatchelfHook,
-
   # dependencies
   click,
   filelock,
@@ -18,7 +17,6 @@
   pyyaml,
   requests,
   watchfiles,
-
   # optional-dependencies
   # cgraph
   cupy,
@@ -60,21 +58,18 @@
   pyopenssl,
   # tune
   tensorboardx,
-}:
-
-let
+}: let
   pname = "ray";
   version = "2.46.0";
 in
-buildPythonPackage rec {
-  inherit pname version;
-  format = "wheel";
+  buildPythonPackage rec {
+    inherit pname version;
+    format = "wheel";
 
-  disabled = pythonOlder "3.9" || pythonAtLeast "3.14";
+    disabled = pythonOlder "3.9" || pythonAtLeast "3.14";
 
-  src =
-    let
-      pyShortVersion = "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
+    src = let
+      pyShortVersion = "cp${builtins.replaceStrings ["."] [""] python.pythonVersion}";
       platforms = {
         aarch64-darwin = "macosx_11_0_arm64";
         aarch64-linux = "manylinux2014_aarch64";
@@ -110,131 +105,131 @@ buildPythonPackage rec {
         };
       };
     in
-    fetchPypi {
-      inherit pname version format;
-      dist = pyShortVersion;
-      python = pyShortVersion;
-      abi = pyShortVersion;
-      platform = platforms.${stdenv.hostPlatform.system} or { };
-      sha256 = hashes.${stdenv.hostPlatform.system}.${pyShortVersion} or { };
-    };
+      fetchPypi {
+        inherit pname version format;
+        dist = pyShortVersion;
+        python = pyShortVersion;
+        abi = pyShortVersion;
+        platform = platforms.${stdenv.hostPlatform.system} or {};
+        sha256 = hashes.${stdenv.hostPlatform.system}.${pyShortVersion} or {};
+      };
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
-    autoPatchelfHook
-  ];
+    nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+      autoPatchelfHook
+    ];
 
-  dependencies = [
-    click
-    filelock
-    jsonschema
-    msgpack
-    packaging
-    protobuf
-    pyyaml
-    requests
-    watchfiles
-  ];
-
-  optional-dependencies = lib.fix (self: {
-    adag = self.cgraph;
-    air = lib.unique (self.data ++ self.serve ++ self.tune ++ self.train);
-    all = lib.unique (
-      self.adag
-      ++ self.air
-      ++ self.cgraph
-      ++ self.client
-      ++ self.data
-      ++ self.default
-      ++ self.observability
-      ++ self.rllib
-      ++ self.serve
-      ++ self.train
-      ++ self.tune
-    );
-    cgraph = [
-      cupy
-    ];
-    client = [ grpcio ];
-    data = [
-      fsspec
-      numpy
-      pandas
-      pyarrow
-    ];
-    default = [
-      aiohttp
-      aiohttp-cors
-      colorful
-      grpcio
-      opencensus
-      prometheus-client
-      pydantic
-      py-spy
-      requests
-      smart-open
-      virtualenv
-    ];
-    observability = [
-      memray
-      opentelemetry-api
-      opentelemetry-sdk
-      opentelemetry-exporter-otlp
-    ];
-    rllib = [
-      dm-tree
-      gymnasium
-      lz4
-      # ormsgpack
+    dependencies = [
+      click
+      filelock
+      jsonschema
+      msgpack
+      packaging
+      protobuf
       pyyaml
-      scipy
-      typer
-      rich
-    ];
-    serve = lib.unique (
-      [
-        fastapi
-        requests
-        starlette
-        uvicorn
-        watchfiles
-      ]
-      ++ self.default
-    );
-    serve-grpc = lib.unique (
-      [
-        grpcio
-        pyopenssl
-      ]
-      ++ self.serve
-    );
-    train = self.tune;
-    tune = [
-      fsspec
-      pandas
-      pyarrow
       requests
-      tensorboardx
+      watchfiles
     ];
-  });
 
-  postInstall = ''
-    chmod +x $out/${python.sitePackages}/ray/core/src/ray/{gcs/gcs_server,raylet/raylet}
-  '';
+    optional-dependencies = lib.fix (self: {
+      adag = self.cgraph;
+      air = lib.unique (self.data ++ self.serve ++ self.tune ++ self.train);
+      all = lib.unique (
+        self.adag
+        ++ self.air
+        ++ self.cgraph
+        ++ self.client
+        ++ self.data
+        ++ self.default
+        ++ self.observability
+        ++ self.rllib
+        ++ self.serve
+        ++ self.train
+        ++ self.tune
+      );
+      cgraph = [
+        cupy
+      ];
+      client = [grpcio];
+      data = [
+        fsspec
+        numpy
+        pandas
+        pyarrow
+      ];
+      default = [
+        aiohttp
+        aiohttp-cors
+        colorful
+        grpcio
+        opencensus
+        prometheus-client
+        pydantic
+        py-spy
+        requests
+        smart-open
+        virtualenv
+      ];
+      observability = [
+        memray
+        opentelemetry-api
+        opentelemetry-sdk
+        opentelemetry-exporter-otlp
+      ];
+      rllib = [
+        dm-tree
+        gymnasium
+        lz4
+        # ormsgpack
+        pyyaml
+        scipy
+        typer
+        rich
+      ];
+      serve = lib.unique (
+        [
+          fastapi
+          requests
+          starlette
+          uvicorn
+          watchfiles
+        ]
+        ++ self.default
+      );
+      serve-grpc = lib.unique (
+        [
+          grpcio
+          pyopenssl
+        ]
+        ++ self.serve
+      );
+      train = self.tune;
+      tune = [
+        fsspec
+        pandas
+        pyarrow
+        requests
+        tensorboardx
+      ];
+    });
 
-  pythonImportsCheck = [ "ray" ];
+    postInstall = ''
+      chmod +x $out/${python.sitePackages}/ray/core/src/ray/{gcs/gcs_server,raylet/raylet}
+    '';
 
-  meta = {
-    description = "Unified framework for scaling AI and Python applications";
-    homepage = "https://github.com/ray-project/ray";
-    changelog = "https://github.com/ray-project/ray/releases/tag/ray-${version}";
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ billhuang ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    platforms = [
-      "aarch64-darwin"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "x86_64-linux"
-    ];
-  };
-}
+    pythonImportsCheck = ["ray"];
+
+    meta = {
+      description = "Unified framework for scaling AI and Python applications";
+      homepage = "https://github.com/ray-project/ray";
+      changelog = "https://github.com/ray-project/ray/releases/tag/ray-${version}";
+      license = lib.licenses.asl20;
+      maintainers = with lib.maintainers; [billhuang];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      platforms = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "x86_64-linux"
+      ];
+    };
+  }

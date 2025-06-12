@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.hardware.spacenavd;
-in
-{
+in {
   options = {
     hardware.spacenavd = {
       enable = lib.mkEnableOption "spacenavd to support 3DConnexion devices";
@@ -16,10 +14,10 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd = {
-      packages = [ pkgs.spacenavd ];
+      packages = [pkgs.spacenavd];
       services.spacenavd = {
         enable = true;
-        wantedBy = [ "graphical.target" ];
+        wantedBy = ["graphical.target"];
       };
     };
   };

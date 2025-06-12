@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "spdx-license-list-data";
   version = "3.26.0";
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation rec {
     "text"
   ];
 
-  outputs = [ "out" ] ++ _types;
+  outputs = ["out"] ++ _types;
 
   dontPatch = true;
   dontConfigure = true;

@@ -57,7 +57,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Yet another discord overlay for linux";
     homepage = "https://github.com/trigg/Discover";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dragonginger ];
+    maintainers = with lib.maintainers; [dragonginger];
     mainProgram = "discover-overlay";
     platforms = lib.platforms.linux;
   };

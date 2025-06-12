@@ -14,7 +14,6 @@
   gdk-pixbuf,
   pam,
 }:
-
 stdenv.mkDerivation rec {
   pname = "swaylock-effects";
   version = "1.7.0.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -63,6 +62,6 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ gnxlxnxx ];
+    maintainers = with maintainers; [gnxlxnxx];
   };
 }

@@ -14,7 +14,6 @@
   setuptools,
   webcolors,
 }:
-
 buildPythonPackage rec {
   pname = "blockdiag";
   version = "3.0.0";
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     # note: this is a postPatch as `seqdiag` uses them directly
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     docutils
@@ -67,7 +66,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "src/blockdiag/tests/" ];
+  pytestFlagsArray = ["src/blockdiag/tests/"];
 
   disabledTests = [
     # Test require network access
@@ -78,14 +77,14 @@ buildPythonPackage rec {
     "test_generate_with_separate"
   ];
 
-  pythonImportsCheck = [ "blockdiag" ];
+  pythonImportsCheck = ["blockdiag"];
 
   meta = with lib; {
     description = "Generate block-diagram image from spec-text file (similar to Graphviz)";
     homepage = "http://blockdiag.com/";
     changelog = "https://github.com/blockdiag/blockdiag/blob/${version}/CHANGES.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
     mainProgram = "blockdiag";
     platforms = platforms.unix;
   };

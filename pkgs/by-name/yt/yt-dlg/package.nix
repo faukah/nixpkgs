@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   pyproject = true;
-  pythonRelaxDeps = [ "wxpython" ];
+  pythonRelaxDeps = ["wxpython"];
   build-system = with python3Packages; [
     setuptools
     wheel
@@ -35,6 +35,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://oleksis.github.io/youtube-dl-gui";
     license = lib.licenses.unlicense;
     mainProgram = "yt-dlg";
-    maintainers = with lib.maintainers; [ quantenzitrone ];
+    maintainers = with lib.maintainers; [quantenzitrone];
   };
 }

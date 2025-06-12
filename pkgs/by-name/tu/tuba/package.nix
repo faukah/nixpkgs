@@ -33,7 +33,6 @@
   clapperSupport ? false,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tuba";
   version = "0.9.2";
@@ -76,7 +75,7 @@ stdenv.mkDerivation rec {
       gstreamer
       gst-libav
       gst-plugins-base
-      (gst-plugins-good.override { gtkSupport = true; })
+      (gst-plugins-good.override {gtkSupport = true;})
       gst-plugins-bad
     ])
     ++ lib.optionals clapperSupport [
@@ -90,7 +89,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=int-conversion";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   # Pull in WebP support for avatars from Misskey instances.
@@ -116,6 +115,6 @@ stdenv.mkDerivation rec {
       chuangzhu
       donovanglover
     ];
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
   };
 }

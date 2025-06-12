@@ -12,10 +12,11 @@
   openssl,
   nixosTests,
   zlib,
-}:
-
-let
-  os = if stdenv.hostPlatform.isDarwin then "osx" else "linux";
+}: let
+  os =
+    if stdenv.hostPlatform.isDarwin
+    then "osx"
+    else "linux";
   arch =
     {
       x86_64-linux = "x64";
@@ -33,28 +34,27 @@ let
       arm64-osx_hash = "sha256-aM9bmPW6Vv2D6lIKfT5+uuUXfq/xqxNuHAysEYUFzt4=";
     }
     ."${arch}-${os}_hash";
-
 in
-stdenv.mkDerivation rec {
-  pname = "radarr";
-  version = "5.25.0.10024";
+  stdenv.mkDerivation rec {
+    pname = "radarr";
+    version = "5.25.0.10024";
 
-  src = fetchurl {
-    url = "https://github.com/Radarr/Radarr/releases/download/v${version}/Radarr.master.${version}.${os}-core-${arch}.tar.gz";
-    sha256 = hash;
-  };
+    src = fetchurl {
+      url = "https://github.com/Radarr/Radarr/releases/download/v${version}/Radarr.master.${version}.${os}-core-${arch}.tar.gz";
+      sha256 = hash;
+    };
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/{bin,share/${pname}-${version}}
-    cp -r * $out/share/${pname}-${version}/.
+      mkdir -p $out/{bin,share/${pname}-${version}}
+      cp -r * $out/share/${pname}-${version}/.
 
-    makeWrapper "${dotnet-runtime}/bin/dotnet" $out/bin/Radarr \
-      --add-flags "$out/share/${pname}-${version}/Radarr.dll" \
-      --prefix LD_LIBRARY_PATH : ${
+      makeWrapper "${dotnet-runtime}/bin/dotnet" $out/bin/Radarr \
+        --add-flags "$out/share/${pname}-${version}/Radarr.dll" \
+        --prefix LD_LIBRARY_PATH : ${
         lib.makeLibraryPath [
           curl
           sqlite
@@ -66,29 +66,29 @@ stdenv.mkDerivation rec {
         ]
       }
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru = {
-    updateScript = ./update.sh;
-    tests.smoke-test = nixosTests.radarr;
-  };
+    passthru = {
+      updateScript = ./update.sh;
+      tests.smoke-test = nixosTests.radarr;
+    };
 
-  meta = with lib; {
-    description = "Usenet/BitTorrent movie downloader";
-    homepage = "https://radarr.video/";
-    changelog = "https://github.com/Radarr/Radarr/releases/tag/v${version}";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [
-      edwtjo
-      purcell
-    ];
-    mainProgram = "Radarr";
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-  };
-}
+    meta = with lib; {
+      description = "Usenet/BitTorrent movie downloader";
+      homepage = "https://radarr.video/";
+      changelog = "https://github.com/Radarr/Radarr/releases/tag/v${version}";
+      license = licenses.gpl3Only;
+      maintainers = with maintainers; [
+        edwtjo
+        purcell
+      ];
+      mainProgram = "Radarr";
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+    };
+  }

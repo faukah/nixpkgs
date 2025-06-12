@@ -3,21 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.hardware.apple.touchBar;
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
   cfgFile = format.generate "config.toml" cfg.settings;
-in
-{
+in {
   options.hardware.apple.touchBar = {
     enable = lib.mkEnableOption "support for the Touch Bar on some Apple laptops using tiny-dfr";
-    package = lib.mkPackageOption pkgs "tiny-dfr" { };
+    package = lib.mkPackageOption pkgs "tiny-dfr" {};
 
     settings = lib.mkOption {
       type = format.type;
-      default = { };
+      default = {};
       description = ''
         Configuration for tiny-dfr. See [example configuration][1] for available options.
 
@@ -34,10 +31,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.packages = [ cfg.package ];
-    services.udev.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
+    services.udev.packages = [cfg.package];
 
     environment.etc."tiny-dfr/config.toml".source = cfgFile;
-    systemd.services.tiny-dfr.restartTriggers = [ cfgFile ];
+    systemd.services.tiny-dfr.restartTriggers = [cfgFile];
   };
 }

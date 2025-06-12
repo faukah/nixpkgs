@@ -16,7 +16,6 @@
   transitions,
   websockets,
 }:
-
 buildPythonPackage {
   pname = "amqtt";
   version = "unstable-2022-05-29";
@@ -37,7 +36,7 @@ buildPythonPackage {
       --replace 'websockets = ">=9.0,<11.0"' 'websockets = "*"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     docopt
@@ -55,7 +54,7 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" ];
+  pytestFlagsArray = ["--asyncio-mode=auto"];
 
   disabledTests = lib.optionals (pythonAtLeast "3.12") [
     # stuck in epoll
@@ -80,12 +79,12 @@ buildPythonPackage {
     export PATH=$out/bin:$PATH
   '';
 
-  pythonImportsCheck = [ "amqtt" ];
+  pythonImportsCheck = ["amqtt"];
 
   meta = with lib; {
     description = "Python MQTT client and broker implementation";
     homepage = "https://amqtt.readthedocs.io/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

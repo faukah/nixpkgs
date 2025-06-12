@@ -18,7 +18,6 @@
   libstartup_notification,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openbox";
   version = "3.6.1";

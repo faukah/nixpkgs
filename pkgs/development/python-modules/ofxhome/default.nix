@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   version = "0.3.3";
   pname = "ofxhome";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-i16bE9iuafhAKco2jYfg5T5QCWFHdnYVztf1z2XbO9g=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # These are helper functions that should not be called as tests
   disabledTests = [
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/captin411/ofxhome";
     description = "ofxhome.com financial institution lookup REST client";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

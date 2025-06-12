@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vrb";
   version = "0.5.1";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     mainProgram = "vbuf";
     license = licenses.lgpl21;
     homepage = "http://vrb.sourceforge.net/";
-    maintainers = [ maintainers.bobvanderlinden ];
+    maintainers = [maintainers.bobvanderlinden];
     platforms = platforms.linux;
   };
 }

@@ -9,13 +9,11 @@
   numix-icon-theme-circle,
   gitUpdater,
   allColorVariants ? false,
-  colorVariants ? [ ],
-}:
-
-let
+  colorVariants ? [],
+}: let
   pname = "reversal-icon-theme";
 in
-lib.checkListOfEnum "${pname}: color variants"
+  lib.checkListOfEnum "${pname}: color variants"
   [
     "-blue"
     "-red"
@@ -29,7 +27,6 @@ lib.checkListOfEnum "${pname}: color variants"
     "-cyan"
   ]
   colorVariants
-
   stdenvNoCC.mkDerivation
   rec {
     inherit pname;
@@ -73,7 +70,11 @@ lib.checkListOfEnum "${pname}: color variants"
       mkdir -p $out/share/icons
 
       name= ./install.sh \
-        ${if allColorVariants then "-a" else builtins.toString colorVariants} \
+        ${
+        if allColorVariants
+        then "-a"
+        else builtins.toString colorVariants
+      } \
         -d $out/share/icons
 
       rm $out/share/icons/*/{AUTHORS,COPYING}
@@ -83,13 +84,13 @@ lib.checkListOfEnum "${pname}: color variants"
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "Colorful Design Rectangle icon theme";
       homepage = "https://github.com/yeyushengfan258/Reversal-icon-theme";
       license = licenses.gpl3Plus;
       platforms = platforms.all;
-      maintainers = with maintainers; [ romildo ];
+      maintainers = with maintainers; [romildo];
     };
   }

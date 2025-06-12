@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule {
   pname = "kafka-minion";
   version = "2.2.7";
@@ -25,7 +24,7 @@ buildGoModule {
     description = "KMinion is a feature-rich Prometheus exporter for Apache Kafka written in Go";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cafkafk ];
+    maintainers = with maintainers; [cafkafk];
     mainProgram = "kminion";
   };
 }

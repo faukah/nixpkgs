@@ -9,7 +9,6 @@
   neon,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.14";
   pname = "litmus";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.webdav.org/neon/litmus/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.lorenz ];
+    maintainers = [maintainers.lorenz];
     mainProgram = "litmus";
   };
 }

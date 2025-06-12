@@ -8,7 +8,6 @@
   libyubikey,
   json_c,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yubikey-personalization";
   version = "1.20.0";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libusb1
     libyubikey

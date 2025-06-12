@@ -3,82 +3,74 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.hardware.sane.brscan4;
 
   netDeviceList = lib.attrValues cfg.netDevices;
 
-  etcFiles = pkgs.callPackage ./brscan4_etc_files.nix { netDevices = netDeviceList; };
+  etcFiles = pkgs.callPackage ./brscan4_etc_files.nix {netDevices = netDeviceList;};
 
-  netDeviceOpts =
-    { name, ... }:
-    {
+  netDeviceOpts = {name, ...}: {
+    options = {
+      name = lib.mkOption {
+        type = lib.types.str;
+        description = ''
+          The friendly name you give to the network device. If undefined,
+          the name of attribute will be used.
+        '';
 
-      options = {
-
-        name = lib.mkOption {
-          type = lib.types.str;
-          description = ''
-            The friendly name you give to the network device. If undefined,
-            the name of attribute will be used.
-          '';
-
-          example = "office1";
-        };
-
-        model = lib.mkOption {
-          type = lib.types.str;
-          description = ''
-            The model of the network device.
-          '';
-
-          example = "MFC-7860DW";
-        };
-
-        ip = lib.mkOption {
-          type = with lib.types; nullOr str;
-          default = null;
-          description = ''
-            The ip address of the device. If undefined, you will have to
-            provide a nodename.
-          '';
-
-          example = "192.168.1.2";
-        };
-
-        nodename = lib.mkOption {
-          type = with lib.types; nullOr str;
-          default = null;
-          description = ''
-            The node name of the device. If undefined, you will have to
-            provide an ip.
-          '';
-
-          example = "BRW0080927AFBCE";
-        };
-
+        example = "office1";
       };
 
-      config = {
-        name = lib.mkDefault name;
+      model = lib.mkOption {
+        type = lib.types.str;
+        description = ''
+          The model of the network device.
+        '';
+
+        example = "MFC-7860DW";
+      };
+
+      ip = lib.mkOption {
+        type = with lib.types; nullOr str;
+        default = null;
+        description = ''
+          The ip address of the device. If undefined, you will have to
+          provide a nodename.
+        '';
+
+        example = "192.168.1.2";
+      };
+
+      nodename = lib.mkOption {
+        type = with lib.types; nullOr str;
+        default = null;
+        description = ''
+          The node name of the device. If undefined, you will have to
+          provide an ip.
+        '';
+
+        example = "BRW0080927AFBCE";
       };
     };
 
-in
-
-{
+    config = {
+      name = lib.mkDefault name;
+    };
+  };
+in {
   options = {
-
-    hardware.sane.brscan4.enable = lib.mkEnableOption "Brother's brscan4 scan backend" // {
-      description = ''
-        When enabled, will automatically register the "brscan4" sane
-        backend and bring configuration files to their expected location.
-      '';
-    };
+    hardware.sane.brscan4.enable =
+      lib.mkEnableOption "Brother's brscan4 scan backend"
+      // {
+        description = ''
+          When enabled, will automatically register the "brscan4" sane
+          backend and bring configuration files to their expected location.
+        '';
+      };
 
     hardware.sane.brscan4.netDevices = lib.mkOption {
-      default = { };
+      default = {};
       example = {
         office1 = {
           model = "MFC-7860DW";
@@ -98,7 +90,6 @@ in
   };
 
   config = lib.mkIf (config.hardware.sane.enable && cfg.enable) {
-
     hardware.sane.extraBackends = [
       pkgs.brscan4
     ];
@@ -117,6 +108,5 @@ in
         '';
       }
     ];
-
   };
 }

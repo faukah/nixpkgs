@@ -19,7 +19,6 @@
   fluidsynth,
   orc,
 }:
-
 stdenv.mkDerivation {
   pname = "buzztrax";
   version = "unstable-2022-01-26";
@@ -72,7 +71,7 @@ stdenv.mkDerivation {
     description = "Buzztrax is a modular music composer for Linux";
     homepage = "https://www.buzztrax.org/";
     license = licenses.lgpl21Plus;
-    maintainers = [ maintainers.bendlas ];
+    maintainers = [maintainers.bendlas];
     platforms = platforms.unix;
   };
 }

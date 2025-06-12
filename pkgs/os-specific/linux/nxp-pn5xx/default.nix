@@ -5,7 +5,6 @@
   kernel,
   kernelModuleMakeFlags,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nxp-pn5xx";
   version = "0.4-unstable-2025-02-08-${kernel.version}";
@@ -19,11 +18,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KERNELRELEASE=${kernel.modDirVersion}"
-    "BUILD_KERNEL_PATH=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    "INSTALL_MOD_PATH=$(out)/lib/modules/${kernel.modDirVersion}"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KERNELRELEASE=${kernel.modDirVersion}"
+      "BUILD_KERNEL_PATH=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      "INSTALL_MOD_PATH=$(out)/lib/modules/${kernel.modDirVersion}"
+    ];
 
   postInstall = ''
     mkdir -p $out/etc/udev/rules.d
@@ -34,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "NXP's NFC Open Source Kernel mode driver with ACPI configuration support";
     homepage = "https://github.com/jr64/nxp-pn5xx";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ stargate01 ];
+    maintainers = with lib.maintainers; [stargate01];
     platforms = lib.platforms.linux;
   };
 })

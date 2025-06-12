@@ -40,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/KorySchneider/wikit";
     changelog = "https://github.com/KorySchneider/wikit/releases";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ theobori ];
+    maintainers = with lib.maintainers; [theobori];
     mainProgram = "wikit";
   };
 })

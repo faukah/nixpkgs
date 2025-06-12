@@ -3,9 +3,7 @@
   dev ? false,
   aarch64sha256,
   x64sha256,
-}:
-
-{
+}: {
   fetchurl,
   stdenv,
   lib,
@@ -24,9 +22,7 @@
   openssl_1_1,
   bzip2,
   sqlite,
-}:
-
-let
+}: let
   pnameBase = "sublimetext4";
   packageAttribute = "sublime4${lib.optionalString dev "-dev"}";
   binaries = [
@@ -42,10 +38,15 @@ let
     "sublime4"
   ];
   crashHandlerBinary =
-    if lib.versionAtLeast buildVersion "4153" then "crash_handler" else "crash_reporter";
-  downloadUrl =
-    arch: "https://download.sublimetext.com/sublime_text_build_${buildVersion}_${arch}.tar.xz";
-  versionUrl = "https://download.sublimetext.com/latest/${if dev then "dev" else "stable"}";
+    if lib.versionAtLeast buildVersion "4153"
+    then "crash_handler"
+    else "crash_reporter";
+  downloadUrl = arch: "https://download.sublimetext.com/sublime_text_build_${buildVersion}_${arch}.tar.xz";
+  versionUrl = "https://download.sublimetext.com/latest/${
+    if dev
+    then "dev"
+    else "stable"
+  }";
   versionFile = builtins.toString ./packages.nix;
 
   neededLibraries =
@@ -137,44 +138,43 @@ let
     };
   };
 in
-stdenv.mkDerivation (rec {
-  pname = pnameBase;
-  version = buildVersion;
+  stdenv.mkDerivation rec {
+    pname = pnameBase;
+    version = buildVersion;
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  ${primaryBinary} = binaryPackage;
+    ${primaryBinary} = binaryPackage;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+    ];
 
-  installPhase =
-    ''
-      mkdir -p "$out/bin"
-      makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
-    ''
-    + builtins.concatStringsSep "" (
-      map (binaryAlias: "ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}\n") primaryBinaryAliases
-    )
-    + ''
-      mkdir -p "$out/share/applications"
+    installPhase =
+      ''
+        mkdir -p "$out/bin"
+        makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
+      ''
+      + builtins.concatStringsSep "" (
+        map (binaryAlias: "ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}\n") primaryBinaryAliases
+      )
+      + ''
+        mkdir -p "$out/share/applications"
 
-      substitute \
-        "''$${primaryBinary}/${primaryBinary}.desktop" \
-        "$out/share/applications/${primaryBinary}.desktop" \
-        --replace-fail "/opt/${primaryBinary}/${primaryBinary}" "${primaryBinary}"
+        substitute \
+          "''$${primaryBinary}/${primaryBinary}.desktop" \
+          "$out/share/applications/${primaryBinary}.desktop" \
+          --replace-fail "/opt/${primaryBinary}/${primaryBinary}" "${primaryBinary}"
 
-      for directory in ''$${primaryBinary}/Icon/*; do
-        size=$(basename $directory)
-        mkdir -p "$out/share/icons/hicolor/$size/apps"
-        ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
-      done
-    '';
+        for directory in ''$${primaryBinary}/Icon/*; do
+          size=$(basename $directory)
+          mkdir -p "$out/share/icons/hicolor/$size/apps"
+          ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
+        done
+      '';
 
-  passthru = {
-    updateScript =
-      let
+    passthru = {
+      updateScript = let
         script = writeShellScript "${packageAttribute}-update-script" ''
           set -o errexit
           PATH=${
@@ -196,27 +196,26 @@ stdenv.mkDerivation (rec {
               update-source-version "${packageAttribute}.${primaryBinary}" "$latestVersion" --ignore-same-version --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
           done
         '';
-      in
-      [
+      in [
         script
         versionFile
       ];
-  };
+    };
 
-  meta = with lib; {
-    description = "Sophisticated text editor for code, markup and prose";
-    homepage = "https://www.sublimetext.com/";
-    maintainers = with maintainers; [
-      jtojnar
-      wmertens
-      demin-dmitriy
-      zimbatm
-    ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    platforms = [
-      "aarch64-linux"
-      "x86_64-linux"
-    ];
-  };
-})
+    meta = with lib; {
+      description = "Sophisticated text editor for code, markup and prose";
+      homepage = "https://www.sublimetext.com/";
+      maintainers = with maintainers; [
+        jtojnar
+        wmertens
+        demin-dmitriy
+        zimbatm
+      ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      license = licenses.unfree;
+      platforms = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
+    };
+  }

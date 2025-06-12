@@ -5,7 +5,6 @@
   python3Packages,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "barman";
   version = "3.13.3";
@@ -18,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-ffedLH7b/Z1y+yL5EkFJIGdksQZEKc3uu3KOyNc2plw=";
   };
 
-  patches = [ ./unwrap-subprocess.patch ];
+  patches = [./unwrap-subprocess.patch];
 
   build-system = with python3Packages; [
     distutils
@@ -65,7 +64,7 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/EnterpriseDB/barman/blob/release/${src.tag}/NEWS";
     mainProgram = "barman";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ freezeboy ];
+    maintainers = with lib.maintainers; [freezeboy];
     platforms = lib.platforms.unix;
   };
 }

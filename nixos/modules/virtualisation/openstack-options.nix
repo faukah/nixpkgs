@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib) literalExpression types;
-in
-{
+in {
   options = {
     openstack = {
       zfs = {
@@ -28,7 +26,7 @@ in
             on an existing system.
           '';
 
-          default = { };
+          default = {};
 
           type = types.attrsOf (
             types.submodule {
@@ -42,7 +40,7 @@ in
                 properties = lib.mkOption {
                   description = "Properties to set on this dataset.";
                   type = types.attrsOf types.str;
-                  default = { };
+                  default = {};
                 };
               };
             }
@@ -64,18 +62,20 @@ in
   config = lib.mkIf config.openstack.zfs.enable {
     networking.hostId = lib.mkDefault "00000000";
 
-    fileSystems =
-      let
-        mountable = lib.filterAttrs (
+    fileSystems = let
+      mountable =
+        lib.filterAttrs (
           _: value: ((value.mount or null) != null)
-        ) config.openstack.zfs.datasets;
-      in
+        )
+        config.openstack.zfs.datasets;
+    in
       lib.mapAttrs' (
         dataset: opts:
-        lib.nameValuePair opts.mount {
-          device = dataset;
-          fsType = "zfs";
-        }
-      ) mountable;
+          lib.nameValuePair opts.mount {
+            device = dataset;
+            fsType = "zfs";
+          }
+      )
+      mountable;
   };
 }

@@ -5,7 +5,6 @@
   texinfo,
   help2man,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gengetopt";
   version = "2.23";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl3Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 }

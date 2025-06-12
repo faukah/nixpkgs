@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "enet";
   version = "1.3.18";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     homepage = "http://enet.bespin.org/";
     description = "Simple and robust network communication layer on top of UDP";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

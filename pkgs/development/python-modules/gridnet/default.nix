@@ -10,7 +10,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "gridnet";
   version = "5.0.1";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
       --replace "--cov" ""
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "gridnet" ];
+  pythonImportsCheck = ["gridnet"];
 
   meta = with lib; {
     description = "Asynchronous Python client for NET2GRID devices";
     homepage = "https://github.com/klaasnicolaas/python-gridnet";
     changelog = "https://github.com/klaasnicolaas/python-gridnet/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

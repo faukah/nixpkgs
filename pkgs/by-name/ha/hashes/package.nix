@@ -16,7 +16,6 @@
   gobject-introspection,
   glib,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "hashes";
   version = "1.1.2";
@@ -57,13 +56,13 @@ python3Packages.buildPythonApplication rec {
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/zefr0x/hashes/tree/main";
     changelog = "https://github.com/zefr0x/hashes/releases/tag/v${version}";
     description = "Simple hash algorithm identification GUI";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     license = lib.licenses.gpl3Plus;
     mainProgram = "hashes";
     platforms = lib.platforms.unix;

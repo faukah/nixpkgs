@@ -12,7 +12,6 @@
   wtforms,
   email-validator,
 }:
-
 buildPythonPackage rec {
   pname = "vaa";
   version = "0.2.1";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
       --replace "build-backend = \"flit.buildapi\"" "build-backend = \"flit_core.buildapi\""
   '';
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -44,12 +43,12 @@ buildPythonPackage rec {
     email-validator
   ];
 
-  pythonImportsCheck = [ "vaa" ];
+  pythonImportsCheck = ["vaa"];
 
   meta = with lib; {
     description = "VAlidators Adapter makes validation by any existing validator with the same interface";
     homepage = "https://github.com/life4/vaa";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

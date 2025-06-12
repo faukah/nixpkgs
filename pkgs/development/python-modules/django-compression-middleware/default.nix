@@ -6,7 +6,6 @@
   zstandard,
   brotli,
 }:
-
 buildPythonPackage rec {
   pname = "django-compression-middleware";
   version = "0.5.0";
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/friedelwolff/django-compression-middleware";
     changelog = "https://github.com/friedelwolff/django-compression-middleware/releases/tag/v${version}";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ e1mo ];
+    maintainers = with maintainers; [e1mo];
   };
 }

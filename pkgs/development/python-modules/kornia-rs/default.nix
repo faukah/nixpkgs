@@ -8,7 +8,6 @@
   nasm,
   libiconv,
 }:
-
 buildPythonPackage rec {
   pname = "kornia-rs";
   version = "0.1.2";
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/kornia/kornia-rs";
     description = "Python bindings to Low-level Computer Vision library in Rust";
     license = licenses.asl20;
-    maintainers = with maintainers; [ chpatrick ];
+    maintainers = with maintainers; [chpatrick];
   };
 }

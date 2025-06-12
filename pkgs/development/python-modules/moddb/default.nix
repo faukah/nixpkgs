@@ -7,7 +7,6 @@
   requests,
   toolz,
 }:
-
 buildPythonPackage rec {
   pname = "moddb";
   version = "0.12.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = true;
 
-  pythonImportsCheck = [ "moddb" ];
+  pythonImportsCheck = ["moddb"];
 
   doCheck = false; # Tests try to access the internet.
 
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "Python scrapper to access ModDB mods, games and more as objects";
     homepage = "https://github.com/ClementJ18/moddb";
     license = licenses.mit;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
   };
 }

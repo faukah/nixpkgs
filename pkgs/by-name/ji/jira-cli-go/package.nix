@@ -10,7 +10,6 @@
   nix-update-script,
   testers,
 }:
-
 buildGoModule rec {
   pname = "jira-cli-go";
   version = "1.6.0";
@@ -24,7 +23,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-cl+Sfi9WSPy8qOtB13rRiKtQdDC+HC0+FMKpsWbtU2w=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -55,7 +54,7 @@ buildGoModule rec {
       command = "jira version";
       inherit version;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   __darwinAllowLocalNetworking = true;

@@ -5,7 +5,6 @@
   openssl,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xilinx-bootgen";
   version = "xilinx_v2024.2";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-t165nTG4IkI3WrcS3ZryINmAOVzfctxg5zY3oqmNtLw=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   enableParallelBuilding = true;
 
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 bootgen $out/bin/bootgen
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Generate Boot Images for Xilinx Zynq and ZU+ SoCs";

@@ -15,7 +15,6 @@
   acpica-tools,
   libbsd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fwts";
   version = "24.09.00";
@@ -62,6 +61,6 @@ stdenv.mkDerivation rec {
     description = "Firmware Test Suite";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ tadfisher ];
+    maintainers = with lib.maintainers; [tadfisher];
   };
 }

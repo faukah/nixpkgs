@@ -4,7 +4,6 @@
   python3Packages,
   qt6,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "zapzap";
   version = "6.0.1.8";
@@ -57,6 +56,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "zapzap";
     license = licenses.gpl3Only;
     changelog = "https://github.com/rafatosta/zapzap/releases/tag/${src.tag}";
-    maintainers = [ maintainers.eymeric ];
+    maintainers = [maintainers.eymeric];
   };
 }

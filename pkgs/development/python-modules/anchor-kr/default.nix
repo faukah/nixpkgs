@@ -17,14 +17,14 @@ buildPythonPackage {
     hash = "sha256-t75IFBSz6ncHRqXRxbrM9EQdr8xPXjSd9di+/y2LegE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "anchor" ];
+  pythonImportsCheck = ["anchor"];
 
   meta = {
     description = "Python library for scraping";
     homepage = "https://github.com/justfoolingaround/anchor";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ passivelemon ];
+    maintainers = with lib.maintainers; [passivelemon];
   };
 }

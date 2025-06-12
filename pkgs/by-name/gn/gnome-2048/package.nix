@@ -15,7 +15,6 @@
   gnome,
   gtk3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-twenty-forty-eight";
   version = "3.38.2";
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.gnome.org/GNOME/gnome-2048/-/blob/${finalAttrs.version}/NEWS?ref_type=tags";
     description = "Obtain the 2048 tile";
     mainProgram = "gnome-2048";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

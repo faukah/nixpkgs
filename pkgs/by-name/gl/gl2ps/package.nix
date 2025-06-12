@@ -9,7 +9,6 @@
   libGLU,
   libglut,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gl2ps";
   version = "1.4.2";

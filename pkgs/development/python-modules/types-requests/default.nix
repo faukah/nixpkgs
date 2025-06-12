@@ -6,7 +6,6 @@
   types-urllib3,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "types-requests";
   version = "2.32.0.20250328";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-yeZyKOoQO9gRyWmE+sNu0q6NqHo2pjOWSiHxmdYLrzI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     types-urllib3
@@ -28,12 +27,12 @@ buildPythonPackage rec {
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "requests-stubs" ];
+  pythonImportsCheck = ["requests-stubs"];
 
   meta = with lib; {
     description = "Typing stubs for requests";
     homepage = "https://github.com/python/typeshed";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

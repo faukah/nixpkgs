@@ -8,7 +8,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "cmake-build-extension";
   version = "0.6.1";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  pythonImportsCheck = [ "cmake_build_extension" ];
+  pythonImportsCheck = ["cmake_build_extension"];
 
   doPythonRuntimeDepsCheck = false;
 
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/diegoferigo/cmake-build-extension";
     changelog = "https://github.com/diegoferigo/cmake-build-extension/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ scoder12 ];
+    maintainers = with lib.maintainers; [scoder12];
   };
 }

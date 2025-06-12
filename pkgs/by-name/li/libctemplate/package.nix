@@ -7,7 +7,6 @@
   automake,
   libtool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ctemplate";
   version = "2.4";

@@ -3,7 +3,6 @@
   fetchPypi,
   django,
 }:
-
 buildPythonPackage rec {
   pname = "django-tagging";
   version = "0.5.0";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
   # error: invalid command 'test'
   doCheck = false;
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   meta = {
     description = "Generic tagging application for Django projects";

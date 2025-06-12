@@ -3,9 +3,7 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   setuptools,
-
   urllib3,
   deprecation,
   paho-mqtt,
@@ -28,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-ttSNSTLCQAJXNqzlRMTnG8SaFXasmY6h3neK+CSW/84=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     urllib3
@@ -55,6 +53,6 @@ buildPythonPackage rec {
     description = "Microsoft Azure IoT Device Library for Python";
     homepage = "https://github.com/Azure/azure-iot-sdk-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ mikut ];
+    maintainers = with maintainers; [mikut];
   };
 }

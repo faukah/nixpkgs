@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "objconv";
   version = "2.54.1";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DFyo+8fvHEr+PMfMkBhxGliFr6y+i868SAKNHskMzHw=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   outputs = [
     "out"
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     mainProgram = "objconv";
     homepage = "https://www.agner.org/optimize/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.unix;
   };
 }

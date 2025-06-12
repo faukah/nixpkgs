@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tinyfetch";
   version = "0.2";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/abrik1/tinyfetch";
     license = lib.licenses.mit;
     mainProgram = "tinyfetch";
-    maintainers = with lib.maintainers; [ pagedMov ];
+    maintainers = with lib.maintainers; [pagedMov];
     platforms = lib.platforms.unix;
   };
 }

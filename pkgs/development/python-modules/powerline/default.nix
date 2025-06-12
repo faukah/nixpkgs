@@ -10,9 +10,7 @@
   i3ipc,
   stdenv,
 }:
-
 # TODO: bzr support is missing because nixpkgs switched to `breezy`
-
 buildPythonPackage rec {
   version = "2.8.4";
   pname = "powerline";
@@ -25,13 +23,15 @@ buildPythonPackage rec {
     hash = "sha256-snJrfUvP11lBIy6F0WtqJt9fiYm5jxMwm9u3u5XFO84=";
   };
 
-  propagatedBuildInputs = [
-    socat
-    psutil
-    python-hglib
-    pygit2
-    pyuv
-  ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ i3ipc ];
+  propagatedBuildInputs =
+    [
+      socat
+      psutil
+      python-hglib
+      pygit2
+      pyuv
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [i3ipc];
 
   # tests are travis-specific
   doCheck = false;

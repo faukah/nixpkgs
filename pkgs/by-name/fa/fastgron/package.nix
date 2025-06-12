@@ -6,7 +6,6 @@
   curl,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastgron";
   version = "0.7.7";
@@ -18,9 +17,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-dAfFSQ/UbAovQQr5AnCsyQtq1JkdQjvlG/SbuFnTx0E=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   passthru.tests.version = testers.testVersion {
     package = finalAttrs.finalPackage;
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "fastgron";
     homepage = "https://github.com/adamritter/fastgron";
     license = licenses.mit;
-    maintainers = with maintainers; [ zowoq ];
+    maintainers = with maintainers; [zowoq];
     platforms = platforms.all;
   };
 })

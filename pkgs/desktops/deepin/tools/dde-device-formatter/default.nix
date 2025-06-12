@@ -10,7 +10,6 @@
   qt5platform-plugins,
   qt5integration,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-device-formatter";
   version = "0.0.1.16";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     libsForQt5.qtx11extras
   ];
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   meta = {
     description = "Simple graphical interface for creating file system in a block device";
@@ -54,6 +53,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dde-device-formatter";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

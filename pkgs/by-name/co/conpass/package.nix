@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "conpass";
   version = "0.1.2";
@@ -29,14 +28,14 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "conpass" ];
+  pythonImportsCheck = ["conpass"];
 
   meta = {
     description = "Continuous password spraying tool";
     homepage = "https://github.com/login-securite/conpass";
     changelog = "https://github.com/login-securite/conpass/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "conpass";
   };
 }

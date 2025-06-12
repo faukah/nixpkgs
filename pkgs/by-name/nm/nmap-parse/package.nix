@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "nmap-parse";
   version = "0-unstable-2022-09-26";
@@ -43,7 +42,7 @@ python3.pkgs.buildPythonApplication {
     description = "Command line nmap XML parser";
     homepage = "https://github.com/jonny1102/nmap-parse";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "nmap-parse";
   };
 }

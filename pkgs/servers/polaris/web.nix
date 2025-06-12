@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "polaris-web";
   version = "69";
@@ -34,6 +33,6 @@ buildNpmPackage rec {
     description = "Web client for Polaris";
     homepage = "https://github.com/agersant/polaris-web";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

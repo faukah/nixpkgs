@@ -4,7 +4,6 @@
   fetchFromGitHub,
   rkbin,
 }:
-
 stdenv.mkDerivation {
   pname = "rkbin";
   version = "unstable-2024.10.23";
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
     description = "Rockchip proprietary bootloader blobs";
     homepage = "https://github.com/rockchip-linux/rkbin";
     license = licenses.unfreeRedistributableFirmware;
-    maintainers = with maintainers; [ thefossguy ];
+    maintainers = with maintainers; [thefossguy];
     platforms = lib.platforms.all;
   };
 }

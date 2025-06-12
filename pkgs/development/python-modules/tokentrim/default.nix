@@ -5,7 +5,6 @@
   poetry-core,
   tiktoken,
 }:
-
 buildPythonPackage rec {
   pname = "tokentrim";
   version = "0.1.13";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-zr2SLT3MBuMD98g9fdS0mLuijcssRQ/S3+tCq2Cw1/4=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ tiktoken ];
+  propagatedBuildInputs = [tiktoken];
 
-  pythonImportsCheck = [ "tokentrim" ];
+  pythonImportsCheck = ["tokentrim"];
 
   # tests connect to openai
   doCheck = false;
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "Easily trim 'messages' arrays for use with GPTs";
     homepage = "https://github.com/KillianLucas/tokentrim";
     license = licenses.mit;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

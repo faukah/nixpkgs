@@ -11,7 +11,6 @@
   resholve,
   wireguard-tools,
 }:
-
 resholve.mkDerivation rec {
   pname = "wgnord";
   version = "0.2.1";
@@ -38,7 +37,7 @@ resholve.mkDerivation rec {
   '';
 
   solutions.default = {
-    scripts = [ "bin/wgnord" ];
+    scripts = ["bin/wgnord"];
     interpreter = "${bash}/bin/sh";
     inputs = [
       coreutils
@@ -60,7 +59,7 @@ resholve.mkDerivation rec {
     description = "NordVPN Wireguard (NordLynx) client in POSIX shell";
     homepage = "https://github.com/phirecc/wgnord";
     changelog = "https://github.com/phirecc/wgnord/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ urandom ];
+    maintainers = with lib.maintainers; [urandom];
     license = lib.licenses.mit;
     mainProgram = "wgnord";
     platforms = lib.platforms.linux;

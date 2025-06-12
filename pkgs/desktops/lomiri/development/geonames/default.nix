@@ -19,7 +19,6 @@
   pkg-config,
   validatePkgConfig,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "geonames";
   version = "0.3.1";
@@ -88,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
       (lib.cmakeBool "WANT_DEMO" withExamples)
       (lib.cmakeBool "WANT_TESTS" finalAttrs.finalPackage.doCheck)
       # Keeps finding & using glib-compile-resources from buildInputs otherwise
-      (lib.cmakeFeature "CMAKE_PROGRAM_PATH" (lib.makeBinPath [ buildPackages.glib.dev ]))
+      (lib.cmakeFeature "CMAKE_PROGRAM_PATH" (lib.makeBinPath [buildPackages.glib.dev]))
     ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       # only for cross without native execute support because the canExecute "emulator" call has a format that I can't get CMake to accept
@@ -104,7 +103,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = with lib; {
@@ -113,7 +112,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/ubports/development/core/geonames";
     changelog = "https://gitlab.com/ubports/development/core/geonames/-/blob/${finalAttrs.version}/ChangeLog";
     license = licenses.gpl3Only;
-    teams = [ teams.lomiri ];
+    teams = [teams.lomiri];
     platforms = platforms.all;
     # Cross requires hostPlatform emulation during build
     # https://gitlab.com/ubports/development/core/geonames/-/issues/1

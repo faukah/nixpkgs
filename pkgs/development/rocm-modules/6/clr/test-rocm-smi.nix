@@ -5,7 +5,6 @@
   clr,
   rocm-smi,
 }:
-
 makeImpureTest {
   name = "rocm-smi";
   testedPackage = "rocmPackages_6.clr";
@@ -22,6 +21,6 @@ makeImpureTest {
   '';
 
   meta = with lib; {
-    teams = [ teams.rocm ];
+    teams = [teams.rocm];
   };
 }

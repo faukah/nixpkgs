@@ -9,7 +9,6 @@
   xcbutilkeysyms,
   xcbutilwm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sxhkd";
   version = "0.6.2";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Simple X hotkey daemon";

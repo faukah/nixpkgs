@@ -14,7 +14,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aiotankerkoenig";
   version = "0.5.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
       --replace-fail 'version = "0.0.0"' 'version = "${version}"'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -51,13 +50,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "aiotankerkoenig" ];
+  pythonImportsCheck = ["aiotankerkoenig"];
 
   meta = with lib; {
     description = "Python module for interacting with tankerkoenig.de";
     homepage = "https://github.com/jpbede/aiotankerkoenig";
     changelog = "https://github.com/jpbede/aiotankerkoenig/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

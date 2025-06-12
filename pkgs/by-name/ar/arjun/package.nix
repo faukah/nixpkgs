@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "arjun";
   version = "2.2.2";
@@ -38,7 +37,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/s0md3v/Arjun";
     changelog = "https://github.com/s0md3v/Arjun/blob/${version}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ octodi ];
+    maintainers = with lib.maintainers; [octodi];
     mainProgram = "arjun";
   };
 }

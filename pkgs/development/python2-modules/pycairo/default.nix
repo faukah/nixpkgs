@@ -10,7 +10,6 @@
   cairo,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "pycairo";
   version = "1.18.2";

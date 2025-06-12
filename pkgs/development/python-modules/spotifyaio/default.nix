@@ -14,7 +14,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "spotifyaio";
   version = "0.8.11";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-mRv/bsMER+rn4JOSe2EK0ykP5oEydl8QNhtn7yN+ykE=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -49,13 +48,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "spotifyaio" ];
+  pythonImportsCheck = ["spotifyaio"];
 
   meta = {
     description = "Module for interacting with for Spotify";
     homepage = "https://github.com/joostlek/python-spotify/";
     changelog = "https://github.com/joostlek/python-spotify/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

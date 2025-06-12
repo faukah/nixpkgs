@@ -14,7 +14,6 @@
   fetchpatch,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cbmc";
   version = "6.6.0";
@@ -119,7 +118,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "CBMC is a Bounded Model Checker for C and C++ programs";
     homepage = "http://www.cprover.org/cbmc/";
     license = lib.licenses.bsdOriginal;
-    maintainers = with lib.maintainers; [ jiegec ];
+    maintainers = with lib.maintainers; [jiegec];
     platforms = lib.platforms.unix;
   };
 })

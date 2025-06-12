@@ -4,7 +4,6 @@
   nixosTests,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "xandikos";
   version = "0.2.12";
@@ -37,14 +36,14 @@ python3Packages.buildPythonApplication rec {
 
   passthru.tests.xandikos = nixosTests.xandikos;
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [pytestCheckHook];
 
   meta = {
     description = "Lightweight CalDAV/CardDAV server";
     homepage = "https://github.com/jelmer/xandikos";
     license = lib.licenses.gpl3Plus;
     changelog = "https://github.com/jelmer/xandikos/blob/v${version}/NEWS";
-    maintainers = with lib.maintainers; [ _0x4A6F ];
+    maintainers = with lib.maintainers; [_0x4A6F];
     mainProgram = "xandikos";
   };
 }

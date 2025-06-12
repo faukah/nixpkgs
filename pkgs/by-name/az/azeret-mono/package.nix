@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "azeret-mono";
   version = "1.0";
@@ -38,6 +37,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://displaay.net/typeface/azeret/azeret-mono/";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ _21eleven ];
+    maintainers = with maintainers; [_21eleven];
   };
 }

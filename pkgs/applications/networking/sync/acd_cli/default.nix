@@ -12,7 +12,6 @@
   sqlalchemy,
   setuptools,
 }:
-
 buildPythonApplication rec {
   pname = "acd_cli";
   version = "0.3.2";
@@ -37,7 +36,7 @@ buildPythonApplication rec {
     sqlalchemy
   ];
 
-  makeWrapperArgs = [ "--prefix LIBFUSE_PATH : ${lib.getLib fuse}/lib/libfuse.so" ];
+  makeWrapperArgs = ["--prefix LIBFUSE_PATH : ${lib.getLib fuse}/lib/libfuse.so"];
 
   postFixup = ''
     function lnOverBin() {
@@ -53,6 +52,6 @@ buildPythonApplication rec {
     description = "Command line interface and FUSE filesystem for Amazon Cloud Drive";
     homepage = "https://github.com/yadayada/acd_cli";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
   };
 }

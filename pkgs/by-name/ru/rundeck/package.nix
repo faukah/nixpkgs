@@ -9,7 +9,6 @@
   openssh,
   writeScript,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rundeck";
   version = "5.12.0-20250512";
@@ -19,8 +18,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-LsKxMj+XCKTAMC3aIRnJcJkc2jytfTfu/gi0omGkMEk=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jdk17 ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jdk17];
 
   dontUnpack = true;
 
@@ -34,12 +33,12 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper ${lib.getExe jdk17} $out/bin/rundeck \
       --add-flags "-jar $out/share/rundeck/rundeck.war" \
       --prefix PATH : ${
-        lib.makeBinPath [
-          which
-          coreutils
-          openssh
-        ]
-      }
+      lib.makeBinPath [
+        which
+        coreutils
+        openssh
+      ]
+    }
 
     runHook postInstall
   '';
@@ -69,10 +68,10 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://www.rundeck.com/";
     changelog = "https://docs.rundeck.com/docs/history/";
-    sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
+    sourceProvenance = [lib.sourceTypes.binaryBytecode];
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     mainProgram = "rundeck";
   };
 })

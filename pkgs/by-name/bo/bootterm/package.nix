@@ -4,7 +4,6 @@
   fetchFromGitHub,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bootterm";
   version = "0.5";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-AYpO2Xcd51B2qVUWoyI190BV0pIdA3HfuQJPzJ4yT/U=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   passthru.tests = {
     version = testers.testVersion {
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/wtarreau/bootterm";
     license = lib.licenses.mit;
     mainProgram = "bt";
-    maintainers = with lib.maintainers; [ deadbaed ];
+    maintainers = with lib.maintainers; [deadbaed];
     platforms = lib.platforms.unix;
   };
 })

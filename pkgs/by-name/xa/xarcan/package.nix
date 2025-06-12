@@ -39,7 +39,6 @@
   xtrans,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalPackages: {
   pname = "xarcan";
   version = "0-unstable-2024-08-26";
@@ -111,7 +110,7 @@ stdenv.mkDerivation (finalPackages: {
     "--with-xkb-path=${xkeyboard_config}/share/X11/xkb"
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://github.com/letoram/letoram";
@@ -122,8 +121,8 @@ stdenv.mkDerivation (finalPackages: {
       arcan-shmif to map Xlib/Xcb/X clients to a running arcan instance. It
       allows running an X session as a window under Arcan.
     '';
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

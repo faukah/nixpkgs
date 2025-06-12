@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "keepassxc-go";
   version = "1.6.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
     hash = "sha256-Z4SbPxhs+umsUlby7idxofCjP+uLPvp/2oUCpnAS2/A=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   vendorHash = "sha256-+cgf2FxpbLu+Yuhk6T0ZBnDH7We2DVu65xFaruk9I0E=";
 
@@ -39,7 +38,7 @@ buildGoModule rec {
     homepage = "https://github.com/MarkusFreitag/keepassxc-go";
     changelog = "https://github.com/MarkusFreitag/keepassxc-go/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ xgwq ];
+    maintainers = with lib.maintainers; [xgwq];
     mainProgram = "keepassxc-go";
   };
 }

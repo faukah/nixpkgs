@@ -3,9 +3,7 @@
   dev ? false,
   aarch64sha256,
   x64sha256,
-}:
-
-{
+}: {
   fetchurl,
   lib,
   stdenv,
@@ -25,9 +23,7 @@
   curl,
   gnugrep,
   coreutils,
-}:
-
-let
+}: let
   pnameBase = "sublime-merge";
   packageAttribute = "sublime-merge${lib.optionalString dev "-dev"}";
   binaries = [
@@ -41,10 +37,15 @@ let
     "smerge"
   ];
   crashHandlerBinary =
-    if lib.versionAtLeast buildVersion "2086" then "crash_handler" else "crash_reporter";
-  downloadUrl =
-    arch: "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz";
-  versionUrl = "https://www.sublimemerge.com/${if dev then "dev" else "download"}";
+    if lib.versionAtLeast buildVersion "2086"
+    then "crash_handler"
+    else "crash_reporter";
+  downloadUrl = arch: "https://download.sublimetext.com/sublime_merge_build_${buildVersion}_${arch}.tar.xz";
+  versionUrl = "https://www.sublimemerge.com/${
+    if dev
+    then "dev"
+    else "download"
+  }";
   versionFile = builtins.toString ./default.nix;
 
   neededLibraries = [
@@ -138,46 +139,45 @@ let
     };
   };
 in
-stdenv.mkDerivation (rec {
-  pname = pnameBase;
-  version = buildVersion;
+  stdenv.mkDerivation rec {
+    pname = pnameBase;
+    version = buildVersion;
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  ${primaryBinary} = binaryPackage;
+    ${primaryBinary} = binaryPackage;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+    ];
 
-  installPhase =
-    ''
-      runHook preInstall
-      mkdir -p "$out/bin"
-      makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
-    ''
-    + builtins.concatStringsSep "" (
-      map (binaryAlias: "ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}\n") primaryBinaryAliases
-    )
-    + ''
-      mkdir -p "$out/share/applications"
+    installPhase =
+      ''
+        runHook preInstall
+        mkdir -p "$out/bin"
+        makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
+      ''
+      + builtins.concatStringsSep "" (
+        map (binaryAlias: "ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}\n") primaryBinaryAliases
+      )
+      + ''
+        mkdir -p "$out/share/applications"
 
-      substitute \
-        "''$${primaryBinary}/${primaryBinary}.desktop" \
-        "$out/share/applications/${primaryBinary}.desktop" \
-        --replace-fail "/opt/${primaryBinary}/${primaryBinary}" "${primaryBinary}"
+        substitute \
+          "''$${primaryBinary}/${primaryBinary}.desktop" \
+          "$out/share/applications/${primaryBinary}.desktop" \
+          --replace-fail "/opt/${primaryBinary}/${primaryBinary}" "${primaryBinary}"
 
-      for directory in ''$${primaryBinary}/Icon/*; do
-        size=$(basename $directory)
-        mkdir -p "$out/share/icons/hicolor/$size/apps"
-        ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
-      done
-      runHook postInstall
-    '';
+        for directory in ''$${primaryBinary}/Icon/*; do
+          size=$(basename $directory)
+          mkdir -p "$out/share/icons/hicolor/$size/apps"
+          ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
+        done
+        runHook postInstall
+      '';
 
-  passthru = {
-    updateScript =
-      let
+    passthru = {
+      updateScript = let
         script = writeShellScript "${packageAttribute}-update-script" ''
           set -o errexit
           PATH=${
@@ -200,23 +200,22 @@ stdenv.mkDerivation (rec {
               update-source-version "${packageAttribute}.${primaryBinary}" "$latestVersion" --ignore-same-version --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
           done
         '';
-      in
-      [
+      in [
         script
         versionFile
       ];
-  };
+    };
 
-  meta = {
-    description = "Git client from the makers of Sublime Text";
-    homepage = "https://www.sublimemerge.com";
-    mainProgram = "sublime_merge";
-    maintainers = with lib.maintainers; [ zookatron ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    license = lib.licenses.unfree;
-    platforms = [
-      "aarch64-linux"
-      "x86_64-linux"
-    ];
-  };
-})
+    meta = {
+      description = "Git client from the makers of Sublime Text";
+      homepage = "https://www.sublimemerge.com";
+      mainProgram = "sublime_merge";
+      maintainers = with lib.maintainers; [zookatron];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      license = lib.licenses.unfree;
+      platforms = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
+    };
+  }

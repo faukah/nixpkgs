@@ -21,7 +21,6 @@
   pythonOlder,
   vacuum-map-parser-roborock,
 }:
-
 buildPythonPackage rec {
   pname = "python-roborock";
   version = "2.19.0";
@@ -41,22 +40,24 @@ buildPythonPackage rec {
       --replace-fail "poetry-core==1.8.0" "poetry-core"
   '';
 
-  pythonRelaxDeps = [ "pycryptodome" ];
+  pythonRelaxDeps = ["pycryptodome"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [
-    aiohttp
-    aiomqtt
-    async-timeout
-    click
-    construct
-    dacite
-    paho-mqtt
-    pycryptodome
-    pyrate-limiter
-    vacuum-map-parser-roborock
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ pycryptodomex ];
+  dependencies =
+    [
+      aiohttp
+      aiomqtt
+      async-timeout
+      click
+      construct
+      dacite
+      paho-mqtt
+      pycryptodome
+      pyrate-limiter
+      vacuum-map-parser-roborock
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [pycryptodomex];
 
   nativeCheckInputs = [
     aioresponses
@@ -65,14 +66,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "roborock" ];
+  pythonImportsCheck = ["roborock"];
 
   meta = with lib; {
     description = "Python library & console tool for controlling Roborock vacuum";
     homepage = "https://github.com/humbertogontijo/python-roborock";
     changelog = "https://github.com/humbertogontijo/python-roborock/blob/${src.tag}/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "roborock";
   };
 }

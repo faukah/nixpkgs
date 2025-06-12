@@ -4,13 +4,9 @@
   config,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.alps;
-in
-{
+in {
   options.services.alps = {
     enable = mkEnableOption "alps";
 
@@ -103,9 +99,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.alps = {
       description = "alps is a simple and extensible webmail.";
-      documentation = [ "https://git.sr.ht/~migadu/alps" ];
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
+      documentation = ["https://git.sr.ht/~migadu/alps"];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
       after = [
         "network.target"
         "network-online.target"

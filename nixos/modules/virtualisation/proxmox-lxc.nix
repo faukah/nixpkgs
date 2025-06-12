@@ -4,10 +4,7 @@
   lib,
   ...
 }:
-
-with lib;
-
-{
+with lib; {
   imports = [
     ../image/file-options.nix
   ];
@@ -45,10 +42,9 @@ with lib;
     };
   };
 
-  config =
-    let
-      cfg = config.proxmoxLXC;
-    in
+  config = let
+    cfg = config.proxmoxLXC;
+  in
     mkIf cfg.enable {
       system.nixos.tags = [
         "proxmox"
@@ -134,6 +130,5 @@ with lib;
         services."getty@tty1".enable = lib.mkForce true;
         services."autovt@".enable = lib.mkForce true;
       };
-
     };
 }

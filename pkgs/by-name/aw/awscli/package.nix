@@ -7,9 +7,7 @@
   nix-update-script,
   testers,
   awscli,
-}:
-
-let
+}: let
   self = python3Packages.buildPythonApplication rec {
     pname = "awscli";
     # N.B: if you change this, change botocore and boto3 to a matching version too
@@ -70,7 +68,7 @@ let
     passthru = {
       python = python3Packages.python; # for aws_shell
       updateScript = nix-update-script {
-        extraArgs = [ "--version=skip" ];
+        extraArgs = ["--version=skip"];
       };
       tests.version = testers.testVersion {
         package = awscli;
@@ -85,9 +83,8 @@ let
       description = "Unified tool to manage your AWS services";
       license = lib.licenses.asl20;
       mainProgram = "aws";
-      maintainers = with lib.maintainers; [ anthonyroussel ];
+      maintainers = with lib.maintainers; [anthonyroussel];
     };
   };
 in
-assert self ? pythonRelaxDeps -> !(lib.elem "botocore" self.pythonRelaxDeps);
-self
+  assert self ? pythonRelaxDeps -> !(lib.elem "botocore" self.pythonRelaxDeps); self

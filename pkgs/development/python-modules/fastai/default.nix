@@ -15,7 +15,6 @@
   requests,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "fastai";
   version = "2.8.2";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
   ];
 
   doCheck = false;
-  pythonImportsCheck = [ "fastai" ];
+  pythonImportsCheck = ["fastai"];
 
   meta = with lib; {
     homepage = "https://github.com/fastai/fastai";
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     mainProgram = "configure_accelerate";
     changelog = "https://github.com/fastai/fastai/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rxiao ];
+    maintainers = with maintainers; [rxiao];
   };
 }

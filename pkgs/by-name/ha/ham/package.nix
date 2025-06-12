@@ -5,7 +5,6 @@
   makeWrapper,
   openssh,
 }:
-
 perlPackages.buildPerlPackage {
   pname = "ham-unstable";
   version = "2025-02-25";
@@ -17,7 +16,7 @@ perlPackages.buildPerlPackage {
     hash = "sha256-a1JaUD/jrF7Yf+vyUoKQFjojxenmsCVw3Uo8u7RjPiQ=";
   };
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   nativeBuildInputs = [
     makeWrapper
@@ -49,7 +48,7 @@ perlPackages.buildPerlPackage {
     description = "Tool to manage big projects consisting of multiple loosely-coupled git repositories";
     homepage = "https://github.com/kernkonzept/ham";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ aw ];
+    maintainers = with maintainers; [aw];
     mainProgram = "ham";
     platforms = platforms.unix;
   };

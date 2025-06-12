@@ -4,7 +4,6 @@
   fetchFromGitHub,
   perl, # for tests
 }:
-
 stdenv.mkDerivation rec {
   pname = "nq";
 
@@ -17,9 +16,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-gdVBSE2a4rq46o0uO9ICww6zicVgn6ykf4CeJ/MmiF4=";
   };
 
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postPatch = ''
     sed -i nqterm \
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/leahneukirchen/nq/blob/v${version}/NEWS.md";
     license = lib.licenses.publicDomain;
     platforms = lib.platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

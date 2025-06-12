@@ -59,6 +59,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://prettier.io/";
     license = lib.licenses.mit;
     mainProgram = "prettier";
-    maintainers = with lib.maintainers; [ l0b0 ];
+    maintainers = with lib.maintainers; [l0b0];
   };
 })

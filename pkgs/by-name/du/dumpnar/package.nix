@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "dumpnar";
   version = "unstable-2023-01-01";
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
     description = "Minimal tool to produce a Nix NAR archive";
     license = licenses.lgpl2Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.stephank ];
+    maintainers = [maintainers.stephank];
     mainProgram = "dumpnar";
   };
 }

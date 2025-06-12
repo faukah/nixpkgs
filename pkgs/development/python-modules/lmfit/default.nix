@@ -14,7 +14,6 @@
   setuptools,
   uncertainties,
 }:
-
 buildPythonPackage rec {
   pname = "lmfit";
   version = "1.3.3";
@@ -51,15 +50,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "lmfit" ];
+  pythonImportsCheck = ["lmfit"];
 
-  disabledTests = [ "test_check_ast_errors" ];
+  disabledTests = ["test_check_ast_errors"];
 
   meta = with lib; {
     description = "Least-Squares Minimization with Bounds and Constraints";
     homepage = "https://lmfit.github.io/lmfit-py/";
     changelog = "https://github.com/lmfit/lmfit-py/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nomeata ];
+    maintainers = with maintainers; [nomeata];
   };
 }

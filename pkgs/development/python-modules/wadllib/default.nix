@@ -5,7 +5,6 @@
   setuptools,
   lazr-uri,
 }:
-
 buildPythonPackage rec {
   pname = "wadllib";
   version = "2.0.0";
@@ -16,13 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-HtuvI+T6NP6nDJs4C6oqE5sQhq5InrzMxLO2X8lzdCc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     lazr-uri
   ];
 
-  pythonImportsCheck = [ "wadllib" ];
+  pythonImportsCheck = ["wadllib"];
 
   # pypi tarball has no tests
   doCheck = false;
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "Navigate HTTP resources using WADL files as guides";
     homepage = "https://launchpad.net/wadllib";
     license = licenses.lgpl3Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

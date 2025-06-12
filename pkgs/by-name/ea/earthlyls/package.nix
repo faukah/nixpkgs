@@ -2,12 +2,10 @@
   lib,
   fetchFromGitHub,
   rustPlatform,
-
   earthlyls,
   nix-update-script,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "earthlyls";
   version = "0.5.5";
@@ -23,8 +21,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-sWbYN92Jfr/Pr3qoHWkew/ASIdq8DQg0WHpdyklGBLo=";
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion { package = earthlyls; };
+    updateScript = nix-update-script {};
+    tests.version = testers.testVersion {package = earthlyls;};
   };
 
   meta = {
@@ -33,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/glehmann/earthlyls/releases/tag/${version}";
     license = lib.licenses.mit;
     mainProgram = "earthlyls";
-    maintainers = with lib.maintainers; [ paveloom ];
+    maintainers = with lib.maintainers; [paveloom];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

@@ -4,17 +4,13 @@
   fetchFromGitHub,
   nix-update-script,
   pythonOlder,
-
   # build-system
   poetry-core,
-
   # propagates
   typing-extensions,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "basedtyping";
   version = "0.1.10";
@@ -47,13 +43,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Utilities for basedmypy";
     homepage = "https://github.com/KotlinIsland/basedtyping";
     changelog = "https://github.com/KotlinIsland/basedtyping/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ perchun ];
+    maintainers = with lib.maintainers; [perchun];
   };
 }

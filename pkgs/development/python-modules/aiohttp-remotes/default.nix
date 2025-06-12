@@ -10,7 +10,6 @@
   pythonOlder,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "aiohttp-remotes";
   version = "1.3.0";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiohttp_remotes" ];
+  pythonImportsCheck = ["aiohttp_remotes"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     description = "Set of useful tools for aiohttp.web server";
     homepage = "https://github.com/wikibusiness/aiohttp-remotes";
     license = licenses.mit;
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
   };
 }

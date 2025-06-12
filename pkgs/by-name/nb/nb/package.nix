@@ -8,7 +8,6 @@
   nb,
   bashInteractive,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nb";
   version = "7.20.0";
@@ -20,9 +19,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-lK7jAECLAL/VX3K7AZEwxkQCRRn2ggRNBAeNPv5x35I=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ bashInteractive ];
+  buildInputs = [bashInteractive];
 
   dontBuild = true;
 
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
       # Setting EDITOR to avoid: "Command line text editor not found"
       command = "EDITOR=nano nb --version";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -81,7 +80,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://xwmx.github.io/nb/";
     license = licenses.agpl3Plus;
-    maintainers = [ maintainers.toonn ];
+    maintainers = [maintainers.toonn];
     platforms = platforms.all;
     mainProgram = "nb";
   };

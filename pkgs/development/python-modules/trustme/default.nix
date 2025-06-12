@@ -10,7 +10,6 @@
   pythonOlder,
   service-identity,
 }:
-
 buildPythonPackage rec {
   pname = "trustme";
   version = "1.2.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-ZSi6K7x/LbQfM4JcjdE+Pj650zS6D5CXE8jDE59K5H8=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     cryptography
@@ -39,7 +38,7 @@ buildPythonPackage rec {
   # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "trustme" ];
+  pythonImportsCheck = ["trustme"];
 
   meta = with lib; {
     description = "High quality TLS certs while you wait, for the discerning tester";
@@ -49,6 +48,6 @@ buildPythonPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ catern ];
+    maintainers = with maintainers; [catern];
   };
 }

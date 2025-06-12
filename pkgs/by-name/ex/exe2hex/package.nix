@@ -4,7 +4,6 @@
   python3Packages,
   expect,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "exe2hex";
   version = "1.5.2-unstable-2020-04-27";
@@ -35,6 +34,6 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/g0tmi1k/exe2hex";
     mainProgram = "exe2hex";
     license = licenses.mit;
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
   };
 }

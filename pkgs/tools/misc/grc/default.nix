@@ -4,7 +4,6 @@
   buildPythonApplication,
   installShellFiles,
 }:
-
 buildPythonApplication rec {
   pname = "grc";
   version = "1.13";
@@ -28,7 +27,7 @@ buildPythonApplication rec {
       --replace "^([/\w\.]+\/)" "^([/\w\.\-]+\/)"
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     runHook preInstall

@@ -11,7 +11,6 @@
   cups,
   libstartup_notification,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dtk6widget";
   version = "6.0.33";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
       qtsvg
     ]);
 
-  propagatedBuildInputs = [ dtk6gui ];
+  propagatedBuildInputs = [dtk6gui];
 
   cmakeFlags = [
     "-DDTK_VERSION=${finalAttrs.version}"
@@ -90,6 +89,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/linuxdeepin/dtk6widget";
     license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 })

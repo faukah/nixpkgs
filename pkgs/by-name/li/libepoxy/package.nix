@@ -12,13 +12,11 @@
   x11Support ? !stdenv.hostPlatform.isDarwin,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libepoxy";
   version = "1.5.10";
 
-  src =
-    with finalAttrs;
+  src = with finalAttrs;
     fetchFromGitHub {
       owner = "anholt";
       repo = "libepoxy";
@@ -26,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
       sha256 = "sha256-gZiyPOW2PeTMILcPiUTqPUGRNlMM5mI1z9563v4SgEs=";
     };
 
-  patches = [ ./libgl-path.patch ];
+  patches = [./libgl-path.patch];
 
   postPatch =
     ''
@@ -64,8 +62,16 @@ stdenv.mkDerivation (finalAttrs: {
     ];
 
   mesonFlags = [
-    "-Degl=${if (x11Support && !stdenv.hostPlatform.isDarwin) then "yes" else "no"}"
-    "-Dglx=${if x11Support then "yes" else "no"}"
+    "-Degl=${
+      if (x11Support && !stdenv.hostPlatform.isDarwin)
+      then "yes"
+      else "no"
+    }"
+    "-Dglx=${
+      if x11Support
+      then "yes"
+      else "no"
+    }"
     "-Dtests=${lib.boolToString finalAttrs.finalPackage.doCheck}"
     "-Dx11=${lib.boolToString x11Support}"
   ];
@@ -86,8 +92,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library for handling OpenGL function pointer management";
     homepage = "https://github.com/anholt/libepoxy";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
-    pkgConfigModules = [ "epoxy" ];
+    pkgConfigModules = ["epoxy"];
   };
 })

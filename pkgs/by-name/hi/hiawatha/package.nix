@@ -3,13 +3,11 @@
   stdenv,
   fetchFromGitLab,
   callPackage,
-
   cmake,
   ninja,
   mbedtls,
   libxcrypt,
   zlib,
-
   enableCache ? true, # Internal cache support.
   enableIpV6 ? true,
   enableTls ? true,
@@ -21,7 +19,6 @@
   libxslt ? null,
   enableToolkit ? true, # The URL Toolkit.
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hiawatha";
   version = "11.7";
@@ -54,14 +51,46 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [
     "-DUSE_SYSTEM_MBEDTLS=on" # Policy to use Nix deps, and Nix uses up to date deps
-    (if enableCache then "-DENABLE_CACHE=on" else "-DENABLE_CACHE=off")
-    (if enableIpV6 then "-DENABLE_IPV6=on" else "-DENABLE_IPV6=off")
-    (if enableTls then "-DENABLE_TLS=on" else "-DENABLE_TLS=off")
-    (if enableMonitor then "-DENABLE_MONITOR=on" else "-DENABLE_MONITOR=off")
-    (if enableRproxy then "-DENABLE_RPROXY=on" else "-DENABLE_RPROXY=off")
-    (if enableTomahawk then "-DENABLE_TOMAHAWK=on" else "-DENABLE_TOMAHAWK=off")
-    (if enableXslt then "-DENABLE_XSLT=on" else "-DENABLE_XSLT=off")
-    (if enableToolkit then "-DENABLE_TOOLKIT=on" else "-DENABLE_TOOLKIT=off")
+    (
+      if enableCache
+      then "-DENABLE_CACHE=on"
+      else "-DENABLE_CACHE=off"
+    )
+    (
+      if enableIpV6
+      then "-DENABLE_IPV6=on"
+      else "-DENABLE_IPV6=off"
+    )
+    (
+      if enableTls
+      then "-DENABLE_TLS=on"
+      else "-DENABLE_TLS=off"
+    )
+    (
+      if enableMonitor
+      then "-DENABLE_MONITOR=on"
+      else "-DENABLE_MONITOR=off"
+    )
+    (
+      if enableRproxy
+      then "-DENABLE_RPROXY=on"
+      else "-DENABLE_RPROXY=off"
+    )
+    (
+      if enableTomahawk
+      then "-DENABLE_TOMAHAWK=on"
+      else "-DENABLE_TOMAHAWK=off"
+    )
+    (
+      if enableXslt
+      then "-DENABLE_XSLT=on"
+      else "-DENABLE_XSLT=off"
+    )
+    (
+      if enableToolkit
+      then "-DENABLE_TOOLKIT=on"
+      else "-DENABLE_TOOLKIT=off"
+    )
   ];
 
   passthru.tests.serve-static-files = callPackage ./test.nix {
@@ -75,7 +104,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.gpl2Only;
     platforms = platforms.unix; # "Hiawatha runs perfectly on Linux, BSD and MacOS X"
     mainProgram = "hiawatha";
-    maintainers = [ ];
+    maintainers = [];
   };
-
 })

@@ -15,7 +15,6 @@
   texsoup,
   defusedxml,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-jupyterbook-latex";
   version = "1.0.0";
@@ -30,14 +29,14 @@ buildPythonPackage rec {
     hash = "sha256-ZTR+s6a/++xXrLMtfFRmSmAeMWa/1de12ukxfsx85g4=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     packaging
     sphinx
   ];
 
-  pythonImportsCheck = [ "sphinx_jupyterbook_latex" ];
+  pythonImportsCheck = ["sphinx_jupyterbook_latex"];
 
   nativeCheckInputs = [
     click
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/executablebooks/sphinx-jupyterbook-latex";
     changelog = "https://github.com/executablebooks/sphinx-jupyterbook-latex/raw/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

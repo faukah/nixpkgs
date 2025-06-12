@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "uutils-diffutils";
   version = "0.4.2";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/uutils/diffutils";
     license = lib.licenses.mit;
     mainProgram = "diffutils";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     platforms = lib.platforms.unix;
   };
 })

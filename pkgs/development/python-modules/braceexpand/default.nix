@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "braceexpand";
   version = "0.1.7";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     sha256 = "01gpcnksnqv6np28i4x8s3wkngawzgs99zvjfia57spa42ykkrg6";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "braceexpand" ];
+  pythonImportsCheck = ["braceexpand"];
 
   meta = {
     description = "Bash-style brace expansion for Python";

@@ -6,7 +6,6 @@
   perl,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "checkbashisms";
   version = "2.25.10";
@@ -16,9 +15,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-pEzXrKV/bZbYG7j5QXjRDATZRGLt0fhdpwTDbCoKcus=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   buildPhase = ''
     runHook preBuild
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.tests = {
-    version = testers.testVersion { package = finalAttrs.finalPackage; };
+    version = testers.testVersion {package = finalAttrs.finalPackage;};
   };
 
   meta = {
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Check shell scripts for non-portable syntax";
     mainProgram = "checkbashisms";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ kaction ];
+    maintainers = with lib.maintainers; [kaction];
     platforms = lib.platforms.unix;
   };
 })

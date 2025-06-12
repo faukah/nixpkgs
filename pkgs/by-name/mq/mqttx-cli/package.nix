@@ -9,7 +9,6 @@
   yarnConfigHook,
   yarnInstallHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mqttx-cli";
   version = "1.11.1";
@@ -49,14 +48,14 @@ stdenv.mkDerivation (finalAttrs: {
     mv $out/bin/mqttx $out/bin/mqttx-cli
   '';
 
-  passthru.tests.version = testers.testVersion { package = mqttx-cli; };
+  passthru.tests.version = testers.testVersion {package = mqttx-cli;};
 
   meta = {
     description = "MQTTX Command Line Tools";
     homepage = "https://mqttx.app/";
     changelog = "https://mqttx.app/changelogs/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ pineapplehunter ];
+    maintainers = with lib.maintainers; [pineapplehunter];
     platforms = lib.platforms.all;
     mainProgram = "mqttx-cli";
   };

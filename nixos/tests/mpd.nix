@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   track = pkgs.fetchurl {
     # Sourced from http://freemusicarchive.org/music/Blue_Wave_Theory/Surf_Music_Month_Challenge/Skyhawk_Beach_fade_in
 
@@ -17,7 +20,8 @@ let
   };
 
   defaultMpdCfg = {
-    inherit (defaultCfg)
+    inherit
+      (defaultCfg)
       dataDir
       musicDirectory
       user
@@ -26,76 +30,76 @@ let
     enable = true;
   };
 
-  musicService =
-    {
-      user,
-      group,
-      musicDirectory,
-    }:
-    {
-      description = "Sets up the music file(s) for MPD to use.";
-      requires = [ "mpd.service" ];
-      after = [ "mpd.service" ];
-      wantedBy = [ "default.target" ];
-      script = ''
-        cp ${track} ${musicDirectory}
-      '';
-      serviceConfig = {
-        User = user;
-        Group = group;
-      };
+  musicService = {
+    user,
+    group,
+    musicDirectory,
+  }: {
+    description = "Sets up the music file(s) for MPD to use.";
+    requires = ["mpd.service"];
+    after = ["mpd.service"];
+    wantedBy = ["default.target"];
+    script = ''
+      cp ${track} ${musicDirectory}
+    '';
+    serviceConfig = {
+      User = user;
+      Group = group;
     };
+  };
 
-  mkServer =
-    { mpd, musicService }:
-    {
-      boot.kernelModules = [ "snd-dummy" ];
-      services.mpd = mpd;
-      systemd.services.musicService = musicService;
-    };
-in
-{
+  mkServer = {
+    mpd,
+    musicService,
+  }: {
+    boot.kernelModules = ["snd-dummy"];
+    services.mpd = mpd;
+    systemd.services.musicService = musicService;
+  };
+in {
   name = "mpd";
   meta = {
-    maintainers = with lib.maintainers; [ emmanuelrosa ];
+    maintainers = with lib.maintainers; [emmanuelrosa];
   };
 
   nodes = {
-    client = { ... }: { };
+    client = {...}: {};
 
-    serverALSA =
-      { ... }:
+    serverALSA = {...}:
       lib.mkMerge [
         (mkServer {
-          mpd = defaultMpdCfg // {
-            network.listenAddress = "any";
-            extraConfig = ''
-              audio_output {
-                type "alsa"
-                name "ALSA"
-                mixer_type "null"
-              }
-            '';
-          };
-          musicService = musicService { inherit (defaultMpdCfg) user group musicDirectory; };
+          mpd =
+            defaultMpdCfg
+            // {
+              network.listenAddress = "any";
+              extraConfig = ''
+                audio_output {
+                  type "alsa"
+                  name "ALSA"
+                  mixer_type "null"
+                }
+              '';
+            };
+          musicService = musicService {inherit (defaultMpdCfg) user group musicDirectory;};
         })
-        { networking.firewall.allowedTCPPorts = [ 6600 ]; }
+        {networking.firewall.allowedTCPPorts = [6600];}
       ];
 
-    serverPulseAudio =
-      { ... }:
+    serverPulseAudio = {...}:
       lib.mkMerge [
         (mkServer {
-          mpd = defaultMpdCfg // {
-            extraConfig = ''
-              audio_output {
-                type "pulse"
-                name "The Pulse"
-              }
-            '';
-          };
+          mpd =
+            defaultMpdCfg
+            // {
+              extraConfig = ''
+                audio_output {
+                  type "pulse"
+                  name "The Pulse"
+                }
+              '';
+            };
 
-          musicService = musicService { inherit (defaultMpdCfg) user group musicDirectory; };
+          musicService = musicService {inherit (defaultMpdCfg) user group musicDirectory;};
         })
         {
           services.pulseaudio = {

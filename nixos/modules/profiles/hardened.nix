@@ -5,27 +5,27 @@
 # stability. If you experience any stability issues when using the
 # profile, try disabling it. If you report an issue and use this
 # profile, always mention that you do.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkDefault
     mkOverride
     mkEnableOption
     mkIf
     maintainers
     ;
-in
-{
-  options.profiles.hardened = mkEnableOption "hardened" // {
-    default = true;
-    example = false;
-  };
+in {
+  options.profiles.hardened =
+    mkEnableOption "hardened"
+    // {
+      default = true;
+      example = false;
+    };
   config = mkIf config.profiles.hardened {
     meta = {
       maintainers = [
@@ -36,7 +36,7 @@ in
 
     boot.kernelPackages = mkDefault pkgs.linuxPackages_hardened;
 
-    nix.settings.allowed-users = mkDefault [ "@users" ];
+    nix.settings.allowed-users = mkDefault ["@users"];
 
     environment.memoryAllocator.provider = mkDefault "scudo";
     environment.variables.SCUDO_OPTIONS = mkDefault "ZeroContents=1";

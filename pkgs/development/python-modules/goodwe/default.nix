@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "goodwe";
   version = "0.4.8";
@@ -27,17 +26,17 @@ buildPythonPackage rec {
       --replace-fail "version: file: VERSION" "version = ${version}"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "goodwe" ];
+  pythonImportsCheck = ["goodwe"];
 
   meta = with lib; {
     description = "Python library for connecting to GoodWe inverter";
     homepage = "https://github.com/marcelblijleven/goodwe";
     changelog = "https://github.com/marcelblijleven/goodwe/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

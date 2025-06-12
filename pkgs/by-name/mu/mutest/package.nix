@@ -6,7 +6,6 @@
   ninja,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "mutest";
   version = "0-unstable-2023-02-24";
@@ -31,14 +30,14 @@ stdenv.mkDerivation {
   doCheck = true;
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = with lib; {
     homepage = "https://github.com/ebassi/mutest";
     description = "BDD testing framework for C, inspired by Mocha";
     license = licenses.mit;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.all;
   };
 }

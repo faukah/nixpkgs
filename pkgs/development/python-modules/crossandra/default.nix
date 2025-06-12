@@ -6,7 +6,6 @@
   result,
   mypy,
 }:
-
 buildPythonPackage rec {
   pname = "crossandra";
   version = "2.2.1";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     setuptools
     mypy
   ];
-  dependencies = [ result ];
+  dependencies = [result];
 
-  pythonImportsCheck = [ "crossandra" ];
+  pythonImportsCheck = ["crossandra"];
   prePatch = ''
     # pythonRelaxDepsHook did not work
     substituteInPlace pyproject.toml \
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "Fast and simple enum/regex-based tokenizer with decent configurability";
     license = lib.licenses.mit;
     homepage = "https://trag1c.github.io/crossandra";
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

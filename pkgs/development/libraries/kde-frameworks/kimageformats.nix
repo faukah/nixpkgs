@@ -10,27 +10,24 @@
   libjxl,
   libraw,
   qtbase,
-}:
-
-let
+}: let
   inherit (lib) getDev;
 in
+  mkDerivation {
+    pname = "kimageformats";
 
-mkDerivation {
-  pname = "kimageformats";
-
-  nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [
-    karchive
-    openexr
-    libavif
-    libheif
-    libjxl
-    libraw
-    qtbase
-  ];
-  outputs = [ "out" ]; # plugins only
-  cmakeFlags = [
-    "-DKIMAGEFORMATS_HEIF=ON"
-  ];
-}
+    nativeBuildInputs = [extra-cmake-modules];
+    buildInputs = [
+      karchive
+      openexr
+      libavif
+      libheif
+      libjxl
+      libraw
+      qtbase
+    ];
+    outputs = ["out"]; # plugins only
+    cmakeFlags = [
+      "-DKIMAGEFORMATS_HEIF=ON"
+    ];
+  }

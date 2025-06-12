@@ -9,7 +9,6 @@
   fetchpatch,
   libiconv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ksh";
   version = "2020.0.0";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     python3
   ];
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
   strictDeps = true;
 
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/att/ast";
     license = lib.licenses.cpl10;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.all;
   };
 

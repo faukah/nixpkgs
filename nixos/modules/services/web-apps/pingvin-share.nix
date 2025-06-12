@@ -3,20 +3,17 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.pingvin-share;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     mkEnableOption
     mkIf
     mkPackageOption
     types
     ;
-in
-
-{
+in {
   options = {
     services.pingvin-share = {
       enable = mkEnableOption "Pingvin Share, a self-hosted file sharing platform";
@@ -77,7 +74,7 @@ in
         package = mkPackageOption pkgs [
           "pingvin-share"
           "backend"
-        ] { };
+        ] {};
 
         port = mkOption {
           type = types.port;
@@ -93,7 +90,7 @@ in
         package = mkPackageOption pkgs [
           "pingvin-share"
           "frontend"
-        ] { };
+        ] {};
 
         port = mkOption {
           type = types.port;
@@ -112,8 +109,7 @@ in
   };
 
   config = mkIf cfg.enable {
-
-    users.groups = mkIf (cfg.group == "pingvin") { pingvin = { }; };
+    users.groups = mkIf (cfg.group == "pingvin") {pingvin = {};};
 
     users.users = mkIf (cfg.user == "pingvin") {
       pingvin = {
@@ -123,7 +119,7 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.frontend.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.frontend.port];
 
     systemd.services.pingvin-share-backend = {
       description = "Backend service of Pingvin Share, a self-hosted file sharing platform.";
@@ -132,12 +128,12 @@ in
         "multi-user.target"
         "pingvin-share-frontend.service"
       ];
-      before = [ "pingvin-share-frontend.service" ];
+      before = ["pingvin-share-frontend.service"];
       after = [
         "network.target"
         "network-online.target"
       ];
-      wants = [ "network-online.target" ];
+      wants = ["network-online.target"];
 
       environment = {
         PRISMA_SCHEMA_ENGINE_BINARY = "${pkgs.prisma-engines}/bin/schema-engine";
@@ -174,7 +170,7 @@ in
     systemd.services.pingvin-share-frontend = {
       description = "Frontend service of Pingvin Share, a self-hosted file sharing platform.";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       wants = [
         "network-online.target"
         "pingvin-share-backend.service"
@@ -186,9 +182,13 @@ in
 
       environment = {
         PORT = toString cfg.frontend.port;
-        API_URL = "${if cfg.https then "https" else "http"}://${cfg.hostname}";
+        API_URL = "${
+          if cfg.https
+          then "https"
+          else "http"
+        }://${cfg.hostname}";
       };
-      path = [ cfg.frontend.package ];
+      path = [cfg.frontend.package];
 
       serviceConfig = {
         User = cfg.user;
@@ -220,7 +220,7 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ ratcornu ];
+    maintainers = with lib.maintainers; [ratcornu];
     doc = ./pingvin-share.md;
   };
 }

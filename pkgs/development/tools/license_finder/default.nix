@@ -4,7 +4,6 @@
   bundlerUpdateScript,
   ruby,
 }:
-
 bundlerEnv {
   pname = "license_finder";
   version = "7.0.1";
@@ -18,7 +17,7 @@ bundlerEnv {
     description = "Find licenses for your project's dependencies";
     homepage = "https://github.com/pivotal/licensefinder";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

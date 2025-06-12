@@ -5,7 +5,6 @@
   openssl,
   libpcap,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hcxdumptool";
   version = "6.3.5";
@@ -22,14 +21,14 @@ stdenv.mkDerivation (finalAttrs: {
     libpcap
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = {
     homepage = "https://github.com/ZerBea/hcxdumptool";
     description = "Small tool to capture packets from wlan devices";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ danielfullmer ];
+    maintainers = with lib.maintainers; [danielfullmer];
     mainProgram = "hcxdumptool";
   };
 })

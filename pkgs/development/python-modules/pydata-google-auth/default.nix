@@ -8,7 +8,6 @@
   setuptools,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "pydata-google-auth";
   version = "1.9.1";
@@ -41,13 +40,13 @@ buildPythonPackage rec {
   # tests require network access
   doCheck = false;
 
-  pythonImportsCheck = [ "pydata_google_auth" ];
+  pythonImportsCheck = ["pydata_google_auth"];
 
   meta = with lib; {
     description = "Helpers for authenticating to Google APIs";
     homepage = "https://github.com/pydata/pydata-google-auth";
     changelog = "https://github.com/pydata/pydata-google-auth/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

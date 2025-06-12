@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 buildLua {
   pname = "easycrop";
   version = "0-unstable-2018-01-24";
@@ -18,7 +17,7 @@ buildLua {
 
   scriptPath = "easycrop.lua";
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Manually crop videos during playback in mpv";
@@ -39,6 +38,6 @@ buildLua {
     homepage = "https://github.com/aidanholm/mpv-easycrop";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ RossSmyth ];
+    maintainers = with lib.maintainers; [RossSmyth];
   };
 }

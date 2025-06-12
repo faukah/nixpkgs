@@ -4,7 +4,6 @@
   fetchurl,
   ocamlbuild,
 }:
-
 buildDunePackage rec {
   pname = "js_of_ocaml-ocamlbuild";
   version = "5.0";
@@ -16,12 +15,12 @@ buildDunePackage rec {
     sha256 = "sha256-qlm8vxzie8sqPrd6iiwf8X6d2+DyQOOhmMoc67ChwHs=";
   };
 
-  propagatedBuildInputs = [ ocamlbuild ];
+  propagatedBuildInputs = [ocamlbuild];
 
   meta = {
     description = "Ocamlbuild plugin to compile to JavaScript";
     homepage = "https://github.com/ocsigen/js_of_ocaml-ocamlbuild";
     license = lib.licenses.lgpl2Only;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

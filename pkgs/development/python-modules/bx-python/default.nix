@@ -11,7 +11,6 @@
   setuptools,
   oldest-supported-numpy,
 }:
-
 buildPythonPackage rec {
   pname = "bx-python";
   version = "0.13.0";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     oldest-supported-numpy
   ];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   dependencies = [
     numpy
@@ -66,7 +65,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/bxlab/bx-python";
     changelog = "https://github.com/bxlab/bx-python/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jbedo ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [jbedo];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -11,7 +11,6 @@
   pyparsing,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "typedunits";
   version = "0.0.1.dev20250509200845";
@@ -63,6 +62,6 @@ buildPythonPackage {
     description = "Units and dimensions library with support for static dimensionality checking and protobuffer serialization";
     homepage = "https://github.com/quantumlib/TypedUnits";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.sarahec ];
+    maintainers = [lib.maintainers.sarahec];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cpufetch";
   version = "1.06";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Only;
     homepage = "https://github.com/Dr-Noob/cpufetch";
     changelog = "https://github.com/Dr-Noob/cpufetch/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ devhell ];
+    maintainers = with lib.maintainers; [devhell];
     mainProgram = "cpufetch";
   };
 }

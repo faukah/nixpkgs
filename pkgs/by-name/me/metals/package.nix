@@ -6,7 +6,6 @@
   makeWrapper,
   setJavaClassPath,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "metals";
   version = "1.6.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper
     setJavaClassPath
   ];
-  buildInputs = [ finalAttrs.deps ];
+  buildInputs = [finalAttrs.deps];
 
   dontUnpack = true;
 

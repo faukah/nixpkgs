@@ -4,7 +4,6 @@
   _7zz,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tableplus";
   version = "538";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "TablePlus.app";
 
-  nativeBuildInputs = [ _7zz ];
+  nativeBuildInputs = [_7zz];
 
   installPhase = ''
     runHook preInstall
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Database management made easy";
     homepage = "https://tableplus.com";
     license = licenses.unfree;
-    maintainers = with maintainers; [ yamashitax ];
+    maintainers = with maintainers; [yamashitax];
     platforms = platforms.darwin;
   };
 })

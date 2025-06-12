@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "guacamole-client";
   version = "1.5.5";
@@ -29,7 +28,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Clientless remote desktop gateway";
     homepage = "https://guacamole.apache.org/";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.drupol ];
+    maintainers = [lib.maintainers.drupol];
     platforms = [
       "x86_64-linux"
       "i686-linux"

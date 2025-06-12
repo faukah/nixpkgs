@@ -7,7 +7,6 @@
   nix-update-script,
   callPackage,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-show-asm";
   version = "0.2.49";
@@ -32,9 +31,9 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = lib.optionalAttrs stdenv.hostPlatform.isx86_64 {
-      test-basic-x86_64 = callPackage ./test-basic-x86_64.nix { };
+      test-basic-x86_64 = callPackage ./test-basic-x86_64.nix {};
     };
   };
 

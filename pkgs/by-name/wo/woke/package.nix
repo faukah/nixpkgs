@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "woke";
   version = "0.19.0";
@@ -32,7 +31,7 @@ buildGoModule rec {
   postInstall = "rm $out/bin/docs";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/woke";
   versionCheckProgramArg = "--version";
 
@@ -42,7 +41,7 @@ buildGoModule rec {
     homepage = "https://github.com/get-woke/woke";
     license = lib.licenses.mit;
     mainProgram = "woke";
-    maintainers = with lib.maintainers; [ HeitorAugustoLN ];
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    maintainers = with lib.maintainers; [HeitorAugustoLN];
+    sourceProvenance = [lib.sourceTypes.fromSource];
   };
 }

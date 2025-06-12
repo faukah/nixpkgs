@@ -6,7 +6,6 @@
   fmt,
   lwt,
 }:
-
 buildDunePackage rec {
   pname = "mirage-flow";
   version = "4.0.2";
@@ -28,6 +27,6 @@ buildDunePackage rec {
     description = "Flow implementations and combinators for MirageOS";
     homepage = "https://github.com/mirage/mirage-flow";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

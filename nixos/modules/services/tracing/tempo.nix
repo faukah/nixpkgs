@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
@@ -15,15 +14,14 @@ let
 
   cfg = config.services.tempo;
 
-  settingsFormat = pkgs.formats.yaml { };
-in
-{
+  settingsFormat = pkgs.formats.yaml {};
+in {
   options.services.tempo = {
     enable = mkEnableOption "Grafana Tempo";
 
     settings = mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
       description = ''
         Specify the configuration for Tempo in Nix.
 
@@ -41,7 +39,7 @@ in
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''
         [ "-config.expand-env=true" ]
       '';
@@ -53,11 +51,11 @@ in
 
   config = mkIf cfg.enable {
     # for tempo-cli and friends
-    environment.systemPackages = [ pkgs.tempo ];
+    environment.systemPackages = [pkgs.tempo];
 
     assertions = [
       {
-        assertion = ((cfg.settings == { }) != (cfg.configFile == null));
+        assertion = (cfg.settings == {}) != (cfg.configFile == null);
         message = ''
           Please specify a configuration for Tempo with either
           'services.tempo.settings' or
@@ -68,26 +66,23 @@ in
 
     systemd.services.tempo = {
       description = "Grafana Tempo Service Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      serviceConfig =
-        let
-          conf =
-            if cfg.configFile == null then
-              settingsFormat.generate "config.yaml" cfg.settings
-            else
-              cfg.configFile;
-        in
-        {
-          ExecStart = "${pkgs.tempo}/bin/tempo --config.file=${conf} ${lib.escapeShellArgs cfg.extraFlags}";
-          DynamicUser = true;
-          Restart = "always";
-          ProtectSystem = "full";
-          DevicePolicy = "closed";
-          NoNewPrivileges = true;
-          WorkingDirectory = "/var/lib/tempo";
-          StateDirectory = "tempo";
-        };
+      serviceConfig = let
+        conf =
+          if cfg.configFile == null
+          then settingsFormat.generate "config.yaml" cfg.settings
+          else cfg.configFile;
+      in {
+        ExecStart = "${pkgs.tempo}/bin/tempo --config.file=${conf} ${lib.escapeShellArgs cfg.extraFlags}";
+        DynamicUser = true;
+        Restart = "always";
+        ProtectSystem = "full";
+        DevicePolicy = "closed";
+        NoNewPrivileges = true;
+        WorkingDirectory = "/var/lib/tempo";
+        StateDirectory = "tempo";
+      };
     };
   };
 }

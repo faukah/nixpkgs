@@ -24,7 +24,6 @@
   webkitgtk_4_0,
   libpng,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wxwidgets";
   version = "3.1.7";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     ./patches/0001-fix-assertion-using-hide-in-destroy.patch
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -70,8 +69,16 @@ stdenv.mkDerivation rec {
       # This is the default option, but be explicit
       "--disable-monolithic"
       "--enable-mediactrl"
-      (if compat28 then "--enable-compat28" else "--disable-compat28")
-      (if compat30 then "--enable-compat30" else "--disable-compat30")
+      (
+        if compat28
+        then "--enable-compat28"
+        else "--disable-compat28"
+      )
+      (
+        if compat30
+        then "--enable-compat30"
+        else "--disable-compat30"
+      )
     ]
     ++ lib.optional (!withEGL) "--disable-glcanvasegl"
     ++ lib.optional unicode "--enable-unicode"
@@ -87,9 +94,7 @@ stdenv.mkDerivation rec {
       "--enable-webviewwebkit"
     ];
 
-  SEARCH_LIB = lib.optionalString (
-    !stdenv.hostPlatform.isDarwin
-  ) "${libGLU.out}/lib ${libGL.out}/lib ";
+  SEARCH_LIB = lib.optionalString (!stdenv.hostPlatform.isDarwin) "${libGLU.out}/lib ${libGL.out}/lib ";
 
   preConfigure = ''
     substituteInPlace configure --replace \
@@ -126,7 +131,7 @@ stdenv.mkDerivation rec {
       database support, HTML viewing and printing, and much more.
     '';
     license = licenses.wxWindows;
-    maintainers = with maintainers; [ tfmoraes ];
+    maintainers = with maintainers; [tfmoraes];
     platforms = platforms.unix;
   };
 }

@@ -7,7 +7,6 @@
   pytest,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "rawkit";
   version = "0.6.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     })
   ];
 
-  buildInputs = [ libraw ];
+  buildInputs = [libraw];
 
   nativeCheckInputs = [
     pytest
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     description = "CTypes based LibRaw bindings for Python";
     homepage = "https://rawkit.readthedocs.org/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

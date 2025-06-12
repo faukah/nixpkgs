@@ -5,7 +5,6 @@
   camomile,
   ounit2,
 }:
-
 buildDunePackage {
   pname = "gettext-camomile";
   inherit (ocaml_gettext) src version;
@@ -16,10 +15,11 @@ buildDunePackage {
   ];
 
   doCheck = true;
-  checkInputs = [ ounit2 ];
+  checkInputs = [ounit2];
 
-  meta = (builtins.removeAttrs ocaml_gettext.meta [ "mainProgram" ]) // {
-    description = "Internationalization library using camomile (i18n)";
-  };
-
+  meta =
+    (builtins.removeAttrs ocaml_gettext.meta ["mainProgram"])
+    // {
+      description = "Internationalization library using camomile (i18n)";
+    };
 }

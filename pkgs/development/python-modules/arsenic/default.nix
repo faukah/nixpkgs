@@ -10,7 +10,6 @@
   pythonOlder,
   structlog,
 }:
-
 buildPythonPackage rec {
   pname = "arsenic";
   version = "21.8";
@@ -40,9 +39,9 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonRelaxDeps = [ "structlog" ];
+  pythonRelaxDeps = ["structlog"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -54,13 +53,13 @@ buildPythonPackage rec {
   # Test depends on asyncio_extras which is not longer maintained
   doCheck = false;
 
-  pythonImportsCheck = [ "arsenic" ];
+  pythonImportsCheck = ["arsenic"];
 
   meta = with lib; {
     description = "WebDriver implementation for asyncio and asyncio-compatible frameworks";
     homepage = "https://github.com/HENNGE/arsenic/";
     changelog = "https://github.com/HENNGE/arsenic/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

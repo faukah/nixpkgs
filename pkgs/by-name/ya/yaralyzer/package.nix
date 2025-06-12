@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "yaralyzer";
   version = "0.9.6";
@@ -42,7 +41,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/michelcrypt4d4mus/yaralyzer";
     changelog = "https://github.com/michelcrypt4d4mus/yaralyzer/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "yaralyze";
   };
 }

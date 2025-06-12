@@ -11,7 +11,6 @@
   ntfs3g ? null,
   syslinux ? null,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.14.4";
   pname = "wimlib";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     pkg-config
     makeWrapper
   ];
-  buildInputs = [ ntfs3g ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ fuse3 ];
+  buildInputs = [ntfs3g] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [fuse3];
 
   src = fetchurl {
     url = "https://wimlib.net/downloads/${pname}-${version}.tar.gz";
@@ -34,28 +33,26 @@ stdenv.mkDerivation rec {
       --replace '/usr/lib/syslinux' "${syslinux}/share/syslinux"
   '';
 
-  postInstall =
-    let
-      path = lib.makeBinPath (
-        [
-          cabextract
-          mtools
-          ntfs3g
-        ]
-        ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
-          cdrkit
-          syslinux
-          fuse3
-        ]
-      );
-    in
-    ''
-      for prog in $out/bin/*; do
-        wrapProgram $prog --prefix PATH : $out/bin:${path}
-      done
-    '';
+  postInstall = let
+    path = lib.makeBinPath (
+      [
+        cabextract
+        mtools
+        ntfs3g
+      ]
+      ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
+        cdrkit
+        syslinux
+        fuse3
+      ]
+    );
+  in ''
+    for prog in $out/bin/*; do
+      wrapProgram $prog --prefix PATH : $out/bin:${path}
+    done
+  '';
 
-  doCheck = (!stdenv.hostPlatform.isDarwin);
+  doCheck = !stdenv.hostPlatform.isDarwin;
 
   preCheck = ''
     patchShebangs tests
@@ -65,7 +62,7 @@ stdenv.mkDerivation rec {
     homepage = "https://wimlib.net";
     description = "Library and program to extract, create, and modify WIM files";
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     license = with licenses; [
       gpl3
       lgpl3

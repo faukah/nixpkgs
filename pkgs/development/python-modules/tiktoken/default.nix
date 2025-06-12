@@ -13,8 +13,7 @@
   requests,
   regex,
   blobfile,
-}:
-let
+}: let
   pname = "tiktoken";
   version = "0.9.0";
   src = fetchPypi {
@@ -25,56 +24,56 @@ let
     cp ${./Cargo.lock} Cargo.lock
   '';
 in
-buildPythonPackage {
-  inherit
-    pname
-    version
-    src
-    postPatch
-    ;
-  pyproject = true;
-
-  disabled = pythonOlder "3.8";
-
-  build-system = [
-    setuptools
-    setuptools-rust
-  ];
-
-  cargoDeps = rustPlatform.fetchCargoVendor {
+  buildPythonPackage {
     inherit
       pname
       version
       src
       postPatch
       ;
-    hash = "sha256-MfTTRbSM+KgrYrWHYlJkGDc1qn3oulalDJM+huTaJ0g=";
-  };
+    pyproject = true;
 
-  nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    setuptools-rust
-    cargo
-    rustc
-  ];
+    disabled = pythonOlder "3.8";
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+    build-system = [
+      setuptools
+      setuptools-rust
+    ];
 
-  dependencies = [
-    requests
-    regex
-    blobfile
-  ];
+    cargoDeps = rustPlatform.fetchCargoVendor {
+      inherit
+        pname
+        version
+        src
+        postPatch
+        ;
+      hash = "sha256-MfTTRbSM+KgrYrWHYlJkGDc1qn3oulalDJM+huTaJ0g=";
+    };
 
-  # almost all tests require network access
-  doCheck = false;
+    nativeBuildInputs = [
+      rustPlatform.cargoSetupHook
+      setuptools-rust
+      cargo
+      rustc
+    ];
 
-  pythonImportsCheck = [ "tiktoken" ];
+    buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
-  meta = with lib; {
-    description = "tiktoken is a fast BPE tokeniser for use with OpenAI's models";
-    homepage = "https://github.com/openai/tiktoken";
-    license = licenses.mit;
-    maintainers = with maintainers; [ happysalada ];
-  };
-}
+    dependencies = [
+      requests
+      regex
+      blobfile
+    ];
+
+    # almost all tests require network access
+    doCheck = false;
+
+    pythonImportsCheck = ["tiktoken"];
+
+    meta = with lib; {
+      description = "tiktoken is a fast BPE tokeniser for use with OpenAI's models";
+      homepage = "https://github.com/openai/tiktoken";
+      license = licenses.mit;
+      maintainers = with maintainers; [happysalada];
+    };
+  }

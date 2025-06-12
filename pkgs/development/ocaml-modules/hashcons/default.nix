@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "hashcons";
   version = "1.4";
@@ -22,6 +21,6 @@ buildDunePackage rec {
   meta = {
     description = "OCaml hash-consing library";
     license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

@@ -4,7 +4,6 @@
   buildPythonPackage,
   six,
 }:
-
 buildPythonPackage rec {
   version = "0.1.3";
   format = "setuptools";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     fetchSubmodules = true; # Fetching by tag does not work otherwise
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   meta = {
     homepage = "https://github.com/ilya-kolpakov/jsondate";

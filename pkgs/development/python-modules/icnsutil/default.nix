@@ -6,7 +6,6 @@
   pythonOlder,
   pillow,
 }:
-
 buildPythonPackage rec {
   pname = "icnsutil";
   version = "1.1.0";
@@ -21,20 +20,20 @@ buildPythonPackage rec {
     hash = "sha256-tiq8h6s2noWLBIOIWcj8jfSqJFN01ee2uoHN4aFwn7s=";
   };
 
-  dependencies = [ pillow ];
+  dependencies = [pillow];
 
   checkPhase = ''
     ${python.interpreter} tests/test_icnsutil.py
     ${python.interpreter} tests/test_cli.py
   '';
 
-  pythonImportsCheck = [ "icnsutil" ];
+  pythonImportsCheck = ["icnsutil"];
 
   meta = with lib; {
     description = "Create and extract .icns files";
     homepage = "https://github.com/relikd/icnsutil";
     changelog = "https://github.com/relikd/icnsutil/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ reckenrode ];
+    maintainers = with maintainers; [reckenrode];
   };
 }

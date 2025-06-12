@@ -7,7 +7,6 @@
   pytest-snapshot,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "awesomeversion";
   version = "24.6.0";
@@ -28,9 +27,9 @@ buildPythonPackage rec {
       --replace-fail 'version = "0"' 'version = "${version}"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  pythonImportsCheck = [ "awesomeversion" ];
+  pythonImportsCheck = ["awesomeversion"];
 
   nativeCheckInputs = [
     pytest-snapshot
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     description = "Python module to deal with versions";
     homepage = "https://github.com/ludeeus/awesomeversion";
     changelog = "https://github.com/ludeeus/awesomeversion/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

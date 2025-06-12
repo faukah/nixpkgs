@@ -13,7 +13,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "alienarena";
   version = "7.71.7";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ri0p/0onI5DU7kDxwdFxRyT1LQLVe89VNEYPXPgilOs=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     curl
@@ -60,8 +59,8 @@ stdenv.mkDerivation rec {
     homepage = "https://alienarena.org";
     # Engine is under GPLv2, everything else is under
     license = lib.licenses.unfreeRedistributable;
-    maintainers = with lib.maintainers; [ astsmtl ];
+    maintainers = with lib.maintainers; [astsmtl];
     platforms = lib.platforms.linux;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

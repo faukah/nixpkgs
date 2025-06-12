@@ -7,7 +7,6 @@
   cython,
   borgbackup,
 }:
-
 buildPythonPackage rec {
   pname = "msgpack";
   version = "1.1.0";
@@ -20,13 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-yKQcQi0oSJ33gzsx1Q6ME3GbuSaHR091n7maU6F5QlU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "msgpack" ];
+  pythonImportsCheck = ["msgpack"];
 
   passthru.tests = {
     # borgbackup is sensible to msgpack versions: https://github.com/borgbackup/borg/issues/3753
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/msgpack/msgpack-python";
     changelog = "https://github.com/msgpack/msgpack-python/blob/v${version}/ChangeLog.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

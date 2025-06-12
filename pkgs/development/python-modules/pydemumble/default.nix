@@ -7,7 +7,6 @@
   pytestCheckHook,
   ninja,
 }:
-
 buildPythonPackage rec {
   pname = "pydemumble";
   version = "0.0.1";
@@ -38,11 +37,11 @@ buildPythonPackage rec {
     ninja
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests/" ];
+  pytestFlagsArray = ["tests/"];
 
-  pythonImportsCheck = [ "pydemumble" ];
+  pythonImportsCheck = ["pydemumble"];
 
   meta = {
     description = "demumble wrapper library";
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/angr/pydemumble";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
   };
 }

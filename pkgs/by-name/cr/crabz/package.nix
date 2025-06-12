@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "crabz";
   version = "0.10.0";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-JzzDkbDVL6az6b/s640KikSNJCwv8hf0aFcmGnvYQu4=";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     description = "Cross platform, fast, compression and decompression tool";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
       unlicense # or
       mit
     ];
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "crabz";
   };
 }

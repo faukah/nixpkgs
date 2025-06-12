@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule {
   pname = "nix-converter";
   version = "0-unstable-2025-04-14";
@@ -23,7 +22,7 @@ buildGoModule {
     "-w"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "All-in-one converter configuration language to Nix and vice versa";

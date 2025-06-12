@@ -5,7 +5,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "exercism";
   version = "3.5.5";
@@ -21,11 +20,11 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "./exercism" ];
+  subPackages = ["./exercism"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   postInstall = ''
     installShellCompletion --cmd exercism \

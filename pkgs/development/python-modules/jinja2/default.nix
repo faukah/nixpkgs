@@ -13,11 +13,9 @@
   pallets-sphinx-themes,
   sphinxcontrib-log-cabinet,
   sphinx-issues,
-
   # Reverse dependency
   sage,
 }:
-
 buildPythonPackage rec {
   pname = "jinja2";
   version = "3.1.6";
@@ -40,19 +38,19 @@ buildPythonPackage rec {
       --replace-fail ", \"trio\"" ""
   '';
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [ markupsafe ];
+  dependencies = [markupsafe];
 
   optional-dependencies = {
-    i18n = [ babel ];
+    i18n = [babel];
   };
 
   # Multiple tests run out of stack space on 32bit systems with python2.
   # See https://github.com/pallets/jinja/issues/1158
   doCheck = !stdenv.hostPlatform.is32bit;
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.i18n;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.i18n;
 
   passthru.doc = stdenv.mkDerivation {
     # Forge look and feel of multi-output derivation as best as we can.
@@ -96,6 +94,6 @@ buildPythonPackage rec {
       placeholders in the template allow writing code similar to Python
       syntax. Then the template is passed data to render the final document.
     '';
-    maintainers = with maintainers; [ pierron ];
+    maintainers = with maintainers; [pierron];
   };
 }

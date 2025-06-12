@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "whatfiles";
   version = "1.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     description = "Log what files are accessed by any Linux process";
     homepage = "https://github.com/spieglt/whatfiles";
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "whatfiles";
   };

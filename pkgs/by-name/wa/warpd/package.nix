@@ -16,7 +16,6 @@
   libX11,
   libXext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "warpd";
   version = "1.3.5";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     leaveDotGit = true;
   };
 
-  nativeBuildInputs = [ git ];
+  nativeBuildInputs = [git];
 
   buildInputs =
     lib.optionals withWayland [
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     ];
 
   makeFlags =
-    [ "PREFIX=$(out)" ]
+    ["PREFIX=$(out)"]
     ++ lib.optional (!withWayland) "DISABLE_WAYLAND=y"
     ++ lib.optional (!withX) "DISABLE_X=y";
 
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "Modal keyboard driven interface for mouse manipulation";
     homepage = "https://github.com/rvaiya/warpd";
     changelog = "https://github.com/rvaiya/warpd/blob/${src.rev}/CHANGELOG.md";
-    maintainers = with maintainers; [ hhydraa ];
+    maintainers = with maintainers; [hhydraa];
     license = licenses.mit;
     platforms = platforms.linux;
     mainProgram = "warpd";

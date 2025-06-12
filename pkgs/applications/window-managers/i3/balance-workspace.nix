@@ -4,7 +4,6 @@
   fetchPypi,
   i3ipc,
 }:
-
 buildPythonPackage rec {
   pname = "i3-balance-workspace";
   version = "1.8.6";
@@ -14,16 +13,16 @@ buildPythonPackage rec {
     hash = "sha256-zJdn/Q6r60FQgfehtQfeDkmN0Rz3ZaqgNhiWvjyQFy0=";
   };
 
-  propagatedBuildInputs = [ i3ipc ];
+  propagatedBuildInputs = [i3ipc];
 
   doCheck = false; # project has no test
-  pythonImportsCheck = [ "i3_balance_workspace" ];
+  pythonImportsCheck = ["i3_balance_workspace"];
 
   meta = {
     description = "Balance windows and workspaces in i3wm";
     homepage = "https://pypi.org/project/i3-balance-workspace/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ euxane ];
+    maintainers = with lib.maintainers; [euxane];
     mainProgram = "i3_balance_workspace";
   };
 }

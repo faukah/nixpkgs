@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tflint-ruleset-aws";
   version = "0.40.0";
@@ -45,7 +44,7 @@ buildGoModule rec {
     homepage = "https://github.com/terraform-linters/tflint-ruleset-aws";
     changelog = "https://github.com/terraform-linters/tflint-ruleset-aws/blob/v${version}/CHANGELOG.md";
     description = "TFLint ruleset plugin for Terraform AWS Provider";
-    maintainers = with maintainers; [ flokli ];
-    license = with licenses; [ mpl20 ];
+    maintainers = with maintainers; [flokli];
+    license = with licenses; [mpl20];
   };
 }

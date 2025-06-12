@@ -14,7 +14,6 @@
   gnutar,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deconz";
   version = "2.30.2";
@@ -72,27 +71,27 @@ stdenv.mkDerivation rec {
             --set LD_PRELOAD "${libredirect}/lib/libredirect.so" \
             --set NIX_REDIRECTS "/usr/share=$out/share:/usr/bin=$out/bin" \
             --prefix PATH : "${
-              lib.makeBinPath [
-                gzip
-                gnutar
-              ]
-            }"
+      lib.makeBinPath [
+        gzip
+        gnutar
+      ]
+    }"
     done
 
     runHook postInstall
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) deconz; };
+    tests = {inherit (nixosTests) deconz;};
   };
 
   meta = with lib; {
     description = "Manage Zigbee network with ConBee, ConBee II or RaspBee hardware";
     homepage = "https://www.dresden-elektronik.com/wireless/software/deconz.html";
     license = licenses.unfree;
-    platforms = with platforms; [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ bjornfor ];
+    platforms = with platforms; ["x86_64-linux"];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [bjornfor];
     mainProgram = "deCONZ";
   };
 }

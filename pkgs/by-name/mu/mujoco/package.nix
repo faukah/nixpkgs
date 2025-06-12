@@ -9,9 +9,7 @@
   spdlog,
   cereal_1_3_2,
   python3Packages,
-}:
-
-let
+}: let
   pin = {
     # TODO: Check the following file and ensure the dependencies are up-to-date
     # See https://github.com/google-deepmind/mujoco/blob/<VERSION>/cmake/MujocoDependencies.cmake#L17-L64
@@ -102,7 +100,7 @@ let
         hash = "sha256-+SFUOdZ6pGZvnQa0mT+yfbTMHWe2CTOlroXcuVBHdOE=";
       };
 
-      patches = [ ./sdflib-system-deps.patch ];
+      patches = [./sdflib-system-deps.patch];
 
       cmakeFlags = [
         (lib.cmakeBool "SDFLIB_USE_ASSIMP" false)
@@ -114,7 +112,7 @@ let
         (lib.cmakeBool "SDFLIB_USE_SYSTEM_TRIANGLEMESHDISTANCE" true)
       ];
 
-      nativeBuildInputs = [ cmake ];
+      nativeBuildInputs = [cmake];
       buildInputs = [
         pin.tmd
 
@@ -126,78 +124,76 @@ let
         cereal_1_3_2
       ];
     };
-
   };
-
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "mujoco";
-  version = "3.3.2";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "mujoco";
+    version = "3.3.2";
 
-  # Bumping version? Make sure to look though the MuJoCo's commit
-  # history for bumped dependency pins!
-  src = fetchFromGitHub {
-    owner = "google-deepmind";
-    repo = "mujoco";
-    tag = finalAttrs.version;
-    hash = "sha256-ftohDFsQv6/N82QjPONiQV/Hr7Eb1h2pFDwHaOOhJE0=";
-  };
-
-  patches = [ ./mujoco-system-deps-dont-fetch.patch ];
-
-  nativeBuildInputs = [ cmake ];
-
-  buildInputs = [
-    pin.sdflib
-    glm
-
-    # non-numerical
-    spdlog
-    cereal_1_3_2
-    glfw
-  ];
-
-  cmakeFlags = [
-    (lib.cmakeBool "MUJOCO_USE_SYSTEM_sdflib" true)
-    (lib.cmakeBool "MUJOCO_SIMULATE_USE_SYSTEM_GLFW" true)
-    (lib.cmakeBool "MUJOCO_SAMPLES_USE_SYSTEM_GLFW" true)
-  ];
-
-  # Move things into place so that cmake doesn't try downloading dependencies.
-  preConfigure = ''
-    mkdir -p build/_deps
-    ln -s ${pin.abseil-cpp} build/_deps/abseil-cpp-src
-    ln -s ${pin.benchmark} build/_deps/benchmark-src
-    ln -s ${pin.ccd} build/_deps/ccd-src
-    ln -s ${pin.eigen3} build/_deps/eigen3-src
-    ln -s ${pin.googletest} build/_deps/googletest-src
-    ln -s ${pin.lodepng} build/_deps/lodepng-src
-    ln -s ${pin.qhull} build/_deps/qhull-src
-    ln -s ${pin.tinyobjloader} build/_deps/tinyobjloader-src
-    ln -s ${pin.tinyxml2} build/_deps/tinyxml2-src
-    ln -s ${pin.marchingcubecpp} build/_deps/marchingcubecpp-src
-  '';
-
-  passthru = {
-    pin = {
-      inherit (pin) lodepng eigen3 abseil-cpp;
+    # Bumping version? Make sure to look though the MuJoCo's commit
+    # history for bumped dependency pins!
+    src = fetchFromGitHub {
+      owner = "google-deepmind";
+      repo = "mujoco";
+      tag = finalAttrs.version;
+      hash = "sha256-ftohDFsQv6/N82QjPONiQV/Hr7Eb1h2pFDwHaOOhJE0=";
     };
-    tests = {
-      pythonMujoco = python3Packages.mujoco;
-      pythonMujocoMjx = python3Packages.mujoco-mjx;
-    };
-  };
 
-  meta = {
-    description = "Multi-Joint dynamics with Contact. A general purpose physics simulator";
-    homepage = "https://mujoco.org/";
-    changelog = "https://mujoco.readthedocs.io/en/${finalAttrs.version}/changelog.html";
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [
-      GaetanLepage
-      samuela
-      tmplt
+    patches = [./mujoco-system-deps-dont-fetch.patch];
+
+    nativeBuildInputs = [cmake];
+
+    buildInputs = [
+      pin.sdflib
+      glm
+
+      # non-numerical
+      spdlog
+      cereal_1_3_2
+      glfw
     ];
-    broken = stdenv.hostPlatform.isDarwin;
-  };
-})
+
+    cmakeFlags = [
+      (lib.cmakeBool "MUJOCO_USE_SYSTEM_sdflib" true)
+      (lib.cmakeBool "MUJOCO_SIMULATE_USE_SYSTEM_GLFW" true)
+      (lib.cmakeBool "MUJOCO_SAMPLES_USE_SYSTEM_GLFW" true)
+    ];
+
+    # Move things into place so that cmake doesn't try downloading dependencies.
+    preConfigure = ''
+      mkdir -p build/_deps
+      ln -s ${pin.abseil-cpp} build/_deps/abseil-cpp-src
+      ln -s ${pin.benchmark} build/_deps/benchmark-src
+      ln -s ${pin.ccd} build/_deps/ccd-src
+      ln -s ${pin.eigen3} build/_deps/eigen3-src
+      ln -s ${pin.googletest} build/_deps/googletest-src
+      ln -s ${pin.lodepng} build/_deps/lodepng-src
+      ln -s ${pin.qhull} build/_deps/qhull-src
+      ln -s ${pin.tinyobjloader} build/_deps/tinyobjloader-src
+      ln -s ${pin.tinyxml2} build/_deps/tinyxml2-src
+      ln -s ${pin.marchingcubecpp} build/_deps/marchingcubecpp-src
+    '';
+
+    passthru = {
+      pin = {
+        inherit (pin) lodepng eigen3 abseil-cpp;
+      };
+      tests = {
+        pythonMujoco = python3Packages.mujoco;
+        pythonMujocoMjx = python3Packages.mujoco-mjx;
+      };
+    };
+
+    meta = {
+      description = "Multi-Joint dynamics with Contact. A general purpose physics simulator";
+      homepage = "https://mujoco.org/";
+      changelog = "https://mujoco.readthedocs.io/en/${finalAttrs.version}/changelog.html";
+      license = lib.licenses.asl20;
+      maintainers = with lib.maintainers; [
+        GaetanLepage
+        samuela
+        tmplt
+      ];
+      broken = stdenv.hostPlatform.isDarwin;
+    };
+  })

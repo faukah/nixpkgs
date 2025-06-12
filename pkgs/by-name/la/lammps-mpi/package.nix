@@ -3,7 +3,6 @@
   mpi,
   lowPrio,
 }:
-
 lowPrio (
   lammps.override {
     extraBuildInputs = [

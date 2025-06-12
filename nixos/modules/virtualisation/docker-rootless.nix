@@ -3,17 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.virtualisation.docker.rootless;
   proxy_env = config.networking.proxy.envVars;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   daemonSettingsFile = settingsFormat.generate "daemon.json" cfg.daemon.settings;
-
-in
-
-{
+in {
   ###### interface
 
   options.virtualisation.docker.rootless = {
@@ -38,7 +33,7 @@ in
 
     daemon.settings = lib.mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
       example = {
         ipv6 = true;
         "fixed-cidr-v6" = "fd00::/80";
@@ -49,13 +44,13 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "docker" { };
+    package = lib.mkPackageOption pkgs "docker" {};
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.extraInit = lib.optionalString cfg.setSocketVariable ''
       if [ -z "$DOCKER_HOST" -a -n "$XDG_RUNTIME_DIR" ]; then
@@ -65,10 +60,10 @@ in
 
     # Taken from https://github.com/moby/moby/blob/master/contrib/dockerd-rootless-setuptool.sh
     systemd.user.services.docker = {
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
       description = "Docker Application Container Engine (Rootless)";
       # needs newuidmap from pkgs.shadow
-      path = [ "/run/wrappers" ];
+      path = ["/run/wrappers"];
       environment = proxy_env;
       unitConfig = {
         # docker-rootless doesn't support running as root.
@@ -92,5 +87,4 @@ in
       };
     };
   };
-
 }

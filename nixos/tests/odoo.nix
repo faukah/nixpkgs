@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   name = "odoo";
-  meta.maintainers = with lib.maintainers; [ mkg20001 ];
+  meta.maintainers = with lib.maintainers; [mkg20001];
 
   _module.args.package = lib.mkDefault pkgs.odoo;
 
@@ -20,7 +19,7 @@
       enable = true;
       package = package;
       autoInit = true;
-      autoInitExtraFlags = [ "--without-demo=all" ];
+      autoInitExtraFlags = ["--without-demo=all"];
       domain = "localhost";
     };
   };

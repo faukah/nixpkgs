@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tagref";
   version = "1.10.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Manage cross-references in your code";
     homepage = "https://github.com/stepchowfun/tagref";
     license = licenses.mit;
-    maintainers = [ maintainers.yusdacra ];
+    maintainers = [maintainers.yusdacra];
     platforms = platforms.unix;
     mainProgram = "tagref";
   };

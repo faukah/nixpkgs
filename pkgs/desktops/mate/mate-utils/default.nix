@@ -20,7 +20,6 @@
   wrapGAppsHook3,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-utils";
   version = "1.28.0";
@@ -59,13 +58,13 @@ stdenv.mkDerivation rec {
       --replace-fail '>= $GDK_WAYLAND_REQUIRED_VERSION' ""
   '';
 
-  configureFlags = [ "--enable-wayland" ];
+  configureFlags = ["--enable-wayland"];
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Utilities for the MATE desktop";
@@ -75,6 +74,6 @@ stdenv.mkDerivation rec {
       lgpl2Plus
     ];
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

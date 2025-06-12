@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "fail2ban";
 
   nodes.machine = _: {
@@ -16,7 +15,6 @@
       pkgs.sshpass
       pkgs.libressl.nc
     ];
-
   };
 
   testScript = ''

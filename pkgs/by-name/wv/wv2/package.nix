@@ -8,7 +8,6 @@
   glib,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wv2";
   version = "0.4.2";
@@ -17,11 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "1p1qxr8z5bsiq8pvlina3c8c1vjcb5d96bs3zz4jj3nb20wnsawz";
   };
 
-  patches = [ ./fix-include.patch ];
+  patches = [./fix-include.patch];
 
   # Newer versions of clang default to C++17, which removes some deprecated APIs such as bind1st.
   # Setting the language version to C++14 makes them available again.
-  cmakeFlags = lib.optionals stdenv.cc.isClang [ (lib.cmakeFeature "CMAKE_CXX_STANDARD" "14") ];
+  cmakeFlags = lib.optionals stdenv.cc.isClang [(lib.cmakeFeature "CMAKE_CXX_STANDARD" "14")];
 
   # Linking gobject explicitly fixes missing symbols (such as missing `_g_object_unref`) on Darwin.
   preConfigure = lib.optionalString stdenv.hostPlatform.isDarwin ''

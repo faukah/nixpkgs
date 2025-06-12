@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "aichat";
   version = "0.29.0";
@@ -38,14 +37,14 @@ rustPlatform.buildRustPackage rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Use GPT-4(V), Gemini, LocalAI, Ollama and other LLMs in the terminal";
     homepage = "https://github.com/sigoden/aichat";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mwdomino ];
+    maintainers = with lib.maintainers; [mwdomino];
     mainProgram = "aichat";
   };
 }

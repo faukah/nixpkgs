@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "skypilot";
   version = "0.8.1";
@@ -17,7 +16,7 @@ python3Packages.buildPythonApplication rec {
 
   pyproject = true;
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   # when updating, please ensure package version constraints stipulaed
   # in setup.py are met
@@ -54,7 +53,7 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://github.com/skypilot-org/skypilot";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ seanrmurphy ];
+    maintainers = with lib.maintainers; [seanrmurphy];
     mainProgram = "sky";
   };
 }

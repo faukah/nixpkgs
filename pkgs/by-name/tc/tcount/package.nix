@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "tcount";
   version = "0-unstable-2023-04-20";
@@ -20,13 +19,13 @@ rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-Sn7hu+2jQFd2u8tpfTxnEO+syrO96gfgz6ouHxJnpLg=";
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = {
     description = "Count your code by tokens and patterns in the syntax tree. A tokei/scc/cloc alternative";
     homepage = "https://github.com/rrethy/tcount";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ phanirithvij ];
+    maintainers = with lib.maintainers; [phanirithvij];
     mainProgram = "tcount";
   };
 }

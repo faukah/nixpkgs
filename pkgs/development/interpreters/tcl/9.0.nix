@@ -1,5 +1,8 @@
-{ callPackage, fetchzip, ... }@args:
-
+{
+  callPackage,
+  fetchzip,
+  ...
+} @ args:
 callPackage ./generic.nix (
   args
   // rec {

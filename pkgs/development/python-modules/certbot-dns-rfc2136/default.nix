@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "certbot-dns-rfc2136";
   format = "setuptools";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     dnspython
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray = [
     "-p no:cacheprovider"
@@ -32,7 +31,9 @@ buildPythonPackage rec {
     "ignore::DeprecationWarning"
   ];
 
-  meta = certbot.meta // {
-    description = "RFC 2136 DNS Authenticator plugin for Certbot";
-  };
+  meta =
+    certbot.meta
+    // {
+      description = "RFC 2136 DNS Authenticator plugin for Certbot";
+    };
 }

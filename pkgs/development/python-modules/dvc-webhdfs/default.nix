@@ -9,7 +9,6 @@
   setuptools-scm,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "dvc-webhdfs";
   version = "3.1.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
   };
 
   # Prevent circular dependency
-  pythonRemoveDeps = [ "dvc" ];
+  pythonRemoveDeps = ["dvc"];
 
   build-system = [
     setuptools
@@ -36,7 +35,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    kerberos = [ requests-kerberos ];
+    kerberos = [requests-kerberos];
   };
 
   # Circular dependency
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     description = "Webhdfs plugin for dvc";
     homepage = "https://pypi.org/project/dvc-webhdfs/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

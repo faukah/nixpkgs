@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "kubectl-graph";
   version = "0.7.0";
@@ -23,6 +22,6 @@ buildGoModule rec {
     changelog = "https://github.com/steveteuber/kubectl-graph/releases/tag/v${version}";
     mainProgram = "kubectl-graph";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.rksm ];
+    maintainers = [lib.maintainers.rksm];
   };
 }

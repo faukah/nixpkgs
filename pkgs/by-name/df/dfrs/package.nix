@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dfrs";
   version = "0.0.7";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Display file system space usage using graphs and colors";
     homepage = "https://github.com/anthraxx/dfrs";
     license = licenses.mit;
-    maintainers = with maintainers; [ wamserma ];
+    maintainers = with maintainers; [wamserma];
     mainProgram = "dfrs";
   };
 }

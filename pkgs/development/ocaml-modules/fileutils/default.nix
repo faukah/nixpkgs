@@ -7,7 +7,6 @@
   stdlib-shims,
   ounit2,
 }:
-
 buildDunePackage rec {
   pname = "fileutils";
   version = "0.6.6";
@@ -33,6 +32,6 @@ buildDunePackage rec {
     description = "OCaml API to manipulate real files (POSIX like) and filenames";
     homepage = "https://github.com/gildor478/ocaml-fileutils";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

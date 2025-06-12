@@ -3,21 +3,18 @@
   julia,
   python3,
   runCommand,
-
   augmentedRegistry,
   packageNames,
   packageOverrides,
   packageImplications,
-}:
-
-let
+}: let
   juliaExpression = packageNames: ''
     import Pkg
     Pkg.Registry.add(Pkg.RegistrySpec(path="${augmentedRegistry}"))
 
     import Pkg.Types: Context, PackageSpec
 
-    input = ${lib.generators.toJSON { } packageNames}
+    input = ${lib.generators.toJSON {} packageNames}
 
     if isfile("extra_package_names.txt")
         append!(input, readlines("extra_package_names.txt"))
@@ -53,12 +50,11 @@ let
     end
   '';
 in
-
-runCommand "julia-package-closure.yml"
+  runCommand "julia-package-closure.yml"
   {
     buildInputs = [
       julia
-      (python3.withPackages (ps: with ps; [ pyyaml ]))
+      (python3.withPackages (ps: with ps; [pyyaml]))
     ];
   }
   ''
@@ -77,7 +73,7 @@ runCommand "julia-package-closure.yml"
     # See if we need to add any extra package names based on the closure
     # and the packageImplications
     python ${./python}/find_package_implications.py "$out" '${
-      lib.generators.toJSON { } packageImplications
+      lib.generators.toJSON {} packageImplications
     }' extra_package_names.txt
 
     if [ -f extra_package_names.txt ]; then

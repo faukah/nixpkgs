@@ -7,7 +7,6 @@
   cmake,
   unzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wibo";
   version = "0.6.14";
@@ -26,18 +25,17 @@ stdenv.mkDerivation rec {
 
   doCheck = false;
   # Test step from https://github.com/decompals/wibo/blob/main/.github/workflows/ci.yml
-  checkPhase =
-    let
-      gc = srcOnly {
-        name = "GC_WII_COMPILERS";
-        src = fetchzip {
-          url = "https://files.decomp.dev/compilers_20230715.zip";
-          hash = "sha256-IX3byvEUVJB6Rmc+NqO9ZNt1jl95nQpEIqxbHI+uUio=";
-          stripRoot = false;
-        };
-        meta.license = lib.licenses.unfree;
+  checkPhase = let
+    gc = srcOnly {
+      name = "GC_WII_COMPILERS";
+      src = fetchzip {
+        url = "https://files.decomp.dev/compilers_20230715.zip";
+        hash = "sha256-IX3byvEUVJB6Rmc+NqO9ZNt1jl95nQpEIqxbHI+uUio=";
+        stripRoot = false;
       };
-    in
+      meta.license = lib.licenses.unfree;
+    };
+  in
     lib.optionalString doCheck ''
       MWCIncludes=../test ./wibo ${gc}/GC/2.7/mwcceppc.exe -c ../test/test.c
       file test.o | grep "ELF 32-bit"
@@ -52,8 +50,8 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/decompals/WiBo";
     license = licenses.mit;
-    maintainers = with maintainers; [ r-burns ];
-    platforms = [ "i686-linux" ];
+    maintainers = with maintainers; [r-burns];
+    platforms = ["i686-linux"];
     mainProgram = "wibo";
   };
 }

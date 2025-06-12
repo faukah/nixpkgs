@@ -6,7 +6,6 @@
   hidapi,
   udev,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "leddy";
   version = "0.1.0-unstable-2024-10-15";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ezl9/vKDPJNYH1U4H/7OtE0g3iWIS+tDapJDhaKT+l0=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     hidapi
     udev
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage {
     description = "LED controller for the Fnatic miniStreak and Fnatic Streak keyboards";
     homepage = "https://github.com/XanClic/leddy";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.jmir ];
+    maintainers = [lib.maintainers.jmir];
     mainProgram = "leddy";
   };
 }

@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "btrfs";
   version = "15";
@@ -16,7 +15,7 @@ buildPythonPackage rec {
 
   # no tests (in v12)
   doCheck = false;
-  pythonImportsCheck = [ "btrfs" ];
+  pythonImportsCheck = ["btrfs"];
 
   meta = with lib; {
     description = "Inspect btrfs filesystems";

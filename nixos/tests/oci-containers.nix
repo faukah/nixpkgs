@@ -1,46 +1,40 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
   lib ? pkgs.lib,
-}:
+}: let
+  inherit (import ../lib/testing-python.nix {inherit system pkgs;}) makeTest;
 
-let
-
-  inherit (import ../lib/testing-python.nix { inherit system pkgs; }) makeTest;
-
-  mkOCITest =
-    backend:
+  mkOCITest = backend:
     makeTest {
       name = "oci-containers-${backend}";
 
-      meta.maintainers = lib.teams.serokell.members ++ (with lib.maintainers; [ benley ]);
+      meta.maintainers = lib.teams.serokell.members ++ (with lib.maintainers; [benley]);
 
       nodes = {
-        ${backend} =
-          { pkgs, ... }:
-          {
-            virtualisation.oci-containers = {
-              inherit backend;
-              containers.nginx = {
-                image = "nginx-container";
-                imageStream = pkgs.dockerTools.examples.nginxStream;
-                ports = [ "8181:80" ];
-                capabilities = {
-                  CAP_AUDIT_READ = true;
-                  CAP_AUDIT_WRITE = false;
-                };
-                privileged = false;
-                devices = [
-                  "/dev/random:/dev/random"
-                ];
+        ${backend} = {pkgs, ...}: {
+          virtualisation.oci-containers = {
+            inherit backend;
+            containers.nginx = {
+              image = "nginx-container";
+              imageStream = pkgs.dockerTools.examples.nginxStream;
+              ports = ["8181:80"];
+              capabilities = {
+                CAP_AUDIT_READ = true;
+                CAP_AUDIT_WRITE = false;
               };
+              privileged = false;
+              devices = [
+                "/dev/random:/dev/random"
+              ];
             };
-
-            # Stop systemd from killing remaining processes if ExecStop script
-            # doesn't work, so that proper stopping can be tested.
-            systemd.services."${backend}-nginx".serviceConfig.KillSignal = "SIGCONT";
           };
+
+          # Stop systemd from killing remaining processes if ExecStop script
+          # doesn't work, so that proper stopping can be tested.
+          systemd.services."${backend}-nginx".serviceConfig.KillSignal = "SIGCONT";
+        };
       };
 
       testScript = ''
@@ -54,26 +48,28 @@ let
         ${backend}.succeed("systemctl stop ${backend}-nginx.service", timeout=10)
         assert output['HostConfig']['CapAdd'] == ["CAP_AUDIT_READ"]
         assert output['HostConfig']['CapDrop'] == ${
-          if backend == "docker" then "[\"CAP_AUDIT_WRITE\"]" else "[]"
+          if backend == "docker"
+          then "[\"CAP_AUDIT_WRITE\"]"
+          else "[]"
         } # Rootless podman runs with no capabilities so it cannot drop them
         assert output['HostConfig']['Privileged'] == False
         assert output['HostConfig']['Devices'] == [{'PathOnHost': '/dev/random', 'PathInContainer': '/dev/random', 'CgroupPermissions': '${
-          if backend == "docker" then "rwm" else ""
+          if backend == "docker"
+          then "rwm"
+          else ""
         }'}]
       '';
     };
 
-  podmanRootlessTests = lib.genAttrs [ "conmon" "healthy" ] (
+  podmanRootlessTests = lib.genAttrs ["conmon" "healthy"] (
     type:
-    makeTest {
-      name = "oci-containers-podman-rootless-${type}";
-      meta.maintainers = lib.teams.flyingcircus.members;
-      nodes = {
-        podman =
-          { pkgs, ... }:
-          {
-            environment.systemPackages = [ pkgs.redis ];
-            users.groups.redis = { };
+      makeTest {
+        name = "oci-containers-podman-rootless-${type}";
+        meta.maintainers = lib.teams.flyingcircus.members;
+        nodes = {
+          podman = {pkgs, ...}: {
+            environment.systemPackages = [pkgs.redis];
+            users.groups.redis = {};
             users.users.redis = {
               isSystemUser = true;
               group = "redis";
@@ -99,7 +95,7 @@ let
               containers.redis = {
                 image = "redis:latest";
                 imageFile = pkgs.dockerTools.examples.redis;
-                ports = [ "6379:6379" ];
+                ports = ["6379:6379"];
                 podman = {
                   user = "redis";
                   sdnotify = type;
@@ -107,20 +103,19 @@ let
               };
             };
           };
-      };
+        };
 
-      testScript = ''
-        start_all()
-        podman.wait_for_unit("podman-redis.service")
-        ${lib.optionalString (type != "healthy") ''
-          podman.wait_for_open_port(6379)
-        ''}
-        podman.wait_until_succeeds("set -eo pipefail; echo 'keys *' | redis-cli")
-      '';
-    }
+        testScript = ''
+          start_all()
+          podman.wait_for_unit("podman-redis.service")
+          ${lib.optionalString (type != "healthy") ''
+            podman.wait_for_open_port(6379)
+          ''}
+          podman.wait_until_succeeds("set -eo pipefail; echo 'keys *' | redis-cli")
+        '';
+      }
   );
-in
-{
+in {
   docker = mkOCITest "docker";
   podman = mkOCITest "podman";
   podman-rootless-conmon = podmanRootlessTests.conmon;

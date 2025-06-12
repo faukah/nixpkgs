@@ -30,7 +30,6 @@
   wrapGAppsHook3,
   xvfb-run,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-thumbnailer";
   version = "3.0.4";
@@ -101,11 +100,11 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     (python3.withPackages (
       ps:
-      with ps;
-      lib.optionals finalAttrs.finalPackage.doCheck [
-        python-dbusmock
-        tornado
-      ]
+        with ps;
+          lib.optionals finalAttrs.finalPackage.doCheck [
+            python-dbusmock
+            tornado
+          ]
     ))
     validatePkgConfig
     wrapGAppsHook3
@@ -169,7 +168,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   preCheck = ''
     # Fontconfig warnings breaks some tests
-    export FONTCONFIG_FILE=${makeFontsConf { fontDirectories = [ ]; }}
+    export FONTCONFIG_FILE=${makeFontsConf {fontDirectories = [];}}
     export HOME=$TMPDIR
 
     # Some tests need Qt plugins
@@ -181,14 +180,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix XDG_DATA_DIRS : ${lib.makeSearchPath "share" [ shared-mime-info ]}
+      --prefix XDG_DATA_DIRS : ${lib.makeSearchPath "share" [shared-mime-info]}
     )
   '';
 
   passthru = {
     tests = {
       # gallery app delegates to thumbnailer, tests various formats
-      inherit (nixosTests.lomiri-gallery-app)
+      inherit
+        (nixosTests.lomiri-gallery-app)
         format-mp4
         format-gif
         format-bmp
@@ -201,7 +201,7 @@ stdenv.mkDerivation (finalAttrs: {
 
       pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
     };
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -213,7 +213,7 @@ stdenv.mkDerivation (finalAttrs: {
       gpl3Only
       lgpl3Only
     ];
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
     pkgConfigModules = [
       "liblomiri-thumbnailer-qt"

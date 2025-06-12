@@ -3,7 +3,6 @@
   lib,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "xstatic-asciinema-player";
   version = "2.6.1.1";
@@ -21,6 +20,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/python-xstatic/asciinema-player";
     description = "Asciinema-player packaged for python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aither64 ];
+    maintainers = with maintainers; [aither64];
   };
 }

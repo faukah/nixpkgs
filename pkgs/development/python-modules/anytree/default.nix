@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   graphviz,
-
   # build-system
   pdm-backend,
-
   # tests
   pytest-cov-stub,
   pytestCheckHook,
@@ -14,7 +12,6 @@
   test2ref,
   fontconfig,
 }:
-
 buildPythonPackage rec {
   pname = "anytree";
   version = "2.13.0";
@@ -34,7 +31,7 @@ buildPythonPackage rec {
         'cmd = ["${lib.getExe' graphviz "dot"}"'
   '';
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   nativeCheckInputs = [
     pytest-cov-stub
@@ -48,13 +45,13 @@ buildPythonPackage rec {
     export FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf
   '';
 
-  pythonImportsCheck = [ "anytree" ];
+  pythonImportsCheck = ["anytree"];
 
   meta = {
     description = "Powerful and Lightweight Python Tree Data Structure";
     homepage = "https://github.com/c0fec0de/anytree";
     changelog = "https://github.com/c0fec0de/anytree/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maitnainers; [ ];
+    maintainers = with lib.maitnainers; [];
   };
 }

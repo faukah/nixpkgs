@@ -5,7 +5,6 @@
   cmake,
   obs-studio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-source-record";
   version = "0.4.6";
@@ -17,12 +16,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mlPLZ9n0F4K1tRx9xPuNMGzupRGLmyVsqKS12A4X5vw=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ obs-studio ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [obs-studio];
 
-  NIX_CFLAGS_COMPILE = [ "-Wno-error=deprecated-declarations" ];
+  NIX_CFLAGS_COMPILE = ["-Wno-error=deprecated-declarations"];
 
-  cmakeFlags = [ "-DBUILD_OUT_OF_TREE=On" ];
+  cmakeFlags = ["-DBUILD_OUT_OF_TREE=On"];
 
   postInstall = ''
     rm -rf $out/{data,obs-plugins}
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
       shackra
     ];
     license = licenses.gpl2Only;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

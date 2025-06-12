@@ -17,7 +17,6 @@
   nixosTests,
   pcre2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lxterminal";
   version = "0.4.1";
@@ -74,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://www.lxde.org/";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.pbsds ];
+    maintainers = [lib.maintainers.pbsds];
     platforms = lib.platforms.linux;
     mainProgram = "lxterminal";
   };

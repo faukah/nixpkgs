@@ -10,7 +10,6 @@
   ansi2html,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mdcat";
   version = "2.7.1";
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-8A0RLbFkh3fruZAbjJzipQvuFLchqIRovPcc6MSKdOc=";
 
-  nativeCheckInputs = [ ansi2html ];
+  nativeCheckInputs = [ansi2html];
   # Skip tests that use the network and that include files.
   checkFlags = [
     "--skip magic::tests::detect_mimetype_of_larger_than_magic_param_bytes_max_length"
@@ -66,7 +65,7 @@ rustPlatform.buildRustPackage rec {
     description = "cat for markdown";
     homepage = "https://github.com/swsnr/mdcat";
     changelog = "https://github.com/swsnr/mdcat/releases/tag/mdcat-${version}";
-    license = with licenses; [ mpl20 ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    license = with licenses; [mpl20];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

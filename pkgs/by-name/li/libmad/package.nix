@@ -4,7 +4,6 @@
   fetchurl,
   fetchpatch,
   autoconf,
-
   # for passthru.tests
   audacity,
   mpd,
@@ -13,7 +12,6 @@
   streamripper,
   vlc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmad";
   version = "0.15.1b";
@@ -69,7 +67,7 @@ stdenv.mkDerivation rec {
     substituteInPlace configure.ac --replace "arch=\"-march=i486\"" ""
   '';
 
-  nativeBuildInputs = [ autoconf ];
+  nativeBuildInputs = [autoconf];
 
   preConfigure = "autoconf";
 
@@ -88,7 +86,7 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/mad/";
     description = "High-quality, fixed-point MPEG audio decoder supporting MPEG-1 and MPEG-2";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
   };
 }

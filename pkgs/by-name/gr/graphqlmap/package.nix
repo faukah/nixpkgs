@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "graphqlmap";
   version = "unstable-2022-01-17";
@@ -32,6 +31,6 @@ python3.pkgs.buildPythonApplication {
     mainProgram = "graphqlmap";
     homepage = "https://github.com/swisskyrepo/GraphQLmap";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

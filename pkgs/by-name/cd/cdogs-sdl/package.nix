@@ -11,7 +11,6 @@
   python3,
   protobuf,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cdogs-sdl";
   version = "2.3.0";
@@ -41,10 +40,11 @@ stdenv.mkDerivation rec {
     pkg-config
     cmake
     (python3.withPackages (
-      pp: with pp; [
-        pp.protobuf
-        setuptools
-      ]
+      pp:
+        with pp; [
+          pp.protobuf
+          setuptools
+        ]
     ))
   ];
 
@@ -57,13 +57,13 @@ stdenv.mkDerivation rec {
   ];
 
   # inlining failed in call to 'tinydir_open': --param max-inline-insns-single limit reached
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   meta = with lib; {
     homepage = "https://cxong.github.io/cdogs-sdl";
     description = "Open source classic overhead run-and-gun game";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ nixinator ];
+    maintainers = with maintainers; [nixinator];
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/cdogs-sdl.x86_64-darwin
   };

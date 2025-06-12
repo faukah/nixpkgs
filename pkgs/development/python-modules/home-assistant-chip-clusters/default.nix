@@ -5,7 +5,6 @@
   aenum,
   dacite,
 }:
-
 buildPythonPackage rec {
   pname = "home-assistant-chip-clusters";
   inherit (home-assistant-chip-wheels) version;
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/home-assistant-libs/chip-wheels";
     changelog = "https://github.com/home-assistant-libs/chip-wheels/releases/tag/${version}";
     license = licenses.asl20;
-    teams = [ teams.home-assistant ];
+    teams = [teams.home-assistant];
   };
 }

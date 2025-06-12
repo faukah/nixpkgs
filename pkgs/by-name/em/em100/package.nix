@@ -6,7 +6,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   pname = "em100";
   version = "0-unstable-2024-11-14";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
     hash = "sha256-jzP56SMMiWiOynW17CFksi1VhpGt4oYYJrf4Rp9Vfs4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     curl
@@ -42,7 +41,7 @@ stdenv.mkDerivation {
     homepage = "https://www.coreboot.org";
     description = "Open source tool for the EM100 SPI flash emulator";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ felixsinger ];
+    maintainers = with maintainers; [felixsinger];
     platforms = platforms.linux;
     mainProgram = "em100";
   };

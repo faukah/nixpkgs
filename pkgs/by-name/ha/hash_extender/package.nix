@@ -4,7 +4,6 @@
   fetchFromGitHub,
   openssl,
 }:
-
 stdenv.mkDerivation {
   pname = "hash_extender";
   version = "unstable-2020-03-24";
@@ -16,13 +15,13 @@ stdenv.mkDerivation {
     sha256 = "1fj118566hr1wv03az2w0iqknazsqqkak0mvlcvwpgr6midjqi9b";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   doCheck = true;
   checkPhase = "./hash_extender --test";
 
   # https://github.com/iagox86/hash_extender/issues/26
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
 
@@ -36,6 +35,6 @@ stdenv.mkDerivation {
     mainProgram = "hash_extender";
     homepage = "https://github.com/iagox86/hash_extender";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

@@ -8,7 +8,6 @@
   yarnInstallHook,
   nodejs,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "postlight-parser";
   version = "2.2.3";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://reader.postlight.com";
     description = "Extracts the bits that humans care about from any URL you give it";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ viraptor ];
+    maintainers = with lib.maintainers; [viraptor];
     mainProgram = "postlight-parser";
   };
 })

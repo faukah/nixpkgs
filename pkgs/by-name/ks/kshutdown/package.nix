@@ -6,7 +6,6 @@
   unzip,
   kdePackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kshutdown";
   version = "6.0";
@@ -35,8 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://kshutdown.sourceforge.io/";
     description = "Graphical shutdown utility for Linux and Windows";
     mainProgram = "kshutdown";
-    license = with licenses; [ gpl3 ];
-    maintainers = with maintainers; [ eymeric ];
+    license = with licenses; [gpl3];
+    maintainers = with maintainers; [eymeric];
     platforms = platforms.linux;
   };
 })

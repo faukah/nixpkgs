@@ -9,7 +9,6 @@
   tomli,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "help2man";
   version = "0.0.9";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     tomli
   ];
 
-  dependencies = [ jinja2 ];
+  dependencies = [jinja2];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = lib.optionals (pythonAtLeast "3.13") [
     # Checks the output of `help2man --help`.
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     "test_help"
   ];
 
-  pythonImportsCheck = [ "help2man" ];
+  pythonImportsCheck = ["help2man"];
 
   meta = with lib; {
     description = "Convert --help and --version to man page";
     homepage = "https://github.com/Freed-Wu/help2man";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
     mainProgram = "help2man";
   };
 }

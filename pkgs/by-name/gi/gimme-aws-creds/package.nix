@@ -7,7 +7,6 @@
   testers,
   gimme-aws-creds,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "gimme-aws-creds";
   version = "2.8.2"; # N.B: if you change this, check if overrides are still up-to-date
@@ -65,7 +64,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = gimme-aws-creds;
       command = ''touch tmp.conf && OKTA_CONFIG="tmp.conf" gimme-aws-creds --version'';
@@ -79,6 +78,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "CLI that utilizes Okta IdP via SAML to acquire temporary AWS credentials";
     mainProgram = "gimme-aws-creds";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jbgosselin ];
+    maintainers = with maintainers; [jbgosselin];
   };
 }

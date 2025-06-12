@@ -1,19 +1,16 @@
-{ pkgs, ... }:
-rec {
+{pkgs, ...}: rec {
   name = "jenkins-cli";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ pamplemousse ];
+    maintainers = [pamplemousse];
   };
 
   nodes = {
-    machine =
-      { ... }:
-      {
-        services.jenkins = {
-          enable = true;
-          withCLI = true;
-        };
+    machine = {...}: {
+      services.jenkins = {
+        enable = true;
+        withCLI = true;
       };
+    };
   };
 
   testScript = ''

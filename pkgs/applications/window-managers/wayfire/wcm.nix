@@ -16,7 +16,6 @@
   libxml2,
   libxkbcommon,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wcm";
   version = "0.9.0";

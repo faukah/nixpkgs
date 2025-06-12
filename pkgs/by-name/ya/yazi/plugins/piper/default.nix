@@ -17,6 +17,6 @@ mkYaziPlugin {
   meta = {
     description = "Pipe any shell command as a previewer";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
   };
 }

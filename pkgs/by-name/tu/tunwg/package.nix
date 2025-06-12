@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tunwg";
   version = "24.09.18+760ee81";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Secure private tunnel to your local servers";
     homepage = "https://github.com/ntnj/tunwg";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     mainProgram = "tunwg";
   };
 }

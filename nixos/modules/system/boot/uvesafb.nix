@@ -3,17 +3,16 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.boot.uvesafb;
-  inherit (lib)
+  inherit
+    (lib)
     mkIf
     mkEnableOption
     mkOption
     types
     ;
-in
-{
+in {
   options = {
     boot.uvesafb = {
       enable = mkEnableOption "uvesafb";
@@ -32,14 +31,14 @@ in
                     hardeningDisable = [ "all" ];
                   })'';
         default = config.boot.kernelPackages.v86d.overrideAttrs (old: {
-          hardeningDisable = [ "all" ];
+          hardeningDisable = ["all"];
         });
       };
     };
   };
   config = mkIf cfg.enable {
     boot.initrd = {
-      kernelModules = [ "uvesafb" ];
+      kernelModules = ["uvesafb"];
       extraFiles."/usr/v86d".source = cfg.v86d.package;
     };
 

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "ren-find";
   version = "0-unstable-2024-01-11";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage {
     description = "Command-line utility that takes find-formatted lines and batch renames them";
     homepage = "https://github.com/robenkleene/ren-find";
     license = licenses.mit;
-    maintainers = with maintainers; [ philiptaron ];
+    maintainers = with maintainers; [philiptaron];
     mainProgram = "ren";
   };
 }

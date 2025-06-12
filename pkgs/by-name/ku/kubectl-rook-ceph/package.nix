@@ -4,7 +4,6 @@
   lib,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "kubectl-rook-ceph";
   version = "0.9.4";
@@ -39,7 +38,7 @@ buildGoModule (finalAttrs: {
   #     ''
   #   );
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Krew plugin to run kubectl commands with rook-ceph";
@@ -47,6 +46,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/rook/kubectl-rook-ceph";
     changelog = "https://github.com/rook/kubectl-rook-ceph/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ vinylen ];
+    maintainers = with lib.maintainers; [vinylen];
   };
 })

@@ -4,7 +4,6 @@
   buildGoModule,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "codeberg-pages";
   version = "6.2.1";
@@ -37,7 +36,7 @@ buildGoModule rec {
     "netgo"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "pages";

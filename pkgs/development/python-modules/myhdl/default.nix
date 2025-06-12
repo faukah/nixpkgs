@@ -7,7 +7,6 @@
   pytest,
   pytest-xdist,
 }:
-
 buildPythonPackage {
   pname = "myhdl";
   # The stable version is from 2019 and it doesn't pass tests
@@ -46,6 +45,6 @@ buildPythonPackage {
     description = "Free, open-source package for using Python as a hardware description and verification language";
     homepage = "https://www.myhdl.org/";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

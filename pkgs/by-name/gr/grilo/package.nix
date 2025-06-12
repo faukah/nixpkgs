@@ -21,7 +21,6 @@
   libsoup_3,
   totem-pl-parser,
 }:
-
 stdenv.mkDerivation rec {
   pname = "grilo";
   version = "0.3.16"; # if you change minor, also change ./setup-hook.sh
@@ -81,7 +80,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/grilo";
     description = "Framework that provides access to various sources of multimedia content, using a pluggable system";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
   };

@@ -7,7 +7,6 @@
   gmp,
   mpfr,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cgal";
   version = "5.6.2";
@@ -24,9 +23,9 @@ stdenv.mkDerivation rec {
     gmp
     mpfr
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  patches = [ ./cgal_path.patch ];
+  patches = [./cgal_path.patch];
 
   doCheck = false;
 
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
       lgpl3Plus
     ];
     platforms = platforms.all;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
   };
 }

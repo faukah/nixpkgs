@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "0hz1lfp0zaarvl0dv0zgp337hyd8np41kmdpz5rr3fc6yzw7vmkg";
   };
 
-  nativeBuildInputs = [ gfortran ];
+  nativeBuildInputs = [gfortran];
   buildInputs = [
     suitesparse
     blas
@@ -39,9 +39,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/jluttine/cholmod-extra";
     description = "Set of additional routines for SuiteSparse CHOLMOD Module";
-    license = with licenses; [ gpl2Plus ];
-    maintainers = with maintainers; [ jluttine ];
+    license = with licenses; [gpl2Plus];
+    maintainers = with maintainers; [jluttine];
     platforms = with platforms; unix;
   };
-
 }

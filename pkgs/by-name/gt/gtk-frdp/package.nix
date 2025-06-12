@@ -13,7 +13,6 @@
   fuse3,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "gtk-frdp";
   version = "0-unstable-2025-03-14";
@@ -51,7 +50,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gtk-frdp";
     description = "RDP viewer widget for GTK";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.lgpl3Plus;
     platforms = platforms.unix;
   };

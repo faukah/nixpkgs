@@ -9,7 +9,6 @@
   perl,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gitolite";
   version = "3.6.13";
@@ -25,8 +24,8 @@ stdenv.mkDerivation rec {
     nettools
     perl
   ];
-  nativeBuildInputs = [ makeWrapper ];
-  propagatedBuildInputs = [ git ];
+  nativeBuildInputs = [makeWrapper];
+  propagatedBuildInputs = [git];
 
   dontBuild = true;
 
@@ -45,11 +44,11 @@ stdenv.mkDerivation rec {
   postFixup = ''
     wrapProgram $out/bin/gitolite-shell \
       --prefix PATH : ${
-        lib.makeBinPath [
-          git
-          (perl.withPackages (p: [ p.JSON ]))
-        ]
-      }
+      lib.makeBinPath [
+        git
+        (perl.withPackages (p: [p.JSON]))
+      ]
+    }
   '';
 
   installPhase = ''

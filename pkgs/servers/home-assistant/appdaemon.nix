@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "appdaemon";
   version = "4.4.2";
@@ -55,6 +54,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/AppDaemon/appdaemon";
     changelog = "https://github.com/AppDaemon/appdaemon/blob/${version}/docs/HISTORY.md";
     license = licenses.mit;
-    teams = [ teams.home-assistant ];
+    teams = [teams.home-assistant];
   };
 }

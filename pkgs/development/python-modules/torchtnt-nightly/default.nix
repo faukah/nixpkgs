@@ -1,4 +1,7 @@
-{ torchtnt, fetchPypi }:
+{
+  torchtnt,
+  fetchPypi,
+}:
 torchtnt.overridePythonAttrs rec {
   pname = "torchtnt-nightly";
   version = "2024.8.1";

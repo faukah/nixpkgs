@@ -7,7 +7,6 @@
   gtest,
   withZlibCompat ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zlib-ng";
   version = "2.2.4";
@@ -38,19 +37,21 @@ stdenv.mkDerivation rec {
     NIX_CFLAGS_COMPILE = "-D_XOPEN_SOURCE=700";
   };
 
-  buildInputs = [ gtest ];
+  buildInputs = [gtest];
 
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_PREFIX=/"
-    "-DBUILD_SHARED_LIBS=ON"
-    "-DINSTALL_UTILS=ON"
-  ] ++ lib.optionals withZlibCompat [ "-DZLIB_COMPAT=ON" ];
+  cmakeFlags =
+    [
+      "-DCMAKE_INSTALL_PREFIX=/"
+      "-DBUILD_SHARED_LIBS=ON"
+      "-DINSTALL_UTILS=ON"
+    ]
+    ++ lib.optionals withZlibCompat ["-DZLIB_COMPAT=ON"];
 
   meta = with lib; {
     description = "zlib data compression library for the next generation systems";
     homepage = "https://github.com/zlib-ng/zlib-ng";
     license = licenses.zlib;
     platforms = platforms.all;
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
   };
 }

@@ -30,7 +30,6 @@
   libsvm,
   fftw,
 }:
-
 stdenv.mkDerivation rec {
   pname = "saga";
   version = "9.7.2";
@@ -50,11 +49,13 @@ stdenv.mkDerivation rec {
     ./darwin-patch-2.patch
   ];
 
-  nativeBuildInputs = [
-    cmake
-    wrapGAppsHook3
-    pkg-config
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs =
+    [
+      cmake
+      wrapGAppsHook3
+      pkg-config
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
   buildInputs =
     [
@@ -98,7 +99,7 @@ stdenv.mkDerivation rec {
       michelk
       mpickering
     ];
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
     platforms = with lib.platforms; unix;
   };
 }

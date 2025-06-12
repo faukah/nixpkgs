@@ -8,7 +8,6 @@
   httmock,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "irisclient";
   version = "1.2.0";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-fXMw2BopkEqjklR6jr7QQIZyxLq6NHKm2rHwTCbtxR0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   checkInputs = [
     httmock
@@ -31,13 +30,13 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  pythonImportsCheck = [ "irisclient" ];
+  pythonImportsCheck = ["irisclient"];
 
   meta = {
     description = "Python client for Iris REST api";
     changelog = "https://github.com/houqp/iris-python-client/blob/v${src.tag}/HISTORY.rst";
     homepage = "https://github.com/houqp/iris-python-client";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
   };
 }

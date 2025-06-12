@@ -6,7 +6,6 @@
   libarchive,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "unrar-free";
   version = "0.3.1-unstable-2024-09-19";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [ libarchive ];
+  buildInputs = [libarchive];
 
   setupHook = ./setup-hook.sh;
 
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/bgermann/unrar-free";
     license = lib.licenses.gpl2Plus;
     mainProgram = "unrar-free";
-    maintainers = with lib.maintainers; [ thiagokokada ];
+    maintainers = with lib.maintainers; [thiagokokada];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

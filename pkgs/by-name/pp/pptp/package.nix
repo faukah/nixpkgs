@@ -6,7 +6,6 @@
   ppp,
   iproute2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pptp";
   version = "1.10.0";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://pptpclient.sourceforge.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

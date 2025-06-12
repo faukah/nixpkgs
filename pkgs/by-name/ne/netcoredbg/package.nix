@@ -9,8 +9,7 @@
   buildDotnetModule,
   netcoredbg,
   testers,
-}:
-let
+}: let
   pname = "netcoredbg";
   build = "1054";
   release = "3.1.2";
@@ -42,7 +41,7 @@ let
       dotnet-sdk
     ];
 
-    hardeningDisable = [ "strictoverflow" ];
+    hardeningDisable = ["strictoverflow"];
 
     preConfigure = ''
       export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
@@ -68,48 +67,48 @@ let
     nugetDeps = ./deps.json;
 
     # include platform-specific dbgshim binary in nugetDeps
-    dotnetFlags = [ "-p:UseDbgShimDependency=true" ];
-    executables = [ ];
+    dotnetFlags = ["-p:UseDbgShimDependency=true"];
+    executables = [];
 
     # this passes RID down to dotnet build command
     # and forces dotnet to include binary dependencies in the output (libdbgshim)
     selfContainedBuild = true;
   };
 in
-stdenv.mkDerivation {
-  inherit pname version;
-  # managed brings external binaries (libdbgshim.*)
-  # include source here so that autoPatchelfHook can do it's job
-  src = managed;
+  stdenv.mkDerivation {
+    inherit pname version;
+    # managed brings external binaries (libdbgshim.*)
+    # include source here so that autoPatchelfHook can do it's job
+    src = managed;
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ (lib.getLib stdenv.cc.cc) ];
-  installPhase = ''
-    mkdir -p $out/share/netcoredbg $out/bin
-    cp ${unmanaged}/* $out/share/netcoredbg
-    cp ./lib/netcoredbg/* $out/share/netcoredbg
-    # darwin won't work unless we link all files
-    ln -s $out/share/netcoredbg/* "$out/bin/"
-  '';
+    nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
+    buildInputs = lib.optionals stdenv.hostPlatform.isLinux [(lib.getLib stdenv.cc.cc)];
+    installPhase = ''
+      mkdir -p $out/share/netcoredbg $out/bin
+      cp ${unmanaged}/* $out/share/netcoredbg
+      cp ./lib/netcoredbg/* $out/share/netcoredbg
+      # darwin won't work unless we link all files
+      ln -s $out/share/netcoredbg/* "$out/bin/"
+    '';
 
-  passthru = {
-    inherit (managed) fetch-deps;
-    tests.version = testers.testVersion {
-      package = netcoredbg;
-      command = "netcoredbg --version";
-      version = "NET Core debugger ${release}";
+    passthru = {
+      inherit (managed) fetch-deps;
+      tests.version = testers.testVersion {
+        package = netcoredbg;
+        command = "netcoredbg --version";
+        version = "NET Core debugger ${release}";
+      };
     };
-  };
 
-  meta = with lib; {
-    description = "Managed code debugger with MI interface for CoreCLR";
-    homepage = "https://github.com/Samsung/netcoredbg";
-    license = licenses.mit;
-    platforms = platforms.unix;
-    mainProgram = "netcoredbg";
-    maintainers = with maintainers; [
-      leo60228
-      konradmalik
-    ];
-  };
-}
+    meta = with lib; {
+      description = "Managed code debugger with MI interface for CoreCLR";
+      homepage = "https://github.com/Samsung/netcoredbg";
+      license = licenses.mit;
+      platforms = platforms.unix;
+      mainProgram = "netcoredbg";
+      maintainers = with maintainers; [
+        leo60228
+        konradmalik
+      ];
+    };
+  }

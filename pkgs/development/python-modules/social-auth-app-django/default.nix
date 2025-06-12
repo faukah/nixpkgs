@@ -7,7 +7,6 @@
   python,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "social-auth-app-django";
   version = "5.4.2";
@@ -22,11 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-W9boogixZ7X6qysfh2YEat+TOBy1VNreGr27y8hno+0=";
   };
 
-  propagatedBuildInputs = [ social-auth-core ];
+  propagatedBuildInputs = [social-auth-core];
 
-  pythonImportsCheck = [ "social_django" ];
+  pythonImportsCheck = ["social_django"];
 
-  nativeCheckInputs = [ django ];
+  nativeCheckInputs = [django];
 
   checkPhase = ''
     ${python.interpreter} -m django test --settings="tests.settings"
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/python-social-auth/social-app-django";
     changelog = "https://github.com/python-social-auth/social-app-django/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -3,14 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.hickory-dns;
-  toml = pkgs.formats.toml { };
+  toml = pkgs.formats.toml {};
 
   zoneType = lib.types.submodule (
-    { config, ... }:
-    {
+    {config, ...}: {
       freeformType = toml.type;
       options = with lib; {
         zone = mkOption {
@@ -39,7 +37,10 @@ let
         };
         file = mkOption {
           type = types.nullOr (types.either types.path types.str);
-          default = if config.zone_type != "External" then "${config.zone}.zone" else null;
+          default =
+            if config.zone_type != "External"
+            then "${config.zone}.zone"
+            else null;
           defaultText = literalExpression ''if config.zone_type != "External" then "''${config.zone}.zone" else null'';
           description = ''
             Path to the .zone file.
@@ -50,19 +51,19 @@ let
       };
     }
   );
-in
-{
-  meta.maintainers = with lib.maintainers; [ colinsane ];
+in {
+  meta.maintainers = with lib.maintainers; [colinsane];
 
   imports = with lib; [
-    (mkRenamedOptionModule [ "services" "trust-dns" "enable" ] [ "services" "hickory-dns" "enable" ])
-    (mkRenamedOptionModule [ "services" "trust-dns" "package" ] [ "services" "hickory-dns" "package" ])
-    (mkRenamedOptionModule
-      [ "services" "trust-dns" "settings" ]
-      [ "services" "hickory-dns" "settings" ]
+    (mkRenamedOptionModule ["services" "trust-dns" "enable"] ["services" "hickory-dns" "enable"])
+    (mkRenamedOptionModule ["services" "trust-dns" "package"] ["services" "hickory-dns" "package"])
+    (
+      mkRenamedOptionModule
+      ["services" "trust-dns" "settings"]
+      ["services" "hickory-dns" "settings"]
     )
-    (mkRenamedOptionModule [ "services" "trust-dns" "quiet" ] [ "services" "hickory-dns" "quiet" ])
-    (mkRenamedOptionModule [ "services" "trust-dns" "debug" ] [ "services" "hickory-dns" "debug" ])
+    (mkRenamedOptionModule ["services" "trust-dns" "quiet"] ["services" "hickory-dns" "quiet"])
+    (mkRenamedOptionModule ["services" "trust-dns" "debug"] ["services" "hickory-dns" "debug"])
   ];
 
   options = {
@@ -98,10 +99,14 @@ in
         default = toml.generate "hickory-dns.toml" (
           lib.mapAttrs (
             _: v:
-            if builtins.isList v then
-              map (v: if builtins.isAttrs v then lib.filterAttrs (_: v: v != null) v else v) v
-            else
-              v
+              if builtins.isList v
+              then
+                map (v:
+                  if builtins.isAttrs v
+                  then lib.filterAttrs (_: v: v != null) v
+                  else v)
+                v
+              else v
           ) (lib.filterAttrsRecursive (_: v: v != null) cfg.settings)
         );
         defaultText = lib.literalExpression ''
@@ -126,7 +131,7 @@ in
           options = {
             listen_addrs_ipv4 = mkOption {
               type = types.listOf types.str;
-              default = [ "0.0.0.0" ];
+              default = ["0.0.0.0"];
               description = ''
                 List of ipv4 addresses on which to listen for DNS queries.
               '';
@@ -156,8 +161,8 @@ in
             };
             zones = mkOption {
               description = "List of zones to serve.";
-              default = [ ];
-              type = types.listOf (types.coercedTo types.str (zone: { inherit zone; }) zoneType);
+              default = [];
+              type = types.listOf (types.coercedTo types.str (zone: {inherit zone;}) zoneType);
             };
           };
         };
@@ -170,24 +175,22 @@ in
       description = "hickory-dns Domain Name Server";
       unitConfig.Documentation = "https://hickory-dns.org/";
       serviceConfig = {
-        ExecStart =
-          let
-            flags = (lib.optional cfg.debug "--debug") ++ (lib.optional cfg.quiet "--quiet");
-            flagsStr = builtins.concatStringsSep " " flags;
-          in
-          ''
-            ${lib.getExe cfg.package} --config ${cfg.configFile} ${flagsStr}
-          '';
+        ExecStart = let
+          flags = (lib.optional cfg.debug "--debug") ++ (lib.optional cfg.quiet "--quiet");
+          flagsStr = builtins.concatStringsSep " " flags;
+        in ''
+          ${lib.getExe cfg.package} --config ${cfg.configFile} ${flagsStr}
+        '';
         Type = "simple";
         Restart = "on-failure";
         RestartSec = "10s";
         DynamicUser = true;
 
         StateDirectory = "hickory-dns";
-        ReadWritePaths = [ cfg.settings.directory ];
+        ReadWritePaths = [cfg.settings.directory];
 
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+        CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         NoNewPrivileges = true;
@@ -204,7 +207,7 @@ in
         ProtectProc = "invisible";
         ProtectSystem = "full";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_INET AF_INET6" ];
+        RestrictAddressFamilies = ["AF_INET AF_INET6"];
         RestrictNamespaces = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
@@ -214,8 +217,8 @@ in
           "~@resources"
         ];
       };
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
     };
   };
 }

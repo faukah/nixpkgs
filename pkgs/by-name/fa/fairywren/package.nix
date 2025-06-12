@@ -2,19 +2,15 @@
   lib,
   stdenvNoCC,
   fetchFromGitLab,
-  colorVariants ? [ ], # default: install all icons
-}:
-
-let
+  colorVariants ? [], # default: install all icons
+}: let
   pname = "fairywren";
   colorVariantList = [
     "FairyWren_Dark"
     "FairyWren_Light"
   ];
-
 in
-lib.checkListOfEnum "${pname}: colorVariants" colorVariantList colorVariants
-
+  lib.checkListOfEnum "${pname}: colorVariants" colorVariantList colorVariants
   stdenvNoCC.mkDerivation
   {
     inherit pname;
@@ -31,7 +27,11 @@ lib.checkListOfEnum "${pname}: colorVariants" colorVariantList colorVariants
       runHook preInstall
       mkdir -p $out/share/icons
       cp -r ${
-        lib.concatStringsSep " " (if colorVariants != [ ] then colorVariants else colorVariantList)
+        lib.concatStringsSep " " (
+          if colorVariants != []
+          then colorVariants
+          else colorVariantList
+        )
       } $out/share/icons/
       runHook postInstall
     '';
@@ -41,8 +41,8 @@ lib.checkListOfEnum "${pname}: colorVariants" colorVariantList colorVariants
     meta = with lib; {
       description = "FairyWren Icon Set";
       homepage = "https://gitlab.com/aiyahm/FairyWren-Icons";
-      maintainers = with maintainers; [ d3vil0p3r ];
+      maintainers = with maintainers; [d3vil0p3r];
       platforms = platforms.all;
-      license = with licenses; [ gpl3Plus ];
+      license = with licenses; [gpl3Plus];
     };
   }

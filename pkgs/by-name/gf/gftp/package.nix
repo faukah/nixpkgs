@@ -13,7 +13,6 @@
   pkg-config,
   readline,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gftp";
   version = "2.9.1b";
@@ -49,14 +48,15 @@ stdenv.mkDerivation rec {
     ./autogen.sh
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://github.com/masneyb/gftp";
     description = "GTK-based multithreaded FTP client for *nix-based machines";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }
 # TODO: report the hardeningDisable to upstream
+

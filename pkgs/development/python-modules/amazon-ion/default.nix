@@ -11,7 +11,6 @@
   six,
   tabulate,
 }:
-
 buildPythonPackage rec {
   pname = "amazon-ion";
   version = "0.13.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
       --replace "'pytest-runner'," ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     jsonconversion
@@ -57,7 +56,7 @@ buildPythonPackage rec {
     "tests/test_benchmark_cli.py"
   ];
 
-  pythonImportsCheck = [ "amazon.ion" ];
+  pythonImportsCheck = ["amazon.ion"];
 
   meta = with lib; {
     description = "Python implementation of Amazon Ion";
@@ -68,6 +67,6 @@ buildPythonPackage rec {
       binaryNativeCode
     ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ terlar ];
+    maintainers = with maintainers; [terlar];
   };
 }

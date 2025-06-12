@@ -9,7 +9,6 @@
   xarray,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pint-xarray";
   version = "0.4";
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/xarray-contrib/pint-xarray";
     changelog = "https://github.com/xarray-contrib/pint-xarray/blob/v${version}/docs/whats-new.rst";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

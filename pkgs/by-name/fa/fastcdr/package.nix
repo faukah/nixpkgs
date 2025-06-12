@@ -8,7 +8,6 @@
   doxygen,
   graphviz-nox,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastcdr";
   version = "2.3.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional (finalAttrs.finalPackage.doCheck) "-DBUILD_TESTING=ON"
     ++ lib.optional withDocs "-DBUILD_DOCUMENTATION=ON";
 
-  outputs = [ "out" ] ++ lib.optional withDocs "doc";
+  outputs = ["out"] ++ lib.optional withDocs "doc";
 
   nativeBuildInputs =
     [
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  checkInputs = [ gtest ];
+  checkInputs = [gtest];
 
   meta = with lib; {
     homepage = "https://github.com/eProsima/Fast-CDR";
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
       implementation that modifies the standard.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ panicgh ];
+    maintainers = with maintainers; [panicgh];
     platforms = platforms.unix;
   };
 })

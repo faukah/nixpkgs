@@ -7,20 +7,21 @@
   version,
   hash,
   isAarch64,
-  metaCommon ? { },
+  metaCommon ? {},
 }:
-
 stdenvNoCC.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
     url = "https://github.com/mifi/lossless-cut/releases/download/v${version}/LosslessCut-mac-${
-      if isAarch64 then "arm64" else "x64"
+      if isAarch64
+      then "arm64"
+      else "x64"
     }.dmg";
     inherit hash;
   };
 
-  nativeBuildInputs = [ _7zz ];
+  nativeBuildInputs = [_7zz];
 
   sourceRoot = "LosslessCut.app";
 
@@ -37,7 +38,10 @@ stdenvNoCC.mkDerivation {
   meta =
     metaCommon
     // (with lib; {
-      platforms = if isAarch64 then [ "aarch64-darwin" ] else platforms.darwin;
+      platforms =
+        if isAarch64
+        then ["aarch64-darwin"]
+        else platforms.darwin;
       mainProgram = "losslesscut";
     });
 }

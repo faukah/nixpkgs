@@ -8,7 +8,6 @@
   python,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "psutil";
   version = "7.0.0";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
       --replace-fail kIOMainPortDefault kIOMasterPortDefault
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Segfaults on darwin:
   # https://github.com/giampaolo/psutil/issues/1715
@@ -61,13 +60,13 @@ buildPythonPackage rec {
     "test_disk_partitions" # problematic on Hydra's Linux builders, apparently
   ];
 
-  pythonImportsCheck = [ "psutil" ];
+  pythonImportsCheck = ["psutil"];
 
   meta = with lib; {
     description = "Process and system utilization information interface";
     homepage = "https://github.com/giampaolo/psutil";
     changelog = "https://github.com/giampaolo/psutil/blob/release-${version}/HISTORY.rst";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

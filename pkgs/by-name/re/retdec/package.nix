@@ -26,9 +26,7 @@
   enableTests ? true,
   buildDevTools ? true,
   compileYaraPatterns ? true,
-}:
-
-let
+}: let
   # all dependencies that are normally fetched during build time (the subdirectories of `deps`)
   # all of these need to be fetched through nix and applied via their <NAME>_URL cmake variable
   capstone = fetchFromGitHub {
@@ -117,121 +115,125 @@ let
     subprocess.check_call(['chmod', '-R', 'u+w', support_dir])
   '';
 in
-stdenv.mkDerivation (self: {
-  pname = "retdec";
+  stdenv.mkDerivation (self: {
+    pname = "retdec";
 
-  # If you update this you will also need to adjust the versions of the updated dependencies.
-  # I've notified upstream about this problem here:
-  # https://github.com/avast-tl/retdec/issues/412
-  #
-  # The dependencies and their sources are listed in this file:
-  # https://github.com/avast/retdec/blob/master/cmake/deps.cmake
-  version = "5.0";
+    # If you update this you will also need to adjust the versions of the updated dependencies.
+    # I've notified upstream about this problem here:
+    # https://github.com/avast-tl/retdec/issues/412
+    #
+    # The dependencies and their sources are listed in this file:
+    # https://github.com/avast/retdec/blob/master/cmake/deps.cmake
+    version = "5.0";
 
-  src = fetchFromGitHub {
-    owner = "avast";
-    repo = "retdec";
-    tag = "v${self.version}";
-    sha256 = "sha256-H4e+aSgdBBbG6X6DzHGiDEIASPwBVNVsfHyeBTQLAKI=";
-  };
+    src = fetchFromGitHub {
+      owner = "avast";
+      repo = "retdec";
+      tag = "v${self.version}";
+      sha256 = "sha256-H4e+aSgdBBbG6X6DzHGiDEIASPwBVNVsfHyeBTQLAKI=";
+    };
 
-  patches = [
-    # gcc 13 compatibility: https://github.com/avast/retdec/pull/1153
-    (fetchpatch {
-      url = "https://github.com/avast/retdec/commit/dbaab2c3d17b1eae22c581e8ab6bfefadf4ef6ae.patch";
-      hash = "sha256-YqHYPGAGWT4x6C+CpsOSsOIZ+NPM2FBQtGQFs74OUIQ=";
-    })
-  ];
+    patches = [
+      # gcc 13 compatibility: https://github.com/avast/retdec/pull/1153
+      (fetchpatch {
+        url = "https://github.com/avast/retdec/commit/dbaab2c3d17b1eae22c581e8ab6bfefadf4ef6ae.patch";
+        hash = "sha256-YqHYPGAGWT4x6C+CpsOSsOIZ+NPM2FBQtGQFs74OUIQ=";
+      })
+    ];
 
-  nativeBuildInputs = [
-    cmake
-    autoconf
-    automake
-    libtool
-    pkg-config
-    bison
-    flex
-    groff
-    perl
-    python3
-  ];
+    nativeBuildInputs = [
+      cmake
+      autoconf
+      automake
+      libtool
+      pkg-config
+      bison
+      flex
+      groff
+      perl
+      python3
+    ];
 
-  buildInputs = [
-    openssl
-    ncurses
-    libffi
-    libxml2
-    zlib
-  ] ++ lib.optional self.doInstallCheck gtest;
+    buildInputs =
+      [
+        openssl
+        ncurses
+        libffi
+        libxml2
+        zlib
+      ]
+      ++ lib.optional self.doInstallCheck gtest;
 
-  cmakeFlags = [
-    (lib.cmakeBool "RETDEC_TESTS" self.doInstallCheck) # build tests
-    (lib.cmakeBool "RETDEC_DEV_TOOLS" buildDevTools) # build tools e.g. capstone2llvmir, retdectool
-    (lib.cmakeBool "RETDEC_COMPILE_YARA" compileYaraPatterns) # build and install compiled patterns
-  ] ++ lib.mapAttrsToList (k: v: lib.cmakeFeature "${k}_URL" "${v}") deps;
+    cmakeFlags =
+      [
+        (lib.cmakeBool "RETDEC_TESTS" self.doInstallCheck) # build tests
+        (lib.cmakeBool "RETDEC_DEV_TOOLS" buildDevTools) # build tools e.g. capstone2llvmir, retdectool
+        (lib.cmakeBool "RETDEC_COMPILE_YARA" compileYaraPatterns) # build and install compiled patterns
+      ]
+      ++ lib.mapAttrsToList (k: v: lib.cmakeFeature "${k}_URL" "${v}") deps;
 
-  preConfigure =
-    lib.concatStringsSep "\n" (lib.mapAttrsToList check-dep deps)
-    + ''
-      cp -v ${install-share} ./support/install-share.py
+    preConfigure =
+      lib.concatStringsSep "\n" (lib.mapAttrsToList check-dep deps)
+      + ''
+        cp -v ${install-share} ./support/install-share.py
 
-      # the CMakeLists assume CMAKE_INSTALL_BINDIR, etc are path components but in Nix, they are absolute.
-      # therefore, we need to remove the unnecessary CMAKE_INSTALL_PREFIX prepend.
-      substituteInPlace ./CMakeLists.txt \
-        --replace-warn "''$"{CMAKE_INSTALL_PREFIX}/"''$"{RETDEC_INSTALL_BIN_DIR} "''$"{CMAKE_INSTALL_FULL_BINDIR} \
-        --replace-warn "''$"{CMAKE_INSTALL_PREFIX}/"''$"{RETDEC_INSTALL_LIB_DIR} "''$"{CMAKE_INSTALL_FULL_LIBDIR} \
+        # the CMakeLists assume CMAKE_INSTALL_BINDIR, etc are path components but in Nix, they are absolute.
+        # therefore, we need to remove the unnecessary CMAKE_INSTALL_PREFIX prepend.
+        substituteInPlace ./CMakeLists.txt \
+          --replace-warn "''$"{CMAKE_INSTALL_PREFIX}/"''$"{RETDEC_INSTALL_BIN_DIR} "''$"{CMAKE_INSTALL_FULL_BINDIR} \
+          --replace-warn "''$"{CMAKE_INSTALL_PREFIX}/"''$"{RETDEC_INSTALL_LIB_DIR} "''$"{CMAKE_INSTALL_FULL_LIBDIR} \
 
-      # --replace "''$"{CMAKE_INSTALL_PREFIX}/"''$"{RETDEC_INSTALL_SUPPORT_DIR} "''$"{RETDEC_INSTALL_SUPPORT_DIR}
-      # note! Nix does not set CMAKE_INSTALL_DATADIR to an absolute path, so this replacement would be incorrect
+        # --replace "''$"{CMAKE_INSTALL_PREFIX}/"''$"{RETDEC_INSTALL_SUPPORT_DIR} "''$"{RETDEC_INSTALL_SUPPORT_DIR}
+        # note! Nix does not set CMAKE_INSTALL_DATADIR to an absolute path, so this replacement would be incorrect
 
-      # similarly for yaramod. here, we fix the LIBDIR to lib64. for whatever reason, only "lib64" works.
-      substituteInPlace deps/yaramod/CMakeLists.txt \
-        --replace-fail "''$"{YARAMOD_INSTALL_DIR}/"''$"{CMAKE_INSTALL_LIBDIR} "''$"{YARAMOD_INSTALL_DIR}/lib64 \
-        --replace-fail CMAKE_ARGS 'CMAKE_ARGS -DCMAKE_INSTALL_LIBDIR=lib64'
+        # similarly for yaramod. here, we fix the LIBDIR to lib64. for whatever reason, only "lib64" works.
+        substituteInPlace deps/yaramod/CMakeLists.txt \
+          --replace-fail "''$"{YARAMOD_INSTALL_DIR}/"''$"{CMAKE_INSTALL_LIBDIR} "''$"{YARAMOD_INSTALL_DIR}/lib64 \
+          --replace-fail CMAKE_ARGS 'CMAKE_ARGS -DCMAKE_INSTALL_LIBDIR=lib64'
 
-      # yara needs write permissions in the generated source directory.
-      echo ${lib.escapeShellArg ''
-        ExternalProject_Add_Step(
-          yara chmod WORKING_DIRECTORY ''${YARA_DIR}
-          DEPENDEES download COMMAND chmod -R u+w .
-        )
-      ''} >> deps/yara/CMakeLists.txt
+        # yara needs write permissions in the generated source directory.
+        echo ${lib.escapeShellArg ''
+          ExternalProject_Add_Step(
+            yara chmod WORKING_DIRECTORY ''${YARA_DIR}
+            DEPENDEES download COMMAND chmod -R u+w .
+          )
+        ''} >> deps/yara/CMakeLists.txt
 
-      # patch gtest to use the system package
-      gtest=deps/googletest/CMakeLists.txt
-      old="$(cat $gtest)"
-      (echo 'find_package(GTest REQUIRED)'; echo "$old") > $gtest
-      sed -i 's/ExternalProject_[^(]\+[(]/ set(IGNORED /g' $gtest
+        # patch gtest to use the system package
+        gtest=deps/googletest/CMakeLists.txt
+        old="$(cat $gtest)"
+        (echo 'find_package(GTest REQUIRED)'; echo "$old") > $gtest
+        sed -i 's/ExternalProject_[^(]\+[(]/ set(IGNORED /g' $gtest
 
-      substituteInPlace $gtest \
-        --replace-fail '$'{GTEST_LIB} "GTest::gtest"\
-        --replace-fail '$'{GMOCK_LIB} "GTest::gmock"\
-        --replace-fail '$'{GTEST_MAIN_LIB} "GTest::gtest_main"\
-        --replace-fail '$'{GMOCK_MAIN_LIB} "GTest::gmock_main"
+        substituteInPlace $gtest \
+          --replace-fail '$'{GTEST_LIB} "GTest::gtest"\
+          --replace-fail '$'{GMOCK_LIB} "GTest::gmock"\
+          --replace-fail '$'{GTEST_MAIN_LIB} "GTest::gtest_main"\
+          --replace-fail '$'{GMOCK_MAIN_LIB} "GTest::gmock_main"
 
-      # without git history, there is no chance these tests will pass.
-      substituteInPlace tests/utils/version_tests.cpp \
-        --replace-quiet VersionTests DISABLED_VersionTests
+        # without git history, there is no chance these tests will pass.
+        substituteInPlace tests/utils/version_tests.cpp \
+          --replace-quiet VersionTests DISABLED_VersionTests
 
-      substituteInPlace scripts/retdec-utils.py \
-        --replace-warn /usr/bin/time ${time} \
-        --replace-warn /usr/local/bin/gtime ${time}
-      substituteInPlace scripts/retdec-unpacker.py \
-        --replace-warn "'upx'" "'${upx}'"
+        substituteInPlace scripts/retdec-utils.py \
+          --replace-warn /usr/bin/time ${time} \
+          --replace-warn /usr/local/bin/gtime ${time}
+        substituteInPlace scripts/retdec-unpacker.py \
+          --replace-warn "'upx'" "'${upx}'"
+      '';
+
+    doInstallCheck = enableTests;
+    installCheckPhase = ''
+      ${python3.interpreter} "$out/bin/retdec-tests-runner.py"
+
+      rm -rf $out/bin/__pycache__
     '';
 
-  doInstallCheck = enableTests;
-  installCheckPhase = ''
-    ${python3.interpreter} "$out/bin/retdec-tests-runner.py"
-
-    rm -rf $out/bin/__pycache__
-  '';
-
-  meta = with lib; {
-    description = "Retargetable machine-code decompiler based on LLVM";
-    homepage = "https://retdec.com";
-    license = licenses.mit;
-    maintainers = with maintainers; [ katrinafyi ];
-    platforms = [ "x86_64-linux" ];
-  };
-})
+    meta = with lib; {
+      description = "Retargetable machine-code decompiler based on LLVM";
+      homepage = "https://retdec.com";
+      license = licenses.mit;
+      maintainers = with maintainers; [katrinafyi];
+      platforms = ["x86_64-linux"];
+    };
+  })

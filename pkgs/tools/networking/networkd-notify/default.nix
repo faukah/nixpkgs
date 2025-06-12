@@ -8,7 +8,6 @@
   wirelesstools,
   wrapGAppsNoGuiHook,
 }:
-
 buildPythonApplication rec {
   pname = "networkd-notify";
   version = "unstable-2022-11-29";
@@ -56,7 +55,7 @@ buildPythonApplication rec {
     description = "Desktop notification integration for systemd-networkd";
     mainProgram = "networkd-notify";
     homepage = "https://gitlab.com/wavexx/networkd-notify";
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
     license = licenses.gpl3;
     platforms = platforms.linux;
   };

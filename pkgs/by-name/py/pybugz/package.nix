@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pybugz";
   version = "0.14";
@@ -16,9 +15,9 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-rhiCQPSh987QEM4aMd3R/7e6l+pm2eJDE7f5LckIuho=";
   };
 
-  build-system = [ python3Packages.flit-core ];
+  build-system = [python3Packages.flit-core];
 
-  pythonImportsCheck = [ "bugz" ];
+  pythonImportsCheck = ["bugz"];
 
   # no tests
   doCheck = false;
@@ -28,6 +27,6 @@ python3Packages.buildPythonApplication rec {
     description = "Command line interface for Bugzilla";
     mainProgram = "bugz";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

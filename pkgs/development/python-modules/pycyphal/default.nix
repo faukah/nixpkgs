@@ -2,25 +2,20 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build system
   setuptools,
-
   # dependencies
   numpy,
   nunavut,
-
   # optional dependencies
   cobs,
   libpcap,
   pyserial,
   python-can,
-
   # tests
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pycyphal";
   version = "1.18.0";
@@ -34,9 +29,9 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "numpy" ];
+  pythonRelaxDeps = ["numpy"];
 
   dependencies = [
     numpy
@@ -44,18 +39,20 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    transport-can-pythoncan = [ python-can ] ++ python-can.optional-dependencies.serial;
+    transport-can-pythoncan = [python-can] ++ python-can.optional-dependencies.serial;
     transport-serial = [
       cobs
       pyserial
     ];
-    transport-udp = [ libpcap ];
+    transport-udp = [libpcap];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-asyncio
-  ] ++ builtins.foldl' (x: y: x ++ y) [ ] (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-asyncio
+    ]
+    ++ builtins.foldl' (x: y: x ++ y) [] (builtins.attrValues optional-dependencies);
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -90,7 +87,7 @@ buildPythonPackage rec {
     "pycyphal/application/register/_value.py"
   ];
 
-  pythonImportsCheck = [ "pycyphal" ];
+  pythonImportsCheck = ["pycyphal"];
 
   meta = with lib; {
     description = "Full-featured implementation of the Cyphal protocol stack in Python";
@@ -100,6 +97,6 @@ buildPythonPackage rec {
     homepage = "https://opencyphal.org/";
     changelog = "https://github.com/OpenCyphal/pycyphal/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    teams = [ teams.ororatech ];
+    teams = [teams.ororatech];
   };
 }

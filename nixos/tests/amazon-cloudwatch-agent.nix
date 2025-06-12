@@ -1,7 +1,6 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   # See https://docs.aws.amazon.com/sdkref/latest/guide/file-format.html.
-  iniFormat = pkgs.formats.ini { };
+  iniFormat = pkgs.formats.ini {};
 
   region = "ap-northeast-1";
   sharedConfigurationDefaultProfile = "default";
@@ -17,62 +16,63 @@ let
       aws_session_token = "placeholder";
     };
   };
-  sharedConfigurationDirectory = pkgs.runCommand ".aws" { } ''
+  sharedConfigurationDirectory = pkgs.runCommand ".aws" {} ''
     mkdir $out
 
     cp ${sharedConfigurationFile} $out/config
     cp ${sharedCredentialsFile} $out/credentials
   '';
-in
-{
+in {
   name = "amazon-cloudwatch-agent";
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      services.amazon-cloudwatch-agent = {
-        enable = true;
-        commonConfiguration = {
-          credentials = {
-            shared_credential_profile = sharedConfigurationDefaultProfile;
-            shared_credential_file = "${sharedConfigurationDirectory}/credentials";
-          };
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    services.amazon-cloudwatch-agent = {
+      enable = true;
+      commonConfiguration = {
+        credentials = {
+          shared_credential_profile = sharedConfigurationDefaultProfile;
+          shared_credential_file = "${sharedConfigurationDirectory}/credentials";
         };
-        configuration = {
-          agent = {
-            # Required despite documentation saying the agent ignores it in "onPremise" mode.
-            region = region;
-
-            # Show debug logs and write to a file for interactive debugging.
-            debug = true;
-            logfile = "/var/log/amazon-cloudwatch-agent/amazon-cloudwatch-agent.log";
-          };
-          logs = {
-            logs_collected = {
-              files = {
-                collect_list = [
-                  {
-                    file_path = "/var/log/amazon-cloudwatch-agent/amazon-cloudwatch-agent.log";
-                    log_group_name = "/var/log/amazon-cloudwatch-agent/amazon-cloudwatch-agent.log";
-                    log_stream_name = "{local_hostname}";
-                  }
-                ];
-              };
-            };
-          };
-          traces = {
-            local_mode = true;
-            traces_collected = {
-              xray = { };
-            };
-          };
-        };
-        mode = "onPremise";
       };
+      configuration = {
+        agent = {
+          # Required despite documentation saying the agent ignores it in "onPremise" mode.
+          region = region;
 
-      # Keep the runtime directory for interactive debugging.
-      systemd.services.amazon-cloudwatch-agent.serviceConfig.RuntimeDirectoryPreserve = true;
+          # Show debug logs and write to a file for interactive debugging.
+          debug = true;
+          logfile = "/var/log/amazon-cloudwatch-agent/amazon-cloudwatch-agent.log";
+        };
+        logs = {
+          logs_collected = {
+            files = {
+              collect_list = [
+                {
+                  file_path = "/var/log/amazon-cloudwatch-agent/amazon-cloudwatch-agent.log";
+                  log_group_name = "/var/log/amazon-cloudwatch-agent/amazon-cloudwatch-agent.log";
+                  log_stream_name = "{local_hostname}";
+                }
+              ];
+            };
+          };
+        };
+        traces = {
+          local_mode = true;
+          traces_collected = {
+            xray = {};
+          };
+        };
+      };
+      mode = "onPremise";
     };
+
+    # Keep the runtime directory for interactive debugging.
+    systemd.services.amazon-cloudwatch-agent.serviceConfig.RuntimeDirectoryPreserve = true;
+  };
 
   testScript = ''
     start_all()

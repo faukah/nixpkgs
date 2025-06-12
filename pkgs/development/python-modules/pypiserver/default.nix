@@ -16,7 +16,6 @@
   build,
   importlib-resources,
 }:
-
 buildPythonPackage rec {
   pname = "pypiserver";
   version = "2.3.2";
@@ -37,24 +36,28 @@ buildPythonPackage rec {
     wheel
   ];
 
-  dependencies = [
-    distutils
-    pip
-  ] ++ lib.optionals (pythonOlder "3.12") [ importlib-resources ];
+  dependencies =
+    [
+      distutils
+      pip
+    ]
+    ++ lib.optionals (pythonOlder "3.12") [importlib-resources];
 
   optional-dependencies = {
-    passlib = [ passlib ];
-    cache = [ watchdog ];
+    passlib = [passlib];
+    cache = [watchdog];
   };
 
-  nativeCheckInputs = [
-    pip
-    pytestCheckHook
-    setuptools
-    twine
-    webtest
-    build
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pip
+      pytestCheckHook
+      setuptools
+      twine
+      webtest
+      build
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   __darwinAllowLocalNetworking = true;
 
@@ -79,7 +82,7 @@ buildPythonPackage rec {
     "docker/test_docker.py"
   ];
 
-  pythonImportsCheck = [ "pypiserver" ];
+  pythonImportsCheck = ["pypiserver"];
 
   meta = with lib; {
     description = "Minimal PyPI server for use with pip/easy_install";
@@ -89,7 +92,7 @@ buildPythonPackage rec {
       mit
       zlib
     ];
-    maintainers = with maintainers; [ austinbutler ];
+    maintainers = with maintainers; [austinbutler];
     mainProgram = "pypi-server";
   };
 }

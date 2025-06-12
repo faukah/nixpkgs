@@ -8,7 +8,6 @@
   efl,
   directoryListingUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ecrire";
   version = "0.2.0";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     efl
   ];
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "EFL simple text editor";
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.enlightenment.org/";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    teams = [ teams.enlightenment ];
+    teams = [teams.enlightenment];
   };
 }

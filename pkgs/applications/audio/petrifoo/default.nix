@@ -16,7 +16,6 @@
   pkg-config,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "petri-foo";
   version = "0.1.87";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     homepage = "https://petri-foo.sourceforge.net";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "petri-foo";
   };
 }

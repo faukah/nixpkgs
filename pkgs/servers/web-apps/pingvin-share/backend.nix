@@ -8,14 +8,13 @@
   version,
   nixosTests,
 }:
-
 buildNpmPackage {
   pname = "pingvin-share-backend";
   inherit version;
 
   src = "${src}/backend";
 
-  npmInstallFlags = [ "--build-from-source" ];
+  npmInstallFlags = ["--build-from-source"];
   installPhase = ''
     cp -r . $out
     ln -s $out/node_modules/.bin $out/bin
@@ -25,7 +24,7 @@ buildNpmPackage {
     prisma generate
   '';
 
-  buildInputs = [ vips ];
+  buildInputs = [vips];
   nativeBuildInputs = [
     pkg-config
     prisma
@@ -33,7 +32,7 @@ buildNpmPackage {
 
   npmDepsHash = "sha256-bc2suSGa7YTonIhUxEtNzdIUeUBubwJ6upW2tydVCnU=";
   makeCacheWritable = true;
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = ["--legacy-peer-deps"];
 
   passthru.tests = {
     pingvin-share = nixosTests.pingvin-share;
@@ -45,6 +44,6 @@ buildNpmPackage {
     downloadPage = "https://github.com/stonith404/pingvin-share/releases";
     changelog = "https://github.com/stonith404/pingvin-share/releases/tag/v${version}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ratcornu ];
+    maintainers = with maintainers; [ratcornu];
   };
 }

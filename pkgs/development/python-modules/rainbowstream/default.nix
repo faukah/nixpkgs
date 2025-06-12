@@ -16,7 +16,6 @@
   twitter,
   zlib,
 }:
-
 buildPythonPackage {
   pname = "rainbowstream";
   version = "1.5.5";
@@ -48,7 +47,7 @@ buildPythonPackage {
     twitter
   ];
 
-  patches = [ ./image.patch ];
+  patches = [./image.patch];
 
   postPatch = ''
     clib=$out/${python.sitePackages}/rainbowstream/image.so
@@ -71,13 +70,13 @@ buildPythonPackage {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "rainbowstream" ];
+  pythonImportsCheck = ["rainbowstream"];
 
   meta = with lib; {
     description = "Streaming command-line twitter client";
     mainProgram = "rainbowstream";
     homepage = "https://github.com/orakaro/rainbowstream";
     license = licenses.mit;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

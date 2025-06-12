@@ -15,7 +15,6 @@
   python3Packages,
   pythonSupport ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "proxsuite-nlp";
   version = "0.11.0";
@@ -32,13 +31,15 @@ stdenv.mkDerivation (finalAttrs: {
     "doc"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-    graphviz
-    pkg-config
-  ] ++ lib.optional pythonSupport python3Packages.pythonImportsCheckHook;
-  checkInputs = [ eigenrand ] ++ lib.optional pythonSupport python3Packages.pytest;
+  nativeBuildInputs =
+    [
+      cmake
+      doxygen
+      graphviz
+      pkg-config
+    ]
+    ++ lib.optional pythonSupport python3Packages.pythonImportsCheckHook;
+  checkInputs = [eigenrand] ++ lib.optional pythonSupport python3Packages.pytest;
   propagatedBuildInputs =
     [
       example-robot-data
@@ -66,14 +67,14 @@ stdenv.mkDerivation (finalAttrs: {
   preBuild = "export XDG_CACHE_HOME=$(mktemp -d)";
 
   doCheck = true;
-  pythonImportsCheck = [ "proxsuite_nlp" ];
+  pythonImportsCheck = ["proxsuite_nlp"];
 
   meta = {
     description = "Primal-dual augmented Lagrangian solver for nonlinear programming on manifolds";
     homepage = "https://github.com/Simple-Robotics/proxsuite-nlp";
     changelog = "https://github.com/Simple-Robotics/proxsuite-nlp/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     platforms = lib.platforms.unix;
   };
 })

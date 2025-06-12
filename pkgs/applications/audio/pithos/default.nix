@@ -16,7 +16,6 @@
   libsecret,
   gst_all_1,
 }:
-
 pythonPackages.buildPythonApplication rec {
   pname = "pithos";
   version = "1.6.2";
@@ -60,7 +59,7 @@ pythonPackages.buildPythonApplication rec {
     ]);
 
   propagatedBuildInputs =
-    [ adwaita-icon-theme ]
+    [adwaita-icon-theme]
     ++ (with pythonPackages; [
       pygobject3
       pylast
@@ -72,6 +71,6 @@ pythonPackages.buildPythonApplication rec {
     mainProgram = "pithos";
     homepage = "https://pithos.github.io/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
   };
 }

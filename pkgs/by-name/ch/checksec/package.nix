@@ -6,7 +6,6 @@
   makeWrapper,
   testers,
   runCommand,
-
   # dependencies
   binutils,
   coreutils,
@@ -23,11 +22,9 @@
   sysctl,
   wget,
   which,
-
   # tests
   checksec,
 }:
-
 stdenv.mkDerivation rec {
   pname = "checksec";
   version = "2.6.0";
@@ -54,42 +51,40 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  installPhase =
-    let
-      path = lib.makeBinPath [
-        binutils
-        coreutils
-        curl
-        elfutils
-        file
-        findutils
-        gawk
-        gnugrep
-        gnused
-        openssl
-        procps
-        sysctl
-        wget
-        which
-      ];
-    in
-    ''
-      mkdir -p $out/bin
-      install checksec $out/bin
-      substituteInPlace $out/bin/checksec \
-        --replace "/bin/sed" "${gnused}/bin/sed" \
-        --replace "/usr/bin/id" "${coreutils}/bin/id" \
-        --replace "/lib/libc.so.6" "${glibc}/lib/libc.so.6"
-      wrapProgram $out/bin/checksec \
-        --prefix PATH : ${path}
-    '';
+  installPhase = let
+    path = lib.makeBinPath [
+      binutils
+      coreutils
+      curl
+      elfutils
+      file
+      findutils
+      gawk
+      gnugrep
+      gnused
+      openssl
+      procps
+      sysctl
+      wget
+      which
+    ];
+  in ''
+    mkdir -p $out/bin
+    install checksec $out/bin
+    substituteInPlace $out/bin/checksec \
+      --replace "/bin/sed" "${gnused}/bin/sed" \
+      --replace "/usr/bin/id" "${coreutils}/bin/id" \
+      --replace "/lib/libc.so.6" "${glibc}/lib/libc.so.6"
+    wrapProgram $out/bin/checksec \
+      --prefix PATH : ${path}
+  '';
 
   passthru.tests = {
     version = testers.testVersion {
       package = checksec;
       version = "v${version}";
     };
-    debug-report = runCommand "debug-report" { buildInputs = [ checksec ]; } ''
+    debug-report = runCommand "debug-report" {buildInputs = [checksec];} ''
       checksec --debug_report || exit 1
       echo "OK"
       touch $out

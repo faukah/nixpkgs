@@ -3,7 +3,6 @@
 # This should be kept minimal to avoid unnecessary load on Hydra; the
 # point is not to duplicate `staging-next`, but to catch basic issues
 # early and make bisection less painful.
-
 {
   nixpkgs ? {
     outPath = (import ../../lib).cleanSource ../..;
@@ -26,18 +25,17 @@
     };
     __allowFileset = false;
   },
-}:
-
-let
+}: let
   release-lib = import ./release-lib.nix {
     inherit supportedSystems nixpkgsArgs;
   };
 
-  inherit (release-lib)
+  inherit
+    (release-lib)
     all
     mapTestOn
     ;
 in
-mapTestOn {
-  stdenv = all;
-}
+  mapTestOn {
+    stdenv = all;
+  }

@@ -7,16 +7,13 @@
   copyDesktopItems,
   makeDesktopItem,
   libicns,
-
   libXcursor,
   libXext,
   libXi,
   libXrandr,
-
   git,
   xdg-utils,
 }:
-
 buildDotnetModule (finalAttrs: {
   pname = "sourcegit";
   version = "2025.19";
@@ -28,16 +25,16 @@ buildDotnetModule (finalAttrs: {
     hash = "sha256-4DZ4fZPvDHmpKtre6Gl7YtjmFN+tglAW9+Axld+m7dM=";
   };
 
-  patches = [ ./fix-darwin-git-path.patch ];
+  patches = [./fix-darwin-git-path.patch];
 
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
   dotnet-runtime = dotnetCorePackages.runtime_9_0;
 
   nugetDeps = ./deps.json;
 
-  projectFile = [ "src/SourceGit.csproj" ];
+  projectFile = ["src/SourceGit.csproj"];
 
-  executables = [ "SourceGit" ];
+  executables = ["SourceGit"];
 
   dotnetFlags = [
     "-p:DisableUpdateDetection=true"
@@ -112,6 +109,6 @@ buildDotnetModule (finalAttrs: {
     homepage = "https://github.com/sourcegit-scm/sourcegit";
     license = lib.licenses.mit;
     mainProgram = "SourceGit";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 })

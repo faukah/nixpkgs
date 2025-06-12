@@ -14,7 +14,6 @@
   mobile-broadband-provider-info,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ofono";
   version = "2.14";
@@ -95,7 +94,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://git.kernel.org/pub/scm/network/ofono/ofono.git";
     changelog = "https://git.kernel.org/pub/scm/network/ofono/ofono.git/plain/ChangeLog?h=${finalAttrs.version}";
     license = lib.licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
     mainProgram = "ofonod";
     pkgConfigModules = [

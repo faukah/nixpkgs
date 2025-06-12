@@ -4,9 +4,7 @@
   options,
   pkgs,
   ...
-}:
-let
-
+}: let
   host = config.networking.fqdnOrHostName;
 
   cfg = config.services.smartd;
@@ -74,38 +72,27 @@ let
     ${lib.optionalString cfg.autodetect "DEVICESCAN ${notifyOpts}${cfg.defaults.autodetected}"}
   '';
 
-  smartdDeviceOpts =
-    { ... }:
-    {
-
-      options = {
-
-        device = lib.mkOption {
-          example = "/dev/sda";
-          type = lib.types.str;
-          description = "Location of the device.";
-        };
-
-        options = lib.mkOption {
-          default = "";
-          example = "-d sat";
-          type = lib.types.separatedString " ";
-          description = "Options that determine how smartd monitors the device.";
-        };
-
+  smartdDeviceOpts = {...}: {
+    options = {
+      device = lib.mkOption {
+        example = "/dev/sda";
+        type = lib.types.str;
+        description = "Location of the device.";
       };
 
+      options = lib.mkOption {
+        default = "";
+        example = "-d sat";
+        type = lib.types.separatedString " ";
+        description = "Options that determine how smartd monitors the device.";
+      };
     };
-
-in
-
-{
+  };
+in {
   ###### interface
 
   options = {
-
     services.smartd = {
-
       enable = lib.mkEnableOption "smartd daemon from `smartmontools` package";
 
       autodetect = lib.mkOption {
@@ -121,7 +108,7 @@ in
       };
 
       extraOptions = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.str;
         example = [
           "-A /var/log/smartd/"
@@ -136,7 +123,6 @@ in
       };
 
       notifications = {
-
         mail = {
           enable = lib.mkOption {
             default = config.services.mail.sendmailSetuidWrapper != null;
@@ -221,7 +207,6 @@ in
           type = lib.types.bool;
           description = "Whenever to send a test notification on startup.";
         };
-
       };
 
       defaults = {
@@ -254,9 +239,9 @@ in
       };
 
       devices = lib.mkOption {
-        default = [ ];
+        default = [];
         example = [
-          { device = "/dev/sda"; }
+          {device = "/dev/sda";}
           {
             device = "/dev/sdb";
             options = "-d sat";
@@ -265,25 +250,22 @@ in
         type = with lib.types; listOf (submodule smartdDeviceOpts);
         description = "List of devices to monitor.";
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     assertions = [
       {
-        assertion = cfg.autodetect || cfg.devices != [ ];
+        assertion = cfg.autodetect || cfg.devices != [];
         message = "smartd can't run with both disabled autodetect and an empty list of devices to monitor.";
       }
     ];
 
     systemd.services.smartd = {
       description = "S.M.A.R.T. Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "notify";
         ExecStart = "${pkgs.smartmontools}/sbin/smartd ${lib.concatStringsSep " " cfg.extraOptions} --no-fork --configfile=${smartdConf}";
@@ -291,7 +273,5 @@ in
     };
 
     services.systembus-notify.enable = lib.mkDefault ns.enable;
-
   };
-
 }

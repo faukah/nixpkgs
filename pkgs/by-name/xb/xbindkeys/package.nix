@@ -7,7 +7,6 @@
   libX11,
   guile,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xbindkeys";
   version = "1.8.7";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.nongnu.org/xbindkeys/xbindkeys.html";
     description = "Launch shell commands with your keyboard or your mouse under X Window";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux;
   };
 }

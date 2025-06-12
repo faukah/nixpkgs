@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-kxLeQUdJbkmApf5Af3Mgd3WvS3GhXXOIvA4gNB55TGM=";
   };
 
-  nativeBuildInputs = [ nodejs ];
+  nativeBuildInputs = [nodejs];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     description = "Measure the speed and consistency of your internet connection using speed.cloudflare.com";
     homepage = "https://github.com/KNawm/speed-cloudflare-cli";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ TheColorman ];
+    maintainers = with lib.maintainers; [TheColorman];
     mainProgram = "speed-cloudflare-cli";
     inherit (nodejs.meta) platforms;
   };

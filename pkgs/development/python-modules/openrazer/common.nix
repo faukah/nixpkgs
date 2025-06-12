@@ -1,5 +1,7 @@
-{ lib, fetchFromGitHub }:
-rec {
+{
+  lib,
+  fetchFromGitHub,
+}: rec {
   version = "3.10.1";
   pyproject = true;
 
@@ -13,8 +15,8 @@ rec {
   meta = {
     homepage = "https://openrazer.github.io/";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ evanjs ];
-    teams = [ lib.teams.lumiguide ];
+    maintainers = with lib.maintainers; [evanjs];
+    teams = [lib.teams.lumiguide];
     platforms = lib.platforms.linux;
   };
 }

@@ -8,7 +8,6 @@
   lib,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "masterpdfeditor4";
   version = "4.3.89";
@@ -54,8 +53,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Master PDF Editor - version 4, without watermark";
     homepage = "https://code-industry.net/free-pdf-editor/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfreeRedistributable;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

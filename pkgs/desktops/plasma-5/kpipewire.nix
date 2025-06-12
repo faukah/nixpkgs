@@ -11,10 +11,9 @@
   pipewire,
   wayland,
 }:
-
 mkDerivation {
   pname = "kpipewire";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kwayland
     ki18n
@@ -25,5 +24,5 @@ mkDerivation {
     pipewire
     wayland
   ];
-  propagatedBuildInputs = [ libepoxy ];
+  propagatedBuildInputs = [libepoxy];
 }

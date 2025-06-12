@@ -8,11 +8,10 @@
   libXau,
   libXdmcp,
   conf ? null,
-  patches ? [ ],
+  patches ? [],
   # update script dependencies
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "slstatus";
   version = "1.1";
@@ -23,28 +22,28 @@ stdenv.mkDerivation rec {
     hash = "sha256-MRDovZpQsvnLEvsbJNBzprkzQQ4nIs1T9BLT+tSGta8=";
   };
 
-  preBuild =
-    let
-      configFile =
-        if lib.isDerivation conf || builtins.isPath conf then conf else writeText "config.def.h" conf;
-    in
-    ''
-      ${lib.optionalString (conf != null) "cp ${configFile} config.def.h"}
-      makeFlagsArray+=(LDLIBS="-lX11 -lxcb -lXau -lXdmcp" CC=$CC)
-    '';
+  preBuild = let
+    configFile =
+      if lib.isDerivation conf || builtins.isPath conf
+      then conf
+      else writeText "config.def.h" conf;
+  in ''
+    ${lib.optionalString (conf != null) "cp ${configFile} config.def.h"}
+    makeFlagsArray+=(LDLIBS="-lX11 -lxcb -lXau -lXdmcp" CC=$CC)
+  '';
 
   inherit patches;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libX11
     libXau
     libXdmcp
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://tools.suckless.org/slstatus/";

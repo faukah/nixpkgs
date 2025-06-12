@@ -6,7 +6,6 @@
   bash,
   coreutils,
 }:
-
 buildGoModule rec {
   pname = "supercronic";
   version = "0.2.33";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-SmmuHVf9nuqdT4jqhQDLl5gAHq/3qLKNpgwuwBBNfW4=";
 
-  excludedPackages = [ "cronexpr/cronexpr" ];
+  excludedPackages = ["cronexpr/cronexpr"];
 
   nativeCheckInputs = [
     python3
@@ -34,13 +33,13 @@ buildGoModule rec {
     substituteInPlace cron/cron_test.go --replace /bin/false ${coreutils}/bin/false
   '';
 
-  ldflags = [ "-X main.Version=${version}" ];
+  ldflags = ["-X main.Version=${version}"];
 
   meta = with lib; {
     description = "Cron tool designed for use in containers";
     homepage = "https://github.com/aptible/supercronic";
     license = licenses.mit;
-    maintainers = with maintainers; [ nasageek ];
+    maintainers = with maintainers; [nasageek];
     mainProgram = "supercronic";
   };
 }

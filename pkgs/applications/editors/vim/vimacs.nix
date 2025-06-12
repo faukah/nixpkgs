@@ -8,11 +8,13 @@
   useMacvim ? stdenv.hostPlatform.isDarwin && (config.vimacs.macvim or true),
   vimacsExtraArgs ? "",
 }:
-
 stdenv.mkDerivation rec {
   pname = "vimacs";
   version = lib.getVersion vimPackage;
-  vimPackage = if useMacvim then macvim else vim-full;
+  vimPackage =
+    if useMacvim
+    then macvim
+    else vim-full;
 
   buildInputs = [
     vimPackage
@@ -39,6 +41,6 @@ stdenv.mkDerivation rec {
     description = "Vim-Improved eMACS: Emacs emulation for Vim";
     homepage = "http://algorithm.com.au/code/vimacs";
     license = licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ millerjason ];
+    maintainers = with lib.maintainers; [millerjason];
   };
 }

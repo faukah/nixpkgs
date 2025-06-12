@@ -5,7 +5,6 @@
   installShellFiles,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "vexctl";
   version = "0.3.0";
@@ -29,7 +28,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-YVMg9tjwJmrqxB2GmVuLkzsGXGlpp5gmZZTmv+PGWPc=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -53,7 +52,7 @@ buildGoModule rec {
 
   doInstallCheck = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   versionCheckProgramArg = "version";
 
@@ -62,6 +61,6 @@ buildGoModule rec {
     description = "Tool to create, transform and attest VEX metadata";
     mainProgram = "vexctl";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jk ];
+    maintainers = with lib.maintainers; [jk];
   };
 }

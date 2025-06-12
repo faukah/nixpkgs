@@ -5,7 +5,6 @@
   fetchFromGitHub,
   importlib-metadata,
   pytestCheckHook,
-
   # large-rebuild downstream dependencies and applications
   flask,
   black,
@@ -14,7 +13,6 @@
   typer,
   flit-core,
 }:
-
 buildPythonPackage rec {
   pname = "click";
   version = "8.1.8";
@@ -29,10 +27,10 @@ buildPythonPackage rec {
     hash = "sha256-pAAqf8jZbDfVZUoltwIFpov/1ys6HSYMyw3WV2qcE/M=";
   };
 
-  build-system = [ flit-core ];
-  dependencies = lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  build-system = [flit-core];
+  dependencies = lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # test fails with filename normalization on zfs
@@ -57,6 +55,6 @@ buildPythonPackage rec {
       composable way, with as little code as necessary.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }
